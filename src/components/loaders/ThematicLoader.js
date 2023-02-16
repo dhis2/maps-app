@@ -5,11 +5,11 @@ import thematicLoader from '../../loaders/thematicLoader.js'
 import { useUserSettings } from '../UserSettingsProvider.js'
 
 const ThematicLoader = ({ config, onLoad }) => {
-    const { keyAnalysisDisplayProperty } = useUserSettings()
+    const { keyAnalysisDisplayProperty: displayProperty } = useUserSettings()
     const { d2 } = useD2()
     useEffect(() => {
-        thematicLoader(config, keyAnalysisDisplayProperty, d2).then(onLoad)
-    }, [config, onLoad, keyAnalysisDisplayProperty, d2])
+        thematicLoader(config, { displayProperty, d2 }).then(onLoad)
+    }, [config, onLoad, displayProperty, d2])
 
     return null
 }

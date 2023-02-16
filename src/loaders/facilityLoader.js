@@ -8,7 +8,7 @@ import {
     getCoordinateField,
 } from '../util/orgUnits.js'
 
-const facilityLoader = async (config, keyAnalysisDisplayProperty, d2) => {
+const facilityLoader = async (config, { displayProperty, d2 }) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
@@ -17,13 +17,12 @@ const facilityLoader = async (config, keyAnalysisDisplayProperty, d2) => {
     const orgUnitParams = orgUnits.map((item) => item.id)
     let associatedGeometries
 
-    const displayProperty = keyAnalysisDisplayProperty.toUpperCase()
     const { contextPath } = d2.system.systemInfo
     const name = i18n.t('Facilities')
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
+        .displayProperty(displayProperty.toUpperCase())
 
     const requests = [
         featuresRequest

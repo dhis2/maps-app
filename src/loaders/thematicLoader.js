@@ -324,7 +324,7 @@ const getOrderedValues = (data) => {
 }
 
 // Load features and data values from api
-const loadData = async (config, keyAnalysisDisplayProperty, d2) => {
+const loadData = async (config, { displayProperty, d2 }) => {
     const {
         rows,
         columns,
@@ -357,7 +357,7 @@ const loadData = async (config, keyAnalysisDisplayProperty, d2) => {
     let analyticsRequest = new d2.analytics.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(keyAnalysisDisplayProperty.toUpperCase())
+        .withDisplayProperty(displayProperty.toUpperCase())
 
     if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
@@ -403,7 +403,7 @@ const loadData = async (config, keyAnalysisDisplayProperty, d2) => {
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(keyAnalysisDisplayProperty.toUpperCase())
+        .displayProperty(displayProperty.toUpperCase())
 
     // Features request
     const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)

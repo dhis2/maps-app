@@ -1,16 +1,14 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { precisionRound } from 'd3-format'
 import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import { numberPrecision } from '../util/numbers.js'
 import { getCoordinateField, setAdditionalGeometry } from '../util/orgUnits.js'
 
 // Returns a promise
-const earthEngineLoader = async (config) => {
+const earthEngineLoader = async (config, { displayProperty, d2 }) => {
     const { rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
@@ -21,13 +19,11 @@ const earthEngineLoader = async (config) => {
     let features
 
     if (orgUnits && orgUnits.length) {
-        const d2 = await getD2()
-        const displayProperty = getDisplayProperty(d2).toUpperCase()
         const orgUnitParams = orgUnits.map((item) => item.id)
 
         const featuresRequest = d2.geoFeatures
             .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
+            .displayProperty(displayProperty.toUpperCase())
 
         try {
             features = await featuresRequest.getAll().then(toGeoJson)

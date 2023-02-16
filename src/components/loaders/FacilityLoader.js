@@ -5,11 +5,11 @@ import facilityLoader from '../../loaders/facilityLoader.js'
 import { useUserSettings } from '../UserSettingsProvider.js'
 
 const EventLoader = ({ config, onLoad }) => {
-    const { keyAnalysisDisplayProperty } = useUserSettings()
+    const { keyAnalysisDisplayProperty: displayProperty } = useUserSettings()
     const { d2 } = useD2()
     useEffect(() => {
-        facilityLoader(config, keyAnalysisDisplayProperty, d2).then(onLoad)
-    }, [config, onLoad, keyAnalysisDisplayProperty, d2])
+        facilityLoader(config, { displayProperty, d2 }).then(onLoad)
+    }, [config, onLoad, displayProperty, d2])
 
     return null
 }
