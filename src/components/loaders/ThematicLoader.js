@@ -1,11 +1,15 @@
+import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import thematicLoader from '../../loaders/thematicLoader.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
 
 const ThematicLoader = ({ config, onLoad }) => {
+    const { keyAnalysisDisplayProperty } = useUserSettings()
+    const { d2 } = useD2()
     useEffect(() => {
-        thematicLoader(config).then(onLoad)
-    }, [config, onLoad])
+        thematicLoader(config, keyAnalysisDisplayProperty, d2).then(onLoad)
+    }, [config, onLoad, keyAnalysisDisplayProperty, d2])
 
     return null
 }

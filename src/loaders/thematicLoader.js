@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex, curry } from 'lodash/fp'
 import { dimConf } from '../constants/dimension.js'
@@ -23,7 +22,6 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import {
     loadLegendSet,
     getPredefinedLegendItems,
@@ -33,7 +31,7 @@ import { toGeoJson } from '../util/map.js'
 import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async (config) => {
+const thematicLoader = async (config, keyAnalysisDisplayProperty, d2) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -50,7 +48,11 @@ const thematicLoader = async (config) => {
 
     let error
 
-    const response = await loadData(config).catch((err) => {
+    const response = await loadData(
+        config,
+        keyAnalysisDisplayProperty,
+        d2
+    ).catch((err) => {
         error = err
     })
 
@@ -267,6 +269,7 @@ const thematicLoader = async (config) => {
     }
 }
 
+const MIDNIGHT_HOUR = 24
 const getPeriodsFromMetaData = ({ dimensions, items }) =>
     dimensions.pe.map((id) => {
         const { name, startDate, endDate } = items[id]
@@ -274,7 +277,7 @@ const getPeriodsFromMetaData = ({ dimensions, items }) =>
         const newEndDate = new Date(endDate)
 
         // Set to midnight to include the last day
-        newEndDate.setHours(24)
+        newEndDate.setHours(MIDNIGHT_HOUR)
 
         return {
             id,
@@ -321,12 +324,11 @@ const getOrderedValues = (data) => {
 }
 
 // Load features and data values from api
-const loadData = async (config) => {
+const loadData = async (config, keyAnalysisDisplayProperty, d2) => {
     const {
         rows,
         columns,
         filters,
-        displayProperty,
         startDate,
         endDate,
         userOrgUnit,
@@ -343,11 +345,7 @@ const loadData = async (config) => {
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
-    const d2 = await getD2()
-    const displayPropertyUpper = getDisplayProperty(
-        d2,
-        displayProperty
-    ).toUpperCase()
+
     const geoFeaturesParams = {}
     const orgUnitParams = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
@@ -359,7 +357,7 @@ const loadData = async (config) => {
     let analyticsRequest = new d2.analytics.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(displayPropertyUpper)
+        .withDisplayProperty(keyAnalysisDisplayProperty.toUpperCase())
 
     if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
@@ -405,7 +403,7 @@ const loadData = async (config) => {
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayPropertyUpper)
+        .displayProperty(keyAnalysisDisplayProperty.toUpperCase())
 
     // Features request
     const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)

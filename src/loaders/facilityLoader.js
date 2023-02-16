@@ -1,7 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
     fetchOrgUnitGroupSet,
@@ -10,7 +8,7 @@ import {
     getCoordinateField,
 } from '../util/orgUnits.js'
 
-const facilityLoader = async (config) => {
+const facilityLoader = async (config, keyAnalysisDisplayProperty, d2) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
@@ -19,8 +17,7 @@ const facilityLoader = async (config) => {
     const orgUnitParams = orgUnits.map((item) => item.id)
     let associatedGeometries
 
-    const d2 = await getD2()
-    const displayProperty = getDisplayProperty(d2).toUpperCase()
+    const displayProperty = keyAnalysisDisplayProperty.toUpperCase()
     const { contextPath } = d2.system.systemInfo
     const name = i18n.t('Facilities')
 
