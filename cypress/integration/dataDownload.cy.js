@@ -46,7 +46,7 @@ describe('Data Download', () => {
         const downloadsFolder = Cypress.config('downloadsFolder')
         const downloadedFilename = `${downloadsFolder}/${mapWithThematicLayer.downloadName}`
 
-        cy.readFile(downloadedFilename, { timeout: 15000 }).should((buffer) =>
+        cy.readFile(downloadedFilename, EXTENDED_TIMEOUT).should((buffer) =>
             expect(buffer.length).to.be.gt(1000)
         )
     })
@@ -65,7 +65,7 @@ describe('Data Download', () => {
         const downloadsFolder = Cypress.config('downloadsFolder')
         const downloadedFilename = `${downloadsFolder}/${mapWithEventLayer.downloadName}`
 
-        cy.readFile(downloadedFilename, { timeout: 15000 }).should((buffer) =>
+        cy.readFile(downloadedFilename, EXTENDED_TIMEOUT).should((buffer) =>
             expect(buffer.length).to.be.gt(1000)
         )
     })
