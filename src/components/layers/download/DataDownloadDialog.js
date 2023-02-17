@@ -83,7 +83,11 @@ const DataDownloadDialog = () => {
     }
 
     return (
-        <Modal position="middle" onClose={onCloseDialog}>
+        <Modal
+            position="middle"
+            onClose={onCloseDialog}
+            dataTest="data-download-modal"
+        >
             <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
             <ModalContent>
                 <DataDownloadDialogContent
