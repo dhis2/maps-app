@@ -3,10 +3,6 @@ import findIndex from 'lodash/findIndex'
 import { poleOfInaccessibility } from '../components/map/MapApi.js'
 import { isValidCoordinate } from './map.js'
 
-export const META_DATA_FORMAT_ID = 'ID'
-export const META_DATA_FORMAT_NAME = 'Name'
-export const META_DATA_FORMAT_CODE = 'Code'
-
 export const EVENT_ID_FIELD = 'psi'
 
 const standardizeFilename = (rawName) => rawName.replace(/\s+/g, '_')

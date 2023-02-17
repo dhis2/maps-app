@@ -6,18 +6,18 @@ import { useSelector, useDispatch } from 'react-redux'
 import { closeDataDownloadDialog } from '../../../actions/dataDownload.js'
 import { EVENT_LAYER } from '../../../constants/layers.js'
 import {
-    META_DATA_FORMAT_ID,
-    META_DATA_FORMAT_NAME,
-    META_DATA_FORMAT_CODE,
-} from '../../../util/geojson.js'
+    METADATA_FORMAT_ID,
+    METADATA_FORMAT_NAME,
+    METADATA_FORMAT_CODE,
+} from '../../../util/metadataFormats.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
 import DataDownloadDialogContent from './DataDownloadDialogContent.js'
 import { downloadData } from './downloadData.js'
 
 const formatOptionsFlat = [
-    META_DATA_FORMAT_ID,
-    META_DATA_FORMAT_CODE,
-    META_DATA_FORMAT_NAME,
+    METADATA_FORMAT_ID,
+    METADATA_FORMAT_CODE,
+    METADATA_FORMAT_NAME,
 ]
 const formatOptions = formatOptionsFlat.map((name, i) => ({
     id: i + 1,
