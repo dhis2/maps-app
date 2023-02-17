@@ -1,6 +1,11 @@
 import { getInstance as getD2 } from 'd2'
 import { DEFAULT_SYSTEM_SETTINGS } from '../constants/settings.js'
 import { apiFetch } from './api.js'
+import {
+    META_DATA_FORMAT_ID,
+    META_DATA_FORMAT_CODE,
+    META_DATA_FORMAT_NAME,
+} from './geojson.js'
 import { getMigratedMapConfig } from './getMigratedMapConfig.js'
 import { mapFields } from './helpers.js'
 // API requests
@@ -95,4 +100,30 @@ export const getUrlParameter = (name) => {
     return results === null
         ? ''
         : decodeURIComponent(results[1].replace(/\+/g, ' '))
+}
+
+const formatEnum = {
+    [META_DATA_FORMAT_ID]: 'id',
+    [META_DATA_FORMAT_NAME]: 'name',
+    [META_DATA_FORMAT_CODE]: 'code',
+}
+
+export const getEventColumns = async (
+    layer,
+    { format = META_DATA_FORMAT_NAME, d2 }
+) => {
+    const result = await d2.models.programStage.get(layer.programStage.id, {
+        fields: `programStageDataElements[displayInReports,dataElement[id,code,displayName~rename(name)},optionSet]]`,
+        paging: false,
+    })
+    const formatKey = formatEnum[format]
+    return result.programStageDataElements
+        .filter((el) => el.displayInReports)
+        .map((el) => {
+            console.log('el', el.dataElement)
+            return {
+                dimension: el.dataElement.id,
+                name: el.dataElement[formatKey],
+            }
+        })
 }
