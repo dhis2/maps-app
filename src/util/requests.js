@@ -119,11 +119,8 @@ export const getEventColumns = async (
     const formatKey = formatEnum[format]
     return result.programStageDataElements
         .filter((el) => el.displayInReports)
-        .map((el) => {
-            console.log('el', el.dataElement)
-            return {
-                dimension: el.dataElement.id,
-                name: el.dataElement[formatKey],
-            }
-        })
+        .map((el) => ({
+            dimension: el.dataElement.id,
+            name: el.dataElement[formatKey],
+        }))
 }
