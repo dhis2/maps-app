@@ -67,8 +67,9 @@ const DataDownloadDialog = () => {
             setIsDownloading(false)
             onCloseDialog()
         } catch (e) {
+            console.log('download failed', e)
             setIsDownloading(false)
-            setError(e.message)
+            setError(`download failed ${e}`)
         }
     }
 

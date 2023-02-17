@@ -12,27 +12,31 @@ const mapWithEventLayer = {
     downloadName: 'Malaria_case_registration.geojson',
 }
 
+const openMoreMenuWithOptions = (numOptions) => {
+    cy.get('[data-test="moremenubutton"]').first().click()
+
+    cy.get('[data-test="more-menu"]')
+        .find('li')
+        .not('.disabled')
+        .should('have.length', numOptions)
+
+    cy.get('[data-test="more-menu"]')
+        .find('li')
+        .contains('Download data')
+        .click()
+
+    //check that the download modal is present
+    cy.get('[data-test="data-download-modal"]')
+        .find('h1')
+        .contains('Download Layer Data')
+}
+
 describe('Data Download', () => {
     it('downloads data from a thematic layer', () => {
         cy.visit(`/?id=${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        cy.get('[data-test="moremenubutton"]').first().click()
-
-        cy.get('[data-test="more-menu"]')
-            .find('li')
-            .not('.disabled')
-            .should('have.length', 6)
-
-        cy.get('[data-test="more-menu"]')
-            .find('li')
-            .contains('Download data')
-            .click()
-
-        //check that the download modal is present
-        cy.get('[data-test="data-download-modal"]')
-            .find('h1')
-            .contains('Download Layer Data')
+        openMoreMenuWithOptions(6)
 
         cy.get('[data-test="data-download-modal"]')
             .find('button')
@@ -51,22 +55,7 @@ describe('Data Download', () => {
         cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        cy.get('[data-test="moremenubutton"]').first().click()
-
-        cy.get('[data-test="more-menu"]')
-            .find('li')
-            .not('.disabled')
-            .should('have.length', 5)
-
-        cy.get('[data-test="more-menu"]')
-            .find('li')
-            .contains('Download data')
-            .click()
-
-        //check that the download modal is present
-        cy.get('[data-test="data-download-modal"]')
-            .find('h1')
-            .contains('Download Layer Data')
+        openMoreMenuWithOptions(5)
 
         cy.get('[data-test="data-download-modal"]')
             .find('button')
@@ -79,5 +68,33 @@ describe('Data Download', () => {
         cy.readFile(downloadedFilename, 'binary', { timeout: 15000 }).should(
             (buffer) => expect(buffer.length).to.be.gt(1000)
         )
+    })
+
+    it('fails to download event layer', () => {
+        cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        openMoreMenuWithOptions(5)
+
+        cy.intercept('GET', '**/programStages/**', {
+            statusCode: 400,
+        }).as('getProgramStages')
+
+        cy.get('[data-test="data-download-modal"]')
+            .find('button')
+            .contains('Download')
+            .click()
+
+        cy.wait('@getProgramStages')
+            .its('response.statusCode')
+            .should('eq', 400)
+
+        cy.get('[data-test="data-download-modal"]')
+            .find('button')
+            .not('.disabled')
+            .contains('Download')
+            .should('have.length', 1)
+
+        cy.contains('Data download failed').should('be.visible')
     })
 })
