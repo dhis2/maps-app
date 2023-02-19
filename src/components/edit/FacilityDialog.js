@@ -77,7 +77,7 @@ const FacilityDialog = ({
                 dispatch(
                     setOrgUnits({
                         dimension: 'ou',
-                        items: [{ id: `LEVEL-${id}`, name }],
+                        items: [{ id: `LEVEL-${facilityOrgUnitLevel.id}` }],
                     })
                 )
             }
