@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-19T15:19:21.200Z\n"
-"PO-Revision-Date: 2023-02-19T15:19:21.200Z\n"
+"POT-Creation-Date: 2023-02-19T19:52:22.886Z\n"
+"PO-Revision-Date: 2023-02-19T19:52:22.886Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -421,9 +421,6 @@ msgid "Displaying tracked entity relationships in Maps is an experimental featur
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
-
-msgid "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
 
 msgid "Tracked entity style"
