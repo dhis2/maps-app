@@ -2016,10 +2016,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.7.0":
-  version "24.7.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.7.0.tgz#0530576d40a5a423eac57e3524efd8b481a76dff"
-  integrity sha512-/piTVABnOsK+Yj8hMLl36PJhSi2HBWSQA+ImUW9g5mMcuEB/Qsq0e+jG5BtD47hkBhTzWjnp+lPPfhinYWFW9Q==
+"@dhis2/analytics@^24.8.0":
+  version "24.8.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.8.0.tgz#55b8812b1f8db3939b18b03f0700dd01b1875396"
+  integrity sha512-+zEVXAWubDxt2OLNb1zm5mO4q5+r1JKD1oZhCHIM1ILw0ZDK0EyVmQqBpxHZ5qhmCag1qXG4EX28/TtcZFfCDg==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
