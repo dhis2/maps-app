@@ -15,7 +15,6 @@ import {
     setRenderingStrategy,
     setProgram,
     setValueType,
-    loadOrgUnitPath,
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
@@ -29,7 +28,6 @@ import {
 import {
     getDataItemFromColumns,
     getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
     getPeriodFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
@@ -66,7 +64,6 @@ import ValueTypeSelect from './ValueTypeSelect.js'
 
 class ThematicDialog extends Component {
     static propTypes = {
-        loadOrgUnitPath: PropTypes.func.isRequired,
         setClassification: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
         setDataItem: PropTypes.func.isRequired,
@@ -156,24 +153,12 @@ class ThematicDialog extends Component {
 
     componentDidUpdate(prev) {
         const {
-            rows,
             columns,
             setClassification,
             setLegendSet,
-            loadOrgUnitPath,
             validateLayer,
             onLayerValidation,
         } = this.props
-
-        if (rows !== prev.rows) {
-            // TODO: Needed?
-            const orgUnits = getOrgUnitNodesFromRows(rows)
-
-            // Load organisation unit tree path (temporary solution, as favorites don't include paths)
-            orgUnits
-                .filter((ou) => !ou.path)
-                .forEach((ou) => loadOrgUnitPath(ou.id))
-        }
 
         // Set the default classification/legend for selected data item without visiting the style tab
         if (columns !== prev.columns) {
@@ -660,7 +645,6 @@ export default connect(
         setRenderingStrategy,
         setProgram,
         setValueType,
-        loadOrgUnitPath,
     },
     null,
     {
