@@ -221,22 +221,6 @@ export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
     })
 }
 
-/*
-    orgUnitLevels
-        ? orgUnitItems
-              .filter((level) =>
-                  orgUnitLevels.find(
-                      (l) => l.id === level || l.level === Number(level)
-                  )
-              )
-              .map((level) =>
-                  isValidUid(level)
-                      ? level
-                      : orgUnitLevels.find((l) => l.level === Number(level)).id
-              )
-        : []
-    */
-
 // Returns coordinate field from layer config
 export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
     orgUnitField && orgUnitField !== NONE
