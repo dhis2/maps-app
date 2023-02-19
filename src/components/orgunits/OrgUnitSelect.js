@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import React, { useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
+import { DEFAULT_ORG_UNIT_LEVEL } from '../../constants/layers.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
 import OrgUnitFieldSelect from './OrgUnitFieldSelect.js'
 import OrgUnitSelectMode from './OrgUnitSelectMode.js'
@@ -16,14 +17,14 @@ const ORG_UNIT_TREE_QUERY = {
     tree: {
         resource: 'organisationUnits',
         params: () => ({
-            fields: ['id'],
+            fields: ['id', 'displayName~rename(name)', 'path'],
             userDataViewFallback: true,
         }),
     },
     levels: {
         resource: 'organisationUnitLevels',
         params: {
-            fields: ['id', 'level'],
+            fields: ['id', 'displayName~rename(name)', 'level'],
             order: 'level:asc',
             paging: false,
         },
@@ -36,7 +37,8 @@ const OrgUnitSelect = ({
     hideSelectMode = true,
     hideLevelSelect = false,
     hideGroupSelect = false,
-    setDefaultLevel = false,
+    selectDefaultLevel = false,
+    selectRoots = false,
     warning,
     style,
 }) => {
@@ -55,12 +57,9 @@ const OrgUnitSelect = ({
         [dispatch]
     )
 
-    const roots = data?.tree.organisationUnits.map(
-        (rootOrgUnit) => rootOrgUnit.id
-    )
-
+    const roots = data?.tree.organisationUnits
     const orgUnitLevels = data?.levels.organisationUnitLevels
-    const defaultLevel = orgUnitLevels?.[1]
+    const defaultLevel = orgUnitLevels?.[DEFAULT_ORG_UNIT_LEVEL]
 
     const orgUnits = translateOrgUnitLevels(
         rows?.find((r) => r.dimension === 'ou'),
@@ -69,10 +68,18 @@ const OrgUnitSelect = ({
     const hasOrgUnits = !!orgUnits.length
 
     useEffect(() => {
-        if (!hasOrgUnits && setDefaultLevel && defaultLevel) {
+        if (!rows && !hasOrgUnits && selectRoots && roots) {
+            setOrgUnitItems({
+                items: roots,
+            })
+        }
+    }, [rows, selectRoots, roots, hasOrgUnits, setOrgUnitItems])
+
+    useEffect(() => {
+        if (!rows && !hasOrgUnits && selectDefaultLevel && defaultLevel) {
             setOrgUnitItems({ items: [{ id: `LEVEL-${defaultLevel.id}` }] })
         }
-    }, [setDefaultLevel, defaultLevel, hasOrgUnits, setOrgUnitItems])
+    }, [rows, selectDefaultLevel, defaultLevel, hasOrgUnits, setOrgUnitItems])
 
     if (loading) {
         return (
@@ -86,12 +93,12 @@ const OrgUnitSelect = ({
         return <Help error>{error.message}</Help>
     }
 
-    console.log('orgUnits', orgUnits)
+    console.log(orgUnits)
 
     return (
         <div className={cx(styles.orgUnitSelect, [styles[style]])}>
             <OrgUnitDimension
-                roots={roots}
+                roots={roots?.map((r) => r.id)}
                 selected={orgUnits}
                 onSelect={setOrgUnitItems}
                 hideUserOrgUnits={hideUserOrgUnits}
@@ -111,7 +118,8 @@ OrgUnitSelect.propTypes = {
     hideLevelSelect: PropTypes.bool,
     hideSelectMode: PropTypes.bool,
     hideUserOrgUnits: PropTypes.bool,
-    setDefaultLevel: PropTypes.bool,
+    selectDefaultLevel: PropTypes.bool,
+    selectRoots: PropTypes.bool,
     style: PropTypes.string,
     warning: PropTypes.string,
 }

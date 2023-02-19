@@ -40,7 +40,7 @@ export const DEFAULT_START_DATE = formatDate(
 )
 export const DEFAULT_END_DATE = formatDate(new Date())
 
-export const DEFAULT_ORG_UNIT_LEVEL = 2
+export const DEFAULT_ORG_UNIT_LEVEL = 1 // = 0 is root level
 
 /* RENDERING STRATEGY */
 export const RENDERING_STRATEGY_SINGLE = 'SINGLE'

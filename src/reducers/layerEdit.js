@@ -13,10 +13,6 @@ import { START_END_DATES } from '../constants/periods.js'
 import {
     setFiltersFromPeriod,
     setDataItemInColumns,
-    addOrgUnitLevelsToRows,
-    addOrgUnitGroupsToRows,
-    createUserOrgUnitsDimension,
-    toggleOrgUnitNodeInRows,
     setOrgUnitPathInRows,
     removePeriodFromFilters,
     changeDimensionInFilters,
@@ -409,24 +405,6 @@ const layerEdit = (state = null, action) => {
                 rows: [action.payload],
             }
 
-        case types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET:
-            return {
-                ...state,
-                rows: addOrgUnitLevelsToRows(state.rows, action.levels),
-            }
-
-        case types.LAYER_EDIT_ORGANISATION_UNIT_GROUPS_SET:
-            return {
-                ...state,
-                rows: addOrgUnitGroupsToRows(state.rows, action.groups),
-            }
-
-        case types.LAYER_EDIT_USER_ORGANISATION_UNITS_SET:
-            return {
-                ...state,
-                rows: createUserOrgUnitsDimension(action.userOrgUnits),
-            }
-
         case types.LAYER_EDIT_ORGANISATION_UNIT_FIELD_SET: {
             const { id, name } = action.payload
 
@@ -437,11 +415,6 @@ const layerEdit = (state = null, action) => {
                 areaRadius: id === NONE ? EE_BUFFER : null,
             }
         }
-        case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:
-            return {
-                ...state,
-                rows: toggleOrgUnitNodeInRows(state.rows, action.orgUnit),
-            }
 
         // Set organisation unit tree path (temporary solution, as favorites don't include paths)
         case types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET:

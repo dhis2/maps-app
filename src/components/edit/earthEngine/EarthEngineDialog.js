@@ -3,17 +3,9 @@ import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
-import {
-    setFilter,
-    setOrgUnitLevels,
-    setBufferRadius,
-} from '../../../actions/layerEdit.js'
+import { setFilter, setBufferRadius } from '../../../actions/layerEdit.js'
 import { getEarthEngineLayer } from '../../../constants/earthEngine.js'
-import {
-    DEFAULT_ORG_UNIT_LEVEL,
-    EE_BUFFER,
-    NONE,
-} from '../../../constants/layers.js'
+import { EE_BUFFER, NONE } from '../../../constants/layers.js'
 import {
     getPeriodFromFilter,
     getPeriods,
@@ -35,13 +27,11 @@ const EarthEngineDialog = (props) => {
     const {
         datasetId,
         band,
-        rows,
         params,
         filter,
         areaRadius,
         orgUnitField,
         setFilter,
-        setOrgUnitLevels,
         setBufferRadius,
         validateLayer,
         onLayerValidation,
@@ -104,12 +94,6 @@ const EarthEngineDialog = (props) => {
             }
         }
     }, [periods, filter, setPeriod])
-
-    useEffect(() => {
-        if (!rows) {
-            // setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
-        }
-    }, [rows, setOrgUnitLevels])
 
     useEffect(() => {
         if (!hasOrgUnitField && areaRadius === undefined) {
@@ -226,7 +210,7 @@ const EarthEngineDialog = (props) => {
                 )}
                 {tab === 'orgunits' && (
                     <div className={styles.flexRowFlow}>
-                        <OrgUnitSelect />
+                        <OrgUnitSelect selectDefaultLevel={true} />
                     </div>
                 )}
                 {tab === 'style' && (
@@ -245,7 +229,6 @@ EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setFilter: PropTypes.func.isRequired,
-    setOrgUnitLevels: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -261,11 +244,6 @@ EarthEngineDialog.propTypes = {
     rows: PropTypes.array,
 }
 
-export default connect(
-    null,
-    { setFilter, setOrgUnitLevels, setBufferRadius },
-    null,
-    {
-        forwardRef: true,
-    }
-)(EarthEngineDialog)
+export default connect(null, { setFilter, setBufferRadius }, null, {
+    forwardRef: true,
+})(EarthEngineDialog)

@@ -149,19 +149,6 @@ export const setRelationshipLineColor = (color) => ({
     color,
 })
 
-export const toggleOrgUnit = (orgUnit) => ({
-    type: types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE,
-    orgUnit,
-})
-
-// Set organisation unit tree root as default selected
-export const setOrgUnitRoot = () => (dispatch, getState) => {
-    const root = getState().orgUnitTree[0] // First root node
-    if (root) {
-        dispatch(toggleOrgUnit(root))
-    }
-}
-
 // Set organisation unit group set (facility and org unit layer)
 export const setOrganisationUnitGroupSet = (organisationUnitGroupSet) => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_SET,
@@ -235,25 +222,7 @@ export const setOrgUnits = (payload) => ({
     payload,
 })
 
-// Set org. unit levels (facility, thematic, org unit)
-export const setOrgUnitLevels = (levels) => ({
-    type: types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET,
-    levels,
-})
-
-// Set org. unit levels (facility, thematic, org unit)
-export const setOrgUnitGroups = (groups) => ({
-    type: types.LAYER_EDIT_ORGANISATION_UNIT_GROUPS_SET,
-    groups,
-})
-
-// Set user org. unit levels (event, facility, thematic, org unit)
-export const setUserOrgUnits = (userOrgUnits) => ({
-    type: types.LAYER_EDIT_USER_ORGANISATION_UNITS_SET,
-    userOrgUnits,
-})
-
-// Set org. unit levels (facility, thematic, org unit)
+// Set org. unit mode
 export const setOrgUnitMode = (mode) => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_MODE_SET,
     payload: mode,

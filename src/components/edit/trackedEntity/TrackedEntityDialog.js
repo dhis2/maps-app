@@ -32,10 +32,7 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
 } from '../../../constants/layers.js'
-import {
-    getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
-} from '../../../util/analytics.js'
+import { getOrgUnitsFromRows } from '../../../util/analytics.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import {
     Tab,
@@ -95,21 +92,12 @@ class TrackedEntityDialog extends Component {
 
     componentDidMount() {
         const {
-            rows,
             startDate,
             endDate,
             relationshipType,
-            //setOrgUnitRoot,
             setStartDate,
             setEndDate,
         } = this.props
-
-        const orgUnits = getOrgUnitNodesFromRows(rows)
-
-        // Set org unit tree root as default
-        if (orgUnits.length === 0) {
-            // setOrgUnitRoot()
-        }
 
         // Set default period (last year)
         if (!startDate && !endDate) {
@@ -146,7 +134,6 @@ class TrackedEntityDialog extends Component {
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
-            // relationshipOutsideProgram,
         } = this.props
 
         const {
@@ -155,7 +142,6 @@ class TrackedEntityDialog extends Component {
             setProgramStatus,
             setFollowUpStatus,
             setTrackedEntityRelationshipType,
-            // setTrackedEntityRelationshipOutsideProgram,
             setEventPointColor,
             setEventPointRadius,
             setRelatedPointColor,
@@ -267,26 +253,6 @@ class TrackedEntityDialog extends Component {
                                                 styles.indent
                                             )}
                                         />
-                                        {/*program && (
-                                            <Checkbox
-                                                label={i18n.t(
-                                                    'Include relationships that connect entities outside "{{program}}" program',
-                                                    {
-                                                        program: program.name,
-                                                    }
-                                                )}
-                                                checked={
-                                                    relationshipOutsideProgram ===
-                                                    true
-                                                }
-                                                onChange={
-                                                    setTrackedEntityRelationshipOutsideProgram
-                                                }
-                                                style={{
-                                                    marginTop: 30,
-                                                }}
-                                            />
-                                        )*/}
                                     </Fragment>
                                 )}
                             </div>
@@ -304,6 +270,7 @@ class TrackedEntityDialog extends Component {
                     {tab === 'orgunits' && (
                         <div className={styles.flexRowFlow}>
                             <OrgUnitSelect
+                                selectRoots={true}
                                 hideUserOrgUnits={true}
                                 hideAssociatedGeometry={true}
                                 hideSelectMode={false}

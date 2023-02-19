@@ -10,20 +10,15 @@ import {
     setLegendSet,
     setNoDataColor,
     setOperand,
-    setOrgUnitLevels,
-    setOrgUnitGroups,
     setPeriod,
     setPeriodType,
     setRenderingStrategy,
     setProgram,
-    setUserOrgUnits,
     setValueType,
-    toggleOrgUnit,
     loadOrgUnitPath,
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
-    DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../../constants/layers.js'
@@ -79,8 +74,6 @@ class ThematicDialog extends Component {
         setLegendSet: PropTypes.func.isRequired,
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
-        setOrgUnitGroups: PropTypes.func.isRequired,
-        setOrgUnitLevels: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setPeriodType: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
@@ -119,7 +112,6 @@ class ThematicDialog extends Component {
         const {
             valueType,
             columns,
-            rows,
             filters,
             defaultPeriod,
             setValueType,
@@ -127,7 +119,6 @@ class ThematicDialog extends Component {
             settings,
             endDate,
             setPeriod,
-            setOrgUnitLevels,
         } = this.props
 
         const dataItem = getDataItemFromColumns(columns)
@@ -150,7 +141,6 @@ class ThematicDialog extends Component {
         }
 
         // Set default period from system settings
-
         if (
             !period &&
             !startDate &&
@@ -161,12 +151,6 @@ class ThematicDialog extends Component {
             setPeriod({
                 id: defaultPeriod,
             })
-        }
-
-        // Set default org unit level
-        if (!getOrgUnitsFromRows(rows).length) {
-            console.log('rows', DEFAULT_ORG_UNIT_LEVEL)
-            // setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
         }
     }
 
@@ -182,6 +166,7 @@ class ThematicDialog extends Component {
         } = this.props
 
         if (rows !== prev.rows) {
+            // TODO: Needed?
             const orgUnits = getOrgUnitNodesFromRows(rows)
 
             // Load organisation unit tree path (temporary solution, as favorites don't include paths)
@@ -226,7 +211,6 @@ class ThematicDialog extends Component {
             startDate,
             endDate,
             program,
-            rows,
             valueType,
             thematicMapType,
         } = this.props
@@ -261,7 +245,6 @@ class ThematicDialog extends Component {
             legendSetError,
         } = this.state
 
-        const orgUnits = getOrgUnitsFromRows(rows)
         const period = getPeriodFromFilters(filters)
         const dataItem = getDataItemFromColumns(columns)
         const dimensions = getDimensionsFromFilters(filters)
@@ -465,7 +448,7 @@ class ThematicDialog extends Component {
                     {tab === 'orgunits' && (
                         <div className={styles.flexRowFlow}>
                             <OrgUnitSelect
-                                setDefaultLevel={true}
+                                selectDefaultLevel={true}
                                 warning={orgUnitsError}
                             />
                         </div>
@@ -669,15 +652,11 @@ export default connect(
         setLegendSet,
         setNoDataColor,
         setOperand,
-        setOrgUnitLevels,
-        setOrgUnitGroups,
         setPeriod,
         setPeriodType,
         setRenderingStrategy,
         setProgram,
-        setUserOrgUnits,
         setValueType,
-        toggleOrgUnit,
         loadOrgUnitPath,
     },
     null,

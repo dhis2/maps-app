@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import {
-    setOrgUnitLevels,
+    setOrgUnits,
     setRadiusLow,
     setOrganisationUnitGroupSet,
     setOrganisationUnitColor,
@@ -74,7 +74,12 @@ const FacilityDialog = ({
         if (!id) {
             // Set default org unit level
             if (facilityOrgUnitLevel) {
-                dispatch(setOrgUnitLevels([facilityOrgUnitLevel.id]))
+                dispatch(
+                    setOrgUnits({
+                        dimension: 'ou',
+                        items: [{ id: `LEVEL-${id}`, name }],
+                    })
+                )
             }
 
             // Set default org unit group set

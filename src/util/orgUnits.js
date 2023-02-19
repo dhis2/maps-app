@@ -199,16 +199,11 @@ export const getOrgUnitLevels = async (d2) => {
 }
 
 // Converts "LEVEL-x" to newer "LEVEL-uid" format
-// TODO: use method from analytics library or get rid of old format in a db upgrade
 export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
     const items = orgUnits?.items || []
 
-    console.log('translateOrgUnitLevels', items, orgUnitLevels)
-
     return items.map((item) => {
         const levelNumber = item.id.match(/^LEVEL-([0-9])+$/)
-
-        console.log('levelNumber', levelNumber)
 
         if (levelNumber) {
             const level = orgUnitLevels.find(

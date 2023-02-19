@@ -11,7 +11,6 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
-    setOrgUnitRoot,
     setPeriod,
     setStartDate,
     setEndDate,
@@ -30,7 +29,6 @@ import { START_END_DATES } from '../../../constants/periods.js'
 import {
     getPeriodFromFilters,
     getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
@@ -63,7 +61,6 @@ class EventDialog extends Component {
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
-        setOrgUnitRoot: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStage: PropTypes.func.isRequired,
@@ -107,25 +104,17 @@ class EventDialog extends Component {
 
     componentDidMount() {
         const {
-            rows,
             filters,
             defaultPeriod,
             settings,
             startDate,
             endDate,
-            setOrgUnitRoot,
             setPeriod,
             setStartDate,
             setEndDate,
         } = this.props
 
-        const orgUnits = getOrgUnitNodesFromRows(rows)
         const period = getPeriodFromFilters(filters)
-
-        // Set org unit tree root as default
-        if (orgUnits.length === 0) {
-            setOrgUnitRoot()
-        }
 
         // Set default period from system settings
         if (
@@ -265,6 +254,7 @@ class EventDialog extends Component {
                     {tab === 'orgunits' && (
                         <div className={styles.flexRowFlow}>
                             <OrgUnitSelect
+                                selectRoots={true}
                                 hideAssociatedGeometry={true}
                                 hideLevelSelect={true}
                                 hideGroupSelect={true}
@@ -455,7 +445,6 @@ export default connect(
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,
-        setOrgUnitRoot,
         setPeriod,
         setStartDate,
         setEndDate,
