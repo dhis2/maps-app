@@ -464,7 +464,10 @@ class ThematicDialog extends Component {
                     )}
                     {tab === 'orgunits' && (
                         <div className={styles.flexRowFlow}>
-                            <OrgUnitSelect warning={orgUnitsError} />
+                            <OrgUnitSelect
+                                setDefaultLevel={true}
+                                warning={orgUnitsError}
+                            />
                         </div>
                     )}
                     {tab === 'filter' && (

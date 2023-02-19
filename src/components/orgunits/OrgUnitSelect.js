@@ -1,10 +1,12 @@
 import { OrgUnitDimension } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
+import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
+import { translateOrgUnitLevels } from '../../util/orgUnits.js'
 import OrgUnitFieldSelect from './OrgUnitFieldSelect.js'
 import OrgUnitSelectMode from './OrgUnitSelectMode.js'
 import styles from './styles/OrgUnitSelect.module.css'
@@ -18,44 +20,81 @@ const ORG_UNIT_TREE_QUERY = {
             userDataViewFallback: true,
         }),
     },
+    levels: {
+        resource: 'organisationUnitLevels',
+        params: {
+            fields: ['id', 'level'],
+            order: 'level:asc',
+            paging: false,
+        },
+    },
 }
 
 const OrgUnitSelect = ({
+    hideUserOrgUnits = false,
     hideAssociatedGeometry = false,
     hideSelectMode = true,
     hideLevelSelect = false,
     hideGroupSelect = false,
+    setDefaultLevel = false,
     warning,
     style,
 }) => {
-    const { loading, error, data } = useDataQuery(ORG_UNIT_TREE_QUERY)
+    const { loading, data, error } = useDataQuery(ORG_UNIT_TREE_QUERY)
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()
+
+    const setOrgUnitItems = useCallback(
+        ({ items }) =>
+            dispatch(
+                setOrgUnits({
+                    dimension: 'ou',
+                    items,
+                })
+            ),
+        [dispatch]
+    )
 
     const roots = data?.tree.organisationUnits.map(
         (rootOrgUnit) => rootOrgUnit.id
     )
 
-    if (!roots) {
-        return null // TODO: Loading indicator
+    const orgUnitLevels = data?.levels.organisationUnitLevels
+    const defaultLevel = orgUnitLevels?.[1]
+
+    const orgUnits = translateOrgUnitLevels(
+        rows?.find((r) => r.dimension === 'ou'),
+        orgUnitLevels
+    )
+    const hasOrgUnits = !!orgUnits.length
+
+    useEffect(() => {
+        if (!hasOrgUnits && setDefaultLevel && defaultLevel) {
+            setOrgUnitItems({ items: [{ id: `LEVEL-${defaultLevel.id}` }] })
+        }
+    }, [setDefaultLevel, defaultLevel, hasOrgUnits, setOrgUnitItems])
+
+    if (loading) {
+        return (
+            <div className={styles.loader}>
+                <CenteredContent>
+                    <CircularLoader />
+                </CenteredContent>
+            </div>
+        )
+    } else if (error?.message) {
+        return <Help error>{error.message}</Help>
     }
 
-    const orgUnits = rows?.find((r) => r.dimension === 'ou')
-    const hasOrgUnits = !!orgUnits?.items.length
+    console.log('orgUnits', orgUnits)
 
     return (
         <div className={cx(styles.orgUnitSelect, [styles[style]])}>
             <OrgUnitDimension
                 roots={roots}
-                selected={orgUnits?.items || []}
-                onSelect={(dimension) =>
-                    dispatch(
-                        setOrgUnits({
-                            dimension: 'ou',
-                            items: dimension.items,
-                        })
-                    )
-                }
+                selected={orgUnits}
+                onSelect={setOrgUnitItems}
+                hideUserOrgUnits={hideUserOrgUnits}
                 hideLevelSelect={hideLevelSelect}
                 hideGroupSelect={hideGroupSelect}
                 warning={!hasOrgUnits ? warning : null}
@@ -71,6 +110,8 @@ OrgUnitSelect.propTypes = {
     hideGroupSelect: PropTypes.bool,
     hideLevelSelect: PropTypes.bool,
     hideSelectMode: PropTypes.bool,
+    hideUserOrgUnits: PropTypes.bool,
+    setDefaultLevel: PropTypes.bool,
     style: PropTypes.string,
     warning: PropTypes.string,
 }

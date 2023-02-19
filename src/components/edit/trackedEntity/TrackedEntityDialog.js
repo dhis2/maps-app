@@ -304,6 +304,7 @@ class TrackedEntityDialog extends Component {
                     {tab === 'orgunits' && (
                         <div className={styles.flexRowFlow}>
                             <OrgUnitSelect
+                                hideUserOrgUnits={true}
                                 hideAssociatedGeometry={true}
                                 hideSelectMode={false}
                                 hideLevelSelect={true}

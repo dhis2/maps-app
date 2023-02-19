@@ -11,7 +11,7 @@ import {
 } from '../constants/layers.js'
 import { apiFetch } from './api.js'
 import { getUniqueColor } from './colors.js'
-import { getDisplayPropertyUrl } from './helpers.js'
+import { getDisplayPropertyUrl, isValidUid } from './helpers.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -197,6 +197,50 @@ export const getOrgUnitLevels = async (d2) => {
           )
         : {}
 }
+
+// Converts "LEVEL-x" to newer "LEVEL-uid" format
+// TODO: use method from analytics library or get rid of old format in a db upgrade
+export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
+    const items = orgUnits?.items || []
+
+    console.log('translateOrgUnitLevels', items, orgUnitLevels)
+
+    return items.map((item) => {
+        const levelNumber = item.id.match(/^LEVEL-([0-9])+$/)
+
+        console.log('levelNumber', levelNumber)
+
+        if (levelNumber) {
+            const level = orgUnitLevels.find(
+                (l) => l.level === Number(levelNumber[1])
+            )
+
+            if (level) {
+                return {
+                    id: `LEVEL-${level.id}`,
+                }
+            }
+        }
+
+        return item
+    })
+}
+
+/*
+    orgUnitLevels
+        ? orgUnitItems
+              .filter((level) =>
+                  orgUnitLevels.find(
+                      (l) => l.id === level || l.level === Number(level)
+                  )
+              )
+              .map((level) =>
+                  isValidUid(level)
+                      ? level
+                      : orgUnitLevels.find((l) => l.level === Number(level)).id
+              )
+        : []
+    */
 
 // Returns coordinate field from layer config
 export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>

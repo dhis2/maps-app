@@ -94,7 +94,10 @@ const FacilityDialog = ({
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === ORGUNITS_TAB && (
-                    <div className={styles.flexRowFlow}>
+                    <div
+                        className={styles.flexRowFlow}
+                        data-test="facilitydialog-orgunitstab"
+                    >
                         <OrgUnitSelect warning={orgUnitsError} />
                     </div>
                 )}

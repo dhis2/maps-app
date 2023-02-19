@@ -3,14 +3,17 @@
 }
 
 .orgUnitSelect :global(.userOrgUnitsWrapper label) {
-    margin-right: 36px;
+    margin-right: 34px;
 }
 
-.event :global(.orgUnitTreeWrapper) {
+.event :global(.orgUnitTreeWrapper),
+.trackedEntity :global(.orgUnitTreeWrapper) {
     max-height: 315px;
 }   
 
-.trackedEntity :global(.orgUnitTreeWrapper) {
-    max-height: 265px;
-}  
-
+.loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
