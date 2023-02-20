@@ -11,7 +11,7 @@ import {
 } from '../constants/layers.js'
 import { apiFetch } from './api.js'
 import { getUniqueColor } from './colors.js'
-import { getDisplayPropertyUrl, isValidUid } from './helpers.js'
+import { getDisplayPropertyUrl } from './helpers.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
