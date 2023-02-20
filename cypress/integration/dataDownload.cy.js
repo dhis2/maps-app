@@ -4,12 +4,14 @@ const mapWithThematicLayer = {
     id: 'eDlFx0jTtV9',
     name: 'ANC: LLITN Cov Chiefdom this year',
     downloadName: 'ANC_LLITN_coverage.geojson',
+    cardTitle: 'ANC LLITN coverage',
 }
 
 const mapWithEventLayer = {
     id: 'kNYqHu3e7o3',
     name: 'Malaria: Cases 2015-2016 Western Area events',
     downloadName: 'Malaria_case_registration.geojson',
+    cardTitle: 'Malaria case registration',
 }
 
 const openMoreMenuWithOptions = (numOptions) => {
@@ -36,6 +38,10 @@ describe('Data Download', () => {
         cy.visit(`/?id=${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
+        cy.get('[data-test="layercard"]')
+            .find('h2')
+            .contains(mapWithThematicLayer.cardTitle)
+
         openMoreMenuWithOptions(6)
 
         cy.get('[data-test="data-download-modal"]')
@@ -55,6 +61,10 @@ describe('Data Download', () => {
         cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
+        cy.get('[data-test="layercard"]')
+            .find('h2')
+            .contains(mapWithEventLayer.cardTitle)
+
         openMoreMenuWithOptions(5)
 
         cy.get('[data-test="data-download-modal"]')
@@ -73,6 +83,9 @@ describe('Data Download', () => {
     it('fails to download event layer', () => {
         cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+        cy.get('[data-test="layercard"]')
+            .find('h2')
+            .contains(mapWithEventLayer.cardTitle)
 
         openMoreMenuWithOptions(5)
 
