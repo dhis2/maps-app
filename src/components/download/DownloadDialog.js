@@ -60,7 +60,7 @@ const DownloadDialog = () => {
                     {isSupported ? (
                         <>
                             <Checkbox
-                                label={i18n.t('Show name')}
+                                label={i18n.t('Show map name')}
                                 checked={showName}
                                 disabled={!name}
                                 onChange={(value) =>
@@ -70,7 +70,7 @@ const DownloadDialog = () => {
                                 }
                             />
                             <Checkbox
-                                label={i18n.t('Show description')}
+                                label={i18n.t('Show map description')}
                                 checked={showDescription}
                                 disabled={!description}
                                 onChange={(value) =>
