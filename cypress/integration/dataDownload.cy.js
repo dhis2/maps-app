@@ -1,8 +1,8 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const mapWithThematicLayer = {
-    id: 'ZBjCfSaLSqD',
-    name: 'ANC: LLITN coverage district and facility',
+    id: 'eDlFx0jTtV9',
+    name: 'ANC: LLITN Cov Chiefdom this year',
     downloadName: 'ANC_LLITN_coverage.geojson',
 }
 
