@@ -29,7 +29,7 @@ const getMapOutline = (map) => {
     }
 }
 
-const InsetMapOutline = ({ mainMap, insetMap }) => {
+const InsetMapOutline = ({ mainMap, insetMap, isDark = false }) => {
     const [outline, setOutline] = useState(getMapOutline(mainMap))
     const [sourceId, setSourceId] = useState()
 
@@ -53,7 +53,7 @@ const InsetMapOutline = ({ mainMap, insetMap }) => {
                 data: [outline],
                 style: {
                     color: 'transparent',
-                    strokeColor: '#333',
+                    strokeColor: isDark ? 'orange' : '#333',
                     weight: 3,
                 },
             }
@@ -69,7 +69,7 @@ const InsetMapOutline = ({ mainMap, insetMap }) => {
                 }
             }
         }
-    }, [insetMap, outline, sourceId])
+    }, [insetMap, outline, sourceId, isDark])
 
     return null
 }
@@ -77,6 +77,7 @@ const InsetMapOutline = ({ mainMap, insetMap }) => {
 InsetMapOutline.propTypes = {
     insetMap: PropTypes.object.isRequired,
     mainMap: PropTypes.object.isRequired,
+    isDark: PropTypes.bool,
 }
 
 export default InsetMapOutline

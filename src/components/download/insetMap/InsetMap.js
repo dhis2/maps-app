@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import useBasemapConfig from '../../../hooks/useBasemapConfig.js'
+import { BASEMAP_LAYER_INDEX } from '../../map/layers/BasemapLayer.js'
 import mapApi from '../../map/MapApi.js'
 import InsetMapOutline from './InsetMapOutline.js'
 import styles from './styles/InsetMap.module.css'
@@ -10,7 +12,8 @@ const minHeight = 80
 
 const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
     const [insetMap, setInsetMap] = useState()
-    const basemap = useSelector((state) => state.map.basemap.config)
+    const basemap = useSelector((state) => state.map.basemap)
+    const { config, isDark } = useBasemapConfig(basemap)
     const mapContainer = useRef()
 
     const onMainMapMove = useCallback(() => {
@@ -35,6 +38,7 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
             dragRotate: false,
             touchZoomRotate: false,
             pitchWithRotate: false,
+            minZoom: 0,
         }).once('ready', (evt) => setInsetMap(evt.target))
     }, [])
 
@@ -45,11 +49,14 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
     }, [insetMap])
 
     useEffect(() => {
-        if (insetMap && basemap) {
-            const basemapLayer = insetMap.createLayer({ ...basemap, index: 0 })
+        if (insetMap && config) {
+            const basemapLayer = insetMap.createLayer({
+                ...config,
+                index: BASEMAP_LAYER_INDEX,
+            })
             insetMap.addLayer(basemapLayer)
         }
-    }, [insetMap, basemap])
+    }, [insetMap, config])
 
     useEffect(() => {
         if (insetMap) {
@@ -83,7 +90,11 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
     return (
         <div ref={mapContainer} className={styles.insetMap}>
             {insetMap && (
-                <InsetMapOutline mainMap={mainMap} insetMap={insetMap} />
+                <InsetMapOutline
+                    mainMap={mainMap}
+                    insetMap={insetMap}
+                    isDark={isDark}
+                />
             )}
         </div>
     )

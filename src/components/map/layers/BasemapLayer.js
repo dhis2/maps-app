@@ -8,7 +8,7 @@ import {
     ALERT_MESSAGE_DYNAMIC,
 } from '../../../constants/alerts.js'
 
-const BASEMAP_LAYER_INDEX = 0
+export const BASEMAP_LAYER_INDEX = 0
 
 const getAlertError = (message) => {
     return {
