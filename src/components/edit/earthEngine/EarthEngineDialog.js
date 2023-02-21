@@ -209,9 +209,7 @@ const EarthEngineDialog = (props) => {
                     />
                 )}
                 {tab === 'orgunits' && (
-                    <div className={styles.flexRowFlow}>
-                        <OrgUnitSelect selectDefaultLevel={true} />
-                    </div>
+                    <OrgUnitSelect selectDefaultLevel={true} />
                 )}
                 {tab === 'style' && (
                     <StyleTab

@@ -252,19 +252,13 @@ class EventDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexRowFlow}
-                            data-test="eventdialog-orgunittab"
-                        >
-                            <OrgUnitSelect
-                                selectRoots={true}
-                                hideAssociatedGeometry={true}
-                                hideLevelSelect={true}
-                                hideGroupSelect={true}
-                                warning={orgUnitsError}
-                                style="event"
-                            />
-                        </div>
+                        <OrgUnitSelect
+                            selectRoots={true}
+                            hideAssociatedGeometry={true}
+                            hideLevelSelect={true}
+                            hideGroupSelect={true}
+                            warning={orgUnitsError}
+                        />
                     )}
                     {tab === 'filter' && (
                         <div

@@ -1,15 +1,21 @@
-.orgUnitSelect :global(.orgUnitTreeWrapper) {
-    max-height: 220px;
+.orgUnitSelect {
+    margin: 0 var(--spacers-dp16);
+    height: 100%;
 }
 
 .orgUnitSelect :global(.userOrgUnitsWrapper label) {
     margin-right: 34px;
 }
 
-.event :global(.orgUnitTreeWrapper),
-.trackedEntity :global(.orgUnitTreeWrapper) {
-    max-height: 315px;
-}   
+.two {
+    height: calc(100% - 110px);
+}
+.one {
+    height: calc(100% - 56px);
+}
+.none {
+    height: 100%;
+}
 
 .loader {
     position: absolute;
