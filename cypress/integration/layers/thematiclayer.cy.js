@@ -31,6 +31,8 @@ context('Thematic Layers', () => {
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType('Yearly')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateDialogClosed(true)
@@ -82,6 +84,8 @@ context('Thematic Layers', () => {
             .selectPeriodType('Start/end dates')
             .typeStartDate(`${CURRENT_YEAR}-02-01`)
             .typeEndDate(`${CURRENT_YEAR}-11-30`)
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateDialogClosed(true)

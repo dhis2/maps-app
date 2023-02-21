@@ -2,7 +2,7 @@ import { Layer } from './layer.js'
 
 export class FacilityLayer extends Layer {
     selectGroupSet(groupSet) {
-        cy.get('[data-test="orgunitgroupsetselect"]').click()
+        cy.getByDataTest('org-unit-group-select').click()
 
         cy.contains(groupSet).click()
         cy.get('body').click() // Close the modal menu
@@ -11,7 +11,7 @@ export class FacilityLayer extends Layer {
     }
 
     selectOuLevel(level) {
-        cy.get('[data-test="orgunitlevelselect"]').click()
+        cy.getByDataTest('org-unit-level-select').click()
 
         cy.contains(level).click()
         cy.get('body').click() // Close the modal menu
