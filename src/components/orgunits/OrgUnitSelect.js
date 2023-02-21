@@ -111,7 +111,6 @@ const OrgUnitSelect = ({
                     [styles.one]: numOtherSelects === ONE_OTHER_SELECT,
                     [styles.none]: numOtherSelects === NO_OTHER_SELECTS,
                 })}
-                data-test="orgunit-dimension-container"
             >
                 <OrgUnitDimension
                     roots={roots?.map((r) => r.id)}
