@@ -24,9 +24,6 @@ const MapContainer = ({ resizeCount, setMap }) => {
     const layers = mapViews.filter((layer) => layer.isLoaded)
     const isLoading = newLayerIsLoading || layers.length !== mapViews.length
 
-    const northArrow =
-        downloadMode && showNorthArrow ? northArrowPosition : undefined
-
     return (
         <>
             {!downloadMode && <MapName />}
@@ -42,7 +39,6 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 closeCoordinatePopup={() => dispatch(closeCoordinatePopup())}
                 setAggregations={(data) => dispatch(setAggregations(data))}
                 resizeCount={resizeCount}
-                northArrow={northArrow}
                 setMapObject={setMap}
             />
             {isLoading && <MapLoadingMask />}

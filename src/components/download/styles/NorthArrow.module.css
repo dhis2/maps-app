@@ -10,7 +10,7 @@
 
 .topright {
     top: 20px;
-    right: 390px;
+    right: 10px;
 }
 
 .bottomleft {
@@ -20,5 +20,10 @@
 
 .bottomright {
     bottom: 20px;
+    right: 10px;
+}
+
+.downloadPanelOpen.topright,
+.downloadPanelOpen.bottomright {
     right: 390px;
 }

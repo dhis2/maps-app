@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, ButtonStrip } from '@dhis2/ui'
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     toggleDownloadMode,
@@ -19,7 +19,6 @@ const DownloadDialog = () => {
 
     const { mapViews, name, description } = useSelector((state) => state.map)
     const {
-        downloadMode,
         showName,
         showDescription,
         showLegend,
@@ -34,9 +33,19 @@ const DownloadDialog = () => {
         [mapViews]
     )
 
-    if (!downloadMode) {
-        return null
-    }
+    const hasLayers = mapViews.length > 0
+
+    useEffect(() => {
+        // Set default values
+        dispatch(
+            setDownloadProperty({
+                showName: !!name,
+                showDescription: !!description,
+                showLegend: hasLegend,
+                showInsetMap: hasLayers,
+            })
+        )
+    }, [name, description, hasLegend, hasLayers, dispatch])
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)

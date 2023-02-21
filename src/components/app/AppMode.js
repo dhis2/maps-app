@@ -9,6 +9,7 @@ import {
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMode from '../download/DownloadMode.js'
 import DownloadPanel from '../download/DownloadPanel.js'
+import NorthArrow from '../download/NorthArrow.js'
 import MapContainer from '../map/MapContainer.js'
 import MainMode from './MainMode.js'
 import styles from './styles/AppMode.module.css'
@@ -16,12 +17,24 @@ import styles from './styles/AppMode.module.css'
 const MapMode = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
-    const downloadMode = useSelector((state) => state.download.downloadMode)
+    const {
+        downloadMode,
+        showName,
+        showDescription,
+        showLegend,
+        showInsetMap,
+        showNorthArrow,
+    } = useSelector((state) => state.download)
     const layers = useSelector((state) => state.map.mapViews)
     const { layersPanelOpen, rightPanelOpen, dataTableHeight } = useSelector(
         (state) => state.ui
     )
     const dataTableOpen = useSelector((state) => !!state.dataTable)
+
+    const downloadPanelOpen =
+        downloadMode &&
+        (showName || showDescription || showLegend || showInsetMap)
+
     const isSplitView = !!getSplitViewLayer(layers)
 
     const mapPosition = {
@@ -39,7 +52,7 @@ const MapMode = () => {
         rightPanelOpen,
         dataTableOpen,
         dataTableHeight,
-        downloadMode,
+        downloadPanelOpen,
     ])
 
     // Fit layer bounds when app mode is toggled
@@ -57,7 +70,12 @@ const MapMode = () => {
         <>
             {downloadMode ? <DownloadMode /> : <MainMode />}
             <div className={styles.mapPosition} style={mapPosition}>
-                <div className={downloadMode ? styles.mapDownload : undefined}>
+                <div
+                    className={cx({
+                        [styles.mapDownload]: downloadMode,
+                        [styles.downloadPanelOpen]: downloadPanelOpen,
+                    })}
+                >
                     <div
                         id="dhis2-map-container"
                         data-test="dhis2-map-container"
@@ -70,10 +88,20 @@ const MapMode = () => {
                             setMap={setMap}
                         />
                         {downloadMode && map && (
-                            <DownloadPanel
-                                map={map.getMapGL()}
-                                isSplitView={isSplitView}
-                            />
+                            <>
+                                {downloadPanelOpen && (
+                                    <DownloadPanel
+                                        map={map.getMapGL()}
+                                        isSplitView={isSplitView}
+                                    />
+                                )}
+                                {showNorthArrow && (
+                                    <NorthArrow
+                                        map={map.getMapGL()}
+                                        downloadPanelOpen={downloadPanelOpen}
+                                    />
+                                )}
+                            </>
                         )}
                     </div>
                 </div>

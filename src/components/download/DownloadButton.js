@@ -3,7 +3,6 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { toggleDownloadMode } from '../../actions/download.js'
 import { MenuButton } from '../core/index.js'
-import DownloadDialog from './DownloadDialog.js'
 
 const DownloadButton = () => {
     const dispatch = useDispatch()
@@ -13,7 +12,6 @@ const DownloadButton = () => {
             <MenuButton onClick={() => dispatch(toggleDownloadMode(true))}>
                 {i18n.t('Download')}
             </MenuButton>
-            <DownloadDialog />
         </>
     )
 }

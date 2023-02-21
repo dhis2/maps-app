@@ -1,17 +1,19 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import styles from './styles/NorthArrow.module.css'
 
 const NorthArrow = ({
     map,
-    position,
+    downloadPanelOpen,
     width = 90,
     height = 90,
     color = 'black',
     northLetter = 'N',
 }) => {
     const [rotation, setRotation] = useState(map.getBearing())
+    const position = useSelector((state) => state.download.northArrowPosition)
 
     const onMapRotate = useCallback((evt) => {
         setRotation(-evt.target.getBearing())
@@ -25,7 +27,11 @@ const NorthArrow = ({
     }, [map, onMapRotate])
 
     return (
-        <div className={cx(styles.northArrow, styles[position])}>
+        <div
+            className={cx(styles.northArrow, styles[position], {
+                [styles.downloadPanelOpen]: downloadPanelOpen,
+            })}
+        >
             <svg
                 width={width}
                 height={height}
@@ -56,8 +62,8 @@ const NorthArrow = ({
 }
 
 NorthArrow.propTypes = {
+    downloadPanelOpen: PropTypes.bool.isRequired,
     map: PropTypes.object.isRequired,
-    position: PropTypes.string.isRequired,
     color: PropTypes.string,
     height: PropTypes.number,
     northLetter: PropTypes.string,

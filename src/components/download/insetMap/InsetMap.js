@@ -16,6 +16,8 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
     const { config, isDark } = useBasemapConfig(basemap)
     const mapContainer = useRef()
 
+    const onInsetMapReady = useCallback((evt) => setInsetMap(evt.target), [])
+
     const onMainMapMove = useCallback(() => {
         if (insetMap) {
             const mapGl = insetMap.getMapGL()
@@ -33,14 +35,20 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
     }, [mainMap, onMainMapMove])
 
     useEffect(() => {
-        mapApi({
+        const map = mapApi({
             attributionControl: false,
             dragRotate: false,
             touchZoomRotate: false,
             pitchWithRotate: false,
             minZoom: 0,
-        }).once('ready', (evt) => setInsetMap(evt.target))
-    }, [])
+        })
+
+        map.once('ready', onInsetMapReady)
+
+        return () => {
+            map.off('ready', onInsetMapReady)
+        }
+    }, [onInsetMapReady])
 
     useEffect(() => {
         if (insetMap) {

@@ -14,6 +14,7 @@ const DownloadPanel = ({ map, isSplitView }) => {
     const { showName, showDescription, showLegend, showInsetMap } = useSelector(
         (state) => state.download
     )
+
     const { mapViews, name, description } = useSelector((state) => state.map)
 
     useEffect(() => {
