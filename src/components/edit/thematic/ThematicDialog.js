@@ -256,7 +256,7 @@ class ThematicDialog extends Component {
                         {i18n.t('Style')}
                     </Tab>
                 </Tabs>
-                <div className={styles.tabContent} data-test="tab-content">
+                <div className={styles.tabContent}>
                     {tab === 'data' && (
                         <div
                             className={styles.flexRowFlow}

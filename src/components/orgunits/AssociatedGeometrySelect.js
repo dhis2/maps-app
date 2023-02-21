@@ -34,7 +34,7 @@ const AssociatedGeometrySelect = () => {
     const attribute = attributes.find((a) => a.id === geometryField)
 
     return (
-        <div className={styles.geometryField} data-test="assoc-geometry">
+        <div className={styles.geometryField}>
             <SelectField
                 prefix={i18n.t('Use associated geometry')}
                 items={[
