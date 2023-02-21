@@ -7,9 +7,8 @@ import styles from './styles/InsetMap.module.css'
 
 const maxHeight = 260
 const minHeight = 80
-const topMargin = 8
 
-const InsetMap = ({ mainMap, isSplitView }) => {
+const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
     const [insetMap, setInsetMap] = useState()
     const basemap = useSelector((state) => state.map.basemap.config)
     const mapContainer = useRef()
@@ -61,43 +60,26 @@ const InsetMap = ({ mainMap, isSplitView }) => {
     useEffect(() => {
         if (insetMap) {
             const mapEl = mapContainer.current
-            // const panelEl = mapEl.parentElement
+
+            mapEl.style.display = 'block'
+            mapEl.style.height = `${maxHeight}px`
+
             let mapHeight = mapEl.clientHeight
 
             if (mapHeight > maxHeight) {
                 mapHeight = maxHeight
-            } else if (mapHeight < minHeight) {
-                mapHeight = minHeight
             }
 
-            mapEl.style.height = `${mapHeight}px`
-
-            console.log('mapHeight', mapHeight, mapEl)
-
-            /*
-            const isOverflowing = panelEl.clientHeight < panelEl.scrollHeight
-
-            console.log(
-                'isOverflowing',
-                isOverflowing,
-                mapEl.clientHeight,
-                mapEl.scrollHeight,
-                mapEl
-            )
-
-            if (isOverflowing) {
-                const mapHeight =
-                    300 - (panelEl.scrollHeight - panelEl.clientHeight)
-
+            if (mapHeight > minHeight) {
                 mapEl.style.height = `${mapHeight}px`
-
-                console.log('isOverflowing', mapHeight)
+                insetMap.resize()
+                console.log('There is room')
+            } else {
+                mapEl.style.display = 'none'
+                console.log('No room!')
             }
-            */
-
-            insetMap.resize()
         }
-    }, [insetMap, mapContainer])
+    }, [insetMap, mapContainer, resizeCount])
 
     return (
         <div ref={mapContainer} className={styles.insetMap}>
@@ -111,6 +93,7 @@ const InsetMap = ({ mainMap, isSplitView }) => {
 InsetMap.propTypes = {
     mainMap: PropTypes.object.isRequired,
     isSplitView: PropTypes.bool,
+    resizeCount: PropTypes.number,
 }
 
 export default InsetMap

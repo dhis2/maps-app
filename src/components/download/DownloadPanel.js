@@ -1,16 +1,24 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import DownloadLegend from './DownloadLegend.js'
 import InsetMap from './insetMap/InsetMap.js'
 import styles from './styles/DownloadPanel.module.css'
 
 const DownloadPanel = ({ map, isSplitView }) => {
+    const [resizeCount, setResizeCount] = useState(0)
+    const { height } = useWindowDimensions()
+
     const { showName, showDescription, showLegend, showInsetMap } = useSelector(
         (state) => state.download
     )
     const { mapViews, name, description } = useSelector((state) => state.map)
+
+    useEffect(() => {
+        setResizeCount((count) => count + 1)
+    }, [showName, showDescription, showLegend, height])
 
     return (
         <div className={cx(styles.downloadPanel)}>
@@ -20,7 +28,11 @@ const DownloadPanel = ({ map, isSplitView }) => {
                 {showLegend && <DownloadLegend layers={mapViews} />}
             </div>
             {showInsetMap && (
-                <InsetMap mainMap={map} isSplitView={isSplitView} />
+                <InsetMap
+                    mainMap={map}
+                    isSplitView={isSplitView}
+                    resizeCount={resizeCount}
+                />
             )}
         </div>
     )
