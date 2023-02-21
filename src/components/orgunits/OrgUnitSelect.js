@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
 import { DEFAULT_ORG_UNIT_LEVEL } from '../../constants/layers.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
-import OrgUnitFieldSelect from './OrgUnitFieldSelect.js'
+import AssociatedGeometrySelect from './AssociatedGeometrySelect.js'
 import OrgUnitSelectMode from './OrgUnitSelectMode.js'
 import styles from './styles/OrgUnitSelect.module.css'
 
@@ -104,7 +104,7 @@ const OrgUnitSelect = ({
                 hideGroupSelect={hideGroupSelect}
                 warning={!hasOrgUnits ? warning : null}
             />
-            {!hideAssociatedGeometry && <OrgUnitFieldSelect />}
+            {!hideAssociatedGeometry && <AssociatedGeometrySelect />}
             {!hideSelectMode && <OrgUnitSelectMode />}
         </div>
     )

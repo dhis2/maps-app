@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setOrganisationUnitField } from '../../actions/layerEdit.js'
 import { NONE } from '../../constants/layers.js'
 import { SelectField } from '../core/index.js'
-import styles from './styles/OrgUnitFieldSelect.module.css'
+import styles from './styles/AssociatedGeometrySelect.module.css'
 
-const OrgUnitFieldSelect = () => {
-    const orgUnitField = useSelector((state) => state.layerEdit.orgUnitField)
+const AssociatedGeometrySelect = () => {
+    const geometryField = useSelector((state) => state.layerEdit.orgUnitField)
     const [attributes, setAttributes] = useState([])
     const dispatch = useDispatch()
     const engine = useDataEngine()
@@ -31,19 +31,19 @@ const OrgUnitFieldSelect = () => {
         return null
     }
 
-    const attribute = attributes.find((a) => a.id === orgUnitField)
+    const attribute = attributes.find((a) => a.id === geometryField)
 
     return (
-        <div className={styles.orgUnitField}>
+        <div className={styles.geometryField}>
             <SelectField
                 prefix={i18n.t('Use associated geometry')}
                 items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
-                value={orgUnitField}
+                value={geometryField || NONE}
                 onChange={(val) => dispatch(setOrganisationUnitField(val))}
                 data-test="orgunitfieldselect"
             />
-            {attribute && attribute.description && (
-                <div className={styles.orgUnitFieldDescription}>
+            {attribute?.description && (
+                <div className={styles.geometryDescription}>
                     {attribute.description}
                 </div>
             )}
@@ -51,4 +51,4 @@ const OrgUnitFieldSelect = () => {
     )
 }
 
-export default OrgUnitFieldSelect
+export default AssociatedGeometrySelect

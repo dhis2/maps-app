@@ -1,10 +1,10 @@
-.orgUnitField {
+.geometryField {
     margin-top: var(--spacers-dp8);
     border-top: 1px solid #eee;
     padding-top: var(--spacers-dp12);
 }
 
-.orgUnitFieldDescription {
+.geometryDescription {
     margin-top: -4px;
     color: rgb(110, 122, 138);
     font-style: italic;
