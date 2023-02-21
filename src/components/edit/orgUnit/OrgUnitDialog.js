@@ -61,12 +61,7 @@ class OrgUnitDialog extends Component {
                 </Tabs>
                 <div className={styles.tabContent}>
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexRowFlow}
-                            data-test="orgunitdialog-orgunitstab"
-                        >
-                            <OrgUnitSelect warning={orgUnitsError} />
-                        </div>
+                        <OrgUnitSelect warning={orgUnitsError} />
                     )}
                     {tab === 'style' && (
                         <div

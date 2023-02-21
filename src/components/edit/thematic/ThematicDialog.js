@@ -256,7 +256,7 @@ class ThematicDialog extends Component {
                         {i18n.t('Style')}
                     </Tab>
                 </Tabs>
-                <div className={styles.tabContent}>
+                <div className={styles.tabContent} data-test="tab-content">
                     {tab === 'data' && (
                         <div
                             className={styles.flexRowFlow}
@@ -431,15 +431,10 @@ class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexRowFlow}
-                            data-test="thematicdialog-orgunitstab"
-                        >
-                            <OrgUnitSelect
-                                selectDefaultLevel={true}
-                                warning={orgUnitsError}
-                            />
-                        </div>
+                        <OrgUnitSelect
+                            selectDefaultLevel={true}
+                            warning={orgUnitsError}
+                        />
                     )}
                     {tab === 'filter' && (
                         <div

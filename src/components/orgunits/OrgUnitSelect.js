@@ -31,6 +31,10 @@ const ORG_UNIT_TREE_QUERY = {
     },
 }
 
+const TWO_OTHER_SELECTS = 'two'
+const ONE_OTHER_SELECT = 'one'
+const NO_OTHER_SELECTS = 'none'
+
 const OrgUnitSelect = ({
     hideUserOrgUnits = false,
     hideAssociatedGeometry = false,
@@ -40,7 +44,6 @@ const OrgUnitSelect = ({
     selectDefaultLevel = false,
     selectRoots = false,
     warning,
-    style,
 }) => {
     const { loading, data, error } = useDataQuery(ORG_UNIT_TREE_QUERY)
     const rows = useSelector((state) => state.layerEdit.rows)
@@ -93,17 +96,33 @@ const OrgUnitSelect = ({
         return <Help error>{error.message}</Help>
     }
 
+    const numOtherSelects =
+        !hideAssociatedGeometry && !hideSelectMode
+            ? TWO_OTHER_SELECTS
+            : !hideAssociatedGeometry || !hideSelectMode
+            ? ONE_OTHER_SELECT
+            : NO_OTHER_SELECTS
+
     return (
-        <div className={cx(styles.orgUnitSelect, [styles[style]])}>
-            <OrgUnitDimension
-                roots={roots?.map((r) => r.id)}
-                selected={orgUnits}
-                onSelect={setOrgUnitItems}
-                hideUserOrgUnits={hideUserOrgUnits}
-                hideLevelSelect={hideLevelSelect}
-                hideGroupSelect={hideGroupSelect}
-                warning={!hasOrgUnits ? warning : null}
-            />
+        <div className={styles.orgUnitSelect} data-test="org-unit-select">
+            <div
+                className={cx({
+                    [styles.two]: numOtherSelects === TWO_OTHER_SELECTS,
+                    [styles.one]: numOtherSelects === ONE_OTHER_SELECT,
+                    [styles.none]: numOtherSelects === NO_OTHER_SELECTS,
+                })}
+                data-test="orgunit-dimension-container"
+            >
+                <OrgUnitDimension
+                    roots={roots?.map((r) => r.id)}
+                    selected={orgUnits}
+                    onSelect={setOrgUnitItems}
+                    hideUserOrgUnits={hideUserOrgUnits}
+                    hideLevelSelect={hideLevelSelect}
+                    hideGroupSelect={hideGroupSelect}
+                    warning={!hasOrgUnits ? warning : null}
+                />
+            </div>
             {!hideAssociatedGeometry && <AssociatedGeometrySelect />}
             {!hideSelectMode && <OrgUnitSelectMode />}
         </div>
@@ -118,7 +137,6 @@ OrgUnitSelect.propTypes = {
     hideUserOrgUnits: PropTypes.bool,
     selectDefaultLevel: PropTypes.bool,
     selectRoots: PropTypes.bool,
-    style: PropTypes.string,
     warning: PropTypes.string,
 }
 
