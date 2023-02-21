@@ -37,7 +37,10 @@ const AssociatedGeometrySelect = () => {
         <div className={styles.geometryField}>
             <SelectField
                 prefix={i18n.t('Use associated geometry')}
-                items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
+                items={[
+                    { id: NONE, name: i18n.t('None (default)') },
+                    ...attributes,
+                ]}
                 value={geometryField || NONE}
                 onChange={(val) => dispatch(setOrganisationUnitField(val))}
                 data-test="orgunitfieldselect"
