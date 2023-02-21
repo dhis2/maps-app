@@ -1,0 +1,54 @@
+.root {
+    width: 200px;
+    padding-left: var(--spacers-dp64);
+}
+
+.label {
+    display: block;
+    font-size: 14px;
+    padding-bottom: var(--spacers-dp8);
+    color: rgb(33, 41, 52);
+}
+
+.position {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    background-color: var(--colors-grey100);
+    width: var(--spacers-dp48);
+    height: var(--spacers-dp48);
+    margin: 0 var(--spacers-dp12) var(--spacers-dp12) 0;
+    outline: 1px solid var(--colors-grey400);
+    cursor: pointer;
+}
+
+.legend {
+    position: absolute;
+    width: var(--spacers-dp12);
+    height: var(--spacers-dp12);
+    background-color: var(--colors-grey900);
+}
+
+.selected {
+    outline: 3px solid var(--colors-teal700);
+}
+
+.topleft {
+    top: var(--spacers-dp8);
+    left: var(--spacers-dp8);
+}
+
+.topright {
+    top: var(--spacers-dp8);
+    right: var(--spacers-dp8);
+}
+
+.bottomleft {
+    bottom: var(--spacers-dp8);
+    left: var(--spacers-dp8);
+}
+
+.bottomright {
+    bottom: var(--spacers-dp8);
+    right: var(--spacers-dp8);
+}

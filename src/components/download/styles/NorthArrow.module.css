@@ -1,6 +1,24 @@
 .northArrow {
     position: absolute;
+    font: bold 70% sans-serif
+}
+
+.topleft {
+    top: 20px;
+    left: 10px;
+}
+
+.topright {
+    top: 20px;
+    right: 390px;
+}
+
+.bottomleft {
+    bottom: 30px;
+    left: 10px;
+}
+
+.bottomright {
     bottom: 20px;
     right: 390px;
-    font: bold 70% sans-serif
 }

@@ -40,10 +40,10 @@ class Map extends Component {
         latitude: PropTypes.number,
         layers: PropTypes.array,
         longitude: PropTypes.number,
+        northArrow: PropTypes.string,
         resizeCount: PropTypes.number,
         setAggregations: PropTypes.func,
         setMapObject: PropTypes.func,
-        showNorthArrow: PropTypes.bool,
         zoom: PropTypes.number,
     }
 
@@ -142,7 +142,7 @@ class Map extends Component {
             layers,
             feature,
             coordinatePopup: coordinates,
-            showNorthArrow,
+            northArrow,
             closeCoordinatePopup,
             openContextMenu,
             setAggregations,
@@ -186,7 +186,12 @@ class Map extends Component {
                                 {coordinates[1].toFixed(6)}
                             </Popup>
                         )}
-                        {showNorthArrow && <NorthArrow map={map._mapgl} />}
+                        {northArrow && (
+                            <NorthArrow
+                                map={map._mapgl}
+                                position={northArrow}
+                            />
+                        )}
                     </Fragment>
                 )}
             </div>

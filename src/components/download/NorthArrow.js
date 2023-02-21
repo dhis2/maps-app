@@ -1,9 +1,11 @@
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
 import styles from './styles/NorthArrow.module.css'
 
 const NorthArrow = ({
     map,
+    position,
     width = 90,
     height = 90,
     color = 'black',
@@ -23,7 +25,7 @@ const NorthArrow = ({
     }, [map, onMapRotate])
 
     return (
-        <div className={styles.northArrow}>
+        <div className={cx(styles.northArrow, styles[position])}>
             <svg
                 width={width}
                 height={height}
@@ -55,6 +57,7 @@ const NorthArrow = ({
 
 NorthArrow.propTypes = {
     map: PropTypes.object.isRequired,
+    position: PropTypes.string.isRequired,
     color: PropTypes.string,
     height: PropTypes.number,
     northLetter: PropTypes.string,

@@ -11,7 +11,7 @@ import MapView from './MapView.js'
 const MapContainer = ({ resizeCount, setMap }) => {
     const { basemap, newLayerIsLoading, coordinatePopup, mapViews, bounds } =
         useSelector((state) => state.map)
-    const { downloadMode, showNorthArrow } = useSelector(
+    const { downloadMode, showNorthArrow, northArrowPosition } = useSelector(
         (state) => state.download
     )
     const interpretationModalOpen = useSelector(
@@ -23,6 +23,9 @@ const MapContainer = ({ resizeCount, setMap }) => {
 
     const layers = mapViews.filter((layer) => layer.isLoaded)
     const isLoading = newLayerIsLoading || layers.length !== mapViews.length
+
+    const northArrow =
+        downloadMode && showNorthArrow ? northArrowPosition : undefined
 
     return (
         <>
@@ -39,7 +42,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 closeCoordinatePopup={() => dispatch(closeCoordinatePopup())}
                 setAggregations={(data) => dispatch(setAggregations(data))}
                 resizeCount={resizeCount}
-                showNorthArrow={downloadMode && showNorthArrow}
+                northArrow={northArrow}
                 setMapObject={setMap}
             />
             {isLoading && <MapLoadingMask />}

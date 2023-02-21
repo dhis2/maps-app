@@ -73,10 +73,9 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
             if (mapHeight > minHeight) {
                 mapEl.style.height = `${mapHeight}px`
                 insetMap.resize()
-                console.log('There is room')
             } else {
+                // No room for inset map
                 mapEl.style.display = 'none'
-                console.log('No room!')
             }
         }
     }, [insetMap, mapContainer, resizeCount])

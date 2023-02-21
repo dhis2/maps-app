@@ -7,6 +7,7 @@ const defaultState = {
     showLegend: true,
     showInsetMap: true,
     showNorthArrow: true,
+    northArrowPosition: 'bottomright',
     includeMargins: true,
 }
 

@@ -10,6 +10,7 @@ import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
+import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadDialog.module.css'
 
 const DownloadDialog = () => {
@@ -24,6 +25,7 @@ const DownloadDialog = () => {
         showLegend,
         showInsetMap,
         showNorthArrow,
+        northArrowPosition,
         includeMargins,
     } = useSelector((state) => state.download)
 
@@ -125,6 +127,19 @@ const DownloadDialog = () => {
                                     )
                                 }
                             />
+                            {showNorthArrow && (
+                                <NorthArrowPosition
+                                    position={northArrowPosition}
+                                    // onChange={(v) =>dispatch(setDownloadLegendPosition(v))}
+                                    onChange={(value) =>
+                                        dispatch(
+                                            setDownloadProperty({
+                                                northArrowPosition: value,
+                                            })
+                                        )
+                                    }
+                                />
+                            )}
                             <Checkbox
                                 label={i18n.t('Include margins in download')}
                                 checked={includeMargins}
