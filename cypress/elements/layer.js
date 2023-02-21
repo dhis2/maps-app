@@ -63,7 +63,7 @@ export class Layer {
 
     validateCardTitle(title) {
         cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
-            .contains(title)
+            .contains(title, EXTENDED_TIMEOUT)
             .should('be.visible')
 
         return this
