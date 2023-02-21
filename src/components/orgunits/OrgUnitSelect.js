@@ -93,8 +93,6 @@ const OrgUnitSelect = ({
         return <Help error>{error.message}</Help>
     }
 
-    console.log('selected', orgUnits)
-
     return (
         <div className={cx(styles.orgUnitSelect, [styles[style]])}>
             <OrgUnitDimension
