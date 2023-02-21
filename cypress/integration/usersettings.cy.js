@@ -2,6 +2,13 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const USER_SETTINGS_ENDPOINT = { method: 'GET', url: 'userSettings?*' }
 
+const testMap = {
+    id: 'eDlFx0jTtV9',
+    name: 'ANC: LLITN Cov Chiefdom this year',
+    downloadName: 'ANC_LLITN_coverage.geojson',
+    cardTitle: 'ANC LLITN coverage',
+}
+
 describe('userSettings', () => {
     beforeEach(() => {
         cy.intercept(USER_SETTINGS_ENDPOINT, (req) => {
@@ -22,7 +29,11 @@ describe('userSettings', () => {
             })
         })
 
-        cy.visit('/?id=ZBjCfSaLSqD')
+        cy.visit(`/?id=${testMap.id}`)
+        cy.get('[data-test=layercard]')
+            .find('h2')
+            .contains(`${testMap.cardTitle}`)
+            .should('be.visible')
 
         cy.contains('Fichero', EXTENDED_TIMEOUT).should('be.visible')
         cy.contains('File').should('not.exist')
@@ -36,7 +47,11 @@ describe('userSettings', () => {
     })
 
     it('shows the app in English', () => {
-        cy.visit('/?id=ZBjCfSaLSqD')
+        cy.visit(`/?id=${testMap.id}`)
+        cy.get('[data-test=layercard]')
+            .find('h2')
+            .contains(`${testMap.cardTitle}`)
+            .should('be.visible')
 
         cy.contains('File', EXTENDED_TIMEOUT).should('be.visible')
         cy.contains('Fichero').should('not.exist')
