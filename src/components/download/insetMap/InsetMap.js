@@ -5,6 +5,10 @@ import mapApi from '../../map/MapApi.js'
 import InsetMapOutline from './InsetMapOutline.js'
 import styles from './styles/InsetMap.module.css'
 
+const maxHeight = 260
+const minHeight = 80
+const topMargin = 8
+
 const InsetMap = ({ mainMap, isSplitView }) => {
     const [insetMap, setInsetMap] = useState()
     const basemap = useSelector((state) => state.map.basemap.config)
@@ -57,11 +61,29 @@ const InsetMap = ({ mainMap, isSplitView }) => {
     useEffect(() => {
         if (insetMap) {
             const mapEl = mapContainer.current
-            const panelEl = mapEl.parentElement
+            // const panelEl = mapEl.parentElement
+            let mapHeight = mapEl.clientHeight
 
-            mapEl.style.height = `300px`
+            if (mapHeight > maxHeight) {
+                mapHeight = maxHeight
+            } else if (mapHeight < minHeight) {
+                mapHeight = minHeight
+            }
 
+            mapEl.style.height = `${mapHeight}px`
+
+            console.log('mapHeight', mapHeight, mapEl)
+
+            /*
             const isOverflowing = panelEl.clientHeight < panelEl.scrollHeight
+
+            console.log(
+                'isOverflowing',
+                isOverflowing,
+                mapEl.clientHeight,
+                mapEl.scrollHeight,
+                mapEl
+            )
 
             if (isOverflowing) {
                 const mapHeight =
@@ -69,8 +91,9 @@ const InsetMap = ({ mainMap, isSplitView }) => {
 
                 mapEl.style.height = `${mapHeight}px`
 
-                // console.log('isOverflowing', mapHeight)
+                console.log('isOverflowing', mapHeight)
             }
+            */
 
             insetMap.resize()
         }

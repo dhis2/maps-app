@@ -7,8 +7,9 @@ import {
     setDownloadProperty,
 } from '../../actions/download.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
+import { getSplitViewLayer } from '../../util/helpers.js'
 import Drawer from '../core/Drawer.js'
-import { Checkbox } from '../core/index.js'
+import { Checkbox, Help } from '../core/index.js'
 import styles from './styles/DownloadDialog.module.css'
 
 const DownloadDialog = () => {
@@ -36,6 +37,7 @@ const DownloadDialog = () => {
     }
 
     const isSupported = downloadSupport() && !error
+    const isSplitView = !!getSplitViewLayer(mapViews)
 
     const onClose = () => dispatch(toggleDownloadMode(false))
 
@@ -46,8 +48,6 @@ const DownloadDialog = () => {
         if (includeMargins) {
             mapEl = mapEl.parentNode
         }
-
-        console.log('mapEl', mapEl)
 
         downloadMapImage(mapEl, filename).then(onClose).catch(setError)
     }
@@ -81,6 +81,15 @@ const DownloadDialog = () => {
                                     )
                                 }
                             />
+                            <Help>
+                                {description
+                                    ? i18n.t(
+                                          'Change the map description under File > Rename.'
+                                      )
+                                    : i18n.t(
+                                          'Set the map description when you save the map or under File > Rename.'
+                                      )}
+                            </Help>
                             <Checkbox
                                 label={i18n.t('Show legend')}
                                 checked={showLegend}
@@ -107,6 +116,7 @@ const DownloadDialog = () => {
                             <Checkbox
                                 label={i18n.t('Show north arrow')}
                                 checked={showNorthArrow}
+                                disabled={isSplitView}
                                 onChange={(value) =>
                                     dispatch(
                                         setDownloadProperty({
@@ -126,6 +136,11 @@ const DownloadDialog = () => {
                                     )
                                 }
                             />
+                            <Help>
+                                {i18n.t(
+                                    'Resize your browser window to change the map dimensions.'
+                                )}
+                            </Help>
                         </>
                     ) : (
                         i18n.t(

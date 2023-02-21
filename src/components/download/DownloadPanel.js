@@ -14,9 +14,11 @@ const DownloadPanel = ({ map, isSplitView }) => {
 
     return (
         <div className={cx(styles.downloadPanel)}>
-            {showName && name && <h1>{name}</h1>}
-            {showDescription && description && <p>{description}</p>}
-            {showLegend && <DownloadLegend layers={mapViews} />}
+            <div>
+                {showName && name && <h1>{name}</h1>}
+                {showDescription && description && <p>{description}</p>}
+                {showLegend && <DownloadLegend layers={mapViews} />}
+            </div>
             {showInsetMap && (
                 <InsetMap mainMap={map} isSplitView={isSplitView} />
             )}
