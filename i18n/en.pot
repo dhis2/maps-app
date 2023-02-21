@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-19T19:52:22.886Z\n"
-"PO-Revision-Date: 2023-02-19T19:52:22.886Z\n"
+"POT-Creation-Date: 2023-02-21T14:09:45.303Z\n"
+"PO-Revision-Date: 2023-02-21T14:09:45.303Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -702,10 +702,13 @@ msgid ""
 "styling is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
+msgid "Use associated geometry"
 msgstr ""
 
-msgid "Use associated geometry"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
 msgstr ""
 
 msgid "Image of the organisation unit"
