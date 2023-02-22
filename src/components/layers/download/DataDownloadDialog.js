@@ -1,6 +1,12 @@
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
-import { Modal, ModalTitle, ModalContent, ModalActions } from '@dhis2/ui'
+import {
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
+    NoticeBox,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -10,9 +16,10 @@ import {
     METADATA_FORMAT_NAME,
     METADATA_FORMAT_CODE,
 } from '../../../util/metadataFormats.js'
+import { SelectField, Checkbox, Help } from '../../core/index.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
-import DataDownloadDialogContent from './DataDownloadDialogContent.js'
 import { downloadData } from './downloadData.js'
+import styles from './styles/DataDownloadDialog.module.css'
 
 const formatOptionsFlat = [
     METADATA_FORMAT_ID,
@@ -82,16 +89,44 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
         >
             <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
             <ModalContent>
-                <DataDownloadDialogContent
-                    isEventLayer={layer.layer === EVENT_LAYER}
-                    error={error}
-                    layerName={layer.name}
-                    formatOptions={formatOptions}
-                    selectedFormatOption={selectedFormat + 1}
-                    humanReadableChecked={humanReadable}
-                    onChangeFormatOption={onChangeFormat}
-                    onCheckHumanReadable={onChangeHumanReadable}
-                />
+                <div className={styles.contentDiv}>
+                    {i18n.t('Downloading GeoJSON data for "{{layerName}}"', {
+                        layerName: layer.name,
+                    })}
+                </div>
+                <Help>
+                    {i18n.t(
+                        'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
+                    )}
+                </Help>
+                {layer.layer === EVENT_LAYER && (
+                    <div className={styles.inputContainer}>
+                        <>
+                            <div className={styles.headingDiv}>
+                                {i18n.t('GeoJSON Properties:')}
+                            </div>
+                            <div className={styles.selectField}>
+                                <SelectField
+                                    label={i18n.t('ID Format')}
+                                    items={formatOptions}
+                                    value={selectedFormat + 1}
+                                    onChange={onChangeFormat}
+                                />
+                            </div>
+                            <Checkbox
+                                className={styles.checkboxRoot}
+                                label={i18n.t('Use human-readable keys')}
+                                checked={humanReadable}
+                                onChange={onChangeHumanReadable}
+                            />
+                        </>
+                    </div>
+                )}
+                {error && (
+                    <NoticeBox error>
+                        {i18n.t('Data download failed.')}
+                    </NoticeBox>
+                )}
             </ModalContent>
             <ModalActions>
                 <DataDownloadDialogActions
