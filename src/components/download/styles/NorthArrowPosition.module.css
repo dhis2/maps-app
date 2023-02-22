@@ -1,11 +1,10 @@
 .root {
-    width: 200px;
-    padding-left: var(--spacers-dp64);
+    padding-left: 23px;
 }
 
 .label {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     padding-bottom: var(--spacers-dp8);
     color: rgb(33, 41, 52);
 }

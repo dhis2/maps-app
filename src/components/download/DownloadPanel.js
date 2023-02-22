@@ -11,22 +11,32 @@ const DownloadPanel = ({ map, isSplitView }) => {
     const [resizeCount, setResizeCount] = useState(0)
     const { height } = useWindowDimensions()
 
-    const { showName, showDescription, showLegend, showInsetMap } = useSelector(
-        (state) => state.download
-    )
+    const {
+        showName,
+        showDescription,
+        showLegend,
+        showInLegend,
+        showInsetMap,
+    } = useSelector((state) => state.download)
 
     const { mapViews, name, description } = useSelector((state) => state.map)
 
     useEffect(() => {
         setResizeCount((count) => count + 1)
-    }, [showName, showDescription, showLegend, height])
+    }, [showName, showDescription, showInLegend, height])
 
     return (
         <div className={cx(styles.downloadPanel)}>
             <div>
                 {showName && name && <h1>{name}</h1>}
                 {showDescription && description && <p>{description}</p>}
-                {showLegend && <DownloadLegend layers={mapViews} />}
+                {showLegend && (
+                    <DownloadLegend
+                        layers={mapViews.filter((l) =>
+                            showInLegend.includes(l.id)
+                        )}
+                    />
+                )}
             </div>
             {showInsetMap && (
                 <InsetMap

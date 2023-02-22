@@ -5,9 +5,13 @@
 }
 
 .dialogContent {
-    padding-bottom: var(--spacers-dp24);
+    padding-bottom: var(--spacers-dp8);
 }
 
 .checkbox {
     padding-bottom: var(--spacers-dp16);
+}
+
+.help {
+    padding-top: var(--spacers-dp4);
 }

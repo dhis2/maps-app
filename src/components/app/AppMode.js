@@ -58,11 +58,13 @@ const MapMode = () => {
     // Fit layer bounds when app mode is toggled
     useEffect(() => {
         if (map) {
-            map.getMapGL().once('resize', () =>
+            map.getMapGL().once('resize', () => {
                 map.fitBounds(map.getLayersBounds(), {
                     padding: 40,
                 })
-            )
+            })
+
+            setTimeout(() => map.resize(), 500)
         }
     }, [map, downloadMode])
 

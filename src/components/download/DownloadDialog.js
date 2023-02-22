@@ -10,6 +10,7 @@ import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
+import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadDialog.module.css'
 
@@ -22,14 +23,15 @@ const DownloadDialog = () => {
         showName,
         showDescription,
         showLegend,
+        showInLegend,
         showInsetMap,
         showNorthArrow,
         northArrowPosition,
         includeMargins,
     } = useSelector((state) => state.download)
 
-    const hasLegend = useMemo(
-        () => mapViews.filter((layer) => layer.legend).length > 0,
+    const legendLayers = useMemo(
+        () => mapViews.filter((layer) => layer.legend),
         [mapViews]
     )
 
@@ -41,11 +43,12 @@ const DownloadDialog = () => {
             setDownloadProperty({
                 showName: !!name,
                 showDescription: !!description,
-                showLegend: hasLegend,
+                showLegend: !!legendLayers.length,
+                showInLegend: legendLayers.map((l) => l.id),
                 showInsetMap: hasLayers,
             })
         )
-    }, [name, description, hasLegend, hasLayers, dispatch])
+    }, [name, description, legendLayers, hasLayers, dispatch])
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
@@ -92,19 +95,10 @@ const DownloadDialog = () => {
                                     )
                                 }
                             />
-                            <Help>
-                                {description
-                                    ? i18n.t(
-                                          'Change the map description under File > Rename.'
-                                      )
-                                    : i18n.t(
-                                          'Set the map description when you save the map or under File > Rename.'
-                                      )}
-                            </Help>
                             <Checkbox
                                 label={i18n.t('Show legend')}
                                 checked={showLegend}
-                                disabled={!hasLegend}
+                                disabled={!legendLayers.length}
                                 onChange={(value) =>
                                     dispatch(
                                         setDownloadProperty({
@@ -113,6 +107,12 @@ const DownloadDialog = () => {
                                     )
                                 }
                             />
+                            {showLegend && legendLayers.length > 1 && (
+                                <LegendLayers
+                                    layers={legendLayers}
+                                    show={showInLegend}
+                                />
+                            )}
                             <Checkbox
                                 label={i18n.t('Show inset map')}
                                 checked={showInsetMap}
@@ -139,7 +139,6 @@ const DownloadDialog = () => {
                             {showNorthArrow && (
                                 <NorthArrowPosition
                                     position={northArrowPosition}
-                                    // onChange={(v) =>dispatch(setDownloadLegendPosition(v))}
                                     onChange={(value) =>
                                         dispatch(
                                             setDownloadProperty({
@@ -160,11 +159,24 @@ const DownloadDialog = () => {
                                     )
                                 }
                             />
-                            <Help>
-                                {i18n.t(
-                                    'Resize your browser window to change the map dimensions.'
-                                )}
-                            </Help>
+                            <div className={styles.help}>
+                                <Help>
+                                    <p>
+                                        {description
+                                            ? i18n.t(
+                                                  'Change the map description under File > Rename.'
+                                              )
+                                            : i18n.t(
+                                                  'Set the map description when you save the map or under File > Rename.'
+                                              )}
+                                    </p>
+                                    <p>
+                                        {i18n.t(
+                                            'Resize your browser window to change the map dimensions.'
+                                        )}
+                                    </p>
+                                </Help>
+                            </div>
                         </>
                     ) : (
                         i18n.t(

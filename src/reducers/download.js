@@ -5,6 +5,7 @@ const defaultState = {
     showName: true,
     showDescription: true,
     showLegend: true,
+    showInLegend: [],
     showInsetMap: true,
     showNorthArrow: true,
     northArrowPosition: 'bottomright',
