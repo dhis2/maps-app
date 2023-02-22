@@ -30,7 +30,7 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/analytics": "^24.4.0",
+        "@dhis2/analytics": "^24.8.0",
         "@dhis2/app-runtime": "^3.8.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-alerts": "^3.6.2",
@@ -40,7 +40,7 @@
         "@dhis2/d2-ui-org-unit-dialog": "^7.4.0",
         "@dhis2/d2-ui-org-unit-tree": "^7.4.0",
         "@dhis2/maps-gl": "^3.7.0",
-        "@dhis2/ui": "^8.7.7",
+        "@dhis2/ui": "^8.11.0",
         "@mapbox/point-geometry": "^0.1.0",
         "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^4.0.0",
@@ -58,7 +58,7 @@
         "file-saver": "^2.0.5",
         "html-to-image": "^1.10.8",
         "lodash": "^4.17.21",
-        "loglevel": "^1.8.0",
+        "loglevel": "^1.8.1",
         "promise-polyfill": "^8.2.3",
         "prop-types": "^15.8.1",
         "react": "^16.14.0",

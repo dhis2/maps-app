@@ -110,6 +110,8 @@ describe('systemSettings', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
             .selectIndicator('VCCT post-test counselling rate')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateCardPeriod('Last 6 months')
@@ -135,6 +137,8 @@ describe('systemSettings', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
             .selectIndicator('VCCT post-test counselling rate')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateCardPeriod('Last 12 months')

@@ -11,7 +11,6 @@ import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
 import { tSetExternalLayers } from '../../actions/externalLayers.js'
 import { tOpenMap } from '../../actions/map.js'
-import { tSetOrgUnitTree } from '../../actions/orgUnits.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
 import FatalErrorBoundary from '../errors/FatalErrorBoundary.js'
@@ -27,7 +26,6 @@ const App = () => {
 
     useEffect(() => {
         async function fetchData() {
-            await dispatch(tSetOrgUnitTree())
             await dispatch(tSetExternalLayers(engine))
 
             const mapId = getUrlParameter('id')
