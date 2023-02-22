@@ -13,15 +13,6 @@ jest.mock('../../../actions/download', () => {
 })
 
 /* eslint-disable react/prop-types */
-jest.mock('../DownloadDialog.js', () => {
-    return {
-        __esModule: true,
-        default: function Mock(props) {
-            return <div className="ui-DownloadDialog">{props.children}</div>
-        },
-    }
-})
-
 jest.mock('../../core/index.js', () => {
     return {
         MenuButton: function Mock(props) {
@@ -34,7 +25,7 @@ jest.mock('../../core/index.js', () => {
 const mockStore = configureMockStore()
 
 describe('DownloadButton', () => {
-    it('renders menu button and download dialog', () => {
+    it('renders a download button', () => {
         const store = {}
 
         const { container } = render(
