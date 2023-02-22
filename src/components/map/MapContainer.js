@@ -11,7 +11,6 @@ import MapView from './MapView.js'
 const MapContainer = ({ resizeCount, setMap }) => {
     const { basemap, newLayerIsLoading, coordinatePopup, mapViews, bounds } =
         useSelector((state) => state.map)
-    const { downloadMode } = useSelector((state) => state.download)
     const interpretationModalOpen = useSelector(
         (state) => !!state.interpretation.id
     )
@@ -24,7 +23,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
 
     return (
         <>
-            {!downloadMode && <MapName />}
+            <MapName />
             <MapView
                 isPlugin={false}
                 basemap={basemapConfig}
