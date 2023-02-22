@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useState, useCallback, useEffect } from 'react'
 import { GEOJSON_LAYER } from '../../../constants/layers.js'
 
-const layerId = 'inset-outline'
+const layerId = 'overview-outline'
 
 // Returns a feature with the main map outline (with bearing and pitch)
 const getMapOutline = (map) => {
@@ -29,7 +29,7 @@ const getMapOutline = (map) => {
     }
 }
 
-const InsetMapOutline = ({ mainMap, insetMap, isDark = false }) => {
+const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
     const [outline, setOutline] = useState(getMapOutline(mainMap))
     const [sourceId, setSourceId] = useState()
 
@@ -59,25 +59,25 @@ const InsetMapOutline = ({ mainMap, insetMap, isDark = false }) => {
             }
 
             if (!sourceId) {
-                const layer = insetMap.createLayer(config)
-                insetMap.addLayer(layer)
+                const layer = overviewMap.createLayer(config)
+                overviewMap.addLayer(layer)
                 setSourceId(layer.getId())
             } else {
-                const source = insetMap.getMapGL().getSource(sourceId)
+                const source = overviewMap.getMapGL().getSource(sourceId)
                 if (source) {
                     source.setData(outline)
                 }
             }
         }
-    }, [insetMap, outline, sourceId, isDark])
+    }, [overviewMap, outline, sourceId, isDark])
 
     return null
 }
 
-InsetMapOutline.propTypes = {
-    insetMap: PropTypes.object.isRequired,
+OverviewMapOutline.propTypes = {
     mainMap: PropTypes.object.isRequired,
+    overviewMap: PropTypes.object.isRequired,
     isDark: PropTypes.bool,
 }
 
-export default InsetMapOutline
+export default OverviewMapOutline

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-21T14:23:27.519Z\n"
-"PO-Revision-Date: 2023-02-21T14:23:27.519Z\n"
+"POT-Creation-Date: 2023-02-22T10:41:28.367Z\n"
+"PO-Revision-Date: 2023-02-22T10:41:28.367Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -161,22 +161,22 @@ msgstr ""
 msgid "Show map description"
 msgstr ""
 
-msgid "Change the map description under File > Rename."
-msgstr ""
-
-msgid "Set the map description when you save the map or under File > Rename."
-msgstr ""
-
 msgid "Show legend"
 msgstr ""
 
-msgid "Show inset map"
+msgid "Show overview map"
 msgstr ""
 
 msgid "Show north arrow"
 msgstr ""
 
 msgid "Include margins in download"
+msgstr ""
+
+msgid "Change the map description under File > Rename."
+msgstr ""
+
+msgid "Set the map description when you save the map or under File > Rename."
 msgstr ""
 
 msgid "Resize your browser window to change the map dimensions."

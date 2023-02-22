@@ -24,7 +24,7 @@ const DownloadDialog = () => {
         showDescription,
         showLegend,
         showInLegend,
-        showInsetMap,
+        showOverviewMap,
         showNorthArrow,
         northArrowPosition,
         includeMargins,
@@ -45,7 +45,7 @@ const DownloadDialog = () => {
                 showDescription: !!description,
                 showLegend: !!legendLayers.length,
                 showInLegend: legendLayers.map((l) => l.id),
-                showInsetMap: hasLayers,
+                showOverviewMap: hasLayers,
             })
         )
     }, [name, description, legendLayers, hasLayers, dispatch])
@@ -114,12 +114,12 @@ const DownloadDialog = () => {
                                 />
                             )}
                             <Checkbox
-                                label={i18n.t('Show inset map')}
-                                checked={showInsetMap}
+                                label={i18n.t('Show overview map')}
+                                checked={showOverviewMap}
                                 onChange={(value) =>
                                     dispatch(
                                         setDownloadProperty({
-                                            showInsetMap: value,
+                                            showOverviewMap: value,
                                         })
                                     )
                                 }

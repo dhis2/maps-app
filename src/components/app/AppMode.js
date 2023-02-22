@@ -22,7 +22,7 @@ const MapMode = () => {
         showName,
         showDescription,
         showLegend,
-        showInsetMap,
+        showOverviewMap,
         showNorthArrow,
     } = useSelector((state) => state.download)
     const layers = useSelector((state) => state.map.mapViews)
@@ -33,7 +33,7 @@ const MapMode = () => {
 
     const downloadPanelOpen =
         downloadMode &&
-        (showName || showDescription || showLegend || showInsetMap)
+        (showName || showDescription || showLegend || showOverviewMap)
 
     const isSplitView = !!getSplitViewLayer(layers)
 

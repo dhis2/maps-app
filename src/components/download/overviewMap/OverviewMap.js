@@ -4,28 +4,31 @@ import { useSelector } from 'react-redux'
 import useBasemapConfig from '../../../hooks/useBasemapConfig.js'
 import { BASEMAP_LAYER_INDEX } from '../../map/layers/BasemapLayer.js'
 import mapApi from '../../map/MapApi.js'
-import InsetMapOutline from './InsetMapOutline.js'
-import styles from './styles/InsetMap.module.css'
+import OverviewMapOutline from './OverviewMapOutline.js'
+import styles from './styles/OverviewMap.module.css'
 
 const maxHeight = 260
 const minHeight = 80
 
-const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
-    const [insetMap, setInsetMap] = useState()
+const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
+    const [overviewMap, setOverviewMap] = useState()
     const basemap = useSelector((state) => state.map.basemap)
     const { config, isDark } = useBasemapConfig(basemap)
     const mapContainer = useRef()
 
-    const onInsetMapReady = useCallback((evt) => setInsetMap(evt.target), [])
+    const onOverviewMapReady = useCallback(
+        (evt) => setOverviewMap(evt.target),
+        []
+    )
 
     const onMainMapMove = useCallback(() => {
-        if (insetMap) {
-            const mapGl = insetMap.getMapGL()
+        if (overviewMap) {
+            const mapGl = overviewMap.getMapGL()
             mapGl.resize()
             mapGl.setCenter(mainMap.getCenter())
             mapGl.setZoom(mainMap.getZoom() - (isSplitView ? 2 : 4))
         }
-    }, [mainMap, insetMap, isSplitView])
+    }, [mainMap, overviewMap, isSplitView])
 
     useEffect(() => {
         mainMap.on('move', onMainMapMove)
@@ -43,37 +46,37 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
             minZoom: 0,
         })
 
-        map.once('ready', onInsetMapReady)
+        map.once('ready', onOverviewMapReady)
 
         return () => {
-            map.off('ready', onInsetMapReady)
+            map.off('ready', onOverviewMapReady)
         }
-    }, [onInsetMapReady])
+    }, [onOverviewMapReady])
 
     useEffect(() => {
-        if (insetMap) {
-            mapContainer.current.appendChild(insetMap.getContainer())
+        if (overviewMap) {
+            mapContainer.current.appendChild(overviewMap.getContainer())
         }
-    }, [insetMap])
+    }, [overviewMap])
 
     useEffect(() => {
-        if (insetMap && config) {
-            const basemapLayer = insetMap.createLayer({
+        if (overviewMap && config) {
+            const basemapLayer = overviewMap.createLayer({
                 ...config,
                 index: BASEMAP_LAYER_INDEX,
             })
-            insetMap.addLayer(basemapLayer)
+            overviewMap.addLayer(basemapLayer)
         }
-    }, [insetMap, config])
+    }, [overviewMap, config])
 
     useEffect(() => {
-        if (insetMap) {
+        if (overviewMap) {
             onMainMapMove()
         }
-    }, [insetMap, onMainMapMove])
+    }, [overviewMap, onMainMapMove])
 
     useEffect(() => {
-        if (insetMap) {
+        if (overviewMap) {
             const mapEl = mapContainer.current
 
             mapEl.style.display = 'block'
@@ -87,20 +90,20 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
 
             if (mapHeight > minHeight) {
                 mapEl.style.height = `${mapHeight}px`
-                insetMap.resize()
+                overviewMap.resize()
             } else {
                 // No room for inset map
                 mapEl.style.display = 'none'
             }
         }
-    }, [insetMap, mapContainer, resizeCount])
+    }, [overviewMap, mapContainer, resizeCount])
 
     return (
-        <div ref={mapContainer} className={styles.insetMap}>
-            {insetMap && (
-                <InsetMapOutline
+        <div ref={mapContainer} className={styles.overviewMap}>
+            {overviewMap && (
+                <OverviewMapOutline
                     mainMap={mainMap}
-                    insetMap={insetMap}
+                    overviewMap={overviewMap}
                     isDark={isDark}
                 />
             )}
@@ -108,10 +111,10 @@ const InsetMap = ({ mainMap, isSplitView, resizeCount }) => {
     )
 }
 
-InsetMap.propTypes = {
+OverviewMap.propTypes = {
     mainMap: PropTypes.object.isRequired,
     isSplitView: PropTypes.bool,
     resizeCount: PropTypes.number,
 }
 
-export default InsetMap
+export default OverviewMap
