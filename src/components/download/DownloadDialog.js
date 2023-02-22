@@ -52,6 +52,7 @@ const DownloadDialog = () => {
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
+    const showMarginsCheckbox = false // Not in use
 
     const onClose = () => dispatch(toggleDownloadMode(false))
 
@@ -148,17 +149,21 @@ const DownloadDialog = () => {
                                     }
                                 />
                             )}
-                            <Checkbox
-                                label={i18n.t('Include margins in download')}
-                                checked={includeMargins}
-                                onChange={(value) =>
-                                    dispatch(
-                                        setDownloadProperty({
-                                            includeMargins: value,
-                                        })
-                                    )
-                                }
-                            />
+                            {showMarginsCheckbox && (
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Include margins in download'
+                                    )}
+                                    checked={includeMargins}
+                                    onChange={(value) =>
+                                        dispatch(
+                                            setDownloadProperty({
+                                                includeMargins: value,
+                                            })
+                                        )
+                                    }
+                                />
+                            )}
                             <div className={styles.help}>
                                 <Help>
                                     <p>
