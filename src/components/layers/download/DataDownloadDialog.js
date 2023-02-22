@@ -1,9 +1,9 @@
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
 import { Modal, ModalTitle, ModalContent, ModalActions } from '@dhis2/ui'
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { closeDataDownloadDialog } from '../../../actions/dataDownload.js'
+import { useSelector } from 'react-redux'
 import { EVENT_LAYER } from '../../../constants/layers.js'
 import {
     METADATA_FORMAT_ID,
@@ -24,19 +24,14 @@ const formatOptions = formatOptionsFlat.map((name, i) => ({
     name,
 }))
 
-const DataDownloadDialog = () => {
+const DataDownloadDialog = ({ layer, onCloseDialog }) => {
     const { d2 } = useD2()
     const [selectedFormat, setSelectedFormat] = useState(2)
     const [humanReadable, setHumanReadable] = useState(true)
     const [isDownloading, setIsDownloading] = useState(false)
     const [error, setError] = useState(null)
 
-    const dispatch = useDispatch()
-    const { mapViews } = useSelector((state) => state.map)
     const aggregations = useSelector((state) => state.aggregations)
-    const { layerid, dialogOpen } = useSelector((state) => state.dataDownload)
-
-    const layer = mapViews.find((l) => l.id === layerid)
 
     const onChangeFormat = (format) => {
         setError(null)
@@ -48,9 +43,9 @@ const DataDownloadDialog = () => {
         setHumanReadable(isChecked)
     }
 
-    const onCloseDialog = () => {
+    const onClose = () => {
         setError(null)
-        dispatch(closeDataDownloadDialog())
+        onCloseDialog()
     }
 
     const onStartDownload = async () => {
@@ -59,13 +54,13 @@ const DataDownloadDialog = () => {
         try {
             await downloadData({
                 layer,
-                aggregations: aggregations[layerid],
+                aggregations: aggregations[layer.id],
                 format: formatOptionsFlat[selectedFormat],
                 humanReadableKeys: humanReadable,
                 d2,
             })
             setIsDownloading(false)
-            onCloseDialog()
+            onClose()
         } catch (e) {
             console.log('download failed', e)
             setIsDownloading(false)
@@ -73,11 +68,7 @@ const DataDownloadDialog = () => {
         }
     }
 
-    if (!dialogOpen || !layer) {
-        return null
-    }
-
-    if (dialogOpen && !layer) {
+    if (!layer) {
         console.error(
             'Tried to open data download dialog without specifying a source layer!'
         )
@@ -86,7 +77,7 @@ const DataDownloadDialog = () => {
     return (
         <Modal
             position="middle"
-            onClose={onCloseDialog}
+            onClose={onClose}
             dataTest="data-download-modal"
         >
             <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
@@ -106,11 +97,20 @@ const DataDownloadDialog = () => {
                 <DataDownloadDialogActions
                     downloading={isDownloading}
                     onStartClick={onStartDownload}
-                    onCancelClick={onCloseDialog}
+                    onCancelClick={onClose}
                 />
             </ModalActions>
         </Modal>
     )
+}
+
+DataDownloadDialog.propTypes = {
+    onCloseDialog: PropTypes.func.isRequired,
+    layer: PropTypes.shape({
+        id: PropTypes.string,
+        layer: PropTypes.string,
+        name: PropTypes.string,
+    }),
 }
 
 export default DataDownloadDialog

@@ -20,7 +20,6 @@ import BottomPanel from '../datatable/BottomPanel.js'
 import LayerEdit from '../edit/LayerEdit.js'
 import FatalErrorBoundary from '../errors/FatalErrorBoundary.js'
 import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
-import DataDownloadDialog from '../layers/download/DataDownloadDialog.js'
 import LayersPanel from '../layers/LayersPanel.js'
 import LayersToggle from '../layers/LayersToggle.js'
 import LayersLoader from '../loaders/LayersLoader.js'
@@ -88,7 +87,6 @@ const App = () => {
                     <LayerEdit />
                     <ContextMenu />
                     <AlertStack />
-                    <DataDownloadDialog />
                     <OpenAsMapDialog />
                     <OrgUnitProfile />
                 </div>
