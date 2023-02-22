@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import DownloadLegend from './DownloadLegend.js'
-import OverviewMap from './overviewMap/OverviewMap.js'
+import OverviewMap from './OverviewMap.js'
 import styles from './styles/DownloadPanel.module.css'
 
 const DownloadPanel = ({ map, isSplitView }) => {

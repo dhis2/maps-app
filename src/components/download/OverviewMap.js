@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import useBasemapConfig from '../../../hooks/useBasemapConfig.js'
-import { BASEMAP_LAYER_INDEX } from '../../map/layers/BasemapLayer.js'
-import mapApi from '../../map/MapApi.js'
+import useBasemapConfig from '../../hooks/useBasemapConfig.js'
+import { BASEMAP_LAYER_INDEX } from '../map/layers/BasemapLayer.js'
+import mapApi from '../map/MapApi.js'
 import OverviewMapOutline from './OverviewMapOutline.js'
 import styles from './styles/OverviewMap.module.css'
 
