@@ -7,14 +7,12 @@ import {
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
-import DownloadMode from '../download/DownloadMode.js'
 import DownloadPanel from '../download/DownloadPanel.js'
 import NorthArrow from '../download/NorthArrow.js'
 import MapContainer from '../map/MapContainer.js'
-import MainMode from './MainMode.js'
-import styles from './styles/AppMode.module.css'
+import styles from './styles/MapPosition.module.css'
 
-const MapMode = () => {
+const MapPosition = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
     const {
@@ -69,47 +67,41 @@ const MapMode = () => {
     }, [map, downloadMode])
 
     return (
-        <>
-            {downloadMode ? <DownloadMode /> : <MainMode />}
-            <div className={styles.mapPosition} style={mapPosition}>
+        <div className={styles.mapPosition} style={mapPosition}>
+            <div
+                className={cx({
+                    [styles.mapDownload]: downloadMode,
+                    [styles.downloadPanelOpen]: downloadPanelOpen,
+                })}
+            >
                 <div
-                    className={cx({
-                        [styles.mapDownload]: downloadMode,
-                        [styles.downloadPanelOpen]: downloadPanelOpen,
+                    id="dhis2-map-container"
+                    data-test="dhis2-map-container"
+                    className={cx(styles.mapContainer, {
+                        'dhis2-map-download': downloadMode,
                     })}
                 >
-                    <div
-                        id="dhis2-map-container"
-                        data-test="dhis2-map-container"
-                        className={cx(styles.mapContainer, {
-                            'dhis2-map-download': downloadMode,
-                        })}
-                    >
-                        <MapContainer
-                            resizeCount={resizeCount}
-                            setMap={setMap}
-                        />
-                        {downloadMode && map && (
-                            <>
-                                {downloadPanelOpen && (
-                                    <DownloadPanel
-                                        map={map.getMapGL()}
-                                        isSplitView={isSplitView}
-                                    />
-                                )}
-                                {showNorthArrow && (
-                                    <NorthArrow
-                                        map={map.getMapGL()}
-                                        downloadPanelOpen={downloadPanelOpen}
-                                    />
-                                )}
-                            </>
-                        )}
-                    </div>
+                    <MapContainer resizeCount={resizeCount} setMap={setMap} />
+                    {downloadMode && map && (
+                        <>
+                            {downloadPanelOpen && (
+                                <DownloadPanel
+                                    map={map.getMapGL()}
+                                    isSplitView={isSplitView}
+                                />
+                            )}
+                            {showNorthArrow && (
+                                <NorthArrow
+                                    map={map.getMapGL()}
+                                    downloadPanelOpen={downloadPanelOpen}
+                                />
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
-export default MapMode
+export default MapPosition

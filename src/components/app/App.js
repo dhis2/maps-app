@@ -3,8 +3,7 @@ import 'typeface-roboto'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { AlertsProvider } from '@dhis2/app-service-alerts'
 import { useSetting } from '@dhis2/app-service-datastore'
-import i18n from '@dhis2/d2-i18n'
-import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui'
+import { CssReset, CssVariables } from '@dhis2/ui'
 import isEmpty from 'lodash/isEmpty'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -15,17 +14,9 @@ import { tOpenMap } from '../../actions/map.js'
 import { tSetOrgUnitTree } from '../../actions/orgUnits.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
-import AlertStack from '../alerts/AlertStack.js'
-import BottomPanel from '../datatable/BottomPanel.js'
-import LayerEdit from '../edit/LayerEdit.js'
 import FatalErrorBoundary from '../errors/FatalErrorBoundary.js'
-import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
-import DataDownloadDialog from '../layers/download/DataDownloadDialog.js'
-import ContextMenu from '../map/ContextMenu.js'
-import OpenAsMapDialog from '../openAs/OpenAsMapDialog.js'
-import OrgUnitProfile from '../orgunits/OrgUnitProfile.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
-import AppMode from './AppMode.js'
+import AppLayout from './AppLayout.js'
 import styles from './styles/App.module.css'
 
 const App = () => {
@@ -67,16 +58,7 @@ const App = () => {
                 <div className={styles.app}>
                     <CssReset />
                     <CssVariables colors spacers theme />
-                    <HeaderBar appName={i18n.t('Maps')} />
-                    <InterpretationsPanel />
-                    <AppMode />
-                    <BottomPanel />
-                    <LayerEdit />
-                    <ContextMenu />
-                    <AlertStack />
-                    <DataDownloadDialog />
-                    <OpenAsMapDialog />
-                    <OrgUnitProfile />
+                    <AppLayout />
                 </div>
             </AlertsProvider>
         </FatalErrorBoundary>
