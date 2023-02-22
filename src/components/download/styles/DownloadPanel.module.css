@@ -28,3 +28,14 @@
 .downloadPanel div a:visited {
     color: var(--colors-grey900);
 }
+
+.downloadPanel table {
+    table-layout:fixed;
+}
+
+.downloadPanel table td {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 330px;
+}

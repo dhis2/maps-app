@@ -25,6 +25,7 @@ const DownloadDialog = () => {
         showLegend,
         showInLegend,
         showOverviewMap,
+        hasOverviewMapSpace,
         showNorthArrow,
         northArrowPosition,
         includeMargins,
@@ -117,6 +118,7 @@ const DownloadDialog = () => {
                             <Checkbox
                                 label={i18n.t('Show overview map')}
                                 checked={showOverviewMap}
+                                disabled={!hasOverviewMapSpace}
                                 onChange={(value) =>
                                     dispatch(
                                         setDownloadProperty({

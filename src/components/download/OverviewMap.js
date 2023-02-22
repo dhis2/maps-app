@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setDownloadProperty } from '../../actions/download.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import { BASEMAP_LAYER_INDEX } from '../map/layers/BasemapLayer.js'
 import mapApi from '../map/MapApi.js'
@@ -15,6 +16,7 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
     const basemap = useSelector((state) => state.map.basemap)
     const { config, isDark } = useBasemapConfig(basemap)
     const mapContainer = useRef()
+    const dispatch = useDispatch()
 
     const onOverviewMapReady = useCallback(
         (evt) => setOverviewMap(evt.target),
@@ -88,15 +90,23 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
                 mapHeight = maxHeight
             }
 
-            if (mapHeight > minHeight) {
+            const hasSpace = mapHeight > minHeight
+
+            if (hasSpace) {
                 mapEl.style.height = `${mapHeight}px`
                 overviewMap.resize()
             } else {
-                // No room for inset map
                 mapEl.style.display = 'none'
             }
+
+            // Disable overview map checkbox if no space
+            dispatch(
+                setDownloadProperty({
+                    hasOverviewMapSpace: hasSpace,
+                })
+            )
         }
-    }, [overviewMap, mapContainer, resizeCount])
+    }, [overviewMap, mapContainer, resizeCount, dispatch])
 
     return (
         <div ref={mapContainer} className={styles.overviewMap}>

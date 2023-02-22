@@ -7,6 +7,7 @@ const defaultState = {
     showLegend: true,
     showInLegend: [],
     showOverviewMap: true,
+    hasOverviewMapSpace: true,
     showNorthArrow: true,
     northArrowPosition: 'bottomright',
     includeMargins: true,
