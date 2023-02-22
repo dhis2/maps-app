@@ -23,7 +23,10 @@ export class Layer {
     }
 
     selectOu(ouName) {
-        cy.get('.tree-view.orgunit').contains(ouName).scrollIntoView().click()
+        cy.getByDataTest('org-unit-tree')
+            .contains(ouName)
+            .scrollIntoView()
+            .click()
 
         return this
     }

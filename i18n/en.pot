@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-01-26T18:15:41.956Z\n"
-"PO-Revision-Date: 2023-01-26T18:15:41.956Z\n"
+"POT-Creation-Date: 2023-02-21T14:09:45.303Z\n"
+"PO-Revision-Date: 2023-02-21T14:09:45.303Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -294,9 +294,6 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-msgid "Events"
-msgstr ""
-
 msgid "Group events"
 msgstr ""
 
@@ -424,24 +421,6 @@ msgid "Displaying tracked entity relationships in Maps is an experimental featur
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
-
-msgid "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-
-msgid "Selection mode"
-msgstr ""
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
 msgstr ""
 
 msgid "Tracked entity style"
@@ -723,13 +702,13 @@ msgid ""
 "styling is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr ""
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
 msgstr ""
 
 msgid "Image of the organisation unit"
@@ -771,48 +750,19 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-msgid "Select levels"
-msgstr ""
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
+msgid "Selected only"
 msgstr ""
 
-msgid "user organisation unit"
+msgid "Selected and below"
 msgstr ""
 
-msgid "right below user organisation unit"
+msgid "Selected and all below"
 msgstr ""
 
-msgid "two levels below user organisation unit"
-msgstr ""
-
-msgid "{{units}} in {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
-
-msgid "Selected organisation units"
-msgstr ""
-
-msgid "Main"
-msgstr ""
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
-msgid "User organisation units"
+msgid "Selection mode"
 msgstr ""
 
 msgid "Previous year"
@@ -1316,6 +1266,12 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr ""
+
+msgid "Tracked entities"
 msgstr ""
 
 msgid "Org units"
