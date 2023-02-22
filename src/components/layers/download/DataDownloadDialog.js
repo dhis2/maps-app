@@ -11,29 +11,17 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { EVENT_LAYER } from '../../../constants/layers.js'
-import {
-    METADATA_FORMAT_ID,
-    METADATA_FORMAT_NAME,
-    METADATA_FORMAT_CODE,
-} from '../../../util/metadataFormats.js'
+import { getFormatOptions, downloadData } from '../../../util/dataDownload.js'
 import { SelectField, Checkbox, Help } from '../../core/index.js'
+import { useUserSettings } from '../../UserSettingsProvider.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
-import { downloadData } from './downloadData.js'
 import styles from './styles/DataDownloadDialog.module.css'
 
-const formatOptionsFlat = [
-    METADATA_FORMAT_ID,
-    METADATA_FORMAT_CODE,
-    METADATA_FORMAT_NAME,
-]
-const formatOptions = formatOptionsFlat.map((name, i) => ({
-    id: i + 1,
-    name,
-}))
-
 const DataDownloadDialog = ({ layer, onCloseDialog }) => {
+    const { keyAnalysisDisplayProperty } = useUserSettings()
+    const formatOptions = getFormatOptions()
     const { d2 } = useD2()
-    const [selectedFormat, setSelectedFormat] = useState(2)
+    const [selectedFormat, setSelectedFormat] = useState(formatOptions[2])
     const [humanReadable, setHumanReadable] = useState(true)
     const [isDownloading, setIsDownloading] = useState(false)
     const [error, setError] = useState(null)
@@ -42,7 +30,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
 
     const onChangeFormat = (format) => {
         setError(null)
-        setSelectedFormat(format.id - 1)
+        setSelectedFormat(format)
     }
 
     const onChangeHumanReadable = (isChecked) => {
@@ -62,9 +50,10 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
             await downloadData({
                 layer,
                 aggregations: aggregations[layer.id],
-                format: formatOptionsFlat[selectedFormat],
+                format: selectedFormat.id,
                 humanReadableKeys: humanReadable,
                 d2,
+                nameProperty: keyAnalysisDisplayProperty,
             })
             setIsDownloading(false)
             onClose()
@@ -109,7 +98,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
                                 <SelectField
                                     label={i18n.t('ID Format')}
                                     items={formatOptions}
-                                    value={selectedFormat + 1}
+                                    value={selectedFormat?.id}
                                     onChange={onChangeFormat}
                                 />
                             </div>

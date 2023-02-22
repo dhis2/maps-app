@@ -3,11 +3,6 @@ import { DEFAULT_SYSTEM_SETTINGS } from '../constants/settings.js'
 import { apiFetch } from './api.js'
 import { getMigratedMapConfig } from './getMigratedMapConfig.js'
 import { mapFields } from './helpers.js'
-import {
-    METADATA_FORMAT_ID,
-    METADATA_FORMAT_CODE,
-    METADATA_FORMAT_NAME,
-} from './metadataFormats.js'
 // API requests
 
 // Fetch one favorite
@@ -100,27 +95,4 @@ export const getUrlParameter = (name) => {
     return results === null
         ? ''
         : decodeURIComponent(results[1].replace(/\+/g, ' '))
-}
-
-const formatEnum = {
-    [METADATA_FORMAT_ID]: 'id',
-    [METADATA_FORMAT_NAME]: 'name',
-    [METADATA_FORMAT_CODE]: 'code',
-}
-
-export const getEventColumns = async (
-    layer,
-    { format = METADATA_FORMAT_NAME, d2 }
-) => {
-    const result = await d2.models.programStage.get(layer.programStage.id, {
-        fields: `programStageDataElements[displayInReports,dataElement[id,code,displayName~rename(name)},optionSet]]`,
-        paging: false,
-    })
-    const formatKey = formatEnum[format]
-    return result.programStageDataElements
-        .filter((el) => el.displayInReports)
-        .map((el) => ({
-            dimension: el.dataElement.id,
-            name: el.dataElement[formatKey],
-        }))
 }

@@ -85,7 +85,12 @@ class EventLayer extends Layer {
 
                     eventRequest =
                         eventRequest ||
-                        (await getAnalyticsRequest(this.props, d2))
+                        (await getAnalyticsRequest(this.props, {
+                            d2,
+                            nameProperty:
+                                d2.currentUser.settings
+                                    .keyAnalysisDisplayProperty,
+                        }))
 
                     eventRequest = eventRequest
                         .withBbox(params.bbox)

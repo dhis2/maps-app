@@ -75,7 +75,10 @@ const loadEventLayer = async (config) => {
 
     config.isExtended = showDataTable
 
-    const analyticsRequest = await getAnalyticsRequest(config, d2)
+    const analyticsRequest = await getAnalyticsRequest(config, {
+        d2,
+        nameProperty: d2.currentUser.settings.keyAnalysisDisplayProperty,
+    })
     let alert
 
     config.name = programStage.name

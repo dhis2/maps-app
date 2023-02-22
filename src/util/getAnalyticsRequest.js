@@ -1,11 +1,37 @@
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem } from './geojson.js'
-import { getEventColumns } from './requests.js'
 
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
 const isValidDimension = ({ dimension, filter, items }) =>
     Boolean(dimension && (filter || !items || items.length))
+
+const METADATA_FORMAT_NAME = 'name'
+
+export const getEventColumns = async (
+    layer,
+    { format = METADATA_FORMAT_NAME, nameProperty, d2 }
+) => {
+    const displayNameProp =
+        nameProperty === 'name' ? 'displayName' : 'displayShortName'
+    console.log('nameProperty', nameProperty)
+    const result = await d2.models.programStage.get(layer.programStage.id, {
+        fields: `programStageDataElements[displayInReports,dataElement[id,code,${displayNameProp}~rename(name),optionSet]]`,
+        paging: false,
+    })
+
+    return result.programStageDataElements
+        .filter((el) => el.displayInReports)
+        .map((el, i) => {
+            if (i === 0) {
+                console.log('el', el)
+            }
+            return {
+                dimension: el.dataElement.id,
+                name: el.dataElement[format],
+            }
+        })
+}
 
 // Also used to query for server cluster in map/EventLayer.js
 // TODO: Use DataIDScheme / OutputIDScheme instead of requesting all metaData (which can easily dwarf the actual response data)
@@ -24,7 +50,7 @@ export const getAnalyticsRequest = async (
         relativePeriodDate,
         isExtended,
     },
-    d2
+    { d2, nameProperty }
 ) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
@@ -35,7 +61,10 @@ export const getAnalyticsRequest = async (
 
     // Add "display in reports" columns that are not already present
     if (isExtended) {
-        const displayColumns = await getEventColumns({ programStage }, { d2 })
+        const displayColumns = await getEventColumns(
+            { programStage },
+            { d2, nameProperty }
+        )
 
         displayColumns.forEach((col) => {
             if (!dataItems.find((item) => item.dimension === col.dimension)) {
