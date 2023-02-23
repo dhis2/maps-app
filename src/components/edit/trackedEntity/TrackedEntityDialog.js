@@ -13,9 +13,6 @@ import {
     setTrackedEntityRelationshipOutsideProgram,
     setStartDate,
     setEndDate,
-    setOrgUnitRoot,
-    toggleOrgUnit,
-    setOrgUnitMode,
     setEventPointColor,
     setEventPointRadius,
     setRelatedPointColor,
@@ -35,21 +32,16 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
 } from '../../../constants/layers.js'
-import {
-    getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
-} from '../../../util/analytics.js'
+import { getOrgUnitsFromRows } from '../../../util/analytics.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import {
     Tab,
     Tabs,
     NumberField,
-    SelectField,
     Checkbox,
     ColorPicker,
 } from '../../core/index.js'
-import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
-import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits.js'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect.js'
@@ -65,8 +57,6 @@ class TrackedEntityDialog extends Component {
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setFollowUpStatus: PropTypes.func.isRequired,
-        setOrgUnitMode: PropTypes.func.isRequired,
-        setOrgUnitRoot: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
         setRelatedPointColor: PropTypes.func.isRequired,
@@ -75,14 +65,12 @@ class TrackedEntityDialog extends Component {
         setStartDate: PropTypes.func.isRequired,
         setTrackedEntityRelationshipType: PropTypes.func.isRequired,
         setTrackedEntityType: PropTypes.func.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         endDate: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         followUp: PropTypes.bool,
-        organisationUnitSelectionMode: PropTypes.string,
         program: PropTypes.object,
         programStatus: PropTypes.string,
         relatedPointColor: PropTypes.string,
@@ -104,21 +92,12 @@ class TrackedEntityDialog extends Component {
 
     componentDidMount() {
         const {
-            rows,
             startDate,
             endDate,
             relationshipType,
-            setOrgUnitRoot,
             setStartDate,
             setEndDate,
         } = this.props
-
-        const orgUnits = getOrgUnitNodesFromRows(rows)
-
-        // Set org unit tree root as default
-        if (orgUnits.length === 0) {
-            setOrgUnitRoot()
-        }
 
         // Set default period (last year)
         if (!startDate && !endDate) {
@@ -147,17 +126,14 @@ class TrackedEntityDialog extends Component {
             eventPointColor,
             eventPointRadius,
             followUp,
-            organisationUnitSelectionMode,
             program,
             programStatus,
-            rows = [],
             startDate,
             trackedEntityType,
             relationshipType,
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
-            // relationshipOutsideProgram,
         } = this.props
 
         const {
@@ -166,9 +142,6 @@ class TrackedEntityDialog extends Component {
             setProgramStatus,
             setFollowUpStatus,
             setTrackedEntityRelationshipType,
-            // setTrackedEntityRelationshipOutsideProgram,
-            toggleOrgUnit,
-            setOrgUnitMode,
             setEventPointColor,
             setEventPointRadius,
             setRelatedPointColor,
@@ -280,26 +253,6 @@ class TrackedEntityDialog extends Component {
                                                 styles.indent
                                             )}
                                         />
-                                        {/*program && (
-                                            <Checkbox
-                                                label={i18n.t(
-                                                    'Include relationships that connect entities outside "{{program}}" program',
-                                                    {
-                                                        program: program.name,
-                                                    }
-                                                )}
-                                                checked={
-                                                    relationshipOutsideProgram ===
-                                                    true
-                                                }
-                                                onChange={
-                                                    setTrackedEntityRelationshipOutsideProgram
-                                                }
-                                                style={{
-                                                    marginTop: 30,
-                                                }}
-                                            />
-                                        )*/}
                                     </Fragment>
                                 )}
                             </div>
@@ -315,50 +268,15 @@ class TrackedEntityDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div className={styles.flexColumnFlow}>
-                            <div className={styles.orgUnitTree}>
-                                <OrgUnitTree
-                                    selected={getOrgUnitNodesFromRows(rows)}
-                                    onClick={toggleOrgUnit}
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <SelectField
-                                    label={i18n.t('Selection mode')}
-                                    items={[
-                                        {
-                                            id: 'SELECTED',
-                                            name: i18n.t('Selected only'),
-                                        },
-                                        {
-                                            id: 'CHILDREN',
-                                            name: i18n.t('Selected and below'),
-                                        },
-                                        {
-                                            id: 'DESCENDANTS',
-                                            name: i18n.t(
-                                                'Selected and all below'
-                                            ),
-                                        },
-                                    ]}
-                                    value={
-                                        organisationUnitSelectionMode ||
-                                        'SELECTED'
-                                    }
-                                    onChange={(mode) => setOrgUnitMode(mode.id)}
-                                    style={{
-                                        width: '100%',
-                                    }}
-                                />
-
-                                <SelectedOrgUnits
-                                    rows={rows}
-                                    mode={organisationUnitSelectionMode}
-                                    units={i18n.t('Tracked entities')}
-                                    error={orgUnitsError}
-                                />
-                            </div>
-                        </div>
+                        <OrgUnitSelect
+                            selectRoots={true}
+                            hideUserOrgUnits={true}
+                            hideAssociatedGeometry={true}
+                            hideSelectMode={false}
+                            hideLevelSelect={true}
+                            hideGroupSelect={true}
+                            warning={orgUnitsError}
+                        />
                     )}
                     {tab === 'style' && (
                         <div className={styles.flexColumnFlow}>
@@ -490,9 +408,6 @@ export default connect(
         setTrackedEntityRelationshipOutsideProgram,
         setStartDate,
         setEndDate,
-        setOrgUnitRoot,
-        toggleOrgUnit,
-        setOrgUnitMode,
         setEventPointColor,
         setEventPointRadius,
         setRelatedPointColor,
