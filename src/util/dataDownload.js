@@ -21,7 +21,7 @@ export const getFormatOptions = () => [
 
 const standardizeFilename = (rawName) => rawName.replace(/\s+/g, '_')
 
-const createGeoJsonBlob = (data) => {
+export const createGeoJsonBlob = (data) => {
     const geojson = {
         type: 'FeatureCollection',
         features: data,
