@@ -1,9 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import FileSaver from 'file-saver'
 import { EVENT_LAYER } from '../constants/layers.js'
-import { loadData } from '../loaders/eventLoader.js'
 import { addPropNames } from './earthEngine.js'
-import { getAnalyticsRequest, getEventColumns } from './getAnalyticsRequest.js'
+import { getAnalyticsRequest, getEventColumns, loadData } from './event.js'
 
 export const getFormatOptions = () => [
     {

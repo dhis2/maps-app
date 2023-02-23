@@ -1,5 +1,5 @@
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
-import { addStyleDataItem } from './geojson.js'
+import { addStyleDataItem, createEventFeatures } from './geojson.js'
 
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
@@ -14,7 +14,6 @@ export const getEventColumns = async (
 ) => {
     const displayNameProp =
         nameProperty === 'name' ? 'displayName' : 'displayShortName'
-    console.log('nameProperty', nameProperty)
     const result = await d2.models.programStage.get(layer.programStage.id, {
         fields: `programStageDataElements[displayInReports,dataElement[id,code,${displayNameProp}~rename(name),optionSet]]`,
         paging: false,
@@ -112,4 +111,16 @@ export const getAnalyticsRequest = async (
     }
 
     return analyticsRequest
+}
+
+export const loadData = async (request, config = {}, d2) => {
+    const response = await d2.analytics.events.getQuery(request)
+
+    const { data, names } = createEventFeatures(response, config)
+
+    return {
+        data,
+        names,
+        response,
+    }
 }

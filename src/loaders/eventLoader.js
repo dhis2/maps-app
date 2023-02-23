@@ -14,8 +14,8 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
-import { createEventFeatures, getBounds } from '../util/geojson.js'
-import { getAnalyticsRequest } from '../util/getAnalyticsRequest.js'
+import { getAnalyticsRequest, loadData } from '../util/event.js'
+import { getBounds } from '../util/geojson.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
@@ -194,18 +194,6 @@ const loadEventLayer = async (config) => {
 export const getCount = async (request) => {
     const d2 = await getD2()
     return await d2.analytics.events.getCount(request)
-}
-
-export const loadData = async (request, config = {}, d2) => {
-    const response = await d2.analytics.events.getQuery(request)
-
-    const { data, names } = createEventFeatures(response, config)
-
-    return {
-        data,
-        names,
-        response,
-    }
 }
 
 // If the layer included filters using option sets, this function return an object
