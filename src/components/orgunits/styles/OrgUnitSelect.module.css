@@ -1,0 +1,25 @@
+.orgUnitSelect {
+    margin: 0 var(--spacers-dp16);
+    height: 100%;
+}
+
+.orgUnitSelect :global(.userOrgUnitsWrapper label) {
+    margin-right: 34px;
+}
+
+.two {
+    height: calc(100% - 110px);
+}
+.one {
+    height: calc(100% - 56px);
+}
+.none {
+    height: 100%;
+}
+
+.loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
