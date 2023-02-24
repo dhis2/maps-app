@@ -104,9 +104,11 @@ const CoordinateField = ({
                 loading={loading}
                 helpText={
                     value === EVENT_COORDINATE_CASCADING
-                        ? i18n.t(
-                              'Enrollment > event > tracked entity > org unit coordinate'
-                          )
+                        ? isTrackerProgram
+                            ? i18n.t(
+                                  'Enrollment > event > tracked entity > org unit coordinate'
+                              )
+                            : i18n.t('Event > org unit coordinate')
                         : null
                 }
                 onChange={(field) => onChange(field.id)}
