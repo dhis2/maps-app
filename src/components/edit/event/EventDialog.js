@@ -11,9 +11,6 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
-    setOrgUnitRoot,
-    setUserOrgUnits,
-    toggleOrgUnit,
     setPeriod,
     setStartDate,
     setEndDate,
@@ -32,8 +29,6 @@ import { START_END_DATES } from '../../../constants/periods.js'
 import {
     getPeriodFromFilters,
     getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
-    getUserOrgUnitsFromRows,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
@@ -48,9 +43,7 @@ import {
 import CoordinateField from '../../dataItem/CoordinateField.js'
 import FilterGroup from '../../dataItem/filter/FilterGroup.js'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.js'
-import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
-import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits.js'
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
@@ -68,13 +61,10 @@ class EventDialog extends Component {
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
-        setOrgUnitRoot: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStage: PropTypes.func.isRequired,
         setStartDate: PropTypes.func.isRequired,
-        setUserOrgUnits: PropTypes.func.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         columns: PropTypes.array,
@@ -114,25 +104,17 @@ class EventDialog extends Component {
 
     componentDidMount() {
         const {
-            rows,
             filters,
             defaultPeriod,
             settings,
             startDate,
             endDate,
-            setOrgUnitRoot,
             setPeriod,
             setStartDate,
             setEndDate,
         } = this.props
 
-        const orgUnits = getOrgUnitNodesFromRows(rows)
         const period = getPeriodFromFilters(filters)
-
-        // Set org unit tree root as default
-        if (orgUnits.length === 0) {
-            setOrgUnitRoot()
-        }
 
         // Set default period from system settings
         if (
@@ -172,7 +154,6 @@ class EventDialog extends Component {
             filters = [],
             program,
             programStage,
-            rows = [],
             startDate,
             legendSet,
         } = this.props
@@ -186,8 +167,6 @@ class EventDialog extends Component {
             setEventClustering,
             setEventPointColor,
             setEventPointRadius,
-            setUserOrgUnits,
-            toggleOrgUnit,
             setPeriod,
         } = this.props
 
@@ -203,8 +182,6 @@ class EventDialog extends Component {
         const period = getPeriodFromFilters(filters) || {
             id: START_END_DATES,
         }
-
-        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows)
 
         return (
             <div className={styles.content} data-test="eventdialog">
@@ -275,33 +252,13 @@ class EventDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="eventdialog-orgunittab"
-                        >
-                            <div className={styles.orgUnitTree}>
-                                <OrgUnitTree
-                                    selected={getOrgUnitNodesFromRows(rows)}
-                                    onClick={toggleOrgUnit}
-                                    disabled={
-                                        selectedUserOrgUnits.length
-                                            ? true
-                                            : false
-                                    }
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <UserOrgUnitsSelect
-                                    selected={selectedUserOrgUnits}
-                                    onChange={setUserOrgUnits}
-                                />
-                                <SelectedOrgUnits
-                                    rows={rows}
-                                    units={i18n.t('Events')}
-                                    error={orgUnitsError}
-                                />
-                            </div>
-                        </div>
+                        <OrgUnitSelect
+                            selectRoots={true}
+                            hideAssociatedGeometry={true}
+                            hideLevelSelect={true}
+                            hideGroupSelect={true}
+                            warning={orgUnitsError}
+                        />
                     )}
                     {tab === 'filter' && (
                         <div
@@ -485,9 +442,6 @@ export default connect(
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,
-        setOrgUnitRoot,
-        setUserOrgUnits,
-        toggleOrgUnit,
         setPeriod,
         setStartDate,
         setEndDate,

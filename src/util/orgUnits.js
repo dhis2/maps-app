@@ -200,6 +200,29 @@ export const getOrgUnitLevels = async (d2) => {
         : {}
 }
 
+// Converts "LEVEL-x" to newer "LEVEL-uid" format
+export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
+    const items = orgUnits?.items || []
+
+    return items.map((item) => {
+        const levelNumber = item.id.match(/^LEVEL-([0-9])+$/)
+
+        if (levelNumber) {
+            const level = orgUnitLevels.find(
+                (l) => l.level === Number(levelNumber[1])
+            )
+
+            if (level) {
+                return {
+                    id: `LEVEL-${level.id}`,
+                }
+            }
+        }
+
+        return item
+    })
+}
+
 // Returns coordinate field from layer config
 export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
     orgUnitField && orgUnitField !== NONE
