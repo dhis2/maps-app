@@ -12,15 +12,12 @@ import {
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
 
-const EVENT_COORDINATE_FIELD_ID = 'event'
 const includeTypes = ['COORDINATE']
 
 const CoordinateField = ({
     value,
     program,
     programStage,
-    programAttributes,
-    dataElements,
     eventCoordinateField,
     onChange,
     className,
@@ -31,25 +28,18 @@ const CoordinateField = ({
         includeTypes,
     })
 
-    const prevProgram = useRef(program)
+    // const prevProgram = useRef(program)
 
     const [hasDefaultValue, setHasDefaulValue] = useState(false)
     const isTrackerProgram = !!program?.trackedEntityType
 
+    /*
     const defaultValue = eventCoordinateField
         ? EVENT_COORDINATE_CASCADING
         : EVENT_COORDINATE_DEFAULT
+    */
 
-    const programFields = useMemo(
-        () =>
-            program && programStage
-                ? [
-                      ...(programAttributes[program.id] || []),
-                      ...(dataElements[programStage.id] || []),
-                  ].filter((field) => field.valueType === 'COORDINATE')
-                : [],
-        [program, programStage, programAttributes, dataElements]
-    )
+    // console.log('eventDataItems', eventDataItems)
 
     const fields = useMemo(() => {
         const isFallback = !!eventCoordinateField
@@ -82,7 +72,9 @@ const CoordinateField = ({
             })
         }
 
-        fields.push(...programFields)
+        if (eventDataItems) {
+            fields.push(...eventDataItems)
+        }
 
         if (isFallback) {
             fields.push({
@@ -94,26 +86,18 @@ const CoordinateField = ({
         return eventCoordinateField
             ? fields.filter((f) => f.id !== eventCoordinateField)
             : fields
-    }, [isTrackerProgram, programFields, eventCoordinateField])
+    }, [isTrackerProgram, eventDataItems, eventCoordinateField])
 
+    // console.log('fields', fields)
+
+    /*
     useEffect(() => {
         if (prevProgram.current !== program) {
-            onChange(EVENT_COORDINATE_FIELD_ID)
+            onChange(EVENT_COORDINATE_DEFAULT)
             prevProgram.current = program
         }
     }, [program, onChange])
-
-    useEffect(() => {
-        if (program && !programAttributes[program.id]) {
-            loadProgramTrackedEntityAttributes(program.id)
-        }
-    }, [program, programAttributes, loadProgramTrackedEntityAttributes])
-
-    useEffect(() => {
-        if (programStage && !dataElements[programStage.id]) {
-            loadProgramStageDataElements(programStage.id)
-        }
-    }, [programStage, dataElements, loadProgramStageDataElements])
+    */
 
     // Set default value
     useEffect(() => {
@@ -142,6 +126,7 @@ const CoordinateField = ({
                 }
                 items={fields}
                 value={foundValue}
+                loading={loading}
                 helpText={
                     foundValue === EVENT_COORDINATE_CASCADING
                         ? i18n.t(
@@ -156,8 +141,6 @@ const CoordinateField = ({
 }
 
 CoordinateField.propTypes = {
-    dataElements: PropTypes.object.isRequired,
-    programAttributes: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     eventCoordinateField: PropTypes.string,

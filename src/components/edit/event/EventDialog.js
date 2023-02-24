@@ -231,6 +231,14 @@ class EventDialog extends Component {
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
                             />
+                            <CoordinateField
+                                program={program}
+                                programStage={programStage}
+                                value={fallbackCoordinateField}
+                                eventCoordinateField={eventCoordinateField}
+                                onChange={setFallbackCoordinateField}
+                                className={styles.select}
+                            />
                             <EventStatusSelect
                                 value={eventStatus}
                                 onChange={setEventStatus}

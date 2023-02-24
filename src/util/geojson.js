@@ -49,8 +49,6 @@ export const createEventFeature = (
             option = options.find((option) => option.code === value)
         }
 
-        // console.log('geometry', geometry?.type);
-
         return {
             id,
             type: geometry?.type,
@@ -67,37 +65,9 @@ export const createEventFeature = (
     }
 }
 /* eslint-enable max-params */
-
-export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
-    // If coordinate field other than event location (only points are currently supported)
-    if (eventCoordinateField !== EVENT_COORDINATE_DEFAULT) {
-        const col = findIndex(headers, (h) => h.name === eventCoordinateField)
-
-        return (event) => {
-            let coordinates = event[col]
-
-            if (typeof coordinates === 'string' && coordinates.length) {
-                try {
-                    coordinates = JSON.parse(coordinates)
-                } catch (evt) {
-                    return null
-                }
-            }
-
-            if (Array.isArray(coordinates) && isValidCoordinate(coordinates)) {
-                return {
-                    type: 'Point',
-                    coordinates,
-                }
-            }
-
-            return null
-        }
-    } else {
-        // Use event location (can be point or polygon)
-        const geomCol = findIndex(headers, (h) => h.name === 'geometry')
-        return (event) => JSON.parse(event[geomCol])
-    }
+const buildEventGeometryGetter = (headers) => {
+    const geomCol = findIndex(headers, (h) => h.name === 'geometry')
+    return (event) => JSON.parse(event[geomCol])
 }
 
 export const createEventFeatures = (response, config = {}) => {
@@ -118,6 +88,7 @@ export const createEventFeatures = (response, config = {}) => {
         response.headers,
         config && config.eventCoordinateField
     )
+
     const options = Object.values(response.metaData.items)
 
     const data = response.rows

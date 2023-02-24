@@ -220,6 +220,8 @@ export const getAnalyticsRequest = async ({
         styleDataItem
     )
 
+    console.log('loader', eventCoordinateField, fallbackCoordinateField)
+
     // Add "display in reports" columns that are not already present
     if (isExtended) {
         const displayColumns = await getEventColumns({ programStage })
