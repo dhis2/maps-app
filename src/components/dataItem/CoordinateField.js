@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useState, useRef, useMemo, useEffect } from 'react'
+import React, { useRef, useMemo, useEffect } from 'react'
 import {
     EVENT_COORDINATE_DEFAULT,
     EVENT_COORDINATE_ENROLLMENT,
@@ -28,18 +28,11 @@ const CoordinateField = ({
         includeTypes,
     })
 
-    // const prevProgram = useRef(program)
+    const prevProgram = useRef(program)
 
-    const [hasDefaultValue, setHasDefaulValue] = useState(false)
     const isTrackerProgram = !!program?.trackedEntityType
 
-    /*
-    const defaultValue = eventCoordinateField
-        ? EVENT_COORDINATE_CASCADING
-        : EVENT_COORDINATE_DEFAULT
-    */
-
-    // console.log('eventDataItems', eventDataItems)
+    const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
 
     const fields = useMemo(() => {
         const isFallback = !!eventCoordinateField
@@ -88,33 +81,13 @@ const CoordinateField = ({
             : fields
     }, [isTrackerProgram, eventDataItems, eventCoordinateField])
 
-    // console.log('fields', fields)
-
-    /*
+    // Reset default value when program is changed
     useEffect(() => {
         if (prevProgram.current !== program) {
-            onChange(EVENT_COORDINATE_DEFAULT)
+            onChange(defaultValue)
             prevProgram.current = program
         }
-    }, [program, onChange])
-    */
-
-    // Set default value
-    useEffect(() => {
-        if (!value && !hasDefaultValue) {
-            onChange(eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT)
-        } else if (eventCoordinateField && eventCoordinateField === value) {
-            // Make sure fallback coordinate is different from event coordinate
-            onChange(NONE)
-        }
-        setHasDefaulValue(true)
-    }, [value, eventCoordinateField, hasDefaultValue, onChange])
-
-    const foundValue = fields.find((f) => f.id === value)
-        ? value
-        : eventCoordinateField
-        ? NONE
-        : EVENT_COORDINATE_DEFAULT
+    }, [program, defaultValue, onChange])
 
     return (
         <div className={className}>
@@ -125,10 +98,12 @@ const CoordinateField = ({
                         : i18n.t('Coordinate field')
                 }
                 items={fields}
-                value={foundValue}
+                value={
+                    fields.find((f) => f.id === value) ? value : defaultValue
+                }
                 loading={loading}
                 helpText={
-                    foundValue === EVENT_COORDINATE_CASCADING
+                    value === EVENT_COORDINATE_CASCADING
                         ? i18n.t(
                               'Enrollment > event > tracked entity > org unit coordinate'
                           )
