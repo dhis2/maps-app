@@ -103,9 +103,6 @@ const loadEventLayer = async (config) => {
     // Style by data item is only supported in the client (donuts)
     if (eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest)
-
-        console.log('count', response.count)
-
         config.bounds = getBounds(response.extent)
         //FIXME
         //eslint-disable-next-line react-hooks/rules-of-hooks
