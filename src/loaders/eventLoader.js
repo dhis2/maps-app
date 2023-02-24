@@ -121,8 +121,6 @@ const loadEventLayer = async (config) => {
 
         config.data = data
 
-        console.log('data', data)
-
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
                 await styleByDataItem(config)
@@ -220,8 +218,6 @@ export const getAnalyticsRequest = async ({
         styleDataItem
     )
 
-    console.log('loader', eventCoordinateField, fallbackCoordinateField)
-
     // Add "display in reports" columns that are not already present
     if (isExtended) {
         const displayColumns = await getEventColumns({ programStage })
@@ -264,8 +260,6 @@ export const getAnalyticsRequest = async ({
 
     // If coordinate field other than event coordinate
     if (eventCoordinateField) {
-        console.log('eventCoordinateField', eventCoordinateField)
-
         analyticsRequest = analyticsRequest
             // .addDimension(eventCoordinateField) // Used by analytics/events/query/
             .withCoordinateField(eventCoordinateField) // Used by analytics/events/count and analytics/events/cluster
@@ -288,8 +282,6 @@ export const getAnalyticsRequest = async ({
         }
         */
     }
-
-    console.log('fallbackCoordinateField', fallbackCoordinateField)
 
     if (fallbackCoordinateField) {
         if (fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
@@ -322,8 +314,6 @@ export const getCount = async (request) => {
 export const loadData = async (request, config = {}) => {
     const d2 = await getD2()
     const response = await d2.analytics.events.getQuery(request)
-
-    console.log('response', response)
 
     const { data, names } = createEventFeatures(response, config)
 

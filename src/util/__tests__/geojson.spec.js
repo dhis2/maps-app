@@ -5,7 +5,6 @@ import {
     getBounds,
     addStyleDataItem,
     createEventFeature,
-    buildEventGeometryGetter,
     createEventFeatures,
 } from '../geojson.js'
 
