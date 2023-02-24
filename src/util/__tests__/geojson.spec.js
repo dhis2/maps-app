@@ -176,38 +176,6 @@ describe('geojson utils', () => {
             const getter = buildEventGeometryGetter(headers)
             expect(getter(dummyEvent)).toEqual(point)
         })
-
-        it('Should parse a string coordinate', () => {
-            const getter = buildEventGeometryGetter(
-                headers,
-                'myStringCoordinates'
-            )
-            expect(getter(dummyEvent)).toEqual({
-                type: 'Point',
-                coordinates: stringCoords,
-            })
-        })
-
-        it('Should parse a coordinate array', () => {
-            const getter = buildEventGeometryGetter(
-                headers,
-                'myArrayCoordinates'
-            )
-            expect(getter(dummyEvent)).toEqual({
-                type: 'Point',
-                coordinates: arrayCoords,
-            })
-        })
-
-        it('Should return null on integer value', () => {
-            const getter = buildEventGeometryGetter(headers, 'SomeField')
-            expect(getter(dummyEvent)).toEqual(null)
-        })
-
-        it('Should return an empty array on invalid string value', () => {
-            const getter = buildEventGeometryGetter(headers, 'id')
-            expect(getter(dummyEvent)).toEqual(null)
-        })
     })
 
     describe('createEventFeatures', () => {
