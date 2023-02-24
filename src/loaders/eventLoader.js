@@ -77,8 +77,6 @@ const loadEventLayer = async (config) => {
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
-    const d2 = await getD2()
-    const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport
 
     config.isExtended = showDataTable
 
@@ -103,8 +101,11 @@ const loadEventLayer = async (config) => {
 
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
-    if (spatialSupport && eventClustering && !styleDataItem) {
+    if (eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest)
+
+        console.log('count', response.count)
+
         config.bounds = getBounds(response.extent)
         //FIXME
         //eslint-disable-next-line react-hooks/rules-of-hooks
@@ -206,7 +207,7 @@ export const getAnalyticsRequest = async ({
     columns,
     styleDataItem,
     eventStatus,
-    eventCoordinateField,
+    eventCoordinateField = EVENT_COORDINATE_DEFAULT,
     fallbackCoordinateField,
     relativePeriodDate,
     isExtended,
@@ -258,30 +259,8 @@ export const getAnalyticsRequest = async ({
         })
     }
 
-    // If coordinate field other than event coordinate
-    if (eventCoordinateField) {
-        analyticsRequest = analyticsRequest
-            // .addDimension(eventCoordinateField) // Used by analytics/events/query/
-            .withCoordinateField(eventCoordinateField) // Used by analytics/events/count and analytics/events/cluster
-
-        /*
-        // Used by analytics/events/count and analytics/events/cluster
-        analyticsRequest = analyticsRequest.withCoordinateField(
-            eventCoordinateField
-        );
-
-        if (eventCoordinateField === EVENT_COORDINATE_ENROLLMENT) {
-            analyticsRequest = analyticsRequest.withParameters({
-                coordinateOuFallback: true,
-            });
-        } else {
-            // Used by analytics/events/query/
-            analyticsRequest = analyticsRequest.addDimension(
-                eventCoordinateField
-            );
-        }
-        */
-    }
+    analyticsRequest =
+        analyticsRequest.withCoordinateField(eventCoordinateField)
 
     if (fallbackCoordinateField) {
         if (fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
@@ -295,7 +274,7 @@ export const getAnalyticsRequest = async ({
         }
     } else {
         analyticsRequest = analyticsRequest.withParameters({
-            defaultCoordinateFallback: false,
+            defaultCoordinateFallback: false, // TODO: Update if backend behaviour is changed
         })
     }
 
