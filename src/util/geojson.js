@@ -62,7 +62,7 @@ export const createEventFeature = (
         geometry,
     }
 }
-/* eslint-enable max-params */
+
 export const buildEventGeometryGetter = (headers) => {
     const geomCol = findIndex(headers, (h) => h.name === 'geometry')
     return (event) => JSON.parse(event[geomCol])
@@ -86,7 +86,6 @@ export const createEventFeatures = (response, config = {}) => {
         response.headers,
         config && config.eventCoordinateField
     )
-
     const options = Object.values(response.metaData.items)
 
     const data = response.rows.map((row) =>
@@ -99,7 +98,6 @@ export const createEventFeatures = (response, config = {}) => {
             getGeometry
         )
     )
-    // .filter((f) => f.geometry) // TODO: Events without coordinates should not be returned
 
     // Sort to draw polygons before points
     data.sort((feature) => (feature.geometry.type === 'Polygon' ? -1 : 0))
