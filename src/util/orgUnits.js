@@ -49,7 +49,7 @@ export const fetchOrgUnitGroupSet = (id) =>
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
     ).then(parseGroupSet)
 
-export const filterPoints = (data) => data.filter((d) => d.ty === 1)
+export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 
 export const filterPolygons = (data) => data.filter((d) => d.ty === 2)
 

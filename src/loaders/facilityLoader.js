@@ -5,8 +5,8 @@ import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
     fetchOrgUnitGroupSet,
-    filterPoints,
-    filterPolygons,
+    getPointItems,
+    getPolygonItems,
     getStyledOrgUnits,
     getCoordinateField,
 } from '../util/orgUnits.js'
@@ -34,7 +34,7 @@ const facilityLoader = async (config) => {
             .getAll({
                 includeGroupSets,
             })
-            .then(filterPoints)
+            .then(getPointItems)
             .then(toGeoJson)
             .catch((error) => {
                 if (error && error.message) {
@@ -75,7 +75,7 @@ const facilityLoader = async (config) => {
                 coordinateField: coordinateField.id,
                 includeGroupSets,
             })
-            .then(filterPolygons)
+            .then(getPolygonItems)
             .then(toGeoJson)
 
         if (!associatedGeometries.length) {
