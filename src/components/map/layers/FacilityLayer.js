@@ -5,11 +5,13 @@ import {
     ORG_UNIT_COLOR,
     GEOJSON_LAYER,
     GROUP_LAYER,
+    LABEL_TEMPLATE_NAME_ONLY,
 } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
 import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
 import Popup from '../Popup.js'
+import Alert from './Alert.js'
 import Layer from './Layer.js'
 
 class FacilityLayer extends Layer {
@@ -60,11 +62,12 @@ class FacilityLayer extends Layer {
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
+            onError: this.onError.bind(this),
         }
 
         // Labels and label style
         if (labels) {
-            config.label = '{name}'
+            config.label = LABEL_TEMPLATE_NAME_ONLY
             config.labelStyle = {
                 ...getLabelStyle(this.props),
                 paddingTop: '10px',
@@ -92,7 +95,7 @@ class FacilityLayer extends Layer {
         // Create and add facility layer based on config object
         group.addLayer(config)
         this.layer = group
-        map.addLayer(this.layer)
+        map.addLayer(this.layer).catch(this.onError.bind(this))
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()
@@ -132,7 +135,20 @@ class FacilityLayer extends Layer {
     }
 
     render() {
-        return this.state.popup ? this.getPopup() : null
+        const { popup, error } = this.state
+
+        return (
+            <>
+                {popup && this.getPopup()}
+                {error && (
+                    <Alert
+                        warning={true}
+                        message={error}
+                        onHidden={this.onErrorHidden.bind(this)}
+                    />
+                )}
+            </>
+        )
     }
 
     onFeatureClick(evt) {

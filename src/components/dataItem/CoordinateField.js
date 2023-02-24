@@ -1,11 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useState, useMemo, useEffect } from 'react'
-import { connect } from 'react-redux'
-import {
-    loadProgramTrackedEntityAttributes,
-    loadProgramStageDataElements,
-} from '../../actions/programs.js'
+import React, { useState, useRef, useMemo, useEffect } from 'react'
 import {
     EVENT_COORDINATE_DEFAULT,
     EVENT_COORDINATE_ENROLLMENT,
@@ -14,7 +9,11 @@ import {
     EVENT_COORDINATE_CASCADING,
     NONE,
 } from '../../constants/layers.js'
+import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
+
+const EVENT_COORDINATE_FIELD_ID = 'event'
+const includeTypes = ['COORDINATE']
 
 const CoordinateField = ({
     value,
@@ -23,11 +22,17 @@ const CoordinateField = ({
     programAttributes,
     dataElements,
     eventCoordinateField,
-    loadProgramTrackedEntityAttributes,
-    loadProgramStageDataElements,
     onChange,
     className,
 }) => {
+    const { eventDataItems, loading } = useEventDataItems({
+        programId: program?.id,
+        programStageId: programStage?.id,
+        includeTypes,
+    })
+
+    const prevProgram = useRef(program)
+
     const [hasDefaultValue, setHasDefaulValue] = useState(false)
     const isTrackerProgram = !!program?.trackedEntityType
 
@@ -92,6 +97,13 @@ const CoordinateField = ({
     }, [isTrackerProgram, programFields, eventCoordinateField])
 
     useEffect(() => {
+        if (prevProgram.current !== program) {
+            onChange(EVENT_COORDINATE_FIELD_ID)
+            prevProgram.current = program
+        }
+    }, [program, onChange])
+
+    useEffect(() => {
         if (program && !programAttributes[program.id]) {
             loadProgramTrackedEntityAttributes(program.id)
         }
@@ -145,8 +157,6 @@ const CoordinateField = ({
 
 CoordinateField.propTypes = {
     dataElements: PropTypes.object.isRequired,
-    loadProgramStageDataElements: PropTypes.func.isRequired,
-    loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
     programAttributes: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
@@ -156,10 +166,4 @@ CoordinateField.propTypes = {
     value: PropTypes.string,
 }
 
-export default connect(
-    (state) => ({
-        programAttributes: state.programTrackedEntityAttributes,
-        dataElements: state.programStageDataElements,
-    }),
-    { loadProgramTrackedEntityAttributes, loadProgramStageDataElements }
-)(CoordinateField)
+export default CoordinateField

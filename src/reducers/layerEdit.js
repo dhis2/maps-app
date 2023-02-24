@@ -14,10 +14,6 @@ import { START_END_DATES } from '../constants/periods.js'
 import {
     setFiltersFromPeriod,
     setDataItemInColumns,
-    addOrgUnitLevelsToRows,
-    addOrgUnitGroupsToRows,
-    createUserOrgUnitsDimension,
-    toggleOrgUnitNodeInRows,
     setOrgUnitPathInRows,
     removePeriodFromFilters,
     changeDimensionInFilters,
@@ -409,22 +405,10 @@ const layerEdit = (state = null, action) => {
                 organisationUnitGroupSet: action.organisationUnitGroupSet,
             }
 
-        case types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET:
+        case types.LAYER_EDIT_ORGANISATION_UNITS_SET:
             return {
                 ...state,
-                rows: addOrgUnitLevelsToRows(state.rows, action.levels),
-            }
-
-        case types.LAYER_EDIT_ORGANISATION_UNIT_GROUPS_SET:
-            return {
-                ...state,
-                rows: addOrgUnitGroupsToRows(state.rows, action.groups),
-            }
-
-        case types.LAYER_EDIT_USER_ORGANISATION_UNITS_SET:
-            return {
-                ...state,
-                rows: createUserOrgUnitsDimension(action.userOrgUnits),
+                rows: [action.payload],
             }
 
         case types.LAYER_EDIT_ORGANISATION_UNIT_FIELD_SET: {
@@ -437,11 +421,6 @@ const layerEdit = (state = null, action) => {
                 areaRadius: id === NONE ? EE_BUFFER : null,
             }
         }
-        case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:
-            return {
-                ...state,
-                rows: toggleOrgUnitNodeInRows(state.rows, action.orgUnit),
-            }
 
         // Set organisation unit tree path (temporary solution, as favorites don't include paths)
         case types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET:
@@ -481,6 +460,12 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 labels: action.isChecked,
+            }
+
+        case types.LAYER_EDIT_LABEL_TEMPLATE:
+            return {
+                ...state,
+                labelTemplate: action.template,
             }
 
         case types.LAYER_EDIT_LABEL_FONT_COLOR_SET:

@@ -40,7 +40,7 @@ export const DEFAULT_START_DATE = formatDate(
 )
 export const DEFAULT_END_DATE = formatDate(new Date())
 
-export const DEFAULT_ORG_UNIT_LEVEL = 2
+export const DEFAULT_ORG_UNIT_LEVEL = 1 // 0 is root level
 
 /* RENDERING STRATEGY */
 export const RENDERING_STRATEGY_SINGLE = 'SINGLE'
@@ -151,8 +151,13 @@ export const getGroupSetStyleTypes = () => [
     },
 ]
 
+/* LABEL TEMPLATES */
+export const LABEL_TEMPLATE_NAME_ONLY = '{name}'
+export const LABEL_TEMPLATE_NAME_AND_VALUE = '{name}\n{value}'
+export const LABEL_TEMPLATE_VALUE_ONLY = '{value}'
+
 /* LABEL STYLES */
-export const LABEL_FONT_SIZE = '11px'
+export const LABEL_FONT_SIZE = '14px'
 export const LABEL_FONT_SIZE_MIN = 6
 export const LABEL_FONT_SIZE_MAX = 100
 export const LABEL_FONT_STYLE = 'normal'

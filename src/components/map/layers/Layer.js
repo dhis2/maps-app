@@ -1,3 +1,4 @@
+import log from 'loglevel'
 import PropTypes from 'prop-types'
 import { PureComponent } from 'react'
 import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers.js'
@@ -17,10 +18,8 @@ class Layer extends PureComponent {
         feature: PropTypes.object,
         index: PropTypes.number,
         isVisible: PropTypes.bool,
-        layer: PropTypes.string,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
-        renderingStrategy: PropTypes.string,
     }
 
     static defaultProps = {
@@ -172,7 +171,8 @@ class Layer extends PureComponent {
 
     onFeatureRightClick(evt) {
         const [x, y] = evt.position
-        const { id, layer, renderingStrategy } = this.props
+        const layerConfig = { ...this.props }
+        const { id: layerId, layer: layerType, renderingStrategy } = layerConfig
         const { map } = this.context
         const container = map.getContainer()
         const { left, top } = container.getBoundingClientRect()
@@ -183,10 +183,11 @@ class Layer extends PureComponent {
             ...evt,
             position: [x, y],
             offset: [left, top],
-            layerId: id,
-            layerType: layer,
+            layerConfig,
+            layerId,
+            layerType,
             isSplitView,
-            map: map,
+            map,
             container: isSplitView
                 ? container.parentNode.parentNode
                 : container,
@@ -198,6 +199,20 @@ class Layer extends PureComponent {
     // Called when a map popup is closed
     onPopupClose = () => {
         this.setState({ popup: null })
+    }
+
+    onError(error) {
+        const message = error.message || error
+
+        if (!this.context.isPlugin) {
+            this.setState({ error: message })
+        } else {
+            log.error(message)
+        }
+    }
+
+    onErrorHidden() {
+        this.setState({ error: null })
     }
 }
 

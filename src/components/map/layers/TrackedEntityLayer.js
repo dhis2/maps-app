@@ -7,8 +7,9 @@ import {
     TEI_RELATED_COLOR,
     TEI_RELATED_RADIUS,
 } from '../../../constants/layers.js'
-import { apiFetch } from '../../../util/api.js'
+import { apiFetchWithBaseUrl } from '../../../util/api.js'
 import { formatTime } from '../../../util/helpers.js'
+import { BaseUrlShim } from '../../BaseUrlShim.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
 
@@ -24,10 +25,11 @@ const getCentroid = (points) => {
     return [totals[0] / points.length, totals[1] / points.length]
 }
 
-const fetchTEI = async (id, fieldsString) => {
-    const data = await apiFetch(
-        `/trackedEntityInstances/${id}?fields=${fieldsString}`
-    )
+const fetchTEI = async (id, fieldsString, baseUrl) => {
+    const data = await apiFetchWithBaseUrl({
+        url: `/trackedEntityInstances/${id}?fields=${fieldsString}`,
+        baseUrl,
+    })
     return data
 }
 
@@ -189,11 +191,18 @@ class TrackedEntityLayer extends Layer {
 
         const data = await fetchTEI(
             feature.properties.id,
-            'lastUpdated,attributes[displayName~rename(name),value],relationships'
+            'lastUpdated,attributes[displayName~rename(name),value],relationships',
+            this.props.baseUrl
         )
 
         this.setState({ popup: { feature, coordinates, data } })
     }
 }
 
-export default TrackedEntityLayer
+const TrackedEntityLayerWithBaseUrl = (props) => (
+    <BaseUrlShim>
+        {({ baseUrl }) => <TrackedEntityLayer baseUrl={baseUrl} {...props} />}
+    </BaseUrlShim>
+)
+
+export default TrackedEntityLayerWithBaseUrl

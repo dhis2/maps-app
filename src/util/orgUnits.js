@@ -31,7 +31,7 @@ const getGroupSymbol = (groups) => {
     }
 }
 
-const parseGroupSet = ({ organisationUnitGroups: groups }) => {
+export const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     groups.sort((a, b) => a.name.localeCompare(b.name))
 
     const getColor = getGroupColor(groups)
@@ -48,11 +48,6 @@ export const fetchOrgUnitGroupSet = (id) =>
     apiFetch(
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
     ).then(parseGroupSet)
-
-export const fetchOrgUnitFields = () =>
-    apiFetch(
-        `/attributes.json?fields=id,name,description&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
-    ).then(({ attributes }) => attributes)
 
 export const filterPointFacilities = (data) => data.filter((d) => d.ty === 1)
 
@@ -203,17 +198,27 @@ export const getOrgUnitLevels = async (d2) => {
         : {}
 }
 
-// Loads default org unit level and group set for facility layer
-export const fetchFacilityConfigurations = async () => {
-    const [facilityOrgUnitLevel, facilityOrgUnitGroupSet] = await Promise.all([
-        apiFetch('/configuration/facilityOrgUnitLevel'),
-        apiFetch('/configuration/facilityOrgUnitGroupSet'),
-    ])
+// Converts "LEVEL-x" to newer "LEVEL-uid" format
+export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
+    const items = orgUnits?.items || []
 
-    return {
-        facilityOrgUnitLevel,
-        facilityOrgUnitGroupSet,
-    }
+    return items.map((item) => {
+        const levelNumber = item.id.match(/^LEVEL-([0-9])+$/)
+
+        if (levelNumber) {
+            const level = orgUnitLevels.find(
+                (l) => l.level === Number(levelNumber[1])
+            )
+
+            if (level) {
+                return {
+                    id: `LEVEL-${level.id}`,
+                }
+            }
+        }
+
+        return item
+    })
 }
 
 // Returns coordinate field from layer config

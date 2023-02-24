@@ -1,3 +1,59 @@
+## [1.28.3](https://github.com/dhis2/maps-app/compare/v1.28.2...v1.28.3) (2023-02-23)
+
+
+### Bug Fixes
+
+* remove unused orgunit and error actions ([#2485](https://github.com/dhis2/maps-app/issues/2485)) ([978368b](https://github.com/dhis2/maps-app/commit/978368b30bbc1e62bd53f03acd08b44a2ec38f72))
+
+## [1.28.2](https://github.com/dhis2/maps-app/compare/v1.28.1...v1.28.2) (2023-02-16)
+
+
+### Bug Fixes
+
+* org unit levels do not have short names ([#2478](https://github.com/dhis2/maps-app/issues/2478)) ([3a949f3](https://github.com/dhis2/maps-app/commit/3a949f3aa48743de4f572bde43758e606219bdab))
+
+## [1.28.1](https://github.com/dhis2/maps-app/compare/v1.28.0...v1.28.1) (2023-02-03)
+
+
+### Bug Fixes
+
+* save and retrieve map description ([#2470](https://github.com/dhis2/maps-app/issues/2470)) ([b56ab54](https://github.com/dhis2/maps-app/commit/b56ab54ac23dce74b8e02bfceff95fba03b0705b))
+
+# [1.28.0](https://github.com/dhis2/maps-app/compare/v1.27.7...v1.28.0) (2023-01-24)
+
+
+### Features
+
+* add option to include value in the label for Thematic layer ([#2357](https://github.com/dhis2/maps-app/issues/2357)) ([085dbed](https://github.com/dhis2/maps-app/commit/085dbeda10e7ca832aa168d5c24b45bc0324803e))
+
+## [1.27.7](https://github.com/dhis2/maps-app/compare/v1.27.6...v1.27.7) (2023-01-19)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with svg symbols support ([#2456](https://github.com/dhis2/maps-app/issues/2456)) ([5486892](https://github.com/dhis2/maps-app/commit/54868922a27884ab9b93eaa7770701d87a484906))
+
+## [1.27.6](https://github.com/dhis2/maps-app/compare/v1.27.5...v1.27.6) (2023-01-16)
+
+
+### Bug Fixes
+
+* improved facility symbol handling (DHIS2-14438) ([#2423](https://github.com/dhis2/maps-app/issues/2423)) ([2a43892](https://github.com/dhis2/maps-app/commit/2a4389299e90260024f74bd4bd4c2b8430aa277b))
+
+## [1.27.5](https://github.com/dhis2/maps-app/compare/v1.27.4...v1.27.5) (2023-01-16)
+
+
+### Bug Fixes
+
+* useDataQuery in GroupStyleSelect ([#2443](https://github.com/dhis2/maps-app/issues/2443)) ([0d5e01a](https://github.com/dhis2/maps-app/commit/0d5e01ada6e452a1fc4af9de02ba5aadf44a0508))
+
+## [1.27.4](https://github.com/dhis2/maps-app/compare/v1.27.3...v1.27.4) (2023-01-13)
+
+
+### Bug Fixes
+
+* untitled map name ([#2438](https://github.com/dhis2/maps-app/issues/2438)) ([081f6fd](https://github.com/dhis2/maps-app/commit/081f6fda88e08927e5dae4ad023763fb7eac23ce))
+
 ## [1.27.3](https://github.com/dhis2/maps-app/compare/v1.27.2...v1.27.3) (2023-01-10)
 
 
