@@ -63,7 +63,7 @@ export const createEventFeature = (
     }
 }
 /* eslint-enable max-params */
-const buildEventGeometryGetter = (headers) => {
+export const buildEventGeometryGetter = (headers) => {
     const geomCol = findIndex(headers, (h) => h.name === 'geometry')
     return (event) => JSON.parse(event[geomCol])
 }
