@@ -51,7 +51,7 @@ export const fetchOrgUnitGroupSet = (id) =>
 
 export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 
-export const filterPolygons = (data) => data.filter((d) => d.ty === 2)
+export const getPolygonItems = (data) => data.filter((d) => d.ty === 2)
 
 export const getOrgUnitStyle = (dimensions, groupSet) =>
     groupSet &&
