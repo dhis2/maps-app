@@ -1,6 +1,5 @@
 import FileSaver from 'file-saver' // https://github.com/eligrey/FileSaver.js
 import findIndex from 'lodash/findIndex'
-import { poleOfInaccessibility } from '../components/map/MapApi.js'
 import { isValidCoordinate } from './map.js'
 
 export const META_DATA_FORMAT_ID = 'ID'
@@ -157,19 +156,3 @@ export const getBounds = (bbox) => {
         [extent[2], extent[3]],
     ]
 }
-
-// Translating polygons to points using poleOfInaccessibility from maps-gl
-export const polygonsToPoints = (features) =>
-    features.map((feature) => ({
-        ...feature,
-        geometry: {
-            type: 'Point',
-            coordinates: poleOfInaccessibility(feature.geometry),
-        },
-    }))
-
-// export const downloadStyle = name => {
-//     const sld = createSld(); // TODO: Make generic
-//     const blob = new Blob([sld], { type: 'application/xml;charset=utf-8' });
-//     FileSaver.saveAs(blob, standardizeFilename(name) + '.sld');
-// };
