@@ -6,7 +6,7 @@ import styles from './styles/NorthArrow.module.css'
 
 const NorthArrow = ({
     map,
-    downloadPanelOpen,
+    downloadMapInfoOpen,
     width = 90,
     height = 90,
     color = 'black',
@@ -29,7 +29,7 @@ const NorthArrow = ({
     return (
         <div
             className={cx(styles.northArrow, styles[position], {
-                [styles.downloadPanelOpen]: downloadPanelOpen,
+                [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
             })}
         >
             <svg
@@ -62,7 +62,7 @@ const NorthArrow = ({
 }
 
 NorthArrow.propTypes = {
-    downloadPanelOpen: PropTypes.bool.isRequired,
+    downloadMapInfoOpen: PropTypes.bool.isRequired,
     map: PropTypes.object.isRequired,
     color: PropTypes.string,
     height: PropTypes.number,

@@ -26,7 +26,7 @@
     border: 1px solid #ccc;
 }
 
-.downloadPanelOpen  > div > div:first-child {
+.downloadMapInfoOpen  > div > div:first-child {
     width: calc(100% - 380px);
 }
 

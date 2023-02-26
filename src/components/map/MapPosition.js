@@ -7,7 +7,7 @@ import {
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
-import DownloadPanel from '../download/DownloadPanel.js'
+import DownloadMapInfo from '../download/DownloadMapInfo.js'
 import NorthArrow from '../download/NorthArrow.js'
 import MapContainer from '../map/MapContainer.js'
 import styles from './styles/MapPosition.module.css'
@@ -29,7 +29,7 @@ const MapPosition = () => {
     )
     const dataTableOpen = useSelector((state) => !!state.dataTable)
 
-    const downloadPanelOpen =
+    const downloadMapInfoOpen =
         downloadMode &&
         (showName || showDescription || showLegend || showOverviewMap)
 
@@ -50,7 +50,7 @@ const MapPosition = () => {
         rightPanelOpen,
         dataTableOpen,
         dataTableHeight,
-        downloadPanelOpen,
+        downloadMapInfoOpen,
     ])
 
     // Fit layer bounds when app mode is toggled
@@ -71,7 +71,7 @@ const MapPosition = () => {
             <div
                 className={cx({
                     [styles.mapDownload]: downloadMode,
-                    [styles.downloadPanelOpen]: downloadPanelOpen,
+                    [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
                 })}
             >
                 <div
@@ -84,8 +84,8 @@ const MapPosition = () => {
                     <MapContainer resizeCount={resizeCount} setMap={setMap} />
                     {downloadMode && map && (
                         <>
-                            {downloadPanelOpen && (
-                                <DownloadPanel
+                            {downloadMapInfoOpen && (
+                                <DownloadMapInfo
                                     map={map.getMapGL()}
                                     isSplitView={isSplitView}
                                 />
@@ -93,7 +93,7 @@ const MapPosition = () => {
                             {showNorthArrow && (
                                 <NorthArrow
                                     map={map.getMapGL()}
-                                    downloadPanelOpen={downloadPanelOpen}
+                                    downloadMapInfoOpen={downloadMapInfoOpen}
                                 />
                             )}
                         </>

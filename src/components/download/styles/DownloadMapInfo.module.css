@@ -1,4 +1,4 @@
-.downloadPanel {
+.downloadMapInfo {
     padding-left: var(--spacers-dp24);
     background-color: #fff;
     height: 100%;
@@ -15,25 +15,25 @@
     align-items: flex-start;
 }
 
-.downloadPanel h1 {
+.downloadMapInfo h1 {
     font-size: 24px;
     margin: 0 0 var(--spacers-dp16);
 }
 
-.downloadPanel p {
+.downloadMapInfo p {
     margin: 0 0 var(--spacers-dp24);
 }
 
-.downloadPanel div a:link,
-.downloadPanel div a:visited {
+.downloadMapInfo div a:link,
+.downloadMapInfo div a:visited {
     color: var(--colors-grey900);
 }
 
-.downloadPanel table {
+.downloadMapInfo table {
     table-layout:fixed;
 }
 
-.downloadPanel table td {
+.downloadMapInfo table td {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;

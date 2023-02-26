@@ -23,7 +23,7 @@
     right: 10px;
 }
 
-.downloadPanelOpen.topright,
-.downloadPanelOpen.bottomright {
+.downloadMapInfoOpen.topright,
+.downloadMapInfoOpen.bottomright {
     right: 390px;
 }

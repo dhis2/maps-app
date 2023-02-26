@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import DownloadLegend from './DownloadLegend.js'
 import OverviewMap from './OverviewMap.js'
-import styles from './styles/DownloadPanel.module.css'
+import styles from './styles/DownloadMapInfo.module.css'
 
-const DownloadPanel = ({ map, isSplitView }) => {
+const DownloadMapInfo = ({ map, isSplitView }) => {
     const [resizeCount, setResizeCount] = useState(0)
     const { height } = useWindowDimensions()
 
@@ -26,7 +26,7 @@ const DownloadPanel = ({ map, isSplitView }) => {
     }, [showName, showDescription, showInLegend, height])
 
     return (
-        <div className={cx(styles.downloadPanel)}>
+        <div className={cx(styles.downloadMapInfo)}>
             <div>
                 {showName && name && <h1>{name}</h1>}
                 {showDescription && description && <p>{description}</p>}
@@ -49,9 +49,9 @@ const DownloadPanel = ({ map, isSplitView }) => {
     )
 }
 
-DownloadPanel.propTypes = {
+DownloadMapInfo.propTypes = {
     map: PropTypes.object.isRequired,
     isSplitView: PropTypes.bool,
 }
 
-export default DownloadPanel
+export default DownloadMapInfo
