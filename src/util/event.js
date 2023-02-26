@@ -1,3 +1,4 @@
+import { EVENT_CLIENT_PAGE_SIZE } from '../constants/layers.js'
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
 
@@ -21,15 +22,10 @@ export const getEventColumns = async (
 
     return result.programStageDataElements
         .filter((el) => el.displayInReports)
-        .map((el, i) => {
-            if (i === 0) {
-                console.log('el', el)
-            }
-            return {
-                dimension: el.dataElement.id,
-                name: el.dataElement[format],
-            }
-        })
+        .map((el) => ({
+            dimension: el.dataElement.id,
+            name: el.dataElement[format],
+        }))
 }
 
 // Also used to query for server cluster in map/EventLayer.js
@@ -114,7 +110,9 @@ export const getAnalyticsRequest = async (
 }
 
 export const loadData = async (request, config = {}, d2) => {
-    const response = await d2.analytics.events.getQuery(request)
+    const response = await d2.analytics.events.getQuery(
+        request.withPageSize(EVENT_CLIENT_PAGE_SIZE)
+    ) // DHIS2-10742
 
     const { data, names } = createEventFeatures(response, config)
 
