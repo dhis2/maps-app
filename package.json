@@ -27,14 +27,13 @@
         "profile": "yarn start --profile",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
         "localize": "yarn extract-pot && d2-i18n-generate -n default -p ./i18n/ -o ./src/locales/",
-        "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json",
-        "validate": "npm ls"
+        "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
         "@dhis2/analytics": "^24.9.0",
         "@dhis2/app-runtime": "^3.8.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
-        "@dhis2/app-service-alerts": "^3.8.0",
+        "@dhis2/app-service-alerts": "^3.6.2",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/d2-i18n": "^1.1.0",
         "@dhis2/maps-gl": "^3.7.0",
@@ -130,10 +129,5 @@
                 "href": ".."
             }
         }
-    },
-    "pre-commit": [
-        "lint",
-        "validate",
-        "test"
-    ]
+    }
 }

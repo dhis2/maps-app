@@ -2057,7 +2057,7 @@
     "@dhis2/app-service-data" "3.8.0"
     "@dhis2/app-service-offline" "3.8.0"
 
-"@dhis2/app-service-alerts@3.8.0", "@dhis2/app-service-alerts@^3.8.0":
+"@dhis2/app-service-alerts@3.8.0", "@dhis2/app-service-alerts@^3.6.2":
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.8.0.tgz#a899e3b392b6af49407be5251abe13eb0f2bdb60"
   integrity sha512-Y2gDxSLS91YwOyvRQXpZMMOF4GZeoswPypDFy1U1OV8S1HdNa4J3dFtKqwRaiC8KP2o9bi+MsJjDA5fwl/jaOA==
