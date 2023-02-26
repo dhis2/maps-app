@@ -9,7 +9,7 @@ import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
-import styles from './styles/downloadSettings.module.css'
+import styles from './styles/DownloadSettings.module.css'
 
 const DownloadSettings = () => {
     const [error, setError] = useState(null)
