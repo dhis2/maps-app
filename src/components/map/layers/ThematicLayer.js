@@ -12,12 +12,22 @@ import {
 } from '../../../constants/layers.js'
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
-import { polygonsToPoints } from '../../../util/geojson.js'
 import { getLabelStyle } from '../../../util/labels.js'
 import Timeline from '../../periods/Timeline.js'
+import { poleOfInaccessibility } from '../MapApi.js'
 import PeriodName from '../PeriodName.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
+
+// Translating polygons to points using poleOfInaccessibility from maps-gl
+const polygonsToPoints = (features) =>
+    features.map((feature) => ({
+        ...feature,
+        geometry: {
+            type: 'Point',
+            coordinates: poleOfInaccessibility(feature.geometry),
+        },
+    }))
 
 class ThematicLayer extends Layer {
     createLayer() {
