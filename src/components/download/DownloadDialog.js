@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { Button, ButtonStrip } from '@dhis2/ui'
 import React, { useState, useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setDownloadMode, setDownloadProperty } from '../../actions/download.js'
+import { setDownloadMode, setDownloadConfig } from '../../actions/download.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import Drawer from '../core/Drawer.js'
@@ -38,7 +38,7 @@ const DownloadDialog = () => {
     useEffect(() => {
         // Set default values
         dispatch(
-            setDownloadProperty({
+            setDownloadConfig({
                 showName: !!name,
                 showDescription: !!description,
                 showLegend: !!legendLayers.length,
@@ -78,7 +78,7 @@ const DownloadDialog = () => {
                                 disabled={!name}
                                 onChange={(value) =>
                                     dispatch(
-                                        setDownloadProperty({ showName: value })
+                                        setDownloadConfig({ showName: value })
                                     )
                                 }
                             />
@@ -88,7 +88,7 @@ const DownloadDialog = () => {
                                 disabled={!description}
                                 onChange={(value) =>
                                     dispatch(
-                                        setDownloadProperty({
+                                        setDownloadConfig({
                                             showDescription: value,
                                         })
                                     )
@@ -100,7 +100,7 @@ const DownloadDialog = () => {
                                 disabled={!legendLayers.length}
                                 onChange={(value) =>
                                     dispatch(
-                                        setDownloadProperty({
+                                        setDownloadConfig({
                                             showLegend: value,
                                         })
                                     )
@@ -118,7 +118,7 @@ const DownloadDialog = () => {
                                 disabled={!hasOverviewMapSpace}
                                 onChange={(value) =>
                                     dispatch(
-                                        setDownloadProperty({
+                                        setDownloadConfig({
                                             showOverviewMap: value,
                                         })
                                     )
@@ -130,7 +130,7 @@ const DownloadDialog = () => {
                                 disabled={isSplitView}
                                 onChange={(value) =>
                                     dispatch(
-                                        setDownloadProperty({
+                                        setDownloadConfig({
                                             showNorthArrow: value,
                                         })
                                     )
@@ -141,7 +141,7 @@ const DownloadDialog = () => {
                                     position={northArrowPosition}
                                     onChange={(value) =>
                                         dispatch(
-                                            setDownloadProperty({
+                                            setDownloadConfig({
                                                 northArrowPosition: value,
                                             })
                                         )
@@ -156,7 +156,7 @@ const DownloadDialog = () => {
                                     checked={includeMargins}
                                     onChange={(value) =>
                                         dispatch(
-                                            setDownloadProperty({
+                                            setDownloadConfig({
                                                 includeMargins: value,
                                             })
                                         )

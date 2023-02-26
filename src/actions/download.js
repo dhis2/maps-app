@@ -7,7 +7,7 @@ export const setDownloadMode = (payload) => ({
 })
 
 // Set downlond property
-export const setDownloadProperty = (payload) => ({
-    type: types.DOWNLOAD_PROPERTY_SET,
+export const setDownloadConfig = (payload) => ({
+    type: types.DOWNLOAD_CONFIG_SET,
     payload,
 })

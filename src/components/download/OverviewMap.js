@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setDownloadProperty } from '../../actions/download.js'
+import { setDownloadConfig } from '../../actions/download.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import { BASEMAP_LAYER_INDEX } from '../map/layers/BasemapLayer.js'
 import mapApi from '../map/MapApi.js'
@@ -101,7 +101,7 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
 
             // Disable overview map checkbox if no space
             dispatch(
-                setDownloadProperty({
+                setDownloadConfig({
                     hasOverviewMapSpace: hasSpace,
                 })
             )

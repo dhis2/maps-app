@@ -21,7 +21,7 @@ const download = (state = defaultState, action) => {
                 downloadMode: action.payload,
             }
 
-        case types.DOWNLOAD_PROPERTY_SET:
+        case types.DOWNLOAD_CONFIG_SET:
             return {
                 ...state,
                 ...action.payload,

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { setDownloadProperty } from '../../actions/download.js'
+import { setDownloadConfig } from '../../actions/download.js'
 import { Checkbox } from '../core/index.js'
 import styles from './styles/LegendLayers.module.css'
 
@@ -18,7 +18,7 @@ const LegendLayers = ({ layers, show }) => {
                         checked={show.includes(id)}
                         onChange={(checked) =>
                             dispatch(
-                                setDownloadProperty({
+                                setDownloadConfig({
                                     showInLegend: checked
                                         ? [...show, id]
                                         : show.filter((l) => l !== id),
