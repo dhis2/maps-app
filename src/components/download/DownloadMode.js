@@ -3,7 +3,7 @@ import { Button } from '@dhis2/ui'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setDownloadMode } from '../../actions/download.js'
-import DownloadDialog from './DownloadDialog.js'
+import DownloadSettings from './DownloadSettings.js'
 import styles from './styles/DownloadMode.module.css'
 
 const DownloadMode = () => {
@@ -16,7 +16,7 @@ const DownloadMode = () => {
                     {i18n.t('Exit download mode')}
                 </Button>
             </div>
-            <DownloadDialog />
+            <DownloadSettings />
         </>
     )
 }

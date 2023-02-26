@@ -1,10 +1,10 @@
-.downloadDialog {
+.downloadSettings {
     padding: var(--spacers-dp8) var(--spacers-dp16);
     background-color: #fafafa;
     height: 100%;
 }
 
-.dialogContent {
+.content {
     padding-bottom: var(--spacers-dp8);
 }
 

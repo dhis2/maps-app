@@ -9,9 +9,9 @@ import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
-import styles from './styles/DownloadDialog.module.css'
+import styles from './styles/downloadSettings.module.css'
 
-const DownloadDialog = () => {
+const DownloadSettings = () => {
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
 
@@ -67,7 +67,7 @@ const DownloadDialog = () => {
 
     return (
         <Drawer position="left">
-            <div className={styles.downloadDialog}>
+            <div className={styles.downloadSettings}>
                 <h2>{i18n.t('Download map')}</h2>
                 <div className={styles.dialogContent}>
                     {isSupported ? (
@@ -203,4 +203,4 @@ const DownloadDialog = () => {
     )
 }
 
-export default DownloadDialog
+export default DownloadSettings
