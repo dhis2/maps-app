@@ -3,6 +3,8 @@ import { createGeoJsonBlob } from '../dataDownload.js'
 // Since we're not in a browser environment we unfortunately have to mock FileSaver and Blob
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
 
+jest.mock('../earthEngine.js', () => ({ hasClasses: jest.fn() }))
+
 global.Blob = function (content, options) {
     return { content, options }
 }

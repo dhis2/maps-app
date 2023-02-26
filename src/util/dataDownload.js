@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import FileSaver from 'file-saver'
 import { EVENT_LAYER } from '../constants/layers.js'
-import { addPropNames } from './earthEngine.js'
+import { hasClasses } from './earthEngine.js'
 import { getAnalyticsRequest, getEventColumns, loadData } from './event.js'
 
 export const getFormatOptions = () => [
@@ -18,6 +18,31 @@ export const getFormatOptions = () => [
         name: i18n.t('Name'),
     },
 ]
+
+// Add readable prop names before downloading EE data
+// Classed data (landcover) will use the class names
+// Other layers will include layer name after aggregation type
+export const addPropNames = (layer, data) => {
+    const { aggregationType, name, legend } = layer
+    const layerName = name.replace(/ /g, '_').toLowerCase()
+    const { items } = legend
+
+    return hasClasses(aggregationType)
+        ? items.reduce(
+              (obj, { id, name }) => ({
+                  ...obj,
+                  [name]: data[id],
+              }),
+              {}
+          )
+        : Object.keys(data).reduce(
+              (obj, id) => ({
+                  ...obj,
+                  [`${id}_${layerName}`]: data[id],
+              }),
+              {}
+          )
+}
 
 const standardizeFilename = (rawName) => rawName.replace(/\s+/g, '_')
 

@@ -1,5 +1,4 @@
 import findIndex from 'lodash/findIndex'
-import { poleOfInaccessibility } from '../components/map/MapApi.js'
 import { isValidCoordinate } from './map.js'
 
 export const EVENT_ID_FIELD = 'psi'
@@ -132,13 +131,3 @@ export const getBounds = (bbox) => {
         [extent[2], extent[3]],
     ]
 }
-
-// Translating polygons to points using poleOfInaccessibility from maps-gl
-export const polygonsToPoints = (features) =>
-    features.map((feature) => ({
-        ...feature,
-        geometry: {
-            type: 'Point',
-            coordinates: poleOfInaccessibility(feature.geometry),
-        },
-    }))
