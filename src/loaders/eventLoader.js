@@ -110,7 +110,7 @@ const loadEventLayer = async config => {
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID'; // Required for StyleByDataItem to work
         const { names, data, response } = await loadData(
-            analyticsRequest.withPageSize(EVENT_CLIENT_PAGE_SIZE), // DHIS2-10742,
+            analyticsRequest,
             config
         );
         const { total } = response.metaData.pager;
@@ -275,7 +275,9 @@ export const getCount = async request => {
 
 export const loadData = async (request, config = {}) => {
     const d2 = await getD2();
-    const response = await d2.analytics.events.getQuery(request);
+    const response = await d2.analytics.events.getQuery(
+        request.withPageSize(EVENT_CLIENT_PAGE_SIZE) // DHIS2-10742
+    );
 
     const { data, names } = createEventFeatures(response, config);
 
