@@ -1,3 +1,10 @@
+## [1.28.4](https://github.com/dhis2/maps-app/compare/v1.28.3...v1.28.4) (2023-02-26)
+
+
+### Bug Fixes
+
+* removed maps-gl dependency from util/geojson ([#2486](https://github.com/dhis2/maps-app/issues/2486)) ([dc5a98a](https://github.com/dhis2/maps-app/commit/dc5a98a4cdd86da6b509eaf79f4603af8bdc1fbc))
+
 ## [1.28.3](https://github.com/dhis2/maps-app/compare/v1.28.2...v1.28.3) (2023-02-23)
 
 
