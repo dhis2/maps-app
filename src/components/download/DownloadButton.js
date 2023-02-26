@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { toggleDownloadMode } from '../../actions/download.js'
+import { setDownloadMode } from '../../actions/download.js'
 import { MenuButton } from '../core/index.js'
 
 const DownloadButton = () => {
@@ -9,7 +9,7 @@ const DownloadButton = () => {
 
     return (
         <>
-            <MenuButton onClick={() => dispatch(toggleDownloadMode(true))}>
+            <MenuButton onClick={() => dispatch(setDownloadMode(true))}>
                 {i18n.t('Download')}
             </MenuButton>
         </>

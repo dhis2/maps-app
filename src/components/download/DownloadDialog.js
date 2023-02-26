@@ -2,10 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { Button, ButtonStrip } from '@dhis2/ui'
 import React, { useState, useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-    toggleDownloadMode,
-    setDownloadProperty,
-} from '../../actions/download.js'
+import { setDownloadMode, setDownloadProperty } from '../../actions/download.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import Drawer from '../core/Drawer.js'
@@ -55,7 +52,7 @@ const DownloadDialog = () => {
     const isSplitView = !!getSplitViewLayer(mapViews)
     const showMarginsCheckbox = false // Not in use
 
-    const onClose = () => dispatch(toggleDownloadMode(false))
+    const onClose = () => dispatch(setDownloadMode(false))
 
     const onDownload = () => {
         const filename = `map-${Math.random().toString(36).substring(7)}.png`

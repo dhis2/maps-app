@@ -15,7 +15,7 @@ const defaultState = {
 
 const download = (state = defaultState, action) => {
     switch (action.type) {
-        case types.DOWNLOAD_MODE_TOGGLE:
+        case types.DOWNLOAD_MODE_SET:
             return {
                 ...state,
                 downloadMode: action.payload,

@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes.js'
 
 // Toggle download mode
-export const toggleDownloadMode = (payload) => ({
-    type: types.DOWNLOAD_MODE_TOGGLE,
+export const setDownloadMode = (payload) => ({
+    type: types.DOWNLOAD_MODE_SET,
     payload,
 })
 

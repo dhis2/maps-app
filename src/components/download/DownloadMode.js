@@ -1,7 +1,7 @@
 import { Button } from '@dhis2/ui'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { toggleDownloadMode } from '../../actions/download.js'
+import { setDownloadMode } from '../../actions/download.js'
 import DownloadDialog from './DownloadDialog.js'
 import styles from './styles/DownloadMode.module.css'
 
@@ -11,7 +11,7 @@ const DownloadMode = () => {
     return (
         <>
             <div className={styles.downloadModeMenu}>
-                <Button onClick={() => dispatch(toggleDownloadMode(false))}>
+                <Button onClick={() => dispatch(setDownloadMode(false))}>
                     Exit download mode
                 </Button>
             </div>
