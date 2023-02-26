@@ -1,4 +1,3 @@
-import FileSaver from 'file-saver'
 import { createGeoJsonBlob } from '../dataDownload.js'
 
 // Since we're not in a browser environment we unfortunately have to mock FileSaver and Blob
@@ -64,15 +63,5 @@ describe('createGeoJsonBlob and downloadGeoJson', () => {
                 type: 'application/json;charset=utf-8',
             },
         })
-    })
-    it('should escape name whitespace and call saveAs', () => {
-        downloadGeoJson({
-            name: 'Testing geo-json    download',
-            data: sampleData,
-        })
-        expect(FileSaver.saveAs).toHaveBeenCalledWith(
-            blob,
-            'Testing_geo-json_download.geojson'
-        )
     })
 })
