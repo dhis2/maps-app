@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -12,7 +13,7 @@ const DownloadMode = () => {
         <>
             <div className={styles.downloadModeMenu}>
                 <Button onClick={() => dispatch(setDownloadMode(false))}>
-                    Exit download mode
+                    {i18n.t('Exit download mode')}
                 </Button>
             </div>
             <DownloadDialog />
