@@ -1,3 +1,10 @@
+## [1.28.3](https://github.com/dhis2/maps-app/compare/v1.28.2...v1.28.3) (2023-02-23)
+
+
+### Bug Fixes
+
+* remove unused orgunit and error actions ([#2485](https://github.com/dhis2/maps-app/issues/2485)) ([978368b](https://github.com/dhis2/maps-app/commit/978368b30bbc1e62bd53f03acd08b44a2ec38f72))
+
 ## [1.28.2](https://github.com/dhis2/maps-app/compare/v1.28.1...v1.28.2) (2023-02-16)
 
 
