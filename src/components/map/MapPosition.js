@@ -20,6 +20,7 @@ const MapPosition = () => {
         showName,
         showDescription,
         showLegend,
+        showInLegend,
         showOverviewMap,
         showNorthArrow,
     } = useSelector((state) => state.download)
@@ -31,7 +32,10 @@ const MapPosition = () => {
 
     const downloadMapInfoOpen =
         downloadMode &&
-        (showName || showDescription || showLegend || showOverviewMap)
+        (showName ||
+            showDescription ||
+            (showLegend && !!showInLegend.length) ||
+            showOverviewMap)
 
     const isSplitView = !!getSplitViewLayer(layers)
 
