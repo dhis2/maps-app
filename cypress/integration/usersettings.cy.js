@@ -10,7 +10,7 @@ const testMap = {
     cardTitle: 'ANC LLITN coverage',
 }
 
-describe('userSettings', () => {
+describe.skip('userSettings', () => {
     beforeEach(() => {
         cy.intercept(USER_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']

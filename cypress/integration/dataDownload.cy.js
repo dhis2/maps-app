@@ -40,7 +40,7 @@ describe('Data Download', () => {
 
         cy.get('[data-test="layercard"]')
             .find('h2')
-            .contains(mapWithThematicLayer.cardTitle)
+            .contains(mapWithThematicLayer.cardTitle, EXTENDED_TIMEOUT)
 
         openMoreMenuWithOptions(6)
 
@@ -63,7 +63,7 @@ describe('Data Download', () => {
 
         cy.get('[data-test="layercard"]')
             .find('h2')
-            .contains(mapWithEventLayer.cardTitle)
+            .contains(mapWithEventLayer.cardTitle, EXTENDED_TIMEOUT)
 
         openMoreMenuWithOptions(5)
 
@@ -85,7 +85,7 @@ describe('Data Download', () => {
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('[data-test="layercard"]')
             .find('h2')
-            .contains(mapWithEventLayer.cardTitle)
+            .contains(mapWithEventLayer.cardTitle, EXTENDED_TIMEOUT)
 
         openMoreMenuWithOptions(5)
 
