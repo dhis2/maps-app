@@ -2,7 +2,8 @@ import cx from 'classnames'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import {
-    HEADER_HEIGHT,
+    APP_MENU_HEIGHT,
+    DOWNLOAD_MENU_HEIGHT,
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
@@ -40,7 +41,7 @@ const MapPosition = () => {
     const isSplitView = !!getSplitViewLayer(layers)
 
     const mapPosition = {
-        top: HEADER_HEIGHT,
+        top: downloadMode ? DOWNLOAD_MENU_HEIGHT : APP_MENU_HEIGHT,
         left: layersPanelOpen || downloadMode ? LAYERS_PANEL_WIDTH : 0,
         right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,

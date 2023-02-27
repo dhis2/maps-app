@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { HeaderBar } from '@dhis2/ui'
+import cx from 'classnames'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import AlertStack from '../alerts/AlertStack.js'
@@ -15,6 +16,7 @@ import MapPosition from '../map/MapPosition.js'
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog.js'
 import OrgUnitProfile from '../orgunits/OrgUnitProfile.js'
 import AppMenu from './AppMenu.js'
+import styles from './styles/AppLayout.module.css'
 
 const AppLayout = () => {
     const downloadMode = useSelector((state) => state.download.downloadMode)
@@ -22,24 +24,30 @@ const AppLayout = () => {
     return (
         <>
             <HeaderBar appName={i18n.t('Maps')} />
-            {downloadMode ? (
-                <DownloadMode />
-            ) : (
-                <>
-                    <AppMenu />
-                    <LayersToggle />
-                    <LayersPanel />
-                    <LayersLoader />
-                </>
-            )}
-            <MapPosition />
-            <InterpretationsPanel />
-            <BottomPanel />
-            <LayerEdit />
-            <ContextMenu />
-            <AlertStack />
-            <OpenAsMapDialog />
-            <OrgUnitProfile />
+            <div
+                className={cx(styles.appLayout, {
+                    [styles.downloadMode]: downloadMode,
+                })}
+            >
+                {downloadMode ? (
+                    <DownloadMode />
+                ) : (
+                    <>
+                        <AppMenu />
+                        <LayersToggle />
+                        <LayersPanel />
+                        <LayersLoader />
+                    </>
+                )}
+                <MapPosition />
+                <InterpretationsPanel />
+                <BottomPanel />
+                <LayerEdit />
+                <ContextMenu />
+                <AlertStack />
+                <OpenAsMapDialog />
+                <OrgUnitProfile />
+            </div>
         </>
     )
 }
