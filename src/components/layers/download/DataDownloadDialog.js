@@ -1,129 +1,140 @@
+import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
-import { Modal, ModalTitle, ModalContent, ModalActions } from '@dhis2/ui'
+import {
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
+    NoticeBox,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {
-    closeDataDownloadDialog,
-    startDataDownload,
-} from '../../../actions/dataDownload.js'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { EVENT_LAYER } from '../../../constants/layers.js'
-import {
-    META_DATA_FORMAT_ID,
-    META_DATA_FORMAT_NAME,
-    META_DATA_FORMAT_CODE,
-} from '../../../util/geojson.js'
+import { getFormatOptions, downloadData } from '../../../util/dataDownload.js'
+import { SelectField, Checkbox, Help } from '../../core/index.js'
+import { useUserSettings } from '../../UserSettingsProvider.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
-import DataDownloadDialogContent from './DataDownloadDialogContent.js'
+import styles from './styles/DataDownloadDialog.module.css'
 
-const formatOptionsFlat = [
-    META_DATA_FORMAT_ID,
-    META_DATA_FORMAT_CODE,
-    META_DATA_FORMAT_NAME,
-]
-const formatOptions = formatOptionsFlat.map((name, i) => ({
-    id: i + 1,
-    name,
-}))
+const DataDownloadDialog = ({ layer, onCloseDialog }) => {
+    const { keyAnalysisDisplayProperty } = useUserSettings()
+    const formatOptions = getFormatOptions()
+    const { d2 } = useD2()
+    const [selectedFormat, setSelectedFormat] = useState(formatOptions[2])
+    const [humanReadable, setHumanReadable] = useState(true)
+    const [isDownloading, setIsDownloading] = useState(false)
+    const [error, setError] = useState(null)
 
-class DataDownloadDialog extends Component {
-    static propTypes = {
-        closeDialog: PropTypes.func.isRequired,
-        downloading: PropTypes.bool.isRequired,
-        open: PropTypes.bool.isRequired,
-        startDownload: PropTypes.func.isRequired,
-        aggregations: PropTypes.object,
-        error: PropTypes.string,
-        layer: PropTypes.object,
+    const aggregations = useSelector((state) => state.aggregations)
+
+    const onChangeFormat = (format) => {
+        setError(null)
+        setSelectedFormat(format)
     }
 
-    state = {
-        selectedFormatOption: 2,
-        humanReadableChecked: true,
+    const onChangeHumanReadable = (isChecked) => {
+        setError(null)
+        setHumanReadable(isChecked)
     }
 
-    onChangeFormatOption = (newValue) => {
-        this.setState({ selectedFormatOption: newValue.id - 1 })
-    }
-    onCheckHumanReadable = (isChecked) => {
-        this.setState({ humanReadableChecked: isChecked })
+    const onClose = () => {
+        setError(null)
+        onCloseDialog()
     }
 
-    onStartDownload = () => {
-        const { layer, aggregations } = this.props
-        const {
-            selectedFormatOption,
-            humanReadableChecked: humanReadableKeys,
-        } = this.state
-        const format = formatOptionsFlat[selectedFormatOption]
-
-        this.props.startDownload({
-            layer,
-            aggregations,
-            format,
-            humanReadableKeys,
-        })
-    }
-
-    render() {
-        const { open, layer, downloading, error, closeDialog } = this.props
-
-        if (!open || !layer) {
-            return null
+    const onStartDownload = async () => {
+        setIsDownloading(true)
+        setError(null)
+        try {
+            await downloadData({
+                layer,
+                aggregations: aggregations[layer.id],
+                format: selectedFormat.id,
+                humanReadableKeys: humanReadable,
+                d2,
+                nameProperty: keyAnalysisDisplayProperty,
+            })
+            setIsDownloading(false)
+            onClose()
+        } catch (e) {
+            console.log('download failed', e)
+            setIsDownloading(false)
+            setError(`download failed ${e}`)
         }
-
-        const layerType = layer.layer,
-            isEventLayer = layerType === EVENT_LAYER
-
-        return (
-            <Modal position="middle" onClose={closeDialog}>
-                <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
-                <ModalContent>
-                    <DataDownloadDialogContent
-                        isEventLayer={isEventLayer}
-                        error={error}
-                        layerName={layer.name}
-                        formatOptions={formatOptions}
-                        selectedFormatOption={
-                            this.state.selectedFormatOption + 1
-                        }
-                        humanReadableChecked={this.state.humanReadableChecked}
-                        onChangeFormatOption={this.onChangeFormatOption}
-                        onCheckHumanReadable={this.onCheckHumanReadable}
-                    />
-                </ModalContent>
-                <ModalActions>
-                    <DataDownloadDialogActions
-                        downloading={downloading}
-                        onStartClick={this.onStartDownload}
-                        onCancelClick={closeDialog}
-                    />
-                </ModalActions>
-            </Modal>
-        )
     }
-}
 
-const mapStateToProps = ({ dataDownload, map, aggregations = {} }) => {
-    const { layerid, dialogOpen: open, downloading, error } = dataDownload
-    const layer = map.mapViews.find((l) => l.id === layerid)
-
-    if (open && !layer) {
+    if (!layer) {
         console.error(
             'Tried to open data download dialog without specifying a source layer!'
         )
     }
 
-    return {
-        open,
-        layer,
-        downloading,
-        error,
-        aggregations: aggregations[layerid],
-    }
+    return (
+        <Modal
+            position="middle"
+            onClose={onClose}
+            dataTest="data-download-modal"
+        >
+            <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
+            <ModalContent>
+                <div className={styles.contentDiv}>
+                    {i18n.t('Downloading GeoJSON data for "{{layerName}}"', {
+                        layerName: layer.name,
+                    })}
+                </div>
+                <Help>
+                    {i18n.t(
+                        'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
+                    )}
+                </Help>
+                {layer.layer === EVENT_LAYER && (
+                    <div className={styles.inputContainer}>
+                        <>
+                            <div className={styles.headingDiv}>
+                                {i18n.t('GeoJSON Properties:')}
+                            </div>
+                            <div className={styles.selectField}>
+                                <SelectField
+                                    label={i18n.t('ID Format')}
+                                    items={formatOptions}
+                                    value={selectedFormat?.id}
+                                    onChange={onChangeFormat}
+                                />
+                            </div>
+                            <Checkbox
+                                className={styles.checkboxRoot}
+                                label={i18n.t('Use human-readable keys')}
+                                checked={humanReadable}
+                                onChange={onChangeHumanReadable}
+                            />
+                        </>
+                    </div>
+                )}
+                {error && (
+                    <NoticeBox error>
+                        {i18n.t('Data download failed.')}
+                    </NoticeBox>
+                )}
+            </ModalContent>
+            <ModalActions>
+                <DataDownloadDialogActions
+                    downloading={isDownloading}
+                    onStartClick={onStartDownload}
+                    onCancelClick={onClose}
+                />
+            </ModalActions>
+        </Modal>
+    )
 }
 
-export default connect(mapStateToProps, {
-    closeDialog: closeDataDownloadDialog,
-    startDownload: startDataDownload,
-})(DataDownloadDialog)
+DataDownloadDialog.propTypes = {
+    onCloseDialog: PropTypes.func.isRequired,
+    layer: PropTypes.shape({
+        id: PropTypes.string,
+        layer: PropTypes.string,
+        name: PropTypes.string,
+    }),
+}
+
+export default DataDownloadDialog

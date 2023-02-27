@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { isValidUid } from 'd2/uid'
-import { sortBy, negate } from 'lodash/fp'
+import { sortBy } from 'lodash/fp'
 import { dimConf } from '../constants/dimension.js'
 import {
     RENDERING_STRATEGY_TIMELINE,
@@ -65,51 +65,6 @@ const isOrgUnitNode = (ou) => isValidUid(ou.id)
 export const getOrgUnitNodesFromRows = (rows = []) =>
     getOrgUnitsFromRows(rows).filter(isOrgUnitNode)
 
-export const toggleOrgUnitNodeInRows = (rows = [], orgUnit) => {
-    const orgUnits = getOrgUnitsFromRows(rows)
-    const hasOrgUnit = orgUnits.some((ou) => ou.id === orgUnit.id)
-    return [
-        createDimension(
-            'ou',
-            hasOrgUnit
-                ? orgUnits.filter((ou) => ou.id !== orgUnit.id)
-                : [...orgUnits, { ...orgUnit }]
-        ),
-    ]
-}
-
-/* ORGANISATION UNIT LEVELS */
-
-const isOrgUnitLevel = (ou) => ou.id.substring(0, 6) === 'LEVEL-'
-const getIdFromOrgUnitLevel = (ou) => ou.id.substring(6)
-const createOrgUnitLevel = (id) => ({ id: `LEVEL-${id}` })
-
-export const getOrgUnitLevelsFromRows = (rows = []) =>
-    getOrgUnitsFromRows(rows).filter(isOrgUnitLevel).map(getIdFromOrgUnitLevel)
-
-export const addOrgUnitLevelsToRows = (rows = [], levels = []) => [
-    createDimension('ou', [
-        ...getOrgUnitsFromRows(rows).filter(negate(isOrgUnitLevel)),
-        ...levels.map(createOrgUnitLevel),
-    ]),
-]
-
-/* ORGANISATION UNIT GROUPS */
-
-const isOrgUnitGroup = (ou) => ou.id.substring(0, 9) === 'OU_GROUP-'
-const getIdFromOrgUnitGroup = (ou) => ou.id.substring(9)
-const createOrgUnitGroup = (id) => ({ id: `OU_GROUP-${id}` })
-
-export const getOrgUnitGroupsFromRows = (rows = []) =>
-    getOrgUnitsFromRows(rows).filter(isOrgUnitGroup).map(getIdFromOrgUnitGroup)
-
-export const addOrgUnitGroupsToRows = (rows = [], levels = []) => [
-    createDimension('ou', [
-        ...getOrgUnitsFromRows(rows).filter(negate(isOrgUnitGroup)),
-        ...levels.map(createOrgUnitGroup),
-    ]),
-]
-
 /* ORGANISATION UNIT PATH */
 // Set organisation unit tree path (temporary solution, as favorites don't include paths)
 export const setOrgUnitPathInRows = (rows = [], id, path) => {
@@ -122,20 +77,6 @@ export const setOrgUnitPathInRows = (rows = [], id, path) => {
         ]),
     ]
 }
-
-/* USER ORGANISATION UNITS */
-
-const isUserOrgUnit = (ou) => ou.id.substring(0, 12) === 'USER_ORGUNIT'
-const getIdFromUserOrgUnit = (ou) => ou.id
-const createUserOrgUnit = (id) => ({ id })
-
-export const getUserOrgUnitsFromRows = (rows = []) =>
-    getOrgUnitsFromRows(rows).filter(isUserOrgUnit).map(getIdFromUserOrgUnit)
-
-// Adding user org units will clear other org unit selections
-export const createUserOrgUnitsDimension = (userOrgUnits = []) => [
-    createDimension('ou', [...userOrgUnits.map(createUserOrgUnit)]),
-]
 
 /* PERIODS */
 
