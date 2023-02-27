@@ -13,7 +13,7 @@
     position: relative;
     display: inline-block;
     vertical-align: top;
-    background-color: var(--colors-grey100);
+    background-color: #ffffff;
     width: var(--spacers-dp48);
     height: var(--spacers-dp48);
     margin: 0 var(--spacers-dp12) var(--spacers-dp12) 0;

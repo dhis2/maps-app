@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button } from '@dhis2/ui'
+import { Button, IconChevronLeft24, colors } from '@dhis2/ui'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setDownloadMode } from '../../actions/download.js'
@@ -21,6 +21,7 @@ const DownloadMode = () => {
         <>
             <div className={styles.downloadModeMenu}>
                 <Button onClick={() => dispatch(setDownloadMode(false))}>
+                    <IconChevronLeft24 color={colors.grey700} />
                     {i18n.t('Exit download mode')}
                 </Button>
             </div>

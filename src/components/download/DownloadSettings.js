@@ -93,6 +93,15 @@ const DownloadSettings = () => {
                                         })
                                     )
                                 }
+                                tooltip={
+                                    description
+                                        ? i18n.t(
+                                              'Description can be changed from File > Rename menu'
+                                          )
+                                        : i18n.t(
+                                              'Set the map description when you save the map or from File > Rename menu'
+                                          )
+                                }
                             />
                             <Checkbox
                                 label={i18n.t('Show legend')}
@@ -165,20 +174,9 @@ const DownloadSettings = () => {
                             )}
                             <div className={styles.help}>
                                 <Help>
-                                    <p>
-                                        {description
-                                            ? i18n.t(
-                                                  'Change the map description under File > Rename.'
-                                              )
-                                            : i18n.t(
-                                                  'Set the map description when you save the map or under File > Rename.'
-                                              )}
-                                    </p>
-                                    <p>
-                                        {i18n.t(
-                                            'Resize your browser window to change the map dimensions.'
-                                        )}
-                                    </p>
+                                    {i18n.t(
+                                        'Resize your browser window to change the map dimensions.'
+                                    )}
                                 </Help>
                             </div>
                         </>

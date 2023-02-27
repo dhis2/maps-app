@@ -4,9 +4,8 @@
     width: 100%;
     height: 44px;
     z-index: 1200;
-    box-shadow: 0 1px 1px 0 #9e9e9e;
     padding-top: 1px;
-    background-color: #4a5768;
+    background-color: var(--colors-grey600);
 }
 
 .downloadModeMenu button {

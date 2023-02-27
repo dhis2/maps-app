@@ -1,6 +1,7 @@
 .downloadSettings {
     padding: var(--spacers-dp8) var(--spacers-dp16);
-    background-color: #fafafa;
+    background-color: #f4f6f8;
+    color: #3e4a59;
     height: 100%;
 }
 
