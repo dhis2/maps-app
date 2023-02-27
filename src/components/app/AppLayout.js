@@ -7,7 +7,6 @@ import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadMode from '../download/DownloadMode.js'
 import LayerEdit from '../edit/LayerEdit.js'
 import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
-import DataDownloadDialog from '../layers/download/DataDownloadDialog.js'
 import LayersPanel from '../layers/LayersPanel.js'
 import LayersToggle from '../layers/LayersToggle.js'
 import LayersLoader from '../loaders/LayersLoader.js'
@@ -39,7 +38,6 @@ const AppLayout = () => {
             <LayerEdit />
             <ContextMenu />
             <AlertStack />
-            <DataDownloadDialog />
             <OpenAsMapDialog />
             <OrgUnitProfile />
         </>
