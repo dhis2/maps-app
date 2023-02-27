@@ -4,17 +4,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { isValidUid } from '../../util/helpers.js'
 import { SelectField } from '../core/index.js'
-import { useUserSettings } from '../UserSettingsProvider.js'
 
 // Load org unit levels
 const ORG_UNIT_LEVELS_QUERY = {
     levels: {
         resource: 'organisationUnitLevels',
-        params: ({ nameProperty }) => ({
-            fields: ['id', `${nameProperty}~rename(name)`, 'level'],
+        params: {
+            fields: ['id', 'displayName~rename(name)', 'level'],
             order: `level:asc`,
             paging: false,
-        }),
+        },
     },
 }
 
@@ -41,10 +40,7 @@ const style = {
 }
 
 const OrgUnitLevelSelect = ({ orgUnitLevel, disabled, onChange }) => {
-    const { nameProperty } = useUserSettings()
-    const { loading, error, data } = useDataQuery(ORG_UNIT_LEVELS_QUERY, {
-        variables: { nameProperty },
-    })
+    const { loading, error, data } = useDataQuery(ORG_UNIT_LEVELS_QUERY)
     const value = getOrgUnitLevelUid(
         orgUnitLevel,
         data?.levels.organisationUnitLevels
