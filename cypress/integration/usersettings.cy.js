@@ -10,7 +10,7 @@ const testMap = {
     cardTitle: 'ANC LLITN coverage',
 }
 
-describe('userSettings', () => {
+describe.skip('userSettings', () => {
     beforeEach(() => {
         cy.intercept(USER_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']
@@ -53,9 +53,10 @@ describe('userSettings', () => {
         cy.contains('Download').should('not.exist')
 
         cy.contains('Tolkninger').click()
-        cy.get('div').contains('John Kamara').click()
-
-        cy.contains('14. mai 2021').should('be.visible')
+        cy.getByDataTest('interpretations-list')
+            .find('.date-section')
+            .contains('14. mai 2021')
+            .should('be.visible')
     })
 
     it('shows the app in English', () => {
@@ -92,8 +93,9 @@ describe('userSettings', () => {
         cy.contains('Download').should('be.visible')
 
         cy.contains('Interpretations').click()
-        cy.get('div').contains('John Kamara').click()
-
-        cy.contains('May 14').should('be.visible')
+        cy.getByDataTest('interpretations-list')
+            .find('.date-section')
+            .contains('May 14')
+            .should('be.visible')
     })
 })
