@@ -22,6 +22,7 @@ const SelectField = (props) => {
         warning,
         items,
         label,
+        prefix,
         loading,
         multiple,
         disabled,
@@ -62,6 +63,7 @@ const SelectField = (props) => {
             <Select
                 dense={dense}
                 label={label}
+                prefix={prefix}
                 selected={!isLoading ? selected : undefined}
                 disabled={disabled}
                 loading={isLoading}
@@ -100,6 +102,7 @@ SelectField.propTypes = {
     loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     // If true, then use multiple selection. Adds a checkbox to each menu item.
     multiple: PropTypes.bool,
+    prefix: PropTypes.string,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,

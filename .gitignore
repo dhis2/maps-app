@@ -2,6 +2,7 @@ node_modules
 build
 cypress/videos/
 cypress/screenshots/
+cypress/downloads/
 cypress.env.json
 
 # DHIS2 Platform

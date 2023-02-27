@@ -9,3 +9,17 @@ Cypress.Commands.add(
     (subject, selector, ...args) =>
         cy.wrap(subject).find(`[data-test="${selector}"]`, ...args)
 )
+
+Cypress.Commands.add(
+    'containsExact',
+    {
+        prevSubject: 'optional',
+    },
+    (subject, selector) =>
+        cy.wrap(subject).contains(
+            new RegExp(
+                `^${selector.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}$`, //eslint-disable-line no-useless-escape
+                'gm'
+            )
+        )
+)

@@ -29,7 +29,10 @@ describe('File menu', () => {
         ThemLayer.openDialog('Thematic').selectIndicatorGroup('HIV')
 
         cy.wait('@fetchIndicators')
-        ThemLayer.selectIndicator('VCCT post-test counselling rate').addToMap()
+        ThemLayer.selectIndicator('VCCT post-test counselling rate')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
+            .addToMap()
 
         cy.intercept({ method: 'POST', url: 'maps' }, (req) => {
             expect(req.body.mapViews).to.have.length(1)

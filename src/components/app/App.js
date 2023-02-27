@@ -8,14 +8,12 @@ import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
 import { tSetExternalLayers } from '../../actions/externalLayers.js'
 import { tOpenMap } from '../../actions/map.js'
-import { tSetOrgUnitTree } from '../../actions/orgUnits.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
 import AlertStack from '../alerts/AlertStack.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import LayerEdit from '../edit/LayerEdit.js'
 import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
-import DataDownloadDialog from '../layers/download/DataDownloadDialog.js'
 import LayersPanel from '../layers/LayersPanel.js'
 import LayersToggle from '../layers/LayersToggle.js'
 import LayersLoader from '../loaders/LayersLoader.js'
@@ -36,7 +34,6 @@ const App = () => {
 
     useEffect(() => {
         async function fetchData() {
-            await dispatch(tSetOrgUnitTree())
             await dispatch(tSetExternalLayers(engine))
             setBasemapsLoaded(true)
 
@@ -78,7 +75,6 @@ const App = () => {
             <LayerEdit />
             <ContextMenu />
             <AlertStack />
-            <DataDownloadDialog />
             <OpenAsMapDialog />
             <OrgUnitProfile />
             <CssVariables colors spacers theme />
