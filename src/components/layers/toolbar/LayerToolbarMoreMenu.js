@@ -67,7 +67,7 @@ const LayerToolbarMoreMenu = ({
                     onClickOutside={() => setIsOpen(false)}
                 >
                     <div className={styles.menu}>
-                        <Menu dense>
+                        <Menu dense dataTest="more-menu">
                             {toggleDataTable && (
                                 <MenuItem
                                     label={

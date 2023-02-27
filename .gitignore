@@ -16,4 +16,5 @@ src/locales/
 .netlify
 cypress/videos/
 cypress/screenshots/
+cypress/downloads/
 cypress.env.json

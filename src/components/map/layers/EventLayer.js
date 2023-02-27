@@ -1,8 +1,8 @@
 import { getInstance as getD2 } from 'd2'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
-import { getAnalyticsRequest } from '../../../loaders/eventLoader.js'
 import { getContrastColor } from '../../../util/colors.js'
+import { getAnalyticsRequest } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { getDisplayPropertyUrl } from '../../../util/helpers.js'
 import { formatCount } from '../../../util/numbers.js'
@@ -84,7 +84,13 @@ class EventLayer extends Layer {
                     d2 = d2 || (await getD2())
 
                     eventRequest =
-                        eventRequest || (await getAnalyticsRequest(this.props))
+                        eventRequest ||
+                        (await getAnalyticsRequest(this.props, {
+                            d2,
+                            nameProperty:
+                                d2.currentUser.settings
+                                    .keyAnalysisDisplayProperty,
+                        }))
 
                     eventRequest = eventRequest
                         .withBbox(params.bbox)
