@@ -27,8 +27,7 @@
     "profile": "yarn start --profile",
     "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
     "localize": "yarn extract-pot && d2-i18n-generate -n default -p ./i18n/ -o ./src/locales/",
-    "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json",
-    "validate": "npm ls"
+    "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
   },
   "dependencies": {
     "@dhis2/analytics": "^24.9.0",
@@ -128,10 +127,5 @@
         "href": ".."
       }
     }
-  },
-  "pre-commit": [
-    "lint",
-    "validate",
-    "test"
-  ]
+  }
 }

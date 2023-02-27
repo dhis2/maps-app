@@ -17,6 +17,7 @@ import {
     setLayerLoading,
 } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import { useOrgUnits } from '../OrgUnitsProvider.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
 import EventDialog from './event/EventDialog.js'
@@ -53,6 +54,7 @@ const LayerEdit = ({
 }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
     const { keyAnalysisRelativePeriod } = useSystemSettings()
+    const orgUnits = useOrgUnits()
 
     const onValidateLayer = () => setIsValidLayer(true)
 
@@ -108,6 +110,7 @@ const LayerEdit = ({
                     <LayerDialog
                         {...layer}
                         defaultPeriod={keyAnalysisRelativePeriod}
+                        orgUnits={orgUnits}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}
                     />

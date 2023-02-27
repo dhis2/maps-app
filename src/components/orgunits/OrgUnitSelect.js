@@ -3,16 +3,16 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
-import { DEFAULT_ORG_UNIT_LEVEL } from '../../constants/layers.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
 import AssociatedGeometrySelect from './AssociatedGeometrySelect.js'
 import OrgUnitSelectMode from './OrgUnitSelectMode.js'
 import styles from './styles/OrgUnitSelect.module.css'
 
-// Fetches the root org units associated with the current user with fallback to data capture org units
+// Fetches org unit levels and the root org units associated with the current user
+// with fallback to data capture org units
 const ORG_UNIT_TREE_QUERY = {
     tree: {
         resource: 'organisationUnits',
@@ -41,8 +41,6 @@ const OrgUnitSelect = ({
     hideSelectMode = true,
     hideLevelSelect = false,
     hideGroupSelect = false,
-    selectDefaultLevel = false,
-    selectRoots = false,
     warning,
 }) => {
     const { loading, data, error } = useDataQuery(ORG_UNIT_TREE_QUERY)
@@ -62,27 +60,12 @@ const OrgUnitSelect = ({
 
     const roots = data?.tree.organisationUnits
     const orgUnitLevels = data?.levels.organisationUnitLevels
-    const defaultLevel = orgUnitLevels?.[DEFAULT_ORG_UNIT_LEVEL]
 
     const orgUnits = translateOrgUnitLevels(
         rows?.find((r) => r.dimension === 'ou'),
         orgUnitLevels
     )
     const hasOrgUnits = !!orgUnits.length
-
-    useEffect(() => {
-        if (!rows && !hasOrgUnits && selectRoots && roots) {
-            setOrgUnitItems({
-                items: roots,
-            })
-        }
-    }, [rows, selectRoots, roots, hasOrgUnits, setOrgUnitItems])
-
-    useEffect(() => {
-        if (!rows && !hasOrgUnits && selectDefaultLevel && defaultLevel) {
-            setOrgUnitItems({ items: [{ id: `LEVEL-${defaultLevel.id}` }] })
-        }
-    }, [rows, selectDefaultLevel, defaultLevel, hasOrgUnits, setOrgUnitItems])
 
     if (loading) {
         return (
@@ -134,8 +117,6 @@ OrgUnitSelect.propTypes = {
     hideLevelSelect: PropTypes.bool,
     hideSelectMode: PropTypes.bool,
     hideUserOrgUnits: PropTypes.bool,
-    selectDefaultLevel: PropTypes.bool,
-    selectRoots: PropTypes.bool,
     warning: PropTypes.string,
 }
 
