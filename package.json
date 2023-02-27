@@ -40,7 +40,7 @@
         "@dhis2/d2-ui-org-unit-dialog": "^7.4.0",
         "@dhis2/d2-ui-org-unit-tree": "^7.4.0",
         "@dhis2/maps-gl": "^3.7.0",
-        "@dhis2/ui": "^8.11.0",
+        "@dhis2/ui": "^8.11.2",
         "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^4.0.0",
         "classnames": "^2.3.1",
