@@ -1,5 +1,5 @@
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
-import 'typeface-roboto'
+import 'fontsource-roboto/latin.css'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { AlertsProvider } from '@dhis2/app-service-alerts'
 import { useSetting } from '@dhis2/app-service-datastore'
