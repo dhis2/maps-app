@@ -6,23 +6,16 @@ import {
     EVENT_SERVER_CLUSTER_COUNT,
     EVENT_COLOR,
     EVENT_RADIUS,
-    EVENT_COORDINATE_CASCADING,
-    EVENT_COORDINATE_DEFAULT,
 } from '../constants/layers.js'
-import { getEventColumns } from '../epics/dataDownload.js'
 import {
-    getOrgUnitsFromRows,
     getFiltersFromColumns,
     getFiltersAsText,
     getPeriodFromFilters,
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
-import {
-    createEventFeatures,
-    addStyleDataItem,
-    getBounds,
-} from '../util/geojson.js'
+import { getAnalyticsRequest, loadData } from '../util/event.js'
+import { getBounds } from '../util/geojson.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
@@ -77,10 +70,14 @@ const loadEventLayer = async (config) => {
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
+    const d2 = await getD2()
 
     config.isExtended = showDataTable
 
-    const analyticsRequest = await getAnalyticsRequest(config)
+    const analyticsRequest = await getAnalyticsRequest(config, {
+        d2,
+        nameProperty: d2.currentUser.settings.keyAnalysisDisplayProperty,
+    })
     let alert
 
     config.name = programStage.name
@@ -112,8 +109,9 @@ const loadEventLayer = async (config) => {
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
         const { names, data, response } = await loadData(
-            analyticsRequest.withPageSize(EVENT_CLIENT_PAGE_SIZE), // DHIS2-10742,
-            config
+            analyticsRequest,
+            config,
+            d2
         )
         const { total } = response.metaData.pager
 
@@ -192,112 +190,9 @@ const loadEventLayer = async (config) => {
     }
 }
 
-// Also used to query for server cluster in map/EventLayer.js
-// TODO: Use DataIDScheme / OutputIDScheme instead of requesting all metaData (which can easily dwarf the actual response data)
-export const getAnalyticsRequest = async ({
-    program,
-    programStage,
-    filters,
-    startDate,
-    endDate,
-    rows,
-    columns,
-    styleDataItem,
-    eventStatus,
-    eventCoordinateField = EVENT_COORDINATE_DEFAULT,
-    fallbackCoordinateField,
-    relativePeriodDate,
-    isExtended,
-}) => {
-    const orgUnits = getOrgUnitsFromRows(rows)
-    const period = getPeriodFromFilters(filters)
-    const dataItems = addStyleDataItem(
-        columns.filter(isValidDimension),
-        styleDataItem
-    )
-
-    // Add "display in reports" columns that are not already present
-    if (isExtended) {
-        const displayColumns = await getEventColumns({ programStage })
-
-        displayColumns.forEach((col) => {
-            if (!dataItems.find((item) => item.dimension === col.dimension)) {
-                dataItems.push(col)
-            }
-        })
-    }
-
-    const d2 = await getD2()
-
-    let analyticsRequest = new d2.analytics.request()
-        .withProgram(program.id)
-        .withStage(programStage.id)
-        .withCoordinatesOnly(true)
-
-    analyticsRequest = period
-        ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
-
-    if (relativePeriodDate) {
-        analyticsRequest =
-            analyticsRequest.withRelativePeriodDate(relativePeriodDate)
-    }
-
-    analyticsRequest = analyticsRequest.addOrgUnitDimension(
-        orgUnits.map((ou) => ou.id)
-    )
-
-    if (dataItems) {
-        dataItems.forEach((item) => {
-            analyticsRequest = analyticsRequest.addDimension(
-                item.dimension,
-                item.filter
-            )
-        })
-    }
-
-    analyticsRequest =
-        analyticsRequest.withCoordinateField(eventCoordinateField)
-
-    if (fallbackCoordinateField) {
-        if (fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
-            analyticsRequest = analyticsRequest.withParameters({
-                defaultCoordinateFallback: true,
-            })
-        } else {
-            analyticsRequest = analyticsRequest.withParameters({
-                fallbackCoordinateField,
-            })
-        }
-    } else {
-        analyticsRequest = analyticsRequest.withParameters({
-            defaultCoordinateFallback: false, // TODO: Update if backend behaviour is changed
-        })
-    }
-
-    if (eventStatus && eventStatus !== 'ALL') {
-        analyticsRequest = analyticsRequest.withEventStatus(eventStatus)
-    }
-
-    return analyticsRequest
-}
-
 export const getCount = async (request) => {
     const d2 = await getD2()
     return await d2.analytics.events.getCount(request)
-}
-
-export const loadData = async (request, config = {}) => {
-    const d2 = await getD2()
-    const response = await d2.analytics.events.getQuery(request)
-
-    const { data, names } = createEventFeatures(response, config)
-
-    return {
-        data,
-        names,
-        response,
-    }
 }
 
 // If the layer included filters using option sets, this function return an object
@@ -346,10 +241,5 @@ const getFilterOptionNames = async (filters, headers) => {
         {}
     )
 }
-
-// Empty filter sometimes returned for saved maps
-// Dimension without filter and empty items array returns false
-const isValidDimension = ({ dimension, filter, items }) =>
-    Boolean(dimension && (filter || !items || items.length))
 
 export default eventLoader

@@ -13,7 +13,12 @@ const DataDownloadDialogActions = ({
         <Button secondary onClick={onCancelClick} disabled={downloading}>
             {i18n.t('Cancel')}
         </Button>
-        <Button primary onClick={onStartClick} disabled={downloading}>
+        <Button
+            name="download-button"
+            primary
+            onClick={onStartClick}
+            disabled={downloading}
+        >
             {i18n.t('Download')}
             {downloading && (
                 <CircularLoader small className={styles.btnProgress} />

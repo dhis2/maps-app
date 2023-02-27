@@ -1,3 +1,11 @@
+.contentDiv {
+    margin-bottom: var(--spacers-dp12);
+}
+
+.inputContainer {
+    margin-top: var(--spacers-dp32);
+}
+
 .headingDiv {
     margin-bottom: var(--spacers-dp8);
 }

@@ -3,7 +3,6 @@ import aggregations from './aggregations.js'
 import analyticalObject from './analyticalObject.js'
 import basemaps from './basemaps.js'
 import contextMenu from './contextMenu.js'
-import dataDownload from './dataDownload.js'
 import dataTable from './dataTable.js'
 import download from './download.js'
 import feature from './feature.js'
@@ -27,6 +26,5 @@ export default combineReducers({
     map,
     orgUnitProfile,
     ui,
-    dataDownload,
     feature,
 })
