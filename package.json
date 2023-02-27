@@ -94,7 +94,7 @@
         "cypress-cucumber-preprocessor": "^4.3.1",
         "d2-manifest": "^1.0.0",
         "enzyme": "^3.11.0",
-        "enzyme-adapter-react-16": "^1.15.6",
+        "enzyme-adapter-react-16": "^1.15.7",
         "enzyme-to-json": "^3.6.2",
         "eslint-plugin-cypress": "^2.12.1",
         "file-loader": "^6.2.0",
