@@ -1,8 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, ButtonStrip } from '@dhis2/ui'
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setDownloadMode, setDownloadConfig } from '../../actions/download.js'
+import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import Drawer from '../core/Drawer.js'
@@ -33,6 +34,22 @@ const DownloadSettings = () => {
         [mapViews]
     )
 
+    const onClose = useCallback(
+        () => dispatch(setDownloadMode(false)),
+        [dispatch]
+    )
+
+    const onDownload = useCallback(() => {
+        const filename = standardizeFilename(name, 'png')
+        let mapEl = document.getElementById('dhis2-map-container')
+
+        if (includeMargins) {
+            mapEl = mapEl.parentNode
+        }
+
+        downloadMapImage(mapEl, filename).then(onClose).catch(setError)
+    }, [name, includeMargins, onClose])
+
     const hasLayers = mapViews.length > 0
 
     useEffect(() => {
@@ -51,19 +68,6 @@ const DownloadSettings = () => {
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
     const showMarginsCheckbox = false // Not in use
-
-    const onClose = () => dispatch(setDownloadMode(false))
-
-    const onDownload = () => {
-        const filename = `map-${Math.random().toString(36).substring(7)}.png`
-        let mapEl = document.getElementById('dhis2-map-container')
-
-        if (includeMargins) {
-            mapEl = mapEl.parentNode
-        }
-
-        downloadMapImage(mapEl, filename).then(onClose).catch(setError)
-    }
 
     return (
         <Drawer position="left">
