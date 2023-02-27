@@ -31,7 +31,7 @@ import { toGeoJson } from '../util/map.js'
 import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async (config, keyAnalysisDisplayProperty, d2) => {
+const thematicLoader = async (config, { displayProperty, d2 }) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -48,13 +48,11 @@ const thematicLoader = async (config, keyAnalysisDisplayProperty, d2) => {
 
     let error
 
-    const response = await loadData(
-        config,
-        keyAnalysisDisplayProperty,
-        d2
-    ).catch((err) => {
-        error = err
-    })
+    const response = await loadData(config, { displayProperty, d2 }).catch(
+        (err) => {
+            error = err
+        }
+    )
 
     if (!response) {
         return {
