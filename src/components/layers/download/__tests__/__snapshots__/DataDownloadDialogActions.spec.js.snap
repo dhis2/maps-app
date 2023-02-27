@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataDownloadDialogActions Should disable buttons and show loading spinner when loading 1`] = `
+<div>
+  <div
+    class="jsx-1994200789 end"
+    data-test="dhis2-uicore-buttonstrip"
+  >
+    <div
+      class="jsx-1994200789 box"
+    >
+      <button
+        class="jsx-441677069 secondary"
+        data-test="dhis2-uicore-button"
+        disabled=""
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+    <div
+      class="jsx-1994200789 box"
+    >
+      <button
+        class="jsx-441677069 primary"
+        data-test="dhis2-uicore-button"
+        disabled=""
+        name="download-button"
+        type="button"
+      >
+        Download
+        <div
+          class="jsx-1838964138 btnProgress small"
+          data-test="dhis2-uicore-circularloader"
+          role="progressbar"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataDownloadDialogActions Should render two buttons and NO loading spinner 1`] = `
+<div>
+  <div
+    class="jsx-1994200789 end"
+    data-test="dhis2-uicore-buttonstrip"
+  >
+    <div
+      class="jsx-1994200789 box"
+    >
+      <button
+        class="jsx-441677069 secondary"
+        data-test="dhis2-uicore-button"
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+    <div
+      class="jsx-1994200789 box"
+    >
+      <button
+        class="jsx-441677069 primary"
+        data-test="dhis2-uicore-button"
+        name="download-button"
+        type="button"
+      >
+        Download
+      </button>
+    </div>
+  </div>
+</div>
+`;

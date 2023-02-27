@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-26T18:01:08.560Z\n"
-"PO-Revision-Date: 2023-02-26T18:01:08.560Z\n"
+"POT-Creation-Date: 2023-02-23T08:26:27.244Z\n"
+"PO-Revision-Date: 2023-02-23T08:26:27.244Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -521,13 +521,13 @@ msgid ""
 "Desktop."
 msgstr ""
 
-msgid "Data download failed."
-msgstr ""
-
 msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
