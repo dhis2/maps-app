@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { curry } from 'lodash/fp'
 import {
     EVENT_COLOR,
@@ -18,15 +17,15 @@ import {
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
 // This function is modifiyng the config object before it's added to the redux store
-export const styleByDataItem = async (config) => {
+export const styleByDataItem = async (config, d2) => {
     const { styleDataItem } = config
 
     if (styleDataItem.optionSet) {
-        await styleByOptionSet(config)
+        await styleByOptionSet(config, d2)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
-        await styleByNumeric(config)
+        await styleByNumeric(config, d2)
     } else if (styleDataItem.valueType === 'BOOLEAN') {
-        await styleByBoolean(config)
+        await styleByBoolean(config, d2)
     }
 
     config.legend.items.push({
@@ -38,7 +37,7 @@ export const styleByDataItem = async (config) => {
     return config
 }
 
-export const styleByBoolean = async (config) => {
+const styleByBoolean = async (config, d2) => {
     const { styleDataItem, data, legend, eventPointRadius } = config
     const { id, name, values } = styleDataItem
 
@@ -59,7 +58,7 @@ export const styleByBoolean = async (config) => {
         }
     })
 
-    legend.unit = name || (await getDataElementName(id))
+    legend.unit = name || (await getDataElementName(id, d2))
 
     legend.items = [
         {
@@ -80,7 +79,7 @@ export const styleByBoolean = async (config) => {
     return config
 }
 
-export const styleByNumeric = async (config) => {
+const styleByNumeric = async (config, d2) => {
     const {
         styleDataItem,
         method,
@@ -93,7 +92,7 @@ export const styleByNumeric = async (config) => {
     // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
         // Load legend set from server
-        const legendSet = await loadLegendSet(config.legendSet)
+        const legendSet = await loadLegendSet(config.legendSet, d2)
 
         // Use legend set name and legend unit
         config.legend.unit = legendSet.name
@@ -108,7 +107,8 @@ export const styleByNumeric = async (config) => {
 
         // Use data item name as legend unit (load from server if needed)
         config.legend.unit =
-            styleDataItem.name || (await getDataElementName(styleDataItem.id))
+            styleDataItem.name ||
+            (await getDataElementName(styleDataItem.id, d2))
 
         // Generate legend items based on layer config
         config.legend.items = getAutomaticLegendItems(
@@ -150,9 +150,9 @@ export const styleByNumeric = async (config) => {
     return config
 }
 
-export const styleByOptionSet = async (config) => {
+const styleByOptionSet = async (config, d2) => {
     const { styleDataItem } = config
-    const optionSet = await getOptionSet(styleDataItem.optionSet)
+    const optionSet = await getOptionSet(styleDataItem.optionSet, d2)
     const id = styleDataItem.id
 
     // Replace styleDataItem with a version with names
@@ -205,14 +205,13 @@ export const styleByOptionSet = async (config) => {
 
 // The style option set included in a favorite is stripped for names
 // and this function add the names if needed
-const getOptionSet = async (optionSet) => {
+const getOptionSet = async (optionSet, d2) => {
     // Return unmodified option set if names are included
     if (optionSet.name) {
         return optionSet
     }
 
     // Load option set from server
-    const d2 = await getD2()
     const optSet = await d2.models.optionSet.get(optionSet.id, {
         fields: 'displayName~rename(name),options[id,code,displayName~rename(name)]',
     })
@@ -228,8 +227,7 @@ const getOptionSet = async (optionSet) => {
     }
 }
 
-const getDataElementName = async (id) => {
-    const d2 = await getD2()
+const getDataElementName = async (id, d2) => {
     return d2.models.dataElement
         .get(id, {
             fields: 'displayName~rename(name)',

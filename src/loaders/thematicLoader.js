@@ -113,7 +113,7 @@ const thematicLoader = async (config, { displayProperty, d2 }) => {
     const method = legendSet ? CLASSIFICATION_PREDEFINED : config.method
 
     if (legendSet) {
-        legendSet = await loadLegendSet(legendSet)
+        legendSet = await loadLegendSet(legendSet, d2)
     }
 
     let legendItems = []

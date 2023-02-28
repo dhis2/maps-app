@@ -2,7 +2,7 @@ import { EXTERNAL_LAYER } from '../constants/layers.js'
 import { parseLayerConfig } from '../util/external.js'
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend.js'
 
-const externalLoader = async (layer) => {
+const externalLoader = async (layer, d2) => {
     let { config } = layer
 
     if (typeof config === 'string') {
@@ -17,7 +17,7 @@ const externalLoader = async (layer) => {
     const legend = { title: name }
 
     if (legendSet) {
-        const legendItems = await loadLegendSet(legendSet)
+        const legendItems = await loadLegendSet(legendSet, d2)
         legend.items = getPredefinedLegendItems(legendItems)
     }
 

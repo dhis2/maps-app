@@ -33,10 +33,10 @@ const unknownErrorAlert = {
 
 // TODO: Refactor to share code with other loaders
 // Returns a promise
-const eventLoader = async (layerConfig) => {
+const eventLoader = async (layerConfig, d2) => {
     const config = { ...layerConfig }
     try {
-        await loadEventLayer(config)
+        await loadEventLayer(config, d2)
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [accessDeniedAlert]
@@ -52,7 +52,7 @@ const eventLoader = async (layerConfig) => {
     return config
 }
 
-const loadEventLayer = async (config) => {
+const loadEventLayer = async (config, d2) => {
     const {
         columns,
         endDate,
@@ -70,7 +70,6 @@ const loadEventLayer = async (config) => {
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
-    const d2 = await getD2()
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport
 
     config.isExtended = showDataTable
@@ -120,7 +119,7 @@ const loadEventLayer = async (config) => {
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
-                await styleByDataItem(config)
+                await styleByDataItem(config, d2)
             }
 
             if (total > EVENT_CLIENT_PAGE_SIZE) {

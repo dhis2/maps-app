@@ -4,10 +4,8 @@ import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers.js'
 import { getLegendItems } from '../util/classify.js'
 import { defaultClasses, defaultColorScale } from '../util/colors.js'
 
-export const loadLegendSet = async (legendSet) => {
-    const d2 = await getD2()
-    return d2.models.legendSet.get(legendSet.id) // TODO: Restrict loading fields
-}
+export const loadLegendSet = async (legendSet, d2) =>
+    d2.models.legendSet.get(legendSet.id) // TODO: Restrict loading fields
 
 export const loadDataItemLegendSet = async (dataItem) => {
     const type = (dataItem.dimensionItemType || '').toLowerCase()
