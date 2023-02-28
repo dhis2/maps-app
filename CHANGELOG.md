@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/dhis2/maps-app/compare/v1.29.0...v1.29.1) (2023-02-28)
+
+
+### Bug Fixes
+
+* include path in org unit dimension items ([#2502](https://github.com/dhis2/maps-app/issues/2502)) ([09b6c96](https://github.com/dhis2/maps-app/commit/09b6c968bfe4f1f277ed3c2a6b7e55992e9a38d0))
+
 # [1.29.0](https://github.com/dhis2/maps-app/compare/v1.28.5...v1.29.0) (2023-02-28)
 
 
