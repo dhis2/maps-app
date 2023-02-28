@@ -43,7 +43,7 @@ const OrgUnitsProvider = ({ children }) => {
         <OrgUnitsCtx.Provider
             value={{
                 ...orgUnits,
-                loading: !orgUnits,
+                loading: !orgUnits && !error,
                 error,
             }}
         >
