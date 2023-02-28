@@ -1,11 +1,11 @@
-import { getInstance as getD2 } from 'd2'
+import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
 import { getAnalyticsRequest } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
-import { getDisplayPropertyUrl } from '../../../util/helpers.js'
 import { formatCount } from '../../../util/numbers.js'
+import { UserSettingsCtx } from '../../UserSettingsProvider.js'
 import EventPopup from './EventPopup.js'
 import Layer from './Layer.js'
 
@@ -36,6 +36,7 @@ class EventLayer extends Layer {
             styleDataItem,
             legend,
             dataFilters,
+            d2,
         } = this.props
 
         const filteredData = filterData(data, dataFilters)
@@ -54,7 +55,6 @@ class EventLayer extends Layer {
         const radius = eventPointRadius || EVENT_RADIUS
 
         const map = this.context.map
-        let d2
         let eventRequest
 
         // Data elements to display in event popup
@@ -81,8 +81,6 @@ class EventLayer extends Layer {
                 config.bounds = bounds
 
                 config.load = async (params, callback) => {
-                    d2 = d2 || (await getD2())
-
                     eventRequest =
                         eventRequest ||
                         (await getAnalyticsRequest(this.props, {
@@ -197,13 +195,10 @@ class EventLayer extends Layer {
 
     // Loads the data elements for a program stage to display in popup
     async loadDisplayElements() {
-        const { programStage, eventCoordinateField } = this.props
+        const { programStage, eventCoordinateField, settings, d2 } = this.props
 
-        const d2 = await getD2()
         const data = await d2.models.programStage.get(programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
-                d2
-            )},optionSet,valueType]]`,
+            fields: `programStageDataElements[displayInReports,dataElement[id,${settings.nameProperty}~rename(name),optionSet,valueType]]`,
             paging: false,
         })
         const { programStageDataElements } = data
@@ -241,13 +236,14 @@ class EventLayer extends Layer {
             return dataElement
         }
 
-        const d2 = await getD2()
-
         if (optionSet && optionSet.id) {
-            const fullOptionSet = await d2.models.optionSets.get(optionSet.id, {
-                fields: 'id,displayName~rename(name),options[code,displayName~rename(name)]',
-                paging: false,
-            })
+            const fullOptionSet = await this.props.d2.models.optionSets.get(
+                optionSet.id,
+                {
+                    fields: 'id,displayName~rename(name),options[code,displayName~rename(name)]',
+                    paging: false,
+                }
+            )
 
             if (fullOptionSet && fullOptionSet.options) {
                 dataElement.options = fullOptionSet.options.reduce(
@@ -262,4 +258,18 @@ class EventLayer extends Layer {
     }
 }
 
-export default EventLayer
+const EventLayerWithUserSettingsAndD2 = (props) => (
+    <D2Shim>
+        {({ d2 }) => {
+            return (
+                <UserSettingsCtx.Consumer>
+                    {(settings) => (
+                        <EventLayer settings={settings} d2={d2} {...props} />
+                    )}
+                </UserSettingsCtx.Consumer>
+            )
+        }}
+    </D2Shim>
+)
+
+export default EventLayerWithUserSettingsAndD2
