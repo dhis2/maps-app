@@ -1,3 +1,10 @@
+## [1.28.5](https://github.com/dhis2/maps-app/compare/v1.28.4...v1.28.5) (2023-02-27)
+
+
+### Bug Fixes
+
+* only keep point org units when using associated geometries (DHIS2-14633) ([#2477](https://github.com/dhis2/maps-app/issues/2477)) ([2005742](https://github.com/dhis2/maps-app/commit/2005742f50f373a5f6b9a4d7073d5df10ce0a379))
+
 ## [1.28.4](https://github.com/dhis2/maps-app/compare/v1.28.3...v1.28.4) (2023-02-26)
 
 

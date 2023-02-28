@@ -13,6 +13,7 @@ import {
     setTrackedEntityRelationshipOutsideProgram,
     setStartDate,
     setEndDate,
+    setOrgUnits,
     setEventPointColor,
     setEventPointRadius,
     setRelatedPointColor,
@@ -57,6 +58,7 @@ class TrackedEntityDialog extends Component {
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setFollowUpStatus: PropTypes.func.isRequired,
+        setOrgUnits: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
         setRelatedPointColor: PropTypes.func.isRequired,
@@ -71,6 +73,7 @@ class TrackedEntityDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         followUp: PropTypes.bool,
+        orgUnits: PropTypes.object,
         program: PropTypes.object,
         programStatus: PropTypes.string,
         relatedPointColor: PropTypes.string,
@@ -92,11 +95,14 @@ class TrackedEntityDialog extends Component {
 
     componentDidMount() {
         const {
+            rows,
             startDate,
             endDate,
             relationshipType,
+            orgUnits,
             setStartDate,
             setEndDate,
+            setOrgUnits,
         } = this.props
 
         // Set default period (last year)
@@ -108,6 +114,14 @@ class TrackedEntityDialog extends Component {
         if (relationshipType) {
             this.setState({
                 showRelationshipsChecked: true,
+            })
+        }
+
+        // Set org unit tree roots as default
+        if (!rows && orgUnits.roots) {
+            setOrgUnits({
+                dimension: 'ou',
+                items: orgUnits.roots,
             })
         }
     }
@@ -269,7 +283,6 @@ class TrackedEntityDialog extends Component {
                     )}
                     {tab === 'orgunits' && (
                         <OrgUnitSelect
-                            selectRoots={true}
                             hideUserOrgUnits={true}
                             hideAssociatedGeometry={true}
                             hideSelectMode={false}
@@ -408,6 +421,7 @@ export default connect(
         setTrackedEntityRelationshipOutsideProgram,
         setStartDate,
         setEndDate,
+        setOrgUnits,
         setEventPointColor,
         setEventPointRadius,
         setRelatedPointColor,

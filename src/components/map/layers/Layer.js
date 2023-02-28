@@ -135,7 +135,7 @@ class Layer extends PureComponent {
         const { map } = this.context
 
         if (this.layer.getBounds) {
-            map.fitBounds(this.layer.getBounds())
+            map.fitBounds(this.layer.getBounds(), { padding: 40, duration: 0 })
         }
     }
 

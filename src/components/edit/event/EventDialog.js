@@ -15,6 +15,7 @@ import {
     setPeriod,
     setStartDate,
     setEndDate,
+    setOrgUnits,
 } from '../../../actions/layerEdit.js'
 import {
     DEFAULT_START_DATE,
@@ -63,6 +64,7 @@ class EventDialog extends Component {
         setEventPointRadius: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
         setFallbackCoordinateField: PropTypes.func.isRequired,
+        setOrgUnits: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStage: PropTypes.func.isRequired,
@@ -81,6 +83,7 @@ class EventDialog extends Component {
         filters: PropTypes.array,
         legendSet: PropTypes.object,
         method: PropTypes.number,
+        orgUnits: PropTypes.object,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
             trackedEntityType: PropTypes.object,
@@ -108,14 +111,17 @@ class EventDialog extends Component {
 
     componentDidMount() {
         const {
+            rows,
             filters,
             defaultPeriod,
             settings,
             startDate,
             endDate,
+            orgUnits,
             setPeriod,
             setStartDate,
             setEndDate,
+            setOrgUnits,
         } = this.props
 
         const period = getPeriodFromFilters(filters)
@@ -134,6 +140,14 @@ class EventDialog extends Component {
         } else if (!startDate && !endDate) {
             setStartDate(DEFAULT_START_DATE)
             setEndDate(DEFAULT_END_DATE)
+        }
+
+        // Set org unit tree roots as default
+        if (!rows && orgUnits.roots) {
+            setOrgUnits({
+                dimension: 'ou',
+                items: orgUnits.roots,
+            })
         }
     }
 
@@ -269,7 +283,6 @@ class EventDialog extends Component {
                     )}
                     {tab === 'orgunits' && (
                         <OrgUnitSelect
-                            selectRoots={true}
                             hideAssociatedGeometry={true}
                             hideLevelSelect={true}
                             hideGroupSelect={true}
@@ -462,6 +475,7 @@ export default connect(
         setPeriod,
         setStartDate,
         setEndDate,
+        setOrgUnits,
     },
     null,
     {

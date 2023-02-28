@@ -1,24 +1,13 @@
-.downloadLegend {
-    composes: box from '../../../styles/map.css';
-    position: absolute;
-    padding: var(--spacers-dp8) var(--spacers-dp8) 0 var(--spacers-dp8);
-    z-index: 998;
-    font-size: 14px;
-    max-width: 240px;
-    overflow: hidden;
-}
-
-.downloadLegend div a:link,
-.downloadLegend div a:visited {
-    color: var(--colors-grey900);
-}
-
 .legend {
-    margin-bottom: var(--spacers-dp16);
+    margin-bottom: var(--spacers-dp24);
+}
+
+.legend dl {
+    font-size: 14px;
 }
 
 .title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     margin: 0;
     padding-bottom: 10px;
@@ -29,28 +18,4 @@
     font-size: 14px;
     font-weight: normal;
     padding-top: 2px;
-}
-
-.topleft {
-    top: var(--spacers-dp8);
-    left: var(--spacers-dp8);
-}
-
-.topright {
-    top: var(--spacers-dp8);
-    right: var(--spacers-dp8);
-}
-
-.bottomleft {
-    bottom: 40px;
-    left: var(--spacers-dp8);
-}
-
-.bottomright {
-    bottom: 30px;
-    right: var(--spacers-dp8);
-}
-
-.name {
-    top: 48px;
 }

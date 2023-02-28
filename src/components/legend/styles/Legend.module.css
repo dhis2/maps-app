@@ -40,7 +40,7 @@
 
 .unit {
     line-height: var(--spacers-dp24);
-    font-weight: bold;
+    font-style: italic;
 }
 
 .explanation {
