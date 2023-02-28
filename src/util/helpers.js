@@ -18,14 +18,6 @@ export const getDisplayProperty = (d2, displayProperty) => {
     ) // TODO: check
 }
 
-/*
-export const getDisplayPropertyUrl = d2 => {
-    return `${getDisplayProperty(d2)}~rename(name)`; // TODO
-};
-*/
-
-export const getDisplayPropertyUrl = () => `displayName~rename(name)`
-
 const baseFields = [
     'id',
     'user',
@@ -46,15 +38,15 @@ const baseFields = [
 ]
 
 const analysisFields = () => {
-    const namePropertyUrl = getDisplayPropertyUrl()
+    const nameProp = `displayName~rename(name)`
     return [
         '*',
-        `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
-        `rows[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
-        `filters[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
+        `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProp}]]`,
+        `rows[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProp}]]`,
+        `filters[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProp}]]`,
         'organisationUnits[id,path]', // Added to retrieve org unit paths
         'dataDimensionItems',
-        `program[id,${namePropertyUrl}]`,
+        `program[id,${nameProp}]`,
         'programStage[id,displayName~rename(name)]',
         'legendSet[id,displayName~rename(name)]',
         'trackedEntityType[id,displayName~rename(name)]',
