@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import { getMapControls } from '../../util/mapControls.js'
-import BaseUrlProvider from '../BaseUrlProvider.js'
 import Map from './Map.js'
 import SplitView from './SplitView.js'
 
@@ -57,23 +56,21 @@ const MapView = (props) => {
                             setMapObject={setMapObject}
                         />
                     ) : (
-                        <BaseUrlProvider>
-                            <Map
-                                isPlugin={isPlugin}
-                                isFullscreen={isFullscreen}
-                                basemap={basemap}
-                                layers={[...layers].reverse()}
-                                bounds={bounds}
-                                controls={mapControls}
-                                feature={feature}
-                                coordinatePopup={coordinatePopup}
-                                closeCoordinatePopup={closeCoordinatePopup}
-                                openContextMenu={openContextMenu}
-                                setAggregations={setAggregations}
-                                resizeCount={resizeCount}
-                                setMapObject={setMapObject}
-                            />
-                        </BaseUrlProvider>
+                        <Map
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
+                            basemap={basemap}
+                            layers={[...layers].reverse()}
+                            bounds={bounds}
+                            controls={mapControls}
+                            feature={feature}
+                            coordinatePopup={coordinatePopup}
+                            closeCoordinatePopup={closeCoordinatePopup}
+                            openContextMenu={openContextMenu}
+                            setAggregations={setAggregations}
+                            resizeCount={resizeCount}
+                            setMapObject={setMapObject}
+                        />
                     )}
                 </>
             )}
