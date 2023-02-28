@@ -3,9 +3,17 @@ import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { setFilter, setBufferRadius } from '../../../actions/layerEdit.js'
+import {
+    setOrgUnits,
+    setFilter,
+    setBufferRadius,
+} from '../../../actions/layerEdit.js'
 import { getEarthEngineLayer } from '../../../constants/earthEngine.js'
-import { EE_BUFFER, NONE } from '../../../constants/layers.js'
+import {
+    DEFAULT_ORG_UNIT_LEVEL,
+    EE_BUFFER,
+    NONE,
+} from '../../../constants/layers.js'
 import {
     getPeriodFromFilter,
     getPeriods,
@@ -27,9 +35,12 @@ const EarthEngineDialog = (props) => {
     const {
         datasetId,
         band,
+        rows,
         params,
         filter,
         areaRadius,
+        orgUnits,
+        setOrgUnits,
         orgUnitField,
         setFilter,
         setBufferRadius,
@@ -94,6 +105,20 @@ const EarthEngineDialog = (props) => {
             }
         }
     }, [periods, filter, setPeriod])
+
+    // Set default org unit level
+    useEffect(() => {
+        if (!rows) {
+            const defaultLevel = orgUnits.levels?.[DEFAULT_ORG_UNIT_LEVEL]
+
+            if (defaultLevel) {
+                setOrgUnits({
+                    dimension: 'ou',
+                    items: [{ id: `LEVEL-${defaultLevel.id}` }],
+                })
+            }
+        }
+    }, [rows, orgUnits, setOrgUnits])
 
     useEffect(() => {
         if (!hasOrgUnitField && areaRadius === undefined) {
@@ -208,9 +233,7 @@ const EarthEngineDialog = (props) => {
                         className={styles.flexRowFlow}
                     />
                 )}
-                {tab === 'orgunits' && (
-                    <OrgUnitSelect selectDefaultLevel={true} />
-                )}
+                {tab === 'orgunits' && <OrgUnitSelect />}
                 {tab === 'style' && (
                     <StyleTab
                         unit={unit}
@@ -227,6 +250,7 @@ EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setFilter: PropTypes.func.isRequired,
+    setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -234,6 +258,7 @@ EarthEngineDialog.propTypes = {
     filter: PropTypes.array,
     legend: PropTypes.object,
     orgUnitField: PropTypes.string,
+    orgUnits: PropTypes.object,
     params: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
@@ -242,6 +267,11 @@ EarthEngineDialog.propTypes = {
     rows: PropTypes.array,
 }
 
-export default connect(null, { setFilter, setBufferRadius }, null, {
-    forwardRef: true,
-})(EarthEngineDialog)
+export default connect(
+    null,
+    { setOrgUnits, setFilter, setBufferRadius },
+    null,
+    {
+        forwardRef: true,
+    }
+)(EarthEngineDialog)

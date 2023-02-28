@@ -1,3 +1,12 @@
 .checkbox {
     margin: var(--spacers-dp12) 0 var(--spacers-dp8);
 }
+
+.checkbox label {
+    display: inline-flex!important;
+}
+
+.checkbox span {
+    margin-left: var(--spacers-dp8);
+    vertical-align: text-bottom;
+}

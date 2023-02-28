@@ -5,6 +5,7 @@ import moment from 'moment'
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.js'
+import OrgUnitsProvider from './components/OrgUnitsProvider.js'
 import SystemSettingsProvider from './components/SystemSettingsProvider.js'
 import UserSettingsProvider, {
     UserSettingsCtx,
@@ -60,23 +61,25 @@ const AppWrapper = () => (
                 }
 
                 return (
-                    <SystemSettingsProvider>
-                        <UserSettingsProvider>
-                            <UserSettingsCtx.Consumer>
-                                {({ keyUiLocale }) => {
-                                    if (!keyUiLocale) {
-                                        return null
-                                    }
-                                    moment.locale(keyUiLocale)
-                                    return (
-                                        <WindowDimensionsProvider>
-                                            <App />
-                                        </WindowDimensionsProvider>
-                                    )
-                                }}
-                            </UserSettingsCtx.Consumer>
-                        </UserSettingsProvider>
-                    </SystemSettingsProvider>
+                    <OrgUnitsProvider>
+                        <SystemSettingsProvider>
+                            <UserSettingsProvider>
+                                <UserSettingsCtx.Consumer>
+                                    {({ keyUiLocale }) => {
+                                        if (!keyUiLocale) {
+                                            return null
+                                        }
+                                        moment.locale(keyUiLocale)
+                                        return (
+                                            <WindowDimensionsProvider>
+                                                <App />
+                                            </WindowDimensionsProvider>
+                                        )
+                                    }}
+                                </UserSettingsCtx.Consumer>
+                            </UserSettingsProvider>
+                        </SystemSettingsProvider>
+                    </OrgUnitsProvider>
                 )
             }}
         </D2Shim>

@@ -13,9 +13,6 @@ describe('DownloadLegend', () => {
         },
         {
             id: 'layer-2',
-        },
-        {
-            id: 'layer-3',
             legend: {
                 title: 'Layer 2',
                 period: '2017',
@@ -23,23 +20,16 @@ describe('DownloadLegend', () => {
         },
     ]
 
-    const renderComponent = (props) =>
-        shallow(
-            <DownloadLegend
-                position="bottomright"
-                layers={[]}
-                showName={false}
-                {...props}
-            />
-        )
+    const renderComponent = (props) => shallow(<DownloadLegend {...props} />)
 
     it('Should render a legend component', () => {
-        expect(renderComponent().exists()).toBe(true)
+        expect(renderComponent({ layers }).exists()).toBe(true)
     })
 
     it('Should only render layers with legends', () => {
         const wrapper = renderComponent({ layers })
-        expect(wrapper.children().length).toEqual(2)
+
+        expect(wrapper.length).toEqual(2)
         expect(wrapper.find('Legend').length).toEqual(2)
     })
 

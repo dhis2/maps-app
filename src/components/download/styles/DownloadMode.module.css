@@ -1,0 +1,17 @@
+.downloadModeMenu {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 44px;
+    z-index: 1200;
+    padding-top: 1px;
+    background-color: var(--colors-grey600);
+}
+
+.downloadModeMenu button {
+    margin: 3px 0 0 var(--spacers-dp16);
+}
+
+:global(.downloadModeMenu) header {
+    display: none;
+}

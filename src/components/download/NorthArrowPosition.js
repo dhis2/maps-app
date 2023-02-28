@@ -2,19 +2,14 @@ import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styles from './styles/LegendPosition.module.css'
+import styles from './styles/NorthArrowPosition.module.css'
 
-export const legendPositions = [
-    'topleft',
-    'topright',
-    'bottomleft',
-    'bottomright',
-]
+const northArrowPositions = ['topleft', 'topright', 'bottomleft', 'bottomright']
 
-const LegendPosition = ({ position, onChange }) => (
+const NorthArrowPosition = ({ position, onChange }) => (
     <div className={styles.root}>
-        <label className={styles.label}>{i18n.t('Legend position')}</label>
-        {legendPositions.map((pos) => (
+        <label className={styles.label}>{i18n.t('Position:')}</label>
+        {northArrowPositions.map((pos) => (
             <div
                 key={pos}
                 className={cx(styles.position, {
@@ -28,9 +23,9 @@ const LegendPosition = ({ position, onChange }) => (
     </div>
 )
 
-LegendPosition.propTypes = {
-    position: PropTypes.oneOf(legendPositions).isRequired,
+NorthArrowPosition.propTypes = {
+    position: PropTypes.oneOf(northArrowPositions).isRequired,
     onChange: PropTypes.func.isRequired,
 }
 
-export default LegendPosition
+export default NorthArrowPosition

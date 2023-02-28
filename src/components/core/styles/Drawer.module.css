@@ -1,6 +1,6 @@
 .drawer {
-    position: fixed;
-    top: 86px;
+    position: absolute;
+    top: 38px;
     bottom: 0;
     background-color: #f4f6f8;
     height: auto;

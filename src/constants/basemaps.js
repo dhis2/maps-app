@@ -18,6 +18,7 @@ export const defaultBasemaps = () => [
             attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
         },
+        isDark: false,
     },
     {
         id: 'openStreetMap',
@@ -29,6 +30,7 @@ export const defaultBasemaps = () => [
             attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         },
+        isDark: false,
     },
     {
         id: 'googleStreets',
@@ -57,6 +59,7 @@ export const defaultBasemaps = () => [
             style: 'CanvasLight',
             apiKey: 'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
         },
+        isDark: false,
     },
     {
         id: 'bingDark',
@@ -66,6 +69,7 @@ export const defaultBasemaps = () => [
             type: BING_LAYER,
             style: 'CanvasDark',
         },
+        isDark: true,
     },
     {
         id: 'bingAerial',
@@ -75,6 +79,7 @@ export const defaultBasemaps = () => [
             type: BING_LAYER,
             style: 'Aerial',
         },
+        isDark: true,
     },
     {
         id: 'bingHybrid',
@@ -84,5 +89,6 @@ export const defaultBasemaps = () => [
             type: BING_LAYER,
             style: 'AerialWithLabelsOnDemand',
         },
+        isDark: true,
     },
 ]

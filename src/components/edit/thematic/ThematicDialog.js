@@ -10,6 +10,7 @@ import {
     setLegendSet,
     setNoDataColor,
     setOperand,
+    setOrgUnits,
     setPeriod,
     setPeriodType,
     setRenderingStrategy,
@@ -18,6 +19,7 @@ import {
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
+    DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../../constants/layers.js'
@@ -71,6 +73,7 @@ class ThematicDialog extends Component {
         setLegendSet: PropTypes.func.isRequired,
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
+        setOrgUnits: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setPeriodType: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
@@ -90,6 +93,7 @@ class ThematicDialog extends Component {
         method: PropTypes.number,
         noDataColor: PropTypes.string,
         operand: PropTypes.bool,
+        orgUnits: PropTypes.object,
         periodType: PropTypes.string,
         program: PropTypes.object,
         radiusHigh: PropTypes.number,
@@ -109,13 +113,16 @@ class ThematicDialog extends Component {
         const {
             valueType,
             columns,
+            rows,
             filters,
             defaultPeriod,
+            orgUnits,
             setValueType,
             startDate,
             settings,
             endDate,
             setPeriod,
+            setOrgUnits,
         } = this.props
 
         const dataItem = getDataItemFromColumns(columns)
@@ -148,6 +155,18 @@ class ThematicDialog extends Component {
             setPeriod({
                 id: defaultPeriod,
             })
+        }
+
+        // Set default org unit level
+        if (!rows) {
+            const defaultLevel = orgUnits.levels?.[DEFAULT_ORG_UNIT_LEVEL]
+
+            if (defaultLevel) {
+                setOrgUnits({
+                    dimension: 'ou',
+                    items: [{ id: `LEVEL-${defaultLevel.id}` }],
+                })
+            }
         }
     }
 
@@ -431,10 +450,7 @@ class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <OrgUnitSelect
-                            selectDefaultLevel={true}
-                            warning={orgUnitsError}
-                        />
+                        <OrgUnitSelect warning={orgUnitsError} />
                     )}
                     {tab === 'filter' && (
                         <div
@@ -635,6 +651,7 @@ export default connect(
         setLegendSet,
         setNoDataColor,
         setOperand,
+        setOrgUnits,
         setPeriod,
         setPeriodType,
         setRenderingStrategy,
