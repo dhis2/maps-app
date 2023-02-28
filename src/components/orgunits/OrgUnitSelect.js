@@ -44,18 +44,18 @@ const OrgUnitSelect = ({
     )
     const hasOrgUnits = !!orgUnits.length
 
-    if (loading) {
+    if (error?.message) {
+        return (
+            <div className={styles.orgUnitSelect}>
+                <Help error>{error.message}</Help>
+            </div>
+        )
+    } else if (loading) {
         return (
             <div className={styles.loader}>
                 <CenteredContent>
                     <CircularLoader />
                 </CenteredContent>
-            </div>
-        )
-    } else if (error?.message) {
-        return (
-            <div className={styles.orgUnitSelect}>
-                <Help error>{error.message}</Help>
             </div>
         )
     }
