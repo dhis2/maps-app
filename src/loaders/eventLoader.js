@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
     EVENT_CLIENT_PAGE_SIZE,
@@ -99,7 +98,7 @@ const loadEventLayer = async (config, d2) => {
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
     if (spatialSupport && eventClustering && !styleDataItem) {
-        const response = await getCount(analyticsRequest)
+        const response = await d2.analytics.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
         //FIXME
         //eslint-disable-next-line react-hooks/rules-of-hooks
@@ -147,7 +146,11 @@ const loadEventLayer = async (config, d2) => {
             dataFilters &&
             getFiltersAsText(dataFilters, {
                 ...names,
-                ...(await getFilterOptionNames(dataFilters, response.headers)),
+                ...(await getFilterOptionNames(
+                    dataFilters,
+                    response.headers,
+                    d2
+                )),
             })
 
         config.headers = response.headers
@@ -190,16 +193,9 @@ const loadEventLayer = async (config, d2) => {
     }
 }
 
-export const getCount = async (request) => {
-    const d2 = await getD2()
-    return await d2.analytics.events.getCount(request)
-}
-
 // If the layer included filters using option sets, this function return an object
 // mapping option codes to named used to translate codes in the legend
-const getFilterOptionNames = async (filters, headers) => {
-    const d2 = await getD2()
-
+const getFilterOptionNames = async (filters, headers, d2) => {
     if (!filters) {
         return null
     }
