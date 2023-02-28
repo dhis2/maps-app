@@ -10,6 +10,7 @@ import { apiVersion } from '../constants/settings.js'
 import i18n from '../locales/index.js'
 import { NAMESPACE } from '../util/analyticalObject.js'
 import App from './app/App.js'
+import OrgUnitsProvider from './OrgUnitsProvider.js'
 import SystemSettingsProvider from './SystemSettingsProvider.js'
 import UserSettingsProvider, {
     UserSettingsCtx,
@@ -67,20 +68,24 @@ const Root = ({ store }) => (
                     return (
                         <DataStoreProvider namespace={NAMESPACE}>
                             <WindowDimensionsProvider>
-                                <SystemSettingsProvider>
-                                    <UserSettingsProvider>
-                                        <UserSettingsCtx.Consumer>
-                                            {({ keyUiLocale }) => {
-                                                if (!keyUiLocale) {
-                                                    return null
-                                                }
-                                                i18n.changeLanguage(keyUiLocale)
-                                                moment.locale(keyUiLocale)
-                                                return <App />
-                                            }}
-                                        </UserSettingsCtx.Consumer>
-                                    </UserSettingsProvider>
-                                </SystemSettingsProvider>
+                                <OrgUnitsProvider>
+                                    <SystemSettingsProvider>
+                                        <UserSettingsProvider>
+                                            <UserSettingsCtx.Consumer>
+                                                {({ keyUiLocale }) => {
+                                                    if (!keyUiLocale) {
+                                                        return null
+                                                    }
+                                                    i18n.changeLanguage(
+                                                        keyUiLocale
+                                                    )
+                                                    moment.locale(keyUiLocale)
+                                                    return <App />
+                                                }}
+                                            </UserSettingsCtx.Consumer>
+                                        </UserSettingsProvider>
+                                    </SystemSettingsProvider>
+                                </OrgUnitsProvider>
                             </WindowDimensionsProvider>
                         </DataStoreProvider>
                     )
