@@ -1,14 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DownloadButton renders menu button and download dialog 1`] = `
+exports[`DownloadButton renders a download button 1`] = `
 <div>
   <button
     class="ui-MenuButton"
   >
     Download
   </button>
-  <div
-    class="ui-DownloadDialog"
-  />
 </div>
 `;
+

@@ -102,8 +102,11 @@ jobs:
               run: yarn test
 
     e2e:
-        runs-on: ubuntu-latest
         needs: install
+        runs-on: ubuntu-latest
+        container:
+            image: cypress/browsers:node16.17.0-chrome106
+            options: --user 1001
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
         strategy:
@@ -137,6 +140,7 @@ jobs:
                   wait-on-timeout: 300
                   cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
                   group: 'e2e'
+                  browser: chrome
                   tag: ${{ github.event_name }}
               env:
                   CI: true

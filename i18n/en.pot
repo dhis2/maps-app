@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-23T08:26:27.244Z\n"
-"PO-Revision-Date: 2023-02-23T08:26:27.244Z\n"
+"POT-Creation-Date: 2023-02-27T14:28:36.773Z\n"
+"PO-Revision-Date: 2023-02-27T14:28:36.773Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -152,13 +152,37 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr ""
 
-msgid "Show name"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map description when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show legend"
+msgstr ""
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
 msgstr ""
 
 msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -168,9 +192,6 @@ msgid "Cancel"
 msgstr ""
 
 msgid "Close"
-msgstr ""
-
-msgid "Legend position"
 msgstr ""
 
 msgid "No organisation units are selected"

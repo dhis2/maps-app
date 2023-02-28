@@ -1,0 +1,18 @@
+.downloadSettings {
+    padding: var(--spacers-dp8) var(--spacers-dp16);
+    background-color: #f4f6f8;
+    color: #3e4a59;
+    height: 100%;
+}
+
+.content {
+    padding-bottom: var(--spacers-dp8);
+}
+
+.checkbox {
+    padding-bottom: var(--spacers-dp16);
+}
+
+.help {
+    padding-top: var(--spacers-dp4);
+}
