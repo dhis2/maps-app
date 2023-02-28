@@ -11,7 +11,6 @@ import {
 } from '../constants/layers.js'
 import { apiFetch } from './api.js'
 import { getUniqueColor } from './colors.js'
-import { getDisplayPropertyUrl } from './helpers.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -183,7 +182,7 @@ export const getStyledOrgUnits = (
 // This function returns the org unit level names used in the legend
 export const getOrgUnitLevels = async (d2) => {
     const orgUnitLevels = await d2.models.organisationUnitLevels.list({
-        fields: `id,${getDisplayPropertyUrl(d2)},level`,
+        fields: 'id,displayName~rename(name),level',
         paging: false,
     })
 
