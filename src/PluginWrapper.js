@@ -4,7 +4,7 @@ import postRobot from '@krakenjs/post-robot'
 import { debounce } from 'lodash/fp'
 import PropTypes from 'prop-types'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { VisualizationPlugin } from './components/plugin/Visualization.js'
+import { Plugin } from './components/plugin/Plugin.js'
 
 const LoadingMask = () => {
     return (
@@ -115,7 +115,7 @@ const PluginWrapper = () => {
                 cacheNow={propsFromParent.recordOnNextLoad}
                 isParentCached={propsFromParent.isParentCached}
             >
-                <VisualizationPlugin id={renderId} {...propsFromParent} />
+                <Plugin id={renderId} {...propsFromParent} />
             </CacheableSectionWrapper>
         </div>
     ) : null

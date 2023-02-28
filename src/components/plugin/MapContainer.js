@@ -6,9 +6,9 @@ import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import LoadingMask from '../LoadingMask.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import getBasemapConfig from './getBasemapConfig.js'
-import OldPlugin from './Plugin.js'
+import Map from './Map.js'
 
-const Plugin = ({ visualization }) => {
+const MapContainer = ({ visualization }) => {
     const {
         basemap: basemapId,
         mapViews,
@@ -56,18 +56,14 @@ const Plugin = ({ visualization }) => {
         userOrgUnit,
     ])
 
-    return !config ? (
-        <LoadingMask />
-    ) : (
-        <OldPlugin {...config} {...otherMapProps} />
-    )
+    return !config ? <LoadingMask /> : <Map {...config} {...otherMapProps} />
 }
 
-Plugin.propTypes = {
+MapContainer.propTypes = {
     visualization: PropTypes.object,
 }
 
-export default Plugin
+export default MapContainer
 
 // async function loadMap(config) {
 // if (config.id) {
