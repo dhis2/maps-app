@@ -4,7 +4,6 @@ import {
     WMS_LAYER,
     VECTOR_STYLE,
 } from '../constants/layers.js'
-import { getExternalLayer } from './requests.js'
 
 const MAP_SERVICE_WMS = 'WMS'
 const MAP_SERVICE_TMS = 'TMS'
@@ -61,7 +60,7 @@ export const createExternalLayerConfig = (model) => {
 }
 
 // Parse external layer config returned as a string in ao
-export const parseLayerConfig = async (layerConfig) => {
+export const parseLayerConfig = async (layerConfig, d2) => {
     let config
 
     try {
@@ -74,7 +73,7 @@ export const parseLayerConfig = async (layerConfig) => {
     // use a fresh layer config from the API
     if (config.id) {
         try {
-            const layer = await getExternalLayer(config.id)
+            const layer = await d2.models.externalMapLayers.get(config.id)
             return createExternalLayerConfig(layer)
         } catch (evt) {
             return config

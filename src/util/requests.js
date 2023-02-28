@@ -57,12 +57,6 @@ export const fetchExternalLayersD2 = async () => {
     return layers.toArray()
 }
 
-// Fetch a single externalLayer
-export const getExternalLayer = async (id) => {
-    const d2 = await getD2()
-    return d2.models.externalMapLayers.get(id)
-}
-
 export const fetchSystemSettings = (keys) =>
     apiFetch(`/systemSettings/?key=${keys.join(',')}`).then((settings) =>
         Object.assign({}, DEFAULT_SYSTEM_SETTINGS, settings)

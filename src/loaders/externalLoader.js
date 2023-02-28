@@ -7,7 +7,7 @@ const externalLoader = async (layer, d2) => {
 
     if (typeof config === 'string') {
         // External layer is loaded in analytical object
-        config = await parseLayerConfig(config)
+        config = await parseLayerConfig(config, d2)
     } else {
         delete layer.id
     }
