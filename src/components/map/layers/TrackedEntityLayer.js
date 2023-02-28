@@ -1,3 +1,4 @@
+import { DataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import {
@@ -7,9 +8,7 @@ import {
     TEI_RELATED_COLOR,
     TEI_RELATED_RADIUS,
 } from '../../../constants/layers.js'
-import { apiFetchWithBaseUrl } from '../../../util/api.js'
 import { formatTime } from '../../../util/helpers.js'
-import { BaseUrlShim } from '../../BaseUrlShim.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
 
@@ -25,12 +24,15 @@ const getCentroid = (points) => {
     return [totals[0] / points.length, totals[1] / points.length]
 }
 
-const fetchTEI = async (id, fieldsString, baseUrl) => {
-    const data = await apiFetchWithBaseUrl({
-        url: `/trackedEntityInstances/${id}?fields=${fieldsString}`,
-        baseUrl,
-    })
-    return data
+const TEI_QUERY = {
+    instances: {
+        resource: 'trackedEntityInstances',
+        id: ({ id }) => id,
+        params: {
+            fields: 'lastUpdated,attributes[displayName~rename(name),value],relationships',
+            paging: false,
+        },
+    },
 }
 
 const geomToCentroid = (type, coords) => {
@@ -158,9 +160,13 @@ class TrackedEntityLayer extends Layer {
         this.fitBoundsOnce()
     }
 
-    getPopup() {
-        const { coordinates, data } = this.state.popup
-        const { attributes = [], lastUpdated } = data
+    render() {
+        if (!this.state.popup || !this.props.teiData) {
+            return null
+        }
+
+        const { coordinates } = this.state.popup
+        const { attributes = [], lastUpdated } = this.props.teiData.instances
 
         return (
             <Popup coordinates={coordinates} onClose={this.onPopupClose}>
@@ -182,27 +188,28 @@ class TrackedEntityLayer extends Layer {
         )
     }
 
-    render() {
-        return this.state.popup ? this.getPopup() : null
-    }
+    async onEntityClick({ feature, coordinates }) {
+        await this.props.fetchTeiData({ id: feature.properties.id })
 
-    async onEntityClick(evt) {
-        const { feature, coordinates } = evt
-
-        const data = await fetchTEI(
-            feature.properties.id,
-            'lastUpdated,attributes[displayName~rename(name),value],relationships',
-            this.props.baseUrl
-        )
-
-        this.setState({ popup: { feature, coordinates, data } })
+        this.setState({
+            popup: {
+                feature,
+                coordinates,
+            },
+        })
     }
 }
 
-const TrackedEntityLayerWithBaseUrl = (props) => (
-    <BaseUrlShim>
-        {({ baseUrl }) => <TrackedEntityLayer baseUrl={baseUrl} {...props} />}
-    </BaseUrlShim>
+const TELayerWithDataQuery = (props) => (
+    <DataQuery query={TEI_QUERY} lazy={true}>
+        {({ data, refetch }) => (
+            <TrackedEntityLayer
+                teiData={data}
+                fetchTeiData={refetch}
+                {...props}
+            />
+        )}
+    </DataQuery>
 )
 
-export default TrackedEntityLayerWithBaseUrl
+export default TELayerWithDataQuery
