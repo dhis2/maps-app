@@ -90,6 +90,7 @@ const models = ['program', 'programStage', 'organisationUnitGroupSet'];
 const validModelProperties = [
     'id',
     'name',
+    'path',
     'dimensionType',
     'dimensionItemType',
 ];
