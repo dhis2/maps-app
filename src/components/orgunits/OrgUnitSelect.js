@@ -1,35 +1,14 @@
 import { OrgUnitDimension } from '@dhis2/analytics'
-import { useDataQuery } from '@dhis2/app-runtime'
-import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
+import { useOrgUnits } from '../OrgUnitsProvider.js'
 import AssociatedGeometrySelect from './AssociatedGeometrySelect.js'
 import OrgUnitSelectMode from './OrgUnitSelectMode.js'
 import styles from './styles/OrgUnitSelect.module.css'
-
-// Fetches org unit levels and the root org units associated with the current user
-// with fallback to data capture org units
-const ORG_UNIT_TREE_QUERY = {
-    tree: {
-        resource: 'organisationUnits',
-        params: () => ({
-            fields: ['id', 'displayName~rename(name)', 'path'],
-            userDataViewFallback: true,
-        }),
-    },
-    levels: {
-        resource: 'organisationUnitLevels',
-        params: {
-            fields: ['id', 'displayName~rename(name)', 'level'],
-            order: 'level:asc',
-            paging: false,
-        },
-    },
-}
 
 const TWO_OTHER_SELECTS = 'two'
 const ONE_OTHER_SELECT = 'one'
@@ -43,7 +22,7 @@ const OrgUnitSelect = ({
     hideGroupSelect = false,
     warning,
 }) => {
-    const { loading, data, error } = useDataQuery(ORG_UNIT_TREE_QUERY)
+    const { roots, levels } = useOrgUnits()
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()
 
@@ -58,26 +37,11 @@ const OrgUnitSelect = ({
         [dispatch]
     )
 
-    const roots = data?.tree.organisationUnits
-    const orgUnitLevels = data?.levels.organisationUnitLevels
-
     const orgUnits = translateOrgUnitLevels(
         rows?.find((r) => r.dimension === 'ou'),
-        orgUnitLevels
+        levels
     )
     const hasOrgUnits = !!orgUnits.length
-
-    if (loading) {
-        return (
-            <div className={styles.loader}>
-                <CenteredContent>
-                    <CircularLoader />
-                </CenteredContent>
-            </div>
-        )
-    } else if (error?.message) {
-        return <Help error>{error.message}</Help>
-    }
 
     const numOtherSelects =
         !hideAssociatedGeometry && !hideSelectMode

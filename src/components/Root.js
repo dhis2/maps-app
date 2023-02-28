@@ -38,66 +38,62 @@ const d2Config = {
     ],
 }
 
-const Root = ({ store }) => {
-    return (
-        <DataProvider
-            config={{
-                baseUrl: process.env.DHIS2_BASE_URL,
-                apiVersion,
-            }}
-        >
-            <ReduxProvider store={store}>
-                <D2Shim d2Config={d2Config} i18nRoot="./i18n_old">
-                    {({ d2, d2Error }) => {
-                        if (!d2 && !d2Error) {
-                            return (
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        width: '100%',
-                                        height: '100%',
-                                        top: 0,
-                                    }}
-                                >
-                                    <CenteredContent>
-                                        <CircularLoader />
-                                    </CenteredContent>
-                                </div>
-                            )
-                        }
-
+const Root = ({ store }) => (
+    <DataProvider
+        config={{
+            baseUrl: process.env.DHIS2_BASE_URL,
+            apiVersion,
+        }}
+    >
+        <ReduxProvider store={store}>
+            <D2Shim d2Config={d2Config} i18nRoot="./i18n_old">
+                {({ d2, d2Error }) => {
+                    if (!d2 && !d2Error) {
                         return (
-                            <DataStoreProvider namespace={NAMESPACE}>
-                                <WindowDimensionsProvider>
-                                    <OrgUnitsProvider>
-                                        <SystemSettingsProvider>
-                                            <UserSettingsProvider>
-                                                <UserSettingsCtx.Consumer>
-                                                    {({ keyUiLocale }) => {
-                                                        if (!keyUiLocale) {
-                                                            return null
-                                                        }
-                                                        i18n.changeLanguage(
-                                                            keyUiLocale
-                                                        )
-                                                        moment.locale(
-                                                            keyUiLocale
-                                                        )
-                                                        return <App />
-                                                    }}
-                                                </UserSettingsCtx.Consumer>
-                                            </UserSettingsProvider>
-                                        </SystemSettingsProvider>
-                                    </OrgUnitsProvider>
-                                </WindowDimensionsProvider>
-                            </DataStoreProvider>
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    width: '100%',
+                                    height: '100%',
+                                    top: 0,
+                                }}
+                            >
+                                <CenteredContent>
+                                    <CircularLoader />
+                                </CenteredContent>
+                            </div>
                         )
-                    }}
-                </D2Shim>
-            </ReduxProvider>
-        </DataProvider>
-    )
-}
+                    }
+
+                    return (
+                        <DataStoreProvider namespace={NAMESPACE}>
+                            <WindowDimensionsProvider>
+                                <OrgUnitsProvider>
+                                    <SystemSettingsProvider>
+                                        <UserSettingsProvider>
+                                            <UserSettingsCtx.Consumer>
+                                                {({ keyUiLocale }) => {
+                                                    if (!keyUiLocale) {
+                                                        return null
+                                                    }
+                                                    i18n.changeLanguage(
+                                                        keyUiLocale
+                                                    )
+                                                    moment.locale(keyUiLocale)
+                                                    return <App />
+                                                }}
+                                            </UserSettingsCtx.Consumer>
+                                        </UserSettingsProvider>
+                                    </SystemSettingsProvider>
+                                </OrgUnitsProvider>
+                            </WindowDimensionsProvider>
+                        </DataStoreProvider>
+                    )
+                }}
+            </D2Shim>
+        </ReduxProvider>
+    </DataProvider>
+)
 
 Root.propTypes = {
     store: PropTypes.object.isRequired,

@@ -140,12 +140,10 @@ class EventDialog extends Component {
 
         // Set org unit tree roots as default
         if (!rows && orgUnits.roots) {
-            if (orgUnits.roots) {
-                setOrgUnits({
-                    dimension: 'ou',
-                    items: orgUnits.roots,
-                })
-            }
+            setOrgUnits({
+                dimension: 'ou',
+                items: orgUnits.roots,
+            })
         }
     }
 
