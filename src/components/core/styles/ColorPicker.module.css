@@ -19,7 +19,7 @@
 
 .label {
     font-size: 14px;
-    padding: var(--spacers-dp4) 0 var(--spacers-dp8);
+    padding: 1px 0 var(--spacers-dp4);
 }
 
 .icon {
