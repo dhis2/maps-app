@@ -24,7 +24,8 @@ const ORG_UNITS_QUERY = {
 export const OrgUnitsCtx = createContext({})
 
 const OrgUnitsProvider = ({ children }) => {
-    const [orgUnits, setOrgUnits] = useState({})
+    const [orgUnits, setOrgUnits] = useState()
+    const [error, setError] = useState()
     const engine = useDataEngine()
 
     useEffect(() => {
@@ -34,11 +35,20 @@ const OrgUnitsProvider = ({ children }) => {
                     levels: levels.organisationUnitLevels,
                     roots: roots.organisationUnits,
                 }),
+            onError: setError,
         })
     }, [engine])
 
     return (
-        <OrgUnitsCtx.Provider value={orgUnits}>{children}</OrgUnitsCtx.Provider>
+        <OrgUnitsCtx.Provider
+            value={{
+                ...orgUnits,
+                loading: !orgUnits,
+                error,
+            }}
+        >
+            {children}
+        </OrgUnitsCtx.Provider>
     )
 }
 

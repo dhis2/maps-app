@@ -1,4 +1,5 @@
 import { OrgUnitDimension } from '@dhis2/analytics'
+import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
@@ -22,7 +23,7 @@ const OrgUnitSelect = ({
     hideGroupSelect = false,
     warning,
 }) => {
-    const { roots, levels } = useOrgUnits()
+    const { roots, levels, loading, error } = useOrgUnits()
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()
 
@@ -42,6 +43,22 @@ const OrgUnitSelect = ({
         levels
     )
     const hasOrgUnits = !!orgUnits.length
+
+    if (loading) {
+        return (
+            <div className={styles.loader}>
+                <CenteredContent>
+                    <CircularLoader />
+                </CenteredContent>
+            </div>
+        )
+    } else if (error?.message) {
+        return (
+            <div className={styles.orgUnitSelect}>
+                <Help error>{error.message}</Help>
+            </div>
+        )
+    }
 
     const numOtherSelects =
         !hideAssociatedGeometry && !hideSelectMode
