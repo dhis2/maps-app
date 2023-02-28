@@ -113,10 +113,6 @@ export const getAnalyticsRequest = async (
                 fallbackCoordinateField,
             })
         }
-    } else {
-        analyticsRequest = analyticsRequest.withParameters({
-            defaultCoordinateFallback: false, // TODO: Update if backend behaviour is changed
-        })
     }
 
     if (eventStatus && eventStatus !== 'ALL') {
