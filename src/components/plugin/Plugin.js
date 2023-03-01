@@ -1,9 +1,9 @@
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import React from 'react'
-import LoadingMask from '../LoadingMask.js'
 import SystemSettingsProvider, {
     SystemSettingsCtx,
 } from '../SystemSettingsProvider.js'
+import LoadingMask from './LoadingMask.js'
 import MapContainer from './MapContainer.js'
 
 const d2Config = {

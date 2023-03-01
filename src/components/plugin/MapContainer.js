@@ -4,9 +4,9 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { getConfigFromNonMapConfig } from '../../util/getConfigFromNonMapConfig.js'
 import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import { mapFields } from '../../util/helpers.js'
-import LoadingMask from '../LoadingMask.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import getBasemapConfig from './getBasemapConfig.js'
+import LoadingMask from './LoadingMask.js'
 import Map from './Map.js'
 
 const MapContainer = ({ visualization }) => {
