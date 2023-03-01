@@ -71,7 +71,6 @@ const loadEventLayer = async (config) => {
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
     const d2 = await getD2()
-    const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport
 
     config.isExtended = showDataTable
 
@@ -99,7 +98,7 @@ const loadEventLayer = async (config) => {
 
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
-    if (spatialSupport && eventClustering && !styleDataItem) {
+    if (eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
         //FIXME

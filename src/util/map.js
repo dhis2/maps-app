@@ -1,14 +1,6 @@
 import { compact, sortBy, isString } from 'lodash/fp'
 import { dimConf } from '../constants/dimension.js'
 
-export const isValidCoordinate = (coord) =>
-    Array.isArray(coord) &&
-    coord.length === 2 &&
-    coord[0] >= -180 &&
-    coord[0] <= 180 &&
-    coord[1] >= -90 &&
-    coord[1] <= 90
-
 export const toGeoJson = (organisationUnits) =>
     sortBy('le', organisationUnits)
         .map((ou) => {

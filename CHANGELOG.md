@@ -1,3 +1,17 @@
+# [1.30.0](https://github.com/dhis2/maps-app/compare/v1.29.2...v1.30.0) (2023-03-01)
+
+
+### Features
+
+* support multiple coordinates and fallback coordinates in event layers (DHIS2-8165) ([#2236](https://github.com/dhis2/maps-app/issues/2236)) ([6aeb137](https://github.com/dhis2/maps-app/commit/6aeb137f53375e4363d15af91b1ce895312f1b0e))
+
+## [1.29.2](https://github.com/dhis2/maps-app/compare/v1.29.1...v1.29.2) (2023-03-01)
+
+
+### Bug Fixes
+
+* layer dialogs UI fixes ([#2506](https://github.com/dhis2/maps-app/issues/2506)) ([ea9ddcd](https://github.com/dhis2/maps-app/commit/ea9ddcde2531f63b4cd7a977881a47c5de8dfcfc))
+
 ## [1.29.1](https://github.com/dhis2/maps-app/compare/v1.29.0...v1.29.1) (2023-02-28)
 
 

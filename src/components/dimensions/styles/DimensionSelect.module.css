@@ -2,7 +2,8 @@
     display: inline-block;
     width: 35%;
     position: relative;
-    padding: 1px var(--spacers-dp12) var(--spacers-dp8) 0;
+    margin-top: -3px;
+    padding: 0 var(--spacers-dp12) var(--spacers-dp8) 0;
     font-size: 14px;
     cursor: pointer;
 }
@@ -13,7 +14,6 @@
 
 .dropdown div {
     position: relative;
-    margin-top: var(--spacers-dp4);
     line-height: 16px;
     color: rgb(33, 41, 52);
     border: 1px solid rgb(160, 173, 186);
@@ -25,7 +25,7 @@
 .dropdown span {
     display: block;
     width: calc(100% - 44px);
-    height: 32px;
+    height: 31px;
     line-height: 32px;
     margin-left: var(--spacers-dp12);
     white-space: nowrap;
@@ -34,6 +34,7 @@
 }
 
 .dropdown div svg {
+    width: 16px;
     height: 32px;
     position: absolute;
     right: var(--spacers-dp8);

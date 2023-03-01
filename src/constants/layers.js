@@ -76,6 +76,11 @@ export const EVENT_SERVER_CLUSTER_COUNT = 2000
 export const EVENT_COLOR = '#333333'
 export const EVENT_RADIUS = 6
 export const EVENT_BUFFER = 100
+export const EVENT_COORDINATE_DEFAULT = 'psigeometry'
+export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
+export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
+export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
+export const EVENT_COORDINATE_CASCADING = 'cascading'
 
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'

@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.29.1",
+    "version": "1.30.0",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -41,7 +41,7 @@
         "@dhis2/app-service-alerts": "^3.6.2",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/d2-i18n": "^1.1.1",
-        "@dhis2/maps-gl": "^3.7.0",
+        "@dhis2/maps-gl": "^3.8.2",
         "@dhis2/ui": "^8.11.2",
         "@krakenjs/post-robot": "^11.0.0",
         "abortcontroller-polyfill": "^1.7.3",
