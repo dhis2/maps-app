@@ -1,4 +1,8 @@
-import { EVENT_CLIENT_PAGE_SIZE } from '../constants/layers.js'
+import {
+    EVENT_CLIENT_PAGE_SIZE,
+    EVENT_COORDINATE_CASCADING,
+    EVENT_COORDINATE_DEFAULT,
+} from '../constants/layers.js'
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
 
@@ -41,7 +45,8 @@ export const getAnalyticsRequest = async (
         columns,
         styleDataItem,
         eventStatus,
-        eventCoordinateField,
+        eventCoordinateField = EVENT_COORDINATE_DEFAULT,
+        fallbackCoordinateField,
         relativePeriodDate,
         isExtended,
     },
@@ -95,11 +100,19 @@ export const getAnalyticsRequest = async (
         })
     }
 
-    if (eventCoordinateField) {
-        // If coordinate field other than event coordinate
-        analyticsRequest = analyticsRequest
-            .addDimension(eventCoordinateField) // Used by analytics/events/query/
-            .withCoordinateField(eventCoordinateField) // Used by analytics/events/count and analytics/events/cluster
+    analyticsRequest =
+        analyticsRequest.withCoordinateField(eventCoordinateField)
+
+    if (fallbackCoordinateField) {
+        if (fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
+            analyticsRequest = analyticsRequest.withParameters({
+                defaultCoordinateFallback: true,
+            })
+        } else {
+            analyticsRequest = analyticsRequest.withParameters({
+                fallbackCoordinateField,
+            })
+        }
     }
 
     if (eventStatus && eventStatus !== 'ALL') {

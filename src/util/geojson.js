@@ -1,5 +1,4 @@
 import findIndex from 'lodash/findIndex'
-import { isValidCoordinate } from './map.js'
 
 export const EVENT_ID_FIELD = 'psi'
 
@@ -24,7 +23,7 @@ export const createEventFeature = (
 
         return {
             id,
-            type: geometry.type,
+            type: geometry?.type,
             ...props,
             [names[header.name] || header.name]: option ? option.name : value,
         }
@@ -37,38 +36,10 @@ export const createEventFeature = (
         geometry,
     }
 }
-/* eslint-enable max-params */
 
-export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
-    // If coordinate field other than event location (only points are currently supported)
-    if (eventCoordinateField) {
-        const col = findIndex(headers, (h) => h.name === eventCoordinateField)
-
-        return (event) => {
-            let coordinates = event[col]
-
-            if (typeof coordinates === 'string' && coordinates.length) {
-                try {
-                    coordinates = JSON.parse(coordinates)
-                } catch (evt) {
-                    return null
-                }
-            }
-
-            if (Array.isArray(coordinates) && isValidCoordinate(coordinates)) {
-                return {
-                    type: 'Point',
-                    coordinates,
-                }
-            }
-
-            return null
-        }
-    } else {
-        // Use event location (can be point or polygon)
-        const geomCol = findIndex(headers, (h) => h.name === 'geometry')
-        return (event) => JSON.parse(event[geomCol])
-    }
+export const buildEventGeometryGetter = (headers) => {
+    const geomCol = findIndex(headers, (h) => h.name === 'geometry')
+    return (event) => JSON.parse(event[geomCol])
 }
 
 export const createEventFeatures = (response, config = {}) => {

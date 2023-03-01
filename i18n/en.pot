@@ -65,16 +65,37 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+msgid "None"
+msgstr ""
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
+msgstr ""
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
 msgstr ""
 
-msgid "Event data item"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
 
-msgid "None"
+msgid "Event > org unit coordinate"
+msgstr ""
+
+msgid "Event data item"
 msgstr ""
 
 msgid "Selected value not available in in list: {{name}}"
