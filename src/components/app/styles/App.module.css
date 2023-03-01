@@ -8,6 +8,12 @@
     isolation: isolate;
 }
 
+/* Avoid vertical layer dialog scroll on small screens */
+:global(#dhis2-portal-root) aside[role=dialog],
+:global(#dhis2-portal-root) aside[role=dialog] > div > div {
+    max-height: calc(100vh - 64px)
+}
+
 .app {
     font-family: 'Roboto', sans-serif;
     height: 100vh;

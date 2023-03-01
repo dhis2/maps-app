@@ -1,10 +1,4 @@
-.checkbox {
-    min-width: 160px;
-    margin-right: 40px;
-    height: 60px;
-}
-
 .colorPicker {
-    display: inline-block;
-    margin-top: var(--spacers-dp8);
+    margin-top: -6px;
+    margin-left: 23px;
 }

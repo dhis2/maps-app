@@ -484,7 +484,6 @@ class ThematicDialog extends Component {
                                 <NoDataColor
                                     value={noDataColor}
                                     onChange={setNoDataColor}
-                                    className={styles.flexInnerColumnFlow}
                                 />
                             </div>
                         </div>

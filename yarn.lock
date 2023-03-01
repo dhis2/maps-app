@@ -2260,10 +2260,10 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^3.7.0":
-  version "3.8.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.1.tgz#80a9658e301ed01e120f7ce2ee932cc555b2c51b"
-  integrity sha512-2zmbx2zVs33rCCrp07bYjqhSXrLZG11dUkxqFdkpi8zB6U0Rxqw1nXshqHsRBIFJozymMdYA/8WRNpSMxennpA==
+"@dhis2/maps-gl@^3.8.2":
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.2.tgz#280b5224acc66ea1bd5f4e8c6fb8eeb4451d5054"
+  integrity sha512-7XMh3tr1MZAgpDuHJEw2+zmVuvTt5zW2M8vvu7/9CNeORfLvALA+o0w2Yd7zQ5wwO00/iNnh40InpUafHThsIg==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
@@ -2272,8 +2272,8 @@
     "@turf/center-of-mass" "^6.5.0"
     "@turf/circle" "^6.5.0"
     "@turf/length" "^6.5.0"
-    comlink "^4.3.1"
-    fetch-jsonp "^1.2.2"
+    comlink "^4.4.1"
+    fetch-jsonp "^1.2.3"
     lodash.throttle "^4.1.1"
     maplibre-gl "^2.4.0"
     polylabel "^1.1.0"
@@ -6230,7 +6230,7 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-comlink@^4.3.1:
+comlink@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.4.1.tgz#e568b8e86410b809e8600eb2cf40c189371ef981"
   integrity sha512-+1dlx0aY5Jo1vHy/tSsIGpSkN4tS9rZSW8FIhG0JH/crs9wwweswIo/POr451r7bZww3hFbPAKnTpimzL/mm4Q==
@@ -9061,7 +9061,7 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-fetch-jsonp@^1.2.2:
+fetch-jsonp@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.2.3.tgz#ae99a867095cb1ce5c39fac601d70d1084db122f"
   integrity sha512-C13k1o7R9JTN1wmhKkrW5bU/00LwixXnkufQUR6Rbf4KCS0i8mycQaovt4WVbHnA2NKgi7Ryp9Whpy/CGcij6Q==
