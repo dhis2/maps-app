@@ -29,7 +29,7 @@ const MapContainer = ({ visualization }) => {
                 const map = await fetchMap(id, engine, keyDefaultBaseMap)
                 initialConfig = getMigratedMapConfig(map, keyDefaultBaseMap)
             } else if (!mapViews) {
-                initialConfig = getConfigFromNonMapConfig(
+                initialConfig = await getConfigFromNonMapConfig(
                     otherMapProps,
                     keyDefaultBaseMap
                 )
