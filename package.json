@@ -36,7 +36,7 @@
     "@dhis2/app-service-alerts": "^3.6.2",
     "@dhis2/app-service-datastore": "^1.0.0-beta.3",
     "@dhis2/d2-i18n": "^1.1.0",
-    "@dhis2/maps-gl": "^3.7.0",
+    "@dhis2/maps-gl": "^3.8.2",
     "@dhis2/ui": "^8.11.2",
     "abortcontroller-polyfill": "^1.7.3",
     "array-move": "^4.0.0",
