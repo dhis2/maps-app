@@ -1,4 +1,5 @@
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
+import PropTypes from 'prop-types'
 import React from 'react'
 import SystemSettingsProvider, {
     SystemSettingsCtx,
@@ -22,7 +23,7 @@ const d2Config = {
     ],
 }
 
-export const Plugin = (props) => {
+export const Plugin = ({ visualization, displayProperty }) => {
     return (
         <D2Shim d2Config={d2Config}>
             {({ d2, d2Error }) => {
@@ -37,7 +38,12 @@ export const Plugin = (props) => {
                                 if (!settings.keyDefaultBaseMap) {
                                     return null
                                 }
-                                return <MapContainer {...props} />
+                                return (
+                                    <MapContainer
+                                        visualization={visualization}
+                                        displayProperty={displayProperty}
+                                    />
+                                )
                             }}
                         </SystemSettingsCtx.Consumer>
                     </SystemSettingsProvider>
@@ -45,4 +51,9 @@ export const Plugin = (props) => {
             }}
         </D2Shim>
     )
+}
+
+Plugin.propTypes = {
+    displayProperty: PropTypes.string,
+    visualization: PropTypes.object,
 }
