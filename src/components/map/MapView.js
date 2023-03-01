@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
@@ -24,6 +25,8 @@ const MapView = (props) => {
         setMapObject,
         resizeCount,
     } = props
+
+    const { baseUrl } = useConfig()
 
     const splitViewLayer = getSplitViewLayer(layers)
     const isSplitView = !!splitViewLayer
@@ -70,6 +73,7 @@ const MapView = (props) => {
                             setAggregations={setAggregations}
                             resizeCount={resizeCount}
                             setMapObject={setMapObject}
+                            baseUrl={baseUrl}
                         />
                     )}
                 </>

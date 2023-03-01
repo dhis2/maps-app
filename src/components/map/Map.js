@@ -27,6 +27,7 @@ const layerType = {
 
 class Map extends Component {
     static propTypes = {
+        baseUrl: PropTypes.string.isRequired,
         openContextMenu: PropTypes.func.isRequired,
         basemap: PropTypes.object,
         bounds: PropTypes.array,
@@ -58,10 +59,11 @@ class Map extends Component {
 
     constructor(props, context) {
         super(props, context)
-        const { isPlugin } = props
+        const { isPlugin, baseUrl } = props
 
         const map = mapApi({
             scrollZoom: !isPlugin,
+            baseUrl,
         })
 
         if (isPlugin) {

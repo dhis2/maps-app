@@ -11,6 +11,7 @@ class MapItem extends PureComponent {
     }
 
     static propTypes = {
+        baseUrl: PropTypes.string.isRequired,
         children: PropTypes.node.isRequired,
         count: PropTypes.number.isRequired,
         index: PropTypes.number.isRequired,
@@ -29,11 +30,12 @@ class MapItem extends PureComponent {
     constructor(props, context) {
         super(props, context)
 
-        const { isPlugin } = props
+        const { isPlugin, baseUrl } = props
 
         this.map = mapApi({
             attributionControl: false,
             scrollZoom: !isPlugin,
+            baseUrl,
         })
 
         if (isPlugin) {
