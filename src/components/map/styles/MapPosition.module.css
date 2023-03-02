@@ -22,8 +22,15 @@
     box-shadow: none;
 }
 
-.mapDownload > div > div:first-child {
+.mapDownload > div > div:first-child:not(:global(.dhis2-map-split-view)) {
     border: 1px solid #ccc;
+}
+
+.mapDownload :global(.dhis2-map-split-view) {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: none;
+    border-bottom: none;
 }
 
 .downloadMapInfoOpen  > div > div:first-child {
