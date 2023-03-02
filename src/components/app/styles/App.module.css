@@ -22,7 +22,6 @@
 .app {
     font-family: 'Roboto', sans-serif;
     height: 100vh;
-    overflow-y: hidden;
 }
 
 /* Scrollbar width */
