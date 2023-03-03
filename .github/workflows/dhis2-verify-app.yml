@@ -147,10 +147,10 @@ jobs:
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
                   SERVER_START_CMD: 'yarn start:nobrowser'
-                  SERVER_URL: 'http://localhost:8082'
+                  SERVER_URL: 'http://localhost:3000'
                   DHIS2_BASE_URL: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
                   CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
-                  CYPRESS_dhis2ApiVersion: 38
+                  CYPRESS_dhis2ApiVersion: 40
                   CYPRESS_networkMode: 'live'
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
