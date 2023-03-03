@@ -42,12 +42,19 @@ const DimensionItemsSelect = ({ dimension, value, onChange }) => {
             ids.map((id) => data.items.items.find((item) => item.id === id))
         )
 
+    const items = data?.items.items
+
+    const foundValues =
+        value && items
+            ? value.filter((id) => items.find((f) => f.id === id))
+            : undefined
+
     return (
         <SelectField
             label={i18n.t('Items')}
             loading={loading}
-            items={data?.items.items}
-            value={value}
+            items={items}
+            value={foundValues}
             multiple={true}
             onChange={onDimensionItemClick}
             errorText={error?.message}

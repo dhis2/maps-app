@@ -1,3 +1,10 @@
+## [1.30.1](https://github.com/dhis2/maps-app/compare/v1.30.0...v1.30.1) (2023-03-03)
+
+
+### Bug Fixes
+
+* make sure value is found in dimension item select ([#2508](https://github.com/dhis2/maps-app/issues/2508)) ([7882f12](https://github.com/dhis2/maps-app/commit/7882f1248277bae7210d7803689c1ff15d3993ff))
+
 # [1.30.0](https://github.com/dhis2/maps-app/compare/v1.29.2...v1.30.0) (2023-03-01)
 
 

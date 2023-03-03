@@ -13,6 +13,6 @@
     padding-bottom: var(--spacers-dp16);
 }
 
-.help {
-    padding-top: var(--spacers-dp4);
+.buttons {
+    padding-top: var(--spacers-dp16);
 }
