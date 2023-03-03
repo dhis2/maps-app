@@ -35,10 +35,7 @@ const OrgUnitsProvider = ({ children }) => {
                     levels: levels.organisationUnitLevels,
                     roots: roots.organisationUnits,
                 }),
-            onError: (e) => {
-                console.log('orgunits failed', e)
-                setError(e)
-            },
+            onError: setError,
         })
     }, [engine])
 
