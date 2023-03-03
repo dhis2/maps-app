@@ -247,14 +247,10 @@ test('getConfigFromNonMapConfig', async () => {
     getuid.generateUid = jest.fn().mockReturnValue('abc123')
     /* eslint-enable no-import-assign, import/namespace */
 
-    const res = await getConfigFromNonMapConfig(
-        { el: 'the element', ...chartConfig },
-        defaultBasemapId
-    )
+    const res = await getConfigFromNonMapConfig(chartConfig, defaultBasemapId)
 
     expect(res).toEqual(
         expect.objectContaining({
-            el: 'the element',
             name: chartConfig.displayName,
             basemap: { id: defaultBasemapId },
             mapViews: [
