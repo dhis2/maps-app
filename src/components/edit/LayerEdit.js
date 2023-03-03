@@ -56,6 +56,8 @@ const LayerEdit = ({
     const { keyAnalysisRelativePeriod } = useSystemSettings()
     const orgUnits = useOrgUnits()
 
+    console.log('orgUnits', orgUnits)
+
     const onValidateLayer = () => setIsValidLayer(true)
 
     const onLayerValidation = (isValid) => {
