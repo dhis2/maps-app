@@ -3,7 +3,7 @@ import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics.js'
 import { cleanDimension } from './favorites.js'
 import { loadDataItemLegendSet } from './legend.js'
 
-export const NAMESPACE = 'analytics'
+export const USER_DATASTORE_NAMESPACE = 'analytics'
 export const CURRENT_AO_KEY = 'currentAnalyticalObject'
 
 export const APP_URLS = {
