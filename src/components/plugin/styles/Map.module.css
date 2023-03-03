@@ -1,11 +1,11 @@
-.plugin {
+.map {
     position: relative;
     height: 100%;
     width: 100%;
     font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
-.plugin :global(.dhis2-map-legend) {
+.map :global(.dhis2-map-legend) {
     top: 10px;
     left: 10px;
     right: auto;

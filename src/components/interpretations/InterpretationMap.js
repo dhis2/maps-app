@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { getPeriodFromFilters } from '../../util/analytics.js'
 import { getRelativePeriods } from '../../util/periods.js'
-import Plugin from '../plugin/Plugin.js'
+import Map from '../plugin/Map.js'
 import styles from './styles/InterpretationMap.module.css'
 
 const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
@@ -47,7 +47,7 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
 
     return mapViews ? (
         <div className={styles.map}>
-            <Plugin {...visualization} mapViews={mapViews} />
+            <Map {...visualization} mapViews={mapViews} />
         </div>
     ) : null
 }

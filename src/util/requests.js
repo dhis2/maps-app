@@ -5,17 +5,6 @@ import { getMigratedMapConfig } from './getMigratedMapConfig.js'
 import { mapFields } from './helpers.js'
 // API requests
 
-// Fetch one favorite
-export const mapRequest = async (id, keyDefaultBaseMap) => {
-    const d2 = await getD2()
-
-    return d2.models.map
-        .get(id, {
-            fields: mapFields(),
-        })
-        .then((map) => getMigratedMapConfig(map, keyDefaultBaseMap))
-}
-
 const fetchMapQuery = {
     resource: 'maps',
     id: ({ id }) => id,

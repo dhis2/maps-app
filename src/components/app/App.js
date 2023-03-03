@@ -1,9 +1,6 @@
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
-import 'fontsource-roboto/latin.css'
 import { useDataEngine } from '@dhis2/app-runtime'
-import { AlertsProvider } from '@dhis2/app-service-alerts'
 import { useSetting } from '@dhis2/app-service-datastore'
-import { CssReset, CssVariables } from '@dhis2/ui'
+import { CssVariables } from '@dhis2/ui'
 import isEmpty from 'lodash/isEmpty'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -13,7 +10,6 @@ import { tSetExternalLayers } from '../../actions/externalLayers.js'
 import { tOpenMap } from '../../actions/map.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
-import FatalErrorBoundary from '../errors/FatalErrorBoundary.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import AppLayout from './AppLayout.js'
 import styles from './styles/App.module.css'
@@ -51,15 +47,10 @@ const App = () => {
     }, [systemSettings, dispatch])
 
     return (
-        <FatalErrorBoundary>
-            <AlertsProvider>
-                <div className={styles.app}>
-                    <CssReset />
-                    <CssVariables colors spacers theme />
-                    <AppLayout />
-                </div>
-            </AlertsProvider>
-        </FatalErrorBoundary>
+        <div className={styles.app}>
+            <CssVariables colors spacers theme />
+            <AppLayout />
+        </div>
     )
 }
 

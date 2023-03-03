@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,6 +13,7 @@ const maxHeight = 260
 const minHeight = 80
 
 const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
+    const { baseUrl } = useConfig()
     const [overviewMap, setOverviewMap] = useState()
     const basemap = useSelector((state) => state.map.basemap)
     const { config, isDark } = useBasemapConfig(basemap)
@@ -46,6 +48,7 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
             touchZoomRotate: false,
             pitchWithRotate: false,
             minZoom: 0,
+            baseUrl,
         })
 
         map.once('ready', onOverviewMapReady)
@@ -53,7 +56,7 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
         return () => {
             map.off('ready', onOverviewMapReady)
         }
-    }, [onOverviewMapReady])
+    }, [onOverviewMapReady, baseUrl])
 
     useEffect(() => {
         if (overviewMap) {

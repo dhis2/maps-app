@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback, useEffect } from 'react'
@@ -18,6 +19,7 @@ const SplitView = ({
     interpretationModalOpen,
     setMapObject,
 }) => {
+    const { baseUrl } = useConfig()
     const [showFullscreen, setShowFullscreen] = useState()
     const [map, setMap] = useState() // Called from map child
     const containerRef = useRef()
@@ -73,6 +75,7 @@ const SplitView = ({
                     setMapControls={setMap}
                     isPlugin={isPlugin}
                     isFullscreen={showFullscreen}
+                    baseUrl={baseUrl}
                 >
                     <BasemapLayer {...basemap} />
                     <ThematicLayer

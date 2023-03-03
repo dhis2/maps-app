@@ -1,12 +1,12 @@
 {
-    "baseUrl": "http://localhost:8082",
+    "baseUrl": "http://localhost:3000",
     "video": true,
     "projectId": "r5jduj",
     "experimentalInteractiveRunEvents": true,
     "env": {
         "dhis2DataTestPrefix": "dhis2-maps",
         "networkMode": "live",
-        "dhis2ApiVersion": "38"
+        "dhis2ApiVersion": "40"
     },
     "testFiles": "**/*.cy.js"
 }

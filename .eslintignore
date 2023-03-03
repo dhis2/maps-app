@@ -2,3 +2,7 @@ node_modules/
 build/
 webpack.config.js
 src/locales
+
+
+# ide
+.vscode/

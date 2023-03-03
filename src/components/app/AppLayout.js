@@ -1,5 +1,3 @@
-import i18n from '@dhis2/d2-i18n'
-import { HeaderBar } from '@dhis2/ui'
 import cx from 'classnames'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -22,33 +20,30 @@ const AppLayout = () => {
     const downloadMode = useSelector((state) => state.download.downloadMode)
 
     return (
-        <>
-            <HeaderBar appName={i18n.t('Maps')} />
-            <div
-                className={cx(styles.appLayout, {
-                    [styles.downloadMode]: downloadMode,
-                })}
-            >
-                {downloadMode ? (
-                    <DownloadMode />
-                ) : (
-                    <>
-                        <AppMenu />
-                        <LayersToggle />
-                        <LayersPanel />
-                        <LayersLoader />
-                    </>
-                )}
-                <MapPosition />
-                <InterpretationsPanel />
-                <BottomPanel />
-                <LayerEdit />
-                <ContextMenu />
-                <AlertStack />
-                <OpenAsMapDialog />
-                <OrgUnitProfile />
-            </div>
-        </>
+        <div
+            className={cx(styles.appLayout, {
+                [styles.downloadMode]: downloadMode,
+            })}
+        >
+            {downloadMode ? (
+                <DownloadMode />
+            ) : (
+                <>
+                    <AppMenu />
+                    <LayersToggle />
+                    <LayersPanel />
+                    <LayersLoader />
+                </>
+            )}
+            <MapPosition />
+            <InterpretationsPanel />
+            <BottomPanel />
+            <LayerEdit />
+            <ContextMenu />
+            <AlertStack />
+            <OpenAsMapDialog />
+            <OrgUnitProfile />
+        </div>
     )
 }
 

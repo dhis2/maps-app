@@ -1,4 +1,4 @@
-import { config } from 'd2'
+import { getInstance as getD2 } from 'd2'
 import { isString, isObject } from 'lodash/fp'
 
 // The api/configuration/xx endpoints returns an empty body if the config is not set
@@ -40,6 +40,7 @@ export const apiFetchWithBaseUrl = async ({ url, method, body, baseUrl }) => {
 }
 
 export const apiFetch = async (url, method, body) => {
+    const d2 = await getD2()
     const options = {
         headers: {
             'Content-Type': 'application/json', // Default API response
@@ -59,8 +60,10 @@ export const apiFetch = async (url, method, body) => {
         }
     }
 
+    const baseUrl = d2.Api.getApi().baseUrl
+
     // TODO: Better error handling
-    return fetch(encodeURI(config.baseUrl + url), options)
+    return fetch(encodeURI(baseUrl + url), options)
         .then((response) =>
             ['POST', 'PUT', 'PATCH'].includes(method)
                 ? response

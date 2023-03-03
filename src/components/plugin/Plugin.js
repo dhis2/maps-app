@@ -1,151 +1,59 @@
-import { useOnlineStatus } from '@dhis2/app-runtime'
-import {
-    CssReset,
-    CssVariables,
-    CenteredContent,
-    CircularLoader,
-} from '@dhis2/ui'
+import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import PropTypes from 'prop-types'
-import React, { forwardRef, useState, useCallback, useEffect } from 'react'
-import { drillUpDown } from '../../util/map.js'
-import LayerLoader from '../loaders/LayerLoader.js'
-import MapView from '../map/MapView.js'
-import ContextMenu from './ContextMenu.js'
-import Legend from './Legend.js'
-import MapName from './MapName.js'
-import styles from './styles/Plugin.module.css'
+import React from 'react'
+import SystemSettingsProvider, {
+    SystemSettingsCtx,
+} from '../SystemSettingsProvider.js'
+import LoadingMask from './LoadingMask.js'
+import MapContainer from './MapContainer.js'
 
-const defaultBounds = [
-    [-18.7, -34.9],
-    [50.2, 35.9],
-]
+const d2Config = {
+    schemas: [
+        'dataElement',
+        'dataSet',
+        'externalMapLayer',
+        'indicator',
+        'legendSet',
+        'map',
+        'optionSet',
+        'organisationUnitGroup',
+        'organisationUnitGroupSet',
+        'organisationUnitLevel',
+        'programStage',
+    ],
+}
 
-const Plugin = forwardRef((props, ref) => {
-    const { offline } = useOnlineStatus()
-    const [layers, setLayers] = useState([])
-    const [contextMenu, setContextMenu] = useState()
-    const [resizeCount, setResizeCount] = useState(0)
-
-    const { name, basemap, mapViews, hideTitle, controls, getResizeFunction } =
-        props
-
-    const onResize = () => setResizeCount((state) => state + 1)
-
-    const onLayerLoad = useCallback(
-        (layer) =>
-            setLayers((layers) =>
-                layers.map((l) => (layer.id === l.id ? layer : l))
-            ),
-        []
-    )
-
-    useEffect(() => {
-        setLayers(mapViews)
-    }, [mapViews])
-
-    // TODO: Remove when map.js is refactored
-    useEffect(() => {
-        if (getResizeFunction) {
-            getResizeFunction(onResize)
-        }
-    }, [getResizeFunction])
-
-    const onDrill = async (direction) => {
-        const { layerId, feature } = contextMenu
-        let newConfig
-
-        if (layerId && feature) {
-            const {
-                level,
-                id,
-                parentGraph,
-                grandParentId,
-                grandParentParentGraph,
-            } = feature.properties
-            const layerConfig = layers.find((layer) => layer.id === layerId)
-
-            if (direction === 'up') {
-                newConfig = drillUpDown(
-                    layerConfig,
-                    grandParentId,
-                    grandParentParentGraph,
-                    parseInt(level) - 1
-                )
-            } else {
-                newConfig = drillUpDown(
-                    layerConfig,
-                    id,
-                    parentGraph,
-                    parseInt(level) + 1
-                )
-            }
-
-            setLayers(
-                layers.map((layer) =>
-                    layer.id === layerId ? newConfig : layer
-                )
-            )
-
-            setContextMenu()
-        }
-    }
-
-    if (layers.find((layer) => !layer.isLoaded)) {
-        return (
-            <CenteredContent>
-                <CircularLoader />
-                {layers.map((config) => (
-                    <LayerLoader
-                        key={config.id}
-                        config={config}
-                        onLoad={onLayerLoad}
-                    />
-                ))}
-            </CenteredContent>
-        )
-    }
-
+export const Plugin = ({ visualization, displayProperty }) => {
     return (
-        <div ref={ref} className={`dhis2-map-plugin ${styles.plugin}`}>
-            <CssReset />
-            <CssVariables colors spacers theme />
-            {!hideTitle && <MapName name={name} />}
-            <MapView
-                isPlugin={true}
-                isFullscreen={false}
-                basemap={basemap}
-                layers={layers}
-                controls={controls}
-                bounds={defaultBounds}
-                openContextMenu={setContextMenu}
-                resizeCount={resizeCount}
-            />
-            <Legend layers={layers} />
-            {contextMenu && (
-                <ContextMenu
-                    {...contextMenu}
-                    onDrill={onDrill}
-                    onClose={() => setContextMenu()}
-                    isOffline={offline}
-                />
-            )}
-        </div>
-    )
-})
+        <D2Shim d2Config={d2Config}>
+            {({ d2, d2Error }) => {
+                if (!d2 && !d2Error) {
+                    return <LoadingMask />
+                }
 
-Plugin.displayName = 'Plugin'
+                return (
+                    <SystemSettingsProvider>
+                        <SystemSettingsCtx.Consumer>
+                            {(settings) => {
+                                if (!settings.keyDefaultBaseMap) {
+                                    return null
+                                }
+                                return (
+                                    <MapContainer
+                                        visualization={visualization}
+                                        displayProperty={displayProperty}
+                                    />
+                                )
+                            }}
+                        </SystemSettingsCtx.Consumer>
+                    </SystemSettingsProvider>
+                )
+            }}
+        </D2Shim>
+    )
+}
 
 Plugin.propTypes = {
-    basemap: PropTypes.object,
-    controls: PropTypes.array,
-    getResizeFunction: PropTypes.func,
-    hideTitle: PropTypes.bool,
-    mapViews: PropTypes.array,
-    name: PropTypes.string,
+    displayProperty: PropTypes.string,
+    visualization: PropTypes.object,
 }
-
-Plugin.defaultProps = {
-    hideTitle: false,
-}
-
-export default Plugin

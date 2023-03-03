@@ -5,7 +5,7 @@ context('Smoke Test', () => {
     it('loads', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
-        cy.title().should('equal', 'DHIS2 Maps')
+        cy.title().should('equal', 'Maps | DHIS2')
     })
 
     it('loads with map id', () => {

@@ -19,9 +19,9 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 14.x
+                  node-version: 18.x
 
             - uses: actions/cache@v2
               id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -39,9 +39,9 @@ jobs:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 14.x
+                  node-version: 18.x
 
             - uses: actions/cache@v2
               id: yarn-cache
@@ -66,9 +66,9 @@ jobs:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 14.x
+                  node-version: 18.x
 
             - uses: actions/cache@v2
               id: yarn-cache
@@ -88,9 +88,9 @@ jobs:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 14.x
+                  node-version: 18.x
 
             - uses: actions/cache@v2
               id: yarn-cache
@@ -111,15 +111,15 @@ jobs:
 
         strategy:
             matrix:
-                containers: [1]
+                containers: [1, 2, 3, 4]
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 14.x
+                  node-version: 18.x
 
             - uses: actions/cache@v2
               id: yarn-cache
@@ -133,27 +133,24 @@ jobs:
             - name: End-to-End tests
               uses: cypress-io/github-action@v2
               with:
+                  start: yarn d2-app-scripts start
+                  wait-on: 'http://localhost:3000'
+                  wait-on-timeout: 300
                   record: true
                   parallel: true
-                  start: ${{ env.SERVER_START_CMD }}
-                  wait-on: ${{ env.SERVER_URL }}
-                  wait-on-timeout: 300
-                  cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  group: 'e2e'
                   browser: chrome
+                  group: 'e2e'
                   tag: ${{ github.event_name }}
               env:
                   CI: true
+                  BROWSER: none
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
-                  SERVER_START_CMD: 'yarn start:nobrowser'
-                  SERVER_URL: 'http://localhost:8082'
-                  DHIS2_BASE_URL: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
                   CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
-                  CYPRESS_dhis2ApiVersion: 38
-                  CYPRESS_networkMode: 'live'
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+                  CYPRESS_networkMode: 'live'
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     publish:
         runs-on: ubuntu-latest
