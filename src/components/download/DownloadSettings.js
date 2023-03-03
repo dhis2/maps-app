@@ -176,13 +176,11 @@ const DownloadSettings = () => {
                                     }
                                 />
                             )}
-                            <div className={styles.help}>
-                                <Help>
-                                    {i18n.t(
-                                        'Resize your browser window to change the map dimensions.'
-                                    )}
-                                </Help>
-                            </div>
+                            <Help>
+                                {i18n.t(
+                                    'Resize your browser window to change the map dimensions.'
+                                )}
+                            </Help>
                         </>
                     ) : (
                         i18n.t(
@@ -190,16 +188,18 @@ const DownloadSettings = () => {
                         )
                     )}
                 </div>
-                <ButtonStrip end>
-                    <Button secondary onClick={onClose}>
-                        {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
-                    </Button>
-                    {isSupported && (
-                        <Button primary onClick={onDownload}>
-                            {i18n.t('Download')}
+                <div className={styles.buttons}>
+                    <ButtonStrip end>
+                        <Button secondary onClick={onClose}>
+                            {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
                         </Button>
-                    )}
-                </ButtonStrip>
+                        {isSupported && (
+                            <Button primary onClick={onDownload}>
+                                {i18n.t('Download')}
+                            </Button>
+                        )}
+                    </ButtonStrip>
+                </div>
             </div>
         </Drawer>
     )
