@@ -19,7 +19,7 @@
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^10.2.0",
+        "@dhis2/cli-app-scripts": "^10.3.0",
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^9.0.2",
         "@dhis2/cypress-plugins": "^9.0.2",
