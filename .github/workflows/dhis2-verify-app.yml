@@ -171,7 +171,7 @@ jobs:
 
             - uses: dhis2/deploy-build@master
               with:
-                  build-dir: build
+                  build-dir: build/app
                   github-token: ${{ env.GH_TOKEN }}
 
     release:
