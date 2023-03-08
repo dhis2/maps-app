@@ -36,10 +36,17 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
 
     useEffect(() => {
         mainMap.on('move', onMainMapMove)
+
+        if (overviewMap) {
+            overviewMap
+                .getMapGL()
+                .once('drag', () => mainMap.off('move', onMainMapMove))
+        }
+
         return () => {
             mainMap.off('move', onMainMapMove)
         }
-    }, [mainMap, onMainMapMove])
+    }, [mainMap, overviewMap, onMainMapMove])
 
     useEffect(() => {
         const map = mapApi({
