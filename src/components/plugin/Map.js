@@ -12,7 +12,6 @@ import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
 import ContextMenu from './ContextMenu.js'
 import Legend from './Legend.js'
-import MapName from './MapName.js'
 import styles from './styles/Map.module.css'
 
 const defaultBounds = [
@@ -26,7 +25,7 @@ const Map = forwardRef((props, ref) => {
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
 
-    const { name, basemap, mapViews, hideTitle, controls, getResizeFunction } =
+    const { basemap, mapViews, controls, getResizeFunction } =
         props
 
     const onResize = () => setResizeCount((state) => state + 1)
@@ -109,7 +108,6 @@ const Map = forwardRef((props, ref) => {
         <div ref={ref} className={`dhis2-map-plugin ${styles.map}`}>
             <CssReset />
             <CssVariables colors spacers theme />
-            {!hideTitle && <MapName name={name} />}
             <MapView
                 isPlugin={true}
                 isFullscreen={false}
@@ -139,13 +137,8 @@ Map.propTypes = {
     basemap: PropTypes.object,
     controls: PropTypes.array,
     getResizeFunction: PropTypes.func,
-    hideTitle: PropTypes.bool,
     mapViews: PropTypes.array,
     name: PropTypes.string,
-}
-
-Map.defaultProps = {
-    hideTitle: false,
 }
 
 export default Map
