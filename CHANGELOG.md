@@ -1,3 +1,10 @@
+## [1.30.2](https://github.com/dhis2/maps-app/compare/v1.30.1...v1.30.2) (2023-03-09)
+
+
+### Bug Fixes
+
+* add robustness to some cypress tests and disable others ([#2516](https://github.com/dhis2/maps-app/issues/2516)) ([0aeb6a2](https://github.com/dhis2/maps-app/commit/0aeb6a24cb60760e42b3ef4daaf49868b0ffce23))
+
 ## [1.30.1](https://github.com/dhis2/maps-app/compare/v1.30.0...v1.30.1) (2023-03-03)
 
 
