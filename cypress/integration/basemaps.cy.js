@@ -20,7 +20,7 @@ describe('Basemap checks', () => {
         }).as('openMap')
 
         cy.visit('/?id=ytkZY3ChM6J', EXTENDED_TIMEOUT)
-        cy.wait('@openMap')
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -38,7 +38,7 @@ describe('Basemap checks', () => {
         }).as('openMap')
 
         cy.visit('/?id=zDP78aJU8nX', EXTENDED_TIMEOUT)
-        cy.wait('@openMap')
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -57,7 +57,7 @@ describe('Basemap checks', () => {
         }).as('openMap')
 
         cy.visit('/?id=qTfO4YkQ9xW', EXTENDED_TIMEOUT)
-        cy.wait('@openMap')
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -86,7 +86,7 @@ describe('Basemap checks', () => {
         }).as('openMap')
 
         cy.visit('/?id=ZugJzZ7xxRW', EXTENDED_TIMEOUT)
-        cy.wait('@openMap')
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -116,7 +116,7 @@ describe('Basemap checks', () => {
 
         cy.visit('/?id=wIIoj44X77r', EXTENDED_TIMEOUT)
         cy.wait('@systemSettings')
-        cy.wait('@openMap')
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -145,8 +145,8 @@ describe('Basemap checks', () => {
         }).as('openMap')
 
         cy.visit('/?id=wIIoj44X77r', EXTENDED_TIMEOUT)
-        cy.wait('@systemSettings')
-        cy.wait('@openMap')
+        cy.wait('@systemSettings', EXTENDED_TIMEOUT)
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 

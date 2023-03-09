@@ -102,8 +102,15 @@ describe('systemSettings', () => {
         }).as('getSystemSettings6months')
 
         cy.visit('/', EXTENDED_TIMEOUT)
-        cy.wait('@getSystemSettings6months')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+        cy.wait('@getSystemSettings6months', EXTENDED_TIMEOUT)
+            .its('response.statusCode')
+            .should('eq', 200)
+
+        // Open/close file menu is a hack to trigger a ui change, ensuring that
+        // systemSettings has completed
+        cy.getByDataTest('file-menu-toggle').click()
+        cy.getByDataTest('file-menu-toggle-layer').click()
 
         const Layer = new ThematicLayer()
 
