@@ -1,3 +1,10 @@
+## [1.30.3](https://github.com/dhis2/maps-app/compare/v1.30.2...v1.30.3) (2023-03-09)
+
+
+### Bug Fixes
+
+* remove map name from plugin ([#2515](https://github.com/dhis2/maps-app/issues/2515)) ([1b3d0bb](https://github.com/dhis2/maps-app/commit/1b3d0bbd18ad6601295ccb39c8eddb59326e4bde))
+
 ## [1.30.2](https://github.com/dhis2/maps-app/compare/v1.30.1...v1.30.2) (2023-03-09)
 
 
