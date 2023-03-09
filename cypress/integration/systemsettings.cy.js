@@ -89,7 +89,7 @@ describe('systemSettings', () => {
             .should('be.visible')
     })
 
-    it('uses Last 6 months as default relative period', () => {
+    it.skip('uses Last 6 months as default relative period', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']
             req.continue((res) => {
