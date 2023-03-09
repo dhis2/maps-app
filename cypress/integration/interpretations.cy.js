@@ -12,11 +12,9 @@ context('Interpretations', () => {
 
         cy.contains('About this map').should('be.visible')
 
-        cy.get('input').should(
-            'have.attr',
-            'placeholder',
-            'Write an interpretation'
-        )
+        cy.getByDataTest('interpretation-form')
+            .find('input[type="text"]')
+            .should('have.attr', 'placeholder', 'Write an interpretation')
 
         cy.get('p')
             .contains(
