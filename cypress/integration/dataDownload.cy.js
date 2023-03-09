@@ -3,14 +3,14 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const mapWithThematicLayer = {
     id: 'eDlFx0jTtV9',
     name: 'ANC: LLITN Cov Chiefdom this year',
-    downloadName: 'ANC_LLITN_coverage.geojson',
+    downloadFileNamePrefix: 'anc_llitn_coverage',
     cardTitle: 'ANC LLITN coverage',
 }
 
 const mapWithEventLayer = {
     id: 'kNYqHu3e7o3',
     name: 'Malaria: Cases 2015-2016 Western Area events',
-    downloadName: 'Malaria_case_registration.geojson',
+    downloadFileNamePrefix: 'malaria_case_registration',
     cardTitle: 'Malaria case registration',
 }
 
@@ -34,7 +34,11 @@ const openMoreMenuWithOptions = (numOptions) => {
 }
 
 describe('Data Download', () => {
-    it.skip('downloads data from a thematic layer', () => {
+    beforeEach(() => {
+        cy.task('emptyDownloadsFolder')
+    })
+
+    it('downloads data from a thematic layer', () => {
         cy.visit(`/?id=${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -49,15 +53,24 @@ describe('Data Download', () => {
             .contains('Download')
             .click()
 
-        const downloadsFolder = Cypress.config('downloadsFolder')
-        const downloadedFilename = `${downloadsFolder}/${mapWithThematicLayer.downloadName}`
+        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
 
-        cy.readFile(downloadedFilename, EXTENDED_TIMEOUT).should((buffer) =>
-            expect(buffer.length).to.be.gt(1000)
-        )
+        cy.waitUntil(
+            () => cy.task('getLastDownloadFilePath').then((result) => result),
+            { timeout: 3000, interval: 100 }
+        ).then((filePath) => {
+            expect(filePath).to.include('geojson')
+            expect(filePath).to.include(
+                mapWithThematicLayer.downloadFileNamePrefix
+            )
+
+            cy.readFile(filePath, EXTENDED_TIMEOUT).should((buffer) =>
+                expect(buffer.length).to.be.gt(10000)
+            )
+        })
     })
 
-    it.skip('downloads data from an event layer', () => {
+    it('downloads data from an event layer', () => {
         cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -72,12 +85,21 @@ describe('Data Download', () => {
             .contains('Download')
             .click()
 
-        const downloadsFolder = Cypress.config('downloadsFolder')
-        const downloadedFilename = `${downloadsFolder}/${mapWithEventLayer.downloadName}`
+        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
 
-        cy.readFile(downloadedFilename, EXTENDED_TIMEOUT).should((buffer) =>
-            expect(buffer.length).to.be.gt(1000)
-        )
+        cy.waitUntil(
+            () => cy.task('getLastDownloadFilePath').then((result) => result),
+            { timeout: 3000, interval: 100 }
+        ).then((filePath) => {
+            expect(filePath).to.include('geojson')
+            expect(filePath).to.include(
+                mapWithEventLayer.downloadFileNamePrefix
+            )
+
+            cy.readFile(filePath, EXTENDED_TIMEOUT).should((buffer) =>
+                expect(buffer.length).to.be.gt(10000)
+            )
+        })
     })
 
     it('fails to download event layer', () => {
