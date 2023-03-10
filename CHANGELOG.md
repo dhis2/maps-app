@@ -1,3 +1,10 @@
+## [1.30.4](https://github.com/dhis2/maps-app/compare/v1.30.3...v1.30.4) (2023-03-10)
+
+
+### Bug Fixes
+
+* patch webpack webworker file to enable EE maps ([#2514](https://github.com/dhis2/maps-app/issues/2514)) ([239cbe7](https://github.com/dhis2/maps-app/commit/239cbe76b047d07da3b6763cd1d030b30db1090f))
+
 ## [1.30.3](https://github.com/dhis2/maps-app/compare/v1.30.2...v1.30.3) (2023-03-09)
 
 
