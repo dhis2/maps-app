@@ -104,7 +104,7 @@ export const getBounds = (bbox) => {
 }
 
 // Returns bounds of coordinates array
-export const getFeatureBounds = (coordinates) =>
+export const getCoordinatesBounds = (coordinates) =>
     coordinates.reduce(
         (prev, coord) => [
             [Math.min(coord[0], prev[0][0]), Math.min(coord[1], prev[0][1])],

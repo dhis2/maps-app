@@ -1,7 +1,7 @@
 import Point from '@mapbox/point-geometry'
 import PropTypes from 'prop-types'
 import { useState, useCallback, useEffect } from 'react'
-import { getFeatureBounds } from '../../util/geojson.js'
+import { getCoordinatesBounds } from '../../util/geojson.js'
 import { GEOJSON_LAYER } from '../../constants/layers.js'
 
 const layerId = 'overview-outline'
@@ -72,7 +72,7 @@ const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
 
             // Make sure outline bounds is inside overview map bounds
             const mapBounds = overviewMap.getMapGL().getBounds()
-            const outlineBounds = getFeatureBounds(
+            const outlineBounds = getCoordinatesBounds(
                 outline.geometry.coordinates[0]
             )
 
