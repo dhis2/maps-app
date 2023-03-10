@@ -1,3 +1,10 @@
+## [1.30.6](https://github.com/dhis2/maps-app/compare/v1.30.5...v1.30.6) (2023-03-10)
+
+
+### Bug Fixes
+
+* include name in default org unit level ([#2519](https://github.com/dhis2/maps-app/issues/2519)) ([c508875](https://github.com/dhis2/maps-app/commit/c5088754c0994aa0df6841da44e45d0b1106534f))
+
 ## [1.30.5](https://github.com/dhis2/maps-app/compare/v1.30.4...v1.30.5) (2023-03-10)
 
 

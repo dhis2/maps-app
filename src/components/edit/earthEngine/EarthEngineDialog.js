@@ -112,9 +112,11 @@ const EarthEngineDialog = (props) => {
             const defaultLevel = orgUnits.levels?.[DEFAULT_ORG_UNIT_LEVEL]
 
             if (defaultLevel) {
+                const { id, name } = defaultLevel
+
                 setOrgUnits({
                     dimension: 'ou',
-                    items: [{ id: `LEVEL-${defaultLevel.id}` }],
+                    items: [{ id: `LEVEL-${id}`, name }],
                 })
             }
         }
