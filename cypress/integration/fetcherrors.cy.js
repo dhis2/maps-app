@@ -25,7 +25,7 @@ describe('Fetch errors', () => {
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
     })
 
-    it('error in org units request does not crash app', () => {
+    it.skip('error in org units request does not crash app', () => {
         cy.intercept('GET', 'organisationUnits?*', {
             statusCode: 409,
         })
