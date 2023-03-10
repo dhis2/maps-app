@@ -1,8 +1,8 @@
 import Point from '@mapbox/point-geometry'
 import PropTypes from 'prop-types'
 import { useState, useCallback, useEffect } from 'react'
-import { getCoordinatesBounds } from '../../util/geojson.js'
 import { GEOJSON_LAYER } from '../../constants/layers.js'
+import { getCoordinatesBounds } from '../../util/geojson.js'
 
 const layerId = 'overview-outline'
 
