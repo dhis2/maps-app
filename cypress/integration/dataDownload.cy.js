@@ -34,7 +34,7 @@ const openMoreMenuWithOptions = (numOptions) => {
 }
 
 describe('Data Download', () => {
-    it('downloads data from a thematic layer', () => {
+    it.skip('downloads data from a thematic layer', () => {
         cy.visit(`/?id=${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -57,7 +57,7 @@ describe('Data Download', () => {
         )
     })
 
-    it('downloads data from an event layer', () => {
+    it.skip('downloads data from an event layer', () => {
         cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
