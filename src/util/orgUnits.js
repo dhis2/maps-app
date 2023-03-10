@@ -213,9 +213,8 @@ export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
             )
 
             if (level) {
-                return {
-                    id: `LEVEL-${level.id}`,
-                }
+                const { id, name } = level
+                return { id: `LEVEL-${id}`, name }
             }
         }
 
