@@ -38,6 +38,7 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
         mainMap.on('move', onMainMapMove)
 
         if (overviewMap) {
+            // Don't sync overview map after it is dragged by the user
             overviewMap
                 .getMapGL()
                 .once('drag', () => mainMap.off('move', onMainMapMove))

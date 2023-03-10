@@ -102,3 +102,16 @@ export const getBounds = (bbox) => {
         [extent[2], extent[3]],
     ]
 }
+
+// Returns bounds of coordinates array
+export const getFeatureBounds = (coordinates) =>
+    coordinates.reduce(
+        (prev, coord) => [
+            [Math.min(coord[0], prev[0][0]), Math.min(coord[1], prev[0][1])],
+            [Math.max(coord[0], prev[1][0]), Math.max(coord[1], prev[1][1])],
+        ],
+        [
+            [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
+            [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
+        ]
+    )
