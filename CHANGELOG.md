@@ -1,3 +1,10 @@
+## [1.30.8](https://github.com/dhis2/maps-app/compare/v1.30.7...v1.30.8) (2023-03-13)
+
+
+### Bug Fixes
+
+* only show legends for visible layers, fix info icon alignment ([#2524](https://github.com/dhis2/maps-app/issues/2524)) ([82f6514](https://github.com/dhis2/maps-app/commit/82f6514c579c3d3cf0c8e456089f07fa63d40599))
+
 ## [1.30.7](https://github.com/dhis2/maps-app/compare/v1.30.6...v1.30.7) (2023-03-13)
 
 
