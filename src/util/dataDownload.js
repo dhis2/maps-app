@@ -45,8 +45,9 @@ export const addPropNames = (layer, data) => {
 }
 
 // Replaces anything that's not a letter, number or space
+// Multiple spaces is replaced by a single space in the last replace
 export const standardizeFilename = (name, ext) => 
-    `${name.replace(/[^a-z0-9 ]/gi, '')}.${ext}`
+    `${name.replace(/[^a-z0-9 ]/gi, '').replace(/  +/g, ' ')}.${ext}`
 
 export const createGeoJsonBlob = (data) => {
     const geojson = {
