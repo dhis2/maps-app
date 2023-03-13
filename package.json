@@ -20,7 +20,7 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^10.2.0",
+        "@dhis2/cli-app-scripts": "^10.3.3",
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^9.0.2",
         "@dhis2/cypress-plugins": "^9.0.2",
@@ -38,13 +38,13 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^24.9.0",
-        "@dhis2/app-runtime": "^3.8.0",
+        "@dhis2/app-runtime": "^3.9.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
-        "@dhis2/app-service-alerts": "^3.6.2",
+        "@dhis2/app-service-alerts": "^3.9.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/d2-i18n": "^1.1.1",
         "@dhis2/maps-gl": "^3.8.2",
-        "@dhis2/ui": "^8.11.2",
+        "@dhis2/ui": "^8.12.2",
         "@krakenjs/post-robot": "^11.0.0",
         "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^4.0.0",
