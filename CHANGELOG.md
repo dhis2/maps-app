@@ -1,3 +1,10 @@
+## [1.30.7](https://github.com/dhis2/maps-app/compare/v1.30.6...v1.30.7) (2023-03-13)
+
+
+### Bug Fixes
+
+* omit fonts and images from precache ([#2523](https://github.com/dhis2/maps-app/issues/2523)) ([ffd0e4a](https://github.com/dhis2/maps-app/commit/ffd0e4aa73cf1e6680537a5324bc5d4fc55191b4))
+
 ## [1.30.6](https://github.com/dhis2/maps-app/compare/v1.30.5...v1.30.6) (2023-03-10)
 
 
