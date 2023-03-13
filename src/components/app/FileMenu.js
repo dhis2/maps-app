@@ -34,7 +34,7 @@ const saveAsNewMapMutation = {
     data: ({ data }) => data,
 }
 
-const getMapName = (name) =>
+export const getMapName = (name) =>
     name ||
     i18n.t('Untitled map, {{date}}', {
         date: new Date().toLocaleDateString(undefined, {

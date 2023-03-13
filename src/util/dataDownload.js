@@ -44,13 +44,9 @@ export const addPropNames = (layer, data) => {
           )
 }
 
-// Replaces anything that's not a letter or a number, and makes it all lower case
-// If no rawName the filename will start with "map_"
-// A short random string is added to avoid multiple files with the same filename
-export const standardizeFilename = (rawName, ext) =>
-    `${
-        rawName ? rawName.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'map_'
-    }_${Math.random().toString(36).substring(7)}.${ext}`
+// Replaces anything that's not a letter, number or space
+export const standardizeFilename = (name, ext) => 
+    `${name.replace(/[^a-z0-9 ]/gi, '')}.${ext}`
 
 export const createGeoJsonBlob = (data) => {
     const geojson = {
