@@ -20,13 +20,13 @@ const defaultState = {
 const basemap = (state, action) => {
     switch (action.type) {
         case types.BASEMAP_SELECTED:
-            if (state.id === action.id) {
+            if (state.id === action.payload.id) {
                 return state
             }
 
             return {
                 ...state,
-                id: action.id,
+                ...action.payload,
             }
 
         case types.BASEMAP_CHANGE_OPACITY:

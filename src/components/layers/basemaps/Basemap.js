@@ -5,12 +5,12 @@ import React from 'react'
 import styles from './styles/Basemap.module.css'
 
 // TODO: Use ImageSelect.js component for selectable image
-const Basemap = ({ id, img, name, isSelected, onClick }) => {
+const Basemap = ({ id, img, name, config, isSelected, onClick }) => {
     return (
         <div
             className={styles.container}
             title={name}
-            onClick={() => onClick(id)}
+            onClick={() => onClick({ id, config })}
             data-test="basemaplistitem"
         >
             <div
@@ -40,6 +40,7 @@ const Basemap = ({ id, img, name, isSelected, onClick }) => {
 }
 
 Basemap.propTypes = {
+    config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     isSelected: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
