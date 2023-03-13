@@ -47,7 +47,7 @@ const DownloadSettings = () => {
             mapEl = mapEl.parentNode
         }
 
-        downloadMapImage(mapEl, filename).then(onClose).catch(setError)
+        downloadMapImage(mapEl, filename).catch(setError)
     }, [name, includeMargins, onClose])
 
     const hasLayers = mapViews.length > 0
