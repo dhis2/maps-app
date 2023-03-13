@@ -30,7 +30,7 @@ const DownloadSettings = () => {
     } = useSelector((state) => state.download)
 
     const legendLayers = useMemo(
-        () => mapViews.filter((layer) => layer.legend),
+        () => mapViews.filter((layer) => layer.legend && layer.isVisible),
         [mapViews]
     )
 
