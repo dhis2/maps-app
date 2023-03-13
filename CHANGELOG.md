@@ -1,3 +1,11 @@
+## [1.30.9](https://github.com/dhis2/maps-app/compare/v1.30.8...v1.30.9) (2023-03-13)
+
+
+### Bug Fixes
+
+* issues found during team testing of 2.40 release ([#2525](https://github.com/dhis2/maps-app/issues/2525)) ([bc302f2](https://github.com/dhis2/maps-app/commit/bc302f23036199e7f531da5c60f3c114ff290cb3))
+* overview map interaction ([#2520](https://github.com/dhis2/maps-app/issues/2520)) ([12aa95d](https://github.com/dhis2/maps-app/commit/12aa95d9f7410454edac3f253e6be8ad0973759b))
+
 ## [1.30.8](https://github.com/dhis2/maps-app/compare/v1.30.7...v1.30.8) (2023-03-13)
 
 
