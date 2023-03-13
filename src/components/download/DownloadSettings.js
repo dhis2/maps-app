@@ -6,9 +6,9 @@ import { setDownloadMode, setDownloadConfig } from '../../actions/download.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
+import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
-import { getMapName } from '../app/FileMenu.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadSettings.module.css'
@@ -49,7 +49,7 @@ const DownloadSettings = () => {
         }
 
         downloadMapImage(mapEl, filename).catch(setError)
-    }, [name, includeMargins, onClose])
+    }, [name, includeMargins])
 
     const hasLayers = mapViews.length > 0
 
