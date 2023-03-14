@@ -142,7 +142,9 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
                 keyDefaultBaseMap
             )
 
+            delete newMapConfig.basemap
             delete newMapConfig.mapViews
+
             setMapProps(newMapConfig)
 
             saveAsAlert.show({ msg: getSavedMessage(config.name) })
