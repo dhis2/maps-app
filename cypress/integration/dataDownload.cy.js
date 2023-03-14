@@ -3,14 +3,14 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const mapWithThematicLayer = {
     id: 'eDlFx0jTtV9',
     name: 'ANC: LLITN Cov Chiefdom this year',
-    downloadFileNamePrefix: 'anc_llitn_coverage',
+    downloadFileNamePrefix: 'ANC LLITN coverage',
     cardTitle: 'ANC LLITN coverage',
 }
 
 const mapWithEventLayer = {
     id: 'kNYqHu3e7o3',
     name: 'Malaria: Cases 2015-2016 Western Area events',
-    downloadFileNamePrefix: 'malaria_case_registration',
+    downloadFileNamePrefix: 'Malaria case registration',
     cardTitle: 'Malaria case registration',
 }
 
