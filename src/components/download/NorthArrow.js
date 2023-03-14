@@ -16,7 +16,7 @@ const NorthArrow = ({
     const position = useSelector((state) => state.download.northArrowPosition)
     const basemap = useSelector((state) => state.map.basemap)
     const { isDark } = useBasemapConfig(basemap)
-    const color = isDark ? 'white' : 'black';
+    const color = isDark ? 'white' : 'black'
 
     const onMapRotate = useCallback((evt) => {
         setRotation(-evt.target.getBearing())
@@ -67,7 +67,6 @@ const NorthArrow = ({
 NorthArrow.propTypes = {
     downloadMapInfoOpen: PropTypes.bool.isRequired,
     map: PropTypes.object.isRequired,
-    color: PropTypes.string,
     height: PropTypes.number,
     northLetter: PropTypes.string,
     width: PropTypes.number,

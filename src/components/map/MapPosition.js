@@ -61,16 +61,16 @@ const MapPosition = () => {
     // Reset bearing and pitch when new map (mapId changed)
     useEffect(() => {
         if (map) {
-            const mapgl = map.getMapGL();
-            mapgl.setBearing(0);
-            mapgl.setPitch(0);
+            const mapgl = map.getMapGL()
+            mapgl.setBearing(0)
+            mapgl.setPitch(0)
         }
     }, [map, mapId])
 
     // Fit layer bounds when app mode is toggled
     useEffect(() => {
         if (map) {
-            const mapgl = map.getMapGL();
+            const mapgl = map.getMapGL()
 
             mapgl.once('resize', () => {
                 map.fitBounds(map.getLayersBounds(), {
