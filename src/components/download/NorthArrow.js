@@ -2,6 +2,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import styles from './styles/NorthArrow.module.css'
 
 const NorthArrow = ({
@@ -9,11 +10,13 @@ const NorthArrow = ({
     downloadMapInfoOpen,
     width = 90,
     height = 90,
-    color = 'black',
     northLetter = 'N',
 }) => {
     const [rotation, setRotation] = useState(map.getBearing())
     const position = useSelector((state) => state.download.northArrowPosition)
+    const basemap = useSelector((state) => state.map.basemap)
+    const { isDark } = useBasemapConfig(basemap)
+    const color = isDark ? 'white' : 'black';
 
     const onMapRotate = useCallback((evt) => {
         setRotation(-evt.target.getBearing())

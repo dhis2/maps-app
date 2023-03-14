@@ -25,7 +25,7 @@ const MapPosition = () => {
         showOverviewMap,
         showNorthArrow,
     } = useSelector((state) => state.download)
-    const layers = useSelector((state) => state.map.mapViews)
+    const { id: mapId, mapViews: layers } = useSelector((state) => state.map)
     const { layersPanelOpen, rightPanelOpen, dataTableHeight } = useSelector(
         (state) => state.ui
     )
@@ -58,12 +58,24 @@ const MapPosition = () => {
         downloadMapInfoOpen,
     ])
 
+    // Reset bearing and pitch when new map (mapId changed)
+    useEffect(() => {
+        if (map) {
+            const mapgl = map.getMapGL();
+            mapgl.setBearing(0);
+            mapgl.setPitch(0);
+        }
+    }, [map, mapId])
+
     // Fit layer bounds when app mode is toggled
     useEffect(() => {
         if (map) {
-            map.getMapGL().once('resize', () => {
+            const mapgl = map.getMapGL();
+
+            mapgl.once('resize', () => {
                 map.fitBounds(map.getLayersBounds(), {
                     padding: 40,
+                    bearing: mapgl.getBearing(),
                 })
             })
 
