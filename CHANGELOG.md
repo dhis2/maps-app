@@ -1,3 +1,10 @@
+## [1.30.11](https://github.com/dhis2/maps-app/compare/v1.30.10...v1.30.11) (2023-03-14)
+
+
+### Bug Fixes
+
+* map rotation and pitch ([#2527](https://github.com/dhis2/maps-app/issues/2527)) ([03f203d](https://github.com/dhis2/maps-app/commit/03f203df4eab88fa62579b384cd2d7dba910c7ab))
+
 ## [1.30.10](https://github.com/dhis2/maps-app/compare/v1.30.9...v1.30.10) (2023-03-14)
 
 
