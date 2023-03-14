@@ -5,9 +5,9 @@ export const addBasemaps = (basemaps) => ({
     payload: basemaps,
 })
 
-export const selectBasemap = (id) => ({
+export const selectBasemap = (payload) => ({
     type: types.BASEMAP_SELECTED,
-    id,
+    payload,
 })
 
 export const toggleBasemapExpand = () => ({

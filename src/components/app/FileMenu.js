@@ -34,7 +34,7 @@ const saveAsNewMapMutation = {
     data: ({ data }) => data,
 }
 
-const getMapName = (name) =>
+export const getMapName = (name) =>
     name ||
     i18n.t('Untitled map, {{date}}', {
         date: new Date().toLocaleDateString(undefined, {
@@ -142,7 +142,9 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
                 keyDefaultBaseMap
             )
 
+            delete newMapConfig.basemap
             delete newMapConfig.mapViews
+
             setMapProps(newMapConfig)
 
             saveAsAlert.show({ msg: getSavedMessage(config.name) })

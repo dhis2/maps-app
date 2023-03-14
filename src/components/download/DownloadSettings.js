@@ -6,6 +6,7 @@ import { setDownloadMode, setDownloadConfig } from '../../actions/download.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
+import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
 import LegendLayers from './LegendLayers.js'
@@ -30,7 +31,7 @@ const DownloadSettings = () => {
     } = useSelector((state) => state.download)
 
     const legendLayers = useMemo(
-        () => mapViews.filter((layer) => layer.legend),
+        () => mapViews.filter((layer) => layer.legend && layer.isVisible),
         [mapViews]
     )
 
@@ -40,15 +41,15 @@ const DownloadSettings = () => {
     )
 
     const onDownload = useCallback(() => {
-        const filename = standardizeFilename(name, 'png')
+        const filename = standardizeFilename(getMapName(name), 'png')
         let mapEl = document.getElementById('dhis2-map-container')
 
         if (includeMargins) {
             mapEl = mapEl.parentNode
         }
 
-        downloadMapImage(mapEl, filename).then(onClose).catch(setError)
-    }, [name, includeMargins, onClose])
+        downloadMapImage(mapEl, filename).catch(setError)
+    }, [name, includeMargins])
 
     const hasLayers = mapViews.length > 0
 

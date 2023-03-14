@@ -74,10 +74,12 @@ const FacilityDialog = ({
         if (!id) {
             // Set default org unit level
             if (facilityOrgUnitLevel) {
+                const { id, name } = facilityOrgUnitLevel
+
                 dispatch(
                     setOrgUnits({
                         dimension: 'ou',
-                        items: [{ id: `LEVEL-${facilityOrgUnitLevel.id}` }],
+                        items: [{ id: `LEVEL-${id}`, name }],
                     })
                 )
             }

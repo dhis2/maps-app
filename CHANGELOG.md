@@ -1,3 +1,68 @@
+## [1.30.10](https://github.com/dhis2/maps-app/compare/v1.30.9...v1.30.10) (2023-03-14)
+
+
+### Bug Fixes
+
+* store basemap config for interpretation map ([#2526](https://github.com/dhis2/maps-app/issues/2526)) ([3e98860](https://github.com/dhis2/maps-app/commit/3e98860edd101c3d01d036cfa0d1860499ac283b))
+
+## [1.30.9](https://github.com/dhis2/maps-app/compare/v1.30.8...v1.30.9) (2023-03-13)
+
+
+### Bug Fixes
+
+* issues found during team testing of 2.40 release ([#2525](https://github.com/dhis2/maps-app/issues/2525)) ([bc302f2](https://github.com/dhis2/maps-app/commit/bc302f23036199e7f531da5c60f3c114ff290cb3))
+* overview map interaction ([#2520](https://github.com/dhis2/maps-app/issues/2520)) ([12aa95d](https://github.com/dhis2/maps-app/commit/12aa95d9f7410454edac3f253e6be8ad0973759b))
+
+## [1.30.8](https://github.com/dhis2/maps-app/compare/v1.30.7...v1.30.8) (2023-03-13)
+
+
+### Bug Fixes
+
+* only show legends for visible layers, fix info icon alignment ([#2524](https://github.com/dhis2/maps-app/issues/2524)) ([82f6514](https://github.com/dhis2/maps-app/commit/82f6514c579c3d3cf0c8e456089f07fa63d40599))
+
+## [1.30.7](https://github.com/dhis2/maps-app/compare/v1.30.6...v1.30.7) (2023-03-13)
+
+
+### Bug Fixes
+
+* omit fonts and images from precache ([#2523](https://github.com/dhis2/maps-app/issues/2523)) ([ffd0e4a](https://github.com/dhis2/maps-app/commit/ffd0e4aa73cf1e6680537a5324bc5d4fc55191b4))
+
+## [1.30.6](https://github.com/dhis2/maps-app/compare/v1.30.5...v1.30.6) (2023-03-10)
+
+
+### Bug Fixes
+
+* include name in default org unit level ([#2519](https://github.com/dhis2/maps-app/issues/2519)) ([c508875](https://github.com/dhis2/maps-app/commit/c5088754c0994aa0df6841da44e45d0b1106534f))
+
+## [1.30.5](https://github.com/dhis2/maps-app/compare/v1.30.4...v1.30.5) (2023-03-10)
+
+
+### Bug Fixes
+
+* include name in default org unit level ([36f4901](https://github.com/dhis2/maps-app/commit/36f490111674e438f67f27b04b0f462395175297))
+* revert push to master ([2863b70](https://github.com/dhis2/maps-app/commit/2863b7004772006130f21c0248496a3cbda05888))
+
+## [1.30.4](https://github.com/dhis2/maps-app/compare/v1.30.3...v1.30.4) (2023-03-10)
+
+
+### Bug Fixes
+
+* patch webpack webworker file to enable EE maps ([#2514](https://github.com/dhis2/maps-app/issues/2514)) ([239cbe7](https://github.com/dhis2/maps-app/commit/239cbe76b047d07da3b6763cd1d030b30db1090f))
+
+## [1.30.3](https://github.com/dhis2/maps-app/compare/v1.30.2...v1.30.3) (2023-03-09)
+
+
+### Bug Fixes
+
+* remove map name from plugin ([#2515](https://github.com/dhis2/maps-app/issues/2515)) ([1b3d0bb](https://github.com/dhis2/maps-app/commit/1b3d0bbd18ad6601295ccb39c8eddb59326e4bde))
+
+## [1.30.2](https://github.com/dhis2/maps-app/compare/v1.30.1...v1.30.2) (2023-03-09)
+
+
+### Bug Fixes
+
+* add robustness to some cypress tests and disable others ([#2516](https://github.com/dhis2/maps-app/issues/2516)) ([0aeb6a2](https://github.com/dhis2/maps-app/commit/0aeb6a24cb60760e42b3ef4daaf49868b0ffce23))
+
 ## [1.30.1](https://github.com/dhis2/maps-app/compare/v1.30.0...v1.30.1) (2023-03-03)
 
 
