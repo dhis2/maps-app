@@ -1,3 +1,10 @@
+## [1.30.10](https://github.com/dhis2/maps-app/compare/v1.30.9...v1.30.10) (2023-03-14)
+
+
+### Bug Fixes
+
+* store basemap config for interpretation map ([#2526](https://github.com/dhis2/maps-app/issues/2526)) ([3e98860](https://github.com/dhis2/maps-app/commit/3e98860edd101c3d01d036cfa0d1860499ac283b))
+
 ## [1.30.9](https://github.com/dhis2/maps-app/compare/v1.30.8...v1.30.9) (2023-03-13)
 
 
