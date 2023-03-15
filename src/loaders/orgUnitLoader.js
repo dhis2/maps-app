@@ -5,6 +5,7 @@ import { fetchOrgUnitGroupSet, setAdditionalGeometry } from '../util/orgUnits';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import {
+    addAssociatedGeometries,
     getOrgUnitLevels,
     getStyledOrgUnits,
     getCoordinateField,
@@ -27,8 +28,7 @@ const orgUnitLoader = async config => {
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayProperty);
 
-    let features;
-    let associatedGeometries = [];
+    let associatedGeometries;
 
     const requests = [
         featuresRequest
@@ -91,7 +91,10 @@ const orgUnitLoader = async config => {
         }
     }
 
-    features = mainFeatures.concat(associatedGeometries);
+    const features = addAssociatedGeometries(
+        mainFeatures,
+        associatedGeometries
+    );
 
     setAdditionalGeometry(features);
 
