@@ -2212,10 +2212,10 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^3.8.2":
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.2.tgz#280b5224acc66ea1bd5f4e8c6fb8eeb4451d5054"
-  integrity sha512-7XMh3tr1MZAgpDuHJEw2+zmVuvTt5zW2M8vvu7/9CNeORfLvALA+o0w2Yd7zQ5wwO00/iNnh40InpUafHThsIg==
+"@dhis2/maps-gl@^3.8.3":
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.3.tgz#05038dfc95895080c04ad8e6e8c325654a58996e"
+  integrity sha512-Qss5VQBOwjrB+C/D1qC9DfI5TYGog2JRk7q3+F+zm62QDMgJZz6/P+JJ5NkSI7hl2hf9AAV3WwHyTV2SuPLf2Q==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
@@ -5846,6 +5846,11 @@ csstype@^3.0.2:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
+
+cypress-wait-until@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/cypress-wait-until/-/cypress-wait-until-1.7.2.tgz#7f534dd5a11c89b65359e7a0210f20d3dfc22107"
+  integrity sha512-uZ+M8/MqRcpf+FII/UZrU7g1qYZ4aVlHcgyVopnladyoBrpoaMJ4PKZDrdOJ05H5RHbr7s9Tid635X3E+ZLU/Q==
 
 cypress@^8.7.0:
   version "8.7.0"
