@@ -24,8 +24,6 @@ const MapContainer = ({ visualization }) => {
         } = visualization
 
         const prepareConfig = async () => {
-            console.log('prepareConfig')
-
             let initialConfig
             if (id) {
                 const map = await fetchMap(id, engine, keyDefaultBaseMap)
