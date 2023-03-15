@@ -76,6 +76,7 @@ const thematicLoader = async (config) => {
             data: [],
             legend: null,
             isLoaded: true,
+            isLoading: false,
             isVisible: true,
         }
     }
@@ -263,6 +264,7 @@ const thematicLoader = async (config) => {
         method,
         alerts,
         isLoaded: true,
+        isLoading: false,
         isExpanded: true,
         isVisible: true,
     }

@@ -60,3 +60,9 @@ export const setLayerLoading = (id) => ({
     type: types.LAYER_LOADING_SET,
     id,
 })
+
+// Set that layer is not loaded
+export const setLayerNotLoaded = (id) => ({
+    type: types.LAYER_NOT_LOADED_SET,
+    id,
+})

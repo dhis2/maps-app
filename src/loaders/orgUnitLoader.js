@@ -107,6 +107,7 @@ const orgUnitLoader = async (config) => {
         legend,
         alerts,
         isLoaded: true,
+        isLoading: false,
         isExpanded: true,
         isVisible: true,
     }

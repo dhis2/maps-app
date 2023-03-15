@@ -82,8 +82,19 @@ const layer = (state, action) => {
 
             return {
                 ...state,
-                isLoaded: false,
+                isLoading: true,
             }
+
+        case types.LAYER_NOT_LOADED_SET:
+                if (state.id !== action.id) {
+                    return state
+                }
+    
+                return {
+                    ...state,
+                    isLoaded: false,
+                    isLoading: false,
+                }
 
         case types.LAYER_TOGGLE_VISIBILITY:
             if (state.id !== action.id) {
