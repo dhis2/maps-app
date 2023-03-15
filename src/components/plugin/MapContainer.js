@@ -24,6 +24,8 @@ const MapContainer = ({ visualization }) => {
         } = visualization
 
         const prepareConfig = async () => {
+            console.log('prepareConfig');
+
             let initialConfig
             if (id) {
                 const map = await fetchMap(id, engine, keyDefaultBaseMap)
@@ -59,7 +61,9 @@ const MapContainer = ({ visualization }) => {
             })
         }
 
-        prepareConfig()
+        if (keyDefaultBaseMap) {
+            prepareConfig()
+        }
     }, [visualization, keyBingMapsApiKey, keyDefaultBaseMap, engine])
 
     // eslint-disable-next-line no-unused-vars
