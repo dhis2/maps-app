@@ -80,7 +80,7 @@ const Map = forwardRef((props, ref) => {
 
             setLayers(
                 layers.map((layer) =>
-                    layer.id === layerId ? newConfig : layer
+                    layer.id === layerId ? {...newConfig, isLoaded: false} : layer
                 )
             )
 
@@ -92,7 +92,7 @@ const Map = forwardRef((props, ref) => {
         return (
             <CenteredContent>
                 <CircularLoader />
-                {mapViews.map((config) => (
+                {layers.map((config) => (
                     <LayerLoader
                         key={config.id}
                         config={config}
