@@ -21,7 +21,7 @@ const defaultBounds = [
 
 const Map = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
-    const [layers, setLayers] = useState(mapViews)
+    const [layers, setLayers] = useState([])
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
 
