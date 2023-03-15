@@ -14,7 +14,6 @@ import {
     addLayer,
     updateLayer,
     cancelLayer,
-    setLayerLoading,
 } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
@@ -50,7 +49,6 @@ const LayerEdit = ({
     addLayer,
     updateLayer,
     cancelLayer,
-    setLayerLoading,
 }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
     const { keyAnalysisRelativePeriod } = useSystemSettings()
@@ -63,12 +61,11 @@ const LayerEdit = ({
         if (isValid) {
             const { id, editCounter = 0 } = layer
 
-            setLayerLoading(id)
-
             const config = {
                 ...layer,
                 editCounter: editCounter + 1,
                 isLoaded: false,
+                isLoading: false,
             }
 
             if (id) {
@@ -141,7 +138,6 @@ const LayerEdit = ({
 LayerEdit.propTypes = {
     addLayer: PropTypes.func.isRequired,
     cancelLayer: PropTypes.func.isRequired,
-    setLayerLoading: PropTypes.func.isRequired,
     updateLayer: PropTypes.func.isRequired,
     layer: PropTypes.object,
 }
@@ -150,5 +146,5 @@ export default connect(
     ({ layerEdit }) => ({
         layer: layerEdit,
     }),
-    { addLayer, updateLayer, cancelLayer, setLayerLoading }
+    { addLayer, updateLayer, cancelLayer }
 )(LayerEdit)

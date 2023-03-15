@@ -21,11 +21,10 @@ const defaultBounds = [
 
 const Map = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
-    const [layers, setLayers] = useState([])
+    const { basemap, mapViews, controls, getResizeFunction } = props
+    const [layers, setLayers] = useState(mapViews)
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
-
-    const { basemap, mapViews, controls, getResizeFunction } = props
 
     const onResize = () => setResizeCount((state) => state + 1)
 
@@ -36,10 +35,6 @@ const Map = forwardRef((props, ref) => {
             ),
         []
     )
-
-    useEffect(() => {
-        setLayers(mapViews)
-    }, [mapViews])
 
     // TODO: Remove when map.js is refactored
     useEffect(() => {
@@ -88,11 +83,11 @@ const Map = forwardRef((props, ref) => {
         }
     }
 
-    if (layers.find((layer) => !layer.isLoaded)) {
+    if (layers.filter(l => l.isLoaded).length < mapViews.length) {
         return (
             <CenteredContent>
                 <CircularLoader />
-                {layers.map((config) => (
+                {mapViews.map((config) => (
                     <LayerLoader
                         key={config.id}
                         config={config}

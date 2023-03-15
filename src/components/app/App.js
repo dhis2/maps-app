@@ -33,7 +33,11 @@ const App = () => {
                 await dispatch(tSetAnalyticalObject(currentAO))
             }
         }
-        fetchData()
+
+        // Fetch map after system settings is loaded
+        if (systemSettings.keyDefaultBaseMap) {
+            fetchData()
+        }
     }, [engine, currentAO, systemSettings.keyDefaultBaseMap, dispatch])
 
     useEffect(() => {
