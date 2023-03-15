@@ -5,17 +5,13 @@ import {
 } from '@dhis2/analytics'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import PropTypes from 'prop-types'
-import React, { useState, useRef, useCallback, useEffect } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { setInterpretation } from '../../actions/interpretations.js'
 import Drawer from '../core/Drawer.js'
 import InterpretationMap from './InterpretationMap.js'
 
-const InterpretationsPanel = ({
-    interpretationId,
-    map,
-    setInterpretation,
-}) => {
+const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
     const { d2 } = useD2()
@@ -37,7 +33,7 @@ const InterpretationsPanel = ({
 
     const onModalClose = useCallback(() => {
         setInitialFocus(false)
-        setInterpretation();
+        setInterpretation()
     }, [setInterpretation])
 
     return (

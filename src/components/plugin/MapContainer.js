@@ -24,7 +24,7 @@ const MapContainer = ({ visualization }) => {
         } = visualization
 
         const prepareConfig = async () => {
-            console.log('prepareConfig');
+            console.log('prepareConfig')
 
             let initialConfig
             if (id) {

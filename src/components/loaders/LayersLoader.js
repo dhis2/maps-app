@@ -12,7 +12,7 @@ const LayersLoader = () => {
         )
     )
     const dispatch = useDispatch()
-    
+
     const onLoad = (layer) => dispatch(updateLayer(layer))
 
     useEffect(() => {

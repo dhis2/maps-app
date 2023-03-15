@@ -1,14 +1,18 @@
-import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'
-import InterpretationsPanel from './InterpretationsPanel.js'
-import { getUrlParameter } from '../../util/requests.js'
+import { useSelector, useDispatch } from 'react-redux'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { openInterpretationsPanel } from '../../actions/ui.js'
+import { getUrlParameter } from '../../util/requests.js'
+import InterpretationsPanel from './InterpretationsPanel.js'
 
 const Interpretations = () => {
     const mapId = useSelector((state) => state.map.id)
-    const layersAreLoaded = useSelector((state) => !state.map.mapViews.find(layer => !layer.isLoaded))
-    const isPanelOpen = useSelector((state) => state.ui.rightPanelOpen && !state.orgUnitProfile)
+    const layersAreLoaded = useSelector(
+        (state) => !state.map.mapViews.find((layer) => !layer.isLoaded)
+    )
+    const isPanelOpen = useSelector(
+        (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
+    )
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -22,9 +26,9 @@ const Interpretations = () => {
         }
     }, [mapId, dispatch])
 
-    return isPanelOpen && mapId && layersAreLoaded ? <InterpretationsPanel /> : null; 
+    return isPanelOpen && mapId && layersAreLoaded ? (
+        <InterpretationsPanel />
+    ) : null
 }
 
-
-
-export default Interpretations;
+export default Interpretations
