@@ -80,7 +80,9 @@ const Map = forwardRef((props, ref) => {
 
             setLayers(
                 layers.map((layer) =>
-                    layer.id === layerId ? {...newConfig, isLoaded: false} : layer
+                    layer.id === layerId
+                        ? { ...newConfig, isLoaded: false }
+                        : layer
                 )
             )
 
