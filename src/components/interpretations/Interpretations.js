@@ -7,7 +7,8 @@ import InterpretationsPanel from './InterpretationsPanel.js'
 
 const Interpretations = () => {
     const isMapLoaded = useSelector(
-        (state) => state.map.id && !state.map.mapViews.find((layer) => !layer.isLoaded)
+        (state) =>
+            state.map.id && !state.map.mapViews.find((layer) => !layer.isLoaded)
     )
     const isPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
