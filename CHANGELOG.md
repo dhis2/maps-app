@@ -1,3 +1,10 @@
+## [1.30.13](https://github.com/dhis2/maps-app/compare/v1.30.12...v1.30.13) (2023-03-15)
+
+
+### Bug Fixes
+
+* maps-gl upgrade ([#2530](https://github.com/dhis2/maps-app/issues/2530)) ([24a62fd](https://github.com/dhis2/maps-app/commit/24a62fdfeb31f9eb02070cda3484509c51da11cd))
+
 ## [1.30.12](https://github.com/dhis2/maps-app/compare/v1.30.11...v1.30.12) (2023-03-15)
 
 
