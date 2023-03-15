@@ -21,10 +21,11 @@ const defaultBounds = [
 
 const Map = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
-    const { basemap, mapViews, controls, getResizeFunction } = props
     const [layers, setLayers] = useState([])
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
+
+    const { basemap, mapViews, controls, getResizeFunction } = props
 
     const onResize = () => setResizeCount((state) => state + 1)
 
