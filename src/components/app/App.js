@@ -34,6 +34,7 @@ const App = () => {
             }
         }
 
+        // Fetch map after system settings is loaded
         if (systemSettings.keyDefaultBaseMap) {
             fetchData()
         }

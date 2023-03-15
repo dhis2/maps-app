@@ -61,6 +61,7 @@ const MapContainer = ({ visualization }) => {
             })
         }
 
+        // Wait for keyDefaultBaseMap before prepare config
         if (keyDefaultBaseMap) {
             prepareConfig()
         }

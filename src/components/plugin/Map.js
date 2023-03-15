@@ -83,7 +83,7 @@ const Map = forwardRef((props, ref) => {
         }
     }
 
-    if (layers.filter(l => l.isLoaded).length < mapViews.length) {
+    if (layers.filter((l) => l.isLoaded).length < mapViews.length) {
         return (
             <CenteredContent>
                 <CircularLoader />
