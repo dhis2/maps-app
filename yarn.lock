@@ -4472,10 +4472,10 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.7.0.tgz#5f664a5029fcb0a14d989109fb1131e484747642"
-  integrity sha512-SFnbekSYxy7B50ufxbFJkBIaBwcdwXf5qFm9St+jZ4XNtt2sFW5mstxGowCvw2823bpXFJ0EoN9+7+rHutEZ4Q==
+"@dhis2/maps-gl@^3.8.3":
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.3.tgz#05038dfc95895080c04ad8e6e8c325654a58996e"
+  integrity sha512-Qss5VQBOwjrB+C/D1qC9DfI5TYGog2JRk7q3+F+zm62QDMgJZz6/P+JJ5NkSI7hl2hf9AAV3WwHyTV2SuPLf2Q==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
@@ -4484,8 +4484,8 @@
     "@turf/center-of-mass" "^6.5.0"
     "@turf/circle" "^6.5.0"
     "@turf/length" "^6.5.0"
-    comlink "^4.3.1"
-    fetch-jsonp "^1.2.2"
+    comlink "^4.4.1"
+    fetch-jsonp "^1.2.3"
     lodash.throttle "^4.1.1"
     maplibre-gl "^2.4.0"
     polylabel "^1.1.0"
@@ -9016,10 +9016,10 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-comlink@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.3.1.tgz#0c6b9d69bcd293715c907c33fe8fc45aecad13c5"
-  integrity sha512-+YbhUdNrpBZggBAHWcgQMLPLH1KDF3wJpeqrCKieWQ8RL7atmgsgTQko1XEBK6PsecfopWNntopJ+ByYG1lRaA==
+comlink@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.4.1.tgz#e568b8e86410b809e8600eb2cf40c189371ef981"
+  integrity sha512-+1dlx0aY5Jo1vHy/tSsIGpSkN4tS9rZSW8FIhG0JH/crs9wwweswIo/POr451r7bZww3hFbPAKnTpimzL/mm4Q==
 
 commander@^2.11.0, commander@^2.15.1, commander@^2.19.0, commander@^2.20.0, commander@^2.8.1, commander@^2.9.0:
   version "2.20.3"
@@ -12161,10 +12161,10 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-fetch-jsonp@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.2.2.tgz#c98923191390119a8eae401a9cbe75845230e000"
-  integrity sha512-8rQTSU3G2k9VwpsTLpuUQ8Ix7Yv1bZDGcOUGr4me0F7pxyKxMH9PSBXF6tPMx3fca9DICYwztDa1KgOTeAdTWg==
+fetch-jsonp@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.2.3.tgz#ae99a867095cb1ce5c39fac601d70d1084db122f"
+  integrity sha512-C13k1o7R9JTN1wmhKkrW5bU/00LwixXnkufQUR6Rbf4KCS0i8mycQaovt4WVbHnA2NKgi7Ryp9Whpy/CGcij6Q==
 
 figures@2.0.0, figures@^2.0.0:
   version "2.0.0"
