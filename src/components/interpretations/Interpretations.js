@@ -6,9 +6,8 @@ import { getUrlParameter } from '../../util/requests.js'
 import InterpretationsPanel from './InterpretationsPanel.js'
 
 const Interpretations = () => {
-    const mapId = useSelector((state) => state.map.id)
-    const layersAreLoaded = useSelector(
-        (state) => !state.map.mapViews.find((layer) => !layer.isLoaded)
+    const isMapLoaded = useSelector(
+        (state) => state.map.id && !state.map.mapViews.find((layer) => !layer.isLoaded)
     )
     const isPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
@@ -16,7 +15,7 @@ const Interpretations = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (mapId) {
+        if (isMapLoaded) {
             const urlInterpretationId = getUrlParameter('interpretationid')
 
             if (urlInterpretationId) {
@@ -24,11 +23,9 @@ const Interpretations = () => {
                 dispatch(openInterpretationsPanel())
             }
         }
-    }, [mapId, dispatch])
+    }, [isMapLoaded, dispatch])
 
-    return isPanelOpen && mapId && layersAreLoaded ? (
-        <InterpretationsPanel />
-    ) : null
+    return isPanelOpen && isMapLoaded ? <InterpretationsPanel /> : null
 }
 
 export default Interpretations
