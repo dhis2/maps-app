@@ -1,3 +1,10 @@
+## [1.30.12](https://github.com/dhis2/maps-app/compare/v1.30.11...v1.30.12) (2023-03-15)
+
+
+### Bug Fixes
+
+* re-enable dataDownload tests ([#2517](https://github.com/dhis2/maps-app/issues/2517)) ([927a43f](https://github.com/dhis2/maps-app/commit/927a43f607a4266c578da329f11cee9a3ef84966))
+
 ## [1.30.11](https://github.com/dhis2/maps-app/compare/v1.30.10...v1.30.11) (2023-03-14)
 
 
