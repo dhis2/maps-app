@@ -1,3 +1,10 @@
+## [1.30.16](https://github.com/dhis2/maps-app/compare/v1.30.15...v1.30.16) (2023-03-16)
+
+
+### Bug Fixes
+
+* reverse order of periods so it is descending ([#2536](https://github.com/dhis2/maps-app/issues/2536)) ([cb2fa5e](https://github.com/dhis2/maps-app/commit/cb2fa5ee885fa465cf25151b8d232014cff98725))
+
 ## [1.30.15](https://github.com/dhis2/maps-app/compare/v1.30.14...v1.30.15) (2023-03-16)
 
 
