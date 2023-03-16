@@ -10,12 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import {
-    addLayer,
-    updateLayer,
-    cancelLayer,
-    setLayerLoading,
-} from '../../actions/layers.js'
+import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
@@ -45,13 +40,7 @@ const layerName = () => ({
     earthEngine: i18n.t('Earth Engine'),
 })
 
-const LayerEdit = ({
-    layer,
-    addLayer,
-    updateLayer,
-    cancelLayer,
-    setLayerLoading,
-}) => {
+const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
     const { keyAnalysisRelativePeriod } = useSystemSettings()
     const orgUnits = useOrgUnits()
@@ -63,12 +52,11 @@ const LayerEdit = ({
         if (isValid) {
             const { id, editCounter = 0 } = layer
 
-            setLayerLoading(id)
-
             const config = {
                 ...layer,
                 editCounter: editCounter + 1,
                 isLoaded: false,
+                isLoading: false,
             }
 
             if (id) {
@@ -141,7 +129,6 @@ const LayerEdit = ({
 LayerEdit.propTypes = {
     addLayer: PropTypes.func.isRequired,
     cancelLayer: PropTypes.func.isRequired,
-    setLayerLoading: PropTypes.func.isRequired,
     updateLayer: PropTypes.func.isRequired,
     layer: PropTypes.object,
 }
@@ -150,5 +137,5 @@ export default connect(
     ({ layerEdit }) => ({
         layer: layerEdit,
     }),
-    { addLayer, updateLayer, cancelLayer, setLayerLoading }
+    { addLayer, updateLayer, cancelLayer }
 )(LayerEdit)

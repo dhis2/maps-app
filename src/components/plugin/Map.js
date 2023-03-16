@@ -80,7 +80,9 @@ const Map = forwardRef((props, ref) => {
 
             setLayers(
                 layers.map((layer) =>
-                    layer.id === layerId ? newConfig : layer
+                    layer.id === layerId
+                        ? { ...newConfig, isLoaded: false }
+                        : layer
                 )
             )
 
@@ -88,7 +90,7 @@ const Map = forwardRef((props, ref) => {
         }
     }
 
-    if (layers.find((layer) => !layer.isLoaded)) {
+    if (layers.filter((l) => l.isLoaded).length < mapViews.length) {
         return (
             <CenteredContent>
                 <CircularLoader />
