@@ -12,9 +12,12 @@ export const getPeriodTypes = (hiddenPeriods = []) =>
 export const getFixedPeriodsByType = (periodType, year) => {
     const period = getFixedPeriodsOptionsById(periodType)
     const offset = getYearOffsetFromNow(year)
-    const reversePeriods = true
 
-    return period ? period.getPeriods({ offset, reversePeriods }) : null
+    // TODO: the reverse() is a workaround for a bug in the analytics
+    // getPeriods function that no longer correctly reverses the order
+    return period
+        ? period.getPeriods({ offset, reversePeriods: true }).reverse()
+        : null
 }
 
 export const getRelativePeriods = (hiddenPeriods = []) =>
