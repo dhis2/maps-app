@@ -59,7 +59,7 @@ const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
                     interpretationId={interpretationId}
                     isVisualizationLoading={false}
                     onClose={onModalClose}
-                    onResponsesReceived={() => {}} // Required prop
+                    onResponsesReceived={Function.prototype} // Required prop
                     visualization={map}
                     pluginComponent={InterpretationMap}
                 />
