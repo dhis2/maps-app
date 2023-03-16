@@ -1,3 +1,17 @@
+## [1.30.15](https://github.com/dhis2/maps-app/compare/v1.30.14...v1.30.15) (2023-03-16)
+
+
+### Bug Fixes
+
+* avoid layer reloads and redrawing the map ([#2532](https://github.com/dhis2/maps-app/issues/2532)) ([2c4e254](https://github.com/dhis2/maps-app/commit/2c4e254acd1aa00d54a2779c3a6d8cc5186ce911))
+
+## [1.30.14](https://github.com/dhis2/maps-app/compare/v1.30.13...v1.30.14) (2023-03-16)
+
+
+### Bug Fixes
+
+* upgrade to latest analytics ([#2535](https://github.com/dhis2/maps-app/issues/2535)) ([0150741](https://github.com/dhis2/maps-app/commit/015074178b2c8ca6864d5f22e054440f3a2512e0))
+
 ## [1.30.13](https://github.com/dhis2/maps-app/compare/v1.30.12...v1.30.13) (2023-03-15)
 
 

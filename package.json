@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.30.13",
+    "version": "1.30.15",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -38,7 +38,7 @@
         "start-server-and-test": "^1.14.0"
     },
     "dependencies": {
-        "@dhis2/analytics": "^24.9.0",
+        "@dhis2/analytics": "^24.9.3",
         "@dhis2/app-runtime": "^3.9.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-alerts": "^3.9.0",

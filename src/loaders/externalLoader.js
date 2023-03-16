@@ -32,6 +32,7 @@ const externalLoader = async (layer) => {
         legend,
         config,
         isLoaded: true,
+        isLoading: false,
         isExpanded: true,
         isVisible: true,
     }

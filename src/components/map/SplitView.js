@@ -39,7 +39,9 @@ const SplitView = ({
                 )
             })
 
-            setMapObject(map)
+            if (setMapObject) {
+                setMapObject(map)
+            }
         }
     }, [map, controls, containerRef, setMapObject])
 
@@ -95,13 +97,13 @@ const SplitView = ({
 SplitView.propTypes = {
     layer: PropTypes.object.isRequired,
     openContextMenu: PropTypes.func.isRequired,
-    setMapObject: PropTypes.func.isRequired,
     basemap: PropTypes.object,
     controls: PropTypes.array,
     feature: PropTypes.object,
     interpretationModalOpen: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
+    setMapObject: PropTypes.func,
 }
 
 SplitView.defaultProps = {

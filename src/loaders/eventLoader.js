@@ -46,6 +46,7 @@ const eventLoader = async (layerConfig) => {
     }
 
     config.isLoaded = true
+    config.isLoading = false
     config.isExpanded = true
     config.isVisible = true
 
