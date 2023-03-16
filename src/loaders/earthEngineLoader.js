@@ -170,6 +170,7 @@ const earthEngineLoader = async (config) => {
         data,
         alerts,
         isLoaded: true,
+        isLoading: false,
         isExpanded: true,
         isVisible: true,
     }

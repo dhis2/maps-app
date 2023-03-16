@@ -197,6 +197,7 @@ const trackedEntityLoader = async (config) => {
         legend,
         ...(alert ? { alerts: [alert] } : {}),
         isLoaded: true,
+        isLoading: false,
         isExpanded: true,
         isVisible: true,
     }

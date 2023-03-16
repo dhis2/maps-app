@@ -82,7 +82,7 @@ const layer = (state, action) => {
 
             return {
                 ...state,
-                isLoaded: false,
+                isLoading: true,
             }
 
         case types.LAYER_TOGGLE_VISIBILITY:

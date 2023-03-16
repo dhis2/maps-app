@@ -59,7 +59,10 @@ const MapContainer = ({ visualization }) => {
             })
         }
 
-        prepareConfig()
+        // Wait for keyDefaultBaseMap before prepare config
+        if (keyDefaultBaseMap) {
+            prepareConfig()
+        }
     }, [visualization, keyBingMapsApiKey, keyDefaultBaseMap, engine])
 
     // eslint-disable-next-line no-unused-vars
