@@ -11,10 +11,18 @@ export const getPeriodTypes = (hiddenPeriods = []) =>
 
 export const getFixedPeriodsByType = (periodType, year) => {
     const period = getFixedPeriodsOptionsById(periodType)
-    const offset = getYearOffsetFromNow(year)
-    const reversePeriods = true
 
-    return period ? period.getPeriods({ offset, reversePeriods }) : null
+    const forceDescendingForYearTypes = !!periodType.match(/^FY|YEARLY/)
+    const offset = getYearOffsetFromNow(year)
+
+    const periods = period?.getPeriods({ offset, reversePeriods: true }) || null
+    if (periods && forceDescendingForYearTypes) {
+        // TODO: the reverse() is a workaround for a bug in the analytics
+        // getPeriods function that no longer correctly reverses the order
+        // for YEARLY and FY period types
+        return periods.reverse()
+    }
+    return periods
 }
 
 export const getRelativePeriods = (hiddenPeriods = []) =>
