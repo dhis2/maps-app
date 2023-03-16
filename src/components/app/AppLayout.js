@@ -5,7 +5,7 @@ import AlertStack from '../alerts/AlertStack.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadMode from '../download/DownloadMode.js'
 import LayerEdit from '../edit/LayerEdit.js'
-import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
+import Interpretations from '../interpretations/Interpretations.js'
 import LayersPanel from '../layers/LayersPanel.js'
 import LayersToggle from '../layers/LayersToggle.js'
 import LayersLoader from '../loaders/LayersLoader.js'
@@ -36,7 +36,7 @@ const AppLayout = () => {
                 </>
             )}
             <MapPosition />
-            <InterpretationsPanel />
+            <Interpretations />
             <BottomPanel />
             <LayerEdit />
             <ContextMenu />
