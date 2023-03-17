@@ -1,4 +1,3 @@
-import { useOnlineStatus } from '@dhis2/app-runtime'
 import {
     CssReset,
     CssVariables,
@@ -20,7 +19,6 @@ const defaultBounds = [
 ]
 
 const Map = forwardRef((props, ref) => {
-    const { offline } = useOnlineStatus()
     const [layers, setLayers] = useState([])
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
@@ -125,7 +123,6 @@ const Map = forwardRef((props, ref) => {
                     {...contextMenu}
                     onDrill={onDrill}
                     onClose={() => setContextMenu()}
-                    isOffline={offline}
                 />
             )}
         </div>
