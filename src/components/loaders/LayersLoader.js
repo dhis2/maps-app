@@ -7,8 +7,8 @@ const LayersLoader = () => {
     const layers = useSelector((state) =>
         state.map.mapViews.filter(
             (layer) =>
-                (!layer.isLoaded && !layer.isLoading) ||
-                (layer.showDataTable && !layer.isExtended)
+                !layer.isLoading &&
+                (!layer.isLoaded || (layer.showDataTable && !layer.isExtended))
         )
     )
     const dispatch = useDispatch()
