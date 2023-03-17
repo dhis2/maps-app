@@ -14,7 +14,8 @@
 
 :global(.downloadModeMenu) header,
 :global(.dhis2-map-download .dhis2-map-ctrl-measure-actions),
-:global(.dhis2-map-download .dhis2-map-popup-orgunit button) {
+:global(.dhis2-map-download .dhis2-map-popup-orgunit button),
+:global(.dhis2-map-downloading .maplibregl-popup-close-button) {
     display: none;
 }
 

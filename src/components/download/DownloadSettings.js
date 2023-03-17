@@ -48,7 +48,13 @@ const DownloadSettings = () => {
             mapEl = mapEl.parentNode
         }
 
-        downloadMapImage(mapEl, filename).catch(setError)
+        mapEl.classList.add('dhis2-map-downloading')
+
+        console.log('mapEl', mapEl)
+
+        downloadMapImage(mapEl, filename)
+            .then(() => mapEl.classList.remove('dhis2-map-downloading'))
+            .catch(setError)
     }, [name, includeMargins])
 
     const hasLayers = mapViews.length > 0
