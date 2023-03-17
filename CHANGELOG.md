@@ -1,3 +1,10 @@
+## [1.30.18](https://github.com/dhis2/maps-app/compare/v1.30.17...v1.30.18) (2023-03-17)
+
+
+### Bug Fixes
+
+* hide buttons in download mode ([#2538](https://github.com/dhis2/maps-app/issues/2538)) ([2164a1b](https://github.com/dhis2/maps-app/commit/2164a1b4df22d6d4762fd3e5a4a161448d089376))
+
 ## [1.30.17](https://github.com/dhis2/maps-app/compare/v1.30.16...v1.30.17) (2023-03-17)
 
 
