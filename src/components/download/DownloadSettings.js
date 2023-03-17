@@ -48,7 +48,7 @@ const DownloadSettings = () => {
             mapEl = mapEl.parentNode
         }
 
-        // Temporary added to remove close 'x' form map popups
+        // Temporary added to remove close 'x' from map popups
         mapEl.classList.add('dhis2-map-downloading')
 
         downloadMapImage(mapEl, filename)
