@@ -27,7 +27,7 @@ const MapContainer = ({ visualization }) => {
         const prepareConfig = async () => {
             const { keyBingMapsApiKey, keyDefaultBaseMap } = systemSettings
             let initialConfig
-            if (id) {
+            if (id && !mapViews) {
                 const map = await fetchMap(id, engine, keyDefaultBaseMap)
                 initialConfig = getMigratedMapConfig(map, keyDefaultBaseMap)
             } else if (!mapViews) {
