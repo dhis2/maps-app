@@ -1,3 +1,4 @@
+import { useDhis2ConnectionStatus } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
     Popover,
@@ -19,10 +20,10 @@ const ContextMenu = (props) => {
         feature,
         container,
         isSplitView,
-        isOffline,
         onDrill,
         onClose,
     } = props
+    const { isDisconnected: isOffline } = useDhis2ConnectionStatus()
     const anchorRef = useRef()
     const [anchorPosition, setAnchorPosition] = useState()
 
@@ -94,7 +95,6 @@ ContextMenu.propTypes = {
     onDrill: PropTypes.func.isRequired,
     container: PropTypes.instanceOf(Element),
     feature: PropTypes.object,
-    isOffline: PropTypes.bool,
     isSplitView: PropTypes.bool,
     offset: PropTypes.array,
     position: PropTypes.array,
