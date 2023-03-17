@@ -34,11 +34,10 @@ const App = () => {
             }
         }
 
-        // Fetch map after system settings is loaded
-        if (systemSettings.keyDefaultBaseMap) {
+        if (!isEmpty(systemSettings)) {
             fetchData()
         }
-    }, [engine, currentAO, systemSettings.keyDefaultBaseMap, dispatch])
+    }, [engine, currentAO, systemSettings, dispatch])
 
     useEffect(() => {
         if (!isEmpty(systemSettings)) {
@@ -50,12 +49,12 @@ const App = () => {
         }
     }, [systemSettings, dispatch])
 
-    return (
+    return !isEmpty(systemSettings) ? (
         <div className={styles.app}>
             <CssVariables colors spacers theme />
             <AppLayout />
         </div>
-    )
+    ) : null
 }
 
 export default App
