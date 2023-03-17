@@ -1,3 +1,15 @@
+## [1.30.17](https://github.com/dhis2/maps-app/compare/v1.30.16...v1.30.17) (2023-03-17)
+
+
+### Bug Fixes
+
+* format date value ([#2544](https://github.com/dhis2/maps-app/issues/2544)) ([8d05417](https://github.com/dhis2/maps-app/commit/8d0541766c8ae3e4e26d99359f7305709c3c5057))
+* useDisconnectionStatus instead of useOnlineStatus ([#2540](https://github.com/dhis2/maps-app/issues/2540)) ([176f0e3](https://github.com/dhis2/maps-app/commit/176f0e34ade6dc35741d07ccf6c3b5fde99849ae))
+* **deps:** bump deps for headerbar connection status ([#2542](https://github.com/dhis2/maps-app/issues/2542)) ([7d239f1](https://github.com/dhis2/maps-app/commit/7d239f13ade9ecef5f2935155e1eceed280530bb))
+* avoid infinite loop when opening event data table ([#2543](https://github.com/dhis2/maps-app/issues/2543)) ([b109b95](https://github.com/dhis2/maps-app/commit/b109b953e24316eb4889ccad6cd39316848e3e54))
+* check both id and mapViews when preparing the map configuration ([#2539](https://github.com/dhis2/maps-app/issues/2539)) ([fca0f4f](https://github.com/dhis2/maps-app/commit/fca0f4f53149db59bf2599beae0477ad8f0d9f39))
+* wait for system settings to load before fetching/creating a map ([#2541](https://github.com/dhis2/maps-app/issues/2541)) ([18bf2f3](https://github.com/dhis2/maps-app/commit/18bf2f3f6d25a299cedd2726c61c7b0f0b08ef02))
+
 ## [1.30.16](https://github.com/dhis2/maps-app/compare/v1.30.15...v1.30.16) (2023-03-16)
 
 
