@@ -48,7 +48,12 @@ const DownloadSettings = () => {
             mapEl = mapEl.parentNode
         }
 
-        downloadMapImage(mapEl, filename).catch(setError)
+        // Temporary added to remove close 'x' from map popups
+        mapEl.classList.add('dhis2-map-downloading')
+
+        downloadMapImage(mapEl, filename)
+            .then(() => mapEl.classList.remove('dhis2-map-downloading'))
+            .catch(setError)
     }, [name, includeMargins])
 
     const hasLayers = mapViews.length > 0
