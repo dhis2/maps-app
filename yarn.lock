@@ -2069,21 +2069,6 @@
   dependencies:
     lodash "^4.17.21"
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-"@dhis2/app-shell@10.3.4":
-  version "10.3.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-10.3.4.tgz#cb278cf448533b4be3a332c0e64971b28f3ab050"
-  integrity sha512-Z880GPDllUDTvMuszRwsoaUqOy4l7Rp7F6l0Q9N3fdsfraEkYvrJbJt5EwAt7rRGG3ZwaOwPvNQVJldE6NhwKA==
-  dependencies:
-    "@dhis2/app-adapter" "10.3.4"
-    "@dhis2/app-runtime" "^3.9.0"
-    "@dhis2/d2-i18n" "^1.1.1"
-    "@dhis2/pwa" "10.3.4"
-    "@dhis2/ui" "^8.6.2"
-=======
->>>>>>> 1d034a3f3e011d9430b6a0f8000c3f6ad2b4dcdb
 "@dhis2/app-shell@10.3.5":
   version "10.3.5"
   resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-10.3.5.tgz#d3466cbf7ee03e1007c1c2d27993e19a735eab54"
@@ -2094,10 +2079,6 @@
     "@dhis2/d2-i18n" "^1.1.1"
     "@dhis2/pwa" "10.3.5"
     "@dhis2/ui" "^8.12.3"
-<<<<<<< HEAD
-=======
->>>>>>> master
->>>>>>> 1d034a3f3e011d9430b6a0f8000c3f6ad2b4dcdb
     classnames "^2.2.6"
     moment "^2.29.1"
     prop-types "^15.7.2"
@@ -2109,23 +2090,10 @@
     typeface-roboto "^0.0.75"
     typescript "^3.6.3"
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-"@dhis2/cli-app-scripts@^10.3.4":
-  version "10.3.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-10.3.4.tgz#98098014787de987c54052c7adbca96999a4d462"
-  integrity sha512-zDKVE3Z4m4nZK0v3b7egixertXS+DVW1VU8+lD9tRhfp2ycewaQD6BwwgCLye2qAHSZzWFA3iWEmpJC0aGR0Qg==
-=======
->>>>>>> 1d034a3f3e011d9430b6a0f8000c3f6ad2b4dcdb
 "@dhis2/cli-app-scripts@^10.3.5":
   version "10.3.5"
   resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-10.3.5.tgz#0417f585f2515da4793a03e84f9d9dc6459196fd"
   integrity sha512-J9mp9eiNbL6Uz/kyDypQtC/NkNaAG/tDwlnPeCAvZkIzFIUocvhzfbNM7ov67sSh6+onCa+R4l/oemXUB3nvaw==
-<<<<<<< HEAD
-=======
->>>>>>> master
->>>>>>> 1d034a3f3e011d9430b6a0f8000c3f6ad2b4dcdb
   dependencies:
     "@babel/core" "^7.6.2"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
@@ -2134,15 +2102,7 @@
     "@babel/preset-env" "^7.14.7"
     "@babel/preset-react" "^7.0.0"
     "@babel/preset-typescript" "^7.6.0"
-<<<<<<< HEAD
     "@dhis2/app-shell" "10.3.5"
-=======
-<<<<<<< HEAD
-    "@dhis2/app-shell" "10.3.4"
-=======
-    "@dhis2/app-shell" "10.3.5"
->>>>>>> master
->>>>>>> 1d034a3f3e011d9430b6a0f8000c3f6ad2b4dcdb
     "@dhis2/cli-helpers-engine" "^3.2.0"
     "@jest/core" "^27.0.6"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.4"
@@ -2293,23 +2253,10 @@
   resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-3.1.2.tgz#65b8ad2da8cd2f72bc8b951049a6c9d1b97af3e9"
   integrity sha512-eM0jjLOWvtXWqSFp5YC4DHFpkP8Y1D2eUwGV7MBWjni+o27oesVan+oT7WHeOeLdlAd4acRJrnaaAyB4Ck1wGQ==
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-"@dhis2/pwa@10.3.4":
-  version "10.3.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-10.3.4.tgz#4afc4749ec12a8ee1157418ddac42c7c4eba71c7"
-  integrity sha512-Wyn+yNcNz3j4ci3Uu4/94Cx27aT69abyKNBwDU7YJh5soKbjSb8+vNRM3G4UcPd8NV3mGTOhOEkVtM1H1DVt9g==
-=======
->>>>>>> 1d034a3f3e011d9430b6a0f8000c3f6ad2b4dcdb
 "@dhis2/pwa@10.3.5":
   version "10.3.5"
   resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-10.3.5.tgz#9571fcc47a4624266933b7905aa547458d18b4d2"
   integrity sha512-hvRqDx7jyqYzqX2quP5OW3MjkqsCTmtxqNr91tjaZtiA/MCrlcj+hFnH2DpK6BNJ48OVo4XauWllfa0bjGHCfg==
-<<<<<<< HEAD
-=======
->>>>>>> master
->>>>>>> 1d034a3f3e011d9430b6a0f8000c3f6ad2b4dcdb
   dependencies:
     idb "^6.0.0"
     workbox-core "^6.1.5"
