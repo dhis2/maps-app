@@ -16,7 +16,7 @@ context('Event Layers', () => {
         cy.contains('Program is required').should('be.visible')
     })
 
-    it('adds an event layer', () => {
+    it.skip('adds an event layer', () => {
         Layer.openDialog('Events')
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')

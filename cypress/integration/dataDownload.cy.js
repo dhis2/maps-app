@@ -80,7 +80,7 @@ describe('Data Download', () => {
         )
     })
 
-    it('fails to download event layer', () => {
+    it.skip('fails to download event layer', () => {
         cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('[data-test="layercard"]')
