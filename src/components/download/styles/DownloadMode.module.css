@@ -12,6 +12,9 @@
     margin: 3px 0 0 var(--spacers-dp16);
 }
 
-:global(.downloadModeMenu) header {
+:global(.downloadModeMenu) header,
+:global(.dhis2-map-download .dhis2-map-ctrl-measure-actions),
+:global(.dhis2-map-download .dhis2-map-popup-orgunit button) {
     display: none;
 }
+
