@@ -8,8 +8,8 @@ const DatePicker = ({ label, name, defaultVal, onBlur, className }) => {
     const inputEl = useRef(null)
 
     useEffect(() => {
-        if (inputEl.current) {
-            inputEl.current.defaultValue = defaultVal
+        if (inputEl.current && defaultVal) {
+            inputEl.current.defaultValue = defaultVal.slice(0, 10)
         }
     }, [defaultVal])
 
