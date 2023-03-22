@@ -7,7 +7,7 @@ import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { numberPrecision } from '../util/numbers';
 import { toGeoJson } from '../util/map';
-import { getCoordinateField, setAdditionalGeometry } from '../util/orgUnits';
+import { getCoordinateField, addAssociatedGeometries } from '../util/orgUnits';
 
 // Returns a promise
 const earthEngineLoader = async config => {
@@ -24,16 +24,18 @@ const earthEngineLoader = async config => {
         const d2 = await getD2();
         const displayProperty = getDisplayProperty(d2).toUpperCase();
         const orgUnitParams = orgUnits.map(item => item.id);
+        let mainFeatures;
+        let associatedGeometries;
 
         const featuresRequest = d2.geoFeatures
             .byOrgUnit(orgUnitParams)
             .displayProperty(displayProperty);
 
         try {
-            features = await featuresRequest.getAll().then(toGeoJson);
+            mainFeatures = await featuresRequest.getAll().then(toGeoJson);
 
             if (coordinateField) {
-                const associatedGeometries = await featuresRequest
+                associatedGeometries = await featuresRequest
                     .getAll({
                         coordinateField: coordinateField.id,
                     })
@@ -48,10 +50,14 @@ const earthEngineLoader = async config => {
                         }),
                     });
                 }
+            }
 
-                features = features.concat(associatedGeometries);
-                setAdditionalGeometry(features);
-            } else if (!features.length) {
+            features = addAssociatedGeometries(
+                mainFeatures,
+                associatedGeometries
+            );
+
+            if (!features.length) {
                 alerts.push({
                     warning: true,
                     message: i18n.t(

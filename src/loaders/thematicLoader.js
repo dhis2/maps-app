@@ -18,7 +18,7 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
-import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits';
+import { addAssociatedGeometries, getCoordinateField } from '../util/orgUnits';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
@@ -76,8 +76,11 @@ const thematicLoader = async config => {
         };
     }
 
-    const [mainFeatures, data, associatedGeometries = []] = response;
-    const features = mainFeatures.concat(associatedGeometries);
+    const [mainFeatures, data, associatedGeometries] = response;
+    const features = addAssociatedGeometries(
+        mainFeatures,
+        associatedGeometries
+    );
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
@@ -171,9 +174,7 @@ const thematicLoader = async config => {
         .domain([minValue, maxValue])
         .clamp(true);
 
-    if (valueFeatures.length) {
-        setAdditionalGeometry(valueFeatures);
-    } else {
+    if (!valueFeatures.length) {
         if (!features.length) {
             alerts.push({
                 warning: true,
