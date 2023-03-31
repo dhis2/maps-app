@@ -1,3 +1,10 @@
+## [1.30.19](https://github.com/dhis2/maps-app/compare/v1.30.18...v1.30.19) (2023-03-31)
+
+
+### Bug Fixes
+
+* target window.parent for postRobot communication ([#2556](https://github.com/dhis2/maps-app/issues/2556)) ([73d8193](https://github.com/dhis2/maps-app/commit/73d81937e97a8eac1fd19b8cdbd865874d367587))
+
 ## [1.30.18](https://github.com/dhis2/maps-app/compare/v1.30.17...v1.30.18) (2023-03-17)
 
 
