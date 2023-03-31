@@ -38,7 +38,7 @@ const CacheableSectionWrapper = ({
         const listener = postRobot.on(
             'removeCachedData',
             // todo: check domain too; differs based on deployment env though
-            { window: window.top },
+            { window: window.parent },
             () => remove()
         )
 
@@ -76,14 +76,14 @@ const PluginWrapper = () => {
 
     useEffect(() => {
         postRobot
-            .send(window.top, 'getProps')
+            .send(window.parent, 'getProps')
             .then(receivePropsFromParent)
             .catch((err) => console.error(err))
 
         // Allow parent to update props
         const listener = postRobot.on(
             'newProps',
-            { window: window.top /* Todo: check domain */ },
+            { window: window.parent /* Todo: check domain */ },
             receivePropsFromParent
         )
 
