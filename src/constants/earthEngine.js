@@ -2,6 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import { defaultFilters } from '../util/earthEngine.js'
 import { EARTH_ENGINE_LAYER } from './layers.js'
 
+// layerId should be unique
+// datasetId is the Earth Engine dataset id
 export const earthEngineLayers = () => [
     {
         layer: EARTH_ENGINE_LAYER,
