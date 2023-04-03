@@ -90,9 +90,7 @@ const getWorkerInstance = async () => {
     return workerPromise
 }
 
-export const getPeriods = async (eeId) => {
-    const { periodType } = getEarthEngineLayer(eeId)
-
+export const getPeriods = async (eeId, periodType) => {
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear()
         const name =

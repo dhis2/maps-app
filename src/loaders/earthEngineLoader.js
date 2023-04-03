@@ -119,7 +119,7 @@ const earthEngineLoader = async (config) => {
         dataset = getEarthEngineLayer(layerConfig.id)
 
         if (dataset) {
-            dataset.datasetId = layerConfig.id
+            // dataset.datasetId = layerConfig.id
             delete layerConfig.id
         }
 
