@@ -1,3 +1,10 @@
+## [1.30.20](https://github.com/dhis2/maps-app/compare/v1.30.19...v1.30.20) (2023-04-12)
+
+
+### Bug Fixes
+
+* new total population layer ([#2557](https://github.com/dhis2/maps-app/issues/2557)) ([1217cac](https://github.com/dhis2/maps-app/commit/1217cac5838f663002a3e16d59a750d576da87fe))
+
 ## [1.30.19](https://github.com/dhis2/maps-app/compare/v1.30.18...v1.30.19) (2023-03-31)
 
 
