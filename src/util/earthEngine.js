@@ -95,6 +95,11 @@ export const getPeriods = async (eeId, periodType) => {
         const name =
             periodType === 'Yearly' ? String(year) : getStartEndDate(properties)
 
+        // Remove when old population should not be supported
+        if (eeId === 'WorldPop/POP') {
+            return { id: name, name, year }
+        }
+
         return { id, name, year }
     }
 
