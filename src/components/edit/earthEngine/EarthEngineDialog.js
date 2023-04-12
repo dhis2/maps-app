@@ -33,6 +33,7 @@ const EarthEngineDialog = (props) => {
     const [error, setError] = useState()
 
     const {
+        layerId,
         datasetId,
         band,
         rows,
@@ -48,7 +49,7 @@ const EarthEngineDialog = (props) => {
         onLayerValidation,
     } = props
 
-    const dataset = getEarthEngineLayer(datasetId)
+    const dataset = getEarthEngineLayer(layerId)
 
     const {
         description,
@@ -80,7 +81,7 @@ const EarthEngineDialog = (props) => {
         let isCancelled = false
 
         if (periodType) {
-            getPeriods(datasetId)
+            getPeriods(datasetId, periodType)
                 .then((periods) => {
                     if (!isCancelled) {
                         setPeriods(periods)
@@ -250,6 +251,7 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
+    layerId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setFilter: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
