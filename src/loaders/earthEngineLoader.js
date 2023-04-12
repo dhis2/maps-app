@@ -86,14 +86,6 @@ const earthEngineLoader = async (config) => {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
 
-        // Backward compability for temperature layer (could also be fixed in a db update script)
-        if (layerConfig.id === 'MODIS/MOD11A2' && layerConfig.filter) {
-            const period = layerConfig.image.slice(-10)
-            layerConfig.id = 'MODIS/006/MOD11A2'
-            layerConfig.image = period
-            layerConfig.filter[0].arguments[1] = period
-        }
-
         // Backward compability for layers with periods saved before 2.36
         // (could also be fixed in a db update script)
         if (layerConfig.image) {
@@ -119,7 +111,6 @@ const earthEngineLoader = async (config) => {
         dataset = getEarthEngineLayer(layerConfig.id)
 
         if (dataset) {
-            dataset.datasetId = layerConfig.id
             delete layerConfig.id
         }
 

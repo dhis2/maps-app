@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-28T20:29:35.718Z\n"
-"PO-Revision-Date: 2023-02-28T20:29:35.718Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"PO-Revision-Date: 2023-04-12T09:23:26.646Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -63,37 +63,37 @@ msgid "Yes"
 msgstr "Yes"
 
 msgid "None"
-msgstr ""
+msgstr "None"
 
 msgid "Cascading"
-msgstr ""
+msgstr "Cascading"
 
 msgid "Event location"
 msgstr "Event location"
 
 msgid "Enrollment location"
-msgstr ""
+msgstr "Enrollment location"
 
 msgid "Tracked entity location"
-msgstr ""
+msgstr "Tracked entity location"
 
 msgid "Organisation unit location"
-msgstr ""
+msgstr "Organisation unit location"
 
 msgid "Fallback coordinate field"
-msgstr ""
+msgstr "Fallback coordinate field"
 
 msgid "Coordinate field"
 msgstr "Coordinate field"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
-msgstr ""
+msgstr "Enrollment > event > tracked entity > org unit coordinate"
 
 msgid "Event > org unit coordinate"
-msgstr ""
+msgstr "Event > org unit coordinate"
 
 msgid "Event data item"
-msgstr ""
+msgstr "Event data item"
 
 msgid "Selected value not available in in list: {{name}}"
 msgstr "Selected value not available in in list: {{name}}"

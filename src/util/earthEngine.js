@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
-import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { apiFetch } from './api.js'
 import { formatStartEndDate } from './time.js'
 
@@ -90,9 +89,7 @@ const getWorkerInstance = async () => {
     return workerPromise
 }
 
-export const getPeriods = async (eeId) => {
-    const { periodType } = getEarthEngineLayer(eeId)
-
+export const getPeriods = async (eeId, periodType) => {
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear()
         const name =
