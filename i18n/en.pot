@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-12T08:50:51.459Z\n"
-"PO-Revision-Date: 2023-04-12T08:50:51.459Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"PO-Revision-Date: 2023-04-12T09:23:26.646Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -1156,6 +1156,9 @@ msgstr "Barren or sparsely vegetated"
 msgid "Water"
 msgstr "Water"
 
+msgid "people per km²"
+msgstr "people per km²"
+
 msgid "Nighttime lights"
 msgstr "Nighttime lights"
 
@@ -1355,7 +1358,3 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
-
-msgctxt "old"
-msgid "Population"
-msgstr "Population_old"
