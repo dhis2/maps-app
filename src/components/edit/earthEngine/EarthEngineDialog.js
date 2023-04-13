@@ -77,10 +77,10 @@ const EarthEngineDialog = props => {
         let isCancelled = false;
 
         if (periodType) {
-            getPeriods(datasetId)
+            getPeriods(datasetId, periodType)
                 .then(periods => {
                     if (!isCancelled) {
-                        setPeriods(periods, periodType);
+                        setPeriods(periods);
                     }
                 })
                 .catch(error =>
