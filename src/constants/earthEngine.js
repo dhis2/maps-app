@@ -6,7 +6,7 @@ export const earthEngineLayers = () => [
     {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
-        datasetId: 'WorldPop/GP/100m/pop',
+        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         name: i18n.t('Population'),
         unit: i18n.t('people per hectare'),
         description: i18n.t('Estimated number of people living in an area.'),
