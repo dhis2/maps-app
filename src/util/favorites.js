@@ -47,6 +47,7 @@ const validLayerProperties = [
     'labelFontColor',
     'lastUpdated',
     'layer',
+    'layerId',
     'legendSet',
     'method',
     'name',
@@ -127,7 +128,7 @@ const models2objects = config => {
     }
 
     if (layer === EARTH_ENGINE_LAYER) {
-        const { datasetId: id, band, params, aggregationType, filter } = config;
+        const { layerId: id, band, params, aggregationType, filter } = config;
 
         const eeConfig = {
             id,
