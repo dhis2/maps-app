@@ -29,6 +29,7 @@ const EarthEngineDialog = props => {
     const [error, setError] = useState();
 
     const {
+        layerId,
         datasetId,
         band,
         rows,
@@ -42,7 +43,7 @@ const EarthEngineDialog = props => {
         onLayerValidation,
     } = props;
 
-    const dataset = getEarthEngineLayer(datasetId);
+    const dataset = getEarthEngineLayer(layerId);
 
     const {
         description,
@@ -63,7 +64,7 @@ const EarthEngineDialog = props => {
     // Load all available periods
     useEffect(() => {
         if (periodType) {
-            getPeriods(datasetId)
+            getPeriods(datasetId, periodType)
                 .then(setPeriods)
                 .catch(setError);
         }
@@ -196,6 +197,7 @@ const EarthEngineDialog = props => {
 EarthEngineDialog.propTypes = {
     rows: PropTypes.array,
     datasetId: PropTypes.string.isRequired,
+    layerId: PropTypes.string.isRequired,
     band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     filter: PropTypes.array,
     params: PropTypes.shape({
