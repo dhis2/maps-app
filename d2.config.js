@@ -3,6 +3,8 @@ const config = {
     name: 'maps',
     title: 'Maps',
 
+    minDHIS2Version: '2.40',
+
     pwa: {
         enabled: true,
         caching: {
