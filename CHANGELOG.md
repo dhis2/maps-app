@@ -1,3 +1,10 @@
+## [1.30.21](https://github.com/dhis2/maps-app/compare/v1.30.20...v1.30.21) (2023-04-18)
+
+
+### Bug Fixes
+
+* 99.9.9 version and update icon ([#2568](https://github.com/dhis2/maps-app/issues/2568)) ([36d75aa](https://github.com/dhis2/maps-app/commit/36d75aa9597ddd105874ba531e80f57a9d04e591))
+
 ## [1.30.20](https://github.com/dhis2/maps-app/compare/v1.30.19...v1.30.20) (2023-04-12)
 
 
