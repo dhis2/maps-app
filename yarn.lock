@@ -1991,10 +1991,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.9.3":
-  version "24.9.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.9.3.tgz#a8b52d89195382af553e53283b05efa9503e5a56"
-  integrity sha512-rkt3kVO4W/yZC1IxK35QNDL4Uo4X32b+gYXLOkMSSaW5IrKACwtB8zRKp2nYdHzV1jYOe9jv7lme14zlJ7v8Kg==
+"@dhis2/analytics@^24.10.0":
+  version "24.10.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.10.0.tgz#67b15e4d8aca6f76f6826f32f95d64aa02ff031c"
+  integrity sha512-qWA195s1lXeEtsSZwoQvF4BVIdHI7cPvdNBKp0IYmBtSlLmuyw/rIuhjMZgdXIV1xu1s1Bi077whoQadQgcTUw==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     "@dhis2/multi-calendar-dates" "1.0.0"
