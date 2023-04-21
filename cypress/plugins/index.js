@@ -1,9 +1,6 @@
 const { existsSync, readdirSync, lstatSync } = require('fs')
 const path = require('path')
-const {
-    networkShim,
-    chromeAllowXSiteCookies,
-} = require('@dhis2/cypress-plugins')
+const { chromeAllowXSiteCookies } = require('@dhis2/cypress-plugins')
 const { tagify } = require('cypress-tags')
 const fsExtra = require('fs-extra')
 const { getExcludedTags } = require('../support/getExcludedTags.js')
@@ -39,7 +36,6 @@ const emptyDownloadsFolder = () => {
 }
 
 module.exports = (on, config) => {
-    networkShim(on)
     chromeAllowXSiteCookies(on)
 
     if (!config.env.dhis2InstanceVersion) {
