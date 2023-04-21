@@ -1,3 +1,25 @@
+# [100.0.0](https://github.com/dhis2/maps-app/compare/v99.9.9...v100.0.0) (2023-04-21)
+
+
+### Bug Fixes
+
+* add apphub id to d2.config.js ([#2573](https://github.com/dhis2/maps-app/issues/2573)) ([a5a18a4](https://github.com/dhis2/maps-app/commit/a5a18a44f80b5f33c29489f6c6106516f9057577))
+
+
+### Features
+
+* prepare maps-app for continuous release on the app hub ([#2572](https://github.com/dhis2/maps-app/issues/2572)) ([aa56d59](https://github.com/dhis2/maps-app/commit/aa56d59ab86434421a0cc7fdefd149155b6f2345))
+
+
+### BREAKING CHANGES
+
+* * Set to breaking change to trigger version push to 100.0.0
+* Add cypress tags to allow testing features that are toggled on for versions
+* Align the PR workflow with DV and LL
+* Use dhis2/action-semantic-release@master action, same as DV and LL
+* Add the nightly workflow
+* Add the preview pr workflow
+
 ## [1.30.21](https://github.com/dhis2/maps-app/compare/v1.30.20...v1.30.21) (2023-04-18)
 
 
