@@ -2,7 +2,6 @@ import i18n from '@dhis2/d2-i18n';
 import { formatStartEndDate } from './time';
 import { loadEarthEngineWorker } from '../components/map/MapApi';
 import { apiFetch } from './api';
-import { getEarthEngineLayer } from '../constants/earthEngine';
 
 export const classAggregation = ['percentage', 'hectares', 'acres'];
 
@@ -87,9 +86,7 @@ const getWorkerInstance = async () => {
     return workerPromise;
 };
 
-export const getPeriods = async eeId => {
-    const { periodType } = getEarthEngineLayer(eeId);
-
+export const getPeriods = async (eeId, periodType) => {
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear();
         const name =
