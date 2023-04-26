@@ -70,7 +70,7 @@ CacheableSectionWrapper.propTypes = {
 }
 
 const sendInstallationStatus = (installationStatus) => {
-    postRobot.send(window.top, 'installationStatus', { installationStatus })
+    postRobot.send(window.parent, 'installationStatus', { installationStatus })
 }
 
 const PluginWrapper = () => {
