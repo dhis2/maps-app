@@ -5,6 +5,7 @@ import { debounce } from 'lodash/fp'
 import PropTypes from 'prop-types'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { Plugin } from './components/plugin/Plugin.js'
+import { getPWAInstallationStatus } from './util/getPWAInstallationStatus.js'
 
 const LoadingMask = () => {
     return (
@@ -68,6 +69,10 @@ CacheableSectionWrapper.propTypes = {
     isParentCached: PropTypes.bool,
 }
 
+const sendInstallationStatus = (installationStatus) => {
+    postRobot.send(window.parent, 'installationStatus', { installationStatus })
+}
+
 const PluginWrapper = () => {
     const [propsFromParent, setPropsFromParent] = useState()
     const [renderId, setRenderId] = useState(null)
@@ -79,6 +84,12 @@ const PluginWrapper = () => {
             .send(window.top, 'getProps')
             .then(receivePropsFromParent)
             .catch((err) => console.error(err))
+
+        // Get & send PWA installation status now, and also prepare to send
+        // future updates (installing/ready)
+        getPWAInstallationStatus({
+            onStateChange: sendInstallationStatus,
+        }).then(sendInstallationStatus)
 
         // Allow parent to update props
         const listener = postRobot.on(
