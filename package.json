@@ -20,7 +20,7 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^10.3.5",
+        "@dhis2/cli-app-scripts": "^10.3.7",
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^9.0.2",
         "@dhis2/cypress-plugins": "^9.0.2",
