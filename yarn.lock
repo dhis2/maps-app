@@ -2056,10 +2056,15 @@
     "@dhis2/app-service-data" "3.9.0"
     "@dhis2/app-service-offline" "3.9.0"
 
-"@dhis2/app-service-alerts@3.9.0", "@dhis2/app-service-alerts@^3.9.0":
+"@dhis2/app-service-alerts@3.9.0":
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.9.0.tgz#48d3805676e75ee58104fea4f76cfa779335444e"
   integrity sha512-z2eZxm/pxrmFbisbK7/qJKtif2CNWJjaaAH5rfrs5OIajlHy3rO37vSaTQHWv+xWvZFQrs2Op2InxzG0qh5ncA==
+
+"@dhis2/app-service-alerts@^3.9.2":
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.9.2.tgz#b58535437f20b0d51ae639900b49592f3d23c5fe"
+  integrity sha512-XalQO5xm1qLwjqzw9nTMlQyQOVuPeU+r7xMY15cwLIxtLsvm6PZaybL8v4yFPjAjX5nIglt97cV8AN04KvgOKQ==
 
 "@dhis2/app-service-config@3.9.0":
   version "3.9.0"
