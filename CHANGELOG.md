@@ -1,3 +1,16 @@
+# [100.1.0](https://github.com/dhis2/maps-app/compare/v100.0.0...v100.1.0) (2023-05-16)
+
+
+### Bug Fixes
+
+* bumps cli-app-scripts to 10.3.8 for LIBS-499 fix ([#2592](https://github.com/dhis2/maps-app/issues/2592)) ([f305dc9](https://github.com/dhis2/maps-app/commit/f305dc9dd311e9ceec2828dde868910ec76044d7))
+* remove fallback coordinate field (DHIS2-8165) ([#2575](https://github.com/dhis2/maps-app/issues/2575)) ([e794125](https://github.com/dhis2/maps-app/commit/e794125fa30c62b9589da650350e5a8dd321e11f))
+
+
+### Features
+
+* **plugin:** send installation status [DHIS2-15097] ([#2580](https://github.com/dhis2/maps-app/issues/2580)) ([0817420](https://github.com/dhis2/maps-app/commit/0817420e9d1cb672aef0ba55fd1c200386c21dbb))
+
 # [100.0.0](https://github.com/dhis2/maps-app/compare/v99.9.9...v100.0.0) (2023-04-21)
 
 
