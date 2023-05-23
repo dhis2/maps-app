@@ -1,31 +1,28 @@
 # 
 # Translators:
-# Yury Rogachev <yury@dhis2.org>, 2022
+# Yury Rogachev <yury@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2022\n"
-"Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2023\n"
+"Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uz@Latn\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Maps"
-msgstr "Xaritalar"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "Xarita \"{{ismi}}\" saqlangan"
-
-msgid "Failed to save map. {{message}}"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Error"
-msgstr "Xatolik"
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr "Tasnifi"
@@ -41,6 +38,18 @@ msgstr "Rang"
 
 msgid "Size"
 msgstr "Oʼlcham"
+
+msgid "Name"
+msgstr "Исми"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Қиймат"
+
+msgid "Display"
+msgstr "Ekranda koʼrsatish"
 
 msgid "Data element group"
 msgstr "Maʼlumotlar elementi guruhi"
@@ -60,23 +69,71 @@ msgstr "Тафсилотлари"
 msgid "Yes"
 msgstr "Ҳа"
 
+msgid "None"
+msgstr "Йўқ"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Hodisa/Tadbir oʼtkaziladigan joy"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Koordinatalar maydoni"
 
-msgid "None"
-msgstr "Йўқ"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Maʼlumot elementi"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Hodisa/Tadbir maʼlumoti elementi"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr "Maʼlumot elementi boʼyicha uslub"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Dastur bosqichi tanlangandan soʼng Filtrdan foydalanish mumkin"
+
+msgid "Add filter"
+msgstr "Filtr kiritish"
+
+msgid "Data item"
+msgstr "Maʼlumot elementi"
+
+msgid "one of"
+msgstr "bittasi"
+
+msgid "contains"
+msgstr "oʼz ichiga oladi"
+
+msgid "is"
+msgstr "bor"
+
+msgid "is not"
+msgstr "emas"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "Sana"
 
 msgid "Data set"
 msgstr "Maʼlumotlar toʼplami"
@@ -87,17 +144,11 @@ msgstr "Indenks"
 msgid "Org unit"
 msgstr "Tashkiliy birlik"
 
-msgid "Name"
-msgstr "Исми"
-
 msgid "Id"
 msgstr ""
 
 msgid "Event time"
 msgstr "Hodisa/Tadbir vaqti"
-
-msgid "Value"
-msgstr "Қиймат"
 
 msgid "Legend"
 msgstr "Taʼrif"
@@ -119,9 +170,6 @@ msgstr ""
 "Hodisa/Tadbirlar serverda guruhlanayotganda, maʼlumotlar jadvali qoʼllab-"
 "quvvatlanmaydi"
 
-msgid "Add filter"
-msgstr "Filtr kiritish"
-
 msgid "Items"
 msgstr ""
 "Hodisa/Tadbirlar serverda guruhlanayotganda, maʼlumotlar jadvali qoʼllab-"
@@ -133,14 +181,39 @@ msgstr "Hajm"
 msgid "Download"
 msgstr "Юклаш"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "Xaritani yuklash"
 
-msgid "Show name"
-msgstr "Ismini koʼrsatish"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "Taʼrifni koʼrsatish"
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -154,8 +227,8 @@ msgstr "Бекор қилиш"
 msgid "Close"
 msgstr "Yopmoq"
 
-msgid "Legend position"
-msgstr "Tavsif holati"
+msgid "No organisation units are selected"
+msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
 msgid "Organisation Units"
 msgstr "Tashkiliy Boʼlimlar"
@@ -168,9 +241,6 @@ msgstr "Нуқта ранги"
 
 msgid "Point radius"
 msgstr "Nuqta radiusi"
-
-msgid "No organisation units are selected"
-msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
 msgid "event"
 msgstr ""
@@ -203,9 +273,6 @@ msgid "Add layer"
 msgstr "Qatlam qoʼshish"
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -280,9 +347,6 @@ msgstr "Tashkiliy Boʼlimlar"
 
 msgid "Filter"
 msgstr "Filtr"
-
-msgid "Events"
-msgstr "Hodisa/tadbirlar"
 
 msgid "Group events"
 msgstr "Hodisa/Tadbirlar guruhlari"
@@ -422,27 +486,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr "Xaritalarda obʼektlarning oʼzaro aloqalar tizimining koʼrsatilishi"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-"Dasturdan {{dastur}} tashqarida aloqalar bogʼlaydigan oʼzaro aloqalarni "
-"kiriting"
-
-msgid "Selection mode"
-msgstr "Rejimni tanlash"
-
-msgid "Selected only"
-msgstr "Faqatgina tanlangan"
-
-msgid "Selected and below"
-msgstr "Tanlangan va quyida"
-
-msgid "Selected and all below"
-msgstr "Tanlangan va barchasi quyida"
-
-msgid "Tracked entities"
-msgstr "Kuzatuvdagi obʼektlar"
-
 msgid "Tracked entity style"
 msgstr "Kuzatuvdagi obʼektlar xususiyatlari"
 
@@ -455,53 +498,11 @@ msgstr "Oʼzaro bogʼlangan xususiyatlar"
 msgid "Line Color"
 msgstr "Qator rangi"
 
-msgid "Failed to load relationship types."
-msgstr "Oʼzaro aloqalar xususiyatlarining yuklanishi amalga oshmadi"
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Kuzatuvdagi obʼektlar oʼzaro aloqalar turlari {{turi}} topilmadi"
 
 msgid "Relationship type"
 msgstr "Oʼzaro aloqalar turi"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "DHIS2 Xaritalarda xatolik yuz berdi"
-
-msgid "Something went wrong"
-msgstr "Nimadir notoʼgʼri bajarildi"
-
-msgid "Refresh to try again"
-msgstr "Ыaytib urinib kщrin uchun avval yangilang"
-
-msgid "Hide technical details"
-msgstr "Texnik detallarni berkitish"
-
-msgid "Show technical details"
-msgstr "Texnik detallarni koʼrsatish"
-
-msgid "The following information may be requested by technical support."
-msgstr "Quyidagi axborot texnik yordamchilar tomonidan soʼralishi mumkin"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Dastur bosqichi tanlangandan soʼng Filtrdan foydalanish mumkin"
-
-msgid "one of"
-msgstr "bittasi"
-
-msgid "contains"
-msgstr "oʼz ichiga oladi"
-
-msgid "is"
-msgstr "bor"
-
-msgid "is not"
-msgstr "emas"
-
-msgid "Operator"
-msgstr "Operator"
-
-msgid "Date"
-msgstr "Sana"
 
 msgid "Remove filter"
 msgstr "Filtrni olib tashlash"
@@ -546,14 +547,14 @@ msgstr ""
 "GeoJSON aksariyat GIS dasturlari tomonidan qoʼllab quvvatlanadi, shu "
 "jumladan QGIS va ArcGIS ham."
 
-msgid "Data download failed."
-msgstr "Maʼlumot yuklanishi amalga oshmadi"
-
 msgid "ID Format"
 msgstr "ID format"
 
 msgid "Use human-readable keys"
 msgstr "oʼqilishi qulay kalitlardan foydalaning"
+
+msgid "Data download failed."
+msgstr "Maʼlumot yuklanishi amalga oshmadi"
 
 msgid "External layer"
 msgstr "Tashqi qavat"
@@ -577,6 +578,9 @@ msgstr "Koʼrinishni yoqing"
 
 msgid "Set layer opacity"
 msgstr "Qatlam xiraligini tahrirlang"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "Boshqa harakatlar"
@@ -629,8 +633,14 @@ msgstr "Kenglik"
 msgid "Latitude"
 msgstr "Kenglik"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Oʼrnatilmagan"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Ташкилий бирлик"
@@ -744,14 +754,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr "Ushbu davr uchun maʼlumot topilmadi"
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "Guruhlarni tanlang"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "Ushbu davr uchun maʼlumot topilmadi"
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -792,51 +802,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "Izoh"
 
-msgid "Select levels"
-msgstr "Bosqichlarni tanlang"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr ""
-"Аlohida birliklarni tanlash va foydalanuvchilar tashkiliy boʼlimini "
-"birlashtirish mumkin emas."
+msgid "Selected only"
+msgstr "Faqatgina tanlangan"
 
-msgid "user organisation unit"
-msgstr "Foydalanuvchining tashkiliy boʼlimi"
+msgid "Selected and below"
+msgstr "Tanlangan va quyida"
 
-msgid "right below user organisation unit"
-msgstr "Foydalanuvchining tashkiliy boʼlimi ostida"
+msgid "Selected and all below"
+msgstr "Tanlangan va barchasi quyida"
 
-msgid "two levels below user organisation unit"
-msgstr "Foydalanuvchining tashkiliy boʼlimidan ikki pogʼona pastda"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{boʼlimlar}} va {{tashkiliyboʼlimlar}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{boʼlimlar}} va ostki {{tashkiliyboʼlimlar}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{boʼlimlar}} va barcha quyi {{tashkiliyboʼlimlar}}"
-
-msgid "Selected organisation units"
-msgstr "Tanlangan tashkiliy boʼlimlar"
-
-msgid "Main"
-msgstr "Аsosiy"
-
-msgid "Below"
-msgstr "Quyi"
-
-msgid "2 x below"
-msgstr "2 daraja quyi"
-
-msgid "User organisation units"
-msgstr "Foydalanuvchi tashkiliy boʼlimlari"
+msgid "Selection mode"
+msgstr "Rejimni tanlash"
 
 msgid "Previous year"
 msgstr "Oldingi yil"
@@ -1331,6 +1310,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Tashkiliy birliklar"
 
+msgid "Error"
+msgstr "Xatolik"
+
 msgid "Thematic layer"
 msgstr "Tematik qavat"
 
@@ -1348,6 +1330,12 @@ msgstr "bogʼliqlik"
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Events"
+msgstr "Hodisa/tadbirlar"
+
+msgid "Tracked entities"
+msgstr "Kuzatuvdagi obʼektlar"
 
 msgid "Org units"
 msgstr ""
