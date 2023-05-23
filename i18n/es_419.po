@@ -1,14 +1,15 @@
 # 
 # Translators:
 # Jaime Bosque <jaime.bosque@dhis2.org>, 2022
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2022\n"
-"Language-Team: Spanish (Latin America) (https://www.transifex.com/hisp-uio/teams/100509/es_419/)\n"
+"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2023\n"
+"Language-Team: Spanish (Latin America) (https://app.transifex.com/hisp-uio/teams/100509/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -245,7 +246,7 @@ msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Mínimo"
 
 msgid "Max"
 msgstr "Máx"
@@ -470,7 +471,7 @@ msgid "Date"
 msgstr "Fecha"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Remover filtro"
 
 msgid "Group set"
 msgstr ""
@@ -598,13 +599,13 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Unidad organizativa"
 
 msgid "Parent unit"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
+msgstr "Última actualización"
 
 msgid "no value"
 msgstr "sin valor"
@@ -613,7 +614,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr ""
+msgstr "Área"
 
 msgid "Center map on area"
 msgstr ""
@@ -717,7 +718,7 @@ msgid "Closed date"
 msgstr ""
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Link"
 msgstr ""
