@@ -9,27 +9,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Asos <aso.rezaiy@gmail.com>, 2022\n"
-"Language-Team: Central Kurdish (https://www.transifex.com/hisp-uio/teams/100509/ckb/)\n"
+"Language-Team: Central Kurdish (https://app.transifex.com/hisp-uio/teams/100509/ckb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ckb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Maps"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Map \"{{name}}\" is saved."
+msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
-msgid "Failed to save map. {{message}}"
+msgid "Failed to save map: {{message}}"
 msgstr ""
-
-msgid "Error"
-msgstr "هەڵە"
 
 msgid "Classification"
 msgstr ""
@@ -44,6 +41,18 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "بةها"
+
+msgid "Display"
 msgstr ""
 
 msgid "Data element group"
@@ -64,23 +73,71 @@ msgstr ""
 msgid "Yes"
 msgstr "ەڵێ"
 
+msgid "None"
+msgstr "هیچیان"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
+msgstr ""
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
 msgstr ""
 
-msgid "None"
-msgstr "هیچیان"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
+msgid "Event > org unit coordinate"
 msgstr ""
 
 msgid "Event data item"
 msgstr ""
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Data item"
+msgstr ""
+
+msgid "one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr ""
+
+msgid "Date"
+msgstr "داتا"
 
 msgid "Data set"
 msgstr ""
@@ -91,17 +148,11 @@ msgstr ""
 msgid "Org unit"
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
 msgid "Id"
 msgstr ""
 
 msgid "Event time"
 msgstr ""
-
-msgid "Value"
-msgstr "بةها"
 
 msgid "Legend"
 msgstr ""
@@ -121,9 +172,6 @@ msgstr ""
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
-msgid "Add filter"
-msgstr ""
-
 msgid "Items"
 msgstr ""
 
@@ -133,13 +181,38 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr ""
 
-msgid "Show name"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show legend"
+msgstr ""
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
 msgstr ""
 
 msgid ""
@@ -152,7 +225,7 @@ msgstr "لابردن"
 msgid "Close"
 msgstr "داخستن"
 
-msgid "Legend position"
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Organisation Units"
@@ -165,9 +238,6 @@ msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -201,9 +271,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -278,9 +345,6 @@ msgstr ""
 
 msgid "Filter"
 msgstr ""
-
-msgid "Events"
-msgstr "ڕووداوەکان"
 
 msgid "Group events"
 msgstr ""
@@ -413,25 +477,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-
-msgid "Selection mode"
-msgstr ""
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr "پێکهاتە چاودێریکراوەکان"
-
 msgid "Tracked entity style"
 msgstr ""
 
@@ -444,53 +489,11 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
-msgid "Failed to load relationship types."
-msgstr ""
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
 msgstr ""
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
-
-msgid "Something went wrong"
-msgstr "هەڵەیەک ڕووی دا"
-
-msgid "Refresh to try again"
-msgstr ""
-
-msgid "Hide technical details"
-msgstr ""
-
-msgid "Show technical details"
-msgstr ""
-
-msgid "The following information may be requested by technical support."
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "contains"
-msgstr ""
-
-msgid "is"
-msgstr ""
-
-msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr ""
-
-msgid "Date"
-msgstr "داتا"
 
 msgid "Remove filter"
 msgstr ""
@@ -533,13 +536,13 @@ msgid ""
 "Desktop."
 msgstr ""
 
-msgid "Data download failed."
-msgstr ""
-
 msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
@@ -561,6 +564,9 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
+msgstr ""
+
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "More actions"
@@ -614,10 +620,13 @@ msgstr ""
 msgid "Latitude"
 msgstr ""
 
-msgid "Viewing interpretation from {{interpretationDate}}"
+msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
 msgid "Not set"
+msgstr ""
+
+msgid "Could not retrieve event data"
 msgstr ""
 
 msgid "Organisation unit"
@@ -729,13 +738,13 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr ""
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
 msgstr ""
 
 msgid "Image of the organisation unit"
@@ -777,48 +786,19 @@ msgstr ""
 msgid "Comment"
 msgstr "تيبيني"
 
-msgid "Select levels"
-msgstr ""
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
+msgid "Selected only"
 msgstr ""
 
-msgid "user organisation unit"
+msgid "Selected and below"
 msgstr ""
 
-msgid "right below user organisation unit"
+msgid "Selected and all below"
 msgstr ""
 
-msgid "two levels below user organisation unit"
-msgstr ""
-
-msgid "{{units}} in {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
-
-msgid "Selected organisation units"
-msgstr ""
-
-msgid "Main"
-msgstr ""
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
-msgid "User organisation units"
+msgid "Selection mode"
 msgstr ""
 
 msgid "Previous year"
@@ -1305,6 +1285,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "يةكةي ريكخراو"
 
+msgid "Error"
+msgstr "هەڵە"
+
 msgid "Thematic layer"
 msgstr ""
 
@@ -1322,6 +1305,12 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Events"
+msgstr "ڕووداوەکان"
+
+msgid "Tracked entities"
+msgstr "پێکهاتە چاودێریکراوەکان"
 
 msgid "Org units"
 msgstr ""
