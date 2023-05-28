@@ -82,7 +82,7 @@ msgid "Org unit"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "නම"
 
 msgid "Event time"
 msgstr ""
@@ -118,7 +118,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "බාගත කරන්න"
 
 msgid "Download map"
 msgstr ""
@@ -143,7 +143,7 @@ msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "වසර"
 
 msgid "Period"
 msgstr ""
@@ -170,7 +170,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "වසර තෝරන්න"
 
 msgid "Min people"
 msgstr ""
@@ -477,7 +477,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "දිනය"
 
 msgid "one of"
 msgstr ""
@@ -704,7 +704,7 @@ msgid "Options"
 msgstr ""
 
 msgid "Code"
-msgstr ""
+msgstr "කේත කරන්න"
 
 msgid "No data found for this period."
 msgstr ""
@@ -814,13 +814,13 @@ msgid "By data element"
 msgstr ""
 
 msgid "Count"
-msgstr ""
+msgstr "ගණන"
 
 msgid "Average"
-msgstr ""
+msgstr "සාමාන්‍ය"
 
 msgid "Sum"
-msgstr ""
+msgstr "එකතුව"
 
 msgid "Standard deviation"
 msgstr ""
@@ -901,16 +901,16 @@ msgid "Monthly"
 msgstr "මාස්පතා"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "දෙමසකට වරක්"
 
 msgid "Quarterly"
-msgstr ""
+msgstr "කාර්තු පතා"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "6 මසකට වරක්"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "6 මසකට වරක් අප්‍රේල්"
 
 msgid "Yearly"
 msgstr "අවුරුදු පතා"
@@ -931,13 +931,13 @@ msgid "Yesterday"
 msgstr "ඊයේ"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "පසුගිය දින 3"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "පසුගිය දින 7"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "පසුගිය දින 14"
 
 msgid "Last 30 days"
 msgstr ""
@@ -952,19 +952,19 @@ msgid "Last 180 days"
 msgstr ""
 
 msgid "This week"
-msgstr ""
+msgstr "මෙම සතිය"
 
 msgid "Last week"
-msgstr ""
+msgstr "පසුගිය සතිය"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "පසුගිය සති 4"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "පසුගිය සති 12"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "පසුගිය සති 52"
 
 msgid "Weeks this year"
 msgstr ""
@@ -979,19 +979,19 @@ msgid "Last 4 bi-weeks"
 msgstr ""
 
 msgid "This month"
-msgstr ""
+msgstr "මෙම මාසය"
 
 msgid "Last month"
-msgstr ""
+msgstr "පසුගිය මාසය"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "පසුගිය මාස 3"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "පසුගිය මාස 6"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "පසුගිය මාස 12"
 
 msgid "Months this year"
 msgstr ""
@@ -1030,13 +1030,13 @@ msgid "Last 2 six-months"
 msgstr ""
 
 msgid "This year"
-msgstr ""
+msgstr "මෙම වසර"
 
 msgid "Last year"
-msgstr ""
+msgstr "පසුගිය වසර"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "පසුගිය 5 වසර"
 
 msgid "This financial year"
 msgstr ""
@@ -1181,7 +1181,7 @@ msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "අසාර්ථකයි"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
