@@ -79,7 +79,7 @@ msgid "Org unit"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "නම"
 
 msgid "Id"
 msgstr ""
@@ -118,7 +118,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "බාගත කරන්න"
 
 msgid "Download map"
 msgstr ""
@@ -207,7 +207,7 @@ msgid "This field is required"
 msgstr ""
 
 msgid "Data"
-msgstr ""
+msgstr "දත්ත"
 
 msgid "Period"
 msgstr ""
@@ -230,7 +230,7 @@ msgid "Source"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "වසර"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -467,7 +467,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "දිනය"
 
 msgid "Remove filter"
 msgstr ""
@@ -690,7 +690,7 @@ msgid ""
 msgstr ""
 
 msgid "Code"
-msgstr ""
+msgstr "කේත කරන්න"
 
 msgid "Loading data"
 msgstr ""
@@ -806,13 +806,13 @@ msgid "By data element"
 msgstr ""
 
 msgid "Count"
-msgstr ""
+msgstr "ගණන"
 
 msgid "Average"
-msgstr ""
+msgstr "සාමාන්‍ය"
 
 msgid "Sum"
-msgstr ""
+msgstr "එකතුව"
 
 msgid "Standard deviation"
 msgstr ""
@@ -1132,34 +1132,34 @@ msgid "Weekly"
 msgstr "සතිපතා"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "සතියකට වරක් (Start Wednesday)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "සතියකට වරක් (Start Thursday)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "සතියකට වරක් (Start Saturday)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "සතියකට වරක් (Start Sunday)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "දෙසතියකට වරක්"
 
 msgid "Monthly"
 msgstr "මාස්පතා"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "දෙමසකට වරක්"
 
 msgid "Quarterly"
-msgstr ""
+msgstr "කාර්තු පතා"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "6 මසකට වරක්"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "6 මසකට වරක් අප්‍රේල්"
 
 msgid "Yearly"
 msgstr "අවුරුදු පතා"
