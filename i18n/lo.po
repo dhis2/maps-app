@@ -1,34 +1,31 @@
 # 
 # Translators:
 # phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2022
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
-# Saysamone Sibounma, 2022
+# Viktor Varland <viktor@dhis2.org>, 2023
+# Phouthasinh PHEUAYSITHIPHONE, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Saysamone Sibounma, 2022\n"
-"Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
+"Last-Translator: Phouthasinh PHEUAYSITHIPHONE, 2023\n"
+"Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lo\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Maps"
-msgstr "ແຜນທີ່"
-
-msgid "Map \"{{name}}\" is saved."
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Failed to save map. {{message}}"
+msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
-msgid "Error"
-msgstr "ເກີດການຜິດພາດ"
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr ""
@@ -44,6 +41,18 @@ msgstr ""
 
 msgid "Size"
 msgstr ""
+
+msgid "Name"
+msgstr "ຊື່"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Value"
+
+msgid "Display"
+msgstr "ສະແດງ"
 
 msgid "Data element group"
 msgstr "ກຸ່ມຂອລອົງປະກອບຂໍ້ມູນ"
@@ -63,23 +72,71 @@ msgstr "ລາຍລະອຽດ"
 msgid "Yes"
 msgstr "ແມ່ນ"
 
+msgid "None"
+msgstr "ບໍ່ແມນ"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
+msgstr ""
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
 msgstr ""
 
-msgid "None"
-msgstr "ບໍ່ແມນ"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
+msgid "Event > org unit coordinate"
 msgstr ""
 
 msgid "Event data item"
 msgstr ""
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Data item"
+msgstr ""
+
+msgid "one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr "is"
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "ວັນທີ່"
 
 msgid "Data set"
 msgstr "ແບບຟອມ"
@@ -90,17 +147,11 @@ msgstr ""
 msgid "Org unit"
 msgstr "ສະຖານທີ່"
 
-msgid "Name"
-msgstr "ຊື່"
-
 msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
 msgstr ""
-
-msgid "Value"
-msgstr "Value"
 
 msgid "Legend"
 msgstr "ຫວ່າງຂໍ້ມູນ"
@@ -120,9 +171,6 @@ msgstr "Type"
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
-msgid "Add filter"
-msgstr ""
-
 msgid "Items"
 msgstr ""
 
@@ -132,13 +180,38 @@ msgstr "ມິຕິ"
 msgid "Download"
 msgstr "ດາວໂຫຼດ"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr ""
 
-msgid "Show name"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show legend"
+msgstr ""
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
 msgstr ""
 
 msgid ""
@@ -151,7 +224,7 @@ msgstr "Cancel"
 msgid "Close"
 msgstr "ປິດ"
 
-msgid "Legend position"
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Organisation Units"
@@ -164,9 +237,6 @@ msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -274,9 +344,6 @@ msgstr ""
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "Events"
-msgstr "ເຫດການ"
 
 msgid "Group events"
 msgstr ""
@@ -409,25 +476,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-
-msgid "Selection mode"
-msgstr "ເລືອກຮູບແບບ"
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr "ຂໍ້ມູນບົ່ງບອກເອກະລັກທີ່ຖືກຕິດຕາມ"
-
 msgid "Tracked entity style"
 msgstr ""
 
@@ -440,53 +488,11 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
-msgid "Failed to load relationship types."
-msgstr ""
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
 msgstr "Relationship type"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
-
-msgid "Something went wrong"
-msgstr "ມີບາງຢ່າງຜິດພາດ"
-
-msgid "Refresh to try again"
-msgstr ""
-
-msgid "Hide technical details"
-msgstr ""
-
-msgid "Show technical details"
-msgstr ""
-
-msgid "The following information may be requested by technical support."
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "contains"
-msgstr ""
-
-msgid "is"
-msgstr "is"
-
-msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr "Operator"
-
-msgid "Date"
-msgstr "ວັນທີ່"
 
 msgid "Remove filter"
 msgstr ""
@@ -529,13 +535,13 @@ msgid ""
 "Desktop."
 msgstr ""
 
-msgid "Data download failed."
-msgstr ""
-
 msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
@@ -557,6 +563,9 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
+msgstr ""
+
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "More actions"
@@ -610,8 +619,14 @@ msgstr "ເສັ້ນຂະໜານ"
 msgid "Latitude"
 msgstr "ເສັ້ນແວ້ງ"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Not set"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
@@ -722,14 +737,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr ""
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "ເລືອກກຸ່ມ"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr ""
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -770,49 +785,20 @@ msgstr "ລະຫັດ"
 msgid "Comment"
 msgstr "​ຄຳ​ເຫັນ​ຕ່າງໆ"
 
-msgid "Select levels"
-msgstr "ເລືອກລຳດັບ"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
+msgid "Selected only"
 msgstr ""
 
-msgid "user organisation unit"
+msgid "Selected and below"
 msgstr ""
 
-msgid "right below user organisation unit"
+msgid "Selected and all below"
 msgstr ""
 
-msgid "two levels below user organisation unit"
-msgstr ""
-
-msgid "{{units}} in {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
-
-msgid "Selected organisation units"
-msgstr "ເລືອກ​ເອົາຫົວ​ໜ່ວຍການຈັດຕັ້ງ​"
-
-msgid "Main"
-msgstr ""
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
-msgid "User organisation units"
-msgstr ""
+msgid "Selection mode"
+msgstr "ເລືອກຮູບແບບ"
 
 msgid "Previous year"
 msgstr ""
@@ -1230,7 +1216,7 @@ msgid "Weekly (Start Sunday)"
 msgstr ""
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "ສອງອາທິດຕໍ່ຄັ້ງ"
 
 msgid "Monthly"
 msgstr "ລາຍເດືອນ"
@@ -1298,6 +1284,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "ໂຄງຮ່າງການຈັດຕັ້ງ"
 
+msgid "Error"
+msgstr "ເກີດການຜິດພາດ"
+
 msgid "Thematic layer"
 msgstr "ໂຕສະແດງຂໍ້ມູນ"
 
@@ -1315,6 +1304,12 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Events"
+msgstr "ເຫດການ"
+
+msgid "Tracked entities"
+msgstr "ຂໍ້ມູນບົ່ງບອກເອກະລັກທີ່ຖືກຕິດຕາມ"
 
 msgid "Org units"
 msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"

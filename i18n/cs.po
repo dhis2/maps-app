@@ -1,25 +1,25 @@
 # 
 # Translators:
-# trendspotter <jirka.p@volny.cz>, 2022
+# Jiří Podhorecký, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-11-18T08:42:29.083Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
-"Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
+"Last-Translator: Jiří Podhorecký, 2023\n"
+"Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-msgid "Maps"
-msgstr "Mapy"
+msgid "Untitled map, {{date}}"
+msgstr ""
 
-msgid "Map \"{{name}}\" is saved."
-msgstr "Mapa \"{{name}}\" je uložena."
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
 
 msgid "Failed to save map: {{message}}"
 msgstr ""
@@ -39,6 +39,18 @@ msgstr "Barva"
 msgid "Size"
 msgstr "Velikost"
 
+msgid "Name"
+msgstr "Název"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Hodnota"
+
+msgid "Display"
+msgstr "Zobrazit"
+
 msgid "Data element group"
 msgstr "Skupina datových prvků"
 
@@ -57,23 +69,71 @@ msgstr "Detaily"
 msgid "Yes"
 msgstr "Ano"
 
+msgid "None"
+msgstr "Žádný"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Místo konání události"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Pole souřadnic"
 
-msgid "None"
-msgstr "Žádný"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Datová položka"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Datová položka události"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr "Styl podle datového prvku"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filtrování je k dispozici po výběru fáze programu."
+
+msgid "Add filter"
+msgstr "Přidat filtr"
+
+msgid "Data item"
+msgstr "Datová položka"
+
+msgid "one of"
+msgstr "jeden z"
+
+msgid "contains"
+msgstr "obsahuje"
+
+msgid "is"
+msgstr "je"
+
+msgid "is not"
+msgstr "není"
+
+msgid "Operator"
+msgstr "Operátor"
+
+msgid "Date"
+msgstr "datum"
 
 msgid "Data set"
 msgstr "Datová sada"
@@ -84,17 +144,11 @@ msgstr "Index"
 msgid "Org unit"
 msgstr "Organizační jednotka"
 
-msgid "Name"
-msgstr "Název"
-
 msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
 msgstr "Čas události"
-
-msgid "Value"
-msgstr "Hodnota"
 
 msgid "Legend"
 msgstr "Legenda"
@@ -115,9 +169,6 @@ msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 "Tabulka dat není podporována, pokud jsou události seskupeny na serveru."
 
-msgid "Add filter"
-msgstr "Přidat filtr"
-
 msgid "Items"
 msgstr "Položky"
 
@@ -127,14 +178,39 @@ msgstr "Dimenze"
 msgid "Download"
 msgstr "Stáhnout"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "Stáhnout mapu"
 
-msgid "Show name"
-msgstr "Zobrazit název"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "Zobrazit legendu"
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -148,8 +224,8 @@ msgstr "Zrušit"
 msgid "Close"
 msgstr "Zavřít"
 
-msgid "Legend position"
-msgstr "Pozice legendy"
+msgid "No organisation units are selected"
+msgstr "Nejsou vybrány žádné organizační jednotky"
 
 msgid "Organisation Units"
 msgstr "Organizační jednotky"
@@ -162,9 +238,6 @@ msgstr "Barva bodu"
 
 msgid "Point radius"
 msgstr "Poloměr bodu"
-
-msgid "No organisation units are selected"
-msgstr "Nejsou vybrány žádné organizační jednotky"
 
 msgid "event"
 msgstr "událost"
@@ -275,9 +348,6 @@ msgstr "Org. Jednotky"
 
 msgid "Filter"
 msgstr "Filtr"
-
-msgid "Events"
-msgstr "Události"
 
 msgid "Group events"
 msgstr "Skupinové události"
@@ -411,25 +481,6 @@ msgstr "Zobrazení vztahů trasovaných entit v Mapách je experimentální funk
 msgid "Display Tracked Entity relationships"
 msgstr "Zobrazit vztahy trasované entity"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr "Zahrnout vztahy, které spojují entity mimo program \"{{program}}\""
-
-msgid "Selection mode"
-msgstr "Režim výběru"
-
-msgid "Selected only"
-msgstr "Pouze vybrané"
-
-msgid "Selected and below"
-msgstr "Vybrané a níže"
-
-msgid "Selected and all below"
-msgstr "Vybráno a vše níže"
-
-msgid "Tracked entities"
-msgstr "Trasované entity"
-
 msgid "Tracked entity style"
 msgstr "Styl trasované entity"
 
@@ -442,53 +493,11 @@ msgstr "Styl související entity"
 msgid "Line Color"
 msgstr "Barva čáry"
 
-msgid "Failed to load relationship types."
-msgstr "Načtení typů vztahů se nezdařilo."
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Pro trasovaný typ entity {{type}} nebyly nalezeny žádné typy vztahů"
 
 msgid "Relationship type"
 msgstr "Typ vztahu"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "V aplikaci Mapy DHIS2 došlo k chybě."
-
-msgid "Something went wrong"
-msgstr "Něco se pokazilo"
-
-msgid "Refresh to try again"
-msgstr "Obnovte a zkuste to znovu"
-
-msgid "Hide technical details"
-msgstr "Skrýt technické podrobnosti"
-
-msgid "Show technical details"
-msgstr "Zobrazit technické podrobnosti"
-
-msgid "The following information may be requested by technical support."
-msgstr "Následující informace mohou být požadovány technickou podporou."
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filtrování je k dispozici po výběru fáze programu."
-
-msgid "one of"
-msgstr "jeden z"
-
-msgid "contains"
-msgstr "obsahuje"
-
-msgid "is"
-msgstr "je"
-
-msgid "is not"
-msgstr "není"
-
-msgid "Operator"
-msgstr "Operátor"
-
-msgid "Date"
-msgstr "datum"
 
 msgid "Remove filter"
 msgstr "Odebrat filtr"
@@ -532,14 +541,14 @@ msgid ""
 msgstr ""
 "GeoJSON je podporován většinou softwaru GIS, včetně QGIS a ArcGIS Desktop."
 
-msgid "Data download failed."
-msgstr "Stažení dat se nezdařilo."
-
 msgid "ID Format"
 msgstr "ID Format"
 
 msgid "Use human-readable keys"
 msgstr "Používejte klávesy čitelné člověkem"
+
+msgid "Data download failed."
+msgstr "Stažení dat se nezdařilo."
 
 msgid "External layer"
 msgstr "Vnější vrstva"
@@ -561,6 +570,9 @@ msgstr "Přepnout viditelnost"
 
 msgid "Set layer opacity"
 msgstr "Nastavit neprůhlednost vrstvy"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "Více akcí"
@@ -618,6 +630,9 @@ msgstr ""
 
 msgid "Not set"
 msgstr "Nenastaveno"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Organizační jednotka"
@@ -735,14 +750,14 @@ msgstr ""
 "Tento datový prvek má příliš mnoho možností ({{length}}). Maximální počet "
 "možností pro styling je {{max}}."
 
-msgid "No data found for this period."
-msgstr "Pro toto období nenalezeny žádné údaje."
-
 msgid "Use associated geometry"
 msgstr "Použít přidruženou geometrii"
 
-msgid "Select groups"
-msgstr "Vyberte skupiny"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "Pro toto období nenalezeny žádné údaje."
 
 msgid "Image of the organisation unit"
 msgstr "Obrázek organizační jednotky"
@@ -783,51 +798,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "Komentář"
 
-msgid "Select levels"
-msgstr "Vybrat úrovně"
-
 msgid "Organisation unit profile"
 msgstr "Profil organizační jednotky"
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr ""
-"Není možné kombinovat uživatelské organizační jednotky a vybírat jednotlivé "
-"jednotky."
+msgid "Selected only"
+msgstr "Pouze vybrané"
 
-msgid "user organisation unit"
-msgstr "organizační jednotka uživatele"
+msgid "Selected and below"
+msgstr "Vybrané a níže"
 
-msgid "right below user organisation unit"
-msgstr "přímo pod organizační jednotkou uživatele"
+msgid "Selected and all below"
+msgstr "Vybráno a vše níže"
 
-msgid "two levels below user organisation unit"
-msgstr "dvě úrovně pod organizační jednotkou uživatele"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{units}} v {{orgunits}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{units}} a přímo pod {{orgunits}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{units}} včetně a všechny pod {{orgunits}}"
-
-msgid "Selected organisation units"
-msgstr "Vybrané organizační jednotky"
-
-msgid "Main"
-msgstr "Hlavní"
-
-msgid "Below"
-msgstr "Níže"
-
-msgid "2 x below"
-msgstr "2 x níže"
-
-msgid "User organisation units"
-msgstr "Organizační jednotky uživatelů"
+msgid "Selection mode"
+msgstr "Režim výběru"
 
 msgid "Previous year"
 msgstr "Minulý rok"
@@ -1347,6 +1331,12 @@ msgstr "příbuzný"
 
 msgid "Thematic"
 msgstr "Tematický"
+
+msgid "Events"
+msgstr "Události"
+
+msgid "Tracked entities"
+msgstr "Trasované entity"
 
 msgid "Org units"
 msgstr "Organizační jednotky"

@@ -1,32 +1,29 @@
 # 
 # Translators:
-# Karoline Tufte Lien <karoline@dhis2.org>, 2021
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2022
+# Karoline Tufte Lien <karoline@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2022\n"
-"Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
+"Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Maps"
-msgstr "Kart"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "Kart \"{{name}}\" er lagret."
-
-msgid "Failed to save map. {{message}}"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Error"
-msgstr "Feil"
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr "Klassifisering"
@@ -42,6 +39,18 @@ msgstr "Farge"
 
 msgid "Size"
 msgstr "Størrelse"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Verdi"
+
+msgid "Display"
+msgstr "Vis"
 
 msgid "Data element group"
 msgstr "Dataelementgruppe"
@@ -61,23 +70,71 @@ msgstr "Detaljer"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "None"
+msgstr "Ingen"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Hendelsessted"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Koordinatfelt"
 
-msgid "None"
-msgstr "Ingen"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Datapunkt"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Hendelsesdatapunkt"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr "Style etter dataelement"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filtrering er tilgjengelig etter valg av programfase."
+
+msgid "Add filter"
+msgstr "Legg til filter"
+
+msgid "Data item"
+msgstr "Datapunkt"
+
+msgid "one of"
+msgstr "en av"
+
+msgid "contains"
+msgstr "inneholder"
+
+msgid "is"
+msgstr "er"
+
+msgid "is not"
+msgstr "er ikke"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "Dato"
 
 msgid "Data set"
 msgstr "Datasett"
@@ -88,17 +145,11 @@ msgstr "Indeks"
 msgid "Org unit"
 msgstr "Org enhet"
 
-msgid "Name"
-msgstr "Navn"
-
 msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
 msgstr "Hendelsestid"
-
-msgid "Value"
-msgstr "Verdi"
 
 msgid "Legend"
 msgstr "Tegnforklaring"
@@ -118,9 +169,6 @@ msgstr "Type"
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Datatabell støttes ikke når hendelser er gruppert på serveren."
 
-msgid "Add filter"
-msgstr "Legg til filter"
-
 msgid "Items"
 msgstr "Punkter"
 
@@ -130,14 +178,39 @@ msgstr "Dimensjon"
 msgid "Download"
 msgstr "Last ned"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "Last ned kart"
 
-msgid "Show name"
-msgstr "Vis navn"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "Vis tegnforklaring"
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -151,8 +224,8 @@ msgstr "Avbryt"
 msgid "Close"
 msgstr "Lukk"
 
-msgid "Legend position"
-msgstr "Tegnforklaringsplassering"
+msgid "No organisation units are selected"
+msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "Organisation Units"
 msgstr "Organisasjonsenheter"
@@ -165,9 +238,6 @@ msgstr "Punktfarge"
 
 msgid "Point radius"
 msgstr "Punktradius"
-
-msgid "No organisation units are selected"
-msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "event"
 msgstr "hendelse"
@@ -200,9 +270,6 @@ msgid "Add layer"
 msgstr "Legg til lag"
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -277,9 +344,6 @@ msgstr "Org Enheter"
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "Events"
-msgstr "Hendelser"
 
 msgid "Group events"
 msgstr "Grupper hendelser"
@@ -414,26 +478,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr "Vis sporet enhetsrelasjoner"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-"Inkluder relasjoner som linker enheter utenfor \"{{program}}\" - programmet"
-
-msgid "Selection mode"
-msgstr "Valgmodus"
-
-msgid "Selected only"
-msgstr "Bare valgt"
-
-msgid "Selected and below"
-msgstr "Valgt og under"
-
-msgid "Selected and all below"
-msgstr "Valgt og alle under"
-
-msgid "Tracked entities"
-msgstr "Sporede enheter"
-
 msgid "Tracked entity style"
 msgstr "Sporet enhetstil"
 
@@ -446,53 +490,11 @@ msgstr "Stil for relatert enhet"
 msgid "Line Color"
 msgstr "Linjefarge"
 
-msgid "Failed to load relationship types."
-msgstr "Kunne ikke laste inn relasjonstyper."
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Ingen relasjonstyper ble funnet for sporet enhetstype {{type}}"
 
 msgid "Relationship type"
 msgstr "Relasjonstype"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "Det oppstod en feil i DHIS2 Kart-applikasjonen."
-
-msgid "Something went wrong"
-msgstr "Noe gikk galt"
-
-msgid "Refresh to try again"
-msgstr "Oppdater for å prøve igjen"
-
-msgid "Hide technical details"
-msgstr "Skjul tekniske detaljer"
-
-msgid "Show technical details"
-msgstr "Vis tekniske detaljer"
-
-msgid "The following information may be requested by technical support."
-msgstr "Følgende informasjon kan bli bedt om av teknisk support."
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filtrering er tilgjengelig etter valg av programfase."
-
-msgid "one of"
-msgstr "en av"
-
-msgid "contains"
-msgstr "inneholder"
-
-msgid "is"
-msgstr "er"
-
-msgid "is not"
-msgstr "er ikke"
-
-msgid "Operator"
-msgstr "Operator"
-
-msgid "Date"
-msgstr "Dato"
 
 msgid "Remove filter"
 msgstr "Fjern filter"
@@ -537,14 +539,14 @@ msgstr ""
 "GeoJSON støttes av de fleste GIS-programvare, inkludert QGIS og ArcGIS "
 "Desktop."
 
-msgid "Data download failed."
-msgstr "Nedlasting av data mislyktes."
-
 msgid "ID Format"
 msgstr "ID-format"
 
 msgid "Use human-readable keys"
 msgstr "Bruk menneskelige lesbare nøkler"
+
+msgid "Data download failed."
+msgstr "Nedlasting av data mislyktes."
 
 msgid "External layer"
 msgstr "Eksternt lag"
@@ -566,6 +568,9 @@ msgstr "Slå av/på synlighet"
 
 msgid "Set layer opacity"
 msgstr "Angi lagets gjennomsiktighet"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "Flere handlinger"
@@ -618,8 +623,14 @@ msgstr "Lengdegrad"
 msgid "Latitude"
 msgstr "Breddegrad"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Ikke satt"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Organisasjonsenhet"
@@ -733,14 +744,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr "Ingen data funnet for denne perioden."
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "Velg grupper"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "Ingen data funnet for denne perioden."
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -781,51 +792,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "Kommentar"
 
-msgid "Select levels"
-msgstr "Velg nivåer"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr ""
-"Det er ikke mulig å kombinere brukerorganisasjonsenheter og velge "
-"individuelle enheter."
+msgid "Selected only"
+msgstr "Bare valgt"
 
-msgid "user organisation unit"
-msgstr "brukerorganisasjonsenhet"
+msgid "Selected and below"
+msgstr "Valgt og under"
 
-msgid "right below user organisation unit"
-msgstr "rett under brukerorganisasjonsenhet"
+msgid "Selected and all below"
+msgstr "Valgt og alle under"
 
-msgid "two levels below user organisation unit"
-msgstr "to nivå under brukerorganisasjonsenhet"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{units}} i {{orgunits}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{units}} i og rett under {{orgunits}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{units}} i og alle under {{orgunits}}"
-
-msgid "Selected organisation units"
-msgstr "Valgte organisasjonsenheter"
-
-msgid "Main"
-msgstr "Hoved"
-
-msgid "Below"
-msgstr "Under"
-
-msgid "2 x below"
-msgstr "2 x under"
-
-msgid "User organisation units"
-msgstr "Brukerorganisasjonsenheter"
+msgid "Selection mode"
+msgstr "Valgmodus"
 
 msgid "Previous year"
 msgstr "Forrige år"
@@ -1318,6 +1298,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Organisasjonsenheter"
 
+msgid "Error"
+msgstr "Feil"
+
 msgid "Thematic layer"
 msgstr "Tematisk lag"
 
@@ -1335,6 +1318,12 @@ msgstr "relatert"
 
 msgid "Thematic"
 msgstr "Tematisk"
+
+msgid "Events"
+msgstr "Hendelser"
+
+msgid "Tracked entities"
+msgstr "Sporede enheter"
 
 msgid "Org units"
 msgstr "Org enhet"
