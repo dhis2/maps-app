@@ -4,6 +4,7 @@ cypress/videos/
 cypress/screenshots/
 cypress/downloads/
 cypress.env.json
+yarn-error.log
 
 # DHIS2 Platform
 .d2
