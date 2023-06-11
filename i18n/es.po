@@ -462,7 +462,7 @@ msgid "Something went wrong"
 msgstr "Algo ha ido mal"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Actualizar e intentar de nuevo"
 
 msgid "Hide technical details"
 msgstr "Ocultar detalles técnicos"
@@ -617,7 +617,7 @@ msgid "Latitude"
 msgstr "Latitud"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Visualización de la interpretación desde {{interpretationDate}}"
 
 msgid "Not set"
 msgstr "No configurado"
