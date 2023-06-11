@@ -465,7 +465,7 @@ msgid "Something went wrong"
 msgstr "Algo ha ido mal"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Actualizar e intentar de nuevo"
 
 msgid "Hide technical details"
 msgstr "Ocultar detalles técnicos"
