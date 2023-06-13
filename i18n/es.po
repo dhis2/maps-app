@@ -73,7 +73,7 @@ msgid "None"
 msgstr "Ninguno"
 
 msgid "Data item"
-msgstr ""
+msgstr "Elemento de datos"
 
 msgid "Event data item"
 msgstr "Event data item"
