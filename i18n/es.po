@@ -840,7 +840,7 @@ msgid "Not available offline"
 msgstr "No disponible sin conexión a internet"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Indicador de Programa"
 
 msgid "No program"
 msgstr ""
@@ -1187,16 +1187,16 @@ msgid "Weekly"
 msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Semanal (Inicio miércoles)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Semanal (Inicio jueves)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Semanal (Inicio sábado)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Semanal (Inicio domingo)"
 
 msgid "Bi-weekly"
 msgstr "Quincenal"
