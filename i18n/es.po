@@ -808,7 +808,7 @@ msgid "End date"
 msgstr "Fecha final"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Indicador de Programa"
 
 msgid "No program"
 msgstr ""
@@ -955,13 +955,13 @@ msgid "Last 30 days"
 msgstr "Últimos 30 días"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "Últimos 60 días"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "Últimos 90 días"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "Últimos 180 días"
 
 msgid "This week"
 msgstr "Esta semana"
