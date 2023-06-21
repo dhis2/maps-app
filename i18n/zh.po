@@ -2,15 +2,15 @@
 # Translators:
 # 晓东 林 <13981924470@126.com>, 2022
 # phil_dhis2, 2022
-# easylin <lin_xd@126.com>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
+# easylin <lin_xd@126.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,10 +19,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Untitled map, {{date}}"
-msgstr ""
+msgstr "无标题地图，{{日期}}"
 
 msgid "Map \"{{- name}}\" is saved."
-msgstr ""
+msgstr "地图“{{- name}}”已保存。"
 
 msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
@@ -46,7 +46,7 @@ msgid "Name"
 msgstr "名称"
 
 msgid "Name and value"
-msgstr ""
+msgstr "名称和值"
 
 msgid "Value"
 msgstr "值"
@@ -76,37 +76,37 @@ msgid "None"
 msgstr "无"
 
 msgid "Cascading"
-msgstr ""
+msgstr "级联"
 
 msgid "Event location"
 msgstr "事件位置"
 
 msgid "Enrollment location"
-msgstr ""
+msgstr "招生地点"
 
 msgid "Tracked entity location"
-msgstr ""
+msgstr "跟踪实体位置"
 
 msgid "Organisation unit location"
-msgstr ""
+msgstr "组织单位位置"
 
 msgid "Fallback coordinate field"
-msgstr ""
+msgstr "回退坐标字段"
 
 msgid "Coordinate field"
 msgstr "坐标字段"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
-msgstr ""
+msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
 
 msgid "Event > org unit coordinate"
-msgstr ""
+msgstr "事件 > 组织单位坐标"
 
 msgid "Event data item"
 msgstr "事件数据条目"
 
 msgid "Selected value not available in in list: {{name}}"
-msgstr ""
+msgstr "所选值在列表中不可用：{{name}}"
 
 msgid "Style by data element"
 msgstr "按数据元风格显示"
@@ -181,38 +181,38 @@ msgid "Download"
 msgstr "下载"
 
 msgid "Exit download mode"
-msgstr ""
+msgstr "退出下载模式"
 
 msgid "Download map"
 msgstr "下载地图"
 
 msgid "Show map name"
-msgstr ""
+msgstr "显示地图名称"
 
 msgid "Show map description"
-msgstr ""
+msgstr "显示地图说明"
 
 msgid "Description can be changed from File > Rename menu"
-msgstr ""
+msgstr "可以从“文件”>“重命名”菜单更改说明"
 
 msgid ""
 "Set the map description when you save the map or from File > Rename menu"
-msgstr ""
+msgstr "保存地图时或从“文件”>“重命名”菜单中设置地图描述"
 
 msgid "Show legend"
 msgstr "显示图例"
 
 msgid "Show overview map"
-msgstr ""
+msgstr "显示概览图"
 
 msgid "Show north arrow"
-msgstr ""
+msgstr "显示指北针"
 
 msgid "Include margins in download"
-msgstr ""
+msgstr "在下载中包含边距"
 
 msgid "Resize your browser window to change the map dimensions."
-msgstr ""
+msgstr "调整浏览器窗口大小以更改地图尺寸。"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -566,7 +566,7 @@ msgid "Set layer opacity"
 msgstr "设置图层透明性"
 
 msgid "Toggle layer menu"
-msgstr ""
+msgstr "切换图层菜单"
 
 msgid "More actions"
 msgstr "更多操作"
@@ -626,7 +626,7 @@ msgid "Not set"
 msgstr "没有设置"
 
 msgid "Could not retrieve event data"
-msgstr ""
+msgstr "无法检索事件数据"
 
 msgid "Organisation unit"
 msgstr "组织机构"
@@ -741,7 +741,7 @@ msgid "Use associated geometry"
 msgstr "使用相关的几何坐标"
 
 msgid "None (default)"
-msgstr ""
+msgstr "无（默认）"
 
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
