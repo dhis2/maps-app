@@ -155,7 +155,7 @@ const DownloadSettings = () => {
                                     )
                                 }
                             />
-                            {showNorthArrow && (
+                            {showNorthArrow && !isSplitView && (
                                 <NorthArrowPosition
                                     position={northArrowPosition}
                                     onChange={(value) =>
