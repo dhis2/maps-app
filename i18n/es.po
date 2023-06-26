@@ -11,15 +11,15 @@
 # Prabhjot Singh, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Carlos Tejo Alonso, 2022
-# Janeth Cruz, 2023
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
+# Janeth Cruz, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2023\n"
+"Last-Translator: Janeth Cruz, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -302,7 +302,7 @@ msgid "Program stage is required"
 msgstr ""
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -356,7 +356,7 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "Período requerido"
 
 msgid "Indicator"
 msgstr "Indicadores"
@@ -544,7 +544,7 @@ msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
-msgstr ""
+msgstr "Más acciones"
 
 msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
