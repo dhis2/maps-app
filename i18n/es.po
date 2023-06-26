@@ -306,7 +306,7 @@ msgid "Program stage is required"
 msgstr ""
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -369,7 +369,7 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "Período requerido"
 
 msgid "Indicator"
 msgstr "Indicadores"
@@ -480,13 +480,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "contiene"
 
 msgid "is"
 msgstr "es"
 
 msgid "is not"
-msgstr ""
+msgstr "no es"
 
 msgid "Operator"
 msgstr "Operador"
@@ -566,7 +566,7 @@ msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
-msgstr ""
+msgstr "Más acciones"
 
 msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
