@@ -22,6 +22,7 @@ import {
     DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
+    RENDERING_STRATEGY_SINGLE,
 } from '../../../constants/layers.js'
 import {
     RELATIVE_PERIODS,
@@ -175,11 +176,22 @@ class ThematicDialog extends Component {
     componentDidUpdate(prev) {
         const {
             columns,
+            periodType,
+            renderingStrategy,
             setClassification,
             setLegendSet,
+            setRenderingStrategy,
             validateLayer,
             onLayerValidation,
         } = this.props
+
+        // Set rendering strategy to single if not relative period
+        if (
+            periodType !== RELATIVE_PERIODS &&
+            renderingStrategy !== RENDERING_STRATEGY_SINGLE
+        ) {
+            setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
+        }
 
         // Set the default classification/legend for selected data item without visiting the style tab
         if (columns !== prev.columns) {
