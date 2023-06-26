@@ -297,7 +297,7 @@ msgid "Program stage is required"
 msgstr ""
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -357,7 +357,7 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "Período requerido"
 
 msgid "Indicator"
 msgstr "Indicadores"
@@ -468,13 +468,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "contiene"
 
 msgid "is"
 msgstr "es"
 
 msgid "is not"
-msgstr ""
+msgstr "no es"
 
 msgid "Operator"
 msgstr "Operador"
@@ -554,7 +554,7 @@ msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
-msgstr ""
+msgstr "Más acciones"
 
 msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
@@ -840,7 +840,7 @@ msgid "Not available offline"
 msgstr "No disponible sin conexión a internet"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Indicador de Programa"
 
 msgid "No program"
 msgstr ""
@@ -1187,16 +1187,16 @@ msgid "Weekly"
 msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Semanal (Inicio miércoles)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Semanal (Inicio jueves)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Semanal (Inicio sábado)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Semanal (Inicio domingo)"
 
 msgid "Bi-weekly"
 msgstr "Quincenal"
