@@ -316,15 +316,15 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
-        layerId: 'MODIS/006/MCD12Q1',
-        datasetId: 'MODIS/006/MCD12Q1', // No longer in use: 'MODIS/051/MCD12Q1',
+        layerId: 'MODIS/006/MCD12Q1', // Layer id kept for backward compability for saved maps
+        datasetId: 'MODIS/061/MCD12Q1', // No longer in use: 'MODIS/006/MCD12Q1' / 'MODIS/051/MCD12Q1',
         name: i18n.t('Landcover'),
         description: i18n.t(
             'Distinct landcover types collected from satellites.'
         ),
         source: 'NASA LP DAAC / Google Earth Engine',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1',
+            'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
         periodType: 'Yearly',
         band: 'LC_Type1',
         filters: defaultFilters,
