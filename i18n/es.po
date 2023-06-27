@@ -31,7 +31,7 @@ msgid "Maps"
 msgstr "Mapas"
 
 msgid "Classification"
-msgstr ""
+msgstr "Clasificación"
 
 msgid "Classes"
 msgstr ""
@@ -124,7 +124,7 @@ msgid "Add filter"
 msgstr "Añadir filtro"
 
 msgid "Items"
-msgstr ""
+msgstr "Elementos"
 
 msgid "Dimension"
 msgstr "Dimensión"
@@ -167,7 +167,7 @@ msgid "Point radius"
 msgstr "Point radius"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "Group Set"
 msgstr "Set de grupos"
@@ -207,7 +207,7 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
-msgstr ""
+msgstr "Agregar capa"
 
 msgid "Aggregation method"
 msgstr ""
@@ -287,7 +287,7 @@ msgid "Group events"
 msgstr ""
 
 msgid "View all events"
-msgstr ""
+msgstr "Ver todos los eventos"
 
 msgid "Radius"
 msgstr "Radio"
@@ -514,7 +514,7 @@ msgid ""
 msgstr ""
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Error en la descarga de datos."
 
 msgid "ID Format"
 msgstr ""
@@ -529,7 +529,7 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Cargando capa"
 
 msgid "{{name}} deleted."
 msgstr ""
@@ -541,7 +541,7 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Establecer la opacidad de la capa"
 
 msgid "More actions"
 msgstr "Más acciones"
@@ -553,7 +553,7 @@ msgid "Show data table"
 msgstr ""
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Abrir como gráfico"
 
 msgid "Download data"
 msgstr "Descarga de datos"
@@ -688,7 +688,7 @@ msgid ""
 msgstr ""
 
 msgid "Data items"
-msgstr ""
+msgstr "Elementos de datos"
 
 msgid "Proceed"
 msgstr "Proceder"
@@ -708,7 +708,7 @@ msgid "Loading data"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "No se encontraron datos para este período."
 
 msgid "Select groups"
 msgstr "Seleccionar grupos"
@@ -1249,13 +1249,13 @@ msgid "not one of"
 msgstr ""
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "no contiene"
 
 msgid "true"
 msgstr ""
 
 msgid "false"
-msgstr ""
+msgstr "falso"
 
 msgid "No"
 msgstr "No"
