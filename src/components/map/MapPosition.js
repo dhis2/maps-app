@@ -107,7 +107,7 @@ const MapPosition = () => {
                                     isSplitView={isSplitView}
                                 />
                             )}
-                            {showNorthArrow && (
+                            {showNorthArrow && !isSplitView && (
                                 <NorthArrow
                                     map={map.getMapGL()}
                                     downloadMapInfoOpen={downloadMapInfoOpen}
