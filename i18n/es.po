@@ -40,7 +40,7 @@ msgid "Error"
 msgstr "Error"
 
 msgid "Classification"
-msgstr ""
+msgstr "Clasificación"
 
 msgid "Classes"
 msgstr ""
@@ -133,7 +133,7 @@ msgid "Add filter"
 msgstr "Añadir filtro"
 
 msgid "Items"
-msgstr ""
+msgstr "Elementos"
 
 msgid "Dimension"
 msgstr "Dimensión"
@@ -176,7 +176,7 @@ msgid "Point radius"
 msgstr "Point radius"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "event"
 msgstr "evento"
@@ -206,7 +206,7 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
-msgstr ""
+msgstr "Agregar capa"
 
 msgid "Aggregation method"
 msgstr ""
@@ -291,7 +291,7 @@ msgid "Group events"
 msgstr ""
 
 msgid "View all events"
-msgstr ""
+msgstr "Ver todos los eventos"
 
 msgid "Radius"
 msgstr "Radio"
@@ -306,7 +306,7 @@ msgid "Program stage is required"
 msgstr ""
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -369,7 +369,7 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "Período requerido"
 
 msgid "Indicator"
 msgstr "Indicadores"
@@ -480,13 +480,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "contiene"
 
 msgid "is"
 msgstr "es"
 
 msgid "is not"
-msgstr ""
+msgstr "no es"
 
 msgid "Operator"
 msgstr "Operador"
@@ -536,7 +536,7 @@ msgid ""
 msgstr ""
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Error en la descarga de datos."
 
 msgid "ID Format"
 msgstr ""
@@ -551,7 +551,7 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Cargando capa"
 
 msgid "{{name}} deleted."
 msgstr ""
@@ -563,10 +563,10 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Establecer la opacidad de la capa"
 
 msgid "More actions"
-msgstr ""
+msgstr "Más acciones"
 
 msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
@@ -575,7 +575,7 @@ msgid "Show data table"
 msgstr ""
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Abrir como gráfico"
 
 msgid "Download data"
 msgstr "Descarga de datos"
@@ -718,7 +718,7 @@ msgid ""
 msgstr ""
 
 msgid "Data items"
-msgstr ""
+msgstr "Elementos de datos"
 
 msgid "Proceed"
 msgstr "Proceder"
@@ -732,7 +732,7 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "No se encontraron datos para este período."
 
 msgid "Use associated geometry"
 msgstr ""
@@ -1332,13 +1332,13 @@ msgid "not one of"
 msgstr ""
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "no contiene"
 
 msgid "true"
 msgstr ""
 
 msgid "false"
-msgstr ""
+msgstr "falso"
 
 msgid "No"
 msgstr "No"
