@@ -107,6 +107,7 @@ class Layer extends PureComponent {
         await this.removeLayer()
         await this.createLayer(true)
         this.setLayerOrder()
+        this.setLayerVisibility()
     }
 
     // Override in subclass if needed
