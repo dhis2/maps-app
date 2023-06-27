@@ -10,10 +10,13 @@ export const openMap = (mapName) => {
         method: 'GET',
         url: /\/maps\?/,
     }).as('fetchListOfMaps')
+
+    cy.getByDataTest('open-file-dialog-modal-name-filter').find('input').clear()
+
+    cy.getByDataTest('open-file-dialog-modal-name-filter').find('input').focus()
+
     cy.getByDataTest('open-file-dialog-modal-name-filter')
         .find('input')
-        .clear()
-        .focus()
         .type(mapName)
 
     cy.wait('@fetchListOfMaps')
@@ -42,6 +45,9 @@ export const saveAsNewMap = (newMapName) => {
     cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
         .find('input')
         .clear()
+
+    cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
+        .find('input')
         .type(newMapName)
 
     cy.get('button').contains('Save').click()
@@ -58,6 +64,9 @@ export const saveNewMap = (newMapName) => {
     cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
         .find('input')
         .clear()
+
+    cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
+        .find('input')
         .type(newMapName)
 
     cy.get('button').contains('Save').click()
