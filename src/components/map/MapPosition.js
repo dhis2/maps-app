@@ -62,8 +62,11 @@ const MapPosition = () => {
     useEffect(() => {
         if (map) {
             const mapgl = map.getMapGL()
-            mapgl.setBearing(0)
-            mapgl.setPitch(0)
+
+            if (mapgl) {
+                mapgl.setBearing(0)
+                mapgl.setPitch(0)
+            }
         }
     }, [map, mapId])
 
@@ -79,7 +82,11 @@ const MapPosition = () => {
                 })
             })
 
-            setTimeout(() => map.resize(), 500)
+            setTimeout(() => {
+                if (map.getMapGL()) {
+                    map.resize()
+                }
+            }, 500)
         }
     }, [map, downloadMode])
 
