@@ -21,6 +21,9 @@ const activeBasemap = (basemapName) => {
     cy.getByDataTest('basemaplistitem-name')
         .contains(basemapName)
         .scrollIntoView()
+
+    cy.getByDataTest('basemaplistitem-name')
+        .contains(basemapName)
         .siblings('[data-test=basemaplistitem-img]')
         .should('have.css', 'outline', 'rgb(21, 101, 192) solid 3px') // TODO - could remove the actual attribute value
 }
