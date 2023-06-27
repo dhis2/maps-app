@@ -82,7 +82,7 @@ const SplitView = ({
                     <BasemapLayer {...basemap} />
                     <ThematicLayer
                         index={1}
-                        {...layer}
+                        {...layer} // needs to be before period
                         period={period}
                         feature={feature}
                         openContextMenu={openContextMenu}
