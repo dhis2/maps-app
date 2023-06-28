@@ -36,6 +36,7 @@ const CalculationSelect = ({ calculation, className, errorText, onChange }) => {
             errorText={
                 error?.message || (!calculation && errorText ? errorText : null)
             }
+            filterable={true}
             dataTest="calculationselect"
         />
     )

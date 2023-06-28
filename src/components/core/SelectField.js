@@ -25,6 +25,7 @@ const SelectField = (props) => {
         prefix,
         loading,
         multiple,
+        filterable,
         disabled,
         onChange,
         className,
@@ -65,6 +66,7 @@ const SelectField = (props) => {
                 label={label}
                 prefix={prefix}
                 selected={!isLoading ? selected : undefined}
+                filterable={filterable}
                 disabled={disabled}
                 loading={isLoading}
                 error={!!errorText}
@@ -89,6 +91,7 @@ SelectField.propTypes = {
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
     errorText: PropTypes.string, // If set, shows the error message below the SelectField
+    filterable: PropTypes.bool,
     helpText: PropTypes.string, // If set, shows the help text below the SelectField
     items: PropTypes.arrayOf(
         PropTypes.shape({
