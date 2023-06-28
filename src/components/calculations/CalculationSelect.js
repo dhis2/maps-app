@@ -10,11 +10,7 @@ const CALCULATIONS_QUERY = {
     calculations: {
         resource: 'expressionDimensionItems',
         params: ({ nameProperty }) => ({
-            fields: [
-                'id',
-                `${nameProperty}~rename(name)`,
-                'trackedEntityType[id,displayName~rename(name)]',
-            ],
+            fields: ['id', `${nameProperty}~rename(name)`],
             paging: false,
         }),
     },

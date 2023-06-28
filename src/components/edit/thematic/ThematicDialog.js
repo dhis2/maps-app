@@ -411,7 +411,6 @@ class ThematicDialog extends Component {
                                 ),
                             ]}
                             {valueType === dimConf.calculation.objectName && (
-                                // Calculation
                                 <CalculationSelect
                                     calculation={dataItem}
                                     onChange={setDataItem}
@@ -620,7 +619,6 @@ class ThematicDialog extends Component {
             }
         }
 
-        // Calculations
         if (valueType === dimConf.calculation.objectName && !dataItem) {
             return this.setErrorState(
                 'calculationError',
