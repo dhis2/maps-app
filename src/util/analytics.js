@@ -31,7 +31,6 @@ export const getDataItemFromColumns = (columns = []) =>
 
 export const setDataItemInColumns = (dataItem, dimension) => {
     const dim = dimConf[dimension]
-
     return dim
         ? [
               createDimension(

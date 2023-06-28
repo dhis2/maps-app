@@ -88,11 +88,6 @@ const layerEdit = (state = null, action) => {
             }
 
         case types.LAYER_EDIT_DATA_ITEM_SET:
-            console.log(
-                'columns',
-                setDataItemInColumns(action.dataItem, action.dimension)
-            )
-
             return {
                 ...state,
                 columns: setDataItemInColumns(
