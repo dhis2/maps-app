@@ -55,6 +55,7 @@ import RenderingStrategy from '../../periods/RenderingStrategy.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
+import CalculationSelect from '../../calculations/CalculationSelect.js'
 import { SystemSettingsCtx } from '../../SystemSettingsProvider.js'
 import Labels from '../shared/Labels.js'
 import styles from '../styles/LayerDialog.module.css'
@@ -255,6 +256,7 @@ class ThematicDialog extends Component {
             dataElementError,
             dataSetError,
             programError,
+            calculationError,
             eventDataItemError,
             programIndicatorError,
             periodTypeError,
@@ -408,6 +410,15 @@ class ThematicDialog extends Component {
                                     />
                                 ),
                             ]}
+                            {valueType === dimConf.calculation.objectName && (
+                                // Calculation
+                                <CalculationSelect
+                                    calculation={dataItem}
+                                    onChange={setDataItem}
+                                    className={styles.select}
+                                    errorText={calculationError}
+                                />
+                            )}
                             <AggregationTypeSelect className={styles.select} />
                             <CompletedOnlyCheckbox valueType={valueType} />
                         </div>
@@ -607,6 +618,15 @@ class ThematicDialog extends Component {
                           'data'
                       )
             }
+        }
+
+        // Calculations
+        if (valueType === dimConf.calculation.objectName && !dataItem) {
+            return this.setErrorState(
+                'calculationError',
+                i18n.t('Calculation is required'),
+                'data'
+            )
         }
 
         if (!period && periodType !== START_END_DATES) {
