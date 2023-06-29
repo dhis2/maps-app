@@ -265,7 +265,7 @@ msgid "thematic"
 msgstr "temática"
 
 msgid "org unit"
-msgstr ""
+msgstr "Unidad organizativa"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -311,7 +311,7 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "Unidad"
 
 msgid "Source"
 msgstr "Fuente"
@@ -374,7 +374,7 @@ msgid "Program is required"
 msgstr ""
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Se requiere una etapa del programa"
 
 msgid "No organisation units are selected."
 msgstr "No se ha seleccionado ninguna unidad organizativa"
@@ -386,7 +386,7 @@ msgid "Event status"
 msgstr "Estado del evento"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Color del límite"
 
 msgid "Buffer"
 msgstr ""
@@ -947,58 +947,58 @@ msgid ""
 msgstr ""
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Masculino 0 - 1 años"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Masculino 1 - 4 años"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Masculino 5 - 9 años"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Masculino 10 - 14 años"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Masculino 15 - 19 años"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Masculino 20 - 24 años"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Masculino 25 - 29 años"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Masculino 30 - 34 años"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Masculino 35 - 39 años"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Masculino 40 - 44 años"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Masculino 45 - 49 años"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Masculino 50 - 54 años"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Masculino 55 - 59 años"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Masculino 60 - 64 años"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Masculino 65 - 69 años"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Masculino 70 - 74 años"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Masculino 75 - 79 años"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Masculino 80 años y más"
 
 msgid "Female 0 - 1 years"
 msgstr ""
@@ -1078,7 +1078,7 @@ msgid "Elevation"
 msgstr "Elevación"
 
 msgid "meters"
-msgstr ""
+msgstr "metros"
 
 msgid "Elevation above sea-level."
 msgstr "Elevación sobre el nivel del mar."
