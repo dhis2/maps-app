@@ -2,14 +2,15 @@
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
 # phil_dhis2, 2021
+# channara rin, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
-"Language-Team: Khmer (https://www.transifex.com/hisp-uio/teams/100509/km/)\n"
+"Last-Translator: channara rin, 2023\n"
+"Language-Team: Khmer (https://app.transifex.com/hisp-uio/teams/100509/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -367,7 +368,7 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "សួចនាករ"
 
 msgid "Reporting rates"
 msgstr ""
@@ -929,7 +930,7 @@ msgid "Today"
 msgstr ""
 
 msgid "Yesterday"
-msgstr ""
+msgstr "កាលពីម្សិលមិញ"
 
 msgid "Last 3 days"
 msgstr ""
@@ -1191,7 +1192,7 @@ msgid "Event"
 msgstr ""
 
 msgid "No data found"
-msgstr ""
+msgstr "មិនមានទិន្នន័យបង្ហាញ"
 
 msgid "Facilities"
 msgstr ""
