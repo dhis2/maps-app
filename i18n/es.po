@@ -10,15 +10,15 @@
 # Carlos Tejo Alonso, 2022
 # Marta Vila <marta@dhis2.org>, 2023
 # Viktor Varland <viktor@dhis2.org>, 2023
-# Janeth Cruz, 2023
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
+# Janeth Cruz, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2023\n"
+"Last-Translator: Janeth Cruz, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgid "Failed to save map: {{message}}"
 msgstr ""
 
 msgid "Classification"
-msgstr ""
+msgstr "Clasificación"
 
 msgid "Classes"
 msgstr ""
@@ -121,6 +121,7 @@ msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
+"El filtrado está disponible después de seleccionar una etapa del programa."
 
 msgid "Add filter"
 msgstr "Añadir filtro"
@@ -178,9 +179,11 @@ msgstr "Tipo"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"La tabla de datos no es soportada cuando los eventos están agrupados en el "
+"servidor."
 
 msgid "Items"
-msgstr ""
+msgstr "Elementos"
 
 msgid "Dimension"
 msgstr "Dimensión"
@@ -225,6 +228,8 @@ msgstr ""
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"La descarga de mapas no es compatible con su navegador. Prueba Google Chrome"
+" o Firefox."
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -233,7 +238,7 @@ msgid "Close"
 msgstr "Cerrar"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "Organisation Units"
 msgstr "Unidades Organizativas"
@@ -254,31 +259,31 @@ msgid "tracked entity"
 msgstr ""
 
 msgid "facility"
-msgstr ""
+msgstr "establecimiento"
 
 msgid "thematic"
-msgstr ""
+msgstr "temática"
 
 msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Editar capa {{name}}"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Agregar nueva capa {{name}}"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Actualizar capa"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Agregar capa"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Método de agregación"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -321,7 +326,7 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Cargando períodos"
 
 msgid "Min value is required"
 msgstr ""
@@ -348,7 +353,7 @@ msgid "Steps"
 msgstr "Pasos"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unidades organizativas"
 
 msgid "Filter"
 msgstr "filtro"
@@ -357,7 +362,7 @@ msgid "Group events"
 msgstr ""
 
 msgid "View all events"
-msgstr ""
+msgstr "Ver todos los eventos"
 
 msgid "Radius"
 msgstr "Radio"
@@ -372,10 +377,10 @@ msgid "Program stage is required"
 msgstr ""
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "No se ha seleccionado ningún set de leyendas"
 
 msgid "Event status"
 msgstr "Estado del evento"
@@ -402,7 +407,7 @@ msgid "Only show completed events"
 msgstr ""
 
 msgid "Show no data"
-msgstr ""
+msgstr "No mostrar datos"
 
 msgid "Low radius"
 msgstr ""
@@ -414,7 +419,7 @@ msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "El radio debe estar entre {{min}} y {{max}}"
 
 msgid "Indicator group is required"
 msgstr ""
@@ -438,7 +443,7 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "Período requerido"
 
 msgid "Indicator"
 msgstr "Indicadores"
@@ -494,7 +499,7 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
+msgstr "Color de línea"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -550,7 +555,7 @@ msgid "Use human-readable keys"
 msgstr ""
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Error en la descarga de datos."
 
 msgid "External layer"
 msgstr "Capa externa"
@@ -559,10 +564,10 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Cargando capa"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} eliminado."
 
 msgid "Edit"
 msgstr "Editar"
@@ -571,22 +576,22 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Establecer la opacidad de la capa"
 
 msgid "Toggle layer menu"
 msgstr ""
 
 msgid "More actions"
-msgstr ""
+msgstr "Más acciones"
 
 msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Mostrar tabla de datos"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Abrir como gráfico"
 
 msgid "Download data"
 msgstr "Descarga de datos"
@@ -595,7 +600,7 @@ msgid "Edit layer"
 msgstr "Editar capa"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Eliminar capa"
 
 msgid "Mid"
 msgstr ""
@@ -619,7 +624,7 @@ msgid "Show longitude/latitude"
 msgstr "Mostrar longitud/latitud"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Mostrar {{name}}"
 
 msgid "Longitude"
 msgstr "Longitud"
@@ -672,7 +677,7 @@ msgid "Center map on line"
 msgstr ""
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Clic en la siguiente posición"
 
 msgid "Click where you want to start the measurement"
 msgstr ""
@@ -681,13 +686,13 @@ msgid "Delete"
 msgstr "Borrar"
 
 msgid "Distance"
-msgstr ""
+msgstr "Distancia"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Acceder a pantalla completa"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Salir de pantalla completa"
 
 msgid "Finish measurement"
 msgstr ""
@@ -711,7 +716,7 @@ msgid "Reset bearing to north"
 msgstr ""
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Buscar por lugar o dirección"
 
 msgid "Zoom in"
 msgstr "Ampliar"
@@ -723,7 +728,7 @@ msgid "Zoom to content"
 msgstr ""
 
 msgid "Open as map"
-msgstr ""
+msgstr "Abrir como mapa"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
@@ -732,7 +737,7 @@ msgid ""
 msgstr ""
 
 msgid "Data items"
-msgstr ""
+msgstr "Elementos de datos"
 
 msgid "Proceed"
 msgstr "Proceder"
@@ -752,7 +757,7 @@ msgid "None (default)"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "No se encontraron datos para este período."
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -809,7 +814,7 @@ msgid "Selection mode"
 msgstr "Modo de selección"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Año anterior"
 
 msgid "Next year"
 msgstr "Año siguiente"
@@ -830,7 +835,7 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Display periods"
-msgstr ""
+msgstr "Mostrar períodos"
 
 msgid "Single (aggregate)"
 msgstr ""
@@ -854,7 +859,7 @@ msgid "Program indicator"
 msgstr "Indicador de Programa"
 
 msgid "No program"
-msgstr ""
+msgstr "Sin programa"
 
 msgid "Program"
 msgstr "Program"
@@ -887,7 +892,7 @@ msgid "Percentage"
 msgstr "Porcentaje"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hectáreas"
 
 msgid "Acres"
 msgstr ""
@@ -908,7 +913,7 @@ msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr "Google Calles"
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
 msgstr "Google Híbrido"
@@ -917,7 +922,7 @@ msgid "Bing Road"
 msgstr ""
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing Dark"
 
 msgid "Bing Aerial"
 msgstr ""
@@ -926,7 +931,7 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "Population"
-msgstr ""
+msgstr "Población"
 
 msgid "people per hectare"
 msgstr ""
@@ -1076,13 +1081,13 @@ msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Elevación sobre el nivel del mar."
 
 msgid "Precipitation"
 msgstr "Precipitación"
 
 msgid "millimeter"
-msgstr ""
+msgstr "milímetro"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -1269,10 +1274,10 @@ msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "No tiene acceso a los datos de esta capa"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Se produjo un error desconocido al leer los datos de la capa"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
@@ -1284,7 +1289,7 @@ msgid "Event"
 msgstr "Evento"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Establecimientos"
 
 msgid "Facilities: No coordinates found"
 msgstr ""
@@ -1308,10 +1313,10 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
-msgstr ""
+msgstr "relacionado"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Temática"
 
 msgid "Events"
 msgstr "Eventos"
@@ -1326,13 +1331,13 @@ msgid "not one of"
 msgstr ""
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "no contiene"
 
 msgid "true"
-msgstr ""
+msgstr "verdadero"
 
 msgid "false"
-msgstr ""
+msgstr "falso"
 
 msgid "No"
 msgstr "No"
@@ -1349,10 +1354,10 @@ msgid "Facility"
 msgstr "Establecimiento"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "La fecha de inicio no es válida"
 
 msgid "End date is invalid"
 msgstr ""
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "La fecha final no puede ser anterior a la fecha de inicio"
