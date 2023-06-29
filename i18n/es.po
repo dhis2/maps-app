@@ -119,6 +119,8 @@ msgstr "Tipo"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"La tabla de datos no es soportada cuando los eventos están agrupados en el "
+"servidor."
 
 msgid "Add filter"
 msgstr "Añadir filtro"
@@ -144,6 +146,8 @@ msgstr "Mostrar leyenda"
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"La descarga de mapas no es compatible con su navegador. Prueba Google Chrome"
+" o Firefox."
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -186,31 +190,31 @@ msgid "tracked entity"
 msgstr ""
 
 msgid "facility"
-msgstr ""
+msgstr "establecimiento"
 
 msgid "thematic"
-msgstr ""
+msgstr "temática"
 
 msgid "boundary"
-msgstr ""
+msgstr "límite"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Editar capa {{name}}"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Agregar nueva capa {{name}}"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Actualizar capa"
 
 msgid "Add layer"
 msgstr "Agregar capa"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Método de agregación"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -248,7 +252,7 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Cargando períodos"
 
 msgid "Min value is required"
 msgstr ""
@@ -275,7 +279,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unidades organizativas"
 
 msgid "Filter"
 msgstr "filtro"
@@ -305,7 +309,7 @@ msgid "No organisation units are selected."
 msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "No se ha seleccionado ningún set de leyendas"
 
 msgid "Event status"
 msgstr "Estado del evento"
@@ -320,7 +324,7 @@ msgid "Aggregation type"
 msgstr "Tipo de agregación"
 
 msgid "Show no data"
-msgstr ""
+msgstr "No mostrar datos"
 
 msgid "Low radius"
 msgstr ""
@@ -332,7 +336,7 @@ msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "El radio debe estar entre {{min}} y {{max}}"
 
 msgid "Indicator group is required"
 msgstr ""
@@ -405,6 +409,7 @@ msgstr ""
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
+"Incluir relaciones que conecten entidades fuera del programa \"{{program}}\""
 
 msgid "Selection mode"
 msgstr "Modo de selección"
@@ -431,10 +436,10 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
+msgstr "Color de línea"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "Error al cargar los tipos de relación."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -462,6 +467,7 @@ msgstr "La siguiente información puede ser solicitada por soporte técnico."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
+"El filtrado está disponible después de seleccionar una etapa del programa."
 
 msgid "one of"
 msgstr ""
@@ -532,7 +538,7 @@ msgid "Loading layer"
 msgstr "Cargando capa"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} eliminado."
 
 msgid "Edit"
 msgstr "Editar"
@@ -550,7 +556,7 @@ msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Mostrar tabla de datos"
 
 msgid "Open as chart"
 msgstr "Abrir como gráfico"
@@ -562,7 +568,7 @@ msgid "Edit layer"
 msgstr "Editar capa"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Eliminar capa"
 
 msgid "Mid"
 msgstr ""
@@ -586,7 +592,7 @@ msgid "Show longitude/latitude"
 msgstr "Mostrar longitud/latitud"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Mostrar {{name}}"
 
 msgid "Longitude"
 msgstr "Longitud"
@@ -628,7 +634,7 @@ msgid "Center map on line"
 msgstr ""
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Clic en la siguiente posición"
 
 msgid "Click where you want to start the measurement"
 msgstr ""
@@ -637,13 +643,13 @@ msgid "Delete"
 msgstr "Borrar"
 
 msgid "Distance"
-msgstr ""
+msgstr "Distancia"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Acceder a pantalla completa"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Salir de pantalla completa"
 
 msgid "Finish measurement"
 msgstr ""
@@ -667,7 +673,7 @@ msgid "Reset bearing to north"
 msgstr ""
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Buscar por lugar o dirección"
 
 msgid "Zoom in"
 msgstr "Ampliar"
@@ -679,7 +685,7 @@ msgid "Zoom to content"
 msgstr ""
 
 msgid "Open as map"
-msgstr ""
+msgstr "Abrir como mapa"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
@@ -728,7 +734,7 @@ msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "Usuario de unidad organizativa"
 
 msgid "right below user organisation unit"
 msgstr ""
@@ -737,7 +743,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} en {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
@@ -758,10 +764,10 @@ msgid "2 x below"
 msgstr ""
 
 msgid "User organisation units"
-msgstr ""
+msgstr "Usuario de unidad organizativa"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Año anterior"
 
 msgid "Next year"
 msgstr "Año siguiente"
@@ -782,7 +788,7 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Display periods"
-msgstr ""
+msgstr "Mostrar períodos"
 
 msgid "Single (aggregate)"
 msgstr ""
@@ -803,7 +809,7 @@ msgid "Program indicator"
 msgstr "Indicador de Programa"
 
 msgid "No program"
-msgstr ""
+msgstr "Sin programa"
 
 msgid "Program"
 msgstr "Program"
@@ -836,7 +842,7 @@ msgid "Percentage"
 msgstr "Porcentaje"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hectáreas"
 
 msgid "Acres"
 msgstr ""
@@ -863,7 +869,7 @@ msgid "Bing Road"
 msgstr ""
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing Dark"
 
 msgid "Bing Aerial"
 msgstr ""
@@ -872,7 +878,7 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "Population"
-msgstr ""
+msgstr "Población"
 
 msgid "people per hectare"
 msgstr ""
@@ -1002,13 +1008,13 @@ msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Elevación sobre el nivel del mar."
 
 msgid "Precipitation"
 msgstr "Precipitación"
 
 msgid "millimeter"
-msgstr ""
+msgstr "milímetro"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -1192,28 +1198,28 @@ msgid "Cancelled"
 msgstr "Cancelar"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "El mapa \"{{name}}\" está guardado."
 
 msgid "Error"
 msgstr "Error"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Límites"
 
 msgid "Error: {{message}}"
 msgstr ""
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "No se encontraron coordenadas"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "Unidades organizativas seleccionadas"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "No tiene acceso a los datos de esta capa"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Se produjo un error desconocido al leer los datos de la capa"
 
 msgid "Event"
 msgstr "Evento"
@@ -1225,7 +1231,7 @@ msgid "No data found"
 msgstr "Dato no encontrado"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Establecimientos"
 
 msgid "Thematic layer"
 msgstr "Capa temática"
@@ -1240,10 +1246,10 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
-msgstr ""
+msgstr "relacionado"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Temática"
 
 msgid "not one of"
 msgstr ""
@@ -1252,7 +1258,7 @@ msgid "doesn't contains"
 msgstr "no contiene"
 
 msgid "true"
-msgstr ""
+msgstr "verdadero"
 
 msgid "false"
 msgstr "falso"
@@ -1269,10 +1275,10 @@ msgid ""
 msgstr ""
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "La fecha de inicio no es válida"
 
 msgid "End date is invalid"
 msgstr ""
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "La fecha final no puede ser anterior a la fecha de inicio"
