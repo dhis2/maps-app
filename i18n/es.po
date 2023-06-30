@@ -85,7 +85,7 @@ msgid "Data set"
 msgstr "Set de Datos\\:"
 
 msgid "Index"
-msgstr ""
+msgstr "índice"
 
 msgid "Id"
 msgstr ""
@@ -112,7 +112,7 @@ msgid "Level"
 msgstr "Nivel"
 
 msgid "Parent"
-msgstr ""
+msgstr "Padre"
 
 msgid "Type"
 msgstr "Tipo"
@@ -246,7 +246,7 @@ msgid "Steps"
 msgstr "Pasos"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Vista previa de la leyenda"
 
 msgid "This field is required"
 msgstr "Se requiere éste campo"
@@ -260,6 +260,8 @@ msgstr "Set de grupos"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
+"Recuerde seleccionar el nivel de unidad organizativa que contiene los "
+"establecimientos."
 
 msgid "Buffer"
 msgstr ""
@@ -316,7 +318,7 @@ msgid "Events"
 msgstr "Eventos"
 
 msgid "Group events"
-msgstr ""
+msgstr "Grupo de eventos "
 
 msgid "View all events"
 msgstr "Ver todos los eventos"
@@ -328,7 +330,7 @@ msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Program is required"
-msgstr ""
+msgstr "Se requiere un programa"
 
 msgid "Program stage is required"
 msgstr "Se requiere una etapa del programa"
@@ -355,25 +357,25 @@ msgid "Radius should be between {{min}} and {{max}}"
 msgstr "El radio debe estar entre {{min}} y {{max}}"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Se requiere grupo de indicadores"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Se requiere indicador"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr " Se requiere grupos de elementos de datos"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Se requiere el elemento de datos"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Se requiere Set de Datos"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Se requiere el dato de evento"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Se requiere indicador de programa"
 
 msgid "Period is required"
 msgstr "Período requerido"
@@ -400,7 +402,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Programa/Fecha de inscripción"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
@@ -470,7 +472,7 @@ msgid "Relationship type"
 msgstr "Relationship type"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "Ocurrio un error en la aplicación Mapas."
 
 msgid "Something went wrong"
 msgstr "Algo ha ido mal"
@@ -560,7 +562,7 @@ msgid "{{name}} deleted."
 msgstr "{{name}} eliminado."
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "La vista dividida no puede combinarse con otros tipos de capas."
 
 msgid "Edit"
 msgstr "Editar"
@@ -701,7 +703,7 @@ msgid "Zoom out"
 msgstr "Reducir"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "Zoom al contenido"
 
 msgid "Open as map"
 msgstr "Abrir como mapa"
@@ -711,6 +713,9 @@ msgid ""
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Este gráfico/tabla contiene {{numItems}} elementos de datos. Elija los "
+"elementos que desea importar de la siguiente lista. Cada elemento de datos "
+"se creará como una capa de mapa."
 
 msgid "Data items"
 msgstr "Elementos de datos"
@@ -1259,7 +1264,7 @@ msgid "Start date is invalid"
 msgstr "La fecha de inicio no es válida"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "La fecha final no es válida"
 
 msgid "End date cannot be earlier than start date"
 msgstr "La fecha final no puede ser anterior a la fecha de inicio"
