@@ -31,7 +31,7 @@ msgid "Maps"
 msgstr "Mapas"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "El mapa \"{{name}}\" está guardado."
 
 msgid "Failed to save map. {{message}}"
 msgstr ""
@@ -94,7 +94,7 @@ msgid "Data set"
 msgstr "Set de Datos"
 
 msgid "Index"
-msgstr ""
+msgstr "índice"
 
 msgid "Org unit"
 msgstr "Unidad Organizativa"
@@ -121,13 +121,15 @@ msgid "Level"
 msgstr "Nivel"
 
 msgid "Parent"
-msgstr ""
+msgstr "Padre"
 
 msgid "Type"
 msgstr "Tipo"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"La tabla de datos no es soportada cuando los eventos están agrupados en el "
+"servidor."
 
 msgid "Add filter"
 msgstr "Añadir filtro"
@@ -153,6 +155,8 @@ msgstr "Mostrar leyenda"
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"La descarga de mapas no es compatible con su navegador. Prueba Google Chrome"
+" o Firefox."
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -185,31 +189,31 @@ msgid "tracked entity"
 msgstr ""
 
 msgid "facility"
-msgstr ""
+msgstr "establecimiento"
 
 msgid "thematic"
-msgstr ""
+msgstr "temática"
 
 msgid "org unit"
-msgstr ""
+msgstr "Unidad organizativa"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Editar capa {{name}}"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Agregar nueva capa {{name}}"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Actualizar capa"
 
 msgid "Add layer"
 msgstr "Agregar capa"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Método de agregación"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -227,6 +231,8 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Los datos se calcularán en Google Earth Engine para las unidades "
+"organizativas seleccionadas."
 
 msgid "Multiple aggregation methods are available."
 msgstr ""
@@ -237,28 +243,28 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "Unidad"
 
 msgid "Source"
 msgstr "Fuente"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Vista previa de la leyenda"
 
 msgid "Year"
 msgstr "Año"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Los períodos disponibles están establecidos por los datos de origen"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Cargando períodos"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Se requiere un valor Min"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Se requiere un valor Max"
 
 msgid "Max should be greater than min"
 msgstr ""
@@ -279,7 +285,7 @@ msgid "Steps"
 msgstr "Pasos"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unidades organizativas"
 
 msgid "Filter"
 msgstr "filtro"
@@ -288,7 +294,7 @@ msgid "Events"
 msgstr "Eventos"
 
 msgid "Group events"
-msgstr ""
+msgstr "Grupo de eventos "
 
 msgid "View all events"
 msgstr "Ver todos los eventos"
@@ -300,22 +306,22 @@ msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Program is required"
-msgstr ""
+msgstr "Se requiere un programa"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Se requiere una etapa del programa"
 
 msgid "No organisation units are selected."
 msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "No se ha seleccionado ningún set de leyendas"
 
 msgid "Event status"
 msgstr "Estado del evento"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Color del límite"
 
 msgid "Buffer"
 msgstr ""
@@ -336,7 +342,7 @@ msgid "Only show completed events"
 msgstr ""
 
 msgid "Show no data"
-msgstr ""
+msgstr "No mostrar datos"
 
 msgid "Low radius"
 msgstr ""
@@ -348,28 +354,28 @@ msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "El radio debe estar entre {{min}} y {{max}}"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Se requiere grupo de indicadores"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Se requiere indicador"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr " Se requiere grupos de elementos de datos"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Se requiere el elemento de datos"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Se requiere Set de Datos"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Se requiere el dato de evento"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Se requiere indicador de programa"
 
 msgid "Period is required"
 msgstr "Período requerido"
@@ -393,7 +399,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Programa/Fecha de inscripción"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
@@ -421,6 +427,7 @@ msgstr ""
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
+"Incluir relaciones que conecten entidades fuera del programa \"{{program}}\""
 
 msgid "Selection mode"
 msgstr "Modo de selección"
@@ -447,10 +454,10 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
+msgstr "Color de línea"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "Error al cargar los tipos de relación."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -459,7 +466,7 @@ msgid "Relationship type"
 msgstr "Relationship type"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "Ocurrio un error en la aplicación Mapas."
 
 msgid "Something went wrong"
 msgstr "Algo ha ido mal"
@@ -478,6 +485,7 @@ msgstr "La siguiente información puede ser solicitada por soporte técnico."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
+"El filtrado está disponible después de seleccionar una etapa del programa."
 
 msgid "one of"
 msgstr ""
@@ -551,13 +559,13 @@ msgid "External layer"
 msgstr "Capa externa"
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "La vista dividida no puede combinarse con otros tipos de capas."
 
 msgid "Loading layer"
 msgstr "Cargando capa"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} eliminado."
 
 msgid "Edit"
 msgstr "Editar"
@@ -575,7 +583,7 @@ msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Mostrar tabla de datos"
 
 msgid "Open as chart"
 msgstr "Abrir como gráfico"
@@ -587,7 +595,7 @@ msgid "Edit layer"
 msgstr "Editar capa"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Eliminar capa"
 
 msgid "Mid"
 msgstr ""
@@ -611,7 +619,7 @@ msgid "Show longitude/latitude"
 msgstr "Mostrar longitud/latitud"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Mostrar {{name}}"
 
 msgid "Longitude"
 msgstr "Longitud"
@@ -658,7 +666,7 @@ msgid "Center map on line"
 msgstr ""
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Clic en la siguiente posición"
 
 msgid "Click where you want to start the measurement"
 msgstr ""
@@ -667,13 +675,13 @@ msgid "Delete"
 msgstr "Eliminar"
 
 msgid "Distance"
-msgstr ""
+msgstr "Distancia"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Acceder a pantalla completa"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Salir de pantalla completa"
 
 msgid "Finish measurement"
 msgstr ""
@@ -697,7 +705,7 @@ msgid "Reset bearing to north"
 msgstr ""
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Buscar por lugar o dirección"
 
 msgid "Zoom in"
 msgstr "Ampliar"
@@ -706,16 +714,19 @@ msgid "Zoom out"
 msgstr "Reducir"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "Zoom al contenido"
 
 msgid "Open as map"
-msgstr ""
+msgstr "Abrir como mapa"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Este gráfico/tabla contiene {{numItems}} elementos de datos. Elija los "
+"elementos que desea importar de la siguiente lista. Cada elemento de datos "
+"se creará como una capa de mapa."
 
 msgid "Data items"
 msgstr "Elementos de datos"
@@ -791,7 +802,7 @@ msgid ""
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "Usuario de unidad organizativa"
 
 msgid "right below user organisation unit"
 msgstr ""
@@ -800,7 +811,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} en {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
@@ -821,10 +832,10 @@ msgid "2 x below"
 msgstr ""
 
 msgid "User organisation units"
-msgstr ""
+msgstr "Usuario de unidad organizativa"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Año anterior"
 
 msgid "Next year"
 msgstr "Año siguiente"
@@ -845,7 +856,7 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Display periods"
-msgstr ""
+msgstr "Mostrar períodos"
 
 msgid "Single (aggregate)"
 msgstr ""
@@ -869,7 +880,7 @@ msgid "Program indicator"
 msgstr "Indicador de Programa"
 
 msgid "No program"
-msgstr ""
+msgstr "Sin programa"
 
 msgid "Program"
 msgstr "Programa"
@@ -902,7 +913,7 @@ msgid "Percentage"
 msgstr "Porcentaje"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hectáreas"
 
 msgid "Acres"
 msgstr ""
@@ -911,7 +922,7 @@ msgid "Mean"
 msgstr ""
 
 msgid "Median"
-msgstr ""
+msgstr "Mediana"
 
 msgid "Std dev"
 msgstr ""
@@ -932,7 +943,7 @@ msgid "Bing Road"
 msgstr ""
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing Dark"
 
 msgid "Bing Aerial"
 msgstr ""
@@ -941,74 +952,74 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "Population"
-msgstr ""
+msgstr "Población"
 
 msgid "people per hectare"
 msgstr ""
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Número estimado de personas que viven en un área."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Grupos de edad de la población"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Masculino 0 - 1 años"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Masculino 1 - 4 años"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Masculino 5 - 9 años"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Masculino 10 - 14 años"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Masculino 15 - 19 años"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Masculino 20 - 24 años"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Masculino 25 - 29 años"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Masculino 30 - 34 años"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Masculino 35 - 39 años"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Masculino 40 - 44 años"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Masculino 45 - 49 años"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Masculino 50 - 54 años"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Masculino 55 - 59 años"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Masculino 60 - 64 años"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Masculino 65 - 69 años"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Masculino 70 - 74 años"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Masculino 75 - 79 años"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Masculino 80 años y más"
 
 msgid "Female 0 - 1 years"
 msgstr ""
@@ -1088,16 +1099,16 @@ msgid "Elevation"
 msgstr "Elevación"
 
 msgid "meters"
-msgstr ""
+msgstr "metros"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Elevación sobre el nivel del mar."
 
 msgid "Precipitation"
 msgstr "Precipitación"
 
 msgid "millimeter"
-msgstr ""
+msgstr "milímetro"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -1284,10 +1295,10 @@ msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "No tiene acceso a los datos de esta capa"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Se produjo un error desconocido al leer los datos de la capa"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
@@ -1299,7 +1310,7 @@ msgid "Event"
 msgstr "Evento"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Establecimientos"
 
 msgid "Facilities: No coordinates found"
 msgstr ""
@@ -1320,10 +1331,10 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
-msgstr ""
+msgstr "relacionado"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Temática"
 
 msgid "Org units"
 msgstr "Unidades organizativas"
@@ -1335,7 +1346,7 @@ msgid "doesn't contains"
 msgstr "no contiene"
 
 msgid "true"
-msgstr ""
+msgstr "verdadero"
 
 msgid "false"
 msgstr "falso"
@@ -1355,10 +1366,10 @@ msgid "Facility"
 msgstr "Establecimiento"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "La fecha de inicio no es válida"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "La fecha final no es válida"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "La fecha final no puede ser anterior a la fecha de inicio"
