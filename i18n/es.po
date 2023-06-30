@@ -331,7 +331,7 @@ msgid "Program is required"
 msgstr ""
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Se requiere una etapa del programa"
 
 msgid "No organisation units are selected."
 msgstr "No se ha seleccionado ninguna unidad organizativa"
