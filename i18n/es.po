@@ -688,7 +688,7 @@ msgid "mi"
 msgstr ""
 
 msgid "Perimeter"
-msgstr ""
+msgstr "Perímetro"
 
 msgid "Reset bearing to north"
 msgstr ""
@@ -762,7 +762,7 @@ msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} en y todo por debajo de {{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "Unidades organizativas seleccionadas"
