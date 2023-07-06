@@ -1,12 +1,16 @@
 const { chromeAllowXSiteCookies } = require('@dhis2/cypress-plugins')
 const { defineConfig } = require('cypress')
 const {
+    downloadedFileTasks,
+} = require('./cypress/plugins/downloadedFileTasks.js')
+const {
     excludeByVersionTags,
 } = require('./cypress/plugins/excludeByVersionTags.js')
 
 async function setupNodeEvents(on, config) {
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
+    downloadedFileTasks(on)
 
     if (!config.env.dhis2InstanceVersion) {
         throw new Error(
