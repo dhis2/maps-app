@@ -36,6 +36,11 @@ import {
 } from '../util/orgUnits.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
+export const WARNING_NO_DATA = 'WARNING_NO_DATA'
+export const WARNING_NO_OU_COORD = 'WARNING_NO_OU_COORD'
+export const WARNING_NO_GEOMETRY_COORD = 'WARNING_NO_GEOMETRY_COORD'
+export const ERROR_CRITICAL = 'ERROR_CRITICAL'
+
 const thematicLoader = async (config) => {
     const {
         columns,
@@ -65,6 +70,7 @@ const thematicLoader = async (config) => {
                       alerts: [
                           {
                               critical: true,
+                              code: ERROR_CRITICAL,
                               message: `${i18n.t('Error')}: ${
                                   error.message || error
                               }`,
@@ -179,23 +185,29 @@ const thematicLoader = async (config) => {
 
     if (!valueFeatures.length) {
         if (!features.length) {
+            console.log('push alert')
             alerts.push({
                 warning: true,
+                code: WARNING_NO_OU_COORD,
                 message: i18n.t('Selected org units: No coordinates found', {
                     nsSeparator: ';',
                 }),
             })
         } else {
+            console.log('push no data found')
             alerts.push({
                 warning: true,
+                code: WARNING_NO_DATA,
                 message: `${name}: ${i18n.t('No data found')}`,
             })
         }
     }
 
     if (coordinateField && !associatedGeometries.length) {
+        console.log('push no coordinates found')
         alerts.push({
             warning: true,
+            code: WARNING_NO_GEOMETRY_COORD,
             message: i18n.t('{{name}}: No coordinates found', {
                 name: coordinateField.name,
                 nsSeparator: ';',

@@ -133,12 +133,6 @@ const layer = (state, action) => {
                 dataFilters: filters,
             }
 
-        case types.MAP_ALERTS_CLEAR:
-            return {
-                ...state,
-                alerts: undefined,
-            }
-
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:
             if (state.id !== action.layerId) {
                 return state
@@ -260,13 +254,6 @@ const map = (state = defaultState, action) => {
                 mapViews: state.mapViews.map((l) => layer(l, action)),
             }
         }
-
-        case types.MAP_ALERTS_CLEAR:
-            return {
-                ...state,
-                alerts: undefined,
-                mapViews: state.mapViews.map((l) => layer(l, action)),
-            }
 
         default:
             return state

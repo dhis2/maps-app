@@ -12,6 +12,12 @@ import {
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
 
+export const WARNING_NO_COORD_FOR_COORDINATE_FIELD =
+    'No coordinates found for coordinate field'
+export const WARNING_NO_COORD_FOR_OU =
+    'No coordinates found for organisation unit'
+export const ERROR_CRITICAL = 'Critical error'
+
 // Returns a promise
 const earthEngineLoader = async (config) => {
     const { rows, aggregationType } = config
@@ -47,6 +53,7 @@ const earthEngineLoader = async (config) => {
                 if (!associatedGeometries.length) {
                     alerts.push({
                         warning: true,
+                        code: WARNING_NO_COORD_FOR_COORDINATE_FIELD,
                         message: i18n.t('{{name}}: No coordinates found', {
                             name: coordinateField.name,
                             nsSeparator: ';',
@@ -63,6 +70,7 @@ const earthEngineLoader = async (config) => {
             if (!features.length) {
                 alerts.push({
                     warning: true,
+                    code: WARNING_NO_COORD_FOR_OU,
                     message: i18n.t(
                         'Selected org units: No coordinates found',
                         {
@@ -74,6 +82,7 @@ const earthEngineLoader = async (config) => {
         } catch (error) {
             alerts.push({
                 critical: true,
+                code: ERROR_CRITICAL,
                 message: i18n.t('Error: {{message}}', {
                     message: error.message,
                     nsSeparator: ';',

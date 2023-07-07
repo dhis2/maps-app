@@ -11,6 +11,11 @@ import {
     getCoordinateField,
 } from '../util/orgUnits.js'
 
+export const WARNING_NO_DATA = 'WARNING_NO_DATA'
+export const WARNING_NO_FACILITY_COORDINATES = 'WARNING_NO_FACILITY_COORDINATES'
+export const WARNING_NO_GEOMETRY_COORDINATES = 'WARNING_NO_GEOMETRY_COORDINATES'
+export const ERROR_CRITICAL = 'ERROR_CRITICAL'
+
 const facilityLoader = async (config) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
     const orgUnits = getOrgUnitsFromRows(rows)
@@ -40,6 +45,7 @@ const facilityLoader = async (config) => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
+                        code: ERROR_CRITICAL,
                         message: i18n.t('Error: {{message}}', {
                             message: error.message,
                             nsSeparator: ';',
@@ -81,6 +87,7 @@ const facilityLoader = async (config) => {
         if (!associatedGeometries.length) {
             alerts.push({
                 warning: true,
+                code: WARNING_NO_GEOMETRY_COORDINATES,
                 message: i18n.t('{{name}}: No coordinates found', {
                     name: coordinateField.name,
                     nsSeparator: ';',
@@ -104,6 +111,7 @@ const facilityLoader = async (config) => {
     if (!styledFeatures.length) {
         alerts.push({
             warning: true,
+            code: WARNING_NO_FACILITY_COORDINATES,
             message: i18n.t('Facilities: No coordinates found', {
                 nsSeparator: ';',
             }),
