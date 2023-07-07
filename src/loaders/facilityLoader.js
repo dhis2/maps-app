@@ -1,5 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
+import {
+    WARNING_NO_FACILITY_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
@@ -10,11 +15,6 @@ import {
     getStyledOrgUnits,
     getCoordinateField,
 } from '../util/orgUnits.js'
-
-export const WARNING_NO_DATA = 'WARNING_NO_DATA'
-export const WARNING_NO_FACILITY_COORDINATES = 'WARNING_NO_FACILITY_COORDINATES'
-export const WARNING_NO_GEOMETRY_COORDINATES = 'WARNING_NO_GEOMETRY_COORDINATES'
-export const ERROR_CRITICAL = 'ERROR_CRITICAL'
 
 const facilityLoader = async (config) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
@@ -87,11 +87,8 @@ const facilityLoader = async (config) => {
         if (!associatedGeometries.length) {
             alerts.push({
                 warning: true,
-                code: WARNING_NO_GEOMETRY_COORDINATES,
-                message: i18n.t('{{name}}: No coordinates found', {
-                    name: coordinateField.name,
-                    nsSeparator: ';',
-                }),
+                code: WARNING_NO_GEOMETRY_COORD,
+                custom: coordinateField.name,
             })
         }
 
@@ -108,10 +105,10 @@ const facilityLoader = async (config) => {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`]
     }
 
-    if (!styledFeatures.length) {
+    if (styledFeatures.length) {
         alerts.push({
             warning: true,
-            code: WARNING_NO_FACILITY_COORDINATES,
+            code: WARNING_NO_FACILITY_COORD,
             message: i18n.t('Facilities: No coordinates found', {
                 nsSeparator: ';',
             }),

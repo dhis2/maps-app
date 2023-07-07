@@ -2,6 +2,12 @@ import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex, curry } from 'lodash/fp'
+import {
+    WARNING_NO_DATA,
+    WARNING_NO_OU_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
@@ -35,11 +41,6 @@ import {
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
-
-export const WARNING_NO_DATA = 'WARNING_NO_DATA'
-export const WARNING_NO_OU_COORD = 'WARNING_NO_OU_COORD'
-export const WARNING_NO_GEOMETRY_COORD = 'WARNING_NO_GEOMETRY_COORD'
-export const ERROR_CRITICAL = 'ERROR_CRITICAL'
 
 const thematicLoader = async (config) => {
     const {
@@ -183,18 +184,18 @@ const thematicLoader = async (config) => {
         .domain([minValue, maxValue])
         .clamp(true)
 
+    alerts.push({
+        code: WARNING_NO_OU_COORD,
+        custom: i18n.t('Thematic layer'),
+    })
+
     if (!valueFeatures.length) {
         if (!features.length) {
-            console.log('push alert')
             alerts.push({
-                warning: true,
                 code: WARNING_NO_OU_COORD,
-                message: i18n.t('Selected org units: No coordinates found', {
-                    nsSeparator: ';',
-                }),
+                custom: i18n.t('Thematic layer'),
             })
         } else {
-            console.log('push no data found')
             alerts.push({
                 warning: true,
                 code: WARNING_NO_DATA,
@@ -204,14 +205,9 @@ const thematicLoader = async (config) => {
     }
 
     if (coordinateField && !associatedGeometries.length) {
-        console.log('push no coordinates found')
         alerts.push({
-            warning: true,
             code: WARNING_NO_GEOMETRY_COORD,
-            message: i18n.t('{{name}}: No coordinates found', {
-                name: coordinateField.name,
-                nsSeparator: ';',
-            }),
+            custom: coordinateField.name,
         })
     }
 

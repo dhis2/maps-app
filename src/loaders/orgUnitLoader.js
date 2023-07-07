@@ -1,5 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
+import {
+    WARNING_NO_OU_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
@@ -10,10 +15,6 @@ import {
     getStyledOrgUnits,
     getCoordinateField,
 } from '../util/orgUnits.js'
-
-export const WARNING_NO_COORD_FOR_OU = 'WARNING_NO_COORD_FOR_OU'
-export const WARNING_NO_COORD_FOR_CATCHMENT = 'WARNING_NO_COORD_FOR_CATCHMENT'
-export const ERROR_CRITICAL = 'ERROR_CRITICAL'
 
 const orgUnitLoader = async (config) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
@@ -61,13 +62,17 @@ const orgUnitLoader = async (config) => {
     const [mainFeatures = [], orgUnitLevels, organisationUnitGroups] =
         await Promise.all(requests)
 
+    // jj just for testing
+    alerts.push({
+        warning: true,
+        code: WARNING_NO_OU_COORD,
+        custom: i18n.t('Org unit layer'),
+    })
+
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
-            warning: true,
-            code: WARNING_NO_COORD_FOR_OU,
-            message: i18n.t('Selected org units: No coordinates found', {
-                nsSeparator: ';',
-            }),
+            code: WARNING_NO_OU_COORD,
+            custom: i18n.t('Org unit layer'),
         })
     }
 
@@ -85,12 +90,8 @@ const orgUnitLoader = async (config) => {
 
         if (!associatedGeometries.length) {
             alerts.push({
-                warning: true,
-                code: WARNING_NO_COORD_FOR_CATCHMENT,
-                message: i18n.t('{{name}}: No coordinates found', {
-                    name: coordinateField.name,
-                    nsSeparator: ';',
-                }),
+                code: WARNING_NO_GEOMETRY_COORD,
+                custom: coordinateField.name,
             })
         }
     }
