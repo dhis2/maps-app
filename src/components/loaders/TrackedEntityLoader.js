@@ -1,27 +1,18 @@
-import { useAlert } from '@dhis2/app-service-alerts'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
-import { ALERT_MESSAGE_DYNAMIC, ALERT_WARNING } from '../../constants/alerts.js'
-import trackedEntityLoader, {
-    WARNING_NO_DATA,
-} from '../../loaders/trackedEntityLoader.js'
+import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
+import useLoaderAlerts from './useLoaderAlerts.js'
 
 const TrackedEntityLoader = ({ config, onLoad }) => {
-    const noDataAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_WARNING)
+    const { showAlerts } = useLoaderAlerts()
     useEffect(() => {
         trackedEntityLoader(config).then((result) => {
-            result.alerts.forEach(({ message, code }) => {
-                switch (code) {
-                    case WARNING_NO_DATA:
-                        noDataAlert.show({ msg: message })
-                        break
-                    default:
-                        break
-                }
-            })
+            if (result.alerts) {
+                showAlerts(result.alerts)
+            }
             onLoad(result)
         })
-    }, [config, onLoad, noDataAlert])
+    }, [config, onLoad, showAlerts])
 
     return null
 }

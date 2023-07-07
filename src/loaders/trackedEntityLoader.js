@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { WARNING_NO_DATA } from '../constants/alerts.js'
 import {
     TEI_COLOR,
     TEI_RADIUS,
@@ -27,8 +28,6 @@ const geometryTypesMap = {
 
 // Valid geometry types for TEIs
 const geometryTypes = Object.keys(geometryTypesMap)
-
-export const WARNING_NO_DATA = 'WARNING_NO_DATA'
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async (config) => {

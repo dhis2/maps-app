@@ -1,6 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { precisionRound } from 'd3-format'
+import {
+    WARNING_NO_OU_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
@@ -11,12 +16,6 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
-
-export const WARNING_NO_COORD_FOR_COORDINATE_FIELD =
-    'No coordinates found for coordinate field'
-export const WARNING_NO_COORD_FOR_OU =
-    'No coordinates found for organisation unit'
-export const ERROR_CRITICAL = 'Critical error'
 
 // Returns a promise
 const earthEngineLoader = async (config) => {
@@ -53,11 +52,8 @@ const earthEngineLoader = async (config) => {
                 if (!associatedGeometries.length) {
                     alerts.push({
                         warning: true,
-                        code: WARNING_NO_COORD_FOR_COORDINATE_FIELD,
-                        message: i18n.t('{{name}}: No coordinates found', {
-                            name: coordinateField.name,
-                            nsSeparator: ';',
-                        }),
+                        code: WARNING_NO_GEOMETRY_COORD,
+                        custom: coordinateField.name,
                     })
                 }
             }
@@ -69,14 +65,8 @@ const earthEngineLoader = async (config) => {
 
             if (!features.length) {
                 alerts.push({
-                    warning: true,
-                    code: WARNING_NO_COORD_FOR_OU,
-                    message: i18n.t(
-                        'Selected org units: No coordinates found',
-                        {
-                            nsSeparator: ';',
-                        }
-                    ),
+                    code: WARNING_NO_OU_COORD,
+                    custom: i18n.t('Earth Engine layer'),
                 })
             }
         } catch (error) {

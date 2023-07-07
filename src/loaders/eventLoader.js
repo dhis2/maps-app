@@ -1,5 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
+import {
+    ERROR_NO_ACCESS,
+    ERROR_UNKNOWN,
+    WARNING_NO_DATA,
+    WARNING_PAGED_EVENTS,
+} from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
     EVENT_CLIENT_PAGE_SIZE,
@@ -23,11 +29,6 @@ import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
 const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
-
-export const WARNING_NO_DATA = 'No data found'
-export const ERROR_NO_ACCESS = 'No access to data'
-export const ERROR_UNKNOWN = 'Unknown error'
-export const WARNING_PAGED_EVENTS = 'More events than shown'
 
 const accessDeniedAlert = {
     warning: true,
