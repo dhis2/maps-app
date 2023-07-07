@@ -1,7 +1,6 @@
 import cx from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import AlertStack from '../alerts/AlertStack.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadModeMenu from '../download/DownloadMenubar.js'
 import DownloadSettings from '../download/DownloadSettings.js'
@@ -57,7 +56,6 @@ const AppLayout = () => {
             <LayersLoader />
             <ContextMenu />
             <LayerEdit />
-            <AlertStack />
             <OpenAsMapDialog />
         </>
     )
