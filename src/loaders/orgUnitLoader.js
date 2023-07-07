@@ -11,6 +11,10 @@ import {
     getCoordinateField,
 } from '../util/orgUnits.js'
 
+export const WARNING_NO_COORD_FOR_OU = 'WARNING_NO_COORD_FOR_OU'
+export const WARNING_NO_COORD_FOR_CATCHMENT = 'WARNING_NO_COORD_FOR_CATCHMENT'
+export const ERROR_CRITICAL = 'ERROR_CRITICAL'
+
 const orgUnitLoader = async (config) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
     const orgUnits = getOrgUnitsFromRows(rows)
@@ -38,6 +42,7 @@ const orgUnitLoader = async (config) => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
+                        code: ERROR_CRITICAL,
                         message: i18n.t('Error: {{message}}', {
                             message: error.message,
                             nsSeparator: ';',
@@ -59,6 +64,7 @@ const orgUnitLoader = async (config) => {
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
             warning: true,
+            code: WARNING_NO_COORD_FOR_OU,
             message: i18n.t('Selected org units: No coordinates found', {
                 nsSeparator: ';',
             }),
@@ -80,6 +86,7 @@ const orgUnitLoader = async (config) => {
         if (!associatedGeometries.length) {
             alerts.push({
                 warning: true,
+                code: WARNING_NO_COORD_FOR_CATCHMENT,
                 message: i18n.t('{{name}}: No coordinates found', {
                     name: coordinateField.name,
                     nsSeparator: ';',

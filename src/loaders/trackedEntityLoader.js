@@ -28,6 +28,8 @@ const geometryTypesMap = {
 // Valid geometry types for TEIs
 const geometryTypes = Object.keys(geometryTypesMap)
 
+export const WARNING_NO_DATA = 'WARNING_NO_DATA'
+
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async (config) => {
     if (config.config && typeof config.config === 'string') {
@@ -132,6 +134,7 @@ const trackedEntityLoader = async (config) => {
     if (!instances.length) {
         alert = {
             warning: true,
+            code: WARNING_NO_DATA,
             message: `${trackedEntityType.name}: ${i18n.t(
                 'No tracked entities found'
             )}`,

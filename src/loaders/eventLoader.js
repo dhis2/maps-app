@@ -22,12 +22,19 @@ import { formatStartEndDate, getDateArray } from '../util/time.js'
 // Server clustering if more than 2000 events
 const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
 
+export const WARNING_NO_DATA = 'No data found'
+export const ERROR_NO_ACCESS = 'No access to data'
+export const ERROR_UNKNOWN = 'Unknown error'
+export const WARNING_PAGED_EVENTS = 'More events than shown'
+
 const accessDeniedAlert = {
     warning: true,
+    code: ERROR_NO_ACCESS,
     message: i18n.t("You don't have access to this layer data"),
 }
 const unknownErrorAlert = {
     critical: true,
+    code: ERROR_UNKNOWN,
     message: i18n.t('An unknown error occurred while reading layer data'),
 }
 
@@ -126,6 +133,7 @@ const loadEventLayer = async (config) => {
             if (total > EVENT_CLIENT_PAGE_SIZE) {
                 alert = {
                     warning: true,
+                    code: WARNING_PAGED_EVENTS,
                     message: `${config.name}: ${i18n.t(
                         'Displaying first {{pageSize}} events out of {{total}}',
                         {
@@ -138,6 +146,7 @@ const loadEventLayer = async (config) => {
         } else {
             alert = {
                 warning: true,
+                code: WARNING_NO_DATA,
                 message: `${config.name}: ${i18n.t('No data found')}`,
             }
         }
