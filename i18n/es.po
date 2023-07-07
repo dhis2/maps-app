@@ -855,7 +855,7 @@ msgid "OSM Light"
 msgstr "OSM Sencillo"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detallado"
 
 msgid "Google Streets"
 msgstr "Google Calles"
@@ -864,16 +864,16 @@ msgid "Google Hybrid"
 msgstr "Google Híbrido"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing Carretera"
 
 msgid "Bing Dark"
 msgstr "Bing Dark"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing Aéreo"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Etiquetas aéreas Bing"
 
 msgid "All"
 msgstr "Todos"
