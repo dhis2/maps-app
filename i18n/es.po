@@ -678,7 +678,7 @@ msgid "mi"
 msgstr ""
 
 msgid "Perimeter"
-msgstr ""
+msgstr "Perímetro"
 
 msgid "Reset bearing to north"
 msgstr ""
@@ -793,7 +793,7 @@ msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} en y todo por debajo de {{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "Unidades organizativas seleccionadas"
@@ -904,7 +904,7 @@ msgid "OSM Light"
 msgstr "OSM Sencillo"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detallado"
 
 msgid "Google Streets"
 msgstr "Google Calles"
@@ -913,16 +913,16 @@ msgid "Google Hybrid"
 msgstr "Google Híbrido"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing Carretera"
 
 msgid "Bing Dark"
 msgstr "Bing Dark"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing Aéreo"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Etiquetas aéreas Bing"
 
 msgid "Population"
 msgstr "Población"
@@ -1233,7 +1233,7 @@ msgid "Yearly"
 msgstr "Anual"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Año fiscal (Inicio noviembre)"
 
 msgid "Financial year (Start October)"
 msgstr "Año fiscal - Octubre"
