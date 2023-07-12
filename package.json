@@ -33,7 +33,7 @@
         "enzyme-adapter-react-16": "^1.15.7",
         "enzyme-to-json": "^3.6.2",
         "eslint-plugin-cypress": "^2.13.3",
-        "patch-package": "^6.5.1",
+        "patch-package": "^7.0.1",
         "redux-devtools": "^3.7.0",
         "redux-mock-store": "^1.5.4",
         "start-server-and-test": "^1.15.4"
