@@ -14,13 +14,14 @@
 # Marta Vila <marta@dhis2.org>, 2023
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
 # Janeth Cruz, 2023
+# Alejandra Avila <alejandra@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Janeth Cruz, 2023\n"
+"Last-Translator: Alejandra Avila <alejandra@dhis2.org>, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,7 +96,7 @@ msgid "Name"
 msgstr "Nombre"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Event time"
 msgstr "Event time"
@@ -678,7 +679,7 @@ msgid "mi"
 msgstr ""
 
 msgid "Perimeter"
-msgstr ""
+msgstr "Perímetro"
 
 msgid "Reset bearing to north"
 msgstr ""
@@ -793,7 +794,7 @@ msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} en y todo por debajo de {{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "Unidades organizativas seleccionadas"
@@ -904,7 +905,7 @@ msgid "OSM Light"
 msgstr "OSM Sencillo"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detallado"
 
 msgid "Google Streets"
 msgstr "Google Calles"
@@ -913,16 +914,16 @@ msgid "Google Hybrid"
 msgstr "Google Híbrido"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing Carretera"
 
 msgid "Bing Dark"
 msgstr "Bing Dark"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing Aéreo"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Etiquetas aéreas Bing"
 
 msgid "Population"
 msgstr "Población"
@@ -1233,7 +1234,7 @@ msgid "Yearly"
 msgstr "Anual"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Año fiscal (Inicio noviembre)"
 
 msgid "Financial year (Start October)"
 msgstr "Año fiscal - Octubre"
