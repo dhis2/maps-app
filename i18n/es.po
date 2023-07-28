@@ -12,15 +12,15 @@
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Carlos Tejo Alonso, 2022
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
-# Janeth Cruz, 2023
 # Alejandra Avila <alejandra@dhis2.org>, 2023
+# Janeth Cruz, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Alejandra Avila <alejandra@dhis2.org>, 2023\n"
+"Last-Translator: Janeth Cruz, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1276,6 +1276,7 @@ msgstr "No"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
+"No se puede obtener el token de autorización para Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
