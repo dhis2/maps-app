@@ -39,6 +39,7 @@ import {
     DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
+    RENDERING_STRATEGY_SINGLE,
 } from '../../../constants/layers';
 
 import { RELATIVE_PERIODS, START_END_DATES } from '../../../constants/periods';
@@ -182,12 +183,23 @@ export class ThematicDialog extends Component {
         const {
             rows,
             columns,
+            periodType,
+            renderingStrategy,
             setClassification,
             setLegendSet,
+            setRenderingStrategy,
             loadOrgUnitPath,
             validateLayer,
             onLayerValidation,
         } = this.props;
+
+        // Set rendering strategy to single if not relative period
+        if (
+            periodType !== RELATIVE_PERIODS &&
+            renderingStrategy !== RENDERING_STRATEGY_SINGLE
+        ) {
+            setRenderingStrategy(RENDERING_STRATEGY_SINGLE);
+        }
 
         if (rows !== prev.rows) {
             const orgUnits = getOrgUnitNodesFromRows(rows);
