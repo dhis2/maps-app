@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo, useEffect } from 'react'
-import usePrevious from '../../hooks/usePrevious.js'
 import {
     EVENT_COORDINATE_DEFAULT,
     EVENT_COORDINATE_ENROLLMENT,
@@ -11,6 +10,7 @@ import {
     NONE,
 } from '../../constants/layers.js'
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
+import usePrevious from '../../hooks/usePrevious.js'
 import { SelectField } from '../core/index.js'
 
 const includeTypes = ['COORDINATE']

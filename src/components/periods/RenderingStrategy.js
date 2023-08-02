@@ -2,7 +2,6 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import usePrevious from '../../hooks/usePrevious.js'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
@@ -12,6 +11,7 @@ import {
     singleMapPeriods,
     invalidSplitViewPeriods,
 } from '../../constants/periods.js'
+import usePrevious from '../../hooks/usePrevious.js'
 import { Radio, RadioGroup } from '../core/index.js'
 
 const RenderingStrategy = ({
