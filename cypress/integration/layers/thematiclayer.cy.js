@@ -94,4 +94,60 @@ context('Thematic Layers', () => {
             `Feb 1, ${CURRENT_YEAR} - Nov 30, ${CURRENT_YEAR}`
         )
     })
+
+    // TODO - update demo database and then enable this test
+    it.skip('adds a thematic layer with a calculation', () => {
+
+        const calculationName = 'Jennifers calc'
+        // open thematic dialog
+        cy.getByDataTest('add-layer-button').click()
+        cy.getByDataTest('addlayeritem-thematic').click()
+
+        // choose "Calculation" in item type
+        cy.getByDataTest('thematic-layer-value-type-select').click()
+        cy.contains('Calculations').click()
+
+        // assert that the label on the Calculation select is "Calculation"
+        cy.getByDataTest('calculationselect-label').contains('Calculation')
+
+        // click to open the calculation select
+        cy.getByDataTest('calculationselect').click()
+
+        // check search box exists "Type to filter options"
+        cy.getByDataTest('dhis2-uicore-popper')
+            .find('input[type="text"]')
+            .should('have.attr', 'placeholder', 'Type to filter options')
+
+        // try search for something that doesn't exist
+
+        cy.getByDataTest('dhis2-uicore-popper')
+            .find('input[type="text"]')
+            .type('foo')
+
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper').contains('No options found').should('be.visible')
+
+        // try search for something that exists
+        cy.getByDataTest('dhis2-uicore-popper')
+            .find('input[type="text"]')
+            .clear()
+
+        cy.getByDataTest('dhis2-uicore-popper')
+            .find('input[type="text"]')
+            .type(calculationName)
+
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper').contains(calculationName).should('be.visible')
+
+        // select the calculation and close dialog
+        cy.contains(calculationName).click()
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+
+        // check the layer card title
+
+        cy.getByDataTest('layercard')
+            .contains(calculationName, { timeout: 50000 })
+            .should('be.visible')
 })

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
-"PO-Revision-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-08-08T11:45:40.262Z\n"
+"PO-Revision-Date: 2023-08-08T11:45:40.262Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -16,6 +16,9 @@ msgstr "Map \"{{- name}}\" is saved."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Failed to save map: {{message}}"
+
+msgid "Calculation"
+msgstr "Calculation"
 
 msgid "Classification"
 msgstr "Classification"
@@ -421,6 +424,9 @@ msgstr "Event data item is required"
 msgid "Program indicator is required"
 msgstr "Program indicator is required"
 
+msgid "Calculation is required"
+msgstr "Calculation is required"
+
 msgid "Period is required"
 msgstr "Period is required"
 
@@ -435,6 +441,9 @@ msgstr "Event data items"
 
 msgid "Program indicators"
 msgstr "Program indicators"
+
+msgid "Calculations"
+msgstr "Calculations"
 
 msgid "Item type"
 msgstr "Item type"

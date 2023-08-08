@@ -38,6 +38,7 @@ const ValueTypeSelect = ({ value, onChange, className }) => {
             value={type}
             onChange={(valueType) => onChange(valueType.id)}
             className={className}
+            dataTest="thematic-layer-value-type-select"
         />
     )
 }
