@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useRef, useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import {
     EVENT_COORDINATE_DEFAULT,
     EVENT_COORDINATE_ENROLLMENT,
@@ -10,6 +10,7 @@ import {
     NONE,
 } from '../../constants/layers.js'
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
+import usePrevious from '../../hooks/usePrevious.js'
 import { SelectField } from '../core/index.js'
 
 const includeTypes = ['COORDINATE']
@@ -28,7 +29,7 @@ const CoordinateField = ({
         includeTypes,
     })
 
-    const prevProgram = useRef(program)
+    const prevProgram = usePrevious(program)
 
     const isTrackerProgram = !!program?.trackedEntityType
 
@@ -83,11 +84,10 @@ const CoordinateField = ({
 
     // Reset default value when program is changed
     useEffect(() => {
-        if (prevProgram.current !== program) {
+        if (program !== prevProgram) {
             onChange(defaultValue)
-            prevProgram.current = program
         }
-    }, [program, defaultValue, onChange])
+    }, [program, prevProgram, defaultValue, onChange])
 
     return (
         <div className={className}>
