@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
@@ -11,26 +11,30 @@ import {
     singleMapPeriods,
     invalidSplitViewPeriods,
 } from '../../constants/periods.js'
+import usePrevious from '../../hooks/usePrevious.js'
 import { Radio, RadioGroup } from '../core/index.js'
 
-class RenderingStrategy extends Component {
-    static propTypes = {
-        onChange: PropTypes.func.isRequired,
-        hasOtherLayers: PropTypes.bool,
-        hasOtherTimelineLayers: PropTypes.bool,
-        period: PropTypes.object,
-        value: PropTypes.string,
-    }
+const RenderingStrategy = ({
+    layerId,
+    value = RENDERING_STRATEGY_SINGLE,
+    period = {},
+    onChange,
+}) => {
+    const hasOtherLayers = useSelector(
+        ({ map }) => !!map.mapViews.filter(({ id }) => id !== layerId).length
+    )
+    const hasOtherTimelineLayers = useSelector(
+        ({ map }) =>
+            !!map.mapViews.find(
+                (layer) =>
+                    layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
+                    layer.id !== layerId
+            )
+    )
+    const prevPeriod = usePrevious(period)
 
-    static defaultProps = {
-        value: RENDERING_STRATEGY_SINGLE,
-        period: {},
-    }
-
-    componentDidUpdate(prevProps) {
-        const { value, period, onChange } = this.props
-
-        if (period !== prevProps.period) {
+    useEffect(() => {
+        if (period !== prevPeriod) {
             if (
                 singleMapPeriods.includes(period.id) &&
                 value !== RENDERING_STRATEGY_SINGLE
@@ -44,65 +48,50 @@ class RenderingStrategy extends Component {
                 onChange(RENDERING_STRATEGY_SINGLE)
             }
         }
+    }, [value, period, prevPeriod, onChange])
+
+    if (singleMapPeriods.includes(period.id)) {
+        return null
     }
 
-    render() {
-        const {
-            value,
-            period,
-            hasOtherLayers,
-            hasOtherTimelineLayers,
-            onChange,
-        } = this.props
+    let helpText
 
-        if (singleMapPeriods.includes(period.id)) {
-            return null
-        }
-
-        let helpText
-
-        if (hasOtherTimelineLayers) {
-            helpText = i18n.t('Only one timeline is allowed.')
-        } else if (hasOtherLayers) {
-            helpText = i18n.t('Remove other layers to enable split map views.')
-        }
-
-        return (
-            <RadioGroup
-                label={i18n.t('Display periods')}
-                value={value}
-                onChange={onChange}
-                helpText={helpText}
-            >
-                <Radio value="SINGLE" label={i18n.t('Single (aggregate)')} />
-                <Radio
-                    value="TIMELINE"
-                    label={i18n.t('Timeline')}
-                    disabled={hasOtherTimelineLayers}
-                />
-                <Radio
-                    value="SPLIT_BY_PERIOD"
-                    label={i18n.t('Split map views')}
-                    disabled={
-                        hasOtherLayers ||
-                        invalidSplitViewPeriods.includes(period.id)
-                    }
-                />
-            </RadioGroup>
-        )
+    if (hasOtherTimelineLayers) {
+        helpText = i18n.t('Only one timeline is allowed.')
+    } else if (hasOtherLayers) {
+        helpText = i18n.t('Remove other layers to enable split map views.')
     }
+
+    return (
+        <RadioGroup
+            label={i18n.t('Display periods')}
+            value={value}
+            onChange={onChange}
+            helpText={helpText}
+        >
+            <Radio value="SINGLE" label={i18n.t('Single (aggregate)')} />
+            <Radio
+                value="TIMELINE"
+                label={i18n.t('Timeline')}
+                disabled={hasOtherTimelineLayers}
+            />
+            <Radio
+                value="SPLIT_BY_PERIOD"
+                label={i18n.t('Split map views')}
+                disabled={
+                    hasOtherLayers ||
+                    invalidSplitViewPeriods.includes(period.id)
+                }
+            />
+        </RadioGroup>
+    )
 }
 
-export default connect((state, props) => {
-    const { mapViews } = state.map
+RenderingStrategy.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    layerId: PropTypes.string,
+    period: PropTypes.object,
+    value: PropTypes.string,
+}
 
-    return {
-        hasOtherLayers: !!mapViews.filter(({ id }) => id !== props.layerId)
-            .length,
-        hasOtherTimelineLayers: !!mapViews.find(
-            (layer) =>
-                layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
-                layer.id !== props.layerId
-        ),
-    }
-})(RenderingStrategy)
+export default RenderingStrategy
