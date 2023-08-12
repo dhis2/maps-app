@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import AlertStack from '../alerts/AlertStack.js'
 import BottomPanel from '../datatable/BottomPanel.js'
@@ -17,7 +17,14 @@ import AppMenu from './AppMenu.js'
 import styles from './styles/AppLayout.module.css'
 
 const AppLayout = () => {
+    const [renderId, setRenderId] = useState(1)
+    const isPanelOpen = useSelector(
+        (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
+    )
+
     const downloadMode = useSelector((state) => state.download.downloadMode)
+
+    const onFileMenuAction = () => isPanelOpen && setRenderId(renderId + 1)
 
     return (
         <div
@@ -29,14 +36,14 @@ const AppLayout = () => {
                 <DownloadMode />
             ) : (
                 <>
-                    <AppMenu />
+                    <AppMenu onFileMenuAction={onFileMenuAction} />
                     <LayersToggle />
                     <LayersPanel />
                     <LayersLoader />
                 </>
             )}
             <MapPosition />
-            <Interpretations />
+            {isPanelOpen && <Interpretations renderId={renderId} />}
             <BottomPanel />
             <LayerEdit />
             <ContextMenu />
