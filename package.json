@@ -22,7 +22,7 @@
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^10.3.9",
         "@dhis2/cli-style": "^10.5.1",
-        "@dhis2/cypress-commands": "^9.0.2",
+        "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^9.0.2",
         "@testing-library/react": "^12.1.5",
         "cypress": "^8.7.0",
