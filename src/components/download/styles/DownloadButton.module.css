@@ -1,31 +1,16 @@
-/* Adapted from https: //github.com/dhis2/analytics/blob/master/src/components/Toolbar/MenuButton.styles.js */
-
-.container {
-    width: 300px;
-    display: flex;
-    align-items: stretch;
-    border-right: 1px solid var(--colors-grey400);
-}
+/* Based on https: //github.com/dhis2/analytics/blob/master/src/components/Toolbar/MenuButton.styles.js */
 
 .button {
     all: unset;
     display: inline-flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     font-size: 14px;
     line-height: 14px;
+    padding: 0 var(--spacers-dp12);
     color: var(--colors-grey900);
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     cursor: pointer;
-    user-select: none;
-    padding: 0px 12px;
-    width: 100%
-}
-
-.content {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--spacers-dp4) var(--spacers-dp8);
-    gap: var(--spacers-dp8);
 }
 
 .button:hover:enabled,

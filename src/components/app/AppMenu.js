@@ -1,4 +1,4 @@
-import { Toolbar } from '@dhis2/analytics'
+import { Toolbar, HoverMenuBar } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
 import DownloadButton from '../download/DownloadButton.js'
@@ -9,8 +9,10 @@ import FileMenu from './FileMenu.js'
 const AppMenu = ({ onFileMenuAction }) => (
     <Toolbar>
         <AddLayerButton />
-        <FileMenu onFileMenuAction={onFileMenuAction} />
-        <DownloadButton />
+        <HoverMenuBar>
+            <FileMenu onFileMenuAction={onFileMenuAction} />
+            <DownloadButton />
+        </HoverMenuBar>
         <InterpretationsToggle />
     </Toolbar>
 )

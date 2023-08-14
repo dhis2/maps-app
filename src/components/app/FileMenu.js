@@ -1,4 +1,4 @@
-import { FileMenu as UiFileMenu, HoverMenuBar } from '@dhis2/analytics'
+import { FileMenu as UiFileMenu } from '@dhis2/analytics'
 import { useDataMutation, useDataEngine } from '@dhis2/app-runtime'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { useAlert } from '@dhis2/app-service-alerts'
@@ -174,22 +174,20 @@ const FileMenu = ({ onFileMenuAction }) => {
     const onNew = () => dispatch(newMap())
 
     return (
-        <HoverMenuBar>
-            <UiFileMenu
-                currentUser={d2.currentUser}
-                fileType="map"
-                fileObject={map}
-                onNew={onNew}
-                onOpen={openMap}
-                onSave={saveMap}
-                onSaveAs={saveAsNewMap}
-                onRename={onRename}
-                onDelete={onDelete}
-                onError={onFileMenuError}
-                onShare={onFileMenuAction}
-                onTranslate={onFileMenuAction}
-            />
-        </HoverMenuBar>
+        <UiFileMenu
+            currentUser={d2.currentUser}
+            fileType="map"
+            fileObject={map}
+            onNew={onNew}
+            onOpen={openMap}
+            onSave={saveMap}
+            onSaveAs={saveAsNewMap}
+            onRename={onRename}
+            onDelete={onDelete}
+            onError={onFileMenuError}
+            onShare={onFileMenuAction}
+            onTranslate={onFileMenuAction}
+        />
     )
 }
 
