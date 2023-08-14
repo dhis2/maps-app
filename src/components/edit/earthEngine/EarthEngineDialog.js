@@ -38,6 +38,7 @@ const EarthEngineDialog = (props) => {
         band,
         rows,
         params,
+        style,
         filter,
         areaRadius,
         orgUnits,
@@ -49,7 +50,7 @@ const EarthEngineDialog = (props) => {
         onLayerValidation,
     } = props
 
-    const dataset = getEarthEngineLayer(layerId)
+    // const dataset = getEarthEngineLayer(layerId)
 
     const {
         description,
@@ -61,12 +62,19 @@ const EarthEngineDialog = (props) => {
         source,
         sourceUrl,
         aggregations,
-    } = dataset
+    } = props // dataset
 
     const period = getPeriodFromFilter(filter)
 
+    const getFilter = ({ id }) =>
+        filters.map((filter) => ({
+            id,
+            ...filter,
+            value: filter.value === '$value' ? String(id) : filter.value,
+        }))
+
     const setPeriod = useCallback(
-        (period) => setFilter(period ? filters(period) : null),
+        (period) => setFilter(period ? getFilter(period) : null),
         [filters, setFilter]
     )
 

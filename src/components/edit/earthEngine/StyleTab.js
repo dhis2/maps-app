@@ -21,7 +21,7 @@ const StyleTab = ({ unit, params, hasOrgUnitField }) => (
 
 StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
-    unit: PropTypes.string.isRequired,
+    unit: PropTypes.string,
     params: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,

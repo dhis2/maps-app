@@ -69,6 +69,7 @@ export default class EarthEngineLayer extends Layer {
             resolution,
             projection,
             params,
+            style,
             popup,
             data,
             aggregationType,
@@ -110,6 +111,10 @@ export default class EarthEngineLayer extends Layer {
 
         if (params) {
             config.params = params
+        }
+
+        if (style) {
+            config.style = style
         }
 
         if (areaRadius) {
