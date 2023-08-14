@@ -20,12 +20,12 @@ export const getPeriodFromFilter = (filter) => {
         return null
     }
 
-    const { id, name, year, arguments: args } = filter[0]
+    const { id, name, year, arguments: args } = filter[0] // TODO: Make more flexible
 
     return {
-        id: id || args[1],
-        name,
-        year,
+        id: id, // args[1],
+        // name,
+        // year,
     }
 }
 

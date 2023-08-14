@@ -17,8 +17,6 @@ export const addExternalLayer = (layer) => ({
 })
 
 export const tSetExternalLayers = (engine) => async (dispatch) => {
-    console.log('engine', engine)
-
     engine
         .query({
             dataStore: {
@@ -34,6 +32,7 @@ export const tSetExternalLayers = (engine) => async (dispatch) => {
                         },
                     })
                     .then(({ layerIds }) => {
+                        // TODO: Possible to load all layers at once?
                         Promise.all(
                             layerIds.map((layerId) =>
                                 engine
@@ -45,14 +44,17 @@ export const tSetExternalLayers = (engine) => async (dispatch) => {
                                     .then(({ layer }) => layer)
                             )
                         ).then((layers) => {
-                            layers.map((layer) =>
+                            layers.forEach((layer) => {
+                                const layerId = layer.id // TODO
+                                delete layer.id // TODO
                                 dispatch(
                                     addExternalLayer({
                                         ...layer,
                                         layer: EARTH_ENGINE_LAYER, // TODO
+                                        layerId, // TODO
                                     })
                                 )
-                            )
+                            })
                         })
                     })
             }
