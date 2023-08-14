@@ -14,6 +14,9 @@ export const addExternalLayer = (layer) => ({
 })
 
 export const tSetExternalLayers = (engine) => async (dispatch) => {
+    console.log('engine', engine)
+
+    /*
     try {
         const externalLayers = await fetchExternalLayers(engine)
         const externalBasemaps = externalLayers.externalLayers.externalMapLayers
@@ -30,4 +33,5 @@ export const tSetExternalLayers = (engine) => async (dispatch) => {
         log.error('Could not load external map layers')
         return e
     }
+    */
 }
