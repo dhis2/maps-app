@@ -3,14 +3,16 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import {
     APP_MENU_HEIGHT,
-    DOWNLOAD_MENU_HEIGHT,
-    LAYERS_PANEL_WIDTH,
-    RIGHT_PANEL_WIDTH,
+    HEADER_HEIGHT,
+    // DOWNLOAD_MENU_HEIGHT,
+    // LAYERS_PANEL_WIDTH,
+    // RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.js'
 import NorthArrow from '../download/NorthArrow.js'
 import MapContainer from '../map/MapContainer.js'
+import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import styles from './styles/MapPosition.module.css'
 
 const MapPosition = () => {
@@ -31,6 +33,15 @@ const MapPosition = () => {
     )
     const dataTableOpen = useSelector((state) => !!state.dataTable)
 
+    const { height } = useWindowDimensions()
+
+    let mapHeight = height - HEADER_HEIGHT - APP_MENU_HEIGHT
+    if (dataTableOpen) {
+        mapHeight = mapHeight - dataTableHeight
+    } else if (downloadMode) {
+        mapHeight = height - HEADER_HEIGHT
+    }
+
     const downloadMapInfoOpen =
         downloadMode &&
         (showName ||
@@ -40,23 +51,16 @@ const MapPosition = () => {
 
     const isSplitView = !!getSplitViewLayer(layers)
 
-    const mapPosition = {
-        top: downloadMode ? DOWNLOAD_MENU_HEIGHT : APP_MENU_HEIGHT,
-        left: layersPanelOpen || downloadMode ? LAYERS_PANEL_WIDTH : 0,
-        right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
-        bottom: dataTableOpen ? dataTableHeight : 0,
-    }
-
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount((count) => count + 1)
-    }, [
-        layersPanelOpen,
-        rightPanelOpen,
-        dataTableOpen,
-        dataTableHeight,
-        downloadMapInfoOpen,
-    ])
+    }, [dataTableOpen, dataTableHeight, downloadMapInfoOpen])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setResizeCount((count) => count + 1)
+        }, 100)
+    }, [layersPanelOpen, rightPanelOpen])
 
     // Reset bearing and pitch when new map (mapId changed)
     useEffect(() => {
@@ -91,7 +95,7 @@ const MapPosition = () => {
     }, [map, downloadMode])
 
     return (
-        <div className={styles.mapPosition} style={mapPosition}>
+        <div className={styles.mapPosition} style={{ height: mapHeight }}>
             <div
                 className={cx({
                     [styles.mapDownload]: downloadMode,
@@ -100,9 +104,8 @@ const MapPosition = () => {
             >
                 <div
                     id="dhis2-map-container"
-                    data-test="dhis2-map-container"
                     className={cx(styles.mapContainer, {
-                        'dhis2-map-download': downloadMode,
+                        [styles.download]: downloadMode,
                     })}
                 >
                     <MapContainer resizeCount={resizeCount} setMap={setMap} />

@@ -5,16 +5,19 @@ import DownloadButton from '../download/DownloadButton.js'
 import InterpretationsToggle from '../interpretations/InterpretationsToggle.js'
 import AddLayerButton from '../layers/overlays/AddLayerButton.js'
 import FileMenu from './FileMenu.js'
+import styles from './styles/AppMenu.module.css'
 
 const AppMenu = ({ onFileMenuAction }) => (
-    <Toolbar>
-        <AddLayerButton />
-        <HoverMenuBar>
-            <FileMenu onFileMenuAction={onFileMenuAction} />
-            <DownloadButton />
-        </HoverMenuBar>
-        <InterpretationsToggle />
-    </Toolbar>
+    <div className={styles.toolbar}>
+        <Toolbar>
+            <AddLayerButton />
+            <HoverMenuBar>
+                <FileMenu onFileMenuAction={onFileMenuAction} />
+                <DownloadButton />
+            </HoverMenuBar>
+            <InterpretationsToggle />
+        </Toolbar>
+    </div>
 )
 
 AppMenu.propTypes = {

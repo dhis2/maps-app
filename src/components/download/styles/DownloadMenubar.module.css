@@ -1,6 +1,5 @@
 .downloadModeMenu {
     display: flex;
-    position: absolute;
     width: 100%;
     height: 48px;
     z-index: 1200;

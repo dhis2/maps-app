@@ -1,0 +1,8 @@
+.detailsPanel {
+    width: 380px;
+    transition: width 100ms ease-out;
+}
+
+.detailsPanel.collapsed {
+    width: 0px;
+}

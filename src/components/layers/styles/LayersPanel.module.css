@@ -1,0 +1,9 @@
+.layersPanel {
+    width: 300px;
+    transition: width 100ms ease-out;
+    overflow-y: auto;
+}
+
+.layersPanel.collapsed {
+    width: 0px;
+}

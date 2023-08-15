@@ -1,3 +1,8 @@
+.downloadSettingsPanel {
+    width: 300px;
+    overflow-y: auto;
+}
+
 .downloadSettings {
     padding: var(--spacers-dp8) var(--spacers-dp16);
     background-color: #f4f6f8;

@@ -75,7 +75,7 @@ const InterpretationsPanel = ({
 
 InterpretationsPanel.propTypes = {
     map: PropTypes.object.isRequired,
-    renderId: PropTypes.string.isRequired,
+    renderId: PropTypes.number.isRequired,
     setInterpretation: PropTypes.func.isRequired,
     interpretationId: PropTypes.string,
 }

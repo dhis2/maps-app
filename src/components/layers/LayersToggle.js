@@ -1,4 +1,5 @@
 import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -15,8 +16,7 @@ const LayersToggle = ({
     !isDownload && (
         <div
             onClick={isOpen ? closeLayersPanel : openLayersPanel}
-            className={styles.layersToggle}
-            style={isOpen ? {} : { left: 0 }}
+            className={cx(styles.layersToggle, { [styles.collapsed]: !isOpen })}
         >
             {isOpen ? <IconChevronLeft24 /> : <IconChevronRight24 />}
         </div>
