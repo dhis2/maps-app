@@ -15,10 +15,6 @@ import styles from './styles/BottomPanel.module.css'
 
 // Container for DataTable
 const BottomPanel = () => {
-    {
-        closeDataTable, resizeDataTable
-    }
-
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
     const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
     const rightPanelOpen = useSelector((state) => state.ui.rightPanelOpen)
