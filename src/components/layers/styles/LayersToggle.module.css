@@ -10,7 +10,7 @@
     box-shadow: 3px 1px 5px -1px rgba(0, 0, 0, 0.2);
     z-index: 1100;
     cursor: pointer;
-    transition: left var(--left-panel-transition-time) ease-out;
+    transition: left var(--transition-time) var(--transition-style);
 }
 
 .layersToggle.collapsed {

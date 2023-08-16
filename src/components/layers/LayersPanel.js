@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
 import { sortLayers } from '../../actions/layers.js'
 import BasemapCard from '../layers/basemaps/BasemapCard.js'
+import LayersToggle from '../layers/LayersToggle.js'
 import OverlayCard from './overlays/OverlayCard.js'
 import styles from './styles/LayersPanel.module.css'
 
@@ -27,26 +28,29 @@ const LayersPanel = () => {
     const onSort = () => dispatch(sortLayers())
 
     return (
-        <div
-            className={cx(styles.layersPanel, {
-                [styles.collapsed]: !layersPanelOpen,
-            })}
-        >
-            <div className={styles.layersPanelInner}>
-                {layersPanelOpen ? (
-                    <>
-                        <SortableLayersList
-                            layers={layers}
-                            onSortEnd={onSort}
-                            useDragHandle={true}
-                        />
-                        <div>
-                            <BasemapCard />
-                        </div>
-                    </>
-                ) : null}
+        <>
+            <div
+                className={cx(styles.layersPanel, {
+                    [styles.collapsed]: !layersPanelOpen,
+                })}
+            >
+                <div className={styles.layersPanelInner}>
+                    {layersPanelOpen ? (
+                        <>
+                            <SortableLayersList
+                                layers={layers}
+                                onSortEnd={onSort}
+                                useDragHandle={true}
+                            />
+                            <div>
+                                <BasemapCard />
+                            </div>
+                        </>
+                    ) : null}
+                </div>
             </div>
-        </div>
+            <LayersToggle />
+        </>
     )
 }
 

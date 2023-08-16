@@ -4,19 +4,19 @@
     flex-direction: column;
 }
 
-.appContent {
+.content {
     display: flex;
     flex-direction: row;
     height: 100%;
 }
 
+.downloadContent {
+    margin-top: var(--header-height);
+}
+
 .appMapAndTable {
     flex: auto;
     position: relative;
-}
-
-.downloadContent {
-    margin-top: var(--header-height);
 }
 
 .downloadMap {

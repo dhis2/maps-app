@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import { openLayersPanel, closeLayersPanel } from '../../actions/ui.js'
 import styles from './styles/LayersToggle.module.css'
 
-// This expand/collapse toggle is separate from LayersPanel to avoid overflow issue
 const LayersToggle = ({
     isOpen,
     isDownload,
