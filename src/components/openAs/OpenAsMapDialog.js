@@ -23,6 +23,7 @@ class OpenAsMapDialog extends Component {
     static propTypes = {
         addLayer: PropTypes.func.isRequired,
         clearAnalyticalObject: PropTypes.func.isRequired,
+        showDialog: PropTypes.bool.isRequired,
         ao: PropTypes.object,
     }
 
@@ -48,8 +49,12 @@ class OpenAsMapDialog extends Component {
     }
 
     render() {
-        const { ao, clearAnalyticalObject } = this.props
+        const { ao, showDialog, clearAnalyticalObject } = this.props
         const { selectedDataDims } = this.state
+
+        if (!showDialog) {
+            return null
+        }
 
         const dataDims = getDataDimensionsFromAnalyticalObject(ao)
         const disableProceedBtn = !selectedDataDims.length
@@ -124,6 +129,7 @@ class OpenAsMapDialog extends Component {
 
 export default connect(
     (state) => ({
+        showDialog: !!state.analyticalObject,
         ao: state.analyticalObject,
     }),
     {

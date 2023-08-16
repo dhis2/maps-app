@@ -19,7 +19,6 @@ const AppLayout = () => {
     const [interpretationsRenderId, setInterpretationsRenderId] = useState(1)
 
     const dataTableOpen = useSelector((state) => !!state.dataTable)
-    const openAsMapDialog = useSelector((state) => !!state.analyticalObject)
     const downloadMode = useSelector((state) => !!state.download.downloadMode)
     const detailsPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
@@ -58,7 +57,7 @@ const AppLayout = () => {
             <ContextMenu />
             <LayerEdit />
             <AlertStack />
-            {openAsMapDialog && <OpenAsMapDialog />}
+            <OpenAsMapDialog />
         </>
     )
 }
