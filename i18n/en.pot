@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
-"PO-Revision-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-08-16T11:14:21.319Z\n"
+"PO-Revision-Date: 2023-08-16T11:14:21.319Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -498,9 +498,6 @@ msgstr "Style by group set"
 
 msgid "Indicator group"
 msgstr "Indicator group"
-
-msgid "Interpretations"
-msgstr "Interpretations"
 
 msgid "Collapse"
 msgstr "Collapse"

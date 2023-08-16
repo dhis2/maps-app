@@ -1,0 +1,9 @@
+:root {
+    --left-panel-width: 300px;
+    --right-panel-width: 380px;
+
+    --transition-time: 100ms;
+    --transition-style: ease-out;
+
+    --header-height: 48px;
+}

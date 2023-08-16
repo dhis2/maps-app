@@ -1,5 +1,5 @@
 .downloadSettingsPanel {
-    width: 300px;
+    width: var(--left-panel-width);
     overflow-y: auto;
 }
 

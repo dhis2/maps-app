@@ -1,17 +1,14 @@
 .drawer {
     background-color: #f4f6f8;
     height: 100%;
-    z-index: 1190;
 }
 
 .left {
     border-right: 1px solid #e0e0e0;
     box-shadow: 1px 0 1px 0 rgba(0, 0, 0, 0.2);
-    width: 300px;
 }
 
 .right {
     border-left: 1px solid #e0e0e0;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    width: 380px;
 }

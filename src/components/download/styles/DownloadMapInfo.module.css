@@ -1,7 +1,7 @@
 .downloadMapInfo {
     background-color: #fff;
     height: 100%;
-    width: 356px;
+    width: calc(var(--right-panel-width) - var(--spacers-dp24));
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

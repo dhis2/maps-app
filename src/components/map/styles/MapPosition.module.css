@@ -20,7 +20,11 @@
     flex: auto;
 }
 
-.downloadMapInfoOpen > div > div:first-child {
+:not(.downloadMapInfoOpen) > div.download > div:first-child {
+    width: 100%;
+}
+
+.downloadMapInfoOpen > div.download > div:first-child {
     flex: auto;
 }
 

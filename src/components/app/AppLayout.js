@@ -32,13 +32,11 @@ const AppLayout = () => {
     if (downloadMode) {
         return (
             <>
-                <div className={styles.downloadMode}>
-                    <DownloadModeMenu />
-                    <div className={styles.downloadContent}>
-                        <DownloadSettings />
-                        <div className={styles.downloadMap}>
-                            <MapPosition />
-                        </div>
+                <DownloadModeMenu />
+                <div className={styles.downloadContent}>
+                    <DownloadSettings />
+                    <div className={styles.downloadMap}>
+                        <MapPosition />
                     </div>
                 </div>
             </>
@@ -49,9 +47,9 @@ const AppLayout = () => {
         <>
             <div className={styles.appLayout}>
                 <AppMenu onFileMenuAction={onFileMenuAction} />
-                <div className={styles.content}>
+                <div className={styles.appContent}>
                     <LayersPanel />
-                    <div className={styles.mapAndTable}>
+                    <div className={styles.appMapAndTable}>
                         <MapPosition />
                         {dataTableOpen && <BottomPanel />}
                     </div>

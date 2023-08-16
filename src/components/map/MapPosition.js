@@ -1,13 +1,7 @@
 import cx from 'classnames'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import {
-    APP_MENU_HEIGHT,
-    HEADER_HEIGHT,
-    // DOWNLOAD_MENU_HEIGHT,
-    // LAYERS_PANEL_WIDTH,
-    // RIGHT_PANEL_WIDTH,
-} from '../../constants/layout.js'
+import { APP_MENU_HEIGHT, HEADER_HEIGHT } from '../../constants/layout.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.js'
 import NorthArrow from '../download/NorthArrow.js'
@@ -35,11 +29,11 @@ const MapPosition = () => {
 
     const { height } = useWindowDimensions()
 
-    let mapHeight = height - HEADER_HEIGHT - APP_MENU_HEIGHT
+    let mapHeight = height - HEADER_HEIGHT
     if (dataTableOpen) {
         mapHeight = mapHeight - dataTableHeight
-    } else if (downloadMode) {
-        mapHeight = height - HEADER_HEIGHT
+    } else if (!downloadMode) {
+        mapHeight = mapHeight - APP_MENU_HEIGHT
     }
 
     const downloadMapInfoOpen =
@@ -51,16 +45,24 @@ const MapPosition = () => {
 
     const isSplitView = !!getSplitViewLayer(layers)
 
+    const style = window.getComputedStyle(document.documentElement)
+
+    const transitionTime =
+        parseInt(
+            style.getPropertyValue('--transition-time').replace('px', '')
+        ) + 50
+
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount((count) => count + 1)
     }, [dataTableOpen, dataTableHeight, downloadMapInfoOpen])
 
+    // Separate effect for actions that involve an animated transition
     useEffect(() => {
         setTimeout(() => {
             setResizeCount((count) => count + 1)
-        }, 100)
-    }, [layersPanelOpen, rightPanelOpen])
+        }, transitionTime)
+    }, [layersPanelOpen, rightPanelOpen, transitionTime])
 
     // Reset bearing and pitch when new map (mapId changed)
     useEffect(() => {

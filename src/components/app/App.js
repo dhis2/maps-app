@@ -13,6 +13,7 @@ import { getUrlParameter } from '../../util/requests.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import AppLayout from './AppLayout.js'
 import styles from './styles/App.module.css'
+import './App.css'
 
 const App = () => {
     const systemSettings = useSystemSettings()

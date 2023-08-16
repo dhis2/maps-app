@@ -1,7 +1,7 @@
 /* Adapted from https: //github.com/dhis2/analytics/blob/master/src/components/Toolbar/MenuButton.styles.js */
 
 .container {
-    width: 300px;
+    width: var(--left-panel-width);
     display: flex;
     align-items: stretch;
     border-right: 1px solid var(--colors-grey400);

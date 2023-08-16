@@ -1,6 +1,6 @@
 .detailsPanel {
-    width: 380px;
-    transition: width 100ms ease-out;
+    width: var(--right-panel-width);
+    transition: width var(--transition-time) var(--transition-style);
 }
 
 .detailsPanel.collapsed {

@@ -1,32 +1,24 @@
 .appLayout {
     display: flex;
-    height: calc(100vh - 48px);
+    height: calc(100vh - var(--header-height));
     flex-direction: column;
 }
 
-.content {
+.appContent {
     display: flex;
     flex-direction: row;
     height: 100%;
 }
 
-.mapAndTable {
+.appMapAndTable {
     flex: auto;
     position: relative;
 }
 
-.downloadMode {
-    display: flex;
-    flex-direction: column;
-}
-
 .downloadContent {
-    display: flex;
-    flex-direction: row;
-    flex: auto;
+    margin-top: var(--header-height);
 }
 
 .downloadMap {
     flex: auto;
-    /* position: relative; */
 }

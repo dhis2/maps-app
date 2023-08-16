@@ -3,7 +3,6 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
 import { sortLayers } from '../../actions/layers.js'
-import Drawer from '../core/Drawer.js'
 import BasemapCard from '../layers/basemaps/BasemapCard.js'
 import OverlayCard from './overlays/OverlayCard.js'
 import styles from './styles/LayersPanel.module.css'
@@ -33,18 +32,20 @@ const LayersPanel = () => {
                 [styles.collapsed]: !layersPanelOpen,
             })}
         >
-            {layersPanelOpen && (
-                <Drawer position="left">
-                    <SortableLayersList
-                        layers={layers}
-                        onSortEnd={onSort}
-                        useDragHandle={true}
-                    />
-                    <div>
-                        <BasemapCard />
-                    </div>
-                </Drawer>
-            )}
+            <div className={styles.layersPanelInner}>
+                {layersPanelOpen ? (
+                    <>
+                        <SortableLayersList
+                            layers={layers}
+                            onSortEnd={onSort}
+                            useDragHandle={true}
+                        />
+                        <div>
+                            <BasemapCard />
+                        </div>
+                    </>
+                ) : null}
+            </div>
         </div>
     )
 }
