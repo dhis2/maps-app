@@ -30,28 +30,26 @@ const AppLayout = () => {
 
     return (
         <>
-            <div className={cx({ [styles.appLayout]: !downloadMode })}>
-                {downloadMode ? (
-                    <DownloadModeMenu />
-                ) : (
-                    <AppMenu onFileMenuAction={onFileMenuAction} />
-                )}
-                <div
-                    className={cx(styles.content, {
-                        [styles.downloadContent]: downloadMode,
-                    })}
-                >
-                    {downloadMode ? <DownloadSettings /> : <LayersPanel />}
-                    <div className={styles.appMapAndTable}>
-                        <MapPosition />
-                        {dataTableOpen && <BottomPanel />}
-                    </div>
-                    {!downloadMode && (
-                        <DetailsPanel
-                            interpretationsRenderId={interpretationsRenderId}
-                        />
-                    )}
+            {downloadMode ? (
+                <DownloadModeMenu />
+            ) : (
+                <AppMenu onFileMenuAction={onFileMenuAction} />
+            )}
+            <div
+                className={cx(styles.content, {
+                    [styles.downloadContent]: downloadMode,
+                })}
+            >
+                {downloadMode ? <DownloadSettings /> : <LayersPanel />}
+                <div className={styles.appMapAndTable}>
+                    <MapPosition />
+                    {dataTableOpen && <BottomPanel />}
                 </div>
+                {!downloadMode && (
+                    <DetailsPanel
+                        interpretationsRenderId={interpretationsRenderId}
+                    />
+                )}
             </div>
             <LayersLoader />
             <ContextMenu />

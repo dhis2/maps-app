@@ -1,13 +1,7 @@
-.appLayout {
-    display: flex;
-    height: calc(100vh - var(--header-height));
-    flex-direction: column;
-}
-
 .content {
     display: flex;
     flex-direction: row;
-    height: 100%;
+    height: calc(100vh - var(--header-height) - var(--toolbar-height));
 }
 
 .downloadContent {

@@ -1,6 +1,7 @@
 .drawer {
     background-color: #f4f6f8;
     height: 100%;
+    overflow-y: auto;
 }
 
 .left {
