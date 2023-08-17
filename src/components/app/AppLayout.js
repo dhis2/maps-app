@@ -30,7 +30,7 @@ const AppLayout = () => {
 
     return (
         <>
-            <div className={{ [styles.appLayout]: !downloadMode }}>
+            <div className={cx({ [styles.appLayout]: !downloadMode })}>
                 {downloadMode ? (
                     <DownloadModeMenu />
                 ) : (
