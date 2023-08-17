@@ -28,29 +28,27 @@ const LayersPanel = () => {
     const onSort = () => dispatch(sortLayers())
 
     return (
-        <>
-            <div
-                className={cx(styles.layersPanel, {
-                    [styles.collapsed]: !layersPanelOpen,
-                })}
-            >
-                <div className={styles.layersPanelInner}>
-                    {layersPanelOpen ? (
-                        <>
-                            <SortableLayersList
-                                layers={layers}
-                                onSortEnd={onSort}
-                                useDragHandle={true}
-                            />
-                            <div>
-                                <BasemapCard />
-                            </div>
-                        </>
-                    ) : null}
-                </div>
+        <div
+            className={cx(styles.layersPanel, {
+                [styles.collapsed]: !layersPanelOpen,
+            })}
+        >
+            <div className={styles.layersPanelInner}>
+                {layersPanelOpen ? (
+                    <>
+                        <SortableLayersList
+                            layers={layers}
+                            onSortEnd={onSort}
+                            useDragHandle={true}
+                        />
+                        <div>
+                            <BasemapCard />
+                        </div>
+                    </>
+                ) : null}
             </div>
             <LayersToggle />
-        </>
+        </div>
     )
 }
 
