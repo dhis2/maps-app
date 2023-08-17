@@ -29,7 +29,8 @@
 }
 
 .mapDownload {
-    border: var(--spacers-dp24) solid #fff
+    border: var(--spacers-dp24) solid #fff;
+    background-color: var(--colors-white);
 }
 
 .mapDownload :global(.dhis2-map-timeline) {
