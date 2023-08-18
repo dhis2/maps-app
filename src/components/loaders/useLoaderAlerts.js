@@ -64,6 +64,7 @@ function useLoaderAlerts() {
 
                 case WARNING_NO_FACILITY_COORD:
                     noFacilityCoordinatesAlert.show({ msg })
+                    // TODO or just copy the actual message here instead of dynamic
                     break
                 case WARNING_PAGED_EVENTS:
                     pagedEventsAlert.show({ msg })
@@ -75,12 +76,13 @@ function useLoaderAlerts() {
                     unknownErrorAlert.show({ msg })
                     break
                 case ERROR_CRITICAL: {
-                    const custommessage= i18n.t('Error: {{message}}', {
-                        message: error.message || error,
+                    const custommessage = i18n.t('Error: {{message}}', {
+                        // TODO message: error.message || error,
+                        message: 'to be determined',
                         nsSeparator: ';',
                     })
                     errorAlert.show({ msg: custommessage })
-                     break
+                    break
                 }
                 default:
                     break
@@ -93,65 +95,11 @@ function useLoaderAlerts() {
 
 export default useLoaderAlerts
 
-// Facility
-
-// alerts.push({
-//     warning: true,
-//     code: WARNING_NO_FACILITY_COORD,
-//     message: i18n.t('Facilities: No coordinates found', {
-//         nsSeparator: ';',
-//     }),
-// })
-
-// // Event
-// const accessDeniedAlert = {
-//     warning: true,
-//     code: ERROR_NO_ACCESS,
-//     message: i18n.t("You don't have access to this layer data"),
-// }
-// const unknownErrorAlert = {
-//     critical: true,
-//     code: ERROR_UNKNOWN,
-//     message: i18n.t('An unknown error occurred while reading layer data'),
-// }
-
-// alert = {
-//     warning: true,
-//     code: WARNING_PAGED_EVENTS,
-//     message: `${config.name}: ${i18n.t(
-//         'Displaying first {{pageSize}} events out of {{total}}',
-//         {
-//             pageSize: EVENT_CLIENT_PAGE_SIZE,
-//             total,
-//         }
-//     )}`,
-// }
-
+// TODO - confirm with Bjørn that these can be consolidated to a single message
 // NO_DATA - TE layer, Thematic
-// TE
-  message: `${trackedEntityType.name}: ${i18n.t("No tracked entities found")}`
+// TE -
+//   message: `${trackedEntityType.name}: ${i18n.t("No tracked entities found")}`
 // Thematic
-  message: `${name}: ${i18n.t("No data found")}`
+//   message: `${name}: ${i18n.t("No data found")}`
 // EVENT
-  message: `${name}: ${i18n.t("No data found")}`
-
-
-
-// ERROR_CRITICAL ee, thematic, ou, facility
-    message: i18n.t('Error: {{message}}', {
-        message: error.message,
-        nsSeparator: ';',
-    }),
-        message: `${i18n.t('Error')}: ${error.message || error}`
-    message: i18n.t('Error: {{message}}', {
-        message: error.message,
-        nsSeparator: ';',
-    message: i18n.t('Error: {{message}}', {
-        message: error.message,
-        nsSeparator: ';',
-
-
-
-
-
-
+//   message: `${name}: ${i18n.t("No data found")}`
