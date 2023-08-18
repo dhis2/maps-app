@@ -17,7 +17,10 @@ const Interpretations = () => {
 
     useEffect(() => {
         if (isMapLoaded) {
-            const urlInterpretationId = getUrlParameter('interpretationid')
+            // analytics interpretation component uses camelcase
+            const urlInterpretationId =
+                getUrlParameter('interpretationid') ||
+                getUrlParameter('interpretationId')
 
             if (urlInterpretationId) {
                 dispatch(setInterpretation(urlInterpretationId))
