@@ -62,6 +62,7 @@ export const useLayersLoader = () => {
 
             if (!loader) {
                 showLoaderAlert({ layer: layerConfig.layer })
+                return
             }
 
             dispatch(setLayerLoading(layerConfig.id))
