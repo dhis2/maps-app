@@ -9,7 +9,7 @@ import { useSystemSettings } from '../components/SystemSettingsProvider.js'
 // import eventLoader from '../loaders/eventLoader.js'
 // import externalLoader from '../loaders/externalLoader.js'
 import facilityLoader from '../loaders/facilityLoader.js'
-// import orgUnitLoader from '../loaders/orgUnitLoader.js'
+import orgUnitLoader from '../loaders/orgUnitLoader.js'
 // import thematicLoader from '../loaders/thematicLoader.js'
 // import trackedEntityLoader from '../loaders/trackedEntityLoader.js'
 
@@ -18,7 +18,7 @@ const loaders = {
     // event: eventLoader,
     // external: externalLoader,
     facility: facilityLoader,
-    // orgUnit: orgUnitLoader,
+    orgUnit: orgUnitLoader,
     // thematic: thematicLoader,
     // trackedEntity: trackedEntityLoader,
 }
