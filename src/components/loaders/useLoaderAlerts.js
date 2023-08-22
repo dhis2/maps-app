@@ -33,7 +33,6 @@ function useLoaderAlerts() {
     const unknownErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
 
     const showAlerts = (alerts) => {
-        console.log('here with alerts', alerts)
         alerts.forEach(({ message: msg, code, custom }) => {
             switch (code) {
                 case WARNING_NO_DATA:
