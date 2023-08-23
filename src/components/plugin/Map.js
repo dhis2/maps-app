@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import React, { forwardRef, useState, useCallback, useEffect } from 'react'
 // import earthEngineLoader from '../../loaders/earthEngineLoader.js'
 // import eventLoader from '../../loaders/eventLoader.js'
-// import externalLoader from '../../loaders/externalLoader.js'
+import externalLoader from '../../loaders/externalLoader.js'
 import facilityLoader from '../../loaders/facilityLoader.js'
 import orgUnitLoader from '../../loaders/orgUnitLoader.js'
 // import thematicLoader from '../../loaders/thematicLoader.js'
@@ -29,7 +29,7 @@ const defaultBounds = [
 const loaders = {
     // earthEngine: EarthEngineLoader,
     // event: eventLoader,
-    // external: externalLoader,
+    external: externalLoader,
     facility: facilityLoader,
     orgUnit: orgUnitLoader,
     // thematic: thematicLoader,
