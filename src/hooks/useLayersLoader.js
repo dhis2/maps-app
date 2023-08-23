@@ -1,6 +1,7 @@
+import { Analytics } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
@@ -10,7 +11,7 @@ import { useSystemSettings } from '../components/SystemSettingsProvider.js'
 import externalLoader from '../loaders/externalLoader.js'
 import facilityLoader from '../loaders/facilityLoader.js'
 import orgUnitLoader from '../loaders/orgUnitLoader.js'
-// import thematicLoader from '../loaders/thematicLoader.js'
+import thematicLoader from '../loaders/thematicLoader.js'
 // import trackedEntityLoader from '../loaders/trackedEntityLoader.js'
 
 const loaders = {
@@ -19,12 +20,13 @@ const loaders = {
     external: externalLoader,
     facility: facilityLoader,
     orgUnit: orgUnitLoader,
-    // thematic: thematicLoader,
+    thematic: thematicLoader,
     // trackedEntity: trackedEntityLoader,
 }
 
 export const useLayersLoader = () => {
     const engine = useDataEngine()
+    const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const { show: showLoaderAlert } = useAlert(
         ({ layer }) => `Could not load layer ${layer}`,
         { critical: true }
@@ -48,6 +50,7 @@ export const useLayersLoader = () => {
                 config,
                 engine,
                 displayProperty,
+                analyticsEngine,
             })
 
             if (result.alerts) {
@@ -68,5 +71,13 @@ export const useLayersLoader = () => {
             dispatch(setLayerLoading(layerConfig.id))
             loadLayer(layerConfig, loader)
         })
-    }, [layers, dispatch, displayProperty, engine, showAlerts, showLoaderAlert])
+    }, [
+        layers,
+        dispatch,
+        displayProperty,
+        engine,
+        analyticsEngine,
+        showAlerts,
+        showLoaderAlert,
+    ])
 }

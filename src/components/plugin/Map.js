@@ -1,3 +1,4 @@
+import { Analytics } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import {
     CssReset,
@@ -12,7 +13,7 @@ import React, { forwardRef, useState, useCallback, useEffect } from 'react'
 import externalLoader from '../../loaders/externalLoader.js'
 import facilityLoader from '../../loaders/facilityLoader.js'
 import orgUnitLoader from '../../loaders/orgUnitLoader.js'
-// import thematicLoader from '../../loaders/thematicLoader.js'
+import thematicLoader from '../../loaders/thematicLoader.js'
 // import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
 import { drillUpDown } from '../../util/map.js'
 import MapView from '../map/MapView.js'
@@ -32,7 +33,7 @@ const loaders = {
     external: externalLoader,
     facility: facilityLoader,
     orgUnit: orgUnitLoader,
-    // thematic: thematicLoader,
+    thematic: thematicLoader,
     // trackedEntity: trackedEntityLoader,
 }
 
@@ -42,6 +43,7 @@ const Map = forwardRef((props, ref) => {
     const [resizeCount, setResizeCount] = useState(0)
     const { keyAnalysisDisplayProperty: displayProperty } = useSystemSettings()
     const engine = useDataEngine()
+    const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
 
     const { basemap, mapViews, controls, getResizeFunction } = props
 
@@ -61,6 +63,7 @@ const Map = forwardRef((props, ref) => {
                 config,
                 engine,
                 displayProperty,
+                analyticsEngine,
             })
 
             onLayerLoaded(loadedConfig)
@@ -76,7 +79,7 @@ const Map = forwardRef((props, ref) => {
 
             loadLayer(mapView, loader)
         })
-    }, [mapViews, displayProperty, engine, onLayerLoaded])
+    }, [mapViews, displayProperty, engine, analyticsEngine, onLayerLoaded])
 
     // TODO: Remove when map.js is refactored
     useEffect(() => {
