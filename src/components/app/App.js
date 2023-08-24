@@ -8,10 +8,26 @@ import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { tOpenMap } from '../../actions/map.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
+import history from '../../util/history.js'
 import { getUrlParameter } from '../../util/requests.js'
 import AppLayout from './AppLayout.js'
 import './App.css'
 import './styles/App.module.css'
+
+const parseLocation = (hashLocation) => {
+    const pathParts = hashLocation.pathname.slice(1).split('/')
+    return { id: pathParts[0] }
+}
+
+const getMapId = (hashLocation) => {
+    const parsedHash = parseLocation(hashLocation)
+    if (parsedHash.id) {
+        return parsedHash.id
+    }
+
+    // support /?id=ytkZY3ChM6J for backwards compatibility
+    return getUrlParameter('id')
+}
 
 const App = () => {
     const { systemSettings, basemaps } = useCachedDataQuery()
@@ -22,7 +38,7 @@ const App = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const mapId = getUrlParameter('id')
+            const mapId = getMapId(history.location)
             if (mapId) {
                 await dispatch(
                     tOpenMap({
@@ -36,7 +52,7 @@ const App = () => {
                 await dispatch(tSetAnalyticalObject(currentAO))
             }
 
-            // analytics interpretation component uses camelcase
+            // support both lower and camel case for backwards compatibility
             const interpretationId =
                 getUrlParameter('interpretationid') ||
                 getUrlParameter('interpretationId')
