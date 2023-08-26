@@ -14,7 +14,7 @@ import {
 
 // Returns a promise
 const earthEngineLoader = async (config) => {
-    const { rows, aggregationType } = config
+    const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
     const alerts = []
@@ -125,7 +125,8 @@ const earthEngineLoader = async (config) => {
         ...layerConfig,
     }
 
-    const { unit, filter, description, source, sourceUrl, band, bands } = layer
+    const { unit, filter, description, source, sourceUrl, band, bands, style } =
+        layer
     const { name } = dataset || config
     const period = getPeriodNameFromFilter(filter)
     const data =
@@ -140,6 +141,7 @@ const earthEngineLoader = async (config) => {
 
     const legend = {
         ...layer.legend,
+        items: Array.isArray(style) ? style : null,
         title: name,
         period,
         groups,
@@ -150,8 +152,10 @@ const earthEngineLoader = async (config) => {
     }
 
     // Create/update legend items from params
-    if (!hasClasses(aggregationType) && layer.params) {
-        legend.items = createLegend(layer.params)
+    if (format === 'FeatureCollection') {
+        // TODO: Add feature collection style
+    } else if (!hasClasses(aggregationType) && layer.style) {
+        legend.items = createLegend(layer.style)
     }
 
     return {
@@ -168,15 +172,14 @@ const earthEngineLoader = async (config) => {
 }
 
 export const createLegend = ({ min, max, palette }) => {
-    const colors = palette.split(',')
-    const step = (max - min) / (colors.length - (min > 0 ? 2 : 1))
+    const step = (max - min) / (palette.length - (min > 0 ? 2 : 1))
     const precision = precisionRound(step, max)
     const valueFormat = numberPrecision(precision)
 
     let from = min
     let to = valueFormat(min + step)
 
-    return colors.map((color, index) => {
+    return palette.map((color, index) => {
         const item = { color }
 
         if (index === 0 && min > 0) {
