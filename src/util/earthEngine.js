@@ -20,12 +20,12 @@ export const getPeriodFromFilter = (filter) => {
         return null
     }
 
-    const { id, name, year, arguments: args } = filter[0] // TODO: Make more flexible
+    const { id, name, year } = filter[0] // TODO: Make more flexible
 
     return {
         id: id, // args[1],
-        // name,
-        // year,
+        name: id, // TODO
+        year,
     }
 }
 
@@ -93,12 +93,7 @@ export const getPeriods = async (eeId, periodType) => {
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear()
         const name =
-            periodType === 'Yearly' ? String(year) : getStartEndDate(properties)
-
-        // Remove when old population should not be supported
-        if (eeId === 'WorldPop/POP') {
-            return { id: name, name, year }
-        }
+            periodType === 'yearly' ? String(year) : getStartEndDate(properties)
 
         return { id, name, year }
     }
@@ -106,6 +101,7 @@ export const getPeriods = async (eeId, periodType) => {
     const eeWorker = await getWorkerInstance()
 
     const { features } = await eeWorker.getPeriods(eeId)
+
     return features.map(getPeriod)
 }
 

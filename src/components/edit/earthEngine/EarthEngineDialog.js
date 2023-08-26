@@ -66,11 +66,18 @@ const EarthEngineDialog = (props) => {
 
     const period = getPeriodFromFilter(filter)
 
-    const getFilter = ({ id }) =>
+    const getFilter = ({ id, year }) =>
         filters.map((filter) => ({
             id,
             ...filter,
-            value: filter.value === '$value' ? String(id) : filter.value,
+            // value: filter.value === '$value' ? String(id) : filter.value,
+            value:
+                filter.name === 'year'
+                    ? year
+                    : filter.value === '$value'
+                    ? String(id)
+                    : filter.value,
+            year, // TODO: Include?
         }))
 
     const setPeriod = useCallback(
