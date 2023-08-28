@@ -26,13 +26,6 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
             throw new Error(`Could not load map with id "${id}"`)
         })
 
-// For plugin - use d2
-export const fetchExternalLayersD2 = async () => {
-    const d2 = await getD2()
-    const layers = await d2.models.externalMapLayers.list()
-    return layers.toArray()
-}
-
 // Fetch a single externalLayer
 export const getExternalLayer = async (id) => {
     const d2 = await getD2()

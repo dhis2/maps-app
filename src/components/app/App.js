@@ -19,8 +19,6 @@ const App = () => {
     const [currentAO] = useSetting(CURRENT_AO_KEY)
     const dispatch = useDispatch()
 
-    console.log('basemaps', basemaps)
-
     useEffect(() => {
         async function fetchData() {
             const mapId = getUrlParameter('id')

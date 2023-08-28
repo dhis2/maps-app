@@ -105,7 +105,6 @@ const providerDataTransformation = ({
             id: currentUser.id,
             name: currentUser.name,
             username: currentUser.username,
-            settings: currentUser.settings,
         },
         nameProperty:
             currentUser.settings.keyAnalysisDisplayProperty === 'name'

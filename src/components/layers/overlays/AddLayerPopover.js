@@ -1,5 +1,5 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
-import { Popover, CenteredContent, CircularLoader } from '@dhis2/ui'
+import { Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -20,14 +20,6 @@ const AddLayerPopover = ({
         const config = { ...layer }
         layer.layer === EXTERNAL_LAYER ? addLayer(config) : editLayer(config)
         onClose()
-    }
-
-    if (!layerTypes) {
-        return (
-            <CenteredContent>
-                <CircularLoader />
-            </CenteredContent>
-        )
     }
 
     return (
