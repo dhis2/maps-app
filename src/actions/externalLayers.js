@@ -44,6 +44,7 @@ export const tSetExternalLayers = (engine) => async (dispatch) => {
                                     .then(({ layer }) => layer)
                             )
                         ).then((layers) => {
+                            layers.sort((a, b) => (a.name > b.name ? 1 : -1))
                             layers.forEach((layer) => {
                                 const layerId = layer.id // TODO
                                 delete layer.id // TODO
