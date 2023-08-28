@@ -1,11 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import { earthEngineLayers } from '../constants/earthEngine.js'
 import {
+    THEMATIC_LAYER,
     EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
     FACILITY_LAYER,
     ORG_UNIT_LAYER,
-    THEMATIC_LAYER,
-    TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 
 export const getDefaultLayerTypes = () => [
