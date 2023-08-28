@@ -18,6 +18,7 @@ import {
 import store from './store/index.js'
 import { USER_DATASTORE_NAMESPACE } from './util/analyticalObject.js'
 import { createExternalLayer } from './util/external.js'
+import { fetchExternalLayersQuery } from './util/requests.js'
 import './locales/index.js'
 
 log.setLevel(
@@ -58,13 +59,7 @@ const query = {
             key: SYSTEM_SETTINGS,
         },
     },
-    externalMapLayers: {
-        resource: 'externalMapLayers',
-        params: {
-            fields: 'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
-            paging: false,
-        },
-    },
+    externalMapLayers: fetchExternalLayersQuery,
 }
 
 const getBasemapList = (externalMapLayers, systemSettings) => {

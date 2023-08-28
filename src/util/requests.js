@@ -11,6 +11,14 @@ const fetchMapQuery = {
     },
 }
 
+export const fetchExternalLayersQuery = {
+    resource: 'externalMapLayers',
+    params: {
+        fields: 'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
+        paging: false,
+    },
+}
+
 export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
     engine
         .query(
