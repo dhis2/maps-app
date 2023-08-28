@@ -2,6 +2,7 @@ import {
     AboutAOUnit,
     InterpretationsUnit,
     InterpretationModal,
+    useCachedDataQuery,
 } from '@dhis2/analytics'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import PropTypes from 'prop-types'
@@ -17,6 +18,7 @@ const InterpretationsPanel = ({
     setInterpretation,
     renderCount,
 }) => {
+    const { currentUser } = useCachedDataQuery
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
     const { d2 } = useD2()
@@ -49,7 +51,7 @@ const InterpretationsPanel = ({
                     ref={interpretationsUnitRef}
                     type="map"
                     id={map.id}
-                    currentUser={d2.currentUser}
+                    currentUser={currentUser}
                     onInterpretationClick={onInterpretationClick}
                     onReplyIconClick={onReplyIconClick}
                 />

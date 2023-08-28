@@ -48,9 +48,10 @@ export const clearAlerts = () => ({
 })
 
 export const tOpenMap =
-    (mapId, keyDefaultBaseMap, dataEngine) => async (dispatch, getState) => {
+    ({ mapId, defaultBasemap, engine, basemaps }) =>
+    async (dispatch) => {
         try {
-            const map = await fetchMap(mapId, dataEngine, keyDefaultBaseMap)
+            const map = await fetchMap(mapId, engine, defaultBasemap)
 
             // record visualization view
             dataEngine.mutate(dataStatisticsMutation, {
@@ -59,7 +60,7 @@ export const tOpenMap =
             })
 
             const basemapConfig =
-                getState().basemaps.find((bm) => bm.id === map.basemap.id) ||
+                basemaps.find((bm) => bm.id === map.basemap.id) ||
                 getFallbackBasemap()
 
             const basemap = { ...map.basemap, ...basemapConfig }

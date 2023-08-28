@@ -1,4 +1,4 @@
-import { FileMenu as UiFileMenu } from '@dhis2/analytics'
+import { FileMenu as UiFileMenu, useCachedDataQuery } from '@dhis2/analytics'
 import { useDataMutation, useDataEngine } from '@dhis2/app-runtime'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { useAlert } from '@dhis2/app-service-alerts'
@@ -16,7 +16,6 @@ import {
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import { fetchMap } from '../../util/requests.js'
-import { useSystemSettings } from '../SystemSettingsProvider.js'
 
 const saveMapMutation = {
     resource: 'maps',
@@ -58,7 +57,9 @@ const FileMenu = ({ onFileMenuAction }) => {
     const engine = useDataEngine()
     const map = useSelector((state) => state.map)
     const dispatch = useDispatch()
-    const { keyDefaultBaseMap } = useSystemSettings()
+    const { systemSettings, basemaps } = useCachedDataQuery()
+    const defaultBasemap = systemSettings.keyDefaultBaseMap
+    //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const saveAsAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const deleteAlert = useAlert(
@@ -95,7 +96,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const saveMap = async () => {
         const config = cleanMapConfig({
             config: map,
-            defaultBasemapId: keyDefaultBaseMap,
+            defaultBasemapId: defaultBasemap,
         })
 
         if (config.mapViews) {
@@ -113,7 +114,12 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const openMap = async (id) => {
-        const error = await dispatch(tOpenMap(id, keyDefaultBaseMap, engine))
+        const error = await tOpenMap({
+            mapId: id,
+            defaultBasemap,
+            engine,
+            basemaps,
+        })
         if (error) {
             openMapErrorAlert.show({
                 msg: i18n.t(`Error while opening map: ${error.message}`, {
@@ -127,7 +133,7 @@ const FileMenu = ({ onFileMenuAction }) => {
         const config = {
             ...cleanMapConfig({
                 config: map,
-                defaultBasemapId: keyDefaultBaseMap,
+                defaultBasemapId: defaultBasemap,
             }),
             name: getMapName(name),
             description: description,
@@ -149,7 +155,7 @@ const FileMenu = ({ onFileMenuAction }) => {
             const newMapConfig = await fetchMap(
                 newMapId,
                 engine,
-                keyDefaultBaseMap
+                defaultBasemap
             )
 
             delete newMapConfig.basemap

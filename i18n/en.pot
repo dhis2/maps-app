@@ -1202,6 +1202,21 @@ msgstr "Equal counts"
 msgid "Symbol"
 msgstr "Symbol"
 
+msgid "Thematic"
+msgstr "Thematic"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Tracked entities"
+msgstr "Tracked entities"
+
+msgid "Facilities"
+msgstr "Facilities"
+
+msgid "Org units"
+msgstr "Org units"
+
 msgid "Daily"
 msgstr "Daily"
 
@@ -1283,9 +1298,6 @@ msgstr "No data found"
 msgid "Event"
 msgstr "Event"
 
-msgid "Facilities"
-msgstr "Facilities"
-
 msgid "Facilities: No coordinates found"
 msgstr "Facilities: No coordinates found"
 
@@ -1309,18 +1321,6 @@ msgstr "No tracked entities found"
 
 msgid "related"
 msgstr "related"
-
-msgid "Thematic"
-msgstr "Thematic"
-
-msgid "Events"
-msgstr "Events"
-
-msgid "Tracked entities"
-msgstr "Tracked entities"
-
-msgid "Org units"
-msgstr "Org units"
 
 msgid "not one of"
 msgstr "not one of"

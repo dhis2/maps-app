@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
 import {
@@ -13,12 +14,11 @@ import { useSelector } from 'react-redux'
 import { EVENT_LAYER } from '../../../constants/layers.js'
 import { getFormatOptions, downloadData } from '../../../util/dataDownload.js'
 import { SelectField, Checkbox, Help } from '../../core/index.js'
-import { useUserSettings } from '../../UserSettingsProvider.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
 import styles from './styles/DataDownloadDialog.module.css'
 
 const DataDownloadDialog = ({ layer, onCloseDialog }) => {
-    const { keyAnalysisDisplayProperty } = useUserSettings()
+    const { nameProperty } = useCachedDataQuery()
     const formatOptions = getFormatOptions()
     const { d2 } = useD2()
     const [selectedFormat, setSelectedFormat] = useState(formatOptions[2])
@@ -53,7 +53,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
                 format: selectedFormat.id,
                 humanReadableKeys: humanReadable,
                 d2,
-                nameProperty: keyAnalysisDisplayProperty,
+                nameProperty,
             })
             setIsDownloading(false)
             onClose()

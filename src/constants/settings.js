@@ -16,3 +16,13 @@ export const SYSTEM_SETTINGS = [
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
 ]
+
+const periodSetting = /keyHide(.*)Periods/
+
+export const getHiddenPeriods = (systemSettings) => {
+    return Object.keys(systemSettings)
+        .filter(
+            (setting) => periodSetting.test(setting) && systemSettings[setting]
+        )
+        .map((setting) => setting.match(periodSetting)[1].toUpperCase())
+}
