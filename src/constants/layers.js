@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import { formatDate } from '../util/time.js'
-import { earthEngineLayers } from './earthEngine.js'
 
 export const VECTOR_STYLE = 'vectorStyle'
 export const TILE_LAYER = 'tileLayer'
@@ -172,38 +171,3 @@ export const MIN_RADIUS = 1
 export const MAX_RADIUS = 100
 
 export const NONE = 'none'
-
-export const defaultLayerTypes = () => [
-    {
-        layer: THEMATIC_LAYER,
-        type: i18n.t('Thematic'),
-        img: 'images/thematic.png',
-        opacity: 0.9,
-    },
-    {
-        layer: EVENT_LAYER,
-        type: i18n.t('Events'),
-        img: 'images/events.png',
-        opacity: 0.8,
-        eventClustering: true,
-    },
-    {
-        layer: TRACKED_ENTITY_LAYER,
-        type: i18n.t('Tracked entities'),
-        img: 'images/trackedentities.png',
-        opacity: 0.5,
-    },
-    {
-        layer: FACILITY_LAYER,
-        type: i18n.t('Facilities'),
-        img: 'images/facilities.png',
-        opacity: 1,
-    },
-    {
-        layer: ORG_UNIT_LAYER,
-        type: i18n.t('Org units'),
-        img: 'images/orgunits.png',
-        opacity: 1,
-    },
-    ...earthEngineLayers().filter((l) => !l.legacy),
-]

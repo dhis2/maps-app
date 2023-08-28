@@ -9,7 +9,7 @@ import App from './components/app/App.js'
 import OrgUnitsProvider from './components/OrgUnitsProvider.js'
 import WindowDimensionsProvider from './components/WindowDimensionsProvider.js'
 import { defaultBasemaps } from './constants/basemaps.js'
-import { defaultLayerTypes, BING_LAYER } from './constants/layers.js'
+import { BING_LAYER } from './constants/layers.js'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
@@ -18,6 +18,7 @@ import {
 import store from './store/index.js'
 import { USER_DATASTORE_NAMESPACE } from './util/analyticalObject.js'
 import { createExternalLayer } from './util/external.js'
+import { getDefaultLayerTypes } from './util/getDefaultLayerTypes.js'
 import { fetchExternalLayersQuery } from './util/requests.js'
 import './locales/index.js'
 
@@ -87,7 +88,7 @@ const getLayerTypes = (externalMapLayers) => {
         .filter((layer) => layer.mapLayerPosition !== 'BASEMAP')
         .map(createExternalLayer)
 
-    return defaultLayerTypes().concat(externalLayerTypes)
+    return getDefaultLayerTypes().concat(externalLayerTypes)
 }
 
 const providerDataTransformation = ({
