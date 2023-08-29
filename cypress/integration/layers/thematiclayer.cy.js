@@ -1,5 +1,5 @@
 import { ThematicLayer } from '../../elements/thematic_layer.js'
-import { CURRENT_YEAR } from '../../support/util.js'
+import { CURRENT_YEAR, getApiBaseUrl } from '../../support/util.js'
 
 const INDICATOR_NAME = 'VCCT post-test counselling rate'
 
@@ -95,59 +95,82 @@ context('Thematic Layers', () => {
         )
     })
 
-    // TODO - update demo database and then enable this test
-    it.skip('adds a thematic layer with a calculation', () => {
+    // TODO - update demo database with calculations instead of creating on the fly
+    it('adds a thematic layer with a calculation', () => {
+        const timestamp = new Date().toUTCString().slice(-24, -4)
+        const calculationName = `map calc ${timestamp}`
 
-        const calculationName = 'Jennifers calc'
-        // open thematic dialog
-        cy.getByDataTest('add-layer-button').click()
-        cy.getByDataTest('addlayeritem-thematic').click()
+        // add a calculation
+        cy.request('POST', `${getApiBaseUrl()}/api/expressionDimensionItems`, {
+            name: calculationName,
+            shortName: calculationName,
+            expression: '#{fbfJHSPpUQD}/2',
+        }).then((response) => {
+            expect(response.status).to.eq(201)
 
-        // choose "Calculation" in item type
-        cy.getByDataTest('thematic-layer-value-type-select').click()
-        cy.contains('Calculations').click()
+            const calculationUid = response.body.response.uid
 
-        // assert that the label on the Calculation select is "Calculation"
-        cy.getByDataTest('calculationselect-label').contains('Calculation')
+            // open thematic dialog
+            cy.getByDataTest('add-layer-button').click()
+            cy.getByDataTest('addlayeritem-thematic').click()
 
-        // click to open the calculation select
-        cy.getByDataTest('calculationselect').click()
+            // choose "Calculation" in item type
+            cy.getByDataTest('thematic-layer-value-type-select').click()
+            cy.contains('Calculations').click()
 
-        // check search box exists "Type to filter options"
-        cy.getByDataTest('dhis2-uicore-popper')
-            .find('input[type="text"]')
-            .should('have.attr', 'placeholder', 'Type to filter options')
+            // assert that the label on the Calculation select is "Calculation"
+            cy.getByDataTest('calculationselect-label').contains('Calculation')
 
-        // try search for something that doesn't exist
+            // click to open the calculation select
+            cy.getByDataTest('calculationselect').click()
 
-        cy.getByDataTest('dhis2-uicore-popper')
-            .find('input[type="text"]')
-            .type('foo')
+            // check search box exists "Type to filter options"
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .should('have.attr', 'placeholder', 'Type to filter options')
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper').contains('No options found').should('be.visible')
+            // search for something that doesn't exist
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .type('foo')
 
-        // try search for something that exists
-        cy.getByDataTest('dhis2-uicore-popper')
-            .find('input[type="text"]')
-            .clear()
+            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+                .contains('No options found')
+                .should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-popper')
-            .find('input[type="text"]')
-            .type(calculationName)
+            // try search for something that exists
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .clear()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper').contains(calculationName).should('be.visible')
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .type(calculationName)
 
-        // select the calculation and close dialog
-        cy.contains(calculationName).click()
+            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+                .contains(calculationName)
+                .should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-modalactions')
-            .contains('Add layer')
-            .click()
+            // select the calculation and close dialog
+            cy.contains(calculationName).click()
 
+            cy.getByDataTest('dhis2-uicore-modalactions')
+                .contains('Add layer')
+                .click()
 
-        // check the layer card title
+            // check the layer card title
+            cy.getByDataTest('layercard')
+                .contains(calculationName, { timeout: 50000 })
+                .should('be.visible')
 
-        cy.getByDataTest('layercard')
-            .contains(calculationName, { timeout: 50000 })
-            .should('be.visible')
+            // check the map canvas is displayed
+            cy.get('canvas.maplibregl-canvas').should('be.visible')
+
+            // delete the calculation
+            cy.request(
+                'DELETE',
+                `${getApiBaseUrl()}/api/expressionDimensionItems/${calculationUid}`
+            )
+        })
+    })
 })
