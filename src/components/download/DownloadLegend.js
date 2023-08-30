@@ -9,7 +9,7 @@ const DownloadLegend = ({ layers }) =>
         .map((layer) => layer.legend)
         .reverse()
         .map((legend, index) => (
-            <div key={index} className={styles.legend}>
+            <div key={index} className={styles.legend} data-test="map-legend">
                 <h2 className={styles.title}>
                     {legend.title}
                     <span className={styles.period}>{legend.period}</span>

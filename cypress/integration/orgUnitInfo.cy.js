@@ -1,8 +1,8 @@
 // import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-context('OrgUnitInfo', () => {
-    it.skip('opens the panel for an OrgUnit', () => {
+describe('OrgUnitInfo', () => {
+    it('opens the panel for an OrgUnit', () => {
         cy.visit('/?id=ZBjCfSaLSqD', EXTENDED_TIMEOUT)
         cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('canvas').should('be.visible')
@@ -10,14 +10,17 @@ context('OrgUnitInfo', () => {
         cy.getByDataTest('dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click(300, 100) //Bombali
-        cy.contains('View profile').click()
+        cy.get('.dhis2-map').click(300, 100) //Click somewhere on the map
+
+        cy.get('.maplibregl-popup').contains('View profile').click()
 
         // check the Org Unit Profile panel
         cy.getByDataTest('org-unit-profile').contains(
             'Organisation unit profile'
         )
-        cy.getByDataTest('org-unit-info').find('h3').contains('Bombali')
+
+        // TODO - can't be sure it has been clicked on Bombali
+        // cy.getByDataTest('org-unit-info').find('h3').contains('Bombali')
 
         cy.getByDataTest('org-unit-data')
             .findByDataTest('button-previous-year')

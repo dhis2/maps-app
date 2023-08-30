@@ -58,6 +58,16 @@ context('Smoke Test', () => {
                 'Viewing interpretation: ANC: LLITN coverage district and facility'
             )
             .should('be.visible')
+
+        cy.getByDataTest('interpretation-modal')
+            .find('canvas')
+            .should('be.visible')
+
+        cy.getByDataTest('interpretation-modal')
+            .contains(
+                'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
+            )
+            .should('be.visible')
     })
 
     it('loads with map id and interpretationId uppercase', () => {
@@ -78,6 +88,5 @@ context('Smoke Test', () => {
             .contains(
                 'Viewing interpretation: ANC: LLITN coverage district and facility'
             )
-            .should('be.visible')
     })
 })

@@ -13,8 +13,9 @@ const Checkbox = ({
     tooltip,
     onChange,
     className,
+    dataTest,
 }) => (
-    <div className={cx(styles.checkbox, className)}>
+    <div className={cx(styles.checkbox, className)} data-test={dataTest}>
         <UiCheckbox
             label={label}
             checked={checked}
@@ -23,7 +24,7 @@ const Checkbox = ({
             onChange={({ checked }) => onChange(checked)}
         />
         {tooltip && (
-            <Tooltip content={tooltip}>
+            <Tooltip content={tooltip} dataTest="checkbox-tooltip">
                 <IconInfo16 />
             </Tooltip>
         )}
@@ -34,6 +35,7 @@ Checkbox.propTypes = {
     onChange: PropTypes.func.isRequired,
     checked: PropTypes.bool,
     className: PropTypes.string,
+    dataTest: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
     label: PropTypes.string,

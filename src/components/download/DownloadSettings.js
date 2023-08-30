@@ -76,7 +76,10 @@ const DownloadSettings = () => {
     const showMarginsCheckbox = false // Not in use
 
     return (
-        <div className={styles.downloadSettingsPanel}>
+        <div
+            className={styles.downloadSettingsPanel}
+            data-test="download-settings"
+        >
             <Drawer position="left">
                 <div className={styles.downloadSettings}>
                     <h2>{i18n.t('Download map')}</h2>
@@ -115,6 +118,7 @@ const DownloadSettings = () => {
                                                   'Set the map description when you save the map or from File > Rename menu'
                                               )
                                     }
+                                    dataTest="download-setting-show-description"
                                 />
                                 <Checkbox
                                     label={i18n.t('Show legend')}
