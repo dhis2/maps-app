@@ -3,8 +3,9 @@ name: 'dhis2: nightly'
 # This workflow runs the e2e tests on the default branch against dev at 4:20am M-F
 
 on:
-    schedule:
-        - cron: '20 4 * * 1-5'
+    # schedule:
+    # - cron: '20 4 * * 1-5'
+    workflow_dispatch:
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
