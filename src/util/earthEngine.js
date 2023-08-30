@@ -7,6 +7,16 @@ export const classAggregation = ['percentage', 'hectares', 'acres']
 
 export const hasClasses = (type) => classAggregation.includes(type)
 
+// Translates from dynamic to static filters
+export const translateFilters = (filters, ...args) =>
+    filters.map((filter) => ({
+        ...filter,
+        arguments: filter.arguments.map((arg) => {
+            const match = arg.match(/^\$([0-9]+)$/)
+            return match ? args[match[1] - 1] : arg
+        }),
+    }))
+
 export const getStartEndDate = (data) =>
     formatStartEndDate(
         data['system:time_start'],
@@ -20,12 +30,20 @@ export const getPeriodFromFilter = (filter) => {
         return null
     }
 
-    const { id, name, year } = filter[0] // TODO: Make more flexible
+    /*
+    console.log('getPeriodFromFilter', filter)
+
+    const { id, name, year, arguments: args } = filter[0] // TODO: Make more flexible
 
     return {
-        id: id, // args[1],
+        id: id || args[1],
         name: id, // TODO
         year,
+    }
+    */
+
+    return {
+        id: filter[0].arguments[1], // TODO: Make more flexible
     }
 }
 
@@ -101,6 +119,8 @@ export const getPeriods = async (eeId, periodType) => {
     const eeWorker = await getWorkerInstance()
 
     const { features } = await eeWorker.getPeriods(eeId)
+
+    console.log('features', features)
 
     return features.map(getPeriod)
 }
