@@ -16,6 +16,10 @@ const mapServiceToTypeMap = {
     [MAP_SERVICE_XYZ]: TILE_LAYER,
     [MAP_SERVICE_TMS]: TILE_LAYER,
     [MAP_SERVICE_VECTOR_STYLE]: VECTOR_STYLE,
+    xyz: TILE_LAYER,
+    tms: TILE_LAYER,
+    wms: WMS_LAYER,
+    vectorstyle: VECTOR_STYLE,
 }
 
 // Create external layer from a model
@@ -33,6 +37,7 @@ export const createExternalLayerConfig = (model) => {
         id,
         name,
         attribution,
+        service,
         mapService,
         url,
         layers,
@@ -41,10 +46,10 @@ export const createExternalLayerConfig = (model) => {
         legendSetUrl,
     } = model
 
-    const type = mapServiceToTypeMap[mapService]
+    const type = mapServiceToTypeMap[service || mapService]
 
     const format = imageFormat === 'JPG' ? 'image/jpeg' : 'image/png'
-    const tms = mapService === MAP_SERVICE_TMS
+    const tms = (service || mapService) === MAP_SERVICE_TMS
 
     return {
         id,

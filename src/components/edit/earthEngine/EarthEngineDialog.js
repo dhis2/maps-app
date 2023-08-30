@@ -18,6 +18,7 @@ import {
     getPeriodFromFilter,
     getPeriods,
     defaultFilters,
+    translateFilters,
 } from '../../../util/earthEngine.js'
 import { Help, Tab, Tabs } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
@@ -66,23 +67,35 @@ const EarthEngineDialog = (props) => {
 
     const period = getPeriodFromFilter(filter)
 
+    // Translates a dynamic filter into a constant filter
+    /*
     const getFilter = ({ id, year }) =>
         filters.map((filter) => ({
-            id,
             ...filter,
-            // value: filter.value === '$value' ? String(id) : filter.value,
-            value:
-                filter.name === 'year'
-                    ? year
-                    : filter.value === '$value'
-                    ? String(id)
-                    : filter.value,
-            year, // TODO: Include?
+            arguments: filter.arguments.map((arg) =>
+                arg === '$value' ? String(id) : arg === '$year' ? year : arg
+            ),
         }))
+    */
 
-    const setPeriod = useCallback(
-        (period) => setFilter(period ? getFilter(period) : null),
-        [filters, setFilter]
+    // const getFilterFromPeriod = (period) => {}
+
+    const setFilterFromPeriod = useCallback(
+        (period) => {
+            let periodFilter = null
+
+            if (period) {
+                periodFilter = translateFilters(
+                    filters,
+                    periodType === 'yearly' ? String(period.year) : period.id
+                )
+            }
+
+            console.log('setFilterFromPeriod', period, periodFilter)
+
+            setFilter(periodFilter)
+        },
+        [periodType, filters, setFilter]
     )
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
@@ -117,10 +130,10 @@ const EarthEngineDialog = (props) => {
     useEffect(() => {
         if (filter === undefined) {
             if (Array.isArray(periods) && periods.length) {
-                setPeriod(periods[0])
+                setFilterFromPeriod(periods[0])
             }
         }
-    }, [periods, filter, setPeriod])
+    }, [periods, filter, setFilterFromPeriod])
 
     // Set default org unit level
     useEffect(() => {
@@ -175,6 +188,8 @@ const EarthEngineDialog = (props) => {
             </div>
         )
     }
+
+    console.log('periods', periods)
 
     return (
         <div className={styles.content}>
@@ -244,7 +259,7 @@ const EarthEngineDialog = (props) => {
                         period={period}
                         periods={periods}
                         filters={filters}
-                        onChange={setPeriod}
+                        onChange={setFilterFromPeriod}
                         errorText={
                             error && error.type === 'period' && error.message
                         }
