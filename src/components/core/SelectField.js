@@ -17,6 +17,7 @@ import styles from './styles/InputField.module.css'
 const SelectField = (props) => {
     const {
         dense = true,
+        emptyText,
         errorText,
         helpText,
         warning,
@@ -73,6 +74,7 @@ const SelectField = (props) => {
                 warning={!!warning}
                 validationText={warning ? warning : errorText}
                 helpText={helpText}
+                empty={emptyText}
                 onChange={onSelectChange}
                 dataTest={dataTest}
             >
@@ -90,6 +92,7 @@ SelectField.propTypes = {
     dataTest: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
+    emptyText: PropTypes.string, // If set, shows empty text when no options
     errorText: PropTypes.string, // If set, shows the error message below the SelectField
     filterable: PropTypes.bool,
     helpText: PropTypes.string, // If set, shows the help text below the SelectField
