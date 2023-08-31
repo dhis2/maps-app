@@ -3,31 +3,29 @@
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
 # Rica Zamora Duchateau, 2022
+# Charel van den Elsen, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Rica Zamora Duchateau, 2022\n"
-"Language-Team: Dutch (https://www.transifex.com/hisp-uio/teams/100509/nl/)\n"
+"Last-Translator: Charel van den Elsen, 2023\n"
+"Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Maps"
-msgstr "Kaarten"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "Kaart \"{{name}}\" is opgeslagen."
-
-msgid "Failed to save map. {{message}}"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Error"
-msgstr "Fout"
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr "Classificatie"
@@ -43,6 +41,18 @@ msgstr "Kleur"
 
 msgid "Size"
 msgstr "Grootte"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Waarde"
+
+msgid "Display"
+msgstr "Weergave"
 
 msgid "Data element group"
 msgstr "Gegevenselementengroep"
@@ -62,23 +72,71 @@ msgstr "Details"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "None"
+msgstr "Geen"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Gebeurtenislocatie"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Coördinatenveld"
 
-msgid "None"
-msgstr "Geen"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Gegevensitem"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Gebeurtenisgegevensitem"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr "Stileer volgens gegevenselement"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filteren is beschikbaar nadat een programmastadium geselecteerd is."
+
+msgid "Add filter"
+msgstr "Voeg filter toe"
+
+msgid "Data item"
+msgstr "Gegevensitem"
+
+msgid "one of"
+msgstr "één van"
+
+msgid "contains"
+msgstr "bevat"
+
+msgid "is"
+msgstr "is"
+
+msgid "is not"
+msgstr "is niet"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "Datum\n"
 
 msgid "Data set"
 msgstr "Gegevensreeks"
@@ -89,17 +147,11 @@ msgstr "Index"
 msgid "Org unit"
 msgstr "Organisatieëenheid"
 
-msgid "Name"
-msgstr "Naam"
-
 msgid "Id"
 msgstr "ID"
 
 msgid "Event time"
 msgstr "Tijd van gebeurtenis"
-
-msgid "Value"
-msgstr "Waarde"
 
 msgid "Legend"
 msgstr "Legenda"
@@ -121,9 +173,6 @@ msgstr ""
 "De gegevenstabel wordt niet ondersteund wanneer gebeurtenissen op de server "
 "gegroepeerd zijn."
 
-msgid "Add filter"
-msgstr "Voeg filter toe"
-
 msgid "Items"
 msgstr "Items"
 
@@ -133,14 +182,39 @@ msgstr "Dimensie"
 msgid "Download"
 msgstr "Download"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "Download kaart"
 
-msgid "Show name"
-msgstr "Toon naam"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "Toon legenda"
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -154,8 +228,8 @@ msgstr "Annuleer"
 msgid "Close"
 msgstr "Sluit"
 
-msgid "Legend position"
-msgstr "Legendapositie"
+msgid "No organisation units are selected"
+msgstr "Geen organisatieëenheden zijn geselecteerd."
 
 msgid "Organisation Units"
 msgstr "Organisatieëenheden"
@@ -168,9 +242,6 @@ msgstr ""
 
 msgid "Point radius"
 msgstr "Puntradius"
-
-msgid "No organisation units are selected"
-msgstr "Geen organisatieëenheden zijn geselecteerd."
 
 msgid "event"
 msgstr "gebeurtenis"
@@ -204,9 +275,6 @@ msgstr "Voeg laag toe"
 
 msgid "Aggregation method"
 msgstr "Aggregatiemethode"
-
-msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
 
 msgid "Groups"
 msgstr "Groepen"
@@ -282,9 +350,6 @@ msgstr "Organisatieëenheden"
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "Events"
-msgstr "Gebeurtenissen"
 
 msgid "Group events"
 msgstr "Groepsgebeurtenissen"
@@ -425,27 +490,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr "Toon Getraceerde Entiteitsrelaties"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-"Tel relaties die entiteiten buiten het\"{{programma}}\"-programma aansluiten"
-" mee"
-
-msgid "Selection mode"
-msgstr "Selectiemodus"
-
-msgid "Selected only"
-msgstr "Alleen geselecteerd"
-
-msgid "Selected and below"
-msgstr "Geselecteerd en onderstaand"
-
-msgid "Selected and all below"
-msgstr "Geselecteerd en alle onderstaanden"
-
-msgid "Tracked entities"
-msgstr "Getraceerde entiteiten"
-
 msgid "Tracked entity style"
 msgstr "Stijl van getraceerde entiteit"
 
@@ -458,9 +502,6 @@ msgstr "Stijl van gerelateerde entiteit"
 msgid "Line Color"
 msgstr "Lijnkleur"
 
-msgid "Failed to load relationship types."
-msgstr "Laden van relatiesoorten mislukt."
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 "Geen relatiesoorten werden gevonden voor getraceerde entiteitssoort "
@@ -468,47 +509,6 @@ msgstr ""
 
 msgid "Relationship type"
 msgstr "Relatiesoort"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "Een fout is opgetreden in de toepassing DHIS2 Kaarten."
-
-msgid "Something went wrong"
-msgstr "Er is iets fout gegaan."
-
-msgid "Refresh to try again"
-msgstr "Ververs om opnieuw te proberen"
-
-msgid "Hide technical details"
-msgstr "Verberg technische details"
-
-msgid "Show technical details"
-msgstr "Toon technische details"
-
-msgid "The following information may be requested by technical support."
-msgstr ""
-"De volgende information kan aangevraagd worden bij de technische "
-"ondersteuning."
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filteren is beschikbaar nadat een programmastadium geselecteerd is."
-
-msgid "one of"
-msgstr "één van"
-
-msgid "contains"
-msgstr "bevat"
-
-msgid "is"
-msgstr "is"
-
-msgid "is not"
-msgstr "is niet"
-
-msgid "Operator"
-msgstr "Operator"
-
-msgid "Date"
-msgstr "Datum\n"
 
 msgid "Remove filter"
 msgstr "Verwijder filter"
@@ -553,14 +553,14 @@ msgstr ""
 "GeoJSON wordt ondersteund door de meeste GIS-software, inclusief QGIS en "
 "ArcGIS Desktop."
 
-msgid "Data download failed."
-msgstr "Downloaden van gegevens mislukt."
-
 msgid "ID Format"
 msgstr "ID-formaat"
 
 msgid "Use human-readable keys"
 msgstr "Gebruik menselijk leesbare sleutels"
+
+msgid "Data download failed."
+msgstr "Downloaden van gegevens mislukt."
 
 msgid "External layer"
 msgstr "Externe laag"
@@ -583,6 +583,9 @@ msgstr "Schakel zichtbaarheid in"
 
 msgid "Set layer opacity"
 msgstr "Doorzichtigheid van laag instellen"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "Meerdere taken"
@@ -635,8 +638,14 @@ msgstr "Lengtegraad"
 msgid "Latitude"
 msgstr "Breedtegraad"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Niet vastgesteld"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Organisatieëenheid"
@@ -653,7 +662,7 @@ msgid ""
 msgstr ""
 
 msgid "no value"
-msgstr ""
+msgstr "geen waarde"
 
 msgid "All groups"
 msgstr ""
@@ -752,14 +761,14 @@ msgstr ""
 "Dit gegevenselement heeft te veel opties ({{length}}). Maximale aantal "
 "opties voor styleren is {{max}}."
 
-msgid "No data found for this period."
-msgstr "Geen gegevens gevonden voor deze periode."
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "Selecteer groepen"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "Geen gegevens gevonden voor deze periode."
 
 msgid "Image of the organisation unit"
 msgstr "Afbeelding van de organisatieëenheid"
@@ -800,51 +809,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "Opmerking"
 
-msgid "Select levels"
-msgstr "Selecteur niveaus"
-
 msgid "Organisation unit profile"
 msgstr "Organisatieëenheidsprofiel"
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr ""
-"Het is niet mogelijk om individuele gebruikersorganisatieëenheden en "
-"individuele eenheden te selecteren."
+msgid "Selected only"
+msgstr "Alleen geselecteerd"
 
-msgid "user organisation unit"
-msgstr "gebruiker organisatieëenheid"
+msgid "Selected and below"
+msgstr "Geselecteerd en onderstaand"
 
-msgid "right below user organisation unit"
-msgstr "net onder gebruiker organisatieëenheid"
+msgid "Selected and all below"
+msgstr "Geselecteerd en alle onderstaanden"
 
-msgid "two levels below user organisation unit"
-msgstr "twee niveaus onder gebruikersorganisatieëenheid"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{units}} in {{orgunits}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{units}} in en juist onder {{orgunits}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{units}} in en alle onder {{orgunits}}"
-
-msgid "Selected organisation units"
-msgstr "Geselecteerde organisatieëenheden"
-
-msgid "Main"
-msgstr "Algemeen"
-
-msgid "Below"
-msgstr "Onder"
-
-msgid "2 x below"
-msgstr "2 x onder"
-
-msgid "User organisation units"
-msgstr "gebruikersorganisatieëenheid"
+msgid "Selection mode"
+msgstr "Selectiemodus"
 
 msgid "Previous year"
 msgstr "Vorig jaar"
@@ -1340,6 +1318,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Organisatieëenheden"
 
+msgid "Error"
+msgstr "Fout"
+
 msgid "Thematic layer"
 msgstr "Thematische laag"
 
@@ -1357,6 +1338,12 @@ msgstr "gerelateerd"
 
 msgid "Thematic"
 msgstr "Thematisch"
+
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+msgid "Tracked entities"
+msgstr "Getraceerde entiteiten"
 
 msgid "Org units"
 msgstr "Organisatieëenheden"

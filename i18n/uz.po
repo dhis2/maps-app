@@ -1,31 +1,28 @@
 # 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2022
+# Ibatov <ibatovk@who.int>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2022\n"
-"Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
+"Last-Translator: Ibatov <ibatovk@who.int>, 2023\n"
+"Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uz@Cyrl\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Maps"
-msgstr "Хариталар"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "Харита \"{{исми}}\" сақланган"
-
-msgid "Failed to save map. {{message}}"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Error"
-msgstr "Хато"
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr "Таснифи"
@@ -41,6 +38,18 @@ msgstr "Ранг"
 
 msgid "Size"
 msgstr "Ўлчам/Ҳажм"
+
+msgid "Name"
+msgstr "Исми"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Қиймат"
+
+msgid "Display"
+msgstr "Экранда кўрсатиш"
 
 msgid "Data element group"
 msgstr "Маълумотлар элементи гуруҳи"
@@ -60,23 +69,71 @@ msgstr "Тафсилотлари"
 msgid "Yes"
 msgstr "Ҳа"
 
+msgid "None"
+msgstr "Йўқ"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Ҳодиса/Тадбир ўтказиладиган жой"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Координаталар майдони"
 
-msgid "None"
-msgstr "Йўқ"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Маълумот элементи"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Ҳодиса/Тадбир маълумоти элементи"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr "Маълумот элементи бўйича услуб"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Дастур босқичи танлангандан сўнг Фильтрдан фойдаланиш мумкин"
+
+msgid "Add filter"
+msgstr "Фильтр киритиш"
+
+msgid "Data item"
+msgstr "Маълумот элементи"
+
+msgid "one of"
+msgstr "биттаси"
+
+msgid "contains"
+msgstr "ўз ичига олади"
+
+msgid "is"
+msgstr "бўлмоқ"
+
+msgid "is not"
+msgstr "эмас"
+
+msgid "Operator"
+msgstr "Оператор"
+
+msgid "Date"
+msgstr "Сана"
 
 msgid "Data set"
 msgstr "Маълумотлар тўплами"
@@ -87,17 +144,11 @@ msgstr "Инденкс/кўрсатгич"
 msgid "Org unit"
 msgstr "Ташкилий бўлим"
 
-msgid "Name"
-msgstr "Исми"
-
 msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
 msgstr "Ҳодиса/Тадбир вақти"
-
-msgid "Value"
-msgstr "Қиймат"
 
 msgid "Legend"
 msgstr "Таъриф"
@@ -119,9 +170,6 @@ msgstr ""
 "Ҳодиса/Тадбирлар серверда гуруҳланаётганда, маълумотлар жадвали қўллаб-"
 "қувватланмайди"
 
-msgid "Add filter"
-msgstr "Фильтр киритиш"
-
 msgid "Items"
 msgstr "Элементлар"
 
@@ -131,14 +179,39 @@ msgstr "Ҳажм"
 msgid "Download"
 msgstr "Юклаш"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "Харитани юклаш"
 
-msgid "Show name"
-msgstr "Исмини кўрсатиш"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "Таърифни кўрсатиш"
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -152,8 +225,8 @@ msgstr "Бекор қилиш"
 msgid "Close"
 msgstr "Ёпиш"
 
-msgid "Legend position"
-msgstr "Таъриф ҳолати"
+msgid "No organisation units are selected"
+msgstr "Ташкилий бўлимлар танланмаган"
 
 msgid "Organisation Units"
 msgstr "Ташкилий Бўлимлар"
@@ -166,9 +239,6 @@ msgstr "Нуқта ранги"
 
 msgid "Point radius"
 msgstr "Нуқта радиуси"
-
-msgid "No organisation units are selected"
-msgstr "Ташкилий бўлимлар танланмаган"
 
 msgid "event"
 msgstr "ҳодиса/тадбир"
@@ -201,9 +271,6 @@ msgid "Add layer"
 msgstr "Қатлам қўшиш"
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -278,9 +345,6 @@ msgstr "Ташкилий Бўлимлар"
 
 msgid "Filter"
 msgstr "Фильтр"
-
-msgid "Events"
-msgstr "Ҳодисалар"
 
 msgid "Group events"
 msgstr "Ҳодиса/Тадбирлар гуруҳлари"
@@ -417,27 +481,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr "Хариталарда объектларнинг ўзаро алоқалар тизимининг кўрсатилиши"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-"Дастурдан {{дастур}} ташқарида алоқалар боғлайдиган ўзаро алоқаларни "
-"киритинг "
-
-msgid "Selection mode"
-msgstr "Режимни танлаш"
-
-msgid "Selected only"
-msgstr "Фақатгина танланган"
-
-msgid "Selected and below"
-msgstr "Танланган ва қуйида"
-
-msgid "Selected and all below"
-msgstr "Танланган ва барчаси қуйида"
-
-msgid "Tracked entities"
-msgstr "Кузатувдаги объектлар"
-
 msgid "Tracked entity style"
 msgstr "Кузатувдаги объектлар хусусиятлари"
 
@@ -450,53 +493,11 @@ msgstr "Ўзаро боғланган хусусиятлар"
 msgid "Line Color"
 msgstr "Қатор ранги"
 
-msgid "Failed to load relationship types."
-msgstr "Ўзаро алоқалар хусусиятларининг юкланиши амалга ошмади"
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Кузатувдаги объектлар ўзаро алоқалар турлари {{тури}} топилмади"
 
 msgid "Relationship type"
 msgstr "Ўзаро алоқалар тури"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "DHIS2 Хариталарда хатолик юз берди"
-
-msgid "Something went wrong"
-msgstr "Нимадир нотўғри бажарилди"
-
-msgid "Refresh to try again"
-msgstr "Қайтиб уриниб кщрин учун аввал янгиланг"
-
-msgid "Hide technical details"
-msgstr "Техник деталларни беркитиш"
-
-msgid "Show technical details"
-msgstr "Техник деталларни кўрсатиш"
-
-msgid "The following information may be requested by technical support."
-msgstr "Қуйидаги ахборот техник ёрдамчилар томонидан сўралиши мумкин"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Дастур босқичи танлангандан сўнг Фильтрдан фойдаланиш мумкин"
-
-msgid "one of"
-msgstr "биттаси"
-
-msgid "contains"
-msgstr "ўз ичига олади"
-
-msgid "is"
-msgstr "бўлмоқ"
-
-msgid "is not"
-msgstr "эмас"
-
-msgid "Operator"
-msgstr "Оператор"
-
-msgid "Date"
-msgstr "Сана"
 
 msgid "Remove filter"
 msgstr "Фильтрни олиб ташлаш"
@@ -541,14 +542,14 @@ msgstr ""
 "GeoJSON аксарият GIS  дастурлари томонидан қўллаб қувватланади, шу жумладан "
 "QGIS ва ArcGIS ҳам."
 
-msgid "Data download failed."
-msgstr "Маълумот юкланиши амалга ошмади"
-
 msgid "ID Format"
 msgstr "ID формат"
 
 msgid "Use human-readable keys"
 msgstr "Ўқилиши қулай калитлардан фойдаланинг"
+
+msgid "Data download failed."
+msgstr "Маълумот юкланиши амалга ошмади"
 
 msgid "External layer"
 msgstr "Ташқи қават"
@@ -571,6 +572,9 @@ msgstr "Кўринишни ёқинг"
 
 msgid "Set layer opacity"
 msgstr "Қатлам хиралигини таҳрирланг"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "Бошқа ҳаракатлар"
@@ -623,8 +627,14 @@ msgstr "Узунлик"
 msgid "Latitude"
 msgstr "Кенглик"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Ўрнатилмаган"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Ташкилий бирлик"
@@ -738,14 +748,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr "Ушбу давр учун маълумот топилмади"
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "Гуруҳларни танланг"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "Ушбу давр учун маълумот топилмади"
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -786,51 +796,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "Изоҳ"
 
-msgid "Select levels"
-msgstr "Поғоналарни танланг"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr ""
-"Алоҳида бирликларни танлаш ва фойдаланувчилар ташкилий бўлимини бирлаштириш "
-"мумкин эмас."
+msgid "Selected only"
+msgstr "Фақатгина танланган"
 
-msgid "user organisation unit"
-msgstr "Фойдаланувчининг ташкилий бўлими"
+msgid "Selected and below"
+msgstr "Танланган ва қуйида"
 
-msgid "right below user organisation unit"
-msgstr "Фойдаланувчининг ташкилий бўлими остида"
+msgid "Selected and all below"
+msgstr "Танланган ва барчаси қуйида"
 
-msgid "two levels below user organisation unit"
-msgstr "Фойдаланувчининг ташкилий бўлимидан икки поғона қуйи"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{бўлимлар}} ва {{ташкилийбўлимлар}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{бўлимлар}} ва қуйи {{ташкилийбўлимлар}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{бўлимлар}} ва барча қуйи {{ташкилийбўлимлар}}"
-
-msgid "Selected organisation units"
-msgstr "Танланган ташкилий бўлимлар"
-
-msgid "Main"
-msgstr "Асосий"
-
-msgid "Below"
-msgstr "Қуйи"
-
-msgid "2 x below"
-msgstr "2 даража қуйи"
-
-msgid "User organisation units"
-msgstr "Ташкилий бўлимларнинг фойдаланувчиси"
+msgid "Selection mode"
+msgstr "Режимни танлаш"
 
 msgid "Previous year"
 msgstr "Олдинги йил"
@@ -1323,6 +1302,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"
 
+msgid "Error"
+msgstr "Хато"
+
 msgid "Thematic layer"
 msgstr "Тематик қават"
 
@@ -1340,6 +1322,12 @@ msgstr "боғлиқлик"
 
 msgid "Thematic"
 msgstr "Тематик"
+
+msgid "Events"
+msgstr "Ҳодисалар"
+
+msgid "Tracked entities"
+msgstr "Кузатувдаги объектлар"
 
 msgid "Org units"
 msgstr "Ташкилий бўлим"

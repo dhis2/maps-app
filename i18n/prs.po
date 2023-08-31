@@ -1,31 +1,28 @@
 # 
 # Translators:
-# phil_dhis2, 2022
+# phil_dhis2, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2022\n"
-"Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
+"Last-Translator: phil_dhis2, 2023\n"
+"Language-Team: Persian (Afghanistan) (https://app.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa_AF\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Maps"
-msgstr "نقشه ها"
-
-msgid "Map \"{{name}}\" is saved."
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Failed to save map. {{message}}"
+msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
-msgid "Error"
-msgstr "خطا"
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr ""
@@ -41,6 +38,18 @@ msgstr "رنگ"
 
 msgid "Size"
 msgstr ""
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "مقدار"
+
+msgid "Display"
+msgstr "نمایش"
 
 msgid "Data element group"
 msgstr "د مالوماتو (ډاټا) د برخې ګروپ"
@@ -60,23 +69,71 @@ msgstr "جزئیات"
 msgid "Yes"
 msgstr "بله"
 
+msgid "None"
+msgstr "هیچ‌کدام"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "د پېښې طبقه"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "ځانګړتیاوې"
 
-msgid "None"
-msgstr "هیچ‌کدام"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
+msgid "Event > org unit coordinate"
 msgstr ""
 
 msgid "Event data item"
 msgstr "د پېښې طبقه"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Data item"
+msgstr ""
+
+msgid "one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr "این"
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr "اپریتر"
+
+msgid "Date"
+msgstr "تاریخ"
 
 msgid "Data set"
 msgstr "د مالوماتو (ډاټا) ټولګه"
@@ -87,17 +144,11 @@ msgstr ""
 msgid "Org unit"
 msgstr ""
 
-msgid "Name"
-msgstr "نام"
-
 msgid "Id"
 msgstr "آی دی"
 
 msgid "Event time"
 msgstr "د پېښې طبقه"
-
-msgid "Value"
-msgstr "مقدار"
 
 msgid "Legend"
 msgstr "داستان"
@@ -117,9 +168,6 @@ msgstr "نمونه/ډول"
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
-msgid "Add filter"
-msgstr ""
-
 msgid "Items"
 msgstr ""
 
@@ -129,13 +177,38 @@ msgstr "ابعاد"
 msgid "Download"
 msgstr "دانلود"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr ""
 
-msgid "Show name"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show legend"
+msgstr ""
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
 msgstr ""
 
 msgid ""
@@ -148,7 +221,7 @@ msgstr "لغو کردن"
 msgid "Close"
 msgstr "بستن"
 
-msgid "Legend position"
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Organisation Units"
@@ -162,9 +235,6 @@ msgstr "د نکتې پوړ"
 
 msgid "Point radius"
 msgstr "د نکتې پوړ"
-
-msgid "No organisation units are selected"
-msgstr ""
 
 msgid "event"
 msgstr ""
@@ -197,9 +267,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -274,9 +341,6 @@ msgstr ""
 
 msgid "Filter"
 msgstr "فلتر"
-
-msgid "Events"
-msgstr "پېښې"
 
 msgid "Group events"
 msgstr ""
@@ -409,25 +473,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-
-msgid "Selection mode"
-msgstr "انتخاب شوی اکر"
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr ""
-
 msgid "Tracked entity style"
 msgstr ""
 
@@ -440,53 +485,11 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
-msgid "Failed to load relationship types."
-msgstr ""
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
 msgstr "نوع ابعاد اطلاعات"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
-
-msgid "Something went wrong"
-msgstr ""
-
-msgid "Refresh to try again"
-msgstr ""
-
-msgid "Hide technical details"
-msgstr ""
-
-msgid "Show technical details"
-msgstr ""
-
-msgid "The following information may be requested by technical support."
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "contains"
-msgstr ""
-
-msgid "is"
-msgstr "این"
-
-msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr "اپریتر"
-
-msgid "Date"
-msgstr "تاریخ"
 
 msgid "Remove filter"
 msgstr ""
@@ -529,13 +532,13 @@ msgid ""
 "Desktop."
 msgstr ""
 
-msgid "Data download failed."
-msgstr ""
-
 msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
@@ -557,6 +560,9 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
+msgstr ""
+
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "More actions"
@@ -610,11 +616,14 @@ msgstr "طول البلد"
 msgid "Latitude"
 msgstr "عرض البلد"
 
-msgid "Viewing interpretation from {{interpretationDate}}"
+msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
 msgid "Not set"
 msgstr "تعین نه گردیده است"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "بخش نهاد/سازمان"
@@ -725,14 +734,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr ""
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "د ګروپ ټولګه غوره کړئ"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr ""
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -773,49 +782,20 @@ msgstr "آی دی"
 msgid "Comment"
 msgstr "نظر"
 
-msgid "Select levels"
-msgstr "د نکتې سطحه غوره کړئ"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
+msgid "Selected only"
 msgstr ""
 
-msgid "user organisation unit"
+msgid "Selected and below"
 msgstr ""
 
-msgid "right below user organisation unit"
+msgid "Selected and all below"
 msgstr ""
 
-msgid "two levels below user organisation unit"
-msgstr ""
-
-msgid "{{units}} in {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
-
-msgid "Selected organisation units"
-msgstr "واحد های سازمان انتخاب شده"
-
-msgid "Main"
-msgstr ""
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
-msgid "User organisation units"
-msgstr ""
+msgid "Selection mode"
+msgstr "انتخاب شوی اکر"
 
 msgid "Previous year"
 msgstr ""
@@ -1301,6 +1281,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "واحد های سازمان"
 
+msgid "Error"
+msgstr "خطا"
+
 msgid "Thematic layer"
 msgstr "د موضوع اړوند طبقه"
 
@@ -1317,6 +1300,12 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "پېښې"
+
+msgid "Tracked entities"
 msgstr ""
 
 msgid "Org units"

@@ -2,32 +2,29 @@
 # Translators:
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2022
+# Viktor Varland <viktor@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
-"Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Maps"
-msgstr "Bản đồ"
-
-msgid "Map \"{{name}}\" is saved."
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Failed to save map. {{message}}"
+msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
-msgid "Error"
-msgstr "Lỗi"
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr ""
@@ -43,6 +40,18 @@ msgstr "Màu"
 
 msgid "Size"
 msgstr "Kích thước"
+
+msgid "Name"
+msgstr "Tên"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Giá trị"
+
+msgid "Display"
+msgstr "Hiển thị"
 
 msgid "Data element group"
 msgstr "Nhóm dữ liệu"
@@ -62,23 +71,71 @@ msgstr "Chi tiết"
 msgid "Yes"
 msgstr "Có"
 
+msgid "None"
+msgstr "Không"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Địa điểm sự kiện"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Vùng tọa độ"
 
-msgid "None"
-msgstr "Không"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Mục dữ liệu"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Mục dữ liệu sự kiện"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr "Bộ lọc"
+
+msgid "Data item"
+msgstr "Mục dữ liệu"
+
+msgid "one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr "là"
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr "Toán tử"
+
+msgid "Date"
+msgstr "Ngày"
 
 msgid "Data set"
 msgstr "Tập dữ liệu"
@@ -89,17 +146,11 @@ msgstr ""
 msgid "Org unit"
 msgstr "Đơn vị"
 
-msgid "Name"
-msgstr "Tên"
-
 msgid "Id"
 msgstr "Ký hiệu nhận dạng (ID)"
 
 msgid "Event time"
 msgstr "Thời điểm sự kiện"
-
-msgid "Value"
-msgstr "Giá trị"
 
 msgid "Legend"
 msgstr "Chú Thích"
@@ -119,9 +170,6 @@ msgstr "Type"
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
-msgid "Add filter"
-msgstr "Bộ lọc"
-
 msgid "Items"
 msgstr ""
 
@@ -131,13 +179,38 @@ msgstr "Chiều kích"
 msgid "Download"
 msgstr "Tải về"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr ""
 
-msgid "Show name"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show legend"
+msgstr ""
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
 msgstr ""
 
 msgid ""
@@ -150,7 +223,7 @@ msgstr "Hủy"
 msgid "Close"
 msgstr "Đóng"
 
-msgid "Legend position"
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Organisation Units"
@@ -164,9 +237,6 @@ msgstr "Màu Điểm"
 
 msgid "Point radius"
 msgstr "Tỉ lệ Điểm"
-
-msgid "No organisation units are selected"
-msgstr ""
 
 msgid "event"
 msgstr ""
@@ -199,9 +269,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -276,9 +343,6 @@ msgstr ""
 
 msgid "Filter"
 msgstr "Bộ lọc"
-
-msgid "Events"
-msgstr "Sự kiện"
 
 msgid "Group events"
 msgstr ""
@@ -411,25 +475,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-
-msgid "Selection mode"
-msgstr "Chọn Chế Độ"
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr "Các thực thể được theo dõi"
-
 msgid "Tracked entity style"
 msgstr ""
 
@@ -442,53 +487,11 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
-msgid "Failed to load relationship types."
-msgstr ""
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
 msgstr "Loại quan hệ"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
-
-msgid "Something went wrong"
-msgstr "Có lỗi"
-
-msgid "Refresh to try again"
-msgstr "Thử lại"
-
-msgid "Hide technical details"
-msgstr "Ẩn chi tiết kỹ thuật"
-
-msgid "Show technical details"
-msgstr "Hiện chi tiết kỹ thuật"
-
-msgid "The following information may be requested by technical support."
-msgstr "Các thông tin sau có thể được yêu cầu bởi hỗ trợ kỹ thuật."
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "contains"
-msgstr ""
-
-msgid "is"
-msgstr "là"
-
-msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr "Toán tử"
-
-msgid "Date"
-msgstr "Ngày"
 
 msgid "Remove filter"
 msgstr ""
@@ -531,13 +534,13 @@ msgid ""
 "Desktop."
 msgstr ""
 
-msgid "Data download failed."
-msgstr ""
-
 msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
@@ -559,6 +562,9 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
+msgstr ""
+
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "More actions"
@@ -612,8 +618,14 @@ msgstr "Kinh độ"
 msgid "Latitude"
 msgstr "Vĩ độ"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Không cài"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Đơn vị"
@@ -724,14 +736,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr ""
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "Chọn nhóm"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr ""
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -772,49 +784,20 @@ msgstr "Định danh"
 msgid "Comment"
 msgstr "Bình luận"
 
-msgid "Select levels"
-msgstr "Chọn Tuyến Đơn Vị"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
+msgid "Selected only"
 msgstr ""
 
-msgid "user organisation unit"
+msgid "Selected and below"
 msgstr ""
 
-msgid "right below user organisation unit"
+msgid "Selected and all below"
 msgstr ""
 
-msgid "two levels below user organisation unit"
-msgstr ""
-
-msgid "{{units}} in {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
-
-msgid "Selected organisation units"
-msgstr "Các đơn vị đang được chọn"
-
-msgid "Main"
-msgstr ""
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
-msgid "User organisation units"
-msgstr ""
+msgid "Selection mode"
+msgstr "Chọn Chế Độ"
 
 msgid "Previous year"
 msgstr ""
@@ -1300,6 +1283,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Đơn vị"
 
+msgid "Error"
+msgstr "Lỗi"
+
 msgid "Thematic layer"
 msgstr "Lớp Chuyên Đề"
 
@@ -1317,6 +1303,12 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Events"
+msgstr "Sự kiện"
+
+msgid "Tracked entities"
+msgstr "Các thực thể được theo dõi"
 
 msgid "Org units"
 msgstr "Các đơn vị"
