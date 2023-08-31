@@ -1,3 +1,20 @@
+## [100.1.6](https://github.com/dhis2/maps-app/compare/v100.1.5...v100.1.6) (2023-08-31)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (dev) ([3a3b81e](https://github.com/dhis2/maps-app/commit/3a3b81e67d4302a3f8079444c014692c26a3e807))
+* **translations:** sync translations from transifex (dev) ([3effb0d](https://github.com/dhis2/maps-app/commit/3effb0db322d6820677fe12fce62471adb09503d))
+* keep layer visibility when period is changed ([#2705](https://github.com/dhis2/maps-app/issues/2705)) ([df32ea4](https://github.com/dhis2/maps-app/commit/df32ea48f72281fe2b79810afcf52195a4e9dfaf))
+* set period for each split view map ([#2721](https://github.com/dhis2/maps-app/issues/2721)) ([6ec0eba](https://github.com/dhis2/maps-app/commit/6ec0eba15aca4b3f3b16563c53b6d88c24bc1b1e))
+* Set rendering strategy to single if not relative period ([#2703](https://github.com/dhis2/maps-app/issues/2703)) ([c47484b](https://github.com/dhis2/maps-app/commit/c47484b1465681d1302ff7f0385ba1cbe498a7cc))
+* upgrade landcover dataset ([#2732](https://github.com/dhis2/maps-app/issues/2732)) ([3e93ced](https://github.com/dhis2/maps-app/commit/3e93ced446c1d901e927d1f9a929b0e52f957c44))
+* **translations:** sync translations from transifex (dev) ([22d43c7](https://github.com/dhis2/maps-app/commit/22d43c7f89a00528e3dba21907751a03f3bb1582))
+* **translations:** sync translations from transifex (dev) ([b5da40a](https://github.com/dhis2/maps-app/commit/b5da40ac2847cda1c63e399496520c068112e6a9))
+* **translations:** sync translations from transifex (dev) ([a090132](https://github.com/dhis2/maps-app/commit/a090132865cffbb4451d4666fd488fb3232e4a9e))
+* **translations:** sync translations from transifex (dev) ([21acc31](https://github.com/dhis2/maps-app/commit/21acc3192e190dca8326f6a8a77d4af81f6eb318))
+* **translations:** sync translations from transifex (dev) ([4597cbb](https://github.com/dhis2/maps-app/commit/4597cbbaf0983dd6f1908dd95e650e96d2baf753))
+
 ## [100.1.5](https://github.com/dhis2/maps-app/compare/v100.1.4...v100.1.5) (2023-06-12)
 
 
