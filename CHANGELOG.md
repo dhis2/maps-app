@@ -1,3 +1,51 @@
+## [100.1.5](https://github.com/dhis2/maps-app/compare/v100.1.4...v100.1.5) (2023-06-12)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (dev) ([b7058b2](https://github.com/dhis2/maps-app/commit/b7058b24ab15d1c8eaf920912b332c38a2f451c5))
+
+## [100.1.4](https://github.com/dhis2/maps-app/compare/v100.1.3...v100.1.4) (2023-05-31)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([27c7bf9](https://github.com/dhis2/maps-app/commit/27c7bf9c3deb08a526adc99f2b9ee05356f55b24))
+
+## [100.1.3](https://github.com/dhis2/maps-app/compare/v100.1.2...v100.1.3) (2023-05-28)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([bcd005b](https://github.com/dhis2/maps-app/commit/bcd005b9dcab9cd5d3e25238d805f18d172b08aa))
+
+## [100.1.2](https://github.com/dhis2/maps-app/compare/v100.1.1...v100.1.2) (2023-05-26)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([14f6db6](https://github.com/dhis2/maps-app/commit/14f6db66ca0d616100939201ef76faeaf760d971))
+
+## [100.1.1](https://github.com/dhis2/maps-app/compare/v100.1.0...v100.1.1) (2023-05-23)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([7b80f03](https://github.com/dhis2/maps-app/commit/7b80f0391fcf1a6ddaa758106b7410b2b6154471))
+
+# [100.1.0](https://github.com/dhis2/maps-app/compare/v100.0.0...v100.1.0) (2023-05-16)
+
+
+### Bug Fixes
+
+* bumps cli-app-scripts to 10.3.8 for LIBS-499 fix ([#2592](https://github.com/dhis2/maps-app/issues/2592)) ([f305dc9](https://github.com/dhis2/maps-app/commit/f305dc9dd311e9ceec2828dde868910ec76044d7))
+* remove fallback coordinate field (DHIS2-8165) ([#2575](https://github.com/dhis2/maps-app/issues/2575)) ([e794125](https://github.com/dhis2/maps-app/commit/e794125fa30c62b9589da650350e5a8dd321e11f))
+
+
+### Features
+
+* **plugin:** send installation status [DHIS2-15097] ([#2580](https://github.com/dhis2/maps-app/issues/2580)) ([0817420](https://github.com/dhis2/maps-app/commit/0817420e9d1cb672aef0ba55fd1c200386c21dbb))
+
 # [100.0.0](https://github.com/dhis2/maps-app/compare/v99.9.9...v100.0.0) (2023-04-21)
 
 
