@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
+import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import { getPeriodFromFilters } from '../../util/analytics.js'
 import { getRelativePeriods } from '../../util/periods.js'
-import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import Map from '../plugin/Map.js'
 import styles from './styles/InterpretationMap.module.css'
 
