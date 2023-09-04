@@ -18,7 +18,11 @@ import {
     showEarthEngineValue,
 } from '../../actions/map.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
-import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import {
+    FACILITY_LAYER,
+    EARTH_ENGINE_LAYER,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+} from '../../constants/layers.js'
 import { drillUpDown } from '../../util/map.js'
 import styles from './styles/ContextMenu.module.css'
 
@@ -43,6 +47,9 @@ const ContextMenu = (props) => {
     if (!position) {
         return null
     }
+
+    const isSplitView =
+        layerConfig?.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
 
     const left = offset[0] + position[0]
     const top = offset[1] + position[1]
@@ -128,7 +135,7 @@ const ContextMenu = (props) => {
                             />
                         )}
 
-                        {coordinates && (
+                        {coordinates && !isSplitView && (
                             <MenuItem
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<IconLocation16 />}
