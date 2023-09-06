@@ -3,24 +3,28 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SelectField } from '../core/index.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
 
 // Load all data sets (reporting rates)
 const DATA_SETS_QUERY = {
     sets: {
         resource: 'dataSets',
-        params: {
+        params: ({ nameProperty }) => ({
             fields: [
                 'dimensionItem~rename(id)',
-                'displayName~rename(name)',
+                `${nameProperty}~rename(name)`,
                 'legendSet[id]',
             ],
             paging: false,
-        },
+        }),
     },
 }
 
 const DataSetsSelect = ({ dataSet, onChange, className, errorText }) => {
-    const { loading, error, data } = useDataQuery(DATA_SETS_QUERY)
+    const { nameProperty } = useUserSettings()
+    const { loading, error, data } = useDataQuery(DATA_SETS_QUERY, {
+        variables: { nameProperty },
+    })
 
     const dataSetId = dataSet ? dataSet.id.split('.')[0] : null // Remove ".REPORTING_RATE"
 
