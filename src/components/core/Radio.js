@@ -21,6 +21,7 @@ const Radio = ({ value, disabled, dense = true, dataTest, label }) => {
             checked={value === radio}
             onChange={onClick}
             dataTest={dataTest}
+            value={value}
         />
     );
 };

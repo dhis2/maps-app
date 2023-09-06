@@ -18,7 +18,7 @@ import {
 } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
 import { setOrgUnitProfile } from '../../actions/orgUnits';
-import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers';
+import { FACILITY_LAYER, EARTH_ENGINE_LAYER, RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../constants/layers';
 import styles from './styles/ContextMenu.module.css';
 
 const ContextMenu = props => {
@@ -45,6 +45,9 @@ const ContextMenu = props => {
 
     const left = offset[0] + position[0];
     const top = offset[1] + position[1];
+
+    const isSplitView =
+        layerConfig?.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
 
     const attr = feature?.properties || {};
 
@@ -96,9 +99,10 @@ const ContextMenu = props => {
                 onClickOutside={closeContextMenu}
             >
                 <div className={styles.menu}>
-                    <Menu dense>
+                    <Menu dense dataTest="context-menu">
                         {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
+                                dataTest="context-menu-drill-up"
                                 label={i18n.t('Drill up one level')}
                                 icon={<IconArrowUp16 />}
                                 disabled={!attr.hasCoordinatesUp}
@@ -108,6 +112,7 @@ const ContextMenu = props => {
 
                         {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
+                                dataTest="context-menu-drill-down"
                                 label={i18n.t('Drill down one level')}
                                 icon={<IconArrowDown16 />}
                                 disabled={!attr.hasCoordinatesDown}
@@ -117,14 +122,16 @@ const ContextMenu = props => {
 
                         {feature && (
                             <MenuItem
+                                dataTest="context-menu-view-profile"
                                 label={i18n.t('View profile')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
                             />
                         )}
 
-                        {coordinates && (
+                        {coordinates && !isSplitView && (
                             <MenuItem
+                                dataTest="context-menu-show-long-lat"
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<IconLocation16 />}
                                 onClick={() => onClick('show_coordinate')}
@@ -133,6 +140,7 @@ const ContextMenu = props => {
 
                         {earthEngineLayers.map(layer => (
                             <MenuItem
+                                dataTest="context-menu-show-ee-value"
                                 key={layer.id}
                                 label={i18n.t('Show {{name}}', {
                                     name: layer.name.toLowerCase(),
