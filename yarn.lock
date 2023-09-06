@@ -2236,10 +2236,10 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^3.8.4":
-  version "3.8.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.4.tgz#88ff4430447b0cacbe8ea5ff7db28bcf24e0b30f"
-  integrity sha512-K7iO8kC8Wfnlhx4nv7bA1tkcKyCbEH6MuGbU2HqVdVTqfEHW+3OMSsamOZdRorg/eynJYmJsPguva+PQtgW5Bg==
+"@dhis2/maps-gl@^3.8.5":
+  version "3.8.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.5.tgz#0bf52902736996093dc977b55f3626ed56aacbc1"
+  integrity sha512-2Pi6GtfElyJ4L9Cwl/WmxV28HT9h4euZE9XH0Pt1jhGSW108knoHXymfW9jRT1ZLk8Cwi9Xlsvv7wHzJ4nSGCQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
