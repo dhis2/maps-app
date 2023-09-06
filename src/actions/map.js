@@ -55,7 +55,7 @@ export const tOpenMap =
             // record visualization view
             dataEngine.mutate(dataStatisticsMutation, {
                 variables: { id: mapId },
-                onError: (error) => console.log('Error: ', error),
+                onError: (error) => console.error('Error: ', error),
             })
 
             const basemapConfig =
