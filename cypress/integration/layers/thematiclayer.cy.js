@@ -1,8 +1,8 @@
+import { getMaps } from '../../elements/map_canvas.js'
 import {
     DRILL_UP,
     DRILL_DOWN,
     VIEW_PROFILE,
-    SHOW_LONG_LAT,
     expectContextMenuOptions,
 } from '../../elements/map_context_menu.js'
 import { ThematicLayer } from '../../elements/thematic_layer.js'
@@ -54,7 +54,7 @@ context('Thematic Layers', () => {
         //     '96.28 - 102.8 (4)',
         // ]);
 
-        cy.get('canvas.mapboxgl-canvas').should('have.length', 1)
+        getMaps().should('have.length', 1)
     })
 
     it('adds a thematic layer for OU Bombali', () => {
@@ -80,7 +80,7 @@ context('Thematic Layers', () => {
         //     '89.46 - 91.6 (1)',
         // ]);
 
-        cy.get('canvas.mapboxgl-canvas').should('have.length', 1)
+        getMaps().should('have.length', 1)
     })
 
     it('adds a thematic layer with start and end date', () => {
@@ -101,7 +101,7 @@ context('Thematic Layers', () => {
             `Feb 1, ${CURRENT_YEAR} - Nov 30, ${CURRENT_YEAR}`
         )
 
-        cy.get('canvas.mapboxgl-canvas').should('have.length', 1)
+        getMaps().should('have.length', 1)
     })
 
     it('adds a thematic layer with split view period', () => {
@@ -125,7 +125,7 @@ context('Thematic Layers', () => {
         Layer.validateCardTitle('ANC 1 Coverage')
 
         // check for 3 maps
-        cy.get('canvas.mapboxgl-canvas').should('have.length', 3)
+        getMaps().should('have.length', 3)
 
         // wait to make sure the maps are loaded
         cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting

@@ -1,3 +1,5 @@
+import { getMaps } from './map_canvas.js'
+
 export const DRILL_UP = 'context-menu-drill-up'
 export const DRILL_DOWN = 'context-menu-drill-down'
 export const VIEW_PROFILE = 'context-menu-view-profile'
@@ -6,14 +8,14 @@ export const SHOW_LONG_LAT = 'context-menu-show-long-lat'
 const ALL_OPTIONS = [DRILL_UP, DRILL_DOWN, VIEW_PROFILE, SHOW_LONG_LAT]
 
 export const expectContextMenuOptions = (availableOptions) => {
-    cy.get('canvas.mapboxgl-canvas')
+    getMaps()
         .first()
         .then(($el) => {
             const xpos = $el.width() / 2
             const ypos = $el.height() / 2
 
             // right clicking on the center of the map should hit an OU
-            cy.get('canvas.mapboxgl-canvas').first().rightclick(xpos, ypos)
+            getMaps().first().rightclick(xpos, ypos)
 
             // menu has correct number of items
             cy.getByDataTest('context-menu')
