@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'
 import { SelectField } from '../core/index.js'
 import { useUserSettings } from '../UserSettingsProvider.js'
 
-// Load program indicators for one porgram
+// Load program indicators for one program
 const PROGRAM_INDICATORS_QUERY = {
     indicators: {
         resource: 'programIndicators',
