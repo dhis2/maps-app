@@ -108,9 +108,10 @@ const ContextMenu = (props) => {
                 onClickOutside={closeContextMenu}
             >
                 <div className={styles.menu}>
-                    <Menu dense>
+                    <Menu dense dataTest="context-menu">
                         {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
+                                dataTest="context-menu-drill-up"
                                 label={i18n.t('Drill up one level')}
                                 icon={<IconArrowUp16 />}
                                 disabled={!attr.hasCoordinatesUp}
@@ -120,6 +121,7 @@ const ContextMenu = (props) => {
 
                         {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
+                                dataTest="context-menu-drill-down"
                                 label={i18n.t('Drill down one level')}
                                 icon={<IconArrowDown16 />}
                                 disabled={!attr.hasCoordinatesDown}
@@ -129,6 +131,7 @@ const ContextMenu = (props) => {
 
                         {feature && (
                             <MenuItem
+                                dataTest="context-menu-view-profile"
                                 label={i18n.t('View profile')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
@@ -137,6 +140,7 @@ const ContextMenu = (props) => {
 
                         {coordinates && !isSplitView && (
                             <MenuItem
+                                dataTest="context-menu-show-long-lat"
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<IconLocation16 />}
                                 onClick={() => onClick('show_coordinate')}
@@ -145,6 +149,7 @@ const ContextMenu = (props) => {
 
                         {earthEngineLayers.map((layer) => (
                             <MenuItem
+                                dataTest="context-menu-show-ee-value"
                                 key={layer.id}
                                 label={i18n.t('Show {{name}}', {
                                     name: layer.name.toLowerCase(),
