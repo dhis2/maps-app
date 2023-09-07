@@ -6,13 +6,13 @@ import React, { useEffect } from 'react'
 import { SelectField } from '../core/index.js'
 import { useUserSettings } from '../UserSettingsProvider.js'
 
-// Load program indicators for one porgram
+// Load program indicators for one program
 const PROGRAM_INDICATORS_QUERY = {
     indicators: {
-        resource: 'programs',
-        id: ({ id }) => id,
-        params: ({ nameProperty }) => ({
-            fields: `programIndicators[dimensionItem~rename(id),${nameProperty}~rename(name)]`,
+        resource: 'programIndicators',
+        params: ({ id, nameProperty }) => ({
+            filter: `program.id:eq:${id}`,
+            fields: ['id', `${nameProperty}~rename(name)`],
             paging: false,
         }),
     },
