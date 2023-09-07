@@ -13,6 +13,7 @@ import {
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
+import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import { fetchMap } from '../../util/requests.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
@@ -81,6 +82,10 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
             }),
     })
 
+    const [postDataStatistics] = useDataMutation(dataStatisticsMutation, {
+        onError: (e) => console.error('Error:', e.message),
+    })
+
     const onFileMenuError = (e) =>
         fileMenuErrorAlert.show({
             msg: e.message,
@@ -100,6 +105,8 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
             id: map.id,
             data: config,
         })
+
+        postDataStatistics({ id: map.id })
 
         saveAlert.show({ msg: getSavedMessage(config.name) })
     }
@@ -136,8 +143,10 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
         })
 
         if (response.status === 'OK') {
+            const newMapId = response.response.uid
+            postDataStatistics({ id: newMapId })
             const newMapConfig = await fetchMap(
-                response.response.uid,
+                newMapId,
                 engine,
                 keyDefaultBaseMap
             )
