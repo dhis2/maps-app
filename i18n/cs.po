@@ -1,7 +1,7 @@
-# 
+#
 # Translators:
 # Jiří Podhorecký, 2023
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
