@@ -30,7 +30,7 @@ const MapPosition = () => {
     if (!downloadMode) {
         if (dataTableOpen) {
             mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px - ${dataTableHeight}px)`
-        } else if (!downloadMode) {
+        } else {
             mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px)`
         }
     }
