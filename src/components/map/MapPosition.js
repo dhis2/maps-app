@@ -6,7 +6,6 @@ import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.js'
 import NorthArrow from '../download/NorthArrow.js'
 import MapContainer from '../map/MapContainer.js'
-import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import styles from './styles/MapPosition.module.css'
 
 const MapPosition = () => {
@@ -22,18 +21,16 @@ const MapPosition = () => {
         showNorthArrow,
     } = useSelector((state) => state.download)
     const { id: mapId, mapViews: layers } = useSelector((state) => state.map)
-    const { layersPanelOpen, rightPanelOpen, dataTableHeight } = useSelector(
+    const { layersPanelOpen, dataTableHeight } = useSelector(
         (state) => state.ui
     )
     const dataTableOpen = useSelector((state) => !!state.dataTable)
 
-    const { height } = useWindowDimensions()
-
-    let mapHeight = height - HEADER_HEIGHT
+    let mapHeight = `calc(100vh - ${HEADER_HEIGHT}px))`
     if (dataTableOpen) {
-        mapHeight = mapHeight - dataTableHeight
+        mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${dataTableHeight}px)`
     } else if (!downloadMode) {
-        mapHeight = mapHeight - APP_MENU_HEIGHT
+        mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px)`
     }
 
     const downloadMapInfoOpen =
@@ -45,24 +42,15 @@ const MapPosition = () => {
 
     const isSplitView = !!getSplitViewLayer(layers)
 
-    const style = window.getComputedStyle(document.documentElement)
-
-    const transitionTime =
-        parseInt(
-            style.getPropertyValue('--transition-time').replace('px', '')
-        ) + 50
-
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount((count) => count + 1)
-    }, [dataTableOpen, dataTableHeight, downloadMapInfoOpen])
-
-    // Separate effect for actions that involve an animated transition
-    useEffect(() => {
-        setTimeout(() => {
-            setResizeCount((count) => count + 1)
-        }, transitionTime)
-    }, [layersPanelOpen, rightPanelOpen, transitionTime])
+    }, [
+        dataTableOpen,
+        dataTableHeight,
+        downloadMapInfoOpen,
+        layersPanelOpen.rightPanelOpen,
+    ])
 
     // Reset bearing and pitch when new map (mapId changed)
     useEffect(() => {

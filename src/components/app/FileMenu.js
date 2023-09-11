@@ -56,13 +56,9 @@ const getSaveFailureMessage = (message) =>
 const FileMenu = ({ onFileMenuAction }) => {
     const { d2 } = useD2()
     const engine = useDataEngine()
-
     const map = useSelector((state) => state.map)
-
     const dispatch = useDispatch()
-
     const { keyDefaultBaseMap } = useSystemSettings()
-    //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const saveAsAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const deleteAlert = useAlert(

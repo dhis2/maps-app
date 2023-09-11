@@ -1,14 +1,13 @@
 .downloadModeMenu {
     display: flex;
+    position: absolute;
     align-items: center;
     width: 100%;
     height: var(--header-height);
     z-index: 1200;
     background-color: var(--colors-grey600);
-    position: absolute;
     left: 0;
     top: 0
-
 }
 
 .downloadModeMenu button {

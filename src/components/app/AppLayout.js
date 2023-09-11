@@ -19,7 +19,9 @@ const AppLayout = () => {
     const [interpretationsRenderId, setInterpretationsRenderId] = useState(1)
 
     const dataTableOpen = useSelector((state) => !!state.dataTable)
-    const downloadMode = useSelector((state) => !!state.download.downloadMode)
+    const downloadModeOpen = useSelector(
+        (state) => !!state.download.downloadMode
+    )
     const detailsPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
     )
@@ -30,22 +32,22 @@ const AppLayout = () => {
 
     return (
         <>
-            {downloadMode ? (
+            {downloadModeOpen ? (
                 <DownloadModeMenu />
             ) : (
                 <AppMenu onFileMenuAction={onFileMenuAction} />
             )}
             <div
                 className={cx(styles.content, {
-                    [styles.downloadContent]: downloadMode,
+                    [styles.downloadContent]: downloadModeOpen,
                 })}
             >
-                {downloadMode ? <DownloadSettings /> : <LayersPanel />}
+                {downloadModeOpen ? <DownloadSettings /> : <LayersPanel />}
                 <div className={styles.appMapAndTable}>
                     <MapPosition />
                     {dataTableOpen && <BottomPanel />}
                 </div>
-                {!downloadMode && (
+                {!downloadModeOpen && (
                     <DetailsPanel
                         interpretationsRenderId={interpretationsRenderId}
                     />

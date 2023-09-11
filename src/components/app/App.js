@@ -51,10 +51,10 @@ const App = () => {
     }, [systemSettings, dispatch])
 
     return !isEmpty(systemSettings) ? (
-        <div>
+        <>
             <CssVariables colors spacers theme />
             <AppLayout />
-        </div>
+        </>
     ) : null
 }
 

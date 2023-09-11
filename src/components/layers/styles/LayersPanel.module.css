@@ -1,6 +1,5 @@
 .layersPanel {
     width: var(--left-panel-width);
-    transition: width var(--transition-time) var(--transition-style);
 }
 
 .layersPanel.collapsed {
@@ -15,7 +14,6 @@
     overflow-y: auto;
     z-index: 1190;
     transform: translateX(0);
-    transition: transform var(--transition-time) var(--transition-style);
 }
 
 .layersPanel.collapsed .layersPanelInner {
