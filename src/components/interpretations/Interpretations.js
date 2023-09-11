@@ -6,7 +6,7 @@ import { openInterpretationsPanel } from '../../actions/ui.js'
 import { getUrlParameter } from '../../util/requests.js'
 import InterpretationsPanel from './InterpretationsPanel.js'
 
-const Interpretations = ({ renderId }) => {
+const Interpretations = ({ renderCount }) => {
     const isMapLoaded = useSelector(
         (state) =>
             state.map.id && !state.map.mapViews.find((layer) => !layer.isLoaded)
@@ -24,11 +24,13 @@ const Interpretations = ({ renderId }) => {
         }
     }, [isMapLoaded, dispatch])
 
-    return isMapLoaded ? <InterpretationsPanel renderId={renderId} /> : null
+    return isMapLoaded ? (
+        <InterpretationsPanel renderCount={renderCount} />
+    ) : null
 }
 
 Interpretations.propTypes = {
-    renderId: PropTypes.number.isRequired,
+    renderCount: PropTypes.number.isRequired,
 }
 
 export default Interpretations

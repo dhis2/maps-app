@@ -15,7 +15,7 @@ const InterpretationsPanel = ({
     interpretationId,
     map,
     setInterpretation,
-    renderId,
+    renderCount,
 }) => {
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
@@ -41,10 +41,11 @@ const InterpretationsPanel = ({
         setInterpretation()
     }, [setInterpretation])
 
+    console.log('renderCount', renderCount)
     return (
         <>
             <Drawer>
-                <AboutAOUnit type="map" id={map.id} renderId={renderId} />
+                <AboutAOUnit type="map" id={map.id} renderId={renderCount} />
                 <InterpretationsUnit
                     ref={interpretationsUnitRef}
                     type="map"
@@ -75,7 +76,7 @@ const InterpretationsPanel = ({
 
 InterpretationsPanel.propTypes = {
     map: PropTypes.object.isRequired,
-    renderId: PropTypes.number.isRequired,
+    renderCount: PropTypes.number.isRequired,
     setInterpretation: PropTypes.func.isRequired,
     interpretationId: PropTypes.string,
 }

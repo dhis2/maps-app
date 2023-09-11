@@ -16,7 +16,8 @@ import DetailsPanel from './DetailsPanel.js'
 import styles from './styles/AppLayout.module.css'
 
 const AppLayout = () => {
-    const [interpretationsRenderId, setInterpretationsRenderId] = useState(1)
+    const [interpretationsRenderCount, setInterpretationsRenderCount] =
+        useState(1)
 
     const dataTableOpen = useSelector((state) => !!state.dataTable)
     const downloadModeOpen = useSelector(
@@ -28,7 +29,7 @@ const AppLayout = () => {
 
     const onFileMenuAction = () =>
         detailsPanelOpen &&
-        setInterpretationsRenderId(interpretationsRenderId + 1)
+        setInterpretationsRenderCount(interpretationsRenderCount + 1)
 
     return (
         <>
@@ -49,7 +50,7 @@ const AppLayout = () => {
                 </div>
                 {!downloadModeOpen && (
                     <DetailsPanel
-                        interpretationsRenderId={interpretationsRenderId}
+                        interpretationsRenderCount={interpretationsRenderCount}
                     />
                 )}
             </div>

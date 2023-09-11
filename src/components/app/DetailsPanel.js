@@ -6,7 +6,7 @@ import Interpretations from '../interpretations/Interpretations.js'
 import OrgUnitProfile from '../orgunits/OrgUnitProfile.js'
 import styles from './styles/DetailsPanel.module.css'
 
-const DetailsPanel = ({ interpretationsRenderId }) => {
+const DetailsPanel = ({ interpretationsRenderCount }) => {
     const detailsPanelOpen = useSelector((state) => state.ui.rightPanelOpen)
     const viewOrgUnitProfile = useSelector((state) => state.orgUnitProfile)
 
@@ -18,7 +18,7 @@ const DetailsPanel = ({ interpretationsRenderId }) => {
         return viewOrgUnitProfile ? (
             <OrgUnitProfile />
         ) : (
-            <Interpretations renderId={interpretationsRenderId} />
+            <Interpretations renderCount={interpretationsRenderCount} />
         )
     }
 
@@ -34,7 +34,7 @@ const DetailsPanel = ({ interpretationsRenderId }) => {
 }
 
 DetailsPanel.propTypes = {
-    interpretationsRenderId: PropTypes.number.isRequired,
+    interpretationsRenderCount: PropTypes.number.isRequired,
 }
 
 export default DetailsPanel
