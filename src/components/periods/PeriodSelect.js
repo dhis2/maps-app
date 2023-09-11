@@ -7,7 +7,7 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
     getFixedPeriodsByType,
     filterFuturePeriods,
@@ -16,6 +16,85 @@ import { getYear } from '../../util/time.js'
 import { SelectField } from '../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
+const PeriodSelect = ({
+    onChange,
+    className,
+    errorText,
+    lastDate,
+    period,
+    periodType,
+}) => {
+    const [year, setYear] = useState()
+    const [periods, setPeriods] = useState()
+
+    console.log('PeriodSelect', periodType, period, year, periods)
+
+    const changeYear = useCallback((change) => {}, [periodType])
+
+    const nextYear = useCallback(() => {}, [periodType])
+
+    const previousYear = useCallback(() => {}, [])
+
+    useEffect(() => {
+        // const year = this.state.year || getYear(period && period.startDate)
+        const year = getYear(period && period.startDate)
+        console.log('PeriodSelect useEffect', periodType, period, year)
+
+        let periods
+
+        if (periodType) {
+            periods = getFixedPeriodsByType(periodType, year)
+        } else if (period) {
+            periods = [period] // If period is loaded in favorite
+        }
+
+        // this.setState({ periods, year })
+        console.log('#', year, periods)
+    }, [periodType, period])
+
+    if (!periods) {
+        return null
+    }
+
+    const value =
+        period && periods.some((p) => p.id === period.id) ? period.id : null
+
+    return (
+        <div className={cx(styles.periodSelect, className)}>
+            <SelectField
+                label={i18n.t('Period')}
+                items={periods}
+                value={value}
+                onChange={onChange}
+                errorText={!value && errorText ? errorText : null}
+                className={styles.select}
+                dataTest="year-select"
+            />
+            {periodType && (
+                <div className={styles.stepper}>
+                    <Tooltip content={i18n.t('Previous year')}>
+                        <Button
+                            secondary
+                            icon={<IconChevronLeft24 />}
+                            onClick={previousYear}
+                            dataTest="button-previous-year"
+                        />
+                    </Tooltip>
+                    <Tooltip content={i18n.t('Next year')}>
+                        <Button
+                            secondary
+                            icon={<IconChevronRight24 />}
+                            onClick={nextYear}
+                            dataTest="button-next-year"
+                        />
+                    </Tooltip>
+                </div>
+            )}
+        </div>
+    )
+}
+
+/*
 class PeriodSelect extends Component {
     static propTypes = {
         onChange: PropTypes.func.isRequired,
@@ -134,6 +213,18 @@ class PeriodSelect extends Component {
             periods: getFixedPeriodsByType(periodType, year),
         })
     }
+}
+*/
+
+PeriodSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    errorText: PropTypes.string,
+    period: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        startDate: PropTypes.string,
+    }),
+    periodType: PropTypes.string,
 }
 
 export default PeriodSelect
