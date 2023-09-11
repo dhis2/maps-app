@@ -31,8 +31,6 @@ export const getPeriodFromFilter = (filter) => {
     }
 
     /*
-    console.log('getPeriodFromFilter', filter)
-
     const { id, name, year, arguments: args } = filter[0] // TODO: Make more flexible
 
     return {
@@ -42,9 +40,12 @@ export const getPeriodFromFilter = (filter) => {
     }
     */
 
-    return {
-        id: filter[0].arguments[1], // TODO: Make more flexible
-    }
+    const { id, name, year } = filter[0] // TODO: Make more flexible
+
+    // const id = filter[0].arguments[1] // TODO: Make more flexible
+    // const name = periods.find((p) => p.id === id)?.name || id
+
+    return { id, name, year }
 }
 
 // Returns period name from filter
@@ -107,20 +108,29 @@ const getWorkerInstance = async () => {
     return workerPromise
 }
 
-export const getPeriods = async (eeId, periodType) => {
-    const getPeriod = ({ id, properties }) => {
-        const year = new Date(properties['system:time_start']).getFullYear()
-        const name =
-            periodType === 'yearly' ? String(year) : getStartEndDate(properties)
+export const getPeriods = async (eeId, periodType, filters) => {
+    const useSystemIndex = filters.some((f) =>
+        f.arguments.includes('system:index')
+    )
 
-        return { id, name, year }
+    const getPeriod = ({ id, properties }) => {
+        const year =
+            properties.year ||
+            new Date(properties['system:time_start']).getFullYear()
+
+        return periodType === 'yearly'
+            ? { id: useSystemIndex ? id : year, name: String(year) }
+            : { id, name: getStartEndDate(properties), year }
     }
 
     const eeWorker = await getWorkerInstance()
 
+    // try {
     const { features } = await eeWorker.getPeriods(eeId)
-
-    console.log('features', features)
+    // console.log('getPeriods', features)
+    // } catch (error) {
+    //    console.log('ERROR', error)
+    // }
 
     return features.map(getPeriod)
 }

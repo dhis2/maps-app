@@ -55,7 +55,7 @@ export const tSetExternalLayers = (engine) => async (dispatch) => {
                                 dispatch(addBasemaps(basemaps))
                             }
 
-                            console.log('basemaps', basemaps)
+                            // console.log('basemaps', basemaps)
 
                             layers.filter(isOverlay).forEach((layer) => {
                                 const layerId = layer.id // TODO
@@ -80,7 +80,7 @@ export const tSetExternalLayers = (engine) => async (dispatch) => {
             .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
             .map(createExternalLayer)
 
-        console.log('externalBasemaps', externalBasemaps)
+        // console.log('externalBasemaps', externalBasemaps)
 
         /*
         dispatch(addBasemaps(externalBasemaps))

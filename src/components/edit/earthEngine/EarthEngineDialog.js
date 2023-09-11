@@ -87,11 +87,15 @@ const EarthEngineDialog = (props) => {
             if (period) {
                 periodFilter = translateFilters(
                     filters,
-                    periodType === 'yearly' ? String(period.year) : period.id
+                    // periodType === 'yearly' ? String(period.year) : period.id
+                    period.id
                 )
-            }
 
-            console.log('setFilterFromPeriod', period, periodFilter)
+                // TODO: Make more flexible
+                periodFilter[0].id = period.id
+                periodFilter[0].name = period.name
+                periodFilter[0].year = period.year
+            }
 
             setFilter(periodFilter)
         },
@@ -109,7 +113,7 @@ const EarthEngineDialog = (props) => {
         let isCancelled = false
 
         if (periodType) {
-            getPeriods(datasetId, periodType)
+            getPeriods(datasetId, periodType, filters)
                 .then((periods) => {
                     if (!isCancelled) {
                         setPeriods(periods)
@@ -124,7 +128,7 @@ const EarthEngineDialog = (props) => {
         }
 
         return () => (isCancelled = true)
-    }, [datasetId, periodType])
+    }, [datasetId, periodType, filters])
 
     // Set most recent period by default
     useEffect(() => {
@@ -188,8 +192,6 @@ const EarthEngineDialog = (props) => {
             </div>
         )
     }
-
-    console.log('periods', periods)
 
     return (
         <div className={styles.content}>

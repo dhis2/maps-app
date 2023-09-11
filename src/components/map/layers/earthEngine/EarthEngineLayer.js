@@ -75,9 +75,19 @@ export default class EarthEngineLayer extends Layer {
             aggregationType,
             areaRadius,
             tileScale,
+            periodReducer,
         } = this.props
 
         const { map, isPlugin } = this.context
+
+        /*
+        const periodFilter = [
+            {
+                type: 'date',
+                arguments: ['2022-07', '2022-08'],
+            },
+        ]
+        */
 
         const config = {
             type: EARTH_ENGINE_LAYER,
@@ -91,6 +101,8 @@ export default class EarthEngineLayer extends Layer {
             mask,
             attribution,
             filter,
+            // filter: periodFilter,
+            // periodReducer: 'mean',
             methods,
             mosaic,
             name,
