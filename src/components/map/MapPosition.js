@@ -21,7 +21,7 @@ const MapPosition = () => {
         showNorthArrow,
     } = useSelector((state) => state.download)
     const { id: mapId, mapViews: layers } = useSelector((state) => state.map)
-    const { layersPanelOpen, dataTableHeight } = useSelector(
+    const { layersPanelOpen, rightPanelOpen, dataTableHeight } = useSelector(
         (state) => state.ui
     )
     const dataTableOpen = useSelector((state) => !!state.dataTable)
@@ -49,7 +49,8 @@ const MapPosition = () => {
         dataTableOpen,
         dataTableHeight,
         downloadMapInfoOpen,
-        layersPanelOpen.rightPanelOpen,
+        layersPanelOpen,
+        rightPanelOpen,
     ])
 
     // Reset bearing and pitch when new map (mapId changed)
