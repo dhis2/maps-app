@@ -53,23 +53,47 @@ const PeriodSelect = ({
             if (periodType) {
                 periods = getFixedPeriodsByType(periodType, year)
 
-                if (period) {
+                /*
+                if (!period) {
+                    // Autoselect most recent period
+                    onChange(filterFuturePeriods(periods)[0] || periods[0])
+                } else if (prevPeriods) {
                     // Change period if year is changed (but keep period index)
                     const periodIndex = prevPeriods.findIndex(
                         (item) => item.id === period.id
                     )
                     onChange(periods[periodIndex])
-                } else {
-                    // Autoselect most recent period
-                    onChange(filterFuturePeriods(periods)[0] || periods[0])
                 }
+                */
             } else if (period) {
                 periods = [period] // If period is loaded in favorite
             }
 
             setPeriods(periods)
         }
-    }, [year, periodType, period, prevPeriods, onChange])
+    }, [year, periodType, period])
+
+    useEffect(() => {
+        console.log('###', periods?.[0], prevPeriods?.[0])
+
+        if (periods) {
+            if (!period) {
+                // Autoselect most recent period
+                onChange(filterFuturePeriods(periods)[0] || periods[0])
+            } else if (prevPeriods) {
+                // Change period if year is changed (but keep period index)
+                const periodIndex = prevPeriods.findIndex(
+                    (item) => item.id === period.id
+                )
+
+                if (periodIndex !== -1) {
+                    // onChange(periods[periodIndex])
+                }
+                console.log('###', periodIndex)
+                // onChange(periods[periodIndex])
+            }
+        }
+    }, [period, periods, prevPeriods, onChange])
 
     if (!periods) {
         return null
