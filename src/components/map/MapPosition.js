@@ -26,11 +26,13 @@ const MapPosition = () => {
     )
     const dataTableOpen = useSelector((state) => !!state.dataTable)
 
-    let mapHeight = `calc(100vh - ${HEADER_HEIGHT}px))`
-    if (dataTableOpen) {
-        mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${dataTableHeight}px)`
-    } else if (!downloadMode) {
-        mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px)`
+    let mapHeight = `calc(100vh - ${HEADER_HEIGHT}px)`
+    if (!downloadMode) {
+        if (dataTableOpen) {
+            mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px - ${dataTableHeight}px)`
+        } else if (!downloadMode) {
+            mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px)`
+        }
     }
 
     const downloadMapInfoOpen =
