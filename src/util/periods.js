@@ -16,12 +16,12 @@ const filterPeriods = (periods, firstDate, lastDate) =>
 export const getPeriodTypes = (hiddenPeriods = []) =>
     periodTypes().filter(({ group }) => !hiddenPeriods.includes(group))
 
-export const getFixedPeriodsByType = (
+export const getFixedPeriodsByType = ({
     periodType,
     year,
     firstDate,
-    lastDate
-) => {
+    lastDate,
+}) => {
     const period = getFixedPeriodsOptionsById(periodType)
 
     const forceDescendingForYearTypes = !!periodType.match(/^FY|YEARLY/)

@@ -56,7 +56,7 @@ const PeriodSelect = ({
     useEffect(() => {
         if (year && periodType) {
             setPeriods(
-                getFixedPeriodsByType(periodType, year, firstDate, lastDate)
+                getFixedPeriodsByType({ periodType, year, firstDate, lastDate })
             )
         }
     }, [year, periodType, firstDate, lastDate])
