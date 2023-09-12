@@ -39,7 +39,7 @@ const PeriodSelect = ({
                       firstDate,
                       lastDate,
                   })
-                : [period], // saved map period
+                : [period], // saved map period (not included in depency array by design)
         [periodType, year, firstDate, lastDate]
     )
 
