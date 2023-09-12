@@ -65,6 +65,6 @@ export const getPeriodNames = () => ({
 })
 
 export const filterFuturePeriods = (periods, date) => {
-    const now = date || new Date(Date.now())
+    const now = new Date(date || Date.now())
     return periods.filter(({ startDate }) => new Date(startDate) < now)
 }
