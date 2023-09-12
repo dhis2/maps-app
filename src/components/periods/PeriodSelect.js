@@ -33,64 +33,58 @@ const PeriodSelect = ({
     // Increment/decrement year
     const changeYear = useCallback(
         (change) => {
-            setYear((year) => year + change)
+            const newYear = year + change
+
+            if (
+                (!firstDate || newYear >= getYear(firstDate)) &&
+                (!lastDate || newYear <= getYear(lastDate))
+            ) {
+                setYear(newYear)
+            }
         },
-        [periodType]
+        [year, firstDate, lastDate]
     )
 
     // Set initial year
     useEffect(() => {
         if (!year) {
-            setYear(getYear(period?.startDate))
+            setYear(getYear(period?.startDate || lastDate))
         }
-    }, [year, period])
+    }, [year, period, lastDate])
 
     // Set periods when year changes
     useEffect(() => {
-        if (year) {
-            let periods
-
-            if (periodType) {
-                periods = getFixedPeriodsByType(periodType, year)
-
-                /*
-                if (!period) {
-                    // Autoselect most recent period
-                    onChange(filterFuturePeriods(periods)[0] || periods[0])
-                } else if (prevPeriods) {
-                    // Change period if year is changed (but keep period index)
-                    const periodIndex = prevPeriods.findIndex(
-                        (item) => item.id === period.id
-                    )
-                    onChange(periods[periodIndex])
-                }
-                */
-            } else if (period) {
-                periods = [period] // If period is loaded in favorite
-            }
-
-            setPeriods(periods)
+        if (year && periodType) {
+            setPeriods(
+                getFixedPeriodsByType(periodType, year, firstDate, lastDate)
+            )
         }
-    }, [year, periodType, period])
+    }, [year, periodType, firstDate, lastDate])
+
+    // If period is loaded in favorite
+    useEffect(() => {
+        if (!periodType && !periods && period) {
+            setPeriods([period])
+        }
+    }, [periodType, period, periods])
 
     useEffect(() => {
-        console.log('###', periods?.[0], prevPeriods?.[0])
-
         if (periods) {
             if (!period) {
                 // Autoselect most recent period
                 onChange(filterFuturePeriods(periods)[0] || periods[0])
-            } else if (prevPeriods) {
+            } else if (
+                !periods.find((p) => p.id === period.id) &&
+                prevPeriods
+            ) {
                 // Change period if year is changed (but keep period index)
                 const periodIndex = prevPeriods.findIndex(
-                    (item) => item.id === period.id
+                    (p) => p.id === period.id
                 )
 
                 if (periodIndex !== -1) {
-                    // onChange(periods[periodIndex])
+                    onChange(periods[periodIndex])
                 }
-                console.log('###', periodIndex)
-                // onChange(periods[periodIndex])
             }
         }
     }, [period, periods, prevPeriods, onChange])
@@ -141,6 +135,8 @@ PeriodSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
+    firstDate: PropTypes.string,
+    lastDate: PropTypes.string,
     period: PropTypes.shape({
         id: PropTypes.string.isRequired,
         startDate: PropTypes.string,
