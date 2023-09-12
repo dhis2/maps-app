@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-08-31T14:21:15.269Z\n"
-"PO-Revision-Date: 2023-08-31T14:21:15.269Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"PO-Revision-Date: 2023-09-06T13:08:55.205Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -1285,6 +1285,9 @@ msgstr "Error: {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "You don't have access to this layer data"
+
+msgid "The event filter is not supported"
+msgstr "The event filter is not supported"
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "An unknown error occurred while reading layer data"

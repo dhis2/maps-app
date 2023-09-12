@@ -1,3 +1,16 @@
+## [100.1.7](https://github.com/dhis2/maps-app/compare/v100.1.6...v100.1.7) (2023-09-07)
+
+
+### Bug Fixes
+
+* draw layers with opacity ([#2948](https://github.com/dhis2/maps-app/issues/2948)) ([2eb4dd4](https://github.com/dhis2/maps-app/commit/2eb4dd44b24df2ec9df4ae24dcf2b59e33a282bf))
+* hide "show longitude/latitude" from context menu for split view maps (DHIS2-15798) ([#2945](https://github.com/dhis2/maps-app/issues/2945)) ([e76c591](https://github.com/dhis2/maps-app/commit/e76c5918c1b08857bb4823af32b84c6bff3e74b1))
+* post a data statistics view when map is open or saved ([#2951](https://github.com/dhis2/maps-app/issues/2951)) ([4db4fa6](https://github.com/dhis2/maps-app/commit/4db4fa62c8a90718df3bea58094d2fac0edeec19))
+* set default basemap for interpretation map (DHIS2-15788) ([#2944](https://github.com/dhis2/maps-app/issues/2944)) ([49e1c2c](https://github.com/dhis2/maps-app/commit/49e1c2c384eee6455806d5f038da2cdf454416dd))
+* show warning if event filter is not supported ([#2952](https://github.com/dhis2/maps-app/issues/2952)) ([6d1caa1](https://github.com/dhis2/maps-app/commit/6d1caa1c10e4fc05e93beddbefcadbed70fdd9fd))
+* use display name for data sets ([#2947](https://github.com/dhis2/maps-app/issues/2947)) ([b77b0df](https://github.com/dhis2/maps-app/commit/b77b0df25a2dd77443d8c924c2291a305c536f50))
+* use programIndicators endpoint respecting sharing settings ([#2950](https://github.com/dhis2/maps-app/issues/2950)) ([b43ad0f](https://github.com/dhis2/maps-app/commit/b43ad0fe1230fbf5c3d259369c09998251f969bf))
+
 ## [100.1.6](https://github.com/dhis2/maps-app/compare/v100.1.5...v100.1.6) (2023-08-31)
 
 

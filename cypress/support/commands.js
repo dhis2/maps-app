@@ -1,3 +1,4 @@
+import '@dhis2/cypress-commands'
 import 'cypress-wait-until'
 
 Cypress.Commands.add('getByDataTest', (selector, ...args) =>
