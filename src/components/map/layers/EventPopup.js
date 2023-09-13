@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import { formatTime, formatCoordinate } from '../../../util/helpers.js'
 import Popup from '../Popup.js'
+import classes from './styles/EventPopup.module.css'
 
 // Returns true if value is not undefined or null;
 const hasValue = (value) => value !== undefined || value !== null
@@ -47,7 +48,7 @@ const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
 
         dataRows.push(
             <tr key={id}>
-                <th>{name}</th>
+                <td className={classes.header}>{name}</td>
                 <td>{formattedValue}</td>
             </tr>
         )
@@ -87,7 +88,7 @@ const EventPopup = ({
         <Popup
             coordinates={coordinates}
             onClose={onClose}
-            className="dhis2-map-popup-event"
+            className={classes.eventPopup}
         >
             {error && <span>{i18n.t('Could not retrieve event data')}</span>}
             {!error && (
@@ -102,10 +103,10 @@ const EventPopup = ({
                             })}
                         {type === 'Point' && (
                             <tr>
-                                <th>
+                                <td className={classes.header}>
                                     {eventCoordinateFieldName ||
                                         i18n.t('Event location')}
-                                </th>
+                                </td>
                                 <td>
                                     {coord[0].toFixed(6)} {coord[1].toFixed(6)}
                                 </td>
@@ -113,13 +114,17 @@ const EventPopup = ({
                         )}
                         {orgUnitName && (
                             <tr>
-                                <th>{i18n.t('Organisation unit')}</th>
+                                <td className={classes.header}>
+                                    {i18n.t('Organisation unit')}
+                                </td>
                                 <td>{orgUnitName}</td>
                             </tr>
                         )}
                         {eventDate && (
                             <tr>
-                                <th>{i18n.t('Event time')}</th>
+                                <td className={classes.header}>
+                                    {i18n.t('Event time')}
+                                </td>
                                 <td>{formatTime(eventDate)}</td>
                             </tr>
                         )}
