@@ -1,217 +1,221 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2022
-# Viktor Varland <viktor@dhis2.org>, 2022
-# channara rin, 2023
+# Yury Rogachev <yury@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: channara rin, 2023\n"
-"Language-Team: Khmer (https://app.transifex.com/hisp-uio/teams/100509/km/)\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2022\n"
+"Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: km\n"
+"Language: uz@Latn\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "Xaritalar"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "Xarita \"{{ismi}}\" saqlangan"
 
 msgid "Failed to save map. {{message}}"
 msgstr ""
 
 msgid "Error"
-msgstr "កំហុសបច្ចេកទេស"
+msgstr "Xatolik"
 
 msgid "Classification"
-msgstr ""
+msgstr "Tasnifi"
 
 msgid "Classes"
-msgstr ""
+msgstr "Sinflar"
 
 msgid "Legend set"
-msgstr ""
+msgstr "Таърифлар тўплами"
 
 msgid "Color"
-msgstr ""
+msgstr "Rang"
 
 msgid "Size"
-msgstr ""
+msgstr "Oʼlcham"
 
 msgid "Data element group"
-msgstr ""
+msgstr "Maʼlumotlar elementi guruhi"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Maʼlumotlar guruhi operandi"
 
 msgid "Data element"
-msgstr "ទិន្នន័យធាតុដើម"
+msgstr "Maʼlumotlar elementi"
 
 msgid "Totals"
-msgstr ""
+msgstr "Жами"
 
 msgid "Details"
-msgstr "លម្អិត"
+msgstr "Тафсилотлари"
 
 msgid "Yes"
-msgstr "បាទ/ចាស"
+msgstr "Ҳа"
 
 msgid "Event location"
-msgstr ""
+msgstr "Hodisa/Tadbir oʼtkaziladigan joy"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Koordinatalar maydoni"
 
 msgid "None"
-msgstr "គ្មាន"
+msgstr "Йўқ"
 
 msgid "Data item"
-msgstr ""
+msgstr "Maʼlumot elementi"
 
 msgid "Event data item"
-msgstr ""
+msgstr "Hodisa/Tadbir maʼlumoti elementi"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Maʼlumot elementi boʼyicha uslub"
 
 msgid "Data set"
-msgstr "Data set"
+msgstr "Maʼlumotlar toʼplami"
 
 msgid "Index"
-msgstr ""
+msgstr "Indenks"
 
 msgid "Org unit"
-msgstr "អង្គភាព"
+msgstr "Tashkiliy birlik"
 
 msgid "Name"
-msgstr "ឈ្មោះ"
+msgstr "Исми"
 
 msgid "Id"
 msgstr ""
 
 msgid "Event time"
-msgstr ""
+msgstr "Hodisa/Tadbir vaqti"
 
 msgid "Value"
-msgstr "តម្លៃ"
+msgstr "Қиймат"
 
 msgid "Legend"
-msgstr ""
+msgstr "Taʼrif"
 
 msgid "Range"
-msgstr ""
+msgstr "Oraliq"
 
 msgid "Level"
-msgstr "Level"
+msgstr "Daraja"
 
 msgid "Parent"
-msgstr ""
+msgstr "Аjdod"
 
 msgid "Type"
-msgstr ""
+msgstr "Turi"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"Hodisa/Tadbirlar serverda guruhlanayotganda, maʼlumotlar jadvali qoʼllab-"
+"quvvatlanmaydi"
 
 msgid "Add filter"
-msgstr ""
+msgstr "Filtr kiritish"
 
 msgid "Items"
 msgstr ""
+"Hodisa/Tadbirlar serverda guruhlanayotganda, maʼlumotlar jadvali qoʼllab-"
+"quvvatlanmaydi"
 
 msgid "Dimension"
-msgstr ""
+msgstr "Hajm"
 
 msgid "Download"
-msgstr ""
+msgstr "Юклаш"
 
 msgid "Download map"
-msgstr ""
+msgstr "Xaritani yuklash"
 
 msgid "Show name"
-msgstr ""
+msgstr "Ismini koʼrsatish"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Taʼrifni koʼrsatish"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Sizning brauzeringiz xarita yuklanishini taʼminlay olmaydi. Google Chrome "
+"yoki Firefox orqali urinib koʼring."
 
 msgid "Cancel"
-msgstr "បោះបង់"
+msgstr "Бекор қилиш"
 
 msgid "Close"
-msgstr "បិទ"
+msgstr "Yopmoq"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Tavsif holati"
 
 msgid "Organisation Units"
-msgstr "ផ្នែក​នៃ​អង្គភាព"
+msgstr "Tashkiliy Boʼlimlar"
 
 msgid "Style"
-msgstr "​រចនាបទ"
+msgstr "Услуб"
 
 msgid "Point color"
-msgstr ""
+msgstr "Нуқта ранги"
 
 msgid "Point radius"
-msgstr ""
+msgstr "Nuqta radiusi"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
 msgid "event"
 msgstr ""
 
 msgid "tracked entity"
-msgstr ""
+msgstr "Kuzatuvdagi obʼekt"
 
 msgid "facility"
-msgstr ""
+msgstr "imkoniyat"
 
 msgid "thematic"
-msgstr ""
+msgstr "tematik"
 
 msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Uydagi mexanizm"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "{{Ism}} qatlamini tahrirlash"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Yangi qatlamni {{ism}} qoʼshish"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Qatlamni yangilash"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Qatlam qoʼshish"
 
 msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "Гуруҳлар"
 
 msgid "This field is required"
-msgstr ""
+msgstr "Ushbu qator toʼldirilishi shart"
 
 msgid "Data"
-msgstr "Data"
+msgstr "Маълумот"
 
 msgid "Period"
-msgstr "កំឡុងពេល"
+msgstr "davr"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -230,13 +234,13 @@ msgid "Unit"
 msgstr ""
 
 msgid "Source"
-msgstr "Source"
+msgstr "Manba/Izlash"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Oldingi taʼrif"
 
 msgid "Year"
-msgstr "ឆ្នាំ"
+msgstr "Yil"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -260,235 +264,244 @@ msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
-msgstr "អប្បបរមា"
+msgstr "Минимум"
 
 msgid "Max"
-msgstr "អតិបរមា"
+msgstr "Максимум"
 
 msgid "Steps"
-msgstr ""
+msgstr "Qadamlar"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Tashkiliy Boʼlimlar"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 msgid "Events"
-msgstr "ព្រឹត្តិការណ៏"
+msgstr "Hodisa/tadbirlar"
 
 msgid "Group events"
-msgstr ""
+msgstr "Hodisa/Tadbirlar guruhlari"
 
 msgid "View all events"
-msgstr ""
+msgstr "Barcha hodisa/tadbirlarni koʼrish"
 
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Hodisa/Tadbirlarda maʼlumotlar elementini uslublash uchun dasturni tanlang"
 
 msgid "Program is required"
-msgstr ""
+msgstr "Dastur talab qilinadi"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Dastur bosqichi talab qilinadi"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Taʼrif toʼplami tanlanmagan"
 
 msgid "Event status"
-msgstr ""
+msgstr "Hodisa/Tadbir holati"
 
 msgid "Boundary color"
 msgstr ""
 
 msgid "Buffer"
-msgstr ""
+msgstr "Bufer"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Radius metrlarda"
 
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "Yorliqlar"
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Бирлаштириш тури"
 
 msgid "Only show completed events"
 msgstr ""
 
 msgid "Show no data"
-msgstr ""
+msgstr "Maʼlumot yoʼq"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Kichik radius"
 
 msgid "High radius"
-msgstr ""
+msgstr "Katta radius"
 
 msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "Radius {{minimum}} va {{maksimum}} oraligʼida boʼlishi lozim"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Koʼrsatgichlar guruhi talab qilinadi"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Indikator talab qilinadi"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Maʼlumot elementi talab qilinadi"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Maʼlumot elementi talab qilingan"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Maʼlumot toʼplami talab qilingan"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Hodisa/Tadbir maʼlumoti elementi talab qilinadi"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Dastur indikatori talab qilinadi"
 
 msgid "Period is required"
-msgstr ""
+msgstr "Davr talab qilinadi"
 
 msgid "Indicator"
-msgstr "សួចនាករ"
+msgstr "Indikator"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Ҳисобот таърифлари"
 
 msgid "Event data items"
-msgstr ""
+msgstr "Hodisalar haqida maʼlumot elementlari"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Dastur koʼrsatgichlari"
 
 msgid "Item type"
-msgstr ""
+msgstr "Element turi"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
+"Kuzatuvdagi obʼektlar maʼlumoti yangilanganligi oxirgi davrini tanlang"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Dastur/qayd qilish sanasi"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
+"sana, kuzatuvdagi shaxs roʼyxatga olingan yoki dasturda roʼyxatga olingan"
 
 msgid "Program status"
-msgstr ""
+msgstr "dastur holati"
 
 msgid "Relationships"
-msgstr "ទំនាក់ទំនង"
+msgstr "Oʼzaro aloqalar"
 
 msgid "Follow up"
-msgstr "តាមដាន"
+msgstr "Kuzatib borish"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
+"Iltimos, oʼzaro aloqalar turini tanlashdan oldin kuzatuvdagi obʼektni "
+"tanlang"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
+"Xaritalarda obʼektlarning oʼzaro aloqalar tizimining koʼrsatilishi - "
+"eksperimental funktsiya"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "Xaritalarda obʼektlarning oʼzaro aloqalar tizimining koʼrsatilishi"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
+"Dasturdan {{dastur}} tashqarida aloqalar bogʼlaydigan oʼzaro aloqalarni "
+"kiriting"
 
 msgid "Selection mode"
-msgstr ""
+msgstr "Rejimni tanlash"
 
 msgid "Selected only"
-msgstr ""
+msgstr "Faqatgina tanlangan"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "Tanlangan va quyida"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "Tanlangan va barchasi quyida"
 
 msgid "Tracked entities"
-msgstr "ផ្នែកតាមដាន"
+msgstr "Kuzatuvdagi obʼektlar"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "Kuzatuvdagi obʼektlar xususiyatlari"
 
 msgid "Point size"
-msgstr ""
+msgstr "Nuqta oʼlchami"
 
 msgid "Related entity style"
-msgstr ""
+msgstr "Oʼzaro bogʼlangan xususiyatlar"
 
 msgid "Line Color"
-msgstr ""
+msgstr "Qator rangi"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "Oʼzaro aloqalar xususiyatlarining yuklanishi amalga oshmadi"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr ""
+msgstr "Kuzatuvdagi obʼektlar oʼzaro aloqalar turlari {{turi}} topilmadi"
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Oʼzaro aloqalar turi"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "DHIS2 Xaritalarda xatolik yuz berdi"
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Nimadir notoʼgʼri bajarildi"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Ыaytib urinib kщrin uchun avval yangilang"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Texnik detallarni berkitish"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Texnik detallarni koʼrsatish"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Quyidagi axborot texnik yordamchilar tomonidan soʼralishi mumkin"
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "Dastur bosqichi tanlangandan soʼng Filtrdan foydalanish mumkin"
 
 msgid "one of"
-msgstr ""
+msgstr "bittasi"
 
 msgid "contains"
-msgstr ""
+msgstr "oʼz ichiga oladi"
 
 msgid "is"
-msgstr ""
+msgstr "bor"
 
 msgid "is not"
-msgstr ""
+msgstr "emas"
 
 msgid "Operator"
-msgstr "សញ្ញា​​​ប្រមាណ​វិធី"
+msgstr "Operator"
 
 msgid "Date"
-msgstr "កាលបរិច្ឆេទ"
+msgstr "Sana"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Filtrni olib tashlash"
 
 msgid "Group set"
 msgstr ""
@@ -500,126 +513,130 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Indicator group"
+msgstr "Koʼrsatgich guruhi"
 
 msgid "Interpretations"
-msgstr "កន្លែងសន្ទនារ"
+msgstr "Talqinlar"
 
 msgid "Collapse"
-msgstr ""
+msgstr "Yiqilish"
 
 msgid "Expand"
-msgstr ""
+msgstr "Kengaytiring"
 
 msgid "External basemap"
-msgstr ""
+msgstr "Tashqi asosiy xarita"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Аsosiy xarita"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Qavat maʼlumotlarini yuklash"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "{{QavatIsmi}} uchun GeoJSON maʼlumotlari yuklanmoqda"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON aksariyat GIS dasturlari tomonidan qoʼllab quvvatlanadi, shu "
+"jumladan QGIS va ArcGIS ham."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Maʼlumot yuklanishi amalga oshmadi"
 
 msgid "ID Format"
-msgstr ""
+msgstr "ID format"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "oʼqilishi qulay kalitlardan foydalaning"
 
 msgid "External layer"
-msgstr ""
+msgstr "Tashqi qavat"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
+"Аjratilgan koʼrinishlarni boshqa qatlam turlari bilan birlashtirib "
+"boʼlmaydi."
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Yuklanadigan qavat"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{ismi}} oʼchirilgan"
 
 msgid "Edit"
-msgstr "កែសម្រួល​"
+msgstr "Tahrirlash"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Koʼrinishni yoqing"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Qatlam xiraligini tahrirlang"
 
 msgid "More actions"
-msgstr ""
+msgstr "Boshqa harakatlar"
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Maʼlumotlar jadvali berkitilsin"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Maʼlumotlar jadvalini koʼrsatish"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Diagramma sifatida oching"
 
 msgid "Download data"
-msgstr ""
+msgstr "Maʼlumotni yuklab oling"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Qatlamni tahrirlash"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Qatlamni oʼchirish"
 
 msgid "Mid"
-msgstr ""
+msgstr "Oʼrta"
 
 msgid "Group"
-msgstr ""
+msgstr "Гуруҳ"
 
 msgid "Filters"
-msgstr ""
+msgstr "Filrlar"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Bir pogʼonaga koʼtariling"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Bir darajaga tushing"
 
 msgid "View profile"
-msgstr "មើល​ជីវប្រវត្តិ"
+msgstr "Profilni koʼrish"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "Kenglik/Uzunlikni koʼrsating"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Koʼrsatish {{nomi}}"
 
 msgid "Longitude"
-msgstr "រយៈបណ្តោយ"
+msgstr "Kenglik"
 
 msgid "Latitude"
-msgstr "រយៈទទឹង"
+msgstr "Kenglik"
 
 msgid "Not set"
-msgstr "មិន​បាន​កំណត់"
+msgstr "Oʼrnatilmagan"
 
 msgid "Organisation unit"
-msgstr "ផ្នែក​នៃ​អង្គការ"
+msgstr "Ташкилий бирлик"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Аjdod boʼlimi"
 
 msgid "Last updated"
-msgstr "បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ"
+msgstr "Oxirgi yangilangan"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -627,7 +644,7 @@ msgid ""
 msgstr ""
 
 msgid "no value"
-msgstr "មិនមានតំលៃ"
+msgstr ""
 
 msgid "All groups"
 msgstr ""
@@ -636,85 +653,88 @@ msgid "Loading data"
 msgstr ""
 
 msgid "acres"
-msgstr ""
+msgstr "akr"
 
 msgid "Area"
-msgstr ""
+msgstr "Maydon"
 
 msgid "Center map on area"
-msgstr ""
+msgstr "Maydon boʼyicha xaritani markashtirish"
 
 msgid "Center map on line"
-msgstr ""
+msgstr "Chiziq boʼyicha xaritani markazlashtirish"
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Keyingi pozitsiyani bosing"
 
 msgid "Click where you want to start the measurement"
-msgstr ""
+msgstr "Oʼlchovni boshlanish joyini bosing"
 
 msgid "Delete"
-msgstr "​លុប​"
+msgstr "Oʼchirib tashlash"
 
 msgid "Distance"
-msgstr ""
+msgstr "Masofa"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Toʼliq ekranga kiring"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Toʼliq ekrandan chiking"
 
 msgid "Finish measurement"
-msgstr ""
+msgstr "Oʼlchovni tugatish"
 
 msgid "ha"
-msgstr ""
+msgstr "xa"
 
 msgid "km"
-msgstr ""
+msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr ""
+msgstr "Oʼlchov masofasi va maydoni"
 
 msgid "mi"
-msgstr ""
+msgstr "Mil"
 
 msgid "Perimeter"
-msgstr ""
+msgstr "Perimetr"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "Pelengni shimolga tashlash"
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Joyi yoki mandilini izlash"
 
 msgid "Zoom in"
-msgstr ""
+msgstr "Kattalashtirish"
 
 msgid "Zoom out"
-msgstr ""
+msgstr "Uzoqlashtirish"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "Tarkib boʼyicha yaqinlashtirish"
 
 msgid "Open as map"
-msgstr ""
+msgstr "Xarita sifatida ochish"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Ushbu diagramma / jadval {{numitems}} maʼlumotlar elementlaridan tashkil "
+"topgan. Quyidagi roʼyxatdan import qilmoqchi boʼlgan elementlarni tanlang. "
+"Har bir element xarita qavati sifatida yaratiladi."
 
 msgid "Data items"
-msgstr ""
+msgstr "Maʼlumot elementlari"
 
 msgid "Proceed"
-msgstr ""
+msgstr "Davom eting"
 
 msgid "Options"
-msgstr ""
+msgstr "Вариант"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -722,55 +742,55 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Ushbu davr uchun maʼlumot topilmadi"
 
 msgid "Use associated geometry"
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
+msgstr "Guruhlarni tanlang"
 
 msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr ""
+msgstr "Kod"
 
 msgid "Short name"
-msgstr "ឈ្មោះ​​ខ្លី"
+msgstr "Qisqacha nomi"
 
 msgid "Opening date"
-msgstr ""
+msgstr "Ochilish sanasi"
 
 msgid "Closed date"
-msgstr ""
+msgstr "Yopilgan sana"
 
 msgid "URL"
-msgstr "អាសយដ្ឋាន URL"
+msgstr "URL"
 
 msgid "Link"
-msgstr ""
+msgstr "Havola"
 
 msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "ye-Pochta"
 
 msgid "Address"
-msgstr "អាសយដ្ឋាន"
+msgstr "Manzil"
 
 msgid "Phone"
 msgstr ""
 
 msgid "ID"
-msgstr "​លេខ​សម្គាល់"
+msgstr "ID"
 
 msgid "Comment"
-msgstr "មតិយោបល់"
+msgstr "Izoh"
 
 msgid "Select levels"
-msgstr ""
+msgstr "Bosqichlarni tanlang"
 
 msgid "Organisation unit profile"
 msgstr ""
@@ -779,117 +799,121 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+"Аlohida birliklarni tanlash va foydalanuvchilar tashkiliy boʼlimini "
+"birlashtirish mumkin emas."
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "Foydalanuvchining tashkiliy boʼlimi"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "Foydalanuvchining tashkiliy boʼlimi ostida"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "Foydalanuvchining tashkiliy boʼlimidan ikki pogʼona pastda"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{boʼlimlar}} va {{tashkiliyboʼlimlar}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{boʼlimlar}} va ostki {{tashkiliyboʼlimlar}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{boʼlimlar}} va barcha quyi {{tashkiliyboʼlimlar}}"
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Tanlangan tashkiliy boʼlimlar"
 
 msgid "Main"
-msgstr ""
+msgstr "Аsosiy"
 
 msgid "Below"
-msgstr ""
+msgstr "Quyi"
 
 msgid "2 x below"
-msgstr ""
+msgstr "2 daraja quyi"
 
 msgid "User organisation units"
-msgstr ""
+msgstr "Foydalanuvchi tashkiliy boʼlimlari"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Oldingi yil"
 
 msgid "Next year"
-msgstr "ឆ្នាំ​ក្រោយ"
+msgstr "Keyngi yil"
 
 msgid "Relative"
-msgstr "ទំនាក់ទំនង"
+msgstr "Oʼzaro bogʼliqlik"
 
 msgid "Period type"
-msgstr "Period type"
+msgstr "Davr turi"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Boshlanish/Tugash vaqtlari"
 
 msgid "Only one timeline is allowed."
-msgstr ""
+msgstr "Faqatgina bitta vaqt oraligʼi boʼlishi mumkin"
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
+"Xaritani koʼzdan kechirish rejimini yoqish uchun, boshqa qavatlarni "
+"oʼchiring"
 
 msgid "Display periods"
-msgstr ""
+msgstr "Koʼrinish davrlari"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "Yakka (Birlashtirilgan)"
 
 msgid "Timeline"
-msgstr ""
+msgstr "Xronologiya"
 
 msgid "Split map views"
-msgstr ""
+msgstr "Xarita koʼrinishlarini ajratish"
 
 msgid "Start date"
-msgstr "កាលបរិច្ឆេទ​ចាប់ផ្ដើម​"
+msgstr "Boshlanish sanasi"
 
 msgid "End date"
-msgstr "កាល​បរិច្ឆេទ​បញ្ចប់​"
+msgstr "Yakunlanish sanasi"
 
 msgid "Not available offline"
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Dastur indikatori"
 
 msgid "No program"
-msgstr ""
+msgstr "Dastur mavjud emas"
 
 msgid "Program"
-msgstr ""
+msgstr "Dastur"
 
 msgid "Stage"
-msgstr ""
+msgstr "Босқич"
 
 msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "Маълумотлар элементи бўйича"
 
 msgid "Count"
-msgstr "ផលរាប់"
+msgstr "Ҳисоблаш"
 
 msgid "Average"
-msgstr "ផលមធ្យម"
+msgstr "Ўртача"
 
 msgid "Sum"
-msgstr "ផល​បូក"
+msgstr "Жамлаш"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Standart ogʼish"
 
 msgid "Variance"
-msgstr ""
+msgstr "Номувофиқлик"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Foiz"
 
 msgid "Hectares"
 msgstr ""
@@ -907,28 +931,28 @@ msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM manba"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Batafsil"
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Yoʼl"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Toʼq rangli moʼyqalam"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Gibrid koʼrinish"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Belgilar"
 
 msgid "Population"
 msgstr ""
@@ -1075,194 +1099,201 @@ msgid ""
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "Balandlik"
 
 msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Dengiz sathidan balandlik"
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Yogʼingarchilik"
 
 msgid "millimeter"
-msgstr ""
+msgstr "millimetr"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Sunʼiy yoʼldosh va yerdagi stantsiyalardan yigʼilgan yogʼingarchilik "
+"maʼlumotlari. Qiymatlar 5 kunlik yigʼilgan maʼlumotlar asosida mm larda aks "
+"ettiriladi. Doimo oyning 3chi haftasida yangilanadi."
 
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatura"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "Kunduzgi °C"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Yer usti harorati sunʼiy yoʼldosh orqali aniqlashtirilgan. Doimiy bulutlar "
+"bilan qoplangan maydonlarda boʼsh dogʼlar paydo boʼladi"
 
 msgid "Landcover"
-msgstr ""
+msgstr "Oʼsimliklar qavati"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "Sputnik yordamida yer qatlamining turi aniqlangan"
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Yashil igna bargli doimiy oʼrmonlar"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Doimiy yashil yapaloq bargli oʼrmonlar"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Nina bargli oʼrmonlar"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Yapaloq bargli oʼrmonlar"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "Аralash oʼrmonlar"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "Zich butazorlar"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "Siyrak butazorlar"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "Savannalar (yogʼochli)"
 
 msgid "Savannas"
-msgstr ""
+msgstr "Savanna"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Oʼtloqlar"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "Doimiy botqoq yerlar"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Oʼsimliklar"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Urbanizatsiya va shaharsozlik"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "Oʼsimliklar/Tabiiy oʼsimliklar dunyosi"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Qor va muz"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Hosilsiz yoki kam oʼsimliklardan"
 
 msgid "Water"
-msgstr ""
+msgstr "Suv"
 
 msgid "people per km²"
-msgstr ""
+msgstr "1 km² da odamlar"
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Tungi chiroqlar"
 
 msgid "light intensity"
-msgstr ""
+msgstr "Yorugʼlik intensivligi"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"Yorugʼlik intensivligi maʼlumotlari shaharlar, qishloqlar va shu jumladan "
+"yoqilgan gaz fakellaridan."
 
 msgid "All"
-msgstr "ទាំងអស់"
+msgstr "Barchasi"
 
 msgid "Active"
-msgstr ""
+msgstr "Faol"
 
 msgid "Completed"
-msgstr "បានបញ្ចប់"
+msgstr "bajarildi"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Xoroplet"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Qiymatlar koʼrsatilgan xarita"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Аvtomatik rangli taʼrif"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Oldindan belgilangan rangli taʼrif"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Bir rangli taʼrif"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "teng intervallar"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Teng miqdorda"
 
 msgid "Symbol"
 msgstr ""
 
 msgid "Daily"
-msgstr "រាល់​ថ្ងៃ"
+msgstr "Кунлик"
 
 msgid "Weekly"
-msgstr "រាល់​សប្ដាហ៍"
+msgstr "Ҳафталик"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Чоршанба)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Пайшанба)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Шанба)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Якшанба)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Juft hafta"
 
 msgid "Monthly"
-msgstr "រាល់​ខែ"
+msgstr "Ойлик"
 
 msgid "Bi-monthly"
-msgstr "រាល់ពីរសប្តាហ៍"
+msgstr "Жуфт ойлик"
 
 msgid "Quarterly"
-msgstr "រាល់ត្រីមាស"
+msgstr "Ҳар квартал"
 
 msgid "Six-monthly"
-msgstr "រាល់ឆមាស"
+msgstr "Yarim yillik"
 
 msgid "Six-monthly April"
-msgstr "ប្រចាំឆមាស​ពីខែមេសា"
+msgstr "Yarim yillik Аprel"
 
 msgid "Yearly"
-msgstr "ប្រចាំឆ្នាំ"
+msgstr "Йиллик"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Moliyaviy yil (Boshlanishi Noyabr)"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Молиявий йил (бошланиши Октябр)"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Молиявий йил (бошланиши Июл)"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Молиявий йил (бошланиши Апрел)"
 
 msgid "Cancelled"
-msgstr "បានលុបចោល"
+msgstr "Bekor qilindi"
 
 msgid "{{name}}: No coordinates found"
 msgstr ""
@@ -1274,43 +1305,43 @@ msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Ushbu qatlam maʼlumotlariga kirish huquqiga ega emassiz"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Qatlam maʼlumotlarini oʼqish paytida nomaʼlum xatolik yuz berdi"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "មិនមានទិន្នន័យបង្ហាញ"
+msgstr "Maʼlumotlar topilmadi"
 
 msgid "Event"
-msgstr ""
+msgstr "Hodisa/Tadbir"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Muassasalar"
 
 msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"
-msgstr "Organisation units"
+msgstr "Tashkiliy birliklar"
 
 msgid "Thematic layer"
-msgstr ""
+msgstr "Tematik qavat"
 
 msgid "No data"
-msgstr ""
+msgstr "Maʼlumot yoʼq"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Kuzatuv obʼekti"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Hech qanday kuzatuvdagi obʼekt topilmadi"
 
 msgid "related"
-msgstr ""
+msgstr "bogʼliqlik"
 
 msgid "Thematic"
 msgstr ""
@@ -1319,19 +1350,19 @@ msgid "Org units"
 msgstr ""
 
 msgid "not one of"
-msgstr ""
+msgstr "bittasi ham emas"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "oʼz ichiga olmaydi"
 
 msgid "true"
-msgstr ""
+msgstr "toʼgʼri"
 
 msgid "false"
-msgstr ""
+msgstr "yolgʼon"
 
 msgid "No"
-msgstr "ទេ"
+msgstr "Йўқ"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
@@ -1340,15 +1371,17 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Ushbu qatlam uchun Google Earth Engine akkaunti zarur. Qoʼshimcha maʼlumot "
+"olish uchunDHIS2 hujjatlarini tekshiring."
 
 msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Boshlanish sanasi notoʼgʼri"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Yakunlanish sanasi notoʼgʼri"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Yakunlanish sanasi boshlanish sanasidan oldin boʼlishi mumkin emas"
