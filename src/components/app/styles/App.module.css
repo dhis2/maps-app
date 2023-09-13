@@ -19,11 +19,6 @@
     max-height: calc(100vh - 64px)
 }
 
-.app {
-    font-family: 'Roboto', sans-serif;
-    height: 100vh;
-}
-
 /* Scrollbar width */
 ::-webkit-scrollbar {
     width: 6px;

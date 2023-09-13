@@ -11,7 +11,12 @@ import { setInterpretation } from '../../actions/interpretations.js'
 import Drawer from '../core/Drawer.js'
 import InterpretationMap from './InterpretationMap.js'
 
-const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
+const InterpretationsPanel = ({
+    interpretationId,
+    map,
+    setInterpretation,
+    renderCount,
+}) => {
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
     const { d2 } = useD2()
@@ -39,7 +44,7 @@ const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
     return (
         <>
             <Drawer>
-                <AboutAOUnit type="map" id={map.id} />
+                <AboutAOUnit type="map" id={map.id} renderId={renderCount} />
                 <InterpretationsUnit
                     ref={interpretationsUnitRef}
                     type="map"
@@ -70,6 +75,7 @@ const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
 
 InterpretationsPanel.propTypes = {
     map: PropTypes.object.isRequired,
+    renderCount: PropTypes.number.isRequired,
     setInterpretation: PropTypes.func.isRequired,
     interpretationId: PropTypes.string,
 }

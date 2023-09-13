@@ -1,12 +1,7 @@
 import cx from 'classnames'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import {
-    APP_MENU_HEIGHT,
-    DOWNLOAD_MENU_HEIGHT,
-    LAYERS_PANEL_WIDTH,
-    RIGHT_PANEL_WIDTH,
-} from '../../constants/layout.js'
+import { APP_MENU_HEIGHT, HEADER_HEIGHT } from '../../constants/layout.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.js'
 import NorthArrow from '../download/NorthArrow.js'
@@ -31,6 +26,15 @@ const MapPosition = () => {
     )
     const dataTableOpen = useSelector((state) => !!state.dataTable)
 
+    let mapHeight = `calc(100vh - ${HEADER_HEIGHT}px)`
+    if (!downloadMode) {
+        if (dataTableOpen) {
+            mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px - ${dataTableHeight}px)`
+        } else {
+            mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px)`
+        }
+    }
+
     const downloadMapInfoOpen =
         downloadMode &&
         (showName ||
@@ -40,22 +44,15 @@ const MapPosition = () => {
 
     const isSplitView = !!getSplitViewLayer(layers)
 
-    const mapPosition = {
-        top: downloadMode ? DOWNLOAD_MENU_HEIGHT : APP_MENU_HEIGHT,
-        left: layersPanelOpen || downloadMode ? LAYERS_PANEL_WIDTH : 0,
-        right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
-        bottom: dataTableOpen ? dataTableHeight : 0,
-    }
-
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount((count) => count + 1)
     }, [
-        layersPanelOpen,
-        rightPanelOpen,
         dataTableOpen,
         dataTableHeight,
         downloadMapInfoOpen,
+        layersPanelOpen,
+        rightPanelOpen,
     ])
 
     // Reset bearing and pitch when new map (mapId changed)
@@ -91,7 +88,7 @@ const MapPosition = () => {
     }, [map, downloadMode])
 
     return (
-        <div className={styles.mapPosition} style={mapPosition}>
+        <div className={styles.mapPosition} style={{ height: mapHeight }}>
             <div
                 className={cx({
                     [styles.mapDownload]: downloadMode,
@@ -100,8 +97,8 @@ const MapPosition = () => {
             >
                 <div
                     id="dhis2-map-container"
-                    data-test="dhis2-map-container"
                     className={cx(styles.mapContainer, {
+                        [styles.download]: downloadMode,
                         'dhis2-map-download': downloadMode,
                     })}
                 >
