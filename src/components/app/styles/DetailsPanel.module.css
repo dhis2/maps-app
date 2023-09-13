@@ -1,0 +1,7 @@
+.detailsPanel {
+    width: var(--right-panel-width);
+}
+
+.detailsPanel.collapsed {
+    width: 0px;
+}

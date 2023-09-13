@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setInterpretation } from '../../actions/interpretations.js'
@@ -5,13 +6,10 @@ import { openInterpretationsPanel } from '../../actions/ui.js'
 import { getUrlParameter } from '../../util/requests.js'
 import InterpretationsPanel from './InterpretationsPanel.js'
 
-const Interpretations = () => {
+const Interpretations = ({ renderCount }) => {
     const isMapLoaded = useSelector(
         (state) =>
             state.map.id && !state.map.mapViews.find((layer) => !layer.isLoaded)
-    )
-    const isPanelOpen = useSelector(
-        (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
     )
     const dispatch = useDispatch()
 
@@ -26,7 +24,13 @@ const Interpretations = () => {
         }
     }, [isMapLoaded, dispatch])
 
-    return isPanelOpen && isMapLoaded ? <InterpretationsPanel /> : null
+    return isMapLoaded ? (
+        <InterpretationsPanel renderCount={renderCount} />
+    ) : null
+}
+
+Interpretations.propTypes = {
+    renderCount: PropTypes.number.isRequired,
 }
 
 export default Interpretations

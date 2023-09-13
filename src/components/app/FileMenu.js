@@ -5,7 +5,7 @@ import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { newMap, tOpenMap, setMapProps } from '../../actions/map.js'
 import {
     ALERT_CRITICAL,
@@ -53,11 +53,12 @@ const getSaveFailureMessage = (message) =>
         nsSeparator: ';',
     })
 
-const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
+const FileMenu = ({ onFileMenuAction }) => {
     const { d2 } = useD2()
     const engine = useDataEngine()
+    const map = useSelector((state) => state.map)
+    const dispatch = useDispatch()
     const { keyDefaultBaseMap } = useSystemSettings()
-    //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const saveAsAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const deleteAlert = useAlert(
@@ -112,7 +113,7 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
     }
 
     const openMap = async (id) => {
-        const error = await tOpenMap(id, keyDefaultBaseMap, engine)
+        const error = await dispatch(tOpenMap(id, keyDefaultBaseMap, engine))
         if (error) {
             openMapErrorAlert.show({
                 msg: i18n.t(`Error while opening map: ${error.message}`, {
@@ -154,7 +155,7 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
             delete newMapConfig.basemap
             delete newMapConfig.mapViews
 
-            setMapProps(newMapConfig)
+            dispatch(setMapProps(newMapConfig))
 
             saveAsAlert.show({ msg: getSavedMessage(config.name) })
         } else {
@@ -165,39 +166,38 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
         }
     }
 
-    const onRename = ({ name, description }) =>
-        setMapProps({ name: getMapName(name), description })
+    const onRename = ({ name, description }) => {
+        dispatch(setMapProps({ name: getMapName(name), description }))
+        onFileMenuAction()
+    }
 
     const onDelete = () => {
-        newMap()
+        onNew()
         deleteAlert.show()
     }
+
+    const onNew = () => dispatch(newMap())
 
     return (
         <UiFileMenu
             currentUser={d2.currentUser}
             fileType="map"
             fileObject={map}
-            onNew={newMap}
+            onNew={onNew}
             onOpen={openMap}
             onSave={saveMap}
             onSaveAs={saveAsNewMap}
             onRename={onRename}
             onDelete={onDelete}
             onError={onFileMenuError}
+            onShare={onFileMenuAction}
+            onTranslate={onFileMenuAction}
         />
     )
 }
 
 FileMenu.propTypes = {
-    map: PropTypes.object.isRequired,
-    newMap: PropTypes.func.isRequired,
-    setMapProps: PropTypes.func.isRequired,
-    tOpenMap: PropTypes.func.isRequired,
+    onFileMenuAction: PropTypes.func.isRequired,
 }
 
-export default connect(({ map }) => ({ map }), {
-    newMap,
-    tOpenMap,
-    setMapProps,
-})(FileMenu)
+export default FileMenu
