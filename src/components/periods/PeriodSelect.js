@@ -30,6 +30,7 @@ const PeriodSelect = ({
     const prevYear = usePrevious(year)
 
     // Set periods when periodType or year changes
+    /* eslint-disable react-hooks/exhaustive-deps */
     const periods = useMemo(
         () =>
             periodType
@@ -42,6 +43,7 @@ const PeriodSelect = ({
                 : [period], // saved map period (not included in depency array by design)
         [periodType, year, firstDate, lastDate]
     )
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     // Increment/decrement year
     const changeYear = useCallback(
