@@ -27,7 +27,7 @@ const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
     ) {
         dataRows.push(
             <tr key={styleDataItem.id}>
-                <th>{styleDataItem.name}</th>
+                <td>{styleDataItem.name}</td>
                 <td>{hasValue(value) ? value : i18n.t('Not set')}</td>
             </tr>
         )
@@ -48,7 +48,7 @@ const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
 
         dataRows.push(
             <tr key={id}>
-                <td className={classes.header}>{name}</td>
+                <td>{name}</td>
                 <td>{formattedValue}</td>
             </tr>
         )
@@ -103,7 +103,7 @@ const EventPopup = ({
                             })}
                         {type === 'Point' && (
                             <tr>
-                                <td className={classes.header}>
+                                <td>
                                     {eventCoordinateFieldName ||
                                         i18n.t('Event location')}
                                 </td>
@@ -114,17 +114,13 @@ const EventPopup = ({
                         )}
                         {orgUnitName && (
                             <tr>
-                                <td className={classes.header}>
-                                    {i18n.t('Organisation unit')}
-                                </td>
+                                <td>{i18n.t('Organisation unit')}</td>
                                 <td>{orgUnitName}</td>
                             </tr>
                         )}
                         {eventDate && (
                             <tr>
-                                <td className={classes.header}>
-                                    {i18n.t('Event time')}
-                                </td>
+                                <td>{i18n.t('Event time')}</td>
                                 <td>{formatTime(eventDate)}</td>
                             </tr>
                         )}
