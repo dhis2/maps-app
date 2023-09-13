@@ -41,7 +41,6 @@ const InterpretationsPanel = ({
         setInterpretation()
     }, [setInterpretation])
 
-    console.log('renderCount', renderCount)
     return (
         <>
             <Drawer>
