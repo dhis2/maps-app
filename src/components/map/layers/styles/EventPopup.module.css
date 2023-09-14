@@ -1,0 +1,20 @@
+.eventPopup {
+    max-height: 300px;
+    overflow: auto;
+    line-height: 14px;
+    max-width: 400px;
+}
+
+.eventPopup th, .eventPopup td {
+    text-align: left;
+    vertical-align: top;
+}
+
+.eventPopup tr th {
+    font-weight: 500;
+    padding-right: var(--spacers-dp4);
+}
+
+.eventPopup tr td {
+    min-width: 120px;
+}

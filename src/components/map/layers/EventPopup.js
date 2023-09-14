@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import { formatTime, formatCoordinate } from '../../../util/helpers.js'
 import Popup from '../Popup.js'
+import classes from './styles/EventPopup.module.css'
 
 // Returns true if value is not undefined or null;
 const hasValue = (value) => value !== undefined || value !== null
@@ -87,7 +88,7 @@ const EventPopup = ({
         <Popup
             coordinates={coordinates}
             onClose={onClose}
-            className="dhis2-map-popup-event"
+            className={classes.eventPopup}
         >
             {error && <span>{i18n.t('Could not retrieve event data')}</span>}
             {!error && (
