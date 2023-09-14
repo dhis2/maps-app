@@ -6,7 +6,7 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Edem Kossi <ekossi@hispwca.org>, 2020
 # Bram Piot <bram.piot@gmail.com>, 2021
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2022
@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -33,6 +33,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -450,6 +459,9 @@ msgstr "L'élément de données évènement est requis"
 msgid "Program indicator is required"
 msgstr "L'indicateur de programme est requis"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "La période est requise"
 
@@ -464,6 +476,9 @@ msgstr "Eléments de données évènement"
 
 msgid "Program indicators"
 msgstr "Program indicators"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Type d'élément"
@@ -537,9 +552,6 @@ msgstr "Style par ensemble de groupes"
 
 msgid "Indicator group"
 msgstr "Groupe d'indicateurs"
-
-msgid "Interpretations"
-msgstr "interprétations"
 
 msgid "Collapse"
 msgstr "Plier"
@@ -1319,6 +1331,9 @@ msgstr "Erreur : {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "Vous n'avez pas accès aux données de cette couche."
+
+msgid "The event filter is not supported"
+msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
 msgstr ""

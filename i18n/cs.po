@@ -1,11 +1,11 @@
-#
+# 
 # Translators:
 # Jiří Podhorecký, 2023
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -23,6 +23,15 @@ msgstr "Mapa \"{{- name}}\" je uložena."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Nepodařilo se uložit mapu: {{message}}"
+
+msgid "Calculation"
+msgstr "Výpočet"
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
 
 msgid "Classification"
 msgstr "Klasifikace"
@@ -435,6 +444,9 @@ msgstr "Položka dat události je povinná"
 msgid "Program indicator is required"
 msgstr "Je vyžadován indikátor programu"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Období je vyžadováno"
 
@@ -449,6 +461,9 @@ msgstr "Položky dat události"
 
 msgid "Program indicators"
 msgstr "Ukazatele programu"
+
+msgid "Calculations"
+msgstr "Výpočty"
 
 msgid "Item type"
 msgstr "Typ položky"
@@ -515,9 +530,6 @@ msgstr "Styl podle sady skupiny"
 
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
-
-msgid "Interpretations"
-msgstr "Interpretace"
 
 msgid "Collapse"
 msgstr "Sbalit"
@@ -1291,6 +1303,9 @@ msgstr "Chyba {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
+
+msgid "The event filter is not supported"
+msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "Při čtení dat vrstvy došlo k neznámé chybě"

@@ -1,13 +1,13 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Hamza Assada <7amza.it@gmail.com>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -24,6 +24,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -429,6 +438,9 @@ msgstr "عنصر بيانات الحدث مطلوب"
 msgid "Program indicator is required"
 msgstr "مؤشر البرنامج مطلوب"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "الفترة مطلوبة"
 
@@ -443,6 +455,9 @@ msgstr "عناصر بيانات الحدث"
 
 msgid "Program indicators"
 msgstr "مؤشرات البرنامج"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "نوع العنصر"
@@ -508,9 +523,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
-
-msgid "Interpretations"
-msgstr "التفسيرات"
 
 msgid "Collapse"
 msgstr "انهيار"
@@ -1272,6 +1284,9 @@ msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "ليس لديك حق الوصول إلى بيانات الطبقة هذه"
+
+msgid "The event filter is not supported"
+msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
