@@ -1,6 +1,6 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
 # Phouthasinh PHEUAYSITHIPHONE, 2023
@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Phouthasinh PHEUAYSITHIPHONE, 2023\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -25,6 +25,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -429,6 +438,9 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
@@ -443,6 +455,9 @@ msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
 
 msgid "Program indicators"
 msgstr "ຕົວຊີ້ວັດສະເພາະວຽກຂອງຂະແໜງ"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr ""
@@ -508,9 +523,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
-
-msgid "Interpretations"
-msgstr "ການແປຂໍ້ມູນ"
 
 msgid "Collapse"
 msgstr "ຫຍໍ້"
@@ -1261,6 +1273,9 @@ msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
+msgstr ""
+
+msgid "The event filter is not supported"
 msgstr ""
 
 msgid "An unknown error occurred while reading layer data"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -23,6 +23,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -429,6 +438,9 @@ msgstr "Hendelsesdatapunkt er påkrevd"
 msgid "Program indicator is required"
 msgstr "Programindikator er påkrevd"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Periode er påkrevd"
 
@@ -443,6 +455,9 @@ msgstr "Hendelsesdatapunkter"
 
 msgid "Program indicators"
 msgstr "Programindikatorer"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Elementtype"
@@ -510,9 +525,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "Indikatorgruppe"
-
-msgid "Interpretations"
-msgstr "Tolkninger"
 
 msgid "Collapse"
 msgstr "Kollaps"
@@ -1276,6 +1288,9 @@ msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "Du har ikke tilgang til disse lagdataene"
+
+msgid "The event filter is not supported"
+msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "En ukjent feil oppstod under lesing av lagdata"
