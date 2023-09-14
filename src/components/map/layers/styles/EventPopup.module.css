@@ -5,16 +5,16 @@
     max-width: 400px;
 }
 
-.eventPopup tr td {
+.eventPopup th, .eventPopup td {
     text-align: left;
     vertical-align: top;
 }
 
-.eventPopup tr td:first-child {
+.eventPopup tr th {
     font-weight: 500;
     padding-right: var(--spacers-dp4);
 }
 
-.eventPopup tr td:last-child {
+.eventPopup tr td {
     min-width: 120px;
 }

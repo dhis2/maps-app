@@ -27,7 +27,7 @@ const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
     ) {
         dataRows.push(
             <tr key={styleDataItem.id}>
-                <td>{styleDataItem.name}</td>
+                <th>{styleDataItem.name}</th>
                 <td>{hasValue(value) ? value : i18n.t('Not set')}</td>
             </tr>
         )
@@ -48,7 +48,7 @@ const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
 
         dataRows.push(
             <tr key={id}>
-                <td>{name}</td>
+                <th>{name}</th>
                 <td>{formattedValue}</td>
             </tr>
         )
@@ -103,10 +103,10 @@ const EventPopup = ({
                             })}
                         {type === 'Point' && (
                             <tr>
-                                <td>
+                                <th>
                                     {eventCoordinateFieldName ||
                                         i18n.t('Event location')}
-                                </td>
+                                </th>
                                 <td>
                                     {coord[0].toFixed(6)} {coord[1].toFixed(6)}
                                 </td>
@@ -114,13 +114,13 @@ const EventPopup = ({
                         )}
                         {orgUnitName && (
                             <tr>
-                                <td>{i18n.t('Organisation unit')}</td>
+                                <th>{i18n.t('Organisation unit')}</th>
                                 <td>{orgUnitName}</td>
                             </tr>
                         )}
                         {eventDate && (
                             <tr>
-                                <td>{i18n.t('Event time')}</td>
+                                <th>{i18n.t('Event time')}</th>
                                 <td>{formatTime(eventDate)}</td>
                             </tr>
                         )}
