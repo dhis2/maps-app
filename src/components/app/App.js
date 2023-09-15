@@ -12,7 +12,8 @@ import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import AppLayout from './AppLayout.js'
-import styles from './styles/App.module.css'
+import './App.css'
+import './styles/App.module.css'
 
 const App = () => {
     const systemSettings = useSystemSettings()
@@ -50,10 +51,10 @@ const App = () => {
     }, [systemSettings, dispatch])
 
     return !isEmpty(systemSettings) ? (
-        <div className={styles.app}>
+        <>
             <CssVariables colors spacers theme />
             <AppLayout />
-        </div>
+        </>
     ) : null
 }
 
