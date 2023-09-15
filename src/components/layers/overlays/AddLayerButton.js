@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { IconAddCircle24 } from '@dhis2/ui'
-import React, { Fragment, useState, useRef } from 'react'
-import { MenuButton } from '../../core/index.js'
+import React, { useState, useRef } from 'react'
 import AddLayerPopover from './AddLayerPopover.js'
 import styles from './styles/AddLayerButton.module.css'
 
@@ -11,19 +10,23 @@ const AddLayerButton = () => {
     const toggleDialog = () => setIsOpen(!isOpen)
 
     return (
-        <Fragment>
-            <div className={styles.addLayerBtn} ref={buttonRef}>
-                <MenuButton onClick={toggleDialog} dataTest="add-layer-button">
-                    <span className={styles.btnContent}>
+        <>
+            <div className={styles.container} ref={buttonRef}>
+                <button
+                    className={styles.button}
+                    onClick={toggleDialog}
+                    data-test="add-layer-button"
+                >
+                    <span className={styles.content}>
                         <IconAddCircle24 />
-                        {i18n.t('Add layer')}
+                        <span>{i18n.t('Add layer')}</span>
                     </span>
-                </MenuButton>
+                </button>
             </div>
             {isOpen && (
                 <AddLayerPopover anchorEl={buttonRef} onClose={toggleDialog} />
             )}
-        </Fragment>
+        </>
     )
 }
 

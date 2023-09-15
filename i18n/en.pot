@@ -514,9 +514,6 @@ msgstr "Style by group set"
 msgid "Indicator group"
 msgstr "Indicator group"
 
-msgid "Interpretations"
-msgstr "Interpretations"
-
 msgid "Collapse"
 msgstr "Collapse"
 

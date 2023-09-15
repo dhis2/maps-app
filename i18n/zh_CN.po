@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -23,6 +23,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -427,6 +436,9 @@ msgstr "必须提供事件数据项"
 msgid "Program indicator is required"
 msgstr "必须提供项目指标"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "需要时段"
 
@@ -441,6 +453,9 @@ msgstr "事件数据项"
 
 msgid "Program indicators"
 msgstr "项目指标"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "条目类型"
@@ -506,9 +521,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "指标组"
-
-msgid "Interpretations"
-msgstr "注释"
 
 msgid "Collapse"
 msgstr "折叠"
@@ -1259,6 +1271,9 @@ msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
+msgstr ""
+
+msgid "The event filter is not supported"
 msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
