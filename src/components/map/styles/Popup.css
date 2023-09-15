@@ -7,6 +7,10 @@
     min-width: 150px;
 }
 
-.maplibregl-popup-close-button:focus {
-    outline: none;
+.dhis2-map-popup-event {
+    overflow-x: auto;
+}
+
+.dhis2-map-popup-event th {
+    text-align: left;
 }
