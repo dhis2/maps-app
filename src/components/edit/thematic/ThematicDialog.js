@@ -36,6 +36,7 @@ import {
 } from '../../../util/analytics.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
+import CalculationSelect from '../../calculations/CalculationSelect.js'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.js'
 import { Tab, Tabs } from '../../core/index.js'
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect.js'
@@ -255,6 +256,7 @@ class ThematicDialog extends Component {
             dataElementError,
             dataSetError,
             programError,
+            calculationError,
             eventDataItemError,
             programIndicatorError,
             periodTypeError,
@@ -408,6 +410,14 @@ class ThematicDialog extends Component {
                                     />
                                 ),
                             ]}
+                            {valueType === dimConf.calculation.objectName && (
+                                <CalculationSelect
+                                    calculation={dataItem}
+                                    onChange={setDataItem}
+                                    className={styles.select}
+                                    errorText={calculationError}
+                                />
+                            )}
                             <AggregationTypeSelect className={styles.select} />
                             <CompletedOnlyCheckbox valueType={valueType} />
                         </div>
@@ -607,6 +617,14 @@ class ThematicDialog extends Component {
                           'data'
                       )
             }
+        }
+
+        if (valueType === dimConf.calculation.objectName && !dataItem) {
+            return this.setErrorState(
+                'calculationError',
+                i18n.t('Calculation is required'),
+                'data'
+            )
         }
 
         if (!period && periodType !== START_END_DATES) {
