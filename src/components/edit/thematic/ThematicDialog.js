@@ -225,7 +225,6 @@ class ThematicDialog extends Component {
             noDataColor,
             operand,
             periodType,
-            settings,
             renderingStrategy,
             startDate,
             endDate,
