@@ -32,7 +32,7 @@ const PeriodTypeSelect = ({
                 onChange(periodTypes[0], isRelativePeriod)
             }
         }
-    }, [value, period, includeRelativePeriods, onChange])
+    }, [value, period, periodTypes, includeRelativePeriods, onChange])
 
     return (
         <SelectField
