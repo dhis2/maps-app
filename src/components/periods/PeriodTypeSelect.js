@@ -9,7 +9,7 @@ const PeriodTypeSelect = ({
     onChange,
     className,
     errorText,
-    includeRelativePeriods = true,
+    includeRelativePeriods,
     period,
     value,
 }) => {
@@ -23,9 +23,13 @@ const PeriodTypeSelect = ({
     // Set default period type
     useEffect(() => {
         if (!value) {
-            const isRelativePeriod =
+            const isRelativePeriod = !!(
                 includeRelativePeriods &&
+                period &&
                 getRelativePeriods().find((p) => p.id === period.id)
+            )
+
+            console.log('isRelativePeriod', isRelativePeriod)
 
             if (!period || isRelativePeriod) {
                 // default to first period type
