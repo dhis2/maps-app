@@ -125,6 +125,12 @@ export const getPeriods = async (eeId, periodType, filters) => {
 
     const eeWorker = await getWorkerInstance()
 
+    if (periodType === 'daily') {
+        const { min, max } = await eeWorker.getTimeRange(eeId)
+        console.log('time range', new Date(min), new Date(max))
+        return []
+    }
+
     // try {
     const { features } = await eeWorker.getPeriods(eeId)
     // console.log('getPeriods', features)
