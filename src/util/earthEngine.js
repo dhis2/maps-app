@@ -141,6 +141,11 @@ export const getPeriods = async (eeId, periodType, filters) => {
     return features.map(getPeriod)
 }
 
+export const getTimeRange = async (eeId) => {
+    const eeWorker = await getWorkerInstance()
+    return eeWorker.getTimeRange(eeId)
+}
+
 export const defaultFilters = ({ id, name, year }) => [
     {
         type: 'eq',

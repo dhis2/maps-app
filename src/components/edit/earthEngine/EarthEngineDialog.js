@@ -25,7 +25,7 @@ import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationSelect from './AggregationSelect.js'
 import BandSelect from './BandSelect.js'
-import PeriodSelect from './PeriodSelect.js'
+import PeriodTab from './PeriodTab.js'
 import StyleTab from './StyleTab.js'
 
 const EarthEngineDialog = (props) => {
@@ -256,7 +256,8 @@ const EarthEngineDialog = (props) => {
                     </div>
                 )}
                 {tab === 'period' && (
-                    <PeriodSelect
+                    <PeriodTab
+                        datasetId={datasetId}
                         periodType={periodType}
                         period={period}
                         periods={periods}
