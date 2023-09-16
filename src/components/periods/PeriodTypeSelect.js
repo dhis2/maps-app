@@ -9,7 +9,7 @@ const PeriodTypeSelect = ({
     onChange,
     className,
     errorText,
-    includeRelativePeriods = true,
+    includeRelativePeriods,
     period,
     value,
 }) => {
@@ -23,18 +23,18 @@ const PeriodTypeSelect = ({
     // Set default period type
     useEffect(() => {
         if (!value) {
-            const isRelativePeriod =
+            const isRelativePeriod = !!(
                 includeRelativePeriods &&
+                period &&
                 getRelativePeriods().find((p) => p.id === period.id)
+            )
 
             if (!period || isRelativePeriod) {
                 // default to first period type
-                // !isRelativePeriod = false will not clear the period dropdown
-                console.log('setDefaultPeriodType')
-                onChange(periodTypes[0], !isRelativePeriod)
+                onChange(periodTypes[0], isRelativePeriod)
             }
         }
-    }, [value, period, includeRelativePeriods, onChange])
+    }, [value, period, periodTypes, includeRelativePeriods, onChange])
 
     return (
         <SelectField

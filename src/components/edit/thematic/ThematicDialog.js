@@ -225,7 +225,6 @@ class ThematicDialog extends Component {
             noDataColor,
             operand,
             periodType,
-            settings,
             renderingStrategy,
             startDate,
             endDate,
@@ -430,7 +429,7 @@ class ThematicDialog extends Component {
                             <PeriodTypeSelect
                                 value={periodType}
                                 period={period}
-                                hiddenPeriods={settings.hiddenPeriods}
+                                includeRelativePeriods={true}
                                 onChange={setPeriodType}
                                 className={styles.periodSelect}
                                 errorText={periodTypeError}
