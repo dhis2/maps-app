@@ -107,9 +107,9 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 periodType: action.periodType.id,
-                filters: action.clearPeriod
-                    ? removePeriodFromFilters(state.filters)
-                    : state.filters,
+                filters: action.keepPeriod
+                    ? state.filters
+                    : removePeriodFromFilters(state.filters),
             }
 
         case types.LAYER_EDIT_PERIOD_SET:
