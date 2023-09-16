@@ -29,8 +29,6 @@ const PeriodTypeSelect = ({
                 getRelativePeriods().find((p) => p.id === period.id)
             )
 
-            console.log('isRelativePeriod', isRelativePeriod)
-
             if (!period || isRelativePeriod) {
                 // default to first period type
                 onChange(periodTypes[0], isRelativePeriod)
@@ -41,7 +39,7 @@ const PeriodTypeSelect = ({
     return (
         <SelectField
             label={i18n.t('Period type')}
-            items={getPeriodTypes(hiddenPeriods)}
+            items={periodTypes}
             value={value}
             onChange={onChange}
             className={className}
