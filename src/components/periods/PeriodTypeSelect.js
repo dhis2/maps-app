@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { getPeriodTypes, getRelativePeriods } from '../../util/periods.js'
 import { SelectField } from '../core/index.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
