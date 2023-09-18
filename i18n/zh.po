@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Untitled map, {{date}}"
-msgstr "无标题地图，{{日期}}"
+msgstr "无标题地图，{{date}}"
 
 msgid "Map \"{{- name}}\" is saved."
 msgstr "地图“{{- name}}”已保存。"
@@ -28,13 +28,13 @@ msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
 
 msgid "Calculation"
-msgstr ""
+msgstr "计算"
 
 msgid "No calculations found"
-msgstr ""
+msgstr "没有找到计算结果"
 
 msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
+msgstr "可以在数据可视化工具应用程序中创建计算。"
 
 msgid "Classification"
 msgstr "分类"
@@ -439,7 +439,7 @@ msgid "Program indicator is required"
 msgstr "需要项目指标"
 
 msgid "Calculation is required"
-msgstr ""
+msgstr "需要计算"
 
 msgid "Period is required"
 msgstr "需要期间"
@@ -457,7 +457,7 @@ msgid "Program indicators"
 msgstr "项目指标"
 
 msgid "Calculations"
-msgstr ""
+msgstr "计算"
 
 msgid "Item type"
 msgstr "条目类型"
@@ -1276,7 +1276,7 @@ msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
 
 msgid "The event filter is not supported"
-msgstr ""
+msgstr "不支持事件过滤器"
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "读取图层数据时发生未知错误"
