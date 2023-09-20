@@ -84,6 +84,8 @@ const EarthEngineDialog = (props) => {
         (period) => {
             let periodFilter = null
 
+            // console.log('setFilterFromPeriod', periodType, period, filters)
+
             if (period) {
                 periodFilter = translateFilters(
                     filters,
@@ -109,6 +111,7 @@ const EarthEngineDialog = (props) => {
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
 
     // Load all available periods
+    /*
     useEffect(() => {
         let isCancelled = false
 
@@ -129,8 +132,10 @@ const EarthEngineDialog = (props) => {
 
         return () => (isCancelled = true)
     }, [datasetId, periodType, filters])
+    */
 
     // Set most recent period by default
+    /*
     useEffect(() => {
         if (filter === undefined) {
             if (Array.isArray(periods) && periods.length) {
@@ -138,6 +143,7 @@ const EarthEngineDialog = (props) => {
             }
         }
     }, [periods, filter, setFilterFromPeriod])
+    */
 
     // Set default org unit level
     useEffect(() => {

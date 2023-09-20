@@ -3,10 +3,12 @@ import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import PeriodReducer from './PeriodReducer.js'
+import PeriodSelect from './PeriodSelect.js'
 import styles from './styles/PeriodSelect.module.css'
 
 const EarthEnginePeriodTab = ({
     datasetId,
+    filters,
     periodType,
     period,
     periods,
@@ -16,9 +18,18 @@ const EarthEnginePeriodTab = ({
 }) => {
     return (
         <div className={className}>
-            {periodType === 'daily' && (
+            {periodType === 'daily' ? (
                 <PeriodReducer
                     datasetId={datasetId}
+                    period={period}
+                    onChange={onChange}
+                    errorText={errorText}
+                />
+            ) : (
+                <PeriodSelect
+                    periodType={periodType}
+                    datasetId={datasetId}
+                    filters={filters}
                     period={period}
                     onChange={onChange}
                     errorText={errorText}

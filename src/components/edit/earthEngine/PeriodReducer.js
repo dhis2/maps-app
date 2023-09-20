@@ -7,7 +7,6 @@ import PeriodSelect from '../../periods/PeriodSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import { START_END_DATES } from '../../../constants/periods.js'
 import { getTimeRange } from '../../../util/earthEngine.js'
-import styles from './styles/PeriodSelect.module.css'
 
 const EarthEnginePeriodReducer = ({
     datasetId,
@@ -17,20 +16,21 @@ const EarthEnginePeriodReducer = ({
     className,
 }) => {
     const [periodType, setPeriodType] = useState()
-
-    console.log('periodType', periodType)
+    const [dateRange, setDateRange] = useState()
 
     useEffect(() => {
-        getTimeRange(datasetId).then(console.log)
+        getTimeRange(datasetId).then(setDateRange)
     }, [datasetId])
 
+    // TODO: Add loading spinner
     return (
         <div className={className}>
             <PeriodTypeSelect
                 value={periodType}
                 onChange={(period) => setPeriodType(period.id)}
             />
-            {periodType &&
+            {dateRange &&
+                periodType &&
                 (periodType === START_END_DATES ? (
                     <StartEndDates
                     // startDate={startDate}
@@ -42,6 +42,7 @@ const EarthEnginePeriodReducer = ({
                     <PeriodSelect
                         periodType={periodType}
                         period={period}
+                        {...dateRange}
                         onChange={onChange}
                         errorText={errorText}
                     />

@@ -3,17 +3,21 @@ import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { SelectField } from '../../core/index.js'
+import { getPeriods } from '../../../util/earthEngine.js'
 import styles from './styles/PeriodSelect.module.css'
 
 // http://localhost:8080/api/periodTypes.json
 const EarthEnginePeriodSelect = ({
     periodType,
     period,
-    periods,
+    datasetId,
+    filters,
+    // periods,
     onChange,
     errorText,
     className,
 }) => {
+    const [periods, setPeriods] = useState()
     const [year, setYear] = useState()
     const byYear = periodType === 'by year'
 
@@ -43,6 +47,35 @@ const EarthEnginePeriodSelect = ({
         },
         [onChange]
     )
+
+    useEffect(() => {
+        let isCancelled = false
+
+        if (periodType) {
+            getPeriods(datasetId, periodType, filters).then((periods) => {
+                if (!isCancelled) {
+                    setPeriods(periods)
+                }
+            })
+            /*
+                .catch((error) =>
+                    setError({
+                        type: 'engine',
+                        message: error.message,
+                    })
+                )
+                */
+        }
+
+        return () => (isCancelled = true)
+    }, [datasetId, periodType, filters])
+
+    // Set most recent period by default
+    useEffect(() => {
+        if (!period && Array.isArray(periods) && periods.length) {
+            onChange(periods[0])
+        }
+    }, [period, periods, onChange])
 
     useEffect(() => {
         if (byYear && period) {
