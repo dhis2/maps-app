@@ -318,7 +318,8 @@ const layerEdit = (state = null, action) => {
             newState = {
                 ...state,
                 colorScale: action.colorScale,
-                classes: action.colorScale.split(',').length,
+                // classes: action.colorScale.split(',').length,
+                classes: action.colorScale.length,
             }
 
             if (newState.styleDataItem) {
@@ -440,11 +441,11 @@ const layerEdit = (state = null, action) => {
                 band: action.payload,
             }
 
-        case types.LAYER_EDIT_PARAMS_SET:
+        case types.LAYER_EDIT_STYLE_SET:
             return {
                 ...state,
-                params: {
-                    ...state.params,
+                style: {
+                    ...state.style,
                     ...action.payload,
                 },
             }

@@ -11,7 +11,7 @@ const EarthEnginePeriodTab = ({
     filters,
     periodType,
     period,
-    periods,
+    periodReducer,
     onChange,
     errorText,
     className,
@@ -22,6 +22,7 @@ const EarthEnginePeriodTab = ({
                 <PeriodReducer
                     datasetId={datasetId}
                     period={period}
+                    reducer={periodReducer}
                     onChange={onChange}
                     errorText={errorText}
                 />
@@ -45,7 +46,7 @@ EarthEnginePeriodTab.propTypes = {
     className: PropTypes.string,
     errorText: PropTypes.string,
     period: PropTypes.object,
-    periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    // periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
 export default EarthEnginePeriodTab

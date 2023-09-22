@@ -234,10 +234,10 @@ export const setOrgUnitMode = (mode) => ({
     payload: mode,
 })
 
-// Set layer params (EE)
-export const setParams = (params) => ({
-    type: types.LAYER_EDIT_PARAMS_SET,
-    payload: params,
+// Set layer style (EE)
+export const setStyle = (payload) => ({
+    type: types.LAYER_EDIT_STYLE_SET,
+    payload,
 })
 
 // Set collection filter (EE)

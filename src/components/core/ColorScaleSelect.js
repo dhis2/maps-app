@@ -14,11 +14,11 @@ const ColorScaleSelect = ({ palette, width, onChange, className }) => {
     const [isOpen, setIsOpen] = useState(false)
     const anchorRef = useRef()
 
-    const bins = palette.split(',').length
+    const bins = palette.length // palette.split(',').length
     const scale = getColorScale(palette)
 
     const onColorScaleSelect = (scale) => {
-        const classes = palette.split(',').length
+        const classes = palette.length // palette.split(',').length
         onChange(getColorPalette(scale, classes))
         setIsOpen(false)
     }
@@ -61,7 +61,7 @@ const ColorScaleSelect = ({ palette, width, onChange, className }) => {
 }
 
 ColorScaleSelect.propTypes = {
-    palette: PropTypes.string.isRequired,
+    palette: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     width: PropTypes.number,

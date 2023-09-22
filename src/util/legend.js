@@ -73,7 +73,7 @@ export const getAutomaticLegendItems = (
     colorScale = defaultColorScale
 ) => {
     const items = data.length ? getLegendItems(data, method, classes) : []
-    const colors = colorScale.split(',')
+    const colors = colorScale // .split(',')
 
     return items.map((item, index) => ({
         ...item,

@@ -6,26 +6,26 @@ import styles from '../styles/LayerDialog.module.css'
 import LegendPreview from './LegendPreview.js'
 import StyleSelect from './StyleSelect.js'
 
-const StyleTab = ({ unit, params, hasOrgUnitField }) => (
+const StyleTab = ({ unit, style, hasOrgUnitField }) => (
     <div className={styles.flexColumnFlow}>
         <div className={styles.flexColumn}>
-            {params && <StyleSelect unit={unit} params={params} />}
+            {style && <StyleSelect unit={unit} style={style} />}
             <BufferRadius
                 defaultRadius={EE_BUFFER}
                 hasOrgUnitField={hasOrgUnitField}
             />
         </div>
-        {params && <LegendPreview params={params} />}
+        {style && <LegendPreview style={style} />}
     </div>
 )
 
 StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
     unit: PropTypes.string,
-    params: PropTypes.shape({
+    style: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
-        palette: PropTypes.string.isRequired,
+        palette: PropTypes.array.isRequired,
     }),
 }
 

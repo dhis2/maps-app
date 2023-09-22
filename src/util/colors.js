@@ -39,14 +39,14 @@ export const colorScales = [
 
 // Returns a color brewer scale for a number of classes
 export const getColorPalette = (scale, classes) => {
-    return colorbrewer[scale][classes].join(',')
+    return colorbrewer[scale][classes] // .join(',')
 }
 
 // Returns color scale name for a palette
 export const getColorScale = (palette) => {
-    const classes = palette.split(',').length
+    const classes = palette.length // palette.split(',').length
     return colorScales.find(
-        (name) => colorbrewer[name][classes].join(',') === palette
+        (name) => colorbrewer[name][classes].join(',') === palette.join(',')
     )
 }
 

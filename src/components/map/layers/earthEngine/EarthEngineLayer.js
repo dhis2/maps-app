@@ -102,7 +102,7 @@ export default class EarthEngineLayer extends Layer {
             attribution,
             filter,
             // filter: periodFilter,
-            // periodReducer: 'mean',
+            periodReducer,
             methods,
             mosaic,
             name,

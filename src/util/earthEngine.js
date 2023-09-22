@@ -143,11 +143,13 @@ export const getPeriods = async (eeId, periodType, filters) => {
     return features.map(getPeriod)
 }
 
+const oneDayInMilliseconds = 24 * 60 * 60 * 1000
+
 export const getTimeRange = async (eeId) => {
     const eeWorker = await getWorkerInstance()
     return eeWorker.getTimeRange(eeId).then(({ min, max }) => ({
         firstDate: min ? formatDate(min) : null,
-        lastDate: max ? formatDate(max) : null,
+        lastDate: max ? formatDate(max - oneDayInMilliseconds) : null,
     }))
 }
 

@@ -20,6 +20,7 @@ import {
     defaultFilters,
     translateFilters,
 } from '../../../util/earthEngine.js'
+import { incrementDate } from '../../../util/time.js'
 import { Help, Tab, Tabs } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import styles from '../styles/LayerDialog.module.css'
@@ -38,7 +39,6 @@ const EarthEngineDialog = (props) => {
         datasetId,
         band,
         rows,
-        params,
         style,
         filter,
         areaRadius,
@@ -57,6 +57,7 @@ const EarthEngineDialog = (props) => {
         description,
         notice,
         periodType,
+        periodReducer,
         bands,
         filters = defaultFilters,
         unit,
@@ -87,17 +88,31 @@ const EarthEngineDialog = (props) => {
             // console.log('setFilterFromPeriod', periodType, period, filters)
 
             if (period) {
-                periodFilter = translateFilters(
-                    filters,
-                    // periodType === 'yearly' ? String(period.year) : period.id
-                    period.id
-                )
+                const { id, startDate, endDate } = period
+
+                if (startDate && endDate) {
+                    // console.log('endDate', endDate, incrementDate(endDate))
+
+                    periodFilter = translateFilters(
+                        filters,
+                        startDate,
+                        incrementDate(endDate)
+                    )
+                } else {
+                    periodFilter = translateFilters(
+                        filters,
+                        // periodType === 'yearly' ? String(period.year) : period.id
+                        period.id
+                    )
+                }
 
                 // TODO: Make more flexible
                 periodFilter[0].id = period.id
                 periodFilter[0].name = period.name
                 periodFilter[0].year = period.year
             }
+
+            // console.log('setFilterFromPeriod', period, filters, periodFilter)
 
             setFilter(periodFilter)
         },
@@ -266,7 +281,8 @@ const EarthEngineDialog = (props) => {
                         datasetId={datasetId}
                         periodType={periodType}
                         period={period}
-                        periods={periods}
+                        // periods={periods}
+                        periodReducer={periodReducer}
                         filters={filters}
                         onChange={setFilterFromPeriod}
                         errorText={
@@ -279,7 +295,7 @@ const EarthEngineDialog = (props) => {
                 {tab === 'style' && (
                     <StyleTab
                         unit={unit}
-                        params={params}
+                        style={style}
                         hasOrgUnitField={hasOrgUnitField}
                     />
                 )}
@@ -305,7 +321,7 @@ EarthEngineDialog.propTypes = {
     params: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
-        palette: PropTypes.string.isRequired,
+        palette: PropTypes.array.isRequired,
     }),
     rows: PropTypes.array,
 }
