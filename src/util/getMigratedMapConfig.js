@@ -2,7 +2,7 @@ import { isString, isObject, sortBy } from 'lodash/fp'
 import { EXTERNAL_LAYER } from '../constants/layers.js'
 
 export const getMigratedMapConfig = (config, defaultBasemapId) =>
-    renameBoundaryLayerToOrgUnitLayer(
+    upgradeMapViews(
         upgradeGisAppLayers(extractBasemap(config, defaultBasemapId))
     )
 
@@ -80,14 +80,26 @@ const upgradeGisAppLayers = (config) => {
 
 // Change layer name from boundary to orgUnit when loading an old map
 // TODO: Change in db with an upgrade script
-const renameBoundaryLayerToOrgUnitLayer = (config) => ({
-    ...config,
-    mapViews: config.mapViews.map((v) =>
-        v.layer === 'boundary'
-            ? {
-                  ...v,
-                  layer: 'orgUnit',
-              }
-            : v
-    ),
-})
+// TODO: Add support for colorScale array in db
+const upgradeMapViews = (config) => {
+    if (
+        config.mapViews.find(
+            (view) =>
+                view.layer === 'boundary' || typeof view.colorScale === 'string'
+        )
+    ) {
+        return {
+            ...config,
+            mapViews: config.mapViews.map((view) => ({
+                ...view,
+                layer: view.layer === 'boundary' ? 'orgUnit' : view.layer,
+                colorScale:
+                    typeof view.colorScale === 'string'
+                        ? view.colorScale.split(',')
+                        : view.colorScale,
+            })),
+        }
+    } else {
+        return config
+    }
+}
