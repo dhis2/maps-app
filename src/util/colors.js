@@ -38,9 +38,7 @@ export const colorScales = [
 ]
 
 // Returns a color brewer scale for a number of classes
-export const getColorPalette = (scale, classes) => {
-    return colorbrewer[scale][classes]
-}
+export const getColorPalette = (scale, classes) => colorbrewer[scale][classes]
 
 // Returns color scale name for a palette
 // join(',') is used to compare two arrays of colors
