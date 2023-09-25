@@ -64,12 +64,6 @@ export const dimConf = {
         objectName: 'pi',
         itemType: 'PROGRAM_INDICATOR',
     },
-    calculation: {
-        value: 'expressionDimensionItems',
-        dimensionName: 'dx',
-        objectName: 'ed', // Created by Bjorn, don't seem to be in use when the map is saved
-        itemType: 'EXPRESSION_DIMENSION_ITEM',
-    },
     period: {
         id: 'period',
         value: 'period',
