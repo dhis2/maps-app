@@ -43,6 +43,7 @@ export const getColorPalette = (scale, classes) => {
 }
 
 // Returns color scale name for a palette
+// join(',') is used to compare to arrays of colors
 export const getColorScale = (palette) =>
     colorScales.find(
         (name) =>

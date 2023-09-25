@@ -68,7 +68,7 @@ Classification.propTypes = {
     setClassification: PropTypes.func.isRequired,
     setColorScale: PropTypes.func.isRequired,
     classes: PropTypes.number,
-    colorScale: PropTypes.string,
+    colorScale: PropTypes.array,
     method: PropTypes.number,
 }
 

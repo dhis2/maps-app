@@ -108,6 +108,11 @@ const earthEngineLoader = async (config) => {
             }
         }
 
+        // Backward compability for layers saved before 2.40
+        if (typeof layerConfig.params?.palette === 'string') {
+            layerConfig.params.palette = layerConfig.params.palette.split(',')
+        }
+
         dataset = getEarthEngineLayer(layerConfig.id)
 
         if (dataset) {
