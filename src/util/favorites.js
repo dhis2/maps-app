@@ -202,7 +202,7 @@ const models2objects = (config) => {
         }
     }
 
-    // Color scale needs to be stored as a string
+    // Color scale needs to be stored as a string in analytical object
     if (Array.isArray(config.colorScale)) {
         config.colorScale = config.colorScale.join(',')
     }
