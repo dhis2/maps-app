@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-20T14:09:46.319Z\n"
-"PO-Revision-Date: 2023-09-20T14:09:46.319Z\n"
+"POT-Creation-Date: 2023-09-25T08:21:38.658Z\n"
+"PO-Revision-Date: 2023-09-25T08:21:38.658Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -307,14 +307,41 @@ msgstr "Source"
 msgid "Legend preview"
 msgstr "Legend preview"
 
+msgid "Mean"
+msgstr "Mean"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Median"
+msgstr "Median"
+
+msgid "Count"
+msgstr "Count"
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "Product"
+msgstr "Product"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "Period reducer"
+msgstr "Period reducer"
+
+msgid "Loading periods"
+msgstr "Loading periods"
+
 msgid "Year"
 msgstr "Year"
 
 msgid "Available periods are set by the source data"
 msgstr "Available periods are set by the source data"
-
-msgid "Loading periods"
-msgstr "Loading periods"
 
 msgid "Min value is required"
 msgstr "Min value is required"
@@ -330,12 +357,6 @@ msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
 msgstr "Unit: {{ unit }}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
 
 msgid "Steps"
 msgstr "Steps"
@@ -841,9 +862,6 @@ msgstr "Timeline"
 msgid "Split map views"
 msgstr "Split map views"
 
-msgid "Start date"
-msgstr "Start date"
-
 msgid "End date"
 msgstr "End date"
 
@@ -868,9 +886,6 @@ msgstr "Tracked Entity Type"
 msgid "By data element"
 msgstr "By data element"
 
-msgid "Count"
-msgstr "Count"
-
 msgid "Average"
 msgstr "Average"
 
@@ -891,12 +906,6 @@ msgstr "Hectares"
 
 msgid "Acres"
 msgstr "Acres"
-
-msgid "Mean"
-msgstr "Mean"
-
-msgid "Median"
-msgstr "Median"
 
 msgid "Std dev"
 msgstr "Std dev"
