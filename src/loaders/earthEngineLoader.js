@@ -168,15 +168,14 @@ const earthEngineLoader = async (config) => {
 }
 
 export const createLegend = ({ min, max, palette }) => {
-    const colors = palette.split(',')
-    const step = (max - min) / (colors.length - (min > 0 ? 2 : 1))
+    const step = (max - min) / (palette.length - (min > 0 ? 2 : 1))
     const precision = precisionRound(step, max)
     const valueFormat = numberPrecision(precision)
 
     let from = min
     let to = valueFormat(min + step)
 
-    return colors.map((color, index) => {
+    return palette.map((color, index) => {
         const item = { color }
 
         if (index === 0 && min > 0) {
