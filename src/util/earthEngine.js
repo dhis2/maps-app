@@ -146,6 +146,8 @@ export const getPeriods = async (eeId, periodType, filters) => {
 const oneDayInMilliseconds = 24 * 60 * 60 * 1000
 
 export const getTimeRange = async (eeId) => {
+    console.log('getTimeRange', eeId)
+
     const eeWorker = await getWorkerInstance()
     return eeWorker.getTimeRange(eeId).then(({ min, max }) => ({
         firstDate: min ? formatDate(min) : null,
