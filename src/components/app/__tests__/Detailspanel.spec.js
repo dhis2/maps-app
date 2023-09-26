@@ -22,17 +22,6 @@ jest.mock(
         }
 )
 
-/*
-Yes, Yes, Yes
-Yes, Yes, No
-Yes, No, Yes
-Yes, No, No
-No, Yes, Yes
-No, Yes, No
-No, No, Yes
-No, No, No
-*/
-
 describe('DetailsPanel', () => {
     test('renders InterpretationsPanel when has interpretationId, has orgUnitProfile and panel is open', () => {
         const store = {
