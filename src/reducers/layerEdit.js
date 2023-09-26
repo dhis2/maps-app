@@ -112,6 +112,12 @@ const layerEdit = (state = null, action) => {
                     : removePeriodFromFilters(state.filters),
             }
 
+        case types.LAYER_EDIT_PERIOD_REDUCER_SET:
+            return {
+                ...state,
+                periodReducer: action.payload,
+            }
+
         case types.LAYER_EDIT_PERIOD_SET:
             return {
                 ...state,

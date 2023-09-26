@@ -2,18 +2,25 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setPeriodReducer } from '../../../actions/layerEdit.js'
 import { SelectField, DatePicker } from '../../core/index.js'
 import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
 import PeriodSelect from '../../periods/PeriodSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import { START_END_DATES } from '../../../constants/periods.js'
 import { getTimeRange } from '../../../util/earthEngine.js'
+import layerEdit from '../../../reducers/layerEdit.js'
 
 // TOOD: Remove reducers that are less relevant
 const periodReducers = [
     {
         id: 'mean',
         name: i18n.t('Mean'),
+    },
+    {
+        id: 'sum',
+        name: i18n.t('Sum'),
     },
     {
         id: 'min',
@@ -44,20 +51,28 @@ const periodReducers = [
 const EarthEnginePeriodReducer = ({
     datasetId,
     period,
-    reducer,
+    // reducer,
     onChange,
     errorText,
     className,
 }) => {
     const [periodType, setPeriodType] = useState()
     const [dateRange, setDateRange] = useState()
+    const reducer = useSelector((state) => state.layerEdit.periodReducer)
+    const dispatch = useDispatch()
 
     const onPeriodChange = useCallback(
         (period) => onChange(period ? { ...period, periodType } : null),
         [periodType, onChange]
     )
 
-    const onStartEndDateChange = useCallback(() => {}, [])
+    const onStartEndDateChange = useCallback(
+        (reducer) => {
+            dispatch(setPeriodReducer(reducer.id))
+            console.log('reducer', reducer)
+        },
+        [dispatch]
+    )
 
     useEffect(() => {
         getTimeRange(datasetId).then(setDateRange)
@@ -109,7 +124,7 @@ const EarthEnginePeriodReducer = ({
                             label={i18n.t('Period reducer')}
                             items={periodReducers}
                             value={reducer}
-                            onChange={console.log}
+                            onChange={onStartEndDateChange}
                             // className={styles.year}
                         />
                     )}
