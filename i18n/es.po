@@ -36,15 +36,6 @@ msgstr "El mapa \"{{- name}}\" está guardado."
 msgid "Failed to save map: {{message}}"
 msgstr "Error al guardar el mapa: {{message}}"
 
-msgid "Calculation"
-msgstr "Cálculo"
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr "Clasificación"
 
@@ -454,9 +445,6 @@ msgstr "Se requiere el dato de evento"
 msgid "Program indicator is required"
 msgstr "Se requiere indicador de programa"
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr "Período requerido"
 
@@ -471,9 +459,6 @@ msgstr "Datos de eventos"
 
 msgid "Program indicators"
 msgstr "Indicadores de programa"
-
-msgid "Calculations"
-msgstr "Cálculos"
 
 msgid "Item type"
 msgstr "Item type"
