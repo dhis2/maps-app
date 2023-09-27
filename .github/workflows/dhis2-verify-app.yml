@@ -124,7 +124,8 @@ jobs:
         if: |
             failure() &&
             !cancelled() &&
-            github.ref == 'refs/heads/master'
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
         steps:
             - name: Checkout code
               uses: actions/checkout@master
@@ -160,7 +161,8 @@ jobs:
         if: |
             success() &&
             !cancelled() &&
-            github.ref == 'refs/heads/master'
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
         steps:
             - name: Checkout code
               uses: actions/checkout@master
