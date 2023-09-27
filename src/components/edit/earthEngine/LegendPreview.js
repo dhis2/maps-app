@@ -31,7 +31,7 @@ LegendPreview.propTypes = {
     params: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
-        palette: PropTypes.string.isRequired,
+        palette: PropTypes.array.isRequired,
     }),
 }
 

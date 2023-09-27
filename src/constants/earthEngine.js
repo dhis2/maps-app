@@ -31,7 +31,14 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 25,
-            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
+            palette: [
+                '#fee5d9',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#de2d26',
+                '#a50f15',
+            ], // Reds
         },
         opacity: 0.9,
     },
@@ -209,7 +216,14 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 10,
-            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
+            palette: [
+                '#fee5d9',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#de2d26',
+                '#a50f15',
+            ], // Reds
         },
         opacity: 0.9,
         tileScale: 4,
@@ -254,7 +268,14 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 1500,
-            palette: '#ffffd4,#fee391,#fec44f,#fe9929,#d95f0e,#993404', // YlOrBr
+            palette: [
+                '#ffffd4',
+                '#fee391',
+                '#fec44f',
+                '#fe9929',
+                '#d95f0e',
+                '#993404',
+            ], // YlOrBr
         },
         opacity: 0.9,
     },
@@ -279,7 +300,14 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 100,
-            palette: '#eff3ff,#c6dbef,#9ecae1,#6baed6,#3182bd,#08519c', // Blues
+            palette: [
+                '#eff3ff',
+                '#c6dbef',
+                '#9ecae1',
+                '#6baed6',
+                '#3182bd',
+                '#08519c',
+            ], // Blues
         },
         opacity: 0.9,
     },
@@ -309,8 +337,17 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 40,
-            palette:
-                '#fff5f0,#fee0d2,#fcbba1,#fc9272,#fb6a4a,#ef3b2c,#cb181d,#a50f15,#67000d', // Reds
+            palette: [
+                '#fff5f0',
+                '#fee0d2',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#ef3b2c',
+                '#cb181d',
+                '#a50f15',
+                '#67000d',
+            ], // Reds
         },
         opacity: 0.9,
     },
@@ -450,7 +487,14 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 10,
-            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
+            palette: [
+                '#fee5d9',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#de2d26',
+                '#a50f15',
+            ], // Reds
         },
         opacity: 0.9,
     },
@@ -483,7 +527,14 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 1000,
-            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
+            palette: [
+                '#fee5d9',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#de2d26',
+                '#a50f15',
+            ], // Reds
         },
         methods: {
             multiply: [100], // Convert from people/hectare to people/km2
@@ -510,7 +561,15 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 63,
-            palette: '#ffffd4,#fee391,#fec44f,#fe9929,#ec7014,#cc4c02,#8c2d04', // YlOrBr
+            palette: [
+                '#ffffd4',
+                '#fee391',
+                '#fec44f',
+                '#fe9929',
+                '#ec7014',
+                '#cc4c02',
+                '#8c2d04',
+            ], // YlOrBr
         },
         opacity: 0.9,
     },

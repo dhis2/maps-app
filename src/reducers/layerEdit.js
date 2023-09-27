@@ -318,7 +318,7 @@ const layerEdit = (state = null, action) => {
             newState = {
                 ...state,
                 colorScale: action.colorScale,
-                classes: action.colorScale.split(',').length,
+                classes: action.colorScale.length,
             }
 
             if (newState.styleDataItem) {
