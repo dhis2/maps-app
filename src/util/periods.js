@@ -6,8 +6,10 @@ import { periodTypes, periodGroups } from '../constants/periods.js'
 
 const getYearOffsetFromNow = (year) => year - new Date(Date.now()).getFullYear()
 
-export const getPeriodTypes = (hiddenPeriods = []) =>
-    periodTypes().filter(({ group }) => !hiddenPeriods.includes(group))
+export const getPeriodTypes = (includeRelativePeriods, hiddenPeriods = []) =>
+    periodTypes(includeRelativePeriods).filter(
+        ({ group }) => !hiddenPeriods.includes(group)
+    )
 
 export const getFixedPeriodsByType = (periodType, year) => {
     const period = getFixedPeriodsOptionsById(periodType)
