@@ -141,13 +141,13 @@ jobs:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
                       {
-                        "text": ":small_red_triangle_down: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
+                        "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
                         "blocks": [
                           {
                             "type": "section",
                             "text": {
                               "type": "mrkdwn",
-                              "text": ":small_red_triangle_down: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
+                              "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
                             }
                           }
                         ]
