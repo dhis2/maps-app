@@ -60,11 +60,15 @@ const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR'
 export const RELATIVE_PERIODS = 'RELATIVE_PERIODS'
 export const START_END_DATES = 'START_END_DATES'
 
-export const periodTypes = () => [
-    {
-        id: RELATIVE_PERIODS,
-        name: i18n.t('Relative'),
-    },
+export const periodTypes = (includeRelativePeriods) => [
+    ...(includeRelativePeriods
+        ? [
+              {
+                  id: RELATIVE_PERIODS,
+                  name: i18n.t('Relative'),
+              },
+          ]
+        : []),
     {
         id: DAILY,
         name: i18n.t('Daily'),

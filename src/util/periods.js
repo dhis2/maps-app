@@ -13,8 +13,10 @@ const filterPeriods = (periods, firstDate, lastDate) =>
             (!lastDate || p.endDate <= lastDate)
     )
 
-export const getPeriodTypes = (hiddenPeriods = []) =>
-    periodTypes().filter(({ group }) => !hiddenPeriods.includes(group))
+export const getPeriodTypes = (includeRelativePeriods, hiddenPeriods = []) =>
+    periodTypes(includeRelativePeriods).filter(
+        ({ group }) => !hiddenPeriods.includes(group)
+    )
 
 export const getFixedPeriodsByType = ({
     periodType,

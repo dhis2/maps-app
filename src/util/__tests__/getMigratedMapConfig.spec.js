@@ -172,3 +172,40 @@ test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
         })
     )
 })
+
+test('getMigratedMapConfig with colorScale converted to an array', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: { id: 'osmStreet' },
+        mapViews: [
+            {
+                layer: 'thematic',
+                name: 'Thematic layer',
+                colorScale: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15',
+            },
+        ],
+    }
+
+    expect(getMigratedMapConfig(config, defaultBasemapId)).toEqual(
+        expect.objectContaining({
+            id: 'mapId',
+            name: 'map name',
+            basemap: { id: 'osmStreet' },
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'Thematic layer',
+                    colorScale: [
+                        '#fee5d9',
+                        '#fcbba1',
+                        '#fc9272',
+                        '#fb6a4a',
+                        '#de2d26',
+                        '#a50f15',
+                    ],
+                },
+            ],
+        })
+    )
+})
