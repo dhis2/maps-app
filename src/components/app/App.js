@@ -7,12 +7,14 @@ import { useDispatch } from 'react-redux'
 import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
 import { tSetExternalLayers } from '../../actions/externalLayers.js'
+import { setInterpretation } from '../../actions/interpretations.js'
 import { tOpenMap } from '../../actions/map.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import AppLayout from './AppLayout.js'
-import styles from './styles/App.module.css'
+import './App.css'
+import './styles/App.module.css'
 
 const App = () => {
     const systemSettings = useSystemSettings()
@@ -32,6 +34,15 @@ const App = () => {
             } else if (getUrlParameter('currentAnalyticalObject') === 'true') {
                 await dispatch(tSetAnalyticalObject(currentAO))
             }
+
+            // analytics interpretation component uses camelcase
+            const interpretationId =
+                getUrlParameter('interpretationid') ||
+                getUrlParameter('interpretationId')
+
+            if (interpretationId) {
+                dispatch(setInterpretation(interpretationId))
+            }
         }
 
         if (!isEmpty(systemSettings)) {
@@ -50,10 +61,10 @@ const App = () => {
     }, [systemSettings, dispatch])
 
     return !isEmpty(systemSettings) ? (
-        <div className={styles.app}>
+        <>
             <CssVariables colors spacers theme />
             <AppLayout />
-        </div>
+        </>
     ) : null
 }
 

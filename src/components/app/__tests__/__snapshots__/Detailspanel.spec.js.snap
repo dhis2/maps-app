@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, has orgUnitProfile and panel is closed 1`] = `
+<div>
+  <div
+    class="detailsPanel collapsed"
+  >
+    <div>
+      Interpretations
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, has orgUnitProfile and panel is open 1`] = `
+<div>
+  <div
+    class="detailsPanel"
+  >
+    <div>
+      Interpretations
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, no orgUnitProfile and panel is closed 1`] = `
+<div>
+  <div
+    class="detailsPanel collapsed"
+  >
+    <div>
+      Interpretations
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, no orgUnitProfile and panel is open 1`] = `
+<div>
+  <div
+    class="detailsPanel"
+  >
+    <div>
+      Interpretations
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel renders InterpretationsPanel when no interpretationId, no orgUnitProfile and panel open 1`] = `
+<div>
+  <div
+    class="detailsPanel"
+  >
+    <div>
+      Interpretations
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel renders OrgUnitProfile when no interpretationId, has orgUnitProfile and panel is open 1`] = `
+<div>
+  <div
+    class="detailsPanel"
+  >
+    <div>
+      Org Unit Profile
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel renders null when no interpretationId, has orgUnitProfile, and panel closed 1`] = `
+<div>
+  <div
+    class="detailsPanel collapsed"
+  />
+</div>
+`;
+
+exports[`DetailsPanel renders null when no interpretationId, no orgUnitProfile, and panel closed 1`] = `
+<div>
+  <div
+    class="detailsPanel collapsed"
+  />
+</div>
+`;
