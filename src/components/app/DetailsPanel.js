@@ -12,19 +12,11 @@ const DetailsPanel = ({ interpretationsRenderCount }) => {
     const interpretationId = useSelector((state) => state.interpretation?.id)
 
     const getContent = () => {
-        if (interpretationId) {
+        if (interpretationId || (detailsPanelOpen && !viewOrgUnitProfile)) {
             return <Interpretations renderCount={interpretationsRenderCount} />
         }
 
-        if (!detailsPanelOpen) {
-            return null
-        }
-
-        return viewOrgUnitProfile ? (
-            <OrgUnitProfile />
-        ) : (
-            <Interpretations renderCount={interpretationsRenderCount} />
-        )
+        return detailsPanelOpen ? <OrgUnitProfile /> : null
     }
 
     return (
