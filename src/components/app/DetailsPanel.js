@@ -9,17 +9,14 @@ import styles from './styles/DetailsPanel.module.css'
 const DetailsPanel = ({ interpretationsRenderCount }) => {
     const detailsPanelOpen = useSelector((state) => state.ui.rightPanelOpen)
     const viewOrgUnitProfile = useSelector((state) => state.orgUnitProfile)
+    const interpretationId = useSelector((state) => state.interpretation?.id)
 
     const getContent = () => {
-        if (!detailsPanelOpen) {
-            return null
+        if (interpretationId || (detailsPanelOpen && !viewOrgUnitProfile)) {
+            return <Interpretations renderCount={interpretationsRenderCount} />
         }
 
-        return viewOrgUnitProfile ? (
-            <OrgUnitProfile />
-        ) : (
-            <Interpretations renderCount={interpretationsRenderCount} />
-        )
+        return detailsPanelOpen ? <OrgUnitProfile /> : null
     }
 
     return (
