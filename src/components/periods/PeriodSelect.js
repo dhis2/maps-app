@@ -27,7 +27,9 @@ const PeriodSelect = ({
     periodType,
 }) => {
     const [year, setYear] = useState(getYear(period?.startDate || lastDate))
+    // const [periods, setPeriods] = useState()
     const prevYear = usePrevious(year)
+    // const prevPeriods = usePrevious(periods)
 
     // Set periods when periodType or year changes
     /* eslint-disable react-hooks/exhaustive-deps */
@@ -45,6 +47,13 @@ const PeriodSelect = ({
     )
     /* eslint-enable react-hooks/exhaustive-deps */
 
+    const periodIndex = useMemo(
+        () => period && periods.findIndex((p) => p.id === period.id),
+        [period, periods]
+    )
+
+    const prevPeriodIndex = usePrevious(periodIndex)
+
     // Increment/decrement year
     const changeYear = useCallback(
         (change) => {
@@ -60,21 +69,46 @@ const PeriodSelect = ({
         [year, firstDate, lastDate]
     )
 
+    // Set periods when periodType or year changes
+    /*
+    useEffect(() => {
+        if (periodType) {
+            setPeriods(
+                getFixedPeriodsByType({
+                    periodType,
+                    year,
+                    firstDate,
+                    lastDate,
+                })
+            )
+        }
+    }, [periodType, year, firstDate, lastDate])
+
+    // Set saved map period
+    useEffect(() => {
+        if (!periodType && period) {
+            setPeriods([period])
+        }
+    }, [periodType, period])
+    */
+
     // Autoselect most recent period
     useEffect(() => {
-        if (!period) {
+        if (!period && periods) {
             onChange(filterFuturePeriods(periods)[0] || periods[0])
         }
     }, [period, periods, year, onChange])
 
     // Keep the same period position when year changes
     useEffect(() => {
-        if (period && !periods.some((p) => p.id === period.id)) {
-            const periodId = period.id.replace(prevYear, year)
+        if (year !== prevYear && prevPeriodIndex >= 0) {
+            const newPeriod = periods[prevPeriodIndex]
 
-            onChange(periods.find((p) => p.id === periodId))
+            if (newPeriod) {
+                onChange(newPeriod)
+            }
         }
-    }, [period, periods, year, prevYear, onChange])
+    }, [year, prevYear, periods, prevPeriodIndex])
 
     if (!periods) {
         return null
