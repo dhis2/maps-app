@@ -54,7 +54,7 @@ export const tOpenMap =
             const map = await fetchMap(mapId, engine, defaultBasemap)
 
             // record visualization view
-            dataEngine.mutate(dataStatisticsMutation, {
+            engine.mutate(dataStatisticsMutation, {
                 variables: { id: mapId },
                 onError: (error) => console.error('Error: ', error),
             })
