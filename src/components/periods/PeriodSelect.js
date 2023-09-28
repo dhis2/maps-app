@@ -27,9 +27,7 @@ const PeriodSelect = ({
     periodType,
 }) => {
     const [year, setYear] = useState(getYear(period?.startDate || lastDate))
-    // const [periods, setPeriods] = useState()
     const prevYear = usePrevious(year)
-    // const prevPeriods = usePrevious(periods)
 
     // Set periods when periodType or year changes
     /* eslint-disable react-hooks/exhaustive-deps */
@@ -68,29 +66,6 @@ const PeriodSelect = ({
         },
         [year, firstDate, lastDate]
     )
-
-    // Set periods when periodType or year changes
-    /*
-    useEffect(() => {
-        if (periodType) {
-            setPeriods(
-                getFixedPeriodsByType({
-                    periodType,
-                    year,
-                    firstDate,
-                    lastDate,
-                })
-            )
-        }
-    }, [periodType, year, firstDate, lastDate])
-
-    // Set saved map period
-    useEffect(() => {
-        if (!periodType && period) {
-            setPeriods([period])
-        }
-    }, [periodType, period])
-    */
 
     // Autoselect most recent period
     useEffect(() => {
