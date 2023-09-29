@@ -72,7 +72,7 @@ const PeriodSelect = ({
         if (!period && periods) {
             onChange(filterFuturePeriods(periods)[0] || periods[0])
         }
-    }, [period, periods, year, onChange])
+    }, [period, periods, onChange])
 
     // Keep the same period position when year changes
     useEffect(() => {
@@ -83,7 +83,7 @@ const PeriodSelect = ({
                 onChange(newPeriod)
             }
         }
-    }, [year, prevYear, periods, prevPeriodIndex])
+    }, [year, prevYear, periods, prevPeriodIndex, onChange])
 
     if (!periods) {
         return null
