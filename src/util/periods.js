@@ -6,25 +6,43 @@ import { periodTypes, periodGroups } from '../constants/periods.js'
 
 const getYearOffsetFromNow = (year) => year - new Date(Date.now()).getFullYear()
 
+const filterPeriods = (periods, firstDate, lastDate) =>
+    periods.filter(
+        (p) =>
+            (!firstDate || p.startDate >= firstDate) &&
+            (!lastDate || p.endDate <= lastDate)
+    )
+
 export const getPeriodTypes = (includeRelativePeriods, hiddenPeriods = []) =>
     periodTypes(includeRelativePeriods).filter(
         ({ group }) => !hiddenPeriods.includes(group)
     )
 
-export const getFixedPeriodsByType = (periodType, year) => {
+export const getFixedPeriodsByType = ({
+    periodType,
+    year,
+    firstDate,
+    lastDate,
+}) => {
     const period = getFixedPeriodsOptionsById(periodType)
 
     const forceDescendingForYearTypes = !!periodType.match(/^FY|YEARLY/)
     const offset = getYearOffsetFromNow(year)
 
-    const periods = period?.getPeriods({ offset, reversePeriods: true }) || null
-    if (periods && forceDescendingForYearTypes) {
-        // TODO: the reverse() is a workaround for a bug in the analytics
-        // getPeriods function that no longer correctly reverses the order
-        // for YEARLY and FY period types
-        return periods.reverse()
+    let periods = period?.getPeriods({ offset, reversePeriods: true })
+
+    if (!periods) {
+        return null
     }
-    return periods
+
+    if (firstDate || lastDate) {
+        periods = filterPeriods(periods, firstDate, lastDate)
+    }
+
+    // TODO: the reverse() is a workaround for a bug in the analytics
+    // getPeriods function that no longer correctly reverses the order
+    // for YEARLY and FY period types
+    return forceDescendingForYearTypes ? periods.reverse() : periods
 }
 
 export const getRelativePeriods = (hiddenPeriods = []) =>
@@ -48,7 +66,7 @@ export const getPeriodNames = () => ({
     }, {}),
 })
 
-export const filterFuturePeriods = (periods) => {
-    const now = new Date(Date.now())
+export const filterFuturePeriods = (periods, date) => {
+    const now = new Date(date || Date.now())
     return periods.filter(({ startDate }) => new Date(startDate) < now)
 }
