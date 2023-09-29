@@ -1,5 +1,5 @@
 import { ThematicLayer } from '../elements/thematic_layer.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
 const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: 'systemSettings?*' }
 
@@ -89,69 +89,57 @@ describe('systemSettings', () => {
             .should('be.visible')
     })
 
-    it.skip('uses Last 6 months as default relative period', () => {
-        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
-            delete req.headers['if-none-match']
-            req.continue((res) => {
-                res.body.keyAnalysisRelativePeriod = 'LAST_6_MONTHS'
+    it('uses Last 6 months as default relative period', () => {
+        // set relative period to 6 months
+        cy.request({
+            method: 'POST',
+            url: `${getApiBaseUrl()}/api/systemSettings/keyAnalysisRelativePeriod`,
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            body: 'LAST_6_MONTHS',
+        }).then((response) => {
+            expect(response.status).to.eq(200)
 
-                res.send({
-                    body: res.body,
-                })
-            })
-        }).as('getSystemSettings6months')
+            cy.visit('/', EXTENDED_TIMEOUT)
+            cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
-        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
-        cy.wait('@getSystemSettings6months', EXTENDED_TIMEOUT)
-            .its('response.statusCode')
-            .should('eq', 200)
+            const Layer = new ThematicLayer()
 
-        // Open/close file menu is a hack to trigger a ui change, ensuring that
-        // systemSettings has completed
-        cy.getByDataTest('file-menu-toggle').click()
-        cy.getByDataTest('file-menu-toggle-layer').click()
+            Layer.openDialog('Thematic')
+                .selectIndicatorGroup('HIV')
+                .selectIndicatorGroup('ANC')
+                .selectIndicator('ANC 1 Coverage')
+                .addToMap()
 
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
-
-        const Layer = new ThematicLayer()
-
-        Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
-            .selectIndicator('VCCT post-test counselling rate')
-            .selectTab('Org Units')
-            .selectOu('Sierra Leone')
-            .addToMap()
-
-        Layer.validateCardPeriod('Last 6 months')
+            Layer.validateCardPeriod('Last 6 months')
+        })
     })
 
-    it.skip('uses Last 12 months as default relative period', () => {
-        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
-            delete req.headers['if-none-match']
-            req.continue((res) => {
-                res.body.keyAnalysisRelativePeriod = 'LAST_12_MONTHS'
+    it('uses Last 12 months as default relative period', () => {
+        // set relative period to 12 months
+        cy.request({
+            method: 'POST',
+            url: `${getApiBaseUrl()}/api/systemSettings/keyAnalysisRelativePeriod`,
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            body: 'LAST_12_MONTHS',
+        }).then((response) => {
+            expect(response.status).to.eq(200)
 
-                res.send({
-                    body: res.body,
-                })
-            })
-        }).as('getSystemSettings12months')
+            cy.visit('/', EXTENDED_TIMEOUT)
+            cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
-        cy.wait('@getSystemSettings12months')
+            const Layer = new ThematicLayer()
 
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+            Layer.openDialog('Thematic')
+                .selectIndicatorGroup('HIV')
+                .selectIndicatorGroup('ANC')
+                .selectIndicator('ANC 1 Coverage')
+                .addToMap()
 
-        const Layer = new ThematicLayer()
-
-        Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
-            .selectIndicator('VCCT post-test counselling rate')
-            .selectTab('Org Units')
-            .selectOu('Sierra Leone')
-            .addToMap()
-
-        Layer.validateCardPeriod('Last 12 months')
+            Layer.validateCardPeriod('Last 12 months')
+        })
     })
 })
