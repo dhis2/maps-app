@@ -8,18 +8,9 @@ import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.js'
 import OrgUnitsProvider from './components/OrgUnitsProvider.js'
 import WindowDimensionsProvider from './components/WindowDimensionsProvider.js'
-import { defaultBasemaps } from './constants/basemaps.js'
-import { BING_LAYER } from './constants/layers.js'
-import {
-    DEFAULT_SYSTEM_SETTINGS,
-    SYSTEM_SETTINGS,
-    getHiddenPeriods,
-} from './constants/settings.js'
 import store from './store/index.js'
 import { USER_DATASTORE_NAMESPACE } from './util/analyticalObject.js'
-import { createExternalLayer } from './util/external.js'
-import { getDefaultLayerTypes } from './util/getDefaultLayerTypes.js'
-import { fetchExternalLayersQuery } from './util/requests.js'
+import { appQueries, providerDataTransformation } from './util/app.js'
 import './locales/index.js'
 
 log.setLevel(
@@ -47,81 +38,6 @@ const d2Config = {
     ],
 }
 
-const query = {
-    currentUser: {
-        resource: 'me',
-        params: {
-            fields: 'id,username,displayName~rename(name),settings[keyAnalysisDisplayProperty]',
-        },
-    },
-    systemSettings: {
-        resource: 'systemSettings',
-        params: {
-            key: SYSTEM_SETTINGS,
-        },
-    },
-    externalMapLayers: fetchExternalLayersQuery,
-}
-
-const getBasemapList = (externalMapLayers, systemSettings) => {
-    const externalBasemaps = externalMapLayers
-        .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
-        .map(createExternalLayer)
-
-    return defaultBasemaps()
-        .filter((basemap) =>
-            !systemSettings.keyBingMapsApiKey
-                ? basemap.config.type !== BING_LAYER
-                : true
-        )
-        .map((basemap) => {
-            if (basemap.config.type === BING_LAYER) {
-                basemap.config.apiKey = systemSettings.keyBingMapsApiKey
-            }
-            return basemap
-        })
-        .concat(externalBasemaps)
-}
-
-const getLayerTypes = (externalMapLayers) => {
-    const externalLayerTypes = externalMapLayers
-        .filter((layer) => layer.mapLayerPosition !== 'BASEMAP')
-        .map(createExternalLayer)
-
-    return getDefaultLayerTypes().concat(externalLayerTypes)
-}
-
-const providerDataTransformation = ({
-    currentUser,
-    systemSettings,
-    externalMapLayers,
-}) => {
-    return {
-        currentUser: {
-            id: currentUser.id,
-            name: currentUser.name,
-            username: currentUser.username,
-        },
-        nameProperty:
-            currentUser.settings.keyAnalysisDisplayProperty === 'name'
-                ? 'displayName'
-                : 'displayShortName',
-        systemSettings: Object.assign(
-            {},
-            DEFAULT_SYSTEM_SETTINGS,
-            systemSettings,
-            {
-                hiddenPeriods: getHiddenPeriods(systemSettings),
-            }
-        ),
-        basemaps: getBasemapList(
-            externalMapLayers.externalMapLayers,
-            systemSettings
-        ),
-        layerTypes: getLayerTypes(externalMapLayers.externalMapLayers),
-    }
-}
-
 const AppWrapper = () => {
     return (
         <ReduxProvider store={store}>
@@ -146,7 +62,7 @@ const AppWrapper = () => {
                         }
                         return (
                             <CachedDataQueryProvider
-                                query={query}
+                                query={appQueries}
                                 dataTransformation={providerDataTransformation}
                             >
                                 <WindowDimensionsProvider>
