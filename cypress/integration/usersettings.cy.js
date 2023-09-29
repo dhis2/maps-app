@@ -1,3 +1,4 @@
+import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
 const testMap = {
@@ -17,7 +18,6 @@ describe('userSettings', () => {
             body: 'nb',
         }).then((response) => {
             expect(response.status).to.eq(200)
-            cy.log('language switched to', response.message)
 
             cy.visit(`/?id=${testMap.id}`)
             cy.get('[data-test=layercard]')
@@ -63,6 +63,60 @@ describe('userSettings', () => {
                     .find('.date-section')
                     .contains('May 14')
                     .should('be.visible')
+            })
+        })
+    })
+
+    it.only('uses the correct name property', () => {
+        cy.request({
+            method: 'POST',
+            url: `${getApiBaseUrl()}/api/userSettings/keyAnalysisDisplayProperty`,
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            body: 'shortName',
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+
+            cy.visit('/')
+            const ThemLayer = new ThematicLayer()
+            ThemLayer.openDialog('Thematic')
+                .selectIndicatorGroup('ANC')
+                .selectIndicator('ANC visit clinical prof')
+
+            ThemLayer.selectItemType('Data element')
+                .selectDataElementGroup('Acute Flaccid Paralysis (AFP)')
+                .selectDataElement('AFP follow-up')
+
+            cy.get('input[type=radio][value=details]').click()
+            ThemLayer.selectDataElementOperand('AFP follow-up 0-11m')
+
+            cy.request({
+                method: 'POST',
+                url: `${getApiBaseUrl()}/api/userSettings/keyAnalysisDisplayProperty`,
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+                body: 'name',
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+
+                cy.visit('/')
+                const ThemLayer = new ThematicLayer()
+                ThemLayer.openDialog('Thematic')
+                    .selectIndicatorGroup('ANC')
+                    .selectIndicator('ANC visits per clinical professional')
+
+                ThemLayer.selectItemType('Data element')
+                    .selectDataElementGroup('Acute Flaccid Paralysis (AFP)')
+                    .selectDataElement(
+                        'Acute Flaccid Paralysis (AFP) follow-up'
+                    )
+
+                cy.get('input[type=radio][value=details]').click()
+                ThemLayer.selectDataElementOperand(
+                    'Acute Flaccid Paralysis (AFP) follow-up 0-11m'
+                )
             })
         })
     })

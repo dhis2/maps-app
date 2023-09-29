@@ -66,6 +66,7 @@ const DataElementSelect = ({
             errorText={
                 error?.message || (!dataElement && errorText ? errorText : null)
             }
+            dataTest="dataelementselect"
         />
     )
 }

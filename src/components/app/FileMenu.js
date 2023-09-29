@@ -1,6 +1,5 @@
 import { FileMenu as UiFileMenu, useCachedDataQuery } from '@dhis2/analytics'
 import { useDataMutation, useDataEngine } from '@dhis2/app-runtime'
-import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -53,11 +52,10 @@ const getSaveFailureMessage = (message) =>
     })
 
 const FileMenu = ({ onFileMenuAction }) => {
-    const { d2 } = useD2()
     const engine = useDataEngine()
     const map = useSelector((state) => state.map)
     const dispatch = useDispatch()
-    const { systemSettings, basemaps } = useCachedDataQuery()
+    const { systemSettings, currentUser, basemaps } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
@@ -188,7 +186,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     return (
         <UiFileMenu
-            currentUser={d2.currentUser}
+            currentUser={currentUser}
             fileType="map"
             fileObject={map}
             onNew={onNew}

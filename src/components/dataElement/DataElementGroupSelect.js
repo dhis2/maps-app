@@ -39,6 +39,7 @@ const DataElementGroupSelect = ({
                 error?.message ||
                 (!dataElementGroup && errorText ? errorText : null)
             }
+            dataTest="dataelementgroupselect"
         />
     )
 }
