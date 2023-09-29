@@ -67,7 +67,7 @@ describe('userSettings', () => {
         })
     })
 
-    it.only('uses the correct name property', () => {
+    it('uses the correct name property', () => {
         cy.request({
             method: 'POST',
             url: `${getApiBaseUrl()}/api/userSettings/keyAnalysisDisplayProperty`,
