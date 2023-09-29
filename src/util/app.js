@@ -13,7 +13,7 @@ export const appQueries = {
     currentUser: {
         resource: 'me',
         params: {
-            fields: 'id,username,displayName~rename(name),settings[keyAnalysisDisplayProperty]',
+            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty]',
         },
     },
     systemSettings: {
@@ -62,6 +62,7 @@ export const providerDataTransformation = ({
         id: currentUser.id,
         name: currentUser.name,
         username: currentUser.username,
+        authorities: new Set(currentUser.authorities),
     },
     nameProperty:
         currentUser.settings.keyAnalysisDisplayProperty === 'name'

@@ -114,12 +114,14 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const openMap = async (id) => {
-        const error = await tOpenMap({
-            mapId: id,
-            defaultBasemap,
-            engine,
-            basemaps,
-        })
+        const error = await dispatch(
+            tOpenMap({
+                mapId: id,
+                defaultBasemap,
+                engine,
+                basemaps,
+            })
+        )
         if (error) {
             openMapErrorAlert.show({
                 msg: i18n.t(`Error while opening map: ${error.message}`, {

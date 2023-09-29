@@ -17,7 +17,7 @@ const InterpretationsPanel = ({
     setInterpretation,
     renderCount,
 }) => {
-    const { currentUser } = useCachedDataQuery
+    const { currentUser } = useCachedDataQuery()
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
 

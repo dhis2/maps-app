@@ -1,3 +1,4 @@
+import { checkBasemap } from '../elements/basemap_card.js'
 import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
@@ -110,6 +111,8 @@ describe('systemSettings', () => {
                 .selectIndicatorGroup('HIV')
                 .selectIndicatorGroup('ANC')
                 .selectIndicator('ANC 1 Coverage')
+                .selectTab('Org Units')
+                .selectOu('Sierra Leone')
                 .addToMap()
 
             Layer.validateCardPeriod('Last 6 months')
@@ -137,9 +140,45 @@ describe('systemSettings', () => {
                 .selectIndicatorGroup('HIV')
                 .selectIndicatorGroup('ANC')
                 .selectIndicator('ANC 1 Coverage')
+                .selectTab('Org Units')
+                .selectOu('Sierra Leone')
                 .addToMap()
 
             Layer.validateCardPeriod('Last 12 months')
+        })
+    })
+
+    it('uses the correct default basemap', () => {
+        cy.request({
+            method: 'POST',
+            url: `${getApiBaseUrl()}/api/systemSettings/keyDefaultBaseMap`,
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            body: 'wNIQ8pNvSQd',
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+
+            cy.visit('/', EXTENDED_TIMEOUT)
+            cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+            checkBasemap.activeBasemap('Terrain basemap')
+
+            cy.request({
+                method: 'POST',
+                url: `${getApiBaseUrl()}/api/systemSettings/keyDefaultBaseMap`,
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+                body: 'osmLight',
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+
+                cy.visit('/', EXTENDED_TIMEOUT)
+                cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+                checkBasemap.activeBasemap('OSM Light')
+            })
         })
     })
 })

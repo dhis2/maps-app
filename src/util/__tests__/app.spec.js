@@ -55,6 +55,7 @@ describe('utils/app', () => {
                 keyAnalysisDisplayProperty: 'name',
             },
             name: 'John Traore',
+            authorities: ['abc', 'def', 'ghi'],
         }
         const systemSettings = {
             keyHideBiMonthlyPeriods: false,
@@ -76,6 +77,12 @@ describe('utils/app', () => {
         expect(cfg.nameProperty).toEqual('displayName')
         expect(cfg.layerTypes).toHaveLength(13)
         expect(cfg.currentUser.username).toEqual('admin')
+        expect(cfg.currentUser).toMatchObject({
+            id: 'xE7jOejl9FI',
+            name: 'John Traore',
+            username: 'admin',
+            authorities: new Set(['abc', 'def', 'ghi']),
+        })
         expect(cfg.systemSettings).toMatchObject({
             hiddenPeriods: [],
             keyAnalysisRelativePeriod: 'LAST_12_MONTHS',
@@ -97,6 +104,7 @@ describe('utils/app', () => {
                 keyAnalysisDisplayProperty: 'shortName',
             },
             name: 'John Traore',
+            authorities: ['abc', 'def', 'ghi'],
         }
         const systemSettings = {
             keyHideBiMonthlyPeriods: false,
@@ -116,7 +124,12 @@ describe('utils/app', () => {
         expect(cfg.basemaps).toHaveLength(7)
         expect(cfg.nameProperty).toEqual('displayShortName')
         expect(cfg.layerTypes).toHaveLength(13)
-        expect(cfg.currentUser.username).toEqual('admin')
+        expect(cfg.currentUser).toMatchObject({
+            id: 'xE7jOejl9FI',
+            name: 'John Traore',
+            username: 'admin',
+            authorities: new Set(['abc', 'def', 'ghi']),
+        })
         expect(cfg.systemSettings).toMatchObject({
             hiddenPeriods: [],
             keyAnalysisRelativePeriod: 'LAST_12_MONTHS',
