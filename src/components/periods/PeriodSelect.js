@@ -45,6 +45,13 @@ const PeriodSelect = ({
     )
     /* eslint-enable react-hooks/exhaustive-deps */
 
+    const periodIndex = useMemo(
+        () => period && periods.findIndex((p) => p.id === period.id),
+        [period, periods]
+    )
+
+    const prevPeriodIndex = usePrevious(periodIndex)
+
     // Increment/decrement year
     const changeYear = useCallback(
         (change) => {
@@ -62,19 +69,21 @@ const PeriodSelect = ({
 
     // Autoselect most recent period
     useEffect(() => {
-        if (!period) {
+        if (!period && periods) {
             onChange(filterFuturePeriods(periods)[0] || periods[0])
         }
-    }, [period, periods, year, onChange])
+    }, [period, periods, onChange])
 
     // Keep the same period position when year changes
     useEffect(() => {
-        if (period && !periods.some((p) => p.id === period.id)) {
-            const periodId = period.id.replace(prevYear, year)
+        if (year !== prevYear && prevPeriodIndex >= 0) {
+            const newPeriod = periods[prevPeriodIndex]
 
-            onChange(periods.find((p) => p.id === periodId))
+            if (newPeriod) {
+                onChange(newPeriod)
+            }
         }
-    }, [period, periods, year, prevYear, onChange])
+    }, [year, prevYear, periods, prevPeriodIndex, onChange])
 
     if (!periods) {
         return null

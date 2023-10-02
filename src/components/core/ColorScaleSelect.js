@@ -14,12 +14,11 @@ const ColorScaleSelect = ({ palette, width, onChange, className }) => {
     const [isOpen, setIsOpen] = useState(false)
     const anchorRef = useRef()
 
-    const bins = palette.length // palette.split(',').length
+    const bins = palette.length
     const scale = getColorScale(palette)
 
     const onColorScaleSelect = (scale) => {
-        const classes = palette.length // palette.split(',').length
-        onChange(getColorPalette(scale, classes))
+        onChange(getColorPalette(scale, bins))
         setIsOpen(false)
     }
 

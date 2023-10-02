@@ -24,15 +24,6 @@ msgstr "Mapa \"{{- name}}\" je uložena."
 msgid "Failed to save map: {{message}}"
 msgstr "Nepodařilo se uložit mapu: {{message}}"
 
-msgid "Calculation"
-msgstr "Výpočet"
-
-msgid "No calculations found"
-msgstr "Nenalezeny žádné výpočty"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Výpočty lze vytvářet v aplikaci Data Visualizer."
-
 msgid "Classification"
 msgstr "Klasifikace"
 
@@ -444,9 +435,6 @@ msgstr "Položka dat události je povinná"
 msgid "Program indicator is required"
 msgstr "Je vyžadován indikátor programu"
 
-msgid "Calculation is required"
-msgstr "Je vyžadován výpočet"
-
 msgid "Period is required"
 msgstr "Období je vyžadováno"
 
@@ -461,9 +449,6 @@ msgstr "Položky dat události"
 
 msgid "Program indicators"
 msgstr "Ukazatele programu"
-
-msgid "Calculations"
-msgstr "Výpočty"
 
 msgid "Item type"
 msgstr "Typ položky"
