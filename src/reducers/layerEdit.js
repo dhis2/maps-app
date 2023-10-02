@@ -324,10 +324,6 @@ const layerEdit = (state = null, action) => {
             newState = {
                 ...state,
                 colorScale: action.colorScale,
-<<<<<<< HEAD
-                // classes: action.colorScale.split(',').length,
-=======
->>>>>>> ee-dev
                 classes: action.colorScale.length,
             }
 

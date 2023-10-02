@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-27T14:55:16.411Z\n"
-"PO-Revision-Date: 2023-09-27T14:55:16.411Z\n"
+"POT-Creation-Date: 2023-10-02T10:40:33.275Z\n"
+"PO-Revision-Date: 2023-10-02T10:40:33.275Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -300,6 +300,9 @@ msgstr "Legend preview"
 
 msgid "Mean"
 msgstr "Mean"
+
+msgid "Sum"
+msgstr "Sum"
 
 msgid "Min"
 msgstr "Min"
@@ -873,9 +876,6 @@ msgstr "By data element"
 
 msgid "Average"
 msgstr "Average"
-
-msgid "Sum"
-msgstr "Sum"
 
 msgid "Standard deviation"
 msgstr "Standard deviation"

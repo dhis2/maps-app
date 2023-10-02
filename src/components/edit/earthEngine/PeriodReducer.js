@@ -10,7 +10,6 @@ import PeriodSelect from '../../periods/PeriodSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import { START_END_DATES } from '../../../constants/periods.js'
 import { getTimeRange } from '../../../util/earthEngine.js'
-import layerEdit from '../../../reducers/layerEdit.js'
 
 // TOOD: Remove reducers that are less relevant
 const periodReducers = [
