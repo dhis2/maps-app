@@ -8,7 +8,7 @@ import {
     setFilter,
     setBufferRadius,
 } from '../../../actions/layerEdit.js'
-import { getEarthEngineLayer } from '../../../constants/earthEngine.js'
+// import { getEarthEngineLayer } from '../../../constants/earthEngine.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     EE_BUFFER,
@@ -35,7 +35,7 @@ const EarthEngineDialog = (props) => {
     const [error, setError] = useState()
 
     const {
-        layerId,
+        // layerId,
         datasetId,
         band,
         rows,
@@ -59,11 +59,12 @@ const EarthEngineDialog = (props) => {
         periodType,
         periodReducer,
         bands,
-        filters = defaultFilters,
+        filters, // = defaultFilters,
         unit,
         source,
         sourceUrl,
         aggregations,
+        defaultAggregations,
     } = props // dataset
 
     const period = getPeriodFromFilter(filter)
@@ -121,6 +122,7 @@ const EarthEngineDialog = (props) => {
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
 
+    const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
 
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
@@ -181,6 +183,12 @@ const EarthEngineDialog = (props) => {
             setBufferRadius(EE_BUFFER)
         }
     }, [hasOrgUnitField, areaRadius, setBufferRadius])
+
+    useEffect(() => {
+        if (!periodType && filters) {
+            setFilter(filters)
+        }
+    }, [periodType, filters, setFilter])
 
     useEffect(() => {
         if (validateLayer) {
@@ -258,7 +266,7 @@ const EarthEngineDialog = (props) => {
                                 }
                             />
                         )}
-                        <AggregationSelect />
+                        {hasAggregations && <AggregationSelect />}
                         {unit && (
                             <div className={styles.paragraph}>
                                 {i18n.t('Unit')}: {unit}
@@ -306,7 +314,7 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
-    layerId: PropTypes.string.isRequired,
+    // layerId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setFilter: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
@@ -318,10 +326,10 @@ EarthEngineDialog.propTypes = {
     legend: PropTypes.object,
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
-    params: PropTypes.shape({
-        max: PropTypes.number.isRequired,
-        min: PropTypes.number.isRequired,
-        palette: PropTypes.array.isRequired,
+    style: PropTypes.shape({
+        max: PropTypes.number,
+        min: PropTypes.number,
+        palette: PropTypes.array,
     }),
     rows: PropTypes.array,
 }

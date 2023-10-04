@@ -140,6 +140,8 @@ export const getPeriods = async (eeId, periodType, filters) => {
     //    console.log('ERROR', error)
     // }
 
+    console.log('features', features)
+
     return features.map(getPeriod)
 }
 

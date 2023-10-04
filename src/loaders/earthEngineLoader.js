@@ -20,7 +20,7 @@ const earthEngineLoader = async (config) => {
     const alerts = []
 
     let layerConfig = {}
-    let dataset
+    // let dataset
     let features
 
     if (orgUnits && orgUnits.length) {
@@ -113,26 +113,31 @@ const earthEngineLoader = async (config) => {
             layerConfig.params.palette = layerConfig.params.palette.split(',')
         }
 
+        /*
         dataset = getEarthEngineLayer(layerConfig.id)
 
         if (dataset) {
             delete layerConfig.id
         }
+        */
 
         delete config.config
     } else {
-        dataset = getEarthEngineLayer(layerConfig.id)
+        // dataset = getEarthEngineLayer(layerConfig.id)
+        // console.log('getEarthEngineLayer', layerConfig.id, dataset)
     }
 
+    // console.log('###', dataset, config, layerConfig)
+
     const layer = {
-        ...dataset,
+        // ...dataset,
         ...config,
         ...layerConfig,
     }
 
     const { unit, filter, description, source, sourceUrl, band, bands, style } =
         layer
-    const { name } = dataset || config
+    const { name } = config // dataset || config
     const period = getPeriodNameFromFilter(filter)
     const data =
         Array.isArray(features) && features.length ? features : undefined

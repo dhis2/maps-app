@@ -6,26 +6,34 @@ import styles from '../styles/LayerDialog.module.css'
 import LegendPreview from './LegendPreview.js'
 import StyleSelect from './StyleSelect.js'
 
-const StyleTab = ({ unit, style, hasOrgUnitField }) => (
-    <div className={styles.flexColumnFlow}>
-        <div className={styles.flexColumn}>
-            {style && <StyleSelect unit={unit} style={style} />}
-            <BufferRadius
-                defaultRadius={EE_BUFFER}
-                hasOrgUnitField={hasOrgUnitField}
-            />
+const StyleTab = ({ unit, style, hasOrgUnitField }) => {
+    const { min, max, palette } = style
+    const isClassStyle =
+        min !== undefined && max !== undefined && palette !== undefined
+
+    return (
+        <div className={styles.flexColumnFlow}>
+            <div className={styles.flexColumn}>
+                {isClassStyle && <StyleSelect unit={unit} style={style} />}
+                <BufferRadius
+                    defaultRadius={EE_BUFFER}
+                    hasOrgUnitField={hasOrgUnitField}
+                />
+            </div>
+            {isClassStyle && <LegendPreview style={style} />}
         </div>
-        {style && <LegendPreview style={style} />}
-    </div>
-)
+    )
+}
 
 StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
     unit: PropTypes.string,
     style: PropTypes.shape({
-        max: PropTypes.number.isRequired,
-        min: PropTypes.number.isRequired,
-        palette: PropTypes.array.isRequired,
+        max: PropTypes.number,
+        min: PropTypes.number,
+        palette: PropTypes.array,
+        color: PropTypes.string,
+        strokeWidth: PropTypes.number,
     }),
 }
 

@@ -1,7 +1,331 @@
-import i18n from '@dhis2/d2-i18n'
-import { defaultFilters } from '../util/earthEngine.js'
+// import i18n from '@dhis2/d2-i18n'
+// import { defaultFilters } from '../util/earthEngine.js'
 import { EARTH_ENGINE_LAYER } from './layers.js'
 
+console.log('EARTH_ENGINE_LAYER', EARTH_ENGINE_LAYER)
+
+export const earthEngineLayers = [
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        // layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL', // TODO: Remove?
+        img: 'images/population.png', // TODO: Remove?
+        service: 'earthengine',
+        // id: 'earthengine_population', // TODO
+        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+        format: 'ImageCollection',
+        name: 'Population',
+        description: 'Estimated number of people living in an area',
+        source: 'WorldPop / Google Earth Engine',
+        unit: 'people per hectare',
+        defaultAggregations: ['sum', 'mean'],
+        periodType: 'yearly',
+        band: 'population',
+        filters: [
+            {
+                type: 'eq',
+                arguments: ['year', '$1'],
+            },
+        ],
+        mosaic: true,
+        style: {
+            min: 0,
+            max: 25,
+            palette: [
+                '#fee5d9',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#de2d26',
+                '#a50f15',
+            ],
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        // layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL', // TODO: Remove?
+        img: 'images/population.png', // TODO: Remove?
+        service: 'earthengine',
+        // id: 'earthengine_population', // TODO
+        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj/SLE_2020',
+        format: 'Image',
+        name: 'Population Sierra Leone 2000',
+        description: 'Estimated number of people living in an area',
+        source: 'WorldPop / Google Earth Engine',
+        unit: 'people per hectare',
+        defaultAggregations: ['sum', 'mean'],
+        band: 'population',
+        style: {
+            min: 0,
+            max: 25,
+            palette: [
+                '#fee5d9',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#de2d26',
+                '#a50f15',
+            ],
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        service: 'earthengine',
+        datasetId: 'RESOLVE/ECOREGIONS/2017',
+        format: 'FeatureCollection',
+        name: 'Ecoregions',
+        description: 'Estimated number of people living in an area',
+        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        style: {
+            byProperty: 'COLOR',
+            // byProperty: {
+            //     color: 'COLOR_NNH',
+            // },
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        img: 'images/buildings.png',
+        service: 'earthengine',
+        // id: 'earthengine_building-footprints', // TODO
+        datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
+        format: 'FeatureCollection',
+        name: 'Building footprints',
+        description: 'Estimated number of people living in an area',
+        // notice: 'Building counts are only available for smaller organisation unit areas.',
+        error: 'Select a smaller area or single organization unit to see the count of buildings.',
+        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        unit: 'Number of buildings',
+        aggregations: ['count'],
+        defaultAggregations: ['count'],
+        filters: [
+            {
+                type: 'gt',
+                arguments: ['area_in_meters', 500],
+            },
+        ],
+        style: {
+            color: '#FFA500',
+            width: 1,
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        img: 'images/buildings.png',
+        service: 'earthengine',
+        // id: 'earthengine_building-footprints', // TODO
+        datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
+        format: 'FeatureCollection',
+        name: 'Buildings > 500 m²',
+        description: 'Estimated number of people living in an area',
+        // notice: 'Building counts are only available for smaller organisation unit areas.',
+        error: 'Select a smaller area or single organization unit to see the count of buildings.',
+        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        unit: 'Number of buildings',
+        aggregations: ['count'],
+        defaultAggregations: ['count'],
+        filters: [
+            {
+                type: 'gt',
+                arguments: ['area_in_meters', 500],
+            },
+        ],
+        style: {
+            color: '#FFA500',
+            width: 1,
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        img: 'images/temperature.png',
+        service: 'earthengine',
+        // id: 'earthengine_temperature-era5',
+        datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+        format: 'ImageCollection',
+        name: 'Temperature daily',
+        description: 'Temperature at 2m above the surface',
+        source: 'Copernicus Climate Data Store / Google Earth Engine',
+        unit: '°C',
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['mean', 'min', 'max'],
+        periodType: 'daily',
+        periodReducer: 'mean',
+        band: 'temperature_2m',
+        filters: [
+            {
+                type: 'date',
+                arguments: ['$1', '$2'],
+            },
+        ],
+        methods: [
+            {
+                name: 'toFloat',
+                arguments: [],
+            },
+            {
+                name: 'subtract',
+                arguments: [273.15],
+            },
+        ],
+        style: {
+            min: 0,
+            max: 40,
+            palette: [
+                '#fff5f0',
+                '#fee0d2',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#ef3b2c',
+                '#cb181d',
+                '#a50f15',
+                '#67000d',
+            ],
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        img: 'images/temperature.png',
+        service: 'earthengine',
+        // layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
+        // id: 'earthengine_temperature-era5',
+        datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
+        format: 'ImageCollection',
+        name: 'Temperature monthly',
+        description: 'Temperature at 2m above the surface',
+        source: 'Copernicus Climate Data Store / Google Earth Engine',
+        unit: '°C',
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['mean', 'min', 'max'],
+        periodType: 'byYear',
+        // periodReducer: 'mean',
+        band: 'temperature_2m',
+        filters: [
+            {
+                type: 'eq',
+                arguments: ['system:index', '$1'],
+            },
+        ],
+        methods: [
+            {
+                name: 'toFloat',
+                arguments: [],
+            },
+            {
+                name: 'subtract',
+                arguments: [273.15],
+            },
+        ],
+        style: {
+            min: 0,
+            max: 40,
+            palette: [
+                '#fff5f0',
+                '#fee0d2',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#ef3b2c',
+                '#cb181d',
+                '#a50f15',
+                '#67000d',
+            ],
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        img: 'images/precipitation.png',
+        service: 'earthengine',
+        // id: 'earthengine_precipitation-era5',
+        datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+        format: 'ImageCollection',
+        name: 'Precipitation daily',
+        description: 'Precipitation',
+        source: 'Copernicus Climate Data Store / Google Earth Engine',
+        unit: 'millimeter',
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['mean', 'min', 'max'],
+        periodType: 'daily',
+        periodReducer: 'sum',
+        band: 'total_precipitation_sum',
+        filters: [
+            {
+                type: 'date',
+                arguments: ['$1', '$2'],
+            },
+        ],
+        methods: [
+            {
+                name: 'multiply',
+                arguments: [1000],
+            },
+        ],
+        style: {
+            min: 0,
+            max: 10,
+            palette: [
+                '#eff3ff',
+                '#c6dbef',
+                '#9ecae1',
+                '#6baed6',
+                '#3182bd',
+                '#08519c',
+            ],
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        img: 'images/precipitation.png',
+        service: 'earthengine',
+        // id: 'earthengine_precipitation-era5',
+        datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
+        format: 'ImageCollection',
+        name: 'Precipitation monthly',
+        description: 'Precipitation',
+        source: 'Copernicus Climate Data Store / Google Earth Engine',
+        unit: 'millimeter',
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['mean', 'min', 'max'],
+        periodType: 'byYear',
+        band: 'total_precipitation_sum',
+        filters: [
+            {
+                type: 'eq',
+                arguments: ['system:index', '$1'],
+            },
+        ],
+        methods: [
+            {
+                name: 'multiply',
+                arguments: [1000],
+            },
+        ],
+        style: {
+            min: 0,
+            max: 700,
+            palette: [
+                '#f7fbff',
+                '#deebf7',
+                '#c6dbef',
+                '#9ecae1',
+                '#6baed6',
+                '#4292c6',
+                '#2171b5',
+                '#084594',
+            ],
+        },
+        opacity: 0.9,
+    },
+]
+
+/*
 // layerId should be unique
 // datasetId is the Earth Engine dataset id
 export const earthEngineLayers = () => [
@@ -574,6 +898,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
 ]
+*/
 
 export const getEarthEngineLayer = (id) =>
-    earthEngineLayers().find((l) => l.layerId === id)
+    earthEngineLayers.find((l) => l.layerId === id)
