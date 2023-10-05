@@ -1,12 +1,13 @@
+import { layerTypes } from '../components/map/MapApi.js'
 import { defaultBasemaps } from '../constants/basemaps.js'
 import { BING_LAYER } from '../constants/layers.js'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
-    getHiddenPeriods,
 } from '../constants/settings.js'
 import { createExternalLayer } from './external.js'
 import { getDefaultLayerTypes } from './getDefaultLayerTypes.js'
+import { getHiddenPeriods } from './periods.js'
 import { fetchExternalLayersQuery } from './requests.js'
 
 export const appQueries = {
@@ -29,6 +30,7 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
     const externalBasemaps = externalMapLayers
         .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
         .map(createExternalLayer)
+        .filter((basemap) => layerTypes.includes(basemap.config.type))
 
     return defaultBasemaps()
         .filter((basemap) =>

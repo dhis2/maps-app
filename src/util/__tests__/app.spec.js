@@ -2,6 +2,27 @@ import { providerDataTransformation } from '../app.js'
 
 jest.mock('../earthEngine.js', () => ({ hasClasses: jest.fn() }))
 
+jest.mock('@dhis2/maps-gl', () => {
+    return {
+        layerTypes: [
+            'vectorStyle',
+            'tileLayer',
+            'wmsLayer',
+            'choropleth',
+            'boundary',
+            'markers',
+            'events',
+            'clientCluster',
+            'donutCluster',
+            'serverCluster',
+            'earthEngine',
+            'bingLayer',
+            'geoJson',
+            'group',
+        ],
+    }
+})
+
 describe('utils/app', () => {
     const externalMapLayers = {
         externalMapLayers: [
@@ -15,14 +36,14 @@ describe('utils/app', () => {
                 name: 'Aerial imagery of Dar-es-Salaam',
             },
             {
-                mapService: 'XYZ',
-                url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+                mapService: 'VECTOR_STYLE',
+                url: 'https://url/to/vectorstyle',
                 attribution:
                     '&copy; <a href=\\"http://www.openstreetmap.org/copyright\\">OpenStreetMap</a>, <a href=\\"https://carto.com/attributions\\">CARTO</a>',
                 imageFormat: 'PNG',
                 mapLayerPosition: 'BASEMAP',
                 id: 'LOw2p0kPwua',
-                name: ' Dark basemap',
+                name: 'Vectorstyle basemap',
             },
             {
                 mapService: 'XYZ',

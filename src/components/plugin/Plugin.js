@@ -5,8 +5,8 @@ import React from 'react'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
-    getHiddenPeriods,
 } from '../../constants/settings.js'
+import { getHiddenPeriods } from '../../util/periods.js'
 import LoadingMask from './LoadingMask.js'
 import MapContainer from './MapContainer.js'
 
