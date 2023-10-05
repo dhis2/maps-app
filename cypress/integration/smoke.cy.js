@@ -88,5 +88,6 @@ context('Smoke Test', () => {
             .contains(
                 'Viewing interpretation: ANC: LLITN coverage district and facility'
             )
+            .should('be.visible')
     })
 })
