@@ -6,14 +6,13 @@ import { SelectField } from '../../core/index.js'
 import { getPeriods } from '../../../util/earthEngine.js'
 import styles from './styles/PeriodSelect.module.css'
 
-// http://localhost:8080/api/periodTypes.json
 const EarthEnginePeriodSelect = ({
     periodType,
     period,
     datasetId,
     filters,
-    // periods,
     onChange,
+    onError,
     errorText,
     className,
 }) => {
@@ -52,23 +51,22 @@ const EarthEnginePeriodSelect = ({
         let isCancelled = false
 
         if (periodType) {
-            getPeriods(datasetId, periodType, filters).then((periods) => {
-                if (!isCancelled) {
-                    setPeriods(periods)
-                }
-            })
-            /*
+            getPeriods(datasetId, periodType, filters)
+                .then((periods) => {
+                    if (!isCancelled) {
+                        setPeriods(periods)
+                    }
+                })
                 .catch((error) =>
-                    setError({
+                    onError({
                         type: 'engine',
                         message: error.message,
                     })
                 )
-                */
         }
 
         return () => (isCancelled = true)
-    }, [datasetId, periodType, filters])
+    }, [datasetId, periodType, filters, onError])
 
     // Set most recent period by default
     useEffect(() => {
@@ -123,7 +121,6 @@ EarthEnginePeriodSelect.propTypes = {
     className: PropTypes.string,
     errorText: PropTypes.string,
     period: PropTypes.object,
-    periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
 export default EarthEnginePeriodSelect

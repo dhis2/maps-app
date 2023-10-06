@@ -16,8 +16,6 @@ import {
 } from '../../../constants/layers.js'
 import {
     getPeriodFromFilter,
-    getPeriods,
-    defaultFilters,
     translateFilters,
 } from '../../../util/earthEngine.js'
 import { incrementDate } from '../../../util/time.js'
@@ -59,7 +57,7 @@ const EarthEngineDialog = (props) => {
         periodType,
         periodReducer,
         bands,
-        filters, // = defaultFilters,
+        filters,
         unit,
         source,
         sourceUrl,
@@ -117,7 +115,7 @@ const EarthEngineDialog = (props) => {
 
             setFilter(periodFilter)
         },
-        [periodType, filters, setFilter]
+        [/* periodType, */ filters, setFilter]
     )
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
@@ -126,41 +124,6 @@ const EarthEngineDialog = (props) => {
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
 
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
-
-    // Load all available periods
-    /*
-    useEffect(() => {
-        let isCancelled = false
-
-        if (periodType) {
-            getPeriods(datasetId, periodType, filters)
-                .then((periods) => {
-                    if (!isCancelled) {
-                        setPeriods(periods)
-                    }
-                })
-                .catch((error) =>
-                    setError({
-                        type: 'engine',
-                        message: error.message,
-                    })
-                )
-        }
-
-        return () => (isCancelled = true)
-    }, [datasetId, periodType, filters])
-    */
-
-    // Set most recent period by default
-    /*
-    useEffect(() => {
-        if (filter === undefined) {
-            if (Array.isArray(periods) && periods.length) {
-                setFilterFromPeriod(periods[0])
-            }
-        }
-    }, [periods, filter, setFilterFromPeriod])
-    */
 
     // Set default org unit level
     useEffect(() => {
@@ -289,10 +252,10 @@ const EarthEngineDialog = (props) => {
                         datasetId={datasetId}
                         periodType={periodType}
                         period={period}
-                        // periods={periods}
                         periodReducer={periodReducer}
                         filters={filters}
                         onChange={setFilterFromPeriod}
+                        onError={setError}
                         errorText={
                             error && error.type === 'period' && error.message
                         }
@@ -314,18 +277,24 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
-    // layerId: PropTypes.string.isRequired,
+    layerId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setFilter: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]), // TODO: Why array?
+    bands: PropTypes.array,
+    description: PropTypes.string,
     filter: PropTypes.array,
+    filters: PropTypes.array,
     legend: PropTypes.object,
+    notice: PropTypes.string,
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
+    periodReducer: PropTypes.string,
+    periodType: PropTypes.string,
     style: PropTypes.shape({
         max: PropTypes.number,
         min: PropTypes.number,

@@ -73,7 +73,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         return null
     }
 
-    const type = layer.layer
+    const type = layer.layerType || layer.layer
     const LayerDialog = layerType[type]
 
     if (!LayerDialog) {

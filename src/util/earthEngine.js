@@ -155,15 +155,6 @@ export const getTimeRange = async (eeId) => {
     }))
 }
 
-export const defaultFilters = ({ id, name, year }) => [
-    {
-        type: 'eq',
-        arguments: ['system:index', String(id)],
-        name,
-        year,
-    },
-]
-
 export const getPrecision = (values = []) => {
     if (values.length) {
         const sortedValues = [...values].sort((a, b) => a - b)

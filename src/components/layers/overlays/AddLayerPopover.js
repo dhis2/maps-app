@@ -17,7 +17,10 @@ const AddLayerPopover = ({
 }) => {
     const onLayerSelect = (layer) => {
         const config = { ...layer }
-        layer.layer === EXTERNAL_LAYER ? addLayer(config) : editLayer(config)
+        const layerType = layer.layerType || layer.layer
+
+        layerType === EXTERNAL_LAYER ? addLayer(config) : editLayer(config)
+
         onClose()
     }
 

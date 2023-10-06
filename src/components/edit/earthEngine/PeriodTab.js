@@ -13,6 +13,7 @@ const EarthEnginePeriodTab = ({
     period,
     periodReducer,
     onChange,
+    onError,
     errorText,
     className,
 }) => {
@@ -33,6 +34,7 @@ const EarthEnginePeriodTab = ({
                     filters={filters}
                     period={period}
                     onChange={onChange}
+                    onError={onError}
                     errorText={errorText}
                 />
             )}
@@ -43,6 +45,7 @@ const EarthEnginePeriodTab = ({
 EarthEnginePeriodTab.propTypes = {
     periodType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
     period: PropTypes.object,

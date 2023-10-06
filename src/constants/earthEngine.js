@@ -1,14 +1,12 @@
-// import i18n from '@dhis2/d2-i18n'
-// import { defaultFilters } from '../util/earthEngine.js'
 import { EARTH_ENGINE_LAYER } from './layers.js'
 
-console.log('EARTH_ENGINE_LAYER', EARTH_ENGINE_LAYER)
-
+// TODO: How to deal with translations
 export const earthEngineLayers = [
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
-        // layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL', // TODO: Remove?
-        img: 'images/population.png', // TODO: Remove?
+        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
+        layerType: EARTH_ENGINE_LAYER,
+        // layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        img: 'images/population.png',
         service: 'earthengine',
         // id: 'earthengine_population', // TODO
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
@@ -688,7 +686,12 @@ export const earthEngineLayers = () => [
             'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
         periodType: 'Yearly',
         band: 'LC_Type1',
-        filters: defaultFilters,
+        filters: ({ id, name, year }) => [{
+            type: 'eq',
+            arguments: ['system:index', String(id)],
+            name,
+            year,
+        }],
         defaultAggregations: 'percentage',
         legend: {
             items: [

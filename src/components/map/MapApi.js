@@ -6,8 +6,6 @@ import MapApi, {
 } from '@dhis2/maps-gl'
 import getMapLocale from './mapLocale.js'
 
-console.log('poleOfInaccessibility', poleOfInaccessibility)
-
 // Returns a new map instance
 const map = (options) => {
     const glyphs = `${options.baseUrl}/dhis-web-maps/fonts/{fontstack}/{range}.pbf`
