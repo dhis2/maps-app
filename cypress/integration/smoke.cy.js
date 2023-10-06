@@ -96,7 +96,7 @@ context('Smoke Test', () => {
         )
 
         cy.visit(
-            '/#/ZBjCfSaLSqD&interpretationid=yKqhXZdeJ6a',
+            '/#/ZBjCfSaLSqD?interpretationid=yKqhXZdeJ6a',
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
@@ -117,7 +117,7 @@ context('Smoke Test', () => {
             'postDataStatistics'
         )
         cy.visit(
-            '/#/ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a',
+            '/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a',
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
