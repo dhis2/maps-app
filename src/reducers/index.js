@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import aggregations from './aggregations.js'
 import analyticalObject from './analyticalObject.js'
 import basemaps from './basemaps.js'
+import climate from './climate.js'
 import contextMenu from './contextMenu.js'
 import dataTable from './dataTable.js'
 import download from './download.js'
@@ -17,6 +18,7 @@ export default combineReducers({
     aggregations,
     analyticalObject,
     basemaps,
+    climate,
     contextMenu,
     dataTable,
     download,

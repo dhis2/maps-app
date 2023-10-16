@@ -18,6 +18,7 @@ import {
     showEarthEngineValue,
 } from '../../actions/map.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
+import { openClimatePanel } from '../../actions/climate.js'
 import {
     FACILITY_LAYER,
     EARTH_ENGINE_LAYER,
@@ -41,6 +42,7 @@ const ContextMenu = (props) => {
         openCoordinatePopup,
         showEarthEngineValue,
         setOrgUnitProfile,
+        openClimatePanel,
         updateLayer,
     } = props
 
@@ -82,6 +84,13 @@ const ContextMenu = (props) => {
                 break
             case 'show_info':
                 setOrgUnitProfile(attr.id)
+                break
+            case 'show_climate':
+                openClimatePanel({
+                    id: attr.id,
+                    name: attr.name,
+                    geometry: feature.geometry,
+                })
                 break
             case 'show_coordinate':
                 openCoordinatePopup(coordinates)
@@ -135,6 +144,15 @@ const ContextMenu = (props) => {
                                 label={i18n.t('View profile')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
+                            />
+                        )}
+
+                        {feature && feature.geometry.type === 'Point' && (
+                            <MenuItem
+                                dataTest="context-menu-view-climate"
+                                label={i18n.t('Weather and climate')}
+                                icon={<IconInfo16 />}
+                                onClick={() => onClick('show_climate')}
                             />
                         )}
 
@@ -195,6 +213,7 @@ export default connect(
         openCoordinatePopup,
         showEarthEngineValue,
         setOrgUnitProfile,
+        openClimatePanel,
         updateLayer,
     }
 )(ContextMenu)

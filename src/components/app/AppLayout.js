@@ -13,6 +13,7 @@ import MapPosition from '../map/MapPosition.js'
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog.js'
 import AppMenu from './AppMenu.js'
 import DetailsPanel from './DetailsPanel.js'
+import ClimateModal from '../climate/ClimateModal.js'
 import styles from './styles/AppLayout.module.css'
 
 const AppLayout = () => {
@@ -59,6 +60,7 @@ const AppLayout = () => {
             <LayerEdit />
             <AlertStack />
             <OpenAsMapDialog />
+            <ClimateModal />
         </>
     )
 }
