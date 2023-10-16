@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-02T10:40:33.275Z\n"
-"PO-Revision-Date: 2023-10-02T10:40:33.275Z\n"
+"POT-Creation-Date: 2023-10-16T10:08:13.972Z\n"
+"PO-Revision-Date: 2023-10-16T10:08:13.972Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -919,6 +919,18 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
+msgid "Cropland"
+msgstr "Cropland"
+
+msgid "Elevation"
+msgstr "Elevation"
+
+msgid "meters"
+msgstr "meters"
+
+msgid "Elevation above sea-level."
+msgstr "Elevation above sea-level."
+
 msgid "Population"
 msgstr "Population"
 
@@ -1064,15 +1076,6 @@ msgid ""
 msgstr ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
-
-msgid "Elevation"
-msgstr "Elevation"
-
-msgid "meters"
-msgstr "meters"
-
-msgid "Elevation above sea-level."
-msgstr "Elevation above sea-level."
 
 msgid "Precipitation"
 msgstr "Precipitation"

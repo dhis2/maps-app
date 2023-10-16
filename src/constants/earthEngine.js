@@ -1,7 +1,76 @@
+import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from './layers.js'
 
-// TODO: How to deal with translations
 export const earthEngineLayers = [
+    {
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'MODIS/006/MCD12Q1',
+        img: 'images/landcover.png',
+        datasetId: 'USGS/GFSAD1000_V1',
+        format: 'ImageCollection',
+        name: 'Cropland',
+        unit: i18n.t('Cropland'),
+        description: 'Cropland data and their water use.',
+        source: 'GFSAD / Google Earth Engine',
+        band: 'landcover',
+        defaultAggregations: 'percentage',
+        popup: '{name}: {value}',
+        style: [
+            {
+                value: 1,
+                name: 'Irrigation major',
+                color: 'orange',
+            },
+            {
+                value: 2,
+                name: 'Irrigation minor',
+                color: 'brown',
+            },
+            {
+                value: 3,
+                name: 'Rainfed',
+                color: 'darkseagreen',
+            },
+            {
+                value: 4,
+                name: 'Rainfed, minor fragments',
+                color: 'green',
+            },
+            {
+                value: 5,
+                name: 'Rainfed, very minor fragments',
+                color: 'yellow',
+            },
+        ],
+    },
+    {
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'USGS/SRTMGL1_003',
+        img: 'images/elevation.png',
+        datasetId: 'USGS/SRTMGL1_003',
+        name: i18n.t('Elevation'),
+        unit: i18n.t('meters'),
+        description: i18n.t('Elevation above sea-level.'),
+        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        /* sourceUrl:
+            'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003', */
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['mean', 'min', 'max'],
+        band: 'elevation',
+        style: {
+            min: 0,
+            max: 1500,
+            palette: [
+                '#ffffd4',
+                '#fee391',
+                '#fec44f',
+                '#fe9929',
+                '#d95f0e',
+                '#993404',
+            ], // YlOrBr
+        },
+        opacity: 0.9,
+    },
     {
         layerType: EARTH_ENGINE_LAYER,
         layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
@@ -730,6 +799,41 @@ export const earthEngineLayers = [
                 '#2171b5',
                 '#084594',
             ],
+        },
+        opacity: 0.9,
+    },
+    /*
+    {
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers',
+        datasetId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers',
+        format: 'FeatureCollection',
+        name: 'Rivers',
+        description: '',
+        source: 'WWF / Google Earth Engine',
+        style: {
+            byProperty: 'COLOR',
+        },
+        opacity: 0.9,
+    },
+    */
+    {
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers_FeatureView',
+        datasetId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers',
+        format: 'FeatureView',
+        name: 'Rivers',
+        description: '',
+        source: 'WWF / Google Earth Engine',
+        style: {
+            lineWidth: 2,
+            color: {
+                property: 'RIV_ORD',
+                mode: 'linear',
+                palette: ['08519c', '3182bd', '6baed6', 'bdd7e7', 'eff3ff'],
+                min: 1,
+                max: 10,
+            },
         },
         opacity: 0.9,
     },

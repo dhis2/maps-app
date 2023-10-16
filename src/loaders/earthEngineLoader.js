@@ -164,7 +164,7 @@ const earthEngineLoader = async (config) => {
     // Create/update legend items from params
     if (format === 'FeatureCollection') {
         // TODO: Add feature collection style
-    } else if (!hasClasses(aggregationType) && layer.style) {
+    } else if (!hasClasses(aggregationType) && layer.style?.palette) {
         legend.items = createLegend(layer.style)
     }
 
