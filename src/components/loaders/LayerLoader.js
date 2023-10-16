@@ -8,7 +8,7 @@ import OrgUnitLoader from './OrgUnitLoader.js'
 import ThematicLoader from './ThematicLoader.js'
 import TrackedEntityLoader from './TrackedEntityLoader.js'
 
-const layerType = {
+const layerTypes = {
     earthEngine: EarthEngineLoader,
     event: EventLoader,
     external: ExternalLoader,
@@ -19,10 +19,10 @@ const layerType = {
 }
 
 const LayerLoader = ({ config, onLoad }) => {
-    const Loader = layerType[config.layer]
+    const type = config.layerType || config.layer
+    const Loader = layerTypes[type]
 
     if (!Loader) {
-        console.log('Unknown layer type', config.layer, config)
         return null
     }
 

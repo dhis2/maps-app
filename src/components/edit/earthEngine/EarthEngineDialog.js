@@ -33,7 +33,7 @@ const EarthEngineDialog = (props) => {
     const [error, setError] = useState()
 
     const {
-        // layerId,
+        layerId,
         datasetId,
         band,
         rows,
@@ -67,31 +67,16 @@ const EarthEngineDialog = (props) => {
 
     const period = getPeriodFromFilter(filter)
 
-    // Translates a dynamic filter into a constant filter
-    /*
-    const getFilter = ({ id, year }) =>
-        filters.map((filter) => ({
-            ...filter,
-            arguments: filter.arguments.map((arg) =>
-                arg === '$value' ? String(id) : arg === '$year' ? year : arg
-            ),
-        }))
-    */
-
     // const getFilterFromPeriod = (period) => {}
 
     const setFilterFromPeriod = useCallback(
         (period) => {
             let periodFilter = null
 
-            // console.log('setFilterFromPeriod', periodType, period, filters)
-
             if (period) {
                 const { id, startDate, endDate } = period
 
                 if (startDate && endDate) {
-                    // console.log('endDate', endDate, incrementDate(endDate))
-
                     periodFilter = translateFilters(
                         filters,
                         startDate,
@@ -110,8 +95,6 @@ const EarthEngineDialog = (props) => {
                 periodFilter[0].name = period.name
                 periodFilter[0].year = period.year
             }
-
-            // console.log('setFilterFromPeriod', period, filters, periodFilter)
 
             setFilter(periodFilter)
         },
@@ -295,11 +278,14 @@ EarthEngineDialog.propTypes = {
     orgUnits: PropTypes.object,
     periodReducer: PropTypes.string,
     periodType: PropTypes.string,
-    style: PropTypes.shape({
-        max: PropTypes.number,
-        min: PropTypes.number,
-        palette: PropTypes.array,
-    }),
+    style: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.shape({
+            max: PropTypes.number,
+            min: PropTypes.number,
+            palette: PropTypes.array,
+        }),
+    ]),
     rows: PropTypes.array,
 }
 

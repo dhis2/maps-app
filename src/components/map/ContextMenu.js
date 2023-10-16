@@ -9,8 +9,8 @@ import {
     IconLocation16,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { Fragment, useRef } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment, useRef, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
@@ -26,23 +26,65 @@ import {
 import { drillUpDown } from '../../util/map.js'
 import styles from './styles/ContextMenu.module.css'
 
-const ContextMenu = (props) => {
+const ContextMenu = () => {
+    const contextMenu = useSelector((state) => state.contextMenu || {})
+    const earthEngineLayers = useSelector((state) =>
+        state.map.mapViews.filter(
+            (view) => (view.layerType || view.layer) === EARTH_ENGINE_LAYER
+        )
+    )
+    const dispatch = useDispatch()
     const anchorRef = useRef()
 
-    const {
-        feature,
-        layerType,
-        layerConfig,
-        coordinates,
-        earthEngineLayers,
-        position,
-        offset,
-        closeContextMenu,
-        openCoordinatePopup,
-        showEarthEngineValue,
-        setOrgUnitProfile,
-        updateLayer,
-    } = props
+    const { feature, layerType, layerConfig, coordinates, position, offset } =
+        contextMenu
+
+    const attr = feature?.properties || {}
+
+    const onClick = useCallback(
+        (item, id) => {
+            dispatch(closeContextMenu())
+
+            switch (item) {
+                case 'drill_up':
+                    dispatch(
+                        updateLayer(
+                            drillUpDown(
+                                layerConfig,
+                                attr.grandParentId,
+                                attr.grandParentParentGraph,
+                                parseInt(attr.level) - 1
+                            )
+                        )
+                    )
+                    break
+                case 'drill_down':
+                    dispatch(
+                        updateLayer(
+                            drillUpDown(
+                                layerConfig,
+                                attr.id,
+                                attr.parentGraph,
+                                parseInt(attr.level) + 1
+                            )
+                        )
+                    )
+                    break
+                case 'show_info':
+                    dispatch(setOrgUnitProfile(attr.id))
+                    break
+                case 'show_coordinate':
+                    dispatch(openCoordinatePopup(coordinates))
+                    break
+                case 'show_ee_value':
+                    dispatch(showEarthEngineValue(id, coordinates))
+                    break
+
+                default:
+            }
+        },
+        [layerConfig, attr, coordinates, dispatch]
+    )
 
     if (!position) {
         return null
@@ -54,48 +96,8 @@ const ContextMenu = (props) => {
     const left = offset[0] + position[0]
     const top = offset[1] + position[1]
 
-    const attr = feature?.properties || {}
-
-    const onClick = (item, id) => {
-        closeContextMenu()
-
-        switch (item) {
-            case 'drill_up':
-                updateLayer(
-                    drillUpDown(
-                        layerConfig,
-                        attr.grandParentId,
-                        attr.grandParentParentGraph,
-                        parseInt(attr.level) - 1
-                    )
-                )
-                break
-            case 'drill_down':
-                updateLayer(
-                    drillUpDown(
-                        layerConfig,
-                        attr.id,
-                        attr.parentGraph,
-                        parseInt(attr.level) + 1
-                    )
-                )
-                break
-            case 'show_info':
-                setOrgUnitProfile(attr.id)
-                break
-            case 'show_coordinate':
-                openCoordinatePopup(coordinates)
-                break
-            case 'show_ee_value':
-                showEarthEngineValue(id, coordinates)
-                break
-
-            default:
-        }
-    }
-
     return (
-        <Fragment>
+        <>
             <div
                 ref={anchorRef}
                 className={styles.anchor}
@@ -163,16 +165,11 @@ const ContextMenu = (props) => {
                     </Menu>
                 </div>
             </Popover>
-        </Fragment>
+        </>
     )
 }
 
 ContextMenu.propTypes = {
-    closeContextMenu: PropTypes.func.isRequired,
-    openCoordinatePopup: PropTypes.func.isRequired,
-    setOrgUnitProfile: PropTypes.func.isRequired,
-    showEarthEngineValue: PropTypes.func.isRequired,
-    updateLayer: PropTypes.func.isRequired,
     coordinates: PropTypes.array,
     earthEngineLayers: PropTypes.array,
     feature: PropTypes.object,
@@ -183,18 +180,4 @@ ContextMenu.propTypes = {
     position: PropTypes.array,
 }
 
-export default connect(
-    ({ contextMenu, map }) => ({
-        ...contextMenu,
-        earthEngineLayers: map.mapViews.filter(
-            (view) => view.layer === EARTH_ENGINE_LAYER
-        ),
-    }),
-    {
-        closeContextMenu,
-        openCoordinatePopup,
-        showEarthEngineValue,
-        setOrgUnitProfile,
-        updateLayer,
-    }
-)(ContextMenu)
+export default ContextMenu

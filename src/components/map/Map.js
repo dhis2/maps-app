@@ -155,7 +155,9 @@ class Map extends Component {
                 {map && (
                     <Fragment>
                         {overlays.map((config, index) => {
-                            const Overlay = layerType[config.layer] || Layer
+                            const type = config.layerType || config.layer
+
+                            const Overlay = layerType[type] || Layer
                             const highlight =
                                 feature && feature.layerId === config.id
                                     ? feature

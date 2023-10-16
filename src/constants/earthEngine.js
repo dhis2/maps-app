@@ -3,12 +3,9 @@ import { EARTH_ENGINE_LAYER } from './layers.js'
 // TODO: How to deal with translations
 export const earthEngineLayers = [
     {
-        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
         layerType: EARTH_ENGINE_LAYER,
-        // layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
         img: 'images/population.png',
-        service: 'earthengine',
-        // id: 'earthengine_population', // TODO
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         format: 'ImageCollection',
         name: 'Population',
@@ -40,11 +37,194 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
-        // layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL', // TODO: Remove?
-        img: 'images/population.png', // TODO: Remove?
-        service: 'earthengine',
-        // id: 'earthengine_population', // TODO
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+        img: 'images/population.png',
+        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+        format: 'ImageCollection',
+        name: 'Population age groups',
+        unit: 'people per hectare',
+        description:
+            'Estimated number of people living in an area, grouped by age and gender.',
+        source: 'WorldPop / Google Earth Engine',
+        /*
+        sourceUrl:
+            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
+        */
+        periodType: 'yearly',
+        defaultAggregations: ['sum', 'mean'],
+        bands: [
+            {
+                id: 'M_0',
+                name: 'Male 0 - 1 years',
+            },
+            {
+                id: 'M_1',
+                name: 'Male 1 - 4 years',
+            },
+            {
+                id: 'M_5',
+                name: 'Male 5 - 9 years',
+            },
+            {
+                id: 'M_10',
+                name: 'Male 10 - 14 years',
+            },
+            {
+                id: 'M_15',
+                name: 'Male 15 - 19 years',
+            },
+            {
+                id: 'M_20',
+                name: 'Male 20 - 24 years',
+            },
+            {
+                id: 'M_25',
+                name: 'Male 25 - 29 years',
+            },
+            {
+                id: 'M_30',
+                name: 'Male 30 - 34 years',
+            },
+            {
+                id: 'M_35',
+                name: 'Male 35 - 39 years',
+            },
+            {
+                id: 'M_40',
+                name: 'Male 40 - 44 years',
+            },
+            {
+                id: 'M_45',
+                name: 'Male 45 - 49 years',
+            },
+            {
+                id: 'M_50',
+                name: 'Male 50 - 54 years',
+            },
+            {
+                id: 'M_55',
+                name: 'Male 55 - 59 years',
+            },
+            {
+                id: 'M_60',
+                name: 'Male 60 - 64 years',
+            },
+            {
+                id: 'M_65',
+                name: 'Male 65 - 69 years',
+            },
+            {
+                id: 'M_70',
+                name: 'Male 70 - 74 years',
+            },
+            {
+                id: 'M_75',
+                name: 'Male 75 - 79 years',
+            },
+            {
+                id: 'M_80',
+                name: 'Male 80 years and above',
+            },
+            {
+                id: 'F_0',
+                name: 'Female 0 - 1 years',
+            },
+            {
+                id: 'F_1',
+                name: 'Female 1 - 4 years',
+            },
+            {
+                id: 'F_5',
+                name: 'Female 5 - 9 years',
+            },
+            {
+                id: 'F_10',
+                name: 'Female 10 - 14 years',
+            },
+            {
+                id: 'F_15',
+                name: 'Female 15 - 19 years',
+            },
+            {
+                id: 'F_20',
+                name: 'Female 20 - 24 years',
+            },
+            {
+                id: 'F_25',
+                name: 'Female 25 - 29 years',
+            },
+            {
+                id: 'F_30',
+                name: 'Female 30 - 34 years',
+            },
+            {
+                id: 'F_35',
+                name: 'Female 35 - 39 years',
+            },
+            {
+                id: 'F_40',
+                name: 'Female 40 - 44 years',
+            },
+            {
+                id: 'F_45',
+                name: 'Female 45 - 49 years',
+            },
+            {
+                id: 'F_50',
+                name: 'Female 50 - 54 years',
+            },
+            {
+                id: 'F_55',
+                name: 'Female 55 - 59 years',
+            },
+            {
+                id: 'F_60',
+                name: 'Female 60 - 64 years',
+            },
+            {
+                id: 'F_65',
+                name: 'Female 65 - 69 years',
+            },
+            {
+                id: 'F_70',
+                name: 'Female 70 - 74 years',
+            },
+            {
+                id: 'F_75',
+                name: 'Female 75 - 79 years',
+            },
+            {
+                id: 'F_80',
+                name: 'Female 80 years and above',
+            },
+        ],
+        filters: [
+            {
+                type: 'eq',
+                arguments: ['year', '$1'],
+            },
+        ],
+        mosaic: true,
+        style: {
+            min: 0,
+            max: 10,
+            palette: [
+                '#fee5d9',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#de2d26',
+                '#a50f15',
+            ],
+        },
+        opacity: 0.9,
+        tileScale: 4,
+    },
+    {
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj/SLE_2020/population',
+        img: 'images/population.png',
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj/SLE_2020',
         format: 'Image',
         name: 'Population Sierra Leone 2000',
@@ -68,32 +248,47 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
-        service: 'earthengine',
+        // TODO: Remove this dataset
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'RESOLVE/ECOREGIONS/2017',
         datasetId: 'RESOLVE/ECOREGIONS/2017',
         format: 'FeatureCollection',
         name: 'Ecoregions',
-        description: 'Estimated number of people living in an area',
-        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        description: '',
+        source: 'RESOLVE / Google Earth Engine',
         style: {
             byProperty: 'COLOR',
-            // byProperty: {
-            //     color: 'COLOR_NNH',
-            // },
         },
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'GOOGLE/Research/open-buildings/v1/polygons',
         img: 'images/buildings.png',
-        service: 'earthengine',
-        // id: 'earthengine_building-footprints', // TODO
         datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
         format: 'FeatureCollection',
         name: 'Building footprints',
         description: 'Estimated number of people living in an area',
         // notice: 'Building counts are only available for smaller organisation unit areas.',
-        error: 'Select a smaller area or single organization unit to see the count of buildings.',
+        // error: 'Select a smaller area or single organization unit to see the count of buildings.',
+        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        unit: 'Number of buildings',
+        aggregations: ['count'],
+        defaultAggregations: ['count'],
+        style: {
+            color: '#FFA500', // TODO: Not in use
+            width: 1,
+        },
+        opacity: 0.9,
+    },
+    {
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'GOOGLE/Research/open-buildings/v1/polygons/gt500',
+        img: 'images/buildings.png',
+        datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
+        format: 'FeatureCollection',
+        name: 'Buildings > 500 m²',
+        description: 'Estimated number of people living in an area',
         source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
         unit: 'Number of buildings',
         aggregations: ['count'],
@@ -111,31 +306,248 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
-        img: 'images/buildings.png',
-        service: 'earthengine',
-        // id: 'earthengine_building-footprints', // TODO
-        datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
-        format: 'FeatureCollection',
-        name: 'Buildings > 500 m²',
-        description: 'Estimated number of people living in an area',
-        // notice: 'Building counts are only available for smaller organisation unit areas.',
-        error: 'Select a smaller area or single organization unit to see the count of buildings.',
-        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
-        unit: 'Number of buildings',
-        aggregations: ['count'],
-        defaultAggregations: ['count'],
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'MODIS/006/MCD12Q1',
+        img: 'images/landcover.png',
+        datasetId: 'MODIS/061/MCD12Q1',
+        format: 'ImageCollection',
+        name: 'Landcover',
+        description: 'Distinct landcover types collected from satellites.',
+        source: 'NASA LP DAAC / Google Earth Engine',
+        periodType: 'yearly',
+        band: 'LC_Type1',
+        defaultAggregations: 'percentage',
+        popup: '{name}: {value}',
         filters: [
             {
-                type: 'gt',
-                arguments: ['area_in_meters', 500],
+                type: 'eq',
+                arguments: ['system:index', '$1'],
             },
         ],
-        style: {
-            color: '#FFA500',
-            width: 1,
-        },
-        opacity: 0.9,
+        style: [
+            {
+                value: 1,
+                color: '#162103',
+                name: 'Evergreen Needleleaf forest',
+            },
+            {
+                value: 2,
+                color: '#235123',
+                name: 'Evergreen Broadleaf forest',
+            },
+            {
+                value: 3,
+                name: 'Deciduous Needleleaf forest',
+                color: '#399b38',
+            },
+            {
+                value: 4,
+                name: 'Deciduous Broadleaf forest',
+                color: '#38eb38',
+            },
+            {
+                value: 5,
+                name: 'Mixed forest',
+                color: '#39723b',
+            },
+            {
+                value: 6,
+                name: 'Closed shrublands',
+                color: '#6a2424',
+            },
+            {
+                value: 7,
+                name: 'Open shrublands',
+                color: '#c3a55f',
+            },
+            {
+                value: 8,
+                name: 'Woody savannas',
+                color: '#b76124',
+            },
+            {
+                value: 9,
+                name: 'Savannas',
+                color: '#d99125',
+            },
+            {
+                value: 10,
+                name: 'Grasslands',
+                color: '#92af1f',
+            },
+            {
+                value: 11,
+                name: 'Permanent wetlands',
+                color: '#10104c',
+            },
+            {
+                value: 12,
+                name: 'Croplands',
+                color: '#cdb400',
+            },
+            {
+                value: 13,
+                name: 'Urban and built-up',
+                color: '#cc0202',
+            },
+            {
+                value: 14,
+                name: 'Cropland/Natural vegetation mosaic',
+                color: '#332808',
+            },
+            {
+                value: 15,
+                name: 'Snow and ice',
+                color: '#d7cdcc',
+            },
+            {
+                value: 16,
+                name: 'Barren or sparsely vegetated',
+                color: '#f7e174',
+            },
+            {
+                value: 17,
+                name: 'Water',
+                color: '#aec3d6',
+            },
+        ],
+    },
+    {
+        layerType: EARTH_ENGINE_LAYER,
+        layerId: 'COPERNICUS/Landcover/100m/Proba-V-C3/Global',
+        img: 'images/landcover.png',
+        datasetId: 'COPERNICUS/Landcover/100m/Proba-V-C3/Global',
+        format: 'ImageCollection',
+        name: 'Landcover Copernicus',
+        description: 'Distinct landcover types collected from satellites.',
+        source: 'Copernicus / Google Earth Engine',
+        periodType: 'yearly',
+        band: 'discrete_classification',
+        defaultAggregations: 'percentage',
+        popup: '{name}: {value}',
+        filters: [
+            {
+                type: 'eq',
+                arguments: ['system:index', '$1'],
+            },
+        ],
+        style: [
+            {
+                value: 0,
+                name: 'Unknown',
+                color: '#282828',
+            },
+            {
+                value: 20,
+                name: 'Shrubs',
+                color: '#ffbb22',
+            },
+            {
+                value: 30,
+                name: 'Herbaceous vegetation',
+                color: '#ffff4c',
+            },
+            {
+                value: 40,
+                name: 'Agriculture',
+                color: '#f096ff',
+            },
+            {
+                value: 50,
+                name: 'Urban / built up',
+                color: '#fa0000',
+            },
+            {
+                value: 60,
+                name: 'Bare / sparse vegetation',
+                color: '#b4b4b4',
+            },
+            {
+                value: 70,
+                name: 'Snow and ice',
+                color: '#f0f0f0',
+            },
+            {
+                value: 80,
+                name: 'Permanent water bodies',
+                color: '#0032c8',
+            },
+            {
+                value: 90,
+                name: 'Herbaceous wetland',
+                color: '#0096a0',
+            },
+            {
+                value: 100,
+                name: 'Moss and lichen',
+                color: '#fae6a0',
+            },
+            {
+                value: 111,
+                name: 'Closed forest, evergreen needle leaf',
+                color: '#58481f',
+            },
+            {
+                value: 112,
+                name: 'Closed forest, evergreen broad leaf',
+                color: '#009900',
+            },
+            {
+                value: 113,
+                name: 'Closed forest, deciduous needle leaf',
+                color: '#70663e',
+            },
+            {
+                value: 114,
+                name: 'Closed forest, deciduous broad leaf',
+                color: '#00cc00',
+            },
+            {
+                value: 115,
+                name: 'Closed forest, mixed',
+                color: '#4e751f',
+            },
+            {
+                value: 116,
+                name: 'Closed forest, other',
+                color: '#007800',
+            },
+            {
+                value: 121,
+                name: 'Open forest, evergreen needle leaf',
+                color: '#666000',
+            },
+            {
+                value: 122,
+                name: 'Open forest, evergreen broad leaf',
+                color: '#8db400',
+            },
+            {
+                value: 123,
+                name: 'Open forest, deciduous needle leaf',
+                color: '#8d7400',
+            },
+            {
+                value: 124,
+                name: 'Open forest, deciduous broad leaf',
+                color: '#a0dc00',
+            },
+            {
+                value: 125,
+                name: 'Open forest, mixed',
+                color: '#929900',
+            },
+            {
+                value: 126,
+                name: 'Open forest, other',
+                color: '#648c00',
+            },
+            {
+                value: 200,
+                name: 'Water',
+                color: '#000080',
+            },
+        ],
     },
     {
         layer: EARTH_ENGINE_LAYER, // TODO: Remove?
