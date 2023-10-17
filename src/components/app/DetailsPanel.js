@@ -4,19 +4,33 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Interpretations from '../interpretations/Interpretations.js'
 import OrgUnitProfile from '../orgunits/OrgUnitProfile.js'
+import FeatureProfile from '../feature/FeatureProfile.js'
 import styles from './styles/DetailsPanel.module.css'
 
 const DetailsPanel = ({ interpretationsRenderCount }) => {
     const detailsPanelOpen = useSelector((state) => state.ui.rightPanelOpen)
     const viewOrgUnitProfile = useSelector((state) => state.orgUnitProfile)
+    const viewFeatureProfile = useSelector((state) => !!state.featureProfile)
     const interpretationId = useSelector((state) => state.interpretation?.id)
 
     const getContent = () => {
-        if (interpretationId || (detailsPanelOpen && !viewOrgUnitProfile)) {
+        if (
+            interpretationId ||
+            (detailsPanelOpen && !viewOrgUnitProfile && !viewFeatureProfile)
+        ) {
             return <Interpretations renderCount={interpretationsRenderCount} />
         }
 
-        return detailsPanelOpen ? <OrgUnitProfile /> : null
+        if (detailsPanelOpen) {
+            if (viewOrgUnitProfile) {
+                return <OrgUnitProfile />
+            }
+            if (viewFeatureProfile) {
+                return <FeatureProfile />
+            }
+        }
+
+        return null
     }
 
     return (

@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Table, Column } from 'react-virtualized'
 import { closeDataTable } from '../../actions/dataTable.js'
-import { highlightFeature } from '../../actions/feature.js'
+import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { updateLayer } from '../../actions/layers.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
@@ -15,6 +15,7 @@ import {
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
+    FEATURE_SERVICE,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { filterData } from '../../util/filter.js'
@@ -22,6 +23,7 @@ import { formatTime } from '../../util/helpers.js'
 import ColorCell from './ColorCell.js'
 import ColumnHeader from './ColumnHeader.js'
 import EarthEngineColumns from './EarthEngineColumns.js'
+import FeatureServiceColumns from './FeatureServiceColumns.js'
 import styles from './styles/DataTable.module.css'
 import 'react-virtualized/styles.css'
 
@@ -195,7 +197,6 @@ class DataTable extends Component {
 
     onRowMouseOver = (evt) => this.highlightFeature(evt.rowData.id)
     onRowMouseOut = () => this.highlightFeature()
-    // onRowClick = (evt) => this.props.setOrgUnitProfile(evt.rowData.id)
     onRowMouseOver = (evt) => this.highlightFeature(evt.rowData.id)
     onRowMouseOut = () => this.highlightFeature()
 
@@ -249,22 +250,30 @@ class DataTable extends Component {
                         width={72}
                         className="right"
                     />
-                    <Column
-                        dataKey={isEvent ? 'ouname' : 'name'}
-                        label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
-                        width={100}
-                        headerRenderer={(props) => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                    <Column
-                        dataKey="id"
-                        label={i18n.t('Id')}
-                        width={100}
-                        headerRenderer={(props) => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
+                    {!isFeatureService && (
+                        <>
+                            <Column
+                                dataKey={isEvent ? 'ouname' : 'name'}
+                                label={
+                                    isEvent
+                                        ? i18n.t('Org unit')
+                                        : i18n.t('Name')
+                                }
+                                width={100}
+                                headerRenderer={(props) => (
+                                    <ColumnHeader type="string" {...props} />
+                                )}
+                            />
+                            <Column
+                                dataKey="id"
+                                label={i18n.t('Id')}
+                                width={100}
+                                headerRenderer={(props) => (
+                                    <ColumnHeader type="string" {...props} />
+                                )}
+                            />
+                        </>
+                    )}
                     {isEvent && (
                         <Column
                             dataKey="eventdate"

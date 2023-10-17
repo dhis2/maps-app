@@ -21,6 +21,7 @@ import OrgUnitDialog from './orgUnit/OrgUnitDialog.js'
 import styles from './styles/LayerEdit.module.css'
 import ThematicDialog from './thematic/ThematicDialog.js'
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
+import FeatureServiceDialog from './arcgis/FeatureServiceDialog.js'
 
 const layerType = {
     event: EventDialog,

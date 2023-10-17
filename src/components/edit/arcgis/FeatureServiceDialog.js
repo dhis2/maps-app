@@ -1,48 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { request } from '@esri/arcgis-rest-request';
-import { Help, Tab, Tabs } from '../../core';
-import OrgUnitTree from '../../orgunits/OrgUnitTree';
-import FeatureServiceStyle from '../shared/FeatureStyle';
-import { setOrgUnit, setFeatureStyle } from '../../../actions/layerEdit';
-import { getOrgUnitNodesFromRows } from '../../../util/analytics';
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import i18n from '@dhis2/d2-i18n'
+import { request } from '@esri/arcgis-rest-request'
+import { Help, Tab, Tabs } from '../../core'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
+import FeatureServiceStyle from '../shared/FeatureStyle'
+import { setFeatureStyle } from '../../../actions/layerEdit'
+import { getOrgUnitNodesFromRows } from '../../../util/analytics'
 import {
     setDrawingInfo,
     getFeatureStyleFields,
-} from '../../../util/featureStyle';
-import styles from '../styles/LayerDialog.module.css';
+} from '../../../util/featureStyle'
+import styles from '../styles/LayerDialog.module.css'
 
 const FeatureServiceDialog = ({
     url,
     rows = [],
     featureStyle,
-    setOrgUnit,
     setFeatureStyle,
     validateLayer,
     onLayerValidation,
 }) => {
-    const [tab, setTab] = useState('data');
-    const [metadata, setMetadata] = useState();
+    const [tab, setTab] = useState('data')
+    const [metadata, setMetadata] = useState()
 
     useEffect(() => {
-        request(url).then(setMetadata);
-    }, [url]);
+        request(url).then(setMetadata)
+    }, [url])
 
     useEffect(() => {
         if (metadata && !featureStyle) {
             // Set feature style from metadata drawiing ingo
-            setFeatureStyle(setDrawingInfo(featureStyle, metadata.drawingInfo));
+            setFeatureStyle(setDrawingInfo(featureStyle, metadata.drawingInfo))
             // console.log('metadata', metadata);
         }
-    }, [metadata, featureStyle]);
+    }, [metadata, featureStyle])
 
     useEffect(() => {
         if (validateLayer) {
-            onLayerValidation(true); // TODO
+            onLayerValidation(true) // TODO
         }
-    }, [validateLayer, onLayerValidation]);
+    }, [validateLayer, onLayerValidation])
 
     return (
         <div className={styles.content} data-test="orgunitdialog">
@@ -59,25 +58,7 @@ const FeatureServiceDialog = ({
                         </Help>
                     </div>
                 )}
-                {tab === 'orgunits' && (
-                    <div
-                        className={styles.flexColumnFlow}
-                        data-test="orgunitdialog-orgunitstab"
-                    >
-                        <div className={styles.orgUnitTree}>
-                            <OrgUnitTree
-                                selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={setOrgUnit}
-                                /*
-                                onClick={test => {
-                                    console.log(test);
-                                    setOrgUnit(test);
-                                }}
-                                */
-                            />
-                        </div>
-                    </div>
-                )}
+                {tab === 'orgunits' && <OrgUnitSelect />}
                 {tab === 'style' && (
                     <div
                         className={styles.flexColumnFlow}
@@ -98,27 +79,25 @@ const FeatureServiceDialog = ({
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
 FeatureServiceDialog.propTypes = {
     url: PropTypes.string.isRequired,
     rows: PropTypes.array,
     featureStyle: PropTypes.object,
     setFeatureStyle: PropTypes.func.isRequired,
-    setOrgUnit: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
-};
+}
 
 export default connect(
     null,
     {
-        setOrgUnit,
         setFeatureStyle,
     },
     null,
     {
         forwardRef: true,
     }
-)(FeatureServiceDialog);
+)(FeatureServiceDialog)

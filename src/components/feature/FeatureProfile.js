@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { IconCross24 } from '@dhis2/ui';
-import Drawer from '../core/Drawer';
-import { closeFeatureProfile } from '../../actions/feature';
-import styles from './styles/FeatureProfile.module.css';
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import i18n from '@dhis2/d2-i18n'
+import { IconCross24 } from '@dhis2/ui'
+import Drawer from '../core/Drawer'
+import { closeFeatureProfile } from '../../actions/feature'
+import styles from './styles/FeatureProfile.module.css'
 
-/*
- *  Loads an org unit profile and displays it in a right drawer component
- */
-export const FeatureProfile = ({ name, fields, data, closeFeatureProfile }) => {
-    if (!fields || !data) {
-        return null;
-    }
+export const FeatureProfile = () => {
+    const featureProfile = useSelector((state) => state.featureProfile)
+    const dispatch = useDispatch()
+
+    const { name, fields, data } = featureProfile
 
     return (
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
                 {name || i18n.t('Feature profile')}
-                <span className={styles.close} onClick={closeFeatureProfile}>
+                <span
+                    className={styles.close}
+                    onClick={() => dispatch(closeFeatureProfile())}
+                >
                     <IconCross24 />
                 </span>
             </div>
@@ -40,19 +40,7 @@ export const FeatureProfile = ({ name, fields, data, closeFeatureProfile }) => {
                 </div>
             </div>
         </Drawer>
-    );
-};
+    )
+}
 
-FeatureProfile.propTypes = {
-    name: PropTypes.string,
-    fields: PropTypes.array,
-    data: PropTypes.object,
-    closeFeatureProfile: PropTypes.func.isRequired,
-};
-
-export default connect(
-    ({ featureProfile }) => ({
-        ...featureProfile,
-    }),
-    { closeFeatureProfile }
-)(FeatureProfile);
+export default FeatureProfile
