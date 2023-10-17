@@ -17,8 +17,6 @@ class GeoJsonLayer extends Layer {
         } = this.props
         const { map } = this.context
 
-        console.log('featureStyle', featureStyle)
-
         const filteredData = filterData(data, dataFilters)
 
         this.layer = map.createLayer({
@@ -28,14 +26,12 @@ class GeoJsonLayer extends Layer {
             opacity,
             isVisible,
             data: filteredData,
-            hoverLabel: '{type}',
             // style: featureStyle,
             style: {
                 color: 'transparent',
                 strokeColor: '#333',
             },
             onClick: this.onFeatureClick.bind(this),
-            // onRightClick: this.onFeatureRightClick.bind(this),
         })
 
         map.addLayer(this.layer)
