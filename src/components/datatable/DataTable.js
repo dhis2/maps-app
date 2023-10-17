@@ -15,7 +15,7 @@ import {
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
-    FEATURE_SERVICE,
+    GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { filterData } from '../../util/filter.js'
@@ -23,7 +23,7 @@ import { formatTime } from '../../util/helpers.js'
 import ColorCell from './ColorCell.js'
 import ColumnHeader from './ColumnHeader.js'
 import EarthEngineColumns from './EarthEngineColumns.js'
-import FeatureServiceColumns from './FeatureServiceColumns.js'
+import FeatureColumns from './FeatureColumns.js'
 import styles from './styles/DataTable.module.css'
 import 'react-virtualized/styles.css'
 
@@ -182,7 +182,7 @@ class DataTable extends Component {
     onRowClick = (evt) => {
         const { layer: layerType } = this.props.layer
 
-        if (layerType === FEATURE_SERVICE) {
+        if (layerType === GEOJSON_URL_LAYER) {
             const { name, fields } = this.props.layer
 
             this.props.setFeatureProfile({
@@ -217,7 +217,7 @@ class DataTable extends Component {
         const isOrgUnit = layerType === ORG_UNIT_LAYER
         const isEvent = layerType === EVENT_LAYER
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER
-        const isFeatureService = layerType === FEATURE_SERVICE
+        const isFeatureLayer = layerType === GEOJSON_URL_LAYER
 
         const isLoading =
             isEarthEngine && aggregationType?.length && !aggregations
@@ -250,7 +250,7 @@ class DataTable extends Component {
                         width={72}
                         className="right"
                     />
-                    {!isFeatureService && (
+                    {!isFeatureLayer && (
                         <>
                             <Column
                                 dataKey={isEvent ? 'ouname' : 'name'}
@@ -352,7 +352,7 @@ class DataTable extends Component {
                             )}
                         />
                     )}
-                    {!isFeatureService && (
+                    {!isFeatureLayer && (
                         <Column
                             dataKey="type"
                             label={i18n.t('Type')}
@@ -377,8 +377,7 @@ class DataTable extends Component {
                     {isEarthEngine &&
                         EarthEngineColumns({ aggregationType, legend, data })}
 
-                    {isFeatureService &&
-                        FeatureServiceColumns({ fields, data })}
+                    {isFeatureLayer && FeatureColumns({ fields, data })}
                 </Table>
                 {isLoading === true && (
                     <div className={styles.loader}>

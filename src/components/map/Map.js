@@ -11,7 +11,7 @@ import Layer from './layers/Layer.js'
 import OrgUnitLayer from './layers/OrgUnitLayer.js'
 import ThematicLayer from './layers/ThematicLayer.js'
 import TrackedEntityLayer from './layers/TrackedEntityLayer.js'
-import FeatureService from './layers/FeatureService.js'
+import GeoJsonLayer from './layers/GeoJsonLayer.js'
 import mapApi, { controlTypes } from './MapApi.js'
 import Popup from './Popup.js'
 import styles from './styles/Map.module.css'
@@ -24,7 +24,7 @@ const layerType = {
     orgUnit: OrgUnitLayer,
     earthEngine: EarthEngineLayer,
     external: ExternalLayer,
-    featureService: FeatureService,
+    geoJsonUrl: GeoJsonLayer,
 }
 
 class Map extends Component {

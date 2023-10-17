@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-17T11:10:00.916Z\n"
-"PO-Revision-Date: 2023-10-17T11:10:00.916Z\n"
+"POT-Creation-Date: 2023-10-17T12:59:12.850Z\n"
+"PO-Revision-Date: 2023-10-17T12:59:12.850Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -260,9 +260,6 @@ msgstr "Update layer"
 msgid "Add layer"
 msgstr "Add layer"
 
-msgid "Data"
-msgstr "Data"
-
 msgid "Aggregation method"
 msgstr "Aggregation method"
 
@@ -271,6 +268,9 @@ msgstr "Groups"
 
 msgid "This field is required"
 msgstr "This field is required"
+
+msgid "Data"
+msgstr "Data"
 
 msgid "Period"
 msgstr "Period"
@@ -1327,6 +1327,9 @@ msgstr "Tracked entities"
 
 msgid "Org units"
 msgstr "Org units"
+
+msgid "Features"
+msgstr "Features"
 
 msgid "not one of"
 msgstr "not one of"

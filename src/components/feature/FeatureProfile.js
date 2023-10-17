@@ -10,12 +10,12 @@ export const FeatureProfile = () => {
     const featureProfile = useSelector((state) => state.featureProfile)
     const dispatch = useDispatch()
 
-    const { name, fields, data } = featureProfile
+    const { data } = featureProfile
 
     return (
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
-                {name || i18n.t('Feature profile')}
+                {i18n.t('Feature profile')}
                 <span
                     className={styles.close}
                     onClick={() => dispatch(closeFeatureProfile())}
@@ -28,10 +28,10 @@ export const FeatureProfile = () => {
                     <div className={styles.dataTable}>
                         <table>
                             <tbody>
-                                {fields.map(({ name }) => (
-                                    <tr key={name}>
-                                        <th>{name}</th>
-                                        <td>{data[name]}</td>
+                                {Object.keys(data).map((key) => (
+                                    <tr key={key}>
+                                        <th>{key}</th>
+                                        <td>{data[key]}</td>
                                     </tr>
                                 ))}
                             </tbody>

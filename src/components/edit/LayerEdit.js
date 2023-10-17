@@ -21,7 +21,7 @@ import OrgUnitDialog from './orgUnit/OrgUnitDialog.js'
 import styles from './styles/LayerEdit.module.css'
 import ThematicDialog from './thematic/ThematicDialog.js'
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
-import FeatureServiceDialog from './arcgis/FeatureServiceDialog.js'
+import GeoJsonDialog from './geoJson/GeoJsonDialog.js'
 
 const layerType = {
     event: EventDialog,
@@ -30,7 +30,7 @@ const layerType = {
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
-    featureService: FeatureServiceDialog,
+    geoJsonUrl: GeoJsonDialog,
 }
 
 /*

@@ -41,42 +41,13 @@ const defaultLayers = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
-    /*
-    {
-        layer: 'external',
-        type: 'Settlement extents',
-        opacity: 1,
-        config: {
-            type: 'featureService',
-            name: 'Settlement extents',
-            url:
-                'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/ArcGIS/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0',
-        },
-    },
-    */
     {
         external: true,
-        layer: 'featureService',
-        type: 'Settlement extents',
+        layer: 'geoJsonUrl',
+        type: 'Feature',
         name: 'Settlement extents',
         opacity: 1,
-        url: 'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/ArcGIS/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0',
-    },
-    {
-        external: true,
-        layer: 'featureService',
-        type: 'Feature Service',
-        name: 'Thermal Hotspots and Fire Activity',
-        opacity: 1,
-        url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/ArcGIS/rest/services/USGS_Seismic_Data_v1/FeatureServer/0',
-    },
-    {
-        external: true,
-        layer: 'featureService',
-        type: 'Feature Service',
-        name: 'Recent Earthquakes',
-        opacity: 1,
-        url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/ArcGIS/rest/services/Satellite_VIIRS_Thermal_Hotspots_and_Fire_Activity/FeatureServer/0',
+        url: '/temp/crosscut.geojson',
     },
     ...earthEngineLayers().filter((l) => !l.legacy),
 ]
