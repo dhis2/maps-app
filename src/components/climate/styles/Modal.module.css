@@ -1,4 +1,9 @@
 .modal {
     background-color: red;
-    width: 900px !important;
+    /* width: 900px !important; */
+}
+
+.tabContent {
+    padding-top: 30px;
+    min-height: 620px;
 }

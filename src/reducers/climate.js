@@ -9,7 +9,7 @@ const test = {
     },
 }
 
-const climate = (state = test, action) => {
+const climate = (state = null, action) => {
     switch (action.type) {
         case types.CLIMATE_PANEL_OPEN:
             return { ...action.payload }
