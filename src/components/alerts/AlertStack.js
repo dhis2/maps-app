@@ -1,43 +1,57 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { AlertStack as UiAlertStack, AlertBar } from '@dhis2/ui';
-import { clearAlerts } from '../../actions/alerts';
-import { getMapAlerts } from '../../util/alerts';
+import { useAlerts } from '@dhis2/app-service-alerts'
+import { AlertStack as UiAlertStack, AlertBar } from '@dhis2/ui'
+import React, { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { clearAlerts } from '../../actions/map.js'
+import { getMapAlerts } from '../../util/alerts.js'
 
-export const AlertStack = ({ alerts = [], clearAlerts }) =>
-    alerts.length ? (
+const DEFAULT_DURATION = 6000
+
+const AlertStack = () => {
+    const alerts = useAlerts()
+    const mapAlerts = useSelector((state) => getMapAlerts(state.map))
+    const dispatch = useDispatch()
+
+    const clearMapAlerts = useCallback(() => {
+        dispatch(clearAlerts())
+    }, [dispatch])
+
+    return alerts.length || mapAlerts.length ? (
         <UiAlertStack>
-            {alerts.map(({ success, warning, critical, message }, index) => (
-                <AlertBar
-                    key={index}
-                    success={success}
-                    warning={warning}
-                    critical={critical}
-                    duration={10000}
-                    onHidden={clearAlerts}
-                >
-                    {message}
-                </AlertBar>
-            ))}
+            {alerts
+                .map(({ message, options, remove }, index) => (
+                    <AlertBar
+                        key={`appalert-${index}`}
+                        success={options.success}
+                        warning={options.warning}
+                        critical={options.critical}
+                        duration={options.duration || DEFAULT_DURATION}
+                        onHidden={remove}
+                    >
+                        {message}
+                    </AlertBar>
+                ))
+                .concat(
+                    mapAlerts.map(
+                        (
+                            { message, success, warning, critical, duration },
+                            index
+                        ) => (
+                            <AlertBar
+                                key={`mapalert-${index}`}
+                                success={success}
+                                warning={warning}
+                                critical={critical}
+                                duration={duration || DEFAULT_DURATION}
+                                onHidden={clearMapAlerts}
+                            >
+                                {message}
+                            </AlertBar>
+                        )
+                    )
+                )}
         </UiAlertStack>
-    ) : null;
+    ) : null
+}
 
-AlertStack.propTypes = {
-    alerts: PropTypes.arrayOf(
-        PropTypes.shape({
-            success: PropTypes.bool,
-            warning: PropTypes.bool,
-            critical: PropTypes.bool,
-            message: PropTypes.string.isRequired,
-        })
-    ),
-    clearAlerts: PropTypes.func.isRequired,
-};
-
-export default connect(
-    ({ alerts, map }) => ({
-        alerts: [...alerts, ...getMapAlerts(map)],
-    }),
-    { clearAlerts }
-)(AlertStack);
+export default AlertStack

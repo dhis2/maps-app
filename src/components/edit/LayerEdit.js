@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
     ModalTitle,
@@ -9,18 +6,21 @@ import {
     ModalActions,
     Button,
     ButtonStrip,
-} from '@dhis2/ui';
-import EventDialog from './event/EventDialog';
-import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog';
-import FacilityDialog from './FacilityDialog';
-import ThematicDialog from './thematic/ThematicDialog';
-import OrgUnitDialog from './orgUnit/OrgUnitDialog';
-import EarthEngineDialog from './earthEngine/EarthEngineDialog';
-import FeatureServiceDialog from './arcgis/FeatureServiceDialog';
-import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
-import { EARTH_ENGINE_LAYER } from '../../constants/layers';
-import { useSystemSettings } from '../SystemSettingsProvider';
-import styles from './styles/LayerEdit.module.css';
+} from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
+import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import { useOrgUnits } from '../OrgUnitsProvider.js'
+import { useSystemSettings } from '../SystemSettingsProvider.js'
+import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
+import EventDialog from './event/EventDialog.js'
+import FacilityDialog from './FacilityDialog.js'
+import OrgUnitDialog from './orgUnit/OrgUnitDialog.js'
+import styles from './styles/LayerEdit.module.css'
+import ThematicDialog from './thematic/ThematicDialog.js'
+import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
 
 const layerType = {
     event: EventDialog,
@@ -30,7 +30,7 @@ const layerType = {
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
     featureService: FeatureServiceDialog,
-};
+}
 
 /*
 const layerName = () => ({
@@ -43,43 +43,51 @@ const layerName = () => ({
 });
 */
 
-const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
-    const [isValidLayer, setIsValidLayer] = useState(false);
-    const { keyAnalysisRelativePeriod } = useSystemSettings();
+const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
+    const [isValidLayer, setIsValidLayer] = useState(false)
+    const { keyAnalysisRelativePeriod } = useSystemSettings()
+    const orgUnits = useOrgUnits()
 
-    const onValidateLayer = () => setIsValidLayer(true);
+    const onValidateLayer = () => setIsValidLayer(true)
 
-    const onLayerValidation = isValid => {
-        setIsValidLayer(false);
+    const onLayerValidation = (isValid) => {
+        setIsValidLayer(false)
         if (isValid) {
-            const { id, editCounter = 0 } = layer;
+            const { id, editCounter = 0 } = layer
 
-            setLayerLoading(id);
-
-            loadLayer({
+            const config = {
                 ...layer,
                 editCounter: editCounter + 1,
-            });
-            cancelLayer();
-        }
-    };
+                isLoaded: false,
+                isLoading: false,
+            }
 
-    if (!layer) {
-        return null;
+            if (id) {
+                updateLayer(config)
+            } else {
+                addLayer(config)
+            }
+
+            cancelLayer()
+        }
     }
 
-    const type = layer.layer;
-    const LayerDialog = layerType[type];
+    if (!layer) {
+        return null
+    }
+
+    const type = layer.layer
+    const LayerDialog = layerType[type]
 
     if (!LayerDialog) {
-        return null;
+        return null
     }
 
     // let name = layerName()[type] || layer.type;
-    let name = layer.type;
+    let name = layer.type
 
     if (type === EARTH_ENGINE_LAYER) {
-        name = layer.name; // .toLowerCase();
+        name = layer.name // .toLowerCase();
     }
 
     /*
@@ -88,7 +96,7 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
         : i18n.t('Add new {{name}} layer', { name });
     */
 
-    const title = i18n.t('{{name}} layer', { name });
+    const title = i18n.t('{{name}} layer', { name })
 
     return (
         <Modal position="middle" dataTest="layeredit">
@@ -98,6 +106,7 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
                     <LayerDialog
                         {...layer}
                         defaultPeriod={keyAnalysisRelativePeriod}
+                        orgUnits={orgUnits}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}
                     />
@@ -122,19 +131,19 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
                 </ButtonStrip>
             </ModalActions>
         </Modal>
-    );
-};
+    )
+}
 
 LayerEdit.propTypes = {
-    layer: PropTypes.object,
-    loadLayer: PropTypes.func.isRequired,
+    addLayer: PropTypes.func.isRequired,
     cancelLayer: PropTypes.func.isRequired,
-    setLayerLoading: PropTypes.func.isRequired,
-};
+    updateLayer: PropTypes.func.isRequired,
+    layer: PropTypes.object,
+}
 
 export default connect(
     ({ layerEdit }) => ({
         layer: layerEdit,
     }),
-    { loadLayer, cancelLayer, setLayerLoading }
-)(LayerEdit);
+    { addLayer, updateLayer, cancelLayer }
+)(LayerEdit)

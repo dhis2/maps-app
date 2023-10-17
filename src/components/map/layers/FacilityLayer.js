@@ -1,21 +1,23 @@
-import React from 'react';
-import i18n from '@dhis2/d2-i18n';
-import { isPlainObject } from 'lodash/fp';
-import Layer from './Layer';
-import Popup from '../Popup';
-import { filterData } from '../../../util/filter';
-import { getLabelStyle } from '../../../util/labels';
-import { getContrastColor } from '../../../util/colors';
+import i18n from '@dhis2/d2-i18n'
+import { isPlainObject } from 'lodash/fp'
+import React from 'react'
 import {
     ORG_UNIT_COLOR,
     GEOJSON_LAYER,
     GROUP_LAYER,
-} from '../../../constants/layers';
+    LABEL_TEMPLATE_NAME_ONLY,
+} from '../../../constants/layers.js'
+import { getContrastColor } from '../../../util/colors.js'
+import { filterData } from '../../../util/filter.js'
+import { getLabelStyle } from '../../../util/labels.js'
+import Popup from '../Popup.js'
+import Alert from './Alert.js'
+import Layer from './Layer.js'
 
 class FacilityLayer extends Layer {
     state = {
         popup: null,
-    };
+    }
 
     createLayer() {
         const {
@@ -31,15 +33,15 @@ class FacilityLayer extends Layer {
             associatedGeometries,
             organisationUnitColor: color = ORG_UNIT_COLOR,
             organisationUnitGroupSet,
-        } = this.props;
+        } = this.props
 
-        const filteredData = filterData(data, dataFilters);
+        const filteredData = filterData(data, dataFilters)
 
-        const map = this.context.map;
+        const map = this.context.map
 
         const strokeColor = organisationUnitGroupSet
             ? color
-            : getContrastColor(color);
+            : getContrastColor(color)
 
         const group = map.createLayer({
             type: GROUP_LAYER,
@@ -47,7 +49,7 @@ class FacilityLayer extends Layer {
             index,
             opacity,
             isVisible,
-        });
+        })
 
         // Create layer config object
         const config = {
@@ -60,19 +62,20 @@ class FacilityLayer extends Layer {
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
-        };
+            onError: this.onError.bind(this),
+        }
 
         // Labels and label style
         if (labels) {
-            config.label = '{name}';
+            config.label = LABEL_TEMPLATE_NAME_ONLY
             config.labelStyle = {
                 ...getLabelStyle(this.props),
                 paddingTop: '10px',
-            };
+            }
         }
 
         if (areaRadius) {
-            config.buffer = areaRadius;
+            config.buffer = areaRadius
         }
 
         if (associatedGeometries) {
@@ -86,22 +89,22 @@ class FacilityLayer extends Layer {
                 },
                 onClick: this.onAssociatedGeometryClick.bind(this),
                 onRightClick: this.onFeatureRightClick.bind(this),
-            });
+            })
         }
 
         // Create and add facility layer based on config object
-        group.addLayer(config);
-        this.layer = group;
-        map.addLayer(this.layer);
+        group.addLayer(config)
+        this.layer = group
+        map.addLayer(this.layer).catch(this.onError.bind(this))
 
         // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce();
+        this.fitBoundsOnce()
     }
 
     getPopup() {
-        const { coordinates, feature } = this.state.popup;
-        const { id, name, dimensions, pn } = feature.properties;
-        const { orgUnitFieldDisplayName } = this.props;
+        const { coordinates, feature } = this.state.popup
+        const { id, name, dimensions, pn } = feature.properties
+        const { orgUnitFieldDisplayName } = this.props
 
         return (
             <Popup
@@ -118,7 +121,7 @@ class FacilityLayer extends Layer {
                     <div>
                         {i18n.t('Groups')}:
                         {Object.keys(dimensions)
-                            .map(id => dimensions[id])
+                            .map((id) => dimensions[id])
                             .join(', ')}
                     </div>
                 )}
@@ -128,20 +131,33 @@ class FacilityLayer extends Layer {
                     </div>
                 )}
             </Popup>
-        );
+        )
     }
 
     render() {
-        return this.state.popup ? this.getPopup() : null;
+        const { popup, error } = this.state
+
+        return (
+            <>
+                {popup && this.getPopup()}
+                {error && (
+                    <Alert
+                        warning={true}
+                        message={error}
+                        onHidden={this.onErrorHidden.bind(this)}
+                    />
+                )}
+            </>
+        )
     }
 
     onFeatureClick(evt) {
-        this.setState({ popup: evt });
+        this.setState({ popup: evt })
     }
 
     onAssociatedGeometryClick(evt) {
-        this.setState({ popup: evt, isAssociatedGeometry: true });
+        this.setState({ popup: evt, isAssociatedGeometry: true })
     }
 }
 
-export default FacilityLayer;
+export default FacilityLayer

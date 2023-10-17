@@ -1,0 +1,23 @@
+.downloadSettingsPanel {
+    width: var(--left-panel-width);
+    overflow-y: auto;
+}
+
+.downloadSettings {
+    padding: var(--spacers-dp8) var(--spacers-dp16);
+    background-color: #f4f6f8;
+    color: #3e4a59;
+    height: 100%;
+}
+
+.content {
+    padding-bottom: var(--spacers-dp8);
+}
+
+.checkbox {
+    padding-bottom: var(--spacers-dp16);
+}
+
+.buttons {
+    padding-top: var(--spacers-dp16);
+}

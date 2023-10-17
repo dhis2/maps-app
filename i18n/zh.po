@@ -1,34 +1,31 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2021
 # 晓东 林 <13981924470@126.com>, 2022
-# phil_dhis2, 2022
-# easylin <lin_xd@126.com>, 2022
+# Philip Larsen Donnelly, 2022
+# Viktor Varland <viktor@dhis2.org>, 2023
+# easylin <lin_xd@126.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Maps"
-msgstr "地图"
+msgid "Untitled map, {{date}}"
+msgstr "无标题地图，{{date}}"
 
-msgid "Map \"{{name}}\" is saved."
-msgstr "地图“ {{name}}”已保存。"
+msgid "Map \"{{- name}}\" is saved."
+msgstr "地图“{{- name}}”已保存。"
 
-msgid "Failed to save map. {{message}}"
-msgstr "保存地图失败。{{message}}"
-
-msgid "Error"
-msgstr "错误"
+msgid "Failed to save map: {{message}}"
+msgstr "无法保存地图：{{message}}"
 
 msgid "Classification"
 msgstr "分类"
@@ -44,6 +41,18 @@ msgstr "颜色"
 
 msgid "Size"
 msgstr "大小"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Name and value"
+msgstr "名称和值"
+
+msgid "Value"
+msgstr "值"
+
+msgid "Display"
+msgstr "显示"
 
 msgid "Data element group"
 msgstr "数据元组"
@@ -63,23 +72,71 @@ msgstr "详情"
 msgid "Yes"
 msgstr "是"
 
+msgid "None"
+msgstr "无"
+
+msgid "Cascading"
+msgstr "级联"
+
 msgid "Event location"
 msgstr "事件位置"
+
+msgid "Enrollment location"
+msgstr "招生地点"
+
+msgid "Tracked entity location"
+msgstr "跟踪实体位置"
+
+msgid "Organisation unit location"
+msgstr "组织单位位置"
+
+msgid "Fallback coordinate field"
+msgstr "回退坐标字段"
 
 msgid "Coordinate field"
 msgstr "坐标字段"
 
-msgid "None"
-msgstr "无"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
 
-msgid "Data item"
-msgstr "数据条目"
+msgid "Event > org unit coordinate"
+msgstr "事件 > 组织单位坐标"
 
 msgid "Event data item"
 msgstr "事件数据条目"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr "所选值在列表中不可用：{{name}}"
+
 msgid "Style by data element"
 msgstr "按数据元风格显示"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "选择项目阶段后即可进行过滤。"
+
+msgid "Add filter"
+msgstr "添加过滤器"
+
+msgid "Data item"
+msgstr "数据条目"
+
+msgid "one of"
+msgstr "当中一个"
+
+msgid "contains"
+msgstr "包含"
+
+msgid "is"
+msgstr "是"
+
+msgid "is not"
+msgstr "不是"
+
+msgid "Operator"
+msgstr "操作符"
+
+msgid "Date"
+msgstr "日期"
 
 msgid "Data set"
 msgstr "数据集"
@@ -90,17 +147,11 @@ msgstr "索引"
 msgid "Org unit"
 msgstr "机构"
 
-msgid "Name"
-msgstr "名称"
-
 msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
 msgstr "事件时间"
-
-msgid "Value"
-msgstr "值"
 
 msgid "Legend"
 msgstr "图例"
@@ -120,9 +171,6 @@ msgstr "类型"
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "在服务器上对事件进行分组时，不支持数据表。"
 
-msgid "Add filter"
-msgstr "添加过滤器"
-
 msgid "Items"
 msgstr "条目"
 
@@ -132,14 +180,39 @@ msgstr "维"
 msgid "Download"
 msgstr "下载"
 
+msgid "Exit download mode"
+msgstr "退出下载模式"
+
 msgid "Download map"
 msgstr "下载地图"
 
-msgid "Show name"
-msgstr "显示名称"
+msgid "Show map name"
+msgstr "显示地图名称"
+
+msgid "Show map description"
+msgstr "显示地图说明"
+
+msgid "Description can be changed from File > Rename menu"
+msgstr "可以从“文件”>“重命名”菜单更改说明"
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr "保存地图时或从“文件”>“重命名”菜单中设置地图描述"
 
 msgid "Show legend"
 msgstr "显示图例"
+
+msgid "Show overview map"
+msgstr "显示概览图"
+
+msgid "Show north arrow"
+msgstr "显示指北针"
+
+msgid "Include margins in download"
+msgstr "在下载中包含边距"
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr "调整浏览器窗口大小以更改地图尺寸。"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -151,8 +224,8 @@ msgstr "取消"
 msgid "Close"
 msgstr "关闭"
 
-msgid "Legend position"
-msgstr "图例位置"
+msgid "No organisation units are selected"
+msgstr "没有选择机构"
 
 msgid "Organisation Units"
 msgstr "组织机构管理"
@@ -165,9 +238,6 @@ msgstr "点颜色"
 
 msgid "Point radius"
 msgstr "点半径"
-
-msgid "No organisation units are selected"
-msgstr "没有选择机构"
 
 msgid "event"
 msgstr "事件"
@@ -274,9 +344,6 @@ msgstr "机构"
 
 msgid "Filter"
 msgstr "过滤器"
-
-msgid "Events"
-msgstr "事件"
 
 msgid "Group events"
 msgstr "事件组"
@@ -409,25 +476,6 @@ msgstr "在地图中显示跟踪实体关系是一项实验性功能"
 msgid "Display Tracked Entity relationships"
 msgstr "显示跟踪实体关系"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr "包括将“ {{program}}”项目外部的实体连接起来的关系"
-
-msgid "Selection mode"
-msgstr "选择模式"
-
-msgid "Selected only"
-msgstr "仅选择"
-
-msgid "Selected and below"
-msgstr "选择的和下面的"
-
-msgid "Selected and all below"
-msgstr "选择的和所有下面的"
-
-msgid "Tracked entities"
-msgstr "跟踪的实体"
-
 msgid "Tracked entity style"
 msgstr "跟踪的实体风格"
 
@@ -440,53 +488,11 @@ msgstr "相关实体风格"
 msgid "Line Color"
 msgstr "线颜色"
 
-msgid "Failed to load relationship types."
-msgstr "载入关系类型失败"
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "跟踪的实体类型没有发现关系类型"
 
 msgid "Relationship type"
 msgstr "关系类型"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "DHIS2地图应用发生错误"
-
-msgid "Something went wrong"
-msgstr "出了些问题"
-
-msgid "Refresh to try again"
-msgstr "刷新后再试"
-
-msgid "Hide technical details"
-msgstr "隐藏技术细节"
-
-msgid "Show technical details"
-msgstr "显示技术细节"
-
-msgid "The following information may be requested by technical support."
-msgstr "下列信息可能技术支持需要"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "选择项目阶段后即可进行过滤。"
-
-msgid "one of"
-msgstr "当中一个"
-
-msgid "contains"
-msgstr "包含"
-
-msgid "is"
-msgstr "是"
-
-msgid "is not"
-msgstr "不是"
-
-msgid "Operator"
-msgstr "操作符"
-
-msgid "Date"
-msgstr "日期"
 
 msgid "Remove filter"
 msgstr "移除过滤器"
@@ -502,9 +508,6 @@ msgstr "按组集设置样式"
 
 msgid "Indicator group"
 msgstr "指标组"
-
-msgid "Interpretations"
-msgstr "注释"
 
 msgid "Collapse"
 msgstr "折叠"
@@ -529,14 +532,14 @@ msgid ""
 "Desktop."
 msgstr "大多数GIS软件（包括QGIS和ArcGIS Desktop）都支持GeoJSON。"
 
-msgid "Data download failed."
-msgstr "下载数据失败"
-
 msgid "ID Format"
 msgstr "ID格式"
 
 msgid "Use human-readable keys"
 msgstr "使用人机可读的键值"
+
+msgid "Data download failed."
+msgstr "下载数据失败"
 
 msgid "External layer"
 msgstr "外部图层"
@@ -558,6 +561,9 @@ msgstr "切换可视性"
 
 msgid "Set layer opacity"
 msgstr "设置图层透明性"
+
+msgid "Toggle layer menu"
+msgstr "切换图层菜单"
 
 msgid "More actions"
 msgstr "更多操作"
@@ -610,8 +616,14 @@ msgstr "经度"
 msgid "Latitude"
 msgstr "纬度"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr "无法添加底图：{{message}}"
+
 msgid "Not set"
 msgstr "没有设置"
+
+msgid "Could not retrieve event data"
+msgstr "无法检索事件数据"
 
 msgid "Organisation unit"
 msgstr "组织机构"
@@ -722,14 +734,14 @@ msgid ""
 " is {{max}}."
 msgstr "该数据元素的选项太多（{{length}}）。样式的最大选项为{{max}}。"
 
-msgid "No data found for this period."
-msgstr "在该期间没有找到数据"
-
 msgid "Use associated geometry"
 msgstr "使用相关的几何坐标"
 
-msgid "Select groups"
-msgstr "选择组"
+msgid "None (default)"
+msgstr "无（默认）"
+
+msgid "No data found for this period."
+msgstr "在该期间没有找到数据"
 
 msgid "Image of the organisation unit"
 msgstr "组织机构图像"
@@ -770,49 +782,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "评论"
 
-msgid "Select levels"
-msgstr "选择等级"
-
 msgid "Organisation unit profile"
 msgstr "组织机构简介"
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr "不能合并用户组织机构，选择单个单位。"
+msgid "Selected only"
+msgstr "仅选择"
 
-msgid "user organisation unit"
-msgstr "用户所在的机构"
+msgid "Selected and below"
+msgstr "选择的和下面的"
 
-msgid "right below user organisation unit"
-msgstr "用户所在机构的直接下属"
+msgid "Selected and all below"
+msgstr "选择的和所有下面的"
 
-msgid "two levels below user organisation unit"
-msgstr "用户所在机构的二级下属机构"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{orgunits}}中的{{units}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{orgunits}}中及其下方的{{units}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{orgunits}}及以下所有{{units}}"
-
-msgid "Selected organisation units"
-msgstr "已选组织机构"
-
-msgid "Main"
-msgstr "主要"
-
-msgid "Below"
-msgstr "下面"
-
-msgid "2 x below"
-msgstr "2 x以下"
-
-msgid "User organisation units"
-msgstr "用户机构"
+msgid "Selection mode"
+msgstr "选择模式"
 
 msgid "Previous year"
 msgstr "前年"
@@ -1277,6 +1260,9 @@ msgstr "错误: {{message}}"
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
 
+msgid "The event filter is not supported"
+msgstr "不支持事件过滤器"
+
 msgid "An unknown error occurred while reading layer data"
 msgstr "读取图层数据时发生未知错误"
 
@@ -1298,6 +1284,9 @@ msgstr "机构设施：未找到坐标"
 msgid "Organisation units"
 msgstr "组织机构"
 
+msgid "Error"
+msgstr "错误"
+
 msgid "Thematic layer"
 msgstr "专题层"
 
@@ -1315,6 +1304,12 @@ msgstr "相关的"
 
 msgid "Thematic"
 msgstr "专题图"
+
+msgid "Events"
+msgstr "事件"
+
+msgid "Tracked entities"
+msgstr "跟踪的实体"
 
 msgid "Org units"
 msgstr "组织机构"

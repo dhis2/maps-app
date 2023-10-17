@@ -1,8 +1,8 @@
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 
-export const EVENT_STATUS_ALL = 'ALL';
-export const EVENT_STATUS_ACTIVE = 'ACTIVE';
-export const EVENT_STATUS_COMPLETED = 'COMPLETED';
+export const EVENT_STATUS_ALL = 'ALL'
+export const EVENT_STATUS_ACTIVE = 'ACTIVE'
+export const EVENT_STATUS_COMPLETED = 'COMPLETED'
 
 export const getEventStatuses = () => [
     {
@@ -17,4 +17,4 @@ export const getEventStatuses = () => [
         id: EVENT_STATUS_COMPLETED,
         name: i18n.t('Completed'),
     },
-];
+]

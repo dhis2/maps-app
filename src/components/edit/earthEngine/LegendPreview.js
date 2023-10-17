@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import LegendItem from '../../legend/LegendItem';
-import { createLegend } from '../../../loaders/earthEngineLoader';
-import styles from '../styles/LayerDialog.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { createLegend } from '../../../loaders/earthEngineLoader.js'
+import LegendItem from '../../legend/LegendItem.js'
+import styles from '../styles/LayerDialog.module.css'
 
 const paramsAreValid = ({ min, max }) =>
-    !Number.isNaN(min) && !Number.isNaN(max) && max > min;
+    !Number.isNaN(min) && !Number.isNaN(max) && max > min
 
 const LegendPreview = ({ params }) => {
-    const legend = paramsAreValid(params) && createLegend(params);
+    const legend = paramsAreValid(params) && createLegend(params)
 
     return legend ? (
         <div className={styles.flexColumn}>
@@ -24,15 +24,15 @@ const LegendPreview = ({ params }) => {
                 </table>
             </div>
         </div>
-    ) : null;
-};
+    ) : null
+}
 
 LegendPreview.propTypes = {
     params: PropTypes.shape({
-        min: PropTypes.number.isRequired,
         max: PropTypes.number.isRequired,
+        min: PropTypes.number.isRequired,
         palette: PropTypes.string.isRequired,
     }),
-};
+}
 
-export default LegendPreview;
+export default LegendPreview

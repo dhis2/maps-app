@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Checkbox as UiCheckbox } from '@dhis2/ui';
-import cx from 'classnames';
-import styles from './styles/Checkbox.module.css';
+import { Checkbox as UiCheckbox, Tooltip, IconInfo16 } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/Checkbox.module.css'
 
 // Wrapper around @dhis2/ui checkbox for unified handling and styling
 const Checkbox = ({
@@ -10,6 +10,7 @@ const Checkbox = ({
     checked = false,
     disabled,
     dense = true,
+    tooltip,
     onChange,
     className,
 }) => (
@@ -21,16 +22,22 @@ const Checkbox = ({
             disabled={disabled}
             onChange={({ checked }) => onChange(checked)}
         />
+        {tooltip && (
+            <Tooltip content={tooltip}>
+                <IconInfo16 />
+            </Tooltip>
+        )}
     </div>
-);
+)
 
 Checkbox.propTypes = {
-    label: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     checked: PropTypes.bool,
+    className: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    className: PropTypes.string,
-};
+    label: PropTypes.string,
+    tooltip: PropTypes.string,
+}
 
-export default Checkbox;
+export default Checkbox

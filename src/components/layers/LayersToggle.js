@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui';
-import { openLayersPanel, closeLayersPanel } from '../../actions/ui';
-import styles from './styles/LayersToggle.module.css';
+import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { openLayersPanel, closeLayersPanel } from '../../actions/ui.js'
+import styles from './styles/LayersToggle.module.css'
 
-// This expand/collapse toggle is separate from LayersPanel to avoid overflow issue
 const LayersToggle = ({
     isOpen,
     isDownload,
@@ -15,24 +15,23 @@ const LayersToggle = ({
     !isDownload && (
         <div
             onClick={isOpen ? closeLayersPanel : openLayersPanel}
-            className={styles.layersToggle}
-            style={isOpen ? {} : { left: 0 }}
+            className={cx(styles.layersToggle, { [styles.collapsed]: !isOpen })}
         >
             {isOpen ? <IconChevronLeft24 /> : <IconChevronRight24 />}
         </div>
-    );
+    )
 
 LayersToggle.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    isDownload: PropTypes.bool.isRequired,
-    openLayersPanel: PropTypes.func.isRequired,
     closeLayersPanel: PropTypes.func.isRequired,
-};
+    isDownload: PropTypes.bool.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    openLayersPanel: PropTypes.func.isRequired,
+}
 
 export default connect(
-    state => ({
+    (state) => ({
         isOpen: state.ui.layersPanelOpen,
-        isDownload: state.download.showDialog,
+        isDownload: state.download.downloadMode,
     }),
     { openLayersPanel, closeLayersPanel }
-)(LayersToggle);
+)(LayersToggle)

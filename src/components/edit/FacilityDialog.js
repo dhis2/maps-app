@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField, ColorPicker } from '../core';
-import OrgUnitTree from '../orgunits/OrgUnitTree';
-import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
-import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
-import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import OrgUnitFieldSelect from '../orgunits/OrgUnitFieldSelect';
-import Labels from './shared/Labels';
-import BufferRadius from './shared/BufferRadius';
-import StyleByGroupSet from '../groupSet/StyleByGroupSet';
+import { useDataQuery } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import {
+    setOrgUnits,
+    setRadiusLow,
+    setOrganisationUnitGroupSet,
+    setOrganisationUnitColor,
+} from '../../actions/layerEdit.js'
 import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS,
@@ -19,257 +17,157 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
     NONE,
-} from '../../constants/layers';
-import styles from './styles/LayerDialog.module.css';
+} from '../../constants/layers.js'
+import { getOrgUnitsFromRows } from '../../util/analytics.js'
+import { Tab, Tabs, NumberField, ColorPicker } from '../core/index.js'
+import StyleByGroupSet from '../groupSet/StyleByGroupSet.js'
+import OrgUnitSelect from '../orgunits/OrgUnitSelect.js'
+import BufferRadius from './shared/BufferRadius.js'
+import Labels from './shared/Labels.js'
+import styles from './styles/LayerDialog.module.css'
 
-import {
-    setOrgUnitLevels,
-    setOrgUnitGroups,
-    setUserOrgUnits,
-    toggleOrgUnit,
-    setRadiusLow,
-    setOrganisationUnitGroupSet,
-    setOrganisationUnitColor,
-} from '../../actions/layerEdit';
+const QUERY = {
+    configuration: {
+        resource: 'configuration',
+    },
+}
 
-import {
-    getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
-    getOrgUnitLevelsFromRows,
-    getOrgUnitGroupsFromRows,
-    getUserOrgUnitsFromRows,
-} from '../../util/analytics';
+const ORGUNITS_TAB = 'orgunits'
 
-import { fetchFacilityConfigurations } from '../../util/orgUnits';
+const FacilityDialog = ({
+    rows = [],
+    radiusLow,
+    organisationUnitColor,
+    organisationUnitGroupSet,
+    orgUnitField,
+    id,
+    validateLayer,
+    onLayerValidation,
+}) => {
+    const [tab, setTab] = useState(ORGUNITS_TAB)
+    const [orgUnitsError, setOrgUnitsError] = useState()
+    const { data } = useDataQuery(QUERY)
+    const dispatch = useDispatch()
 
-class FacilityDialog extends Component {
-    static propTypes = {
-        id: PropTypes.string,
-        rows: PropTypes.array,
-        radiusLow: PropTypes.number,
-        organisationUnitColor: PropTypes.string,
-        organisationUnitGroupSet: PropTypes.object,
-        orgUnitField: PropTypes.string,
-        setOrgUnitLevels: PropTypes.func.isRequired,
-        setOrgUnitGroups: PropTypes.func.isRequired,
-        setUserOrgUnits: PropTypes.func.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
-        setRadiusLow: PropTypes.func.isRequired,
-        setOrganisationUnitGroupSet: PropTypes.func.isRequired,
-        setOrganisationUnitColor: PropTypes.func.isRequired,
-        onLayerValidation: PropTypes.func.isRequired,
-        validateLayer: PropTypes.bool.isRequired,
-    };
+    const facilityOrgUnitLevel = data?.configuration.facilityOrgUnitLevel
+    const facilityOrgUnitGroupSet = data?.configuration.facilityOrgUnitGroupSet
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            tab: 'orgunits',
-        };
-    }
+    const orgUnits = getOrgUnitsFromRows(rows)
 
-    componentDidMount() {
-        fetchFacilityConfigurations().then(config => this.setState(config));
-    }
+    const hasOrgUnits = useCallback(() => {
+        if (!orgUnits.length) {
+            setTab(ORGUNITS_TAB)
+            setOrgUnitsError(i18n.t('No organisation units are selected'))
+            return false
+        }
 
-    componentDidUpdate(prevProps, prevState) {
-        const {
-            id,
-            rows,
-            setOrgUnitLevels,
-            organisationUnitGroupSet,
-            setOrganisationUnitGroupSet,
-            validateLayer,
-            onLayerValidation,
-        } = this.props;
+        return true
+    }, [orgUnits])
 
-        const { facilityOrgUnitLevel, facilityOrgUnitGroupSet } = this.state;
+    useEffect(() => {
+        if (validateLayer) {
+            onLayerValidation(hasOrgUnits())
+        }
+    }, [validateLayer, onLayerValidation, hasOrgUnits])
 
-        // If new layer
+    useEffect(() => {
         if (!id) {
             // Set default org unit level
-            if (
-                !getOrgUnitsFromRows(rows).length &&
-                facilityOrgUnitLevel &&
-                !prevState.facilityOrgUnitLevel
-            ) {
-                setOrgUnitLevels([facilityOrgUnitLevel.id]);
+            if (facilityOrgUnitLevel) {
+                const { id, name } = facilityOrgUnitLevel
+
+                dispatch(
+                    setOrgUnits({
+                        dimension: 'ou',
+                        items: [{ id: `LEVEL-${id}`, name }],
+                    })
+                )
             }
 
             // Set default org unit group set
-            if (
-                !organisationUnitGroupSet &&
-                facilityOrgUnitGroupSet &&
-                !prevState.facilityOrgUnitGroupSet
-            ) {
-                // setOrganisationUnitGroupSet(facilityOrgUnitGroupSet);
+            if (facilityOrgUnitGroupSet) {
+                dispatch(setOrganisationUnitGroupSet(facilityOrgUnitGroupSet))
             }
         }
+    }, [id, facilityOrgUnitLevel, facilityOrgUnitGroupSet, dispatch])
 
-        if (validateLayer && validateLayer !== prevProps.validateLayer) {
-            onLayerValidation(this.validate());
-        }
-    }
+    const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
 
-    render() {
-        const {
-            rows = [],
-            radiusLow,
-            organisationUnitColor,
-            organisationUnitGroupSet,
-            orgUnitField,
-            setOrgUnitLevels,
-            setOrgUnitGroups,
-            setUserOrgUnits,
-            toggleOrgUnit,
-            setRadiusLow,
-            setOrganisationUnitColor,
-        } = this.props;
-
-        const { tab, orgUnitsError } = this.state;
-
-        const orgUnits = getOrgUnitsFromRows(rows);
-        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
-        const hasUserOrgUnits = !!selectedUserOrgUnits.length;
-        const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
-
-        return (
-            <div className={styles.content} data-test="facilitydialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
-                    <Tab value="style">{i18n.t('Style')}</Tab>
-                </Tabs>
-                <div className={styles.tabContent}>
-                    {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="facilitydialog-orgunitstab"
-                        >
-                            <div className={styles.orgUnitTree}>
-                                <OrgUnitTree
-                                    selected={getOrgUnitNodesFromRows(rows)}
-                                    onClick={toggleOrgUnit}
-                                    disabled={hasUserOrgUnits}
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <OrgUnitLevelSelect
-                                    orgUnitLevel={getOrgUnitLevelsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitLevels}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <OrgUnitGroupSelect
-                                    orgUnitGroup={getOrgUnitGroupsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitGroups}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <UserOrgUnitsSelect
-                                    selected={selectedUserOrgUnits}
-                                    onChange={setUserOrgUnits}
-                                />
-                                <OrgUnitFieldSelect />
-                                {!orgUnits.length && orgUnitsError && (
-                                    <div className={styles.error}>
-                                        {orgUnitsError}
-                                    </div>
-                                )}
-                            </div>
+    return (
+        <div className={styles.content} data-test="facilitydialog">
+            <Tabs value={tab} onChange={setTab}>
+                <Tab value={ORGUNITS_TAB}>{i18n.t('Organisation Units')}</Tab>
+                <Tab value="style">{i18n.t('Style')}</Tab>
+            </Tabs>
+            <div className={styles.tabContent}>
+                {tab === ORGUNITS_TAB && (
+                    <OrgUnitSelect warning={orgUnitsError} />
+                )}
+                {tab === 'style' && (
+                    <div
+                        className={styles.flexColumnFlow}
+                        data-test="facilitydialog-styletab"
+                    >
+                        <div className={styles.flexColumn}>
+                            <Labels />
+                            <BufferRadius
+                                defaultRadius={FACILITY_BUFFER}
+                                hasOrgUnitField={hasOrgUnitField}
+                            />
                         </div>
-                    )}
-                    {tab === 'style' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="facilitydialog-styletab"
-                        >
-                            <div className={styles.flexColumn}>
-                                <Labels />
-                                <BufferRadius
-                                    defaultRadius={FACILITY_BUFFER}
-                                    hasOrgUnitField={hasOrgUnitField}
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <StyleByGroupSet
-                                    defaultStyleType={STYLE_TYPE_SYMBOL}
-                                />
-                                {!organisationUnitGroupSet && (
-                                    <>
-                                        <ColorPicker
-                                            label={i18n.t('Point color')}
-                                            color={
-                                                organisationUnitColor ||
-                                                ORG_UNIT_COLOR
-                                            }
-                                            onChange={setOrganisationUnitColor}
-                                            className={styles.narrowField}
-                                        />
-                                        <NumberField
-                                            label={i18n.t('Point radius')}
-                                            value={
-                                                radiusLow !== undefined
-                                                    ? radiusLow
-                                                    : ORG_UNIT_RADIUS
-                                            }
-                                            min={MIN_RADIUS}
-                                            max={MAX_RADIUS}
-                                            onChange={setRadiusLow}
-                                            disabled={
-                                                !!organisationUnitGroupSet
-                                            }
-                                            className={styles.narrowFieldIcon}
-                                        />
-                                    </>
-                                )}
-                            </div>
+                        <div className={styles.flexColumn}>
+                            <StyleByGroupSet
+                                defaultStyleType={STYLE_TYPE_SYMBOL}
+                            />
+                            {!organisationUnitGroupSet && (
+                                <>
+                                    <ColorPicker
+                                        label={i18n.t('Point color')}
+                                        color={
+                                            organisationUnitColor ||
+                                            ORG_UNIT_COLOR
+                                        }
+                                        onChange={(val) =>
+                                            dispatch(
+                                                setOrganisationUnitColor(val)
+                                            )
+                                        }
+                                        className={styles.narrowField}
+                                    />
+                                    <NumberField
+                                        label={i18n.t('Point radius')}
+                                        value={
+                                            radiusLow !== undefined
+                                                ? radiusLow
+                                                : ORG_UNIT_RADIUS
+                                        }
+                                        min={MIN_RADIUS}
+                                        max={MAX_RADIUS}
+                                        onChange={(val) =>
+                                            dispatch(setRadiusLow(val))
+                                        }
+                                        disabled={!!organisationUnitGroupSet}
+                                        className={styles.narrowFieldIcon}
+                                    />
+                                </>
+                            )}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
-        );
-    }
-
-    // TODO: Add to parent class?
-    setErrorState(key, message, tab) {
-        this.setState({
-            [key]: message,
-            tab,
-        });
-
-        return false;
-    }
-
-    validate() {
-        const { rows } = this.props;
-
-        if (!getOrgUnitsFromRows(rows).length) {
-            return this.setErrorState(
-                'orgUnitsError',
-                i18n.t('No organisation units are selected'),
-                'orgunits'
-            );
-        }
-
-        return true;
-    }
+        </div>
+    )
 }
 
-export default connect(
-    null,
-    {
-        setOrgUnitLevels,
-        setOrgUnitGroups,
-        setUserOrgUnits,
-        toggleOrgUnit,
-        setRadiusLow,
-        setOrganisationUnitGroupSet,
-        setOrganisationUnitColor,
-    },
-    null,
-    {
-        forwardRef: true,
-    }
-)(FacilityDialog);
+FacilityDialog.propTypes = {
+    validateLayer: PropTypes.bool.isRequired,
+    onLayerValidation: PropTypes.func.isRequired,
+    id: PropTypes.string,
+    orgUnitField: PropTypes.string,
+    organisationUnitColor: PropTypes.string,
+    organisationUnitGroupSet: PropTypes.object,
+    radiusLow: PropTypes.number,
+    rows: PropTypes.array,
+}
+
+export default FacilityDialog

@@ -2,35 +2,42 @@
 # Translators:
 # Sheila André <sandre@saudigitus.org>, 2020
 # Ge Joao <gsimango@saudigitus.org>, 2021
-# phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
+# Philip Larsen Donnelly, 2021
 # Fernando Jorge Bade, 2021
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
+# Viktor Varland <viktor@dhis2.org>, 2023
+# David Júnior <davidjr.mondlane@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022\n"
-"Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
+"Last-Translator: David Júnior <davidjr.mondlane@gmail.com>, 2023\n"
+"Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-msgid "Maps"
-msgstr "Mapas"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "O mapa \"{{name}}\" é salvo."
-
-msgid "Failed to save map. {{message}}"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Error"
-msgstr "Erro"
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
 
 msgid "Classification"
 msgstr "Classificação"
@@ -46,6 +53,18 @@ msgstr "Cor"
 
 msgid "Size"
 msgstr "Tamanho"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "Display"
+msgstr "Exibir"
 
 msgid "Data element group"
 msgstr "Grupo de Elemento de Dados"
@@ -65,23 +84,71 @@ msgstr "Detalhes"
 msgid "Yes"
 msgstr "Sim"
 
+msgid "None"
+msgstr "Nenhum"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Localização do evento "
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Campo de coordenadas"
 
-msgid "None"
-msgstr "Nenhum"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Item de dados"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Item de dados do evento"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr "Estilo por elemento de dados"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "A filtragem está disponível após a seleção de um estágio do programa."
+
+msgid "Add filter"
+msgstr "Adicionar filtros"
+
+msgid "Data item"
+msgstr "Item de dados"
+
+msgid "one of"
+msgstr "um de"
+
+msgid "contains"
+msgstr "contém"
+
+msgid "is"
+msgstr "é"
+
+msgid "is not"
+msgstr "não é"
+
+msgid "Operator"
+msgstr "Operador"
+
+msgid "Date"
+msgstr "Data"
 
 msgid "Data set"
 msgstr "Ficha"
@@ -92,17 +159,11 @@ msgstr "Indice "
 msgid "Org unit"
 msgstr "Unidade organizacional"
 
-msgid "Name"
-msgstr "Nome"
-
 msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
 msgstr "Hora do evento"
-
-msgid "Value"
-msgstr "Valor"
 
 msgid "Legend"
 msgstr "Legenda"
@@ -124,9 +185,6 @@ msgstr ""
 "A tabela de dados não é suportada quando os eventos são agrupados no "
 "servidor."
 
-msgid "Add filter"
-msgstr "Adicionar filtros"
-
 msgid "Items"
 msgstr "Itens"
 
@@ -136,14 +194,39 @@ msgstr "Dimensão"
 msgid "Download"
 msgstr "Descarregar"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "Baixar mapas "
 
-msgid "Show name"
-msgstr "Mostrar nome "
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "Mostrar legenda "
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -157,8 +240,8 @@ msgstr "Cancelar"
 msgid "Close"
 msgstr "Fechar"
 
-msgid "Legend position"
-msgstr "Posição da legenda"
+msgid "No organisation units are selected"
+msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "Organisation Units"
 msgstr "Unidades Organizacionais"
@@ -171,9 +254,6 @@ msgstr ""
 
 msgid "Point radius"
 msgstr "Raio do ponto"
-
-msgid "No organisation units are selected"
-msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "event"
 msgstr "Evento"
@@ -206,9 +286,6 @@ msgid "Add layer"
 msgstr "Adicionar camada"
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -283,9 +360,6 @@ msgstr ""
 
 msgid "Filter"
 msgstr "Filtro"
-
-msgid "Events"
-msgstr "Eventos"
 
 msgid "Group events"
 msgstr "Grupo de eventos "
@@ -373,6 +447,9 @@ msgstr "O item de dados do evento é obrigatório"
 msgid "Program indicator is required"
 msgstr "Indicador de programa é necessário"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Período é obrigatório"
 
@@ -387,6 +464,9 @@ msgstr "Itens de dados do evento"
 
 msgid "Program indicators"
 msgstr "Indicador do programa"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Tipo de item"
@@ -426,25 +506,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr "Exibir relacionamentos de entidade rastreada"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-
-msgid "Selection mode"
-msgstr "Modo de seleção"
-
-msgid "Selected only"
-msgstr "Apenas selecionados"
-
-msgid "Selected and below"
-msgstr "Selecionado e abaixo"
-
-msgid "Selected and all below"
-msgstr "Selecionado e tudo abaixo"
-
-msgid "Tracked entities"
-msgstr "Entidades rastreadas"
-
 msgid "Tracked entity style"
 msgstr "Estilo de entidade rastreada"
 
@@ -457,9 +518,6 @@ msgstr "Estilo da entidade relacionada"
 msgid "Line Color"
 msgstr "Cor da linha "
 
-msgid "Failed to load relationship types."
-msgstr "Falha ao carregar os tipos de relacionamento."
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 "Nenhum tipo de relacionamento foi encontrado para o tipo de entidade "
@@ -467,45 +525,6 @@ msgstr ""
 
 msgid "Relationship type"
 msgstr "Tipo de Relação"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "Ocorreu um erro no aplicativo DHIS2 Maps."
-
-msgid "Something went wrong"
-msgstr "Ocorreu algo de errado"
-
-msgid "Refresh to try again"
-msgstr "Actualize para tentar novamente"
-
-msgid "Hide technical details"
-msgstr "Ocultar detalhes técnicos"
-
-msgid "Show technical details"
-msgstr "Mostrar detalhes tecnicos "
-
-msgid "The following information may be requested by technical support."
-msgstr "As informações a seguir podem ser solicitadas pelo suporte técnico."
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "A filtragem está disponível após a seleção de um estágio do programa."
-
-msgid "one of"
-msgstr "um de"
-
-msgid "contains"
-msgstr "contém"
-
-msgid "is"
-msgstr "é"
-
-msgid "is not"
-msgstr "não é"
-
-msgid "Operator"
-msgstr "Operador"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Remove filter"
 msgstr "Remover filtro "
@@ -521,9 +540,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "Grupo de Indicador"
-
-msgid "Interpretations"
-msgstr "Interpretações"
 
 msgid "Collapse"
 msgstr "colapsar"
@@ -550,14 +566,14 @@ msgstr ""
 "O GeoJSON é suportado pela maioria dos softwares GIS, incluindo QGIS e "
 "ArcGIS Desktop."
 
-msgid "Data download failed."
-msgstr "Falha na transferência dos dados."
-
 msgid "ID Format"
 msgstr "Formato de identificação"
 
 msgid "Use human-readable keys"
 msgstr "Use chaves legíveis por humanos"
+
+msgid "Data download failed."
+msgstr "Falha na transferência dos dados."
 
 msgid "External layer"
 msgstr "Camada externa"
@@ -580,6 +596,9 @@ msgstr "Alternar visibilidade"
 
 msgid "Set layer opacity"
 msgstr "Definir opacidade da camada"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "Mais acções"
@@ -632,8 +651,14 @@ msgstr "Longitude"
 msgid "Latitude"
 msgstr "Latitude"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Não definido"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Unidade organizacional"
@@ -747,14 +772,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr "Não foram encontrados dados para este período."
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "Selecionar grupos"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "Não foram encontrados dados para este período."
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -775,7 +800,7 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Link"
-msgstr ""
+msgstr "Ligação"
 
 msgid "Contact"
 msgstr ""
@@ -795,51 +820,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "Comentário"
 
-msgid "Select levels"
-msgstr "Selecionar Nível"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr ""
-"Não é possível combinar unidades organizacionais do usuário e selecionar "
-"unidades individuais."
+msgid "Selected only"
+msgstr "Apenas selecionados"
 
-msgid "user organisation unit"
-msgstr "Unidades organizacionais do usuário"
+msgid "Selected and below"
+msgstr "Selecionado e abaixo"
 
-msgid "right below user organisation unit"
-msgstr "logo abaixo da unidade  organizacional do usuário"
+msgid "Selected and all below"
+msgstr "Selecionado e tudo abaixo"
 
-msgid "two levels below user organisation unit"
-msgstr "dois níveis abaixo da unidade organizacional do usuário"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{units}} em {{orgunits}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{units}} dentro e logo abaixo {{orgunits}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{units}} dentro e abaixo de {{orgunits}}"
-
-msgid "Selected organisation units"
-msgstr "Unidades organizacionais selecionadas"
-
-msgid "Main"
-msgstr "Menu"
-
-msgid "Below"
-msgstr "Abaixo "
-
-msgid "2 x below"
-msgstr "2 x a baixo "
-
-msgid "User organisation units"
-msgstr "Unidades organizacionais do usuário"
+msgid "Selection mode"
+msgstr "Modo de seleção"
 
 msgid "Previous year"
 msgstr "Ano anterior"
@@ -1311,6 +1305,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr ""
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
@@ -1332,6 +1329,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Unidades organizacionais"
 
+msgid "Error"
+msgstr "Erro"
+
 msgid "Thematic layer"
 msgstr "Camada temática"
 
@@ -1349,6 +1349,12 @@ msgstr "Relacionado "
 
 msgid "Thematic"
 msgstr "Temático"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "Tracked entities"
+msgstr "Entidades rastreadas"
 
 msgid "Org units"
 msgstr "Unidades organizacionais"

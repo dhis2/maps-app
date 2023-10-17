@@ -1,66 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Plugin from '../plugin/Plugin';
-import { getPeriodFromFilters } from '../../util/analytics';
-import { getRelativePeriods } from '../../util/periods';
-import { fetchLayer } from '../../loaders/layers';
-import styles from './styles/InterpretationMap.module.css';
+import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import useBasemapConfig from '../../hooks/useBasemapConfig.js'
+import { getPeriodFromFilters } from '../../util/analytics.js'
+import { getRelativePeriods } from '../../util/periods.js'
+import Map from '../plugin/Map.js'
+import styles from './styles/InterpretationMap.module.css'
 
 const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
-    const [mapViews, setMapViews] = useState();
+    const [mapViews, setMapViews] = useState()
+    const basemapConfig = useBasemapConfig(visualization.basemap)
 
     useEffect(() => {
         // Find layers with relative periods
         const relativePeriodLayers = visualization.mapViews
-            .filter(config => {
-                const period = getPeriodFromFilters(config.filters);
+            .filter((config) => {
+                const period = getPeriodFromFilters(config.filters)
                 return (
-                    period && getRelativePeriods().find(p => p.id === period.id)
-                );
+                    period &&
+                    getRelativePeriods().find((p) => p.id === period.id)
+                )
             })
-            .map(layer => ({
+            .map((layer) => ({
                 ...layer,
                 ...filters, // includes relativePeriodDate
-            }));
+                isLoaded: false,
+            }))
 
         if (relativePeriodLayers.length) {
-            // Refetch all relative period layers using the relativePeriodDate date
-            Promise.all(relativePeriodLayers.map(fetchLayer)).then(mapViews => {
-                // Replace layers fetched and update state
-                setMapViews(
-                    visualization.mapViews.map(
-                        layer =>
-                            mapViews.find(
-                                relativeLayer => relativeLayer.id === layer.id
-                            ) || layer
-                    )
-                );
-            });
+            // Replace relative period layers and update state
+            setMapViews(
+                visualization.mapViews.map(
+                    (layer) =>
+                        relativePeriodLayers.find(
+                            (relativeLayer) => relativeLayer.id === layer.id
+                        ) || layer
+                )
+            )
         } else {
-            setMapViews(visualization.mapViews);
+            setMapViews(visualization.mapViews)
         }
-    }, [visualization, filters]);
+    }, [visualization, filters])
 
     useEffect(() => {
         if (mapViews) {
-            onResponsesReceived();
+            onResponsesReceived()
         }
-    }, [mapViews, onResponsesReceived]);
+    }, [mapViews, onResponsesReceived])
 
     return mapViews ? (
         <div className={styles.map}>
-            <Plugin {...visualization} mapViews={mapViews} />
+            <Map
+                {...visualization}
+                basemap={basemapConfig}
+                mapViews={mapViews}
+            />
         </div>
-    ) : null;
-};
+    ) : null
+}
 
 InterpretationMap.propTypes = {
     visualization: PropTypes.object.isRequired,
+    onResponsesReceived: PropTypes.func.isRequired,
+    className: PropTypes.string,
     filters: PropTypes.shape({
         relativePeriodDate: PropTypes.string.isRequired,
     }),
-    onResponsesReceived: PropTypes.func.isRequired,
-    className: PropTypes.string,
-};
+}
 
-export default InterpretationMap;
+export default InterpretationMap

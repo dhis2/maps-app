@@ -1,13 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import Drawer from '../core/Drawer';
-import BasemapCard from '../layers/basemaps/BasemapCard';
-import OverlayCard from './overlays/OverlayCard';
-import { sortLayers } from '../../actions/layers';
+import cx from 'classnames'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { SortableContainer, SortableElement } from 'react-sortable-hoc'
+import { sortLayers } from '../../actions/layers.js'
+import BasemapCard from '../layers/basemaps/BasemapCard.js'
+import LayersToggle from '../layers/LayersToggle.js'
+import OverlayCard from './overlays/OverlayCard.js'
+import styles from './styles/LayersPanel.module.css'
 
-const SortableLayer = SortableElement(OverlayCard);
+const SortableLayer = SortableElement(OverlayCard)
 
 // Draggable layers - last layer on top
 const SortableLayersList = SortableContainer(({ layers }) => (
@@ -16,31 +17,39 @@ const SortableLayersList = SortableContainer(({ layers }) => (
             <SortableLayer key={layer.id} index={index} layer={layer} />
         ))}
     </div>
-));
+))
 
-const LayersPanel = ({ layersPanelOpen, layers, sortLayers }) =>
-    layersPanelOpen && (
-        <Drawer position="left">
-            <SortableLayersList
-                layers={layers}
-                onSortEnd={sortLayers}
-                useDragHandle={true}
-            />
-            <div>
-                <BasemapCard />
+const LayersPanel = () => {
+    const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
+    const layers = useSelector((state) => [...state.map.mapViews].reverse())
+
+    const dispatch = useDispatch()
+
+    const onSort = () => dispatch(sortLayers())
+
+    return (
+        <div
+            className={cx(styles.layersPanel, {
+                [styles.collapsed]: !layersPanelOpen,
+            })}
+        >
+            <div className={styles.layersPanelInner}>
+                {layersPanelOpen ? (
+                    <>
+                        <SortableLayersList
+                            layers={layers}
+                            onSortEnd={onSort}
+                            useDragHandle={true}
+                        />
+                        <div>
+                            <BasemapCard />
+                        </div>
+                    </>
+                ) : null}
             </div>
-        </Drawer>
-    );
+            <LayersToggle />
+        </div>
+    )
+}
 
-LayersPanel.propTypes = {
-    layersPanelOpen: PropTypes.bool.isRequired,
-    layers: PropTypes.array.isRequired,
-    sortLayers: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-    layers: [...state.map.mapViews].reverse(),
-    layersPanelOpen: state.ui.layersPanelOpen,
-});
-
-export default connect(mapStateToProps, { sortLayers })(LayersPanel);
+export default LayersPanel

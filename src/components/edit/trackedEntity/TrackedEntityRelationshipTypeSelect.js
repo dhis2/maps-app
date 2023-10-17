@@ -1,93 +1,80 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { CircularLoader } from '@dhis2/ui';
-import { SelectField } from '../../core';
-import memoize from 'lodash/memoize';
-import { apiFetch } from '../../../util/api';
+import { useDataQuery } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
+import { CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useMemo } from 'react'
+import { SelectField } from '../../core/index.js'
 
-const fromIsTEI = type =>
-    type.fromConstraint.relationshipEntity === 'TRACKED_ENTITY_INSTANCE';
-const fromTEIType = type => type.fromConstraint.trackedEntityType.id;
-const filterRelationshipTypes = memoize((allTypes, trackedEntityTypeId) => {
-    return allTypes
-        .filter(type => {
-            return fromIsTEI(type) && fromTEIType(type) === trackedEntityTypeId;
-        })
-        .map(type => ({
-            id: type.id,
-            name: type.displayName,
-        }));
-});
+const RELATIONSHIP_TYPES_QUERY = {
+    relationshipTypes: {
+        resource: 'relationshipTypes',
+        params: {
+            fields: ['id', 'displayName~rename(name)', 'fromConstraint'],
+        },
+    },
+}
 
-class TrackedEntityRelationshipTypeSelect extends Component {
-    state = {
-        allTypes: null,
-        error: null,
-    };
+const TrackedEntityRelationshipTypeSelect = ({
+    trackedEntityType,
+    value,
+    onChange,
+    className,
+}) => {
+    const { loading, data, error } = useDataQuery(RELATIONSHIP_TYPES_QUERY)
 
-    componentDidMount() {
-        const url = `/relationshipTypes?fields=id,displayName,fromConstraint`;
-        apiFetch(url)
-            .then(response => {
-                this.setState({
-                    allTypes: response.relationshipTypes,
-                });
-            })
-            .catch(() => {
-                this.setState({
-                    error: i18n.t('Failed to load relationship types.'),
-                });
-            });
+    const types = useMemo(
+        () =>
+            data?.relationshipTypes.relationshipTypes.filter(
+                (type) =>
+                    type.fromConstraint.relationshipEntity ===
+                        'TRACKED_ENTITY_INSTANCE' &&
+                    type.fromConstraint.trackedEntityType.id ===
+                        trackedEntityType.id
+            ) || [],
+        [data, trackedEntityType.id]
+    )
+
+    if (loading) {
+        return <CircularLoader small />
+    } else if (error) {
+        return <span>{error.message}</span>
     }
 
-    render() {
-        if (!this.state.allTypes) {
-            return <CircularLoader small />;
-        } else if (this.state.error) {
-            return <span>{this.state.error}</span>;
-        }
-
-        const types = filterRelationshipTypes(
-            this.state.allTypes,
-            this.props.trackedEntityType.id
-        );
-        if (!types.length) {
-            return (
-                <div
-                    style={{
-                        fontSize: 14,
-                        marginLeft: 12,
-                    }}
-                >
-                    {i18n.t(
-                        'No relationship types were found for tracked entity type {{type}}',
-                        { type: this.props.trackedEntityType.name }
-                    )}
-                </div>
-            );
-        }
-
+    if (!types.length) {
         return (
-            <SelectField
-                label={i18n.t('Relationship type')}
-                items={types}
-                value={this.props.value}
-                onChange={type => this.props.onChange(type.id)}
-                className={this.props.className}
-            />
-        );
+            <div
+                style={{
+                    fontSize: 14,
+                    marginLeft: 12,
+                }}
+            >
+                {i18n.t(
+                    'No relationship types were found for tracked entity type {{type}}',
+                    { type: trackedEntityType.name }
+                )}
+            </div>
+        )
     }
+
+    return (
+        <SelectField
+            label={i18n.t('Relationship type')}
+            items={types}
+            value={value}
+            onChange={(type) => onChange(type.id)}
+            className={className}
+        />
+    )
 }
 
 TrackedEntityRelationshipTypeSelect.propTypes = {
-    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
     trackedEntityType: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     }),
-    onChange: PropTypes.func.isRequired,
-    className: PropTypes.string,
-};
+    value: PropTypes.string,
+}
 
-export default TrackedEntityRelationshipTypeSelect;
+export default TrackedEntityRelationshipTypeSelect

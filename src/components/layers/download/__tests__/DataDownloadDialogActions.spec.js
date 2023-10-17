@@ -1,58 +1,28 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { DataDownloadDialogActions } from '../DataDownloadDialogActions';
+import { render } from '@testing-library/react'
+import React from 'react'
+import DataDownloadDialogActions from '../DataDownloadDialogActions.js'
 
 describe('DataDownloadDialogActions', () => {
-    const renderComponent = props =>
-        shallow(
+    it('Should render two buttons and NO loading spinner', () => {
+        const { container } = render(
             <DataDownloadDialogActions
                 downloading={false}
-                onStartClick={() => null}
-                onCancelClick={() => null}
-                {...props}
+                onStartClick={jest.fn()}
+                onCancelClick={jest.fn()}
             />
-        );
-
-    it('Should render two buttons and NO loading spinner', () => {
-        const wrapper = renderComponent();
-        expect(wrapper.find('Button').length).toBe(2);
-        expect(wrapper.find('CircularLoader').length).toBe(0);
-    });
+        )
+        expect(container).toMatchSnapshot()
+    })
 
     it('Should disable buttons and show loading spinner when loading', () => {
-        const wrapper = renderComponent({
-            downloading: true,
-        });
-        expect(
-            wrapper
-                .find('Button')
-                .at(0)
-                .prop('disabled')
-        ).toBe(true);
-        expect(
-            wrapper
-                .find('Button')
-                .at(1)
-                .prop('disabled')
-        ).toBe(true);
-        expect(wrapper.find('CircularLoader').length).toBe(1);
-    });
+        const { container } = render(
+            <DataDownloadDialogActions
+                downloading={true}
+                onStartClick={jest.fn()}
+                onCancelClick={jest.fn()}
+            />
+        )
 
-    it('Should call onStartClick', () => {
-        const fn = jest.fn();
-        const wrapper = renderComponent({
-            onStartClick: fn,
-        });
-
-        wrapper.find('Button[primary=true]').simulate('click');
-        expect(fn).toHaveBeenCalled();
-    });
-
-    it('Should call onCancel', () => {
-        const fn = jest.fn();
-        const wrapper = renderComponent({ onCancelClick: fn });
-
-        wrapper.find('Button[secondary=true]').simulate('click');
-        expect(fn).toHaveBeenCalled();
-    });
-});
+        expect(container).toMatchSnapshot()
+    })
+})

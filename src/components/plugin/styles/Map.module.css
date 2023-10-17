@@ -1,0 +1,25 @@
+.map {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.map :global(.dhis2-map-legend) {
+    top: 10px;
+    left: 10px;
+    right: auto;
+    max-height: calc(100% - 20px);
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* Scrollbar handle */
+::-webkit-scrollbar-thumb {
+    background: #cbcdcf;
+    border-radius: 3px;
+}

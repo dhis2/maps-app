@@ -1,33 +1,39 @@
 # 
 # Translators:
-# phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
+# Philip Larsen Donnelly, 2021
 # Hamza Assada <7amza.it@gmail.com>, 2022
+# Viktor Varland <viktor@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-msgid "Maps"
-msgstr "الخرائط"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "تم حفظ الخريطة \"{{name}}\"."
-
-msgid "Failed to save map. {{message}}"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Error"
-msgstr "خطأ"
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
 
 msgid "Classification"
 msgstr "تصنيف"
@@ -43,6 +49,18 @@ msgstr "اللون"
 
 msgid "Size"
 msgstr "الحجم"
+
+msgid "Name"
+msgstr "الإسم"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "القيمة"
+
+msgid "Display"
+msgstr "العرض"
 
 msgid "Data element group"
 msgstr "مجموعة عناصر البيانات"
@@ -62,23 +80,71 @@ msgstr "التفاصيل"
 msgid "Yes"
 msgstr "نعم"
 
+msgid "None"
+msgstr "لا شيء"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "موقع الحدث"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "حقل الإحداثية"
 
-msgid "None"
-msgstr "لا شيء"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "عنصر بيانات"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "عنصر بيانات حدث"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
+
+msgid "Add filter"
+msgstr "إضافة عامل تصفية"
+
+msgid "Data item"
+msgstr "عنصر بيانات"
+
+msgid "one of"
+msgstr "واحد من"
+
+msgid "contains"
+msgstr "يحتوي على"
+
+msgid "is"
+msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
+
+msgid "is not"
+msgstr "ليس"
+
+msgid "Operator"
+msgstr "العامل"
+
+msgid "Date"
+msgstr "التاريخ"
 
 msgid "Data set"
 msgstr "حزمة البيانات"
@@ -89,17 +155,11 @@ msgstr "فهرس"
 msgid "Org unit"
 msgstr "الوحدة التنظيمية"
 
-msgid "Name"
-msgstr "الإسم"
-
 msgid "Id"
 msgstr "المعرف"
 
 msgid "Event time"
 msgstr "وقت الحدث"
-
-msgid "Value"
-msgstr "القيمة"
 
 msgid "Legend"
 msgstr "شروحات"
@@ -119,9 +179,6 @@ msgstr "النوع"
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "لا يتم دعم جدول البيانات عند تجميع الأحداث على الخادم."
 
-msgid "Add filter"
-msgstr "إضافة عامل تصفية"
-
 msgid "Items"
 msgstr "العناصر"
 
@@ -131,14 +188,39 @@ msgstr "البُعد"
 msgid "Download"
 msgstr "تحميل"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "تنزيل الخريطة"
 
-msgid "Show name"
-msgstr "عرض الإسم"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "إظهار المفاتيح الإيضاحية"
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -151,8 +233,8 @@ msgstr "إلغاء"
 msgid "Close"
 msgstr "إغلاق"
 
-msgid "Legend position"
-msgstr "موقع المفاتيح الإيضاحية"
+msgid "No organisation units are selected"
+msgstr "لم يتم تحديد أي وحدات تنظيمية"
 
 msgid "Organisation Units"
 msgstr "وحدات التنظيم"
@@ -165,9 +247,6 @@ msgstr "لون النقطة"
 
 msgid "Point radius"
 msgstr "نصف قطر النقطة"
-
-msgid "No organisation units are selected"
-msgstr "لم يتم تحديد أي وحدات تنظيمية"
 
 msgid "event"
 msgstr "حدث"
@@ -200,9 +279,6 @@ msgid "Add layer"
 msgstr "إضافة طبقة"
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -277,9 +353,6 @@ msgstr "الوحدات التنظيمية"
 
 msgid "Filter"
 msgstr "عامل التصفية"
-
-msgid "Events"
-msgstr "الأحداث"
 
 msgid "Group events"
 msgstr "تجميع الأحداث"
@@ -365,6 +438,9 @@ msgstr "عنصر بيانات الحدث مطلوب"
 msgid "Program indicator is required"
 msgstr "مؤشر البرنامج مطلوب"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "الفترة مطلوبة"
 
@@ -379,6 +455,9 @@ msgstr "عناصر بيانات الحدث"
 
 msgid "Program indicators"
 msgstr "مؤشرات البرنامج"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "نوع العنصر"
@@ -412,25 +491,6 @@ msgstr "يعد عرض علاقات الكيانات المتعقبة في الخ
 msgid "Display Tracked Entity relationships"
 msgstr "عرض علاقات الكيانات المتعقبة"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr "قم بتضمين العلاقات التي تربط الكيانات خارج برنامج \"{{program}}\""
-
-msgid "Selection mode"
-msgstr "وضح التحديد"
-
-msgid "Selected only"
-msgstr "المختارة فقط"
-
-msgid "Selected and below"
-msgstr "المختارة وما أدناها"
-
-msgid "Selected and all below"
-msgstr "المختارة وكل ماهو أدنى"
-
-msgid "Tracked entities"
-msgstr "الكيانات المتعقبة"
-
 msgid "Tracked entity style"
 msgstr ""
 
@@ -443,53 +503,11 @@ msgstr ""
 msgid "Line Color"
 msgstr "لون الخط"
 
-msgid "Failed to load relationship types."
-msgstr "فشل تحميل أنواع العلاقات."
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "لم يتم العثور على أنواع العلاقات لنوع الكيان المتعقب {{type}}"
 
 msgid "Relationship type"
 msgstr "نوع العلاقة"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "حدث خطأ في تطبيق خرائط DHIS2."
-
-msgid "Something went wrong"
-msgstr "هناك خطأ ما"
-
-msgid "Refresh to try again"
-msgstr "حدث للمحاولة مرة أخرى"
-
-msgid "Hide technical details"
-msgstr "إخفاء التفاصيل التقنية"
-
-msgid "Show technical details"
-msgstr "إظهار التفاصيل التقنية"
-
-msgid "The following information may be requested by technical support."
-msgstr "قد يتم طلب المعلومات التالية من قبل الدعم الفني."
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
-
-msgid "one of"
-msgstr "واحد من"
-
-msgid "contains"
-msgstr "يحتوي على"
-
-msgid "is"
-msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
-
-msgid "is not"
-msgstr "ليس"
-
-msgid "Operator"
-msgstr "العامل"
-
-msgid "Date"
-msgstr "التاريخ"
 
 msgid "Remove filter"
 msgstr "إزالة عامل التصفية"
@@ -505,9 +523,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
-
-msgid "Interpretations"
-msgstr "التفسيرات"
 
 msgid "Collapse"
 msgstr "انهيار"
@@ -533,14 +548,14 @@ msgid ""
 msgstr ""
 "يتم دعم GeoJSON بواسطة معظم برامج GIS ، بما في ذلك QGIS و ArcGIS Desktop."
 
-msgid "Data download failed."
-msgstr "فشل تنزيل البيانات."
-
 msgid "ID Format"
 msgstr "تنسيق ID"
 
 msgid "Use human-readable keys"
 msgstr "استخدم مفاتيح يمكن للبشر قراءتها"
+
+msgid "Data download failed."
+msgstr "فشل تنزيل البيانات."
 
 msgid "External layer"
 msgstr "طبقة خارحية"
@@ -562,6 +577,9 @@ msgstr ""
 
 msgid "Set layer opacity"
 msgstr "اضبط عتامة الطبقة"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "المزيد من الإجراءات"
@@ -614,8 +632,14 @@ msgstr "خط الطول"
 msgid "Latitude"
 msgstr "خط العرض"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "غير مضبوط"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "الوحدة التنظيمية"
@@ -728,14 +752,14 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr "لا توجد بيانات لهذه الفترة."
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "اختر المجموعات"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "لا توجد بيانات لهذه الفترة."
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -776,49 +800,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "تعليق"
 
-msgid "Select levels"
-msgstr "اختر المستويات"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr "لا يمكن الجمع بين الوحدات التنظيمية للمستخدم وتحديد الوحدات الفردية."
+msgid "Selected only"
+msgstr "المختارة فقط"
 
-msgid "user organisation unit"
-msgstr "الوحدة التنظيمية للمستخدم"
+msgid "Selected and below"
+msgstr "المختارة وما أدناها"
 
-msgid "right below user organisation unit"
-msgstr "أسفل وحدة تنظيم المستخدم مباشرة"
+msgid "Selected and all below"
+msgstr "المختارة وكل ماهو أدنى"
 
-msgid "two levels below user organisation unit"
-msgstr "مستويين أسفل وحدة تنظيم المستخدم"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{units}} في {{orgunits}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{units}} في {{orgunits}} وأسفلها تمامًا"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{units}} في وكل ما هو أسفل {{orgunits}}"
-
-msgid "Selected organisation units"
-msgstr "الوحدات التنظيمية المحددة"
-
-msgid "Main"
-msgstr "الأساسية"
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
-msgid "User organisation units"
-msgstr "الوحدة التنظيمية للمستخدم"
+msgid "Selection mode"
+msgstr "وضح التحديد"
 
 msgid "Previous year"
 msgstr "السنة الماضية"
@@ -1290,6 +1285,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr "ليس لديك حق الوصول إلى بيانات الطبقة هذه"
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
 
@@ -1311,6 +1309,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "الوحدات التنظيمية"
 
+msgid "Error"
+msgstr "خطأ"
+
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
 
@@ -1328,6 +1329,12 @@ msgstr "ذات صلة"
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Events"
+msgstr "الأحداث"
+
+msgid "Tracked entities"
+msgstr "الكيانات المتعقبة"
 
 msgid "Org units"
 msgstr "الوحدات التنظيمية"

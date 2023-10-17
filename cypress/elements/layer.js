@@ -1,34 +1,31 @@
-import { EXTENDED_TIMEOUT } from '../support/util.js';
-
 export class Layer {
     openDialog(layer) {
         const dataTest = `addlayeritem-${layer
             .toLowerCase()
-            .replace(/\s/g, '_')}`;
+            .replace(/\s/g, '_')}`
 
-        cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click();
+        cy.getByDataTest('add-layer-button').click()
 
-        cy.get(`[data-test="${dataTest}"]`).click();
+        cy.get(`[data-test="${dataTest}"]`).click()
 
-        return this;
+        return this
     }
 
     selectTab(tabName) {
         cy.getByDataTest('dhis2-uicore-tabbar-tabs')
             .find('button')
             .contains(tabName)
-            .click();
+            .click()
 
-        return this;
+        return this
     }
 
     selectOu(ouName) {
-        cy.get('.tree-view.orgunit')
-            .contains(ouName)
-            .scrollIntoView()
-            .click();
+        cy.getByDataTest('org-unit-tree').contains(ouName).scrollIntoView()
 
-        return this;
+        cy.getByDataTest('org-unit-tree').contains(ouName).click()
+
+        return this
     }
 
     typeStartDate(dateString) {
@@ -36,9 +33,9 @@ export class Layer {
             .contains('Start date')
             .next()
             .find('input')
-            .type(dateString);
+            .type(dateString)
 
-        return this;
+        return this
     }
 
     typeEndDate(dateString) {
@@ -46,50 +43,46 @@ export class Layer {
             .contains('End date')
             .next()
             .find('input')
-            .type(dateString);
-        return this;
+            .type(dateString)
+        return this
     }
 
     addToMap() {
-        cy.getByDataTest('dhis2-uicore-modalactions', EXTENDED_TIMEOUT)
+        cy.getByDataTest('dhis2-uicore-modalactions')
             .contains('Add layer')
-            .click();
+            .click()
     }
 
     validateDialogClosed(closed) {
         if (closed) {
-            cy.getByDataTest('layeredit', EXTENDED_TIMEOUT).should('not.exist');
+            cy.getByDataTest('layeredit').should('not.exist')
         } else {
-            cy.getByDataTest('layeredit', EXTENDED_TIMEOUT).should(
-                'be.visible'
-            );
+            cy.getByDataTest('layeredit').should('be.visible')
         }
     }
 
     validateCardTitle(title) {
-        cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
-            .contains(title)
-            .should('be.visible');
+        cy.getByDataTest('layercard')
+            .contains(title, { timeout: 50000 })
+            .should('be.visible')
 
-        return this;
+        return this
     }
 
     validateCardPeriod(period) {
-        cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
-            .contains(period)
-            .should('be.visible');
+        cy.getByDataTest('layercard').contains(period).should('be.visible')
 
-        return this;
+        return this
     }
 
     validateCardItems(items) {
-        items.forEach(item => {
-            cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
+        items.forEach((item) => {
+            cy.getByDataTest('layercard')
                 .find('[data-test="layerlegend-item"]')
                 .contains(item)
-                .should('be.visible');
-        });
+                .should('be.visible')
+        })
 
-        return this;
+        return this
     }
 }

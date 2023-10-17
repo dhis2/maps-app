@@ -1,13 +1,13 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { DatePicker } from '../core';
-import { setStartDate, setEndDate } from '../../actions/layerEdit';
-import { DEFAULT_START_DATE, DEFAULT_END_DATE } from '../../constants/layers';
-import styles from '../edit/styles/LayerDialog.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Fragment, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setStartDate, setEndDate } from '../../actions/layerEdit.js'
+import { DEFAULT_START_DATE, DEFAULT_END_DATE } from '../../constants/layers.js'
+import { DatePicker } from '../core/index.js'
+import styles from '../edit/styles/LayerDialog.module.css'
 
-const StartEndDates = props => {
+const StartEndDates = (props) => {
     const {
         startDate,
         endDate,
@@ -15,15 +15,15 @@ const StartEndDates = props => {
         setEndDate,
         errorText,
         className,
-    } = props;
-    const hasDate = startDate !== undefined && endDate !== undefined;
+    } = props
+    const hasDate = startDate !== undefined && endDate !== undefined
 
     useEffect(() => {
         if (!hasDate) {
-            setStartDate(DEFAULT_START_DATE);
-            setEndDate(DEFAULT_END_DATE);
+            setStartDate(DEFAULT_START_DATE)
+            setEndDate(DEFAULT_END_DATE)
         }
-    }, [hasDate, setStartDate, setEndDate]);
+    }, [hasDate, setStartDate, setEndDate])
 
     return hasDate ? (
         <Fragment>
@@ -45,16 +45,16 @@ const StartEndDates = props => {
                 </div>
             )}
         </Fragment>
-    ) : null;
-};
+    ) : null
+}
 
 StartEndDates.propTypes = {
-    startDate: PropTypes.string,
+    setEndDate: PropTypes.func.isRequired,
+    setStartDate: PropTypes.func.isRequired,
+    className: PropTypes.string,
     endDate: PropTypes.string,
     errorText: PropTypes.string,
-    setStartDate: PropTypes.func.isRequired,
-    setEndDate: PropTypes.func.isRequired,
-    className: PropTypes.string,
-};
+    startDate: PropTypes.string,
+}
 
-export default connect(null, { setStartDate, setEndDate })(StartEndDates);
+export default connect(null, { setStartDate, setEndDate })(StartEndDates)

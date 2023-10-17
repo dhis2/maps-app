@@ -1,18 +1,19 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { getRelativePeriods } from '../../util/periods';
-import { START_END_DATES } from '../../constants/periods';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useMemo } from 'react'
+import { START_END_DATES } from '../../constants/periods.js'
+import { getRelativePeriods } from '../../util/periods.js'
+import { SelectField } from '../core/index.js'
+import { useSystemSettings } from '../SystemSettingsProvider.js'
 
 const RelativePeriodSelect = ({
     startEndDates,
     period,
-    hiddenPeriods,
     onChange,
     className,
     errorText,
 }) => {
+    const { hiddenPeriods } = useSystemSettings()
     const periods = useMemo(
         () =>
             (startEndDates
@@ -24,11 +25,11 @@ const RelativePeriodSelect = ({
                   ]
                 : []
             ).concat(getRelativePeriods(hiddenPeriods)),
-        []
-    );
+        [hiddenPeriods, startEndDates]
+    )
 
     const value =
-        period && periods.find(p => p.id === period.id) ? period.id : null;
+        period && periods.find((p) => p.id === period.id) ? period.id : null
 
     return (
         <SelectField
@@ -40,19 +41,18 @@ const RelativePeriodSelect = ({
             errorText={!value && errorText ? errorText : null}
             dataTest="relative-period-select"
         />
-    );
-};
+    )
+}
 
 RelativePeriodSelect.propTypes = {
-    startEndDates: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    errorText: PropTypes.string,
     period: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string,
     }),
-    hiddenPeriods: PropTypes.array,
-    onChange: PropTypes.func.isRequired,
-    className: PropTypes.string,
-    errorText: PropTypes.string,
-};
+    startEndDates: PropTypes.bool,
+}
 
-export default RelativePeriodSelect;
+export default RelativePeriodSelect

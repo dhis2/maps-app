@@ -1,5 +1,5 @@
 export const createSld = () => {
-    const bounds = [0, 40, 60, 70, 80, 90, 120, 990];
+    const bounds = [0, 40, 60, 70, 80, 90, 120, 990]
     const colors = [
         '#ffffb2',
         '#fed976',
@@ -8,7 +8,7 @@ export const createSld = () => {
         '#f03b20',
         '#bd0026',
         '#CCCCCC',
-    ];
+    ]
 
     let sld = `<?xml version="1.0" encoding="UTF-8"?>
                 <StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd" xmlns:se="http://www.opengis.net/se">
@@ -16,14 +16,14 @@ export const createSld = () => {
                     <se:Name>JzqNgIsKF4N</se:Name>
                     <UserStyle>
                       <se:Name>JzqNgIsKF4N</se:Name>
-                      <se:FeatureTypeStyle>`;
+                      <se:FeatureTypeStyle>`
 
     for (let i = 0; i < colors.length; i++) {
-        const color = colors[i];
-        const start = bounds[i];
-        const stop = bounds[i + 1];
+        const color = colors[i]
+        const start = bounds[i]
+        const stop = bounds[i + 1]
 
-        let stopFilter = 'PropertyIsLessThan';
+        const stopFilter = 'PropertyIsLessThan'
 
         /*
         if (i === colors.length - 1) {
@@ -59,19 +59,19 @@ export const createSld = () => {
                       <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
                     </se:Stroke>
                   </se:PolygonSymbolizer>
-                </se:Rule>`;
+                </se:Rule>`
     }
 
     sld += `</se:FeatureTypeStyle>
               </UserStyle>
               </NamedLayer>
-              </StyledLayerDescriptor>`;
+              </StyledLayerDescriptor>`
 
-    return sld;
+    return sld
 
     /*
     const blob = new Blob([sld], {type: 'application/xml;charset=utf-8'});
 
     FileSaver.saveAs(blob, layer.id + '.sld');
     */
-};
+}

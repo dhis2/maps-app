@@ -1,36 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { CircularLoader } from '@dhis2/ui';
-import PeriodSelect from '../periods/PeriodSelect';
-import { apiFetch } from '../../util/api';
-import styles from './styles/OrgUnitData.module.css';
+import { useDataQuery } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
+import { CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import {
+    getFixedPeriodsByType,
+    filterFuturePeriods,
+} from '../../util/periods.js'
+import PeriodSelect from '../periods/PeriodSelect.js'
+import styles from './styles/OrgUnitData.module.css'
+
+const ORGUNIT_PROFILE_QUERY = {
+    profile: {
+        resource: 'organisationUnitProfile',
+        id: ({ id }) => `${id}/data`,
+        params: ({ period }) => ({
+            period,
+        }),
+    },
+}
+
+// Only YEARLY period type is supported in first version
+const periodType = 'YEARLY'
+const currentYear = String(new Date().getFullYear())
+const periods = getFixedPeriodsByType(periodType, currentYear)
+const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0]
 
 /*
- *  Displays a period selector and org unit data items (data elements, indicators, reporting rates, program indicators)
+ *  Displays a period selector and org unit data items
+ * (data elements, indicators, reporting rates, program indicators)
  */
-const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
-    const [period, setPeriod] = useState(defaultPeriod);
-    const [items, setItems] = useState(data);
-    const [isLoading, setIsLoading] = useState(false);
+const OrgUnitData = ({ id }) => {
+    const [period, setPeriod] = useState(defaultPeriod)
+    const { loading, data, refetch } = useDataQuery(ORGUNIT_PROFILE_QUERY, {
+        lazy: true,
+    })
 
-    // Load data items if period is changed
     useEffect(() => {
-        if (period.id === defaultPeriod.id) {
-            setItems(data);
-        } else {
-            setIsLoading(true);
-            apiFetch(`/organisationUnitProfile/${id}/data?period=${period.id}`)
-                .then(({ dataItems }) => {
-                    setItems(dataItems);
-                    setIsLoading(false);
-                })
-                .then(setItems);
+        if (id && period) {
+            refetch({
+                id,
+                period: period.id,
+            })
         }
-    }, [id, period, defaultPeriod, data]);
+    }, [id, period, refetch])
 
     return (
-        <div className={styles.orgUnitData}>
+        <div className={styles.orgUnitData} data-test="org-unit-data">
             <PeriodSelect
                 label={null}
                 periodType={periodType}
@@ -39,20 +55,23 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
                 className={styles.periodSelect}
             />
             <div className={styles.dataTable}>
-                {isLoading && (
+                {loading && (
                     <div className={styles.loadingMask}>
                         <CircularLoader />
                     </div>
                 )}
-                {Array.isArray(items) && items.length ? (
-                    <table>
+                {Array.isArray(data?.profile.dataItems) &&
+                data.profile.dataItems.length ? (
+                    <table data-test="org-unit-data-table">
                         <tbody>
-                            {items.map(({ id, label, value }) => (
-                                <tr key={id}>
-                                    <th>{label}</th>
-                                    <td>{value}</td>
-                                </tr>
-                            ))}
+                            {data.profile.dataItems.map(
+                                ({ id, label, value }) => (
+                                    <tr key={id}>
+                                        <th>{label}</th>
+                                        <td>{value}</td>
+                                    </tr>
+                                )
+                            )}
                         </tbody>
                     </table>
                 ) : (
@@ -62,14 +81,11 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
 OrgUnitData.propTypes = {
     id: PropTypes.string.isRequired,
-    periodType: PropTypes.string.isRequired,
-    defaultPeriod: PropTypes.object.isRequired,
-    data: PropTypes.array,
-};
+}
 
-export default OrgUnitData;
+export default OrgUnitData

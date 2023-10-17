@@ -1,13 +1,13 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const interpretation = (state = {}, action) => {
     switch (action.type) {
         case types.INTERPRETATION_SET:
-            return { ...state, id: action.payload };
+            return { ...state, id: action.payload }
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default interpretation;
+export default interpretation

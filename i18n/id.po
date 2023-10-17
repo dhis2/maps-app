@@ -2,7 +2,7 @@
 # Translators:
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
-# phil_dhis2, 2020
+# Philip Larsen Donnelly, 2020
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
@@ -12,27 +12,33 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
+"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022\n"
-"Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
+"Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Maps"
-msgstr "Peta"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "Peta \"{{name}}\" disimpan."
-
-msgid "Failed to save map. {{message}}"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Error"
-msgstr "Error"
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
 
 msgid "Classification"
 msgstr "Klasifikasi"
@@ -48,6 +54,18 @@ msgstr "Warna"
 
 msgid "Size"
 msgstr "Ukuran"
+
+msgid "Name"
+msgstr "Nama"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "Nilai"
+
+msgid "Display"
+msgstr ""
 
 msgid "Data element group"
 msgstr "Grup elemen data"
@@ -67,23 +85,71 @@ msgstr "Rincian"
 msgid "Yes"
 msgstr "Ya"
 
+msgid "None"
+msgstr "Tidak ada"
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr "Lokasi even"
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
 
 msgid "Coordinate field"
 msgstr "Bidang koordinat"
 
-msgid "None"
-msgstr "Tidak ada"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
 
-msgid "Data item"
-msgstr "Data item"
+msgid "Event > org unit coordinate"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Data item pada even"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
 msgstr "Ragam berdasarkan elemen data"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Pemfilteran tersedia setelah memilih tahapan program."
+
+msgid "Add filter"
+msgstr "Tambah penyaringan"
+
+msgid "Data item"
+msgstr "Data item"
+
+msgid "one of"
+msgstr "satu dari"
+
+msgid "contains"
+msgstr "mengandung"
+
+msgid "is"
+msgstr "adalah"
+
+msgid "is not"
+msgstr "tidak"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "Tanggal"
 
 msgid "Data set"
 msgstr "Data set"
@@ -94,17 +160,11 @@ msgstr "Indeks"
 msgid "Org unit"
 msgstr "Unit Organisasi"
 
-msgid "Name"
-msgstr "Nama"
-
 msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
 msgstr "Waktu even"
-
-msgid "Value"
-msgstr "Nilai"
 
 msgid "Legend"
 msgstr "Legenda"
@@ -124,9 +184,6 @@ msgstr "Jenis"
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Tabel data tidak didukung saat peristiwa dikelompokkan di server."
 
-msgid "Add filter"
-msgstr "Tambah penyaringan"
-
 msgid "Items"
 msgstr "item"
 
@@ -136,14 +193,39 @@ msgstr "Dimensi"
 msgid "Download"
 msgstr "Unduh"
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr "Unduh peta"
 
-msgid "Show name"
-msgstr "Tampilkan nama"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show legend"
 msgstr "Tampilkan legenda"
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -157,8 +239,8 @@ msgstr "Batalkan"
 msgid "Close"
 msgstr "Tutup"
 
-msgid "Legend position"
-msgstr "Posisi legenda"
+msgid "No organisation units are selected"
+msgstr "Tidak ada unit organisasi yang dipilih"
 
 msgid "Organisation Units"
 msgstr "Unit Organisasi"
@@ -171,9 +253,6 @@ msgstr ""
 
 msgid "Point radius"
 msgstr "Radius titik"
-
-msgid "No organisation units are selected"
-msgstr "Tidak ada unit organisasi yang dipilih"
 
 msgid "event"
 msgstr "peristiwa"
@@ -207,9 +286,6 @@ msgstr "Tambahkan layer"
 
 msgid "Aggregation method"
 msgstr "Metode agregasi"
-
-msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
 
 msgid "Groups"
 msgstr "banyak grup"
@@ -285,9 +361,6 @@ msgstr "Unit Organisasi"
 
 msgid "Filter"
 msgstr "Saring"
-
-msgid "Events"
-msgstr "Event"
 
 msgid "Group events"
 msgstr "Grup even"
@@ -375,6 +448,9 @@ msgstr "Item data event diperlukan"
 msgid "Program indicator is required"
 msgstr "Indikator program diperlukan"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Periode diperlukan"
 
@@ -389,6 +465,9 @@ msgstr "Item data event"
 
 msgid "Program indicators"
 msgstr "Indikator program"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Tipe item"
@@ -425,26 +504,6 @@ msgstr "Menampilkan hubungan entitas dilacak pada peta adalah fitur percobaan"
 msgid "Display Tracked Entity relationships"
 msgstr "Tampikan semua hubungan entitas dilacak"
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-"Sertakan hubungan yang menghubungkan entitas di luar program \"{{program}}\""
-
-msgid "Selection mode"
-msgstr "Mode pemilihan Selection"
-
-msgid "Selected only"
-msgstr "Hanya dipilih"
-
-msgid "Selected and below"
-msgstr "Dipilih dan di bawah"
-
-msgid "Selected and all below"
-msgstr "Dipilih dan semuanya di bawah"
-
-msgid "Tracked entities"
-msgstr "Entitas dilacak"
-
 msgid "Tracked entity style"
 msgstr "Ragam entitas terlacak"
 
@@ -457,54 +516,12 @@ msgstr "Ragam entitas terkait"
 msgid "Line Color"
 msgstr "Warna garis"
 
-msgid "Failed to load relationship types."
-msgstr "Gagal memuat jenis hubungan."
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 "Tidak ada tipe hubungan yang ditemukan untuk tipe entitas dilacak {{type}}"
 
 msgid "Relationship type"
 msgstr "Tipe hubungan"
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr "Terjadi kesalahan pada aplikasi DHIS2 Maps."
-
-msgid "Something went wrong"
-msgstr "Terjadi kesalahan"
-
-msgid "Refresh to try again"
-msgstr "Refresh untuk mencoba kembali"
-
-msgid "Hide technical details"
-msgstr "Sembunyikan rincian teknis"
-
-msgid "Show technical details"
-msgstr "Tampilkan rincian teknis"
-
-msgid "The following information may be requested by technical support."
-msgstr "Informasi berikut mungkin diperlukan untuk dukungan teknis."
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Pemfilteran tersedia setelah memilih tahapan program."
-
-msgid "one of"
-msgstr "satu dari"
-
-msgid "contains"
-msgstr "mengandung"
-
-msgid "is"
-msgstr "adalah"
-
-msgid "is not"
-msgstr "tidak"
-
-msgid "Operator"
-msgstr "Operator"
-
-msgid "Date"
-msgstr "Tanggal"
 
 msgid "Remove filter"
 msgstr "Hapus filter"
@@ -520,9 +537,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "group indikator"
-
-msgid "Interpretations"
-msgstr "Interpretasi"
 
 msgid "Collapse"
 msgstr "Tutup"
@@ -549,14 +563,14 @@ msgstr ""
 "GeoJSON didukung oleh sebagian besar perangkat lunak GIS, termasuk QGIS dan "
 "ArcGIS Desktop."
 
-msgid "Data download failed."
-msgstr "Unduhan data gagal."
-
 msgid "ID Format"
 msgstr "Format ID"
 
 msgid "Use human-readable keys"
 msgstr "Gunakan kunci yang dapat dibaca manusia"
+
+msgid "Data download failed."
+msgstr "Unduhan data gagal."
 
 msgid "External layer"
 msgstr "External layer"
@@ -578,6 +592,9 @@ msgstr "Alihkan visibilitas"
 
 msgid "Set layer opacity"
 msgstr "Setel opasitas layer"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "More actions"
 msgstr "Lebih banyak tindakan"
@@ -630,8 +647,14 @@ msgstr "Longitude"
 msgid "Latitude"
 msgstr "Latitude"
 
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
 msgid "Not set"
 msgstr "Tidak diatur"
+
+msgid "Could not retrieve event data"
+msgstr ""
 
 msgid "Organisation unit"
 msgstr "Unit organisasi"
@@ -747,14 +770,14 @@ msgstr ""
 "Elemen data ini memiliki terlalu banyak opsi ({{length}}). Opsi maksimal "
 "untuk penataan gaya adalah {{max}}."
 
-msgid "No data found for this period."
-msgstr "Tidak ada data yang ditemukan untuk periode ini."
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
-msgstr "Pilih grup"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr "Tidak ada data yang ditemukan untuk periode ini."
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -795,51 +818,20 @@ msgstr "ID"
 msgid "Comment"
 msgstr "Komentar"
 
-msgid "Select levels"
-msgstr "Pilih level"
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
-msgstr ""
-"Tidak mungkin menggabungkan unit organisasi pengguna dan memilih unit "
-"individual."
+msgid "Selected only"
+msgstr "Hanya dipilih"
 
-msgid "user organisation unit"
-msgstr "unit organisasi pengguna"
+msgid "Selected and below"
+msgstr "Dipilih dan di bawah"
 
-msgid "right below user organisation unit"
-msgstr "tepat di bawah unit organisasi pengguna"
+msgid "Selected and all below"
+msgstr "Dipilih dan semuanya di bawah"
 
-msgid "two levels below user organisation unit"
-msgstr "dua tingkat di bawah unit organisasi pengguna"
-
-msgid "{{units}} in {{orgunits}}"
-msgstr "{{unit}} di {{orgunits}}"
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{units}} di dalam dan tepat di bawah {{orgunits}}"
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{units}} di dalam dan semua di bawah {{orgunits}}"
-
-msgid "Selected organisation units"
-msgstr "Unit organisasi yang dipilih"
-
-msgid "Main"
-msgstr "Utama"
-
-msgid "Below"
-msgstr "Di bawah"
-
-msgid "2 x below"
-msgstr "2x di bawah"
-
-msgid "User organisation units"
-msgstr "Unit organisasi pengguna"
+msgid "Selection mode"
+msgstr "Mode pemilihan Selection"
 
 msgid "Previous year"
 msgstr "Tahun sebelumnya"
@@ -1313,6 +1305,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr "Anda tidak memiliki akses ke data layer ini"
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data layer"
 
@@ -1334,6 +1329,9 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Unit organisasi"
 
+msgid "Error"
+msgstr "Error"
+
 msgid "Thematic layer"
 msgstr "Layer tematik"
 
@@ -1351,6 +1349,12 @@ msgstr "terkait"
 
 msgid "Thematic"
 msgstr "Tematik"
+
+msgid "Events"
+msgstr "Event"
+
+msgid "Tracked entities"
+msgstr "Entitas dilacak"
 
 msgid "Org units"
 msgstr ""

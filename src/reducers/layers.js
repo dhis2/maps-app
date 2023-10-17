@@ -1,13 +1,13 @@
-import i18n from '@dhis2/d2-i18n';
-import * as types from '../constants/actionTypes';
+import i18n from '@dhis2/d2-i18n'
+import * as types from '../constants/actionTypes.js'
+import { earthEngineLayers } from '../constants/earthEngine.js'
 import {
     THEMATIC_LAYER,
     EVENT_LAYER,
     TRACKED_ENTITY_LAYER,
     FACILITY_LAYER,
     ORG_UNIT_LAYER,
-} from '../constants/layers';
-import { earthEngineLayers } from '../constants/earthEngine';
+} from '../constants/layers.js'
 
 const defaultLayers = () => [
     {
@@ -41,7 +41,6 @@ const defaultLayers = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
-    ...earthEngineLayers().filter(l => !l.legacy),
     /*
     {
         layer: 'external',
@@ -61,8 +60,7 @@ const defaultLayers = () => [
         type: 'Settlement extents',
         name: 'Settlement extents',
         opacity: 1,
-        url:
-            'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/ArcGIS/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0',
+        url: 'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/ArcGIS/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0',
     },
     {
         external: true,
@@ -70,8 +68,7 @@ const defaultLayers = () => [
         type: 'Feature Service',
         name: 'Thermal Hotspots and Fire Activity',
         opacity: 1,
-        url:
-            'https://services9.arcgis.com/RHVPKKiFTONKtxq3/ArcGIS/rest/services/USGS_Seismic_Data_v1/FeatureServer/0',
+        url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/ArcGIS/rest/services/USGS_Seismic_Data_v1/FeatureServer/0',
     },
     {
         external: true,
@@ -79,13 +76,13 @@ const defaultLayers = () => [
         type: 'Feature Service',
         name: 'Recent Earthquakes',
         opacity: 1,
-        url:
-            'https://services9.arcgis.com/RHVPKKiFTONKtxq3/ArcGIS/rest/services/Satellite_VIIRS_Thermal_Hotspots_and_Fire_Activity/FeatureServer/0',
+        url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/ArcGIS/rest/services/Satellite_VIIRS_Thermal_Hotspots_and_Fire_Activity/FeatureServer/0',
     },
-];
+    ...earthEngineLayers().filter((l) => !l.legacy),
+]
 
 const layers = (state, action) => {
-    const prevState = state || defaultLayers();
+    const prevState = state || defaultLayers()
 
     switch (action.type) {
         case types.EXTERNAL_LAYER_ADD:
@@ -95,11 +92,11 @@ const layers = (state, action) => {
                     ...action.payload,
                     isVisible: true,
                 },
-            ];
+            ]
 
         default:
-            return prevState;
+            return prevState
     }
-};
+}
 
-export default layers;
+export default layers

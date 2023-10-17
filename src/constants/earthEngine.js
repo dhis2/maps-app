@@ -1,20 +1,24 @@
-import i18n from '@dhis2/d2-i18n';
-import { defaultFilters } from '../util/earthEngine';
-import { EARTH_ENGINE_LAYER } from './layers';
+import i18n from '@dhis2/d2-i18n'
+import { defaultFilters } from '../util/earthEngine.js'
+import { EARTH_ENGINE_LAYER } from './layers.js'
 
+// layerId should be unique
+// datasetId is the Earth Engine dataset id
 export const earthEngineLayers = () => [
     {
         layer: EARTH_ENGINE_LAYER,
-        datasetId: 'WorldPop/GP/100m/pop',
+        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
+        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         name: i18n.t('Population'),
         unit: i18n.t('people per hectare'),
         description: i18n.t('Estimated number of people living in an area.'),
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
+            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
         img: 'images/population.png',
         defaultAggregations: ['sum', 'mean'],
         periodType: 'Yearly',
+        band: 'population',
         filters: ({ id, name, year }) => [
             {
                 id,
@@ -26,13 +30,14 @@ export const earthEngineLayers = () => [
         mosaic: true,
         params: {
             min: 0,
-            max: 10,
+            max: 25,
             palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
         },
         opacity: 0.9,
     },
     {
         layer: EARTH_ENGINE_LAYER,
+        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         name: i18n.t('Population age groups'),
         unit: i18n.t('people per hectare'),
@@ -211,6 +216,7 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
+        layerId: 'GOOGLE/Research/open-buildings/v1/polygons',
         datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
         format: 'FeatureCollection',
         name: i18n.t('Building footprints'),
@@ -233,6 +239,7 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
+        layerId: 'USGS/SRTMGL1_003',
         datasetId: 'USGS/SRTMGL1_003',
         name: i18n.t('Elevation'),
         unit: i18n.t('meters'),
@@ -253,6 +260,7 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
+        layerId: 'UCSB-CHG/CHIRPS/PENTAD',
         datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
         name: i18n.t('Precipitation'),
         unit: i18n.t('millimeter'),
@@ -277,6 +285,7 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
+        layerId: 'MODIS/006/MOD11A2',
         datasetId: 'MODIS/006/MOD11A2',
         name: i18n.t('Temperature'),
         unit: i18n.t('°C during daytime'),
@@ -307,14 +316,15 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
-        datasetId: 'MODIS/006/MCD12Q1', // No longer in use: 'MODIS/051/MCD12Q1',
+        layerId: 'MODIS/006/MCD12Q1', // Layer id kept for backward compability for saved maps
+        datasetId: 'MODIS/061/MCD12Q1', // No longer in use: 'MODIS/006/MCD12Q1' / 'MODIS/051/MCD12Q1',
         name: i18n.t('Landcover'),
         description: i18n.t(
             'Distinct landcover types collected from satellites.'
         ),
         source: 'NASA LP DAAC / Google Earth Engine',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1',
+            'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
         periodType: 'Yearly',
         band: 'LC_Type1',
         filters: defaultFilters,
@@ -417,6 +427,37 @@ export const earthEngineLayers = () => [
     {
         layer: EARTH_ENGINE_LAYER,
         legacy: true, // Kept for backward compability
+        layerId: 'WorldPop/GP/100m/pop',
+        datasetId: 'WorldPop/GP/100m/pop',
+        name: i18n.t('Population'),
+        unit: i18n.t('people per hectare'),
+        description: i18n.t('Estimated number of people living in an area.'),
+        source: 'WorldPop / Google Earth Engine',
+        sourceUrl:
+            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
+        img: 'images/population.png',
+        defaultAggregations: ['sum', 'mean'],
+        periodType: 'Yearly',
+        filters: ({ id, name, year }) => [
+            {
+                id,
+                name,
+                type: 'eq',
+                arguments: ['year', year],
+            },
+        ],
+        mosaic: true,
+        params: {
+            min: 0,
+            max: 10,
+            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER,
+        legacy: true, // Kept for backward compability
+        layerId: 'WorldPop/POP',
         datasetId: 'WorldPop/POP',
         name: i18n.t('Population'),
         unit: i18n.t('people per km²'),
@@ -452,6 +493,7 @@ export const earthEngineLayers = () => [
     {
         layer: EARTH_ENGINE_LAYER,
         legacy: true, // Kept for backward compability
+        layerId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
         datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
         name: i18n.t('Nighttime lights'),
         unit: i18n.t('light intensity'),
@@ -472,7 +514,7 @@ export const earthEngineLayers = () => [
         },
         opacity: 0.9,
     },
-];
+]
 
-export const getEarthEngineLayer = id =>
-    earthEngineLayers().find(l => l.datasetId === id);
+export const getEarthEngineLayer = (id) =>
+    earthEngineLayers().find((l) => l.layerId === id)

@@ -1,15 +1,15 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import styles from './styles/OpacitySlider.module.css';
+import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import styles from './styles/OpacitySlider.module.css'
 
 const OpacitySlider = ({ opacity, disabled, onChange }) => {
-    const lowerFill = `var(--colors-grey${disabled ? 400 : 600})`;
-    const upperFill = `var(--colors-grey${disabled ? 300 : 400})`;
+    const lowerFill = `var(--colors-grey${disabled ? 400 : 600})`
+    const upperFill = `var(--colors-grey${disabled ? 300 : 400})`
 
     const onSliderChange = useCallback(
-        evt => onChange(Number(evt.target.value)),
+        (evt) => onChange(Number(evt.target.value)),
         [onChange]
-    );
+    )
 
     return (
         <div className={styles.container}>
@@ -33,13 +33,13 @@ const OpacitySlider = ({ opacity, disabled, onChange }) => {
                 }}
             />
         </div>
-    );
-};
+    )
+}
 
 OpacitySlider.propTypes = {
     opacity: PropTypes.number.isRequired,
-    disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
-};
+    disabled: PropTypes.bool,
+}
 
-export default OpacitySlider;
+export default OpacitySlider

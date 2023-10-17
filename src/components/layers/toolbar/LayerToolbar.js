@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import cx from 'classnames';
-import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui';
-import { IconButton } from '../../core';
-import OpacitySlider from './OpacitySlider';
-import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
-import styles from './styles/LayerToolbar.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
+import { IconButton } from '../../core/index.js'
+import LayerToolbarMoreMenu from './LayerToolbarMoreMenu.js'
+import OpacitySlider from './OpacitySlider.js'
+import styles from './styles/LayerToolbar.module.css'
 
-export const LayerToolbar = ({
+const LayerToolbar = ({
     hasOpacity,
     opacity = 1,
     isVisible,
@@ -16,7 +16,7 @@ export const LayerToolbar = ({
     toggleLayerVisibility,
     ...expansionMenuProps
 }) => {
-    const onEdit = expansionMenuProps.onEdit;
+    const onEdit = expansionMenuProps.onEdit
 
     return (
         <div className={styles.toolbar} data-test="layertoolbar">
@@ -57,20 +57,20 @@ export const LayerToolbar = ({
             </div>
             <LayerToolbarMoreMenu {...expansionMenuProps} />
         </div>
-    );
-};
+    )
+}
 
 LayerToolbar.propTypes = {
-    hasOpacity: PropTypes.bool,
-    opacity: PropTypes.number,
-    isVisible: PropTypes.bool,
     toggleLayerVisibility: PropTypes.func.isRequired,
     onOpacityChange: PropTypes.func.isRequired,
+    hasOpacity: PropTypes.bool,
+    isVisible: PropTypes.bool,
+    opacity: PropTypes.number,
     onEdit: PropTypes.func,
-};
+}
 
 LayerToolbar.defaultProps = {
     hasOpacity: true,
-};
+}
 
-export default LayerToolbar;
+export default LayerToolbar

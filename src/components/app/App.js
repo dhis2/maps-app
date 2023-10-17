@@ -1,122 +1,71 @@
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
-import 'typeface-roboto';
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { useDataEngine } from '@dhis2/app-runtime';
-import { useSetting } from '@dhis2/app-service-datastore';
-import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
-import isEmpty from 'lodash/isEmpty';
-import AppMenu from './AppMenu';
-import { useSystemSettings } from '../SystemSettingsProvider';
-import LayersPanel from '../layers/LayersPanel';
-import LayersToggle from '../layers/LayersToggle';
-import MapContainer from '../map/MapContainer';
-import BottomPanel from '../datatable/BottomPanel';
-import LayerEdit from '../edit/LayerEdit';
-import ContextMenu from '../map/ContextMenu';
-import OrgUnitProfile from '../orgunits/OrgUnitProfile';
-import FeatureProfile from '../feature/FeatureProfile';
-import AlertStack from '../alerts/AlertStack';
-import InterpretationsPanel from '../interpretations/InterpretationsPanel';
-import DataDownloadDialog from '../layers/download/DataDownloadDialog';
-import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
-import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-import { tSetAnalyticalObject } from '../../actions/analyticalObject';
-import { tSetOrgUnitTree } from '../../actions/orgUnits';
-import { tOpenMap } from '../../actions/map';
-import { tSetExternalLayers } from '../../actions/externalLayers';
-import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap';
-import { CURRENT_AO_KEY } from '../../util/analyticalObject';
-import { getUrlParameter } from '../../util/requests';
+import { useDataEngine } from '@dhis2/app-runtime'
+import { useSetting } from '@dhis2/app-service-datastore'
+import { CssVariables } from '@dhis2/ui'
+import isEmpty from 'lodash/isEmpty'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
+import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
+import { tSetExternalLayers } from '../../actions/externalLayers.js'
+import { setInterpretation } from '../../actions/interpretations.js'
+import { tOpenMap } from '../../actions/map.js'
+import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
+import { getUrlParameter } from '../../util/requests.js'
+import { useSystemSettings } from '../SystemSettingsProvider.js'
+import AppLayout from './AppLayout.js'
+import './App.css'
+import './styles/App.module.css'
 
-import styles from './styles/App.module.css';
-
-const App = ({
-    removeBingBasemaps,
-    setBingMapsApiKey,
-    tSetAnalyticalObject,
-    tSetOrgUnitTree,
-    tSetExternalLayers,
-    tOpenMap,
-}) => {
-    const [basemapsLoaded, setBasemapsLoaded] = useState(false);
-    const systemSettings = useSystemSettings();
-    const engine = useDataEngine();
-    const [currentAO] = useSetting(CURRENT_AO_KEY);
+const App = () => {
+    const systemSettings = useSystemSettings()
+    const engine = useDataEngine()
+    const [currentAO] = useSetting(CURRENT_AO_KEY)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         async function fetchData() {
-            await tSetOrgUnitTree();
-            await tSetExternalLayers(engine);
-            setBasemapsLoaded(true);
+            await dispatch(tSetExternalLayers(engine))
 
-            const mapId = getUrlParameter('id');
+            const mapId = getUrlParameter('id')
             if (mapId) {
-                await tOpenMap(mapId, systemSettings.keyDefaultBaseMap, engine);
+                await dispatch(
+                    tOpenMap(mapId, systemSettings.keyDefaultBaseMap, engine)
+                )
+            } else if (getUrlParameter('currentAnalyticalObject') === 'true') {
+                await dispatch(tSetAnalyticalObject(currentAO))
             }
 
-            if (getUrlParameter('currentAnalyticalObject') === 'true') {
-                await tSetAnalyticalObject(currentAO);
+            // analytics interpretation component uses camelcase
+            const interpretationId =
+                getUrlParameter('interpretationid') ||
+                getUrlParameter('interpretationId')
+
+            if (interpretationId) {
+                dispatch(setInterpretation(interpretationId))
             }
         }
-        fetchData();
-    }, []);
+
+        if (!isEmpty(systemSettings)) {
+            fetchData()
+        }
+    }, [engine, currentAO, systemSettings, dispatch])
 
     useEffect(() => {
         if (!isEmpty(systemSettings)) {
             if (!systemSettings.keyBingMapsApiKey) {
-                removeBingBasemaps();
+                dispatch(removeBingBasemaps())
             } else {
-                setBingMapsApiKey(systemSettings.keyBingMapsApiKey);
+                dispatch(setBingMapsApiKey(systemSettings.keyBingMapsApiKey))
             }
         }
-    }, [systemSettings]);
+    }, [systemSettings, dispatch])
 
-    return (
-        <FatalErrorBoundary>
-            <div className={styles.app}>
-                <CssReset />
-                <CssVariables colors spacers theme />
-                <HeaderBar appName={i18n.t('Maps')} />
-                <AppMenu />
-                <InterpretationsPanel />
-                {basemapsLoaded && (
-                    <>
-                        <LayersToggle />
-                        <LayersPanel />
-                        <MapContainer />
-                    </>
-                )}
-                <BottomPanel />
-                <LayerEdit />
-                <ContextMenu />
-                <AlertStack />
-                <DataDownloadDialog />
-                <OpenAsMapDialog />
-                <OrgUnitProfile />
-                <FeatureProfile />
-            </div>
-        </FatalErrorBoundary>
-    );
-};
+    return !isEmpty(systemSettings) ? (
+        <>
+            <CssVariables colors spacers theme />
+            <AppLayout />
+        </>
+    ) : null
+}
 
-App.propTypes = {
-    removeBingBasemaps: PropTypes.func,
-    setBingMapsApiKey: PropTypes.func,
-    loadLayer: PropTypes.func,
-    tOpenMap: PropTypes.func,
-    tSetAnalyticalObject: PropTypes.func,
-    tSetExternalLayers: PropTypes.func,
-    tSetOrgUnitTree: PropTypes.func,
-};
-
-export default connect(null, {
-    removeBingBasemaps,
-    setBingMapsApiKey,
-    tOpenMap,
-    tSetAnalyticalObject,
-    tSetExternalLayers,
-    tSetOrgUnitTree,
-})(App);
+export default App

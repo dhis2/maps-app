@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import styles from './styles/Layer.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/Layer.module.css'
 
 const Layer = ({ layer, onClick }) => {
-    const { img, type, name } = layer;
-    const label = name || i18n.t(type);
-    const dataTest = `addlayeritem-${label.toLowerCase().replace(/\s/g, '_')}`;
+    const { img, type, name } = layer
+    const label = name || i18n.t(type)
+    const dataTest = `addlayeritem-${label.toLowerCase().replace(/\s/g, '_')}`
 
     return (
         <div
@@ -21,12 +21,12 @@ const Layer = ({ layer, onClick }) => {
             )}
             <div className={styles.name}>{label}</div>
         </div>
-    );
-};
+    )
+}
 
 Layer.propTypes = {
     layer: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
-};
+}
 
-export default Layer;
+export default Layer

@@ -3,14 +3,20 @@
     isolation: isolate;
 }
 
+:global(#dhis2-app-root div div.app-shell-app) {
+    /* Remove vertical scroll bar for the full page */
+    overflow: hidden;
+}
+
 :global(#dhis2-portal-root) {
     /* establish a stacking context for portals */
     isolation: isolate;
 }
 
-.app {
-    font-family: 'Roboto', sans-serif;
-    height: 100vh;
+/* Avoid vertical layer dialog scroll on small screens */
+:global(#dhis2-portal-root) aside[role=dialog],
+:global(#dhis2-portal-root) aside[role=dialog] > div > div {
+    max-height: calc(100vh - 64px)
 }
 
 /* Scrollbar width */

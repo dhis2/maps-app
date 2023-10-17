@@ -1,13 +1,14 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
-import Map from './Map';
-import SplitView from './SplitView';
-import { getSplitViewLayer } from '../../util/helpers';
-import { getMapControls } from '../../util/mapControls';
+import { useConfig } from '@dhis2/app-runtime'
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useMemo } from 'react'
+import { getSplitViewLayer } from '../../util/helpers.js'
+import { getMapControls } from '../../util/mapControls.js'
+import Map from './Map.js'
+import SplitView from './SplitView.js'
 
 // Shared component between app and plugin
-const MapView = props => {
+const MapView = (props) => {
     const {
         isPlugin,
         isFullscreen,
@@ -21,15 +22,18 @@ const MapView = props => {
         closeCoordinatePopup,
         openContextMenu,
         setAggregations,
+        setMapObject,
         resizeCount,
-    } = props;
+    } = props
 
-    const splitViewLayer = getSplitViewLayer(layers);
-    const isSplitView = !!splitViewLayer;
+    const { baseUrl } = useConfig()
+
+    const splitViewLayer = getSplitViewLayer(layers)
+    const isSplitView = !!splitViewLayer
     const mapControls = useMemo(
         () => getMapControls(isPlugin, isSplitView, controls),
         [isPlugin, isSplitView, controls]
-    );
+    )
 
     return (
         <>
@@ -52,6 +56,7 @@ const MapView = props => {
                             interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
+                            setMapObject={setMapObject}
                         />
                     ) : (
                         <Map
@@ -67,28 +72,31 @@ const MapView = props => {
                             openContextMenu={openContextMenu}
                             setAggregations={setAggregations}
                             resizeCount={resizeCount}
+                            setMapObject={setMapObject}
+                            baseUrl={baseUrl}
                         />
                     )}
                 </>
             )}
         </>
-    );
-};
+    )
+}
 
 MapView.propTypes = {
-    isPlugin: PropTypes.bool,
-    isFullscreen: PropTypes.bool,
     basemap: PropTypes.object,
-    layers: PropTypes.array,
-    controls: PropTypes.array,
-    feature: PropTypes.object,
     bounds: PropTypes.array,
-    coordinatePopup: PropTypes.array,
-    interpretationModalOpen: PropTypes.bool,
     closeCoordinatePopup: PropTypes.func,
+    controls: PropTypes.array,
+    coordinatePopup: PropTypes.array,
+    feature: PropTypes.object,
+    interpretationModalOpen: PropTypes.bool,
+    isFullscreen: PropTypes.bool,
+    isPlugin: PropTypes.bool,
+    layers: PropTypes.array,
     openContextMenu: PropTypes.func,
-    setAggregations: PropTypes.func,
     resizeCount: PropTypes.number,
-};
+    setAggregations: PropTypes.func,
+    setMapObject: PropTypes.func,
+}
 
-export default MapView;
+export default MapView

@@ -1,41 +1,35 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const defaultState = {
-    showDialog: false,
+    downloadMode: false,
     showName: true,
+    showDescription: true,
     showLegend: true,
-    legendPosition: 'bottomright',
-};
+    showInLegend: [],
+    showOverviewMap: true,
+    hasOverviewMapSpace: true,
+    showNorthArrow: true,
+    northArrowPosition: 'bottomright',
+    includeMargins: true,
+}
 
 const download = (state = defaultState, action) => {
     switch (action.type) {
-        case types.DOWNLOAD_DIALOG_TOGGLE:
+        case types.DOWNLOAD_MODE_SET:
             return {
                 ...state,
-                showDialog: action.payload,
-            };
+                downloadMode: action.payload,
+            }
 
-        case types.DOWNLOAD_NAME_SHOW_TOGGLE:
+        case types.DOWNLOAD_CONFIG_SET:
             return {
                 ...state,
-                showName: action.payload,
-            };
-
-        case types.DOWNLOAD_LEGEND_SHOW_TOGGLE:
-            return {
-                ...state,
-                showLegend: action.payload,
-            };
-
-        case types.DOWNLOAD_LEGEND_POSITION_SET:
-            return {
-                ...state,
-                legendPosition: action.payload,
-            };
+                ...action.payload,
+            }
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default download;
+export default download

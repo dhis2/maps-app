@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
+import { useDhis2ConnectionStatus } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
 import {
     Popover,
     Menu,
@@ -8,47 +7,45 @@ import {
     Tooltip,
     IconArrowUp16,
     IconArrowDown16,
-} from '@dhis2/ui';
-import { ConditionalWrapper } from '../core';
-import styles from './styles/ContextMenu.module.css';
+} from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useRef, useState, useEffect } from 'react'
+import { ConditionalWrapper } from '../core/index.js'
+import styles from './styles/ContextMenu.module.css'
 
-const ContextMenu = props => {
+const ContextMenu = (props) => {
     const {
         position,
         offset,
         feature,
         container,
         isSplitView,
-        isOffline,
         onDrill,
         onClose,
-    } = props;
-    const anchorRef = useRef();
-    const [anchorPosition, setAnchorPosition] = useState();
+    } = props
+    const { isDisconnected: isOffline } = useDhis2ConnectionStatus()
+    const anchorRef = useRef()
+    const [anchorPosition, setAnchorPosition] = useState()
 
     useEffect(() => {
         if (position) {
-            const [x, y] = position;
+            const [x, y] = position
 
             if (!isSplitView) {
-                setAnchorPosition({ left: x, top: y });
+                setAnchorPosition({ left: x, top: y })
             } else {
-                const [mapLeft, mapTop] = offset;
-                const { left, top } = container.getBoundingClientRect();
+                const [mapLeft, mapTop] = offset
+                const { left, top } = container.getBoundingClientRect()
 
                 setAnchorPosition({
                     left: mapLeft - left + x,
                     top: mapTop - top + y,
-                });
+                })
             }
         }
-    }, [position, offset, container, isSplitView]);
+    }, [position, offset, container, isSplitView])
 
-    if (!position || !feature) {
-        return null;
-    }
-
-    const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties;
+    const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties
 
     return (
         <>
@@ -66,7 +63,7 @@ const ContextMenu = props => {
                 <div className={styles.menu}>
                     <ConditionalWrapper
                         condition={isOffline}
-                        wrapper={children => (
+                        wrapper={(children) => (
                             <Tooltip content={i18n.t('Not available offline')}>
                                 {children}
                             </Tooltip>
@@ -90,18 +87,17 @@ const ContextMenu = props => {
                 </div>
             </Popover>
         </>
-    );
-};
+    )
+}
 
 ContextMenu.propTypes = {
-    feature: PropTypes.object,
-    position: PropTypes.array,
-    offset: PropTypes.array,
-    container: PropTypes.instanceOf(Element),
-    isSplitView: PropTypes.bool,
-    isOffline: PropTypes.bool,
-    onDrill: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-};
+    onDrill: PropTypes.func.isRequired,
+    container: PropTypes.instanceOf(Element),
+    feature: PropTypes.object,
+    isSplitView: PropTypes.bool,
+    offset: PropTypes.array,
+    position: PropTypes.array,
+}
 
-export default ContextMenu;
+export default ContextMenu

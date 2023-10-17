@@ -1,0 +1,19 @@
+.contentDiv {
+    margin-bottom: var(--spacers-dp12);
+}
+
+.inputContainer {
+    margin-top: var(--spacers-dp32);
+}
+
+.headingDiv {
+    margin-bottom: var(--spacers-dp8);
+}
+
+.selectField {
+    width: 50%;
+}
+
+.checkboxRoot {
+    margin-top: var(--spacers-dp16);
+}

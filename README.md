@@ -1,35 +1,45 @@
-# maps-app
+This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
 
-DHIS2 Maps App
+## Available Scripts
 
-## Running Tests
+In the project directory, you can run:
 
-There are two types of tests on this project, **unit** and **integration/browser**. Both are run automatically on CI on PRs using Github actions.
+### `yarn start`
 
-### Linting and unit tests
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-```sh
-> yarn lint # Evaluate code linting rules
-> yarn test # Run JEST for unit testing
-```
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-### Browser tests (Cypress)
+### `yarn test`
 
-To run the Cypress tests locally, first set up the `cypress.env.json` file at the root of the repository. `dhis2BaseUrl` should be set to the DHIS2 api instance.
+Launches the test runner and runs all available tests found in `/src`.<br />
 
-```
-{
-    "dhis2Username": "admin",
-    "dhis2Password": "district",
-    "dhis2BaseUrl": "http://localhost:8080"
-}
-```
+See the section about [running tests](https://platform.dhis2.nu/#/scripts/test) for more information.
 
-Use the following commands to run the tests:
+### `yarn build`
 
-```
-> yarn cy:open # runs tests in interactive mode
-> yarn cy:run # runs tests in headless browser mode
-```
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Cypress tests are located at [cypress/integration/\*\*.cy.js](./cypress/integration/).
+The build is minified and the filenames include the hashes.<br />
+A deployable `.zip` file can be found in `build/bundle`!
+
+See the section about [building](https://platform.dhis2.nu/#/scripts/build) for more information.
+
+### `yarn deploy`
+
+Deploys the built app in the `build` folder to a running DHIS2 instance.<br />
+This command will prompt you to enter a server URL as well as the username and password of a DHIS2 user with the App Management authority.<br/>
+You must run `yarn build` before running `yarn deploy`.<br />
+
+See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) for more information.
+
+## Learn More
+
+You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
+
+You can learn more about the runtime in the [DHIS2 Application Runtime Documentation](https://runtime.dhis2.nu/).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

@@ -1,57 +1,72 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { loadDimensionItems } from '../../actions/dimensions';
-import styles from './styles/DimensionItemsSelect.module.css';
+import { useDataQuery } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { SelectField } from '../core/index.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
+import styles from './styles/DimensionItemsSelect.module.css'
 
-const DimensionItemsSelect = ({
-    dimension,
-    items,
-    value,
-    onChange,
-    loadDimensionItems,
-}) => {
-    useEffect(() => {
-        if (dimension && !items) {
-            loadDimensionItems(dimension);
+// Load dimension items
+const DIMENSION_ITEMS_QUERY = {
+    items: {
+        resource: 'dimensions',
+        id: ({ id }) => `${id}/items`,
+        params: ({ nameProperty }) => ({
+            fields: ['id', `${nameProperty}~rename(name)`],
+            order: `${nameProperty}:asc`,
+            paging: false,
+        }),
+    },
+}
+
+const DimensionItemsSelect = ({ dimension, value, onChange }) => {
+    const { nameProperty } = useUserSettings()
+    const { loading, error, data, refetch } = useDataQuery(
+        DIMENSION_ITEMS_QUERY,
+        {
+            lazy: true,
         }
-    }, [dimension, items, loadDimensionItems]);
+    )
 
-    if (!items) {
-        return null;
-    }
+    useEffect(() => {
+        if (dimension) {
+            refetch({
+                id: dimension,
+                nameProperty,
+            })
+        }
+    }, [dimension, nameProperty, refetch])
 
-    const onDimensionItemClick = ids =>
-        onChange(ids.map(id => items.find(item => item.id === id)));
+    const onDimensionItemClick = (ids) =>
+        onChange(
+            ids.map((id) => data.items.items.find((item) => item.id === id))
+        )
+
+    const items = data?.items.items
+
+    const foundValues =
+        value && items
+            ? value.filter((id) => items.find((f) => f.id === id))
+            : undefined
 
     return (
         <SelectField
             label={i18n.t('Items')}
+            loading={loading}
             items={items}
-            value={value}
+            value={foundValues}
             multiple={true}
             onChange={onDimensionItemClick}
+            errorText={error?.message}
             className={styles.select}
         />
-    );
-};
+    )
+}
 
 DimensionItemsSelect.propTypes = {
-    dimension: PropTypes.string,
-    items: PropTypes.array,
-    value: PropTypes.array,
     onChange: PropTypes.func.isRequired,
-    loadDimensionItems: PropTypes.func.isRequired,
-};
+    dimension: PropTypes.string,
+    value: PropTypes.array,
+}
 
-export default connect(
-    ({ dimensions }, { dimension }) => ({
-        items:
-            dimensions && dimension
-                ? dimensions.find(dim => dim.id === dimension).items
-                : null,
-    }),
-    { loadDimensionItems }
-)(DimensionItemsSelect);
+export default DimensionItemsSelect

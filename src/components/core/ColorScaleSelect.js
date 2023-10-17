@@ -1,23 +1,27 @@
-import React, { Fragment, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { Popover } from '@dhis2/ui';
-import cx from 'classnames';
-import ColorScale from './ColorScale';
-import { colorScales, getColorScale, getColorPalette } from '../../util/colors';
-import styles from './styles/ColorScaleSelect.module.css';
+import { Popover } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { Fragment, useState, useRef } from 'react'
+import {
+    colorScales,
+    getColorScale,
+    getColorPalette,
+} from '../../util/colors.js'
+import ColorScale from './ColorScale.js'
+import styles from './styles/ColorScaleSelect.module.css'
 
 const ColorScaleSelect = ({ palette, width, onChange, className }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const anchorRef = useRef();
+    const [isOpen, setIsOpen] = useState(false)
+    const anchorRef = useRef()
 
-    const bins = palette.split(',').length;
-    const scale = getColorScale(palette);
+    const bins = palette.split(',').length
+    const scale = getColorScale(palette)
 
-    const onColorScaleSelect = scale => {
-        const classes = palette.split(',').length;
-        onChange(getColorPalette(scale, classes));
-        setIsOpen(false);
-    };
+    const onColorScaleSelect = (scale) => {
+        const classes = palette.split(',').length
+        onChange(getColorPalette(scale, classes))
+        setIsOpen(false)
+    }
 
     return (
         <Fragment>
@@ -53,14 +57,14 @@ const ColorScaleSelect = ({ palette, width, onChange, className }) => {
                 </Popover>
             )}
         </Fragment>
-    );
-};
+    )
+}
 
 ColorScaleSelect.propTypes = {
     palette: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    width: PropTypes.number,
     className: PropTypes.string,
-};
+    width: PropTypes.number,
+}
 
-export default ColorScaleSelect;
+export default ColorScaleSelect

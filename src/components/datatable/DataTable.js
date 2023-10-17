@@ -1,112 +1,108 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { CenteredContent, CircularLoader } from '@dhis2/ui';
-import { Table, Column } from 'react-virtualized';
-import { isValidUid } from 'd2/uid';
-import { debounce } from 'lodash/fp';
-import ColumnHeader from './ColumnHeader';
-import ColorCell from './ColorCell';
-import EarthEngineColumns from './EarthEngineColumns';
-import FeatureServiceColumns from './FeatureServiceColumns';
-import { setOrgUnitProfile } from '../../actions/orgUnits';
-import { setFeatureProfile } from '../../actions/feature';
-import { highlightFeature } from '../../actions/feature';
-import { closeDataTable } from '../../actions/dataTable';
-import { loadLayer } from '../../actions/layers';
-import { filterData } from '../../util/filter';
-import { formatTime } from '../../util/helpers';
+import i18n from '@dhis2/d2-i18n'
+import { CenteredContent, CircularLoader } from '@dhis2/ui'
+import { isValidUid } from 'd2/uid'
+import { debounce } from 'lodash/fp'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Table, Column } from 'react-virtualized'
+import { closeDataTable } from '../../actions/dataTable.js'
+import { highlightFeature } from '../../actions/feature.js'
+import { updateLayer } from '../../actions/layers.js'
+import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
-    FEATURE_SERVICE,
-} from '../../constants/layers';
-import { numberValueTypes } from '../../constants/valueTypes';
-import styles from './styles/DataTable.module.css';
-import '../../../node_modules/react-virtualized/styles.css';
+} from '../../constants/layers.js'
+import { numberValueTypes } from '../../constants/valueTypes.js'
+import { filterData } from '../../util/filter.js'
+import { formatTime } from '../../util/helpers.js'
+import ColorCell from './ColorCell.js'
+import ColumnHeader from './ColumnHeader.js'
+import EarthEngineColumns from './EarthEngineColumns.js'
+import styles from './styles/DataTable.module.css'
+import 'react-virtualized/styles.css'
 
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {
     static propTypes = {
+        closeDataTable: PropTypes.func.isRequired,
+        height: PropTypes.number.isRequired,
+        highlightFeature: PropTypes.func.isRequired,
         layer: PropTypes.object.isRequired,
+        setOrgUnitProfile: PropTypes.func.isRequired,
+        updateLayer: PropTypes.func.isRequired,
+        width: PropTypes.number.isRequired,
         aggregations: PropTypes.object,
         feature: PropTypes.object,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        closeDataTable: PropTypes.func.isRequired,
-        loadLayer: PropTypes.func.isRequired,
-        setOrgUnitProfile: PropTypes.func.isRequired,
-        setFeatureProfile: PropTypes.func.isRequired,
-        highlightFeature: PropTypes.func.isRequired,
-    };
+    }
 
     static defaultProps = {
         data: [],
-    };
+    }
 
-    state = {};
+    state = {}
 
     constructor(props, context) {
-        super(props, context);
+        super(props, context)
 
         // Default sort
-        const sortBy = 'index';
-        const sortDirection = 'ASC';
+        const sortBy = 'index'
+        const sortDirection = 'ASC'
 
-        const data = this.sort(this.filter(), sortBy, sortDirection);
+        const data = this.sort(this.filter(), sortBy, sortDirection)
 
         this.state = {
             sortBy,
             sortDirection,
             data,
-        };
+        }
     }
 
     componentDidMount() {
-        this.loadExtendedData();
+        this.loadExtendedData()
     }
 
     componentDidUpdate(prevProps) {
-        const { layer, aggregations, closeDataTable } = this.props;
-        const { data, dataFilters } = layer;
-        const prev = prevProps.layer;
+        const { layer, aggregations, closeDataTable } = this.props
+        const { data, dataFilters } = layer
+        const prev = prevProps.layer
 
         if (!data) {
-            closeDataTable();
+            closeDataTable()
         } else if (
             data !== prev.data ||
             dataFilters !== prev.dataFilters ||
             aggregations !== prevProps.aggregations
         ) {
-            const { sortBy, sortDirection } = this.state;
+            const { sortBy, sortDirection } = this.state
 
             this.setState({
                 data: this.sort(this.filter(), sortBy, sortDirection),
-            });
+            })
         }
     }
 
     loadExtendedData() {
-        const { layer, loadLayer } = this.props;
-        const { layer: layerType, isExtended, serverCluster } = layer;
+        const { layer, updateLayer } = this.props
+        const { layer: layerType, isExtended, serverCluster } = layer
 
         if (layerType === EVENT_LAYER && !isExtended && !serverCluster) {
-            loadLayer({
+            updateLayer({
                 ...layer,
                 showDataTable: true,
-            });
+            })
         }
     }
 
     filter() {
-        const { layer, aggregations = {} } = this.props;
-        const { dataFilters } = layer;
+        const { layer, aggregations = {} } = this.props
+        const { dataFilters } = layer
         const data = layer.data.filter(
-            d => !d.properties.hasAdditionalGeometry
-        );
+            (d) => !d.properties.hasAdditionalGeometry
+        )
 
         return filterData(
             data.map((d, index) => ({
@@ -115,42 +111,42 @@ class DataTable extends Component {
                 index,
             })),
             dataFilters
-        );
+        )
     }
 
     // TODO: Make sure sorting works across different locales - use lib method
     sort(data, sortBy, sortDirection) {
         return data.sort((a, b) => {
-            a = a[sortBy];
-            b = b[sortBy];
+            a = a[sortBy]
+            b = b[sortBy]
 
             if (typeof a === 'number') {
-                return sortDirection === 'ASC' ? a - b : b - a;
+                return sortDirection === 'ASC' ? a - b : b - a
             }
 
             if (a !== undefined) {
                 return sortDirection === 'ASC'
                     ? a.localeCompare(b)
-                    : b.localeCompare(a);
+                    : b.localeCompare(a)
             }
 
-            return 0;
-        });
+            return 0
+        })
     }
 
     onSort(sortBy, sortDirection) {
-        const { data } = this.state;
+        const { data } = this.state
 
         this.setState({
             sortBy,
             sortDirection,
             data: this.sort(data, sortBy, sortDirection),
-        });
+        })
     }
 
     // Return event data items used for styling, filters or "display in reports"
     getEventDataItems() {
-        const { headers = [] } = this.props.layer;
+        const { headers = [] } = this.props.layer
 
         return headers
             .filter(({ name }) => isValidUid(name))
@@ -160,12 +156,12 @@ class DataTable extends Component {
                 type: numberValueTypes.includes(valueType)
                     ? 'number'
                     : 'string',
-            }));
+            }))
     }
 
     // Debounce needed as event is triggered multiple times for the same row
-    highlightFeature = debounce(50, id => {
-        const { feature, layer } = this.props;
+    highlightFeature = debounce(50, (id) => {
+        const { feature, layer } = this.props
 
         // If not the same feature as already highlighted
         if (!id || !feature || id !== feature.id) {
@@ -177,32 +173,35 @@ class DataTable extends Component {
                           origin: 'table',
                       }
                     : null
-            );
+            )
         }
-    });
+    })
 
-    onRowClick = evt => {
-        const { layer: layerType } = this.props.layer;
+    onRowClick = (evt) => {
+        const { layer: layerType } = this.props.layer
 
         if (layerType === FEATURE_SERVICE) {
-            const { name, fields } = this.props.layer;
+            const { name, fields } = this.props.layer
 
             this.props.setFeatureProfile({
                 name,
                 fields,
                 data: evt.rowData,
-            });
+            })
         } else {
-            this.props.setOrgUnitProfile(evt.rowData.id);
+            this.props.setOrgUnitProfile(evt.rowData.id)
         }
-    };
+    }
 
-    onRowMouseOver = evt => this.highlightFeature(evt.rowData.id);
-    onRowMouseOut = () => this.highlightFeature();
+    onRowMouseOver = (evt) => this.highlightFeature(evt.rowData.id)
+    onRowMouseOut = () => this.highlightFeature()
+    // onRowClick = (evt) => this.props.setOrgUnitProfile(evt.rowData.id)
+    onRowMouseOver = (evt) => this.highlightFeature(evt.rowData.id)
+    onRowMouseOut = () => this.highlightFeature()
 
     render() {
-        const { data, sortBy, sortDirection } = this.state;
-        const { width, height, layer, aggregations } = this.props;
+        const { data, sortBy, sortDirection } = this.state
+        const { width, height, layer, aggregations } = this.props
 
         const {
             layer: layerType,
@@ -211,15 +210,16 @@ class DataTable extends Component {
             aggregationType,
             legend,
             fields,
-        } = layer;
+        } = layer
 
-        const isThematic = layerType === THEMATIC_LAYER;
-        const isOrgUnit = layerType === ORG_UNIT_LAYER;
-        const isEvent = layerType === EVENT_LAYER;
-        const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
-        const isFeatureService = layerType === FEATURE_SERVICE;
+        const isThematic = layerType === THEMATIC_LAYER
+        const isOrgUnit = layerType === ORG_UNIT_LAYER
+        const isEvent = layerType === EVENT_LAYER
+        const isEarthEngine = layerType === EARTH_ENGINE_LAYER
+        const isFeatureService = layerType === FEATURE_SERVICE
+
         const isLoading =
-            isEarthEngine && aggregationType?.length && !aggregations;
+            isEarthEngine && aggregationType?.length && !aggregations
 
         return !serverCluster ? (
             <>
@@ -249,34 +249,28 @@ class DataTable extends Component {
                         width={72}
                         className="right"
                     />
-                    {!isFeatureService && (
-                        <Column
-                            dataKey={isEvent ? 'ouname' : 'name'}
-                            label={
-                                isEvent ? i18n.t('Org unit') : i18n.t('Name')
-                            }
-                            width={100}
-                            headerRenderer={props => (
-                                <ColumnHeader type="string" {...props} />
-                            )}
-                        />
-                    )}
-                    {!isFeatureService && (
-                        <Column
-                            dataKey="id"
-                            label={i18n.t('Id')}
-                            width={100}
-                            headerRenderer={props => (
-                                <ColumnHeader type="string" {...props} />
-                            )}
-                        />
-                    )}
+                    <Column
+                        dataKey={isEvent ? 'ouname' : 'name'}
+                        label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
+                        width={100}
+                        headerRenderer={(props) => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
+                    />
+                    <Column
+                        dataKey="id"
+                        label={i18n.t('Id')}
+                        width={100}
+                        headerRenderer={(props) => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
+                    />
                     {isEvent && (
                         <Column
                             dataKey="eventdate"
                             label={i18n.t('Event time')}
                             width={100}
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="date" {...props} />
                             )}
                             cellRenderer={({ cellData }) =>
@@ -292,7 +286,7 @@ class DataTable extends Component {
                                 label={label}
                                 width={100}
                                 className={type === 'number' ? 'right' : 'left'}
-                                headerRenderer={props => (
+                                headerRenderer={(props) => (
                                     <ColumnHeader type={type} {...props} />
                                 )}
                             />
@@ -303,7 +297,7 @@ class DataTable extends Component {
                             label={i18n.t('Value')}
                             width={72}
                             className="right"
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="number" {...props} />
                             )}
                         />
@@ -313,7 +307,7 @@ class DataTable extends Component {
                             dataKey="legend"
                             label={i18n.t('Legend')}
                             width={100}
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="string" {...props} />
                             )}
                         />
@@ -323,7 +317,7 @@ class DataTable extends Component {
                             dataKey="range"
                             label={i18n.t('Range')}
                             width={72}
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="string" {...props} />
                             )}
                         />
@@ -334,7 +328,7 @@ class DataTable extends Component {
                             label={i18n.t('Level')}
                             width={72}
                             className="right"
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="number" {...props} />
                             )}
                         />
@@ -344,7 +338,7 @@ class DataTable extends Component {
                             dataKey="parentName"
                             label={i18n.t('Parent')}
                             width={100}
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="string" {...props} />
                             )}
                         />
@@ -354,7 +348,7 @@ class DataTable extends Component {
                             dataKey="type"
                             label={i18n.t('Type')}
                             width={100}
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="string" {...props} />
                             )}
                         />
@@ -364,7 +358,7 @@ class DataTable extends Component {
                             dataKey="color"
                             label={i18n.t('Color')}
                             width={100}
-                            headerRenderer={props => (
+                            headerRenderer={(props) => (
                                 <ColumnHeader type="string" {...props} />
                             )}
                             cellRenderer={ColorCell}
@@ -391,13 +385,13 @@ class DataTable extends Component {
                     'Data table is not supported when events are grouped on the server.'
                 )}
             </div>
-        );
+        )
     }
 }
 
 export default connect(
     ({ dataTable, map, aggregations = {}, feature }) => {
-        const layer = map.mapViews.find(l => l.id === dataTable);
+        const layer = map.mapViews.find((l) => l.id === dataTable)
 
         return layer
             ? {
@@ -405,13 +399,13 @@ export default connect(
                   feature,
                   aggregations: aggregations[layer.id],
               }
-            : {};
+            : {}
     },
     {
         closeDataTable,
-        loadLayer,
+        updateLayer,
         setOrgUnitProfile,
         setFeatureProfile,
         highlightFeature,
     }
-)(DataTable);
+)(DataTable)

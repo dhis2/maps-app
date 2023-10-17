@@ -1,56 +1,56 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { Checkbox } from '../../core';
-import { setEventStatus } from '../../../actions/layerEdit';
-import { dimConf } from '../../../constants/dimension';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setEventStatus } from '../../../actions/layerEdit.js'
+import { dimConf } from '../../../constants/dimension.js'
 import {
     EVENT_STATUS_ALL,
     EVENT_STATUS_COMPLETED,
-} from '../../../constants/eventStatuses';
+} from '../../../constants/eventStatuses.js'
+import { Checkbox } from '../../core/index.js'
 
 const eventDataTypes = [
     dimConf.indicator.objectName,
     dimConf.programIndicator.objectName,
     dimConf.eventDataItem.objectName,
-];
+]
 
-export const CompletedOnlyCheckbox = ({
+const CompletedOnlyCheckbox = ({
     valueType,
     completedOnly,
     setEventStatus,
 }) => {
-    const hasEventData = eventDataTypes.includes(valueType);
+    const hasEventData = eventDataTypes.includes(valueType)
 
     useEffect(() => {
         if (completedOnly && !hasEventData) {
-            setEventStatus(EVENT_STATUS_ALL);
+            setEventStatus(EVENT_STATUS_ALL)
         }
-    }, [completedOnly, hasEventData, setEventStatus]);
+    }, [completedOnly, hasEventData, setEventStatus])
 
     return hasEventData ? (
         <Checkbox
             label={i18n.t('Only show completed events')}
             checked={completedOnly}
-            onChange={isChecked =>
+            onChange={(isChecked) =>
                 setEventStatus(
                     isChecked ? EVENT_STATUS_COMPLETED : EVENT_STATUS_ALL
                 )
             }
         />
-    ) : null;
-};
+    ) : null
+}
 
 CompletedOnlyCheckbox.propTypes = {
-    valueType: PropTypes.string,
-    completedOnly: PropTypes.bool,
     setEventStatus: PropTypes.func.isRequired,
-};
+    completedOnly: PropTypes.bool,
+    valueType: PropTypes.string,
+}
 
 export default connect(
     ({ layerEdit }) => ({
         completedOnly: layerEdit.eventStatus === EVENT_STATUS_COMPLETED,
     }),
     { setEventStatus }
-)(CompletedOnlyCheckbox);
+)(CompletedOnlyCheckbox)

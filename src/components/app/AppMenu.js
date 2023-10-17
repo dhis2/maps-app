@@ -1,17 +1,24 @@
-import React from 'react';
-import AddLayerButton from '../layers/overlays/AddLayerButton';
-import FileMenu from './FileMenu';
-import DownloadButton from '../download/DownloadButton';
-import InterpretationsToggle from '../interpretations/InterpretationsToggle';
-import styles from './styles/AppMenu.module.css';
+import { Toolbar, HoverMenuBar } from '@dhis2/analytics'
+import PropTypes from 'prop-types'
+import React from 'react'
+import DownloadButton from '../download/DownloadButton.js'
+import InterpretationsToggle from '../interpretations/InterpretationsToggle.js'
+import AddLayerButton from '../layers/overlays/AddLayerButton.js'
+import FileMenu from './FileMenu.js'
 
-export const AppMenu = () => (
-    <div className={styles.appMenu}>
+const AppMenu = ({ onFileMenuAction }) => (
+    <Toolbar>
         <AddLayerButton />
-        <FileMenu />
-        <DownloadButton />
+        <HoverMenuBar>
+            <FileMenu onFileMenuAction={onFileMenuAction} />
+            <DownloadButton />
+        </HoverMenuBar>
         <InterpretationsToggle />
-    </div>
-);
+    </Toolbar>
+)
 
-export default AppMenu;
+AppMenu.propTypes = {
+    onFileMenuAction: PropTypes.func.isRequired,
+}
+
+export default AppMenu

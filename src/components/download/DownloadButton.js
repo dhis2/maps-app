@@ -1,28 +1,20 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { MenuButton } from '../core';
-import DownloadDialog from './DownloadDialog';
-import { toggleDownloadDialog } from '../../actions/download';
+import i18n from '@dhis2/d2-i18n'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { setDownloadMode } from '../../actions/download.js'
+import styles from './styles/DownloadButton.module.css'
 
-export class DownloadButton extends Component {
-    static propTypes = {
-        toggleDownloadDialog: PropTypes.func.isRequired,
-    };
+const DownloadButton = () => {
+    const dispatch = useDispatch()
 
-    render() {
-        return (
-            <Fragment>
-                <MenuButton onClick={this.onClick}>
-                    {i18n.t('Download')}
-                </MenuButton>
-                <DownloadDialog />
-            </Fragment>
-        );
-    }
-
-    onClick = () => this.props.toggleDownloadDialog(true);
+    return (
+        <button
+            className={styles.button}
+            onClick={() => dispatch(setDownloadMode(true))}
+        >
+            {i18n.t('Download')}
+        </button>
+    )
 }
 
-export default connect(null, { toggleDownloadDialog })(DownloadButton);
+export default DownloadButton

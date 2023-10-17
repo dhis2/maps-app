@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { NoticeBox } from '@dhis2/ui';
-import { SystemSettingsCtx } from '../../SystemSettingsProvider';
-import { Tab, Tabs, NumberField, ImageSelect, ColorPicker } from '../../core';
-import ProgramSelect from '../../program/ProgramSelect';
-import ProgramStageSelect from '../../program/ProgramStageSelect';
-import EventStatusSelect from './EventStatusSelect';
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
-import StartEndDates from '../../periods/StartEndDates';
-import FilterGroup from '../../filter/FilterGroup';
-import StyleByDataItem from '../../dataItem/StyleByDataItem';
-import CoordinateField from '../../dataItem/CoordinateField';
-import OrgUnitTree from '../../orgunits/OrgUnitTree';
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
-import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
-import BufferRadius from '../shared/BufferRadius';
+import i18n from '@dhis2/d2-i18n'
+import { NoticeBox } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {
+    setProgram,
+    setProgramStage,
+    setEventStatus,
+    setEventCoordinateField,
+    setEventClustering,
+    setEventPointColor,
+    setEventPointRadius,
+    // setFallbackCoordinateField,
+    setPeriod,
+    setStartDate,
+    setEndDate,
+    setOrgUnits,
+} from '../../../actions/layerEdit.js'
 import {
     DEFAULT_START_DATE,
     DEFAULT_END_DATE,
@@ -26,60 +26,73 @@ import {
     CLASSIFICATION_PREDEFINED,
     MIN_RADIUS,
     MAX_RADIUS,
-} from '../../../constants/layers';
-import { START_END_DATES } from '../../../constants/periods';
-
-import styles from '../styles/LayerDialog.module.css';
-
-import {
-    setProgram,
-    setProgramStage,
-    setEventStatus,
-    setEventCoordinateField,
-    setEventClustering,
-    setEventPointColor,
-    setEventPointRadius,
-    setOrgUnitRoot,
-    setUserOrgUnits,
-    toggleOrgUnit,
-    setPeriod,
-    setStartDate,
-    setEndDate,
-} from '../../../actions/layerEdit';
-
+} from '../../../constants/layers.js'
+import { START_END_DATES } from '../../../constants/periods.js'
 import {
     getPeriodFromFilters,
     getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
-    getUserOrgUnitsFromRows,
-} from '../../../util/analytics';
+} from '../../../util/analytics.js'
+import { cssColor } from '../../../util/colors.js'
+import { isPeriodAvailable } from '../../../util/periods.js'
+import { getStartEndDateError } from '../../../util/time.js'
+import {
+    Tab,
+    Tabs,
+    NumberField,
+    ImageSelect,
+    ColorPicker,
+} from '../../core/index.js'
+import CoordinateField from '../../dataItem/CoordinateField.js'
+import FilterGroup from '../../dataItem/filter/FilterGroup.js'
+import StyleByDataItem from '../../dataItem/StyleByDataItem.js'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
+import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
+import StartEndDates from '../../periods/StartEndDates.js'
+import ProgramSelect from '../../program/ProgramSelect.js'
+import ProgramStageSelect from '../../program/ProgramStageSelect.js'
+import { SystemSettingsCtx } from '../../SystemSettingsProvider.js'
+import BufferRadius from '../shared/BufferRadius.js'
+import styles from '../styles/LayerDialog.module.css'
+import EventStatusSelect from './EventStatusSelect.js'
 
-import { isPeriodAvailable } from '../../../util/periods';
-import { getStartEndDateError } from '../../../util/time';
-import { cssColor } from '../../../util/colors';
-
-export class EventDialog extends Component {
+class EventDialog extends Component {
     static propTypes = {
+        setEndDate: PropTypes.func.isRequired,
+        setEventClustering: PropTypes.func.isRequired,
+        setEventCoordinateField: PropTypes.func.isRequired,
+        setEventPointColor: PropTypes.func.isRequired,
+        setEventPointRadius: PropTypes.func.isRequired,
+        setEventStatus: PropTypes.func.isRequired,
+        // setFallbackCoordinateField: PropTypes.func.isRequired,
+        setOrgUnits: PropTypes.func.isRequired,
+        setPeriod: PropTypes.func.isRequired,
+        setProgram: PropTypes.func.isRequired,
+        setProgramStage: PropTypes.func.isRequired,
+        setStartDate: PropTypes.func.isRequired,
+        validateLayer: PropTypes.bool.isRequired,
+        onLayerValidation: PropTypes.func.isRequired,
         columns: PropTypes.array,
         defaultPeriod: PropTypes.string,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
-        eventStatus: PropTypes.string,
         eventCoordinateField: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
+        eventStatus: PropTypes.string,
+        // fallbackCoordinateField: PropTypes.string,
         filters: PropTypes.array,
-        settings: PropTypes.object,
         legendSet: PropTypes.object,
         method: PropTypes.number,
-        onLayerValidation: PropTypes.func.isRequired,
+        orgUnits: PropTypes.object,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
+            trackedEntityType: PropTypes.object,
         }),
         programStage: PropTypes.shape({
             id: PropTypes.string.isRequired,
         }),
         rows: PropTypes.array,
+        settings: PropTypes.object,
         startDate: PropTypes.string,
         styleDataItem: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -87,27 +100,13 @@ export class EventDialog extends Component {
                 options: PropTypes.array,
             }),
         }),
-        setProgram: PropTypes.func.isRequired,
-        setProgramStage: PropTypes.func.isRequired,
-        setEventStatus: PropTypes.func.isRequired,
-        setEventCoordinateField: PropTypes.func.isRequired,
-        setEventClustering: PropTypes.func.isRequired,
-        setEventPointColor: PropTypes.func.isRequired,
-        setEventPointRadius: PropTypes.func.isRequired,
-        setOrgUnitRoot: PropTypes.func.isRequired,
-        setUserOrgUnits: PropTypes.func.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
-        setPeriod: PropTypes.func.isRequired,
-        setStartDate: PropTypes.func.isRequired,
-        setEndDate: PropTypes.func.isRequired,
-        validateLayer: PropTypes.bool.isRequired,
-    };
+    }
 
     constructor(props, context) {
-        super(props, context);
+        super(props, context)
         this.state = {
             tab: 'data',
-        };
+        }
     }
 
     componentDidMount() {
@@ -118,19 +117,14 @@ export class EventDialog extends Component {
             settings,
             startDate,
             endDate,
-            setOrgUnitRoot,
+            orgUnits,
             setPeriod,
             setStartDate,
             setEndDate,
-        } = this.props;
+            setOrgUnits,
+        } = this.props
 
-        const orgUnits = getOrgUnitNodesFromRows(rows);
-        const period = getPeriodFromFilters(filters);
-
-        // Set org unit tree root as default
-        if (orgUnits.length === 0) {
-            setOrgUnitRoot();
-        }
+        const period = getPeriodFromFilters(filters)
 
         // Set default period from system settings
         if (
@@ -142,18 +136,26 @@ export class EventDialog extends Component {
         ) {
             setPeriod({
                 id: defaultPeriod,
-            });
+            })
         } else if (!startDate && !endDate) {
-            setStartDate(DEFAULT_START_DATE);
-            setEndDate(DEFAULT_END_DATE);
+            setStartDate(DEFAULT_START_DATE)
+            setEndDate(DEFAULT_END_DATE)
+        }
+
+        // Set org unit tree roots as default
+        if (!rows && orgUnits.roots) {
+            setOrgUnits({
+                dimension: 'ou',
+                items: orgUnits.roots,
+            })
         }
     }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props;
+        const { validateLayer, onLayerValidation } = this.props
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
-            onLayerValidation(this.validate());
+            onLayerValidation(this.validate())
         }
     }
 
@@ -167,14 +169,13 @@ export class EventDialog extends Component {
             eventCoordinateField,
             eventPointColor,
             eventPointRadius,
+            // fallbackCoordinateField,
             filters = [],
-            settings,
             program,
             programStage,
-            rows = [],
             startDate,
             legendSet,
-        } = this.props;
+        } = this.props
 
         const {
             // handlers
@@ -185,10 +186,9 @@ export class EventDialog extends Component {
             setEventClustering,
             setEventPointColor,
             setEventPointRadius,
-            setUserOrgUnits,
-            toggleOrgUnit,
+            // setFallbackCoordinateField,
             setPeriod,
-        } = this.props;
+        } = this.props
 
         const {
             tab,
@@ -197,17 +197,15 @@ export class EventDialog extends Component {
             periodError,
             orgUnitsError,
             legendSetError,
-        } = this.state;
+        } = this.state
 
         const period = getPeriodFromFilters(filters) || {
             id: START_END_DATES,
-        };
-
-        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
+        }
 
         return (
             <div className={styles.content} data-test="eventdialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                <Tabs value={tab} onChange={(tab) => this.setState({ tab })}>
                     <Tab value="data">{i18n.t('Data')}</Tab>
                     <Tab value="period">{i18n.t('Period')}</Tab>
                     <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
@@ -230,13 +228,15 @@ export class EventDialog extends Component {
                                 errorText={programError}
                                 data-test="eventdialog-programselect"
                             />
-                            <ProgramStageSelect
-                                program={program}
-                                programStage={programStage}
-                                onChange={setProgramStage}
-                                className={styles.select}
-                                errorText={programStageError}
-                            />
+                            {program && (
+                                <ProgramStageSelect
+                                    program={program}
+                                    programStage={programStage}
+                                    onChange={setProgramStage}
+                                    className={styles.select}
+                                    errorText={programStageError}
+                                />
+                            )}
                             <CoordinateField
                                 program={program}
                                 programStage={programStage}
@@ -244,6 +244,16 @@ export class EventDialog extends Component {
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
                             />
+                            {/* eventCoordinateField && (
+                                <CoordinateField
+                                    program={program}
+                                    programStage={programStage}
+                                    value={fallbackCoordinateField}
+                                    eventCoordinateField={eventCoordinateField}
+                                    onChange={setFallbackCoordinateField}
+                                    className={styles.select}
+                                />
+                            ) */}
                             <EventStatusSelect
                                 value={eventStatus}
                                 onChange={setEventStatus}
@@ -259,7 +269,6 @@ export class EventDialog extends Component {
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
-                                hiddenPeriods={settings.hiddenPeriods}
                                 onChange={setPeriod}
                                 className={styles.select}
                             />
@@ -273,33 +282,12 @@ export class EventDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="eventdialog-orgunittab"
-                        >
-                            <div className={styles.orgUnitTree}>
-                                <OrgUnitTree
-                                    selected={getOrgUnitNodesFromRows(rows)}
-                                    onClick={toggleOrgUnit}
-                                    disabled={
-                                        selectedUserOrgUnits.length
-                                            ? true
-                                            : false
-                                    }
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <UserOrgUnitsSelect
-                                    selected={selectedUserOrgUnits}
-                                    onChange={setUserOrgUnits}
-                                />
-                                <SelectedOrgUnits
-                                    rows={rows}
-                                    units={i18n.t('Events')}
-                                    error={orgUnitsError}
-                                />
-                            </div>
-                        </div>
+                        <OrgUnitSelect
+                            hideAssociatedGeometry={true}
+                            hideLevelSelect={true}
+                            hideGroupSelect={true}
+                            warning={orgUnitsError}
+                        />
                     )}
                     {tab === 'filter' && (
                         <div
@@ -310,7 +298,7 @@ export class EventDialog extends Component {
                                 program={program}
                                 programStage={programStage}
                                 filters={columns.filter(
-                                    c => c.filter !== undefined
+                                    (c) => c.filter !== undefined
                                 )}
                             />
                         </div>
@@ -367,6 +355,8 @@ export class EventDialog extends Component {
                             <div className={styles.flexColumn}>
                                 {program ? (
                                     <StyleByDataItem
+                                        program={program}
+                                        programStage={programStage}
                                         error={!legendSet && legendSetError}
                                     />
                                 ) : (
@@ -383,7 +373,7 @@ export class EventDialog extends Component {
                     )}
                 </div>
             </div>
-        );
+        )
     }
 
     // TODO: Add to parent class?
@@ -391,9 +381,9 @@ export class EventDialog extends Component {
         this.setState({
             [key]: message,
             tab,
-        });
+        })
 
-        return false;
+        return false
     }
 
     validate() {
@@ -407,18 +397,18 @@ export class EventDialog extends Component {
             method,
             legendSet,
             styleDataItem,
-        } = this.props;
+        } = this.props
 
         const period = getPeriodFromFilters(filters) || {
             id: START_END_DATES,
-        };
+        }
 
         if (!program) {
             return this.setErrorState(
                 'programError',
                 i18n.t('Program is required'),
                 'data'
-            );
+            )
         }
 
         if (!programStage) {
@@ -426,13 +416,13 @@ export class EventDialog extends Component {
                 'programStageError',
                 i18n.t('Program stage is required'),
                 'data'
-            );
+            )
         }
 
         if (period.id === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate);
+            const error = getStartEndDateError(startDate, endDate)
             if (error) {
-                return this.setErrorState('periodError', error, 'period');
+                return this.setErrorState('periodError', error, 'period')
             }
         }
 
@@ -441,7 +431,7 @@ export class EventDialog extends Component {
                 'orgUnitsError',
                 i18n.t('No organisation units are selected.'),
                 'orgunits'
-            );
+            )
         }
 
         if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
@@ -449,7 +439,7 @@ export class EventDialog extends Component {
                 'legendSetError',
                 i18n.t('No legend set is selected'),
                 'style'
-            );
+            )
         }
 
         if (
@@ -458,18 +448,18 @@ export class EventDialog extends Component {
             !styleDataItem.optionSet.options
         ) {
             // Occurs when there are too many options
-            return this.setErrorState('styleDataItemError', '', 'style');
+            return this.setErrorState('styleDataItemError', '', 'style')
         }
 
-        return true;
+        return true
     }
 }
 
-const EventDialogWithSettings = props => (
+const EventDialogWithSettings = (props) => (
     <SystemSettingsCtx.Consumer>
-        {settings => <EventDialog settings={settings} {...props} />}
+        {(settings) => <EventDialog settings={settings} {...props} />}
     </SystemSettingsCtx.Consumer>
-);
+)
 
 export default connect(
     null,
@@ -481,15 +471,14 @@ export default connect(
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,
-        setOrgUnitRoot,
-        setUserOrgUnits,
-        toggleOrgUnit,
+        // setFallbackCoordinateField,
         setPeriod,
         setStartDate,
         setEndDate,
+        setOrgUnits,
     },
     null,
     {
         forwardRef: true,
     }
-)(EventDialogWithSettings);
+)(EventDialogWithSettings)

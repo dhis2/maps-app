@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './styles/MenuButton.module.css';
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/MenuButton.module.css'
 
 /* Copied from https://github.com/dhis2/data-visualizer-app/blob/master/packages/app/src/components/MenuButton/MenuButton.js */
 const MenuButton = ({
@@ -23,7 +23,7 @@ const MenuButton = ({
     >
         {children}
     </button>
-);
+)
 
 MenuButton.propTypes = {
     children: PropTypes.node,
@@ -33,6 +33,6 @@ MenuButton.propTypes = {
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
     onFocus: PropTypes.func,
-};
+}
 
-export default MenuButton;
+export default MenuButton

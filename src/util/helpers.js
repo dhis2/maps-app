@@ -1,22 +1,22 @@
-import { isObject } from 'lodash/fp';
-import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers';
+import { isObject } from 'lodash/fp'
+import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers.js'
 
 const propertyMap = {
     name: 'name',
     displayName: 'name',
     shortName: 'shortName',
     displayShortName: 'shortName',
-};
+}
 
 export const getDisplayProperty = (d2, displayProperty) => {
     const keyAnalysisDisplayProperty =
-        d2.currentUser.settings.keyAnalysisDisplayProperty;
+        d2.currentUser.settings.keyAnalysisDisplayProperty
     return (
         propertyMap[keyAnalysisDisplayProperty] ||
         propertyMap[displayProperty] ||
         'name'
-    ); // TODO: check
-};
+    ) // TODO: check
+}
 
 /*
 export const getDisplayPropertyUrl = d2 => {
@@ -24,12 +24,13 @@ export const getDisplayPropertyUrl = d2 => {
 };
 */
 
-export const getDisplayPropertyUrl = () => `displayName~rename(name)`;
+export const getDisplayPropertyUrl = () => `displayName~rename(name)`
 
 const baseFields = [
     'id',
     'user',
     'displayName~rename(name)',
+    'description',
     'longitude',
     'latitude',
     'zoom',
@@ -42,10 +43,10 @@ const baseFields = [
     'manage',
     'delete',
     'href',
-];
+]
 
 const analysisFields = () => {
-    const namePropertyUrl = getDisplayPropertyUrl();
+    const namePropertyUrl = getDisplayPropertyUrl()
     return [
         '*',
         `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
@@ -83,13 +84,13 @@ const analysisFields = () => {
         '!organisationUnitLevels',
         '!sortOrder',
         '!topLimit',
-    ];
-};
+    ]
+}
 
 export const mapFields = () => {
-    const fields = analysisFields();
-    return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`;
-};
+    const fields = analysisFields()
+    return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`
+}
 
 export const legendFields = [
     '*',
@@ -99,65 +100,66 @@ export const legendFields = [
     '!externalAccess',
     '!access',
     '!userGroupAccesses',
-];
+]
 
 export const legendSetFields = [
     'id,displayName~rename(name),legends[' + legendFields.join(',') + ']',
-];
+]
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
-export const addOrgUnitPaths = mapViews =>
-    mapViews.map(view =>
+export const addOrgUnitPaths = (mapViews) =>
+    mapViews.map((view) =>
         view.rows && view.organisationUnits
             ? {
                   ...view,
-                  rows: view.rows.map(dim => ({
+                  rows: view.rows.map((dim) => ({
                       ...dim,
-                      items: dim.items.map(orgUnit => ({
+                      items: dim.items.map((orgUnit) => ({
                           ...orgUnit,
                           path: (
                               view.organisationUnits.find(
-                                  ou => ou.id === orgUnit.id
+                                  (ou) => ou.id === orgUnit.id
                               ) || {}
                           ).path,
                       })),
                   })),
               }
             : view
-    );
+    )
 
-const mandatoryDataItemAttributes = ['id', 'name', 'valueType'];
+const mandatoryDataItemAttributes = ['id', 'name', 'valueType']
 
 // Checks if a data item is valid (program stage data elements and tracked entity attributes)
-export const getValidDataItems = items =>
+export const getValidDataItems = (items) =>
     items.filter(
-        item =>
+        (item) =>
             isObject(item) &&
-            mandatoryDataItemAttributes.every(prop => prop in item)
-    );
+            mandatoryDataItemAttributes.every((prop) => prop in item)
+    )
 
 // Returns split view layer if exist
-export const getSplitViewLayer = layers =>
+export const getSplitViewLayer = (layers) =>
     layers.find(
-        layer => layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-    );
+        (layer) =>
+            layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+    )
 
 // Checks if split view map
-export const isSplitViewMap = layers => !!getSplitViewLayer(layers);
+export const isSplitViewMap = (layers) => !!getSplitViewLayer(layers)
 
-export const formatCoordinate = value => {
+export const formatCoordinate = (value) => {
     try {
         return JSON.parse(value)
-            .map(v => v.toFixed(6))
-            .join(', ');
+            .map((v) => v.toFixed(6))
+            .join(', ')
     } catch (e) {
-        return value;
+        return value
     }
-};
+}
 
 // Formats a DHIS2 time string
-export const formatTime = time =>
-    `${time.substring(0, 10)} ${time.substring(11, 16)}`;
+export const formatTime = (time) =>
+    `${time.substring(0, 10)} ${time.substring(11, 16)}`
 
 // Get the longest text length from an object property in an array
 export const getLongestTextLength = (array, key) =>
@@ -167,4 +169,8 @@ export const getLongestTextLength = (array, key) =>
                 ? String(curr[key])
                 : text,
         ''
-    ).length;
+    ).length
+
+//  Copied from https://github.com/dhis2/d2/blob/master/src/uid.js
+const CODE_PATTERN = /^[a-zA-Z]{1}[a-zA-Z0-9]{10}$/
+export const isValidUid = (code) => (code ? CODE_PATTERN.test(code) : false)

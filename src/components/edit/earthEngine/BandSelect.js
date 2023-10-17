@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { SelectField } from '../../core';
-import { setBand } from '../../../actions/layerEdit';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { setBand } from '../../../actions/layerEdit.js'
+import { SelectField } from '../../core/index.js'
 
 const BandSelect = ({ band = [], bands, setBand, errorText }) => (
     <SelectField
@@ -14,14 +14,14 @@ const BandSelect = ({ band = [], bands, setBand, errorText }) => (
         onChange={setBand}
         errorText={errorText}
     />
-);
+)
 
 BandSelect.propTypes = {
-    band: PropTypes.array,
     bands: PropTypes.array.isRequired,
     setBand: PropTypes.func.isRequired,
+    band: PropTypes.array,
     errorText: PropTypes.string,
-};
+}
 
 export default connect(
     ({ layerEdit }) => ({
@@ -29,4 +29,4 @@ export default connect(
         bands: layerEdit.bands,
     }),
     { setBand }
-)(BandSelect);
+)(BandSelect)

@@ -1,78 +1,60 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import {
     AboutAOUnit,
     InterpretationsUnit,
     InterpretationModal,
-} from '@dhis2/analytics';
-import { useD2 } from '@dhis2/app-runtime-adapter-d2';
-import Drawer from '../core/Drawer';
-import InterpretationMap from './InterpretationMap';
-import { getUrlParameter } from '../../util/requests';
-import { setInterpretation } from '../../actions/interpretations';
+} from '@dhis2/analytics'
+import { useD2 } from '@dhis2/app-runtime-adapter-d2'
+import PropTypes from 'prop-types'
+import React, { useState, useRef, useCallback } from 'react'
+import { connect } from 'react-redux'
+import { setInterpretation } from '../../actions/interpretations.js'
+import Drawer from '../core/Drawer.js'
+import InterpretationMap from './InterpretationMap.js'
 
 const InterpretationsPanel = ({
     interpretationId,
     map,
-    isPanelOpen,
     setInterpretation,
+    renderCount,
 }) => {
-    const [isMapLoading, setIsMapLoading] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState();
-    const [initialFocus, setInitialFocus] = useState(false);
-    const interpretationsUnitRef = useRef();
-    const { d2 } = useD2();
+    const [initialFocus, setInitialFocus] = useState(false)
+    const interpretationsUnitRef = useRef()
+    const { d2 } = useD2()
 
-    const onInterpretationClick = useCallback(interpretationId => {
-        setInterpretation(interpretationId);
-        setIsModalOpen(true);
-    }, []);
+    const onInterpretationClick = useCallback(
+        (interpretationId) => {
+            setInterpretation(interpretationId)
+        },
+        [setInterpretation]
+    )
 
-    const onReplyIconClick = useCallback(interpretationId => {
-        setInitialFocus(true);
-        setInterpretation(interpretationId);
-        setIsModalOpen(true);
-    }, []);
+    const onReplyIconClick = useCallback(
+        (interpretationId) => {
+            setInitialFocus(true)
+            setInterpretation(interpretationId)
+        },
+        [setInterpretation]
+    )
 
     const onModalClose = useCallback(() => {
-        setIsModalOpen(false);
-        setInitialFocus(false);
-
-        // Small timeout added as the interpretation modal onClose is called before the
-        // modal is actaully closed. It needs to be closed to free the webgl context used.
-        setTimeout(setInterpretation, 100);
-    }, []);
-
-    useEffect(() => {
-        const urlInterpretationId = getUrlParameter('interpretationid');
-
-        if (urlInterpretationId) {
-            setInterpretation(urlInterpretationId);
-            setIsModalOpen(true);
-        }
-    }, []);
-
-    if (!map?.id) {
-        return null;
-    }
+        setInitialFocus(false)
+        setInterpretation()
+    }, [setInterpretation])
 
     return (
         <>
-            {isPanelOpen && (
-                <Drawer>
-                    <AboutAOUnit type="map" id={map.id} />
-                    <InterpretationsUnit
-                        ref={interpretationsUnitRef}
-                        type="map"
-                        id={map.id}
-                        currentUser={d2.currentUser}
-                        onInterpretationClick={onInterpretationClick}
-                        onReplyIconClick={onReplyIconClick}
-                    />
-                </Drawer>
-            )}
-            {isModalOpen && interpretationId && (
+            <Drawer>
+                <AboutAOUnit type="map" id={map.id} renderId={renderCount} />
+                <InterpretationsUnit
+                    ref={interpretationsUnitRef}
+                    type="map"
+                    id={map.id}
+                    currentUser={d2.currentUser}
+                    onInterpretationClick={onInterpretationClick}
+                    onReplyIconClick={onReplyIconClick}
+                />
+            </Drawer>
+            {interpretationId && (
                 <InterpretationModal
                     currentUser={d2.currentUser}
                     onInterpretationUpdate={() =>
@@ -80,34 +62,30 @@ const InterpretationsPanel = ({
                     }
                     initialFocus={initialFocus}
                     interpretationId={interpretationId}
-                    isVisualizationLoading={isMapLoading}
+                    isVisualizationLoading={false}
                     onClose={onModalClose}
-                    onResponsesReceived={() => setIsMapLoading(false)}
+                    onResponsesReceived={Function.prototype} // Required prop
                     visualization={map}
                     pluginComponent={InterpretationMap}
                 />
             )}
         </>
-    );
-};
+    )
+}
 
 InterpretationsPanel.propTypes = {
-    interpretationId: PropTypes.string,
     map: PropTypes.object.isRequired,
-    isPanelOpen: PropTypes.bool,
+    renderCount: PropTypes.number.isRequired,
     setInterpretation: PropTypes.func.isRequired,
-};
+    interpretationId: PropTypes.string,
+}
 
 export default connect(
-    state => ({
+    (state) => ({
         map: state.map,
-        isPanelOpen:
-            state.ui.rightPanelOpen &&
-            !state.orgUnitProfile &&
-            !state.featureProfile,
         interpretationId: state.interpretation.id,
     }),
     {
         setInterpretation,
     }
-)(InterpretationsPanel);
+)(InterpretationsPanel)

@@ -1,16 +1,16 @@
-import { createExternalLayer } from '../external';
 import {
     EXTERNAL_LAYER,
     TILE_LAYER,
     WMS_LAYER,
     VECTOR_STYLE,
-} from '../../constants/layers';
+} from '../../constants/layers.js'
+import { createExternalLayer } from '../external.js'
 
 describe('createExternalLayer for basemaps', () => {
     test('Vector Style', () => {
-        const id = 'myvector-style-basemap';
-        const name = 'Vector style external basemap';
-        const url = 'https://path-to-style/style.json';
+        const id = 'myvector-style-basemap'
+        const name = 'Vector style external basemap'
+        const url = 'https://path-to-style/style.json'
         const model = {
             id,
             name,
@@ -18,7 +18,7 @@ describe('createExternalLayer for basemaps', () => {
             mapService: 'VECTOR_STYLE',
             imageFormat: 'PNG',
             mapLayerPosition: 'BASEMAP',
-        };
+        }
 
         expect(createExternalLayer(model)).toMatchObject({
             layer: EXTERNAL_LAYER,
@@ -33,13 +33,13 @@ describe('createExternalLayer for basemaps', () => {
                 tms: false,
                 format: 'image/png',
             },
-        });
-    });
+        })
+    })
 
     test('XYZ', () => {
-        const id = 'my-xyz-basemap';
-        const name = 'My XYZ basemap';
-        const url = 'https://path-to-xyz';
+        const id = 'my-xyz-basemap'
+        const name = 'My XYZ basemap'
+        const url = 'https://path-to-xyz'
         const model = {
             id,
             name,
@@ -47,7 +47,7 @@ describe('createExternalLayer for basemaps', () => {
             mapService: 'XYZ',
             imageFormat: 'PNG',
             mapLayerPosition: 'BASEMAP',
-        };
+        }
 
         expect(createExternalLayer(model)).toMatchObject({
             layer: EXTERNAL_LAYER,
@@ -62,13 +62,13 @@ describe('createExternalLayer for basemaps', () => {
                 tms: false,
                 format: 'image/png',
             },
-        });
-    });
+        })
+    })
 
     test('TMS', () => {
-        const id = 'my-tms-basemap';
-        const name = 'My TMS basemap';
-        const url = 'https://path-to-tms';
+        const id = 'my-tms-basemap'
+        const name = 'My TMS basemap'
+        const url = 'https://path-to-tms'
         const model = {
             id,
             name,
@@ -76,7 +76,7 @@ describe('createExternalLayer for basemaps', () => {
             mapService: 'TMS',
             imageFormat: 'JPG',
             mapLayerPosition: 'BASEMAP',
-        };
+        }
 
         expect(createExternalLayer(model)).toMatchObject({
             layer: EXTERNAL_LAYER,
@@ -91,18 +91,18 @@ describe('createExternalLayer for basemaps', () => {
                 tms: true,
                 format: 'image/jpeg',
             },
-        });
-    });
+        })
+    })
 
     test('WMS with legend set', () => {
-        const id = 'wms-with-legendset';
-        const name = 'WMS with legend set';
-        const url = 'https://path-to-wms';
+        const id = 'wms-with-legendset'
+        const name = 'WMS with legend set'
+        const url = 'https://path-to-wms'
         const attribution =
-            '<a href="http://wms.com">Rainbow design</a>, <a href="someurl">Rainbow</a>';
+            '<a href="http://wms.com">Rainbow design</a>, <a href="someurl">Rainbow</a>'
         const legendSet = {
             id: 'legend-set-id',
-        };
+        }
         const model = {
             id,
             name,
@@ -112,7 +112,7 @@ describe('createExternalLayer for basemaps', () => {
             mapLayerPosition: 'BASEMAP',
             attribution,
             legendSet,
-        };
+        }
 
         expect(createExternalLayer(model)).toMatchObject({
             layer: EXTERNAL_LAYER,
@@ -128,6 +128,6 @@ describe('createExternalLayer for basemaps', () => {
                 format: 'image/png',
                 legendSet,
             },
-        });
-    });
-});
+        })
+    })
+})

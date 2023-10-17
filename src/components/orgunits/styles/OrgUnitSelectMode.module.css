@@ -1,0 +1,9 @@
+.orgUnitSelectMode {
+    margin-top: var(--spacers-dp8);
+    border-top: 1px solid #eee;
+    padding-top: var(--spacers-dp12);
+}
+
+.selectField {
+    width: 60%;
+}

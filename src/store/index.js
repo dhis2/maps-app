@@ -1,23 +1,16 @@
-import { createStore, compose, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { createEpicMiddleware } from 'redux-observable'; // TODO: Stop using
-import reducer from '../reducers';
-import rootEpic from '../epics'; // TODO: Stop using
-
-const epicMiddleware = createEpicMiddleware(rootEpic);
+import { createStore, compose, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import reducer from '../reducers/index.js'
 
 const composeEnhancer =
     (process.env.NODE_ENV === 'development' &&
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-    compose;
+    compose
 
-const store = createStore(
-    reducer,
-    composeEnhancer(applyMiddleware(thunk, epicMiddleware))
-);
+const store = createStore(reducer, composeEnhancer(applyMiddleware(thunk)))
 
 if (window.Cypress) {
-    window.store = store;
+    window.store = store
 }
 
-export default store;
+export default store

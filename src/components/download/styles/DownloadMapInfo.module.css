@@ -1,0 +1,37 @@
+.downloadMapInfo {
+    background-color: #fff;
+    height: 100%;
+    width: calc(var(--right-panel-width) - var(--spacers-dp24));
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: flex-start;
+}
+
+.downloadMapInfo h1 {
+    font-size: 24px;
+    margin: 0 0 var(--spacers-dp16);
+}
+
+.downloadMapInfo p {
+    margin: 0 0 var(--spacers-dp24);
+}
+
+.downloadMapInfo div a:link,
+.downloadMapInfo div a:visited {
+    color: var(--colors-grey900);
+}
+
+.downloadMapInfo table {
+    table-layout:fixed;
+}
+
+.downloadMapInfo table td {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 330px;
+}

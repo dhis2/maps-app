@@ -1,0 +1,8 @@
+.overviewMap {
+    margin-top: var(--spacers-dp8); 
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 260px;
+    box-sizing: border-box;
+    overflow: hidden;
+}

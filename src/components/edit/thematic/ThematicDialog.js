@@ -1,49 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SystemSettingsCtx } from '../../SystemSettingsProvider';
-import { Tab, Tabs } from '../../core';
-import ValueTypeSelect from './ValueTypeSelect';
-import AggregationTypeSelect from './AggregationTypeSelect';
-import CompletedOnlyCheckbox from './CompletedOnlyCheckbox';
-import NoDataColor from './NoDataColor';
-import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
-import DataElementSelect from '../../dataElement/DataElementSelect';
-import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect';
-import TotalsDetailsSelect from '../../dataElement/TotalsDetailsSelect';
-import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
-import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
-import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
-import NumericLegendStyle from '../../classification/NumericLegendStyle';
-import IndicatorSelect from '../../indicator/IndicatorSelect';
-import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
-import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
-import OrgUnitTree from '../../orgunits/OrgUnitTree';
-import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect';
-import PeriodSelect from '../../periods/PeriodSelect';
-import PeriodTypeSelect from '../../periods/PeriodTypeSelect';
-import RenderingStrategy from '../../periods/RenderingStrategy';
-import ProgramSelect from '../../program/ProgramSelect';
-import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
-import StartEndDates from '../../periods/StartEndDates';
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
-import DimensionFilter from '../../dimensions/DimensionFilter';
-import ThematicMapTypeSelect from './ThematicMapTypeSelect';
-import RadiusSelect, { isValidRadius } from './RadiusSelect';
-import Labels from '../shared/Labels';
-import { dimConf } from '../../../constants/dimension';
-import styles from '../styles/LayerDialog.module.css';
-
-import {
-    DEFAULT_ORG_UNIT_LEVEL,
-    CLASSIFICATION_PREDEFINED,
-    CLASSIFICATION_EQUAL_INTERVALS,
-} from '../../../constants/layers';
-
-import { RELATIVE_PERIODS, START_END_DATES } from '../../../constants/periods';
-
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
     setClassification,
     setDataItem,
@@ -52,79 +10,105 @@ import {
     setLegendSet,
     setNoDataColor,
     setOperand,
-    setOrgUnitLevels,
-    setOrgUnitGroups,
+    setOrgUnits,
     setPeriod,
     setPeriodType,
     setRenderingStrategy,
     setProgram,
-    setUserOrgUnits,
     setValueType,
-    toggleOrgUnit,
-    loadOrgUnitPath,
-} from '../../../actions/layerEdit';
-
+} from '../../../actions/layerEdit.js'
+import { dimConf } from '../../../constants/dimension.js'
+import {
+    DEFAULT_ORG_UNIT_LEVEL,
+    CLASSIFICATION_PREDEFINED,
+    CLASSIFICATION_EQUAL_INTERVALS,
+    RENDERING_STRATEGY_SINGLE,
+} from '../../../constants/layers.js'
+import {
+    RELATIVE_PERIODS,
+    START_END_DATES,
+} from '../../../constants/periods.js'
 import {
     getDataItemFromColumns,
     getOrgUnitsFromRows,
-    getOrgUnitGroupsFromRows,
-    getOrgUnitLevelsFromRows,
-    getOrgUnitNodesFromRows,
     getPeriodFromFilters,
     getDimensionsFromFilters,
-    getUserOrgUnitsFromRows,
-} from '../../../util/analytics';
+} from '../../../util/analytics.js'
+import { isPeriodAvailable } from '../../../util/periods.js'
+import { getStartEndDateError } from '../../../util/time.js'
+import NumericLegendStyle from '../../classification/NumericLegendStyle.js'
+import { Tab, Tabs } from '../../core/index.js'
+import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect.js'
+import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect.js'
+import DataElementSelect from '../../dataElement/DataElementSelect.js'
+import TotalsDetailsSelect from '../../dataElement/TotalsDetailsSelect.js'
+import EventDataItemSelect from '../../dataItem/EventDataItemSelect.js'
+import DataSetsSelect from '../../dataSets/DataSetsSelect.js' // Reporting rate
+import DimensionFilter from '../../dimensions/DimensionFilter.js'
+import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.js'
+import IndicatorSelect from '../../indicator/IndicatorSelect.js'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
+import PeriodSelect from '../../periods/PeriodSelect.js'
+import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
+import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
+import RenderingStrategy from '../../periods/RenderingStrategy.js'
+import StartEndDates from '../../periods/StartEndDates.js'
+import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.js'
+import ProgramSelect from '../../program/ProgramSelect.js'
+import { SystemSettingsCtx } from '../../SystemSettingsProvider.js'
+import Labels from '../shared/Labels.js'
+import styles from '../styles/LayerDialog.module.css'
+import AggregationTypeSelect from './AggregationTypeSelect.js'
+import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.js'
+import NoDataColor from './NoDataColor.js'
+import RadiusSelect, { isValidRadius } from './RadiusSelect.js'
+import ThematicMapTypeSelect from './ThematicMapTypeSelect.js'
+import ValueTypeSelect from './ValueTypeSelect.js'
 
-import { isPeriodAvailable } from '../../../util/periods';
-import { getStartEndDateError } from '../../../util/time';
-
-export class ThematicDialog extends Component {
+class ThematicDialog extends Component {
     static propTypes = {
-        id: PropTypes.string,
-        columns: PropTypes.array,
-        rows: PropTypes.array,
-        filters: PropTypes.array,
-        legendSet: PropTypes.object,
-        method: PropTypes.number,
-        indicatorGroup: PropTypes.object,
-        dataElementGroup: PropTypes.object,
-        noDataColor: PropTypes.string,
-        program: PropTypes.object,
-        operand: PropTypes.bool,
-        defaultPeriod: PropTypes.string,
-        startDate: PropTypes.string,
-        endDate: PropTypes.string,
-        periodType: PropTypes.string,
-        renderingStrategy: PropTypes.string,
-        thematicMapType: PropTypes.string,
-        valueType: PropTypes.string,
-        radiusLow: PropTypes.number,
-        radiusHigh: PropTypes.number,
-        loadOrgUnitPath: PropTypes.func.isRequired,
         setClassification: PropTypes.func.isRequired,
-        setDataItem: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
+        setDataItem: PropTypes.func.isRequired,
         setIndicatorGroup: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
+        setOrgUnits: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
-        setOrgUnitLevels: PropTypes.func.isRequired,
-        setOrgUnitGroups: PropTypes.func.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
-        setUserOrgUnits: PropTypes.func.isRequired,
         setPeriodType: PropTypes.func.isRequired,
-        setRenderingStrategy: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
+        setRenderingStrategy: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
         settings: PropTypes.object.isRequired,
-        onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
-    };
+        onLayerValidation: PropTypes.func.isRequired,
+        columns: PropTypes.array,
+        dataElementGroup: PropTypes.object,
+        defaultPeriod: PropTypes.string,
+        endDate: PropTypes.string,
+        filters: PropTypes.array,
+        id: PropTypes.string,
+        indicatorGroup: PropTypes.object,
+        legendSet: PropTypes.object,
+        method: PropTypes.number,
+        noDataColor: PropTypes.string,
+        operand: PropTypes.bool,
+        orgUnits: PropTypes.object,
+        periodType: PropTypes.string,
+        program: PropTypes.object,
+        radiusHigh: PropTypes.number,
+        radiusLow: PropTypes.number,
+        renderingStrategy: PropTypes.string,
+        rows: PropTypes.array,
+        startDate: PropTypes.string,
+        thematicMapType: PropTypes.string,
+        valueType: PropTypes.string,
+    }
 
     state = {
         tab: 'data',
-    };
+    }
 
     componentDidMount() {
         const {
@@ -133,34 +117,35 @@ export class ThematicDialog extends Component {
             rows,
             filters,
             defaultPeriod,
+            orgUnits,
             setValueType,
             startDate,
             settings,
             endDate,
             setPeriod,
-            setOrgUnitLevels,
-        } = this.props;
+            setOrgUnits,
+        } = this.props
 
-        const dataItem = getDataItemFromColumns(columns);
-        const period = getPeriodFromFilters(filters);
+        const dataItem = getDataItemFromColumns(columns)
+        const period = getPeriodFromFilters(filters)
 
         // Set value type if favorite is loaded
         if (!valueType) {
             if (dataItem && dataItem.dimensionItemType) {
                 const dimension = Object.keys(dimConf).find(
-                    dim => dimConf[dim].itemType === dataItem.dimensionItemType
-                );
+                    (dim) =>
+                        dimConf[dim].itemType === dataItem.dimensionItemType
+                )
 
                 if (dimension) {
-                    setValueType(dimConf[dimension].objectName, true);
+                    setValueType(dimConf[dimension].objectName, true)
                 }
             } else {
-                setValueType(dimConf.indicator.objectName);
+                setValueType(dimConf.indicator.objectName)
             }
         }
 
         // Set default period from system settings
-
         if (
             !period &&
             !startDate &&
@@ -170,52 +155,61 @@ export class ThematicDialog extends Component {
         ) {
             setPeriod({
                 id: defaultPeriod,
-            });
+            })
         }
 
         // Set default org unit level
-        if (!getOrgUnitsFromRows(rows).length) {
-            setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
+        if (!rows) {
+            const defaultLevel = orgUnits.levels?.[DEFAULT_ORG_UNIT_LEVEL]
+
+            if (defaultLevel) {
+                const { id, name } = defaultLevel
+
+                setOrgUnits({
+                    dimension: 'ou',
+                    items: [{ id: `LEVEL-${id}`, name }],
+                })
+            }
         }
     }
 
     componentDidUpdate(prev) {
         const {
-            rows,
             columns,
+            periodType,
+            renderingStrategy,
             setClassification,
             setLegendSet,
-            loadOrgUnitPath,
+            setRenderingStrategy,
             validateLayer,
             onLayerValidation,
-        } = this.props;
+        } = this.props
 
-        if (rows !== prev.rows) {
-            const orgUnits = getOrgUnitNodesFromRows(rows);
-
-            // Load organisation unit tree path (temporary solution, as favorites don't include paths)
-            orgUnits
-                .filter(ou => !ou.path)
-                .forEach(ou => loadOrgUnitPath(ou.id));
+        // Set rendering strategy to single if not relative period
+        if (
+            periodType !== RELATIVE_PERIODS &&
+            renderingStrategy !== RENDERING_STRATEGY_SINGLE
+        ) {
+            setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
         }
 
         // Set the default classification/legend for selected data item without visiting the style tab
         if (columns !== prev.columns) {
-            const dataItem = getDataItemFromColumns(columns);
+            const dataItem = getDataItemFromColumns(columns)
 
             if (dataItem) {
                 if (dataItem.legendSet) {
-                    setClassification(CLASSIFICATION_PREDEFINED);
-                    setLegendSet(dataItem.legendSet);
+                    setClassification(CLASSIFICATION_PREDEFINED)
+                    setLegendSet(dataItem.legendSet)
                 } else {
-                    setClassification(CLASSIFICATION_EQUAL_INTERVALS);
-                    setLegendSet();
+                    setClassification(CLASSIFICATION_EQUAL_INTERVALS)
+                    setLegendSet()
                 }
             }
         }
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
-            onLayerValidation(this.validate());
+            onLayerValidation(this.validate())
         }
     }
 
@@ -235,10 +229,9 @@ export class ThematicDialog extends Component {
             startDate,
             endDate,
             program,
-            rows,
             valueType,
             thematicMapType,
-        } = this.props;
+        } = this.props
 
         const {
             // Handlers
@@ -247,16 +240,12 @@ export class ThematicDialog extends Component {
             setIndicatorGroup,
             setNoDataColor,
             setOperand,
-            setOrgUnitLevels,
-            setOrgUnitGroups,
             setPeriod,
             setPeriodType,
             setRenderingStrategy,
             setProgram,
-            setUserOrgUnits,
             setValueType,
-            toggleOrgUnit,
-        } = this.props;
+        } = this.props
 
         const {
             tab,
@@ -272,18 +261,15 @@ export class ThematicDialog extends Component {
             periodError,
             orgUnitsError,
             legendSetError,
-        } = this.state;
+        } = this.state
 
-        const orgUnits = getOrgUnitsFromRows(rows);
-        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
-        const period = getPeriodFromFilters(filters);
-        const dataItem = getDataItemFromColumns(columns);
-        const dimensions = getDimensionsFromFilters(filters);
-        const hasUserOrgUnits = !!selectedUserOrgUnits.length;
+        const period = getPeriodFromFilters(filters)
+        const dataItem = getDataItemFromColumns(columns)
+        const dimensions = getDimensionsFromFilters(filters)
 
         return (
             <div className={styles.content} data-test="thematicdialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                <Tabs value={tab} onChange={(tab) => this.setState({ tab })}>
                     <Tab value="data" dataTest="thematicdialog-tabs-data">
                         {i18n.t('Data')}
                     </Tab>
@@ -442,7 +428,6 @@ export class ThematicDialog extends Component {
                             {periodType === RELATIVE_PERIODS && (
                                 <RelativePeriodSelect
                                     period={period}
-                                    hiddenPeriods={settings.hiddenPeriods}
                                     onChange={setPeriod}
                                     className={styles.periodSelect}
                                     errorText={periodError}
@@ -479,44 +464,7 @@ export class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="thematicdialog-orgunitstab"
-                        >
-                            <div className={styles.orgUnitTree}>
-                                <OrgUnitTree
-                                    selected={getOrgUnitNodesFromRows(rows)}
-                                    onClick={toggleOrgUnit}
-                                    disabled={hasUserOrgUnits}
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <OrgUnitLevelSelect
-                                    orgUnitLevel={getOrgUnitLevelsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitLevels}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <OrgUnitGroupSelect
-                                    orgUnitGroup={getOrgUnitGroupsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitGroups}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <UserOrgUnitsSelect
-                                    selected={selectedUserOrgUnits}
-                                    onChange={setUserOrgUnits}
-                                />
-                                <OrgUnitFieldSelect />
-                                {!orgUnits.length && orgUnitsError && (
-                                    <div className={styles.error}>
-                                        {orgUnitsError}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        <OrgUnitSelect warning={orgUnitsError} />
                     )}
                     {tab === 'filter' && (
                         <div
@@ -538,7 +486,7 @@ export class ThematicDialog extends Component {
                                         className={styles.numberField}
                                     />
                                 </div>
-                                <Labels />
+                                <Labels includeDisplayOption={true} />
                             </div>
                             <div className={styles.flexColumn}>
                                 <NumericLegendStyle
@@ -550,14 +498,13 @@ export class ThematicDialog extends Component {
                                 <NoDataColor
                                     value={noDataColor}
                                     onChange={setNoDataColor}
-                                    className={styles.flexInnerColumnFlow}
                                 />
                             </div>
                         </div>
                     )}
                 </div>
             </div>
-        );
+        )
     }
 
     // TODO: Add to parent class?
@@ -565,9 +512,9 @@ export class ThematicDialog extends Component {
         this.setState({
             [key]: message,
             tab,
-        });
+        })
 
-        return false;
+        return false
     }
 
     validate() {
@@ -586,9 +533,9 @@ export class ThematicDialog extends Component {
             radiusHigh,
             method,
             legendSet,
-        } = this.props;
-        const dataItem = getDataItemFromColumns(columns);
-        const period = getPeriodFromFilters(filters);
+        } = this.props
+        const dataItem = getDataItemFromColumns(columns)
+        const period = getPeriodFromFilters(filters)
 
         // Indicators
         if (valueType === dimConf.indicator.objectName) {
@@ -597,13 +544,13 @@ export class ThematicDialog extends Component {
                     'indicatorGroupError',
                     i18n.t('Indicator group is required'),
                     'data'
-                );
+                )
             } else if (!dataItem) {
                 return this.setErrorState(
                     'indicatorError',
                     i18n.t('Indicator is required'),
                     'data'
-                );
+                )
             }
         }
 
@@ -617,13 +564,13 @@ export class ThematicDialog extends Component {
                     'dataElementGroupError',
                     i18n.t('Data element group is required'),
                     'data'
-                );
+                )
             } else if (!dataItem) {
                 return this.setErrorState(
                     'dataElementError',
                     i18n.t('Data element is required'),
                     'data'
-                );
+                )
             }
         }
 
@@ -633,7 +580,7 @@ export class ThematicDialog extends Component {
                 'dataSetError',
                 i18n.t('Data set is required'),
                 'data'
-            );
+            )
         }
 
         // Event data items / Program indicators
@@ -646,7 +593,7 @@ export class ThematicDialog extends Component {
                     'programError',
                     i18n.t('Program is required'),
                     'data'
-                );
+                )
             } else if (!dataItem) {
                 return valueType === dimConf.eventDataItem.objectName
                     ? this.setErrorState(
@@ -658,7 +605,7 @@ export class ThematicDialog extends Component {
                           'programIndicatorError',
                           i18n.t('Program indicator is required'),
                           'data'
-                      );
+                      )
             }
         }
 
@@ -667,12 +614,12 @@ export class ThematicDialog extends Component {
                 'periodError',
                 i18n.t('Period is required'),
                 'period'
-            );
+            )
         } else if (periodType === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate);
+            const error = getStartEndDateError(startDate, endDate)
 
             if (error) {
-                return this.setErrorState('periodError', error, 'period');
+                return this.setErrorState('periodError', error, 'period')
             }
         }
 
@@ -681,7 +628,7 @@ export class ThematicDialog extends Component {
                 'orgUnitsError',
                 i18n.t('No organisation units are selected'),
                 'orgunits'
-            );
+            )
         }
 
         if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
@@ -689,23 +636,23 @@ export class ThematicDialog extends Component {
                 'legendSetError',
                 i18n.t('No legend set is selected'),
                 'style'
-            );
+            )
         }
 
         if (!isValidRadius(radiusLow, radiusHigh)) {
-            this.setState({ tab: 'style' });
-            return false;
+            this.setState({ tab: 'style' })
+            return false
         }
 
-        return true;
+        return true
     }
 }
 
-const ThematicDialogWithSettings = props => (
+const ThematicDialogWithSettings = (props) => (
     <SystemSettingsCtx.Consumer>
-        {settings => <ThematicDialog settings={settings} {...props} />}
+        {(settings) => <ThematicDialog settings={settings} {...props} />}
     </SystemSettingsCtx.Consumer>
-);
+)
 
 export default connect(
     null,
@@ -717,19 +664,15 @@ export default connect(
         setLegendSet,
         setNoDataColor,
         setOperand,
-        setOrgUnitLevels,
-        setOrgUnitGroups,
+        setOrgUnits,
         setPeriod,
         setPeriodType,
         setRenderingStrategy,
         setProgram,
-        setUserOrgUnits,
         setValueType,
-        toggleOrgUnit,
-        loadOrgUnitPath,
     },
     null,
     {
         forwardRef: true,
     }
-)(ThematicDialogWithSettings);
+)(ThematicDialogWithSettings)

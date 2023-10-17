@@ -1,12 +1,12 @@
-import { TeLayer } from '../../elements/te_layer';
-import { EXTENDED_TIMEOUT } from '../../support/util';
+import { TeLayer } from '../../elements/te_layer.js'
+import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 describe('Tracked Entity Layers', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT);
-    });
+        cy.visit('/', EXTENDED_TIMEOUT)
+    })
 
-    const Layer = new TeLayer();
+    const Layer = new TeLayer()
 
     it('adds a tracked entity layer', () => {
         Layer.openDialog('Tracked entities')
@@ -18,13 +18,13 @@ describe('Tracked Entity Layers', () => {
             .selectTab('Org Units')
             .selectOu('Bombali')
             .selectOu('Bo')
-            .addToMap();
+            .addToMap()
 
-        Layer.validateDialogClosed(true);
+        Layer.validateDialogClosed(true)
 
         Layer.validateCardTitle(
             'Malaria case diagnosis, treatment and investigation'
-        );
-        Layer.validateCardItems(['Malaria Entity']);
-    });
-});
+        )
+        Layer.validateCardItems(['Malaria Entity'])
+    })
+})

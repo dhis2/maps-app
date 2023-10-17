@@ -1,54 +1,56 @@
-import React from 'react';
-import i18n from '@dhis2/d2-i18n';
-import Layer from './Layer';
-import Popup from '../Popup';
-import { apiFetch } from '../../../util/api';
-import { formatTime } from '../../../util/helpers';
+import i18n from '@dhis2/d2-i18n'
+import React from 'react'
 import {
     TEI_COLOR,
     TEI_RADIUS,
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_COLOR,
     TEI_RELATED_RADIUS,
-} from '../../../constants/layers';
+} from '../../../constants/layers.js'
+import { apiFetchWithBaseUrl } from '../../../util/api.js'
+import { formatTime } from '../../../util/helpers.js'
+import { BaseUrlShim } from '../../BaseUrlShim.js'
+import Popup from '../Popup.js'
+import Layer from './Layer.js'
 
-const getCentroid = points => {
+const getCentroid = (points) => {
     const totals = points.reduce(
         (accum, point) => {
-            accum[0] += point[0];
-            accum[1] += point[1];
-            return accum;
+            accum[0] += point[0]
+            accum[1] += point[1]
+            return accum
         },
         [0, 0]
-    );
-    return [totals[0] / points.length, totals[1] / points.length];
-};
+    )
+    return [totals[0] / points.length, totals[1] / points.length]
+}
 
-const fetchTEI = async (id, fieldsString) => {
-    const data = await apiFetch(
-        `/trackedEntityInstances/${id}?fields=${fieldsString}`
-    );
-    return data;
-};
+const fetchTEI = async (id, fieldsString, baseUrl) => {
+    const data = await apiFetchWithBaseUrl({
+        url: `/trackedEntityInstances/${id}?fields=${fieldsString}`,
+        baseUrl,
+    })
+    return data
+}
 
 const geomToCentroid = (type, coords) => {
     switch (type) {
         case 'POINT':
-            return JSON.parse(coords);
+            return JSON.parse(coords)
         case 'POLYGON':
             // TODO: Support multipolygon / use turf
-            return getCentroid(JSON.parse(coords)[0]);
+            return getCentroid(JSON.parse(coords)[0])
         default:
-            return null;
+            return null
     }
-};
+}
 
 const makeRelationshipGeometry = ({ from, to }) => {
-    const fromGeom = geomToCentroid(from.featureType, from.coordinates);
-    const toGeom = geomToCentroid(to.featureType, to.coordinates);
+    const fromGeom = geomToCentroid(from.featureType, from.coordinates)
+    const toGeom = geomToCentroid(to.featureType, to.coordinates)
     if (!fromGeom || !toGeom) {
         // console.error('Invalid relationship geometries', from, to);
-        return null;
+        return null
     }
     return {
         type: 'Feature',
@@ -57,23 +59,23 @@ const makeRelationshipGeometry = ({ from, to }) => {
             coordinates: [fromGeom, toGeom],
         },
         properties: {},
-    };
-};
+    }
+}
 const makeRelationshipLayer = (relationships, color, weight) => {
     return {
         type: 'geoJson',
-        data: relationships.map(makeRelationshipGeometry).filter(x => !!x),
+        data: relationships.map(makeRelationshipGeometry).filter((x) => !!x),
         style: {
             color,
             weight,
         },
-    };
-};
+    }
+}
 
 class TrackedEntityLayer extends Layer {
     state = {
         popup: null,
-    };
+    }
 
     createLayer() {
         const {
@@ -90,11 +92,11 @@ class TrackedEntityLayer extends Layer {
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
-        } = this.props;
+        } = this.props
 
-        const { map } = this.context;
-        const color = eventPointColor || TEI_COLOR;
-        const radius = eventPointRadius || TEI_RADIUS;
+        const { map } = this.context
+        const color = eventPointColor || TEI_COLOR
+        const radius = eventPointRadius || TEI_RADIUS
 
         const config = {
             type: 'geoJson',
@@ -105,16 +107,16 @@ class TrackedEntityLayer extends Layer {
                 radius,
             },
             onClick: this.onEntityClick.bind(this),
-        };
+        }
 
         if (areaRadius) {
-            config.buffer = areaRadius;
+            config.buffer = areaRadius
             config.bufferStyle = {
                 color,
                 weight: 1,
                 opacity: 0.2,
                 fillOpacity: 0.1,
-            };
+            }
         }
 
         // Create and add layer based on config object
@@ -124,7 +126,7 @@ class TrackedEntityLayer extends Layer {
             index,
             opacity,
             isVisible,
-        });
+        })
 
         if (relationships) {
             const secondaryConfig = {
@@ -136,29 +138,29 @@ class TrackedEntityLayer extends Layer {
                     radius: relatedPointRadius || TEI_RELATED_RADIUS,
                 },
                 onClick: this.onEntityClick.bind(this),
-            };
+            }
 
             const relationshipConfig = makeRelationshipLayer(
                 relationships,
                 relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
                 1
-            );
+            )
 
-            group.addLayer(relationshipConfig);
-            group.addLayer(secondaryConfig);
+            group.addLayer(relationshipConfig)
+            group.addLayer(secondaryConfig)
         }
-        group.addLayer(config);
+        group.addLayer(config)
 
-        this.layer = group;
-        map.addLayer(this.layer);
+        this.layer = group
+        map.addLayer(this.layer)
 
         // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce();
+        this.fitBoundsOnce()
     }
 
     getPopup() {
-        const { coordinates, data } = this.state.popup;
-        const { attributes = [], lastUpdated } = data;
+        const { coordinates, data } = this.state.popup
+        const { attributes = [], lastUpdated } = data
 
         return (
             <Popup coordinates={coordinates} onClose={this.onPopupClose}>
@@ -177,23 +179,30 @@ class TrackedEntityLayer extends Layer {
                     </tbody>
                 </table>
             </Popup>
-        );
+        )
     }
 
     render() {
-        return this.state.popup ? this.getPopup() : null;
+        return this.state.popup ? this.getPopup() : null
     }
 
     async onEntityClick(evt) {
-        const { feature, coordinates } = evt;
+        const { feature, coordinates } = evt
 
         const data = await fetchTEI(
             feature.properties.id,
-            'lastUpdated,attributes[displayName~rename(name),value],relationships'
-        );
+            'lastUpdated,attributes[displayName~rename(name),value],relationships',
+            this.props.baseUrl
+        )
 
-        this.setState({ popup: { feature, coordinates, data } });
+        this.setState({ popup: { feature, coordinates, data } })
     }
 }
 
-export default TrackedEntityLayer;
+const TrackedEntityLayerWithBaseUrl = (props) => (
+    <BaseUrlShim>
+        {({ baseUrl }) => <TrackedEntityLayer baseUrl={baseUrl} {...props} />}
+    </BaseUrlShim>
+)
+
+export default TrackedEntityLayerWithBaseUrl
