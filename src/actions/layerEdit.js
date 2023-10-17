@@ -358,3 +358,9 @@ export const setNoDataColor = (color) => ({
     type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
     payload: color,
 })
+
+// Set feature style
+export const setFeatureStyle = (payload) => ({
+    type: types.LAYER_EDIT_FEATURE_STYLE_SET,
+    payload,
+})

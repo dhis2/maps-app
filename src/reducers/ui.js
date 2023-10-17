@@ -25,6 +25,7 @@ const ui = (state = defaultState, action) => {
 
         case types.INTERPRETATIONS_PANEL_OPEN:
         case types.ORGANISATION_UNIT_PROFILE_SET:
+        case types.FEATURE_PROFILE_SET:
             return {
                 ...state,
                 rightPanelOpen: true,
@@ -32,6 +33,7 @@ const ui = (state = defaultState, action) => {
 
         case types.INTERPRETATIONS_PANEL_CLOSE:
         case types.ORGANISATION_UNIT_PROFILE_CLOSE:
+        case types.FEATURE_PROFILE_CLOSE:
         case types.DOWNLOAD_MODE_SET:
         case types.MAP_NEW:
         case types.MAP_SET:

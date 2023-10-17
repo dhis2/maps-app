@@ -7,6 +7,7 @@ import FacilityLoader from './FacilityLoader.js'
 import OrgUnitLoader from './OrgUnitLoader.js'
 import ThematicLoader from './ThematicLoader.js'
 import TrackedEntityLoader from './TrackedEntityLoader.js'
+import FeatureServiceLoader from './FeatureServiceLoader.js'
 
 const layerType = {
     earthEngine: EarthEngineLoader,
@@ -16,6 +17,7 @@ const layerType = {
     orgUnit: OrgUnitLoader,
     thematic: ThematicLoader,
     trackedEntity: TrackedEntityLoader,
+    featureService: FeatureServiceLoader,
 }
 
 const LayerLoader = ({ config, onLoad }) => {

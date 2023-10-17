@@ -10,6 +10,7 @@ import interpretation from './interpretation.js'
 import layerEdit from './layerEdit.js'
 import layers from './layers.js'
 import map from './map.js'
+import featureProfile from './featureProfile.js'
 import orgUnitProfile from './orgUnitProfile.js'
 import ui from './ui.js'
 
@@ -27,4 +28,5 @@ export default combineReducers({
     orgUnitProfile,
     ui,
     feature,
+    featureProfile,
 })

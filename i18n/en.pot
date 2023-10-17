@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
-"PO-Revision-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-17T11:10:00.916Z\n"
+"PO-Revision-Date: 2023-10-17T11:10:00.916Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -251,11 +251,17 @@ msgstr "Edit {{name}} layer"
 msgid "Add new {{name}} layer"
 msgstr "Add new {{name}} layer"
 
+msgid "{{name}} layer"
+msgstr "{{name}} layer"
+
 msgid "Update layer"
 msgstr "Update layer"
 
 msgid "Add layer"
 msgstr "Add layer"
+
+msgid "Data"
+msgstr "Data"
 
 msgid "Aggregation method"
 msgstr "Aggregation method"
@@ -265,9 +271,6 @@ msgstr "Groups"
 
 msgid "This field is required"
 msgstr "This field is required"
-
-msgid "Data"
-msgstr "Data"
 
 msgid "Period"
 msgstr "Period"
@@ -483,6 +486,9 @@ msgstr "No relationship types were found for tracked entity type {{type}}"
 
 msgid "Relationship type"
 msgstr "Relationship type"
+
+msgid "Feature profile"
+msgstr "Feature profile"
 
 msgid "Remove filter"
 msgstr "Remove filter"
@@ -1346,6 +1352,15 @@ msgid ""
 msgstr ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+
+msgid "Fill color"
+msgstr "Fill color"
+
+msgid "Stroke color"
+msgstr "Stroke color"
+
+msgid "Stroke width"
+msgstr "Stroke width"
 
 msgid "Facility"
 msgstr "Facility"

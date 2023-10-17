@@ -21,6 +21,7 @@ import OrgUnitDialog from './orgUnit/OrgUnitDialog.js'
 import styles from './styles/LayerEdit.module.css'
 import ThematicDialog from './thematic/ThematicDialog.js'
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
+import FeatureServiceDialog from './arcgis/FeatureServiceDialog.js'
 
 const layerType = {
     event: EventDialog,
@@ -29,8 +30,10 @@ const layerType = {
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
+    featureService: FeatureServiceDialog,
 }
 
+/*
 const layerName = () => ({
     event: i18n.t('event'),
     trackedEntity: i18n.t('tracked entity'),
@@ -38,7 +41,8 @@ const layerName = () => ({
     thematic: i18n.t('thematic'),
     orgUnit: i18n.t('org unit'),
     earthEngine: i18n.t('Earth Engine'),
-})
+});
+*/
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
@@ -80,15 +84,20 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         return null
     }
 
-    let name = layerName()[type]
+    // let name = layerName()[type] || layer.type;
+    let name = layer.type
 
     if (type === EARTH_ENGINE_LAYER) {
-        name = layer.name.toLowerCase()
+        name = layer.name // .toLowerCase();
     }
 
+    /*
     const title = layer.id
         ? i18n.t('Edit {{name}} layer', { name })
-        : i18n.t('Add new {{name}} layer', { name })
+        : i18n.t('Add new {{name}} layer', { name });
+    */
+
+    const title = i18n.t('{{name}} layer', { name })
 
     return (
         <Modal position="middle" dataTest="layeredit">
