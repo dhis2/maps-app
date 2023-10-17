@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
-"PO-Revision-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-17T00:00:38.449Z\n"
+"PO-Revision-Date: 2023-10-17T00:00:38.449Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -28,6 +28,9 @@ msgstr "Legend set"
 
 msgid "Color"
 msgstr "Color"
+
+msgid "Weather & climate"
+msgstr "Weather & climate"
 
 msgid "Size"
 msgstr "Size"
@@ -595,6 +598,9 @@ msgstr "Drill down one level"
 
 msgid "View profile"
 msgstr "View profile"
+
+msgid "Weather and climate"
+msgstr "Weather and climate"
 
 msgid "Show longitude/latitude"
 msgstr "Show longitude/latitude"

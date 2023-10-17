@@ -2,10 +2,10 @@ import * as types from '../constants/actionTypes.js'
 
 const test = {
     id: 'FLjwMPWLrL2',
-    name: 'Baomahun CHC',
+    name: 'Freetown',
     geometry: {
         type: 'Point',
-        coordinates: [-11.667823791503906, 8.41633815756606],
+        coordinates: [-13.234444, 8.484444],
     },
 }
 

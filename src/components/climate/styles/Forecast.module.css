@@ -1,0 +1,22 @@
+.table {
+    border-collapse: collapse;
+}
+
+.table thead {
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+}
+
+.table tr {
+    margin-top: 10px;
+    border-bottom: 1pt solid #ccc;
+}
+.table td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.table td.right {
+    text-align: right;
+}

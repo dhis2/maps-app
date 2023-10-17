@@ -1,0 +1,9 @@
+.symbol {
+    width: 80px;
+    text-align: center;
+}
+
+.symbol img {
+    width: 40px;
+    height: 40px;
+}
