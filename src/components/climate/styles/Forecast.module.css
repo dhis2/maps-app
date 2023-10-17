@@ -1,5 +1,6 @@
 .table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 .table thead {
@@ -19,4 +20,19 @@
 
 .table td.right {
     text-align: right;
+}
+
+.table thead td:last-child {
+    padding-right: 10px;
+}
+
+.source {
+    color: #333;
+    font-size: 12px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.source a {
+    color: #333;
 }

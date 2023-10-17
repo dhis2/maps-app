@@ -12,6 +12,14 @@ const DayForecast = ({ date, series }) => {
     const minTemp = Math.round(Math.min(...temp))
     const maxTemp = Math.round(Math.max(...temp))
     const sixHours = hours.map((t) => `${date}T${t}:00:00Z`)
+    const sixHourSeries = series.filter((s) => sixHours.includes(s.time))
+    const hasSymbol = sixHourSeries.some(
+        (s) => s.data?.next_6_hours?.summary?.symbol_code
+    )
+
+    if (!hasSymbol) {
+        return null
+    }
 
     const weatherSymbols = sixHours.map((t) => (
         <WeatherSymbol
@@ -22,8 +30,6 @@ const DayForecast = ({ date, series }) => {
             }
         />
     ))
-
-    const sixHourSeries = series.filter((s) => sixHours.includes(s.time))
 
     // TODO: Not the same as yr.no the first day
     const precip = sixHourSeries.reduce((p, { data }) => {

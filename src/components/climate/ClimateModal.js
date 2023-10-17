@@ -7,11 +7,12 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
-import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Tab, Tabs } from '../core/index.js'
 import Forecast from './Forecast'
+import PastWeather from './PastWeather'
+import FutureClimate from './FutureClimate'
 import { closeClimatePanel } from '../../actions/climate.js'
 import styles from './styles/Modal.module.css'
 
@@ -20,7 +21,7 @@ const PAST = 'past'
 const FUTURE = 'future'
 
 const ClimateModal = () => {
-    const [tab, setTab] = useState(FORECAST)
+    const [tab, setTab] = useState(PAST) // FORECAST
     const feature = useSelector((state) => state.climate)
     const dispatch = useDispatch()
 
@@ -42,13 +43,13 @@ const ClimateModal = () => {
             <ModalContent>
                 <Tabs value={tab} onChange={setTab}>
                     <Tab value={FORECAST}>{i18n.t('10 days forecast')}</Tab>
-                    <Tab value={PAST}>{i18n.t('Past')}</Tab>
-                    <Tab value={FUTURE}>{i18n.t('Future')}</Tab>
+                    <Tab value={PAST}>{i18n.t('Past weather')}</Tab>
+                    <Tab value={FUTURE}>{i18n.t('Future climate')}</Tab>
                 </Tabs>
                 <div className={styles.tabContent}>
-                    {tab === FORECAST && (
-                        <Forecast name={name} geometry={geometry} />
-                    )}
+                    {tab === FORECAST && <Forecast geometry={geometry} />}
+                    {tab === PAST && <PastWeather geometry={geometry} />}
+                    {tab === FUTURE && <FutureClimate geometry={geometry} />}
                 </div>
             </ModalContent>
             <ModalActions>

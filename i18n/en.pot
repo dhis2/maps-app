@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-17T00:00:38.449Z\n"
-"PO-Revision-Date: 2023-10-17T00:00:38.449Z\n"
+"POT-Creation-Date: 2023-10-17T14:46:58.088Z\n"
+"PO-Revision-Date: 2023-10-17T14:46:58.088Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -29,8 +29,20 @@ msgstr "Legend set"
 msgid "Color"
 msgstr "Color"
 
-msgid "Weather & climate"
-msgstr "Weather & climate"
+msgid "Weather & Climate"
+msgstr "Weather & Climate"
+
+msgid "10 days forecast"
+msgstr "10 days forecast"
+
+msgid "Past"
+msgstr "Past"
+
+msgid "Future"
+msgstr "Future"
+
+msgid "Close"
+msgstr "Close"
 
 msgid "Size"
 msgstr "Size"
@@ -211,9 +223,6 @@ msgstr "Map download is not supported by your browser. Try Google Chrome or Fire
 
 msgid "Cancel"
 msgstr "Cancel"
-
-msgid "Close"
-msgstr "Close"
 
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
