@@ -39,13 +39,3 @@ export const getExternalLayer = async (id) => {
     const d2 = await getD2()
     return d2.models.externalMapLayers.get(id)
 }
-
-// https://davidwalsh.name/query-string-javascript
-export const getUrlParameter = (name) => {
-    name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]')
-    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
-    const results = regex.exec(location.search)
-    return results === null
-        ? ''
-        : decodeURIComponent(results[1].replace(/\+/g, ' '))
-}

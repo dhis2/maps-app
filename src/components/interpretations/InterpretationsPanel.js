@@ -5,11 +5,27 @@ import {
     useCachedDataQuery,
 } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
+import queryString from 'query-string'
 import React, { useState, useRef, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { setInterpretation } from '../../actions/interpretations.js'
+import history from '../../util/history.js'
+import { removeInterpretationQueryParams } from '../../util/interpretationIdQueryParams.js'
 import Drawer from '../core/Drawer.js'
 import InterpretationMap from './InterpretationMap.js'
+
+const navigateToOpenModal = (interpretationId, initialFocus) => {
+    history.push(
+        {
+            pathName: history.location.pathname,
+            search: `?${queryString.stringify({
+                interpretationId,
+                initialFocus,
+            })}`,
+        },
+        { isModalOpening: true }
+    )
+}
 
 const InterpretationsPanel = ({
     interpretationId,
@@ -21,25 +37,33 @@ const InterpretationsPanel = ({
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
 
-    const onInterpretationClick = useCallback(
-        (interpretationId) => {
-            setInterpretation(interpretationId)
-        },
-        [setInterpretation]
-    )
+    const onInterpretationClick = useCallback((interpretationId) => {
+        navigateToOpenModal(interpretationId)
+    }, [])
 
-    const onReplyIconClick = useCallback(
-        (interpretationId) => {
-            setInitialFocus(true)
-            setInterpretation(interpretationId)
-        },
-        [setInterpretation]
-    )
+    const onReplyIconClick = useCallback((interpretationId) => {
+        navigateToOpenModal(interpretationId, true)
+    }, [])
 
-    const onModalClose = useCallback(() => {
-        setInitialFocus(false)
-        setInterpretation()
-    }, [setInterpretation])
+    // const onInterpretationClick = useCallback(
+    //     (interpretationId) => {
+    //         setInterpretation(interpretationId)
+    //     },
+    //     [setInterpretation]
+    // )
+
+    // const onReplyIconClick = useCallback(
+    //     (interpretationId) => {
+    //         setInitialFocus(true)
+    //         setInterpretation(interpretationId)
+    //     },
+    //     [setInterpretation]
+    // )
+
+    // const onModalClose = useCallback(() => {
+    //     setInitialFocus(false)
+    //     setInterpretation()
+    // }, [setInterpretation])
 
     return (
         <>
@@ -53,6 +77,19 @@ const InterpretationsPanel = ({
                     onInterpretationClick={onInterpretationClick}
                     onReplyIconClick={onReplyIconClick}
                 />
+                {/* <InterpretationsUnit
+                    type="eventVisualization"
+                    id={visualization.id}
+                    currentUser={currentUser}
+                    onInterpretationClick={(interpretationId) =>
+                        navigateToOpenModal(interpretationId)
+                    }
+                    onReplyIconClick={(interpretationId) =>
+                        navigateToOpenModal(interpretationId, true)
+                    }
+                    disabled={disabled}
+                    renderId={interpretationsUnitRenderId}
+                /> */}
             </Drawer>
             {interpretationId && (
                 <InterpretationModal
@@ -63,7 +100,7 @@ const InterpretationsPanel = ({
                     initialFocus={initialFocus}
                     interpretationId={interpretationId}
                     isVisualizationLoading={false}
-                    onClose={onModalClose}
+                    onClose={removeInterpretationQueryParams}
                     onResponsesReceived={Function.prototype} // Required prop
                     visualization={map}
                     pluginComponent={InterpretationMap}
