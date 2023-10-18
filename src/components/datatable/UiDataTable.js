@@ -11,7 +11,13 @@ import {
     // Tooltip,
 } from '@dhis2/ui'
 import cx from 'classnames'
-import React, { useState, useEffect, useReducer, useCallback } from 'react'
+import React, {
+    useState,
+    useEffect,
+    useReducer,
+    useCallback,
+    useMemo,
+} from 'react'
 import { useSelector } from 'react-redux'
 import styles from './styles/UiDataTable.module.css'
 
@@ -55,23 +61,30 @@ const Table = () => {
 
     const layer = mapViews.find((l) => l.id === activeLayerId)
     const { data } = layer
+
+    const rawData = useMemo(
+        () =>
+            data &&
+            data.map((d, index) => {
+                return Object.assign({ index, ...d.properties })
+            }),
+        [data]
+    )
     const [rows, setRows] = useState([])
 
     useEffect(() => {
-        // update the sorting
-
-        if (!data) {
+        if (!rawData) {
             return
         }
 
-        data.sort((a, b) => {
-            a = a.properties[sortField]
-            b = b.properties[sortField]
+        rawData.sort((a, b) => {
+            a = a[sortField]
+            b = b[sortField]
 
             if (typeof a === 'number') {
                 return sortDirection === ASCENDING ? a - b : b - a
             }
-
+            // TODO: Make sure sorting works across different locales - use lib method
             if (a !== undefined) {
                 return sortDirection === ASCENDING
                     ? a.localeCompare(b)
@@ -82,31 +95,29 @@ const Table = () => {
         })
 
         setRows(
-            data.map((row, index) => {
-                return [
-                    index,
-                    row.properties.name,
-                    row.properties.id,
-                    row.properties.value,
-                    row.properties.legend,
-                    row.properties.range,
-                    row.properties.level,
-                    row.properties.parentName,
-                    row.properties.type,
-                    row.properties.color,
-                    row.properties.name,
-                    row.properties.id,
-                    row.properties.value,
-                    row.properties.legend,
-                    row.properties.range,
-                    row.properties.level,
-                    row.properties.parentName,
-                    row.properties.type,
-                    row.properties.color,
-                ]
-            })
+            rawData.map((row) => [
+                row.index,
+                row.name,
+                row.id,
+                row.value,
+                row.legend,
+                row.range,
+                row.level,
+                row.parentName,
+                row.type,
+                row.color,
+                row.name,
+                row.id,
+                row.value,
+                row.legend,
+                row.range,
+                row.level,
+                row.parentName,
+                row.type,
+                row.color,
+            ])
         )
-    }, [data, sortField, sortDirection])
+    }, [rawData, sortField, sortDirection])
 
     // const aggregations = allAggregations[layer.id]
 
@@ -120,8 +131,6 @@ const Table = () => {
         },
         [sortDirection]
     )
-
-    // console.log('jj render table with sorting', sortField, sortDirection)
 
     return (
         <DataTable scrollHeight={'100%'} scrollWidth={'100%'} width={'100%'}>
