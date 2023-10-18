@@ -43,7 +43,7 @@ const Precipitation = ({ data }) => {
                     text: i18n.t('Precipitation last year'),
                 },
                 subtitle: {
-                    text: '',
+                    text: 'Normals from reference period: 1991-2020',
                 },
                 credits: {
                     enabled: false,
