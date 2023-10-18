@@ -5,15 +5,37 @@ import React, { useRef, useEffect } from 'react'
 import DataLoading from './DataLoading.js'
 import ERA5Source from './ERA5Source.js'
 
+const getMonthNormal = (data, month) => {
+    const monthData = data.filter((d) => d.id.substring(5, 7) === month)
+
+    const normal =
+        (monthData
+            .filter((d) => {
+                const year = d.id.substring(0, 4)
+                return year >= 1991 && year <= 2020
+            })
+            .reduce((v, d) => v + d['total_precipitation_sum'], 0) /
+            30) *
+        1000
+
+    return Math.round(normal * 10) / 10
+}
+
 const Precipitation = ({ data }) => {
     const chartRef = useRef()
 
     useEffect(() => {
         if (data && chartRef.current) {
-            // Last 12 months
-            const series = data.slice(-12).map((d) => ({
+            const last12months = data.slice(-12)
+
+            const series = last12months.map((d) => ({
                 x: new Date(d.id).getTime(),
                 y: Math.round(d['total_precipitation_sum'] * 1000 * 10) / 10,
+            }))
+
+            const normal = last12months.map((d) => ({
+                x: new Date(d.id).getTime(),
+                y: getMonthNormal(data, d.id.substring(5, 7)),
             }))
 
             Highcharts.chart(chartRef.current, {
@@ -31,18 +53,17 @@ const Precipitation = ({ data }) => {
                 },
                 tooltip: {
                     shared: true,
+                    valueSuffix: ' mm',
                 },
-                /*
                 plotOptions: {
-                    column: {
-                        pointWidth: 2,
-                        pointPadding: 0.2,
+                    series: {
+                        grouping: false,
                         borderWidth: 0,
                     },
                 },
-                */
                 chart: {
                     type: 'column',
+                    height: 580,
                 },
                 xAxis: {
                     type: 'datetime',
@@ -62,7 +83,15 @@ const Precipitation = ({ data }) => {
                     {
                         data: series,
                         name: i18n.t('Monthly precipitation'),
-                        // color: '#C60000',
+                        color: 'var(--colors-blue500)',
+                        zIndex: 1,
+                    },
+                    {
+                        data: normal,
+                        name: i18n.t('Normal precipitation'),
+                        color: 'var(--colors-grey400)',
+                        pointPlacement: -0.2,
+                        zIndex: 0,
                     },
                 ],
             })

@@ -1,23 +1,34 @@
 import i18n from '@dhis2/d2-i18n'
 import Highcharts from 'highcharts'
+import highchartsMore from 'highcharts/highcharts-more'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import DataLoading from './DataLoading.js'
 import ERA5Source from './ERA5Source.js'
+
+highchartsMore(Highcharts)
 
 const Temperature = ({ data }) => {
     const chartRef = useRef()
 
     useEffect(() => {
         if (data && chartRef.current) {
-            // Last 12 months
-            const series = data.slice(-12).map((d) => ({
+            const last12months = data.slice(-12)
+
+            const series = last12months.map((d) => ({
                 x: new Date(d.id).getTime(),
                 y: Math.round((d['temperature_2m'] - 273.15) * 10) / 10,
             }))
 
-            // console.log(data)
+            const minMax = last12months.map((d) => [
+                new Date(d.id).getTime(),
+                Math.round((d['temperature_2m_min'] - 273.15) * 10) / 10,
+                Math.round((d['temperature_2m_max'] - 273.15) * 10) / 10,
+            ])
 
+            const minValue = Math.min(...minMax.map((d) => d[1]))
+
+            // https://www.highcharts.com/demo/highcharts/arearange-line
             Highcharts.chart(chartRef.current, {
                 title: {
                     text: i18n.t('Temperatures last year'),
@@ -28,19 +39,22 @@ const Temperature = ({ data }) => {
                 credits: {
                     enabled: false,
                 },
+                /*
                 exporting: {
                     enabled: false,
                 },
-                tooltip: {
-                    shared: true,
-                },
+                */
+                /*
                 plotOptions: {
                     series: {
                         turboThreshold: 0,
                     },
                 },
-                chart: {
-                    type: 'line',
+                */
+                tooltip: {
+                    crosshairs: true,
+                    shared: true,
+                    valueSuffix: '°C',
                 },
                 xAxis: {
                     type: 'datetime',
@@ -50,17 +64,34 @@ const Temperature = ({ data }) => {
                     },
                 },
                 yAxis: {
-                    // min: 0,
+                    min: minValue > 0 ? 0 : undefined,
                     title: false,
                     labels: {
                         format: '{value}°C',
                     },
                 },
+                chart: {
+                    height: 580,
+                },
                 series: [
                     {
+                        type: 'line',
                         data: series,
-                        name: i18n.t('Monthly temperature'),
-                        color: '#C60000',
+                        name: i18n.t('Mean temperature'),
+                        color: 'var(--colors-red800)',
+                        negativeColor: 'var(--colors-blue800)',
+                        zIndex: 1,
+                    },
+                    {
+                        type: 'arearange',
+                        name: i18n.t('Temperature range'),
+                        data: minMax,
+                        color: 'var(--colors-red200)',
+                        negativeColor: 'var(--colors-blue200)',
+                        marker: {
+                            enabled: false,
+                        },
+                        zIndex: 0,
                     },
                 ],
             })

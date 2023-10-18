@@ -7,14 +7,14 @@
 .temp {
     font-size: 16px;
     text-align: right;
-    color: #c60000;
+    color: var(--colors-red700);
     padding-right: 10px;
 }
 
 .precip {
     font-size: 14px;
     text-align: right;
-    color: #006edb;
+    color: var(--colors-blue700);
     padding-left: 20px;
 }
 

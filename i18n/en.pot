@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-17T21:29:58.965Z\n"
-"PO-Revision-Date: 2023-10-17T21:29:58.965Z\n"
+"POT-Creation-Date: 2023-10-18T16:46:14.227Z\n"
+"PO-Revision-Date: 2023-10-18T16:46:14.227Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -29,6 +29,42 @@ msgstr "Legend set"
 msgid "Color"
 msgstr "Color"
 
+msgid "Jauary"
+msgstr "Jauary"
+
+msgid "February"
+msgstr "February"
+
+msgid "March"
+msgstr "March"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "May"
+
+msgid "June"
+msgstr "June"
+
+msgid "July"
+msgstr "July"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "October"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
 msgid "Loading weather data"
 msgstr "Loading weather data"
 
@@ -47,8 +83,14 @@ msgstr "Precipitation"
 msgid "Climate change"
 msgstr "Climate change"
 
+msgid "Air quality"
+msgstr "Air quality"
+
 msgid "Close"
 msgstr "Close"
+
+msgid "Loading data"
+msgstr "Loading data"
 
 msgid "Night"
 msgstr "Night"
@@ -70,6 +112,24 @@ msgstr "Precip."
 
 msgid "Wind"
 msgstr "Wind"
+
+msgid "Precipitation last year"
+msgstr "Precipitation last year"
+
+msgid "Monthly precipitation"
+msgstr "Monthly precipitation"
+
+msgid "Temperatures last year"
+msgstr "Temperatures last year"
+
+msgid "Monthly temperature"
+msgstr "Monthly temperature"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
 
 msgid "Clear sky"
 msgstr "Clear sky"
@@ -484,12 +544,6 @@ msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgid "Unit: {{ unit }}"
 msgstr "Unit: {{ unit }}"
 
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
 msgid "Steps"
 msgstr "Steps"
 
@@ -803,9 +857,6 @@ msgstr "no value"
 
 msgid "All groups"
 msgstr "All groups"
-
-msgid "Loading data"
-msgstr "Loading data"
 
 msgid "acres"
 msgstr "acres"

@@ -57,7 +57,7 @@ const ClimateChange = ({ data }) => {
 
             Highcharts.chart(chartRef.current, {
                 title: {
-                    text: `Temperature anomalies - ${month}`,
+                    text: `Temperature anomaly - ${month}`,
                 },
                 subtitle: {
                     text: 'Reference period: 1991-2020',
@@ -71,15 +71,16 @@ const ClimateChange = ({ data }) => {
                 tooltip: {
                     shared: true,
                 },
+                chart: {
+                    type: 'column',
+                    height: 580,
+                },
                 plotOptions: {
                     column: {
                         pointWidth: 13,
                         pointPadding: 0,
                         borderWidth: 1,
                     },
-                },
-                chart: {
-                    type: 'column',
                 },
                 xAxis: {
                     type: 'category',
@@ -98,8 +99,8 @@ const ClimateChange = ({ data }) => {
                     {
                         data: series,
                         name: 'Monthly temperature',
-                        color: '#C60000',
-                        negativeColor: '#0088FF',
+                        color: 'var(--colors-red500)',
+                        negativeColor: 'var(--colors-blue500)',
                     },
                 ],
                 legend: { enabled: false },
