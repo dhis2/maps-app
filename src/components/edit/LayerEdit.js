@@ -17,11 +17,11 @@ import { useSystemSettings } from '../SystemSettingsProvider.js'
 import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
 import EventDialog from './event/EventDialog.js'
 import FacilityDialog from './FacilityDialog.js'
+import GeoJsonDialog from './geoJson/GeoJsonDialog.js'
 import OrgUnitDialog from './orgUnit/OrgUnitDialog.js'
 import styles from './styles/LayerEdit.module.css'
 import ThematicDialog from './thematic/ThematicDialog.js'
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
-import GeoJsonDialog from './geoJson/GeoJsonDialog.js'
 
 const layerType = {
     event: EventDialog,
@@ -33,7 +33,6 @@ const layerType = {
     geoJsonUrl: GeoJsonDialog,
 }
 
-/*
 const layerName = () => ({
     event: i18n.t('event'),
     trackedEntity: i18n.t('tracked entity'),
@@ -41,8 +40,8 @@ const layerName = () => ({
     thematic: i18n.t('thematic'),
     orgUnit: i18n.t('org unit'),
     earthEngine: i18n.t('Earth Engine'),
-});
-*/
+    geoJsonUrl: i18n.t('feature'),
+})
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
@@ -84,20 +83,15 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         return null
     }
 
-    // let name = layerName()[type] || layer.type;
-    let name = layer.type
+    let name = layerName()[type] || layer.type
 
     if (type === EARTH_ENGINE_LAYER) {
-        name = layer.name // .toLowerCase();
+        name = layer.name.toLowerCase()
     }
 
-    /*
     const title = layer.id
         ? i18n.t('Edit {{name}} layer', { name })
-        : i18n.t('Add new {{name}} layer', { name });
-    */
-
-    const title = i18n.t('{{name}} layer', { name })
+        : i18n.t('Add new {{name}} layer', { name })
 
     return (
         <Modal position="middle" dataTest="layeredit">

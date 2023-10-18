@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import i18n from '@dhis2/d2-i18n'
-import { Tab, Tabs } from '../../core'
-import FeatureStyle from '../shared/FeatureStyle'
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import { setFeatureStyle } from '../../../actions/layerEdit'
+import { Tab, Tabs } from '../../core.js'
+import FeatureStyle from '../shared/FeatureStyle.js'
 import styles from '../styles/LayerDialog.module.css'
 
 const GeoJsonDialog = ({

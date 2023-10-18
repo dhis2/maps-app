@@ -1,9 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
-import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox, ColorPicker, NumberField } from '../../core'
+import React, { useMemo, useEffect } from 'react'
+import { Checkbox, ColorPicker, NumberField } from '../../core.js'
 import styles from '../styles/LayerDialog.module.css'
-import { useEffect } from 'react'
 
 const FILL = 'color'
 const STROKE_COLOR = 'strokeColor'

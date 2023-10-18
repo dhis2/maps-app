@@ -34,6 +34,7 @@ class DataTable extends Component {
         height: PropTypes.number.isRequired,
         highlightFeature: PropTypes.func.isRequired,
         layer: PropTypes.object.isRequired,
+        setFeatureProfile: PropTypes.func.isRequired,
         setOrgUnitProfile: PropTypes.func.isRequired,
         updateLayer: PropTypes.func.isRequired,
         width: PropTypes.number.isRequired,

@@ -1,9 +1,9 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import { Column } from 'react-virtualized'
-import ColumnHeader from './ColumnHeader.js'
-import { numberPrecision } from '../../util/numbers.js'
 import { getPrecision } from '../../util/earthEngine.js'
+import { numberPrecision } from '../../util/numbers.js'
+import ColumnHeader from './ColumnHeader.js'
 
 const FeatureColumns = ({ data }) => {
     const fields = Object.keys(data[0]).map((name) => ({
