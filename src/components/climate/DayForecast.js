@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useState, useRef, useEffect } from 'react'
+import React from 'react'
 import WeatherSymbol from './WeatherSymbol'
 import styles from './styles/DayForecast.module.css'
 
@@ -51,6 +51,11 @@ const DayForecast = ({ date, series }) => {
             <td className={styles.wind}>{maxWind} m/s</td>
         </tr>
     )
+}
+
+DayForecast.propTypes = {
+    date: PropTypes.string.isRequired,
+    series: PropTypes.array.isRequired,
 }
 
 export default DayForecast

@@ -151,3 +151,8 @@ export const getPrecision = (values = []) => {
 
     return 0
 }
+
+export const getTimeSeries = async (config, geometry) => {
+    const eeWorker = await getWorkerInstance()
+    return await eeWorker.getTimeSeries(config, geometry)
+}

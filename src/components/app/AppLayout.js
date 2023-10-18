@@ -27,6 +27,7 @@ const AppLayout = () => {
     const detailsPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
     )
+    const showClimate = useSelector((state) => !!state.climate)
 
     const onFileMenuAction = () =>
         detailsPanelOpen &&
@@ -60,7 +61,7 @@ const AppLayout = () => {
             <LayerEdit />
             <AlertStack />
             <OpenAsMapDialog />
-            <ClimateModal />
+            {showClimate && <ClimateModal />}
         </>
     )
 }

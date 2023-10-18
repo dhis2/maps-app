@@ -89,7 +89,10 @@ const ContextMenu = (props) => {
                 openClimatePanel({
                     id: attr.id,
                     name: attr.name,
-                    geometry: feature.geometry,
+                    geometry: feature?.geometry || {
+                        type: 'Point',
+                        coordinates,
+                    },
                 })
                 break
             case 'show_coordinate':
@@ -147,7 +150,7 @@ const ContextMenu = (props) => {
                             />
                         )}
 
-                        {feature && feature.geometry.type === 'Point' && (
+                        {(!feature || feature.geometry.type === 'Point') && (
                             <MenuItem
                                 dataTest="context-menu-view-climate"
                                 label={i18n.t('Weather and climate')}
