@@ -20,8 +20,6 @@ const months = {
 
 // https://climate.copernicus.eu/copernicus-september-2023-unprecedented-temperature-anomalies
 // https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_MONTHLY_AGGR
-// https://developers.google.com/earth-engine/datasets/catalog/NASA_GDDP-CMIP6
-// https://developers.google.com/earth-engine/datasets/catalog/NASA_NEX-GDDP
 const ClimateChange = ({ data }) => {
     const chartRef = useRef()
 
