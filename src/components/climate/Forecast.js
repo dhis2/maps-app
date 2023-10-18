@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
+import DataLoading from './DataLoading.js'
 import DayForecast from './DayForecast'
 import styles from './styles/Forecast.module.css'
 
@@ -20,7 +21,7 @@ const Forecast = ({ geometry }) => {
     }, [lng, lat])
 
     if (!data) {
-        return <div>{i18n.t('Loading weather data')}...</div>
+        return <DataLoading />
     }
 
     const { timeseries } = data.properties
@@ -62,7 +63,7 @@ const Forecast = ({ geometry }) => {
                 </tbody>
             </table>
             <div className={styles.source}>
-                Data from <a href="https://api.met.no">MET Norway</a> and{' '}
+                Data from <a href="https://api.met.no">MET Norway</a> /{' '}
                 <a href="https://www.ecmwf.int/en/forecasts/datasets/set-i">
                     ECMWF HRES
                 </a>

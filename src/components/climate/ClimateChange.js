@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import Highcharts from 'highcharts'
+import ERA5Source from './ERA5Source.js'
 
 const months = {
     '01': i18n.t('Jauary'),
@@ -110,7 +111,12 @@ const ClimateChange = ({ data }) => {
         return <div>{i18n.t('Loading weather data')}...</div>
     }
 
-    return <div ref={chartRef}>Climate change</div>
+    return (
+        <>
+            <div ref={chartRef} />
+            <ERA5Source />
+        </>
+    )
 }
 
 ClimateChange.propTypes = {

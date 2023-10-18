@@ -2,6 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import Highcharts from 'highcharts'
+import DataLoading from './DataLoading.js'
+import ERA5Source from './ERA5Source.js'
 
 const Precipitation = ({ data }) => {
     const chartRef = useRef()
@@ -16,7 +18,7 @@ const Precipitation = ({ data }) => {
 
             Highcharts.chart(chartRef.current, {
                 title: {
-                    text: 'Precipitation last year',
+                    text: i18n.t('Precipitation last year'),
                 },
                 subtitle: {
                     text: '',
@@ -59,7 +61,7 @@ const Precipitation = ({ data }) => {
                 series: [
                     {
                         data: series,
-                        name: 'Monthly precipitation',
+                        name: i18n.t('Monthly precipitation'),
                         // color: '#C60000',
                     },
                 ],
@@ -67,11 +69,14 @@ const Precipitation = ({ data }) => {
         }
     }, [data, chartRef])
 
-    if (!data) {
-        return <div>{i18n.t('Loading weather data')}...</div>
-    }
-
-    return <div ref={chartRef}></div>
+    return data ? (
+        <>
+            <div ref={chartRef}></div>
+            <ERA5Source />
+        </>
+    ) : (
+        <DataLoading />
+    )
 }
 
 Precipitation.propTypes = {
