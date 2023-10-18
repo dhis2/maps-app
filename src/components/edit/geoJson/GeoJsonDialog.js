@@ -5,7 +5,6 @@ import i18n from '@dhis2/d2-i18n'
 import { Tab, Tabs } from '../../core'
 import FeatureStyle from '../shared/FeatureStyle'
 import { setFeatureStyle } from '../../../actions/layerEdit'
-import { getFeatureStyleFields } from '../../../util/featureStyle'
 import styles from '../styles/LayerDialog.module.css'
 
 const GeoJsonDialog = ({
@@ -35,7 +34,6 @@ const GeoJsonDialog = ({
                     >
                         <div className={styles.flexColumn}>
                             <FeatureStyle
-                                fields={getFeatureStyleFields('Polygon')} // TODO: Read from url
                                 style={featureStyle}
                                 onChange={setFeatureStyle}
                             />
