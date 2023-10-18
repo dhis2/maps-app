@@ -217,8 +217,6 @@ class DataTable extends Component {
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER
         const isFeatureLayer = layerType === GEOJSON_URL_LAYER
 
-        console.log('isFeatureLayer', isFeatureLayer, layer)
-
         const isLoading =
             isEarthEngine && aggregationType?.length && !aggregations
 

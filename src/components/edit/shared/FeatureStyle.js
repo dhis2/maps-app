@@ -10,7 +10,7 @@ const STROKE_COLOR = 'strokeColor'
 const STROKE_WIDTH = 'weight'
 const POINT_SIZE = 'pointSize'
 
-const defaultNoTransparentFillColor = '#CCCCCC'
+const defaultNoTransparentFillColor = '#EEEEEE'
 
 // Wrapped in a function to make sure i18n is applied
 const getFields = () => [

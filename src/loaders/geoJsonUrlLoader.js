@@ -9,13 +9,11 @@ const geoJsonUrlLoader = async (layer) => {
 
     const geoJson = await fetch(url).then((response) => response.json())
 
-    /*
     legend.items.push({
         name: 'Feature',
         ...featureStyle,
-        fillColor: featureStyle.color, // TODO: Clean up styles
+        fillColor: featureStyle.color,
     })
-    */
 
     return {
         ...layer,

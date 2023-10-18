@@ -26,11 +26,7 @@ class GeoJsonLayer extends Layer {
             opacity,
             isVisible,
             data: filteredData,
-            // style: featureStyle,
-            style: {
-                color: 'transparent',
-                strokeColor: '#333',
-            },
+            style: featureStyle,
             onClick: this.onFeatureClick.bind(this),
         })
 
@@ -41,11 +37,7 @@ class GeoJsonLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        const { name, fields } = this.props
-
         this.props.setFeatureProfile({
-            // name,
-            // fields,
             data: evt.feature.properties,
         })
     }
