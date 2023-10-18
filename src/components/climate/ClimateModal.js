@@ -14,6 +14,7 @@ import Forecast from './Forecast.js'
 import Precipitation from './Precipitation.js'
 import Temperature from './Temperature.js'
 import ClimateChange from './ClimateChange.js'
+import AirQuality from './AirQuality.js'
 import { closeClimatePanel } from '../../actions/climate.js'
 import { getTimeSeries } from '../../util/earthEngine.js'
 // import data from './data-monthly.js'
@@ -23,6 +24,7 @@ const FORECAST = 'forecast'
 const PRECIPITATION = 'precipitation'
 const TEMPERATURE = 'temperature'
 const CLIMATE = 'climate'
+const AIR = 'air'
 
 const config = {
     datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
@@ -63,12 +65,14 @@ const ClimateModal = () => {
                     <Tab value={TEMPERATURE}>{i18n.t('Temperature')}</Tab>
                     <Tab value={PRECIPITATION}>{i18n.t('Precipitation')}</Tab>
                     <Tab value={CLIMATE}>{i18n.t('Climate change')}</Tab>
+                    <Tab value={AIR}>{i18n.t('Air quality')}</Tab>
                 </Tabs>
                 <div className={styles.tabContent}>
                     {tab === FORECAST && <Forecast geometry={geometry} />}
                     {tab === TEMPERATURE && <Temperature data={data} />}
                     {tab === PRECIPITATION && <Precipitation data={data} />}
                     {tab === CLIMATE && <ClimateChange data={data} />}
+                    {tab === AIR && <AirQuality geometry={geometry} />}
                 </div>
             </ModalContent>
             <ModalActions>
