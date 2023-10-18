@@ -5,10 +5,11 @@ import ColumnHeader from './ColumnHeader.js'
 import { numberPrecision } from '../../util/numbers.js'
 import { getPrecision } from '../../util/earthEngine.js'
 
-const FeatureColumns = ({ fields, data }) => {
-    if (!fields || !data) {
-        return null
-    }
+const FeatureColumns = ({ data }) => {
+    const fields = Object.keys(data[0]).map((name) => ({
+        name,
+        type: typeof data[0][name],
+    }))
 
     // TODO: Remove slice
     return fields.slice(0, 10).map(({ name, type }) => {
@@ -43,8 +44,7 @@ const FeatureColumns = ({ fields, data }) => {
 }
 
 FeatureColumns.propTypes = {
-    fields: PropTypes.array,
-    data: PropTypes.array,
+    data: PropTypes.array.isRequired,
 }
 
 export default FeatureColumns

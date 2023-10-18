@@ -41,15 +41,17 @@ const defaultLayers = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
+    ...earthEngineLayers().filter((l) => !l.legacy),
     {
+        // TODO: Remove this entry (only for testing)
         external: true,
         layer: 'geoJsonUrl',
         type: 'Feature',
         name: 'Settlement extents',
+        img: 'images/featurelayer.png',
         opacity: 1,
         url: '/temp/crosscut.geojson',
     },
-    ...earthEngineLayers().filter((l) => !l.legacy),
 ]
 
 const layers = (state, action) => {

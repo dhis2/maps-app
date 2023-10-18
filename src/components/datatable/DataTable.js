@@ -183,11 +183,10 @@ class DataTable extends Component {
         const { layer: layerType } = this.props.layer
 
         if (layerType === GEOJSON_URL_LAYER) {
-            const { name, fields } = this.props.layer
+            const { name } = this.props.layer
 
             this.props.setFeatureProfile({
                 name,
-                fields,
                 data: evt.rowData,
             })
         } else {
@@ -210,7 +209,6 @@ class DataTable extends Component {
             serverCluster,
             aggregationType,
             legend,
-            fields,
         } = layer
 
         const isThematic = layerType === THEMATIC_LAYER
@@ -218,6 +216,8 @@ class DataTable extends Component {
         const isEvent = layerType === EVENT_LAYER
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER
         const isFeatureLayer = layerType === GEOJSON_URL_LAYER
+
+        console.log('isFeatureLayer', isFeatureLayer, layer)
 
         const isLoading =
             isEarthEngine && aggregationType?.length && !aggregations
@@ -377,7 +377,7 @@ class DataTable extends Component {
                     {isEarthEngine &&
                         EarthEngineColumns({ aggregationType, legend, data })}
 
-                    {isFeatureLayer && FeatureColumns({ fields, data })}
+                    {isFeatureLayer && FeatureColumns({ data })}
                 </Table>
                 {isLoading === true && (
                     <div className={styles.loader}>
