@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-18T11:52:12.744Z\n"
-"PO-Revision-Date: 2023-10-18T11:52:12.744Z\n"
+"POT-Creation-Date: 2023-10-18T14:42:09.006Z\n"
+"PO-Revision-Date: 2023-10-18T14:42:09.006Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -245,14 +245,14 @@ msgstr "org unit"
 msgid "Earth Engine"
 msgstr "Earth Engine"
 
+msgid "feature"
+msgstr "feature"
+
 msgid "Edit {{name}} layer"
 msgstr "Edit {{name}} layer"
 
 msgid "Add new {{name}} layer"
 msgstr "Add new {{name}} layer"
-
-msgid "{{name}} layer"
-msgstr "{{name}} layer"
 
 msgid "Update layer"
 msgstr "Update layer"
@@ -379,6 +379,18 @@ msgstr "Radius in meters"
 msgid "Buffer can't be combined with associated geometry."
 msgstr "Buffer can't be combined with associated geometry."
 
+msgid "Fill color"
+msgstr "Fill color"
+
+msgid "Line/stroke color"
+msgstr "Line/stroke color"
+
+msgid "Line/stroke width"
+msgstr "Line/stroke width"
+
+msgid "Point size"
+msgstr "Point size"
+
 msgid "Labels"
 msgstr "Labels"
 
@@ -471,9 +483,6 @@ msgstr "Display Tracked Entity relationships"
 
 msgid "Tracked entity style"
 msgstr "Tracked entity style"
-
-msgid "Point size"
-msgstr "Point size"
 
 msgid "Related entity style"
 msgstr "Related entity style"
@@ -1352,15 +1361,6 @@ msgid ""
 msgstr ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
-
-msgid "Fill color"
-msgstr "Fill color"
-
-msgid "Stroke color"
-msgstr "Stroke color"
-
-msgid "Stroke width"
-msgstr "Stroke width"
 
 msgid "Facility"
 msgstr "Facility"
