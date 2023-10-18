@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import DataLoading from './DataLoading.js'
-import DayForecast from './DayForecast'
+import DayForecast from './DayForecast.js'
 import styles from './styles/Forecast.module.css'
 
 // Freetown:
@@ -63,8 +63,16 @@ const Forecast = ({ geometry }) => {
                 </tbody>
             </table>
             <div className={styles.source}>
-                Data from <a href="https://api.met.no">MET Norway</a> /{' '}
-                <a href="https://www.ecmwf.int/en/forecasts/datasets/set-i">
+                Data from{' '}
+                <a href="https://api.met.no" target="_blank" rel="noreferrer">
+                    MET Norway
+                </a>{' '}
+                /{' '}
+                <a
+                    href="https://www.ecmwf.int/en/forecasts/datasets/set-i"
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     ECMWF HRES
                 </a>
             </div>

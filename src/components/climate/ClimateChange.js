@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
+import Highcharts from 'highcharts'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
-import Highcharts from 'highcharts'
 import ERA5Source from './ERA5Source.js'
 
 const months = {
@@ -60,7 +60,7 @@ const ClimateChange = ({ data }) => {
                     text: `Temperature anomalies - ${month}`,
                 },
                 subtitle: {
-                    text: '',
+                    text: 'Reference period: 1991-2020',
                 },
                 credits: {
                     enabled: false,

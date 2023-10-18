@@ -11,6 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
+import { openClimatePanel } from '../../actions/climate.js'
 import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
@@ -18,7 +19,6 @@ import {
     showEarthEngineValue,
 } from '../../actions/map.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
-import { openClimatePanel } from '../../actions/climate.js'
 import {
     FACILITY_LAYER,
     EARTH_ENGINE_LAYER,
@@ -190,6 +190,7 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
+    openClimatePanel: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,

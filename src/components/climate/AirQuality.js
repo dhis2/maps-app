@@ -1,8 +1,8 @@
-import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 const AirQuality = ({ geometry }) => {
+    console.log('AirQuality', geometry)
     return <div>Air quality</div>
 }
 

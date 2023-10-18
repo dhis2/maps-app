@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useState, useRef, useEffect } from 'react'
+import React from 'react'
 import styles from './styles/WeatherSymbol.module.css'
 
 /**

@@ -1,8 +1,7 @@
-import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import WeatherSymbol from './WeatherSymbol'
 import styles from './styles/DayForecast.module.css'
+import WeatherSymbol from './WeatherSymbol.js'
 
 const hours = ['00', '06', '12', '18']
 

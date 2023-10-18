@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
+import Highcharts from 'highcharts'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
-import Highcharts from 'highcharts'
 import DataLoading from './DataLoading.js'
 import ERA5Source from './ERA5Source.js'
 
