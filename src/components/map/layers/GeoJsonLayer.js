@@ -1,8 +1,8 @@
 import { connect } from 'react-redux' // TODO: not available in plugin
-import Layer from './Layer'
-import { filterData } from '../../../util/filter'
-import { setFeatureProfile } from '../../../actions/feature' // TODO: not available in plugin
-import { GEOJSON_LAYER } from '../../../constants/layers'
+import { setFeatureProfile } from '../../../actions/feature.js' // TODO: not available in plugin
+import { GEOJSON_LAYER } from '../../../constants/layers.js'
+import { filterData } from '../../../util/filter.js'
+import Layer from './Layer.js'
 
 class GeoJsonLayer extends Layer {
     createLayer() {

@@ -4,10 +4,10 @@ import EarthEngineLoader from './EarthEngineLoader.js'
 import EventLoader from './EventLoader.js'
 import ExternalLoader from './ExternalLoader.js'
 import FacilityLoader from './FacilityLoader.js'
+import GeoJsonUrlLoader from './GeoJsonUrlLoader.js'
 import OrgUnitLoader from './OrgUnitLoader.js'
 import ThematicLoader from './ThematicLoader.js'
 import TrackedEntityLoader from './TrackedEntityLoader.js'
-import GeoJsonUrlLoader from './GeoJsonUrlLoader.js'
 
 const layerType = {
     earthEngine: EarthEngineLoader,

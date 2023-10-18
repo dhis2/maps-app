@@ -197,8 +197,6 @@ class DataTable extends Component {
 
     onRowMouseOver = (evt) => this.highlightFeature(evt.rowData.id)
     onRowMouseOut = () => this.highlightFeature()
-    onRowMouseOver = (evt) => this.highlightFeature(evt.rowData.id)
-    onRowMouseOut = () => this.highlightFeature()
 
     render() {
         const { data, sortBy, sortDirection } = this.state

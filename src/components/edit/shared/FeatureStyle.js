@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo, useEffect } from 'react'
-import { Checkbox, ColorPicker, NumberField } from '../../core.js'
+import { Checkbox, ColorPicker, NumberField } from '../../core/index.js'
 import styles from '../styles/LayerDialog.module.css'
 
 const FILL = 'color'
@@ -100,9 +100,8 @@ const FeatureStyle = ({ style, onChange }) => {
 }
 
 FeatureStyle.propTypes = {
-    fields: PropTypes.array,
-    style: PropTypes.object,
     onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
 }
 
 export default FeatureStyle

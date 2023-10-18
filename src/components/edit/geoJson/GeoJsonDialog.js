@@ -2,8 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { setFeatureStyle } from '../../../actions/layerEdit'
-import { Tab, Tabs } from '../../core.js'
+import { setFeatureStyle } from '../../../actions/layerEdit.js'
+import { Tab, Tabs } from '../../core/index.js'
 import FeatureStyle from '../shared/FeatureStyle.js'
 import styles from '../styles/LayerDialog.module.css'
 
@@ -46,10 +46,10 @@ const GeoJsonDialog = ({
 }
 
 GeoJsonDialog.propTypes = {
-    featureStyle: PropTypes.object,
     setFeatureStyle: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
+    featureStyle: PropTypes.object,
 }
 
 export default connect(
