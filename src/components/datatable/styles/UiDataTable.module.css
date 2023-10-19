@@ -10,3 +10,8 @@ td.darkText {
     color: var(--colors-white);
 }
 
+/* Hide the filter icon */
+.columnHeader > span > span > button:last-of-type {
+    visibility: hidden;
+}
+

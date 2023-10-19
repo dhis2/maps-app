@@ -6,9 +6,6 @@ import {
     DataTableColumnHeader,
     DataTableHead,
     DataTableBody,
-    // DataTableFoot,
-    // Pagination,
-    // Tooltip,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import React, {
@@ -26,6 +23,8 @@ import {
     // EARTH_ENGINE_LAYER,
 } from '../../constants/layers.js'
 import { isDarkColor } from '../../util/colors.js'
+import { filterData } from '../../util/filter.js'
+import FilterInput from './FilterInput.js'
 import styles from './styles/UiDataTable.module.css'
 
 const ASCENDING = 'asc'
@@ -33,15 +32,15 @@ const DESCENDING = 'desc'
 
 const getThematicHeaders = () => [
     { name: i18n.t('Index'), dataKey: 'index' },
-    { name: i18n.t('Name'), dataKey: 'name' },
-    { name: i18n.t('Id'), dataKey: 'id' },
-    { name: i18n.t('Value'), dataKey: 'value' },
-    { name: i18n.t('Legend'), dataKey: 'legend' },
-    { name: i18n.t('Range'), dataKey: 'range' },
-    { name: i18n.t('Level'), dataKey: 'level' },
-    { name: i18n.t('Parent'), dataKey: 'parentName' },
-    { name: i18n.t('Type'), dataKey: 'type' },
-    { name: i18n.t('Color'), dataKey: 'color' },
+    { name: i18n.t('Name'), dataKey: 'name', type: 'string' },
+    { name: i18n.t('Id'), dataKey: 'id', type: 'string' },
+    { name: i18n.t('Value'), dataKey: 'value', type: 'number' },
+    { name: i18n.t('Legend'), dataKey: 'legend', type: 'string' },
+    { name: i18n.t('Range'), dataKey: 'range', type: 'string' },
+    { name: i18n.t('Level'), dataKey: 'level', type: 'number' },
+    { name: i18n.t('Parent'), dataKey: 'parentName', type: 'string' },
+    { name: i18n.t('Type'), dataKey: 'type', type: 'string' },
+    { name: i18n.t('Color'), dataKey: 'color', type: 'string' },
     // { name: i18n.t('Name2'), dataKey: 'name2' },
     // { name: i18n.t('Id2'), dataKey: 'id2' },
     // { name: i18n.t('Value2'), dataKey: 'value2' },
@@ -51,19 +50,6 @@ const getThematicHeaders = () => [
     // { name: i18n.t('Parent2'), dataKey: 'parentName2' },
     // { name: i18n.t('Type2'), dataKey: 'type2' },
     // { name: i18n.t('Color2'), dataKey: 'color2' },
-]
-
-const thematicFields = [
-    'index',
-    'name',
-    'id',
-    'value',
-    'legend',
-    'range',
-    'level',
-    'parentName',
-    'type',
-    'color',
 ]
 
 const getEventHeaders = (layer) => {
@@ -90,10 +76,24 @@ const getOrgUnitHeaders = () => [
     { name: i18n.t('Color'), dataKey: 'color' },
 ]
 
+const getHeaders = (layer) => {
+    if (layer.layer === THEMATIC_LAYER) {
+        return getThematicHeaders()
+    } else if (layer.layer === EVENT_LAYER) {
+        return getEventHeaders(layer)
+    } else if (layer.layer === ORG_UNIT_LAYER) {
+        return getOrgUnitHeaders(layer)
+    }
+    //  else if (layer.layer === EARTH_ENGINE_LAYER) {
+    // }
+}
+
+const EMPTY_AGGREGATIONS = {}
+
 const Table = () => {
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
-    // const allAggregations = useSelector((state) => state.aggregations)
+    const allAggregations = useSelector((state) => state.aggregations)
     // const feature = useSelector((state) => state.feature)
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
@@ -104,36 +104,33 @@ const Table = () => {
     )
 
     const layer = mapViews.find((l) => l.id === activeLayerId)
-    const { data } = layer
+    const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
+    const { data, dataFilters } = layer
 
-    const getHeaders = () => {
-        if (layer.layer === THEMATIC_LAYER) {
-            return getThematicHeaders()
-        } else if (layer.layer === EVENT_LAYER) {
-            return getEventHeaders(layer)
-        } else if (layer.layer === ORG_UNIT_LAYER) {
-            return getOrgUnitHeaders(layer)
-        }
-        //  else if (layer.layer === EARTH_ENGINE_LAYER) {
-        // }
-    }
-
-    const rawData = useMemo(
-        () =>
-            data &&
-            data.map((d, index) => {
-                return Object.assign({ index, ...d.properties })
-            }),
-        [data]
-    )
-    const [rows, setRows] = useState([])
-
-    useEffect(() => {
-        if (!rawData) {
-            return
+    const rows = useMemo(() => {
+        if (!data) {
+            return []
         }
 
-        rawData.sort((a, b) => {
+        const indexedData = data
+            .map((d, i) => ({
+                index: i,
+                ...d,
+            }))
+            .filter((d) => !d.properties.hasAdditionalGeometry)
+            .map((d, i) => {
+                return {
+                    ...(d.properties || d),
+                    ...aggregations[d.id],
+                    index: d.index,
+                    i,
+                }
+            })
+
+        const filteredData = filterData(indexedData, dataFilters)
+
+        //sort
+        filteredData.sort((a, b) => {
             a = a[sortField]
             b = b[sortField]
 
@@ -150,17 +147,13 @@ const Table = () => {
             return 0
         })
 
-        setRows(
-            rawData.map((item) => {
-                return thematicFields.map((key) => ({
-                    value: item[key],
-                    dataKey: key,
-                }))
-            })
+        return filteredData.map((item) =>
+            getThematicHeaders().map(({ dataKey }) => ({
+                value: item[dataKey],
+                dataKey,
+            }))
         )
-    }, [rawData, sortField, sortDirection])
-
-    // const aggregations = allAggregations[layer.id]
+    }, [data, dataFilters, aggregations, sortField, sortDirection])
 
     const sortData = useCallback(
         ({ name }) => {
@@ -177,10 +170,11 @@ const Table = () => {
         <DataTable scrollHeight={'100%'} scrollWidth={'100%'} width={'100%'}>
             <DataTableHead>
                 <DataTableRow>
-                    {getHeaders().map(({ name, dataKey }, index) => (
+                    {getHeaders(layer).map(({ name, dataKey, type }, index) => (
                         <DataTableColumnHeader
                             fixed
                             top="0"
+                            className={styles.columnHeader}
                             key={`${dataKey}-${index}`}
                             dataKey={dataKey}
                             name={dataKey}
@@ -193,6 +187,16 @@ const Table = () => {
                             sortIconTitle={i18n.t('Sort by {{column}}', {
                                 column: name,
                             })}
+                            onFilterIconClick={type && Function.prototype}
+                            showFilter={!!type}
+                            filter={
+                                type && (
+                                    <FilterInput
+                                        type={type}
+                                        dataKey={dataKey}
+                                    />
+                                )
+                            }
                         >
                             {name}
                         </DataTableColumnHeader>
