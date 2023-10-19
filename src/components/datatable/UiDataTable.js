@@ -218,7 +218,9 @@ const Table = () => {
                                     dataKey === 'color' ? value : null
                                 }
                             >
-                                {value}
+                                {dataKey === 'color'
+                                    ? value.toLowerCase()
+                                    : value}
                             </DataTableCell>
                         ))}
                     </DataTableRow>
