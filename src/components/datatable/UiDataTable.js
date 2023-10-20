@@ -8,20 +8,26 @@ import {
     DataTableBody,
 } from '@dhis2/ui'
 import cx from 'classnames'
+import { isValidUid } from 'd2/uid' // TODO replace
+import { debounce } from 'lodash/fp'
 import React, {
-    useState,
+    // useState,
     useEffect,
     useReducer,
     useCallback,
     useMemo,
 } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { closeDataTable } from '../../actions/dataTable.js'
+import { highlightFeature } from '../../actions/feature.js'
+import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     // EARTH_ENGINE_LAYER,
 } from '../../constants/layers.js'
+import { numberValueTypes } from '../../constants/valueTypes.js'
 import { isDarkColor } from '../../util/colors.js'
 import { filterData } from '../../util/filter.js'
 import FilterInput from './FilterInput.js'
@@ -32,35 +38,63 @@ const DESCENDING = 'desc'
 
 const getThematicHeaders = () => [
     { name: i18n.t('Index'), dataKey: 'index' },
-    { name: i18n.t('Name'), dataKey: 'name', type: 'string' },
-    { name: i18n.t('Id'), dataKey: 'id', type: 'string' },
-    { name: i18n.t('Value'), dataKey: 'value', type: 'number' },
-    { name: i18n.t('Legend'), dataKey: 'legend', type: 'string' },
-    { name: i18n.t('Range'), dataKey: 'range', type: 'string' },
-    { name: i18n.t('Level'), dataKey: 'level', type: 'number' },
-    { name: i18n.t('Parent'), dataKey: 'parentName', type: 'string' },
-    { name: i18n.t('Type'), dataKey: 'type', type: 'string' },
-    { name: i18n.t('Color'), dataKey: 'color', type: 'string' },
-    // { name: i18n.t('Name2'), dataKey: 'name2' },
-    // { name: i18n.t('Id2'), dataKey: 'id2' },
-    // { name: i18n.t('Value2'), dataKey: 'value2' },
-    // { name: i18n.t('Legend2'), dataKey: 'legend2' },
-    // { name: i18n.t('Range2'), dataKey: 'range2' },
-    // { name: i18n.t('Level2'), dataKey: 'level2' },
-    // { name: i18n.t('Parent2'), dataKey: 'parentName2' },
-    // { name: i18n.t('Type2'), dataKey: 'type2' },
-    // { name: i18n.t('Color2'), dataKey: 'color2' },
+    { name: i18n.t('Name'), dataKey: 'name', type: TYPE_STRING },
+    { name: i18n.t('Id'), dataKey: 'id', type: TYPE_STRING },
+    { name: i18n.t('Value'), dataKey: 'value', type: TYPE_NUMBER },
+    { name: i18n.t('Legend'), dataKey: 'legend', type: TYPE_STRING },
+    { name: i18n.t('Range'), dataKey: 'range', type: TYPE_STRING },
+    { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
+    { name: i18n.t('Parent'), dataKey: 'parentName', type: TYPE_STRING },
+    { name: i18n.t('Type'), dataKey: 'type', type: TYPE_STRING },
+    {
+        name: i18n.t('Color'),
+        dataKey: 'color',
+        type: TYPE_STRING,
+        renderer: 'rendercolor',
+    },
 ]
 
+const TYPE_NUMBER = 'number'
+const TYPE_STRING = 'string'
+const TYPE_DATE = 'date'
+
 const getEventHeaders = (layer) => {
-    return [
+    const defaultFieldsStart = [
         { name: i18n.t('Index'), dataKey: 'index' },
-        { name: i18n.t('Org unit'), dataKey: 'ouname' },
-        { name: i18n.t('Id'), dataKey: 'id' },
-        { name: i18n.t('Event time'), dataKey: 'eventdate' },
-        { name: i18n.t('Type'), dataKey: 'type' },
-        // { name: i18n.t('Color'), dataKey: 'color' },
+        { name: i18n.t('Org unit'), dataKey: 'ouname', type: TYPE_STRING },
+        { name: i18n.t('Id'), dataKey: 'id', type: TYPE_STRING },
+        {
+            name: i18n.t('Event time'),
+            dataKey: 'eventdate',
+            type: TYPE_DATE,
+            renderer: 'formatTime...',
+        },
     ]
+
+    const { headers = [] } = layer
+
+    const customFields = headers
+        .filter(({ name }) => isValidUid(name))
+        .map(({ name, column, valueType }) => ({
+            name: column,
+            dataKey: name,
+            type: numberValueTypes.includes(valueType)
+                ? TYPE_NUMBER
+                : TYPE_STRING,
+        }))
+
+    const defaultFieldsEnd = [{ name: i18n.t('Type'), dataKey: 'type' }]
+
+    if (layer.styleDataItem) {
+        defaultFieldsEnd.push({
+            name: i18n.t('Color'),
+            dataKey: 'color',
+            type: TYPE_STRING,
+            renderer: 'rendercolor',
+        })
+    }
+
+    return defaultFieldsStart.concat(customFields).concat(defaultFieldsEnd)
 }
 
 const getOrgUnitHeaders = () => [
@@ -76,13 +110,13 @@ const getOrgUnitHeaders = () => [
     { name: i18n.t('Color'), dataKey: 'color' },
 ]
 
-const getHeaders = (layer) => {
+const getHeaders = (layer, styleDataItem) => {
     if (layer.layer === THEMATIC_LAYER) {
         return getThematicHeaders()
     } else if (layer.layer === EVENT_LAYER) {
-        return getEventHeaders(layer)
+        return getEventHeaders(layer, styleDataItem)
     } else if (layer.layer === ORG_UNIT_LAYER) {
-        return getOrgUnitHeaders(layer)
+        return getOrgUnitHeaders(layer, styleDataItem)
     }
     //  else if (layer.layer === EARTH_ENGINE_LAYER) {
     // }
@@ -94,7 +128,8 @@ const Table = () => {
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
     const allAggregations = useSelector((state) => state.aggregations)
-    // const feature = useSelector((state) => state.feature)
+    const dispatch = useDispatch()
+    const feature = useSelector((state) => state.feature)
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
@@ -105,12 +140,13 @@ const Table = () => {
 
     const layer = mapViews.find((l) => l.id === activeLayerId)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
-    const { data, dataFilters } = layer
 
     const rows = useMemo(() => {
-        if (!data) {
+        if (!layer) {
             return []
         }
+
+        const { data, dataFilters } = layer
 
         const indexedData = data
             .map((d, i) => ({
@@ -118,14 +154,12 @@ const Table = () => {
                 ...d,
             }))
             .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, i) => {
-                return {
-                    ...(d.properties || d),
-                    ...aggregations[d.id],
-                    index: d.index,
-                    i,
-                }
-            })
+            .map((d, i) => ({
+                ...(d.properties || d),
+                ...aggregations[d.id],
+                index: d.index,
+                i,
+            }))
 
         const filteredData = filterData(indexedData, dataFilters)
 
@@ -134,7 +168,7 @@ const Table = () => {
             a = a[sortField]
             b = b[sortField]
 
-            if (typeof a === 'number') {
+            if (typeof a === TYPE_NUMBER) {
                 return sortDirection === ASCENDING ? a - b : b - a
             }
             // TODO: Make sure sorting works across different locales - use lib method
@@ -148,12 +182,19 @@ const Table = () => {
         })
 
         return filteredData.map((item) =>
-            getThematicHeaders().map(({ dataKey }) => ({
+            getHeaders(layer).map(({ dataKey }) => ({
                 value: item[dataKey],
                 dataKey,
             }))
         )
-    }, [data, dataFilters, aggregations, sortField, sortDirection])
+    }, [layer, aggregations, sortField, sortDirection])
+
+    useEffect(() => {
+        // TODO - improve and test
+        if (rows !== null && !rows.length) {
+            dispatch(closeDataTable())
+        }
+    }, [rows, dispatch])
 
     const sortData = useCallback(
         ({ name }) => {
@@ -165,6 +206,43 @@ const Table = () => {
         },
         [sortDirection]
     )
+
+    if (layer.serverCluster) {
+        return (
+            <div className={styles.noSupport}>
+                {i18n.t(
+                    'Data table is not supported when events are grouped on the server.'
+                )}
+            </div>
+        )
+    }
+
+    const onTableRowClick = (row) => {
+        const id = row.find((r) => r.dataKey === 'id')?.value
+        id && dispatch(setOrgUnitProfile(id))
+    }
+
+    //TODO
+    // Debounce needed as event is triggered multiple times for the same row
+    const highlightMapFeature = debounce(50, (id) => {
+        if (!id || !feature || id !== feature.id) {
+            dispatch(
+                highlightFeature(
+                    id
+                        ? {
+                              id,
+                              layerId: layer.id,
+                              origin: 'table',
+                          }
+                        : null
+                )
+            )
+        }
+    })
+
+    // TODO - need this implemented in ui
+    // const onMouseOver = (row) => console.log('row', row)
+    // const onRowMouseOut = () => highlightMapFeature()
 
     return (
         <DataTable scrollHeight={'100%'} scrollWidth={'100%'} width={'100%'}>
@@ -205,7 +283,10 @@ const Table = () => {
             </DataTableHead>
             <DataTableBody>
                 {rows.map((row, index) => (
-                    <DataTableRow key={`dtrow-${index}`}>
+                    <DataTableRow
+                        key={`dtrow-${index}`}
+                        // onMouseOver={() => onMouseOver(row)}
+                    >
                         {row.map(({ dataKey, value }) => (
                             <DataTableCell
                                 key={`dtcell-${dataKey}`}
@@ -221,9 +302,10 @@ const Table = () => {
                                 backgroundColor={
                                     dataKey === 'color' ? value : null
                                 }
+                                onClick={() => onTableRowClick(row)}
                             >
                                 {dataKey === 'color'
-                                    ? value.toLowerCase()
+                                    ? value?.toLowerCase()
                                     : value}
                             </DataTableCell>
                         ))}
