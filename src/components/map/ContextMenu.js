@@ -11,6 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
+import { openClimatePanel } from '../../actions/climate.js'
 import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
@@ -41,6 +42,7 @@ const ContextMenu = (props) => {
         openCoordinatePopup,
         showEarthEngineValue,
         setOrgUnitProfile,
+        openClimatePanel,
         updateLayer,
     } = props
 
@@ -82,6 +84,16 @@ const ContextMenu = (props) => {
                 break
             case 'show_info':
                 setOrgUnitProfile(attr.id)
+                break
+            case 'show_climate':
+                openClimatePanel({
+                    id: attr.id,
+                    name: attr.name,
+                    geometry: feature?.geometry || {
+                        type: 'Point',
+                        coordinates,
+                    },
+                })
                 break
             case 'show_coordinate':
                 openCoordinatePopup(coordinates)
@@ -138,6 +150,15 @@ const ContextMenu = (props) => {
                             />
                         )}
 
+                        {(!feature || feature.geometry.type === 'Point') && (
+                            <MenuItem
+                                dataTest="context-menu-view-climate"
+                                label={i18n.t('Weather and climate')}
+                                icon={<IconInfo16 />}
+                                onClick={() => onClick('show_climate')}
+                            />
+                        )}
+
                         {coordinates && !isSplitView && (
                             <MenuItem
                                 dataTest="context-menu-show-long-lat"
@@ -169,6 +190,7 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
+    openClimatePanel: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
@@ -195,6 +217,7 @@ export default connect(
         openCoordinatePopup,
         showEarthEngineValue,
         setOrgUnitProfile,
+        openClimatePanel,
         updateLayer,
     }
 )(ContextMenu)

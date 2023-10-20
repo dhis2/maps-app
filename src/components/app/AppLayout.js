@@ -2,6 +2,7 @@ import cx from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import AlertStack from '../alerts/AlertStack.js'
+import ClimateModal from '../climate/ClimateModal.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadModeMenu from '../download/DownloadMenubar.js'
 import DownloadSettings from '../download/DownloadSettings.js'
@@ -26,6 +27,7 @@ const AppLayout = () => {
     const detailsPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
     )
+    const showClimate = useSelector((state) => !!state.climate)
 
     const onFileMenuAction = () =>
         detailsPanelOpen &&
@@ -59,6 +61,7 @@ const AppLayout = () => {
             <LayerEdit />
             <AlertStack />
             <OpenAsMapDialog />
+            {showClimate && <ClimateModal />}
         </>
     )
 }
