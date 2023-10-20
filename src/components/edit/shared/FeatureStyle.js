@@ -90,7 +90,9 @@ const FeatureStyle = ({ style, onChange }) => {
                         key={id}
                         label={label}
                         value={style[id]}
-                        onChange={(value) => onChange({ [id]: value })}
+                        onChange={(value) =>
+                            onChange({ [id]: parseInt(value) })
+                        }
                         className={styles.narrowField}
                     />
                 )
