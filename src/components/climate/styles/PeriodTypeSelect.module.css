@@ -1,0 +1,10 @@
+.periodTypeButtons {
+    position: absolute;
+    top: 37px;
+    left: 10px;
+    z-index: 1;
+}
+
+.periodTypeButtons button {
+    margin-right: 5px;
+}
