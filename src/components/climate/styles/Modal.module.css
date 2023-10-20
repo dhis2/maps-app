@@ -1,5 +1,7 @@
 .tabContent {
     position: relative;
     padding-top: 30px;
-    min-height: 635px;
+    height: 538px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

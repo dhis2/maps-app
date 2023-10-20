@@ -1,30 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
 
-export const getMonthNormal = (data, month) => {
-    const monthData = data.filter((d) => d.id.substring(5, 7) === month)
-
-    const normal =
-        monthData
-            .filter((d) => {
-                const year = d.id.substring(0, 4)
-                return year >= 1991 && year <= 2020
-            })
-            .reduce((v, d) => v + d['temperature_2m'], 0) /
-            30 -
-        273.15
-
-    return Math.round(normal * 10) / 10
-}
-
 const getChart = (data) => {
-    const last12months = data.slice(-12)
-
-    const series = last12months.map((d) => ({
+    const series = data.map((d) => ({
         x: new Date(d.id).getTime(),
         y: Math.round((d['temperature_2m'] - 273.15) * 10) / 10,
     }))
 
-    const minMax = last12months.map((d) => [
+    const minMax = data.map((d) => [
         new Date(d.id).getTime(),
         Math.round((d['temperature_2m_min'] - 273.15) * 10) / 10,
         Math.round((d['temperature_2m_max'] - 273.15) * 10) / 10,
@@ -32,18 +14,10 @@ const getChart = (data) => {
 
     const minValue = Math.min(...minMax.map((d) => d[1]))
 
-    const normals = last12months.map((d) => ({
-        x: new Date(d.id).getTime(),
-        y: getMonthNormal(data, d.id.substring(5, 7)),
-    }))
-
     // https://www.highcharts.com/demo/highcharts/arearange-line
     return {
         title: {
-            text: i18n.t('Monthly temperatures last year'),
-        },
-        subtitle: {
-            text: 'Normals from reference period: 1991-2020',
+            text: i18n.t('Daily temperatures last year'),
         },
         credits: {
             enabled: false,
@@ -69,6 +43,7 @@ const getChart = (data) => {
         },
         chart: {
             height: 480,
+            zoomType: 'x',
         },
         series: [
             {
@@ -89,18 +64,6 @@ const getChart = (data) => {
                     enabled: false,
                 },
                 zIndex: 0,
-            },
-            {
-                type: 'spline',
-                data: normals,
-                name: i18n.t('Normal temperature'),
-                dashStyle: 'dash',
-                color: 'var(--colors-red500)',
-                negativeColor: 'var(--colors-blue500)',
-                marker: {
-                    enabled: false,
-                },
-                zIndex: 1,
             },
         ],
     }

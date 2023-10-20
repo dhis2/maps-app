@@ -11,19 +11,19 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeClimatePanel } from '../../actions/climate.js'
 import { Tab, Tabs } from '../core/index.js'
-import AirQuality from './AirQuality.js'
-import ClimateChange from './ClimateChange.js'
+// import AirQuality from './AirQuality.js'
+import ClimateChangeTab from './ClimateChangeTab.js'
 import Forecast from './Forecast.js'
-import Precipitation from './Precipitation.js'
+import PrecipitationTab from './PrecipitationTab.js'
 import styles from './styles/Modal.module.css'
 import TemperatureTab from './TemperatureTab.js'
-import useClimateData from '../../hooks/useClimateData.js'
+import useClimateData from './hooks/useClimateData.js'
 
 const FORECAST = 'forecast'
 const PRECIPITATION = 'precipitation'
 const TEMPERATURE = 'temperature'
 const CLIMATE = 'climate'
-const AIR = 'air'
+// const AIR = 'air'
 
 const ClimateModal = () => {
     const [tab, setTab] = useState(FORECAST)
@@ -31,9 +31,11 @@ const ClimateModal = () => {
     const dispatch = useDispatch()
 
     const { name, geometry } = feature
-    const { monthlyData } = useClimateData(geometry)
+    const data = useClimateData(geometry)
     const title = (name ? `${name} - ` : '') + i18n.t('Weather & Climate')
 
+    // <Tab value={AIR}>{i18n.t('Air quality')}</Tab>
+    // {tab === AIR && <AirQuality geometry={geometry} />}
     return (
         <Modal
             large
@@ -48,18 +50,14 @@ const ClimateModal = () => {
                     <Tab value={TEMPERATURE}>{i18n.t('Temperature')}</Tab>
                     <Tab value={PRECIPITATION}>{i18n.t('Precipitation')}</Tab>
                     <Tab value={CLIMATE}>{i18n.t('Climate change')}</Tab>
-                    <Tab value={AIR}>{i18n.t('Air quality')}</Tab>
                 </Tabs>
                 <div className={styles.tabContent}>
                     {tab === FORECAST && <Forecast geometry={geometry} />}
-                    {tab === TEMPERATURE && (
-                        <TemperatureTab data={monthlyData} />
+                    {tab === TEMPERATURE && <TemperatureTab {...data} />}
+                    {tab === PRECIPITATION && <PrecipitationTab {...data} />}
+                    {tab === CLIMATE && (
+                        <ClimateChangeTab data={data.monthlyData} />
                     )}
-                    {tab === PRECIPITATION && (
-                        <Precipitation data={monthlyData} />
-                    )}
-                    {tab === CLIMATE && <ClimateChange data={monthlyData} />}
-                    {tab === AIR && <AirQuality geometry={geometry} />}
                 </div>
             </ModalContent>
             <ModalActions>

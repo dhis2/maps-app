@@ -14,8 +14,8 @@
     border-bottom: 1pt solid #ccc;
 }
 .table td {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 0px;
 }
 
 .table td.right {

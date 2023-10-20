@@ -1,6 +1,10 @@
-import i18n from '@dhis2/d2-i18n'
+import { CenteredContent, CircularLoader } from '@dhis2/ui'
 import React from 'react'
 
-const DataLoading = () => <div>{i18n.t('Loading data')}...</div>
+const DataLoading = () => (
+    <CenteredContent>
+        <CircularLoader />
+    </CenteredContent>
+)
 
 export default DataLoading

@@ -4,10 +4,10 @@ import DataLoading from './DataLoading.js'
 import ERA5Source from './ERA5Source.js'
 import PeriodTypeSelect, { MONTHLY } from './PeriodTypeSelect.js'
 import Chart from './Chart.js'
-import getMonthlyChart from './charts/temperatureMonthly.js'
-import getDailyChart from './charts/temperatureDaily.js'
+import getMonthlyChart from './charts/precipitationMonthly.js'
+import getDailyChart from './charts/precipitationDaily.js'
 
-const TemperatureTab = ({ loading, monthlyData, dailyData }) => {
+const PrecipitationTab = ({ loading, monthlyData, dailyData }) => {
     const [periodType, setPeriodType] = useState(MONTHLY)
 
     if (loading) {
@@ -27,9 +27,9 @@ const TemperatureTab = ({ loading, monthlyData, dailyData }) => {
     )
 }
 
-TemperatureTab.propTypes = {
+PrecipitationTab.propTypes = {
     dailyData: PropTypes.array,
     monthlyData: PropTypes.array,
 }
 
-export default TemperatureTab
+export default PrecipitationTab

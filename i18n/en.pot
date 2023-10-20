@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-20T09:15:14.151Z\n"
-"PO-Revision-Date: 2023-10-20T09:15:14.151Z\n"
+"POT-Creation-Date: 2023-10-20T14:53:30.559Z\n"
+"PO-Revision-Date: 2023-10-20T14:53:30.559Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -32,6 +32,9 @@ msgstr "Color"
 msgid "Weather & Climate"
 msgstr "Weather & Climate"
 
+msgid "Air quality"
+msgstr "Air quality"
+
 msgid "10 days forecast"
 msgstr "10 days forecast"
 
@@ -43,9 +46,6 @@ msgstr "Precipitation"
 
 msgid "Climate change"
 msgstr "Climate change"
-
-msgid "Air quality"
-msgstr "Air quality"
 
 msgid "Close"
 msgstr "Close"
@@ -74,26 +74,11 @@ msgstr "Precip."
 msgid "Wind"
 msgstr "Wind"
 
-msgid "Precipitation last year"
-msgstr "Precipitation last year"
+msgid "Monthly"
+msgstr "Monthly"
 
-msgid "Monthly precipitation"
-msgstr "Monthly precipitation"
-
-msgid "Normal precipitation"
-msgstr "Normal precipitation"
-
-msgid "Temperatures last year"
-msgstr "Temperatures last year"
-
-msgid "Mean temperature"
-msgstr "Mean temperature"
-
-msgid "Temperature range"
-msgstr "Temperature range"
-
-msgid "Normal temperature"
-msgstr "Normal temperature"
+msgid "Daily"
+msgstr "Daily"
 
 msgid "Jauary"
 msgstr "Jauary"
@@ -253,6 +238,30 @@ msgstr "Heavy snow and thunder"
 
 msgid "Fog"
 msgstr "Fog"
+
+msgid "Daily temperatures last year"
+msgstr "Daily temperatures last year"
+
+msgid "Monthly precipitation"
+msgstr "Monthly precipitation"
+
+msgid "Precipitation last year"
+msgstr "Precipitation last year"
+
+msgid "Normal precipitation"
+msgstr "Normal precipitation"
+
+msgid "Mean temperature"
+msgstr "Mean temperature"
+
+msgid "Temperature range"
+msgstr "Temperature range"
+
+msgid "Monthly temperatures last year"
+msgstr "Monthly temperatures last year"
+
+msgid "Normal temperature"
+msgstr "Normal temperature"
 
 msgid "Size"
 msgstr "Size"
@@ -1418,9 +1427,6 @@ msgstr "Equal counts"
 msgid "Symbol"
 msgstr "Symbol"
 
-msgid "Daily"
-msgstr "Daily"
-
 msgid "Weekly"
 msgstr "Weekly"
 
@@ -1438,9 +1444,6 @@ msgstr "Weekly (Start Sunday)"
 
 msgid "Bi-weekly"
 msgstr "Bi-weekly"
-
-msgid "Monthly"
-msgstr "Monthly"
 
 msgid "Bi-monthly"
 msgstr "Bi-monthly"
