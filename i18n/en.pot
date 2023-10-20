@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-18T16:46:14.227Z\n"
-"PO-Revision-Date: 2023-10-18T16:46:14.227Z\n"
+"POT-Creation-Date: 2023-10-20T09:15:14.151Z\n"
+"PO-Revision-Date: 2023-10-20T09:15:14.151Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -28,45 +28,6 @@ msgstr "Legend set"
 
 msgid "Color"
 msgstr "Color"
-
-msgid "Jauary"
-msgstr "Jauary"
-
-msgid "February"
-msgstr "February"
-
-msgid "March"
-msgstr "March"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "May"
-
-msgid "June"
-msgstr "June"
-
-msgid "July"
-msgstr "July"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "October"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Loading weather data"
-msgstr "Loading weather data"
 
 msgid "Weather & Climate"
 msgstr "Weather & Climate"
@@ -119,17 +80,56 @@ msgstr "Precipitation last year"
 msgid "Monthly precipitation"
 msgstr "Monthly precipitation"
 
+msgid "Normal precipitation"
+msgstr "Normal precipitation"
+
 msgid "Temperatures last year"
 msgstr "Temperatures last year"
 
-msgid "Monthly temperature"
-msgstr "Monthly temperature"
+msgid "Mean temperature"
+msgstr "Mean temperature"
 
-msgid "Min"
-msgstr "Min"
+msgid "Temperature range"
+msgstr "Temperature range"
 
-msgid "Max"
-msgstr "Max"
+msgid "Normal temperature"
+msgstr "Normal temperature"
+
+msgid "Jauary"
+msgstr "Jauary"
+
+msgid "February"
+msgstr "February"
+
+msgid "March"
+msgstr "March"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "May"
+
+msgid "June"
+msgstr "June"
+
+msgid "July"
+msgstr "July"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "October"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
 
 msgid "Clear sky"
 msgstr "Clear sky"
@@ -543,6 +543,12 @@ msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
 msgstr "Unit: {{ unit }}"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
 
 msgid "Steps"
 msgstr "Steps"

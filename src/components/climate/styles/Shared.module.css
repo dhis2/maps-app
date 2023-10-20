@@ -1,0 +1,13 @@
+.chart {
+    position: relative;
+}
+
+.chartButtons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.chartButtons button {
+    margin-right: 5px;
+}

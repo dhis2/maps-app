@@ -1,12 +1,31 @@
 import i18n from '@dhis2/d2-i18n'
+import { Button } from '@dhis2/ui'
 import Highcharts from 'highcharts'
 import highchartsMore from 'highcharts/highcharts-more'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import DataLoading from './DataLoading.js'
 import ERA5Source from './ERA5Source.js'
+import styles from './styles/Shared.module.css'
 
 highchartsMore(Highcharts)
+
+// TODO: Reuse in TemperatureAnomaly.js
+const getMonthNormal = (data, month) => {
+    const monthData = data.filter((d) => d.id.substring(5, 7) === month)
+
+    const normal =
+        monthData
+            .filter((d) => {
+                const year = d.id.substring(0, 4)
+                return year >= 1991 && year <= 2020
+            })
+            .reduce((v, d) => v + d['temperature_2m'], 0) /
+            30 -
+        273.15
+
+    return Math.round(normal * 10) / 10
+}
 
 const Temperature = ({ data }) => {
     const chartRef = useRef()
@@ -28,13 +47,18 @@ const Temperature = ({ data }) => {
 
             const minValue = Math.min(...minMax.map((d) => d[1]))
 
+            const normals = last12months.map((d) => ({
+                x: new Date(d.id).getTime(),
+                y: getMonthNormal(data, d.id.substring(5, 7)),
+            }))
+
             // https://www.highcharts.com/demo/highcharts/arearange-line
             Highcharts.chart(chartRef.current, {
                 title: {
                     text: i18n.t('Temperatures last year'),
                 },
                 subtitle: {
-                    text: '',
+                    text: 'Normals from reference period: 1991-2020',
                 },
                 credits: {
                     enabled: false,
@@ -80,7 +104,7 @@ const Temperature = ({ data }) => {
                         name: i18n.t('Mean temperature'),
                         color: 'var(--colors-red800)',
                         negativeColor: 'var(--colors-blue800)',
-                        zIndex: 1,
+                        zIndex: 2,
                     },
                     {
                         type: 'arearange',
@@ -93,16 +117,36 @@ const Temperature = ({ data }) => {
                         },
                         zIndex: 0,
                     },
+                    {
+                        type: 'spline',
+                        data: normals,
+                        name: i18n.t('Normal temperature'),
+                        dashStyle: 'dash',
+                        color: 'var(--colors-red500)',
+                        negativeColor: 'var(--colors-blue500)',
+                        marker: {
+                            enabled: false,
+                        },
+                        zIndex: 1,
+                    },
                 ],
             })
         }
     }, [data, chartRef])
 
     return data ? (
-        <>
-            <div ref={chartRef}></div>
+        <div className={styles.chart}>
+            <div ref={chartRef} />
+            <div className={styles.chartButtons}>
+                <Button primary small>
+                    Monthly
+                </Button>
+                <Button secondary small>
+                    Daily
+                </Button>
+            </div>
             <ERA5Source />
-        </>
+        </div>
     ) : (
         <DataLoading />
     )

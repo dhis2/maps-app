@@ -33,7 +33,7 @@ const Precipitation = ({ data }) => {
                 y: Math.round(d['total_precipitation_sum'] * 1000 * 10) / 10,
             }))
 
-            const normal = last12months.map((d) => ({
+            const normals = last12months.map((d) => ({
                 x: new Date(d.id).getTime(),
                 y: getMonthNormal(data, d.id.substring(5, 7)),
             }))
@@ -87,7 +87,7 @@ const Precipitation = ({ data }) => {
                         zIndex: 1,
                     },
                     {
-                        data: normal,
+                        data: normals,
                         name: i18n.t('Normal precipitation'),
                         color: 'var(--colors-grey400)',
                         pointPlacement: -0.2,

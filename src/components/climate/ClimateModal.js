@@ -36,6 +36,12 @@ const config = {
         'total_precipitation_min',
         'total_precipitation_max',
     ],
+    filters: [
+        {
+            type: 'date',
+            arguments: ['$1', '$2'],
+        },
+    ],
 }
 
 const ClimateModal = () => {
