@@ -5,15 +5,19 @@ import { getPrecision } from '../../util/earthEngine.js'
 import { numberPrecision } from '../../util/numbers.js'
 import ColumnHeader from './ColumnHeader.js'
 
+const TYPEOF_STRING = 'string'
+const TYPEOF_NUMBER = 'number'
+// const TYPEOF_OBJECT = 'object'
+
 const FeatureColumns = ({ data }) => {
     const fields = Object.keys(data[0]).map((name) => ({
         name,
         type: typeof data[0][name],
     }))
 
-    // TODO: Remove slice
+    // TODO: Remove slice when horizontal scrolling is supported
     return fields.slice(0, 10).map(({ name, type }) => {
-        const isString = type.includes('String')
+        const isString = type.includes(TYPEOF_STRING)
         const precision = getPrecision(data.map((d) => d[name]))
         const valueFormat = numberPrecision(precision)
 
@@ -26,7 +30,7 @@ const FeatureColumns = ({ data }) => {
                 className="right"
                 headerRenderer={(props) => (
                     <ColumnHeader
-                        type={isString ? 'string' : 'number'}
+                        type={isString ? TYPEOF_STRING : TYPEOF_NUMBER}
                         {...props}
                     />
                 )}
