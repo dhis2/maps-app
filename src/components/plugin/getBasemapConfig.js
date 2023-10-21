@@ -10,8 +10,8 @@ async function getBasemaps(basemapId, defaultBasemapId, engine) {
     try {
         let externalBasemaps = []
         if (isValidUid(basemapId) || isValidUid(defaultBasemapId)) {
-            const externalLayers = await fetchExternalLayers(engine)
-            externalBasemaps = externalLayers
+            const { externalLayers } = await fetchExternalLayers(engine)
+            externalBasemaps = externalLayers.externalMapLayers
                 .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
                 .map(createExternalLayer)
         }
