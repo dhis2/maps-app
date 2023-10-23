@@ -2,8 +2,8 @@ import {
     AboutAOUnit,
     InterpretationsUnit,
     InterpretationModal,
+    useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback } from 'react'
 import { connect } from 'react-redux'
@@ -17,9 +17,9 @@ const InterpretationsPanel = ({
     setInterpretation,
     renderCount,
 }) => {
+    const { currentUser } = useCachedDataQuery()
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
-    const { d2 } = useD2()
 
     const onInterpretationClick = useCallback(
         (interpretationId) => {
@@ -49,14 +49,14 @@ const InterpretationsPanel = ({
                     ref={interpretationsUnitRef}
                     type="map"
                     id={map.id}
-                    currentUser={d2.currentUser}
+                    currentUser={currentUser}
                     onInterpretationClick={onInterpretationClick}
                     onReplyIconClick={onReplyIconClick}
                 />
             </Drawer>
             {interpretationId && (
                 <InterpretationModal
-                    currentUser={d2.currentUser}
+                    currentUser={currentUser}
                     onInterpretationUpdate={() =>
                         interpretationsUnitRef.current.refresh()
                     }

@@ -4,16 +4,20 @@ import {
     defaultBasemaps,
 } from '../../constants/basemaps.js'
 import { createExternalLayer } from '../../util/external.js'
-import { fetchExternalLayers } from '../../util/requests.js'
+import { fetchExternalLayersQuery } from '../../util/requests.js'
 
 async function getBasemaps(basemapId, defaultBasemapId, engine) {
     try {
         let externalBasemaps = []
         if (isValidUid(basemapId) || isValidUid(defaultBasemapId)) {
-            const { externalLayers } = await fetchExternalLayers(engine)
+            const { externalLayers } = await engine.query({
+                externalLayers: fetchExternalLayersQuery,
+            })
             externalBasemaps = externalLayers.externalMapLayers
                 .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
                 .map(createExternalLayer)
+
+            console.log('externalBasemaps', externalBasemaps)
         }
 
         return defaultBasemaps().concat(externalBasemaps)
@@ -29,6 +33,7 @@ async function getBasemapConfig({
     engine,
 }) {
     const basemaps = await getBasemaps(basemapId, keyDefaultBaseMap, engine)
+    console.log('basemapId', basemapId)
 
     const basemap =
         basemaps.find(({ id }) => id === basemapId) ||
