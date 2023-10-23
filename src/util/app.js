@@ -33,6 +33,7 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
         .filter((basemap) => layerTypes.includes(basemap.config.type))
 
     return defaultBasemaps()
+        .filter((basemap) => layerTypes.includes(basemap.config.type))
         .filter((basemap) =>
             !systemSettings.keyBingMapsApiKey
                 ? basemap.config.type !== BING_LAYER
