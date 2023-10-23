@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { TILE_LAYER, GOOGLE_LAYER, BING_LAYER } from '../constants/layers.js'
+import { TILE_LAYER, BING_LAYER } from '../constants/layers.js'
 
 export const FALLBACK_BASEMAP_ID = 'osmLight'
 
