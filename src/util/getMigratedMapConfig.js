@@ -8,7 +8,7 @@ export const getMigratedMapConfig = (config, defaultBasemapId) =>
 
 // Different ways of specifying a basemap - TODO: simplify!
 const extractBasemap = (config, defaultBasemapId) => {
-    const externalBasemap = config.mapViews.find(
+    const legacyBasemapInMapview = config.mapViews.find(
         (view) =>
             view.layer === EXTERNAL_LAYER &&
             JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
@@ -17,10 +17,10 @@ const extractBasemap = (config, defaultBasemapId) => {
     let basemap
     let mapViews = config.mapViews
 
-    if (externalBasemap) {
-        basemap = JSON.parse(externalBasemap.config)
+    if (legacyBasemapInMapview) {
+        basemap = JSON.parse(legacyBasemapInMapview.config)
         mapViews = config.mapViews.filter(
-            (view) => view.id !== externalBasemap.id
+            (view) => view.id !== legacyBasemapInMapview.id
         )
     } else if (isString(config.basemap)) {
         basemap =
@@ -35,7 +35,6 @@ const extractBasemap = (config, defaultBasemapId) => {
 
     return {
         ...config,
-        basemapId: basemap.id,
         basemap: basemap,
         mapViews: mapViews,
     }

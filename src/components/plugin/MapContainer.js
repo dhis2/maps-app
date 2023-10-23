@@ -17,7 +17,7 @@ const MapContainer = ({ visualization }) => {
 
     useEffect(() => {
         const {
-            basemap: basemapId,
+            basemap: visBasemap,
             mapViews,
             userOrgUnit,
             id,
@@ -37,13 +37,13 @@ const MapContainer = ({ visualization }) => {
                 )
             } else {
                 initialConfig = getMigratedMapConfig(
-                    { basemapId, mapViews },
+                    { basemap: visBasemap, mapViews },
                     keyDefaultBaseMap
                 )
             }
 
             const { basemap } = await getBasemapConfig({
-                basemapId: initialConfig.basemapId,
+                basemapId: initialConfig.basemap.id,
                 keyDefaultBaseMap,
                 keyBingMapsApiKey,
                 engine,
