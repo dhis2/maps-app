@@ -9,7 +9,7 @@ const getChart = (data) => {
     // https://www.highcharts.com/demo/highcharts/arearange-line
     return {
         title: {
-            text: i18n.t('Daily temperatures last year'),
+            text: i18n.t('Daily precipitation last year'),
         },
         credits: {
             enabled: false,
@@ -46,7 +46,7 @@ const getChart = (data) => {
         series: [
             {
                 data: series,
-                name: i18n.t('Monthly precipitation'),
+                name: i18n.t('Daily precipitation'),
                 color: 'var(--colors-blue500)',
                 zIndex: 1,
             },

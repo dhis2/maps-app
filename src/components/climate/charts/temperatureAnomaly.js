@@ -71,7 +71,7 @@ const getChart = (data) => {
         series: [
             {
                 data: series,
-                name: 'Monthly temperature',
+                name: 'Temperature anomaly',
                 color: 'var(--colors-red500)',
                 negativeColor: 'var(--colors-blue500)',
             },
