@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-28T08:43:20.062Z\n"
-"PO-Revision-Date: 2023-09-28T08:43:20.062Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"PO-Revision-Date: 2023-10-23T12:55:26.288Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -894,12 +894,6 @@ msgstr "OSM Light"
 
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
-
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
 
 msgid "Bing Road"
 msgstr "Bing Road"
