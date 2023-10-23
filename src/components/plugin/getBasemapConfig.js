@@ -16,8 +16,6 @@ async function getBasemaps(basemapId, defaultBasemapId, engine) {
             externalBasemaps = externalLayers.externalMapLayers
                 .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
                 .map(createExternalLayer)
-
-            console.log('externalBasemaps', externalBasemaps)
         }
 
         return defaultBasemaps().concat(externalBasemaps)
@@ -33,7 +31,6 @@ async function getBasemapConfig({
     engine,
 }) {
     const basemaps = await getBasemaps(basemapId, keyDefaultBaseMap, engine)
-    console.log('basemapId', basemapId)
 
     const basemap =
         basemaps.find(({ id }) => id === basemapId) ||
