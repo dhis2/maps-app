@@ -13,6 +13,7 @@ const extractBasemap = (config, defaultBasemapId) => {
             view.layer === EXTERNAL_LAYER &&
             JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
     )
+
     let basemap
     let mapViews = config.mapViews
 
@@ -34,6 +35,7 @@ const extractBasemap = (config, defaultBasemapId) => {
 
     return {
         ...config,
+        basemapId: basemap.id,
         basemap: basemap,
         mapViews: mapViews,
     }
