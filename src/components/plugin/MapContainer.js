@@ -43,7 +43,7 @@ const MapContainer = ({ visualization }) => {
             }
 
             const { basemap } = await getBasemapConfig({
-                basemapId: initialConfig.basemap.id,
+                basemapId: initialConfig.basemap?.id,
                 keyDefaultBaseMap,
                 keyBingMapsApiKey,
                 engine,
