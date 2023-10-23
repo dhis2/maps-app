@@ -33,24 +33,6 @@ export const defaultBasemaps = () => [
         isDark: false,
     },
     {
-        id: 'googleStreets',
-        name: i18n.t('Google Streets'),
-        img: 'images/googlestreets.png',
-        config: {
-            type: GOOGLE_LAYER,
-            style: 'ROADMAP',
-        },
-    },
-    {
-        id: 'googleHybrid',
-        name: i18n.t('Google Hybrid'),
-        img: 'images/googlehybrid.jpeg',
-        config: {
-            type: GOOGLE_LAYER,
-            style: 'HYBRID',
-        },
-    },
-    {
         id: 'bingLight',
         name: i18n.t('Bing Road'),
         img: 'images/bingroad.png',
