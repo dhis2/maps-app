@@ -48,7 +48,6 @@ const BasemapCard = (props) => {
                 >
                     <BasemapList
                         selectedID={basemap.id}
-                        basemaps={props.basemaps}
                         selectBasemap={selectBasemap}
                     />
                 </LayerCard>
@@ -59,7 +58,6 @@ const BasemapCard = (props) => {
 
 BasemapCard.propTypes = {
     basemap: PropTypes.object.isRequired,
-    basemaps: PropTypes.array.isRequired,
     changeBasemapOpacity: PropTypes.func.isRequired,
     selectBasemap: PropTypes.func.isRequired,
     toggleBasemapExpand: PropTypes.func.isRequired,
@@ -70,7 +68,6 @@ BasemapCard.propTypes = {
 export default connect(
     (state) => ({
         basemap: state.map.basemap,
-        basemaps: state.basemaps,
     }),
     {
         changeBasemapOpacity,
