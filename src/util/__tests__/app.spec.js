@@ -94,7 +94,7 @@ describe('utils/app', () => {
             externalMapLayers,
         })
 
-        expect(cfg.basemaps).toHaveLength(11)
+        expect(cfg.basemaps).toHaveLength(9)
         expect(cfg.nameProperty).toEqual('displayName')
         expect(cfg.layerTypes).toHaveLength(13)
         expect(cfg.currentUser.username).toEqual('admin')
@@ -142,7 +142,7 @@ describe('utils/app', () => {
             externalMapLayers,
         })
 
-        expect(cfg.basemaps).toHaveLength(7)
+        expect(cfg.basemaps).toHaveLength(5)
         expect(cfg.nameProperty).toEqual('displayShortName')
         expect(cfg.layerTypes).toHaveLength(13)
         expect(cfg.currentUser).toMatchObject({

@@ -910,12 +910,6 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Bing Road"
 
