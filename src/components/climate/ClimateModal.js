@@ -7,7 +7,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeClimatePanel } from '../../actions/climate.js'
 import { Tab, Tabs } from '../core/index.js'
@@ -26,16 +26,26 @@ const CLIMATE = 'climate'
 // const AIR = 'air'
 
 const ClimateModal = () => {
-    const [tab, setTab] = useState(FORECAST)
+    const [tab, setTab] = useState()
     const feature = useSelector((state) => state.climate)
     const dispatch = useDispatch()
 
     const { name, geometry } = feature
-    const data = useClimateData(geometry)
+    const isPoint = geometry.type === 'Point'
     const title = (name ? `${name} - ` : '') + i18n.t('Weather & Climate')
+    const data = useClimateData(geometry)
+
+    useEffect(() => {
+        setTab(isPoint ? FORECAST : TEMPERATURE)
+    }, [isPoint])
 
     // <Tab value={AIR}>{i18n.t('Air quality')}</Tab>
     // {tab === AIR && <AirQuality geometry={geometry} />}
+
+    if (!tab) {
+        return null
+    }
+
     return (
         <Modal
             large
@@ -46,7 +56,9 @@ const ClimateModal = () => {
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <Tabs value={tab} onChange={setTab}>
-                    <Tab value={FORECAST}>{i18n.t('10 days forecast')}</Tab>
+                    {isPoint && (
+                        <Tab value={FORECAST}>{i18n.t('10 days forecast')}</Tab>
+                    )}
                     <Tab value={TEMPERATURE}>{i18n.t('Temperature')}</Tab>
                     <Tab value={PRECIPITATION}>{i18n.t('Precipitation')}</Tab>
                     <Tab value={CLIMATE}>{i18n.t('Climate change')}</Tab>

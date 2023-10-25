@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-20T14:53:30.559Z\n"
-"PO-Revision-Date: 2023-10-20T14:53:30.559Z\n"
+"POT-Creation-Date: 2023-10-25T09:08:21.244Z\n"
+"PO-Revision-Date: 2023-10-25T09:08:21.244Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -50,9 +50,6 @@ msgstr "Climate change"
 msgid "Close"
 msgstr "Close"
 
-msgid "Loading data"
-msgstr "Loading data"
-
 msgid "Night"
 msgstr "Night"
 
@@ -79,42 +76,6 @@ msgstr "Monthly"
 
 msgid "Daily"
 msgstr "Daily"
-
-msgid "Jauary"
-msgstr "Jauary"
-
-msgid "February"
-msgstr "February"
-
-msgid "March"
-msgstr "March"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "May"
-
-msgid "June"
-msgstr "June"
-
-msgid "July"
-msgstr "July"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "October"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
 
 msgid "Clear sky"
 msgstr "Clear sky"
@@ -239,17 +200,59 @@ msgstr "Heavy snow and thunder"
 msgid "Fog"
 msgstr "Fog"
 
-msgid "Daily temperatures last year"
-msgstr "Daily temperatures last year"
+msgid "Daily precipitation last year"
+msgstr "Daily precipitation last year"
 
-msgid "Monthly precipitation"
-msgstr "Monthly precipitation"
+msgid "Daily precipitation"
+msgstr "Daily precipitation"
 
 msgid "Precipitation last year"
 msgstr "Precipitation last year"
 
+msgid "Monthly precipitation"
+msgstr "Monthly precipitation"
+
 msgid "Normal precipitation"
 msgstr "Normal precipitation"
+
+msgid "Jauary"
+msgstr "Jauary"
+
+msgid "February"
+msgstr "February"
+
+msgid "March"
+msgstr "March"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "May"
+
+msgid "June"
+msgstr "June"
+
+msgid "July"
+msgstr "July"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "October"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Daily temperatures last year"
+msgstr "Daily temperatures last year"
 
 msgid "Mean temperature"
 msgstr "Mean temperature"
@@ -872,6 +875,9 @@ msgstr "no value"
 
 msgid "All groups"
 msgstr "All groups"
+
+msgid "Loading data"
+msgstr "Loading data"
 
 msgid "acres"
 msgstr "acres"

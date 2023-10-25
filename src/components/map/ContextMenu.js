@@ -150,14 +150,12 @@ const ContextMenu = (props) => {
                             />
                         )}
 
-                        {(!feature || feature.geometry.type === 'Point') && (
-                            <MenuItem
-                                dataTest="context-menu-view-climate"
-                                label={i18n.t('Weather and climate')}
-                                icon={<IconInfo16 />}
-                                onClick={() => onClick('show_climate')}
-                            />
-                        )}
+                        <MenuItem
+                            dataTest="context-menu-view-climate"
+                            label={i18n.t('Weather and climate')}
+                            icon={<IconInfo16 />}
+                            onClick={() => onClick('show_climate')}
+                        />
 
                         {coordinates && !isSplitView && (
                             <MenuItem
