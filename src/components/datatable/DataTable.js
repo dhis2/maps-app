@@ -248,28 +248,26 @@ class DataTable extends Component {
                         className="right"
                     />
                     {!isFeatureLayer && (
-                        <>
-                            <Column
-                                dataKey={isEvent ? 'ouname' : 'name'}
-                                label={
-                                    isEvent
-                                        ? i18n.t('Org unit')
-                                        : i18n.t('Name')
-                                }
-                                width={100}
-                                headerRenderer={(props) => (
-                                    <ColumnHeader type="string" {...props} />
-                                )}
-                            />
-                            <Column
-                                dataKey="id"
-                                label={i18n.t('Id')}
-                                width={100}
-                                headerRenderer={(props) => (
-                                    <ColumnHeader type="string" {...props} />
-                                )}
-                            />
-                        </>
+                        <Column
+                            dataKey={isEvent ? 'ouname' : 'name'}
+                            label={
+                                isEvent ? i18n.t('Org unit') : i18n.t('Name')
+                            }
+                            width={100}
+                            headerRenderer={(props) => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
+                    )}
+                    {!isFeatureLayer && (
+                        <Column
+                            dataKey="id"
+                            label={i18n.t('Id')}
+                            width={100}
+                            headerRenderer={(props) => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
                     )}
                     {isEvent && (
                         <Column
