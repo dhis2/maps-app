@@ -49,6 +49,46 @@ export const getDefaultLayerTypes = () => [
         name: 'Settlement extents',
         img: 'images/featurelayer.png',
         opacity: 1,
-        url: '/temp/crosscut.geojson',
+        url: 'https://dhis2.github.io/maps-app/public/temp/slsettlementextents.geojson',
+    },
+    {
+        // TODO: Remove this entry (only for testing)
+        external: true,
+        layer: 'geoJsonUrl',
+        type: 'Feature',
+        name: 'Africa rivers',
+        img: 'images/featurelayer.png',
+        opacity: 1,
+        url: 'https://dhis2.github.io/maps-app/public/temp/africarivers.geojson',
+    },
+    {
+        // TODO: Remove this entry (only for testing)
+        external: true,
+        layer: 'geoJsonUrl',
+        type: 'Feature',
+        name: 'Organisation units',
+        img: 'images/featurelayer.png',
+        opacity: 1,
+        url: 'https://dhis2.github.io/maps-app/public/temp/orgunits.geojson',
+    },
+    {
+        // TODO: Remove this entry (only for testing)
+        external: true,
+        layer: 'geoJsonUrl',
+        type: 'Feature',
+        name: 'Malaria entities',
+        img: 'images/featurelayer.png',
+        opacity: 1,
+        url: 'https://dhis2.github.io/maps-app/public/temp/malariaentitiespoints.geojson',
+    },
+    {
+        // TODO: Remove this entry (only for testing)
+        external: true,
+        layer: 'geoJsonUrl',
+        type: 'Feature',
+        name: 'Lines and polygons',
+        img: 'images/featurelayer.png',
+        opacity: 1,
+        url: 'https://dhis2.github.io/maps-app/public/temp/sl_orgunits_and_rivers.geojson',
     },
 ]
