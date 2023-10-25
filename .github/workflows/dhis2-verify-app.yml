@@ -76,7 +76,7 @@ jobs:
     call-workflow-e2e-prod:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test]
-        uses: dhis2/line-listing-app/.github/workflows/e2e-prod.yml@master
+        uses: dhis2/line-listing-app/.github/workflows/e2e-prod.yml@e2e-prod-maps
         secrets:
             baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
