@@ -20,6 +20,8 @@ const EarthEnginePeriodSelect = ({
     const [year, setYear] = useState()
     const byYear = periodType === 'by year'
 
+    console.log('periods', periods)
+
     const years = useMemo(
         () =>
             byYear && periods

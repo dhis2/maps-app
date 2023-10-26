@@ -29,8 +29,9 @@ import StyleTab from './StyleTab.js'
 
 const EarthEngineDialog = (props) => {
     const [tab, setTab] = useState('data')
-    const [periods, setPeriods] = useState()
     const [error, setError] = useState()
+
+    console.log('EarthEngineDialog')
 
     const {
         layerId,

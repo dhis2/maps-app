@@ -209,7 +209,8 @@ export const createLegend = ({ min, max, palette }) => {
         }
 
         from = to
-        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)))
+        // to = valueFormat(min + step * (index + (min > 0 ? 1 : 2))) // TODO: Make valueFormat work
+        to = min + step * (index + (min > 0 ? 1 : 2))
 
         return item
     })

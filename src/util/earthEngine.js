@@ -118,6 +118,11 @@ export const getPeriods = async (eeId, periodType, filters) => {
             properties.year ||
             new Date(properties['system:time_start']).getFullYear()
 
+        /*    
+        return periodType === 'yearly'
+            ? { id: useSystemIndex ? id : year, name: String(year) }
+            : { id, name: getStartEndDate(properties), year }
+        */
         return periodType === 'yearly'
             ? { id: useSystemIndex ? id : year, name: String(year) }
             : { id, name: getStartEndDate(properties), year }
@@ -139,6 +144,8 @@ export const getPeriods = async (eeId, periodType, filters) => {
     // } catch (error) {
     //    console.log('ERROR', error)
     // }
+
+    console.log('getPeriods features', features)
 
     return features.map(getPeriod)
 }
