@@ -1,0 +1,7 @@
+.filterInput {
+    width: 100%;
+}
+
+.filterInput::placeholder {
+    color: #ddd;
+}
