@@ -32,7 +32,6 @@ const externalLoader = async (layer) => {
         isLoading: false,
         isExpanded: true,
         isVisible: true,
-        editCounter: layer.editCounter || 0,
     }
 }
 
