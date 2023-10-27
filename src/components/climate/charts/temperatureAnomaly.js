@@ -43,6 +43,7 @@ const getChart = (data) => {
         },
         tooltip: {
             shared: true,
+            valueSuffix: '°C',
         },
         chart: {
             type: 'column',
