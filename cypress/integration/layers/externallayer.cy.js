@@ -10,7 +10,7 @@ describe('External Layer', () => {
             .toLowerCase()
             .replace(/\s/g, '_')}`
 
-        cy.get(`[data-test="${dataTest}"]`).click()
+        cy.getByDataTest(dataTest).click()
 
         cy.getByDataTest('map-loading-mask').should('not.exist')
 
