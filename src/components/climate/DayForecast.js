@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './styles/DayForecast.module.css'
+import TemperatureValue from './TemperatureValue.js'
 import WeatherSymbol from './WeatherSymbol.js'
 
 const hours = ['00', '06', '12', '18']
@@ -44,7 +45,8 @@ const DayForecast = ({ date, series }) => {
             <td className={styles.day}>{day}</td>
             {weatherSymbols}
             <td className={styles.temp}>
-                {maxTemp}° / {minTemp}°
+                <TemperatureValue value={maxTemp} /> /{' '}
+                <TemperatureValue value={minTemp} />
             </td>
             <td className={styles.precip}>{Math.round(precip * 10) / 10} mm</td>
             <td className={styles.wind}>{maxWind} m/s</td>
