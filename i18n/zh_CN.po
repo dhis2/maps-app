@@ -1,15 +1,15 @@
 # 
 # Translators:
 # 晓东 林 <13981924470@126.com>, 2022
-# easylin <lin_xd@126.com>, 2022
+# easylin <lin_xd@126.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -241,7 +241,7 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
-msgstr ""
+msgstr "载入期间"
 
 msgid "Min value is required"
 msgstr ""
@@ -724,7 +724,7 @@ msgid "No data found for this period."
 msgstr ""
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "使用相关的几何坐标"
 
 msgid "Select groups"
 msgstr "选择组"
@@ -930,7 +930,7 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "Population"
-msgstr ""
+msgstr "人口"
 
 msgid "people per hectare"
 msgstr ""
@@ -939,7 +939,7 @@ msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "Population age groups"
-msgstr ""
+msgstr "人口年龄组"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1333,7 +1333,7 @@ msgid "No"
 msgstr "否"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "无法获取 Google 地球引擎的授权令牌。"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
