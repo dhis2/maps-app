@@ -23,11 +23,12 @@ const mapServiceToTypeMap = {
 }
 
 // Create external layer from a model
-export const createExternalLayer = (model) => ({
+export const createExternalLayer = (model, forBasemap) => ({
     layer:
         model.mapService === MAP_SERVICE_GEOJSON_URL
             ? GEOJSON_URL_LAYER
             : EXTERNAL_LAYER,
+    id: forBasemap ? model.id : undefined,
     name: model.name,
     opacity: 1,
     config: createExternalLayerConfig(model),

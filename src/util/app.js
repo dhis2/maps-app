@@ -29,7 +29,7 @@ export const appQueries = {
 const getBasemapList = (externalMapLayers, systemSettings) => {
     const externalBasemaps = externalMapLayers
         .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
-        .map(createExternalLayer)
+        .map((layer) => createExternalLayer(layer, true))
         .filter((basemap) => layerTypes.includes(basemap.config.type))
 
     return defaultBasemaps()
@@ -52,7 +52,7 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
 const getLayerTypes = (externalMapLayers) => {
     const externalLayerTypes = externalMapLayers
         .filter((layer) => layer.mapLayerPosition !== 'BASEMAP')
-        .map(createExternalLayer)
+        .map((layer) => createExternalLayer(layer, false))
 
     return getDefaultLayerTypes().concat(externalLayerTypes)
 }
