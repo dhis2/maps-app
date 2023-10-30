@@ -34,7 +34,7 @@ const getExcludedTags = (v) => {
 
     if (currentInstanceVersion < MIN_DHIS2_VERSION) {
         throw new Error(
-            'Instance version is lower than the minimum supported version'
+            `Instance version ${currentInstanceVersion} is lower than the minimum supported version ${MIN_DHIS2_VERSION}`
         )
     }
 
