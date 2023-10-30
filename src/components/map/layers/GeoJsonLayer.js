@@ -14,10 +14,17 @@ class GeoJsonLayer extends Layer {
             data,
             dataFilters,
             featureStyle,
+            config,
         } = this.props
+
         const { map } = this.context
 
         const filteredData = filterData(data, dataFilters)
+
+        const style =
+            Object.keys(featureStyle).length > 0
+                ? featureStyle
+                : config.featureStyle
 
         this.layer = map.createLayer({
             type: GEOJSON_LAYER,
@@ -26,7 +33,7 @@ class GeoJsonLayer extends Layer {
             opacity,
             isVisible,
             data: filteredData,
-            style: featureStyle,
+            style,
             onClick: this.onFeatureClick.bind(this),
         })
 

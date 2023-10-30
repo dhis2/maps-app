@@ -81,7 +81,8 @@ export const parseLayerConfig = async (layerConfig) => {
     if (config.id) {
         try {
             const layer = await getExternalLayer(config.id)
-            return createExternalLayerConfig(layer)
+            const newConfig = createExternalLayerConfig(layer)
+            newConfig.featureStyle = { ...config.featureStyle }
         } catch (evt) {
             return config
         }
