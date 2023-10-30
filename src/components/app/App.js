@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
+import { tSetEarthEngineLayers } from '../../actions/earthEngineLayers.js'
 import { tSetExternalLayers } from '../../actions/externalLayers.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { tOpenMap } from '../../actions/map.js'
@@ -24,6 +25,7 @@ const App = () => {
 
     useEffect(() => {
         async function fetchData() {
+            await dispatch(tSetEarthEngineLayers(engine))
             await dispatch(tSetExternalLayers(engine))
 
             const mapId = getUrlParameter('id')

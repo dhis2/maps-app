@@ -4,7 +4,7 @@ import { EARTH_ENGINE_LAYER } from './layers.js'
 export const earthEngineLayers = [
     {
         layerType: EARTH_ENGINE_LAYER,
-        layerId: 'MODIS/006/MCD12Q1',
+        layerId: 'MODIS/006/MCD12Q1/cropland',
         img: 'images/landcover.png',
         datasetId: 'USGS/GFSAD1000_V1',
         format: 'ImageCollection',
@@ -623,6 +623,7 @@ export const earthEngineLayers = [
         img: 'images/temperature.png',
         service: 'earthengine',
         // id: 'earthengine_temperature-era5',
+        layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
         format: 'ImageCollection',
         name: 'Temperature daily',
@@ -671,7 +672,7 @@ export const earthEngineLayers = [
         layer: EARTH_ENGINE_LAYER, // TODO: Remove?
         img: 'images/temperature.png',
         service: 'earthengine',
-        // layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
+        layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
         // id: 'earthengine_temperature-era5',
         datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
         format: 'ImageCollection',
@@ -722,6 +723,7 @@ export const earthEngineLayers = [
         img: 'images/precipitation.png',
         service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
+        layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/total_precipitation_sum',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
         format: 'ImageCollection',
         name: 'Precipitation daily',
@@ -764,6 +766,7 @@ export const earthEngineLayers = [
         img: 'images/precipitation.png',
         service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
+        layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/total_precipitation_sum',
         datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
         format: 'ImageCollection',
         name: 'Precipitation monthly',

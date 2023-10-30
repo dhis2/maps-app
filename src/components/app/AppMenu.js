@@ -5,6 +5,7 @@ import DownloadButton from '../download/DownloadButton.js'
 import InterpretationsToggle from '../interpretations/InterpretationsToggle.js'
 import AddLayerButton from '../layers/overlays/AddLayerButton.js'
 import FileMenu from './FileMenu.js'
+import SettingsMenu from '../settings/SettingsMenu.js'
 
 const AppMenu = ({ onFileMenuAction }) => (
     <Toolbar>
@@ -12,6 +13,7 @@ const AppMenu = ({ onFileMenuAction }) => (
         <HoverMenuBar>
             <FileMenu onFileMenuAction={onFileMenuAction} />
             <DownloadButton />
+            <SettingsMenu />
         </HoverMenuBar>
         <InterpretationsToggle />
     </Toolbar>

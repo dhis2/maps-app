@@ -41,13 +41,21 @@ const defaultLayers = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
-    ...earthEngineLayers.filter((l) => !l.legacy),
+    // ...earthEngineLayers.filter((l) => !l.legacy),
 ]
 
 const layers = (state, action) => {
     const prevState = state || defaultLayers()
 
     switch (action.type) {
+        case types.EARTH_ENGINE_LAYER_ADD:
+            return [
+                ...prevState,
+                {
+                    ...action.payload,
+                },
+            ]
+
         case types.EXTERNAL_LAYER_ADD:
             return [
                 ...prevState,
