@@ -48,6 +48,7 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
         .concat(externalBasemaps)
 }
 
+// TODO ask Bjorn if we should check layer.config.type against MapApi.layerTypes
 const getLayerTypes = (externalMapLayers) => {
     const externalLayerTypes = externalMapLayers
         .filter((layer) => layer.mapLayerPosition !== 'BASEMAP')

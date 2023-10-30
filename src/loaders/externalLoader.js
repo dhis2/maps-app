@@ -9,7 +9,7 @@ const externalLoader = async (layer) => {
         // External layer is loaded in analytical object
         config = await parseLayerConfig(config)
     } else {
-        delete layer.id
+        // delete layer.id
     }
 
     const { name, legendSet, legendSetUrl } = config
