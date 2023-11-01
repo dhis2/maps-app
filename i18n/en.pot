@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-16T10:08:13.972Z\n"
-"PO-Revision-Date: 2023-10-16T10:08:13.972Z\n"
+"POT-Creation-Date: 2023-11-01T07:55:05.635Z\n"
+"PO-Revision-Date: 2023-11-01T07:55:05.635Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -867,6 +867,28 @@ msgstr "Program"
 
 msgid "Stage"
 msgstr "Stage"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Earth Engine Layers"
+msgstr "Earth Engine Layers"
+
+msgid ""
+"Select the layers you want to show in the \"Add layer\" dialogue. The shown "
+"layers will be available for all users."
+msgstr ""
+"Select the layers you want to show in the \"Add layer\" dialogue. The shown "
+"layers will be available for all users."
+
+msgid "Earth Engine layer"
+msgstr "Earth Engine layer"
+
+msgid "Hide"
+msgstr "Hide"
+
+msgid "Show"
+msgstr "Show"
 
 msgid "Tracked Entity Type"
 msgstr "Tracked Entity Type"
