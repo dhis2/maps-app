@@ -28,6 +28,15 @@ export class Layer {
         return this
     }
 
+    selectOuLevel(level) {
+        cy.getByDataTest('org-unit-level-select').click()
+
+        cy.contains(level).click()
+        cy.get('body').click() // Close the modal menu
+
+        return this
+    }
+
     typeStartDate(dateString) {
         cy.get('label')
             .contains('Start date')
