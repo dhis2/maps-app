@@ -108,6 +108,8 @@ context('Thematic Layers', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .selectTab('Period')
 
         cy.getByDataTest('relative-period-select-content').click()
