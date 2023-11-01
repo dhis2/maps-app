@@ -2,9 +2,14 @@
 import * as types from '../constants/actionTypes.js'
 import { earthEngineLayers } from '../constants/earthEngine.js'
 
-export const addEarthEngineLayer = (layer) => ({
+export const addEarthEngineLayer = (payload) => ({
     type: types.EARTH_ENGINE_LAYER_ADD,
-    payload: layer,
+    payload,
+})
+
+export const removeEarthEngineLayer = (payload) => ({
+    type: types.EARTH_ENGINE_LAYER_REMOVE,
+    payload,
 })
 
 // TODO: Move to constants

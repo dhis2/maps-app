@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import * as types from '../constants/actionTypes.js'
-import { earthEngineLayers } from '../constants/earthEngine.js'
 import {
     THEMATIC_LAYER,
     EVENT_LAYER,
@@ -41,20 +40,28 @@ const defaultLayers = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
-    // ...earthEngineLayers.filter((l) => !l.legacy),
 ]
 
 const layers = (state, action) => {
-    const prevState = state || defaultLayers()
+    const prevState = state || [...defaultLayers()]
 
     switch (action.type) {
         case types.EARTH_ENGINE_LAYER_ADD:
             return [
-                ...prevState,
-                {
-                    ...action.payload,
-                },
+                ...defaultLayers(),
+                ...prevState
+                    .filter((l) => l.layerType === 'earthEngine')
+                    .concat(action.payload)
+                    .sort((a, b) => a.name.localeCompare(b.name)),
+                ...prevState.filter((l) => l.layerType === 'external'),
             ]
+
+        case types.EARTH_ENGINE_LAYER_REMOVE:
+            return prevState.filter(
+                (l) =>
+                    l.layerType !== 'earthEngine' ||
+                    l.layerId !== action.payload
+            )
 
         case types.EXTERNAL_LAYER_ADD:
             return [

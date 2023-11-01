@@ -4,6 +4,8 @@ import { useDataEngine } from '@dhis2/app-runtime'
 export const MAPS_APP_NAMESPACE = 'MAPS_APP'
 export const EARTH_ENGINE_LAYERS_KEY = 'EARTH_ENGINE_LAYERS'
 
+// TODO: What if two users are toggling EE layers at the same time?
+
 // https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-240/data-store.html
 // https://dhis2-app-course.ifi.uio.no/learn/dhis2/app-development-guides/datastore/getting-data/
 export const useEarthEngineLayersStore = () => {
@@ -11,7 +13,6 @@ export const useEarthEngineLayersStore = () => {
     const [storedLayers, setStoredLayers] = useState([])
     const engine = useDataEngine()
 
-    // const resource = `dataStore/${EARTH_ENGINE_LAYERS_NAMESPACE}`
     const resource = `dataStore/${MAPS_APP_NAMESPACE}`
 
     const createNamespaceKey = useCallback(() => {
@@ -45,7 +46,6 @@ export const useEarthEngineLayersStore = () => {
                 },
             })
             .then(({ dataStore }) => {
-                // console.log('dataStore', dataStore)
                 if (dataStore.includes(MAPS_APP_NAMESPACE)) {
                     engine
                         .query({
