@@ -3,13 +3,22 @@ import PropTypes from 'prop-types'
 import React, { useContext, useState, useEffect, createContext } from 'react'
 
 const userSettingsQuery = {
-    resource: 'userSettings',
-    params: {
-        key: ['keyDbLocale', 'keyUiLocale', 'keyAnalysisDisplayProperty'],
+    userSettings: {
+        resource: 'userSettings',
+        params: {
+            key: ['keyDbLocale', 'keyUiLocale', 'keyAnalysisDisplayProperty'],
+        },
+    },
+    isMapsAdmin: {
+        resource: 'me/authorization',
+        id: ({ authorityId }) => authorityId,
     },
 }
 
 export const UserSettingsCtx = createContext({})
+
+// TODO: use proper maps admin authority id
+const authorityId = 'F_PROGRAM_TRACKED_ENTITY_ATTRIBUTE_GROUP_ADD'
 
 const UserSettingsProvider = ({ children }) => {
     const [settings, setSettings] = useState({})
@@ -17,9 +26,12 @@ const UserSettingsProvider = ({ children }) => {
 
     useEffect(() => {
         async function fetchData() {
-            const { userSettings } = await engine.query({
-                userSettings: userSettingsQuery,
-            })
+            const { userSettings, isMapsAdmin } = await engine.query(
+                userSettingsQuery,
+                {
+                    variables: { authorityId },
+                }
+            )
 
             setSettings({
                 ...userSettings,
@@ -27,6 +39,7 @@ const UserSettingsProvider = ({ children }) => {
                     userSettings.keyAnalysisDisplayProperty === 'name'
                         ? 'displayName'
                         : 'displayShortName',
+                isMapsAdmin,
             })
         }
         fetchData()

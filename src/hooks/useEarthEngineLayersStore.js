@@ -5,6 +5,7 @@ export const MAPS_APP_NAMESPACE = 'MAPS_APP'
 export const EARTH_ENGINE_LAYERS_KEY = 'EARTH_ENGINE_LAYERS'
 
 // TODO: What if two users are toggling EE layers at the same time?
+// TODO: authorization
 
 // https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-240/data-store.html
 // https://dhis2-app-course.ifi.uio.no/learn/dhis2/app-development-guides/datastore/getting-data/
