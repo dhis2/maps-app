@@ -27,7 +27,7 @@ module.exports = defineConfig({
     reporterOptions: {
         endpoint: process.env.REPORTPORTAL_ENDPOINT,
         apiKey: process.env.REPORTPORTAL_API_KEY,
-        launch: 'maps_app_master',
+        launch: 'maps_app',
         project: process.env.REPORTPORTAL_PROJECT,
         description: '',
         autoMerge: true,

@@ -12,7 +12,6 @@ module.exports = {
     snapshotSerializers: ['enzyme-to-json/serializer'],
 
     testRunner: 'jest-circus/runner',
-    // testRegex: ['/src/*/__tests__/.*.spec.js?$'],
     reporters: [
         'default',
         [
@@ -21,7 +20,7 @@ module.exports = {
                 apiKey: process.env.REPORTPORTAL_API_KEY,
                 endpoint: process.env.REPORTPORTAL_ENDPOINT,
                 project: process.env.REPORTPORTAL_PROJECT,
-                launch: 'maps_app_master',
+                launch: 'maps_app',
                 attributes: [
                     {
                         key: 'version',
