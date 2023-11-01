@@ -92,6 +92,13 @@ const FileMenu = ({ onFileMenuAction }) => {
         })
 
     const saveMap = async () => {
+        if (map.mapViews) {
+            map.mapViews.forEach((view) => {
+                if (view.featureStyle) {
+                    view.config.featureStyle = { ...view.featureStyle } // TODO or default featureStyle
+                }
+            })
+        }
         const config = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
@@ -130,6 +137,13 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const saveAsNewMap = async ({ name, description }) => {
+        if (map.mapViews) {
+            map.mapViews.forEach((view) => {
+                if (view.featureStyle) {
+                    view.config.featureStyle = { ...view.featureStyle } // TODO or default featureStyle
+                }
+            })
+        }
         const config = {
             ...cleanMapConfig({
                 config: map,

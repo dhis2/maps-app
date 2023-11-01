@@ -1,22 +1,21 @@
 import { parseLayerConfig } from '../util/external.js'
 
+const EMPTY_FEATURE_STYLE = {}
 const geoJsonUrlLoader = async (layer) => {
     const { name, config } = layer
 
     let newConfig
+    let featureStyle
+    // keep featureStyle property outside of config while in app
     if (typeof config === 'string') {
         // External layer is loaded in analytical object
         newConfig = await parseLayerConfig(config)
+        featureStyle = { ...newConfig.featureStyle } || EMPTY_FEATURE_STYLE
+        delete newConfig.featureStyle
     } else {
         newConfig = { ...config }
+        featureStyle = layer.featureStyle || EMPTY_FEATURE_STYLE
     }
-
-    // TODO - keep the config updated with the latest featureStyle - clean this up
-    const featureStyle = layer.featureStyle
-        ? { ...layer.featureStyle }
-        : { ...newConfig.featureStyle } || {}
-
-    newConfig.featureStyle = featureStyle
 
     const geoJson = await fetch(newConfig.url).then((response) =>
         response.json()
