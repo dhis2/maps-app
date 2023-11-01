@@ -12,7 +12,7 @@ module.exports = {
     snapshotSerializers: ['enzyme-to-json/serializer'],
 
     testRunner: 'jest-circus/runner',
-    testRegex: ['/src/*/__tests__/.*.spec.js?$'],
+    // testRegex: ['/src/*/__tests__/.*.spec.js?$'],
     reporters: [
         'default',
         [
