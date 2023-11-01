@@ -2,6 +2,9 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React, { useContext, useState, useEffect, createContext } from 'react'
 
+// TODO: use proper maps admin authority id
+const mapsAdminAuthorityId = 'F_PROGRAM_TRACKED_ENTITY_ATTRIBUTE_GROUP_ADD'
+
 const userSettingsQuery = {
     userSettings: {
         resource: 'userSettings',
@@ -11,14 +14,11 @@ const userSettingsQuery = {
     },
     isMapsAdmin: {
         resource: 'me/authorization',
-        id: ({ authorityId }) => authorityId,
+        id: mapsAdminAuthorityId,
     },
 }
 
 export const UserSettingsCtx = createContext({})
-
-// TODO: use proper maps admin authority id
-const authorityId = 'F_PROGRAM_TRACKED_ENTITY_ATTRIBUTE_GROUP_ADD'
 
 const UserSettingsProvider = ({ children }) => {
     const [settings, setSettings] = useState({})
@@ -27,10 +27,7 @@ const UserSettingsProvider = ({ children }) => {
     useEffect(() => {
         async function fetchData() {
             const { userSettings, isMapsAdmin } = await engine.query(
-                userSettingsQuery,
-                {
-                    variables: { authorityId },
-                }
+                userSettingsQuery
             )
 
             setSettings({
