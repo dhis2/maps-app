@@ -6,7 +6,7 @@ import {
     saveExistingMap,
     deleteMap,
 } from '../elements/file_menu.js'
-import { OrgUnitLayer } from '../elements/orgunit_layer.js'
+import { Layer as OrgUnitLayer } from '../elements/layer.js'
 import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
