@@ -139,7 +139,10 @@ const EarthEngineDialog = (props) => {
 
     useEffect(() => {
         if (validateLayer) {
-            const isValid = !noBandSelected && (!periodType || period)
+            // const isValid = !noBandSelected && (!periodType || period)
+            const isValid =
+                !noBandSelected &&
+                (!periodType || periodType === 'range' || period)
 
             if (!isValid) {
                 if (noBandSelected) {

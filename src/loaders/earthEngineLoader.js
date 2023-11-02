@@ -168,6 +168,12 @@ const earthEngineLoader = async (config) => {
         legend.items = createLegend(layer.style)
     }
 
+    // TODO: remove when range periods is supported
+    if (layer.periodType === 'range' && !layer.filter) {
+        layer.filter = layer.filters
+    }
+    console.log('earthEngineLoader', layer)
+
     return {
         ...layer,
         legend,

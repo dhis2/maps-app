@@ -17,6 +17,11 @@ const EarthEnginePeriodTab = ({
     errorText,
     className,
 }) => {
+    // TODO: Add support for date range
+    if (periodType === 'range') {
+        return null
+    }
+
     return (
         <div className={className}>
             {periodType === 'daily' ? (
