@@ -1,5 +1,5 @@
+import { Layer as OrgUnitLayer } from '../../elements/layer.js'
 import { getMaps } from '../../elements/map_canvas.js'
-import { OrgUnitLayer } from '../../elements/orgunit_layer.js'
 import { ThematicLayer } from '../../elements/thematic_layer.js'
 
 const INDICATOR_NAME = 'ANC 1 Coverage'
