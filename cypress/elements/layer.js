@@ -31,7 +31,9 @@ export class Layer {
     selectOuLevel(level) {
         cy.getByDataTest('org-unit-level-select').click()
 
-        cy.contains(level).click()
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+            .contains(level)
+            .click()
         cy.get('body').click() // Close the modal menu
 
         return this
