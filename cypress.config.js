@@ -34,7 +34,7 @@ module.exports = defineConfig({
         parallel: true,
         debug: false,
         restClientConfig: {
-            timeout: 360000,
+            timeout: 660000,
         },
         attributes: [
             {
