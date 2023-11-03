@@ -1,0 +1,52 @@
+import i18n from '@dhis2/d2-i18n'
+import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
+
+export default {
+    layerType: EARTH_ENGINE_LAYER,
+    img: 'images/temperature.png',
+    // id: 'earthengine_temperature-era5',
+    layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m',
+    datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+    format: 'ImageCollection',
+    name: i18n.t('Temperature daily'),
+    description: i18n.t('Temperature at 2m above the surface'),
+    source: 'Copernicus Climate Data Store / Google Earth Engine',
+    unit: '°C',
+    aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+    defaultAggregations: ['mean', 'min', 'max'],
+    periodType: 'daily',
+    periodReducer: 'mean',
+    band: 'temperature_2m',
+    filters: [
+        {
+            type: 'date',
+            arguments: ['$1', '$2'],
+        },
+    ],
+    methods: [
+        {
+            name: 'toFloat',
+            arguments: [],
+        },
+        {
+            name: 'subtract',
+            arguments: [273.15],
+        },
+    ],
+    style: {
+        min: 0,
+        max: 40,
+        palette: [
+            '#fff5f0',
+            '#fee0d2',
+            '#fcbba1',
+            '#fc9272',
+            '#fb6a4a',
+            '#ef3b2c',
+            '#cb181d',
+            '#a50f15',
+            '#67000d',
+        ],
+    },
+    opacity: 0.9,
+}
