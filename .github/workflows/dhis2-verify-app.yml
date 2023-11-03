@@ -72,16 +72,23 @@ jobs:
 
             - name: Test
               run: yarn d2-app-scripts test
+              env:
+                  REPORTPORTAL_API_KEY: ${{ secrets.REPORTPORTAL_API_KEY }}
+                  REPORTPORTAL_ENDPOINT: ${{ vars.REPORTPORTAL_ENDPOINT }}
+                  REPORTPORTAL_PROJECT: ${{ vars.REPORTPORTAL_PROJECT }}
 
     call-workflow-e2e-prod:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test]
-        uses: dhis2/line-listing-app/.github/workflows/e2e-prod.yml@master
+        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests.yml@master
         secrets:
             baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
+            reportportal_api_key: ${{ secrets.REPORTPORTAL_API_KEY }}
+            reportportal_endpoint: ${{ vars.REPORTPORTAL_ENDPOINT }}
+            reportportal_project: ${{ vars.REPORTPORTAL_PROJECT }}
 
     release:
         runs-on: ubuntu-latest
@@ -124,7 +131,8 @@ jobs:
         if: |
             failure() &&
             !cancelled() &&
-            github.ref == 'refs/heads/master'
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
         steps:
             - name: Checkout code
               uses: actions/checkout@master
@@ -140,13 +148,13 @@ jobs:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
                       {
-                        "text": ":small_red_triangle_down: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
+                        "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
                         "blocks": [
                           {
                             "type": "section",
                             "text": {
                               "type": "mrkdwn",
-                              "text": ":small_red_triangle_down: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
+                              "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
                             }
                           }
                         ]
@@ -160,7 +168,8 @@ jobs:
         if: |
             success() &&
             !cancelled() &&
-            github.ref == 'refs/heads/master'
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
         steps:
             - name: Checkout code
               uses: actions/checkout@master

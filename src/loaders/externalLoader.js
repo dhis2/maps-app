@@ -3,32 +3,29 @@ import { parseLayerConfig } from '../util/external.js'
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend.js'
 
 const externalLoader = async (layer) => {
-    let { config } = layer
-
-    if (typeof config === 'string') {
+    let config
+    if (typeof layer.config === 'string') {
         // External layer is loaded in analytical object
-        config = await parseLayerConfig(config)
+        config = await parseLayerConfig(layer.config)
     } else {
-        delete layer.id
+        config = { ...layer.config }
     }
 
-    const { name, legendSet, legendSetUrl } = config
+    const legend = { title: config.name }
 
-    const legend = { title: name }
-
-    if (legendSet) {
-        const legendItems = await loadLegendSet(legendSet)
+    if (config.legendSet) {
+        const legendItems = await loadLegendSet(config.legendSet)
         legend.items = getPredefinedLegendItems(legendItems)
     }
 
-    if (legendSetUrl) {
-        legend.url = legendSetUrl
+    if (config.legendSetUrl) {
+        legend.url = config.legendSetUrl
     }
 
     return {
         ...layer,
         layer: EXTERNAL_LAYER,
-        name,
+        name: config.name,
         legend,
         config,
         isLoaded: true,

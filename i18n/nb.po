@@ -25,15 +25,6 @@ msgstr ""
 msgid "Failed to save map: {{message}}"
 msgstr ""
 
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr "Klassifisering"
 
@@ -438,9 +429,6 @@ msgstr "Hendelsesdatapunkt er påkrevd"
 msgid "Program indicator is required"
 msgstr "Programindikator er påkrevd"
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr "Periode er påkrevd"
 
@@ -455,9 +443,6 @@ msgstr "Hendelsesdatapunkter"
 
 msgid "Program indicators"
 msgstr "Programindikatorer"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "Elementtype"
@@ -859,7 +844,7 @@ msgid "End date"
 msgstr "Sluttdato"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Ikke tilgjengelig i frakoblet modus"
 
 msgid "Program indicator"
 msgstr "Programindikator"
