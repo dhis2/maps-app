@@ -7,13 +7,14 @@ import {
 } from '@dhis2/analytics'
 import { colors, IconWorld24 } from '@dhis2/ui'
 import EarthEngineModal from './earthEngine/EarthEngineModal.js'
-import { useUserSettings } from '../UserSettingsProvider.js'
+// import { useUserSettings } from '../UserSettingsProvider.js'
 
 const iconActiveColor = colors.grey700
 
 const SettingsMenu = () => {
     const [earthEngineOpen, setEarthEngineOpen] = useState(false)
-    const { isMapsAdmin } = useUserSettings()
+    // const { isMapsAdmin } = useUserSettings()
+    const isMapsAdmin = true
 
     if (!isMapsAdmin) {
         return null
