@@ -1,3 +1,10 @@
+## [100.2.2](https://github.com/dhis2/maps-app/compare/v100.2.1...v100.2.2) (2023-11-03)
+
+
+### Bug Fixes
+
+* do not show geojson or arcgis layers since they are not supported yet ([#3036](https://github.com/dhis2/maps-app/issues/3036)) ([8e4f4cd](https://github.com/dhis2/maps-app/commit/8e4f4cd86c6ab4d55a9a3332ae75dd8e8aa4231f))
+
 ## [100.2.1](https://github.com/dhis2/maps-app/compare/v100.2.0...v100.2.1) (2023-11-03)
 
 
