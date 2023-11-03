@@ -35,6 +35,7 @@ const ValueTypeSelect = (props) => {
             value={type}
             onChange={(valueType) => onChange(valueType.id)}
             className={className}
+            dataTest="itemtypeselect"
         />
     )
 }
