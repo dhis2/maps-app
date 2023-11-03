@@ -7,10 +7,10 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { earthEngineLayers } from '../../../constants/earthEngine.js'
-import useEarthEngineLayersStore from '../../../hooks/useEarthEngineLayersStore'
+import earthEngineLayers from './layers/index.js'
+import useEarthEngineLayersStore from '../../hooks/useEarthEngineLayersStore'
 import LayerRow from './LayerRow.js'
 import styles from './styles/EarthEngineModal.module.css'
 

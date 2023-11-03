@@ -16,6 +16,7 @@ import styles from './styles/BufferRadius.module.css'
 const BufferRadius = ({
     radius,
     defaultRadius = 1000,
+    label,
     hasOrgUnitField,
     disabled,
     className,
@@ -27,7 +28,7 @@ const BufferRadius = ({
     return (
         <div className={cx(styles.buffer, className)}>
             <Checkbox
-                label={i18n.t('Buffer')}
+                label={label || i18n.t('Buffer')}
                 checked={showBuffer}
                 disabled={isDisabled}
                 onChange={(isChecked) =>
@@ -63,6 +64,7 @@ BufferRadius.propTypes = {
     defaultRadius: PropTypes.number,
     disabled: PropTypes.bool,
     hasOrgUnitField: PropTypes.bool,
+    label: PropTypes.string,
     radius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 

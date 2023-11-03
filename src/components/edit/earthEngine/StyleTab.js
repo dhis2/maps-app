@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { EE_BUFFER } from '../../../constants/layers.js'
@@ -16,6 +17,7 @@ const StyleTab = ({ unit, style, hasOrgUnitField }) => {
             <div className={styles.flexColumn}>
                 {isClassStyle && <StyleSelect unit={unit} style={style} />}
                 <BufferRadius
+                    label={i18n.t('Facility buffer')}
                     defaultRadius={EE_BUFFER}
                     hasOrgUnitField={hasOrgUnitField}
                 />

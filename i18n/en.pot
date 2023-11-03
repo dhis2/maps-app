@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-01T07:55:05.635Z\n"
-"PO-Revision-Date: 2023-11-01T07:55:05.635Z\n"
+"POT-Creation-Date: 2023-11-03T14:15:31.970Z\n"
+"PO-Revision-Date: 2023-11-03T14:15:31.970Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -947,6 +947,19 @@ msgstr "meters"
 msgid "Elevation above sea-level."
 msgstr "Elevation above sea-level."
 
+msgid "Temperature Legacy"
+msgstr "Temperature Legacy"
+
+msgid "°C during daytime"
+msgstr "°C during daytime"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+
 msgid "Population"
 msgstr "Population"
 
@@ -1110,16 +1123,6 @@ msgstr ""
 
 msgid "Temperature"
 msgstr "Temperature"
-
-msgid "°C during daytime"
-msgstr "°C during daytime"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
 
 msgid "Landcover"
 msgstr "Landcover"

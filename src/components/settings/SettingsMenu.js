@@ -6,7 +6,7 @@ import {
     HoverMenuDropdown,
 } from '@dhis2/analytics'
 import { colors, IconWorld24 } from '@dhis2/ui'
-import EarthEngineModal from './earthEngine/EarthEngineModal.js'
+import EarthEngineModal from '../earthEngine/EarthEngineModal.js'
 // import { useUserSettings } from '../UserSettingsProvider.js'
 
 const iconActiveColor = colors.grey700

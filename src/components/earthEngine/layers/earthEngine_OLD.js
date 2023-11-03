@@ -1,7 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from './layers.js'
+import elevation from '../components/earthEngine/layers/elevation.js'
 
 export const earthEngineLayers = [
+    elevation,
     {
         layerType: EARTH_ENGINE_LAYER,
         layerId: 'MODIS/006/MCD12Q1/cropland',
@@ -45,42 +47,14 @@ export const earthEngineLayers = [
     },
     {
         layerType: EARTH_ENGINE_LAYER,
-        layerId: 'USGS/SRTMGL1_003',
-        img: 'images/elevation.png',
-        datasetId: 'USGS/SRTMGL1_003',
-        name: i18n.t('Elevation'),
-        unit: i18n.t('meters'),
-        description: i18n.t('Elevation above sea-level.'),
-        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
-        /* sourceUrl:
-            'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003', */
-        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
-        defaultAggregations: ['mean', 'min', 'max'],
-        band: 'elevation',
-        style: {
-            min: 0,
-            max: 1500,
-            palette: [
-                '#ffffd4',
-                '#fee391',
-                '#fec44f',
-                '#fe9929',
-                '#d95f0e',
-                '#993404',
-            ], // YlOrBr
-        },
-        opacity: 0.9,
-    },
-    {
-        layerType: EARTH_ENGINE_LAYER,
         layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
         img: 'images/population.png',
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         format: 'ImageCollection',
-        name: 'Population',
-        description: 'Estimated number of people living in an area',
+        name: i18n.t('Population'),
+        description: i18n.t('Estimated number of people living in an area'),
         source: 'WorldPop / Google Earth Engine',
-        unit: 'people per hectare',
+        unit: i18n.t('people per hectare'),
         defaultAggregations: ['sum', 'mean'],
         periodType: 'yearly',
         band: 'population',
@@ -111,161 +85,160 @@ export const earthEngineLayers = [
         img: 'images/population.png',
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         format: 'ImageCollection',
-        name: 'Population age groups',
+        name: i18n.t('Population age groups'),
         unit: 'people per hectare',
-        description:
-            'Estimated number of people living in an area, grouped by age and gender.',
+        description: i18n.t(
+            'Estimated number of people living in an area, grouped by age and gender.'
+        ),
         source: 'WorldPop / Google Earth Engine',
-        /*
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
-        */
         periodType: 'yearly',
         defaultAggregations: ['sum', 'mean'],
         bands: [
             {
                 id: 'M_0',
-                name: 'Male 0 - 1 years',
+                name: i18n.t('Male 0 - 1 years'),
             },
             {
                 id: 'M_1',
-                name: 'Male 1 - 4 years',
+                name: i18n.t('Male 1 - 4 years'),
             },
             {
                 id: 'M_5',
-                name: 'Male 5 - 9 years',
+                name: i18n.t('Male 5 - 9 years'),
             },
             {
                 id: 'M_10',
-                name: 'Male 10 - 14 years',
+                name: i18n.t('Male 10 - 14 years'),
             },
             {
                 id: 'M_15',
-                name: 'Male 15 - 19 years',
+                name: i18n.t('Male 15 - 19 years'),
             },
             {
                 id: 'M_20',
-                name: 'Male 20 - 24 years',
+                name: i18n.t('Male 20 - 24 years'),
             },
             {
                 id: 'M_25',
-                name: 'Male 25 - 29 years',
+                name: i18n.t('Male 25 - 29 years'),
             },
             {
                 id: 'M_30',
-                name: 'Male 30 - 34 years',
+                name: i18n.t('Male 30 - 34 years'),
             },
             {
                 id: 'M_35',
-                name: 'Male 35 - 39 years',
+                name: i18n.t('Male 35 - 39 years'),
             },
             {
                 id: 'M_40',
-                name: 'Male 40 - 44 years',
+                name: i18n.t('Male 40 - 44 years'),
             },
             {
                 id: 'M_45',
-                name: 'Male 45 - 49 years',
+                name: i18n.t('Male 45 - 49 years'),
             },
             {
                 id: 'M_50',
-                name: 'Male 50 - 54 years',
+                name: i18n.t('Male 50 - 54 years'),
             },
             {
                 id: 'M_55',
-                name: 'Male 55 - 59 years',
+                name: i18n.t('Male 55 - 59 years'),
             },
             {
                 id: 'M_60',
-                name: 'Male 60 - 64 years',
+                name: i18n.t('Male 60 - 64 years'),
             },
             {
                 id: 'M_65',
-                name: 'Male 65 - 69 years',
+                name: i18n.t('Male 65 - 69 years'),
             },
             {
                 id: 'M_70',
-                name: 'Male 70 - 74 years',
+                name: i18n.t('Male 70 - 74 years'),
             },
             {
                 id: 'M_75',
-                name: 'Male 75 - 79 years',
+                name: i18n.t('Male 75 - 79 years'),
             },
             {
                 id: 'M_80',
-                name: 'Male 80 years and above',
+                name: i18n.t('Male 80 years and above'),
             },
             {
                 id: 'F_0',
-                name: 'Female 0 - 1 years',
+                name: i18n.t('Female 0 - 1 years'),
             },
             {
                 id: 'F_1',
-                name: 'Female 1 - 4 years',
+                name: i18n.t('Female 1 - 4 years'),
             },
             {
                 id: 'F_5',
-                name: 'Female 5 - 9 years',
+                name: i18n.t('Female 5 - 9 years'),
             },
             {
                 id: 'F_10',
-                name: 'Female 10 - 14 years',
+                name: i18n.t('Female 10 - 14 years'),
             },
             {
                 id: 'F_15',
-                name: 'Female 15 - 19 years',
+                name: i18n.t('Female 15 - 19 years'),
             },
             {
                 id: 'F_20',
-                name: 'Female 20 - 24 years',
+                name: i18n.t('Female 20 - 24 years'),
             },
             {
                 id: 'F_25',
-                name: 'Female 25 - 29 years',
+                name: i18n.t('Female 25 - 29 years'),
             },
             {
                 id: 'F_30',
-                name: 'Female 30 - 34 years',
+                name: i18n.t('Female 30 - 34 years'),
             },
             {
                 id: 'F_35',
-                name: 'Female 35 - 39 years',
+                name: i18n.t('Female 35 - 39 years'),
             },
             {
                 id: 'F_40',
-                name: 'Female 40 - 44 years',
+                name: i18n.t('Female 40 - 44 years'),
             },
             {
                 id: 'F_45',
-                name: 'Female 45 - 49 years',
+                name: i18n.t('Female 45 - 49 years'),
             },
             {
                 id: 'F_50',
-                name: 'Female 50 - 54 years',
+                name: i18n.t('Female 50 - 54 years'),
             },
             {
                 id: 'F_55',
-                name: 'Female 55 - 59 years',
+                name: i18n.t('Female 55 - 59 years'),
             },
             {
                 id: 'F_60',
-                name: 'Female 60 - 64 years',
+                name: i18n.t('Female 60 - 64 years'),
             },
             {
                 id: 'F_65',
-                name: 'Female 65 - 69 years',
+                name: i18n.t('Female 65 - 69 years'),
             },
             {
                 id: 'F_70',
-                name: 'Female 70 - 74 years',
+                name: i18n.t('Female 70 - 74 years'),
             },
             {
                 id: 'F_75',
-                name: 'Female 75 - 79 years',
+                name: i18n.t('Female 75 - 79 years'),
             },
             {
                 id: 'F_80',
-                name: 'Female 80 years and above',
+                name: i18n.t('Female 80 years and above'),
             },
         ],
         filters: [
@@ -289,32 +262,6 @@ export const earthEngineLayers = [
         },
         opacity: 0.9,
         tileScale: 4,
-    },
-    {
-        layerType: EARTH_ENGINE_LAYER,
-        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj/SLE_2020/population',
-        img: 'images/population.png',
-        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj/SLE_2020',
-        format: 'Image',
-        name: 'Population Sierra Leone 2000',
-        description: 'Estimated number of people living in an area',
-        source: 'WorldPop / Google Earth Engine',
-        unit: 'people per hectare',
-        defaultAggregations: ['sum', 'mean'],
-        band: 'population',
-        style: {
-            min: 0,
-            max: 25,
-            palette: [
-                '#fee5d9',
-                '#fcbba1',
-                '#fc9272',
-                '#fb6a4a',
-                '#de2d26',
-                '#a50f15',
-            ],
-        },
-        opacity: 0.9,
     },
     {
         // TODO: Remove this dataset
@@ -619,9 +566,8 @@ export const earthEngineLayers = [
         ],
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER,
         img: 'images/temperature.png',
-        service: 'earthengine',
         // id: 'earthengine_temperature-era5',
         layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
@@ -669,9 +615,8 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER, // TODO: Remove?
         img: 'images/temperature.png',
-        service: 'earthengine',
         layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
         // id: 'earthengine_temperature-era5',
         datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
@@ -719,9 +664,59 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER,
+        // legacy: true, // Kept for backward compability
+        layerId: 'MODIS/006/MOD11A2',
+        datasetId: 'MODIS/006/MOD11A2',
+        format: 'ImageCollection',
+        img: 'images/temperature.png',
+        name: i18n.t('Temperature Legacy'),
+        unit: i18n.t('°C during daytime'),
+        description: i18n.t(
+            'Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover.'
+        ),
+        source: 'NASA LP DAAC / Google Earth Engine',
+        sourceUrl:
+            'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['mean', 'min', 'max'],
+        periodType: 'Custom',
+        band: 'LST_Day_1km',
+        mask: true,
+        methods: [
+            {
+                name: 'toFloat',
+                arguments: [],
+            },
+            {
+                name: 'multiply',
+                arguments: [0.02],
+            },
+            {
+                name: 'subtract',
+                arguments: [273.15],
+            },
+        ],
+        style: {
+            min: 0,
+            max: 40,
+            palette: [
+                '#fff5f0',
+                '#fee0d2',
+                '#fcbba1',
+                '#fc9272',
+                '#fb6a4a',
+                '#ef3b2c',
+                '#cb181d',
+                '#a50f15',
+                '#67000d',
+            ], // Reds
+        },
+        opacity: 0.9,
+    },
+    {
+        layerType: EARTH_ENGINE_LAYER,
         img: 'images/precipitation.png',
-        service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
         layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/total_precipitation_sum',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
@@ -762,9 +757,8 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER,
         img: 'images/precipitation.png',
-        service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
         layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/total_precipitation_sum',
         datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
@@ -841,10 +835,9 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/CAMS/NRT/NO2',
         // img: 'images/precipitation.png',
-        service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
         datasetId: 'ECMWF/CAMS/NRT',
         format: 'ImageCollection',
@@ -888,10 +881,9 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/CAMS/NRT/SO2',
         // img: 'images/precipitation.png',
-        service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
         datasetId: 'ECMWF/CAMS/NRT',
         format: 'ImageCollection',
@@ -935,10 +927,9 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/CAMS/NRT/CO',
         // img: 'images/precipitation.png',
-        service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
         datasetId: 'ECMWF/CAMS/NRT',
         format: 'ImageCollection',
@@ -982,10 +973,9 @@ export const earthEngineLayers = [
         opacity: 0.9,
     },
     {
-        layer: EARTH_ENGINE_LAYER, // TODO: Remove?
+        layerType: EARTH_ENGINE_LAYER, // TODO: Remove?
         layerId: 'COPERNICUS/S2_SR_HARMONIZED',
         // img: 'images/precipitation.png',
-        service: 'earthengine',
         // id: 'earthengine_precipitation-era5',
         datasetId: 'COPERNICUS/S2_SR_HARMONIZED',
         format: 'ImageCollection',

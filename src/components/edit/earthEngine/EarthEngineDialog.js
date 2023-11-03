@@ -8,7 +8,7 @@ import {
     setFilter,
     setBufferRadius,
 } from '../../../actions/layerEdit.js'
-// import { getEarthEngineLayer } from '../../../constants/earthEngine.js'
+// import { getEarthEngineLayer } from '../../earthEngine/layers/all.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     EE_BUFFER,
@@ -30,8 +30,6 @@ import StyleTab from './StyleTab.js'
 const EarthEngineDialog = (props) => {
     const [tab, setTab] = useState('data')
     const [error, setError] = useState()
-
-    console.log('EarthEngineDialog')
 
     const {
         layerId,

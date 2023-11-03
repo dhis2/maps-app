@@ -68,7 +68,7 @@ const EarthEnginePeriodReducer = ({
     const onStartEndDateChange = useCallback(
         (reducer) => {
             dispatch(setPeriodReducer(reducer.id))
-            console.log('reducer', reducer)
+            // console.log('reducer', reducer)
         },
         [dispatch]
     )
