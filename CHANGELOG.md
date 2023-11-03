@@ -1,3 +1,14 @@
+## [100.2.1](https://github.com/dhis2/maps-app/compare/v100.2.0...v100.2.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* ensure layer type is supported and remove the unsupported Google basemaps ([25de9ba](https://github.com/dhis2/maps-app/commit/25de9baeb74c76a3eca03b53031ee1643edfe925))
+* external basemaps were not showing [DHIS2-15953] ([#3017](https://github.com/dhis2/maps-app/issues/3017)) ([47ef463](https://github.com/dhis2/maps-app/commit/47ef46356c52415e1b43f755e4302bbd319ce884))
+* external layers were getting an endless spinner when being added to map [DHIS2-16078] ([#3023](https://github.com/dhis2/maps-app/issues/3023)) ([9a8f34e](https://github.com/dhis2/maps-app/commit/9a8f34ed4a35bcc31d2b3ddf94c892e1019c97cd))
+* sorting of layers by drag and drop was not working [DHIS2-16024] ([#3021](https://github.com/dhis2/maps-app/issues/3021)) ([e006287](https://github.com/dhis2/maps-app/commit/e006287f55ea460b03e8a2636059e27ce3bfd8fc))
+* **translations:** sync translations from transifex (dev) ([02b5f73](https://github.com/dhis2/maps-app/commit/02b5f7365916183510c33494873c49962eba602a))
+
 # [100.2.0](https://github.com/dhis2/maps-app/compare/v100.1.7...v100.2.0) (2023-09-27)
 
 
