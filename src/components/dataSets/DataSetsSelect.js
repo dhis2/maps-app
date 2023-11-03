@@ -1,9 +1,9 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SelectField } from '../core/index.js'
-import { useUserSettings } from '../UserSettingsProvider.js'
 
 // Load all data sets (reporting rates)
 const DATA_SETS_QUERY = {
@@ -21,7 +21,7 @@ const DATA_SETS_QUERY = {
 }
 
 const DataSetsSelect = ({ dataSet, onChange, className, errorText }) => {
-    const { nameProperty } = useUserSettings()
+    const { nameProperty } = useCachedDataQuery()
     const { loading, error, data } = useDataQuery(DATA_SETS_QUERY, {
         variables: { nameProperty },
     })

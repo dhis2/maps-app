@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -9,12 +10,12 @@ import LayerList from './LayerList.js'
 
 const AddLayerPopover = ({
     anchorEl,
-    layers = [],
     isSplitView,
     addLayer,
     editLayer,
     onClose,
 }) => {
+    const { layerTypes } = useCachedDataQuery()
     const onLayerSelect = (layer) => {
         const config = { ...layer }
         const layerType = layer.layerType || layer.layer
@@ -34,7 +35,7 @@ const AddLayerPopover = ({
             dataTest="addlayerpopover"
         >
             <LayerList
-                layers={layers}
+                layers={layerTypes}
                 isSplitView={isSplitView}
                 onLayerSelect={onLayerSelect}
             />
@@ -48,12 +49,10 @@ AddLayerPopover.propTypes = {
     onClose: PropTypes.func.isRequired,
     anchorEl: PropTypes.object,
     isSplitView: PropTypes.bool,
-    layers: PropTypes.array,
 }
 
 export default connect(
-    ({ map, layers }) => ({
-        layers,
+    ({ map }) => ({
         isSplitView: isSplitViewMap(map.mapViews),
     }),
     { addLayer, editLayer }
