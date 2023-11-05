@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Urdu (https://app.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -23,15 +23,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -436,9 +427,6 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr ""
 
@@ -453,9 +441,6 @@ msgstr "واقعہ کے اعداد و شمار کی اشیاء"
 
 msgid "Program indicators"
 msgstr "پروگرام اشارے"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "چیز کی قسم"
@@ -909,12 +894,6 @@ msgstr "OSM لائٹ"
 msgid "OSM Detailed"
 msgstr ""
 
-msgid "Google Streets"
-msgstr ""
-
-msgid "Google Hybrid"
-msgstr "گوگل ہائبرڈ"
-
 msgid "Bing Road"
 msgstr ""
 
@@ -1315,18 +1294,6 @@ msgstr ""
 msgid "related"
 msgstr ""
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "تقریبات"
-
-msgid "Tracked entities"
-msgstr ""
-
-msgid "Org units"
-msgstr ""
-
 msgid "not one of"
 msgstr ""
 
@@ -1348,6 +1315,18 @@ msgstr ""
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "تقریبات"
+
+msgid "Tracked entities"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "Facility"
