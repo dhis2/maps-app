@@ -2,9 +2,9 @@ import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 
 export default {
+    legacy: true, // kept for backward compability
     layerType: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
-    legacy: true, // kept for backward compability
     layerId: 'MODIS/006/MOD11A2',
     datasetId: 'MODIS/006/MOD11A2',
     img: 'images/temperature.png',

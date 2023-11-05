@@ -2,7 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 
 export default {
-    layer: EARTH_ENGINE_LAYER,
+    legacy: true, // kept for backward compability
+    layerType: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'UCSB-CHG/CHIRPS/PENTAD',
     datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
