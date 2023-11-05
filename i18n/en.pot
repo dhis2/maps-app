@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-03T16:38:43.324Z\n"
-"PO-Revision-Date: 2023-11-03T16:38:43.324Z\n"
+"POT-Creation-Date: 2023-11-05T14:44:45.836Z\n"
+"PO-Revision-Date: 2023-11-05T14:44:45.836Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -366,6 +366,19 @@ msgstr "meters"
 msgid "Elevation above sea-level."
 msgstr "Elevation above sea-level."
 
+msgid "Temperature MODIS"
+msgstr "Temperature MODIS"
+
+msgid "°C during daytime"
+msgstr "°C during daytime"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+
 msgid "Population age groups"
 msgstr "Population age groups"
 
@@ -483,21 +496,14 @@ msgstr "Female 80 years and above"
 msgid "Temperature daily"
 msgstr "Temperature daily"
 
-msgid "Temperature at 2m above the surface"
-msgstr "Temperature at 2m above the surface"
-
-msgid "Temperature MODIS"
-msgstr "Temperature MODIS"
-
-msgid "°C during daytime"
-msgstr "°C during daytime"
-
 msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world. Uncertainty of model estimates grows as we go back "
+"in time because the number of observations is lower."
 msgstr ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world. Uncertainty of model estimates grows as we go back "
+"in time because the number of observations is lower."
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"

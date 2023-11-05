@@ -345,91 +345,6 @@ export const earthEngineLayers = [
             },
         ],
     },
-    {
-        layerType: EARTH_ENGINE_LAYER,
-        img: 'images/precipitation.png',
-        // id: 'earthengine_precipitation-era5',
-        layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/total_precipitation_sum',
-        datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
-        format: 'ImageCollection',
-        name: 'Precipitation daily',
-        description: 'Precipitation',
-        source: 'Copernicus Climate Data Store / Google Earth Engine',
-        unit: 'millimeter',
-        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
-        defaultAggregations: ['mean', 'min', 'max'],
-        periodType: 'daily',
-        periodReducer: 'sum',
-        band: 'total_precipitation_sum',
-        filters: [
-            {
-                type: 'date',
-                arguments: ['$1', '$2'],
-            },
-        ],
-        methods: [
-            {
-                name: 'multiply',
-                arguments: [1000],
-            },
-        ],
-        style: {
-            min: 0,
-            max: 10,
-            palette: [
-                '#eff3ff',
-                '#c6dbef',
-                '#9ecae1',
-                '#6baed6',
-                '#3182bd',
-                '#08519c',
-            ],
-        },
-        opacity: 0.9,
-    },
-    {
-        layerType: EARTH_ENGINE_LAYER,
-        img: 'images/precipitation.png',
-        // id: 'earthengine_precipitation-era5',
-        layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/total_precipitation_sum',
-        datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
-        format: 'ImageCollection',
-        name: 'Precipitation monthly',
-        description: 'Precipitation',
-        source: 'Copernicus Climate Data Store / Google Earth Engine',
-        unit: 'millimeter',
-        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
-        defaultAggregations: ['mean', 'min', 'max'],
-        periodType: 'byYear',
-        band: 'total_precipitation_sum',
-        filters: [
-            {
-                type: 'eq',
-                arguments: ['system:index', '$1'],
-            },
-        ],
-        methods: [
-            {
-                name: 'multiply',
-                arguments: [1000],
-            },
-        ],
-        style: {
-            min: 0,
-            max: 700,
-            palette: [
-                '#f7fbff',
-                '#deebf7',
-                '#c6dbef',
-                '#9ecae1',
-                '#6baed6',
-                '#4292c6',
-                '#2171b5',
-                '#084594',
-            ],
-        },
-        opacity: 0.9,
-    },
     /*
     {
         layerType: EARTH_ENGINE_LAYER,
@@ -468,8 +383,6 @@ export const earthEngineLayers = [
     {
         layerType: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/CAMS/NRT/NO2',
-        // img: 'images/precipitation.png',
-        // id: 'earthengine_precipitation-era5',
         datasetId: 'ECMWF/CAMS/NRT',
         format: 'ImageCollection',
         name: 'Nitrogen dioxide',
@@ -514,8 +427,6 @@ export const earthEngineLayers = [
     {
         layerType: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/CAMS/NRT/SO2',
-        // img: 'images/precipitation.png',
-        // id: 'earthengine_precipitation-era5',
         datasetId: 'ECMWF/CAMS/NRT',
         format: 'ImageCollection',
         name: 'Sulfur dioxide',
@@ -560,8 +471,6 @@ export const earthEngineLayers = [
     {
         layerType: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/CAMS/NRT/CO',
-        // img: 'images/precipitation.png',
-        // id: 'earthengine_precipitation-era5',
         datasetId: 'ECMWF/CAMS/NRT',
         format: 'ImageCollection',
         name: 'Carbon monoxide',
@@ -606,8 +515,6 @@ export const earthEngineLayers = [
     {
         layerType: EARTH_ENGINE_LAYER, // TODO: Remove?
         layerId: 'COPERNICUS/S2_SR_HARMONIZED',
-        // img: 'images/precipitation.png',
-        // id: 'earthengine_precipitation-era5',
         datasetId: 'COPERNICUS/S2_SR_HARMONIZED',
         format: 'ImageCollection',
         name: 'Sentinel-2 imagery',
@@ -664,38 +571,6 @@ export const earthEngineLayers = () => [
         img: 'images/buildings.png',
         aggregations: ['count'],
         defaultAggregations: ['count'],
-        opacity: 0.9,
-    },
-    {
-        layer: EARTH_ENGINE_LAYER,
-        layerId: 'UCSB-CHG/CHIRPS/PENTAD',
-        datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
-        name: i18n.t('Precipitation'),
-        unit: i18n.t('millimeter'),
-        description: i18n.t(
-            'Precipitation collected from satellite and weather stations on the ground. The values are in millimeters within 5 days periods. Updated monthly, during the 3rd week of the following month.'
-        ),
-        source: 'UCSB / CHG / Google Earth Engine',
-        sourceUrl:
-            'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
-        periodType: 'Custom',
-        band: 'precipitation',
-        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
-        defaultAggregations: ['mean', 'min', 'max'],
-        mask: true,
-        img: 'images/precipitation.png',
-        params: {
-            min: 0,
-            max: 100,
-            palette: [
-                '#eff3ff',
-                '#c6dbef',
-                '#9ecae1',
-                '#6baed6',
-                '#3182bd',
-                '#08519c',
-            ], // Blues
-        },
         opacity: 0.9,
     },
     {

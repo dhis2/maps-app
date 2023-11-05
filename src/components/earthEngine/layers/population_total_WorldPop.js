@@ -10,6 +10,8 @@ export default {
     name: i18n.t('Population'),
     description: i18n.t('Estimated number of people living in an area.'),
     source: 'WorldPop / Google Earth Engine',
+    sourceUrl:
+        'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
     unit: i18n.t('people per hectare'),
     defaultAggregations: ['sum', 'mean'],
     periodType: 'yearly',

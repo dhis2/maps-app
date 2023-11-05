@@ -10,7 +10,10 @@ import StyleSelect from './StyleSelect.js'
 const StyleTab = ({ unit, style, hasOrgUnitField }) => {
     const { min, max, palette } = style
     const isClassStyle =
-        min !== undefined && max !== undefined && palette !== undefined
+        min !== undefined &&
+        max !== undefined &&
+        palette !== undefined &&
+        palette.length < 10
 
     return (
         <div className={styles.flexColumnFlow}>

@@ -4,23 +4,25 @@ import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 export default {
     layerType: EARTH_ENGINE_LAYER,
     img: 'images/temperature.png',
-    // id: 'earthengine_temperature-era5',
-    layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m',
-    datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+    layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
+    datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
     format: 'ImageCollection',
-    name: i18n.t('Temperature daily'),
-    description: i18n.t('Temperature at 2m above the surface'),
+    name: i18n.t('Temperature monthly'),
+    description: i18n.t(
+        'Temperature at 2m above the surface. Combines model data with observations from across the world.'
+    ),
     source: 'Copernicus Climate Data Store / Google Earth Engine',
+    sourceUrl:
+        'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_DAILY_AGGR',
     unit: '°C',
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    periodType: 'daily',
-    periodReducer: 'mean',
+    periodType: 'byYear',
     band: 'temperature_2m',
     filters: [
         {
-            type: 'date',
-            arguments: ['$1', '$2'],
+            type: 'eq',
+            arguments: ['system:index', '$1'],
         },
     ],
     methods: [

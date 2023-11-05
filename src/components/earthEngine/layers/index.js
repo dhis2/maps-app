@@ -1,14 +1,20 @@
-import elevation from './elevation.js'
-import populationTotal from './populationTotal.js'
-import populationAgeGroups from './populationAgeGroups.js'
-import temperatureDaily from './temperatureDaily.js'
-import temperatureMonthly from './temperatureMonthly.js'
-import temperatureLegacy from './temperatureLegacy.js'
+import elevation from './elevation_SRTM.js'
+import populationTotal from './population_total_WorldPop.js'
+import populationAgeSex from './population_age_sex_WorldPop.js'
+import precipitationDaily from './precipitation_daily_ERA5Land.js'
+import precipitationMonthly from './precipitation_monthly_ERA5Land.js'
+import precipitationLegacy from './legacy/precipitation_CHIRPS.js'
+import temperatureDaily from './temperature_daily_ERA5Land.js'
+import temperatureMonthly from './temperature_monthly_ERA5Land.js'
+import temperatureLegacy from './legacy/temperature_MOD11A2v061.js'
 
 const earthEngineLayers = [
     elevation,
     populationTotal,
-    populationAgeGroups,
+    populationAgeSex,
+    precipitationDaily,
+    precipitationMonthly,
+    precipitationLegacy,
     temperatureDaily,
     temperatureMonthly,
     temperatureLegacy,

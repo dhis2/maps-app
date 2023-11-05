@@ -1,12 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
-import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
+import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 
 export default {
     layerType: EARTH_ENGINE_LAYER,
-    // legacy: true, // Kept for backward compability
+    format: 'ImageCollection',
+    legacy: true, // kept for backward compability
     layerId: 'MODIS/006/MOD11A2',
     datasetId: 'MODIS/006/MOD11A2',
-    format: 'ImageCollection',
     img: 'images/temperature.png',
     name: i18n.t('Temperature MODIS'),
     unit: i18n.t('°C during daytime'),
