@@ -37,7 +37,7 @@ export default {
             '#6baed6',
             '#3182bd',
             '#08519c',
-        ], // Blues
+        ], // Blues (ColorBrewer)
     },
     opacity: 0.9,
 }

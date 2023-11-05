@@ -54,7 +54,7 @@ export default {
             '#cb181d',
             '#a50f15',
             '#67000d',
-        ], // Reds
+        ], // Reds (ColorBrewer)
     },
     opacity: 0.9,
 }

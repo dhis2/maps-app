@@ -7,7 +7,7 @@ export default {
     layerId: 'COPERNICUS/Landcover/100m/Proba-V-C3/Global',
     img: 'images/landcover.png',
     datasetId: 'COPERNICUS/Landcover/100m/Proba-V-C3/Global',
-    name: i18n.t('Landcover Copernicus'),
+    name: i18n.t('Landcover 100m'),
     description: i18n.t('Distinct landcover types collected from satellites.'),
     source: 'Copernicus / Google Earth Engine',
     periodType: 'yearly',

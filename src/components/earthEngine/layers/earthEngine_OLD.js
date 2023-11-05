@@ -2,41 +2,6 @@ import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from './layers.js'
 
 export const earthEngineLayers = [
-    /*
-    {
-        layerType: EARTH_ENGINE_LAYER,
-        layerId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers',
-        datasetId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers',
-        format: 'FeatureCollection',
-        name: 'Rivers',
-        description: '',
-        source: 'WWF / Google Earth Engine',
-        style: {
-            byProperty: 'COLOR',
-        },
-        opacity: 0.9,
-    },
-    */
-    {
-        layerType: EARTH_ENGINE_LAYER,
-        layerId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers_FeatureView',
-        datasetId: 'WWF/HydroSHEDS/v1/FreeFlowingRivers',
-        format: 'FeatureView',
-        name: 'Rivers',
-        description: '',
-        source: 'WWF / Google Earth Engine',
-        style: {
-            lineWidth: 2,
-            color: {
-                property: 'RIV_ORD',
-                mode: 'linear',
-                palette: ['08519c', '3182bd', '6baed6', 'bdd7e7', 'eff3ff'],
-                min: 1,
-                max: 10,
-            },
-        },
-        opacity: 0.9,
-    },
     {
         layerType: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/CAMS/NRT/NO2',
@@ -284,38 +249,6 @@ export const earthEngineLayers = () => [
         },
         methods: {
             multiply: [100], // Convert from people/hectare to people/km2
-        },
-        opacity: 0.9,
-    },
-    {
-        layer: EARTH_ENGINE_LAYER,
-        legacy: true, // Kept for backward compability
-        layerId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
-        datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
-        name: i18n.t('Nighttime lights'),
-        unit: i18n.t('light intensity'),
-        description: i18n.t(
-            'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.'
-        ),
-        source: 'NOAA / Google Earth Engine',
-        sourceUrl:
-            'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
-        periodType: 'Yearly',
-        band: 'stable_lights',
-        mask: true,
-        img: 'images/nighttime.png',
-        params: {
-            min: 0,
-            max: 63,
-            palette: [
-                '#ffffd4',
-                '#fee391',
-                '#fec44f',
-                '#fe9929',
-                '#ec7014',
-                '#cc4c02',
-                '#8c2d04',
-            ], // YlOrBr
         },
         opacity: 0.9,
     },
