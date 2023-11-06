@@ -2957,10 +2957,9 @@
     "@react-hook/passive-layout-effect" "^1.2.0"
     "@react-hook/resize-observer" "^1.2.1"
 
-"@reportportal/agent-js-cypress@^5.1.4":
+"@reportportal/agent-js-cypress@git+https://github.com/dhis2/agent-js-cypress.git#develop":
   version "5.1.4"
-  resolved "https://registry.yarnpkg.com/@reportportal/agent-js-cypress/-/agent-js-cypress-5.1.4.tgz#43d61a6c1e954930cb4d95ad55c892467b484551"
-  integrity sha512-K5a6qwtnMpIO7qAUP1k4ABWmxEImO3eF9d+gdwe4SnDqeKCWB6SqC2MRt/ZcgSNlDTbYxJife5rr0f0OMg+pbA==
+  resolved "git+https://github.com/dhis2/agent-js-cypress.git#d3afea4e74abdbef39c1121f820f23deca2368f4"
   dependencies:
     "@reportportal/client-javascript" "^5.0.14"
     glob "^7.2.3"
