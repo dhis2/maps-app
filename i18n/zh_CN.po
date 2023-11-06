@@ -1,14 +1,14 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2022
 # 晓东 林 <13981924470@126.com>, 2023
+# easylin <lin_xd@126.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2023\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,15 +23,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -320,7 +311,7 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
-msgstr ""
+msgstr "载入期间"
 
 msgid "Min value is required"
 msgstr ""
@@ -436,9 +427,6 @@ msgstr "必须提供事件数据项"
 msgid "Program indicator is required"
 msgstr "必须提供项目指标"
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr "需要时段"
 
@@ -453,9 +441,6 @@ msgstr "事件数据项"
 
 msgid "Program indicators"
 msgstr "项目指标"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "条目类型"
@@ -748,7 +733,7 @@ msgid ""
 msgstr ""
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "使用相关的几何坐标"
 
 msgid "None (default)"
 msgstr ""
@@ -909,12 +894,6 @@ msgstr "OSM轻量"
 msgid "OSM Detailed"
 msgstr ""
 
-msgid "Google Streets"
-msgstr "谷歌街道"
-
-msgid "Google Hybrid"
-msgstr "谷歌杂合"
-
 msgid "Bing Road"
 msgstr ""
 
@@ -928,7 +907,7 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "Population"
-msgstr ""
+msgstr "人口"
 
 msgid "people per hectare"
 msgstr ""
@@ -937,7 +916,7 @@ msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "Population age groups"
-msgstr ""
+msgstr "人口年龄组"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1315,18 +1294,6 @@ msgstr ""
 msgid "related"
 msgstr ""
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "事件"
-
-msgid "Tracked entities"
-msgstr "跟踪的实体"
-
-msgid "Org units"
-msgstr ""
-
 msgid "not one of"
 msgstr ""
 
@@ -1343,11 +1310,23 @@ msgid "No"
 msgstr "No"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "无法获取 Google 地球引擎的授权令牌。"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "事件"
+
+msgid "Tracked entities"
+msgstr "跟踪的实体"
+
+msgid "Org units"
 msgstr ""
 
 msgid "Facility"

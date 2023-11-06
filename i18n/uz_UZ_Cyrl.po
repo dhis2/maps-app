@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2023\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -22,15 +22,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -440,9 +431,6 @@ msgstr "Ҳодиса/Тадбир маълумоти элементи талаб
 msgid "Program indicator is required"
 msgstr "Дастур индикатори талаб қилинади"
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr "Давр талаб қилинади"
 
@@ -457,9 +445,6 @@ msgstr "Ҳодиса/Тадбирлар ҳақида маълумот элеме
 
 msgid "Program indicators"
 msgstr "Дастур кўрсатгичлари"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "Элемент тури"
@@ -922,12 +907,6 @@ msgstr "OSM манба"
 msgid "OSM Detailed"
 msgstr "OSM Батафсил"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Йўл"
 
@@ -1335,18 +1314,6 @@ msgstr "Ҳеч қандай кузатувдаги объект топилмад
 msgid "related"
 msgstr "боғлиқлик"
 
-msgid "Thematic"
-msgstr "Тематик"
-
-msgid "Events"
-msgstr "Ҳодисалар"
-
-msgid "Tracked entities"
-msgstr "Кузатувдаги объектлар"
-
-msgid "Org units"
-msgstr "Ташкилий бўлим"
-
 msgid "not one of"
 msgstr "биттаси ҳам эмас"
 
@@ -1371,6 +1338,18 @@ msgid ""
 msgstr ""
 "Ушбу қатлам учун Google Earth Engine аккаунти зарур. Қўшимча маълумот олиш "
 "учунDHIS2 ҳужжатларини текширинг."
+
+msgid "Thematic"
+msgstr "Тематик"
+
+msgid "Events"
+msgstr "Ҳодисалар"
+
+msgid "Tracked entities"
+msgstr "Кузатувдаги объектлар"
+
+msgid "Org units"
+msgstr "Ташкилий бўлим"
 
 msgid "Facility"
 msgstr "Объект"
