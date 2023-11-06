@@ -1,11 +1,10 @@
-import { Analytics } from '@dhis2/analytics'
+import { Analytics, useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
-import { useSystemSettings } from '../components/SystemSettingsProvider.js'
 // import earthEngineLoader from '../loaders/earthEngineLoader.js'
 // import eventLoader from '../loaders/eventLoader.js'
 import externalLoader from '../loaders/externalLoader.js'
@@ -31,7 +30,7 @@ export const useLayersLoader = () => {
         ({ layer }) => `Could not load layer ${layer}`,
         { critical: true }
     )
-    const { keyAnalysisDisplayProperty: displayProperty } = useSystemSettings()
+    const { nameProperty } = useCachedDataQuery()
     const { showAlerts } = useLoaderAlerts()
 
     // only load layers that have not yet been loaded
@@ -49,7 +48,7 @@ export const useLayersLoader = () => {
             const result = await loader({
                 config,
                 engine,
-                displayProperty,
+                displayProperty: nameProperty,
                 analyticsEngine,
             })
 
@@ -74,7 +73,7 @@ export const useLayersLoader = () => {
     }, [
         layers,
         dispatch,
-        displayProperty,
+        nameProperty,
         engine,
         analyticsEngine,
         showAlerts,
