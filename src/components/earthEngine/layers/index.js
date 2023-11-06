@@ -11,6 +11,7 @@ import precipitationLegacy from './legacy/precipitation_CHIRPS.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
 import temperatureLegacy from './legacy/temperature_MOD11A2v061.js'
+import nitrogenDioxide from './testing/nitrogen_dioxide_Sentinel-5P.js'
 
 const earthEngineLayers = [
     buildings,
@@ -18,6 +19,7 @@ const earthEngineLayers = [
     landcover,
     landcover100m,
     nighttimeLights,
+    nitrogenDioxide,
     populationTotal,
     populationAgeSex,
     precipitationDaily,
