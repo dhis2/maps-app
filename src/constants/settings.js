@@ -16,3 +16,7 @@ export const SYSTEM_SETTINGS = [
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
 ]
+
+// TODO: Arbitrary authority id used for testing
+export const MAPS_ADMIN_AUTHORITY_ID =
+    'F_PROGRAM_TRACKED_ENTITY_ATTRIBUTE_GROUP_ADD'

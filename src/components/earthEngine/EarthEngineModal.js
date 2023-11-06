@@ -24,7 +24,7 @@ const EarthEngineModal = ({ onClose }) => {
 
     return (
         <Modal large position="middle" dataTest="earthenginemodal">
-            <ModalTitle>{i18n.t('Earth Engine Layers')}</ModalTitle>
+            <ModalTitle>{i18n.t('Manage available layers')}</ModalTitle>
             <ModalContent>
                 <div className={styles.description}>
                     {i18n.t(
