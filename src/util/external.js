@@ -14,13 +14,6 @@ const MAP_SERVICE_XYZ = 'XYZ'
 const MAP_SERVICE_VECTOR_STYLE = 'VECTOR_STYLE'
 const MAP_SERVICE_GEOJSON_URL = 'GEOJSON_URL'
 
-export const supportedMapServices = [
-    MAP_SERVICE_WMS,
-    MAP_SERVICE_TMS,
-    MAP_SERVICE_XYZ,
-    MAP_SERVICE_VECTOR_STYLE,
-]
-
 const mapServiceToTypeMap = {
     [MAP_SERVICE_WMS]: WMS_LAYER,
     [MAP_SERVICE_XYZ]: TILE_LAYER,
@@ -28,6 +21,8 @@ const mapServiceToTypeMap = {
     [MAP_SERVICE_VECTOR_STYLE]: VECTOR_STYLE,
     [MAP_SERVICE_GEOJSON_URL]: GEOJSON_LAYER,
 }
+
+export const supportedMapServices = Object.keys(mapServiceToTypeMap)
 
 // Create external layer from a model
 export const createExternalLayer = (model, forBasemap) => ({

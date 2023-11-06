@@ -25,7 +25,7 @@ const externalLoader = async (layer) => {
     return {
         ...layer,
         layer: EXTERNAL_LAYER,
-        name: config.name,
+        name: config.name, // TODO - will be fixed by DHIS2-16088
         legend,
         config,
         isLoaded: true,

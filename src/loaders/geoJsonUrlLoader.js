@@ -31,7 +31,7 @@ const geoJsonUrlLoader = async (layer) => {
 
     return {
         ...layer,
-        name,
+        name: newConfig.name, // TODO - will be fixed by DHIS2-16088
         legend,
         data: geoJson?.features,
         config: newConfig,
