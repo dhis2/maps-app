@@ -92,21 +92,10 @@ const FileMenu = ({ onFileMenuAction }) => {
         })
 
     const saveMap = async () => {
-        if (map.mapViews) {
-            map.mapViews.forEach((view) => {
-                if (view.featureStyle) {
-                    view.config.featureStyle = { ...view.featureStyle } // TODO or default featureStyle
-                }
-            })
-        }
         const config = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
         })
-
-        if (config.mapViews) {
-            config.mapViews.forEach((view) => delete view.id)
-        }
 
         await saveMapMutate({
             id: map.id,
@@ -137,13 +126,6 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const saveAsNewMap = async ({ name, description }) => {
-        if (map.mapViews) {
-            map.mapViews.forEach((view) => {
-                if (view.featureStyle) {
-                    view.config.featureStyle = { ...view.featureStyle } // TODO or default featureStyle
-                }
-            })
-        }
         const config = {
             ...cleanMapConfig({
                 config: map,
@@ -154,10 +136,6 @@ const FileMenu = ({ onFileMenuAction }) => {
         }
 
         delete config.id
-
-        if (config.mapViews) {
-            config.mapViews.forEach((view) => delete view.id)
-        }
 
         const response = await saveAsNewMapMutate({
             data: config,
