@@ -32,12 +32,11 @@ const layerType = {
 }
 
 const layerName = () => ({
-    event: i18n.t('event'),
-    trackedEntity: i18n.t('tracked entity'),
-    facility: i18n.t('facility'),
-    thematic: i18n.t('thematic'),
-    orgUnit: i18n.t('org unit'),
-    earthEngine: i18n.t('Earth Engine'),
+    event: i18n.t('Event'),
+    trackedEntity: i18n.t('Tracked entity'),
+    facility: i18n.t('Facility'),
+    thematic: i18n.t('Thematic'),
+    orgUnit: i18n.t('Org unit'),
 })
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
@@ -80,19 +79,11 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         return null
     }
 
-    let name = layerName()[type]
-
-    if (type === EARTH_ENGINE_LAYER) {
-        name = layer.name.toLowerCase()
-    }
-
-    const title = layer.id
-        ? i18n.t('Edit {{name}} layer', { name })
-        : i18n.t('Add new {{name}} layer', { name })
+    const name = type === EARTH_ENGINE_LAYER ? layer.name : layerName()[type]
 
     return (
         <Modal position="middle" dataTest="layeredit">
-            <ModalTitle>{title}</ModalTitle>
+            <ModalTitle>{i18n.t('{{name}} layer', { name })}</ModalTitle>
             <ModalContent>
                 <div className={styles.content}>
                     <LayerDialog

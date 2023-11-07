@@ -6,8 +6,9 @@ export default {
     format: 'ImageCollection',
     layerId: 'MODIS/006/MCD12Q1', // Layer id kept for backward compability for saved maps
     datasetId: 'MODIS/061/MCD12Q1', // No longer in use: 'MODIS/006/MCD12Q1' / 'MODIS/051/MCD12Q1',
-    name: i18n.t('Landcover'),
+    name: i18n.t('Landcover NASA'),
     description: i18n.t('Distinct landcover types collected from satellites.'),
+    img: 'images/landcover.png',
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
@@ -109,6 +110,5 @@ export default {
         },
     ],
     popup: '{name}: {value}',
-    img: 'images/landcover.png',
     opacity: 0.9,
 }
