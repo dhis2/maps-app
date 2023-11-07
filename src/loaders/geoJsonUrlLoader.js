@@ -1,7 +1,43 @@
 import { parseLayerConfig } from '../util/external.js'
 
+const fetchData = async (url, engine, baseUrl) => {
+    if (url.includes(baseUrl)) {
+        // API route, use engine
+        const routesIndex = url.indexOf('routes')
+        if (routesIndex === -1) {
+            throw new Error(`Invalid API route ${url}`)
+        }
+
+        return engine
+            .query({
+                geojson: {
+                    resource: url.slice(routesIndex),
+                },
+            })
+            .then(async (data) => {
+                if (data.geojson instanceof Blob) {
+                    return JSON.parse(await data.geojson.text())
+                }
+                return data.geojson
+            })
+            .catch((e) => {
+                throw new Error(`Failed to load from API route ${url}: "${e}"`)
+            })
+    } else {
+        // External route, use fetch
+        // TODO implement auth capability
+        return fetch(url)
+            .then((response) => response.json())
+            .catch((e) => {
+                throw new Error(
+                    `Failed to load from external service ${url}: ${e}`
+                )
+            })
+    }
+}
+
 const EMPTY_FEATURE_STYLE = {}
-const geoJsonUrlLoader = async (layer) => {
+const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
     const { name, config } = layer
 
     let newConfig
@@ -17,9 +53,16 @@ const geoJsonUrlLoader = async (layer) => {
         featureStyle = layer.featureStyle || EMPTY_FEATURE_STYLE
     }
 
-    const geoJson = await fetch(newConfig.url).then((response) =>
-        response.json()
-    )
+    let geoJson
+    let error
+    try {
+        geoJson = await fetchData(newConfig.url, engine, baseUrl)
+    } catch (err) {
+        console.error(err)
+        error = {
+            url: newConfig.url,
+        }
+    }
 
     const legend = { title: name, items: [] }
     legend.items.push({
@@ -39,6 +82,7 @@ const geoJsonUrlLoader = async (layer) => {
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
+        error,
     }
 }
 

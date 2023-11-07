@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-27T09:23:01.556Z\n"
-"PO-Revision-Date: 2023-10-27T09:23:01.556Z\n"
+"POT-Creation-Date: 2023-11-07T12:11:11.385Z\n"
+"PO-Revision-Date: 2023-11-07T12:11:11.385Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -607,6 +607,9 @@ msgstr "Group"
 
 msgid "Filters"
 msgstr "Filters"
+
+msgid "Failed to load map layer \"{{layername}}\" with url: {{layerurl}}"
+msgstr "Failed to load map layer \"{{layername}}\" with url: {{layerurl}}"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
