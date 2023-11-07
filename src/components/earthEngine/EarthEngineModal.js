@@ -7,11 +7,11 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui'
+import PropTypes from 'prop-types'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import earthEngineLayers from './layers/index.js'
-import useEarthEngineLayersStore from '../../hooks/useEarthEngineLayersStore'
+import useEarthEngineLayers from '../../hooks/useEarthEngineLayersStore.js'
 import LayerRow from './LayerRow.js'
+import earthEngineLayers from './layers/index.js'
 import styles from './styles/EarthEngineModal.module.css'
 
 const layers = earthEngineLayers
@@ -19,8 +19,7 @@ const layers = earthEngineLayers
     .sort((a, b) => a.name.localeCompare(b.name))
 
 const EarthEngineModal = ({ onClose }) => {
-    const { storedLayers, addLayer, removeLayer } = useEarthEngineLayersStore()
-    const dispatch = useDispatch()
+    const { addedLayers, addLayer, removeLayer } = useEarthEngineLayers()
 
     return (
         <Modal large position="middle" dataTest="earthenginemodal">
@@ -37,7 +36,7 @@ const EarthEngineModal = ({ onClose }) => {
                             <LayerRow
                                 key={layer.layerId}
                                 layer={layer}
-                                isAdded={storedLayers.includes(layer.layerId)}
+                                isAdded={addedLayers.includes(layer.layerId)}
                                 onShow={addLayer}
                                 onHide={removeLayer}
                             />
@@ -54,6 +53,10 @@ const EarthEngineModal = ({ onClose }) => {
             </ModalActions>
         </Modal>
     )
+}
+
+EarthEngineModal.propTypes = {
+    onClose: PropTypes.func.isRequired,
 }
 
 export default EarthEngineModal

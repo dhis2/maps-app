@@ -1,145 +1,103 @@
-import React, { useState, useCallback, useEffect } from 'react'
 import { useDataEngine } from '@dhis2/app-runtime'
+import { useState, useCallback, useEffect } from 'react'
 
-export const MAPS_APP_NAMESPACE = 'MAPS_APP'
-export const EARTH_ENGINE_LAYERS_KEY = 'EARTH_ENGINE_LAYERS'
+const MAPS_APP_NAMESPACE = 'MAPS_APP'
+const EARTH_ENGINE_LAYERS_KEY = 'EARTH_ENGINE_LAYERS'
 
-// TODO: What if two users are toggling EE layers at the same time?
+const resource = `dataStore/${MAPS_APP_NAMESPACE}/${EARTH_ENGINE_LAYERS_KEY}`
+
 // TODO: authorization
-
-// https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-240/data-store.html
-// https://dhis2-app-course.ifi.uio.no/learn/dhis2/app-development-guides/datastore/getting-data/
-export const useEarthEngineLayersStore = () => {
+const useEarthEngineLayersStore = () => {
     const [loading, setLoading] = useState(true)
-    const [storedLayers, setStoredLayers] = useState([])
+    const [addedLayers, setAddedLayers] = useState([])
+    const [error, setError] = useState()
     const engine = useDataEngine()
 
-    const resource = `dataStore/${MAPS_APP_NAMESPACE}`
-
-    const createNamespaceKey = useCallback(() => {
-        engine
-            .mutate({
-                resource: `${resource}/${EARTH_ENGINE_LAYERS_KEY}`,
-                type: 'create',
-                params: {
-                    // encrypt: true, // TODO: Enable?
-                },
-                data: [],
-            })
-            .then((response) => {
-                if (response.httpStatusCode === 201) {
-                    getLayers()
-                } else {
-                    console.log('error', response)
-                }
-            })
-            .catch((error) => {
-                console.log('error', error)
-            })
-    }, [engine, resource])
-
+    // Fetch layers / create namspace/key if missing
     const getLayers = useCallback(() => {
         setLoading(true)
         engine
-            .query({
-                dataStore: {
-                    resource: 'dataStore',
-                },
-            })
+            .query({ dataStore: { resource: 'dataStore' } })
             .then(({ dataStore }) => {
                 if (dataStore.includes(MAPS_APP_NAMESPACE)) {
+                    // Fetch layers if namespace/keys exists in data store
                     engine
-                        .query({
-                            layers: {
-                                resource: `${resource}/${EARTH_ENGINE_LAYERS_KEY}`,
-                            },
-                        })
+                        .query({ layers: { resource } })
                         .then(({ layers }) => {
-                            // console.log('layers', layers)
-                            setStoredLayers(layers)
+                            setAddedLayers(layers)
                             setLoading(false)
                         })
                 } else {
-                    createNamespaceKey()
-                    // setStoredLayers([])
-                    // setLoading(false)
+                    // Create namespace/keys if missing in data store
+                    engine
+                        .mutate({
+                            resource,
+                            type: 'create',
+                            data: [],
+                        })
+                        .then((response) => {
+                            if (response.httpStatusCode === 201) {
+                                setLoading(false)
+                            } else {
+                                setError(response)
+                            }
+                        })
+                        .catch(setError)
                 }
             })
-    }, [engine, resource, createNamespaceKey])
+    }, [engine])
 
+    // Add layer id to data store
     const addLayer = useCallback(
         (layerId) => {
-            // console.log('addLayer', layerId, storedLayers)
-
-            if (!storedLayers.includes(layerId)) {
-                const newLayers = [...storedLayers, layerId]
-                // setStoredLayers(newLayers)
-
+            if (!addedLayers.includes(layerId)) {
                 engine
                     .mutate({
-                        resource: `${resource}/${EARTH_ENGINE_LAYERS_KEY}`,
+                        resource,
                         type: 'update',
-                        params: {
-                            // encrypt: true, // TODO: Enable?
-                        },
-                        data: newLayers,
+                        data: [...addedLayers, layerId],
                     })
                     .then((response) => {
                         if (response.httpStatusCode === 200) {
                             getLayers()
                         } else {
-                            console.log('error', response)
+                            setError(response)
                         }
                     })
-                    .catch((error) => {
-                        console.log('error', error)
-                    })
-            } else {
-                console.log('Layer already added')
+                    .catch(setError)
             }
         },
-        [engine, storedLayers, getLayers]
+        [engine, addedLayers, getLayers]
     )
 
+    // Remove layer id from data store
     const removeLayer = useCallback(
         (layerId) => {
-            // console.log('Remove layer', layerId)
-
-            if (storedLayers.includes(layerId)) {
-                const newLayers = storedLayers.filter((l) => l !== layerId)
-                // setStoredLayers(newLayers)
-
+            if (addedLayers.includes(layerId)) {
                 engine
                     .mutate({
-                        resource: `${resource}/${EARTH_ENGINE_LAYERS_KEY}`,
+                        resource,
                         type: 'update',
-                        params: {
-                            // encrypt: true, // TODO: Enable?
-                        },
-                        data: newLayers,
+                        data: addedLayers.filter((l) => l !== layerId),
                     })
                     .then((response) => {
                         if (response.httpStatusCode === 200) {
                             getLayers()
                         } else {
-                            console.log('error', response)
+                            setError(response)
                         }
                     })
-                    .catch((error) => {
-                        console.log('error', error)
-                    })
-            } else {
-                console.log('Layer already removed')
+                    .catch(setError)
             }
         },
-        [engine, storedLayers, getLayers]
+        [engine, addedLayers, getLayers]
     )
 
     useEffect(() => {
         getLayers()
-    }, [engine])
+    }, [engine, getLayers])
 
-    return { storedLayers, loading, addLayer, removeLayer }
+    return { addedLayers, loading, addLayer, removeLayer, error }
 }
 
 export default useEarthEngineLayersStore

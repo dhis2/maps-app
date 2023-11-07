@@ -6,7 +6,7 @@ export default {
     layerId: 'COPERNICUS/S2_SR_HARMONIZED',
     datasetId: 'COPERNICUS/S2_SR_HARMONIZED',
     format: 'ImageCollection',
-    name: 'Satellite imagery (Sentinel-2)',
+    name: i18n.t('Satellite imagery (Sentinel-2)'),
     description: '',
     source: 'Copernicus / Google Earth Engine',
     periodType: 'range',

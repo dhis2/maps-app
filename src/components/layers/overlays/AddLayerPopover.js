@@ -5,16 +5,16 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addLayer, editLayer } from '../../../actions/layers.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
-import earthEngineLayers from '../../earthEngine/layers/index.js'
+import useEarthEngineLayers from '../../../hooks/useEarthEngineLayersStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
-import useEarthEngineLayersStore from '../../../hooks/useEarthEngineLayersStore'
-import LayerList from './LayerList.js'
+import earthEngineLayers from '../../earthEngine/layers/index.js'
 import ManageLayersButton from '../../earthEngine/ManageLayersButton.js'
+import LayerList from './LayerList.js'
 
-const includeEarthEngineLayers = (layerTypes, storedLayers) => {
+const includeEarthEngineLayers = (layerTypes, addedLayers) => {
     // Earth Engine layers that are added to this DHIS2 instance
     const eeLayers = earthEngineLayers
-        .filter((l) => !l.legacy && storedLayers.includes(l.layerId))
+        .filter((l) => !l.legacy && addedLayers.includes(l.layerId))
         .sort((a, b) => a.name.localeCompare(b.name))
 
     // Make copy before slicing below
@@ -32,8 +32,8 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     )
     const dispatch = useDispatch()
     const { layerTypes } = useCachedDataQuery()
-    const { storedLayers } = useEarthEngineLayersStore()
-    const layers = includeEarthEngineLayers(layerTypes, storedLayers)
+    const { addedLayers } = useEarthEngineLayers()
+    const layers = includeEarthEngineLayers(layerTypes, addedLayers)
 
     const onLayerSelect = (layer) => {
         const config = { ...layer }

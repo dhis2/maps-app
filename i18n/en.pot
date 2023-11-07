@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-05T16:28:14.202Z\n"
-"PO-Revision-Date: 2023-11-05T16:28:14.202Z\n"
+"POT-Creation-Date: 2023-11-07T09:40:37.347Z\n"
+"PO-Revision-Date: 2023-11-07T09:40:37.347Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -212,8 +212,8 @@ msgstr "Cancel"
 msgid "Close"
 msgstr "Close"
 
-msgid "Earth Engine Layers"
-msgstr "Earth Engine Layers"
+msgid "Manage available layers"
+msgstr "Manage available layers"
 
 msgid ""
 "Select the layers you want to show in the \"Add layer\" dialogue. The shown "
@@ -257,34 +257,6 @@ msgstr ""
 msgid "Number of buildings"
 msgstr "Number of buildings"
 
-msgid "Cropland"
-msgstr "Cropland"
-
-msgid "Population"
-msgstr "Population"
-
-msgid "people per hectare"
-msgstr "people per hectare"
-
-msgid "Estimated number of people living in an area."
-msgstr "Estimated number of people living in an area."
-
-msgid "people per km²"
-msgstr "people per km²"
-
-msgid "Nighttime lights"
-msgstr "Nighttime lights"
-
-msgid "light intensity"
-msgstr "light intensity"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-
 msgid "Elevation"
 msgstr "Elevation"
 
@@ -294,11 +266,83 @@ msgstr "meters"
 msgid "Elevation above sea-level."
 msgstr "Elevation above sea-level."
 
-msgid "Landcover"
-msgstr "Landcover"
+msgid "Landcover 100m"
+msgstr "Landcover 100m"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "Shrubs"
+msgstr "Shrubs"
+
+msgid "Herbaceous vegetation"
+msgstr "Herbaceous vegetation"
+
+msgid "Agriculture"
+msgstr "Agriculture"
+
+msgid "Urban / built up"
+msgstr "Urban / built up"
+
+msgid "Bare / sparse vegetation"
+msgstr "Bare / sparse vegetation"
+
+msgid "Snow and ice"
+msgstr "Snow and ice"
+
+msgid "Permanent water bodies"
+msgstr "Permanent water bodies"
+
+msgid "Herbaceous wetland"
+msgstr "Herbaceous wetland"
+
+msgid "Moss and lichen"
+msgstr "Moss and lichen"
+
+msgid "Closed forest, evergreen needle leaf"
+msgstr "Closed forest, evergreen needle leaf"
+
+msgid "Closed forest, evergreen broad leaf"
+msgstr "Closed forest, evergreen broad leaf"
+
+msgid "Closed forest, deciduous needle leaf"
+msgstr "Closed forest, deciduous needle leaf"
+
+msgid "Closed forest, deciduous broad leaf"
+msgstr "Closed forest, deciduous broad leaf"
+
+msgid "Closed forest, mixed"
+msgstr "Closed forest, mixed"
+
+msgid "Closed forest, other"
+msgstr "Closed forest, other"
+
+msgid "Open forest, evergreen needle leaf"
+msgstr "Open forest, evergreen needle leaf"
+
+msgid "Open forest, evergreen broad leaf"
+msgstr "Open forest, evergreen broad leaf"
+
+msgid "Open forest, deciduous needle leaf"
+msgstr "Open forest, deciduous needle leaf"
+
+msgid "Open forest, deciduous broad leaf"
+msgstr "Open forest, deciduous broad leaf"
+
+msgid "Open forest, mixed"
+msgstr "Open forest, mixed"
+
+msgid "Open forest, other"
+msgstr "Open forest, other"
+
+msgid "Water"
+msgstr "Water"
+
+msgid "Landcover"
+msgstr "Landcover"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
@@ -342,14 +386,33 @@ msgstr "Urban and built-up"
 msgid "Cropland/Natural vegetation mosaic"
 msgstr "Cropland/Natural vegetation mosaic"
 
-msgid "Snow and ice"
-msgstr "Snow and ice"
-
 msgid "Barren or sparsely vegetated"
 msgstr "Barren or sparsely vegetated"
 
-msgid "Water"
-msgstr "Water"
+msgid "Nighttime lights"
+msgstr "Nighttime lights"
+
+msgid "light intensity"
+msgstr "light intensity"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+
+msgid "Population"
+msgstr "Population"
+
+msgid "people per km²"
+msgstr "people per km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Estimated number of people living in an area."
+
+msgid "people per hectare"
+msgstr "people per hectare"
 
 msgid "Precipitation"
 msgstr "Precipitation"
@@ -518,6 +581,27 @@ msgstr ""
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
+
+msgid "Cropland"
+msgstr "Cropland"
+
+msgid "Ecoregions"
+msgstr "Ecoregions"
+
+msgid "Nitrogen dioxide (NO2)"
+msgstr "Nitrogen dioxide (NO2)"
+
+msgid "Particle pollution"
+msgstr "Particle pollution"
+
+msgid "Rivers"
+msgstr "Rivers"
+
+msgid "Satellite imagery (Sentinel-2)"
+msgstr "Satellite imagery (Sentinel-2)"
+
+msgid "Sulfur dioxide"
+msgstr "Sulfur dioxide"
 
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
@@ -1174,9 +1258,6 @@ msgstr "Program"
 
 msgid "Stage"
 msgstr "Stage"
-
-msgid "Settings"
-msgstr "Settings"
 
 msgid "Tracked Entity Type"
 msgstr "Tracked Entity Type"

@@ -1,9 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
+import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './styles/LayerRow.module.css'
 
-const LayerCard = ({ layer, isAdded, onShow, onHide }) => {
+const LayerRow = ({ layer, isAdded, onShow, onHide }) => {
     const { layerId, name, img, description, source } = layer
 
     return (
@@ -39,4 +40,11 @@ const LayerCard = ({ layer, isAdded, onShow, onHide }) => {
     )
 }
 
-export default LayerCard
+LayerRow.propTypes = {
+    isAdded: PropTypes.bool.isRequired,
+    layer: PropTypes.object.isRequired,
+    onHide: PropTypes.func.isRequired,
+    onShow: PropTypes.func.isRequired,
+}
+
+export default LayerRow

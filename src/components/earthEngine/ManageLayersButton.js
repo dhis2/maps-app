@@ -1,7 +1,8 @@
-import i18n from '@dhis2/d2-i18n'
 import { useCachedDataQuery } from '@dhis2/analytics'
-import React from 'react'
+import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { MAPS_ADMIN_AUTHORITY_ID } from '../../constants/settings.js'
 import styles from './styles/ManageLayersButton.module.css'
 
@@ -20,6 +21,10 @@ const ManageLayersButton = ({ onClick }) => {
             </Button>
         </div>
     )
+}
+
+ManageLayersButton.propTypes = {
+    onClick: PropTypes.func.isRequired,
 }
 
 export default ManageLayersButton

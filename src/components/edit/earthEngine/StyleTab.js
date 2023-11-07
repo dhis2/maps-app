@@ -32,14 +32,14 @@ const StyleTab = ({ unit, style, hasOrgUnitField }) => {
 
 StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
-    unit: PropTypes.string,
     style: PropTypes.shape({
+        color: PropTypes.string,
         max: PropTypes.number,
         min: PropTypes.number,
         palette: PropTypes.array,
-        color: PropTypes.string,
         strokeWidth: PropTypes.number,
     }),
+    unit: PropTypes.string,
 }
 
 export default StyleTab

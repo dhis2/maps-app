@@ -8,8 +8,7 @@ import {
     IconInfo16,
     IconLocation16,
 } from '@dhis2/ui'
-import PropTypes from 'prop-types'
-import React, { Fragment, useRef, useCallback } from 'react'
+import React, { useRef, useMemo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateLayer } from '../../actions/layers.js'
 import {
@@ -39,7 +38,7 @@ const ContextMenu = () => {
     const { feature, layerType, layerConfig, coordinates, position, offset } =
         contextMenu
 
-    const attr = feature?.properties || {}
+    const attr = useMemo(() => feature?.properties || {}, [feature])
 
     const onClick = useCallback(
         (item, id) => {
@@ -167,17 +166,6 @@ const ContextMenu = () => {
             </Popover>
         </>
     )
-}
-
-ContextMenu.propTypes = {
-    coordinates: PropTypes.array,
-    earthEngineLayers: PropTypes.array,
-    feature: PropTypes.object,
-    layerConfig: PropTypes.object,
-    layerType: PropTypes.string,
-    map: PropTypes.object,
-    offset: PropTypes.array,
-    position: PropTypes.array,
 }
 
 export default ContextMenu

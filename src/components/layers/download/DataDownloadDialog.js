@@ -135,6 +135,7 @@ DataDownloadDialog.propTypes = {
     layer: PropTypes.shape({
         id: PropTypes.string,
         layer: PropTypes.string,
+        layerType: PropTypes.string,
         name: PropTypes.string,
     }),
 }

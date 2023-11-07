@@ -6,7 +6,7 @@ export default {
     layerId: 'ECMWF/CAMS/NRT/SO2',
     datasetId: 'ECMWF/CAMS/NRT',
     format: 'ImageCollection',
-    name: 'Sulfur dioxide',
+    name: i18n.t('Sulfur dioxide'),
     description: 'Total column sulfur dioxide surface',
     source: 'Copernicus Climate Data Store / Google Earth Engine',
     unit: 'kg/m^2',
