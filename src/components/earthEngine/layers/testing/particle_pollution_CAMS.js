@@ -9,6 +9,7 @@ export default {
     name: i18n.t('Particle pollution'),
     description: 'Particulate matter d < 2.5 um',
     source: 'Copernicus Climate Data Store / Google Earth Engine',
+    sourceUrl: '',
     unit: 'kg/m^3',
     // aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     // defaultAggregations: ['mean', 'min', 'max'],

@@ -1,0 +1,20 @@
+.periodSelect {
+    width: auto;
+    max-width: 360px;
+}
+
+.reducer {
+    max-width: 280px;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    padding-top: var(--spacers-dp12);
+}
+
+.loading div {
+    display: inline-block;
+    margin-right: var(--spacers-dp24);
+}

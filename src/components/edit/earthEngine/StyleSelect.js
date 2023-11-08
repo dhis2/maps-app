@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { precisionFixed } from 'd3-format'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { connect } from 'react-redux'
@@ -9,6 +10,20 @@ import styles from '../styles/LayerDialog.module.css'
 
 const minSteps = 3
 const maxSteps = 9
+
+const countDecimals = (number) => {
+    if (Math.floor(number.valueOf()) === number.valueOf()) return 0
+
+    var str = number.toString()
+    if (str.indexOf('.') !== -1 && str.indexOf('-') !== -1) {
+        return str.split('-')[1] || 0
+    } else if (str.indexOf('.') !== -1) {
+        return str.split('.')[1].length || 0
+    }
+    return str.split('-')[1] || 0
+}
+
+const getStep = (number) => 1 / Math.pow(10, countDecimals(number))
 
 const StyleSelect = ({ unit, style, setStyle }) => {
     const { min, max, palette } = style
@@ -30,6 +45,7 @@ const StyleSelect = ({ unit, style, setStyle }) => {
         [palette, setStyle]
     )
 
+    const numberFieldStep = Math.min(getStep(min), getStep(max))
     let warningText
 
     if (Number.isNaN(min)) {
@@ -48,22 +64,21 @@ const StyleSelect = ({ unit, style, setStyle }) => {
     return (
         <div>
             <p>
-                {i18n.t('Unit: {{ unit }}', {
-                    unit,
-                    nsSeparator: '|', // https://github.com/i18next/i18next/issues/361
-                })}
+                {i18n.t('Unit')}: {unit}
             </p>
             <div key="minmax" className={styles.flexInnerColumnFlow}>
                 <NumberField
                     label={i18n.t('Min')}
                     value={min}
-                    onChange={(min) => setStyle({ min: parseInt(min) })}
+                    step={numberFieldStep}
+                    onChange={(min) => setStyle({ min })}
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
                     label={i18n.t('Max')}
                     value={max}
-                    onChange={(max) => setStyle({ max: parseInt(max) })}
+                    step={numberFieldStep}
+                    onChange={(max) => setStyle({ max })}
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
@@ -72,7 +87,7 @@ const StyleSelect = ({ unit, style, setStyle }) => {
                     min={minSteps}
                     max={maxSteps}
                     onChange={onStepsChange}
-                    className={styles.flexInnerColumn}
+                    className={styles.stepField}
                 />
                 {warningText && (
                     <div className={styles.eeError}>{warningText}</div>

@@ -13,7 +13,7 @@ export default {
     ),
     source: 'Copernicus Climate Data Store / Google Earth Engine',
     sourceUrl:
-        'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_DAILY_AGGR',
+        'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_MONTHLY_AGGR',
     unit: '°C',
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],

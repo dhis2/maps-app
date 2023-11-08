@@ -12,6 +12,7 @@ import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
 import nitrogenDioxide from './testing/nitrogen_dioxide_Sentinel-5P.js'
+import nitrogenDioxideCAMS from './testing/nitrogen_dioxide_CAMS.js'
 
 const earthEngineLayers = [
     buildings,
@@ -20,6 +21,7 @@ const earthEngineLayers = [
     landcover100m,
     nighttimeLights,
     nitrogenDioxide,
+    nitrogenDioxideCAMS,
     populationTotal,
     populationAgeSex,
     precipitationDaily,

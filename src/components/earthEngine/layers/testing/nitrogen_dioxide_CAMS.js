@@ -1,21 +1,21 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 
+// https://earthscience.stackexchange.com/questions/19444/how-to-convert-mol-m2-to-total-mass-e-g-gram-kg-etc
 export default {
     layerType: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
-    layerId: 'COPERNICUS/S5P/NRTI/L3_NO2',
-    datasetId: 'COPERNICUS/S5P/NRTI/L3_NO2',
-    name: i18n.t('Nitrogen dioxide (NO2)'),
-    description:
-        'Total vertical column of Nitrogen dioxide (NO2). This gas enters the atmosphere as a result of human activities (notably fossil fuel combustion and biomass burning) and natural processes (wildfires, lightning, and microbiological processes in soils).',
-    source: 'European Union / ESA / Copernicus / Google Earth Engine',
+    layerId: 'ECMWF/CAMS/NRT/NO2',
+    datasetId: 'ECMWF/CAMS/NRT',
+    name: i18n.t('Nitrogen dioxide CAMS'),
+    description: '',
+    source: 'ECMWF / Google Earth Engine',
     sourceUrl:
-        'https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_NO2',
+        'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_CAMS_NRT',
     unit: 'mol/m^2',
     periodType: 'range',
     periodReducer: 'mean',
-    band: 'NO2_column_number_density',
+    band: 'total_column_nitrogen_dioxide_surface',
     filters: [
         /*
         {
@@ -30,15 +30,17 @@ export default {
     ],
     style: {
         min: 0,
-        max: 0.0003,
+        max: 0.00002,
         palette: [
-            '#feebe2',
+            '#fff7f3',
+            '#fde0dd',
             '#fcc5c0',
             '#fa9fb5',
             '#f768a1',
             '#dd3497',
             '#ae017e',
             '#7a0177',
+            '#49006a',
         ],
     },
     opacity: 0.6,

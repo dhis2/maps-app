@@ -10,6 +10,7 @@ import PeriodSelect from '../../periods/PeriodSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import { START_END_DATES } from '../../../constants/periods.js'
 import { getTimeRange } from '../../../util/earthEngine.js'
+import styles from './styles/PeriodReducer.module.css'
 
 // TOOD: Remove reducers that are less relevant
 const periodReducers = [
@@ -82,6 +83,7 @@ const EarthEnginePeriodReducer = ({
         <div className={className}>
             <PeriodTypeSelect
                 value={periodType}
+                className={styles.periodSelect}
                 onChange={(period) => setPeriodType(period.id)}
             />
             {dateRange && periodType ? (
@@ -93,7 +95,7 @@ const EarthEnginePeriodReducer = ({
                                 startDate={dateRange.firstDate}
                                 endDate={dateRange.lastDate}
                                 onChange={console.log}
-                                // className={styles.periodSelect}
+                                className={styles.periodSelect}
                                 // errorText={errorText}
                             />
                             <DatePicker
@@ -115,21 +117,25 @@ const EarthEnginePeriodReducer = ({
                             period={period}
                             {...dateRange}
                             onChange={onPeriodChange}
+                            className={styles.periodSelect}
                             errorText={errorText}
                         />
                     )}
                     {periodType !== 'DAILY' && (
                         <SelectField
-                            label={i18n.t('Period reducer')}
+                            label={i18n.t('Period aggregation method')}
                             items={periodReducers}
                             value={reducer}
                             onChange={onStartEndDateChange}
-                            // className={styles.year}
+                            className={styles.reducer}
                         />
                     )}
                 </>
             ) : (
-                <div>{i18n.t('Loading periods')}</div>
+                <div className={styles.loading}>
+                    <CircularLoader small />
+                    {i18n.t('Loading periods')}
+                </div>
             )}
         </div>
     )

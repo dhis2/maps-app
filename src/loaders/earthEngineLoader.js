@@ -1,12 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
-import { precisionRound } from 'd3-format'
+import { precisionFixed, format } from 'd3-format'
 // import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
-import { numberPrecision } from '../util/numbers.js'
+// import { numberPrecision } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
@@ -188,8 +188,8 @@ const earthEngineLoader = async (config) => {
 
 export const createLegend = ({ min, max, palette }) => {
     const step = (max - min) / (palette.length - (min > 0 ? 2 : 1))
-    const precision = precisionRound(step, max)
-    const valueFormat = numberPrecision(precision)
+    const precision = precisionFixed(step % 1)
+    const valueFormat = format('.' + precision + 'f')
 
     let from = min
     let to = valueFormat(min + step)
@@ -214,8 +214,7 @@ export const createLegend = ({ min, max, palette }) => {
         }
 
         from = to
-        // to = valueFormat(min + step * (index + (min > 0 ? 1 : 2))) // TODO: Make valueFormat work
-        to = min + step * (index + (min > 0 ? 1 : 2))
+        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)))
 
         return item
     })
