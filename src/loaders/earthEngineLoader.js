@@ -204,12 +204,12 @@ export const createLegend = ({ min, max, palette }) => {
             item.name = '< ' + min
             to = min
         } else if (from < max) {
-            item.from = from
-            item.to = to
+            item.from = +from
+            item.to = +to
             item.name = from + ' - ' + to
         } else {
             // Higher than max
-            item.from = from
+            item.from = +from
             item.name = '> ' + from
         }
 

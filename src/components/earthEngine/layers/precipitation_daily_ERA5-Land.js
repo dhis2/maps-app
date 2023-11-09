@@ -17,7 +17,7 @@ export default {
     unit: i18n.t('millimeter'),
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    periodType: 'daily',
+    periodType: 'DAILY',
     periodReducer: 'sum',
     band: 'total_precipitation_sum',
     filters: [

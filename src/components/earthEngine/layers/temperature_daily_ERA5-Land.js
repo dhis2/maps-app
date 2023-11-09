@@ -17,7 +17,7 @@ export default {
     unit: '°C',
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    periodType: 'daily',
+    periodType: 'DAILY',
     periodReducer: 'mean',
     band: 'temperature_2m',
     filters: [

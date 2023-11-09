@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-07T09:40:37.347Z\n"
-"PO-Revision-Date: 2023-11-07T09:40:37.347Z\n"
+"POT-Creation-Date: 2023-11-09T16:47:51.099Z\n"
+"PO-Revision-Date: 2023-11-09T16:47:51.099Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -266,8 +266,8 @@ msgstr "meters"
 msgid "Elevation above sea-level."
 msgstr "Elevation above sea-level."
 
-msgid "Landcover 100m"
-msgstr "Landcover 100m"
+msgid "Landcover Copernicus"
+msgstr "Landcover Copernicus"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
@@ -341,8 +341,8 @@ msgstr "Open forest, other"
 msgid "Water"
 msgstr "Water"
 
-msgid "Landcover"
-msgstr "Landcover"
+msgid "Landcover NASA"
+msgstr "Landcover NASA"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
@@ -441,6 +441,15 @@ msgid ""
 msgstr ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
+
+msgid "Nitrogen dioxide (NO2)"
+msgstr "Nitrogen dioxide (NO2)"
+
+msgid "Ozone"
+msgstr "Ozone"
+
+msgid "Particle pollution"
+msgstr "Particle pollution"
 
 msgid "Population age groups"
 msgstr "Population age groups"
@@ -569,6 +578,12 @@ msgstr ""
 msgid "Precipitation monthly"
 msgstr "Precipitation monthly"
 
+msgid "Satellite imagery (Sentinel-2)"
+msgstr "Satellite imagery (Sentinel-2)"
+
+msgid "Sulfur Dioxide (SO2)"
+msgstr "Sulfur Dioxide (SO2)"
+
 msgid "Temperature daily"
 msgstr "Temperature daily"
 
@@ -588,20 +603,8 @@ msgstr "Cropland"
 msgid "Ecoregions"
 msgstr "Ecoregions"
 
-msgid "Nitrogen dioxide (NO2)"
-msgstr "Nitrogen dioxide (NO2)"
-
-msgid "Particle pollution"
-msgstr "Particle pollution"
-
 msgid "Rivers"
 msgstr "Rivers"
-
-msgid "Satellite imagery (Sentinel-2)"
-msgstr "Satellite imagery (Sentinel-2)"
-
-msgid "Sulfur dioxide"
-msgstr "Sulfur dioxide"
 
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
@@ -618,29 +621,20 @@ msgstr "Point color"
 msgid "Point radius"
 msgstr "Point radius"
 
-msgid "event"
-msgstr "event"
+msgid "Event"
+msgstr "Event"
 
-msgid "tracked entity"
-msgstr "tracked entity"
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
-msgid "facility"
-msgstr "facility"
+msgid "Facility"
+msgstr "Facility"
 
-msgid "thematic"
-msgstr "thematic"
+msgid "Thematic"
+msgstr "Thematic"
 
-msgid "org unit"
-msgstr "org unit"
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "Edit {{name}} layer"
-msgstr "Edit {{name}} layer"
-
-msgid "Add new {{name}} layer"
-msgstr "Add new {{name}} layer"
+msgid "{{name}} layer"
+msgstr "{{name}} layer"
 
 msgid "Update layer"
 msgstr "Update layer"
@@ -686,6 +680,9 @@ msgstr "Unit"
 msgid "Legend preview"
 msgstr "Legend preview"
 
+msgid "Loading periods"
+msgstr "Loading periods"
+
 msgid "Mean"
 msgstr "Mean"
 
@@ -713,11 +710,8 @@ msgstr "Product"
 msgid "Start date"
 msgstr "Start date"
 
-msgid "Period reducer"
-msgstr "Period reducer"
-
-msgid "Loading periods"
-msgstr "Loading periods"
+msgid "Period aggregation method"
+msgstr "Period aggregation method"
 
 msgid "Year"
 msgstr "Year"
@@ -736,9 +730,6 @@ msgstr "Max should be greater than min"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
-
-msgid "Unit: {{ unit }}"
-msgstr "Unit: {{ unit }}"
 
 msgid "Steps"
 msgstr "Steps"
@@ -1418,9 +1409,6 @@ msgstr "Displaying first {{pageSize}} events out of {{total}}"
 msgid "No data found"
 msgstr "No data found"
 
-msgid "Event"
-msgstr "Event"
-
 msgid "Facilities"
 msgstr "Facilities"
 
@@ -1438,9 +1426,6 @@ msgstr "Thematic layer"
 
 msgid "No data"
 msgstr "No data"
-
-msgid "Tracked entity"
-msgstr "Tracked entity"
 
 msgid "No tracked entities found"
 msgstr "No tracked entities found"
@@ -1473,9 +1458,6 @@ msgstr ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 
-msgid "Thematic"
-msgstr "Thematic"
-
 msgid "Events"
 msgstr "Events"
 
@@ -1484,9 +1466,6 @@ msgstr "Tracked entities"
 
 msgid "Org units"
 msgstr "Org units"
-
-msgid "Facility"
-msgstr "Facility"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

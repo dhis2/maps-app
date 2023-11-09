@@ -3,10 +3,10 @@ import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 
 export default {
     layerType: EARTH_ENGINE_LAYER,
-    layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
-    img: 'images/population.png',
-    datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
     format: 'ImageCollection',
+    layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+    datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+    img: 'images/population.png',
     name: i18n.t('Population age groups'),
     unit: 'people per hectare',
     description: i18n.t(

@@ -9,7 +9,7 @@ import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
 import PeriodSelect from '../../periods/PeriodSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import { START_END_DATES } from '../../../constants/periods.js'
-import { getTimeRange } from '../../../util/earthEngine.js'
+import { getTimeRange, createTimeRange } from '../../../util/earthEngine.js'
 import styles from './styles/PeriodReducer.module.css'
 
 // TOOD: Remove reducers that are less relevant
@@ -51,15 +51,19 @@ const periodReducers = [
 const EarthEnginePeriodReducer = ({
     datasetId,
     period,
+    defaultPeriodType,
+    range,
     // reducer,
     onChange,
     errorText,
     className,
 }) => {
-    const [periodType, setPeriodType] = useState()
+    const [periodType, setPeriodType] = useState(defaultPeriodType)
     const [dateRange, setDateRange] = useState()
     const reducer = useSelector((state) => state.layerEdit.periodReducer)
     const dispatch = useDispatch()
+
+    console.log('periodType', periodType, range)
 
     const onPeriodChange = useCallback(
         (period) => onChange(period ? { ...period, periodType } : null),
@@ -75,8 +79,17 @@ const EarthEnginePeriodReducer = ({
     )
 
     useEffect(() => {
-        getTimeRange(datasetId).then(setDateRange)
-    }, [datasetId])
+        if (range) {
+            setDateRange(createTimeRange(range))
+        } else {
+            getTimeRange(datasetId).then(setDateRange)
+        }
+    }, [datasetId, range])
+
+    // Clear period when periodType is changed
+    useEffect(() => {
+        onChange()
+    }, [periodType])
 
     // TODO: Add loading spinner
     return (
@@ -143,6 +156,7 @@ const EarthEnginePeriodReducer = ({
 
 EarthEnginePeriodReducer.propTypes = {
     onChange: PropTypes.func.isRequired,
+    defaultPeriodType: PropTypes.string.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
     period: PropTypes.object,

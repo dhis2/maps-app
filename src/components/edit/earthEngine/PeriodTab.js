@@ -1,33 +1,37 @@
-import i18n from '@dhis2/d2-i18n'
-import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import PeriodReducer from './PeriodReducer.js'
 import PeriodSelect from './PeriodSelect.js'
-import styles from './styles/PeriodSelect.module.css'
+import PeriodRange from './PeriodRange.js'
 
 const EarthEnginePeriodTab = ({
     datasetId,
     filters,
     periodType,
     period,
+    periodRange,
     periodReducer,
     onChange,
     onError,
     errorText,
     className,
 }) => {
-    // TODO: Add support for date range
-    if (periodType === 'range') {
-        return null
-    }
-
     return (
         <div className={className}>
-            {periodType === 'daily' ? (
-                <PeriodReducer
+            {periodType === 'range' ? (
+                <PeriodRange
                     datasetId={datasetId}
                     period={period}
+                    reducer={periodReducer}
+                    onChange={onChange}
+                    errorText={errorText}
+                />
+            ) : periodType === 'DAILY' || periodType === 'WEEKLY' ? (
+                <PeriodReducer
+                    defaultPeriodType={periodType}
+                    datasetId={datasetId}
+                    period={period}
+                    range={periodRange}
                     reducer={periodReducer}
                     onChange={onChange}
                     errorText={errorText}
@@ -54,7 +58,6 @@ EarthEnginePeriodTab.propTypes = {
     className: PropTypes.string,
     errorText: PropTypes.string,
     period: PropTypes.object,
-    // periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
 export default EarthEnginePeriodTab

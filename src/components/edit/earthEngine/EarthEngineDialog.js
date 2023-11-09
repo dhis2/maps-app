@@ -42,6 +42,8 @@ const EarthEngineDialog = (props) => {
         orgUnits,
         setOrgUnits,
         orgUnitField,
+        startDate,
+        endDate,
         setFilter,
         setBufferRadius,
         validateLayer,
@@ -54,6 +56,7 @@ const EarthEngineDialog = (props) => {
         description,
         notice,
         periodType,
+        periodRange,
         periodReducer,
         bands,
         filters,
@@ -94,6 +97,8 @@ const EarthEngineDialog = (props) => {
                 periodFilter[0].name = period.name
                 periodFilter[0].year = period.year
             }
+
+            console.log('periodFilter', periodFilter)
 
             setFilter(periodFilter)
         },
@@ -237,6 +242,7 @@ const EarthEngineDialog = (props) => {
                         datasetId={datasetId}
                         periodType={periodType}
                         period={period}
+                        periodRange={periodRange}
                         periodReducer={periodReducer}
                         filters={filters}
                         onChange={setFilterFromPeriod}

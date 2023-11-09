@@ -7,6 +7,8 @@ export const classAggregation = ['percentage', 'hectares', 'acres']
 
 export const hasClasses = (type) => classAggregation.includes(type)
 
+const timeRangeCache = {}
+
 // Translates from dynamic to static filters
 export const translateFilters = (filters, ...args) =>
     filters.map((filter) => ({
@@ -148,14 +150,55 @@ export const getPeriods = async (eeId, periodType, filters) => {
     return features.map(getPeriod)
 }
 
-const oneDayInMilliseconds = 24 * 60 * 60 * 1000
+// const oneDayInMilliseconds = 24 * 60 * 60 * 1000
 
 export const getTimeRange = async (eeId) => {
+    if (timeRangeCache[eeId]) {
+        return timeRangeCache[eeId]
+    }
+
     const eeWorker = await getWorkerInstance()
-    return eeWorker.getTimeRange(eeId).then(({ min, max }) => ({
-        firstDate: min ? formatDate(min) : null,
-        lastDate: max ? formatDate(max - oneDayInMilliseconds) : null,
-    }))
+
+    return eeWorker.getTimeRange(eeId).then(({ min, max }) => {
+        const response = {
+            firstDate: min ? formatDate(min) : null,
+            lastDate: max ? formatDate(max) : null,
+        }
+
+        timeRangeCache[eeId] = response
+
+        return response
+    })
+}
+
+const getRelativeDate = (days) => {
+    const dateObj = new Date()
+    dateObj.setDate(dateObj.getDate() + days)
+    return formatDate(dateObj)
+}
+
+export const createTimeRange = (range) => {
+    const { firstDate, lastDate } = range
+
+    return {
+        firstDate,
+        lastDate:
+            typeof lastDate === 'number'
+                ? getRelativeDate(range.lastDate)
+                : lastDate,
+    }
+
+    /*
+    'COPERNICUS/S2_SR_HARMONIZED': {
+        firstDate: '2022-01-01',
+        lastDate: '2023-11-08',
+    },
+
+    { 
+        ...range, 
+        lastDate: typeof range.lastDate === 'number' ? : range.lastDate
+     }
+    */
 }
 
 export const getPrecision = (values = []) => {

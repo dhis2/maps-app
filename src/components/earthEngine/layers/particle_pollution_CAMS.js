@@ -1,37 +1,39 @@
 import i18n from '@dhis2/d2-i18n'
-import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
+import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 
+// TODO: Check if we have the best period type and reducer
 export default {
     layerType: EARTH_ENGINE_LAYER,
-    layerId: 'ECMWF/CAMS/NRT/CO',
-    datasetId: 'ECMWF/CAMS/NRT',
     format: 'ImageCollection',
+    layerId: 'ECMWF/CAMS/NRT/PM2.5',
+    datasetId: 'ECMWF/CAMS/NRT',
+    img: 'images/particle-pollution.png',
     name: i18n.t('Particle pollution'),
-    description: 'Particulate matter d < 2.5 um',
+    description: 'Particulate matter d < 2.5 um (PM2.5)',
     source: 'Copernicus Climate Data Store / Google Earth Engine',
     sourceUrl: '',
-    unit: 'kg/m^3',
+    unit: 'mg/m^3',
     // aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     // defaultAggregations: ['mean', 'min', 'max'],
     // periodType: 'daily',
-    periodType: 'hourly',
+    periodType: 'DAILY',
     // periodReducer: 'sum',
     band: 'particulate_matter_d_less_than_25_um_surface',
     filters: [
         {
-            type: 'eq',
-            arguments: ['system:index', '$1'],
+            type: 'date',
+            arguments: ['$1', '$2'],
         },
     ],
     methods: [
         {
             name: 'multiply',
-            arguments: [1000],
+            arguments: [1000000],
         },
     ],
     style: {
         min: 0,
-        max: 3,
+        max: 0.1,
         palette: [
             '#fff7f3',
             '#fde0dd',

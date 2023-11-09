@@ -29,6 +29,8 @@ const PeriodSelect = ({
     const [year, setYear] = useState(getYear(period?.startDate || lastDate))
     const prevYear = usePrevious(year)
 
+    console.log('period', periodType, period)
+
     // Set periods when periodType or year changes
     /* eslint-disable react-hooks/exhaustive-deps */
     const periods = useMemo(
