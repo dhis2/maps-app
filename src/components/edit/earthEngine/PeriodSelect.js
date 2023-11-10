@@ -18,7 +18,7 @@ const EarthEnginePeriodSelect = ({
 }) => {
     const [periods, setPeriods] = useState()
     const [year, setYear] = useState()
-    const byYear = periodType === 'by year'
+    const byYear = periodType === 'BY_YEAR'
 
     const years = useMemo(
         () =>

@@ -162,7 +162,7 @@ const earthEngineLoader = async (config) => {
         ...layer.legend,
         items: Array.isArray(style) ? style : null,
         title: name,
-        period: period.name,
+        period: period?.name,
         groups,
         unit,
         description,
@@ -185,8 +185,6 @@ const earthEngineLoader = async (config) => {
     */
 
     const filter = getFilterFromPeriod(period, filters)
-
-    console.log('filter', filter)
 
     return {
         ...layer,

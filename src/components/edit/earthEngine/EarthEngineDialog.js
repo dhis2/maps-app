@@ -15,11 +15,13 @@ import {
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
+/*
 import {
     getPeriodFromFilter,
     translateFilters,
 } from '../../../util/earthEngine.js'
 import { incrementDate } from '../../../util/time.js'
+*/
 import { Help, Tab, Tabs } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import styles from '../styles/LayerDialog.module.css'
@@ -33,20 +35,20 @@ const EarthEngineDialog = (props) => {
     const [error, setError] = useState()
 
     const {
-        layerId,
+        // layerId,
         datasetId,
         band,
         rows,
         style,
-        filter,
+        // filter,
         areaRadius,
         orgUnits,
         setOrgUnits,
         orgUnitField,
         period,
-        startDate,
-        endDate,
-        setFilter,
+        // startDate,
+        // endDate,
+        // setFilter,
         setEarthEnginePeriod,
         setBufferRadius,
         validateLayer,
@@ -69,8 +71,6 @@ const EarthEngineDialog = (props) => {
         aggregations,
         defaultAggregations,
     } = props // dataset
-
-    console.log('period', period)
 
     // const period = getPeriodFromFilter(filter)
 
@@ -141,11 +141,13 @@ const EarthEngineDialog = (props) => {
         }
     }, [hasOrgUnitField, areaRadius, setBufferRadius])
 
+    /*
     useEffect(() => {
         if (!periodType && filters) {
             setFilter(filters)
         }
     }, [periodType, filters, setFilter])
+    */
 
     useEffect(() => {
         if (validateLayer) {
@@ -276,7 +278,7 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
-    layerId: PropTypes.string.isRequired,
+    // layerId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     // setFilter: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
@@ -286,12 +288,13 @@ EarthEngineDialog.propTypes = {
     band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]), // TODO: Why array?
     bands: PropTypes.array,
     description: PropTypes.string,
-    filter: PropTypes.array,
-    filters: PropTypes.array,
+    // filter: PropTypes.array,
+    // filters: PropTypes.array,
     legend: PropTypes.object,
     notice: PropTypes.string,
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
+    period: PropTypes.object,
     periodReducer: PropTypes.string,
     periodType: PropTypes.string,
     style: PropTypes.oneOfType([

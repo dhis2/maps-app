@@ -143,7 +143,7 @@ export const getPeriods = async (eeId, periodType, filters) => {
             ? { id: useSystemIndex ? id : year, name: String(year) }
             : { id, name: getStartEndDate(properties), year }
         */
-        return periodType === 'yearly'
+        return periodType === 'YEARLY'
             ? { id: useSystemIndex ? id : year, name: String(year) }
             : { id, name: getStartEndDate(properties), year }
     }
