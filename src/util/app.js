@@ -1,11 +1,15 @@
 import { layerTypes } from '../components/map/MapApi.js'
 import { defaultBasemaps } from '../constants/basemaps.js'
-import { BING_LAYER } from '../constants/layers.js'
+import { BING_LAYER, MAP_LAYER_POSITION_BASEMAP } from '../constants/layers.js'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
 } from '../constants/settings.js'
-import { createExternalLayer, supportedMapServices } from './external.js'
+import {
+    createExternalBasemapLayer,
+    createExternalOverlayLayer,
+    supportedMapServices,
+} from './external.js'
 import { getDefaultLayerTypes } from './getDefaultLayerTypes.js'
 import { getHiddenPeriods } from './periods.js'
 import { fetchExternalLayersQuery } from './requests.js'
@@ -28,9 +32,11 @@ export const appQueries = {
 
 const getBasemapList = (externalMapLayers, systemSettings) => {
     const externalBasemaps = externalMapLayers
-        .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
+        .filter(
+            (layer) => layer.mapLayerPosition === MAP_LAYER_POSITION_BASEMAP
+        )
         .filter((layer) => supportedMapServices.includes(layer.mapService))
-        .map((layer) => createExternalLayer(layer, true))
+        .map((layer) => createExternalBasemapLayer(layer))
         .filter((basemap) => layerTypes.includes(basemap.config.type))
 
     return defaultBasemaps()
@@ -52,9 +58,11 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
 // TODO ask Bjorn if we should check layer.config.type against MapApi.layerTypes
 const getLayerTypes = (externalMapLayers) => {
     const externalLayerTypes = externalMapLayers
-        .filter((layer) => layer.mapLayerPosition !== 'BASEMAP')
+        .filter(
+            (layer) => layer.mapLayerPosition !== MAP_LAYER_POSITION_BASEMAP
+        )
         .filter((layer) => supportedMapServices.includes(layer.mapService))
-        .map((layer) => createExternalLayer(layer, false))
+        .map((layer) => createExternalOverlayLayer(layer))
 
     return getDefaultLayerTypes().concat(externalLayerTypes)
 }

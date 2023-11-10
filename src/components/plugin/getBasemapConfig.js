@@ -3,6 +3,7 @@ import {
     getFallbackBasemap,
     defaultBasemaps,
 } from '../../constants/basemaps.js'
+import { MAP_LAYER_POSITION_BASEMAP } from '../../constants/layers.js'
 import { createExternalLayer } from '../../util/external.js'
 import { fetchExternalLayersQuery } from '../../util/requests.js'
 
@@ -14,7 +15,10 @@ async function getBasemaps(basemapId, defaultBasemapId, engine) {
                 externalLayers: fetchExternalLayersQuery,
             })
             externalBasemaps = externalLayers.externalMapLayers
-                .filter((layer) => layer.mapLayerPosition === 'BASEMAP')
+                .filter(
+                    (layer) =>
+                        layer.mapLayerPosition === MAP_LAYER_POSITION_BASEMAP
+                )
                 .map(createExternalLayer)
         }
 

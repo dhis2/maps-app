@@ -36,6 +36,9 @@ export const DATA_TABLE_LAYER_TYPES = [
     GEOJSON_URL_LAYER,
 ]
 
+export const MAP_LAYER_POSITION_BASEMAP = 'BASEMAP'
+export const MAP_LAYER_POSITION_OVERLAY = 'OVERLAY'
+
 export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER]
 
 export const DEFAULT_START_DATE = formatDate(
