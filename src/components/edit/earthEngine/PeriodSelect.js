@@ -18,7 +18,9 @@ const EarthEnginePeriodSelect = ({
 }) => {
     const [periods, setPeriods] = useState()
     const [year, setYear] = useState()
-    const byYear = periodType === 'BY_YEAR'
+    const byYear = periodType === 'BY_YEAR' || periodType === 'EE_MONTHLY'
+
+    // console.log('#', year, period, periods)
 
     const years = useMemo(
         () =>
@@ -39,12 +41,15 @@ const EarthEnginePeriodSelect = ({
         [byYear, year, periods]
     )
 
+    const items = byYear ? byYearPeriods : periods
+
     const onYearChange = useCallback(
         ({ id }) => {
+            // console.log('onYearChange', id, period, periods)
             onChange(null)
             setYear(id)
         },
-        [onChange]
+        [period, periods, onChange]
     )
 
     useEffect(() => {
@@ -71,6 +76,7 @@ const EarthEnginePeriodSelect = ({
     // Set most recent period by default
     useEffect(() => {
         if (!period && Array.isArray(periods) && periods.length) {
+            // TODO: Need to set period for the selected year
             onChange(periods[0])
         }
     }, [period, periods, onChange])
@@ -80,8 +86,6 @@ const EarthEnginePeriodSelect = ({
             setYear(period.year)
         }
     }, [byYear, period])
-
-    const items = byYear ? byYearPeriods : periods
 
     return items ? (
         <div className={className}>

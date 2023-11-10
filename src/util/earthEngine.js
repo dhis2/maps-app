@@ -19,13 +19,20 @@ export const translateFilters = (filters, ...args) =>
         }),
     }))
 
-export const getStartEndDate = (data) =>
+const getStartEndDate = (data) =>
     formatStartEndDate(
         data['system:time_start'],
         data['system:time_end'], // - 7200001, // Minus 2 hrs to end the day before
         null,
         false
     )
+
+const getMonth = (data) => {
+    const date = new Date(data['system:time_start'])
+    const month = date.toLocaleString('default', { month: 'long' }) // TODO: i18n?
+    const year = date.getFullYear()
+    return `${month} ${year}`
+}
 
 export const getFilterFromPeriod = (period, filters) => {
     if (!period || !filters) {
@@ -138,6 +145,8 @@ export const getPeriods = async (eeId, periodType, filters) => {
             properties.year ||
             new Date(properties['system:time_start']).getFullYear()
 
+        // console.log('period', periodType, id, properties)
+
         /*    
         return periodType === 'yearly'
             ? { id: useSystemIndex ? id : year, name: String(year) }
@@ -145,7 +154,14 @@ export const getPeriods = async (eeId, periodType, filters) => {
         */
         return periodType === 'YEARLY'
             ? { id: useSystemIndex ? id : year, name: String(year) }
-            : { id, name: getStartEndDate(properties), year }
+            : {
+                  id,
+                  name:
+                      periodType === 'EE_MONTHLY'
+                          ? getMonth(properties)
+                          : getStartEndDate(properties),
+                  year,
+              }
     }
 
     const eeWorker = await getWorkerInstance()
