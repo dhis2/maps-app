@@ -10,7 +10,7 @@ export default {
     name: i18n.t('Landcover Copernicus'),
     description: i18n.t('Distinct landcover types collected from satellites.'),
     source: 'Copernicus / Google Earth Engine',
-    periodType: 'yearly',
+    periodType: 'YEARLY',
     band: 'discrete_classification',
     defaultAggregations: 'percentage',
     popup: '{name}: {value}', // In use?

@@ -15,7 +15,7 @@ export default {
     source: 'NOAA / Google Earth Engine',
     sourceUrl:
         'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
-    periodType: 'yearly',
+    periodType: 'YEARLY',
     filters: [
         {
             type: 'eq',

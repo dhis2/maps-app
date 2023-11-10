@@ -12,7 +12,7 @@ export default {
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
-    periodType: 'yearly',
+    periodType: 'YEARLY',
     band: 'LC_Type1',
     filters: [
         {

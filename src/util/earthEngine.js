@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { apiFetch } from './api.js'
-import { formatDate, formatStartEndDate } from './time.js'
+import { formatDate, formatStartEndDate, incrementDate } from './time.js'
 
 export const classAggregation = ['percentage', 'hectares', 'acres']
 
@@ -26,6 +26,24 @@ export const getStartEndDate = (data) =>
         null,
         false
     )
+
+export const getFilterFromPeriod = (period, filters) => {
+    if (!period || !filters) {
+        return
+    }
+
+    const { id, startDate, endDate } = period
+
+    if (startDate && endDate) {
+        return translateFilters(filters, startDate, incrementDate(endDate))
+    } else {
+        return translateFilters(
+            filters,
+            // periodType === 'yearly' ? String(period.year) : period.id
+            id
+        )
+    }
+}
 
 export const getPeriodFromFilter = (filter) => {
     if (!Array.isArray(filter) || !filter.length) {

@@ -363,3 +363,9 @@ export const setNoDataColor = (color) => ({
     type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
     payload: color,
 })
+
+// Set period for EE layer
+export const setEarthEnginePeriod = (payload) => ({
+    type: types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET,
+    payload,
+})

@@ -5,7 +5,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import {
     setOrgUnits,
-    setFilter,
+    // setFilter,
+    setEarthEnginePeriod,
     setBufferRadius,
 } from '../../../actions/layerEdit.js'
 // import { getEarthEngineLayer } from '../../earthEngine/layers/all.js'
@@ -42,9 +43,11 @@ const EarthEngineDialog = (props) => {
         orgUnits,
         setOrgUnits,
         orgUnitField,
+        period,
         startDate,
         endDate,
         setFilter,
+        setEarthEnginePeriod,
         setBufferRadius,
         validateLayer,
         onLayerValidation,
@@ -67,10 +70,13 @@ const EarthEngineDialog = (props) => {
         defaultAggregations,
     } = props // dataset
 
-    const period = getPeriodFromFilter(filter)
+    console.log('period', period)
+
+    // const period = getPeriodFromFilter(filter)
 
     // const getFilterFromPeriod = (period) => {}
 
+    /*
     const setFilterFromPeriod = useCallback(
         (period) => {
             let periodFilter = null
@@ -102,8 +108,9 @@ const EarthEngineDialog = (props) => {
 
             setFilter(periodFilter)
         },
-        [/* periodType, */ filters, setFilter]
-    )
+        [filters, setFilter]
+    ) 
+    */
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
 
@@ -245,7 +252,8 @@ const EarthEngineDialog = (props) => {
                         periodRange={periodRange}
                         periodReducer={periodReducer}
                         filters={filters}
-                        onChange={setFilterFromPeriod}
+                        // onChange={setFilterFromPeriod}
+                        onChange={setEarthEnginePeriod}
                         onError={setError}
                         errorText={
                             error && error.type === 'period' && error.message
@@ -270,7 +278,7 @@ EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
     layerId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
-    setFilter: PropTypes.func.isRequired,
+    // setFilter: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
@@ -299,7 +307,7 @@ EarthEngineDialog.propTypes = {
 
 export default connect(
     null,
-    { setOrgUnits, setFilter, setBufferRadius },
+    { setOrgUnits, setEarthEnginePeriod, /* setFilter, */ setBufferRadius },
     null,
     {
         forwardRef: true,

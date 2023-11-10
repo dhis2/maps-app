@@ -17,7 +17,7 @@ export default {
     unit: '°C',
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    periodType: 'byYear',
+    periodType: 'BY_YEAR',
     band: 'temperature_2m',
     filters: [
         {

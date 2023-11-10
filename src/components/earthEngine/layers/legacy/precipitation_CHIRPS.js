@@ -15,7 +15,7 @@ export default {
     source: 'UCSB / CHG / Google Earth Engine',
     sourceUrl:
         'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
-    periodType: 'byYear',
+    periodType: 'YEARLY',
     filters: [
         {
             type: 'eq',

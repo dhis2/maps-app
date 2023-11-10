@@ -15,7 +15,7 @@ export default {
     source: 'WorldPop / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
-    periodType: 'yearly',
+    periodType: 'YEARLY',
     defaultAggregations: ['sum', 'mean'],
     bands: [
         {

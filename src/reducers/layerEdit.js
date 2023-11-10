@@ -575,6 +575,12 @@ const layerEdit = (state = null, action) => {
 
             return newState
 
+        case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:
+            return {
+                ...state,
+                period: action.payload,
+            }
+
         default:
             return state
     }

@@ -14,7 +14,7 @@ export default {
         'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
     img: 'images/population.png',
     defaultAggregations: ['sum', 'mean'],
-    periodType: 'Yearly',
+    periodType: 'YEARLY',
     filters: ({ id, name, year }) => [
         {
             id,

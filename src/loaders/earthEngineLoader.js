@@ -3,7 +3,7 @@ import { getInstance as getD2 } from 'd2'
 import { precisionFixed, format } from 'd3-format'
 // import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
+import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 // import { numberPrecision } from '../util/numbers.js'
@@ -135,10 +135,19 @@ const earthEngineLoader = async (config) => {
         ...layerConfig,
     }
 
-    const { unit, filter, description, source, sourceUrl, band, bands, style } =
-        layer
+    const {
+        unit,
+        period,
+        filters,
+        description,
+        source,
+        sourceUrl,
+        band,
+        bands,
+        style,
+    } = layer
     const { name } = config // dataset || config
-    const period = getPeriodNameFromFilter(filter)
+    // const period = getPeriodNameFromFilter(filter)
     const data =
         Array.isArray(features) && features.length ? features : undefined
     const hasBand = (b) =>
@@ -153,7 +162,7 @@ const earthEngineLoader = async (config) => {
         ...layer.legend,
         items: Array.isArray(style) ? style : null,
         title: name,
-        period,
+        period: period.name,
         groups,
         unit,
         description,
@@ -169,15 +178,22 @@ const earthEngineLoader = async (config) => {
     }
 
     // TODO: remove when range periods is supported
+    /*
     if (layer.periodType === 'range' && !layer.filter) {
         layer.filter = layer.filters
     }
+    */
+
+    const filter = getFilterFromPeriod(period, filters)
+
+    console.log('filter', filter)
 
     return {
         ...layer,
         legend,
         name,
         data,
+        filter,
         alerts,
         isLoaded: true,
         isLoading: false,

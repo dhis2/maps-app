@@ -7,7 +7,7 @@ import { setPeriodReducer } from '../../../actions/layerEdit.js'
 import { SelectField, DatePicker } from '../../core/index.js'
 import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
 import PeriodSelect from '../../periods/PeriodSelect.js'
-import StartEndDates from '../../periods/StartEndDates.js'
+import StartEndDates from './StartEndDates.js'
 import { START_END_DATES } from '../../../constants/periods.js'
 import { getTimeRange, createTimeRange } from '../../../util/earthEngine.js'
 import styles from './styles/PeriodReducer.module.css'
@@ -63,14 +63,14 @@ const EarthEnginePeriodReducer = ({
     const reducer = useSelector((state) => state.layerEdit.periodReducer)
     const dispatch = useDispatch()
 
-    console.log('periodType', periodType, range)
+    // console.log('periodType', periodType, range, dateRange)
 
     const onPeriodChange = useCallback(
         (period) => onChange(period ? { ...period, periodType } : null),
         [periodType, onChange]
     )
 
-    const onStartEndDateChange = useCallback(
+    const onPeriodReducerChange = useCallback(
         (reducer) => {
             dispatch(setPeriodReducer(reducer.id))
             // console.log('reducer', reducer)
@@ -102,28 +102,16 @@ const EarthEnginePeriodReducer = ({
             {dateRange && periodType ? (
                 <>
                     {periodType === START_END_DATES ? (
-                        <>
-                            <StartEndDates
-                                dateRange={dateRange}
-                                startDate={dateRange.firstDate}
-                                endDate={dateRange.lastDate}
-                                onChange={console.log}
-                                className={styles.periodSelect}
-                                // errorText={errorText}
-                            />
-                            <DatePicker
-                                label={i18n.t('Start date')}
-                                // defaultVal={startDate}
-                                onBlur={console.log}
-                                // className={className || styles.select}
-                            />
-                            <DatePicker
-                                label={i18n.t('Start date')}
-                                // defaultVal={startDate}
-                                onBlur={console.log}
-                                // className={className || styles.select}
-                            />
-                        </>
+                        <StartEndDates
+                            periodType={periodType}
+                            dateRange={dateRange}
+                            period={period}
+                            // startDate={dateRange.firstDate}
+                            // endDate={dateRange.lastDate}
+                            onChange={onPeriodChange}
+                            className={styles.periodSelect}
+                            // errorText={errorText}
+                        />
                     ) : (
                         <PeriodSelect
                             periodType={periodType}
@@ -139,7 +127,7 @@ const EarthEnginePeriodReducer = ({
                             label={i18n.t('Period aggregation method')}
                             items={periodReducers}
                             value={reducer}
-                            onChange={onStartEndDateChange}
+                            onChange={onPeriodReducerChange}
                             className={styles.reducer}
                         />
                     )}

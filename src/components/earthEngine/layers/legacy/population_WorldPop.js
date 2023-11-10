@@ -12,7 +12,7 @@ export default {
     source: 'WorldPop / Google Earth Engine',
     sourceUrl: 'https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP',
     img: 'images/population.png',
-    periodType: 'Yearly',
+    periodType: 'YEARLY',
     filters: ({ id, name, year }) => [
         {
             id,

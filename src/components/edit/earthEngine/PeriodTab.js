@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
-import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import { DAILY, WEEKLY } from '@dhis2/analytics'
+import React from 'react'
 import PeriodReducer from './PeriodReducer.js'
 import PeriodSelect from './PeriodSelect.js'
-import PeriodRange from './PeriodRange.js'
+
+const reducerPeriods = [DAILY, WEEKLY]
 
 const EarthEnginePeriodTab = ({
     datasetId,
@@ -18,18 +20,10 @@ const EarthEnginePeriodTab = ({
 }) => {
     return (
         <div className={className}>
-            {periodType === 'range' ? (
-                <PeriodRange
-                    datasetId={datasetId}
-                    period={period}
-                    reducer={periodReducer}
-                    onChange={onChange}
-                    errorText={errorText}
-                />
-            ) : periodType === 'DAILY' || periodType === 'WEEKLY' ? (
+            {reducerPeriods.includes(periodType) ? (
                 <PeriodReducer
-                    defaultPeriodType={periodType}
                     datasetId={datasetId}
+                    defaultPeriodType={periodType}
                     period={period}
                     range={periodRange}
                     reducer={periodReducer}
@@ -38,10 +32,10 @@ const EarthEnginePeriodTab = ({
                 />
             ) : (
                 <PeriodSelect
-                    periodType={periodType}
                     datasetId={datasetId}
-                    filters={filters}
+                    periodType={periodType}
                     period={period}
+                    filters={filters}
                     onChange={onChange}
                     onError={onError}
                     errorText={errorText}
@@ -52,6 +46,7 @@ const EarthEnginePeriodTab = ({
 }
 
 EarthEnginePeriodTab.propTypes = {
+    datasetId: PropTypes.string.isRequired,
     periodType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
