@@ -183,15 +183,14 @@ const models2objects = (layer) => {
         delete layer.relationshipOutsideProgram
         delete layer.periodType
     } else if (layerType === GEOJSON_URL_LAYER) {
-        console.log('config', layer)
         layer.config = {
             ...layer.config,
             featureStyle: { ...layer.featureStyle },
         }
 
         delete layer.featureStyle
-        delete layer.id
     }
+    delete layer.id
 
     if (isObject(layer.config)) {
         layer.config = JSON.stringify(layer.config) // External overlay
