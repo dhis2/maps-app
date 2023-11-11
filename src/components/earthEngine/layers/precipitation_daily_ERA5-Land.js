@@ -7,7 +7,7 @@ export default {
     layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/total_precipitation_sum',
     datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
     format: 'ImageCollection',
-    name: i18n.t('Precipitation daily'),
+    name: i18n.t('Precipitation'),
     description: i18n.t(
         'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
     ),

@@ -7,7 +7,7 @@ export default {
     layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m',
     datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
     format: 'ImageCollection',
-    name: i18n.t('Temperature daily'),
+    name: i18n.t('Temperature'),
     description: i18n.t(
         'Temperature at 2m above the surface. Combines model data with observations from across the world.'
     ),
