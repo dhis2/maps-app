@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-09T16:47:51.099Z\n"
-"PO-Revision-Date: 2023-11-09T16:47:51.099Z\n"
+"POT-Creation-Date: 2023-11-12T13:17:48.506Z\n"
+"PO-Revision-Date: 2023-11-12T13:17:48.506Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -565,9 +565,6 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation daily"
-msgstr "Precipitation daily"
-
 msgid ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
@@ -584,8 +581,8 @@ msgstr "Satellite imagery (Sentinel-2)"
 msgid "Sulfur Dioxide (SO2)"
 msgstr "Sulfur Dioxide (SO2)"
 
-msgid "Temperature daily"
-msgstr "Temperature daily"
+msgid "Temperature"
+msgstr "Temperature"
 
 msgid ""
 "Temperature at 2m above the surface. Combines model data with observations "
@@ -707,9 +704,6 @@ msgstr "Mode"
 msgid "Product"
 msgstr "Product"
 
-msgid "Start date"
-msgstr "Start date"
-
 msgid "Period aggregation method"
 msgstr "Period aggregation method"
 
@@ -718,6 +712,12 @@ msgstr "Year"
 
 msgid "Available periods are set by the source data"
 msgstr "Available periods are set by the source data"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
 
 msgid "Min value is required"
 msgstr "Min value is required"
@@ -1231,9 +1231,6 @@ msgstr "Timeline"
 
 msgid "Split map views"
 msgstr "Split map views"
-
-msgid "End date"
-msgstr "End date"
 
 msgid "Not available offline"
 msgstr "Not available offline"

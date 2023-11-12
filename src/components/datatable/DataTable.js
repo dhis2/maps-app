@@ -87,7 +87,8 @@ class DataTable extends Component {
 
     loadExtendedData() {
         const { layer, updateLayer } = this.props
-        const { layer: layerType, isExtended, serverCluster } = layer
+        const { isExtended, serverCluster } = layer
+        const layerType = layer.layerType || layer.layer
 
         if (layerType === EVENT_LAYER && !isExtended && !serverCluster) {
             updateLayer({
@@ -185,14 +186,8 @@ class DataTable extends Component {
         const { data, sortBy, sortDirection } = this.state
         const { width, height, layer, aggregations } = this.props
 
-        const {
-            layer: layerType,
-            styleDataItem,
-            serverCluster,
-            aggregationType,
-            legend,
-        } = layer
-
+        const { styleDataItem, serverCluster, aggregationType, legend } = layer
+        const layerType = layer.layerType || layer.layer
         const isThematic = layerType === THEMATIC_LAYER
         const isOrgUnit = layerType === ORG_UNIT_LAYER
         const isEvent = layerType === EVENT_LAYER

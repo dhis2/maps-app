@@ -54,10 +54,10 @@ const OverlayCard = ({
         isExpanded = true,
         opacity,
         isVisible,
-        layer: layerType,
         isLoaded,
     } = layer
 
+    const layerType = layer.layerType || layer.layer
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType)
