@@ -80,9 +80,8 @@ jobs:
     call-workflow-e2e-prod:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test]
-        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests.yml@master
+        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@chore/analytics-workflow-changes
         secrets:
-            baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
