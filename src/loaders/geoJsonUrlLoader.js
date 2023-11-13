@@ -16,6 +16,7 @@ const fetchData = async (url, engine, baseUrl) => {
             })
             .then(async (data) => {
                 if (data.geojson instanceof Blob) {
+                    // TODO - remove once Blob fix implemented in app-runtime
                     return JSON.parse(await data.geojson.text())
                 }
                 return data.geojson

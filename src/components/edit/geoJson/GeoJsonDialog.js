@@ -13,7 +13,7 @@ const GeoJsonDialog = ({ featureStyle, validateLayer, onLayerValidation }) => {
 
     useEffect(() => {
         if (validateLayer) {
-            onLayerValidation(true) // TODO
+            onLayerValidation(true)
         }
     }, [validateLayer, onLayerValidation])
 

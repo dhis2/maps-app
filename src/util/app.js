@@ -55,7 +55,6 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
         .concat(externalBasemaps)
 }
 
-// TODO ask Bjorn if we should check layer.config.type against MapApi.layerTypes
 const getLayerTypes = (externalMapLayers) => {
     const externalLayerTypes = externalMapLayers
         .filter(
@@ -63,6 +62,7 @@ const getLayerTypes = (externalMapLayers) => {
         )
         .filter((layer) => supportedMapServices.includes(layer.mapService))
         .map((layer) => createExternalOverlayLayer(layer))
+        .filter((overlay) => layerTypes.includes(overlay.config.type))
 
     return getDefaultLayerTypes().concat(externalLayerTypes)
 }

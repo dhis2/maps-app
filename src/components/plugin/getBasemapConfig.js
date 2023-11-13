@@ -4,7 +4,7 @@ import {
     defaultBasemaps,
 } from '../../constants/basemaps.js'
 import { MAP_LAYER_POSITION_BASEMAP } from '../../constants/layers.js'
-import { createExternalLayer } from '../../util/external.js'
+import { createExternalBasemapLayer } from '../../util/external.js'
 import { fetchExternalLayersQuery } from '../../util/requests.js'
 
 async function getBasemaps(basemapId, defaultBasemapId, engine) {
@@ -19,7 +19,7 @@ async function getBasemaps(basemapId, defaultBasemapId, engine) {
                     (layer) =>
                         layer.mapLayerPosition === MAP_LAYER_POSITION_BASEMAP
                 )
-                .map(createExternalLayer)
+                .map(createExternalBasemapLayer)
         }
 
         return defaultBasemaps().concat(externalBasemaps)
