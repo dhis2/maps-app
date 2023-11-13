@@ -23,7 +23,7 @@ import styles from './styles/LayerEdit.module.css'
 import ThematicDialog from './thematic/ThematicDialog.js'
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
 
-const layerType = {
+const layerDialogs = {
     event: EventDialog,
     trackedEntity: TrackedEntityDialog,
     facility: FacilityDialog,
@@ -33,7 +33,7 @@ const layerType = {
     geoJsonUrl: GeoJsonDialog,
 }
 
-const layerName = () => ({
+const layerNames = () => ({
     event: i18n.t('event'),
     trackedEntity: i18n.t('tracked entity'),
     facility: i18n.t('facility'),
@@ -77,13 +77,13 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     }
 
     const type = layer.layer
-    const LayerDialog = layerType[type]
+    const LayerDialog = layerDialogs[type]
 
     if (!LayerDialog) {
         return null
     }
 
-    let name = layerName()[type] || layer.type
+    let name = layerNames()[type]
 
     if (type === EARTH_ENGINE_LAYER) {
         name = layer.name.toLowerCase()
