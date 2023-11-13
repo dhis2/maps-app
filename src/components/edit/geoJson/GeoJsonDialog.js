@@ -1,19 +1,15 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setFeatureStyle } from '../../../actions/layerEdit.js'
 import { Tab, Tabs } from '../../core/index.js'
 import FeatureStyle from '../shared/FeatureStyle.js'
 import styles from '../styles/LayerDialog.module.css'
 
-const GeoJsonDialog = ({
-    featureStyle,
-    setFeatureStyle,
-    validateLayer,
-    onLayerValidation,
-}) => {
+const GeoJsonDialog = ({ featureStyle, validateLayer, onLayerValidation }) => {
     const [tab, setTab] = useState('style')
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (validateLayer) {
@@ -32,7 +28,9 @@ const GeoJsonDialog = ({
                         <div className={styles.flexColumn}>
                             <FeatureStyle
                                 style={featureStyle}
-                                onChange={setFeatureStyle}
+                                onChange={(val) =>
+                                    dispatch(setFeatureStyle(val))
+                                }
                             />
                         </div>
                     </div>
@@ -43,19 +41,9 @@ const GeoJsonDialog = ({
 }
 
 GeoJsonDialog.propTypes = {
-    setFeatureStyle: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
     featureStyle: PropTypes.object,
 }
 
-export default connect(
-    null,
-    {
-        setFeatureStyle,
-    },
-    null,
-    {
-        forwardRef: true,
-    }
-)(GeoJsonDialog)
+export default GeoJsonDialog

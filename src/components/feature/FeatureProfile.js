@@ -24,7 +24,7 @@ const FeatureProfile = () => {
                 </span>
             </div>
             <div className={styles.content}>
-                <div className={styles.orgUnitData}>
+                <div className={styles.featureData}>
                     <div className={styles.dataTable}>
                         <table>
                             <tbody>

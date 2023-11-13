@@ -121,7 +121,6 @@ const cleanLayerConfig = (layer) => ({
 
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = (layer) => {
-    // debugger
     const { layer: layerType } = layer
 
     Object.keys(layer).forEach((key) => {

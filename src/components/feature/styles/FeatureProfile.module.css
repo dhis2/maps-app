@@ -31,10 +31,6 @@
     padding: var(--spacers-dp16);
 }
 
-.periodSelect label span {
-    display: none;
-}
-
 .dataTable {
     position: relative;
 }
@@ -60,30 +56,4 @@
     text-align: right;
     padding: 10px 0 9px;
     white-space: nowrap;
-}
-
-.loadingMask {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: #fff;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    opacity: 0.7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.loadingMask > div {
-    opacity: 1;
-}
-
-.noData {
-    font-style: italic;
-    padding-top: var(--spacers-dp8);
-    font-size: 14px;
-    color: var(--colors-grey900);
 }
