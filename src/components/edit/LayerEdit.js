@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
@@ -13,7 +14,6 @@ import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
-import { useSystemSettings } from '../SystemSettingsProvider.js'
 import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
 import EventDialog from './event/EventDialog.js'
 import FacilityDialog from './FacilityDialog.js'
@@ -42,7 +42,7 @@ const layerName = () => ({
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
-    const { keyAnalysisRelativePeriod } = useSystemSettings()
+    const { systemSettings } = useCachedDataQuery()
     const orgUnits = useOrgUnits()
 
     const onValidateLayer = () => setIsValidLayer(true)
@@ -97,7 +97,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                 <div className={styles.content}>
                     <LayerDialog
                         {...layer}
-                        defaultPeriod={keyAnalysisRelativePeriod}
+                        systemSettings={systemSettings}
                         orgUnits={orgUnits}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}

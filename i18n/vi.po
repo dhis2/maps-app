@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -24,15 +24,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -437,9 +428,6 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr ""
 
@@ -454,9 +442,6 @@ msgstr "Mục dữ liệu sự kiện"
 
 msgid "Program indicators"
 msgstr "Chỉ Số Chương Trình"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "Kiểu mục"
@@ -910,12 +895,6 @@ msgstr "Bản đồ ánh sáng OSM"
 msgid "OSM Detailed"
 msgstr ""
 
-msgid "Google Streets"
-msgstr "Bản đồ đường phố (Google Streets)"
-
-msgid "Google Hybrid"
-msgstr "Bản đồ thực (Google Hybrid)"
-
 msgid "Bing Road"
 msgstr ""
 
@@ -1316,18 +1295,6 @@ msgstr ""
 msgid "related"
 msgstr ""
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "Sự kiện"
-
-msgid "Tracked entities"
-msgstr "Các thực thể được theo dõi"
-
-msgid "Org units"
-msgstr "Các đơn vị"
-
 msgid "not one of"
 msgstr ""
 
@@ -1350,6 +1317,18 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "Sự kiện"
+
+msgid "Tracked entities"
+msgstr "Các thực thể được theo dõi"
+
+msgid "Org units"
+msgstr "Các đơn vị"
 
 msgid "Facility"
 msgstr "Trạm Y tế"
