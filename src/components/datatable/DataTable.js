@@ -125,7 +125,13 @@ class DataTable extends Component {
                 return sortDirection === 'ASC' ? a - b : b - a
             }
 
-            if (a !== undefined) {
+            // Some values are null
+            if (
+                a !== undefined &&
+                a !== null &&
+                b !== undefined &&
+                b !== null
+            ) {
                 return sortDirection === 'ASC'
                     ? a.localeCompare(b)
                     : b.localeCompare(a)

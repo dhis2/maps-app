@@ -15,6 +15,7 @@ export default {
     unit: i18n.t('people per hectare'),
     defaultAggregations: ['sum', 'mean'],
     periodType: 'YEARLY',
+    useCentroid: true,
     band: 'population',
     filters: [
         {

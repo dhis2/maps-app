@@ -76,6 +76,7 @@ export default class EarthEngineLayer extends Layer {
             areaRadius,
             tileScale,
             periodReducer,
+            useCentroid,
             cloudScore,
         } = this.props
 
@@ -115,6 +116,7 @@ export default class EarthEngineLayer extends Layer {
             projection,
             data,
             aggregationType,
+            useCentroid,
             tileScale,
             cloudScore,
             preload: !isPlugin && this.hasAggregations(),
@@ -146,7 +148,6 @@ export default class EarthEngineLayer extends Layer {
         config.getAuthToken = getAuthToken
 
         try {
-            this.layer = map.createLayer(config)
             await map.addLayer(this.layer)
         } catch (error) {
             this.onError(error)

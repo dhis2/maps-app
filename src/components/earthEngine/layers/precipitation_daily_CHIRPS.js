@@ -4,32 +4,26 @@ import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 export default {
     layerType: EARTH_ENGINE_LAYER,
     img: 'images/precipitation.png',
-    layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/total_precipitation_sum',
-    datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+    layerId: 'UCSB-CHG/CHIRPS/DAILY',
+    datasetId: 'UCSB-CHG/CHIRPS/DAILY',
     format: 'ImageCollection',
-    name: i18n.t('Precipitation ERA5'),
+    name: i18n.t('Precipitation CHIRPS'),
     description: i18n.t(
-        'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
+        'Precipitation collected from satellite and weather stations on the ground.'
     ),
-    source: 'Copernicus Climate Data Store / Google Earth Engine',
+    source: 'CHIRPS / Google Earth Engine',
     sourceUrl:
-        'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_DAILY_AGGR',
+        'https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY',
     unit: i18n.t('millimeter'),
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
     periodType: 'DAILY',
     periodReducer: 'sum',
-    band: 'total_precipitation_sum',
+    band: 'precipitation',
     filters: [
         {
             type: 'date',
             arguments: ['$1', '$2'],
-        },
-    ],
-    methods: [
-        {
-            name: 'multiply',
-            arguments: [1000],
         },
     ],
     style: {

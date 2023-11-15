@@ -17,6 +17,7 @@ export default {
         'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
     periodType: 'YEARLY',
     defaultAggregations: ['sum', 'mean'],
+    useCentroid: true,
     bands: [
         {
             id: 'M_0',
