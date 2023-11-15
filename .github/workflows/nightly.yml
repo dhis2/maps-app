@@ -17,7 +17,6 @@ defaults:
 
 jobs:
     call-workflow-e2e-dev:
-        if: github.ref == 'refs/heads/dev'
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-dev.yml@master
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
