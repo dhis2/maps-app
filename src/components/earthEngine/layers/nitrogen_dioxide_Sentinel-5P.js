@@ -36,5 +36,6 @@ export default {
             '#7a0177',
         ],
     },
+    precision: 5,
     opacity: 0.8,
 }

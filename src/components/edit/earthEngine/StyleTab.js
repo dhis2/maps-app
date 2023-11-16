@@ -7,7 +7,7 @@ import styles from '../styles/LayerDialog.module.css'
 import LegendPreview from './LegendPreview.js'
 import StyleSelect from './StyleSelect.js'
 
-const StyleTab = ({ unit, style, hasOrgUnitField }) => {
+const StyleTab = ({ unit, style, precision, hasOrgUnitField }) => {
     const { min, max, palette } = style
     const isClassStyle =
         min !== undefined &&
@@ -25,7 +25,9 @@ const StyleTab = ({ unit, style, hasOrgUnitField }) => {
                     hasOrgUnitField={hasOrgUnitField}
                 />
             </div>
-            {isClassStyle && <LegendPreview style={style} />}
+            {isClassStyle && (
+                <LegendPreview style={style} precision={precision} />
+            )}
         </div>
     )
 }

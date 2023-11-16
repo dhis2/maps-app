@@ -174,3 +174,6 @@ export const getLongestTextLength = (array, key) =>
 //  Copied from https://github.com/dhis2/d2/blob/master/src/uid.js
 const CODE_PATTERN = /^[a-zA-Z]{1}[a-zA-Z0-9]{10}$/
 export const isValidUid = (code) => (code ? CODE_PATTERN.test(code) : false)
+
+export const lowercaseFirstLetter = (string) =>
+    string.charAt(0).toLowerCase() + string.slice(1)

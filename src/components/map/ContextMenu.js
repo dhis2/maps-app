@@ -22,6 +22,7 @@ import {
     EARTH_ENGINE_LAYER,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
+import { lowercaseFirstLetter } from '../../util/helpers.js'
 import { drillUpDown } from '../../util/map.js'
 import styles from './styles/ContextMenu.module.css'
 
@@ -153,7 +154,7 @@ const ContextMenu = () => {
                                 dataTest="context-menu-show-ee-value"
                                 key={layer.id}
                                 label={i18n.t('Show {{name}}', {
-                                    name: layer.name.toLowerCase(),
+                                    name: lowercaseFirstLetter(layer.name),
                                 })}
                                 icon={<IconLocation16 />}
                                 onClick={() =>

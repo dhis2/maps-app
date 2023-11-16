@@ -19,14 +19,17 @@ export default class EarthEngineLayer extends Layer {
     componentDidUpdate(prev) {
         super.componentDidUpdate(prev)
 
-        const { coordinate } = this.props
+        const { coordinate, precision } = this.props
 
         if (coordinate && coordinate !== prev.coordinate) {
             try {
-                this.layer.showValue({
-                    lng: coordinate[0],
-                    lat: coordinate[1],
-                })
+                this.layer.showValue(
+                    {
+                        lng: coordinate[0],
+                        lat: coordinate[1],
+                    },
+                    precision
+                )
             } catch (error) {
                 this.setState({
                     error: i18n.t(

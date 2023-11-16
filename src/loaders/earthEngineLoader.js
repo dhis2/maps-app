@@ -145,6 +145,7 @@ const earthEngineLoader = async (config) => {
         band,
         bands,
         style,
+        precision,
     } = layer
     const { name } = config // dataset || config
     // const period = getPeriodNameFromFilter(filter)
@@ -173,8 +174,8 @@ const earthEngineLoader = async (config) => {
     // Create/update legend items from params
     if (format === 'FeatureCollection') {
         // TODO: Add feature collection style
-    } else if (!hasClasses(aggregationType) && layer.style?.palette) {
-        legend.items = createLegend(layer.style)
+    } else if (!hasClasses(aggregationType) && style?.palette) {
+        legend.items = createLegend(style, precision)
     }
 
     // TODO: remove when range periods is supported
@@ -200,10 +201,10 @@ const earthEngineLoader = async (config) => {
     }
 }
 
-export const createLegend = ({ min, max, palette }) => {
+export const createLegend = ({ min, max, palette }, precision) => {
     const step = (max - min) / (palette.length - (min > 0 ? 2 : 1))
-    const precision = precisionFixed(step % 1)
-    const valueFormat = format('.' + precision + 'f')
+    const decimals = precision || precisionFixed(step % 1)
+    const valueFormat = format('.' + decimals + 'f')
 
     let from = min
     let to = valueFormat(min + step)

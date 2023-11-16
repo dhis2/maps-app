@@ -70,6 +70,7 @@ const EarthEngineDialog = (props) => {
         sourceUrl,
         aggregations,
         defaultAggregations,
+        precision,
     } = props // dataset
 
     // const period = getPeriodFromFilter(filter)
@@ -268,6 +269,7 @@ const EarthEngineDialog = (props) => {
                     <StyleTab
                         unit={unit}
                         style={style}
+                        precision={precision}
                         hasOrgUnitField={hasOrgUnitField}
                     />
                 )}
