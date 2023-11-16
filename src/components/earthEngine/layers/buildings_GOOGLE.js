@@ -35,8 +35,8 @@ export default {
     ],
     */
     style: {
-        color: '#FFA500', // TODO: Not in use
-        width: 1,
+        color: '#FFA500',
+        strokeWidth: 1,
     },
     opacity: 0.9,
 }
