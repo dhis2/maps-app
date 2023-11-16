@@ -148,6 +148,7 @@ export default class EarthEngineLayer extends Layer {
         config.getAuthToken = getAuthToken
 
         try {
+            this.layer = map.createLayer(config)
             await map.addLayer(this.layer)
         } catch (error) {
             this.onError(error)

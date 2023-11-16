@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-12T13:17:48.506Z\n"
-"PO-Revision-Date: 2023-11-12T13:17:48.506Z\n"
+"POT-Creation-Date: 2023-11-16T11:25:13.951Z\n"
+"PO-Revision-Date: 2023-11-16T11:25:13.951Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -565,6 +565,15 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
+msgid "Precipitation CHIRPS"
+msgstr "Precipitation CHIRPS"
+
+msgid "Precipitation collected from satellite and weather stations on the ground."
+msgstr "Precipitation collected from satellite and weather stations on the ground."
+
+msgid "Precipitation ERA5"
+msgstr "Precipitation ERA5"
+
 msgid ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
@@ -590,6 +599,16 @@ msgid ""
 msgstr ""
 "Temperature at 2m above the surface. Combines model data with observations "
 "from across the world."
+
+msgid "Max temperature"
+msgstr "Max temperature"
+
+msgid ""
+"Max temperature at 2m above the surface. Combines model data with "
+"observations from across the world."
+msgstr ""
+"Max temperature at 2m above the surface. Combines model data with "
+"observations from across the world."
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
