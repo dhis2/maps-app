@@ -10,7 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import useEarthEngineLayers from '../../hooks/useEarthEngineLayersStore.js'
-import LayerRow from './LayerRow.js'
+import EarthEngineLayer from './EarthEngineLayer.js'
 import earthEngineLayers from './layers/index.js'
 import styles from './styles/EarthEngineModal.module.css'
 
@@ -23,26 +23,22 @@ const EarthEngineModal = ({ onClose }) => {
 
     return (
         <Modal large position="middle" dataTest="earthenginemodal">
-            <ModalTitle>{i18n.t('Manage available layers')}</ModalTitle>
+            <ModalTitle>{i18n.t('Configure available layers')}</ModalTitle>
             <ModalContent>
                 <div className={styles.description}>
                     {i18n.t(
-                        'Select the layers you want to show in the "Add layer" dialogue. The shown layers will be available for all users.'
+                        'Choose which layers are available to add to maps. This setting applies to all users.'
                     )}
                 </div>
-                <table className={styles.layersTable}>
-                    <tbody>
-                        {layers.map((layer) => (
-                            <LayerRow
-                                key={layer.layerId}
-                                layer={layer}
-                                isAdded={addedLayers.includes(layer.layerId)}
-                                onShow={addLayer}
-                                onHide={removeLayer}
-                            />
-                        ))}
-                    </tbody>
-                </table>
+                {layers.map((layer) => (
+                    <EarthEngineLayer
+                        key={layer.layerId}
+                        layer={layer}
+                        isAdded={addedLayers.includes(layer.layerId)}
+                        onShow={addLayer}
+                        onHide={removeLayer}
+                    />
+                ))}
             </ModalContent>
             <ModalActions>
                 <ButtonStrip end>
