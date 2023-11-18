@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2022
+# Ibatov <ibatovk@who.int>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2022\n"
+"Last-Translator: Ibatov <ibatovk@who.int>, 2023\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -244,7 +244,7 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Даврлар юкланмоқда"
 
 msgid "Min value is required"
 msgstr ""
@@ -739,7 +739,7 @@ msgid "No data found for this period."
 msgstr "Ушбу давр учун маълумот топилмади"
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "Ассоцирланган геометриядан фойдаланиш"
 
 msgid "Select groups"
 msgstr "Гуруҳларни танланг"
@@ -947,7 +947,7 @@ msgid "Bing Aerial Labels"
 msgstr "Қатлам белгилари"
 
 msgid "Population"
-msgstr ""
+msgstr "Аҳоли"
 
 msgid "people per hectare"
 msgstr ""
@@ -956,7 +956,7 @@ msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Аҳоли ёш гуруҳлари"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
