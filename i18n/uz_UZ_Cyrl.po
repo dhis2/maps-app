@@ -314,7 +314,7 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Даврлар юкланмоқда"
 
 msgid "Min value is required"
 msgstr ""
@@ -746,7 +746,7 @@ msgid ""
 msgstr ""
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "Ассоцирланган геометриядан фойдаланиш"
 
 msgid "None (default)"
 msgstr ""
@@ -920,7 +920,7 @@ msgid "Bing Aerial Labels"
 msgstr "Белгилар"
 
 msgid "Population"
-msgstr ""
+msgstr "Аҳоли"
 
 msgid "people per hectare"
 msgstr ""
@@ -929,7 +929,7 @@ msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Аҳоли ёш гуруҳлари"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
