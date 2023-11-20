@@ -9,7 +9,7 @@
 
 .closeIcon {
     position: absolute;
-    right: 3px;
+    right: var(--spacers-dp8);
     z-index: 100;
     cursor: pointer;
     color: var(--colors-grey800);
