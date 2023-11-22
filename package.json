@@ -24,7 +24,7 @@
         "@dhis2/cli-style": "^10.5.1",
         "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^10.0.3",
-        "@testing-library/react": "^12.1.5",
+        "@testing-library/react": "^14.1.2",
         "cypress": "^12.16.0",
         "cypress-tags": "^1.1.2",
         "cypress-wait-until": "^1.7.2",
