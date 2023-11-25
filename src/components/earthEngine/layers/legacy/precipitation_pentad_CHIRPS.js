@@ -25,7 +25,6 @@ export default {
     band: 'precipitation',
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    mask: true,
     img: 'images/precipitation.png',
     style: {
         min: 0,
@@ -39,5 +38,6 @@ export default {
             '#08519c',
         ], // Blues (ColorBrewer)
     },
+    maskOperator: 'gte',
     opacity: 0.9,
 }

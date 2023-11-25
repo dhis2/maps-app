@@ -28,5 +28,6 @@ export default {
             '#993404',
         ], // YlOrBr
     },
+    maskOperator: 'gte',
     opacity: 0.9,
 }

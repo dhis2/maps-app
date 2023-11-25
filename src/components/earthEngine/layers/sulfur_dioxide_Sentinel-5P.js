@@ -23,16 +23,11 @@ export default {
         },
     ],
     style: {
-        min: 0,
-        max: 0.001,
-        palette: [
-            '#feebe2',
-            '#fcc5c0',
-            '#fa9fb5',
-            '#f768a1',
-            '#c51b8a',
-            '#7a0177',
-        ],
+        min: 0.0005,
+        max: 0.0025,
+        palette: ['#feebe2', '#fbb4b9', '#f768a1', '#c51b8a', '#7a0177'],
     },
+    maskOperator: 'gte',
+    precision: 4,
     opacity: 0.8,
 }

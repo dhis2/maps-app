@@ -36,5 +36,6 @@ export default {
             '#a50f15',
         ],
     },
+    maskOperator: 'gt',
     opacity: 0.9,
 }

@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { precisionFixed } from 'd3-format'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { connect } from 'react-redux'

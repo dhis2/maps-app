@@ -44,5 +44,6 @@ export default {
             '#08519c',
         ],
     },
+    maskOperator: 'gt',
     opacity: 0.9,
 }

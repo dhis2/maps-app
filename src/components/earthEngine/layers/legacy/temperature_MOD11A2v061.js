@@ -26,7 +26,6 @@ export default {
             arguments: ['system:index', '$1'],
         },
     ],
-    mask: true,
     methods: [
         {
             name: 'toFloat',
@@ -56,5 +55,6 @@ export default {
             '#67000d',
         ], // Reds (ColorBrewer)
     },
+    maskOperator: 'gte',
     opacity: 0.9,
 }

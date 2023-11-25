@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
-import { precisionFixed, format } from 'd3-format'
+import { precisionFixed, formatLocale } from 'd3-format'
 // import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
@@ -11,6 +11,8 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
+
+const numberFormat = formatLocale({ minus: '\u002D' }).format
 
 // Returns a promise
 const earthEngineLoader = async (config) => {
@@ -145,6 +147,7 @@ const earthEngineLoader = async (config) => {
         band,
         bands,
         style,
+        maskOperator,
         precision,
     } = layer
     const { name } = config // dataset || config
@@ -175,7 +178,7 @@ const earthEngineLoader = async (config) => {
     if (format === 'FeatureCollection') {
         // TODO: Add feature collection style
     } else if (!hasClasses(aggregationType) && style?.palette) {
-        legend.items = createLegend(style, precision)
+        legend.items = createLegend(style, !maskOperator, precision)
     }
 
     // TODO: remove when range periods is supported
@@ -201,24 +204,28 @@ const earthEngineLoader = async (config) => {
     }
 }
 
-export const createLegend = ({ min, max, palette }, precision) => {
-    const step = (max - min) / (palette.length - (min > 0 ? 2 : 1))
+export const createLegend = (
+    { min, max, palette },
+    showBelowMin,
+    precision
+) => {
+    const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
     const decimals = precision || precisionFixed(step % 1)
-    const valueFormat = format('.' + decimals + 'f')
+    const valueFormat = numberFormat('.' + decimals + 'f')
 
-    let from = min
+    let from = valueFormat(min)
     let to = valueFormat(min + step)
 
     return palette.map((color, index) => {
         const item = { color }
 
-        if (index === 0 && min > 0) {
+        if (index === 0 && showBelowMin) {
             // Less than min
-            item.from = 0
+            item.from = -Infinity
             item.to = min
             item.name = '< ' + min
             to = min
-        } else if (from < max) {
+        } else if (+from < max) {
             item.from = +from
             item.to = +to
             item.name = from + ' - ' + to
@@ -229,7 +236,7 @@ export const createLegend = ({ min, max, palette }, precision) => {
         }
 
         from = to
-        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)))
+        to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
 
         return item
     })

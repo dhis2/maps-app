@@ -40,6 +40,7 @@ const EarthEngineDialog = (props) => {
         band,
         rows,
         style,
+        maskOperator,
         // filter,
         areaRadius,
         orgUnits,
@@ -269,6 +270,7 @@ const EarthEngineDialog = (props) => {
                     <StyleTab
                         unit={unit}
                         style={style}
+                        showBelowMin={!maskOperator}
                         precision={precision}
                         hasOrgUnitField={hasOrgUnitField}
                     />

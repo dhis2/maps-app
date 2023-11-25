@@ -8,8 +8,9 @@ import styles from '../styles/LayerDialog.module.css'
 const styleIsValid = ({ min, max }) =>
     !Number.isNaN(min) && !Number.isNaN(max) && max > min
 
-const LegendPreview = ({ style, precision }) => {
-    const legend = styleIsValid(style) && createLegend(style, precision)
+const LegendPreview = ({ style, showBelowMin, precision }) => {
+    const legend =
+        styleIsValid(style) && createLegend(style, showBelowMin, precision)
 
     return legend ? (
         <div className={styles.flexColumn}>
@@ -33,6 +34,8 @@ LegendPreview.propTypes = {
         min: PropTypes.number.isRequired,
         palette: PropTypes.array.isRequired,
     }),
+    showBelowMin: PropTypes.bool,
+    precision: PropTypes.number,
 }
 
 export default LegendPreview

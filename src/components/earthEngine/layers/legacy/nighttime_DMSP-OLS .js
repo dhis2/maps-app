@@ -23,7 +23,6 @@ export default {
         },
     ],
     band: 'stable_lights',
-    mask: true,
     img: 'images/nighttime.png',
     style: {
         min: 0,
@@ -38,5 +37,6 @@ export default {
             '#8c2d04',
         ], // YlOrBr (ColorBrewer)
     },
+    maskOperator: 'gte',
     opacity: 0.9,
 }
