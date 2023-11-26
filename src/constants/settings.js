@@ -15,4 +15,5 @@ export const SYSTEM_SETTINGS = [
     'keyHideMonthlyPeriods',
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
+    'keyAnalysisDisplayProperty',
 ]

@@ -11,7 +11,6 @@ import {
 } from '../constants/layers.js'
 import { apiFetch } from './api.js'
 import { getUniqueColor } from './colors.js'
-import { getDisplayPropertyUrl } from './helpers.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -80,14 +79,25 @@ export const getOrgUnitGroupLegendItems = (
               }
     )
 
-/* eslint-disable max-params */
-export const getStyledOrgUnits = (
+export const getStyledOrgUnits = ({
     features = [],
     groupSet = {},
-    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow = ORG_UNIT_RADIUS },
+    config,
     contextPath,
-    orgUnitLevels
-) => {
+    orgUnitLevels = [],
+}) => {
+    const {
+        organisationUnitColor = ORG_UNIT_COLOR,
+        radiusLow = ORG_UNIT_RADIUS,
+    } = config
+
+    const ouLevelNameMap = orgUnitLevels.reduce(
+        (obj, item) => ({
+            ...obj,
+            [item.level]: item.name,
+        }),
+        {}
+    )
     const {
         name,
         styleType = orgUnitLevels ? STYLE_TYPE_COLOR : STYLE_TYPE_SYMBOL,
@@ -106,7 +116,7 @@ export const getStyledOrgUnits = (
             Math.pow(levels.length - levels.indexOf(level), 1.2)
 
         levelItems = levels.map((level) => ({
-            name: orgUnitLevels[level],
+            name: ouLevelNameMap[level],
             color: organisationUnitColor,
             weight: levelWeight(level),
         }))
@@ -179,25 +189,6 @@ export const getStyledOrgUnits = (
             items: [...levelItems, ...groupItems, ...facilityItems],
         },
     }
-}
-/* eslint-enable max-params */
-
-// This function returns the org unit level names used in the legend
-export const getOrgUnitLevels = async (d2) => {
-    const orgUnitLevels = await d2.models.organisationUnitLevels.list({
-        fields: `id,${getDisplayPropertyUrl(d2)},level`,
-        paging: false,
-    })
-
-    return orgUnitLevels
-        ? orgUnitLevels.toArray().reduce(
-              (obj, item) => ({
-                  ...obj,
-                  [item.level]: item.name,
-              }),
-              {}
-          )
-        : {}
 }
 
 // Converts "LEVEL-x" to newer "LEVEL-uid" format

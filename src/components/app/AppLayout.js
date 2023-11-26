@@ -1,13 +1,12 @@
 import cx from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import AlertStack from '../alerts/AlertStack.js'
+import { useLayersLoader } from '../../hooks/useLayersLoader.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadModeMenu from '../download/DownloadMenubar.js'
 import DownloadSettings from '../download/DownloadSettings.js'
 import LayerEdit from '../edit/LayerEdit.js'
 import LayersPanel from '../layers/LayersPanel.js'
-import LayersLoader from '../loaders/LayersLoader.js'
 import ContextMenu from '../map/ContextMenu.js'
 import MapPosition from '../map/MapPosition.js'
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog.js'
@@ -30,6 +29,8 @@ const AppLayout = () => {
     const onFileMenuAction = () =>
         detailsPanelOpen &&
         setInterpretationsRenderCount(interpretationsRenderCount + 1)
+
+    useLayersLoader()
 
     return (
         <>
@@ -54,10 +55,8 @@ const AppLayout = () => {
                     />
                 )}
             </div>
-            <LayersLoader />
             <ContextMenu />
             <LayerEdit />
-            <AlertStack />
             <OpenAsMapDialog />
         </>
     )
