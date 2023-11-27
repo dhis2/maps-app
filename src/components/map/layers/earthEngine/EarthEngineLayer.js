@@ -52,7 +52,7 @@ export default class EarthEngineLayer extends Layer {
         const {
             id,
             index,
-            format,
+            format = 'ImageCollection',
             opacity,
             isVisible,
             datasetId,
@@ -87,7 +87,7 @@ export default class EarthEngineLayer extends Layer {
             isVisible,
             datasetId,
             band,
-            mask,
+            maskOperator: mask ? 'gt' : undefined,
             attribution,
             filter,
             methods,
@@ -109,7 +109,12 @@ export default class EarthEngineLayer extends Layer {
         };
 
         if (params) {
-            config.params = params;
+            config.style = params;
+        } else if (legend?.items) {
+            config.style = legend.items.map(item => ({
+                ...item,
+                value: item.id,
+            }));
         }
 
         if (areaRadius) {

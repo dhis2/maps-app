@@ -239,6 +239,7 @@ export const earthEngineLayers = () => [
         layer: EARTH_ENGINE_LAYER,
         layerId: 'USGS/SRTMGL1_003',
         datasetId: 'USGS/SRTMGL1_003',
+        format: 'Image',
         name: i18n.t('Elevation'),
         unit: i18n.t('meters'),
         description: i18n.t('Elevation above sea-level.'),
