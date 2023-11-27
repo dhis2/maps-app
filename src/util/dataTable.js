@@ -10,9 +10,7 @@ import {
     EARTH_ENGINE_LAYER,
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
-import { hasClasses, getPrecision } from './earthEngine.js'
-import { numberPrecision } from './numbers.js'
-// import { get } from 'lodash'
+import { hasClasses } from './earthEngine.js'
 
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
@@ -58,12 +56,11 @@ const getEventHeaders = (layer) => {
     const defaultFieldsStart = [
         getIndexHeader(),
         getNameHeader(true),
-        getIdHeader,
+        getIdHeader(),
         {
             name: i18n.t('Event time'),
             dataKey: 'eventdate',
             type: TYPE_DATE,
-            renderer: 'formatTime...',
         },
     ]
 
@@ -79,22 +76,16 @@ const getEventHeaders = (layer) => {
                 : TYPE_STRING,
         }))
 
-    const defaultFieldsEnd = [{ name: i18n.t('Type'), dataKey: 'type' }]
-
-    return defaultFieldsStart.concat(customFields).concat(defaultFieldsEnd)
+    return defaultFieldsStart.concat(customFields).concat([getTypeHeader()])
 }
 
 const getOrgUnitHeaders = () => [
     getIndexHeader(),
     getNameHeader(),
     getIdHeader(),
-    { name: i18n.t('Value'), dataKey: 'value' },
-    { name: i18n.t('Legend'), dataKey: 'legend' },
-    { name: i18n.t('Range'), dataKey: 'range' },
-    { name: i18n.t('Level'), dataKey: 'level' },
-    { name: i18n.t('Parent'), dataKey: 'parentName' },
+    { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
+    { name: i18n.t('Parent'), dataKey: 'parentName', type: TYPE_STRING },
     getTypeHeader(),
-    // { name: i18n.t('Color'), dataKey: 'color' },
 ]
 
 const getFacilityHeaders = () => [
@@ -157,7 +148,7 @@ export const getBasicHeaders = (layer) => {
         case EARTH_ENGINE_LAYER:
             return getEarthEngineHeaders(layer)
         default:
-            // Handle the default case if needed
+            // TODO throw error?
             break
     }
 }

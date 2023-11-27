@@ -1,20 +1,22 @@
-td.sizeClass {
-    padding: 7px 5px;
-}
-
-td.fontClass {
-    font-size: 11px;
+td.tableCell {
+    font-size: 12px;
+    padding: 6px 10px;
 }
 
 td.darkText {
     color: var(--colors-white);
 }
 
-/* Hide the filter icon */
-.columnHeader>span>span>button:last-of-type {
-    visibility: hidden;
+thead th.columnHeader {
+    font-size: 12px;
+    padding: 6px 10px;
 }
 
+
+/* Hide the filter icon */
+.columnHeader > span > span > button:last-of-type {
+    visibility: hidden;
+}
 
 /* TODO */
 .noSupport {

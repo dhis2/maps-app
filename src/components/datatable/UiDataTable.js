@@ -52,15 +52,11 @@ const Table = () => {
         const { data, dataFilters } = layer
 
         const indexedData = data
-            .map((d, i) => ({
-                index: i,
-                ...d,
-            }))
             .filter((d) => !d.properties.hasAdditionalGeometry)
             .map((d, i) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
-                index: d.index,
+                index: i,
                 i,
             }))
 
@@ -151,8 +147,6 @@ const Table = () => {
     // const onMouseOver = (row) => console.log('row', row)
     // const onRowMouseOut = () => highlightMapFeature()
 
-    console.log('DataTable')
-
     return (
         <DataTable
             scrollHeight="100%"
@@ -203,16 +197,13 @@ const Table = () => {
                     >
                         {row.map(({ dataKey, value }) => (
                             <DataTableCell
+                                dense
                                 key={`dtcell-${dataKey}`}
-                                className={cx(
-                                    styles.fontClass,
-                                    styles.sizeClass,
-                                    {
-                                        [styles.darkText]:
-                                            dataKey === 'color' &&
-                                            isDarkColor(value),
-                                    }
-                                )}
+                                className={cx(styles.tableCell, {
+                                    [styles.darkText]:
+                                        dataKey === 'color' &&
+                                        isDarkColor(value),
+                                })}
                                 backgroundColor={
                                     dataKey === 'color' ? value : null
                                 }
