@@ -1,27 +1,18 @@
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
     setOrgUnits,
-    // setFilter,
     setEarthEnginePeriod,
     setBufferRadius,
 } from '../../../actions/layerEdit.js'
-// import { getEarthEngineLayer } from '../../earthEngine/layers/all.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
-/*
-import {
-    getPeriodFromFilter,
-    translateFilters,
-} from '../../../util/earthEngine.js'
-import { incrementDate } from '../../../util/time.js'
-*/
 import { Help, Tab, Tabs } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import styles from '../styles/LayerDialog.module.css'
@@ -35,21 +26,16 @@ const EarthEngineDialog = (props) => {
     const [error, setError] = useState()
 
     const {
-        // layerId,
         datasetId,
         band,
         rows,
         style,
         maskOperator,
-        // filter,
         areaRadius,
         orgUnits,
         setOrgUnits,
         orgUnitField,
         period,
-        // startDate,
-        // endDate,
-        // setFilter,
         setEarthEnginePeriod,
         setBufferRadius,
         validateLayer,
@@ -282,25 +268,37 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
-    // layerId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
+    // layerId: PropTypes.string.isRequired,
     // setFilter: PropTypes.func.isRequired,
+    setEarthEnginePeriod: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
+    aggregations: PropTypes.array,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]), // TODO: Why array?
     bands: PropTypes.array,
+    defaultAggregations: PropTypes.array,
     description: PropTypes.string,
     // filter: PropTypes.array,
-    // filters: PropTypes.array,
+    filters: PropTypes.array,
     legend: PropTypes.object,
+    maskOperator: PropTypes.string,
     notice: PropTypes.string,
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
     period: PropTypes.object,
+    periodRange: PropTypes.shape({
+        firstDate: PropTypes.string.isRequired,
+        lastDate: PropTypes.number.isRequired, // relative to today
+    }),
     periodReducer: PropTypes.string,
     periodType: PropTypes.string,
+    precision: PropTypes.number,
+    rows: PropTypes.array,
+    source: PropTypes.string,
+    sourceUrl: PropTypes.string,
     style: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.shape({
@@ -309,7 +307,7 @@ EarthEngineDialog.propTypes = {
             palette: PropTypes.array,
         }),
     ]),
-    rows: PropTypes.array,
+    unit: PropTypes.string,
 }
 
 export default connect(

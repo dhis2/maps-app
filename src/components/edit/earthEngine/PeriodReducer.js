@@ -1,15 +1,15 @@
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setPeriodReducer } from '../../../actions/layerEdit.js'
-import { SelectField, DatePicker } from '../../core/index.js'
-import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
-import PeriodSelect from '../../periods/PeriodSelect.js'
-import StartEndDates from './StartEndDates.js'
 import { START_END_DATES } from '../../../constants/periods.js'
 import { getTimeRange, createTimeRange } from '../../../util/earthEngine.js'
+import { SelectField } from '../../core/index.js'
+import PeriodSelect from '../../periods/PeriodSelect.js'
+import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
+import StartEndDates from './StartEndDates.js'
 import styles from './styles/PeriodReducer.module.css'
 
 // TOOD: Remove reducers that are less relevant
@@ -63,8 +63,6 @@ const EarthEnginePeriodReducer = ({
     const reducer = useSelector((state) => state.layerEdit.periodReducer)
     const dispatch = useDispatch()
 
-    // console.log('periodType', periodType, range, dateRange)
-
     const onPeriodChange = useCallback(
         (period) => onChange(period ? { ...period, periodType } : null),
         [periodType, onChange]
@@ -73,7 +71,6 @@ const EarthEnginePeriodReducer = ({
     const onPeriodReducerChange = useCallback(
         (reducer) => {
             dispatch(setPeriodReducer(reducer.id))
-            // console.log('reducer', reducer)
         },
         [dispatch]
     )
@@ -89,9 +86,8 @@ const EarthEnginePeriodReducer = ({
     // Clear period when periodType is changed
     useEffect(() => {
         onChange()
-    }, [periodType])
+    }, [periodType, onChange])
 
-    // TODO: Add loading spinner
     return (
         <div className={className}>
             <PeriodTypeSelect
@@ -143,11 +139,16 @@ const EarthEnginePeriodReducer = ({
 }
 
 EarthEnginePeriodReducer.propTypes = {
-    onChange: PropTypes.func.isRequired,
+    datasetId: PropTypes.string.isRequired,
     defaultPeriodType: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
     period: PropTypes.object,
+    range: PropTypes.shape({
+        firstDate: PropTypes.string.isRequired,
+        lastDate: PropTypes.number.isRequired, // relative to today
+    }),
 }
 
 export default EarthEnginePeriodReducer

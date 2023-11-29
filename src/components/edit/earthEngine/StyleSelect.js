@@ -11,7 +11,9 @@ const minSteps = 3
 const maxSteps = 9
 
 const countDecimals = (number) => {
-    if (Math.floor(number.valueOf()) === number.valueOf()) return 0
+    if (Math.floor(number.valueOf()) === number.valueOf()) {
+        return 0
+    }
 
     var str = number.toString()
     if (str.indexOf('.') !== -1 && str.indexOf('-') !== -1) {

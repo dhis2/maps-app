@@ -2,8 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { SelectField } from '../../core/index.js'
 import { getPeriods } from '../../../util/earthEngine.js'
+import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
 const EarthEnginePeriodSelect = ({
@@ -19,8 +19,6 @@ const EarthEnginePeriodSelect = ({
     const [periods, setPeriods] = useState()
     const [year, setYear] = useState()
     const byYear = periodType === 'BY_YEAR' || periodType === 'EE_MONTHLY'
-
-    // console.log('#', year, period, periods)
 
     const years = useMemo(
         () =>
@@ -43,14 +41,15 @@ const EarthEnginePeriodSelect = ({
 
     const items = byYear ? byYearPeriods : periods
 
+    /* eslint-disable react-hooks/exhaustive-deps */
     const onYearChange = useCallback(
         ({ id }) => {
-            // console.log('onYearChange', id, period, periods)
             onChange(null)
             setYear(id)
         },
         [period, periods, onChange]
     )
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     useEffect(() => {
         let isCancelled = false
@@ -120,10 +119,13 @@ const EarthEnginePeriodSelect = ({
 }
 
 EarthEnginePeriodSelect.propTypes = {
+    datasetId: PropTypes.string.isRequired,
     periodType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
+    filters: PropTypes.array,
     period: PropTypes.object,
 }
 

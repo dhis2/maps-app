@@ -1,13 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Fragment, useEffect } from 'react'
-import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
-} from '../../../constants/layers.js'
+import React, { useEffect } from 'react'
 import { DatePicker } from '../../core/index.js'
 import styles from '../styles/LayerDialog.module.css'
-import { DataQuery } from '@dhis2/app-runtime'
 
 const StartEndDates = ({
     dateRange,
@@ -16,19 +11,6 @@ const StartEndDates = ({
     errorText,
     className,
 }) => {
-    // console.log('StartEndDates', dateRange, period)
-
-    /*
-    const hasDate = startDate !== undefined && endDate !== undefined
-
-    useEffect(() => {
-        if (!hasDate) {
-            setStartDate(DEFAULT_START_DATE)
-            setEndDate(DEFAULT_END_DATE)
-        }
-    }, [hasDate, setStartDate, setEndDate])
-    */
-
     useEffect(() => {
         const { firstDate, lastDate } = dateRange
 
@@ -73,12 +55,14 @@ const StartEndDates = ({
 }
 
 StartEndDates.propTypes = {
-    onChange: PropTypes.func.isRequired,
     dateRange: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
-    endDate: PropTypes.string,
     errorText: PropTypes.string,
-    startDate: PropTypes.string,
+    period: PropTypes.shape({
+        endDate: PropTypes.string.isRequired,
+        startDate: PropTypes.string.isRequired,
+    }),
 }
 
 export default StartEndDates

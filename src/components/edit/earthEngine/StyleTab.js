@@ -44,6 +44,7 @@ const StyleTab = ({
 
 StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
+    precision: PropTypes.number,
     showBelowMin: PropTypes.bool,
     style: PropTypes.shape({
         color: PropTypes.string,

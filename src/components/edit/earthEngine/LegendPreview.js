@@ -29,13 +29,13 @@ const LegendPreview = ({ style, showBelowMin, precision }) => {
 }
 
 LegendPreview.propTypes = {
+    precision: PropTypes.number,
+    showBelowMin: PropTypes.bool,
     style: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
         palette: PropTypes.array.isRequired,
     }),
-    showBelowMin: PropTypes.bool,
-    precision: PropTypes.number,
 }
 
 export default LegendPreview
