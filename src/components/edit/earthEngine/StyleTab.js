@@ -21,6 +21,8 @@ const StyleTab = ({
         palette !== undefined &&
         palette.length < 10
 
+    console.log('palette', palette)
+
     return (
         <div className={styles.flexColumnFlow}>
             <div className={styles.flexColumn}>
