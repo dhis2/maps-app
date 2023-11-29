@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-20T12:17:41.534Z\n"
-"PO-Revision-Date: 2023-11-20T12:17:41.534Z\n"
+"POT-Creation-Date: 2023-11-29T14:24:30.442Z\n"
+"PO-Revision-Date: 2023-11-29T14:24:30.442Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -690,9 +690,6 @@ msgstr "Unit"
 msgid "Legend preview"
 msgstr "Legend preview"
 
-msgid "Loading periods"
-msgstr "Loading periods"
-
 msgid "Mean"
 msgstr "Mean"
 
@@ -719,6 +716,9 @@ msgstr "Product"
 
 msgid "Period aggregation method"
 msgstr "Period aggregation method"
+
+msgid "Loading periods"
+msgstr "Loading periods"
 
 msgid "Year"
 msgstr "Year"
