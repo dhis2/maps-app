@@ -77,6 +77,7 @@ const DownloadSettings = () => {
         // Multiple map elements if split view
         const mapElements = document.getElementsByClassName(mapClass)
 
+        // Observe is rendered class is added to map element
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.attributeName == 'class') {
