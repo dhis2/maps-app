@@ -13,7 +13,6 @@ import { Checkbox, Help } from '../core/index.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadSettings.module.css'
-import { is } from 'cypress/types/bluebird/index.js'
 
 const DownloadSettings = () => {
     const [isRendered, setIsRendered] = useState(false)
@@ -83,20 +82,14 @@ const DownloadSettings = () => {
         })
 
         for (let mapEl of mapElements) {
+            mapEl.classList.remove('dhis2-map-rendered')
             observer.observe(mapEl, { attributes: true })
         }
 
         return () => {
             observer.disconnect()
         }
-    }, [showOverviewMap])
-
-    useEffect(() => {
-        if (isRendered) {
-            console.log('isRendered trigger download')
-            onDownload()
-        }
-    }, [isRendered, onDownload])
+    }, [])
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
