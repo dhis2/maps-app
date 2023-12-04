@@ -13,8 +13,10 @@ import { Checkbox, Help } from '../core/index.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadSettings.module.css'
+import { is } from 'cypress/types/bluebird/index.js'
 
 const DownloadSettings = () => {
+    const [isRendered, setIsRendered] = useState(false)
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
 
@@ -66,6 +68,35 @@ const DownloadSettings = () => {
             })
         )
     }, [name, description, legendLayers, hasLayers, dispatch])
+
+    useEffect(() => {
+        const mapElements = document.getElementsByClassName('dhis2-map')
+
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName == 'class') {
+                    setIsRendered(
+                        mutation.target.classList.contains('dhis2-map-rendered')
+                    )
+                }
+            })
+        })
+
+        for (let mapEl of mapElements) {
+            observer.observe(mapEl, { attributes: true })
+        }
+
+        return () => {
+            observer.disconnect()
+        }
+    }, [showOverviewMap])
+
+    useEffect(() => {
+        if (isRendered) {
+            console.log('isRendered trigger download')
+            onDownload()
+        }
+    }, [isRendered, onDownload])
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
@@ -205,7 +236,11 @@ const DownloadSettings = () => {
                                     : i18n.t('Close')}
                             </Button>
                             {isSupported && (
-                                <Button primary onClick={onDownload}>
+                                <Button
+                                    primary
+                                    disabled={!isRendered}
+                                    onClick={onDownload}
+                                >
                                     {i18n.t('Download')}
                                 </Button>
                             )}
