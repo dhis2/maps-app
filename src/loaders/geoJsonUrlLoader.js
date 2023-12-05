@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n'
 import { parseLayerConfig } from '../util/external.js'
 
 const fetchData = async (url, engine, baseUrl) => {
@@ -14,24 +15,34 @@ const fetchData = async (url, engine, baseUrl) => {
                     resource: url.slice(routesIndex),
                 },
             })
-            .then(async (data) => {
-                if (data.geojson instanceof Blob) {
-                    // TODO - remove once Blob fix implemented in app-runtime
-                    return JSON.parse(await data.geojson.text())
-                }
-                return data.geojson
-            })
+            .then(async (data) =>
+                data.geojson instanceof Blob
+                    ? JSON.parse(await data.geojson.text()) // TODO - remove once Blob fix implemented in app-runtime (LIBS-542)
+                    : data.geojson
+            )
             .catch((e) => {
-                throw new Error(`Failed to load from API route ${url}: "${e}"`)
+                if (typeof e === 'object' && e.details?.message) {
+                    if (
+                        e.details.message.toLowerCase().includes('jwt expired')
+                    ) {
+                        throw new Error(
+                            i18n.t(
+                                'Authorization is no longer valid. Please contact your administrator.'
+                            )
+                        )
+                    }
+                    throw new Error(e.details.message)
+                }
+
+                throw new Error(e)
             })
     } else {
         // External route, use fetch
-        // TODO implement auth capability
         return fetch(url)
             .then((response) => response.json())
-            .catch((e) => {
+            .catch((error) => {
                 throw new Error(
-                    `Failed to load from external service ${url}: ${e}`
+                    i18n.t('Failed to load layer: {{error}}', { error })
                 )
             })
     }
@@ -58,10 +69,11 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
     let error
     try {
         geoJson = await fetchData(newConfig.url, engine, baseUrl)
-    } catch (err) {
-        console.error(err)
+    } catch (message) {
+        console.error(message)
         error = {
             url: newConfig.url,
+            message,
         }
     }
 
