@@ -15,7 +15,7 @@ thead th.columnHeader {
 
 /* Hide the filter icon */
 .columnHeader > span > span > button:last-of-type {
-    visibility: hidden;
+    display: none;
 }
 
 /* TODO */
