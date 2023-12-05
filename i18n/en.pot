@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-16T15:05:26.808Z\n"
-"PO-Revision-Date: 2023-11-16T15:05:26.808Z\n"
+"POT-Creation-Date: 2023-12-05T07:49:30.925Z\n"
+"PO-Revision-Date: 2023-12-05T07:49:30.925Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -605,8 +605,12 @@ msgstr "Group"
 msgid "Filters"
 msgstr "Filters"
 
-msgid "Failed to load map layer \"{{layername}}\" with url: {{layerurl}}"
-msgstr "Failed to load map layer \"{{layername}}\" with url: {{layerurl}}"
+msgid ""
+"Failed to load map layer \"{{layername}}\" with url: {{layerurl}}. "
+"{{message}}"
+msgstr ""
+"Failed to load map layer \"{{layername}}\" with url: {{layerurl}}. "
+"{{message}}"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -1303,6 +1307,12 @@ msgstr "Facilities"
 
 msgid "Facilities: No coordinates found"
 msgstr "Facilities: No coordinates found"
+
+msgid "Authorization is no longer valid. Please contact your administrator."
+msgstr "Authorization is no longer valid. Please contact your administrator."
+
+msgid "Failed to load layer: {{error}}"
+msgstr "Failed to load layer: {{error}}"
 
 msgid "Organisation units"
 msgstr "Organisation units"

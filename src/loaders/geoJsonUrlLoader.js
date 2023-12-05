@@ -42,7 +42,10 @@ const fetchData = async (url, engine, baseUrl) => {
             .then((response) => response.json())
             .catch((error) => {
                 throw new Error(
-                    i18n.t('Failed to load layer: {{error}}', { error })
+                    i18n.t('Failed to load layer: {{error}}', {
+                        error,
+                        nsSeparator: '^^',
+                    })
                 )
             })
     }
