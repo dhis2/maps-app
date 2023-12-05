@@ -16,13 +16,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Untitled map, {{date}}"
-msgstr ""
+msgstr "Сарлавҳасиз харита, {{date}}"
 
 msgid "Map \"{{- name}}\" is saved."
-msgstr ""
+msgstr "Харита \"{{- name}}\" сақланган."
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
+msgstr "Харитани сақлашда хатолик юз берди: {{message}}"
 
 msgid "Classification"
 msgstr "Таснифи"
@@ -43,7 +43,7 @@ msgid "Name"
 msgstr "Исми"
 
 msgid "Name and value"
-msgstr ""
+msgstr "Номи ва қиймати"
 
 msgid "Value"
 msgstr "Қиймат"
@@ -73,37 +73,37 @@ msgid "None"
 msgstr "Йўқ"
 
 msgid "Cascading"
-msgstr ""
+msgstr "Каскадлаш"
 
 msgid "Event location"
 msgstr "Ҳодиса/Тадбир ўтказиладиган жой"
 
 msgid "Enrollment location"
-msgstr ""
+msgstr "Рўйхатга ўтиш жойи"
 
 msgid "Tracked entity location"
-msgstr ""
+msgstr "Кузатов назорат жойи"
 
 msgid "Organisation unit location"
-msgstr ""
+msgstr "Ташкилий бирлик жойи"
 
 msgid "Fallback coordinate field"
-msgstr ""
+msgstr "Қайта тиклаш координата майдони"
 
 msgid "Coordinate field"
 msgstr "Координаталар майдони"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
-msgstr ""
+msgstr "Қайд этиш> ҳолат > кузатув назорат > Ташкилий бирлик координатаси"
 
 msgid "Event > org unit coordinate"
-msgstr ""
+msgstr "Ҳолат > ташкилий бирлик координатаси"
 
 msgid "Event data item"
 msgstr "Ҳодиса/Тадбир маълумоти элементи"
 
 msgid "Selected value not available in in list: {{name}}"
-msgstr ""
+msgstr "Ушбу рўйхатда танланган қиймат мавжуд эмас: {{name}}"
 
 msgid "Style by data element"
 msgstr "Маълумот элементи бўйича услуб"
@@ -180,38 +180,42 @@ msgid "Download"
 msgstr "Юклаш"
 
 msgid "Exit download mode"
-msgstr ""
+msgstr "Юклаб олиш режимидан чиқиш"
 
 msgid "Download map"
 msgstr "Харитани юклаш"
 
 msgid "Show map name"
-msgstr ""
+msgstr "Харита номини кўрсатиш"
 
 msgid "Show map description"
-msgstr ""
+msgstr "Харита тафсилотларини кўрсатиш"
 
 msgid "Description can be changed from File > Rename menu"
-msgstr ""
+msgstr "Файлда тавсифни ўзгартириш мумкин > Номини ўзгартириш менюси"
 
 msgid ""
 "Set the map description when you save the map or from File > Rename menu"
 msgstr ""
+"Харитани сақлашда ёки номини ўзгартиришда харита тавсифини ўрнатинг > Номини"
+" ўзгартириш менюси"
 
 msgid "Show legend"
 msgstr "Таърифни кўрсатиш"
 
 msgid "Show overview map"
-msgstr ""
+msgstr "Хаританинг умумий кўринишини кўрсатиш"
 
 msgid "Show north arrow"
-msgstr ""
+msgstr "Шимолий ўқни кўрсатиш"
 
 msgid "Include margins in download"
-msgstr ""
+msgstr "Юклаб олганда чегараларни ҳам юклаш"
 
 msgid "Resize your browser window to change the map dimensions."
 msgstr ""
+"Харита ўлчамларини ўзгартириш учун браузерда экран созламаларини "
+"ўзгартиринг."
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -253,7 +257,7 @@ msgid "thematic"
 msgstr "тематик"
 
 msgid "org unit"
-msgstr ""
+msgstr "Ташкилий бўлим"
 
 msgid "Earth Engine"
 msgstr "Уйдаги механизм"
@@ -271,7 +275,7 @@ msgid "Add layer"
 msgstr "Қатлам қўшиш"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Бирлаштириш услуби"
 
 msgid "Groups"
 msgstr "Гуруҳлар"
@@ -289,17 +293,21 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Танланган ташкилот бирликлари учун маълумотлар Google Earth Engine’да "
+"ҳисоблаб чиқилади."
 
 msgid "Multiple aggregation methods are available."
-msgstr ""
+msgstr "Бир нечта йиғиш усуллари мавжуд"
 
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
 msgstr ""
+"Харитада майдонларни босиш ёки маълумотлар жадвалини кўриш орқали йиғилган "
+"натижаларни кўринг. натижани юклаб олиш ҳам мумкин."
 
 msgid "Unit"
-msgstr ""
+msgstr "Бирлик"
 
 msgid "Source"
 msgstr "Манба"
@@ -312,24 +320,25 @@ msgstr "Йил"
 
 msgid "Available periods are set by the source data"
 msgstr ""
+"Мавжуд муддатлар манба маълумотлари манба маълумотлари билан белгиланади"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Даврлар юкланмоқда"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Минимал қиймат сўралган"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Максимал қиймат сўралган"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "Максимум каттароқ бўлиши керак минимумдан"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "Яроқли босқичлар {{minSteps}} {{maxSteps}} тадан"
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "Бирлик: {{ unit }}"
 
 msgid "Min"
 msgstr "Минимум"
@@ -375,7 +384,7 @@ msgid "Event status"
 msgstr "Ҳодиса/Тадбир ҳолати"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Чегара ранги"
 
 msgid "Buffer"
 msgstr "Буфер"
@@ -385,6 +394,7 @@ msgstr "Радиус метрларда"
 
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
+"Ассоцирланган геометрия билан буфер маълумотини комбинациялаш имконсиз"
 
 msgid "Labels"
 msgstr "Ёрлиқлар"
@@ -393,7 +403,7 @@ msgid "Aggregation type"
 msgstr "Бирлаштириш тури"
 
 msgid "Only show completed events"
-msgstr ""
+msgstr "Фақатгина тугалланган ҳолатларни кўрсатиш"
 
 msgid "Show no data"
 msgstr "Маълумот йўқ"
@@ -405,7 +415,7 @@ msgid "High radius"
 msgstr "Катта радиус"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "Юқори радиус паст радиусдан каттароқ бўлиши керак"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Радиус {{минимум}} ва {{максимум}} оралиғида бўлиши лозим"
@@ -506,10 +516,10 @@ msgid "Group set"
 msgstr "Гуруҳлар тўплами"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "Ташкилий бирлик гуруҳларини юклашда хатолик юз берди."
 
 msgid "Style by group set"
-msgstr ""
+msgstr "Гуруҳ созламалари стилидан фойдаланиш"
 
 msgid "Indicator group"
 msgstr "Кўрсатгич гуруҳи"
@@ -571,7 +581,7 @@ msgid "Set layer opacity"
 msgstr "Қатлам хиралигини таҳрирланг"
 
 msgid "Toggle layer menu"
-msgstr ""
+msgstr "Қатлам менюсини ўзгартириш"
 
 msgid "More actions"
 msgstr "Бошқа ҳаракатлар"
@@ -625,13 +635,13 @@ msgid "Latitude"
 msgstr "Кенглик"
 
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
+msgstr "Асосий харитани қўшиб бўлмади: {{message}}"
 
 msgid "Not set"
 msgstr "Ўрнатилмаган"
 
 msgid "Could not retrieve event data"
-msgstr ""
+msgstr "Тадбир/Ҳодиса маълумотлари олинмай қолди"
 
 msgid "Organisation unit"
 msgstr "Ташкилий бирлик"
@@ -646,15 +656,17 @@ msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
 "instance?"
 msgstr ""
+"Google Earth Engine ишламай қолди. Хизмат ушбу DHIS2 намунаси учун "
+"созланганми?"
 
 msgid "no value"
 msgstr "қиймат йўқ"
 
 msgid "All groups"
-msgstr ""
+msgstr "Барча гуруҳлар"
 
 msgid "Loading data"
-msgstr ""
+msgstr "Маълумотлар юкланмоқда"
 
 msgid "acres"
 msgstr "акр"
@@ -744,18 +756,20 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
+"Бу маълумотлар элементида жуда кўп параметрлар мавжуд ({{length}}). "
+"Стилистика учун максимал вариантлар {{max}}."
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "Ассоцирланган геометриядан фойдаланиш"
 
 msgid "None (default)"
-msgstr ""
+msgstr "Йўқ (Стандарт)"
 
 msgid "No data found for this period."
 msgstr "Ушбу давр учун маълумот топилмади"
 
 msgid "Image of the organisation unit"
-msgstr ""
+msgstr "Сурат ёки ташкилий бирлик"
 
 msgid "Code"
 msgstr "Код"
@@ -776,7 +790,7 @@ msgid "Link"
 msgstr "Ҳавола"
 
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 msgid "Email"
 msgstr "е-Почта"
@@ -785,7 +799,7 @@ msgid "Address"
 msgstr "Манзил"
 
 msgid "Phone"
-msgstr ""
+msgstr "Телефон"
 
 msgid "ID"
 msgstr "ID"
@@ -794,7 +808,7 @@ msgid "Comment"
 msgstr "Изоҳ"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "Ташкилий бирлик профили"
 
 msgid "Selected only"
 msgstr "Фақатгина танланган"
@@ -887,19 +901,19 @@ msgid "Percentage"
 msgstr "Фоиз"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Гектар"
 
 msgid "Acres"
-msgstr ""
+msgstr "Акр"
 
 msgid "Mean"
-msgstr ""
+msgstr "Англатади"
 
 msgid "Median"
-msgstr ""
+msgstr "Медиана"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Стюденс"
 
 msgid "OSM Light"
 msgstr "OSM манба"
@@ -920,154 +934,160 @@ msgid "Bing Aerial Labels"
 msgstr "Белгилар"
 
 msgid "Population"
-msgstr ""
+msgstr "Аҳоли"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "Аҳоли сони, гектарда"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Ҳудудда яшовчи аҳолининг тахминий сони."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Аҳоли ёш гуруҳлари"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Ёши ва жинси бўйича гуруҳланган ҳудудда яшовчи одамларнинг тахминий сони."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Эркак 0 - 1 ёш"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Эркак 1 - 4 ёш"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Эркак 5 - 9 ёш"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Аёл 10 - 14 ёш"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Эркак 15 - 19 ёш"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Эркак 20 - 24 ёш"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Эркак 25 - 29 ёш"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Эркак 30 - 34 ёш"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Эркак 35 - 39 ёш"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Эркак 40 - 44 ёш"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Эркак 45 - 49 ёш"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Эркак 50 - 54 ёш"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Эркак 55 - 59 ёш"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Эркак 60 - 64 ёш"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Эркак 65 - 69 ёш"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Эркак 70 - 74 ёш"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Эркак 75 - 79 ёш"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Эркак 80 ёш ва ундан катта"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Аёл 0 - 1 ёш"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Аёл 1 - 4 ёш"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Аёл 5 - 9 ёш"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Аёл 10 - 14 ёш"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Аёл 15 - 19 ёш"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Аёл 20 - 24 ёш"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Аёл 25 - 29 ёш"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Аёл 30 - 34 ёш"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Аёл 35 - 39 ёш"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Аёл 40 - 44 ёш"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Аёл 45 - 49 ёш"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Аёл 50 - 54 ёш"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Аёл 55 - 59 ёш"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Аёл 60 - 64 ёш"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Аёл 65 - 69 ёш"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Аёл 70 - 74 ёш"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Аёл 75 - 79 ёш"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Аёл 80 ёш ва ундан катта"
 
 msgid "Building footprints"
-msgstr ""
+msgstr "Бино чизмалари"
 
 msgid "Number of buildings"
-msgstr ""
+msgstr "Бино рақамлари"
 
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
 "Only for the continent of Africa."
 msgstr ""
+"Юқори аниқликдаги сунъий йўлдош тасвирларидан олинган биноларнинг "
+"контурлари. Фақат Африка қитъаси учун."
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
 msgstr ""
+"Биноларни санаш фақат кичикроқ ташкилий бирликлар ҳудудлари учун мавжуд."
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
 msgstr ""
+"Бинолар сонини кўриш учун кичикроқ майдон ёки битта ташкилий бирликни "
+"танланг."
 
 msgid "Elevation"
 msgstr "Баландлик"
 
 msgid "meters"
-msgstr ""
+msgstr "метр"
 
 msgid "Elevation above sea-level."
 msgstr "Денгиз сатҳидан баландлик"
@@ -1261,25 +1281,25 @@ msgid "Cancelled"
 msgstr "Бекор қилинди"
 
 msgid "{{name}}: No coordinates found"
-msgstr ""
+msgstr "{{name}}: Координаталар аниқланмади"
 
 msgid "Selected org units: No coordinates found"
-msgstr ""
+msgstr "Танланган ташкилий бирлик: Координаталар аниқланмади"
 
 msgid "Error: {{message}}"
-msgstr ""
+msgstr "Хатолик: {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "Ушбу қатлам маълумотларига кириш ҳуқуқига эга эмассиз"
 
 msgid "The event filter is not supported"
-msgstr ""
+msgstr "Ҳодиса фильтри қўллаб қувватланмайди"
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "Биринчиси кўрсатилмоқда {{pageSize}} та ҳодисадан  {{total}}"
 
 msgid "No data found"
 msgstr "Маълумотлар топилмади"
@@ -1291,7 +1311,7 @@ msgid "Facilities"
 msgstr "Муассасалар"
 
 msgid "Facilities: No coordinates found"
-msgstr ""
+msgstr "Ташкилот: Координаталар аниқланмади"
 
 msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"
@@ -1330,7 +1350,7 @@ msgid "No"
 msgstr "Йўқ"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "Google Earth Engine учун авторизация токенини олиш имконсиз"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
