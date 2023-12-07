@@ -2,9 +2,6 @@ import * as types from '../constants/actionTypes.js'
 
 const dataTable = (state = null, action) => {
     switch (action.type) {
-        case types.DATA_TABLE_OPEN:
-            return action.id
-
         case types.DATA_TABLE_CLOSE:
         case types.MAP_NEW:
         case types.MAP_SET:

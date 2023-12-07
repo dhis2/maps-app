@@ -75,7 +75,6 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
     } catch (message) {
         console.error(message)
         error = {
-            url: newConfig.url,
             message,
         }
     }

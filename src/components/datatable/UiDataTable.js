@@ -53,12 +53,16 @@ const Table = () => {
 
         const indexedData = data
             .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, i) => ({
-                ...(d.properties || d),
-                ...aggregations[d.id],
-                index: i,
-                i,
-            }))
+            .map((d, i) => {
+                const type = d.geometry?.type || d.properties?.type || d.type
+                return {
+                    ...(d.properties || d),
+                    ...aggregations[d.id],
+                    type,
+                    index: i,
+                    i,
+                }
+            })
 
         const filteredData = filterData(indexedData, dataFilters)
 
@@ -81,8 +85,6 @@ const Table = () => {
         })
 
         const headers = getHeaders(layer)
-
-        console.log('headers', headers)
 
         return filteredData.map((item) =>
             headers.map(({ dataKey }) => ({

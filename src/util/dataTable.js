@@ -8,9 +8,11 @@ import {
     EXTERNAL_LAYER,
     FACILITY_LAYER,
     EARTH_ENGINE_LAYER,
+    DATA_TABLE_LAYER_TYPES,
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import { hasClasses } from './earthEngine.js'
+// import { get } from 'lodash'
 
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
@@ -102,7 +104,7 @@ const getGeoJsonUrlHeaders = (layer) => {
         dataKey: key,
         type: typeof value === 'number' ? TYPE_NUMBER : TYPE_STRING,
     }))
-    return headers
+    return headers.concat(getTypeHeader())
 }
 
 const getEarthEngineHeaders = ({ aggregationType, legend }) => {
@@ -132,25 +134,24 @@ const getEarthEngineHeaders = ({ aggregationType, legend }) => {
     ].concat(eeheaders)
 }
 
+const layerTypeToHeadersMap = {
+    [THEMATIC_LAYER]: getThematicHeaders,
+    [EVENT_LAYER]: getEventHeaders,
+    [ORG_UNIT_LAYER]: getOrgUnitHeaders,
+    [FACILITY_LAYER]: getFacilityHeaders,
+    [GEOJSON_URL_LAYER]: getGeoJsonUrlHeaders,
+    [EARTH_ENGINE_LAYER]: getEarthEngineHeaders,
+}
+
 export const getBasicHeaders = (layer) => {
-    switch (layer.layer) {
-        case THEMATIC_LAYER:
-            return getThematicHeaders()
-        case EVENT_LAYER:
-            return getEventHeaders(layer)
-        case ORG_UNIT_LAYER:
-            return getOrgUnitHeaders(layer)
-        case GEOJSON_URL_LAYER:
-        case EXTERNAL_LAYER:
-            return getGeoJsonUrlHeaders(layer)
-        case FACILITY_LAYER:
-            return getFacilityHeaders(layer)
-        case EARTH_ENGINE_LAYER:
-            return getEarthEngineHeaders(layer)
-        default:
-            // TODO throw error?
-            break
+    if (!DATA_TABLE_LAYER_TYPES.includes(layer.layer)) {
+        throw new Error(
+            i18n.t('Data table does not support layer type {{layerType}}', {
+                layerType: layer.layer,
+            })
+        )
     }
+    return layerTypeToHeadersMap[layer.layer](layer)
 }
 
 export const getHeaders = (layer, styleDataItem) => {

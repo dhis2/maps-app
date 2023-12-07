@@ -23,18 +23,14 @@ const GeoJsonDialog = ({ featureStyle, validateLayer, onLayerValidation }) => {
                 <Tab value="style">{i18n.t('Style')}</Tab>
             </Tabs>
             <div className={styles.tabContent}>
-                {tab === 'style' && (
-                    <div className={styles.flexColumnFlow}>
-                        <div className={styles.flexColumn}>
-                            <FeatureStyle
-                                style={featureStyle}
-                                onChange={(val) =>
-                                    dispatch(setFeatureStyle(val))
-                                }
-                            />
-                        </div>
+                <div className={styles.flexColumnFlow}>
+                    <div className={styles.flexColumn}>
+                        <FeatureStyle
+                            style={featureStyle}
+                            onChange={(val) => dispatch(setFeatureStyle(val))}
+                        />
                     </div>
-                )}
+                </div>
             </div>
         </div>
     )

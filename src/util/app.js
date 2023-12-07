@@ -36,7 +36,7 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
             (layer) => layer.mapLayerPosition === MAP_LAYER_POSITION_BASEMAP
         )
         .filter((layer) => supportedMapServices.includes(layer.mapService))
-        .map((layer) => createExternalBasemapLayer(layer))
+        .map(createExternalBasemapLayer)
         .filter((basemap) => layerTypes.includes(basemap.config.type))
 
     return defaultBasemaps()
@@ -61,7 +61,7 @@ const getLayerTypes = (externalMapLayers) => {
             (layer) => layer.mapLayerPosition !== MAP_LAYER_POSITION_BASEMAP
         )
         .filter((layer) => supportedMapServices.includes(layer.mapService))
-        .map((layer) => createExternalOverlayLayer(layer))
+        .map(createExternalOverlayLayer)
         .filter((overlay) => layerTypes.includes(overlay.config.type))
 
     return getDefaultLayerTypes().concat(externalLayerTypes)
