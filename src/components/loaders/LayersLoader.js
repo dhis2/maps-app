@@ -4,14 +4,30 @@ import { setLayerLoading, updateLayer } from '../../actions/layers.js'
 import LayerLoader from './LayerLoader.js'
 
 const LayersLoader = () => {
-    const layers = useSelector((state) =>
-        state.map.mapViews.filter(
-            (layer) =>
-                !layer.isLoading &&
-                (!layer.isLoaded || (layer.showDataTable && !layer.isExtended))
-        )
-    )
+    const layers = useSelector((state) => {
+        return state.map.mapViews.filter((layer) => {
+            // The layer is currently being loaded - don't load again
+            if (layer.isLoading) {
+                return false
+            } else {
+                // The layer is not loaded - load it
+                if (!layer.isLoaded) {
+                    return true
+                }
+
+                // The layer is loaded but the data table is now displayed and
+                // event extended data hasn't been loaded yet - so load it
+                if (layer.showDataTable && !layer.isExtended) {
+                    return true
+                }
+
+                return false
+            }
+        })
+    })
     const dispatch = useDispatch()
+
+    console.log('LayersLoader', layers)
 
     const onLoad = (layer) => dispatch(updateLayer(layer))
 
