@@ -27,8 +27,6 @@ const LayersLoader = () => {
     })
     const dispatch = useDispatch()
 
-    console.log('LayersLoader', layers)
-
     const onLoad = (layer) => dispatch(updateLayer(layer))
 
     useEffect(() => {
