@@ -11,7 +11,7 @@ exports[`LayersLoader renders 0 layers if not currently loading and loaded and e
 exports[`LayersLoader renders 1 layer if not currently loading and is loaded but need extended data 1`] = `
 <div>
   <div>
-    Layer
+    LayerLoader
   </div>
 </div>
 `;
@@ -19,7 +19,7 @@ exports[`LayersLoader renders 1 layer if not currently loading and is loaded but
 exports[`LayersLoader renders 1 layer if not currently loading and not loaded 1`] = `
 <div>
   <div>
-    Layer
+    LayerLoader
   </div>
 </div>
 `;

@@ -9,8 +9,8 @@ const mockStore = configureMockStore()
 jest.mock(
     '../LayerLoader.js',
     () =>
-        function MockLayer() {
-            return <div>Layer</div>
+        function MockLayerLoader() {
+            return <div>LayerLoader</div>
         }
 )
 
