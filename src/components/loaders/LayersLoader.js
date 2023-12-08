@@ -4,8 +4,8 @@ import { setLayerLoading, updateLayer } from '../../actions/layers.js'
 import LayerLoader from './LayerLoader.js'
 
 const LayersLoader = () => {
-    const layers = useSelector((state) => {
-        return state.map.mapViews.filter((layer) => {
+    const layers = useSelector((state) =>
+        state.map.mapViews.filter((layer) => {
             // The layer is currently being loaded - don't load again
             if (layer.isLoading) {
                 return false
@@ -24,7 +24,7 @@ const LayersLoader = () => {
                 return false
             }
         })
-    })
+    )
     const dispatch = useDispatch()
 
     const onLoad = (layer) => dispatch(updateLayer(layer))
