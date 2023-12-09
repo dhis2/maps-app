@@ -61,10 +61,6 @@ class DataTable extends Component {
         }
     }
 
-    componentDidMount() {
-        this.loadExtendedData()
-    }
-
     componentDidUpdate(prevProps) {
         const { layer, aggregations, closeDataTable } = this.props
         const { data, dataFilters } = layer
@@ -81,18 +77,6 @@ class DataTable extends Component {
 
             this.setState({
                 data: this.sort(this.filter(), sortBy, sortDirection),
-            })
-        }
-    }
-
-    loadExtendedData() {
-        const { layer, updateLayer } = this.props
-        const { layer: layerType, isExtended, serverCluster } = layer
-
-        if (layerType === EVENT_LAYER && !isExtended && !serverCluster) {
-            updateLayer({
-                ...layer,
-                showDataTable: true,
             })
         }
     }
@@ -198,7 +182,8 @@ class DataTable extends Component {
         const isEvent = layerType === EVENT_LAYER
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER
         const isLoading =
-            isEarthEngine && aggregationType?.length && !aggregations
+            (isEarthEngine && aggregationType?.length && !aggregations) ||
+            (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
 
         return !serverCluster ? (
             <>
