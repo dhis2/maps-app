@@ -37,11 +37,11 @@ const unknownErrorAlert = {
 
 // TODO: Refactor to share code with other loaders
 // Returns a promise
-const eventLoader = async (layerConfig, dataTableOpen) => {
+const eventLoader = async (layerConfig, loadExtended) => {
     const config = { ...layerConfig }
 
     try {
-        await loadEventLayer(config, dataTableOpen)
+        await loadEventLayer(config, loadExtended)
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [
