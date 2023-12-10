@@ -131,8 +131,11 @@ describe('systemSettings', () => {
             delete req.headers['if-none-match']
             req.continue((res) => {
                 res.body.keyAnalysisRelativePeriod = 'LAST_12_MONTHS'
-            }).as('getSystemSettings12months')
-        })
+                res.send({
+                    body: res.body,
+                })
+            })
+        }).as('getSystemSettings12months')
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
