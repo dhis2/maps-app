@@ -131,6 +131,7 @@ describe('systemSettings', () => {
             delete req.headers['if-none-match']
             req.continue((res) => {
                 res.body.keyAnalysisRelativePeriod = 'LAST_12_MONTHS'
+
                 res.send({
                     body: res.body,
                 })
@@ -155,6 +156,7 @@ describe('systemSettings', () => {
             .addToMap()
 
         Layer.validateCardPeriod('Last 12 months')
+        // })
     })
 
     it('uses the correct default basemap', () => {
