@@ -99,7 +99,7 @@ describe('Basemap checks', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']
             req.continue((res) => {
-                res.body.keyDefaultBaseMap = 'wNIQ8pNvSQd' //Terrain basemap
+                res.body.keyDefaultBaseMap = 'LOw2p0kPwua' //Dark basemap
 
                 res.send({
                     body: res.body,
@@ -122,7 +122,7 @@ describe('Basemap checks', () => {
 
         checkBasemap.cardIsVisible()
         checkBasemap.isVisible()
-        checkBasemap.activeBasemap('Terrain basemap')
+        checkBasemap.activeBasemap('Dark basemap')
     })
 
     it('open map with unknown basemap uses fallback basemap (OSM Light) when system default basemap is invalid', () => {
