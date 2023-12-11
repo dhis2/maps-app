@@ -6,7 +6,7 @@ import { setDownloadConfig } from '../../actions/download.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
-import { closeDownloadMode } from '../../util/history.js'
+import { closeDownloadMode, getHashUrlParams } from '../../util/history.js'
 import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
@@ -20,9 +20,12 @@ const renderedClass = 'dhis2-map-rendered'
 const downloadingClass = 'dhis2-map-downloading'
 
 const DownloadSettings = () => {
+    const isPushAnalytics = getHashUrlParams('isPushAnalytics') === 'true'
     const [isRendered, setIsRendered] = useState(false)
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
+
+    console.log('isPushAnalytics', isPushAnalytics)
 
     const { mapViews, name, description } = useSelector((state) => state.map)
     const {
@@ -74,29 +77,31 @@ const DownloadSettings = () => {
     }, [name, description, legendLayers, hasLayers, dispatch])
 
     useEffect(() => {
-        // Multiple map elements if split view
-        const mapElements = document.getElementsByClassName(mapClass)
+        if (isPushAnalytics) {
+            // Multiple map elements if split view
+            const mapElements = document.getElementsByClassName(mapClass)
 
-        // Observe is rendered class is added to map element
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName == 'class') {
-                    setIsRendered(
-                        mutation.target.classList.contains(renderedClass)
-                    )
-                }
+            // Observe is rendered class is added to map element
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName == 'class') {
+                        setIsRendered(
+                            mutation.target.classList.contains(renderedClass)
+                        )
+                    }
+                })
             })
-        })
 
-        for (const mapEl of mapElements) {
-            mapEl.classList.remove(renderedClass)
-            observer.observe(mapEl, { attributes: true })
-        }
+            for (const mapEl of mapElements) {
+                mapEl.classList.remove(renderedClass)
+                observer.observe(mapEl, { attributes: true })
+            }
 
-        return () => {
-            observer.disconnect()
+            return () => {
+                observer.disconnect()
+            }
         }
-    }, [])
+    }, [isPushAnalytics])
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
@@ -238,7 +243,7 @@ const DownloadSettings = () => {
                             {isSupported && (
                                 <Button
                                     primary
-                                    disabled={!isRendered}
+                                    disabled={isPushAnalytics && !isRendered}
                                     onClick={onDownload}
                                 >
                                     {i18n.t('Download')}
