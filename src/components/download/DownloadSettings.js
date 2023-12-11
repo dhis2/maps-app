@@ -25,8 +25,6 @@ const DownloadSettings = () => {
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
 
-    console.log('isPushAnalytics', isPushAnalytics)
-
     const { mapViews, name, description } = useSelector((state) => state.map)
     const {
         showName,
