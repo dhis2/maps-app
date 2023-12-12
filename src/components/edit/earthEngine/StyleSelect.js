@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { setParams } from '../../../actions/layerEdit.js'
+import { setStyle } from '../../../actions/layerEdit.js'
 import { getColorScale, getColorPalette } from '../../../util/colors.js'
 import { NumberField, ColorScaleSelect } from '../../core/index.js'
 import styles from '../styles/LayerDialog.module.css'
@@ -10,8 +10,24 @@ import styles from '../styles/LayerDialog.module.css'
 const minSteps = 3
 const maxSteps = 9
 
-const StyleSelect = ({ unit, params, setParams }) => {
-    const { min, max, palette } = params
+const countDecimals = (number) => {
+    if (Math.floor(number.valueOf()) === number.valueOf()) {
+        return 0
+    }
+
+    var str = number.toString()
+    if (str.indexOf('.') !== -1 && str.indexOf('-') !== -1) {
+        return str.split('-')[1] || 0
+    } else if (str.indexOf('.') !== -1) {
+        return str.split('.')[1].length || 0
+    }
+    return str.split('-')[1] || 0
+}
+
+const getStep = (number) => 1 / Math.pow(10, countDecimals(number))
+
+const StyleSelect = ({ unit, style, setStyle }) => {
+    const { min, max, palette } = style
     const [steps, setSteps] = useState(palette.length)
 
     const onStepsChange = useCallback(
@@ -21,15 +37,16 @@ const StyleSelect = ({ unit, params, setParams }) => {
                 const newPalette = getColorPalette(scale, steps)
 
                 if (newPalette) {
-                    setParams({ palette: newPalette })
+                    setStyle({ palette: newPalette })
                 }
             }
 
             setSteps(steps)
         },
-        [palette, setParams]
+        [palette, setStyle]
     )
 
+    const numberFieldStep = Math.min(getStep(min), getStep(max))
     let warningText
 
     if (Number.isNaN(min)) {
@@ -48,22 +65,21 @@ const StyleSelect = ({ unit, params, setParams }) => {
     return (
         <div>
             <p>
-                {i18n.t('Unit: {{ unit }}', {
-                    unit,
-                    nsSeparator: '|', // https://github.com/i18next/i18next/issues/361
-                })}
+                {i18n.t('Unit')}: {unit}
             </p>
             <div key="minmax" className={styles.flexInnerColumnFlow}>
                 <NumberField
                     label={i18n.t('Min')}
                     value={min}
-                    onChange={(min) => setParams({ min: parseInt(min) })}
+                    step={numberFieldStep}
+                    onChange={(min) => setStyle({ min })}
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
                     label={i18n.t('Max')}
                     value={max}
-                    onChange={(max) => setParams({ max: parseInt(max) })}
+                    step={numberFieldStep}
+                    onChange={(max) => setStyle({ max })}
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
@@ -72,15 +88,15 @@ const StyleSelect = ({ unit, params, setParams }) => {
                     min={minSteps}
                     max={maxSteps}
                     onChange={onStepsChange}
-                    className={styles.flexInnerColumn}
+                    className={styles.stepField}
                 />
                 {warningText && (
                     <div className={styles.eeError}>{warningText}</div>
                 )}
                 <div className={styles.scale}>
                     <ColorScaleSelect
-                        palette={params.palette}
-                        onChange={(palette) => setParams({ palette })}
+                        palette={style.palette}
+                        onChange={(palette) => setStyle({ palette })}
                         width={260}
                     />
                 </div>
@@ -90,9 +106,9 @@ const StyleSelect = ({ unit, params, setParams }) => {
 }
 
 StyleSelect.propTypes = {
-    setParams: PropTypes.func.isRequired,
+    setStyle: PropTypes.func.isRequired,
     unit: PropTypes.string.isRequired,
-    params: PropTypes.shape({
+    style: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
         palette: PropTypes.array.isRequired,
@@ -100,5 +116,5 @@ StyleSelect.propTypes = {
 }
 
 export default connect(null, {
-    setParams,
+    setStyle,
 })(StyleSelect)

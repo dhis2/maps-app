@@ -89,23 +89,52 @@ const getWorkerInstance = async () => {
     return workerPromise
 }
 
-export const getPeriods = async (eeId, periodType) => {
+export const getPeriods = async (eeId, periodType, filters) => {
+    const useSystemIndex = filters.some((f) =>
+        f.arguments.includes('system:index')
+    )
+
     const getPeriod = ({ id, properties }) => {
-        const year = new Date(properties['system:time_start']).getFullYear()
-        const name =
-            periodType === 'Yearly' ? String(year) : getStartEndDate(properties)
+        const year =
+            properties.year ||
+            new Date(properties['system:time_start']).getFullYear()
 
-        // Remove when old population should not be supported
-        if (eeId === 'WorldPop/POP') {
-            return { id: name, name, year }
-        }
+        // console.log('period', periodType, id, properties)
 
-        return { id, name, year }
+        /*    
+        return periodType === 'yearly'
+            ? { id: useSystemIndex ? id : year, name: String(year) }
+            : { id, name: getStartEndDate(properties), year }
+        */
+        return periodType === 'YEARLY'
+            ? { id: useSystemIndex ? id : year, name: String(year) }
+            : {
+                  id,
+                  name:
+                      periodType === 'EE_MONTHLY'
+                          ? getMonth(properties)
+                          : getStartEndDate(properties),
+                  year,
+              }
     }
 
     const eeWorker = await getWorkerInstance()
 
+    /*
+    if (periodType === 'daily') {
+        const { min, max } = await eeWorker.getTimeRange(eeId)
+        console.log('time range', new Date(min), new Date(max))
+        return []
+    }
+    */
+
+    // try {
     const { features } = await eeWorker.getPeriods(eeId)
+    // console.log('getPeriods', features)
+    // } catch (error) {
+    //    console.log('ERROR', error)
+    // }
+
     return features.map(getPeriod)
 }
 

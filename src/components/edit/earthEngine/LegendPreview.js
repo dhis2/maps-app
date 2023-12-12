@@ -5,11 +5,12 @@ import { createLegend } from '../../../loaders/earthEngineLoader.js'
 import LegendItem from '../../legend/LegendItem.js'
 import styles from '../styles/LayerDialog.module.css'
 
-const paramsAreValid = ({ min, max }) =>
+const styleIsValid = ({ min, max }) =>
     !Number.isNaN(min) && !Number.isNaN(max) && max > min
 
-const LegendPreview = ({ params }) => {
-    const legend = paramsAreValid(params) && createLegend(params)
+const LegendPreview = ({ style, showBelowMin, precision }) => {
+    const legend =
+        styleIsValid(style) && createLegend(style, showBelowMin, precision)
 
     return legend ? (
         <div className={styles.flexColumn}>
@@ -28,7 +29,9 @@ const LegendPreview = ({ params }) => {
 }
 
 LegendPreview.propTypes = {
-    params: PropTypes.shape({
+    precision: PropTypes.number,
+    showBelowMin: PropTypes.bool,
+    style: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
         palette: PropTypes.array.isRequired,

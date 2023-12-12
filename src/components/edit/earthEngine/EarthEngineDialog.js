@@ -1,24 +1,18 @@
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
     setOrgUnits,
-    setFilter,
+    setEarthEnginePeriod,
     setBufferRadius,
 } from '../../../actions/layerEdit.js'
-import { getEarthEngineLayer } from '../../../constants/earthEngine.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
-import {
-    getPeriodFromFilter,
-    getPeriods,
-    defaultFilters,
-} from '../../../util/earthEngine.js'
 import { Help, Tab, Tabs } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import styles from '../styles/LayerDialog.module.css'
@@ -29,83 +23,89 @@ import StyleTab from './StyleTab.js'
 
 const EarthEngineDialog = (props) => {
     const [tab, setTab] = useState('data')
-    const [periods, setPeriods] = useState()
     const [error, setError] = useState()
 
     const {
-        layerId,
         datasetId,
         band,
         rows,
-        params,
-        filter,
+        style,
+        maskOperator,
         areaRadius,
         orgUnits,
         setOrgUnits,
         orgUnitField,
-        setFilter,
+        period,
+        setEarthEnginePeriod,
         setBufferRadius,
         validateLayer,
         onLayerValidation,
     } = props
 
-    const dataset = getEarthEngineLayer(layerId)
+    // const dataset = getEarthEngineLayer(layerId)
 
     const {
         description,
         notice,
         periodType,
+        periodRange,
+        periodReducer,
         bands,
-        filters = defaultFilters,
+        filters,
         unit,
         source,
         sourceUrl,
         aggregations,
-    } = dataset
+        defaultAggregations,
+        precision,
+    } = props // dataset
 
-    const period = getPeriodFromFilter(filter)
+    // const period = getPeriodFromFilter(filter)
 
-    const setPeriod = useCallback(
-        (period) => setFilter(period ? filters(period) : null),
+    // const getFilterFromPeriod = (period) => {}
+
+    /*
+    const setFilterFromPeriod = useCallback(
+        (period) => {
+            let periodFilter = null
+
+            if (period) {
+                const { id, startDate, endDate } = period
+
+                if (startDate && endDate) {
+                    periodFilter = translateFilters(
+                        filters,
+                        startDate,
+                        incrementDate(endDate)
+                    )
+                } else {
+                    periodFilter = translateFilters(
+                        filters,
+                        // periodType === 'yearly' ? String(period.year) : period.id
+                        period.id
+                    )
+                }
+
+                // TODO: Make more flexible
+                periodFilter[0].id = period.id
+                periodFilter[0].name = period.name
+                periodFilter[0].year = period.year
+            }
+
+            console.log('periodFilter', periodFilter)
+
+            setFilter(periodFilter)
+        },
         [filters, setFilter]
-    )
+    ) 
+    */
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
 
+    const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
 
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
-
-    // Load all available periods
-    useEffect(() => {
-        let isCancelled = false
-
-        if (periodType) {
-            getPeriods(datasetId, periodType)
-                .then((periods) => {
-                    if (!isCancelled) {
-                        setPeriods(periods)
-                    }
-                })
-                .catch((error) =>
-                    setError({
-                        type: 'engine',
-                        message: error.message,
-                    })
-                )
-        }
-
-        return () => (isCancelled = true)
-    }, [datasetId, periodType])
-
-    // Set most recent period by default
-    useEffect(() => {
-        if (filter === undefined) {
-            if (Array.isArray(periods) && periods.length) {
-                setPeriod(periods[0])
-            }
-        }
-    }, [periods, filter, setPeriod])
 
     // Set default org unit level
     useEffect(() => {
@@ -129,9 +129,20 @@ const EarthEngineDialog = (props) => {
         }
     }, [hasOrgUnitField, areaRadius, setBufferRadius])
 
+    /*
+    useEffect(() => {
+        if (!periodType && filters) {
+            setFilter(filters)
+        }
+    }, [periodType, filters, setFilter])
+    */
+
     useEffect(() => {
         if (validateLayer) {
-            const isValid = !noBandSelected && (!periodType || period)
+            // const isValid = !noBandSelected && (!periodType || period)
+            const isValid =
+                !noBandSelected &&
+                (!periodType || periodType === 'range' || period)
 
             if (!isValid) {
                 if (noBandSelected) {
@@ -205,7 +216,7 @@ const EarthEngineDialog = (props) => {
                                 }
                             />
                         )}
-                        <AggregationSelect />
+                        {hasAggregations && <AggregationSelect />}
                         {unit && (
                             <div className={styles.paragraph}>
                                 {i18n.t('Unit')}: {unit}
@@ -225,11 +236,14 @@ const EarthEngineDialog = (props) => {
                 )}
                 {tab === 'period' && (
                     <PeriodSelect
+                        datasetId={datasetId}
                         periodType={periodType}
                         period={period}
-                        periods={periods}
+                        periodRange={periodRange}
+                        periodReducer={periodReducer}
                         filters={filters}
-                        onChange={setPeriod}
+                        onChange={setEarthEnginePeriod}
+                        onError={setError}
                         errorText={
                             error && error.type === 'period' && error.message
                         }
@@ -240,7 +254,9 @@ const EarthEngineDialog = (props) => {
                 {tab === 'style' && (
                     <StyleTab
                         unit={unit}
-                        params={params}
+                        style={style}
+                        showBelowMin={!maskOperator}
+                        precision={precision}
                         hasOrgUnitField={hasOrgUnitField}
                     />
                 )}
@@ -251,29 +267,51 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
-    layerId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
-    setFilter: PropTypes.func.isRequired,
+    // layerId: PropTypes.string.isRequired,
+    // setFilter: PropTypes.func.isRequired,
+    setEarthEnginePeriod: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
+    aggregations: PropTypes.array,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    filter: PropTypes.array,
+    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]), // TODO: Why array?
+    bands: PropTypes.array,
+    defaultAggregations: PropTypes.array,
+    description: PropTypes.string,
+    // filter: PropTypes.array,
+    filters: PropTypes.array,
     legend: PropTypes.object,
+    maskOperator: PropTypes.string,
+    notice: PropTypes.string,
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
-    params: PropTypes.shape({
-        max: PropTypes.number.isRequired,
-        min: PropTypes.number.isRequired,
-        palette: PropTypes.array.isRequired,
+    period: PropTypes.object,
+    periodRange: PropTypes.shape({
+        firstDate: PropTypes.string.isRequired,
+        lastDate: PropTypes.number.isRequired, // relative to today
     }),
+    periodReducer: PropTypes.string,
+    periodType: PropTypes.string,
+    precision: PropTypes.number,
     rows: PropTypes.array,
+    source: PropTypes.string,
+    sourceUrl: PropTypes.string,
+    style: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.shape({
+            max: PropTypes.number,
+            min: PropTypes.number,
+            palette: PropTypes.array,
+        }),
+    ]),
+    unit: PropTypes.string,
 }
 
 export default connect(
     null,
-    { setOrgUnits, setFilter, setBufferRadius },
+    { setOrgUnits, setEarthEnginePeriod, /* setFilter, */ setBufferRadius },
     null,
     {
         forwardRef: true,

@@ -2,20 +2,23 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import { getPeriods } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
-// http://localhost:8080/api/periodTypes.json
 const EarthEnginePeriodSelect = ({
     periodType,
     period,
-    periods,
+    datasetId,
+    filters,
     onChange,
+    onError,
     errorText,
     className,
 }) => {
+    const [periods, setPeriods] = useState()
     const [year, setYear] = useState()
-    const byYear = periodType === 'Custom'
+    const byYear = periodType === 'BY_YEAR' || periodType === 'EE_MONTHLY'
 
     const years = useMemo(
         () =>
@@ -36,21 +39,52 @@ const EarthEnginePeriodSelect = ({
         [byYear, year, periods]
     )
 
+    const items = byYear ? byYearPeriods : periods
+
+    /* eslint-disable react-hooks/exhaustive-deps */
     const onYearChange = useCallback(
         ({ id }) => {
             onChange(null)
             setYear(id)
         },
-        [onChange]
+        [period, periods, onChange]
     )
+    /* eslint-enable react-hooks/exhaustive-deps */
+
+    useEffect(() => {
+        let isCancelled = false
+
+        if (periodType) {
+            getPeriods(datasetId, periodType, filters)
+                .then((periods) => {
+                    if (!isCancelled) {
+                        setPeriods(periods)
+                    }
+                })
+                .catch((error) =>
+                    onError({
+                        type: 'engine',
+                        message: error.message,
+                    })
+                )
+        }
+
+        return () => (isCancelled = true)
+    }, [datasetId, periodType, filters, onError])
+
+    // Set most recent period by default
+    useEffect(() => {
+        if (!period && Array.isArray(periods) && periods.length) {
+            // TODO: Need to set period for the selected year
+            onChange(periods[0])
+        }
+    }, [period, periods, onChange])
 
     useEffect(() => {
         if (byYear && period) {
             setYear(period.year)
         }
     }, [byYear, period])
-
-    const items = byYear ? byYearPeriods : periods
 
     return items ? (
         <div className={className}>
@@ -85,12 +119,14 @@ const EarthEnginePeriodSelect = ({
 }
 
 EarthEnginePeriodSelect.propTypes = {
+    datasetId: PropTypes.string.isRequired,
     periodType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
+    filters: PropTypes.array,
     period: PropTypes.object,
-    periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
 export default EarthEnginePeriodSelect
