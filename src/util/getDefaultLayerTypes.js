@@ -40,5 +40,5 @@ export const getDefaultLayerTypes = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
-    ...earthEngineLayers().filter((l) => !l.legacy),
+    ...earthEngineLayers.filter((l) => !l.legacy),
 ]
