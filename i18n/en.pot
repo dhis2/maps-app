@@ -5,13 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2023-09-27T14:55:16.411Z\n"
-"PO-Revision-Date: 2023-09-27T14:55:16.411Z\n"
-=======
 "POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2023-10-23T12:55:26.288Z\n"
->>>>>>> dev
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
