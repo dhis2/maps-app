@@ -12,7 +12,7 @@ const reportPortalConfig = [
             },
             {
                 key: 'app_name',
-                value: 'maps_app',
+                value: 'maps-app',
             },
             {
                 key: 'test_level',
