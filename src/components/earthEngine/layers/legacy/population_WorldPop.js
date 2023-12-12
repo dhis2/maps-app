@@ -36,7 +36,7 @@ export default {
             '#fb6a4a',
             '#de2d26',
             '#a50f15',
-        ], // Reds
+        ], // Reds (ColorBrewer)
     },
     methods: {
         multiply: [100], // Convert from people/hectare to people/km2

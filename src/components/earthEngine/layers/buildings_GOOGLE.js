@@ -22,16 +22,6 @@ export default {
     unit: i18n.t('Number of buildings'),
     aggregations: ['count'],
     defaultAggregations: ['count'],
-    /* Not supported in UI yet
-    customFilters: [
-        {
-            type: 'gt',
-            arguments: ['area_in_meters', $1],
-            valueType: 'number',
-            label: 'Area in m²',
-        },
-    ],
-    */
     style: {
         color: '#FFA500',
         strokeWidth: 1,

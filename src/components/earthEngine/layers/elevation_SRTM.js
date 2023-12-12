@@ -26,7 +26,7 @@ export default {
             '#fe9929',
             '#d95f0e',
             '#993404',
-        ], // YlOrBr
+        ], // YlOrBr (ColorBrewer)
     },
     maskOperator: 'gte',
     opacity: 0.9,
