@@ -1,18 +1,15 @@
-// import i18n from '@dhis2/d2-i18n'
-// import { defaultFilters } from '../util/earthEngine.js'
-// import { EARTH_ENGINE_LAYER } from './layers.js'
-import populationTotal from '../components/earthEngine/layers/population_total_WorldPop.js'
-import populationAgeSex from '../components/earthEngine/layers/population_age_sex_WorldPop.js'
 import buildings from '../components/earthEngine/layers/buildings_GOOGLE.js'
 import elevation from '../components/earthEngine/layers/elevation_SRTM.js'
-import precipitationMonthly from '../components/earthEngine/layers/precipitation_monthly_ERA5-Land.js'
-import temperatureMonthly from '../components/earthEngine/layers/temperature_monthly_ERA5-Land.js'
 import landcover from '../components/earthEngine/layers/landcover_MCD12Q1.js'
 import legacyNighttime from '../components/earthEngine/layers/legacy/nighttime_DMSP-OLS.js'
-import legacyPopulation100m from '../components/earthEngine/layers/legacy/population_WorldPop_100m.js'
 import legacyPopulationWorldPop from '../components/earthEngine/layers/legacy/population_WorldPop.js'
+import legacyPopulation100m from '../components/earthEngine/layers/legacy/population_WorldPop_100m.js'
 import legacyPrecipitation from '../components/earthEngine/layers/legacy/precipitation_pentad_CHIRPS.js'
 import legacyTemperature from '../components/earthEngine/layers/legacy/temperature_MOD11A2v061.js'
+import populationAgeSex from '../components/earthEngine/layers/population_age_sex_WorldPop.js'
+import populationTotal from '../components/earthEngine/layers/population_total_WorldPop.js'
+import precipitationMonthly from '../components/earthEngine/layers/precipitation_monthly_ERA5-Land.js'
+import temperatureMonthly from '../components/earthEngine/layers/temperature_monthly_ERA5-Land.js'
 
 export const earthEngineLayers = [
     populationTotal,
