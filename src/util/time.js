@@ -131,3 +131,9 @@ export const getStartEndDateError = (startDateStr, endDateStr) => {
  * @returns {Number}
  */
 export const getYear = (date) => toDate(date || new Date()).getFullYear()
+
+export const incrementDate = (date, increment = 1) => {
+    const dateObj = toDate(date)
+    dateObj.setDate(dateObj.getDate() + increment)
+    return formatDate(dateObj)
+}

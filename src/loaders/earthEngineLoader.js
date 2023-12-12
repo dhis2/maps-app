@@ -1,26 +1,28 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
-import { precisionRound } from 'd3-format'
-import { getEarthEngineLayer } from '../constants/earthEngine.js'
+import { precisionFixed, formatLocale } from 'd3-format'
+// import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
+import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
-import { numberPrecision } from '../util/numbers.js'
+// import { numberPrecision } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
 
+const numberFormat = formatLocale({ minus: '\u002D' }).format
+
 // Returns a promise
 const earthEngineLoader = async (config) => {
-    const { rows, aggregationType } = config
+    const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
     const alerts = []
 
     let layerConfig = {}
-    let dataset
+    // let dataset
     let features
 
     if (orgUnits && orgUnits.length) {
@@ -113,26 +115,43 @@ const earthEngineLoader = async (config) => {
             layerConfig.params.palette = layerConfig.params.palette.split(',')
         }
 
+        /*
         dataset = getEarthEngineLayer(layerConfig.id)
 
         if (dataset) {
             delete layerConfig.id
         }
+        */
 
         delete config.config
     } else {
-        dataset = getEarthEngineLayer(layerConfig.id)
+        // dataset = getEarthEngineLayer(layerConfig.id)
+        // console.log('getEarthEngineLayer', layerConfig.id, dataset)
     }
 
+    // console.log('###', dataset, config, layerConfig)
+
     const layer = {
-        ...dataset,
+        // ...dataset,
         ...config,
         ...layerConfig,
     }
 
-    const { unit, filter, description, source, sourceUrl, band, bands } = layer
-    const { name } = dataset || config
-    const period = getPeriodNameFromFilter(filter)
+    const {
+        unit,
+        period,
+        filters,
+        description,
+        source,
+        sourceUrl,
+        band,
+        bands,
+        style,
+        maskOperator,
+        precision,
+    } = layer
+    const { name } = config // dataset || config
+    // const period = getPeriodNameFromFilter(filter)
     const data =
         Array.isArray(features) && features.length ? features : undefined
     const hasBand = (b) =>
@@ -145,8 +164,9 @@ const earthEngineLoader = async (config) => {
 
     const legend = {
         ...layer.legend,
+        items: Array.isArray(style) ? style : null,
         title: name,
-        period,
+        period: period?.name,
         groups,
         unit,
         description,
@@ -155,15 +175,27 @@ const earthEngineLoader = async (config) => {
     }
 
     // Create/update legend items from params
-    if (!hasClasses(aggregationType) && layer.params) {
-        legend.items = createLegend(layer.params)
+    if (format === 'FeatureCollection') {
+        // TODO: Add feature collection style
+    } else if (!hasClasses(aggregationType) && style?.palette) {
+        legend.items = createLegend(style, !maskOperator, precision)
     }
+
+    // TODO: remove when range periods is supported
+    /*
+    if (layer.periodType === 'range' && !layer.filter) {
+        layer.filter = layer.filters
+    }
+    */
+
+    const filter = getFilterFromPeriod(period, filters)
 
     return {
         ...layer,
         legend,
         name,
         data,
+        filter,
         alerts,
         isLoaded: true,
         isLoading: false,
@@ -172,35 +204,39 @@ const earthEngineLoader = async (config) => {
     }
 }
 
-export const createLegend = ({ min, max, palette }) => {
-    const step = (max - min) / (palette.length - (min > 0 ? 2 : 1))
-    const precision = precisionRound(step, max)
-    const valueFormat = numberPrecision(precision)
+export const createLegend = (
+    { min, max, palette },
+    showBelowMin,
+    precision
+) => {
+    const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
+    const decimals = precision || precisionFixed(step % 1)
+    const valueFormat = numberFormat('.' + decimals + 'f')
 
-    let from = min
+    let from = valueFormat(min)
     let to = valueFormat(min + step)
 
     return palette.map((color, index) => {
         const item = { color }
 
-        if (index === 0 && min > 0) {
+        if (index === 0 && showBelowMin) {
             // Less than min
-            item.from = 0
+            item.from = -Infinity
             item.to = min
             item.name = '< ' + min
             to = min
-        } else if (from < max) {
-            item.from = from
-            item.to = to
+        } else if (+from < max) {
+            item.from = +from
+            item.to = +to
             item.name = from + ' - ' + to
         } else {
             // Higher than max
-            item.from = from
+            item.from = +from
             item.name = '> ' + from
         }
 
         from = to
-        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)))
+        to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
 
         return item
     })
