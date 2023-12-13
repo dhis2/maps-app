@@ -18,6 +18,18 @@ const reportPortalConfig = [
                 key: 'test_level',
                 value: 'unit/integration',
             },
+            {
+                key: 'BRANCH_NAME',
+                value: process.env.BRANCH_NAME,
+            },
+            {
+                key: 'CI_BUILD_ID',
+                value: process.env.CI_BUILD_ID,
+            },
+            {
+                key: 'PR_TITLE',
+                value: process.env.PR_TITLE,
+            },
         ],
         description: '',
         debug: true,
