@@ -6,9 +6,8 @@ import {
 } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
-import React, { useState, useRef, useCallback } from 'react'
-import { connect } from 'react-redux'
-import { setInterpretation } from '../../actions/interpretations.js'
+import React, { useRef, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import history from '../../util/history.js'
 import { removeInterpretationQueryParams } from '../../util/interpretationIdQueryParams.js'
 import Drawer from '../core/Drawer.js'
@@ -27,15 +26,12 @@ const navigateToOpenModal = (interpretationId, initialFocus) => {
     )
 }
 
-const InterpretationsPanel = ({
-    interpretationId,
-    map,
-    setInterpretation,
-    renderCount,
-}) => {
+const InterpretationsPanel = ({ renderCount }) => {
     const { currentUser } = useCachedDataQuery()
-    const [initialFocus, setInitialFocus] = useState(false)
+    // const [initialFocus, setInitialFocus] = useState(false) // TODO figure out initialFocus
     const interpretationsUnitRef = useRef()
+    const map = useSelector((state) => state.map)
+    const interpretationId = useSelector((state) => state.interpretation.id)
 
     const onInterpretationClick = useCallback((interpretationId) => {
         navigateToOpenModal(interpretationId)
@@ -44,26 +40,6 @@ const InterpretationsPanel = ({
     const onReplyIconClick = useCallback((interpretationId) => {
         navigateToOpenModal(interpretationId, true)
     }, [])
-
-    // const onInterpretationClick = useCallback(
-    //     (interpretationId) => {
-    //         setInterpretation(interpretationId)
-    //     },
-    //     [setInterpretation]
-    // )
-
-    // const onReplyIconClick = useCallback(
-    //     (interpretationId) => {
-    //         setInitialFocus(true)
-    //         setInterpretation(interpretationId)
-    //     },
-    //     [setInterpretation]
-    // )
-
-    // const onModalClose = useCallback(() => {
-    //     setInitialFocus(false)
-    //     setInterpretation()
-    // }, [setInterpretation])
 
     return (
         <>
@@ -76,20 +52,9 @@ const InterpretationsPanel = ({
                     currentUser={currentUser}
                     onInterpretationClick={onInterpretationClick}
                     onReplyIconClick={onReplyIconClick}
+                    // disabled={disabled}
+                    // renderId={interpretationsUnitRenderId}
                 />
-                {/* <InterpretationsUnit
-                    type="eventVisualization"
-                    id={visualization.id}
-                    currentUser={currentUser}
-                    onInterpretationClick={(interpretationId) =>
-                        navigateToOpenModal(interpretationId)
-                    }
-                    onReplyIconClick={(interpretationId) =>
-                        navigateToOpenModal(interpretationId, true)
-                    }
-                    disabled={disabled}
-                    renderId={interpretationsUnitRenderId}
-                /> */}
             </Drawer>
             {interpretationId && (
                 <InterpretationModal
@@ -97,7 +62,7 @@ const InterpretationsPanel = ({
                     onInterpretationUpdate={() =>
                         interpretationsUnitRef.current.refresh()
                     }
-                    initialFocus={initialFocus}
+                    initialFocus={false}
                     interpretationId={interpretationId}
                     isVisualizationLoading={false}
                     onClose={removeInterpretationQueryParams}
@@ -111,18 +76,7 @@ const InterpretationsPanel = ({
 }
 
 InterpretationsPanel.propTypes = {
-    map: PropTypes.object.isRequired,
     renderCount: PropTypes.number.isRequired,
-    setInterpretation: PropTypes.func.isRequired,
-    interpretationId: PropTypes.string,
 }
 
-export default connect(
-    (state) => ({
-        map: state.map,
-        interpretationId: state.interpretation.id,
-    }),
-    {
-        setInterpretation,
-    }
-)(InterpretationsPanel)
+export default InterpretationsPanel

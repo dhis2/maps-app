@@ -205,7 +205,8 @@ export const useLoadMap = () => {
 
         const unlisten = history.listen((myhistory) => {
             console.log('jj myhistory', myhistory)
-            const { hashLocation } = myhistory
+            const { location: hashLocation } = myhistory
+
             // const isSaving = hashLocation.state?.isSaving
             // const isOpening = hashLocation.state?.isOpening
             // const isResetting = hashLocation.state?.isResetting
