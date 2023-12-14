@@ -98,18 +98,3 @@ export const getAnalyticalObjectFromThematicLayer = (layer = {}) => {
         aggregationType,
     }
 }
-
-// Temporary fix until we switch to hash and react router
-export const clearAnalyticalObjectFromUrl = () => {
-    const [base, params] = window.location.href.split('?')
-
-    if (params && history && history.pushState) {
-        const leftParams = params
-            .split('&')
-            .filter((p) => !p.includes('currentAnalyticalObject'))
-
-        const url = base + (leftParams.length ? `?${leftParams.join('&')}` : '')
-
-        history.pushState({}, null, url)
-    }
-}
