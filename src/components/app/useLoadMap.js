@@ -26,12 +26,6 @@ import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
-// import { get } from 'lodash'
-
-// const getUrlParameter = (location, name) => {
-//     const parsed = queryString.parse(location.search, { parseBooleans: true })
-//     return parsed[name]
-// }
 
 const getUrlParams = (hashLocation) => {
     const hashQueryParams = queryString.parse(hashLocation.search, {
@@ -57,10 +51,11 @@ const getUrlParams = (hashLocation) => {
         }
 
         if (params.mapId) {
-            // get interpretationId from hash query params
             params.interpretationId =
                 hashQueryParams.interpretationId ||
                 hashQueryParams.interpretationid
+
+            params.initialFocus = hashQueryParams.initialFocus
         }
     }
 
@@ -76,20 +71,6 @@ export const useLoadMap = () => {
     const dispatch = useDispatch()
     // const openMapErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
     // const openMapErrorAlert = useAlert('Unrecognized path')
-
-    // const setInterpretationId = useCallback(
-    //     (location) => {
-    //         // support both lower and camel case for backwards compatibility
-    //         const interpretationId =
-    //             getUrlParameter(location, 'interpretationid') ||
-    //             getUrlParameter(location, 'interpretationId')
-
-    //         if (interpretationId) {
-    //             dispatch(setInterpretation(interpretationId))
-    //         }
-    //     },
-    //     [dispatch]
-    // )
 
     const loadMap = useCallback(
         async (hashLocation) => {
@@ -107,13 +88,13 @@ export const useLoadMap = () => {
                 mapId,
                 isCurrentAO,
                 isDownload,
-                // isPushAnalytics,
+                isPushAnalytics,
                 interpretationId,
+                initialFocus,
             } = getUrlParams(hashLocation)
 
             if (mapId) {
                 try {
-                    console.log('jj fetch map')
                     const map = await fetchMap(mapId, engine, defaultBasemap)
 
                     // record map view
@@ -147,9 +128,16 @@ export const useLoadMap = () => {
                 }
 
                 if (interpretationId) {
-                    dispatch(setInterpretation(interpretationId))
+                    dispatch(
+                        setInterpretation({
+                            id: interpretationId,
+                            initialFocus,
+                        })
+                    )
                 } else if (isDownload) {
-                    dispatch(setDownloadMode(true))
+                    dispatch(
+                        setDownloadMode({ downloadMode: true, isPushAnalytics })
+                    )
                 }
             } else if (isCurrentAO) {
                 try {
@@ -182,7 +170,7 @@ export const useLoadMap = () => {
 
     useEffect(() => {
         const unlisten = history.listen(({ location }) => {
-            console.log('jj listener heard something', location)
+            const params = getUrlParams(location)
             const isSaving = location.state?.isSaving
             const isOpening = location.state?.isOpening
             const isResetting = location.state?.isResetting
@@ -199,17 +187,32 @@ export const useLoadMap = () => {
 
             // TODO navigation confirm dialog
 
-            console.log('jj isDownloadOpening', isDownloadOpening)
-            console.log('jj isDownloadClosing', isDownloadClosing)
-
             if (isDownloadOpening) {
-                dispatch(setDownloadMode(true))
+                dispatch(
+                    setDownloadMode({
+                        downloadMode: true,
+                        isPushAnalytics: false,
+                    })
+                )
             } else if (isDownloadClosing) {
-                dispatch(setDownloadMode(false))
+                dispatch(
+                    setDownloadMode({
+                        downloadMode: false,
+                        isPushAnalytics: false,
+                    })
+                )
+            } else if (isModalOpening && params.interpretationId) {
+                dispatch(
+                    setInterpretation({
+                        id: params.interpretationId,
+                        initialFocus: params.initialFocus,
+                    })
+                )
+            } else if (isModalClosing && !params.interpretationId) {
+                dispatch(setInterpretation({}))
             }
 
             if (isSaving || isOpening || isResetting || isValidLocationChange) {
-                console.log('jj here loadMap')
                 loadMap(location)
             }
         })
