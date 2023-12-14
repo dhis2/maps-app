@@ -33,7 +33,7 @@ context('Smoke Test', () => {
         Layer.validateCardTitle('ANC 1 Coverage')
     })
 
-    it('loads currentAnalyticalObject', () => {
+    it('loads currentAnalyticalObject using legacy query param format', () => {
         cy.intercept('**/userDataStore/analytics/settings', {
             fixture: 'analyticalObject.json',
         })
