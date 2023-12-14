@@ -1,5 +1,27 @@
 import queryString from 'query-string'
+import { useState, useEffect } from 'react'
 import history from './history.js'
+
+const options = { parseBooleans: true }
+
+const useInterpretationQueryParams = () => {
+    const [params, setParams] = useState(
+        queryString.parse(history.location.search, options)
+    )
+    useEffect(() => {
+        const unlisten = history.listen(({ location }) => {
+            if (location.state?.isModalOpening) {
+                setParams(queryString.parse(history.location.search, options))
+            }
+            if (location.state?.isModalClosing) {
+                setParams(queryString.parse(history.location.search, options))
+            }
+        })
+        return unlisten
+    }, [])
+
+    return params
+}
 
 const removeInterpretationQueryParams = () => {
     const parsed = queryString.parse(history.location.search, {
@@ -32,4 +54,4 @@ const removeInterpretationQueryParams = () => {
     )
 }
 
-export { removeInterpretationQueryParams }
+export { useInterpretationQueryParams, removeInterpretationQueryParams }

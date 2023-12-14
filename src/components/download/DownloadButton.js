@@ -1,17 +1,17 @@
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { setDownloadMode } from '../../actions/download.js'
+import history from '../../util/history.js'
 import styles from './styles/DownloadButton.module.css'
 
-const DownloadButton = () => {
-    const dispatch = useDispatch()
+const navigateToDownloadMode = () => {
+    history.push(`${history.location.pathname}/download`, {
+        isDownloadOpening: true,
+    })
+}
 
+const DownloadButton = () => {
     return (
-        <button
-            className={styles.button}
-            onClick={() => dispatch(setDownloadMode(true))}
-        >
+        <button className={styles.button} onClick={navigateToDownloadMode}>
             {i18n.t('Download')}
         </button>
     )

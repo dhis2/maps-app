@@ -5,9 +5,10 @@ import { useSetting } from '@dhis2/app-service-datastore'
 // import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
 import queryString from 'query-string'
-import { useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
+import { setDownloadMode } from '../../actions/download.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { addLayer } from '../../actions/layers.js'
 import { newMap, setMap } from '../../actions/map.js'
@@ -18,7 +19,6 @@ import { newMap, setMap } from '../../actions/map.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
 import {
     CURRENT_AO_KEY,
-    // clearAnalyticalObjectFromUrl,
     hasSingleDataDimension,
     getThematicLayerFromAnalyticalObject,
 } from '../../util/analyticalObject.js'
@@ -28,40 +28,47 @@ import history from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
 // import { get } from 'lodash'
 
-const getUrlParameter = (location, name) => {
-    const parsed = queryString.parse(location.search, { parseBooleans: true })
-    return parsed[name]
+// const getUrlParameter = (location, name) => {
+//     const parsed = queryString.parse(location.search, { parseBooleans: true })
+//     return parsed[name]
+// }
+
+const getUrlParams = (hashLocation) => {
+    const hashQueryParams = queryString.parse(hashLocation.search, {
+        parseBooleans: true,
+    })
+
+    const params = {}
+    const pathParts = hashLocation.pathname.slice(1).split('/')
+    if (pathParts[0]) {
+        if (pathParts[0]?.length === 11) {
+            params.mapId = pathParts[0]
+        } else if (pathParts[0] === 'currentAnalyticalObject') {
+            params.isCurrentAO = true
+        } else {
+            // TODO throw error - unrecognized path
+        }
+        if (pathParts[1] === 'download') {
+            params.isDownload = true
+
+            if (hashQueryParams.isPushAnalytics) {
+                params.isPushAnalytics = true
+            }
+        }
+
+        if (params.mapId) {
+            // get interpretationId from hash query params
+            params.interpretationId =
+                hashQueryParams.interpretationId ||
+                hashQueryParams.interpretationid
+        }
+    }
+
+    return params
 }
 
-// const getMapId = (hashLocation) => {
-//     const pathParts = hashLocation.pathname.slice(1).split('/')
-//     if (pathParts[0]) {
-//         return pathParts[0]?.length === 11 ? pathParts[0] : null
-//     }
-
-//     // support /?id=ytkZY3ChM6J for backwards compatibility
-//     return getUrlParameter(hashLocation, 'id')
-// }
-
-// const isCurrentAnalyticalObject = (hashLocation) => {
-//     const currentAnalyticalObject = getUrlParameter(
-//         hashLocation,
-//         'currentAnalyticalObject'
-//     )
-//     if (currentAnalyticalObject) {
-//         return currentAnalyticalObject === 'true'
-//     }
-
-//     const pathParts = hashLocation.pathname.slice(1).split('/')
-//     if (pathParts[0] === 'currentAnalyticalObject') {
-//         return true
-//     }
-//     return false
-// }
-
 export const useLoadMap = () => {
-    console.log('jj useLoadMap')
-    // const [previousLocation, setPreviousLocation] = useState()
+    const [previousLocation, setPreviousLocation] = useState()
     const { systemSettings, basemaps } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
@@ -70,53 +77,19 @@ export const useLoadMap = () => {
     // const openMapErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
     // const openMapErrorAlert = useAlert('Unrecognized path')
 
-    const getUrlParams = useCallback((hashLocation) => {
-        const hashQueryParams = queryString.parse(hashLocation.search, {
-            parseBooleans: true,
-        })
+    // const setInterpretationId = useCallback(
+    //     (location) => {
+    //         // support both lower and camel case for backwards compatibility
+    //         const interpretationId =
+    //             getUrlParameter(location, 'interpretationid') ||
+    //             getUrlParameter(location, 'interpretationId')
 
-        const params = {}
-        const pathParts = hashLocation.pathname.slice(1).split('/')
-        if (pathParts[0]) {
-            if (pathParts[0]?.length === 11) {
-                params.mapId = pathParts[0]
-            } else if (pathParts[0] === 'currentAnalyticalObject') {
-                params.isCurrentAO = true
-            } else {
-                // TODO throw error - unrecognized path
-            }
-            if (pathParts[1] === 'download') {
-                params.isDownload = true
-
-                if (hashQueryParams.isPushAnalytics) {
-                    params.isPushAnalytics = true
-                }
-            }
-
-            if (params.mapId) {
-                // get interpretationId from hash query params
-                params.interpretationId =
-                    hashQueryParams.interpretationId ||
-                    hashQueryParams.interpretationid
-            }
-        }
-
-        return params
-    }, [])
-
-    const setInterpretationId = useCallback(
-        (location) => {
-            // support both lower and camel case for backwards compatibility
-            const interpretationId =
-                getUrlParameter(location, 'interpretationid') ||
-                getUrlParameter(location, 'interpretationId')
-
-            if (interpretationId) {
-                dispatch(setInterpretation(interpretationId))
-            }
-        },
-        [dispatch]
-    )
+    //         if (interpretationId) {
+    //             dispatch(setInterpretation(interpretationId))
+    //         }
+    //     },
+    //     [dispatch]
+    // )
 
     const loadMap = useCallback(
         async (hashLocation) => {
@@ -133,15 +106,17 @@ export const useLoadMap = () => {
             const {
                 mapId,
                 isCurrentAO,
-                // isDownload,
+                isDownload,
                 // isPushAnalytics,
                 interpretationId,
             } = getUrlParams(hashLocation)
+
             if (mapId) {
                 try {
+                    console.log('jj fetch map')
                     const map = await fetchMap(mapId, engine, defaultBasemap)
 
-                    // record visualization view
+                    // record map view
                     engine.mutate(dataStatisticsMutation, {
                         variables: { id: mapId },
                         onError: (error) => log.error('Error: ', error),
@@ -173,6 +148,8 @@ export const useLoadMap = () => {
 
                 if (interpretationId) {
                     dispatch(setInterpretation(interpretationId))
+                } else if (isDownload) {
+                    dispatch(setDownloadMode(true))
                 }
             } else if (isCurrentAO) {
                 try {
@@ -187,7 +164,7 @@ export const useLoadMap = () => {
                 }
             }
 
-            // setPreviousLocation(location.pathname)
+            setPreviousLocation(hashLocation.pathname)
         },
         [
             basemaps,
@@ -196,41 +173,49 @@ export const useLoadMap = () => {
             dispatch,
             engine,
             // openMapErrorAlert, // causes rerenders unnecessarily
-            getUrlParams,
         ]
     )
 
     useEffect(() => {
         loadMap(history.location)
+    }, [loadMap])
 
-        const unlisten = history.listen((myhistory) => {
-            console.log('jj myhistory', myhistory)
-            const { location: hashLocation } = myhistory
-
-            // const isSaving = hashLocation.state?.isSaving
-            // const isOpening = hashLocation.state?.isOpening
-            // const isResetting = hashLocation.state?.isResetting
-            const isModalOpening = hashLocation.state?.isModalOpening
-            const isModalClosing = hashLocation.state?.isModalClosing
-            // const isValidLocationChange =
-            // previousLocation !== location.pathname &&
-            // !isModalOpening && !isModalClosing
+    useEffect(() => {
+        const unlisten = history.listen(({ location }) => {
+            console.log('jj listener heard something', location)
+            const isSaving = location.state?.isSaving
+            const isOpening = location.state?.isOpening
+            const isResetting = location.state?.isResetting
+            const isModalOpening = location.state?.isModalOpening
+            const isModalClosing = location.state?.isModalClosing
+            const isDownloadOpening = location.state?.isDownloadOpening
+            const isDownloadClosing = location.state?.isDownloadClosing
+            const isValidLocationChange =
+                previousLocation !== location.pathname &&
+                !isModalOpening &&
+                !isModalClosing &&
+                !isDownloadOpening &&
+                !isDownloadClosing
 
             // TODO navigation confirm dialog
 
-            if (isModalOpening) {
-                setInterpretationId(hashLocation)
-            } else if (isModalClosing) {
-                dispatch(setInterpretation())
-                // } else if (isSaving || isOpening || isResetting) {
-            } else {
-                console.log('jj reload')
-                loadMap(hashLocation)
+            console.log('jj isDownloadOpening', isDownloadOpening)
+            console.log('jj isDownloadClosing', isDownloadClosing)
+
+            if (isDownloadOpening) {
+                dispatch(setDownloadMode(true))
+            } else if (isDownloadClosing) {
+                dispatch(setDownloadMode(false))
+            }
+
+            if (isSaving || isOpening || isResetting || isValidLocationChange) {
+                console.log('jj here loadMap')
+                loadMap(location)
             }
         })
 
         return () => unlisten && unlisten()
-    }, [dispatch, setInterpretationId, loadMap])
+    }, [loadMap, previousLocation, dispatch])
 
     return
 }

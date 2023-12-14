@@ -6,12 +6,18 @@ import { setDownloadMode, setDownloadConfig } from '../../actions/download.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
+import history from '../../util/history.js'
 import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadSettings.module.css'
+
+const closeDownloadMode = () => {
+    const rootPath = history.location.pathname.split('/download')[0]
+    history.push(rootPath, { isDownloadClosing: true })
+}
 
 const DownloadSettings = () => {
     const [error, setError] = useState(null)
@@ -33,11 +39,6 @@ const DownloadSettings = () => {
     const legendLayers = useMemo(
         () => mapViews.filter((layer) => layer.legend && layer.isVisible),
         [mapViews]
-    )
-
-    const onClose = useCallback(
-        () => dispatch(setDownloadMode(false)),
-        [dispatch]
     )
 
     const onDownload = useCallback(() => {
@@ -199,7 +200,7 @@ const DownloadSettings = () => {
                     </div>
                     <div className={styles.buttons}>
                         <ButtonStrip end>
-                            <Button secondary onClick={onClose}>
+                            <Button secondary onClick={closeDownloadMode}>
                                 {isSupported
                                     ? i18n.t('Cancel')
                                     : i18n.t('Close')}

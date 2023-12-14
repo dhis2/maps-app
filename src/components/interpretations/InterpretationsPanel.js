@@ -9,9 +9,13 @@ import queryString from 'query-string'
 import React, { useRef, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import history from '../../util/history.js'
-import { removeInterpretationQueryParams } from '../../util/interpretationIdQueryParams.js'
+import {
+    useInterpretationQueryParams,
+    removeInterpretationQueryParams,
+} from '../../util/interpretationIdQueryParams.js'
 import Drawer from '../core/Drawer.js'
 import InterpretationMap from './InterpretationMap.js'
+// import InterpretationModal from './InterpretationModal.js'
 
 const navigateToOpenModal = (interpretationId, initialFocus) => {
     history.push(
@@ -28,10 +32,11 @@ const navigateToOpenModal = (interpretationId, initialFocus) => {
 
 const InterpretationsPanel = ({ renderCount }) => {
     const { currentUser } = useCachedDataQuery()
+    const { interpretationId, initialFocus } = useInterpretationQueryParams()
     // const [initialFocus, setInitialFocus] = useState(false) // TODO figure out initialFocus
     const interpretationsUnitRef = useRef()
     const map = useSelector((state) => state.map)
-    const interpretationId = useSelector((state) => state.interpretation.id)
+    // const interpretationId = useSelector((state) => state.interpretation.id)
 
     const onInterpretationClick = useCallback((interpretationId) => {
         navigateToOpenModal(interpretationId)
@@ -62,7 +67,7 @@ const InterpretationsPanel = ({ renderCount }) => {
                     onInterpretationUpdate={() =>
                         interpretationsUnitRef.current.refresh()
                     }
-                    initialFocus={false}
+                    initialFocus={initialFocus}
                     interpretationId={interpretationId}
                     isVisualizationLoading={false}
                     onClose={removeInterpretationQueryParams}
