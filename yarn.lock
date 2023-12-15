@@ -2959,7 +2959,8 @@
 
 "@reportportal/agent-js-cypress@git+https://github.com/dhis2/agent-js-cypress.git#develop":
   version "5.1.4"
-  resolved "git+https://github.com/dhis2/agent-js-cypress.git#d3afea4e74abdbef39c1121f820f23deca2368f4"
+  uid "63ef44e29111c55e4d64209c837f6a3d5913437b"
+  resolved "git+https://github.com/dhis2/agent-js-cypress.git#63ef44e29111c55e4d64209c837f6a3d5913437b"
   dependencies:
     "@reportportal/client-javascript" "^5.0.14"
     glob "^7.2.3"
