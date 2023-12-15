@@ -1,8 +1,7 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-// import { useAlert } from '@dhis2/app-service-alerts'
 import { useSetting } from '@dhis2/app-service-datastore'
-// import i18n from '@dhis2/d2-i18n'
+import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
 import queryString from 'query-string'
 import { useState, useEffect, useCallback } from 'react'
@@ -12,11 +11,8 @@ import { setDownloadMode } from '../../actions/download.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { addLayer } from '../../actions/layers.js'
 import { newMap, setMap } from '../../actions/map.js'
-// import {
-//     ALERT_CRITICAL,
-//     ALERT_MESSAGE_DYNAMIC,
-// } from '../../constants/alerts.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
+import useAlert from '../../hooks/useAlert.js'
 import {
     CURRENT_AO_KEY,
     hasSingleDataDimension,
@@ -67,17 +63,16 @@ export const useLoadMap = () => {
     const engine = useDataEngine()
     const [currentAO] = useSetting(CURRENT_AO_KEY)
     const dispatch = useDispatch()
-    // const openMapErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
-    // const openMapErrorAlert = useAlert('Unrecognized path')
+    const loadMapAlert = useAlert({ message: i18n.t('Failed to open the map') })
+    const unrecognizedMapAlert = useAlert({
+        message: i18n.t('Unrecognized url path to map'),
+    })
 
     const loadMap = useCallback(
         async (hashLocation) => {
-            const isNew =
-                hashLocation.pathname === '/' &&
-                !hashLocation.search.length &&
-                location.search.length === 0
+            console.log('jj loadMap')
 
-            if (isNew) {
+            if (hashLocation.pathname === '/') {
                 dispatch(newMap())
                 return
             }
@@ -93,9 +88,9 @@ export const useLoadMap = () => {
 
             if (mapId) {
                 try {
+                    // throw new Error('test')
                     const map = await fetchMap(mapId, engine, defaultBasemap)
 
-                    // record map view
                     engine.mutate(dataStatisticsMutation, {
                         variables: { id: mapId },
                         onError: (error) => log.error('Error: ', error),
@@ -114,13 +109,8 @@ export const useLoadMap = () => {
                     )
                 } catch (e) {
                     log.error(e)
-                    // openMapErrorAlert.show({
-                    //     msg: i18n.t(`Error while opening map: ${e.message}`, {
-                    //         nsSeparator: ';',
-                    //     }),
-                    // })
-
-                    return e
+                    loadMapAlert.show()
+                    return
                 }
 
                 if (interpretationId) {
@@ -153,8 +143,12 @@ export const useLoadMap = () => {
                     }
                 } catch (e) {
                     log.error('Could not load current analytical object')
-                    return e
+                    loadMapAlert.show()
+                    return
                 }
+            } else {
+                unrecognizedMapAlert.show()
+                return
             }
 
             setPreviousLocation(hashLocation.pathname)
@@ -165,7 +159,8 @@ export const useLoadMap = () => {
             defaultBasemap,
             dispatch,
             engine,
-            // openMapErrorAlert, // causes rerenders unnecessarily
+            loadMapAlert,
+            unrecognizedMapAlert,
         ]
     )
 
@@ -224,6 +219,4 @@ export const useLoadMap = () => {
 
         return () => unlisten && unlisten()
     }, [loadMap, previousLocation, dispatch])
-
-    return
 }
