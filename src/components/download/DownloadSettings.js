@@ -77,7 +77,10 @@ const DownloadSettings = () => {
     const showMarginsCheckbox = false // Not in use
 
     return (
-        <div className={styles.downloadSettingsPanel}>
+        <div
+            className={styles.downloadSettingsPanel}
+            data-test="download-settings"
+        >
             <Drawer position="left">
                 <div className={styles.downloadSettings}>
                     <h2>{i18n.t('Download map')}</h2>
@@ -86,6 +89,7 @@ const DownloadSettings = () => {
                             <>
                                 <Checkbox
                                     label={i18n.t('Show map name')}
+                                    dataTest="input-show-map-name"
                                     checked={showName}
                                     disabled={!name}
                                     onChange={(value) =>

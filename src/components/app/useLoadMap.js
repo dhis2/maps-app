@@ -51,9 +51,7 @@ const getUrlParams = (hashLocation) => {
         }
 
         if (params.mapId) {
-            params.interpretationId =
-                hashQueryParams.interpretationId ||
-                hashQueryParams.interpretationid
+            params.interpretationId = hashQueryParams.interpretationId
 
             params.initialFocus = hashQueryParams.initialFocus
         }
@@ -107,13 +105,11 @@ export const useLoadMap = () => {
                         basemaps.find((bm) => bm.id === map.basemap.id) ||
                         getFallbackBasemap()
 
-                    const basemap = { ...map.basemap, ...basemapConfig }
-
                     dispatch(
                         setMap({
                             ...map,
                             mapViews: addOrgUnitPaths(map.mapViews),
-                            basemap,
+                            basemap: { ...map.basemap, ...basemapConfig },
                         })
                     )
                 } catch (e) {
@@ -141,11 +137,20 @@ export const useLoadMap = () => {
                 }
             } else if (isCurrentAO) {
                 try {
-                    return hasSingleDataDimension(currentAO)
+                    hasSingleDataDimension(currentAO)
                         ? getThematicLayerFromAnalyticalObject(currentAO).then(
                               (layer) => dispatch(addLayer(layer))
                           )
                         : dispatch(setAnalyticalObject(currentAO))
+
+                    if (isDownload) {
+                        dispatch(
+                            setDownloadMode({
+                                downloadMode: true,
+                                isPushAnalytics: false,
+                            })
+                        )
+                    }
                 } catch (e) {
                     log.error('Could not load current analytical object')
                     return e

@@ -17,21 +17,6 @@ import './App.css'
 import styles from './styles/App.module.css'
 import { useLoadMap } from './useLoadMap.js'
 
-// const getUrlParameter = (location, name) => {
-//     const parsed = queryString.parse(location.search, { parseBooleans: true })
-//     return parsed[name]
-// }
-
-// const getMapId = (hashLocation) => {
-//     const pathParts = hashLocation.pathname.slice(1).split('/')
-//     if (pathParts[0]) {
-//         return pathParts[0]
-//     }
-
-//     // support /?id=ytkZY3ChM6J for backwards compatibility
-//     return getUrlParameter(hashLocation, 'id')
-// }
-
 const App = () => {
     useLoadMap()
     const [interpretationsRenderCount, setInterpretationsRenderCount] =

@@ -8,7 +8,7 @@ context('Smoke Test', () => {
         cy.title().should('equal', 'Maps | DHIS2')
     })
 
-    it('loads with map id using legacy query param format', () => {
+    it('loads with map id (legacy)', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
@@ -24,7 +24,7 @@ context('Smoke Test', () => {
         Layer.validateCardTitle('ANC 3 Coverage')
     })
 
-    it('loads with map id using hash location', () => {
+    it('loads with map id (hash)', () => {
         cy.visit('/#/zDP78aJU8nX', EXTENDED_TIMEOUT) //ANC: 1st visit coverage (%) by district last year
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -33,12 +33,27 @@ context('Smoke Test', () => {
         Layer.validateCardTitle('ANC 1 Coverage')
     })
 
-    it('loads currentAnalyticalObject using legacy query param format', () => {
+    it('loads currentAnalyticalObject (legacy)', () => {
         cy.intercept('**/userDataStore/analytics/settings', {
             fixture: 'analyticalObject.json',
         })
 
         cy.visit('/?currentAnalyticalObject=true', EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        cy.contains('button', 'Proceed').click()
+
+        const Layer = new ThematicLayer()
+        Layer.validateCardTitle('ANC 1 Coverage')
+        cy.get('canvas.maplibregl-canvas').should('be.visible')
+    })
+
+    it('loads currentAnalyticalObject (hash)', () => {
+        cy.intercept('**/userDataStore/analytics/settings', {
+            fixture: 'analyticalObject.json',
+        })
+
+        cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         cy.contains('button', 'Proceed').click()
@@ -90,29 +105,7 @@ context('Smoke Test', () => {
             .should('be.visible')
     })
 
-    it('loads with map id (hash) and interpretationid lowercase', () => {
-        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
-            'postDataStatistics'
-        )
-
-        cy.visit(
-            '/#/ZBjCfSaLSqD?interpretationid=yKqhXZdeJ6a',
-            EXTENDED_TIMEOUT
-        ) //ANC: LLITN coverage district and facility
-
-        cy.wait('@postDataStatistics')
-            .its('response.statusCode')
-            .should('eq', 201)
-
-        cy.getByDataTest('interpretation-modal')
-            .find('h1')
-            .contains(
-                'Viewing interpretation: ANC: LLITN coverage district and facility'
-            )
-            .should('be.visible')
-    })
-
-    it('loads with map id (hash) and interpretationId uppercase', () => {
+    it('loads with map id (hash) and interpretationId', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
@@ -131,5 +124,34 @@ context('Smoke Test', () => {
                 'Viewing interpretation: ANC: LLITN coverage district and facility'
             )
             .should('be.visible')
+    })
+
+    it('loads download page for map id (hash)', () => {
+        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
+            'postDataStatistics'
+        )
+        cy.visit('/#/ZBjCfSaLSqD/download', EXTENDED_TIMEOUT) //ANC: LLITN coverage district and facility
+
+        cy.wait('@postDataStatistics')
+            .its('response.statusCode')
+            .should('eq', 201)
+
+        cy.getByDataTest('download-settings').should('be.visible')
+        cy.get('canvas.maplibregl-canvas').should('be.visible')
+        cy.get('button').contains('Exit download mode').should('be.visible')
+    })
+
+    it('loads download page currentAnalyticalObject (hash)', () => {
+        cy.intercept('**/userDataStore/analytics/settings', {
+            fixture: 'analyticalObject.json',
+        })
+
+        cy.visit('/#/currentAnalyticalObject/download', EXTENDED_TIMEOUT)
+
+        cy.contains('button', 'Proceed').click()
+
+        cy.getByDataTest('download-settings').should('be.visible')
+        cy.get('canvas.maplibregl-canvas').should('be.visible')
+        cy.get('button').contains('Exit download mode').should('be.visible')
     })
 })

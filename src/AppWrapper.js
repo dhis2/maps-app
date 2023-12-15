@@ -50,6 +50,7 @@ const AppWrapper = () => {
     if (queryParams.id) {
         // /?id=ytkZY3ChM6J
         // /?id=ZBjCfSaLSqD&interpretationid=yKqhXZdeJ6a
+        // /?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a
         let newPath = queryParams.id
 
         let interpretationId
