@@ -24,32 +24,20 @@ import history from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
 
 const getUrlParams = (hashLocation) => {
-    const hashQueryParams = queryString.parse(hashLocation.search, {
+    const params = queryString.parse(hashLocation.search, {
         parseBooleans: true,
     })
 
-    const params = {}
     const pathParts = hashLocation.pathname.slice(1).split('/')
     if (pathParts[0]) {
-        if (pathParts[0]?.length === 11) {
-            params.mapId = pathParts[0]
-        } else if (pathParts[0] === 'currentAnalyticalObject') {
+        if (pathParts[0] === 'currentAnalyticalObject') {
             params.isCurrentAO = true
         } else {
-            // TODO throw error - unrecognized path
+            params.mapId = pathParts[0]
         }
+
         if (pathParts[1] === 'download') {
             params.isDownload = true
-
-            if (hashQueryParams.isPushAnalytics) {
-                params.isPushAnalytics = true
-            }
-        }
-
-        if (params.mapId) {
-            params.interpretationId = hashQueryParams.interpretationId
-
-            params.initialFocus = hashQueryParams.initialFocus
         }
     }
 
@@ -70,8 +58,6 @@ export const useLoadMap = () => {
 
     const loadMap = useCallback(
         async (hashLocation) => {
-            console.log('jj loadMap')
-
             if (hashLocation.pathname === '/') {
                 dispatch(newMap())
                 return
@@ -88,7 +74,6 @@ export const useLoadMap = () => {
 
             if (mapId) {
                 try {
-                    // throw new Error('test')
                     const map = await fetchMap(mapId, engine, defaultBasemap)
 
                     engine.mutate(dataStatisticsMutation, {
@@ -184,8 +169,6 @@ export const useLoadMap = () => {
                 !isModalClosing &&
                 !isDownloadOpening &&
                 !isDownloadClosing
-
-            // TODO navigation confirm dialog
 
             if (isDownloadOpening) {
                 dispatch(

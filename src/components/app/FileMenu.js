@@ -65,8 +65,6 @@ const FileMenu = ({ onFileMenuAction }) => {
     const fileMenuErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
 
     const onSaveComplete = ({ id, name, isSaveAs }) => {
-        console.log('jj onSaveComplete', id, name, isSaveAs)
-
         if (isSaveAs) {
             saveAsAlert.show({ msg: getSavedMessage(name) })
         } else {
@@ -80,13 +78,6 @@ const FileMenu = ({ onFileMenuAction }) => {
             const locationState = {
                 isSaving: true,
             }
-
-            // const onSaveAsComplete = async (res) => {
-            //     // const newMapConfig = await fetchMap(newMapId, engine, defaultBasemap)
-            //     // delete newMapConfig.basemap
-            //     // delete newMapConfig.mapViews
-            //     // dispatch(setMapProps(newMapConfig))
-            // }
 
             if (isSaveAs) {
                 history.push(locationObject, locationState)

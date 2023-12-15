@@ -40,7 +40,7 @@ const d2Config = {
     ],
 }
 
-const AppWrapper = () => {
+const replaceLegacyUrl = () => {
     // support legacy urls
     const queryParams = queryString.parse(window.location.search, {
         parseBooleans: true,
@@ -74,6 +74,10 @@ const AppWrapper = () => {
         window.history.replaceState({}, '', `${base}#/currentAnalyticalObject`)
         history.replace('/currentAnalyticalObject')
     }
+}
+
+const AppWrapper = () => {
+    replaceLegacyUrl()
 
     return (
         <ReduxProvider store={store}>
