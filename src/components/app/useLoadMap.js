@@ -106,9 +106,7 @@ export const useLoadMap = () => {
                         })
                     )
                 } else if (isDownload) {
-                    dispatch(
-                        setDownloadMode({ downloadMode: true, isPushAnalytics })
-                    )
+                    dispatch(setDownloadMode(true))
                 }
             } else if (isCurrentAO) {
                 try {
@@ -119,12 +117,7 @@ export const useLoadMap = () => {
                         : dispatch(setAnalyticalObject(currentAO))
 
                     if (isDownload) {
-                        dispatch(
-                            setDownloadMode({
-                                downloadMode: true,
-                                isPushAnalytics: false,
-                            })
-                        )
+                        dispatch(setDownloadMode(true))
                     }
                 } catch (e) {
                     log.error('Could not load current analytical object')
@@ -171,19 +164,9 @@ export const useLoadMap = () => {
                 !isDownloadClosing
 
             if (isDownloadOpening) {
-                dispatch(
-                    setDownloadMode({
-                        downloadMode: true,
-                        isPushAnalytics: false,
-                    })
-                )
+                dispatch(setDownloadMode(true))
             } else if (isDownloadClosing) {
-                dispatch(
-                    setDownloadMode({
-                        downloadMode: false,
-                        isPushAnalytics: false,
-                    })
-                )
+                dispatch(setDownloadMode(false))
             } else if (isModalOpening && params.interpretationId) {
                 dispatch(
                     setInterpretation({
