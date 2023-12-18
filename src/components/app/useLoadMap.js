@@ -63,14 +63,8 @@ export const useLoadMap = () => {
                 return
             }
 
-            const {
-                mapId,
-                isCurrentAO,
-                isDownload,
-                isPushAnalytics,
-                interpretationId,
-                initialFocus,
-            } = getUrlParams(hashLocation)
+            const { mapId, isCurrentAO, isDownload, interpretationId } =
+                getUrlParams(hashLocation)
 
             if (mapId) {
                 try {
@@ -99,12 +93,7 @@ export const useLoadMap = () => {
                 }
 
                 if (interpretationId) {
-                    dispatch(
-                        setInterpretation({
-                            id: interpretationId,
-                            initialFocus,
-                        })
-                    )
+                    dispatch(setInterpretation(interpretationId))
                 } else if (isDownload) {
                     dispatch(setDownloadMode(true))
                 }
@@ -168,14 +157,9 @@ export const useLoadMap = () => {
             } else if (isDownloadClosing) {
                 dispatch(setDownloadMode(false))
             } else if (isModalOpening && params.interpretationId) {
-                dispatch(
-                    setInterpretation({
-                        id: params.interpretationId,
-                        initialFocus: params.initialFocus,
-                    })
-                )
+                dispatch(setInterpretation(params.interpretationId))
             } else if (isModalClosing && !params.interpretationId) {
-                dispatch(setInterpretation({}))
+                dispatch(setInterpretation(null))
             }
 
             if (isSaving || isOpening || isResetting || isValidLocationChange) {

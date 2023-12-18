@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes.js'
 
-export const setInterpretation = (payload) => ({
+export const setInterpretation = (id) => ({
     type: types.INTERPRETATION_SET,
-    payload,
+    payload: id,
 })

@@ -33,13 +33,15 @@ const InterpretationsPanel = ({ renderCount }) => {
     const { currentUser } = useCachedDataQuery()
     const interpretationsUnitRef = useRef()
     const map = useSelector((state) => state.map)
-    const { id: interpretationId, initialFocus } = useSelector(
-        (state) => state.interpretation
-    )
+    const interpretationId = useSelector((state) => state.interpretation?.id)
 
     const onReplyIconClick = useCallback((interpretationId) => {
         openInterpretationModal(interpretationId, true)
     }, [])
+
+    const { initialFocus } = queryString.parse(history.location.search, {
+        parseBooleans: true,
+    })
 
     return (
         <>
