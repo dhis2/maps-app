@@ -54,7 +54,8 @@ export const useLoadMap = () => {
                     })
 
                     const basemapConfig =
-                        basemaps.find((bm) => bm.id === map.basemap.id) ||
+                        basemaps.find(({ id }) => id === map.basemap.id) ||
+                        basemaps.find(({ id }) => id === defaultBasemap) ||
                         getFallbackBasemap()
 
                     dispatch(
