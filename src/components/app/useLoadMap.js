@@ -3,7 +3,6 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
-import queryString from 'query-string'
 import { useState, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
@@ -20,29 +19,8 @@ import {
 } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
-import history from '../../util/history.js'
+import history, { getHashUrlParams } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
-
-const getUrlParams = (hashLocation) => {
-    const params = queryString.parse(hashLocation.search, {
-        parseBooleans: true,
-    })
-
-    const pathParts = hashLocation.pathname.slice(1).split('/')
-    if (pathParts[0]) {
-        if (pathParts[0] === 'currentAnalyticalObject') {
-            params.isCurrentAO = true
-        } else {
-            params.mapId = pathParts[0]
-        }
-
-        if (pathParts[1] === 'download') {
-            params.isDownload = true
-        }
-    }
-
-    return params
-}
 
 export const useLoadMap = () => {
     const [previousLocation, setPreviousLocation] = useState()
@@ -64,7 +42,7 @@ export const useLoadMap = () => {
             }
 
             const { mapId, isCurrentAO, isDownload, interpretationId } =
-                getUrlParams(hashLocation)
+                getHashUrlParams()
 
             if (mapId) {
                 try {
@@ -137,7 +115,7 @@ export const useLoadMap = () => {
 
     useEffect(() => {
         const unlisten = history.listen(({ location }) => {
-            const params = getUrlParams(location)
+            const params = getHashUrlParams()
             const isSaving = location.state?.isSaving
             const isOpening = location.state?.isOpening
             const isResetting = location.state?.isResetting

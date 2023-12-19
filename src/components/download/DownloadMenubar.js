@@ -1,13 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, IconChevronLeft24, colors } from '@dhis2/ui'
 import React, { useEffect } from 'react'
-import history from '../../util/history.js'
+import { closeDownloadMode } from '../../util/history.js'
 import styles from './styles/DownloadMenubar.module.css'
-
-const closeDownloadMode = () => {
-    const rootPath = history.location.pathname.split('/download')[0]
-    history.push(rootPath, { isDownloadClosing: true })
-}
 
 const DownloadMenubar = () => {
     useEffect(() => {

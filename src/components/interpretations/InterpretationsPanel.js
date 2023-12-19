@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import queryString from 'query-string'
 import React, { useRef, useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import history from '../../util/history.js'
+import history, { getHashUrlParams } from '../../util/history.js'
 import Drawer from '../core/Drawer.js'
 import InterpretationMap from './InterpretationMap.js'
 
@@ -39,9 +39,7 @@ const InterpretationsPanel = ({ renderCount }) => {
         openInterpretationModal(interpretationId, true)
     }, [])
 
-    const { initialFocus } = queryString.parse(history.location.search, {
-        parseBooleans: true,
-    })
+    const { initialFocus } = getHashUrlParams()
 
     return (
         <>
