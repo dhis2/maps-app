@@ -52,8 +52,6 @@ const InterpretationsPanel = ({ renderCount }) => {
                     currentUser={currentUser}
                     onInterpretationClick={openInterpretationModal}
                     onReplyIconClick={onReplyIconClick}
-                    // disabled={disabled}
-                    // renderId={interpretationsUnitRenderId}
                 />
             </Drawer>
             {interpretationId && (
