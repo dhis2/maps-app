@@ -14,7 +14,7 @@ const PeriodTypeSelect = ({
     value,
 }) => {
     const { systemSettings } = useCachedDataQuery()
-    const hiddenPeriods = systemSettings.hiddenPeriods
+    const { hiddenPeriods } = systemSettings
 
     const periodTypes = useMemo(
         () => getPeriodTypes(includeRelativePeriods, hiddenPeriods),
