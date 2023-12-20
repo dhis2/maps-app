@@ -1,19 +1,16 @@
+import { CachedDataQueryProvider } from '@dhis2/analytics'
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
 import { CenteredContent, CircularLoader } from '@dhis2/ui'
 import log from 'loglevel'
-import moment from 'moment'
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.js'
 import OrgUnitsProvider from './components/OrgUnitsProvider.js'
-import SystemSettingsProvider from './components/SystemSettingsProvider.js'
-import UserSettingsProvider, {
-    UserSettingsCtx,
-} from './components/UserSettingsProvider.js'
 import WindowDimensionsProvider from './components/WindowDimensionsProvider.js'
 import store from './store/index.js'
 import { USER_DATASTORE_NAMESPACE } from './util/analyticalObject.js'
+import { appQueries, providerDataTransformation } from './util/app.js'
 import './locales/index.js'
 
 log.setLevel(
@@ -41,53 +38,45 @@ const d2Config = {
     ],
 }
 
-const AppWrapper = () => (
-    <ReduxProvider store={store}>
-        <DataStoreProvider namespace={USER_DATASTORE_NAMESPACE}>
-            <D2Shim d2Config={d2Config}>
-                {({ d2, d2Error }) => {
-                    if (!d2 && !d2Error) {
+const AppWrapper = () => {
+    return (
+        <ReduxProvider store={store}>
+            <DataStoreProvider namespace={USER_DATASTORE_NAMESPACE}>
+                <D2Shim d2Config={d2Config}>
+                    {({ d2, d2Error }) => {
+                        if (!d2 && !d2Error) {
+                            return (
+                                <div
+                                    style={{
+                                        position: 'absolute',
+                                        width: '100%',
+                                        height: '100%',
+                                        top: 0,
+                                    }}
+                                >
+                                    <CenteredContent>
+                                        <CircularLoader />
+                                    </CenteredContent>
+                                </div>
+                            )
+                        }
                         return (
-                            <div
-                                style={{
-                                    position: 'absolute',
-                                    width: '100%',
-                                    height: '100%',
-                                    top: 0,
-                                }}
+                            <CachedDataQueryProvider
+                                query={appQueries}
+                                dataTransformation={providerDataTransformation}
                             >
-                                <CenteredContent>
-                                    <CircularLoader />
-                                </CenteredContent>
-                            </div>
+                                <WindowDimensionsProvider>
+                                    <OrgUnitsProvider>
+                                        <App />
+                                    </OrgUnitsProvider>
+                                </WindowDimensionsProvider>
+                            </CachedDataQueryProvider>
                         )
-                    }
-
-                    return (
-                        <OrgUnitsProvider>
-                            <SystemSettingsProvider>
-                                <UserSettingsProvider>
-                                    <UserSettingsCtx.Consumer>
-                                        {({ keyUiLocale }) => {
-                                            if (!keyUiLocale) {
-                                                return null
-                                            }
-                                            moment.locale(keyUiLocale)
-                                            return (
-                                                <WindowDimensionsProvider>
-                                                    <App />
-                                                </WindowDimensionsProvider>
-                                            )
-                                        }}
-                                    </UserSettingsCtx.Consumer>
-                                </UserSettingsProvider>
-                            </SystemSettingsProvider>
-                        </OrgUnitsProvider>
-                    )
-                }}
-            </D2Shim>
-        </DataStoreProvider>
-    </ReduxProvider>
-)
+                    }}
+                </D2Shim>
+            </DataStoreProvider>
+        </ReduxProvider>
+    )
+}
 
 export default AppWrapper

@@ -1,0 +1,7 @@
+:root {
+    --left-panel-width: 300px;
+    --right-panel-width: 380px;
+
+    --header-height: 48px;
+    --toolbar-height: 32px;
+}

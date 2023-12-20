@@ -17,10 +17,8 @@ export const getEventColumns = async (
     layer,
     { format = METADATA_FORMAT_NAME, nameProperty, d2 }
 ) => {
-    const displayNameProp =
-        nameProperty === 'name' ? 'displayName' : 'displayShortName'
     const result = await d2.models.programStage.get(layer.programStage.id, {
-        fields: `programStageDataElements[displayInReports,dataElement[id,code,${displayNameProp}~rename(name),optionSet]]`,
+        fields: `programStageDataElements[displayInReports,dataElement[id,code,${nameProperty}~rename(name),optionSet]]`,
         paging: false,
     })
 

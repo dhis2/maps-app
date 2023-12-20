@@ -4,21 +4,22 @@
 # ericbp <ericbarredap@gmail.com>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Alison Andrade <aandrade@ippfwhr.org>, 2021
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # Prabhjot Singh, 2021
 # Carlos Tejo Alonso, 2022
 # Marta Vila <marta@dhis2.org>, 2023
 # Viktor Varland <viktor@dhis2.org>, 2023
-# Janeth Cruz, 2023
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
+# Alejandra Avila <alejandra@dhis2.org>, 2023
+# Janeth Cruz, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2023\n"
+"Last-Translator: Janeth Cruz, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -157,7 +158,7 @@ msgid "Org unit"
 msgstr "Unidad Organizativa"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Event time"
 msgstr "Event time"
@@ -524,9 +525,6 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Grupo de indicadores"
 
-msgid "Interpretations"
-msgstr "Interpretaciones"
-
 msgid "Collapse"
 msgstr "Contraer"
 
@@ -756,7 +754,7 @@ msgid ""
 msgstr ""
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "Utilizar geometría asociada"
 
 msgid "None (default)"
 msgstr "Ninguno (predeterminado)"
@@ -903,7 +901,7 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "Media"
 
 msgid "Median"
 msgstr "Mediana"
@@ -915,25 +913,19 @@ msgid "OSM Light"
 msgstr "OSM Sencillo"
 
 msgid "OSM Detailed"
-msgstr ""
-
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Híbrido"
+msgstr "OSM Detallado"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing Carretera"
 
 msgid "Bing Dark"
 msgstr "Bing Dark"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing Aéreo"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Etiquetas aéreas Bing"
 
 msgid "Population"
 msgstr "Población"
@@ -1281,6 +1273,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr "No tiene acceso a los datos de esta capa"
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr "Se produjo un error desconocido al leer los datos de la capa"
 
@@ -1320,18 +1315,6 @@ msgstr ""
 msgid "related"
 msgstr "relacionado"
 
-msgid "Thematic"
-msgstr "Temática"
-
-msgid "Events"
-msgstr "Eventos"
-
-msgid "Tracked entities"
-msgstr "Entidades monitoreadas"
-
-msgid "Org units"
-msgstr "Unidades organizativas"
-
 msgid "not one of"
 msgstr ""
 
@@ -1349,11 +1332,24 @@ msgstr "No"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
+"No se puede obtener el token de autorización para Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+
+msgid "Thematic"
+msgstr "Temática"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "Tracked entities"
+msgstr "Entidades monitoreadas"
+
+msgid "Org units"
+msgstr "Unidades organizativas"
 
 msgid "Facility"
 msgstr "Establecimiento"

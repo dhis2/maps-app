@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { TILE_LAYER, GOOGLE_LAYER, BING_LAYER } from '../constants/layers.js'
+import { TILE_LAYER, BING_LAYER } from '../constants/layers.js'
 
 export const FALLBACK_BASEMAP_ID = 'osmLight'
 
@@ -31,24 +31,6 @@ export const defaultBasemaps = () => [
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         },
         isDark: false,
-    },
-    {
-        id: 'googleStreets',
-        name: i18n.t('Google Streets'),
-        img: 'images/googlestreets.png',
-        config: {
-            type: GOOGLE_LAYER,
-            style: 'ROADMAP',
-        },
-    },
-    {
-        id: 'googleHybrid',
-        name: i18n.t('Google Hybrid'),
-        img: 'images/googlehybrid.jpeg',
-        config: {
-            type: GOOGLE_LAYER,
-            style: 'HYBRID',
-        },
     },
     {
         id: 'bingLight',

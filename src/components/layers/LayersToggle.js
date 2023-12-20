@@ -1,11 +1,11 @@
 import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { openLayersPanel, closeLayersPanel } from '../../actions/ui.js'
 import styles from './styles/LayersToggle.module.css'
 
-// This expand/collapse toggle is separate from LayersPanel to avoid overflow issue
 const LayersToggle = ({
     isOpen,
     isDownload,
@@ -15,8 +15,7 @@ const LayersToggle = ({
     !isDownload && (
         <div
             onClick={isOpen ? closeLayersPanel : openLayersPanel}
-            className={styles.layersToggle}
-            style={isOpen ? {} : { left: 0 }}
+            className={cx(styles.layersToggle, { [styles.collapsed]: !isOpen })}
         >
             {isOpen ? <IconChevronLeft24 /> : <IconChevronRight24 />}
         </div>

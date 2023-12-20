@@ -1,4 +1,4 @@
-import { getExcludedTags } from '../../cypress/support/getExcludedTags.js'
+import { getExcludedTags } from '../../cypress/plugins/excludeByVersionTags.js'
 import { minDHIS2Version } from '../../d2.config.js'
 
 const minVersion = parseInt(minDHIS2Version.slice(2))

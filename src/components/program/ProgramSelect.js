@@ -1,9 +1,9 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SelectField } from '../core/index.js'
-import { useUserSettings } from '../UserSettingsProvider.js'
 
 const allProgramsItem = {
     id: 'noPrograms',
@@ -32,7 +32,7 @@ const ProgramSelect = ({
     errorText,
     onChange,
 }) => {
-    const { nameProperty } = useUserSettings()
+    const { nameProperty } = useCachedDataQuery()
     const { loading, error, data } = useDataQuery(PROGRAMS_QUERY, {
         variables: { nameProperty },
     })

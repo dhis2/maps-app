@@ -6,7 +6,7 @@ import {
     saveExistingMap,
     deleteMap,
 } from '../elements/file_menu.js'
-import { OrgUnitLayer } from '../elements/orgunit_layer.js'
+import { Layer as OrgUnitLayer } from '../elements/layer.js'
 import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -39,9 +39,16 @@ describe('File menu', () => {
             req.continue()
         }).as('saveMap')
 
+        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
+            'postDataStatistics'
+        )
+
         saveNewMap(MAP_TITLE)
 
         cy.wait('@saveMap').its('response.statusCode').should('eq', 201)
+        cy.wait('@postDataStatistics')
+            .its('response.statusCode')
+            .should('eq', 201)
     })
 
     it.skip('save existing as new map', () => {
@@ -67,9 +74,16 @@ describe('File menu', () => {
             req.continue()
         }).as('saveAsNewMap')
 
+        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
+            'postDataStatistics'
+        )
+
         saveAsNewMap(SAVEAS_MAP_TITLE)
 
         cy.wait('@saveAsNewMap').its('response.statusCode').should('eq', 201)
+        cy.wait('@postDataStatistics')
+            .its('response.statusCode')
+            .should('eq', 201)
     })
 
     it.skip('save changes to existing map', () => {

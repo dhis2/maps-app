@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -8,19 +9,22 @@ import { SelectField } from '../core/index.js'
 const DATA_SETS_QUERY = {
     sets: {
         resource: 'dataSets',
-        params: {
+        params: ({ nameProperty }) => ({
             fields: [
                 'dimensionItem~rename(id)',
-                'displayName~rename(name)',
+                `${nameProperty}~rename(name)`,
                 'legendSet[id]',
             ],
             paging: false,
-        },
+        }),
     },
 }
 
 const DataSetsSelect = ({ dataSet, onChange, className, errorText }) => {
-    const { loading, error, data } = useDataQuery(DATA_SETS_QUERY)
+    const { nameProperty } = useCachedDataQuery()
+    const { loading, error, data } = useDataQuery(DATA_SETS_QUERY, {
+        variables: { nameProperty },
+    })
 
     const dataSetId = dataSet ? dataSet.id.split('.')[0] : null // Remove ".REPORTING_RATE"
 

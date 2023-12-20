@@ -50,7 +50,6 @@ import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import ProgramStageSelect from '../../program/ProgramStageSelect.js'
-import { SystemSettingsCtx } from '../../SystemSettingsProvider.js'
 import BufferRadius from '../shared/BufferRadius.js'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.js'
@@ -72,7 +71,6 @@ class EventDialog extends Component {
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         columns: PropTypes.array,
-        defaultPeriod: PropTypes.string,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
@@ -92,7 +90,6 @@ class EventDialog extends Component {
             id: PropTypes.string.isRequired,
         }),
         rows: PropTypes.array,
-        settings: PropTypes.object,
         startDate: PropTypes.string,
         styleDataItem: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -100,6 +97,7 @@ class EventDialog extends Component {
                 options: PropTypes.array,
             }),
         }),
+        systemSettings: PropTypes.object,
     }
 
     constructor(props, context) {
@@ -113,8 +111,7 @@ class EventDialog extends Component {
         const {
             rows,
             filters,
-            defaultPeriod,
-            settings,
+            systemSettings,
             startDate,
             endDate,
             orgUnits,
@@ -125,6 +122,8 @@ class EventDialog extends Component {
         } = this.props
 
         const period = getPeriodFromFilters(filters)
+        const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
+            systemSettings
 
         // Set default period from system settings
         if (
@@ -132,7 +131,7 @@ class EventDialog extends Component {
             !startDate &&
             !endDate &&
             defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, settings.hiddenPeriods)
+            isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
             setPeriod({
                 id: defaultPeriod,
@@ -455,12 +454,6 @@ class EventDialog extends Component {
     }
 }
 
-const EventDialogWithSettings = (props) => (
-    <SystemSettingsCtx.Consumer>
-        {(settings) => <EventDialog settings={settings} {...props} />}
-    </SystemSettingsCtx.Consumer>
-)
-
 export default connect(
     null,
     {
@@ -481,4 +474,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(EventDialogWithSettings)
+)(EventDialog)

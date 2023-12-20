@@ -1,4 +1,4 @@
-import { OrgUnitLayer } from '../../elements/orgunit_layer.js'
+import { Layer as OrgUnitLayer } from '../../elements/layer.js'
 
 context('Org Unit Layers', () => {
     beforeEach(() => {

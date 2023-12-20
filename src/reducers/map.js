@@ -208,8 +208,8 @@ const map = (state = defaultState, action) => {
                 mapViews: [
                     ...state.mapViews,
                     {
-                        id: generateUid(),
                         ...action.payload,
+                        id: generateUid(),
                     },
                 ],
                 newLayerIsLoading: false,

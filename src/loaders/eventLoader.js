@@ -33,6 +33,10 @@ const accessDeniedAlert = {
     code: ERROR_NO_ACCESS,
     message: i18n.t("You don't have access to this layer data"),
 }
+const filterErrorAlert = {
+    warning: true,
+    message: i18n.t('The event filter is not supported'),
+}
 const unknownErrorAlert = {
     critical: true,
     code: ERROR_UNKNOWN,
@@ -47,7 +51,11 @@ const eventLoader = async (layerConfig) => {
         await loadEventLayer(config)
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
-            config.alerts = [accessDeniedAlert]
+            config.alerts = [
+                e.message.includes('filter is invalid')
+                    ? filterErrorAlert
+                    : accessDeniedAlert,
+            ]
         } else {
             config.alerts = [unknownErrorAlert]
         }

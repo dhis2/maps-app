@@ -1,6 +1,7 @@
 import log from 'loglevel'
 import * as types from '../constants/actionTypes.js'
 import { getFallbackBasemap } from '../constants/basemaps.js'
+import { dataStatisticsMutation } from '../util/apiDataStatistics.js'
 import { addOrgUnitPaths } from '../util/helpers.js'
 import { fetchMap } from '../util/requests.js'
 
@@ -43,12 +44,19 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
 })
 
 export const tOpenMap =
-    (mapId, keyDefaultBaseMap, dataEngine) => async (dispatch, getState) => {
+    ({ mapId, defaultBasemap, engine, basemaps }) =>
+    async (dispatch) => {
         try {
-            const map = await fetchMap(mapId, dataEngine, keyDefaultBaseMap)
+            const map = await fetchMap(mapId, engine, defaultBasemap)
+
+            // record visualization view
+            engine.mutate(dataStatisticsMutation, {
+                variables: { id: mapId },
+                onError: (error) => console.error('Error: ', error),
+            })
 
             const basemapConfig =
-                getState().basemaps.find((bm) => bm.id === map.basemap.id) ||
+                basemaps.find((bm) => bm.id === map.basemap.id) ||
                 getFallbackBasemap()
 
             const basemap = { ...map.basemap, ...basemapConfig }

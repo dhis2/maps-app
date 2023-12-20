@@ -50,3 +50,13 @@ export const filterFuturePeriods = (periods) => {
     const now = new Date(Date.now())
     return periods.filter(({ startDate }) => new Date(startDate) < now)
 }
+
+const periodSetting = /keyHide(.*)Periods/
+
+export const getHiddenPeriods = (systemSettings) => {
+    return Object.keys(systemSettings)
+        .filter(
+            (setting) => periodSetting.test(setting) && systemSettings[setting]
+        )
+        .map((setting) => setting.match(periodSetting)[1].toUpperCase())
+}

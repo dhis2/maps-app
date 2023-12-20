@@ -1,11 +1,15 @@
-.appLayout {
-    position: absolute;
-    top: 48px;
-    bottom: 0;
-    left: 0;
-    right: 0
+.content {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--header-height) - var(--toolbar-height));
 }
 
-.downloadMode {
-    top: 0;
+.downloadContent {
+    margin-top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+}
+
+.appMapAndTable {
+    flex: auto;
+    position: relative;
 }

@@ -1,6 +1,5 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useSystemSettings } from '../components/SystemSettingsProvider.js'
 import { getFallbackBasemap } from '../constants/basemaps.js'
 import { defaultBasemapState } from '../reducers/map.js'
 
@@ -8,11 +7,11 @@ const emptyBasemap = { config: {} }
 
 function useBasemapConfig(selected) {
     const [basemap, setBasemap] = useState(emptyBasemap)
-    const basemaps = useSelector((state) => state.basemaps)
-    const { keyDefaultBaseMap } = useSystemSettings()
+    const { systemSettings, basemaps } = useCachedDataQuery()
+    const defaultBasemap = systemSettings.keyDefaultBaseMap
 
     useEffect(() => {
-        const selectedId = selected.id || keyDefaultBaseMap
+        const selectedId = selected.id || defaultBasemap
 
         const basemapToUse =
             basemaps.find(({ id }) => id === selectedId) || getFallbackBasemap()
@@ -29,7 +28,7 @@ function useBasemapConfig(selected) {
         }
 
         setBasemap(basemapConfig)
-    }, [keyDefaultBaseMap, selected, basemaps])
+    }, [defaultBasemap, selected, basemaps])
 
     return basemap
 }

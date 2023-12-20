@@ -1,0 +1,21 @@
+.layersPanel {
+    width: var(--left-panel-width);
+}
+
+.layersPanel.collapsed {
+    width: 0px;
+}
+
+.layersPanelInner {
+    background-color: #f4f6f8;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 1px 0 1px 0 rgba(0, 0, 0, 0.2);
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1190;
+    transform: translateX(0);
+}
+
+.layersPanel.collapsed .layersPanelInner {
+    transform: translateX(calc(var(--left-panel-width) * -1));
+}

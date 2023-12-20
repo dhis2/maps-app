@@ -2,8 +2,28 @@ import { render } from '@testing-library/react'
 import React from 'react'
 import DataDownloadDialogActions from '../DataDownloadDialogActions.js'
 
+/* eslint-disable react/prop-types */
+jest.mock('@dhis2/ui', () => {
+    const originalModule = jest.requireActual('@dhis2/ui')
+
+    return {
+        __esModule: true,
+        ...originalModule,
+        Button: function Mock({ children }) {
+            return <div className="ui-Button">{children}</div>
+        },
+        ButtonStrip: function Mock({ children }) {
+            return <div className="ui-ButtonStrip">{children}</div>
+        },
+        CircularLoader: function Mock({ children }) {
+            return <div className="ui-CircularLoader">{children}</div>
+        },
+    }
+})
+/* eslint-enable react/prop-types */
+
 describe('DataDownloadDialogActions', () => {
-    it('Should render two buttons and NO loading spinner', () => {
+    it('Should render two buttons and NO loading spinner when not loading', () => {
         const { container } = render(
             <DataDownloadDialogActions
                 downloading={false}
@@ -14,7 +34,7 @@ describe('DataDownloadDialogActions', () => {
         expect(container).toMatchSnapshot()
     })
 
-    it('Should disable buttons and show loading spinner when loading', () => {
+    it('Should render two buttons and show loading spinner when loading', () => {
         const { container } = render(
             <DataDownloadDialogActions
                 downloading={true}

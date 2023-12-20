@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import * as types from '../constants/actionTypes.js'
 import { earthEngineLayers } from '../constants/earthEngine.js'
 import {
     THEMATIC_LAYER,
@@ -9,7 +8,7 @@ import {
     ORG_UNIT_LAYER,
 } from '../constants/layers.js'
 
-const defaultLayers = () => [
+export const getDefaultLayerTypes = () => [
     {
         layer: THEMATIC_LAYER,
         type: i18n.t('Thematic'),
@@ -43,23 +42,3 @@ const defaultLayers = () => [
     },
     ...earthEngineLayers().filter((l) => !l.legacy),
 ]
-
-const layers = (state, action) => {
-    const prevState = state || defaultLayers()
-
-    switch (action.type) {
-        case types.EXTERNAL_LAYER_ADD:
-            return [
-                ...prevState,
-                {
-                    ...action.payload,
-                    isVisible: true,
-                },
-            ]
-
-        default:
-            return prevState
-    }
-}
-
-export default layers

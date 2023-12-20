@@ -1,18 +1,18 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { sortBy } from 'lodash/fp'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { SelectField } from '../core/index.js'
-import { useUserSettings } from '../UserSettingsProvider.js'
 
-// Load program indicators for one porgram
+// Load program indicators for one program
 const PROGRAM_INDICATORS_QUERY = {
     indicators: {
-        resource: 'programs',
-        id: ({ id }) => id,
-        params: ({ nameProperty }) => ({
-            fields: `programIndicators[dimensionItem~rename(id),${nameProperty}~rename(name)]`,
+        resource: 'programIndicators',
+        params: ({ id, nameProperty }) => ({
+            filter: `program.id:eq:${id}`,
+            fields: ['id', `${nameProperty}~rename(name)`],
             paging: false,
         }),
     },
@@ -25,7 +25,7 @@ const ProgramIndicatorSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty } = useUserSettings()
+    const { nameProperty } = useCachedDataQuery()
 
     const { data, loading, error, refetch } = useDataQuery(
         PROGRAM_INDICATORS_QUERY,

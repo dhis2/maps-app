@@ -1,7 +1,12 @@
+import { checkBasemap } from '../elements/basemap_card.js'
 import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: 'systemSettings?*' }
+const SYSTEM_SETTINGS_ENDPOINT = {
+    method: 'GET',
+    url: 'systemSettings?*',
+    times: 1,
+}
 
 describe('systemSettings', () => {
     beforeEach(() => {
@@ -72,9 +77,9 @@ describe('systemSettings', () => {
 
         cy.visit('/')
 
-        cy.getByDataTest('basemaplist', EXTENDED_TIMEOUT)
-            .children()
-            .should('have.length', 5)
+        cy.getByDataTest('basemaplistitem-name')
+            .contains('Bing Road')
+            .should('not.exist')
     })
 
     it('includes Bing basemaps when Bing api key present', () => {
@@ -89,12 +94,12 @@ describe('systemSettings', () => {
             .should('be.visible')
     })
 
-    it.skip('uses Last 6 months as default relative period', () => {
+    it('uses Last 6 months as default relative period', () => {
+        // set relative period to 6 months
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']
             req.continue((res) => {
                 res.body.keyAnalysisRelativePeriod = 'LAST_6_MONTHS'
-
                 res.send({
                     body: res.body,
                 })
@@ -102,31 +107,26 @@ describe('systemSettings', () => {
         }).as('getSystemSettings6months')
 
         cy.visit('/', EXTENDED_TIMEOUT)
-        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
-        cy.wait('@getSystemSettings6months', EXTENDED_TIMEOUT)
-            .its('response.statusCode')
-            .should('eq', 200)
-
-        // Open/close file menu is a hack to trigger a ui change, ensuring that
-        // systemSettings has completed
-        cy.getByDataTest('file-menu-toggle').click()
-        cy.getByDataTest('file-menu-toggle-layer').click()
-
+        // cy.wait('@getSystemSettings6months')
         cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         const Layer = new ThematicLayer()
 
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
-            .selectIndicator('VCCT post-test counselling rate')
+            .selectIndicatorGroup('ANC')
+            .selectIndicator('ANC 1 Coverage')
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateCardPeriod('Last 6 months')
+        // })
     })
 
-    it.skip('uses Last 12 months as default relative period', () => {
+    it('uses Last 12 months as default relative period', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']
             req.continue((res) => {
@@ -139,19 +139,41 @@ describe('systemSettings', () => {
         }).as('getSystemSettings12months')
 
         cy.visit('/', EXTENDED_TIMEOUT)
-        cy.wait('@getSystemSettings12months')
 
+        // cy.wait('@getSystemSettings12months')
         cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         const Layer = new ThematicLayer()
 
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
-            .selectIndicator('VCCT post-test counselling rate')
+            .selectIndicatorGroup('ANC')
+            .selectIndicator('ANC 1 Coverage')
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateCardPeriod('Last 12 months')
+        // })
+    })
+
+    it('uses the correct default basemap', () => {
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
+            delete req.headers['if-none-match']
+            req.continue((res) => {
+                res.body.keyDefaultBaseMap = 'LOw2p0kPwua'
+
+                res.send({
+                    body: res.body,
+                })
+            })
+        })
+
+        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        checkBasemap.activeBasemap('Dark basemap')
     })
 })

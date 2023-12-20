@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -5,7 +6,6 @@ import React, { useEffect } from 'react'
 import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
 import { combineDataItems } from '../../util/analytics.js'
 import { SelectField } from '../core/index.js'
-import { useUserSettings } from '../UserSettingsProvider.js'
 
 const excludeValueTypes = [
     'FILE_RESOURCE',
@@ -39,7 +39,7 @@ const EventDataItemSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty } = useUserSettings()
+    const { nameProperty } = useCachedDataQuery()
     const { programAttributes } = useProgramTrackedEntityAttributes({
         programId: program?.id,
     })

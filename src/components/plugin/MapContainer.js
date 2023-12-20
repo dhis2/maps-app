@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
@@ -5,19 +6,18 @@ import React, { useState, useEffect } from 'react'
 import { getConfigFromNonMapConfig } from '../../util/getConfigFromNonMapConfig.js'
 import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import { fetchMap } from '../../util/requests.js'
-import { useSystemSettings } from '../SystemSettingsProvider.js'
 import getBasemapConfig from './getBasemapConfig.js'
 import LoadingMask from './LoadingMask.js'
 import Map from './Map.js'
 
 const MapContainer = ({ visualization }) => {
     const engine = useDataEngine()
-    const systemSettings = useSystemSettings()
+    const { systemSettings } = useCachedDataQuery()
     const [config, setConfig] = useState(null)
 
     useEffect(() => {
         const {
-            basemap: basemapId,
+            basemap: visBasemap,
             mapViews,
             userOrgUnit,
             id,
@@ -37,13 +37,13 @@ const MapContainer = ({ visualization }) => {
                 )
             } else {
                 initialConfig = getMigratedMapConfig(
-                    { basemapId, mapViews },
+                    { basemap: visBasemap, mapViews },
                     keyDefaultBaseMap
                 )
             }
 
             const { basemap } = await getBasemapConfig({
-                basemapId,
+                basemapId: initialConfig.basemap?.id,
                 keyDefaultBaseMap,
                 keyBingMapsApiKey,
                 engine,
