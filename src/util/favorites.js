@@ -62,8 +62,8 @@ const validLayerProperties = [
     'organisationUnitSelectionMode',
     'orgUnitField',
     'orgUnitFieldDisplayName',
-    'params',
-    'periodName',
+    'style',
+    'period',
     'periodType',
     'renderingStrategy',
     'program',
@@ -132,14 +132,14 @@ const models2objects = (config) => {
     }
 
     if (layer === EARTH_ENGINE_LAYER) {
-        const { layerId: id, band, params, aggregationType, filter } = config
+        const { layerId: id, band, style, aggregationType, period } = config
 
         const eeConfig = {
             id,
-            params,
+            style,
             band,
             aggregationType,
-            filter,
+            period,
         }
 
         // Removes undefined keys before stringify
@@ -151,11 +151,10 @@ const models2objects = (config) => {
 
         delete config.layerId
         delete config.datasetId
-        delete config.params
-        delete config.filter
+        delete config.style
+        delete config.period
         delete config.filters
         delete config.periodType
-        delete config.periodName
         delete config.aggregationType
         delete config.band
     } else if (layer === TRACKED_ENTITY_LAYER) {

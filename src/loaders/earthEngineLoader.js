@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { precisionFixed, formatLocale } from 'd3-format'
-// import { getEarthEngineLayer } from '../constants/earthEngine.js'
+import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
@@ -22,7 +22,7 @@ const earthEngineLoader = async (config) => {
     const alerts = []
 
     let layerConfig = {}
-    // let dataset
+    let dataset
     let features
 
     if (orgUnits && orgUnits.length) {
@@ -115,24 +115,23 @@ const earthEngineLoader = async (config) => {
             layerConfig.params.palette = layerConfig.params.palette.split(',')
         }
 
-        /*
         dataset = getEarthEngineLayer(layerConfig.id)
 
         if (dataset) {
             delete layerConfig.id
         }
-        */
 
         delete config.config
+        delete config.filters // Backend returns empty filters array
     } else {
-        // dataset = getEarthEngineLayer(layerConfig.id)
+        dataset = getEarthEngineLayer(layerConfig.id)
         // console.log('getEarthEngineLayer', layerConfig.id, dataset)
     }
 
     // console.log('###', dataset, config, layerConfig)
 
     const layer = {
-        // ...dataset,
+        ...dataset,
         ...config,
         ...layerConfig,
     }
@@ -150,7 +149,18 @@ const earthEngineLoader = async (config) => {
         maskOperator,
         precision,
     } = layer
-    const { name } = config // dataset || config
+
+    /*
+    console.log(
+        '#####',
+        filters,
+        dataset.filters,
+        config.filters,
+        layerConfig.filters
+    )
+    */
+
+    const { name } = dataset || config
     // const period = getPeriodNameFromFilter(filter)
     const data =
         Array.isArray(features) && features.length ? features : undefined
@@ -180,13 +190,6 @@ const earthEngineLoader = async (config) => {
     } else if (!hasClasses(aggregationType) && style?.palette) {
         legend.items = createLegend(style, !maskOperator, precision)
     }
-
-    // TODO: remove when range periods is supported
-    /*
-    if (layer.periodType === 'range' && !layer.filter) {
-        layer.filter = layer.filters
-    }
-    */
 
     const filter = getFilterFromPeriod(period, filters)
 
