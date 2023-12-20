@@ -42,13 +42,11 @@ describe('Data table', () => {
         cy.getByDataTest('bottom-panel').should('not.exist')
     })
 
-    it('opens the data table for a Event layers', () => {
+    it('opens the data table for an Event layer', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
-        // cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         const Layer = new EventLayer()
 
-        // Add first layer
         Layer.openDialog('Events')
             .selectProgram('Malaria case registration')
             .validateStage('Malaria case registration')
