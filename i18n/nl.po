@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Charel van den Elsen, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -525,9 +525,6 @@ msgstr "Stileer volgens groepsreeks"
 msgid "Indicator group"
 msgstr "Indicatorgroep"
 
-msgid "Interpretations"
-msgstr "Interpretaties"
-
 msgid "Collapse"
 msgstr "Inklappen"
 
@@ -923,12 +920,6 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1296,6 +1287,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr "U heeft geen toegang to deze laaggegevens."
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 "Een onbekende fout is opgetreden tijdens het inlezen van laaggegevens."
@@ -1336,18 +1330,6 @@ msgstr "Geen getraceerde entiteiten gevonden"
 msgid "related"
 msgstr "gerelateerd"
 
-msgid "Thematic"
-msgstr "Thematisch"
-
-msgid "Events"
-msgstr "Gebeurtenissen"
-
-msgid "Tracked entities"
-msgstr "Getraceerde entiteiten"
-
-msgid "Org units"
-msgstr "Organisatieëenheden"
-
 msgid "not one of"
 msgstr "niet één van"
 
@@ -1372,6 +1354,18 @@ msgid ""
 msgstr ""
 "Deze laag vereist een Google Earth Engine-account. Kijk de "
 "DHIS2-documentation na voor meer informatie."
+
+msgid "Thematic"
+msgstr "Thematisch"
+
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+msgid "Tracked entities"
+msgstr "Getraceerde entiteiten"
+
+msgid "Org units"
+msgstr "Organisatieëenheden"
 
 msgid "Facility"
 msgstr "Faciliteit"

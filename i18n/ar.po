@@ -1,13 +1,13 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Hamza Assada <7amza.it@gmail.com>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -509,9 +509,6 @@ msgstr ""
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
 
-msgid "Interpretations"
-msgstr "التفسيرات"
-
 msgid "Collapse"
 msgstr "انهيار"
 
@@ -902,12 +899,6 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM مفصل"
 
-msgid "Google Streets"
-msgstr "الشوارع بحسب غوغل"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Bing طرقات"
 
@@ -1273,6 +1264,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr "ليس لديك حق الوصول إلى بيانات الطبقة هذه"
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
 
@@ -1312,18 +1306,6 @@ msgstr "لم يتم العثور على الكيانات المتعقبة"
 msgid "related"
 msgstr "ذات صلة"
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "الأحداث"
-
-msgid "Tracked entities"
-msgstr "الكيانات المتعقبة"
-
-msgid "Org units"
-msgstr "الوحدات التنظيمية"
-
 msgid "not one of"
 msgstr ""
 
@@ -1348,6 +1330,18 @@ msgid ""
 msgstr ""
 "تتطلب هذه الطبقة حساب Google Earth Engine. تحقق من وثائق DHIS2 لمزيد من "
 "المعلومات."
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "الأحداث"
+
+msgid "Tracked entities"
+msgstr "الكيانات المتعقبة"
+
+msgid "Org units"
+msgstr "الوحدات التنظيمية"
 
 msgid "Facility"
 msgstr "المنشأة"

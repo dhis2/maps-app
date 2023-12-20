@@ -2,8 +2,8 @@ import {
     AboutAOUnit,
     InterpretationsUnit,
     InterpretationModal,
+    useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import PropTypes from 'prop-types'
 import React, { useState, useRef, useCallback } from 'react'
 import { connect } from 'react-redux'
@@ -11,10 +11,15 @@ import { setInterpretation } from '../../actions/interpretations.js'
 import Drawer from '../core/Drawer.js'
 import InterpretationMap from './InterpretationMap.js'
 
-const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
+const InterpretationsPanel = ({
+    interpretationId,
+    map,
+    setInterpretation,
+    renderCount,
+}) => {
+    const { currentUser } = useCachedDataQuery()
     const [initialFocus, setInitialFocus] = useState(false)
     const interpretationsUnitRef = useRef()
-    const { d2 } = useD2()
 
     const onInterpretationClick = useCallback(
         (interpretationId) => {
@@ -39,19 +44,19 @@ const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
     return (
         <>
             <Drawer>
-                <AboutAOUnit type="map" id={map.id} />
+                <AboutAOUnit type="map" id={map.id} renderId={renderCount} />
                 <InterpretationsUnit
                     ref={interpretationsUnitRef}
                     type="map"
                     id={map.id}
-                    currentUser={d2.currentUser}
+                    currentUser={currentUser}
                     onInterpretationClick={onInterpretationClick}
                     onReplyIconClick={onReplyIconClick}
                 />
             </Drawer>
             {interpretationId && (
                 <InterpretationModal
-                    currentUser={d2.currentUser}
+                    currentUser={currentUser}
                     onInterpretationUpdate={() =>
                         interpretationsUnitRef.current.refresh()
                     }
@@ -70,6 +75,7 @@ const InterpretationsPanel = ({ interpretationId, map, setInterpretation }) => {
 
 InterpretationsPanel.propTypes = {
     map: PropTypes.object.isRequired,
+    renderCount: PropTypes.number.isRequired,
     setInterpretation: PropTypes.func.isRequired,
     interpretationId: PropTypes.string,
 }

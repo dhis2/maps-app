@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -511,9 +511,6 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Indikatorgruppe"
 
-msgid "Interpretations"
-msgstr "Tolkninger"
-
 msgid "Collapse"
 msgstr "Kollaps"
 
@@ -847,7 +844,7 @@ msgid "End date"
 msgstr "Sluttdato"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Ikke tilgjengelig i frakoblet modus"
 
 msgid "Program indicator"
 msgstr "Programindikator"
@@ -905,12 +902,6 @@ msgstr "OSM tynn"
 
 msgid "OSM Detailed"
 msgstr "OSM Detaljert"
-
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
 
 msgid "Bing Road"
 msgstr "Bing Vei"
@@ -1277,6 +1268,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr "Du har ikke tilgang til disse lagdataene"
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr "En ukjent feil oppstod under lesing av lagdata"
 
@@ -1316,18 +1310,6 @@ msgstr "Ingen sporede enheter funnet"
 msgid "related"
 msgstr "relatert"
 
-msgid "Thematic"
-msgstr "Tematisk"
-
-msgid "Events"
-msgstr "Hendelser"
-
-msgid "Tracked entities"
-msgstr "Sporede enheter"
-
-msgid "Org units"
-msgstr "Org enhet"
-
 msgid "not one of"
 msgstr "ikke en av"
 
@@ -1352,6 +1334,18 @@ msgid ""
 msgstr ""
 "Dette kartlaget krever en Google Earth Engine-konto. Sjekk "
 "DHIS2-dokumentasjonen for mer informasjon."
+
+msgid "Thematic"
+msgstr "Tematisk"
+
+msgid "Events"
+msgstr "Hendelser"
+
+msgid "Tracked entities"
+msgstr "Sporede enheter"
+
+msgid "Org units"
+msgstr "Org enhet"
 
 msgid "Facility"
 msgstr "Fasilitet"

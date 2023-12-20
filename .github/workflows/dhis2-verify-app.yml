@@ -72,16 +72,25 @@ jobs:
 
             - name: Test
               run: yarn d2-app-scripts test
+              env:
+                  REPORTPORTAL_API_KEY: ${{ secrets.REPORTPORTAL_API_KEY }}
+                  REPORTPORTAL_ENDPOINT: ${{ vars.REPORTPORTAL_ENDPOINT }}
+                  REPORTPORTAL_PROJECT: ${{ vars.REPORTPORTAL_PROJECT }}
+                  CI_BUILD_ID: ${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}
+                  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+                  PR_TITLE: ${{ github.event.pull_request.title }}
 
     call-workflow-e2e-prod:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test]
-        uses: dhis2/line-listing-app/.github/workflows/e2e-prod.yml@master
+        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@master
         secrets:
-            baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
+            reportportal_api_key: ${{ secrets.REPORTPORTAL_API_KEY }}
+            reportportal_endpoint: ${{ vars.REPORTPORTAL_ENDPOINT }}
+            reportportal_project: ${{ vars.REPORTPORTAL_PROJECT }}
 
     release:
         runs-on: ubuntu-latest
@@ -124,13 +133,70 @@ jobs:
         if: |
             failure() &&
             !cancelled() &&
-            github.ref == 'refs/heads/master'
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
         steps:
+            - name: Checkout code
+              uses: actions/checkout@master
+
+            - name: Extract version
+              id: extract_version
+              uses: Saionaro/extract-package-version@v1.2.1
+
             - name: Send failure message to analytics-internal-bot slack channel
               id: slack
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  slack-message: ':small_red_triangle_down: Maps-app release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure>'
+                  payload: |
+                      {
+                        "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
+                        "blocks": [
+                          {
+                            "type": "section",
+                            "text": {
+                              "type": "mrkdwn",
+                              "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
+                            }
+                          }
+                        ]
+                      }
+              env:
+                  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+    report-release-success:
+        runs-on: ubuntu-latest
+        needs: release
+        if: |
+            success() &&
+            !cancelled() &&
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@master
+
+            - name: Extract version
+              id: extract_version
+              uses: Saionaro/extract-package-version@v1.2.1
+
+            - name: Send success message to analytics-internal-bot slack channel
+              id: slack
+              uses: slackapi/slack-github-action@v1.23.0
+              with:
+                  channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+                  payload: |
+                      {
+                        "text": ":large_green_circle: :maps-app: :tada: Maps app release succeeded for version: ${{ steps.extract_version.outputs.version }}",
+                        "blocks": [
+                          {
+                            "type": "section",
+                            "text": {
+                              "type": "mrkdwn",
+                              "text": ":large_green_circle: :maps-app: :tada: Maps version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully>"
+                            }
+                          }
+                        ]
+                      }
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

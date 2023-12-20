@@ -2,7 +2,7 @@
 # Translators:
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
-# phil_dhis2, 2020
+# Philip Larsen Donnelly, 2020
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -523,9 +523,6 @@ msgstr ""
 msgid "Indicator group"
 msgstr "group indikator"
 
-msgid "Interpretations"
-msgstr "Interpretasi"
-
 msgid "Collapse"
 msgstr "Tutup"
 
@@ -920,12 +917,6 @@ msgstr "Cahaya OSM"
 msgid "OSM Detailed"
 msgstr "Detail OSM"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Jalan Bing"
 
@@ -1293,6 +1284,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr "Anda tidak memiliki akses ke data layer ini"
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data layer"
 
@@ -1332,18 +1326,6 @@ msgstr "Tidak ada entitas yang dilacak ditemukan"
 msgid "related"
 msgstr "terkait"
 
-msgid "Thematic"
-msgstr "Tematik"
-
-msgid "Events"
-msgstr "Event"
-
-msgid "Tracked entities"
-msgstr "Entitas dilacak"
-
-msgid "Org units"
-msgstr ""
-
 msgid "not one of"
 msgstr "bukan salah satu dari"
 
@@ -1368,6 +1350,18 @@ msgid ""
 msgstr ""
 "Layer ini memerlukan akun Google Earth Engine. Periksa dokumentasi DHIS2 "
 "untuk informasi lebih lanjut."
+
+msgid "Thematic"
+msgstr "Tematik"
+
+msgid "Events"
+msgstr "Event"
+
+msgid "Tracked entities"
+msgstr "Entitas dilacak"
+
+msgid "Org units"
+msgstr ""
 
 msgid "Facility"
 msgstr ""

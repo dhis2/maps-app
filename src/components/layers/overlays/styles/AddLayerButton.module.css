@@ -1,16 +1,49 @@
-.addLayerBtn {
-    margin-right: var(--spacers-dp8);
-    border-right: 1px solid #e0e0e0;
-}
+/* Adapted from https: //github.com/dhis2/analytics/blob/master/src/components/Toolbar/MenuButton.styles.js */
 
-.btnContent {
-    width: 276px;
-    padding-left: var(--spacers-dp8);
-    text-align: left;
+.container {
+    width: var(--left-panel-width);
     display: flex;
+    align-items: stretch;
+    border-right: 1px solid var(--colors-grey400);
 }
 
-.btnContent svg {
-    margin-right: var(--spacers-dp8);
-    color: var(--colors-grey700);
+.button {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 14px;
+    line-height: 14px;
+    color: var(--colors-grey900);
+    cursor: pointer;
+    user-select: none;
+    padding: 0px 12px;
+    width: 100%
+}
+
+.content {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacers-dp4) var(--spacers-dp8);
+    gap: var(--spacers-dp8);
+}
+
+.button:hover:enabled,
+.button:active {
+    background-color: var(--colors-grey200);
+}
+
+.button:focus {
+    outline: 3px solid var(--theme-focus);
+    outline-offset: -3px;
+}
+
+/* Prevent focus styles when mouse clicking */
+.button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.button:disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
 }

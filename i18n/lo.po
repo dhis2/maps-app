@@ -1,6 +1,6 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
 # Phouthasinh PHEUAYSITHIPHONE, 2023
@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-12T09:23:26.646Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Phouthasinh PHEUAYSITHIPHONE, 2023\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -509,9 +509,6 @@ msgstr ""
 msgid "Indicator group"
 msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
 
-msgid "Interpretations"
-msgstr "ການແປຂໍ້ມູນ"
-
 msgid "Collapse"
 msgstr "ຫຍໍ້"
 
@@ -899,12 +896,6 @@ msgstr "ແຜນທີ່ແບບ OSM"
 msgid "OSM Detailed"
 msgstr ""
 
-msgid "Google Streets"
-msgstr "ແຜນທີ່ຂອງ Google Streets"
-
-msgid "Google Hybrid"
-msgstr "ແຜນທີ່ຂອງ Google Hybrid"
-
 msgid "Bing Road"
 msgstr ""
 
@@ -1263,6 +1254,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr ""
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
@@ -1302,18 +1296,6 @@ msgstr ""
 msgid "related"
 msgstr ""
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "ເຫດການ"
-
-msgid "Tracked entities"
-msgstr "ຂໍ້ມູນບົ່ງບອກເອກະລັກທີ່ຖືກຕິດຕາມ"
-
-msgid "Org units"
-msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
-
 msgid "not one of"
 msgstr ""
 
@@ -1336,6 +1318,18 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "ເຫດການ"
+
+msgid "Tracked entities"
+msgstr "ຂໍ້ມູນບົ່ງບອກເອກະລັກທີ່ຖືກຕິດຕາມ"
+
+msgid "Org units"
+msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "Facility"
 msgstr "ສະຖານທີ່ບໍລິການ"
