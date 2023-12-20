@@ -29,6 +29,7 @@ const FilterInput = ({
 
     return (
         <input
+            data-test={`filter-input-${dataKey}`}
             className={styles.filterInput}
             placeholder={type === 'number' ? '2,>3&<8' : 'Search'} // TODO: Support more field types
             value={filterValue}
