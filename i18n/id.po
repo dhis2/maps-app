@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -29,15 +29,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -448,9 +439,6 @@ msgstr "Item data event diperlukan"
 msgid "Program indicator is required"
 msgstr "Indikator program diperlukan"
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr "Periode diperlukan"
 
@@ -465,9 +453,6 @@ msgstr "Item data event"
 
 msgid "Program indicators"
 msgstr "Indikator program"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "Tipe item"
@@ -932,12 +917,6 @@ msgstr "Cahaya OSM"
 msgid "OSM Detailed"
 msgstr "Detail OSM"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Jalan Bing"
 
@@ -1347,18 +1326,6 @@ msgstr "Tidak ada entitas yang dilacak ditemukan"
 msgid "related"
 msgstr "terkait"
 
-msgid "Thematic"
-msgstr "Tematik"
-
-msgid "Events"
-msgstr "Event"
-
-msgid "Tracked entities"
-msgstr "Entitas dilacak"
-
-msgid "Org units"
-msgstr ""
-
 msgid "not one of"
 msgstr "bukan salah satu dari"
 
@@ -1383,6 +1350,18 @@ msgid ""
 msgstr ""
 "Layer ini memerlukan akun Google Earth Engine. Periksa dokumentasi DHIS2 "
 "untuk informasi lebih lanjut."
+
+msgid "Thematic"
+msgstr "Tematik"
+
+msgid "Events"
+msgstr "Event"
+
+msgid "Tracked entities"
+msgstr "Entitas dilacak"
+
+msgid "Org units"
+msgstr ""
 
 msgid "Facility"
 msgstr ""

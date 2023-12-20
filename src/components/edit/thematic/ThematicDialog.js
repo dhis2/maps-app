@@ -36,7 +36,6 @@ import {
 } from '../../../util/analytics.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
-import CalculationSelect from '../../calculations/CalculationSelect.js'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.js'
 import { Tab, Tabs } from '../../core/index.js'
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect.js'
@@ -56,7 +55,6 @@ import RenderingStrategy from '../../periods/RenderingStrategy.js'
 import StartEndDates from '../../periods/StartEndDates.js'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
-import { SystemSettingsCtx } from '../../SystemSettingsProvider.js'
 import Labels from '../shared/Labels.js'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.js'
@@ -81,12 +79,10 @@ class ThematicDialog extends Component {
         setProgram: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
-        settings: PropTypes.object.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         columns: PropTypes.array,
         dataElementGroup: PropTypes.object,
-        defaultPeriod: PropTypes.string,
         endDate: PropTypes.string,
         filters: PropTypes.array,
         id: PropTypes.string,
@@ -103,6 +99,7 @@ class ThematicDialog extends Component {
         renderingStrategy: PropTypes.string,
         rows: PropTypes.array,
         startDate: PropTypes.string,
+        systemSettings: PropTypes.object,
         thematicMapType: PropTypes.string,
         valueType: PropTypes.string,
     }
@@ -117,11 +114,10 @@ class ThematicDialog extends Component {
             columns,
             rows,
             filters,
-            defaultPeriod,
             orgUnits,
             setValueType,
             startDate,
-            settings,
+            systemSettings,
             endDate,
             setPeriod,
             setOrgUnits,
@@ -129,6 +125,9 @@ class ThematicDialog extends Component {
 
         const dataItem = getDataItemFromColumns(columns)
         const period = getPeriodFromFilters(filters)
+
+        const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
+            systemSettings
 
         // Set value type if favorite is loaded
         if (!valueType) {
@@ -152,7 +151,7 @@ class ThematicDialog extends Component {
             !startDate &&
             !endDate &&
             defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, settings.hiddenPeriods)
+            isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
             setPeriod({
                 id: defaultPeriod,
@@ -225,13 +224,13 @@ class ThematicDialog extends Component {
             noDataColor,
             operand,
             periodType,
-            settings,
             renderingStrategy,
             startDate,
             endDate,
             program,
             valueType,
             thematicMapType,
+            systemSettings,
         } = this.props
 
         const {
@@ -256,7 +255,6 @@ class ThematicDialog extends Component {
             dataElementError,
             dataSetError,
             programError,
-            calculationError,
             eventDataItemError,
             programIndicatorError,
             periodTypeError,
@@ -410,14 +408,6 @@ class ThematicDialog extends Component {
                                     />
                                 ),
                             ]}
-                            {valueType === dimConf.calculation.objectName && (
-                                <CalculationSelect
-                                    calculation={dataItem}
-                                    onChange={setDataItem}
-                                    className={styles.select}
-                                    errorText={calculationError}
-                                />
-                            )}
                             <AggregationTypeSelect className={styles.select} />
                             <CompletedOnlyCheckbox valueType={valueType} />
                         </div>
@@ -430,7 +420,7 @@ class ThematicDialog extends Component {
                             <PeriodTypeSelect
                                 value={periodType}
                                 period={period}
-                                hiddenPeriods={settings.hiddenPeriods}
+                                hiddenPeriods={systemSettings.hiddenPeriods}
                                 onChange={setPeriodType}
                                 className={styles.periodSelect}
                                 errorText={periodTypeError}
@@ -619,14 +609,6 @@ class ThematicDialog extends Component {
             }
         }
 
-        if (valueType === dimConf.calculation.objectName && !dataItem) {
-            return this.setErrorState(
-                'calculationError',
-                i18n.t('Calculation is required'),
-                'data'
-            )
-        }
-
         if (!period && periodType !== START_END_DATES) {
             return this.setErrorState(
                 'periodError',
@@ -666,12 +648,6 @@ class ThematicDialog extends Component {
     }
 }
 
-const ThematicDialogWithSettings = (props) => (
-    <SystemSettingsCtx.Consumer>
-        {(settings) => <ThematicDialog settings={settings} {...props} />}
-    </SystemSettingsCtx.Consumer>
-)
-
 export default connect(
     null,
     {
@@ -693,4 +669,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(ThematicDialogWithSettings)
+)(ThematicDialog)

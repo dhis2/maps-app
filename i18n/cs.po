@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -23,15 +23,6 @@ msgstr "Mapa \"{{- name}}\" je uložena."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Nepodařilo se uložit mapu: {{message}}"
-
-msgid "Calculation"
-msgstr "Výpočet"
-
-msgid "No calculations found"
-msgstr "Nenalezeny žádné výpočty"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Výpočty lze vytvářet v aplikaci Data Visualizer."
 
 msgid "Classification"
 msgstr "Klasifikace"
@@ -444,9 +435,6 @@ msgstr "Položka dat události je povinná"
 msgid "Program indicator is required"
 msgstr "Je vyžadován indikátor programu"
 
-msgid "Calculation is required"
-msgstr "Je vyžadován výpočet"
-
 msgid "Period is required"
 msgstr "Období je vyžadováno"
 
@@ -461,9 +449,6 @@ msgstr "Položky dat události"
 
 msgid "Program indicators"
 msgstr "Ukazatele programu"
-
-msgid "Calculations"
-msgstr "Výpočty"
 
 msgid "Item type"
 msgstr "Typ položky"
@@ -926,12 +911,6 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1346,18 +1325,6 @@ msgstr "Nenalezeny žádné trasované entity"
 msgid "related"
 msgstr "příbuzný"
 
-msgid "Thematic"
-msgstr "Tematický"
-
-msgid "Events"
-msgstr "Události"
-
-msgid "Tracked entities"
-msgstr "Trasované entity"
-
-msgid "Org units"
-msgstr "Organizační jednotky"
-
 msgid "not one of"
 msgstr "není jeden z"
 
@@ -1382,6 +1349,18 @@ msgid ""
 msgstr ""
 "Tato vrstva vyžaduje účet Google Earth Engine. Další informace najdete v "
 "dokumentaci DHIS2."
+
+msgid "Thematic"
+msgstr "Tematický"
+
+msgid "Events"
+msgstr "Události"
+
+msgid "Tracked entities"
+msgstr "Trasované entity"
+
+msgid "Org units"
+msgstr "Organizační jednotky"
 
 msgid "Facility"
 msgstr "Zařízení"

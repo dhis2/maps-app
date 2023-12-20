@@ -1,3 +1,42 @@
+## [100.2.2](https://github.com/dhis2/maps-app/compare/v100.2.1...v100.2.2) (2023-11-03)
+
+
+### Bug Fixes
+
+* do not show geojson or arcgis layers since they are not supported yet ([#3036](https://github.com/dhis2/maps-app/issues/3036)) ([8e4f4cd](https://github.com/dhis2/maps-app/commit/8e4f4cd86c6ab4d55a9a3332ae75dd8e8aa4231f))
+
+## [100.2.1](https://github.com/dhis2/maps-app/compare/v100.2.0...v100.2.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* ensure layer type is supported and remove the unsupported Google basemaps ([25de9ba](https://github.com/dhis2/maps-app/commit/25de9baeb74c76a3eca03b53031ee1643edfe925))
+* external basemaps were not showing [DHIS2-15953] ([#3017](https://github.com/dhis2/maps-app/issues/3017)) ([47ef463](https://github.com/dhis2/maps-app/commit/47ef46356c52415e1b43f755e4302bbd319ce884))
+* external layers were getting an endless spinner when being added to map [DHIS2-16078] ([#3023](https://github.com/dhis2/maps-app/issues/3023)) ([9a8f34e](https://github.com/dhis2/maps-app/commit/9a8f34ed4a35bcc31d2b3ddf94c892e1019c97cd))
+* sorting of layers by drag and drop was not working [DHIS2-16024] ([#3021](https://github.com/dhis2/maps-app/issues/3021)) ([e006287](https://github.com/dhis2/maps-app/commit/e006287f55ea460b03e8a2636059e27ce3bfd8fc))
+* **translations:** sync translations from transifex (dev) ([02b5f73](https://github.com/dhis2/maps-app/commit/02b5f7365916183510c33494873c49962eba602a))
+
+# [100.2.0](https://github.com/dhis2/maps-app/compare/v100.1.7...v100.2.0) (2023-09-27)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (dev) ([af3183c](https://github.com/dhis2/maps-app/commit/af3183cb28928d5a2f862b13a57c45377d136b8b))
+* accept both lowercase and camelCase interpretationId in url([#2937](https://github.com/dhis2/maps-app/issues/2937)) ([c171b3d](https://github.com/dhis2/maps-app/commit/c171b3d26189206e546361911e31f887082ee136))
+* **translations:** sync translations from transifex (dev) ([1ec1b5c](https://github.com/dhis2/maps-app/commit/1ec1b5cac53d2f36a80201a258fe99757523ab15))
+* **translations:** sync translations from transifex (dev) ([bfff4ab](https://github.com/dhis2/maps-app/commit/bfff4ab2a4036c3afce74bda58e24bc77504edbd))
+* **translations:** sync translations from transifex (dev) ([2a77caa](https://github.com/dhis2/maps-app/commit/2a77caafdd6d8ee42db14d35a9ab3034e5e8897a))
+
+
+### Features
+
+* upgrade toolbar (DHIS2-15667) ([#2936](https://github.com/dhis2/maps-app/issues/2936)) ([e1bda37](https://github.com/dhis2/maps-app/commit/e1bda3702edc5c254bce6bacb573da5dd9f54305))
+
+
+### Reverts
+
+* "chore: fixed period select refactor ([#2958](https://github.com/dhis2/maps-app/issues/2958))" ([#2984](https://github.com/dhis2/maps-app/issues/2984)) ([f532a81](https://github.com/dhis2/maps-app/commit/f532a81463e1842a3e3aa938497505d290be028a))
+
 ## [100.1.7](https://github.com/dhis2/maps-app/compare/v100.1.6...v100.1.7) (2023-09-07)
 
 

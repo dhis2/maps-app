@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setInterpretation } from '../../actions/interpretations.js'
 import { openInterpretationsPanel } from '../../actions/ui.js'
-import { getUrlParameter } from '../../util/requests.js'
 import InterpretationsPanel from './InterpretationsPanel.js'
 
 const Interpretations = ({ renderCount }) => {
@@ -15,12 +13,7 @@ const Interpretations = ({ renderCount }) => {
 
     useEffect(() => {
         if (isMapLoaded) {
-            const urlInterpretationId = getUrlParameter('interpretationid')
-
-            if (urlInterpretationId) {
-                dispatch(setInterpretation(urlInterpretationId))
-                dispatch(openInterpretationsPanel())
-            }
+            dispatch(openInterpretationsPanel())
         }
     }, [isMapLoaded, dispatch])
 

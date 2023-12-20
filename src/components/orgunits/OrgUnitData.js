@@ -23,7 +23,7 @@ const ORGUNIT_PROFILE_QUERY = {
 // Only YEARLY period type is supported in first version
 const periodType = 'YEARLY'
 const currentYear = String(new Date().getFullYear())
-const periods = getFixedPeriodsByType({ periodType, currentYear })
+const periods = getFixedPeriodsByType(periodType, currentYear)
 const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0]
 
 /*

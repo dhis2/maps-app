@@ -31,6 +31,8 @@ context('Interpretations', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateDialogClosed(true)
@@ -66,5 +68,34 @@ context('Interpretations', () => {
         cy.get('button').contains('Hide interpretation').click()
 
         deleteMap()
+    })
+
+    it('opens and closes the interpretation panel', () => {
+        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
+            'postDataStatistics'
+        )
+        cy.visit(
+            '/?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a',
+            EXTENDED_TIMEOUT
+        ) //ANC: LLITN coverage district and facility
+
+        cy.wait('@postDataStatistics')
+            .its('response.statusCode')
+            .should('eq', 201)
+
+        cy.getByDataTest('interpretation-modal')
+            .find('h1')
+            .contains(
+                'Viewing interpretation: ANC: LLITN coverage district and facility'
+            )
+            .should('be.visible')
+
+        cy.getByDataTest('interpretation-modal')
+            .findByDataTest('dhis2-modal-close-button')
+            .click()
+
+        cy.getByDataTest('interpretation-modal').should('not.exist')
+
+        cy.getByDataTest('interpretations-list').should('be.visible')
     })
 })

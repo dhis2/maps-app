@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Charel van den Elsen, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -25,15 +25,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -446,9 +437,6 @@ msgstr "Gegevensitem van gebeurtenis is verplicht"
 msgid "Program indicator is required"
 msgstr "Programmaindicator is verplicht"
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr "Periode is verplicht"
 
@@ -463,9 +451,6 @@ msgstr "Gebeurtenisgegevensitems"
 
 msgid "Program indicators"
 msgstr "Programmaindicators"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "Itemsoort"
@@ -935,12 +920,6 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1351,18 +1330,6 @@ msgstr "Geen getraceerde entiteiten gevonden"
 msgid "related"
 msgstr "gerelateerd"
 
-msgid "Thematic"
-msgstr "Thematisch"
-
-msgid "Events"
-msgstr "Gebeurtenissen"
-
-msgid "Tracked entities"
-msgstr "Getraceerde entiteiten"
-
-msgid "Org units"
-msgstr "Organisatieëenheden"
-
 msgid "not one of"
 msgstr "niet één van"
 
@@ -1387,6 +1354,18 @@ msgid ""
 msgstr ""
 "Deze laag vereist een Google Earth Engine-account. Kijk de "
 "DHIS2-documentation na voor meer informatie."
+
+msgid "Thematic"
+msgstr "Thematisch"
+
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+msgid "Tracked entities"
+msgstr "Getraceerde entiteiten"
+
+msgid "Org units"
+msgstr "Organisatieëenheden"
 
 msgid "Facility"
 msgstr "Faciliteit"

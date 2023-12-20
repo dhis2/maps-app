@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2023\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -26,15 +26,6 @@ msgstr "地图“{{- name}}”已保存。"
 
 msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
-
-msgid "Calculation"
-msgstr "计算"
-
-msgid "No calculations found"
-msgstr "没有找到计算结果"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "可以在数据可视化工具应用程序中创建计算。"
 
 msgid "Classification"
 msgstr "分类"
@@ -438,9 +429,6 @@ msgstr "需要事件数据项"
 msgid "Program indicator is required"
 msgstr "需要项目指标"
 
-msgid "Calculation is required"
-msgstr "需要计算"
-
 msgid "Period is required"
 msgstr "需要期间"
 
@@ -455,9 +443,6 @@ msgstr "事件数据项"
 
 msgid "Program indicators"
 msgstr "项目指标"
-
-msgid "Calculations"
-msgstr "计算"
 
 msgid "Item type"
 msgstr "条目类型"
@@ -911,12 +896,6 @@ msgstr "OSM轻量"
 msgid "OSM Detailed"
 msgstr "OSM详细图"
 
-msgid "Google Streets"
-msgstr "谷歌街道"
-
-msgid "Google Hybrid"
-msgstr "谷歌杂合"
-
 msgid "Bing Road"
 msgstr "Bing道路"
 
@@ -1317,18 +1296,6 @@ msgstr "没有找到跟踪实体"
 msgid "related"
 msgstr "相关的"
 
-msgid "Thematic"
-msgstr "专题图"
-
-msgid "Events"
-msgstr "事件"
-
-msgid "Tracked entities"
-msgstr "跟踪的实体"
-
-msgid "Org units"
-msgstr "组织机构"
-
 msgid "not one of"
 msgstr "不是当中一个"
 
@@ -1351,6 +1318,18 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
+
+msgid "Thematic"
+msgstr "专题图"
+
+msgid "Events"
+msgstr "事件"
+
+msgid "Tracked entities"
+msgstr "跟踪的实体"
+
+msgid "Org units"
+msgstr "组织机构"
 
 msgid "Facility"
 msgstr "功能"
