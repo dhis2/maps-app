@@ -2,6 +2,12 @@ import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex, curry } from 'lodash/fp'
+import {
+    WARNING_NO_DATA,
+    WARNING_NO_OU_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
@@ -65,6 +71,7 @@ const thematicLoader = async (config) => {
                       alerts: [
                           {
                               critical: true,
+                              code: ERROR_CRITICAL,
                               message: `${i18n.t('Error')}: ${
                                   error.message || error
                               }`,
@@ -177,17 +184,21 @@ const thematicLoader = async (config) => {
         .domain([minValue, maxValue])
         .clamp(true)
 
+    alerts.push({
+        code: WARNING_NO_OU_COORD,
+        custom: i18n.t('Thematic layer'),
+    })
+
     if (!valueFeatures.length) {
         if (!features.length) {
             alerts.push({
-                warning: true,
-                message: i18n.t('Selected org units: No coordinates found', {
-                    nsSeparator: ';',
-                }),
+                code: WARNING_NO_OU_COORD,
+                custom: i18n.t('Thematic layer'),
             })
         } else {
             alerts.push({
                 warning: true,
+                code: WARNING_NO_DATA,
                 message: `${name}: ${i18n.t('No data found')}`,
             })
         }
@@ -195,11 +206,8 @@ const thematicLoader = async (config) => {
 
     if (coordinateField && !associatedGeometries.length) {
         alerts.push({
-            warning: true,
-            message: i18n.t('{{name}}: No coordinates found', {
-                name: coordinateField.name,
-                nsSeparator: ';',
-            }),
+            code: WARNING_NO_GEOMETRY_COORD,
+            custom: coordinateField.name,
         })
     }
 

@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
+import useLoaderAlerts from './useLoaderAlerts.js'
 
 const TrackedEntityLoader = ({ config, onLoad }) => {
+    const { showAlerts } = useLoaderAlerts()
     useEffect(() => {
-        trackedEntityLoader(config).then(onLoad)
-    }, [config, onLoad])
+        trackedEntityLoader(config).then((result) => {
+            if (result.alerts) {
+                showAlerts(result.alerts)
+            }
+            onLoad(result)
+        })
+    }, [config, onLoad, showAlerts])
 
     return null
 }

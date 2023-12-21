@@ -1,5 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
+import {
+    ERROR_NO_ACCESS,
+    ERROR_UNKNOWN,
+    WARNING_NO_DATA,
+    WARNING_PAGED_EVENTS,
+} from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
     EVENT_CLIENT_PAGE_SIZE,
@@ -24,6 +30,7 @@ const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
+    code: ERROR_NO_ACCESS,
     message: i18n.t("You don't have access to this layer data"),
 }
 const filterErrorAlert = {
@@ -32,6 +39,7 @@ const filterErrorAlert = {
 }
 const unknownErrorAlert = {
     critical: true,
+    code: ERROR_UNKNOWN,
     message: i18n.t('An unknown error occurred while reading layer data'),
 }
 
@@ -134,6 +142,7 @@ const loadEventLayer = async (config) => {
             if (total > EVENT_CLIENT_PAGE_SIZE) {
                 alert = {
                     warning: true,
+                    code: WARNING_PAGED_EVENTS,
                     message: `${config.name}: ${i18n.t(
                         'Displaying first {{pageSize}} events out of {{total}}',
                         {
@@ -146,6 +155,7 @@ const loadEventLayer = async (config) => {
         } else {
             alert = {
                 warning: true,
+                code: WARNING_NO_DATA,
                 message: `${config.name}: ${i18n.t('No data found')}`,
             }
         }

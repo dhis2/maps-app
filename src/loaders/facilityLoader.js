@@ -1,5 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
+import {
+    WARNING_NO_FACILITY_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
@@ -40,6 +45,7 @@ const facilityLoader = async (config) => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
+                        code: ERROR_CRITICAL,
                         message: i18n.t('Error: {{message}}', {
                             message: error.message,
                             nsSeparator: ';',
@@ -81,10 +87,8 @@ const facilityLoader = async (config) => {
         if (!associatedGeometries.length) {
             alerts.push({
                 warning: true,
-                message: i18n.t('{{name}}: No coordinates found', {
-                    name: coordinateField.name,
-                    nsSeparator: ';',
-                }),
+                code: WARNING_NO_GEOMETRY_COORD,
+                custom: coordinateField.name,
             })
         }
 
@@ -101,9 +105,10 @@ const facilityLoader = async (config) => {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`]
     }
 
-    if (!styledFeatures.length) {
+    if (styledFeatures.length) {
         alerts.push({
             warning: true,
+            code: WARNING_NO_FACILITY_COORD,
             message: i18n.t('Facilities: No coordinates found', {
                 nsSeparator: ';',
             }),
