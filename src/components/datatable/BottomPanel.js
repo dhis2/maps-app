@@ -8,7 +8,8 @@ import {
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
-import DataTable from '../datatable/DataTable.js'
+// import DataTable from '../datatable/DataTable.js'
+import DataTable from '../datatable/UiDataTable.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import ResizeHandle from './ResizeHandle.js'
 import styles from './styles/BottomPanel.module.css'
@@ -39,7 +40,7 @@ const BottomPanel = () => {
         <div
             ref={panelRef}
             className={styles.bottomPanel}
-            style={{ height: tableHeight }}
+            style={{ height: tableHeight, width: tableWidth }}
         >
             <span
                 className={styles.closeIcon}
