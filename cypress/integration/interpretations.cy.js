@@ -31,6 +31,8 @@ context('Interpretations', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .addToMap()
 
         Layer.validateDialogClosed(true)
