@@ -1,3 +1,4 @@
+import log from 'loglevel';
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
@@ -7,7 +8,7 @@ import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import { useDataMutation, useDataEngine } from '@dhis2/app-runtime';
 import { newMap, tOpenMap, setMapProps } from '../../actions/map';
 import { setAlert } from '../../actions/alerts';
-import { fetchMap } from '../../util/requests';
+import { fetchMap, dataStatisticsMutation } from '../../util/requests';
 import { cleanMapConfig } from '../../util/favorites';
 import { useSystemSettings } from '../SystemSettingsProvider';
 
@@ -48,6 +49,10 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
         onError: e => setError({ message: getSaveFailureMessage(e.message) }),
     });
 
+    const [postDataStatistics] = useDataMutation(dataStatisticsMutation, {
+        onError: e => log.error('Error:', e.message),
+    });
+
     const saveMap = async () => {
         const config = cleanMapConfig({
             config: map,
@@ -62,6 +67,8 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
             id: map.id,
             data: config,
         });
+
+        postDataStatistics({ id: map.id });
 
         setAlert({ success: true, message: getSavedMessage(config.name) });
     };
@@ -96,8 +103,11 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
         });
 
         if (response.status === 'OK') {
+            const newMapId = response.response.uid;
+            postDataStatistics({ id: newMapId });
+
             const newMapConfig = await fetchMap(
-                response.response.uid,
+                newMapId,
                 engine,
                 keyDefaultBaseMap
             );

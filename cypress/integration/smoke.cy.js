@@ -9,7 +9,15 @@ context('Smoke Test', () => {
     });
 
     it('loads with map id', () => {
+        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
+            'postDataStatistics'
+        );
+
         cy.visit('/?id=ytkZY3ChM6J', EXTENDED_TIMEOUT); //ANC: 3rd visit coverage last year by district
+
+        cy.wait('@postDataStatistics')
+            .its('response.statusCode')
+            .should('eq', 201);
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
