@@ -49,7 +49,7 @@
         "@dhis2/ui": "^8.16.0",
         "@krakenjs/post-robot": "^11.0.0",
         "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
-        "@reportportal/agent-js-jest": "^5.0.6",
+        "@reportportal/agent-js-jest": "^5.0.7",
         "abortcontroller-polyfill": "^1.7.5",
         "array-move": "^4.0.0",
         "classnames": "^2.3.2",
