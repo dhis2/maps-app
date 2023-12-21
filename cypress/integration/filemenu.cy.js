@@ -37,9 +37,17 @@ describe('File menu', () => {
             req.continue();
         }).as('saveMap');
 
+        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
+            'postDataStatistics'
+        );
+
         saveNewMap(MAP_TITLE);
 
         cy.wait('@saveMap')
+            .its('response.statusCode')
+            .should('eq', 201);
+
+        cy.wait('@postDataStatistics')
             .its('response.statusCode')
             .should('eq', 201);
     });
@@ -67,9 +75,17 @@ describe('File menu', () => {
             req.continue();
         }).as('saveAsNewMap');
 
+        cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
+            'postDataStatistics'
+        );
+
         saveAsNewMap(SAVEAS_MAP_TITLE);
 
         cy.wait('@saveAsNewMap')
+            .its('response.statusCode')
+            .should('eq', 201);
+
+        cy.wait('@postDataStatistics')
             .its('response.statusCode')
             .should('eq', 201);
     });
