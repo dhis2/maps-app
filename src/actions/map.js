@@ -1,6 +1,7 @@
 import log from 'loglevel';
 import * as types from '../constants/actionTypes';
 import { getFallbackBasemap } from '../constants/basemaps';
+import { dataStatisticsMutation } from '../util/apiDataStatistics.js';
 import { fetchMap } from '../util/requests';
 import { addOrgUnitPaths } from '../util/helpers';
 import { loadLayer } from './layers';
@@ -49,6 +50,12 @@ export const tOpenMap = (mapId, keyDefaultBaseMap, dataEngine) => async (
 ) => {
     try {
         const map = await fetchMap(mapId, dataEngine, keyDefaultBaseMap);
+
+        // record map view
+        dataEngine.mutate(dataStatisticsMutation, {
+            variables: { id: mapId },
+            onError: error => log.error('Error: ', error),
+        });
 
         const basemapConfig =
             getState().basemaps.find(bm => bm.id === map.basemap.id) ||
