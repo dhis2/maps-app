@@ -1,8 +1,7 @@
 import log from 'loglevel';
 import * as types from '../constants/actionTypes';
 import { getFallbackBasemap } from '../constants/basemaps';
-import { dataStatisticsMutation } from '../util/apiDataStatistics.js';
-import { fetchMap } from '../util/requests';
+import { fetchMap, dataStatisticsMutation } from '../util/requests';
 import { addOrgUnitPaths } from '../util/helpers';
 import { loadLayer } from './layers';
 
