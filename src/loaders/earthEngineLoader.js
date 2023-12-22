@@ -28,8 +28,6 @@ const earthEngineLoader = async (config) => {
     let dataset
     let features
 
-    console.log('earthEngineLoader', config)
-
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2()
         const displayProperty = getDisplayProperty(d2).toUpperCase()
@@ -92,8 +90,6 @@ const earthEngineLoader = async (config) => {
     if (typeof config.config === 'string') {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
-
-        console.log('layerConfig', layerConfig)
 
         const { filter, params } = layerConfig
 
