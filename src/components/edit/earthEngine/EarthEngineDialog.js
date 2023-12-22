@@ -48,8 +48,6 @@ const EarthEngineDialog = (props) => {
         description,
         notice,
         periodType,
-        periodRange,
-        periodReducer,
         bands,
         filters,
         unit,
@@ -59,46 +57,6 @@ const EarthEngineDialog = (props) => {
         defaultAggregations,
         precision,
     } = props // dataset
-
-    // const period = getPeriodFromFilter(filter)
-
-    // const getFilterFromPeriod = (period) => {}
-
-    /*
-    const setFilterFromPeriod = useCallback(
-        (period) => {
-            let periodFilter = null
-
-            if (period) {
-                const { id, startDate, endDate } = period
-
-                if (startDate && endDate) {
-                    periodFilter = translateFilters(
-                        filters,
-                        startDate,
-                        incrementDate(endDate)
-                    )
-                } else {
-                    periodFilter = translateFilters(
-                        filters,
-                        // periodType === 'yearly' ? String(period.year) : period.id
-                        period.id
-                    )
-                }
-
-                // TODO: Make more flexible
-                periodFilter[0].id = period.id
-                periodFilter[0].name = period.name
-                periodFilter[0].year = period.year
-            }
-
-            console.log('periodFilter', periodFilter)
-
-            setFilter(periodFilter)
-        },
-        [filters, setFilter]
-    ) 
-    */
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
 
@@ -129,20 +87,9 @@ const EarthEngineDialog = (props) => {
         }
     }, [hasOrgUnitField, areaRadius, setBufferRadius])
 
-    /*
-    useEffect(() => {
-        if (!periodType && filters) {
-            setFilter(filters)
-        }
-    }, [periodType, filters, setFilter])
-    */
-
     useEffect(() => {
         if (validateLayer) {
-            // const isValid = !noBandSelected && (!periodType || period)
-            const isValid =
-                !noBandSelected &&
-                (!periodType || periodType === 'range' || period)
+            const isValid = !noBandSelected && (!periodType || period)
 
             if (!isValid) {
                 if (noBandSelected) {
@@ -239,8 +186,6 @@ const EarthEngineDialog = (props) => {
                         datasetId={datasetId}
                         periodType={periodType}
                         period={period}
-                        periodRange={periodRange}
-                        periodReducer={periodReducer}
                         filters={filters}
                         onChange={setEarthEnginePeriod}
                         onError={setError}
@@ -268,8 +213,6 @@ const EarthEngineDialog = (props) => {
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
-    // layerId: PropTypes.string.isRequired,
-    // setFilter: PropTypes.func.isRequired,
     setEarthEnginePeriod: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
@@ -280,7 +223,6 @@ EarthEngineDialog.propTypes = {
     bands: PropTypes.array,
     defaultAggregations: PropTypes.array,
     description: PropTypes.string,
-    // filter: PropTypes.array,
     filters: PropTypes.array,
     legend: PropTypes.object,
     maskOperator: PropTypes.string,
@@ -288,11 +230,6 @@ EarthEngineDialog.propTypes = {
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
     period: PropTypes.object,
-    periodRange: PropTypes.shape({
-        firstDate: PropTypes.string.isRequired,
-        lastDate: PropTypes.number.isRequired, // relative to today
-    }),
-    periodReducer: PropTypes.string,
     periodType: PropTypes.string,
     precision: PropTypes.number,
     rows: PropTypes.array,
@@ -311,7 +248,7 @@ EarthEngineDialog.propTypes = {
 
 export default connect(
     null,
-    { setOrgUnits, setEarthEnginePeriod, /* setFilter, */ setBufferRadius },
+    { setOrgUnits, setEarthEnginePeriod, setBufferRadius },
     null,
     {
         forwardRef: true,

@@ -101,7 +101,6 @@ export const getAuthToken = () =>
             ...token,
         })
     })
-
 /* eslint-enable no-async-promise-executor */
 
 let workerPromise
@@ -128,13 +127,6 @@ export const getPeriods = async (eeId, periodType, filters) => {
             properties.year ||
             new Date(properties['system:time_start']).getFullYear()
 
-        // console.log('period', periodType, id, properties)
-
-        /*    
-        return periodType === 'yearly'
-            ? { id: useSystemIndex ? id : year, name: String(year) }
-            : { id, name: getStartEndDate(properties), year }
-        */
         return periodType === 'YEARLY'
             ? { id: useSystemIndex ? id : year, name: String(year) }
             : {
@@ -149,20 +141,7 @@ export const getPeriods = async (eeId, periodType, filters) => {
 
     const eeWorker = await getWorkerInstance()
 
-    /*
-    if (periodType === 'daily') {
-        const { min, max } = await eeWorker.getTimeRange(eeId)
-        console.log('time range', new Date(min), new Date(max))
-        return []
-    }
-    */
-
-    // try {
     const { features } = await eeWorker.getPeriods(eeId)
-    // console.log('getPeriods', features)
-    // } catch (error) {
-    //    console.log('ERROR', error)
-    // }
 
     return features.map(getPeriod)
 }

@@ -6,7 +6,6 @@ import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
-// import { numberPrecision } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
@@ -125,10 +124,7 @@ const earthEngineLoader = async (config) => {
         delete config.filters // Backend returns empty filters array
     } else {
         dataset = getEarthEngineLayer(layerConfig.id)
-        // console.log('getEarthEngineLayer', layerConfig.id, dataset)
     }
-
-    // console.log('###', dataset, config, layerConfig)
 
     const layer = {
         ...dataset,
@@ -150,18 +146,7 @@ const earthEngineLoader = async (config) => {
         precision,
     } = layer
 
-    /*
-    console.log(
-        '#####',
-        filters,
-        dataset.filters,
-        config.filters,
-        layerConfig.filters
-    )
-    */
-
     const { name } = dataset || config
-    // const period = getPeriodNameFromFilter(filter)
     const data =
         Array.isArray(features) && features.length ? features : undefined
     const hasBand = (b) =>
