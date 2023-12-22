@@ -146,8 +146,9 @@ const Table = () => {
     // })
 
     // TODO - need this implemented in ui
-    // const onMouseOver = (row) => console.log('row', row)
-    // const onRowMouseOut = () => highlightMapFeature()
+    const onRowMouseOver = (evt) => console.log('onMouseOver', evt.target.value)
+    const onRowMouseOut = (evt) => console.log('onMouseOut', evt.target.value)
+    const onRowClick = (evt) => console.log('onRowClick', evt.target.value)
 
     return (
         <DataTable
@@ -195,7 +196,9 @@ const Table = () => {
                 {rows.map((row, index) => (
                     <DataTableRow
                         key={`dtrow-${index}`}
-                        // onMouseOver={() => onMouseOver(row)}
+                        onClick={onRowClick}
+                        onMouseOver={onRowMouseOver}
+                        onMouseOut={onRowMouseOut}
                     >
                         {row.map(({ dataKey, value }) => (
                             <DataTableCell
@@ -209,7 +212,7 @@ const Table = () => {
                                 backgroundColor={
                                     dataKey === 'color' ? value : null
                                 }
-                                onClick={() => onTableRowClick(row)}
+                                // onClick={() => onTableRowClick(row)}
                             >
                                 {dataKey === 'color'
                                     ? value?.toLowerCase()
