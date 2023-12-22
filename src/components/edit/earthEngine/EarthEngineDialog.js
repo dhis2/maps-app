@@ -219,9 +219,12 @@ EarthEngineDialog.propTypes = {
     onLayerValidation: PropTypes.func.isRequired,
     aggregations: PropTypes.array,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]), // TODO: Why array?
+    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     bands: PropTypes.array,
-    defaultAggregations: PropTypes.array,
+    defaultAggregations: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.string,
+    ]),
     description: PropTypes.string,
     filters: PropTypes.array,
     legend: PropTypes.object,

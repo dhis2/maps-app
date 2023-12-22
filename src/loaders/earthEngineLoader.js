@@ -3,7 +3,11 @@ import { getInstance as getD2 } from 'd2'
 import { precisionFixed, formatLocale } from 'd3-format'
 import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
+import {
+    hasClasses,
+    getFilterFromPeriod,
+    getPeriodFromFilter,
+} from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
@@ -23,6 +27,8 @@ const earthEngineLoader = async (config) => {
     let layerConfig = {}
     let dataset
     let features
+
+    console.log('earthEngineLoader', config)
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2()
@@ -86,6 +92,25 @@ const earthEngineLoader = async (config) => {
     if (typeof config.config === 'string') {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
+
+        console.log('layerConfig', layerConfig)
+
+        const { filter, params } = layerConfig
+
+        // Backward compability for layers saved before 2.41
+        if (filter) {
+            layerConfig.period = getPeriodFromFilter(filter)
+            delete layerConfig.filter
+        }
+
+        // Backward compability for layers saved before 2.41
+        if (params) {
+            layerConfig.style = params
+            if (params.palette) {
+                layerConfig.style.palette = params.palette.split(',')
+            }
+            delete layerConfig.params
+        }
 
         // Backward compability for layers with periods saved before 2.36
         // (could also be fixed in a db update script)
