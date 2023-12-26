@@ -52,7 +52,7 @@
         "@reportportal/agent-js-jest": "^5.0.7",
         "abortcontroller-polyfill": "^1.7.5",
         "array-move": "^4.0.0",
-        "classnames": "^2.3.2",
+        "classnames": "^2.3.3",
         "d2": "^31.10.2",
         "d2-utilizr": "^0.2.16",
         "d3-array": "^3.2.4",
