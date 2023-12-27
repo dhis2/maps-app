@@ -8,11 +8,11 @@ import {
     DataTableBody,
 } from '@dhis2/ui'
 import cx from 'classnames'
-// import { debounce } from 'lodash/fp'
+import { debounce } from 'lodash/fp'
 import React, { useEffect, useReducer, useCallback, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDataTable } from '../../actions/dataTable.js'
-// import { highlightFeature } from '../../actions/feature.js'
+import { highlightFeature } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import { isDarkColor } from '../../util/colors.js'
 import { getHeaders } from '../../util/dataTable.js'
@@ -129,26 +129,29 @@ const Table = () => {
 
     //TODO
     // Debounce needed as event is triggered multiple times for the same row
-    // const highlightMapFeature = debounce(50, (id) => {
-    //     if (!id || !feature || id !== feature.id) {
-    //         dispatch(
-    //             highlightFeature(
-    //                 id
-    //                     ? {
-    //                           id,
-    //                           layerId: layer.id,
-    //                           origin: 'table',
-    //                       }
-    //                     : null
-    //             )
-    //         )
-    //     }
-    // })
+    const highlightMapFeature = debounce(50, (id) => {
+        if (!id || !feature || id !== feature.id) {
+            dispatch(
+                highlightFeature(
+                    id
+                        ? {
+                              id,
+                              layerId: layer.id,
+                              origin: 'table',
+                          }
+                        : null
+                )
+            )
+        }
+    })
 
     // TODO - need this implemented in ui
-    const onRowMouseOver = (evt) => console.log('onMouseOver', evt.target.value)
-    const onRowMouseOut = (evt) => console.log('onMouseOut', evt.target.value)
-    const onRowClick = (evt) => console.log('onRowClick', evt.target.value)
+    const onRowMouseOver = (row) => {
+        const id = row.find((r) => r.dataKey === 'id')?.value
+        console.log('onMouseOver', id)
+        id && highlightMapFeature(id)
+    }
+    const onRowMouseOut = () => highlightFeature()
 
     return (
         <DataTable
@@ -196,9 +199,9 @@ const Table = () => {
                 {rows.map((row, index) => (
                     <DataTableRow
                         key={`dtrow-${index}`}
-                        onClick={onRowClick}
-                        onMouseOver={onRowMouseOver}
-                        onMouseOut={onRowMouseOut}
+                        onClick={() => onTableRowClick(row)}
+                        onMouseOver={() => onRowMouseOver(row)}
+                        onMouseOut={() => onRowMouseOut(row)}
                     >
                         {row.map(({ dataKey, value }) => (
                             <DataTableCell
