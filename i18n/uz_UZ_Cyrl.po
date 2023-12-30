@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2022
+# Ibatov <ibatovk@who.int>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2022\n"
+"Last-Translator: Ibatov <ibatovk@who.int>, 2023\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,7 +175,7 @@ msgid "thematic"
 msgstr "тематик"
 
 msgid "org unit"
-msgstr ""
+msgstr "Ташкилий бўлим"
 
 msgid "Earth Engine"
 msgstr "Уйдаги механизм"
@@ -193,7 +193,7 @@ msgid "Add layer"
 msgstr "Қатлам қўшиш"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Бирлаштириш услуби"
 
 msgid "Groups"
 msgstr "Гуруҳлар"
@@ -211,15 +211,20 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Танланган ташкилот бирликлари учун маълумотлар Google Earth Engine’да "
+"ҳисоблаб чиқилади."
 
 msgid ""
 "Multiple aggregation methods are available. See the aggregation results by "
 "clicking map regions or viewing the data table. The results can also be "
 "downloaded."
 msgstr ""
+"Бир нечта йиғиш усуллари мавжуд. Харита майдонларини босиш ёки маълумотлар "
+"жадвалини кўриш орқали йиғиш натижаларини кўринг. Натижаларни юклаб олиш ҳам"
+" мумкин."
 
 msgid "Unit"
-msgstr ""
+msgstr "Бирлик"
 
 msgid "Source"
 msgstr "Манба"
@@ -229,24 +234,25 @@ msgstr "Йил"
 
 msgid "Available periods are set by the source data"
 msgstr ""
+"Мавжуд муддатлар манба маълумотлари манба маълумотлари билан белгиланади"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Даврлар юкланмоқда"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Минимал қиймат сўралган"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Максимал қиймат сўралган"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "Максимум каттароқ бўлиши керак минимумдан"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "Яроқли босқичлар {{minSteps}} {{maxSteps}} тадан"
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "Бирлик: {{ unit }}"
 
 msgid "Min"
 msgstr "Минимум"
@@ -298,7 +304,7 @@ msgid "Event status"
 msgstr "Ҳодиса/тадбир ҳолати"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Чегара ранги"
 
 msgid "Buffer"
 msgstr "Буфер"
@@ -322,7 +328,7 @@ msgid "High radius"
 msgstr "Катта радиус"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "Юқори радиус паст радиусдан каттароқ бўлиши керак"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Радиус {{минимум}} ва {{максимум}} оралиғида бўлиши лозим"
@@ -486,10 +492,10 @@ msgid "Group set"
 msgstr "Гуруҳлар тўплами"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "Ташкилий бирлик гуруҳларини юклашда хатолик юз берди."
 
 msgid "Style by group set"
-msgstr ""
+msgstr "Гуруҳ созламалари стилидан фойдаланиш"
 
 msgid "Indicator group"
 msgstr "Индикатор гуруҳи"
@@ -710,6 +716,8 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
+"Бу маълумотлар элементида жуда кўп параметрлар мавжуд ({{length}}). "
+"Стилистика учун максимал вариантлар {{max}}."
 
 msgid "No data found for this period."
 msgstr "Ушбу давр учун маълумот топилмади"
@@ -718,7 +726,7 @@ msgid "Select groups"
 msgstr "Гуруҳларни танланг"
 
 msgid "Image of the organisation unit"
-msgstr ""
+msgstr "Сурат ёки ташкилий бирлик"
 
 msgid "Code"
 msgstr "Код"
@@ -739,7 +747,7 @@ msgid "Link"
 msgstr "Ҳавола"
 
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 msgid "Email"
 msgstr "е-Почта"
@@ -748,7 +756,7 @@ msgid "Address"
 msgstr "Манзил"
 
 msgid "Phone"
-msgstr ""
+msgstr "Телефон"
 
 msgid "ID"
 msgstr "ID"
@@ -760,7 +768,7 @@ msgid "Select levels"
 msgstr "Поғоналарни танланг"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "Ташкилий бирлик профили"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -881,16 +889,16 @@ msgid "Percentage"
 msgstr "Фоиз"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Гектар"
 
 msgid "Acres"
-msgstr ""
+msgstr "Акр"
 
 msgid "Mean"
-msgstr ""
+msgstr "Англатади"
 
 msgid "Median"
-msgstr ""
+msgstr "Медиана"
 
 msgid "OSM Light"
 msgstr "OSM манба"
@@ -917,134 +925,135 @@ msgid "Bing Aerial Labels"
 msgstr "Қатлам белгилари"
 
 msgid "Population"
-msgstr ""
+msgstr "Аҳоли"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "Аҳоли сони, гектарда"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Ҳудудда яшовчи аҳолининг тахминий сони."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Аҳоли ёш гуруҳлари"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Ёши ва жинси бўйича гуруҳланган ҳудудда яшовчи одамларнинг тахминий сони."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Эркак 0 - 1 ёш"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Эркак 1 - 4 ёш"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Эркак 5 - 9 ёш"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Аёл 10 - 14 ёш"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Эркак 15 - 19 ёш"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Эркак 20 - 24 ёш"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Эркак 25 - 29 ёш"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Эркак 30 - 34 ёш"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Эркак 35 - 39 ёш"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Эркак 40 - 44 ёш"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Эркак 45 - 49 ёш"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Эркак 50 - 54 ёш"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Эркак 55 - 59 ёш"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Эркак 60 - 64 ёш"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Эркак 65 - 69 ёш"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Эркак 70 - 74 ёш"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Эркак 75 - 79 ёш"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Эркак 80 ёш ва ундан катта"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Аёл 0 - 1 ёш"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Аёл 1 - 4 ёш"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Аёл 5 - 9 ёш"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Аёл 10 - 14 ёш"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Аёл 15 - 19 ёш"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Аёл 20 - 24 ёш"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Аёл 25 - 29 ёш"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Аёл 30 - 34 ёш"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Аёл 35 - 39 ёш"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Аёл 40 - 44 ёш"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Аёл 45 - 49 ёш"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Аёл 50 - 54 ёш"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Аёл 55 - 59 ёш"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Аёл 60 - 64 ёш"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Аёл 65 - 69 ёш"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Аёл 70 - 74 ёш"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Аёл 75 - 79 ёш"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Аёл 80 ёш ва ундан катта"
 
 msgid "Elevation"
 msgstr "Баландлик"
 
 msgid "meters"
-msgstr ""
+msgstr "метр"
 
 msgid "Elevation above sea-level."
 msgstr "Денгиз сатҳидан баландлик"
@@ -1265,7 +1274,7 @@ msgid "An unknown error occurred while reading layer data"
 msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "Биринчиси кўрсатилмоқда {{pageSize}} та ҳодисадан  {{total}}"
 
 msgid "No data found"
 msgstr "Маълумотлар топилмади"
@@ -1277,13 +1286,13 @@ msgid "Facilities"
 msgstr "Имкониятлар"
 
 msgid "No facilities found"
-msgstr ""
+msgstr "Ташкилот аниқланмади"
 
 msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"
 
 msgid "Error: {{message}}"
-msgstr ""
+msgstr "Хатолик: {{message}}"
 
 msgid "Thematic layer"
 msgstr "Тематик қават"
@@ -1322,7 +1331,7 @@ msgid "No"
 msgstr "Йўқ"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "Google Earth Engine учун авторизация токенини олиш имконсиз"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
