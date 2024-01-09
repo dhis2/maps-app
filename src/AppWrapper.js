@@ -51,22 +51,21 @@ const replaceLegacyUrl = () => {
         // /?id=ytkZY3ChM6J
         // /?id=ZBjCfSaLSqD&interpretationid=yKqhXZdeJ6a
         // /?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a
-        let newPath = queryParams.id
 
-        let interpretationId
-        if (queryParams.interpretationId) {
-            interpretationId = queryParams.interpretationId
-        } else if (queryParams.interpretationid) {
-            interpretationId = queryParams.interpretationid
-        }
+        const interpretationId =
+            queryParams.interpretationId || queryParams.interpretationid
 
-        if (interpretationId) {
-            newPath += `?interpretationId=${interpretationId}`
-        }
+        const interpretationQueryParams = interpretationId
+            ? `?interpretationId=${interpretationId}`
+            : ''
 
         // replace history && hash history
-        window.history.replaceState({}, '', `${base}#/${newPath}`)
-        history.replace(`/${newPath}`)
+        window.history.replaceState(
+            {},
+            '',
+            `${base}#/${queryParams.id}${interpretationQueryParams}`
+        )
+        history.replace(`/${queryParams.id}${interpretationQueryParams}`)
     } else if (queryParams.currentAnalyticalObject === true) {
         // /?currentAnalyticalObject=true
 
