@@ -17,16 +17,12 @@ const openInterpretationModal = (interpretationId, initialFocus) => {
         `${history.location.pathname}?${queryString.stringify({
             interpretationId,
             initialFocus,
-        })}`,
-
-        { isModalOpening: true }
+        })}`
     )
 }
 
 const closeInterpretationModal = () => {
-    history.push(history.location.pathname, {
-        isModalClosing: true,
-    })
+    history.push(history.location.pathname)
 }
 
 const InterpretationsPanel = ({ renderCount }) => {
@@ -39,7 +35,7 @@ const InterpretationsPanel = ({ renderCount }) => {
         openInterpretationModal(interpretationId, true)
     }, [])
 
-    const { initialFocus } = getHashUrlParams()
+    const { initialFocus } = getHashUrlParams(history.location)
 
     return (
         <>

@@ -4,12 +4,12 @@ import queryString from 'query-string'
 const history = createHashHistory()
 export default history
 
-const getHashUrlParams = () => {
-    const params = queryString.parse(history.location.search, {
+const getHashUrlParams = (loc) => {
+    const params = queryString.parse(loc.search || '', {
         parseBooleans: true,
     })
 
-    const pathParts = history.location.pathname.slice(1).split('/')
+    const pathParts = loc.pathname.slice(1).split('/')
     if (pathParts[0]) {
         if (pathParts[0] === 'currentAnalyticalObject') {
             params.isCurrentAO = true
@@ -26,14 +26,12 @@ const getHashUrlParams = () => {
 }
 
 const openDownloadMode = () => {
-    history.push(`${history.location.pathname}/download`, {
-        isDownloadOpening: true,
-    })
+    history.push(`${history.location.pathname}/download`)
 }
 
 const closeDownloadMode = () => {
     const rootPath = history.location.pathname.split('/download')[0]
-    history.push(rootPath, { isDownloadClosing: true })
+    history.push(rootPath)
 }
 
 export { getHashUrlParams, openDownloadMode, closeDownloadMode }

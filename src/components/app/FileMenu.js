@@ -67,22 +67,14 @@ const FileMenu = ({ onFileMenuAction }) => {
     const onSaveComplete = ({ id, name, isSaveAs }) => {
         if (isSaveAs) {
             saveAsAlert.show({ msg: getSavedMessage(name) })
+
+            if (id) {
+                history.push(`/${id}`)
+            }
         } else {
             saveAlert.show({ msg: getSavedMessage(name) })
-        }
-        if (id) {
-            const locationObject = {
-                pathname: `/${id}`,
-            }
-
-            const locationState = {
-                isSaving: true,
-            }
-
-            if (isSaveAs) {
-                history.push(locationObject, locationState)
-            } else {
-                history.replace(locationObject, locationState)
+            if (id) {
+                history.replace(`/${id}`)
             }
         }
     }
@@ -162,7 +154,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onNew = () => {
         if (history.location.pathname === '/') {
-            history.replace({ pathname: '/' }, { isResetting: true })
+            history.replace('/')
         } else {
             history.push('/')
         }
@@ -171,7 +163,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const onOpen = async (id) => {
         const path = `/${id}`
         if (history.location.pathname === path) {
-            history.replace({ pathname: path }, { isOpening: true })
+            history.replace(path)
         } else {
             history.push(path)
         }

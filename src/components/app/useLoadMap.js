@@ -3,7 +3,7 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
-import { useState, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setDownloadMode } from '../../actions/download.js'
@@ -23,7 +23,12 @@ import history, { getHashUrlParams } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
 
 export const useLoadMap = () => {
-    const [previousLocation, setPreviousLocation] = useState()
+    const previousParamsRef = useRef({
+        mapId: '',
+        isDownload: false,
+        interpretationId: null,
+        isCurrentAO: false,
+    })
     const { systemSettings, basemaps } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
@@ -36,13 +41,15 @@ export const useLoadMap = () => {
 
     const loadMap = useCallback(
         async (hashLocation) => {
+            previousParamsRef.current = getHashUrlParams(hashLocation)
+
             if (hashLocation.pathname === '/') {
                 dispatch(newMap())
                 return
             }
 
             const { mapId, isCurrentAO, isDownload, interpretationId } =
-                getHashUrlParams()
+                previousParamsRef.current
 
             if (mapId) {
                 try {
@@ -96,8 +103,6 @@ export const useLoadMap = () => {
                 unrecognizedMapAlert.show()
                 return
             }
-
-            setPreviousLocation(hashLocation.pathname)
         },
         [
             basemaps,
@@ -115,37 +120,35 @@ export const useLoadMap = () => {
     }, [loadMap])
 
     useEffect(() => {
-        const unlisten = history.listen(({ location }) => {
-            const params = getHashUrlParams()
-            const isSaving = location.state?.isSaving
-            const isOpening = location.state?.isOpening
-            const isResetting = location.state?.isResetting
-            const isModalOpening = location.state?.isModalOpening
-            const isModalClosing = location.state?.isModalClosing
-            const isDownloadOpening = location.state?.isDownloadOpening
-            const isDownloadClosing = location.state?.isDownloadClosing
-            const isValidLocationChange =
-                previousLocation !== location.pathname &&
-                !isModalOpening &&
-                !isModalClosing &&
-                !isDownloadOpening &&
-                !isDownloadClosing
+        const unlisten = history.listen(({ action, location }) => {
+            const {
+                mapId: prevMapId,
+                interpretationId: prevInterpretationId,
+                isDownload: prevIsDownload,
+                isCurrentAO: prevIsCurrentAO,
+            } = previousParamsRef.current
 
-            if (isDownloadOpening) {
-                dispatch(setDownloadMode(true))
-            } else if (isDownloadClosing) {
-                dispatch(setDownloadMode(false))
-            } else if (isModalOpening && params.interpretationId) {
-                dispatch(setInterpretation(params.interpretationId))
-            } else if (isModalClosing && !params.interpretationId) {
-                dispatch(setInterpretation(null))
+            const { mapId, interpretationId, isDownload, isCurrentAO } =
+                getHashUrlParams(location)
+
+            if (
+                action === 'REPLACE' ||
+                prevMapId !== mapId ||
+                prevIsCurrentAO !== isCurrentAO
+            ) {
+                loadMap(location)
+                return
             }
 
-            if (isSaving || isOpening || isResetting || isValidLocationChange) {
-                loadMap(location)
+            if (isDownload !== prevIsDownload) {
+                dispatch(setDownloadMode(isDownload))
+                previousParamsRef.current.isDownload = isDownload
+            } else if (interpretationId !== prevInterpretationId) {
+                dispatch(setInterpretation(interpretationId))
+                previousParamsRef.current.interpretationId = interpretationId
             }
         })
 
         return () => unlisten && unlisten()
-    }, [loadMap, previousLocation, dispatch])
+    }, [loadMap, dispatch])
 }
