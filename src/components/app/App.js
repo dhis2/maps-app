@@ -1,24 +1,22 @@
 import cx from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import AlertStack from '../alerts/AlertStack.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadModeMenu from '../download/DownloadMenubar.js'
 import DownloadSettings from '../download/DownloadSettings.js'
-import LayerEdit from '../edit/LayerEdit.js'
 import LayersPanel from '../layers/LayersPanel.js'
 import LayersLoader from '../loaders/LayersLoader.js'
-import ContextMenu from '../map/ContextMenu.js'
 import MapPosition from '../map/MapPosition.js'
-import OpenAsMapDialog from '../openAs/OpenAsMapDialog.js'
 import AppMenu from './AppMenu.js'
 import DetailsPanel from './DetailsPanel.js'
+import ModalContainer from './ModalContainer.js'
 import './App.css'
 import styles from './styles/App.module.css'
 import { useLoadMap } from './useLoadMap.js'
 
 const App = () => {
     useLoadMap()
+
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)
 
@@ -58,10 +56,7 @@ const App = () => {
                 )}
             </div>
             <LayersLoader />
-            <ContextMenu />
-            <LayerEdit />
-            <AlertStack />
-            <OpenAsMapDialog />
+            <ModalContainer />
         </>
     )
 }

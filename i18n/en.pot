@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-12-18T10:13:08.754Z\n"
-"PO-Revision-Date: 2023-12-18T10:13:08.754Z\n"
+"POT-Creation-Date: 2024-01-10T13:20:36.644Z\n"
+"PO-Revision-Date: 2024-01-10T13:20:36.644Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -19,9 +19,6 @@ msgstr "Failed to save map: {{message}}"
 
 msgid "Failed to open the map"
 msgstr "Failed to open the map"
-
-msgid "Unrecognized url path to map"
-msgstr "Unrecognized url path to map"
 
 msgid "Classification"
 msgstr "Classification"

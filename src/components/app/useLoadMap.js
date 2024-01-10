@@ -1,6 +1,5 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
@@ -8,15 +7,10 @@ import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setDownloadMode } from '../../actions/download.js'
 import { setInterpretation } from '../../actions/interpretations.js'
-import { addLayer } from '../../actions/layers.js'
 import { newMap, setMap } from '../../actions/map.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
 import useAlert from '../../hooks/useAlert.js'
-import {
-    CURRENT_AO_KEY,
-    hasSingleDataDimension,
-    getThematicLayerFromAnalyticalObject,
-} from '../../util/analyticalObject.js'
+import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history, { getHashUrlParams } from '../../util/history.js'
@@ -27,17 +21,12 @@ export const useLoadMap = () => {
         mapId: '',
         isDownload: false,
         interpretationId: null,
-        isCurrentAO: false,
     })
     const { systemSettings, basemaps } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
-    const [currentAO] = useSetting(CURRENT_AO_KEY)
     const dispatch = useDispatch()
     const loadMapAlert = useAlert({ message: i18n.t('Failed to open the map') })
-    const unrecognizedMapAlert = useAlert({
-        message: i18n.t('Unrecognized url path to map'),
-    })
 
     const loadMap = useCallback(
         async (hashLocation) => {
@@ -51,68 +40,47 @@ export const useLoadMap = () => {
             const { mapId, isDownload, interpretationId } =
                 previousParamsRef.current
 
-            if (!mapId) {
-                unrecognizedMapAlert.show()
+            if (mapId === CURRENT_AO_KEY) {
+                dispatch(newMap())
+                dispatch(setAnalyticalObject(true))
+                if (isDownload) {
+                    dispatch(setDownloadMode(true))
+                }
                 return
             }
 
-            if (mapId === 'currentAnalyticalObject') {
-                try {
-                    hasSingleDataDimension(currentAO)
-                        ? getThematicLayerFromAnalyticalObject(currentAO).then(
-                              (layer) => dispatch(addLayer(layer))
-                          )
-                        : dispatch(setAnalyticalObject(currentAO))
+            try {
+                const map = await fetchMap(mapId, engine, defaultBasemap)
 
-                    if (isDownload) {
-                        dispatch(setDownloadMode(true))
-                    }
-                } catch (e) {
-                    log.error('Could not load current analytical object')
-                    loadMapAlert.show()
-                }
-            } else {
-                try {
-                    const map = await fetchMap(mapId, engine, defaultBasemap)
+                engine.mutate(dataStatisticsMutation, {
+                    variables: { id: mapId },
+                    onError: (error) => log.error('Error: ', error),
+                })
 
-                    engine.mutate(dataStatisticsMutation, {
-                        variables: { id: mapId },
-                        onError: (error) => log.error('Error: ', error),
+                const basemapConfig =
+                    basemaps.find(({ id }) => id === map.basemap.id) ||
+                    basemaps.find(({ id }) => id === defaultBasemap) ||
+                    getFallbackBasemap()
+
+                dispatch(
+                    setMap({
+                        ...map,
+                        mapViews: addOrgUnitPaths(map.mapViews),
+                        basemap: { ...map.basemap, ...basemapConfig },
                     })
+                )
 
-                    const basemapConfig =
-                        basemaps.find(({ id }) => id === map.basemap.id) ||
-                        basemaps.find(({ id }) => id === defaultBasemap) ||
-                        getFallbackBasemap()
-
-                    dispatch(
-                        setMap({
-                            ...map,
-                            mapViews: addOrgUnitPaths(map.mapViews),
-                            basemap: { ...map.basemap, ...basemapConfig },
-                        })
-                    )
-
-                    if (interpretationId) {
-                        dispatch(setInterpretation(interpretationId))
-                    } else if (isDownload) {
-                        dispatch(setDownloadMode(true))
-                    }
-                } catch (e) {
-                    log.error(e)
-                    loadMapAlert.show()
+                if (interpretationId) {
+                    dispatch(setInterpretation(interpretationId))
+                } else if (isDownload) {
+                    dispatch(setDownloadMode(true))
                 }
+            } catch (e) {
+                log.error(e)
+                loadMapAlert.show()
             }
         },
-        [
-            basemaps,
-            currentAO,
-            defaultBasemap,
-            dispatch,
-            engine,
-            loadMapAlert,
-            unrecognizedMapAlert,
-        ]
+        [basemaps, defaultBasemap, dispatch, engine, loadMapAlert]
     )
 
     useEffect(() => {
