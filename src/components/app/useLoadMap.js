@@ -48,10 +48,30 @@ export const useLoadMap = () => {
                 return
             }
 
-            const { mapId, isCurrentAO, isDownload, interpretationId } =
+            const { mapId, isDownload, interpretationId } =
                 previousParamsRef.current
 
-            if (mapId) {
+            if (!mapId) {
+                unrecognizedMapAlert.show()
+                return
+            }
+
+            if (mapId === 'currentAnalyticalObject') {
+                try {
+                    hasSingleDataDimension(currentAO)
+                        ? getThematicLayerFromAnalyticalObject(currentAO).then(
+                              (layer) => dispatch(addLayer(layer))
+                          )
+                        : dispatch(setAnalyticalObject(currentAO))
+
+                    if (isDownload) {
+                        dispatch(setDownloadMode(true))
+                    }
+                } catch (e) {
+                    log.error('Could not load current analytical object')
+                    loadMapAlert.show()
+                }
+            } else {
                 try {
                     const map = await fetchMap(mapId, engine, defaultBasemap)
 
@@ -72,36 +92,16 @@ export const useLoadMap = () => {
                             basemap: { ...map.basemap, ...basemapConfig },
                         })
                     )
-                } catch (e) {
-                    log.error(e)
-                    loadMapAlert.show()
-                    return
-                }
 
-                if (interpretationId) {
-                    dispatch(setInterpretation(interpretationId))
-                } else if (isDownload) {
-                    dispatch(setDownloadMode(true))
-                }
-            } else if (isCurrentAO) {
-                try {
-                    hasSingleDataDimension(currentAO)
-                        ? getThematicLayerFromAnalyticalObject(currentAO).then(
-                              (layer) => dispatch(addLayer(layer))
-                          )
-                        : dispatch(setAnalyticalObject(currentAO))
-
-                    if (isDownload) {
+                    if (interpretationId) {
+                        dispatch(setInterpretation(interpretationId))
+                    } else if (isDownload) {
                         dispatch(setDownloadMode(true))
                     }
                 } catch (e) {
-                    log.error('Could not load current analytical object')
+                    log.error(e)
                     loadMapAlert.show()
-                    return
                 }
-            } else {
-                unrecognizedMapAlert.show()
-                return
             }
         },
         [
@@ -125,17 +125,12 @@ export const useLoadMap = () => {
                 mapId: prevMapId,
                 interpretationId: prevInterpretationId,
                 isDownload: prevIsDownload,
-                isCurrentAO: prevIsCurrentAO,
             } = previousParamsRef.current
 
-            const { mapId, interpretationId, isDownload, isCurrentAO } =
+            const { mapId, interpretationId, isDownload } =
                 getHashUrlParams(location)
 
-            if (
-                action === 'REPLACE' ||
-                prevMapId !== mapId ||
-                prevIsCurrentAO !== isCurrentAO
-            ) {
+            if (action === 'REPLACE' || prevMapId !== mapId) {
                 loadMap(location)
                 return
             }

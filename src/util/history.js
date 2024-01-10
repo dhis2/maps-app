@@ -11,11 +11,7 @@ const getHashUrlParams = (loc) => {
 
     const pathParts = loc.pathname.slice(1).split('/')
     if (pathParts[0]) {
-        if (pathParts[0] === 'currentAnalyticalObject') {
-            params.isCurrentAO = true
-        } else {
-            params.mapId = pathParts[0]
-        }
+        params.mapId = pathParts[0]
 
         if (pathParts[1] === 'download') {
             params.isDownload = true
