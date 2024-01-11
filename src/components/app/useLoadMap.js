@@ -1,6 +1,5 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
@@ -9,24 +8,21 @@ import { setDownloadMode } from '../../actions/download.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
-import useAlert from '../../hooks/useAlert.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
-import history, { getHashUrlParams } from '../../util/history.js'
+import history, {
+    getHashUrlParams,
+    defaultHashUrlParams,
+} from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
 
 export const useLoadMap = () => {
-    const previousParamsRef = useRef({
-        mapId: '',
-        isDownload: false,
-        interpretationId: null,
-    })
+    const previousParamsRef = useRef(defaultHashUrlParams)
     const { systemSettings, basemaps } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()
-    const loadMapAlert = useAlert({ message: i18n.t('Failed to open the map') })
 
     const loadMap = useCallback(
         async (hashLocation) => {
@@ -77,10 +73,10 @@ export const useLoadMap = () => {
                 }
             } catch (e) {
                 log.error(e)
-                loadMapAlert.show()
+                dispatch(newMap())
             }
         },
-        [basemaps, defaultBasemap, dispatch, engine, loadMapAlert]
+        [basemaps, defaultBasemap, dispatch, engine]
     )
 
     useEffect(() => {
