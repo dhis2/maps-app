@@ -7,9 +7,9 @@ import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setDownloadMode } from '../../actions/download.js'
 import { setInterpretation } from '../../actions/interpretations.js'
+import { setLoadError, clearLoadError } from '../../actions/loadError.js'
 import { newMap, setMap } from '../../actions/map.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
-import useAlert from '../../hooks/useAlert.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
@@ -26,7 +26,6 @@ export const useLoadMap = () => {
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()
-    const loadMapAlert = useAlert({ message: i18n.t('Failed to open the map') })
 
     const loadMap = useCallback(
         async (hashLocation) => {
@@ -76,11 +75,20 @@ export const useLoadMap = () => {
                     dispatch(setDownloadMode(true))
                 }
             } catch (e) {
-                log.error(e)
-                loadMapAlert.show()
+                log.error(e.details.message)
+                dispatch(newMap())
+                const message =
+                    e.details.errorCode === 'E1005'
+                        ? i18n.t(
+                              `Map with ID "${mapId}" could not be found. The ID could be incorrect, or the map may have been deleted.`
+                          )
+                        : i18n.t(
+                              'There was an error while loading the map. Please try again.'
+                          )
+                dispatch(setLoadError(message))
             }
         },
-        [basemaps, defaultBasemap, dispatch, engine, loadMapAlert]
+        [basemaps, defaultBasemap, dispatch, engine]
     )
 
     useEffect(() => {
@@ -89,6 +97,7 @@ export const useLoadMap = () => {
 
     useEffect(() => {
         const unlisten = history.listen(({ action, location }) => {
+            dispatch(clearLoadError())
             const {
                 mapId: prevMapId,
                 interpretationId: prevInterpretationId,

@@ -46,3 +46,39 @@
     flex: auto;
     position: relative;
 }
+
+.cover {
+    background: rgba(244, 246, 248, 0.7);
+}
+
+.centering {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.errorIcon {
+    width: 136px;
+    height: 136px;
+    margin: 0 auto var(--spacers-dp24);
+}
+
+.errorTitle {
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--colors-grey800);
+    letter-spacing: 0.15px;
+    line-height: 24px;
+    width: 360px;
+    margin: 0 auto var(--spacers-dp12);
+}
+
+.errorDescription {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--colors-grey700);
+    line-height: 19px;
+    width: 360px;
+    margin: 0 auto;
+}

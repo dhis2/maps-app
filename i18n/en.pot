@@ -5,8 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-01-10T13:20:36.644Z\n"
-"PO-Revision-Date: 2024-01-10T13:20:36.644Z\n"
+"POT-Creation-Date: 2024-01-10T15:46:32.982Z\n"
+"PO-Revision-Date: 2024-01-10T15:46:32.982Z\n"
+
+msgid "Map not found"
+msgstr "Map not found"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -16,9 +19,6 @@ msgstr "Map \"{{- name}}\" is saved."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Failed to save map: {{message}}"
-
-msgid "Failed to open the map"
-msgstr "Failed to open the map"
 
 msgid "Classification"
 msgstr "Classification"
