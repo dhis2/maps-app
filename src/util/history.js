@@ -19,22 +19,36 @@ const getHashUrlParams = (loc) => {
 
     const pathParts = loc.pathname.slice(1).split('/')
     if (pathParts.length > 0) {
-        params.mapId = pathParts[0]
-
-        if (pathParts[1] === DOWNLOAD) {
+        if (pathParts[0] === DOWNLOAD) {
+            params.mapId = ''
             params.isDownload = true
+        } else {
+            params.mapId = pathParts[0]
+
+            if (pathParts[1] === DOWNLOAD) {
+                params.isDownload = true
+            }
         }
     }
 
     return params
 }
 
-const openDownloadMode = () =>
-    history.push(`${history.location.pathname}/${DOWNLOAD}`)
+const openDownloadMode = () => {
+    if (history.location.pathname === '/') {
+        history.push(`/${DOWNLOAD}`)
+    } else {
+        history.push(`${history.location.pathname}/${DOWNLOAD}`)
+    }
+}
 
 const closeDownloadMode = () => {
-    const rootPath = history.location.pathname.split(`/${DOWNLOAD}`)[0]
-    history.push(rootPath)
+    if (history.location.pathname === `/${DOWNLOAD}`) {
+        history.push('/')
+    } else {
+        const rootPath = history.location.pathname.split(`/${DOWNLOAD}`)[0]
+        history.push(rootPath)
+    }
 }
 
 export {
