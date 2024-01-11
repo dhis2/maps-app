@@ -154,4 +154,16 @@ context('Smoke Test', () => {
         cy.get('canvas.maplibregl-canvas').should('be.visible')
         cy.get('button').contains('Exit download mode').should('be.visible')
     })
+
+    it('loads download page for new map', () => {
+        cy.intercept('**/userDataStore/analytics/settings', {
+            fixture: 'analyticalObject.json',
+        })
+
+        cy.visit('/#/download', EXTENDED_TIMEOUT)
+
+        cy.getByDataTest('download-settings').should('be.visible')
+        cy.get('canvas.maplibregl-canvas').should('be.visible')
+        cy.get('button').contains('Exit download mode').should('be.visible')
+    })
 })
