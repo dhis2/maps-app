@@ -64,21 +64,6 @@ const FileMenu = ({ onFileMenuAction }) => {
     )
     const fileMenuErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
 
-    const onSaveComplete = ({ id, name, isSaveAs }) => {
-        if (isSaveAs) {
-            saveAsAlert.show({ msg: getSavedMessage(name) })
-
-            if (id) {
-                history.push(`/${id}`)
-            }
-        } else {
-            saveAlert.show({ msg: getSavedMessage(name) })
-            if (id) {
-                history.replace(`/${id}`)
-            }
-        }
-    }
-
     const [putMap] = useDataMutation(updateMapMutation, {
         onError: (e) => {
             saveAlert.show({
@@ -112,7 +97,10 @@ const FileMenu = ({ onFileMenuAction }) => {
             data: config,
         })
 
-        onSaveComplete({ id: map.id, name: map.name })
+        saveAlert.show({ msg: getSavedMessage(map.name) })
+        if (map.id) {
+            history.replace(`/${map.id}`)
+        }
     }
 
     const onSaveAs = async ({ name, description }) => {
@@ -134,11 +122,11 @@ const FileMenu = ({ onFileMenuAction }) => {
         const res = await postMap({ data })
 
         if (res.status === 'OK') {
-            onSaveComplete({
-                id: res.response.uid,
-                name: getMapName(name),
-                isSaveAs: true,
-            })
+            saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
+
+            if (res.response.uid) {
+                history.push(`/${res.response.uid}`)
+            }
         }
     }
 
