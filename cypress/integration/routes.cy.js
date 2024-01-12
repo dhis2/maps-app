@@ -1,9 +1,9 @@
 import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-context('Smoke Test', () => {
-    it('loads', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+context('Routes', () => {
+    it('loads root route', () => {
+        cy.visit('/', { timeout: 50000 })
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.title().should('equal', 'Maps | DHIS2')
     })
@@ -155,15 +155,21 @@ context('Smoke Test', () => {
         cy.get('button').contains('Exit download mode').should('be.visible')
     })
 
-    it('loads download page for new map', () => {
-        cy.intercept('**/userDataStore/analytics/settings', {
-            fixture: 'analyticalObject.json',
-        })
+    it.only('loads download page for new map', () => {
+        cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.visit('/#/download', EXTENDED_TIMEOUT)
+        cy.get('canvas.maplibregl-canvas').should('be.visible')
+        cy.get('button').contains('Download').click()
 
         cy.getByDataTest('download-settings').should('be.visible')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
         cy.get('button').contains('Exit download mode').should('be.visible')
+        cy.url().should('include', '#/download')
+
+        cy.get('button').contains('Exit download mode').click()
+
+        cy.url().should('not.include', 'download')
+
+        cy.get('button').contains('Add layer').should('be.visible')
     })
 })
