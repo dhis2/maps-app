@@ -155,7 +155,7 @@ context('Routes', () => {
         cy.get('button').contains('Exit download mode').should('be.visible')
     })
 
-    it.only('loads download page for new map', () => {
+    it('loads download page for new map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         cy.get('canvas.maplibregl-canvas').should('be.visible')
