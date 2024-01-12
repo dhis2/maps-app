@@ -1,3 +1,10 @@
+# [100.3.0](https://github.com/dhis2/maps-app/compare/v100.2.3...v100.3.0) (2024-01-12)
+
+
+### Features
+
+* add support for hash routing in line with other analytics apps [DHIS2-15762] ([#3009](https://github.com/dhis2/maps-app/issues/3009)) ([b25267d](https://github.com/dhis2/maps-app/commit/b25267d33a8ab5a136f34516ba1bc802ae9e51b3))
+
 ## [100.2.3](https://github.com/dhis2/maps-app/compare/v100.2.2...v100.2.3) (2023-12-21)
 
 
