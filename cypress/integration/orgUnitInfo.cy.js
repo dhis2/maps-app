@@ -7,7 +7,7 @@ describe('OrgUnitInfo', () => {
         cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('canvas').should('be.visible')
         cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
-        cy.getByDataTest('dhis2-map-container')
+        cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
         cy.get('.dhis2-map').click(300, 100) //Click somewhere on the map
@@ -19,7 +19,7 @@ describe('OrgUnitInfo', () => {
             'Organisation unit profile'
         )
 
-        // TODO - can't be sure it has been clicked on Bombali
+        // TODO - find a way to ensure that "Bombali" is the orgunit that was clicked on
         // cy.getByDataTest('org-unit-info').find('h3').contains('Bombali')
 
         cy.getByDataTest('org-unit-data')
