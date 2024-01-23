@@ -7,7 +7,7 @@ import AddLayerButton from '../layers/overlays/AddLayerButton.js'
 import FileMenu from './FileMenu.js'
 
 const AppMenu = ({ onFileMenuAction }) => (
-    <Toolbar dataTest="app-menu">
+    <Toolbar>
         <AddLayerButton />
         <HoverMenuBar>
             <FileMenu onFileMenuAction={onFileMenuAction} />

@@ -12,7 +12,7 @@ const SortableLayer = SortableElement(OverlayCard)
 
 // Draggable layers - last layer on top
 const SortableLayersList = SortableContainer(({ layers }) => (
-    <div>
+    <div data-test="sortable-layers-list">
         {layers.map((layer, index) => (
             <SortableLayer key={layer.id} index={index} layer={layer} />
         ))}
@@ -25,14 +25,14 @@ const LayersPanel = () => {
 
     const dispatch = useDispatch()
 
-    const onSort = () => dispatch(sortLayers())
+    const onSort = ({ oldIndex, newIndex }) =>
+        dispatch(sortLayers({ oldIndex, newIndex }))
 
     return (
         <div
             className={cx(styles.layersPanel, {
                 [styles.collapsed]: !layersPanelOpen,
             })}
-            data-test="layers-panel"
         >
             <div className={styles.layersPanelInner}>
                 {layersPanelOpen ? (

@@ -1,3 +1,39 @@
+# [100.3.0](https://github.com/dhis2/maps-app/compare/v100.2.3...v100.3.0) (2024-01-12)
+
+
+### Features
+
+* add support for hash routing in line with other analytics apps [DHIS2-15762] ([#3009](https://github.com/dhis2/maps-app/issues/3009)) ([b25267d](https://github.com/dhis2/maps-app/commit/b25267d33a8ab5a136f34516ba1bc802ae9e51b3))
+
+## [100.2.3](https://github.com/dhis2/maps-app/compare/v100.2.2...v100.2.3) (2023-12-21)
+
+
+### Bug Fixes
+
+* conditionally set PR title in dhis2-verify-app workflow ([#3089](https://github.com/dhis2/maps-app/issues/3089)) ([03eed2d](https://github.com/dhis2/maps-app/commit/03eed2d6fd3f697686183743ba30b079eb175f62))
+* report as MAP_VIEW not VISUALIZATION_VIEW ([#3086](https://github.com/dhis2/maps-app/issues/3086)) ([008e7fe](https://github.com/dhis2/maps-app/commit/008e7fe32508b403d251cb1b617c23c5feaf8063))
+* **translations:** sync translations from transifex (dev) ([dcf7743](https://github.com/dhis2/maps-app/commit/dcf7743af6ddbb4c12cef377e982c1ea0f45d3c6))
+* **translations:** sync translations from transifex (dev) ([7d98a8a](https://github.com/dhis2/maps-app/commit/7d98a8abab9d71d90c2f51b1cb4eb01598661c3f))
+* **translations:** sync translations from transifex (dev) ([6e8b82b](https://github.com/dhis2/maps-app/commit/6e8b82bbbb338883358e9c69311f0b3bbbe94224))
+
+## [100.2.2](https://github.com/dhis2/maps-app/compare/v100.2.1...v100.2.2) (2023-11-03)
+
+
+### Bug Fixes
+
+* do not show geojson or arcgis layers since they are not supported yet ([#3036](https://github.com/dhis2/maps-app/issues/3036)) ([8e4f4cd](https://github.com/dhis2/maps-app/commit/8e4f4cd86c6ab4d55a9a3332ae75dd8e8aa4231f))
+
+## [100.2.1](https://github.com/dhis2/maps-app/compare/v100.2.0...v100.2.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* ensure layer type is supported and remove the unsupported Google basemaps ([25de9ba](https://github.com/dhis2/maps-app/commit/25de9baeb74c76a3eca03b53031ee1643edfe925))
+* external basemaps were not showing [DHIS2-15953] ([#3017](https://github.com/dhis2/maps-app/issues/3017)) ([47ef463](https://github.com/dhis2/maps-app/commit/47ef46356c52415e1b43f755e4302bbd319ce884))
+* external layers were getting an endless spinner when being added to map [DHIS2-16078] ([#3023](https://github.com/dhis2/maps-app/issues/3023)) ([9a8f34e](https://github.com/dhis2/maps-app/commit/9a8f34ed4a35bcc31d2b3ddf94c892e1019c97cd))
+* sorting of layers by drag and drop was not working [DHIS2-16024] ([#3021](https://github.com/dhis2/maps-app/issues/3021)) ([e006287](https://github.com/dhis2/maps-app/commit/e006287f55ea460b03e8a2636059e27ce3bfd8fc))
+* **translations:** sync translations from transifex (dev) ([02b5f73](https://github.com/dhis2/maps-app/commit/02b5f7365916183510c33494873c49962eba602a))
+
 # [100.2.0](https://github.com/dhis2/maps-app/compare/v100.1.7...v100.2.0) (2023-09-27)
 
 

@@ -7,39 +7,19 @@ const map = {
     cardTitle: 'ANC LLITN coverage',
 }
 
-// const openMoreMenuWithOptions = (numOptions) => {
-//     cy.get('[data-test="moremenubutton"]').first().click()
-
-//     cy.get('[data-test="more-menu"]')
-//         .find('li')
-//         .not('.disabled')
-//         .should('have.length', numOptions)
-
-//     cy.get('[data-test="more-menu"]')
-//         .find('li')
-//         .contains('Show data table')
-//         .click()
-
-//     //check that the bottom panel is present
-//     cy.getByDataTest('bottom-panel').should('be.visible')
-
-//     // option switched to "Hide data table"
-
-// }
-
 describe('data table', () => {
     it('opens data table', () => {
-        cy.visit(`/?id=${map.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        cy.get('[data-test="moremenubutton"]').first().click()
+        cy.getByDataTest('moremenubutton').first().click()
 
-        cy.get('[data-test="more-menu"]')
+        cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
             .should('have.length', 6)
 
-        cy.get('[data-test="more-menu"]')
+        cy.getByDataTest('more-menu')
             .find('li')
             .contains('Show data table')
             .click()

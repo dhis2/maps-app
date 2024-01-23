@@ -2,10 +2,11 @@ import i18n from '@dhis2/d2-i18n'
 import { Button, ButtonStrip } from '@dhis2/ui'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setDownloadMode, setDownloadConfig } from '../../actions/download.js'
+import { setDownloadConfig } from '../../actions/download.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
+import { closeDownloadMode } from '../../util/history.js'
 import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
@@ -33,11 +34,6 @@ const DownloadSettings = () => {
     const legendLayers = useMemo(
         () => mapViews.filter((layer) => layer.legend && layer.isVisible),
         [mapViews]
-    )
-
-    const onClose = useCallback(
-        () => dispatch(setDownloadMode(false)),
-        [dispatch]
     )
 
     const onDownload = useCallback(() => {
@@ -88,6 +84,7 @@ const DownloadSettings = () => {
                             <>
                                 <Checkbox
                                     label={i18n.t('Show map name')}
+                                    dataTest="input-show-map-name"
                                     checked={showName}
                                     disabled={!name}
                                     onChange={(value) =>
@@ -118,7 +115,6 @@ const DownloadSettings = () => {
                                                   'Set the map description when you save the map or from File > Rename menu'
                                               )
                                     }
-                                    dataTest="download-setting-show-description"
                                 />
                                 <Checkbox
                                     label={i18n.t('Show legend')}
@@ -203,7 +199,7 @@ const DownloadSettings = () => {
                     </div>
                     <div className={styles.buttons}>
                         <ButtonStrip end>
-                            <Button secondary onClick={onClose}>
+                            <Button secondary onClick={closeDownloadMode}>
                                 {isSupported
                                     ? i18n.t('Cancel')
                                     : i18n.t('Close')}

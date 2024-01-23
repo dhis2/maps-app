@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2023\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -22,15 +22,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -442,9 +433,6 @@ msgstr "Hodisa/Tadbir maʼlumoti elementi talab qilinadi"
 msgid "Program indicator is required"
 msgstr "Dastur indikatori talab qilinadi"
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr "Davr talab qilinadi"
 
@@ -459,9 +447,6 @@ msgstr "Hodisalar haqida maʼlumot elementlari"
 
 msgid "Program indicators"
 msgstr "Dastur koʼrsatgichlari"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr "Element turi"
@@ -930,12 +915,6 @@ msgstr "OSM manba"
 msgid "OSM Detailed"
 msgstr "OSM Batafsil"
 
-msgid "Google Streets"
-msgstr "Google Streets"
-
-msgid "Google Hybrid"
-msgstr "Google Hybrid"
-
 msgid "Bing Road"
 msgstr "Yoʼl"
 
@@ -1343,18 +1322,6 @@ msgstr "Hech qanday kuzatuvdagi obʼekt topilmadi"
 msgid "related"
 msgstr "bogʼliqlik"
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "Hodisa/tadbirlar"
-
-msgid "Tracked entities"
-msgstr "Kuzatuvdagi obʼektlar"
-
-msgid "Org units"
-msgstr ""
-
 msgid "not one of"
 msgstr "bittasi ham emas"
 
@@ -1379,6 +1346,18 @@ msgid ""
 msgstr ""
 "Ushbu qatlam uchun Google Earth Engine akkaunti zarur. Qoʼshimcha maʼlumot "
 "olish uchunDHIS2 hujjatlarini tekshiring."
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "Hodisa/tadbirlar"
+
+msgid "Tracked entities"
+msgstr "Kuzatuvdagi obʼektlar"
+
+msgid "Org units"
+msgstr ""
 
 msgid "Facility"
 msgstr ""

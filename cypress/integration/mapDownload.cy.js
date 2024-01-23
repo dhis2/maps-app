@@ -1,27 +1,26 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const map = {
+const mapWithThematicLayer = {
     id: 'eDlFx0jTtV9',
     name: 'ANC: LLITN Cov Chiefdom this year',
-    downloadFileNamePrefix: 'ANC LLITN Cov Chiefdom this year',
+    downloadFileName: 'ANC LLITN Cov Chiefdom this year.png',
     cardTitle: 'ANC LLITN coverage',
 }
 
-const openDowloadPage = () => {
-    cy.visit(`/?id=${map.id}`, EXTENDED_TIMEOUT)
-    cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+const assertDownloadSettingChecked = (label, isChecked) => {
+    cy.getByDataTest('download-settings')
+        .find('label')
+        .contains(label)
+        .find('input')
+        .should(`${isChecked ? '' : 'not.'}be.checked`)
+}
 
-    cy.get('header').should('be.visible')
-    cy.getByDataTest('layers-panel').should('be.visible')
-
-    cy.get('[data-test="layercard"]')
-        .find('h2')
-        .contains(map.cardTitle, EXTENDED_TIMEOUT)
-
-    cy.getByDataTest('app-menu').find('button').contains('Download').click()
-
-    cy.get('header').should('not.be.visible')
-    cy.getByDataTest('layers-panel').should('not.exist')
+const clickDownloadSetting = (label) => {
+    cy.getByDataTest('download-settings')
+        .find('label')
+        .contains(label)
+        .find('input')
+        .click()
 }
 
 describe('Map Download', () => {
@@ -29,103 +28,85 @@ describe('Map Download', () => {
         cy.task('emptyDownloadsFolder')
     })
 
-    it('download options are shown correctly', () => {
-        openDowloadPage()
-
-        // verify the state of the checkboxes
-        cy.get('label').contains('Show map name').should('be.visible')
-        cy.get('label')
-            .contains('Show map name')
-            .find('input')
-            .should('be.checked')
-        cy.get('label.disabled')
-            .contains('Show map description')
-            .should('be.visible')
-        cy.get('label')
-            .contains('Show map description')
-            .find('input')
-            .should('be.disabled')
-            .should('not.be.checked')
-        cy.getByDataTest('download-setting-show-description')
-            .findByDataTest('checkbox-tooltip-reference')
-            .should('be.visible')
-        cy.get('label').contains('Show legend').should('be.visible')
-        cy.get('label')
-            .contains('Show legend')
-            .find('input')
-            .should('be.checked')
-        cy.get('label').contains('Show overview map').should('be.visible')
-        cy.get('label')
-            .contains('Show overview map')
-            .find('input')
-            .should('be.checked')
-        cy.get('label').contains('Show north arrow').should('be.visible')
-        cy.get('label')
-            .contains('Show north arrow')
-            .find('input')
-            .should('be.checked')
-
-        // verify all the settings are in useEffect
-        cy.getByDataTest('download-map-info').should('be.visible')
-        cy.getByDataTest('download-map-info').find('h1').contains(map.name)
-        cy.getByDataTest('download-map-info')
-            .findByDataTest('map-legend')
-            .should('be.visible')
-
-        cy.getByDataTest('download-map-info')
-            .findByDataTest('overview-map')
-            .should('be.visible')
-
-        cy.getByDataTest('north-arrow').should('be.visible')
-
-        // change options and confirm
-
-        cy.get('label').contains('Show north arrow').find('input').uncheck()
-        cy.getByDataTest('north-arrow').should('not.exist')
-
-        cy.get('label').contains('Show map name').find('input').uncheck()
-        cy.getByDataTest('download-map-info')
-            .contains(map.name)
-            .should('not.exist')
-
-        cy.get('label').contains('Show overview map').find('input').uncheck()
-        cy.getByDataTest('download-map-info')
-            .findByDataTest('overview-map')
-            .should('not.exist')
-
-        cy.get('label').contains('Show legend').find('input').uncheck()
-        cy.getByDataTest('download-map-info').should('not.exist')
-
-        cy.contains('Exit download mode').click()
-
-        cy.get('header').should('be.visible')
-        cy.getByDataTest('layers-panel').should('be.visible')
+    it('downloads a map', () => {
+        cy.visit(`/#/${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         cy.get('[data-test="layercard"]')
             .find('h2')
-            .contains(map.cardTitle, EXTENDED_TIMEOUT)
-    })
+            .contains(mapWithThematicLayer.cardTitle, EXTENDED_TIMEOUT)
 
-    it('downloads a map', () => {
-        openDowloadPage()
+        cy.getByDataTest('dhis2-analytics-hovermenubar')
+            .find('button')
+            .contains('Download')
+            .click()
 
+        cy.log('confirm that download page is open')
+        cy.getByDataTest('download-settings').should('be.visible')
+        cy.get('canvas.maplibregl-canvas').should('be.visible')
+        cy.get('button').contains('Exit download mode').should('be.visible')
+        cy.url().should('contain', `/#/${mapWithThematicLayer.id}/download`)
+
+        // check the current settings
+        assertDownloadSettingChecked('Show map name', true)
+
+        cy.getByDataTest('download-map-info')
+            .find('h1')
+            .contains(mapWithThematicLayer.name)
+            .should('be.visible')
+
+        assertDownloadSettingChecked('Show map description', false)
+        assertDownloadSettingChecked('Show legend', true)
+        cy.getByDataTest('download-map-info')
+            .findByDataTest('download-legend-title')
+            .should('have.length', 1)
+
+        assertDownloadSettingChecked('Show overview map', true)
+        cy.getByDataTest('download-map-info')
+            .findByDataTest('overview-map')
+            .should('be.visible')
+
+        // make some changes
+        clickDownloadSetting('Show map name')
+        cy.getByDataTest('download-map-info').find('h1').should('not.exist')
+
+        clickDownloadSetting('Show north arrow')
+        cy.getByDataTest('north-arrow').should('not.exist')
+
+        clickDownloadSetting('Show overview map')
+        cy.getByDataTest('download-map-info')
+            .findByDataTest('overview-map')
+            .should('not.exist')
+
+        clickDownloadSetting('Show legend')
+        cy.getByDataTest('download-map-info').should('not.exist')
+
+        // and download the map
         cy.getByDataTest('download-settings')
             .find('button')
             .contains('Download')
             .click()
 
+        // check for downloaded file
         cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
-
         cy.waitUntil(
             () => cy.task('getLastDownloadFilePath').then((result) => result),
             { timeout: 3000, interval: 100 }
         ).then((filePath) => {
-            expect(filePath).to.include('png')
-            expect(filePath).to.include(map.downloadFileNamePrefix)
+            expect(filePath).to.include(mapWithThematicLayer.downloadFileName)
 
             cy.readFile(filePath, EXTENDED_TIMEOUT).should((buffer) =>
                 expect(buffer.length).to.be.gt(10000)
             )
         })
+
+        // leave download mode
+        cy.get('button').contains('Exit download mode').click()
+        cy.url().should('contain', `/#/${mapWithThematicLayer.id}`)
+        cy.url().should('not.contain', '/download')
+        cy.getByDataTest('download-settings').should('not.exist')
+        cy.get('[data-test="layercard"]')
+            .find('h2')
+            .contains(mapWithThematicLayer.cardTitle, EXTENDED_TIMEOUT)
     })
 })

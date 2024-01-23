@@ -24,7 +24,7 @@ const Checkbox = ({
             onChange={({ checked }) => onChange(checked)}
         />
         {tooltip && (
-            <Tooltip content={tooltip} dataTest="checkbox-tooltip">
+            <Tooltip content={tooltip}>
                 <IconInfo16 />
             </Tooltip>
         )}

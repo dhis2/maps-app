@@ -1,9 +1,4 @@
-import log from 'loglevel'
 import * as types from '../constants/actionTypes.js'
-import { getFallbackBasemap } from '../constants/basemaps.js'
-import { dataStatisticsMutation } from '../util/apiDataStatistics.js'
-import { addOrgUnitPaths } from '../util/helpers.js'
-import { fetchMap } from '../util/requests.js'
 
 export const newMap = () => ({
     type: types.MAP_NEW,
@@ -46,33 +41,3 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
 export const clearAlerts = () => ({
     type: types.MAP_ALERTS_CLEAR,
 })
-
-export const tOpenMap =
-    (mapId, keyDefaultBaseMap, dataEngine) => async (dispatch, getState) => {
-        try {
-            const map = await fetchMap(mapId, dataEngine, keyDefaultBaseMap)
-
-            // record visualization view
-            dataEngine.mutate(dataStatisticsMutation, {
-                variables: { id: mapId },
-                onError: (error) => console.error('Error: ', error),
-            })
-
-            const basemapConfig =
-                getState().basemaps.find((bm) => bm.id === map.basemap.id) ||
-                getFallbackBasemap()
-
-            const basemap = { ...map.basemap, ...basemapConfig }
-
-            dispatch(
-                setMap({
-                    ...map,
-                    mapViews: addOrgUnitPaths(map.mapViews),
-                    basemap,
-                })
-            )
-        } catch (e) {
-            log.error(e)
-            return e
-        }
-    }

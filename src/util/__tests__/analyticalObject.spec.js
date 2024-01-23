@@ -1,5 +1,4 @@
 import {
-    hasSingleDataDimension,
     getDataDimensionsFromAnalyticalObject,
     getThematicLayerFromAnalyticalObject,
     getAnalyticalObjectFromThematicLayer,
@@ -30,18 +29,6 @@ jest.mock('../legend')
 
 describe('analytical object utils', () => {
     describe('analytical object handling', () => {
-        it('returns true if analytic object contains one data item', () => {
-            const result = hasSingleDataDimension({
-                columns,
-            })
-            expect(result).toBeTruthy()
-        })
-
-        it('returns false if analytic object is without data item', () => {
-            const result = hasSingleDataDimension({})
-            expect(result).toBeFalsy()
-        })
-
         it('returns data items from columns in analytical object', () => {
             const result = getDataDimensionsFromAnalyticalObject({
                 columns,
