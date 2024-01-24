@@ -40,6 +40,7 @@ const BottomPanel = () => {
             ref={panelRef}
             className={styles.bottomPanel}
             style={{ height: tableHeight }}
+            data-test="bottom-panel"
         >
             <span
                 className={styles.closeIcon}
