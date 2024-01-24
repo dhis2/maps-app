@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-01-11T09:20:59.829Z\n"
-"PO-Revision-Date: 2024-01-11T09:20:59.829Z\n"
+"POT-Creation-Date: 2024-01-24T15:10:55.357Z\n"
+"PO-Revision-Date: 2024-01-24T15:10:55.357Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -160,6 +160,12 @@ msgstr "Type"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
 
 msgid "Items"
 msgstr "Items"
