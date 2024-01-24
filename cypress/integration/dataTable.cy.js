@@ -38,5 +38,11 @@ describe('data table', () => {
             .containsExact('Name')
             .siblings('input')
             .type('Kakua')
+
+        // check that the filter worked
+        cy.getByDataTest('bottom-panel')
+            .find('.ReactVirtualized__Table__row')
+            .should('have.length', 1)
+
     })
 })
