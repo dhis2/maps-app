@@ -26,7 +26,10 @@ const DownloadMapInfo = ({ map, isSplitView }) => {
     }, [showName, showDescription, showInLegend, height])
 
     return (
-        <div className={cx(styles.downloadMapInfo)}>
+        <div
+            className={cx(styles.downloadMapInfo)}
+            data-test="download-map-info"
+        >
             <div>
                 {showName && name && <h1>{name}</h1>}
                 {showDescription && description && <p>{description}</p>}
