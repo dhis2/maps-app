@@ -43,6 +43,5 @@ describe('data table', () => {
         cy.getByDataTest('bottom-panel')
             .find('.ReactVirtualized__Table__row')
             .should('have.length', 1)
-
     })
 })
