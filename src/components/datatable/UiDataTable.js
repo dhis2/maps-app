@@ -17,101 +17,174 @@ import {
     EVENT_LAYER,
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
-    // EARTH_ENGINE_LAYER,
+    EARTH_ENGINE_LAYER,
+    FACILITY_LAYER,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { isDarkColor } from '../../util/colors.js'
+import { hasClasses, getPrecision } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
+import { numberPrecision } from '../../util/numbers.js'
 import FilterInput from './FilterInput.js'
 import styles from './styles/UiDataTable.module.css'
 
 const ASCENDING = 'asc'
 const DESCENDING = 'desc'
 
-const getThematicHeaders = () => [
-    { name: i18n.t('Index'), dataKey: 'index' },
-    { name: i18n.t('Name'), dataKey: 'name', type: TYPE_STRING },
-    { name: i18n.t('Id'), dataKey: 'id', type: TYPE_STRING },
-    { name: i18n.t('Value'), dataKey: 'value', type: TYPE_NUMBER },
-    { name: i18n.t('Legend'), dataKey: 'legend', type: TYPE_STRING },
-    { name: i18n.t('Range'), dataKey: 'range', type: TYPE_STRING },
-    { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
-    { name: i18n.t('Parent'), dataKey: 'parentName', type: TYPE_STRING },
-    { name: i18n.t('Type'), dataKey: 'type', type: TYPE_STRING },
-    {
+const TYPE_NUMBER = 'number'
+const TYPE_STRING = 'string'
+const TYPE_DATE = 'date'
+
+const defaultFieldsMap = () => ({
+    index: { name: i18n.t('Index'), dataKey: 'index' },
+    name: { name: i18n.t('Name'), dataKey: 'name', type: TYPE_STRING },
+    id: { name: i18n.t('Id'), dataKey: 'id', type: TYPE_STRING },
+    level: { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
+    parentName: {
+        name: i18n.t('Parent'),
+        dataKey: 'parentName',
+        type: TYPE_STRING,
+    },
+    type: { name: i18n.t('Type'), dataKey: 'type', type: TYPE_STRING },
+    value: { name: i18n.t('Value'), dataKey: 'value', type: TYPE_NUMBER },
+    legend: { name: i18n.t('Legend'), dataKey: 'legend', type: TYPE_STRING },
+    range: { name: i18n.t('Range'), dataKey: 'range', type: TYPE_STRING },
+    ouname: { name: i18n.t('Org unit'), dataKey: 'ouname', type: TYPE_STRING },
+    eventdate: {
+        name: i18n.t('Event time'),
+        dataKey: 'eventdate',
+        type: TYPE_DATE,
+        renderer: 'formatTime...',
+    },
+    color: {
         name: i18n.t('Color'),
         dataKey: 'color',
         type: TYPE_STRING,
         renderer: 'rendercolor',
     },
-]
+})
 
-const TYPE_NUMBER = 'number'
-const TYPE_STRING = 'string'
-const TYPE_DATE = 'date'
+const getThematicHeaders = () =>
+    [
+        'index',
+        'name',
+        'id',
+        'value',
+        'legend',
+        'range',
+        'level',
+        'parentName',
+        'type',
+        'color',
+    ].map((field) => defaultFieldsMap()[field])
 
 const getEventHeaders = (layer) => {
-    const defaultFieldsStart = [
-        { name: i18n.t('Index'), dataKey: 'index' },
-        { name: i18n.t('Org unit'), dataKey: 'ouname', type: TYPE_STRING },
-        { name: i18n.t('Id'), dataKey: 'id', type: TYPE_STRING },
-        {
-            name: i18n.t('Event time'),
-            dataKey: 'eventdate',
-            type: TYPE_DATE,
-            renderer: 'formatTime...',
-        },
-    ]
+    const fields = ['index', 'ouname', 'id', 'eventdate'].map(
+        (field) => defaultFieldsMap()[field]
+    )
 
     const { headers = [] } = layer
 
     const customFields = headers
         .filter(({ name }) => isValidUid(name))
-        .map(({ name, column, valueType }) => ({
-            name: column,
-            dataKey: name,
+        .map(({ name: dataKey, column: name, valueType }) => ({
+            name,
+            dataKey,
             type: numberValueTypes.includes(valueType)
                 ? TYPE_NUMBER
                 : TYPE_STRING,
         }))
 
-    const defaultFieldsEnd = [{ name: i18n.t('Type'), dataKey: 'type' }]
+    customFields.push([defaultFieldsMap().type])
 
     if (layer.styleDataItem) {
-        defaultFieldsEnd.push({
-            name: i18n.t('Color'),
-            dataKey: 'color',
-            type: TYPE_STRING,
-            renderer: 'rendercolor',
+        customFields.push(defaultFieldsMap().color)
+    }
+
+    return fields.concat(customFields)
+}
+
+const getOrgUnitHeaders = (layer) => {
+    const fields = ['index', 'name', 'id', 'level', 'parentName', 'type']
+    if (layer.styleDataItem) {
+        fields.push('color')
+    }
+
+    return fields.map((field) => defaultFieldsMap()[field])
+}
+
+const getFacilityHeaders = (layer) => {
+    const fields = ['index', 'name', 'id', 'type']
+    if (layer.styleDataItem) {
+        fields.push('color')
+    }
+    return fields.map((field) => defaultFieldsMap()[field])
+}
+
+const toTitleCase = (str) =>
+    str.replace(
+        /\w\S*/g,
+        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    )
+
+const getEarthEngineHeaders = (
+    { aggregationType, legend, styleDataItem },
+    data
+) => {
+    const { title, items } = legend
+
+    const defaultFields = ['index', 'name', 'id', 'type'].map(
+        (field) => defaultFieldsMap()[field]
+    )
+
+    let customFields = []
+
+    if (hasClasses(aggregationType) && items) {
+        customFields = items.map(({ id, name }) => ({
+            name,
+            dataKey: String(id),
+            roundFn: numberPrecision(2),
+            type: TYPE_NUMBER,
+        }))
+    } else if (Array.isArray(aggregationType) && aggregationType.length) {
+        customFields = aggregationType.map((type) => {
+            let roundFn = null
+            if (data?.length) {
+                const precision = getPrecision(data.map((d) => d[type]))
+                roundFn = numberPrecision(precision)
+            }
+            return {
+                name: toTitleCase(`${type} ${title}`),
+                dataKey: type,
+                roundFn,
+                type: TYPE_NUMBER,
+            }
         })
     }
 
-    return defaultFieldsStart.concat(customFields).concat(defaultFieldsEnd)
+    if (styleDataItem) {
+        customFields.push(defaultFieldsMap().color)
+    }
+
+    return defaultFields.concat(customFields)
 }
 
-const getOrgUnitHeaders = () => [
-    { name: i18n.t('Index'), dataKey: 'index' },
-    { name: i18n.t('Name'), dataKey: 'name' },
-    { name: i18n.t('Id'), dataKey: 'id' },
-    { name: i18n.t('Value'), dataKey: 'value' },
-    { name: i18n.t('Legend'), dataKey: 'legend' },
-    { name: i18n.t('Range'), dataKey: 'range' },
-    { name: i18n.t('Level'), dataKey: 'level' },
-    { name: i18n.t('Parent'), dataKey: 'parentName' },
-    { name: i18n.t('Type'), dataKey: 'type' },
-    { name: i18n.t('Color'), dataKey: 'color' },
-]
-
-const getHeaders = (layer, styleDataItem) => {
-    if (layer.layer === THEMATIC_LAYER) {
-        return getThematicHeaders()
-    } else if (layer.layer === EVENT_LAYER) {
-        return getEventHeaders(layer, styleDataItem)
-    } else if (layer.layer === ORG_UNIT_LAYER) {
-        return getOrgUnitHeaders(layer, styleDataItem)
+const getHeaders = (layer, data) => {
+    switch (layer.layer) {
+        case THEMATIC_LAYER:
+            return getThematicHeaders()
+        case EVENT_LAYER:
+            return getEventHeaders(layer)
+        case ORG_UNIT_LAYER:
+            return getOrgUnitHeaders(layer)
+        case EARTH_ENGINE_LAYER:
+            return getEarthEngineHeaders(layer, data)
+        case FACILITY_LAYER:
+            return getFacilityHeaders(layer)
+        default:
+            // TODO - throw error?
+            return []
     }
-    //  else if (layer.layer === EARTH_ENGINE_LAYER) {
-    // }
 }
 
 const EMPTY_AGGREGATIONS = {}
@@ -173,9 +246,11 @@ const Table = () => {
             return 0
         })
 
+        const headers = getHeaders(layer, filteredData)
+
         return filteredData.map((item) =>
-            getHeaders(layer).map(({ dataKey }) => ({
-                value: item[dataKey],
+            headers.map(({ dataKey, roundFn }) => ({
+                value: roundFn ? roundFn(item[dataKey]) : item[dataKey],
                 dataKey,
             }))
         )
