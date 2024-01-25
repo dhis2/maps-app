@@ -309,12 +309,8 @@ const Table = ({ height }) => {
                 <DataTableRow>
                     {getHeaders(layer).map(({ name, dataKey, type }, index) => (
                         <DataTableColumnHeader
-                            fixed
-                            top="0"
                             className={styles.columnHeader}
                             key={`${dataKey}-${index}`}
-                            dataKey={dataKey}
-                            name={dataKey}
                             onSortIconClick={sortData}
                             sortDirection={
                                 dataKey === sortField
