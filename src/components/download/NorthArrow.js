@@ -34,6 +34,7 @@ const NorthArrow = ({
             className={cx(styles.northArrow, styles[position], {
                 [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
             })}
+            data-test="north-arrow"
         >
             <svg
                 width={width}
