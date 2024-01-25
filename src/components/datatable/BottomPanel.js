@@ -53,7 +53,7 @@ const BottomPanel = () => {
                 onResize={onResize}
                 onResizeEnd={(height) => dispatch(resizeDataTable(height))}
             />
-            <DataTable />
+            <DataTable height={dataTableHeight} />
         </div>
     )
 }

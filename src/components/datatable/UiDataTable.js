@@ -9,8 +9,10 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import { isValidUid } from 'd2/uid' // TODO replace
+import PropTypes from 'prop-types'
 import React, { useReducer, useCallback, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
@@ -24,6 +26,38 @@ import { isDarkColor } from '../../util/colors.js'
 import { filterData } from '../../util/filter.js'
 import FilterInput from './FilterInput.js'
 import styles from './styles/UiDataTable.module.css'
+
+const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => {
+    return (
+        <DataTableRow
+            onClick={() => context.onClick(item)}
+            onMouseEnter={() => context.onMouseEnter(item)}
+            onMouseLeave={context.onMouseLeave}
+            {...props}
+        />
+    )
+}
+
+DataTableRowWithVirtuosoContext.propTypes = {
+    context: PropTypes.shape({
+        onClick: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+    }),
+    item: PropTypes.arrayOf(
+        PropTypes.shape({
+            dataKey: PropTypes.string,
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        })
+    ),
+}
+
+const TableComponents = {
+    Table: DataTable,
+    TableBody: DataTableBody,
+    TableHead: DataTableHead,
+    TableRow: DataTableRowWithVirtuosoContext,
+}
 
 const ASCENDING = 'asc'
 const DESCENDING = 'desc'
@@ -116,7 +150,7 @@ const getHeaders = (layer, styleDataItem) => {
 
 const EMPTY_AGGREGATIONS = {}
 
-const Table = () => {
+const Table = ({ height }) => {
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
     const allAggregations = useSelector((state) => state.aggregations)
@@ -242,6 +276,19 @@ const Table = () => {
         [dispatch]
     )
 
+    const tableContext = useMemo(
+        () => ({
+            onClick: onTableRowClick,
+            onMouseEnter: highlightFeatureOnMouseEnter,
+            onMouseLeave: clearFeatureHighlightOnMouseLeave,
+        }),
+        [
+            onTableRowClick,
+            highlightFeatureOnMouseEnter,
+            clearFeatureHighlightOnMouseLeave,
+        ]
+    )
+
     if (layer.serverCluster) {
         return (
             <div className={styles.noSupport}>
@@ -253,8 +300,12 @@ const Table = () => {
     }
 
     return (
-        <DataTable scrollHeight={'100%'} scrollWidth={'100%'} width={'100%'}>
-            <DataTableHead>
+        <TableVirtuoso
+            context={tableContext}
+            components={TableComponents}
+            style={{ height, width: '100%' }}
+            data={rows}
+            fixedHeaderContent={() => (
                 <DataTableRow>
                     {getHeaders(layer).map(({ name, dataKey, type }, index) => (
                         <DataTableColumnHeader
@@ -288,41 +339,27 @@ const Table = () => {
                         </DataTableColumnHeader>
                     ))}
                 </DataTableRow>
-            </DataTableHead>
-            <DataTableBody>
-                {rows.map((row, index) => (
-                    <DataTableRow
-                        key={`dtrow-${index}`}
-                        onMouseEnter={() => highlightFeatureOnMouseEnter(row)}
-                        onMouseLeave={clearFeatureHighlightOnMouseLeave}
-                        onClick={() => onTableRowClick(row)}
+            )}
+            itemContent={(_, row) =>
+                row.map(({ dataKey, value }) => (
+                    <DataTableCell
+                        key={`dtcell-${dataKey}`}
+                        className={cx(styles.fontClass, styles.sizeClass, {
+                            [styles.darkText]:
+                                dataKey === 'color' && isDarkColor(value),
+                        })}
+                        backgroundColor={dataKey === 'color' ? value : null}
                     >
-                        {row.map(({ dataKey, value }) => (
-                            <DataTableCell
-                                key={`dtcell-${dataKey}`}
-                                className={cx(
-                                    styles.fontClass,
-                                    styles.sizeClass,
-                                    {
-                                        [styles.darkText]:
-                                            dataKey === 'color' &&
-                                            isDarkColor(value),
-                                    }
-                                )}
-                                backgroundColor={
-                                    dataKey === 'color' ? value : null
-                                }
-                            >
-                                {dataKey === 'color'
-                                    ? value?.toLowerCase()
-                                    : value}
-                            </DataTableCell>
-                        ))}
-                    </DataTableRow>
-                ))}
-            </DataTableBody>
-        </DataTable>
+                        {dataKey === 'color' ? value?.toLowerCase() : value}
+                    </DataTableCell>
+                ))
+            }
+        />
     )
+}
+
+Table.propTypes = {
+    height: PropTypes.number,
 }
 
 export default Table
