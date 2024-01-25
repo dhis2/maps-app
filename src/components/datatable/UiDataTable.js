@@ -9,16 +9,8 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import { isValidUid } from 'd2/uid' // TODO replace
-import { debounce } from 'lodash/fp'
-import React, {
-    // useState,
-    useEffect,
-    useReducer,
-    useCallback,
-    useMemo,
-} from 'react'
+import React, { useReducer, useCallback, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { closeDataTable } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
@@ -189,12 +181,15 @@ const Table = () => {
         )
     }, [layer, aggregations, sortField, sortDirection])
 
-    useEffect(() => {
-        // TODO - improve and test
-        if (rows !== null && !rows.length) {
-            dispatch(closeDataTable())
-        }
-    }, [rows, dispatch])
+    // TODO: I (hendrik) disabled this effect, because it causes a bug:
+    // When a filter parameter is supplied that cause the rows.length to be 0,
+    // The tables closes unexpectedly and it is not possible to get it back
+    // TODO - improve and test
+    // useEffect(() => {
+    //     if (rows !== null && !rows.length) {
+    //         dispatch(closeDataTable())
+    //     }
+    // }, [rows, dispatch])
 
     const sortData = useCallback(
         ({ name }) => {
@@ -207,6 +202,46 @@ const Table = () => {
         [sortDirection]
     )
 
+    const onTableRowClick = useCallback(
+        (row) => {
+            const id = row.find((r) => r.dataKey === 'id')?.value
+            id && dispatch(setOrgUnitProfile(id))
+        },
+        [dispatch]
+    )
+
+    const highlightFeatureOnMouseEnter = useCallback(
+        (row) => {
+            const id = row.find((r) => r.dataKey === 'id')?.value
+            if (!id || !feature || id !== feature.id) {
+                dispatch(
+                    highlightFeature(
+                        id
+                            ? {
+                                  id,
+                                  layerId: layer.id,
+                                  origin: 'table',
+                              }
+                            : null
+                    )
+                )
+            }
+        },
+        [feature, dispatch, layer.id]
+    )
+    const clearFeatureHighlightOnMouseLeave = useCallback(
+        (event) => {
+            const nextElement = event.toElement ?? event.relatedTarget
+            // When hovering to the next row the next element is a `TD`
+            // If this is the case `highlightFeatureOnMouseEnter` will
+            // fire and the highlight does not need to be cleared
+            if (nextElement.tagName !== 'TD') {
+                dispatch(highlightFeature(null))
+            }
+        },
+        [dispatch]
+    )
+
     if (layer.serverCluster) {
         return (
             <div className={styles.noSupport}>
@@ -216,33 +251,6 @@ const Table = () => {
             </div>
         )
     }
-
-    const onTableRowClick = (row) => {
-        const id = row.find((r) => r.dataKey === 'id')?.value
-        id && dispatch(setOrgUnitProfile(id))
-    }
-
-    //TODO
-    // Debounce needed as event is triggered multiple times for the same row
-    const highlightMapFeature = debounce(50, (id) => {
-        if (!id || !feature || id !== feature.id) {
-            dispatch(
-                highlightFeature(
-                    id
-                        ? {
-                              id,
-                              layerId: layer.id,
-                              origin: 'table',
-                          }
-                        : null
-                )
-            )
-        }
-    })
-
-    // TODO - need this implemented in ui
-    // const onMouseOver = (row) => console.log('row', row)
-    // const onRowMouseOut = () => highlightMapFeature()
 
     return (
         <DataTable scrollHeight={'100%'} scrollWidth={'100%'} width={'100%'}>
@@ -285,7 +293,9 @@ const Table = () => {
                 {rows.map((row, index) => (
                     <DataTableRow
                         key={`dtrow-${index}`}
-                        // onMouseOver={() => onMouseOver(row)}
+                        onMouseEnter={() => highlightFeatureOnMouseEnter(row)}
+                        onMouseLeave={clearFeatureHighlightOnMouseLeave}
+                        onClick={() => onTableRowClick(row)}
                     >
                         {row.map(({ dataKey, value }) => (
                             <DataTableCell
@@ -302,7 +312,6 @@ const Table = () => {
                                 backgroundColor={
                                     dataKey === 'color' ? value : null
                                 }
-                                onClick={() => onTableRowClick(row)}
                             >
                                 {dataKey === 'color'
                                     ? value?.toLowerCase()
