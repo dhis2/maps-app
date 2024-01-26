@@ -20,30 +20,43 @@ const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 const TYPE_DATE = 'date'
 
+const INDEX = 'index'
+const NAME = 'name'
+const ID = 'id'
+const VALUE = 'value'
+const LEGEND = 'legend'
+const RANGE = 'range'
+const LEVEL = 'level'
+const PARENT_NAME = 'parentName'
+const TYPE = 'type'
+const COLOR = 'color'
+const OUNAME = 'ouname'
+const EVENTDATE = 'eventdate'
+
 const defaultFieldsMap = () => ({
-    index: { name: i18n.t('Index'), dataKey: 'index' },
-    name: { name: i18n.t('Name'), dataKey: 'name', type: TYPE_STRING },
-    id: { name: i18n.t('Id'), dataKey: 'id', type: TYPE_STRING },
-    level: { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
-    parentName: {
+    [INDEX]: { name: i18n.t('Index'), dataKey: INDEX },
+    [NAME]: { name: i18n.t('Name'), dataKey: NAME, type: TYPE_STRING },
+    [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
+    [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
+    [PARENT_NAME]: {
         name: i18n.t('Parent'),
-        dataKey: 'parentName',
+        dataKey: PARENT_NAME,
         type: TYPE_STRING,
     },
-    type: { name: i18n.t('Type'), dataKey: 'type', type: TYPE_STRING },
-    value: { name: i18n.t('Value'), dataKey: 'value', type: TYPE_NUMBER },
-    legend: { name: i18n.t('Legend'), dataKey: 'legend', type: TYPE_STRING },
-    range: { name: i18n.t('Range'), dataKey: 'range', type: TYPE_STRING },
-    ouname: { name: i18n.t('Org unit'), dataKey: 'ouname', type: TYPE_STRING },
-    eventdate: {
+    [TYPE]: { name: i18n.t('Type'), dataKey: TYPE, type: TYPE_STRING },
+    [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
+    [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
+    [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
+    [OUNAME]: { name: i18n.t('Org unit'), dataKey: OUNAME, type: TYPE_STRING },
+    [EVENTDATE]: {
         name: i18n.t('Event time'),
-        dataKey: 'eventdate',
+        dataKey: EVENTDATE,
         type: TYPE_DATE,
         renderer: 'formatTime...',
     },
-    color: {
+    [COLOR]: {
         name: i18n.t('Color'),
-        dataKey: 'color',
+        dataKey: COLOR,
         type: TYPE_STRING,
         renderer: 'rendercolor',
     },
@@ -51,20 +64,20 @@ const defaultFieldsMap = () => ({
 
 const getThematicHeaders = () =>
     [
-        'index',
-        'name',
-        'id',
-        'value',
-        'legend',
-        'range',
-        'level',
-        'parentName',
-        'type',
-        'color',
+        INDEX,
+        NAME,
+        ID,
+        VALUE,
+        LEGEND,
+        RANGE,
+        LEVEL,
+        PARENT_NAME,
+        TYPE,
+        COLOR,
     ].map((field) => defaultFieldsMap()[field])
 
 const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
-    const fields = ['index', 'ouname', 'id', 'eventdate'].map(
+    const fields = [INDEX, OUNAME, ID, EVENTDATE].map(
         (field) => defaultFieldsMap()[field]
     )
 
@@ -78,22 +91,22 @@ const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
                 : TYPE_STRING,
         }))
 
-    customFields.push([defaultFieldsMap().type])
+    customFields.push([defaultFieldsMap()[TYPE]])
 
     if (styleDataItem) {
-        customFields.push(defaultFieldsMap().color)
+        customFields.push(defaultFieldsMap()[COLOR])
     }
 
     return fields.concat(customFields)
 }
 
 const getOrgUnitHeaders = () =>
-    ['index', 'name', 'id', 'level', 'parentName', 'type'].map(
+    [INDEX, NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
         (field) => defaultFieldsMap()[field]
     )
 
 const getFacilityHeaders = () =>
-    ['index', 'name', 'id', 'type'].map((field) => defaultFieldsMap()[field])
+    [INDEX, NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
 
 const toTitleCase = (str) =>
     str.replace(
@@ -129,7 +142,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return ['index', 'name', 'id', 'type']
+    return [INDEX, NAME, ID, TYPE]
         .map((field) => defaultFieldsMap()[field])
         .concat(customFields)
 }
@@ -200,7 +213,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
     ])
 
     const rows = useMemo(() => {
-        if (!indexedData.length && !headers?.length) {
+        if (!indexedData.length || !headers?.length) {
             return []
         }
 
