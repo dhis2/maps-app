@@ -106,7 +106,12 @@ const AppWrapper = () => {
                             >
                                 <WindowDimensionsProvider>
                                     <OrgUnitsProvider>
-                                        <CssVariables colors spacers theme />
+                                        <CssVariables
+                                            colors
+                                            elevations
+                                            spacers
+                                            theme
+                                        />
                                         <App />
                                     </OrgUnitsProvider>
                                 </WindowDimensionsProvider>
