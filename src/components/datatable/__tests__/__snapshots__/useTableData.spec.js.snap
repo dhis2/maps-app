@@ -1,0 +1,387 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useTableData gets headers and rows for EE population age groups layer 1`] = `
+<div>
+  <ul
+    class="headers"
+  >
+    <li>
+      name=Index, dataKey=index, type=undefined and roundFn=undefined
+    </li>
+    <li>
+      name=Name, dataKey=name, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Id, dataKey=id, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Type, dataKey=type, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Sum Population Age Groups, dataKey=sum, type=number and roundFn=n =&gt; Math.round(n * m) / m
+    </li>
+    <li>
+      name=Mean Population Age Groups, dataKey=mean, type=number and roundFn=n =&gt; Math.round(n * m) / m
+    </li>
+  </ul>
+  <ul
+    class="rows"
+  >
+    <ul
+      class="row"
+    >
+      <li>
+        value=0 and dataKey=index
+      </li>
+      <li>
+        value=Badija and dataKey=name
+      </li>
+      <li>
+        value=boOU and dataKey=id
+      </li>
+      <li>
+        value=Polygon and dataKey=type
+      </li>
+      <li>
+        value=2517 and dataKey=sum
+      </li>
+      <li>
+        value=3.976 and dataKey=mean
+      </li>
+    </ul>
+    <ul
+      class="row"
+    >
+      <li>
+        value=1 and dataKey=index
+      </li>
+      <li>
+        value=Baoma and dataKey=name
+      </li>
+      <li>
+        value=baomaOU and dataKey=id
+      </li>
+      <li>
+        value=Polygon and dataKey=type
+      </li>
+      <li>
+        value=9113 and dataKey=sum
+      </li>
+      <li>
+        value=6.003 and dataKey=mean
+      </li>
+    </ul>
+  </ul>
+</div>
+`;
+
+exports[`useTableData gets headers and rows for EE population layer 1`] = `
+<div>
+  <ul
+    class="headers"
+  >
+    <li>
+      name=Index, dataKey=index, type=undefined and roundFn=undefined
+    </li>
+    <li>
+      name=Name, dataKey=name, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Id, dataKey=id, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Type, dataKey=type, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Sum Population, dataKey=sum, type=number and roundFn=n =&gt; Math.round(n * m) / m
+    </li>
+    <li>
+      name=Mean Population, dataKey=mean, type=number and roundFn=n =&gt; Math.round(n * m) / m
+    </li>
+  </ul>
+  <ul
+    class="rows"
+  >
+    <ul
+      class="row"
+    >
+      <li>
+        value=0 and dataKey=index
+      </li>
+      <li>
+        value=Bo and dataKey=name
+      </li>
+      <li>
+        value=boOu and dataKey=id
+      </li>
+      <li>
+        value=Polygon and dataKey=type
+      </li>
+      <li>
+        value=851091 and dataKey=sum
+      </li>
+      <li>
+        value=47.35 and dataKey=mean
+      </li>
+    </ul>
+    <ul
+      class="row"
+    >
+      <li>
+        value=1 and dataKey=index
+      </li>
+      <li>
+        value=Bombali and dataKey=name
+      </li>
+      <li>
+        value=bombaliOU and dataKey=id
+      </li>
+      <li>
+        value=Polygon and dataKey=type
+      </li>
+      <li>
+        value=585872 and dataKey=sum
+      </li>
+      <li>
+        value=27.35 and dataKey=mean
+      </li>
+    </ul>
+  </ul>
+</div>
+`;
+
+exports[`useTableData gets headers and rows for event layer 1`] = `
+<div>
+  <ul
+    class="headers"
+  >
+    <li>
+      name=Index, dataKey=index, type=undefined and roundFn=undefined
+    </li>
+    <li>
+      name=Org unit, dataKey=ouname, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Id, dataKey=id, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Event time, dataKey=eventdate, type=date and roundFn=undefined
+    </li>
+    <li>
+      name=Last updated on, dataKey=lastupdated, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Event status, dataKey=eventstatus, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Gender, dataKey=oZg33kd9taw, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Type, dataKey=type, type=string and roundFn=undefined
+    </li>
+  </ul>
+  <ul
+    class="rows"
+  >
+    <ul
+      class="row"
+    >
+      <li>
+        value=0 and dataKey=index
+      </li>
+      <li>
+        value=Lumley Hospital and dataKey=ouname
+      </li>
+      <li>
+        value=a9712323629 and dataKey=id
+      </li>
+      <li>
+        value=2023-05-15 00:00:00.0 and dataKey=eventdate
+      </li>
+      <li>
+        value=2018-04-12 20:58:51.31 and dataKey=lastupdated
+      </li>
+      <li>
+        value=ACTIVE and dataKey=eventstatus
+      </li>
+      <li>
+        value=Female and dataKey=oZg33kd9taw
+      </li>
+      <li>
+        value=Point and dataKey=type
+      </li>
+    </ul>
+  </ul>
+</div>
+`;
+
+exports[`useTableData gets headers and rows for facility layer 1`] = `
+<div>
+  <ul
+    class="headers"
+  >
+    <li>
+      name=Index, dataKey=index, type=undefined and roundFn=undefined
+    </li>
+    <li>
+      name=Name, dataKey=name, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Id, dataKey=id, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Type, dataKey=type, type=string and roundFn=undefined
+    </li>
+  </ul>
+  <ul
+    class="rows"
+  >
+    <ul
+      class="row"
+    >
+      <li>
+        value=0 and dataKey=index
+      </li>
+      <li>
+        value=Facility 1 and dataKey=name
+      </li>
+      <li>
+        value=facility-1 and dataKey=id
+      </li>
+      <li>
+        value=Point and dataKey=type
+      </li>
+    </ul>
+  </ul>
+</div>
+`;
+
+exports[`useTableData gets headers and rows for orgUnit layer 1`] = `
+<div>
+  <ul
+    class="headers"
+  >
+    <li>
+      name=Index, dataKey=index, type=undefined and roundFn=undefined
+    </li>
+    <li>
+      name=Name, dataKey=name, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Id, dataKey=id, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Level, dataKey=level, type=number and roundFn=undefined
+    </li>
+    <li>
+      name=Parent, dataKey=parentName, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Type, dataKey=type, type=string and roundFn=undefined
+    </li>
+  </ul>
+  <ul
+    class="rows"
+  >
+    <ul
+      class="row"
+    >
+      <li>
+        value=0 and dataKey=index
+      </li>
+      <li>
+        value=OrgUnitName 1 and dataKey=name
+      </li>
+      <li>
+        value=orgunit-id-1 and dataKey=id
+      </li>
+      <li>
+        value=3 and dataKey=level
+      </li>
+      <li>
+        value=Bo and dataKey=parentName
+      </li>
+      <li>
+        value=MultiPolygon and dataKey=type
+      </li>
+    </ul>
+  </ul>
+</div>
+`;
+
+exports[`useTableData gets headers and rows for thematic layer 1`] = `
+<div>
+  <ul
+    class="headers"
+  >
+    <li>
+      name=Index, dataKey=index, type=undefined and roundFn=undefined
+    </li>
+    <li>
+      name=Name, dataKey=name, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Id, dataKey=id, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Value, dataKey=value, type=number and roundFn=undefined
+    </li>
+    <li>
+      name=Legend, dataKey=legend, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Range, dataKey=range, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Level, dataKey=level, type=number and roundFn=undefined
+    </li>
+    <li>
+      name=Parent, dataKey=parentName, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Type, dataKey=type, type=string and roundFn=undefined
+    </li>
+    <li>
+      name=Color, dataKey=color, type=string and roundFn=undefined
+    </li>
+  </ul>
+  <ul
+    class="rows"
+  >
+    <ul
+      class="row"
+    >
+      <li>
+        value=0 and dataKey=index
+      </li>
+      <li>
+        value=Ngelehun CHC and dataKey=name
+      </li>
+      <li>
+        value=thematicId-1 and dataKey=id
+      </li>
+      <li>
+        value=106.3 and dataKey=value
+      </li>
+      <li>
+        value=Great and dataKey=legend
+      </li>
+      <li>
+        value=90 - 120 and dataKey=range
+      </li>
+      <li>
+        value=4 and dataKey=level
+      </li>
+      <li>
+        value=Badjia and dataKey=parentName
+      </li>
+      <li>
+        value=Point and dataKey=type
+      </li>
+      <li>
+        value=#FFFFB2 and dataKey=color
+      </li>
+    </ul>
+  </ul>
+</div>
+`;

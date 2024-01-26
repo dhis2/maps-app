@@ -91,7 +91,7 @@ const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
                 : TYPE_STRING,
         }))
 
-    customFields.push([defaultFieldsMap()[TYPE]])
+    customFields.push(defaultFieldsMap()[TYPE])
 
     if (styleDataItem) {
         customFields.push(defaultFieldsMap()[COLOR])
@@ -164,23 +164,25 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         headers: layerHeaders,
     } = layer || EMPTY_LAYER
 
-    const indexedData = useMemo(() => {
-        return data
-            .map((d, i) => ({
-                index: i,
-                ...d,
-            }))
-            .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, i) => ({
-                ...(d.properties || d),
-                ...aggregations[d.id],
-                index: d.index,
-                i,
-            }))
-    }, [data, aggregations])
+    const dataWithAggregations = useMemo(
+        () =>
+            data
+                .map((d, i) => ({
+                    index: i,
+                    ...d,
+                }))
+                .filter((d) => !d.properties.hasAdditionalGeometry)
+                .map((d, i) => ({
+                    ...(d.properties || d),
+                    ...aggregations[d.id],
+                    index: d.index,
+                    i,
+                })),
+        [data, aggregations]
+    )
 
     const headers = useMemo(() => {
-        if (!layerType) {
+        if (!layerType || !dataWithAggregations.length) {
             return []
         }
 
@@ -195,7 +197,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 return getEarthEngineHeaders({
                     aggregationType,
                     legend,
-                    data: indexedData,
+                    data: dataWithAggregations,
                 })
             case FACILITY_LAYER:
                 return getFacilityHeaders()
@@ -208,16 +210,16 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         aggregationType,
         legend,
         styleDataItem,
-        indexedData,
+        dataWithAggregations,
         layerHeaders,
     ])
 
     const rows = useMemo(() => {
-        if (!indexedData.length || !headers?.length) {
+        if (!dataWithAggregations.length || !headers?.length) {
             return []
         }
 
-        const filteredData = filterData(indexedData, dataFilters)
+        const filteredData = filterData(dataWithAggregations, dataFilters)
 
         //sort
         filteredData.sort((a, b) => {
@@ -243,7 +245,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 dataKey,
             }))
         )
-    }, [indexedData, dataFilters, sortField, sortDirection, headers])
+    }, [dataWithAggregations, dataFilters, sortField, sortDirection, headers])
 
     return { headers, rows }
 }
