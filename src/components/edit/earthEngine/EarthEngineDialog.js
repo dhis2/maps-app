@@ -26,37 +26,32 @@ const EarthEngineDialog = (props) => {
     const [error, setError] = useState()
 
     const {
-        datasetId,
-        band,
-        rows,
-        style,
-        maskOperator,
+        aggregations,
         areaRadius,
-        orgUnits,
-        setOrgUnits,
+        band,
+        bands,
+        datasetId,
+        defaultAggregations,
+        description,
+        filters,
+        maskOperator,
+        notice,
         orgUnitField,
+        orgUnits,
+        rows,
+        setOrgUnits,
+        source,
+        sourceUrl,
+        style,
         period,
-        setEarthEnginePeriod,
+        periodType,
+        precision,
         setBufferRadius,
+        setEarthEnginePeriod,
+        unit,
         validateLayer,
         onLayerValidation,
     } = props
-
-    // const dataset = getEarthEngineLayer(layerId)
-
-    const {
-        description,
-        notice,
-        periodType,
-        bands,
-        filters,
-        unit,
-        source,
-        sourceUrl,
-        aggregations,
-        defaultAggregations,
-        precision,
-    } = props // dataset
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
 

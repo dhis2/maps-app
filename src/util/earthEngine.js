@@ -44,15 +44,24 @@ export const getFilterFromPeriod = (period, filters) => {
     )
 }
 
+const nonDigits = /^\D+/g
+
+// Only used for backward compatibility
 export const getPeriodFromFilter = (filter) => {
     if (!Array.isArray(filter) || !filter.length) {
         return null
     }
 
     const { id, name, year, arguments: args } = filter[0]
+    let periodId = id || args[1]
+
+    // Remover non-digits from periodId (needed for backward compatibility for population layers saved before 2.41)
+    if (nonDigits.test(periodId)) {
+        periodId = Number(periodId.replace(nonDigits, '')) // Remove non-digits
+    }
 
     return {
-        id: id || args[1],
+        id: periodId,
         name,
         year,
     }
