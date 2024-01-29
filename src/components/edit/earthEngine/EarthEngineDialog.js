@@ -45,7 +45,6 @@ const EarthEngineDialog = (props) => {
         style,
         period,
         periodType,
-        precision,
         setBufferRadius,
         setEarthEnginePeriod,
         unit,
@@ -196,7 +195,6 @@ const EarthEngineDialog = (props) => {
                         unit={unit}
                         style={style}
                         showBelowMin={!maskOperator}
-                        precision={precision}
                         hasOrgUnitField={hasOrgUnitField}
                     />
                 )}
