@@ -55,6 +55,15 @@ const TableComponents = {
     TableBody: DataTableBody,
     TableHead: DataTableHead,
     TableRow: DataTableRowWithVirtuosoContext,
+    EmptyPlaceholder: () => (
+        <tr>
+            <td colSpan={99999}>
+                <div className={styles.noResults}>
+                    {i18n.t('No results found')}
+                </div>
+            </td>
+        </tr>
+    ),
 }
 
 const Table = ({ height }) => {
