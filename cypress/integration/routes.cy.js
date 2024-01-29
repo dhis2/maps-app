@@ -82,6 +82,16 @@ context('Routes', () => {
                 'Viewing interpretation: ANC: LLITN coverage district and facility'
             )
             .should('be.visible')
+
+        cy.getByDataTest('interpretation-modal')
+            .find('canvas')
+            .should('be.visible')
+
+        cy.getByDataTest('interpretation-modal')
+            .contains(
+                'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
+            )
+            .should('be.visible')
     })
 
     it('loads with map id (legacy) and interpretationId uppercase', () => {
