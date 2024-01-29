@@ -146,6 +146,8 @@ export default class EarthEngineLayer extends Layer {
     }
 
     getAggregations() {
+        console.log('getAggregations', this.hasAggregations())
+
         if (this.hasAggregations() && !this.state.aggregations) {
             this.setState({ aggregations: 'loading' })
             this.layer
@@ -156,6 +158,7 @@ export default class EarthEngineLayer extends Layer {
     }
 
     addAggregationValues(aggregations) {
+        console.log('addAggregationValues', aggregations)
         const { id, data, setAggregations } = this.props
 
         // Make aggregations available for data table and download
@@ -234,6 +237,8 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onLoad() {
+        console.log('onLoad')
+
         this.setState({ isLoading: false, popup: null })
 
         if (!this.context.isPlugin) {
