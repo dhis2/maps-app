@@ -10,22 +10,6 @@ import styles from '../styles/LayerDialog.module.css'
 const minSteps = 3
 const maxSteps = 9
 
-const countDecimals = (number) => {
-    if (Math.floor(number.valueOf()) === number.valueOf()) {
-        return 0
-    }
-
-    var str = number.toString()
-    if (str.indexOf('.') !== -1 && str.indexOf('-') !== -1) {
-        return str.split('-')[1] || 0
-    } else if (str.indexOf('.') !== -1) {
-        return str.split('.')[1].length || 0
-    }
-    return str.split('-')[1] || 0
-}
-
-const getStep = (number) => 1 / Math.pow(10, countDecimals(number))
-
 const StyleSelect = ({ unit, style, setStyle }) => {
     const { min, max, palette } = style
     const [steps, setSteps] = useState(palette.length)
@@ -46,7 +30,6 @@ const StyleSelect = ({ unit, style, setStyle }) => {
         [palette, setStyle]
     )
 
-    const numberFieldStep = Math.min(getStep(min), getStep(max))
     let warningText
 
     if (Number.isNaN(min)) {
@@ -71,14 +54,12 @@ const StyleSelect = ({ unit, style, setStyle }) => {
                 <NumberField
                     label={i18n.t('Min')}
                     value={min}
-                    step={numberFieldStep}
                     onChange={(min) => setStyle({ min })}
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
                     label={i18n.t('Max')}
                     value={max}
-                    step={numberFieldStep}
                     onChange={(max) => setStyle({ max })}
                     className={styles.flexInnerColumn}
                 />
