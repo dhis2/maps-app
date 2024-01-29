@@ -188,11 +188,12 @@ const Table = ({ height }) => {
                 row.map(({ dataKey, value }) => (
                     <DataTableCell
                         key={`dtcell-${dataKey}`}
-                        className={cx(styles.fontClass, styles.sizeClass, {
-                            [styles.darkText]:
+                        className={cx(styles.dataCell, {
+                            [styles.lightText]:
                                 dataKey === 'color' && isDarkColor(value),
                         })}
                         backgroundColor={dataKey === 'color' ? value : null}
+                        align="left"
                     >
                         {dataKey === 'color' ? value?.toLowerCase() : value}
                     </DataTableCell>

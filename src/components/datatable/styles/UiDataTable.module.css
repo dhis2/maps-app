@@ -2,15 +2,13 @@
     height: 1px;
 }
 
-td.sizeClass {
-    padding: 7px 5px;
+td.dataCell {
+    padding-top: var(--spacers-dp8);
+    padding-bottom: var(--spacers-dp8);
+    font-size: 12px;
 }
 
-td.fontClass {
-    font-size: 11px;
-}
-
-td.darkText {
+td.lightText {
     color: var(--colors-white);
 }
 
