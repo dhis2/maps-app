@@ -189,9 +189,15 @@ class DataTable extends Component {
 
     render() {
         const { data, sortBy, sortDirection } = this.state
-        const { width, height, layer: layerType, aggregations } = this.props
+        const { width, height, layer, aggregations } = this.props
 
-        const { styleDataItem, serverCluster, aggregationType, legend } = layer
+        const {
+            layer: layerType,
+            styleDataItem,
+            serverCluster,
+            aggregationType,
+            legend,
+        } = layer
         const isThematic = layerType === THEMATIC_LAYER
         const isOrgUnit = layerType === ORG_UNIT_LAYER
         const isEvent = layerType === EVENT_LAYER

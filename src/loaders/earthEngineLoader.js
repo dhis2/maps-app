@@ -3,15 +3,11 @@ import { getInstance as getD2 } from 'd2'
 import { precisionFixed, formatLocale } from 'd3-format'
 // import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-<<<<<<< HEAD
-import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
-=======
 import {
     hasClasses,
     getFilterFromPeriod,
     getPeriodFromFilter,
 } from '../util/earthEngine.js'
->>>>>>> chore/ee-refactor
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 // import { numberPrecision } from '../util/numbers.js'
