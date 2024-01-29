@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { isValidUid } from 'd2/uid' // TODO replace
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import {
@@ -12,6 +11,7 @@ import {
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses, getPrecision } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
+import { isValidUid } from '../../util/helpers.js'
 import { numberPrecision } from '../../util/numbers.js'
 
 const ASCENDING = 'asc'
