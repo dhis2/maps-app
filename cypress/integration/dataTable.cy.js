@@ -1,4 +1,5 @@
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { EventLayer } from '../elements/event_layer.js'
+import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../support/util.js'
 
 Cypress.on('uncaught:exception', (err) => {
     if (
@@ -124,5 +125,46 @@ describe('data table', () => {
             .find('td')
             .eq(3)
             .should('contain', '76')
+    })
+
+    it('opens the data table for an Event layer', () => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+
+        const Layer = new EventLayer()
+
+        Layer.openDialog('Events')
+            .selectProgram('Malaria case registration')
+            .validateStage('Malaria case registration')
+            .selectTab('Period')
+            .selectPeriodType('Start/end dates')
+            .typeStartDate(`${CURRENT_YEAR - 1}-01-01`)
+            .typeEndDate(`${CURRENT_YEAR - 1}-01-15`)
+            .selectTab('Org Units')
+            .selectOu('Bo')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle('Malaria case registration')
+
+        cy.getByDataTest('moremenubutton').first().click()
+
+        cy.getByDataTest('more-menu')
+            .find('li')
+            .contains('Show data table')
+            .not('disabled')
+            .click()
+
+        cy.getByDataTest('bottom-panel').should('be.visible')
+
+        // check number of columns
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-datatablecellhead')
+            .should('have.length', 9)
+
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-datatablecellhead')
+            .contains('gender', { matchCase: false })
+            .should('be.visible')
     })
 })
