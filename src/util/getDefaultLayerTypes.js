@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { earthEngineLayers } from '../constants/earthEngine.js'
 import {
     THEMATIC_LAYER,
     EVENT_LAYER,
