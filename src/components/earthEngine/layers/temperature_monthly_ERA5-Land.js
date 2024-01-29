@@ -37,7 +37,7 @@ export default {
     ],
     style: {
         min: 0,
-        max: 40,
+        max: 35,
         palette: [
             '#fff5f0',
             '#fee0d2',
