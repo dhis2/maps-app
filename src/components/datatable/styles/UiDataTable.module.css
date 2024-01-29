@@ -1,3 +1,7 @@
+.dataTable {
+    height: 1px;
+}
+
 td.sizeClass {
     padding: 7px 5px;
 }
@@ -10,11 +14,16 @@ td.darkText {
     color: var(--colors-white);
 }
 
+.columnHeader > :global(span.container) {
+    justify-content: space-between;
+}
 /* Hide the filter icon */
-.columnHeader > span > span > button:last-of-type {
+.columnHeader
+    > :global(span.container)
+    > :global(span.top)
+    > button:last-of-type {
     visibility: hidden;
 }
-
 
 /* TODO */
 .noSupport {
@@ -26,4 +35,3 @@ td.darkText {
     font-style: italic;
     line-height: 30px;
 }
-

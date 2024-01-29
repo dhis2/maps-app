@@ -48,7 +48,7 @@ DataTableRowWithVirtuosoContext.propTypes = {
 }
 
 const TableComponents = {
-    Table: DataTable,
+    Table: (props) => <DataTable {...props} className={styles.dataTable} />,
     TableBody: DataTableBody,
     TableHead: DataTableHead,
     TableRow: DataTableRowWithVirtuosoContext,
