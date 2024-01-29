@@ -46,13 +46,16 @@ StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
     precision: PropTypes.number,
     showBelowMin: PropTypes.bool,
-    style: PropTypes.shape({
-        color: PropTypes.string,
-        max: PropTypes.number,
-        min: PropTypes.number,
-        palette: PropTypes.array,
-        strokeWidth: PropTypes.number,
-    }),
+    style: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.shape({
+            color: PropTypes.string,
+            max: PropTypes.number,
+            min: PropTypes.number,
+            palette: PropTypes.array,
+            strokeWidth: PropTypes.number,
+        }),
+    ]),
     unit: PropTypes.string,
 }
 

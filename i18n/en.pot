@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-01-11T09:20:59.829Z\n"
-"PO-Revision-Date: 2024-01-11T09:20:59.829Z\n"
+"POT-Creation-Date: 2024-01-29T10:02:32.461Z\n"
+"PO-Revision-Date: 2024-01-29T10:02:32.461Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -244,8 +244,8 @@ msgstr "meters"
 msgid "Elevation above sea-level."
 msgstr "Elevation above sea-level."
 
-msgid "Landcover NASA"
-msgstr "Landcover NASA"
+msgid "Landcover"
+msgstr "Landcover"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
@@ -1179,12 +1179,6 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
-
-msgid "Temperature"
-msgstr "Temperature"
-
-msgid "Landcover"
-msgstr "Landcover"
 
 msgid "All"
 msgstr "All"
