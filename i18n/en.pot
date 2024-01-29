@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-01-29T10:02:32.461Z\n"
-"PO-Revision-Date: 2024-01-29T10:02:32.461Z\n"
+"POT-Creation-Date: 2024-01-29T20:40:00.763Z\n"
+"PO-Revision-Date: 2024-01-29T20:40:00.763Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -211,282 +211,6 @@ msgstr "Cancel"
 
 msgid "Close"
 msgstr "Close"
-
-msgid "Building footprints"
-msgstr "Building footprints"
-
-msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
-msgstr ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
-
-msgid "Building counts are only available for smaller organisation unit areas."
-msgstr "Building counts are only available for smaller organisation unit areas."
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-
-msgid "Number of buildings"
-msgstr "Number of buildings"
-
-msgid "Elevation"
-msgstr "Elevation"
-
-msgid "meters"
-msgstr "meters"
-
-msgid "Elevation above sea-level."
-msgstr "Elevation above sea-level."
-
-msgid "Landcover"
-msgstr "Landcover"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Distinct landcover types collected from satellites."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Evergreen Needleleaf forest"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Evergreen Broadleaf forest"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Deciduous Needleleaf forest"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Deciduous Broadleaf forest"
-
-msgid "Mixed forest"
-msgstr "Mixed forest"
-
-msgid "Closed shrublands"
-msgstr "Closed shrublands"
-
-msgid "Open shrublands"
-msgstr "Open shrublands"
-
-msgid "Woody savannas"
-msgstr "Woody savannas"
-
-msgid "Savannas"
-msgstr "Savannas"
-
-msgid "Grasslands"
-msgstr "Grasslands"
-
-msgid "Permanent wetlands"
-msgstr "Permanent wetlands"
-
-msgid "Croplands"
-msgstr "Croplands"
-
-msgid "Urban and built-up"
-msgstr "Urban and built-up"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Cropland/Natural vegetation mosaic"
-
-msgid "Snow and ice"
-msgstr "Snow and ice"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Barren or sparsely vegetated"
-
-msgid "Water"
-msgstr "Water"
-
-msgid "Nighttime lights"
-msgstr "Nighttime lights"
-
-msgid "light intensity"
-msgstr "light intensity"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-
-msgid "Population"
-msgstr "Population"
-
-msgid "people per km²"
-msgstr "people per km²"
-
-msgid "Estimated number of people living in an area."
-msgstr "Estimated number of people living in an area."
-
-msgid "people per hectare"
-msgstr "people per hectare"
-
-msgid "Precipitation"
-msgstr "Precipitation"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-msgstr ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-
-msgid "Temperature MODIS"
-msgstr "Temperature MODIS"
-
-msgid "°C during daytime"
-msgstr "°C during daytime"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-
-msgid "Population age groups"
-msgstr "Population age groups"
-
-msgid "Estimated number of people living in an area, grouped by age and gender."
-msgstr "Estimated number of people living in an area, grouped by age and gender."
-
-msgid "Male 0 - 1 years"
-msgstr "Male 0 - 1 years"
-
-msgid "Male 1 - 4 years"
-msgstr "Male 1 - 4 years"
-
-msgid "Male 5 - 9 years"
-msgstr "Male 5 - 9 years"
-
-msgid "Male 10 - 14 years"
-msgstr "Male 10 - 14 years"
-
-msgid "Male 15 - 19 years"
-msgstr "Male 15 - 19 years"
-
-msgid "Male 20 - 24 years"
-msgstr "Male 20 - 24 years"
-
-msgid "Male 25 - 29 years"
-msgstr "Male 25 - 29 years"
-
-msgid "Male 30 - 34 years"
-msgstr "Male 30 - 34 years"
-
-msgid "Male 35 - 39 years"
-msgstr "Male 35 - 39 years"
-
-msgid "Male 40 - 44 years"
-msgstr "Male 40 - 44 years"
-
-msgid "Male 45 - 49 years"
-msgstr "Male 45 - 49 years"
-
-msgid "Male 50 - 54 years"
-msgstr "Male 50 - 54 years"
-
-msgid "Male 55 - 59 years"
-msgstr "Male 55 - 59 years"
-
-msgid "Male 60 - 64 years"
-msgstr "Male 60 - 64 years"
-
-msgid "Male 65 - 69 years"
-msgstr "Male 65 - 69 years"
-
-msgid "Male 70 - 74 years"
-msgstr "Male 70 - 74 years"
-
-msgid "Male 75 - 79 years"
-msgstr "Male 75 - 79 years"
-
-msgid "Male 80 years and above"
-msgstr "Male 80 years and above"
-
-msgid "Female 0 - 1 years"
-msgstr "Female 0 - 1 years"
-
-msgid "Female 1 - 4 years"
-msgstr "Female 1 - 4 years"
-
-msgid "Female 5 - 9 years"
-msgstr "Female 5 - 9 years"
-
-msgid "Female 10 - 14 years"
-msgstr "Female 10 - 14 years"
-
-msgid "Female 15 - 19 years"
-msgstr "Female 15 - 19 years"
-
-msgid "Female 20 - 24 years"
-msgstr "Female 20 - 24 years"
-
-msgid "Female 25 - 29 years"
-msgstr "Female 25 - 29 years"
-
-msgid "Female 30 - 34 years"
-msgstr "Female 30 - 34 years"
-
-msgid "Female 35 - 39 years"
-msgstr "Female 35 - 39 years"
-
-msgid "Female 40 - 44 years"
-msgstr "Female 40 - 44 years"
-
-msgid "Female 45 - 49 years"
-msgstr "Female 45 - 49 years"
-
-msgid "Female 50 - 54 years"
-msgstr "Female 50 - 54 years"
-
-msgid "Female 55 - 59 years"
-msgstr "Female 55 - 59 years"
-
-msgid "Female 60 - 64 years"
-msgstr "Female 60 - 64 years"
-
-msgid "Female 65 - 69 years"
-msgstr "Female 65 - 69 years"
-
-msgid "Female 70 - 74 years"
-msgstr "Female 70 - 74 years"
-
-msgid "Female 75 - 79 years"
-msgstr "Female 75 - 79 years"
-
-msgid "Female 80 years and above"
-msgstr "Female 80 years and above"
-
-msgid "Precipitation monthly"
-msgstr "Precipitation monthly"
-
-msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
-msgstr ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
-
-msgid "Temperature monthly"
-msgstr "Temperature monthly"
-
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
-msgstr ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
 
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
@@ -1179,6 +903,282 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
+
+msgid "Building footprints"
+msgstr "Building footprints"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+
+msgid "Building counts are only available for smaller organisation unit areas."
+msgstr "Building counts are only available for smaller organisation unit areas."
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+
+msgid "Number of buildings"
+msgstr "Number of buildings"
+
+msgid "Elevation"
+msgstr "Elevation"
+
+msgid "meters"
+msgstr "meters"
+
+msgid "Elevation above sea-level."
+msgstr "Elevation above sea-level."
+
+msgid "Landcover"
+msgstr "Landcover"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Distinct landcover types collected from satellites."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Evergreen Needleleaf forest"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Evergreen Broadleaf forest"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Deciduous Needleleaf forest"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Deciduous Broadleaf forest"
+
+msgid "Mixed forest"
+msgstr "Mixed forest"
+
+msgid "Closed shrublands"
+msgstr "Closed shrublands"
+
+msgid "Open shrublands"
+msgstr "Open shrublands"
+
+msgid "Woody savannas"
+msgstr "Woody savannas"
+
+msgid "Savannas"
+msgstr "Savannas"
+
+msgid "Grasslands"
+msgstr "Grasslands"
+
+msgid "Permanent wetlands"
+msgstr "Permanent wetlands"
+
+msgid "Croplands"
+msgstr "Croplands"
+
+msgid "Urban and built-up"
+msgstr "Urban and built-up"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Cropland/Natural vegetation mosaic"
+
+msgid "Snow and ice"
+msgstr "Snow and ice"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Barren or sparsely vegetated"
+
+msgid "Water"
+msgstr "Water"
+
+msgid "Nighttime lights"
+msgstr "Nighttime lights"
+
+msgid "light intensity"
+msgstr "light intensity"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+
+msgid "Population"
+msgstr "Population"
+
+msgid "people per km²"
+msgstr "people per km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Estimated number of people living in an area."
+
+msgid "people per hectare"
+msgstr "people per hectare"
+
+msgid "Precipitation"
+msgstr "Precipitation"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+msgstr ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+
+msgid "Temperature MODIS"
+msgstr "Temperature MODIS"
+
+msgid "°C during daytime"
+msgstr "°C during daytime"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+
+msgid "Population age groups"
+msgstr "Population age groups"
+
+msgid "Estimated number of people living in an area, grouped by age and gender."
+msgstr "Estimated number of people living in an area, grouped by age and gender."
+
+msgid "Male 0 - 1 years"
+msgstr "Male 0 - 1 years"
+
+msgid "Male 1 - 4 years"
+msgstr "Male 1 - 4 years"
+
+msgid "Male 5 - 9 years"
+msgstr "Male 5 - 9 years"
+
+msgid "Male 10 - 14 years"
+msgstr "Male 10 - 14 years"
+
+msgid "Male 15 - 19 years"
+msgstr "Male 15 - 19 years"
+
+msgid "Male 20 - 24 years"
+msgstr "Male 20 - 24 years"
+
+msgid "Male 25 - 29 years"
+msgstr "Male 25 - 29 years"
+
+msgid "Male 30 - 34 years"
+msgstr "Male 30 - 34 years"
+
+msgid "Male 35 - 39 years"
+msgstr "Male 35 - 39 years"
+
+msgid "Male 40 - 44 years"
+msgstr "Male 40 - 44 years"
+
+msgid "Male 45 - 49 years"
+msgstr "Male 45 - 49 years"
+
+msgid "Male 50 - 54 years"
+msgstr "Male 50 - 54 years"
+
+msgid "Male 55 - 59 years"
+msgstr "Male 55 - 59 years"
+
+msgid "Male 60 - 64 years"
+msgstr "Male 60 - 64 years"
+
+msgid "Male 65 - 69 years"
+msgstr "Male 65 - 69 years"
+
+msgid "Male 70 - 74 years"
+msgstr "Male 70 - 74 years"
+
+msgid "Male 75 - 79 years"
+msgstr "Male 75 - 79 years"
+
+msgid "Male 80 years and above"
+msgstr "Male 80 years and above"
+
+msgid "Female 0 - 1 years"
+msgstr "Female 0 - 1 years"
+
+msgid "Female 1 - 4 years"
+msgstr "Female 1 - 4 years"
+
+msgid "Female 5 - 9 years"
+msgstr "Female 5 - 9 years"
+
+msgid "Female 10 - 14 years"
+msgstr "Female 10 - 14 years"
+
+msgid "Female 15 - 19 years"
+msgstr "Female 15 - 19 years"
+
+msgid "Female 20 - 24 years"
+msgstr "Female 20 - 24 years"
+
+msgid "Female 25 - 29 years"
+msgstr "Female 25 - 29 years"
+
+msgid "Female 30 - 34 years"
+msgstr "Female 30 - 34 years"
+
+msgid "Female 35 - 39 years"
+msgstr "Female 35 - 39 years"
+
+msgid "Female 40 - 44 years"
+msgstr "Female 40 - 44 years"
+
+msgid "Female 45 - 49 years"
+msgstr "Female 45 - 49 years"
+
+msgid "Female 50 - 54 years"
+msgstr "Female 50 - 54 years"
+
+msgid "Female 55 - 59 years"
+msgstr "Female 55 - 59 years"
+
+msgid "Female 60 - 64 years"
+msgstr "Female 60 - 64 years"
+
+msgid "Female 65 - 69 years"
+msgstr "Female 65 - 69 years"
+
+msgid "Female 70 - 74 years"
+msgstr "Female 70 - 74 years"
+
+msgid "Female 75 - 79 years"
+msgstr "Female 75 - 79 years"
+
+msgid "Female 80 years and above"
+msgstr "Female 80 years and above"
+
+msgid "Precipitation monthly"
+msgstr "Precipitation monthly"
+
+msgid ""
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+
+msgid "Temperature monthly"
+msgstr "Temperature monthly"
+
+msgid ""
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
+msgstr ""
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 
 msgid "All"
 msgstr "All"
