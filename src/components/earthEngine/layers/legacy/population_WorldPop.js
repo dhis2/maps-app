@@ -6,6 +6,7 @@ export default {
     legacy: true, // Kept for backward compability
     layerId: 'WorldPop/POP',
     datasetId: 'WorldPop/POP',
+    format: 'ImageCollection',
     name: i18n.t('Population'),
     unit: i18n.t('people per km²'),
     description: i18n.t('Estimated number of people living in an area.'),
@@ -13,12 +14,11 @@ export default {
     sourceUrl: 'https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP',
     img: 'images/population.png',
     periodType: 'YEARLY',
-    filters: ({ id, name, year }) => [
+    band: 'population',
+    filters: [
         {
-            id,
-            name,
             type: 'eq',
-            arguments: ['year', year],
+            arguments: ['year', '$1'],
         },
         {
             type: 'eq',
@@ -26,7 +26,7 @@ export default {
         },
     ],
     mosaic: true,
-    params: {
+    style: {
         min: 0,
         max: 1000,
         palette: [
@@ -41,5 +41,6 @@ export default {
     methods: {
         multiply: [100], // Convert from people/hectare to people/km2
     },
+    maskOperator: 'gt',
     opacity: 0.9,
 }
