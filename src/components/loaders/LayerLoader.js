@@ -8,7 +8,7 @@ import OrgUnitLoader from './OrgUnitLoader.js'
 import ThematicLoader from './ThematicLoader.js'
 import TrackedEntityLoader from './TrackedEntityLoader.js'
 
-const layerType = {
+const layerTypes = {
     earthEngine: EarthEngineLoader,
     event: EventLoader,
     external: ExternalLoader,

@@ -147,6 +147,7 @@ const models2objects = (config) => {
             (key) => eeConfig[key] === undefined && delete eeConfig[key]
         )
 
+        config.layer = layer
         config.config = JSON.stringify(eeConfig)
 
         delete config.layerId

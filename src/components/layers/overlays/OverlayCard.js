@@ -54,8 +54,8 @@ const OverlayCard = ({
         isExpanded = true,
         opacity,
         isVisible,
-        layer: layerType,
         isLoaded,
+        layer: layerType,
     } = layer
 
     const canEdit = layerType !== EXTERNAL_LAYER

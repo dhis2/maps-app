@@ -92,6 +92,7 @@ const PeriodSelect = ({
     const value =
         period && periods.some((p) => p.id === period.id) ? period.id : null
 
+    // TODO: What if no periods are within firstDate and lastDate?
     return (
         <div className={cx(styles.periodSelect, className)}>
             <SelectField

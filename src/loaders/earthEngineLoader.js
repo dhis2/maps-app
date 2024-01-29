@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
-import { precisionRound } from 'd3-format'
-import { getEarthEngineLayer } from '../constants/earthEngine.js'
+import { precisionFixed, formatLocale } from 'd3-format'
+// import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import {
     hasClasses,
@@ -10,11 +10,13 @@ import {
 } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
-import { numberPrecision } from '../util/numbers.js'
+// import { numberPrecision } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
+
+const numberFormat = formatLocale({ minus: '\u002D' }).format
 
 // Returns a promise
 const earthEngineLoader = async (config) => {
@@ -24,7 +26,7 @@ const earthEngineLoader = async (config) => {
     const alerts = []
 
     let layerConfig = {}
-    let dataset
+    // let dataset
     let features
 
     if (orgUnits && orgUnits.length) {
@@ -134,20 +136,25 @@ const earthEngineLoader = async (config) => {
             layerConfig.params.palette = layerConfig.params.palette.split(',')
         }
 
+        /*
         dataset = getEarthEngineLayer(layerConfig.id)
 
         if (dataset) {
             delete layerConfig.id
         }
+        */
 
         delete config.config
         delete config.filters // Backend returns empty filters array
     } else {
-        dataset = getEarthEngineLayer(layerConfig.id)
+        // dataset = getEarthEngineLayer(layerConfig.id)
+        // console.log('getEarthEngineLayer', layerConfig.id, dataset)
     }
 
+    // console.log('###', dataset, config, layerConfig)
+
     const layer = {
-        ...dataset,
+        // ...dataset,
         ...config,
         ...layerConfig,
     }
@@ -163,6 +170,7 @@ const earthEngineLoader = async (config) => {
         bands,
         style,
         maskOperator,
+        precision,
     } = layer
 
     const { name } = dataset || config
@@ -192,7 +200,7 @@ const earthEngineLoader = async (config) => {
     if (format === 'FeatureCollection') {
         // TODO: Add feature collection style
     } else if (!hasClasses(aggregationType) && style?.palette) {
-        legend.items = createLegend(style, !maskOperator)
+        legend.items = createLegend(style, !maskOperator, precision)
     }
 
     const filter = getFilterFromPeriod(period, filters)
@@ -211,10 +219,14 @@ const earthEngineLoader = async (config) => {
     }
 }
 
-export const createLegend = ({ min, max, palette }, showBelowMin) => {
+export const createLegend = (
+    { min, max, palette },
+    showBelowMin,
+    precision
+) => {
     const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
-    const precision = precisionRound(step, max)
-    const valueFormat = numberPrecision(precision)
+    const decimals = precision || precisionFixed(step % 1)
+    const valueFormat = numberFormat('.' + decimals + 'f')
 
     let from = valueFormat(min)
     let to = valueFormat(min + step)

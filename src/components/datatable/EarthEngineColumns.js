@@ -43,7 +43,9 @@ const EarthEngineColumns = ({ aggregationType, legend, data }) => {
                         <ColumnHeader type="number" {...props} />
                     )}
                     cellRenderer={(d) =>
-                        d.cellData !== undefined ? valueFormat(d.cellData) : ''
+                        d.cellData !== undefined && d.cellData !== null
+                            ? valueFormat(d.cellData)
+                            : ''
                     }
                 />
             )

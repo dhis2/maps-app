@@ -19,14 +19,17 @@ export default class EarthEngineLayer extends Layer {
     componentDidUpdate(prev) {
         super.componentDidUpdate(prev)
 
-        const { coordinate } = this.props
+        const { coordinate, precision } = this.props
 
         if (coordinate && coordinate !== prev.coordinate) {
             try {
-                this.layer.showValue({
-                    lng: coordinate[0],
-                    lat: coordinate[1],
-                })
+                this.layer.showValue(
+                    {
+                        lng: coordinate[0],
+                        lat: coordinate[1],
+                    },
+                    precision
+                )
             } catch (error) {
                 this.setState({
                     error: i18n.t(
@@ -74,6 +77,9 @@ export default class EarthEngineLayer extends Layer {
             aggregationType,
             areaRadius,
             tileScale,
+            periodReducer,
+            useCentroid,
+            cloudScore,
         } = this.props
 
         const { map, isPlugin } = this.context
@@ -90,6 +96,7 @@ export default class EarthEngineLayer extends Layer {
             maskOperator,
             attribution,
             filter,
+            periodReducer,
             methods,
             mosaic,
             name,
@@ -101,11 +108,17 @@ export default class EarthEngineLayer extends Layer {
             projection,
             data,
             aggregationType,
+            useCentroid,
             tileScale,
+            cloudScore,
             preload: !isPlugin && this.hasAggregations(),
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
+        }
+
+        if (style) {
+            config.style = style
         }
 
         if (style) {

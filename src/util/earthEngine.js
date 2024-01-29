@@ -1,11 +1,13 @@
 import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { apiFetch } from './api.js'
-import { formatStartEndDate } from './time.js'
+import { formatDate, formatStartEndDate, incrementDate } from './time.js'
 
 export const classAggregation = ['percentage', 'hectares', 'acres']
 
 export const hasClasses = (type) => classAggregation.includes(type)
+
+const timeRangeCache = {}
 
 // Translates from dynamic to static filters
 export const translateFilters = (filters, ...args) =>
@@ -37,12 +39,15 @@ export const getFilterFromPeriod = (period, filters) => {
         return
     }
 
-    return translateFilters(filters, period.id)
+    const { id, startDate, endDate } = period
+
+    if (startDate && endDate) {
+        return translateFilters(filters, startDate, incrementDate(endDate))
+    } else {
+        return translateFilters(filters, id)
+    }
 }
 
-const nonDigits = /^\D+/g
-
-// Only used for backward compatibility
 export const getPeriodFromFilter = (filter) => {
     if (!Array.isArray(filter) || !filter.length) {
         return null
@@ -146,9 +151,57 @@ export const getPeriods = async (eeId, periodType, filters) => {
 
     const eeWorker = await getWorkerInstance()
 
+    /*
+    if (periodType === 'daily') {
+        const { min, max } = await eeWorker.getTimeRange(eeId)
+        console.log('time range', new Date(min), new Date(max))
+        return []
+    }
+    */
+
+    // try {
     const { features } = await eeWorker.getPeriods(eeId)
 
     return features.map(getPeriod)
+}
+
+// const oneDayInMilliseconds = 24 * 60 * 60 * 1000
+
+export const getTimeRange = async (eeId) => {
+    if (timeRangeCache[eeId]) {
+        return timeRangeCache[eeId]
+    }
+
+    const eeWorker = await getWorkerInstance()
+
+    return eeWorker.getTimeRange(eeId).then(({ min, max }) => {
+        const response = {
+            firstDate: min ? formatDate(min) : null,
+            lastDate: max ? formatDate(max) : null,
+        }
+
+        timeRangeCache[eeId] = response
+
+        return response
+    })
+}
+
+const getRelativeDate = (days) => {
+    const dateObj = new Date()
+    dateObj.setDate(dateObj.getDate() + days)
+    return formatDate(dateObj)
+}
+
+export const createTimeRange = (range) => {
+    const { firstDate, lastDate } = range
+
+    return {
+        firstDate,
+        lastDate:
+            typeof lastDate === 'number'
+                ? getRelativeDate(range.lastDate)
+                : lastDate,
+    }
 }
 
 export const getPrecision = (values = []) => {

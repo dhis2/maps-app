@@ -185,6 +185,11 @@ export const setPeriodType = (periodType, keepPeriod) => ({
     keepPeriod,
 })
 
+export const setPeriodReducer = (payload) => ({
+    type: types.LAYER_EDIT_PERIOD_REDUCER_SET,
+    payload,
+})
+
 // Set period (event & thematic)
 export const setPeriod = (period) => ({
     type: types.LAYER_EDIT_PERIOD_SET,

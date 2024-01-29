@@ -26,7 +26,11 @@ const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
                 />
             </div>
             {isClassStyle && (
-                <LegendPreview style={style} showBelowMin={showBelowMin} />
+                <LegendPreview
+                    style={style}
+                    showBelowMin={showBelowMin}
+                    precision={precision}
+                />
             )}
         </div>
     )
@@ -34,6 +38,7 @@ const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
 
 StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
+    precision: PropTypes.number,
     showBelowMin: PropTypes.bool,
     style: PropTypes.oneOfType([
         PropTypes.array,

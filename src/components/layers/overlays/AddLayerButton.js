@@ -1,13 +1,21 @@
 import i18n from '@dhis2/d2-i18n'
 import { IconAddCircle24 } from '@dhis2/ui'
 import React, { useState, useRef } from 'react'
+import EarthEngineModal from '../../earthEngine/EarthEngineModal.js'
 import AddLayerPopover from './AddLayerPopover.js'
 import styles from './styles/AddLayerButton.module.css'
 
 const AddLayerButton = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [isManaging, setIsManaging] = useState(false)
     const buttonRef = useRef()
+
     const toggleDialog = () => setIsOpen(!isOpen)
+
+    const onManaging = () => {
+        setIsManaging(true)
+        setIsOpen(false)
+    }
 
     return (
         <>
@@ -24,7 +32,14 @@ const AddLayerButton = () => {
                 </button>
             </div>
             {isOpen && (
-                <AddLayerPopover anchorEl={buttonRef} onClose={toggleDialog} />
+                <AddLayerPopover
+                    anchorEl={buttonRef}
+                    onClose={toggleDialog}
+                    onManaging={onManaging}
+                />
+            )}
+            {isManaging && (
+                <EarthEngineModal onClose={() => setIsManaging(false)} />
             )}
         </>
     )

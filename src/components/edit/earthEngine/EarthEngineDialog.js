@@ -18,7 +18,6 @@ import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationSelect from './AggregationSelect.js'
 import BandSelect from './BandSelect.js'
-import PeriodSelect from './PeriodSelect.js'
 import StyleTab from './StyleTab.js'
 
 const EarthEngineDialog = (props) => {
@@ -83,7 +82,9 @@ const EarthEngineDialog = (props) => {
 
     useEffect(() => {
         if (validateLayer) {
-            const isValid = !noBandSelected && (!periodType || period)
+            const isValid =
+                !noBandSelected &&
+                (!periodType || periodType === 'range' || period)
 
             if (!isValid) {
                 if (noBandSelected) {
@@ -194,6 +195,7 @@ const EarthEngineDialog = (props) => {
                     <StyleTab
                         unit={unit}
                         style={style}
+                        precision={precision}
                         showBelowMin={!maskOperator}
                         hasOrgUnitField={hasOrgUnitField}
                     />

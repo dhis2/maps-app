@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-01-29T20:40:00.763Z\n"
-"PO-Revision-Date: 2024-01-29T20:40:00.763Z\n"
+"POT-Creation-Date: 2024-01-29T20:53:51.377Z\n"
+"PO-Revision-Date: 2024-01-29T20:53:51.377Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -212,6 +212,22 @@ msgstr "Cancel"
 msgid "Close"
 msgstr "Close"
 
+msgid "Source"
+msgstr "Source"
+
+msgid "Configure available layers"
+msgstr "Configure available layers"
+
+msgid ""
+"Choose which layers are available to add to maps. This setting applies to "
+"all users."
+msgstr ""
+"Choose which layers are available to add to maps. This setting applies to "
+"all users."
+
+msgid "Manage available layers"
+msgstr "Manage available layers"
+
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
 
@@ -227,29 +243,20 @@ msgstr "Point color"
 msgid "Point radius"
 msgstr "Point radius"
 
-msgid "event"
-msgstr "event"
+msgid "Event"
+msgstr "Event"
 
-msgid "tracked entity"
-msgstr "tracked entity"
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
-msgid "facility"
-msgstr "facility"
+msgid "Facility"
+msgstr "Facility"
 
-msgid "thematic"
-msgstr "thematic"
+msgid "Thematic"
+msgstr "Thematic"
 
-msgid "org unit"
-msgstr "org unit"
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "Edit {{name}} layer"
-msgstr "Edit {{name}} layer"
-
-msgid "Add new {{name}} layer"
-msgstr "Add new {{name}} layer"
+msgid "{{name}} layer"
+msgstr "{{name}} layer"
 
 msgid "Update layer"
 msgstr "Update layer"
@@ -292,11 +299,38 @@ msgstr ""
 msgid "Unit"
 msgstr "Unit"
 
-msgid "Source"
-msgstr "Source"
-
 msgid "Legend preview"
 msgstr "Legend preview"
+
+msgid "Mean"
+msgstr "Mean"
+
+msgid "Sum"
+msgstr "Sum"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Median"
+msgstr "Median"
+
+msgid "Count"
+msgstr "Count"
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "Product"
+msgstr "Product"
+
+msgid "Period aggregation method"
+msgstr "Period aggregation method"
+
+msgid "Loading periods"
+msgstr "Loading periods"
 
 msgid "Year"
 msgstr "Year"
@@ -304,8 +338,11 @@ msgstr "Year"
 msgid "Available periods are set by the source data"
 msgstr "Available periods are set by the source data"
 
-msgid "Loading periods"
-msgstr "Loading periods"
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
 
 msgid "Min value is required"
 msgstr "Min value is required"
@@ -318,12 +355,6 @@ msgstr "Max should be greater than min"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
 
 msgid "Steps"
 msgstr "Steps"
@@ -826,12 +857,6 @@ msgstr "Timeline"
 msgid "Split map views"
 msgstr "Split map views"
 
-msgid "Start date"
-msgstr "Start date"
-
-msgid "End date"
-msgstr "End date"
-
 msgid "Not available offline"
 msgstr "Not available offline"
 
@@ -853,14 +878,8 @@ msgstr "Tracked Entity Type"
 msgid "By data element"
 msgstr "By data element"
 
-msgid "Count"
-msgstr "Count"
-
 msgid "Average"
 msgstr "Average"
-
-msgid "Sum"
-msgstr "Sum"
 
 msgid "Standard deviation"
 msgstr "Standard deviation"
@@ -876,12 +895,6 @@ msgstr "Hectares"
 
 msgid "Acres"
 msgstr "Acres"
-
-msgid "Mean"
-msgstr "Mean"
-
-msgid "Median"
-msgstr "Median"
 
 msgid "Std dev"
 msgstr "Std dev"
@@ -936,11 +949,83 @@ msgstr "meters"
 msgid "Elevation above sea-level."
 msgstr "Elevation above sea-level."
 
-msgid "Landcover"
-msgstr "Landcover"
+msgid "Landcover Copernicus"
+msgstr "Landcover Copernicus"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "Shrubs"
+msgstr "Shrubs"
+
+msgid "Herbaceous vegetation"
+msgstr "Herbaceous vegetation"
+
+msgid "Agriculture"
+msgstr "Agriculture"
+
+msgid "Urban / built up"
+msgstr "Urban / built up"
+
+msgid "Bare / sparse vegetation"
+msgstr "Bare / sparse vegetation"
+
+msgid "Snow and ice"
+msgstr "Snow and ice"
+
+msgid "Permanent water bodies"
+msgstr "Permanent water bodies"
+
+msgid "Herbaceous wetland"
+msgstr "Herbaceous wetland"
+
+msgid "Moss and lichen"
+msgstr "Moss and lichen"
+
+msgid "Closed forest, evergreen needle leaf"
+msgstr "Closed forest, evergreen needle leaf"
+
+msgid "Closed forest, evergreen broad leaf"
+msgstr "Closed forest, evergreen broad leaf"
+
+msgid "Closed forest, deciduous needle leaf"
+msgstr "Closed forest, deciduous needle leaf"
+
+msgid "Closed forest, deciduous broad leaf"
+msgstr "Closed forest, deciduous broad leaf"
+
+msgid "Closed forest, mixed"
+msgstr "Closed forest, mixed"
+
+msgid "Closed forest, other"
+msgstr "Closed forest, other"
+
+msgid "Open forest, evergreen needle leaf"
+msgstr "Open forest, evergreen needle leaf"
+
+msgid "Open forest, evergreen broad leaf"
+msgstr "Open forest, evergreen broad leaf"
+
+msgid "Open forest, deciduous needle leaf"
+msgstr "Open forest, deciduous needle leaf"
+
+msgid "Open forest, deciduous broad leaf"
+msgstr "Open forest, deciduous broad leaf"
+
+msgid "Open forest, mixed"
+msgstr "Open forest, mixed"
+
+msgid "Open forest, other"
+msgstr "Open forest, other"
+
+msgid "Water"
+msgstr "Water"
+
+msgid "Landcover"
+msgstr "Landcover"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
@@ -984,14 +1069,8 @@ msgstr "Urban and built-up"
 msgid "Cropland/Natural vegetation mosaic"
 msgstr "Cropland/Natural vegetation mosaic"
 
-msgid "Snow and ice"
-msgstr "Snow and ice"
-
 msgid "Barren or sparsely vegetated"
 msgstr "Barren or sparsely vegetated"
-
-msgid "Water"
-msgstr "Water"
 
 msgid "Nighttime lights"
 msgstr "Nighttime lights"
@@ -1045,6 +1124,15 @@ msgid ""
 msgstr ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
+
+msgid "Nitrogen dioxide (NO2)"
+msgstr "Nitrogen dioxide (NO2)"
+
+msgid "Ozone"
+msgstr "Ozone"
+
+msgid "Particle pollution"
+msgstr "Particle pollution"
 
 msgid "Population age groups"
 msgstr "Population age groups"
@@ -1160,8 +1248,14 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation monthly"
-msgstr "Precipitation monthly"
+msgid "Precipitation CHIRPS"
+msgstr "Precipitation CHIRPS"
+
+msgid "Precipitation collected from satellite and weather stations on the ground."
+msgstr "Precipitation collected from satellite and weather stations on the ground."
+
+msgid "Precipitation ERA5"
+msgstr "Precipitation ERA5"
 
 msgid ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
@@ -1169,16 +1263,47 @@ msgid ""
 msgstr ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
+
+msgid "Precipitation monthly"
+msgstr "Precipitation monthly"
+
+msgid "Satellite imagery (Sentinel-2)"
+msgstr "Satellite imagery (Sentinel-2)"
+
+msgid "Sulfur Dioxide (SO2)"
+msgstr "Sulfur Dioxide (SO2)"
+
+msgid "Temperature"
+msgstr "Temperature"
+
+msgid ""
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
+msgstr ""
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
+
+msgid "Max temperature"
+msgstr "Max temperature"
+
+msgid ""
+"Max temperature at 2m above the surface. Combines model data with "
+"observations from across the world."
+msgstr ""
+"Max temperature at 2m above the surface. Combines model data with "
+"observations from across the world."
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
-msgstr ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Cropland"
+msgstr "Cropland"
+
+msgid "Ecoregions"
+msgstr "Ecoregions"
+
+msgid "Rivers"
+msgstr "Rivers"
 
 msgid "All"
 msgstr "All"
@@ -1294,9 +1419,6 @@ msgstr "Displaying first {{pageSize}} events out of {{total}}"
 msgid "No data found"
 msgstr "No data found"
 
-msgid "Event"
-msgstr "Event"
-
 msgid "Facilities"
 msgstr "Facilities"
 
@@ -1314,9 +1436,6 @@ msgstr "Thematic layer"
 
 msgid "No data"
 msgstr "No data"
-
-msgid "Tracked entity"
-msgstr "Tracked entity"
 
 msgid "No tracked entities found"
 msgstr "No tracked entities found"
@@ -1349,9 +1468,6 @@ msgstr ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 
-msgid "Thematic"
-msgstr "Thematic"
-
 msgid "Events"
 msgstr "Events"
 
@@ -1360,9 +1476,6 @@ msgstr "Tracked entities"
 
 msgid "Org units"
 msgstr "Org units"
-
-msgid "Facility"
-msgstr "Facility"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

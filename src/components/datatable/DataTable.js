@@ -124,7 +124,13 @@ class DataTable extends Component {
                 return sortDirection === 'ASC' ? a - b : b - a
             }
 
-            if (a !== undefined) {
+            // Some values are null
+            if (
+                a !== undefined &&
+                a !== null &&
+                b !== undefined &&
+                b !== null
+            ) {
                 return sortDirection === 'ASC'
                     ? a.localeCompare(b)
                     : b.localeCompare(a)
@@ -192,7 +198,6 @@ class DataTable extends Component {
             aggregationType,
             legend,
         } = layer
-
         const isThematic = layerType === THEMATIC_LAYER
         const isOrgUnit = layerType === ORG_UNIT_LAYER
         const isEvent = layerType === EVENT_LAYER

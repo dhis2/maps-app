@@ -105,6 +105,14 @@
     max-width: 140px;
 }
 
+.stepField {
+    max-width: 50px;
+}
+
+.stepField input {
+    width: 50px;
+}
+
 .checkbox {
     margin: 8px 0 0 -8px;
 }
