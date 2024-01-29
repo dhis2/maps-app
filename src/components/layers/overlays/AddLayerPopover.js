@@ -7,7 +7,7 @@ import { addLayer, editLayer } from '../../../actions/layers.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useEarthEngineLayers from '../../../hooks/useEarthEngineLayersStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
-import earthEngineLayers from '../../earthEngine/layers/index.js'
+import earthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import ManageLayersButton from '../../earthEngine/ManageLayersButton.js'
 import LayerList from './LayerList.js'
 

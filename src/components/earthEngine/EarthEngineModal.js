@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import useEarthEngineLayers from '../../hooks/useEarthEngineLayersStore.js'
 import EarthEngineLayer from './EarthEngineLayer.js'
-import earthEngineLayers from './layers/index.js'
+import earthEngineLayers from '../../constants/earthEngineLayers/index.js'
 import styles from './styles/EarthEngineModal.module.css'
 
 const layers = earthEngineLayers

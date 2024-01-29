@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
+import { EARTH_ENGINE_LAYER } from '../layers.js'
 
 // https://medium.com/google-earth/all-clear-with-cloud-score-bd6ee2e2235e
 export default {

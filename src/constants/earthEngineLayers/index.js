@@ -42,4 +42,7 @@ const earthEngineLayers = [
     temperatureLegacy,
 ]
 
+export const getEarthEngineLayer = (id) =>
+    earthEngineLayers.find((l) => l.layerId === id)
+
 export default earthEngineLayers

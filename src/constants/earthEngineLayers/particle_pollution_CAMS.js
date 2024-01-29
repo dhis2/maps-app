@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
+import { EARTH_ENGINE_LAYER } from '../layers.js'
 
 // TODO: Check if we have the best period type and reducer
 // https://link.springer.com/article/10.1007/s10661-023-11212-x
