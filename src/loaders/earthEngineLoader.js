@@ -3,7 +3,15 @@ import { getInstance as getD2 } from 'd2'
 import { precisionFixed, formatLocale } from 'd3-format'
 // import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+<<<<<<< HEAD
 import { hasClasses, getFilterFromPeriod } from '../util/earthEngine.js'
+=======
+import {
+    hasClasses,
+    getFilterFromPeriod,
+    getPeriodFromFilter,
+} from '../util/earthEngine.js'
+>>>>>>> chore/ee-refactor
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 // import { numberPrecision } from '../util/numbers.js'
@@ -88,6 +96,23 @@ const earthEngineLoader = async (config) => {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
 
+        const { filter, params } = layerConfig
+
+        // Backward compability for layers saved before 2.41
+        if (filter) {
+            layerConfig.period = getPeriodFromFilter(filter)
+            delete layerConfig.filter
+        }
+
+        // Backward compability for layers saved before 2.41
+        if (params) {
+            layerConfig.style = params
+            if (params.palette) {
+                layerConfig.style.palette = params.palette.split(',')
+            }
+            delete layerConfig.params
+        }
+
         // Backward compability for layers with periods saved before 2.36
         // (could also be fixed in a db update script)
         if (layerConfig.image) {
@@ -124,6 +149,7 @@ const earthEngineLoader = async (config) => {
         */
 
         delete config.config
+        delete config.filters // Backend returns empty filters array
     } else {
         // dataset = getEarthEngineLayer(layerConfig.id)
         // console.log('getEarthEngineLayer', layerConfig.id, dataset)
@@ -150,8 +176,8 @@ const earthEngineLoader = async (config) => {
         maskOperator,
         precision,
     } = layer
-    const { name } = config // dataset || config
-    // const period = getPeriodNameFromFilter(filter)
+
+    const { name } = dataset || config
     const data =
         Array.isArray(features) && features.length ? features : undefined
     const hasBand = (b) =>
@@ -180,13 +206,6 @@ const earthEngineLoader = async (config) => {
     } else if (!hasClasses(aggregationType) && style?.palette) {
         legend.items = createLegend(style, !maskOperator, precision)
     }
-
-    // TODO: remove when range periods is supported
-    /*
-    if (layer.periodType === 'range' && !layer.filter) {
-        layer.filter = layer.filters
-    }
-    */
 
     const filter = getFilterFromPeriod(period, filters)
 

@@ -19,7 +19,7 @@ export const translateFilters = (filters, ...args) =>
         }),
     }))
 
-const getStartEndDate = (data) =>
+export const getStartEndDate = (data) =>
     formatStartEndDate(
         data['system:time_start'],
         data['system:time_end'], // - 7200001, // Minus 2 hrs to end the day before
@@ -44,11 +44,7 @@ export const getFilterFromPeriod = (period, filters) => {
     if (startDate && endDate) {
         return translateFilters(filters, startDate, incrementDate(endDate))
     } else {
-        return translateFilters(
-            filters,
-            // periodType === 'yearly' ? String(period.year) : period.id
-            id
-        )
+        return translateFilters(filters, id)
     }
 }
 
@@ -57,22 +53,19 @@ export const getPeriodFromFilter = (filter) => {
         return null
     }
 
-    /*
-    const { id, name, year, arguments: args } = filter[0] // TODO: Make more flexible
+    const { id, name, year, arguments: args } = filter[0]
+    let periodId = id || args[1]
+
+    // Remover non-digits from periodId (needed for backward compatibility for population layers saved before 2.41)
+    if (nonDigits.test(periodId)) {
+        periodId = Number(periodId.replace(nonDigits, '')) // Remove non-digits
+    }
 
     return {
-        id: id || args[1],
-        name: id, // TODO
+        id: periodId,
+        name,
         year,
     }
-    */
-
-    const { id, name, year } = filter[0] // TODO: Make more flexible
-
-    // const id = filter[0].arguments[1] // TODO: Make more flexible
-    // const name = periods.find((p) => p.id === id)?.name || id
-
-    return { id, name, year }
 }
 
 // Returns period name from filter
@@ -118,7 +111,6 @@ export const getAuthToken = () =>
             ...token,
         })
     })
-
 /* eslint-enable no-async-promise-executor */
 
 let workerPromise
@@ -145,13 +137,6 @@ export const getPeriods = async (eeId, periodType, filters) => {
             properties.year ||
             new Date(properties['system:time_start']).getFullYear()
 
-        // console.log('period', periodType, id, properties)
-
-        /*    
-        return periodType === 'yearly'
-            ? { id: useSystemIndex ? id : year, name: String(year) }
-            : { id, name: getStartEndDate(properties), year }
-        */
         return periodType === 'YEARLY'
             ? { id: useSystemIndex ? id : year, name: String(year) }
             : {
@@ -176,10 +161,6 @@ export const getPeriods = async (eeId, periodType, filters) => {
 
     // try {
     const { features } = await eeWorker.getPeriods(eeId)
-    // console.log('getPeriods', features)
-    // } catch (error) {
-    //    console.log('ERROR', error)
-    // }
 
     return features.map(getPeriod)
 }
@@ -221,18 +202,6 @@ export const createTimeRange = (range) => {
                 ? getRelativeDate(range.lastDate)
                 : lastDate,
     }
-
-    /*
-    'COPERNICUS/S2_SR_HARMONIZED': {
-        firstDate: '2022-01-01',
-        lastDate: '2023-11-08',
-    },
-
-    { 
-        ...range, 
-        lastDate: typeof range.lastDate === 'number' ? : range.lastDate
-     }
-    */
 }
 
 export const getPrecision = (values = []) => {

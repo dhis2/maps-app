@@ -34,7 +34,7 @@ module.exports = defineConfig({
         parallel: true,
         debug: false,
         restClientConfig: {
-            timeout: 360000,
+            timeout: 660000,
         },
         attributes: [
             {
@@ -43,7 +43,7 @@ module.exports = defineConfig({
             },
             {
                 key: 'app_name',
-                value: 'maps_app',
+                value: 'maps-app',
             },
             {
                 key: 'test_level',

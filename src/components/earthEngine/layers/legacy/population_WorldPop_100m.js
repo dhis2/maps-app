@@ -15,16 +15,15 @@ export default {
     img: 'images/population.png',
     defaultAggregations: ['sum', 'mean'],
     periodType: 'YEARLY',
-    filters: ({ id, name, year }) => [
+    band: 'population',
+    filters: [
         {
-            id,
-            name,
             type: 'eq',
-            arguments: ['year', year],
+            arguments: ['year', '$1'],
         },
     ],
     mosaic: true,
-    params: {
+    style: {
         min: 0,
         max: 10,
         palette: [
@@ -34,7 +33,8 @@ export default {
             '#fb6a4a',
             '#de2d26',
             '#a50f15',
-        ], // Reds
+        ], // Reds (ColorBrewer)
     },
+    maskOperator: 'gt',
     opacity: 0.9,
 }

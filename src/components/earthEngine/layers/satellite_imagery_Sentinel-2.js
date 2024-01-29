@@ -3,7 +3,7 @@ import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 
 // https://medium.com/google-earth/all-clear-with-cloud-score-bd6ee2e2235e
 export default {
-    layerType: EARTH_ENGINE_LAYER, // TODO: Remove?
+    layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'COPERNICUS/S2_SR_HARMONIZED',
     datasetId: 'COPERNICUS/S2_SR_HARMONIZED',

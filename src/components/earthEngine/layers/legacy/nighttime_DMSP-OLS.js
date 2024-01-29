@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 
 export default {
-    // legacy: true, // Kept for backward compability
+    legacy: true, // Kept for backward compability
     layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',

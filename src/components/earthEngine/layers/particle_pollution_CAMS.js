@@ -4,7 +4,7 @@ import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 // TODO: Check if we have the best period type and reducer
 // https://link.springer.com/article/10.1007/s10661-023-11212-x
 export default {
-    layerType: EARTH_ENGINE_LAYER,
+    layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'ECMWF/CAMS/NRT/PM2.5',
     datasetId: 'ECMWF/CAMS/NRT',

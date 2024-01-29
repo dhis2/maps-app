@@ -62,8 +62,8 @@ const validLayerProperties = [
     'organisationUnitSelectionMode',
     'orgUnitField',
     'orgUnitFieldDisplayName',
-    'params',
-    'periodName',
+    'style',
+    'period',
     'periodType',
     'renderingStrategy',
     'program',
@@ -119,7 +119,7 @@ const cleanLayerConfig = (config) => ({
 
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = (config) => {
-    const layerType = config.layerType || config.layer
+    const { layer } = config
 
     Object.keys(config).forEach((key) => {
         config[key] = models.includes(key)
@@ -131,15 +131,15 @@ const models2objects = (config) => {
         config.rows = config.rows.map(cleanDimension)
     }
 
-    if (layerType === EARTH_ENGINE_LAYER) {
-        const { layerId: id, band, params, aggregationType, filter } = config
+    if (layer === EARTH_ENGINE_LAYER) {
+        const { layerId: id, band, style, aggregationType, period } = config
 
         const eeConfig = {
             id,
-            params,
+            style,
             band,
             aggregationType,
-            filter,
+            period,
         }
 
         // Removes undefined keys before stringify
@@ -147,20 +147,18 @@ const models2objects = (config) => {
             (key) => eeConfig[key] === undefined && delete eeConfig[key]
         )
 
-        config.layer = layerType
+        config.layer = layer
         config.config = JSON.stringify(eeConfig)
 
         delete config.layerId
-        delete config.layerType
         delete config.datasetId
-        delete config.params
-        delete config.filter
+        delete config.style
+        delete config.period
         delete config.filters
         delete config.periodType
-        delete config.periodName
         delete config.aggregationType
         delete config.band
-    } else if (layerType === TRACKED_ENTITY_LAYER) {
+    } else if (layer === TRACKED_ENTITY_LAYER) {
         config.config = JSON.stringify({
             relationships: config.relationshipType
                 ? {

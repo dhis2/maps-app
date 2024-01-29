@@ -71,7 +71,6 @@ export default class EarthEngineLayer extends Layer {
             value,
             resolution,
             projection,
-            params,
             style,
             popup,
             data,
@@ -85,15 +84,6 @@ export default class EarthEngineLayer extends Layer {
 
         const { map, isPlugin } = this.context
 
-        /*
-        const periodFilter = [
-            {
-                type: 'date',
-                arguments: ['2022-07', '2022-08'],
-            },
-        ]
-        */
-
         const config = {
             type: EARTH_ENGINE_LAYER,
             id,
@@ -106,7 +96,6 @@ export default class EarthEngineLayer extends Layer {
             maskOperator,
             attribution,
             filter,
-            // filter: periodFilter,
             periodReducer,
             methods,
             mosaic,
@@ -128,8 +117,8 @@ export default class EarthEngineLayer extends Layer {
             onLoad: this.onLoad.bind(this),
         }
 
-        if (params) {
-            config.params = params
+        if (style) {
+            config.style = style
         }
 
         if (style) {

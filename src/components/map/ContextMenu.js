@@ -29,9 +29,7 @@ import styles from './styles/ContextMenu.module.css'
 const ContextMenu = () => {
     const contextMenu = useSelector((state) => state.contextMenu || {})
     const earthEngineLayers = useSelector((state) =>
-        state.map.mapViews.filter(
-            (view) => (view.layerType || view.layer) === EARTH_ENGINE_LAYER
-        )
+        state.map.mapViews.filter((view) => view.layer === EARTH_ENGINE_LAYER)
     )
     const dispatch = useDispatch()
     const anchorRef = useRef()

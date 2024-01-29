@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 
 export default {
-    layerType: EARTH_ENGINE_LAYER,
+    layer: EARTH_ENGINE_LAYER,
     img: 'images/temperature.png',
     layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m_max',
     datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',

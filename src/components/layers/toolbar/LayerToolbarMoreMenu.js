@@ -148,8 +148,7 @@ LayerToolbarMoreMenu.propTypes = {
 
 export default connect(
     ({ dataTable: dataTableOpen, aggregations }, { layer = {} }) => {
-        const layerType = layer.layerType || layer.layer
-        const isEarthEngine = layerType === EARTH_ENGINE_LAYER
+        const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER
         const hasOrgUnitData =
             layer.data && (!isEarthEngine || layer.aggregationType?.length > 0)
         const isLoading =

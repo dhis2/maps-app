@@ -28,8 +28,6 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
 
     const aggregations = useSelector((state) => state.aggregations)
 
-    const layerType = layer.layerType || layer.layer
-
     const onChangeFormat = (format) => {
         setError(null)
         setSelectedFormat(format)
@@ -90,7 +88,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
                         'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
                     )}
                 </Help>
-                {layerType === EVENT_LAYER && (
+                {layer.layer === EVENT_LAYER && (
                     <div className={styles.inputContainer}>
                         <>
                             <div className={styles.headingDiv}>
@@ -135,7 +133,6 @@ DataDownloadDialog.propTypes = {
     layer: PropTypes.shape({
         id: PropTypes.string,
         layer: PropTypes.string,
-        layerType: PropTypes.string,
         name: PropTypes.string,
     }),
 }

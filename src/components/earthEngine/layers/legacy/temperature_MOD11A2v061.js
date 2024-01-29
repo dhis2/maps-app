@@ -3,7 +3,7 @@ import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 
 export default {
     legacy: true, // kept for backward compability
-    layerType: EARTH_ENGINE_LAYER,
+    layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'MODIS/006/MOD11A2',
     datasetId: 'MODIS/006/MOD11A2',
@@ -19,7 +19,7 @@ export default {
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
     band: 'LST_Day_1km',
-    periodType: '',
+    periodType: 'BY_YEAR',
     filters: [
         {
             type: 'eq',

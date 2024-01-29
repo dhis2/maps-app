@@ -11,10 +11,10 @@ const EarthEngineColumns = ({ aggregationType, legend, data }) => {
     if (hasClasses(aggregationType) && items) {
         const valueFormat = numberPrecision(2)
 
-        return items.map(({ id, name }) => (
+        return items.map(({ value, name }) => (
             <Column
-                key={id}
-                dataKey={String(id)}
+                key={value}
+                dataKey={String(value)}
                 label={name}
                 width={100}
                 className="right"

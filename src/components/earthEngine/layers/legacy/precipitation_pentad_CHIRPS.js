@@ -3,7 +3,7 @@ import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 
 export default {
     legacy: true, // kept for backward compability
-    layerType: EARTH_ENGINE_LAYER,
+    layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'UCSB-CHG/CHIRPS/PENTAD',
     datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
@@ -15,7 +15,7 @@ export default {
     source: 'UCSB / CHG / Google Earth Engine',
     sourceUrl:
         'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
-    periodType: 'YEARLY',
+    periodType: 'BY_YEAR',
     filters: [
         {
             type: 'eq',

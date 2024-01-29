@@ -2,11 +2,11 @@ import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 
 export default {
-    layerType: EARTH_ENGINE_LAYER,
+    layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'MODIS/006/MCD12Q1', // Layer id kept for backward compability for saved maps
     datasetId: 'MODIS/061/MCD12Q1', // No longer in use: 'MODIS/006/MCD12Q1' / 'MODIS/051/MCD12Q1',
-    name: i18n.t('Landcover NASA'),
+    name: i18n.t('Landcover'),
     description: i18n.t('Distinct landcover types collected from satellites.'),
     img: 'images/landcover.png',
     source: 'NASA LP DAAC / Google Earth Engine',

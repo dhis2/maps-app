@@ -7,21 +7,13 @@ import styles from '../styles/LayerDialog.module.css'
 import LegendPreview from './LegendPreview.js'
 import StyleSelect from './StyleSelect.js'
 
-const StyleTab = ({
-    unit,
-    style,
-    showBelowMin,
-    precision,
-    hasOrgUnitField,
-}) => {
+const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
     const { min, max, palette } = style
     const isClassStyle =
         min !== undefined &&
         max !== undefined &&
         palette !== undefined &&
         palette.length < 10
-
-    console.log('palette', palette)
 
     return (
         <div className={styles.flexColumnFlow}>
@@ -48,13 +40,16 @@ StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
     precision: PropTypes.number,
     showBelowMin: PropTypes.bool,
-    style: PropTypes.shape({
-        color: PropTypes.string,
-        max: PropTypes.number,
-        min: PropTypes.number,
-        palette: PropTypes.array,
-        strokeWidth: PropTypes.number,
-    }),
+    style: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.shape({
+            color: PropTypes.string,
+            max: PropTypes.number,
+            min: PropTypes.number,
+            palette: PropTypes.array,
+            strokeWidth: PropTypes.number,
+        }),
+    ]),
     unit: PropTypes.string,
 }
 

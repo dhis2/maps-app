@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 
 export default {
-    layerType: EARTH_ENGINE_LAYER,
+    layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
     layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
     datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',

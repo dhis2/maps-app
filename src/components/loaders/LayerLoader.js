@@ -19,10 +19,10 @@ const layerTypes = {
 }
 
 const LayerLoader = ({ config, onLoad }) => {
-    const type = config.layerType || config.layer
-    const Loader = layerTypes[type]
+    const Loader = layerType[config.layer]
 
     if (!Loader) {
+        console.log('Unknown layer type', config.layer, config)
         return null
     }
 

@@ -17,6 +17,7 @@ const EarthEnginePeriodSelect = ({
     className,
 }) => {
     const [periods, setPeriods] = useState()
+    const [yearPeriods, setYearPeriods] = useState()
     const [year, setYear] = useState()
     const byYear = periodType === 'BY_YEAR' || periodType === 'EE_MONTHLY'
 
@@ -31,25 +32,9 @@ const EarthEnginePeriodSelect = ({
         [byYear, periods]
     )
 
-    const byYearPeriods = useMemo(
-        () =>
-            byYear && year && periods
-                ? periods.filter((p) => p.year === year)
-                : null,
-        [byYear, year, periods]
-    )
-
-    const items = byYear ? byYearPeriods : periods
-
-    /* eslint-disable react-hooks/exhaustive-deps */
-    const onYearChange = useCallback(
-        ({ id }) => {
-            onChange(null)
-            setYear(id)
-        },
-        [period, periods, onChange]
-    )
-    /* eslint-enable react-hooks/exhaustive-deps */
+    const onYearChange = useCallback(({ id }) => {
+        setYear(id)
+    }, [])
 
     useEffect(() => {
         let isCancelled = false
@@ -72,19 +57,40 @@ const EarthEnginePeriodSelect = ({
         return () => (isCancelled = true)
     }, [datasetId, periodType, filters, onError])
 
+    // Set year from period
+    useEffect(() => {
+        if (!year && byYear && period) {
+            setYear(period.year)
+        }
+    }, [year, byYear, period])
+
     // Set most recent period by default
     useEffect(() => {
         if (!period && Array.isArray(periods) && periods.length) {
-            // TODO: Need to set period for the selected year
             onChange(periods[0])
         }
     }, [period, periods, onChange])
 
+    // Set avaiable periods for one year
     useEffect(() => {
-        if (byYear && period) {
-            setYear(period.year)
+        if (byYear && year && periods) {
+            setYearPeriods(periods.filter((p) => p.year === year))
         }
-    }, [byYear, period])
+    }, [year, byYear, periods])
+
+    // If year is changed, set most recent period for one year
+    useEffect(() => {
+        if (
+            byYear &&
+            period &&
+            yearPeriods &&
+            !yearPeriods.find(({ id }) => id === period.id)
+        ) {
+            onChange(yearPeriods[0])
+        }
+    }, [byYear, period, yearPeriods])
+
+    const items = yearPeriods || periods
 
     return items ? (
         <div className={className}>
@@ -101,7 +107,12 @@ const EarthEnginePeriodSelect = ({
                 label={i18n.t('Period')}
                 loading={!periods}
                 items={items}
-                value={items && period && period.id}
+                value={
+                    items &&
+                    period &&
+                    items.find(({ id }) => id === period.id) &&
+                    period.id
+                }
                 onChange={onChange}
                 helpText={i18n.t(
                     'Available periods are set by the source data'
