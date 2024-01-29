@@ -6,6 +6,9 @@ import {
     DataTableColumnHeader,
     DataTableHead,
     DataTableBody,
+    ComponentCover,
+    CenteredContent,
+    CircularLoader,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -81,7 +84,11 @@ const Table = ({ height }) => {
         [sortDirection]
     )
 
-    const { headers, rows } = useTableData({ layer, sortField, sortDirection })
+    const { headers, rows, isLoading } = useTableData({
+        layer,
+        sortField,
+        sortDirection,
+    })
 
     const onTableRowClick = useCallback(
         (row) => {
@@ -147,59 +154,68 @@ const Table = ({ height }) => {
     }
 
     return (
-        <TableVirtuoso
-            context={tableContext}
-            components={TableComponents}
-            style={{ height, width: '100%' }}
-            data={rows}
-            fixedHeaderContent={() => (
-                <DataTableRow>
-                    {headers.map(({ name, dataKey, type }, index) => (
-                        <DataTableColumnHeader
-                            className={styles.columnHeader}
-                            key={`${dataKey}-${index}`}
-                            onSortIconClick={sortData}
-                            sortDirection={
-                                dataKey === sortField
-                                    ? sortDirection
-                                    : 'default'
-                            }
-                            sortIconTitle={i18n.t('Sort by {{column}}', {
-                                column: name,
+        <>
+            <TableVirtuoso
+                context={tableContext}
+                components={TableComponents}
+                style={{ height, width: '100%' }}
+                data={rows}
+                fixedHeaderContent={() => (
+                    <DataTableRow>
+                        {headers.map(({ name, dataKey, type }, index) => (
+                            <DataTableColumnHeader
+                                className={styles.columnHeader}
+                                key={`${dataKey}-${index}`}
+                                onSortIconClick={sortData}
+                                sortDirection={
+                                    dataKey === sortField
+                                        ? sortDirection
+                                        : 'default'
+                                }
+                                sortIconTitle={i18n.t('Sort by {{column}}', {
+                                    column: name,
+                                })}
+                                onFilterIconClick={type && Function.prototype}
+                                showFilter={!!type && dataKey !== 'index'}
+                                name={dataKey}
+                                filter={
+                                    type && (
+                                        <FilterInput
+                                            type={type}
+                                            dataKey={dataKey}
+                                        />
+                                    )
+                                }
+                            >
+                                {name}
+                            </DataTableColumnHeader>
+                        ))}
+                    </DataTableRow>
+                )}
+                itemContent={(_, row) =>
+                    row.map(({ dataKey, value }) => (
+                        <DataTableCell
+                            key={`dtcell-${dataKey}`}
+                            className={cx(styles.dataCell, {
+                                [styles.lightText]:
+                                    dataKey === 'color' && isDarkColor(value),
                             })}
-                            onFilterIconClick={type && Function.prototype}
-                            showFilter={!!type}
-                            name={dataKey}
-                            filter={
-                                type && (
-                                    <FilterInput
-                                        type={type}
-                                        dataKey={dataKey}
-                                    />
-                                )
-                            }
+                            backgroundColor={dataKey === 'color' ? value : null}
+                            align="left"
                         >
-                            {name}
-                        </DataTableColumnHeader>
-                    ))}
-                </DataTableRow>
+                            {dataKey === 'color' ? value?.toLowerCase() : value}
+                        </DataTableCell>
+                    ))
+                }
+            />
+            {isLoading && (
+                <ComponentCover>
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                </ComponentCover>
             )}
-            itemContent={(_, row) =>
-                row.map(({ dataKey, value }) => (
-                    <DataTableCell
-                        key={`dtcell-${dataKey}`}
-                        className={cx(styles.dataCell, {
-                            [styles.lightText]:
-                                dataKey === 'color' && isDarkColor(value),
-                        })}
-                        backgroundColor={dataKey === 'color' ? value : null}
-                        align="left"
-                    >
-                        {dataKey === 'color' ? value?.toLowerCase() : value}
-                    </DataTableCell>
-                ))
-            }
-        />
+        </>
     )
 }
 

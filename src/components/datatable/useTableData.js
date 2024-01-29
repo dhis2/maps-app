@@ -34,7 +34,7 @@ const OUNAME = 'ouname'
 const EVENTDATE = 'eventdate'
 
 const defaultFieldsMap = () => ({
-    [INDEX]: { name: i18n.t('Index'), dataKey: INDEX },
+    [INDEX]: { name: i18n.t('Index'), dataKey: INDEX, type: TYPE_NUMBER },
     [NAME]: { name: i18n.t('Name'), dataKey: NAME, type: TYPE_STRING },
     [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
     [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
@@ -240,12 +240,21 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         })
 
         return filteredData.map((item) =>
-            headers.map(({ dataKey, roundFn }) => ({
-                value: roundFn ? roundFn(item[dataKey]) : item[dataKey],
-                dataKey,
-            }))
+            headers.map(({ dataKey, roundFn, type }) => {
+                const value = roundFn ? roundFn(item[dataKey]) : item[dataKey]
+
+                return {
+                    value: type === TYPE_NUMBER && isNaN(value) ? null : value,
+                    dataKey,
+                }
+            })
         )
     }, [dataWithAggregations, dataFilters, sortField, sortDirection, headers])
 
-    return { headers, rows }
+    const isLoading =
+        layerType === EARTH_ENGINE_LAYER &&
+        aggregationType?.length &&
+        (!aggregations || aggregations === EMPTY_AGGREGATIONS)
+
+    return { headers, rows, isLoading }
 }
