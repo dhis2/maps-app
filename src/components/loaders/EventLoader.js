@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import eventLoader from '../../loaders/eventLoader.js'
 
 const EventLoader = ({ config, onLoad }) => {
+    const dataTableOpen = useSelector((state) => !!state.dataTable)
     useEffect(() => {
-        eventLoader(config).then(onLoad)
-    }, [config, onLoad])
+        eventLoader(config, dataTableOpen).then(onLoad)
+    }, [config, onLoad, dataTableOpen])
 
     return null
 }

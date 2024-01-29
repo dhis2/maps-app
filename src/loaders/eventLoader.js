@@ -37,10 +37,10 @@ const unknownErrorAlert = {
 
 // TODO: Refactor to share code with other loaders
 // Returns a promise
-const eventLoader = async (layerConfig) => {
+const eventLoader = async (layerConfig, loadExtended) => {
     const config = { ...layerConfig }
     try {
-        await loadEventLayer(config)
+        await loadEventLayer(config, loadExtended)
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [
@@ -61,7 +61,7 @@ const eventLoader = async (layerConfig) => {
     return config
 }
 
-const loadEventLayer = async (config) => {
+const loadEventLayer = async (config, loadExtended) => {
     const {
         columns,
         endDate,
@@ -74,14 +74,13 @@ const loadEventLayer = async (config) => {
         startDate,
         styleDataItem,
         areaRadius,
-        showDataTable,
     } = config
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
     const d2 = await getD2()
 
-    config.isExtended = showDataTable
+    config.isExtended = loadExtended
 
     const analyticsRequest = await getAnalyticsRequest(config, {
         d2,

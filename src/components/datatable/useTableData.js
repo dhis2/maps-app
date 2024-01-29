@@ -162,6 +162,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         data,
         dataFilters,
         headers: layerHeaders,
+        serverCluster,
     } = layer || EMPTY_LAYER
 
     const dataWithAggregations = useMemo(
@@ -252,9 +253,10 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
     }, [dataWithAggregations, dataFilters, sortField, sortDirection, headers])
 
     const isLoading =
-        layerType === EARTH_ENGINE_LAYER &&
-        aggregationType?.length &&
-        (!aggregations || aggregations === EMPTY_AGGREGATIONS)
+        (layerType === EARTH_ENGINE_LAYER &&
+            aggregationType?.length &&
+            (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
+        (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
 
     return { headers, rows, isLoading }
 }
