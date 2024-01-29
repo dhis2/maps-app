@@ -37,11 +37,7 @@ export const getFilterFromPeriod = (period, filters) => {
         return
     }
 
-    return translateFilters(
-        filters,
-        // periodType === 'yearly' ? String(period.year) : period.id
-        period.id
-    )
+    return translateFilters(filters, period.id)
 }
 
 const nonDigits = /^\D+/g
