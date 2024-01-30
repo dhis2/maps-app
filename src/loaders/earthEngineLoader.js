@@ -94,7 +94,7 @@ const earthEngineLoader = async (config) => {
 
         // Backward compability for layers saved before 2.41
         if (filter) {
-            layerConfig.period = getPeriodFromFilter(filter)
+            layerConfig.period = getPeriodFromFilter(filter, layerConfig.id)
             delete layerConfig.filter
         }
 

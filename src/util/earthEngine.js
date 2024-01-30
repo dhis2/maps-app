@@ -43,16 +43,18 @@ export const getFilterFromPeriod = (period, filters) => {
 const nonDigits = /^\D+/g
 
 // Only used for backward compatibility
-export const getPeriodFromFilter = (filter) => {
+export const getPeriodFromFilter = (filter, datasetId) => {
     if (!Array.isArray(filter) || !filter.length) {
         return null
     }
 
+    const isNightTimeLights = datasetId === 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS'
+
     const { id, name, year, arguments: args } = filter[0]
     let periodId = id || args[1]
 
-    // Remover non-digits from periodId (needed for backward compatibility for population layers saved before 2.41)
-    if (nonDigits.test(periodId)) {
+    // Remove non-digits from periodId (needed for backward compatibility for population layers saved before 2.41)
+    if (!isNightTimeLights && nonDigits.test(periodId)) {
         periodId = Number(periodId.replace(nonDigits, '')) // Remove non-digits
     }
 
@@ -61,20 +63,6 @@ export const getPeriodFromFilter = (filter) => {
         name,
         year,
     }
-}
-
-// Returns period name from filter
-export const getPeriodNameFromFilter = (filter) => {
-    const period = getPeriodFromFilter(filter)
-
-    if (!period) {
-        return null
-    }
-
-    const { name, year } = period
-    const showYear = year && String(year) !== name
-
-    return `${name}${showYear ? ` ${year}` : ''}`
 }
 
 // Returns auth token for EE API as a promise
