@@ -5,7 +5,7 @@
 td.dataCell {
     padding-top: var(--spacers-dp8);
     padding-bottom: var(--spacers-dp8);
-    font-size: 12px;
+    font-size: 11px;
 }
 
 td.lightText {
