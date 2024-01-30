@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react'
-import PropTypes from 'prop-types'
+import { renderHook } from '@testing-library/react-hooks'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -8,39 +7,6 @@ import { useTableData } from '../useTableData.js'
 jest.mock('../../map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
 }))
-
-const Table = ({ layer, sortField, sortDirection }) => {
-    const { headers, rows } = useTableData({ layer, sortField, sortDirection })
-
-    return (
-        <>
-            <ul className="headers">
-                {headers.map((header) => (
-                    <li
-                        key={header.name}
-                    >{`name=${header.name}, dataKey=${header.dataKey}, type=${header.type} and roundFn=${header.roundFn}`}</li>
-                ))}
-            </ul>
-            <ul className="rows">
-                {rows.map((row, index) => (
-                    <ul key={index} className="row">
-                        {row.map((r) => (
-                            <li
-                                key={r.dataKey}
-                            >{`value=${r.value} and dataKey=${r.dataKey}`}</li>
-                        ))}
-                    </ul>
-                ))}
-            </ul>
-        </>
-    )
-}
-
-Table.propTypes = {
-    layer: PropTypes.object,
-    sortDirection: PropTypes.string,
-    sortField: PropTypes.string,
-}
 
 const mockStore = configureMockStore()
 
@@ -62,13 +28,38 @@ describe('useTableData', () => {
                 },
             ],
         }
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <Table layer={layer} sortField="name" sortDirection="asc" />
-            </Provider>
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
         )
 
-        expect(container).toMatchSnapshot()
+        const { headers, rows, isLoading } = result.current
+        expect(headers).toHaveLength(4)
+        expect(headers).toMatchObject([
+            { name: 'Index', dataKey: 'index', type: 'number' },
+            { name: 'Name', dataKey: 'name', type: 'string' },
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Type', dataKey: 'type', type: 'string' },
+        ])
+        expect(rows).toHaveLength(1)
+        expect(rows[0]).toHaveLength(4)
+        expect(rows[0]).toMatchObject([
+            { value: 0, dataKey: 'index' },
+            { value: 'Facility 1', dataKey: 'name' },
+            { value: 'facility-1', dataKey: 'id' },
+            { value: 'Point', dataKey: 'type' },
+        ])
+        expect(isLoading).toBe(false)
     })
 
     test('gets headers and rows for orgUnit layer', () => {
@@ -90,13 +81,41 @@ describe('useTableData', () => {
                 },
             ],
         }
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <Table layer={layer} sortField="name" sortDirection="asc" />
-            </Provider>
-        )
 
-        expect(container).toMatchSnapshot()
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows, isLoading } = result.current
+        expect(headers).toHaveLength(6)
+        expect(headers).toMatchObject([
+            { name: 'Index', dataKey: 'index', type: 'number' },
+            { name: 'Name', dataKey: 'name', type: 'string' },
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Level', dataKey: 'level', type: 'number' },
+            { name: 'Parent', dataKey: 'parentName', type: 'string' },
+            { name: 'Type', dataKey: 'type', type: 'string' },
+        ])
+        expect(rows).toHaveLength(1)
+        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toMatchObject([
+            { value: 0, dataKey: 'index' },
+            { value: 'OrgUnitName 1', dataKey: 'name' },
+            { value: 'orgunit-id-1', dataKey: 'id' },
+            { value: 3, dataKey: 'level' },
+            { value: 'Bo', dataKey: 'parentName' },
+            { value: 'MultiPolygon', dataKey: 'type' },
+        ])
+        expect(isLoading).toBe(false)
     })
 
     test('gets headers and rows for thematic layer', () => {
@@ -122,13 +141,53 @@ describe('useTableData', () => {
                 },
             ],
         }
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <Table layer={layer} sortField="name" sortDirection="asc" />
-            </Provider>
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
         )
-
-        expect(container).toMatchSnapshot()
+        const { headers, rows, isLoading } = result.current
+        expect(headers).toHaveLength(10)
+        expect(headers).toMatchObject([
+            { name: 'Index', dataKey: 'index', type: 'number' },
+            { name: 'Name', dataKey: 'name', type: 'string' },
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Value', dataKey: 'value', type: 'number' },
+            { name: 'Legend', dataKey: 'legend', type: 'string' },
+            { name: 'Range', dataKey: 'range', type: 'string' },
+            { name: 'Level', dataKey: 'level', type: 'number' },
+            { name: 'Parent', dataKey: 'parentName', type: 'string' },
+            { name: 'Type', dataKey: 'type', type: 'string' },
+            {
+                name: 'Color',
+                dataKey: 'color',
+                type: 'string',
+                renderer: 'rendercolor',
+            },
+        ])
+        expect(rows).toHaveLength(1)
+        expect(rows[0]).toHaveLength(10)
+        expect(rows[0]).toMatchObject([
+            { value: 0, dataKey: 'index' },
+            { value: 'Ngelehun CHC', dataKey: 'name' },
+            { value: 'thematicId-1', dataKey: 'id' },
+            { value: 106.3, dataKey: 'value' },
+            { value: 'Great', dataKey: 'legend' },
+            { value: '90 - 120', dataKey: 'range' },
+            { value: 4, dataKey: 'level' },
+            { value: 'Badjia', dataKey: 'parentName' },
+            { value: 'Point', dataKey: 'type' },
+            { value: '#FFFFB2', dataKey: 'color' },
+        ])
+        expect(isLoading).toBe(false)
     })
 
     test('gets headers and rows for event layer', () => {
@@ -138,6 +197,7 @@ describe('useTableData', () => {
         const layer = {
             layer: 'event',
             dataFilters: null,
+            isExtended: true,
             headers: [
                 {
                     name: 'ps',
@@ -183,13 +243,49 @@ describe('useTableData', () => {
                 },
             ],
         }
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <Table layer={layer} sortField="name" sortDirection="asc" />
-            </Provider>
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
         )
-
-        expect(container).toMatchSnapshot()
+        const { headers, rows, isLoading } = result.current
+        expect(headers).toHaveLength(8)
+        expect(headers).toMatchObject([
+            { name: 'Index', dataKey: 'index', type: 'number' },
+            { name: 'Org unit', dataKey: 'ouname', type: 'string' },
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            {
+                name: 'Event time',
+                dataKey: 'eventdate',
+                type: 'date',
+                renderer: 'formatTime...',
+            },
+            { name: 'Last updated on', dataKey: 'lastupdated', type: 'string' },
+            { name: 'Event status', dataKey: 'eventstatus', type: 'string' },
+            { name: 'Gender', dataKey: 'oZg33kd9taw', type: 'string' },
+            { name: 'Type', dataKey: 'type', type: 'string' },
+        ])
+        expect(rows).toHaveLength(1)
+        expect(rows[0]).toHaveLength(8)
+        expect(rows[0]).toMatchObject([
+            { value: 0, dataKey: 'index' },
+            { value: 'Lumley Hospital', dataKey: 'ouname' },
+            { value: 'a9712323629', dataKey: 'id' },
+            { value: '2023-05-15 00:00:00.0', dataKey: 'eventdate' },
+            { value: '2018-04-12 20:58:51.31', dataKey: 'lastupdated' },
+            { value: 'ACTIVE', dataKey: 'eventstatus' },
+            { value: 'Female', dataKey: 'oZg33kd9taw' },
+            { value: 'Point', dataKey: 'type' },
+        ])
+        expect(isLoading).toBe(false)
     })
 
     test('gets headers and rows for EE population layer', () => {
@@ -235,13 +331,53 @@ describe('useTableData', () => {
                 },
             ],
         }
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <Table layer={layer} sortField="name" sortDirection="asc" />
-            </Provider>
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
         )
+        const { headers, rows, isLoading } = result.current
 
-        expect(container).toMatchSnapshot()
+        expect(headers).toHaveLength(6)
+        expect(headers).toMatchObject([
+            { name: 'Index', dataKey: 'index', type: 'number' },
+            { name: 'Name', dataKey: 'name', type: 'string' },
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Type', dataKey: 'type', type: 'string' },
+            {
+                name: 'Sum Population',
+                dataKey: 'sum',
+                // roundFn: Function.prototype,
+                type: 'number',
+            },
+            {
+                name: 'Mean Population',
+                dataKey: 'mean',
+                // roundFn: Function.prototype,
+                type: 'number',
+            },
+        ])
+        expect(headers[4].roundFn).toBeInstanceOf(Function)
+        expect(headers[5].roundFn).toBeInstanceOf(Function)
+        expect(rows).toHaveLength(2)
+        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toMatchObject([
+            { value: 0, dataKey: 'index' },
+            { value: 'Bo', dataKey: 'name' },
+            { value: 'boOu', dataKey: 'id' },
+            { value: 'Polygon', dataKey: 'type' },
+            { value: 851091, dataKey: 'sum' },
+            { value: 47.35, dataKey: 'mean' },
+        ])
+        expect(isLoading).toBe(false)
     })
 
     test('gets headers and rows for EE population age groups layer', () => {
@@ -352,12 +488,52 @@ describe('useTableData', () => {
             ],
         }
 
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <Table layer={layer} sortField="name" sortDirection="asc" />
-            </Provider>
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
         )
+        const { headers, rows, isLoading } = result.current
 
-        expect(container).toMatchSnapshot()
+        expect(headers).toHaveLength(6)
+        expect(headers).toMatchObject([
+            { name: 'Index', dataKey: 'index', type: 'number' },
+            { name: 'Name', dataKey: 'name', type: 'string' },
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Type', dataKey: 'type', type: 'string' },
+            {
+                name: 'Sum Population Age Groups',
+                dataKey: 'sum',
+                // roundFn: Function.prototype,
+                type: 'number',
+            },
+            {
+                name: 'Mean Population Age Groups',
+                dataKey: 'mean',
+                // roundFn: Function.prototype,
+                type: 'number',
+            },
+        ])
+        expect(headers[4].roundFn).toBeInstanceOf(Function)
+        expect(headers[5].roundFn).toBeInstanceOf(Function)
+        expect(rows).toHaveLength(2)
+        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toMatchObject([
+            { value: 0, dataKey: 'index' },
+            { value: 'Badija', dataKey: 'name' },
+            { value: 'boOU', dataKey: 'id' },
+            { value: 'Polygon', dataKey: 'type' },
+            { value: 2517, dataKey: 'sum' },
+            { value: 3.976, dataKey: 'mean' },
+        ])
+        expect(isLoading).toBe(false)
     })
 })
