@@ -27,7 +27,7 @@ export const getStartEndDate = (data) =>
 
 const getMonth = (data) => {
     const date = new Date(data['system:time_start'])
-    const month = date.toLocaleString('default', { month: 'long' }) // TODO: i18n?
+    const month = date.toLocaleString('default', { month: 'long' })
     const year = date.getFullYear()
     return `${month} ${year}`
 }

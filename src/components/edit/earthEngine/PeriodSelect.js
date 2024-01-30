@@ -88,7 +88,7 @@ const EarthEnginePeriodSelect = ({
         ) {
             onChange(yearPeriods[0])
         }
-    }, [byYear, period, yearPeriods])
+    }, [byYear, period, yearPeriods, onChange])
 
     const items = yearPeriods || periods
 
