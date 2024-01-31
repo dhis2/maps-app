@@ -125,6 +125,16 @@ describe('data table', () => {
             .find('td')
             .eq(3)
             .should('contain', '76')
+
+        // click on a row
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .findByDataTest('dhis2-uicore-datatablerow')
+            .first()
+            .click()
+
+        // check that the org unit profile drawer is opened
+        cy.getByDataTest('org-unit-profile').should('be.visible')
     })
 
     it('opens the data table for an Event layer', () => {
@@ -164,7 +174,64 @@ describe('data table', () => {
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .contains('gender', { matchCase: false })
+            .contains('Age in years', { matchCase: false })
             .should('be.visible')
+
+        // filter by Org unit
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-datatablecellhead')
+            .containsExact('Org unit')
+            .siblings('input')
+            .type('Kpetema')
+
+        // filter by Gender
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-datatablecellhead')
+            .containsExact('Gender')
+            .siblings('input')
+            .type('Female')
+
+        // filter by Age in years (numeric)
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-datatablecellhead')
+            .containsExact('Age in years')
+            .siblings('input')
+            .type('<11')
+
+        // check that the filter returned the correct number of rows
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .findByDataTest('dhis2-uicore-datatablerow')
+            .should('have.length', 3)
+
+        // Sort by Age in years
+        cy.get('button[title="Sort by Age in years"]').click()
+
+        // confirm that the rows are sorted by Age in years descending
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .find('tr')
+            .first()
+            .find('td')
+            .eq(7)
+            .should('contain', '8')
+
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .find('tr')
+            .last()
+            .find('td')
+            .eq(7)
+            .should('contain', '2')
+
+        // click on a row
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .findByDataTest('dhis2-uicore-datatablerow')
+            .first()
+            .click()
+
+        // check that the org unit profile drawer is NOT opened
+        cy.getByDataTest('org-unit-profile').should('not.exist')
     })
 })
