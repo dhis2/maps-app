@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
+import { EVENT_LAYER } from '../../constants/layers.js'
 import { isDarkColor } from '../../util/colors.js'
 import FilterInput from './FilterInput.js'
 import styles from './styles/DataTable.module.css'
@@ -99,7 +100,7 @@ const Table = ({ height }) => {
         sortDirection,
     })
 
-    const onTableRowClick = useCallback(
+    const showOrgUnitProfile = useCallback(
         (row) => {
             const id = row.find((r) => r.dataKey === 'id')?.value
             id && dispatch(setOrgUnitProfile(id))
@@ -107,7 +108,7 @@ const Table = ({ height }) => {
         [dispatch]
     )
 
-    const highlightFeatureOnMouseEnter = useCallback(
+    const setFeatureHighlight = useCallback(
         (row) => {
             const id = row.find((r) => r.dataKey === 'id')?.value
             if (!id || !feature || id !== feature.id) {
@@ -126,11 +127,11 @@ const Table = ({ height }) => {
         },
         [feature, dispatch, layer.id]
     )
-    const clearFeatureHighlightOnMouseLeave = useCallback(
+    const clearFeatureHighlight = useCallback(
         (event) => {
             const nextElement = event.toElement ?? event.relatedTarget
             // When hovering to the next row the next element is a `TD`
-            // If this is the case `highlightFeatureOnMouseEnter` will
+            // If this is the case `setFeatureHighlight` will
             // fire and the highlight does not need to be cleared
             if (nextElement.tagName !== 'TD') {
                 dispatch(highlightFeature(null))
@@ -141,14 +142,18 @@ const Table = ({ height }) => {
 
     const tableContext = useMemo(
         () => ({
-            onClick: onTableRowClick,
-            onMouseEnter: highlightFeatureOnMouseEnter,
-            onMouseLeave: clearFeatureHighlightOnMouseLeave,
+            onClick:
+                layer.layer !== EVENT_LAYER
+                    ? showOrgUnitProfile
+                    : Function.prototype,
+            onMouseEnter: setFeatureHighlight,
+            onMouseLeave: clearFeatureHighlight,
         }),
         [
-            onTableRowClick,
-            highlightFeatureOnMouseEnter,
-            clearFeatureHighlightOnMouseLeave,
+            layer.layer,
+            showOrgUnitProfile,
+            setFeatureHighlight,
+            clearFeatureHighlight,
         ]
     )
 
