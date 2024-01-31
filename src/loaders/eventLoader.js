@@ -7,6 +7,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
 } from '../constants/layers.js'
+import { numberValueTypes } from '../constants/valueTypes.js'
 import {
     getFiltersFromColumns,
     getFiltersAsText,
@@ -16,6 +17,7 @@ import {
 import { cssColor, getContrastColor } from '../util/colors.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
+import { isValidUid } from '../util/helpers.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
@@ -159,6 +161,26 @@ const loadEventLayer = async (config, loadExtended) => {
             })
 
         config.headers = response.headers
+
+        const numericDataItemHeaders = config.headers.filter(
+            (header) =>
+                isValidUid(header.name) &&
+                numberValueTypes.includes(header.valueType)
+        )
+
+        if (numericDataItemHeaders.length) {
+            config.data = config.data.map((d) => {
+                const newD = { ...d }
+
+                numericDataItemHeaders.forEach((header) => {
+                    newD.properties[header.name] = parseFloat(
+                        d.properties[header.name]
+                    )
+                })
+
+                return newD
+            })
+        }
     }
 
     if (!styleDataItem) {
