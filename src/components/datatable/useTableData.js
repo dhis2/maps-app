@@ -203,7 +203,6 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             case FACILITY_LAYER:
                 return getFacilityHeaders()
             default:
-                // TODO - throw error?
                 return []
         }
     }, [

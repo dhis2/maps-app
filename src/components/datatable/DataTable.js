@@ -94,7 +94,7 @@ const Table = ({ height }) => {
         [sortDirection]
     )
 
-    const { headers, rows, isLoading } = useTableData({
+    const { headers, rows, isLoading, isError } = useTableData({
         layer,
         sortField,
         sortDirection,
@@ -156,6 +156,14 @@ const Table = ({ height }) => {
             clearFeatureHighlight,
         ]
     )
+
+    if (!headers.length) {
+        return (
+            <div className={styles.noSupport}>
+                {i18n.t('Data table is not supported for this layer.')}
+            </div>
+        )
+    }
 
     if (layer.serverCluster) {
         return (
