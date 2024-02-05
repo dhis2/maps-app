@@ -6,7 +6,7 @@ import { setDownloadConfig } from '../../actions/download.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
-import { closeDownloadMode, getHashUrlParams } from '../../util/history.js'
+import { closeDownloadMode, getHashUrlParam } from '../../util/history.js'
 import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
@@ -20,7 +20,7 @@ const renderedClass = 'dhis2-map-rendered'
 const downloadingClass = 'dhis2-map-downloading'
 
 const DownloadSettings = () => {
-    const isPushAnalytics = getHashUrlParams('isPushAnalytics') === 'true'
+    const isPushAnalytics = getHashUrlParam('isPushAnalytics')
     const [isRendered, setIsRendered] = useState(false)
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
