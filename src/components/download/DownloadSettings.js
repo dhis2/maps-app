@@ -243,6 +243,7 @@ const DownloadSettings = () => {
                                     primary
                                     disabled={isPushAnalytics && !isRendered}
                                     onClick={onDownload}
+                                    className="push-analytics-download-button"
                                 >
                                     {i18n.t('Download')}
                                 </Button>
