@@ -265,7 +265,7 @@ const Table = ({ availableHeight, availableWidth }) => {
                                 }
                                 width={
                                     columnWidths.length > 0
-                                        ? `columnWidths[index]px`
+                                        ? `${columnWidths[index]}px`
                                         : 'auto'
                                 }
                             >
