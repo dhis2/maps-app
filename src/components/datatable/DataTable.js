@@ -12,7 +12,14 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useReducer, useCallback, useMemo } from 'react'
+import React, {
+    useReducer,
+    useCallback,
+    useMemo,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
@@ -26,16 +33,28 @@ import { useTableData } from './useTableData.js'
 const ASCENDING = 'asc'
 const DESCENDING = 'desc'
 
-const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => {
-    return (
-        <DataTableRow
-            onClick={() => context.onClick(item)}
-            onMouseEnter={() => context.onMouseEnter(item)}
-            onMouseLeave={context.onMouseLeave}
-            {...props}
-        />
-    )
+const DataTableWithVirtuosoContext = ({ context, ...props }) => (
+    <DataTable
+        {...props}
+        layout={context.layout}
+        className={styles.dataTable}
+    />
+)
+
+DataTableWithVirtuosoContext.propTypes = {
+    context: PropTypes.shape({
+        layout: PropTypes.string,
+    }),
 }
+
+const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
+    <DataTableRow
+        onClick={() => context.onClick(item)}
+        onMouseEnter={() => context.onMouseEnter(item)}
+        onMouseLeave={context.onMouseLeave}
+        {...props}
+    />
+)
 
 DataTableRowWithVirtuosoContext.propTypes = {
     context: PropTypes.shape({
@@ -52,7 +71,7 @@ DataTableRowWithVirtuosoContext.propTypes = {
 }
 
 const TableComponents = {
-    Table: (props) => <DataTable {...props} className={styles.dataTable} />,
+    Table: DataTableWithVirtuosoContext,
     TableBody: DataTableBody,
     TableHead: DataTableHead,
     TableRow: DataTableRowWithVirtuosoContext,
@@ -67,7 +86,9 @@ const TableComponents = {
     ),
 }
 
-const Table = ({ height }) => {
+const Table = ({ availableHeight, availableWidth }) => {
+    const headerRowRef = useRef(null)
+    const [columnWidths, setColumnWidths] = useState([])
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
 
@@ -142,12 +163,14 @@ const Table = ({ height }) => {
                     : Function.prototype,
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
+            layout: columnWidths.length > 0 ? 'fixed' : 'auto',
         }),
         [
             layer.layer,
             showOrgUnitProfile,
             setFeatureHighlight,
             clearFeatureHighlight,
+            columnWidths,
         ]
     )
 
@@ -157,8 +180,41 @@ const Table = ({ height }) => {
         sortDirection,
     })
 
+    useEffect(() => {
+        /* The combination of automtic table layout and virtual scrolling
+         * causes a content shift when scrolling and filtering because the
+         * cells in the DOM have a different content length which causes the
+         * columns to have a different width. To avoid that we measure the
+         * initial column widths and switch to a fixed layout based on these
+         * measured widths */
+        if (columnWidths.length === 0) {
+            const measuredColumnWidths = []
+
+            for (const cell of headerRowRef.current.cells) {
+                measuredColumnWidths.push(cell.offsetWidth)
+            }
+            setColumnWidths(measuredColumnWidths)
+        }
+    }, [columnWidths])
+
+    useEffect(() => {
+        /* When the window is resized or the sidebar opens
+         * the table needs to switch back to its automatic layout
+         * so that the cells can subsequently can be measured again
+         * in the useEffect hook above */
+        setColumnWidths([])
+    }, [availableWidth])
+
     if (error) {
         return <div className={styles.noSupport}>{error}</div>
+    }
+
+    if (!headers.length) {
+        return (
+            <div className={styles.noSupport}>
+                {i18n.t('Data table is not supported for this layer.')}
+            </div>
+        )
     }
 
     if (layer.serverCluster) {
@@ -176,10 +232,13 @@ const Table = ({ height }) => {
             <TableVirtuoso
                 context={tableContext}
                 components={TableComponents}
-                style={{ height, width: '100%' }}
+                style={{
+                    height: availableHeight,
+                    width: '100%',
+                }}
                 data={rows}
                 fixedHeaderContent={() => (
-                    <DataTableRow>
+                    <tr ref={headerRowRef}>
                         {headers.map(({ name, dataKey, type }, index) => (
                             <DataTableColumnHeader
                                 className={styles.columnHeader}
@@ -204,11 +263,16 @@ const Table = ({ height }) => {
                                         />
                                     )
                                 }
+                                width={
+                                    columnWidths.length > 0
+                                        ? `columnWidths[index]px`
+                                        : 'auto'
+                                }
                             >
                                 {name}
                             </DataTableColumnHeader>
                         ))}
-                    </DataTableRow>
+                    </tr>
                 )}
                 itemContent={(_, row) =>
                     row.map(({ dataKey, value, align }) => (
@@ -238,7 +302,8 @@ const Table = ({ height }) => {
 }
 
 Table.propTypes = {
-    height: PropTypes.number,
+    availableHeight: PropTypes.number,
+    availableWidth: PropTypes.number,
 }
 
 export default Table
