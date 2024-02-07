@@ -188,12 +188,15 @@ const Table = ({ availableHeight, availableWidth }) => {
          * initial column widths and switch to a fixed layout based on these
          * measured widths */
         if (columnWidths.length === 0) {
-            const measuredColumnWidths = []
+            requestAnimationFrame(() => {
+                const measuredColumnWidths = []
 
-            for (const cell of headerRowRef.current.cells) {
-                measuredColumnWidths.push(cell.offsetWidth)
-            }
-            setColumnWidths(measuredColumnWidths)
+                for (const cell of headerRowRef.current.cells) {
+                    measuredColumnWidths.push(cell.offsetWidth)
+                }
+
+                setColumnWidths(measuredColumnWidths)
+            })
         }
     }, [columnWidths])
 
