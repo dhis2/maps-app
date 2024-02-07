@@ -2,11 +2,14 @@
     height: 1px;
 }
 
+.dataTable > :global(thead) {
+    user-select: none;
+}
+
 td.dataCell {
     padding-top: var(--spacers-dp8);
     padding-bottom: var(--spacers-dp8);
     font-size: 11px;
-
 }
 
 td.dataCell:hover {
