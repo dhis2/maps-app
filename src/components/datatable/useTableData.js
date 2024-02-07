@@ -165,26 +165,27 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         serverCluster,
     } = layer || EMPTY_LAYER
 
-    const dataWithAggregations = useMemo(
-        () =>
-            data
-                .map((d, i) => ({
-                    index: i,
-                    ...d,
-                }))
-                .filter((d) => !d.properties.hasAdditionalGeometry)
-                .map((d, i) => ({
-                    ...(d.properties || d),
-                    ...aggregations[d.id],
-                    index: d.index,
-                    i,
-                })),
-        [data, aggregations]
-    )
+    const dataWithAggregations = useMemo(() => {
+        if (!data) {
+            return null
+        }
+        return data
+            .map((d, i) => ({
+                index: i,
+                ...d,
+            }))
+            .filter((d) => !d.properties.hasAdditionalGeometry)
+            .map((d, i) => ({
+                ...(d.properties || d),
+                ...aggregations[d.id],
+                index: d.index,
+                i,
+            }))
+    }, [data, aggregations])
 
     const headers = useMemo(() => {
-        if (!layerType || !dataWithAggregations.length) {
-            return []
+        if (dataWithAggregations === null) {
+            return null
         }
 
         switch (layerType) {
@@ -202,8 +203,9 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 })
             case FACILITY_LAYER:
                 return getFacilityHeaders()
-            default:
-                return []
+            default: {
+                return null
+            }
         }
     }, [
         layerType,
@@ -215,6 +217,10 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
     ])
 
     const rows = useMemo(() => {
+        if (dataWithAggregations === null || headers === null) {
+            return null
+        }
+
         if (!dataWithAggregations.length || !headers?.length) {
             return []
         }
@@ -249,13 +255,23 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 }
             })
         )
-    }, [dataWithAggregations, dataFilters, sortField, sortDirection, headers])
+    }, [headers, dataWithAggregations, dataFilters, sortField, sortDirection])
 
+    // EE layers and event layers may be loading additional data
     const isLoading =
         (layerType === EARTH_ENGINE_LAYER &&
             aggregationType?.length &&
             (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
         (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
 
-    return { headers, rows, isLoading }
+    const error =
+        dataWithAggregations === null
+            ? i18n.t(
+                  'No valid data was found for the current layer configuration.'
+              )
+            : headers === null
+            ? i18n.t('Data table is not supported for this layer type.')
+            : null
+
+    return { headers, rows, isLoading, error }
 }

@@ -94,12 +94,6 @@ const Table = ({ height }) => {
         [sortDirection]
     )
 
-    const { headers, rows, isLoading, isError } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-    })
-
     const showOrgUnitProfile = useCallback(
         (row) => {
             const id = row.find((r) => r.dataKey === 'id')?.value
@@ -157,12 +151,14 @@ const Table = ({ height }) => {
         ]
     )
 
-    if (!headers.length) {
-        return (
-            <div className={styles.noSupport}>
-                {i18n.t('Data table is not supported for this layer.')}
-            </div>
-        )
+    const { headers, rows, isLoading, error } = useTableData({
+        layer,
+        sortField,
+        sortDirection,
+    })
+
+    if (error) {
+        return <div className={styles.noSupport}>{error}</div>
     }
 
     if (layer.serverCluster) {
