@@ -192,7 +192,8 @@ const Table = ({ availableHeight, availableWidth }) => {
                 const measuredColumnWidths = []
 
                 for (const cell of headerRowRef.current.cells) {
-                    measuredColumnWidths.push(cell.offsetWidth)
+                    const rect = cell.getBoundingClientRect()
+                    measuredColumnWidths.push(Math.floor(rect.width))
                 }
 
                 setColumnWidths(measuredColumnWidths)
