@@ -242,7 +242,7 @@ const Table = ({ availableHeight, availableWidth }) => {
                 }}
                 data={rows}
                 fixedHeaderContent={() => (
-                    <tr ref={headerRowRef}>
+                    <DataTableRow ref={headerRowRef}>
                         {headers.map(({ name, dataKey, type }, index) => (
                             <DataTableColumnHeader
                                 className={styles.columnHeader}
@@ -276,7 +276,7 @@ const Table = ({ availableHeight, availableWidth }) => {
                                 {name}
                             </DataTableColumnHeader>
                         ))}
-                    </tr>
+                    </DataTableRow>
                 )}
                 itemContent={(_, row) =>
                     row.map(({ dataKey, value, align }) => (
