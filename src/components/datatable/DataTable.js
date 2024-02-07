@@ -202,8 +202,8 @@ const Table = ({ availableHeight, availableWidth }) => {
     }, [columnWidths])
 
     useEffect(() => {
-        /* When the window is resized or the sidebar opens the table
-         * headers change the table needs to switch back to its
+        /* When the window is resized, the sidebar opens, or the table
+         * headers change, the table needs to switch back to its
          * automatic layout so that the cells can subsequently can be
          * measured again in the useEffect hook above */
         setColumnWidths([])
