@@ -250,8 +250,9 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 const value = roundFn ? roundFn(item[dataKey]) : item[dataKey]
 
                 return {
-                    value: type === TYPE_NUMBER && isNaN(value) ? null : value,
                     dataKey,
+                    value: type === TYPE_NUMBER && isNaN(value) ? null : value,
+                    align: type === TYPE_NUMBER ? 'right' : 'left',
                 }
             })
         )
