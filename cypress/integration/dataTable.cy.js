@@ -176,17 +176,54 @@ describe('data table', () => {
         // filter by Org unit
         cy.getByDataTest('data-table-column-filter-input-Org unit')
             .find('input')
-            .type('Kpetema')
+            .type('Yakaji')
+
+        // check that all the rows have Org unit Yakaji
+
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .find('tr')
+            .first()
+            .find('td')
+            .eq(1)
+            .should('contain', 'Yakaji')
+
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .find('tr')
+            .last()
+            .find('td')
+            .eq(1)
+            .should('contain', 'Yakaji')
+
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .findByDataTest('dhis2-uicore-datatablerow')
+            .should('have.length', 6)
 
         // filter by Gender
         cy.getByDataTest('data-table-column-filter-input-Gender')
             .find('input')
             .type('Female')
 
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .findByDataTest('dhis2-uicore-datatablerow')
+            .should('have.length', 2)
+
+        cy.getByDataTest('data-table-column-filter-input-Gender')
+            .find('input')
+            .clear()
+
+        cy.getByDataTest('bottom-panel')
+            .findByDataTest('dhis2-uicore-tablebody')
+            .findByDataTest('dhis2-uicore-datatablerow')
+            .should('have.length', 6)
+
         // filter by Age in years (numeric)
         cy.getByDataTest('data-table-column-filter-input-Age in years')
             .find('input')
-            .type('<11')
+            .type('<51')
 
         // check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
@@ -204,7 +241,7 @@ describe('data table', () => {
             .first()
             .find('td')
             .eq(7)
-            .should('contain', '8')
+            .should('contain', '50')
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
@@ -212,7 +249,7 @@ describe('data table', () => {
             .last()
             .find('td')
             .eq(7)
-            .should('contain', '2')
+            .should('contain', '48')
 
         // click on a row
         cy.getByDataTest('bottom-panel')
