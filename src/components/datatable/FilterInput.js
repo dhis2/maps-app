@@ -40,6 +40,7 @@ const FilterInput = ({ type, dataKey, name }) => {
 
 FilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
 }
 
