@@ -22,7 +22,7 @@ const FilterInput = ({ type, dataKey }) => {
 
     const filterValue = filters[dataKey] || ''
 
-    const onChange = (value) =>
+    const onChange = ({ value }) =>
         value !== ''
             ? dispatch(setDataFilter(layerId, dataKey, value))
             : dispatch(clearDataFilter(layerId, dataKey, value))
