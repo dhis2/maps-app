@@ -5,7 +5,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
 
-const FilterInput = ({ type, dataKey }) => {
+const FilterInput = ({ type, dataKey, name }) => {
     const dispatch = useDispatch()
     const dataTable = useSelector((state) => state.dataTable)
     const map = useSelector((state) => state.map)
@@ -29,6 +29,7 @@ const FilterInput = ({ type, dataKey }) => {
 
     return (
         <Input
+            dataTest={`data-table-column-filter-input-${name}`}
             dense
             placeholder={type === 'number' ? '2,>3&<8' : i18n.t('Search')}
             value={filterValue}

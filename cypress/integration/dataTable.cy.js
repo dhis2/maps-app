@@ -44,10 +44,8 @@ describe('data table', () => {
             .should('have.length', 10)
 
         // Filter by name
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-datatablecellhead')
-            .containsExact('Name')
-            .siblings('input')
+        cy.getByDataTest('data-table-column-filter-input-Name')
+            .find('input')
             .type('bar')
 
         // check that the filter returned the correct number of rows
@@ -94,10 +92,8 @@ describe('data table', () => {
             .should('contain', 'Bargbe')
 
         // filter by Value (numeric)
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-datatablecellhead')
-            .containsExact('Value')
-            .siblings('input')
+        cy.getByDataTest('data-table-column-filter-input-Value')
+            .find('input')
             .type('>26')
 
         // check that the (combined) filter returned the correct number of rows
@@ -178,24 +174,18 @@ describe('data table', () => {
             .should('be.visible')
 
         // filter by Org unit
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-datatablecellhead')
-            .containsExact('Org unit')
-            .siblings('input')
+        cy.getByDataTest('data-table-column-filter-input-Org unit')
+            .find('input')
             .type('Kpetema')
 
         // filter by Gender
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-datatablecellhead')
-            .containsExact('Gender')
-            .siblings('input')
+        cy.getByDataTest('data-table-column-filter-input-Gender')
+            .find('input')
             .type('Female')
 
         // filter by Age in years (numeric)
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-datatablecellhead')
-            .containsExact('Age in years')
-            .siblings('input')
+        cy.getByDataTest('data-table-column-filter-input-Age in years')
+            .find('input')
             .type('<11')
 
         // check that the filter returned the correct number of rows

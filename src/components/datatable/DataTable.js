@@ -246,6 +246,7 @@ const Table = ({ availableHeight, availableWidth }) => {
                                         <FilterInput
                                             type={type}
                                             dataKey={dataKey}
+                                            name={name}
                                         />
                                     )
                                 }
