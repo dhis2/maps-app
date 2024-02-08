@@ -213,24 +213,6 @@ const Table = ({ availableHeight, availableWidth }) => {
         return <div className={styles.noSupport}>{error}</div>
     }
 
-    if (!headers.length) {
-        return (
-            <div className={styles.noSupport}>
-                {i18n.t('Data table is not supported for this layer.')}
-            </div>
-        )
-    }
-
-    if (layer.serverCluster) {
-        return (
-            <div className={styles.noSupport}>
-                {i18n.t(
-                    'Data table is not supported when events are grouped on the server.'
-                )}
-            </div>
-        )
-    }
-
     return (
         <>
             <TableVirtuoso

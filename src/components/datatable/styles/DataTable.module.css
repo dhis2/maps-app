@@ -23,6 +23,15 @@ td.lightText {
 .columnHeader > :global(span.container) {
     justify-content: space-between;
 }
+
+.columnHeader :global(input.dense) {
+    padding: 4px 6px;
+}
+
+.columnHeader :global(input::placeholder) {
+    color: var(--colors-grey400);
+}
+
 /* Hide the filter icon */
 .columnHeader
     > :global(span.container)
@@ -40,7 +49,6 @@ td.lightText {
     min-height: 40px;
 }
 
-/* TODO */
 .noSupport {
     position: absolute;
     top: 50%;

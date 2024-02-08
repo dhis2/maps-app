@@ -166,7 +166,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
     } = layer || EMPTY_LAYER
 
     const dataWithAggregations = useMemo(() => {
-        if (!data) {
+        if (!data || serverCluster) {
             return null
         }
         return data
@@ -265,14 +265,18 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
         (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
 
-    const error =
-        dataWithAggregations === null
-            ? i18n.t(
-                  'No valid data was found for the current layer configuration.'
-              )
-            : headers === null
-            ? i18n.t('Data table is not supported for this layer type.')
-            : null
+    let error = null
+    if (serverCluster) {
+        error = i18n.t(
+            'Data table is not supported when events are grouped on the server.'
+        )
+    } else if (dataWithAggregations === null) {
+        error = i18n.t(
+            'No valid data was found for the current layer configuration.'
+        )
+    } else if (headers === null) {
+        error = i18n.t('Data table is not supported for this layer type.')
+    }
 
     return { headers, rows, isLoading, error }
 }
