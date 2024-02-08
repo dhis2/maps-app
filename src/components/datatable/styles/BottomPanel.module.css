@@ -9,8 +9,25 @@
 
 .closeIcon {
     position: absolute;
-    right: 3px;
+    right: 8px;
     z-index: 100;
     cursor: pointer;
     color: var(--colors-grey800);
+    background-color: var(--colors-white);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+.closeIcon:hover {
+    color: var(--colors-grey900);
+    background-color: var(--colors-grey100);
+}
+
+.closeIcon svg {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -8px;
 }

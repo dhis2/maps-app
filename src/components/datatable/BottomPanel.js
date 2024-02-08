@@ -42,12 +42,12 @@ const BottomPanel = () => {
             style={{ height: tableHeight, width: tableWidth }}
             data-test="bottom-panel"
         >
-            <span
+            <button
                 className={styles.closeIcon}
                 onClick={() => dispatch(closeDataTable())}
             >
                 <IconCross16 />
-            </span>
+            </button>
             <ResizeHandle
                 maxHeight={maxHeight}
                 onResize={onResize}
