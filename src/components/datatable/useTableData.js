@@ -181,7 +181,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 index: d.index,
                 i,
             }))
-    }, [data, aggregations])
+    }, [data, aggregations, serverCluster])
 
     const headers = useMemo(() => {
         if (dataWithAggregations === null) {
