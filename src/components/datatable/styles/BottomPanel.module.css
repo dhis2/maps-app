@@ -20,7 +20,7 @@
     z-index: 100;
     cursor: pointer;
     color: var(--colors-grey800);
-    background-color: transparent;
+    background-color: var(--colors-grey100);
     width: 20px;
     height: 20px;
     border: none;
@@ -28,7 +28,7 @@
 
 .closeIcon:hover {
     color: var(--colors-grey900);
-    background-color: var(--colors-grey100);
+    background-color: var(--colors-grey300);
 }
 
 .closeIcon svg {

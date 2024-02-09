@@ -11,7 +11,7 @@
 .resizeHandle:hover,
 .resizeHandle:active {
     background-color: var(--colors-grey300);
-    color: var(--colors-grey800);
+    color: var(--colors-grey900);
 }
 
 .resizeHandle:active {
