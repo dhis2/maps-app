@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-08T08:51:07.402Z\n"
-"PO-Revision-Date: 2024-02-08T08:51:07.402Z\n"
+"POT-Creation-Date: 2024-02-12T09:30:18.362Z\n"
+"PO-Revision-Date: 2024-02-12T09:30:18.362Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -136,6 +136,9 @@ msgstr "No results found"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
 
 msgid "Search"
 msgstr "Search"
