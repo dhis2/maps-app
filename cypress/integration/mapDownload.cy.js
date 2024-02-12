@@ -70,6 +70,18 @@ describe('Map Download', () => {
         clickDownloadSetting('Show map name')
         cy.getByDataTest('download-map-info').find('h1').should('not.exist')
 
+        clickDownloadSetting('Show north arrow')
+        cy.getByDataTest('north-arrow').should('not.exist')
+
+        clickDownloadSetting('Show overview map')
+        cy.getByDataTest('download-map-info')
+            .findByDataTest('overview-map')
+            .should('not.exist')
+
+        clickDownloadSetting('Show legend')
+        cy.getByDataTest('download-map-info').should('not.exist')
+
+        // and download the map
         cy.getByDataTest('download-settings')
             .find('button')
             .contains('Download')
