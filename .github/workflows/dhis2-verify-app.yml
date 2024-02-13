@@ -194,7 +194,7 @@ jobs:
                             "type": "header",
                             "text": {
                               "type": "plain_text",
-                              "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully> :tada:",
+                              "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released :tada:",
                               "emoji": true
                             }
                           },
