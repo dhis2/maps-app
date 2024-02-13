@@ -201,13 +201,6 @@ jobs:
                             "type": "section",
                             "text": {
                               "type": "mrkdwn",
-                              "text": "*Release notes*"
-                            }
-                          },
-                          {
-                            "type": "section",
-                            "text": {
-                              "type": "mrkdwn",
                               "text": ${{ toJSON(github.event.head_commit.message) }}
                             }
                           }
