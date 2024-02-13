@@ -2978,15 +2978,15 @@
     mocha "^10.2.0"
     node-ipc "9.1.1"
 
-"@reportportal/agent-js-jest@^5.0.7":
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/@reportportal/agent-js-jest/-/agent-js-jest-5.0.7.tgz#e87382b4dffc5b01d54cfdca64bfdc70ece2bfeb"
-  integrity sha512-yqWcKi0UJSKUImfFClRTGGL14DE9RZW94YWnekfZXry4Rlh8y+zOgncV3qeE/2X2c5FHlvVUhZnkH/++RLvamw==
+"@reportportal/agent-js-jest@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@reportportal/agent-js-jest/-/agent-js-jest-5.0.8.tgz#743a34e5884bcfec7ece84ed200be7ecac50ca45"
+  integrity sha512-OKH0bcsif7l11Wym8OVhUqJNfuT7sPw3jBVgcLSk8p33x8Bx/0P4pm2qNbhLkYgBujgnTI7q6y8+sgOxUY+I7Q==
   dependencies:
-    "@reportportal/client-javascript" "^5.0.15"
+    "@reportportal/client-javascript" "~5.0.15"
     strip-ansi "^6.0.1"
 
-"@reportportal/client-javascript@^5.0.14", "@reportportal/client-javascript@^5.0.15":
+"@reportportal/client-javascript@^5.0.14", "@reportportal/client-javascript@~5.0.15":
   version "5.0.15"
   resolved "https://registry.yarnpkg.com/@reportportal/client-javascript/-/client-javascript-5.0.15.tgz#57080be5bdb347ab0019aeb385f9f282349f7ac4"
   integrity sha512-ry6euqCOoJLXCUuBhlRMjCYKhbgU+9EYdZ8jpTuagoBVxS8V8nJed9ODnS4bXX61g+pJm+NP/0DrN2Ptq+DgQQ==
