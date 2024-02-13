@@ -193,9 +193,9 @@ jobs:
                           {
                             "type": "header",
                             "text": {
-                              "type": "plain_text",
-                              "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released :tada:",
-                              "emoji": true
+                                "type": "plain_text",
+                                "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released :tada:",
+                                "emoji": true
                             }
                           },
                           {
@@ -205,7 +205,24 @@ jobs:
                             "type": "section",
                             "text": {
                                 "type": "mrkdwn",
+                                "text": "*Release notes*"
+                            }
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
                                 "text": ${{ toJSON(github.event.head_commit.message) }}
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "Link to <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|build>"
                             }
                           }
                         ]
