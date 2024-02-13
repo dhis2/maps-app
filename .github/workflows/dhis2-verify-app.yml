@@ -167,7 +167,7 @@ jobs:
 
     report-release-success:
         runs-on: ubuntu-latest
-        needs: test
+        # needs: test
         # if: |
         #     success() &&
         #     !cancelled() &&
@@ -188,13 +188,23 @@ jobs:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
                       {
-                        "text": ":large_green_circle: :maps-app: :tada: Maps app release succeeded for version: ${{ steps.extract_version.outputs.version }}",
+                        "text": "Maps app release  ${{ steps.extract_version.outputs.version }} succeeded",
                         "blocks": [
+                          {
+                            "type": "header",
+                            "text": {
+                              "type": "mrkdwn",
+                              "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully> :tada:"
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
                           {
                             "type": "section",
                             "text": {
                               "type": "mrkdwn",
-                              "text": ":large_green_circle: :maps-app: :tada: Maps version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully>"
+                              "text": "*Release notes*"
                             }
                           },
                           {
