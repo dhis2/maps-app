@@ -1,3 +1,10 @@
+# [100.4.0](https://github.com/dhis2/maps-app/compare/v100.3.0...v100.4.0) (2024-02-13)
+
+
+### Features
+
+* replace data table with UI data table ([#3015](https://github.com/dhis2/maps-app/issues/3015)) ([c3f60fe](https://github.com/dhis2/maps-app/commit/c3f60fe77ca179f0f9a2d5f906f42622f61b799c))
+
 # [100.3.0](https://github.com/dhis2/maps-app/compare/v100.2.3...v100.3.0) (2024-01-12)
 
 
