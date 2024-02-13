@@ -207,9 +207,8 @@ jobs:
                           {
                             "type": "section",
                             "text": {
-                                "type": "mrkdwn",
-                                "text": ${{ toJSON(github.event.head_commit.message) }}
-
+                              "type": "mrkdwn",
+                              "text": ${{ toJSON(github.event.head_commit.message) }}
                             }
                           }
                         ]
