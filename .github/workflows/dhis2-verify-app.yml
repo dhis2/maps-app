@@ -204,7 +204,7 @@ jobs:
                             "type": "section",
                             "text": {
                                 "type": "mrkdwn",
-                                "text": "*Release notes*"
+                                "text": "*Release Notes*"
                             }
                           },
                           {
