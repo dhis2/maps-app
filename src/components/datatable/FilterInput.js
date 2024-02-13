@@ -1,68 +1,47 @@
+import i18n from '@dhis2/d2-i18n'
+import { Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
-import styles from './styles/FilterInput.module.css'
 
-// http://adazzle.github.io/react-data-grid/examples.html#/custom-filters
-// https://github.com/adazzle/react-data-grid/tree/master/packages/react-data-grid-addons/src/cells/headerCells/filters
-const FilterInput = ({
-    layerId,
-    type,
-    dataKey,
-    filters,
-    setDataFilter,
-    clearDataFilter,
-}) => {
-    const filterValue = filters[dataKey] || ''
+const FilterInput = ({ type, dataKey, name }) => {
+    const dispatch = useDispatch()
+    const dataTable = useSelector((state) => state.dataTable)
+    const map = useSelector((state) => state.map)
 
-    // https://stackoverflow.com/questions/36683770/react-how-to-get-the-value-of-an-input-field
-    const onChange = (evt) => {
-        const value = evt.target.value
+    const overlay =
+        dataTable && map.mapViews.filter((layer) => layer.id === dataTable)[0]
 
-        if (value !== '') {
-            setDataFilter(layerId, dataKey, value)
-        } else {
-            clearDataFilter(layerId, dataKey, value)
-        }
+    let layerId
+    let filters
+    if (overlay) {
+        layerId = overlay.id
+        filters = overlay.dataFilters || {}
     }
 
+    const filterValue = filters[dataKey] || ''
+
+    const onChange = ({ value }) =>
+        value !== ''
+            ? dispatch(setDataFilter(layerId, dataKey, value))
+            : dispatch(clearDataFilter(layerId, dataKey, value))
+
     return (
-        <input
-            className={styles.filterInput}
-            placeholder={type === 'number' ? '2,>3&<8' : 'Search'} // TODO: Support more field types
+        <Input
+            dataTest={`data-table-column-filter-input-${name}`}
+            dense
+            placeholder={type === 'number' ? '2,>3&<8' : i18n.t('Search')}
             value={filterValue}
-            onClick={(evt) => evt.stopPropagation()}
             onChange={onChange}
         />
     )
 }
 
 FilterInput.propTypes = {
-    clearDataFilter: PropTypes.func.isRequired,
     dataKey: PropTypes.string.isRequired,
-    filters: PropTypes.object.isRequired,
-    layerId: PropTypes.string.isRequired,
-    setDataFilter: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
 }
 
-// Avoid needing to pass filter and actions to every input field
-const mapStateToProps = ({ dataTable, map }) => {
-    const overlay = dataTable
-        ? map.mapViews.filter((layer) => layer.id === dataTable)[0]
-        : null
-
-    if (overlay) {
-        return {
-            layerId: overlay.id,
-            filters: overlay.dataFilters || {},
-        }
-    }
-
-    return null
-}
-
-export default connect(mapStateToProps, { setDataFilter, clearDataFilter })(
-    FilterInput
-)
+export default FilterInput

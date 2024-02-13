@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LayersLoader renders 0 layers if currently loading regardless of whether loaded already 1`] = `<div />`;
+exports[`LayersLoader renders 0 layerloaders if currently loading regardless of whether loaded already 1`] = `<div />`;
 
-exports[`LayersLoader renders 0 layers if currently loading the layer 1`] = `<div />`;
+exports[`LayersLoader renders 0 layerloaders if currently loading the layer 1`] = `<div />`;
 
-exports[`LayersLoader renders 0 layers if no layers 1`] = `<div />`;
+exports[`LayersLoader renders 0 layerloaders if no layers 1`] = `<div />`;
 
-exports[`LayersLoader renders 0 layers if not currently loading and loaded and extended data also loaded 1`] = `<div />`;
+exports[`LayersLoader renders 0 layerloaders if not currently loading and loaded and extended data also loaded 1`] = `<div />`;
 
-exports[`LayersLoader renders 1 layer if not currently loading and is loaded but need extended data 1`] = `
+exports[`LayersLoader renders 1 layerloader if not currently loading and is loaded but need extended data 1`] = `
 <div>
   <div>
     LayerLoader
@@ -16,7 +16,7 @@ exports[`LayersLoader renders 1 layer if not currently loading and is loaded but
 </div>
 `;
 
-exports[`LayersLoader renders 1 layer if not currently loading and not loaded 1`] = `
+exports[`LayersLoader renders 1 layerloader if not currently loading and not loaded 1`] = `
 <div>
   <div>
     LayerLoader
