@@ -191,11 +191,15 @@ jobs:
                         "text": "Maps app release ${{ steps.extract_version.outputs.version }} succeeded",
                         "blocks": [
                           {
-                            "type": "section",
+                            "type": "header",
                             "text": {
-                              "type": "mrkdwn",
-                              "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully> :tada:"
+                              "type": "plain_text",
+                              "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully> :tada:",
+                              "emoji": true
                             }
+                          },
+                          {
+                            "type": "divider"
                           },
                           {
                             "type": "section",
