@@ -198,9 +198,6 @@ jobs:
                             }
                           },
                           {
-                            "type": "divider"
-                          },
-                          {
                             "type": "section",
                             "text": {
                                 "type": "mrkdwn",
