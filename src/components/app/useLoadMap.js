@@ -30,17 +30,9 @@ export const useLoadMap = () => {
 
             if (params.mapId === '') {
                 dispatch(newMap())
-                if (
-                    params.isDownload !== previousParamsRef.current.isDownload
-                ) {
-                    dispatch(setDownloadMode(params.isDownload))
-                }
             } else if (params.mapId === CURRENT_AO_KEY) {
                 dispatch(newMap())
                 dispatch(setAnalyticalObject(true))
-                if (params.isDownload) {
-                    dispatch(setDownloadMode(true))
-                }
             } else {
                 try {
                     const map = await fetchMap(
@@ -66,18 +58,13 @@ export const useLoadMap = () => {
                             basemap: { ...map.basemap, ...basemapConfig },
                         })
                     )
-
-                    if (params.interpretationId) {
-                        dispatch(setInterpretation(params.interpretationId))
-                    } else if (params.isDownload) {
-                        dispatch(setDownloadMode(true))
-                    }
                 } catch (e) {
                     log.error(e)
                     dispatch(newMap())
-                    dispatch(setDownloadMode(false))
                 }
             }
+            dispatch(setDownloadMode(!!params.isDownload))
+            dispatch(setInterpretation(params.interpretationId))
 
             previousParamsRef.current = params
         },
@@ -90,24 +77,18 @@ export const useLoadMap = () => {
 
     useEffect(() => {
         const unlisten = history.listen(({ action, location }) => {
-            const {
-                mapId: prevMapId,
-                interpretationId: prevInterpretationId,
-                isDownload: prevIsDownload,
-            } = previousParamsRef.current
-
             const params = getHashUrlParams(location)
 
-            if (action === 'REPLACE' || prevMapId !== params.mapId) {
+            if (
+                action === 'REPLACE' ||
+                previousParamsRef.current.mapId !== params.mapId
+            ) {
                 loadMap(location)
                 return
             }
 
-            if (params.isDownload !== prevIsDownload) {
-                dispatch(setDownloadMode(params.isDownload))
-            } else if (params.interpretationId !== prevInterpretationId) {
-                dispatch(setInterpretation(params.interpretationId))
-            }
+            dispatch(setDownloadMode(params.isDownload))
+            dispatch(setInterpretation(params.interpretationId))
 
             previousParamsRef.current = params
         })
