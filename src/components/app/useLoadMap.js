@@ -26,30 +26,36 @@ export const useLoadMap = () => {
 
     const loadMap = useCallback(
         async (hashLocation) => {
-            previousParamsRef.current = getHashUrlParams(hashLocation)
+            const params = getHashUrlParams(hashLocation)
 
-            if (hashLocation.pathname === '/') {
+            if (params.mapId === '') {
                 dispatch(newMap())
+                if (
+                    params.isDownload !== previousParamsRef.current.isDownload
+                ) {
+                    dispatch(setDownloadMode(params.isDownload))
+                }
+
+                previousParamsRef.current = params
                 return
             }
 
-            const { mapId, isDownload, interpretationId } =
-                previousParamsRef.current
-
-            if (mapId === CURRENT_AO_KEY) {
+            if (params.mapId === CURRENT_AO_KEY) {
                 dispatch(newMap())
                 dispatch(setAnalyticalObject(true))
-                if (isDownload) {
+                if (params.isDownload) {
                     dispatch(setDownloadMode(true))
                 }
+
+                previousParamsRef.current = params
                 return
             }
 
             try {
-                const map = await fetchMap(mapId, engine, defaultBasemap)
+                const map = await fetchMap(params.mapId, engine, defaultBasemap)
 
                 engine.mutate(dataStatisticsMutation, {
-                    variables: { id: mapId },
+                    variables: { id: params.mapId },
                     onError: (error) => log.error('Error: ', error),
                 })
 
@@ -66,15 +72,17 @@ export const useLoadMap = () => {
                     })
                 )
 
-                if (interpretationId) {
-                    dispatch(setInterpretation(interpretationId))
-                } else if (isDownload) {
+                if (params.interpretationId) {
+                    dispatch(setInterpretation(params.interpretationId))
+                } else if (params.isDownload) {
                     dispatch(setDownloadMode(true))
                 }
             } catch (e) {
                 log.error(e)
                 dispatch(newMap())
+                dispatch(setDownloadMode(false))
             }
+            previousParamsRef.current = params
         },
         [basemaps, defaultBasemap, dispatch, engine]
     )
