@@ -63,7 +63,7 @@ export const useLoadMap = () => {
                     dispatch(newMap())
                 }
             }
-            dispatch(setDownloadMode(!!params.isDownload))
+            dispatch(setDownloadMode(params.isDownload))
             dispatch(setInterpretation(params.interpretationId))
 
             previousParamsRef.current = params
