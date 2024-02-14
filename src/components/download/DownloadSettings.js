@@ -10,6 +10,7 @@ import { closeDownloadMode, getHashUrlParam } from '../../util/history.js'
 import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
+import { loadingMaskClass } from '../map/MapLoadingMask.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadSettings.module.css'
@@ -84,7 +85,10 @@ const DownloadSettings = () => {
                 mutations.forEach((mutation) => {
                     if (mutation.attributeName == 'class') {
                         setIsRendered(
-                            mutation.target.classList.contains(renderedClass)
+                            !document.querySelector(`.${loadingMaskClass}`) &&
+                                mutation.target.classList.contains(
+                                    renderedClass
+                                )
                         )
                     }
                 })
