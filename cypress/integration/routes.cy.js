@@ -233,7 +233,7 @@ describe('Routes', () => {
             Layer.validateCardTitle('ANC 1 Coverage')
             cy.get('canvas.maplibregl-canvas').should('be.visible')
 
-            // no go to a saved map in download mode
+            // now go to a saved map in download mode
             cy.visit('/#/eDlFx0jTtV9/download', EXTENDED_TIMEOUT) //ANC: LLITN Cov chiefdom this year
             assertDownloadMode()
 
