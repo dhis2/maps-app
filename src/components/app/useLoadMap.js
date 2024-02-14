@@ -35,53 +35,50 @@ export const useLoadMap = () => {
                 ) {
                     dispatch(setDownloadMode(params.isDownload))
                 }
-
-                previousParamsRef.current = params
-                return
-            }
-
-            if (params.mapId === CURRENT_AO_KEY) {
+            } else if (params.mapId === CURRENT_AO_KEY) {
                 dispatch(newMap())
                 dispatch(setAnalyticalObject(true))
                 if (params.isDownload) {
                     dispatch(setDownloadMode(true))
                 }
+            } else {
+                try {
+                    const map = await fetchMap(
+                        params.mapId,
+                        engine,
+                        defaultBasemap
+                    )
 
-                previousParamsRef.current = params
-                return
-            }
-
-            try {
-                const map = await fetchMap(params.mapId, engine, defaultBasemap)
-
-                engine.mutate(dataStatisticsMutation, {
-                    variables: { id: params.mapId },
-                    onError: (error) => log.error('Error: ', error),
-                })
-
-                const basemapConfig =
-                    basemaps.find(({ id }) => id === map.basemap.id) ||
-                    basemaps.find(({ id }) => id === defaultBasemap) ||
-                    getFallbackBasemap()
-
-                dispatch(
-                    setMap({
-                        ...map,
-                        mapViews: addOrgUnitPaths(map.mapViews),
-                        basemap: { ...map.basemap, ...basemapConfig },
+                    engine.mutate(dataStatisticsMutation, {
+                        variables: { id: params.mapId },
+                        onError: (error) => log.error('Error: ', error),
                     })
-                )
 
-                if (params.interpretationId) {
-                    dispatch(setInterpretation(params.interpretationId))
-                } else if (params.isDownload) {
-                    dispatch(setDownloadMode(true))
+                    const basemapConfig =
+                        basemaps.find(({ id }) => id === map.basemap.id) ||
+                        basemaps.find(({ id }) => id === defaultBasemap) ||
+                        getFallbackBasemap()
+
+                    dispatch(
+                        setMap({
+                            ...map,
+                            mapViews: addOrgUnitPaths(map.mapViews),
+                            basemap: { ...map.basemap, ...basemapConfig },
+                        })
+                    )
+
+                    if (params.interpretationId) {
+                        dispatch(setInterpretation(params.interpretationId))
+                    } else if (params.isDownload) {
+                        dispatch(setDownloadMode(true))
+                    }
+                } catch (e) {
+                    log.error(e)
+                    dispatch(newMap())
+                    dispatch(setDownloadMode(false))
                 }
-            } catch (e) {
-                log.error(e)
-                dispatch(newMap())
-                dispatch(setDownloadMode(false))
             }
+
             previousParamsRef.current = params
         },
         [basemaps, defaultBasemap, dispatch, engine]
@@ -99,21 +96,20 @@ export const useLoadMap = () => {
                 isDownload: prevIsDownload,
             } = previousParamsRef.current
 
-            const { mapId, interpretationId, isDownload } =
-                getHashUrlParams(location)
+            const params = getHashUrlParams(location)
 
-            if (action === 'REPLACE' || prevMapId !== mapId) {
+            if (action === 'REPLACE' || prevMapId !== params.mapId) {
                 loadMap(location)
                 return
             }
 
-            if (isDownload !== prevIsDownload) {
-                dispatch(setDownloadMode(isDownload))
-                previousParamsRef.current.isDownload = isDownload
-            } else if (interpretationId !== prevInterpretationId) {
-                dispatch(setInterpretation(interpretationId))
-                previousParamsRef.current.interpretationId = interpretationId
+            if (params.isDownload !== prevIsDownload) {
+                dispatch(setDownloadMode(params.isDownload))
+            } else if (params.interpretationId !== prevInterpretationId) {
+                dispatch(setInterpretation(params.interpretationId))
             }
+
+            previousParamsRef.current = params
         })
 
         return () => unlisten && unlisten()
