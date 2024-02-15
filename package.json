@@ -20,6 +20,7 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "@dhis2/cli-app-scripts": "^10.4.0",
         "@dhis2/cli-style": "^10.5.1",
         "@dhis2/cypress-commands": "^10.0.3",

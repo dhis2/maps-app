@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-12T09:30:18.362Z\n"
-"PO-Revision-Date: 2024-02-12T09:30:18.362Z\n"
+"POT-Creation-Date: 2024-02-15T10:05:04.924Z\n"
+"PO-Revision-Date: 2024-02-15T10:05:04.924Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -143,6 +143,12 @@ msgstr "Something went wrong"
 msgid "Search"
 msgstr "Search"
 
+msgid "Data table is not supported when events are grouped on the server."
+msgstr "Data table is not supported when events are grouped on the server."
+
+msgid "Filter"
+msgstr "Filter"
+
 msgid "Index"
 msgstr "Index"
 
@@ -170,8 +176,11 @@ msgstr "Org unit"
 msgid "Event time"
 msgstr "Event time"
 
-msgid "Data table is not supported when events are grouped on the server."
-msgstr "Data table is not supported when events are grouped on the server."
+msgid "No valid data was found for the current layer configuration."
+msgstr "No valid data was found for the current layer configuration."
+
+msgid "Data table is not supported for this layer type."
+msgstr "Data table is not supported for this layer type."
 
 msgid "Items"
 msgstr "Items"
