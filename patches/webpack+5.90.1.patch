@@ -1,5 +1,5 @@
 diff --git a/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js b/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js
-index a17b92b..41068a8 100644
+index a17b92b..308d7a6 100644
 --- a/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js
 +++ b/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js
 @@ -88,6 +88,20 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
@@ -14,11 +14,11 @@ index a17b92b..41068a8 100644
 +				contentHashType: "javascript"
 +			}
 +		);
-+		const rootOutputDir = JSON.stringify(getUndoPath(
++		const rootOutputDir = getUndoPath(
 +			outputName,
-+			compilation.outputOptions.path,
++			/** @type {string} */ (compilation.outputOptions.path),
 +			true
-+		));
++		);
 +
  		const runtimeTemplate = compilation.runtimeTemplate;
  		const { _withCreateScriptUrl: withCreateScriptUrl } = this;
