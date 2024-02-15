@@ -7,6 +7,7 @@ import {
     ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
     FACILITY_LAYER,
+    GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses, getPrecision } from '../../util/earthEngine.js'
@@ -147,6 +148,27 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
+const getGeoJsonUrlHeaders = (data) => {
+    const customFields = Object.entries(data[0]).map(([key, value]) => {
+        let roundFn = null
+        const type = typeof value === TYPE_NUMBER ? TYPE_NUMBER : TYPE_STRING
+        if (type === TYPE_NUMBER) {
+            const precision = getPrecision(data.map((d) => d[key]))
+            roundFn = numberPrecision(precision)
+        }
+
+        return {
+            name: key,
+            dataKey: key,
+            type,
+            roundFn,
+        }
+    })
+
+    customFields.push(defaultFieldsMap()[TYPE])
+    return customFields
+}
+
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 
@@ -203,6 +225,8 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 })
             case FACILITY_LAYER:
                 return getFacilityHeaders()
+            case GEOJSON_URL_LAYER:
+                return getGeoJsonUrlHeaders(dataWithAggregations)
             default: {
                 return null
             }
@@ -227,7 +251,6 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
 
         const filteredData = filterData(dataWithAggregations, dataFilters)
 
-        //sort
         filteredData.sort((a, b) => {
             a = a[sortField]
             b = b[sortField]
