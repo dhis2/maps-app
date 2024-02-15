@@ -40,6 +40,9 @@ const LayerToolbarMoreMenu = ({
         return null
     }
 
+    const showDataTableDisabled =
+        !hasOrgUnitData && (!dataTableOpen || dataTableOpen !== layer.id)
+
     return (
         <>
             <div
@@ -80,7 +83,7 @@ const LayerToolbarMoreMenu = ({
                                         setIsOpen(false)
                                         toggleDataTable()
                                     }}
-                                    disabled={!hasOrgUnitData}
+                                    disabled={showDataTableDisabled}
                                 />
                             )}
                             {openAs && (

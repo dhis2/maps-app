@@ -1,13 +1,14 @@
 diff --git a/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js b/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js
-index b9947d6..31273c5 100644
+index a17b92b..41068a8 100644
 --- a/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js
 +++ b/node_modules/webpack/lib/webworker/ImportScriptsChunkLoadingRuntimeModule.js
-@@ -88,6 +88,19 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
+@@ -88,6 +88,20 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
+ 		const stateExpression = withHmr
  			? `${RuntimeGlobals.hmrRuntimeStatePrefix}_importScripts`
  			: undefined;
- 
-+		const outputName = this.compilation.getPath(
-+			getChunkFilenameTemplate(chunk, this.compilation.outputOptions),
++
++        const outputName = compilation.getPath(
++			getChunkFilenameTemplate(chunk, compilation.outputOptions),
 +			{
 +				chunk,
 +				contentHashType: "javascript"
@@ -15,14 +16,14 @@ index b9947d6..31273c5 100644
 +		);
 +		const rootOutputDir = JSON.stringify(getUndoPath(
 +			outputName,
-+			this.compilation.outputOptions.path,
++			compilation.outputOptions.path,
 +			true
 +		));
 +
- 		return Template.asString([
- 			withBaseURI ? this._generateBaseUri(chunk) : "// no baseURI",
- 			"",
-@@ -142,8 +155,8 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
+ 		const runtimeTemplate = compilation.runtimeTemplate;
+ 		const { _withCreateScriptUrl: withCreateScriptUrl } = this;
+ 
+@@ -145,8 +159,8 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
  											Template.indent(
  												`importScripts(${
  													withCreateScriptUrl
@@ -33,7 +34,7 @@ index b9947d6..31273c5 100644
  												});`
  											),
  											"}"
-@@ -183,8 +196,8 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
+@@ -186,8 +200,8 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
  							"// start update chunk loading",
  							`importScripts(${
  								withCreateScriptUrl
@@ -44,7 +45,7 @@ index b9947d6..31273c5 100644
  							});`,
  							'if(!success) throw new Error("Loading update chunk failed for unknown reason");'
  						]),
-@@ -221,7 +234,7 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
+@@ -224,7 +238,7 @@ class ImportScriptsChunkLoadingRuntimeModule extends RuntimeModule {
  							RuntimeGlobals.hmrDownloadManifest
  						} = ${runtimeTemplate.basicFunction("", [
  							'if (typeof fetch === "undefined") throw new Error("No browser support: need fetch API");',

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-12-08T11:59:25.223Z\n"
-"PO-Revision-Date: 2023-12-08T11:59:25.223Z\n"
+"POT-Creation-Date: 2024-02-12T09:30:18.362Z\n"
+"PO-Revision-Date: 2024-02-12T09:30:18.362Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -131,23 +131,23 @@ msgstr "Date"
 msgid "Data set"
 msgstr "Data set"
 
+msgid "No results found"
+msgstr "No results found"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+msgid "Search"
+msgstr "Search"
+
 msgid "Index"
 msgstr "Index"
 
-msgid "Org unit"
-msgstr "Org unit"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "Event time"
-
-msgid "Legend"
-msgstr "Legend"
-
-msgid "Range"
-msgstr "Range"
 
 msgid "Level"
 msgstr "Level"
@@ -158,14 +158,20 @@ msgstr "Parent"
 msgid "Type"
 msgstr "Type"
 
+msgid "Legend"
+msgstr "Legend"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Event time"
+msgstr "Event time"
+
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
-
-msgid "Sort by {{column}}"
-msgstr "Sort by {{column}}"
-
-msgid "Filter"
-msgstr "Filter"
 
 msgid "Items"
 msgstr "Items"
