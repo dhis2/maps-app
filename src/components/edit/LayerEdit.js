@@ -33,7 +33,7 @@ const layerDialogs = {
     geoJsonUrl: GeoJsonDialog,
 }
 
-const layerNames = () => ({
+const getLayerNames = () => ({
     event: i18n.t('event'),
     trackedEntity: i18n.t('tracked entity'),
     facility: i18n.t('facility'),
@@ -83,7 +83,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         return null
     }
 
-    let name = layerNames()[type]
+    let name = getLayerNames()[type]
 
     if (type === EARTH_ENGINE_LAYER) {
         name = layer.name.toLowerCase()
