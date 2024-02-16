@@ -14,7 +14,6 @@ import { hasClasses, getPrecision } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { isValidUid } from '../../util/helpers.js'
 import { numberPrecision } from '../../util/numbers.js'
-import { filter } from 'lodash'
 
 const ASCENDING = 'asc'
 
