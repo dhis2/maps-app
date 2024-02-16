@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-15T10:48:52.075Z\n"
-"PO-Revision-Date: 2024-02-15T10:48:52.075Z\n"
+"POT-Creation-Date: 2024-02-15T15:29:35.070Z\n"
+"PO-Revision-Date: 2024-02-15T15:29:35.070Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -1360,9 +1360,6 @@ msgstr "false"
 
 msgid "No"
 msgstr "No"
-
-msgid "Data table does not support layer type {{layerType}}"
-msgstr "Data table does not support layer type {{layerType}}"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "Cannot get authorization token for Google Earth Engine."
