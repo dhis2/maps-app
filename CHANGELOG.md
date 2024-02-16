@@ -1,3 +1,28 @@
+# [100.4.0](https://github.com/dhis2/maps-app/compare/v100.3.0...v100.4.0) (2024-02-13)
+
+
+### Features
+
+* replace data table with UI data table ([#3015](https://github.com/dhis2/maps-app/issues/3015)) ([c3f60fe](https://github.com/dhis2/maps-app/commit/c3f60fe77ca179f0f9a2d5f906f42622f61b799c))
+
+# [100.3.0](https://github.com/dhis2/maps-app/compare/v100.2.3...v100.3.0) (2024-01-12)
+
+
+### Features
+
+* add support for hash routing in line with other analytics apps [DHIS2-15762] ([#3009](https://github.com/dhis2/maps-app/issues/3009)) ([b25267d](https://github.com/dhis2/maps-app/commit/b25267d33a8ab5a136f34516ba1bc802ae9e51b3))
+
+## [100.2.3](https://github.com/dhis2/maps-app/compare/v100.2.2...v100.2.3) (2023-12-21)
+
+
+### Bug Fixes
+
+* conditionally set PR title in dhis2-verify-app workflow ([#3089](https://github.com/dhis2/maps-app/issues/3089)) ([03eed2d](https://github.com/dhis2/maps-app/commit/03eed2d6fd3f697686183743ba30b079eb175f62))
+* report as MAP_VIEW not VISUALIZATION_VIEW ([#3086](https://github.com/dhis2/maps-app/issues/3086)) ([008e7fe](https://github.com/dhis2/maps-app/commit/008e7fe32508b403d251cb1b617c23c5feaf8063))
+* **translations:** sync translations from transifex (dev) ([dcf7743](https://github.com/dhis2/maps-app/commit/dcf7743af6ddbb4c12cef377e982c1ea0f45d3c6))
+* **translations:** sync translations from transifex (dev) ([7d98a8a](https://github.com/dhis2/maps-app/commit/7d98a8abab9d71d90c2f51b1cb4eb01598661c3f))
+* **translations:** sync translations from transifex (dev) ([6e8b82b](https://github.com/dhis2/maps-app/commit/6e8b82bbbb338883358e9c69311f0b3bbbe94224))
+
 ## [100.2.2](https://github.com/dhis2/maps-app/compare/v100.2.1...v100.2.2) (2023-11-03)
 
 
