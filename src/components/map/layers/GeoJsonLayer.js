@@ -45,6 +45,7 @@ class GeoJsonLayer extends Layer {
 
     onFeatureClick(evt) {
         this.props.setFeatureProfile({
+            name: this.props.name,
             data: evt.feature.properties,
         })
     }

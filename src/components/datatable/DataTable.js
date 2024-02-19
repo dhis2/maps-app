@@ -22,9 +22,9 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
-import { highlightFeature } from '../../actions/feature.js'
+import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
-import { EVENT_LAYER } from '../../constants/layers.js'
+import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import { isDarkColor } from '../../util/colors.js'
 import FilterInput from './FilterInput.js'
 import styles from './styles/DataTable.module.css'
@@ -48,7 +48,6 @@ DataTableWithVirtuosoContext.propTypes = {
 }
 
 const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => {
-    console.log('DTR', { context, item, props })
     return (
         <DataTableRow
             onClick={() => context.onClick(item)}
@@ -118,12 +117,32 @@ const Table = ({ availableHeight, availableWidth }) => {
         [sortDirection]
     )
 
-    const showOrgUnitProfile = useCallback(
+    const showDetailView = useCallback(
         (row) => {
-            const id = row.find((r) => r.dataKey === 'id')?.value
-            id && dispatch(setOrgUnitProfile(id))
+            if (layer.layer === EVENT_LAYER) {
+                return
+            }
+
+            if (layer.layer === GEOJSON_URL_LAYER) {
+                const { name } = layer
+
+                const data = row.reduce((acc, { dataKey, value }) => {
+                    acc[dataKey] = value
+                    return acc
+                }, {})
+
+                dispatch(
+                    setFeatureProfile({
+                        name,
+                        data,
+                    })
+                )
+            } else {
+                const id = row.find((r) => r.dataKey === 'id')?.value
+                id && dispatch(setOrgUnitProfile(id))
+            }
         },
-        [dispatch]
+        [dispatch, layer]
     )
 
     const setFeatureHighlight = useCallback(
@@ -160,17 +179,13 @@ const Table = ({ availableHeight, availableWidth }) => {
 
     const tableContext = useMemo(
         () => ({
-            onClick:
-                layer.layer !== EVENT_LAYER
-                    ? showOrgUnitProfile
-                    : Function.prototype,
+            onClick: showDetailView,
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
         }),
         [
-            layer.layer,
-            showOrgUnitProfile,
+            showDetailView,
             setFeatureHighlight,
             clearFeatureHighlight,
             columnWidths,

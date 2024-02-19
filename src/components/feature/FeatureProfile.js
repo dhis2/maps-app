@@ -10,12 +10,12 @@ const FeatureProfile = () => {
     const featureProfile = useSelector((state) => state.featureProfile)
     const dispatch = useDispatch()
 
-    const { data } = featureProfile
+    const { name, data } = featureProfile
 
     return (
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
-                {i18n.t('Feature profile')}
+                {name || i18n.t('Feature profile')}
                 <span
                     className={styles.close}
                     onClick={() => dispatch(closeFeatureProfile())}
