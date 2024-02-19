@@ -133,7 +133,7 @@ const models2objects = (layer) => {
         layer.rows = layer.rows.map(cleanDimension)
     }
 
-    if (layer === EARTH_ENGINE_LAYER) {
+    if (layerType === EARTH_ENGINE_LAYER) {
         const { layerId: id, band, params, aggregationType, filter } = layer
 
         const eeConfig = {
@@ -148,7 +148,6 @@ const models2objects = (layer) => {
         Object.keys(eeConfig).forEach(
             (key) => eeConfig[key] === undefined && delete eeConfig[key]
         )
-
         layer.config = JSON.stringify(eeConfig)
 
         delete layer.layerId
