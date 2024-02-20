@@ -87,11 +87,19 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         weight: featureStyle.weight,
     })
 
+    const data = geoJson?.features.map((feature) => {
+        if (feature.id && !feature.properties.id) {
+            feature.properties.id = feature.id
+        }
+        // TODO handle case where no feature.id or feature.properties.id
+        return feature
+    })
+
     return {
         ...layer,
         name: newConfig.name, // TODO - will be fixed by DHIS2-16088
         legend,
-        data: geoJson?.features,
+        data,
         config: newConfig,
         featureStyle,
         isLoaded: true,
