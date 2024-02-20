@@ -148,8 +148,8 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
-const getGeoJsonUrlHeaders = (data) => {
-    const customFields = Object.entries(data[0])
+const getGeoJsonUrlHeaders = (data) =>
+    Object.entries(data[0])
         .filter(
             ([, value]) =>
                 typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
@@ -170,10 +170,6 @@ const getGeoJsonUrlHeaders = (data) => {
                 roundFn,
             }
         })
-
-    customFields.push(defaultFieldsMap()[TYPE])
-    return customFields
-}
 
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
@@ -197,19 +193,21 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         if (!data || serverCluster) {
             return null
         }
-        return data
-            .map((d, i) => ({
-                index: i,
-                ...d,
+
+        if (layerType === GEOJSON_URL_LAYER) {
+            return data.map((d) => ({
+                ...d.properties,
             }))
+        }
+
+        return data
             .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, i) => ({
+            .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
-                index: d.index,
-                i,
+                index,
             }))
-    }, [data, aggregations, serverCluster])
+    }, [data, aggregations, serverCluster, layerType])
 
     const headers = useMemo(() => {
         if (dataWithAggregations === null) {
