@@ -30,21 +30,23 @@ export const getLegendItems = (values, method, numClasses) => {
     return bins
 }
 
-export const getClassBins = (values, method, numClasses) => {
-    const minValue = values[0]
-    const maxValue = values[values.length - 1]
-    let bins
+// This function is not in use, but keeping it
+// just in case it's needed in the future
+// export const getClassBins = (values, method, numClasses) => {
+//     const minValue = values[0]
+//     const maxValue = values[values.length - 1]
+//     let bins
 
-    if (method === CLASSIFICATION_EQUAL_INTERVALS) {
-        bins = getEqualIntervals(minValue, maxValue, numClasses)
-    } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
-        bins = getQuantiles(values, numClasses)
-    }
+//     if (method === CLASSIFICATION_EQUAL_INTERVALS) {
+//         bins = getEqualIntervals(minValue, maxValue, numClasses)
+//     } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
+//         bins = getQuantiles(values, numClasses)
+//     }
 
-    return bins
-}
+//     return bins
+// }
 
-export const getEqualIntervals = (minValue, maxValue, numClasses) => {
+const getEqualIntervals = (minValue, maxValue, numClasses) => {
     const bins = []
     const binSize = (maxValue - minValue) / numClasses
     const precision = precisionRound(binSize, maxValue)
@@ -63,7 +65,7 @@ export const getEqualIntervals = (minValue, maxValue, numClasses) => {
     return bins
 }
 
-export const getQuantiles = (values, numClasses) => {
+const getQuantiles = (values, numClasses) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
     const bins = []
