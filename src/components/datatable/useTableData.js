@@ -10,10 +10,10 @@ import {
     GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
-import { hasClasses, getPrecision } from '../../util/earthEngine.js'
+import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { isValidUid } from '../../util/helpers.js'
-import { numberPrecision } from '../../util/numbers.js'
+import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
 
 const ASCENDING = 'asc'
 
@@ -124,7 +124,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         customFields = items.map(({ id, name }) => ({
             name,
             dataKey: String(id),
-            roundFn: numberPrecision(2),
+            roundFn: getRoundToPrecisionFn(2),
             type: TYPE_NUMBER,
         }))
     } else if (Array.isArray(aggregationType) && aggregationType.length) {
@@ -132,7 +132,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
             let roundFn = null
             if (data?.length) {
                 const precision = getPrecision(data.map((d) => d[type]))
-                roundFn = numberPrecision(precision)
+                roundFn = getRoundToPrecisionFn(precision)
             }
             return {
                 name: toTitleCase(`${type} ${title}`),
