@@ -4,7 +4,7 @@ import {
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
 } from '../constants/layers.js'
-import { numberPrecision } from './numbers.js'
+import { getRoundToPrecisionFn } from './numbers.js'
 
 // Returns legend item where a value belongs
 export const getLegendItemForValue = (legendItems, value) => {
@@ -48,7 +48,7 @@ export const getEqualIntervals = (minValue, maxValue, numClasses) => {
     const bins = []
     const binSize = (maxValue - minValue) / numClasses
     const precision = precisionRound(binSize, maxValue)
-    const valueFormat = numberPrecision(precision)
+    const valueFormat = getRoundToPrecisionFn(precision)
 
     for (let i = 0; i < numClasses; i++) {
         const startValue = minValue + i * binSize
@@ -72,7 +72,7 @@ export const getQuantiles = (values, numClasses) => {
         (maxValue - minValue) / numClasses,
         maxValue
     )
-    const valueFormat = numberPrecision(precision)
+    const valueFormat = getRoundToPrecisionFn(precision)
 
     let binLastValPos = binCount === 0 ? 0 : binCount
 

@@ -9,8 +9,9 @@ import {
     FACILITY_LAYER,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
-import { hasClasses, getPrecision } from '../../util/earthEngine.js'
+import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
+import { getPrecision } from '../../util/getPrecision.js'
 import { isValidUid } from '../../util/helpers.js'
 import { numberPrecision } from '../../util/numbers.js'
 

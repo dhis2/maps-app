@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Column } from 'react-virtualized'
-import { hasClasses, getPrecision } from '../../util/earthEngine.js'
-import { numberPrecision } from '../../util/numbers.js'
+import { hasClasses } from '../../util/earthEngine.js'
+import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
 import ColumnHeader from './ColumnHeader.js'
 
 const EarthEngineColumns = ({ aggregationType, legend, data }) => {
     const { title, items } = legend
 
     if (hasClasses(aggregationType) && items) {
-        const valueFormat = numberPrecision(2)
+        const valueFormat = getRoundToPrecisionFn(2)
 
         return items.map(({ id, name }) => (
             <Column
@@ -30,7 +30,7 @@ const EarthEngineColumns = ({ aggregationType, legend, data }) => {
         return aggregationType.map((type) => {
             const label = `${type} ${title}`.toUpperCase() // Already translated
             const precision = getPrecision(data.map((d) => d[type]))
-            const valueFormat = numberPrecision(precision)
+            const valueFormat = getRoundToPrecisionFn(precision)
 
             return (
                 <Column
