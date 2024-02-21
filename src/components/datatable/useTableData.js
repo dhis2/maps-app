@@ -160,7 +160,7 @@ const getGeoJsonUrlHeaders = (data) =>
                 typeof value === TYPE_NUMBER ? TYPE_NUMBER : TYPE_STRING
             if (type === TYPE_NUMBER) {
                 const precision = getPrecision(data.map((d) => d[key]))
-                roundFn = numberPrecision(precision)
+                roundFn = getRoundToPrecisionFn(precision)
             }
 
             return {

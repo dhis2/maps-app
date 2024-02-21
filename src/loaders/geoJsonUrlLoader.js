@@ -87,6 +87,8 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         weight: featureStyle.weight,
     })
 
+    // TODO - handle the different GeoJson types: FeatureCollection, Feature, GeometryCollection, Geometry
+
     const data = geoJson?.features.map((feature) => {
         if (feature.id && !feature.properties.id) {
             feature.properties.id = feature.id

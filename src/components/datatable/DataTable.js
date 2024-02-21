@@ -47,16 +47,14 @@ DataTableWithVirtuosoContext.propTypes = {
     }),
 }
 
-const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => {
-    return (
-        <DataTableRow
-            onClick={() => context.onClick(item)}
-            onMouseEnter={() => context.onMouseEnter(item)}
-            onMouseLeave={context.onMouseLeave}
-            {...props}
-        />
-    )
-}
+const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
+    <DataTableRow
+        onClick={() => context.onClick(item)}
+        onMouseEnter={() => context.onMouseEnter(item)}
+        onMouseLeave={context.onMouseLeave}
+        {...props}
+    />
+)
 
 DataTableRowWithVirtuosoContext.propTypes = {
     context: PropTypes.shape({
