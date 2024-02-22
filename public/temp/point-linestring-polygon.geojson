@@ -1,6 +1,6 @@
 {
-    type: "GeometryCollection",
-    geometries: [
+    "type": "GeometryCollection",
+    "geometries": [
         {
             "coordinates": [
                 -11.781005547329215,
