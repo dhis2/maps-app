@@ -77,6 +77,7 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         error = {
             message,
         }
+        return { name: newConfig.name, error }
     }
 
     const legend = { title: name, items: [] }
@@ -87,14 +88,49 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         weight: featureStyle.weight,
     })
 
-    // TODO - handle the different GeoJson types: FeatureCollection, Feature, GeometryCollection, Geometry
+    const rawGeometryTypes = [
+        'Point',
+        'MultiPoint',
+        'LineString',
+        'MultiLineString',
+        'Polygon',
+        'MultiPolygon',
+    ]
 
-    const data = geoJson?.features.map((feature) => {
-        if (feature.id && !feature.properties.id) {
-            feature.properties.id = feature.id
+    if (geoJson.type === 'Feature') {
+        geoJson = {
+            type: 'FeatureCollection',
+            features: [geoJson],
+        }
+    } else if (rawGeometryTypes.includes(geoJson.type)) {
+        geoJson = {
+            type: 'FeatureCollection',
+            features: [
+                {
+                    type: 'Feature',
+                    geometry: geoJson,
+                    properties: {},
+                },
+            ],
+        }
+    } else if (geoJson.type === 'GeometryCollection') {
+        const features = geoJson.geometries.map((geometry) => ({
+            type: 'Feature',
+            geometry,
+            properties: {},
+        }))
+        geoJson = {
+            type: 'FeatureCollection',
+            features,
+        }
+    }
+
+    const data = geoJson.features.map((f) => {
+        if (f.id && !f.properties.id) {
+            f.properties.id = f.id
         }
         // TODO handle case where no feature.id or feature.properties.id
-        return feature
+        return f
     })
 
     return {

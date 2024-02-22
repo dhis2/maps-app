@@ -27,6 +27,7 @@ const GeoJsonUrlLoader = ({ config, onLoad }) => {
                         }
                     ),
                 })
+                return
             }
             return onLoad(data)
         })
