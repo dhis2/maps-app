@@ -1,3 +1,10 @@
+## [100.4.1](https://github.com/dhis2/maps-app/compare/v100.4.0...v100.4.1) (2024-02-26)
+
+
+### Bug Fixes
+
+* broken maps plugin in dashboard so rollback cli-app-scripts and app-runtime ([#3129](https://github.com/dhis2/maps-app/issues/3129)) ([4b0f27c](https://github.com/dhis2/maps-app/commit/4b0f27c4500f67a2b22448306fdf95896144e114))
+
 # [100.4.0](https://github.com/dhis2/maps-app/compare/v100.3.0...v100.4.0) (2024-02-13)
 
 
