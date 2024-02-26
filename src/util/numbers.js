@@ -14,11 +14,46 @@ export const formatCount = (count) => {
     return num || count
 }
 
-// Rounds a number to d decimals
-export const numberPrecision = (d) => {
+// Returns a function that rounds number n to d decimals
+export const getRoundToPrecisionFn = (d) => {
     if (d === undefined) {
         return (n) => n
     }
     const m = Math.pow(10, d)
     return (n) => Math.round(n * m) / m
+}
+
+// Returns the number of decimals to round a number to
+export const getPrecision = (values = []) => {
+    if (values.length) {
+        const sortedValues = [...values].sort((a, b) => a - b)
+        const minValue = sortedValues[0]
+        const maxValue = sortedValues[sortedValues.length - 1]
+        const minMaxGap = maxValue - minValue
+        const absOfMaxValue = Math.abs(maxValue)
+
+        if (absOfMaxValue >= 10000) {
+            return 0
+        }
+
+        if (absOfMaxValue >= 1000) {
+            return minMaxGap > 10 ? 0 : 1
+        }
+
+        if (absOfMaxValue >= 100) {
+            return minMaxGap > 1 ? 1 : 2
+        }
+
+        if (absOfMaxValue >= 10) {
+            return minMaxGap > 0.1 ? 2 : 3
+        }
+
+        if (absOfMaxValue >= 1) {
+            return minMaxGap > 0.01 ? 3 : 4
+        }
+
+        return minMaxGap > 0.001 ? 4 : 5
+    }
+
+    return 0
 }
