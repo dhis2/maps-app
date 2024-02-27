@@ -2,6 +2,7 @@ import { connect } from 'react-redux' // TODO: not available in plugin
 import { setFeatureProfile } from '../../../actions/feature.js' // TODO: not available in plugin
 import { GEOJSON_LAYER } from '../../../constants/layers.js'
 import { filterData } from '../../../util/filter.js'
+import { getFeatureTypeAndRounding } from '../../../util/geojson.js'
 import Layer from './Layer.js'
 
 class GeoJsonLayer extends Layer {
@@ -44,9 +45,21 @@ class GeoJsonLayer extends Layer {
     }
 
     onFeatureClick(evt) {
+        const featureProperties = this.props.data.find(
+            (d) => d.id === evt.feature.id
+        )?.properties
+
+        const data = getFeatureTypeAndRounding(
+            featureProperties,
+            this.props.data.map((d) => d.properties)
+        ).reduce((acc, { name, value }) => {
+            acc[name] = value
+            return acc
+        }, {})
+
         this.props.setFeatureProfile({
             name: this.props.name,
-            data: evt.feature.properties,
+            data,
         })
     }
 }

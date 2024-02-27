@@ -4,6 +4,7 @@ import {
     createEventFeature,
     buildEventGeometryGetter,
     createEventFeatures,
+    getFeatureTypeAndRounding,
 } from '../geojson.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
@@ -263,6 +264,105 @@ describe('geojson utils', () => {
                 ['0', '1'],
                 ['2', '3'],
             ])
+        })
+    })
+
+    describe('getFeatureTypeAndRounding', () => {
+        const TYPE_NUMBER = 'number'
+        const TYPE_STRING = 'string'
+
+        const getPrecision = jest.fn()
+        const getRoundToPrecisionFn = jest.fn()
+
+        it('should return an empty array for an empty object', () => {
+            expect(getFeatureTypeAndRounding({}, [])).toEqual([])
+        })
+
+        it('should correctly process a data item with number and string values', () => {
+            const dataItem = { a: 1, b: '2' }
+            const allData = [dataItem]
+
+            getPrecision.mockReturnValue(0)
+            getRoundToPrecisionFn.mockReturnValue(Math.round)
+
+            const res = getFeatureTypeAndRounding(dataItem, allData)
+
+            expect(res).toMatchObject([
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    // roundFn: getRoundToPrecisionFn(),
+                    value: 1,
+                },
+                {
+                    name: 'b',
+                    dataKey: 'b',
+                    type: TYPE_STRING,
+                    roundFn: null,
+                    value: '2',
+                },
+            ])
+
+            expect(typeof res[0].roundFn).toBe('function')
+        })
+
+        it('should correctly process a data item with only number values', () => {
+            const dataItem = { a: 1.23, b: 4.56 }
+            const allData = [{ ...dataItem }, { a: 7.89, b: 0.12 }]
+
+            getPrecision.mockReturnValue(2)
+            getRoundToPrecisionFn.mockReturnValue(
+                (value) => Math.round(value * 100) / 100
+            )
+            const res = getFeatureTypeAndRounding(dataItem, allData)
+            expect(res).toMatchObject([
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    // roundFn: getRoundToPrecisionFn(),
+                    value: 1.23,
+                },
+                {
+                    name: 'b',
+                    dataKey: 'b',
+                    type: TYPE_NUMBER,
+                    // roundFn: getRoundToPrecisionFn(),
+                    value: 4.56,
+                },
+            ])
+
+            expect(typeof res[0].roundFn).toBe('function')
+            expect(typeof res[1].roundFn).toBe('function')
+        })
+
+        it('should exclude properties that are objects', () => {
+            const dataItem = { a: 1, b: '2', c: { d: 3 } }
+            const allData = [dataItem]
+
+            getPrecision.mockReturnValue(0)
+            getRoundToPrecisionFn.mockReturnValue(Math.round)
+
+            const res = getFeatureTypeAndRounding(dataItem, allData)
+            expect(res).toMatchObject([
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    // roundFn: Math.round,
+                    value: 1,
+                },
+                {
+                    name: 'b',
+                    dataKey: 'b',
+                    type: TYPE_STRING,
+                    roundFn: null,
+                    value: '2',
+                },
+            ])
+
+            expect(typeof res[0].roundFn).toBe('function')
         })
     })
 })

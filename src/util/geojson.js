@@ -1,4 +1,5 @@
 import findIndex from 'lodash/findIndex'
+import { getPrecision, getRoundToPrecisionFn } from './numbers.js'
 
 export const EVENT_ID_FIELD = 'psi'
 
@@ -115,3 +116,33 @@ export const getCoordinatesBounds = (coordinates) =>
             [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
         ]
     )
+
+const TYPE_NUMBER = 'number'
+const TYPE_STRING = 'string'
+// const TYPE_DATE = 'date'
+
+export const getFeatureTypeAndRounding = (dataItem, allData) => {
+    return Object.entries(dataItem)
+        .filter(
+            ([, value]) =>
+                typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
+        )
+        .map(([key, value]) => {
+            let roundFn = null
+            const type =
+                typeof value === TYPE_NUMBER ? TYPE_NUMBER : TYPE_STRING
+
+            if (type === TYPE_NUMBER) {
+                const precision = getPrecision(allData.map((d) => d[key]))
+                roundFn = getRoundToPrecisionFn(precision)
+            }
+
+            return {
+                name: key,
+                dataKey: key,
+                type,
+                roundFn,
+                value: roundFn ? roundFn(value) : value,
+            }
+        })
+}

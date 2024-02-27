@@ -12,6 +12,7 @@ import {
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
+import { getFeatureTypeAndRounding } from '../../util/geojson.js'
 import { isValidUid } from '../../util/helpers.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
 
@@ -148,28 +149,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
-const getGeoJsonUrlHeaders = (data) =>
-    Object.entries(data[0])
-        .filter(
-            ([, value]) =>
-                typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
-        )
-        .map(([key, value]) => {
-            let roundFn = null
-            const type =
-                typeof value === TYPE_NUMBER ? TYPE_NUMBER : TYPE_STRING
-            if (type === TYPE_NUMBER) {
-                const precision = getPrecision(data.map((d) => d[key]))
-                roundFn = getRoundToPrecisionFn(precision)
-            }
-
-            return {
-                name: key,
-                dataKey: key,
-                type,
-                roundFn,
-            }
-        })
+const getGeoJsonUrlHeaders = (data) => getFeatureTypeAndRounding(data[0], data)
 
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
