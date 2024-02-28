@@ -1,13 +1,14 @@
 # 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2023
+# Philip Larsen Donnelly, 2024
+# Ibatov <ibatovk@who.int>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2023\n"
+"Last-Translator: Ibatov <ibatovk@who.int>, 2024\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -138,23 +139,23 @@ msgstr "Сана"
 msgid "Data set"
 msgstr "Маълумотлар тўплами"
 
+msgid "No results found"
+msgstr "Ҳеч қандай натижа топилмади"
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Нимадир нотўғри бажарилди"
+
+msgid "Search"
+msgstr "Қидириш"
+
 msgid "Index"
 msgstr "Инденкс/кўрсатгич"
 
-msgid "Org unit"
-msgstr "Ташкилий бўлим"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "Ҳодиса/Тадбир вақти"
-
-msgid "Legend"
-msgstr "Таъриф"
-
-msgid "Range"
-msgstr "Оралиқ"
 
 msgid "Level"
 msgstr "Поғона"
@@ -165,10 +166,28 @@ msgstr "Аждод"
 msgid "Type"
 msgstr "Тури"
 
+msgid "Legend"
+msgstr "Таъриф"
+
+msgid "Range"
+msgstr "Оралиқ"
+
+msgid "Org unit"
+msgstr "Ташкилий бўлим"
+
+msgid "Event time"
+msgstr "Ҳодиса/Тадбир вақти"
+
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 "Ҳодиса/Тадбирлар серверда гуруҳланаётганда, маълумотлар жадвали қўллаб-"
 "қувватланмайди"
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
+msgstr ""
 
 msgid "Items"
 msgstr "Элементлар"
@@ -263,10 +282,10 @@ msgid "Earth Engine"
 msgstr "Уйдаги механизм"
 
 msgid "Edit {{name}} layer"
-msgstr "{{Исм}} қатламини таҳрирлаш"
+msgstr "{{name}} қатламини таҳрирлаш"
 
 msgid "Add new {{name}} layer"
-msgstr "Янги қатламни {{исм}} қўшиш"
+msgstr "Янги қатламни {{name}} қўшиш"
 
 msgid "Update layer"
 msgstr "Қатламни янгилаш"
@@ -418,7 +437,7 @@ msgid "High radius should be greater than low radius"
 msgstr "Юқори радиус паст радиусдан каттароқ бўлиши керак"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "Радиус {{минимум}} ва {{максимум}} оралиғида бўлиши лозим"
+msgstr "Радиус {{min}} ва {{max}} оралиғида бўлиши лозим"
 
 msgid "Indicator group is required"
 msgstr "Индикатор гуруҳи талаб қилинади"
@@ -504,7 +523,7 @@ msgid "Line Color"
 msgstr "Қатор ранги"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr "Кузатувдаги объектлар ўзаро алоқалар турлари {{тури}} топилмади"
+msgstr "Кузатувдаги объектлар ўзаро алоқалар турлари {{type}} топилмади"
 
 msgid "Relationship type"
 msgstr "Ўзаро алоқалар тури"
@@ -540,7 +559,7 @@ msgid "Download Layer Data"
 msgstr "Қават маълумотларини юклаш"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "{{ҚаватИсми}} учун GeoJSON маълумотлари юкланмоқда"
+msgstr "{{layerName}} учун GeoJSON маълумотлари юкланмоқда"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -569,7 +588,7 @@ msgid "Loading layer"
 msgstr "Юкланадиган қават"
 
 msgid "{{name}} deleted."
-msgstr "{{исми}} ўчирилган"
+msgstr "{{name}} ўчирилган"
 
 msgid "Edit"
 msgstr "Таҳрирлаш"
@@ -626,7 +645,7 @@ msgid "Show longitude/latitude"
 msgstr "Узунлик/Кенгликни кўрсатинг"
 
 msgid "Show {{name}}"
-msgstr "Кўрсатиш {{номи}}"
+msgstr "Кўрсатиш {{name}}"
 
 msgid "Longitude"
 msgstr "Узунлик"
@@ -739,7 +758,7 @@ msgid ""
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
-"Ушбу диаграмма / жадвал {{numitems}} маълумотлар элементларидан ташкил "
+"Ушбу диаграмма / жадвал {{numItems}} маълумотлар элементларидан ташкил "
 "топган. Қуйидаги рўйхатдан импорт қилмоқчи бўлган элементларни танланг. Ҳар "
 "бир элемент харита қавати сифатида яратилади."
 
