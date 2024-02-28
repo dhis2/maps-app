@@ -674,7 +674,6 @@
         ],
         "type": "Polygon"
     },
-    "id": 1,
     "properties": {
         "cc:admin:id": [
             "14"
@@ -697,8 +696,7 @@
         "user:code": "OU_260387",
         "user:orgUnitId": "FNnj3jKGS7i",
         "user:level": "4",
-        "user:parentId": "NqWaKXcg01b",
-        "id": 1
+        "user:parentId": "NqWaKXcg01b"
     },
     "type": "Feature"
 }

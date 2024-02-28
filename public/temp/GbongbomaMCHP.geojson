@@ -1,4 +1,5 @@
 {
+    "type": "Polygon",
     "coordinates": [
         [
             [
@@ -450,6 +451,5 @@
                 8.003699
             ]
         ]
-    ],
-    "type": "Polygon"
+    ]
 }
