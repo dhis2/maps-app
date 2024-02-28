@@ -1,4 +1,3 @@
-import { isValidUid } from 'd2/uid'
 import {
     getFallbackBasemap,
     defaultBasemaps,
@@ -6,6 +5,7 @@ import {
 import { MAP_LAYER_POSITION_BASEMAP } from '../../constants/layers.js'
 import { createExternalBasemapLayer } from '../../util/external.js'
 import { fetchExternalLayersQuery } from '../../util/requests.js'
+import { isValidUid } from '../../util/uid.js'
 
 async function getBasemaps(basemapId, defaultBasemapId, engine) {
     try {

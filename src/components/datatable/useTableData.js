@@ -13,8 +13,8 @@ import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { getFeatureTypeAndRounding } from '../../util/geojson.js'
-import { isValidUid } from '../../util/helpers.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
+import { isValidUid } from '../../util/uid.js'
 
 const ASCENDING = 'asc'
 
