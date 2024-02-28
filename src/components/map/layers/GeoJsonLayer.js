@@ -1,15 +1,9 @@
-import React from 'react'
 import { GEOJSON_LAYER } from '../../../constants/layers.js'
 import { filterData } from '../../../util/filter.js'
 import { getFeatureTypeAndRounding } from '../../../util/geojson.js'
-import Popup from '../Popup.js'
 import Layer from './Layer.js'
 
 class GeoJsonLayer extends Layer {
-    state = {
-        popup: null,
-    }
-
     createLayer() {
         const {
             id,
@@ -22,7 +16,7 @@ class GeoJsonLayer extends Layer {
             config,
         } = this.props
 
-        const { map } = this.context
+        const { map, isPlugin } = this.context
 
         const filteredData = filterData(data, dataFilters)
 
@@ -39,7 +33,9 @@ class GeoJsonLayer extends Layer {
             isVisible,
             data: filteredData,
             style,
-            onClick: this.onFeatureClick.bind(this),
+            onClick: isPlugin
+                ? Function.prototype
+                : this.onFeatureClick.bind(this),
         })
 
         map.addLayer(this.layer)
@@ -61,46 +57,7 @@ class GeoJsonLayer extends Layer {
             return acc
         }, {})
 
-        this.setState({
-            popup: {
-                coordinates: evt.coordinates,
-                feature,
-            },
-        })
-    }
-
-    getPopup() {
-        const { coordinates, feature } = this.state.popup
-
-        // get the id property and 3 other properties from the feature object
-        const { id, ...rest } = feature
-        const firstThreeKeys = Object.keys(rest).slice(0, 3)
-        const firstThreeProperties = firstThreeKeys.reduce((obj, key) => {
-            obj[key] = rest[key]
-            return obj
-        }, {})
-        const viewProperties = { id, ...firstThreeProperties }
-
-        return (
-            <Popup
-                coordinates={coordinates}
-                onClose={this.onPopupClose}
-                className="dhis2-map-popup-geojson"
-                data={feature}
-                name={this.props.name}
-            >
-                <em>{this.props.name}</em>
-                {Object.entries(viewProperties).map(([key, value]) => (
-                    <div key={key}>
-                        {key}: {value}
-                    </div>
-                ))}
-            </Popup>
-        )
-    }
-
-    render() {
-        return this.state.popup ? this.getPopup() : null
+        this.props.setFeatureProfile({ name: this.props.name, data: feature })
     }
 }
 

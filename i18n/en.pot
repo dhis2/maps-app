@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-27T15:06:35.098Z\n"
-"PO-Revision-Date: 2024-02-27T15:06:35.098Z\n"
+"POT-Creation-Date: 2024-02-28T09:18:32.644Z\n"
+"PO-Revision-Date: 2024-02-28T09:18:32.644Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -637,9 +637,6 @@ msgstr "Show longitude/latitude"
 
 msgid "Show {{name}}"
 msgstr "Show {{name}}"
-
-msgid "View feature"
-msgstr "View feature"
 
 msgid "Longitude"
 msgstr "Longitude"

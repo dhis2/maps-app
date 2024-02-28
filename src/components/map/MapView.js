@@ -19,11 +19,10 @@ const MapView = (props) => {
         bounds,
         coordinatePopup,
         interpretationModalOpen,
-        closeCoordinatePopup,
         openContextMenu,
-        setAggregations,
         setMapObject,
         resizeCount,
+        ...layerDispatchActions
     } = props
 
     const { baseUrl } = useConfig()
@@ -68,12 +67,11 @@ const MapView = (props) => {
                             controls={mapControls}
                             feature={feature}
                             coordinatePopup={coordinatePopup}
-                            closeCoordinatePopup={closeCoordinatePopup}
                             openContextMenu={openContextMenu}
-                            setAggregations={setAggregations}
                             resizeCount={resizeCount}
                             setMapObject={setMapObject}
                             baseUrl={baseUrl}
+                            {...layerDispatchActions}
                         />
                     )}
                 </>
@@ -85,7 +83,6 @@ const MapView = (props) => {
 MapView.propTypes = {
     basemap: PropTypes.object,
     bounds: PropTypes.array,
-    closeCoordinatePopup: PropTypes.func,
     controls: PropTypes.array,
     coordinatePopup: PropTypes.array,
     feature: PropTypes.object,
@@ -95,7 +92,6 @@ MapView.propTypes = {
     layers: PropTypes.array,
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
-    setAggregations: PropTypes.func,
     setMapObject: PropTypes.func,
 }
 

@@ -44,6 +44,7 @@ class Map extends Component {
         longitude: PropTypes.number,
         resizeCount: PropTypes.number,
         setAggregations: PropTypes.func,
+        setFeatureProfile: PropTypes.func,
         setMapObject: PropTypes.func,
         zoom: PropTypes.number,
     }
@@ -147,6 +148,7 @@ class Map extends Component {
             closeCoordinatePopup,
             openContextMenu,
             setAggregations,
+            setFeatureProfile,
         } = this.props
         const { map } = this.state
 
@@ -170,6 +172,7 @@ class Map extends Component {
                                     feature={highlight}
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
+                                    setFeatureProfile={setFeatureProfile}
                                     {...config}
                                 />
                             )

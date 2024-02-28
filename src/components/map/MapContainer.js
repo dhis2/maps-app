@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAggregations } from '../../actions/aggregations.js'
+import { setFeatureProfile } from '../../actions/feature.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import MapLoadingMask from './MapLoadingMask.js'
@@ -35,6 +36,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 interpretationModalOpen={interpretationModalOpen}
                 closeCoordinatePopup={() => dispatch(closeCoordinatePopup())}
                 setAggregations={(data) => dispatch(setAggregations(data))}
+                setFeatureProfile={(val) => dispatch(setFeatureProfile(val))}
                 resizeCount={resizeCount}
                 setMapObject={setMap}
             />
