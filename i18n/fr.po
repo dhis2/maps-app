@@ -3,22 +3,22 @@
 # Austin McGee <austin@dhis2.org>, 2019
 # Matthieu Pinard <matthieu@dhis2.org>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Edem Kossi <ekossi@hispwca.org>, 2020
 # Bram Piot <bram.piot@gmail.com>, 2021
-# Philip Larsen Donnelly, 2021
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2022
-# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
+# Philip Larsen Donnelly, 2024
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
+# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -150,23 +150,23 @@ msgstr "Date"
 msgid "Data set"
 msgstr "Ensemble de données"
 
+msgid "No results found"
+msgstr ""
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Quelque chose a mal tourné"
+
+msgid "Search"
+msgstr "Rechercher"
+
 msgid "Index"
 msgstr "Index"
 
-msgid "Org unit"
-msgstr "Unités d´Organisation"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "Date de l'évènement"
-
-msgid "Legend"
-msgstr "Légende"
-
-msgid "Range"
-msgstr "Range"
 
 msgid "Level"
 msgstr "Niveau"
@@ -177,10 +177,28 @@ msgstr "Parent"
 msgid "Type"
 msgstr "Type"
 
+msgid "Legend"
+msgstr "Légende"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Org unit"
+msgstr "Unités d´Organisation"
+
+msgid "Event time"
+msgstr "Date de l'évènement"
+
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 "Le tableau de données n'est pas pris en charge lorsque des événements sont "
 "regroupés sur le serveur."
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
+msgstr ""
 
 msgid "Items"
 msgstr "Éléments"
@@ -271,10 +289,10 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr "Modifier la couche {{nom}}"
+msgstr "Modifier la couche {{name}}"
 
 msgid "Add new {{name}} layer"
-msgstr "Ajouter une nouvelle couche {{nom}}"
+msgstr "Ajouter une nouvelle couche {{name}}"
 
 msgid "Update layer"
 msgstr "Mettre à jour la couche"
@@ -343,10 +361,10 @@ msgid "Max should be greater than min"
 msgstr "Le max doit être supérieur au min"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Les étapes valides sont {{Etapesmin}} à {{Etapesmax}}"
+msgstr "Les étapes valides sont {{minSteps}} à {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
-msgstr "Unité: {{ unité }}"
+msgstr "Unité: {{ unit }}"
 
 msgid "Min"
 msgstr "Min"
@@ -639,7 +657,7 @@ msgid "Show longitude/latitude"
 msgstr "Afficher longitude/latitude"
 
 msgid "Show {{name}}"
-msgstr "Afficher {{nom}}"
+msgstr "Afficher {{name}}"
 
 msgid "Longitude"
 msgstr "Longitude"
@@ -769,7 +787,7 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
-"Cet élément de données a trop d'options ({{longueur}}). Le nombre maximal "
+"Cet élément de données a trop d'options ({{length}}). Le nombre maximal "
 "d'options pour le style est {{max}}."
 
 msgid "Use associated geometry"
@@ -1300,7 +1318,7 @@ msgid "Cancelled"
 msgstr "Annulé"
 
 msgid "{{name}}: No coordinates found"
-msgstr "{{nom}} : Coordonnées non trouvées"
+msgstr "{{name}} : Coordonnées non trouvées"
 
 msgid "Selected org units: No coordinates found"
 msgstr "Unités d'organisation sélectionnées : Coordonnées non trouvées"
