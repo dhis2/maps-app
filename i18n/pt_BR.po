@@ -1,16 +1,17 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Oscar Mesones Lapouble <oscar.lapouble@gmail.com>, 2022
+# Thiago Rocha, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Oscar Mesones Lapouble <oscar.lapouble@gmail.com>, 2022\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
+"Last-Translator: Thiago Rocha, 2024\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -96,7 +97,7 @@ msgid "Legend"
 msgstr "Legenda"
 
 msgid "Range"
-msgstr ""
+msgstr "Intervalo"
 
 msgid "Level"
 msgstr "Nível"
@@ -307,7 +308,7 @@ msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Tipo de agregacão"
 
 msgid "Show no data"
 msgstr ""
@@ -376,7 +377,7 @@ msgid "Program status"
 msgstr ""
 
 msgid "Relationships"
-msgstr ""
+msgstr "Relacionamentos"
 
 msgid "Follow up"
 msgstr ""
@@ -490,10 +491,10 @@ msgid "Interpretations"
 msgstr "Interpretações"
 
 msgid "Collapse"
-msgstr ""
+msgstr "Colapsar"
 
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 msgid "External basemap"
 msgstr ""
@@ -666,10 +667,10 @@ msgid "Search for place or address"
 msgstr ""
 
 msgid "Zoom in"
-msgstr ""
+msgstr "Mais Zoom"
 
 msgid "Zoom out"
-msgstr ""
+msgstr "Reduzir o zoom"
 
 msgid "Zoom to content"
 msgstr ""
@@ -725,7 +726,7 @@ msgid "Link"
 msgstr ""
 
 msgid "Contact"
-msgstr ""
+msgstr "Contato"
 
 msgid "Email"
 msgstr "E-mail"
@@ -1134,16 +1135,16 @@ msgid "Active"
 msgstr "Activo"
 
 msgid "Completed"
-msgstr ""
+msgstr "Concluído"
 
 msgid "Schedule"
 msgstr "Programar"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Atrasado"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Ignorado"
 
 msgid "Choropleth"
 msgstr ""
@@ -1221,7 +1222,7 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
@@ -1248,7 +1249,7 @@ msgid "No data found"
 msgstr "Dado não encontrado"
 
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 msgid "Facilities"
 msgstr ""
@@ -1269,7 +1270,7 @@ msgid "No data"
 msgstr "Não ha dados"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Entidade rastreada"
 
 msgid "No tracked entities found"
 msgstr ""
