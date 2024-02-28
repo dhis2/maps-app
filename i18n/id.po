@@ -2,21 +2,21 @@
 # Translators:
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2022
 # Carwoto Sa'an <carwoto@gmail.com>, 2022
-# phil_dhis2, 2022
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2022
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2022
 # Raja Fathurrahim, 2022
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
+"POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Raja Fathurrahim, 2022\n"
-"Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -205,9 +205,6 @@ msgid "Add layer"
 msgstr "Tambahkan layer"
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -557,7 +554,7 @@ msgid "Loading layer"
 msgstr "Memuat layer"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} dihapus."
 
 msgid "Edit"
 msgstr "Sunting"
@@ -611,7 +608,7 @@ msgid "Show longitude/latitude"
 msgstr ""
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Tampilkan {{name}}"
 
 msgid "Longitude"
 msgstr "Garis bujur"
@@ -806,7 +803,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} di {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
