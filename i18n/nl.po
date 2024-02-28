@@ -4,13 +4,14 @@
 # Cherise Beek <cherise.beek@gmail.com>, 2022
 # Rica Zamora Duchateau, 2022
 # Charel van den Elsen, 2023
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: Charel van den Elsen, 2023\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -192,10 +193,10 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr "Bewerk {{naam}}-laag"
+msgstr "Bewerk {{name}}-laag"
 
 msgid "Add new {{name}} layer"
-msgstr "Voeg een nieuwe {{naam}}-laag toe"
+msgstr "Voeg een nieuwe {{name}}-laag toe"
 
 msgid "Update layer"
 msgstr "Werk laag bij"
@@ -261,10 +262,10 @@ msgid "Max should be greater than min"
 msgstr "Max. moet groter zijn dan min."
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Geldige stappen zijn {{minStappen}} tot {{maxStappen}}"
+msgstr "Geldige stappen zijn {{minSteps}} tot {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
-msgstr "Eenheid: {{ eenheid }}"
+msgstr "Eenheid: {{ unit }}"
 
 msgid "Min"
 msgstr "Min"
@@ -426,8 +427,8 @@ msgstr "Toon Getraceerde Entiteitsrelaties"
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
-"Tel relaties die entiteiten buiten het\"{{programma}}\"-programma aansluiten"
-" mee"
+"Tel relaties die entiteiten buiten het\"{{program}}\"-programma aansluiten "
+"mee"
 
 msgid "Selection mode"
 msgstr "Selectiemodus"
@@ -461,8 +462,7 @@ msgstr "Laden van relatiesoorten mislukt."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
-"Geen relatiesoorten werden gevonden voor getraceerde entiteitssoort "
-"{{soort}}"
+"Geen relatiesoorten werden gevonden voor getraceerde entiteitssoort {{type}}"
 
 msgid "Relationship type"
 msgstr "Relatiesoort"
@@ -542,7 +542,7 @@ msgid "Download Layer Data"
 msgstr "Download Laaggegevens"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "GeoJSON-gegevens voor \"{{laagNaam}}\" zijn aan het downloaden"
+msgstr "GeoJSON-gegevens voor \"{{layerName}}\" zijn aan het downloaden"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
