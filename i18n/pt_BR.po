@@ -1,16 +1,17 @@
 # 
 # Translators:
 # Oscar Mesones Lapouble <oscar.lapouble@gmail.com>, 2022
-# phil_dhis2, 2022
+# Philip Larsen Donnelly, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
+# Thiago Rocha, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
+"Last-Translator: Thiago Rocha, 2024\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -105,7 +106,7 @@ msgid "Legend"
 msgstr "Legenda"
 
 msgid "Range"
-msgstr ""
+msgstr "Intervalo"
 
 msgid "Level"
 msgstr "Nível"
@@ -320,7 +321,7 @@ msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Tipo de agregacão"
 
 msgid "Only show completed events"
 msgstr ""
@@ -392,7 +393,7 @@ msgid "Program status"
 msgstr ""
 
 msgid "Relationships"
-msgstr ""
+msgstr "Relacionamentos"
 
 msgid "Follow up"
 msgstr ""
@@ -506,10 +507,10 @@ msgid "Interpretations"
 msgstr "Interpretações"
 
 msgid "Collapse"
-msgstr ""
+msgstr "Colapsar"
 
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 msgid "External basemap"
 msgstr ""
@@ -690,10 +691,10 @@ msgid "Search for place or address"
 msgstr ""
 
 msgid "Zoom in"
-msgstr ""
+msgstr "Mais Zoom"
 
 msgid "Zoom out"
-msgstr ""
+msgstr "Reduzir o zoom"
 
 msgid "Zoom to content"
 msgstr ""
@@ -752,7 +753,7 @@ msgid "Link"
 msgstr ""
 
 msgid "Contact"
-msgstr ""
+msgstr "Contato"
 
 msgid "Email"
 msgstr "E-mail"
@@ -1184,7 +1185,7 @@ msgid "Active"
 msgstr "Activo"
 
 msgid "Completed"
-msgstr ""
+msgstr "Concluído"
 
 msgid "Choropleth"
 msgstr ""
@@ -1262,7 +1263,7 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 msgid "{{name}}: No coordinates found"
 msgstr ""
@@ -1286,7 +1287,7 @@ msgid "No data found"
 msgstr "Dado não encontrado"
 
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 msgid "Facilities"
 msgstr ""
@@ -1304,7 +1305,7 @@ msgid "No data"
 msgstr "Não ha dados"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Entidade rastreada"
 
 msgid "No tracked entities found"
 msgstr ""
