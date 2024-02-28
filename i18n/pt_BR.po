@@ -1,15 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
+# Thiago Rocha, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
+"Last-Translator: Thiago Rocha, 2024\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -95,7 +96,7 @@ msgid "Legend"
 msgstr "Legenda"
 
 msgid "Range"
-msgstr ""
+msgstr "Intervalo"
 
 msgid "Level"
 msgstr "Nível"
@@ -325,7 +326,7 @@ msgid "Event status"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Tipo de agregacão"
 
 msgid "Show no data"
 msgstr ""
@@ -508,10 +509,10 @@ msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "Colapsar"
 
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -678,10 +679,10 @@ msgid "Search for place or address"
 msgstr ""
 
 msgid "Zoom in"
-msgstr ""
+msgstr "Mais Zoom"
 
 msgid "Zoom out"
-msgstr ""
+msgstr "Reduzir o zoom"
 
 msgid "Zoom to content"
 msgstr ""
@@ -860,16 +861,16 @@ msgid "Active"
 msgstr "Activo"
 
 msgid "Completed"
-msgstr ""
+msgstr "Concluído"
 
 msgid "Schedule"
 msgstr "Programar"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Atrasado"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Ignorado"
 
 msgid "Choropleth"
 msgstr ""
@@ -1049,7 +1050,7 @@ msgid "Last 5 financial years"
 msgstr "Últimos 5 anos financeiros"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1188,7 +1189,7 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 msgid "No data found"
 msgstr "Dado não encontrado"
@@ -1209,7 +1210,7 @@ msgid "No data"
 msgstr "Não ha dados"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Entidade rastreada"
 
 msgid "No tracked entities found"
 msgstr ""

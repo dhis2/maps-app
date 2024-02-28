@@ -2,20 +2,20 @@
 # Translators:
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2021
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2021
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2021\n"
-"Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -569,7 +569,7 @@ msgid "Loading layer"
 msgstr "Memuat layer"
 
 msgid "{{name}} deleted."
-msgstr "{{nama}} dihapus."
+msgstr "{{name}} dihapus."
 
 msgid "Split view can not be combined with other layer types."
 msgstr "Tampilan split tidak dapat digabungkan dengan jenis layer lainnya."
@@ -768,7 +768,7 @@ msgid "two levels below user organisation unit"
 msgstr "dua tingkat di bawah unit organisasi pengguna"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr "{{unit}} di {{orgunits}}"
+msgstr "{{units}} di {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
 msgstr "{{units}} di dalam dan tepat di bawah {{orgunits}}"
