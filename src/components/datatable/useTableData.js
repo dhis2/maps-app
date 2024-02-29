@@ -149,8 +149,8 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
-const getGeoJsonUrlHeaders = (firstDataItem, data) =>
-    getGeojsonDisplayData(firstDataItem, data)
+const getGeoJsonUrlHeaders = (firstDataItem) =>
+    getGeojsonDisplayData(firstDataItem)
 
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
@@ -211,7 +211,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             case FACILITY_LAYER:
                 return getFacilityHeaders()
             case GEOJSON_URL_LAYER:
-                return getGeoJsonUrlHeaders(data[0], dataWithAggregations)
+                return getGeoJsonUrlHeaders(data[0])
             default: {
                 return null
             }

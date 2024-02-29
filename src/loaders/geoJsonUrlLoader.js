@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { parseLayerConfig } from '../util/external.js'
-import { addIdsToFeatures } from '../util/geojson.js'
+import { buildGeoJsonFeatures } from '../util/geojson.js'
 
 const fetchData = async (url, engine, baseUrl) => {
     if (url.includes(baseUrl)) {
@@ -89,48 +89,11 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         weight: featureStyle.weight,
     })
 
-    const rawGeometryTypes = [
-        'Point',
-        'MultiPoint',
-        'LineString',
-        'MultiLineString',
-        'Polygon',
-        'MultiPolygon',
-    ]
-
-    if (geoJson.type === 'Feature') {
-        geoJson = {
-            type: 'FeatureCollection',
-            features: [geoJson],
-        }
-    } else if (rawGeometryTypes.includes(geoJson.type)) {
-        geoJson = {
-            type: 'FeatureCollection',
-            features: [
-                {
-                    type: 'Feature',
-                    geometry: geoJson,
-                    properties: {},
-                },
-            ],
-        }
-    } else if (geoJson.type === 'GeometryCollection') {
-        const features = geoJson.geometries.map((geometry) => ({
-            type: 'Feature',
-            geometry,
-            properties: {},
-        }))
-        geoJson = {
-            type: 'FeatureCollection',
-            features,
-        }
-    }
-
     return {
         ...layer,
         name: newConfig.name, // TODO - will be fixed by DHIS2-16088
         legend,
-        data: addIdsToFeatures(geoJson.features),
+        data: buildGeoJsonFeatures(geoJson),
         config: newConfig,
         featureStyle,
         isLoaded: true,

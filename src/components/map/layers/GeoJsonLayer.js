@@ -47,13 +47,13 @@ class GeoJsonLayer extends Layer {
     onFeatureClick(evt) {
         const feature = this.props.data.find((d) => d.id === evt.feature.id)
 
-        const data = getGeojsonDisplayData(
-            feature,
-            this.props.data.map((d) => d.properties)
-        ).reduce((acc, { name, value }) => {
-            acc[name] = value
-            return acc
-        }, {})
+        const data = getGeojsonDisplayData(feature).reduce(
+            (acc, { dataKey, value }) => {
+                acc[dataKey] = value
+                return acc
+            },
+            {}
+        )
 
         this.props.setFeatureProfile({
             name: this.props.name,
