@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { parseLayerConfig } from '../util/external.js'
+import { addIdsToFeatures } from '../util/geojson.js'
 
 const fetchData = async (url, engine, baseUrl) => {
     if (url.includes(baseUrl)) {
@@ -53,7 +54,7 @@ const fetchData = async (url, engine, baseUrl) => {
 
 const EMPTY_FEATURE_STYLE = {}
 const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
-    const { name, config } = layer
+    const { config } = layer
 
     let newConfig
     let featureStyle
@@ -80,7 +81,7 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         return { name: newConfig.name, error }
     }
 
-    const legend = { title: name, items: [] }
+    const legend = { title: newConfig.name, items: [] }
     legend.items.push({
         name: 'Feature',
         ...featureStyle,
@@ -125,19 +126,11 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         }
     }
 
-    const data = geoJson.features.map((f) => {
-        if (f.id && !f.properties.id) {
-            f.properties.id = f.id
-        }
-        // TODO handle case where no feature.id or feature.properties.id
-        return f
-    })
-
     return {
         ...layer,
         name: newConfig.name, // TODO - will be fixed by DHIS2-16088
         legend,
-        data,
+        data: addIdsToFeatures(geoJson.features),
         config: newConfig,
         featureStyle,
         isLoaded: true,

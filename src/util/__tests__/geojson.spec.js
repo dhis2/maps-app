@@ -4,7 +4,7 @@ import {
     createEventFeature,
     buildEventGeometryGetter,
     createEventFeatures,
-    getFeatureTypeAndRounding,
+    getGeojsonDisplayData,
 } from '../geojson.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
@@ -267,7 +267,7 @@ describe('geojson utils', () => {
         })
     })
 
-    describe('getFeatureTypeAndRounding', () => {
+    describe('getGeojsonDisplayData', () => {
         const TYPE_NUMBER = 'number'
         const TYPE_STRING = 'string'
 
@@ -275,7 +275,7 @@ describe('geojson utils', () => {
         const getRoundToPrecisionFn = jest.fn()
 
         it('should return an empty array for an empty object', () => {
-            expect(getFeatureTypeAndRounding({}, [])).toEqual([])
+            expect(getGeojsonDisplayData({}, [])).toEqual([])
         })
 
         it('should correctly process a data item with number and string values', () => {
@@ -285,7 +285,7 @@ describe('geojson utils', () => {
             getPrecision.mockReturnValue(0)
             getRoundToPrecisionFn.mockReturnValue(Math.round)
 
-            const res = getFeatureTypeAndRounding(dataItem, allData)
+            const res = getGeojsonDisplayData(dataItem, allData)
 
             expect(res).toMatchObject([
                 {
@@ -315,7 +315,7 @@ describe('geojson utils', () => {
             getRoundToPrecisionFn.mockReturnValue(
                 (value) => Math.round(value * 100) / 100
             )
-            const res = getFeatureTypeAndRounding(dataItem, allData)
+            const res = getGeojsonDisplayData(dataItem, allData)
             expect(res).toMatchObject([
                 {
                     name: 'a',
@@ -344,7 +344,7 @@ describe('geojson utils', () => {
             getPrecision.mockReturnValue(0)
             getRoundToPrecisionFn.mockReturnValue(Math.round)
 
-            const res = getFeatureTypeAndRounding(dataItem, allData)
+            const res = getGeojsonDisplayData(dataItem, allData)
             expect(res).toMatchObject([
                 {
                     name: 'a',

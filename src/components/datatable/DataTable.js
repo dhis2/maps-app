@@ -65,6 +65,7 @@ DataTableRowWithVirtuosoContext.propTypes = {
     item: PropTypes.arrayOf(
         PropTypes.shape({
             dataKey: PropTypes.string,
+            itemId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
             value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         })
     ),
@@ -145,7 +146,9 @@ const Table = ({ availableHeight, availableWidth }) => {
 
     const setFeatureHighlight = useCallback(
         (row) => {
-            const id = row.find((r) => r.dataKey === 'id')?.value
+            const id =
+                row.find((r) => r.dataKey === 'id')?.value || row[0].itemId
+
             if (!id || !feature || id !== feature.id) {
                 dispatch(
                     highlightFeature(

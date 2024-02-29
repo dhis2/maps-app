@@ -12,7 +12,7 @@ import {
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
-import { getFeatureTypeAndRounding } from '../../util/geojson.js'
+import { getGeojsonDisplayData } from '../../util/geojson.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
 import { isValidUid } from '../../util/uid.js'
 
@@ -149,7 +149,8 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
-const getGeoJsonUrlHeaders = (data) => getFeatureTypeAndRounding(data[0], data)
+const getGeoJsonUrlHeaders = (firstDataItem, data) =>
+    getGeojsonDisplayData(firstDataItem, data)
 
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
@@ -210,7 +211,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             case FACILITY_LAYER:
                 return getFacilityHeaders()
             case GEOJSON_URL_LAYER:
-                return getGeoJsonUrlHeaders(dataWithAggregations)
+                return getGeoJsonUrlHeaders(data[0], dataWithAggregations)
             default: {
                 return null
             }
@@ -221,6 +222,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         legend,
         styleDataItem,
         dataWithAggregations,
+        data,
         layerHeaders,
     ])
 
@@ -261,6 +263,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                     dataKey,
                     value: type === TYPE_NUMBER && isNaN(value) ? null : value,
                     align: type === TYPE_NUMBER ? 'right' : 'left',
+                    itemId: item.id,
                 }
             })
         )

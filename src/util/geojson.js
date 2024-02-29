@@ -121,11 +121,16 @@ const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 // const TYPE_DATE = 'date'
 
-export const getFeatureTypeAndRounding = (dataItem, allData) => {
-    return Object.entries(dataItem)
+export const getGeojsonDisplayData = (feature, allData) => {
+    const { properties, __isDhis2propertyId } = feature
+    return Object.entries(properties)
         .filter(
             ([, value]) =>
                 typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
+        )
+        .filter(([key]) =>
+            // Remove id property if it was set internally
+            __isDhis2propertyId ? key !== 'id' : true
         )
         .map(([key, value]) => {
             let roundFn = null
@@ -146,3 +151,18 @@ export const getFeatureTypeAndRounding = (dataItem, allData) => {
             }
         })
 }
+
+// Ensures that all features have an id property and a properties.id property
+// If id is added, set a flag to indicate this
+export const addIdsToFeatures = (features) =>
+    features.map((f, i) => {
+        if (!f.id) {
+            f.id = f.properties.id || i
+        }
+        if (f.id && !f.properties.id) {
+            f.properties.id = f.id
+            f.__isDhis2propertyId = true
+        }
+
+        return f
+    })
