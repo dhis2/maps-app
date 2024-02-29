@@ -281,11 +281,13 @@ describe('geojson utils', () => {
                 getGeojsonDisplayData({ properties: { a: 1, b: '2' } })
             ).toMatchObject([
                 {
+                    name: 'a',
                     dataKey: 'a',
                     type: TYPE_NUMBER,
                     value: 1,
                 },
                 {
+                    name: 'b',
                     dataKey: 'b',
                     type: TYPE_STRING,
                     value: '2',
@@ -300,11 +302,13 @@ describe('geojson utils', () => {
                 })
             ).toMatchObject([
                 {
+                    name: 'a',
                     dataKey: 'a',
                     type: TYPE_NUMBER,
                     value: 1.23,
                 },
                 {
+                    name: 'b',
                     dataKey: 'b',
                     type: TYPE_NUMBER,
                     value: 4.56,
@@ -319,11 +323,13 @@ describe('geojson utils', () => {
                 })
             ).toMatchObject([
                 {
+                    name: 'a',
                     dataKey: 'a',
                     type: TYPE_NUMBER,
                     value: 1,
                 },
                 {
+                    name: 'b',
                     dataKey: 'b',
                     type: TYPE_STRING,
                     value: '2',
@@ -339,6 +345,7 @@ describe('geojson utils', () => {
                 })
             ).toMatchObject([
                 {
+                    name: 'a',
                     dataKey: 'a',
                     type: TYPE_NUMBER,
                     value: 1,
@@ -353,11 +360,13 @@ describe('geojson utils', () => {
                 })
             ).toMatchObject([
                 {
+                    name: 'id',
                     dataKey: 'id',
                     type: TYPE_NUMBER,
                     value: 1234.1,
                 },
                 {
+                    name: 'a',
                     dataKey: 'a',
                     type: TYPE_NUMBER,
                     value: 1,

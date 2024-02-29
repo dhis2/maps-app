@@ -135,12 +135,13 @@ export const getGeojsonDisplayData = (feature) => {
             // Remove id property if it was set internally
             __isDhis2propertyId ? key !== 'id' : true
         )
-        .map(([dataKey, value]) => {
+        .map(([key, value]) => {
             const type =
                 typeof value === TYPE_NUMBER ? TYPE_NUMBER : TYPE_STRING
 
             return {
-                dataKey,
+                name: key,
+                dataKey: key,
                 type,
                 value,
             }
