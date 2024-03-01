@@ -5,7 +5,8 @@ import { EVENT_LAYER } from '../../constants/layers.js'
 import LayerLoader from './LayerLoader.js'
 
 const LayersLoader = () => {
-    const layers = useSelector(({ map, dataTable }) =>
+    const dataTable = useSelector((state) => state.dataTable)
+    const layers = useSelector(({ map }) =>
         map.mapViews.filter(
             ({
                 id,
@@ -53,7 +54,12 @@ const LayersLoader = () => {
     }
 
     return layers.map((config) => (
-        <LayerLoader key={config.id} config={config} onLoad={onLoad} />
+        <LayerLoader
+            key={config.id}
+            config={config}
+            onLoad={onLoad}
+            dataTableOpen={!!dataTable}
+        />
     ))
 }
 
