@@ -229,7 +229,7 @@ const Table = ({ availableHeight, availableWidth }) => {
     }, [availableWidth, headers])
 
     if (error) {
-        return <div className={styles.noSupport}>{error}</div>
+        return <p className={styles.noSupport}>{error}</p>
     }
 
     return (
