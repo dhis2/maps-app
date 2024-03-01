@@ -1,37 +1,32 @@
 import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { openLayersPanel, closeLayersPanel } from '../../actions/ui.js'
 import styles from './styles/LayersToggle.module.css'
 
-const LayersToggle = ({
-    isOpen,
-    isDownload,
-    openLayersPanel,
-    closeLayersPanel,
-}) =>
-    !isDownload && (
-        <div
-            onClick={isOpen ? closeLayersPanel : openLayersPanel}
-            className={cx(styles.layersToggle, { [styles.collapsed]: !isOpen })}
-        >
-            {isOpen ? <IconChevronLeft24 /> : <IconChevronRight24 />}
-        </div>
-    )
+const LayersToggle = () => {
+    const dispatch = useDispatch()
+    const isOpen = useSelector((state) => state.ui.layersPanelOpen)
+    const isDownload = useSelector((state) => state.ui.downloadMode)
 
-LayersToggle.propTypes = {
-    closeLayersPanel: PropTypes.func.isRequired,
-    isDownload: PropTypes.bool.isRequired,
-    isOpen: PropTypes.bool.isRequired,
-    openLayersPanel: PropTypes.func.isRequired,
+    return (
+        !isDownload && (
+            <div
+                data-test="layers-toggle-button"
+                onClick={
+                    isOpen
+                        ? () => dispatch(closeLayersPanel())
+                        : () => dispatch(openLayersPanel())
+                }
+                className={cx(styles.layersToggle, {
+                    [styles.collapsed]: !isOpen,
+                })}
+            >
+                {isOpen ? <IconChevronLeft24 /> : <IconChevronRight24 />}
+            </div>
+        )
+    )
 }
 
-export default connect(
-    (state) => ({
-        isOpen: state.ui.layersPanelOpen,
-        isDownload: state.download.downloadMode,
-    }),
-    { openLayersPanel, closeLayersPanel }
-)(LayersToggle)
+export default LayersToggle

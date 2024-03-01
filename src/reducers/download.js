@@ -1,7 +1,6 @@
 import * as types from '../constants/actionTypes.js'
 
 const defaultState = {
-    downloadMode: false,
     showName: true,
     showDescription: true,
     showLegend: true,
@@ -15,12 +14,6 @@ const defaultState = {
 
 const download = (state = defaultState, action) => {
     switch (action.type) {
-        case types.DOWNLOAD_MODE_SET:
-            return {
-                ...state,
-                downloadMode: action.payload,
-            }
-
         case types.DOWNLOAD_CONFIG_SET:
             return {
                 ...state,

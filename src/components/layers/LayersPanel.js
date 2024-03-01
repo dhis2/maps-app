@@ -33,6 +33,7 @@ const LayersPanel = () => {
             className={cx(styles.layersPanel, {
                 [styles.collapsed]: !layersPanelOpen,
             })}
+            data-test="layers-panel"
         >
             <div className={styles.layersPanelInner}>
                 {layersPanelOpen ? (
