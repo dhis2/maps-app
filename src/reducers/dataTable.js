@@ -8,7 +8,8 @@ const dataTable = (state = null, action) => {
         case types.DATA_TABLE_CLOSE:
         case types.MAP_NEW:
         case types.MAP_SET:
-        case types.DOWNLOAD_MODE_SET:
+        case types.DOWNLOAD_MODE_CLOSE:
+        case types.DOWNLOAD_MODE_OPEN:
             return null
 
         case types.DATA_TABLE_TOGGLE:
