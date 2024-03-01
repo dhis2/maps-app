@@ -4,9 +4,9 @@ import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
-import { setDownloadMode } from '../../actions/download.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
+import { openDownloadMode, closeDownloadMode } from '../../actions/ui.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
@@ -63,7 +63,11 @@ export const useLoadMap = () => {
                     dispatch(newMap())
                 }
             }
-            dispatch(setDownloadMode(params.isDownload))
+            if (params.isDownload) {
+                dispatch(openDownloadMode())
+            } else {
+                dispatch(closeDownloadMode())
+            }
             dispatch(setInterpretation(params.interpretationId))
 
             previousParamsRef.current = params
@@ -87,7 +91,13 @@ export const useLoadMap = () => {
                 return
             }
 
-            dispatch(setDownloadMode(params.isDownload))
+            if (params.isDownload !== previousParamsRef.current.isDownload) {
+                if (params.isDownload) {
+                    dispatch(openDownloadMode())
+                } else {
+                    dispatch(closeDownloadMode())
+                }
+            }
             dispatch(setInterpretation(params.interpretationId))
 
             previousParamsRef.current = params
