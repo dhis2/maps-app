@@ -35,6 +35,7 @@ const BottomPanel = () => {
     const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0
     const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0
     const tableWidth = width - layersWidth - rightPanelWidth
+    const dataTableControlsHeight = 20
 
     return (
         <div
@@ -58,7 +59,7 @@ const BottomPanel = () => {
             </div>
             <ErrorBoundary>
                 <DataTable
-                    availableHeight={dataTableHeight}
+                    availableHeight={dataTableHeight - dataTableControlsHeight}
                     availableWidth={tableWidth}
                 />
             </ErrorBoundary>
