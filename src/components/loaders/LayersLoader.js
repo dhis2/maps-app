@@ -6,7 +6,7 @@ import LayerLoader from './LayerLoader.js'
 
 const LayersLoader = () => {
     const dataTable = useSelector((state) => state.dataTable)
-    const layers = useSelector(({ map }) =>
+    const layersToLoad = useSelector(({ map }) =>
         map.mapViews.filter(
             ({
                 id,
@@ -45,19 +45,23 @@ const LayersLoader = () => {
 
     const onLoad = (layer) => dispatch(updateLayer(layer))
 
-    useEffect(() => {
-        layers.forEach((layer) => dispatch(setLayerLoading(layer.id)))
-    }, [layers, dispatch])
+    // TODO if this is exact same as onLoad, then no need for it.
+    const onError = (layer) => dispatch(updateLayer(layer))
 
-    if (!layers.length) {
+    useEffect(() => {
+        layersToLoad.forEach((layer) => dispatch(setLayerLoading(layer.id)))
+    }, [layersToLoad, dispatch])
+
+    if (!layersToLoad.length) {
         return null
     }
 
-    return layers.map((config) => (
+    return layersToLoad.map((config) => (
         <LayerLoader
             key={config.id}
             config={config}
             onLoad={onLoad}
+            onError={onError}
             dataTableOpen={!!dataTable}
         />
     ))

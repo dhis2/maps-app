@@ -153,7 +153,6 @@ describe('cleanMapConfig', () => {
                     isVisible: true,
                 },
             ],
-            newLayerIsLoading: false,
         }
 
         const cleanedConfig = cleanMapConfig({
@@ -252,7 +251,6 @@ describe('cleanMapConfig', () => {
                     isVisible: true,
                 },
             ],
-            newLayerIsLoading: false,
         }
 
         const cleanedConfig = cleanMapConfig({
@@ -362,7 +360,6 @@ describe('cleanMapConfig', () => {
                     isVisible: true,
                 },
             ],
-            newLayerIsLoading: false,
         }
         const cleanedConfig = cleanMapConfig({
             config,

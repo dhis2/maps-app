@@ -71,23 +71,36 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
 
     let geoJson
     let error
+
     try {
         geoJson = await fetchData(newConfig.url, engine, baseUrl)
     } catch (message) {
         console.error(message)
-        error = {
-            message,
+
+        return {
+            ...layer,
+            name: newConfig.name, // TODO - will be fixed by DHIS2-16088
+            config: newConfig,
+            featureStyle,
+            isLoaded: true, // technically dont need this line since already set in layer object
+            isLoading: false, // technically dont need this line since already set in layer object
+            isExpanded: true,
+            isVisible: true,
+            error: message,
         }
-        return { name: newConfig.name, error }
     }
 
-    const legend = { title: newConfig.name, items: [] }
-    legend.items.push({
-        name: 'Feature',
-        ...featureStyle,
-        color: featureStyle.strokeColor,
-        weight: featureStyle.weight,
-    })
+    const legend = {
+        title: newConfig.name,
+        items: [
+            {
+                name: 'Feature',
+                ...featureStyle,
+                color: featureStyle.strokeColor,
+                weight: featureStyle.weight,
+            },
+        ],
+    }
 
     return {
         ...layer,
@@ -96,7 +109,8 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         data: buildGeoJsonFeatures(geoJson),
         config: newConfig,
         featureStyle,
-        isLoaded: true,
+        isLoaded: true, // technically dont need this line since already set in layer object
+        isLoading: false, // technically dont need this line since already set in layer object
         isExpanded: true,
         isVisible: true,
         error,

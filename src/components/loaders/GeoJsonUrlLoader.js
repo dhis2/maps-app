@@ -9,7 +9,7 @@ import {
 } from '../../constants/alerts.js'
 import geoJsonUrlLoader from '../../loaders/geoJsonUrlLoader.js'
 
-const GeoJsonUrlLoader = ({ config, onLoad }) => {
+const GeoJsonUrlLoader = ({ config, onLoad, onError }) => {
     const loadFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
     const engine = useDataEngine()
     const { baseUrl } = useConfig()
@@ -17,12 +17,14 @@ const GeoJsonUrlLoader = ({ config, onLoad }) => {
     useEffect(() => {
         geoJsonUrlLoader(config, engine, baseUrl).then((data) => {
             if (data.error) {
+                onError(data)
+
                 loadFailedAlert.show({
                     msg: i18n.t(
                         'Failed to load map layer "{{layername}}": {{message}}',
                         {
                             layername: data.name,
-                            message: data.error.message,
+                            message: data.error,
                             nsSeparator: '^^',
                         }
                     ),
@@ -31,13 +33,14 @@ const GeoJsonUrlLoader = ({ config, onLoad }) => {
             }
             return onLoad(data)
         })
-    }, [config, onLoad, engine, baseUrl, loadFailedAlert])
+    }, [config, onLoad, onError, engine, baseUrl, loadFailedAlert])
 
     return null
 }
 
 GeoJsonUrlLoader.propTypes = {
     config: PropTypes.object.isRequired,
+    onError: PropTypes.func.isRequired,
     onLoad: PropTypes.func.isRequired,
 }
 

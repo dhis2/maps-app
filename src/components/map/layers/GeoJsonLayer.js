@@ -14,9 +14,14 @@ class GeoJsonLayer extends Layer {
             dataFilters,
             featureStyle,
             config,
+            error,
         } = this.props
 
         const { map, isPlugin } = this.context
+
+        if (error) {
+            return
+        }
 
         const filteredData = filterData(data, dataFilters)
 
