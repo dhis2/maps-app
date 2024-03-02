@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2022
-# Karoline Tufte Lien <karoline@dhis2.org>, 2023
+# Karoline Tufte Lien <karoline@dhis2.org>, 2024
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
+"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,23 +139,23 @@ msgstr "Dato"
 msgid "Data set"
 msgstr "Datasett"
 
+msgid "No results found"
+msgstr "Ingen resultater funnet"
+
+msgid "Sort by {{column}}"
+msgstr "Sorter etter {{column}}"
+
+msgid "Something went wrong"
+msgstr "Noe gikk galt"
+
+msgid "Search"
+msgstr "Søk"
+
 msgid "Index"
 msgstr "Indeks"
 
-msgid "Org unit"
-msgstr "Org enhet"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "Hendelsestid"
-
-msgid "Legend"
-msgstr "Tegnforklaring"
-
-msgid "Range"
-msgstr "Område"
 
 msgid "Level"
 msgstr "Nivå"
@@ -166,8 +166,26 @@ msgstr "Overordnet"
 msgid "Type"
 msgstr "Type"
 
+msgid "Legend"
+msgstr "Tegnforklaring"
+
+msgid "Range"
+msgstr "Område"
+
+msgid "Org unit"
+msgstr "Org enhet"
+
+msgid "Event time"
+msgstr "Hendelsestid"
+
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Datatabell støttes ikke når hendelser er gruppert på serveren."
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
+msgstr ""
 
 msgid "Items"
 msgstr "Punkter"

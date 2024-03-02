@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2021
-# Viktor Varland <viktor@dhis2.org>, 2023
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Pashto (https://app.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,23 +139,23 @@ msgstr "نېټه"
 msgid "Data set"
 msgstr "د مالوماتو (ډاټا) ټولګه"
 
-msgid "Index"
+msgid "No results found"
+msgstr "هېڅ پایله ترلاسه نه شوه"
+
+msgid "Sort by {{column}}"
 msgstr ""
 
-msgid "Org unit"
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Index"
 msgstr ""
 
 msgid "Id"
 msgstr ""
-
-msgid "Event time"
-msgstr "رویداد مهال"
-
-msgid "Legend"
-msgstr "Legend"
-
-msgid "Range"
-msgstr "پراختیا"
 
 msgid "Level"
 msgstr "سطحه"
@@ -166,7 +166,25 @@ msgstr ""
 msgid "Type"
 msgstr "نمونه/ډول"
 
+msgid "Legend"
+msgstr "Legend"
+
+msgid "Range"
+msgstr "پراختیا"
+
+msgid "Org unit"
+msgstr ""
+
+msgid "Event time"
+msgstr "رویداد مهال"
+
 msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
 msgstr ""
 
 msgid "Items"

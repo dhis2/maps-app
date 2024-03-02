@@ -1,14 +1,14 @@
 # 
 # Translators:
-# 晓东 林 <13981924470@126.com>, 2023
-# easylin <lin_xd@126.com>, 2023
+# 晓东 林 <13981924470@126.com>, 2024
+# easylin <lin_xd@126.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,23 +139,23 @@ msgstr "日期"
 msgid "Data set"
 msgstr "数据集"
 
+msgid "No results found"
+msgstr "没有结果"
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "出了些问题"
+
+msgid "Search"
+msgstr "搜索"
+
 msgid "Index"
 msgstr ""
 
-msgid "Org unit"
-msgstr "机构"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "事件时间"
-
-msgid "Legend"
-msgstr "图例"
-
-msgid "Range"
-msgstr "Range"
 
 msgid "Level"
 msgstr "等级"
@@ -166,7 +166,25 @@ msgstr ""
 msgid "Type"
 msgstr "类型"
 
+msgid "Legend"
+msgstr "图例"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Org unit"
+msgstr "机构"
+
+msgid "Event time"
+msgstr "事件时间"
+
 msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
 msgstr ""
 
 msgid "Items"

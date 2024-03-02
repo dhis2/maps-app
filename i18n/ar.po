@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Philip Larsen Donnelly, 2021
-# Hamza Assada <7amza.it@gmail.com>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
+# Hamza Assada <7amza.it@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,23 +140,23 @@ msgstr "التاريخ"
 msgid "Data set"
 msgstr "حزمة البيانات"
 
+msgid "No results found"
+msgstr "لم يتم العثور على أي نتائج"
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "حدث خطأ ما"
+
+msgid "Search"
+msgstr "بحث"
+
 msgid "Index"
 msgstr "فهرس"
 
-msgid "Org unit"
-msgstr "الوحدة التنظيمية"
-
 msgid "Id"
 msgstr "المعرف"
-
-msgid "Event time"
-msgstr "وقت الحدث"
-
-msgid "Legend"
-msgstr "شروحات"
-
-msgid "Range"
-msgstr "نطاق"
 
 msgid "Level"
 msgstr "المستوى"
@@ -167,8 +167,26 @@ msgstr "الأب"
 msgid "Type"
 msgstr "النوع"
 
+msgid "Legend"
+msgstr "شروحات"
+
+msgid "Range"
+msgstr "نطاق"
+
+msgid "Org unit"
+msgstr "الوحدة التنظيمية"
+
+msgid "Event time"
+msgstr "وقت الحدث"
+
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "لا يتم دعم جدول البيانات عند تجميع الأحداث على الخادم."
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
+msgstr ""
 
 msgid "Items"
 msgstr "العناصر"

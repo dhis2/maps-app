@@ -1,14 +1,14 @@
 # 
 # Translators:
 # Philip Larsen Donnelly, 2021
-# Viktor Varland <viktor@dhis2.org>, 2023
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Tajik (https://app.transifex.com/hisp-uio/teams/100509/tg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,15 +23,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -148,23 +139,23 @@ msgstr "Сана"
 msgid "Data set"
 msgstr "Маҷмӯи иттилоот"
 
-msgid "Index"
+msgid "No results found"
 msgstr ""
 
-msgid "Org unit"
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Search"
+msgstr "Ҷустуҷӯ"
+
+msgid "Index"
 msgstr ""
 
 msgid "Id"
 msgstr "ID"
-
-msgid "Event time"
-msgstr ""
-
-msgid "Legend"
-msgstr "Маҷмӯи аломатҳои шартӣ"
-
-msgid "Range"
-msgstr ""
 
 msgid "Level"
 msgstr "Сатҳ"
@@ -175,7 +166,25 @@ msgstr ""
 msgid "Type"
 msgstr "Навъ"
 
+msgid "Legend"
+msgstr "Маҷмӯи аломатҳои шартӣ"
+
+msgid "Range"
+msgstr ""
+
+msgid "Org unit"
+msgstr ""
+
+msgid "Event time"
+msgstr ""
+
 msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
 msgstr ""
 
 msgid "Items"
@@ -436,9 +445,6 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr ""
 
@@ -452,9 +458,6 @@ msgid "Event data items"
 msgstr ""
 
 msgid "Program indicators"
-msgstr ""
-
-msgid "Calculations"
 msgstr ""
 
 msgid "Item type"
@@ -909,12 +912,6 @@ msgstr ""
 msgid "OSM Detailed"
 msgstr ""
 
-msgid "Google Streets"
-msgstr ""
-
-msgid "Google Hybrid"
-msgstr ""
-
 msgid "Bing Road"
 msgstr ""
 
@@ -1315,18 +1312,6 @@ msgstr ""
 msgid "related"
 msgstr ""
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "Рӯйдодҳо"
-
-msgid "Tracked entities"
-msgstr ""
-
-msgid "Org units"
-msgstr "воҳидҳои сохторӣ"
-
 msgid "not one of"
 msgstr ""
 
@@ -1349,6 +1334,18 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "Рӯйдодҳо"
+
+msgid "Tracked entities"
+msgstr ""
+
+msgid "Org units"
+msgstr "воҳидҳои сохторӣ"
 
 msgid "Facility"
 msgstr "Муассиса"

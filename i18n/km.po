@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Philip Larsen Donnelly, 2021
-# Viktor Varland <viktor@dhis2.org>, 2022
-# channara rin, 2023
+# Viktor Varland <viktor@dhis2.org>, 2024
+# channara rin, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: channara rin, 2023\n"
+"Last-Translator: channara rin, 2024\n"
 "Language-Team: Khmer (https://app.transifex.com/hisp-uio/teams/100509/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,15 +24,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -149,22 +140,22 @@ msgstr "កាលបរិច្ឆេទ"
 msgid "Data set"
 msgstr "Data set"
 
+msgid "No results found"
+msgstr "មិនមានលទ្ធផលបង្ហាញ"
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Search"
+msgstr "ស្វែងរក"
+
 msgid "Index"
 msgstr ""
 
-msgid "Org unit"
-msgstr "អង្គភាព"
-
 msgid "Id"
-msgstr ""
-
-msgid "Event time"
-msgstr ""
-
-msgid "Legend"
-msgstr ""
-
-msgid "Range"
 msgstr ""
 
 msgid "Level"
@@ -176,7 +167,25 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
+msgid "Legend"
+msgstr ""
+
+msgid "Range"
+msgstr ""
+
+msgid "Org unit"
+msgstr "អង្គភាព"
+
+msgid "Event time"
+msgstr ""
+
 msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
 msgstr ""
 
 msgid "Items"
@@ -437,9 +446,6 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr ""
 
@@ -453,9 +459,6 @@ msgid "Event data items"
 msgstr ""
 
 msgid "Program indicators"
-msgstr ""
-
-msgid "Calculations"
 msgstr ""
 
 msgid "Item type"
@@ -910,12 +913,6 @@ msgstr ""
 msgid "OSM Detailed"
 msgstr ""
 
-msgid "Google Streets"
-msgstr ""
-
-msgid "Google Hybrid"
-msgstr ""
-
 msgid "Bing Road"
 msgstr ""
 
@@ -1316,18 +1313,6 @@ msgstr ""
 msgid "related"
 msgstr ""
 
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "ព្រឹត្តិការណ៏"
-
-msgid "Tracked entities"
-msgstr "ផ្នែកតាមដាន"
-
-msgid "Org units"
-msgstr ""
-
 msgid "not one of"
 msgstr ""
 
@@ -1349,6 +1334,18 @@ msgstr ""
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "ព្រឹត្តិការណ៏"
+
+msgid "Tracked entities"
+msgstr "ផ្នែកតាមដាន"
+
+msgid "Org units"
 msgstr ""
 
 msgid "Facility"

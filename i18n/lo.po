@@ -4,13 +4,14 @@
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
 # Phouthasinh PHEUAYSITHIPHONE, 2023
+# Saysamone Sibounma, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Phouthasinh PHEUAYSITHIPHONE, 2023\n"
+"Last-Translator: Saysamone Sibounma, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,23 +142,23 @@ msgstr "ວັນທີ່"
 msgid "Data set"
 msgstr "ແບບຟອມ"
 
+msgid "No results found"
+msgstr ""
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "ມີບາງຢ່າງຜິດພາດ"
+
+msgid "Search"
+msgstr "ຄົ້ນຫາ"
+
 msgid "Index"
 msgstr ""
 
-msgid "Org unit"
-msgstr "ສະຖານທີ່"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr ""
-
-msgid "Legend"
-msgstr "ຫວ່າງຂໍ້ມູນ"
-
-msgid "Range"
-msgstr "ຂອບເຂດ"
 
 msgid "Level"
 msgstr "ຂັ້ນ"
@@ -168,7 +169,25 @@ msgstr ""
 msgid "Type"
 msgstr "Type"
 
+msgid "Legend"
+msgstr "ຫວ່າງຂໍ້ມູນ"
+
+msgid "Range"
+msgstr "ຂອບເຂດ"
+
+msgid "Org unit"
+msgstr "ສະຖານທີ່"
+
+msgid "Event time"
+msgstr ""
+
 msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
 msgstr ""
 
 msgid "Items"
