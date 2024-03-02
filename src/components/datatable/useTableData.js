@@ -229,15 +229,6 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return null
         }
 
-        if (
-            data.some(
-                (feature) => feature.geometry.type !== data[0].geometry.type
-            )
-        ) {
-            errorCode.current = ERROR_NON_HOMOGENOUS_FEATURES
-            return null
-        }
-
         let headers = null
         switch (layerType) {
             case THEMATIC_LAYER:
@@ -259,9 +250,20 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             case FACILITY_LAYER:
                 headers = getFacilityHeaders()
                 break
-            case GEOJSON_URL_LAYER:
+            case GEOJSON_URL_LAYER: {
+                if (
+                    data.some(
+                        (feature) =>
+                            feature.geometry.type !== data[0].geometry.type
+                    )
+                ) {
+                    errorCode.current = ERROR_NON_HOMOGENOUS_FEATURES
+                    return null
+                }
+
                 headers = getGeoJsonUrlHeaders(data[0])
                 break
+            }
             default:
                 break
         }
