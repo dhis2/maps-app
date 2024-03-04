@@ -74,19 +74,19 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
 
     try {
         geoJson = await fetchData(newConfig.url, engine, baseUrl)
-    } catch (message) {
-        console.error(message)
+    } catch (error) {
+        console.error(error)
 
         return {
             ...layer,
             name: newConfig.name, // TODO - will be fixed by DHIS2-16088
             config: newConfig,
             featureStyle,
-            isLoaded: true, // technically dont need this line since already set in layer object
-            isLoading: false, // technically dont need this line since already set in layer object
+            isLoaded: true,
+            isLoading: false,
             isExpanded: true,
             isVisible: true,
-            error: message,
+            error,
         }
     }
 

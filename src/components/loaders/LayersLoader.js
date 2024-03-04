@@ -45,9 +45,6 @@ const LayersLoader = () => {
 
     const onLoad = (layer) => dispatch(updateLayer(layer))
 
-    // TODO if this is exact same as onLoad, then no need for it.
-    const onError = (layer) => dispatch(updateLayer(layer))
-
     useEffect(() => {
         layersToLoad.forEach((layer) => dispatch(setLayerLoading(layer.id)))
     }, [layersToLoad, dispatch])
@@ -61,7 +58,6 @@ const LayersLoader = () => {
             key={config.id}
             config={config}
             onLoad={onLoad}
-            onError={onError}
             dataTableOpen={!!dataTable}
         />
     ))
