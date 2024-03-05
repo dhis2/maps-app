@@ -271,7 +271,7 @@ describe('cleanMapConfig', () => {
         })
     })
 
-    test.only('correctly converts TEI mapview', () => {
+    test('correctly converts TEI mapview', () => {
         const config = {
             bounds: [
                 [-18.7, -34.9],
