@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-05T12:45:29.949Z\n"
-"PO-Revision-Date: 2024-03-05T12:45:29.949Z\n"
+"POT-Creation-Date: 2024-03-05T13:30:28.169Z\n"
+"PO-Revision-Date: 2024-03-05T13:30:28.169Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -588,6 +588,9 @@ msgstr "Loading layer"
 msgid "{{name}} deleted."
 msgstr "{{name}} deleted."
 
+msgid "Layer is invalid and cannot be edited"
+msgstr "Layer is invalid and cannot be edited"
+
 msgid "Edit"
 msgstr "Edit"
 
@@ -596,9 +599,6 @@ msgstr "Toggle visibility"
 
 msgid "Set layer opacity"
 msgstr "Set layer opacity"
-
-msgid "Toggle layer menu"
-msgstr "Toggle layer menu"
 
 msgid "More actions"
 msgstr "More actions"

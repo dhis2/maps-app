@@ -15,7 +15,9 @@ const IconButton = ({
     return (
         <button
             onClick={onClick}
-            className={cx(styles.iconButton, className)}
+            className={cx(styles.iconButton, className, {
+                [styles.disabled]: !!disabled,
+            })}
             data-test={dataTest}
             disabled={disabled}
         >

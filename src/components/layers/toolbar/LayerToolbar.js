@@ -1,3 +1,4 @@
+// import { OfflineTooltip as Tooltip } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -22,7 +23,7 @@ const LayerToolbar = ({
         <div className={styles.toolbar} data-test="layertoolbar">
             {onEdit && (
                 <IconButton
-                    tooltip={i18n.t('Edit')}
+                    tooltip={!hasError ? i18n.t('Edit') : null}
                     onClick={onEdit}
                     className={styles.editButton}
                     dataTest="editbutton"
@@ -31,9 +32,8 @@ const LayerToolbar = ({
                     <IconEdit24 />
                 </IconButton>
             )}
-
             <IconButton
-                tooltip={i18n.t('Toggle visibility')}
+                tooltip={!hasError ? i18n.t('Toggle visibility') : null}
                 onClick={toggleLayerVisibility}
                 dataTest="visibilitybutton"
                 disabled={hasError}
@@ -42,7 +42,14 @@ const LayerToolbar = ({
             </IconButton>
 
             <div className={styles.sliderContainer}>
-                <Tooltip content={i18n.t('Set layer opacity')}>
+                <Tooltip
+                    content={
+                        hasError
+                            ? i18n.t('Layer is invalid')
+                            : i18n.t('Set layer opacity')
+                    }
+                    disabled={hasError}
+                >
                     <OpacitySlider
                         opacity={opacity}
                         disabled={hasError || !isVisible || !hasOpacity}
