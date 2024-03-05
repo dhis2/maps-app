@@ -22,9 +22,9 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
-import { highlightFeature } from '../../actions/feature.js'
+import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
-import { EVENT_LAYER } from '../../constants/layers.js'
+import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import { isDarkColor } from '../../util/colors.js'
 import FilterInput from './FilterInput.js'
 import styles from './styles/DataTable.module.css'
@@ -65,6 +65,7 @@ DataTableRowWithVirtuosoContext.propTypes = {
     item: PropTypes.arrayOf(
         PropTypes.shape({
             dataKey: PropTypes.string,
+            itemId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
             value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         })
     ),
@@ -115,17 +116,39 @@ const Table = ({ availableHeight, availableWidth }) => {
         [sortDirection]
     )
 
-    const showOrgUnitProfile = useCallback(
+    const showDetailView = useCallback(
         (row) => {
-            const id = row.find((r) => r.dataKey === 'id')?.value
-            id && dispatch(setOrgUnitProfile(id))
+            if (layer.layer === EVENT_LAYER) {
+                return
+            }
+
+            if (layer.layer === GEOJSON_URL_LAYER) {
+                const { name } = layer
+
+                const data = row.reduce((acc, { dataKey, value }) => {
+                    acc[dataKey] = value
+                    return acc
+                }, {})
+
+                dispatch(
+                    setFeatureProfile({
+                        name,
+                        data,
+                    })
+                )
+            } else {
+                const id = row.find((r) => r.dataKey === 'id')?.value
+                id && dispatch(setOrgUnitProfile(id))
+            }
         },
-        [dispatch]
+        [dispatch, layer]
     )
 
     const setFeatureHighlight = useCallback(
         (row) => {
-            const id = row.find((r) => r.dataKey === 'id')?.value
+            const id =
+                row.find((r) => r.dataKey === 'id')?.value || row[0].itemId
+
             if (!id || !feature || id !== feature.id) {
                 dispatch(
                     highlightFeature(
@@ -157,17 +180,13 @@ const Table = ({ availableHeight, availableWidth }) => {
 
     const tableContext = useMemo(
         () => ({
-            onClick:
-                layer.layer !== EVENT_LAYER
-                    ? showOrgUnitProfile
-                    : Function.prototype,
+            onClick: showDetailView,
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
         }),
         [
-            layer.layer,
-            showOrgUnitProfile,
+            showDetailView,
             setFeatureHighlight,
             clearFeatureHighlight,
             columnWidths,
@@ -187,7 +206,7 @@ const Table = ({ availableHeight, availableWidth }) => {
          * columns to have a different width. To avoid that we measure the
          * initial column widths and switch to a fixed layout based on these
          * measured widths */
-        if (columnWidths.length === 0) {
+        if (columnWidths.length === 0 && headerRowRef.current) {
             requestAnimationFrame(() => {
                 const measuredColumnWidths = []
 
@@ -206,11 +225,13 @@ const Table = ({ availableHeight, availableWidth }) => {
          * headers change, the table needs to switch back to its
          * automatic layout so that the cells can subsequently can be
          * measured again in the useEffect hook above */
-        setColumnWidths([])
-    }, [availableWidth, headers])
+        if (!error) {
+            setColumnWidths([])
+        }
+    }, [availableWidth, headers, error])
 
     if (error) {
-        return <div className={styles.noSupport}>{error}</div>
+        return <p className={styles.noSupport}>{error}</p>
     }
 
     return (

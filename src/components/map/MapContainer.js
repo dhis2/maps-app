@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAggregations } from '../../actions/aggregations.js'
+import { setFeatureProfile } from '../../actions/feature.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import MapLoadingMask from './MapLoadingMask.js'
@@ -9,8 +10,9 @@ import MapName from './MapName.js'
 import MapView from './MapView.js'
 
 const MapContainer = ({ resizeCount, setMap }) => {
-    const { basemap, newLayerIsLoading, coordinatePopup, mapViews, bounds } =
-        useSelector((state) => state.map)
+    const { basemap, coordinatePopup, mapViews, bounds } = useSelector(
+        (state) => state.map
+    )
     const interpretationModalOpen = useSelector(
         (state) => !!state.interpretation.id
     )
@@ -18,8 +20,8 @@ const MapContainer = ({ resizeCount, setMap }) => {
     const basemapConfig = useBasemapConfig(basemap)
     const dispatch = useDispatch()
 
-    const layers = mapViews.filter((layer) => layer.isLoaded)
-    const isLoading = newLayerIsLoading || layers.length !== mapViews.length
+    const loadedMapViews = mapViews.filter((layer) => layer.isLoaded)
+    const isLoading = loadedMapViews.length !== mapViews.length
 
     return (
         <>
@@ -27,7 +29,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
             <MapView
                 isPlugin={false}
                 basemap={basemapConfig}
-                layers={layers}
+                layers={loadedMapViews}
                 bounds={bounds}
                 feature={feature}
                 openContextMenu={(config) => dispatch(openContextMenu(config))}
@@ -35,6 +37,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 interpretationModalOpen={interpretationModalOpen}
                 closeCoordinatePopup={() => dispatch(closeCoordinatePopup())}
                 setAggregations={(data) => dispatch(setAggregations(data))}
+                setFeatureProfile={(val) => dispatch(setFeatureProfile(val))}
                 resizeCount={resizeCount}
                 setMapObject={setMap}
             />

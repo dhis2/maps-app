@@ -17,27 +17,30 @@ import { useOrgUnits } from '../OrgUnitsProvider.js'
 import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
 import EventDialog from './event/EventDialog.js'
 import FacilityDialog from './FacilityDialog.js'
+import GeoJsonDialog from './geoJson/GeoJsonDialog.js'
 import OrgUnitDialog from './orgUnit/OrgUnitDialog.js'
 import styles from './styles/LayerEdit.module.css'
 import ThematicDialog from './thematic/ThematicDialog.js'
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
 
-const layerType = {
+const layerDialogs = {
     event: EventDialog,
     trackedEntity: TrackedEntityDialog,
     facility: FacilityDialog,
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
+    geoJsonUrl: GeoJsonDialog,
 }
 
-const layerName = () => ({
+const getLayerNames = () => ({
     event: i18n.t('event'),
     trackedEntity: i18n.t('tracked entity'),
     facility: i18n.t('facility'),
     thematic: i18n.t('thematic'),
     orgUnit: i18n.t('org unit'),
     earthEngine: i18n.t('Earth Engine'),
+    geoJsonUrl: i18n.t('feature'),
 })
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
@@ -74,13 +77,13 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     }
 
     const type = layer.layer
-    const LayerDialog = layerType[type]
+    const LayerDialog = layerDialogs[type]
 
     if (!LayerDialog) {
         return null
     }
 
-    let name = layerName()[type]
+    let name = getLayerNames()[type]
 
     if (type === EARTH_ENGINE_LAYER) {
         name = layer.name.toLowerCase()

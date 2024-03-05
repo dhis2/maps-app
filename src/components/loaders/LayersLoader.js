@@ -6,7 +6,7 @@ import LayerLoader from './LayerLoader.js'
 
 const LayersLoader = () => {
     const dataTable = useSelector((state) => state.dataTable)
-    const layers = useSelector(({ map }) =>
+    const layersToLoad = useSelector(({ map }) =>
         map.mapViews.filter(
             ({
                 id,
@@ -46,14 +46,14 @@ const LayersLoader = () => {
     const onLoad = (layer) => dispatch(updateLayer(layer))
 
     useEffect(() => {
-        layers.forEach((layer) => dispatch(setLayerLoading(layer.id)))
-    }, [layers, dispatch])
+        layersToLoad.forEach((layer) => dispatch(setLayerLoading(layer.id)))
+    }, [layersToLoad, dispatch])
 
-    if (!layers.length) {
+    if (!layersToLoad.length) {
         return null
     }
 
-    return layers.map((config) => (
+    return layersToLoad.map((config) => (
         <LayerLoader
             key={config.id}
             config={config}
