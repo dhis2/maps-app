@@ -11,6 +11,7 @@ const IconButton = ({
     children,
     dataTest,
     disabled,
+    ariaLabel,
 }) => {
     return (
         <button
@@ -20,6 +21,7 @@ const IconButton = ({
             })}
             data-test={dataTest}
             disabled={disabled}
+            aria-label={ariaLabel}
         >
             {tooltip ? (
                 <Tooltip content={tooltip}>{children}</Tooltip>
@@ -31,6 +33,7 @@ const IconButton = ({
 }
 
 IconButton.propTypes = {
+    ariaLabel: PropTypes.string,
     children: PropTypes.node,
     className: PropTypes.string,
     dataTest: PropTypes.string,

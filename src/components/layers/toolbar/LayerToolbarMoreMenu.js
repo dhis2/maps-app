@@ -51,6 +51,7 @@ const LayerToolbarMoreMenu = ({
                     tooltip={i18n.t('More actions')}
                     onClick={() => setIsOpen(!isOpen)}
                     dataTest="moremenubutton"
+                    ariaLabel={i18n.t('Toggle layer menu')}
                 >
                     <IconMore24 />
                 </IconButton>

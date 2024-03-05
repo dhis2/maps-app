@@ -19,10 +19,10 @@ const GeoJsonUrlLoader = ({ config, onLoad }) => {
             if (data.error) {
                 loadFailedAlert.show({
                     msg: i18n.t(
-                        'Failed to load map layer "{{layername}}": {{message}}',
+                        'Failed to load layer "{{layername}}": {{message}}',
                         {
                             layername: data.name,
-                            message: data.error,
+                            message: data.error.message || data.error,
                             nsSeparator: '^^',
                         }
                     ),

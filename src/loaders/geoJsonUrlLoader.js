@@ -7,7 +7,7 @@ const fetchData = async (url, engine, baseUrl) => {
         // API route, use engine
         const routesIndex = url.indexOf('routes')
         if (routesIndex === -1) {
-            throw new Error(`Invalid API route ${url}`)
+            throw new Error(i18n.t('Url to geojson is invalid'))
         }
 
         return engine
@@ -27,11 +27,14 @@ const fetchData = async (url, engine, baseUrl) => {
                         e.details.message.toLowerCase().includes('jwt expired')
                     ) {
                         throw new Error(
-                            i18n.t(
-                                'Authorization is no longer valid. Please contact your administrator.'
-                            )
+                            i18n.t('Layer authorization is no longer valid')
                         )
+                    } else if (
+                        e.details.message.toLowerCase().includes('not found')
+                    ) {
+                        throw new Error(i18n.t('Url to geojson was not found'))
                     }
+
                     throw new Error(e.details.message)
                 }
 
@@ -42,12 +45,7 @@ const fetchData = async (url, engine, baseUrl) => {
         return fetch(url)
             .then((response) => response.json())
             .catch((error) => {
-                throw new Error(
-                    i18n.t('Failed to load layer: {{error}}', {
-                        error,
-                        nsSeparator: '^^',
-                    })
-                )
+                throw new Error(error)
             })
     }
 }
@@ -74,20 +72,9 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
 
     try {
         geoJson = await fetchData(newConfig.url, engine, baseUrl)
-    } catch (error) {
-        console.error(error)
-
-        return {
-            ...layer,
-            name: newConfig.name, // TODO - will be fixed by DHIS2-16088
-            config: newConfig,
-            featureStyle,
-            isLoaded: true,
-            isLoading: false,
-            isExpanded: true,
-            isVisible: true,
-            error,
-        }
+    } catch (err) {
+        console.error(err)
+        error = err
     }
 
     const legend = {
@@ -106,7 +93,7 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         ...layer,
         name: newConfig.name, // TODO - will be fixed by DHIS2-16088
         legend,
-        data: buildGeoJsonFeatures(geoJson),
+        data: (!error && buildGeoJsonFeatures(geoJson)) || [],
         config: newConfig,
         featureStyle,
         isLoaded: true, // technically dont need this line since already set in layer object

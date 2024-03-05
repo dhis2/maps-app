@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-05T13:30:28.169Z\n"
-"PO-Revision-Date: 2024-03-05T13:30:28.169Z\n"
+"POT-Creation-Date: 2024-03-05T16:07:52.972Z\n"
+"PO-Revision-Date: 2024-03-05T16:07:52.972Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -588,14 +588,14 @@ msgstr "Loading layer"
 msgid "{{name}} deleted."
 msgstr "{{name}} deleted."
 
-msgid "Layer is invalid and cannot be edited"
-msgstr "Layer is invalid and cannot be edited"
-
 msgid "Edit"
 msgstr "Edit"
 
 msgid "Toggle visibility"
 msgstr "Toggle visibility"
+
+msgid "Layer is invalid"
+msgstr "Layer is invalid"
 
 msgid "Set layer opacity"
 msgstr "Set layer opacity"
@@ -630,8 +630,8 @@ msgstr "Group"
 msgid "Filters"
 msgstr "Filters"
 
-msgid "Failed to load map layer \"{{layername}}\": {{message}}"
-msgstr "Failed to load map layer \"{{layername}}\": {{message}}"
+msgid "Failed to load layer \"{{layername}}\": {{message}}"
+msgstr "Failed to load layer \"{{layername}}\": {{message}}"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -1329,11 +1329,14 @@ msgstr "Facilities"
 msgid "Facilities: No coordinates found"
 msgstr "Facilities: No coordinates found"
 
-msgid "Authorization is no longer valid. Please contact your administrator."
-msgstr "Authorization is no longer valid. Please contact your administrator."
+msgid "Url to geojson is invalid"
+msgstr "Url to geojson is invalid"
 
-msgid "Failed to load layer: {{error}}"
-msgstr "Failed to load layer: {{error}}"
+msgid "Layer authorization is no longer valid"
+msgstr "Layer authorization is no longer valid"
+
+msgid "Url to geojson was not found"
+msgstr "Url to geojson was not found"
 
 msgid "Organisation units"
 msgstr "Organisation units"
