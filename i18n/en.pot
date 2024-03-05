@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-05T16:07:52.972Z\n"
-"PO-Revision-Date: 2024-03-05T16:07:52.972Z\n"
+"POT-Creation-Date: 2024-03-05T16:53:36.408Z\n"
+"PO-Revision-Date: 2024-03-05T16:53:36.408Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -602,6 +602,9 @@ msgstr "Set layer opacity"
 
 msgid "More actions"
 msgstr "More actions"
+
+msgid "Toggle layer menu"
+msgstr "Toggle layer menu"
 
 msgid "Hide data table"
 msgstr "Hide data table"

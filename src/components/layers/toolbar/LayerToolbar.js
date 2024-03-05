@@ -35,6 +35,10 @@ const LayerToolbar = ({
             <IconButton
                 tooltip={!hasError ? i18n.t('Toggle visibility') : null}
                 onClick={toggleLayerVisibility}
+                className={{
+                    visible: isVisible, // for cypress testing only
+                    notvisible: !isVisible, // for cypress testing only
+                }}
                 dataTest="visibilitybutton"
                 disabled={hasError}
             >
