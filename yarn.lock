@@ -2016,10 +2016,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^26.3.0":
-  version "26.3.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.3.0.tgz#ada2fe27442f19704fa704e334546416c85ea1d6"
-  integrity sha512-B/pUh8K8wyivL4yBiwqPoQ94pMWwCqh0xu3Uak4jmJqS+jO0slUlyDLtAmXU/jqRlRgRg1nR4u18npjd511Q7A==
+"@dhis2/analytics@^26.4.1":
+  version "26.4.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.4.1.tgz#6dcd891b92f2d819ad1b5699f889148722907cdb"
+  integrity sha512-g7qrs9ncjDRrqv8fhFuFHlq2nsK9CZCts+F8hqw/wgNAWq6RVEOMW9YuJW27AY9dvQ1T2uVQ3nYY6Drph5xR/w==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.1"
     "@dhis2/multi-calendar-dates" "1.0.0"
