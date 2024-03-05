@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui'
-import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { IconButton } from '../../core/index.js'
@@ -25,7 +24,7 @@ const LayerToolbar = ({
                 <IconButton
                     tooltip={i18n.t('Edit')}
                     onClick={onEdit}
-                    className={styles.iconButton}
+                    className={styles.editButton}
                     dataTest="editbutton"
                     disabled={hasError}
                 >
@@ -36,10 +35,6 @@ const LayerToolbar = ({
             <IconButton
                 tooltip={i18n.t('Toggle visibility')}
                 onClick={toggleLayerVisibility}
-                className={cx(styles.button, {
-                    visible: isVisible,
-                    notvisible: !isVisible,
-                })}
                 dataTest="visibilitybutton"
                 disabled={hasError}
             >
@@ -55,7 +50,12 @@ const LayerToolbar = ({
                     />
                 </Tooltip>
             </div>
-            <LayerToolbarMoreMenu hasError={hasError} {...expansionMenuProps} />
+            <div className={styles.menuButton}>
+                <LayerToolbarMoreMenu
+                    hasError={hasError}
+                    {...expansionMenuProps}
+                />
+            </div>
         </div>
     )
 }
