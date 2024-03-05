@@ -255,7 +255,6 @@ const map = (state = defaultState, action) => {
             }
 
         case types.LAYER_LOADING_SET: {
-            console.log('reducer LAYER_LOADING_SET', { action })
             return {
                 ...state,
                 mapViews: state.mapViews.map((l) => layer(l, action)),
