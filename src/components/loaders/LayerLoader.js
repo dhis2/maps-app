@@ -29,7 +29,7 @@ const LayerLoader = ({ config, dataTableOpen, onLoad }) => {
     }
 
     return (
-        <Loader config={config} dataTableOpen={dataTableOpen} onLoad={onLoad} />
+        <Loader config={config} onLoad={onLoad} dataTableOpen={dataTableOpen} />
     )
 }
 
