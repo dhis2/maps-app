@@ -98,6 +98,7 @@ const MapPosition = () => {
                     className={cx(styles.mapContainer, {
                         [styles.download]: downloadMode,
                         'dhis2-map-download': downloadMode,
+                        'dhis2-map-new': !mapId,
                     })}
                 >
                     <MapContainer resizeCount={resizeCount} setMap={setMap} />
