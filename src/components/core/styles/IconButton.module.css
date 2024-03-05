@@ -2,11 +2,9 @@
     width: 28px;
     height: 28px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: transparent;
     border-radius: 5px;
+    border: none;
 }
 
 .iconButton:hover {
@@ -16,16 +14,12 @@
 .iconButton > span {
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.icon svg {
-    display: block;
+.iconButton svg {
     color: var(--colors-grey700);
 }
 
-.iconButton:hover .icon svg {
+.iconButton:hover svg {
     color: var(--colors-grey900);
 }

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-01T16:36:39.895Z\n"
-"PO-Revision-Date: 2024-03-01T16:36:39.896Z\n"
+"POT-Creation-Date: 2024-03-05T06:49:38.690Z\n"
+"PO-Revision-Date: 2024-03-05T06:49:38.690Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -578,6 +578,9 @@ msgstr "External layer"
 
 msgid "Split view can not be combined with other layer types."
 msgstr "Split view can not be combined with other layer types."
+
+msgid "Failed to load layer"
+msgstr "Failed to load layer"
 
 msgid "Loading layer"
 msgstr "Loading layer"

@@ -28,6 +28,7 @@ const LayerToolbarMoreMenu = ({
     dataTableOpen,
     hasOrgUnitData,
     isLoading,
+    hasError,
 }) => {
     const [isOpen, setIsOpen] = useState(false)
     const anchorRef = useRef()
@@ -83,7 +84,7 @@ const LayerToolbarMoreMenu = ({
                                         setIsOpen(false)
                                         toggleDataTable()
                                     }}
-                                    disabled={showDataTableDisabled}
+                                    disabled={hasError || showDataTableDisabled}
                                 />
                             )}
                             {openAs && (
@@ -104,7 +105,9 @@ const LayerToolbarMoreMenu = ({
                                         setIsOpen(false)
                                         downloadData()
                                     }}
-                                    disabled={!hasOrgUnitData || isLoading}
+                                    disabled={
+                                        hasError || !hasOrgUnitData || isLoading
+                                    }
                                 />
                             )}
                             {showDivider && <MenuDivider />}
@@ -116,6 +119,7 @@ const LayerToolbarMoreMenu = ({
                                         setIsOpen(false)
                                         onEdit()
                                     }}
+                                    disabled={hasError}
                                 />
                             )}
                             {onRemove && (
@@ -140,6 +144,7 @@ const LayerToolbarMoreMenu = ({
 LayerToolbarMoreMenu.propTypes = {
     dataTableOpen: PropTypes.string,
     downloadData: PropTypes.func,
+    hasError: PropTypes.bool,
     hasOrgUnitData: PropTypes.bool,
     isLoading: PropTypes.bool,
     layer: PropTypes.object,

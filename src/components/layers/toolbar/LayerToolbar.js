@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { IconButton } from '../../core/index.js'
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu.js'
 import OpacitySlider from './OpacitySlider.js'
@@ -14,6 +14,7 @@ const LayerToolbar = ({
     isVisible,
     onOpacityChange,
     toggleLayerVisibility,
+    hasError,
     ...expansionMenuProps
 }) => {
     const onEdit = expansionMenuProps.onEdit
@@ -21,17 +22,15 @@ const LayerToolbar = ({
     return (
         <div className={styles.toolbar} data-test="layertoolbar">
             {onEdit && (
-                <Fragment>
-                    <IconButton
-                        tooltip={i18n.t('Edit')}
-                        onClick={onEdit}
-                        className={styles.button}
-                        dataTest="editbutton"
-                    >
-                        <IconEdit24 />
-                    </IconButton>
-                    <span className={styles.spacer} />
-                </Fragment>
+                <IconButton
+                    tooltip={i18n.t('Edit')}
+                    onClick={onEdit}
+                    className={styles.iconButton}
+                    dataTest="editbutton"
+                    disabled={hasError}
+                >
+                    <IconEdit24 />
+                </IconButton>
             )}
 
             <IconButton
@@ -42,6 +41,7 @@ const LayerToolbar = ({
                     notvisible: !isVisible,
                 })}
                 dataTest="visibilitybutton"
+                disabled={hasError}
             >
                 {isVisible ? <IconView24 /> : <IconViewOff24 />}
             </IconButton>
@@ -50,12 +50,12 @@ const LayerToolbar = ({
                 <Tooltip content={i18n.t('Set layer opacity')}>
                     <OpacitySlider
                         opacity={opacity}
-                        disabled={!isVisible || !hasOpacity}
+                        disabled={hasError || !isVisible || !hasOpacity}
                         onChange={onOpacityChange}
                     />
                 </Tooltip>
             </div>
-            <LayerToolbarMoreMenu {...expansionMenuProps} />
+            <LayerToolbarMoreMenu hasError={hasError} {...expansionMenuProps} />
         </div>
     )
 }
@@ -63,6 +63,7 @@ const LayerToolbar = ({
 LayerToolbar.propTypes = {
     toggleLayerVisibility: PropTypes.func.isRequired,
     onOpacityChange: PropTypes.func.isRequired,
+    hasError: PropTypes.bool,
     hasOpacity: PropTypes.bool,
     isVisible: PropTypes.bool,
     opacity: PropTypes.number,
