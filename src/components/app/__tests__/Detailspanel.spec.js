@@ -22,121 +22,113 @@ jest.mock(
         }
 )
 
+jest.mock(
+    '../../feature/FeatureProfile.js',
+    () =>
+        function MockFeatureProfile() {
+            return <div>Feature Profile</div>
+        }
+)
+
+const interpretation = { id: 'myinterpretation' }
+const orgUnitProfile = 'myorgunit'
+const featureProfile = 'myfeature'
+const uiWithPanelOpen = { rightPanelOpen: true }
+const uiWithPanelClosed = { rightPanelOpen: false }
+
+const testCases = [
+    {
+        store: {
+            interpretation,
+            orgUnitProfile,
+            featureProfile,
+            ui: uiWithPanelOpen,
+        },
+        expected: 'Interpretations',
+    },
+    {
+        store: {
+            interpretation,
+            orgUnitProfile,
+            featureProfile,
+            ui: uiWithPanelClosed,
+        },
+        expected: 'Interpretations',
+    },
+    {
+        store: {
+            interpretation,
+            orgUnitProfile: null,
+            featureProfile: null,
+            ui: uiWithPanelOpen,
+        },
+        expected: 'Interpretations',
+    },
+    {
+        store: {
+            interpretation,
+            orgUnitProfile: null,
+            featureProfile: null,
+            ui: uiWithPanelClosed,
+        },
+        expected: 'Interpretations',
+    },
+    {
+        store: {
+            interpretation: {},
+            orgUnitProfile: null,
+            featureProfile: null,
+            ui: uiWithPanelOpen,
+        },
+        expected: 'Interpretations',
+    },
+    {
+        store: {
+            interpretation: {},
+            orgUnitProfile,
+            featureProfile,
+            ui: uiWithPanelOpen,
+        },
+        expected: 'OrgUnitProfile',
+    },
+    {
+        store: {
+            interpretation: {},
+            orgUnitProfile: null,
+            featureProfile,
+            ui: uiWithPanelOpen,
+        },
+        expected: 'FeatureProfile',
+    },
+    {
+        store: {
+            interpretation: {},
+            orgUnitProfile,
+            featureProfile: null,
+            ui: uiWithPanelClosed,
+        },
+        expected: 'null',
+    },
+    {
+        store: {
+            interpretation: {},
+            orgUnitProfile: null,
+            featureProfile: null,
+            ui: uiWithPanelClosed,
+        },
+        expected: 'null',
+    },
+]
+
 describe('DetailsPanel', () => {
-    test('renders InterpretationsPanel when has interpretationId, has orgUnitProfile and panel is open', () => {
-        const store = {
-            interpretation: { id: 'abc123' },
-            orgUnitProfile: 'xyzpdq',
-            ui: { rightPanelOpen: true },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
-    })
-    test('renders InterpretationsPanel when has interpretationId, has orgUnitProfile and panel is closed', () => {
-        const store = {
-            interpretation: { id: 'abc123' },
-            orgUnitProfile: 'xyzpdq',
-            ui: { rightPanelOpen: false },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
-    })
-    test('renders InterpretationsPanel when has interpretationId, no orgUnitProfile and panel is open', () => {
-        const store = {
-            interpretation: { id: 'abc123' },
-            orgUnitProfile: null,
-            ui: { rightPanelOpen: true },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
-    })
-
-    test('renders InterpretationsPanel when has interpretationId, no orgUnitProfile and panel is closed', () => {
-        const store = {
-            interpretation: { id: 'abc123' },
-            orgUnitProfile: null,
-            ui: { rightPanelOpen: false },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
-    })
-
-    test('renders OrgUnitProfile when no interpretationId, has orgUnitProfile and panel is open', () => {
-        const store = {
-            interpretation: {},
-            orgUnitProfile: 'xyzpdq',
-            ui: { rightPanelOpen: true },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
-    })
-
-    test('renders null when no interpretationId, has orgUnitProfile, and panel closed', () => {
-        const store = {
-            interpretation: {},
-            orgUnitProfile: 'xyzpdq',
-            ui: { rightPanelOpen: false },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
-    })
-    test('renders InterpretationsPanel when no interpretationId, no orgUnitProfile and panel open', () => {
-        const store = {
-            interpretation: {},
-            orgUnitProfile: null,
-            ui: { rightPanelOpen: true },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
-    })
-
-    test('renders null when no interpretationId, no orgUnitProfile, and panel closed', () => {
-        const store = {
-            interpretation: {},
-            orgUnitProfile: null,
-            ui: { rightPanelOpen: false },
-        }
-
-        const { container } = render(
-            <Provider store={mockStore(store)}>
-                <DetailsPanel interpretationsRenderCount={1} />
-            </Provider>
-        )
-        expect(container).toMatchSnapshot()
+    testCases.forEach(({ store, expected }) => {
+        test(`renders ${expected} when interpretation=${store.interpretation.id}, orgUnitProfile=${store.orgUnitProfile}, featureProfile=${store.featureProfile} and panelOpen=${store.ui.rightPanelOpen}`, () => {
+            const { container } = render(
+                <Provider store={mockStore(store)}>
+                    <DetailsPanel />
+                </Provider>
+            )
+            expect(container).toMatchSnapshot()
+        })
     })
 })

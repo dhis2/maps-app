@@ -4,6 +4,7 @@ import EarthEngineLoader from './EarthEngineLoader.js'
 import EventLoader from './EventLoader.js'
 import ExternalLoader from './ExternalLoader.js'
 import FacilityLoader from './FacilityLoader.js'
+import GeoJsonUrlLoader from './GeoJsonUrlLoader.js'
 import OrgUnitLoader from './OrgUnitLoader.js'
 import ThematicLoader from './ThematicLoader.js'
 import TrackedEntityLoader from './TrackedEntityLoader.js'
@@ -16,6 +17,7 @@ const layerType = {
     orgUnit: OrgUnitLoader,
     thematic: ThematicLoader,
     trackedEntity: TrackedEntityLoader,
+    geoJsonUrl: GeoJsonUrlLoader,
 }
 
 const LayerLoader = ({ config, dataTableOpen, onLoad }) => {
@@ -33,6 +35,7 @@ const LayerLoader = ({ config, dataTableOpen, onLoad }) => {
 
 LayerLoader.defaultProps = {
     dataTableOpen: false,
+    onError: Function.prototype,
 }
 
 LayerLoader.propTypes = {

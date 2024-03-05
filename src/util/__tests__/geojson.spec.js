@@ -4,6 +4,8 @@ import {
     createEventFeature,
     buildEventGeometryGetter,
     createEventFeatures,
+    getGeojsonDisplayData,
+    buildGeoJsonFeatures,
 } from '../geojson.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
@@ -263,6 +265,317 @@ describe('geojson utils', () => {
                 ['0', '1'],
                 ['2', '3'],
             ])
+        })
+    })
+
+    describe('getGeojsonDisplayData', () => {
+        const TYPE_NUMBER = 'number'
+        const TYPE_STRING = 'string'
+
+        it('should return an empty array for an empty object', () => {
+            expect(getGeojsonDisplayData({}, [])).toEqual([])
+        })
+
+        it('should correctly process a data item with number and string values', () => {
+            expect(
+                getGeojsonDisplayData({ properties: { a: 1, b: '2' } })
+            ).toMatchObject([
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    value: 1,
+                },
+                {
+                    name: 'b',
+                    dataKey: 'b',
+                    type: TYPE_STRING,
+                    value: '2',
+                },
+            ])
+        })
+
+        it('should correctly process a data item with only number values', () => {
+            expect(
+                getGeojsonDisplayData({
+                    properties: { a: 1.23, b: 4.56 },
+                })
+            ).toMatchObject([
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    value: 1.23,
+                },
+                {
+                    name: 'b',
+                    dataKey: 'b',
+                    type: TYPE_NUMBER,
+                    value: 4.56,
+                },
+            ])
+        })
+
+        it('should exclude properties that are objects', () => {
+            expect(
+                getGeojsonDisplayData({
+                    properties: { a: 1, b: '2', c: { d: 3 } },
+                })
+            ).toMatchObject([
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    value: 1,
+                },
+                {
+                    name: 'b',
+                    dataKey: 'b',
+                    type: TYPE_STRING,
+                    value: '2',
+                },
+            ])
+        })
+
+        it('should remove id property that was added by the app', () => {
+            expect(
+                getGeojsonDisplayData({
+                    properties: { id: 1234, a: 1 },
+                    __isDhis2propertyId: true,
+                })
+            ).toMatchObject([
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    value: 1,
+                },
+            ])
+        })
+
+        it('should remove not id property that was an actual property', () => {
+            expect(
+                getGeojsonDisplayData({
+                    properties: { id: 1234.1, a: 1 },
+                })
+            ).toMatchObject([
+                {
+                    name: 'id',
+                    dataKey: 'id',
+                    type: TYPE_NUMBER,
+                    value: 1234.1,
+                },
+                {
+                    name: 'a',
+                    dataKey: 'a',
+                    type: TYPE_NUMBER,
+                    value: 1,
+                },
+            ])
+        })
+    })
+
+    describe('buildGeoJsonFeatures', () => {
+        it('should handle a FeatureCollection with multiple features', () => {
+            const geoJson = {
+                type: 'FeatureCollection',
+                features: [
+                    {
+                        type: 'Feature',
+                        id: '33',
+                        geometry: {
+                            type: 'Point',
+                            coordinates: [125.6, 10.1],
+                        },
+                        properties: {
+                            name: 'Dinagat Islands',
+                        },
+                    },
+                    {
+                        type: 'Feature',
+                        id: '44',
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: [
+                                [125.6, 10.1],
+                                [125.7, 10.2],
+                            ],
+                        },
+                        properties: {
+                            name: 'Surigao del Norte',
+                        },
+                    },
+                ],
+            }
+
+            const result = buildGeoJsonFeatures(geoJson)
+            expect(result[0].type).toEqual('Feature')
+            expect(result[0].geometry).toEqual(geoJson.features[0].geometry)
+            expect(result[0].properties).toEqual({
+                name: 'Dinagat Islands',
+                id: '33',
+            })
+            expect(result[0].id).toEqual('33')
+            expect(result[0].__isDhis2propertyId).toEqual(true)
+
+            expect(result[1].type).toEqual('Feature')
+            expect(result[1].geometry).toEqual(geoJson.features[1].geometry)
+            expect(result[1].properties).toEqual({
+                name: 'Surigao del Norte',
+                id: '44',
+            })
+            expect(result[1].id).toEqual('44')
+            expect(result[1].__isDhis2propertyId).toEqual(true)
+        })
+        it('should handle a Feature', () => {
+            const geoJson = {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [125.6, 10.1],
+                },
+                properties: {
+                    name: 'Dinagat Islands',
+                },
+            }
+
+            const result = buildGeoJsonFeatures(geoJson)
+            expect(result.length).toEqual(1)
+            expect(result[0].type).toEqual('Feature')
+            expect(result[0].geometry).toEqual(geoJson.geometry)
+            expect(result[0].properties).toEqual({
+                name: 'Dinagat Islands',
+                id: 1,
+            })
+            expect(result[0].id).toEqual(1)
+            expect(result[0].__isDhis2propertyId).toEqual(true)
+        })
+
+        it('should handle a raw geometry type', () => {
+            const geoJson = {
+                type: 'Point',
+                coordinates: [125.6, 10.1],
+            }
+
+            const result = buildGeoJsonFeatures(geoJson)
+            expect(result.length).toEqual(1)
+            expect(result[0].type).toEqual('Feature')
+            expect(result[0].id).toEqual(1)
+            expect(result[0].properties).toEqual({ id: 1 })
+            expect(result[0].__isDhis2propertyId).toEqual(true)
+        })
+
+        it('should handle a GeometryCollection', () => {
+            const geoJson = {
+                type: 'GeometryCollection',
+                geometries: [
+                    {
+                        type: 'Point',
+                        coordinates: [125.6, 10.1],
+                    },
+                    {
+                        type: 'LineString',
+                        coordinates: [
+                            [125.6, 10.1],
+                            [125.7, 10.2],
+                        ],
+                    },
+                ],
+            }
+
+            const result = buildGeoJsonFeatures(geoJson)
+            expect(result.length).toEqual(2)
+
+            expect(result[0].type).toEqual('Feature')
+            expect(result[0].geometry).toEqual({
+                type: 'Point',
+                coordinates: [125.6, 10.1],
+            })
+            expect(result[0].properties).toEqual({ id: 1 })
+            expect(result[0].id).toEqual(1)
+            expect(result[0].__isDhis2propertyId).toEqual(true)
+
+            expect(result[1].type).toEqual('Feature')
+            expect(result[1].geometry).toEqual({
+                type: 'LineString',
+                coordinates: [
+                    [125.6, 10.1],
+                    [125.7, 10.2],
+                ],
+            })
+            expect(result[1].properties).toEqual({ id: 2 })
+            expect(result[1].id).toEqual(2)
+            expect(result[1].__isDhis2propertyId).toEqual(true)
+        })
+
+        it('should add a properties.id property if it does not exist', () => {
+            const geoJson = {
+                type: 'Feature',
+                id: '123',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [125.6, 10.1],
+                },
+                properties: {
+                    name: 'Dinagat Islands',
+                },
+            }
+
+            const result = buildGeoJsonFeatures(geoJson)
+            expect(result[0].type).toEqual('Feature')
+            expect(result[0].properties).toEqual({
+                name: 'Dinagat Islands',
+                id: '123',
+            })
+            expect(result[0].id).toEqual('123')
+            expect(result[0].__isDhis2propertyId).toEqual(true)
+        })
+
+        it('should add a feature.id property if it does not exist', () => {
+            const geoJson = {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [125.6, 10.1],
+                },
+                properties: {
+                    name: 'Dinagat Islands',
+                    id: '123',
+                },
+            }
+
+            const result = buildGeoJsonFeatures(geoJson)
+            expect(result[0].type).toEqual('Feature')
+            expect(result[0].properties).toEqual({
+                name: 'Dinagat Islands',
+                id: '123',
+            })
+            expect(result[0].id).toEqual('123')
+            expect(result[0].__isDhis2propertyId).toBe(undefined)
+        })
+
+        it('should not add ids if they exist already', () => {
+            const geoJson = {
+                type: 'Feature',
+                id: 456,
+                geometry: {
+                    type: 'Point',
+                    coordinates: [125.6, 10.1],
+                },
+                properties: {
+                    name: 'Dinagat Islands',
+                    id: '123',
+                },
+            }
+
+            const result = buildGeoJsonFeatures(geoJson)
+            expect(result[0].type).toEqual('Feature')
+            expect(result[0].properties).toEqual({
+                name: 'Dinagat Islands',
+                id: '123',
+            })
+            expect(result[0].id).toEqual(456)
+            expect(result[0].__isDhis2propertyId).toBe(undefined)
         })
     })
 })

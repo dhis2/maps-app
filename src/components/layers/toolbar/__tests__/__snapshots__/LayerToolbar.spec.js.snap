@@ -6,18 +6,20 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
   data-test="layertoolbar"
 >
   <IconButton
-    className="button"
+    className="editButton"
     dataTest="editbutton"
     onClick={[Function]}
     tooltip="Edit"
   >
     <SvgEdit24 />
   </IconButton>
-  <span
-    className="spacer"
-  />
   <IconButton
-    className="button visible"
+    className={
+      Object {
+        "notvisible": false,
+        "visible": true,
+      }
+    }
     dataTest="visibilitybutton"
     onClick={[Function]}
     tooltip="Toggle visibility"
@@ -42,9 +44,13 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
       />
     </Tooltip>
   </div>
-  <Connect(LayerToolbarMoreMenu)
-    onEdit={[Function]}
-  />
+  <div
+    className="menuButton"
+  >
+    <Connect(LayerToolbarMoreMenu)
+      onEdit={[Function]}
+    />
+  </div>
 </div>
 `;
 
@@ -54,7 +60,12 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
   data-test="layertoolbar"
 >
   <IconButton
-    className="button visible"
+    className={
+      Object {
+        "notvisible": false,
+        "visible": true,
+      }
+    }
     dataTest="visibilitybutton"
     onClick={[Function]}
     tooltip="Toggle visibility"
@@ -79,6 +90,10 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
       />
     </Tooltip>
   </div>
-  <Connect(LayerToolbarMoreMenu) />
+  <div
+    className="menuButton"
+  >
+    <Connect(LayerToolbarMoreMenu) />
+  </div>
 </div>
 `;

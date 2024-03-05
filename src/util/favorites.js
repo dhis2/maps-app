@@ -1,6 +1,7 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
     EARTH_ENGINE_LAYER,
+    GEOJSON_URL_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 
@@ -39,6 +40,7 @@ const validLayerProperties = [
     'eventPointColor',
     'eventPointRadius',
     'eventStatus',
+    'featureStyle', // used by GEOJSON_URL_LAYER, stored in layer config
     'filter',
     'filters',
     'followUp',
@@ -113,26 +115,26 @@ const getBasemapString = (basemap, defaultBasemapId) => {
     return basemap.id || defaultBasemapId
 }
 
-const cleanLayerConfig = (config) => ({
-    ...models2objects(pick(validLayerProperties, config)),
+const cleanLayerConfig = (layer) => ({
+    ...models2objects(pick(validLayerProperties, layer)),
 })
 
 // TODO: This feels hacky, find better way to clean map configs before saving
-const models2objects = (config) => {
-    const { layer } = config
+const models2objects = (layer) => {
+    const { layer: layerType } = layer
 
-    Object.keys(config).forEach((key) => {
-        config[key] = models.includes(key)
-            ? pick(validModelProperties, config[key])
-            : config[key]
+    Object.keys(layer).forEach((key) => {
+        layer[key] = models.includes(key)
+            ? pick(validModelProperties, layer[key])
+            : layer[key]
     })
 
-    if (config.rows) {
-        config.rows = config.rows.map(cleanDimension)
+    if (layer.rows) {
+        layer.rows = layer.rows.map(cleanDimension)
     }
 
-    if (layer === EARTH_ENGINE_LAYER) {
-        const { layerId: id, band, params, aggregationType, filter } = config
+    if (layerType === EARTH_ENGINE_LAYER) {
+        const { layerId: id, band, params, aggregationType, filter } = layer
 
         const eeConfig = {
             id,
@@ -146,63 +148,70 @@ const models2objects = (config) => {
         Object.keys(eeConfig).forEach(
             (key) => eeConfig[key] === undefined && delete eeConfig[key]
         )
+        layer.config = JSON.stringify(eeConfig)
 
-        config.config = JSON.stringify(eeConfig)
-
-        delete config.layerId
-        delete config.datasetId
-        delete config.params
-        delete config.filter
-        delete config.filters
-        delete config.periodType
-        delete config.periodName
-        delete config.aggregationType
-        delete config.band
-    } else if (layer === TRACKED_ENTITY_LAYER) {
-        config.config = JSON.stringify({
-            relationships: config.relationshipType
+        delete layer.layerId
+        delete layer.datasetId
+        delete layer.params
+        delete layer.filter
+        delete layer.filters
+        delete layer.periodType
+        delete layer.periodName
+        delete layer.aggregationType
+        delete layer.band
+    } else if (layerType === TRACKED_ENTITY_LAYER) {
+        layer.config = JSON.stringify({
+            relationships: layer.relationshipType
                 ? {
-                      type: config.relationshipType,
-                      pointColor: config.relatedPointColor,
-                      pointRadius: config.relatedPointRadius,
-                      lineColor: config.relationshipLineColor,
+                      type: layer.relationshipType,
+                      pointColor: layer.relatedPointColor,
+                      pointRadius: layer.relatedPointRadius,
+                      lineColor: layer.relationshipLineColor,
                       relationshipOutsideProgram:
-                          config.relationshipOutsideProgram,
+                          layer.relationshipOutsideProgram,
                   }
                 : null,
-            periodType: config.periodType,
+            periodType: layer.periodType,
         })
 
-        delete config.relationshipType
-        delete config.relatedPointColor
-        delete config.relatedPointRadius
-        delete config.relationshipLineColor
-        delete config.relationshipOutsideProgram
-        delete config.periodType
+        delete layer.relationshipType
+        delete layer.relatedPointColor
+        delete layer.relatedPointRadius
+        delete layer.relationshipLineColor
+        delete layer.relationshipOutsideProgram
+        delete layer.periodType
+    } else if (layerType === GEOJSON_URL_LAYER) {
+        layer.config = {
+            ...layer.config,
+            featureStyle: { ...layer.featureStyle },
+        }
+
+        delete layer.featureStyle
+    }
+    delete layer.id
+
+    if (isObject(layer.config)) {
+        layer.config = JSON.stringify(layer.config) // External overlay
     }
 
-    if (isObject(config.config)) {
-        config.config = JSON.stringify(config.config) // External overlay
-    }
-
-    if (config.styleDataItem) {
+    if (layer.styleDataItem) {
         // Remove legendSet from styleDataItem as this is stored in a separate property
         // Remove names as these can be translated and will be fetched on layer load
-        config.styleDataItem = omit(
+        layer.styleDataItem = omit(
             ['legendSet', 'name', 'optionSet.name'],
-            config.styleDataItem
+            layer.styleDataItem
         )
 
-        if (config.styleDataItem.optionSet) {
+        if (layer.styleDataItem.optionSet) {
             // Remove name and code from options as these are not persistent
-            config.styleDataItem.optionSet.options.forEach((option) => {
+            layer.styleDataItem.optionSet.options.forEach((option) => {
                 delete option.name
                 delete option.code
             })
         }
     }
 
-    return config
+    return layer
 }
 
 export const cleanDimension = (dim) => ({

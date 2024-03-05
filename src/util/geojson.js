@@ -115,3 +115,89 @@ export const getCoordinatesBounds = (coordinates) =>
             [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
         ]
     )
+
+const TYPE_NUMBER = 'number'
+const TYPE_STRING = 'string'
+
+export const getGeojsonDisplayData = (feature) => {
+    const { properties, __isDhis2propertyId } = feature
+    if (!properties) {
+        return []
+    }
+    return Object.entries(properties)
+        .filter(
+            ([, value]) =>
+                typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
+        )
+        .filter(([key]) =>
+            // Remove id property if it was set internally
+            __isDhis2propertyId ? key !== 'id' : true
+        )
+        .map(([key, value]) => {
+            const type =
+                typeof value === TYPE_NUMBER ? TYPE_NUMBER : TYPE_STRING
+
+            return {
+                name: key,
+                dataKey: key,
+                type,
+                value,
+            }
+        })
+}
+
+const rawGeometryTypes = [
+    'Point',
+    'MultiPoint',
+    'LineString',
+    'MultiLineString',
+    'Polygon',
+    'MultiPolygon',
+]
+
+// Ensure that we are always working with a FeatureCollection
+export const buildGeoJsonFeatures = (geoJson) => {
+    let finalGeoJson = geoJson
+
+    if (geoJson.type === 'Feature') {
+        finalGeoJson = {
+            type: 'FeatureCollection',
+            features: [geoJson],
+        }
+    } else if (rawGeometryTypes.includes(geoJson.type)) {
+        finalGeoJson = {
+            type: 'FeatureCollection',
+            features: [
+                {
+                    type: 'Feature',
+                    geometry: geoJson,
+                    properties: {},
+                },
+            ],
+        }
+    } else if (geoJson.type === 'GeometryCollection') {
+        const features = geoJson.geometries.map((geometry) => ({
+            type: 'Feature',
+            geometry,
+            properties: {},
+        }))
+        finalGeoJson = {
+            type: 'FeatureCollection',
+            features,
+        }
+    }
+
+    // Ensures that all features have an id property and a properties.id property
+    // If id is added, set a flag to indicate this
+    return finalGeoJson.features.map((f, i) => {
+        if (!f.id) {
+            f.id = f.properties.id || i + 1
+        }
+        if (f.id && !f.properties.id) {
+            f.properties.id = f.id
+            f.__isDhis2propertyId = true
+        }
+
+        return f
+    })
+}

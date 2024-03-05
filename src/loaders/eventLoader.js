@@ -17,9 +17,9 @@ import {
 import { cssColor, getContrastColor } from '../util/colors.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
-import { isValidUid } from '../util/helpers.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
 const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
