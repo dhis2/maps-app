@@ -7,6 +7,7 @@ const defaultState = {
     rightPanelOpen: false,
     dataTableHeight: 300,
     mapContextMenu: true,
+    downloadMode: false,
 }
 
 const ui = (state = defaultState, action) => {
@@ -34,12 +35,23 @@ const ui = (state = defaultState, action) => {
         case types.INTERPRETATIONS_PANEL_CLOSE:
         case types.ORGANISATION_UNIT_PROFILE_CLOSE:
         case types.FEATURE_PROFILE_CLOSE:
-        case types.DOWNLOAD_MODE_SET:
         case types.MAP_NEW:
         case types.MAP_SET:
             return {
                 ...state,
                 rightPanelOpen: false,
+            }
+
+        case types.DOWNLOAD_MODE_OPEN:
+            return {
+                ...state,
+                downloadMode: true,
+            }
+        case types.DOWNLOAD_MODE_CLOSE:
+            return {
+                ...state,
+                rightPanelOpen: false,
+                downloadMode: false,
             }
 
         case types.DATA_TABLE_RESIZE:
