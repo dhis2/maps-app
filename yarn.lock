@@ -2016,10 +2016,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^26.2.0":
-  version "26.2.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.2.0.tgz#36a7f258ac96ddab90f4001e62257e2cc64f202e"
-  integrity sha512-YcJu6EHnor6pbHmwXKYumLRVy/9TxuLtBDv9JIzjt9/APZa8kbak6sT2/53pnWDnbUjzDwR8EV1UIz24vAX+ig==
+"@dhis2/analytics@^26.3.0":
+  version "26.3.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.3.0.tgz#ada2fe27442f19704fa704e334546416c85ea1d6"
+  integrity sha512-B/pUh8K8wyivL4yBiwqPoQ94pMWwCqh0xu3Uak4jmJqS+jO0slUlyDLtAmXU/jqRlRgRg1nR4u18npjd511Q7A==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.1"
     "@dhis2/multi-calendar-dates" "1.0.0"
@@ -2243,10 +2243,10 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^3.8.6":
-  version "3.8.6"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.8.6.tgz#eace04fca9bb5d4cc24ca3fcebb4c13e3f8a6422"
-  integrity sha512-9jVfPczgT9MZrU/Cm5ksSjVnUV8/sPOdcaRVLj/nusDMOUVJ23Bt6/U6Gd6SOu/XPk8pWAi9dwyOF1p5pB8L7g==
+"@dhis2/maps-gl@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.9.0.tgz#124f560eaa2107c7b0555b47d7b88533ebdca9e5"
+  integrity sha512-bGxBsiTRktUihyM4epcYGl1joJe5RG/r0HOHicU4UaxJLU7t8f1b9VVW18hp9TWyinjMUMmaorIu+dwOgFg/MA==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
