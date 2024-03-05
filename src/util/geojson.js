@@ -1,5 +1,4 @@
 import findIndex from 'lodash/findIndex'
-import { getPrecision, getRoundToPrecisionFn } from './numbers.js'
 
 export const EVENT_ID_FIELD = 'psi'
 
