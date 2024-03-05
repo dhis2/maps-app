@@ -73,7 +73,6 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
     try {
         geoJson = await fetchData(newConfig.url, engine, baseUrl)
     } catch (err) {
-        console.error(err)
         error = err
     }
 
@@ -96,8 +95,8 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
         data: (!error && buildGeoJsonFeatures(geoJson)) || [],
         config: newConfig,
         featureStyle,
-        isLoaded: true, // technically dont need this line since already set in layer object
-        isLoading: false, // technically dont need this line since already set in layer object
+        isLoaded: true,
+        isLoading: false,
         isExpanded: true,
         isVisible: true,
         error,

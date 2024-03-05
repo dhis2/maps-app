@@ -118,7 +118,6 @@ export const getCoordinatesBounds = (coordinates) =>
 
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
-// const TYPE_DATE = 'date'
 
 export const getGeojsonDisplayData = (feature) => {
     const { properties, __isDhis2propertyId } = feature
