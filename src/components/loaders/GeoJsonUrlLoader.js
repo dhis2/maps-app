@@ -12,10 +12,11 @@ import geoJsonUrlLoader from '../../loaders/geoJsonUrlLoader.js'
 const GeoJsonUrlLoader = ({ config, onLoad }) => {
     const loadFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
     const engine = useDataEngine()
-    const { baseUrl } = useConfig()
+    const { systemInfo } = useConfig()
+    const { instanceBaseUrl } = systemInfo
 
     useEffect(() => {
-        geoJsonUrlLoader(config, engine, baseUrl).then((data) => {
+        geoJsonUrlLoader(config, engine, instanceBaseUrl).then((data) => {
             if (data.error) {
                 loadFailedAlert.show({
                     msg: i18n.t(
@@ -30,7 +31,7 @@ const GeoJsonUrlLoader = ({ config, onLoad }) => {
             }
             return onLoad(data)
         })
-    }, [config, onLoad, engine, baseUrl, loadFailedAlert])
+    }, [config, onLoad, engine, instanceBaseUrl, loadFailedAlert])
 
     return null
 }

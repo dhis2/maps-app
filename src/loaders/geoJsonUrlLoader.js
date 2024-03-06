@@ -2,8 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import { parseLayerConfig } from '../util/external.js'
 import { buildGeoJsonFeatures } from '../util/geojson.js'
 
-const fetchData = async (url, engine, baseUrl) => {
-    if (url.includes(baseUrl)) {
+const fetchData = async (url, engine, instanceBaseUrl) => {
+    if (url.includes(instanceBaseUrl)) {
         // API route, use engine
         const routesIndex = url.indexOf('routes')
         if (routesIndex === -1) {
@@ -43,7 +43,14 @@ const fetchData = async (url, engine, baseUrl) => {
     } else {
         // External route, use fetch
         return fetch(url)
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((err) => {
+                        throw new Error(err?.message || i18n.t('Unknown error'))
+                    })
+                }
+                return response.json()
+            })
             .catch((error) => {
                 throw new Error(error)
             })
@@ -51,7 +58,7 @@ const fetchData = async (url, engine, baseUrl) => {
 }
 
 const EMPTY_FEATURE_STYLE = {}
-const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
+const geoJsonUrlLoader = async (layer, engine, instanceBaseUrl) => {
     const { config } = layer
 
     let newConfig
@@ -71,7 +78,7 @@ const geoJsonUrlLoader = async (layer, engine, baseUrl) => {
     let error
 
     try {
-        geoJson = await fetchData(newConfig.url, engine, baseUrl)
+        geoJson = await fetchData(newConfig.url, engine, instanceBaseUrl)
     } catch (err) {
         error = err
     }
