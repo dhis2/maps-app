@@ -57,7 +57,7 @@ const OverlayCard = ({
         isVisible,
         layer: layerType,
         isLoaded,
-        error,
+        loadError,
     } = layer
 
     const canEdit = layerType !== EXTERNAL_LAYER
@@ -66,11 +66,11 @@ const OverlayCard = ({
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType)
 
     const getCardContent = () => {
-        if (error) {
+        if (loadError) {
             return (
                 <div className={styles.noticebox}>
                     <NoticeBox error title={i18n.t('Failed to load layer')}>
-                        <p>{error.message}</p>
+                        <p>{loadError.message}</p>
                     </NoticeBox>
                 </div>
             )
@@ -130,7 +130,7 @@ const OverlayCard = ({
                           }
                         : undefined
                 }
-                hasError={!!error}
+                hasError={!!loadError}
             >
                 {getCardContent()}
             </LayerCard>
