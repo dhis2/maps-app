@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-05T16:53:36.408Z\n"
-"PO-Revision-Date: 2024-03-05T16:53:36.408Z\n"
+"POT-Creation-Date: 2024-03-07T13:44:00.589Z\n"
+"PO-Revision-Date: 2024-03-07T13:44:00.589Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -520,6 +520,9 @@ msgstr "No relationship types were found for tracked entity type {{type}}"
 
 msgid "Relationship type"
 msgstr "Relationship type"
+
+msgid "No data to show for this feature."
+msgstr "No data to show for this feature."
 
 msgid "Feature profile"
 msgstr "Feature profile"
@@ -1340,6 +1343,9 @@ msgstr "Layer authorization is no longer valid"
 
 msgid "Url to geojson was not found"
 msgstr "Url to geojson was not found"
+
+msgid "Unknown error"
+msgstr "Unknown error"
 
 msgid "Organisation units"
 msgstr "Organisation units"

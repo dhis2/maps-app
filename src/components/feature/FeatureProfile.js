@@ -16,7 +16,7 @@ const FeatureProfile = () => {
         if (Object.keys(data).length === 0) {
             return (
                 <div className={styles.noData}>
-                    {i18n.t('No data to show for this feature')}
+                    {i18n.t('No data to show for this feature.')}
                 </div>
             )
         }
