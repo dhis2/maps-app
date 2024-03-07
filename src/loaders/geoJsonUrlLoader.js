@@ -75,12 +75,12 @@ const geoJsonUrlLoader = async (layer, engine, instanceBaseUrl) => {
     }
 
     let geoJson
-    let error
+    let loadError
 
     try {
         geoJson = await fetchData(newConfig.url, engine, instanceBaseUrl)
     } catch (err) {
-        error = err
+        loadError = err
     }
 
     const legend = {
@@ -99,14 +99,14 @@ const geoJsonUrlLoader = async (layer, engine, instanceBaseUrl) => {
         ...layer,
         name: newConfig.name, // TODO - will be fixed by DHIS2-16088
         legend,
-        data: (!error && buildGeoJsonFeatures(geoJson)) || [],
+        data: (!loadError && buildGeoJsonFeatures(geoJson)) || [],
         config: newConfig,
         featureStyle,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
         isVisible: true,
-        error,
+        loadError,
     }
 }
 
