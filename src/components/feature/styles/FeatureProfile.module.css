@@ -57,3 +57,10 @@
     padding: 10px 0 9px;
     white-space: nowrap;
 }
+
+.noData {
+    text-align: center;
+    padding: var(--spacers-dp16);
+    color: var(--colors-grey600);
+    font-style: italic;
+}

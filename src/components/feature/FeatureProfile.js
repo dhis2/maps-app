@@ -12,6 +12,33 @@ const FeatureProfile = () => {
 
     const { name, data } = featureProfile
 
+    const getContent = () => {
+        if (Object.keys(data).length === 0) {
+            return (
+                <div className={styles.noData}>
+                    {i18n.t('No data to show for this feature')}
+                </div>
+            )
+        }
+
+        return (
+            <div className={styles.featureData}>
+                <div className={styles.dataTable}>
+                    <table>
+                        <tbody>
+                            {Object.keys(data).map((key) => (
+                                <tr key={key}>
+                                    <th>{key}</th>
+                                    <td>{data[key]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
@@ -23,22 +50,7 @@ const FeatureProfile = () => {
                     <IconCross24 />
                 </span>
             </div>
-            <div className={styles.content}>
-                <div className={styles.featureData}>
-                    <div className={styles.dataTable}>
-                        <table>
-                            <tbody>
-                                {Object.keys(data).map((key) => (
-                                    <tr key={key}>
-                                        <th>{key}</th>
-                                        <td>{data[key]}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <div className={styles.content}>{getContent()}</div>
         </Drawer>
     )
 }
