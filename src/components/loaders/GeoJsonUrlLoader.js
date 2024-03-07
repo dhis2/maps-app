@@ -17,13 +17,13 @@ const GeoJsonUrlLoader = ({ config, onLoad }) => {
 
     useEffect(() => {
         geoJsonUrlLoader(config, engine, instanceBaseUrl).then((data) => {
-            if (data.error) {
+            if (data.loadError) {
                 loadFailedAlert.show({
                     msg: i18n.t(
                         'Failed to load layer "{{layername}}": {{message}}',
                         {
                             layername: data.name,
-                            message: data.error.message || data.error,
+                            message: data.loadError.message || data.loadError,
                             nsSeparator: '^^',
                         }
                     ),
