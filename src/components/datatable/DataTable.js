@@ -206,7 +206,7 @@ const Table = ({ availableHeight, availableWidth }) => {
          * columns to have a different width. To avoid that we measure the
          * initial column widths and switch to a fixed layout based on these
          * measured widths */
-        if (columnWidths.length === 0) {
+        if (columnWidths.length === 0 && headerRowRef.current) {
             requestAnimationFrame(() => {
                 const measuredColumnWidths = []
 
@@ -225,8 +225,10 @@ const Table = ({ availableHeight, availableWidth }) => {
          * headers change, the table needs to switch back to its
          * automatic layout so that the cells can subsequently can be
          * measured again in the useEffect hook above */
-        setColumnWidths([])
-    }, [availableWidth, headers])
+        if (!error) {
+            setColumnWidths([])
+        }
+    }, [availableWidth, headers, error])
 
     if (error) {
         return <p className={styles.noSupport}>{error}</p>
