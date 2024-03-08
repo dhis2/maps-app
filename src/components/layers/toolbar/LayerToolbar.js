@@ -1,6 +1,6 @@
-// import { OfflineTooltip as Tooltip } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { IconButton } from '../../core/index.js'
@@ -35,10 +35,10 @@ const LayerToolbar = ({
             <IconButton
                 tooltip={!hasError ? i18n.t('Toggle visibility') : null}
                 onClick={toggleLayerVisibility}
-                className={{
+                className={cx(styles.visibilityButton, {
                     visible: isVisible, // for cypress testing only
                     notvisible: !isVisible, // for cypress testing only
-                }}
+                })}
                 dataTest="visibilitybutton"
                 disabled={hasError}
             >
