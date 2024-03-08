@@ -54,39 +54,39 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('load-error-noticebox').should('not.exist')
 
         // open the data table
-        // cy.getByDataTest('moremenubutton').first().click()
+        cy.getByDataTest('moremenubutton').first().click()
 
-        // cy.getByDataTest('more-menu')
-        //     .find('li')
-        //     .not('.disabled')
-        //     .should('have.length', 5)
+        cy.getByDataTest('more-menu')
+            .find('li')
+            .not('.disabled')
+            .should('have.length', 5)
 
-        // cy.getByDataTest('more-menu')
-        //     .find('li')
-        //     .contains('Show data table')
-        //     .click()
+        cy.getByDataTest('more-menu')
+            .find('li')
+            .contains('Show data table')
+            .click()
 
-        // // check that the data table looks correct
-        // cy.getByDataTest('bottom-panel').should('be.visible')
+        // check that the data table looks correct
+        cy.getByDataTest('bottom-panel').should('be.visible')
 
-        // cy.getByDataTest('bottom-panel')
-        //     .find('tbody')
-        //     .find('tr')
-        //     .should('have.length', 1)
+        cy.getByDataTest('bottom-panel')
+            .find('tbody')
+            .find('tr')
+            .should('have.length', 1)
 
-        // // open the feature panel by clicking on the row
-        // cy.getByDataTest('bottom-panel')
-        //     .find('tbody')
-        //     .find('tr')
-        //     .find('td')
-        //     .first()
-        //     .click()
+        // open the feature panel by clicking on the row
+        cy.getByDataTest('bottom-panel')
+            .find('tbody')
+            .find('tr')
+            .find('td')
+            .first()
+            .click()
 
-        // // check that Feature profile is displayed
-        // cy.getByDataTest('details-panel')
-        //     .findByDataTest('feature-profile-header')
-        //     .contains(OVERLAY_TITLE)
-        //     .should('be.visible')
+        // check that Feature profile is displayed
+        cy.getByDataTest('details-panel')
+            .findByDataTest('feature-profile-header')
+            .contains(OVERLAY_TITLE)
+            .should('be.visible')
     })
 
     it('handles a 404 error', () => {

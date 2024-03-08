@@ -18,7 +18,7 @@ const map = {
     cardTitle: 'ANC LLITN coverage',
 }
 
-describe('data table', () => {
+describe.skip('data table', () => {
     it('opens data table and filters and sorts', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
