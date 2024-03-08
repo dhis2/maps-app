@@ -14,7 +14,7 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
     <SvgEdit24 />
   </IconButton>
   <IconButton
-    className="visibilityButton visible"
+    className="visible"
     dataTest="visibilitybutton"
     onClick={[Function]}
     tooltip="Toggle visibility"
@@ -55,7 +55,7 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
   data-test="layertoolbar"
 >
   <IconButton
-    className="visibilityButton visible"
+    className="visible"
     dataTest="visibilitybutton"
     onClick={[Function]}
     tooltip="Toggle visibility"
