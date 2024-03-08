@@ -22,6 +22,8 @@ describe('GeoJSON URL Layer', () => {
         cy.visit('/')
 
         cy.wait('@externalMapLayers')
+
+        // add a geojson layer (provided by the fixture)
         cy.getByDataTest('add-layer-button').click()
 
         const dataTest = `addlayeritem-${`${OVERLAY_TITLE}`
@@ -41,6 +43,8 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('layeredit').contains('Add layer').click()
 
         cy.wait('@geojson')
+
+        // check that loading completes and the layer card is present
         cy.getByDataTest('map-loading-mask').should('not.exist')
 
         cy.getByDataTest('layercard')
@@ -49,7 +53,7 @@ describe('GeoJSON URL Layer', () => {
 
         cy.getByDataTest('load-error-noticebox').should('not.exist')
 
-        // open the data table and check that there is one row
+        // open the data table
         cy.getByDataTest('moremenubutton').first().click()
 
         cy.getByDataTest('more-menu')
@@ -62,7 +66,7 @@ describe('GeoJSON URL Layer', () => {
             .contains('Show data table')
             .click()
 
-        //check that the bottom panel is present
+        // check that the data table looks correct
         cy.getByDataTest('bottom-panel').should('be.visible')
 
         cy.getByDataTest('bottom-panel')
@@ -85,7 +89,7 @@ describe('GeoJSON URL Layer', () => {
             .should('be.visible')
     })
 
-    it('handles a url not found error', () => {
+    it('handles a 404 error', () => {
         cy.intercept('externalMapLayers?*', {
             fixture: 'externalMapLayersWithGeojson.json',
         }).as('externalMapLayers')
@@ -93,6 +97,8 @@ describe('GeoJSON URL Layer', () => {
         cy.visit('/')
 
         cy.wait('@externalMapLayers')
+
+        // add a geojson layer (provided by the fixture)
         cy.getByDataTest('add-layer-button').click()
 
         const dataTest = `addlayeritem-${`${OVERLAY_TITLE}`
@@ -110,12 +116,15 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('layeredit').contains('Add layer').click()
 
         cy.wait('@geojson')
+
+        // check that loading completes and the layer card is present
         cy.getByDataTest('map-loading-mask').should('not.exist')
 
         cy.getByDataTest('layercard')
             .contains(OVERLAY_TITLE)
             .should('be.visible')
 
+        // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
             .find('h6')
@@ -125,7 +134,7 @@ describe('GeoJSON URL Layer', () => {
             .contains('Error: Url to geojson was not found')
             .should('be.visible')
 
-        // open the data table and check that there is one row
+        // remove the layer
         cy.getByDataTest('moremenubutton').first().click()
 
         cy.getByDataTest('more-menu')
@@ -141,7 +150,7 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('layercard').should('not.exist')
     })
 
-    it('handles a 409 conflict', () => {
+    it('handles a 400 error', () => {
         cy.intercept('externalMapLayers?*', {
             fixture: 'externalMapLayersWithGeojson.json',
         }).as('externalMapLayers')
@@ -149,6 +158,8 @@ describe('GeoJSON URL Layer', () => {
         cy.visit('/')
 
         cy.wait('@externalMapLayers')
+
+        // add a geojson layer (provided by the fixture)
         cy.getByDataTest('add-layer-button').click()
 
         const dataTest = `addlayeritem-${`${OVERLAY_TITLE}`
@@ -168,12 +179,15 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('layeredit').contains('Add layer').click()
 
         cy.wait('@geojson')
+
+        // check that loading completes and the layer card is present
         cy.getByDataTest('map-loading-mask').should('not.exist')
 
         cy.getByDataTest('layercard')
             .contains(OVERLAY_TITLE)
             .should('be.visible')
 
+        // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
             .find('h6')
@@ -183,7 +197,7 @@ describe('GeoJSON URL Layer', () => {
             .contains('Error: The request for geojson was invalid.')
             .should('be.visible')
 
-        // open the data table and check that there is one row
+        // remove the layer
         cy.getByDataTest('moremenubutton').first().click()
 
         cy.getByDataTest('more-menu')
