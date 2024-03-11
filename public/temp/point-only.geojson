@@ -1,0 +1,21 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "123",
+            "geometry": {
+                "coordinates": [
+                    -11.781005547329215,
+                    8.83499366627997
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "type": "Point",
+                "id": "123",
+                "name": "Point of no return"
+            }
+        }
+    ]
+}
