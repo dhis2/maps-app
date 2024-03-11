@@ -46,7 +46,7 @@ const FeatureProfile = () => {
 
     return (
         <Drawer className={styles.drawer}>
-            <div className={styles.header}>
+            <div data-test="feature-profile-header" className={styles.header}>
                 {name || i18n.t('Feature profile')}
                 <span
                     className={styles.close}
