@@ -199,6 +199,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
     } = layer || EMPTY_LAYER
 
     const dataWithAggregations = useMemo(() => {
+        errorCode.current = null
         if (serverCluster) {
             errorCode.current = ERROR_SERVER_CLUSTER
             return null
