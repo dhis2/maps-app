@@ -7,7 +7,7 @@ const fetchData = async (url, engine, instanceBaseUrl) => {
         // API route, use engine
         const routesIndex = url.indexOf('routes')
         if (routesIndex === -1) {
-            throw new Error(i18n.t('Url to geojson is invalid'))
+            throw new Error(i18n.t('Url to geojson is invalid.'))
         }
 
         return engine
@@ -27,12 +27,12 @@ const fetchData = async (url, engine, instanceBaseUrl) => {
                         e.details.message.toLowerCase().includes('jwt expired')
                     ) {
                         throw new Error(
-                            i18n.t('Layer authorization is no longer valid')
+                            i18n.t('Layer authorization is no longer valid.')
                         )
                     } else if (
                         e.details.message.toLowerCase().includes('not found')
                     ) {
-                        throw new Error(i18n.t('Url to geojson was not found'))
+                        throw new Error(i18n.t('Url to geojson was not found.'))
                     }
 
                     throw new Error(e.details.message)
@@ -45,9 +45,20 @@ const fetchData = async (url, engine, instanceBaseUrl) => {
         return fetch(url)
             .then((response) => {
                 if (!response.ok) {
-                    return response.json().then((err) => {
-                        throw new Error(err?.message || i18n.t('Unknown error'))
-                    })
+                    if (response.status === 404) {
+                        throw new Error(i18n.t('Url to geojson was not found.'))
+                    }
+                    if (response.status === 400) {
+                        throw new Error(
+                            i18n.t('The request for geojson was invalid.')
+                        )
+                    }
+
+                    throw new Error(
+                        i18n.t(
+                            'Unknown error occurred while requesting geojson.'
+                        )
+                    )
                 }
                 return response.json()
             })
