@@ -35,6 +35,7 @@ const DetailsPanel = ({ interpretationsRenderCount }) => {
 
     return (
         <div
+            data-test="details-panel"
             className={cx(styles.detailsPanel, {
                 [styles.collapsed]: !detailsPanelOpen,
             })}

@@ -68,7 +68,10 @@ const OverlayCard = ({
     const getCardContent = () => {
         if (loadError) {
             return (
-                <div className={styles.noticebox}>
+                <div
+                    data-test="load-error-noticebox"
+                    className={styles.noticebox}
+                >
                     <NoticeBox error title={i18n.t('Failed to load layer')}>
                         <p>{loadError.message}</p>
                     </NoticeBox>
