@@ -119,8 +119,10 @@ export const getCoordinatesBounds = (coordinates) =>
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 
+export const DHIS2_PROP = '__dhis2propertyid__'
+
 export const getGeojsonDisplayData = (feature) => {
-    const { properties, __isDhis2propertyId } = feature
+    const { properties } = feature
     if (!properties) {
         return []
     }
@@ -129,9 +131,13 @@ export const getGeojsonDisplayData = (feature) => {
             ([, value]) =>
                 typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
         )
-        .filter(([key]) =>
+        .filter(([key, value]) =>
             // Remove id property if it was set internally
-            __isDhis2propertyId ? key !== 'id' : true
+            key === 'id' &&
+            typeof value === 'string' &&
+            value.startsWith(DHIS2_PROP)
+                ? false
+                : true
         )
         .map(([key, value]) => {
             const type =
@@ -190,12 +196,8 @@ export const buildGeoJsonFeatures = (geoJson) => {
     // Ensures that all features have an id property and a properties.id property
     // If id is added, set a flag to indicate this
     return finalGeoJson.features.map((f, i) => {
-        if (!f.id) {
-            f.id = f.properties.id || i + 1
-        }
-        if (f.id && !f.properties.id) {
-            f.properties.id = f.id
-            f.__isDhis2propertyId = true
+        if (!f.properties.id) {
+            f.properties.id = `${DHIS2_PROP}${i}`
         }
 
         return f
