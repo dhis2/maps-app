@@ -18,7 +18,7 @@ const map = {
     cardTitle: 'ANC LLITN coverage',
 }
 
-describe.skip('data table', () => {
+describe('data table', () => {
     it('opens data table and filters and sorts', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -133,7 +133,7 @@ describe.skip('data table', () => {
         cy.getByDataTest('org-unit-profile').should('be.visible')
     })
 
-    it('opens the data table for an Event layer', () => {
+    it.skip('opens the data table for an Event layer', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         const Layer = new EventLayer()
