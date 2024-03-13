@@ -19,14 +19,11 @@ const GeoJsonUrlLoader = ({ config, onLoad }) => {
         geoJsonUrlLoader(config, engine, instanceBaseUrl).then((data) => {
             if (data.loadError) {
                 loadFailedAlert.show({
-                    msg: i18n.t(
-                        'Failed to load layer "{{layername}}": {{message}}',
-                        {
-                            layername: data.name,
-                            message: data.loadError.message || data.loadError,
-                            nsSeparator: '^^',
-                        }
-                    ),
+                    msg: i18n.t('{{layername}}: {{message}}', {
+                        layername: data.name,
+                        message: data.loadError,
+                        nsSeparator: '^^',
+                    }),
                 })
             }
             return onLoad(data)
