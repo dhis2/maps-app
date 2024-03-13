@@ -27,8 +27,11 @@ class GeoJsonLayer extends Layer {
 
         const style =
             Object.keys(featureStyle).length > 0
-                ? featureStyle
-                : config.featureStyle
+                ? { ...featureStyle, radius: featureStyle.pointSize }
+                : {
+                      ...config.featureStyle,
+                      radius: config.featureStyle?.pointSize,
+                  }
 
         this.layer = map.createLayer({
             type: GEOJSON_LAYER,
