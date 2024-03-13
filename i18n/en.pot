@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-13T09:09:37.325Z\n"
-"PO-Revision-Date: 2024-03-13T09:09:37.325Z\n"
+"POT-Creation-Date: 2024-03-13T10:31:57.389Z\n"
+"PO-Revision-Date: 2024-03-13T10:31:57.389Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -416,9 +416,6 @@ msgstr "Line/stroke width"
 msgid "Line/stroke width must be between 0-10."
 msgstr "Line/stroke width must be between 0-10."
 
-msgid "Point size"
-msgstr "Point size"
-
 msgid "Labels"
 msgstr "Labels"
 
@@ -511,6 +508,9 @@ msgstr "Display Tracked Entity relationships"
 
 msgid "Tracked entity style"
 msgstr "Tracked entity style"
+
+msgid "Point size"
+msgstr "Point size"
 
 msgid "Related entity style"
 msgstr "Related entity style"

@@ -41,7 +41,7 @@ const getFields = () => [
     },
     {
         id: POINT_SIZE,
-        label: i18n.t('Point size'),
+        label: i18n.t('Point radius'),
         type: FIELD_TYPE_NUMBER,
         defaultValue: 5,
     },
