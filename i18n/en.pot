@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-08T11:16:08.077Z\n"
-"PO-Revision-Date: 2024-03-08T11:16:08.077Z\n"
+"POT-Creation-Date: 2024-03-13T09:09:37.325Z\n"
+"PO-Revision-Date: 2024-03-13T09:09:37.325Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -412,6 +412,9 @@ msgstr "Line/stroke color"
 
 msgid "Line/stroke width"
 msgstr "Line/stroke width"
+
+msgid "Line/stroke width must be between 0-10."
+msgstr "Line/stroke width must be between 0-10."
 
 msgid "Point size"
 msgstr "Point size"
@@ -1349,6 +1352,18 @@ msgstr "The request for geojson was invalid."
 
 msgid "Unknown error occurred while requesting geojson."
 msgstr "Unknown error occurred while requesting geojson."
+
+msgid "Feature"
+msgstr "Feature"
+
+msgid "Polygon"
+msgstr "Polygon"
+
+msgid "Line"
+msgstr "Line"
+
+msgid "Point"
+msgstr "Point"
 
 msgid "Organisation units"
 msgstr "Organisation units"

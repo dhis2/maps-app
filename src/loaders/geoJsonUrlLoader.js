@@ -1,6 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import { parseLayerConfig } from '../util/external.js'
-import { buildGeoJsonFeatures } from '../util/geojson.js'
+import {
+    buildGeoJsonFeatures,
+    GEO_TYPE_LINE,
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+} from '../util/geojson.js'
 
 const fetchData = async (url, engine, instanceBaseUrl) => {
     if (url.includes(instanceBaseUrl)) {
@@ -94,23 +99,51 @@ const geoJsonUrlLoader = async (layer, engine, instanceBaseUrl) => {
         loadError = err
     }
 
+    let data = []
     const legend = {
         title: newConfig.name,
-        items: [
-            {
-                name: 'Feature',
-                ...featureStyle,
-                color: featureStyle.strokeColor,
-                weight: featureStyle.weight,
-            },
-        ],
+        items: [],
+    }
+    if (!loadError) {
+        const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
+        data = featureCollection
+
+        const oneType = types.length === 1
+
+        types.forEach((type) => {
+            let legendItem
+            if (type === GEO_TYPE_POLYGON) {
+                legendItem = {
+                    name: oneType ? i18n.t('Feature') : i18n.t('Polygon'),
+                    type: GEO_TYPE_POLYGON,
+                    ...featureStyle,
+                    fillColor: featureStyle.color,
+                }
+            } else if (type === GEO_TYPE_LINE) {
+                legendItem = {
+                    name: oneType ? i18n.t('Feature') : i18n.t('Line'),
+                    type: GEO_TYPE_LINE,
+                    ...featureStyle,
+                    color: featureStyle.strokeColor,
+                }
+            } else {
+                legendItem = {
+                    name: oneType ? i18n.t('Feature') : i18n.t('Point'),
+                    type: GEO_TYPE_POINT,
+                    radius: featureStyle.pointSize,
+                    color: featureStyle.color,
+                    strokeColor: featureStyle.strokeColor,
+                }
+            }
+            legend.items.push(legendItem)
+        })
     }
 
     return {
         ...layer,
         name: newConfig.name, // TODO - will be fixed by DHIS2-16088
         legend,
-        data: (!loadError && buildGeoJsonFeatures(geoJson)) || [],
+        data,
         config: newConfig,
         featureStyle,
         isLoaded: true,
