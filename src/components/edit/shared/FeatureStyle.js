@@ -44,6 +44,7 @@ const getFields = () => [
         label: i18n.t('Point radius'),
         type: FIELD_TYPE_NUMBER,
         defaultValue: 5,
+        min: 1,
     },
 ]
 
