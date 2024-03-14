@@ -12,7 +12,7 @@ const fetchData = async (url, engine, instanceBaseUrl) => {
         // API route, use engine
         const routesIndex = url.indexOf('routes')
         if (routesIndex === -1) {
-            throw new Error(i18n.t('Url to geojson is invalid.'))
+            throw new Error()
         }
 
         return engine
@@ -27,19 +27,19 @@ const fetchData = async (url, engine, instanceBaseUrl) => {
                     : data.geojson
             )
             .catch(() => {
-                throw new Error('Error')
+                throw new Error()
             })
     } else {
         // External route, use fetch
         return fetch(url)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Error')
+                    throw new Error()
                 }
                 return response.json()
             })
             .catch(() => {
-                throw new Error('Error')
+                throw new Error()
             })
     }
 }
