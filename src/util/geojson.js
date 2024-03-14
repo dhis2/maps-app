@@ -198,14 +198,18 @@ export const buildGeoJsonFeatures = (geoJson) => {
         }
     }
 
-    // Ensures that all features have an id property and a properties.id property
-    // If id is added, set a flag to indicate this
     const types = []
     const featureCollection = finalGeoJson.features.map((f, i) => {
         const nonMultiType = f.geometry.type.replace('Multi', '')
+        // return list of types in the data (but not Multi* types,
+        // because those should get lumped in with the non-Multi* type for the legend)
         if (!types.includes(nonMultiType)) {
             types.push(nonMultiType)
         }
+
+        // Ensures that all features have a properties.id property
+        // If properties.id is added, prefix it with DHIS2_PROP so that
+        // it can be filtered out of the data table
         if (!f.properties.id) {
             f.properties.id = `${DHIS2_PROP}${i}`
         }
