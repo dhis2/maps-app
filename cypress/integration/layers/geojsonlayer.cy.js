@@ -131,7 +131,9 @@ describe('GeoJSON URL Layer', () => {
             .contains('Failed to load layer')
             .should('be.visible')
         cy.getByDataTest('dhis2-uicore-noticebox-content-message')
-            .contains('Error: Url to geojson was not found')
+            .contains(
+                'There was a problem with this layer. Contact a system administrator.'
+            )
             .should('be.visible')
 
         // remove the layer
@@ -194,7 +196,9 @@ describe('GeoJSON URL Layer', () => {
             .contains('Failed to load layer')
             .should('be.visible')
         cy.getByDataTest('dhis2-uicore-noticebox-content-message')
-            .contains('Error: The request for geojson was invalid.')
+            .contains(
+                'There was a problem with this layer. Contact a system administrator.'
+            )
             .should('be.visible')
 
         // remove the layer
