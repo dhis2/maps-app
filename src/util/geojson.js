@@ -119,8 +119,10 @@ export const getCoordinatesBounds = (coordinates) =>
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 
+export const DHIS2_PROP = '__dhis2propertyid__'
+
 export const getGeojsonDisplayData = (feature) => {
-    const { properties, __isDhis2propertyId } = feature
+    const { properties } = feature
     if (!properties) {
         return []
     }
@@ -129,9 +131,13 @@ export const getGeojsonDisplayData = (feature) => {
             ([, value]) =>
                 typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
         )
-        .filter(([key]) =>
+        .filter(([key, value]) =>
             // Remove id property if it was set internally
-            __isDhis2propertyId ? key !== 'id' : true
+            key === 'id' &&
+            typeof value === TYPE_STRING &&
+            value.startsWith(DHIS2_PROP)
+                ? false
+                : true
         )
         .map(([key, value]) => {
             const type =
@@ -145,13 +151,18 @@ export const getGeojsonDisplayData = (feature) => {
             }
         })
 }
+export const GEO_TYPE_POINT = 'Point'
+export const GEO_TYPE_POLYGON = 'Polygon'
+export const GEO_TYPE_LINE = 'LineString'
+const GEO_TYPE_FEATURE = 'Feature'
+const GEO_TYPE_FEATURE_COLLECTION = 'FeatureCollection'
 
 const rawGeometryTypes = [
-    'Point',
+    GEO_TYPE_POINT,
+    GEO_TYPE_LINE,
+    GEO_TYPE_POLYGON,
     'MultiPoint',
-    'LineString',
     'MultiLineString',
-    'Polygon',
     'MultiPolygon',
 ]
 
@@ -159,17 +170,17 @@ const rawGeometryTypes = [
 export const buildGeoJsonFeatures = (geoJson) => {
     let finalGeoJson = geoJson
 
-    if (geoJson.type === 'Feature') {
+    if (geoJson.type === GEO_TYPE_FEATURE) {
         finalGeoJson = {
-            type: 'FeatureCollection',
+            type: GEO_TYPE_FEATURE_COLLECTION,
             features: [geoJson],
         }
     } else if (rawGeometryTypes.includes(geoJson.type)) {
         finalGeoJson = {
-            type: 'FeatureCollection',
+            type: GEO_TYPE_FEATURE_COLLECTION,
             features: [
                 {
-                    type: 'Feature',
+                    type: GEO_TYPE_FEATURE,
                     geometry: geoJson,
                     properties: {},
                 },
@@ -177,27 +188,34 @@ export const buildGeoJsonFeatures = (geoJson) => {
         }
     } else if (geoJson.type === 'GeometryCollection') {
         const features = geoJson.geometries.map((geometry) => ({
-            type: 'Feature',
+            type: GEO_TYPE_FEATURE,
             geometry,
             properties: {},
         }))
         finalGeoJson = {
-            type: 'FeatureCollection',
+            type: GEO_TYPE_FEATURE_COLLECTION,
             features,
         }
     }
 
-    // Ensures that all features have an id property and a properties.id property
-    // If id is added, set a flag to indicate this
-    return finalGeoJson.features.map((f, i) => {
-        if (!f.id) {
-            f.id = f.properties.id || i + 1
+    const types = []
+    const featureCollection = finalGeoJson.features.map((f, i) => {
+        const nonMultiType = f.geometry.type.replace('Multi', '')
+        // return list of types in the data (but not Multi* types,
+        // because those should get lumped in with the non-Multi* type for the legend)
+        if (!types.includes(nonMultiType)) {
+            types.push(nonMultiType)
         }
-        if (f.id && !f.properties.id) {
-            f.properties.id = f.id
-            f.__isDhis2propertyId = true
+
+        // Ensures that all features have a properties.id property
+        // If properties.id is added, prefix it with DHIS2_PROP so that
+        // it can be filtered out of the data table
+        if (!f.properties.id) {
+            f.properties.id = `${DHIS2_PROP}${i}`
         }
 
         return f
     })
+
+    return { featureCollection, types }
 }

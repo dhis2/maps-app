@@ -27,8 +27,11 @@ class GeoJsonLayer extends Layer {
 
         const style =
             Object.keys(featureStyle).length > 0
-                ? featureStyle
-                : config.featureStyle
+                ? { ...featureStyle, radius: featureStyle.pointSize }
+                : {
+                      ...config.featureStyle,
+                      radius: config.featureStyle?.pointSize,
+                  }
 
         this.layer = map.createLayer({
             type: GEOJSON_LAYER,
@@ -50,7 +53,9 @@ class GeoJsonLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        const feature = this.props.data.find((d) => d.id === evt.feature.id)
+        const feature = this.props.data.find(
+            (d) => d.properties.id === evt.feature.properties.id
+        )
 
         const data = getGeojsonDisplayData(feature).reduce(
             (acc, { dataKey, value }) => {

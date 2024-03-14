@@ -21,26 +21,30 @@ const getFields = () => [
         id: FILL,
         label: i18n.t('Fill color'),
         type: FIELD_TYPE_COLOR,
-        default: 'transparent',
+        defaultValue: 'transparent',
         allowTransparent: true,
     },
     {
         id: STROKE_COLOR,
         label: i18n.t('Line/stroke color'),
         type: FIELD_TYPE_COLOR,
-        default: '#333333',
+        defaultValue: '#333333',
     },
     {
         id: STROKE_WIDTH,
         label: i18n.t('Line/stroke width'),
         type: FIELD_TYPE_NUMBER,
-        default: 1,
+        defaultValue: 1,
+        min: 0,
+        max: 10,
+        helpText: i18n.t('Line/stroke width must be between 0-10.'),
     },
     {
         id: POINT_SIZE,
-        label: i18n.t('Point size'),
+        label: i18n.t('Point radius'),
         type: FIELD_TYPE_NUMBER,
-        default: 5,
+        defaultValue: 5,
+        min: 1,
     },
 ]
 
@@ -64,42 +68,69 @@ const FeatureStyle = ({ style, onChange }) => {
 
     return (
         <>
-            {fields.map(({ id, label, type, allowTransparent }) =>
-                type === FIELD_TYPE_COLOR ? (
-                    <div key={id}>
-                        {allowTransparent && (
-                            <Checkbox
-                                label={label}
-                                checked={style[id] !== FILL_TRANSPARENT}
-                                onChange={(isChecked) =>
-                                    onChange({
-                                        [id]: isChecked
-                                            ? defaultNoTransparentFillColor
-                                            : FILL_TRANSPARENT,
-                                    })
+            {fields.map(
+                ({
+                    id,
+                    label,
+                    type,
+                    allowTransparent,
+                    min,
+                    max,
+                    defaultValue,
+                    helpText,
+                }) =>
+                    type === FIELD_TYPE_COLOR ? (
+                        <div key={id}>
+                            {allowTransparent && (
+                                <Checkbox
+                                    label={label}
+                                    checked={style[id] !== FILL_TRANSPARENT}
+                                    onChange={(isChecked) =>
+                                        onChange({
+                                            [id]: isChecked
+                                                ? defaultNoTransparentFillColor
+                                                : FILL_TRANSPARENT,
+                                        })
+                                    }
+                                />
+                            )}
+                            {style[id] !== FILL_TRANSPARENT && (
+                                <ColorPicker
+                                    label={allowTransparent ? '' : label}
+                                    color={style[id]}
+                                    onChange={(color) =>
+                                        onChange({ [id]: color })
+                                    }
+                                    className={styles.narrowField}
+                                />
+                            )}
+                        </div>
+                    ) : (
+                        <NumberField
+                            key={id}
+                            label={label}
+                            value={style[id]}
+                            onChange={(value) => {
+                                let val = parseInt(value)
+                                if (min || max) {
+                                    if (val < min || Number.isNaN(val)) {
+                                        val = min
+                                    }
+                                    if (val > max) {
+                                        val = max
+                                    }
                                 }
-                            />
-                        )}
-                        {style[id] !== FILL_TRANSPARENT && (
-                            <ColorPicker
-                                label={allowTransparent ? '' : label}
-                                color={style[id]}
-                                onChange={(color) => onChange({ [id]: color })}
-                                className={styles.narrowField}
-                            />
-                        )}
-                    </div>
-                ) : (
-                    <NumberField
-                        key={id}
-                        label={label}
-                        value={style[id]}
-                        onChange={(value) =>
-                            onChange({ [id]: parseInt(value) })
-                        }
-                        className={styles.narrowField}
-                    />
-                )
+                                if (Number.isNaN(val)) {
+                                    val = defaultValue
+                                }
+                                onChange({ [id]: parseInt(val) })
+                            }}
+                            inputWidth={'120px'}
+                            min={min}
+                            max={max}
+                            helpText={helpText}
+                        />
+                    )
             )}
         </>
     )

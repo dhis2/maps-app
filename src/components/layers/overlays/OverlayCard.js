@@ -73,7 +73,7 @@ const OverlayCard = ({
                     className={styles.noticebox}
                 >
                     <NoticeBox error title={i18n.t('Failed to load layer')}>
-                        <p>{loadError.message}</p>
+                        <p>{loadError}</p>
                     </NoticeBox>
                 </div>
             )

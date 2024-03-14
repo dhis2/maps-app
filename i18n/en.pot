@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-08T11:16:08.077Z\n"
-"PO-Revision-Date: 2024-03-08T11:16:08.077Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"PO-Revision-Date: 2024-03-13T15:13:17.773Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -413,8 +413,8 @@ msgstr "Line/stroke color"
 msgid "Line/stroke width"
 msgstr "Line/stroke width"
 
-msgid "Point size"
-msgstr "Point size"
+msgid "Line/stroke width must be between 0-10."
+msgstr "Line/stroke width must be between 0-10."
 
 msgid "Labels"
 msgstr "Labels"
@@ -508,6 +508,9 @@ msgstr "Display Tracked Entity relationships"
 
 msgid "Tracked entity style"
 msgstr "Tracked entity style"
+
+msgid "Point size"
+msgstr "Point size"
 
 msgid "Related entity style"
 msgstr "Related entity style"
@@ -636,8 +639,8 @@ msgstr "Group"
 msgid "Filters"
 msgstr "Filters"
 
-msgid "Failed to load layer \"{{layername}}\": {{message}}"
-msgstr "Failed to load layer \"{{layername}}\": {{message}}"
+msgid "{{layername}}: {{message}}"
+msgstr "{{layername}}: {{message}}"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -1338,17 +1341,20 @@ msgstr "Facilities: No coordinates found"
 msgid "Url to geojson is invalid."
 msgstr "Url to geojson is invalid."
 
-msgid "Layer authorization is no longer valid."
-msgstr "Layer authorization is no longer valid."
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr "There was a problem with this layer. Contact a system administrator."
 
-msgid "Url to geojson was not found."
-msgstr "Url to geojson was not found."
+msgid "Feature"
+msgstr "Feature"
 
-msgid "The request for geojson was invalid."
-msgstr "The request for geojson was invalid."
+msgid "Polygon"
+msgstr "Polygon"
 
-msgid "Unknown error occurred while requesting geojson."
-msgstr "Unknown error occurred while requesting geojson."
+msgid "Line"
+msgstr "Line"
+
+msgid "Point"
+msgstr "Point"
 
 msgid "Organisation units"
 msgstr "Organisation units"
