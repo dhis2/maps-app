@@ -129,7 +129,10 @@ const OverlayCard = ({
                               await set(currentAO)
 
                               // Open it in another app
-                              window.location.href = `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`
+                              window.open(
+                                  `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`,
+                                  '_blank'
+                              )
                           }
                         : undefined
                 }
