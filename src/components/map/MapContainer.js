@@ -30,6 +30,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 isPlugin={false}
                 basemap={basemapConfig}
                 layers={loadedMapViews}
+                numLayers={mapViews.length}
                 bounds={bounds}
                 feature={feature}
                 openContextMenu={(config) => dispatch(openContextMenu(config))}

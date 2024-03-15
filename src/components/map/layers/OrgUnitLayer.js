@@ -62,6 +62,7 @@ export default class OrgUnitLayer extends Layer {
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()
+        this.props.onLayerAdded(id)
     }
 
     getPopup() {

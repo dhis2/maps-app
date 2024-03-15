@@ -42,6 +42,7 @@ class Map extends Component {
         latitude: PropTypes.number,
         layers: PropTypes.array,
         longitude: PropTypes.number,
+        numLayers: PropTypes.number,
         resizeCount: PropTypes.number,
         setAggregations: PropTypes.func,
         setFeatureProfile: PropTypes.func,
@@ -58,7 +59,10 @@ class Map extends Component {
         isPlugin: PropTypes.bool.isRequired,
     }
 
-    state = {}
+    state = {
+        addedLayers: [],
+        boundsFitted: false,
+    }
 
     constructor(props, context) {
         super(props, context)
@@ -130,6 +134,26 @@ class Map extends Component {
         }
     }
 
+    onLayerAdded = (addedLayer) => {
+        this.setState(
+            (state) => ({
+                addedLayers: [...state.addedLayers, addedLayer],
+            }),
+            () => {
+                if (
+                    !this.state.boundsFitted &&
+                    this.state.addedLayers.length === this.props.numLayers
+                ) {
+                    const layersBounds = this.map.getLayersBounds()
+                    if (Array.isArray(layersBounds)) {
+                        this.map.fitBounds(layersBounds)
+                        this.setState({ boundsFitted: true })
+                    }
+                }
+            }
+        )
+    }
+
     // Remove map
     componentWillUnmount() {
         if (this.map) {
@@ -173,6 +197,7 @@ class Map extends Component {
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
                                     setFeatureProfile={setFeatureProfile}
+                                    onLayerAdded={this.onLayerAdded}
                                     {...config}
                                 />
                             )

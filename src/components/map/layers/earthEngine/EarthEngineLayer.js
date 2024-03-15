@@ -134,6 +134,7 @@ export default class EarthEngineLayer extends Layer {
         }
 
         this.fitBoundsOnce()
+        this.props.onLayerAdded(id)
     }
 
     hasAggregations() {
