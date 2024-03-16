@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-07T13:44:00.589Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Persian (Afghanistan) (https://app.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -416,7 +416,7 @@ msgstr ""
 msgid "Line/stroke width"
 msgstr ""
 
-msgid "Point size"
+msgid "Line/stroke width must be between 0-10."
 msgstr ""
 
 msgid "Labels"
@@ -512,6 +512,9 @@ msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Tracked entity style"
+msgstr ""
+
+msgid "Point size"
 msgstr ""
 
 msgid "Related entity style"
@@ -639,7 +642,7 @@ msgstr "گروپ"
 msgid "Filters"
 msgstr "فیلټرونه"
 
-msgid "Failed to load layer \"{{layername}}\": {{message}}"
+msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "Drill up one level"
@@ -1322,17 +1325,23 @@ msgstr ""
 msgid "Facilities: No coordinates found"
 msgstr ""
 
-msgid "Url to geojson is invalid"
+msgid "Url to geojson is invalid."
 msgstr ""
 
-msgid "Layer authorization is no longer valid"
+msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
-msgid "Url to geojson was not found"
+msgid "Feature"
 msgstr ""
 
-msgid "Unknown error"
+msgid "Polygon"
+msgstr "چند ضلعی"
+
+msgid "Line"
 msgstr ""
+
+msgid "Point"
+msgstr "نکته"
 
 msgid "Organisation units"
 msgstr "واحد های سازمان"

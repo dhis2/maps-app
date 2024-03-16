@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -151,6 +151,22 @@ msgstr "Nimadir notoʼgʼri bajarildi"
 msgid "Search"
 msgstr "Izlash"
 
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+"Hodisa/Tadbirlar serverda guruhlanayotganda, maʼlumotlar jadvali qoʼllab-"
+"quvvatlanmaydi"
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
 msgid "Index"
 msgstr "Indenks"
 
@@ -177,17 +193,6 @@ msgstr "Tashkiliy birlik"
 
 msgid "Event time"
 msgstr "Hodisa/Tadbir vaqti"
-
-msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
-"Hodisa/Tadbirlar serverda guruhlanayotganda, maʼlumotlar jadvali qoʼllab-"
-"quvvatlanmaydi"
-
-msgid "No valid data was found for the current layer configuration."
-msgstr ""
-
-msgid "Data table is not supported for this layer type."
-msgstr ""
 
 msgid "Items"
 msgstr ""
@@ -278,6 +283,9 @@ msgstr ""
 
 msgid "Earth Engine"
 msgstr "Uydagi mexanizm"
+
+msgid "feature"
+msgstr ""
 
 msgid "Edit {{name}} layer"
 msgstr "{{name}} qatlamini tahrirlash"
@@ -407,6 +415,18 @@ msgstr "Radius metrlarda"
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
 msgid "Labels"
 msgstr "Yorliqlar"
 
@@ -523,6 +543,12 @@ msgstr "Kuzatuvdagi obʼektlar oʼzaro aloqalar turlari {{type}} topilmadi"
 msgid "Relationship type"
 msgstr "Oʼzaro aloqalar turi"
 
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
+msgstr ""
+
 msgid "Remove filter"
 msgstr "Filtrni olib tashlash"
 
@@ -580,6 +606,9 @@ msgstr ""
 "Аjratilgan koʼrinishlarni boshqa qatlam turlari bilan birlashtirib "
 "boʼlmaydi."
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr "Yuklanadigan qavat"
 
@@ -592,14 +621,17 @@ msgstr "Tahrirlash"
 msgid "Toggle visibility"
 msgstr "Koʼrinishni yoqing"
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr "Qatlam xiraligini tahrirlang"
 
-msgid "Toggle layer menu"
-msgstr ""
-
 msgid "More actions"
 msgstr "Boshqa harakatlar"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "Hide data table"
 msgstr "Maʼlumotlar jadvali berkitilsin"
@@ -627,6 +659,9 @@ msgstr "Гуруҳ"
 
 msgid "Filters"
 msgstr "Filrlar"
+
+msgid "{{layername}}: {{message}}"
+msgstr ""
 
 msgid "Drill up one level"
 msgstr "Bir pogʼonaga koʼtariling"
@@ -1318,6 +1353,24 @@ msgid "Facilities"
 msgstr "Muassasalar"
 
 msgid "Facilities: No coordinates found"
+msgstr ""
+
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr "Poligon"
+
+msgid "Line"
+msgstr "Qator"
+
+msgid "Point"
 msgstr ""
 
 msgid "Organisation units"
