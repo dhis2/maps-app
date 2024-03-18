@@ -15,9 +15,9 @@ export const filterData = (data, filters) => {
             const props = d.properties || d // GeoJSON or plain object
             const value = props[field]
 
-            return typeof value === 'string'
-                ? stringFilter(value, filter)
-                : numericFilter(value, filter)
+            return typeof value === 'number'
+                ? numericFilter(value, filter)
+                : stringFilter(value, filter)
         })
     })
 
