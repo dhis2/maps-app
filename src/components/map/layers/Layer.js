@@ -11,6 +11,7 @@ class Layer extends PureComponent {
 
     static propTypes = {
         id: PropTypes.string.isRequired,
+        onLayerAdded: PropTypes.func.isRequired,
         config: PropTypes.object,
         data: PropTypes.array,
         dataFilters: PropTypes.object,
@@ -20,13 +21,11 @@ class Layer extends PureComponent {
         isVisible: PropTypes.bool,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
-        onLayerAdded: PropTypes.func,
     }
 
     static defaultProps = {
         opacity: 1,
         isVisible: true,
-        onLayerAdded: Function.prototype,
     }
 
     state = {}
