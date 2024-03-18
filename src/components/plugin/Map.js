@@ -118,7 +118,6 @@ const Map = forwardRef((props, ref) => {
                 isFullscreen={false}
                 basemap={basemap}
                 layers={layers.current}
-                numLayers={layers.current.length}
                 controls={controls}
                 bounds={defaultBounds}
                 openContextMenu={setContextMenu}

@@ -14,6 +14,5 @@ export default class ExternalLayer extends Layer {
         })
 
         map.addLayer(this.layer)
-        this.props.onLayerAdded(id)
     }
 }
