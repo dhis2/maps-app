@@ -54,3 +54,6 @@
 .container:hover .name {
     color: var(--colors-grey900);
 }
+.tooltip {
+    transform: translate(0px, -26px);
+}

@@ -15,7 +15,13 @@ const Layer = ({ layer, onClick }) => {
             onClick={() => onClick(layer)}
             data-test={dataTest}
         >
-            <Tooltip content={label} openDelay={300} closeDelay={100}>
+            <Tooltip
+                placement="bottom"
+                content={label}
+                openDelay={300}
+                closeDelay={100}
+                className={styles.tooltip}
+            >
                 <div>
                     {img ? (
                         <img src={img} className={styles.image} />
