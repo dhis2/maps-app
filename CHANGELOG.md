@@ -1,3 +1,18 @@
+# [100.5.0](https://github.com/dhis2/maps-app/compare/v100.4.1...v100.5.0) (2024-03-18)
+
+
+### Bug Fixes
+
+* navigating by the changing url ignored download mode and interpretation id parameters ([#3125](https://github.com/dhis2/maps-app/issues/3125)) ([fcc5eaa](https://github.com/dhis2/maps-app/commit/fcc5eaa40bd29f257544f46d3961ec9d44d1caa5))
+* **translations:** sync translations from transifex (dev) ([#3132](https://github.com/dhis2/maps-app/issues/3132)) ([7f5d178](https://github.com/dhis2/maps-app/commit/7f5d1780f4884e4b93a6c07cf37663f1b52943e5))
+* improve hover states and add consistent spacing [UX-161] ([#3121](https://github.com/dhis2/maps-app/issues/3121)) ([3f9e667](https://github.com/dhis2/maps-app/commit/3f9e6672a39b92e9af86730a686d2c4ad9be7544))
+
+
+### Features
+
+* add ability to add GeoJSON URL external layers ([#3127](https://github.com/dhis2/maps-app/issues/3127)) ([fbdf0b0](https://github.com/dhis2/maps-app/commit/fbdf0b04442b127823f1a5ec8fb80b564eaf21fe)), closes [#3142](https://github.com/dhis2/maps-app/issues/3142) [#3144](https://github.com/dhis2/maps-app/issues/3144) [#3145](https://github.com/dhis2/maps-app/issues/3145) [#3149](https://github.com/dhis2/maps-app/issues/3149) [#3148](https://github.com/dhis2/maps-app/issues/3148) [#3147](https://github.com/dhis2/maps-app/issues/3147) [#3143](https://github.com/dhis2/maps-app/issues/3143) [#3151](https://github.com/dhis2/maps-app/issues/3151) [#3154](https://github.com/dhis2/maps-app/issues/3154)
+* when rendering for push analytics, disable download button until map is rendered ([#3072](https://github.com/dhis2/maps-app/issues/3072)) ([4b1076c](https://github.com/dhis2/maps-app/commit/4b1076ce61866da09de14e8dbb178d3c82717a6c)), closes [#3121](https://github.com/dhis2/maps-app/issues/3121)
+
 ## [100.4.1](https://github.com/dhis2/maps-app/compare/v100.4.0...v100.4.1) (2024-02-26)
 
 
