@@ -7,9 +7,11 @@
     padding: var(--spacers-dp8) 0;
     color: var(--colors-grey600);
     background-color: var(--colors-white);
-    box-shadow: 3px 1px 5px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--elevations-e100);
     z-index: 1100;
     cursor: pointer;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 .layersToggle.collapsed {
@@ -17,5 +19,7 @@
 }
 
 .layersToggle:hover {
-    background-color: var(--colors-grey100);
+    background-color: var(--colors-grey050);
+    color: var(--colors-grey900);
+    box-shadow: var(--elevations-e200);
 }

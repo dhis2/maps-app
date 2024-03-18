@@ -1,23 +1,21 @@
 .toolbar {
-    position: relative;
     height: var(--spacers-dp32);
     min-height: var(--spacers-dp32);
-    padding: 0 var(--spacers-dp8);
+    padding: 2px var(--spacers-dp4) 2px var(--spacers-dp8);
     border-top: 1px solid var(--colors-grey300);
     color: var(--colors-grey600);
+    display: flex;
 }
 
-.spacer {
-    float: left;
-    height: var(--spacers-dp32);
-    width: var(--spacers-dp8);
-}
-
-.button {
-    float: left;
+.editButton {
+    margin-right: var(--spacers-dp8);
 }
 
 .sliderContainer {
-    float: left;
     margin-left: var(--spacers-dp8);
+    margin-top: 1px;
+}
+
+.menuButton {
+    margin-left: auto;
 }

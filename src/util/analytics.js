@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { isValidUid } from 'd2/uid'
 import { sortBy } from 'lodash/fp'
 import { dimConf } from '../constants/dimension.js'
 import {
@@ -7,6 +6,7 @@ import {
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../constants/layers.js'
 import { getPeriodNames } from './periods.js'
+import { isValidUid } from './uid.js'
 
 /* DIMENSIONS */
 

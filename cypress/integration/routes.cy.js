@@ -1,7 +1,22 @@
 import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-context('Routes', () => {
+const assertDownloadMode = () => {
+    cy.getByDataTest('download-settings').should('be.visible')
+    cy.get('canvas.maplibregl-canvas').should('be.visible')
+    cy.get('button').contains('Exit download mode').should('be.visible')
+    cy.url().should('include', 'download')
+}
+
+const assertViewMode = () => {
+    cy.get('button').contains('Add layer').should('be.visible')
+    cy.get('canvas.maplibregl-canvas').should('be.visible')
+    cy.getByDataTest('download-settings').should('not.exist')
+    cy.get('button').contains('Exit download mode').should('not.exist')
+    cy.url().should('not.include', 'download')
+}
+
+describe('Routes', () => {
     it('loads root route', () => {
         cy.visit('/', { timeout: 50000 })
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -146,9 +161,7 @@ context('Routes', () => {
             .its('response.statusCode')
             .should('eq', 201)
 
-        cy.getByDataTest('download-settings').should('be.visible')
-        cy.get('canvas.maplibregl-canvas').should('be.visible')
-        cy.get('button').contains('Exit download mode').should('be.visible')
+        assertDownloadMode()
     })
 
     it('loads download page currentAnalyticalObject (hash)', () => {
@@ -160,9 +173,7 @@ context('Routes', () => {
 
         cy.contains('button', 'Proceed').click()
 
-        cy.getByDataTest('download-settings').should('be.visible')
-        cy.get('canvas.maplibregl-canvas').should('be.visible')
-        cy.get('button').contains('Exit download mode').should('be.visible')
+        assertDownloadMode()
     })
 
     it('loads download page for new map', () => {
@@ -171,15 +182,65 @@ context('Routes', () => {
         cy.get('canvas.maplibregl-canvas').should('be.visible')
         cy.get('button').contains('Download').click()
 
-        cy.getByDataTest('download-settings').should('be.visible')
-        cy.get('canvas.maplibregl-canvas').should('be.visible')
-        cy.get('button').contains('Exit download mode').should('be.visible')
-        cy.url().should('include', '#/download')
+        assertDownloadMode()
 
         cy.get('button').contains('Exit download mode').click()
 
-        cy.url().should('not.include', 'download')
+        assertViewMode()
+    })
 
-        cy.get('button').contains('Add layer').should('be.visible')
+    describe('navigation by url changes', () => {
+        it('navigates to and away from download page', () => {
+            cy.visit('/', EXTENDED_TIMEOUT)
+            assertViewMode()
+
+            cy.visit('/#/ZBjCfSaLSqD/download', EXTENDED_TIMEOUT) //ANC: LLITN coverage district and facility
+            assertDownloadMode()
+
+            cy.visit('/', EXTENDED_TIMEOUT)
+            assertViewMode()
+        })
+
+        it('navigates away from interpretation modal', () => {
+            cy.visit(
+                '/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a',
+                EXTENDED_TIMEOUT
+            ) //ANC: LLITN coverage district and facility
+
+            cy.getByDataTest('interpretation-modal')
+                .find('h1')
+                .contains(
+                    'Viewing interpretation: ANC: LLITN coverage district and facility'
+                )
+                .should('be.visible')
+
+            cy.visit('/#/ZBjCfSaLSqD')
+
+            assertViewMode
+        })
+
+        it('navigates from currentAnalyticalObject to saved map in download mode', () => {
+            cy.intercept('**/userDataStore/analytics/settings', {
+                fixture: 'analyticalObject.json',
+            })
+
+            cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
+            cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+            cy.contains('button', 'Proceed').click()
+
+            const Layer = new ThematicLayer()
+            Layer.validateCardTitle('ANC 1 Coverage')
+            cy.get('canvas.maplibregl-canvas').should('be.visible')
+
+            // now go to a saved map in download mode
+            cy.visit('/#/eDlFx0jTtV9/download', EXTENDED_TIMEOUT) //ANC: LLITN Cov chiefdom this year
+            assertDownloadMode()
+
+            cy.getByDataTest('download-map-info')
+                .find('h1')
+                .contains('ANC: LLITN Cov Chiefdom this year')
+                .should('be.visible')
+        })
     })
 })

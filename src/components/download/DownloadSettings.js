@@ -6,15 +6,23 @@ import { setDownloadConfig } from '../../actions/download.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
-import { closeDownloadMode } from '../../util/history.js'
+import { closeDownloadMode, getHashUrlParam } from '../../util/history.js'
 import { getMapName } from '../app/FileMenu.js'
 import Drawer from '../core/Drawer.js'
 import { Checkbox, Help } from '../core/index.js'
+import { loadingMaskClass } from '../map/MapLoadingMask.js'
 import LegendLayers from './LegendLayers.js'
 import NorthArrowPosition from './NorthArrowPosition.js'
 import styles from './styles/DownloadSettings.module.css'
 
+const mapContainerId = 'dhis2-map-container'
+const mapClass = 'dhis2-map'
+const renderedClass = 'dhis2-map-rendered'
+const downloadingClass = 'dhis2-map-downloading'
+
 const DownloadSettings = () => {
+    const isPushAnalytics = getHashUrlParam('isPushAnalytics')
+    const [isRendered, setIsRendered] = useState(false)
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
 
@@ -38,17 +46,17 @@ const DownloadSettings = () => {
 
     const onDownload = useCallback(() => {
         const filename = standardizeFilename(getMapName(name), 'png')
-        let mapEl = document.getElementById('dhis2-map-container')
+        let mapEl = document.getElementById(mapContainerId)
 
         if (includeMargins) {
             mapEl = mapEl.parentNode
         }
 
         // Temporary added to remove close 'x' from map popups
-        mapEl.classList.add('dhis2-map-downloading')
+        mapEl.classList.add(downloadingClass)
 
         downloadMapImage(mapEl, filename)
-            .then(() => mapEl.classList.remove('dhis2-map-downloading'))
+            .then(() => mapEl.classList.remove(downloadingClass))
             .catch(setError)
     }, [name, includeMargins])
 
@@ -66,6 +74,36 @@ const DownloadSettings = () => {
             })
         )
     }, [name, description, legendLayers, hasLayers, dispatch])
+
+    useEffect(() => {
+        if (isPushAnalytics) {
+            // Multiple map elements if split view
+            const mapElements = document.getElementsByClassName(mapClass)
+
+            // Observe is rendered class is added to map element
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName == 'class') {
+                        setIsRendered(
+                            !document.querySelector(`.${loadingMaskClass}`) &&
+                                mutation.target.classList.contains(
+                                    renderedClass
+                                )
+                        )
+                    }
+                })
+            })
+
+            for (const mapEl of mapElements) {
+                mapEl.classList.remove(renderedClass)
+                observer.observe(mapEl, { attributes: true })
+            }
+
+            return () => {
+                observer.disconnect()
+            }
+        }
+    }, [isPushAnalytics])
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
@@ -205,7 +243,12 @@ const DownloadSettings = () => {
                                     : i18n.t('Close')}
                             </Button>
                             {isSupported && (
-                                <Button primary onClick={onDownload}>
+                                <Button
+                                    primary
+                                    disabled={isPushAnalytics && !isRendered}
+                                    onClick={onDownload}
+                                    className="push-analytics-download-button"
+                                >
                                     {i18n.t('Download')}
                                 </Button>
                             )}

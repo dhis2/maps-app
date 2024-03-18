@@ -3,14 +3,15 @@
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
 # Rica Zamora Duchateau, 2022
-# Charel van den Elsen, 2023
+# Philip Larsen Donnelly, 2024
+# Charel van den Elsen, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Charel van den Elsen, 2023\n"
+"Last-Translator: Charel van den Elsen, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,23 +142,23 @@ msgstr "Datum\n"
 msgid "Data set"
 msgstr "Gegevensreeks"
 
+msgid "No results found"
+msgstr ""
+
+msgid "Sort by {{column}}"
+msgstr "Sorteren op {{column}}"
+
+msgid "Something went wrong"
+msgstr "Er is iets fout gegaan"
+
+msgid "Search"
+msgstr "Zoek"
+
 msgid "Index"
 msgstr "Index"
 
-msgid "Org unit"
-msgstr "Organisatieëenheid"
-
 msgid "Id"
 msgstr "ID"
-
-msgid "Event time"
-msgstr "Tijd van gebeurtenis"
-
-msgid "Legend"
-msgstr "Legenda"
-
-msgid "Range"
-msgstr "Bereik"
 
 msgid "Level"
 msgstr "Niveau"
@@ -168,10 +169,28 @@ msgstr "Bovenliggend element"
 msgid "Type"
 msgstr "Soort"
 
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "Range"
+msgstr "Bereik"
+
+msgid "Org unit"
+msgstr "Organisatieëenheid"
+
+msgid "Event time"
+msgstr "Tijd van gebeurtenis"
+
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 "De gegevenstabel wordt niet ondersteund wanneer gebeurtenissen op de server "
 "gegroepeerd zijn."
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
+msgstr ""
 
 msgid "Items"
 msgstr "Items"
@@ -262,10 +281,10 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr "Bewerk {{naam}}-laag"
+msgstr "Bewerk {{name}}-laag"
 
 msgid "Add new {{name}} layer"
-msgstr "Voeg een nieuwe {{naam}}-laag toe"
+msgstr "Voeg een nieuwe {{name}}-laag toe"
 
 msgid "Update layer"
 msgstr "Werk laag bij"
@@ -331,10 +350,10 @@ msgid "Max should be greater than min"
 msgstr "Max. moet groter zijn dan min."
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Geldige stappen zijn {{minStappen}} tot {{maxStappen}}"
+msgstr "Geldige stappen zijn {{minSteps}} tot {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
-msgstr "Eenheid: {{ eenheid }}"
+msgstr "Eenheid: {{ unit }}"
 
 msgid "Min"
 msgstr "Min"
@@ -504,8 +523,7 @@ msgstr "Lijnkleur"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
-"Geen relatiesoorten werden gevonden voor getraceerde entiteitssoort "
-"{{soort}}"
+"Geen relatiesoorten werden gevonden voor getraceerde entiteitssoort {{type}}"
 
 msgid "Relationship type"
 msgstr "Relatiesoort"
@@ -541,7 +559,7 @@ msgid "Download Layer Data"
 msgstr "Download Laaggegevens"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "GeoJSON-gegevens voor \"{{laagNaam}}\" zijn aan het downloaden"
+msgstr "GeoJSON-gegevens voor \"{{layerName}}\" zijn aan het downloaden"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "

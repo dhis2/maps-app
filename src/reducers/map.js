@@ -218,7 +218,6 @@ const map = (state = defaultState, action) => {
                         id: generateUid(),
                     },
                 ],
-                newLayerIsLoading: false,
             }
 
         case types.LAYER_REMOVE:
@@ -255,14 +254,12 @@ const map = (state = defaultState, action) => {
                 mapViews: state.mapViews.map((l) => layer(l, action)),
             }
 
-        // TODO: newLayerIsLoading will not cover an edge case where another layer is created while the first is still loading.
-        // The only concequence would be that the spinner is removed before both layers are loaded, which will rarely happen.
-        case types.LAYER_LOADING_SET:
+        case types.LAYER_LOADING_SET: {
             return {
                 ...state,
                 mapViews: state.mapViews.map((l) => layer(l, action)),
-                newLayerIsLoading: action.id ? false : true,
             }
+        }
 
         case types.MAP_ALERTS_CLEAR:
             return {

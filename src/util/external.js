@@ -3,6 +3,8 @@ import {
     TILE_LAYER,
     WMS_LAYER,
     VECTOR_STYLE,
+    GEOJSON_URL_LAYER,
+    GEOJSON_LAYER,
 } from '../constants/layers.js'
 import { getExternalLayer } from './requests.js'
 
@@ -10,32 +12,39 @@ const MAP_SERVICE_WMS = 'WMS'
 const MAP_SERVICE_TMS = 'TMS'
 const MAP_SERVICE_XYZ = 'XYZ'
 const MAP_SERVICE_VECTOR_STYLE = 'VECTOR_STYLE'
-
-export const supportedMapServices = [
-    MAP_SERVICE_WMS,
-    MAP_SERVICE_TMS,
-    MAP_SERVICE_XYZ,
-    MAP_SERVICE_VECTOR_STYLE,
-]
+const MAP_SERVICE_GEOJSON_URL = 'GEOJSON_URL'
 
 const mapServiceToTypeMap = {
     [MAP_SERVICE_WMS]: WMS_LAYER,
     [MAP_SERVICE_XYZ]: TILE_LAYER,
     [MAP_SERVICE_TMS]: TILE_LAYER,
     [MAP_SERVICE_VECTOR_STYLE]: VECTOR_STYLE,
+    [MAP_SERVICE_GEOJSON_URL]: GEOJSON_LAYER,
 }
 
-// Create external layer from a model
-export const createExternalLayer = (model) => ({
+export const supportedMapServices = Object.keys(mapServiceToTypeMap)
+
+export const createExternalBasemapLayer = (layer) => ({
     layer: EXTERNAL_LAYER,
-    id: model.id,
-    name: model.name,
+    id: layer.id,
+    name: layer.name,
     opacity: 1,
-    config: createExternalLayerConfig(model),
+    config: createExternalLayerConfig(layer),
+})
+
+export const createExternalOverlayLayer = (layer) => ({
+    layer:
+        layer.mapService === MAP_SERVICE_GEOJSON_URL
+            ? GEOJSON_URL_LAYER
+            : EXTERNAL_LAYER,
+    img: 'images/featurelayer.png',
+    name: layer.name,
+    opacity: 1,
+    config: createExternalLayerConfig(layer),
 })
 
 // Create external layer config
-export const createExternalLayerConfig = (model) => {
+const createExternalLayerConfig = (model) => {
     const {
         id,
         name,
@@ -49,7 +58,6 @@ export const createExternalLayerConfig = (model) => {
     } = model
 
     const type = mapServiceToTypeMap[mapService]
-
     const format = imageFormat === 'JPG' ? 'image/jpeg' : 'image/png'
     const tms = mapService === MAP_SERVICE_TMS
 
@@ -82,7 +90,8 @@ export const parseLayerConfig = async (layerConfig) => {
     if (config.id) {
         try {
             const layer = await getExternalLayer(config.id)
-            return createExternalLayerConfig(layer)
+            const newConfig = createExternalLayerConfig(layer)
+            newConfig.featureStyle = { ...config.featureStyle }
         } catch (evt) {
             return config
         }

@@ -12,7 +12,6 @@ const MapPosition = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
     const {
-        downloadMode,
         showName,
         showDescription,
         showLegend,
@@ -21,9 +20,8 @@ const MapPosition = () => {
         showNorthArrow,
     } = useSelector((state) => state.download)
     const { id: mapId, mapViews: layers } = useSelector((state) => state.map)
-    const { layersPanelOpen, rightPanelOpen, dataTableHeight } = useSelector(
-        (state) => state.ui
-    )
+    const { downloadMode, layersPanelOpen, rightPanelOpen, dataTableHeight } =
+        useSelector((state) => state.ui)
     const dataTableOpen = useSelector((state) => !!state.dataTable)
 
     let mapHeight = `calc(100vh - ${HEADER_HEIGHT}px)`
@@ -100,6 +98,7 @@ const MapPosition = () => {
                     className={cx(styles.mapContainer, {
                         [styles.download]: downloadMode,
                         'dhis2-map-download': downloadMode,
+                        'dhis2-map-new': !mapId,
                     })}
                 >
                     <MapContainer resizeCount={resizeCount} setMap={setMap} />
