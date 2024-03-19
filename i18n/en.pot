@@ -857,6 +857,9 @@ msgstr "Previous year"
 msgid "Next year"
 msgstr "Next year"
 
+msgid "Relative"
+msgstr "Relative"
+
 msgid "Period type"
 msgstr "Period type"
 
@@ -1247,9 +1250,6 @@ msgstr "Equal counts"
 
 msgid "Symbol"
 msgstr "Symbol"
-
-msgid "Relative"
-msgstr "Relative"
 
 msgid "Daily"
 msgstr "Daily"
