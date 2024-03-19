@@ -7,6 +7,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
 } from '../constants/layers.js'
+import { numberValueTypes } from '../constants/valueTypes.js'
 import {
     getFiltersFromColumns,
     getFiltersAsText,
@@ -18,6 +19,7 @@ import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
 const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
@@ -37,10 +39,10 @@ const unknownErrorAlert = {
 
 // TODO: Refactor to share code with other loaders
 // Returns a promise
-const eventLoader = async (layerConfig) => {
+const eventLoader = async (layerConfig, loadExtended) => {
     const config = { ...layerConfig }
     try {
-        await loadEventLayer(config)
+        await loadEventLayer(config, loadExtended)
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [
@@ -61,7 +63,7 @@ const eventLoader = async (layerConfig) => {
     return config
 }
 
-const loadEventLayer = async (config) => {
+const loadEventLayer = async (config, loadExtended) => {
     const {
         columns,
         endDate,
@@ -74,14 +76,13 @@ const loadEventLayer = async (config) => {
         startDate,
         styleDataItem,
         areaRadius,
-        showDataTable,
     } = config
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
     const d2 = await getD2()
 
-    config.isExtended = showDataTable
+    config.isExtended = loadExtended
 
     const analyticsRequest = await getAnalyticsRequest(config, {
         d2,
@@ -160,6 +161,26 @@ const loadEventLayer = async (config) => {
             })
 
         config.headers = response.headers
+
+        const numericDataItemHeaders = config.headers.filter(
+            (header) =>
+                isValidUid(header.name) &&
+                numberValueTypes.includes(header.valueType)
+        )
+
+        if (numericDataItemHeaders.length) {
+            config.data = config.data.map((d) => {
+                const newD = { ...d }
+
+                numericDataItemHeaders.forEach((header) => {
+                    newD.properties[header.name] = parseFloat(
+                        d.properties[header.name]
+                    )
+                })
+
+                return newD
+            })
+        }
     }
 
     if (!styleDataItem) {

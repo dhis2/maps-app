@@ -8,8 +8,9 @@ import {
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
-import DataTable from '../datatable/DataTable.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.js'
+import DataTable from './DataTable.js'
+import ErrorBoundary from './ErrorBoundary.js'
 import ResizeHandle from './ResizeHandle.js'
 import styles from './styles/BottomPanel.module.css'
 
@@ -34,26 +35,34 @@ const BottomPanel = () => {
     const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0
     const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0
     const tableWidth = width - layersWidth - rightPanelWidth
+    const dataTableControlsHeight = 20
 
     return (
         <div
             ref={panelRef}
             className={styles.bottomPanel}
-            style={{ height: tableHeight }}
+            style={{ height: tableHeight, width: tableWidth }}
             data-test="bottom-panel"
         >
-            <span
-                className={styles.closeIcon}
-                onClick={() => dispatch(closeDataTable())}
-            >
-                <IconCross16 />
-            </span>
-            <ResizeHandle
-                maxHeight={maxHeight}
-                onResize={onResize}
-                onResizeEnd={(height) => dispatch(resizeDataTable(height))}
-            />
-            <DataTable width={tableWidth} height={tableHeight} />
+            <div className={styles.dataTableControls}>
+                <ResizeHandle
+                    maxHeight={maxHeight}
+                    onResize={onResize}
+                    onResizeEnd={(height) => dispatch(resizeDataTable(height))}
+                />
+                <button
+                    className={styles.closeIcon}
+                    onClick={() => dispatch(closeDataTable())}
+                >
+                    <IconCross16 />
+                </button>
+            </div>
+            <ErrorBoundary>
+                <DataTable
+                    availableHeight={dataTableHeight - dataTableControlsHeight}
+                    availableWidth={tableWidth}
+                />
+            </ErrorBoundary>
         </div>
     )
 }

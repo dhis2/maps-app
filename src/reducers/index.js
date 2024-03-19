@@ -5,6 +5,7 @@ import contextMenu from './contextMenu.js'
 import dataTable from './dataTable.js'
 import download from './download.js'
 import feature from './feature.js'
+import featureProfile from './featureProfile.js'
 import interpretation from './interpretation.js'
 import layerEdit from './layerEdit.js'
 import map from './map.js'
@@ -23,4 +24,5 @@ export default combineReducers({
     orgUnitProfile,
     ui,
     feature,
+    featureProfile,
 })

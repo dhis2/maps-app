@@ -1,0 +1,66 @@
+.drawer {
+    background-color: #fff;
+    overflow-y: hidden;
+}
+
+.header {
+    position: relative;
+    background-color: var(--colors-grey300);
+    line-height: 44px;
+    padding-left: var(--spacers-dp16);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+}
+
+.close {
+    position: absolute;
+    top: 7px;
+    right: var(--spacers-dp4);
+    cursor: pointer;
+}
+
+.close svg {
+    margin: auto;
+    color: var(--colors-grey700);
+}
+
+.content {
+    height: calc(100% - 44px);
+    overflow-y: auto;
+    padding: var(--spacers-dp16);
+}
+
+.dataTable {
+    position: relative;
+}
+
+.dataTable table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+
+.dataTable tr {
+    border-bottom: 1px solid var(--colors-grey400);
+}
+
+.dataTable th {
+    text-align: left;
+    color: var(--colors-grey600);
+    font-weight: normal;
+    padding: 10px 8px 9px 0;
+}
+
+.dataTable td {
+    text-align: right;
+    padding: 10px 0 9px;
+    white-space: nowrap;
+}
+
+.noData {
+    text-align: center;
+    padding: var(--spacers-dp16);
+    color: var(--colors-grey600);
+    font-style: italic;
+}

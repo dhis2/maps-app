@@ -21,9 +21,7 @@ const App = () => {
         useState(1)
 
     const dataTableOpen = useSelector((state) => !!state.dataTable)
-    const downloadModeOpen = useSelector(
-        (state) => !!state.download.downloadMode
-    )
+    const downloadModeOpen = useSelector((state) => !!state.ui.downloadMode)
     const detailsPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
     )

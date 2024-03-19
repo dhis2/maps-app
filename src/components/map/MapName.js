@@ -4,7 +4,7 @@ import styles from './styles/MapName.module.css'
 
 const MapName = () => {
     const name = useSelector((state) => state.map.name)
-    const downloadMode = useSelector((state) => state.download.downloadMode)
+    const downloadMode = useSelector((state) => state.ui.downloadMode)
 
     return !downloadMode && name ? (
         <div className={styles.mapName}>

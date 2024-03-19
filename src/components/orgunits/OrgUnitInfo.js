@@ -3,12 +3,12 @@ import i18n from '@dhis2/d2-i18n'
 import { IconDimensionOrgUnit16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { numberPrecision } from '../../util/numbers.js'
+import { getRoundToPrecisionFn } from '../../util/numbers.js'
 import { formatDate } from '../../util/time.js'
 import ListItem from '../core/ListItem.js'
 import styles from './styles/OrgUnitInfo.module.css'
 
-export const coordFormat = numberPrecision(6) // Meter precision for longitude an latitude
+export const coordFormat = getRoundToPrecisionFn(6) // Meter precision for longitude an latitude
 
 /*
  * Displays the fixed information for an org unit together with org unit groups (above) and metadata attributes (below)

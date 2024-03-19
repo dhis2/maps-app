@@ -1,7 +1,14 @@
 .handle {
     position: absolute;
     left: var(--spacers-dp4);
-    top: var(--spacers-dp16);
+    top: 15px;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
     color: var(--colors-grey600);
     cursor: ns-resize;
+}
+.handle:hover {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey900);
 }

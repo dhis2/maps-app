@@ -1,5 +1,3 @@
-import isNumeric from 'd2-utilizr/lib/isNumeric'
-
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
     if (!filters) {
@@ -17,7 +15,7 @@ export const filterData = (data, filters) => {
             const props = d.properties || d // GeoJSON or plain object
             const value = props[field]
 
-            return isNumeric(value)
+            return typeof value === 'number'
                 ? numericFilter(value, filter)
                 : stringFilter(value, filter)
         })

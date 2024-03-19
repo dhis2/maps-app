@@ -88,10 +88,6 @@ const FileMenu = ({ onFileMenuAction }) => {
             defaultBasemapId: defaultBasemap,
         })
 
-        if (config.mapViews) {
-            config.mapViews.forEach((view) => delete view.id)
-        }
-
         await putMap({
             id: map.id,
             data: config,
@@ -114,10 +110,6 @@ const FileMenu = ({ onFileMenuAction }) => {
         }
 
         delete data.id
-
-        if (data.mapViews) {
-            data.mapViews.forEach((view) => delete view.id)
-        }
 
         const res = await postMap({ data })
 

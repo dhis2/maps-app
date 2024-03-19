@@ -1,384 +1,317 @@
 import i18n from '@dhis2/d2-i18n'
-import { CenteredContent, CircularLoader } from '@dhis2/ui'
-import { isValidUid } from 'd2/uid'
-import { debounce } from 'lodash/fp'
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Table, Column } from 'react-virtualized'
-import { closeDataTable } from '../../actions/dataTable.js'
-import { highlightFeature } from '../../actions/feature.js'
-import { updateLayer } from '../../actions/layers.js'
-import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
-    EVENT_LAYER,
-    THEMATIC_LAYER,
-    ORG_UNIT_LAYER,
-    EARTH_ENGINE_LAYER,
-} from '../../constants/layers.js'
-import { numberValueTypes } from '../../constants/valueTypes.js'
-import { filterData } from '../../util/filter.js'
-import { formatTime } from '../../util/helpers.js'
-import ColorCell from './ColorCell.js'
-import ColumnHeader from './ColumnHeader.js'
-import EarthEngineColumns from './EarthEngineColumns.js'
+    DataTable,
+    DataTableRow,
+    DataTableCell,
+    DataTableColumnHeader,
+    DataTableHead,
+    DataTableBody,
+    ComponentCover,
+    CenteredContent,
+    CircularLoader,
+} from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, {
+    useReducer,
+    useCallback,
+    useMemo,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { TableVirtuoso } from 'react-virtuoso'
+import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
+import { setOrgUnitProfile } from '../../actions/orgUnits.js'
+import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
+import { isDarkColor } from '../../util/colors.js'
+import FilterInput from './FilterInput.js'
 import styles from './styles/DataTable.module.css'
-import 'react-virtualized/styles.css'
+import { useTableData } from './useTableData.js'
 
-// Using react component to keep sorting state, which is only used within the data table.
-class DataTable extends Component {
-    static propTypes = {
-        closeDataTable: PropTypes.func.isRequired,
-        height: PropTypes.number.isRequired,
-        highlightFeature: PropTypes.func.isRequired,
-        layer: PropTypes.object.isRequired,
-        setOrgUnitProfile: PropTypes.func.isRequired,
-        updateLayer: PropTypes.func.isRequired,
-        width: PropTypes.number.isRequired,
-        aggregations: PropTypes.object,
-        feature: PropTypes.object,
-    }
+const ASCENDING = 'asc'
+const DESCENDING = 'desc'
 
-    static defaultProps = {
-        data: [],
-    }
+const DataTableWithVirtuosoContext = ({ context, ...props }) => (
+    <DataTable
+        {...props}
+        layout={context.layout}
+        className={styles.dataTable}
+    />
+)
 
-    state = {}
-
-    constructor(props, context) {
-        super(props, context)
-
-        // Default sort
-        const sortBy = 'index'
-        const sortDirection = 'ASC'
-
-        const data = this.sort(this.filter(), sortBy, sortDirection)
-
-        this.state = {
-            sortBy,
-            sortDirection,
-            data,
-        }
-    }
-
-    componentDidMount() {
-        this.loadExtendedData()
-    }
-
-    componentDidUpdate(prevProps) {
-        const { layer, aggregations, closeDataTable } = this.props
-        const { data, dataFilters } = layer
-        const prev = prevProps.layer
-
-        if (!data) {
-            closeDataTable()
-        } else if (
-            data !== prev.data ||
-            dataFilters !== prev.dataFilters ||
-            aggregations !== prevProps.aggregations
-        ) {
-            const { sortBy, sortDirection } = this.state
-
-            this.setState({
-                data: this.sort(this.filter(), sortBy, sortDirection),
-            })
-        }
-    }
-
-    loadExtendedData() {
-        const { layer, updateLayer } = this.props
-        const { layer: layerType, isExtended, serverCluster } = layer
-
-        if (layerType === EVENT_LAYER && !isExtended && !serverCluster) {
-            updateLayer({
-                ...layer,
-                showDataTable: true,
-            })
-        }
-    }
-
-    filter() {
-        const { layer, aggregations = {} } = this.props
-        const { dataFilters } = layer
-        const data = layer.data.filter(
-            (d) => !d.properties.hasAdditionalGeometry
-        )
-
-        return filterData(
-            data.map((d, index) => ({
-                ...(d.properties || d),
-                ...aggregations[d.id],
-                index,
-            })),
-            dataFilters
-        )
-    }
-
-    // TODO: Make sure sorting works across different locales - use lib method
-    sort(data, sortBy, sortDirection) {
-        return data.sort((a, b) => {
-            a = a[sortBy]
-            b = b[sortBy]
-
-            if (typeof a === 'number') {
-                return sortDirection === 'ASC' ? a - b : b - a
-            }
-
-            if (a !== undefined) {
-                return sortDirection === 'ASC'
-                    ? a.localeCompare(b)
-                    : b.localeCompare(a)
-            }
-
-            return 0
-        })
-    }
-
-    onSort(sortBy, sortDirection) {
-        const { data } = this.state
-
-        this.setState({
-            sortBy,
-            sortDirection,
-            data: this.sort(data, sortBy, sortDirection),
-        })
-    }
-
-    // Return event data items used for styling, filters or "display in reports"
-    getEventDataItems() {
-        const { headers = [] } = this.props.layer
-
-        return headers
-            .filter(({ name }) => isValidUid(name))
-            .map(({ name, column, valueType }) => ({
-                key: name,
-                label: column,
-                type: numberValueTypes.includes(valueType)
-                    ? 'number'
-                    : 'string',
-            }))
-    }
-
-    // Debounce needed as event is triggered multiple times for the same row
-    highlightFeature = debounce(50, (id) => {
-        const { feature, layer } = this.props
-
-        // If not the same feature as already highlighted
-        if (!id || !feature || id !== feature.id) {
-            this.props.highlightFeature(
-                id
-                    ? {
-                          id,
-                          layerId: layer.id,
-                          origin: 'table',
-                      }
-                    : null
-            )
-        }
-    })
-
-    onRowClick = (evt) => this.props.setOrgUnitProfile(evt.rowData.id)
-    onRowMouseOver = (evt) => this.highlightFeature(evt.rowData.id)
-    onRowMouseOut = () => this.highlightFeature()
-
-    render() {
-        const { data, sortBy, sortDirection } = this.state
-        const { width, height, layer, aggregations } = this.props
-
-        const {
-            layer: layerType,
-            styleDataItem,
-            serverCluster,
-            aggregationType,
-            legend,
-        } = layer
-
-        const isThematic = layerType === THEMATIC_LAYER
-        const isOrgUnit = layerType === ORG_UNIT_LAYER
-        const isEvent = layerType === EVENT_LAYER
-        const isEarthEngine = layerType === EARTH_ENGINE_LAYER
-        const isLoading =
-            isEarthEngine && aggregationType?.length && !aggregations
-
-        return !serverCluster ? (
-            <>
-                <Table
-                    className={styles.dataTable}
-                    width={width}
-                    height={height}
-                    headerHeight={48}
-                    rowHeight={32}
-                    rowCount={data.length}
-                    rowGetter={({ index }) => data[index]}
-                    sort={({ sortBy, sortDirection }) =>
-                        this.onSort(sortBy, sortDirection)
-                    }
-                    sortBy={sortBy}
-                    sortDirection={sortDirection}
-                    useDynamicRowHeight={false}
-                    hideIndexRow={false}
-                    onRowClick={!isEvent ? this.onRowClick : undefined}
-                    onRowMouseOver={this.onRowMouseOver}
-                    onRowMouseOut={this.onRowMouseOut}
-                >
-                    <Column
-                        cellDataGetter={({ rowData }) => rowData.index}
-                        dataKey="index"
-                        label={i18n.t('Index')}
-                        width={72}
-                        className="right"
-                    />
-                    <Column
-                        dataKey={isEvent ? 'ouname' : 'name'}
-                        label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
-                        width={100}
-                        headerRenderer={(props) => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                    <Column
-                        dataKey="id"
-                        label={i18n.t('Id')}
-                        width={100}
-                        headerRenderer={(props) => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                    {isEvent && (
-                        <Column
-                            dataKey="eventdate"
-                            label={i18n.t('Event time')}
-                            width={100}
-                            headerRenderer={(props) => (
-                                <ColumnHeader type="date" {...props} />
-                            )}
-                            cellRenderer={({ cellData }) =>
-                                cellData ? formatTime(cellData) : ''
-                            }
-                        />
-                    )}
-                    {isEvent &&
-                        this.getEventDataItems().map(({ key, label, type }) => (
-                            <Column
-                                key={key}
-                                dataKey={key}
-                                label={label}
-                                width={100}
-                                className={type === 'number' ? 'right' : 'left'}
-                                headerRenderer={(props) => (
-                                    <ColumnHeader type={type} {...props} />
-                                )}
-                            />
-                        ))}
-                    {isThematic && (
-                        <Column
-                            dataKey="value"
-                            label={i18n.t('Value')}
-                            width={72}
-                            className="right"
-                            headerRenderer={(props) => (
-                                <ColumnHeader type="number" {...props} />
-                            )}
-                        />
-                    )}
-                    {isThematic && (
-                        <Column
-                            dataKey="legend"
-                            label={i18n.t('Legend')}
-                            width={100}
-                            headerRenderer={(props) => (
-                                <ColumnHeader type="string" {...props} />
-                            )}
-                        />
-                    )}
-                    {isThematic && (
-                        <Column
-                            dataKey="range"
-                            label={i18n.t('Range')}
-                            width={72}
-                            headerRenderer={(props) => (
-                                <ColumnHeader type="string" {...props} />
-                            )}
-                        />
-                    )}
-                    {(isThematic || isOrgUnit) && (
-                        <Column
-                            dataKey="level"
-                            label={i18n.t('Level')}
-                            width={72}
-                            className="right"
-                            headerRenderer={(props) => (
-                                <ColumnHeader type="number" {...props} />
-                            )}
-                        />
-                    )}
-                    {(isThematic || isOrgUnit) && (
-                        <Column
-                            dataKey="parentName"
-                            label={i18n.t('Parent')}
-                            width={100}
-                            headerRenderer={(props) => (
-                                <ColumnHeader type="string" {...props} />
-                            )}
-                        />
-                    )}
-                    <Column
-                        dataKey="type"
-                        label={i18n.t('Type')}
-                        width={100}
-                        headerRenderer={(props) => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                    {(isThematic || styleDataItem) && (
-                        <Column
-                            dataKey="color"
-                            label={i18n.t('Color')}
-                            width={100}
-                            headerRenderer={(props) => (
-                                <ColumnHeader type="string" {...props} />
-                            )}
-                            cellRenderer={ColorCell}
-                        />
-                    )}
-
-                    {isEarthEngine &&
-                        EarthEngineColumns({ aggregationType, legend, data })}
-                </Table>
-                {isLoading === true && (
-                    <div className={styles.loader}>
-                        <CenteredContent>
-                            <CircularLoader />
-                        </CenteredContent>
-                    </div>
-                )}
-            </>
-        ) : (
-            <div className={styles.noSupport}>
-                {i18n.t(
-                    'Data table is not supported when events are grouped on the server.'
-                )}
-            </div>
-        )
-    }
+DataTableWithVirtuosoContext.propTypes = {
+    context: PropTypes.shape({
+        layout: PropTypes.string,
+    }),
 }
 
-export default connect(
-    ({ dataTable, map, aggregations = {}, feature }) => {
-        const layer = map.mapViews.find((l) => l.id === dataTable)
+const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
+    <DataTableRow
+        onClick={() => context.onClick(item)}
+        onMouseEnter={() => context.onMouseEnter(item)}
+        onMouseLeave={context.onMouseLeave}
+        {...props}
+    />
+)
 
-        return layer
-            ? {
-                  layer,
-                  feature,
-                  aggregations: aggregations[layer.id],
-              }
-            : {}
-    },
-    {
-        closeDataTable,
-        updateLayer,
-        setOrgUnitProfile,
-        highlightFeature,
+DataTableRowWithVirtuosoContext.propTypes = {
+    context: PropTypes.shape({
+        onClick: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+    }),
+    item: PropTypes.arrayOf(
+        PropTypes.shape({
+            dataKey: PropTypes.string,
+            itemId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        })
+    ),
+}
+
+const TableComponents = {
+    Table: DataTableWithVirtuosoContext,
+    TableBody: DataTableBody,
+    TableHead: DataTableHead,
+    TableRow: DataTableRowWithVirtuosoContext,
+    EmptyPlaceholder: () => (
+        <tr>
+            <td colSpan={99999}>
+                <div className={styles.noResults}>
+                    {i18n.t('No results found')}
+                </div>
+            </td>
+        </tr>
+    ),
+}
+
+const Table = ({ availableHeight, availableWidth }) => {
+    const headerRowRef = useRef(null)
+    const [columnWidths, setColumnWidths] = useState([])
+    const { mapViews } = useSelector((state) => state.map)
+    const activeLayerId = useSelector((state) => state.dataTable)
+
+    const dispatch = useDispatch()
+    const feature = useSelector((state) => state.feature)
+    const [{ sortField, sortDirection }, setSorting] = useReducer(
+        (sorting, newSorting) => ({ ...sorting, ...newSorting }),
+        {
+            sortField: 'name',
+            sortDirection: ASCENDING,
+        }
+    )
+
+    const layer = mapViews.find((l) => l.id === activeLayerId)
+
+    const sortData = useCallback(
+        ({ name }) => {
+            setSorting({
+                sortField: name,
+                sortDirection:
+                    sortDirection === ASCENDING ? DESCENDING : ASCENDING,
+            })
+        },
+        [sortDirection]
+    )
+
+    const showDetailView = useCallback(
+        (row) => {
+            if (layer.layer === EVENT_LAYER) {
+                return
+            }
+
+            if (layer.layer === GEOJSON_URL_LAYER) {
+                const { name } = layer
+
+                const data = row.reduce((acc, { dataKey, value }) => {
+                    acc[dataKey] = value
+                    return acc
+                }, {})
+
+                dispatch(
+                    setFeatureProfile({
+                        name,
+                        data,
+                    })
+                )
+            } else {
+                const id = row.find((r) => r.dataKey === 'id')?.value
+                id && dispatch(setOrgUnitProfile(id))
+            }
+        },
+        [dispatch, layer]
+    )
+
+    const setFeatureHighlight = useCallback(
+        (row) => {
+            const id =
+                row.find((r) => r.dataKey === 'id')?.value || row[0].itemId
+
+            if (!id || !feature || id !== feature.id) {
+                dispatch(
+                    highlightFeature(
+                        id
+                            ? {
+                                  id,
+                                  layerId: layer.id,
+                                  origin: 'table',
+                              }
+                            : null
+                    )
+                )
+            }
+        },
+        [feature, dispatch, layer.id]
+    )
+    const clearFeatureHighlight = useCallback(
+        (event) => {
+            const nextElement = event.toElement ?? event.relatedTarget
+            // When hovering to the next row the next element is a `TD`
+            // If this is the case `setFeatureHighlight` will
+            // fire and the highlight does not need to be cleared
+            if (nextElement.tagName !== 'TD') {
+                dispatch(highlightFeature(null))
+            }
+        },
+        [dispatch]
+    )
+
+    const tableContext = useMemo(
+        () => ({
+            onClick: showDetailView,
+            onMouseEnter: setFeatureHighlight,
+            onMouseLeave: clearFeatureHighlight,
+            layout: columnWidths.length > 0 ? 'fixed' : 'auto',
+        }),
+        [
+            showDetailView,
+            setFeatureHighlight,
+            clearFeatureHighlight,
+            columnWidths,
+        ]
+    )
+
+    const { headers, rows, isLoading, error } = useTableData({
+        layer,
+        sortField,
+        sortDirection,
+    })
+
+    useEffect(() => {
+        /* The combination of automtic table layout and virtual scrolling
+         * causes a content shift when scrolling and filtering because the
+         * cells in the DOM have a different content length which causes the
+         * columns to have a different width. To avoid that we measure the
+         * initial column widths and switch to a fixed layout based on these
+         * measured widths */
+        if (columnWidths.length === 0 && headerRowRef.current) {
+            requestAnimationFrame(() => {
+                const measuredColumnWidths = []
+
+                for (const cell of headerRowRef.current.cells) {
+                    const rect = cell.getBoundingClientRect()
+                    measuredColumnWidths.push(Math.floor(rect.width))
+                }
+
+                setColumnWidths(measuredColumnWidths)
+            })
+        }
+    }, [columnWidths])
+
+    useEffect(() => {
+        /* When the window is resized, the sidebar opens, or the table
+         * headers change, the table needs to switch back to its
+         * automatic layout so that the cells can subsequently can be
+         * measured again in the useEffect hook above */
+        if (!error) {
+            setColumnWidths([])
+        }
+    }, [availableWidth, headers, error])
+
+    if (error) {
+        return <p className={styles.noSupport}>{error}</p>
     }
-)(DataTable)
+
+    return (
+        <>
+            <TableVirtuoso
+                context={tableContext}
+                components={TableComponents}
+                style={{
+                    height: availableHeight,
+                    width: '100%',
+                }}
+                data={rows}
+                fixedHeaderContent={() => (
+                    <DataTableRow ref={headerRowRef}>
+                        {headers.map(({ name, dataKey, type }, index) => (
+                            <DataTableColumnHeader
+                                className={styles.columnHeader}
+                                key={`${dataKey}-${index}`}
+                                onSortIconClick={sortData}
+                                sortDirection={
+                                    dataKey === sortField
+                                        ? sortDirection
+                                        : 'default'
+                                }
+                                sortIconTitle={i18n.t('Sort by {{column}}', {
+                                    column: name,
+                                })}
+                                onFilterIconClick={type && Function.prototype}
+                                showFilter={!!type && dataKey !== 'index'}
+                                name={dataKey}
+                                filter={
+                                    type && (
+                                        <FilterInput
+                                            type={type}
+                                            dataKey={dataKey}
+                                            name={name}
+                                        />
+                                    )
+                                }
+                                width={
+                                    columnWidths.length > 0
+                                        ? `${columnWidths[index]}px`
+                                        : 'auto'
+                                }
+                            >
+                                {name}
+                            </DataTableColumnHeader>
+                        ))}
+                    </DataTableRow>
+                )}
+                itemContent={(_, row) =>
+                    row.map(({ dataKey, value, align }) => (
+                        <DataTableCell
+                            key={`dtcell-${dataKey}`}
+                            className={cx(styles.dataCell, {
+                                [styles.lightText]:
+                                    dataKey === 'color' && isDarkColor(value),
+                            })}
+                            backgroundColor={dataKey === 'color' ? value : null}
+                            align={align}
+                        >
+                            {dataKey === 'color' ? value?.toLowerCase() : value}
+                        </DataTableCell>
+                    ))
+                }
+            />
+            {isLoading && (
+                <ComponentCover>
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                </ComponentCover>
+            )}
+        </>
+    )
+}
+
+Table.propTypes = {
+    availableHeight: PropTypes.number,
+    availableWidth: PropTypes.number,
+}
+
+export default Table
