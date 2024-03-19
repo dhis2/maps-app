@@ -133,13 +133,8 @@ const models2objects = (layer) => {
         layer.rows = layer.rows.map(cleanDimension)
     }
 
-<<<<<<< HEAD
     if (layer === EARTH_ENGINE_LAYER) {
-        const { layerId: id, band, style, aggregationType, period } = config
-=======
-    if (layerType === EARTH_ENGINE_LAYER) {
-        const { layerId: id, band, params, aggregationType, filter } = layer
->>>>>>> master
+        const { layerId: id, band, style, aggregationType, period } = layer
 
         const eeConfig = {
             id,
@@ -155,34 +150,19 @@ const models2objects = (layer) => {
         )
         layer.config = JSON.stringify(eeConfig)
 
-<<<<<<< HEAD
         config.config = JSON.stringify(eeConfig)
 
-        delete config.layerId
-        delete config.datasetId
-        delete config.style
-        delete config.period
-        delete config.filters
-        delete config.periodType
-        delete config.aggregationType
-        delete config.band
-    } else if (layer === TRACKED_ENTITY_LAYER) {
-        config.config = JSON.stringify({
-            relationships: config.relationshipType
-=======
         delete layer.layerId
         delete layer.datasetId
-        delete layer.params
-        delete layer.filter
+        delete layer.style
+        delete layer.period
         delete layer.filters
         delete layer.periodType
-        delete layer.periodName
         delete layer.aggregationType
         delete layer.band
     } else if (layerType === TRACKED_ENTITY_LAYER) {
         layer.config = JSON.stringify({
             relationships: layer.relationshipType
->>>>>>> master
                 ? {
                       type: layer.relationshipType,
                       pointColor: layer.relatedPointColor,
