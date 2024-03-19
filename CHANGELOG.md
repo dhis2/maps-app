@@ -1,3 +1,10 @@
+## [100.5.1](https://github.com/dhis2/maps-app/compare/v100.5.0...v100.5.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* like and unlike interpretation caused flashing in panel and thread [DHIS2-15825] ([#3156](https://github.com/dhis2/maps-app/issues/3156)) ([30f3547](https://github.com/dhis2/maps-app/commit/30f354749262098ae13c644e6c1862412ec8e499))
+
 # [100.5.0](https://github.com/dhis2/maps-app/compare/v100.4.1...v100.5.0) (2024-03-18)
 
 
