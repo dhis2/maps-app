@@ -211,6 +211,11 @@ const models2objects = (layer) => {
         }
     }
 
+    // Color scale needs to be stored as a string in analytical object
+    if (Array.isArray(layer.colorScale)) {
+        layer.colorScale = layer.colorScale.join(',')
+    }
+
     return layer
 }
 

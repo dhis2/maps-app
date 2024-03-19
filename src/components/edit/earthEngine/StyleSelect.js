@@ -12,7 +12,7 @@ const maxSteps = 9
 
 const StyleSelect = ({ unit, params, setParams }) => {
     const { min, max, palette } = params
-    const [steps, setSteps] = useState(palette.split(',').length)
+    const [steps, setSteps] = useState(palette.length)
 
     const onStepsChange = useCallback(
         (steps) => {
@@ -95,7 +95,7 @@ StyleSelect.propTypes = {
     params: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
-        palette: PropTypes.string.isRequired,
+        palette: PropTypes.array.isRequired,
     }),
 }
 

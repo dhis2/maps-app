@@ -38,17 +38,15 @@ export const colorScales = [
 ]
 
 // Returns a color brewer scale for a number of classes
-export const getColorPalette = (scale, classes) => {
-    return colorbrewer[scale][classes].join(',')
-}
+export const getColorPalette = (scale, classes) => colorbrewer[scale][classes]
 
 // Returns color scale name for a palette
-export const getColorScale = (palette) => {
-    const classes = palette.split(',').length
-    return colorScales.find(
-        (name) => colorbrewer[name][classes].join(',') === palette
+// join(',') is used to compare two arrays of colors
+export const getColorScale = (palette) =>
+    colorScales.find(
+        (name) =>
+            colorbrewer[name][palette.length].join(',') === palette.join(',')
     )
-}
 
 export const defaultColorScaleName = 'YlOrBr'
 export const defaultClasses = 5
