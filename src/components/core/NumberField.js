@@ -27,7 +27,7 @@ const NumberField = ({
             label={label}
             value={Number.isNaN(value) ? '' : String(value)}
             disabled={disabled}
-            onChange={({ value }) => onChange(value)}
+            onChange={({ value }) => onChange(Number(value))}
             helpText={helpText}
             inputWidth={inputWidth}
         />

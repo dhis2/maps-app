@@ -1,9 +1,9 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo, useEffect } from 'react'
 import { getPeriodTypes, getRelativePeriods } from '../../util/periods.js'
 import { SelectField } from '../core/index.js'
-import { useSystemSettings } from '../SystemSettingsProvider.js'
 
 const PeriodTypeSelect = ({
     onChange,
@@ -13,7 +13,8 @@ const PeriodTypeSelect = ({
     period,
     value,
 }) => {
-    const { hiddenPeriods } = useSystemSettings()
+    const { systemSettings } = useCachedDataQuery()
+    const { hiddenPeriods } = systemSettings
 
     const periodTypes = useMemo(
         () => getPeriodTypes(includeRelativePeriods, hiddenPeriods),

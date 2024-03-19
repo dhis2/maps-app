@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-15T10:46:33.764Z\n"
-"PO-Revision-Date: 2024-03-15T10:46:33.764Z\n"
+"POT-Creation-Date: 2024-03-19T18:42:35.202Z\n"
+"PO-Revision-Date: 2024-03-19T18:42:35.202Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -347,9 +347,6 @@ msgstr "Max should be greater than min"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr "Unit: {{ unit }}"
-
 msgid "Min"
 msgstr "Min"
 
@@ -358,6 +355,9 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Steps"
+
+msgid "Facility buffer"
+msgstr "Facility buffer"
 
 msgid "Org Units"
 msgstr "Org Units"
@@ -857,9 +857,6 @@ msgstr "Previous year"
 msgid "Next year"
 msgstr "Next year"
 
-msgid "Relative"
-msgstr "Relative"
-
 msgid "Period type"
 msgstr "Period type"
 
@@ -962,14 +959,147 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
+msgid "Building footprints"
+msgstr "Building footprints"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+
+msgid "Building counts are only available for smaller organisation unit areas."
+msgstr "Building counts are only available for smaller organisation unit areas."
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+
+msgid "Number of buildings"
+msgstr "Number of buildings"
+
+msgid "Elevation"
+msgstr "Elevation"
+
+msgid "meters"
+msgstr "meters"
+
+msgid "Elevation above sea-level."
+msgstr "Elevation above sea-level."
+
+msgid "Landcover"
+msgstr "Landcover"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Distinct landcover types collected from satellites."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Evergreen Needleleaf forest"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Evergreen Broadleaf forest"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Deciduous Needleleaf forest"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Deciduous Broadleaf forest"
+
+msgid "Mixed forest"
+msgstr "Mixed forest"
+
+msgid "Closed shrublands"
+msgstr "Closed shrublands"
+
+msgid "Open shrublands"
+msgstr "Open shrublands"
+
+msgid "Woody savannas"
+msgstr "Woody savannas"
+
+msgid "Savannas"
+msgstr "Savannas"
+
+msgid "Grasslands"
+msgstr "Grasslands"
+
+msgid "Permanent wetlands"
+msgstr "Permanent wetlands"
+
+msgid "Croplands"
+msgstr "Croplands"
+
+msgid "Urban and built-up"
+msgstr "Urban and built-up"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Cropland/Natural vegetation mosaic"
+
+msgid "Snow and ice"
+msgstr "Snow and ice"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Barren or sparsely vegetated"
+
+msgid "Water"
+msgstr "Water"
+
+msgid "Nighttime lights"
+msgstr "Nighttime lights"
+
+msgid "light intensity"
+msgstr "light intensity"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+
 msgid "Population"
 msgstr "Population"
+
+msgid "people per km²"
+msgstr "people per km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Estimated number of people living in an area."
 
 msgid "people per hectare"
 msgstr "people per hectare"
 
-msgid "Estimated number of people living in an area."
-msgstr "Estimated number of people living in an area."
+msgid "Precipitation"
+msgstr "Precipitation"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+msgstr ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+
+msgid "Temperature MODIS"
+msgstr "Temperature MODIS"
+
+msgid "°C during daytime"
+msgstr "°C during daytime"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
 
 msgid "Population age groups"
 msgstr "Population age groups"
@@ -1085,138 +1215,25 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Building footprints"
-msgstr "Building footprints"
-
-msgid "Number of buildings"
-msgstr "Number of buildings"
+msgid "Precipitation monthly"
+msgstr "Precipitation monthly"
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
 msgstr ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
 
-msgid "Building counts are only available for smaller organisation unit areas."
-msgstr "Building counts are only available for smaller organisation unit areas."
+msgid "Temperature monthly"
+msgstr "Temperature monthly"
 
 msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-
-msgid "Elevation"
-msgstr "Elevation"
-
-msgid "meters"
-msgstr "meters"
-
-msgid "Elevation above sea-level."
-msgstr "Elevation above sea-level."
-
-msgid "Precipitation"
-msgstr "Precipitation"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-msgstr ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-
-msgid "Temperature"
-msgstr "Temperature"
-
-msgid "°C during daytime"
-msgstr "°C during daytime"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-
-msgid "Landcover"
-msgstr "Landcover"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Distinct landcover types collected from satellites."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Evergreen Needleleaf forest"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Evergreen Broadleaf forest"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Deciduous Needleleaf forest"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Deciduous Broadleaf forest"
-
-msgid "Mixed forest"
-msgstr "Mixed forest"
-
-msgid "Closed shrublands"
-msgstr "Closed shrublands"
-
-msgid "Open shrublands"
-msgstr "Open shrublands"
-
-msgid "Woody savannas"
-msgstr "Woody savannas"
-
-msgid "Savannas"
-msgstr "Savannas"
-
-msgid "Grasslands"
-msgstr "Grasslands"
-
-msgid "Permanent wetlands"
-msgstr "Permanent wetlands"
-
-msgid "Croplands"
-msgstr "Croplands"
-
-msgid "Urban and built-up"
-msgstr "Urban and built-up"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Cropland/Natural vegetation mosaic"
-
-msgid "Snow and ice"
-msgstr "Snow and ice"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Barren or sparsely vegetated"
-
-msgid "Water"
-msgstr "Water"
-
-msgid "people per km²"
-msgstr "people per km²"
-
-msgid "Nighttime lights"
-msgstr "Nighttime lights"
-
-msgid "light intensity"
-msgstr "light intensity"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 
 msgid "All"
 msgstr "All"
@@ -1250,6 +1267,9 @@ msgstr "Equal counts"
 
 msgid "Symbol"
 msgstr "Symbol"
+
+msgid "Relative"
+msgstr "Relative"
 
 msgid "Daily"
 msgstr "Daily"
