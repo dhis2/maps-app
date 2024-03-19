@@ -1,10 +1,17 @@
 .container {
     float: left;
-    width: 120px;
-    margin-right: var(--spacers-dp16);
+    width: 128px;
+    margin-right: var(--spacers-dp4);
+    margin-bottom: var(--spacers-dp4);
+    padding: var(--spacers-dp4);
     cursor: pointer;
     box-sizing: border-box;
-    height: 160px;
+    height: auto;
+    background-color: transparent;
+    border-radius: 3px;
+}
+.container:hover {
+    background-color: var(--colors-grey100);
 }
 
 .image {
@@ -12,6 +19,10 @@
     border: 1px solid var(--colors-grey400);
     width: 120px;
     height: 120px;
+    border-radius: 2px;
+}
+.container:hover .image {
+    border-color: var(--colors-grey500);
 }
 
 .noImage {
@@ -19,20 +30,30 @@
     border: 1px solid var(--colors-grey400);
     width: 120px;
     height: 120px;
+    border-radius: 2px;
     line-height: 120px;
     background: var(--colors-grey200);
-    color: var(--colors-grey500);
+    color: var(--colors-grey600);
     font-size: 12px;
     text-align: center;
     margin-bottom: var(--spacers-dp4);
+}
+.container:hover .noImage {
+    border-color: var(--colors-grey500);
 }
 
 .name {
     font-size: 14px;
     color: var(--colors-grey800);
-    padding-bottom: 20px;
+    padding-bottom: var(--spacers-dp4);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
+}
+.container:hover .name {
+    color: var(--colors-grey900);
+}
+.tooltip {
+    transform: translate(0px, -26px);
 }

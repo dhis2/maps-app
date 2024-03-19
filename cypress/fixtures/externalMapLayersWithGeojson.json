@@ -1,0 +1,70 @@
+{
+    "externalMapLayers": [
+        {
+            "mapService": "XYZ",
+            "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
+            "attribution": "&copy; <a href=\\\"http://www.openstreetmap.org/copyright\\\">OpenStreetMap</a>, <a href=\\\"https://carto.com/attributions\\\">CARTO</a>",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "BASEMAP",
+            "id": "LOw2p0kPwua",
+            "name": " Dark basemap"
+        },
+        {
+            "mapService": "GEOJSON_URL",
+            "url": "https://test.e2e.dhis2.org/dev-kfmt/api/routes/aa42a120003/run",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "OVERLAY",
+            "id": "JYJjKIa0NsI",
+            "name": "Bo Catchment geojson"
+        },
+        {
+            "mapService": "GEOJSON_URL",
+            "url": "https://test.e2e.dhis2.org/dev-kfmt/api/routes/xyz99910rst/run",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "OVERLAY",
+            "id": "ZAxxTmtINN8",
+            "name": "CC Bo expired"
+        },
+        {
+            "mapService": "GEOJSON_URL",
+            "url": "https://dhis2.github.io/maps-app/public/temp/BandajumaClinic.geojson",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "OVERLAY",
+            "id": "ICSoBynB7s0",
+            "name": "Feature geojson"
+        },
+        {
+            "mapService": "XYZ",
+            "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png",
+            "attribution": "&copy; <a href=\\\"http://www.openstreetmap.org/copyright\\\">OpenStreetMap</a>, <a href=\\\"https://carto.com/attributions\\\">CARTO</a>",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "OVERLAY",
+            "id": "suB1SFdc6RD",
+            "name": "Labels overlay"
+        },
+        {
+            "mapService": "GEOJSON_URL",
+            "url": "https://dhis2.github.io/maps-app/public/temp/point-linestring-polygon.geojson",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "OVERLAY",
+            "id": "dpV5peTqmNT",
+            "name": "Mixed geojson"
+        },
+        {
+            "mapService": "GEOJSON_URL",
+            "url": "https://test.e2e.dhis2.org/dev-kfmt/api/routes/abc456789rt/run",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "OVERLAY",
+            "id": "Z58y0pce12o",
+            "name": "Non-existing geojson"
+        },
+        {
+            "mapService": "GEOJSON_URL",
+            "url": "https://dhis2.github.io/maps-app/public/temp/GbongbomaMCHP.geojson",
+            "imageFormat": "PNG",
+            "mapLayerPosition": "OVERLAY",
+            "id": "LYmVmzRxVAU",
+            "name": "Polygon only geojson"
+        }
+    ]
+}

@@ -5,7 +5,13 @@ import {
     CircularLoader,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { forwardRef, useState, useCallback, useEffect } from 'react'
+import React, {
+    forwardRef,
+    useState,
+    useCallback,
+    useEffect,
+    useRef,
+} from 'react'
 import { drillUpDown } from '../../util/map.js'
 import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
@@ -19,25 +25,25 @@ const defaultBounds = [
 ]
 
 const Map = forwardRef((props, ref) => {
-    const [layers, setLayers] = useState([])
+    const { basemap, mapViews, controls, getResizeFunction } = props
+
+    const layers = useRef(
+        mapViews.map((config) => ({ ...config, isLoaded: false }))
+    )
+    const [mapIsLoaded, setMapIsLoaded] = useState(false)
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
 
-    const { basemap, mapViews, controls, getResizeFunction } = props
-
     const onResize = () => setResizeCount((state) => state + 1)
 
-    const onLayerLoad = useCallback(
-        (layer) =>
-            setLayers((layers) =>
-                layers.map((l) => (layer.id === l.id ? layer : l))
-            ),
-        []
-    )
-
-    useEffect(() => {
-        setLayers(mapViews)
-    }, [mapViews])
+    const onLayerLoad = useCallback((layer) => {
+        layers.current = layers.current.map((l) =>
+            layer.id === l.id ? layer : l
+        )
+        if (layers.current.every((l) => l.isLoaded)) {
+            setMapIsLoaded(true)
+        }
+    }, [])
 
     // TODO: Remove when map.js is refactored
     useEffect(() => {
@@ -58,7 +64,9 @@ const Map = forwardRef((props, ref) => {
                 grandParentId,
                 grandParentParentGraph,
             } = feature.properties
-            const layerConfig = layers.find((layer) => layer.id === layerId)
+            const layerConfig = layers.current.find(
+                (layer) => layer.id === layerId
+            )
 
             if (direction === 'up') {
                 newConfig = drillUpDown(
@@ -76,23 +84,21 @@ const Map = forwardRef((props, ref) => {
                 )
             }
 
-            setLayers(
-                layers.map((layer) =>
-                    layer.id === layerId
-                        ? { ...newConfig, isLoaded: false }
-                        : layer
-                )
+            layers.current = layers.current.map((layer) =>
+                layer.id === layerId ? { ...newConfig, isLoaded: false } : layer
             )
+            setMapIsLoaded(false)
 
             setContextMenu()
         }
     }
 
-    if (layers.filter((l) => l.isLoaded).length < mapViews.length) {
+    if (!mapIsLoaded) {
+        const layersToLoad = layers.current.filter((config) => !config.isLoaded)
         return (
             <CenteredContent>
                 <CircularLoader />
-                {layers.map((config) => (
+                {layersToLoad.map((config) => (
                     <LayerLoader
                         key={config.id}
                         config={config}
@@ -111,13 +117,13 @@ const Map = forwardRef((props, ref) => {
                 isPlugin={true}
                 isFullscreen={false}
                 basemap={basemap}
-                layers={layers}
+                layers={layers.current}
                 controls={controls}
                 bounds={defaultBounds}
                 openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
             />
-            <Legend layers={layers} />
+            <Legend layers={layers.current} />
             {contextMenu && (
                 <ContextMenu
                     {...contextMenu}

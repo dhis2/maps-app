@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './styles/Layer.module.css'
@@ -14,12 +15,24 @@ const Layer = ({ layer, onClick }) => {
             onClick={() => onClick(layer)}
             data-test={dataTest}
         >
-            {img ? (
-                <img src={img} className={styles.image} />
-            ) : (
-                <div className={styles.noImage}>{i18n.t('External layer')}</div>
-            )}
-            <div className={styles.name}>{label}</div>
+            <Tooltip
+                placement="bottom"
+                content={label}
+                openDelay={300}
+                closeDelay={100}
+                className={styles.tooltip}
+            >
+                <div>
+                    {img ? (
+                        <img src={img} className={styles.image} />
+                    ) : (
+                        <div className={styles.noImage}>
+                            {i18n.t('External layer')}
+                        </div>
+                    )}
+                    <div className={styles.name}>{label}</div>
+                </div>
+            </Tooltip>
         </div>
     )
 }

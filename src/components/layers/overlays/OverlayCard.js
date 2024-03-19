@@ -2,6 +2,7 @@ import { useConfig } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
+import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -56,12 +57,35 @@ const OverlayCard = ({
         isVisible,
         layer: layerType,
         isLoaded,
+        loadError,
     } = layer
 
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType)
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType)
+
+    const getCardContent = () => {
+        if (loadError) {
+            return (
+                <div
+                    data-test="load-error-noticebox"
+                    className={styles.noticebox}
+                >
+                    <NoticeBox error title={i18n.t('Failed to load layer')}>
+                        <p>{loadError}</p>
+                    </NoticeBox>
+                </div>
+            )
+        }
+        return (
+            legend && (
+                <div className={styles.legend}>
+                    <Legend {...legend} />
+                </div>
+            )
+        )
+    }
 
     return (
         <>
@@ -112,12 +136,9 @@ const OverlayCard = ({
                           }
                         : undefined
                 }
+                hasError={!!loadError}
             >
-                {legend && (
-                    <div className={styles.legend}>
-                        <Legend {...legend} />
-                    </div>
-                )}
+                {getCardContent()}
             </LayerCard>
             {showDataDownloadDialog && (
                 <DataDownloadDialog

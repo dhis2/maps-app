@@ -1,22 +1,21 @@
 import { FileMenu as UiFileMenu, useCachedDataQuery } from '@dhis2/analytics'
-import { useDataMutation, useDataEngine } from '@dhis2/app-runtime'
+import { useDataMutation } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { newMap, tOpenMap, setMapProps } from '../../actions/map.js'
+import { setMapProps } from '../../actions/map.js'
 import {
     ALERT_CRITICAL,
     ALERT_MESSAGE_DYNAMIC,
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
-import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { cleanMapConfig } from '../../util/favorites.js'
-import { fetchMap } from '../../util/requests.js'
+import history from '../../util/history.js'
 
-const saveMapMutation = {
+const updateMapMutation = {
     resource: 'maps',
     type: 'update',
     id: ({ id }) => id,
@@ -27,7 +26,7 @@ const saveMapMutation = {
     data: ({ data }) => data,
 }
 
-const saveAsNewMapMutation = {
+const createMapMutation = {
     resource: 'maps',
     type: 'create',
     data: ({ data }) => data,
@@ -52,10 +51,9 @@ const getSaveFailureMessage = (message) =>
     })
 
 const FileMenu = ({ onFileMenuAction }) => {
-    const engine = useDataEngine()
     const map = useSelector((state) => state.map)
     const dispatch = useDispatch()
-    const { systemSettings, currentUser, basemaps } = useCachedDataQuery()
+    const { systemSettings, currentUser } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
@@ -65,110 +63,62 @@ const FileMenu = ({ onFileMenuAction }) => {
         ALERT_SUCCESS_DELAY
     )
     const fileMenuErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
-    const openMapErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
 
-    const [saveMapMutate] = useDataMutation(saveMapMutation, {
-        onError: (e) =>
+    const [putMap] = useDataMutation(updateMapMutation, {
+        onError: (e) => {
             saveAlert.show({
                 msg: getSaveFailureMessage(e.message),
                 isError: true,
-            }),
+            })
+        },
     })
-    const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation, {
-        onError: (e) =>
+
+    const [postMap] = useDataMutation(createMapMutation, {
+        onError: (e) => {
             saveAsAlert.show({
                 msg: getSaveFailureMessage(e.message),
                 isError: true,
-            }),
+            })
+        },
     })
 
-    const [postDataStatistics] = useDataMutation(dataStatisticsMutation, {
-        onError: (e) => console.error('Error:', e.message),
-    })
-
-    const onFileMenuError = (e) =>
-        fileMenuErrorAlert.show({
-            msg: e.message,
-        })
-
-    const saveMap = async () => {
+    const onSave = async () => {
         const config = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
         })
 
-        if (config.mapViews) {
-            config.mapViews.forEach((view) => delete view.id)
-        }
-
-        await saveMapMutate({
+        await putMap({
             id: map.id,
             data: config,
         })
 
-        postDataStatistics({ id: map.id })
-
-        saveAlert.show({ msg: getSavedMessage(config.name) })
-    }
-
-    const openMap = async (id) => {
-        const error = await dispatch(
-            tOpenMap({
-                mapId: id,
-                defaultBasemap,
-                engine,
-                basemaps,
-            })
-        )
-        if (error) {
-            openMapErrorAlert.show({
-                msg: i18n.t(`Error while opening map: ${error.message}`, {
-                    nsSeparator: ';',
-                }),
-            })
+        saveAlert.show({ msg: getSavedMessage(map.name) })
+        if (map.id) {
+            history.replace(`/${map.id}`)
         }
     }
 
-    const saveAsNewMap = async ({ name, description }) => {
-        const config = {
+    const onSaveAs = async ({ name, description }) => {
+        const data = {
             ...cleanMapConfig({
                 config: map,
                 defaultBasemapId: defaultBasemap,
             }),
             name: getMapName(name),
-            description: description,
+            description,
         }
 
-        delete config.id
+        delete data.id
 
-        if (config.mapViews) {
-            config.mapViews.forEach((view) => delete view.id)
-        }
+        const res = await postMap({ data })
 
-        const response = await saveAsNewMapMutate({
-            data: config,
-        })
+        if (res.status === 'OK') {
+            saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
 
-        if (response.status === 'OK') {
-            const newMapId = response.response.uid
-            postDataStatistics({ id: newMapId })
-            const newMapConfig = await fetchMap(
-                newMapId,
-                engine,
-                defaultBasemap
-            )
-
-            delete newMapConfig.basemap
-            delete newMapConfig.mapViews
-
-            dispatch(setMapProps(newMapConfig))
-
-            saveAsAlert.show({ msg: getSavedMessage(config.name) })
-        } else {
-            saveAsAlert.show({
-                msg: getSaveFailureMessage(response.message),
-                isError: true,
-            })
+            if (res.response.uid) {
+                history.push(`/${res.response.uid}`)
+            }
         }
     }
 
@@ -182,7 +132,27 @@ const FileMenu = ({ onFileMenuAction }) => {
         deleteAlert.show()
     }
 
-    const onNew = () => dispatch(newMap())
+    const onNew = () => {
+        if (history.location.pathname === '/') {
+            history.replace('/')
+        } else {
+            history.push('/')
+        }
+    }
+
+    const onOpen = async (id) => {
+        const path = `/${id}`
+        if (history.location.pathname === path) {
+            history.replace(path)
+        } else {
+            history.push(path)
+        }
+    }
+
+    const onFileMenuError = (e) =>
+        fileMenuErrorAlert.show({
+            msg: e.message,
+        })
 
     return (
         <UiFileMenu
@@ -190,9 +160,9 @@ const FileMenu = ({ onFileMenuAction }) => {
             fileType="map"
             fileObject={map}
             onNew={onNew}
-            onOpen={openMap}
-            onSave={saveMap}
-            onSaveAs={saveAsNewMap}
+            onOpen={onOpen}
+            onSave={onSave}
+            onSaveAs={onSaveAs}
             onRename={onRename}
             onDelete={onDelete}
             onError={onFileMenuError}

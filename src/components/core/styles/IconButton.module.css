@@ -1,20 +1,27 @@
 .iconButton {
-    width: var(--spacers-dp32);
-    height: var(--spacers-dp32);
+    width: 28px;
+    height: 28px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+    padding: 2px;
 }
 
-.iconButton > span {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.iconButton.disabled svg {
+    fill: var(--colors-grey400);
+    cursor: not-allowed;
+    color: var(--colors-grey400)
 }
 
-.icon svg {
-    display: block;
+.iconButton:not(.disabled):hover {
+    background-color: var(--colors-grey200);
+}
+
+.iconButton svg {
+    color: var(--colors-grey700);
+}
+
+.iconButton:not(.disabled):hover svg {
+    color: var(--colors-grey900);
 }

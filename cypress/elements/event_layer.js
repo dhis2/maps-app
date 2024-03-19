@@ -3,6 +3,7 @@ import { Layer } from './layer.js'
 export class EventLayer extends Layer {
     selectProgram(program) {
         cy.get('[data-test="programselect"]').click()
+        cy.contains(program).scrollIntoView()
         cy.contains(program).click()
 
         return this
@@ -19,6 +20,13 @@ export class EventLayer extends Layer {
         cy.get('[data-test="programstageselect"]')
             .contains(stage)
             .should('be.visible')
+
+        return this
+    }
+
+    selectPeriodType(periodType) {
+        cy.getByDataTest('relative-period-select-content').click()
+        cy.contains(periodType).click()
 
         return this
     }

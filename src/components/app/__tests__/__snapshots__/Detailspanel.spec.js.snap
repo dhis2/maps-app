@@ -1,9 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, has orgUnitProfile and panel is closed 1`] = `
+exports[`DetailsPanel renders FeatureProfile when interpretation=undefined, orgUnitProfile=null, featureProfile=myfeature and panelOpen=true 1`] = `
+<div>
+  <div
+    class="detailsPanel"
+    data-test="details-panel"
+  >
+    <div>
+      Feature Profile
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel renders Interpretations when interpretation=myinterpretation, orgUnitProfile=myorgunit, featureProfile=myfeature and panelOpen=false 1`] = `
 <div>
   <div
     class="detailsPanel collapsed"
+    data-test="details-panel"
   >
     <div>
       Interpretations
@@ -12,10 +26,11 @@ exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, ha
 </div>
 `;
 
-exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, has orgUnitProfile and panel is open 1`] = `
+exports[`DetailsPanel renders Interpretations when interpretation=myinterpretation, orgUnitProfile=myorgunit, featureProfile=myfeature and panelOpen=true 1`] = `
 <div>
   <div
     class="detailsPanel"
+    data-test="details-panel"
   >
     <div>
       Interpretations
@@ -24,10 +39,11 @@ exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, ha
 </div>
 `;
 
-exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, no orgUnitProfile and panel is closed 1`] = `
+exports[`DetailsPanel renders Interpretations when interpretation=myinterpretation, orgUnitProfile=null, featureProfile=null and panelOpen=false 1`] = `
 <div>
   <div
     class="detailsPanel collapsed"
+    data-test="details-panel"
   >
     <div>
       Interpretations
@@ -36,10 +52,11 @@ exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, no
 </div>
 `;
 
-exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, no orgUnitProfile and panel is open 1`] = `
+exports[`DetailsPanel renders Interpretations when interpretation=myinterpretation, orgUnitProfile=null, featureProfile=null and panelOpen=true 1`] = `
 <div>
   <div
     class="detailsPanel"
+    data-test="details-panel"
   >
     <div>
       Interpretations
@@ -48,10 +65,11 @@ exports[`DetailsPanel renders InterpretationsPanel when has interpretationId, no
 </div>
 `;
 
-exports[`DetailsPanel renders InterpretationsPanel when no interpretationId, no orgUnitProfile and panel open 1`] = `
+exports[`DetailsPanel renders Interpretations when interpretation=undefined, orgUnitProfile=null, featureProfile=null and panelOpen=true 1`] = `
 <div>
   <div
     class="detailsPanel"
+    data-test="details-panel"
   >
     <div>
       Interpretations
@@ -60,10 +78,11 @@ exports[`DetailsPanel renders InterpretationsPanel when no interpretationId, no 
 </div>
 `;
 
-exports[`DetailsPanel renders OrgUnitProfile when no interpretationId, has orgUnitProfile and panel is open 1`] = `
+exports[`DetailsPanel renders OrgUnitProfile when interpretation=undefined, orgUnitProfile=myorgunit, featureProfile=myfeature and panelOpen=true 1`] = `
 <div>
   <div
     class="detailsPanel"
+    data-test="details-panel"
   >
     <div>
       Org Unit Profile
@@ -72,18 +91,20 @@ exports[`DetailsPanel renders OrgUnitProfile when no interpretationId, has orgUn
 </div>
 `;
 
-exports[`DetailsPanel renders null when no interpretationId, has orgUnitProfile, and panel closed 1`] = `
+exports[`DetailsPanel renders null when interpretation=undefined, orgUnitProfile=myorgunit, featureProfile=null and panelOpen=false 1`] = `
 <div>
   <div
     class="detailsPanel collapsed"
+    data-test="details-panel"
   />
 </div>
 `;
 
-exports[`DetailsPanel renders null when no interpretationId, no orgUnitProfile, and panel closed 1`] = `
+exports[`DetailsPanel renders null when interpretation=undefined, orgUnitProfile=null, featureProfile=null and panelOpen=false 1`] = `
 <div>
   <div
     class="detailsPanel collapsed"
+    data-test="details-panel"
   />
 </div>
 `;

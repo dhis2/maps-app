@@ -6,6 +6,7 @@ import PolygonSymbol from './PolygonSymbol.js'
 import styles from './styles/LegendItem.module.css'
 
 const maxRadius = 15
+const maxLineWeight = 5
 
 const LegendItem = ({
     type,
@@ -41,17 +42,19 @@ const LegendItem = ({
         symbol.borderRadius = '50%'
     }
 
+    const lineWeight = weight ? Math.min(weight, maxLineWeight) : null
+
     return (
         <tr className={styles.legendItem} data-test="layerlegend-item">
             <th>
                 {weight ? (
                     type === 'LineString' ? (
-                        <LineSymbol color={color} weight={weight} />
+                        <LineSymbol color={color} weight={lineWeight} />
                     ) : (
                         <PolygonSymbol
                             color={strokeColor || color}
                             fill={fillColor}
-                            weight={weight}
+                            weight={lineWeight}
                         />
                     )
                 ) : (

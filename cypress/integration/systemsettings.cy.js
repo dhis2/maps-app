@@ -63,37 +63,6 @@ describe('systemSettings', () => {
             .should('be.visible')
     })
 
-    it('does not include Bing basemaps if no Bing api key', () => {
-        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
-            delete req.headers['if-none-match']
-            req.continue((res) => {
-                delete res.body.keyBingMapsApiKey
-
-                res.send({
-                    body: res.body,
-                })
-            })
-        })
-
-        cy.visit('/')
-
-        cy.getByDataTest('basemaplistitem-name')
-            .contains('Bing Road')
-            .should('not.exist')
-    })
-
-    it('includes Bing basemaps when Bing api key present', () => {
-        cy.visit('/')
-
-        cy.getByDataTest('basemaplist', EXTENDED_TIMEOUT)
-            .children()
-            .should('have.length.greaterThan', 5)
-
-        cy.getByDataTest('basemaplistitem-name')
-            .contains('Bing Road')
-            .should('be.visible')
-    })
-
     it('uses Last 6 months as default relative period', () => {
         // set relative period to 6 months
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {

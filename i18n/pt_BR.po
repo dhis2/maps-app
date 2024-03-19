@@ -2,14 +2,15 @@
 # Translators:
 # Philip Larsen Donnelly, 2021
 # Oscar Mesones Lapouble <oscar.lapouble@gmail.com>, 2022
-# Viktor Varland <viktor@dhis2.org>, 2023
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Thiago Rocha, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Thiago Rocha, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,15 +25,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -149,23 +141,23 @@ msgstr "Data"
 msgid "Data set"
 msgstr "Conjunto de dados"
 
-msgid "Index"
+msgid "No results found"
+msgstr "Nenhum resultado encontrado"
+
+msgid "Sort by {{column}}"
 msgstr ""
 
-msgid "Org unit"
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Search"
+msgstr "Pesquisar"
+
+msgid "Index"
 msgstr ""
 
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr ""
-
-msgid "Legend"
-msgstr "Legenda"
-
-msgid "Range"
-msgstr ""
 
 msgid "Level"
 msgstr "Nível"
@@ -176,7 +168,25 @@ msgstr ""
 msgid "Type"
 msgstr "Tipo"
 
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "Range"
+msgstr "Intervalo"
+
+msgid "Org unit"
+msgstr ""
+
+msgid "Event time"
+msgstr ""
+
 msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid "Data table is not supported for this layer type."
 msgstr ""
 
 msgid "Items"
@@ -396,7 +406,7 @@ msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Tipo de agregacão"
 
 msgid "Only show completed events"
 msgstr ""
@@ -437,9 +447,6 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr ""
 
@@ -453,9 +460,6 @@ msgid "Event data items"
 msgstr ""
 
 msgid "Program indicators"
-msgstr ""
-
-msgid "Calculations"
 msgstr ""
 
 msgid "Item type"
@@ -474,7 +478,7 @@ msgid "Program status"
 msgstr ""
 
 msgid "Relationships"
-msgstr ""
+msgstr "Relacionamentos"
 
 msgid "Follow up"
 msgstr ""
@@ -524,10 +528,10 @@ msgid "Indicator group"
 msgstr "Grupo do indicador"
 
 msgid "Collapse"
-msgstr ""
+msgstr "Colapsar"
 
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 msgid "External basemap"
 msgstr ""
@@ -717,10 +721,10 @@ msgid "Search for place or address"
 msgstr ""
 
 msgid "Zoom in"
-msgstr ""
+msgstr "Mais Zoom"
 
 msgid "Zoom out"
-msgstr ""
+msgstr "Reduzir o zoom"
 
 msgid "Zoom to content"
 msgstr ""
@@ -779,7 +783,7 @@ msgid "Link"
 msgstr ""
 
 msgid "Contact"
-msgstr ""
+msgstr "Contato"
 
 msgid "Email"
 msgstr "E-mail"
@@ -908,12 +912,6 @@ msgid "OSM Light"
 msgstr ""
 
 msgid "OSM Detailed"
-msgstr ""
-
-msgid "Google Streets"
-msgstr ""
-
-msgid "Google Hybrid"
 msgstr ""
 
 msgid "Bing Road"
@@ -1182,7 +1180,7 @@ msgid "Active"
 msgstr "Activo"
 
 msgid "Completed"
-msgstr ""
+msgstr "Concluído"
 
 msgid "Choropleth"
 msgstr ""
@@ -1260,7 +1258,7 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 msgid "{{name}}: No coordinates found"
 msgstr ""
@@ -1287,7 +1285,7 @@ msgid "No data found"
 msgstr "Dado não encontrado"
 
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 msgid "Facilities"
 msgstr ""
@@ -1308,25 +1306,13 @@ msgid "No data"
 msgstr "Não ha dados"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Entidade rastreada"
 
 msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
 msgstr ""
-
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr ""
-
-msgid "Org units"
-msgstr "Unidades organizacionais"
 
 msgid "not one of"
 msgstr ""
@@ -1350,6 +1336,18 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr ""
+
+msgid "Tracked entities"
+msgstr ""
+
+msgid "Org units"
+msgstr "Unidades organizacionais"
 
 msgid "Facility"
 msgstr "Unidade sanitaria"

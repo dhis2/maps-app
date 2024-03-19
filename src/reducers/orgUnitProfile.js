@@ -6,8 +6,9 @@ const orgUnitProfile = (state = null, action) => {
             return action.payload
 
         case types.ORGANISATION_UNIT_PROFILE_CLOSE:
+        case types.FEATURE_PROFILE_SET:
         case types.INTERPRETATIONS_PANEL_OPEN:
-        case types.DOWNLOAD_MODE_SET:
+        case types.DOWNLOAD_MODE_CLOSE:
         case types.MAP_NEW:
         case types.MAP_SET:
             return null

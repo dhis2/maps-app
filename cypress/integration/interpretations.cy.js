@@ -5,7 +5,7 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const MAP_TITLE = 'test ' + new Date().toUTCString().slice(-24, -4)
 context('Interpretations', () => {
     it('opens the interpretations panel for a map', () => {
-        cy.visit('/?id=ZBjCfSaLSqD', EXTENDED_TIMEOUT)
+        cy.visit('/#/ZBjCfSaLSqD', EXTENDED_TIMEOUT)
         const Layer = new ThematicLayer()
         Layer.validateCardTitle('ANC LLITN coverage')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
@@ -65,7 +65,11 @@ context('Interpretations', () => {
             .find('canvas.maplibregl-canvas')
             .should('be.visible')
 
+        cy.url().should('include', 'interpretationId=')
+
         cy.get('button').contains('Hide interpretation').click()
+
+        cy.url().should('not.include', 'interpretationId=')
 
         deleteMap()
     })
@@ -75,7 +79,7 @@ context('Interpretations', () => {
             'postDataStatistics'
         )
         cy.visit(
-            '/?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a',
+            '/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a',
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
@@ -90,11 +94,15 @@ context('Interpretations', () => {
             )
             .should('be.visible')
 
+        cy.url().should('include', 'interpretationId=')
+
         cy.getByDataTest('interpretation-modal')
             .findByDataTest('dhis2-modal-close-button')
             .click()
 
         cy.getByDataTest('interpretation-modal').should('not.exist')
+
+        cy.url().should('not.include', 'interpretationId=')
 
         cy.getByDataTest('interpretations-list').should('be.visible')
     })

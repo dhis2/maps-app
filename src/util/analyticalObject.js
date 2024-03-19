@@ -12,7 +12,7 @@ export const APP_URLS = {
 }
 
 // Combines all dimensions in columns, rows and filters
-const getDimensionsFromAnalyticalObject = (ao) => {
+const getDimensionsFromAnalyticalObject = (ao = {}) => {
     const { columns = [], rows = [], filters = [] } = ao
     return [...columns, ...rows, ...filters]
 }
@@ -24,12 +24,6 @@ export const getDataDimensionsFromAnalyticalObject = (ao) => {
 
     // We only use the first dx dimension
     return dataDim ? dataDim.items : []
-}
-
-// Returns true if analytical object contains a single data dimension item
-export const hasSingleDataDimension = (ao) => {
-    const dataItems = getDataDimensionsFromAnalyticalObject(ao)
-    return dataItems.length === 1
 }
 
 // Returns a thematic layer config from an analytical object
@@ -96,20 +90,5 @@ export const getAnalyticalObjectFromThematicLayer = (layer = {}) => {
         rows: rows.map(cleanDimension),
         filters,
         aggregationType,
-    }
-}
-
-// Temporary fix until we switch to hash and react router
-export const clearAnalyticalObjectFromUrl = () => {
-    const [base, params] = window.location.href.split('?')
-
-    if (params && history && history.pushState) {
-        const leftParams = params
-            .split('&')
-            .filter((p) => !p.includes('currentAnalyticalObject'))
-
-        const url = base + (leftParams.length ? `?${leftParams.join('&')}` : '')
-
-        history.pushState({}, null, url)
     }
 }

@@ -7,6 +7,7 @@ import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer.js'
 import EventLayer from './layers/EventLayer.js'
 import ExternalLayer from './layers/ExternalLayer.js'
 import FacilityLayer from './layers/FacilityLayer.js'
+import GeoJsonLayer from './layers/GeoJsonLayer.js'
 import Layer from './layers/Layer.js'
 import OrgUnitLayer from './layers/OrgUnitLayer.js'
 import ThematicLayer from './layers/ThematicLayer.js'
@@ -23,6 +24,7 @@ const layerType = {
     orgUnit: OrgUnitLayer,
     earthEngine: EarthEngineLayer,
     external: ExternalLayer,
+    geoJsonUrl: GeoJsonLayer,
 }
 
 class Map extends Component {
@@ -42,6 +44,7 @@ class Map extends Component {
         longitude: PropTypes.number,
         resizeCount: PropTypes.number,
         setAggregations: PropTypes.func,
+        setFeatureProfile: PropTypes.func,
         setMapObject: PropTypes.func,
         zoom: PropTypes.number,
     }
@@ -145,6 +148,7 @@ class Map extends Component {
             closeCoordinatePopup,
             openContextMenu,
             setAggregations,
+            setFeatureProfile,
         } = this.props
         const { map } = this.state
 
@@ -168,6 +172,7 @@ class Map extends Component {
                                     feature={highlight}
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
+                                    setFeatureProfile={setFeatureProfile}
                                     {...config}
                                 />
                             )

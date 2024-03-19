@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
-"PO-Revision-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-03-15T10:46:33.764Z\n"
+"PO-Revision-Date: 2024-03-15T10:46:33.764Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -140,23 +140,39 @@ msgstr "Date"
 msgid "Data set"
 msgstr "Data set"
 
+msgid "No results found"
+msgstr "No results found"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr "Data table is not supported when events are grouped on the server."
+
+msgid "No valid data was found for the current layer configuration."
+msgstr "No valid data was found for the current layer configuration."
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in "
+"the dataset."
+msgstr ""
+"Data table is not supported when there is more than one geometry type in "
+"the dataset."
+
+msgid "No valid data fields were found for this layer."
+msgstr "No valid data fields were found for this layer."
+
 msgid "Index"
 msgstr "Index"
 
-msgid "Org unit"
-msgstr "Org unit"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "Event time"
-
-msgid "Legend"
-msgstr "Legend"
-
-msgid "Range"
-msgstr "Range"
 
 msgid "Level"
 msgstr "Level"
@@ -167,8 +183,17 @@ msgstr "Parent"
 msgid "Type"
 msgstr "Type"
 
-msgid "Data table is not supported when events are grouped on the server."
-msgstr "Data table is not supported when events are grouped on the server."
+msgid "Legend"
+msgstr "Legend"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Event time"
+msgstr "Event time"
 
 msgid "Items"
 msgstr "Items"
@@ -253,6 +278,9 @@ msgstr "org unit"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
+
+msgid "feature"
+msgstr "feature"
 
 msgid "Edit {{name}} layer"
 msgstr "Edit {{name}} layer"
@@ -385,6 +413,18 @@ msgstr "Radius in meters"
 msgid "Buffer can't be combined with associated geometry."
 msgstr "Buffer can't be combined with associated geometry."
 
+msgid "Fill color"
+msgstr "Fill color"
+
+msgid "Line/stroke color"
+msgstr "Line/stroke color"
+
+msgid "Line/stroke width"
+msgstr "Line/stroke width"
+
+msgid "Line/stroke width must be between 0-10."
+msgstr "Line/stroke width must be between 0-10."
+
 msgid "Labels"
 msgstr "Labels"
 
@@ -499,6 +539,12 @@ msgstr "No relationship types were found for tracked entity type {{type}}"
 msgid "Relationship type"
 msgstr "Relationship type"
 
+msgid "No data to show for this feature."
+msgstr "No data to show for this feature."
+
+msgid "Feature profile"
+msgstr "Feature profile"
+
 msgid "Remove filter"
 msgstr "Remove filter"
 
@@ -554,6 +600,9 @@ msgstr "External layer"
 msgid "Split view can not be combined with other layer types."
 msgstr "Split view can not be combined with other layer types."
 
+msgid "Failed to load layer"
+msgstr "Failed to load layer"
+
 msgid "Loading layer"
 msgstr "Loading layer"
 
@@ -566,14 +615,17 @@ msgstr "Edit"
 msgid "Toggle visibility"
 msgstr "Toggle visibility"
 
+msgid "Layer is invalid"
+msgstr "Layer is invalid"
+
 msgid "Set layer opacity"
 msgstr "Set layer opacity"
 
-msgid "Toggle layer menu"
-msgstr "Toggle layer menu"
-
 msgid "More actions"
 msgstr "More actions"
+
+msgid "Toggle layer menu"
+msgstr "Toggle layer menu"
 
 msgid "Hide data table"
 msgstr "Hide data table"
@@ -601,6 +653,9 @@ msgstr "Group"
 
 msgid "Filters"
 msgstr "Filters"
+
+msgid "{{layername}}: {{message}}"
+msgstr "{{layername}}: {{message}}"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -1297,6 +1352,21 @@ msgstr "Facilities"
 
 msgid "Facilities: No coordinates found"
 msgstr "Facilities: No coordinates found"
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr "There was a problem with this layer. Contact a system administrator."
+
+msgid "Feature"
+msgstr "Feature"
+
+msgid "Polygon"
+msgstr "Polygon"
+
+msgid "Line"
+msgstr "Line"
+
+msgid "Point"
+msgstr "Point"
 
 msgid "Organisation units"
 msgstr "Organisation units"

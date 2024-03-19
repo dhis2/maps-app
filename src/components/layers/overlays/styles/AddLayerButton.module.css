@@ -17,8 +17,8 @@
     color: var(--colors-grey900);
     cursor: pointer;
     user-select: none;
-    padding: 0px 12px;
-    width: 100%
+    padding: 0px;
+    width: 100%;
 }
 
 .content {
@@ -27,10 +27,18 @@
     padding: var(--spacers-dp4) var(--spacers-dp8);
     gap: var(--spacers-dp8);
 }
+.content svg {
+    color: var(--colors-grey700);
+}
 
 .button:hover:enabled,
 .button:active {
     background-color: var(--colors-grey200);
+}
+
+.button:hover:enabled .content svg,
+.button:active .content svg {
+    color: var(--colors-grey900);
 }
 
 .button:focus {

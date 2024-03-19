@@ -16,6 +16,7 @@ export const EARTH_ENGINE_LAYER = 'earthEngine'
 export const TRACKED_ENTITY_LAYER = 'trackedEntity'
 export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
+export const GEOJSON_URL_LAYER = 'geoJsonUrl'
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
@@ -23,6 +24,7 @@ export const DOWNLOADABLE_LAYER_TYPES = [
     ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
+    GEOJSON_URL_LAYER,
 ]
 
 export const DATA_TABLE_LAYER_TYPES = [
@@ -31,7 +33,11 @@ export const DATA_TABLE_LAYER_TYPES = [
     ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
+    GEOJSON_URL_LAYER,
 ]
+
+export const MAP_LAYER_POSITION_BASEMAP = 'BASEMAP'
+export const MAP_LAYER_POSITION_OVERLAY = 'OVERLAY'
 
 export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER]
 

@@ -120,7 +120,11 @@ const OverviewMap = ({ mainMap, isSplitView, resizeCount }) => {
     }, [overviewMap, mapContainer, resizeCount, dispatch])
 
     return (
-        <div ref={mapContainer} className={styles.overviewMap}>
+        <div
+            ref={mapContainer}
+            className={styles.overviewMap}
+            data-test="overview-map"
+        >
             {overviewMap && (
                 <OverviewMapOutline
                     mainMap={mainMap}

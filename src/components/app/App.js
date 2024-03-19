@@ -1,58 +1,60 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
-import { useDataEngine } from '@dhis2/app-runtime'
-import { useSetting } from '@dhis2/app-service-datastore'
-import { CssVariables } from '@dhis2/ui'
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
-import { setInterpretation } from '../../actions/interpretations.js'
-import { tOpenMap } from '../../actions/map.js'
-import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
-import { getUrlParameter } from '../../util/requests.js'
-import AppLayout from './AppLayout.js'
+import cx from 'classnames'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import BottomPanel from '../datatable/BottomPanel.js'
+import DownloadModeMenu from '../download/DownloadMenubar.js'
+import DownloadSettings from '../download/DownloadSettings.js'
+import LayersPanel from '../layers/LayersPanel.js'
+import LayersLoader from '../loaders/LayersLoader.js'
+import MapPosition from '../map/MapPosition.js'
+import AppMenu from './AppMenu.js'
+import DetailsPanel from './DetailsPanel.js'
+import ModalContainer from './ModalContainer.js'
 import './App.css'
-import './styles/App.module.css'
+import styles from './styles/App.module.css'
+import { useLoadMap } from './useLoadMap.js'
 
 const App = () => {
-    const { systemSettings, basemaps } = useCachedDataQuery()
-    const defaultBasemap = systemSettings.keyDefaultBaseMap
-    const engine = useDataEngine()
-    const [currentAO] = useSetting(CURRENT_AO_KEY)
-    const dispatch = useDispatch()
+    useLoadMap()
 
-    useEffect(() => {
-        async function fetchData() {
-            const mapId = getUrlParameter('id')
-            if (mapId) {
-                await dispatch(
-                    tOpenMap({
-                        mapId,
-                        defaultBasemap,
-                        engine,
-                        basemaps,
-                    })
-                )
-            } else if (getUrlParameter('currentAnalyticalObject') === 'true') {
-                await dispatch(tSetAnalyticalObject(currentAO))
-            }
+    const [interpretationsRenderCount, setInterpretationsRenderCount] =
+        useState(1)
 
-            // analytics interpretation component uses camelcase
-            const interpretationId =
-                getUrlParameter('interpretationid') ||
-                getUrlParameter('interpretationId')
+    const dataTableOpen = useSelector((state) => !!state.dataTable)
+    const downloadModeOpen = useSelector((state) => !!state.ui.downloadMode)
+    const detailsPanelOpen = useSelector(
+        (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
+    )
 
-            if (interpretationId) {
-                dispatch(setInterpretation(interpretationId))
-            }
-        }
-
-        fetchData()
-    }, [engine, currentAO, defaultBasemap, basemaps, dispatch])
+    const onFileMenuAction = () =>
+        detailsPanelOpen &&
+        setInterpretationsRenderCount(interpretationsRenderCount + 1)
 
     return (
         <>
-            <CssVariables colors spacers theme />
-            <AppLayout />
+            {downloadModeOpen ? (
+                <DownloadModeMenu />
+            ) : (
+                <AppMenu onFileMenuAction={onFileMenuAction} />
+            )}
+            <div
+                className={cx(styles.content, {
+                    [styles.downloadContent]: downloadModeOpen,
+                })}
+            >
+                {downloadModeOpen ? <DownloadSettings /> : <LayersPanel />}
+                <div className={styles.appMapAndTable}>
+                    <MapPosition />
+                    {dataTableOpen && <BottomPanel />}
+                </div>
+                {!downloadModeOpen && (
+                    <DetailsPanel
+                        interpretationsRenderCount={interpretationsRenderCount}
+                    />
+                )}
+            </div>
+            <LayersLoader />
+            <ModalContainer />
         </>
     )
 }
