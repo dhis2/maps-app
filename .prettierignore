@@ -2,7 +2,7 @@ node_modules
 .d2
 src/locales
 build
-cypress/fixtures/network
+cypress/fixtures/*
 cypress.env.json
 docs
 colorbrewer.js

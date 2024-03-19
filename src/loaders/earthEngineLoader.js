@@ -10,7 +10,7 @@ import {
 } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
-import { numberPrecision } from '../util/numbers.js'
+import { getRoundToPrecisionFn } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
@@ -216,7 +216,7 @@ const earthEngineLoader = async (config) => {
 export const createLegend = ({ min, max, palette }, showBelowMin) => {
     const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
     const precision = precisionRound(step, max)
-    const valueFormat = numberPrecision(precision)
+    const valueFormat = getRoundToPrecisionFn(precision)
 
     let from = valueFormat(min)
     let to = valueFormat(min + step)

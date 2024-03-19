@@ -4,3 +4,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.noticebox {
+    padding: var(--spacers-dp8);
+}

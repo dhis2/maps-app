@@ -12,6 +12,8 @@ const NumberField = ({
     step = 1,
     dense = true,
     disabled,
+    helpText,
+    inputWidth,
     onChange,
     className,
 }) => (
@@ -26,6 +28,8 @@ const NumberField = ({
             value={Number.isNaN(value) ? '' : String(value)}
             disabled={disabled}
             onChange={({ value }) => onChange(Number(value))}
+            helpText={helpText}
+            inputWidth={inputWidth}
         />
     </div>
 )
@@ -36,6 +40,8 @@ NumberField.propTypes = {
     className: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
+    helpText: PropTypes.string,
+    inputWidth: PropTypes.string,
     max: PropTypes.number,
     min: PropTypes.number,
     step: PropTypes.number,

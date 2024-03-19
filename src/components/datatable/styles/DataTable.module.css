@@ -1,7 +1,52 @@
 .dataTable {
+    height: 1px;
+}
+
+.dataTable > :global(thead) {
+    user-select: none;
+}
+
+td.dataCell {
+    padding-top: var(--spacers-dp8);
+    padding-bottom: var(--spacers-dp8);
     font-size: 11px;
-    font-family: Roboto, sans-serif;
-    overflow: hidden;
+}
+
+td.dataCell:hover {
+    cursor: default;
+}
+
+td.lightText {
+    color: var(--colors-white);
+}
+
+.columnHeader > :global(span.container) {
+    justify-content: space-between;
+}
+
+.columnHeader :global(input.dense) {
+    padding: 4px 6px;
+}
+
+.columnHeader :global(input::placeholder) {
+    color: var(--colors-grey400);
+}
+
+/* Hide the filter icon */
+.columnHeader
+    > :global(span.container)
+    > :global(span.top)
+    > button:last-of-type {
+    visibility: hidden;
+}
+
+.noResults {
+    display: flex;
+    color: var(--colors-grey600);
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    min-height: 40px;
 }
 
 .noSupport {
@@ -9,66 +54,6 @@
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    color: #333;
+    color: var(--colors-grey600);
     font-style: italic;
-    line-height: 30px;
-}
-
-.loader {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-}
-
-:global(.ReactVirtualized__Table__headerRow) {
-    position: relative;
-    background-color: #eee;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 2px;
-    z-index: 10;
-}
-
-:global(.ReactVirtualized__Table__headerRow .ColumnHeader-label) {
-    white-space: nowrap;
-}
-
-:global(.ReactVirtualized__Table__headerTruncatedText) {
-    display: inline-block;
-    position: absolute;
-    top: 7px;
-    left: 10px;
-    right: 15px;
-    user-select: none;
-    overflow: hidden;
-}
-
-:global(.ReactVirtualized__Table__sortableHeaderIcon) {
-    position: absolute;
-    top: 5px;
-    right: 0;
-}
-
-:global(.ReactVirtualized__Table__headerColumn) {
-    height: 48px;
-    margin-bottom: 2px;
-    position: relative;
-}
-
-:global(.ReactVirtualized__Table__headerColumn:focus) {
-    outline: none;
-}
-
-:global(.ReactVirtualized__Table__row) {
-    position: relative;
-    border-bottom: 1px solid #e0e0e0;
-    z-index: 9;
-}
-
-:global(.ReactVirtualized__Table__row:hover) {
-    background-color: #fafafa;
-    cursor: pointer;
-}
-
-:global(.ReactVirtualized__Table__rowColumn.right) {
-    text-align: right;
 }

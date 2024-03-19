@@ -7,6 +7,8 @@ on:
         branches:
             - 'master'
             - 'dev'
+        tags:
+            - '*'
 
 env:
     GIT_AUTHOR_NAME: '@dhis2-bot'
@@ -98,7 +100,7 @@ jobs:
         if: |
             !github.event.push.repository.fork &&
             github.actor != 'dependabot[bot]' &&
-            github.ref == 'refs/heads/master'
+            (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
         steps:
             - uses: actions/checkout@v3
               with:
@@ -187,13 +189,41 @@ jobs:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
                       {
-                        "text": ":large_green_circle: :maps-app: :tada: Maps app release succeeded for version: ${{ steps.extract_version.outputs.version }}",
+                        "text": "Maps app release ${{ steps.extract_version.outputs.version }} succeeded",
                         "blocks": [
+                          {
+                            "type": "header",
+                            "text": {
+                                "type": "plain_text",
+                                "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released :tada:",
+                                "emoji": true
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
                           {
                             "type": "section",
                             "text": {
-                              "type": "mrkdwn",
-                              "text": ":large_green_circle: :maps-app: :tada: Maps version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully>"
+                                "type": "mrkdwn",
+                                "text": "*Release Notes*"
+                            }
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": ${{ toJSON(github.event.head_commit.message) }}
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "Link to <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|build>"
                             }
                           }
                         ]

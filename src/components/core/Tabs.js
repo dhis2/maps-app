@@ -15,7 +15,7 @@ const Tabs = ({ value, onChange, children }) => {
 
     return (
         <TabContext.Provider value={{ tab, onChange }}>
-            <TabBar fixed>{children}</TabBar>
+            <TabBar>{children}</TabBar>
         </TabContext.Provider>
     )
 }

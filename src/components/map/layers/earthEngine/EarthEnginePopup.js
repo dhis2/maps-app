@@ -3,8 +3,11 @@ import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { getEarthEngineAggregationType } from '../../../../constants/aggregationTypes.js'
-import { hasClasses, getPrecision } from '../../../../util/earthEngine.js'
-import { numberPrecision } from '../../../../util/numbers.js'
+import { hasClasses } from '../../../../util/earthEngine.js'
+import {
+    getRoundToPrecisionFn,
+    getPrecision,
+} from '../../../../util/numbers.js'
 import Popup from '../../Popup.js'
 import styles from './styles/EarthEnginePopup.module.css'
 
@@ -20,7 +23,7 @@ const EarthEnginePopup = (props) => {
 
     if (values) {
         if (classes) {
-            const valueFormat = numberPrecision(isPercentage ? 2 : 0)
+            const valueFormat = getRoundToPrecisionFn(isPercentage ? 2 : 0)
 
             table = (
                 <table className={styles.table}>
@@ -66,7 +69,7 @@ const EarthEnginePopup = (props) => {
 
             // Returns the value format (precision) for an aggregation type
             const getValueFormat = (type) =>
-                numberPrecision(
+                getRoundToPrecisionFn(
                     getPrecision(
                         Object.values(data)
                             .map((ou) =>

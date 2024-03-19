@@ -115,3 +115,107 @@ export const getCoordinatesBounds = (coordinates) =>
             [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
         ]
     )
+
+const TYPE_NUMBER = 'number'
+const TYPE_STRING = 'string'
+
+export const DHIS2_PROP = '__dhis2propertyid__'
+
+export const getGeojsonDisplayData = (feature) => {
+    const { properties } = feature
+    if (!properties) {
+        return []
+    }
+    return Object.entries(properties)
+        .filter(
+            ([, value]) =>
+                typeof value === TYPE_NUMBER || typeof value === TYPE_STRING
+        )
+        .filter(([key, value]) =>
+            // Remove id property if it was set internally
+            key === 'id' &&
+            typeof value === TYPE_STRING &&
+            value.startsWith(DHIS2_PROP)
+                ? false
+                : true
+        )
+        .map(([key, value]) => {
+            const type =
+                typeof value === TYPE_NUMBER ? TYPE_NUMBER : TYPE_STRING
+
+            return {
+                name: key,
+                dataKey: key,
+                type,
+                value,
+            }
+        })
+}
+export const GEO_TYPE_POINT = 'Point'
+export const GEO_TYPE_POLYGON = 'Polygon'
+export const GEO_TYPE_LINE = 'LineString'
+const GEO_TYPE_FEATURE = 'Feature'
+const GEO_TYPE_FEATURE_COLLECTION = 'FeatureCollection'
+
+const rawGeometryTypes = [
+    GEO_TYPE_POINT,
+    GEO_TYPE_LINE,
+    GEO_TYPE_POLYGON,
+    'MultiPoint',
+    'MultiLineString',
+    'MultiPolygon',
+]
+
+// Ensure that we are always working with a FeatureCollection
+export const buildGeoJsonFeatures = (geoJson) => {
+    let finalGeoJson = geoJson
+
+    if (geoJson.type === GEO_TYPE_FEATURE) {
+        finalGeoJson = {
+            type: GEO_TYPE_FEATURE_COLLECTION,
+            features: [geoJson],
+        }
+    } else if (rawGeometryTypes.includes(geoJson.type)) {
+        finalGeoJson = {
+            type: GEO_TYPE_FEATURE_COLLECTION,
+            features: [
+                {
+                    type: GEO_TYPE_FEATURE,
+                    geometry: geoJson,
+                    properties: {},
+                },
+            ],
+        }
+    } else if (geoJson.type === 'GeometryCollection') {
+        const features = geoJson.geometries.map((geometry) => ({
+            type: GEO_TYPE_FEATURE,
+            geometry,
+            properties: {},
+        }))
+        finalGeoJson = {
+            type: GEO_TYPE_FEATURE_COLLECTION,
+            features,
+        }
+    }
+
+    const types = []
+    const featureCollection = finalGeoJson.features.map((f, i) => {
+        const nonMultiType = f.geometry.type.replace('Multi', '')
+        // return list of types in the data (but not Multi* types,
+        // because those should get lumped in with the non-Multi* type for the legend)
+        if (!types.includes(nonMultiType)) {
+            types.push(nonMultiType)
+        }
+
+        // Ensures that all features have a properties.id property
+        // If properties.id is added, prefix it with DHIS2_PROP so that
+        // it can be filtered out of the data table
+        if (!f.properties.id) {
+            f.properties.id = `${DHIS2_PROP}${i}`
+        }
+
+        return f
+    })
+
+    return { featureCollection, types }
+}

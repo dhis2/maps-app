@@ -575,6 +575,15 @@ const layerEdit = (state = null, action) => {
                 period: action.payload,
             }
 
+        case types.LAYER_EDIT_FEATURE_STYLE_SET:
+            return {
+                ...state,
+                featureStyle: {
+                    ...state.featureStyle,
+                    ...action.payload,
+                },
+            }
+
         default:
             return state
     }

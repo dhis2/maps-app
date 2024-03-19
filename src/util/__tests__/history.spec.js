@@ -1,7 +1,6 @@
 import queryString from 'query-string'
 import { getHashUrlParams } from '../history.js'
 
-// jest.mock('query-string')
 jest.mock('query-string', () => ({
     parse: jest.fn(() => {}),
 }))

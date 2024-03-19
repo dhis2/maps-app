@@ -4,6 +4,7 @@ import EarthEngineLoader from './EarthEngineLoader.js'
 import EventLoader from './EventLoader.js'
 import ExternalLoader from './ExternalLoader.js'
 import FacilityLoader from './FacilityLoader.js'
+import GeoJsonUrlLoader from './GeoJsonUrlLoader.js'
 import OrgUnitLoader from './OrgUnitLoader.js'
 import ThematicLoader from './ThematicLoader.js'
 import TrackedEntityLoader from './TrackedEntityLoader.js'
@@ -16,9 +17,10 @@ const layerType = {
     orgUnit: OrgUnitLoader,
     thematic: ThematicLoader,
     trackedEntity: TrackedEntityLoader,
+    geoJsonUrl: GeoJsonUrlLoader,
 }
 
-const LayerLoader = ({ config, onLoad }) => {
+const LayerLoader = ({ config, dataTableOpen, onLoad }) => {
     const Loader = layerType[config.layer]
 
     if (!Loader) {
@@ -26,12 +28,20 @@ const LayerLoader = ({ config, onLoad }) => {
         return null
     }
 
-    return <Loader config={config} onLoad={onLoad} />
+    return (
+        <Loader config={config} onLoad={onLoad} dataTableOpen={dataTableOpen} />
+    )
+}
+
+LayerLoader.defaultProps = {
+    dataTableOpen: false,
+    onError: Function.prototype,
 }
 
 LayerLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
+    dataTableOpen: PropTypes.bool,
 }
 
 export default LayerLoader

@@ -34,6 +34,11 @@ const getHashUrlParams = (loc) => {
     return params
 }
 
+const getHashUrlParam = (key) => {
+    const params = getHashUrlParams(history.location)
+    return params[key]
+}
+
 const openDownloadMode = () => {
     if (history.location.pathname === '/') {
         history.push(`/${DOWNLOAD}`)
@@ -53,6 +58,7 @@ const closeDownloadMode = () => {
 
 export {
     getHashUrlParams,
+    getHashUrlParam,
     defaultHashUrlParams,
     openDownloadMode,
     closeDownloadMode,
