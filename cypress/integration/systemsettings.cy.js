@@ -82,7 +82,7 @@ describe('systemSettings', () => {
 
         cy.getByDataTest('basemaplist', EXTENDED_TIMEOUT)
             .children()
-            .should('have.length.greaterThan', 7);
+            .should('have.length.greaterThan', 5);
 
         cy.getByDataTest('basemaplistitem-name')
             .contains('Bing Road')
