@@ -45,7 +45,7 @@ jobs:
                   enable-commit-status: true
                   alias: pr-${{ github.event.number }}
                   # customize according to project needs
-                  publish-dir: 'build/app'
+                  publish-dir: './build'
               env:
                   # org secret
                   NETLIFY_AUTH_TOKEN: ${{ secrets.DHIS2_BOT_NETLIFY_TOKEN }}
