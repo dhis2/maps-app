@@ -4,17 +4,21 @@ import React from 'react'
 import DownloadButton from '../download/DownloadButton.js'
 import InterpretationsToggle from '../interpretations/InterpretationsToggle.js'
 import AddLayerButton from '../layers/overlays/AddLayerButton.js'
-import FileMenu from './FileMenu.js'
+import ExperimentalModal from './ExperimentalModal.js'
+// import FileMenu from './FileMenu.js'
 
-const AppMenu = ({ onFileMenuAction }) => (
-    <Toolbar>
-        <AddLayerButton />
-        <HoverMenuBar>
-            <FileMenu onFileMenuAction={onFileMenuAction} />
-            <DownloadButton />
-        </HoverMenuBar>
-        <InterpretationsToggle />
-    </Toolbar>
+// <FileMenu onFileMenuAction={onFileMenuAction} />
+const AppMenu = (/* { onFileMenuAction } */) => (
+    <>
+        <Toolbar>
+            <AddLayerButton />
+            <HoverMenuBar>
+                <DownloadButton />
+            </HoverMenuBar>
+            <InterpretationsToggle />
+        </Toolbar>
+        <ExperimentalModal />
+    </>
 )
 
 AppMenu.propTypes = {
