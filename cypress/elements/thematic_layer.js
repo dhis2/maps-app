@@ -2,7 +2,7 @@ import { Layer } from './layer.js'
 
 export class ThematicLayer extends Layer {
     selectItemType(itemType) {
-        cy.getByDataTest('itemtypeselect').click()
+        cy.getByDataTest('thematic-layer-value-type-select').click()
         cy.contains(itemType).click()
 
         return this
