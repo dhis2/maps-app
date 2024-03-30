@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Jason Pickering <jason@dhis2.org>, 2019
-# Philip Larsen Donnelly, 2021
-# Viktor Varland <viktor@dhis2.org>, 2022
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-06T13:08:55.205Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/hisp-uio/teams/100509/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,15 +24,6 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
-
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -149,22 +140,36 @@ msgstr "Datum"
 msgid "Data set"
 msgstr "datamängd"
 
+msgid "No results found"
+msgstr "Inga resultat hittades"
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
 msgid "Index"
 msgstr ""
 
-msgid "Org unit"
-msgstr "Organisationsenhet"
-
 msgid "Id"
-msgstr ""
-
-msgid "Event time"
-msgstr ""
-
-msgid "Legend"
-msgstr ""
-
-msgid "Range"
 msgstr ""
 
 msgid "Level"
@@ -176,7 +181,16 @@ msgstr ""
 msgid "Type"
 msgstr "Typ"
 
-msgid "Data table is not supported when events are grouped on the server."
+msgid "Legend"
+msgstr ""
+
+msgid "Range"
+msgstr ""
+
+msgid "Org unit"
+msgstr "Organisationsenhet"
+
+msgid "Event time"
 msgstr ""
 
 msgid "Items"
@@ -263,6 +277,9 @@ msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
+msgstr ""
+
+msgid "feature"
 msgstr ""
 
 msgid "Edit {{name}} layer"
@@ -392,6 +409,18 @@ msgstr ""
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
 msgid "Labels"
 msgstr ""
 
@@ -437,9 +466,6 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
-msgid "Calculation is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr ""
 
@@ -454,9 +480,6 @@ msgstr "Händelsedataposter"
 
 msgid "Program indicators"
 msgstr "programindikatorer"
-
-msgid "Calculations"
-msgstr ""
 
 msgid "Item type"
 msgstr ""
@@ -506,6 +529,12 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
+msgstr ""
+
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
@@ -561,6 +590,9 @@ msgstr "Extern skikt"
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
@@ -573,13 +605,16 @@ msgstr "Redigera"
 msgid "Toggle visibility"
 msgstr ""
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr ""
 
-msgid "Toggle layer menu"
+msgid "More actions"
 msgstr ""
 
-msgid "More actions"
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "Hide data table"
@@ -607,6 +642,9 @@ msgid "Group"
 msgstr ""
 
 msgid "Filters"
+msgstr ""
+
+msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "Drill up one level"
@@ -908,12 +946,6 @@ msgid "OSM Light"
 msgstr "OSM Ljus"
 
 msgid "OSM Detailed"
-msgstr ""
-
-msgid "Google Streets"
-msgstr ""
-
-msgid "Google Hybrid"
 msgstr ""
 
 msgid "Bing Road"
@@ -1295,6 +1327,24 @@ msgstr ""
 msgid "Facilities: No coordinates found"
 msgstr ""
 
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Point"
+msgstr ""
+
 msgid "Organisation units"
 msgstr "Organisation enheter"
 
@@ -1314,18 +1364,6 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
-msgstr ""
-
-msgid "Thematic"
-msgstr ""
-
-msgid "Events"
-msgstr "Händelser"
-
-msgid "Tracked entities"
-msgstr "Tracked entities"
-
-msgid "Org units"
 msgstr ""
 
 msgid "not one of"
@@ -1349,6 +1387,18 @@ msgstr ""
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "Händelser"
+
+msgid "Tracked entities"
+msgstr "Tracked entities"
+
+msgid "Org units"
 msgstr ""
 
 msgid "Facility"
