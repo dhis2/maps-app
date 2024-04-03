@@ -1849,17 +1849,17 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.10.4":
-  version "24.10.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.10.4.tgz#2539bafa9a7f89fe2d6e5cbd0b44068facee07d8"
-  integrity sha512-wKovMwsPCKu5BsHGf2SFFdBEpPvWpdHgNfpJ5Yg8DxbJ6pyY41zNo1UsbGoCQwyhu3i6m0aAFPRKnOYyUikK3Q==
+"@dhis2/analytics@^24.10.5":
+  version "24.10.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.10.5.tgz#1520c20fce10739039ddffb8078eac8319c21bba"
+  integrity sha512-MM0owzVmFkJr1LYSnfd6Du+j8yM/v5482iAOs6mLStL54JB1jxt3SW5V7LTc8rT8X7Vp55Vj0ZG7pLipEz9bng==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     "@dhis2/multi-calendar-dates" "1.0.0"
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
     d3-color "^1.2.3"
-    highcharts "^10.2.0"
+    highcharts "^10.3.3"
     lodash "^4.17.21"
     mathjs "^9.4.2"
     react-beautiful-dnd "^10.1.1"
@@ -10126,10 +10126,10 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-highcharts@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.2.0.tgz#646b1c80fb4add9e35e5813bd87419ccdf1fc6b7"
-  integrity sha512-MvLo4dzR2Vo7Y85dsqJ07uabBXSSIRKRRdW4l9IGP55h2jYWNm/m9JBszVVxySH5Lda6g+Ins9NdGppZJpjNCA==
+highcharts@^10.3.3:
+  version "10.3.3"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.3.3.tgz#b8acca24f2d4b1f2f726540734166e59e07b35c4"
+  integrity sha512-r7wgUPQI9tr3jFDn3XT36qsNwEIZYcfgz4mkKEA6E4nn5p86y+u1EZjazIG4TRkl5/gmGRtkBUiZW81g029RIw==
 
 hmac-drbg@^1.0.1:
   version "1.0.1"
