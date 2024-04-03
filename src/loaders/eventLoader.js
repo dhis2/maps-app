@@ -1,5 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
+import { isValidUid } from 'd2/uid';
+import { numberValueTypes } from '../constants/valueTypes.js';
 import { getEventColumns } from '../epics/dataDownload';
 import { styleByDataItem } from '../util/styleByDataItem';
 import {
@@ -151,6 +153,26 @@ const loadEventLayer = async config => {
             });
 
         config.headers = response.headers;
+
+        const numericDataItemHeaders = config.headers.filter(
+            header =>
+                isValidUid(header.name) &&
+                numberValueTypes.includes(header.valueType)
+        );
+
+        if (numericDataItemHeaders.length) {
+            config.data = config.data.map(d => {
+                const newD = { ...d };
+
+                numericDataItemHeaders.forEach(header => {
+                    newD.properties[header.name] = parseFloat(
+                        d.properties[header.name]
+                    );
+                });
+
+                return newD;
+            });
+        }
     }
 
     if (!styleDataItem) {
