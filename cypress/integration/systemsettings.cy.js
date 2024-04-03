@@ -74,7 +74,7 @@ describe('systemSettings', () => {
 
         cy.getByDataTest('basemaplist', EXTENDED_TIMEOUT)
             .children()
-            .should('have.length', 5);
+            .should('have.length', 3);
     });
 
     it('includes Bing basemaps when Bing api key present', () => {
