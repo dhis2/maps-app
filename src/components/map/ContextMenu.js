@@ -16,7 +16,6 @@ import {
     openCoordinatePopup,
     showEarthEngineValue,
 } from '../../actions/map';
-
 import { drillLayer } from '../../actions/layers';
 import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers';
