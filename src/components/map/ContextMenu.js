@@ -30,6 +30,7 @@ const ContextMenu = props => {
         layerType,
         coordinates,
         earthEngineLayers,
+        isSplitView,
         position,
         offset,
         closeContextMenu,
@@ -96,13 +97,14 @@ const ContextMenu = props => {
                 onClickOutside={closeContextMenu}
             >
                 <div className={styles.menu}>
-                    <Menu dense>
+                    <Menu dense dataTest="context-menu">
                         {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
                                 label={i18n.t('Drill up one level')}
                                 icon={<IconArrowUp16 />}
                                 disabled={!attr.hasCoordinatesUp}
                                 onClick={() => onClick('drill_up')}
+                                dataTest="context-menu-drill-up"
                             />
                         )}
 
@@ -112,6 +114,7 @@ const ContextMenu = props => {
                                 icon={<IconArrowDown16 />}
                                 disabled={!attr.hasCoordinatesDown}
                                 onClick={() => onClick('drill_down')}
+                                dataTest="context-menu-drill-down"
                             />
                         )}
 
@@ -120,14 +123,16 @@ const ContextMenu = props => {
                                 label={i18n.t('View profile')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
+                                dataTest="context-menu-view-profile"
                             />
                         )}
 
-                        {coordinates && (
+                        {coordinates && !isSplitView && (
                             <MenuItem
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<IconLocation16 />}
                                 onClick={() => onClick('show_coordinate')}
+                                dataTest="context-menu-show-long-lat"
                             />
                         )}
 
@@ -141,6 +146,7 @@ const ContextMenu = props => {
                                 onClick={() =>
                                     onClick('show_ee_value', layer.id)
                                 }
+                                dataTest="context-menu-show-ee-value"
                             />
                         ))}
                     </Menu>
@@ -155,6 +161,7 @@ ContextMenu.propTypes = {
     layerType: PropTypes.string,
     layerId: PropTypes.string,
     coordinates: PropTypes.array,
+    isSplitView: PropTypes.bool,
     position: PropTypes.array,
     offset: PropTypes.array,
     map: PropTypes.object,
