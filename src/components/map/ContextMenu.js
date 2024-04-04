@@ -30,6 +30,7 @@ const ContextMenu = props => {
         layerType,
         coordinates,
         earthEngineLayers,
+        isSplitView,
         position,
         offset,
         closeContextMenu,
@@ -123,7 +124,7 @@ const ContextMenu = props => {
                             />
                         )}
 
-                        {coordinates && (
+                        {coordinates && !isSplitView && (
                             <MenuItem
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<IconLocation16 />}
@@ -155,6 +156,7 @@ ContextMenu.propTypes = {
     layerType: PropTypes.string,
     layerId: PropTypes.string,
     coordinates: PropTypes.array,
+    isSplitView: PropTypes.bool,
     position: PropTypes.array,
     offset: PropTypes.array,
     map: PropTypes.object,
