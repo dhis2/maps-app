@@ -20,7 +20,7 @@ export const expectContextMenuOptions = availableOptions => {
             // right clicking on the center of the map should hit an OU
             getMaps()
                 .first()
-                .rightclick(130, 270);
+                .rightclick(130, 250);
 
             // menu has correct number of items
             cy.getByDataTest('context-menu')
