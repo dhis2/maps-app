@@ -1,3 +1,10 @@
+import { getMaps } from '../../elements/map_canvas.js';
+import {
+    DRILL_UP,
+    DRILL_DOWN,
+    VIEW_PROFILE,
+    expectContextMenuOptions,
+} from '../../elements/map_context_menu.js';
 import { ThematicLayer } from '../../elements/thematic_layer';
 import { CURRENT_YEAR } from '../../support/util';
 
@@ -37,8 +44,6 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true);
 
-        // TODO: use visual snapshot testing to check the rendering of the map
-
         Layer.validateCardTitle(INDICATOR_NAME);
         // TODO: test this in a way that is not dependent on the date
         // Layer.validateCardItems([
@@ -48,6 +53,8 @@ context('Thematic Layers', () => {
         //     '89.76 - 96.28 (3)',
         //     '96.28 - 102.8 (4)',
         // ]);
+
+        getMaps().should('have.length', 1);
     });
 
     it('adds a thematic layer for OU Bombali', () => {
@@ -63,8 +70,6 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true);
 
-        // TODO: use visual snapshot testing to check the rendering of the map
-
         Layer.validateCardTitle(INDICATOR_NAME);
         // TODO: test this in a way that is not dependent on the date
         // Layer.validateCardItems([
@@ -74,6 +79,8 @@ context('Thematic Layers', () => {
         //     '87.32 - 89.46 (0)',
         //     '89.46 - 91.6 (1)',
         // ]);
+
+        getMaps().should('have.length', 1);
     });
 
     it('adds a thematic layer with start and end date', () => {
@@ -91,5 +98,40 @@ context('Thematic Layers', () => {
         Layer.validateCardTitle(INDICATOR_NAME).validateCardPeriod(
             `Feb 1, ${CURRENT_YEAR} - Nov 30, ${CURRENT_YEAR}`
         );
+
+        getMaps().should('have.length', 1);
+    });
+
+    it('adds a thematic layer with split view period', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator(INDICATOR_NAME)
+            .selectTab('Period');
+
+        cy.getByDataTest('relative-period-select-content').click();
+        cy.contains('Last 3 months').click();
+
+        cy.get('[type="radio"]').should('have.length', 3);
+        cy.get('[type="radio"]').check('SPLIT_BY_PERIOD');
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click();
+
+        Layer.validateDialogClosed(true);
+
+        Layer.validateCardTitle(INDICATOR_NAME);
+
+        // check for 3 maps
+        getMaps().should('have.length', 3);
+
+        // wait to make sure the maps are loaded
+        cy.wait(2000); // eslint-disable-line cypress/no-unnecessary-waiting
+
+        expectContextMenuOptions([
+            { name: DRILL_UP, disabled: true },
+            { name: DRILL_DOWN },
+            { name: VIEW_PROFILE },
+        ]);
     });
 });
