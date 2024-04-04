@@ -10,14 +10,8 @@ const ALL_OPTIONS = [DRILL_UP, DRILL_DOWN, VIEW_PROFILE, SHOW_LONG_LAT];
 export const expectContextMenuOptions = availableOptions => {
     getMaps()
         .first()
-        .then($el => {
-            const xpos = $el.width() / 2;
-            const ypos = $el.height() / 2;
-            cy.log(`Clicking at ${xpos}, ${ypos}`);
-
-
-
-            // right clicking on the center of the map should hit an OU
+        .then(() => {
+            // trial and error until these coordinates were found
             getMaps()
                 .first()
                 .rightclick(140, 240);
