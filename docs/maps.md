@@ -12,7 +12,7 @@ different basemaps. You can create thematic maps of areas and points,
 view facilities based on classifications, and visualize catchment areas
 for each facility. You can add labels to areas and points, and search
 and filter using various criteria. You can move points and set locations
-on the fly. Maps can be saved as favorites and shared with other users
+on the fly. Maps can be saved and shared with other users
 and groups, or downloaded as an image.
 
 > **Note**
@@ -28,15 +28,9 @@ and groups, or downloaded as an image.
   - As layers are added, using the **(+) Add layer** button, they
     are arranged and managed in this panel.
 
-  - The **basemap** is always shown in the panel. The default
-    basemap is OSM Light and is selected by default, unless a different
-    basemap has been configured in the system settings. OpenStreetMap
-    Detailed contains more map features and place names. There are 4
-    basemaps from Bing Maps, replacing Google Maps provided in previous
-    versions. Bing Road and Bing Dark shows roads, borders and places.
-    Use the dark version if the colors on your map layers are bright.
-    Bing Aerial and Bing Aerial Labels shos satellite and detailed aerial
-    imagery. Switch between them by selecting the desired image.
+  - The **basemap** card is always shown in the panel. The default available 
+    basemaps are OpenStreetMap Light (OSM Light) and OpenStreetMap Detailed (OSM Detailed). The detault selected basemap is OSM Light, unless a different
+    basemap has been configured in the system settings. OSM Detailed contains more map features and place names. If the Bing Maps API key has been added by a system administrator, then there will be an additional 4 basemaps from Bing Maps (Bing replaced Google Maps provided in previous versions). Bing Road and Bing Dark shows roads, borders and places. Use the dark version if the colors on your map layers are bright. Bing Aerial and Bing Aerial Labels shows satellite and detailed aerial imagery. Switch between them by selecting the desired image.
 
   - The small arrow button to the right of the layer panel, at the
     top, allows the panel to be hidden or shown.
@@ -105,7 +99,7 @@ Along the bottom of the basemap card is:
 
 ## Create a new map { #using_maps_create_map }
 
-1.  In the **Apps** menu, click **Maps**. The **DHIS2 Maps** window
+1.  In the **Apps** menu of DHIS2, click **Maps**. The **DHIS2 Maps** app
     opens.
 
 2.  Click the (+) Add layer button in the top left. You are presented
@@ -125,8 +119,9 @@ Along the bottom of the basemap card is:
 
     - [Org units](#using_maps_org_unit_layer)
 
-    In addition, there are several layers provided by Google Earth
-    Engine and other services:
+    In addition, several layers may be provided by Google Earth
+    Engine and other services. The Google Earth Engine layers are available
+    if the Google Earth Engine API key has been set up. See [documentation](). Other external layers may be added by the system administrator. here is the list of available Google Earth Engine layers:
 
     - Population
 
@@ -183,21 +178,23 @@ Along the bottom of the thematic card from left to right are:
 
 - A more actions (three dots) button with additional options:
 
-  - A **data table** toggle button to show or hide the data table
+    - A **Show/hide data table** toggle button to show or hide the data table
     associated with the layer
 
-  - **Download data** allows you to download the data for this layer in GeoJSON format for use in other mapping software
+    - **Open as chart** will open this thematic data as a chart in the Data Visualizer app
 
-  - **Edit layer** is the same as edit button above
+    - **Download data** allows you to download the data for this layer in GeoJSON format for use in other mapping software
 
-  - **Remove layer** will remove this layer from the current map.
+    - **Edit layer** is the same as edit button above
+
+    - **Remove layer** will remove this layer from the current map.
 
 ### Create a thematic layer
 
-To create an event layer, choose **Thematic** on the **Add
-layer** selection. This opens the Events layer configuration dialog.
+To create a thematic layer, choose **Thematic** on the **Add
+layer** selection. This opens the Thematic layer configuration dialog.
 
-1.  In the **DATA** tab:
+1.  In the **Data** tab:
 
     ![](resources/images/maps_thematic_layer_dialog_DATA.png)
 
@@ -215,7 +212,7 @@ layer** selection. This opens the Events layer configuration dialog.
       This is useful when you want to exclude partial events in indicator calculations. Available
       for indicators, program indictors and event data items.
 
-2.  In the **PERIOD** tab
+2.  In the **Period** tab
 
     ![](resources/images/maps_thematic_layer_dialog_PERIOD.png)
 
@@ -259,7 +256,7 @@ layer** selection. This opens the Events layer configuration dialog.
         In the **Period type** field select **Start/end dates**
         and fill in a start date and an end date.
 
-3.  In the **ORG UNITS** tab:
+3.  In the **Org Units** tab:
 
     ![](resources/images/maps_thematic_layer_dialog_ORG_UNITS.png)
 
@@ -278,11 +275,11 @@ layer** selection. This opens the Events layer configuration dialog.
       are any additional geometry available for your organisation units.
       This is typically used to show facility catchment areas.
 
-4.  In the **FILTER** tab:
+4.  In the **Filter** tab:
 
     ![](resources/images/maps_thematic_layer_dialog_FILTER.png)
 
-    - Click ADD FILTER and select an available data item to add a new
+    - Click **Add Filter** and select an available data item to add a new
       filter to the data set.
 
       - Select a data dimension from the dropdown box. You can
@@ -296,23 +293,18 @@ layer** selection. This opens the Events layer configuration dialog.
       Multiple filters may be added. Click the trash button on the right of
       the filter to remove it.
 
-5.  In the **STYLE** tab:
+5.  In the **Style** tab:
 
     ![](resources/images/maps_thematic_layer_dialog_STYLE.png)
 
-    - Select either **Choropleth** or **Bubble maps**.
+    - Select either **Choropleth** or **Bubble map**.
 
-      - Choropleth will assign a color to each org unit shape according to the
-        data value. This is the recommended technique if the data is normalised
-        (per capita).
+      - Choropleth will assign a color to each org unit shape according to the data value. This is the recommended technique if the data is normalised (per capita).
 
       - Bubble map will show data values as proportional circles. Use this
-        technique if the data is not normalised (absolute numbers). The circles are
-        placed in the center of each org unit.
+        technique if the data is not normalised (absolute numbers). The circles are placed in the center of each org unit.
 
-    - Set the **Low radius** and **High radius** for the proportional circles or the
-      point facilities. The circles will be scaled between low and high radius according
-      to the data value. The radius needs to be between 0 and 50 px.
+    - Set the **Low radius** and **High radius** for the proportional circles or the point facilities. The circles will be scaled between low and high radius according to the data value. The radius needs to be between 0 and 50 px.
 
     - **Show labels**: Allows org unit names and values to be shown on the layer.
       Select between "Name", "Name and value" and "Value" only. Font size, weight, style
@@ -340,7 +332,7 @@ layer** selection. This opens the Events layer configuration dialog.
       - **Single color legend**: Select the color of the bubbles or circles. Only available
         for bubble maps.
 
-6.  Click **ADD LAYER**.
+6.  Click **Add layer**.
 
 ### Modify a thematic layer
 
@@ -349,18 +341,18 @@ layer** selection. This opens the Events layer configuration dialog.
 
 2.  Modify the setting on any of the tabs as desired.
 
-3.  Click **UPDATE LAYER**.
+3.  Click **Update layer**.
 
 ### Filter values in a thematic layer
 
-Thematic layers have a **data table** option that can be toggled on or
+Thematic layers have a **Show/hide data table** option that can be toggled on or
 off from the thematic layer card.
 
 ![](resources/images/maps_thematic_layer_data_table.png)
 
 The data table displays the data forming the thematic layer.
 
-- clicking on a title will sort the table based on that column;
+- clicking on a sorting button will sort the table based on that column;
   toggling between ascending and descending.
 
 - entering text or expressions into the filter fields below the titles
@@ -407,7 +399,7 @@ The data table displays the data forming the thematic layer.
 > **Note**
 >
 > Data table filters are temporary and are not saved with the map layers
-> as part of the favourite.
+> as part of the saved map.
 
 ### Search for an organisation unit
 
@@ -488,7 +480,7 @@ Along the bottom of the event card from left to right are:
 
 - A more actions (three dots) button with additional options:
 
-  - A **data table** toggle button to show or hide the data table associated with the layer
+  - A **Show/hide data table** toggle button to show or hide the data table associated with the layer
 
   - **Download data** allows you to download the data for this layer in GeoJSON format for use in other mapping software
 
@@ -501,7 +493,7 @@ Along the bottom of the event card from left to right are:
 To create an event layer, choose **Events** on the **Add
 layer** selection. This opens the Events layer configuration dialog.
 
-1.  In the **DATA** tab:
+1.  In the **Data** tab:
 
     ![](resources/images/maps_event_layer_dialog_DATA.png)
 
@@ -521,7 +513,7 @@ layer** selection. This opens the Events layer configuration dialog.
       Use the **Event status** field to only show events having one
       status: Active, Completed, Schedule, Overdue or Skipped.
 
-2.  In the **PERIOD** tab
+2.  In the **Period** tab
 
     ![](resources/images/maps_event_layer_dialog_PERIOD.png)
 
@@ -541,7 +533,7 @@ layer** selection. This opens the Events layer configuration dialog.
         In the **Period** field, select **Start/end dates** and fill
         in a start date and an end date.
 
-3.  In the **ORG UNITS** tab:
+3.  In the **Org Units** tab:
 
     ![](resources/images/maps_event_layer_dialog_ORG_UNITS.png)
 
@@ -555,7 +547,7 @@ layer** selection. This opens the Events layer configuration dialog.
         unit** the map data will appear differently for users at
         different levels in the organisation unit hierarchy.
 
-4.  In the **FILTER** tab:
+4.  In the **Filter** tab:
 
     ![](resources/images/maps_event_layer_dialog_FILTER.png)
 
@@ -582,7 +574,7 @@ layer** selection. This opens the Events layer configuration dialog.
       Multiple filters may be added. Click the trash button on the right of
       the filter to remove it.
 
-5.  In the **STYLE** tab:
+5.  In the **Style** tab:
 
     ![](resources/images/maps_event_layer_dialog_STYLE.png)
 
@@ -601,7 +593,7 @@ layer** selection. This opens the Events layer configuration dialog.
     - Select a **Style by data element** to colorise the events
       according to a data value. If you also select to group events,
       the culsters will be displayed as small donut charts showing
-      the distribution of the data values. The options varies for
+      the distribution of the data values. The available options vary for
       different data types:
 
       - **Option sets**: Select a color for each option in an option
@@ -615,7 +607,7 @@ layer** selection. This opens the Events layer configuration dialog.
       - **Booleans**: Select a color for true/yes and another for
         false/no.
 
-6.  Click **ADD LAYER**.
+6.  Click **Add layer**.
 
 ### Modify an event layer
 
@@ -625,18 +617,18 @@ layer** selection. This opens the Events layer configuration dialog.
 2.  Modify the setting on the DATA, PERIOD, FILTER, ORG UNIT and STYLE
     tabs as desired.
 
-3.  Click **UPDATE LAYER**.
+3.  Click **Update layer**.
 
 ### Listing and filtering events
 
-Event layers have a **data table** option that can be toggled on or
+Event layers have a **Show/hide data table** option that can be toggled on or
 off from the event layer card.
 
 ![](resources/images/maps_event_layer_data_table.png)
 
 The data table displays the data forming the event layer.
 
-- clicking on a title will sort the table based on that column;
+- clicking on the up/down arrow will sort the table based on that column;
   toggling between ascending and descending.
 
 - entering text or expressions into the filter fields below the titles
@@ -671,11 +663,11 @@ The data table displays the data forming the event layer.
 > **Note**
 >
 > Data table filters are temporary and are not saved with the map layers
-> as part of the favourite.
+> as part of the saved map.
 
 ### Modify information in event data table and popups
 
-You can modify the information displayed in the event pop-up window.
+If you have access to the selected program in the maintenance app, you can modify the information displayed in the event pop-up window.
 
 ![](resources/images/maps_eventlayer_eventinfopopup.png)
 
@@ -683,7 +675,7 @@ You can modify the information displayed in the event pop-up window.
 
 2.  Select **Program**.
 
-3.  Click the program you want to modify and select **2 Assign data elements**.
+3.  Click the program you want to modify and select **(2) Assign data elements**.
 
 4.  For every data element you want to display in the pop-up window,
     select corresponding **Display in reports**.
@@ -706,7 +698,7 @@ The raw data for event layers can be downloaded in GeoJSON format for more advan
 
 - Select whether or not to **Use human-readable keys** for other Event attributes, such as Program Stage, Latitude, Longitude, Event Data, and Organization Unit ID, Name, and Code. When this option is **not** selected these values will be the computer-friendly ID instead of the human-readable (and translated) name.
 
-- Click the **DOWNLOAD** button to generate and download a GeoJSON file. The data will be requested from the DHIS2 server and processed by the maps application. This operation may take several minutes to complete.
+- Click the **Download** button to generate and download a GeoJSON file. The data will be requested from the DHIS2 server and processed by the maps application. This operation may take several minutes to complete.
 
 - Once the GeoJSON file has been downloaded it can be imported into most standard GIS software applications.
 
@@ -764,7 +756,7 @@ To create an tracked entity layer, choose **Tracked entities** on the
 **Add layer** selection. This opens the Tracked entity layer
 configuration dialog.
 
-1.  In the **DATA** tab:
+1.  In the **Data** tab:
 
     ![](resources/images/maps_tracked_entity_layer_dialog_DATA.png)
 
@@ -786,11 +778,11 @@ configuration dialog.
     >
     > Displaying tracked entity relationships in Maps is an experimental feature
 
-    - If a Tracked Entity Type with has been selected, you can select the **Display Tracked Entity relationships** checkbox
+    - If a Tracked Entity Type with relationships has been selected, you can select the **Display Tracked Entity relationships** checkbox
 
-    - Once checked, you can select the type of relationship to display on the map from the dropdown list. Only relationships FROM the selected Tracked Entity type are available.
+    - Once checked, you can select the type of relationship to display on the map from the dropdown list. Only relationships from the selected Tracked Entity type are available.
 
-3.  In the **PERIOD** tab
+3.  In the **Period** tab
 
     ![](resources/images/maps_tracked_entity_layer_dialog_PERIOD.png)
 
@@ -800,7 +792,7 @@ configuration dialog.
     - If a program is selected, you can set the period when tracked entities were last
       updated or when they were registered or enrolled in the program.
 
-4.  In the **ORG UNITS** tab:
+4.  In the **Org Units** tab:
 
     ![](resources/images/maps_tracked_entity_layer_dialog_ORG_UNITS.png)
 
@@ -816,7 +808,7 @@ configuration dialog.
       - **Selected and all below**: Included tracked entities in and
         all below selected org units.
 
-5.  In the **STYLE** tab:
+5.  In the **Style** tab:
 
     ![](resources/images/maps_tracked_entity_layer_dialog_STYLE.png)
 
@@ -831,7 +823,7 @@ configuration dialog.
 
     - If a relationship type has been selected on the relationships tab you can select **color**, **point size**, and **line color** for relationships and related tracked entities instances
 
-6.  Click **ADD/UPDATE LAYER**.
+6.  Click **Add/Update layer**.
 
 ### Modify a tracked entity layer
 
@@ -841,7 +833,7 @@ configuration dialog.
 2.  Modify the setting on the DATA, PERIOD, ORG UNIT and STYLE tabs as
     desired.
 
-3.  Click **UPDATE LAYER**.
+3.  Click **Update layer**.
 
 ### Clear a tracked entity layer
 
@@ -887,7 +879,7 @@ Along the bottom of the facilities card from left to right are:
 
 - A more actions (three dots) button with additional options:
 
-  - A **data table** toggle button to show or hide the data table
+  - A **Show/hide data table** toggle button to show or hide the data table
     associated with the layer
 
   - **Download data** allows you to download the data for this layer in GeoJSON format for use in other mapping software
@@ -901,7 +893,7 @@ Along the bottom of the facilities card from left to right are:
 To create facility layer, choose **Facilities** on the **Add
 layer**selection. This opens the Facility layer configuration dialog.
 
-1.  In the **ORGANISATION UNITS** tab
+1.  In the **Organisation Units** tab
 
     ![](resources/images/maps_facility_layer_dialog_ORG_UNITS.png)
 
@@ -925,7 +917,7 @@ layer**selection. This opens the Facility layer configuration dialog.
       are any additional geometry available for your organisation units.
       This is typically used to show facility catchment areas.
 
-2.  In the **STYLE** tab:
+2.  In the **Style** tab:
 
     ![](resources/images/maps_facility_layer_dialog_STYLE.png)
 
@@ -951,7 +943,7 @@ layer**selection. This opens the Facility layer configuration dialog.
     - If no group set is selected, the facilities will be shown as filled
       circles. The color and the circle radius can be changed.
 
-3.  Click **ADD LAYER**.
+3.  Click **Add layer**.
 
 ### Create or modify a facility layer
 
@@ -961,18 +953,18 @@ layer**selection. This opens the Facility layer configuration dialog.
 2.  Modify the setting on the GROUP SET, ORGANISATION UNITS and STYLE
     tabs as desired.
 
-3.  Click **UPDATE LAYER**.
+3.  Click **Update layer**.
 
 ### Filter values in a facility layer
 
-Facility layers have a **data table** option that can be toggled on or
+Facility layers have a **Show/hide data table** option that can be toggled on or
 off from the facility layer card.
 
 ![](resources/images/maps_facility_layer_data_table.png)
 
 The data table displays the data forming the facility layer.
 
-- clicking on a title will sort the table based on that column;
+- clicking on the up/down arrow will sort the table based on that column;
   toggling between ascending and descending.
 
 - entering text or expressions into the filter fields below the titles
@@ -994,7 +986,7 @@ The data table displays the data forming the facility layer.
 > **Note**
 >
 > Data table filters are temporary and are not saved with the map layers
-> as part of the favourite.
+> as part of the saved map.
 
 ### Search for a facility
 
@@ -1051,7 +1043,7 @@ Along the bottom of the org unit card from left to right are:
 
 - A more actions (three dots) button with additional options:
 
-  - A **data table** toggle button to show or hide the data table
+  - A **Show/hide data table** toggle button to show or hide the data table
     associated with the layer
 
   - **Download data** allows you to download the data for this layer in GeoJSON format for use in other mapping software
@@ -1086,7 +1078,7 @@ layer** selection. This opens the org unit layer configuration dialog.
       are any additional geometry available for your organisation units.
       This is typically used to show facility catchment areas.
 
-2.  In the **STYLE** tab:
+2.  In the **Style** tab:
 
     ![](resources/images/maps_org_unit_layer_dialog_STYLE.png)
 
@@ -1111,7 +1103,7 @@ layer** selection. This opens the org unit layer configuration dialog.
       using different colors. Select a group set from the list of organisation
       unit group sets defined for your DHIS2 instance.
 
-3.  Click **ADD LAYER**.
+3.  Click **Add layer**.
 
 ### Modify an org unit layer
 
@@ -1121,11 +1113,11 @@ layer** selection. This opens the org unit layer configuration dialog.
 2.  Modify the setting on the ORGANISATION UNITS and STYLE tabs as
     desired.
 
-3.  Click **UPDATE LAYER**.
+3.  Click **Update layer**.
 
 ### Filter values in an org unit layer
 
-Org unit layers have a **data table** option that can be toggled on or
+Org unit layers have a **Show/hide data table** option that can be toggled on or
 off from the org unit layer card.
 
 ![](resources/images/maps_bound_layer_data_table.png)
@@ -1162,7 +1154,7 @@ The data table displays the data forming the org unit layer.
 > **Note**
 >
 > Data table filters are temporary and are not saved with the map layers
-> as part of the favourite.
+> as part of the saved map.
 
 ### Search for an organisational unit
 
@@ -1207,6 +1199,8 @@ To clear all data in an org unit layer:
 
 ![](resources/images/maps_ee_layer.png)
 
+Google Earth Engine layers are enabled if a Google Earth Engine API key has been configured for your system. Contact your system administrator if you need access to these layers.
+
 The layers from Google Earth Engine let you display and aggregate external
 data to your organisation units. Use the population layer to calculate the
 number of people living in a district, or within a distance from a health
@@ -1243,7 +1237,7 @@ The following layers are supported:
 To create an Earth Engine layer, choose the desired layer from the **Add
 layer** selection. This opens the layer configuration dialog.
 
-1.  In the **DATA** tab:
+1.  In the **Data** tab:
 
     ![](resources/images/maps_ee_layer_dialog_DATA.png)
 
@@ -1278,7 +1272,7 @@ layer** selection. This opens the layer configuration dialog.
 
       - **Variance**: Returns the variance value in the layer unit.
 
-2.  In the **PERIOD** tab
+2.  In the **Period** tab
 
     ![](resources/images/maps_ee_layer_dialog_PERIOD.png)
 
@@ -1288,7 +1282,7 @@ layer** selection. This opens the layer configuration dialog.
       Precipitation data is available in 5 days periods, and temperature data for
       8 days periods.
 
-3.  In the **ORG UNITS** tab:
+3.  In the **Organisation Units** tab:
 
     ![](resources/images/maps_ee_layer_dialog_ORG_UNITS.png)
 
@@ -1310,7 +1304,7 @@ layer** selection. This opens the layer configuration dialog.
     - **Building footprints**: Building counts are only available for smaller
       organisation unit areas.
 
-4.  In the **STYLE** tab
+4.  In the **Style** tab
 
     ![](resources/images/maps_ee_layer_dialog_STYLE.png)
 
@@ -1324,21 +1318,21 @@ layer** selection. This opens the layer configuration dialog.
       values available within a 5 km distance from a facility. Buffer
       option is not available if associated geometry is used.
 
-5.  Click **ADD LAYER**.
+5.  Click **Add layer**.
 
 Click on the map regions or facilities to see the aggregation result for that
 organisation unit.
 
 ### Listing of data values
 
-Earth Engine layers have a **data table** option that can be toggled on or
+Earth Engine layers have a **Show/hide data table** option that can be toggled on or
 off from the layer card.
 
 ![](resources/images/maps_ee_layer_data_table.png)
 
 The data table displays all the aggregated values for the organisation units selected.
 
-- clicking on a title will sort the table based on that column;
+- clicking on the up/down button will sort the table based on that column;
   toggling between ascending and descending.
 
 - entering text or expressions into the filter fields below the titles
@@ -1372,7 +1366,7 @@ The data table displays all the aggregated values for the organisation units sel
 
 ![](resources/images/maps_terrain_imagery.png)
 
-External map layers are represented as either:
+External map layers are represented as either basemaps or overlays. These must be added to the instance by a system administrator.
 
 - Basemaps
 
@@ -1403,6 +1397,20 @@ Along the bottom of the overlay card from left to right are:
 
 - A delete (trash can) icon to remove the layer from the current
   thematic map.
+
+### GeoJSON external layers
+
+If you add a GeoJSON external layer to your map, you will have a few style choices:
+
+![](resources/images/maps_geojson_external_layer_style.png)
+
+Once the GeoJSON layer has been displayed, you can view the data table
+
+![](resources/images/maps_geojson_external_layer_data_table.png)
+
+As with other layers, you can sort and filter the data. If you want to view the data for one row, click on the row to open the Feature Profile:
+
+![](resources/images/maps_geojson_external_layer_feature_profile.png)
 
 ## Organisation unit profile { #using_maps_org_unit_profile }
 
@@ -1435,7 +1443,7 @@ disabled until you open or save a map.
 Saving your maps makes it easy to restore them later. It also gives you
 the opportunity to share them with other users as an interpretation or
 put it on the dashboard. You can save all types of layer configurations
-as a favorite.
+as a saved map.
 
 ### Create a new map
 
@@ -1447,7 +1455,7 @@ NB\! This will clear the current map layers you have without saving.
 
 1.  Click **File** \> **Open**. A dialog box opens with a list of maps.
 
-2.  Find the favorite you want to open. You can either use \< and \> or
+2.  Find the saved map you want to open. You can either use \< and \> or
     the search field to find a saved map. The list is filtered on every
     character that you enter. You can filter the list by selecting
     **Show all**, **Created by me** or **Created by others**.
@@ -1463,7 +1471,7 @@ When you have created a map it is convenient to save it for later use:
 2.  Enter a **Name** (required) and a **Description** (optional) the
     first time you save a map.
 
-3.  Click **SAVE**.
+3.  Click **Save**.
 
 ### Save a copy of a map
 
@@ -1472,7 +1480,7 @@ When you have created a map it is convenient to save it for later use:
 2.  Enter a **Name** (required) and a **Description** (optional) for the
     map.
 
-3.  Click **SAVE**.
+3.  Click **Save**.
 
 ### Rename a map
 
@@ -1480,7 +1488,7 @@ When you have created a map it is convenient to save it for later use:
 
 2.  Enter a new **Name** and/or **Description** for your map.
 
-3.  Click **RENAME**. The map is updated.
+3.  Click **Rename**. The map is updated.
 
 ### Translate a map
 
@@ -1491,7 +1499,7 @@ When you have created a map it is convenient to save it for later use:
 3.  Enter a translated **Name** and **Description**. The original text
     will show below the field.
 
-4.  Click **SAVE**.
+4.  Click **Save**.
 
 ### Modify sharing settings for a map
 
@@ -1501,7 +1509,7 @@ everyone or a user group. To modify the sharing settings:
 1.  Click **File** \> **Share**. The sharing settings dialog opens.
 
 2.  **Give access to a user or group**: In the text box, search for the name of the
-    user or group you want to share your favorite with and select it.
+    user or group you want to share your saved map with and select it.
 
     Select the access level and click on **Give access**.
 
@@ -1530,14 +1538,14 @@ everyone or a user group. To modify the sharing settings:
 
 1.  Click **File** \> **Delete**. A confirmation dialog is displayed.
 
-2.  Click **DELETE** to confirm that you want to delete the favorite.
+2.  Click **DELETE** to confirm that you want to delete the saved map.
     Your map is deleted and the layers are cleared from the view.
 
-## Map interpretations { #mapsInterpretation }
+## Map interpretations and details { #mapsInterpretation }
 
 An interpretation is a description of a map at a given period. This
-information is visible in the **Dashboard app**. Click
-**Interpretations** in the top right of the workspace to open the
+information is also visible in the **Dashboard app**. Click
+**Interpretations and details** in the top right of the workspace to open the
 interpretations panel. The button is only clickable if the map is saved.
 
 ![](resources/images/maps_interpretations_panel.png)
@@ -1546,9 +1554,9 @@ interpretations panel. The button is only clickable if the map is saved.
 
 To view interpretations for relative periods, such as a year ago:
 
-1.  Open a favorite with interpretations.
+1.  Open a saved map with interpretations.
 
-2.  Click **Interpretations** in the top right of the workspace to open
+2.  Click **Interpretations and details** in the top right of the workspace to open
     the interpretations panel.
 
 3.  Click on **See interpretation**. Your map displays the data and the date
@@ -1565,11 +1573,11 @@ write is visible to those people.
 
 1.  Open a saved map.
 
-2.  Click **Interpretations** in the top right of the workspace to open
+2.  Click **Interpretations and details** in the top right of the workspace to open
     the interpretations panel.
 
 3.  A text field will appear with a placeholder "Write an interpretation" for users
-    that have read access to the favorite.
+    that have read access to the saved map.
 
 4.  In the text field, type a comment, question or interpretation. You
     can also mention other users with '@username'. Start by typing '@'
@@ -1601,7 +1609,7 @@ write is visible to those people.
 
     - **Remove access**: Remove the access for groups or individuals.
 
-5.  Click **CLOSE** when sharing settings are updated.
+5.  Click **Close** when sharing settings are updated.
 
 ![](resources/images/maps_interpretations_sharing.png)
 
@@ -1633,8 +1641,7 @@ download the image. The left column gives you the following options:
 Resize your browser window to change the map dimensions. You can also reposition
 both the main map and the overview map.
 
-Map download is not supported in Internet Explorer or Safari, we recommend to
-use Google Chrome or Firefox.
+Map download is not supported in Internet Explorer or Safari, we recommend using Google Chrome or Firefox.
 
 ## Search for a location { #using_maps_search }
 
