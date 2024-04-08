@@ -121,7 +121,7 @@ Along the bottom of the basemap card is:
 
     In addition, several layers may be provided by Google Earth
     Engine and other services. The Google Earth Engine layers are available
-    if the Google Earth Engine API key has been set up. See [documentation](). Other external layers may be added by the system administrator. here is the list of available Google Earth Engine layers:
+    if the Google Earth Engine API key has been set up. See [documentation](). Other external layers may be added by the system administrator. Here is the list of available Google Earth Engine layers:
 
     - Population
 
@@ -352,7 +352,7 @@ off from the thematic layer card.
 
 The data table displays the data forming the thematic layer.
 
-- clicking on a sorting button will sort the table based on that column;
+- clicking on a up/down arrow button will sort the table based on that column;
   toggling between ascending and descending.
 
 - entering text or expressions into the filter fields below the titles
@@ -1641,7 +1641,7 @@ download the image. The left column gives you the following options:
 Resize your browser window to change the map dimensions. You can also reposition
 both the main map and the overview map.
 
-Map download is not supported in Internet Explorer or Safari, we recommend using Google Chrome or Firefox.
+Map download is not supported in Internet Explorer or Safari. We recommend using Google Chrome or Firefox.
 
 ## Search for a location { #using_maps_search }
 
