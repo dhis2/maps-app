@@ -29,8 +29,8 @@ and groups, or downloaded as an image.
     are arranged and managed in this panel.
 
   - The **basemap** card is always shown in the panel. The default available 
-    basemaps are OpenStreetMap Light (OSM Light) and OpenStreetMap Detailed (OSM Detailed). The detault selected basemap is OSM Light, unless a different
-    basemap has been configured in the system settings. OSM Detailed contains more map features and place names. If the Bing Maps API key has been added by a system administrator, then there will be an additional 4 basemaps from Bing Maps (Bing replaced Google Maps provided in previous versions). Bing Road and Bing Dark shows roads, borders and places. Use the dark version if the colors on your map layers are bright. Bing Aerial and Bing Aerial Labels shows satellite and detailed aerial imagery. Switch between them by selecting the desired image.
+    basemaps are OpenStreetMap Light (OSM Light) and OpenStreetMap Detailed (OSM Detailed). The default selected basemap is OSM Light, unless a different
+    basemap has been configured in the system settings. OSM Detailed contains more map features and place names. If the Bing Maps API key has been added by a system administrator, then there will be an additional 4 basemaps from Bing Maps (Bing replaced Google Maps provided in previous versions). Bing Road and Bing Dark show roads, borders and places. Use the dark version if the colors on your map layers are bright. Bing Aerial and Bing Aerial Labels show satellite and detailed aerial imagery. Switch between them by selecting the desired image.
 
   - The small arrow button to the right of the layer panel, at the
     top, allows the panel to be hidden or shown.
