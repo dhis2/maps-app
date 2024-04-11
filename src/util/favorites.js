@@ -150,8 +150,6 @@ const models2objects = (layer) => {
         )
         layer.config = JSON.stringify(eeConfig)
 
-        config.config = JSON.stringify(eeConfig)
-
         delete layer.layerId
         delete layer.datasetId
         delete layer.style
