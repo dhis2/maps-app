@@ -1,12 +1,14 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../layers.js'
 
+export const legacyNighttimeDatasetId = 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS'
+
 export default {
     legacy: true, // Kept for backward compability
     layer: EARTH_ENGINE_LAYER,
     format: 'ImageCollection',
-    layerId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
-    datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
+    layerId: legacyNighttimeDatasetId,
+    datasetId: legacyNighttimeDatasetId,
     name: i18n.t('Nighttime lights'),
     unit: i18n.t('light intensity'),
     description: i18n.t(

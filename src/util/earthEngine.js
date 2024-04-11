@@ -3,6 +3,7 @@ import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { apiFetch } from './api.js'
 import { formatStartEndDate } from './time.js'
 import { EE_MONTHLY } from '../constants/periods.js'
+import { legacyNighttimeDatasetId } from '../constants/earthEngineLayers/legacy/nighttime_DMSP-OLS.js'
 
 export const classAggregation = ['percentage', 'hectares', 'acres']
 
@@ -49,7 +50,7 @@ export const getPeriodFromFilter = (filter, datasetId) => {
         return null
     }
 
-    const isNightTimeLights = datasetId === 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS'
+    const isNightTimeLights = datasetId === legacyNighttimeDatasetId
 
     const { id, name, year, arguments: args } = filter[0]
     let periodId = id || args[1]
