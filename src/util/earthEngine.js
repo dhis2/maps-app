@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { apiFetch } from './api.js'
 import { formatStartEndDate } from './time.js'
+import { EE_MONTHLY } from '../constants/periods.js'
 
 export const classAggregation = ['percentage', 'hectares', 'acres']
 
@@ -125,7 +126,7 @@ export const getPeriods = async (eeId, periodType, filters) => {
             : {
                   id,
                   name:
-                      periodType === 'EE_MONTHLY'
+                      periodType === EE_MONTHLY
                           ? getMonth(properties)
                           : getStartEndDate(properties),
                   year,

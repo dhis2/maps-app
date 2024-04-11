@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../layers.js'
+import { EE_MONTHLY } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
@@ -17,7 +18,7 @@ export default {
     unit: '°C',
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    periodType: 'EE_MONTHLY',
+    periodType: EE_MONTHLY,
     band: 'temperature_2m',
     filters: [
         {

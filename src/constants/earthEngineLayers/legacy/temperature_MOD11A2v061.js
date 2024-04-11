@@ -19,7 +19,7 @@ export default {
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
     band: 'LST_Day_1km',
-    periodType: 'BY_YEAR',
+    periodType: BY_YEAR,
     filters: [
         {
             type: 'eq',

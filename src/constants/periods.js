@@ -190,3 +190,7 @@ export const invalidSplitViewPeriods = [
     LAST_52_WEEKS,
     WEEKS_THIS_YEAR,
 ]
+
+// Period types used for Earth Engine layers
+export const BY_YEAR = 'BY_YEAR'
+export const EE_MONTHLY = 'EE_MONTHLY'

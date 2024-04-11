@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { getPeriods } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
+import { BY_YEAR, EE_MONTHLY } from '../../../constants/periods.js'
 import styles from './styles/PeriodSelect.module.css'
 
 const EarthEnginePeriodSelect = ({
@@ -19,7 +20,7 @@ const EarthEnginePeriodSelect = ({
     const [periods, setPeriods] = useState()
     const [yearPeriods, setYearPeriods] = useState()
     const [year, setYear] = useState()
-    const byYear = periodType === 'BY_YEAR' || periodType === 'EE_MONTHLY'
+    const byYear = periodType === BY_YEAR || periodType === EE_MONTHLY
 
     const years = useMemo(
         () =>
