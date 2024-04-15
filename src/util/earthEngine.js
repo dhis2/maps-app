@@ -9,16 +9,6 @@ export const classAggregation = ['percentage', 'hectares', 'acres']
 
 export const hasClasses = (type) => classAggregation.includes(type)
 
-// Translates from dynamic to static filters
-export const translateFilters = (filters, ...args) =>
-    filters.map((filter) => ({
-        ...filter,
-        arguments: filter.arguments.map((arg) => {
-            const match = arg.match(/^\$([0-9]+)$/)
-            return match ? args[match[1] - 1] : arg
-        }),
-    }))
-
 export const getStartEndDate = (data) =>
     formatStartEndDate(
         data['system:time_start'],
@@ -27,6 +17,15 @@ export const getStartEndDate = (data) =>
         false
     )
 
+const getStaticFiltersFromDynamic = (filters, ...args) =>
+    filters.map((filter) => ({
+        ...filter,
+        arguments: filter.arguments.map((arg) => {
+            const match = arg.match(/^\$([0-9]+)$/)
+            return match ? args[match[1] - 1] : arg
+        }),
+    }))
+
 const getMonth = (data) => {
     const date = new Date(data['system:time_start'])
     const month = date.toLocaleString('default', { month: 'long' })
@@ -34,12 +33,12 @@ const getMonth = (data) => {
     return `${month} ${year}`
 }
 
-export const getFilterFromPeriod = (period, filters) => {
+export const getStaticFilterFromPeriod = (period, filters) => {
     if (!period || !filters) {
         return
     }
 
-    return translateFilters(filters, period.id)
+    return getStaticFiltersFromDynamic(filters, period.id)
 }
 
 const nonDigits = /^\D+/g

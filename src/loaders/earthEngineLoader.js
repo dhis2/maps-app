@@ -5,7 +5,7 @@ import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import {
     hasClasses,
-    getFilterFromPeriod,
+    getStaticFilterFromPeriod,
     getPeriodFromFilter,
 } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
@@ -197,7 +197,7 @@ const earthEngineLoader = async (config) => {
         legend.items = createLegend(style, !maskOperator)
     }
 
-    const filter = getFilterFromPeriod(period, filters)
+    const filter = getStaticFilterFromPeriod(period, filters)
 
     return {
         ...layer,
