@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../../layers.js'
+import { BY_YEAR } from '../../periods.js'
 
 export default {
     legacy: true, // kept for backward compability
