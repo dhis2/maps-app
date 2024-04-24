@@ -1,3 +1,11 @@
+## [100.5.2](https://github.com/dhis2/maps-app/compare/v100.5.1...v100.5.2) (2024-04-24)
+
+
+### Bug Fixes
+
+* paragraph newlines in map description were being removed ([#3182](https://github.com/dhis2/maps-app/issues/3182)) ([1e40100](https://github.com/dhis2/maps-app/commit/1e4010091d5398e572efcf155f6baea2d9ddcdc9))
+* **translations:** sync translations from transifex (dev) ([63bce3d](https://github.com/dhis2/maps-app/commit/63bce3d215b8d0cc0b01bbec95bd0d7d310d827a))
+
 ## [100.5.1](https://github.com/dhis2/maps-app/compare/v100.5.0...v100.5.1) (2024-03-19)
 
 
