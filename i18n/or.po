@@ -1,30 +1,27 @@
 # 
 # Translators:
-# SubhamJena <subhamjena8465@gmail.com>, 2022
+# SubhamJena <subhamjena8465@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: SubhamJena <subhamjena8465@gmail.com>, 2022\n"
-"Language-Team: Odia (https://www.transifex.com/hisp-uio/teams/100509/or/)\n"
+"Last-Translator: SubhamJena <subhamjena8465@gmail.com>, 2024\n"
+"Language-Team: Odia (https://app.transifex.com/hisp-uio/teams/100509/or/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: or\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Maps"
+msgid "Untitled map, {{date}}"
 msgstr ""
 
-msgid "Map \"{{name}}\" is saved."
+msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
-msgid "Failed to save map. {{message}}"
-msgstr ""
-
-msgid "Error"
+msgid "Failed to save map: {{message}}"
 msgstr ""
 
 msgid "Classification"
@@ -40,6 +37,18 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Display"
 msgstr ""
 
 msgid "Data element group"
@@ -60,49 +69,105 @@ msgstr "ବିବରଣୀ"
 msgid "Yes"
 msgstr "ହଁ"
 
+msgid "None"
+msgstr ""
+
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
+msgstr ""
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
 msgstr ""
 
-msgid "None"
+msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
 
-msgid "Data item"
+msgid "Event > org unit coordinate"
 msgstr ""
 
 msgid "Event data item"
 msgstr ""
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
 msgid "Style by data element"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Data item"
+msgstr ""
+
+msgid "one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr ""
+
+msgid "Date"
 msgstr ""
 
 msgid "Data set"
 msgstr ""
 
+msgid "No results found"
+msgstr ""
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
 msgid "Index"
 msgstr ""
 
-msgid "Org unit"
-msgstr ""
-
-msgid "Name"
-msgstr ""
-
 msgid "Id"
-msgstr ""
-
-msgid "Event time"
-msgstr ""
-
-msgid "Value"
-msgstr ""
-
-msgid "Legend"
-msgstr ""
-
-msgid "Range"
 msgstr ""
 
 msgid "Level"
@@ -114,10 +179,16 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-msgid "Data table is not supported when events are grouped on the server."
+msgid "Legend"
 msgstr ""
 
-msgid "Add filter"
+msgid "Range"
+msgstr ""
+
+msgid "Org unit"
+msgstr ""
+
+msgid "Event time"
 msgstr ""
 
 msgid "Items"
@@ -129,13 +200,38 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+msgid "Exit download mode"
+msgstr ""
+
 msgid "Download map"
 msgstr ""
 
-msgid "Show name"
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show legend"
+msgstr ""
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
 msgstr ""
 
 msgid ""
@@ -148,7 +244,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-msgid "Legend position"
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Organisation Units"
@@ -161,9 +257,6 @@ msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -184,6 +277,9 @@ msgstr ""
 msgid "Earth Engine"
 msgstr ""
 
+msgid "feature"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -197,9 +293,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -275,9 +368,6 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-msgid "Events"
-msgstr ""
-
 msgid "Group events"
 msgstr ""
 
@@ -315,6 +405,18 @@ msgid "Radius in meters"
 msgstr ""
 
 msgid "Buffer can't be combined with associated geometry."
+msgstr ""
+
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
 msgstr ""
 
 msgid "Labels"
@@ -409,25 +511,6 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
-msgid ""
-"Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
-
-msgid "Selection mode"
-msgstr ""
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr ""
-
 msgid "Tracked entity style"
 msgstr ""
 
@@ -440,52 +523,16 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
-msgid "Failed to load relationship types."
-msgstr ""
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
 msgstr ""
 
-msgid "An error occurred in the DHIS2 Maps application."
+msgid "No data to show for this feature."
 msgstr ""
 
-msgid "Something went wrong"
-msgstr ""
-
-msgid "Refresh to try again"
-msgstr ""
-
-msgid "Hide technical details"
-msgstr ""
-
-msgid "Show technical details"
-msgstr ""
-
-msgid "The following information may be requested by technical support."
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "contains"
-msgstr ""
-
-msgid "is"
-msgstr ""
-
-msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr ""
-
-msgid "Date"
+msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
@@ -501,9 +548,6 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
-
-msgid "Interpretations"
 msgstr ""
 
 msgid "Collapse"
@@ -529,19 +573,22 @@ msgid ""
 "Desktop."
 msgstr ""
 
-msgid "Data download failed."
-msgstr ""
-
 msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
 msgstr ""
 
+msgid "Data download failed."
+msgstr ""
+
 msgid "External layer"
 msgstr ""
 
 msgid "Split view can not be combined with other layer types."
+msgstr ""
+
+msgid "Failed to load layer"
 msgstr ""
 
 msgid "Loading layer"
@@ -556,10 +603,16 @@ msgstr ""
 msgid "Toggle visibility"
 msgstr ""
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
+msgstr ""
+
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "Hide data table"
@@ -589,6 +642,9 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
+msgid "{{layername}}: {{message}}"
+msgstr ""
+
 msgid "Drill up one level"
 msgstr ""
 
@@ -610,10 +666,13 @@ msgstr "ଦ୍ରାଘିମା"
 msgid "Latitude"
 msgstr "ଅକ୍ଷାଂଶ"
 
-msgid "Viewing interpretation from {{interpretationDate}}"
+msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
 msgid "Not set"
+msgstr ""
+
+msgid "Could not retrieve event data"
 msgstr ""
 
 msgid "Organisation unit"
@@ -725,13 +784,13 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "No data found for this period."
-msgstr ""
-
 msgid "Use associated geometry"
 msgstr ""
 
-msgid "Select groups"
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
 msgstr ""
 
 msgid "Image of the organisation unit"
@@ -773,48 +832,19 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-msgid "Select levels"
-msgstr ""
-
 msgid "Organisation unit profile"
 msgstr ""
 
-msgid ""
-"It’s not possible to combine user organisation units and select individual "
-"units."
+msgid "Selected only"
 msgstr ""
 
-msgid "user organisation unit"
+msgid "Selected and below"
 msgstr ""
 
-msgid "right below user organisation unit"
+msgid "Selected and all below"
 msgstr ""
 
-msgid "two levels below user organisation unit"
-msgstr ""
-
-msgid "{{units}} in {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
-
-msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
-
-msgid "Selected organisation units"
-msgstr ""
-
-msgid "Main"
-msgstr ""
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
-msgid "User organisation units"
+msgid "Selection mode"
 msgstr ""
 
 msgid "Previous year"
@@ -914,12 +944,6 @@ msgid "OSM Light"
 msgstr ""
 
 msgid "OSM Detailed"
-msgstr ""
-
-msgid "Google Streets"
-msgstr ""
-
-msgid "Google Hybrid"
 msgstr ""
 
 msgid "Bing Road"
@@ -1280,6 +1304,9 @@ msgstr ""
 msgid "You don't have access to this layer data"
 msgstr ""
 
+msgid "The event filter is not supported"
+msgstr ""
+
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
@@ -1298,7 +1325,28 @@ msgstr ""
 msgid "Facilities: No coordinates found"
 msgstr ""
 
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr "ବହୁଭୂଜ"
+
+msgid "Line"
+msgstr ""
+
+msgid "Point"
+msgstr ""
+
 msgid "Organisation units"
+msgstr ""
+
+msgid "Error"
 msgstr ""
 
 msgid "Thematic layer"
@@ -1314,12 +1362,6 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
-msgstr ""
-
-msgid "Thematic"
-msgstr ""
-
-msgid "Org units"
 msgstr ""
 
 msgid "not one of"
@@ -1343,6 +1385,18 @@ msgstr ""
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr ""
+
+msgid "Tracked entities"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "Facility"

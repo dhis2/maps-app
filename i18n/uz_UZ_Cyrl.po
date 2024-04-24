@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2024\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -151,6 +151,22 @@ msgstr "Нимадир нотўғри бажарилди"
 msgid "Search"
 msgstr "Қидириш"
 
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+"Ҳодиса/Тадбирлар серверда гуруҳланаётганда, маълумотлар жадвали қўллаб-"
+"қувватланмайди"
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
 msgid "Index"
 msgstr "Инденкс/кўрсатгич"
 
@@ -177,17 +193,6 @@ msgstr "Ташкилий бўлим"
 
 msgid "Event time"
 msgstr "Ҳодиса/Тадбир вақти"
-
-msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
-"Ҳодиса/Тадбирлар серверда гуруҳланаётганда, маълумотлар жадвали қўллаб-"
-"қувватланмайди"
-
-msgid "No valid data was found for the current layer configuration."
-msgstr ""
-
-msgid "Data table is not supported for this layer type."
-msgstr ""
 
 msgid "Items"
 msgstr "Элементлар"
@@ -280,6 +285,9 @@ msgstr "Ташкилий бўлим"
 
 msgid "Earth Engine"
 msgstr "Уйдаги механизм"
+
+msgid "feature"
+msgstr ""
 
 msgid "Edit {{name}} layer"
 msgstr "{{name}} қатламини таҳрирлаш"
@@ -415,6 +423,18 @@ msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 "Ассоцирланган геометрия билан буфер маълумотини комбинациялаш имконсиз"
 
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
 msgid "Labels"
 msgstr "Ёрлиқлар"
 
@@ -528,6 +548,12 @@ msgstr "Кузатувдаги объектлар ўзаро алоқалар т
 msgid "Relationship type"
 msgstr "Ўзаро алоқалар тури"
 
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
+msgstr ""
+
 msgid "Remove filter"
 msgstr "Фильтрни олиб ташлаш"
 
@@ -584,6 +610,9 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 "Ажратилган кўринишларни бошқа қатлам турлари билан бирлаштириб бўлмайди."
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr "Юкланадиган қават"
 
@@ -596,14 +625,17 @@ msgstr "Таҳрирлаш"
 msgid "Toggle visibility"
 msgstr "Кўринишни ёқинг"
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr "Қатлам хиралигини таҳрирланг"
 
-msgid "Toggle layer menu"
-msgstr "Қатлам менюсини ўзгартириш"
-
 msgid "More actions"
 msgstr "Бошқа ҳаракатлар"
+
+msgid "Toggle layer menu"
+msgstr "Қатлам менюсини ўзгартириш"
 
 msgid "Hide data table"
 msgstr "Маълумотлар жадвали беркитилсин"
@@ -631,6 +663,9 @@ msgstr "Гуруҳ"
 
 msgid "Filters"
 msgstr "Фильрлар"
+
+msgid "{{layername}}: {{message}}"
+msgstr ""
 
 msgid "Drill up one level"
 msgstr "Бир поғонага кўтарилинг"
@@ -1331,6 +1366,24 @@ msgstr "Муассасалар"
 
 msgid "Facilities: No coordinates found"
 msgstr "Ташкилот: Координаталар аниқланмади"
+
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr "Полигон"
+
+msgid "Line"
+msgstr "Қатор"
+
+msgid "Point"
+msgstr "Нуқта"
 
 msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"

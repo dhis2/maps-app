@@ -1,16 +1,16 @@
 # 
 # Translators:
-# 晓东 林 <13981924470@126.com>, 2022
-# Philip Larsen Donnelly, 2022
-# Viktor Varland <viktor@dhis2.org>, 2023
-# easylin <lin_xd@126.com>, 2023
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
+# 晓东 林 <13981924470@126.com>, 2024
+# easylin <lin_xd@126.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,23 +141,37 @@ msgstr "日期"
 msgid "Data set"
 msgstr "数据集"
 
+msgid "No results found"
+msgstr "没有结果"
+
+msgid "Sort by {{column}}"
+msgstr "按{{column}}排序"
+
+msgid "Something went wrong"
+msgstr "出问题了"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr "在服务器上对事件进行分组时，不支持数据表。"
+
+msgid "No valid data was found for the current layer configuration."
+msgstr "未找到当前图层配置的有效数据。"
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr "当数据集中存在不止一种几何类型时，不支持数据表。"
+
+msgid "No valid data fields were found for this layer."
+msgstr "未找到该图层的有效数据字段。"
+
 msgid "Index"
 msgstr "索引"
 
-msgid "Org unit"
-msgstr "机构"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "事件时间"
-
-msgid "Legend"
-msgstr "图例"
-
-msgid "Range"
-msgstr "范围"
 
 msgid "Level"
 msgstr "等级"
@@ -168,8 +182,17 @@ msgstr "上级"
 msgid "Type"
 msgstr "类型"
 
-msgid "Data table is not supported when events are grouped on the server."
-msgstr "在服务器上对事件进行分组时，不支持数据表。"
+msgid "Legend"
+msgstr "图例"
+
+msgid "Range"
+msgstr "范围"
+
+msgid "Org unit"
+msgstr "机构"
+
+msgid "Event time"
+msgstr "事件时间"
 
 msgid "Items"
 msgstr "条目"
@@ -256,6 +279,9 @@ msgstr "组织单位"
 
 msgid "Earth Engine"
 msgstr "地图引擎"
+
+msgid "feature"
+msgstr "特征"
 
 msgid "Edit {{name}} layer"
 msgstr "编辑{{name}} 图层"
@@ -384,6 +410,18 @@ msgstr "半径（米）"
 msgid "Buffer can't be combined with associated geometry."
 msgstr "缓冲区不能与关联的几何图形组合。"
 
+msgid "Fill color"
+msgstr "填色"
+
+msgid "Line/stroke color"
+msgstr "线条/描边颜色"
+
+msgid "Line/stroke width"
+msgstr "线条/笔划宽度"
+
+msgid "Line/stroke width must be between 0-10."
+msgstr "线条/描边宽度必须介于 0-10 之间。"
+
 msgid "Labels"
 msgstr "标签"
 
@@ -494,6 +532,12 @@ msgstr "跟踪的实体类型没有发现关系类型"
 msgid "Relationship type"
 msgstr "关系类型"
 
+msgid "No data to show for this feature."
+msgstr "没有可显示此功能的数据。"
+
+msgid "Feature profile"
+msgstr "特征简介"
+
 msgid "Remove filter"
 msgstr "移除过滤器"
 
@@ -547,6 +591,9 @@ msgstr "外部图层"
 msgid "Split view can not be combined with other layer types."
 msgstr "分离视图不能和其它图层混合"
 
+msgid "Failed to load layer"
+msgstr "加载图层失败"
+
 msgid "Loading layer"
 msgstr "载入图层"
 
@@ -559,14 +606,17 @@ msgstr "编辑"
 msgid "Toggle visibility"
 msgstr "切换可视性"
 
+msgid "Layer is invalid"
+msgstr "图层无效"
+
 msgid "Set layer opacity"
 msgstr "设置图层透明性"
 
-msgid "Toggle layer menu"
-msgstr "切换图层菜单"
-
 msgid "More actions"
 msgstr "更多操作"
+
+msgid "Toggle layer menu"
+msgstr "切换图层菜单"
 
 msgid "Hide data table"
 msgstr "隐藏数据表"
@@ -594,6 +644,9 @@ msgstr "组"
 
 msgid "Filters"
 msgstr "过滤器"
+
+msgid "{{layername}}: {{message}}"
+msgstr "{{layername}}：{{message}}"
 
 msgid "Drill up one level"
 msgstr "上钻一级"
@@ -1274,6 +1327,24 @@ msgstr "机构设施"
 
 msgid "Facilities: No coordinates found"
 msgstr "机构设施：未找到坐标"
+
+msgid "Url to geojson is invalid."
+msgstr "geojson 的 URL 无效。"
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr "这层有问题。联系系统管理员。"
+
+msgid "Feature"
+msgstr "特征"
+
+msgid "Polygon"
+msgstr "多边形"
+
+msgid "Line"
+msgstr "折线图"
+
+msgid "Point"
+msgstr "点"
 
 msgid "Organisation units"
 msgstr "组织机构"

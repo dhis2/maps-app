@@ -1,6 +1,5 @@
 # 
 # Translators:
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # ericbp <ericbarredap@gmail.com>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Alison Andrade <aandrade@ippfwhr.org>, 2021
@@ -9,17 +8,19 @@
 # Prabhjot Singh, 2021
 # Carlos Tejo Alonso, 2022
 # Marta Vila <marta@dhis2.org>, 2023
-# Viktor Varland <viktor@dhis2.org>, 2023
-# Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
 # Alejandra Avila <alejandra@dhis2.org>, 2023
 # Janeth Cruz, 2023
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2024
+# Pablo Del Médico, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Janeth Cruz, 2023\n"
+"Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,23 +152,39 @@ msgstr "Fecha"
 msgid "Data set"
 msgstr "Set de Datos"
 
+msgid "No results found"
+msgstr "No se han encontrado resultados"
+
+msgid "Sort by {{column}}"
+msgstr "Ordenar por {{column}}"
+
+msgid "Something went wrong"
+msgstr "Algo ha salido mal"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+"La tabla de datos no es soportada cuando los eventos están agrupados en el "
+"servidor."
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
 msgid "Index"
 msgstr "índice"
 
-msgid "Org unit"
-msgstr "Unidad Organizativa"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "Event time"
-
-msgid "Legend"
-msgstr "Set de leyendas"
-
-msgid "Range"
-msgstr "Rango"
 
 msgid "Level"
 msgstr "Nivel"
@@ -178,10 +195,17 @@ msgstr "Padre"
 msgid "Type"
 msgstr "Tipo"
 
-msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
-"La tabla de datos no es soportada cuando los eventos están agrupados en el "
-"servidor."
+msgid "Legend"
+msgstr "Set de leyendas"
+
+msgid "Range"
+msgstr "Rango"
+
+msgid "Org unit"
+msgstr "Unidad Organizativa"
+
+msgid "Event time"
+msgstr "Event time"
 
 msgid "Items"
 msgstr "Elementos"
@@ -270,6 +294,9 @@ msgstr "Unidad organizativa"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
+
+msgid "feature"
+msgstr ""
 
 msgid "Edit {{name}} layer"
 msgstr "Editar capa {{name}}"
@@ -400,6 +427,18 @@ msgstr "Radio en metros"
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
 msgid "Labels"
 msgstr "Etiquetas"
 
@@ -510,6 +549,12 @@ msgstr ""
 msgid "Relationship type"
 msgstr "Relationship type"
 
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
+msgstr ""
+
 msgid "Remove filter"
 msgstr "Quitar filtro"
 
@@ -563,6 +608,9 @@ msgstr "Capa externa"
 msgid "Split view can not be combined with other layer types."
 msgstr "La vista dividida no puede combinarse con otros tipos de capas."
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr "Cargando capa"
 
@@ -575,14 +623,17 @@ msgstr "Editar"
 msgid "Toggle visibility"
 msgstr ""
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr "Establecer la opacidad de la capa"
 
-msgid "Toggle layer menu"
-msgstr ""
-
 msgid "More actions"
 msgstr "Más acciones"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
@@ -610,6 +661,9 @@ msgstr "Grupo"
 
 msgid "Filters"
 msgstr "Filtros"
+
+msgid "{{layername}}: {{message}}"
+msgstr ""
 
 msgid "Drill up one level"
 msgstr "Desglosar nivel anterior"
@@ -1293,6 +1347,24 @@ msgstr "Establecimientos"
 
 msgid "Facilities: No coordinates found"
 msgstr ""
+
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr "Polígono"
+
+msgid "Line"
+msgstr "Línea"
+
+msgid "Point"
+msgstr "Punto"
 
 msgid "Organisation units"
 msgstr "Unidades organizativas"
