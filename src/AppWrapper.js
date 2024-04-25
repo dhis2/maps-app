@@ -21,12 +21,19 @@ log.setLevel(
 
 const d2Config = {
     schemas: [
-        'dataElement',
+        // still needed
+        'externalMapLayer', // util/external getExternalLayer
+        'programStage', //util/helpers
+
+        // can be removed
         'dataElementGroup',
-        'dataSet',
-        'externalMapLayer',
-        'indicator',
         'indicatorGroup',
+        'userGroup',
+
+        // checking
+        'dataElement',
+        'dataSet',
+        'indicator',
         'legendSet',
         'map',
         'optionSet',
@@ -35,8 +42,6 @@ const d2Config = {
         'organisationUnitGroupSet',
         'organisationUnitLevel',
         'program',
-        'programStage',
-        'userGroup',
     ],
 }
 
