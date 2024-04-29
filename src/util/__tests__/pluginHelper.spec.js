@@ -28,9 +28,25 @@ describe('didViewsChange', () => {
         expect(didViewsChange(oldViews, newViews)).toEqual(true)
     })
 
+    it('should return true if the filter items have changed by adding one more', () => {
+        const oldViews = [{ filters: [{ items: [{ id: '1' }] }], rows: [] }]
+        const newViews = [
+            { filters: [{ items: [{ id: '1' }, { id: '2' }] }], rows: [] },
+        ]
+        expect(didViewsChange(oldViews, newViews)).toEqual(true)
+    })
+
     it('should return true if the row items have changed', () => {
         const oldViews = [{ filters: [], rows: [{ items: [{ id: '1' }] }] }]
         const newViews = [{ filters: [], rows: [{ items: [{ id: '2' }] }] }]
+        expect(didViewsChange(oldViews, newViews)).toEqual(true)
+    })
+
+    it('should return true if the row items have changed by adding one more', () => {
+        const oldViews = [{ filters: [], rows: [{ items: [{ id: '1' }] }] }]
+        const newViews = [
+            { filters: [], rows: [{ items: [{ id: '1' }, { id: '2' }] }] },
+        ]
         expect(didViewsChange(oldViews, newViews)).toEqual(true)
     })
 
@@ -38,13 +54,13 @@ describe('didViewsChange', () => {
         const oldViews = [
             {
                 filters: [{ items: [{ id: '1' }] }],
-                rows: [{ items: [{ id: '1' }] }],
+                rows: [{ items: [{ id: '3' }] }],
             },
         ]
         const newViews = [
             {
                 filters: [{ items: [{ id: '1' }] }],
-                rows: [{ items: [{ id: '1' }] }],
+                rows: [{ items: [{ id: '3' }] }],
             },
         ]
         expect(didViewsChange(oldViews, newViews)).toEqual(false)

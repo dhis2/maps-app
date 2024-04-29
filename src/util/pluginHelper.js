@@ -11,14 +11,15 @@ const didViewsChange = (oldViews, newViews) => {
 
         if (
             newView.filters.some((filter, j) => {
-                const oldItemIds = new Set(
-                    oldView.filters[j].items.map((item) => item.id)
+                const oldItemIds = oldView.filters[j].items.map(
+                    (item) => item.id
                 )
-                const newItemIds = new Set(filter.items.map((item) => item.id))
+
+                const newItemIds = filter.items.map((item) => item.id)
 
                 return (
-                    oldItemIds.size !== newItemIds.size ||
-                    [...oldItemIds].some((id) => !newItemIds.has(id))
+                    oldItemIds.length !== newItemIds.length ||
+                    oldItemIds.some((id) => !newItemIds.includes(id))
                 )
             })
         ) {
@@ -27,14 +28,13 @@ const didViewsChange = (oldViews, newViews) => {
 
         if (
             newView.rows.some((row, j) => {
-                const oldItemIds = new Set(
-                    oldView.rows[j].items.map((item) => item.id)
-                )
-                const newItemIds = new Set(row.items.map((item) => item.id))
+                const oldItemIds = oldView.rows[j].items.map((item) => item.id)
+
+                const newItemIds = row.items.map((item) => item.id)
 
                 return (
-                    oldItemIds.size !== newItemIds.size ||
-                    [...oldItemIds].some((id) => !newItemIds.has(id))
+                    oldItemIds.length !== newItemIds.length ||
+                    oldItemIds.some((id) => !newItemIds.includes(id))
                 )
             })
         ) {
