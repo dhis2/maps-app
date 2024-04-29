@@ -19,7 +19,7 @@ const didViewsChange = (oldViews, newViews) => {
 
                 return (
                     oldItemIds.length !== newItemIds.length ||
-                    oldItemIds.some((id) => !newItemIds.includes(id))
+                    !oldItemIds.every((id, index) => id === newItemIds[index])
                 )
             })
         ) {
@@ -34,7 +34,7 @@ const didViewsChange = (oldViews, newViews) => {
 
                 return (
                     oldItemIds.length !== newItemIds.length ||
-                    oldItemIds.some((id) => !newItemIds.includes(id))
+                    !oldItemIds.every((id, index) => id === newItemIds[index])
                 )
             })
         ) {

@@ -50,6 +50,26 @@ describe('didViewsChange', () => {
         expect(didViewsChange(oldViews, newViews)).toEqual(true)
     })
 
+    it('should return true if the order of the filter items has changed', () => {
+        const oldViews = [
+            { filters: [{ items: [{ id: '1' }, { id: '2' }] }], rows: [] },
+        ]
+        const newViews = [
+            { filters: [{ items: [{ id: '2' }, { id: '1' }] }], rows: [] },
+        ]
+        expect(didViewsChange(oldViews, newViews)).toEqual(true)
+    })
+
+    it('should return true if the order of the row items has changed', () => {
+        const oldViews = [
+            { filters: [], rows: [{ items: [{ id: '1' }, { id: '2' }] }] },
+        ]
+        const newViews = [
+            { filters: [], rows: [{ items: [{ id: '2' }, { id: '1' }] }] },
+        ]
+        expect(didViewsChange(oldViews, newViews)).toEqual(true)
+    })
+
     it('should return false if the views have not changed', () => {
         const oldViews = [
             {
