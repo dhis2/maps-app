@@ -22,7 +22,6 @@ log.setLevel(
 const d2Config = {
     schemas: [
         // still needed
-        'externalMapLayer', // util/external getExternalLayer
         'programStage', //util/helpers
 
         // can be removed

@@ -6,7 +6,7 @@ import {
     GEOJSON_URL_LAYER,
     GEOJSON_LAYER,
 } from '../constants/layers.js'
-import { getExternalLayer } from './requests.js'
+import { getExternalLayer, fetchExternalLayerQuery } from './requests.js'
 
 const MAP_SERVICE_WMS = 'WMS'
 const MAP_SERVICE_TMS = 'TMS'
@@ -76,7 +76,7 @@ const createExternalLayerConfig = (model) => {
 }
 
 // Parse external layer config returned as a string in ao
-export const parseLayerConfig = async (layerConfig) => {
+export const parseLayerConfig = async (layerConfig, engine) => {
     let config
 
     try {
@@ -89,8 +89,15 @@ export const parseLayerConfig = async (layerConfig) => {
     // use a fresh layer config from the API
     if (config.id) {
         try {
-            const layer = await getExternalLayer(config.id)
-            const newConfig = createExternalLayerConfig(layer)
+            const { externalLayer } = await engine.query(
+                { externalLayer: fetchExternalLayerQuery },
+                {
+                    variables: {
+                        id: config.id,
+                    },
+                }
+            )
+            const newConfig = createExternalLayerConfig(externalLayer)
             newConfig.featureStyle = { ...config.featureStyle }
         } catch (evt) {
             return config

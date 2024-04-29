@@ -1,6 +1,6 @@
-import { getInstance as getD2 } from 'd2'
 import { getMigratedMapConfig } from './getMigratedMapConfig.js'
 import { mapFields } from './helpers.js'
+
 // API requests
 
 const fetchMapQuery = {
@@ -35,7 +35,10 @@ export const fetchExternalLayersQuery = {
 }
 
 // Fetch a single externalLayer
-export const getExternalLayer = async (id) => {
-    const d2 = await getD2()
-    return d2.models.externalMapLayers.get(id)
+export const fetchExternalLayerQuery = {
+    resource: 'externalMapLayers',
+    id: ({ id }) => id,
+    params: {
+        fields: 'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
+    },
 }
