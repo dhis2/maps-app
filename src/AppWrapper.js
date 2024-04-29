@@ -24,11 +24,6 @@ const d2Config = {
         // still needed
         'programStage', //util/helpers
 
-        // can be removed
-        'dataElementGroup',
-        'indicatorGroup',
-        'userGroup',
-
         // checking
         'dataElement',
         'dataSet',
