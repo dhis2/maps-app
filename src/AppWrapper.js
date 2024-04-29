@@ -34,7 +34,6 @@ const d2Config = {
         'organisationUnit',
         'organisationUnitGroup',
         'organisationUnitGroupSet',
-        'organisationUnitLevel',
         'program',
     ],
 }

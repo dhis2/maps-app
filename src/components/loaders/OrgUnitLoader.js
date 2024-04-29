@@ -1,11 +1,13 @@
+import { useDataEngine } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import orgUnitLoader from '../../loaders/orgUnitLoader.js'
 
 const OrgUnitLoader = ({ config, onLoad }) => {
+    const engine = useDataEngine()
     useEffect(() => {
-        orgUnitLoader(config).then(onLoad)
-    }, [config, onLoad])
+        orgUnitLoader(config, engine).then(onLoad)
+    }, [config, onLoad, engine])
 
     return null
 }

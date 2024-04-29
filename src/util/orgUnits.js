@@ -182,24 +182,6 @@ export const getStyledOrgUnits = (
 }
 /* eslint-enable max-params */
 
-// This function returns the org unit level names used in the legend
-export const getOrgUnitLevels = async (d2) => {
-    const orgUnitLevels = await d2.models.organisationUnitLevels.list({
-        fields: `id,${getDisplayPropertyUrl(d2)},level`,
-        paging: false,
-    })
-
-    return orgUnitLevels
-        ? orgUnitLevels.toArray().reduce(
-              (obj, item) => ({
-                  ...obj,
-                  [item.level]: item.name,
-              }),
-              {}
-          )
-        : {}
-}
-
 // Converts "LEVEL-x" to newer "LEVEL-uid" format
 export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
     const items = orgUnits?.items || []

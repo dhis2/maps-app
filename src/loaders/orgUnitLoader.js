@@ -6,12 +6,21 @@ import { toGeoJson } from '../util/map.js'
 import {
     fetchOrgUnitGroupSet,
     addAssociatedGeometries,
-    getOrgUnitLevels,
     getStyledOrgUnits,
     getCoordinateField,
 } from '../util/orgUnits.js'
 
-const orgUnitLoader = async (config) => {
+const orgUnitLevelsQuery = {
+    orgUnitLevels: {
+        resource: 'organisationUnitLevels',
+        params: {
+            fields: 'id,level,displayName~rename(name)',
+            paging: false,
+        },
+    },
+}
+
+const orgUnitLoader = async (config, engine) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const orgUnitParams = orgUnits.map((item) => item.id)
@@ -45,7 +54,6 @@ const orgUnitLoader = async (config) => {
                     })
                 }
             }),
-        getOrgUnitLevels(d2),
     ]
 
     // Load organisationUnitGroups if not passed
@@ -53,8 +61,11 @@ const orgUnitLoader = async (config) => {
         requests.push(fetchOrgUnitGroupSet(groupSet.id))
     }
 
-    const [mainFeatures = [], orgUnitLevels, organisationUnitGroups] =
-        await Promise.all(requests)
+    const { orgUnitLevels } = await engine.query(orgUnitLevelsQuery)
+
+    const [mainFeatures = [], organisationUnitGroups] = await Promise.all(
+        requests
+    )
 
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
@@ -95,7 +106,13 @@ const orgUnitLoader = async (config) => {
         groupSet,
         config,
         contextPath,
-        orgUnitLevels
+        orgUnitLevels.organisationUnitLevels.reduce(
+            (obj, item) => ({
+                ...obj,
+                [item.level]: item.name,
+            }),
+            {}
+        )
     )
 
     legend.title = name

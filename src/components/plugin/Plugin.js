@@ -20,7 +20,6 @@ const d2Config = {
         'optionSet',
         'organisationUnitGroup',
         'organisationUnitGroupSet',
-        'organisationUnitLevel',
         'programStage',
     ],
 }
