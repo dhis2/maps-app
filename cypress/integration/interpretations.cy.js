@@ -75,6 +75,7 @@ context('Interpretations', () => {
     })
 
     it('opens and closes the interpretation panel', () => {
+        console.log('jj interpretations 1')
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
@@ -83,6 +84,7 @@ context('Interpretations', () => {
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
+        console.log('jj interpretations 2')
         cy.wait('@postDataStatistics')
             .its('response.statusCode')
             .should('eq', 201)
@@ -94,16 +96,19 @@ context('Interpretations', () => {
             )
             .should('be.visible')
 
+        console.log('jj interpretations 3')
         cy.url().should('include', 'interpretationId=')
 
         cy.getByDataTest('interpretation-modal')
             .findByDataTest('dhis2-modal-close-button')
             .click()
 
+        console.log('jj interpretations 4')
         cy.getByDataTest('interpretation-modal').should('not.exist')
 
         cy.url().should('not.include', 'interpretationId=')
 
+        console.log('jj interpretations 5')
         cy.getByDataTest('interpretations-list').should('be.visible')
     })
 })
