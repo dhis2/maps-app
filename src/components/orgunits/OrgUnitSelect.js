@@ -1,4 +1,4 @@
-import { OrgUnitDimension } from '@dhis2/analytics'
+import { OrgUnitDimension, useCachedDataQuery } from '@dhis2/analytics'
 import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -23,6 +23,7 @@ const OrgUnitSelect = ({
     hideGroupSelect = false,
     warning,
 }) => {
+    const { nameProperty } = useCachedDataQuery()
     const { roots, levels, loading, error } = useOrgUnits()
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()
@@ -84,6 +85,7 @@ const OrgUnitSelect = ({
                     hideLevelSelect={hideLevelSelect}
                     hideGroupSelect={hideGroupSelect}
                     warning={!hasOrgUnits ? warning : null}
+                    displayNameProp={nameProperty}
                 />
             </div>
             {!hideAssociatedGeometry && <AssociatedGeometrySelect />}
