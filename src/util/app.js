@@ -77,6 +77,8 @@ export const providerDataTransformation = ({
         name: currentUser.name,
         username: currentUser.username,
         authorities: new Set(currentUser.authorities),
+        keyAnalysisDisplayProperty:
+            currentUser.settings.keyAnalysisDisplayProperty,
     },
     nameProperty:
         currentUser.settings.keyAnalysisDisplayProperty === 'name'

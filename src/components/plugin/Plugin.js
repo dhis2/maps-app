@@ -19,7 +19,6 @@ const d2Config = {
         'map',
         'optionSet',
         'organisationUnitGroup',
-        'organisationUnitGroupSet',
         'programStage',
     ],
 }

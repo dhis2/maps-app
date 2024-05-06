@@ -1,15 +1,16 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
-    fetchOrgUnitGroupSet,
+    orgUnitGroupSetsQuery,
     addAssociatedGeometries,
     getStyledOrgUnits,
     getCoordinateField,
+    parseGroupSet,
 } from '../util/orgUnits.js'
 
+// orgUnitLevels do not have shortName property
 const orgUnitLevelsQuery = {
     orgUnitLevels: {
         resource: 'organisationUnitLevels',
@@ -20,7 +21,7 @@ const orgUnitLevelsQuery = {
     },
 }
 
-const orgUnitLoader = async (config, engine) => {
+const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const orgUnitParams = orgUnits.map((item) => item.id)
@@ -28,14 +29,12 @@ const orgUnitLoader = async (config, engine) => {
     const coordinateField = getCoordinateField(config)
 
     const d2 = await getD2()
-    const displayProperty = getDisplayProperty(d2).toUpperCase()
-    const { contextPath } = d2.system.systemInfo
     const name = i18n.t('Organisation units')
     const alerts = []
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
+        .displayProperty(nameProperty)
 
     let associatedGeometries
 
@@ -58,14 +57,15 @@ const orgUnitLoader = async (config, engine) => {
 
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        requests.push(fetchOrgUnitGroupSet(groupSet.id))
+        const orgUnitGroupsRequest = engine.query(orgUnitGroupSetsQuery, {
+            variables: { id: groupSet.id },
+        })
+        requests.push(orgUnitGroupsRequest)
     }
 
     const { orgUnitLevels } = await engine.query(orgUnitLevelsQuery)
 
-    const [mainFeatures = [], organisationUnitGroups] = await Promise.all(
-        requests
-    )
+    const [mainFeatures = [], { groupSets }] = await Promise.all(requests)
 
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
@@ -76,8 +76,10 @@ const orgUnitLoader = async (config, engine) => {
         })
     }
 
-    if (organisationUnitGroups) {
-        groupSet.organisationUnitGroups = organisationUnitGroups
+    if (groupSets) {
+        groupSet.organisationUnitGroups = parseGroupSet({
+            organisationUnitGroups: groupSets.organisationUnitGroups,
+        })
     }
 
     if (coordinateField) {
@@ -105,7 +107,7 @@ const orgUnitLoader = async (config, engine) => {
         features,
         groupSet,
         config,
-        contextPath,
+        baseUrl,
         orgUnitLevels.organisationUnitLevels.reduce(
             (obj, item) => ({
                 ...obj,

@@ -9,9 +9,7 @@ import {
     STYLE_TYPE_SYMBOL,
     NONE,
 } from '../constants/layers.js'
-import { apiFetch } from './api.js'
 import { getUniqueColor } from './colors.js'
-import { getDisplayPropertyUrl } from './helpers.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -44,10 +42,15 @@ export const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     }))
 }
 
-export const fetchOrgUnitGroupSet = (id) =>
-    apiFetch(
-        `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
-    ).then(parseGroupSet)
+export const orgUnitGroupSetsQuery = {
+    groupSets: {
+        resource: 'organisationUnitGroupSets',
+        id: ({ id }) => id,
+        params: {
+            fields: ['organisationUnitGroups[id,name,color,symbol]'],
+        },
+    },
+}
 
 export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 

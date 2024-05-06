@@ -33,7 +33,6 @@ const d2Config = {
         'optionSet',
         'organisationUnit',
         'organisationUnitGroup',
-        'organisationUnitGroupSet',
         'program',
     ],
 }
