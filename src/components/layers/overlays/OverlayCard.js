@@ -130,8 +130,8 @@ const OverlayCard = ({
 
                               // Open it in another app
                               window.open(
-                                `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`,
-                                '_blank'
+                                  `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`,
+                                  '_blank'
                               )
                           }
                         : undefined
