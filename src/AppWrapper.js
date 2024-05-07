@@ -30,7 +30,6 @@ const d2Config = {
         'indicator',
         'legendSet',
         'map',
-        'optionSet',
         'organisationUnit',
         'organisationUnitGroup',
         'program',

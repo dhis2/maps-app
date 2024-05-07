@@ -42,3 +42,18 @@ export const fetchExternalLayerQuery = {
         fields: 'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
     },
 }
+
+export const OPTION_SET_QUERY = {
+    optionSet: {
+        resource: 'optionSets',
+        id: ({ id }) => id,
+        params: {
+            fields: [
+                'id',
+                'displayName~rename(name)',
+                'options[id,code,displayName~rename(name)]',
+            ],
+            paging: false,
+        },
+    },
+}

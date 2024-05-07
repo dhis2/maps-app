@@ -17,6 +17,7 @@ import {
 import { cssColor, getContrastColor } from '../util/colors.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
+import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
@@ -39,10 +40,15 @@ const unknownErrorAlert = {
 
 // TODO: Refactor to share code with other loaders
 // Returns a promise
-const eventLoader = async (layerConfig, loadExtended) => {
+const eventLoader = async ({
+    layerConfig,
+    loadExtended,
+    engine,
+    nameProperty,
+}) => {
     const config = { ...layerConfig }
     try {
-        await loadEventLayer(config, loadExtended)
+        await loadEventLayer({ config, loadExtended, engine, nameProperty })
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [
@@ -63,7 +69,12 @@ const eventLoader = async (layerConfig, loadExtended) => {
     return config
 }
 
-const loadEventLayer = async (config, loadExtended) => {
+const loadEventLayer = async ({
+    config,
+    loadExtended,
+    engine,
+    nameProperty,
+}) => {
     const {
         columns,
         endDate,
@@ -86,7 +97,7 @@ const loadEventLayer = async (config, loadExtended) => {
 
     const analyticsRequest = await getAnalyticsRequest(config, {
         d2,
-        nameProperty: d2.currentUser.settings.keyAnalysisDisplayProperty,
+        nameProperty,
     })
     let alert
 
@@ -129,7 +140,7 @@ const loadEventLayer = async (config, loadExtended) => {
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
-                await styleByDataItem(config)
+                await styleByDataItem(config, engine)
             }
 
             if (total > EVENT_CLIENT_PAGE_SIZE) {
@@ -157,7 +168,11 @@ const loadEventLayer = async (config, loadExtended) => {
             dataFilters &&
             getFiltersAsText(dataFilters, {
                 ...names,
-                ...(await getFilterOptionNames(dataFilters, response.headers)),
+                ...(await getFilterOptionNames(
+                    dataFilters,
+                    response.headers,
+                    engine
+                )),
             })
 
         config.headers = response.headers
@@ -227,9 +242,7 @@ export const getCount = async (request) => {
 
 // If the layer included filters using option sets, this function return an object
 // mapping option codes to named used to translate codes in the legend
-const getFilterOptionNames = async (filters, headers) => {
-    const d2 = await getD2()
-
+const getFilterOptionNames = async (filters, headers, engine) => {
     if (!filters) {
         return null
     }
@@ -246,30 +259,29 @@ const getFilterOptionNames = async (filters, headers) => {
         return
     }
 
-    const mappedOptionSets = await Promise.all(
+    const allOptionSets = await Promise.all(
         optionSets.map((id) =>
-            d2.models.optionSets
-                .get(id, {
-                    fields: 'options[code,displayName~rename(name)]',
-                })
-                .then((model) => model.options)
-                .then((options) =>
-                    options.reduce((obj, { code, name }) => {
-                        obj[code] = name
-                        return obj
-                    }, {})
-                )
+            engine.query(OPTION_SET_QUERY, {
+                variables: { id },
+            })
         )
     )
 
     // Returns one object with all option codes mapped to names
-    return mappedOptionSets.reduce(
-        (obj, set) => ({
-            ...obj,
-            ...set,
-        }),
-        {}
-    )
+    return allOptionSets
+        .map(({ optionSet }) =>
+            optionSet.options.reduce((obj, { code, name }) => {
+                obj[code] = name
+                return obj
+            }, {})
+        )
+        .reduce(
+            (obj, set) => ({
+                ...obj,
+                ...set,
+            }),
+            {}
+        )
 }
 
 export default eventLoader

@@ -17,7 +17,6 @@ const d2Config = {
         'indicator',
         'legendSet',
         'map',
-        'optionSet',
         'organisationUnitGroup',
         'programStage',
     ],

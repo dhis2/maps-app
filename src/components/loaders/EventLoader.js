@@ -1,11 +1,23 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
+import { useDataEngine } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import eventLoader from '../../loaders/eventLoader.js'
 
 const EventLoader = ({ config, dataTableOpen, onLoad }) => {
+    const { currentUser } = useCachedDataQuery()
+    const engine = useDataEngine()
+
+    const nameProperty = currentUser.keyAnalysisDisplayProperty
+
     useEffect(() => {
-        eventLoader(config, dataTableOpen).then(onLoad)
-    }, [config, onLoad, dataTableOpen])
+        eventLoader({
+            layerConfig: config,
+            dataTableOpen,
+            engine,
+            nameProperty,
+        }).then(onLoad)
+    }, [config, onLoad, dataTableOpen, engine, nameProperty])
 
     return null
 }
