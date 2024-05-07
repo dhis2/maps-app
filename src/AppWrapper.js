@@ -21,10 +21,6 @@ log.setLevel(
 
 const d2Config = {
     schemas: [
-        // still needed
-        'programStage', //util/helpers
-
-        // checking
         'dataElement',
         'dataSet',
         'indicator',
@@ -33,6 +29,7 @@ const d2Config = {
         'organisationUnit',
         'organisationUnitGroup',
         'program',
+        'programStage',
     ],
 }
 
