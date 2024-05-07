@@ -16,3 +16,4 @@ src/locales
 .DS_Store
 .idea
 .vscode
+maps-app.code-workspace
