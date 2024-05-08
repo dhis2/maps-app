@@ -1,9 +1,13 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { precisionRound } from 'd3-format'
-import { getEarthEngineLayer } from '../constants/earthEngine.js'
+import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
+import {
+    hasClasses,
+    getStaticFilterFromPeriod,
+    getPeriodFromFilter,
+} from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import { getRoundToPrecisionFn } from '../util/numbers.js'
@@ -14,7 +18,7 @@ import {
 
 // Returns a promise
 const earthEngineLoader = async (config) => {
-    const { rows, aggregationType } = config
+    const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
     const alerts = []
@@ -86,6 +90,23 @@ const earthEngineLoader = async (config) => {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
 
+        const { filter, params } = layerConfig
+
+        // Backward compability for layers saved before 2.41
+        if (filter) {
+            layerConfig.period = getPeriodFromFilter(filter, layerConfig.id)
+            delete layerConfig.filter
+        }
+
+        // Backward compability for layers saved before 2.41
+        if (params) {
+            layerConfig.style = params
+            if (params.palette) {
+                layerConfig.style.palette = params.palette.split(',')
+            }
+            delete layerConfig.params
+        }
+
         // Backward compability for layers with periods saved before 2.36
         // (could also be fixed in a db update script)
         if (layerConfig.image) {
@@ -120,6 +141,7 @@ const earthEngineLoader = async (config) => {
         }
 
         delete config.config
+        delete config.filters // Backend returns empty filters array
     } else {
         dataset = getEarthEngineLayer(layerConfig.id)
     }
@@ -130,9 +152,20 @@ const earthEngineLoader = async (config) => {
         ...layerConfig,
     }
 
-    const { unit, filter, description, source, sourceUrl, band, bands } = layer
+    const {
+        unit,
+        period,
+        filters,
+        description,
+        source,
+        sourceUrl,
+        band,
+        bands,
+        style,
+        maskOperator,
+    } = layer
+
     const { name } = dataset || config
-    const period = getPeriodNameFromFilter(filter)
     const data =
         Array.isArray(features) && features.length ? features : undefined
     const hasBand = (b) =>
@@ -145,8 +178,9 @@ const earthEngineLoader = async (config) => {
 
     const legend = {
         ...layer.legend,
+        items: Array.isArray(style) ? style : null,
         title: name,
-        period,
+        period: period?.name,
         groups,
         unit,
         description,
@@ -155,15 +189,22 @@ const earthEngineLoader = async (config) => {
     }
 
     // Create/update legend items from params
-    if (!hasClasses(aggregationType) && layer.params) {
-        legend.items = createLegend(layer.params)
+    if (
+        format !== 'FeatureCollection' &&
+        !hasClasses(aggregationType) &&
+        style?.palette
+    ) {
+        legend.items = createLegend(style, !maskOperator)
     }
+
+    const filter = getStaticFilterFromPeriod(period, filters)
 
     return {
         ...layer,
         legend,
         name,
         data,
+        filter,
         alerts,
         isLoaded: true,
         isLoading: false,
@@ -172,35 +213,35 @@ const earthEngineLoader = async (config) => {
     }
 }
 
-export const createLegend = ({ min, max, palette }) => {
-    const step = (max - min) / (palette.length - (min > 0 ? 2 : 1))
+export const createLegend = ({ min, max, palette }, showBelowMin) => {
+    const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
     const precision = precisionRound(step, max)
     const valueFormat = getRoundToPrecisionFn(precision)
 
-    let from = min
+    let from = valueFormat(min)
     let to = valueFormat(min + step)
 
     return palette.map((color, index) => {
         const item = { color }
 
-        if (index === 0 && min > 0) {
+        if (index === 0 && showBelowMin) {
             // Less than min
-            item.from = 0
+            item.from = -Infinity
             item.to = min
             item.name = '< ' + min
             to = min
-        } else if (from < max) {
-            item.from = from
-            item.to = to
+        } else if (+from < max) {
+            item.from = +from
+            item.to = +to
             item.name = from + ' - ' + to
         } else {
             // Higher than max
-            item.from = from
+            item.from = +from
             item.name = '> ' + from
         }
 
         from = to
-        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)))
+        to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
 
         return item
     })

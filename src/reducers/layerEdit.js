@@ -440,11 +440,11 @@ const layerEdit = (state = null, action) => {
                 band: action.payload,
             }
 
-        case types.LAYER_EDIT_PARAMS_SET:
+        case types.LAYER_EDIT_STYLE_SET:
             return {
                 ...state,
-                params: {
-                    ...state.params,
+                style: {
+                    ...state.style,
                     ...action.payload,
                 },
             }
@@ -568,6 +568,12 @@ const layerEdit = (state = null, action) => {
             }
 
             return newState
+
+        case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:
+            return {
+                ...state,
+                period: action.payload,
+            }
 
         case types.LAYER_EDIT_FEATURE_STYLE_SET:
             return {
