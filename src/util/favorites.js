@@ -154,6 +154,7 @@ const models2objects = (layer) => {
         delete layer.datasetId
         delete layer.style
         delete layer.period
+        delete layer.filter
         delete layer.filters
         delete layer.periodType
         delete layer.aggregationType
