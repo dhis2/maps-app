@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-15T10:46:33.764Z\n"
-"PO-Revision-Date: 2024-03-15T10:46:33.764Z\n"
+"POT-Creation-Date: 2024-05-08T14:13:18.349Z\n"
+"PO-Revision-Date: 2024-05-08T14:13:18.349Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -857,9 +857,6 @@ msgstr "Previous year"
 msgid "Next year"
 msgstr "Next year"
 
-msgid "Relative"
-msgstr "Relative"
-
 msgid "Period type"
 msgstr "Period type"
 
@@ -1250,6 +1247,9 @@ msgstr "Equal counts"
 
 msgid "Symbol"
 msgstr "Symbol"
+
+msgid "Relative"
+msgstr "Relative"
 
 msgid "Daily"
 msgstr "Daily"
