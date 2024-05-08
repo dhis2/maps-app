@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2021
-# Viktor Varland <viktor@dhis2.org>, 2023
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Pashto (https://app.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,23 +139,37 @@ msgstr "نېټه"
 msgid "Data set"
 msgstr "د مالوماتو (ډاټا) ټولګه"
 
-msgid "Index"
+msgid "No results found"
+msgstr "هېڅ پایله ترلاسه نه شوه"
+
+msgid "Sort by {{column}}"
 msgstr ""
 
-msgid "Org unit"
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
+msgid "Index"
 msgstr ""
 
 msgid "Id"
 msgstr ""
-
-msgid "Event time"
-msgstr "رویداد مهال"
-
-msgid "Legend"
-msgstr "Legend"
-
-msgid "Range"
-msgstr "پراختیا"
 
 msgid "Level"
 msgstr "سطحه"
@@ -166,8 +180,17 @@ msgstr ""
 msgid "Type"
 msgstr "نمونه/ډول"
 
-msgid "Data table is not supported when events are grouped on the server."
+msgid "Legend"
+msgstr "Legend"
+
+msgid "Range"
+msgstr "پراختیا"
+
+msgid "Org unit"
 msgstr ""
+
+msgid "Event time"
+msgstr "رویداد مهال"
 
 msgid "Items"
 msgstr ""
@@ -253,6 +276,9 @@ msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
+msgstr ""
+
+msgid "feature"
 msgstr ""
 
 msgid "Edit {{name}} layer"
@@ -382,6 +408,18 @@ msgstr ""
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
 msgid "Labels"
 msgstr ""
 
@@ -492,6 +530,12 @@ msgstr ""
 msgid "Relationship type"
 msgstr "د اړیکو ډول"
 
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
+msgstr ""
+
 msgid "Remove filter"
 msgstr ""
 
@@ -545,6 +589,9 @@ msgstr "بهرنی لایه"
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
@@ -557,13 +604,16 @@ msgstr "درست یې کړئ"
 msgid "Toggle visibility"
 msgstr ""
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr ""
 
-msgid "Toggle layer menu"
+msgid "More actions"
 msgstr ""
 
-msgid "More actions"
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "Hide data table"
@@ -592,6 +642,9 @@ msgstr "ګروپ"
 
 msgid "Filters"
 msgstr "فیلټرونه"
+
+msgid "{{layername}}: {{message}}"
+msgstr ""
 
 msgid "Drill up one level"
 msgstr "یو سطح بره تلل"
@@ -1271,6 +1324,24 @@ msgid "Facilities"
 msgstr ""
 
 msgid "Facilities: No coordinates found"
+msgstr ""
+
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Point"
 msgstr ""
 
 msgid "Organisation units"
