@@ -133,7 +133,7 @@ const models2objects = (layer) => {
         layer.rows = layer.rows.map(cleanDimension)
     }
 
-    if (layer === EARTH_ENGINE_LAYER) {
+    if (layerType === EARTH_ENGINE_LAYER) {
         const { layerId: id, band, style, aggregationType, period } = layer
 
         const eeConfig = {
