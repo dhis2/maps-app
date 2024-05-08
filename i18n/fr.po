@@ -8,17 +8,17 @@
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2022
-# Viktor Varland <viktor@dhis2.org>, 2023
-# Philip Larsen Donnelly, 2024
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2024
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-21T10:12:14.838Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2024\n"
+"Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,7 +151,7 @@ msgid "Data set"
 msgstr "Ensemble de données"
 
 msgid "No results found"
-msgstr ""
+msgstr "Aucun résultat trouvé"
 
 msgid "Sort by {{column}}"
 msgstr ""
@@ -161,6 +161,22 @@ msgstr "Quelque chose a mal tourné"
 
 msgid "Search"
 msgstr "Rechercher"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+"Le tableau de données n'est pas pris en charge lorsque des événements sont "
+"regroupés sur le serveur."
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
 
 msgid "Index"
 msgstr "Index"
@@ -188,17 +204,6 @@ msgstr "Unités d´Organisation"
 
 msgid "Event time"
 msgstr "Date de l'évènement"
-
-msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
-"Le tableau de données n'est pas pris en charge lorsque des événements sont "
-"regroupés sur le serveur."
-
-msgid "No valid data was found for the current layer configuration."
-msgstr ""
-
-msgid "Data table is not supported for this layer type."
-msgstr ""
 
 msgid "Items"
 msgstr "Éléments"
@@ -287,6 +292,9 @@ msgstr "Unité d'organisation"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
+
+msgid "feature"
+msgstr ""
 
 msgid "Edit {{name}} layer"
 msgstr "Modifier la couche {{name}}"
@@ -423,6 +431,18 @@ msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 "La mémoire tampon ne peut pas être combinée avec la géométrie associée."
 
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
 msgid "Labels"
 msgstr "Étiquettes"
 
@@ -541,6 +561,12 @@ msgstr "Aucun type de relation trouvé pour l'entité suivie de type {{type}}"
 msgid "Relationship type"
 msgstr "Type de relation"
 
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
+msgstr ""
+
 msgid "Remove filter"
 msgstr "Supprimer le filtre"
 
@@ -596,6 +622,9 @@ msgstr "Couche externe"
 msgid "Split view can not be combined with other layer types."
 msgstr "La vue partagée ne peut pas être associée à d'autres types de couche."
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr "Chargement de la couche"
 
@@ -608,14 +637,17 @@ msgstr "Modifier"
 msgid "Toggle visibility"
 msgstr "Activer/désactiver la visibilité"
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr "Définir l'opacité de la couche"
 
-msgid "Toggle layer menu"
-msgstr ""
-
 msgid "More actions"
 msgstr "Plus d'actions"
+
+msgid "Toggle layer menu"
+msgstr ""
 
 msgid "Hide data table"
 msgstr "Masquer le tableau de données"
@@ -643,6 +675,9 @@ msgstr "Groupe"
 
 msgid "Filters"
 msgstr "Filtres"
+
+msgid "{{layername}}: {{message}}"
+msgstr ""
 
 msgid "Drill up one level"
 msgstr "Monter d'un niveau"
@@ -1350,6 +1385,24 @@ msgstr "Établissements"
 
 msgid "Facilities: No coordinates found"
 msgstr "Etablissements : Coordonnées non trouvées"
+
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr "Polygone"
+
+msgid "Line"
+msgstr "Ligne"
+
+msgid "Point"
+msgstr "Point"
 
 msgid "Organisation units"
 msgstr "Unités d'organisation"
