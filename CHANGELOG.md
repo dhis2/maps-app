@@ -1,3 +1,11 @@
+## [100.5.3](https://github.com/dhis2/maps-app/compare/v100.5.2...v100.5.3) (2024-05-03)
+
+
+### Bug Fixes
+
+* dashboard filters were not being applied to maps ([#3185](https://github.com/dhis2/maps-app/issues/3185)) ([535598b](https://github.com/dhis2/maps-app/commit/535598bb9cb4386aef3833c0f44049a10e48a2b1))
+* **translations:** sync translations from transifex (dev) ([2fb016c](https://github.com/dhis2/maps-app/commit/2fb016c0df2dbb05bc7f601ae01160d0b7e00d94))
+
 ## [100.5.2](https://github.com/dhis2/maps-app/compare/v100.5.1...v100.5.2) (2024-04-24)
 
 
