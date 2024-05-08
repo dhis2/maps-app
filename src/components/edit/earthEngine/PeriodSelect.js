@@ -2,9 +2,9 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import { BY_YEAR, EE_MONTHLY } from '../../../constants/periods.js'
 import { getPeriods } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
-import { BY_YEAR, EE_MONTHLY } from '../../../constants/periods.js'
 import styles from './styles/PeriodSelect.module.css'
 
 const EarthEnginePeriodSelect = ({
