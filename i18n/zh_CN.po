@@ -1,14 +1,14 @@
 # 
 # Translators:
-# 晓东 林 <13981924470@126.com>, 2023
-# easylin <lin_xd@126.com>, 2023
+# easylin <lin_xd@126.com>, 2024
+# 晓东 林 <13981924470@126.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-10-23T12:55:26.288Z\n"
+"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,23 +139,37 @@ msgstr "日期"
 msgid "Data set"
 msgstr "数据集"
 
+msgid "No results found"
+msgstr "没有结果"
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "出了些问题"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
 msgid "Index"
 msgstr ""
 
-msgid "Org unit"
-msgstr "机构"
-
 msgid "Id"
 msgstr "Id"
-
-msgid "Event time"
-msgstr "事件时间"
-
-msgid "Legend"
-msgstr "图例"
-
-msgid "Range"
-msgstr "Range"
 
 msgid "Level"
 msgstr "等级"
@@ -166,8 +180,17 @@ msgstr ""
 msgid "Type"
 msgstr "类型"
 
-msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
+msgid "Legend"
+msgstr "图例"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Org unit"
+msgstr "机构"
+
+msgid "Event time"
+msgstr "事件时间"
 
 msgid "Items"
 msgstr ""
@@ -253,6 +276,9 @@ msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
+msgstr ""
+
+msgid "feature"
 msgstr ""
 
 msgid "Edit {{name}} layer"
@@ -382,6 +408,18 @@ msgstr ""
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
 msgid "Labels"
 msgstr "标签"
 
@@ -492,6 +530,12 @@ msgstr ""
 msgid "Relationship type"
 msgstr "关系类型"
 
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
+msgstr ""
+
 msgid "Remove filter"
 msgstr ""
 
@@ -545,6 +589,9 @@ msgstr "外部图层"
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
@@ -557,13 +604,16 @@ msgstr "编辑<br>"
 msgid "Toggle visibility"
 msgstr ""
 
+msgid "Layer is invalid"
+msgstr ""
+
 msgid "Set layer opacity"
 msgstr ""
 
-msgid "Toggle layer menu"
+msgid "More actions"
 msgstr ""
 
-msgid "More actions"
+msgid "Toggle layer menu"
 msgstr ""
 
 msgid "Hide data table"
@@ -591,6 +641,9 @@ msgid "Group"
 msgstr "组"
 
 msgid "Filters"
+msgstr ""
+
+msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "Drill up one level"
@@ -1272,6 +1325,24 @@ msgstr ""
 
 msgid "Facilities: No coordinates found"
 msgstr ""
+
+msgid "Url to geojson is invalid."
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr "多边形"
+
+msgid "Line"
+msgstr ""
+
+msgid "Point"
+msgstr "点"
 
 msgid "Organisation units"
 msgstr "组织机构"

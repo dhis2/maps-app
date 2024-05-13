@@ -13,6 +13,7 @@ import React, {
     useRef,
 } from 'react'
 import { drillUpDown } from '../../util/map.js'
+import { didViewsChange } from '../../util/pluginHelper.js'
 import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
 import ContextMenu from './ContextMenu.js'
@@ -30,6 +31,15 @@ const Map = forwardRef((props, ref) => {
     const layers = useRef(
         mapViews.map((config) => ({ ...config, isLoaded: false }))
     )
+
+    useEffect(() => {
+        if (didViewsChange(layers.current, mapViews)) {
+            layers.current = mapViews.map((v) => ({ ...v, isLoaded: false }))
+
+            setMapIsLoaded(false)
+        }
+    }, [mapViews])
+
     const [mapIsLoaded, setMapIsLoaded] = useState(false)
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
