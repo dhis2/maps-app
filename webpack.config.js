@@ -5,7 +5,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const makeBabelConfig = require('@dhis2/cli-app-scripts/config/makeBabelConfig.js');
 
 const defaultBaseUrl =
-    process.env.NODE_ENV === 'production' ? '..' : 'http://localhost:8080';
+    process.env.NODE_ENV === 'production' ? '..' : 'https://test.e2e.dhis2.org/analytics-2.39';
 if (!process.env.DHIS2_BASE_URL) {
     console.warn(
         `WARNING: environment variable DHIS2_BASE_URL has not been set, using ${defaultBaseUrl}`
@@ -81,7 +81,7 @@ const webpackConfig = {
                         loader: 'file-loader',
                         options: {
                             name: '[name]-[hash].[ext]',
-                            hashType: 'md5',
+                            hashType: 'xxhash64',
                         },
                     },
                     {
