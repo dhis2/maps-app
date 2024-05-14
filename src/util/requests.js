@@ -48,6 +48,15 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
 //     },
 // };
 
+export const dataStatisticsMutation = {
+    resource: 'dataStatistics',
+    params: ({ id }) => ({
+        favorite: id,
+        eventType: 'MAP_VIEW',
+    }),
+    type: 'create',
+};
+
 export const fetchOrgUnits = async () => {
     // TODO - use d2 until correct dataQuery format can be determined
     const d2 = await getD2();

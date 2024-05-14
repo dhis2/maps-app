@@ -1,13 +1,14 @@
 # 
 # Translators:
 # Yury Rogachev <yury@dhis2.org>, 2022
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2022\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +20,7 @@ msgid "Maps"
 msgstr "Xaritalar"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr "Xarita \"{{ismi}}\" saqlangan"
+msgstr "Xarita \"{{name}}\" saqlangan"
 
 msgid "Failed to save map. {{message}}"
 msgstr ""
@@ -191,10 +192,10 @@ msgid "Earth Engine"
 msgstr "Uydagi mexanizm"
 
 msgid "Edit {{name}} layer"
-msgstr "{{Ism}} qatlamini tahrirlash"
+msgstr "{{name}} qatlamini tahrirlash"
 
 msgid "Add new {{name}} layer"
-msgstr "Yangi qatlamni {{ism}} qoʼshish"
+msgstr "Yangi qatlamni {{name}} qoʼshish"
 
 msgid "Update layer"
 msgstr "Qatlamni yangilash"
@@ -343,7 +344,7 @@ msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "Radius {{minimum}} va {{maksimum}} oraligʼida boʼlishi lozim"
+msgstr "Radius {{min}} va {{max}} oraligʼida boʼlishi lozim"
 
 msgid "Indicator group is required"
 msgstr "Koʼrsatgichlar guruhi talab qilinadi"
@@ -422,7 +423,7 @@ msgstr "Xaritalarda obʼektlarning oʼzaro aloqalar tizimining koʼrsatilishi"
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
-"Dasturdan {{dastur}} tashqarida aloqalar bogʼlaydigan oʼzaro aloqalarni "
+"Dasturdan {{program}} tashqarida aloqalar bogʼlaydigan oʼzaro aloqalarni "
 "kiriting"
 
 msgid "Selection mode"
@@ -456,7 +457,7 @@ msgid "Failed to load relationship types."
 msgstr "Oʼzaro aloqalar xususiyatlarining yuklanishi amalga oshmadi"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr "Kuzatuvdagi obʼektlar oʼzaro aloqalar turlari {{turi}} topilmadi"
+msgstr "Kuzatuvdagi obʼektlar oʼzaro aloqalar turlari {{type}} topilmadi"
 
 msgid "Relationship type"
 msgstr "Oʼzaro aloqalar turi"
@@ -534,7 +535,7 @@ msgid "Download Layer Data"
 msgstr "Qavat maʼlumotlarini yuklash"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "{{QavatIsmi}} uchun GeoJSON maʼlumotlari yuklanmoqda"
+msgstr "{{layerName}} uchun GeoJSON maʼlumotlari yuklanmoqda"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -564,7 +565,7 @@ msgid "Loading layer"
 msgstr "Yuklanadigan qavat"
 
 msgid "{{name}} deleted."
-msgstr "{{ismi}} oʼchirilgan"
+msgstr "{{name}} oʼchirilgan"
 
 msgid "Edit"
 msgstr "Tahrirlash"
@@ -618,7 +619,7 @@ msgid "Show longitude/latitude"
 msgstr "Kenglik/Uzunlikni koʼrsating"
 
 msgid "Show {{name}}"
-msgstr "Koʼrsatish {{nomi}}"
+msgstr "Koʼrsatish {{name}}"
 
 msgid "Longitude"
 msgstr "Kenglik"
@@ -723,7 +724,7 @@ msgid ""
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
-"Ushbu diagramma / jadval {{numitems}} maʼlumotlar elementlaridan tashkil "
+"Ushbu diagramma / jadval {{numItems}} maʼlumotlar elementlaridan tashkil "
 "topgan. Quyidagi roʼyxatdan import qilmoqchi boʼlgan elementlarni tanlang. "
 "Har bir element xarita qavati sifatida yaratiladi."
 
@@ -812,13 +813,13 @@ msgid "two levels below user organisation unit"
 msgstr "Foydalanuvchining tashkiliy boʼlimidan ikki pogʼona pastda"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr "{{boʼlimlar}} va {{tashkiliyboʼlimlar}}"
+msgstr "{{units}} va {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr "{{boʼlimlar}} va ostki {{tashkiliyboʼlimlar}}"
+msgstr "{{units}} va ostki {{orgunits}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr "{{boʼlimlar}} va barcha quyi {{tashkiliyboʼlimlar}}"
+msgstr "{{units}} va barcha quyi {{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "Tanlangan tashkiliy boʼlimlar"
