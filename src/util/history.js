@@ -8,9 +8,11 @@ const defaultHashUrlParams = {
     mapId: '',
     isDownload: false,
     interpretationId: null,
+    isDownloadLegend: false,
 }
 
 const DOWNLOAD = 'download'
+const DOWNLOAD_LEGEND = 'download_legend'
 
 const getHashUrlParams = (loc) => {
     const params = queryString.parse(loc.search || '', {
@@ -22,6 +24,9 @@ const getHashUrlParams = (loc) => {
         if (pathParts[0] === DOWNLOAD) {
             params.mapId = ''
             params.isDownload = true
+        } else if (pathParts[1] === DOWNLOAD_LEGEND) {
+            params.mapId = pathParts[0]
+            params.isDownloadLegend = true
         } else {
             params.mapId = pathParts[0]
 

@@ -3,6 +3,7 @@ import { Button, ButtonStrip } from '@dhis2/ui'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setDownloadConfig } from '../../actions/download.js'
+import { useDownloadLegend } from '../../hooks/useDownloadLegend.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
@@ -25,6 +26,7 @@ const DownloadSettings = () => {
     const [isRendered, setIsRendered] = useState(false)
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
+    const { downloadModeLegendOpen } = useDownloadLegend()
 
     const { mapViews, name, description } = useSelector((state) => state.map)
     const {
@@ -66,14 +68,22 @@ const DownloadSettings = () => {
         // Set default values
         dispatch(
             setDownloadConfig({
-                showName: !!name,
+                showName: showName,
                 showDescription: !!description,
                 showLegend: !!legendLayers.length,
                 showInLegend: legendLayers.map((l) => l.id),
-                showOverviewMap: hasLayers,
+                showOverviewMap: showOverviewMap,
             })
         )
-    }, [name, description, legendLayers, hasLayers, dispatch])
+    }, [
+        name,
+        description,
+        legendLayers,
+        hasLayers,
+        showName,
+        showOverviewMap,
+        dispatch,
+    ])
 
     useEffect(() => {
         if (isPushAnalytics) {
@@ -108,6 +118,10 @@ const DownloadSettings = () => {
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)
     const showMarginsCheckbox = false // Not in use
+
+    if (downloadModeLegendOpen) {
+        return null
+    }
 
     return (
         <div

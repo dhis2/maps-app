@@ -8,6 +8,7 @@ const defaultState = {
     dataTableHeight: 300,
     mapContextMenu: true,
     downloadMode: false,
+    downloadModeLegend: false,
 }
 
 const ui = (state = defaultState, action) => {
@@ -46,6 +47,12 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 downloadMode: true,
+            }
+        case types.DOWNLOAD_MODE_OPEN_LEGEND:
+            return {
+                ...state,
+                downloadMode: true,
+                downloadModeLegend: true,
             }
         case types.DOWNLOAD_MODE_CLOSE:
             return {

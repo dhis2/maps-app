@@ -1,3 +1,13 @@
+.downloadMapInfoLegend {
+    background-color: #fff;
+    bottom: 1em;
+    height: initial;
+    padding: 1em;
+    position: absolute;
+    right: 1em;
+    width: initial;
+}
+
 .downloadMapInfo {
     background-color: #fff;
     height: 100%;

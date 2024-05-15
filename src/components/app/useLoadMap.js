@@ -4,6 +4,8 @@ import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
+import { openDownloadModeLegend } from '../../actions/download-legend.js'
+import { setDownloadConfig } from '../../actions/download.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
 import { openDownloadMode, closeDownloadMode } from '../../actions/ui.js'
@@ -65,6 +67,15 @@ export const useLoadMap = () => {
             }
             if (params.isDownload) {
                 dispatch(openDownloadMode())
+            } else if (params.isDownloadLegend) {
+                dispatch(
+                    setDownloadConfig({
+                        showName: false,
+                        showOverviewMap: false,
+                        showNorthArrow: false,
+                    })
+                )
+                dispatch(openDownloadModeLegend())
             } else {
                 dispatch(closeDownloadMode())
             }

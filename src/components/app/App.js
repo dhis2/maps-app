@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useDownloadLegend } from '../../hooks/useDownloadLegend.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadModeMenu from '../download/DownloadMenubar.js'
 import DownloadSettings from '../download/DownloadSettings.js'
@@ -16,6 +17,7 @@ import { useLoadMap } from './useLoadMap.js'
 
 const App = () => {
     useLoadMap()
+    const { downloadModeLegendOpen } = useDownloadLegend()
 
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)
@@ -32,7 +34,7 @@ const App = () => {
 
     return (
         <>
-            {downloadModeOpen ? (
+            {downloadModeOpen || downloadModeLegendOpen ? (
                 <DownloadModeMenu />
             ) : (
                 <AppMenu onFileMenuAction={onFileMenuAction} />
@@ -40,6 +42,7 @@ const App = () => {
             <div
                 className={cx(styles.content, {
                     [styles.downloadContent]: downloadModeOpen,
+                    [styles.downloadContentLegend]: downloadModeLegendOpen,
                 })}
             >
                 {downloadModeOpen ? <DownloadSettings /> : <LayersPanel />}
