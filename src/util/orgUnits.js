@@ -42,7 +42,7 @@ export const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     }))
 }
 
-export const orgUnitGroupSetsQuery = {
+export const ORG_UNITS_GROUP_SET_QUERY = {
     groupSets: {
         resource: 'organisationUnitGroupSets',
         id: ({ id }) => id,

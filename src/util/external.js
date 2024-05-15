@@ -6,7 +6,7 @@ import {
     GEOJSON_URL_LAYER,
     GEOJSON_LAYER,
 } from '../constants/layers.js'
-import { getExternalLayer, fetchExternalLayerQuery } from './requests.js'
+import { fetchExternalLayerQuery } from './requests.js'
 
 const MAP_SERVICE_WMS = 'WMS'
 const MAP_SERVICE_TMS = 'TMS'

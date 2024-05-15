@@ -3,7 +3,7 @@ import { getInstance as getD2 } from 'd2'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { toGeoJson } from '../util/map.js'
 import {
-    orgUnitGroupSetsQuery,
+    ORG_UNITS_GROUP_SET_QUERY,
     getPointItems,
     getPolygonItems,
     getStyledOrgUnits,
@@ -49,15 +49,16 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
 
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        const orgUnitGroupsRequest = engine.query(orgUnitGroupSetsQuery, {
+        const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
             variables: { id: groupSet.id },
         })
         requests.push(orgUnitGroupsRequest)
     }
 
-    const [features, { groupSets }] = await Promise.all(requests)
+    const [features, orgUnitGroups] = await Promise.all(requests)
 
-    if (groupSets) {
+    if (orgUnitGroups) {
+        const { groupSets } = orgUnitGroups
         groupSet.organisationUnitGroups = parseGroupSet({
             organisationUnitGroups: groupSets.organisationUnitGroups,
         })

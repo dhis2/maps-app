@@ -3,7 +3,7 @@ import { getInstance as getD2 } from 'd2'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { toGeoJson } from '../util/map.js'
 import {
-    orgUnitGroupSetsQuery,
+    ORG_UNITS_GROUP_SET_QUERY,
     addAssociatedGeometries,
     getStyledOrgUnits,
     getCoordinateField,
@@ -57,7 +57,7 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
 
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        const orgUnitGroupsRequest = engine.query(orgUnitGroupSetsQuery, {
+        const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
             variables: { id: groupSet.id },
         })
         requests.push(orgUnitGroupsRequest)
@@ -65,7 +65,7 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
 
     const { orgUnitLevels } = await engine.query(orgUnitLevelsQuery)
 
-    const [mainFeatures = [], { groupSets }] = await Promise.all(requests)
+    const [mainFeatures = [], orgUnitGroups] = await Promise.all(requests)
 
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
@@ -76,7 +76,8 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
         })
     }
 
-    if (groupSets) {
+    if (orgUnitGroups) {
+        const { groupSets } = orgUnitGroups
         groupSet.organisationUnitGroups = parseGroupSet({
             organisationUnitGroups: groupSets.organisationUnitGroups,
         })
