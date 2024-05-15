@@ -14,7 +14,7 @@ const NoDataColor = ({ value, onChange }) => {
     return (
         <div>
             <Checkbox
-                label={i18n.t('Show no data')}
+                label={i18n.t('Include org. units with no data')}
                 checked={!!value}
                 onChange={onCheck}
             />
