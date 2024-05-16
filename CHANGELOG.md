@@ -1,3 +1,11 @@
+## [100.5.4](https://github.com/dhis2/maps-app/compare/v100.5.3...v100.5.4) (2024-05-16)
+
+
+### Bug Fixes
+
+* system / user setting for display name not respected in Org Unit tree (DHIS2-15000) ([#3195](https://github.com/dhis2/maps-app/issues/3195)) ([8560478](https://github.com/dhis2/maps-app/commit/856047826a884da243f15317d19cc8dc434dd6a9))
+* users losing work when opening as chart ([#3196](https://github.com/dhis2/maps-app/issues/3196)) ([3c69a86](https://github.com/dhis2/maps-app/commit/3c69a86249bd3c22b239eb344a5eb45288699161))
+
 ## [100.5.3](https://github.com/dhis2/maps-app/compare/v100.5.2...v100.5.3) (2024-05-03)
 
 
