@@ -39,7 +39,7 @@
         "start-server-and-test": "^2.0.3"
     },
     "dependencies": {
-        "@dhis2/analytics": "^26.6.5",
+        "@dhis2/analytics": "^26.6.9",
         "@dhis2/app-runtime": "3.9.4",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-alerts": "3.9.4",

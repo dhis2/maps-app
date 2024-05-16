@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-15T10:46:33.764Z\n"
-"PO-Revision-Date: 2024-03-15T10:46:33.764Z\n"
+"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"PO-Revision-Date: 2024-05-07T11:26:24.268Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -95,12 +95,6 @@ msgstr "Event > org unit coordinate"
 msgid "Event data item"
 msgstr "Event data item"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Selected value not available in in list: {{name}}"
-
-msgid "Style by data element"
-msgstr "Style by data element"
-
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtering is available after selecting a program stage."
 
@@ -127,6 +121,12 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Date"
+
+msgid "Selected value not available in in list: {{name}}"
+msgstr "Selected value not available in in list: {{name}}"
+
+msgid "Style by data element"
+msgstr "Style by data element"
 
 msgid "Data set"
 msgstr "Data set"
@@ -237,54 +237,6 @@ msgstr "Cancel"
 msgid "Close"
 msgstr "Close"
 
-msgid "No organisation units are selected"
-msgstr "No organisation units are selected"
-
-msgid "Organisation Units"
-msgstr "Organisation Units"
-
-msgid "Style"
-msgstr "Style"
-
-msgid "Point color"
-msgstr "Point color"
-
-msgid "Point radius"
-msgstr "Point radius"
-
-msgid "event"
-msgstr "event"
-
-msgid "tracked entity"
-msgstr "tracked entity"
-
-msgid "facility"
-msgstr "facility"
-
-msgid "thematic"
-msgstr "thematic"
-
-msgid "org unit"
-msgstr "org unit"
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "feature"
-msgstr "feature"
-
-msgid "Edit {{name}} layer"
-msgstr "Edit {{name}} layer"
-
-msgid "Add new {{name}} layer"
-msgstr "Add new {{name}} layer"
-
-msgid "Update layer"
-msgstr "Update layer"
-
-msgid "Add layer"
-msgstr "Add layer"
-
 msgid "Aggregation method"
 msgstr "Aggregation method"
 
@@ -299,6 +251,12 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Period"
+
+msgid "Organisation Units"
+msgstr "Organisation Units"
+
+msgid "Style"
+msgstr "Style"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -391,6 +349,48 @@ msgstr "No legend set is selected"
 
 msgid "Event status"
 msgstr "Event status"
+
+msgid "No organisation units are selected"
+msgstr "No organisation units are selected"
+
+msgid "Point color"
+msgstr "Point color"
+
+msgid "Point radius"
+msgstr "Point radius"
+
+msgid "event"
+msgstr "event"
+
+msgid "tracked entity"
+msgstr "tracked entity"
+
+msgid "facility"
+msgstr "facility"
+
+msgid "thematic"
+msgstr "thematic"
+
+msgid "org unit"
+msgstr "org unit"
+
+msgid "Earth Engine"
+msgstr "Earth Engine"
+
+msgid "feature"
+msgstr "feature"
+
+msgid "Edit {{name}} layer"
+msgstr "Edit {{name}} layer"
+
+msgid "Add new {{name}} layer"
+msgstr "Add new {{name}} layer"
+
+msgid "Update layer"
+msgstr "Update layer"
+
+msgid "Add layer"
+msgstr "Add layer"
 
 msgid "Boundary color"
 msgstr "Boundary color"
@@ -545,12 +545,6 @@ msgstr "Style by group set"
 msgid "Indicator group"
 msgstr "Indicator group"
 
-msgid "Collapse"
-msgstr "Collapse"
-
-msgid "Expand"
-msgstr "Expand"
-
 msgid "External basemap"
 msgstr "External basemap"
 
@@ -578,6 +572,12 @@ msgstr "Use human-readable keys"
 
 msgid "Data download failed."
 msgstr "Data download failed."
+
+msgid "Collapse"
+msgstr "Collapse"
+
+msgid "Expand"
+msgstr "Expand"
 
 msgid "External layer"
 msgstr "External layer"
@@ -618,8 +618,8 @@ msgstr "Hide data table"
 msgid "Show data table"
 msgstr "Show data table"
 
-msgid "Open as chart"
-msgstr "Open as chart"
+msgid "Open in Data Visualizer app"
+msgstr "Open in Data Visualizer app"
 
 msgid "Download data"
 msgstr "Download data"
@@ -657,29 +657,8 @@ msgstr "Show longitude/latitude"
 msgid "Show {{name}}"
 msgstr "Show {{name}}"
 
-msgid "Longitude"
-msgstr "Longitude"
-
-msgid "Latitude"
-msgstr "Latitude"
-
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basemap could not be added: {{message}}"
-
-msgid "Not set"
-msgstr "Not set"
-
-msgid "Could not retrieve event data"
-msgstr "Could not retrieve event data"
-
-msgid "Organisation unit"
-msgstr "Organisation unit"
-
-msgid "Parent unit"
-msgstr "Parent unit"
-
-msgid "Last updated"
-msgstr "Last updated"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -696,6 +675,27 @@ msgstr "All groups"
 
 msgid "Loading data"
 msgstr "Loading data"
+
+msgid "Not set"
+msgstr "Not set"
+
+msgid "Could not retrieve event data"
+msgstr "Could not retrieve event data"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Parent unit"
+msgstr "Parent unit"
+
+msgid "Last updated"
+msgstr "Last updated"
+
+msgid "Longitude"
+msgstr "Longitude"
+
+msgid "Latitude"
+msgstr "Latitude"
 
 msgid "acres"
 msgstr "acres"
