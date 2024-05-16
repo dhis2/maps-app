@@ -9,7 +9,7 @@ import {
     Divider,
     IconMore24,
     IconTable16,
-    IconVisualizationColumn16,
+    IconLaunch16,
     IconDownload16,
     IconEdit16,
     IconDelete16,
@@ -84,8 +84,10 @@ export const LayerToolbarMoreMenu = ({
                             )}
                             {openAs && (
                                 <MenuItem
-                                    label={i18n.t('Open as chart')}
-                                    icon={<IconVisualizationColumn16 />}
+                                    label={i18n.t(
+                                        'Open in Data Visualizer app'
+                                    )}
+                                    icon={<IconLaunch16 />}
                                     onClick={() => {
                                         setIsOpen(false);
                                         openAs('CHART');
