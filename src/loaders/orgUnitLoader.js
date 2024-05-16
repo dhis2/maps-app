@@ -11,7 +11,7 @@ import {
 } from '../util/orgUnits.js'
 
 // orgUnitLevels do not have shortName property
-const orgUnitLevelsQuery = {
+const ORG_UNIT_LEVELS_QUERY = {
     orgUnitLevels: {
         resource: 'organisationUnitLevels',
         params: {
@@ -55,6 +55,9 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
             }),
     ]
 
+    const levelsRequest = engine.query(ORG_UNIT_LEVELS_QUERY)
+    requests.push(levelsRequest)
+
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
         const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
@@ -63,9 +66,8 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
         requests.push(orgUnitGroupsRequest)
     }
 
-    const { orgUnitLevels } = await engine.query(orgUnitLevelsQuery)
-
-    const [mainFeatures = [], orgUnitGroups] = await Promise.all(requests)
+    const [mainFeatures = [], { orgUnitLevels }, orgUnitGroups] =
+        await Promise.all(requests)
 
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
