@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-05-14T17:23:25.582Z\n"
-"PO-Revision-Date: 2024-05-14T17:23:25.584Z\n"
+"POT-Creation-Date: 2024-05-16T08:31:58.810Z\n"
+"PO-Revision-Date: 2024-05-16T08:31:58.810Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -143,6 +143,51 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
+msgid "Organisation Units"
+msgstr ""
+
+msgid "Style"
+msgstr ""
+
+msgid "Point color"
+msgstr ""
+
+msgid "Point radius"
+msgstr ""
+
+msgid "No organisation units are selected"
+msgstr ""
+
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr ""
+
+msgid "Add new {{name}} layer"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr ""
+
 msgid "Aggregation method"
 msgstr ""
 
@@ -156,12 +201,6 @@ msgid "Data"
 msgstr ""
 
 msgid "Period"
-msgstr ""
-
-msgid "Organisation Units"
-msgstr ""
-
-msgid "Style"
 msgstr ""
 
 msgid ""
@@ -253,45 +292,6 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
-msgstr ""
-
-msgid "Point color"
-msgstr ""
-
-msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "event"
-msgstr ""
-
-msgid "tracked entity"
-msgstr ""
-
-msgid "facility"
-msgstr ""
-
-msgid "thematic"
-msgstr ""
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr ""
-
-msgid "Add new {{name}} layer"
-msgstr ""
-
-msgid "Update layer"
-msgstr ""
-
-msgid "Add layer"
 msgstr ""
 
 msgid "Boundary color"
@@ -492,6 +492,12 @@ msgstr ""
 msgid "Interpretations"
 msgstr ""
 
+msgid "Collapse"
+msgstr ""
+
+msgid "Expand"
+msgstr ""
+
 msgid "External basemap"
 msgstr ""
 
@@ -516,12 +522,6 @@ msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
-msgstr ""
-
-msgid "Collapse"
-msgstr ""
-
-msgid "Expand"
 msgstr ""
 
 msgid "External layer"
@@ -590,18 +590,10 @@ msgstr ""
 msgid "Show {{name}}"
 msgstr ""
 
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
+msgid "Longitude"
 msgstr ""
 
-msgid "no value"
-msgstr ""
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
+msgid "Latitude"
 msgstr ""
 
 msgid "Not set"
@@ -616,10 +608,18 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
-msgid "Longitude"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
 msgstr ""
 
-msgid "Latitude"
+msgid "no value"
+msgstr ""
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
 msgstr ""
 
 msgid "acres"
