@@ -436,10 +436,10 @@ msgid "Selected only"
 msgstr "Sólo seleccionados"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "Elemento seleccionado y elemento siguiente"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "Elemento seleccionado y elemento siguiente"
 
 msgid "Tracked entities"
 msgstr "Entidades monitoreadas"
@@ -548,7 +548,7 @@ msgid "ID Format"
 msgstr "Formato ID"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Utilizar claves legibles"
 
 msgid "External layer"
 msgstr "Capa externa"
@@ -756,6 +756,8 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+"No es posible combinar unidades organizativas de usuarios y seleccionar "
+"unidades individuales"
 
 msgid "Click the map where you want to relocate the facility."
 msgstr "Haga clic en el mapa donde desea reubicar el establecimiento."
@@ -1088,13 +1090,13 @@ msgid "Mixed forest"
 msgstr "Bosque mixto"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "Zonas de arbustos cerradas"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "Zonas de arbustos descubierta"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "Sabanas boscosas"
 
 msgid "Savannas"
 msgstr "Sabanas"
