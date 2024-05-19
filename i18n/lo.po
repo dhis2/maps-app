@@ -1,17 +1,18 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2022
-# phil_dhis2, 2022
+# Philip Larsen Donnelly, 2022
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Saysamone Sibounma, 2022
 # Phouthasinh PHEUAYSITHIPHONE, 2023
+# Namwan Chanthavisouk, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Phouthasinh PHEUAYSITHIPHONE, 2023\n"
+"Last-Translator: Namwan Chanthavisouk, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -77,7 +78,7 @@ msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
 
 msgid "Style by data element"
 msgstr ""
@@ -632,7 +633,7 @@ msgid "no value"
 msgstr "ບໍ່ມີຂໍ້ມູນ"
 
 msgid "All groups"
-msgstr ""
+msgstr "ກຸ່ມທັງໝົດ"
 
 msgid "Loading data"
 msgstr ""
@@ -641,7 +642,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr ""
+msgstr "ພື້ນທີ່"
 
 msgid "Center map on area"
 msgstr ""
@@ -855,7 +856,7 @@ msgid "End date"
 msgstr "ວັນທີສຸດທ້າຍ"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "ບໍ່ສາມາດໃຊ້ໄດ້ອອບລາຍ"
 
 msgid "Program indicator"
 msgstr "Program Indicator Management"
@@ -1219,16 +1220,16 @@ msgid "Weekly"
 msgstr "ເປັນອາທິດ"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນພຸດ)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນພະຫັດ)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນເສົາ)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນອາທິດ)"
 
 msgid "Bi-weekly"
 msgstr "ສອງອາທິດຕໍ່ຄັ້ງ"
@@ -1252,7 +1253,7 @@ msgid "Yearly"
 msgstr "ລາຍປີ"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນພະຈິກ)"
 
 msgid "Financial year (Start October)"
 msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນຕຸລາ)"
