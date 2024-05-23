@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -103,12 +103,6 @@ msgstr "Událost > souřadnice organizační jednotky"
 msgid "Event data item"
 msgstr "Datová položka události"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Vybraná hodnota není dostupná v seznamu: {{name}}"
-
-msgid "Style by data element"
-msgstr "Styl podle datového prvku"
-
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtrování je k dispozici po výběru fáze programu."
 
@@ -135,6 +129,12 @@ msgstr "Operátor"
 
 msgid "Date"
 msgstr "datum"
+
+msgid "Selected value not available in in list: {{name}}"
+msgstr "Vybraná hodnota není dostupná v seznamu: {{name}}"
+
+msgid "Style by data element"
+msgstr "Styl podle datového prvku"
 
 msgid "Data set"
 msgstr "Datová sada"
@@ -249,54 +249,6 @@ msgstr "Zrušit"
 msgid "Close"
 msgstr "Zavřít"
 
-msgid "No organisation units are selected"
-msgstr "Nejsou vybrány žádné organizační jednotky"
-
-msgid "Organisation Units"
-msgstr "Organizační jednotky"
-
-msgid "Style"
-msgstr "Styl"
-
-msgid "Point color"
-msgstr "Barva bodu"
-
-msgid "Point radius"
-msgstr "Poloměr bodu"
-
-msgid "event"
-msgstr "událost"
-
-msgid "tracked entity"
-msgstr "trasovaná entita"
-
-msgid "facility"
-msgstr "zařízení"
-
-msgid "thematic"
-msgstr "tematický"
-
-msgid "org unit"
-msgstr "org. jednotka"
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr "Upravit vrstvu {{name}}"
-
-msgid "Add new {{name}} layer"
-msgstr "Přidat novou vrstvu {{name}}"
-
-msgid "Update layer"
-msgstr "Aktualizovat vrstvu"
-
-msgid "Add layer"
-msgstr "Přidat vrstvu"
-
 msgid "Aggregation method"
 msgstr "Metoda agregace"
 
@@ -311,6 +263,12 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Období"
+
+msgid "Organisation Units"
+msgstr "Organizační jednotky"
+
+msgid "Style"
+msgstr "Styl"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -403,6 +361,48 @@ msgstr "Nevybrána žádná sada legend"
 
 msgid "Event status"
 msgstr "Stav události"
+
+msgid "No organisation units are selected"
+msgstr "Nejsou vybrány žádné organizační jednotky"
+
+msgid "Point color"
+msgstr "Barva bodu"
+
+msgid "Point radius"
+msgstr "Poloměr bodu"
+
+msgid "event"
+msgstr "událost"
+
+msgid "tracked entity"
+msgstr "trasovaná entita"
+
+msgid "facility"
+msgstr "zařízení"
+
+msgid "thematic"
+msgstr "tematický"
+
+msgid "org unit"
+msgstr "org. jednotka"
+
+msgid "Earth Engine"
+msgstr "Earth Engine"
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "Upravit vrstvu {{name}}"
+
+msgid "Add new {{name}} layer"
+msgstr "Přidat novou vrstvu {{name}}"
+
+msgid "Update layer"
+msgstr "Aktualizovat vrstvu"
+
+msgid "Add layer"
+msgstr "Přidat vrstvu"
 
 msgid "Boundary color"
 msgstr "Barva hraničních okrajů"
@@ -560,12 +560,6 @@ msgstr "Styl podle sady skupiny"
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
 
-msgid "Collapse"
-msgstr "Sbalit"
-
-msgid "Expand"
-msgstr "Rozbalit"
-
 msgid "External basemap"
 msgstr "Externí základní mapa"
 
@@ -592,6 +586,12 @@ msgstr "Používejte klávesy čitelné člověkem"
 
 msgid "Data download failed."
 msgstr "Stažení dat se nezdařilo."
+
+msgid "Collapse"
+msgstr "Sbalit"
+
+msgid "Expand"
+msgstr "Rozbalit"
 
 msgid "External layer"
 msgstr "Vnější vrstva"
@@ -632,8 +632,8 @@ msgstr "Skrýt tabulku dat"
 msgid "Show data table"
 msgstr "Zobrazit tabulku dat"
 
-msgid "Open as chart"
-msgstr "Otevřít jako graf"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Stáhnout data"
@@ -671,29 +671,8 @@ msgstr "Zobrazit zeměpisnou délku / šířku"
 msgid "Show {{name}}"
 msgstr "Zobrazit {{name}}"
 
-msgid "Longitude"
-msgstr "Zeměpisná délka"
-
-msgid "Latitude"
-msgstr "Zeměpisná šířka"
-
 msgid "Basemap could not be added: {{message}}"
 msgstr "Základní mapu nelze přidat: {{message}}"
-
-msgid "Not set"
-msgstr "Nenastaveno"
-
-msgid "Could not retrieve event data"
-msgstr "Nepodařilo se načíst data události"
-
-msgid "Organisation unit"
-msgstr "Organizační jednotka"
-
-msgid "Parent unit"
-msgstr "Nadřazená jednotka"
-
-msgid "Last updated"
-msgstr "Naposledy aktualizováno"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -710,6 +689,27 @@ msgstr "Všechny skupiny"
 
 msgid "Loading data"
 msgstr "Načítání dat"
+
+msgid "Not set"
+msgstr "Nenastaveno"
+
+msgid "Could not retrieve event data"
+msgstr "Nepodařilo se načíst data události"
+
+msgid "Organisation unit"
+msgstr "Organizační jednotka"
+
+msgid "Parent unit"
+msgstr "Nadřazená jednotka"
+
+msgid "Last updated"
+msgstr "Naposledy aktualizováno"
+
+msgid "Longitude"
+msgstr "Zeměpisná délka"
+
+msgid "Latitude"
+msgstr "Zeměpisná šířka"
 
 msgid "acres"
 msgstr "akrů"
@@ -1356,9 +1356,6 @@ msgstr "Zařízení"
 
 msgid "Facilities: No coordinates found"
 msgstr "Zařízení: Nebyly nalezeny žádné souřadnice"
-
-msgid "Url to geojson is invalid."
-msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""

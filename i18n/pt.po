@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -108,12 +108,6 @@ msgstr ""
 msgid "Event data item"
 msgstr "Item de dados do evento"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr "Estilo por elemento de dados"
-
 msgid "Filtering is available after selecting a program stage."
 msgstr "A filtragem está disponível após a seleção de um estágio do programa."
 
@@ -140,6 +134,12 @@ msgstr "Operador"
 
 msgid "Date"
 msgstr "Data"
+
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr "Estilo por elemento de dados"
 
 msgid "Data set"
 msgstr "Ficha"
@@ -254,54 +254,6 @@ msgstr "Cancelar"
 msgid "Close"
 msgstr "Fechar"
 
-msgid "No organisation units are selected"
-msgstr "Nenhuma unidade organizacional está selecionada"
-
-msgid "Organisation Units"
-msgstr "Unidades Organizacionais"
-
-msgid "Style"
-msgstr "Estilo"
-
-msgid "Point color"
-msgstr ""
-
-msgid "Point radius"
-msgstr "Raio do ponto"
-
-msgid "event"
-msgstr "Evento"
-
-msgid "tracked entity"
-msgstr "Entidade rastreada"
-
-msgid "facility"
-msgstr "Instalação"
-
-msgid "thematic"
-msgstr "temática"
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr "Edite a camada {{name}}"
-
-msgid "Add new {{name}} layer"
-msgstr "Adicione nova camada {{name}}"
-
-msgid "Update layer"
-msgstr "Actualizar camada"
-
-msgid "Add layer"
-msgstr "Adicionar camada"
-
 msgid "Aggregation method"
 msgstr ""
 
@@ -316,6 +268,12 @@ msgstr "Dados"
 
 msgid "Period"
 msgstr "Período"
+
+msgid "Organisation Units"
+msgstr "Unidades Organizacionais"
+
+msgid "Style"
+msgstr "Estilo"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -406,6 +364,48 @@ msgstr ""
 
 msgid "Event status"
 msgstr "Estado do evento "
+
+msgid "No organisation units are selected"
+msgstr "Nenhuma unidade organizacional está selecionada"
+
+msgid "Point color"
+msgstr ""
+
+msgid "Point radius"
+msgstr "Raio do ponto"
+
+msgid "event"
+msgstr "Evento"
+
+msgid "tracked entity"
+msgstr "Entidade rastreada"
+
+msgid "facility"
+msgstr "Instalação"
+
+msgid "thematic"
+msgstr "temática"
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr "Earth Engine"
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "Edite a camada {{name}}"
+
+msgid "Add new {{name}} layer"
+msgstr "Adicione nova camada {{name}}"
+
+msgid "Update layer"
+msgstr "Actualizar camada"
+
+msgid "Add layer"
+msgstr "Adicionar camada"
 
 msgid "Boundary color"
 msgstr ""
@@ -570,12 +570,6 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Grupo de Indicador"
 
-msgid "Collapse"
-msgstr "colapsar"
-
-msgid "Expand"
-msgstr "Expandir"
-
 msgid "External basemap"
 msgstr "Mapa base externo"
 
@@ -603,6 +597,12 @@ msgstr "Use chaves legíveis por humanos"
 
 msgid "Data download failed."
 msgstr "Falha na transferência dos dados."
+
+msgid "Collapse"
+msgstr "colapsar"
+
+msgid "Expand"
+msgstr "Expandir"
 
 msgid "External layer"
 msgstr "Camada externa"
@@ -644,8 +644,8 @@ msgstr "Ocultar tabela de dados"
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
-msgstr "Abrir como gráfico"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Baixar dados"
@@ -683,13 +683,21 @@ msgstr "Mostrar longitude/latitude"
 msgid "Show {{name}}"
 msgstr ""
 
-msgid "Longitude"
-msgstr "Longitude"
-
-msgid "Latitude"
-msgstr "Latitude"
-
 msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
+
+msgid "no value"
+msgstr "sem valor"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -707,19 +715,11 @@ msgstr "Unidade parental"
 msgid "Last updated"
 msgstr "Última actualização"
 
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
+msgid "Longitude"
+msgstr "Longitude"
 
-msgid "no value"
-msgstr "sem valor"
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
-msgstr ""
+msgid "Latitude"
+msgstr "Latitude"
 
 msgid "acres"
 msgstr "acres"
@@ -1356,9 +1356,6 @@ msgid "Facilities"
 msgstr "Instalações"
 
 msgid "Facilities: No coordinates found"
-msgstr ""
-
-msgid "Url to geojson is invalid."
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
