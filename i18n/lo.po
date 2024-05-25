@@ -497,7 +497,7 @@ msgid "is not"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "ເອົາຕົວກອງອອກ"
 
 msgid "Indicator group"
 msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
