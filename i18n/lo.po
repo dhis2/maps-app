@@ -488,7 +488,7 @@ msgid "Date"
 msgstr "ວັນທີ່"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "ເອົາຕົວກອງອອກ"
 
 msgid "Group set"
 msgstr "ກຸ່ມຂອງກຸ່ມ"
