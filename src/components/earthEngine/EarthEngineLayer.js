@@ -12,7 +12,12 @@ const EarthEngineLayer = ({ layer, isAdded, onShow, onHide }) => {
             className={styles.layer}
             onClick={() => (isAdded ? onHide(layerId) : onShow(layerId))}
         >
-            <Checkbox checked={isAdded} dense={false} onChange={() => {}} />
+            <Checkbox
+                dataTest="earthenginelayer-checkbox"
+                checked={isAdded}
+                dense={false}
+                onChange={() => {}}
+            />
             <img src={img} className={styles.image} />
             <div className={styles.layerInfo}>
                 <h2>{name}</h2>

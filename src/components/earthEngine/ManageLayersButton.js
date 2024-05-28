@@ -16,7 +16,12 @@ const ManageLayersButton = ({ onClick }) => {
 
     return (
         <div className={styles.button}>
-            <Button small secondary onClick={onClick}>
+            <Button
+                dataTest="managelayers-button"
+                small
+                secondary
+                onClick={onClick}
+            >
                 {i18n.t('Manage available layers')}
             </Button>
         </div>
