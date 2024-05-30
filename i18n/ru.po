@@ -4,13 +4,14 @@
 # Ulanbek Abakirov <ulans@mail.ru>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2024
+# Yury Rogachev <yury@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -105,12 +106,6 @@ msgstr ""
 msgid "Event data item"
 msgstr "Элемент данных событий"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr ""
-
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
@@ -137,6 +132,12 @@ msgstr "Операция"
 
 msgid "Date"
 msgstr "Дата"
+
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr ""
 
 msgid "Data set"
 msgstr "Набор данных"
@@ -247,54 +248,6 @@ msgstr "Отменить"
 msgid "Close"
 msgstr "Закрыть"
 
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Organisation Units"
-msgstr "Организации"
-
-msgid "Style"
-msgstr "Стиль"
-
-msgid "Point color"
-msgstr "Цвет точки"
-
-msgid "Point radius"
-msgstr "Радиус точки"
-
-msgid "event"
-msgstr ""
-
-msgid "tracked entity"
-msgstr ""
-
-msgid "facility"
-msgstr ""
-
-msgid "thematic"
-msgstr ""
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr ""
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr ""
-
-msgid "Add new {{name}} layer"
-msgstr ""
-
-msgid "Update layer"
-msgstr ""
-
-msgid "Add layer"
-msgstr "Добавить слой"
-
 msgid "Aggregation method"
 msgstr ""
 
@@ -309,6 +262,12 @@ msgstr "Данные"
 
 msgid "Period"
 msgstr "Период"
+
+msgid "Organisation Units"
+msgstr "Организации"
+
+msgid "Style"
+msgstr "Стиль"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -397,6 +356,48 @@ msgstr ""
 
 msgid "Event status"
 msgstr "Статус события"
+
+msgid "No organisation units are selected"
+msgstr ""
+
+msgid "Point color"
+msgstr "Цвет точки"
+
+msgid "Point radius"
+msgstr "Радиус точки"
+
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr ""
+
+msgid "Add new {{name}} layer"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr "Добавить слой"
 
 msgid "Boundary color"
 msgstr ""
@@ -539,7 +540,7 @@ msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Удалить фильтр"
 
 msgid "Group set"
 msgstr "Набор группы"
@@ -552,12 +553,6 @@ msgstr ""
 
 msgid "Indicator group"
 msgstr "Группа индикаторов"
-
-msgid "Collapse"
-msgstr "Свернуть"
-
-msgid "Expand"
-msgstr "Развернуть"
 
 msgid "External basemap"
 msgstr ""
@@ -584,6 +579,12 @@ msgstr ""
 
 msgid "Data download failed."
 msgstr ""
+
+msgid "Collapse"
+msgstr "Свернуть"
+
+msgid "Expand"
+msgstr "Развернуть"
 
 msgid "External layer"
 msgstr "Внешний слой"
@@ -624,7 +625,7 @@ msgstr "Спрятать таблицу данных"
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
+msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
@@ -663,13 +664,21 @@ msgstr "Показать долготу / широту"
 msgid "Show {{name}}"
 msgstr ""
 
-msgid "Longitude"
-msgstr "Долгота"
-
-msgid "Latitude"
-msgstr "Широта"
-
 msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
+
+msgid "no value"
+msgstr ""
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -687,19 +696,11 @@ msgstr "Родительская"
 msgid "Last updated"
 msgstr "Последнее обновление"
 
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
+msgid "Longitude"
+msgstr "Долгота"
 
-msgid "no value"
-msgstr ""
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
-msgstr ""
+msgid "Latitude"
+msgstr "Широта"
 
 msgid "acres"
 msgstr ""
@@ -1326,9 +1327,6 @@ msgid "Facilities"
 msgstr "Удобства"
 
 msgid "Facilities: No coordinates found"
-msgstr ""
-
-msgid "Url to geojson is invalid."
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
