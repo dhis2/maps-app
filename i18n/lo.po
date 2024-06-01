@@ -114,7 +114,7 @@ msgid "Add filter"
 msgstr ""
 
 msgid "Data item"
-msgstr ""
+msgstr "ລາຍການຂໍ້ມູນ"
 
 msgid "one of"
 msgstr ""
@@ -368,7 +368,7 @@ msgid "Point radius"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "ເຫດການ"
 
 msgid "tracked entity"
 msgstr ""
@@ -817,7 +817,7 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Link"
-msgstr ""
+msgstr "ເຊື່ອມ"
 
 msgid "Contact"
 msgstr ""
