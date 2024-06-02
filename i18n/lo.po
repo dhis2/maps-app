@@ -75,7 +75,7 @@ msgid "None"
 msgstr "ບໍ່ແມນ"
 
 msgid "Data item"
-msgstr ""
+msgstr "ລາຍການຂໍ້ມູນ"
 
 msgid "Event data item"
 msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
@@ -172,7 +172,7 @@ msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "ເຫດການ"
 
 msgid "tracked entity"
 msgstr ""
@@ -752,7 +752,7 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Link"
-msgstr ""
+msgstr "ເຊື່ອມ"
 
 msgid "Contact"
 msgstr ""
