@@ -66,7 +66,7 @@ msgid "None"
 msgstr "ບໍ່ແມນ"
 
 msgid "Data item"
-msgstr ""
+msgstr "ລາຍການຂໍ້ມູນ"
 
 msgid "Event data item"
 msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
@@ -173,7 +173,7 @@ msgid "Group set is required"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "ເຫດການ"
 
 msgid "tracked entity"
 msgstr ""
