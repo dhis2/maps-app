@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -105,12 +105,6 @@ msgstr "事件 > 组织单位坐标"
 msgid "Event data item"
 msgstr "事件数据条目"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "所选值在列表中不可用：{{name}}"
-
-msgid "Style by data element"
-msgstr "按数据元风格显示"
-
 msgid "Filtering is available after selecting a program stage."
 msgstr "选择项目阶段后即可进行过滤。"
 
@@ -137,6 +131,12 @@ msgstr "操作符"
 
 msgid "Date"
 msgstr "日期"
+
+msgid "Selected value not available in in list: {{name}}"
+msgstr "所选值在列表中不可用：{{name}}"
+
+msgid "Style by data element"
+msgstr "按数据元风格显示"
 
 msgid "Data set"
 msgstr "数据集"
@@ -247,54 +247,6 @@ msgstr "取消"
 msgid "Close"
 msgstr "关闭"
 
-msgid "No organisation units are selected"
-msgstr "没有选择机构"
-
-msgid "Organisation Units"
-msgstr "组织机构管理"
-
-msgid "Style"
-msgstr "风格"
-
-msgid "Point color"
-msgstr "点颜色"
-
-msgid "Point radius"
-msgstr "点半径"
-
-msgid "event"
-msgstr "事件"
-
-msgid "tracked entity"
-msgstr "跟踪实体"
-
-msgid "facility"
-msgstr "机构"
-
-msgid "thematic"
-msgstr "主题"
-
-msgid "org unit"
-msgstr "组织单位"
-
-msgid "Earth Engine"
-msgstr "地图引擎"
-
-msgid "feature"
-msgstr "特征"
-
-msgid "Edit {{name}} layer"
-msgstr "编辑{{name}} 图层"
-
-msgid "Add new {{name}} layer"
-msgstr "添加新的 {{name}} 图层"
-
-msgid "Update layer"
-msgstr "更新图层"
-
-msgid "Add layer"
-msgstr "添加图层"
-
 msgid "Aggregation method"
 msgstr "汇总方法"
 
@@ -309,6 +261,12 @@ msgstr "数据"
 
 msgid "Period"
 msgstr "周期"
+
+msgid "Organisation Units"
+msgstr "组织机构管理"
+
+msgid "Style"
+msgstr "风格"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -397,6 +355,48 @@ msgstr "未选择图例集"
 
 msgid "Event status"
 msgstr "事件状态"
+
+msgid "No organisation units are selected"
+msgstr "没有选择机构"
+
+msgid "Point color"
+msgstr "点颜色"
+
+msgid "Point radius"
+msgstr "点半径"
+
+msgid "event"
+msgstr "事件"
+
+msgid "tracked entity"
+msgstr "跟踪实体"
+
+msgid "facility"
+msgstr "机构"
+
+msgid "thematic"
+msgstr "主题"
+
+msgid "org unit"
+msgstr "组织单位"
+
+msgid "Earth Engine"
+msgstr "地图引擎"
+
+msgid "feature"
+msgstr "特征"
+
+msgid "Edit {{name}} layer"
+msgstr "编辑{{name}} 图层"
+
+msgid "Add new {{name}} layer"
+msgstr "添加新的 {{name}} 图层"
+
+msgid "Update layer"
+msgstr "更新图层"
+
+msgid "Add layer"
+msgstr "添加图层"
 
 msgid "Boundary color"
 msgstr "边界颜色"
@@ -553,12 +553,6 @@ msgstr "按组集设置样式"
 msgid "Indicator group"
 msgstr "指标组"
 
-msgid "Collapse"
-msgstr "折叠"
-
-msgid "Expand"
-msgstr "展开"
-
 msgid "External basemap"
 msgstr "外部基础图层"
 
@@ -584,6 +578,12 @@ msgstr "使用人机可读的键值"
 
 msgid "Data download failed."
 msgstr "下载数据失败"
+
+msgid "Collapse"
+msgstr "折叠"
+
+msgid "Expand"
+msgstr "展开"
 
 msgid "External layer"
 msgstr "外部图层"
@@ -624,8 +624,8 @@ msgstr "隐藏数据表"
 msgid "Show data table"
 msgstr "显示数据表"
 
-msgid "Open as chart"
-msgstr "打开图表"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "下载数据"
@@ -663,14 +663,22 @@ msgstr "显示经纬度"
 msgid "Show {{name}}"
 msgstr "显示{{name}}"
 
-msgid "Longitude"
-msgstr "经度"
-
-msgid "Latitude"
-msgstr "纬度"
-
 msgid "Basemap could not be added: {{message}}"
 msgstr "无法添加底图：{{message}}"
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr "Google 地球引擎失败。是否为此 DHIS2 实例配置了服务？"
+
+msgid "no value"
+msgstr "无值"
+
+msgid "All groups"
+msgstr "所有组"
+
+msgid "Loading data"
+msgstr "加载数据中"
 
 msgid "Not set"
 msgstr "没有设置"
@@ -687,19 +695,11 @@ msgstr "上级机构"
 msgid "Last updated"
 msgstr "Last updated"
 
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr "Google 地球引擎失败。是否为此 DHIS2 实例配置了服务？"
+msgid "Longitude"
+msgstr "经度"
 
-msgid "no value"
-msgstr "无值"
-
-msgid "All groups"
-msgstr "所有组"
-
-msgid "Loading data"
-msgstr "加载数据中"
+msgid "Latitude"
+msgstr "纬度"
 
 msgid "acres"
 msgstr " 英亩"
@@ -1327,9 +1327,6 @@ msgstr "机构设施"
 
 msgid "Facilities: No coordinates found"
 msgstr "机构设施：未找到坐标"
-
-msgid "Url to geojson is invalid."
-msgstr "geojson 的 URL 无效。"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "这层有问题。联系系统管理员。"

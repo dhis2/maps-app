@@ -3,13 +3,14 @@
 # Jason Pickering <jason@dhis2.org>, 2019
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
+# Martin <martin@moid.se>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
+"Last-Translator: Martin <martin@moid.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/hisp-uio/teams/100509/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +52,7 @@ msgid "Value"
 msgstr "Värde"
 
 msgid "Display"
-msgstr ""
+msgstr "Visa"
 
 msgid "Data element group"
 msgstr "Dataelementgrupp"
@@ -147,7 +148,7 @@ msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Något gick fel"
 
 msgid "Search"
 msgstr "Sök"
@@ -395,7 +396,7 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "Händelsestatus"
 
 msgid "Boundary color"
 msgstr ""
@@ -494,7 +495,7 @@ msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "Programstatus"
 
 msgid "Relationships"
 msgstr "Relationer"
