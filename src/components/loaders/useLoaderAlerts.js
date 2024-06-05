@@ -4,7 +4,8 @@ import {
     ALERT_MESSAGE_DYNAMIC,
     ALERT_CRITICAL,
     ALERT_WARNING,
-    WARNING_NO_DATA,
+    ALERT_INFO,
+    INFO_NO_DATA,
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     WARNING_NO_FACILITY_COORD,
@@ -16,7 +17,7 @@ import {
 
 function useLoaderAlerts() {
     const errorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
-    const noDataAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_WARNING)
+    const noDataAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_INFO)
     const noOUCoordinatesAlert = useAlert(({ msg }) => msg, ALERT_WARNING)
 
     const noGeometryCoordinatesAlert = useAlert(
@@ -36,7 +37,7 @@ function useLoaderAlerts() {
         console.log('here with alerts', alerts)
         alerts.forEach(({ message: msg, code, custom }) => {
             switch (code) {
-                case WARNING_NO_DATA:
+                case INFO_NO_DATA:
                     noDataAlert.show({ msg })
                     break
                 case WARNING_NO_OU_COORD: {

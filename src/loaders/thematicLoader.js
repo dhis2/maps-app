@@ -3,7 +3,7 @@ import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex, curry } from 'lodash/fp'
 import {
-    WARNING_NO_DATA,
+    INFO_NO_DATA,
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
@@ -197,8 +197,7 @@ const thematicLoader = async (config) => {
             })
         } else {
             alerts.push({
-                warning: true,
-                code: WARNING_NO_DATA,
+                code: INFO_NO_DATA,
                 message: `${name}: ${i18n.t('No data found')}`,
             })
         }

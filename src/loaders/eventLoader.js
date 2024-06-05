@@ -3,7 +3,7 @@ import { getInstance as getD2 } from 'd2'
 import {
     ERROR_NO_ACCESS,
     ERROR_UNKNOWN,
-    WARNING_NO_DATA,
+    INFO_NO_DATA,
     WARNING_PAGED_EVENTS,
 } from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
@@ -155,8 +155,7 @@ const loadEventLayer = async (config, loadExtended) => {
             }
         } else {
             alert = {
-                warning: true,
-                code: WARNING_NO_DATA,
+                code: INFO_NO_DATA,
                 message: `${config.name}: ${i18n.t('No data found')}`,
             }
         }
