@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import eventLoader from '../../loaders/eventLoader.js'
 import useLoaderAlerts from './useLoaderAlerts.js'
 
-
 const EventLoader = ({ config, dataTableOpen, onLoad }) => {
     const { showAlerts } = useLoaderAlerts()
 
