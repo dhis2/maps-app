@@ -7,7 +7,9 @@ context('Manage Layers', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })
 
-    it('maps authority id is set', () => {
+    let numberOfLayers
+
+    it('with maps-management authority (default)', () => {
         cy.request({
             method: 'GET',
             url: `${getApiBaseUrl()}/api/me/authorization/${MAPS_ADMIN_AUTHORITY_ID}`,
@@ -21,50 +23,41 @@ context('Manage Layers', () => {
     })
 
     it('check modal behavior', () => {
-        cy.getByDataTest('add-layer-button').click()
-        cy.getByDataTest('addlayerpopover').should('be.visible')
-        cy.getByDataTest('managelayers-button').should('be.visible')
-        cy.getByDataTest('managelayers-button').contains(
-            'Manage available layers'
-        )
-        cy.getByDataTest('managelayers-button').click()
-        cy.getByDataTest('addlayerpopover').should('not.exist')
+        cy.intercept(
+            'GET',
+            `${getApiBaseUrl()}/api/40/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%5D`,
+            (request) => {
+                delete request.headers['if-none-match']
+            }
+        ).as('getAuthorization')
 
-        cy.getByDataTest('earthenginemodal').should('be.visible')
-        cy.getByDataTest('earthenginemodal-title').should('be.visible')
-        cy.getByDataTest('earthenginemodal-content').should('be.visible')
-        cy.getByDataTest('earthenginelayer-checkbox')
-            .its('length')
-            .should('be.gte', 1)
-        cy.getByDataTest('earthenginemodal-actions').should('be.visible')
-        cy.getByDataTest('earthenginemodal-button')
-            .contains('Close')
-            .should('be.visible')
-        cy.getByDataTest('earthenginemodal-button').click()
-        cy.getByDataTest('earthenginemodal').should('not.exist')
+        cy.wait('@getAuthorization', EXTENDED_TIMEOUT).then(() => {
+            cy.getByDataTest('add-layer-button').click()
+            cy.getByDataTest('addlayerpopover').should('be.visible')
+            cy.getByDataTest('managelayers-button').should('be.visible')
+            cy.getByDataTest('managelayers-button').contains(
+                'Manage available layers'
+            )
+            cy.getByDataTest('managelayers-button').click()
+            cy.getByDataTest('addlayerpopover').should('not.exist')
+
+            cy.getByDataTest('earthenginemodal').should('be.visible')
+            cy.getByDataTest('earthenginemodal-title').should('be.visible')
+            cy.getByDataTest('earthenginemodal-content').should('be.visible')
+            cy.getByDataTest('earthenginelayer-checkbox')
+                .its('length')
+                .should('be.gte', 1)
+            cy.getByDataTest('earthenginemodal-actions').should('be.visible')
+            cy.getByDataTest('earthenginemodal-button')
+                .contains('Close')
+                .should('be.visible')
+            cy.getByDataTest('earthenginemodal-button').click()
+            cy.getByDataTest('earthenginemodal').should('not.exist')
+        })
     })
 
     it('add and remove layers', () => {
-        Cypress.Commands.add(
-            'waitForLayerContainers',
-            (timeout = EXTENDED_TIMEOUT) => {
-                cy.getByDataTest('addlayerpopover', timeout)
-                    .find('[class^="Layer_container"]')
-                    .should('have.length.greaterThan', numberOfLayers)
-            }
-        )
-        Cypress.Commands.add(
-            'waitForCheckbox',
-            (index, assertion, timeout = EXTENDED_TIMEOUT) => {
-                cy.getByDataTest('earthenginelayer-checkbox', timeout)
-                    .eq(index)
-                    .find('input')
-                    .should(assertion)
-            }
-        )
-
         cy.log('count default layers (n)')
-        let numberOfLayers
         cy.getByDataTest('add-layer-button').click()
         cy.getByDataTest('addlayerpopover')
             .find('[class^="Layer_container"]')
@@ -72,6 +65,18 @@ context('Manage Layers', () => {
                 numberOfLayers = elements.length
                 cy.log(`${numberOfLayers} layers`)
             })
+
+        Cypress.Commands.add('waitForLayerContainers', () => {
+            cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
+                .find('[class^="Layer_container"]')
+                .should('have.length.greaterThan', numberOfLayers)
+        })
+        Cypress.Commands.add('waitForCheckbox', (index, assertion) => {
+            cy.getByDataTest('earthenginelayer-checkbox', EXTENDED_TIMEOUT)
+                .eq(index)
+                .find('input')
+                .should(assertion)
+        })
 
         cy.log('add one layer')
         cy.getByDataTest('managelayers-button').click()
@@ -116,5 +121,78 @@ context('Manage Layers', () => {
         cy.getByDataTest('managelayers-button').click()
         cy.waitForCheckbox(0, 'not.be.checked')
         cy.getByDataTest('earthenginemodal-button').click()
+    })
+
+    it('without maps-management authority', () => {
+        cy.intercept(
+            'GET',
+            `${getApiBaseUrl()}/api/40/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%5D`,
+            (request) => {
+                delete request.headers['if-none-match']
+                request.continue((response) => {
+                    if (response.body.authorities) {
+                        response.body.authorities = ['M_dhis-web-mapping']
+                    }
+                })
+            }
+        ).as('getAuthorization')
+
+        cy.wait('@getAuthorization', EXTENDED_TIMEOUT).then((interception) => {
+            cy.log(interception.response.body.authorities)
+            expect(interception.response.body.authorities).to.deep.equal([
+                //"F_PROGRAM_TRACKED_ENTITY_ATTRIBUTE_GROUP_ADD",
+                'M_dhis-web-mapping',
+            ])
+
+            Cypress.Commands.add('waitForLayerContainers', () => {
+                cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
+                    .find('[class^="Layer_container"]')
+                    .should('have.length.greaterThan', numberOfLayers)
+            })
+            cy.getByDataTest('add-layer-button').click()
+            cy.waitForLayerContainers().then((elements) => {
+                cy.wrap(elements.length).should('equal', numberOfLayers + 1)
+            })
+            cy.getByDataTest('managelayers-button').should('not.exist')
+        })
+    })
+
+    it('datastore is not available', () => {
+        cy.request({
+            method: 'PUT',
+            url: `${getApiBaseUrl()}/api/40/dataStore/MAPS_APP/EARTH_ENGINE_LAYERS`,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+            body: {
+                not: 'expected',
+            },
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+
+            cy.getByDataTest('add-layer-button').click()
+            cy.getByDataTest('addlayerpopover').should('be.visible')
+
+            cy.intercept(
+                'GET',
+                `${getApiBaseUrl()}/api/40/dataStore/MAPS_APP/EARTH_ENGINE_LAYERS`,
+                (request) => {
+                    delete request.headers['if-none-match']
+                }
+            ).as('getDataStore')
+
+            cy.wait('@getDataStore', EXTENDED_TIMEOUT).then((interception) => {
+                cy.log(interception.response)
+            })
+
+            cy.request({
+                method: 'PUT',
+                url: `${getApiBaseUrl()}/api/40/dataStore/MAPS_APP/EARTH_ENGINE_LAYERS`,
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                },
+                body: [],
+            })
+        })
     })
 })
