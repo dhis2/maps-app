@@ -28,11 +28,9 @@ function useLoaderAlerts() {
         alerts.forEach(({ message: msg, code, warning, critical }) => {
             switch (code) {
                 case INFO_NO_DATA: {
-                    const customMessage = i18n.t('{{name}}: No data found', {
-                        name: msg,
-                        nsSeparator: '^^',
+                    noDataAlert.show({
+                        msg: `${msg}: ${i18n.t('No data found')}`,
                     })
-                    noDataAlert.show({ msg: customMessage })
                     break
                 }
                 case WARNING_NO_OU_COORD: {
@@ -44,22 +42,13 @@ function useLoaderAlerts() {
                     break
                 }
                 case WARNING_NO_GEOMETRY_COORD: {
-                    const custommessage = i18n.t(
-                        '{{name}}: No coordinates found',
-                        {
-                            name: msg,
-                            nsSeparator: '^^',
-                        }
-                    )
-                    noGeometryCoordinatesAlert.show({ msg: custommessage })
+                    noGeometryCoordinatesAlert.show({
+                        msg: `${msg}: ${i18n.t('No coordinates found')}`,
+                    })
                     break
                 }
                 case ERROR_CRITICAL: {
-                    const custommessage = i18n.t('Error: {{message}}', {
-                        message: msg,
-                        nsSeparator: '^^',
-                    })
-                    errorAlert.show({ msg: custommessage })
+                    errorAlert.show({ msg: `${i18n.t('Error')}: ${msg}` })
                     break
                 }
                 case CUSTOM_ALERT: {
