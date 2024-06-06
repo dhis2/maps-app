@@ -133,9 +133,7 @@ const trackedEntityLoader = async (config) => {
     if (!instances.length) {
         alert = {
             code: INFO_NO_DATA,
-            message: `${trackedEntityType.name}: ${i18n.t(
-                'No tracked entities found'
-            )}`,
+            message: trackedEntityType.name,
         }
     }
 

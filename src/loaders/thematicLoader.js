@@ -70,11 +70,8 @@ const thematicLoader = async (config) => {
                 ? {
                       alerts: [
                           {
-                              critical: true,
                               code: ERROR_CRITICAL,
-                              message: `${i18n.t('Error')}: ${
-                                  error.message || error
-                              }`,
+                              message: error.message || error,
                           },
                       ],
                   }
@@ -184,21 +181,16 @@ const thematicLoader = async (config) => {
         .domain([minValue, maxValue])
         .clamp(true)
 
-    alerts.push({
-        code: WARNING_NO_OU_COORD,
-        custom: i18n.t('Thematic layer'),
-    })
-
     if (!valueFeatures.length) {
         if (!features.length) {
             alerts.push({
                 code: WARNING_NO_OU_COORD,
-                custom: i18n.t('Thematic layer'),
+                message: i18n.t('Thematic layer'),
             })
         } else {
             alerts.push({
                 code: INFO_NO_DATA,
-                message: `${name}: ${i18n.t('No data found')}`,
+                message: name,
             })
         }
     }
@@ -206,7 +198,7 @@ const thematicLoader = async (config) => {
     if (coordinateField && !associatedGeometries.length) {
         alerts.push({
             code: WARNING_NO_GEOMETRY_COORD,
-            custom: coordinateField.name,
+            message: coordinateField.name,
         })
     }
 

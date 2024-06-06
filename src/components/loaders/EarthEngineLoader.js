@@ -8,7 +8,7 @@ const EarthEngineLoader = ({ config, onLoad }) => {
 
     useEffect(() => {
         earthEngineLoader(config).then((result) => {
-            if (result.alerts) {
+            if (result.alerts.length) {
                 showAlerts(result.alerts)
             }
             onLoad(result)

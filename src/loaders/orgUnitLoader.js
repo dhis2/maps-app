@@ -42,12 +42,8 @@ const orgUnitLoader = async (config) => {
             .catch((error) => {
                 if (error && error.message) {
                     alerts.push({
-                        critical: true,
                         code: ERROR_CRITICAL,
-                        message: i18n.t('Error: {{message}}', {
-                            message: error.message,
-                            nsSeparator: ';',
-                        }),
+                        message: error.message,
                     })
                 }
             }),
@@ -62,17 +58,10 @@ const orgUnitLoader = async (config) => {
     const [mainFeatures = [], orgUnitLevels, organisationUnitGroups] =
         await Promise.all(requests)
 
-    // jj just for testing
-    alerts.push({
-        warning: true,
-        code: WARNING_NO_OU_COORD,
-        custom: i18n.t('Org unit layer'),
-    })
-
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
             code: WARNING_NO_OU_COORD,
-            custom: i18n.t('Org unit layer'),
+            message: i18n.t('Org unit layer'),
         })
     }
 
@@ -91,7 +80,7 @@ const orgUnitLoader = async (config) => {
         if (!associatedGeometries.length) {
             alerts.push({
                 code: WARNING_NO_GEOMETRY_COORD,
-                custom: coordinateField.name,
+                message: coordinateField.name,
             })
         }
     }

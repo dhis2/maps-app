@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-05T07:27:39.086Z\n"
-"PO-Revision-Date: 2024-06-05T07:27:39.086Z\n"
+"POT-Creation-Date: 2024-06-06T08:40:43.828Z\n"
+"PO-Revision-Date: 2024-06-06T08:40:43.828Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -642,20 +642,17 @@ msgstr "Filters"
 msgid "{{layername}}: {{message}}"
 msgstr "{{layername}}: {{message}}"
 
-msgid "Selected org units for {{name}}: No coordinates found"
-msgstr "Selected org units for {{name}}: No coordinates found"
+msgid "{{name}}: No data found"
+msgstr "{{name}}: No data found"
+
+msgid "No coordinates found for selected org units"
+msgstr "No coordinates found for selected org units"
 
 msgid "{{name}}: No coordinates found"
 msgstr "{{name}}: No coordinates found"
 
 msgid "Error: {{message}}"
 msgstr "Error: {{message}}"
-
-msgid "No tracked entities found"
-msgstr "No tracked entities found"
-
-msgid "No data found"
-msgstr "No data found"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -1341,8 +1338,8 @@ msgstr "Event"
 msgid "Facilities"
 msgstr "Facilities"
 
-msgid "Facilities: No coordinates found"
-msgstr "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
+msgstr "No coordinates found for selected facilities"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "There was a problem with this layer. Contact a system administrator."
@@ -1364,9 +1361,6 @@ msgstr "Organisation units"
 
 msgid "Org unit layer"
 msgstr "Org unit layer"
-
-msgid "Error"
-msgstr "Error"
 
 msgid "Thematic layer"
 msgstr "Thematic layer"
