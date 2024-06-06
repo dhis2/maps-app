@@ -7,7 +7,7 @@ const TrackedEntityLoader = ({ config, onLoad }) => {
     const { showAlerts } = useLoaderAlerts()
     useEffect(() => {
         trackedEntityLoader(config).then((result) => {
-            if (result.alerts) {
+            if (result.alerts.length) {
                 showAlerts(result.alerts)
             }
             onLoad(result)

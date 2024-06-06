@@ -8,7 +8,7 @@ const EventLoader = ({ config, dataTableOpen, onLoad }) => {
 
     useEffect(() => {
         eventLoader(config, dataTableOpen).then((result) => {
-            if (result.alerts) {
+            if (result.alerts.length) {
                 showAlerts(result.alerts)
             }
             onLoad(result)

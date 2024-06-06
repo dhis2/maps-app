@@ -7,7 +7,7 @@ const FacilityLoader = ({ config, onLoad }) => {
     const { showAlerts } = useLoaderAlerts()
     useEffect(() => {
         facilityLoader(config).then((result) => {
-            if (result.alerts) {
+            if (result.alerts.length) {
                 showAlerts(result.alerts)
             }
             onLoad(result)

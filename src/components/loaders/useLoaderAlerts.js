@@ -25,7 +25,6 @@ function useLoaderAlerts() {
     )
 
     const showAlerts = (alerts) => {
-        console.log('here with alerts', alerts)
         alerts.forEach(({ message: msg, code, warning, critical }) => {
             switch (code) {
                 case INFO_NO_DATA: {
