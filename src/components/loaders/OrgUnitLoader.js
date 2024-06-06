@@ -8,7 +8,7 @@ const OrgUnitLoader = ({ config, onLoad }) => {
 
     useEffect(() => {
         orgUnitLoader(config).then((result) => {
-            if (result.alerts.length) {
+            if (result.alerts?.length) {
                 showAlerts(result.alerts)
             }
             onLoad(result)

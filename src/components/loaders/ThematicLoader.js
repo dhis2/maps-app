@@ -8,7 +8,7 @@ const ThematicLoader = ({ config, onLoad }) => {
 
     useEffect(() => {
         thematicLoader(config).then((result) => {
-            if (result.alerts.length) {
+            if (result.alerts?.length) {
                 showAlerts(result.alerts)
             }
             onLoad(result)
