@@ -185,6 +185,8 @@ describe('File menu', () => {
             url: /\/maps/,
         }).as('deleteMap');
 
+        cy.getByDataTest('layercard').should('not.contain', 'Loading layer...')
+
         deleteMap();
 
         cy.wait('@deleteMap')
