@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import orgUnitLoader from '../../loaders/orgUnitLoader.js'
 import useLoaderAlerts from './useLoaderAlerts.js'
 
-const OrgUnitLoader = ({ config, onLoad }) => {
-    const { showAlerts } = useLoaderAlerts()
+const OrgUnitLoader = ({ config, onLoad, loaderAlertAction }) => {
+    const { showAlerts } = useLoaderAlerts(loaderAlertAction)
 
     useEffect(() => {
         orgUnitLoader(config).then((result) => {
@@ -21,6 +21,7 @@ const OrgUnitLoader = ({ config, onLoad }) => {
 OrgUnitLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
+    loaderAlertAction: PropTypes.func,
 }
 
 export default OrgUnitLoader

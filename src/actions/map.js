@@ -37,3 +37,7 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
     layerId,
     coordinate,
 })
+
+export const clearAlerts = () => ({
+    type: types.MAP_ALERTS_CLEAR,
+})

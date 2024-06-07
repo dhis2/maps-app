@@ -31,6 +31,7 @@ const geometryTypes = Object.keys(geometryTypesMap)
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async (config) => {
+    console.log('teloader')
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)

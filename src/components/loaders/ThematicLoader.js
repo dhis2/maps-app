@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import thematicLoader from '../../loaders/thematicLoader.js'
 import useLoaderAlerts from './useLoaderAlerts.js'
 
-const ThematicLoader = ({ config, onLoad }) => {
-    const { showAlerts } = useLoaderAlerts()
+const ThematicLoader = ({ config, onLoad, loaderAlertAction }) => {
+    const { showAlerts } = useLoaderAlerts(loaderAlertAction)
 
     useEffect(() => {
         thematicLoader(config).then((result) => {
@@ -21,6 +21,7 @@ const ThematicLoader = ({ config, onLoad }) => {
 ThematicLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
+    loaderAlertAction: PropTypes.func,
 }
 
 export default ThematicLoader

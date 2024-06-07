@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import earthEngineLoader from '../../loaders/earthEngineLoader.js'
 import useLoaderAlerts from './useLoaderAlerts.js'
 
-const EarthEngineLoader = ({ config, onLoad }) => {
-    const { showAlerts } = useLoaderAlerts()
+const EarthEngineLoader = ({ config, onLoad, loaderAlertAction }) => {
+    const { showAlerts } = useLoaderAlerts(loaderAlertAction)
 
     useEffect(() => {
         earthEngineLoader(config).then((result) => {
@@ -21,6 +21,7 @@ const EarthEngineLoader = ({ config, onLoad }) => {
 EarthEngineLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
+    loaderAlertAction: PropTypes.func,
 }
 
 export default EarthEngineLoader

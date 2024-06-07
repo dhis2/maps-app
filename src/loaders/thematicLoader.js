@@ -43,6 +43,7 @@ import {
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async (config) => {
+    console.log('thematicloader')
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,

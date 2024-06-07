@@ -2,9 +2,9 @@ import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import {
     ALERT_MESSAGE_DYNAMIC,
-    ALERT_CRITICAL,
-    ALERT_WARNING,
-    ALERT_INFO,
+    // ALERT_CRITICAL,
+    // ALERT_WARNING,
+    // ALERT_INFO,
     INFO_NO_DATA,
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
@@ -12,20 +12,38 @@ import {
     CUSTOM_ALERT,
 } from '../../constants/alerts.js'
 
-function useLoaderAlerts() {
-    const errorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
-    const warningAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_WARNING)
-    const infoAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_INFO)
-    const noDataAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_INFO)
-    const noOUCoordinatesAlert = useAlert(({ msg }) => msg, ALERT_WARNING)
+function useLoaderAlerts(loaderAlertAction) {
+    const errorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
+        critical: true,
+        onHidden: loaderAlertAction,
+    })
+    const warningAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
+        warning: true,
+        onHidden: loaderAlertAction,
+    })
+    const infoAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
+        info: true,
+        duration: 5000,
+        onHidden: loaderAlertAction,
+    })
+    const noDataAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
+        info: true,
+        duration: 5000,
+        onHidden: loaderAlertAction,
+    })
+    const noOUCoordinatesAlert = useAlert(({ msg }) => msg, {
+        warning: true,
+        onHidden: loaderAlertAction,
+    })
 
-    const noGeometryCoordinatesAlert = useAlert(
-        ALERT_MESSAGE_DYNAMIC,
-        ALERT_WARNING
-    )
+    const noGeometryCoordinatesAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
+        warning: true,
+        onHidden: loaderAlertAction,
+    })
 
     const showAlerts = (alerts) => {
         alerts.forEach(({ message: msg, code, warning, critical }) => {
+            console.log('showAlert', msg, code)
             switch (code) {
                 case INFO_NO_DATA: {
                     noDataAlert.show({
