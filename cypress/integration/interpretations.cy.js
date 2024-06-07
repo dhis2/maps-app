@@ -20,10 +20,9 @@ context('Interpretations', () => {
             'Write an interpretation'
         );
 
-        cy.get('p')
-            .contains(
-                'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
-            )
-            .should('be.visible');
+        cy.contains(
+            'p',
+            'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
+        ).should('be.visible');
     });
 });
