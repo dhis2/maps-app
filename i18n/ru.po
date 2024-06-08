@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -106,6 +106,12 @@ msgstr ""
 msgid "Event data item"
 msgstr "Элемент данных событий"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr ""
+
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
@@ -113,7 +119,7 @@ msgid "Add filter"
 msgstr ""
 
 msgid "Data item"
-msgstr ""
+msgstr "Переменная"
 
 msgid "one of"
 msgstr ""
@@ -132,12 +138,6 @@ msgstr "Операция"
 
 msgid "Date"
 msgstr "Дата"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr ""
 
 msgid "Data set"
 msgstr "Набор данных"
@@ -248,6 +248,54 @@ msgstr "Отменить"
 msgid "Close"
 msgstr "Закрыть"
 
+msgid "No organisation units are selected"
+msgstr ""
+
+msgid "Organisation Units"
+msgstr "Организации"
+
+msgid "Style"
+msgstr "Стиль"
+
+msgid "Point color"
+msgstr "Цвет точки"
+
+msgid "Point radius"
+msgstr "Радиус точки"
+
+msgid "event"
+msgstr "событие"
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr ""
+
+msgid "Add new {{name}} layer"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr "Добавить слой"
+
 msgid "Aggregation method"
 msgstr ""
 
@@ -262,12 +310,6 @@ msgstr "Данные"
 
 msgid "Period"
 msgstr "Период"
-
-msgid "Organisation Units"
-msgstr "Организации"
-
-msgid "Style"
-msgstr "Стиль"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -357,48 +399,6 @@ msgstr ""
 msgid "Event status"
 msgstr "Статус события"
 
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Point color"
-msgstr "Цвет точки"
-
-msgid "Point radius"
-msgstr "Радиус точки"
-
-msgid "event"
-msgstr ""
-
-msgid "tracked entity"
-msgstr ""
-
-msgid "facility"
-msgstr ""
-
-msgid "thematic"
-msgstr ""
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr ""
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr ""
-
-msgid "Add new {{name}} layer"
-msgstr ""
-
-msgid "Update layer"
-msgstr ""
-
-msgid "Add layer"
-msgstr "Добавить слой"
-
 msgid "Boundary color"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgstr "Тип агрегации"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -502,7 +502,7 @@ msgid "Relationships"
 msgstr "Зависимости"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Отслеживать"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -554,6 +554,12 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Группа индикаторов"
 
+msgid "Collapse"
+msgstr "Свернуть"
+
+msgid "Expand"
+msgstr "Развернуть"
+
 msgid "External basemap"
 msgstr ""
 
@@ -579,12 +585,6 @@ msgstr ""
 
 msgid "Data download failed."
 msgstr ""
-
-msgid "Collapse"
-msgstr "Свернуть"
-
-msgid "Expand"
-msgstr "Развернуть"
 
 msgid "External layer"
 msgstr "Внешний слой"
@@ -664,21 +664,13 @@ msgstr "Показать долготу / широту"
 msgid "Show {{name}}"
 msgstr ""
 
+msgid "Longitude"
+msgstr "Долгота"
+
+msgid "Latitude"
+msgstr "Широта"
+
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
-
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
-
-msgid "no value"
-msgstr ""
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -693,14 +685,25 @@ msgstr "Организация"
 msgid "Parent unit"
 msgstr "Родительская"
 
+msgid "No data"
+msgstr "Нет данных"
+
 msgid "Last updated"
 msgstr "Последнее обновление"
 
-msgid "Longitude"
-msgstr "Долгота"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
-msgid "Latitude"
-msgstr "Широта"
+msgid "no value"
+msgstr ""
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr ""
@@ -1352,9 +1355,6 @@ msgstr "Ошибка"
 
 msgid "Thematic layer"
 msgstr "Тематический уровень"
-
-msgid "No data"
-msgstr "Нет данных"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"

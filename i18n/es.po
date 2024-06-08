@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Janeth Cruz, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -116,6 +116,12 @@ msgstr "Evento > coordenada de la unidad org"
 msgid "Event data item"
 msgstr "Event data item"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr "Valor seleccionado no disponible en la lista: {{name}}"
+
+msgid "Style by data element"
+msgstr "Estilo por elemento de datos"
+
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 "El filtrado está disponible después de seleccionar una etapa del programa."
@@ -143,12 +149,6 @@ msgstr "Operador"
 
 msgid "Date"
 msgstr "Fecha"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Valor seleccionado no disponible en la lista: {{name}}"
-
-msgid "Style by data element"
-msgstr "Estilo por elemento de datos"
 
 msgid "Data set"
 msgstr "Set de Datos"
@@ -270,6 +270,54 @@ msgstr "Cancelar"
 msgid "Close"
 msgstr "Cerrar"
 
+msgid "No organisation units are selected"
+msgstr "No se ha seleccionado ninguna unidad organizativa"
+
+msgid "Organisation Units"
+msgstr "Unidades Organizativas"
+
+msgid "Style"
+msgstr "Estilo"
+
+msgid "Point color"
+msgstr "Color de punto"
+
+msgid "Point radius"
+msgstr "Point radius"
+
+msgid "event"
+msgstr "evento"
+
+msgid "tracked entity"
+msgstr "entidad de seguimiento"
+
+msgid "facility"
+msgstr "establecimiento"
+
+msgid "thematic"
+msgstr "temática"
+
+msgid "org unit"
+msgstr "Unidad organizativa"
+
+msgid "Earth Engine"
+msgstr "Earth Engine"
+
+msgid "feature"
+msgstr "característica"
+
+msgid "Edit {{name}} layer"
+msgstr "Editar capa {{name}}"
+
+msgid "Add new {{name}} layer"
+msgstr "Agregar nueva capa {{name}}"
+
+msgid "Update layer"
+msgstr "Actualizar capa"
+
+msgid "Add layer"
+msgstr "Agregar capa"
+
 msgid "Aggregation method"
 msgstr "Método de agregación"
 
@@ -284,12 +332,6 @@ msgstr "Datos"
 
 msgid "Period"
 msgstr "Periodo"
-
-msgid "Organisation Units"
-msgstr "Unidades Organizativas"
-
-msgid "Style"
-msgstr "Estilo"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -385,48 +427,6 @@ msgstr "No se ha seleccionado ningún set de leyendas"
 msgid "Event status"
 msgstr "Estado del evento"
 
-msgid "No organisation units are selected"
-msgstr "No se ha seleccionado ninguna unidad organizativa"
-
-msgid "Point color"
-msgstr "Color de punto"
-
-msgid "Point radius"
-msgstr "Point radius"
-
-msgid "event"
-msgstr "evento"
-
-msgid "tracked entity"
-msgstr "entidad de seguimiento"
-
-msgid "facility"
-msgstr "establecimiento"
-
-msgid "thematic"
-msgstr "temática"
-
-msgid "org unit"
-msgstr "Unidad organizativa"
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "feature"
-msgstr "característica"
-
-msgid "Edit {{name}} layer"
-msgstr "Editar capa {{name}}"
-
-msgid "Add new {{name}} layer"
-msgstr "Agregar nueva capa {{name}}"
-
-msgid "Update layer"
-msgstr "Actualizar capa"
-
-msgid "Add layer"
-msgstr "Agregar capa"
-
 msgid "Boundary color"
 msgstr "Color del límite"
 
@@ -460,8 +460,8 @@ msgstr "Tipo de agregación"
 msgid "Only show completed events"
 msgstr "Mostrar solo eventos completados"
 
-msgid "Show no data"
-msgstr "No mostrar datos"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr ""
@@ -592,6 +592,12 @@ msgstr "Estilo por set de grupos"
 msgid "Indicator group"
 msgstr "Grupo de indicadores"
 
+msgid "Collapse"
+msgstr "Contraer"
+
+msgid "Expand"
+msgstr "Expandir"
+
 msgid "External basemap"
 msgstr "Mapa base externo"
 
@@ -619,12 +625,6 @@ msgstr "Utilizar claves legibles"
 
 msgid "Data download failed."
 msgstr "Error en la descarga de datos."
-
-msgid "Collapse"
-msgstr "Contraer"
-
-msgid "Expand"
-msgstr "Expandir"
 
 msgid "External layer"
 msgstr "Capa externa"
@@ -704,8 +704,32 @@ msgstr "Mostrar longitud/latitud"
 msgid "Show {{name}}"
 msgstr "Mostrar {{name}}"
 
+msgid "Longitude"
+msgstr "Longitud"
+
+msgid "Latitude"
+msgstr "Latitud"
+
 msgid "Basemap could not be added: {{message}}"
 msgstr "No se pudo agregar el mapa base: {{message}}"
+
+msgid "Not set"
+msgstr "No configurado"
+
+msgid "Could not retrieve event data"
+msgstr "No se pudo recuperar el dato del evento"
+
+msgid "Organisation unit"
+msgstr "Unidad organizativa"
+
+msgid "Parent unit"
+msgstr "Unidad padre"
+
+msgid "No data"
+msgstr "No hay datos"
+
+msgid "Last updated"
+msgstr "Última actualización"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -722,27 +746,6 @@ msgstr "Todos los grupos"
 
 msgid "Loading data"
 msgstr "Cargando datos"
-
-msgid "Not set"
-msgstr "No configurado"
-
-msgid "Could not retrieve event data"
-msgstr "No se pudo recuperar el dato del evento"
-
-msgid "Organisation unit"
-msgstr "Unidad organizativa"
-
-msgid "Parent unit"
-msgstr "Unidad padre"
-
-msgid "Last updated"
-msgstr "Última actualización"
-
-msgid "Longitude"
-msgstr "Longitud"
-
-msgid "Latitude"
-msgstr "Latitud"
 
 msgid "acres"
 msgstr ""
@@ -1415,9 +1418,6 @@ msgstr "Error"
 
 msgid "Thematic layer"
 msgstr "Capa temática"
-
-msgid "No data"
-msgstr "No hay datos"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
