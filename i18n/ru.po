@@ -65,7 +65,7 @@ msgid "None"
 msgstr "Не известное значение"
 
 msgid "Data item"
-msgstr ""
+msgstr "Переменная"
 
 msgid "Event data item"
 msgstr "Элемент данных событий"
@@ -172,7 +172,7 @@ msgid "Group set is required"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "событие"
 
 msgid "tracked entity"
 msgstr ""
@@ -381,7 +381,7 @@ msgid "Relationships"
 msgstr "Зависимости"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Отслеживать"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
