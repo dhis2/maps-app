@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-16T08:31:58.810Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -335,8 +335,8 @@ msgstr "Aggregatietype"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Toon geen gegevens"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Lage radius"
@@ -641,6 +641,9 @@ msgstr "Organisatieëenheid"
 
 msgid "Parent unit"
 msgstr "Boveliggende eenheid"
+
+msgid "No data"
+msgstr "Geen gegevens"
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
@@ -1340,9 +1343,6 @@ msgstr "Organisatieëenheden"
 
 msgid "Thematic layer"
 msgstr "Thematische laag"
-
-msgid "No data"
-msgstr "Geen gegevens"
 
 msgid "Tracked entity"
 msgstr "Getraceerde entiteit"

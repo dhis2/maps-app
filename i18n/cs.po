@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-16T08:31:58.810Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Jiří Podhorecký, 2022\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -330,8 +330,8 @@ msgstr "Typ agregace"
 msgid "Only show completed events"
 msgstr "Zobrazí pouze dokončené události"
 
-msgid "Show no data"
-msgstr "Zobrazit žádná data"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Malý poloměr"
@@ -624,6 +624,9 @@ msgstr "Organizační jednotka"
 
 msgid "Parent unit"
 msgstr "Nadřazená jednotka"
+
+msgid "No data"
+msgstr "Nejsou data"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
@@ -1329,9 +1332,6 @@ msgstr "Organizační jednotky"
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
-
-msgid "No data"
-msgstr "Nejsou data"
 
 msgid "Tracked entity"
 msgstr "Trasovaná entita"
