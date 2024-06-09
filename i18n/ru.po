@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-16T08:31:58.810Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -74,7 +74,7 @@ msgid "None"
 msgstr "Не известное значение"
 
 msgid "Data item"
-msgstr ""
+msgstr "Переменная"
 
 msgid "Event data item"
 msgstr "Элемент данных событий"
@@ -171,7 +171,7 @@ msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "событие"
 
 msgid "tracked entity"
 msgstr ""
@@ -327,7 +327,7 @@ msgstr "Тип агрегирования"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -397,7 +397,7 @@ msgid "Relationships"
 msgstr "Зависимости"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Отслеживать"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -620,6 +620,9 @@ msgstr "Организационная единица"
 
 msgid "Parent unit"
 msgstr "Родительская"
+
+msgid "No data"
+msgstr "Нет данных"
 
 msgid "Last updated"
 msgstr "Последнее обновление"
@@ -1302,9 +1305,6 @@ msgstr "Организационные единицы"
 
 msgid "Thematic layer"
 msgstr "Тематический уровень"
-
-msgid "No data"
-msgstr "Нет данных"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
