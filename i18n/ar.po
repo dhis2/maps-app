@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -104,6 +104,12 @@ msgstr ""
 msgid "Event data item"
 msgstr "عنصر بيانات حدث"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr ""
+
 msgid "Filtering is available after selecting a program stage."
 msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
 
@@ -130,12 +136,6 @@ msgstr "العامل"
 
 msgid "Date"
 msgstr "التاريخ"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr ""
 
 msgid "Data set"
 msgstr "حزمة البيانات"
@@ -247,6 +247,54 @@ msgstr "إلغاء"
 msgid "Close"
 msgstr "إغلاق"
 
+msgid "No organisation units are selected"
+msgstr "لم يتم تحديد أي وحدات تنظيمية"
+
+msgid "Organisation Units"
+msgstr "وحدات التنظيم"
+
+msgid "Style"
+msgstr "المظهر"
+
+msgid "Point color"
+msgstr "لون النقطة"
+
+msgid "Point radius"
+msgstr "نصف قطر النقطة"
+
+msgid "event"
+msgstr "حدث"
+
+msgid "tracked entity"
+msgstr "الكيان المتعقب"
+
+msgid "facility"
+msgstr "المرفق"
+
+msgid "thematic"
+msgstr ""
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "تعديل طبقة {{name}}"
+
+msgid "Add new {{name}} layer"
+msgstr "إضافة طبقة {{name}} جديدة"
+
+msgid "Update layer"
+msgstr "تحديث الطبقة"
+
+msgid "Add layer"
+msgstr "إضافة طبقة"
+
 msgid "Aggregation method"
 msgstr ""
 
@@ -261,12 +309,6 @@ msgstr "بيانات"
 
 msgid "Period"
 msgstr "الفترة الزمنية"
-
-msgid "Organisation Units"
-msgstr "وحدات التنظيم"
-
-msgid "Style"
-msgstr "المظهر"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -356,48 +398,6 @@ msgstr ""
 msgid "Event status"
 msgstr "حالة الحدث"
 
-msgid "No organisation units are selected"
-msgstr "لم يتم تحديد أي وحدات تنظيمية"
-
-msgid "Point color"
-msgstr "لون النقطة"
-
-msgid "Point radius"
-msgstr "نصف قطر النقطة"
-
-msgid "event"
-msgstr "حدث"
-
-msgid "tracked entity"
-msgstr "الكيان المتعقب"
-
-msgid "facility"
-msgstr "المرفق"
-
-msgid "thematic"
-msgstr ""
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr ""
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr "تعديل طبقة {{name}}"
-
-msgid "Add new {{name}} layer"
-msgstr "إضافة طبقة {{name}} جديدة"
-
-msgid "Update layer"
-msgstr "تحديث الطبقة"
-
-msgid "Add layer"
-msgstr "إضافة طبقة"
-
 msgid "Boundary color"
 msgstr ""
 
@@ -431,8 +431,8 @@ msgstr "نوع التجميع"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "لا تظهر أي بيانات"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "نصف قطر منخفض"
@@ -553,6 +553,12 @@ msgstr ""
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
 
+msgid "Collapse"
+msgstr "انهيار"
+
+msgid "Expand"
+msgstr "توسيع"
+
 msgid "External basemap"
 msgstr "خريطة أساس خارجية"
 
@@ -579,12 +585,6 @@ msgstr "استخدم مفاتيح يمكن للبشر قراءتها"
 
 msgid "Data download failed."
 msgstr "فشل تنزيل البيانات."
-
-msgid "Collapse"
-msgstr "انهيار"
-
-msgid "Expand"
-msgstr "توسيع"
 
 msgid "External layer"
 msgstr "طبقة خارحية"
@@ -664,21 +664,13 @@ msgstr "إظهار خط الطول/خط العرض"
 msgid "Show {{name}}"
 msgstr "أضهار {{name}}"
 
+msgid "Longitude"
+msgstr "خط الطول"
+
+msgid "Latitude"
+msgstr "خط العرض"
+
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
-
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
-
-msgid "no value"
-msgstr "لاتوجد قيمة"
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -693,14 +685,25 @@ msgstr "الوحدة التنظيمية"
 msgid "Parent unit"
 msgstr "الوحدة العليا"
 
+msgid "No data"
+msgstr "لا توجد بيانات"
+
 msgid "Last updated"
 msgstr "آخر تحديث"
 
-msgid "Longitude"
-msgstr "خط الطول"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
-msgid "Latitude"
-msgstr "خط العرض"
+msgid "no value"
+msgstr "لاتوجد قيمة"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr "فدان"
@@ -1361,9 +1364,6 @@ msgstr "خطأ"
 
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
-
-msgid "No data"
-msgstr "لا توجد بيانات"
 
 msgid "Tracked entity"
 msgstr "الكيان المتتبع"

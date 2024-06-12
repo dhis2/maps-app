@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -103,6 +103,12 @@ msgstr ""
 msgid "Event data item"
 msgstr "Hendelsesdatapunkt"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr "Style etter dataelement"
+
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtrering er tilgjengelig etter valg av programfase."
 
@@ -129,12 +135,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Dato"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr "Style etter dataelement"
 
 msgid "Data set"
 msgstr "Datasett"
@@ -247,6 +247,54 @@ msgstr "Avbryt"
 msgid "Close"
 msgstr "Lukk"
 
+msgid "No organisation units are selected"
+msgstr "Ingen organisasjonsenheter er valgt"
+
+msgid "Organisation Units"
+msgstr "Organisasjonsenheter"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Point color"
+msgstr "Punktfarge"
+
+msgid "Point radius"
+msgstr "Punktradius"
+
+msgid "event"
+msgstr "hendelse"
+
+msgid "tracked entity"
+msgstr "sporet enhet"
+
+msgid "facility"
+msgstr "fasilitet"
+
+msgid "thematic"
+msgstr "tematisk"
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr "Earth Engine"
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "Rediger {{name}}-lag"
+
+msgid "Add new {{name}} layer"
+msgstr "Legg til nytt {{name}}-lag"
+
+msgid "Update layer"
+msgstr "Oppdater lag"
+
+msgid "Add layer"
+msgstr "Legg til lag"
+
 msgid "Aggregation method"
 msgstr ""
 
@@ -261,12 +309,6 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Periode"
-
-msgid "Organisation Units"
-msgstr "Organisasjonsenheter"
-
-msgid "Style"
-msgstr "Stil"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -356,48 +398,6 @@ msgstr "Ingen tegnforklaringsett valgt"
 msgid "Event status"
 msgstr "Hendelsesstatus"
 
-msgid "No organisation units are selected"
-msgstr "Ingen organisasjonsenheter er valgt"
-
-msgid "Point color"
-msgstr "Punktfarge"
-
-msgid "Point radius"
-msgstr "Punktradius"
-
-msgid "event"
-msgstr "hendelse"
-
-msgid "tracked entity"
-msgstr "sporet enhet"
-
-msgid "facility"
-msgstr "fasilitet"
-
-msgid "thematic"
-msgstr "tematisk"
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr "Rediger {{name}}-lag"
-
-msgid "Add new {{name}} layer"
-msgstr "Legg til nytt {{name}}-lag"
-
-msgid "Update layer"
-msgstr "Oppdater lag"
-
-msgid "Add layer"
-msgstr "Legg til lag"
-
 msgid "Boundary color"
 msgstr ""
 
@@ -431,8 +431,8 @@ msgstr "Aggregasjonstype"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Vis ingen data"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Lav radius"
@@ -555,6 +555,12 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Indikatorgruppe"
 
+msgid "Collapse"
+msgstr "Kollaps"
+
+msgid "Expand"
+msgstr "Utvid"
+
 msgid "External basemap"
 msgstr "Eksternt bakgrunnskart"
 
@@ -582,12 +588,6 @@ msgstr "Bruk menneskelige lesbare nøkler"
 
 msgid "Data download failed."
 msgstr "Nedlasting av data mislyktes."
-
-msgid "Collapse"
-msgstr "Kollaps"
-
-msgid "Expand"
-msgstr "Utvid"
 
 msgid "External layer"
 msgstr "Eksternt lag"
@@ -667,21 +667,13 @@ msgstr "Vis lengdegrad/breddegrad"
 msgid "Show {{name}}"
 msgstr "Vis {{name}}"
 
+msgid "Longitude"
+msgstr "Lengdegrad"
+
+msgid "Latitude"
+msgstr "Breddegrad"
+
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
-
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
-
-msgid "no value"
-msgstr "ingen verdi"
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -696,14 +688,25 @@ msgstr "Organisasjonsenhet"
 msgid "Parent unit"
 msgstr "Overordnet enhet"
 
+msgid "No data"
+msgstr "Ingen data"
+
 msgid "Last updated"
 msgstr "Sist oppdatert"
 
-msgid "Longitude"
-msgstr "Lengdegrad"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
-msgid "Latitude"
-msgstr "Breddegrad"
+msgid "no value"
+msgstr "ingen verdi"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr "dekar"
@@ -1365,9 +1368,6 @@ msgstr "Feil"
 
 msgid "Thematic layer"
 msgstr "Tematisk lag"
-
-msgid "No data"
-msgstr "Ingen data"
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"

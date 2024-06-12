@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica Zamora Duchateau, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -106,6 +106,12 @@ msgstr ""
 msgid "Event data item"
 msgstr "Gebeurtenisgegevensitem"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr "Stileer volgens gegevenselement"
+
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filteren is beschikbaar nadat een programmastadium geselecteerd is."
 
@@ -132,12 +138,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Datum\n"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr "Stileer volgens gegevenselement"
 
 msgid "Data set"
 msgstr "Gegevensreeks"
@@ -252,6 +252,54 @@ msgstr "Annuleer"
 msgid "Close"
 msgstr "Sluit"
 
+msgid "No organisation units are selected"
+msgstr "Geen organisatieëenheden zijn geselecteerd."
+
+msgid "Organisation Units"
+msgstr "Organisatieëenheden"
+
+msgid "Style"
+msgstr "Stijl"
+
+msgid "Point color"
+msgstr ""
+
+msgid "Point radius"
+msgstr "Puntradius"
+
+msgid "event"
+msgstr "gebeurtenis"
+
+msgid "tracked entity"
+msgstr "getraceerde entiteit"
+
+msgid "facility"
+msgstr "instelling"
+
+msgid "thematic"
+msgstr "thematisch"
+
+msgid "org unit"
+msgstr "organisatieëenheid"
+
+msgid "Earth Engine"
+msgstr "Earth Engine"
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "Bewerk {{name}}-laag"
+
+msgid "Add new {{name}} layer"
+msgstr "Voeg een nieuwe {{name}}-laag toe"
+
+msgid "Update layer"
+msgstr "Werk laag bij"
+
+msgid "Add layer"
+msgstr "Voeg laag toe"
+
 msgid "Aggregation method"
 msgstr "Aggregatiemethode"
 
@@ -266,12 +314,6 @@ msgstr "Gegevens"
 
 msgid "Period"
 msgstr "Periode"
-
-msgid "Organisation Units"
-msgstr "Organisatieëenheden"
-
-msgid "Style"
-msgstr "Stijl"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -365,48 +407,6 @@ msgstr "Geen legendareeks is geselecteerd."
 msgid "Event status"
 msgstr "Gebeurtenisstatus"
 
-msgid "No organisation units are selected"
-msgstr "Geen organisatieëenheden zijn geselecteerd."
-
-msgid "Point color"
-msgstr ""
-
-msgid "Point radius"
-msgstr "Puntradius"
-
-msgid "event"
-msgstr "gebeurtenis"
-
-msgid "tracked entity"
-msgstr "getraceerde entiteit"
-
-msgid "facility"
-msgstr "instelling"
-
-msgid "thematic"
-msgstr "thematisch"
-
-msgid "org unit"
-msgstr "organisatieëenheid"
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr "Bewerk {{name}}-laag"
-
-msgid "Add new {{name}} layer"
-msgstr "Voeg een nieuwe {{name}}-laag toe"
-
-msgid "Update layer"
-msgstr "Werk laag bij"
-
-msgid "Add layer"
-msgstr "Voeg laag toe"
-
 msgid "Boundary color"
 msgstr ""
 
@@ -440,8 +440,8 @@ msgstr "Aggregatietype"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Toon geen gegevens"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Lage radius"
@@ -569,6 +569,12 @@ msgstr "Stileer volgens groepsreeks"
 msgid "Indicator group"
 msgstr "Indicatorgroep"
 
+msgid "Collapse"
+msgstr "Inklappen"
+
+msgid "Expand"
+msgstr "Breid uit"
+
 msgid "External basemap"
 msgstr "Externe basiskaart"
 
@@ -596,12 +602,6 @@ msgstr "Gebruik menselijk leesbare sleutels"
 
 msgid "Data download failed."
 msgstr "Downloaden van gegevens mislukt."
-
-msgid "Collapse"
-msgstr "Inklappen"
-
-msgid "Expand"
-msgstr "Breid uit"
 
 msgid "External layer"
 msgstr "Externe laag"
@@ -682,21 +682,13 @@ msgstr "Toon lengtegraad/breedtegraad"
 msgid "Show {{name}}"
 msgstr "Toon [[name]]"
 
+msgid "Longitude"
+msgstr "Lengtegraad"
+
+msgid "Latitude"
+msgstr "Breedtegraad"
+
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
-
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
-
-msgid "no value"
-msgstr "geen waarde"
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -711,14 +703,25 @@ msgstr "Organisatieëenheid"
 msgid "Parent unit"
 msgstr "Boveliggende eenheid"
 
+msgid "No data"
+msgstr "Geen gegevens"
+
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
 
-msgid "Longitude"
-msgstr "Lengtegraad"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
-msgid "Latitude"
-msgstr "Breedtegraad"
+msgid "no value"
+msgstr "geen waarde"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr "aren"
@@ -1385,9 +1388,6 @@ msgstr "Fout"
 
 msgid "Thematic layer"
 msgstr "Thematische laag"
-
-msgid "No data"
-msgstr "Geen gegevens"
 
 msgid "Tracked entity"
 msgstr "Getraceerde entiteit"

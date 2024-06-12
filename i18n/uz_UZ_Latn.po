@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -103,6 +103,12 @@ msgstr ""
 msgid "Event data item"
 msgstr "Hodisa/Tadbir maʼlumoti elementi"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr "Maʼlumot elementi boʼyicha uslub"
+
 msgid "Filtering is available after selecting a program stage."
 msgstr "Dastur bosqichi tanlangandan soʼng Filtrdan foydalanish mumkin"
 
@@ -129,12 +135,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Sana"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr "Maʼlumot elementi boʼyicha uslub"
 
 msgid "Data set"
 msgstr "Maʼlumotlar toʼplami"
@@ -251,6 +251,54 @@ msgstr "Бекор қилиш"
 msgid "Close"
 msgstr "Yopmoq"
 
+msgid "No organisation units are selected"
+msgstr "Tashkiliy boʼlimlar tanlanmagan"
+
+msgid "Organisation Units"
+msgstr "Tashkiliy Boʼlimlar"
+
+msgid "Style"
+msgstr "Услуб"
+
+msgid "Point color"
+msgstr "Нуқта ранги"
+
+msgid "Point radius"
+msgstr "Nuqta radiusi"
+
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr "Kuzatuvdagi obʼekt"
+
+msgid "facility"
+msgstr "imkoniyat"
+
+msgid "thematic"
+msgstr "tematik"
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr "Uydagi mexanizm"
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "{{name}} qatlamini tahrirlash"
+
+msgid "Add new {{name}} layer"
+msgstr "Yangi qatlamni {{name}} qoʼshish"
+
+msgid "Update layer"
+msgstr "Qatlamni yangilash"
+
+msgid "Add layer"
+msgstr "Qatlam qoʼshish"
+
 msgid "Aggregation method"
 msgstr ""
 
@@ -265,12 +313,6 @@ msgstr "Маълумот"
 
 msgid "Period"
 msgstr "davr"
-
-msgid "Organisation Units"
-msgstr "Tashkiliy Boʼlimlar"
-
-msgid "Style"
-msgstr "Услуб"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -361,48 +403,6 @@ msgstr "Taʼrif toʼplami tanlanmagan"
 msgid "Event status"
 msgstr "Hodisa/Tadbir holati"
 
-msgid "No organisation units are selected"
-msgstr "Tashkiliy boʼlimlar tanlanmagan"
-
-msgid "Point color"
-msgstr "Нуқта ранги"
-
-msgid "Point radius"
-msgstr "Nuqta radiusi"
-
-msgid "event"
-msgstr ""
-
-msgid "tracked entity"
-msgstr "Kuzatuvdagi obʼekt"
-
-msgid "facility"
-msgstr "imkoniyat"
-
-msgid "thematic"
-msgstr "tematik"
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr "Uydagi mexanizm"
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr "{{name}} qatlamini tahrirlash"
-
-msgid "Add new {{name}} layer"
-msgstr "Yangi qatlamni {{name}} qoʼshish"
-
-msgid "Update layer"
-msgstr "Qatlamni yangilash"
-
-msgid "Add layer"
-msgstr "Qatlam qoʼshish"
-
 msgid "Boundary color"
 msgstr ""
 
@@ -436,8 +436,8 @@ msgstr "Бирлаштириш тури"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Maʼlumot yoʼq"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Kichik radius"
@@ -564,6 +564,12 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Koʼrsatgich guruhi"
 
+msgid "Collapse"
+msgstr "Yiqilish"
+
+msgid "Expand"
+msgstr "Kengaytiring"
+
 msgid "External basemap"
 msgstr "Tashqi asosiy xarita"
 
@@ -591,12 +597,6 @@ msgstr "oʼqilishi qulay kalitlardan foydalaning"
 
 msgid "Data download failed."
 msgstr "Maʼlumot yuklanishi amalga oshmadi"
-
-msgid "Collapse"
-msgstr "Yiqilish"
-
-msgid "Expand"
-msgstr "Kengaytiring"
 
 msgid "External layer"
 msgstr "Tashqi qavat"
@@ -678,21 +678,13 @@ msgstr "Kenglik/Uzunlikni koʼrsating"
 msgid "Show {{name}}"
 msgstr "Koʼrsatish {{name}}"
 
+msgid "Longitude"
+msgstr "Kenglik"
+
+msgid "Latitude"
+msgstr "Kenglik"
+
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
-
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
-
-msgid "no value"
-msgstr ""
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -707,14 +699,25 @@ msgstr "Ташкилий бирлик"
 msgid "Parent unit"
 msgstr "Аjdod boʼlimi"
 
+msgid "No data"
+msgstr "Maʼlumot yoʼq"
+
 msgid "Last updated"
 msgstr "Oxirgi yangilangan"
 
-msgid "Longitude"
-msgstr "Kenglik"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
-msgid "Latitude"
-msgstr "Kenglik"
+msgid "no value"
+msgstr ""
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr "akr"
@@ -1378,9 +1381,6 @@ msgstr "Xatolik"
 
 msgid "Thematic layer"
 msgstr "Tematik qavat"
-
-msgid "No data"
-msgstr "Maʼlumot yoʼq"
 
 msgid "Tracked entity"
 msgstr "Kuzatuv obʼekti"
