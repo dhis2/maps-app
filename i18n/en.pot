@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-06T14:03:15.546Z\n"
-"PO-Revision-Date: 2024-06-06T14:03:15.546Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"PO-Revision-Date: 2024-06-04T09:11:11.417Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -425,8 +425,8 @@ msgstr "Aggregation type"
 msgid "Only show completed events"
 msgstr "Only show completed events"
 
-msgid "Show no data"
-msgstr "Show no data"
+msgid "Include org units with no data"
+msgstr "Include org units with no data"
 
 msgid "Low radius"
 msgstr "Low radius"
@@ -689,6 +689,9 @@ msgstr "Organisation unit"
 
 msgid "Parent unit"
 msgstr "Parent unit"
+
+msgid "No data"
+msgstr "No data"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -1364,9 +1367,6 @@ msgstr "Org unit layer"
 
 msgid "Thematic layer"
 msgstr "Thematic layer"
-
-msgid "No data"
-msgstr "No data"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
