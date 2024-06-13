@@ -96,7 +96,7 @@ describe('utils/app', () => {
 
         expect(cfg.basemaps).toHaveLength(9)
         expect(cfg.nameProperty).toEqual('displayName')
-        expect(cfg.layerTypes).toHaveLength(13)
+        expect(cfg.layerTypes).toHaveLength(6)
         expect(cfg.currentUser.username).toEqual('admin')
         expect(cfg.currentUser).toMatchObject({
             id: 'xE7jOejl9FI',
@@ -144,7 +144,7 @@ describe('utils/app', () => {
 
         expect(cfg.basemaps).toHaveLength(5)
         expect(cfg.nameProperty).toEqual('displayShortName')
-        expect(cfg.layerTypes).toHaveLength(13)
+        expect(cfg.layerTypes).toHaveLength(6)
         expect(cfg.currentUser).toMatchObject({
             id: 'xE7jOejl9FI',
             name: 'John Traore',

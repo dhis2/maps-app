@@ -10,6 +10,7 @@ const EarthEngineLayer = ({ layer, isAdded, onShow, onHide }) => {
     return (
         <div
             className={styles.layer}
+            // Is current layer already in list? y > trigger hide, n > trigger show
             onClick={() => (isAdded ? onHide(layerId) : onShow(layerId))}
         >
             <Checkbox checked={isAdded} dense={false} onChange={() => {}} />

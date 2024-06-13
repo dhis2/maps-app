@@ -20,6 +20,8 @@ const config = {
     },
 
     coreApp: true,
+
+    dataStoreNamespace: 'DHIS_WEB_MAPS',
 }
 
 module.exports = config
