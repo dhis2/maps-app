@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -452,8 +452,8 @@ msgstr "Type d'agrégation"
 msgid "Only show completed events"
 msgstr "Afficher uniquement les événements terminés"
 
-msgid "Show no data"
-msgstr "Afficher aucune donnée"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Rayon faible"
@@ -655,8 +655,8 @@ msgstr "Masquer le tableau de données"
 msgid "Show data table"
 msgstr "Afficher le tableau de données"
 
-msgid "Open as chart"
-msgstr "Ouvrir sous forme de graphique"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Télécharger les données"
@@ -714,6 +714,9 @@ msgstr "Unité d'organisation"
 
 msgid "Parent unit"
 msgstr "Unité parente"
+
+msgid "No data"
+msgstr "Aucune donnée"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
@@ -1386,9 +1389,6 @@ msgstr "Établissements"
 msgid "Facilities: No coordinates found"
 msgstr "Etablissements : Coordonnées non trouvées"
 
-msgid "Url to geojson is invalid."
-msgstr ""
-
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
@@ -1412,9 +1412,6 @@ msgstr "Erreur"
 
 msgid "Thematic layer"
 msgstr "Thématique"
-
-msgid "No data"
-msgstr "Aucune donnée"
 
 msgid "Tracked entity"
 msgstr "Entité suivie"

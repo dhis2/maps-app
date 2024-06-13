@@ -36,6 +36,15 @@ You must run `yarn build` before running `yarn deploy`.<br />
 
 See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) for more information.
 
+## Cypress Cloud
+
+To record tests in Cypress Cloud, you can use one of the following methods based on your needs:
+
+-   **Commit Message**: Include `[e2e record]` in your commit messages to activate recording.
+-   **GitHub Labels**: Apply the `e2e record` label to your pull request to trigger recording.
+
+This setup helps in managing Cypress Cloud credits more efficiently, ensuring recordings are only made when explicitly required.
+
 ## Learn More
 
 You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
