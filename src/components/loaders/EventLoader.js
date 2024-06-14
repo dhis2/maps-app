@@ -13,7 +13,7 @@ const EventLoader = ({ config, dataTableOpen, onLoad }) => {
     useEffect(() => {
         eventLoader({
             layerConfig: config,
-            dataTableOpen,
+            loadExtended: dataTableOpen,
             engine,
             nameProperty,
         }).then(onLoad)
