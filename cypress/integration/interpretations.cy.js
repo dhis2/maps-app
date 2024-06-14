@@ -18,11 +18,10 @@ context('Interpretations', () => {
             .find('input[type="text"]')
             .should('have.attr', 'placeholder', 'Write an interpretation')
 
-        cy.get('p')
-            .contains(
-                'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
-            )
-            .should('be.visible')
+        cy.contains(
+            'p',
+            'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
+        ).should('be.visible')
     })
 
     it('view interpretation after creating a map', () => {
@@ -83,7 +82,7 @@ context('Interpretations', () => {
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
 

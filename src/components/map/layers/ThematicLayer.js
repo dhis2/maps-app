@@ -179,7 +179,7 @@ class ThematicLayer extends Layer {
                 <div>{indicator}</div>
                 <div>{periodName}</div>
                 <div>
-                    {i18n.t('Value')}: {value}
+                    {i18n.t('Value')}: {value ? value : i18n.t('No data')}
                 </div>
                 {aggregationType && aggregationType !== 'DEFAULT' && (
                     <div>{aggregationType}</div>

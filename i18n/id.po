@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -109,6 +109,12 @@ msgstr ""
 msgid "Event data item"
 msgstr "Data item pada even"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr "Ragam berdasarkan elemen data"
+
 msgid "Filtering is available after selecting a program stage."
 msgstr "Pemfilteran tersedia setelah memilih tahapan program."
 
@@ -135,12 +141,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Tanggal"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr "Ragam berdasarkan elemen data"
 
 msgid "Data set"
 msgstr "Data set"
@@ -253,6 +253,54 @@ msgstr "Batalkan"
 msgid "Close"
 msgstr "Tutup"
 
+msgid "No organisation units are selected"
+msgstr "Tidak ada unit organisasi yang dipilih"
+
+msgid "Organisation Units"
+msgstr "Unit Organisasi"
+
+msgid "Style"
+msgstr "Gaya"
+
+msgid "Point color"
+msgstr ""
+
+msgid "Point radius"
+msgstr "Radius titik"
+
+msgid "event"
+msgstr "peristiwa"
+
+msgid "tracked entity"
+msgstr "Entitas dilacak"
+
+msgid "facility"
+msgstr "fasilitas"
+
+msgid "thematic"
+msgstr "tematik"
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr "Earth Engine"
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "Edit {{name}} layer"
+
+msgid "Add new {{name}} layer"
+msgstr "Tambahkan layer {{name}} baru"
+
+msgid "Update layer"
+msgstr "Update layer"
+
+msgid "Add layer"
+msgstr "Tambahkan layer"
+
 msgid "Aggregation method"
 msgstr "Metode agregasi"
 
@@ -267,12 +315,6 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Periode"
-
-msgid "Organisation Units"
-msgstr "Unit Organisasi"
-
-msgid "Style"
-msgstr "Gaya"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -366,48 +408,6 @@ msgstr "Tidak ada kumpulan legenda yang dipilih"
 msgid "Event status"
 msgstr "Status Event"
 
-msgid "No organisation units are selected"
-msgstr "Tidak ada unit organisasi yang dipilih"
-
-msgid "Point color"
-msgstr ""
-
-msgid "Point radius"
-msgstr "Radius titik"
-
-msgid "event"
-msgstr "peristiwa"
-
-msgid "tracked entity"
-msgstr "Entitas dilacak"
-
-msgid "facility"
-msgstr "fasilitas"
-
-msgid "thematic"
-msgstr "tematik"
-
-msgid "org unit"
-msgstr ""
-
-msgid "Earth Engine"
-msgstr "Earth Engine"
-
-msgid "feature"
-msgstr ""
-
-msgid "Edit {{name}} layer"
-msgstr "Edit {{name}} layer"
-
-msgid "Add new {{name}} layer"
-msgstr "Tambahkan layer {{name}} baru"
-
-msgid "Update layer"
-msgstr "Update layer"
-
-msgid "Add layer"
-msgstr "Tambahkan layer"
-
 msgid "Boundary color"
 msgstr ""
 
@@ -441,8 +441,8 @@ msgstr "Tipe agregasi"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Tidak ada data"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "radius rendah "
@@ -567,6 +567,12 @@ msgstr ""
 msgid "Indicator group"
 msgstr "group indikator"
 
+msgid "Collapse"
+msgstr "Tutup"
+
+msgid "Expand"
+msgstr "Perlihatkan lebih detail"
+
 msgid "External basemap"
 msgstr "Peta dasar eksternal"
 
@@ -594,12 +600,6 @@ msgstr "Gunakan kunci yang dapat dibaca manusia"
 
 msgid "Data download failed."
 msgstr "Unduhan data gagal."
-
-msgid "Collapse"
-msgstr "Tutup"
-
-msgid "Expand"
-msgstr "Perlihatkan lebih detail"
 
 msgid "External layer"
 msgstr "External layer"
@@ -679,21 +679,13 @@ msgstr "Tampilkan garis bujur/lintang"
 msgid "Show {{name}}"
 msgstr "Tampilkan {{name}}"
 
+msgid "Longitude"
+msgstr "Longitude"
+
+msgid "Latitude"
+msgstr "Latitude"
+
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
-
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
-
-msgid "no value"
-msgstr "tidak ada nilai"
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -708,14 +700,25 @@ msgstr "Unit organisasi"
 msgid "Parent unit"
 msgstr "Unit induk"
 
+msgid "No data"
+msgstr "Tidak ada data"
+
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
 
-msgid "Longitude"
-msgstr "Longitude"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
-msgid "Latitude"
-msgstr "Latitude"
+msgid "no value"
+msgstr "tidak ada nilai"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr "hektar"
@@ -1381,9 +1384,6 @@ msgstr "Error"
 
 msgid "Thematic layer"
 msgstr "Layer tematik"
-
-msgid "No data"
-msgstr "Tidak ada data"
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"

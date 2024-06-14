@@ -1,3 +1,14 @@
+## [100.5.5](https://github.com/dhis2/maps-app/compare/v100.5.4...v100.5.5) (2024-06-13)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (dev) ([#3237](https://github.com/dhis2/maps-app/issues/3237)) ([8e9a46d](https://github.com/dhis2/maps-app/commit/8e9a46d903d3a4534bfd5d684745df9e1249bc32))
+* unclear 'show no data' ([#3204](https://github.com/dhis2/maps-app/issues/3204)) ([ec24ca0](https://github.com/dhis2/maps-app/commit/ec24ca09268d04cb62c3a621c20b2b70dc43dcd0))
+* use improved rich text editor from analytics (DHIS2-15522) ([#3236](https://github.com/dhis2/maps-app/issues/3236)) ([3c842d4](https://github.com/dhis2/maps-app/commit/3c842d49c5900da0a16c32e40db955bfaf78201d))
+* **translations:** sync translations from transifex (dev) ([230dc08](https://github.com/dhis2/maps-app/commit/230dc0868d17533e96ce3aa6df2ae7ca73df7fed))
+* **translations:** sync translations from transifex (dev) ([83393cb](https://github.com/dhis2/maps-app/commit/83393cb9f0fd11dbd9e23c26119cce94ca6be0ce))
+
 ## [100.5.4](https://github.com/dhis2/maps-app/compare/v100.5.3...v100.5.4) (2024-05-16)
 
 
