@@ -6,7 +6,7 @@ import {
     GEOJSON_URL_LAYER,
     GEOJSON_LAYER,
 } from '../constants/layers.js'
-import { fetchExternalLayerQuery } from './requests.js'
+import { EXTERNAL_MAP_LAYER_QUERY } from './requests.js'
 
 const MAP_SERVICE_WMS = 'WMS'
 const MAP_SERVICE_TMS = 'TMS'
@@ -90,7 +90,7 @@ export const parseLayerConfig = async (layerConfig, engine) => {
     if (config.id) {
         try {
             const { externalLayer } = await engine.query(
-                { externalLayer: fetchExternalLayerQuery },
+                { externalLayer: EXTERNAL_MAP_LAYER_QUERY },
                 {
                     variables: {
                         id: config.id,

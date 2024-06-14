@@ -26,7 +26,7 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
             throw new Error(`Could not load map with id "${id}"`)
         })
 
-export const fetchExternalLayersQuery = {
+export const EXTERNAL_MAP_LAYERS_QUERY = {
     resource: 'externalMapLayers',
     params: {
         fields: 'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
@@ -35,7 +35,7 @@ export const fetchExternalLayersQuery = {
 }
 
 // Fetch a single externalLayer
-export const fetchExternalLayerQuery = {
+export const EXTERNAL_MAP_LAYER_QUERY = {
     resource: 'externalMapLayers',
     id: ({ id }) => id,
     params: {
