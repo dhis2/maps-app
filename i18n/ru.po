@@ -122,7 +122,7 @@ msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "Добавить фильтр"
 
 msgid "Items"
 msgstr ""
@@ -859,7 +859,7 @@ msgid "End date"
 msgstr "Дата окончания"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Недоступно в автономном режиме"
 
 msgid "Program indicator"
 msgstr "Program indicator"

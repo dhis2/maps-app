@@ -2,16 +2,16 @@
 # Translators:
 # Yury Rogachev <yury@dhis2.org>, 2022
 # Cherise Beek <cherise.beek@gmail.com>, 2022
-# Rica Zamora Duchateau, 2022
 # Charel van den Elsen, 2023
 # Philip Larsen Donnelly, 2024
+# Rica, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Last-Translator: Rica, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,7 +166,7 @@ msgid "Style"
 msgstr "Stijl"
 
 msgid "Point color"
-msgstr ""
+msgstr "Puntkleur"
 
 msgid "Point radius"
 msgstr "Puntradius"
@@ -227,12 +227,14 @@ msgstr ""
 "organisatieëenheden."
 
 msgid "Multiple aggregation methods are available."
-msgstr ""
+msgstr "Verscheidene aggregatiemethodes zijn beschikbaar."
 
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
 msgstr ""
+"Zie de aggregatieresultaten door te klikken op kaartregio's of door de "
+"datatabel te bekijken. De resultaten kunnen ook gedownload worden."
 
 msgid "Unit"
 msgstr "Eenheid"
@@ -315,7 +317,7 @@ msgid "Event status"
 msgstr "Gebeurtenisstatus"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Grenskleur"
 
 msgid "Buffer"
 msgstr "Buffer"
@@ -324,7 +326,7 @@ msgid "Radius in meters"
 msgstr "Radius in meters"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "Buffer kan niet gecombineerd worden met geassocieerde geometrie."
 
 msgid "Labels"
 msgstr "Labels"
@@ -333,7 +335,7 @@ msgid "Aggregation type"
 msgstr "Aggregatietype"
 
 msgid "Only show completed events"
-msgstr ""
+msgstr "Toon alleen voltooide evenementen"
 
 msgid "Include org units with no data"
 msgstr ""
@@ -592,7 +594,7 @@ msgid "Show data table"
 msgstr "Toon gegevenstabel"
 
 msgid "Open in Data Visualizer app"
-msgstr ""
+msgstr "Open in Datavisualisatie-app"
 
 msgid "Download data"
 msgstr "Download gegevens"
@@ -657,7 +659,7 @@ msgid "no value"
 msgstr "geen waarde"
 
 msgid "All groups"
-msgstr ""
+msgstr "Alle groepen"
 
 msgid "Loading data"
 msgstr ""
