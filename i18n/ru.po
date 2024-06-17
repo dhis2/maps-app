@@ -4,13 +4,14 @@
 # Ulanbek Abakirov <ulans@mail.ru>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2024
+# Yury Rogachev <yury@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -118,7 +119,7 @@ msgid "Add filter"
 msgstr ""
 
 msgid "Data item"
-msgstr ""
+msgstr "Переменная"
 
 msgid "one of"
 msgstr ""
@@ -263,7 +264,7 @@ msgid "Point radius"
 msgstr "Радиус точки"
 
 msgid "event"
-msgstr ""
+msgstr "событие"
 
 msgid "tracked entity"
 msgstr ""
@@ -431,7 +432,7 @@ msgstr "Тип агрегации"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -501,7 +502,7 @@ msgid "Relationships"
 msgstr "Зависимости"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Отслеживать"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -539,7 +540,7 @@ msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Удалить фильтр"
 
 msgid "Group set"
 msgstr "Набор группы"
@@ -624,7 +625,7 @@ msgstr "Спрятать таблицу данных"
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
+msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
@@ -683,6 +684,9 @@ msgstr "Организация"
 
 msgid "Parent unit"
 msgstr "Родительская"
+
+msgid "No data"
+msgstr "Нет данных"
 
 msgid "Last updated"
 msgstr "Последнее обновление"
@@ -1328,9 +1332,6 @@ msgstr "Удобства"
 msgid "Facilities: No coordinates found"
 msgstr ""
 
-msgid "Url to geojson is invalid."
-msgstr ""
-
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
@@ -1354,9 +1355,6 @@ msgstr "Ошибка"
 
 msgid "Thematic layer"
 msgstr "Тематический уровень"
-
-msgid "No data"
-msgstr "Нет данных"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"

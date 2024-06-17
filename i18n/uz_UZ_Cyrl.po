@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2024\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -444,8 +444,8 @@ msgstr "Бирлаштириш тури"
 msgid "Only show completed events"
 msgstr "Фақатгина тугалланган ҳолатларни кўрсатиш"
 
-msgid "Show no data"
-msgstr "Маълумот йўқ"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Кичик радиус"
@@ -643,8 +643,8 @@ msgstr "Маълумотлар жадвали беркитилсин"
 msgid "Show data table"
 msgstr "Маълумотлар жадвалини кўрсатиш"
 
-msgid "Open as chart"
-msgstr "Диаграмма сифатида очинг"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Маълумотни юклаб олинг"
@@ -702,6 +702,9 @@ msgstr "Ташкилий бирлик"
 
 msgid "Parent unit"
 msgstr "Аждод бўлими"
+
+msgid "No data"
+msgstr "Маълумот йўқ"
 
 msgid "Last updated"
 msgstr "Охирги янгиланган"
@@ -1367,9 +1370,6 @@ msgstr "Муассасалар"
 msgid "Facilities: No coordinates found"
 msgstr "Ташкилот: Координаталар аниқланмади"
 
-msgid "Url to geojson is invalid."
-msgstr ""
-
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
@@ -1393,9 +1393,6 @@ msgstr "Хато"
 
 msgid "Thematic layer"
 msgstr "Тематик қават"
-
-msgid "No data"
-msgstr "Маълумот йўқ"
 
 msgid "Tracked entity"
 msgstr "Кузатув объекти"

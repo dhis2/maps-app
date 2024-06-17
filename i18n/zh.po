@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -431,8 +431,8 @@ msgstr "汇总类型"
 msgid "Only show completed events"
 msgstr "仅显示已完成的事件"
 
-msgid "Show no data"
-msgstr "显示无数据"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "低半径"
@@ -624,8 +624,8 @@ msgstr "隐藏数据表"
 msgid "Show data table"
 msgstr "显示数据表"
 
-msgid "Open as chart"
-msgstr "打开图表"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "下载数据"
@@ -683,6 +683,9 @@ msgstr "组织机构"
 
 msgid "Parent unit"
 msgstr "上级机构"
+
+msgid "No data"
+msgstr "无数据"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -1328,9 +1331,6 @@ msgstr "机构设施"
 msgid "Facilities: No coordinates found"
 msgstr "机构设施：未找到坐标"
 
-msgid "Url to geojson is invalid."
-msgstr "geojson 的 URL 无效。"
-
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "这层有问题。联系系统管理员。"
 
@@ -1354,9 +1354,6 @@ msgstr "错误"
 
 msgid "Thematic layer"
 msgstr "专题层"
-
-msgid "No data"
-msgstr "无数据"
 
 msgid "Tracked entity"
 msgstr "跟踪实体"
