@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -437,8 +437,8 @@ msgstr "Typ agregace"
 msgid "Only show completed events"
 msgstr "Zobrazí pouze dokončené události"
 
-msgid "Show no data"
-msgstr "Zobrazit žádná data"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Malý poloměr"
@@ -632,8 +632,8 @@ msgstr "Skrýt tabulku dat"
 msgid "Show data table"
 msgstr "Zobrazit tabulku dat"
 
-msgid "Open as chart"
-msgstr "Otevřít jako graf"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Stáhnout data"
@@ -691,6 +691,9 @@ msgstr "Organizační jednotka"
 
 msgid "Parent unit"
 msgstr "Nadřazená jednotka"
+
+msgid "No data"
+msgstr "Nejsou data"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
@@ -1357,9 +1360,6 @@ msgstr "Zařízení"
 msgid "Facilities: No coordinates found"
 msgstr "Zařízení: Nebyly nalezeny žádné souřadnice"
 
-msgid "Url to geojson is invalid."
-msgstr ""
-
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
@@ -1383,9 +1383,6 @@ msgstr "Chyba"
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
-
-msgid "No data"
-msgstr "Nejsou data"
 
 msgid "Tracked entity"
 msgstr "Trasovaná entita"

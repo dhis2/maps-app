@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica Zamora Duchateau, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -440,8 +440,8 @@ msgstr "Aggregatietype"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Toon geen gegevens"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Lage radius"
@@ -643,8 +643,8 @@ msgstr "Verberg gegevenstabel"
 msgid "Show data table"
 msgstr "Toon gegevenstabel"
 
-msgid "Open as chart"
-msgstr "Open als grafiek"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Download gegevens"
@@ -702,6 +702,9 @@ msgstr "Organisatieëenheid"
 
 msgid "Parent unit"
 msgstr "Boveliggende eenheid"
+
+msgid "No data"
+msgstr "Geen gegevens"
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
@@ -1362,9 +1365,6 @@ msgstr "Instellingen"
 msgid "Facilities: No coordinates found"
 msgstr ""
 
-msgid "Url to geojson is invalid."
-msgstr ""
-
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
@@ -1388,9 +1388,6 @@ msgstr "Fout"
 
 msgid "Thematic layer"
 msgstr "Thematische laag"
-
-msgid "No data"
-msgstr "Geen gegevens"
 
 msgid "Tracked entity"
 msgstr "Getraceerde entiteit"

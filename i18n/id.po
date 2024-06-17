@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -441,8 +441,8 @@ msgstr "Tipe agregasi"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Tidak ada data"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "radius rendah "
@@ -640,8 +640,8 @@ msgstr "Sembunyikan tabel data"
 msgid "Show data table"
 msgstr "Tampilkan tabel data"
 
-msgid "Open as chart"
-msgstr "Buka sebagai bagan"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Unduh data"
@@ -699,6 +699,9 @@ msgstr "Unit organisasi"
 
 msgid "Parent unit"
 msgstr "Unit induk"
+
+msgid "No data"
+msgstr "Tidak ada data"
 
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
@@ -1358,9 +1361,6 @@ msgstr "Fasilitas"
 msgid "Facilities: No coordinates found"
 msgstr ""
 
-msgid "Url to geojson is invalid."
-msgstr ""
-
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
@@ -1384,9 +1384,6 @@ msgstr "Error"
 
 msgid "Thematic layer"
 msgstr "Layer tematik"
-
-msgid "No data"
-msgstr "Tidak ada data"
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"
