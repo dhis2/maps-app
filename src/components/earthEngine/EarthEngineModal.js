@@ -10,7 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import earthEngineLayers from '../../constants/earthEngineLayers/index.js'
-import useEarthEngineLayers from '../../hooks/useEarthEngineLayersStore.js'
+import useLayerTypesVisibilityStore from '../../hooks/useLayerTypesVisibilityStore.js'
 import EarthEngineLayer from './EarthEngineLayer.js'
 import styles from './styles/EarthEngineModal.module.css'
 
@@ -19,7 +19,8 @@ const layers = earthEngineLayers
     .sort((a, b) => a.name.localeCompare(b.name))
 
 const EarthEngineModal = ({ onClose }) => {
-    const { addedLayers, addLayer, removeLayer } = useEarthEngineLayers()
+    const { visibleLayerTypes, showLayerType, hideLayerType } =
+        useLayerTypesVisibilityStore()
 
     return (
         <Modal large position="middle" dataTest="earthenginemodal">
@@ -36,9 +37,9 @@ const EarthEngineModal = ({ onClose }) => {
                     <EarthEngineLayer
                         key={layer.layerId}
                         layer={layer}
-                        isAdded={addedLayers.includes(layer.layerId)}
-                        onShow={addLayer}
-                        onHide={removeLayer}
+                        isAdded={visibleLayerTypes.includes(layer.layerId)}
+                        onShow={showLayerType}
+                        onHide={hideLayerType}
                     />
                 ))}
             </ModalContent>
