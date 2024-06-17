@@ -23,8 +23,10 @@ const EarthEngineModal = ({ onClose }) => {
 
     return (
         <Modal large position="middle" dataTest="earthenginemodal">
-            <ModalTitle>{i18n.t('Configure available layers')}</ModalTitle>
-            <ModalContent>
+            <ModalTitle dataTest="earthenginemodal-title">
+                {i18n.t('Configure available layers')}
+            </ModalTitle>
+            <ModalContent dataTest="earthenginemodal-content">
                 <div className={styles.description}>
                     {i18n.t(
                         'Choose which layers are available to add to maps. This setting applies to all users.'
@@ -40,9 +42,13 @@ const EarthEngineModal = ({ onClose }) => {
                     />
                 ))}
             </ModalContent>
-            <ModalActions>
+            <ModalActions dataTest="earthenginemodal-actions">
                 <ButtonStrip end>
-                    <Button secondary onClick={() => onClose()}>
+                    <Button
+                        dataTest="earthenginemodal-button"
+                        secondary
+                        onClick={() => onClose()}
+                    >
                         {i18n.t('Close')}
                     </Button>
                 </ButtonStrip>
