@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { curry } from 'lodash/fp'
 import {
     EVENT_COLOR,
@@ -23,7 +22,7 @@ export const styleByDataItem = async (config, engine) => {
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config, engine)
     } else if (styleDataItem.valueType === 'BOOLEAN') {
-        await styleByBoolean(config)
+        await styleByBoolean(config, engine)
     }
 
     config.legend.items.push({
@@ -35,7 +34,7 @@ export const styleByDataItem = async (config, engine) => {
     return config
 }
 
-export const styleByBoolean = async (config) => {
+export const styleByBoolean = async (config, engine) => {
     const { styleDataItem, data, legend, eventPointRadius } = config
     const { id, name, values } = styleDataItem
 
@@ -56,7 +55,13 @@ export const styleByBoolean = async (config) => {
         }
     })
 
-    legend.unit = name || (await getDataElementName(id))
+    legend.unit =
+        name ||
+        (await engine
+            .query(DATA_ELEMENT_NAME_QUERY, {
+                variables: { id },
+            })
+            .then(({ dataElement }) => dataElement.name))
 
     legend.items = [
         {
@@ -107,7 +112,12 @@ export const styleByNumeric = async (config, engine) => {
 
         // Use data item name as legend unit (load from server if needed)
         config.legend.unit =
-            styleDataItem.name || (await getDataElementName(styleDataItem.id))
+            styleDataItem.name ||
+            (await engine
+                .query(DATA_ELEMENT_NAME_QUERY, {
+                    variables: { id: styleDataItem.id },
+                })
+                .then(({ dataElement }) => dataElement.name))
 
         // Generate legend items based on layer config
         config.legend.items = getAutomaticLegendItems(
@@ -226,11 +236,12 @@ const getOptionSet = async (optionSet, engine) => {
     }
 }
 
-const getDataElementName = async (id) => {
-    const d2 = await getD2()
-    return d2.models.dataElement
-        .get(id, {
+const DATA_ELEMENT_NAME_QUERY = {
+    dataElement: {
+        resource: 'dataElements',
+        id: ({ id }) => id,
+        params: {
             fields: 'displayName~rename(name)',
-        })
-        .then((model) => model.name)
+        },
+    },
 }
