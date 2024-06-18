@@ -3,7 +3,8 @@ import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 const MAPS_ADMIN_AUTHORITY_ID = 'F_EXTERNAL_MAP_LAYER_PUBLIC_ADD'
 const MAPS_APP_NAMESPACE = 'DHIS2_MAPS_APP_CORE'
 const LAYER_TYPES_VISIBILITY_KEY = 'LAYER_TYPES_VISIBILITY_SETTING'
-const LAYER_TYPES_VISIBILITY_DEFAULT = 7
+const LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD = 6
+const LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED = 7
 
 context('Manage Layers', () => {
     beforeEach(() => {
@@ -84,7 +85,10 @@ context('Manage Layers', () => {
             // Check that at least default layers are still available
             cy.getByDataTest('addlayerpopover')
                 .find('[class^="Layer_container"]')
-                .should('have.length.gte', 6)
+                .should(
+                    'have.length.gte',
+                    LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD
+                )
         })
     })
 
@@ -99,7 +103,7 @@ context('Manage Layers', () => {
             expect(response.status).to.eq(200)
             expect(response.body)
                 .to.be.an('array')
-                .that.has.lengthOf(LAYER_TYPES_VISIBILITY_DEFAULT)
+                .that.has.lengthOf(LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED)
         })
     })
 
@@ -108,6 +112,10 @@ context('Manage Layers', () => {
         cy.getByDataTest('add-layer-button').click()
         cy.getByDataTest('addlayerpopover')
             .find('[class^="Layer_container"]')
+            .should(
+                'have.length.gte',
+                LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD + 1
+            )
             .then((elements) => {
                 numberOfLayers = elements.length
                 cy.log(`${numberOfLayers} layers`)
