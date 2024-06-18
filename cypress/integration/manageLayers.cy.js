@@ -1,6 +1,6 @@
 import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
-const MAPS_ADMIN_AUTHORITY_ID = 'F_PROGRAM_TRACKED_ENTITY_ATTRIBUTE_GROUP_ADD'
+const MAPS_ADMIN_AUTHORITY_ID = 'F_EXTERNAL_MAP_LAYER_PUBLIC_ADD'
 
 context('Manage Layers', () => {
     beforeEach(() => {
@@ -140,7 +140,6 @@ context('Manage Layers', () => {
         cy.wait('@getAuthorization', EXTENDED_TIMEOUT).then((interception) => {
             cy.log(interception.response.body.authorities)
             expect(interception.response.body.authorities).to.deep.equal([
-                //"F_PROGRAM_TRACKED_ENTITY_ATTRIBUTE_GROUP_ADD",
                 'M_dhis-web-mapping',
             ])
 
