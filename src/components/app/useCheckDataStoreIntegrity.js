@@ -1,11 +1,11 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useDispatch } from 'react-redux'
 import { initLayerTypes } from '../../actions/layerTypes.js'
+import { earthEngineLayersDefaultIds } from '../../constants/earthEngineLayers/index.js'
 import {
     MAPS_APP_NAMESPACE,
     LAYER_TYPES_VISIBILITY_KEY,
 } from '../../constants/settings.js'
-import { earthEngineLayersDefaultIds } from '../../constants/earthEngineLayers/index.js'
 
 export const useCheckDataStoreIntegrity = () => {
     const resourceLayerTypesVisibility = `dataStore/${MAPS_APP_NAMESPACE}/${LAYER_TYPES_VISIBILITY_KEY}`
