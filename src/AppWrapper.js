@@ -26,10 +26,7 @@ const d2Config = {
         'indicator',
         'legendSet',
         'map',
-        'organisationUnit',
-        'organisationUnitGroup',
         'program',
-        'programStage',
     ],
 }
 
