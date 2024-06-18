@@ -30,7 +30,7 @@ const EarthEngineModal = ({ onClose }) => {
             <ModalContent dataTest="earthenginemodal-content">
                 <div className={styles.description}>
                     {i18n.t(
-                        'Choose which layers are available to add to maps. This setting applies to all users.'
+                        'Choose which layers are available to add to maps. This selection applies to all users.'
                     )}
                 </div>
                 {layers.map((layer) => (
