@@ -20,7 +20,7 @@ log.setLevel(
 )
 
 const d2Config = {
-    schemas: ['dataElement', 'dataSet', 'indicator', 'legendSet', 'map'],
+    schemas: ['dataElement', 'dataSet', 'indicator', 'legendSet'],
 }
 
 const replaceLegacyUrl = () => {
