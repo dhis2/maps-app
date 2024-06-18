@@ -21,10 +21,6 @@ log.setLevel(
 
 const d2Config = {
     schemas: [
-        'dataElement',
-        'dataSet',
-        'indicator',
-        'legendSet',
         'map',
         'organisationUnit',
         'organisationUnitGroup',

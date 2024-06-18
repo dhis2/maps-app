@@ -117,7 +117,6 @@ const thematicLoader = async ({ config, engine }) => {
     const method = legendSet ? CLASSIFICATION_PREDEFINED : config.method
 
     if (legendSet) {
-        console.log('thematicLoader now query the legendSet')
         const result = await engine.query(LEGEND_SET_QUERY, {
             variables: { id: config.legendSet.id },
         })
