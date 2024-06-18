@@ -15,7 +15,6 @@ const d2Config = {
         'dataElement',
         'dataSet',
         'indicator',
-        'legendSet',
         'map',
         'organisationUnitGroup',
         'programStage',

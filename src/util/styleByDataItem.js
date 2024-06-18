@@ -8,13 +8,9 @@ import {
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
-import { OPTION_SET_QUERY } from '../util/requests.js'
+import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
-import {
-    loadLegendSet,
-    getAutomaticLegendItems,
-    getPredefinedLegendItems,
-} from './legend.js'
+import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
 
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
@@ -25,7 +21,7 @@ export const styleByDataItem = async (config, engine) => {
     if (styleDataItem.optionSet) {
         await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
-        await styleByNumeric(config)
+        await styleByNumeric(config, engine)
     } else if (styleDataItem.valueType === 'BOOLEAN') {
         await styleByBoolean(config)
     }
@@ -81,7 +77,7 @@ export const styleByBoolean = async (config) => {
     return config
 }
 
-export const styleByNumeric = async (config) => {
+export const styleByNumeric = async (config, engine) => {
     const {
         styleDataItem,
         method,
@@ -94,7 +90,9 @@ export const styleByNumeric = async (config) => {
     // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
         // Load legend set from server
-        const legendSet = await loadLegendSet(config.legendSet)
+        const { legendSet } = await engine.query(LEGEND_SET_QUERY, {
+            variables: { id: config.legendSet.id },
+        })
 
         // Use legend set name and legend unit
         config.legend.unit = legendSet.name

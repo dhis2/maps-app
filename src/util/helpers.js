@@ -102,10 +102,6 @@ export const legendFields = [
     '!userGroupAccesses',
 ]
 
-export const legendSetFields = [
-    'id,displayName~rename(name),legends[' + legendFields.join(',') + ']',
-]
-
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
 export const addOrgUnitPaths = (mapViews) =>
     mapViews.map((view) =>

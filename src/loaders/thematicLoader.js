@@ -25,7 +25,6 @@ import {
 import { getLegendItemForValue } from '../util/classify.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import {
-    loadLegendSet,
     getPredefinedLegendItems,
     getAutomaticLegendItems,
 } from '../util/legend.js'
@@ -34,9 +33,10 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
+import { LEGEND_SET_QUERY } from '../util/requests.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async (config) => {
+const thematicLoader = async ({ config, engine }) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -117,7 +117,11 @@ const thematicLoader = async (config) => {
     const method = legendSet ? CLASSIFICATION_PREDEFINED : config.method
 
     if (legendSet) {
-        legendSet = await loadLegendSet(legendSet)
+        console.log('thematicLoader now query the legendSet')
+        const result = await engine.query(LEGEND_SET_QUERY, {
+            variables: { id: config.legendSet.id },
+        })
+        legendSet = result.legendSet
     }
 
     let legendItems = []
