@@ -93,23 +93,31 @@ context('Manage Layers', () => {
     })
 
     it('w/ or w/o maps-mngmt auth - check datastore integrity is restored on load', () => {
-        cy.request({
-            method: 'GET',
-            url: `${getApiBaseUrl()}/api/dataStore/${MAPS_APP_NAMESPACE}/${LAYER_TYPES_VISIBILITY_KEY}`,
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-        }).then((response) => {
-            expect(response.status).to.eq(200)
-            expect(response.body)
-                .to.be.an('array')
-                .that.has.lengthOf(LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED)
+        cy.intercept(
+            'GET',
+            `**/dataStore/${MAPS_APP_NAMESPACE}/${LAYER_TYPES_VISIBILITY_KEY}`
+        ).as('getDataStore')
+
+        cy.wait('@getDataStore', EXTENDED_TIMEOUT).then(() => {
+            cy.request({
+                method: 'GET',
+                url: `${getApiBaseUrl()}/api/dataStore/${MAPS_APP_NAMESPACE}/${LAYER_TYPES_VISIBILITY_KEY}`,
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                },
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+                expect(response.body)
+                    .to.be.an('array')
+                    .that.has.lengthOf(LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED)
+            })
         })
     })
 
     it('w/ maps-mngmt auth - add and remove layers', () => {
         cy.log('count default layers (n)')
         cy.getByDataTest('add-layer-button').click()
+        /* Trying to count the number of layers available dynamically
         cy.getByDataTest('addlayerpopover')
             .find('[class^="Layer_container"]')
             .should(
@@ -120,11 +128,14 @@ context('Manage Layers', () => {
                 numberOfLayers = elements.length
                 cy.log(`${numberOfLayers} layers`)
             })
-
-        Cypress.Commands.add('waitForLayerContainers', () => {
+        */
+        numberOfLayers =
+            LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD +
+            LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED
+        Cypress.Commands.add('waitForLayerContainers', (n) => {
             cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
                 .find('[class^="Layer_container"]')
-                .should('have.length.lte', numberOfLayers)
+                .should('have.length.lte', n)
         })
         Cypress.Commands.add('waitForCheckbox', (index, assertion) => {
             cy.getByDataTest('earthenginelayer-checkbox', EXTENDED_TIMEOUT)
@@ -140,7 +151,7 @@ context('Manage Layers', () => {
 
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
-        cy.waitForLayerContainers().then((elements) => {
+        cy.waitForLayerContainers(numberOfLayers - 1).then((elements) => {
             cy.wrap(elements.length).should('equal', numberOfLayers - 1)
         })
 
@@ -154,7 +165,7 @@ context('Manage Layers', () => {
 
         cy.log('check there is n-2 layers available')
         cy.getByDataTest('add-layer-button').click()
-        cy.waitForLayerContainers().then((elements) => {
+        cy.waitForLayerContainers(numberOfLayers - 2).then((elements) => {
             cy.wrap(elements.length).should('equal', numberOfLayers - 2)
         })
 
@@ -168,7 +179,7 @@ context('Manage Layers', () => {
 
         cy.log('check there is n layers available')
         cy.getByDataTest('add-layer-button').click()
-        cy.waitForLayerContainers().then((elements) => {
+        cy.waitForLayerContainers(numberOfLayers - 1).then((elements) => {
             cy.wrap(elements.length).should('equal', numberOfLayers - 1)
         })
 
@@ -199,13 +210,13 @@ context('Manage Layers', () => {
             ])
 
             // Checks that settings are persisted
-            Cypress.Commands.add('waitForLayerContainers', () => {
+            Cypress.Commands.add('waitForLayerContainers', (n) => {
                 cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
                     .find('[class^="Layer_container"]')
-                    .should('have.length.lte', numberOfLayers)
+                    .should('have.length.lte', n)
             })
             cy.getByDataTest('add-layer-button').click()
-            cy.waitForLayerContainers().then((elements) => {
+            cy.waitForLayerContainers(numberOfLayers - 1).then((elements) => {
                 cy.wrap(elements.length).should('equal', numberOfLayers - 1)
             })
 
