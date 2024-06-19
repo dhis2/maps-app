@@ -1,3 +1,4 @@
+import { useDataEngine } from '@dhis2/app-runtime'
 import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
 import {
@@ -24,6 +25,7 @@ import styles from './styles/OpenAsMapDialog.module.css'
 const OpenAsMapDialog = () => {
     const dispatch = useDispatch()
     const [currentAO] = useSetting(CURRENT_AO_KEY)
+    const engine = useDataEngine()
     const allDataDimensions = getDataDimensionsFromAnalyticalObject(currentAO)
     const firstDimensionId = allDataDimensions[0]?.id
 
@@ -35,11 +37,12 @@ const OpenAsMapDialog = () => {
 
         // Call in sequence
         for (const dataId of selectedDimensions) {
-            const layer = await getThematicLayerFromAnalyticalObject(
-                currentAO,
+            const layer = await getThematicLayerFromAnalyticalObject({
+                ao: currentAO,
                 dataId,
-                dataId === lastDataId
-            )
+                isVisible: dataId === lastDataId,
+                engine,
+            })
 
             if (layer) {
                 dispatch(addLayer(layer))

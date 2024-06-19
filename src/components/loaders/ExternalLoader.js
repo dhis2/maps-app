@@ -7,7 +7,7 @@ const ExternalLoader = ({ config, onLoad }) => {
     const engine = useDataEngine()
 
     useEffect(() => {
-        externalLoader(config, engine).then(onLoad)
+        externalLoader({ config, engine }).then(onLoad)
     }, [config, onLoad, engine])
 
     return null

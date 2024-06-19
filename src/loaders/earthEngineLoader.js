@@ -4,7 +4,6 @@ import { precisionRound } from 'd3-format'
 import { getEarthEngineLayer } from '../constants/earthEngine.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import { getRoundToPrecisionFn } from '../util/numbers.js'
 import {
@@ -13,7 +12,7 @@ import {
 } from '../util/orgUnits.js'
 
 // Returns a promise
-const earthEngineLoader = async (config) => {
+const earthEngineLoader = async ({ config, nameProperty }) => {
     const { rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
@@ -25,14 +24,13 @@ const earthEngineLoader = async (config) => {
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2()
-        const displayProperty = getDisplayProperty(d2).toUpperCase()
         const orgUnitParams = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
 
         const featuresRequest = d2.geoFeatures
             .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
+            .displayProperty(nameProperty)
 
         try {
             mainFeatures = await featuresRequest.getAll().then(toGeoJson)

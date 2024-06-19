@@ -33,7 +33,8 @@ const MapContainer = ({ visualization }) => {
             } else if (!mapViews) {
                 initialConfig = await getConfigFromNonMapConfig(
                     otherMapProps,
-                    keyDefaultBaseMap
+                    keyDefaultBaseMap,
+                    engine
                 )
             } else {
                 initialConfig = getMigratedMapConfig(

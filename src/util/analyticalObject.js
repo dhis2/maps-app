@@ -27,11 +27,12 @@ export const getDataDimensionsFromAnalyticalObject = (ao) => {
 }
 
 // Returns a thematic layer config from an analytical object
-export const getThematicLayerFromAnalyticalObject = async (
+export const getThematicLayerFromAnalyticalObject = async ({
     ao = {},
     dataId,
-    isVisible = true
-) => {
+    isVisible = true,
+    engine,
+}) => {
     const { yearlySeries, aggregationType = 'DEFAULT' } = ao
     const dataDims = getDataDimensionsFromAnalyticalObject(ao)
     const dims = getDimensionsFromAnalyticalObject(ao)
@@ -49,7 +50,7 @@ export const getThematicLayerFromAnalyticalObject = async (
     }
 
     // Load default legend set for selected data dimension
-    const legendSet = await loadDataItemLegendSet(dataDim)
+    const legendSet = await loadDataItemLegendSet(dataDim, engine)
 
     // Currently we only support one period in map filters so we select the first
     if (yearlySeries && yearlySeries.length) {

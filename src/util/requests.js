@@ -57,3 +57,19 @@ export const OPTION_SET_QUERY = {
         },
     },
 }
+
+// Load a single legend set
+export const LEGEND_SET_QUERY = {
+    legendSet: {
+        resource: 'legendSets',
+        id: ({ id }) => id,
+        params: {
+            fields: [
+                'id',
+                'displayName~rename(name)',
+                'legends[id,displayName~rename(name),startValue,endValue,color]',
+            ],
+            paging: false,
+        },
+    },
+}

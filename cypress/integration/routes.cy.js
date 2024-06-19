@@ -76,6 +76,15 @@ describe('Routes', () => {
         const Layer = new ThematicLayer()
         Layer.validateCardTitle('ANC 1 Coverage')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
+
+        cy.getByDataTest(`card-ANC1coverage`)
+            .findByDataTest('layerlegend-item')
+            .should('have.length', 7)
+
+        cy.getByDataTest(`card-ANC1coverage`)
+            .findByDataTest('layerlegend-item')
+            .first()
+            .contains('Low 0 - 30')
     })
 
     it('loads with map id (legacy) and interpretationid lowercase', () => {
