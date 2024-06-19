@@ -5,14 +5,14 @@ const MAPS_APP_NAMESPACE = 'DHIS2_MAPS_APP_CORE'
 const LAYER_TYPES_VISIBILITY_KEY = 'LAYER_TYPES_VISIBILITY_SETTING'
 const LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD = 6
 const LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED = 7
+const LAYER_TYPES_VISIBILITY_DEFAULT_ALL =
+    LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD +
+    LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED
 
 context('Manage Layers', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })
-
-    // Define variable to count layerTypes available after adding/removing
-    let numberOfLayers
 
     it('w/ maps-mngmt auth - check it is set by default with admin user', () => {
         cy.request({
@@ -115,27 +115,10 @@ context('Manage Layers', () => {
     })
 
     it('w/ maps-mngmt auth - add and remove layers', () => {
-        cy.log('count default layers (n)')
-        cy.getByDataTest('add-layer-button').click()
-        /* Trying to count the number of layers available dynamically
-        cy.getByDataTest('addlayerpopover')
-            .find('[class^="Layer_container"]')
-            .should(
-                'have.length.gte',
-                LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD + 1
-            )
-            .then((elements) => {
-                numberOfLayers = elements.length
-                cy.log(`${numberOfLayers} layers`)
-            })
-        */
-        numberOfLayers =
-            LAYER_TYPES_VISIBILITY_DEFAULT_STANDARD +
-            LAYER_TYPES_VISIBILITY_DEFAULT_MANAGED
         Cypress.Commands.add('waitForLayerContainers', (n) => {
             cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
                 .find('[class^="Layer_container"]')
-                .should('have.length.lte', n)
+                .should('have.length', n)
         })
         Cypress.Commands.add('waitForCheckbox', (index, assertion) => {
             cy.getByDataTest('earthenginelayer-checkbox', EXTENDED_TIMEOUT)
@@ -144,6 +127,8 @@ context('Manage Layers', () => {
                 .should(assertion)
         })
 
+        cy.getByDataTest('add-layer-button').click()
+
         cy.log('remove one layer')
         cy.getByDataTest('managelayers-button').click()
         cy.getByDataTest('earthenginelayer-checkbox').eq(0).click()
@@ -151,8 +136,9 @@ context('Manage Layers', () => {
 
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
-        cy.waitForLayerContainers(numberOfLayers - 1).then((elements) => {
-            cy.wrap(elements.length).should('equal', numberOfLayers - 1)
+        const n1 = LAYER_TYPES_VISIBILITY_DEFAULT_ALL - 1
+        cy.waitForLayerContainers(n1).then((elements) => {
+            cy.wrap(elements.length).should('equal', n1)
         })
 
         cy.log('verify the box of the layer is not checked')
@@ -165,8 +151,9 @@ context('Manage Layers', () => {
 
         cy.log('check there is n-2 layers available')
         cy.getByDataTest('add-layer-button').click()
-        cy.waitForLayerContainers(numberOfLayers - 2).then((elements) => {
-            cy.wrap(elements.length).should('equal', numberOfLayers - 2)
+        const n2 = LAYER_TYPES_VISIBILITY_DEFAULT_ALL - 2
+        cy.waitForLayerContainers(n2).then((elements) => {
+            cy.wrap(elements.length).should('equal', n2)
         })
 
         cy.log('verify the box of the layer is not checked')
@@ -179,8 +166,9 @@ context('Manage Layers', () => {
 
         cy.log('check there is n layers available')
         cy.getByDataTest('add-layer-button').click()
-        cy.waitForLayerContainers(numberOfLayers - 1).then((elements) => {
-            cy.wrap(elements.length).should('equal', numberOfLayers - 1)
+        const n3 = LAYER_TYPES_VISIBILITY_DEFAULT_ALL - 1
+        cy.waitForLayerContainers(n3).then((elements) => {
+            cy.wrap(elements.length).should('equal', n3)
         })
 
         cy.log('verify the box of the layers are checked')
@@ -213,11 +201,12 @@ context('Manage Layers', () => {
             Cypress.Commands.add('waitForLayerContainers', (n) => {
                 cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
                     .find('[class^="Layer_container"]')
-                    .should('have.length.lte', n)
+                    .should('have.length', n)
             })
             cy.getByDataTest('add-layer-button').click()
-            cy.waitForLayerContainers(numberOfLayers - 1).then((elements) => {
-                cy.wrap(elements.length).should('equal', numberOfLayers - 1)
+            const n4 = LAYER_TYPES_VISIBILITY_DEFAULT_ALL - 1
+            cy.waitForLayerContainers(n4).then((elements) => {
+                cy.wrap(elements.length).should('equal', n4)
             })
 
             // Checks that manage layers modal is not accessible
