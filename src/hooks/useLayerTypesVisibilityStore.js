@@ -26,7 +26,7 @@ const useLayerTypesVisibilityStore = () => {
                         data: [...visibleLayerTypes, layerId],
                     })
                     .then((response) => {
-                        if (response.httpStatusCode === 200) {
+                        if ([200, 201].includes(response.httpStatusCode)) {
                             dispatch(showLayerTypes(layerId))
                         } else {
                             setError(response)
@@ -49,7 +49,7 @@ const useLayerTypesVisibilityStore = () => {
                         data: visibleLayerTypes.filter((l) => l !== layerId),
                     })
                     .then((response) => {
-                        if (response.httpStatusCode === 200) {
+                        if ([200, 201].includes(response.httpStatusCode)) {
                             dispatch(hideLayerTypes(layerId))
                         } else {
                             setError(response)
