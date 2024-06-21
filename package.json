@@ -34,7 +34,7 @@
         "patch-package": "^6.5.1",
         "redux-devtools": "^3.7.0",
         "redux-mock-store": "^1.5.4",
-        "start-server-and-test": "^2.0.3"
+        "start-server-and-test": "^2.0.4"
     },
     "dependencies": {
         "@dhis2/analytics": "^26.7.0",
