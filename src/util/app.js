@@ -12,7 +12,7 @@ import {
 } from './external.js'
 import { getDefaultLayerTypes } from './getDefaultLayerTypes.js'
 import { getHiddenPeriods } from './periods.js'
-import { fetchExternalLayersQuery } from './requests.js'
+import { EXTERNAL_MAP_LAYERS_QUERY } from './requests.js'
 
 export const appQueries = {
     currentUser: {
@@ -27,7 +27,7 @@ export const appQueries = {
             key: SYSTEM_SETTINGS,
         },
     },
-    externalMapLayers: fetchExternalLayersQuery,
+    externalMapLayers: EXTERNAL_MAP_LAYERS_QUERY,
 }
 
 const getBasemapList = (externalMapLayers, systemSettings) => {
@@ -77,6 +77,8 @@ export const providerDataTransformation = ({
         name: currentUser.name,
         username: currentUser.username,
         authorities: new Set(currentUser.authorities),
+        keyAnalysisDisplayProperty:
+            currentUser.settings.keyAnalysisDisplayProperty,
     },
     nameProperty:
         currentUser.settings.keyAnalysisDisplayProperty === 'name'

@@ -2,11 +2,11 @@ import { EXTERNAL_LAYER } from '../constants/layers.js'
 import { parseLayerConfig } from '../util/external.js'
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend.js'
 
-const externalLoader = async (layer) => {
+const externalLoader = async (layer, engine) => {
     let config
     if (typeof layer.config === 'string') {
         // External layer is loaded in analytical object
-        config = await parseLayerConfig(layer.config)
+        config = await parseLayerConfig(layer.config, engine)
     } else {
         config = { ...layer.config }
     }

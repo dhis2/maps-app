@@ -53,7 +53,7 @@ const GroupSetSelect = ({
                 error?.message || (!value && errorText ? errorText : null)
             }
             className={className}
-            data-test="orgunitgroupsetselect"
+            dataTest="orgunitgroupsetselect"
         />
     )
 }

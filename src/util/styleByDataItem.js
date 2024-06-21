@@ -8,6 +8,7 @@ import {
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
+import { OPTION_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import {
     loadLegendSet,
@@ -18,11 +19,11 @@ import {
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
 // This function is modifiyng the config object before it's added to the redux store
-export const styleByDataItem = async (config) => {
+export const styleByDataItem = async (config, engine) => {
     const { styleDataItem } = config
 
     if (styleDataItem.optionSet) {
-        await styleByOptionSet(config)
+        await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config)
     } else if (styleDataItem.valueType === 'BOOLEAN') {
@@ -150,9 +151,9 @@ export const styleByNumeric = async (config) => {
     return config
 }
 
-export const styleByOptionSet = async (config) => {
+export const styleByOptionSet = async (config, engine) => {
     const { styleDataItem } = config
-    const optionSet = await getOptionSet(styleDataItem.optionSet)
+    const optionSet = await getOptionSet(styleDataItem.optionSet, engine)
     const id = styleDataItem.id
 
     // Replace styleDataItem with a version with names
@@ -205,16 +206,15 @@ export const styleByOptionSet = async (config) => {
 
 // The style option set included in a favorite is stripped for names
 // and this function add the names if needed
-const getOptionSet = async (optionSet) => {
+const getOptionSet = async (optionSet, engine) => {
     // Return unmodified option set if names are included
     if (optionSet.name) {
         return optionSet
     }
 
     // Load option set from server
-    const d2 = await getD2()
-    const optSet = await d2.models.optionSet.get(optionSet.id, {
-        fields: 'displayName~rename(name),options[id,code,displayName~rename(name)]',
+    const { optionSet: optSet } = await engine.query(OPTION_SET_QUERY, {
+        variables: { id: optionSet.id },
     })
 
     // Return modified option set with names and codes

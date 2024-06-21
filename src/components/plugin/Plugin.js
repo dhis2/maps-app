@@ -14,14 +14,9 @@ const d2Config = {
     schemas: [
         'dataElement',
         'dataSet',
-        'externalMapLayer',
         'indicator',
         'legendSet',
-        'map',
-        'optionSet',
         'organisationUnitGroup',
-        'organisationUnitGroupSet',
-        'organisationUnitLevel',
         'programStage',
     ],
 }
