@@ -1380,7 +1380,7 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.1.1.tgz#c9c61d9fe5ca5ac664e1153bb0aa0eba1c6d6308"
   integrity sha512-jwx+WCqszn53YHOfvFMJJRd/B2GqkCBt+1MJSG6o5/s8+ytHMvDZXsJgUEWLk12UnLd7HYKac4BYU5i/Ron1Cw==
 
-"@cypress/browserify-preprocessor@^3.0.1":
+"@cypress/browserify-preprocessor@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@cypress/browserify-preprocessor/-/browserify-preprocessor-3.0.2.tgz#1dbecae394937aed47a3524cad47086c2ded8c50"
   integrity sha512-y6mlFR+IR2cqcm3HabSp7AEcX9QfF1EUL4eOaw/7xexdhmdQU8ez6piyRopZQob4BK8oKTsc9PkupsU2rzjqMA==
@@ -6327,12 +6327,12 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
-cypress-tags@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/cypress-tags/-/cypress-tags-1.1.2.tgz#f0aeb29685b0906bba2eca69e7349943cbbd1eba"
-  integrity sha512-5aCGrhmDRQuXfRHJRFy66gBmMvBpsY1+ez5JD/cyjCYjvOVlJ7ED+kovUEdi+9pyDsbFJkQl0HjS6N3ERyb7Ig==
+cypress-tags@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/cypress-tags/-/cypress-tags-1.2.2.tgz#1d992a3eb7f5db9b8b87911cc82c94d7ee9dd217"
+  integrity sha512-a+jGxfnviOrGKDlD7/N5In1v7JOazmA6fhQtDgzJk/Mvz+hqydjKwBWkVy/3cY35yfspAS0AvyRQYZJ4YPKeUQ==
   dependencies:
-    "@cypress/browserify-preprocessor" "^3.0.1"
+    "@cypress/browserify-preprocessor" "^3.0.2"
     boolean-parser "0.0.2"
     through "^2.3.8"
 

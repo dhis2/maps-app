@@ -25,7 +25,7 @@
         "@dhis2/cypress-plugins": "^10.0.3",
         "@testing-library/react": "^12.1.5",
         "cypress": "^12.16.0",
-        "cypress-tags": "^1.1.2",
+        "cypress-tags": "^1.2.2",
         "cypress-wait-until": "^1.7.2",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.7",
