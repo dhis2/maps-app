@@ -47,7 +47,6 @@
         "@dhis2/d2-i18n": "^1.1.3",
         "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#f0f7c940548efdbec20e5a822bd1c22f9b3898d1",
         "@dhis2/ui": "^9.2.0",
-        "@google/earthengine": "^0.1.408",
         "@krakenjs/post-robot": "^11.0.0",
         "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
         "@reportportal/agent-js-jest": "^5.0.7",
