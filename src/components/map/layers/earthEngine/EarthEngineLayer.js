@@ -57,7 +57,7 @@ export default class EarthEngineLayer extends Layer {
             isVisible,
             datasetId,
             band,
-            mask,
+            maskOperator,
             attribution,
             filter,
             methods,
@@ -68,7 +68,7 @@ export default class EarthEngineLayer extends Layer {
             value,
             resolution,
             projection,
-            params,
+            style,
             popup,
             data,
             aggregationType,
@@ -87,7 +87,7 @@ export default class EarthEngineLayer extends Layer {
             isVisible,
             datasetId,
             band,
-            mask,
+            maskOperator,
             attribution,
             filter,
             methods,
@@ -108,8 +108,8 @@ export default class EarthEngineLayer extends Layer {
             onLoad: this.onLoad.bind(this),
         }
 
-        if (params) {
-            config.params = params
+        if (style) {
+            config.style = style
         }
 
         if (areaRadius) {

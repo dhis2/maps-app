@@ -37,10 +37,10 @@ const EarthEnginePopup = (props) => {
                     </thead>
                     <tbody>
                         {items
-                            .filter((i) => values[i.id])
-                            .sort((a, b) => values[b.id] - values[a.id])
-                            .map(({ id, name, color }) => (
-                                <tr key={id} className={styles.classes}>
+                            .filter((i) => values[i.value])
+                            .sort((a, b) => values[b.value] - values[a.value])
+                            .map(({ value, name, color }) => (
+                                <tr key={value} className={styles.classes}>
                                     <th
                                         style={{
                                             backgroundColor: color,
@@ -48,7 +48,7 @@ const EarthEnginePopup = (props) => {
                                     ></th>
                                     <th>{name}</th>
                                     <td>
-                                        {valueFormat(values[id])}
+                                        {valueFormat(values[value])}
                                         {isPercentage ? '%' : ''}
                                     </td>
                                 </tr>

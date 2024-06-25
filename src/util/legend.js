@@ -73,11 +73,10 @@ export const getAutomaticLegendItems = (
     colorScale = defaultColorScale
 ) => {
     const items = data.length ? getLegendItems(data, method, classes) : []
-    const colors = colorScale.split(',')
 
     return items.map((item, index) => ({
         ...item,
-        color: colors[index],
+        color: colorScale[index],
     }))
 }
 /* eslint-enable max-params */

@@ -179,10 +179,10 @@ export const setPeriodName = (periodName) => ({
 })
 
 // Set period type (thematic)
-export const setPeriodType = (periodType, clearPeriod = true) => ({
+export const setPeriodType = (periodType, keepPeriod) => ({
     type: types.LAYER_EDIT_PERIOD_TYPE_SET,
     periodType,
-    clearPeriod,
+    keepPeriod,
 })
 
 // Set period (event & thematic)
@@ -234,10 +234,10 @@ export const setOrgUnitMode = (mode) => ({
     payload: mode,
 })
 
-// Set layer params (EE)
-export const setParams = (params) => ({
-    type: types.LAYER_EDIT_PARAMS_SET,
-    payload: params,
+// Set layer style (EE)
+export const setStyle = (payload) => ({
+    type: types.LAYER_EDIT_STYLE_SET,
+    payload,
 })
 
 // Set collection filter (EE)
@@ -357,6 +357,12 @@ export const setRenderingStrategy = (display) => ({
 export const setNoDataColor = (color) => ({
     type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
     payload: color,
+})
+
+// Set period for EE layer
+export const setEarthEnginePeriod = (payload) => ({
+    type: types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET,
+    payload,
 })
 
 // Set feature style

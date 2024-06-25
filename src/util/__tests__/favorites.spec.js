@@ -66,6 +66,7 @@ describe('cleanMapConfig', () => {
                     layer: 'earthEngine',
                     layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
                     datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+                    format: 'ImageCollection',
                     name: 'Population',
                     unit: 'people per hectare',
                     description:
@@ -74,15 +75,29 @@ describe('cleanMapConfig', () => {
                     sourceUrl:
                         'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
                     defaultAggregations: ['sum', 'mean'],
-                    periodType: 'Yearly',
+                    periodType: 'YEARLY',
+                    useCentroid: true,
                     band: 'population',
+                    filters: [
+                        {
+                            type: 'eq',
+                            arguments: ['year', '$1'],
+                        },
+                    ],
                     mosaic: true,
-                    params: {
+                    style: {
                         min: 0,
                         max: 25,
-                        palette:
-                            '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15',
+                        palette: [
+                            '#fee5d9',
+                            '#fcbba1',
+                            '#fc9272',
+                            '#fb6a4a',
+                            '#de2d26',
+                            '#a50f15',
+                        ],
                     },
+                    maskOperator: 'gt',
                     opacity: 0.9,
                     aggregationType: ['sum', 'mean'],
                     rows: [
@@ -160,12 +175,13 @@ describe('cleanMapConfig', () => {
             defaultBasemapId: 'thedefaultBasemap',
         })
 
+        console.log(JSON.stringify(cleanedConfig))
+
         expect(cleanedConfig).toEqual({
             basemap: 'thedefaultBasemap',
             mapViews: [
                 {
                     areaRadius: 5000,
-                    config: '{"id":"WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL","params":{"min":0,"max":25,"palette":"#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15"},"band":"population","aggregationType":["sum","mean"],"filter":[{"id":"ABW_2020","name":"2020","type":"eq","arguments":["year",2020]}]}',
                     layer: 'earthEngine',
                     name: 'Population',
                     opacity: 0.9,
@@ -185,6 +201,7 @@ describe('cleanMapConfig', () => {
                             ],
                         },
                     ],
+                    config: '{"id":"WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL","style":{"min":0,"max":25,"palette":["#fee5d9","#fcbba1","#fc9272","#fb6a4a","#de2d26","#a50f15"]},"band":"population","aggregationType":["sum","mean"]}',
                 },
             ],
         })

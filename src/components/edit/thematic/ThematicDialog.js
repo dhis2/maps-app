@@ -420,6 +420,7 @@ class ThematicDialog extends Component {
                             <PeriodTypeSelect
                                 value={periodType}
                                 period={period}
+                                includeRelativePeriods={true}
                                 hiddenPeriods={systemSettings.hiddenPeriods}
                                 onChange={setPeriodType}
                                 className={styles.periodSelect}

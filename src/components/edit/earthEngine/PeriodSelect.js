@@ -2,20 +2,25 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import { BY_YEAR, EE_MONTHLY } from '../../../constants/periods.js'
+import { getPeriods } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
-// http://localhost:8080/api/periodTypes.json
 const EarthEnginePeriodSelect = ({
     periodType,
     period,
-    periods,
+    datasetId,
+    filters,
     onChange,
+    onError,
     errorText,
     className,
 }) => {
+    const [periods, setPeriods] = useState()
+    const [yearPeriods, setYearPeriods] = useState()
     const [year, setYear] = useState()
-    const byYear = periodType === 'Custom'
+    const byYear = periodType === BY_YEAR || periodType === EE_MONTHLY
 
     const years = useMemo(
         () =>
@@ -28,29 +33,65 @@ const EarthEnginePeriodSelect = ({
         [byYear, periods]
     )
 
-    const byYearPeriods = useMemo(
-        () =>
-            byYear && year && periods
-                ? periods.filter((p) => p.year === year)
-                : null,
-        [byYear, year, periods]
-    )
-
-    const onYearChange = useCallback(
-        ({ id }) => {
-            onChange(null)
-            setYear(id)
-        },
-        [onChange]
-    )
+    const onYearChange = useCallback(({ id }) => {
+        setYear(id)
+    }, [])
 
     useEffect(() => {
-        if (byYear && period) {
+        let isCancelled = false
+
+        if (periodType) {
+            getPeriods(datasetId, periodType, filters)
+                .then((periods) => {
+                    if (!isCancelled) {
+                        setPeriods(periods)
+                    }
+                })
+                .catch((error) =>
+                    onError({
+                        type: 'engine',
+                        message: error.message,
+                    })
+                )
+        }
+
+        return () => (isCancelled = true)
+    }, [datasetId, periodType, filters, onError])
+
+    // Set year from period
+    useEffect(() => {
+        if (!year && byYear && period) {
             setYear(period.year)
         }
-    }, [byYear, period])
+    }, [year, byYear, period])
 
-    const items = byYear ? byYearPeriods : periods
+    // Set most recent period by default
+    useEffect(() => {
+        if (!period && Array.isArray(periods) && periods.length) {
+            onChange(periods[0])
+        }
+    }, [period, periods, onChange])
+
+    // Set avaiable periods for one year
+    useEffect(() => {
+        if (byYear && year && periods) {
+            setYearPeriods(periods.filter((p) => p.year === year))
+        }
+    }, [year, byYear, periods])
+
+    // If year is changed, set most recent period for one year
+    useEffect(() => {
+        if (
+            byYear &&
+            period &&
+            yearPeriods &&
+            !yearPeriods.find(({ id }) => id === period.id)
+        ) {
+            onChange(yearPeriods[0])
+        }
+    }, [byYear, period, yearPeriods, onChange])
+
+    const items = yearPeriods || periods
 
     return items ? (
         <div className={className}>
@@ -67,7 +108,12 @@ const EarthEnginePeriodSelect = ({
                 label={i18n.t('Period')}
                 loading={!periods}
                 items={items}
-                value={items && period && period.id}
+                value={
+                    items &&
+                    period &&
+                    items.find(({ id }) => id === period.id) &&
+                    period.id
+                }
                 onChange={onChange}
                 helpText={i18n.t(
                     'Available periods are set by the source data'
@@ -85,12 +131,14 @@ const EarthEnginePeriodSelect = ({
 }
 
 EarthEnginePeriodSelect.propTypes = {
+    datasetId: PropTypes.string.isRequired,
     periodType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
+    filters: PropTypes.array,
     period: PropTypes.object,
-    periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
 export default EarthEnginePeriodSelect
