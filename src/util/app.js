@@ -29,6 +29,9 @@ export const appQueries = {
     },
     systemInfo: {
         resource: 'system/info',
+        params: {
+            fields: 'calendar',
+        },
     },
     userSettings: {
         resource: 'userSettings',
