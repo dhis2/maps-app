@@ -93,6 +93,7 @@ class ThematicDialog extends Component {
         operand: PropTypes.bool,
         orgUnits: PropTypes.object,
         periodType: PropTypes.string,
+        periodsSettings: PropTypes.object,
         program: PropTypes.object,
         radiusHigh: PropTypes.number,
         radiusLow: PropTypes.number,
@@ -100,7 +101,6 @@ class ThematicDialog extends Component {
         rows: PropTypes.array,
         startDate: PropTypes.string,
         systemSettings: PropTypes.object,
-        periodsSettings: PropTypes.object,
         thematicMapType: PropTypes.string,
         valueType: PropTypes.string,
     }
