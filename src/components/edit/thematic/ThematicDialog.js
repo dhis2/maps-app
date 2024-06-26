@@ -100,6 +100,7 @@ class ThematicDialog extends Component {
         rows: PropTypes.array,
         startDate: PropTypes.string,
         systemSettings: PropTypes.object,
+        periodsSettings: PropTypes.object,
         thematicMapType: PropTypes.string,
         valueType: PropTypes.string,
     }
@@ -231,6 +232,7 @@ class ThematicDialog extends Component {
             valueType,
             thematicMapType,
             systemSettings,
+            periodsSettings,
         } = this.props
 
         const {
@@ -439,6 +441,7 @@ class ThematicDialog extends Component {
                                 (!periodType && id)) && (
                                 <PeriodSelect
                                     periodType={periodType}
+                                    periodsSettings={periodsSettings}
                                     period={period}
                                     onChange={setPeriod}
                                     className={styles.periodSelect}
