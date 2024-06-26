@@ -44,7 +44,7 @@
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/d2-i18n": "^1.1.3",
         "@dhis2/maps-gl": "^3.9.2",
-        "@dhis2/ui": "^9.2.0",
+        "@dhis2/ui": "^9.8.9",
         "@krakenjs/post-robot": "^11.0.0",
         "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
         "@reportportal/agent-js-jest": "^5.0.7",
