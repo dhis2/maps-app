@@ -16,3 +16,9 @@ export const SYSTEM_SETTINGS = [
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
 ]
+
+// TODO: Arbitrary authority id used for testing
+export const MAPS_ADMIN_AUTHORITY_ID = 'F_EXTERNAL_MAP_LAYER_PUBLIC_ADD'
+
+export const MAPS_APP_NAMESPACE = 'DHIS2_MAPS_APP_CORE'
+export const LAYER_TYPES_VISIBILITY_KEY = 'LAYER_TYPES_VISIBILITY_SETTING'
