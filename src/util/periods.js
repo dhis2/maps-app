@@ -9,9 +9,8 @@ const getYearOffsetFromNow = (year) => year - new Date(Date.now()).getFullYear()
 export const getPeriodTypes = (hiddenPeriods = []) =>
     periodTypes().filter(({ group }) => !hiddenPeriods.includes(group))
 
-export const getFixedPeriodsByType = (periodType, year) => {
-    const period = getFixedPeriodsOptionsById(periodType)
-
+export const getFixedPeriodsByType = (periodType, year, periodsSettings) => {
+    const period = getFixedPeriodsOptionsById(periodType, periodsSettings)
     const forceDescendingForYearTypes = !!periodType.match(/^FY|YEARLY/)
     const offset = getYearOffsetFromNow(year)
 

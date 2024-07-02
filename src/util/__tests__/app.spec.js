@@ -87,11 +87,19 @@ describe('utils/app', () => {
             keyBingMapsApiKey: 'bing_maps_api_key',
             keyHideWeeklyPeriods: false,
         }
+        const userSettings = {
+            keyUiLocale: 'en',
+        }
+        const systemInfo = {
+            calendar: 'gregory',
+        }
 
         const cfg = providerDataTransformation({
             currentUser,
             systemSettings,
             externalMapLayers,
+            userSettings,
+            systemInfo,
         })
 
         expect(cfg.basemaps).toHaveLength(9)
@@ -135,11 +143,19 @@ describe('utils/app', () => {
             keyHideDailyPeriods: false,
             keyHideWeeklyPeriods: false,
         }
+        const userSettings = {
+            keyUiLocale: 'en',
+        }
+        const systemInfo = {
+            calendar: 'gregory',
+        }
 
         const cfg = providerDataTransformation({
             currentUser,
             systemSettings,
             externalMapLayers,
+            userSettings,
+            systemInfo,
         })
 
         expect(cfg.basemaps).toHaveLength(5)
