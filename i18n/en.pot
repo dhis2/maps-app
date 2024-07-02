@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
-"PO-Revision-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-06-24T12:51:56.634Z\n"
+"PO-Revision-Date: 2024-06-24T12:51:56.634Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -237,6 +237,22 @@ msgstr "Cancel"
 msgid "Close"
 msgstr "Close"
 
+msgid "Source"
+msgstr "Source"
+
+msgid "Configure available layers"
+msgstr "Configure available layers"
+
+msgid ""
+"Choose which layers are available to add to maps. This selection applies to "
+"all users."
+msgstr ""
+"Choose which layers are available to add to maps. This selection applies to "
+"all users."
+
+msgid "Manage available layers"
+msgstr "Manage available layers"
+
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
 
@@ -319,9 +335,6 @@ msgstr ""
 
 msgid "Unit"
 msgstr "Unit"
-
-msgid "Source"
-msgstr "Source"
 
 msgid "Legend preview"
 msgstr "Legend preview"
