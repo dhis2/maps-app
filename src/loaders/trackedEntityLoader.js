@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { INFO_NO_DATA } from '../constants/alerts.js'
 import {
     TEI_COLOR,
     TEI_RADIUS,
@@ -30,6 +31,7 @@ const geometryTypes = Object.keys(geometryTypesMap)
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async (config) => {
+    console.log('teloader')
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)
@@ -131,10 +133,8 @@ const trackedEntityLoader = async (config) => {
 
     if (!instances.length) {
         alert = {
-            warning: true,
-            message: `${trackedEntityType.name}: ${i18n.t(
-                'No tracked entities found'
-            )}`,
+            code: INFO_NO_DATA,
+            message: trackedEntityType.name,
         }
     }
 

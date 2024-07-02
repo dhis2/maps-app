@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../../actions/layers.js'
+import { clearAlerts } from '../../actions/map.js'
 import { EVENT_LAYER } from '../../constants/layers.js'
 import LayerLoader from './LayerLoader.js'
 
@@ -49,6 +50,10 @@ const LayersLoader = () => {
         layersToLoad.forEach((layer) => dispatch(setLayerLoading(layer.id)))
     }, [layersToLoad, dispatch])
 
+    const clearMapAlerts = useCallback(() => {
+        dispatch(clearAlerts())
+    }, [dispatch])
+
     if (!layersToLoad.length) {
         return null
     }
@@ -59,6 +64,7 @@ const LayersLoader = () => {
             config={config}
             onLoad={onLoad}
             dataTableOpen={!!dataTable}
+            loaderAlertAction={clearMapAlerts}
         />
     ))
 }

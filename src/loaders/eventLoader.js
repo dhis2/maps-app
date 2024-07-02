@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
+import { CUSTOM_ALERT, INFO_NO_DATA } from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
     EVENT_CLIENT_PAGE_SIZE,
@@ -26,20 +27,23 @@ const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
+    code: CUSTOM_ALERT,
     message: i18n.t("You don't have access to this layer data"),
 }
 const filterErrorAlert = {
     warning: true,
+    code: CUSTOM_ALERT,
     message: i18n.t('The event filter is not supported'),
 }
 const unknownErrorAlert = {
     critical: true,
+    code: CUSTOM_ALERT,
     message: i18n.t('An unknown error occurred while reading layer data'),
 }
 
-// TODO: Refactor to share code with other loaders
 // Returns a promise
 const eventLoader = async (layerConfig, loadExtended) => {
+    console.log('eventloader')
     const config = { ...layerConfig }
     try {
         await loadEventLayer(config, loadExtended)
@@ -135,6 +139,7 @@ const loadEventLayer = async (config, loadExtended) => {
             if (total > EVENT_CLIENT_PAGE_SIZE) {
                 alert = {
                     warning: true,
+                    code: CUSTOM_ALERT,
                     message: `${config.name}: ${i18n.t(
                         'Displaying first {{pageSize}} events out of {{total}}',
                         {
@@ -146,8 +151,8 @@ const loadEventLayer = async (config, loadExtended) => {
             }
         } else {
             alert = {
-                warning: true,
-                message: `${config.name}: ${i18n.t('No data found')}`,
+                code: INFO_NO_DATA,
+                message: config.name,
             }
         }
 

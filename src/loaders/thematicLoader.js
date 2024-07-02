@@ -2,6 +2,12 @@ import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex, curry } from 'lodash/fp'
+import {
+    INFO_NO_DATA,
+    WARNING_NO_OU_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
@@ -37,6 +43,7 @@ import {
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async (config) => {
+    console.log('thematicloader')
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -64,10 +71,8 @@ const thematicLoader = async (config) => {
                 ? {
                       alerts: [
                           {
-                              critical: true,
-                              message: `${i18n.t('Error')}: ${
-                                  error.message || error
-                              }`,
+                              code: ERROR_CRITICAL,
+                              message: error.message || error,
                           },
                       ],
                   }
@@ -180,26 +185,21 @@ const thematicLoader = async (config) => {
     if (!valueFeatures.length) {
         if (!features.length) {
             alerts.push({
-                warning: true,
-                message: i18n.t('Selected org units: No coordinates found', {
-                    nsSeparator: ';',
-                }),
+                code: WARNING_NO_OU_COORD,
+                message: i18n.t('Thematic layer'),
             })
         } else {
             alerts.push({
-                warning: true,
-                message: `${name}: ${i18n.t('No data found')}`,
+                code: INFO_NO_DATA,
+                message: name,
             })
         }
     }
 
     if (coordinateField && !associatedGeometries.length) {
         alerts.push({
-            warning: true,
-            message: i18n.t('{{name}}: No coordinates found', {
-                name: coordinateField.name,
-                nsSeparator: ';',
-            }),
+            code: WARNING_NO_GEOMETRY_COORD,
+            message: coordinateField.name,
         })
     }
 
