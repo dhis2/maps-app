@@ -15,6 +15,7 @@ import styles from './styles/App.module.css'
 import { useLoadMap } from './useLoadMap.js'
 
 const App = () => {
+    console.log('loadMap')
     useLoadMap()
 
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
