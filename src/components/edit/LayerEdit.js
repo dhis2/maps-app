@@ -45,7 +45,7 @@ const getLayerNames = () => ({
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
-    const { systemSettings } = useCachedDataQuery()
+    const { systemSettings, periodsSettings } = useCachedDataQuery()
     const orgUnits = useOrgUnits()
 
     const onValidateLayer = () => setIsValidLayer(true)
@@ -101,6 +101,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                     <LayerDialog
                         {...layer}
                         systemSettings={systemSettings}
+                        periodsSettings={periodsSettings}
                         orgUnits={orgUnits}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}

@@ -26,6 +26,7 @@ class PeriodSelect extends Component {
             startDate: PropTypes.string,
         }),
         periodType: PropTypes.string,
+        periodsSettings: PropTypes.object,
     }
 
     state = {
@@ -104,12 +105,12 @@ class PeriodSelect extends Component {
     }
 
     setPeriods() {
-        const { periodType, period } = this.props
+        const { periodType, period, periodsSettings } = this.props
         const year = this.state.year || getYear(period && period.startDate)
         let periods
 
         if (periodType) {
-            periods = getFixedPeriodsByType(periodType, year)
+            periods = getFixedPeriodsByType(periodType, year, periodsSettings)
         } else if (period) {
             periods = [period] // If period is loaded in favorite
         }
@@ -126,12 +127,12 @@ class PeriodSelect extends Component {
     }
 
     changeYear = (change) => {
-        const { periodType } = this.props
+        const { periodType, periodsSettings } = this.props
         const year = this.state.year + change
 
         this.setState({
             year,
-            periods: getFixedPeriodsByType(periodType, year),
+            periods: getFixedPeriodsByType(periodType, year, periodsSettings),
         })
     }
 }

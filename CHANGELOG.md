@@ -1,3 +1,10 @@
+## [100.5.6](https://github.com/dhis2/maps-app/compare/v100.5.5...v100.5.6) (2024-06-26)
+
+
+### Bug Fixes
+
+* support "week", "bi-week" and months in period translations ([#3269](https://github.com/dhis2/maps-app/issues/3269)) ([977e075](https://github.com/dhis2/maps-app/commit/977e0755615f52e1237911730adc2eb0e0fcee36))
+
 ## [100.5.5](https://github.com/dhis2/maps-app/compare/v100.5.4...v100.5.5) (2024-06-13)
 
 
