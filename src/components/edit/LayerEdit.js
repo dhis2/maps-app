@@ -19,6 +19,8 @@ import EarthEngineDialog from './earthEngine/EarthEngineDialog';
 import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
 import { EARTH_ENGINE_LAYER } from '../../constants/layers';
 import { useSystemSettings } from '../SystemSettingsProvider';
+import { useSystemInfo } from '../SystemInfoProvider';
+import { useUserSettings } from '../UserSettingsProvider';
 import styles from './styles/LayerEdit.module.css';
 
 const layerType = {
@@ -42,6 +44,10 @@ const layerName = () => ({
 const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false);
     const { keyAnalysisRelativePeriod } = useSystemSettings();
+    const periodsSettings = {
+        locale: useUserSettings().keyUiLocale,
+        calendar: useSystemInfo().calendar,
+    };
 
     const onValidateLayer = () => setIsValidLayer(true);
 
@@ -89,6 +95,7 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
                     <LayerDialog
                         {...layer}
                         defaultPeriod={keyAnalysisRelativePeriod}
+                        periodsSettings={periodsSettings}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}
                     />

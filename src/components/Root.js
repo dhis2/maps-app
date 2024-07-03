@@ -8,6 +8,7 @@ import { D2Shim } from '@dhis2/app-runtime-adapter-d2';
 import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import UserSettingsProvider, { UserSettingsCtx } from './UserSettingsProvider';
 import SystemSettingsProvider from './SystemSettingsProvider';
+import SystemInfoProvider from './SystemInfoProvider';
 import { apiVersion } from '../constants/settings';
 import App from './app/App';
 import { NAMESPACE } from '../util/analyticalObject';
@@ -65,18 +66,22 @@ const Root = ({ store }) => (
                     return (
                         <DataStoreProvider namespace={NAMESPACE}>
                             <SystemSettingsProvider>
-                                <UserSettingsProvider>
-                                    <UserSettingsCtx.Consumer>
-                                        {({ keyUiLocale }) => {
-                                            if (!keyUiLocale) {
-                                                return null;
-                                            }
-                                            i18n.changeLanguage(keyUiLocale);
-                                            moment.locale(keyUiLocale);
-                                            return <App />;
-                                        }}
-                                    </UserSettingsCtx.Consumer>
-                                </UserSettingsProvider>
+                                <SystemInfoProvider>
+                                    <UserSettingsProvider>
+                                        <UserSettingsCtx.Consumer>
+                                            {({ keyUiLocale }) => {
+                                                if (!keyUiLocale) {
+                                                    return null;
+                                                }
+                                                i18n.changeLanguage(
+                                                    keyUiLocale
+                                                );
+                                                moment.locale(keyUiLocale);
+                                                return <App />;
+                                            }}
+                                        </UserSettingsCtx.Consumer>
+                                    </UserSettingsProvider>
+                                </SystemInfoProvider>
                             </SystemSettingsProvider>
                         </DataStoreProvider>
                     );
