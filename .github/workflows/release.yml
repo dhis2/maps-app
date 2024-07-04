@@ -1,8 +1,6 @@
-name: 'dhis2: verify (app)'
+name: 'release app'
 
 on:
-    pull_request:
-        types: ['opened', 'labeled', 'reopened', 'synchronize']
     push:
         branches:
             - 'master'
@@ -19,6 +17,7 @@ env:
 
 jobs:
     setup-matrix:
+        if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         runs-on: ubuntu-latest
         outputs:
             matrix: ${{ steps.set-matrix.outputs.specs }}
@@ -29,6 +28,7 @@ jobs:
               run: echo "::set-output name=specs::$(node cypress/support/generateTestMatrix.js)"
 
     build:
+        if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -89,14 +89,14 @@ jobs:
                   REPORTPORTAL_PROJECT: ${{ vars.REPORTPORTAL_PROJECT }}
                   CI_BUILD_ID: ${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}
                   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-                  PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || format('Direct push to {0}', github.ref_name) }}
+                  PR_TITLE: ${{ format('Direct push to {0}', github.ref_name) }}
 
     call-workflow-e2e-prod:
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
         needs: [build, lint, test, setup-matrix]
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@master
         with:
-            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
+            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') }}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
@@ -109,10 +109,7 @@ jobs:
     release:
         runs-on: ubuntu-latest
         needs: call-workflow-e2e-prod
-        if: |
-            !github.event.push.repository.fork &&
-            github.actor != 'dependabot[bot]' &&
-            (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
+        if: ${{ !github.event.push.repository.fork && github.actor != 'dependabot[bot]' }}
         steps:
             - uses: actions/checkout@v3
               with:
@@ -136,7 +133,8 @@ jobs:
                   github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
                   apphub-token: ${{ secrets.DHIS2_BOT_APPHUB_TOKEN }}
 
-            - uses: dhis2/deploy-build@master
+            - name: Copy bundle to d2-ci
+              uses: dhis2/deploy-build@master
               with:
                   build-dir: build/app
                   github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
@@ -144,11 +142,7 @@ jobs:
     report-release-failure:
         runs-on: ubuntu-latest
         needs: release
-        if: |
-            failure() &&
-            !cancelled() &&
-            github.ref == 'refs/heads/master' &&
-            contains(github.event.head_commit.message, 'chore(release)')
+        if: ${{ failure() && !cancelled() }}
         steps:
             - name: Checkout code
               uses: actions/checkout@master
@@ -181,11 +175,7 @@ jobs:
     report-release-success:
         runs-on: ubuntu-latest
         needs: release
-        if: |
-            success() &&
-            !cancelled() &&
-            github.ref == 'refs/heads/master' &&
-            contains(github.event.head_commit.message, 'chore(release)')
+        if: ${{ success() && !cancelled() }}
         steps:
             - name: Checkout code
               uses: actions/checkout@master
