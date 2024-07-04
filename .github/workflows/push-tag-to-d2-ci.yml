@@ -1,8 +1,11 @@
-name: 'push tag to d2-ci'
+name: 'copy build to d2-ci'
 
 on:
     push:
         branches:
+        tags:
+            - '*'
+    workflow_dispatch:
 
 env:
     GIT_AUTHOR_NAME: '@dhis2-bot'
@@ -14,6 +17,7 @@ env:
 
 jobs:
     build:
+        if: ${{ !github.event.push.repository.fork }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -35,10 +39,9 @@ jobs:
                       !**/node_modules
                   retention-days: 1
 
-    release:
+    copy-to-d2-ci:
         runs-on: ubuntu-latest
         needs: build
-        if: ${{ !github.event.push.repository.fork }}
         steps:
             - name: Download artifact
               uses: actions/download-artifact@v3
