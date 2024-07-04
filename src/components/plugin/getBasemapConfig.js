@@ -45,8 +45,8 @@ async function getBasemapConfig({
     if (basemap.id.substring(0, 4) === 'bing') {
         basemap.config.apiKey = keyBingMapsApiKey
     }
-    if (basemapVisible === false) {
-        basemap.isVisible = false
+    if (typeof basemapVisible === 'boolean') {
+        basemap.isVisible = basemapVisible
     }
     return {
         basemap,
