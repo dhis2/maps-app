@@ -45,7 +45,7 @@
         "@dhis2/app-service-alerts": "^3.9.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/d2-i18n": "^1.1.1",
-        "@dhis2/maps-gl": "^3.8.5",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#6bc87213a92fda4fb9fcfe79b0a9f18aa21bb63a",
         "@dhis2/ui": "^8.13.15",
         "@krakenjs/post-robot": "^11.0.0",
         "abortcontroller-polyfill": "^1.7.5",
