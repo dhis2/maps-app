@@ -87,7 +87,7 @@ jobs:
                   PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || format('Direct push to {0}', github.ref_name) }}
 
     call-workflow-e2e-prod:
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
         needs: [build, lint, test, setup-matrix]
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@master
         with:
