@@ -116,7 +116,7 @@ jobs:
               run: yarn install --frozen-lockfile
 
             - name: Run Semantic Release
-              run: npx -p semantic-release@20.0.0 semantic-release
+              run: npx semantic-release
               env:
                   GITHUB_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
