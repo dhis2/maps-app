@@ -11,6 +11,7 @@ env:
     GIT_COMMITTER_NAME: '@dhis2-bot'
     GIT_COMMITTER_EMAIL: 'apps@dhis2.org'
     GH_TOKEN: ${{secrets.DHIS2_BOT_GITHUB_TOKEN}}
+    D2_APP_HUB_TOKEN: ${{secrets.DHIS2_BOT_APPHUB_TOKEN}}
     CI: true
 
 jobs:
@@ -39,14 +40,6 @@ jobs:
 
             - name: Build
               run: yarn d2-app-scripts build
-
-            - uses: actions/upload-artifact@v3
-              with:
-                  name: app-build
-                  path: |
-                      **/build
-                      !**/node_modules
-                  retention-days: 1
 
     lint:
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
@@ -119,25 +112,16 @@ jobs:
               with:
                   node-version: 18.x
 
-            - uses: actions/download-artifact@v3
-              with:
-                  name: app-build
-
             - name: Install
               run: yarn install --frozen-lockfile
 
-            - uses: dhis2/action-semantic-release@master
-              with:
-                  publish-apphub: true
-                  publish-github: true
-                  github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
-                  apphub-token: ${{ secrets.DHIS2_BOT_APPHUB_TOKEN }}
+            - name: Run Semantic Release
+              run: npx -p semantic-release@20.0.0 semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
-            - name: Copy bundle to d2-ci
-              uses: dhis2/deploy-build@master
-              with:
-                  build-dir: build/app
-                  github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+            - name: Publish to AppHub
+              run: yarn run d2-app-scripts publish
 
     report-release-failure:
         runs-on: ubuntu-latest
@@ -165,67 +149,6 @@ jobs:
                             "text": {
                               "type": "mrkdwn",
                               "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
-                            }
-                          }
-                        ]
-                      }
-              env:
-                  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-    report-release-success:
-        runs-on: ubuntu-latest
-        needs: release
-        if: ${{ success() && !cancelled() }}
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@master
-
-            - name: Extract version
-              id: extract_version
-              uses: Saionaro/extract-package-version@v1.2.1
-
-            - name: Send success message to analytics-internal-bot slack channel
-              id: slack
-              uses: slackapi/slack-github-action@v1.23.0
-              with:
-                  channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  payload: |
-                      {
-                        "text": "Maps app release ${{ steps.extract_version.outputs.version }} succeeded",
-                        "blocks": [
-                          {
-                            "type": "header",
-                            "text": {
-                                "type": "plain_text",
-                                "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released :tada:",
-                                "emoji": true
-                            }
-                          },
-                          {
-                            "type": "divider"
-                          },
-                          {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": "*Release Notes*"
-                            }
-                          },
-                          {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": ${{ toJSON(github.event.head_commit.message) }}
-                            }
-                          },
-                          {
-                            "type": "divider"
-                          },
-                          {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": "Link to <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|build>"
                             }
                           }
                         ]
