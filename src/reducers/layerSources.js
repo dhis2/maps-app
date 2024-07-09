@@ -1,12 +1,12 @@
 import * as types from '../constants/actionTypes.js'
 
-const layerTypesReducer = (state = [], action) => {
+const layerSourcesReducer = (state = [], action) => {
     switch (action.type) {
-        case types.LAYER_TYPES_INIT:
+        case types.LAYER_SOURCES_INIT:
             return action.payload
-        case types.LAYER_TYPES_SHOW:
+        case types.LAYER_SOURCE_ADD:
             return [...state, action.payload]
-        case types.LAYER_TYPES_HIDE:
+        case types.LAYER_SOURCE_REMOVE:
             return state.filter((item) => item !== action.payload)
 
         default:
@@ -14,4 +14,4 @@ const layerTypesReducer = (state = [], action) => {
     }
 }
 
-export default layerTypesReducer
+export default layerSourcesReducer

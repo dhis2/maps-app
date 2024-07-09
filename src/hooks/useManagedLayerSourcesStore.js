@@ -1,33 +1,33 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { showLayerTypes, hideLayerTypes } from '../actions/layerTypes.js'
+import { addLayerSource, removeLayerSource } from '../actions/layerSources.js'
 import {
     MAPS_APP_NAMESPACE,
-    LAYER_TYPES_VISIBILITY_KEY,
+    MAPS_APP_KEY_MANAGED_LAYER_SOURCES,
 } from '../constants/settings.js'
 
-const resourceLayerTypesVisibility = `dataStore/${MAPS_APP_NAMESPACE}/${LAYER_TYPES_VISIBILITY_KEY}`
+const resourceLayerSourcesVisibility = `dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`
 
-const useLayerTypesVisibilityStore = () => {
+const useManagedLayerSourcesStore = () => {
     const [error, setError] = useState()
     const engine = useDataEngine()
     const dispatch = useDispatch()
-    const visibleLayerTypes = useSelector((state) => state.layerTypes)
+    const managedLayerSources = useSelector((state) => state.layerSources)
 
     // Add layer id to data store & redux store
-    const showLayerType = useCallback(
+    const showLayerSource = useCallback(
         (layerId) => {
-            if (!visibleLayerTypes.includes(layerId)) {
+            if (!managedLayerSources.includes(layerId)) {
                 engine
                     .mutate({
-                        resource: resourceLayerTypesVisibility,
+                        resource: resourceLayerSourcesVisibility,
                         type: 'update',
-                        data: [...visibleLayerTypes, layerId],
+                        data: [...managedLayerSources, layerId],
                     })
                     .then((response) => {
                         if ([200, 201].includes(response.httpStatusCode)) {
-                            dispatch(showLayerTypes(layerId))
+                            dispatch(addLayerSource(layerId))
                         } else {
                             setError(response)
                         }
@@ -35,22 +35,22 @@ const useLayerTypesVisibilityStore = () => {
                     .catch(setError)
             }
         },
-        [engine, dispatch, visibleLayerTypes]
+        [engine, dispatch, managedLayerSources]
     )
 
     // Remove layer id from data store & redux store
-    const hideLayerType = useCallback(
+    const hideLayerSource = useCallback(
         (layerId) => {
-            if (visibleLayerTypes.includes(layerId)) {
+            if (managedLayerSources.includes(layerId)) {
                 engine
                     .mutate({
-                        resource: resourceLayerTypesVisibility,
+                        resource: resourceLayerSourcesVisibility,
                         type: 'update',
-                        data: visibleLayerTypes.filter((l) => l !== layerId),
+                        data: managedLayerSources.filter((l) => l !== layerId),
                     })
                     .then((response) => {
                         if ([200, 201].includes(response.httpStatusCode)) {
-                            dispatch(hideLayerTypes(layerId))
+                            dispatch(removeLayerSource(layerId))
                         } else {
                             setError(response)
                         }
@@ -58,10 +58,10 @@ const useLayerTypesVisibilityStore = () => {
                     .catch(setError)
             }
         },
-        [engine, dispatch, visibleLayerTypes]
+        [engine, dispatch, managedLayerSources]
     )
 
-    return { visibleLayerTypes, showLayerType, hideLayerType, error }
+    return { managedLayerSources, showLayerSource, hideLayerSource, error }
 }
 
-export default useLayerTypesVisibilityStore
+export default useManagedLayerSourcesStore

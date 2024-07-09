@@ -4,9 +4,9 @@ import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { MAPS_ADMIN_AUTHORITY_ID } from '../../constants/settings.js'
-import styles from './styles/ManageLayersButton.module.css'
+import styles from './styles/ManageLayerSourcesButton.module.css'
 
-const ManageLayersButton = ({ onClick }) => {
+const ManageLayerSourcesButton = ({ onClick }) => {
     const { currentUser } = useCachedDataQuery()
     const isMapsAdmin = currentUser.authorities.has(MAPS_ADMIN_AUTHORITY_ID)
 
@@ -17,19 +17,19 @@ const ManageLayersButton = ({ onClick }) => {
     return (
         <div className={styles.button}>
             <Button
-                dataTest="managelayers-button"
+                dataTest="managelayersources-button"
                 small
                 secondary
                 onClick={onClick}
             >
-                {i18n.t('Manage available layers')}
+                {i18n.t('Manage available layer sources')}
             </Button>
         </div>
     )
 }
 
-ManageLayersButton.propTypes = {
+ManageLayerSourcesButton.propTypes = {
     onClick: PropTypes.func.isRequired,
 }
 
-export default ManageLayersButton
+export default ManageLayerSourcesButton

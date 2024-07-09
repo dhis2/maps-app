@@ -1,14 +1,16 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useDispatch } from 'react-redux'
-import { initLayerTypes } from '../../actions/layerTypes.js'
+import { initLayerSources } from '../../actions/layerSources.js'
 import { earthEngineLayersDefaultIds } from '../../constants/earthEngineLayers/index.js'
 import {
     MAPS_APP_NAMESPACE,
-    LAYER_TYPES_VISIBILITY_KEY,
+    MAPS_APP_KEY_MANAGED_LAYER_SOURCES,
 } from '../../constants/settings.js'
 
-export const useCheckDataStoreIntegrity = () => {
-    const resourceLayerTypesVisibility = `dataStore/${MAPS_APP_NAMESPACE}/${LAYER_TYPES_VISIBILITY_KEY}`
+export const useLoadDataStore = () => {
+    // Keys: MAPS_APP_KEY_MANAGED_LAYER_SOURCES
+    const resourceLayerSourcesVisibility = `dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`
+    const layerSourceDefaultIds = [...earthEngineLayersDefaultIds]
     const dispatch = useDispatch()
     const engine = useDataEngine()
     engine
@@ -18,38 +20,36 @@ export const useCheckDataStoreIntegrity = () => {
                 // Create namespace/key if missing in datastore
                 engine
                     .mutate({
-                        resource: resourceLayerTypesVisibility,
+                        resource: resourceLayerSourcesVisibility,
                         type: 'create',
-                        data: earthEngineLayersDefaultIds,
+                        data: layerSourceDefaultIds,
                     })
                     .then(() => {
-                        dispatch(initLayerTypes(earthEngineLayersDefaultIds))
+                        dispatch(initLayerSources(layerSourceDefaultIds))
                     })
             } else {
                 engine
                     .query({
-                        layerTypesVisibility: {
-                            resource: resourceLayerTypesVisibility,
+                        layerSourcesVisibility: {
+                            resource: resourceLayerSourcesVisibility,
                         },
                     })
-                    .then(({ layerTypesVisibility }) => {
-                        if (!Array.isArray(layerTypesVisibility)) {
+                    .then(({ layerSourcesVisibility }) => {
+                        if (!Array.isArray(layerSourcesVisibility)) {
                             // Reset namespace/key if integrity has been broken
                             engine
                                 .mutate({
-                                    resource: resourceLayerTypesVisibility,
+                                    resource: resourceLayerSourcesVisibility,
                                     type: 'update',
-                                    data: earthEngineLayersDefaultIds,
+                                    data: layerSourceDefaultIds,
                                 })
                                 .then(() => {
                                     dispatch(
-                                        initLayerTypes(
-                                            earthEngineLayersDefaultIds
-                                        )
+                                        initLayerSources(layerSourceDefaultIds)
                                     )
                                 })
                         } else {
-                            dispatch(initLayerTypes(layerTypesVisibility))
+                            dispatch(initLayerSources(layerSourcesVisibility))
                         }
                     })
             }

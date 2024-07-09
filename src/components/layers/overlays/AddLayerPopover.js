@@ -6,24 +6,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addLayer, editLayer } from '../../../actions/layers.js'
 import earthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
-import useLayerTypesVisibilityStore from '../../../hooks/useLayerTypesVisibilityStore.js'
+import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
-import ManageLayersButton from '../../earthEngine/ManageLayersButton.js'
+import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.js'
 import LayerList from './LayerList.js'
 
-const includeEarthEngineLayers = (layerTypes, visibleLayerTypes) => {
+const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Earth Engine layers that are added to this DHIS2 instance
-    const eeLayers = earthEngineLayers
-        .filter((l) => !l.legacy && visibleLayerTypes.includes(l.layerId))
+    const managedEarthEngineLayers = earthEngineLayers
+        .filter((l) => !l.legacy && managedLayerSources.includes(l.layerId))
         .sort((a, b) => a.name.localeCompare(b.name))
 
     // Make copy before slicing below
-    const layers = [...layerTypes]
+    const layerSources = [...defaultLayerSources]
 
     // Insert Earth Engine layers before external layers
-    layers.splice(5, 0, ...eeLayers)
+    layerSources.splice(5, 0, ...managedEarthEngineLayers)
 
-    return layers
+    return layerSources
 }
 
 const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
@@ -31,9 +31,12 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         isSplitViewMap(state.map.mapViews)
     )
     const dispatch = useDispatch()
-    const { layerTypes } = useCachedDataQuery()
-    const { visibleLayerTypes } = useLayerTypesVisibilityStore()
-    const layers = includeEarthEngineLayers(layerTypes, visibleLayerTypes)
+    const { defaultLayerSources } = useCachedDataQuery()
+    const { managedLayerSources } = useManagedLayerSourcesStore()
+    const layerSources = includeEarthEngineLayers(
+        defaultLayerSources,
+        managedLayerSources
+    )
 
     const onLayerSelect = (layer) => {
         const config = { ...layer }
@@ -56,11 +59,11 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
             dataTest="addlayerpopover"
         >
             <LayerList
-                layers={layers}
+                layers={layerSources}
                 isSplitView={isSplitView}
                 onLayerSelect={onLayerSelect}
             />
-            <ManageLayersButton onClick={onManaging} />
+            <ManageLayerSourcesButton onClick={onManaging} />
         </Popover>
     )
 }
