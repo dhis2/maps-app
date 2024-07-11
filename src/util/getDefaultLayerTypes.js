@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import earthEngineLayers from '../constants/earthEngineLayers/index.js'
 import {
     THEMATIC_LAYER,
     EVENT_LAYER,
@@ -40,5 +39,4 @@ export const getDefaultLayerTypes = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
-    ...earthEngineLayers.filter((l) => !l.legacy),
 ]

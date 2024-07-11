@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
-"PO-Revision-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-09T09:06:27.427Z\n"
+"PO-Revision-Date: 2024-07-09T09:06:27.427Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -544,6 +544,19 @@ msgstr "Style by group set"
 
 msgid "Indicator group"
 msgstr "Indicator group"
+
+msgid "Manage available layer sources"
+msgstr "Manage available layer sources"
+
+msgid "Configure available layer sources"
+msgstr "Configure available layer sources"
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
 
 msgid "Collapse"
 msgstr "Collapse"

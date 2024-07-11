@@ -26,6 +26,20 @@ const earthEngineLayers = [
     legacyTemperature,
 ]
 
+const earthEngineLayersDefault = [
+    populationTotal,
+    populationAgeSex,
+    buildings,
+    elevation,
+    precipitationMonthly,
+    temperatureMonthly,
+    landcover,
+]
+
+export const earthEngineLayersDefaultIds = earthEngineLayersDefault.map(
+    (l) => l.layerId
+)
+
 export const getEarthEngineLayer = (id) =>
     earthEngineLayers.find((l) => l.layerId === id)
 
