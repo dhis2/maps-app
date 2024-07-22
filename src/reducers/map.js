@@ -261,14 +261,12 @@ const map = (state = defaultState, action) => {
             }
         }
 
-        case types.MAP_ALERTS_CLEAR: {
-            console.log('MAP_ALERTS_CLEAR')
+        case types.MAP_ALERTS_CLEAR:
             return {
                 ...state,
                 alerts: undefined,
                 mapViews: state.mapViews.map((l) => layer(l, action)),
             }
-        }
 
         default:
             return state

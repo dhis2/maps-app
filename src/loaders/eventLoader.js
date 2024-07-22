@@ -43,7 +43,6 @@ const unknownErrorAlert = {
 
 // Returns a promise
 const eventLoader = async (layerConfig, loadExtended) => {
-    console.log('eventloader')
     const config = { ...layerConfig }
     try {
         await loadEventLayer(config, loadExtended)
