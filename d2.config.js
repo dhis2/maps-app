@@ -20,6 +20,8 @@ const config = {
     },
 
     coreApp: true,
+
+    skipPluginLogic: true,
 }
 
 module.exports = config
