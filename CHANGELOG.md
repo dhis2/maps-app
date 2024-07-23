@@ -1,3 +1,17 @@
+## [100.5.7](https://github.com/dhis2/maps-app/compare/v100.5.6...v100.5.7) (2024-07-04)
+
+
+### Bug Fixes
+
+* enable hidding basemap in dashboard ([#3275](https://github.com/dhis2/maps-app/issues/3275)) ([eee5805](https://github.com/dhis2/maps-app/commit/eee580515634ef43722d4c9b6d23b0abce656eed))
+
+## [100.5.6](https://github.com/dhis2/maps-app/compare/v100.5.5...v100.5.6) (2024-06-26)
+
+
+### Bug Fixes
+
+* support "week", "bi-week" and months in period translations ([#3269](https://github.com/dhis2/maps-app/issues/3269)) ([977e075](https://github.com/dhis2/maps-app/commit/977e0755615f52e1237911730adc2eb0e0fcee36))
+
 ## [100.5.5](https://github.com/dhis2/maps-app/compare/v100.5.4...v100.5.5) (2024-06-13)
 
 

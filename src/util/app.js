@@ -27,6 +27,18 @@ export const appQueries = {
             key: SYSTEM_SETTINGS,
         },
     },
+    systemInfo: {
+        resource: 'system/info',
+        params: {
+            fields: 'calendar',
+        },
+    },
+    userSettings: {
+        resource: 'userSettings',
+        params: {
+            key: ['keyUiLocale'],
+        },
+    },
     externalMapLayers: fetchExternalLayersQuery,
 }
 
@@ -70,6 +82,8 @@ const getDefaultLayerSources = (externalMapLayers) => {
 export const providerDataTransformation = ({
     currentUser,
     systemSettings,
+    systemInfo,
+    userSettings,
     externalMapLayers,
 }) => ({
     currentUser: {
@@ -85,6 +99,10 @@ export const providerDataTransformation = ({
     systemSettings: Object.assign({}, DEFAULT_SYSTEM_SETTINGS, systemSettings, {
         hiddenPeriods: getHiddenPeriods(systemSettings),
     }),
+    periodsSettings: {
+        locale: userSettings.keyUiLocale,
+        calendar: systemInfo.calendar,
+    },
     basemaps: getBasemapList(
         externalMapLayers.externalMapLayers,
         systemSettings

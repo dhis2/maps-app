@@ -23,9 +23,9 @@ export const getFixedPeriodsByType = ({
     year,
     firstDate,
     lastDate,
+    periodsSettings,
 }) => {
-    const period = getFixedPeriodsOptionsById(periodType)
-
+    const period = getFixedPeriodsOptionsById(periodType, periodsSettings)
     const forceDescendingForYearTypes = !!periodType.match(/^FY|YEARLY/)
     const offset = getYearOffsetFromNow(year)
 

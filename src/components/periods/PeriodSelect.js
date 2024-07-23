@@ -25,6 +25,7 @@ const PeriodSelect = ({
     lastDate,
     period,
     periodType,
+    periodsSettings,
 }) => {
     const [year, setYear] = useState(getYear(period?.startDate || lastDate))
     const prevYear = usePrevious(year)
@@ -39,9 +40,10 @@ const PeriodSelect = ({
                       year,
                       firstDate,
                       lastDate,
+                      periodsSettings,
                   })
-                : [period], // saved map period (not included in depency array by design)
-        [periodType, year, firstDate, lastDate]
+                : [period], // saved map period (not included in dependency array by design)
+        [periodType, year, firstDate, lastDate, periodsSettings]
     )
     /* eslint-enable react-hooks/exhaustive-deps */
 
@@ -138,6 +140,7 @@ PeriodSelect.propTypes = {
         startDate: PropTypes.string,
     }),
     periodType: PropTypes.string,
+    periodsSettings: PropTypes.object,
 }
 
 export default PeriodSelect

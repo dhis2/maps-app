@@ -2016,12 +2016,12 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^26.7.0":
-  version "26.7.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.7.0.tgz#12d314ad2a84423612ff0eb0e32c191552bd8db8"
-  integrity sha512-7ocy+Ke9fYG40rHsICuH35UgIH+ahAgba9xFea0UbRYUhGavMW90mSVpgCNjE+PlefjR0xuHXB2UHYlTjhEIQw==
+"@dhis2/analytics@^26.7.5":
+  version "26.7.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.7.5.tgz#b85a35ba0adb971b237c814d1d384e10e3ec5ca1"
+  integrity sha512-YLkCOXWGm8JFlpq0AZhWsMxA6lJeRTixHDeMqdyZQeYPYCvZJiUAp0TtC+uSRK1uV1yIHRj4OjQytMWTsvUUnQ==
   dependencies:
-    "@dhis2/multi-calendar-dates" "1.0.0"
+    "@dhis2/multi-calendar-dates" "^1.2.2"
     "@dnd-kit/core" "^6.0.7"
     "@dnd-kit/sortable" "^7.0.2"
     "@dnd-kit/utilities" "^3.2.1"
@@ -2253,20 +2253,21 @@
     suggestions "^1.7.1"
     uuid "^9.0.0"
 
-"@dhis2/multi-calendar-dates@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/multi-calendar-dates/-/multi-calendar-dates-1.0.0.tgz#bf7f49aecdffa9781837a5d60d56a094b74ab4df"
-  integrity sha512-IB9a+feuS6yE4lpZj/eZ9uBmpYI7Hxitl2Op0JjoRL4tP+p6uw4ns9cjoSdUeIU9sOAxVZV7oQqSyIw+9P6YjQ==
-  dependencies:
-    "@js-temporal/polyfill" "^0.4.2"
-    classnames "^2.3.2"
-
 "@dhis2/multi-calendar-dates@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@dhis2/multi-calendar-dates/-/multi-calendar-dates-1.0.2.tgz#e54dc85e512aba93fceef3004e67e199077f3ba8"
   integrity sha512-oQZ7PFMwHFpt4ygDN9DmAeYO3g07L7AHJW6diZ37mzpkEF/DyMafhsZHnJWNlTH5HDp8nYuO3EjBiM7fZN6C0g==
   dependencies:
     "@js-temporal/polyfill" "^0.4.2"
+    classnames "^2.3.2"
+
+"@dhis2/multi-calendar-dates@^1.2.2":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/multi-calendar-dates/-/multi-calendar-dates-1.2.3.tgz#ef36bc80b34eaaa7f7cefa51b443528c019ff2d2"
+  integrity sha512-K3E9yAH/SPXi1O7RWuK7bznYTa1v3x4Ys0ihpMWnKH++OLMx76yK/1H1m9v7NgQvMry29ATQMJh0n/vJSg+EpA==
+  dependencies:
+    "@dhis2/d2-i18n" "^1.1.3"
+    "@js-temporal/polyfill" "0.4.3"
     classnames "^2.3.2"
 
 "@dhis2/prop-types@^3.1.2":
@@ -2752,7 +2753,7 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@js-temporal/polyfill@^0.4.2":
+"@js-temporal/polyfill@0.4.3", "@js-temporal/polyfill@^0.4.2":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@js-temporal/polyfill/-/polyfill-0.4.3.tgz#e8f8cf86745eb5050679c46a5ebedb9a9cc1f09b"
   integrity sha512-6Fmjo/HlkyVCmJzAPnvtEWlcbQUSRhi8qlN9EtJA/wP7FqXsevLLrlojR44kzNzrRkpf7eDJ+z7b4xQD/Ycypw==
