@@ -4,14 +4,14 @@
 # Yury Rogachev <yury@dhis2.org>, 2021
 # Philip Larsen Donnelly, 2024
 # Charel van den Elsen, 2024
-# Rica Zamora Duchateau, 2024
+# Rica, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Rica Zamora Duchateau, 2024\n"
+"Last-Translator: Rica, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,13 +20,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Untitled map, {{date}}"
-msgstr ""
+msgstr "Ongetitelde kaart, {{date}}"
 
 msgid "Map \"{{- name}}\" is saved."
-msgstr ""
+msgstr "Kaart \"{{- name}}\" is opgeslagen."
 
 msgid "Failed to save map: {{message}}"
-msgstr ""
+msgstr "Opslaan kaart mislukt: {{message}}"
 
 msgid "Classification"
 msgstr "Classificatie"
@@ -47,7 +47,7 @@ msgid "Name"
 msgstr "Naam"
 
 msgid "Name and value"
-msgstr ""
+msgstr "Naam en waarde"
 
 msgid "Value"
 msgstr "Waarde"
@@ -77,37 +77,37 @@ msgid "None"
 msgstr "Geen"
 
 msgid "Cascading"
-msgstr ""
+msgstr "Trapsgewijs"
 
 msgid "Event location"
 msgstr "Gebeurtenislocatie"
 
 msgid "Enrollment location"
-msgstr ""
+msgstr "Inschrijvingslocatie"
 
 msgid "Tracked entity location"
-msgstr ""
+msgstr "Gevolgde entiteitslocatie"
 
 msgid "Organisation unit location"
-msgstr ""
+msgstr "Organisatie-eenheidslocatie"
 
 msgid "Fallback coordinate field"
-msgstr ""
+msgstr "Terugvalcoördinatenveld"
 
 msgid "Coordinate field"
 msgstr "Coördinatenveld"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
-msgstr ""
+msgstr "Inschrijving > evenement > gevolgde entiteit > coördinaat org-eenheid"
 
 msgid "Event > org unit coordinate"
-msgstr ""
+msgstr "Evenement > coördinaat org-eenheid"
 
 msgid "Event data item"
 msgstr "Gebeurtenisgegevensitem"
 
 msgid "Selected value not available in in list: {{name}}"
-msgstr ""
+msgstr "Geselecteerde waarde niet beschikbaar in deze lijst: {{name}}"
 
 msgid "Style by data element"
 msgstr "Stileer volgens gegevenselement"
@@ -160,15 +160,17 @@ msgstr ""
 "gegroepeerd zijn."
 
 msgid "No valid data was found for the current layer configuration."
-msgstr ""
+msgstr "Er werd geen geldige data gevonden voor de huidige laagconfiguratie."
 
 msgid ""
 "Data table is not supported when there is more than one geometry type in the"
 " dataset."
 msgstr ""
+"Datatabel wordt niet ondersteund wanneer er meer dan een geometriesoort is "
+"in de dataset."
 
 msgid "No valid data fields were found for this layer."
-msgstr ""
+msgstr "Er werden geen geldige datavelden gevonden voor deze laag."
 
 msgid "Index"
 msgstr "Index"
@@ -207,38 +209,42 @@ msgid "Download"
 msgstr "Download"
 
 msgid "Exit download mode"
-msgstr ""
+msgstr "Verlaat downloadmodus"
 
 msgid "Download map"
 msgstr "Download kaart"
 
 msgid "Show map name"
-msgstr ""
+msgstr "Toon kaartnaam"
 
 msgid "Show map description"
-msgstr ""
+msgstr "Toon kaartbeschrijving"
 
 msgid "Description can be changed from File > Rename menu"
-msgstr ""
+msgstr "Beschrijving kan veranderd worden van het menu Bestand > Hernoemen"
 
 msgid ""
 "Set the map description when you save the map or from File > Rename menu"
 msgstr ""
+"Stel de kaartbeschrijving in wanneer je de kaart opslaat of vanuit het menu "
+"Bestand > Hernoemen"
 
 msgid "Show legend"
 msgstr "Toon legenda"
 
 msgid "Show overview map"
-msgstr ""
+msgstr "Toon overzichtskaart"
 
 msgid "Show north arrow"
-msgstr ""
+msgstr "Toon noordpijl"
 
 msgid "Include margins in download"
-msgstr ""
+msgstr "Betrek marges bij download"
 
 msgid "Resize your browser window to change the map dimensions."
 msgstr ""
+"Wijzig de grootte van je browservenster door de kaartdimensies te "
+"veranderen."
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -262,7 +268,7 @@ msgid "Style"
 msgstr "Stijl"
 
 msgid "Point color"
-msgstr ""
+msgstr "Puntkleur"
 
 msgid "Point radius"
 msgstr "Puntradius"
@@ -286,7 +292,7 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "feature"
-msgstr ""
+msgstr "object"
 
 msgid "Edit {{name}} layer"
 msgstr "Bewerk {{name}}-laag"
@@ -323,12 +329,14 @@ msgstr ""
 "organisatieëenheden."
 
 msgid "Multiple aggregation methods are available."
-msgstr ""
+msgstr "Verscheidene aggregatiemethodes zijn beschikbaar."
 
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
 msgstr ""
+"Zie de aggregatieresultaten door te klikken op kaartregio's of door de "
+"datatabel te bekijken. De resultaten kunnen ook gedownload worden."
 
 msgid "Unit"
 msgstr "Eenheid"
@@ -408,7 +416,7 @@ msgid "Event status"
 msgstr "Gebeurtenisstatus"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Grenskleur"
 
 msgid "Buffer"
 msgstr "Buffer"
@@ -417,10 +425,10 @@ msgid "Radius in meters"
 msgstr "Radius in meters"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "Buffer kan niet gecombineerd worden met geassocieerde geometrie."
 
 msgid "Fill color"
-msgstr ""
+msgstr "Opvulkleur"
 
 msgid "Line/stroke color"
 msgstr ""
@@ -438,7 +446,7 @@ msgid "Aggregation type"
 msgstr "Aggregatietype"
 
 msgid "Only show completed events"
-msgstr ""
+msgstr "Toon alleen voltooide evenementen"
 
 msgid "Include org units with no data"
 msgstr ""
@@ -549,7 +557,7 @@ msgid "Relationship type"
 msgstr "Relatiesoort"
 
 msgid "No data to show for this feature."
-msgstr ""
+msgstr "Geen data om te tonen voor dit object."
 
 msgid "Feature profile"
 msgstr ""
@@ -644,7 +652,7 @@ msgid "Show data table"
 msgstr "Toon gegevenstabel"
 
 msgid "Open in Data Visualizer app"
-msgstr ""
+msgstr "Open in Datavisualisatie-app"
 
 msgid "Download data"
 msgstr "Download gegevens"
@@ -665,7 +673,7 @@ msgid "Filters"
 msgstr "Filters"
 
 msgid "{{layername}}: {{message}}"
-msgstr ""
+msgstr "{{layername}}: {{message}}"
 
 msgid "Drill up one level"
 msgstr "Ga één niveau omhoog"
@@ -718,7 +726,7 @@ msgid "no value"
 msgstr "geen waarde"
 
 msgid "All groups"
-msgstr ""
+msgstr "Alle groepen"
 
 msgid "Loading data"
 msgstr ""

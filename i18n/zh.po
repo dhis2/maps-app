@@ -432,7 +432,7 @@ msgid "Only show completed events"
 msgstr "仅显示已完成的事件"
 
 msgid "Include org units with no data"
-msgstr ""
+msgstr "包括无数据的组织机构"
 
 msgid "Low radius"
 msgstr "低半径"
@@ -625,7 +625,7 @@ msgid "Show data table"
 msgstr "显示数据表"
 
 msgid "Open in Data Visualizer app"
-msgstr ""
+msgstr "在数据可视化应用程序中打开"
 
 msgid "Download data"
 msgstr "下载数据"
