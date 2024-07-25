@@ -2,9 +2,6 @@ import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import {
     ALERT_MESSAGE_DYNAMIC,
-    // ALERT_CRITICAL,
-    // ALERT_WARNING,
-    // ALERT_INFO,
     INFO_NO_DATA,
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
