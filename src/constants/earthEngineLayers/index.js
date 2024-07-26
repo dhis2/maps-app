@@ -1,6 +1,7 @@
 import buildings from './buildings_GOOGLE.js'
 import elevation from './elevation_SRTM.js'
 import landcover from './landcover_MCD12Q1.js'
+import legacyBuildings from './legacy/buildings_GOOGLE.js'
 import legacyNighttime from './legacy/nighttime_DMSP-OLS.js'
 import legacyPopulationWorldPop from './legacy/population_WorldPop.js'
 import legacyPopulation100m from './legacy/population_WorldPop_100m.js'
@@ -19,6 +20,7 @@ const earthEngineLayers = [
     precipitationMonthly,
     temperatureMonthly,
     landcover,
+    legacyBuildings,
     legacyNighttime,
     legacyPopulation100m,
     legacyPopulationWorldPop,

@@ -9,7 +9,7 @@ export default {
     img: 'images/buildings.png',
     name: i18n.t('Building footprints'),
     description: i18n.t(
-        'The outlines of buildings derived from high-resolution satellite imagery. Only for the continent of Africa.'
+        'The outlines of buildings derived from high-resolution satellite imagery. Only for Sub-Saharan Africa, South and South-East Asia, Latin America and the Caribbean.'
     ),
     notice: i18n.t(
         'Building counts are only available for smaller organisation unit areas.'
