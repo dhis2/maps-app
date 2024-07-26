@@ -4,27 +4,30 @@ import { EARTH_ENGINE_LAYER } from '../layers.js'
 export default {
     layer: EARTH_ENGINE_LAYER,
     layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
-    img: 'images/population.png',
     datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
     format: 'ImageCollection',
+    img: 'images/population.png',
     name: i18n.t('Population'),
     description: i18n.t('Estimated number of people living in an area.'),
     source: 'WorldPop / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
     unit: i18n.t('people per hectare'),
+    resolution: {
+        spatial: i18n.t('~100 meters'),
+        temporal: i18n.t('Single point in time'),
+        temporalCoverage: i18n.t('2020'),
+    },
     aggregations: ['min', 'max', 'mean', 'median', 'sum', 'stdDev', 'variance'],
     defaultAggregations: ['sum', 'mean'],
     periodType: 'YEARLY',
-    useCentroid: true,
-    band: 'population',
     filters: [
         {
             type: 'eq',
             arguments: ['year', '$1'],
         },
     ],
-    mosaic: true,
+    band: 'population',
     style: {
         min: 0,
         max: 25,
@@ -39,4 +42,5 @@ export default {
     },
     maskOperator: 'gt',
     opacity: 0.9,
+    mosaic: true,
 }

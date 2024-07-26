@@ -3,10 +3,10 @@ import { EARTH_ENGINE_LAYER } from '../layers.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
+    layerId: 'GOOGLE/Research/open-buildings/v3/polygons',
+    datasetId: 'GOOGLE/Research/open-buildings/v3/polygons',
     format: 'FeatureCollection',
-    layerId: 'GOOGLE/Research/open-buildings/v1/polygons',
     img: 'images/buildings.png',
-    datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
     name: i18n.t('Building footprints'),
     description: i18n.t(
         'The outlines of buildings derived from high-resolution satellite imagery. Only for the continent of Africa.'
@@ -17,9 +17,15 @@ export default {
     error: i18n.t(
         'Select a smaller area or single organization unit to see the count of buildings.'
     ),
-    source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
-    sourceUrl: 'https://sites.research.google/open-buildings/',
+    source: 'Google Research',
+    sourceUrl:
+        'https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_Research_open-buildings_v3_polygons',
     unit: i18n.t('Number of buildings'),
+    resolution: {
+        spatial: i18n.t('0.5 meter'),
+        temporal: i18n.t('Single point in time'),
+        temporalCoverage: i18n.t('May 2023'),
+    },
     aggregations: ['count'],
     defaultAggregations: ['count'],
     style: {

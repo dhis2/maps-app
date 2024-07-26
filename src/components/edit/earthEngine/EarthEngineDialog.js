@@ -48,6 +48,7 @@ const EarthEngineDialog = (props) => {
         setBufferRadius,
         setEarthEnginePeriod,
         unit,
+        resolution,
         validateLayer,
         onLayerValidation,
     } = props
@@ -161,6 +162,24 @@ const EarthEngineDialog = (props) => {
                         {unit && (
                             <div className={styles.paragraph}>
                                 {i18n.t('Unit')}: {unit}
+                            </div>
+                        )}
+                        {resolution?.spatial && (
+                            <div className={styles.paragraph}>
+                                {i18n.t('Spatial resolution')}:{' '}
+                                {resolution?.spatial}
+                            </div>
+                        )}
+                        {resolution?.temporal && (
+                            <div className={styles.paragraph}>
+                                {i18n.t('Temporal resolution')}:{' '}
+                                {resolution?.temporal}
+                            </div>
+                        )}
+                        {resolution?.temporalCoverage && (
+                            <div className={styles.paragraph}>
+                                {i18n.t('Temporal coverage')}:{' '}
+                                {resolution?.temporalCoverage}
                             </div>
                         )}
                         <div className={styles.paragraph}>

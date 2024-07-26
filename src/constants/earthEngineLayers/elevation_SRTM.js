@@ -8,11 +8,16 @@ export default {
     format: 'Image',
     img: 'images/elevation.png',
     name: i18n.t('Elevation'),
-    unit: i18n.t('meters'),
     description: i18n.t('Elevation above sea-level.'),
     source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
     sourceUrl:
-        'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
+        'https://developers.google.com/earth-engine/datasets/catalog/USGS_SRTMGL1_003',
+    unit: i18n.t('meters'),
+    resolution: {
+        spatial: i18n.t('~30 meters'),
+        temporal: i18n.t('Single point in time'),
+        temporalCoverage: i18n.t('Febuary 2000'),
+    },
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
     band: 'elevation',

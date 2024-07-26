@@ -5,8 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-07-09T09:06:27.427Z\n"
-"PO-Revision-Date: 2024-07-09T09:06:27.427Z\n"
+"POT-Creation-Date: 2024-07-26T14:38:11.702Z\n"
+"PO-Revision-Date: 2024-07-26T14:38:11.702Z\n"
+
+msgid "2020"
+msgstr "2020"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -319,6 +322,15 @@ msgstr ""
 
 msgid "Unit"
 msgstr "Unit"
+
+msgid "Spatial resolution"
+msgstr "Spatial resolution"
+
+msgid "Temporal resolution"
+msgstr "Temporal resolution"
+
+msgid "Temporal coverage"
+msgstr "Temporal coverage"
 
 msgid "Source"
 msgstr "Source"
@@ -998,14 +1010,29 @@ msgstr ""
 msgid "Number of buildings"
 msgstr "Number of buildings"
 
+msgid "0.5 meter"
+msgstr "0.5 meter"
+
+msgid "Single point in time"
+msgstr "Single point in time"
+
+msgid "May 2023"
+msgstr "May 2023"
+
 msgid "Elevation"
 msgstr "Elevation"
+
+msgid "Elevation above sea-level."
+msgstr "Elevation above sea-level."
 
 msgid "meters"
 msgstr "meters"
 
-msgid "Elevation above sea-level."
-msgstr "Elevation above sea-level."
+msgid "~30 meters"
+msgstr "~30 meters"
+
+msgid "Febuary 2000"
+msgstr "Febuary 2000"
 
 msgid "Landcover"
 msgstr "Landcover"
@@ -1122,6 +1149,9 @@ msgstr "Population age groups"
 
 msgid "Estimated number of people living in an area, grouped by age and gender."
 msgstr "Estimated number of people living in an area, grouped by age and gender."
+
+msgid "~100 meters"
+msgstr "~100 meters"
 
 msgid "Male 0 - 1 years"
 msgstr "Male 0 - 1 years"
@@ -1241,6 +1271,15 @@ msgstr ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
 
+msgid "~11 kilometers"
+msgstr "~11 kilometers"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "Febuary 1950 - Last Month"
+msgstr "Febuary 1950 - Last Month"
+
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
 
@@ -1307,9 +1346,6 @@ msgstr "Weekly (Start Sunday)"
 
 msgid "Bi-weekly"
 msgstr "Bi-weekly"
-
-msgid "Monthly"
-msgstr "Monthly"
 
 msgid "Bi-monthly"
 msgstr "Bi-monthly"

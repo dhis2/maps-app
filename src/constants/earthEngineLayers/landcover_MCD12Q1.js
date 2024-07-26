@@ -3,24 +3,29 @@ import { EARTH_ENGINE_LAYER } from '../layers.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    format: 'ImageCollection',
     layerId: 'MODIS/006/MCD12Q1', // Layer id kept for backward compability for saved maps
     datasetId: 'MODIS/061/MCD12Q1', // No longer in use: 'MODIS/006/MCD12Q1' / 'MODIS/051/MCD12Q1',
+    format: 'ImageCollection',
+    img: 'images/landcover.png',
     name: i18n.t('Landcover'),
     description: i18n.t('Distinct landcover types collected from satellites.'),
-    img: 'images/landcover.png',
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
+    resolution: {
+        spatial: i18n.t('0.5 meter'),
+        temporal: i18n.t('Single point in time'),
+        temporalCoverage: i18n.t('May 2023'),
+    },
+    defaultAggregations: 'percentage',
     periodType: 'YEARLY',
-    band: 'LC_Type1',
     filters: [
         {
             type: 'eq',
             arguments: ['system:index', '$1'],
         },
     ],
-    defaultAggregations: 'percentage',
+    band: 'LC_Type1',
     style: [
         // http://www.eomf.ou.edu/static/IGBP.pdf
         {

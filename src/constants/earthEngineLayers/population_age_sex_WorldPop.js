@@ -3,22 +3,32 @@ import { EARTH_ENGINE_LAYER } from '../layers.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    format: 'ImageCollection',
     layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
     datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+    format: 'ImageCollection',
     img: 'images/population.png',
     name: i18n.t('Population age groups'),
-    unit: 'people per hectare',
     description: i18n.t(
         'Estimated number of people living in an area, grouped by age and gender.'
     ),
     source: 'WorldPop / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
-    periodType: 'YEARLY',
+    unit: i18n.t('people per hectare'),
+    resolution: {
+        spatial: i18n.t('~100 meters'),
+        temporal: i18n.t('Single point in time'),
+        temporalCoverage: i18n.t('2020'),
+    },
     aggregations: ['min', 'max', 'mean', 'median', 'sum', 'stdDev', 'variance'],
     defaultAggregations: ['sum', 'mean'],
-    useCentroid: true,
+    periodType: 'YEARLY',
+    filters: [
+        {
+            type: 'eq',
+            arguments: ['year', '$1'],
+        },
+    ],
     bands: [
         {
             id: 'M_0',
@@ -165,13 +175,6 @@ export default {
             name: i18n.t('Female 80 years and above'),
         },
     ],
-    filters: [
-        {
-            type: 'eq',
-            arguments: ['year', '$1'],
-        },
-    ],
-    mosaic: true,
     style: {
         min: 0,
         max: 10,
@@ -186,5 +189,6 @@ export default {
     },
     maskOperator: 'gt',
     opacity: 0.9,
+    mosaic: true,
     tileScale: 4,
 }
