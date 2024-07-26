@@ -1,3 +1,17 @@
+## [100.5.8](https://github.com/dhis2/maps-app/compare/v100.5.7...v100.5.8) (2024-07-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([96815bc](https://github.com/dhis2/maps-app/commit/96815bca6a30743a9386f929d25253cacc793838))
+
+## [100.5.7](https://github.com/dhis2/maps-app/compare/v100.5.6...v100.5.7) (2024-07-04)
+
+
+### Bug Fixes
+
+* enable hidding basemap in dashboard ([#3275](https://github.com/dhis2/maps-app/issues/3275)) ([eee5805](https://github.com/dhis2/maps-app/commit/eee580515634ef43722d4c9b6d23b0abce656eed))
+
 ## [100.5.6](https://github.com/dhis2/maps-app/compare/v100.5.5...v100.5.6) (2024-06-26)
 
 
