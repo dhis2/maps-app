@@ -247,6 +247,11 @@ EarthEngineDialog.propTypes = {
     period: PropTypes.object,
     periodType: PropTypes.string,
     precision: PropTypes.number,
+    resolution: PropTypes.shape({
+        spatial: PropTypes.string,
+        temporal: PropTypes.string,
+        temporalCoverage: PropTypes.string,
+    }),
     rows: PropTypes.array,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,
