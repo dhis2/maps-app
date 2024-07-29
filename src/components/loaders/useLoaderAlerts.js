@@ -50,7 +50,8 @@ function useLoaderAlerts(loaderAlertAction) {
                 case WARNING_NO_OU_COORD: {
                     noOUCoordinatesAlert.show({
                         msg: i18n.t(
-                            'No coordinates found for selected org units'
+                            'Selected org units: No coordinates found',
+                            { nsSeparator: '^^' }
                         ),
                     })
                     break

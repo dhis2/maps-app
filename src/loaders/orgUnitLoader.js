@@ -40,10 +40,10 @@ const orgUnitLoader = async (config) => {
             .getAll({ includeGroupSets })
             .then(toGeoJson)
             .catch((error) => {
-                if (error && error.message) {
+                if (error?.message || error) {
                     alerts.push({
                         code: ERROR_CRITICAL,
-                        message: error.message,
+                        message: error?.message || error,
                     })
                 }
             }),

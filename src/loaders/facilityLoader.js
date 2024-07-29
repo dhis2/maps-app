@@ -42,7 +42,7 @@ const facilityLoader = async (config) => {
             .then(getPointItems)
             .then(toGeoJson)
             .catch((error) => {
-                if (error?.message) {
+                if (error?.message || error) {
                     alerts.push({
                         code: ERROR_CRITICAL,
                         message: error.message,

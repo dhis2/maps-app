@@ -71,7 +71,7 @@ const earthEngineLoader = async (config) => {
         } catch (error) {
             alerts.push({
                 code: ERROR_CRITICAL,
-                message: error.message,
+                message: error.message || error,
             })
         }
     }
