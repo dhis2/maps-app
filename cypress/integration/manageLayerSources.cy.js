@@ -10,7 +10,7 @@ const LAYER_SOURCES_DEFAULT_MANAGED_LIST = [
     'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
     'MODIS/006/MCD12Q1',
     'USGS/SRTMGL1_003',
-    'GOOGLE/Research/open-buildings/v1/polygons',
+    'GOOGLE/Research/open-buildings/v3/polygons',
 ]
 const LAYER_SOURCES_DEFAULT_MANAGED = LAYER_SOURCES_DEFAULT_MANAGED_LIST.length
 const LAYER_SOURCES_DEFAULT_STANDARD = 6
