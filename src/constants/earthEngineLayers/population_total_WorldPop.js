@@ -20,6 +20,7 @@ export default {
     },
     aggregations: ['min', 'max', 'mean', 'median', 'sum', 'stdDev', 'variance'],
     defaultAggregations: ['sum', 'mean'],
+    unmaskAggregation: true,
     periodType: 'YEARLY',
     filters: [
         {
