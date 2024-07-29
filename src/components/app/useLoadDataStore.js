@@ -52,6 +52,20 @@ export const useLoadDataStore = () => {
                             dispatch(initLayerSources(layerSourcesVisibility))
                         }
                     })
+                    .catch(() => {
+                        // Create key if missing in namespace
+                        engine
+                            .mutate({
+                                resource: resourceLayerSourcesVisibility,
+                                type: 'create',
+                                data: layerSourceDefaultIds,
+                            })
+                            .then(() => {
+                                dispatch(
+                                    initLayerSources(layerSourceDefaultIds)
+                                )
+                            })
+                    })
             }
         })
 }
