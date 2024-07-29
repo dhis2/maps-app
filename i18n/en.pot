@@ -5,8 +5,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2024-07-29T06:13:24.734Z\n"
 "PO-Revision-Date: 2024-07-29T06:13:24.734Z\n"
+=======
+"POT-Creation-Date: 2024-07-29T08:54:03.091Z\n"
+"PO-Revision-Date: 2024-07-29T08:54:03.091Z\n"
+>>>>>>> ee-dev
 
 msgid "2020"
 msgstr "2020"
