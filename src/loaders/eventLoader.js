@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
-import { CUSTOM_ALERT, INFO_NO_DATA } from '../constants/alerts.js'
+import { CUSTOM_ALERT, WARNING_NO_DATA } from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
     EVENT_CLIENT_PAGE_SIZE,
@@ -150,7 +150,7 @@ const loadEventLayer = async (config, loadExtended) => {
             }
         } else {
             alert = {
-                code: INFO_NO_DATA,
+                code: WARNING_NO_DATA,
                 message: config.name,
             }
         }

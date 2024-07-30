@@ -8,7 +8,7 @@ export const ALERT_OPTIONS_DYNAMIC = ({ isError }) =>
     isError ? ALERT_CRITICAL : ALERT_SUCCESS
 
 // Loader alerts
-export const INFO_NO_DATA = 'INFO_NO_DATA'
+export const WARNING_NO_DATA = 'WARNING_NO_DATA'
 export const WARNING_NO_OU_COORD = 'WARNING_NO_OU_COORD'
 export const WARNING_NO_GEOMETRY_COORD = 'WARNING_NO_GEOMETRY_COORD'
 export const ERROR_CRITICAL = 'ERROR_CRITICAL'
