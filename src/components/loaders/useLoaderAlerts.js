@@ -9,7 +9,7 @@ import {
     CUSTOM_ALERT,
 } from '../../constants/alerts.js'
 
-function useLoaderAlerts(loaderAlertAction) {
+function useLoaderAlerts(loaderAlertAction = Function.prototype) {
     const errorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
         critical: true,
         onHidden: loaderAlertAction,

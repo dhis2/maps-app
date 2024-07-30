@@ -41,7 +41,6 @@ const LayerLoader = ({ config, dataTableOpen, onLoad, loaderAlertAction }) => {
 LayerLoader.defaultProps = {
     dataTableOpen: false,
     onError: Function.prototype,
-    loaderAlertAction: Function.prototype,
 }
 
 LayerLoader.propTypes = {

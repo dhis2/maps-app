@@ -7,12 +7,12 @@ const FacilityLoader = ({ config, onLoad, loaderAlertAction }) => {
     const { showAlerts } = useLoaderAlerts(loaderAlertAction)
     useEffect(() => {
         facilityLoader(config).then((result) => {
-            if (result.alerts?.length) {
+            if (result.alerts?.length && loaderAlertAction) {
                 showAlerts(result.alerts)
             }
             onLoad(result)
         })
-    }, [config, onLoad, showAlerts])
+    }, [config, onLoad, showAlerts, loaderAlertAction])
 
     return null
 }

@@ -8,12 +8,12 @@ const EventLoader = ({ config, dataTableOpen, onLoad, loaderAlertAction }) => {
 
     useEffect(() => {
         eventLoader(config, dataTableOpen).then((result) => {
-            if (result.alerts?.length) {
+            if (result.alerts?.length && loaderAlertAction) {
                 showAlerts(result.alerts)
             }
             onLoad(result)
         })
-    }, [config, dataTableOpen, onLoad, showAlerts])
+    }, [config, dataTableOpen, onLoad, showAlerts, loaderAlertAction])
 
     return null
 }
