@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
-"PO-Revision-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"PO-Revision-Date: 2024-07-29T08:57:17.534Z\n"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"
@@ -641,6 +641,18 @@ msgstr "Filters"
 
 msgid "{{layername}}: {{message}}"
 msgstr "{{layername}}: {{message}}"
+
+msgid "No data found"
+msgstr "No data found"
+
+msgid "Selected org units: No coordinates found"
+msgstr "Selected org units: No coordinates found"
+
+msgid "No coordinates found"
+msgstr "No coordinates found"
+
+msgid "Error"
+msgstr "Error"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -1308,14 +1320,8 @@ msgstr "Financial year (Start April)"
 msgid "Cancelled"
 msgstr "Cancelled"
 
-msgid "{{name}}: No coordinates found"
-msgstr "{{name}}: No coordinates found"
-
-msgid "Selected org units: No coordinates found"
-msgstr "Selected org units: No coordinates found"
-
-msgid "Error: {{message}}"
-msgstr "Error: {{message}}"
+msgid "Earth Engine layer"
+msgstr "Earth Engine layer"
 
 msgid "You don't have access to this layer data"
 msgstr "You don't have access to this layer data"
@@ -1329,17 +1335,14 @@ msgstr "An unknown error occurred while reading layer data"
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Displaying first {{pageSize}} events out of {{total}}"
 
-msgid "No data found"
-msgstr "No data found"
-
 msgid "Event"
 msgstr "Event"
 
 msgid "Facilities"
 msgstr "Facilities"
 
-msgid "Facilities: No coordinates found"
-msgstr "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
+msgstr "No coordinates found for selected facilities"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "There was a problem with this layer. Contact a system administrator."
@@ -1359,17 +1362,14 @@ msgstr "Point"
 msgid "Organisation units"
 msgstr "Organisation units"
 
-msgid "Error"
-msgstr "Error"
+msgid "Org unit layer"
+msgstr "Org unit layer"
 
 msgid "Thematic layer"
 msgstr "Thematic layer"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
-
-msgid "No tracked entities found"
-msgstr "No tracked entities found"
 
 msgid "related"
 msgstr "related"
