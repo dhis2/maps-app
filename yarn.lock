@@ -2234,9 +2234,9 @@
     i18next "^10.3"
     moment "^2.24.0"
 
-"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#6bc87213a92fda4fb9fcfe79b0a9f18aa21bb63a":
+"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#feat/custom-ee-layers":
   version "3.9.2"
-  resolved "git+https://github.com/d2-ci/maps-gl.git#6bc87213a92fda4fb9fcfe79b0a9f18aa21bb63a"
+  resolved "git+https://github.com/d2-ci/maps-gl.git#b640c769ddf9970ef751c245ad791c6ed64f21b7"
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
