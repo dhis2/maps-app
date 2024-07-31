@@ -1,3 +1,10 @@
+# [100.6.0](https://github.com/dhis2/maps-app/compare/v100.5.9...v100.6.0) (2024-07-31)
+
+
+### Features
+
+* Earth Engine layers update and Maps Admin auth managing layer sources ([d0f0b92](https://github.com/dhis2/maps-app/commit/d0f0b9283baefaca31005cf45ac371f10bf32ceb))
+
 ## [100.5.9](https://github.com/dhis2/maps-app/compare/v100.5.8...v100.5.9) (2024-07-31)
 
 
