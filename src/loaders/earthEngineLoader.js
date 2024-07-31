@@ -1,6 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import { getInstance as getD2 } from 'd2'
 import { precisionRound } from 'd3-format'
+import {
+    WARNING_NO_OU_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
 import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import {
@@ -50,11 +55,8 @@ const earthEngineLoader = async (config) => {
 
                 if (!associatedGeometries.length) {
                     alerts.push({
-                        warning: true,
-                        message: i18n.t('{{name}}: No coordinates found', {
-                            name: coordinateField.name,
-                            nsSeparator: ';',
-                        }),
+                        code: WARNING_NO_GEOMETRY_COORD,
+                        message: coordinateField.name,
                     })
                 }
             }
@@ -66,22 +68,14 @@ const earthEngineLoader = async (config) => {
 
             if (!features.length) {
                 alerts.push({
-                    warning: true,
-                    message: i18n.t(
-                        'Selected org units: No coordinates found',
-                        {
-                            nsSeparator: ';',
-                        }
-                    ),
+                    code: WARNING_NO_OU_COORD,
+                    message: i18n.t('Earth Engine layer'),
                 })
             }
         } catch (error) {
             alerts.push({
-                critical: true,
-                message: i18n.t('Error: {{message}}', {
-                    message: error.message,
-                    nsSeparator: ';',
-                }),
+                code: ERROR_CRITICAL,
+                message: error.message || error,
             })
         }
     }
