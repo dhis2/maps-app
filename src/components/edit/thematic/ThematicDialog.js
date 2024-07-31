@@ -96,6 +96,7 @@ export class ThematicDialog extends Component {
         startDate: PropTypes.string,
         endDate: PropTypes.string,
         periodType: PropTypes.string,
+        periodsSettings: PropTypes.object,
         renderingStrategy: PropTypes.string,
         thematicMapType: PropTypes.string,
         valueType: PropTypes.string,
@@ -242,6 +243,7 @@ export class ThematicDialog extends Component {
             noDataColor,
             operand,
             periodType,
+            periodsSettings,
             settings,
             renderingStrategy,
             startDate,
@@ -466,6 +468,7 @@ export class ThematicDialog extends Component {
                                 (!periodType && id)) && (
                                 <PeriodSelect
                                     periodType={periodType}
+                                    periodsSettings={periodsSettings}
                                     period={period}
                                     onChange={setPeriod}
                                     className={styles.periodSelect}

@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2022
-# phil_dhis2, 2022
+# Philip Larsen Donnelly, 2022
 # Hamza Assada <7amza.it@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
+"Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -326,8 +326,8 @@ msgstr "نوع التجميع"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "لا تظهر أي بيانات"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "نصف قطر منخفض"
@@ -569,8 +569,8 @@ msgstr "إخفاء جدول البيانات"
 msgid "Show data table"
 msgstr "إظهار جدول البيانات"
 
-msgid "Open as chart"
-msgstr "افتح كمخطط"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "تنزيل البيانات"
@@ -619,6 +619,9 @@ msgstr "وحدة تنظيمية"
 
 msgid "Parent unit"
 msgstr "الوحدة العليا"
+
+msgid "No data"
+msgstr "لا توجد بيانات"
 
 msgid "Last updated"
 msgstr "آخر تحديث"
@@ -1310,9 +1313,6 @@ msgstr "الوحدات التنظيمية"
 
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
-
-msgid "No data"
-msgstr "لا توجد بيانات"
 
 msgid "Tracked entity"
 msgstr "الكيان المتتبع"

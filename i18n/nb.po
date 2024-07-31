@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -326,8 +326,8 @@ msgstr "Aggregasjonstype"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Vis ingen data"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Lav radius"
@@ -573,8 +573,8 @@ msgstr "Skjul datatabell"
 msgid "Show data table"
 msgstr "Vis datatabell"
 
-msgid "Open as chart"
-msgstr "Åpne som diagram"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Last ned data"
@@ -623,6 +623,9 @@ msgstr "Organisasjonsenhet"
 
 msgid "Parent unit"
 msgstr "Overordnet enhet"
+
+msgid "No data"
+msgstr "Ingen data"
 
 msgid "Last updated"
 msgstr "Sist oppdatert"
@@ -1317,9 +1320,6 @@ msgstr "Organisasjonsenheter"
 
 msgid "Thematic layer"
 msgstr "Tematisk lag"
-
-msgid "No data"
-msgstr "Ingen data"
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"

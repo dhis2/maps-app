@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -331,8 +331,8 @@ msgstr "Бирлаштириш тури"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
-msgstr "Maʼlumot yoʼq"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Kichik radius"
@@ -585,8 +585,8 @@ msgstr "Maʼlumotlar jadvali berkitilsin"
 msgid "Show data table"
 msgstr "Maʼlumotlar jadvalini koʼrsatish"
 
-msgid "Open as chart"
-msgstr "Diagramma sifatida oching"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Maʼlumotni yuklab oling"
@@ -635,6 +635,9 @@ msgstr "Ташкилий бирлик"
 
 msgid "Parent unit"
 msgstr "Аjdod boʼlimi"
+
+msgid "No data"
+msgstr "Maʼlumot yoʼq"
 
 msgid "Last updated"
 msgstr "Oxirgi yangilangan"
@@ -1331,9 +1334,6 @@ msgstr "Tashkiliy birliklar"
 
 msgid "Thematic layer"
 msgstr "Tematik qavat"
-
-msgid "No data"
-msgstr "Maʼlumot yoʼq"
 
 msgid "Tracked entity"
 msgstr "Kuzatuv obʼekti"

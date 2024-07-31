@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
-"PO-Revision-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
+"PO-Revision-Date: 2024-06-04T09:13:34.373Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -315,7 +315,7 @@ msgstr ""
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -554,7 +554,7 @@ msgstr ""
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
+msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
@@ -603,6 +603,9 @@ msgid "Organisation unit"
 msgstr ""
 
 msgid "Parent unit"
+msgstr ""
+
+msgid "No data"
 msgstr ""
 
 msgid "Last updated"
@@ -1283,9 +1286,6 @@ msgid "Organisation units"
 msgstr ""
 
 msgid "Thematic layer"
-msgstr ""
-
-msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"

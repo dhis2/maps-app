@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -348,8 +348,8 @@ msgstr "Type d'agrégation"
 msgid "Only show completed events"
 msgstr "Afficher uniquement les événements terminés"
 
-msgid "Show no data"
-msgstr "Afficher aucune donnée"
+msgid "Include org units with no data"
+msgstr ""
 
 msgid "Low radius"
 msgstr "Rayon faible"
@@ -604,8 +604,8 @@ msgstr "Masquer le tableau de données"
 msgid "Show data table"
 msgstr "Afficher le tableau de données"
 
-msgid "Open as chart"
-msgstr "Ouvrir sous forme de graphique"
+msgid "Open in Data Visualizer app"
+msgstr ""
 
 msgid "Download data"
 msgstr "Télécharger les données"
@@ -654,6 +654,9 @@ msgstr "Unité d'organisation"
 
 msgid "Parent unit"
 msgstr "Unité parente"
+
+msgid "No data"
+msgstr "Aucune donnée"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
@@ -1364,9 +1367,6 @@ msgstr "Unités d'organisation"
 
 msgid "Thematic layer"
 msgstr "Couche thématique "
-
-msgid "No data"
-msgstr "Aucune donnée"
 
 msgid "Tracked entity"
 msgstr "Entité suivie"

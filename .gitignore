@@ -17,3 +17,4 @@ src/locales/
 cypress/videos/
 cypress/screenshots/
 cypress.env.json
+maps-app.code-workspace

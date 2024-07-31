@@ -91,6 +91,7 @@ export const deleteMap = () => {
     cy.getByDataTest('file-menu-container').should('be.visible');
 
     cy.getByDataTest('file-menu-delete')
+        .should('not.have.class', 'disabled')
         .should('be.visible')
         .click();
 
