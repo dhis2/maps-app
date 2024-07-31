@@ -107,9 +107,9 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 periodType: action.periodType.id,
-                filters: action.clearPeriod
-                    ? removePeriodFromFilters(state.filters)
-                    : state.filters,
+                filters: action.keepPeriod
+                    ? state.filters
+                    : removePeriodFromFilters(state.filters),
             }
 
         case types.LAYER_EDIT_PERIOD_SET:
@@ -318,7 +318,7 @@ const layerEdit = (state = null, action) => {
             newState = {
                 ...state,
                 colorScale: action.colorScale,
-                classes: action.colorScale.split(',').length,
+                classes: action.colorScale.length,
             }
 
             if (newState.styleDataItem) {
@@ -440,11 +440,11 @@ const layerEdit = (state = null, action) => {
                 band: action.payload,
             }
 
-        case types.LAYER_EDIT_PARAMS_SET:
+        case types.LAYER_EDIT_STYLE_SET:
             return {
                 ...state,
-                params: {
-                    ...state.params,
+                style: {
+                    ...state.style,
                     ...action.payload,
                 },
             }
@@ -568,6 +568,12 @@ const layerEdit = (state = null, action) => {
             }
 
             return newState
+
+        case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:
+            return {
+                ...state,
+                period: action.payload,
+            }
 
         case types.LAYER_EDIT_FEATURE_STYLE_SET:
             return {

@@ -67,8 +67,8 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
         .concat(externalBasemaps)
 }
 
-const getLayerTypes = (externalMapLayers) => {
-    const externalLayerTypes = externalMapLayers
+const getDefaultLayerSources = (externalMapLayers) => {
+    const externalLayerSources = externalMapLayers
         .filter(
             (layer) => layer.mapLayerPosition !== MAP_LAYER_POSITION_BASEMAP
         )
@@ -76,7 +76,7 @@ const getLayerTypes = (externalMapLayers) => {
         .map(createExternalOverlayLayer)
         .filter((overlay) => layerTypes.includes(overlay.config.type))
 
-    return getDefaultLayerTypes().concat(externalLayerTypes)
+    return getDefaultLayerTypes().concat(externalLayerSources)
 }
 
 export const providerDataTransformation = ({
@@ -107,5 +107,7 @@ export const providerDataTransformation = ({
         externalMapLayers.externalMapLayers,
         systemSettings
     ),
-    layerTypes: getLayerTypes(externalMapLayers.externalMapLayers),
+    defaultLayerSources: getDefaultLayerSources(
+        externalMapLayers.externalMapLayers
+    ),
 })
