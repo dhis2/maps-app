@@ -20,6 +20,7 @@ const config = {
     },
 
     coreApp: true,
+    dataStoreNamespace: 'DHIS2_MAPS_APP_CORE',
 
     skipPluginLogic: true,
 }

@@ -12,10 +12,12 @@ import DetailsPanel from './DetailsPanel.js'
 import ModalContainer from './ModalContainer.js'
 import './App.css'
 import styles from './styles/App.module.css'
+import { useLoadDataStore } from './useLoadDataStore.js'
 import { useLoadMap } from './useLoadMap.js'
 
 const App = () => {
     useLoadMap()
+    useLoadDataStore()
 
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)
