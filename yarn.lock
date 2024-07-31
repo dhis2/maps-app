@@ -2092,10 +2092,10 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^3.9.2":
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.9.2.tgz#510a7d0f91bfbbdc6139283c8269506e3680bdc3"
-  integrity sha512-AJQ8Q2qKiZ6+ieaiM7qdsZ5tjIEdUQKp/zCQoUaTpmgOPB86sM2BYV1fJ8tvSSqHU4Wo7jyoEoNku1zbpCQZRQ==
+"@dhis2/maps-gl@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.0.0.tgz#e97df2fbc78f787a0916224d7d54fb96b9c376db"
+  integrity sha512-TDEIBT6rFuEZGXnBxAqKhSmCXk3wtuCf/OrVZBKxT1qk0kHau71f3lzAXbWhYAuop8t6/DyJaIcQrUYMi1Xy3w==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
@@ -2105,7 +2105,7 @@
     "@turf/circle" "^6.5.0"
     "@turf/length" "^6.5.0"
     comlink "^4.4.1"
-    fetch-jsonp "^1.2.3"
+    fetch-jsonp "^1.3.0"
     lodash.throttle "^4.1.1"
     maplibre-gl "^2.4.0"
     polylabel "^1.1.0"
@@ -8923,10 +8923,10 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-fetch-jsonp@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.2.3.tgz#ae99a867095cb1ce5c39fac601d70d1084db122f"
-  integrity sha512-C13k1o7R9JTN1wmhKkrW5bU/00LwixXnkufQUR6Rbf4KCS0i8mycQaovt4WVbHnA2NKgi7Ryp9Whpy/CGcij6Q==
+fetch-jsonp@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.3.0.tgz#99b8c25bd100938d7a7a6b5db9d6b81f32a10809"
+  integrity sha512-hxCYGvmANEmpkHpeWY8Kawfa5Z1t2csTpIClIDG/0S92eALWHRU1RnGaj86Tf5Cc0QF+afSa4SQ4pFB2rFM5QA==
 
 figures@2.0.0, figures@^2.0.0:
   version "2.0.0"
