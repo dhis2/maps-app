@@ -1,3 +1,10 @@
+## [100.5.9](https://github.com/dhis2/maps-app/compare/v100.5.8...v100.5.9) (2024-07-31)
+
+
+### Bug Fixes
+
+* loader alert messages were being duplicated ([#2796](https://github.com/dhis2/maps-app/issues/2796)) ([69776ad](https://github.com/dhis2/maps-app/commit/69776ad8b71ba1bac586283a9c39b77bc4ec1970))
+
 ## [100.5.8](https://github.com/dhis2/maps-app/compare/v100.5.7...v100.5.8) (2024-07-24)
 
 
