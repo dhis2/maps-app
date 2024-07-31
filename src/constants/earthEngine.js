@@ -15,6 +15,7 @@ export const earthEngineLayers = () => [
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
         img: 'images/population.png',
         defaultAggregations: ['sum', 'mean'],
+        unmaskAggregation: true,
         periodType: 'Yearly',
         band: 'population',
         filters: ({ id, name, year }) => [
@@ -48,6 +49,7 @@ export const earthEngineLayers = () => [
         img: 'images/population.png',
         periodType: 'Yearly',
         defaultAggregations: ['sum', 'mean'],
+        unmaskAggregation: true,
         bands: [
             {
                 id: 'M_0',
