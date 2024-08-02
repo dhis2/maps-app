@@ -1,0 +1,52 @@
+.layerSource {
+    display: flex;
+    align-items: center;
+    color: var(--colors-grey800);
+    font-size: 0.9rem;
+    border: 1px solid var(--colors-grey300);
+    border-radius: 4px;
+    padding: var(--spacers-dp16) var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp8);
+    margin-right: var(--spacers-dp8);
+    cursor: pointer;
+}
+
+.layerSource:hover {
+    border-color: var(--colors-grey400);
+}
+
+.layerSource input {
+    cursor: pointer;
+}
+
+.layerSource img {
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid var(--colors-grey400);
+    width: 120px;
+    height: 120px;
+    margin-left: var(--spacers-dp16);
+    margin-right: var(--spacers-dp16);
+}
+
+.layerSourceInfo {
+    align-self: start;
+}
+
+.layerSourceInfo h2 {
+    margin: 0;
+    padding-top: 2px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.layerSourceInfo p {
+    color: var(--colors-grey700);
+    margin: var(--spacers-dp8) 0;
+    line-height: 1.2rem;
+}
+
+.layerSourceInfo .source {
+    color: var(--colors-grey600);
+    padding-top: var(--spacers-dp8);
+}

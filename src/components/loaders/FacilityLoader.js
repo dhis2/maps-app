@@ -3,15 +3,33 @@ import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import facilityLoader from '../../loaders/facilityLoader.js'
+import useLoaderAlerts from './useLoaderAlerts.js'
 
-const FacilityLoader = ({ config, onLoad }) => {
+const FacilityLoader = ({ config, onLoad, loaderAlertAction }) => {
+    const { showAlerts } = useLoaderAlerts(loaderAlertAction)
     const { currentUser } = useCachedDataQuery()
     const { baseUrl } = useConfig()
     const nameProperty = currentUser.keyAnalysisDisplayProperty.toUpperCase()
     const engine = useDataEngine()
+
     useEffect(() => {
-        facilityLoader({ config, engine, nameProperty, baseUrl }).then(onLoad)
-    }, [config, onLoad, engine, nameProperty, baseUrl])
+        facilityLoader({ config, engine, nameProperty, baseUrl }).then(
+            (result) => {
+                if (result.alerts?.length && loaderAlertAction) {
+                    showAlerts(result.alerts)
+                }
+                onLoad(result)
+            }
+        )
+    }, [
+        config,
+        onLoad,
+        engine,
+        nameProperty,
+        baseUrl,
+        showAlerts,
+        loaderAlertAction,
+    ])
 
     return null
 }
@@ -19,6 +37,7 @@ const FacilityLoader = ({ config, onLoad }) => {
 FacilityLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
+    loaderAlertAction: PropTypes.func,
 }
 
 export default FacilityLoader
