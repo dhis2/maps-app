@@ -1,5 +1,5 @@
-import { generateUid } from 'd2/uid'
 import { getThematicLayerFromAnalyticalObject } from './analyticalObject.js'
+import { generateUid } from './uid.js'
 
 export const getConfigFromNonMapConfig = (config, defaultBasemapId, engine) => {
     const { name } = config
