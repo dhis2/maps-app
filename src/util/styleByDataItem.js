@@ -34,7 +34,7 @@ export const styleByDataItem = async (config, engine) => {
     return config
 }
 
-export const styleByBoolean = async (config, engine) => {
+const styleByBoolean = async (config, engine) => {
     const { styleDataItem, data, legend, eventPointRadius } = config
     const { id, name, values } = styleDataItem
 
@@ -82,7 +82,7 @@ export const styleByBoolean = async (config, engine) => {
     return config
 }
 
-export const styleByNumeric = async (config, engine) => {
+const styleByNumeric = async (config, engine) => {
     const {
         styleDataItem,
         method,
@@ -159,7 +159,7 @@ export const styleByNumeric = async (config, engine) => {
     return config
 }
 
-export const styleByOptionSet = async (config, engine) => {
+const styleByOptionSet = async (config, engine) => {
     const { styleDataItem } = config
     const optionSet = await getOptionSet(styleDataItem.optionSet, engine)
     const id = styleDataItem.id
