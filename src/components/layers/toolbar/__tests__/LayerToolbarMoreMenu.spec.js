@@ -40,7 +40,7 @@ describe('LayerToolbarMoreMenu', () => {
         await waitFor(() => {
             expect(screen.queryByText('Remove layer')).toBeTruthy()
             // confirm the divider is not present
-            expect(screen.queryAllByRole('listitem').length).toEqual(1)
+            expect(screen.getByRole('menu').children.length).toEqual(1)
 
             expect(screen.queryByText('Show data table')).toBeNull()
             expect(screen.queryByText('Open as chart')).toBeNull()
@@ -76,7 +76,7 @@ describe('LayerToolbarMoreMenu', () => {
             expect(screen.queryByText('Edit layer')).toBeTruthy()
             expect(screen.queryByText('Remove layer')).toBeTruthy()
             // confirm the divider is not present
-            expect(screen.queryAllByRole('listitem').length).toEqual(2)
+            expect(screen.getByRole('menu').children.length).toEqual(2)
 
             expect(screen.queryByText('Show data table')).toBeNull()
             expect(screen.queryByText('Open as chart')).toBeNull()
@@ -110,7 +110,7 @@ describe('LayerToolbarMoreMenu', () => {
             expect(screen.queryByText('Show data table')).toBeTruthy()
             expect(screen.queryByText('Download data')).toBeTruthy()
             // confirm the divider is not present
-            expect(screen.queryAllByRole('listitem').length).toEqual(2)
+            expect(screen.getByRole('menu').children.length).toEqual(2)
 
             expect(screen.queryByText('Open as chart')).toBeNull()
             expect(screen.queryByText('Edit layer')).toBeNull()
@@ -141,7 +141,7 @@ describe('LayerToolbarMoreMenu', () => {
 
         await waitFor(() => {
             expect(screen.queryByText('Show data table')).toBeTruthy()
-            expect(screen.queryAllByRole('listitem').length).toEqual(1)
+            expect(screen.getByRole('menu').children.length).toEqual(1)
 
             expect(screen.queryByText('Open as chart')).toBeNull()
             expect(screen.queryByText('Download data')).toBeNull()
@@ -179,7 +179,7 @@ describe('LayerToolbarMoreMenu', () => {
             expect(screen.queryByText('Remove layer')).toBeTruthy()
 
             // confirm the divider is present (1 more list item)
-            expect(screen.queryAllByRole('listitem').length).toEqual(4)
+            expect(screen.getByRole('menu').children.length).toEqual(4)
 
             expect(screen.queryByText('Open as chart')).toBeNull()
             expect(screen.queryByText('Download data')).toBeNull()
@@ -216,7 +216,7 @@ describe('LayerToolbarMoreMenu', () => {
             expect(screen.queryByText('Edit layer')).toBeTruthy()
             expect(screen.queryByText('Remove layer')).toBeTruthy()
             // confirm the divider is present (1 more list item)
-            expect(screen.queryAllByRole('listitem').length).toEqual(5)
+            expect(screen.getByRole('menu').children.length).toEqual(5)
 
             expect(screen.queryByText('Open as chart')).toBeNull()
         })
