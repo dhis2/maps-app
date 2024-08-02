@@ -1,3 +1,4 @@
+const fs = require('fs')
 const { chromeAllowXSiteCookies } = require('@dhis2/cypress-plugins')
 const { defineConfig } = require('cypress')
 const {
@@ -17,6 +18,19 @@ async function setupNodeEvents(on, config) {
             'dhis2InstanceVersion is missing. Check the README for more information.'
         )
     }
+
+    on('after:spec', (spec, results) => {
+        if (results && results.video) {
+            // Do we have failures for any retry attempts?
+            const failures = results.tests.some((test) =>
+                test.attempts.some((attempt) => attempt.state === 'failed')
+            )
+            if (!failures) {
+                // delete the video if the spec passed and no tests retried
+                fs.unlinkSync(results.video)
+            }
+        }
+    })
 
     return config
 }
@@ -60,10 +74,6 @@ module.exports = defineConfig({
         defaultCommandTimeout: 15000,
         // Record video
         video: true,
-        /* Only compress and upload videos for failures.
-         * This will save execution time and reduce the risk
-         * out-of-memory issues on the CI machine */
-        videoUploadOnPasses: false,
         // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
         // Set to a low number to reduce the risk of out-of-memory issues
