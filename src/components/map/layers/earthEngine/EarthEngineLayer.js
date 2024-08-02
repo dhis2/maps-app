@@ -57,7 +57,7 @@ export default class EarthEngineLayer extends Layer {
             isVisible,
             datasetId,
             band,
-            mask,
+            maskOperator,
             attribution,
             filter,
             methods,
@@ -68,12 +68,13 @@ export default class EarthEngineLayer extends Layer {
             value,
             resolution,
             projection,
-            params,
+            style,
             popup,
             data,
             aggregationType,
             areaRadius,
             tileScale,
+            unmaskAggregation,
         } = this.props
 
         const { map, isPlugin } = this.context
@@ -87,7 +88,7 @@ export default class EarthEngineLayer extends Layer {
             isVisible,
             datasetId,
             band,
-            mask,
+            maskOperator,
             attribution,
             filter,
             methods,
@@ -102,14 +103,15 @@ export default class EarthEngineLayer extends Layer {
             data,
             aggregationType,
             tileScale,
+            unmaskAggregation,
             preload: !isPlugin && this.hasAggregations(),
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
         }
 
-        if (params) {
-            config.params = params
+        if (style) {
+            config.style = style
         }
 
         if (areaRadius) {

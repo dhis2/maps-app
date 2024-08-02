@@ -28,6 +28,18 @@ export const appQueries = {
         },
     },
     externalMapLayers: EXTERNAL_MAP_LAYERS_QUERY,
+    systemInfo: {
+        resource: 'system/info',
+        params: {
+            fields: 'calendar',
+        },
+    },
+    userSettings: {
+        resource: 'userSettings',
+        params: {
+            key: ['keyUiLocale'],
+        },
+    },
 }
 
 const getBasemapList = (externalMapLayers, systemSettings) => {
@@ -55,8 +67,8 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
         .concat(externalBasemaps)
 }
 
-const getLayerTypes = (externalMapLayers) => {
-    const externalLayerTypes = externalMapLayers
+const getDefaultLayerSources = (externalMapLayers) => {
+    const externalLayerSources = externalMapLayers
         .filter(
             (layer) => layer.mapLayerPosition !== MAP_LAYER_POSITION_BASEMAP
         )
@@ -64,12 +76,14 @@ const getLayerTypes = (externalMapLayers) => {
         .map(createExternalOverlayLayer)
         .filter((overlay) => layerTypes.includes(overlay.config.type))
 
-    return getDefaultLayerTypes().concat(externalLayerTypes)
+    return getDefaultLayerTypes().concat(externalLayerSources)
 }
 
 export const providerDataTransformation = ({
     currentUser,
     systemSettings,
+    systemInfo,
+    userSettings,
     externalMapLayers,
 }) => ({
     currentUser: {
@@ -87,9 +101,15 @@ export const providerDataTransformation = ({
     systemSettings: Object.assign({}, DEFAULT_SYSTEM_SETTINGS, systemSettings, {
         hiddenPeriods: getHiddenPeriods(systemSettings),
     }),
+    periodsSettings: {
+        locale: userSettings.keyUiLocale,
+        calendar: systemInfo.calendar,
+    },
     basemaps: getBasemapList(
         externalMapLayers.externalMapLayers,
         systemSettings
     ),
-    layerTypes: getLayerTypes(externalMapLayers.externalMapLayers),
+    defaultLayerSources: getDefaultLayerSources(
+        externalMapLayers.externalMapLayers
+    ),
 })
