@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -14,6 +14,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr "Mapa bez názvu, {{date}}"
@@ -332,6 +335,15 @@ msgstr ""
 msgid "Unit"
 msgstr "Jednotka"
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "Zdroj"
 
@@ -359,9 +371,6 @@ msgstr "Max by měl být větší než min"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr "Jednotka: {{ unit }}"
-
 msgid "Min"
 msgstr "Min"
 
@@ -370,6 +379,9 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Kroky"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "Org. Jednotky"
@@ -560,6 +572,17 @@ msgstr "Styl podle sady skupiny"
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "Sbalit"
 
@@ -655,6 +678,18 @@ msgstr "Filtry"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "Nenalezena žádná data"
+
+msgid "Selected org units: No coordinates found"
+msgstr "Vybrané organizační jednotky: Nebyly nalezeny žádné souřadnice"
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "Chyba"
 
 msgid "Drill up one level"
 msgstr "Jděte o jednu úroveň výš"
@@ -874,9 +909,6 @@ msgstr "Minulý rok"
 msgid "Next year"
 msgstr "Příští rok"
 
-msgid "Relative"
-msgstr "Relativní"
-
 msgid "Period type"
 msgstr "Typ období"
 
@@ -979,14 +1011,171 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
+msgid "Building footprints"
+msgstr "Stavební stopy"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+"Počty budov jsou k dispozici pouze pro oblasti menších organizačních "
+"jednotek."
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+"Chcete-li zobrazit počet budov, vyberte menší oblast nebo jednu organizační "
+"jednotku."
+
+msgid "Number of buildings"
+msgstr "Počet budov"
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Nadmořská výška"
+
+msgid "Elevation above sea-level."
+msgstr "Nadmořská výška."
+
+msgid "meters"
+msgstr "metrů"
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "krajinné pokrytí"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Jehličnatý les"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Stálezelený listnatý les"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Listnatý jehličnatý les"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Listnatý opadavý les"
+
+msgid "Mixed forest"
+msgstr "Smíšený les"
+
+msgid "Closed shrublands"
+msgstr "Uzavřené křoviny"
+
+msgid "Open shrublands"
+msgstr "Otevřené křoviny"
+
+msgid "Woody savannas"
+msgstr "Porostlé savany"
+
+msgid "Savannas"
+msgstr "Savany"
+
+msgid "Grasslands"
+msgstr "Louky a pastviny"
+
+msgid "Permanent wetlands"
+msgstr "Trvalé mokřady"
+
+msgid "Croplands"
+msgstr "Orná půda"
+
+msgid "Urban and built-up"
+msgstr "Městské a zastavěné"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "orná půda / mozaika přírodní vegetace"
+
+msgid "Snow and ice"
+msgstr "Sníh a led"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Neplodná nebo řídce vegetovaná"
+
+msgid "Water"
+msgstr "Voda"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+"Obrysy budov odvozené ze satelitních snímků s vysokým rozlišením. Pouze pro "
+"africký kontinent."
+
+msgid "Nighttime lights"
+msgstr "Noční světla"
+
+msgid "light intensity"
+msgstr "intenzita světla"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně "
+"plynových erupcí."
+
 msgid "Population"
 msgstr "Obyvatelstvo"
+
+msgid "people per km²"
+msgstr "lidí na km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Odhadovaný počet lidí žijících v oblasti."
 
 msgid "people per hectare"
 msgstr "lidí na hektar"
 
-msgid "Estimated number of people living in an area."
-msgstr "Odhadovaný počet lidí žijících v oblasti."
+msgid "Precipitation"
+msgstr "Srážky"
+
+msgid "millimeter"
+msgstr "milimetr"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Srážky shromážděné ze satelitů a pozemních meteorologických stanic. Hodnoty "
+"jsou v milimetrech během 5 dnů. Aktualizováno měsíčně, během 3. týdne "
+"následujícího měsíce."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "°C přes den"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Teploty povrchu země získané ze satelitu. V oblastech s přetrvávající "
+"oblačností se objeví prázdná místa."
 
 msgid "Population age groups"
 msgstr "Populační věkové skupiny"
@@ -995,6 +1184,9 @@ msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 "Odhadovaný počet lidí žijících v oblasti seskupených podle věku a pohlaví."
+
+msgid "~100 meters"
+msgstr ""
 
 msgid "Male 0 - 1 years"
 msgstr "Muž 0-1 rok"
@@ -1104,141 +1296,30 @@ msgstr "Žena 75 - 79 let"
 msgid "Female 80 years and above"
 msgstr "Žena 80 let a více"
 
-msgid "Building footprints"
-msgstr "Stavební stopy"
-
-msgid "Number of buildings"
-msgstr "Počet budov"
+msgid "Precipitation monthly"
+msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
 msgstr ""
-"Obrysy budov odvozené ze satelitních snímků s vysokým rozlišením. Pouze pro "
-"africký kontinent."
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Měsíčně"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
+msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-"Počty budov jsou k dispozici pouze pro oblasti menších organizačních "
-"jednotek."
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-"Chcete-li zobrazit počet budov, vyberte menší oblast nebo jednu organizační "
-"jednotku."
-
-msgid "Elevation"
-msgstr "Nadmořská výška"
-
-msgid "meters"
-msgstr "metrů"
-
-msgid "Elevation above sea-level."
-msgstr "Nadmořská výška."
-
-msgid "Precipitation"
-msgstr "Srážky"
-
-msgid "millimeter"
-msgstr "milimetr"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Srážky shromážděné ze satelitů a pozemních meteorologických stanic. Hodnoty "
-"jsou v milimetrech během 5 dnů. Aktualizováno měsíčně, během 3. týdne "
-"následujícího měsíce."
-
-msgid "Temperature"
-msgstr "Teplota"
-
-msgid "°C during daytime"
-msgstr "°C přes den"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Teploty povrchu země získané ze satelitu. V oblastech s přetrvávající "
-"oblačností se objeví prázdná místa."
-
-msgid "Landcover"
-msgstr "krajinné pokrytí"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Jehličnatý les"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Stálezelený listnatý les"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Listnatý jehličnatý les"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Listnatý opadavý les"
-
-msgid "Mixed forest"
-msgstr "Smíšený les"
-
-msgid "Closed shrublands"
-msgstr "Uzavřené křoviny"
-
-msgid "Open shrublands"
-msgstr "Otevřené křoviny"
-
-msgid "Woody savannas"
-msgstr "Porostlé savany"
-
-msgid "Savannas"
-msgstr "Savany"
-
-msgid "Grasslands"
-msgstr "Louky a pastviny"
-
-msgid "Permanent wetlands"
-msgstr "Trvalé mokřady"
-
-msgid "Croplands"
-msgstr "Orná půda"
-
-msgid "Urban and built-up"
-msgstr "Městské a zastavěné"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "orná půda / mozaika přírodní vegetace"
-
-msgid "Snow and ice"
-msgstr "Sníh a led"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Neplodná nebo řídce vegetovaná"
-
-msgid "Water"
-msgstr "Voda"
-
-msgid "people per km²"
-msgstr "lidí na km²"
-
-msgid "Nighttime lights"
-msgstr "Noční světla"
-
-msgid "light intensity"
-msgstr "intenzita světla"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně "
-"plynových erupcí."
 
 msgid "All"
 msgstr "Vše"
@@ -1273,6 +1354,9 @@ msgstr "Stejné počty"
 msgid "Symbol"
 msgstr "Symbol"
 
+msgid "Relative"
+msgstr "Relativní"
+
 msgid "Daily"
 msgstr "Denně"
 
@@ -1293,9 +1377,6 @@ msgstr "Týdně (začíná nedělí)"
 
 msgid "Bi-weekly"
 msgstr "po 14ti dnech"
-
-msgid "Monthly"
-msgstr "Měsíčně"
 
 msgid "Bi-monthly"
 msgstr "Dva měsíce"
@@ -1327,14 +1408,8 @@ msgstr "Finanční rok (od dubna)"
 msgid "Cancelled"
 msgstr "Zrušeno"
 
-msgid "{{name}}: No coordinates found"
-msgstr "{{name}}: Nebyly nalezeny žádné souřadnice"
-
-msgid "Selected org units: No coordinates found"
-msgstr "Vybrané organizační jednotky: Nebyly nalezeny žádné souřadnice"
-
-msgid "Error: {{message}}"
-msgstr "Chyba {{message}}"
+msgid "Earth Engine layer"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
@@ -1348,17 +1423,14 @@ msgstr "Při čtení dat vrstvy došlo k neznámé chybě"
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Zobrazeno prvních {{pageSize}} událostí z {{total}}"
 
-msgid "No data found"
-msgstr "Nenalezena žádná data"
-
 msgid "Event"
 msgstr "Událost"
 
 msgid "Facilities"
 msgstr "Zařízení"
 
-msgid "Facilities: No coordinates found"
-msgstr "Zařízení: Nebyly nalezeny žádné souřadnice"
+msgid "No coordinates found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
@@ -1378,17 +1450,14 @@ msgstr "Bod"
 msgid "Organisation units"
 msgstr "Organizační jednotky"
 
-msgid "Error"
-msgstr "Chyba"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
 
 msgid "Tracked entity"
 msgstr "Trasovaná entita"
-
-msgid "No tracked entities found"
-msgstr "Nenalezeny žádné trasované entity"
 
 msgid "related"
 msgstr "příbuzný"

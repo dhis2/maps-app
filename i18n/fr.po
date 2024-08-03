@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -344,6 +347,15 @@ msgstr ""
 msgid "Unit"
 msgstr "Unité"
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "Source"
 
@@ -371,9 +383,6 @@ msgstr "Le max doit être supérieur au min"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Les étapes valides sont {{minSteps}} à {{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr "Unité: {{ unit }}"
-
 msgid "Min"
 msgstr "Min"
 
@@ -382,6 +391,9 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Étapes"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "Unités d´organisation"
@@ -582,6 +594,17 @@ msgstr "Style par ensemble de groupes"
 msgid "Indicator group"
 msgstr "Groupe d'indicateurs"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "Plier"
 
@@ -678,6 +701,18 @@ msgstr "Filtres"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "Aucune valeur trouvée"
+
+msgid "Selected org units: No coordinates found"
+msgstr "Unités d'organisation sélectionnées : Coordonnées non trouvées"
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "Erreur"
 
 msgid "Drill up one level"
 msgstr "Monter d'un niveau"
@@ -897,9 +932,6 @@ msgstr "L'année dernière"
 msgid "Next year"
 msgstr "L'année prochaine"
 
-msgid "Relative"
-msgstr "Relatif"
-
 msgid "Period type"
 msgstr "Type de période"
 
@@ -1004,14 +1036,173 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Étiquettes Bing Aerial"
 
+msgid "Building footprints"
+msgstr "Empreintes des bâtiments"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+"Le nombre de bâtiments n'est disponible que pour les petites zones d'unités "
+"d'organisation."
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+"Sélectionnez une zone plus petite ou une seule unité d'organisation pour "
+"voir le nombre de bâtiments."
+
+msgid "Number of buildings"
+msgstr "Nombre de bâtiments"
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Altitude"
+
+msgid "Elevation above sea-level."
+msgstr "Altitude."
+
+msgid "meters"
+msgstr "mètres"
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "Couverture du sol"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+"Types de couverture terrestre distincts recueillis par des satellites."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Forêt de conifères sempervirente"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Forêt de feuillus sempervirente"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Forêt d'arbres à aiguilles caduques"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Forêt d' arbres à feuillage caduc"
+
+msgid "Mixed forest"
+msgstr "Forêt mixte"
+
+msgid "Closed shrublands"
+msgstr "Zones arbustives fermées"
+
+msgid "Open shrublands"
+msgstr "Zones arbustives ouvertes"
+
+msgid "Woody savannas"
+msgstr "Savanes boisées"
+
+msgid "Savannas"
+msgstr "Savanes"
+
+msgid "Grasslands"
+msgstr "Prairies"
+
+msgid "Permanent wetlands"
+msgstr "Zones humides permanentes"
+
+msgid "Croplands"
+msgstr "Terres agricoles"
+
+msgid "Urban and built-up"
+msgstr "Zone urbaine et bâtie"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Mosaïque de terres agricoles/végétation naturelle"
+
+msgid "Snow and ice"
+msgstr "Neige et glace"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Désert ou végétation clairsemée"
+
+msgid "Water"
+msgstr "Eau"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+"Les contours des bâtiments dérivés de l'imagerie satellite haute résolution."
+" Uniquement pour le continent africain."
+
+msgid "Nighttime lights"
+msgstr "Lumières nocturnes"
+
+msgid "light intensity"
+msgstr "intensité légère"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Intensité lumineuse provenant des villes et d'autres sites présentant un "
+"éclairage permanent, notamment des torchères."
+
 msgid "Population"
 msgstr "Population"
+
+msgid "people per km²"
+msgstr "personnes au km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Estimation du nombre de personnes vivant dans une région."
 
 msgid "people per hectare"
 msgstr "personnes par hectare"
 
-msgid "Estimated number of people living in an area."
-msgstr "Estimation du nombre de personnes vivant dans une région."
+msgid "Precipitation"
+msgstr "Précipitation"
+
+msgid "millimeter"
+msgstr "millimètre"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Précipitations recueillies par les satellites et les stations météorologies "
+"au sol. Les valeurs sont en millimètres sur une période de 5 jours. Mise à "
+"jour mensuelle, au cours de la 3e semaine du mois suivant."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "Température (°C) pendant la journée"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Températures à la surface des terres recueillies par un satellite. Des zones"
+" vierges apparaitront pour les régions présentant une couverture nuageuse "
+"persistante."
 
 msgid "Population age groups"
 msgstr "Groupes d'âge de la population"
@@ -1021,6 +1212,9 @@ msgid ""
 msgstr ""
 "Estimation du nombre de personnes vivant dans une zone, regroupées par âge "
 "et par sexe."
+
+msgid "~100 meters"
+msgstr ""
 
 msgid "Male 0 - 1 years"
 msgstr "Masculin 0 - 1 an"
@@ -1130,143 +1324,30 @@ msgstr "Féminin 75 - 79 ans"
 msgid "Female 80 years and above"
 msgstr "Féminin 80 ans et plus"
 
-msgid "Building footprints"
-msgstr "Empreintes des bâtiments"
-
-msgid "Number of buildings"
-msgstr "Nombre de bâtiments"
+msgid "Precipitation monthly"
+msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
 msgstr ""
-"Les contours des bâtiments dérivés de l'imagerie satellite haute résolution."
-" Uniquement pour le continent africain."
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Mensuel"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
+msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-"Le nombre de bâtiments n'est disponible que pour les petites zones d'unités "
-"d'organisation."
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-"Sélectionnez une zone plus petite ou une seule unité d'organisation pour "
-"voir le nombre de bâtiments."
-
-msgid "Elevation"
-msgstr "Altitude"
-
-msgid "meters"
-msgstr "mètres"
-
-msgid "Elevation above sea-level."
-msgstr "Altitude."
-
-msgid "Precipitation"
-msgstr "Précipitation"
-
-msgid "millimeter"
-msgstr "millimètre"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Précipitations recueillies par les satellites et les stations météorologies "
-"au sol. Les valeurs sont en millimètres sur une période de 5 jours. Mise à "
-"jour mensuelle, au cours de la 3e semaine du mois suivant."
-
-msgid "Temperature"
-msgstr "Température"
-
-msgid "°C during daytime"
-msgstr "Température (°C) pendant la journée"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Températures à la surface des terres recueillies par un satellite. Des zones"
-" vierges apparaitront pour les régions présentant une couverture nuageuse "
-"persistante."
-
-msgid "Landcover"
-msgstr "Couverture du sol"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr ""
-"Types de couverture terrestre distincts recueillis par des satellites."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Forêt de conifères sempervirente"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Forêt de feuillus sempervirente"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Forêt d'arbres à aiguilles caduques"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Forêt d' arbres à feuillage caduc"
-
-msgid "Mixed forest"
-msgstr "Forêt mixte"
-
-msgid "Closed shrublands"
-msgstr "Zones arbustives fermées"
-
-msgid "Open shrublands"
-msgstr "Zones arbustives ouvertes"
-
-msgid "Woody savannas"
-msgstr "Savanes boisées"
-
-msgid "Savannas"
-msgstr "Savanes"
-
-msgid "Grasslands"
-msgstr "Prairies"
-
-msgid "Permanent wetlands"
-msgstr "Zones humides permanentes"
-
-msgid "Croplands"
-msgstr "Terres agricoles"
-
-msgid "Urban and built-up"
-msgstr "Zone urbaine et bâtie"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Mosaïque de terres agricoles/végétation naturelle"
-
-msgid "Snow and ice"
-msgstr "Neige et glace"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Désert ou végétation clairsemée"
-
-msgid "Water"
-msgstr "Eau"
-
-msgid "people per km²"
-msgstr "personnes au km²"
-
-msgid "Nighttime lights"
-msgstr "Lumières nocturnes"
-
-msgid "light intensity"
-msgstr "intensité légère"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Intensité lumineuse provenant des villes et d'autres sites présentant un "
-"éclairage permanent, notamment des torchères."
 
 msgid "All"
 msgstr "Tout"
@@ -1301,6 +1382,9 @@ msgstr "Nombres égaux"
 msgid "Symbol"
 msgstr "Symbole"
 
+msgid "Relative"
+msgstr "Relatif"
+
 msgid "Daily"
 msgstr "Quotidien"
 
@@ -1321,9 +1405,6 @@ msgstr "Hebdomadaire (début dimanche)"
 
 msgid "Bi-weekly"
 msgstr "Bi-hebdomadaire"
-
-msgid "Monthly"
-msgstr "Mensuel"
 
 msgid "Bi-monthly"
 msgstr "Bimensuel"
@@ -1355,14 +1436,8 @@ msgstr "Financière Avril"
 msgid "Cancelled"
 msgstr "Annulé"
 
-msgid "{{name}}: No coordinates found"
-msgstr "{{name}} : Coordonnées non trouvées"
-
-msgid "Selected org units: No coordinates found"
-msgstr "Unités d'organisation sélectionnées : Coordonnées non trouvées"
-
-msgid "Error: {{message}}"
-msgstr "Erreur : {{message}}"
+msgid "Earth Engine layer"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "Vous n'avez pas accès aux données de cette couche."
@@ -1377,17 +1452,14 @@ msgstr ""
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Affichage des premiers événements {{pageSize}} sur {{total}}"
 
-msgid "No data found"
-msgstr "Aucune valeur trouvée"
-
 msgid "Event"
 msgstr "Evènement"
 
 msgid "Facilities"
 msgstr "Établissements"
 
-msgid "Facilities: No coordinates found"
-msgstr "Etablissements : Coordonnées non trouvées"
+msgid "No coordinates found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
@@ -1407,17 +1479,14 @@ msgstr "Point"
 msgid "Organisation units"
 msgstr "Unités d'organisation"
 
-msgid "Error"
-msgstr "Erreur"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Thématique"
 
 msgid "Tracked entity"
 msgstr "Entité suivie"
-
-msgid "No tracked entities found"
-msgstr "Aucune entité suivie trouvée"
 
 msgid "related"
 msgstr "lié"

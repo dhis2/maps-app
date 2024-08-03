@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -17,6 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr "无标题地图，{{date}}"
@@ -326,6 +329,15 @@ msgstr "通过单击地图区域或查看数据表查看聚合结果。结果也
 msgid "Unit"
 msgstr "单元"
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "资源"
 
@@ -353,9 +365,6 @@ msgstr "最大值应大于最小值"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr "机构: {{ unit }}"
-
 msgid "Min"
 msgstr "最小"
 
@@ -364,6 +373,9 @@ msgstr "最大"
 
 msgid "Steps"
 msgstr "步"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "机构"
@@ -553,6 +565,17 @@ msgstr "按组集设置样式"
 msgid "Indicator group"
 msgstr "指标组"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "折叠"
 
@@ -647,6 +670,18 @@ msgstr "过滤器"
 
 msgid "{{layername}}: {{message}}"
 msgstr "{{layername}}：{{message}}"
+
+msgid "No data found"
+msgstr "没有数据被找到"
+
+msgid "Selected org units: No coordinates found"
+msgstr "选定的组织单位：未找到坐标"
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "错误"
 
 msgid "Drill up one level"
 msgstr "上钻一级"
@@ -859,9 +894,6 @@ msgstr "前年"
 msgid "Next year"
 msgstr "来年"
 
-msgid "Relative"
-msgstr "相对时间"
-
 msgid "Period type"
 msgstr "周期类型"
 
@@ -964,14 +996,158 @@ msgstr "Bing空间图"
 msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
 
+msgid "Building footprints"
+msgstr "构建足迹"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr "建筑物计数仅适用于较小的组织单位区域。"
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。"
+
+msgid "Number of buildings"
+msgstr "构建物数量"
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "高程"
+
+msgid "Elevation above sea-level."
+msgstr "海拔高于海平面。"
+
+msgid "meters"
+msgstr "米数"
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "陆地覆盖"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "从卫星收集的独特的土地覆被类型。"
+
+msgid "Evergreen Needleleaf forest"
+msgstr "常绿针叶林"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "常绿阔叶林"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "落叶针叶林"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "落叶阔叶林"
+
+msgid "Mixed forest"
+msgstr "混交林"
+
+msgid "Closed shrublands"
+msgstr "封闭灌木丛"
+
+msgid "Open shrublands"
+msgstr "开放灌木丛"
+
+msgid "Woody savannas"
+msgstr "伍迪大草原"
+
+msgid "Savannas"
+msgstr "稀树草原"
+
+msgid "Grasslands"
+msgstr "草原"
+
+msgid "Permanent wetlands"
+msgstr "永久湿地"
+
+msgid "Croplands"
+msgstr "耕地"
+
+msgid "Urban and built-up"
+msgstr "城市和建筑"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "农田/天然植被马赛克"
+
+msgid "Snow and ice"
+msgstr "冰雪"
+
+msgid "Barren or sparsely vegetated"
+msgstr "贫瘠或稀疏的植被"
+
+msgid "Water"
+msgstr "水"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr "来自高分辨率卫星图像的建筑物轮廓。仅适用于非洲大陆。"
+
+msgid "Nighttime lights"
+msgstr "夜间灯光"
+
+msgid "light intensity"
+msgstr "光强度"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr "各个城市城镇的灯光亮度，包括烟雾"
+
 msgid "Population"
 msgstr "人口"
+
+msgid "people per km²"
+msgstr "每平方公里的人数"
+
+msgid "Estimated number of people living in an area."
+msgstr "居住在一个地区的估计人数。"
 
 msgid "people per hectare"
 msgstr "每公顷人数"
 
-msgid "Estimated number of people living in an area."
-msgstr "居住在一个地区的估计人数。"
+msgid "Precipitation"
+msgstr "降水"
+
+msgid "millimeter"
+msgstr "毫米"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "白天°C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
 
 msgid "Population age groups"
 msgstr "人口年龄组"
@@ -979,6 +1155,9 @@ msgstr "人口年龄组"
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr "按年龄和性别分组的估计居住在该地区的人数。"
+
+msgid "~100 meters"
+msgstr ""
 
 msgid "Male 0 - 1 years"
 msgstr "男性 0 - 1 岁"
@@ -1088,128 +1267,30 @@ msgstr "女性 75 - 79 岁"
 msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
 
-msgid "Building footprints"
-msgstr "构建足迹"
-
-msgid "Number of buildings"
-msgstr "构建物数量"
+msgid "Precipitation monthly"
+msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
-msgstr "来自高分辨率卫星图像的建筑物轮廓。仅适用于非洲大陆。"
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "每月"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
+msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
-msgstr "建筑物计数仅适用于较小的组织单位区域。"
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。"
-
-msgid "Elevation"
-msgstr "高程"
-
-msgid "meters"
-msgstr "米数"
-
-msgid "Elevation above sea-level."
-msgstr "海拔高于海平面。"
-
-msgid "Precipitation"
-msgstr "降水"
-
-msgid "millimeter"
-msgstr "毫米"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
-
-msgid "Temperature"
-msgstr "温度"
-
-msgid "°C during daytime"
-msgstr "白天°C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
-
-msgid "Landcover"
-msgstr "陆地覆盖"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "从卫星收集的独特的土地覆被类型。"
-
-msgid "Evergreen Needleleaf forest"
-msgstr "常绿针叶林"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "常绿阔叶林"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "落叶针叶林"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "落叶阔叶林"
-
-msgid "Mixed forest"
-msgstr "混交林"
-
-msgid "Closed shrublands"
-msgstr "封闭灌木丛"
-
-msgid "Open shrublands"
-msgstr "开放灌木丛"
-
-msgid "Woody savannas"
-msgstr "伍迪大草原"
-
-msgid "Savannas"
-msgstr "稀树草原"
-
-msgid "Grasslands"
-msgstr "草原"
-
-msgid "Permanent wetlands"
-msgstr "永久湿地"
-
-msgid "Croplands"
-msgstr "耕地"
-
-msgid "Urban and built-up"
-msgstr "城市和建筑"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "农田/天然植被马赛克"
-
-msgid "Snow and ice"
-msgstr "冰雪"
-
-msgid "Barren or sparsely vegetated"
-msgstr "贫瘠或稀疏的植被"
-
-msgid "Water"
-msgstr "水"
-
-msgid "people per km²"
-msgstr "每平方公里的人数"
-
-msgid "Nighttime lights"
-msgstr "夜间灯光"
-
-msgid "light intensity"
-msgstr "光强度"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr "各个城市城镇的灯光亮度，包括烟雾"
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
+msgstr ""
 
 msgid "All"
 msgstr "全部"
@@ -1244,6 +1325,9 @@ msgstr "等数量"
 msgid "Symbol"
 msgstr "符号"
 
+msgid "Relative"
+msgstr "相对时间"
+
 msgid "Daily"
 msgstr "每日"
 
@@ -1264,9 +1348,6 @@ msgstr "每周（始于周日）"
 
 msgid "Bi-weekly"
 msgstr "两周"
-
-msgid "Monthly"
-msgstr "每月"
 
 msgid "Bi-monthly"
 msgstr "每两月"
@@ -1298,14 +1379,8 @@ msgstr "财务四月"
 msgid "Cancelled"
 msgstr "已取消"
 
-msgid "{{name}}: No coordinates found"
-msgstr "{{name}}：未找到坐标"
-
-msgid "Selected org units: No coordinates found"
-msgstr "选定的组织单位：未找到坐标"
-
-msgid "Error: {{message}}"
-msgstr "错误: {{message}}"
+msgid "Earth Engine layer"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
@@ -1319,17 +1394,14 @@ msgstr "读取图层数据时发生未知错误"
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "显示{{total}}中的前{{pageSize}}个事件"
 
-msgid "No data found"
-msgstr "没有数据被找到"
-
 msgid "Event"
 msgstr "四级"
 
 msgid "Facilities"
 msgstr "机构设施"
 
-msgid "Facilities: No coordinates found"
-msgstr "机构设施：未找到坐标"
+msgid "No coordinates found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "这层有问题。联系系统管理员。"
@@ -1349,17 +1421,14 @@ msgstr "点"
 msgid "Organisation units"
 msgstr "组织机构"
 
-msgid "Error"
-msgstr "错误"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "专题层"
 
 msgid "Tracked entity"
 msgstr "跟踪实体"
-
-msgid "No tracked entities found"
-msgstr "没有找到跟踪实体"
 
 msgid "related"
 msgstr "相关的"

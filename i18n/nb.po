@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -15,6 +15,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -326,6 +329,15 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "Kilde"
 
@@ -353,9 +365,6 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Unit: {{ unit }}"
-msgstr ""
-
 msgid "Min"
 msgstr "Min"
 
@@ -364,6 +373,9 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Trinn"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "Org Enheter"
@@ -555,6 +567,17 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Indikatorgruppe"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "Kollaps"
 
@@ -651,6 +674,18 @@ msgstr "Filter"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "Ingen data funnet"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "Feil"
 
 msgid "Drill up one level"
 msgstr "Drill opp ett nivå"
@@ -866,9 +901,6 @@ msgstr "Forrige år"
 msgid "Next year"
 msgstr "Neste år"
 
-msgid "Relative"
-msgstr "Relativ"
-
 msgid "Period type"
 msgstr "Periodetype"
 
@@ -971,20 +1003,174 @@ msgstr "Bing Flyfoto"
 msgid "Bing Aerial Labels"
 msgstr "Bing Flyfoto Etiketter"
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Høyde"
+
+msgid "Elevation above sea-level."
+msgstr "Høyde over havet."
+
+msgid "meters"
+msgstr ""
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "Arealdekke"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Eviggrønn nålskog"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Eviggrønn bredbladskog"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Lauvfellende nålskog"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Lauvfellende bredbladskog"
+
+msgid "Mixed forest"
+msgstr "Blandet skog"
+
+msgid "Closed shrublands"
+msgstr "Lukket krattskog"
+
+msgid "Open shrublands"
+msgstr "Åpen krattskog"
+
+msgid "Woody savannas"
+msgstr "Skogete savanner"
+
+msgid "Savannas"
+msgstr "Savanner"
+
+msgid "Grasslands"
+msgstr "Gresslette"
+
+msgid "Permanent wetlands"
+msgstr "Permanent våtmark"
+
+msgid "Croplands"
+msgstr "Åkre"
+
+msgid "Urban and built-up"
+msgstr "Urbant og utbygd"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Åkre/Naturlig vegetasjonmosaikk"
+
+msgid "Snow and ice"
+msgstr "Snø og is"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Impediment eller lite vegetasjon"
+
+msgid "Water"
+msgstr "Vann"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "Kveldslys"
+
+msgid "light intensity"
+msgstr "lysintensitet"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Lysintensitet fra byer, tettsteder og andre steder med vedvarende belysning,"
+" inkludert gassfakler."
+
 msgid "Population"
+msgstr ""
+
+msgid "people per km²"
+msgstr "befolkning per km²"
+
+msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "people per hectare"
 msgstr ""
 
-msgid "Estimated number of people living in an area."
+msgid "Precipitation"
+msgstr "Nedbør"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
 msgstr ""
+"Nedbør samlet inn fra satellitt- og værstasjoner på bakken. Verdiene er i "
+"millimeter innen 5 dager. Oppdateres månedlig, i løpet av den tredje uken i "
+"den påfølgende måneden."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "° C på dagtid"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
+" i områder med et vedvarende skydekke."
 
 msgid "Population age groups"
 msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "~100 meters"
 msgstr ""
 
 msgid "Male 0 - 1 years"
@@ -1095,135 +1281,30 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Månedlig"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr "Høyde"
-
-msgid "meters"
-msgstr ""
-
-msgid "Elevation above sea-level."
-msgstr "Høyde over havet."
-
-msgid "Precipitation"
-msgstr "Nedbør"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Nedbør samlet inn fra satellitt- og værstasjoner på bakken. Verdiene er i "
-"millimeter innen 5 dager. Oppdateres månedlig, i løpet av den tredje uken i "
-"den påfølgende måneden."
-
-msgid "Temperature"
-msgstr "Temperatur"
-
-msgid "°C during daytime"
-msgstr "° C på dagtid"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
-" i områder med et vedvarende skydekke."
-
-msgid "Landcover"
-msgstr "Arealdekke"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Eviggrønn nålskog"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Eviggrønn bredbladskog"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Lauvfellende nålskog"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Lauvfellende bredbladskog"
-
-msgid "Mixed forest"
-msgstr "Blandet skog"
-
-msgid "Closed shrublands"
-msgstr "Lukket krattskog"
-
-msgid "Open shrublands"
-msgstr "Åpen krattskog"
-
-msgid "Woody savannas"
-msgstr "Skogete savanner"
-
-msgid "Savannas"
-msgstr "Savanner"
-
-msgid "Grasslands"
-msgstr "Gresslette"
-
-msgid "Permanent wetlands"
-msgstr "Permanent våtmark"
-
-msgid "Croplands"
-msgstr "Åkre"
-
-msgid "Urban and built-up"
-msgstr "Urbant og utbygd"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Åkre/Naturlig vegetasjonmosaikk"
-
-msgid "Snow and ice"
-msgstr "Snø og is"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Impediment eller lite vegetasjon"
-
-msgid "Water"
-msgstr "Vann"
-
-msgid "people per km²"
-msgstr "befolkning per km²"
-
-msgid "Nighttime lights"
-msgstr "Kveldslys"
-
-msgid "light intensity"
-msgstr "lysintensitet"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Lysintensitet fra byer, tettsteder og andre steder med vedvarende belysning,"
-" inkludert gassfakler."
 
 msgid "All"
 msgstr "Alt"
@@ -1258,6 +1339,9 @@ msgstr "Likt antall"
 msgid "Symbol"
 msgstr "Symbol"
 
+msgid "Relative"
+msgstr "Relativ"
+
 msgid "Daily"
 msgstr "Daglig"
 
@@ -1278,9 +1362,6 @@ msgstr "Ukentlig (start søndag)"
 
 msgid "Bi-weekly"
 msgstr "Toukentlig"
-
-msgid "Monthly"
-msgstr "Månedlig"
 
 msgid "Bi-monthly"
 msgstr "Tomånedlig"
@@ -1312,13 +1393,7 @@ msgstr "Regnskapsår (start april)"
 msgid "Cancelled"
 msgstr "Kansellert"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1333,16 +1408,13 @@ msgstr "En ukjent feil oppstod under lesing av lagdata"
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
-msgid "No data found"
-msgstr "Ingen data funnet"
-
 msgid "Event"
 msgstr "Hendelse"
 
 msgid "Facilities"
 msgstr "Bygninger"
 
-msgid "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1363,17 +1435,14 @@ msgstr "Punkt"
 msgid "Organisation units"
 msgstr "Organisasjonsenheter"
 
-msgid "Error"
-msgstr "Feil"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Tematisk lag"
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"
-
-msgid "No tracked entities found"
-msgstr "Ingen sporede enheter funnet"
 
 msgid "related"
 msgstr "relatert"
