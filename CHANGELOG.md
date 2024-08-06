@@ -1,3 +1,73 @@
+# [100.6.0](https://github.com/dhis2/maps-app/compare/v100.5.9...v100.6.0) (2024-07-31)
+
+
+### Features
+
+* Earth Engine layers update and Maps Admin auth managing layer sources ([d0f0b92](https://github.com/dhis2/maps-app/commit/d0f0b9283baefaca31005cf45ac371f10bf32ceb))
+
+## [100.5.9](https://github.com/dhis2/maps-app/compare/v100.5.8...v100.5.9) (2024-07-31)
+
+
+### Bug Fixes
+
+* loader alert messages were being duplicated ([#2796](https://github.com/dhis2/maps-app/issues/2796)) ([69776ad](https://github.com/dhis2/maps-app/commit/69776ad8b71ba1bac586283a9c39b77bc4ec1970))
+
+## [100.5.8](https://github.com/dhis2/maps-app/compare/v100.5.7...v100.5.8) (2024-07-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([96815bc](https://github.com/dhis2/maps-app/commit/96815bca6a30743a9386f929d25253cacc793838))
+
+## [100.5.7](https://github.com/dhis2/maps-app/compare/v100.5.6...v100.5.7) (2024-07-04)
+
+
+### Bug Fixes
+
+* enable hidding basemap in dashboard ([#3275](https://github.com/dhis2/maps-app/issues/3275)) ([eee5805](https://github.com/dhis2/maps-app/commit/eee580515634ef43722d4c9b6d23b0abce656eed))
+
+## [100.5.6](https://github.com/dhis2/maps-app/compare/v100.5.5...v100.5.6) (2024-06-26)
+
+
+### Bug Fixes
+
+* support "week", "bi-week" and months in period translations ([#3269](https://github.com/dhis2/maps-app/issues/3269)) ([977e075](https://github.com/dhis2/maps-app/commit/977e0755615f52e1237911730adc2eb0e0fcee36))
+
+## [100.5.5](https://github.com/dhis2/maps-app/compare/v100.5.4...v100.5.5) (2024-06-13)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (dev) ([#3237](https://github.com/dhis2/maps-app/issues/3237)) ([8e9a46d](https://github.com/dhis2/maps-app/commit/8e9a46d903d3a4534bfd5d684745df9e1249bc32))
+* unclear 'show no data' ([#3204](https://github.com/dhis2/maps-app/issues/3204)) ([ec24ca0](https://github.com/dhis2/maps-app/commit/ec24ca09268d04cb62c3a621c20b2b70dc43dcd0))
+* use improved rich text editor from analytics (DHIS2-15522) ([#3236](https://github.com/dhis2/maps-app/issues/3236)) ([3c842d4](https://github.com/dhis2/maps-app/commit/3c842d49c5900da0a16c32e40db955bfaf78201d))
+* **translations:** sync translations from transifex (dev) ([230dc08](https://github.com/dhis2/maps-app/commit/230dc0868d17533e96ce3aa6df2ae7ca73df7fed))
+* **translations:** sync translations from transifex (dev) ([83393cb](https://github.com/dhis2/maps-app/commit/83393cb9f0fd11dbd9e23c26119cce94ca6be0ce))
+
+## [100.5.4](https://github.com/dhis2/maps-app/compare/v100.5.3...v100.5.4) (2024-05-16)
+
+
+### Bug Fixes
+
+* system / user setting for display name not respected in Org Unit tree (DHIS2-15000) ([#3195](https://github.com/dhis2/maps-app/issues/3195)) ([8560478](https://github.com/dhis2/maps-app/commit/856047826a884da243f15317d19cc8dc434dd6a9))
+* users losing work when opening as chart ([#3196](https://github.com/dhis2/maps-app/issues/3196)) ([3c69a86](https://github.com/dhis2/maps-app/commit/3c69a86249bd3c22b239eb344a5eb45288699161))
+
+## [100.5.3](https://github.com/dhis2/maps-app/compare/v100.5.2...v100.5.3) (2024-05-03)
+
+
+### Bug Fixes
+
+* dashboard filters were not being applied to maps ([#3185](https://github.com/dhis2/maps-app/issues/3185)) ([535598b](https://github.com/dhis2/maps-app/commit/535598bb9cb4386aef3833c0f44049a10e48a2b1))
+* **translations:** sync translations from transifex (dev) ([2fb016c](https://github.com/dhis2/maps-app/commit/2fb016c0df2dbb05bc7f601ae01160d0b7e00d94))
+
+## [100.5.2](https://github.com/dhis2/maps-app/compare/v100.5.1...v100.5.2) (2024-04-24)
+
+
+### Bug Fixes
+
+* paragraph newlines in map description were being removed ([#3182](https://github.com/dhis2/maps-app/issues/3182)) ([1e40100](https://github.com/dhis2/maps-app/commit/1e4010091d5398e572efcf155f6baea2d9ddcdc9))
+* **translations:** sync translations from transifex (dev) ([63bce3d](https://github.com/dhis2/maps-app/commit/63bce3d215b8d0cc0b01bbec95bd0d7d310d827a))
+
 ## [100.5.1](https://github.com/dhis2/maps-app/compare/v100.5.0...v100.5.1) (2024-03-19)
 
 

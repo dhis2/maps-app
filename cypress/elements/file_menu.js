@@ -88,7 +88,7 @@ export const deleteMap = () => {
     )
 
     cy.getByDataTest('file-menu-delete', EXTENDED_TIMEOUT)
-        .not('.disabled')
+        .should('not.have.class', 'disabled')
         .should('be.visible')
         .click()
 

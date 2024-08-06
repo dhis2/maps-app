@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { WARNING_NO_DATA } from '../constants/alerts.js'
 import {
     TEI_COLOR,
     TEI_RADIUS,
@@ -131,10 +132,8 @@ const trackedEntityLoader = async (config) => {
 
     if (!instances.length) {
         alert = {
-            warning: true,
-            message: `${trackedEntityType.name}: ${i18n.t(
-                'No tracked entities found'
-            )}`,
+            code: WARNING_NO_DATA,
+            message: trackedEntityType.name,
         }
     }
 
