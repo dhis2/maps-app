@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import earthEngineLoader from '../../loaders/earthEngineLoader.js'
+import useLoaderAlerts from './useLoaderAlerts.js'
 
-const EarthEngineLoader = ({ config, onLoad }) => {
+const EarthEngineLoader = ({ config, onLoad, loaderAlertAction }) => {
+    const { showAlerts } = useLoaderAlerts(loaderAlertAction)
+
     useEffect(() => {
-        earthEngineLoader(config).then(onLoad)
-    }, [config, onLoad])
+        earthEngineLoader(config).then((result) => {
+            if (result.alerts?.length && loaderAlertAction) {
+                showAlerts(result.alerts)
+            }
+            onLoad(result)
+        })
+    }, [config, onLoad, showAlerts, loaderAlertAction])
 
     return null
 }
@@ -13,6 +21,7 @@ const EarthEngineLoader = ({ config, onLoad }) => {
 EarthEngineLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
+    loaderAlertAction: PropTypes.func,
 }
 
 export default EarthEngineLoader

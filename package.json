@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "100.5.7",
+    "version": "100.6.0",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -19,7 +19,7 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "10.3.11",
+        "@dhis2/cli-app-scripts": "11.6.1",
         "@dhis2/cli-style": "^10.5.1",
         "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^10.0.3",
@@ -38,13 +38,10 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^26.7.5",
-        "@dhis2/app-runtime": "3.9.4",
+        "@dhis2/app-runtime": "^3.10.5",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
-        "@dhis2/app-service-alerts": "3.9.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/d2-i18n": "^1.1.3",
-        "@dhis2/maps-gl": "^3.9.2",
-        "@dhis2/ui": "^9.2.0",
+        "@dhis2/maps-gl": "^4.0.0",
         "@krakenjs/post-robot": "^11.0.0",
         "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
         "@reportportal/agent-js-jest": "^5.0.7",
@@ -80,10 +77,5 @@
         "redux-thunk": "^2.4.2",
         "styled-jsx": "^4.0.1",
         "url-polyfill": "^1.1.12"
-    },
-    "resolutions": {
-        "@dhis2/ui": "^9.2.0",
-        "@dhis2/app-runtime": "3.9.4",
-        "@dhis2/app-service-alerts": "3.9.4"
     }
 }
