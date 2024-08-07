@@ -19,14 +19,7 @@ log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 )
 
-const d2Config = {
-    schemas: [
-        'organisationUnit',
-        'organisationUnitGroup',
-        'program',
-        'programStage',
-    ],
-}
+const d2Config = {}
 
 const replaceLegacyUrl = () => {
     // support legacy urls

@@ -10,9 +10,7 @@ import { getHiddenPeriods } from '../../util/periods.js'
 import LoadingMask from './LoadingMask.js'
 import MapContainer from './MapContainer.js'
 
-const d2Config = {
-    schemas: ['organisationUnitGroup', 'programStage'],
-}
+const d2Config = {}
 
 const query = {
     systemSettings: {
