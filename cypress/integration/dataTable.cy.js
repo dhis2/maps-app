@@ -139,19 +139,17 @@ describe('data table', () => {
         const Layer = new EventLayer()
 
         Layer.openDialog('Events')
-            .selectProgram('Malaria case registration')
-            .validateStage('Malaria case registration')
+            .selectProgram('Inpatient morbidity and mortality')
+            .validateStage('Inpatient morbidity and mortality')
             .selectTab('Period')
             .selectPeriodType('Start/end dates')
             .typeStartDate(`${CURRENT_YEAR - 1}-01-01`)
-            .typeEndDate(`${CURRENT_YEAR - 1}-01-15`)
-            .selectTab('Org Units')
-            .selectOu('Bo')
+            .typeEndDate(`${CURRENT_YEAR - 1}-01-03`)
             .addToMap()
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle('Malaria case registration')
+        Layer.validateCardTitle('Inpatient morbidity and mortality')
 
         cy.getByDataTest('moremenubutton').first().click()
 
@@ -166,7 +164,7 @@ describe('data table', () => {
         // check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 9)
+            .should('have.length', 10)
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
@@ -174,12 +172,12 @@ describe('data table', () => {
             .should('be.visible')
 
         // filter by Org unit
-        const ouName = 'Benduma'
+        const ouName = 'Moyowa'
         cy.getByDataTest('data-table-column-filter-input-Org unit')
             .find('input')
             .type(ouName)
 
-        // check that all the rows have Org unit Yakaji
+        // check that all the rows have Org unit Moyowa
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
@@ -200,26 +198,26 @@ describe('data table', () => {
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
-            .should('have.length', 5)
+            .should('have.length', 3)
 
-        // filter by Gender
-        cy.getByDataTest('data-table-column-filter-input-Gender')
+        // filter by Mode of Discharge
+        cy.getByDataTest('data-table-column-filter-input-Mode of Discharge')
             .find('input')
-            .type('Female')
+            .type('Absconded')
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
-            .should('have.length', 4)
+            .should('have.length', 1)
 
-        cy.getByDataTest('data-table-column-filter-input-Gender')
+        cy.getByDataTest('data-table-column-filter-input-Mode of Discharge')
             .find('input')
             .clear()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
-            .should('have.length', 5)
+            .should('have.length', 3)
 
         // filter by Age in years (numeric)
         cy.getByDataTest('data-table-column-filter-input-Age in years')
@@ -230,7 +228,7 @@ describe('data table', () => {
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
-            .should('have.length', 3)
+            .should('have.length', 2)
 
         // Sort by Age in years
         cy.get('button[title="Sort by Age in years"]').click()
@@ -242,7 +240,7 @@ describe('data table', () => {
             .first()
             .find('td')
             .eq(7)
-            .should('contain', '44')
+            .should('contain', '32')
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
