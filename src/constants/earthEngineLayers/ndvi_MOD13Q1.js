@@ -7,7 +7,7 @@ export default {
     layerId: 'MODIS/061/MOD13Q1/NDVI',
     datasetId: 'MODIS/061/MOD13Q1',
     format: 'ImageCollection',
-    img: 'images/landcover.png',
+    img: 'images/ndvi.png',
     name: i18n.t('Vegetation index (NDVI)'),
     description: i18n.t(
         'Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health.'
@@ -15,7 +15,7 @@ export default {
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD13Q1',
-    unit: i18n.t('Normalized difference vegetation index (NDVI)'),
+    unit: i18n.t('NDVI'),
     resolution: {
         spatial: i18n.t('250 meter'),
         temporal: i18n.t('16-day'),
