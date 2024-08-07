@@ -58,7 +58,7 @@ export const getAnalyticsRequest = async (
         relativePeriodDate,
         isExtended,
     },
-    { d2, nameProperty }
+    { d2, nameProperty, engine }
 ) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
@@ -71,7 +71,7 @@ export const getAnalyticsRequest = async (
     if (isExtended) {
         const displayColumns = await getEventColumns(
             { programStage },
-            { d2, nameProperty }
+            { engine, nameProperty }
         )
 
         displayColumns.forEach((col) => {

@@ -93,6 +93,7 @@ class EventLayer extends Layer {
                         (await getAnalyticsRequest(this.props, {
                             d2,
                             nameProperty,
+                            engine,
                         }))
 
                     eventRequest = eventRequest
