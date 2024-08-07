@@ -77,11 +77,11 @@ describe('Routes', () => {
         Layer.validateCardTitle('ANC 1 Coverage')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
 
-        cy.getByDataTest(`card-ANC1coverage`)
+        cy.getByDataTest(`card-ANC1Coverage`)
             .findByDataTest('layerlegend-item')
             .should('have.length', 7)
 
-        cy.getByDataTest(`card-ANC1coverage`)
+        cy.getByDataTest(`card-ANC1Coverage`)
             .findByDataTest('layerlegend-item')
             .first()
             .contains('Low 0 - 30')
