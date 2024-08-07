@@ -32,14 +32,10 @@ const reportPortalConfig = [
             },
         ],
         description: '',
-        debug: true,
+        debug: false,
     },
 ]
-
-const isReportPortalSetup =
-    process.env.REPORTPORTAL_API_KEY !== undefined &&
-    process.env.REPORTPORTAL_ENDPOINT !== undefined &&
-    process.env.REPORTPORTAL_PROJECT !== undefined
+const isGithubActionsRun = process.env.CI === 'true'
 
 module.exports = {
     setupFilesAfterEnv: ['<rootDir>/config/testSetup.js'],
@@ -55,8 +51,5 @@ module.exports = {
     snapshotSerializers: ['enzyme-to-json/serializer'],
 
     testRunner: 'jest-circus/runner',
-    reporters: [
-        'default',
-        ...(isReportPortalSetup ? [reportPortalConfig] : []),
-    ],
+    reporters: ['default', ...(isGithubActionsRun ? [reportPortalConfig] : [])],
 }
