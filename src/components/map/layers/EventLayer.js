@@ -2,7 +2,10 @@ import { getInstance as getD2 } from 'd2'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
-import { getAnalyticsRequest } from '../../../util/event.js'
+import {
+    getAnalyticsRequest,
+    PROGRAM_STAGE_QUERY,
+} from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { formatCount } from '../../../util/numbers.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
@@ -90,6 +93,7 @@ class EventLayer extends Layer {
                         (await getAnalyticsRequest(this.props, {
                             d2,
                             nameProperty,
+                            engine,
                         }))
 
                     eventRequest = eventRequest
@@ -202,10 +206,8 @@ class EventLayer extends Layer {
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
 
-        const d2 = await getD2()
-        const data = await d2.models.programStage.get(programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${displayNameProp}~rename(name),optionSet,valueType]]`,
-            paging: false,
+        const { programStage: data } = await engine.query(PROGRAM_STAGE_QUERY, {
+            variables: { id: programStage.id, nameProperty: displayNameProp },
         })
 
         const { programStageDataElements } = data
