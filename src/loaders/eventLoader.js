@@ -101,6 +101,7 @@ const loadEventLayer = async ({
     const analyticsRequest = await getAnalyticsRequest(config, {
         d2,
         nameProperty,
+        engine,
     })
     let alert
 
