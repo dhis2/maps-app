@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { curry } from 'lodash/fp'
 import {
     EVENT_COLOR,
@@ -8,13 +7,9 @@ import {
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
-import { OPTION_SET_QUERY } from '../util/requests.js'
+import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
-import {
-    loadLegendSet,
-    getAutomaticLegendItems,
-    getPredefinedLegendItems,
-} from './legend.js'
+import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
 
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
@@ -25,9 +20,9 @@ export const styleByDataItem = async (config, engine) => {
     if (styleDataItem.optionSet) {
         await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
-        await styleByNumeric(config)
+        await styleByNumeric(config, engine)
     } else if (styleDataItem.valueType === 'BOOLEAN') {
-        await styleByBoolean(config)
+        await styleByBoolean(config, engine)
     }
 
     config.legend.items.push({
@@ -39,7 +34,7 @@ export const styleByDataItem = async (config, engine) => {
     return config
 }
 
-export const styleByBoolean = async (config) => {
+const styleByBoolean = async (config, engine) => {
     const { styleDataItem, data, legend, eventPointRadius } = config
     const { id, name, values } = styleDataItem
 
@@ -60,7 +55,13 @@ export const styleByBoolean = async (config) => {
         }
     })
 
-    legend.unit = name || (await getDataElementName(id))
+    legend.unit =
+        name ||
+        (await engine
+            .query(DATA_ELEMENT_NAME_QUERY, {
+                variables: { id },
+            })
+            .then(({ dataElement }) => dataElement.name))
 
     legend.items = [
         {
@@ -81,7 +82,7 @@ export const styleByBoolean = async (config) => {
     return config
 }
 
-export const styleByNumeric = async (config) => {
+const styleByNumeric = async (config, engine) => {
     const {
         styleDataItem,
         method,
@@ -94,7 +95,9 @@ export const styleByNumeric = async (config) => {
     // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
         // Load legend set from server
-        const legendSet = await loadLegendSet(config.legendSet)
+        const { legendSet } = await engine.query(LEGEND_SET_QUERY, {
+            variables: { id: config.legendSet.id },
+        })
 
         // Use legend set name and legend unit
         config.legend.unit = legendSet.name
@@ -109,7 +112,12 @@ export const styleByNumeric = async (config) => {
 
         // Use data item name as legend unit (load from server if needed)
         config.legend.unit =
-            styleDataItem.name || (await getDataElementName(styleDataItem.id))
+            styleDataItem.name ||
+            (await engine
+                .query(DATA_ELEMENT_NAME_QUERY, {
+                    variables: { id: styleDataItem.id },
+                })
+                .then(({ dataElement }) => dataElement.name))
 
         // Generate legend items based on layer config
         config.legend.items = getAutomaticLegendItems(
@@ -151,7 +159,7 @@ export const styleByNumeric = async (config) => {
     return config
 }
 
-export const styleByOptionSet = async (config, engine) => {
+const styleByOptionSet = async (config, engine) => {
     const { styleDataItem } = config
     const optionSet = await getOptionSet(styleDataItem.optionSet, engine)
     const id = styleDataItem.id
@@ -228,11 +236,12 @@ const getOptionSet = async (optionSet, engine) => {
     }
 }
 
-const getDataElementName = async (id) => {
-    const d2 = await getD2()
-    return d2.models.dataElement
-        .get(id, {
+const DATA_ELEMENT_NAME_QUERY = {
+    dataElement: {
+        resource: 'dataElements',
+        id: ({ id }) => id,
+        params: {
             fields: 'displayName~rename(name)',
-        })
-        .then((model) => model.name)
+        },
+    },
 }
