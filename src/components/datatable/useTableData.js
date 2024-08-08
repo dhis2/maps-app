@@ -148,9 +148,9 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
     let customFields = []
 
     if (hasClasses(aggregationType) && items) {
-        customFields = items.map(({ id, name }) => ({
+        customFields = items.map(({ value, name }) => ({
             name,
-            dataKey: String(id),
+            dataKey: String(value),
             roundFn: getRoundToPrecisionFn(2),
             type: TYPE_NUMBER,
         }))
