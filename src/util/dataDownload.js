@@ -111,7 +111,7 @@ export const downloadData = async ({
         }
 
         const result = await loadData(
-            await getAnalyticsRequest(config, { d2, nameProperty }),
+            await getAnalyticsRequest(config, { d2, nameProperty, engine }),
             config,
             d2
         )
