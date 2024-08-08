@@ -17,7 +17,7 @@ context('Org Unit Layers', () => {
         cy.contains('No organisation units are selected').should('be.visible')
     })
 
-    it('adds a org unit layer', () => {
+    it('adds an org unit layer', () => {
         Layer.openDialog('Org units')
             .selectOu('Sierra Leone')
             .selectOuLevel('District')
@@ -29,5 +29,27 @@ context('Org Unit Layers', () => {
 
         Layer.validateCardTitle('Organisation units')
         Layer.validateCardItems(['District'])
+    })
+
+    it('adds an org unit layer and changes the style', () => {
+        Layer.openDialog('Org units')
+            .selectOu('Sierra Leone')
+            .selectOuLevel('District')
+            .selectTab('Style')
+
+        cy.getByDataTest('orgunitgroupsetselect-content').click()
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+            .contains('Facility Type')
+            .click()
+
+        cy.getByDataTest('group-set-style').should('be.visible')
+        cy.getByDataTest('group-set-style').children().should('have.length', 5)
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateCardTitle('Organisation units')
+        Layer.validateCardItems(['CHC', 'CHP', 'Clinic', 'Hospital', 'MCHP'])
     })
 })

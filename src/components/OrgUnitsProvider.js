@@ -7,7 +7,7 @@ const ORG_UNITS_QUERY = {
     roots: {
         resource: 'organisationUnits',
         params: () => ({
-            fields: ['id', 'displayName~rename(name)', 'path'],
+            fields: ['id', 'displayName~rename(name)', 'path'], // TODO organisationUnits has shortName
             userDataViewFallback: true,
         }),
     },

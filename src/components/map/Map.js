@@ -36,12 +36,14 @@ class Map extends Component {
         closeCoordinatePopup: PropTypes.func,
         controls: PropTypes.array,
         coordinatePopup: PropTypes.array,
+        engine: PropTypes.object,
         feature: PropTypes.object,
         isFullscreen: PropTypes.bool,
         isPlugin: PropTypes.bool,
         latitude: PropTypes.number,
         layers: PropTypes.array,
         longitude: PropTypes.number,
+        nameProperty: PropTypes.string,
         resizeCount: PropTypes.number,
         setAggregations: PropTypes.func,
         setFeatureProfile: PropTypes.func,
@@ -142,6 +144,8 @@ class Map extends Component {
     render() {
         const {
             basemap,
+            engine,
+            nameProperty,
             layers,
             feature,
             coordinatePopup: coordinates,
@@ -173,6 +177,8 @@ class Map extends Component {
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
                                     setFeatureProfile={setFeatureProfile}
+                                    engine={engine}
+                                    nameProperty={nameProperty}
                                     {...config}
                                 />
                             )

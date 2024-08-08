@@ -11,19 +11,7 @@ import LoadingMask from './LoadingMask.js'
 import MapContainer from './MapContainer.js'
 
 const d2Config = {
-    schemas: [
-        'dataElement',
-        'dataSet',
-        'externalMapLayer',
-        'indicator',
-        'legendSet',
-        'map',
-        'optionSet',
-        'organisationUnitGroup',
-        'organisationUnitGroupSet',
-        'organisationUnitLevel',
-        'programStage',
-    ],
+    schemas: [],
 }
 
 const query = {

@@ -30,4 +30,26 @@ context('Event Layers', () => {
         Layer.validateCardTitle('Inpatient morbidity and mortality')
         Layer.validateCardItems(['Event'])
     })
+
+    it('adds an event layer and applies style for boolean data element', () => {
+        Layer.openDialog('Events')
+            .selectProgram('E2E program')
+            .validateStage('Stage 1 - Repeatable')
+            .selectTab('Style')
+
+        cy.getByDataTest('style-by-data-element-select').click()
+
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains('E2E - Yes/no')
+            .click()
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle('Stage 1 - Repeatable')
+        Layer.validateCardItems(['Yes', 'No', 'Not set'])
+    })
 })

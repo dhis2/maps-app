@@ -53,7 +53,7 @@ const geoJsonUrlLoader = async (layer, engine, instanceBaseUrl) => {
     // keep featureStyle property outside of config while in app
     if (typeof config === 'string') {
         // External layer is loaded in analytical object
-        newConfig = await parseLayerConfig(config)
+        newConfig = await parseLayerConfig(config, engine)
         featureStyle = { ...newConfig.featureStyle } || EMPTY_FEATURE_STYLE
         delete newConfig.featureStyle
     } else {

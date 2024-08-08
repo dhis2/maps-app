@@ -1,6 +1,6 @@
 import { arrayMoveImmutable } from 'array-move'
-import { generateUid } from 'd2/uid'
 import * as types from '../constants/actionTypes.js'
+import { generateUid } from '../util/uid.js'
 
 export const defaultBasemapState = {
     isVisible: true,

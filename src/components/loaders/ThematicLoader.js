@@ -1,3 +1,5 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
+import { useDataEngine } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import thematicLoader from '../../loaders/thematicLoader.js'
@@ -5,15 +7,18 @@ import useLoaderAlerts from './useLoaderAlerts.js'
 
 const ThematicLoader = ({ config, onLoad, loaderAlertAction }) => {
     const { showAlerts } = useLoaderAlerts(loaderAlertAction)
+    const { currentUser } = useCachedDataQuery()
+    const engine = useDataEngine()
+    const nameProperty = currentUser.keyAnalysisDisplayProperty.toUpperCase()
 
     useEffect(() => {
-        thematicLoader(config).then((result) => {
+        thematicLoader({ config, engine, nameProperty }).then((result) => {
             if (result.alerts?.length && loaderAlertAction) {
                 showAlerts(result.alerts)
             }
             onLoad(result)
         })
-    }, [config, onLoad, showAlerts, loaderAlertAction])
+    }, [config, engine, onLoad, nameProperty, showAlerts, loaderAlertAction])
 
     return null
 }

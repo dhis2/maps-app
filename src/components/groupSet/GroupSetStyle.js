@@ -4,23 +4,16 @@ import { Help } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { STYLE_TYPE_COLOR } from '../../constants/layers.js'
-import { parseGroupSet } from '../../util/orgUnits.js'
+import {
+    ORG_UNITS_GROUP_SET_QUERY,
+    parseGroupSet,
+} from '../../util/orgUnits.js'
 import GroupStyle from './GroupStyle.js'
 import styles from './styles/GroupSetStyle.module.css'
 
-const GROUP_SETS_QUERY = {
-    groupSets: {
-        resource: 'organisationUnitGroupSets',
-        id: ({ id }) => id,
-        params: {
-            fields: ['organisationUnitGroups[id,name,color,symbol]'],
-        },
-    },
-}
-
 const GroupSetStyle = ({ defaultStyleType = STYLE_TYPE_COLOR, groupSet }) => {
     const [groups, setGroups] = useState([])
-    const { error: err, refetch } = useDataQuery(GROUP_SETS_QUERY, {
+    const { error: err, refetch } = useDataQuery(ORG_UNITS_GROUP_SET_QUERY, {
         lazy: true,
         onComplete: ({ groupSets }) => {
             const groupsWithColors = parseGroupSet({
@@ -45,7 +38,7 @@ const GroupSetStyle = ({ defaultStyleType = STYLE_TYPE_COLOR, groupSet }) => {
     }
 
     return (
-        <div className={styles.groupSetStyle}>
+        <div data-test="group-set-style" className={styles.groupSetStyle}>
             {groups?.map((group) => (
                 <GroupStyle
                     key={group.id}

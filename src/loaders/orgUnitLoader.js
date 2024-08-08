@@ -6,17 +6,27 @@ import {
     ERROR_CRITICAL,
 } from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
-    fetchOrgUnitGroupSet,
+    ORG_UNITS_GROUP_SET_QUERY,
     addAssociatedGeometries,
-    getOrgUnitLevels,
     getStyledOrgUnits,
     getCoordinateField,
+    parseGroupSet,
 } from '../util/orgUnits.js'
 
-const orgUnitLoader = async (config) => {
+// orgUnitLevels do not have shortName property
+const ORG_UNIT_LEVELS_QUERY = {
+    orgUnitLevels: {
+        resource: 'organisationUnitLevels',
+        params: {
+            fields: 'id,level,displayName~rename(name)',
+            paging: false,
+        },
+    },
+}
+
+const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const orgUnitParams = orgUnits.map((item) => item.id)
@@ -24,14 +34,12 @@ const orgUnitLoader = async (config) => {
     const coordinateField = getCoordinateField(config)
 
     const d2 = await getD2()
-    const displayProperty = getDisplayProperty(d2).toUpperCase()
-    const { contextPath } = d2.system.systemInfo
     const name = i18n.t('Organisation units')
     const alerts = []
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
+        .displayProperty(nameProperty)
 
     let associatedGeometries
 
@@ -47,15 +55,20 @@ const orgUnitLoader = async (config) => {
                     })
                 }
             }),
-        getOrgUnitLevels(d2),
     ]
+
+    const levelsRequest = engine.query(ORG_UNIT_LEVELS_QUERY)
+    requests.push(levelsRequest)
 
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        requests.push(fetchOrgUnitGroupSet(groupSet.id))
+        const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: { id: groupSet.id },
+        })
+        requests.push(orgUnitGroupsRequest)
     }
 
-    const [mainFeatures = [], orgUnitLevels, organisationUnitGroups] =
+    const [mainFeatures = [], { orgUnitLevels }, orgUnitGroups] =
         await Promise.all(requests)
 
     if (!mainFeatures.length && !alerts.length) {
@@ -65,8 +78,11 @@ const orgUnitLoader = async (config) => {
         })
     }
 
-    if (organisationUnitGroups) {
-        groupSet.organisationUnitGroups = organisationUnitGroups
+    if (orgUnitGroups) {
+        const { groupSets } = orgUnitGroups
+        groupSet.organisationUnitGroups = parseGroupSet({
+            organisationUnitGroups: groupSets.organisationUnitGroups,
+        })
     }
 
     if (coordinateField) {
@@ -91,8 +107,14 @@ const orgUnitLoader = async (config) => {
         features,
         groupSet,
         config,
-        contextPath,
-        orgUnitLevels
+        baseUrl,
+        orgUnitLevels.organisationUnitLevels.reduce(
+            (obj, item) => ({
+                ...obj,
+                [item.level]: item.name,
+            }),
+            {}
+        )
     )
 
     legend.title = name

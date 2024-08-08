@@ -59,6 +59,7 @@ const StyleByDataItem = ({ program, programStage, error }) => {
                 value={styleDataItem ? styleDataItem.id : null}
                 items={dataItems}
                 onChange={onChange}
+                dataTest="style-by-data-element-select"
             />
             {styleDataItem && (
                 <DataItemStyle key="style" dataItem={styleDataItem} />
