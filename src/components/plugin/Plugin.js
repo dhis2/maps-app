@@ -21,9 +21,15 @@ const query = {
             key: SYSTEM_SETTINGS,
         },
     },
+    currentUser: {
+        resource: 'me',
+        params: {
+            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty]',
+        },
+    },
 }
 
-const providerDataTransformation = ({ systemSettings }) => {
+const providerDataTransformation = ({ systemSettings, currentUser }) => {
     return {
         systemSettings: Object.assign(
             {},
@@ -33,6 +39,18 @@ const providerDataTransformation = ({ systemSettings }) => {
                 hiddenPeriods: getHiddenPeriods(systemSettings),
             }
         ),
+        currentUser: {
+            id: currentUser.id,
+            name: currentUser.name,
+            username: currentUser.username,
+            authorities: new Set(currentUser.authorities),
+            keyAnalysisDisplayProperty:
+                currentUser.settings.keyAnalysisDisplayProperty,
+        },
+        nameProperty:
+            currentUser.settings.keyAnalysisDisplayProperty === 'name'
+                ? 'displayName'
+                : 'displayShortName',
     }
 }
 
