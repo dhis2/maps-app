@@ -38,9 +38,11 @@ export const parseTEInstanceId = (instance) =>
     instance.trackedEntityInstance.trackedEntityInstance
 
 const isValidRel = (rel, type, id) =>
-    rel.relationshipType === type && parseTEInstanceId(rel.from) === id
+    rel.relationshipType === type &&
+    (parseTEInstanceId(rel.from) === id || parseTEInstanceId(rel.to) === id)
 
 const isIndexInstance = (instance, type, targetInstanceIds) => {
+    const alwaysBidirectional = false // We might want to have a setting to be able to see relationship no mater if primary is source or target
     let hasChildren = false
     for (let i = 0; i < instance.relationships.length; ++i) {
         const rel = instance.relationships[i]
@@ -51,6 +53,7 @@ const isIndexInstance = (instance, type, targetInstanceIds) => {
         const toIdMatches = parseTEInstanceId(rel.to) === instance.id
         const fromIdMatches = parseTEInstanceId(rel.from) === instance.id
         if (
+            alwaysBidirectional ||
             (!rel.bidirectional && fromIdMatches && !toIdMatches) || // When not bidirectional we want the from id to match
             (rel.bidirectional && (fromIdMatches || toIdMatches)) // When bidirectional it can be either from or to id that matches
         ) {
@@ -70,36 +73,37 @@ const getInstanceRelationships = (
     relationshipsById,
     from,
     targetInstances,
-    type,
-    isRecursive
+    type
 ) => {
+    const alwaysBidirectional = false // We might want to have a setting to be able to see relationship no mater if primary is source or target
     const localRels = from.relationships.filter((rel) =>
         isValidRel(rel, type, from.id)
     )
 
     localRels.forEach((rel) => {
         const id = rel.relationship
+        const bidirectional = rel.bidirectional || alwaysBidirectional
         if (relationshipsById[id]) {
             return
         }
         const to = targetInstances[parseTEInstanceId(rel.to)]
-        if (!to) {
-            // console.error('NOT FOUND', rel.to);
-            return
-        }
-        relationshipsById[id] = {
-            id,
-            from,
-            to,
-        }
-        if (isRecursive) {
-            getInstanceRelationships(
-                relationshipsById,
+        if (to && from.id !== to.id) {
+            relationshipsById[id] = {
+                id,
+                from,
                 to,
-                targetInstances,
-                type,
-                true
-            )
+                bidirectional: !!bidirectional,
+            }
+        } else {
+            const reversedTo = targetInstances[parseTEInstanceId(rel.from)]
+            if (reversedTo && from.id !== reversedTo.id && bidirectional) {
+                relationshipsById[id] = {
+                    id,
+                    from,
+                    reversedTo,
+                    bidirectional: !!bidirectional,
+                }
+            }
         }
     })
 }
@@ -128,10 +132,11 @@ export const getDataWithRelationships = async (
 
     const isRecursiveTrackedEntityType =
         from.trackedEntityType.id === to.trackedEntityType.id
-    const isRecursiveProgram =
-        'program' in from &&
-        'program' in to &&
-        from?.program?.id === to?.program?.id
+    const isRecursiveProgram = // program specified and same in both or not specified in both
+        ('program' in from &&
+            'program' in to &&
+            from?.program?.id === to?.program?.id) ||
+        !('program' in from || 'program' in to)
     const isToProgramDefined = 'program' in to
 
     // Use target as source if from/to TE Types and Programs match, otherwise
@@ -140,7 +145,7 @@ export const getDataWithRelationships = async (
     if (
         isRecursiveTrackedEntityType && // Same TE Type
         !isRecursiveProgram && // Different Program
-        isToProgramDefined // Defined Program
+        isToProgramDefined // Defined 'To' Program
     ) {
         recursiveProp = {
             program: to.program.id,
@@ -148,7 +153,7 @@ export const getDataWithRelationships = async (
     } else if (
         isRecursiveTrackedEntityType && // Same TE Type
         !isRecursiveProgram && // Different Program
-        !isToProgramDefined // Not Defined Program
+        !isToProgramDefined // Not Defined 'To' Program
     ) {
         recursiveProp = {
             type: to.trackedEntityType,
@@ -162,26 +167,28 @@ export const getDataWithRelationships = async (
         }
     }
 
-    // Keep TEI with coords and simplify structure
-    const targetInstances = normalizeInstances(
+    // Keep TEI with coords and convert array to object (id = key)
+    const normalizedSourceInstances = normalizeInstances(sourceInstances)
+
+    // Retrieve potential target instances
+    const potentialTargetInstances =
         isRecursiveTrackedEntityType & isRecursiveProgram
-            ? sourceInstances
-            : await fetchTEIs({
-                  ...recursiveProp,
-                  fields,
-                  orgUnits,
-                  organisationUnitSelectionMode,
-              })
-    )
+            ? normalizedSourceInstances
+            : normalizeInstances(
+                  await fetchTEIs({
+                      ...recursiveProp,
+                      fields,
+                      orgUnits,
+                      organisationUnitSelectionMode,
+                  })
+              )
 
     const targetInstanceIds = []
     // Keep TEI with relationship of correct type
     // Store Ids of target relationships
-    const filteredSourceInstances = isRecursiveTrackedEntityType
-        ? sourceInstances.filter((instance) =>
-              isIndexInstance(instance, relationshipType.id, targetInstanceIds)
-          )
-        : sourceInstances
+    const filteredSourceInstances = sourceInstances.filter((instance) =>
+        isIndexInstance(instance, relationshipType.id, targetInstanceIds)
+    )
 
     const relationshipsById = {}
     // Create relationship objects
@@ -189,20 +196,19 @@ export const getDataWithRelationships = async (
         getInstanceRelationships(
             relationshipsById,
             instance,
-            targetInstances,
-            relationshipType.id,
-            isRecursiveTrackedEntityType
+            potentialTargetInstances,
+            relationshipType.id
         )
     )
 
     // Keep only instances that are the target of a relationship
-    const filteredTargetInstances = Object.values(targetInstances).filter(
+    const targetInstances = Object.values(potentialTargetInstances).filter(
         (instance) => targetInstanceIds.includes(instance.id)
     )
 
     return {
-        primary: filteredSourceInstances,
+        primary: Object.values(normalizedSourceInstances),
         relationships: Object.values(relationshipsById),
-        secondary: filteredTargetInstances,
+        secondary: targetInstances,
     }
 }
