@@ -4,22 +4,25 @@
 # Fernando Jorge Bade, 2021
 # David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Sheila André <sandre@saudigitus.org>, 2024
-# Ge Joao <gsimango@saudigitus.org>, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
+# Ge Joao <gsimango@saudigitus.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-07T11:26:24.266Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024\n"
+"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -108,6 +111,12 @@ msgstr ""
 msgid "Event data item"
 msgstr "Item de dados do evento"
 
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr "Estilo por elemento de dados"
+
 msgid "Filtering is available after selecting a program stage."
 msgstr "A filtragem está disponível após a seleção de um estágio do programa."
 
@@ -134,12 +143,6 @@ msgstr "Operador"
 
 msgid "Date"
 msgstr "Data"
-
-msgid "Selected value not available in in list: {{name}}"
-msgstr ""
-
-msgid "Style by data element"
-msgstr "Estilo por elemento de dados"
 
 msgid "Data set"
 msgstr "Ficha"
@@ -254,119 +257,14 @@ msgstr "Cancelar"
 msgid "Close"
 msgstr "Fechar"
 
-msgid "Aggregation method"
-msgstr ""
-
-msgid "Groups"
-msgstr "Grupos"
-
-msgid "This field is required"
-msgstr "Este campo é obrigatorio"
-
-msgid "Data"
-msgstr "Dados"
-
-msgid "Period"
-msgstr "Período"
+msgid "No organisation units are selected"
+msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "Organisation Units"
 msgstr "Unidades Organizacionais"
 
 msgid "Style"
 msgstr "Estilo"
-
-msgid ""
-"Data will be calculated on Google Earth Engine for the chosen organisation "
-"units."
-msgstr ""
-
-msgid "Multiple aggregation methods are available."
-msgstr ""
-
-msgid ""
-"See the aggregation results by clicking map regions or viewing the data "
-"table. The results can also be downloaded."
-msgstr ""
-
-msgid "Unit"
-msgstr ""
-
-msgid "Source"
-msgstr "Fonte"
-
-msgid "Legend preview"
-msgstr "Visualização da legenda"
-
-msgid "Year"
-msgstr "Ano"
-
-msgid "Available periods are set by the source data"
-msgstr ""
-
-msgid "Loading periods"
-msgstr ""
-
-msgid "Min value is required"
-msgstr ""
-
-msgid "Max value is required"
-msgstr ""
-
-msgid "Max should be greater than min"
-msgstr ""
-
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
-
-msgid "Unit: {{ unit }}"
-msgstr ""
-
-msgid "Min"
-msgstr "Mínimo"
-
-msgid "Max"
-msgstr "Máx"
-
-msgid "Steps"
-msgstr "Passos"
-
-msgid "Org Units"
-msgstr ""
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Group events"
-msgstr "Grupo de eventos "
-
-msgid "View all events"
-msgstr "Ver todos eventos "
-
-msgid "Radius"
-msgstr "Raio"
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-"Você pode criar estilos de  eventos por elemento de dados após selecionar um"
-" programa."
-
-msgid "Program is required"
-msgstr "Programa é obrigatório"
-
-msgid "Program stage is required"
-msgstr "Etapa do programa é necessária"
-
-msgid "No organisation units are selected."
-msgstr "Nenhuma unidade organizacional selecionada"
-
-msgid "No legend set is selected"
-msgstr ""
-
-msgid "Event status"
-msgstr "Estado do evento "
-
-msgid "No organisation units are selected"
-msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "Point color"
 msgstr ""
@@ -407,6 +305,120 @@ msgstr "Actualizar camada"
 msgid "Add layer"
 msgstr "Adicionar camada"
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "This field is required"
+msgstr "Este campo é obrigatorio"
+
+msgid "Data"
+msgstr "Dados"
+
+msgid "Period"
+msgstr "Período"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid "Multiple aggregation methods are available."
+msgstr ""
+
+msgid ""
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
+msgid "Source"
+msgstr "Fonte"
+
+msgid "Legend preview"
+msgstr "Visualização da legenda"
+
+msgid "Year"
+msgstr "Ano"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Min"
+msgstr "Mínimo"
+
+msgid "Max"
+msgstr "Máx"
+
+msgid "Steps"
+msgstr "Passos"
+
+msgid "Facility buffer"
+msgstr ""
+
+msgid "Org Units"
+msgstr ""
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Group events"
+msgstr "Grupo de eventos "
+
+msgid "View all events"
+msgstr "Ver todos eventos "
+
+msgid "Radius"
+msgstr "Raio"
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Você pode criar estilos de  eventos por elemento de dados após selecionar um"
+" programa."
+
+msgid "Program is required"
+msgstr "Programa é obrigatório"
+
+msgid "Program stage is required"
+msgstr "Etapa do programa é necessária"
+
+msgid "No organisation units are selected."
+msgstr "Nenhuma unidade organizacional selecionada"
+
+msgid "No legend set is selected"
+msgstr ""
+
+msgid "Event status"
+msgstr "Estado do evento "
+
 msgid "Boundary color"
 msgstr ""
 
@@ -440,7 +452,7 @@ msgstr "Tipo de agregacão"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -570,6 +582,23 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Grupo de Indicador"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
+msgid "Collapse"
+msgstr "colapsar"
+
+msgid "Expand"
+msgstr "Expandir"
+
 msgid "External basemap"
 msgstr "Mapa base externo"
 
@@ -597,12 +626,6 @@ msgstr "Use chaves legíveis por humanos"
 
 msgid "Data download failed."
 msgstr "Falha na transferência dos dados."
-
-msgid "Collapse"
-msgstr "colapsar"
-
-msgid "Expand"
-msgstr "Expandir"
 
 msgid "External layer"
 msgstr "Camada externa"
@@ -668,6 +691,18 @@ msgstr "Filtros"
 msgid "{{layername}}: {{message}}"
 msgstr ""
 
+msgid "No data found"
+msgstr "Dado não encontrado"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr "Nenhuma coordenada encontrada"
+
+msgid "Error"
+msgstr "Erro"
+
 msgid "Drill up one level"
 msgstr "Perfurar um nivel"
 
@@ -683,21 +718,13 @@ msgstr "Mostrar longitude/latitude"
 msgid "Show {{name}}"
 msgstr ""
 
+msgid "Longitude"
+msgstr "Longitude"
+
+msgid "Latitude"
+msgstr "Latitude"
+
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
-
-msgid ""
-"Google Earth Engine failed. Is the service configured for this DHIS2 "
-"instance?"
-msgstr ""
-
-msgid "no value"
-msgstr "sem valor"
-
-msgid "All groups"
-msgstr ""
-
-msgid "Loading data"
 msgstr ""
 
 msgid "Not set"
@@ -712,14 +739,25 @@ msgstr "Unidade organizacional"
 msgid "Parent unit"
 msgstr "Unidade parental"
 
+msgid "No data"
+msgstr "Não ha dados"
+
 msgid "Last updated"
 msgstr "Última actualização"
 
-msgid "Longitude"
-msgstr "Longitude"
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
-msgid "Latitude"
-msgstr "Latitude"
+msgid "no value"
+msgstr "sem valor"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr "acres"
@@ -879,9 +917,6 @@ msgstr "Ano anterior"
 msgid "Next year"
 msgstr "ano seguinte"
 
-msgid "Relative"
-msgstr "Relativo"
-
 msgid "Period type"
 msgstr "Tipo de periodo"
 
@@ -984,20 +1019,174 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Etiquetas aéreas do Bing"
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Elevação"
+
+msgid "Elevation above sea-level."
+msgstr "Elevação acima do nível do mar."
+
+msgid "meters"
+msgstr ""
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "Cobertura da terra"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Tipos de cobertura terrestre distintos colectados de satélites."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Floresta de folhas de agulhas sempre-verdes"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Floresta de folhas largas sempre-verdes"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Floresta de folhas de agulha decíduas"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Floresta decídua de folhas largas"
+
+msgid "Mixed forest"
+msgstr "Floresta mista"
+
+msgid "Closed shrublands"
+msgstr "Arbustos fechados"
+
+msgid "Open shrublands"
+msgstr "Arbustos abertos"
+
+msgid "Woody savannas"
+msgstr "Savanas arborizadas"
+
+msgid "Savannas"
+msgstr "Savannas"
+
+msgid "Grasslands"
+msgstr "Grasslands"
+
+msgid "Permanent wetlands"
+msgstr "Áreas úmidas permanentes"
+
+msgid "Croplands"
+msgstr "Croplands"
+
+msgid "Urban and built-up"
+msgstr "Urbano e construído"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Área cultivada / Mosaico de vegetação natural"
+
+msgid "Snow and ice"
+msgstr "Neve e gelo"
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Water"
+msgstr "Água"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "Luzes noturnas"
+
+msgid "light intensity"
+msgstr "intensidade da luz"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Intensidade da luz de cidades, vilas e outros locais com iluminação "
+"persistente, incluindo queima de gás."
+
 msgid "Population"
+msgstr ""
+
+msgid "people per km²"
+msgstr "População por km²"
+
+msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "people per hectare"
 msgstr ""
 
-msgid "Estimated number of people living in an area."
+msgid "Precipitation"
+msgstr "Precipitação"
+
+msgid "millimeter"
+msgstr "milimetro"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
 msgstr ""
+"Precipitação coletada de satélites e estações meteorológicas no solo. Os "
+"valores estão em milímetros dentro de períodos de 5 dias. Atualizado "
+"mensalmente, durante a 3ª semana do mês seguinte."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "° C durante o dia"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Temperaturas da superfície da terra coletadas do satélite. Pontos em branco "
+"aparecerão em áreas com uma cobertura de nuvens persistente."
 
 msgid "Population age groups"
 msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "~100 meters"
 msgstr ""
 
 msgid "Male 0 - 1 years"
@@ -1108,135 +1297,30 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Mensal"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr "Elevação"
-
-msgid "meters"
-msgstr ""
-
-msgid "Elevation above sea-level."
-msgstr "Elevação acima do nível do mar."
-
-msgid "Precipitation"
-msgstr "Precipitação"
-
-msgid "millimeter"
-msgstr "milimetro"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Precipitação coletada de satélites e estações meteorológicas no solo. Os "
-"valores estão em milímetros dentro de períodos de 5 dias. Atualizado "
-"mensalmente, durante a 3ª semana do mês seguinte."
-
-msgid "Temperature"
-msgstr "Temperatura"
-
-msgid "°C during daytime"
-msgstr "° C durante o dia"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Temperaturas da superfície da terra coletadas do satélite. Pontos em branco "
-"aparecerão em áreas com uma cobertura de nuvens persistente."
-
-msgid "Landcover"
-msgstr "Cobertura da terra"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Tipos de cobertura terrestre distintos colectados de satélites."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Floresta de folhas de agulhas sempre-verdes"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Floresta de folhas largas sempre-verdes"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Floresta de folhas de agulha decíduas"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Floresta decídua de folhas largas"
-
-msgid "Mixed forest"
-msgstr "Floresta mista"
-
-msgid "Closed shrublands"
-msgstr "Arbustos fechados"
-
-msgid "Open shrublands"
-msgstr "Arbustos abertos"
-
-msgid "Woody savannas"
-msgstr "Savanas arborizadas"
-
-msgid "Savannas"
-msgstr "Savannas"
-
-msgid "Grasslands"
-msgstr "Grasslands"
-
-msgid "Permanent wetlands"
-msgstr "Áreas úmidas permanentes"
-
-msgid "Croplands"
-msgstr "Croplands"
-
-msgid "Urban and built-up"
-msgstr "Urbano e construído"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Área cultivada / Mosaico de vegetação natural"
-
-msgid "Snow and ice"
-msgstr "Neve e gelo"
-
-msgid "Barren or sparsely vegetated"
-msgstr ""
-
-msgid "Water"
-msgstr "Água"
-
-msgid "people per km²"
-msgstr "População por km²"
-
-msgid "Nighttime lights"
-msgstr "Luzes noturnas"
-
-msgid "light intensity"
-msgstr "intensidade da luz"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Intensidade da luz de cidades, vilas e outros locais com iluminação "
-"persistente, incluindo queima de gás."
 
 msgid "All"
 msgstr "Tudo"
@@ -1271,6 +1355,9 @@ msgstr "Contagem equivalente"
 msgid "Symbol"
 msgstr "Símbolo"
 
+msgid "Relative"
+msgstr "Relativo"
+
 msgid "Daily"
 msgstr "Diário"
 
@@ -1291,9 +1378,6 @@ msgstr ""
 
 msgid "Bi-weekly"
 msgstr "Quinzenal"
-
-msgid "Monthly"
-msgstr "Mensal"
 
 msgid "Bi-monthly"
 msgstr "Bimensal"
@@ -1325,13 +1409,7 @@ msgstr "Ano Financeiro - Abril"
 msgid "Cancelled"
 msgstr "Cancelado"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1346,16 +1424,13 @@ msgstr ""
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
-msgid "No data found"
-msgstr "Dado não encontrado"
-
 msgid "Event"
 msgstr "Evento"
 
 msgid "Facilities"
 msgstr "Instalações"
 
-msgid "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1376,20 +1451,14 @@ msgstr "Ponto"
 msgid "Organisation units"
 msgstr "Unidades organizacionais"
 
-msgid "Error"
-msgstr "Erro"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Camada temática"
 
-msgid "No data"
-msgstr "Não ha dados"
-
 msgid "Tracked entity"
 msgstr "Entidade Rastreada"
-
-msgid "No tracked entities found"
-msgstr "Nenhuma entidade rastreada encontrada"
 
 msgid "related"
 msgstr "Relacionado "
