@@ -16,12 +16,13 @@ import styles from './styles/BottomPanel.module.css'
 
 // Container for DataTable
 const BottomPanel = () => {
-    const dataTableHeight = useSelector((state => state.ui.dataTableHeight)
+    const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
     const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
     const rightPanelOpen = useSelector((state) => state.ui.rightPanelOpen)
 
         const dispatch = useDispatch()
-    const { width, height } = useWindowDimensions()
+    const { width, height } = 
+useWindowDimensions()
     const panelRef = useRef(null)
 
     const onResize = useCallback(
