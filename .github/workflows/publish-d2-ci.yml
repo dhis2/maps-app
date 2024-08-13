@@ -41,96 +41,19 @@ jobs:
                   build-dir: build/app
                   github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
-    report-release-failure:
+    report-deploy-failure:
         runs-on: ubuntu-latest
         needs: publish-to-d2-ci
-        if: ${{ failure() && !cancelled() }}
         steps:
-            - name: Checkout code
-              uses: actions/checkout@master
-
-            - name: Extract version
-              id: extract_version
-              uses: Saionaro/extract-package-version@v1.2.1
-
             - name: Send failure message to analytics-internal-bot slack channel
-              id: slack
+              if: ${{ failure() && !cancelled() }}
+              id: slack_publish_failure
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
                       {
-                        "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
-                        "blocks": [
-                          {
-                            "type": "section",
-                            "text": {
-                              "type": "mrkdwn",
-                              "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
-                            }
-                          }
-                        ]
-                      }
-              env:
-                  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-    report-release-success:
-        runs-on: ubuntu-latest
-        needs: publish-to-d2-ci
-        if: ${{ success() && !cancelled() && github.ref == 'refs/heads/master' }}
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@master
-
-            - name: Extract version
-              id: extract_version
-              uses: Saionaro/extract-package-version@v1.2.1
-
-            - name: Send success message to analytics-internal-bot slack channel
-              id: slack
-              uses: slackapi/slack-github-action@v1.23.0
-              with:
-                  channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  payload: |
-                      {
-                        "text": "Maps app release ${{ steps.extract_version.outputs.version }} succeeded",
-                        "blocks": [
-                          {
-                            "type": "header",
-                            "text": {
-                                "type": "plain_text",
-                                "text": ":large_green_circle: :maps-app: Maps version ${{ steps.extract_version.outputs.version }} released :tada:",
-                                "emoji": true
-                            }
-                          },
-                          {
-                            "type": "divider"
-                          },
-                          {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": "*Release Notes*"
-                            }
-                          },
-                          {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": ${{ toJSON(github.event.head_commit.message) }}
-                            }
-                          },
-                          {
-                            "type": "divider"
-                          },
-                          {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": "Link to <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|build>"
-                            }
-                          }
-                        ]
+                          "text": ":small_red_triangle_down: :maps-app: Maps failed to deploy to d2-ci",
                       }
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

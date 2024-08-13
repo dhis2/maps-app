@@ -20,9 +20,8 @@ const BottomPanel = () => {
     const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
     const rightPanelOpen = useSelector((state) => state.ui.rightPanelOpen)
 
-        const dispatch = useDispatch()
-    const { width, height } = 
-useWindowDimensions()
+    const dispatch = useDispatch()
+    const { width, height } = useWindowDimensions()
     const panelRef = useRef(null)
 
     const onResize = useCallback(
