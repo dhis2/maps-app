@@ -4,7 +4,6 @@ on:
     push:
         branches:
             - 'master'
-            - 'chore/new-gh-workflows'
 
 env:
     GIT_AUTHOR_NAME: '@dhis2-bot'
