@@ -1,5 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
+import { legacyNighttimeDatasetId } from '../constants/earthEngineLayers/legacy/nighttime_DMSP-OLS.js'
+import { EE_MONTHLY } from '../constants/periods.js'
 import { apiFetch } from './api.js'
 import { formatStartEndDate } from './time.js'
 
@@ -15,32 +17,53 @@ export const getStartEndDate = (data) =>
         false
     )
 
-export const getPeriodFromFilter = (filter) => {
+const getStaticFiltersFromDynamic = (filters, ...args) =>
+    filters.map((filter) => ({
+        ...filter,
+        arguments: filter.arguments.map((arg) => {
+            const match = arg.match(/^\$([0-9]+)$/)
+            return match ? args[match[1] - 1] : arg
+        }),
+    }))
+
+const getMonth = (data) => {
+    const date = new Date(data['system:time_start'])
+    const month = date.toLocaleString('default', { month: 'long' })
+    const year = date.getFullYear()
+    return `${month} ${year}`
+}
+
+export const getStaticFilterFromPeriod = (period, filters) => {
+    if (!period || !filters) {
+        return
+    }
+
+    return getStaticFiltersFromDynamic(filters, period.id)
+}
+
+const nonDigits = /^\D+/g
+
+// Only used for backward compatibility
+export const getPeriodFromFilter = (filter, datasetId) => {
     if (!Array.isArray(filter) || !filter.length) {
         return null
     }
 
+    const isNightTimeLights = datasetId === legacyNighttimeDatasetId
+
     const { id, name, year, arguments: args } = filter[0]
+    let periodId = id || args[1]
+
+    // Remove non-digits from periodId (needed for backward compatibility for population layers saved before 2.41)
+    if (!isNightTimeLights && nonDigits.test(periodId)) {
+        periodId = Number(periodId.replace(nonDigits, '')) // Remove non-digits
+    }
 
     return {
-        id: id || args[1],
+        id: periodId,
         name,
         year,
     }
-}
-
-// Returns period name from filter
-export const getPeriodNameFromFilter = (filter) => {
-    const period = getPeriodFromFilter(filter)
-
-    if (!period) {
-        return null
-    }
-
-    const { name, year } = period
-    const showYear = year && String(year) !== name
-
-    return `${name}${showYear ? ` ${year}` : ''}`
 }
 
 // Returns auth token for EE API as a promise
@@ -72,7 +95,6 @@ export const getAuthToken = () =>
             ...token,
         })
     })
-
 /* eslint-enable no-async-promise-executor */
 
 let workerPromise
@@ -89,31 +111,31 @@ const getWorkerInstance = async () => {
     return workerPromise
 }
 
-export const getPeriods = async (eeId, periodType) => {
+export const getPeriods = async (eeId, periodType, filters) => {
+    const useSystemIndex = filters.some((f) =>
+        f.arguments.includes('system:index')
+    )
+
     const getPeriod = ({ id, properties }) => {
-        const year = new Date(properties['system:time_start']).getFullYear()
-        const name =
-            periodType === 'Yearly' ? String(year) : getStartEndDate(properties)
+        const year =
+            properties.year ||
+            new Date(properties['system:time_start']).getFullYear()
 
-        // Remove when old population should not be supported
-        if (eeId === 'WorldPop/POP') {
-            return { id: name, name, year }
-        }
-
-        return { id, name, year }
+        return periodType === 'YEARLY'
+            ? { id: useSystemIndex ? id : year, name: String(year) }
+            : {
+                  id,
+                  name:
+                      periodType === EE_MONTHLY
+                          ? getMonth(properties)
+                          : getStartEndDate(properties),
+                  year,
+              }
     }
 
     const eeWorker = await getWorkerInstance()
 
     const { features } = await eeWorker.getPeriods(eeId)
+
     return features.map(getPeriod)
 }
-
-export const defaultFilters = ({ id, name, year }) => [
-    {
-        type: 'eq',
-        arguments: ['system:index', String(id)],
-        name,
-        year,
-    },
-]

@@ -1,7 +1,7 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
-import { RELATIVE_PERIODS } from '../../constants/periods.js'
+import React, { useMemo, useEffect } from 'react'
 import { getPeriodTypes, getRelativePeriods } from '../../util/periods.js'
 import { SelectField } from '../core/index.js'
 
@@ -9,31 +9,38 @@ const PeriodTypeSelect = ({
     onChange,
     className,
     errorText,
-    hiddenPeriods,
+    includeRelativePeriods,
     period,
     value,
 }) => {
-    useEffect(() => {
-        const relativePeriodType = {
-            id: RELATIVE_PERIODS,
-            name: i18n.t('Relative'),
-        }
+    const { systemSettings } = useCachedDataQuery()
+    const { hiddenPeriods } = systemSettings
 
-        if (!value && period) {
-            if (getRelativePeriods().find((p) => p.id === period.id)) {
-                // false will not clear the period dropdown
-                onChange(relativePeriodType, false)
+    const periodTypes = useMemo(
+        () => getPeriodTypes(includeRelativePeriods, hiddenPeriods),
+        [includeRelativePeriods, hiddenPeriods]
+    )
+
+    // Set default period type
+    useEffect(() => {
+        if (!value) {
+            const isRelativePeriod = !!(
+                includeRelativePeriods &&
+                period &&
+                getRelativePeriods().find((p) => p.id === period.id)
+            )
+
+            if (!period || isRelativePeriod) {
+                // default to first period type
+                onChange(periodTypes[0], isRelativePeriod)
             }
-        } else if (!value) {
-            // set relativePeriods as default
-            onChange(relativePeriodType)
         }
-    }, [value, period, onChange])
+    }, [value, period, periodTypes, includeRelativePeriods, onChange])
 
     return (
         <SelectField
             label={i18n.t('Period type')}
-            items={getPeriodTypes(hiddenPeriods)}
+            items={periodTypes}
             value={value}
             onChange={onChange}
             className={className}
@@ -47,7 +54,7 @@ PeriodTypeSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
-    hiddenPeriods: PropTypes.array,
+    includeRelativePeriods: PropTypes.bool,
     period: PropTypes.object,
     value: PropTypes.string,
 }

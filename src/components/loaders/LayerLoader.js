@@ -20,7 +20,7 @@ const layerType = {
     geoJsonUrl: GeoJsonUrlLoader,
 }
 
-const LayerLoader = ({ config, dataTableOpen, onLoad }) => {
+const LayerLoader = ({ config, dataTableOpen, onLoad, loaderAlertAction }) => {
     const Loader = layerType[config.layer]
 
     if (!Loader) {
@@ -29,7 +29,12 @@ const LayerLoader = ({ config, dataTableOpen, onLoad }) => {
     }
 
     return (
-        <Loader config={config} onLoad={onLoad} dataTableOpen={dataTableOpen} />
+        <Loader
+            config={config}
+            onLoad={onLoad}
+            dataTableOpen={dataTableOpen}
+            loaderAlertAction={loaderAlertAction}
+        />
     )
 }
 
@@ -42,6 +47,7 @@ LayerLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
     dataTableOpen: PropTypes.bool,
+    loaderAlertAction: PropTypes.func,
 }
 
 export default LayerLoader

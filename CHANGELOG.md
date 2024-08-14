@@ -1,3 +1,45 @@
+## [100.6.1](https://github.com/dhis2/maps-app/compare/v100.6.0...v100.6.1) (2024-08-14)
+
+
+### Bug Fixes
+
+* avoid crash when opening map with unsupported Earth Engine layer ([#3286](https://github.com/dhis2/maps-app/issues/3286)) ([69c3eed](https://github.com/dhis2/maps-app/commit/69c3eed5fceb9258dc3f62e7bc553b4d9a87a120)), closes [#3021](https://github.com/dhis2/maps-app/issues/3021)
+
+# [100.6.0](https://github.com/dhis2/maps-app/compare/v100.5.9...v100.6.0) (2024-07-31)
+
+
+### Features
+
+* Earth Engine layers update and Maps Admin auth managing layer sources ([d0f0b92](https://github.com/dhis2/maps-app/commit/d0f0b9283baefaca31005cf45ac371f10bf32ceb))
+
+## [100.5.9](https://github.com/dhis2/maps-app/compare/v100.5.8...v100.5.9) (2024-07-31)
+
+
+### Bug Fixes
+
+* loader alert messages were being duplicated ([#2796](https://github.com/dhis2/maps-app/issues/2796)) ([69776ad](https://github.com/dhis2/maps-app/commit/69776ad8b71ba1bac586283a9c39b77bc4ec1970))
+
+## [100.5.8](https://github.com/dhis2/maps-app/compare/v100.5.7...v100.5.8) (2024-07-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([96815bc](https://github.com/dhis2/maps-app/commit/96815bca6a30743a9386f929d25253cacc793838))
+
+## [100.5.7](https://github.com/dhis2/maps-app/compare/v100.5.6...v100.5.7) (2024-07-04)
+
+
+### Bug Fixes
+
+* enable hidding basemap in dashboard ([#3275](https://github.com/dhis2/maps-app/issues/3275)) ([eee5805](https://github.com/dhis2/maps-app/commit/eee580515634ef43722d4c9b6d23b0abce656eed))
+
+## [100.5.6](https://github.com/dhis2/maps-app/compare/v100.5.5...v100.5.6) (2024-06-26)
+
+
+### Bug Fixes
+
+* support "week", "bi-week" and months in period translations ([#3269](https://github.com/dhis2/maps-app/issues/3269)) ([977e075](https://github.com/dhis2/maps-app/commit/977e0755615f52e1237911730adc2eb0e0fcee36))
+
 ## [100.5.5](https://github.com/dhis2/maps-app/compare/v100.5.4...v100.5.5) (2024-06-13)
 
 
