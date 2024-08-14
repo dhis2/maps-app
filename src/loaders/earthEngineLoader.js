@@ -149,7 +149,7 @@ const earthEngineLoader = async (config) => {
     const {
         unit,
         period,
-        filters,
+        filters = [],
         description,
         source,
         sourceUrl,
