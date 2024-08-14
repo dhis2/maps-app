@@ -1,13 +1,9 @@
-name: 'dhis2: verify (app)'
+name: 'release app'
 
 on:
-    pull_request:
-        types: ['opened', 'labeled', 'reopened', 'synchronize']
     push:
         branches:
             - 'master'
-        tags:
-            - '*'
 
 env:
     GIT_AUTHOR_NAME: '@dhis2-bot'
@@ -15,10 +11,12 @@ env:
     GIT_COMMITTER_NAME: '@dhis2-bot'
     GIT_COMMITTER_EMAIL: 'apps@dhis2.org'
     GH_TOKEN: ${{secrets.DHIS2_BOT_GITHUB_TOKEN}}
+    D2_APP_HUB_TOKEN: ${{secrets.DHIS2_BOT_APPHUB_TOKEN}}
     CI: true
 
 jobs:
     setup-matrix:
+        if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         runs-on: ubuntu-latest
         outputs:
             matrix: ${{ steps.set-matrix.outputs.specs }}
@@ -29,6 +27,7 @@ jobs:
               run: echo "::set-output name=specs::$(node cypress/support/generateTestMatrix.js)"
 
     build:
+        if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -42,15 +41,8 @@ jobs:
             - name: Build
               run: yarn d2-app-scripts build
 
-            - uses: actions/upload-artifact@v3
-              with:
-                  name: app-build
-                  path: |
-                      **/build
-                      !**/node_modules
-                  retention-days: 1
-
     lint:
+        if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -68,6 +60,7 @@ jobs:
               run: yarn d2-style check
 
     test:
+        if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -89,14 +82,14 @@ jobs:
                   REPORTPORTAL_PROJECT: ${{ vars.REPORTPORTAL_PROJECT }}
                   CI_BUILD_ID: ${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}
                   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-                  PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || format('Direct push to {0}', github.ref_name) }}
+                  PR_TITLE: ${{ format('Direct push to {0}', github.ref_name) }}
 
     call-workflow-e2e-prod:
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        if: ${{ !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[skip release]')}}
         needs: [build, lint, test, setup-matrix]
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@master
         with:
-            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
+            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') }}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
@@ -109,10 +102,11 @@ jobs:
     release:
         runs-on: ubuntu-latest
         needs: call-workflow-e2e-prod
-        if: |
-            !github.event.push.repository.fork &&
+        if: >
+            ${{ !github.event.push.repository.fork &&
             github.actor != 'dependabot[bot]' &&
-            (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
+            !contains(github.event.head_commit.message, '[skip ci]') &&
+            !contains(github.event.head_commit.message, '[skip release]') }}
         steps:
             - uses: actions/checkout@v3
               with:
@@ -122,80 +116,38 @@ jobs:
               with:
                   node-version: 18.x
 
-            - uses: actions/download-artifact@v3
-              with:
-                  name: app-build
-
             - name: Install
               run: yarn install --frozen-lockfile
 
-            - uses: dhis2/action-semantic-release@master
-              with:
-                  publish-apphub: true
-                  publish-github: true
-                  github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
-                  apphub-token: ${{ secrets.DHIS2_BOT_APPHUB_TOKEN }}
-
-            - uses: dhis2/deploy-build@master
-              with:
-                  build-dir: build/app
-                  github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
-
-    report-release-failure:
-        runs-on: ubuntu-latest
-        needs: release
-        if: |
-            failure() &&
-            !cancelled() &&
-            github.ref == 'refs/heads/master' &&
-            contains(github.event.head_commit.message, 'chore(release)')
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@master
-
-            - name: Extract version
-              id: extract_version
-              uses: Saionaro/extract-package-version@v1.2.1
-
-            - name: Send failure message to analytics-internal-bot slack channel
-              id: slack
-              uses: slackapi/slack-github-action@v1.23.0
-              with:
-                  channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  payload: |
-                      {
-                        "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
-                        "blocks": [
-                          {
-                            "type": "section",
-                            "text": {
-                              "type": "mrkdwn",
-                              "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
-                            }
-                          }
-                        ]
-                      }
+            # This step will push a new commit to master with [skip release] in the commit message
+            - name: Run Semantic Release
+              run: npx semantic-release
               env:
-                  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
-    report-release-success:
+            - name: Publish to AppHub
+              run: yarn run d2-app-scripts publish
+
+    report-release-result:
         runs-on: ubuntu-latest
         needs: release
-        if: |
-            success() &&
-            !cancelled() &&
-            github.ref == 'refs/heads/master' &&
-            contains(github.event.head_commit.message, 'chore(release)')
+        if: >
+            ${{ !github.event.push.repository.fork &&
+            github.actor != 'dependabot[bot]' &&
+            !contains(github.event.head_commit.message, '[skip ci]') &&
+            !contains(github.event.head_commit.message, '[skip release]') }}
         steps:
             - name: Checkout code
               uses: actions/checkout@master
 
             - name: Extract version
+              if: success()
               id: extract_version
               uses: Saionaro/extract-package-version@v1.2.1
 
             - name: Send success message to analytics-internal-bot slack channel
-              id: slack
+              if: success()
+              id: slack_success
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
@@ -221,24 +173,46 @@ jobs:
                                 "text": "*Release Notes*"
                             }
                           },
-                          {
-                            "type": "section",
-                            "text": {
+                            {
+                              "type": "section",
+                              "text": {
                                 "type": "mrkdwn",
                                 "text": ${{ toJSON(github.event.head_commit.message) }}
-                            }
-                          },
-                          {
-                            "type": "divider"
-                          },
-                          {
-                            "type": "section",
-                            "text": {
+                              }
+                            },
+                            {
+                              "type": "divider"
+                            },
+                            {
+                              "type": "section",
+                              "text": {
                                 "type": "mrkdwn",
                                 "text": "Link to <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|build>"
+                              }
                             }
-                          }
-                        ]
+                          ]
+                      }
+              env:
+                  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+            - name: Send failure message to analytics-internal-bot slack channel
+              if: ${{ failure() && !cancelled() }}
+              id: slack_failure
+              uses: slackapi/slack-github-action@v1.23.0
+              with:
+                  channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+                  payload: |
+                      {
+                          "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
+                          "blocks": [
+                            {
+                              "type": "section",
+                              "text": {
+                                "type": "mrkdwn",
+                                "text": ":small_red_triangle_down: :maps-app: Maps release <https://github.com/dhis2/maps-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
+                              }
+                            }
+                          ]
                       }
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

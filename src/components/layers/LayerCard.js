@@ -9,7 +9,7 @@ import styles from './styles/LayerCard.module.css'
 import LayerToolbar from './toolbar/LayerToolbar.js'
 
 const LayerCard = ({
-    title,
+    title = '',
     subtitle,
     isOverlay,
     isExpanded,

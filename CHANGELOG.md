@@ -1,3 +1,10 @@
+## [100.6.1](https://github.com/dhis2/maps-app/compare/v100.6.0...v100.6.1) (2024-08-14)
+
+
+### Bug Fixes
+
+* avoid crash when opening map with unsupported Earth Engine layer ([#3286](https://github.com/dhis2/maps-app/issues/3286)) ([69c3eed](https://github.com/dhis2/maps-app/commit/69c3eed5fceb9258dc3f62e7bc553b4d9a87a120)), closes [#3021](https://github.com/dhis2/maps-app/issues/3021)
+
 # [100.6.0](https://github.com/dhis2/maps-app/compare/v100.5.9...v100.6.0) (2024-07-31)
 
 
