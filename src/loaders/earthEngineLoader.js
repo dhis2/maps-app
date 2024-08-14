@@ -90,18 +90,13 @@ const earthEngineLoader = async (config) => {
 
             if (filter) {
                 const id = filter.arguments?.[1]
-                let name = String(layerConfig.image)
-                let year
+                const name = String(layerConfig.image)
+                const year =
+                    typeof id === 'string' && id.length > 4
+                        ? parseInt(id.substring(0, 4), 10)
+                        : undefined
 
-                if (typeof id === 'string' && id.length > 4) {
-                    year = id.substring(0, 4)
-                }
-
-                layerConfig.period = {
-                    id,
-                    name,
-                    year: parseInt(year, 10),
-                }
+                layerConfig.period = { id, name, year }
 
                 delete layerConfig.filter
             }
