@@ -138,7 +138,10 @@ jobs:
             !contains(github.event.head_commit.message, '[skip release]') }}
         steps:
             - name: Checkout code
-              uses: actions/checkout@master
+              uses: actions/checkout@v4
+              with:
+                  ref: master
+                  fetch-depth: 0
 
             - name: Extract version
               if: success()
