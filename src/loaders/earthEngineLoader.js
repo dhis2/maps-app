@@ -84,8 +84,8 @@ const earthEngineLoader = async (config) => {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
 
-        // Backward compability for layers with periods saved before 2.36
         if (layerConfig.image) {
+            // Backward compability for layers with periods saved before 2.36
             const filter = layerConfig.filter?.[0]
 
             if (filter) {
@@ -107,10 +107,9 @@ const earthEngineLoader = async (config) => {
             delete layerConfig.filter
         }
 
-        // Backward compability for layers saved before v100.6.0
         if (layerConfig.params) {
+            // Backward compability for layers saved before v100.6.0
             layerConfig.style = layerConfig.params
-            // Backward compability for layers saved before 2.40
             if (typeof layerConfig.params.palette === 'string') {
                 layerConfig.style.palette =
                     layerConfig.params.palette.split(',')
@@ -125,7 +124,9 @@ const earthEngineLoader = async (config) => {
         }
 
         delete config.config
-        delete config.filters // Backend returns empty filters array
+        // Remove the always empty filters array from saved map layer object
+        // so as not to overwrite the filters array from the layer config
+        delete config.filters
     } else {
         dataset = getEarthEngineLayer(layerConfig.id)
     }

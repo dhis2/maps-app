@@ -1,17 +1,23 @@
+import { EARTH_ENGINE_LAYER } from '../constants/layers.js'
+
 const didViewsChange = (oldViews, newViews) => {
     return newViews.some((newView, i) => {
         const oldView = oldViews[i]
 
         // EE layers don't have filters
+        if (oldView.layer === EARTH_ENGINE_LAYER) {
+            return false
+        }
+
         if (
-            oldView.filters?.length !== newView?.filters.length ||
+            oldView.filters.length !== newView.filters.length ||
             oldView.rows.length !== newView.rows.length
         ) {
             return true
         }
 
         if (
-            newView.filters?.some((filter, j) => {
+            newView.filters.some((filter, j) => {
                 const oldItemIds = oldView.filters[j].items.map(
                     (item) => item.id
                 )
