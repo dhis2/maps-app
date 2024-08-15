@@ -1,3 +1,10 @@
+## [100.6.2](https://github.com/dhis2/maps-app/compare/v100.6.1...v100.6.2) (2024-08-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([6830454](https://github.com/dhis2/maps-app/commit/68304548d1078cbdd3112b9c4167600350de4fc0))
+
 ## [100.6.1](https://github.com/dhis2/maps-app/compare/v100.6.0...v100.6.1) (2024-08-14)
 
 
