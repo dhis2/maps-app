@@ -1,3 +1,10 @@
+## [100.6.3](https://github.com/dhis2/maps-app/compare/v100.6.2...v100.6.3) (2024-08-15)
+
+
+### Bug Fixes
+
+* plugin crashes for Earth Engine layers in the dashboard ([#3302](https://github.com/dhis2/maps-app/issues/3302)) ([8409f97](https://github.com/dhis2/maps-app/commit/8409f97f2fe48edff42983f005c068aa515a75f5))
+
 ## [100.6.2](https://github.com/dhis2/maps-app/compare/v100.6.1...v100.6.2) (2024-08-15)
 
 
