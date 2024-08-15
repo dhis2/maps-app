@@ -23,6 +23,14 @@ jobs:
 
         runs-on: ubuntu-latest
         steps:
+            - name: Print GitHub event context
+              run: echo "$GITHUB_EVENT" | jq '.'
+              env:
+                  GITHUB_EVENT: ${{ toJson(github.event) }}
+
+            - name: Print GitHub ref
+              run: echo "GITHUB_REF is $GITHUB_REF"
+
             - uses: actions/checkout@v3
 
             - uses: actions/setup-node@v3
