@@ -1,3 +1,24 @@
+## [100.6.3](https://github.com/dhis2/maps-app/compare/v100.6.2...v100.6.3) (2024-08-15)
+
+
+### Bug Fixes
+
+* plugin crashes for Earth Engine layers in the dashboard ([#3302](https://github.com/dhis2/maps-app/issues/3302)) ([8409f97](https://github.com/dhis2/maps-app/commit/8409f97f2fe48edff42983f005c068aa515a75f5))
+
+## [100.6.2](https://github.com/dhis2/maps-app/compare/v100.6.1...v100.6.2) (2024-08-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([6830454](https://github.com/dhis2/maps-app/commit/68304548d1078cbdd3112b9c4167600350de4fc0))
+
+## [100.6.1](https://github.com/dhis2/maps-app/compare/v100.6.0...v100.6.1) (2024-08-14)
+
+
+### Bug Fixes
+
+* avoid crash when opening map with unsupported Earth Engine layer ([#3286](https://github.com/dhis2/maps-app/issues/3286)) ([69c3eed](https://github.com/dhis2/maps-app/commit/69c3eed5fceb9258dc3f62e7bc553b4d9a87a120)), closes [#3021](https://github.com/dhis2/maps-app/issues/3021)
+
 # [100.6.0](https://github.com/dhis2/maps-app/compare/v100.5.9...v100.6.0) (2024-07-31)
 
 
