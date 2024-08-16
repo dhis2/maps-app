@@ -48,6 +48,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
     const onStartDownload = async () => {
         setIsDownloading(true)
         setError(null)
+        console.log('onStartDownload', { nameProperty, layer })
         try {
             await downloadData({
                 layer,
