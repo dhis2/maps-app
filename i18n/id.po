@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -334,6 +337,15 @@ msgstr ""
 msgid "Unit"
 msgstr "Satuan"
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "Sumber"
 
@@ -361,9 +373,6 @@ msgstr "Maksimal harus lebih besar dari minimal"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Langkah yang valid adalah {{minSteps}} hingga {{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr ""
-
 msgid "Min"
 msgstr "Minimal"
 
@@ -372,6 +381,9 @@ msgstr "Maksimal"
 
 msgid "Steps"
 msgstr "langkah"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "Unit Organisasi"
@@ -567,6 +579,17 @@ msgstr ""
 msgid "Indicator group"
 msgstr "group indikator"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "Tutup"
 
@@ -663,6 +686,18 @@ msgstr "Penyaringan"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "Tidak ada data yang ditemukan"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "Error"
 
 msgid "Drill up one level"
 msgstr "Telusuri satu tingkat"
@@ -880,9 +915,6 @@ msgstr "Tahun sebelumnya"
 msgid "Next year"
 msgstr "Tahun berikut"
 
-msgid "Relative"
-msgstr "Relatif"
-
 msgid "Period type"
 msgstr "tipe periode"
 
@@ -985,14 +1017,165 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Label Udara Bing"
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Ketinggian"
+
+msgid "Elevation above sea-level."
+msgstr "Ketinggian di atas permukaan laut."
+
+msgid "meters"
+msgstr "meter"
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "tutupan lahan"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Jenis tutupan lahan yang berbeda dikumpulkan dari satelit."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Hutan Daun Jarum Evergreen"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Hutan berdaun lebar yang selalu hijau"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Hutan Daun Jarum Gugur"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Hutan Daun Lebar Gugur"
+
+msgid "Mixed forest"
+msgstr "Hutan campuran"
+
+msgid "Closed shrublands"
+msgstr "Lahan semak tertutup"
+
+msgid "Open shrublands"
+msgstr "Buka semak belukar"
+
+msgid "Woody savannas"
+msgstr "sabana berkayu"
+
+msgid "Savannas"
+msgstr "sabana"
+
+msgid "Grasslands"
+msgstr "Padang rumput"
+
+msgid "Permanent wetlands"
+msgstr "Lahan basah permanen"
+
+msgid "Croplands"
+msgstr "Lahan pertanian"
+
+msgid "Urban and built-up"
+msgstr "Perkotaan dan terbangun"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Lahan pertanian/Mosaik vegetasi alami"
+
+msgid "Snow and ice"
+msgstr "Salju dan es"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Tandus atau jarang bervegetasi"
+
+msgid "Water"
+msgstr "air"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "Lampu malam hari"
+
+msgid "light intensity"
+msgstr "Intensitas cahaya"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Intensitas cahaya dari kota besar, kota kecil, dan situs lain dengan "
+"pencahayaan terus-menerus, termasuk suar gas."
+
 msgid "Population"
 msgstr "Populasi"
+
+msgid "people per km²"
+msgstr "orang per km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Perkiraan jumlah orang yang tinggal di suatu daerah."
 
 msgid "people per hectare"
 msgstr "orang per hektar"
 
-msgid "Estimated number of people living in an area."
-msgstr "Perkiraan jumlah orang yang tinggal di suatu daerah."
+msgid "Precipitation"
+msgstr "Pengendapan"
+
+msgid "millimeter"
+msgstr "milimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Curah hujan dikumpulkan dari satelit dan stasiun cuaca di tanah. Nilai dalam"
+" milimeter dalam periode 5 hari. Diperbarui setiap bulan, selama minggu ke-3"
+" bulan berikutnya."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "°C pada siang hari"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Suhu permukaan tanah dikumpulkan dari satelit. Bintik-bintik kosong akan "
+"muncul di area dengan tutupan awan yang persisten."
 
 msgid "Population age groups"
 msgstr "Kelompok usia penduduk"
@@ -1002,6 +1185,9 @@ msgid ""
 msgstr ""
 "Perkiraan jumlah orang yang tinggal di suatu daerah, dikelompokkan "
 "berdasarkan usia dan jenis kelamin."
+
+msgid "~100 meters"
+msgstr ""
 
 msgid "Male 0 - 1 years"
 msgstr ""
@@ -1111,135 +1297,30 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Bulanan"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr "Ketinggian"
-
-msgid "meters"
-msgstr "meter"
-
-msgid "Elevation above sea-level."
-msgstr "Ketinggian di atas permukaan laut."
-
-msgid "Precipitation"
-msgstr "Pengendapan"
-
-msgid "millimeter"
-msgstr "milimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Curah hujan dikumpulkan dari satelit dan stasiun cuaca di tanah. Nilai dalam"
-" milimeter dalam periode 5 hari. Diperbarui setiap bulan, selama minggu ke-3"
-" bulan berikutnya."
-
-msgid "Temperature"
-msgstr "Suhu"
-
-msgid "°C during daytime"
-msgstr "°C pada siang hari"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Suhu permukaan tanah dikumpulkan dari satelit. Bintik-bintik kosong akan "
-"muncul di area dengan tutupan awan yang persisten."
-
-msgid "Landcover"
-msgstr "tutupan lahan"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Jenis tutupan lahan yang berbeda dikumpulkan dari satelit."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Hutan Daun Jarum Evergreen"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Hutan berdaun lebar yang selalu hijau"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Hutan Daun Jarum Gugur"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Hutan Daun Lebar Gugur"
-
-msgid "Mixed forest"
-msgstr "Hutan campuran"
-
-msgid "Closed shrublands"
-msgstr "Lahan semak tertutup"
-
-msgid "Open shrublands"
-msgstr "Buka semak belukar"
-
-msgid "Woody savannas"
-msgstr "sabana berkayu"
-
-msgid "Savannas"
-msgstr "sabana"
-
-msgid "Grasslands"
-msgstr "Padang rumput"
-
-msgid "Permanent wetlands"
-msgstr "Lahan basah permanen"
-
-msgid "Croplands"
-msgstr "Lahan pertanian"
-
-msgid "Urban and built-up"
-msgstr "Perkotaan dan terbangun"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Lahan pertanian/Mosaik vegetasi alami"
-
-msgid "Snow and ice"
-msgstr "Salju dan es"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Tandus atau jarang bervegetasi"
-
-msgid "Water"
-msgstr "air"
-
-msgid "people per km²"
-msgstr "orang per km²"
-
-msgid "Nighttime lights"
-msgstr "Lampu malam hari"
-
-msgid "light intensity"
-msgstr "Intensitas cahaya"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Intensitas cahaya dari kota besar, kota kecil, dan situs lain dengan "
-"pencahayaan terus-menerus, termasuk suar gas."
 
 msgid "All"
 msgstr "Semua"
@@ -1274,6 +1355,9 @@ msgstr "Jumlah yang sama"
 msgid "Symbol"
 msgstr "Simbol"
 
+msgid "Relative"
+msgstr "Relatif"
+
 msgid "Daily"
 msgstr "Harian"
 
@@ -1294,9 +1378,6 @@ msgstr "Mingguan (Mulai Minggu)"
 
 msgid "Bi-weekly"
 msgstr "Dwiwulanan"
-
-msgid "Monthly"
-msgstr "Bulanan"
 
 msgid "Bi-monthly"
 msgstr "Dwiwulanan"
@@ -1328,13 +1409,7 @@ msgstr "Financial April"
 msgid "Cancelled"
 msgstr "Dibatalkan"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1349,16 +1424,13 @@ msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data layer"
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Menampilkan {{pageSize}} even pertama dari {{total}}"
 
-msgid "No data found"
-msgstr "Tidak ada data yang ditemukan"
-
 msgid "Event"
 msgstr "Kejadian"
 
 msgid "Facilities"
 msgstr "Fasilitas"
 
-msgid "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1379,17 +1451,14 @@ msgstr "Point"
 msgid "Organisation units"
 msgstr "Unit organisasi"
 
-msgid "Error"
-msgstr "Error"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Layer tematik"
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"
-
-msgid "No tracked entities found"
-msgstr "Tidak ada entitas yang dilacak ditemukan"
 
 msgid "related"
 msgstr "terkait"
