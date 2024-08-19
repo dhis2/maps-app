@@ -16,6 +16,40 @@ env:
     CI: true
 
 jobs:
+    echo-conditions:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check and Echo Conditions
+              run: |
+                  # Extract values from the GitHub context
+                  FORK_REPOSITORY=${{ github.event.push.repository.fork }}
+                  GITHUB_REF=${{ github.ref }}
+                  COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
+
+                  # Condition 1: Check if the repository is not a fork
+                  CONDITION_1=$((! FORK_REPOSITORY))
+                  echo "Condition 1 (Not a fork): $CONDITION_1"
+
+                  # Condition 2: Check if the reference starts with 'refs/tags/'
+                  if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+                      CONDITION_2=true
+                  else
+                        CONDITION_2=false
+                  fi
+                  echo "Condition 2 (Starts with 'refs/tags/'): $CONDITION_2"
+
+                  # Condition 3: Check if the reference is 'refs/heads/master' and commit message contains '[skip release]'
+                  if [[ "$GITHUB_REF" == "refs/heads/master" && "$COMMIT_MESSAGE" == *"[skip release]"* ]]; then
+                      CONDITION_3=true
+                  else
+                      CONDITION_3=false
+                  fi
+                    echo "Condition 3 (Is 'refs/heads/master' and contains '[skip release]'): $CONDITION_3"
+
+                  # Combine conditions
+                  FINAL_CONDITION=$((CONDITION_1 && (CONDITION_2 || CONDITION_3)))
+                  echo "Final Condition: $FINAL_CONDITION"
+
     publish-to-d2-ci:
         if: |
             ${{ !github.event.push.repository.fork }} &&
@@ -30,9 +64,6 @@ jobs:
 
             - name: Print GitHub ref
               run: echo "GITHUB_REF is $GITHUB_REF"
-
-            - name: Print GitHub actor
-              run: echo "GITHUB_ACTOR is $GITHUB_ACTOR"
 
             - uses: actions/checkout@v3
 
@@ -55,9 +86,9 @@ jobs:
     report-deploy-failure:
         runs-on: ubuntu-latest
         needs: publish-to-d2-ci
+        if: ${{ failure() && !cancelled() }}
         steps:
             - name: Send failure message to analytics-internal-bot slack channel
-              if: ${{ failure() && !cancelled() }}
               id: slack_publish_failure
               uses: slackapi/slack-github-action@v1.23.0
               with:
