@@ -1,3 +1,10 @@
+## [100.6.4](https://github.com/dhis2/maps-app/compare/v100.6.3...v100.6.4) (2024-08-19)
+
+
+### Bug Fixes
+
+* schemas were unnecessarily loaded and taking up valuable bandwidth ([#3197](https://github.com/dhis2/maps-app/issues/3197)) ([4b8dd61](https://github.com/dhis2/maps-app/commit/4b8dd6121de6cf9b153de4f996601c96c925274b))
+
 ## [100.6.3](https://github.com/dhis2/maps-app/compare/v100.6.2...v100.6.3) (2024-08-15)
 
 
