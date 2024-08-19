@@ -1,4 +1,5 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
+import { useDataEngine } from '@dhis2/app-runtime'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
 import {
@@ -18,6 +19,7 @@ import DataDownloadDialogActions from './DataDownloadDialogActions.js'
 import styles from './styles/DataDownloadDialog.module.css'
 
 const DataDownloadDialog = ({ layer, onCloseDialog }) => {
+    const engine = useDataEngine()
     const { nameProperty } = useCachedDataQuery()
     const formatOptions = getFormatOptions()
     const { d2 } = useD2()
@@ -46,6 +48,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
     const onStartDownload = async () => {
         setIsDownloading(true)
         setError(null)
+        console.log('onStartDownload', { nameProperty, layer })
         try {
             await downloadData({
                 layer,
@@ -54,6 +57,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
                 humanReadableKeys: humanReadable,
                 d2,
                 nameProperty,
+                engine,
             })
             setIsDownloading(false)
             onClose()

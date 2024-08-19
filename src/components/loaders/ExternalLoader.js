@@ -1,11 +1,14 @@
+import { useDataEngine } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import externalLoader from '../../loaders/externalLoader.js'
 
 const ExternalLoader = ({ config, onLoad }) => {
+    const engine = useDataEngine()
+
     useEffect(() => {
-        externalLoader(config).then(onLoad)
-    }, [config, onLoad])
+        externalLoader({ config, engine }).then(onLoad)
+    }, [config, onLoad, engine])
 
     return null
 }

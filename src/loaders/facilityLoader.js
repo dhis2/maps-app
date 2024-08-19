@@ -6,17 +6,17 @@ import {
     CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
-    fetchOrgUnitGroupSet,
+    ORG_UNITS_GROUP_SET_QUERY,
     getPointItems,
     getPolygonItems,
     getStyledOrgUnits,
     getCoordinateField,
+    parseGroupSet,
 } from '../util/orgUnits.js'
 
-const facilityLoader = async (config) => {
+const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
@@ -26,13 +26,11 @@ const facilityLoader = async (config) => {
     let associatedGeometries
 
     const d2 = await getD2()
-    const displayProperty = getDisplayProperty(d2).toUpperCase()
-    const { contextPath } = d2.system.systemInfo
     const name = i18n.t('Facilities')
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
+        .displayProperty(nameProperty)
 
     const requests = [
         featuresRequest
@@ -53,20 +51,26 @@ const facilityLoader = async (config) => {
 
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        requests.push(fetchOrgUnitGroupSet(groupSet.id))
+        const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: { id: groupSet.id },
+        })
+        requests.push(orgUnitGroupsRequest)
     }
 
-    const [features, organisationUnitGroups] = await Promise.all(requests)
+    const [features, orgUnitGroups] = await Promise.all(requests)
 
-    if (organisationUnitGroups) {
-        groupSet.organisationUnitGroups = organisationUnitGroups
+    if (orgUnitGroups) {
+        const { groupSets } = orgUnitGroups
+        groupSet.organisationUnitGroups = parseGroupSet({
+            organisationUnitGroups: groupSets.organisationUnitGroups,
+        })
     }
 
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,
         groupSet,
         config,
-        contextPath
+        baseUrl
     )
 
     legend.title = name

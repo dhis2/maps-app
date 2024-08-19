@@ -1,4 +1,5 @@
-import { useConfig } from '@dhis2/app-runtime'
+import { useCachedDataQuery } from '@dhis2/analytics'
+import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
@@ -26,6 +27,9 @@ const MapView = (props) => {
     } = props
 
     const { baseUrl } = useConfig()
+    const engine = useDataEngine()
+    const { currentUser } = useCachedDataQuery()
+    const nameProperty = currentUser.keyAnalysisDisplayProperty
 
     const splitViewLayer = getSplitViewLayer(layers)
     const isSplitView = !!splitViewLayer
@@ -71,6 +75,8 @@ const MapView = (props) => {
                             resizeCount={resizeCount}
                             setMapObject={setMapObject}
                             baseUrl={baseUrl}
+                            engine={engine}
+                            nameProperty={nameProperty}
                             {...layerDispatchActions}
                         />
                     )}
