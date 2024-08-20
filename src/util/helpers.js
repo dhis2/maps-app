@@ -1,31 +1,6 @@
 import { isObject } from 'lodash/fp'
 import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers.js'
 
-const propertyMap = {
-    name: 'name',
-    displayName: 'name',
-    shortName: 'shortName',
-    displayShortName: 'shortName',
-}
-
-export const getDisplayProperty = (d2, displayProperty) => {
-    const keyAnalysisDisplayProperty =
-        d2.currentUser.settings.keyAnalysisDisplayProperty
-    return (
-        propertyMap[keyAnalysisDisplayProperty] ||
-        propertyMap[displayProperty] ||
-        'name'
-    ) // TODO: check
-}
-
-/*
-export const getDisplayPropertyUrl = d2 => {
-    return `${getDisplayProperty(d2)}~rename(name)`; // TODO
-};
-*/
-
-export const getDisplayPropertyUrl = () => `displayName~rename(name)`
-
 const baseFields = [
     'id',
     'user',
@@ -46,15 +21,15 @@ const baseFields = [
 ]
 
 const analysisFields = () => {
-    const namePropertyUrl = getDisplayPropertyUrl()
+    const nameProperty = `displayName~rename(name)`
     return [
         '*',
-        `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
-        `rows[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
-        `filters[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
+        `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}]]`,
+        `rows[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}]]`,
+        `filters[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}]]`,
         'organisationUnits[id,path]', // Added to retrieve org unit paths
         'dataDimensionItems',
-        `program[id,${namePropertyUrl}]`,
+        `program[id,${nameProperty}]`,
         'programStage[id,displayName~rename(name)]',
         'legendSet[id,displayName~rename(name)]',
         'trackedEntityType[id,displayName~rename(name)]',
@@ -100,10 +75,6 @@ export const legendFields = [
     '!externalAccess',
     '!access',
     '!userGroupAccesses',
-]
-
-export const legendSetFields = [
-    'id,displayName~rename(name),legends[' + legendFields.join(',') + ']',
 ]
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212

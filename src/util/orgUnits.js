@@ -9,9 +9,7 @@ import {
     STYLE_TYPE_SYMBOL,
     NONE,
 } from '../constants/layers.js'
-import { apiFetch } from './api.js'
 import { getUniqueColor } from './colors.js'
-import { getDisplayPropertyUrl } from './helpers.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -44,10 +42,15 @@ export const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     }))
 }
 
-export const fetchOrgUnitGroupSet = (id) =>
-    apiFetch(
-        `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
-    ).then(parseGroupSet)
+export const ORG_UNITS_GROUP_SET_QUERY = {
+    groupSets: {
+        resource: 'organisationUnitGroupSets',
+        id: ({ id }) => id,
+        params: {
+            fields: ['organisationUnitGroups[id,name,color,symbol]'],
+        },
+    },
+}
 
 export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 
@@ -181,24 +184,6 @@ export const getStyledOrgUnits = (
     }
 }
 /* eslint-enable max-params */
-
-// This function returns the org unit level names used in the legend
-export const getOrgUnitLevels = async (d2) => {
-    const orgUnitLevels = await d2.models.organisationUnitLevels.list({
-        fields: `id,${getDisplayPropertyUrl(d2)},level`,
-        paging: false,
-    })
-
-    return orgUnitLevels
-        ? orgUnitLevels.toArray().reduce(
-              (obj, item) => ({
-                  ...obj,
-                  [item.level]: item.name,
-              }),
-              {}
-          )
-        : {}
-}
 
 // Converts "LEVEL-x" to newer "LEVEL-uid" format
 export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {

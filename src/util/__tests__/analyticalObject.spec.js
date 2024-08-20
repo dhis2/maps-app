@@ -62,24 +62,30 @@ describe('analytical object utils', () => {
 
         it('returns undefined if no org unit dimension is passed', async () => {
             const result = await getThematicLayerFromAnalyticalObject({
-                columns,
+                ao: {
+                    columns,
+                },
             })
             expect(result).toBeUndefined()
         })
 
         it('returns undefined if no period dimension is passed', async () => {
             const result = await getThematicLayerFromAnalyticalObject({
-                columns,
-                rows,
+                ao: {
+                    columns,
+                    rows,
+                },
             })
             expect(result).toBeUndefined()
         })
 
         it('returns layer object if data, org unit and period dimensions are passed', async () => {
             const result = await getThematicLayerFromAnalyticalObject({
-                columns,
-                rows,
-                filters,
+                ao: {
+                    columns,
+                    rows,
+                    filters,
+                },
             })
 
             expect(result).toBeInstanceOf(Object)
