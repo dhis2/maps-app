@@ -1,20 +1,23 @@
 # 
 # Translators:
 # Philip Larsen Donnelly, 2024
-# Ibatov <ibatovk@who.int>, 2024
+# Khurshid Ibatov <Khurshid.Ibatov@tibbiysugurta.uz>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2024\n"
+"Last-Translator: Khurshid Ibatov <Khurshid.Ibatov@tibbiysugurta.uz>, 2024\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uz@Cyrl\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr "Сарлавҳасиз харита, {{date}}"
@@ -336,6 +339,15 @@ msgstr ""
 msgid "Unit"
 msgstr "Бирлик"
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "Манба"
 
@@ -364,9 +376,6 @@ msgstr "Максимум каттароқ бўлиши керак минимум
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Яроқли босқичлар {{minSteps}} {{maxSteps}} тадан"
 
-msgid "Unit: {{ unit }}"
-msgstr "Бирлик: {{ unit }}"
-
 msgid "Min"
 msgstr "Минимум"
 
@@ -375,6 +384,9 @@ msgstr "Максимум"
 
 msgid "Steps"
 msgstr "Қадамлар"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "Ташкилий Бўлимлар"
@@ -569,6 +581,17 @@ msgstr "Гуруҳ созламалари стилидан фойдаланиш"
 msgid "Indicator group"
 msgstr "Кўрсатгич гуруҳи"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "Йиқилиш"
 
@@ -666,6 +689,18 @@ msgstr "Фильрлар"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "Маълумотлар топилмади"
+
+msgid "Selected org units: No coordinates found"
+msgstr "Танланган ташкилий бирлик: Координаталар аниқланмади"
+
+msgid "No coordinates found"
+msgstr "Координаталар топилмади"
+
+msgid "Error"
+msgstr "Хато"
 
 msgid "Drill up one level"
 msgstr "Бир поғонага кўтарилинг"
@@ -885,9 +920,6 @@ msgstr "Олдинги йил"
 msgid "Next year"
 msgstr "Кейнги йил"
 
-msgid "Relative"
-msgstr "Ўзаро боғлиқлик"
-
 msgid "Period type"
 msgstr "Давр тури"
 
@@ -990,14 +1022,170 @@ msgstr "Гибрид кўриниш"
 msgid "Bing Aerial Labels"
 msgstr "Белгилар"
 
+msgid "Building footprints"
+msgstr "Бино чизмалари"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+"Биноларни санаш фақат кичикроқ ташкилий бирликлар ҳудудлари учун мавжуд."
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+"Бинолар сонини кўриш учун кичикроқ майдон ёки битта ташкилий бирликни "
+"танланг."
+
+msgid "Number of buildings"
+msgstr "Бино рақамлари"
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Баландлик"
+
+msgid "Elevation above sea-level."
+msgstr "Денгиз сатҳидан баландлик"
+
+msgid "meters"
+msgstr "метр"
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "Ўсимликлар қавати"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Спутник ёрдамида ер қатламининг тури аниқланган "
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Доимий яшил нина баргли ўрмонлар"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Доимий яшил кенг баргли ўрмонлар"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Нина баргли ўрмонлар"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Кенг баргли ўрмонлар"
+
+msgid "Mixed forest"
+msgstr "Аралаш ўрмонлар"
+
+msgid "Closed shrublands"
+msgstr "Зич бутазорлар"
+
+msgid "Open shrublands"
+msgstr "Сийрак бутазорлар"
+
+msgid "Woody savannas"
+msgstr "Саванналар (ёғочли)"
+
+msgid "Savannas"
+msgstr "Саванна"
+
+msgid "Grasslands"
+msgstr "Ўтлоқлар"
+
+msgid "Permanent wetlands"
+msgstr "Доимий ботқоқликлар "
+
+msgid "Croplands"
+msgstr "Ўсимликлар"
+
+msgid "Urban and built-up"
+msgstr "Урбанизация ва шаҳарсозлик"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Ўсимликлар/Табиий ўсимликлар дунёси"
+
+msgid "Snow and ice"
+msgstr "Қор ва муз"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Ҳосилсиз ёки кам ўсимликлардан"
+
+msgid "Water"
+msgstr "Сув"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+"Юқори аниқликдаги сунъий йўлдош тасвирларидан олинган биноларнинг "
+"контурлари. Фақат Африка қитъаси учун."
+
+msgid "Nighttime lights"
+msgstr "Тунги чироқлар"
+
+msgid "light intensity"
+msgstr "Ёруғлик интенсивлиги"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Ёруғлик интенсивлиги маълумотлари шаҳарлар, қишлоқлар ва шу жумладан ёқилган"
+" газ факелларидан. "
+
 msgid "Population"
 msgstr "Аҳоли"
+
+msgid "people per km²"
+msgstr " 1 км² да одамлар"
+
+msgid "Estimated number of people living in an area."
+msgstr "Ҳудудда яшовчи аҳолининг тахминий сони."
 
 msgid "people per hectare"
 msgstr "Аҳоли сони, гектарда"
 
-msgid "Estimated number of people living in an area."
-msgstr "Ҳудудда яшовчи аҳолининг тахминий сони."
+msgid "Precipitation"
+msgstr "Ёғингарчилик"
+
+msgid "millimeter"
+msgstr "миллиметр"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Сунъий йўлдош ва ердаги станциялардан йиғилган ёғингарчилик маълумотлари. "
+"Қийматлар 5 кунлик йиғилган маълумотлар асосида мм ларда акс эттирилади. "
+"Доимо ойнинг 3чи ҳафтасида янгиланади."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "Кундузги °C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Ер усти ҳарорати сунъий йўлдош орқали аниқлаштирилган. Доимий булутлар билан"
+" қопланган майдонларда бўш доғлар пайдо бўлади."
 
 msgid "Population age groups"
 msgstr "Аҳоли ёш гуруҳлари"
@@ -1006,6 +1194,9 @@ msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 "Ёши ва жинси бўйича гуруҳланган ҳудудда яшовчи одамларнинг тахминий сони."
+
+msgid "~100 meters"
+msgstr ""
 
 msgid "Male 0 - 1 years"
 msgstr "Эркак 0 - 1 ёш"
@@ -1115,140 +1306,30 @@ msgstr "Аёл 75 - 79 ёш"
 msgid "Female 80 years and above"
 msgstr "Аёл 80 ёш ва ундан катта"
 
-msgid "Building footprints"
-msgstr "Бино чизмалари"
-
-msgid "Number of buildings"
-msgstr "Бино рақамлари"
+msgid "Precipitation monthly"
+msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
 msgstr ""
-"Юқори аниқликдаги сунъий йўлдош тасвирларидан олинган биноларнинг "
-"контурлари. Фақат Африка қитъаси учун."
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Ойлик"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
+msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-"Биноларни санаш фақат кичикроқ ташкилий бирликлар ҳудудлари учун мавжуд."
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-"Бинолар сонини кўриш учун кичикроқ майдон ёки битта ташкилий бирликни "
-"танланг."
-
-msgid "Elevation"
-msgstr "Баландлик"
-
-msgid "meters"
-msgstr "метр"
-
-msgid "Elevation above sea-level."
-msgstr "Денгиз сатҳидан баландлик"
-
-msgid "Precipitation"
-msgstr "Ёғингарчилик"
-
-msgid "millimeter"
-msgstr "миллиметр"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Сунъий йўлдош ва ердаги станциялардан йиғилган ёғингарчилик маълумотлари. "
-"Қийматлар 5 кунлик йиғилган маълумотлар асосида мм ларда акс эттирилади. "
-"Доимо ойнинг 3чи ҳафтасида янгиланади."
-
-msgid "Temperature"
-msgstr "Температура"
-
-msgid "°C during daytime"
-msgstr "Кундузги °C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Ер усти ҳарорати сунъий йўлдош орқали аниқлаштирилган. Доимий булутлар билан"
-" қопланган майдонларда бўш доғлар пайдо бўлади."
-
-msgid "Landcover"
-msgstr "Ўсимликлар қавати"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Спутник ёрдамида ер қатламининг тури аниқланган "
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Доимий яшил нина баргли ўрмонлар"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Доимий яшил кенг баргли ўрмонлар"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Нина баргли ўрмонлар"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Кенг баргли ўрмонлар"
-
-msgid "Mixed forest"
-msgstr "Аралаш ўрмонлар"
-
-msgid "Closed shrublands"
-msgstr "Зич бутазорлар"
-
-msgid "Open shrublands"
-msgstr "Сийрак бутазорлар"
-
-msgid "Woody savannas"
-msgstr "Саванналар (ёғочли)"
-
-msgid "Savannas"
-msgstr "Саванна"
-
-msgid "Grasslands"
-msgstr "Ўтлоқлар"
-
-msgid "Permanent wetlands"
-msgstr "Доимий ботқоқликлар "
-
-msgid "Croplands"
-msgstr "Ўсимликлар"
-
-msgid "Urban and built-up"
-msgstr "Урбанизация ва шаҳарсозлик"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Ўсимликлар/Табиий ўсимликлар дунёси"
-
-msgid "Snow and ice"
-msgstr "Қор ва муз"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Ҳосилсиз ёки кам ўсимликлардан"
-
-msgid "Water"
-msgstr "Сув"
-
-msgid "people per km²"
-msgstr " 1 км² да одамлар"
-
-msgid "Nighttime lights"
-msgstr "Тунги чироқлар"
-
-msgid "light intensity"
-msgstr "Ёруғлик интенсивлиги"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Ёруғлик интенсивлиги маълумотлари шаҳарлар, қишлоқлар ва шу жумладан ёқилган"
-" газ факелларидан. "
 
 msgid "All"
 msgstr "Барчаси"
@@ -1283,6 +1364,9 @@ msgstr "Тенг миқдорда"
 msgid "Symbol"
 msgstr "Белгилар"
 
+msgid "Relative"
+msgstr "Ўзаро боғлиқлик"
+
 msgid "Daily"
 msgstr "Кунлик"
 
@@ -1303,9 +1387,6 @@ msgstr "Ҳафталик (Бошланиши Якшанба)"
 
 msgid "Bi-weekly"
 msgstr "Жуфт ҳафталик"
-
-msgid "Monthly"
-msgstr "Ойлик"
 
 msgid "Bi-monthly"
 msgstr "Жуфт ойлик"
@@ -1337,14 +1418,8 @@ msgstr "Молиявий йил (бошланиши Апрель)"
 msgid "Cancelled"
 msgstr "Бекор қилинди"
 
-msgid "{{name}}: No coordinates found"
-msgstr "{{name}}: Координаталар аниқланмади"
-
-msgid "Selected org units: No coordinates found"
-msgstr "Танланган ташкилий бирлик: Координаталар аниқланмади"
-
-msgid "Error: {{message}}"
-msgstr "Хатолик: {{message}}"
+msgid "Earth Engine layer"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "Ушбу қатлам маълумотларига кириш ҳуқуқига эга эмассиз"
@@ -1358,17 +1433,14 @@ msgstr "Қатлам маълумотларини ўқиш пайтида ном
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Биринчиси кўрсатилмоқда {{pageSize}} та ҳодисадан  {{total}}"
 
-msgid "No data found"
-msgstr "Маълумотлар топилмади"
-
 msgid "Event"
 msgstr "Тадбир"
 
 msgid "Facilities"
 msgstr "Муассасалар"
 
-msgid "Facilities: No coordinates found"
-msgstr "Ташкилот: Координаталар аниқланмади"
+msgid "No coordinates found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
@@ -1388,17 +1460,14 @@ msgstr "Нуқта"
 msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"
 
-msgid "Error"
-msgstr "Хато"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Тематик қават"
 
 msgid "Tracked entity"
 msgstr "Кузатув объекти"
-
-msgid "No tracked entities found"
-msgstr "Ҳеч қандай кузатувдаги объект топилмади"
 
 msgid "related"
 msgstr "боғлиқлик"

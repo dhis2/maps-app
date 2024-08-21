@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -16,6 +16,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -326,6 +329,15 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "المصدر"
 
@@ -353,9 +365,6 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Unit: {{ unit }}"
-msgstr ""
-
 msgid "Min"
 msgstr "الأدنى"
 
@@ -364,6 +373,9 @@ msgstr "الأعلى"
 
 msgid "Steps"
 msgstr "الخطوات"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "الوحدات التنظيمية"
@@ -553,6 +565,17 @@ msgstr ""
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "انهيار"
 
@@ -648,6 +671,18 @@ msgstr "‏‏عوامل التصفية"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "لم توجد بيانات"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr "لم يتم العثور على إحداثيات"
+
+msgid "Error"
+msgstr "خطأ"
 
 msgid "Drill up one level"
 msgstr "الطلوع مستوى واحد"
@@ -862,9 +897,6 @@ msgstr "السنة الماضية"
 msgid "Next year"
 msgstr "السنة التالية"
 
-msgid "Relative"
-msgstr "القريب"
-
 msgid "Period type"
 msgstr "نوع الفترة الزمنية"
 
@@ -967,20 +999,174 @@ msgstr "Bing جوي"
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "الارتفاع"
+
+msgid "Elevation above sea-level."
+msgstr "الارتفاع فوق مستوى سطح البحر."
+
+msgid "meters"
+msgstr ""
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "الغطاء الأرضي"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "أنواع مميزة من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr "غابة عريضة الأوراق"
+
+msgid "Mixed forest"
+msgstr "غابة مختلطة"
+
+msgid "Closed shrublands"
+msgstr "شجيرات مغلقة"
+
+msgid "Open shrublands"
+msgstr "الشجيرات المفتوحة"
+
+msgid "Woody savannas"
+msgstr "السافانا الخشبية"
+
+msgid "Savannas"
+msgstr "سافانا"
+
+msgid "Grasslands"
+msgstr "أراضي عشبية"
+
+msgid "Permanent wetlands"
+msgstr "الأراضي الرطبة الدائمة"
+
+msgid "Croplands"
+msgstr "الأراضي الزراعية"
+
+msgid "Urban and built-up"
+msgstr "حضري وعمراني"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "فسيفساء الأراضي الزراعية / الغطاء النباتي الطبيعي"
+
+msgid "Snow and ice"
+msgstr "الثلج والجليد"
+
+msgid "Barren or sparsely vegetated"
+msgstr "قاحل أو نباتات قليلة"
+
+msgid "Water"
+msgstr "ماء"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "الأضواء الليلية"
+
+msgid "light intensity"
+msgstr "شدة الضوء"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"شدة الضوء من المدن والبلدات والمواقع الأخرى ذات الإضاءة المستمرة ، بما في "
+"ذلك مشاعل الغاز."
+
 msgid "Population"
+msgstr ""
+
+msgid "people per km²"
+msgstr "شخص لكل كيلومتر مربع"
+
+msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "people per hectare"
 msgstr ""
 
-msgid "Estimated number of people living in an area."
+msgid "Precipitation"
+msgstr "هطول الأمطار"
+
+msgid "millimeter"
+msgstr "ملليمتر"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
 msgstr ""
+"هطول الأمطار التي تم جمعها من محطات الأقمار الصناعية والطقس الأرضية. القيم "
+"بالملليمتر خلال 5 أيام. يتم تحديثه شهرياً خلال الأسبوع الثالث من الشهر "
+"التالي."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "درجة مئوية خلال النهار"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"جمعت درجات حرارة سطح الأرض من الأقمار الصناعية. ستظهر بقع فارغة في المناطق "
+"ذات الغطاء السحابي الدائم."
 
 msgid "Population age groups"
 msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "~100 meters"
 msgstr ""
 
 msgid "Male 0 - 1 years"
@@ -1091,135 +1277,30 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "شهري"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr "الارتفاع"
-
-msgid "meters"
-msgstr ""
-
-msgid "Elevation above sea-level."
-msgstr "الارتفاع فوق مستوى سطح البحر."
-
-msgid "Precipitation"
-msgstr "هطول الأمطار"
-
-msgid "millimeter"
-msgstr "ملليمتر"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"هطول الأمطار التي تم جمعها من محطات الأقمار الصناعية والطقس الأرضية. القيم "
-"بالملليمتر خلال 5 أيام. يتم تحديثه شهرياً خلال الأسبوع الثالث من الشهر "
-"التالي."
-
-msgid "Temperature"
-msgstr "الحرارة"
-
-msgid "°C during daytime"
-msgstr "درجة مئوية خلال النهار"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"جمعت درجات حرارة سطح الأرض من الأقمار الصناعية. ستظهر بقع فارغة في المناطق "
-"ذات الغطاء السحابي الدائم."
-
-msgid "Landcover"
-msgstr "الغطاء الأرضي"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "أنواع مميزة من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
-
-msgid "Evergreen Needleleaf forest"
-msgstr ""
-
-msgid "Evergreen Broadleaf forest"
-msgstr ""
-
-msgid "Deciduous Needleleaf forest"
-msgstr ""
-
-msgid "Deciduous Broadleaf forest"
-msgstr "غابة عريضة الأوراق"
-
-msgid "Mixed forest"
-msgstr "غابة مختلطة"
-
-msgid "Closed shrublands"
-msgstr "شجيرات مغلقة"
-
-msgid "Open shrublands"
-msgstr "الشجيرات المفتوحة"
-
-msgid "Woody savannas"
-msgstr "السافانا الخشبية"
-
-msgid "Savannas"
-msgstr "سافانا"
-
-msgid "Grasslands"
-msgstr "أراضي عشبية"
-
-msgid "Permanent wetlands"
-msgstr "الأراضي الرطبة الدائمة"
-
-msgid "Croplands"
-msgstr "الأراضي الزراعية"
-
-msgid "Urban and built-up"
-msgstr "حضري وعمراني"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "فسيفساء الأراضي الزراعية / الغطاء النباتي الطبيعي"
-
-msgid "Snow and ice"
-msgstr "الثلج والجليد"
-
-msgid "Barren or sparsely vegetated"
-msgstr "قاحل أو نباتات قليلة"
-
-msgid "Water"
-msgstr "ماء"
-
-msgid "people per km²"
-msgstr "شخص لكل كيلومتر مربع"
-
-msgid "Nighttime lights"
-msgstr "الأضواء الليلية"
-
-msgid "light intensity"
-msgstr "شدة الضوء"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"شدة الضوء من المدن والبلدات والمواقع الأخرى ذات الإضاءة المستمرة ، بما في "
-"ذلك مشاعل الغاز."
 
 msgid "All"
 msgstr "الجميع"
@@ -1254,6 +1335,9 @@ msgstr "حسابات متساوية"
 msgid "Symbol"
 msgstr "الرمز"
 
+msgid "Relative"
+msgstr "القريب"
+
 msgid "Daily"
 msgstr "يومي"
 
@@ -1274,9 +1358,6 @@ msgstr "اسبوعياً (يبدأ الأحد)"
 
 msgid "Bi-weekly"
 msgstr "كل اسبوعين"
-
-msgid "Monthly"
-msgstr "شهري"
 
 msgid "Bi-monthly"
 msgstr "كل شهرين"
@@ -1308,13 +1389,7 @@ msgstr "السنة المالية (تبدأ في ابريل)"
 msgid "Cancelled"
 msgstr "تم الإلغاء"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1329,16 +1404,13 @@ msgstr "حدث خطأ غير معروف أثناء قراءة بيانات ال�
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
-msgid "No data found"
-msgstr "لم توجد بيانات"
-
 msgid "Event"
 msgstr "الحدث"
 
 msgid "Facilities"
 msgstr "مرافق"
 
-msgid "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1359,17 +1431,14 @@ msgstr "نقطة"
 msgid "Organisation units"
 msgstr "الوحدات التنظيمية"
 
-msgid "Error"
-msgstr "خطأ"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
 
 msgid "Tracked entity"
 msgstr "الكيان المتتبع"
-
-msgid "No tracked entities found"
-msgstr "لم يتم العثور على الكيانات المتعقبة"
 
 msgid "related"
 msgstr "ذات صلة"
