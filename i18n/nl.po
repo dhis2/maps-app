@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr "Ongetitelde kaart, {{date}}"
@@ -341,6 +344,15 @@ msgstr ""
 msgid "Unit"
 msgstr "Eenheid"
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "Bron"
 
@@ -368,9 +380,6 @@ msgstr "Max. moet groter zijn dan min."
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Geldige stappen zijn {{minSteps}} tot {{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr "Eenheid: {{ unit }}"
-
 msgid "Min"
 msgstr "Min"
 
@@ -379,6 +388,9 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Stappen"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr "Organisatieëenheden"
@@ -577,6 +589,17 @@ msgstr "Stileer volgens groepsreeks"
 msgid "Indicator group"
 msgstr "Indicatorgroep"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "Inklappen"
 
@@ -674,6 +697,18 @@ msgstr "Filters"
 
 msgid "{{layername}}: {{message}}"
 msgstr "{{layername}}: {{message}}"
+
+msgid "No data found"
+msgstr "Geen gegevens gevonden"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr "Geen coördinaten gevonden"
+
+msgid "Error"
+msgstr "Fout"
 
 msgid "Drill up one level"
 msgstr "Ga één niveau omhoog"
@@ -891,9 +926,6 @@ msgstr "Vorig jaar"
 msgid "Next year"
 msgstr "Volgend jaar"
 
-msgid "Relative"
-msgstr "Relatief"
-
 msgid "Period type"
 msgstr "Soort periode"
 
@@ -996,14 +1028,165 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Hoogte"
+
+msgid "Elevation above sea-level."
+msgstr "Hoogte boven zeespiegel"
+
+msgid "meters"
+msgstr "meters"
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "Landbedekking"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Verschillende landbedekkingstypes verzameld van satellieten."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Groenblijvend naaldbos"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Groenblijvend loofbos"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Bladverliezend naaldbos"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Bladverliezend loofbos"
+
+msgid "Mixed forest"
+msgstr "Gemengd bos"
+
+msgid "Closed shrublands"
+msgstr "Gesloten struikgewas"
+
+msgid "Open shrublands"
+msgstr "Open struikgewas"
+
+msgid "Woody savannas"
+msgstr "Bosrijke savannes"
+
+msgid "Savannas"
+msgstr "Savannes"
+
+msgid "Grasslands"
+msgstr "Graslanden"
+
+msgid "Permanent wetlands"
+msgstr "Permanent nat grondgebied"
+
+msgid "Croplands"
+msgstr "Akkerlanden"
+
+msgid "Urban and built-up"
+msgstr "Stedelijk en bebouwd"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Akkerland-/Natuurlijke vegetatie-mosaiek"
+
+msgid "Snow and ice"
+msgstr "Sneeuw en ijs"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Kaal of schaars begroeid"
+
+msgid "Water"
+msgstr "Water"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "Nachtelijke lichten"
+
+msgid "light intensity"
+msgstr "lichtintensiteit"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Lichtintensiteit van grootsteden, steden, en andere plaatsen met aanhoudende"
+" belichting, inclusief gasvlammen."
+
 msgid "Population"
 msgstr "Bevolking"
+
+msgid "people per km²"
+msgstr "mensen per km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Geschat aantal inwoners in een gebied."
 
 msgid "people per hectare"
 msgstr "bevolking per hectare"
 
-msgid "Estimated number of people living in an area."
-msgstr "Geschat aantal inwoners in een gebied."
+msgid "Precipitation"
+msgstr "Neerslag"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Neerslag verzameld van satelliet- en weerstations aan de grond. De waarden "
+"zijn in millimeters binnen 5-daagse periodes. Maandelijks geüpdatet, tijdens"
+" de 3de week van de volgende maand."
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "°C tijdens de dag"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
+"zich in gebieden met aanhoudende bewolking."
 
 msgid "Population age groups"
 msgstr "Bevolkingsleeftijdsgroepen"
@@ -1013,6 +1196,9 @@ msgid ""
 msgstr ""
 "Geschat aantal inwoners in een gebied, gegroepeerd volgens leeftijd en "
 "geslacht."
+
+msgid "~100 meters"
+msgstr ""
 
 msgid "Male 0 - 1 years"
 msgstr ""
@@ -1122,135 +1308,30 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Maandelijks"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr "Hoogte"
-
-msgid "meters"
-msgstr "meters"
-
-msgid "Elevation above sea-level."
-msgstr "Hoogte boven zeespiegel"
-
-msgid "Precipitation"
-msgstr "Neerslag"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Neerslag verzameld van satelliet- en weerstations aan de grond. De waarden "
-"zijn in millimeters binnen 5-daagse periodes. Maandelijks geüpdatet, tijdens"
-" de 3de week van de volgende maand."
-
-msgid "Temperature"
-msgstr "Temperatuur"
-
-msgid "°C during daytime"
-msgstr "°C tijdens de dag"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
-"zich in gebieden met aanhoudende bewolking."
-
-msgid "Landcover"
-msgstr "Landbedekking"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Verschillende landbedekkingstypes verzameld van satellieten."
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Groenblijvend naaldbos"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Groenblijvend loofbos"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Bladverliezend naaldbos"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Bladverliezend loofbos"
-
-msgid "Mixed forest"
-msgstr "Gemengd bos"
-
-msgid "Closed shrublands"
-msgstr "Gesloten struikgewas"
-
-msgid "Open shrublands"
-msgstr "Open struikgewas"
-
-msgid "Woody savannas"
-msgstr "Bosrijke savannes"
-
-msgid "Savannas"
-msgstr "Savannes"
-
-msgid "Grasslands"
-msgstr "Graslanden"
-
-msgid "Permanent wetlands"
-msgstr "Permanent nat grondgebied"
-
-msgid "Croplands"
-msgstr "Akkerlanden"
-
-msgid "Urban and built-up"
-msgstr "Stedelijk en bebouwd"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Akkerland-/Natuurlijke vegetatie-mosaiek"
-
-msgid "Snow and ice"
-msgstr "Sneeuw en ijs"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Kaal of schaars begroeid"
-
-msgid "Water"
-msgstr "Water"
-
-msgid "people per km²"
-msgstr "mensen per km²"
-
-msgid "Nighttime lights"
-msgstr "Nachtelijke lichten"
-
-msgid "light intensity"
-msgstr "lichtintensiteit"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Lichtintensiteit van grootsteden, steden, en andere plaatsen met aanhoudende"
-" belichting, inclusief gasvlammen."
 
 msgid "All"
 msgstr "Alle"
@@ -1285,6 +1366,9 @@ msgstr "Gelijke aantallen"
 msgid "Symbol"
 msgstr "Symbool"
 
+msgid "Relative"
+msgstr "Relatief"
+
 msgid "Daily"
 msgstr "Dagelijks"
 
@@ -1305,9 +1389,6 @@ msgstr "Wekelijks (Start op zondag)"
 
 msgid "Bi-weekly"
 msgstr "Tweewekelijks"
-
-msgid "Monthly"
-msgstr "Maandelijks"
 
 msgid "Bi-monthly"
 msgstr "Tweemaandelijks"
@@ -1339,13 +1420,7 @@ msgstr "Financieel jaar (Start april)"
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1361,16 +1436,13 @@ msgstr ""
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Toon de eerste {{pageSize}} evenementen van de {{total}}"
 
-msgid "No data found"
-msgstr "Geen gegevens gevonden"
-
 msgid "Event"
 msgstr "Gebeurtenis"
 
 msgid "Facilities"
 msgstr "Instellingen"
 
-msgid "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1391,17 +1463,14 @@ msgstr ""
 msgid "Organisation units"
 msgstr "Organisatieëenheden"
 
-msgid "Error"
-msgstr "Fout"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Thematische laag"
 
 msgid "Tracked entity"
 msgstr "Getraceerde entiteit"
-
-msgid "No tracked entities found"
-msgstr "Geen getraceerde entiteiten gevonden"
 
 msgid "related"
 msgstr "gerelateerd"
