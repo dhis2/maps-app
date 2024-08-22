@@ -1,7 +1,7 @@
-import * as getuid from 'd2/uid'
 import { getConfigFromNonMapConfig } from '../getConfigFromNonMapConfig.js'
 // import * as analyticalObject from '../analyticalObject';
 import * as legend from '../legend.js'
+import * as getuid from '../uid.js'
 
 const mockLegendSet = { id: 'fqs276KXCXi', name: 'ANC Coverage' }
 const chartConfig = {
