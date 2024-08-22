@@ -1,3 +1,10 @@
+## [100.6.6](https://github.com/dhis2/maps-app/compare/v100.6.5...v100.6.6) (2024-08-22)
+
+
+### Bug Fixes
+
+* TEs layer not showing all relationships when source and target are of same type ([#3281](https://github.com/dhis2/maps-app/issues/3281)) ([80f15e7](https://github.com/dhis2/maps-app/commit/80f15e77f9d475bf79a9d4295b16cdaa134c9931))
+
 ## [100.6.5](https://github.com/dhis2/maps-app/compare/v100.6.4...v100.6.5) (2024-08-21)
 
 
