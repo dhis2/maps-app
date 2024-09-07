@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-05-16T08:31:58.810Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Namwan Chanthavisouk, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -328,7 +328,7 @@ msgstr "ປະເພດຕົວເລກລວມ"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -476,13 +476,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "ລະບຸດ້ວຍ"
 
 msgid "is"
 msgstr "is"
 
 msgid "is not"
-msgstr ""
+msgstr "ບໍ່ແມ່ນ"
 
 msgid "Operator"
 msgstr "ເຄື່ອງໝາຍເລກ"
@@ -620,6 +620,9 @@ msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "Parent unit"
 msgstr ""
+
+msgid "No data"
+msgstr "ບໍ່ມີຂໍ້ມູນ"
 
 msgid "Last updated"
 msgstr "ປັບປຸງ​ຄັ້ງຫລ້າສຸດ"
@@ -886,7 +889,7 @@ msgid "Sum"
 msgstr "ຜົນບວກ"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "ມາດຕະຖານການແບ່ງ"
 
 msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
@@ -1302,9 +1305,6 @@ msgstr "ໂຄງຮ່າງການຈັດຕັ້ງ"
 
 msgid "Thematic layer"
 msgstr "ໂຕສະແດງຂໍ້ມູນ"
-
-msgid "No data"
-msgstr "ບໍ່ມີຂໍ້ມູນ"
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"
