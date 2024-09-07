@@ -473,13 +473,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "ລະບຸດ້ວຍ"
 
 msgid "is"
 msgstr "is"
 
 msgid "is not"
-msgstr ""
+msgstr "ບໍ່ແມ່ນ"
 
 msgid "Operator"
 msgstr "ເຄື່ອງໝາຍເລກ"
@@ -886,7 +886,7 @@ msgid "Sum"
 msgstr "ຜົນບວກ"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "ມາດຕະຖານການແບ່ງ"
 
 msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
