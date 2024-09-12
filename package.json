@@ -41,7 +41,7 @@
         "start-server-and-test": "^2.0.3"
     },
     "dependencies": {
-        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#fix/DHIS2-18029-flashing-background",
+        "@dhis2/analytics": "^26.8.4",
         "@dhis2/app-runtime": "^3.10.5",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
