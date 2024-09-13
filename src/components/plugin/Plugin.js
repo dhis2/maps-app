@@ -66,6 +66,7 @@ export const Plugin = ({ visualization, displayProperty }) => {
                     <CachedDataQueryProvider
                         query={query}
                         dataTransformation={providerDataTransformation}
+                        translucent={false}
                     >
                         <MapContainer
                             visualization={visualization}
