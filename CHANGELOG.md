@@ -1,3 +1,10 @@
+## [100.6.7](https://github.com/dhis2/maps-app/compare/v100.6.6...v100.6.7) (2024-09-13)
+
+
+### Bug Fixes
+
+* grey background flashing when loading dashboard ([#3327](https://github.com/dhis2/maps-app/issues/3327)) ([76c52d2](https://github.com/dhis2/maps-app/commit/76c52d2ff34aa0a39b5d59a380a8ceb36cfc12d4))
+
 ## [100.6.6](https://github.com/dhis2/maps-app/compare/v100.6.5...v100.6.6) (2024-08-22)
 
 
