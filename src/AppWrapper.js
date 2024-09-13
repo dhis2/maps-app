@@ -86,7 +86,6 @@ const AppWrapper = () => {
                             <CachedDataQueryProvider
                                 query={appQueries}
                                 dataTransformation={providerDataTransformation}
-                                translucent={false}
                             >
                                 <WindowDimensionsProvider>
                                     <OrgUnitsProvider>
