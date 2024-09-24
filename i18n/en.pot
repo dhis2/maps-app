@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
-"PO-Revision-Date: 2024-07-29T08:57:17.534Z\n"
+"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"PO-Revision-Date: 2024-09-24T14:47:22.066Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1457,6 +1457,9 @@ msgstr "Organisation units"
 
 msgid "Org unit layer"
 msgstr "Org unit layer"
+
+msgid "Data item was not found"
+msgstr "Data item was not found"
 
 msgid "Thematic layer"
 msgstr "Thematic layer"

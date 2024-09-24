@@ -9,8 +9,9 @@ import styles from './styles/CalculationSelect.module.css'
 // Load all calculations
 const CALCULATIONS_QUERY = {
     calculations: {
-        resource: 'expressionDimensionItems',
+        resource: 'dataItems',
         params: ({ nameProperty }) => ({
+            filter: `dimensionItemType:eq:EXPRESSION_DIMENSION_ITEM`,
             fields: ['id', `${nameProperty}~rename(name)`],
             paging: false,
         }),
@@ -23,7 +24,7 @@ const CalculationSelect = ({ calculation, className, errorText, onChange }) => {
         variables: { nameProperty },
     })
 
-    const items = data?.calculations.expressionDimensionItems
+    const items = data?.calculations.dataItems
     const value = calculation?.id
 
     return (
