@@ -89,6 +89,7 @@ export const downloadData = async ({
     humanReadableKeys,
     d2,
     nameProperty,
+    engine,
 }) => {
     const { name, layer: layerType } = layer
     let layerData = layer.data
@@ -97,7 +98,7 @@ export const downloadData = async ({
         const columns = await getEventColumns(layer, {
             format,
             nameProperty,
-            d2,
+            engine,
         })
         const config = {
             ...layer,
@@ -110,7 +111,7 @@ export const downloadData = async ({
         }
 
         const result = await loadData(
-            await getAnalyticsRequest(config, { d2, nameProperty }),
+            await getAnalyticsRequest(config, { d2, nameProperty, engine }),
             config,
             d2
         )

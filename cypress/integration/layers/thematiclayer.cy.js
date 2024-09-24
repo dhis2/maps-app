@@ -71,15 +71,6 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         Layer.validateCardTitle(INDICATOR_NAME)
-        // TODO: test this in a way that is not dependent on the date
-        // Layer.validateCardItems([
-        //     '80.9 - 83.04 (1)',
-        //     '83.04 - 85.18 (0)',
-        //     '85.18 - 87.32 (0)',
-        //     '87.32 - 89.46 (0)',
-        //     '89.46 - 91.6 (1)',
-        // ]);
-
         getMaps().should('have.length', 1)
     })
 
@@ -216,5 +207,23 @@ context('Thematic Layers', () => {
                 `${getApiBaseUrl()}/api/expressionDimensionItems/${calculationUid}`
             )
         })
+    })
+
+    it('adds a thematic layer for data element', () => {
+        const DE_NAME = 'ANC 1st visit'
+        Layer.openDialog('Thematic')
+            .selectItemType('Data element')
+            .selectDataElementGroup('ANC')
+            .selectDataElement(DE_NAME)
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(DE_NAME)
+        cy.getByDataTest(`card-ANC1stvisit`)
+            .findByDataTest('layerlegend-item')
+            .should('have.length', 5)
+
+        getMaps().should('have.length', 1)
     })
 })

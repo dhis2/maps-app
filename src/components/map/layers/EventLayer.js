@@ -2,10 +2,13 @@ import { getInstance as getD2 } from 'd2'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
-import { getAnalyticsRequest } from '../../../util/event.js'
+import {
+    getAnalyticsRequest,
+    PROGRAM_STAGE_QUERY,
+} from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
-import { getDisplayPropertyUrl } from '../../../util/helpers.js'
 import { formatCount } from '../../../util/numbers.js'
+import { OPTION_SET_QUERY } from '../../../util/requests.js'
 import EventPopup from './EventPopup.js'
 import Layer from './Layer.js'
 
@@ -26,9 +29,11 @@ class EventLayer extends Layer {
             isVisible,
             bounds,
             data,
+            engine,
             eventClustering,
             eventPointColor,
             eventPointRadius,
+            nameProperty,
             program,
             programStage,
             serverCluster,
@@ -87,9 +92,8 @@ class EventLayer extends Layer {
                         eventRequest ||
                         (await getAnalyticsRequest(this.props, {
                             d2,
-                            nameProperty:
-                                d2.currentUser.settings
-                                    .keyAnalysisDisplayProperty,
+                            nameProperty,
+                            engine,
                         }))
 
                     eventRequest = eventRequest
@@ -124,7 +128,7 @@ class EventLayer extends Layer {
         }
 
         if (program && programStage) {
-            this.loadDisplayElements()
+            this.loadDisplayElements(engine, nameProperty)
         }
 
         // Create and add event layer based on config object
@@ -196,16 +200,16 @@ class EventLayer extends Layer {
     }
 
     // Loads the data elements for a program stage to display in popup
-    async loadDisplayElements() {
+    async loadDisplayElements(engine, nameProperty) {
         const { programStage, eventCoordinateField } = this.props
 
-        const d2 = await getD2()
-        const data = await d2.models.programStage.get(programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
-                d2
-            )},optionSet,valueType]]`,
-            paging: false,
+        const displayNameProp =
+            nameProperty === 'name' ? 'displayName' : 'displayShortName'
+
+        const { programStage: data } = await engine.query(PROGRAM_STAGE_QUERY, {
+            variables: { id: programStage.id, nameProperty: displayNameProp },
         })
+
         const { programStageDataElements } = data
         let displayElements = []
         let eventCoordinateFieldName
@@ -216,7 +220,7 @@ class EventLayer extends Layer {
                 .map((d) => d.dataElement)
 
             for (const d of displayElements) {
-                await this.loadOptionSet(d)
+                await this.loadOptionSet(d, engine)
             }
 
             if (eventCoordinateField) {
@@ -234,20 +238,20 @@ class EventLayer extends Layer {
     }
 
     // Loads an option set for an data element to get option names
-    async loadOptionSet(dataElement) {
+    async loadOptionSet(dataElement, engine) {
         const { optionSet } = dataElement
 
         if (!optionSet || !optionSet.id) {
             return dataElement
         }
 
-        const d2 = await getD2()
-
         if (optionSet && optionSet.id) {
-            const fullOptionSet = await d2.models.optionSets.get(optionSet.id, {
-                fields: 'id,displayName~rename(name),options[code,displayName~rename(name)]',
-                paging: false,
-            })
+            const { optionSet: fullOptionSet } = await engine.query(
+                OPTION_SET_QUERY,
+                {
+                    variables: { id: optionSet.id },
+                }
+            )
 
             if (fullOptionSet && fullOptionSet.options) {
                 dataElement.options = fullOptionSet.options.reduce(
