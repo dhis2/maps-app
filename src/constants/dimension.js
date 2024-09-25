@@ -67,7 +67,7 @@ export const dimConf = {
     calculation: {
         value: 'expressionDimensionItems',
         dimensionName: 'dx',
-        objectName: 'ed', // Created by Bjorn, don't seem to be in use when the map is saved
+        objectName: 'ed',
         itemType: 'EXPRESSION_DIMENSION_ITEM',
     },
     period: {
