@@ -9,9 +9,9 @@ export const fetchTEIs = async ({
     fields,
     organisationUnitSelectionMode,
 }) => {
-    let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`
+    let url = `/tracker/trackedEntities?paging=false&fields=${fields}&orgUnit=${orgUnits}`
     if (organisationUnitSelectionMode) {
-        url += `&ouMode=${organisationUnitSelectionMode}`
+        url += `&orgUnitMode=${organisationUnitSelectionMode}`
     }
     if (program) {
         url += `&program=${program}`
@@ -22,12 +22,12 @@ export const fetchTEIs = async ({
 
     const data = await apiFetch(url)
 
-    return data.trackedEntityInstances
+    return data.trackedEntities
 }
 
 const normalizeInstances = (instances) => {
     return instances
-        .filter((instance) => !!instance.coordinates)
+        .filter((instance) => !!instance.geometry?.coordinates)
         .reduce((out, instance) => {
             out[instance.id] = instance
             return out
@@ -35,7 +35,7 @@ const normalizeInstances = (instances) => {
 }
 
 export const parseTEInstanceId = (instance) =>
-    instance.trackedEntityInstance.trackedEntityInstance
+    instance.trackedEntity.trackedEntity
 
 const isValidRel = (rel, type, id) =>
     rel.relationshipType === type &&
@@ -109,12 +109,7 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-const fields = [
-    'trackedEntityInstance~rename(id)',
-    'featureType',
-    'coordinates',
-    'relationships',
-]
+const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
 export const getDataWithRelationships = async (
     sourceInstances,
     relationshipType,

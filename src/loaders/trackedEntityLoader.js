@@ -13,21 +13,10 @@ import { apiFetch } from '../util/api.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const fields = [
-    'trackedEntityInstance~rename(id)',
-    'featureType',
-    'coordinates',
-]
-
-// Mapping netween DHIS2 types and GeoJSON types
-const geometryTypesMap = {
-    POINT: 'Point',
-    POLYGON: 'Polygon',
-    MULTI_POLYGON: 'MultiPolygon',
-}
+const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
-const geometryTypes = Object.keys(geometryTypesMap)
+const geometryTypes = ['Point', 'Polygon', 'MultiPolygon']
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async (config) => {
@@ -91,12 +80,12 @@ const trackedEntityLoader = async (config) => {
 
     const fieldsWithRelationships = [...fields, 'relationships']
     // https://docs.dhis2.org/2.29/en/developer/html/webapi_tracked_entity_instance_query.html
-    let url = `/trackedEntityInstances?skipPaging=true&fields=${fieldsWithRelationships}&ou=${orgUnits}`
+    let url = `/tracker/trackedEntities?paging=false&fields=${fieldsWithRelationships}&orgUnit=${orgUnits}`
     let alert
     let explanation
 
     if (organisationUnitSelectionMode) {
-        url += `&ouMode=${organisationUnitSelectionMode}`
+        url += `&orgUnitMode=${organisationUnitSelectionMode}`
     }
 
     if (program) {
@@ -117,17 +106,18 @@ const trackedEntityLoader = async (config) => {
     }
 
     if (periodType === 'program') {
-        url += `&programStartDate=${startDate}&programEndDate=${endDate}`
+        url += `&enrollmentEnrolledAfter=${startDate}&enrollmentEnrolledBefore=${endDate}`
     } else {
-        url += `&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`
+        url += `&updatedAfter=${startDate}&updatedBefore=${endDate}`
     }
 
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
     const primaryData = await apiFetch(url)
 
-    const instances = primaryData.trackedEntityInstances.filter(
+    const instances = primaryData.trackedEntities.filter(
         (instance) =>
-            geometryTypes.includes(instance.featureType) && instance.coordinates
+            geometryTypes.includes(instance.geometry?.type) &&
+            instance.geometry?.coordinates
     )
 
     if (!instances.length) {
@@ -203,12 +193,9 @@ const trackedEntityLoader = async (config) => {
 }
 
 const toGeoJson = (instances) =>
-    instances.map(({ id, featureType, coordinates }) => ({
+    instances.map(({ id, geometry }) => ({
         type: 'Feature',
-        geometry: {
-            type: geometryTypesMap[featureType],
-            coordinates: JSON.parse(coordinates),
-        },
+        geometry: geometry,
         properties: {
             id,
         },
