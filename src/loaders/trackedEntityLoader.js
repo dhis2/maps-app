@@ -80,7 +80,7 @@ const trackedEntityLoader = async (config) => {
 
     const fieldsWithRelationships = [...fields, 'relationships']
     // https://docs.dhis2.org/2.29/en/developer/html/webapi_tracked_entity_instance_query.html
-    let url = `/tracker/trackedEntities?paging=false&fields=${fieldsWithRelationships}&orgUnit=${orgUnits}`
+    let url = `/tracker/trackedEntities?skipPaging=true&fields=${fieldsWithRelationships}&orgUnit=${orgUnits}`
     let alert
     let explanation
 

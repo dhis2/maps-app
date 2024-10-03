@@ -9,7 +9,7 @@ export const fetchTEIs = async ({
     fields,
     organisationUnitSelectionMode,
 }) => {
-    let url = `/tracker/trackedEntities?paging=false&fields=${fields}&orgUnit=${orgUnits}`
+    let url = `/tracker/trackedEntities?skipPaging=true&fields=${fields}&orgUnit=${orgUnits}`
     if (organisationUnitSelectionMode) {
         url += `&orgUnitMode=${organisationUnitSelectionMode}`
     }

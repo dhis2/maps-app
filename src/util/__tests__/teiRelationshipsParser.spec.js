@@ -11,17 +11,17 @@ describe('fetchData', () => {
         {
             customProps: { organisationUnitSelectionMode: 'someOUMode' },
             expectedUrl:
-                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnit=ouId&orgUnitMode=someOUMode',
+                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&orgUnitMode=someOUMode',
         },
         {
             customProps: { type: { id: 'someTETypeId' } },
             expectedUrl:
-                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnit=ouId&trackedEntityType=someTETypeId',
+                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&trackedEntityType=someTETypeId',
         },
         {
             customProps: { program: 'someProgram' },
             expectedUrl:
-                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnit=ouId&program=someProgram',
+                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&program=someProgram',
         },
     ])(
         'should call apiFetch correct url in different scenarios',
