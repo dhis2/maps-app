@@ -19,7 +19,7 @@ const fields = ['trackedEntity~rename(id)', 'geometry']
 const geometryTypes = ['Point', 'Polygon', 'MultiPolygon']
 
 //TODO: Refactor to share code with other loaders
-const trackedEntityLoader = async (config) => {
+const trackedEntityLoader = async (config, serverVersion) => {
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)
@@ -85,7 +85,7 @@ const trackedEntityLoader = async (config) => {
     let explanation
 
     if (organisationUnitSelectionMode) {
-        url += `&orgUnitMode=${organisationUnitSelectionMode}`
+        url += `&ouMode=${organisationUnitSelectionMode}`
     }
 
     if (program) {
@@ -114,7 +114,11 @@ const trackedEntityLoader = async (config) => {
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
     const primaryData = await apiFetch(url)
 
-    const instances = primaryData.trackedEntities.filter(
+    const trackerRootProp =
+        `${serverVersion.major}.${serverVersion.minor}` == '2.40'
+            ? 'instances'
+            : 'trackedEntities'
+    const instances = primaryData[trackerRootProp].filter(
         (instance) =>
             geometryTypes.includes(instance.geometry?.type) &&
             instance.geometry?.coordinates
