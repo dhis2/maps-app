@@ -29,14 +29,20 @@ export class Layer {
     }
 
     selectOuLevel(level) {
-        cy.getByDataTest('org-unit-level-select').click()
+        cy.getByDataTest('org-unit-level-select')
+            .find('span')
+            .then((spans) => {
+                if (spans.length === 0) {
+                    cy.getByDataTest('org-unit-level-select').click()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains(level)
-            .click()
-        cy.get('body').click() // Close the modal menu
+                    cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+                        .contains(level)
+                        .click()
+                    cy.get('body').click() // Close the modal menu
+                }
 
-        return this
+                return this
+            })
     }
 
     typeStartDate(dateString) {
