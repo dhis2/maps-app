@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import { useConfig } from '@dhis2/app-runtime'
+import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
 import useLoaderAlerts from './useLoaderAlerts.js'
