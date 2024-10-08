@@ -56,21 +56,28 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const dataItem = getDataItemFromColumns(columns)
     const coordinateField = getCoordinateField(config)
 
-    let error
+    let loadError
 
     const response = await loadData(config, nameProperty).catch((err) => {
-        error = err
+        loadError = err
+
+        if (err.message) {
+            loadError =
+                err.errorCode === 'E7124' && err.message.includes('dx')
+                    ? i18n.t('Data item was not found')
+                    : err.message
+        }
     })
 
     if (!response) {
         return {
             ...config,
-            ...(error
+            ...(loadError
                 ? {
                       alerts: [
                           {
                               code: ERROR_CRITICAL,
-                              message: error.message || error,
+                              message: loadError,
                           },
                       ],
                   }
@@ -81,6 +88,7 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
             isLoaded: true,
             isLoading: false,
             isVisible: true,
+            loadError,
         }
     }
 
@@ -342,7 +350,7 @@ const loadData = async (config, nameProperty) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
     const dimensions = getValidDimensionsFromFilters(config.filters)
-    const dataItem = getDataItemFromColumns(columns)
+    const dataItem = getDataItemFromColumns(columns) || {}
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE

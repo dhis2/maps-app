@@ -1,3 +1,10 @@
+# [100.7.0](https://github.com/dhis2/maps-app/compare/v100.6.7...v100.7.0) (2024-10-04)
+
+
+### Features
+
+* add user-created custom calculations to maps ([#3088](https://github.com/dhis2/maps-app/issues/3088)) ([505401f](https://github.com/dhis2/maps-app/commit/505401f50684747bf7b4bbdcf86148191bb0acd2))
+
 ## [100.6.7](https://github.com/dhis2/maps-app/compare/v100.6.6...v100.6.7) (2024-09-13)
 
 
