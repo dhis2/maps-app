@@ -6,6 +6,17 @@ import {
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
 
+export const PROGRAM_STAGE_QUERY = {
+    programStage: {
+        resource: 'programStages',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: `programStageDataElements[displayInReports,dataElement[id,code,${nameProperty}~rename(name),optionSet,valueType]]`,
+            paging: false,
+        }),
+    },
+}
+
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
 const isValidDimension = ({ dimension, filter, items }) =>
@@ -15,11 +26,10 @@ const METADATA_FORMAT_NAME = 'name'
 
 export const getEventColumns = async (
     layer,
-    { format = METADATA_FORMAT_NAME, nameProperty, d2 }
+    { format = METADATA_FORMAT_NAME, nameProperty, engine }
 ) => {
-    const result = await d2.models.programStage.get(layer.programStage.id, {
-        fields: `programStageDataElements[displayInReports,dataElement[id,code,${nameProperty}~rename(name),optionSet]]`,
-        paging: false,
+    const { programStage: result } = await engine.query(PROGRAM_STAGE_QUERY, {
+        variables: { id: layer.programStage.id, nameProperty },
     })
 
     return result.programStageDataElements
@@ -48,7 +58,7 @@ export const getAnalyticsRequest = async (
         relativePeriodDate,
         isExtended,
     },
-    { d2, nameProperty }
+    { d2, nameProperty, engine }
 ) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
@@ -61,7 +71,7 @@ export const getAnalyticsRequest = async (
     if (isExtended) {
         const displayColumns = await getEventColumns(
             { programStage },
-            { d2, nameProperty }
+            { engine, nameProperty }
         )
 
         displayColumns.forEach((col) => {

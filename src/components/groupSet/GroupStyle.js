@@ -1,19 +1,12 @@
-import { getInstance as getD2 } from 'd2'
+import { useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styles from './styles/GroupStyle.module.css'
 
 const GroupStyle = ({ name, color, symbol, styleType }) => {
-    const [imagePath, setImagePath] = useState()
+    const { baseUrl } = useConfig()
+    const imagePath = `${baseUrl}/images/orgunitgroup/`
     const useColor = styleType !== 'SYMBOL'
-
-    useEffect(() => {
-        getD2().then((d2) =>
-            setImagePath(
-                `${d2.system.systemInfo.contextPath}/images/orgunitgroup/`
-            )
-        )
-    }, [])
 
     return (
         <div className={styles.item}>

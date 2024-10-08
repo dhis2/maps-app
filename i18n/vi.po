@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -17,6 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -326,6 +329,15 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "Nguồn"
 
@@ -353,9 +365,6 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Unit: {{ unit }}"
-msgstr ""
-
 msgid "Min"
 msgstr "Nhỏ nhất"
 
@@ -364,6 +373,9 @@ msgstr "Lớn nhất"
 
 msgid "Steps"
 msgstr "Bước"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr ""
@@ -431,7 +443,7 @@ msgstr "Kiểu tổng hợp"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -553,6 +565,17 @@ msgstr ""
 msgid "Indicator group"
 msgstr "Nhóm chỉ số"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "Thu gọn"
 
@@ -624,7 +647,7 @@ msgstr "Ẩn bảng dữ liệu"
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
+msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
@@ -647,6 +670,18 @@ msgstr "Bộ lọc"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "Không tìm thấy dữ liệu"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "Lỗi"
 
 msgid "Drill up one level"
 msgstr "Xem tuyến trên"
@@ -683,6 +718,9 @@ msgstr "Đơn vị"
 
 msgid "Parent unit"
 msgstr "Đơn Vị Cha"
+
+msgid "No data"
+msgstr "Không có dữ liệu"
 
 msgid "Last updated"
 msgstr "Lần cập nhật cuối"
@@ -856,9 +894,6 @@ msgstr ""
 msgid "Next year"
 msgstr "Năm sau"
 
-msgid "Relative"
-msgstr "Tương đối"
-
 msgid "Period type"
 msgstr "Loại thời điểm"
 
@@ -961,13 +996,157 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Độ cao"
+
+msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "meters"
+msgstr ""
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "Phủ đất"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr ""
+
+msgid "Mixed forest"
+msgstr ""
+
+msgid "Closed shrublands"
+msgstr ""
+
+msgid "Open shrublands"
+msgstr ""
+
+msgid "Woody savannas"
+msgstr ""
+
+msgid "Savannas"
+msgstr ""
+
+msgid "Grasslands"
+msgstr ""
+
+msgid "Permanent wetlands"
+msgstr ""
+
+msgid "Croplands"
+msgstr ""
+
+msgid "Urban and built-up"
+msgstr ""
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr ""
+
+msgid "Snow and ice"
+msgstr ""
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "Ánh sáng đêm"
+
+msgid "light intensity"
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
 msgid "Population"
+msgstr ""
+
+msgid "people per km²"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "people per hectare"
 msgstr ""
 
-msgid "Estimated number of people living in an area."
+msgid "Precipitation"
+msgstr "Lượng mưa"
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
 msgstr ""
 
 msgid "Population age groups"
@@ -975,6 +1154,9 @@ msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "~100 meters"
 msgstr ""
 
 msgid "Male 0 - 1 years"
@@ -1085,127 +1267,29 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Hàng tháng"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
-msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr "Độ cao"
-
-msgid "meters"
-msgstr ""
-
-msgid "Elevation above sea-level."
-msgstr ""
-
-msgid "Precipitation"
-msgstr "Lượng mưa"
-
-msgid "millimeter"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature"
-msgstr "Nhiệt độ"
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Landcover"
-msgstr "Phủ đất"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr ""
-
-msgid "Evergreen Needleleaf forest"
-msgstr ""
-
-msgid "Evergreen Broadleaf forest"
-msgstr ""
-
-msgid "Deciduous Needleleaf forest"
-msgstr ""
-
-msgid "Deciduous Broadleaf forest"
-msgstr ""
-
-msgid "Mixed forest"
-msgstr ""
-
-msgid "Closed shrublands"
-msgstr ""
-
-msgid "Open shrublands"
-msgstr ""
-
-msgid "Woody savannas"
-msgstr ""
-
-msgid "Savannas"
-msgstr ""
-
-msgid "Grasslands"
-msgstr ""
-
-msgid "Permanent wetlands"
-msgstr ""
-
-msgid "Croplands"
-msgstr ""
-
-msgid "Urban and built-up"
-msgstr ""
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
-
-msgid "Snow and ice"
-msgstr ""
-
-msgid "Barren or sparsely vegetated"
-msgstr ""
-
-msgid "Water"
-msgstr ""
-
-msgid "people per km²"
-msgstr ""
-
-msgid "Nighttime lights"
-msgstr "Ánh sáng đêm"
-
-msgid "light intensity"
-msgstr ""
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
 
 msgid "All"
@@ -1241,6 +1325,9 @@ msgstr "Chia đều số Đơn Vị"
 msgid "Symbol"
 msgstr "Ký hiệu"
 
+msgid "Relative"
+msgstr "Tương đối"
+
 msgid "Daily"
 msgstr "Hàng ngày"
 
@@ -1261,9 +1348,6 @@ msgstr "Hàng tuần (Bắt đầu từ Chủ nhật)"
 
 msgid "Bi-weekly"
 msgstr "Hai-tuần"
-
-msgid "Monthly"
-msgstr "Hàng tháng"
 
 msgid "Bi-monthly"
 msgstr "Hàng 2 tháng"
@@ -1295,13 +1379,7 @@ msgstr "Năm Tài Chính - Tháng 4"
 msgid "Cancelled"
 msgstr "Đã hủy"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1316,19 +1394,13 @@ msgstr ""
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
-msgid "No data found"
-msgstr "Không tìm thấy dữ liệu"
-
 msgid "Event"
 msgstr "Sự Kiện"
 
 msgid "Facilities"
 msgstr ""
 
-msgid "Facilities: No coordinates found"
-msgstr ""
-
-msgid "Url to geojson is invalid."
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1349,20 +1421,14 @@ msgstr "Điểm"
 msgid "Organisation units"
 msgstr "Đơn vị"
 
-msgid "Error"
-msgstr "Lỗi"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Lớp Chuyên Đề"
 
-msgid "No data"
-msgstr "Không có dữ liệu"
-
 msgid "Tracked entity"
 msgstr "Đối Tượng Theo Dõi"
-
-msgid "No tracked entities found"
-msgstr ""
 
 msgid "related"
 msgstr ""

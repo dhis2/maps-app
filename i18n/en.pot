@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
-"PO-Revision-Date: 2024-07-29T08:57:17.534Z\n"
+"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"PO-Revision-Date: 2024-09-24T14:47:22.066Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -19,6 +19,15 @@ msgstr "Map \"{{- name}}\" is saved."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Failed to save map: {{message}}"
+
+msgid "Calculation"
+msgstr "Calculation"
+
+msgid "No calculations found"
+msgstr "No calculations found"
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr "Calculations can be created in the Data Visualizer app."
 
 msgid "Classification"
 msgstr "Classification"
@@ -473,6 +482,9 @@ msgstr "Event data item is required"
 msgid "Program indicator is required"
 msgstr "Program indicator is required"
 
+msgid "Calculation is required"
+msgstr "Calculation is required"
+
 msgid "Period is required"
 msgstr "Period is required"
 
@@ -487,6 +499,9 @@ msgstr "Event data items"
 
 msgid "Program indicators"
 msgstr "Program indicators"
+
+msgid "Calculations"
+msgstr "Calculations"
 
 msgid "Item type"
 msgstr "Item type"
@@ -1442,6 +1457,9 @@ msgstr "Organisation units"
 
 msgid "Org unit layer"
 msgstr "Org unit layer"
+
+msgid "Data item was not found"
+msgstr "Data item was not found"
 
 msgid "Thematic layer"
 msgstr "Thematic layer"

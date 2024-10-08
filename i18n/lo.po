@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T09:11:11.417Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Namwan Chanthavisouk, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lo\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -328,6 +331,15 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "​ແຫ່​ລງ​ທີ່​ມາ"
 
@@ -355,9 +367,6 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Unit: {{ unit }}"
-msgstr ""
-
 msgid "Min"
 msgstr "ຄ່ານ້ອຍສຸດ"
 
@@ -365,6 +374,9 @@ msgid "Max"
 msgstr "ຄ່າສູງສຸດ"
 
 msgid "Steps"
+msgstr ""
+
+msgid "Facility buffer"
 msgstr ""
 
 msgid "Org Units"
@@ -555,6 +567,17 @@ msgstr ""
 msgid "Indicator group"
 msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "ຫຍໍ້"
 
@@ -649,6 +672,18 @@ msgstr "ກັ່ນຕອງ"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "No data found"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "ເກີດການຜິດພາດ"
 
 msgid "Drill up one level"
 msgstr "ຂື້ນໄປ 1 ຊັ້ນຂໍ້ມູນ"
@@ -861,9 +896,6 @@ msgstr ""
 msgid "Next year"
 msgstr "ປີຕໍ່ໄປ"
 
-msgid "Relative"
-msgstr "Relative"
-
 msgid "Period type"
 msgstr "ແບບຊ່ວງເວລາ"
 
@@ -966,13 +998,157 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr ""
+
+msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "meters"
+msgstr ""
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr ""
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr ""
+
+msgid "Mixed forest"
+msgstr ""
+
+msgid "Closed shrublands"
+msgstr ""
+
+msgid "Open shrublands"
+msgstr ""
+
+msgid "Woody savannas"
+msgstr ""
+
+msgid "Savannas"
+msgstr ""
+
+msgid "Grasslands"
+msgstr ""
+
+msgid "Permanent wetlands"
+msgstr ""
+
+msgid "Croplands"
+msgstr ""
+
+msgid "Urban and built-up"
+msgstr ""
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr ""
+
+msgid "Snow and ice"
+msgstr ""
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr ""
+
+msgid "light intensity"
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
 msgid "Population"
+msgstr ""
+
+msgid "people per km²"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "people per hectare"
 msgstr ""
 
-msgid "Estimated number of people living in an area."
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
 msgstr ""
 
 msgid "Population age groups"
@@ -980,6 +1156,9 @@ msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "~100 meters"
 msgstr ""
 
 msgid "Male 0 - 1 years"
@@ -1090,127 +1269,29 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "ລາຍເດືອນ"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
-msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr ""
-
-msgid "meters"
-msgstr ""
-
-msgid "Elevation above sea-level."
-msgstr ""
-
-msgid "Precipitation"
-msgstr ""
-
-msgid "millimeter"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature"
-msgstr "ອຸຫະພູມ"
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Landcover"
-msgstr ""
-
-msgid "Distinct landcover types collected from satellites."
-msgstr ""
-
-msgid "Evergreen Needleleaf forest"
-msgstr ""
-
-msgid "Evergreen Broadleaf forest"
-msgstr ""
-
-msgid "Deciduous Needleleaf forest"
-msgstr ""
-
-msgid "Deciduous Broadleaf forest"
-msgstr ""
-
-msgid "Mixed forest"
-msgstr ""
-
-msgid "Closed shrublands"
-msgstr ""
-
-msgid "Open shrublands"
-msgstr ""
-
-msgid "Woody savannas"
-msgstr ""
-
-msgid "Savannas"
-msgstr ""
-
-msgid "Grasslands"
-msgstr ""
-
-msgid "Permanent wetlands"
-msgstr ""
-
-msgid "Croplands"
-msgstr ""
-
-msgid "Urban and built-up"
-msgstr ""
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
-
-msgid "Snow and ice"
-msgstr ""
-
-msgid "Barren or sparsely vegetated"
-msgstr ""
-
-msgid "Water"
-msgstr ""
-
-msgid "people per km²"
-msgstr ""
-
-msgid "Nighttime lights"
-msgstr ""
-
-msgid "light intensity"
-msgstr ""
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
 
 msgid "All"
@@ -1246,6 +1327,9 @@ msgstr ""
 msgid "Symbol"
 msgstr "Symbol"
 
+msgid "Relative"
+msgstr "Relative"
+
 msgid "Daily"
 msgstr "ທຸກໆມື້"
 
@@ -1266,9 +1350,6 @@ msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນອາທ�
 
 msgid "Bi-weekly"
 msgstr "ສອງອາທິດຕໍ່ຄັ້ງ"
-
-msgid "Monthly"
-msgstr "ລາຍເດືອນ"
 
 msgid "Bi-monthly"
 msgstr "ທຸກໆສອງເດືອນ"
@@ -1300,13 +1381,7 @@ msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດ�
 msgid "Cancelled"
 msgstr "ຍົກເລີກແລ້ວ"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1321,16 +1396,13 @@ msgstr ""
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
-msgid "No data found"
-msgstr "No data found"
-
 msgid "Event"
 msgstr "ເຫດການ"
 
 msgid "Facilities"
 msgstr ""
 
-msgid "Facilities: No coordinates found"
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1351,17 +1423,14 @@ msgstr "Point"
 msgid "Organisation units"
 msgstr "ໂຄງຮ່າງການຈັດຕັ້ງ"
 
-msgid "Error"
-msgstr "ເກີດການຜິດພາດ"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "ໂຕສະແດງຂໍ້ມູນ"
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"
-
-msgid "No tracked entities found"
-msgstr ""
 
 msgid "related"
 msgstr ""
