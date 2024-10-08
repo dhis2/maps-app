@@ -35,7 +35,13 @@ const reportPortalConfig = [
         debug: false,
     },
 ]
+
+const isDependabotPR = process.env.GITHUB_ACTOR === 'dependabot[bot]'
 const isGithubActionsRun = process.env.CI === 'true'
+const isReportPortalSetup =
+    process.env.REPORTPORTAL_API_KEY !== undefined &&
+    process.env.REPORTPORTAL_ENDPOINT !== undefined &&
+    process.env.REPORTPORTAL_PROJECT !== undefined
 
 module.exports = {
     setupFilesAfterEnv: ['<rootDir>/config/testSetup.js'],
@@ -51,5 +57,10 @@ module.exports = {
     snapshotSerializers: ['enzyme-to-json/serializer'],
 
     testRunner: 'jest-circus/runner',
-    reporters: ['default', ...(isGithubActionsRun ? [reportPortalConfig] : [])],
+    reporters: [
+        'default',
+        ...(isGithubActionsRun && isReportPortalSetup && !isDependabotPR
+            ? [reportPortalConfig]
+            : []),
+    ],
 }
