@@ -1,3 +1,5 @@
+const isDependabotPR = process.env.GITHUB_ACTOR === 'dependabot[bot]'
+
 const reportPortalConfig = [
     '@reportportal/agent-js-jest',
     {
@@ -39,7 +41,8 @@ const reportPortalConfig = [
 const isReportPortalSetup =
     process.env.REPORTPORTAL_API_KEY !== undefined &&
     process.env.REPORTPORTAL_ENDPOINT !== undefined &&
-    process.env.REPORTPORTAL_PROJECT !== undefined
+    process.env.REPORTPORTAL_PROJECT !== undefined &&
+    !isDependabotPR
 
 module.exports = {
     setupFilesAfterEnv: ['<rootDir>/config/testSetup.js'],
