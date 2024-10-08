@@ -19,10 +19,10 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "11.6.1",
-        "@dhis2/cli-style": "^10.5.1",
-        "@dhis2/cypress-commands": "^10.0.3",
-        "@dhis2/cypress-plugins": "^10.0.3",
+        "@dhis2/cli-app-scripts": "11.7.2",
+        "@dhis2/cli-style": "^10.7.4",
+        "@dhis2/cypress-commands": "^10.0.6",
+        "@dhis2/cypress-plugins": "^10.0.6",
         "@semantic-release/changelog": "^6",
         "@semantic-release/exec": "^6",
         "@semantic-release/git": "^10",
