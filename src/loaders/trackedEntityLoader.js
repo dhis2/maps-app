@@ -84,7 +84,6 @@ const trackedEntityLoader = async (config, serverVersion) => {
         .join(';')
 
     const fieldsWithRelationships = [...fields, 'relationships']
-    // https://docs.dhis2.org/2.29/en/developer/html/webapi_tracked_entity_instance_query.html
     let url = `/tracker/trackedEntities?skipPaging=true&fields=${fieldsWithRelationships}&orgUnit=${orgUnits}`
     let alert
     let explanation
@@ -116,7 +115,6 @@ const trackedEntityLoader = async (config, serverVersion) => {
         url += `&updatedAfter=${startDate}&updatedBefore=${endDate}`
     }
 
-    // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
     const primaryData = await apiFetch(url)
 
     const trackerRootProp =
