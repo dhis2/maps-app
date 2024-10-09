@@ -10,13 +10,18 @@ import {
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { apiFetch } from '../util/api.js'
+import {
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_MULTIPOLYGON,
+} from '../util/geojson.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
-const geometryTypes = ['Point', 'Polygon', 'MultiPolygon']
+const geometryTypes = [GEO_TYPE_POINT, GEO_TYPE_POLYGON, GEO_TYPE_MULTIPOLYGON]
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async (config, serverVersion) => {
@@ -162,6 +167,7 @@ const trackedEntityLoader = async (config, serverVersion) => {
         )
 
         const dataWithRels = await getDataWithRelationships(
+            serverVersion,
             instances,
             relationshipType,
             {
