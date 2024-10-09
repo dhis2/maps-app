@@ -14,7 +14,7 @@ const TrackedEntityLoader = ({ config, onLoad, loaderAlertAction }) => {
             }
             onLoad(result)
         })
-    }, [config, onLoad, showAlerts, loaderAlertAction])
+    }, [config, onLoad, showAlerts, loaderAlertAction, serverVersion])
 
     return null
 }
