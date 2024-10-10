@@ -167,8 +167,8 @@ const trackedEntityLoader = async (config, serverVersion) => {
         const dataWithRels = await getDataWithRelationships(
             serverVersion,
             instances,
-            relationshipType,
             {
+                relationshipType,
                 orgUnits,
                 organisationUnitSelectionMode,
             }

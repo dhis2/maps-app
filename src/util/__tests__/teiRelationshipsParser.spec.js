@@ -26,8 +26,7 @@ describe('fetchData', () => {
     ])(
         'should call apiFetch correct url in different scenarios',
         async ({ customProps, expectedUrl }) => {
-            const placeholder = { some: 'object' }
-            const mockData = { trackedEntities: placeholder }
+            const mockData = { some: 'object' }
             const baseProps = {
                 orgUnits: 'ouId',
                 fields: 'someFields',
@@ -38,7 +37,7 @@ describe('fetchData', () => {
                 ...baseProps,
                 ...customProps,
             })
-            expect(result).toEqual(placeholder)
+            expect(result).toEqual(mockData)
             expect(apiFetch).toHaveBeenCalledWith(expectedUrl)
         }
     )
@@ -395,165 +394,169 @@ describe('getDataWithRelationships', () => {
                     ],
                 },
             ]
-            const mockTargetInstances = [
-                { id: 'teTo1' },
-                { id: 'teTo2', geometry: { coordinates: 'x/y' } },
-                { id: 'teTo3', geometry: { coordinates: 'x/y' } },
-                {
-                    id: 'teTo4',
-                    geometry: { coordinates: 'x/y' },
-                    relationships: [
-                        {
-                            bidirectional: false,
-                            relationship: 'relationship4',
-                            relationshipType: 'relationshipTypeId1',
-                            from: {
-                                trackedEntity: {
-                                    trackedEntity: 'teTo4',
+            const mockTargetInstances = {
+                trackedEntities: [
+                    { id: 'teTo1' },
+                    { id: 'teTo2', geometry: { coordinates: 'x/y' } },
+                    { id: 'teTo3', geometry: { coordinates: 'x/y' } },
+                    {
+                        id: 'teTo4',
+                        geometry: { coordinates: 'x/y' },
+                        relationships: [
+                            {
+                                bidirectional: false,
+                                relationship: 'relationship4',
+                                relationshipType: 'relationshipTypeId1',
+                                from: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teTo4',
+                                    },
+                                },
+                                to: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teFrom4',
+                                    },
                                 },
                             },
-                            to: {
-                                trackedEntity: {
-                                    trackedEntity: 'teFrom4',
+                        ],
+                    },
+                    { id: 'teTo5', geometry: { coordinates: 'x/y' } },
+                    {
+                        id: 'teTo6',
+                        geometry: { coordinates: 'x/y' },
+                        relationships: [
+                            {
+                                bidirectional: true,
+                                relationship: 'relationship6',
+                                relationshipType: 'relationshipTypeId1',
+                                from: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teTo6',
+                                    },
+                                },
+                                to: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teFrom6',
+                                    },
                                 },
                             },
-                        },
-                    ],
-                },
-                { id: 'teTo5', geometry: { coordinates: 'x/y' } },
-                {
-                    id: 'teTo6',
-                    geometry: { coordinates: 'x/y' },
-                    relationships: [
-                        {
-                            bidirectional: true,
-                            relationship: 'relationship6',
-                            relationshipType: 'relationshipTypeId1',
-                            from: {
-                                trackedEntity: {
-                                    trackedEntity: 'teTo6',
+                        ],
+                    },
+                    {
+                        id: 'teTo7',
+                        geometry: { coordinates: 'x/y' },
+                        relationships: [
+                            {
+                                bidirectional: true,
+                                relationship: 'relationship7',
+                                relationshipType: 'relationshipTypeId1',
+                                from: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teFrom7',
+                                    },
+                                },
+                                to: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teTo7',
+                                    },
                                 },
                             },
-                            to: {
-                                trackedEntity: {
-                                    trackedEntity: 'teFrom6',
+                        ],
+                    },
+                    {
+                        id: 'teTo8A',
+                        geometry: { coordinates: 'x/y' },
+                        relationships: [
+                            {
+                                bidirectional: false,
+                                relationship: 'relationship8A',
+                                relationshipType: 'relationshipTypeId1',
+                                from: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teFrom8',
+                                    },
+                                },
+                                to: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teTo8A',
+                                    },
                                 },
                             },
-                        },
-                    ],
-                },
-                {
-                    id: 'teTo7',
-                    geometry: { coordinates: 'x/y' },
-                    relationships: [
-                        {
-                            bidirectional: true,
-                            relationship: 'relationship7',
-                            relationshipType: 'relationshipTypeId1',
-                            from: {
-                                trackedEntity: {
-                                    trackedEntity: 'teFrom7',
+                        ],
+                    },
+                    {
+                        id: 'teTo8B',
+                        geometry: { coordinates: 'x/y' },
+                        relationships: [
+                            {
+                                bidirectional: false,
+                                relationship: 'relationship8B',
+                                relationshipType: 'relationshipTypeId1',
+                                from: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teFrom8',
+                                    },
+                                },
+                                to: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teTo8B',
+                                    },
                                 },
                             },
-                            to: {
-                                trackedEntity: {
-                                    trackedEntity: 'teTo7',
+                        ],
+                    },
+                    {
+                        id: 'teTo9',
+                        geometry: { coordinates: 'x/y' },
+                        relationships: [
+                            {
+                                bidirectional: false,
+                                relationship: 'relationship9A',
+                                relationshipType: 'relationshipTypeId1',
+                                from: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teFrom9A',
+                                    },
+                                },
+                                to: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teTo9',
+                                    },
                                 },
                             },
-                        },
-                    ],
-                },
-                {
-                    id: 'teTo8A',
-                    geometry: { coordinates: 'x/y' },
-                    relationships: [
-                        {
-                            bidirectional: false,
-                            relationship: 'relationship8A',
-                            relationshipType: 'relationshipTypeId1',
-                            from: {
-                                trackedEntity: {
-                                    trackedEntity: 'teFrom8',
+                            {
+                                bidirectional: false,
+                                relationship: 'relationship9B',
+                                relationshipType: 'relationshipTypeId1',
+                                from: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teFrom9B',
+                                    },
+                                },
+                                to: {
+                                    trackedEntity: {
+                                        trackedEntity: 'teTo9',
+                                    },
                                 },
                             },
-                            to: {
-                                trackedEntity: {
-                                    trackedEntity: 'teTo8A',
-                                },
-                            },
-                        },
-                    ],
-                },
-                {
-                    id: 'teTo8B',
-                    geometry: { coordinates: 'x/y' },
-                    relationships: [
-                        {
-                            bidirectional: false,
-                            relationship: 'relationship8B',
-                            relationshipType: 'relationshipTypeId1',
-                            from: {
-                                trackedEntity: {
-                                    trackedEntity: 'teFrom8',
-                                },
-                            },
-                            to: {
-                                trackedEntity: {
-                                    trackedEntity: 'teTo8B',
-                                },
-                            },
-                        },
-                    ],
-                },
-                {
-                    id: 'teTo9',
-                    geometry: { coordinates: 'x/y' },
-                    relationships: [
-                        {
-                            bidirectional: false,
-                            relationship: 'relationship9A',
-                            relationshipType: 'relationshipTypeId1',
-                            from: {
-                                trackedEntity: {
-                                    trackedEntity: 'teFrom9A',
-                                },
-                            },
-                            to: {
-                                trackedEntity: {
-                                    trackedEntity: 'teTo9',
-                                },
-                            },
-                        },
-                        {
-                            bidirectional: false,
-                            relationship: 'relationship9B',
-                            relationshipType: 'relationshipTypeId1',
-                            from: {
-                                trackedEntity: {
-                                    trackedEntity: 'teFrom9B',
-                                },
-                            },
-                            to: {
-                                trackedEntity: {
-                                    trackedEntity: 'teTo9',
-                                },
-                            },
-                        },
-                    ],
-                },
-            ]
+                        ],
+                    },
+                ],
+            }
             const OUProps = {
                 orgUnits: 'someOU',
                 organisationUnitSelectionMode: 'someOUMode',
             }
+            const serverVersion = {
+                major: 2,
+                minor: 41,
+            }
 
-            apiFetch.mockResolvedValueOnce({
-                trackedEntities: mockTargetInstances,
-            })
+            apiFetch.mockResolvedValueOnce(mockTargetInstances)
             const result = await getDataWithRelationships(
+                serverVersion,
                 mockSourceInstances,
-                relationshipType,
-                OUProps
+                { relationshipType, ...OUProps }
             )
 
             if (Array.isArray(expected)) {

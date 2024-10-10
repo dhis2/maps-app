@@ -5,8 +5,8 @@ const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 export const fetchTEIs = async ({
     program,
     type,
-    orgUnits,
     fields,
+    orgUnits,
     organisationUnitSelectionMode,
 }) => {
     let url = `/tracker/trackedEntities?skipPaging=true&fields=${fields}&orgUnit=${orgUnits}`
@@ -22,7 +22,7 @@ export const fetchTEIs = async ({
 
     const data = await apiFetch(url)
 
-    return data.trackedEntities
+    return data
 }
 
 const normalizeInstances = (instances) => {
@@ -111,9 +111,9 @@ const getInstanceRelationships = (
 
 const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
 export const getDataWithRelationships = async (
+    serverVersion,
     sourceInstances,
-    relationshipType,
-    { orgUnits, organisationUnitSelectionMode }
+    { relationshipType, orgUnits, organisationUnitSelectionMode }
 ) => {
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
@@ -166,17 +166,26 @@ export const getDataWithRelationships = async (
     const normalizedSourceInstances = normalizeInstances(sourceInstances)
 
     // Retrieve potential target instances
-    const potentialTargetInstances =
-        isRecursiveTrackedEntityType & isRecursiveProgram
-            ? normalizedSourceInstances
-            : normalizeInstances(
-                  await fetchTEIs({
-                      ...recursiveProp,
-                      fields,
-                      orgUnits,
-                      organisationUnitSelectionMode,
-                  })
-              )
+    let normalizedPotentialTargetInstances
+    if (isRecursiveTrackedEntityType & isRecursiveProgram) {
+        normalizedPotentialTargetInstances = normalizedSourceInstances
+    } else {
+        const trackerRootProp =
+            `${serverVersion.major}.${serverVersion.minor}` == '2.40'
+                ? 'instances'
+                : 'trackedEntities'
+        console.log(trackerRootProp)
+        const potentialTargetInstances = await fetchTEIs({
+            ...recursiveProp,
+            fields,
+            orgUnits,
+            organisationUnitSelectionMode,
+        })
+        console.log(potentialTargetInstances)
+        normalizedPotentialTargetInstances = normalizeInstances(
+            potentialTargetInstances[trackerRootProp]
+        )
+    }
 
     const targetInstanceIds = []
     // Keep TEI with relationship of correct type
@@ -191,15 +200,15 @@ export const getDataWithRelationships = async (
         getInstanceRelationships(
             relationshipsById,
             instance,
-            potentialTargetInstances,
+            normalizedPotentialTargetInstances,
             relationshipType.id
         )
     )
 
     // Keep only instances that are the target of a relationship
-    const targetInstances = Object.values(potentialTargetInstances).filter(
-        (instance) => targetInstanceIds.includes(instance.id)
-    )
+    const targetInstances = Object.values(
+        normalizedPotentialTargetInstances
+    ).filter((instance) => targetInstanceIds.includes(instance.id))
 
     return {
         primary: Object.values(normalizedSourceInstances),
