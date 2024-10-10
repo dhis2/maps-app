@@ -11,7 +11,7 @@ const hasValue = (value) => value !== undefined || value !== null
 
 const EVENTS_QUERY = {
     events: {
-        resource: 'events',
+        resource: 'tracker/events',
         id: ({ id }) => id,
     },
 }
@@ -81,7 +81,7 @@ const EventPopup = ({
 
     const { type, coordinates: coord } = feature.geometry
     const { value } = feature.properties
-    const { dataValues = [], eventDate, orgUnitName } = data?.events || {}
+    const { dataValues = [], occurredAt, orgUnitName } = data?.events || {}
 
     return (
         <Popup
@@ -117,10 +117,10 @@ const EventPopup = ({
                                 <td>{orgUnitName}</td>
                             </tr>
                         )}
-                        {eventDate && (
+                        {occurredAt && (
                             <tr>
                                 <th>{i18n.t('Event time')}</th>
-                                <td>{formatTime(eventDate)}</td>
+                                <td>{formatTime(occurredAt)}</td>
                             </tr>
                         )}
                     </tbody>

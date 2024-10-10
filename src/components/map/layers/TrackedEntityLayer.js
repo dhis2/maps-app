@@ -27,27 +27,27 @@ const getCentroid = (points) => {
 
 const fetchTEI = async (id, fieldsString, baseUrl) => {
     const data = await apiFetchWithBaseUrl({
-        url: `/trackedEntityInstances/${id}?fields=${fieldsString}`,
+        url: `/tracker/trackedEntities/${id}?fields=${fieldsString}`,
         baseUrl,
     })
     return data
 }
 
-const geomToCentroid = (type, coords) => {
-    switch (type) {
-        case 'POINT':
-            return JSON.parse(coords)
-        case 'POLYGON':
+const geomToCentroid = (geometry) => {
+    switch (geometry.type) {
+        case 'Point':
+            return geometry.coordinates
+        case 'Polygon':
             // TODO: Support multipolygon / use turf
-            return getCentroid(JSON.parse(coords)[0])
+            return getCentroid(geometry.coordinates[0])
         default:
             return null
     }
 }
 
 const makeRelationshipGeometry = ({ from, to }) => {
-    const fromGeom = geomToCentroid(from.featureType, from.coordinates)
-    const toGeom = geomToCentroid(to.featureType, to.coordinates)
+    const fromGeom = geomToCentroid(from.geometry)
+    const toGeom = geomToCentroid(to.geometry)
     if (!fromGeom || !toGeom) {
         // console.error('Invalid relationship geometries', from, to);
         return null
@@ -160,7 +160,7 @@ class TrackedEntityLayer extends Layer {
 
     getPopup() {
         const { coordinates, data } = this.state.popup
-        const { attributes = [], lastUpdated } = data
+        const { attributes = [], updatedAt } = data
 
         return (
             <Popup coordinates={coordinates} onClose={this.onPopupClose}>
@@ -174,7 +174,7 @@ class TrackedEntityLayer extends Layer {
                         ))}
                         <tr>
                             <th>{i18n.t('Last updated')}:</th>
-                            <td>{formatTime(lastUpdated)}</td>
+                            <td>{formatTime(updatedAt)}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,7 +191,7 @@ class TrackedEntityLayer extends Layer {
 
         const data = await fetchTEI(
             feature.properties.id,
-            'lastUpdated,attributes[displayName~rename(name),value],relationships',
+            'updatedAt,attributes[displayName~rename(name),value],relationships',
             this.props.baseUrl
         )
 
