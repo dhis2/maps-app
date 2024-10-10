@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Persian (Afghanistan) (https://app.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -14,6 +14,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa_AF\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "2020"
+msgstr ""
 
 msgid "Untitled map, {{date}}"
 msgstr ""
@@ -323,6 +326,15 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
 msgid "Source"
 msgstr "منبع"
 
@@ -350,9 +362,6 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Unit: {{ unit }}"
-msgstr ""
-
 msgid "Min"
 msgstr "کوچکتر"
 
@@ -361,6 +370,9 @@ msgstr "بزرگتر"
 
 msgid "Steps"
 msgstr "مرحله"
+
+msgid "Facility buffer"
+msgstr ""
 
 msgid "Org Units"
 msgstr ""
@@ -428,7 +440,7 @@ msgstr "نوع تجمع"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -550,6 +562,17 @@ msgstr ""
 msgid "Indicator group"
 msgstr "د شاخص ګروپ"
 
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
 msgid "Collapse"
 msgstr "فرو ریختن"
 
@@ -621,7 +644,7 @@ msgstr "د مالوماتو (ډاټا) جدول پټ کړئ"
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
+msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
@@ -644,6 +667,18 @@ msgstr "فیلټرونه"
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
+
+msgid "No data found"
+msgstr "هیچ معلوماتی یافت نشد"
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "خطا"
 
 msgid "Drill up one level"
 msgstr "د نکتې سطحه غوره کړئ"
@@ -680,6 +715,9 @@ msgstr "بخش نهاد/سازمان"
 
 msgid "Parent unit"
 msgstr "لوی واحد"
+
+msgid "No data"
+msgstr "معلوماتی وجود ندارد"
 
 msgid "Last updated"
 msgstr "تجدید آخیر"
@@ -853,9 +891,6 @@ msgstr ""
 msgid "Next year"
 msgstr "سال بعدی"
 
-msgid "Relative"
-msgstr "اړونده"
-
 msgid "Period type"
 msgstr "د مودې ډول"
 
@@ -958,13 +993,157 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr "بلندی"
+
+msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "meters"
+msgstr ""
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "Febuary 2000"
+msgstr ""
+
+msgid "Landcover"
+msgstr "پوشش زمین"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr ""
+
+msgid "Mixed forest"
+msgstr ""
+
+msgid "Closed shrublands"
+msgstr ""
+
+msgid "Open shrublands"
+msgstr ""
+
+msgid "Woody savannas"
+msgstr ""
+
+msgid "Savannas"
+msgstr ""
+
+msgid "Grasslands"
+msgstr ""
+
+msgid "Permanent wetlands"
+msgstr ""
+
+msgid "Croplands"
+msgstr ""
+
+msgid "Urban and built-up"
+msgstr ""
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr ""
+
+msgid "Snow and ice"
+msgstr ""
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "روشنی وقت شب"
+
+msgid "light intensity"
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
 msgid "Population"
+msgstr ""
+
+msgid "people per km²"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "people per hectare"
 msgstr ""
 
-msgid "Estimated number of people living in an area."
+msgid "Precipitation"
+msgstr "تشریح"
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
 msgstr ""
 
 msgid "Population age groups"
@@ -972,6 +1151,9 @@ msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "~100 meters"
 msgstr ""
 
 msgid "Male 0 - 1 years"
@@ -1082,127 +1264,29 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
+msgstr ""
+
+msgid "~11 kilometers"
+msgstr ""
+
+msgid "Monthly"
+msgstr "ماهانه"
+
+msgid "Febuary 1950 - One month ago"
+msgstr ""
+
+msgid "Temperature monthly"
 msgstr ""
 
 msgid ""
-"Building counts are only available for smaller organisation unit areas."
-msgstr ""
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr ""
-
-msgid "Elevation"
-msgstr "بلندی"
-
-msgid "meters"
-msgstr ""
-
-msgid "Elevation above sea-level."
-msgstr ""
-
-msgid "Precipitation"
-msgstr "تشریح"
-
-msgid "millimeter"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature"
-msgstr "درجه حرارت"
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Landcover"
-msgstr "پوشش زمین"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr ""
-
-msgid "Evergreen Needleleaf forest"
-msgstr ""
-
-msgid "Evergreen Broadleaf forest"
-msgstr ""
-
-msgid "Deciduous Needleleaf forest"
-msgstr ""
-
-msgid "Deciduous Broadleaf forest"
-msgstr ""
-
-msgid "Mixed forest"
-msgstr ""
-
-msgid "Closed shrublands"
-msgstr ""
-
-msgid "Open shrublands"
-msgstr ""
-
-msgid "Woody savannas"
-msgstr ""
-
-msgid "Savannas"
-msgstr ""
-
-msgid "Grasslands"
-msgstr ""
-
-msgid "Permanent wetlands"
-msgstr ""
-
-msgid "Croplands"
-msgstr ""
-
-msgid "Urban and built-up"
-msgstr ""
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
-
-msgid "Snow and ice"
-msgstr ""
-
-msgid "Barren or sparsely vegetated"
-msgstr ""
-
-msgid "Water"
-msgstr ""
-
-msgid "people per km²"
-msgstr ""
-
-msgid "Nighttime lights"
-msgstr "روشنی وقت شب"
-
-msgid "light intensity"
-msgstr ""
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
 
 msgid "All"
@@ -1238,6 +1322,9 @@ msgstr "مساوي حسابونه"
 msgid "Symbol"
 msgstr "سمبول"
 
+msgid "Relative"
+msgstr "اړونده"
+
 msgid "Daily"
 msgstr "روزنه"
 
@@ -1258,9 +1345,6 @@ msgstr ""
 
 msgid "Bi-weekly"
 msgstr ""
-
-msgid "Monthly"
-msgstr "ماهانه"
 
 msgid "Bi-monthly"
 msgstr "دوبار در- ماه"
@@ -1292,13 +1376,7 @@ msgstr "مالی اپریل"
 msgid "Cancelled"
 msgstr ""
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
+msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1313,19 +1391,13 @@ msgstr ""
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
-msgid "No data found"
-msgstr "هیچ معلوماتی یافت نشد"
-
 msgid "Event"
 msgstr "رویداد"
 
 msgid "Facilities"
 msgstr ""
 
-msgid "Facilities: No coordinates found"
-msgstr ""
-
-msgid "Url to geojson is invalid."
+msgid "No coordinates found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1346,20 +1418,14 @@ msgstr "نکته"
 msgid "Organisation units"
 msgstr "واحد های سازمان"
 
-msgid "Error"
-msgstr "خطا"
+msgid "Org unit layer"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "د موضوع اړوند طبقه"
 
-msgid "No data"
-msgstr "معلوماتی وجود ندارد"
-
 msgid "Tracked entity"
 msgstr "ردیابی هویت"
-
-msgid "No tracked entities found"
-msgstr ""
 
 msgid "related"
 msgstr ""

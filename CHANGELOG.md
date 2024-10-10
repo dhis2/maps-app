@@ -1,3 +1,31 @@
+# [100.7.0](https://github.com/dhis2/maps-app/compare/v100.6.7...v100.7.0) (2024-10-04)
+
+
+### Features
+
+* add user-created custom calculations to maps ([#3088](https://github.com/dhis2/maps-app/issues/3088)) ([505401f](https://github.com/dhis2/maps-app/commit/505401f50684747bf7b4bbdcf86148191bb0acd2))
+
+## [100.6.7](https://github.com/dhis2/maps-app/compare/v100.6.6...v100.6.7) (2024-09-13)
+
+
+### Bug Fixes
+
+* grey background flashing when loading dashboard ([#3327](https://github.com/dhis2/maps-app/issues/3327)) ([76c52d2](https://github.com/dhis2/maps-app/commit/76c52d2ff34aa0a39b5d59a380a8ceb36cfc12d4))
+
+## [100.6.6](https://github.com/dhis2/maps-app/compare/v100.6.5...v100.6.6) (2024-08-22)
+
+
+### Bug Fixes
+
+* TEs layer not showing all relationships when source and target are of same type ([#3281](https://github.com/dhis2/maps-app/issues/3281)) ([80f15e7](https://github.com/dhis2/maps-app/commit/80f15e77f9d475bf79a9d4295b16cdaa134c9931))
+
+## [100.6.5](https://github.com/dhis2/maps-app/compare/v100.6.4...v100.6.5) (2024-08-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f0ceb11](https://github.com/dhis2/maps-app/commit/f0ceb1105b3a7c39ae4d6b3073f05be2d46bbac9))
+
 ## [100.6.4](https://github.com/dhis2/maps-app/compare/v100.6.3...v100.6.4) (2024-08-19)
 
 
