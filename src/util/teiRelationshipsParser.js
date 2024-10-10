@@ -174,14 +174,12 @@ export const getDataWithRelationships = async (
             `${serverVersion.major}.${serverVersion.minor}` == '2.40'
                 ? 'instances'
                 : 'trackedEntities'
-        console.log(trackerRootProp)
         const potentialTargetInstances = await fetchTEIs({
             ...recursiveProp,
             fields,
             orgUnits,
             organisationUnitSelectionMode,
         })
-        console.log(potentialTargetInstances)
         normalizedPotentialTargetInstances = normalizeInstances(
             potentialTargetInstances[trackerRootProp]
         )
