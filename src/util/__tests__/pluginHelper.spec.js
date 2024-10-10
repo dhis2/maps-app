@@ -76,4 +76,16 @@ describe('didViewsChange', () => {
         ]
         expect(didViewsChange(oldViews, newViews)).toEqual(false)
     })
+
+    it('should always return false for earth engine layer', () => {
+        const oldViews = [{ layer: 'earthEngine', rows: [] }]
+        const newViews = [
+            {
+                layer: 'earthEngine',
+                filters: [],
+                rows: [],
+            },
+        ]
+        expect(didViewsChange(oldViews, newViews)).toEqual(false)
+    })
 })

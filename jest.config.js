@@ -32,10 +32,12 @@ const reportPortalConfig = [
             },
         ],
         description: '',
-        debug: true,
+        debug: false,
     },
 ]
 
+const isDependabotPR = process.env.GITHUB_ACTOR === 'dependabot[bot]'
+const isGithubActionsRun = process.env.CI === 'true'
 const isReportPortalSetup =
     process.env.REPORTPORTAL_API_KEY !== undefined &&
     process.env.REPORTPORTAL_ENDPOINT !== undefined &&
@@ -57,6 +59,8 @@ module.exports = {
     testRunner: 'jest-circus/runner',
     reporters: [
         'default',
-        ...(isReportPortalSetup ? [reportPortalConfig] : []),
+        ...(isGithubActionsRun && isReportPortalSetup && !isDependabotPR
+            ? [reportPortalConfig]
+            : []),
     ],
 }

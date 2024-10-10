@@ -29,9 +29,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import {
-    loadLegendSet,
     getPredefinedLegendItems,
     getAutomaticLegendItems,
 } from '../util/legend.js'
@@ -40,9 +38,10 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
+import { LEGEND_SET_QUERY } from '../util/requests.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async (config) => {
+const thematicLoader = async ({ config, engine, nameProperty }) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -57,21 +56,28 @@ const thematicLoader = async (config) => {
     const dataItem = getDataItemFromColumns(columns)
     const coordinateField = getCoordinateField(config)
 
-    let error
+    let loadError
 
-    const response = await loadData(config).catch((err) => {
-        error = err
+    const response = await loadData(config, nameProperty).catch((err) => {
+        loadError = err
+
+        if (err.message) {
+            loadError =
+                err.errorCode === 'E7124' && err.message.includes('dx')
+                    ? i18n.t('Data item was not found')
+                    : err.message
+        }
     })
 
     if (!response) {
         return {
             ...config,
-            ...(error
+            ...(loadError
                 ? {
                       alerts: [
                           {
                               code: ERROR_CRITICAL,
-                              message: error.message || error,
+                              message: loadError,
                           },
                       ],
                   }
@@ -82,6 +88,7 @@ const thematicLoader = async (config) => {
             isLoaded: true,
             isLoading: false,
             isVisible: true,
+            loadError,
         }
     }
 
@@ -121,7 +128,10 @@ const thematicLoader = async (config) => {
     const method = legendSet ? CLASSIFICATION_PREDEFINED : config.method
 
     if (legendSet) {
-        legendSet = await loadLegendSet(legendSet)
+        const result = await engine.query(LEGEND_SET_QUERY, {
+            variables: { id: config.legendSet.id },
+        })
+        legendSet = result.legendSet
     }
 
     let legendItems = []
@@ -323,12 +333,11 @@ const getOrderedValues = (data) => {
 }
 
 // Load features and data values from api
-const loadData = async (config) => {
+const loadData = async (config, nameProperty) => {
     const {
         rows,
         columns,
         filters,
-        displayProperty,
         startDate,
         endDate,
         userOrgUnit,
@@ -341,15 +350,12 @@ const loadData = async (config) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
     const dimensions = getValidDimensionsFromFilters(config.filters)
-    const dataItem = getDataItemFromColumns(columns)
+    const dataItem = getDataItemFromColumns(columns) || {}
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const d2 = await getD2()
-    const displayPropertyUpper = getDisplayProperty(
-        d2,
-        displayProperty
-    ).toUpperCase()
+
     const geoFeaturesParams = {}
     const orgUnitParams = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
@@ -361,7 +367,7 @@ const loadData = async (config) => {
     let analyticsRequest = new d2.analytics.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(displayPropertyUpper)
+        .withDisplayProperty(nameProperty)
 
     if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
@@ -407,7 +413,7 @@ const loadData = async (config) => {
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayPropertyUpper)
+        .displayProperty(nameProperty)
 
     // Features request
     const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)

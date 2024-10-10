@@ -13,7 +13,6 @@ import {
     getStaticFilterFromPeriod,
     getPeriodFromFilter,
 } from '../util/earthEngine.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import { getRoundToPrecisionFn } from '../util/numbers.js'
 import {
@@ -22,7 +21,7 @@ import {
 } from '../util/orgUnits.js'
 
 // Returns a promise
-const earthEngineLoader = async (config) => {
+const earthEngineLoader = async ({ config, nameProperty }) => {
     const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
@@ -34,14 +33,13 @@ const earthEngineLoader = async (config) => {
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2()
-        const displayProperty = getDisplayProperty(d2).toUpperCase()
         const orgUnitParams = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
 
         const featuresRequest = d2.geoFeatures
             .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
+            .displayProperty(nameProperty)
 
         try {
             mainFeatures = await featuresRequest.getAll().then(toGeoJson)
@@ -84,48 +82,37 @@ const earthEngineLoader = async (config) => {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
 
-        const { filter, params } = layerConfig
+        if (layerConfig.image) {
+            // Backward compability for layers with periods saved before 2.36
+            const filter = layerConfig.filter?.[0]
 
-        // Backward compability for layers saved before 2.41
-        if (filter) {
+            if (filter) {
+                const id = filter.arguments?.[1]
+                const name = String(layerConfig.image)
+                const year =
+                    typeof id === 'string' && id.length > 4
+                        ? parseInt(id.substring(0, 4), 10)
+                        : undefined
+
+                layerConfig.period = { id, name, year }
+
+                delete layerConfig.filter
+            }
+            delete layerConfig.image
+        } else if (layerConfig.filter) {
+            // Backward compability for layers saved before v100.6.0
             layerConfig.period = getPeriodFromFilter(filter, layerConfig.id)
             delete layerConfig.filter
         }
 
-        // Backward compability for layers saved before 2.41
-        if (params) {
-            layerConfig.style = params
-            if (params.palette) {
-                layerConfig.style.palette = params.palette.split(',')
+        if (layerConfig.params) {
+            // Backward compability for layers saved before v100.6.0
+            layerConfig.style = layerConfig.params
+            if (typeof layerConfig.params.palette === 'string') {
+                layerConfig.style.palette =
+                    layerConfig.params.palette.split(',')
             }
             delete layerConfig.params
-        }
-
-        // Backward compability for layers with periods saved before 2.36
-        // (could also be fixed in a db update script)
-        if (layerConfig.image) {
-            const filter = layerConfig.filter?.[0]
-
-            if (filter) {
-                const period = filter.arguments?.[1]
-                let name = String(layerConfig.image)
-
-                if (typeof period === 'string' && period.length > 4) {
-                    const year = period.substring(0, 4)
-                    filter.year = parseInt(year, 10)
-
-                    if (name.slice(-4) === year) {
-                        name = name.slice(0, -4)
-                    }
-                }
-
-                filter.name = name
-            }
-        }
-
-        // Backward compability for layers saved before 2.40
-        if (typeof layerConfig.params?.palette === 'string') {
-            layerConfig.params.palette = layerConfig.params.palette.split(',')
         }
 
         dataset = getEarthEngineLayer(layerConfig.id)
@@ -135,7 +122,9 @@ const earthEngineLoader = async (config) => {
         }
 
         delete config.config
-        delete config.filters // Backend returns empty filters array
+        // Remove the always empty filters array from saved map layer object
+        // so as not to overwrite the filters array from the layer config
+        delete config.filters
     } else {
         dataset = getEarthEngineLayer(layerConfig.id)
     }

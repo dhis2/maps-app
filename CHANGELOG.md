@@ -1,3 +1,59 @@
+# [100.7.0](https://github.com/dhis2/maps-app/compare/v100.6.7...v100.7.0) (2024-10-04)
+
+
+### Features
+
+* add user-created custom calculations to maps ([#3088](https://github.com/dhis2/maps-app/issues/3088)) ([505401f](https://github.com/dhis2/maps-app/commit/505401f50684747bf7b4bbdcf86148191bb0acd2))
+
+## [100.6.7](https://github.com/dhis2/maps-app/compare/v100.6.6...v100.6.7) (2024-09-13)
+
+
+### Bug Fixes
+
+* grey background flashing when loading dashboard ([#3327](https://github.com/dhis2/maps-app/issues/3327)) ([76c52d2](https://github.com/dhis2/maps-app/commit/76c52d2ff34aa0a39b5d59a380a8ceb36cfc12d4))
+
+## [100.6.6](https://github.com/dhis2/maps-app/compare/v100.6.5...v100.6.6) (2024-08-22)
+
+
+### Bug Fixes
+
+* TEs layer not showing all relationships when source and target are of same type ([#3281](https://github.com/dhis2/maps-app/issues/3281)) ([80f15e7](https://github.com/dhis2/maps-app/commit/80f15e77f9d475bf79a9d4295b16cdaa134c9931))
+
+## [100.6.5](https://github.com/dhis2/maps-app/compare/v100.6.4...v100.6.5) (2024-08-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f0ceb11](https://github.com/dhis2/maps-app/commit/f0ceb1105b3a7c39ae4d6b3073f05be2d46bbac9))
+
+## [100.6.4](https://github.com/dhis2/maps-app/compare/v100.6.3...v100.6.4) (2024-08-19)
+
+
+### Bug Fixes
+
+* schemas were unnecessarily loaded and taking up valuable bandwidth ([#3197](https://github.com/dhis2/maps-app/issues/3197)) ([4b8dd61](https://github.com/dhis2/maps-app/commit/4b8dd6121de6cf9b153de4f996601c96c925274b))
+
+## [100.6.3](https://github.com/dhis2/maps-app/compare/v100.6.2...v100.6.3) (2024-08-15)
+
+
+### Bug Fixes
+
+* plugin crashes for Earth Engine layers in the dashboard ([#3302](https://github.com/dhis2/maps-app/issues/3302)) ([8409f97](https://github.com/dhis2/maps-app/commit/8409f97f2fe48edff42983f005c068aa515a75f5))
+
+## [100.6.2](https://github.com/dhis2/maps-app/compare/v100.6.1...v100.6.2) (2024-08-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([6830454](https://github.com/dhis2/maps-app/commit/68304548d1078cbdd3112b9c4167600350de4fc0))
+
+## [100.6.1](https://github.com/dhis2/maps-app/compare/v100.6.0...v100.6.1) (2024-08-14)
+
+
+### Bug Fixes
+
+* avoid crash when opening map with unsupported Earth Engine layer ([#3286](https://github.com/dhis2/maps-app/issues/3286)) ([69c3eed](https://github.com/dhis2/maps-app/commit/69c3eed5fceb9258dc3f62e7bc553b4d9a87a120)), closes [#3021](https://github.com/dhis2/maps-app/issues/3021)
+
 # [100.6.0](https://github.com/dhis2/maps-app/compare/v100.5.9...v100.6.0) (2024-07-31)
 
 

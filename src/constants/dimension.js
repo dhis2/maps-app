@@ -64,6 +64,12 @@ export const dimConf = {
         objectName: 'pi',
         itemType: 'PROGRAM_INDICATOR',
     },
+    calculation: {
+        value: 'expressionDimensionItems',
+        dimensionName: 'dx',
+        objectName: 'ed',
+        itemType: 'EXPRESSION_DIMENSION_ITEM',
+    },
     period: {
         id: 'period',
         value: 'period',

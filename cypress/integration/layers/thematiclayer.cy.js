@@ -6,7 +6,7 @@ import {
     expectContextMenuOptions,
 } from '../../elements/map_context_menu.js'
 import { ThematicLayer } from '../../elements/thematic_layer.js'
-import { CURRENT_YEAR } from '../../support/util.js'
+import { CURRENT_YEAR, getApiBaseUrl } from '../../support/util.js'
 
 const INDICATOR_NAME = 'VCCT post-test counselling rate'
 
@@ -71,15 +71,6 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         Layer.validateCardTitle(INDICATOR_NAME)
-        // TODO: test this in a way that is not dependent on the date
-        // Layer.validateCardItems([
-        //     '80.9 - 83.04 (1)',
-        //     '83.04 - 85.18 (0)',
-        //     '85.18 - 87.32 (0)',
-        //     '87.32 - 89.46 (0)',
-        //     '89.46 - 91.6 (1)',
-        // ]);
-
         getMaps().should('have.length', 1)
     })
 
@@ -137,5 +128,102 @@ context('Thematic Layers', () => {
             { name: DRILL_DOWN },
             { name: VIEW_PROFILE },
         ])
+    })
+
+    // TODO - update demo database with calculations instead of creating on the fly
+    it('adds a thematic layer with a calculation', () => {
+        const timestamp = new Date().toUTCString().slice(-24, -4)
+        const calculationName = `map calc ${timestamp}`
+
+        // add a calculation
+        cy.request('POST', `${getApiBaseUrl()}/api/expressionDimensionItems`, {
+            name: calculationName,
+            shortName: calculationName,
+            expression: '#{fbfJHSPpUQD}/2',
+        }).then((response) => {
+            expect(response.status).to.eq(201)
+
+            const calculationUid = response.body.response.uid
+
+            // open thematic dialog
+            cy.getByDataTest('add-layer-button').click()
+            cy.getByDataTest('addlayeritem-thematic').click()
+
+            // choose "Calculation" in item type
+            cy.getByDataTest('thematic-layer-value-type-select').click()
+            cy.contains('Calculations').click()
+
+            // assert that the label on the Calculation select is "Calculation"
+            cy.getByDataTest('calculationselect-label').contains('Calculation')
+
+            // click to open the calculation select
+            cy.getByDataTest('calculationselect').click()
+
+            // check search box exists "Type to filter options"
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .should('have.attr', 'placeholder', 'Type to filter options')
+
+            // search for something that doesn't exist
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .type('foo')
+
+            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+                .contains('No options found')
+                .should('be.visible')
+
+            // try search for something that exists
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .clear()
+
+            cy.getByDataTest('dhis2-uicore-popper')
+                .find('input[type="text"]')
+                .type(calculationName)
+
+            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+                .contains(calculationName)
+                .should('be.visible')
+
+            // select the calculation and close dialog
+            cy.contains(calculationName).click()
+
+            cy.getByDataTest('dhis2-uicore-modalactions')
+                .contains('Add layer')
+                .click()
+
+            // check the layer card title
+            cy.getByDataTest('layercard')
+                .contains(calculationName, { timeout: 50000 })
+                .should('be.visible')
+
+            // check the map canvas is displayed
+            cy.get('canvas.maplibregl-canvas').should('be.visible')
+
+            // delete the calculation
+            cy.request(
+                'DELETE',
+                `${getApiBaseUrl()}/api/expressionDimensionItems/${calculationUid}`
+            )
+        })
+    })
+
+    it('adds a thematic layer for data element', () => {
+        const DE_NAME = 'ANC 1st visit'
+        Layer.openDialog('Thematic')
+            .selectItemType('Data element')
+            .selectDataElementGroup('ANC')
+            .selectDataElement(DE_NAME)
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(DE_NAME)
+        cy.getByDataTest(`card-ANC1stvisit`)
+            .findByDataTest('layerlegend-item')
+            .should('have.length', 5)
+
+        getMaps().should('have.length', 1)
     })
 })
