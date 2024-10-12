@@ -1,16 +1,17 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
-"Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
+"Last-Translator: Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024\n"
+"Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -161,7 +162,7 @@ msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "sự kiện"
 
 msgid "tracked entity"
 msgstr ""
@@ -814,7 +815,7 @@ msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr ""
+msgstr "Dòng thời gian"
 
 msgid "Split map views"
 msgstr ""
@@ -880,7 +881,7 @@ msgid "OSM Light"
 msgstr "Bản đồ ánh sáng OSM"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "Bản đồ OSM Detailed"
 
 msgid "Google Streets"
 msgstr "Bản đồ đường phố (Google Streets)"
@@ -889,7 +890,7 @@ msgid "Google Hybrid"
 msgstr "Bản đồ thực (Google Hybrid)"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bản đồ Bing Road"
 
 msgid "Bing Dark"
 msgstr ""
