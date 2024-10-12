@@ -3,16 +3,16 @@
 # Philip Larsen Donnelly, 2021
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Phouthasinh PHEUAYSITHIPHONE, 2023
-# Saysamone Sibounma, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Namwan Chanthavisouk, 2024
+# Saysamone Sibounma, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Namwan Chanthavisouk, 2024\n"
+"Last-Translator: Saysamone Sibounma, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,6 +32,15 @@ msgstr ""
 msgid "Failed to save map: {{message}}"
 msgstr ""
 
+msgid "Calculation"
+msgstr "ການຄິດໄລ່"
+
+msgid "No calculations found"
+msgstr "ບໍ່ພົບການຄິດໄລ່"
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
+
 msgid "Classification"
 msgstr ""
 
@@ -45,7 +54,7 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
-msgstr ""
+msgstr "ຂະໜາດ"
 
 msgid "Name"
 msgstr "ຊື່"
@@ -129,13 +138,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "ລະບຸດ້ວຍ"
 
 msgid "is"
 msgstr "is"
 
 msgid "is not"
-msgstr ""
+msgstr "ບໍ່ແມ່ນ"
 
 msgid "Operator"
 msgstr "Operator"
@@ -374,7 +383,7 @@ msgid "Max"
 msgstr "ຄ່າສູງສຸດ"
 
 msgid "Steps"
-msgstr ""
+msgstr "ຂັ້ນຕອນ"
 
 msgid "Facility buffer"
 msgstr ""
@@ -437,7 +446,7 @@ msgid "Line/stroke width must be between 0-10."
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "ປ້າຍກຳກັບ"
 
 msgid "Aggregation type"
 msgstr "ປະເພດຕົວເລກລວມ"
@@ -481,6 +490,9 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
@@ -495,6 +507,9 @@ msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
 
 msgid "Program indicators"
 msgstr "ຕົວຊີ້ວັດສະເພາະວຽກຂອງຂະແໜງ"
+
+msgid "Calculations"
+msgstr "ຄິດໄລ່"
 
 msgid "Item type"
 msgstr ""
@@ -957,7 +972,7 @@ msgid "Sum"
 msgstr "ຜົນບວກ"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "ມາດຕະຖານການແບ່ງ"
 
 msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
@@ -1424,6 +1439,9 @@ msgid "Organisation units"
 msgstr "ໂຄງຮ່າງການຈັດຕັ້ງ"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"
