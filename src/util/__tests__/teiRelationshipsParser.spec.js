@@ -11,7 +11,7 @@ describe('fetchData', () => {
         {
             customProps: { organisationUnitSelectionMode: 'someOUMode' },
             expectedUrl:
-                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&orgUnitMode=someOUMode',
+                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&ouMode=someOUMode',
         },
         {
             customProps: { type: { id: 'someTETypeId' } },

@@ -11,7 +11,7 @@ export const fetchTEIs = async ({
 }) => {
     let url = `/tracker/trackedEntities?skipPaging=true&fields=${fields}&orgUnit=${orgUnits}`
     if (organisationUnitSelectionMode) {
-        url += `&orgUnitMode=${organisationUnitSelectionMode}`
+        url += `&ouMode=${organisationUnitSelectionMode}`
     }
     if (program) {
         url += `&program=${program}`
