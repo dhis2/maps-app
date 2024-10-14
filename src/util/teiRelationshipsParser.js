@@ -170,6 +170,7 @@ export const getDataWithRelationships = async (
     if (isRecursiveTrackedEntityType & isRecursiveProgram) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
+        // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const trackerRootProp =
             `${serverVersion.major}.${serverVersion.minor}` == '2.40'
                 ? 'instances'

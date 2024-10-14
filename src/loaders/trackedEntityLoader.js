@@ -14,6 +14,8 @@ import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
     GEO_TYPE_MULTIPOLYGON,
+    GEO_TYPE_LINE,
+    GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
@@ -21,7 +23,11 @@ import { formatStartEndDate, getDateArray } from '../util/time.js'
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
-const geometryTypes = [GEO_TYPE_POINT, GEO_TYPE_POLYGON, GEO_TYPE_MULTIPOLYGON]
+const teiGeometryTypes = [
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_MULTIPOLYGON,
+]
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async (config, serverVersion) => {
@@ -117,13 +123,14 @@ const trackedEntityLoader = async (config, serverVersion) => {
 
     const primaryData = await apiFetch(url)
 
+    // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
     const trackerRootProp =
         `${serverVersion.major}.${serverVersion.minor}` == '2.40'
             ? 'instances'
             : 'trackedEntities'
     const instances = primaryData[trackerRootProp].filter(
         (instance) =>
-            geometryTypes.includes(instance.geometry?.type) &&
+            teiGeometryTypes.includes(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
 
@@ -145,11 +152,12 @@ const trackedEntityLoader = async (config, serverVersion) => {
         const relatedEntityType = await apiFetch(
             `/trackedEntityTypes/${relatedTypeId}?fields=displayName,featureType`
         )
-        const isPoint = relatedEntityType.featureType === 'POINT'
+        const isPoint =
+            relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
 
         legend.items.push(
             {
-                type: 'LineString',
+                type: GEO_TYPE_LINE,
                 name: relationshipType.displayName,
                 color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
                 weight: 1,
@@ -202,8 +210,8 @@ const trackedEntityLoader = async (config, serverVersion) => {
 
 const toGeoJson = (instances) =>
     instances.map(({ id, geometry }) => ({
-        type: 'Feature',
-        geometry: geometry,
+        type: GEO_TYPE_FEATURE,
+        geometry,
         properties: {
             id,
         },

@@ -6,8 +6,15 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_COLOR,
     TEI_RELATED_RADIUS,
+    GEOJSON_LAYER,
 } from '../../../constants/layers.js'
 import { apiFetchWithBaseUrl } from '../../../util/api.js'
+import {
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_LINE,
+    GEO_TYPE_FEATURE,
+} from '../../../util/geojson.js'
 import { formatTime } from '../../../util/helpers.js'
 import { BaseUrlShim } from '../../BaseUrlShim.js'
 import Popup from '../Popup.js'
@@ -35,9 +42,9 @@ const fetchTEI = async (id, fieldsString, baseUrl) => {
 
 const geomToCentroid = (geometry) => {
     switch (geometry.type) {
-        case 'Point':
+        case GEO_TYPE_POINT:
             return geometry.coordinates
-        case 'Polygon':
+        case GEO_TYPE_POLYGON:
             // TODO: Support multipolygon / use turf
             return getCentroid(geometry.coordinates[0])
         default:
@@ -53,9 +60,9 @@ const makeRelationshipGeometry = ({ from, to }) => {
         return null
     }
     return {
-        type: 'Feature',
+        type: GEO_TYPE_FEATURE,
         geometry: {
-            type: 'LineString',
+            type: GEO_TYPE_LINE,
             coordinates: [fromGeom, toGeom],
         },
         properties: {},
@@ -63,7 +70,7 @@ const makeRelationshipGeometry = ({ from, to }) => {
 }
 const makeRelationshipLayer = (relationships, color, weight) => {
     return {
-        type: 'geoJson',
+        type: GEOJSON_LAYER,
         data: relationships.map(makeRelationshipGeometry).filter((x) => !!x),
         style: {
             color,
@@ -99,7 +106,7 @@ class TrackedEntityLayer extends Layer {
         const radius = eventPointRadius || TEI_RADIUS
 
         const config = {
-            type: 'geoJson',
+            type: GEOJSON_LAYER,
             data,
             style: {
                 color,
@@ -130,7 +137,7 @@ class TrackedEntityLayer extends Layer {
 
         if (relationships) {
             const secondaryConfig = {
-                type: 'geoJson',
+                type: GEOJSON_LAYER,
                 data: secondaryData,
                 style: {
                     color: relatedPointColor || TEI_RELATED_COLOR,
