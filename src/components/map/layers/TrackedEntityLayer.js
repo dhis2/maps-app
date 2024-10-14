@@ -6,8 +6,15 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_COLOR,
     TEI_RELATED_RADIUS,
+    GEOJSON_LAYER,
 } from '../../../constants/layers.js'
 import { apiFetchWithBaseUrl } from '../../../util/api.js'
+import {
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_LINE,
+    GEO_TYPE_FEATURE,
+} from '../../../util/geojson.js'
 import { formatTime } from '../../../util/helpers.js'
 import { BaseUrlShim } from '../../BaseUrlShim.js'
 import Popup from '../Popup.js'
@@ -27,35 +34,35 @@ const getCentroid = (points) => {
 
 const fetchTEI = async (id, fieldsString, baseUrl) => {
     const data = await apiFetchWithBaseUrl({
-        url: `/trackedEntityInstances/${id}?fields=${fieldsString}`,
+        url: `/tracker/trackedEntities/${id}?fields=${fieldsString}`,
         baseUrl,
     })
     return data
 }
 
-const geomToCentroid = (type, coords) => {
-    switch (type) {
-        case 'POINT':
-            return JSON.parse(coords)
-        case 'POLYGON':
+const geomToCentroid = (geometry) => {
+    switch (geometry.type) {
+        case GEO_TYPE_POINT:
+            return geometry.coordinates
+        case GEO_TYPE_POLYGON:
             // TODO: Support multipolygon / use turf
-            return getCentroid(JSON.parse(coords)[0])
+            return getCentroid(geometry.coordinates[0])
         default:
             return null
     }
 }
 
 const makeRelationshipGeometry = ({ from, to }) => {
-    const fromGeom = geomToCentroid(from.featureType, from.coordinates)
-    const toGeom = geomToCentroid(to.featureType, to.coordinates)
+    const fromGeom = geomToCentroid(from.geometry)
+    const toGeom = geomToCentroid(to.geometry)
     if (!fromGeom || !toGeom) {
         // console.error('Invalid relationship geometries', from, to);
         return null
     }
     return {
-        type: 'Feature',
+        type: GEO_TYPE_FEATURE,
         geometry: {
-            type: 'LineString',
+            type: GEO_TYPE_LINE,
             coordinates: [fromGeom, toGeom],
         },
         properties: {},
@@ -63,7 +70,7 @@ const makeRelationshipGeometry = ({ from, to }) => {
 }
 const makeRelationshipLayer = (relationships, color, weight) => {
     return {
-        type: 'geoJson',
+        type: GEOJSON_LAYER,
         data: relationships.map(makeRelationshipGeometry).filter((x) => !!x),
         style: {
             color,
@@ -99,7 +106,7 @@ class TrackedEntityLayer extends Layer {
         const radius = eventPointRadius || TEI_RADIUS
 
         const config = {
-            type: 'geoJson',
+            type: GEOJSON_LAYER,
             data,
             style: {
                 color,
@@ -130,7 +137,7 @@ class TrackedEntityLayer extends Layer {
 
         if (relationships) {
             const secondaryConfig = {
-                type: 'geoJson',
+                type: GEOJSON_LAYER,
                 data: secondaryData,
                 style: {
                     color: relatedPointColor || TEI_RELATED_COLOR,
@@ -160,7 +167,7 @@ class TrackedEntityLayer extends Layer {
 
     getPopup() {
         const { coordinates, data } = this.state.popup
-        const { attributes = [], lastUpdated } = data
+        const { attributes = [], updatedAt } = data
 
         return (
             <Popup coordinates={coordinates} onClose={this.onPopupClose}>
@@ -174,7 +181,7 @@ class TrackedEntityLayer extends Layer {
                         ))}
                         <tr>
                             <th>{i18n.t('Last updated')}:</th>
-                            <td>{formatTime(lastUpdated)}</td>
+                            <td>{formatTime(updatedAt)}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,7 +198,7 @@ class TrackedEntityLayer extends Layer {
 
         const data = await fetchTEI(
             feature.properties.id,
-            'lastUpdated,attributes[displayName~rename(name),value],relationships',
+            'updatedAt,attributes[displayName~rename(name),value],relationships',
             this.props.baseUrl
         )
 

@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
@@ -5,14 +6,15 @@ import useLoaderAlerts from './useLoaderAlerts.js'
 
 const TrackedEntityLoader = ({ config, onLoad, loaderAlertAction }) => {
     const { showAlerts } = useLoaderAlerts(loaderAlertAction)
+    const { serverVersion } = useConfig()
     useEffect(() => {
-        trackedEntityLoader(config).then((result) => {
+        trackedEntityLoader(config, serverVersion).then((result) => {
             if (result.alerts?.length && loaderAlertAction) {
                 showAlerts(result.alerts)
             }
             onLoad(result)
         })
-    }, [config, onLoad, showAlerts, loaderAlertAction])
+    }, [config, onLoad, showAlerts, loaderAlertAction, serverVersion])
 
     return null
 }
