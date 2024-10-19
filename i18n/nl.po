@@ -2,15 +2,15 @@
 # Translators:
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
-# Rica Zamora Duchateau, 2022
 # Philip Larsen Donnelly, 2024
+# Rica, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Last-Translator: Rica, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,26 +175,31 @@ msgid ""
 "population division estimates. Try a different year if you don't see data "
 "for your country."
 msgstr ""
+"Bevolkingsdichtheidschattingen met nationale totalen aangepast om overeen te"
+" komen met VN bevolkingsdivisieschattingen. Probeer een ander jaar als je "
+"geen gegevens ziet voor jouw land."
 
 msgid "Select year"
-msgstr ""
+msgstr "Selecteer jaar"
 
 msgid "Min people"
-msgstr ""
+msgstr "Min mensen"
 
 msgid "Max people"
-msgstr ""
+msgstr "Max mensen"
 
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
 "better representes the terrain in your region."
 msgstr ""
+"Hoogte boven zeeniveau. Je kan de min en max waarden aanpassen zodat het "
+"beter het terrein in jouw regio voorstelt."
 
 msgid "Min meters"
-msgstr ""
+msgstr "Min meters"
 
 msgid "Max meters"
-msgstr ""
+msgstr "Max meters"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -206,21 +211,24 @@ msgstr ""
 " de 3de week van de volgende maand."
 
 msgid "Min mm"
-msgstr ""
+msgstr "Min mm"
 
 msgid "Max mm"
-msgstr ""
+msgstr "Max mm"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
 "spots will appear in areas with a persistent cloud cover."
 msgstr ""
+"Landoppervlaktemperaturen verzameld van satelliet in 8-dagelijkse periodes. "
+"Lege plekken zullen tevoorschijn komen in gebieden met een voortdurende "
+"bewolking."
 
 msgid "Min °C"
-msgstr ""
+msgstr "Min °C"
 
 msgid "Max °C"
-msgstr ""
+msgstr "Max °C"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Verschillende landbedekkingstypes verzameld van satellieten."
@@ -281,7 +289,7 @@ msgid "thematic"
 msgstr "thematisch"
 
 msgid "boundary"
-msgstr ""
+msgstr "grens"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -975,16 +983,16 @@ msgid "Last 14 days"
 msgstr "Laatste 14 dagen"
 
 msgid "Last 30 days"
-msgstr ""
+msgstr "Laatste 30 dagen"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "Laatste 60 dagen"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "Laatste 90 dagen"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "Laatste 180 dagen"
 
 msgid "This week"
 msgstr "Deze week"
@@ -1005,13 +1013,13 @@ msgid "Weeks this year"
 msgstr "Weken dit jaar"
 
 msgid "This bi-week"
-msgstr ""
+msgstr "Deze twee weken"
 
 msgid "Last bi-week"
-msgstr ""
+msgstr "Vorige twee weken"
 
 msgid "Last 4 bi-weeks"
-msgstr ""
+msgstr "Vorige 4 twee weken"
 
 msgid "This month"
 msgstr "Deze maand"
@@ -1032,16 +1040,16 @@ msgid "Months this year"
 msgstr "Maanden dit jaar"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "Deze twee manden"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Vorige twee maanden"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "Vorige 6 twee maanden"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Twee maanden dit jaar"
 
 msgid "This quarter"
 msgstr "Dit kwartier"
@@ -1114,13 +1122,13 @@ msgid "Elevation"
 msgstr "Hoogte"
 
 msgid "metres"
-msgstr ""
+msgstr "meters"
 
 msgid "Elevation above sea-level."
 msgstr "Hoogte boven zeespiegel"
 
 msgid "Population density"
-msgstr ""
+msgstr "Bevolkingsdichtheid"
 
 msgid "people per km²"
 msgstr "mensen per km²"
@@ -1129,6 +1137,8 @@ msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates."
 msgstr ""
+"Bevolkingsdichtheidschattingen met nationale totalen aangepast om overeen te"
+" komen met VN bevolkingsdivisieschattingen."
 
 msgid "Nighttime lights"
 msgstr "Nachtelijke lichten"
@@ -1144,7 +1154,7 @@ msgstr "millimeter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground."
-msgstr ""
+msgstr "Neerslag verzameld van satelliet en weerstations aan de grond."
 
 msgid "Temperature"
 msgstr "Temperatuur"
