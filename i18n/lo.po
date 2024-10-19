@@ -1,17 +1,18 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
-# Saysamone Sibounma, 2022
 # Phouthasinh PHEUAYSITHIPHONE, 2023
+# Namwan Chanthavisouk, 2024
+# Saysamone Sibounma, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Phouthasinh PHEUAYSITHIPHONE, 2023\n"
+"Last-Translator: Saysamone Sibounma, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,25 +24,25 @@ msgid "Maps"
 msgstr "ແຜນທີ່"
 
 msgid "Classification"
-msgstr ""
+msgstr "ການຈັດປະເພດ"
 
 msgid "Classes"
-msgstr ""
+msgstr "ຊັ້ນ"
 
 msgid "Legend set"
 msgstr "ກໍານົດຄວາມໝາຍ"
 
 msgid "Color"
-msgstr ""
+msgstr "ສີ"
 
 msgid "Size"
-msgstr ""
+msgstr "ຂະໜາດ"
 
 msgid "Data element group"
 msgstr "ກຸ່ມຂອລອົງປະກອບຂໍ້ມູນ"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "ດຳເນີນການອົງປະກອບຂໍ້ມູນ"
 
 msgid "Data element"
 msgstr "Data Element"
@@ -56,22 +57,22 @@ msgid "Yes"
 msgstr "ແມ່ນ"
 
 msgid "Event location"
-msgstr ""
+msgstr "ສະຖານທີ່ເຫດການ"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "ຜູ້ປະສານງານພາກສະໜາມ"
 
 msgid "None"
 msgstr "ບໍ່ແມນ"
 
 msgid "Data item"
-msgstr ""
+msgstr "ລາຍການຂໍ້ມູນ"
 
 msgid "Event data item"
-msgstr ""
+msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "ແບບໂດຍອົງປະກອບຂໍ້ມູນ"
 
 msgid "Data set"
 msgstr "Data set\\:"
@@ -89,7 +90,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
-msgstr ""
+msgstr "ເວລາເຫດການ"
 
 msgid "Value"
 msgstr "Value"
@@ -113,10 +114,10 @@ msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "ເພີ່ມຕົວກອງ"
 
 msgid "Items"
-msgstr ""
+msgstr "ລາຍການ"
 
 msgid "Dimension"
 msgstr "ມິຕິ"
@@ -125,13 +126,13 @@ msgid "Download"
 msgstr "ດາວໂຫຼດ"
 
 msgid "Download map"
-msgstr ""
+msgstr "ດາວໂຫຼດແຜນທີ່"
 
 msgid "Show name"
 msgstr ""
 
 msgid "Show legend"
-msgstr ""
+msgstr "ສະແດງຄຳອະທິບາຍ"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -160,40 +161,40 @@ msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "ບໍ່ໄດ້ເລືອກຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid "event"
-msgstr ""
+msgstr "ເຫດການ"
 
 msgid "tracked entity"
 msgstr ""
 
 msgid "facility"
-msgstr ""
+msgstr "ສະຖານທີ່ບໍລິການ"
 
 msgid "thematic"
 msgstr ""
 
 msgid "org unit"
-msgstr ""
+msgstr "ຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid "Earth Engine"
 msgstr ""
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "ແກ້ໄຂ {{name}} ຊັ້ນ"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "ເພີ່ມໃໝ່ {{name}} ຊັ້ນ"
 
 msgid "Update layer"
-msgstr ""
+msgstr "ອັບເດດຊັ້ນ"
 
 msgid "Add layer"
-msgstr ""
+msgstr "ເພີ່ມຊັ້ນ"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "ວິທີການສັງລວມ"
 
 msgid "Groups"
 msgstr "ກຸ່ມ"
@@ -231,19 +232,19 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
-msgstr ""
+msgstr "ກຳລັງໂຫຼດຊ່ວງເວລາ"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມຄ່າຕ່ຳສຸດ"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມຄ່າຫຼາຍສຸດ"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "ຄ່າຫຼາຍສຸດຄວນຈະໃຫຍ່ກ່ວາຄ່າຕ່ຳສຸດ"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "ຂັ້ນຕອນທີ່ຖືກຕ້ອງຄື {{minSteps}}ຫາ {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
 msgstr ""
@@ -255,13 +256,13 @@ msgid "Max"
 msgstr "ຄ່າສູງສຸດ"
 
 msgid "Steps"
-msgstr ""
+msgstr "ຂັ້ນຕອນ"
 
 msgid "Legend preview"
 msgstr ""
 
 msgid "Org Units"
-msgstr ""
+msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "Filter"
 msgstr "Filter"
@@ -270,10 +271,10 @@ msgid "Events"
 msgstr "ເຫດການ"
 
 msgid "Group events"
-msgstr ""
+msgstr "ກຸ່ມຂອງເຫດການ"
 
 msgid "View all events"
-msgstr ""
+msgstr "ເບີ່ງເຫດການທັງໝົດ"
 
 msgid "Radius"
 msgstr ""
@@ -282,13 +283,13 @@ msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Program is required"
-msgstr ""
+msgstr "ຈຳເປັນຕ້ອງຕື່ມສາຍງານ"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມຂັ້ນຕອນການຈັດລາຍການຂອງສາຍງານ"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "ບໍ່ໄດ້ເລືອກຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -306,7 +307,7 @@ msgid "Radius in meters"
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "ປ້າຍກຳກັບ"
 
 msgid "Aggregation type"
 msgstr "ປະເພດຕົວເລກລວມ"
@@ -327,28 +328,28 @@ msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມກຸ່ມຕົວຊີ້ວັດ"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມຕົວຊີ້ວັດ"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມກຸ່ມຂອງອົງປະກອບຂໍ້ມູນ"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມອົງປະກອບຂໍ້ມູນ"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມຊຸດຂໍໍ້ມູນ"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມລາຍການເຫດການຂໍ້ມູນ"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມສາຍງານຕົວຊີ້ວັດ"
 
 msgid "Period is required"
-msgstr ""
+msgstr "ຕ້ອງຕື່ມຊ່ວງເວລາ"
 
 msgid "Indicator"
 msgstr "ຕົວຊີ້ວັດ"
@@ -363,7 +364,7 @@ msgid "Program indicators"
 msgstr "ຕົວຊີ້ວັດສະເພາະວຽກຂອງຂະແໜງ"
 
 msgid "Item type"
-msgstr ""
+msgstr "ປະເພດລາຍການ"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -423,7 +424,7 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
+msgstr "ສີຂອງເສັ້ນ"
 
 msgid "Failed to load relationship types."
 msgstr ""
@@ -441,31 +442,31 @@ msgid "Something went wrong"
 msgstr "ມີບາງຢ່າງຜິດພາດ"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "ໂຫຼດຂໍ້ມູນຄືນໃໝ່ເພື່ອລອງອີກຄັ້ງ"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "ເຊື່ອງລາຍລະອຽດທາງເຕັກນິກ"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "ສະແດງລາຍລະອຽດທາງເຕັກນິກ"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "ຂໍ້ມູນຕໍ່ໄປນີ້ອາດຈະຖືກຂໍໂດຍການຊ່ວຍເຫຼືອທາງເຕັກນິກ."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "ການກອງຈະພ້ອມໃຊ້ງານຫຼັງຈາກເລືອກ ຂັ້ນຕອນການຈັດລາຍການຂອງສາຍງານ"
 
 msgid "one of"
-msgstr ""
+msgstr "ໜື່ງໃນ"
 
 msgid "contains"
-msgstr ""
+msgstr "ລະບຸດ້ວຍ"
 
 msgid "is"
 msgstr "is"
 
 msgid "is not"
-msgstr ""
+msgstr "ບໍ່ແມ່ນ"
 
 msgid "Operator"
 msgstr "ເຄື່ອງໝາຍເລກ"
@@ -474,16 +475,16 @@ msgid "Date"
 msgstr "ວັນທີ່"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "ເອົາຕົວກອງອອກ"
 
 msgid "Group set"
 msgstr "ກຸ່ມຂອງກຸ່ມ"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "ບໍ່ສາມາດໂຫຼດກຸ່ມຂອງຫົວໜ່ວຍການຈັດຕັ້ງໄດ້."
 
 msgid "Style by group set"
-msgstr ""
+msgstr "ແບບໂດຍກຸ່ມຂອງກຸ່ມ"
 
 msgid "Indicator group"
 msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
@@ -501,27 +502,28 @@ msgid "External basemap"
 msgstr ""
 
 msgid "Basemap"
-msgstr ""
+msgstr "ແຜນທີ່ຟື້ນຖານ"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "ດາວໂຫຼດຊັ້ນຂໍ້ມູນ"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "ການດາວໂຫຼດຂໍ້ມູນ GeoJSON ສຳລັບ {{layerName}}"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON ສ່ວນໃຫຍ່ແມ່ນຮອງຮັບ GIS ຊັອບແວ, ລວມທັງ QGIS ແລະ ArcGIS Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "ດາວໂຫຼດຂໍ້ມູນບໍ່ສຳເລັດ."
 
 msgid "ID Format"
-msgstr ""
+msgstr "ຮູບແບບ ID"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "ໃຊ້ແປ້ນພິມທີ່ມະນຸດສາມາດອ່ານອອກ"
 
 msgid "External layer"
 msgstr ""
@@ -530,10 +532,10 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Loading layer"
-msgstr ""
+msgstr "ກຳລັງໂຫຼດຊັ້ນ"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} ລົບແລ້ວ."
 
 msgid "Edit"
 msgstr "ແກ້ໄຂ"
@@ -545,13 +547,13 @@ msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
-msgstr ""
+msgstr "ການປະຕິບັດເພີ່ມເຕີມ"
 
 msgid "Hide data table"
 msgstr "ເຊື່ອງຂໍ້ມູນ"
 
 msgid "Show data table"
-msgstr ""
+msgstr "ສະແດງຕາຕະລາງຂໍ້ມູນ"
 
 msgid "Open as chart"
 msgstr ""
@@ -563,10 +565,10 @@ msgid "Edit layer"
 msgstr "ເລືອກຂໍ້ມູນ"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "ເອົາຊັ້ນອອກ"
 
 msgid "Mid"
-msgstr ""
+msgstr "Mid"
 
 msgid "Group"
 msgstr "ກຸ່ມ"
@@ -584,10 +586,10 @@ msgid "View profile"
 msgstr "ເບີ່ງຂໍ້ມູນ"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "ສະແດງເສັ້ນແວງ, ເສັ້ນຂະໜາດ"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "ສະແດງ{{name}}"
 
 msgid "Longitude"
 msgstr "ເສັ້ນແວງ"
@@ -596,7 +598,7 @@ msgid "Latitude"
 msgstr "ເສັ້ນຂະໜານ"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "ເບີ່ງຂໍ້ຄວາມຈາກ {{interpretationDate}}"
 
 msgid "Not set"
 msgstr "Not set"
@@ -614,19 +616,19 @@ msgid "no value"
 msgstr "ບໍ່ມີຂໍ້ມູນ"
 
 msgid "acres"
-msgstr ""
+msgstr "acres"
 
 msgid "Area"
-msgstr ""
+msgstr "ພື້ນທີ່"
 
 msgid "Center map on area"
-msgstr ""
+msgstr "ຟື້ນທີ່ໃຈກາງຂອງແຜນທີ່"
 
 msgid "Center map on line"
-msgstr ""
+msgstr "ແຜນທີ່ໃຈກາງໃນເສັ້ນ"
 
 msgid "Click the next position"
-msgstr ""
+msgstr "ກົດໃສ່ຕ່ຳແໜ່ງຕໍ່ໄປ"
 
 msgid "Click where you want to start the measurement"
 msgstr ""
@@ -635,28 +637,28 @@ msgid "Delete"
 msgstr "ລົບ"
 
 msgid "Distance"
-msgstr ""
+msgstr "ໄລຍະທາງ"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "ເຂົ້າສູ່ຮູບແບບເຕັມໜ້າຈໍ"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "ອອກຈາກຮູບແບບເຕັມໜ້າຈໍ"
 
 msgid "Finish measurement"
 msgstr ""
 
 msgid "ha"
-msgstr ""
+msgstr "ha"
 
 msgid "km"
-msgstr ""
+msgstr "km"
 
 msgid "Measure distances and areas"
 msgstr ""
 
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 msgid "Perimeter"
 msgstr ""
@@ -674,10 +676,10 @@ msgid "Zoom out"
 msgstr "ຂະຫຍາຍອອກ"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "ຂະຫຍາຍໄປຫາເນື້ອຫາ"
 
 msgid "Open as map"
-msgstr ""
+msgstr "ເປີດເປັນແຜ່ນທີ່"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
@@ -686,7 +688,7 @@ msgid ""
 msgstr ""
 
 msgid "Data items"
-msgstr ""
+msgstr "ລາຍການຂໍ້ມູນ"
 
 msgid "Proceed"
 msgstr "ດຳເນີນ"
@@ -700,7 +702,7 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "ບໍ່ພົບຂໍ້ມູນໃນຊ່ວງເວລານີ້."
 
 msgid "Select groups"
 msgstr "ເລືອກກຸ່ມ"
@@ -724,7 +726,7 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Link"
-msgstr ""
+msgstr "ເຊື່ອມ"
 
 msgid "Contact"
 msgstr ""
@@ -828,7 +830,7 @@ msgid "End date"
 msgstr "ວັນທີສຸດທ້າຍ"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "ບໍ່ສາມາດໃຊ້ໄດ້ອອບລາຍ"
 
 msgid "Program indicator"
 msgstr "Program Indicator Management"
@@ -858,7 +860,7 @@ msgid "Sum"
 msgstr "ຜົນບວກ"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "ມາດຕະຖານການແບ່ງ"
 
 msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
@@ -873,10 +875,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "ຄ່າສະເລ່ຍ"
 
 msgid "Median"
-msgstr ""
+msgstr "ເສັ້ນຈອມກາງ"
 
 msgid "OSM Light"
 msgstr "ແຜນທີ່ແບບ OSM"
@@ -1178,16 +1180,16 @@ msgid "Weekly"
 msgstr "ເປັນອາທິດ"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນພຸດ)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນພະຫັດ)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນເສົາ)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "ເປັນອາທິດ (ເລີ່ມຈາກວັນອາທິດ)"
 
 msgid "Bi-weekly"
 msgstr "ສອງອາທິດຕໍ່ຄັ້ງ"
@@ -1211,7 +1213,7 @@ msgid "Yearly"
 msgstr "ລາຍປີ"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນພະຈິກ)"
 
 msgid "Financial year (Start October)"
 msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນຕຸລາ)"
