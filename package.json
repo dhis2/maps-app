@@ -42,7 +42,7 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^26.8.4",
-        "@dhis2/app-runtime": "^3.10.5",
+        "@dhis2/app-runtime": "^3.11.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.0.0",
