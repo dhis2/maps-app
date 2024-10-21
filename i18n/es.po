@@ -9,16 +9,16 @@
 # Carlos Tejo Alonso, 2022
 # Marta Vila <marta@dhis2.org>, 2023
 # Alejandra Avila <alejandra@dhis2.org>, 2023
-# Enzo Nicolas Rossi <enzo@dhis2.org>, 2024
 # Pablo Del Médico, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2024
 # Janeth Cruz, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Janeth Cruz, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -39,6 +39,15 @@ msgstr "El mapa \"{{- name}}\" está guardado."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Error al guardar el mapa: {{message}}"
+
+msgid "Calculation"
+msgstr "Cálculo"
+
+msgid "No calculations found"
+msgstr "No se encontraron cálculos"
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
 
 msgid "Classification"
 msgstr "Clasificación"
@@ -508,6 +517,9 @@ msgstr "Se requiere el dato de evento"
 msgid "Program indicator is required"
 msgstr "Se requiere indicador de programa"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Período requerido"
 
@@ -522,6 +534,9 @@ msgstr "Datos de eventos"
 
 msgid "Program indicators"
 msgstr "Indicadores de programa"
+
+msgid "Calculations"
+msgstr "Cálculos"
 
 msgid "Item type"
 msgstr "Item type"
@@ -1486,6 +1501,9 @@ msgid "Organisation units"
 msgstr "Unidades organizativas"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"
