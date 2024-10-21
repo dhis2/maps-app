@@ -1,9 +1,0 @@
-/* 
-  TODO: 
-  Remove z-index style after @dhis2/d2-ui-favorites-dialog is upgraded 
-  from MUI to @dhis2/ui (DHIS2-10801) 
-  https://github.com/dhis2/d2-ui/blob/master/packages/favorites-dialog/src/Favorites.js
-*/
-.cover {
-    z-index: 1299 !important;
-}
