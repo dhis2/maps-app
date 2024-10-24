@@ -1,4 +1,3 @@
-import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import {
     TEI_COLOR,
@@ -8,17 +7,36 @@ import {
     TEI_RELATED_RADIUS,
     GEOJSON_LAYER,
 } from '../../../constants/layers.js'
-import { apiFetchWithBaseUrl } from '../../../util/api.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
     GEO_TYPE_LINE,
     GEO_TYPE_FEATURE,
 } from '../../../util/geojson.js'
-import { formatTime } from '../../../util/helpers.js'
-import { BaseUrlShim } from '../../BaseUrlShim.js'
-import Popup from '../Popup.js'
+import { OPTION_SET_QUERY } from '../../../util/requests.js'
 import Layer from './Layer.js'
+import TrackedEntityPopup from './TrackedEntityPopup.js'
+
+const ATTRIBUTES_QUERY = {
+    trackedEntityType: {
+        resource: 'trackedEntityTypes',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: `trackedEntityTypeAttributes[displayInList,trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
+            paging: false,
+        }),
+    },
+}
+const PROGRAM_ATTRIBUTES_QUERY = {
+    program: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: `programTrackedEntityAttributes[displayInList,trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
+            paging: false,
+        }),
+    },
+}
 
 const getCentroid = (points) => {
     const totals = points.reduce(
@@ -30,14 +48,6 @@ const getCentroid = (points) => {
         [0, 0]
     )
     return [totals[0] / points.length, totals[1] / points.length]
-}
-
-const fetchTEI = async (id, fieldsString, baseUrl) => {
-    const data = await apiFetchWithBaseUrl({
-        url: `/tracker/trackedEntities/${id}?fields=${fieldsString}`,
-        baseUrl,
-    })
-    return data
 }
 
 const geomToCentroid = (geometry) => {
@@ -82,6 +92,8 @@ const makeRelationshipLayer = (relationships, color, weight) => {
 class TrackedEntityLayer extends Layer {
     state = {
         popup: null,
+        displayAttributes: null,
+        trackedEntityCoordinateFieldName: null,
     }
 
     createLayer() {
@@ -91,10 +103,12 @@ class TrackedEntityLayer extends Layer {
             opacity,
             isVisible,
             data,
+            engine,
             relationships,
             secondaryData,
             eventPointColor,
             eventPointRadius,
+            nameProperty,
             areaRadius,
             relatedPointColor,
             relatedPointRadius,
@@ -113,7 +127,7 @@ class TrackedEntityLayer extends Layer {
                 weight: 1,
                 radius,
             },
-            onClick: this.onEntityClick.bind(this),
+            onClick: this.onEventClick.bind(this),
         }
 
         if (areaRadius) {
@@ -135,6 +149,8 @@ class TrackedEntityLayer extends Layer {
             isVisible,
         })
 
+        this.loadDisplayAttributes(engine, nameProperty)
+
         if (relationships) {
             const secondaryConfig = {
                 type: GEOJSON_LAYER,
@@ -144,7 +160,7 @@ class TrackedEntityLayer extends Layer {
                     weight: 1,
                     radius: relatedPointRadius || TEI_RELATED_RADIUS,
                 },
-                onClick: this.onEntityClick.bind(this),
+                onClick: this.onEventClick.bind(this),
             }
 
             const relationshipConfig = makeRelationshipLayer(
@@ -165,51 +181,105 @@ class TrackedEntityLayer extends Layer {
         this.fitBoundsOnce()
     }
 
-    getPopup() {
-        const { coordinates, data } = this.state.popup
-        const { attributes = [], updatedAt } = data
-
-        return (
-            <Popup coordinates={coordinates} onClose={this.onPopupClose}>
-                <table>
-                    <tbody>
-                        {attributes.map(({ name, value }) => (
-                            <tr key={name}>
-                                <th>{name}:</th>
-                                <td>{value}</td>
-                            </tr>
-                        ))}
-                        <tr>
-                            <th>{i18n.t('Last updated')}:</th>
-                            <td>{formatTime(updatedAt)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </Popup>
-        )
-    }
-
     render() {
-        return this.state.popup ? this.getPopup() : null
+        const { program, nameProperty } = this.props
+        const { popup, displayAttributes } = this.state
+
+        return popup ? (
+            <TrackedEntityPopup
+                {...popup}
+                program={program}
+                nameProperty={nameProperty}
+                displayAttributes={displayAttributes || []}
+                onClose={this.onPopupClose}
+            />
+        ) : null
     }
 
-    async onEntityClick(evt) {
-        const { feature, coordinates } = evt
+    onEventClick({ feature, coordinates }) {
+        this.setState({ popup: { feature, coordinates } })
+    }
 
-        const data = await fetchTEI(
-            feature.properties.id,
-            'updatedAt,attributes[displayName~rename(name),value],relationships',
-            this.props.baseUrl
+    async loadDisplayAttributes(engine, nameProperty) {
+        const { trackedEntityType, program } = this.props
+
+        const displayNameProp =
+            nameProperty === 'name' ? 'displayName' : 'displayShortName'
+
+        const { trackedEntityType: data } = await engine.query(
+            ATTRIBUTES_QUERY,
+            {
+                variables: {
+                    id: trackedEntityType.id,
+                    nameProperty: displayNameProp,
+                },
+            }
         )
+        let { trackedEntityTypeAttributes: trackedEntityAttributes } = data
 
-        this.setState({ popup: { feature, coordinates, data } })
+        if (program) {
+            const { program: data } = await engine.query(
+                PROGRAM_ATTRIBUTES_QUERY,
+                {
+                    variables: {
+                        id: program.id,
+                        nameProperty: displayNameProp,
+                    },
+                }
+            )
+            const { programTrackedEntityAttributes } = data
+
+            trackedEntityAttributes = [
+                ...new Set([
+                    ...trackedEntityAttributes,
+                    ...programTrackedEntityAttributes,
+                ]),
+            ]
+        }
+
+        let displayAttributes = []
+        // let trackedEntityCoordinateFieldName when we support associated geometry
+
+        if (Array.isArray(trackedEntityAttributes)) {
+            displayAttributes = trackedEntityAttributes
+                .filter((a) => a.displayInList)
+                .map((a) => a.trackedEntityAttribute)
+
+            for (const a of displayAttributes) {
+                await this.loadOptionSet(a, engine)
+            }
+        }
+
+        this.setState({ displayAttributes })
+    }
+
+    // Loads an option set for an attribute to get option names
+    async loadOptionSet(attribute, engine) {
+        const { optionSet } = attribute
+
+        if (!optionSet || !optionSet.id) {
+            return attribute
+        }
+
+        if (optionSet && optionSet.id) {
+            const { optionSet: fullOptionSet } = await engine.query(
+                OPTION_SET_QUERY,
+                {
+                    variables: { id: optionSet.id },
+                }
+            )
+
+            if (fullOptionSet && fullOptionSet.options) {
+                attribute.options = fullOptionSet.options.reduce(
+                    (byId, option) => {
+                        byId[option.code] = option.name
+                        return byId
+                    },
+                    {}
+                )
+            }
+        }
     }
 }
 
-const TrackedEntityLayerWithBaseUrl = (props) => (
-    <BaseUrlShim>
-        {({ baseUrl }) => <TrackedEntityLayer baseUrl={baseUrl} {...props} />}
-    </BaseUrlShim>
-)
-
-export default TrackedEntityLayerWithBaseUrl
+export default TrackedEntityLayer
