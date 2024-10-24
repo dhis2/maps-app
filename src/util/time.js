@@ -53,7 +53,7 @@ const fallbackDateFormat = (dateString) => dateString.substr(0, 10)
  * Returns true if the Internationalization API is supported
  * @returns {Boolean}
  */
-const hasIntlSupport = typeof global.Intl !== 'undefined' && Intl.DateTimeFormat
+const hasIntlSupport = typeof window.Intl !== 'undefined' && Intl.DateTimeFormat
 
 /**
  * Formats a date string or timestamp to the default display format: 13 Aug 2018 (en locale)
