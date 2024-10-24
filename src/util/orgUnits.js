@@ -52,6 +52,16 @@ export const ORG_UNITS_GROUP_SET_QUERY = {
     },
 }
 
+export const ORG_UNIT_QUERY = {
+    orgUnit: {
+        resource: 'organisationUnits',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: [`${nameProperty}~rename(name)`],
+        }),
+    },
+}
+
 export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 
 export const getPolygonItems = (data) => data.filter((d) => d.ty === 2)

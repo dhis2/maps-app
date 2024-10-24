@@ -10,35 +10,6 @@ const getJsonResponse = async (response) => {
     return json
 }
 
-export const apiFetchWithBaseUrl = async ({ url, method, body, baseUrl }) => {
-    const options = {
-        headers: {
-            'Content-Type': 'application/json', // Default API response
-        },
-        credentials: 'include',
-    }
-
-    if (method && body) {
-        options.method = method
-
-        if (isString(body)) {
-            options.headers['Content-Type'] = 'text/html'
-            options.body = body
-        } else if (isObject(body)) {
-            options.body = JSON.stringify(body)
-        }
-    }
-
-    // TODO: Better error handling
-    return fetch(encodeURI(baseUrl + url), options)
-        .then((response) =>
-            ['POST', 'PUT', 'PATCH'].includes(method)
-                ? response
-                : getJsonResponse(response)
-        )
-        .catch((error) => console.log('Error: ', error))
-}
-
 export const apiFetch = async (url, method, body) => {
     const d2 = await getD2()
     const options = {

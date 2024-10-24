@@ -153,8 +153,9 @@ export const getGeojsonDisplayData = (feature) => {
 }
 export const GEO_TYPE_POINT = 'Point'
 export const GEO_TYPE_POLYGON = 'Polygon'
+export const GEO_TYPE_MULTIPOLYGON = 'MultiPolygon'
 export const GEO_TYPE_LINE = 'LineString'
-const GEO_TYPE_FEATURE = 'Feature'
+export const GEO_TYPE_FEATURE = 'Feature'
 const GEO_TYPE_FEATURE_COLLECTION = 'FeatureCollection'
 
 const rawGeometryTypes = [
@@ -163,7 +164,7 @@ const rawGeometryTypes = [
     GEO_TYPE_POLYGON,
     'MultiPoint',
     'MultiLineString',
-    'MultiPolygon',
+    GEO_TYPE_MULTIPOLYGON,
 ]
 
 // Ensure that we are always working with a FeatureCollection
