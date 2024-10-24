@@ -1,13 +1,14 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import { formatTime, formatCoordinate } from '../../../util/helpers.js'
+import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.js'
 
 // Returns true if value is not undefined or null;
-const hasValue = (value) => value !== undefined || value !== null
+const hasValue = (value) => value !== undefined && value !== null
 
 const EVENTS_QUERY = {
     events: {
@@ -65,23 +66,52 @@ const EventPopup = ({
     coordinates,
     feature,
     styleDataItem,
+    nameProperty,
     displayElements,
     eventCoordinateFieldName,
     onClose,
 }) => {
-    const { error, data, refetch } = useDataQuery(EVENTS_QUERY, {
+    const [orgUnit, setOrgUnit] = useState()
+
+    const { refetch: refetchOrgUnit, fetching: fetchingOrgUnit } = useDataQuery(
+        ORG_UNIT_QUERY,
+        {
+            lazy: true,
+            onComplete: (result) => {
+                const name = result?.orgUnit?.name
+                if (name) {
+                    setOrgUnit(name)
+                }
+            },
+        }
+    )
+    const {
+        error: errorEvent,
+        data: dataEvent,
+        refetch: refetchEvent,
+        fetching: fetchingEvent,
+    } = useDataQuery(EVENTS_QUERY, {
         lazy: true,
+        onComplete: (result) => {
+            const id = result?.events?.orgUnit
+            if (id) {
+                refetchOrgUnit({
+                    id,
+                    nameProperty,
+                })
+            }
+        },
     })
 
     useEffect(() => {
-        refetch({
+        refetchEvent({
             id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
         })
-    }, [feature, refetch])
+    }, [feature, refetchEvent])
 
     const { type, coordinates: coord } = feature.geometry
     const { value } = feature.properties
-    const { dataValues = [], occurredAt, orgUnitName } = data?.events || {}
+    const { dataValues = [], occurredAt } = dataEvent?.events || {}
 
     return (
         <Popup
@@ -89,11 +119,18 @@ const EventPopup = ({
             onClose={onClose}
             className="dhis2-map-popup-event"
         >
-            {error && <span>{i18n.t('Could not retrieve event data')}</span>}
-            {!error && (
+            {errorEvent && (
                 <table>
                     <tbody>
-                        {data?.events &&
+                        <tr>{i18n.t('Could not retrieve event data')}</tr>
+                        <tr key="divider" style={{ height: 5 }} />
+                    </tbody>
+                </table>
+            )}
+            {!fetchingEvent && !fetchingOrgUnit && (
+                <table>
+                    <tbody>
+                        {dataEvent?.events &&
                             getDataRows({
                                 displayElements,
                                 dataValues,
@@ -111,10 +148,10 @@ const EventPopup = ({
                                 </td>
                             </tr>
                         )}
-                        {orgUnitName && (
+                        {orgUnit && (
                             <tr>
                                 <th>{i18n.t('Organisation unit')}</th>
-                                <td>{orgUnitName}</td>
+                                <td>{orgUnit}</td>
                             </tr>
                         )}
                         {occurredAt && (
@@ -134,6 +171,7 @@ EventPopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
     displayElements: PropTypes.array.isRequired,
     feature: PropTypes.object.isRequired,
+    nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
     styleDataItem: PropTypes.object,
