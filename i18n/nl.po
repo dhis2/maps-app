@@ -26,7 +26,7 @@ msgid "Map \"{{name}}\" is saved."
 msgstr "Kaart \"{{name}}\" is opgeslagen."
 
 msgid "Failed to save map. {{message}}"
-msgstr ""
+msgstr "Opslaan kaart mislikt. {{message}}"
 
 msgid "Error"
 msgstr "Fout"
@@ -338,7 +338,7 @@ msgid "Only show completed events"
 msgstr "Toon alleen voltooide evenementen"
 
 msgid "Include org units with no data"
-msgstr ""
+msgstr "Omvat organisatieëenheden met geen data"
 
 msgid "Low radius"
 msgstr "Lage radius"
@@ -654,6 +654,8 @@ msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
 "instance?"
 msgstr ""
+"Google Earth Engine mislukt. Is de dienst geconfigureerd voor deze "
+"DHIS2-instantie?"
 
 msgid "no value"
 msgstr "geen waarde"
@@ -662,7 +664,7 @@ msgid "All groups"
 msgstr "Alle groepen"
 
 msgid "Loading data"
-msgstr ""
+msgstr "Gegevens zijn aan het laden"
 
 msgid "acres"
 msgstr "aren"
@@ -759,7 +761,7 @@ msgid "No data found for this period."
 msgstr "Geen gegevens gevonden voor deze periode."
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "Gebruik geassocieerde geometrie"
 
 msgid "Select groups"
 msgstr "Selecteer groepen"
@@ -940,7 +942,7 @@ msgid "Median"
 msgstr "Mediaan"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Std dev"
 
 msgid "OSM Light"
 msgstr "OSM Light"
@@ -985,132 +987,137 @@ msgstr ""
 "geslacht."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Man 0 - 1 jaar"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Man 1 - 4 jaar"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Man 5 - 9 jaar"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Man 10 - 14 jaar"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Man 15 - 10 jaar"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Man 20 - 24  jaar"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Man 25 - 29 jaar"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Man 30 - 34 jaar"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Man 35 - 39 jaar"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Man 40 - 44 jaar"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Man 45 - 49 jaar"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Man 50 - 54 jaar"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Man 55 - 59 jaar"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Man 60 - 64 jaar"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Man 65 - 69 jaar"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Man 70 - 74 jaar"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Man 75 - 79 jaar"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Man 80 jaar en ouder"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Vrouw 0 - 1 jaar"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Vrouw 1- 4 jaar"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Vrouw 5 - 9 jaar"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Vrouw 10 - 14 jaar"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Vrouw 15 - 19 jaar"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Vrouw 20 - 24 jaar"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Vrouw 25 - 29 jaar"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Vrouw 30 - 34 jaar"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Vrouw 35 - 39 jaar"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Vrouw 40 - 44 jaar"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Vrouw 45 - 49 jaar"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Vrouw 50 - 54 jaar"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Vrouw 55 - 59 jaar"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Vrouw 60 - 64 jaar"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Vrouw 65 - 69 jaar"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Vrouw 70 - 74 jaar"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Vrouw 75 - 79 jaar"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Vrouw 80 jaar en ouder"
 
 msgid "Building footprints"
-msgstr ""
+msgstr "Footprint van gebouwen"
 
 msgid "Number of buildings"
-msgstr ""
+msgstr "Aantal gebouwen"
 
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
 "Only for the continent of Africa."
 msgstr ""
+"De omtrekken van gebouwen zijn afgeleid van hoge-resolutie satellietbeelden."
+" Alleen voor het continent van Afrika."
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
 msgstr ""
+"Gebouwtellingen zijn alleen beschikbaar voor kleinere organisatieëenheden."
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
 msgstr ""
+"Kies een kleiner gebied of een enkele organisatieëenheid om het aantal "
+"gebouwen te zien."
 
 msgid "Elevation"
 msgstr "Hoogte"
@@ -1310,13 +1317,13 @@ msgid "Cancelled"
 msgstr "Geannuleerd"
 
 msgid "{{name}}: No coordinates found"
-msgstr ""
+msgstr "{{name}}: Geen coördinaten gevonden"
 
 msgid "Selected org units: No coordinates found"
-msgstr ""
+msgstr "Geselecteerde organisatieëenheden: Geen coördinaten gevonden"
 
 msgid "Error: {{message}}"
-msgstr ""
+msgstr "Fout: {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "U heeft geen toegang to deze laaggegevens."
@@ -1338,7 +1345,7 @@ msgid "Facilities"
 msgstr "Instellingen"
 
 msgid "Facilities: No coordinates found"
-msgstr ""
+msgstr "Faciliteiten: Geen coördinaten gevonden"
 
 msgid "Organisation units"
 msgstr "Organisatieëenheden"
