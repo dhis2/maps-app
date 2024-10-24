@@ -104,8 +104,10 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with split view period', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
-            .selectIndicator(INDICATOR_NAME)
+            .selectIndicatorGroup('ANC')
+            .selectIndicator('ANC 1 Coverage')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
             .selectTab('Period');
 
         cy.getByDataTest('relative-period-select-content').click();
@@ -120,7 +122,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true);
 
-        Layer.validateCardTitle(INDICATOR_NAME);
+        Layer.validateCardTitle('ANC 1 Coverage');
 
         // check for 3 maps
         getMaps().should('have.length', 3);
