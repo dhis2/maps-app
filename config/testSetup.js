@@ -1,5 +1,5 @@
-import { configure } from 'enzyme'
 import Adapter from '@cfaester/enzyme-adapter-react-18'
+import { configure } from 'enzyme'
 import React from 'react'
 
 // https://stackoverflow.com/questions/58070996/how-to-fix-the-warning-uselayouteffect-does-nothing-on-the-server
