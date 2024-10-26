@@ -425,7 +425,7 @@ msgid "Selection mode"
 msgstr "ເລືອກຮູບແບບ"
 
 msgid "Selected only"
-msgstr ""
+msgstr "ເລືອກສະເພາະ"
 
 msgid "Selected and below"
 msgstr ""
@@ -763,7 +763,7 @@ msgid "User organisation units"
 msgstr ""
 
 msgid "Previous year"
-msgstr ""
+msgstr "ປີກາຍ"
 
 msgid "Next year"
 msgstr "ປີຕໍ່ໄປ"
@@ -778,10 +778,10 @@ msgid "Start/end dates"
 msgstr "ວັນເລີ້ມຕົ້ນ/ວັນສິ້ນສຸດ"
 
 msgid "Display periods"
-msgstr ""
+msgstr "ສະແດງຊ່ວງເວລາ"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "ດຽວ (ສັງລວມ)"
 
 msgid "Timeline"
 msgstr ""
@@ -838,7 +838,7 @@ msgid "OSM Light"
 msgstr "ແຜນທີ່ແບບ OSM"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM ລາຍລະອຽດ"
 
 msgid "Google Streets"
 msgstr "ແຜນທີ່ຂອງ Google Streets"
@@ -1092,7 +1092,7 @@ msgid "Population density"
 msgstr ""
 
 msgid "people per km²"
-msgstr ""
+msgstr "ຄົນຕໍ່ກີໂລຕາແມັດ"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
@@ -1109,7 +1109,7 @@ msgid "Precipitation"
 msgstr ""
 
 msgid "millimeter"
-msgstr ""
+msgstr "ມິລີແມັດ"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground."
@@ -1178,7 +1178,7 @@ msgid "Barren or sparsely vegetated"
 msgstr ""
 
 msgid "Water"
-msgstr ""
+msgstr "ນ້ຳ"
 
 msgid "Access denied"
 msgstr "ການເຂົ້າສູ່ລະບົບຖືກປະຕິເສດ"
