@@ -7,13 +7,14 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Philip Larsen Donnelly, 2024
+# Shelsea Chumaio, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Last-Translator: Shelsea Chumaio, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -651,7 +652,7 @@ msgid "no value"
 msgstr "sem valor"
 
 msgid "All groups"
-msgstr ""
+msgstr "Todos os grupos"
 
 msgid "Loading data"
 msgstr ""
@@ -1250,16 +1251,16 @@ msgid "Weekly"
 msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Semanalmente (início na quarta-feira)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr " Semanal (início na quinta-feira)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr " Semanal (início no sábado)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr " Semanal (início no Domingo)"
 
 msgid "Bi-weekly"
 msgstr "Quinzenal"
@@ -1283,7 +1284,7 @@ msgid "Yearly"
 msgstr "Anualmente"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr " Exercício financeiro (início em Novembro)"
 
 msgid "Financial year (Start October)"
 msgstr "Ano Financeiro - Outubro"

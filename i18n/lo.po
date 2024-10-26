@@ -416,7 +416,7 @@ msgid "Selection mode"
 msgstr "ເລືອກຮູບແບບ"
 
 msgid "Selected only"
-msgstr ""
+msgstr "ເລືອກສະເພາະ"
 
 msgid "Selected and below"
 msgstr ""
@@ -756,7 +756,7 @@ msgid "Link"
 msgstr "ເຊື່ອມ"
 
 msgid "Contact"
-msgstr ""
+msgstr "ຕິດຕໍ່"
 
 msgid "Email"
 msgstr "ອີເມວ"
@@ -765,7 +765,7 @@ msgid "Address"
 msgstr "ທີ່ຢູ່"
 
 msgid "Phone"
-msgstr ""
+msgstr "ໂທລະສັບ"
 
 msgid "ID"
 msgstr "ລະຫັດ"
@@ -777,7 +777,7 @@ msgid "Select levels"
 msgstr "ເລືອກລຳດັບ"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "ຂໍ້ມູນສ່ວນຕົວຂອງຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -818,7 +818,7 @@ msgid "User organisation units"
 msgstr ""
 
 msgid "Previous year"
-msgstr ""
+msgstr "ປີກາຍ"
 
 msgid "Next year"
 msgstr "ປີຕໍ່ໄປ"
@@ -839,10 +839,10 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Display periods"
-msgstr ""
+msgstr "ສະແດງຊ່ວງເວລາ"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "ດຽວ (ສັງລວມ)"
 
 msgid "Timeline"
 msgstr ""
@@ -893,7 +893,7 @@ msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
 
 msgid "Percentage"
-msgstr ""
+msgstr "ເປີເຊັນ"
 
 msgid "Hectares"
 msgstr ""
@@ -908,13 +908,13 @@ msgid "Median"
 msgstr "ເສັ້ນຈອມກາງ"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Std dev"
 
 msgid "OSM Light"
 msgstr "ແຜນທີ່ແບບ OSM"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM ລາຍລະອຽດ"
 
 msgid "Google Streets"
 msgstr "ແຜນທີ່ຂອງ Google Streets"
@@ -935,7 +935,7 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "Population"
-msgstr ""
+msgstr "ປະຊາກອນ"
 
 msgid "people per hectare"
 msgstr ""
@@ -1082,7 +1082,7 @@ msgid "Elevation"
 msgstr ""
 
 msgid "meters"
-msgstr ""
+msgstr "ແມັດ"
 
 msgid "Elevation above sea-level."
 msgstr ""
@@ -1091,7 +1091,7 @@ msgid "Precipitation"
 msgstr ""
 
 msgid "millimeter"
-msgstr ""
+msgstr "ມິລີແມັດ"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -1165,10 +1165,10 @@ msgid "Barren or sparsely vegetated"
 msgstr ""
 
 msgid "Water"
-msgstr ""
+msgstr "ນ້ຳ"
 
 msgid "people per km²"
-msgstr ""
+msgstr "ຄົນຕໍ່ກີໂລຕາແມັດ"
 
 msgid "Nighttime lights"
 msgstr ""
