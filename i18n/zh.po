@@ -37,7 +37,7 @@ msgid "No calculations found"
 msgstr "没有找到计算结果"
 
 msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
+msgstr "可在数据可视化应用中创建计算。"
 
 msgid "Classification"
 msgstr "分类"
@@ -489,7 +489,7 @@ msgid "Program indicator is required"
 msgstr "需要项目指标"
 
 msgid "Calculation is required"
-msgstr ""
+msgstr "需要计算"
 
 msgid "Period is required"
 msgstr "需要期间"
@@ -1440,7 +1440,7 @@ msgid "Org unit layer"
 msgstr "组织单位层"
 
 msgid "Data item was not found"
-msgstr ""
+msgstr "未找到数据项"
 
 msgid "Thematic layer"
 msgstr "专题层"

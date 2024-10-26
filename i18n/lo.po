@@ -729,7 +729,7 @@ msgid "Not set"
 msgstr "Not set"
 
 msgid "Could not retrieve event data"
-msgstr ""
+msgstr "ບໍ່ສາມາດດຶງຂໍ້ມູນຂໍ້ມູນເຫດການໄດ້"
 
 msgid "Organisation unit"
 msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
@@ -847,7 +847,7 @@ msgid "Use associated geometry"
 msgstr ""
 
 msgid "None (default)"
-msgstr ""
+msgstr "ບໍ່ມີ  (ຄ່າມາດຕະຖານ)"
 
 msgid "No data found for this period."
 msgstr "ບໍ່ພົບຂໍ້ມູນໃນຊ່ວງເວລານີ້."
@@ -874,7 +874,7 @@ msgid "Link"
 msgstr "ເຊື່ອມ"
 
 msgid "Contact"
-msgstr ""
+msgstr "ຕິດຕໍ່"
 
 msgid "Email"
 msgstr "ອີເມວ"
@@ -883,7 +883,7 @@ msgid "Address"
 msgstr "ທີ່ຢູ່"
 
 msgid "Phone"
-msgstr ""
+msgstr "ໂທລະສັບ"
 
 msgid "ID"
 msgstr "ລະຫັດ"
@@ -892,10 +892,10 @@ msgid "Comment"
 msgstr "​ຄຳ​ເຫັນ​ຕ່າງໆ"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "ຂໍ້ມູນສ່ວນຕົວຂອງຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid "Selected only"
-msgstr ""
+msgstr "ເລືອກສະເພາະ"
 
 msgid "Selected and below"
 msgstr ""
@@ -907,7 +907,7 @@ msgid "Selection mode"
 msgstr "ເລືອກຮູບແບບ"
 
 msgid "Previous year"
-msgstr ""
+msgstr "ປີກາຍ"
 
 msgid "Next year"
 msgstr "ປີຕໍ່ໄປ"
@@ -925,10 +925,10 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Display periods"
-msgstr ""
+msgstr "ສະແດງຊ່ວງເວລາ"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "ດຽວ (ສັງລວມ)"
 
 msgid "Timeline"
 msgstr ""
@@ -979,7 +979,7 @@ msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
 
 msgid "Percentage"
-msgstr ""
+msgstr "ເປີເຊັນ"
 
 msgid "Hectares"
 msgstr ""
@@ -994,13 +994,13 @@ msgid "Median"
 msgstr "ເສັ້ນຈອມກາງ"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Std dev"
 
 msgid "OSM Light"
 msgstr "ແຜນທີ່ແບບ OSM"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM ລາຍລະອຽດ"
 
 msgid "Bing Road"
 msgstr ""
@@ -1036,13 +1036,13 @@ msgid "Number of buildings"
 msgstr ""
 
 msgid "0.5 meter"
-msgstr ""
+msgstr "0.5 ແມັດ"
 
 msgid "Single point in time"
 msgstr ""
 
 msgid "May 2023"
-msgstr ""
+msgstr "ພຶດສະພາ 2023"
 
 msgid "Elevation"
 msgstr ""
@@ -1051,13 +1051,13 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "meters"
-msgstr ""
+msgstr "ແມັດ"
 
 msgid "~30 meters"
-msgstr ""
+msgstr "~30 ແມັດ"
 
 msgid "Febuary 2000"
-msgstr ""
+msgstr "ກຸມພາ 2000"
 
 msgid "Landcover"
 msgstr ""
@@ -1114,7 +1114,7 @@ msgid "Barren or sparsely vegetated"
 msgstr ""
 
 msgid "Water"
-msgstr ""
+msgstr "ນ້ຳ"
 
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
@@ -1133,10 +1133,10 @@ msgid ""
 msgstr ""
 
 msgid "Population"
-msgstr ""
+msgstr "ປະຊາກອນ"
 
 msgid "people per km²"
-msgstr ""
+msgstr "ຄົນຕໍ່ກີໂລຕາແມັດ"
 
 msgid "Estimated number of people living in an area."
 msgstr ""
@@ -1148,7 +1148,7 @@ msgid "Precipitation"
 msgstr ""
 
 msgid "millimeter"
-msgstr ""
+msgstr "ມິລີແມັດ"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -1175,7 +1175,7 @@ msgid ""
 msgstr ""
 
 msgid "~100 meters"
-msgstr ""
+msgstr "~100 ແມັດ"
 
 msgid "Male 0 - 1 years"
 msgstr ""
