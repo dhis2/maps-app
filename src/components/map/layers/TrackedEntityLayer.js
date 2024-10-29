@@ -160,7 +160,7 @@ class TrackedEntityLayer extends Layer {
                     weight: 1,
                     radius: relatedPointRadius || TEI_RELATED_RADIUS,
                 },
-                onClick: this.onEventClick.bind(this),
+                onClick: this.onEventClickSecondary.bind(this),
             }
 
             const relationshipConfig = makeRelationshipLayer(
@@ -197,11 +197,19 @@ class TrackedEntityLayer extends Layer {
     }
 
     onEventClick({ feature, coordinates }) {
-        this.setState({ popup: { feature, coordinates } })
+        this.setState({
+            popup: { feature, coordinates, activeDataSource: 'primary' },
+        })
+    }
+    onEventClickSecondary({ feature, coordinates }) {
+        this.setState({
+            popup: { feature, coordinates, activeDataSource: 'secondary' },
+        })
     }
 
     async loadDisplayAttributes(engine, nameProperty) {
         const { trackedEntityType, program } = this.props
+        // Get relationshipType object from loader if we want to retrieve attributes from secondary dataset
 
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'

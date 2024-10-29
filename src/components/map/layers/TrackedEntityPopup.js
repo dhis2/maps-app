@@ -55,6 +55,7 @@ const getDataRows = ({ displayAttributes, attributes }) => {
 const TrackedEntityPopup = ({
     coordinates,
     feature,
+    activeDataSource,
     program,
     nameProperty,
     displayAttributes,
@@ -126,6 +127,7 @@ const TrackedEntityPopup = ({
                 <table>
                     <tbody>
                         {dataTrackedEntity?.trackedEntities &&
+                            activeDataSource == 'primary' &&
                             getDataRows({
                                 displayAttributes,
                                 attributes,
@@ -163,6 +165,7 @@ TrackedEntityPopup.propTypes = {
     feature: PropTypes.object.isRequired,
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
+    activeDataSource: PropTypes.string,
     program: PropTypes.object,
 }
 
