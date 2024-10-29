@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import {
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
@@ -16,6 +15,23 @@ import {
     parseGroupSet,
 } from '../util/orgUnits.js'
 
+const GEOFEATURES_QUERY = {
+    geoFeatures: {
+        resource: 'geoFeatures',
+        params: ({
+            ou,
+            displayProperty,
+            includeGroupSets,
+            coordinateField,
+        }) => ({
+            ou,
+            displayProperty,
+            includeGroupSets,
+            coordinateField,
+        }),
+    },
+}
+
 const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
     const orgUnits = getOrgUnitsFromRows(rows)
@@ -25,39 +41,50 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     const orgUnitParams = orgUnits.map((item) => item.id)
     let associatedGeometries
 
-    const d2 = await getD2()
     const name = i18n.t('Facilities')
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(nameProperty)
+    const ouParam = `ou:${orgUnitParams.join(';')}`
 
-    const requests = [
-        featuresRequest
-            .getAll({
+    const data = await engine.query(
+        GEOFEATURES_QUERY,
+        {
+            variables: {
+                ou: ouParam,
+                displayProperty: nameProperty,
                 includeGroupSets,
-            })
-            .then(getPointItems)
-            .then(toGeoJson)
-            .catch((error) => {
-                if (error?.message || error) {
-                    alerts.push({
-                        code: ERROR_CRITICAL,
-                        message: error.message,
-                    })
-                }
-            }),
-    ]
+            },
+        },
+        {
+            onError: (error) => {
+                alerts.push({
+                    critical: true,
+                    code: ERROR_CRITICAL,
+                    message: i18n.t('Error: {{message}}', {
+                        message: error.message || i18n.t('an error occurred'),
+                        nsSeparator: ';',
+                    }),
+                })
+            },
+        }
+    )
+
+    const features = data?.geoFeatures
+        ? toGeoJson(getPointItems(data.geoFeatures))
+        : null
 
     // Load organisationUnitGroups if not passed
+    let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-            variables: { id: groupSet.id },
-        })
-        requests.push(orgUnitGroupsRequest)
+        orgUnitGroups = await engine.query(
+            ORG_UNITS_GROUP_SET_QUERY,
+            {
+                variables: {
+                    id: groupSet?.id,
+                },
+            },
+            { onError: (error) => console.log('Error loading ouGroups', error) }
+        )
     }
-
-    const [features, orgUnitGroups] = await Promise.all(requests)
 
     if (orgUnitGroups) {
         const { groupSets } = orgUnitGroups
@@ -76,13 +103,34 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     legend.title = name
 
     if (coordinateField) {
-        associatedGeometries = await featuresRequest
-            .getAll({
-                coordinateField: coordinateField.id,
-                includeGroupSets,
-            })
-            .then(getPolygonItems)
-            .then(toGeoJson)
+        const newdata = await engine.query(
+            GEOFEATURES_QUERY,
+            {
+                variables: {
+                    ou: ouParam,
+                    displayProperty: nameProperty,
+                    includeGroupSets,
+                    coordinateField: coordinateField.id,
+                },
+            },
+            {
+                onError: (error) => {
+                    alerts.push({
+                        critical: true,
+                        code: ERROR_CRITICAL,
+                        message: i18n.t('Error: {{message}}', {
+                            message:
+                                error.message || i18n.t('an error occurred'),
+                            nsSeparator: ';',
+                        }),
+                    })
+                },
+            }
+        )
+
+        associatedGeometries = newdata?.geoFeatures
+            ? toGeoJson(getPolygonItems(newdata.geoFeatures))
+            : null
 
         if (!associatedGeometries.length) {
             alerts.push({
@@ -103,6 +151,8 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     if (areaRadius) {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`]
     }
+
+    legend.title = name
 
     if (!styledFeatures.length) {
         alerts.push({
