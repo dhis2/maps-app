@@ -77,12 +77,6 @@ const EventPopup = ({
         ORG_UNIT_QUERY,
         {
             lazy: true,
-            onComplete: (result) => {
-                const name = result?.orgUnit?.name
-                if (name) {
-                    setOrgUnit(name)
-                }
-            },
         }
     )
     const {
@@ -92,22 +86,27 @@ const EventPopup = ({
         fetching: fetchingEvent,
     } = useDataQuery(EVENTS_QUERY, {
         lazy: true,
-        onComplete: (result) => {
-            const id = result?.events?.orgUnit
-            if (id) {
-                refetchOrgUnit({
-                    id,
-                    nameProperty,
-                })
-            }
-        },
     })
 
     useEffect(() => {
-        refetchEvent({
-            id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
-        })
-    }, [feature, refetchEvent])
+        const fetchEventandOU = async () => {
+            const resultEvent = await refetchEvent({
+                id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
+            })
+            const idOrgUnit = resultEvent?.events?.orgUnit
+
+            if (idOrgUnit) {
+                const resultOrgUnit = await refetchOrgUnit({
+                    id: idOrgUnit,
+                    nameProperty,
+                })
+                const nameOrgUnit = resultOrgUnit?.orgUnit?.name
+
+                setOrgUnit(nameOrgUnit)
+            }
+        }
+        fetchEventandOU()
+    }, [feature, nameProperty, refetchEvent, refetchOrgUnit])
 
     const { type, coordinates: coord } = feature.geometry
     const { value } = feature.properties

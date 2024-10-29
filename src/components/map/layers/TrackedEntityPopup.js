@@ -67,12 +67,6 @@ const TrackedEntityPopup = ({
         ORG_UNIT_QUERY,
         {
             lazy: true,
-            onComplete: (result) => {
-                const name = result?.orgUnit?.name
-                if (name) {
-                    setOrgUnit(name)
-                }
-            },
         }
     )
     const {
@@ -86,22 +80,27 @@ const TrackedEntityPopup = ({
             program,
         },
         lazy: true,
-        onComplete: (result) => {
-            const id = result?.trackedEntities?.orgUnit
-            if (id) {
-                refetchOrgUnit({
-                    id,
-                    nameProperty,
-                })
-            }
-        },
     })
 
     useEffect(() => {
-        refetchTrackedEntity({
-            id: feature.properties.id,
-        })
-    }, [feature, refetchTrackedEntity])
+        const fetchTEandOU = async () => {
+            const resultTrackedEntity = await refetchTrackedEntity({
+                id: feature.properties.id,
+            })
+            const idOrgUnit = resultTrackedEntity?.trackedEntities?.orgUnit
+
+            if (idOrgUnit) {
+                const resultOrgUnit = await refetchOrgUnit({
+                    id: idOrgUnit,
+                    nameProperty,
+                })
+                const nameOrgUnit = resultOrgUnit?.orgUnit?.name
+
+                setOrgUnit(nameOrgUnit)
+            }
+        }
+        fetchTEandOU()
+    }, [feature, nameProperty, refetchTrackedEntity, refetchOrgUnit])
 
     const { type, coordinates: coord } = feature.geometry
     const { attributes = [], updatedAt } =
