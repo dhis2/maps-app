@@ -1,3 +1,17 @@
+## [100.7.2](https://github.com/dhis2/maps-app/compare/v100.7.1...v100.7.2) (2024-10-27)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([915e385](https://github.com/dhis2/maps-app/commit/915e385006b594e39ae794c409ca86a70a272e1f))
+
+## [100.7.1](https://github.com/dhis2/maps-app/compare/v100.7.0...v100.7.1) (2024-10-21)
+
+
+### Bug Fixes
+
+* add Laos language support to glyphs ([#3364](https://github.com/dhis2/maps-app/issues/3364)) ([6da46ea](https://github.com/dhis2/maps-app/commit/6da46eaa483553ae32a3629b337df473abf97eb5))
+
 # [100.7.0](https://github.com/dhis2/maps-app/compare/v100.6.7...v100.7.0) (2024-10-04)
 
 
