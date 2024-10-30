@@ -44,14 +44,21 @@ const unknownErrorAlert = {
 
 // Returns a promise
 const eventLoader = async ({
-    layerConfig,
+    config: layerConfig,
     loadExtended,
     engine,
-    nameProperty,
+    displayProperty: nameProperty,
+    analyticsEngine,
 }) => {
     const config = { ...layerConfig }
     try {
-        await loadEventLayer({ config, loadExtended, engine, nameProperty })
+        await loadEventLayer({
+            config,
+            loadExtended,
+            engine,
+            nameProperty,
+            analyticsEngine,
+        })
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [
@@ -77,6 +84,7 @@ const loadEventLayer = async ({
     loadExtended,
     engine,
     nameProperty,
+    analyticsEngine,
 }) => {
     const {
         columns,
@@ -94,14 +102,13 @@ const loadEventLayer = async ({
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
-    const d2 = await getD2()
 
     config.isExtended = loadExtended
 
     const analyticsRequest = await getAnalyticsRequest(config, {
-        d2,
         nameProperty,
         engine,
+        analyticsEngine,
     })
     let alert
 
@@ -133,11 +140,11 @@ const loadEventLayer = async ({
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { names, data, response } = await loadData(
-            analyticsRequest,
+        const { names, data, response } = await loadData({
+            request: analyticsRequest,
             config,
-            d2
-        )
+            engine,
+        })
         const { total } = response.metaData.pager
 
         config.data = data
