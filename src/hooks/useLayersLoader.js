@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
 // import earthEngineLoader from '../loaders/earthEngineLoader.js'
-// import eventLoader from '../loaders/eventLoader.js'
+import eventLoader from '../loaders/eventLoader.js'
 import externalLoader from '../loaders/externalLoader.js'
 import facilityLoader from '../loaders/facilityLoader.js'
 import geoJsonUrlLoader from '../loaders/geoJsonUrlLoader.js'
@@ -16,7 +16,7 @@ import thematicLoader from '../loaders/thematicLoader.js'
 
 const loaders = {
     // earthEngine: EarthEngineLoader,
-    // event: eventLoader,
+    event: eventLoader,
     external: externalLoader,
     facility: facilityLoader,
     orgUnit: orgUnitLoader,
@@ -38,7 +38,10 @@ export const useLayersLoader = () => {
     const { showAlerts } = useLoaderAlerts()
 
     const allLayers = useSelector((state) => state.map.mapViews)
+    const dataTable = useSelector((state) => state.dataTable)
     const dispatch = useDispatch()
+
+    const dataTableOpen = !!dataTable
 
     useEffect(() => {
         async function loadLayer(config, loader) {
@@ -48,6 +51,7 @@ export const useLayersLoader = () => {
                 engine,
                 analyticsEngine,
                 baseUrl,
+                loadExtended: dataTableOpen, // for event loader
                 keyAnalysisDisplayProperty:
                     currentUser.keyAnalysisDisplayProperty,
             })
@@ -83,5 +87,6 @@ export const useLayersLoader = () => {
         showAlerts,
         showLoaderAlert,
         baseUrl,
+        dataTableOpen,
     ])
 }
