@@ -140,19 +140,19 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
 
     const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
 
-    const { styledFeatures, legend } = getStyledOrgUnits(
+    const { styledFeatures, legend } = getStyledOrgUnits({
         features,
         groupSet,
         config,
         baseUrl,
-        orgUnitLevels.organisationUnitLevels.reduce(
+        orgUnitLevels: orgUnitLevels.reduce(
             (obj, item) => ({
                 ...obj,
                 [item.level]: item.name,
             }),
             {}
-        )
-    )
+        ),
+    })
 
     legend.title = name
 

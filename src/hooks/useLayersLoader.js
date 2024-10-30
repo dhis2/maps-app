@@ -1,5 +1,5 @@
 import { Analytics, useCachedDataQuery } from '@dhis2/analytics'
-import { useDataEngine } from '@dhis2/app-runtime'
+import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -24,6 +24,7 @@ const loaders = {
 }
 
 export const useLayersLoader = () => {
+    const { baseUrl } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const { show: showLoaderAlert } = useAlert(
@@ -33,15 +34,7 @@ export const useLayersLoader = () => {
     const { nameProperty } = useCachedDataQuery()
     const { showAlerts } = useLoaderAlerts()
 
-    // only load layers that have not yet been loaded
-    const layers = useSelector((state) =>
-        state.map.mapViews.filter(
-            (layer) =>
-                !layer.isLoading &&
-                (!layer.isLoaded || (layer.showDataTable && !layer.isExtended))
-        )
-    )
-    console.log('jj useLayersLoader with layers', layers)
+    const allLayers = useSelector((state) => state.map.mapViews)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -51,33 +44,38 @@ export const useLayersLoader = () => {
                 displayProperty: nameProperty,
                 engine,
                 analyticsEngine,
+                baseUrl,
             })
-
             if (result.alerts) {
                 showAlerts(result.alerts)
             }
-
             dispatch(updateLayer(result))
         }
 
-        layers.forEach((layerConfig) => {
-            const loader = loaders[layerConfig.layer]
+        const unloadedLayers = allLayers.filter(
+            (layer) =>
+                !layer.isLoading &&
+                (!layer.isLoaded || (layer.showDataTable && !layer.isExtended))
+        )
 
+        // only load layers that have not yet been loaded
+        unloadedLayers.forEach((layerConfig) => {
+            const loader = loaders[layerConfig.layer]
             if (!loader) {
                 showLoaderAlert({ layer: layerConfig.layer })
                 return
             }
-
             dispatch(setLayerLoading(layerConfig.id))
             loadLayer(layerConfig, loader)
         })
     }, [
-        layers,
+        allLayers,
         dispatch,
         nameProperty,
         engine,
         analyticsEngine,
         showAlerts,
         showLoaderAlert,
+        baseUrl,
     ])
 }

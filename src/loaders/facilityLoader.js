@@ -93,12 +93,12 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
         })
     }
 
-    const { styledFeatures, legend } = getStyledOrgUnits(
+    const { styledFeatures, legend } = getStyledOrgUnits({
         features,
         groupSet,
         config,
-        baseUrl
-    )
+        baseUrl,
+    })
 
     legend.title = name
 
