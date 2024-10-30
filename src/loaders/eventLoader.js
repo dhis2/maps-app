@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { CUSTOM_ALERT, WARNING_NO_DATA } from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
@@ -25,7 +24,7 @@ import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
-const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
+const shouldUseServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
@@ -134,11 +133,9 @@ const loadEventLayer = async ({
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
     if (eventClustering && !styleDataItem) {
-        const response = await getCount(analyticsRequest)
+        const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        //FIXME
-        //eslint-disable-next-line react-hooks/rules-of-hooks
-        config.serverCluster = useServerCluster(response.count)
+        config.serverCluster = shouldUseServerCluster(response.count)
     }
 
     if (!config.serverCluster) {
@@ -259,11 +256,6 @@ const loadEventLayer = async ({
     if (alert) {
         config.alerts = [alert]
     }
-}
-
-export const getCount = async (request) => {
-    const d2 = await getD2()
-    return await d2.analytics.events.getCount(request)
 }
 
 // If the layer included filters using option sets, this function return an object
