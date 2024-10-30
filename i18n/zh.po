@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -29,6 +29,15 @@ msgstr "地图“{{- name}}”已保存。"
 
 msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
+
+msgid "Calculation"
+msgstr "计算"
+
+msgid "No calculations found"
+msgstr "没有找到计算结果"
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr "可在数据可视化应用中创建计算。"
 
 msgid "Classification"
 msgstr "分类"
@@ -479,6 +488,9 @@ msgstr "需要事件数据项"
 msgid "Program indicator is required"
 msgstr "需要项目指标"
 
+msgid "Calculation is required"
+msgstr "需要计算"
+
 msgid "Period is required"
 msgstr "需要期间"
 
@@ -493,6 +505,9 @@ msgstr "事件数据项"
 
 msgid "Program indicators"
 msgstr "项目指标"
+
+msgid "Calculations"
+msgstr "计算"
 
 msgid "Item type"
 msgstr "条目类型"
@@ -1423,6 +1438,9 @@ msgstr "组织机构"
 
 msgid "Org unit layer"
 msgstr "组织单位层"
+
+msgid "Data item was not found"
+msgstr "未找到数据项"
 
 msgid "Thematic layer"
 msgstr "专题层"

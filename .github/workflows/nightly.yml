@@ -32,7 +32,7 @@ jobs:
         steps:
             - name: Send failure message to analytics-internal-kfmt slack channel
               id: slack
-              uses: slackapi/slack-github-action@v1.23.0
+              uses: slackapi/slack-github-action@v1.27.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   slack-message: ':maps-app: Maps-app e2e nightly run <https://cloud.cypress.io/projects/r5jduj/runs?branches=[{"label":"dev","suggested":false,"value":"dev"}]|failed>'
