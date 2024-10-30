@@ -45,7 +45,11 @@ const fetchData = async (url, engine, instanceBaseUrl) => {
 }
 
 const EMPTY_FEATURE_STYLE = {}
-const geoJsonUrlLoader = async (layer, engine, instanceBaseUrl) => {
+const geoJsonUrlLoader = async ({
+    config: layer,
+    engine,
+    baseUrl: instanceBaseUrl,
+}) => {
     const { config } = layer
 
     let newConfig
