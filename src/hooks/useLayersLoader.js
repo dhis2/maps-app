@@ -9,6 +9,7 @@ import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
 // import eventLoader from '../loaders/eventLoader.js'
 import externalLoader from '../loaders/externalLoader.js'
 import facilityLoader from '../loaders/facilityLoader.js'
+import geoJsonUrlLoader from '../loaders/geoJsonUrlLoader.js'
 import orgUnitLoader from '../loaders/orgUnitLoader.js'
 import thematicLoader from '../loaders/thematicLoader.js'
 // import trackedEntityLoader from '../loaders/trackedEntityLoader.js'
@@ -20,6 +21,8 @@ const loaders = {
     facility: facilityLoader,
     orgUnit: orgUnitLoader,
     thematic: thematicLoader,
+    geoJsonUrl: geoJsonUrlLoader,
+
     // trackedEntity: trackedEntityLoader,
 }
 
@@ -31,7 +34,7 @@ export const useLayersLoader = () => {
         ({ layer }) => `Could not load layer ${layer}`,
         { critical: true }
     )
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty, currentUser } = useCachedDataQuery()
     const { showAlerts } = useLoaderAlerts()
 
     const allLayers = useSelector((state) => state.map.mapViews)
@@ -45,6 +48,8 @@ export const useLayersLoader = () => {
                 engine,
                 analyticsEngine,
                 baseUrl,
+                keyAnalysisDisplayProperty:
+                    currentUser.keyAnalysisDisplayProperty,
             })
             if (result.alerts) {
                 showAlerts(result.alerts)
@@ -72,6 +77,7 @@ export const useLayersLoader = () => {
         allLayers,
         dispatch,
         nameProperty,
+        currentUser.keyAnalysisDisplayProperty,
         engine,
         analyticsEngine,
         showAlerts,

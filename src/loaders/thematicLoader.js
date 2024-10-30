@@ -59,9 +59,9 @@ const GEOFEATURES_QUERY = {
 
 const thematicLoader = async ({
     config,
-    displayProperty,
     engine,
     analyticsEngine,
+    keyAnalysisDisplayProperty,
 }) => {
     const {
         columns,
@@ -82,7 +82,7 @@ const thematicLoader = async ({
 
     const response = await loadData({
         config,
-        displayProperty,
+        keyAnalysisDisplayProperty,
         engine,
         analyticsEngine,
         alerts,
@@ -362,7 +362,7 @@ const getOrderedValues = (data) => {
 // Load features and data values from api
 const loadData = async ({
     config,
-    displayProperty,
+    keyAnalysisDisplayProperty,
     engine,
     analyticsEngine,
     alerts,
@@ -399,7 +399,7 @@ const loadData = async ({
     let analyticsRequest = new analyticsEngine.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(displayProperty.toUpperCase())
+        .withDisplayProperty(keyAnalysisDisplayProperty)
 
     if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
@@ -451,7 +451,7 @@ const loadData = async ({
         {
             variables: {
                 ou: ouParam,
-                displayProperty,
+                displayProperty: keyAnalysisDisplayProperty,
                 userOrgUnit: geoFeaturesParams.userOrgUnit, // TODO
             },
         },
@@ -482,7 +482,7 @@ const loadData = async ({
             {
                 variables: {
                     ou: ouParam,
-                    displayProperty,
+                    displayProperty: keyAnalysisDisplayProperty,
                     userOrgUnit: geoFeaturesParams.userOrgUnit,
                     coordinateField: coordinateField.id,
                 },
