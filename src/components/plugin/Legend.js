@@ -17,7 +17,7 @@ const Legend = ({ layers }) => {
             {isOpen ? (
                 <div
                     className="dhis2-map-legend-content"
-                    onMouseLeave={() => toggleOpen(false)}
+                    onClick={() => toggleOpen(false)}
                 >
                     {legendLayers.map((layer) => (
                         <LegendLayer key={layer.id} {...layer} />
@@ -27,7 +27,7 @@ const Legend = ({ layers }) => {
                 <div
                     className="dhis2-map-legend-button"
                     title={i18n.t('Legend')}
-                    onMouseEnter={() => toggleOpen(true)}
+                    onClick={() => toggleOpen(true)}
                 />
             )}
         </div>
