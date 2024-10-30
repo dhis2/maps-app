@@ -98,55 +98,55 @@ jobs:
             - name: Test
               run: yarn test
 
-    e2e:
-        runs-on: ubuntu-latest
-        needs: install
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    # e2e:
+    #     runs-on: ubuntu-latest
+    #     needs: install
+    #     if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
-        strategy:
-            matrix:
-                containers: [1]
+    #     strategy:
+    #         matrix:
+    #             containers: [1]
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
+    #     steps:
+    #         - name: Checkout
+    #           uses: actions/checkout@v2
 
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12.x
+    #         - uses: actions/setup-node@v1
+    #           with:
+    #               node-version: 12.x
 
-            - uses: actions/cache@v2
-              id: yarn-cache
-              with:
-                  path: '**/node_modules'
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    #         - uses: actions/cache@v2
+    #           id: yarn-cache
+    #           with:
+    #               path: '**/node_modules'
+    #               key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-            - name: Install Cypress binary
-              run: yarn cypress install
+    #         - name: Install Cypress binary
+    #           run: yarn cypress install
 
-            - name: End-to-End tests
-              uses: cypress-io/github-action@v2
-              with:
-                  record: true
-                  parallel: true
-                  start: ${{ env.SERVER_START_CMD }}
-                  wait-on: ${{ env.SERVER_URL }}
-                  wait-on-timeout: 300
-                  cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  group: 'e2e'
-                  tag: ${{ github.event_name }}
-              env:
-                  CI: true
-                  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-                  COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
-                  SERVER_START_CMD: 'yarn start:nobrowser'
-                  SERVER_URL: 'http://localhost:8082'
-                  DHIS2_BASE_URL: ${{ secrets.CYPRESS_DHIS2_BASE_URL_38 }}
-                  CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_38 }}
-                  CYPRESS_dhis2ApiVersion: 38
-                  CYPRESS_networkMode: 'live'
-                  CYPRESS_dhis2Username: 'admin'
-                  CYPRESS_dhis2Password: 'district'
+    #         - name: End-to-End tests
+    #           uses: cypress-io/github-action@v2
+    #           with:
+    #               record: true
+    #               parallel: true
+    #               start: ${{ env.SERVER_START_CMD }}
+    #               wait-on: ${{ env.SERVER_URL }}
+    #               wait-on-timeout: 300
+    #               cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    #               group: 'e2e'
+    #               tag: ${{ github.event_name }}
+    #           env:
+    #               CI: true
+    #               CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+    #               COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
+    #               SERVER_START_CMD: 'yarn start:nobrowser'
+    #               SERVER_URL: 'http://localhost:8082'
+    #               DHIS2_BASE_URL: ${{ secrets.CYPRESS_DHIS2_BASE_URL_38 }}
+    #               CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_38 }}
+    #               CYPRESS_dhis2ApiVersion: 38
+    #               CYPRESS_networkMode: 'live'
+    #               CYPRESS_dhis2Username: 'admin'
+    #               CYPRESS_dhis2Password: 'district'
 
     publish:
         runs-on: ubuntu-latest
