@@ -238,10 +238,15 @@ class TrackedEntityLayer extends Layer {
             const { programTrackedEntityAttributes } = data
 
             trackedEntityAttributes = [
-                ...new Set([
-                    ...trackedEntityAttributes,
-                    ...programTrackedEntityAttributes,
-                ]),
+                ...trackedEntityAttributes,
+                ...programTrackedEntityAttributes.filter(
+                    (attr1) =>
+                        !trackedEntityAttributes.some(
+                            (attr2) =>
+                                attr1.trackedEntityAttribute.id ===
+                                attr2.trackedEntityAttribute.id
+                        )
+                ),
             ]
         }
 
