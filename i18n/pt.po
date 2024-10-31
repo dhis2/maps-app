@@ -7,13 +7,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Ge Joao <gsimango@saudigitus.org>, 2024
+# Shelsea Chumaio, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2024\n"
+"Last-Translator: Shelsea Chumaio, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,6 +32,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr " Cálculo"
+
+msgid "No calculations found"
+msgstr "Nenhum cálculo encontrado"
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -488,6 +498,9 @@ msgstr "O item de dados do evento é obrigatório"
 msgid "Program indicator is required"
 msgstr "Indicador de programa é necessário"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Período é obrigatório"
 
@@ -502,6 +515,9 @@ msgstr "Itens de dados do evento"
 
 msgid "Program indicators"
 msgstr "Indicador do programa"
+
+msgid "Calculations"
+msgstr "Cálculos"
 
 msgid "Item type"
 msgstr "Tipo de item"
@@ -754,7 +770,7 @@ msgid "no value"
 msgstr "sem valor"
 
 msgid "All groups"
-msgstr ""
+msgstr "Todos os grupos"
 
 msgid "Loading data"
 msgstr ""
@@ -1365,16 +1381,16 @@ msgid "Weekly"
 msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Semanalmente (início na quarta-feira)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr " Semanal (início na quinta-feira)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr " Semanal (início no sábado)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr " Semanal (início no Domingo)"
 
 msgid "Bi-weekly"
 msgstr "Quinzenal"
@@ -1395,7 +1411,7 @@ msgid "Yearly"
 msgstr "Anualmente"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr " Exercício financeiro (início em Novembro)"
 
 msgid "Financial year (Start October)"
 msgstr "Ano Financeiro - Outubro"
@@ -1452,6 +1468,9 @@ msgid "Organisation units"
 msgstr "Unidades organizacionais"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"
