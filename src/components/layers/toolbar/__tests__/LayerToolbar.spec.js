@@ -2,6 +2,20 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import LayerToolbar from '../LayerToolbar.js'
 
+/* eslint-disable react/prop-types */
+jest.mock('@dhis2/ui', () => {
+    const originalModule = jest.requireActual('@dhis2/ui')
+
+    return {
+        __esModule: true,
+        ...originalModule,
+        Tooltip: function Tooltip({ children }) {
+            return <div>{children}</div>
+        },
+    }
+})
+/* eslint-enable react/prop-types */
+
 describe('LayerToolbar', () => {
     const shallowRenderLayerToolbar = (props) =>
         shallow(
