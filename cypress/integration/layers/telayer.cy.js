@@ -63,7 +63,7 @@ describe('Tracked Entity Layers', () => {
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click(350, 350) //Click somewhere on the map
+        cy.get('.dhis2-map').click('center') //Click somewhere on the map
 
         cy.get('.maplibregl-popup')
             .contains('Organisation unit')
