@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
-// import earthEngineLoader from '../loaders/earthEngineLoader.js'
+import earthEngineLoader from '../loaders/earthEngineLoader.js'
 import eventLoader from '../loaders/eventLoader.js'
 import externalLoader from '../loaders/externalLoader.js'
 import facilityLoader from '../loaders/facilityLoader.js'
@@ -15,7 +15,7 @@ import thematicLoader from '../loaders/thematicLoader.js'
 // import trackedEntityLoader from '../loaders/trackedEntityLoader.js'
 
 const loaders = {
-    // earthEngine: EarthEngineLoader,
+    earthEngine: earthEngineLoader,
     event: eventLoader,
     external: externalLoader,
     facility: facilityLoader,
