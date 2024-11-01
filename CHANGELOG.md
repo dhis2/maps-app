@@ -1,3 +1,10 @@
+## [100.7.3](https://github.com/dhis2/maps-app/compare/v100.7.2...v100.7.3) (2024-11-01)
+
+
+### Bug Fixes
+
+* update queries to tracker endpoint ([#3346](https://github.com/dhis2/maps-app/issues/3346)) ([885403c](https://github.com/dhis2/maps-app/commit/885403c3d39d4c4f661c8f3a91ebd366f93edf1d))
+
 ## [100.7.2](https://github.com/dhis2/maps-app/compare/v100.7.1...v100.7.2) (2024-10-27)
 
 
