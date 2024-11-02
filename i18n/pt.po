@@ -8,13 +8,14 @@
 # Ge Joao <gsimango@saudigitus.org>, 2022
 # David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Shelsea Chumaio, 2024
+# António Fernando Macaringue, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: Shelsea Chumaio, 2024\n"
+"Last-Translator: António Fernando Macaringue, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgid "Maps"
 msgstr "Mapas"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr "O mapa \"{{name}}\" é salvo."
+msgstr "O mapa \"{{name}}\" foi salvo."
 
 msgid "Failed to save map. {{message}}"
 msgstr ""
@@ -65,7 +66,7 @@ msgid "Details"
 msgstr "Detalhes"
 
 msgid "Yes"
-msgstr "sim"
+msgstr "Sim"
 
 msgid "Event location"
 msgstr "Localização do evento "
@@ -83,7 +84,7 @@ msgid "Event data item"
 msgstr "Item de dados do evento"
 
 msgid "Style by data element"
-msgstr "Estilo por elemento de dados"
+msgstr "Estilo por elemento de dado"
 
 msgid "Data set"
 msgstr "Ficha"
@@ -127,7 +128,7 @@ msgstr ""
 "servidor."
 
 msgid "Add filter"
-msgstr "Adicionar filtros"
+msgstr "Adicionar filtro"
 
 msgid "Items"
 msgstr "Itens"
@@ -150,7 +151,7 @@ msgstr "Mostrar legenda "
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
-"O transferência do mapa não é suportado pelo seu navegador. Experimente o "
+"A transferência do mapa não é suportada pelo seu navegador. Experimente o "
 "Google Chrome ou Firefox."
 
 msgid "Cancel"
@@ -187,7 +188,7 @@ msgid "facility"
 msgstr "Instalação"
 
 msgid "thematic"
-msgstr "temática"
+msgstr "temático"
 
 msgid "org unit"
 msgstr ""
@@ -297,8 +298,8 @@ msgstr "Raio"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
-"Você pode criar estilos de  eventos por elemento de dados após selecionar um"
-" programa."
+"Você pode criar estilos de  eventos por elemento de dado após selecionar um "
+"programa."
 
 msgid "Program is required"
 msgstr "Programa é obrigatório"
@@ -370,7 +371,7 @@ msgid "Event data item is required"
 msgstr "O item de dados do evento é obrigatório"
 
 msgid "Program indicator is required"
-msgstr "Indicador de programa é necessário"
+msgstr "Indicador de programa é obrigatório"
 
 msgid "Period is required"
 msgstr "Período é obrigatório"
@@ -379,7 +380,7 @@ msgid "Indicator"
 msgstr "Indicador"
 
 msgid "Reporting rates"
-msgstr "Taxas de relatórios"
+msgstr "Taxa de relatórios"
 
 msgid "Event data items"
 msgstr "Itens de dados do evento"
@@ -480,13 +481,14 @@ msgid "Hide technical details"
 msgstr "Ocultar detalhes técnicos"
 
 msgid "Show technical details"
-msgstr "Mostrar detalhes tecnicos "
+msgstr "Mostrar detalhes técnicos"
 
 msgid "The following information may be requested by technical support."
 msgstr "As informações a seguir podem ser solicitadas pelo suporte técnico."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr "A filtragem está disponível após a seleção de um estágio do programa."
+msgstr ""
+"A filtragem está disponível após a selecção de um estágio do programa."
 
 msgid "one of"
 msgstr "um de"
@@ -553,7 +555,7 @@ msgid "Data download failed."
 msgstr "Falha na transferência dos dados."
 
 msgid "ID Format"
-msgstr "Formato de identificação"
+msgstr "Formato do ID"
 
 msgid "Use human-readable keys"
 msgstr "Use chaves legíveis por humanos"
@@ -928,10 +930,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "Média"
 
 msgid "Median"
-msgstr ""
+msgstr "Mediana"
 
 msgid "Std dev"
 msgstr ""
