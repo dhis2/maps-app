@@ -13,16 +13,14 @@ env:
     GH_TOKEN: ${{secrets.DHIS2_BOT_GITHUB_TOKEN}}
     D2_APP_HUB_TOKEN: ${{secrets.DHIS2_BOT_APPHUB_TOKEN}}
     CI: true
+    build_exists: false
 
 jobs:
     release:
         runs-on: ubuntu-latest
         if: >
             ${{ !github.event.push.repository.fork &&
-            github.actor != 'dependabot[bot]' &&
-            !contains(github.event.head_commit.message, '[skip ci]') &&
-            !contains(github.event.head_commit.message, '[skip release]') &&
-            !startsWith(github.event.head_commit.message, 'chore') }}
+            github.actor != 'dependabot[bot]' }}
         steps:
             - uses: actions/checkout@v4
               with:
@@ -41,7 +39,17 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
+            - name: Set build_exists env var
+              id: check_build
+              run: |
+                  if ls build/bundle/jennifer-demo-app-*.zip 1> /dev/null 2>&1; then
+                      echo "build_exists=true" >> $GITHUB_ENV
+                  else
+                      echo "build_exists=false" >> $GITHUB_ENV
+                  fi
+
             - name: Publish to AppHub
+              if: env.build_exists == 'true'
               run: yarn run d2-app-scripts publish
 
     report-release-result:
@@ -49,9 +57,7 @@ jobs:
         needs: release
         if: >
             ${{ !github.event.push.repository.fork &&
-            github.actor != 'dependabot[bot]' &&
-            !contains(github.event.head_commit.message, '[skip ci]') &&
-            !contains(github.event.head_commit.message, '[skip release]') }}
+            github.actor != 'dependabot[bot]'  }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
