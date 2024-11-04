@@ -8,11 +8,11 @@
             {
                 "releaseRules": [
                     {
-                        "message": "skip release",
+                        "message": "[skip release]",
                         "release": false
                     },
                     {
-                        "message": "skip ci",
+                        "message": "[skip ci]",
                         "release": false
                     }
                 ]
