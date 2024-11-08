@@ -276,6 +276,7 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 

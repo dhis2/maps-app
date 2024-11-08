@@ -89,7 +89,7 @@ describe('LayerToolbar', () => {
             onEdit: editFn,
         })
 
-        wrapper.find('[dataTest="editbutton"]').simulate('click')
+        wrapper.find('[dataTest="layer-edit-button"]').simulate('click')
         expect(editFn).toHaveBeenCalled()
         expect(toggleVisibleFn).not.toHaveBeenCalled()
 

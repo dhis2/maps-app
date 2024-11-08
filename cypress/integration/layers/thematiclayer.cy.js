@@ -17,7 +17,7 @@ context('Thematic Layers', () => {
 
     const Layer = new ThematicLayer()
 
-    it('shows error if no indicator group selected', () => {
+    it('shows error in layer edit modal if no indicator group selected', () => {
         Layer.openDialog('Thematic').addToMap()
 
         Layer.validateDialogClosed(false)
@@ -25,7 +25,7 @@ context('Thematic Layers', () => {
         cy.contains('Indicator group is required').should('be.visible')
     })
 
-    it('shows error if no indicator selected', () => {
+    it('shows error in layer edit modal if no indicator selected', () => {
         Layer.openDialog('Thematic').selectIndicatorGroup('HIV').addToMap()
 
         Layer.validateDialogClosed(false)
@@ -225,5 +225,53 @@ context('Thematic Layers', () => {
             .should('have.length', 5)
 
         getMaps().should('have.length', 1)
+    })
+
+    it('handles an error in the layer configuration', () => {
+        cy.visit('/')
+
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator(INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType('Yearly')
+            .selectTab('Org Units')
+            .selectOu('Bo')
+            .unselectOuLevel('District')
+            .selectOuLevel('National')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(INDICATOR_NAME)
+
+        // check that loading completes and the layer card is present
+        cy.getByDataTest('map-loading-mask').should('not.exist')
+
+        cy.getByDataTest('layercard')
+            .contains(INDICATOR_NAME)
+            .should('be.visible')
+
+        // check that an error is displayed in the layer card
+        cy.getByDataTest('load-error-noticebox').should('be.visible')
+        cy.getByDataTest('load-error-noticebox')
+            .find('h6')
+            .contains('Failed to load layer')
+            .should('be.visible')
+        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+            .contains(
+                'Organisation unit or organisation unit level is not valid'
+            )
+            .should('be.visible')
+
+        // edit the layer to make it valid
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Org Units')
+            .unselectOuLevel('National')
+            .selectOuLevel('Chiefdom')
+            .updateMap()
+
+        // confirm that the map is valid now
+        cy.getByDataTest('layerlegend-item').should('have.length', 5)
     })
 })
