@@ -46,6 +46,7 @@
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.0.0",
+        "@dhis2/ui": "^9.12.0",
         "@krakenjs/post-robot": "^11.0.0",
         "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
         "@reportportal/agent-js-jest": "^5.0.7",
@@ -81,5 +82,8 @@
         "redux-thunk": "^2.4.2",
         "styled-jsx": "^4.0.1",
         "url-polyfill": "^1.1.12"
+    },
+    "resolutions": {
+        "@dhis2/ui": "9.13.0"
     }
 }
