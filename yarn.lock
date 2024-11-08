@@ -2323,7 +2323,7 @@
   resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-9.13.0.tgz#321ffcaadade8e4b29600fe5208e5f07ba1be26b"
   integrity sha512-elFOMwpL4St5cAjdUy8PqSzaSJcfhdlZG8aARvvaAwtA42s2QZp/zXaztOjshjN8iQBFZMqH93XqQh8Dmqb0mA==
 
-"@dhis2/ui@9.13.0", "@dhis2/ui@^9.12.0", "@dhis2/ui@^9.8.9":
+"@dhis2/ui@9.13.0", "@dhis2/ui@^9.13.0", "@dhis2/ui@^9.8.9":
   version "9.13.0"
   resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-9.13.0.tgz#191a3e14f3a4874f02e44e94e53cbe1694c69de3"
   integrity sha512-VuqW+jF/tf99ZjnyaFdRmPj1BBeFs22XBEqGFOiClPSTT2d6xIcX7VPY7+vf99WnadijQ4/T2238FhtjIVidXw==
