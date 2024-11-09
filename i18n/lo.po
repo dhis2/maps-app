@@ -129,7 +129,7 @@ msgid "Download map"
 msgstr "ດາວໂຫຼດແຜນທີ່"
 
 msgid "Show name"
-msgstr ""
+msgstr "ສະແດງຊື່"
 
 msgid "Show legend"
 msgstr "ສະແດງຄຳອະທິບາຍ"
@@ -167,7 +167,7 @@ msgid "event"
 msgstr "ເຫດການ"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "ຕິດຕາມຕົວຢ່າງ"
 
 msgid "facility"
 msgstr "ສະຖານທີ່ບໍລິການ"
@@ -220,7 +220,7 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "ຫົວໜ່ວຍ"
 
 msgid "Source"
 msgstr "​ແຫ່​ລງ​ທີ່​ມາ"
@@ -247,7 +247,7 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "ຂັ້ນຕອນທີ່ຖືກຕ້ອງຄື {{minSteps}}ຫາ {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "ຫົວໜ່ວຍ: {{ unit }}"
 
 msgid "Min"
 msgstr "ຄ່ານ້ອຍສຸດ"
@@ -313,7 +313,7 @@ msgid "Aggregation type"
 msgstr "ປະເພດຕົວເລກລວມ"
 
 msgid "Show no data"
-msgstr ""
+msgstr "ບໍ່ສະແດງຂໍ້ມູນ"
 
 msgid "Low radius"
 msgstr ""
@@ -370,7 +370,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "ສາຍງານ / ວັນທີ່ລົງທະບຽນ"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
