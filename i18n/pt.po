@@ -9,13 +9,14 @@
 # David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Shelsea Chumaio, 2024
 # António Fernando Macaringue, 2024
+# Helton Dias, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: António Fernando Macaringue, 2024\n"
+"Last-Translator: Helton Dias, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,7 +141,7 @@ msgid "Download"
 msgstr "Descarregar"
 
 msgid "Download map"
-msgstr "Baixar mapas "
+msgstr "Transferir mapas "
 
 msgid "Show name"
 msgstr "Mostrar nome "
@@ -191,7 +192,7 @@ msgid "thematic"
 msgstr "temático"
 
 msgid "org unit"
-msgstr ""
+msgstr "unidade organizacional"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -209,7 +210,7 @@ msgid "Add layer"
 msgstr "Adicionar camada"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Método de agregação"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -227,6 +228,8 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Os dados serão calculados no Google Earth Engine para as unidades "
+"organizacionais escolhidas."
 
 msgid "Multiple aggregation methods are available."
 msgstr ""
@@ -237,7 +240,7 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "Unidade"
 
 msgid "Source"
 msgstr "Fonte"
@@ -249,25 +252,25 @@ msgid "Year"
 msgstr "Ano"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Os períodos disponíveis são definidos pelos dados de origem"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Períodos de carregamento"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "O valor mínimo é obrigatório"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "O valor máximo é obrigatório"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "O máximo deve ser superior ao mínimo"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "As etapas válidas são {{minSteps}} para {{maxSteps}} "
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "Unidade: {{ unit }}"
 
 msgid "Min"
 msgstr "Min"
@@ -279,7 +282,7 @@ msgid "Steps"
 msgstr "Passos"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unidades organizacionais"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -305,13 +308,13 @@ msgid "Program is required"
 msgstr "Programa é obrigatório"
 
 msgid "Program stage is required"
-msgstr "Etapa do programa é necessária"
+msgstr "Estágio do programa é necessária"
 
 msgid "No organisation units are selected."
 msgstr "Nenhuma unidade organizacional selecionada"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Nenhum conjunto de legendas está selecionado"
 
 msgid "Event status"
 msgstr "Estado do evento "
@@ -341,16 +344,16 @@ msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
-msgstr ""
+msgstr "Raio baixo"
 
 msgid "High radius"
-msgstr ""
+msgstr "Raio alto"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "O raio alto deve ser maior que o raio baixo"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "O raio deve estar entre {{min}} e {{max}}"
 
 msgid "Indicator group is required"
 msgstr "O grupo de indicadores é obrigatório"
@@ -397,10 +400,11 @@ msgstr ""
 "última vez"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Programa/Data de inscrição"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
+"a data em que uma entidade rastreada foi registada ou inscrita num programa"
 
 msgid "Program status"
 msgstr "Estado do programa"
@@ -437,10 +441,10 @@ msgid "Selected only"
 msgstr "Apenas selecionados"
 
 msgid "Selected and below"
-msgstr "Selecione a baixo"
+msgstr "Selecionado e a baixo"
 
 msgid "Selected and all below"
-msgstr "Selecione  tudo abaixo"
+msgstr "Selecionado e tudo abaixo"
 
 msgid "Tracked entities"
 msgstr "Entidades rastreadas"
@@ -527,7 +531,7 @@ msgid "Interpretations"
 msgstr "Interpretações"
 
 msgid "Collapse"
-msgstr "colapsar"
+msgstr "Ocultar"
 
 msgid "Expand"
 msgstr "Expandir"
@@ -542,7 +546,7 @@ msgid "Download Layer Data"
 msgstr "Baixar dados da camada"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Fazendo download de dados GeoJSON para \"{{layerName}}\""
+msgstr "Transferindo dados GeoJSON para \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -568,7 +572,7 @@ msgstr ""
 "A exibição dividida não pode ser combinada com outros tipos de camada."
 
 msgid "Loading layer"
-msgstr "Camada de carregamento"
+msgstr "Carregando camada"
 
 msgid "{{name}} deleted."
 msgstr "{{name}} excluído."
@@ -613,10 +617,10 @@ msgid "Filters"
 msgstr "Filtros"
 
 msgid "Drill up one level"
-msgstr "Perfurar um nivel"
+msgstr "Subir um nível"
 
 msgid "Drill down one level"
-msgstr "Perfurar um nivel"
+msgstr "Descer um nível"
 
 msgid "View profile"
 msgstr "Ver Perfil"
@@ -643,7 +647,7 @@ msgid "Parent unit"
 msgstr "Unidade parental"
 
 msgid "No data"
-msgstr "Não ha dados"
+msgstr "Não há dados"
 
 msgid "Last updated"
 msgstr "Ultima actualização"
@@ -690,10 +694,10 @@ msgid "Enter fullscreen"
 msgstr "Entrar em tela cheia"
 
 msgid "Exit fullscreen"
-msgstr "Sair na tela cheia "
+msgstr "Sair da tela cheia "
 
 msgid "Finish measurement"
-msgstr "Medição de acabamento"
+msgstr "Encerrar medição"
 
 msgid "ha"
 msgstr "ha"
@@ -733,7 +737,7 @@ msgid ""
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
-"Este gráfico / tabela contém itens de dados {{numItems}}. Escolha quais "
+"Este gráfico / tabela contém {{numItems}} itens de dados. Escolha quais "
 "itens você deseja importar da lista abaixo. Cada item de dados será criado "
 "como uma camada de mapa."
 
@@ -809,17 +813,17 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
-"Não é possível combinar unidades organizacionais do usuário e selecionar "
+"Não é possível combinar unidades organizacionais do utilizador e selecionar "
 "unidades individuais."
 
 msgid "user organisation unit"
-msgstr "Unidades organizacionais do usuário"
+msgstr "Unidades organizacionais do utilizador"
 
 msgid "right below user organisation unit"
-msgstr "logo abaixo da unidade  organizacional do usuário"
+msgstr "logo abaixo da unidade  organizacional do utilizador"
 
 msgid "two levels below user organisation unit"
-msgstr "dois níveis abaixo da unidade organizacional do usuário"
+msgstr "dois níveis abaixo da unidade organizacional do utilizador"
 
 msgid "{{units}} in {{orgunits}}"
 msgstr "{{units}} em {{orgunits}}"
@@ -834,7 +838,7 @@ msgid "Selected organisation units"
 msgstr "Unidades organizacionais selecionadas"
 
 msgid "Main"
-msgstr "Menu"
+msgstr "Principal"
 
 msgid "Below"
 msgstr "Abaixo "
@@ -843,7 +847,7 @@ msgid "2 x below"
 msgstr "2 x a baixo "
 
 msgid "User organisation units"
-msgstr "Unidades organizacionais do usuário"
+msgstr "Unidades organizacionais do utilizador"
 
 msgid "Previous year"
 msgstr "Ano anterior"
@@ -858,13 +862,13 @@ msgid "Period type"
 msgstr "Tipo de periodo"
 
 msgid "Start/end dates"
-msgstr "Inicio/datas de término"
+msgstr "Datas de inicio/término"
 
 msgid "Only one timeline is allowed."
 msgstr "Apenas uma linha do tempo é permitida."
 
 msgid "Remove other layers to enable split map views."
-msgstr "Remova outras camadas para ativar as visualizações de mapa dividido."
+msgstr "Remova outras camadas para activar as visualizações de mapa dividido."
 
 msgid "Display periods"
 msgstr "Períodos de exibição"
@@ -879,7 +883,7 @@ msgid "Split map views"
 msgstr "Dividir visualizações de mapa"
 
 msgid "Start date"
-msgstr "Data Início"
+msgstr "Data de Início"
 
 msgid "End date"
 msgstr "Data Final"
@@ -888,7 +892,7 @@ msgid "Not available offline"
 msgstr "Não disponível offline"
 
 msgid "Program indicator"
-msgstr "Gestão do indicadores de programa"
+msgstr "Indicador de programa"
 
 msgid "No program"
 msgstr "Sem programa"
@@ -897,7 +901,7 @@ msgid "Program"
 msgstr "Programa"
 
 msgid "Stage"
-msgstr "Estagio"
+msgstr "Estágio"
 
 msgid "Tracked Entity Type"
 msgstr "Tipo de entidade rastreada"
@@ -930,7 +934,7 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr "Média"
+msgstr "significa"
 
 msgid "Median"
 msgstr "Mediana"
@@ -939,10 +943,10 @@ msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
-msgstr "Open street map lite"
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
-msgstr "Detalhado OSM"
+msgstr "OSM Detalhado"
 
 msgid "Google Streets"
 msgstr "Google Streets"
@@ -960,7 +964,7 @@ msgid "Bing Aerial"
 msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
-msgstr "Etiquetas aéreas do Bing"
+msgstr "Bing Etiquetas aéreas"
 
 msgid "Population"
 msgstr ""
@@ -1126,8 +1130,8 @@ msgid ""
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
-"Precipitação coletada de satélites e estações meteorológicas no solo. Os "
-"valores estão em milímetros dentro de períodos de 5 dias. Atualizado "
+"Precipitação colectada por satélites e estações meteorológicas no solo. Os "
+"valores estão em milímetros dentro de períodos de 5 dias. Actualizado "
 "mensalmente, durante a 3ª semana do mês seguinte."
 
 msgid "Temperature"
@@ -1140,14 +1144,14 @@ msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
-"Temperaturas da superfície da terra coletadas do satélite. Pontos em branco "
-"aparecerão em áreas com uma cobertura de nuvens persistente."
+"Temperaturas da superfície da Terra colectadas por satélite. Pontos em "
+"branco aparecerão em áreas com uma cobertura de nuvens persistente."
 
 msgid "Landcover"
-msgstr "Cobertura da terra"
+msgstr "Cobertura do solo"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr "Tipos de cobertura terrestre distintos colectados de satélites."
+msgstr "Tipos de cobertura do solo distintos colectados por satélites."
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Floresta de folhas de agulhas sempre-verdes"
@@ -1174,16 +1178,16 @@ msgid "Woody savannas"
 msgstr "Savanas arborizadas"
 
 msgid "Savannas"
-msgstr "Savannas"
+msgstr "Savanas"
 
 msgid "Grasslands"
-msgstr "Grasslands"
+msgstr "Área de Pastagem"
 
 msgid "Permanent wetlands"
 msgstr "Áreas úmidas permanentes"
 
 msgid "Croplands"
-msgstr "Croplands"
+msgstr "terras agrícolas"
 
 msgid "Urban and built-up"
 msgstr "Urbano e construído"
@@ -1204,7 +1208,7 @@ msgid "people per km²"
 msgstr "População por km²"
 
 msgid "Nighttime lights"
-msgstr "Luzes noturnas"
+msgstr "Luzes nocturnas"
 
 msgid "light intensity"
 msgstr "intensidade da luz"
@@ -1220,7 +1224,7 @@ msgid "All"
 msgstr "Tudo"
 
 msgid "Active"
-msgstr "Ativo"
+msgstr "Activo"
 
 msgid "Completed"
 msgstr "Concluído"
@@ -1289,16 +1293,16 @@ msgid "Yearly"
 msgstr "Anualmente"
 
 msgid "Financial year (Start November)"
-msgstr " Exercício financeiro (início em Novembro)"
+msgstr "Ano financeiro (início em Novembro)"
 
 msgid "Financial year (Start October)"
-msgstr "Ano Financeiro - Outubro"
+msgstr "Ano Financeiro (início em Outubro)"
 
 msgid "Financial year (Start July)"
-msgstr "Ano Financeiro - Julho"
+msgstr "Ano Financeiro (início em Julho)"
 
 msgid "Financial year (Start April)"
-msgstr "Ano Financeiro - Abril"
+msgstr "Ano Financeiro (início em Abril)"
 
 msgid "Cancelled"
 msgstr "Cancelado"
