@@ -8,13 +8,15 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Ge Joao <gsimango@saudigitus.org>, 2024
 # Shelsea Chumaio, 2024
+# António Fernando Macaringue, 2024
+# Helton Dias, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Shelsea Chumaio, 2024\n"
+"Last-Translator: Helton Dias, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,7 +133,7 @@ msgid "Filtering is available after selecting a program stage."
 msgstr "A filtragem está disponível após a seleção de um estágio do programa."
 
 msgid "Add filter"
-msgstr "Adicionar filtros"
+msgstr "Adicionar filtro"
 
 msgid "Data item"
 msgstr "Item de dados"
@@ -219,13 +221,13 @@ msgid "Dimension"
 msgstr "Dimensão"
 
 msgid "Download"
-msgstr "Descarregar"
+msgstr "Transferir"
 
 msgid "Exit download mode"
 msgstr ""
 
 msgid "Download map"
-msgstr "Baixar mapas "
+msgstr "Transferir mapas "
 
 msgid "Show map name"
 msgstr ""
@@ -258,7 +260,7 @@ msgstr ""
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
-"O transferência do mapa não é suportado pelo seu navegador. Experimente o "
+"A transferência do mapa não é suportada pelo seu navegador. Experimente o "
 "Google Chrome ou Firefox."
 
 msgid "Cancel"
@@ -292,10 +294,10 @@ msgid "facility"
 msgstr "Instalação"
 
 msgid "thematic"
-msgstr "temática"
+msgstr "temático"
 
 msgid "org unit"
-msgstr ""
+msgstr "unidade organizacional"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -304,7 +306,7 @@ msgid "feature"
 msgstr ""
 
 msgid "Edit {{name}} layer"
-msgstr "Edite a camada {{name}}"
+msgstr "Editar a camada {{name}}"
 
 msgid "Add new {{name}} layer"
 msgstr "Adicione nova camada {{name}}"
@@ -316,7 +318,7 @@ msgid "Add layer"
 msgstr "Adicionar camada"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Método de agregação"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -334,6 +336,8 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Os dados serão calculados no Google Earth Engine para as unidades "
+"organizacionais escolhidas."
 
 msgid "Multiple aggregation methods are available."
 msgstr ""
@@ -344,7 +348,7 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "Unidade"
 
 msgid "Spatial resolution"
 msgstr ""
@@ -365,22 +369,22 @@ msgid "Year"
 msgstr "Ano"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Os períodos disponíveis são definidos pelos dados de origem"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Períodos de carregamento"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "O valor mínimo é obrigatório"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "O valor máximo é obrigatório"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "O máximo deve ser superior ao mínimo"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "As etapas válidas são {{minSteps}} para {{maxSteps}} "
 
 msgid "Min"
 msgstr "Mínimo"
@@ -395,7 +399,7 @@ msgid "Facility buffer"
 msgstr ""
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unidades organizacionais"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -424,7 +428,7 @@ msgid "No organisation units are selected."
 msgstr "Nenhuma unidade organizacional selecionada"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Nenhum conjunto de legendas está selecionado"
 
 msgid "Event status"
 msgstr "Estado do evento "
@@ -466,16 +470,16 @@ msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
-msgstr ""
+msgstr "Raio baixo"
 
 msgid "High radius"
-msgstr ""
+msgstr "Raio alto"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "O raio alto deve ser maior que o raio baixo"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "O raio deve estar entre {{min}} e {{max}}"
 
 msgid "Indicator group is required"
 msgstr "O grupo de indicadores é obrigatório"
@@ -528,10 +532,11 @@ msgstr ""
 "última vez"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Programa/Data de inscrição"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
+"a data em que uma entidade rastreada foi registada ou inscrita num programa"
 
 msgid "Program status"
 msgstr "Status do programa"
