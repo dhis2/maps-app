@@ -8,13 +8,14 @@
 # David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Philip Larsen Donnelly, 2024
 # Shelsea Chumaio, 2024
+# Helton Dias, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Shelsea Chumaio, 2024\n"
+"Last-Translator: Helton Dias, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,7 +191,7 @@ msgid "thematic"
 msgstr "temática"
 
 msgid "org unit"
-msgstr ""
+msgstr "unidade organizacional"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -208,7 +209,7 @@ msgid "Add layer"
 msgstr "Adicionar camada"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Método de agregação"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -226,6 +227,8 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Os dados serão calculados no Google Earth Engine para as unidades "
+"organizacionais escolhidas."
 
 msgid "Multiple aggregation methods are available."
 msgstr ""
@@ -236,7 +239,7 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "Unidade"
 
 msgid "Source"
 msgstr "Fonte"
@@ -248,25 +251,25 @@ msgid "Year"
 msgstr "Ano"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Os períodos disponíveis são definidos pelos dados de origem"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Períodos de carregamento"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "O valor mínimo é obrigatório"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "O valor máximo é obrigatório"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "O máximo deve ser superior ao mínimo"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "As etapas válidas são {{minSteps}} para {{maxSteps}} "
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "Unidade: {{ unit }}"
 
 msgid "Min"
 msgstr "Min"
@@ -278,7 +281,7 @@ msgid "Steps"
 msgstr "Passos"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unidades organizacionais"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -310,7 +313,7 @@ msgid "No organisation units are selected."
 msgstr "Nenhuma unidade organizacional selecionada"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Nenhum conjunto de legendas está selecionado"
 
 msgid "Event status"
 msgstr "Estado do evento "
@@ -334,19 +337,19 @@ msgid "Aggregation type"
 msgstr "Tipo de agregacão"
 
 msgid "Show no data"
-msgstr ""
+msgstr "Não mostrar dados"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Raio baixo"
 
 msgid "High radius"
-msgstr ""
+msgstr "Raio alto"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "O raio alto deve ser maior que o raio baixo"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "O raio deve estar entre {{min}} e {{max}}"
 
 msgid "Indicator group is required"
 msgstr "O grupo de indicadores é obrigatório"
@@ -393,10 +396,11 @@ msgstr ""
 "última vez"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Programa/Data de inscrição"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
+"a data em que uma entidade rastreada foi registada ou inscrita num programa"
 
 msgid "Program status"
 msgstr "Estado do programa"
@@ -925,10 +929,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "Média"
 
 msgid "Median"
-msgstr ""
+msgstr "Mediana"
 
 msgid "Std dev"
 msgstr ""
