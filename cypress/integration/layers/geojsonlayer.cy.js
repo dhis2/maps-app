@@ -142,7 +142,7 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
-            .should('have.length', 2)
+            .should('have.length', 3) // Edit layer, Remove layer, divider line
 
         cy.getByDataTest('more-menu')
             .find('li')
@@ -207,7 +207,7 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
-            .should('have.length', 2)
+            .should('have.length', 3) // Edit layer, Remove layer, divider line
 
         cy.getByDataTest('more-menu')
             .find('li')
