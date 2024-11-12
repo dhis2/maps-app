@@ -7,7 +7,7 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
 >
   <IconButton
     className="editButton"
-    dataTest="editbutton"
+    dataTest="layer-edit-button"
     onClick={[Function]}
     tooltip="Edit"
   >

@@ -41,7 +41,6 @@ const LayerCard = ({
                         }
                         onClick={toggleExpand}
                         className={styles.expand}
-                        dataTest="editbutton"
                     >
                         {isExpanded ? (
                             <IconChevronUp24 />
