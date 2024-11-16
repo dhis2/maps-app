@@ -314,7 +314,7 @@ msgid "Event status"
 msgstr "Estado do evento "
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Cor do limite"
 
 msgid "Buffer"
 msgstr "Buffer"
@@ -420,7 +420,7 @@ msgstr "Exibir relacionamentos de entidade rastreada"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
+msgstr "Incluir relações que ligam entidades fora do \"{{program}}\" program"
 
 msgid "Selection mode"
 msgstr "Modo de seleção"
@@ -506,10 +506,10 @@ msgid "Group set"
 msgstr "Conjunto do grupo"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "Falha ao carregar grupos de unidades organizacionais."
 
 msgid "Style by group set"
-msgstr ""
+msgstr "Estilo por conjunto de grupo"
 
 msgid "Indicator group"
 msgstr "Grupo de Indicador"
@@ -580,7 +580,7 @@ msgid "Hide data table"
 msgstr "Ocultar tabela de dados"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Mostrar tabela de dados"
 
 msgid "Open as chart"
 msgstr "Abrir como gráfico"
@@ -595,7 +595,7 @@ msgid "Remove layer"
 msgstr "Remover camada"
 
 msgid "Mid"
-msgstr ""
+msgstr "Meio"
 
 msgid "Group"
 msgstr "Grupo"
@@ -616,7 +616,7 @@ msgid "Show longitude/latitude"
 msgstr "Mostrar longitude/latitude"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Mostrar {{name}}"
 
 msgid "Longitude"
 msgstr "Longitude"
@@ -730,6 +730,8 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
+"Este elemento de dados tem muitas opções ({{length}}). As opções máximas de "
+"estilo são {{max}}."
 
 msgid "No data found for this period."
 msgstr "Não foram encontrados dados para este período."
@@ -738,7 +740,7 @@ msgid "Select groups"
 msgstr "Selecionar grupos"
 
 msgid "Image of the organisation unit"
-msgstr ""
+msgstr "Imagem da unidade organizacional"
 
 msgid "Code"
 msgstr "Código"
@@ -759,7 +761,7 @@ msgid "Link"
 msgstr "Ligação"
 
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 msgid "Email"
 msgstr "E-mail"
@@ -768,7 +770,7 @@ msgid "Address"
 msgstr "Endereço"
 
 msgid "Phone"
-msgstr ""
+msgstr "Telefone"
 
 msgid "ID"
 msgstr "ID"
@@ -780,7 +782,7 @@ msgid "Select levels"
 msgstr "Selecionar Nível"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "Perfil da unidade organizacional"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -901,10 +903,10 @@ msgid "Percentage"
 msgstr "Percentagem "
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hectares"
 
 msgid "Acres"
-msgstr ""
+msgstr "Acres"
 
 msgid "Mean"
 msgstr "Média"
@@ -937,134 +939,135 @@ msgid "Bing Aerial Labels"
 msgstr "Etiquetas aéreas do Bing"
 
 msgid "Population"
-msgstr ""
+msgstr "População"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "pessoas por hectare"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Estimated number of people living in an area."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Population age groups"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Estimated number of people living in an area, grouped by age and gender."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Homem 0 - 1 anos"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Homem 1 - 4 anos"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Homem 5 - 9 anos"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Homem 10 - 14 anos"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Homem 15 - 19 anos"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Homem 20 - 24 anos"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Homem 25 - 29 anos"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Homem 30 - 34 anos"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Homem 35 - 39 anos"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Homem 40 - 44 anos"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Homem 45 - 49 anos"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Homem 50 - 54 anos"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Homem 55 - 59 anos"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Homem 60 - 64 anos"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Homem 65 - 69 anos"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Homem 70 - 74 anos"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Homem 75 - 79 anos"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Homens com 80 anos ou mais"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Feminino 0 - 1 anos"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Feminino 1 - 4 anos"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Feminino 5 - 9 anos"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Feminino 10 - 14 anos"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Feminino 15 - 19 anos"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Feminino 20 - 24 anos"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Mulher 25 - 29 anos"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Feminino 30 - 34 anos"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Feminino 35 - 39 anos"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Femenino 40 - 44 years"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Feminino 45 - 49 anos"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Feminino 50 - 54 anos"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Mulher 55 - 59 anos"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Mulher 60 - 64 anos"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Mulher 65 - 69 anos"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Mulher 70 - 74 anos"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Feminino 75 - 79 anos"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Mulheres com 80 anos ou mais"
 
 msgid "Elevation"
 msgstr "Elevação"
 
 msgid "meters"
-msgstr ""
+msgstr "contadores"
 
 msgid "Elevation above sea-level."
 msgstr "Elevação acima do nível do mar."
@@ -1149,7 +1152,7 @@ msgid "Snow and ice"
 msgstr "Neve e gelo"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Estéril ou com pouca vegetação"
 
 msgid "Water"
 msgstr "Água"
@@ -1189,19 +1192,19 @@ msgid "Skipped"
 msgstr "Ignorado"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Coroplético"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Mapa de bolhas"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Legenda automática de cores"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Legenda de cores predefinida"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Legenda de uma cor"
 
 msgid "Equal intervals"
 msgstr "Intervalos iguais"
@@ -1279,13 +1282,13 @@ msgid "No coordinates found"
 msgstr "Nenhuma coordenada encontrada"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Não tem acesso a esta camada de dados"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Ocorreu um erro desconhecido durante a leitura dos dados da camada"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "Mostrar os primeiros {{pageSize}} eventos de {{total}}"
 
 msgid "No data found"
 msgstr "Dado não encontrado"
@@ -1297,13 +1300,13 @@ msgid "Facilities"
 msgstr "Instalações"
 
 msgid "No facilities found"
-msgstr ""
+msgstr "Não foram encontradas instalações"
 
 msgid "Organisation units"
 msgstr "Unidades organizacionais"
 
 msgid "Error: {{message}}"
-msgstr ""
+msgstr "Erro: {{message}}"
 
 msgid "Thematic layer"
 msgstr "Camada temática"
@@ -1343,11 +1346,14 @@ msgstr "Não"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
+"Não é possível obter o token de autorização para o Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Esta camada requer uma conta do Google Earth Engine. Consulte a documentação"
+" do DHIS2 para obter mais informações."
 
 msgid "Facility"
 msgstr "Unidade sanitaria"
