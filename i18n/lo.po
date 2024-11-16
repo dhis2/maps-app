@@ -316,16 +316,16 @@ msgid "Show no data"
 msgstr "ບໍ່ສະແດງຂໍ້ມູນ"
 
 msgid "Low radius"
-msgstr ""
+msgstr "ລັດສະໝີຕ່ຳ"
 
 msgid "High radius"
-msgstr ""
+msgstr "ລັດສະໝີສູງ"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "ລັດສະໝີທີ່ສູງຄວນຫຼາຍກ່ວາລັດສະໝີຕ່ຳ"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "ລັດສະໝີຄວນຢູ່ລະຫວ່າງ {{min}}ແລະ {{max}}"
 
 msgid "Indicator group is required"
 msgstr "ຕ້ອງຕື່ມກຸ່ມຕົວຊີ້ວັດ"
@@ -367,7 +367,7 @@ msgid "Item type"
 msgstr "ປະເພດລາຍການ"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "ເລືອກຊ່ວງເວລາທີ່ຕິດຕາມຕົວຢ່າງລາຍບຸກຄົນທີ່ມີການອັບເດດຄັ້ງຫຼ້າສຸດ"
 
 msgid "Program/Enrollment date"
 msgstr "ສາຍງານ / ວັນທີ່ລົງທະບຽນ"
@@ -393,7 +393,7 @@ msgid ""
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "ສະແດງຄວາມສຳພັນຂອງການຕິດຕາມລາຍບຸກຄົນ"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
@@ -406,19 +406,19 @@ msgid "Selected only"
 msgstr "ເລືອກສະເພາະ"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "ເລືອກ ແລະ ດ້ານລຸ່ມ"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "ເລືອກ ແລະຕ່ຳກ່ວາທັງໝົດ"
 
 msgid "Tracked entities"
 msgstr "ຂໍ້ມູນບົ່ງບອກເອກະລັກທີ່ຖືກຕິດຕາມ"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "ຮູບແບບຕິດຕາມຕົວຕ່າງລາຍບຸກຄົນ"
 
 msgid "Point size"
-msgstr ""
+msgstr "ຂະໜາດຈຸດ"
 
 msgid "Related entity style"
 msgstr ""
@@ -517,7 +517,7 @@ msgid "Use human-readable keys"
 msgstr "ໃຊ້ແປ້ນພິມທີ່ມະນຸດສາມາດອ່ານອອກ"
 
 msgid "External layer"
-msgstr ""
+msgstr "ຊັ້ນພາຍນອກ"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
@@ -535,7 +535,7 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "ຕັ້ງຄ່າຄວາມໜາຂອງຊັ້ນ"
 
 msgid "More actions"
 msgstr "ການປະຕິບັດເພີ່ມເຕີມ"
@@ -547,7 +547,7 @@ msgid "Show data table"
 msgstr "ສະແດງຕາຕະລາງຂໍ້ມູນ"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "ເປິດເປັນແຜ່ນຜັງ"
 
 msgid "Download data"
 msgstr "ດາວໂຫລດຂໍ້ມູນ"
@@ -731,28 +731,28 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}}ໃນ{{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{units}}ໃນ ແລະ ຕ່ຳກ່ວາທາງຂວາ{{orgunits}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}}ໃນແລະ ຕ່ຳກ່ວາ ທັງໝົດ{{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "ເລືອກ​ເອົາຫົວ​ໜ່ວຍການຈັດຕັ້ງ​"
 
 msgid "Main"
-msgstr ""
+msgstr "ຫຼັກ"
 
 msgid "Below"
-msgstr ""
+msgstr "ຕ່ຳກ່ວາ"
 
 msgid "2 x below"
 msgstr ""
 
 msgid "User organisation units"
-msgstr ""
+msgstr "ຫົວໜ່ວຍການຈັດຕັ້ງຂອງຜູ້ໃຊ້"
 
 msgid "Previous year"
 msgstr "ປີກາຍ"
@@ -785,7 +785,7 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
+msgstr "ແຍກມຸມມອງຂອງແຜ່ນທີ່"
 
 msgid "Start date"
 msgstr "ວັນທີເລີ່ມຕົ້ນ"
