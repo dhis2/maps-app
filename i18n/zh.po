@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -737,8 +737,11 @@ msgstr "上级机构"
 msgid "No data"
 msgstr "无数据"
 
+msgid "Could not retrieve tracked entity data"
+msgstr "无法检索跟踪的实体数据"
+
 msgid "Last updated"
-msgstr "Last updated"
+msgstr "最后更新"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -1410,7 +1413,7 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "显示{{total}}中的前{{pageSize}}个事件"
 
 msgid "Event"
-msgstr "四级"
+msgstr "事件"
 
 msgid "Facilities"
 msgstr "机构设施"
@@ -1437,7 +1440,7 @@ msgid "Organisation units"
 msgstr "组织机构"
 
 msgid "Org unit layer"
-msgstr "组织单位层"
+msgstr "组织机构层"
 
 msgid "Data item was not found"
 msgstr "未找到数据项"
