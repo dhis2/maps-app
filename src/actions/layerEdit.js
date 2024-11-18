@@ -185,6 +185,12 @@ export const setPeriodType = (periodType, keepPeriod) => ({
     keepPeriod,
 })
 
+// Set periods (thematic)
+export const setPeriods = (periods) => ({
+    type: types.LAYER_EDIT_PERIODS_SET,
+    periods,
+})
+
 // Set period (event & thematic)
 export const setPeriod = (period) => ({
     type: types.LAYER_EDIT_PERIOD_SET,

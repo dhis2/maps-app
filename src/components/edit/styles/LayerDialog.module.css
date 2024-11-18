@@ -109,6 +109,12 @@
     margin: 8px 0 0 -8px;
 }
 
+/* Periods */
+
+.periodDimension {
+    height: 410px
+}
+
 /* Tracked entity */
 
 .teiCheckbox {

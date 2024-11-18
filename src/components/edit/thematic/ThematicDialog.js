@@ -1,3 +1,5 @@
+import cx from 'classnames'
+import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -11,7 +13,7 @@ import {
     setNoDataColor,
     setOperand,
     setOrgUnits,
-    setPeriod,
+    setPeriods,
     setPeriodType,
     setRenderingStrategy,
     setProgram,
@@ -31,7 +33,7 @@ import {
 import {
     getDataItemFromColumns,
     getOrgUnitsFromRows,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
@@ -75,7 +77,7 @@ class ThematicDialog extends Component {
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
         setOrgUnits: PropTypes.func.isRequired,
-        setPeriod: PropTypes.func.isRequired,
+        setPeriods: PropTypes.func.isRequired,
         setPeriodType: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
@@ -121,12 +123,20 @@ class ThematicDialog extends Component {
             startDate,
             systemSettings,
             endDate,
-            setPeriod,
+            setPeriods,
             setOrgUnits,
         } = this.props
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ filters:',
+            filters
+        )
 
         const dataItem = getDataItemFromColumns(columns)
-        const period = getPeriodFromFilters(filters)
+        const periods = getPeriodsFromFilters(filters)
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ periods:',
+            periods
+        )
 
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
@@ -147,17 +157,41 @@ class ThematicDialog extends Component {
             }
         }
 
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ periods?.length == 0:',
+            periods?.length == 0
+        )
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ !startDate:',
+            !startDate
+        )
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ !endDate:',
+            !endDate
+        )
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ defaultPeriod:',
+            defaultPeriod
+        )
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ isPeriodAvailable(defaultPeriod, hiddenPeriods):',
+            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+        )
         // Set default period from system settings
         if (
-            !period &&
+            periods?.length == 0 &&
             !startDate &&
             !endDate &&
             defaultPeriod &&
             isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
-            setPeriod({
-                id: defaultPeriod,
-            })
+            const defaultPeriods = [
+                {
+                    id: defaultPeriod,
+                },
+            ]
+            setPeriods(defaultPeriods)
+            //setPeriodType(RELATIVE_PERIODS)
         }
 
         // Set default org unit level
@@ -186,6 +220,10 @@ class ThematicDialog extends Component {
             validateLayer,
             onLayerValidation,
         } = this.props
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidUpdate ~ periodType:',
+            periodType
+        )
 
         // Set rendering strategy to single if not relative period
         if (
@@ -235,6 +273,8 @@ class ThematicDialog extends Component {
             systemSettings,
             periodsSettings,
         } = this.props
+        console.log('🚀 ~ ThematicDialog ~ render ~ filters:', filters)
+        console.log('🚀 ~ ThematicDialog ~ render ~ periodType:', periodType)
 
         const {
             // Handlers
@@ -243,7 +283,7 @@ class ThematicDialog extends Component {
             setIndicatorGroup,
             setNoDataColor,
             setOperand,
-            setPeriod,
+            setPeriods,
             setPeriodType,
             setRenderingStrategy,
             setProgram,
@@ -267,9 +307,16 @@ class ThematicDialog extends Component {
             legendSetError,
         } = this.state
 
-        const period = getPeriodFromFilters(filters)
+        const periods = getPeriodsFromFilters(filters)
+        console.log('🚀 ~ ThematicDialog ~ render ~ periods:', periods)
         const dataItem = getDataItemFromColumns(columns)
         const dimensions = getDimensionsFromFilters(filters)
+
+        const setPeriodsFromFilter = (e) => {
+            console.log('🚀 ~ ThematicDialog ~ setPeriodsFromFilter ~ e:', e)
+            setPeriods(e.items)
+            //setPeriodType(RELATIVE_PERIODS)
+        }
 
         return (
             <div className={styles.content} data-test="thematicdialog">
@@ -426,55 +473,19 @@ class ThematicDialog extends Component {
                     )}
                     {tab === 'period' && (
                         <div
-                            className={styles.flexRowFlow}
+                            className={cx(
+                                styles.flexRowFlow,
+                                styles.periodDimension
+                            )}
                             data-test="thematicdialog-periodtab"
                         >
-                            <PeriodTypeSelect
-                                value={periodType}
-                                period={period}
-                                includeRelativePeriods={true}
-                                hiddenPeriods={systemSettings.hiddenPeriods}
-                                onChange={setPeriodType}
-                                className={styles.periodSelect}
-                                errorText={periodTypeError}
+                            <PeriodDimension
+                                selectedPeriods={periods}
+                                onSelect={setPeriodsFromFilter}
+                                excludedPeriodTypes={
+                                    systemSettings.hiddenPeriods
+                                }
                             />
-                            {periodType === RELATIVE_PERIODS && (
-                                <RelativePeriodSelect
-                                    period={period}
-                                    onChange={setPeriod}
-                                    className={styles.periodSelect}
-                                    errorText={periodError}
-                                />
-                            )}
-                            {((periodType &&
-                                periodType !== RELATIVE_PERIODS &&
-                                periodType !== START_END_DATES) ||
-                                (!periodType && id)) && (
-                                <PeriodSelect
-                                    periodType={periodType}
-                                    periodsSettings={periodsSettings}
-                                    period={period}
-                                    onChange={setPeriod}
-                                    className={styles.periodSelect}
-                                    errorText={periodError}
-                                />
-                            )}
-                            {periodType === START_END_DATES && (
-                                <StartEndDates
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    className={styles.periodSelect}
-                                    errorText={periodError}
-                                />
-                            )}
-                            {periodType === RELATIVE_PERIODS && (
-                                <RenderingStrategy
-                                    value={renderingStrategy}
-                                    period={period}
-                                    layerId={id}
-                                    onChange={setRenderingStrategy}
-                                />
-                            )}
                         </div>
                     )}
                     {tab === 'orgunits' && (
@@ -548,8 +559,10 @@ class ThematicDialog extends Component {
             method,
             legendSet,
         } = this.props
+        console.log('🚀 ~ ThematicDialog ~ validate ~ filters:', filters)
         const dataItem = getDataItemFromColumns(columns)
-        const period = getPeriodFromFilters(filters)
+        const periods = getPeriodsFromFilters(filters)
+        console.log('🚀 ~ ThematicDialog ~ validate ~ periods:', periods)
 
         // Indicators
         if (valueType === dimConf.indicator.objectName) {
@@ -567,6 +580,7 @@ class ThematicDialog extends Component {
                 )
             }
         }
+        console.log('🚀 ~ ThematicDialog ~ validate ~ Indicators: OK')
 
         // Data elements
         if (
@@ -587,6 +601,7 @@ class ThematicDialog extends Component {
                 )
             }
         }
+        console.log('🚀 ~ ThematicDialog ~ validate ~ Data elements: OK')
 
         // Reporting rates
         if (valueType === dimConf.dataSet.objectName && !dataItem) {
@@ -596,6 +611,7 @@ class ThematicDialog extends Component {
                 'data'
             )
         }
+        console.log('🚀 ~ ThematicDialog ~ validate ~ Reporting rates: OK')
 
         // Event data items / Program indicators
         if (
@@ -622,7 +638,11 @@ class ThematicDialog extends Component {
                       )
             }
         }
+        console.log(
+            '🚀 ~ ThematicDialog ~ validate ~ Event data items / Program indicators: OK'
+        )
 
+        // Calculation
         if (valueType === dimConf.calculation.objectName && !dataItem) {
             return this.setErrorState(
                 'calculationError',
@@ -630,8 +650,15 @@ class ThematicDialog extends Component {
                 'data'
             )
         }
+        console.log('🚀 ~ ThematicDialog ~ validate ~ Calculation: OK')
 
-        if (!period && periodType !== START_END_DATES) {
+        console.log('🚀 ~ ThematicDialog ~ validate ~ periodType:', periodType)
+        console.log(
+            '🚀 ~ validate ~ periods?.length !== 0:',
+            periods?.length !== 0
+        )
+        if (periods?.length === 0) {
+            //&& periodType !== START_END_DATES) {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
@@ -644,6 +671,7 @@ class ThematicDialog extends Component {
                 return this.setErrorState('periodError', error, 'period')
             }
         }
+        console.log('🚀 ~ ThematicDialog ~ validate ~ periods: OK')
 
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(
@@ -681,7 +709,7 @@ export default connect(
         setNoDataColor,
         setOperand,
         setOrgUnits,
-        setPeriod,
+        setPeriods,
         setPeriodType,
         setRenderingStrategy,
         setProgram,
