@@ -23,11 +23,10 @@ const LayerToolbar = ({
         <div className={styles.toolbar} data-test="layertoolbar">
             {onEdit && (
                 <IconButton
-                    tooltip={!hasError ? i18n.t('Edit') : null}
+                    tooltip={i18n.t('Edit')}
                     onClick={onEdit}
                     className={styles.editButton}
-                    dataTest="editbutton"
-                    disabled={hasError}
+                    dataTest="layer-edit-button"
                 >
                     <IconEdit24 />
                 </IconButton>

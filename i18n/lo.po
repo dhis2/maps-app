@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Saysamone Sibounma, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -280,7 +280,7 @@ msgid "event"
 msgstr "ເຫດການ"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "ຕິດຕາມຕົວຢ່າງ"
 
 msgid "facility"
 msgstr "ສະຖານທີ່ບໍລິການ"
@@ -338,7 +338,7 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "ຫົວໜ່ວຍ"
 
 msgid "Spatial resolution"
 msgstr ""
@@ -458,16 +458,16 @@ msgid "Include org units with no data"
 msgstr "ລວມຫົວໜ່ວຍການຈັດຕັ້ງທີ່ບໍ່ມີຂໍ້ມູນ"
 
 msgid "Low radius"
-msgstr ""
+msgstr "ລັດສະໝີຕ່ຳ"
 
 msgid "High radius"
-msgstr ""
+msgstr "ລັດສະໝີສູງ"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "ລັດສະໝີທີ່ສູງຄວນຫຼາຍກ່ວາລັດສະໝີຕ່ຳ"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "ລັດສະໝີຄວນຢູ່ລະຫວ່າງ {{min}}ແລະ {{max}}"
 
 msgid "Indicator group is required"
 msgstr "ຕ້ອງຕື່ມກຸ່ມຕົວຊີ້ວັດ"
@@ -515,10 +515,10 @@ msgid "Item type"
 msgstr "ປະເພດລາຍການ"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "ເລືອກຊ່ວງເວລາທີ່ຕິດຕາມຕົວຢ່າງລາຍບຸກຄົນທີ່ມີການອັບເດດຄັ້ງຫຼ້າສຸດ"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "ສາຍງານ / ວັນທີ່ລົງທະບຽນ"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
@@ -541,13 +541,13 @@ msgid ""
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "ສະແດງຄວາມສຳພັນຂອງການຕິດຕາມລາຍບຸກຄົນ"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "ຮູບແບບຕິດຕາມຕົວຕ່າງລາຍບຸກຄົນ"
 
 msgid "Point size"
-msgstr ""
+msgstr "ຂະໜາດຈຸດ"
 
 msgid "Related entity style"
 msgstr ""
@@ -627,7 +627,7 @@ msgid "Data download failed."
 msgstr "ດາວໂຫຼດຂໍ້ມູນບໍ່ສຳເລັດ."
 
 msgid "External layer"
-msgstr ""
+msgstr "ຊັ້ນພາຍນອກ"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
@@ -651,7 +651,7 @@ msgid "Layer is invalid"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "ຕັ້ງຄ່າຄວາມໜາຂອງຊັ້ນ"
 
 msgid "More actions"
 msgstr "ການປະຕິບັດເພີ່ມເຕີມ"
@@ -739,6 +739,9 @@ msgstr ""
 
 msgid "No data"
 msgstr "ບໍ່ມີຂໍ້ມູນ"
+
+msgid "Could not retrieve tracked entity data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "ປັບປຸງ​ຄັ້ງຫລ້າສຸດ"
@@ -898,10 +901,10 @@ msgid "Selected only"
 msgstr "ເລືອກສະເພາະ"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "ເລືອກ ແລະ ດ້ານລຸ່ມ"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "ເລືອກ ແລະຕ່ຳກ່ວາທັງໝົດ"
 
 msgid "Selection mode"
 msgstr "ເລືອກຮູບແບບ"
@@ -934,7 +937,7 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
+msgstr "ແຍກມຸມມອງຂອງແຜ່ນທີ່"
 
 msgid "Start date"
 msgstr "ວັນທີເລີ່ມຕົ້ນ"

@@ -28,12 +28,37 @@ export class Layer {
         return this
     }
 
+    unselectOu(ouName) {
+        cy.getByDataTest('org-unit-tree').contains(ouName).scrollIntoView()
+
+        cy.getByDataTest('org-unit-tree')
+            .contains(ouName)
+            .find('input')
+            .uncheck()
+
+        return this
+    }
+
     selectOuLevel(level) {
         cy.getByDataTest('org-unit-level-select').click()
 
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
             .contains(level)
-            .click()
+            .find('input')
+            .check()
+        cy.get('body').click() // Close the modal menu
+
+        return this
+    }
+
+    unselectOuLevel(level) {
+        cy.getByDataTest('org-unit-level-select').click()
+
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+            .contains(level)
+            .find('input')
+            .uncheck()
+
         cy.get('body').click() // Close the modal menu
 
         return this
@@ -61,6 +86,12 @@ export class Layer {
     addToMap() {
         cy.getByDataTest('dhis2-uicore-modalactions')
             .contains('Add layer')
+            .click()
+    }
+
+    updateMap() {
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Update layer')
             .click()
     }
 
