@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -51,11 +50,6 @@ import DimensionFilter from '../../dimensions/DimensionFilter.js'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.js'
 import IndicatorSelect from '../../indicator/IndicatorSelect.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
-import PeriodSelect from '../../periods/PeriodSelect.js'
-import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
-import RenderingStrategy from '../../periods/RenderingStrategy.js'
-import StartEndDates from '../../periods/StartEndDates.js'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import Labels from '../shared/Labels.js'
@@ -77,8 +71,8 @@ class ThematicDialog extends Component {
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
         setOrgUnits: PropTypes.func.isRequired,
+        //setPeriodType: PropTypes.func.isRequired,
         setPeriods: PropTypes.func.isRequired,
-        setPeriodType: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
@@ -88,7 +82,7 @@ class ThematicDialog extends Component {
         dataElementGroup: PropTypes.object,
         endDate: PropTypes.string,
         filters: PropTypes.array,
-        id: PropTypes.string,
+        //id: PropTypes.string,
         indicatorGroup: PropTypes.object,
         legendSet: PropTypes.object,
         method: PropTypes.number,
@@ -96,7 +90,7 @@ class ThematicDialog extends Component {
         operand: PropTypes.bool,
         orgUnits: PropTypes.object,
         periodType: PropTypes.string,
-        periodsSettings: PropTypes.object,
+        //periodsSettings: PropTypes.object,
         program: PropTypes.object,
         radiusHigh: PropTypes.number,
         radiusLow: PropTypes.number,
@@ -126,6 +120,7 @@ class ThematicDialog extends Component {
             setPeriods,
             setOrgUnits,
         } = this.props
+        console.log('🚀 ~ componentDidMount ~ this.props:', this.props)
         console.log(
             '🚀 ~ ThematicDialog ~ componentDidMount ~ filters:',
             filters
@@ -140,6 +135,11 @@ class ThematicDialog extends Component {
 
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
+
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ systemSettings:',
+            systemSettings
+        )
 
         // Set value type if favorite is loaded
         if (!valueType) {
@@ -259,19 +259,19 @@ class ThematicDialog extends Component {
             columns,
             dataElementGroup,
             filters,
-            id,
+            // id,
             indicatorGroup,
             noDataColor,
             operand,
             periodType,
-            renderingStrategy,
-            startDate,
-            endDate,
+            // renderingStrategy,
+            // startDate,
+            // endDate,
             program,
             valueType,
             thematicMapType,
             systemSettings,
-            periodsSettings,
+            // periodsSettings,
         } = this.props
         console.log('🚀 ~ ThematicDialog ~ render ~ filters:', filters)
         console.log('🚀 ~ ThematicDialog ~ render ~ periodType:', periodType)
@@ -284,8 +284,8 @@ class ThematicDialog extends Component {
             setNoDataColor,
             setOperand,
             setPeriods,
-            setPeriodType,
-            setRenderingStrategy,
+            // setPeriodType,
+            // setRenderingStrategy,
             setProgram,
             setValueType,
         } = this.props
@@ -301,8 +301,8 @@ class ThematicDialog extends Component {
             calculationError,
             eventDataItemError,
             programIndicatorError,
-            periodTypeError,
-            periodError,
+            // periodTypeError,
+            //periodError,
             orgUnitsError,
             legendSetError,
         } = this.state
@@ -473,10 +473,7 @@ class ThematicDialog extends Component {
                     )}
                     {tab === 'period' && (
                         <div
-                            className={cx(
-                                styles.flexRowFlow,
-                                styles.periodDimension
-                            )}
+                            className={styles.flexRowFlow}
                             data-test="thematicdialog-periodtab"
                         >
                             <PeriodDimension
@@ -485,6 +482,8 @@ class ThematicDialog extends Component {
                                 excludedPeriodTypes={
                                     systemSettings.hiddenPeriods
                                 }
+                                infoBoxMessage={'infoBoxMessage'}
+                                height="410px"
                             />
                         </div>
                     )}
