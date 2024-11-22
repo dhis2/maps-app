@@ -45,7 +45,7 @@
         "@dhis2/app-runtime": "^3.11.2",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#fix/DHIS2-18427",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#3460b2d47f50e9e4307df415658a2a3e4234ad68",
         "@dhis2/ui": "^9.13.0",
         "@krakenjs/post-robot": "^11.0.0",
         "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
