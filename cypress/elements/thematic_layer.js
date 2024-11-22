@@ -48,9 +48,22 @@ export class ThematicLayer extends Layer {
         return this
     }
 
+    selectRelativePeriod(period) {
+        cy.get('[data-test="relative-period-select"]').click()
+        cy.contains(period).click()
+
+        return this
+    }
+
     selectPeriodType(periodType) {
         cy.get('[data-test="periodtypeselect"]').click()
         cy.contains(periodType).click()
+
+        return this
+    }
+
+    selectIncludeNoDataOU() {
+        cy.contains('Include org units with no data').click()
 
         return this
     }
