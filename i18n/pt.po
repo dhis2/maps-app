@@ -1,21 +1,22 @@
 # 
 # Translators:
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # Fernando Jorge Bade, 2022
 # Sheila André <sandre@saudigitus.org>, 2022
-# Viktor Varland <viktor@dhis2.org>, 2022
 # Ge Joao <gsimango@saudigitus.org>, 2022
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
 # David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Philip Larsen Donnelly, 2024
 # Shelsea Chumaio, 2024
 # Helton Dias, 2024
+# António Fernando Macaringue, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Helton Dias, 2024\n"
+"Last-Translator: António Fernando Macaringue, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgid "Maps"
 msgstr "Mapas"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr "O mapa \"{{name}}\" é salvo."
+msgstr "O mapa \"{{name}}\" foi salvo."
 
 msgid "Failed to save map. {{message}}"
 msgstr "Falha ao guardar o mapa. {{message}}"
@@ -90,7 +91,7 @@ msgid "Data set"
 msgstr "Ficha"
 
 msgid "Index"
-msgstr "Indice "
+msgstr "Índice "
 
 msgid "Org unit"
 msgstr "Unidade organizacional"
@@ -137,10 +138,10 @@ msgid "Dimension"
 msgstr "Dimensão"
 
 msgid "Download"
-msgstr "Descarregar"
+msgstr "Transferir"
 
 msgid "Download map"
-msgstr "Baixar mapas "
+msgstr "Transferir mapas "
 
 msgid "Show name"
 msgstr "Mostrar nome "
@@ -151,7 +152,7 @@ msgstr "Mostrar legenda "
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
-"O transferência do mapa não é suportado pelo seu navegador. Experimente o "
+"A transferência do mapa não é suportada pelo seu navegador. Experimente o "
 "Google Chrome ou Firefox."
 
 msgid "Cancel"
@@ -176,7 +177,7 @@ msgid "Point radius"
 msgstr "Raio do ponto"
 
 msgid "No organisation units are selected"
-msgstr "Nenhuma unidade organizacional está selecionada"
+msgstr "Nenhuma unidade organizacional selecionada"
 
 msgid "event"
 msgstr "evento"
@@ -188,7 +189,7 @@ msgid "facility"
 msgstr "Instalação"
 
 msgid "thematic"
-msgstr "temática"
+msgstr "temático"
 
 msgid "org unit"
 msgstr "unidade organizacional"
@@ -215,7 +216,7 @@ msgid "Groups"
 msgstr "Grupos"
 
 msgid "This field is required"
-msgstr "Este campo é obrigatorio"
+msgstr "Este campo é obrigatório"
 
 msgid "Data"
 msgstr "Dados"
@@ -256,7 +257,7 @@ msgid "Available periods are set by the source data"
 msgstr "Os períodos disponíveis são definidos pelos dados de origem"
 
 msgid "Loading periods"
-msgstr "Períodos de carregamento"
+msgstr "Carregando Períodos"
 
 msgid "Min value is required"
 msgstr "O valor mínimo é obrigatório"
@@ -309,7 +310,7 @@ msgid "Program is required"
 msgstr "Programa é obrigatório"
 
 msgid "Program stage is required"
-msgstr "Etapa do programa é necessária"
+msgstr "Etapa do programa é obrigatório"
 
 msgid "No organisation units are selected."
 msgstr "Nenhuma unidade organizacional selecionada"
@@ -372,7 +373,7 @@ msgid "Event data item is required"
 msgstr "O item de dados do evento é obrigatório"
 
 msgid "Program indicator is required"
-msgstr "Indicador de programa é necessário"
+msgstr "Indicador de programa é obrigatório"
 
 msgid "Period is required"
 msgstr "Período é obrigatório"
@@ -398,7 +399,7 @@ msgstr ""
 "última vez"
 
 msgid "Program/Enrollment date"
-msgstr "Programa/Data de inscrição"
+msgstr "Data do Programa/inscrição"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
@@ -430,7 +431,7 @@ msgstr "Exibir relacionamentos de entidade rastreada"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr "Incluir relações que ligam entidades fora do \"{{program}}\" program"
+msgstr "Incluir relações que ligam entidades fora do programa \"{{program}}\" "
 
 msgid "Selection mode"
 msgstr "Modo de seleção"
@@ -439,10 +440,10 @@ msgid "Selected only"
 msgstr "Apenas selecionados"
 
 msgid "Selected and below"
-msgstr "Selecione a baixo"
+msgstr "Selecionado e a baixo"
 
 msgid "Selected and all below"
-msgstr "Selecione  tudo abaixo"
+msgstr "Selecionionado e tudo abaixo"
 
 msgid "Tracked entities"
 msgstr "Entidades rastreadas"
@@ -483,7 +484,7 @@ msgid "Hide technical details"
 msgstr "Ocultar detalhes técnicos"
 
 msgid "Show technical details"
-msgstr "Mostrar detalhes tecnicos "
+msgstr "Mostrar detalhes técnicos"
 
 msgid "The following information may be requested by technical support."
 msgstr "As informações a seguir podem ser solicitadas pelo suporte técnico."
@@ -528,7 +529,7 @@ msgid "Interpretations"
 msgstr "Interpretações"
 
 msgid "Collapse"
-msgstr "colapsar"
+msgstr "Ocultar"
 
 msgid "Expand"
 msgstr "Expandir"
@@ -543,7 +544,7 @@ msgid "Download Layer Data"
 msgstr "Baixar dados da camada"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Fazendo download de dados GeoJSON para \"{{layerName}}\""
+msgstr "Transferindo dados GeoJSON para \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -556,7 +557,7 @@ msgid "Data download failed."
 msgstr "Falha na transferência dos dados."
 
 msgid "ID Format"
-msgstr "Formato de identificação"
+msgstr "Formato do ID"
 
 msgid "Use human-readable keys"
 msgstr "Use chaves legíveis por humanos"
@@ -569,7 +570,7 @@ msgstr ""
 "A exibição dividida não pode ser combinada com outros tipos de camada."
 
 msgid "Loading layer"
-msgstr "Camada de carregamento"
+msgstr "Carregando Camada"
 
 msgid "{{name}} deleted."
 msgstr "{{name}} excluído."
@@ -599,7 +600,7 @@ msgid "Download data"
 msgstr "Baixar dados"
 
 msgid "Edit layer"
-msgstr "Editar camadas"
+msgstr "Editar camada"
 
 msgid "Remove layer"
 msgstr "Remover camada"
@@ -614,10 +615,10 @@ msgid "Filters"
 msgstr "Filtros"
 
 msgid "Drill up one level"
-msgstr "Perfurar um nivel"
+msgstr "Subir um nivel"
 
 msgid "Drill down one level"
-msgstr "Perfurar um nivel"
+msgstr "Descer um nivel"
 
 msgid "View profile"
 msgstr "Ver Perfil"
@@ -663,7 +664,7 @@ msgid "All groups"
 msgstr "Todos os grupos"
 
 msgid "Loading data"
-msgstr "Carregamento de dados"
+msgstr "Carregando dados"
 
 msgid "acres"
 msgstr "acres"
@@ -684,7 +685,7 @@ msgid "Click where you want to start the measurement"
 msgstr "Clique onde você deseja iniciar a medição"
 
 msgid "Delete"
-msgstr "Suprimir"
+msgstr "Apagar"
 
 msgid "Distance"
 msgstr "Distância"
@@ -693,10 +694,10 @@ msgid "Enter fullscreen"
 msgstr "Entrar em tela cheia"
 
 msgid "Exit fullscreen"
-msgstr "Sair na tela cheia "
+msgstr "Sair da tela cheia "
 
 msgid "Finish measurement"
-msgstr "Medição de acabamento"
+msgstr "Encerrar medição"
 
 msgid "ha"
 msgstr "ha"
@@ -705,7 +706,7 @@ msgid "km"
 msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr "Medir  distâncias e  áreas"
+msgstr "Medir  distâncias e áreas"
 
 msgid "mi"
 msgstr "mi"
@@ -736,7 +737,7 @@ msgid ""
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
-"Este gráfico / tabela contém itens de dados {{numItems}}. Escolha quais "
+"Este gráfico / tabela contém {{numItems}} itens de dados. Escolha quais "
 "itens você deseja importar da lista abaixo. Cada item de dados será criado "
 "como uma camada de mapa."
 
@@ -863,13 +864,13 @@ msgid "Period type"
 msgstr "Tipo de periodo"
 
 msgid "Start/end dates"
-msgstr "Inicio/datas de término"
+msgstr "data de Inicio/término"
 
 msgid "Only one timeline is allowed."
 msgstr "Apenas uma linha do tempo é permitida."
 
 msgid "Remove other layers to enable split map views."
-msgstr "Remova outras camadas para ativar as visualizações de mapa dividido."
+msgstr "Remova outras camadas para activar as visualizações de mapa dividido."
 
 msgid "Display periods"
 msgstr "Períodos de exibição"
@@ -902,7 +903,7 @@ msgid "Program"
 msgstr "Programa"
 
 msgid "Stage"
-msgstr "Estagio"
+msgstr "Estágio"
 
 msgid "Tracked Entity Type"
 msgstr "Tipo de entidade rastreada"
@@ -944,10 +945,10 @@ msgid "Std dev"
 msgstr "Desvio padrão"
 
 msgid "OSM Light"
-msgstr "Open street map lite"
+msgstr "OSM Ligth"
 
 msgid "OSM Detailed"
-msgstr "Detalhado OSM"
+msgstr "OSM Detalhado"
 
 msgid "Google Streets"
 msgstr "Google Streets"
@@ -965,78 +966,79 @@ msgid "Bing Aerial"
 msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
-msgstr "Etiquetas aéreas do Bing"
+msgstr "Bing Etiquetas aéreas"
 
 msgid "Population"
 msgstr "População"
 
 msgid "people per hectare"
-msgstr "pessoas por hectare"
+msgstr "pessoas por hectar"
 
 msgid "Estimated number of people living in an area."
-msgstr "Estimated number of people living in an area."
+msgstr "Número estimado de pessoas que vivem em uma área."
 
 msgid "Population age groups"
-msgstr "Population age groups"
+msgstr "Faixas etárias da população"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
-"Estimated number of people living in an area, grouped by age and gender."
+"Número estimado de pessoas que vivem em uma área, agrupadas por idade e "
+"sexo."
 
 msgid "Male 0 - 1 years"
-msgstr "Homem 0 - 1 anos"
+msgstr "Masculino 0 - 1 anos"
 
 msgid "Male 1 - 4 years"
-msgstr "Homem 1 - 4 anos"
+msgstr "Masculino 1 - 4 anos"
 
 msgid "Male 5 - 9 years"
-msgstr "Homem 5 - 9 anos"
+msgstr "Masculino 5 - 9 anos"
 
 msgid "Male 10 - 14 years"
-msgstr "Homem 10 - 14 anos"
+msgstr "Masculino 10 - 14 anos"
 
 msgid "Male 15 - 19 years"
-msgstr "Homem 15 - 19 anos"
+msgstr "Masculino 15 - 19 anos"
 
 msgid "Male 20 - 24 years"
-msgstr "Homem 20 - 24 anos"
+msgstr "Masculino 20 - 24 anos"
 
 msgid "Male 25 - 29 years"
-msgstr "Homem 25 - 29 anos"
+msgstr "Masculino 25 - 29 anos"
 
 msgid "Male 30 - 34 years"
-msgstr "Homem 30 - 34 anos"
+msgstr "Masculino 30 - 34 anos"
 
 msgid "Male 35 - 39 years"
-msgstr "Homem 35 - 39 anos"
+msgstr "Masculino 35 - 39 anos"
 
 msgid "Male 40 - 44 years"
-msgstr "Homem 40 - 44 anos"
+msgstr "Masculino 40 - 44 anos"
 
 msgid "Male 45 - 49 years"
-msgstr "Homem 45 - 49 anos"
+msgstr "Masculino 45 - 49 anos"
 
 msgid "Male 50 - 54 years"
-msgstr "Homem 50 - 54 anos"
+msgstr "Masculino 50 - 54 anos"
 
 msgid "Male 55 - 59 years"
-msgstr "Homem 55 - 59 anos"
+msgstr "Masculino 55 - 59 anos"
 
 msgid "Male 60 - 64 years"
-msgstr "Homem 60 - 64 anos"
+msgstr "Masculino 60 - 64 anos"
 
 msgid "Male 65 - 69 years"
-msgstr "Homem 65 - 69 anos"
+msgstr "Masculino 65 - 69 anos"
 
 msgid "Male 70 - 74 years"
-msgstr "Homem 70 - 74 anos"
+msgstr "Masculino 70 - 74 anos"
 
 msgid "Male 75 - 79 years"
-msgstr "Homem 75 - 79 anos"
+msgstr "Masculino 75 - 79 anos"
 
 msgid "Male 80 years and above"
-msgstr "Homens com 80 anos ou mais"
+msgstr "Masculino com 80 anos ou mais"
 
 msgid "Female 0 - 1 years"
 msgstr "Feminino 0 - 1 anos"
@@ -1057,7 +1059,7 @@ msgid "Female 20 - 24 years"
 msgstr "Feminino 20 - 24 anos"
 
 msgid "Female 25 - 29 years"
-msgstr "Mulher 25 - 29 anos"
+msgstr "Feminino 25 - 29 anos"
 
 msgid "Female 30 - 34 years"
 msgstr "Feminino 30 - 34 anos"
@@ -1075,22 +1077,22 @@ msgid "Female 50 - 54 years"
 msgstr "Feminino 50 - 54 anos"
 
 msgid "Female 55 - 59 years"
-msgstr "Mulher 55 - 59 anos"
+msgstr "Feminino 55 - 59 anos"
 
 msgid "Female 60 - 64 years"
-msgstr "Mulher 60 - 64 anos"
+msgstr "Feminino 60 - 64 anos"
 
 msgid "Female 65 - 69 years"
-msgstr "Mulher 65 - 69 anos"
+msgstr "Feminino 65 - 69 anos"
 
 msgid "Female 70 - 74 years"
-msgstr "Mulher 70 - 74 anos"
+msgstr "Feminino 70 - 74 anos"
 
 msgid "Female 75 - 79 years"
 msgstr "Feminino 75 - 79 anos"
 
 msgid "Female 80 years and above"
-msgstr "Mulheres com 80 anos ou mais"
+msgstr "Feminino com 80 anos ou mais"
 
 msgid "Building footprints"
 msgstr "Áreas de implantação dos edifícios"
@@ -1108,8 +1110,8 @@ msgstr ""
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
 msgstr ""
-"As contagens de edifícios só estão disponíveis para áreas de unidades "
-"organizacionais mais pequenas."
+"A contagem de edifícios só está disponível para unidades organizacionais com"
+" áreas pequenas."
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
@@ -1138,8 +1140,8 @@ msgid ""
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
-"Precipitação coletada de satélites e estações meteorológicas no solo. Os "
-"valores estão em milímetros dentro de períodos de 5 dias. Atualizado "
+"Precipitação colectada por satélites e estações meteorológicas no solo. Os "
+"valores estão em milímetros dentro de períodos de 5 dias. Actualizado "
 "mensalmente, durante a 3ª semana do mês seguinte."
 
 msgid "Temperature"
@@ -1152,14 +1154,14 @@ msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
-"Temperaturas da superfície da terra coletadas do satélite. Pontos em branco "
-"aparecerão em áreas com uma cobertura de nuvens persistente."
+"Temperaturas da superfície da terra colectadas por satélite. Pontos em "
+"branco aparecerão em áreas com uma cobertura de nuvens persistente."
 
 msgid "Landcover"
-msgstr "Cobertura da terra"
+msgstr "Cobertura do solo"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr "Tipos de cobertura terrestre distintos colectados de satélites."
+msgstr "Tipos de cobertura do solo distintos colectados por satélites."
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Floresta de folhas de agulhas sempre-verdes"
@@ -1186,16 +1188,16 @@ msgid "Woody savannas"
 msgstr "Savanas arborizadas"
 
 msgid "Savannas"
-msgstr "Savannas"
+msgstr "Savanas"
 
 msgid "Grasslands"
-msgstr "Grasslands"
+msgstr "Área de Pastagem"
 
 msgid "Permanent wetlands"
 msgstr "Áreas úmidas permanentes"
 
 msgid "Croplands"
-msgstr "Croplands"
+msgstr "Área agrícola"
 
 msgid "Urban and built-up"
 msgstr "Urbano e construído"
@@ -1232,7 +1234,7 @@ msgid "All"
 msgstr "Tudo"
 
 msgid "Active"
-msgstr "Ativo"
+msgstr "Activo"
 
 msgid "Completed"
 msgstr "Concluído"
@@ -1268,7 +1270,7 @@ msgid "Weekly"
 msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
-msgstr "Semanalmente (início na quarta-feira)"
+msgstr "Semanal (início na quarta-feira)"
 
 msgid "Weekly (Start Thursday)"
 msgstr " Semanal (início na quinta-feira)"
@@ -1301,16 +1303,16 @@ msgid "Yearly"
 msgstr "Anualmente"
 
 msgid "Financial year (Start November)"
-msgstr " Exercício financeiro (início em Novembro)"
+msgstr "Ano financeiro (início em Novembro)"
 
 msgid "Financial year (Start October)"
-msgstr "Ano Financeiro - Outubro"
+msgstr "Ano Financeiro (início em Outubro)"
 
 msgid "Financial year (Start July)"
-msgstr "Ano Financeiro - Julho"
+msgstr "Ano Financeiro (início em Julho)"
 
 msgid "Financial year (Start April)"
-msgstr "Ano Financeiro - Abril"
+msgstr "Ano Financeiro (início em Abril)"
 
 msgid "Cancelled"
 msgstr "Cancelado"
@@ -1343,7 +1345,7 @@ msgid "Facilities"
 msgstr "Instalações"
 
 msgid "Facilities: No coordinates found"
-msgstr "Unidades sanitárias: Não foram encontradas coordenadas"
+msgstr "Instalações: Não foram encontradas coordenadas"
 
 msgid "Organisation units"
 msgstr "Unidades organizacionais"
@@ -1396,7 +1398,7 @@ msgstr ""
 " do DHIS2 para obter mais informações."
 
 msgid "Facility"
-msgstr "Unidade sanitaria"
+msgstr "Instalação"
 
 msgid "Start date is invalid"
 msgstr "A data de início é inválida"
