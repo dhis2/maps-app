@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n';
 import { cssColor } from './colors';
 import {
     LABEL_FONT_SIZE,
@@ -20,5 +21,6 @@ export const getLabelStyle = ({
         lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
         color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
         paddingTop: '10px',
+        labelNoData: i18n.t('No data'),
     };
 };

@@ -49,7 +49,7 @@
         "@dhis2/d2-ui-core": "^7.4.0",
         "@dhis2/d2-ui-org-unit-dialog": "^7.4.0",
         "@dhis2/d2-ui-org-unit-tree": "^7.4.0",
-        "@dhis2/maps-gl": "^4.0.0",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#1b235a8e3fc0a7cb9b207b2353236c4e2952bffe",
         "@dhis2/ui": "^8.4.13",
         "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^4.0.0",

@@ -2092,10 +2092,9 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^4.0.0":
+"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#1b235a8e3fc0a7cb9b207b2353236c4e2952bffe":
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.0.0.tgz#e97df2fbc78f787a0916224d7d54fb96b9c376db"
-  integrity sha512-TDEIBT6rFuEZGXnBxAqKhSmCXk3wtuCf/OrVZBKxT1qk0kHau71f3lzAXbWhYAuop8t6/DyJaIcQrUYMi1Xy3w==
+  resolved "git+https://github.com/d2-ci/maps-gl.git#1b235a8e3fc0a7cb9b207b2353236c4e2952bffe"
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
