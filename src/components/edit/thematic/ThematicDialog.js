@@ -1,4 +1,4 @@
-import { PeriodDimension } from '@dhis2/analytics'
+import { PeriodDimension, getRelativePeriodsMap } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -188,6 +188,7 @@ class ThematicDialog extends Component {
             const defaultPeriods = [
                 {
                     id: defaultPeriod,
+                    name: getRelativePeriodsMap()[defaultPeriod],
                 },
             ]
             setPeriods(defaultPeriods)
