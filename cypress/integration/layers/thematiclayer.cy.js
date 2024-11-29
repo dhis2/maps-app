@@ -6,7 +6,11 @@ import {
     expectContextMenuOptions,
 } from '../../elements/map_context_menu.js'
 import { ThematicLayer } from '../../elements/thematic_layer.js'
-import { CURRENT_YEAR, getApiBaseUrl } from '../../support/util.js'
+import {
+    CURRENT_YEAR,
+    getApiBaseUrl,
+    EXTENDED_TIMEOUT,
+} from '../../support/util.js'
 
 const INDICATOR_NAME = 'VCCT post-test counselling rate'
 
@@ -93,6 +97,73 @@ context('Thematic Layers', () => {
         )
 
         getMaps().should('have.length', 1)
+    })
+
+    it('opens a thematic layer popup with data and nodata', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('Stock')
+            .selectIndicator('BCG Stock PHU')
+            .selectTab('Period')
+            .selectRelativePeriod('This month')
+            .selectTab('Style')
+            .selectIncludeNoDataOU()
+            .selectTab('Org Units')
+            .unselectOuLevel('District')
+            .selectOuLevel('Facility')
+
+        cy.getByDataTest('org-unit-tree-node')
+            .contains('Western Area')
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        cy.getByDataTest('org-unit-tree-node')
+            .contains('Rural Western Area')
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        // Value: 0
+        cy.getByDataTest('org-unit-tree-node').contains('Tokeh MCHP').click()
+
+        cy.getByDataTest('layeredit-addbtn').click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+        cy.get('.dhis2-map').click('center') //Click somewhere on the map
+
+        cy.get('.maplibregl-popup').contains('Value: 0').should('be.visible')
+
+        // Value: No data
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Org Units')
+
+        cy.getByDataTest('org-unit-tree-node').contains('Tokeh MCHP').click()
+        cy.getByDataTest('org-unit-tree-node')
+            .contains('Lakka Hospital')
+            .click()
+
+        cy.getByDataTest('layeredit-addbtn').click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+        cy.get('.dhis2-map').click('center') //Click somewhere on the map
+
+        cy.get('.maplibregl-popup')
+            .contains('Value: No data')
+            .should('be.visible')
     })
 
     it('adds a thematic layer with split view period', () => {
