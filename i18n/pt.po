@@ -8,15 +8,15 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Ge Joao <gsimango@saudigitus.org>, 2024
 # Shelsea Chumaio, 2024
-# António Fernando Macaringue, 2024
 # Helton Dias, 2024
+# António Fernando Macaringue, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Helton Dias, 2024\n"
+"Last-Translator: António Fernando Macaringue, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,7 +109,7 @@ msgid "Organisation unit location"
 msgstr "Localização da unidade organizacional"
 
 msgid "Fallback coordinate field"
-msgstr "Campo de coordenadas de recurso"
+msgstr "substituir Campo de coordenadas"
 
 msgid "Coordinate field"
 msgstr "Campo de coordenadas"
@@ -202,7 +202,7 @@ msgid "Level"
 msgstr "Nível"
 
 msgid "Parent"
-msgstr "Parentes"
+msgstr "Pai"
 
 msgid "Type"
 msgstr "Tipo"
@@ -406,7 +406,7 @@ msgid "Steps"
 msgstr "Passos"
 
 msgid "Facility buffer"
-msgstr "Buffer da unidade sanitária"
+msgstr "Buffer da Instalação"
 
 msgid "Org Units"
 msgstr "Unidades organizacionais"
@@ -776,7 +776,7 @@ msgid "No data"
 msgstr "Não ha dados"
 
 msgid "Could not retrieve tracked entity data"
-msgstr "Não foi possível recuperar os dados da entidade monitorizada"
+msgstr "Não foi possível recuperar os dados da entidade rastreada"
 
 msgid "Last updated"
 msgstr "Última actualização"
@@ -1355,6 +1355,8 @@ msgid ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
 msgstr ""
+"Água líquida e congelada acumulada, incluindo chuva e neve, que cai à "
+"superfície. Combina dados de modelos com observações de todo o mundo."
 
 msgid "~11 kilometers"
 msgstr "~11 quilómetros"
@@ -1372,6 +1374,8 @@ msgid ""
 "Temperature at 2m above the surface. Combines model data with observations "
 "from across the world."
 msgstr ""
+"Temperatura a 2 m acima da superfície. Combina dados de modelos com "
+"observações de todo o mundo."
 
 msgid "All"
 msgstr "Tudo"
@@ -1461,13 +1465,13 @@ msgid "Cancelled"
 msgstr "Cancelado"
 
 msgid "Earth Engine layer"
-msgstr ""
+msgstr "Camada do Earth Engine"
 
 msgid "You don't have access to this layer data"
 msgstr "Não tem acesso a esta camada de dados"
 
 msgid "The event filter is not supported"
-msgstr ""
+msgstr "O filtro de eventos não é suportado"
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "Ocorreu um erro desconhecido durante a leitura dos dados da camada"
@@ -1482,13 +1486,14 @@ msgid "Facilities"
 msgstr "Instalações"
 
 msgid "No coordinates found for selected facilities"
-msgstr ""
+msgstr "Não foram encontradas coordenadas para as instalações selecionadas"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
+"Houve um problema com esta camada. Contacte um administrador do sistema."
 
 msgid "Feature"
-msgstr ""
+msgstr "Caraterística"
 
 msgid "Polygon"
 msgstr "Poligono"
@@ -1503,10 +1508,10 @@ msgid "Organisation units"
 msgstr "Unidades organizacionais"
 
 msgid "Org unit layer"
-msgstr ""
+msgstr "Camada da unidade organizacional"
 
 msgid "Data item was not found"
-msgstr ""
+msgstr "O item de dados não foi encontrado"
 
 msgid "Thematic layer"
 msgstr "Camada temática"
