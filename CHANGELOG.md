@@ -1,3 +1,10 @@
+## [100.7.7](https://github.com/dhis2/maps-app/compare/v100.7.6...v100.7.7) (2024-11-29)
+
+
+### Bug Fixes
+
+* update 'No data' handling ([#3408](https://github.com/dhis2/maps-app/issues/3408)) ([d774e7a](https://github.com/dhis2/maps-app/commit/d774e7a2a849cf40bca3d039aca2d1c6ce1f5331))
+
 ## [100.7.6](https://github.com/dhis2/maps-app/compare/v100.7.5...v100.7.6) (2024-11-17)
 
 
