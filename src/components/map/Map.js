@@ -121,6 +121,7 @@ class Map extends Component {
 
     componentDidUpdate(prevProps) {
         const { resizeCount, isFullscreen, isPlugin } = this.props
+        console.log('🚀 ~ Map ~ componentDidUpdate ~ resizeCount:', resizeCount)
 
         if (resizeCount !== prevProps.resizeCount) {
             this.map.resize()

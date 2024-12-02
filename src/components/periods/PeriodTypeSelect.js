@@ -31,6 +31,11 @@ const PeriodTypeSelect = ({
             )
 
             if (!period || isRelativePeriod) {
+                console.log(
+                    '🚀 ~ useEffect ~ isRelativePeriod:',
+                    isRelativePeriod
+                )
+                console.log('🚀 ~ useEffect ~ periodTypes[0]:', periodTypes[0])
                 // default to first period type
                 onChange(periodTypes[0], isRelativePeriod)
             }

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
-"PO-Revision-Date: 2024-10-23T12:50:51.401Z\n"
+"POT-Creation-Date: 2024-12-02T09:29:29.011Z\n"
+"PO-Revision-Date: 2024-12-02T09:29:29.011Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -460,6 +460,12 @@ msgstr "High radius should be greater than low radius"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
+
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
 
 msgid "Indicator group is required"
 msgstr "Indicator group is required"
@@ -927,8 +933,8 @@ msgstr "Only one timeline is allowed."
 msgid "Remove other layers to enable split map views."
 msgstr "Remove other layers to enable split map views."
 
-msgid "Display periods"
-msgstr "Display periods"
+msgid "Period display mode"
+msgstr "Period display mode"
 
 msgid "Single (aggregate)"
 msgstr "Single (aggregate)"
@@ -1412,6 +1418,108 @@ msgstr "Financial year (Start July)"
 
 msgid "Financial year (Start April)"
 msgstr "Financial year (Start April)"
+
+msgid "Today"
+msgstr "Today"
+
+msgid "Yesterday"
+msgstr "Yesterday"
+
+msgid "Last 3 days"
+msgstr "Last 3 days"
+
+msgid "Last 7 days"
+msgstr "Last 7 days"
+
+msgid "Last 14 days"
+msgstr "Last 14 days"
+
+msgid "This week"
+msgstr "This week"
+
+msgid "Last week"
+msgstr "Last week"
+
+msgid "Last 4 weeks"
+msgstr "Last 4 weeks"
+
+msgid "Last 12 weeks"
+msgstr "Last 12 weeks"
+
+msgid "Last 52 weeks"
+msgstr "Last 52 weeks"
+
+msgid "Weeks this year"
+msgstr "Weeks this year"
+
+msgid "This month"
+msgstr "This month"
+
+msgid "Last month"
+msgstr "Last month"
+
+msgid "Last 3 months"
+msgstr "Last 3 months"
+
+msgid "Last 6 months"
+msgstr "Last 6 months"
+
+msgid "Last 12 months"
+msgstr "Last 12 months"
+
+msgid "Months this year"
+msgstr "Months this year"
+
+msgid "This bimonth"
+msgstr "This bimonth"
+
+msgid "Last bimonth"
+msgstr "Last bimonth"
+
+msgid "Last 6 bimonths"
+msgstr "Last 6 bimonths"
+
+msgid "Bimonths this year"
+msgstr "Bimonths this year"
+
+msgid "This quarter"
+msgstr "This quarter"
+
+msgid "Last quarter"
+msgstr "Last quarter"
+
+msgid "Last 4 quarters"
+msgstr "Last 4 quarters"
+
+msgid "Quarters this year"
+msgstr "Quarters this year"
+
+msgid "This six-month"
+msgstr "This six-month"
+
+msgid "Last six-month"
+msgstr "Last six-month"
+
+msgid "Last 2 six-months"
+msgstr "Last 2 six-months"
+
+msgid "This financial year"
+msgstr "This financial year"
+
+msgid "Last financial year"
+msgstr "Last financial year"
+
+msgid "Last 5 financial years"
+msgstr "Last 5 financial years"
+
+msgid "This year"
+msgstr "This year"
+
+msgid "Last year"
+msgstr "Last year"
+
+msgid "Last 5 years"
+msgstr "Last 5 years"
 
 msgid "Cancelled"
 msgstr "Cancelled"

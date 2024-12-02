@@ -12,6 +12,8 @@ const RadioGroup = ({
     helpText,
     display,
     onChange,
+    boldLabel,
+    compact,
     children,
     dataTest,
 }) => {
@@ -28,10 +30,20 @@ const RadioGroup = ({
             <div
                 className={cx(styles.radioGroup, {
                     [styles.row]: display === 'row',
+                    [styles.compact]: compact,
                 })}
             >
                 <FieldGroup
-                    label={label}
+                    label={
+                        <span
+                            className={cx({
+                                [styles.boldLabel]: boldLabel,
+                                [styles.compact]: compact,
+                            })}
+                        >
+                            {label}
+                        </span>
+                    }
                     helpText={helpText}
                     dataTest={dataTest}
                 >
@@ -47,6 +59,8 @@ RadioGroup.propTypes = {
     children: PropTypes.arrayOf(PropTypes.node),
     dataTest: PropTypes.string,
     display: PropTypes.string,
+    boldLabel: PropTypes.bool,
+    compact: PropTypes.bool,
     helpText: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

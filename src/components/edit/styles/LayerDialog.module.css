@@ -80,6 +80,11 @@
 .error {
     margin-top: var(--spacers-dp8);
     color: var(--theme-error);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    gap: 8px;
 }
 
 .indent {
@@ -107,6 +112,13 @@
 
 .checkbox {
     margin: 8px 0 0 -8px;
+}
+
+/* Thematic */
+
+.navigation {
+    flex-grow: 0; 
+    margin-bottom: 8px;
 }
 
 /* Tracked entity */

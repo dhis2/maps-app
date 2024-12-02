@@ -1,5 +1,6 @@
 import { PeriodDimension, getRelativePeriodsMap } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -27,6 +28,7 @@ import {
 } from '../../../constants/layers.js'
 import {
     RELATIVE_PERIODS,
+    PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
 import {
@@ -50,6 +52,7 @@ import DimensionFilter from '../../dimensions/DimensionFilter.js'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.js'
 import IndicatorSelect from '../../indicator/IndicatorSelect.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
+import RenderingStrategy from '../../periods/RenderingStrategy.js'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import Labels from '../shared/Labels.js'
@@ -60,6 +63,7 @@ import NoDataColor from './NoDataColor.js'
 import RadiusSelect, { isValidRadius } from './RadiusSelect.js'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.js'
 import ValueTypeSelect from './ValueTypeSelect.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 
 class ThematicDialog extends Component {
     static propTypes = {
@@ -71,7 +75,7 @@ class ThematicDialog extends Component {
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
         setOrgUnits: PropTypes.func.isRequired,
-        //setPeriodType: PropTypes.func.isRequired,
+        setPeriodType: PropTypes.func.isRequired,
         setPeriods: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
@@ -118,31 +122,23 @@ class ThematicDialog extends Component {
             systemSettings,
             endDate,
             setPeriods,
+            setPeriodType,
             setOrgUnits,
         } = this.props
-        console.log('🚀 ~ componentDidMount ~ this.props:', this.props)
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ filters:',
-            filters
-        )
+        console.log('🚀 ~ componentDidMount ~ startDate:', startDate)
+        console.log('🚀 ~ componentDidMount ~ endDate:', endDate)
 
         const dataItem = getDataItemFromColumns(columns)
         const periods = getPeriodsFromFilters(filters)
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ periods:',
-            periods
-        )
 
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
 
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ systemSettings:',
-            systemSettings
-        )
-
         // Set value type if favorite is loaded
         if (!valueType) {
+            console.log('🚀 ~ componentDidMount ~ valueType:', valueType)
+            console.log('🚀 ~ componentDidMount ~ dataItem:', dataItem)
+            console.log('🚀 ~ componentDidMount ~ dimConf:', dimConf)
             if (dataItem && dataItem.dimensionItemType) {
                 const dimension = Object.keys(dimConf).find(
                     (dim) =>
@@ -157,26 +153,6 @@ class ThematicDialog extends Component {
             }
         }
 
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ periods?.length == 0:',
-            periods?.length == 0
-        )
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ !startDate:',
-            !startDate
-        )
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ !endDate:',
-            !endDate
-        )
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ defaultPeriod:',
-            defaultPeriod
-        )
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ isPeriodAvailable(defaultPeriod, hiddenPeriods):',
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
-        )
         // Set default period from system settings
         if (
             periods?.length == 0 &&
@@ -192,7 +168,7 @@ class ThematicDialog extends Component {
                 },
             ]
             setPeriods(defaultPeriods)
-            //setPeriodType(RELATIVE_PERIODS)
+            setPeriodType({ value: PREDEFINED_PERIODS })
         }
 
         // Set default org unit level
@@ -221,14 +197,10 @@ class ThematicDialog extends Component {
             validateLayer,
             onLayerValidation,
         } = this.props
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidUpdate ~ periodType:',
-            periodType
-        )
 
         // Set rendering strategy to single if not relative period
         if (
-            periodType !== RELATIVE_PERIODS &&
+            periodType !== PREDEFINED_PERIODS &&
             renderingStrategy !== RENDERING_STRATEGY_SINGLE
         ) {
             setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
@@ -260,22 +232,22 @@ class ThematicDialog extends Component {
             columns,
             dataElementGroup,
             filters,
-            // id,
+            id,
             indicatorGroup,
             noDataColor,
             operand,
             periodType,
-            // renderingStrategy,
-            // startDate,
-            // endDate,
+            renderingStrategy,
+            startDate,
+            endDate,
             program,
             valueType,
             thematicMapType,
             systemSettings,
             // periodsSettings,
         } = this.props
-        console.log('🚀 ~ ThematicDialog ~ render ~ filters:', filters)
-        console.log('🚀 ~ ThematicDialog ~ render ~ periodType:', periodType)
+        console.log('🚀 ~ render ~ endDate:', endDate)
+        console.log('🚀 ~ render ~ startDate:', startDate)
 
         const {
             // Handlers
@@ -285,8 +257,8 @@ class ThematicDialog extends Component {
             setNoDataColor,
             setOperand,
             setPeriods,
-            // setPeriodType,
-            // setRenderingStrategy,
+            setPeriodType,
+            setRenderingStrategy,
             setProgram,
             setValueType,
         } = this.props
@@ -303,20 +275,33 @@ class ThematicDialog extends Component {
             eventDataItemError,
             programIndicatorError,
             // periodTypeError,
-            //periodError,
+            periodError,
             orgUnitsError,
             legendSetError,
         } = this.state
 
         const periods = getPeriodsFromFilters(filters)
-        console.log('🚀 ~ ThematicDialog ~ render ~ periods:', periods)
+        console.log('🚀 ~ render ~ filters:', filters)
+        console.log('🚀 ~ render ~ periodType:', periodType)
+
         const dataItem = getDataItemFromColumns(columns)
         const dimensions = getDimensionsFromFilters(filters)
 
         const setPeriodsFromFilter = (e) => {
-            console.log('🚀 ~ ThematicDialog ~ setPeriodsFromFilter ~ e:', e)
             setPeriods(e.items)
-            //setPeriodType(RELATIVE_PERIODS)
+        }
+
+        const changePeriodType = (e) => {
+            console.log(e)
+            setPeriodType(e)
+            switch (e.value) {
+                case PREDEFINED_PERIODS:
+                // Remove Start-End dates
+                // Set Predefined periods (again)
+                case START_END_DATES:
+                // Remove Predefined periods
+                // Set value Start-End dates (again)
+            }
         }
 
         return (
@@ -477,15 +462,57 @@ class ThematicDialog extends Component {
                             className={styles.flexRowFlow}
                             data-test="thematicdialog-periodtab"
                         >
-                            <PeriodDimension
-                                selectedPeriods={periods}
-                                onSelect={setPeriodsFromFilter}
-                                excludedPeriodTypes={
-                                    systemSettings.hiddenPeriods
-                                }
-                                infoBoxMessage={'infoBoxMessage'}
-                                height="410px"
-                            />
+                            <div className={styles.navigation}>
+                                <SegmentedControl
+                                    className={styles.flexRowFlow}
+                                    options={[
+                                        {
+                                            label: i18n.t(
+                                                'Choose from presets'
+                                            ),
+                                            value: PREDEFINED_PERIODS,
+                                        },
+                                        {
+                                            label: i18n.t(
+                                                'Define start - end dates'
+                                            ),
+                                            value: START_END_DATES,
+                                        },
+                                    ]}
+                                    selected={periodType}
+                                    onChange={changePeriodType}
+                                ></SegmentedControl>
+                            </div>
+                            {periodType === PREDEFINED_PERIODS && (
+                                <PeriodDimension
+                                    selectedPeriods={periods}
+                                    onSelect={setPeriodsFromFilter}
+                                    excludedPeriodTypes={
+                                        systemSettings.hiddenPeriods
+                                    }
+                                    height={'250px'}
+                                />
+                            )}
+                            {periodType === PREDEFINED_PERIODS && (
+                                <RenderingStrategy
+                                    value={renderingStrategy}
+                                    period={periods}
+                                    layerId={id}
+                                    onChange={setRenderingStrategy}
+                                />
+                            )}
+                            {periodType === START_END_DATES && (
+                                <StartEndDate
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                />
+                            )}
+                            {periodError && (
+                                <div key="error" className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {periodError}
+                                </div>
+                            )}
                         </div>
                     )}
                     {tab === 'orgunits' && (
@@ -559,10 +586,8 @@ class ThematicDialog extends Component {
             method,
             legendSet,
         } = this.props
-        console.log('🚀 ~ ThematicDialog ~ validate ~ filters:', filters)
         const dataItem = getDataItemFromColumns(columns)
         const periods = getPeriodsFromFilters(filters)
-        console.log('🚀 ~ ThematicDialog ~ validate ~ periods:', periods)
 
         // Indicators
         if (valueType === dimConf.indicator.objectName) {
@@ -580,7 +605,6 @@ class ThematicDialog extends Component {
                 )
             }
         }
-        console.log('🚀 ~ ThematicDialog ~ validate ~ Indicators: OK')
 
         // Data elements
         if (
@@ -601,7 +625,6 @@ class ThematicDialog extends Component {
                 )
             }
         }
-        console.log('🚀 ~ ThematicDialog ~ validate ~ Data elements: OK')
 
         // Reporting rates
         if (valueType === dimConf.dataSet.objectName && !dataItem) {
@@ -611,7 +634,6 @@ class ThematicDialog extends Component {
                 'data'
             )
         }
-        console.log('🚀 ~ ThematicDialog ~ validate ~ Reporting rates: OK')
 
         // Event data items / Program indicators
         if (
@@ -638,9 +660,6 @@ class ThematicDialog extends Component {
                       )
             }
         }
-        console.log(
-            '🚀 ~ ThematicDialog ~ validate ~ Event data items / Program indicators: OK'
-        )
 
         // Calculation
         if (valueType === dimConf.calculation.objectName && !dataItem) {
@@ -650,28 +669,30 @@ class ThematicDialog extends Component {
                 'data'
             )
         }
-        console.log('🚀 ~ ThematicDialog ~ validate ~ Calculation: OK')
 
-        console.log('🚀 ~ ThematicDialog ~ validate ~ periodType:', periodType)
-        console.log(
-            '🚀 ~ validate ~ periods?.length !== 0:',
-            periods?.length !== 0
-        )
-        if (periods?.length === 0) {
-            //&& periodType !== START_END_DATES) {
+        if (periods?.length === 0 && periodType !== START_END_DATES) {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
                 'period'
             )
         } else if (periodType === START_END_DATES) {
+            console.log(
+                '🚀 ~ ThematicDialog ~ validate ~ periodType:',
+                periodType
+            )
             const error = getStartEndDateError(startDate, endDate)
+            console.log(
+                '🚀 ~ ThematicDialog ~ validate ~ startDate:',
+                startDate
+            )
+            console.log('🚀 ~ ThematicDialog ~ validate ~ endDate:', endDate)
+            console.log('🚀 ~ ThematicDialog ~ validate ~ error:', error)
 
             if (error) {
                 return this.setErrorState('periodError', error, 'period')
             }
         }
-        console.log('🚀 ~ ThematicDialog ~ validate ~ periods: OK')
 
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(

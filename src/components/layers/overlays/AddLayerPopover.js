@@ -7,6 +7,7 @@ import { addLayer, editLayer } from '../../../actions/layers.js'
 import earthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
+import useKeyDown from '../../../hooks/useKeyDown.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
 import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.js'
 import LayerList from './LayerList.js'
@@ -37,6 +38,8 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         defaultLayerSources,
         managedLayerSources
     )
+
+    useKeyDown('Escape', onClose)
 
     const onLayerSelect = (layer) => {
         const config = { ...layer }

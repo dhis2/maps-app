@@ -64,10 +64,13 @@ const RenderingStrategy = ({
 
     return (
         <RadioGroup
-            label={i18n.t('Display periods')}
+            label={i18n.t('Period display mode')}
             value={value}
             onChange={onChange}
             helpText={helpText}
+            display={'row'}
+            boldLabel={true}
+            compact={true}
         >
             <Radio value="SINGLE" label={i18n.t('Single (aggregate)')} />
             <Radio

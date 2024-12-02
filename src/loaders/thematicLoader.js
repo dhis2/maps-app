@@ -355,6 +355,8 @@ const loadData = async (config, nameProperty) => {
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         eventStatus,
     } = config
+    console.log('🚀 ~ loadData ~ endDate:', endDate)
+    console.log('🚀 ~ loadData ~ startDate:', startDate)
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
     console.log('🚀 ~ loadData ~ period:', period)
@@ -384,9 +386,10 @@ const loadData = async (config, nameProperty) => {
         // TODO Handle multiple maps
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
     } else {
-        analyticsRequest = periodx
-            ? analyticsRequest.addPeriodFilter(periodx.map((pe) => pe.id))
-            : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        analyticsRequest =
+            periodx.length > 0
+                ? analyticsRequest.addPeriodFilter(periodx.map((pe) => pe.id))
+                : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
     }
 
     if (dimensions) {
