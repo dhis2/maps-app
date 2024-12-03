@@ -104,6 +104,7 @@ context('Thematic Layers', () => {
             .selectIndicatorGroup('Stock')
             .selectIndicator('BCG Stock PHU')
             .selectTab('Period')
+            .selectPeriodType('Start/end dates')
             .typeStartDate(`${CURRENT_YEAR}-11-01`)
             .typeEndDate(`${CURRENT_YEAR}-11-30`)
             .selectTab('Style')
