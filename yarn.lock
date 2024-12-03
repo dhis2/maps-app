@@ -2018,10 +2018,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^26.8.4":
-  version "26.8.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.8.4.tgz#e26bb345b729f3e3b27af03d763c9a8c3de4f8ee"
-  integrity sha512-kQsLcLt0b9FWnzrKNF4m44CSCok7eZft6iGXvl5Kq2Oo0B/k/P3kTosSL/Hx2Oub40CbT+V6Z2bQVrgRqJ49vg==
+"@dhis2/analytics@^26.9.3":
+  version "26.9.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.9.3.tgz#bcb550e2e87f931622c4fe04c40711464f0d5989"
+  integrity sha512-MFA4Q8MpzDO4o3e+Oy1dZcQSxTc/AqFzdcQrln37DOpA1iUF5ZpiU17CdwDNdvZ6DjVZF6/GQNFnzPzLJ3svIw==
   dependencies:
     "@dhis2/multi-calendar-dates" "^1.2.2"
     "@dnd-kit/core" "^6.0.7"
@@ -2029,7 +2029,7 @@
     "@dnd-kit/utilities" "^3.2.1"
     "@react-hook/debounce" "^4.0.0"
     classnames "^2.3.1"
-    crypto-js "^4.1.1"
+    crypto-js "^4.2.0"
     d2-utilizr "^0.2.16"
     d3-color "^1.2.3"
     highcharts "^10.3.3"
@@ -6691,7 +6691,7 @@ crypto-browserify@^3.0.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
-crypto-js@^4.1.1:
+crypto-js@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
   integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
