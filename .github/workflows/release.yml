@@ -13,16 +13,14 @@ env:
     GH_TOKEN: ${{secrets.DHIS2_BOT_GITHUB_TOKEN}}
     D2_APP_HUB_TOKEN: ${{secrets.DHIS2_BOT_APPHUB_TOKEN}}
     CI: true
+    build_exists: false
 
 jobs:
     release:
         runs-on: ubuntu-latest
         if: >
             ${{ !github.event.push.repository.fork &&
-            github.actor != 'dependabot[bot]' &&
-            !contains(github.event.head_commit.message, '[skip ci]') &&
-            !contains(github.event.head_commit.message, '[skip release]') &&
-            !startsWith(github.event.head_commit.message, 'chore') }}
+            github.actor != 'dependabot[bot]' }}
         steps:
             - uses: actions/checkout@v4
               with:
@@ -41,31 +39,38 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
+            - name: Set build_exists env var
+              id: check_build
+              run: |
+                  if ls build/bundle/maps-*.zip 1> /dev/null 2>&1; then
+                      echo "build_exists=true" >> $GITHUB_ENV
+                  else
+                      echo "build_exists=false" >> $GITHUB_ENV
+                  fi
+
             - name: Publish to AppHub
+              if: env.build_exists == 'true'
               run: yarn run d2-app-scripts publish
 
     report-release-result:
         runs-on: ubuntu-latest
+        if: ${{ always() }}
         needs: release
-        if: >
-            ${{ !github.event.push.repository.fork &&
-            github.actor != 'dependabot[bot]' &&
-            !contains(github.event.head_commit.message, '[skip ci]') &&
-            !contains(github.event.head_commit.message, '[skip release]') }}
         steps:
             - name: Checkout code
+              if: ${{ env.build_exists == 'true' && success() }}
               uses: actions/checkout@v4
               with:
                   ref: master
                   fetch-depth: 0
 
             - name: Extract version
-              if: success()
+              if: ${{ env.build_exists == 'true' && success() }}
               id: extract_version
               uses: Saionaro/extract-package-version@v1.3.0
 
             - name: Send success message to analytics-internal-bot slack channel
-              if: success()
+              if: ${{ env.build_exists == 'true' && success() }}
               id: slack_success
               uses: slackapi/slack-github-action@v1.27.0
               with:

@@ -6,7 +6,11 @@ import {
     expectContextMenuOptions,
 } from '../../elements/map_context_menu.js'
 import { ThematicLayer } from '../../elements/thematic_layer.js'
-import { CURRENT_YEAR, getApiBaseUrl } from '../../support/util.js'
+import {
+    CURRENT_YEAR,
+    getApiBaseUrl,
+    EXTENDED_TIMEOUT,
+} from '../../support/util.js'
 
 const INDICATOR_NAME = 'VCCT post-test counselling rate'
 
@@ -17,7 +21,7 @@ context('Thematic Layers', () => {
 
     const Layer = new ThematicLayer()
 
-    it('shows error if no indicator group selected', () => {
+    it('shows error in layer edit modal if no indicator group selected', () => {
         Layer.openDialog('Thematic').addToMap()
 
         Layer.validateDialogClosed(false)
@@ -25,7 +29,7 @@ context('Thematic Layers', () => {
         cy.contains('Indicator group is required').should('be.visible')
     })
 
-    it('shows error if no indicator selected', () => {
+    it('shows error in layer edit modal if no indicator selected', () => {
         Layer.openDialog('Thematic').selectIndicatorGroup('HIV').addToMap()
 
         Layer.validateDialogClosed(false)
@@ -93,6 +97,73 @@ context('Thematic Layers', () => {
         )
 
         getMaps().should('have.length', 1)
+    })
+
+    it('opens a thematic layer popup with data and nodata', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('Stock')
+            .selectIndicator('BCG Stock PHU')
+            .selectTab('Period')
+            .selectRelativePeriod('This month')
+            .selectTab('Style')
+            .selectIncludeNoDataOU()
+            .selectTab('Org Units')
+            .unselectOuLevel('District')
+            .selectOuLevel('Facility')
+
+        cy.getByDataTest('org-unit-tree-node')
+            .contains('Western Area')
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        cy.getByDataTest('org-unit-tree-node')
+            .contains('Rural Western Area')
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        // Value: 0
+        cy.getByDataTest('org-unit-tree-node').contains('Tokeh MCHP').click()
+
+        cy.getByDataTest('layeredit-addbtn').click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+        cy.get('.dhis2-map').click('center') //Click somewhere on the map
+
+        cy.get('.maplibregl-popup').contains('Value: 0').should('be.visible')
+
+        // Value: No data
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Org Units')
+
+        cy.getByDataTest('org-unit-tree-node').contains('Tokeh MCHP').click()
+        cy.getByDataTest('org-unit-tree-node')
+            .contains('Lakka Hospital')
+            .click()
+
+        cy.getByDataTest('layeredit-addbtn').click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+        cy.get('.dhis2-map').click('center') //Click somewhere on the map
+
+        cy.get('.maplibregl-popup')
+            .contains('Value: No data')
+            .should('be.visible')
     })
 
     it('adds a thematic layer with split view period', () => {
@@ -225,5 +296,53 @@ context('Thematic Layers', () => {
             .should('have.length', 5)
 
         getMaps().should('have.length', 1)
+    })
+
+    it('handles an error in the layer configuration', () => {
+        cy.visit('/')
+
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator(INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType('Yearly')
+            .selectTab('Org Units')
+            .selectOu('Bo')
+            .unselectOuLevel('District')
+            .selectOuLevel('National')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(INDICATOR_NAME)
+
+        // check that loading completes and the layer card is present
+        cy.getByDataTest('map-loading-mask').should('not.exist')
+
+        cy.getByDataTest('layercard')
+            .contains(INDICATOR_NAME)
+            .should('be.visible')
+
+        // check that an error is displayed in the layer card
+        cy.getByDataTest('load-error-noticebox').should('be.visible')
+        cy.getByDataTest('load-error-noticebox')
+            .find('h6')
+            .contains('Failed to load layer')
+            .should('be.visible')
+        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+            .contains(
+                'Organisation unit or organisation unit level is not valid'
+            )
+            .should('be.visible')
+
+        // edit the layer to make it valid
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Org Units')
+            .unselectOuLevel('National')
+            .selectOuLevel('Chiefdom')
+            .updateMap()
+
+        // confirm that the map is valid now
+        cy.getByDataTest('layerlegend-item').should('have.length', 5)
     })
 })

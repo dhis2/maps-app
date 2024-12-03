@@ -1,3 +1,45 @@
+## [100.7.8](https://github.com/dhis2/maps-app/compare/v100.7.7...v100.7.8) (2024-12-03)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([4cd5d45](https://github.com/dhis2/maps-app/commit/4cd5d456ce8669ef975c1fd4a0d0321c60685085))
+
+## [100.7.7](https://github.com/dhis2/maps-app/compare/v100.7.6...v100.7.7) (2024-11-29)
+
+
+### Bug Fixes
+
+* update 'No data' handling ([#3408](https://github.com/dhis2/maps-app/issues/3408)) ([d774e7a](https://github.com/dhis2/maps-app/commit/d774e7a2a849cf40bca3d039aca2d1c6ce1f5331))
+
+## [100.7.6](https://github.com/dhis2/maps-app/compare/v100.7.5...v100.7.6) (2024-11-17)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f5856b9](https://github.com/dhis2/maps-app/commit/f5856b99455f5b1d414ccbe28cc22fd97e60997f))
+
+## [100.7.5](https://github.com/dhis2/maps-app/compare/v100.7.4...v100.7.5) (2024-11-12)
+
+
+### Bug Fixes
+
+* allow editing invalid layers ([#3396](https://github.com/dhis2/maps-app/issues/3396)) ([13931b0](https://github.com/dhis2/maps-app/commit/13931b0ea4b37ac86b701b97643ea757c2642a0f))
+
+## [100.7.4](https://github.com/dhis2/maps-app/compare/v100.7.3...v100.7.4) (2024-11-04)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3387](https://github.com/dhis2/maps-app/issues/3387)) ([46a3632](https://github.com/dhis2/maps-app/commit/46a3632c57ab39a64d865237695df516dc03f4bc))
+
+## [100.7.3](https://github.com/dhis2/maps-app/compare/v100.7.2...v100.7.3) (2024-11-01)
+
+
+### Bug Fixes
+
+* update queries to tracker endpoint ([#3346](https://github.com/dhis2/maps-app/issues/3346)) ([885403c](https://github.com/dhis2/maps-app/commit/885403c3d39d4c4f661c8f3a91ebd366f93edf1d))
+
 ## [100.7.2](https://github.com/dhis2/maps-app/compare/v100.7.1...v100.7.2) (2024-10-27)
 
 

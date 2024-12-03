@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "100.7.2",
+    "version": "100.7.8",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -19,7 +19,7 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "11.6.1",
+        "@dhis2/cli-app-scripts": "^11.7.5",
         "@dhis2/cli-style": "^10.5.1",
         "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^10.0.3",
@@ -42,13 +42,12 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^26.8.4",
-        "@dhis2/app-runtime": "^3.10.5",
+        "@dhis2/app-runtime": "^3.11.2",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "^4.0.0",
+        "@dhis2/maps-gl": "^4.0.1",
+        "@dhis2/ui": "^9.13.0",
         "@krakenjs/post-robot": "^11.0.0",
-        "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
-        "@reportportal/agent-js-jest": "^5.0.7",
         "@testing-library/react-hooks": "^8.0.1",
         "abortcontroller-polyfill": "^1.7.5",
         "array-move": "^4.0.0",

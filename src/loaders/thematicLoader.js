@@ -303,6 +303,7 @@ const thematicLoader = async ({
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 

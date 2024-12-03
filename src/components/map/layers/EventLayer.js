@@ -141,13 +141,14 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const { styleDataItem } = this.props
+        const { styleDataItem, nameProperty } = this.props
         const { popup, displayElements, eventCoordinateFieldName } = this.state
 
         return popup && displayElements ? (
             <EventPopup
                 {...popup}
                 styleDataItem={styleDataItem}
+                nameProperty={nameProperty}
                 displayElements={displayElements}
                 eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}

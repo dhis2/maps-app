@@ -10,27 +10,27 @@ import {
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { apiFetch } from '../util/api.js'
+import {
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_MULTIPOLYGON,
+    GEO_TYPE_LINE,
+    GEO_TYPE_FEATURE,
+} from '../util/geojson.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const fields = [
-    'trackedEntityInstance~rename(id)',
-    'featureType',
-    'coordinates',
-]
-
-// Mapping netween DHIS2 types and GeoJSON types
-const geometryTypesMap = {
-    POINT: 'Point',
-    POLYGON: 'Polygon',
-    MULTI_POLYGON: 'MultiPolygon',
-}
+const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
-const geometryTypes = Object.keys(geometryTypesMap)
+const teiGeometryTypes = [
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_MULTIPOLYGON,
+]
 
 //TODO: Refactor to share code with other loaders
-const trackedEntityLoader = async (config) => {
+const trackedEntityLoader = async (config, serverVersion) => {
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)
@@ -90,8 +90,7 @@ const trackedEntityLoader = async (config) => {
         .join(';')
 
     const fieldsWithRelationships = [...fields, 'relationships']
-    // https://docs.dhis2.org/2.29/en/developer/html/webapi_tracked_entity_instance_query.html
-    let url = `/trackedEntityInstances?skipPaging=true&fields=${fieldsWithRelationships}&ou=${orgUnits}`
+    let url = `/tracker/trackedEntities?skipPaging=true&fields=${fieldsWithRelationships}&orgUnit=${orgUnits}`
     let alert
     let explanation
 
@@ -117,17 +116,22 @@ const trackedEntityLoader = async (config) => {
     }
 
     if (periodType === 'program') {
-        url += `&programStartDate=${startDate}&programEndDate=${endDate}`
+        url += `&enrollmentEnrolledAfter=${startDate}&enrollmentEnrolledBefore=${endDate}`
     } else {
-        url += `&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`
+        url += `&updatedAfter=${startDate}&updatedBefore=${endDate}`
     }
 
-    // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
     const primaryData = await apiFetch(url)
 
-    const instances = primaryData.trackedEntityInstances.filter(
+    // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
+    const trackerRootProp =
+        `${serverVersion.major}.${serverVersion.minor}` == '2.40'
+            ? 'instances'
+            : 'trackedEntities'
+    const instances = primaryData[trackerRootProp].filter(
         (instance) =>
-            geometryTypes.includes(instance.featureType) && instance.coordinates
+            teiGeometryTypes.includes(instance.geometry?.type) &&
+            instance.geometry?.coordinates
     )
 
     if (!instances.length) {
@@ -148,11 +152,12 @@ const trackedEntityLoader = async (config) => {
         const relatedEntityType = await apiFetch(
             `/trackedEntityTypes/${relatedTypeId}?fields=displayName,featureType`
         )
-        const isPoint = relatedEntityType.featureType === 'POINT'
+        const isPoint =
+            relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
 
         legend.items.push(
             {
-                type: 'LineString',
+                type: GEO_TYPE_LINE,
                 name: relationshipType.displayName,
                 color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
                 weight: 1,
@@ -168,9 +173,10 @@ const trackedEntityLoader = async (config) => {
         )
 
         const dataWithRels = await getDataWithRelationships(
+            serverVersion,
             instances,
-            relationshipType,
             {
+                relationshipType,
                 orgUnits,
                 organisationUnitSelectionMode,
             }
@@ -203,12 +209,9 @@ const trackedEntityLoader = async (config) => {
 }
 
 const toGeoJson = (instances) =>
-    instances.map(({ id, featureType, coordinates }) => ({
-        type: 'Feature',
-        geometry: {
-            type: geometryTypesMap[featureType],
-            coordinates: JSON.parse(coordinates),
-        },
+    instances.map(({ id, geometry }) => ({
+        type: GEO_TYPE_FEATURE,
+        geometry,
         properties: {
             id,
         },

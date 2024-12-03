@@ -733,6 +733,9 @@ msgstr "Parent unit"
 msgid "No data"
 msgstr "No data"
 
+msgid "Could not retrieve tracked entity data"
+msgstr "Could not retrieve tracked entity data"
+
 msgid "Last updated"
 msgstr "Last updated"
 
