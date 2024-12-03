@@ -9,16 +9,22 @@ import styles from './StartEndDate.module.css'
 
 const StartEndDate = (props) => {
     const { startDate, endDate, setStartDate, setEndDate } = props
-    console.log('🚀 ~ useEffect ~ endDate:', endDate)
-    console.log('🚀 ~ useEffect ~ startDate:', startDate)
-    const hasDate = startDate !== undefined && endDate !== undefined
-    useEffect(() => {
-        if (!hasDate) {
-            setStartDate({ value: DEFAULT_START_DATE })
-            setEndDate({ value: DEFAULT_END_DATE })
-        }
-    }, [hasDate, setStartDate, setEndDate])
 
+    const [start, setStart] = useState(startDate)
+    const [end, setEnd] = useState(endDate)
+
+    console.log('🚀 ~ StartEndDate ~ startDate:', typeof startDate)
+    console.log('🚀 ~ StartEndDate ~ endDate:', typeof endDate)
+    const hasDate = startDate !== undefined && endDate !== undefined
+
+    const onStartDateChange = ({ value }) => {
+        setStart(value)
+        setStartDate(value)
+    }
+    const onEndDateChange = ({ value }) => {
+        setEnd(value)
+        setEndDate(value)
+    }
     return hasDate ? (
         <Field
             helpText={i18n.t(
@@ -27,9 +33,9 @@ const StartEndDate = (props) => {
         >
             <div className={styles.row}>
                 <InputField
-                    value={startDate}
+                    value={start.slice(0, 10)}
                     type="date"
-                    onChange={setStartDate}
+                    onChange={onStartDateChange}
                     label={i18n.t('Start date')}
                     inputWidth="200px"
                     max="9999-12-31"
@@ -39,9 +45,9 @@ const StartEndDate = (props) => {
                     <IconArrowRight16 color={colors.grey500} />
                 </div>
                 <InputField
-                    value={endDate}
+                    value={end.slice(0, 10)}
                     type="date"
-                    onChange={setEndDate}
+                    onChange={onEndDateChange}
                     label={i18n.t('End date')}
                     inputWidth="200px"
                     max="9999-12-31"
@@ -52,8 +58,6 @@ const StartEndDate = (props) => {
     ) : null
 }
 StartEndDate.propTypes = {
-    setEndDate: PropTypes.func.isRequired,
-    setStartDate: PropTypes.func.isRequired,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
 }

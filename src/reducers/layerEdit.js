@@ -105,10 +105,6 @@ const layerEdit = (state = null, action) => {
             }
 
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
-            console.log(
-                '🚀 ~ layerEdit ~ action.periodType:',
-                action.periodType
-            )
             return {
                 ...state,
                 periodType: action.periodType.value,
@@ -144,16 +140,15 @@ const layerEdit = (state = null, action) => {
             }
 
         case types.LAYER_EDIT_START_DATE_SET:
-            console.log('🚀 ~ layerEdit ~ action.startDate:', action.startDate)
             return {
                 ...state,
-                startDate: action.startDate.value,
+                startDate: action.startDate,
             }
 
         case types.LAYER_EDIT_END_DATE_SET:
             return {
                 ...state,
-                endDate: action.endDate.value,
+                endDate: action.endDate,
             }
 
         case types.LAYER_EDIT_AGGREGATION_TYPE_SET:
