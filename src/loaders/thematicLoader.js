@@ -102,11 +102,14 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     console.log('🚀 ~ thematicLoader ~ period:', period)
     const periodx = getPeriodsFromFilters(config.filters)
     console.log('🚀 ~ thematicLoader ~ periodx:', periodx)
+    console.log('🚀 ~ thematicLoader ~ data.metaData:', data.metaData)
     const periods = getPeriodsFromMetaData(data.metaData)
+    console.log('🚀 ~ thematicLoader ~ periods:', periods)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const names = getApiResponseNames(data)
     // TODO Handle multiple maps
     const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
+    console.log('🚀 ~ thematicLoader ~ valuesByPeriod:', valuesByPeriod)
     const valueById = getValueById(data)
     const valueFeatures = noDataColor
         ? features
@@ -384,7 +387,9 @@ const loadData = async (config, nameProperty) => {
 
     if (!isSingleMap) {
         // TODO Handle multiple maps
-        analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
+        analyticsRequest = analyticsRequest.addPeriodDimension(
+            periodx.map((pe) => pe.id)
+        )
     } else {
         analyticsRequest =
             periodx.length > 0

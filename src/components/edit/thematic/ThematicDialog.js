@@ -1,4 +1,4 @@
-import { PeriodDimension, getRelativePeriodsMap } from '@dhis2/analytics'
+import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -194,10 +194,11 @@ class ThematicDialog extends Component {
             isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
             console.log('🚀 ~ componentDidMount ~ setPeriods HERE')
+            console.log('getRelativePeriodsName()', getRelativePeriodsName())
             const defaultPeriods = [
                 {
                     id: defaultPeriod,
-                    name: getRelativePeriodsMap()[defaultPeriod],
+                    name: getRelativePeriodsName()[defaultPeriod],
                 },
             ]
             setPeriods(defaultPeriods)
@@ -541,7 +542,7 @@ class ThematicDialog extends Component {
                             {periodType === PREDEFINED_PERIODS && (
                                 <RenderingStrategy
                                     value={renderingStrategy}
-                                    period={periods}
+                                    periods={periods}
                                     layerId={id}
                                     onChange={setRenderingStrategy}
                                 />

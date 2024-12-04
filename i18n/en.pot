@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-12-03T09:20:13.790Z\n"
-"PO-Revision-Date: 2024-12-03T09:20:13.790Z\n"
+"POT-Creation-Date: 2024-12-04T12:41:51.035Z\n"
+"PO-Revision-Date: 2024-12-04T12:41:51.035Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -932,6 +932,9 @@ msgstr "Only one timeline is allowed."
 
 msgid "Remove other layers to enable split map views."
 msgstr "Remove other layers to enable split map views."
+
+msgid "Only up to 12 periods can be selected."
+msgstr "Only up to 12 periods can be selected."
 
 msgid "Period display mode"
 msgstr "Period display mode"

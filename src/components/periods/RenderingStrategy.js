@@ -7,17 +7,29 @@ import {
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
-import {
-    singleMapPeriods,
-    invalidSplitViewPeriods,
-} from '../../constants/periods.js'
+import { singleMapPeriods, MAX_PERIODS } from '../../constants/periods.js'
+import { getPeriodsFromFilters } from '../../util/analytics.js'
 import usePrevious from '../../hooks/usePrevious.js'
 import { Radio, RadioGroup } from '../core/index.js'
+import { getRelativePeriodsItemsCount } from '@dhis2/analytics'
+
+const countPeriods = (periods) => {
+    const itemsCount = getRelativePeriodsItemsCount()
+    console.log('itemsCount', itemsCount)
+    const total = periods.reduce(
+        (sum, period) =>
+            sum +
+            (itemsCount[period.id] !== undefined ? itemsCount[period.id] : 1),
+        0
+    )
+    console.log('total', total)
+    return total
+}
 
 const RenderingStrategy = ({
     layerId,
     value = RENDERING_STRATEGY_SINGLE,
-    period = {},
+    periods = [],
     onChange,
 }) => {
     const hasOtherLayers = useSelector(
@@ -31,36 +43,55 @@ const RenderingStrategy = ({
                     layer.id !== layerId
             )
     )
-    const prevPeriod = usePrevious(period)
+    const hasTooManyPeriods = useSelector(({ layerEdit }) => {
+        console.log('layerEdit', layerEdit)
+        const periods = getPeriodsFromFilters(layerEdit.filters)
+        console.log('periods', periods)
+        return countPeriods(periods) > MAX_PERIODS
+    })
+
+    const prevPeriods = usePrevious(periods)
 
     useEffect(() => {
-        if (period !== prevPeriod) {
+        if (periods !== prevPeriods) {
             if (
-                singleMapPeriods.includes(period.id) &&
+                periods.length === 1 &&
+                singleMapPeriods.includes(periods[0].id) &&
                 value !== RENDERING_STRATEGY_SINGLE
             ) {
                 onChange(RENDERING_STRATEGY_SINGLE)
             } else if (
-                invalidSplitViewPeriods.includes(period.id) &&
-                value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+                countPeriods(periods) > MAX_PERIODS &&
+                (value === RENDERING_STRATEGY_TIMELINE ||
+                    value === RENDERING_STRATEGY_SPLIT_BY_PERIOD)
             ) {
-                // TODO: Switch to 'timeline' when we support it
                 onChange(RENDERING_STRATEGY_SINGLE)
             }
         }
-    }, [value, period, prevPeriod, onChange])
+    }, [value, periods, prevPeriods, onChange])
 
-    if (singleMapPeriods.includes(period.id)) {
+    if (periods.length === 1 && singleMapPeriods.includes(periods[0].id)) {
         return null
     }
 
-    let helpText
+    let helpText = []
 
     if (hasOtherTimelineLayers) {
-        helpText = i18n.t('Only one timeline is allowed.')
-    } else if (hasOtherLayers) {
-        helpText = i18n.t('Remove other layers to enable split map views.')
+        helpText.push(i18n.t('Only one timeline is allowed.'))
     }
+    if (hasOtherLayers) {
+        helpText.push(i18n.t('Remove other layers to enable split map views.'))
+    }
+    if (hasTooManyPeriods) {
+        helpText.push(
+            i18n.t('Only up to ') +
+                MAX_PERIODS +
+                i18n.t(
+                    ' periods can be selected to enable timeline or split map views.'
+                )
+        )
+    }
+    helpText = helpText.join(' ')
 
     return (
         <RadioGroup
@@ -72,19 +103,16 @@ const RenderingStrategy = ({
             boldLabel={true}
             compact={true}
         >
-            <Radio value="SINGLE" label={i18n.t('Single (aggregate)')} />
+            <Radio value="SINGLE" label={i18n.t('Single (combine periods)')} />
             <Radio
                 value="TIMELINE"
                 label={i18n.t('Timeline')}
-                disabled={hasOtherTimelineLayers}
+                disabled={hasTooManyPeriods || hasOtherTimelineLayers}
             />
             <Radio
                 value="SPLIT_BY_PERIOD"
                 label={i18n.t('Split map views')}
-                disabled={
-                    hasOtherLayers ||
-                    invalidSplitViewPeriods.includes(period.id)
-                }
+                disabled={hasTooManyPeriods || hasOtherLayers}
             />
         </RadioGroup>
     )
@@ -93,7 +121,7 @@ const RenderingStrategy = ({
 RenderingStrategy.propTypes = {
     onChange: PropTypes.func.isRequired,
     layerId: PropTypes.string,
-    period: PropTypes.object,
+    periods: PropTypes.array,
     value: PropTypes.string,
 }
 

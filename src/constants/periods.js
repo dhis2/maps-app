@@ -52,10 +52,12 @@ const THIS_BIMONTH = 'THIS_BIMONTH'
 const LAST_BIMONTH = 'LAST_BIMONTH'
 const THIS_QUARTER = 'THIS_QUARTER'
 const LAST_QUARTER = 'LAST_QUARTER'
-const THIS_YEAR = 'THIS_YEAR'
-const LAST_YEAR = 'LAST_YEAR'
+const THIS_SIX_MONTH = 'THIS_SIX_MONTH'
+const LAST_SIX_MONTH = 'LAST_SIX_MONTH'
 const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR'
 const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR'
+const THIS_YEAR = 'THIS_YEAR'
+const LAST_YEAR = 'LAST_YEAR'
 
 export const PREDEFINED_PERIODS = 'PREDEFINED_PERIODS'
 export const RELATIVE_PERIODS = 'RELATIVE_PERIODS'
@@ -175,22 +177,16 @@ export const singleMapPeriods = [
     LAST_BIMONTH,
     THIS_QUARTER,
     LAST_QUARTER,
-    THIS_YEAR,
-    LAST_YEAR,
+    THIS_SIX_MONTH,
+    LAST_SIX_MONTH,
     THIS_FINANCIAL_YEAR,
     LAST_FINANCIAL_YEAR,
+    THIS_YEAR,
+    LAST_YEAR,
 ]
 
 // Periods not supported for split view (maximum 12 maps)
-export const invalidSplitViewPeriods = [
-    LAST_14_DAYS,
-    LAST_30_DAYS,
-    LAST_60_DAYS,
-    LAST_90_DAYS,
-    LAST_180_DAYS,
-    LAST_52_WEEKS,
-    WEEKS_THIS_YEAR,
-]
+export const MAX_PERIODS = 12
 
 // Period types used for Earth Engine layers
 export const BY_YEAR = 'BY_YEAR'
