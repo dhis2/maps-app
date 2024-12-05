@@ -118,7 +118,7 @@ msgid "Level"
 msgstr "Nível"
 
 msgid "Parent"
-msgstr "Parentes"
+msgstr "Pai"
 
 msgid "Type"
 msgstr "Tipo"
