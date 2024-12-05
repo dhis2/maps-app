@@ -186,7 +186,8 @@ export const singleMapPeriods = [
 ]
 
 // Periods not supported for split view (maximum 12 maps)
-export const MAX_PERIODS = 12
+export const MULTIMAP_MIN_PERIODS = 2
+export const MULTIMAP_MAX_PERIODS = 12
 
 // Period types used for Earth Engine layers
 export const BY_YEAR = 'BY_YEAR'

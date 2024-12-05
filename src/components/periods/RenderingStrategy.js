@@ -7,23 +7,70 @@ import {
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
-import { singleMapPeriods, MAX_PERIODS } from '../../constants/periods.js'
+import {
+    MULTIMAP_MIN_PERIODS,
+    MULTIMAP_MAX_PERIODS,
+} from '../../constants/periods.js'
 import { getPeriodsFromFilters } from '../../util/analytics.js'
 import usePrevious from '../../hooks/usePrevious.js'
 import { Radio, RadioGroup } from '../core/index.js'
-import { getRelativePeriodsItemsCount } from '@dhis2/analytics'
+import { getRelativePeriodsDetails } from '@dhis2/analytics'
 
 const countPeriods = (periods) => {
-    const itemsCount = getRelativePeriodsItemsCount()
-    console.log('itemsCount', itemsCount)
-    const total = periods.reduce(
+    const periodsDetails = getRelativePeriodsDetails()
+    console.log('periodsDetails', periodsDetails)
+
+    const total_v1 = periods.reduce(
         (sum, period) =>
             sum +
-            (itemsCount[period.id] !== undefined ? itemsCount[period.id] : 1),
+            (periodsDetails[period.id] !== undefined
+                ? periodsDetails[period.id].duration
+                : 1),
         0
     )
-    console.log('total', total)
-    return total
+
+    const durationByType = periods.reduce((acc, period) => {
+        console.log('🚀 ~ test ~ period:', period)
+        const periodDetails = periodsDetails[period.id]
+        if (acc['FIXED_PERIOD'] === undefined) {
+            acc['FIXED_PERIOD'] = {
+                any: 0,
+            }
+        }
+        if (periodDetails === undefined) {
+            acc['FIXED_PERIOD'].any += 1
+            return acc
+        }
+        const type = periodDetails.type
+        if (acc[type] === undefined) {
+            acc[type] = {
+                first: 0,
+                last: 0,
+            }
+        }
+        acc[type].first = Math.max(acc[type].first, 1 + periodDetails.offset)
+        acc[type].last = Math.max(
+            acc[type].last,
+            periodDetails.duration - (1 + periodDetails.offset)
+        )
+        return acc
+    }, {})
+
+    const sumObjectValues = (obj) =>
+        Object.values(obj).reduce((sum, value) => {
+            if (typeof value === 'object') {
+                return sum + sumObjectValues(value)
+            } else if (typeof value === 'number') {
+                return sum + value
+            }
+            return sum
+        }, 0)
+
+    const total_v2 = sumObjectValues(durationByType)
+
+    console.log('total_v1', total_v1)
+    console.log('total_v2', total_v2)
+    return total_v2
 }
 
 const RenderingStrategy = ({
@@ -47,7 +94,7 @@ const RenderingStrategy = ({
         console.log('layerEdit', layerEdit)
         const periods = getPeriodsFromFilters(layerEdit.filters)
         console.log('periods', periods)
-        return countPeriods(periods) > MAX_PERIODS
+        return countPeriods(periods) > MULTIMAP_MAX_PERIODS
     })
 
     const prevPeriods = usePrevious(periods)
@@ -55,13 +102,12 @@ const RenderingStrategy = ({
     useEffect(() => {
         if (periods !== prevPeriods) {
             if (
-                periods.length === 1 &&
-                singleMapPeriods.includes(periods[0].id) &&
+                periods.length < MULTIMAP_MIN_PERIODS &&
                 value !== RENDERING_STRATEGY_SINGLE
             ) {
                 onChange(RENDERING_STRATEGY_SINGLE)
             } else if (
-                countPeriods(periods) > MAX_PERIODS &&
+                countPeriods(periods) > MULTIMAP_MAX_PERIODS &&
                 (value === RENDERING_STRATEGY_TIMELINE ||
                     value === RENDERING_STRATEGY_SPLIT_BY_PERIOD)
             ) {
@@ -70,12 +116,17 @@ const RenderingStrategy = ({
         }
     }, [value, periods, prevPeriods, onChange])
 
-    if (periods.length === 1 && singleMapPeriods.includes(periods[0].id)) {
-        return null
-    }
-
     let helpText = []
 
+    if (periods.length < MULTIMAP_MIN_PERIODS) {
+        helpText.push(
+            i18n.t('Select ') +
+                MULTIMAP_MIN_PERIODS +
+                i18n.t(
+                    ' or more periods to enable timeline or split map views.'
+                )
+        )
+    }
     if (hasOtherTimelineLayers) {
         helpText.push(i18n.t('Only one timeline is allowed.'))
     }
@@ -85,7 +136,7 @@ const RenderingStrategy = ({
     if (hasTooManyPeriods) {
         helpText.push(
             i18n.t('Only up to ') +
-                MAX_PERIODS +
+                MULTIMAP_MAX_PERIODS +
                 i18n.t(
                     ' periods can be selected to enable timeline or split map views.'
                 )
@@ -107,12 +158,20 @@ const RenderingStrategy = ({
             <Radio
                 value="TIMELINE"
                 label={i18n.t('Timeline')}
-                disabled={hasTooManyPeriods || hasOtherTimelineLayers}
+                disabled={
+                    periods.length < MULTIMAP_MIN_PERIODS ||
+                    hasTooManyPeriods ||
+                    hasOtherTimelineLayers
+                }
             />
             <Radio
                 value="SPLIT_BY_PERIOD"
                 label={i18n.t('Split map views')}
-                disabled={hasTooManyPeriods || hasOtherLayers}
+                disabled={
+                    periods.length < MULTIMAP_MIN_PERIODS ||
+                    hasTooManyPeriods ||
+                    hasOtherLayers
+                }
             />
         </RadioGroup>
     )
