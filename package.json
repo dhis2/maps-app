@@ -41,7 +41,7 @@
         "start-server-and-test": "^2.0.3"
     },
     "dependencies": {
-        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#c19fab1c5abe7f15f3d7799ef1b5be8a720fa169",
+        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#19447b89130d615dc55e92d345b53869dca548ae",
         "@dhis2/app-runtime": "^3.11.2",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",

@@ -304,7 +304,7 @@ class ThematicDialog extends Component {
             valueType,
             thematicMapType,
             systemSettings,
-            // periodsSettings,
+            periodsSettings,
         } = this.props
 
         const {
@@ -553,6 +553,7 @@ class ThematicDialog extends Component {
                                     endDate={endDate}
                                     setStartDate={setStartDate}
                                     setEndDate={setEndDate}
+                                    periodsSettings={periodsSettings}
                                 />
                             )}
                             {periodError && (
