@@ -104,7 +104,9 @@ context('Thematic Layers', () => {
             .selectIndicatorGroup('Stock')
             .selectIndicator('BCG Stock PHU')
             .selectTab('Period')
-            .selectRelativePeriod('This month')
+            .selectPeriodType('Start/end dates')
+            .typeStartDate(`${CURRENT_YEAR}-11-01`)
+            .typeEndDate(`${CURRENT_YEAR}-11-30`)
             .selectTab('Style')
             .selectIncludeNoDataOU()
             .selectTab('Org Units')
@@ -138,7 +140,7 @@ context('Thematic Layers', () => {
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click('center') //Click somewhere on the map
+        cy.get('.dhis2-map').click('center') //Click in the middle of the map
 
         cy.get('.maplibregl-popup').contains('Value: 0').should('be.visible')
 
@@ -159,7 +161,7 @@ context('Thematic Layers', () => {
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click('center') //Click somewhere on the map
+        cy.get('.dhis2-map').click('center') //Click in the middle of the map
 
         cy.get('.maplibregl-popup')
             .contains('Value: No data')
