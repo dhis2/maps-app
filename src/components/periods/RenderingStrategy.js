@@ -102,14 +102,13 @@ const RenderingStrategy = ({
     useEffect(() => {
         if (periods !== prevPeriods) {
             if (
-                periods.length < MULTIMAP_MIN_PERIODS &&
+                countPeriods(periods) < MULTIMAP_MIN_PERIODS &&
                 value !== RENDERING_STRATEGY_SINGLE
             ) {
                 onChange(RENDERING_STRATEGY_SINGLE)
             } else if (
                 countPeriods(periods) > MULTIMAP_MAX_PERIODS &&
-                (value === RENDERING_STRATEGY_TIMELINE ||
-                    value === RENDERING_STRATEGY_SPLIT_BY_PERIOD)
+                value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
             ) {
                 onChange(RENDERING_STRATEGY_SINGLE)
             }
@@ -118,7 +117,7 @@ const RenderingStrategy = ({
 
     let helpText = []
 
-    if (periods.length < MULTIMAP_MIN_PERIODS) {
+    if (countPeriods(periods) < MULTIMAP_MIN_PERIODS) {
         helpText.push(
             i18n.t('Select ') +
                 MULTIMAP_MIN_PERIODS +
@@ -137,9 +136,7 @@ const RenderingStrategy = ({
         helpText.push(
             i18n.t('Only up to ') +
                 MULTIMAP_MAX_PERIODS +
-                i18n.t(
-                    ' periods can be selected to enable timeline or split map views.'
-                )
+                i18n.t(' periods can be selected to enable split map views.')
         )
     }
     helpText = helpText.join(' ')
@@ -159,8 +156,7 @@ const RenderingStrategy = ({
                 value="TIMELINE"
                 label={i18n.t('Timeline')}
                 disabled={
-                    periods.length < MULTIMAP_MIN_PERIODS ||
-                    hasTooManyPeriods ||
+                    countPeriods(periods) < MULTIMAP_MIN_PERIODS ||
                     hasOtherTimelineLayers
                 }
             />
@@ -168,7 +164,7 @@ const RenderingStrategy = ({
                 value="SPLIT_BY_PERIOD"
                 label={i18n.t('Split map views')}
                 disabled={
-                    periods.length < MULTIMAP_MIN_PERIODS ||
+                    countPeriods(periods) < MULTIMAP_MIN_PERIODS ||
                     hasTooManyPeriods ||
                     hasOtherLayers
                 }

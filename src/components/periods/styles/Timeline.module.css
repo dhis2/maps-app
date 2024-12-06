@@ -3,8 +3,7 @@
     width: calc(100% - 20px);
     position: absolute;
     left: 10px;
-    bottom: 28px;
-    height: 48px;
+    bottom: 32px;
     z-index: 1000px;
     user-select: none;
 }
@@ -19,18 +18,19 @@
 }
 
 .period {
-    fill: #333;
+    fill: #ffffff;
     stroke: #555;
     stroke-width: 1px;
-    fill-opacity: 0.1;
+    fill-opacity: .8;
     cursor: pointer;
 }
 
 .period.selected {
-    fill: #2b675c;
-    fill-opacity: 0.9;
+    fill: #147cd7;
+    fill-opacity: 1;
 }
 
 .period:hover:not(.selected) {
-    fill-opacity: 0.2;
+    fill: #F3F5F7;
+    fill-opacity: .9;
 }
