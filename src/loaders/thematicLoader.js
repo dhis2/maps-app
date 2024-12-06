@@ -23,6 +23,7 @@ import {
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
+    getPeriodsFromFilters,
     getPeriodFromFilters,
     getValidDimensionsFromFilters,
     getDataItemFromColumns,
@@ -98,10 +99,17 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
     const period = getPeriodFromFilters(config.filters)
+    console.log('🚀 ~ thematicLoader ~ period:', period)
+    const periodx = getPeriodsFromFilters(config.filters)
+    console.log('🚀 ~ thematicLoader ~ periodx:', periodx)
+    console.log('🚀 ~ thematicLoader ~ data.metaData:', data.metaData)
     const periods = getPeriodsFromMetaData(data.metaData)
+    console.log('🚀 ~ thematicLoader ~ periods:', periods)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const names = getApiResponseNames(data)
+    // TODO Handle multiple maps
     const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
+    console.log('🚀 ~ thematicLoader ~ valuesByPeriod:', valuesByPeriod)
     const valueById = getValueById(data)
     const valueFeatures = noDataColor
         ? features
@@ -150,13 +158,14 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const legend = {
         title: name,
         period: period
-            ? names[period.id] || period.id
+            ? periodx.map((pe) => names[pe.id] || pe.id).join(', ')
             : formatStartEndDate(
                   getDateArray(config.startDate),
                   getDateArray(config.endDate)
               ),
         items: legendItems,
     }
+    console.log('🚀 ~ thematicLoader ~ names:', names)
 
     if (dimensions && dimensions.length) {
         legend.filters = dimensions.map(
@@ -262,6 +271,7 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
         legend.items.push({ color: noDataColor, name: i18n.t('No data') })
     }
+    console.log('🚀 ~ thematicLoader ~ legend:', legend)
 
     return {
         ...config,
@@ -348,8 +358,13 @@ const loadData = async (config, nameProperty) => {
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         eventStatus,
     } = config
+    console.log('🚀 ~ loadData ~ endDate:', endDate)
+    console.log('🚀 ~ loadData ~ startDate:', startDate)
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
+    console.log('🚀 ~ loadData ~ period:', period)
+    const periodx = getPeriodsFromFilters(filters)
+    console.log('🚀 ~ loadData ~ periodx:', periodx)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const dataItem = getDataItemFromColumns(columns) || {}
     const coordinateField = getCoordinateField(config)
@@ -371,11 +386,15 @@ const loadData = async (config, nameProperty) => {
         .withDisplayProperty(nameProperty)
 
     if (!isSingleMap) {
-        analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
+        // TODO Handle multiple maps
+        analyticsRequest = analyticsRequest.addPeriodDimension(
+            periodx.map((pe) => pe.id)
+        )
     } else {
-        analyticsRequest = period
-            ? analyticsRequest.addPeriodFilter(period.id)
-            : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        analyticsRequest =
+            periodx.length > 0
+                ? analyticsRequest.addPeriodFilter(periodx.map((pe) => pe.id))
+                : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
     }
 
     if (dimensions) {

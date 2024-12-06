@@ -31,7 +31,10 @@ const LayerCard = ({
                     })}
                 >
                     <h2>{title}</h2>
-                    {subtitle && <h3>{subtitle}</h3>}
+                    {
+                        // TODO Handle long list of periods
+                        subtitle && <h3>{subtitle}</h3>
+                    }
                 </div>
                 <div className={styles.action}>
                     {isOverlay && <SortableHandle />}

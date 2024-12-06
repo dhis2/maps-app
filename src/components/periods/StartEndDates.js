@@ -20,8 +20,8 @@ const StartEndDates = (props) => {
 
     useEffect(() => {
         if (!hasDate) {
-            setStartDate(DEFAULT_START_DATE)
-            setEndDate(DEFAULT_END_DATE)
+            //setStartDate(DEFAULT_START_DATE)
+            //setEndDate(DEFAULT_END_DATE)
         }
     }, [hasDate, setStartDate, setEndDate])
 
@@ -29,13 +29,13 @@ const StartEndDates = (props) => {
         <Fragment>
             <DatePicker
                 label={i18n.t('Start date')}
-                defaultVal={startDate}
+                defaultVal={startDate.replace(/-/g, '')}
                 onBlur={setStartDate}
                 className={className || styles.select}
             />
             <DatePicker
                 label={i18n.t('End date')}
-                defaultVal={endDate}
+                defaultVal={endDate.replace(/-/g, '')}
                 onBlur={setEndDate}
                 className={className || styles.select}
             />

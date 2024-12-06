@@ -8,16 +8,75 @@ import {
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
 import {
-    singleMapPeriods,
-    invalidSplitViewPeriods,
+    MULTIMAP_MIN_PERIODS,
+    MULTIMAP_MAX_PERIODS,
 } from '../../constants/periods.js'
+import { getPeriodsFromFilters } from '../../util/analytics.js'
 import usePrevious from '../../hooks/usePrevious.js'
 import { Radio, RadioGroup } from '../core/index.js'
+import { getRelativePeriodsDetails } from '@dhis2/analytics'
+
+const countPeriods = (periods) => {
+    const periodsDetails = getRelativePeriodsDetails()
+    console.log('periodsDetails', periodsDetails)
+
+    const total_v1 = periods.reduce(
+        (sum, period) =>
+            sum +
+            (periodsDetails[period.id] !== undefined
+                ? periodsDetails[period.id].duration
+                : 1),
+        0
+    )
+
+    const durationByType = periods.reduce((acc, period) => {
+        console.log('🚀 ~ test ~ period:', period)
+        const periodDetails = periodsDetails[period.id]
+        if (acc['FIXED_PERIOD'] === undefined) {
+            acc['FIXED_PERIOD'] = {
+                any: 0,
+            }
+        }
+        if (periodDetails === undefined) {
+            acc['FIXED_PERIOD'].any += 1
+            return acc
+        }
+        const type = periodDetails.type
+        if (acc[type] === undefined) {
+            acc[type] = {
+                first: 0,
+                last: 0,
+            }
+        }
+        acc[type].first = Math.max(acc[type].first, 1 + periodDetails.offset)
+        acc[type].last = Math.max(
+            acc[type].last,
+            periodDetails.duration - (1 + periodDetails.offset)
+        )
+        return acc
+    }, {})
+
+    const sumObjectValues = (obj) =>
+        Object.values(obj).reduce((sum, value) => {
+            if (typeof value === 'object') {
+                return sum + sumObjectValues(value)
+            } else if (typeof value === 'number') {
+                return sum + value
+            }
+            return sum
+        }, 0)
+
+    const total_v2 = sumObjectValues(durationByType)
+
+    console.log('total_v1', total_v1)
+    console.log('total_v2', total_v2)
+    return total_v2
+}
 
 const RenderingStrategy = ({
     layerId,
     value = RENDERING_STRATEGY_SINGLE,
-    period = {},
+    periods = [],
     onChange,
 }) => {
     const hasOtherLayers = useSelector(
@@ -31,56 +90,83 @@ const RenderingStrategy = ({
                     layer.id !== layerId
             )
     )
-    const prevPeriod = usePrevious(period)
+    const hasTooManyPeriods = useSelector(({ layerEdit }) => {
+        console.log('layerEdit', layerEdit)
+        const periods = getPeriodsFromFilters(layerEdit.filters)
+        console.log('periods', periods)
+        return countPeriods(periods) > MULTIMAP_MAX_PERIODS
+    })
+
+    const prevPeriods = usePrevious(periods)
 
     useEffect(() => {
-        if (period !== prevPeriod) {
+        if (periods !== prevPeriods) {
             if (
-                singleMapPeriods.includes(period.id) &&
+                countPeriods(periods) < MULTIMAP_MIN_PERIODS &&
                 value !== RENDERING_STRATEGY_SINGLE
             ) {
                 onChange(RENDERING_STRATEGY_SINGLE)
             } else if (
-                invalidSplitViewPeriods.includes(period.id) &&
+                countPeriods(periods) > MULTIMAP_MAX_PERIODS &&
                 value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
             ) {
-                // TODO: Switch to 'timeline' when we support it
                 onChange(RENDERING_STRATEGY_SINGLE)
             }
         }
-    }, [value, period, prevPeriod, onChange])
+    }, [value, periods, prevPeriods, onChange])
 
-    if (singleMapPeriods.includes(period.id)) {
-        return null
+    let helpText = []
+
+    if (countPeriods(periods) < MULTIMAP_MIN_PERIODS) {
+        helpText.push(
+            i18n.t('Select ') +
+                MULTIMAP_MIN_PERIODS +
+                i18n.t(
+                    ' or more periods to enable timeline or split map views.'
+                )
+        )
     }
-
-    let helpText
-
     if (hasOtherTimelineLayers) {
-        helpText = i18n.t('Only one timeline is allowed.')
-    } else if (hasOtherLayers) {
-        helpText = i18n.t('Remove other layers to enable split map views.')
+        helpText.push(i18n.t('Only one timeline is allowed.'))
     }
+    if (hasOtherLayers) {
+        helpText.push(i18n.t('Remove other layers to enable split map views.'))
+    }
+    if (hasTooManyPeriods) {
+        helpText.push(
+            i18n.t('Only up to ') +
+                MULTIMAP_MAX_PERIODS +
+                i18n.t(' periods can be selected to enable split map views.')
+        )
+    }
+    helpText = helpText.join(' ')
 
     return (
         <RadioGroup
-            label={i18n.t('Display periods')}
+            label={i18n.t('Period display mode')}
             value={value}
             onChange={onChange}
             helpText={helpText}
+            display={'row'}
+            boldLabel={true}
+            compact={true}
         >
-            <Radio value="SINGLE" label={i18n.t('Single (aggregate)')} />
+            <Radio value="SINGLE" label={i18n.t('Single (combine periods)')} />
             <Radio
                 value="TIMELINE"
                 label={i18n.t('Timeline')}
-                disabled={hasOtherTimelineLayers}
+                disabled={
+                    countPeriods(periods) < MULTIMAP_MIN_PERIODS ||
+                    hasOtherTimelineLayers
+                }
             />
             <Radio
                 value="SPLIT_BY_PERIOD"
                 label={i18n.t('Split map views')}
                 disabled={
-                    hasOtherLayers ||
-                    invalidSplitViewPeriods.includes(period.id)
+                    countPeriods(periods) < MULTIMAP_MIN_PERIODS ||
+                    hasTooManyPeriods ||
+                    hasOtherLayers
                 }
             />
         </RadioGroup>
@@ -90,7 +176,7 @@ const RenderingStrategy = ({
 RenderingStrategy.propTypes = {
     onChange: PropTypes.func.isRequired,
     layerId: PropTypes.string,
-    period: PropTypes.object,
+    periods: PropTypes.array,
     value: PropTypes.string,
 }
 

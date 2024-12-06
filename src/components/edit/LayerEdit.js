@@ -9,11 +9,12 @@ import {
     ButtonStrip,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
 import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
 import EventDialog from './event/EventDialog.js'
 import FacilityDialog from './FacilityDialog.js'
@@ -72,6 +73,8 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         }
     }
 
+    useKeyDown('Escape', cancelLayer)
+
     if (!layer) {
         return null
     }
@@ -94,7 +97,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         : i18n.t('Add new {{name}} layer', { name })
 
     return (
-        <Modal position="middle" dataTest="layeredit">
+        <Modal position="middle" dataTest="layeredit" large>
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <div className={styles.content}>

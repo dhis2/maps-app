@@ -140,16 +140,26 @@ class ThematicLayer extends Layer {
             periods,
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
         } = this.props
+        console.log('🚀 ~ ThematicLayer ~ setPeriod ~ periods:', periods)
+        console.log('🚀 ~ ThematicLayer ~ setPeriod ~ period:', period)
 
         if (!period && !periods) {
             return
+        }
+
+        let sortedPeriods = []
+        if (periods) {
+            sortedPeriods = periods.sort((a, b) => b.level - a.level)
+            sortedPeriods = periods.sort(
+                (a, b) => new Date(a.startDate) - new Date(b.startDate)
+            )
         }
 
         const initialPeriod = {
             period:
                 renderingStrategy === RENDERING_STRATEGY_SINGLE
                     ? null
-                    : period || periods[0],
+                    : period || sortedPeriods[0],
         }
 
         // setPeriod without callback is called from the constructor (unmounted)

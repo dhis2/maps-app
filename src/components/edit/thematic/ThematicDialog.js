@@ -1,4 +1,6 @@
+import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -11,7 +13,9 @@ import {
     setNoDataColor,
     setOperand,
     setOrgUnits,
-    setPeriod,
+    setPeriods,
+    setStartDate,
+    setEndDate,
     setPeriodType,
     setRenderingStrategy,
     setProgram,
@@ -26,12 +30,13 @@ import {
 } from '../../../constants/layers.js'
 import {
     RELATIVE_PERIODS,
+    PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
 import {
     getDataItemFromColumns,
     getOrgUnitsFromRows,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
@@ -49,11 +54,7 @@ import DimensionFilter from '../../dimensions/DimensionFilter.js'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.js'
 import IndicatorSelect from '../../indicator/IndicatorSelect.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
-import PeriodSelect from '../../periods/PeriodSelect.js'
-import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
 import RenderingStrategy from '../../periods/RenderingStrategy.js'
-import StartEndDates from '../../periods/StartEndDates.js'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import Labels from '../shared/Labels.js'
@@ -64,6 +65,7 @@ import NoDataColor from './NoDataColor.js'
 import RadiusSelect, { isValidRadius } from './RadiusSelect.js'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.js'
 import ValueTypeSelect from './ValueTypeSelect.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 
 class ThematicDialog extends Component {
     static propTypes = {
@@ -75,8 +77,8 @@ class ThematicDialog extends Component {
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
         setOrgUnits: PropTypes.func.isRequired,
-        setPeriod: PropTypes.func.isRequired,
         setPeriodType: PropTypes.func.isRequired,
+        setPeriods: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
@@ -121,12 +123,25 @@ class ThematicDialog extends Component {
             startDate,
             systemSettings,
             endDate,
-            setPeriod,
+            setPeriods,
+            setPeriodType,
             setOrgUnits,
         } = this.props
 
+        console.log(
+            '🚀 ~ componentDidMount ~ periodType:',
+            this.props.periodType
+        )
+        console.log('🚀 ~ componentDidMount ~ filters:', this.props.filters)
+        console.log('🚀 ~ componentDidMount ~ startDate:', startDate)
+        console.log('🚀 ~ componentDidMount ~ endDate:', endDate)
+
         const dataItem = getDataItemFromColumns(columns)
-        const period = getPeriodFromFilters(filters)
+        const periods = getPeriodsFromFilters(filters)
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ periods:',
+            periods
+        )
 
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
@@ -147,17 +162,46 @@ class ThematicDialog extends Component {
             }
         }
 
+        const hasDate =
+            startDate !== undefined &&
+            startDate !== '' &&
+            endDate !== undefined &&
+            endDate !== ''
+        console.log(
+            '🚀 ~ ThematicDialog ~ componentDidMount ~ hasDate:',
+            hasDate
+        )
+
+        if (hasDate) {
+            console.log(
+                '🚀 ~ componentDidMount ~ setPeriodType HERE (START_END_DATES)'
+            )
+            const keepPeriod = false
+            setPeriodType({ value: START_END_DATES }, keepPeriod)
+        } else {
+            console.log(
+                '🚀 ~ componentDidMount ~ setPeriodType HERE (PREDEFINED_PERIODS)'
+            )
+            const keepPeriod = true
+            setPeriodType({ value: PREDEFINED_PERIODS }, keepPeriod)
+        }
+
         // Set default period from system settings
         if (
-            !period &&
-            !startDate &&
-            !endDate &&
+            periods?.length == 0 &&
+            !hasDate &&
             defaultPeriod &&
             isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
-            setPeriod({
-                id: defaultPeriod,
-            })
+            console.log('🚀 ~ componentDidMount ~ setPeriods HERE')
+            console.log('getRelativePeriodsName()', getRelativePeriodsName())
+            const defaultPeriods = [
+                {
+                    id: defaultPeriod,
+                    name: getRelativePeriodsName()[defaultPeriod],
+                },
+            ]
+            setPeriods(defaultPeriods)
         }
 
         // Set default org unit level
@@ -180,6 +224,9 @@ class ThematicDialog extends Component {
             columns,
             periodType,
             renderingStrategy,
+            setPeriods,
+            setStartDate,
+            setEndDate,
             setClassification,
             setLegendSet,
             setRenderingStrategy,
@@ -189,7 +236,7 @@ class ThematicDialog extends Component {
 
         // Set rendering strategy to single if not relative period
         if (
-            periodType !== RELATIVE_PERIODS &&
+            periodType !== PREDEFINED_PERIODS &&
             renderingStrategy !== RENDERING_STRATEGY_SINGLE
         ) {
             setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
@@ -213,11 +260,35 @@ class ThematicDialog extends Component {
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate())
         }
+
+        if (periodType !== prev.periodType) {
+            switch (periodType) {
+                case PREDEFINED_PERIODS:
+                    // !TODO Backup Start-End dates
+                    // Remove Start-End dates
+                    // !TODO Restore Predefined periods backup
+                    console.log(
+                        '🚀 ~ ThematicDialog ~ componentDidUpdate ~ case PREDEFINED_PERIODS'
+                    )
+                    setStartDate('')
+                    setEndDate('')
+                    break
+                case START_END_DATES:
+                    // !TODO Backup Predefined periods
+                    // Remove Predefined periods
+                    // !TODO Restore Start-End dates backup
+                    console.log(
+                        '🚀 ~ ThematicDialog ~ componentDidUpdate ~ case START_END_DATES'
+                    )
+                    setPeriods([])
+                    break
+            }
+        }
     }
 
     render() {
         const {
-            // layer options
+            // Layer options
             columns,
             dataElementGroup,
             filters,
@@ -243,7 +314,7 @@ class ThematicDialog extends Component {
             setIndicatorGroup,
             setNoDataColor,
             setOperand,
-            setPeriod,
+            setPeriods,
             setPeriodType,
             setRenderingStrategy,
             setProgram,
@@ -261,13 +332,19 @@ class ThematicDialog extends Component {
             calculationError,
             eventDataItemError,
             programIndicatorError,
-            periodTypeError,
+            // periodTypeError,
             periodError,
             orgUnitsError,
             legendSetError,
         } = this.state
 
-        const period = getPeriodFromFilters(filters)
+        console.log('🚀 ~ render ~ periodType:', periodType)
+        console.log('🚀 ~ render ~ filters:', filters)
+        console.log('🚀 ~ render ~ startDate:', startDate)
+        console.log('🚀 ~ render ~ endDate:', endDate)
+
+        const periods = getPeriodsFromFilters(filters)
+
         const dataItem = getDataItemFromColumns(columns)
         const dimensions = getDimensionsFromFilters(filters)
 
@@ -429,51 +506,61 @@ class ThematicDialog extends Component {
                             className={styles.flexRowFlow}
                             data-test="thematicdialog-periodtab"
                         >
-                            <PeriodTypeSelect
-                                value={periodType}
-                                period={period}
-                                includeRelativePeriods={true}
-                                hiddenPeriods={systemSettings.hiddenPeriods}
-                                onChange={setPeriodType}
-                                className={styles.periodSelect}
-                                errorText={periodTypeError}
-                            />
-                            {periodType === RELATIVE_PERIODS && (
-                                <RelativePeriodSelect
-                                    period={period}
-                                    onChange={setPeriod}
-                                    className={styles.periodSelect}
-                                    errorText={periodError}
+                            <div className={styles.navigation}>
+                                <SegmentedControl
+                                    className={styles.flexRowFlow}
+                                    options={[
+                                        {
+                                            label: i18n.t(
+                                                'Choose from presets'
+                                            ),
+                                            value: PREDEFINED_PERIODS,
+                                        },
+                                        {
+                                            label: i18n.t(
+                                                'Define start - end dates'
+                                            ),
+                                            value: START_END_DATES,
+                                        },
+                                    ]}
+                                    selected={periodType}
+                                    onChange={setPeriodType}
+                                ></SegmentedControl>
+                            </div>
+                            {periodType === PREDEFINED_PERIODS && (
+                                <PeriodDimension
+                                    selectedPeriods={periods}
+                                    onSelect={(e) => {
+                                        setPeriods(e.items)
+                                    }}
+                                    excludedPeriodTypes={
+                                        systemSettings.hiddenPeriods
+                                    }
+                                    height={'250px'}
                                 />
                             )}
-                            {((periodType &&
-                                periodType !== RELATIVE_PERIODS &&
-                                periodType !== START_END_DATES) ||
-                                (!periodType && id)) && (
-                                <PeriodSelect
-                                    periodType={periodType}
-                                    periodsSettings={periodsSettings}
-                                    period={period}
-                                    onChange={setPeriod}
-                                    className={styles.periodSelect}
-                                    errorText={periodError}
-                                />
-                            )}
-                            {periodType === START_END_DATES && (
-                                <StartEndDates
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    className={styles.periodSelect}
-                                    errorText={periodError}
-                                />
-                            )}
-                            {periodType === RELATIVE_PERIODS && (
+                            {periodType === PREDEFINED_PERIODS && (
                                 <RenderingStrategy
                                     value={renderingStrategy}
-                                    period={period}
+                                    periods={periods}
                                     layerId={id}
                                     onChange={setRenderingStrategy}
                                 />
+                            )}
+                            {periodType === START_END_DATES && (
+                                <StartEndDate
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    setStartDate={setStartDate}
+                                    setEndDate={setEndDate}
+                                    periodsSettings={periodsSettings}
+                                />
+                            )}
+                            {periodError && (
+                                <div key="error" className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {periodError}
+                                </div>
                             )}
                         </div>
                     )}
@@ -549,7 +636,7 @@ class ThematicDialog extends Component {
             legendSet,
         } = this.props
         const dataItem = getDataItemFromColumns(columns)
-        const period = getPeriodFromFilters(filters)
+        const periods = getPeriodsFromFilters(filters)
 
         // Indicators
         if (valueType === dimConf.indicator.objectName) {
@@ -623,6 +710,7 @@ class ThematicDialog extends Component {
             }
         }
 
+        // Calculation
         if (valueType === dimConf.calculation.objectName && !dataItem) {
             return this.setErrorState(
                 'calculationError',
@@ -631,14 +719,24 @@ class ThematicDialog extends Component {
             )
         }
 
-        if (!period && periodType !== START_END_DATES) {
+        if (periods?.length === 0 && periodType !== START_END_DATES) {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
                 'period'
             )
         } else if (periodType === START_END_DATES) {
+            console.log(
+                '🚀 ~ ThematicDialog ~ validate ~ periodType:',
+                periodType
+            )
             const error = getStartEndDateError(startDate, endDate)
+            console.log(
+                '🚀 ~ ThematicDialog ~ validate ~ startDate:',
+                startDate
+            )
+            console.log('🚀 ~ ThematicDialog ~ validate ~ endDate:', endDate)
+            console.log('🚀 ~ ThematicDialog ~ validate ~ error:', error)
 
             if (error) {
                 return this.setErrorState('periodError', error, 'period')
@@ -681,7 +779,9 @@ export default connect(
         setNoDataColor,
         setOperand,
         setOrgUnits,
-        setPeriod,
+        setPeriods,
+        setStartDate,
+        setEndDate,
         setPeriodType,
         setRenderingStrategy,
         setProgram,
