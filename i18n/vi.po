@@ -4,13 +4,14 @@
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
+# Em Le <em.hispvietnam@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024\n"
+"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -458,13 +459,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "chứa chuỗi"
 
 msgid "is"
 msgstr "là"
 
 msgid "is not"
-msgstr ""
+msgstr "không phải"
 
 msgid "Operator"
 msgstr "Toán tử"
@@ -473,7 +474,7 @@ msgid "Date"
 msgstr "Ngày"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Xóa bộ lọc"
 
 msgid "Indicator group"
 msgstr "Nhóm chỉ số"
@@ -833,10 +834,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "Giá Trị Trung Bình"
 
 msgid "Median"
-msgstr ""
+msgstr "Trung vị"
 
 msgid "OSM Light"
 msgstr "Bản đồ ánh sáng OSM"
