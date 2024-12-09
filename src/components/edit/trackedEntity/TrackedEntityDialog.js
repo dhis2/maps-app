@@ -43,7 +43,7 @@ import {
     ColorPicker,
 } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
-import StartEndDates from '../../periods/StartEndDates.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect.js'
 import BufferRadius from '../shared/BufferRadius.js'
@@ -74,6 +74,7 @@ class TrackedEntityDialog extends Component {
         eventPointRadius: PropTypes.number,
         followUp: PropTypes.bool,
         orgUnits: PropTypes.object,
+        periodsSettings: PropTypes.object,
         program: PropTypes.object,
         programStatus: PropTypes.string,
         relatedPointColor: PropTypes.string,
@@ -148,6 +149,7 @@ class TrackedEntityDialog extends Component {
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
+            periodsSettings,
         } = this.props
 
         const {
@@ -274,10 +276,13 @@ class TrackedEntityDialog extends Component {
                     {tab === 'period' && (
                         <div className={styles.flexRowFlow}>
                             <PeriodTypeSelect />
-                            <StartEndDates
+                            <StartEndDate
                                 startDate={startDate}
                                 endDate={endDate}
                                 errorText={periodError}
+                                setStartDate={setStartDate}
+                                setEndDate={setEndDate}
+                                periodsSettings={periodsSettings}
                             />
                         </div>
                     )}

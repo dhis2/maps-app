@@ -10,6 +10,10 @@
     height: 36px;
 }
 
+.radioGroup.compact fieldset>div>div>label {
+    height: 20px;
+}
+
 .row {
     margin: var(--spacers-dp8) 0;
 }
@@ -20,4 +24,8 @@
 
 .row fieldset > div > div > label {
     margin-right: var(--spacers-dp16);
+}
+
+.boldLabel {
+    font-weight: bold;
 }

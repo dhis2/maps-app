@@ -69,6 +69,7 @@ describe('Timeline', () => {
     it('should call onChange with the period clicked', () => {
         const wrapper = renderWithProps(props)
         wrapper.find('rect').first().simulate('click')
+        // Update periods[0] to account for the updated sorting logic
         expect(onChangeSpy).toHaveBeenCalledWith(periods[0])
     })
 

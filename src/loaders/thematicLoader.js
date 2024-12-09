@@ -23,7 +23,7 @@ import {
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getValidDimensionsFromFilters,
     getDataItemFromColumns,
     getApiResponseNames,
@@ -97,7 +97,7 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
-    const period = getPeriodFromFilters(config.filters)
+    const presetPeriods = getPeriodsFromFilters(config.filters)
     const periods = getPeriodsFromMetaData(data.metaData)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const names = getApiResponseNames(data)
@@ -149,12 +149,13 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
 
     const legend = {
         title: name,
-        period: period
-            ? names[period.id] || period.id
-            : formatStartEndDate(
-                  getDateArray(config.startDate),
-                  getDateArray(config.endDate)
-              ),
+        period:
+            presetPeriods.length > 0
+                ? presetPeriods.map((pe) => names[pe.id] || pe.id).join(', ')
+                : formatStartEndDate(
+                      getDateArray(config.startDate),
+                      getDateArray(config.endDate)
+                  ),
         items: legendItems,
     }
 
@@ -349,7 +350,7 @@ const loadData = async (config, nameProperty) => {
         eventStatus,
     } = config
     const orgUnits = getOrgUnitsFromRows(rows)
-    const period = getPeriodFromFilters(filters)
+    const presetPeriods = getPeriodsFromFilters(filters)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const dataItem = getDataItemFromColumns(columns) || {}
     const coordinateField = getCoordinateField(config)
@@ -371,11 +372,18 @@ const loadData = async (config, nameProperty) => {
         .withDisplayProperty(nameProperty)
 
     if (!isSingleMap) {
-        analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
+        analyticsRequest = analyticsRequest.addPeriodDimension(
+            presetPeriods.map((pe) => pe.id)
+        )
     } else {
-        analyticsRequest = period
-            ? analyticsRequest.addPeriodFilter(period.id)
-            : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        analyticsRequest =
+            presetPeriods.length > 0
+                ? analyticsRequest.addPeriodFilter(
+                      presetPeriods.map((pe) => pe.id)
+                  )
+                : analyticsRequest
+                      .withStartDate(startDate.slice(0, 10))
+                      .withEndDate(endDate.slice(0, 10))
     }
 
     if (dimensions) {
