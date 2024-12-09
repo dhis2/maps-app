@@ -1,38 +1,27 @@
 import i18n from '@dhis2/d2-i18n'
-import {
-    Field,
-    IconArrowRight16,
-    InputField,
-    CalendarInput,
-    colors,
-} from '@dhis2/ui'
+import { Field, IconArrowRight16, CalendarInput, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { setStartDate, setEndDate } from '../../actions/layerEdit.js'
-import { DEFAULT_START_DATE, DEFAULT_END_DATE } from '../../constants/layers.js'
-import styles from './StartEndDate.module.css'
+import styles from './styles/StartEndDate.module.css'
 
 const StartEndDate = (props) => {
     const { startDate, endDate, setStartDate, setEndDate, periodsSettings } =
         props
 
-    console.log('🚀 ~ StartEndDate ~ periodsSettings:', periodsSettings)
+    const [start, setStart] = useState(startDate.slice(0, 10))
+    const [end, setEnd] = useState(endDate.slice(0, 10))
 
-    const [start, setStart] = useState(startDate)
-    const [end, setEnd] = useState(endDate)
-
-    console.log('🚀 ~ StartEndDate ~ startDate:', typeof startDate)
-    console.log('🚀 ~ StartEndDate ~ endDate:', typeof endDate)
     const hasDate = startDate !== undefined && endDate !== undefined
 
     const onStartDateChange = ({ calendarDateString: value }) => {
-        setStart(value)
-        setStartDate(value)
+        setStart(value.slice(0, 10))
+        setStartDate(value.slice(0, 10))
     }
     const onEndDateChange = ({ calendarDateString: value }) => {
-        setEnd(value)
-        setEndDate(value)
+        setEnd(value.slice(0, 10))
+        setEndDate(value.slice(0, 10))
     }
     return hasDate ? (
         <Field
@@ -67,9 +56,11 @@ const StartEndDate = (props) => {
     ) : null
 }
 StartEndDate.propTypes = {
-    startDate: PropTypes.string,
+    setEndDate: PropTypes.func.isRequired,
+    setStartDate: PropTypes.func.isRequired,
     endDate: PropTypes.string,
     periodsSettings: PropTypes.object,
+    startDate: PropTypes.string,
 }
 
 export default connect(null, { setStartDate, setEndDate })(StartEndDate)

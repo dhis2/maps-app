@@ -1,3 +1,4 @@
+import { PERIOD_TYPE_REGEX } from '@dhis2/analytics'
 import cx from 'classnames'
 import { axisBottom } from 'd3-axis'
 import { scaleTime } from 'd3-scale'
@@ -6,7 +7,6 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import timeTicks from '../../util/timeTicks.js'
 import styles from './styles/Timeline.module.css'
-import { PERIOD_TYPE_REGEX } from '@dhis2/analytics'
 
 const paddingLeft = 40
 const paddingRight = 20
@@ -74,7 +74,7 @@ const addPeriodType = (item) => {
 }
 
 const countUniqueRanks = (periods) => {
-    let periodsWithType = periods.map((item) => addPeriodType(item))
+    const periodsWithType = periods.map((item) => addPeriodType(item))
     const levels = [...new Set(periodsWithType.map((item) => item.level))]
     return levels.length
 }
@@ -137,8 +137,10 @@ class Timeline extends Component {
         return (
             <svg
                 className={`dhis2-map-timeline ${styles.timeline}`}
-                height={40 + uniqueRanks * 4}
-                bottom={24 + uniqueRanks * 4}
+                style={{
+                    height: 40 + uniqueRanks * 4,
+                    bottom: 24 + uniqueRanks * 4,
+                }}
             >
                 <g
                     onClick={this.onPlayPause}
@@ -182,7 +184,7 @@ class Timeline extends Component {
                     x={x}
                     y={item.levelRank * 4}
                     width={width}
-                    height={10} //{verticalScale(item).height}
+                    height={10}
                     onClick={() => this.onPeriodClick(item)}
                 />
             )
@@ -192,7 +194,6 @@ class Timeline extends Component {
     // Set time scale
     setTimeScale = () => {
         const { periods } = this.props
-        console.log('🚀 ~ Timeline ~ this.props:', this.props)
         const { width } = this.state
 
         if (!periods.length) {
@@ -224,7 +225,6 @@ class Timeline extends Component {
     // Set timeline axis
     setTimeAxis = () => {
         const { periodId, periods } = this.props
-        console.log('🚀 ~ Timeline ~ this.props:', this.props)
         const numPeriods =
             periods.length * (doubleTicksPeriods.includes(periodId) ? 2 : 1)
         const { width } = this.state
@@ -254,13 +254,8 @@ class Timeline extends Component {
     onPeriodClick(period) {
         // Switch to period if different
         if (period.id !== this.props.period.id) {
-            console.log(
-                '🚀 ~ Timeline ~ onPeriodClick ~ this.props:',
-                this.props
-            )
             this.props.onChange(period)
         }
-        console.log('🚀 ~ Timeline ~ onPeriodClick ~ this.props:', this.props)
 
         // Stop animation if running
         this.stop()
@@ -278,7 +273,6 @@ class Timeline extends Component {
     // Play animation
     play = () => {
         const { period, periods, onChange } = this.props
-        console.log('🚀 ~ Timeline ~ this.props:', this.props)
         let sortedPeriods
         sortedPeriods = periods.sort((a, b) => b.level - a.level)
         sortedPeriods = periods.sort(

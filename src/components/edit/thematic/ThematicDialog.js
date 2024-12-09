@@ -29,7 +29,6 @@ import {
     RENDERING_STRATEGY_SINGLE,
 } from '../../../constants/layers.js'
 import {
-    RELATIVE_PERIODS,
     PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
@@ -55,6 +54,7 @@ import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.js'
 import IndicatorSelect from '../../indicator/IndicatorSelect.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import RenderingStrategy from '../../periods/RenderingStrategy.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import Labels from '../shared/Labels.js'
@@ -65,13 +65,13 @@ import NoDataColor from './NoDataColor.js'
 import RadiusSelect, { isValidRadius } from './RadiusSelect.js'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.js'
 import ValueTypeSelect from './ValueTypeSelect.js'
-import StartEndDate from '../../periods/StartEndDate.js'
 
 class ThematicDialog extends Component {
     static propTypes = {
         setClassification: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
         setDataItem: PropTypes.func.isRequired,
+        setEndDate: PropTypes.func.isRequired,
         setIndicatorGroup: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
         setNoDataColor: PropTypes.func.isRequired,
@@ -81,6 +81,7 @@ class ThematicDialog extends Component {
         setPeriods: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
+        setStartDate: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
@@ -128,20 +129,8 @@ class ThematicDialog extends Component {
             setOrgUnits,
         } = this.props
 
-        console.log(
-            '🚀 ~ componentDidMount ~ periodType:',
-            this.props.periodType
-        )
-        console.log('🚀 ~ componentDidMount ~ filters:', this.props.filters)
-        console.log('🚀 ~ componentDidMount ~ startDate:', startDate)
-        console.log('🚀 ~ componentDidMount ~ endDate:', endDate)
-
         const dataItem = getDataItemFromColumns(columns)
         const periods = getPeriodsFromFilters(filters)
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ periods:',
-            periods
-        )
 
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
@@ -167,21 +156,11 @@ class ThematicDialog extends Component {
             startDate !== '' &&
             endDate !== undefined &&
             endDate !== ''
-        console.log(
-            '🚀 ~ ThematicDialog ~ componentDidMount ~ hasDate:',
-            hasDate
-        )
 
         if (hasDate) {
-            console.log(
-                '🚀 ~ componentDidMount ~ setPeriodType HERE (START_END_DATES)'
-            )
             const keepPeriod = false
             setPeriodType({ value: START_END_DATES }, keepPeriod)
         } else {
-            console.log(
-                '🚀 ~ componentDidMount ~ setPeriodType HERE (PREDEFINED_PERIODS)'
-            )
             const keepPeriod = true
             setPeriodType({ value: PREDEFINED_PERIODS }, keepPeriod)
         }
@@ -193,8 +172,6 @@ class ThematicDialog extends Component {
             defaultPeriod &&
             isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
-            console.log('🚀 ~ componentDidMount ~ setPeriods HERE')
-            console.log('getRelativePeriodsName()', getRelativePeriodsName())
             const defaultPeriods = [
                 {
                     id: defaultPeriod,
@@ -267,9 +244,6 @@ class ThematicDialog extends Component {
                     // !TODO Backup Start-End dates
                     // Remove Start-End dates
                     // !TODO Restore Predefined periods backup
-                    console.log(
-                        '🚀 ~ ThematicDialog ~ componentDidUpdate ~ case PREDEFINED_PERIODS'
-                    )
                     setStartDate('')
                     setEndDate('')
                     break
@@ -277,9 +251,6 @@ class ThematicDialog extends Component {
                     // !TODO Backup Predefined periods
                     // Remove Predefined periods
                     // !TODO Restore Start-End dates backup
-                    console.log(
-                        '🚀 ~ ThematicDialog ~ componentDidUpdate ~ case START_END_DATES'
-                    )
                     setPeriods([])
                     break
             }
@@ -337,11 +308,6 @@ class ThematicDialog extends Component {
             orgUnitsError,
             legendSetError,
         } = this.state
-
-        console.log('🚀 ~ render ~ periodType:', periodType)
-        console.log('🚀 ~ render ~ filters:', filters)
-        console.log('🚀 ~ render ~ startDate:', startDate)
-        console.log('🚀 ~ render ~ endDate:', endDate)
 
         const periods = getPeriodsFromFilters(filters)
 
@@ -726,18 +692,7 @@ class ThematicDialog extends Component {
                 'period'
             )
         } else if (periodType === START_END_DATES) {
-            console.log(
-                '🚀 ~ ThematicDialog ~ validate ~ periodType:',
-                periodType
-            )
             const error = getStartEndDateError(startDate, endDate)
-            console.log(
-                '🚀 ~ ThematicDialog ~ validate ~ startDate:',
-                startDate
-            )
-            console.log('🚀 ~ ThematicDialog ~ validate ~ endDate:', endDate)
-            console.log('🚀 ~ ThematicDialog ~ validate ~ error:', error)
-
             if (error) {
                 return this.setErrorState('periodError', error, 'period')
             }

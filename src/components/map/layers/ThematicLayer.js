@@ -140,8 +140,6 @@ class ThematicLayer extends Layer {
             periods,
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
         } = this.props
-        console.log('🚀 ~ ThematicLayer ~ setPeriod ~ periods:', periods)
-        console.log('🚀 ~ ThematicLayer ~ setPeriod ~ period:', period)
 
         if (!period && !periods) {
             return

@@ -10,8 +10,8 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import earthEngineLayers from '../../constants/earthEngineLayers/index.js'
-import useManagedLayerSourcesStore from '../../hooks/useManagedLayerSourcesStore.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
+import useManagedLayerSourcesStore from '../../hooks/useManagedLayerSourcesStore.js'
 import LayerSource from './LayerSource.js'
 import styles from './styles/ManageLayerSourcesModal.module.css'
 

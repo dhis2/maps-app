@@ -56,11 +56,11 @@ const RadioGroup = ({
 
 RadioGroup.propTypes = {
     onChange: PropTypes.func.isRequired,
+    boldLabel: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.node),
+    compact: PropTypes.bool,
     dataTest: PropTypes.string,
     display: PropTypes.string,
-    boldLabel: PropTypes.bool,
-    compact: PropTypes.bool,
     helpText: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

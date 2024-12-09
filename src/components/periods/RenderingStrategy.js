@@ -1,3 +1,4 @@
+import { getRelativePeriodsDetails } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
@@ -11,14 +12,12 @@ import {
     MULTIMAP_MIN_PERIODS,
     MULTIMAP_MAX_PERIODS,
 } from '../../constants/periods.js'
-import { getPeriodsFromFilters } from '../../util/analytics.js'
 import usePrevious from '../../hooks/usePrevious.js'
+import { getPeriodsFromFilters } from '../../util/analytics.js'
 import { Radio, RadioGroup } from '../core/index.js'
-import { getRelativePeriodsDetails } from '@dhis2/analytics'
 
 const countPeriods = (periods) => {
     const periodsDetails = getRelativePeriodsDetails()
-    console.log('periodsDetails', periodsDetails)
 
     const total_v1 = periods.reduce(
         (sum, period) =>
@@ -30,7 +29,6 @@ const countPeriods = (periods) => {
     )
 
     const durationByType = periods.reduce((acc, period) => {
-        console.log('🚀 ~ test ~ period:', period)
         const periodDetails = periodsDetails[period.id]
         if (acc['FIXED_PERIOD'] === undefined) {
             acc['FIXED_PERIOD'] = {
@@ -68,8 +66,6 @@ const countPeriods = (periods) => {
 
     const total_v2 = sumObjectValues(durationByType)
 
-    console.log('total_v1', total_v1)
-    console.log('total_v2', total_v2)
     return total_v2
 }
 
@@ -91,9 +87,7 @@ const RenderingStrategy = ({
             )
     )
     const hasTooManyPeriods = useSelector(({ layerEdit }) => {
-        console.log('layerEdit', layerEdit)
         const periods = getPeriodsFromFilters(layerEdit.filters)
-        console.log('periods', periods)
         return countPeriods(periods) > MULTIMAP_MAX_PERIODS
     })
 
@@ -119,11 +113,12 @@ const RenderingStrategy = ({
 
     if (countPeriods(periods) < MULTIMAP_MIN_PERIODS) {
         helpText.push(
-            i18n.t('Select ') +
-                MULTIMAP_MIN_PERIODS +
-                i18n.t(
-                    ' or more periods to enable timeline or split map views.'
-                )
+            i18n.t(
+                'Select {{number}} or more periods to enable timeline or split map views.',
+                {
+                    number: MULTIMAP_MIN_PERIODS,
+                }
+            )
         )
     }
     if (hasOtherTimelineLayers) {
@@ -134,9 +129,12 @@ const RenderingStrategy = ({
     }
     if (hasTooManyPeriods) {
         helpText.push(
-            i18n.t('Only up to ') +
-                MULTIMAP_MAX_PERIODS +
-                i18n.t(' periods can be selected to enable split map views.')
+            i18n.t(
+                'Only up to {{number}} periods can be selected to enable split map views.',
+                {
+                    number: MULTIMAP_MAX_PERIODS,
+                }
+            )
         )
     }
     helpText = helpText.join(' ')

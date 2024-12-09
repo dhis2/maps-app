@@ -47,7 +47,7 @@ import FilterGroup from '../../dataItem/filter/FilterGroup.js'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
-import StartEndDates from '../../periods/StartEndDates.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import ProgramStageSelect from '../../program/ProgramStageSelect.js'
 import BufferRadius from '../shared/BufferRadius.js'
@@ -82,6 +82,7 @@ class EventDialog extends Component {
         legendSet: PropTypes.object,
         method: PropTypes.number,
         orgUnits: PropTypes.object,
+        periodsSettings: PropTypes.object,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
             trackedEntityType: PropTypes.object,
@@ -174,6 +175,7 @@ class EventDialog extends Component {
             programStage,
             startDate,
             legendSet,
+            periodsSettings,
         } = this.props
 
         const {
@@ -272,10 +274,13 @@ class EventDialog extends Component {
                                 className={styles.select}
                             />
                             {period && period.id === START_END_DATES && (
-                                <StartEndDates
+                                <StartEndDate
                                     startDate={startDate}
                                     endDate={endDate}
-                                    errorText={periodError}
+                                    //errorText={periodError}
+                                    setStartDate={setStartDate}
+                                    setEndDate={setEndDate}
+                                    periodsSettings={periodsSettings}
                                 />
                             )}
                         </div>

@@ -24,7 +24,6 @@ import {
 import {
     getOrgUnitsFromRows,
     getPeriodsFromFilters,
-    getPeriodFromFilters,
     getValidDimensionsFromFilters,
     getDataItemFromColumns,
     getApiResponseNames,
@@ -98,18 +97,11 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
-    const period = getPeriodFromFilters(config.filters)
-    console.log('🚀 ~ thematicLoader ~ period:', period)
-    const periodx = getPeriodsFromFilters(config.filters)
-    console.log('🚀 ~ thematicLoader ~ periodx:', periodx)
-    console.log('🚀 ~ thematicLoader ~ data.metaData:', data.metaData)
+    const presetPeriods = getPeriodsFromFilters(config.filters)
     const periods = getPeriodsFromMetaData(data.metaData)
-    console.log('🚀 ~ thematicLoader ~ periods:', periods)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const names = getApiResponseNames(data)
-    // TODO Handle multiple maps
     const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
-    console.log('🚀 ~ thematicLoader ~ valuesByPeriod:', valuesByPeriod)
     const valueById = getValueById(data)
     const valueFeatures = noDataColor
         ? features
@@ -157,15 +149,15 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
 
     const legend = {
         title: name,
-        period: period
-            ? periodx.map((pe) => names[pe.id] || pe.id).join(', ')
-            : formatStartEndDate(
-                  getDateArray(config.startDate),
-                  getDateArray(config.endDate)
-              ),
+        period:
+            presetPeriods.length > 0
+                ? presetPeriods.map((pe) => names[pe.id] || pe.id).join(', ')
+                : formatStartEndDate(
+                      getDateArray(config.startDate),
+                      getDateArray(config.endDate)
+                  ),
         items: legendItems,
     }
-    console.log('🚀 ~ thematicLoader ~ names:', names)
 
     if (dimensions && dimensions.length) {
         legend.filters = dimensions.map(
@@ -271,7 +263,6 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
         legend.items.push({ color: noDataColor, name: i18n.t('No data') })
     }
-    console.log('🚀 ~ thematicLoader ~ legend:', legend)
 
     return {
         ...config,
@@ -358,13 +349,8 @@ const loadData = async (config, nameProperty) => {
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         eventStatus,
     } = config
-    console.log('🚀 ~ loadData ~ endDate:', endDate)
-    console.log('🚀 ~ loadData ~ startDate:', startDate)
     const orgUnits = getOrgUnitsFromRows(rows)
-    const period = getPeriodFromFilters(filters)
-    console.log('🚀 ~ loadData ~ period:', period)
-    const periodx = getPeriodsFromFilters(filters)
-    console.log('🚀 ~ loadData ~ periodx:', periodx)
+    const presetPeriods = getPeriodsFromFilters(filters)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const dataItem = getDataItemFromColumns(columns) || {}
     const coordinateField = getCoordinateField(config)
@@ -386,15 +372,18 @@ const loadData = async (config, nameProperty) => {
         .withDisplayProperty(nameProperty)
 
     if (!isSingleMap) {
-        // TODO Handle multiple maps
         analyticsRequest = analyticsRequest.addPeriodDimension(
-            periodx.map((pe) => pe.id)
+            presetPeriods.map((pe) => pe.id)
         )
     } else {
         analyticsRequest =
-            periodx.length > 0
-                ? analyticsRequest.addPeriodFilter(periodx.map((pe) => pe.id))
-                : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+            presetPeriods.length > 0
+                ? analyticsRequest.addPeriodFilter(
+                      presetPeriods.map((pe) => pe.id)
+                  )
+                : analyticsRequest
+                      .withStartDate(startDate.slice(0, 10))
+                      .withEndDate(endDate.slice(0, 10))
     }
 
     if (dimensions) {
