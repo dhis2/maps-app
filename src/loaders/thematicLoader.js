@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex, curry } from 'lodash/fp'
 import {
@@ -41,7 +40,29 @@ import {
 import { LEGEND_SET_QUERY } from '../util/requests.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async ({ config, engine, nameProperty }) => {
+const GEOFEATURES_QUERY = {
+    geoFeatures: {
+        resource: 'geoFeatures',
+        params: ({
+            ou,
+            displayProperty,
+            includeGroupSets,
+            coordinateField,
+        }) => ({
+            ou,
+            displayProperty,
+            includeGroupSets,
+            coordinateField,
+        }),
+    },
+}
+
+const thematicLoader = async ({
+    config,
+    engine,
+    analyticsEngine,
+    keyAnalysisDisplayProperty,
+}) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -57,8 +78,15 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const coordinateField = getCoordinateField(config)
 
     let loadError
+    const alerts = []
 
-    const response = await loadData(config, nameProperty).catch((err) => {
+    const response = await loadData({
+        config,
+        keyAnalysisDisplayProperty,
+        engine,
+        analyticsEngine,
+        alerts,
+    }).catch((err) => {
         loadError = err
 
         if (err.message) {
@@ -110,7 +138,6 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     let minValue = orderedValues[0]
     let maxValue = orderedValues[orderedValues.length - 1]
     const name = names[dataItem.id]
-    const alerts = []
 
     let legendSet = config.legendSet
 
@@ -334,7 +361,13 @@ const getOrderedValues = (data) => {
 }
 
 // Load features and data values from api
-const loadData = async (config, nameProperty) => {
+const loadData = async ({
+    config,
+    keyAnalysisDisplayProperty,
+    engine,
+    analyticsEngine,
+    alerts,
+}) => {
     const {
         rows,
         columns,
@@ -355,7 +388,6 @@ const loadData = async (config, nameProperty) => {
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
-    const d2 = await getD2()
 
     const geoFeaturesParams = {}
     const orgUnitParams = orgUnits.map((item) => item.id)
@@ -365,10 +397,10 @@ const loadData = async (config, nameProperty) => {
         dataDimension += '.REPORTING_RATE'
     }
 
-    let analyticsRequest = new d2.analytics.request()
+    let analyticsRequest = new analyticsEngine.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(nameProperty)
+        .withDisplayProperty(keyAnalysisDisplayProperty)
 
     if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
@@ -412,32 +444,75 @@ const loadData = async (config, nameProperty) => {
         })
     }
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(nameProperty)
+    const rawData = await analyticsEngine.aggregate.get(analyticsRequest)
 
-    // Features request
-    const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)
+    const ouParam = `ou:${orgUnitParams.join(';')}`
+    const geoFeatureData = await engine.query(
+        GEOFEATURES_QUERY,
+        {
+            variables: {
+                ou: ouParam,
+                displayProperty: keyAnalysisDisplayProperty,
+                userOrgUnit: geoFeaturesParams.userOrgUnit, // TODO
+            },
+        },
+        {
+            onError: (error) => {
+                alerts.push({
+                    critical: true,
+                    code: ERROR_CRITICAL,
+                    message: i18n.t('Error: {{message}}', {
+                        message: error.message || i18n.t('an error occurred'),
+                        nsSeparator: ';',
+                    }),
+                })
+            },
+        }
+    )
 
-    // Data request
-    const dataReq = d2.analytics.aggregate.get(analyticsRequest)
+    const mainFeatures = geoFeatureData?.geoFeatures
+        ? toGeoJson(geoFeatureData.geoFeatures)
+        : null
 
-    const requests = [orgUnitReq, dataReq]
+    let associatedGeometries
 
     if (coordinateField) {
         // Associated geometry request
-        requests.push(
-            featuresRequest
-                .getAll({
-                    ...geoFeaturesParams,
+        const coordFieldData = await engine.query(
+            GEOFEATURES_QUERY,
+            {
+                variables: {
+                    ou: ouParam,
+                    displayProperty: keyAnalysisDisplayProperty,
+                    userOrgUnit: geoFeaturesParams.userOrgUnit,
                     coordinateField: coordinateField.id,
-                })
-                .then(toGeoJson)
+                },
+            },
+            {
+                onError: (error) => {
+                    alerts.push({
+                        critical: true,
+                        code: ERROR_CRITICAL,
+                        message: i18n.t('Error: {{message}}', {
+                            message:
+                                error.message || i18n.t('an error occurred'),
+                            nsSeparator: ';',
+                        }),
+                    })
+                },
+            }
         )
+
+        associatedGeometries = coordFieldData?.geoFeatures
+            ? toGeoJson(coordFieldData.geoFeatures)
+            : null
     }
 
-    // Return promise with all requests
-    return Promise.all(requests)
+    return [
+        mainFeatures,
+        new analyticsEngine.response(rawData),
+        associatedGeometries,
+    ]
 }
 
 export default thematicLoader
