@@ -4,13 +4,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2024
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
+# Em Le <em.hispvietnam@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024\n"
+"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,13 +137,13 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "chứa chuỗi"
 
 msgid "is"
 msgstr "là"
 
 msgid "is not"
-msgstr ""
+msgstr "không phải"
 
 msgid "Operator"
 msgstr "Toán tử"
@@ -566,7 +567,7 @@ msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Xóa bộ lọc"
 
 msgid "Group set"
 msgstr "Nhóm tập hợp"
@@ -736,6 +737,9 @@ msgstr "Đơn Vị Cha"
 
 msgid "No data"
 msgstr "Không có dữ liệu"
+
+msgid "Could not retrieve tracked entity data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Lần cập nhật cuối"
@@ -940,7 +944,7 @@ msgid "End date"
 msgstr "Ngày kết thúc"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Không có cho ngoại tuyến"
 
 msgid "Program indicator"
 msgstr "Quản lý Chỉ số chương trình"
@@ -985,10 +989,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "Giá Trị Trung Bình"
 
 msgid "Median"
-msgstr ""
+msgstr "Trung vị"
 
 msgid "Std dev"
 msgstr ""
