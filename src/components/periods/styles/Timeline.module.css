@@ -3,7 +3,6 @@
     width: calc(100% - 20px);
     position: absolute;
     left: 10px;
-    bottom: 32px;
     z-index: 1000px;
     user-select: none;
 }

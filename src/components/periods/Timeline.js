@@ -1,10 +1,13 @@
-import { PERIOD_TYPE_REGEX } from '@dhis2/analytics'
 import cx from 'classnames'
 import { axisBottom } from 'd3-axis'
 import { scaleTime } from 'd3-scale'
 import { select } from 'd3-selection'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import {
+    getPeriodTypeFromId,
+    getPeriodLevelFromPeriodType,
+} from '../../util/periods.js'
 import timeTicks from '../../util/timeTicks.js'
 import styles from './styles/Timeline.module.css'
 
@@ -15,86 +18,48 @@ const delay = 1500
 const playBtn = <path d="M8 5v14l11-7z" />
 const pauseBtn = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
 const doubleTicksPeriods = ['LAST_6_BIMONTHS', 'BIMONTHS_THIS_YEAR']
+const rectHeight = 7
+const rectOffset = 10
 
-const addPeriodType = (item) => {
-    const periodTypes = Object.keys(PERIOD_TYPE_REGEX)
-    let i = 0
-    let type = undefined
-    let match = undefined
-
-    while (i < periodTypes.length && !match) {
-        type = periodTypes[i]
-        match = item.id.match(PERIOD_TYPE_REGEX[type])
-        i++
-    }
-
-    let level
-    switch (type) {
-        case 'DAILY':
-            level = 0
-            break
-        case 'WEEKLY':
-        case 'WEEKLYWED':
-        case 'WEEKLYTHU':
-        case 'WEEKLYSAT':
-        case 'WEEKLYSUN':
-            level = 1
-            break
-        case 'BIWEEKLY':
-            level = 2
-            break
-        case 'MONTHLY':
-            level = 3
-            break
-        case 'BIMONTHLY':
-            level = 4
-            break
-        case 'QUARTERLY':
-            level = 5
-            break
-        case 'SIXMONTHLY':
-        case 'SIXMONTHLYAPR':
-            level = 6
-            break
-        case 'YEARLY':
-        case 'FYNOV':
-        case 'FYOCT':
-        case 'FYJUL':
-        case 'FYAPR':
-            level = 7
-            break
-        default:
-            level = 8
-    }
-
-    item.type = type
-    item.level = level
-
+const addPeriodTypeAndLevel = (item) => {
+    item.type = getPeriodTypeFromId(item.id)
+    item.level = getPeriodLevelFromPeriodType(item.type)
     return item
 }
 
+const listLevelsFromPeriods = (periodsWithType) => [
+    ...new Set(periodsWithType.map((item) => item.level)),
+]
+
 const countUniqueRanks = (periods) => {
-    const periodsWithType = periods.map((item) => addPeriodType(item))
-    const levels = [...new Set(periodsWithType.map((item) => item.level))]
-    return levels.length
+    const periodsWithType = periods.map((item) => addPeriodTypeAndLevel(item))
+    return listLevelsFromPeriods(periodsWithType).length
 }
 
-const sortPeriods = (periods) => {
-    let periodsWithType = periods.map((item) => addPeriodType(item))
+const sortPeriodsByLevelRank = (periods) => {
+    let periodsWithDetails
+    periodsWithDetails = periods.map((item) => addPeriodTypeAndLevel(item))
 
-    const levels = [...new Set(periodsWithType.map((item) => item.level))].sort(
+    const sortedLevels = listLevelsFromPeriods(periodsWithDetails).sort(
         (a, b) => b - a
     )
-
-    periodsWithType = periodsWithType.map((item) => ({
+    periodsWithDetails = periodsWithDetails.map((item) => ({
         ...item,
-        levelRank: levels.indexOf(item.level),
+        levelRank: sortedLevels.indexOf(item.level),
     }))
 
-    const sortedPeriods = periodsWithType.sort(
+    const sortedPeriods = periodsWithDetails.sort(
         (a, b) => a.levelRank - b.levelRank
     )
+    return sortedPeriods
+}
 
+const sortPeriodsByLevelAndStartDate = (periods) => {
+    let sortedPeriods
+    sortedPeriods = periods.sort((a, b) => b.level - a.level)
+    sortedPeriods = periods.sort(
+        (a, b) => new Date(a.startDate) - new Date(b.startDate)
+    )
     return sortedPeriods
 }
 
@@ -133,29 +98,32 @@ class Timeline extends Component {
         const uniqueRanks = countUniqueRanks(this.props.periods)
 
         this.setTimeScale()
-
+        const rectTotalHeight = rectHeight + (uniqueRanks - 1) * rectOffset
         return (
             <svg
                 className={`dhis2-map-timeline ${styles.timeline}`}
                 style={{
-                    height: 40 + uniqueRanks * 4,
-                    bottom: 24 + uniqueRanks * 4,
+                    height: `${32 + rectTotalHeight}`,
+                    bottom: `30`,
                 }}
             >
+                // play/pause button
                 <g
                     onClick={this.onPlayPause}
-                    transform="translate(7,10)"
+                    transform={`translate(7,${rectTotalHeight / 2})`}
                     className={styles.play}
                 >
                     <path d="M0 0h24v24H0z" fillOpacity="0.0" />
                     {mode === 'play' ? pauseBtn : playBtn}
                 </g>
+                // rectangles
                 <g transform={`translate(${paddingLeft},10)`}>
                     {this.getPeriodRects()}
                 </g>
+                // x axis
                 <g
                     transform={`translate(${paddingLeft},${
-                        20 + uniqueRanks * 4
+                        12 + rectTotalHeight
                     })`}
                     ref={(node) => (this.node = node)}
                 />
@@ -167,7 +135,7 @@ class Timeline extends Component {
     getPeriodRects = () => {
         const { period, periods } = this.props
 
-        const sortedPeriods = sortPeriods(periods)
+        const sortedPeriods = sortPeriodsByLevelRank(periods)
 
         return sortedPeriods.map((item) => {
             const isCurrent = period.id === item.id
@@ -182,9 +150,9 @@ class Timeline extends Component {
                         [styles.selected]: isCurrent,
                     })}
                     x={x}
-                    y={item.levelRank * 4}
+                    y={item.levelRank * rectOffset}
                     width={width}
-                    height={10}
+                    height={rectHeight}
                     onClick={() => this.onPeriodClick(item)}
                 />
             )
@@ -273,11 +241,7 @@ class Timeline extends Component {
     // Play animation
     play = () => {
         const { period, periods, onChange } = this.props
-        let sortedPeriods
-        sortedPeriods = periods.sort((a, b) => b.level - a.level)
-        sortedPeriods = periods.sort(
-            (a, b) => new Date(a.startDate) - new Date(b.startDate)
-        )
+        const sortedPeriods = sortPeriodsByLevelAndStartDate(periods)
         const index = sortedPeriods.findIndex((p) => p.id === period.id)
         const isLastPeriod = index === sortedPeriods.length - 1
 

@@ -1,7 +1,26 @@
 import {
+    DAILY,
+    WEEKLY,
+    WEEKLYWED,
+    WEEKLYTHU,
+    WEEKLYSAT,
+    WEEKLYSUN,
+    BIWEEKLY,
+    MONTHLY,
+    BIMONTHLY,
+    QUARTERLY,
+    SIXMONTHLY,
+    SIXMONTHLYAPR,
+    YEARLY,
+    FINANCIAL,
+    FYNOV,
+    FYOCT,
+    FYJUL,
+    FYAPR,
     getFixedPeriodsOptionsById,
     getRelativePeriodsOptionsById,
     getRelativePeriodsDetails,
+    PERIOD_TYPE_REGEX,
 } from '@dhis2/analytics'
 import {
     periodTypes,
@@ -88,7 +107,7 @@ export const getHiddenPeriods = (systemSettings) => {
 }
 
 // Count maximum number of periods returned by analytics api
-
+// Preliminary step
 export const getPeriodsDurationByType = (
     periods,
     periodsDetails,
@@ -123,7 +142,7 @@ export const getPeriodsDurationByType = (
         }, {})
     }
 }
-
+// Total count
 export const countPeriods = (periods, deduplication) => {
     const periodsDetails = getRelativePeriodsDetails()
     const periodsDurationByType = getPeriodsDurationByType(
@@ -132,4 +151,42 @@ export const countPeriods = (periods, deduplication) => {
         deduplication
     )
     return sumObjectValues(periodsDurationByType)
+}
+
+export const getPeriodTypeFromId = (periodId) => {
+    return Object.keys(PERIOD_TYPE_REGEX).find((type) =>
+        periodId.match(PERIOD_TYPE_REGEX[type])
+    )
+}
+
+export const getPeriodLevelFromPeriodType = (periodType) => {
+    switch (periodType) {
+        case DAILY:
+            return 0
+        case WEEKLY:
+        case WEEKLYWED:
+        case WEEKLYTHU:
+        case WEEKLYSAT:
+        case WEEKLYSUN:
+            return 1
+        case BIWEEKLY:
+            return 2
+        case MONTHLY:
+            return 3
+        case BIMONTHLY:
+            return 4
+        case QUARTERLY:
+            return 5
+        case SIXMONTHLY:
+        case SIXMONTHLYAPR:
+            return 6
+        case YEARLY:
+        case FYNOV:
+        case FYOCT:
+        case FYJUL:
+        case FYAPR:
+            return 7
+        default:
+            return 8
+    }
 }
