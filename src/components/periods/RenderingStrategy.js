@@ -1,7 +1,6 @@
-import { getRelativePeriodsDetails } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import {
     RENDERING_STRATEGY_SINGLE,
@@ -15,59 +14,7 @@ import {
 import usePrevious from '../../hooks/usePrevious.js'
 import { getPeriodsFromFilters } from '../../util/analytics.js'
 import { Radio, RadioGroup } from '../core/index.js'
-
-const countPeriods = (periods) => {
-    const periodsDetails = getRelativePeriodsDetails()
-
-    const total_v1 = periods.reduce(
-        (sum, period) =>
-            sum +
-            (periodsDetails[period.id] !== undefined
-                ? periodsDetails[period.id].duration
-                : 1),
-        0
-    )
-
-    const durationByType = periods.reduce((acc, period) => {
-        const periodDetails = periodsDetails[period.id]
-        if (acc['FIXED_PERIOD'] === undefined) {
-            acc['FIXED_PERIOD'] = {
-                any: 0,
-            }
-        }
-        if (periodDetails === undefined) {
-            acc['FIXED_PERIOD'].any += 1
-            return acc
-        }
-        const type = periodDetails.type
-        if (acc[type] === undefined) {
-            acc[type] = {
-                first: 0,
-                last: 0,
-            }
-        }
-        acc[type].first = Math.max(acc[type].first, 1 + periodDetails.offset)
-        acc[type].last = Math.max(
-            acc[type].last,
-            periodDetails.duration - (1 + periodDetails.offset)
-        )
-        return acc
-    }, {})
-
-    const sumObjectValues = (obj) =>
-        Object.values(obj).reduce((sum, value) => {
-            if (typeof value === 'object') {
-                return sum + sumObjectValues(value)
-            } else if (typeof value === 'number') {
-                return sum + value
-            }
-            return sum
-        }, 0)
-
-    const total_v2 = sumObjectValues(durationByType)
-
-    return total_v2
-}
+import { countPeriods } from '../../util/periods.js'
 
 const RenderingStrategy = ({
     layerId,
@@ -75,69 +22,90 @@ const RenderingStrategy = ({
     periods = [],
     onChange,
 }) => {
-    const hasOtherLayers = useSelector(
-        ({ map }) => !!map.mapViews.filter(({ id }) => id !== layerId).length
+    const prevPeriods = usePrevious(periods)
+    const totalPeriods = useMemo(() => countPeriods(periods), [periods])
+
+    const hasOtherLayers = useSelector(({ map }) =>
+        map.mapViews.some(({ id }) => id !== layerId)
     )
-    const hasOtherTimelineLayers = useSelector(
-        ({ map }) =>
-            !!map.mapViews.find(
-                (layer) =>
-                    layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
-                    layer.id !== layerId
-            )
+    const hasOtherTimelineLayers = useSelector(({ map }) =>
+        map.mapViews.some(
+            (layer) =>
+                layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
+                layer.id !== layerId
+        )
     )
     const hasTooManyPeriods = useSelector(({ layerEdit }) => {
         const periods = getPeriodsFromFilters(layerEdit.filters)
         return countPeriods(periods) > MULTIMAP_MAX_PERIODS
     })
 
-    const prevPeriods = usePrevious(periods)
-
     useEffect(() => {
-        if (periods !== prevPeriods) {
-            if (
-                countPeriods(periods) < MULTIMAP_MIN_PERIODS &&
-                value !== RENDERING_STRATEGY_SINGLE
-            ) {
-                onChange(RENDERING_STRATEGY_SINGLE)
-            } else if (
-                countPeriods(periods) > MULTIMAP_MAX_PERIODS &&
-                value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-            ) {
-                onChange(RENDERING_STRATEGY_SINGLE)
-            }
+        if (periods === prevPeriods) return
+
+        if (
+            totalPeriods < MULTIMAP_MIN_PERIODS &&
+            value !== RENDERING_STRATEGY_SINGLE
+        ) {
+            onChange(RENDERING_STRATEGY_SINGLE)
+        } else if (
+            totalPeriods > MULTIMAP_MAX_PERIODS &&
+            value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+        ) {
+            onChange(RENDERING_STRATEGY_SINGLE)
         }
     }, [value, periods, prevPeriods, onChange])
 
-    let helpText = []
+    const helpText = useMemo(() => {
+        const messages = []
+        if (totalPeriods < MULTIMAP_MIN_PERIODS) {
+            messages.push(
+                i18n.t(
+                    'Select {{number}} or more periods to enable timeline or split map views.',
+                    {
+                        number: MULTIMAP_MIN_PERIODS,
+                    }
+                )
+            )
+        }
+        if (hasOtherTimelineLayers) {
+            messages.push(i18n.t('Only one timeline is allowed.'))
+        }
+        if (hasOtherLayers) {
+            messages.push(
+                i18n.t('Remove other layers to enable split map views.')
+            )
+        }
+        if (hasTooManyPeriods) {
+            messages.push(
+                i18n.t(
+                    'Only up to {{number}} periods can be selected to enable split map views.',
+                    {
+                        number: MULTIMAP_MAX_PERIODS,
+                    }
+                )
+            )
+        }
+        return messages.join(' ')
+    }, [
+        totalPeriods,
+        hasOtherTimelineLayers,
+        hasOtherLayers,
+        hasTooManyPeriods,
+    ])
 
-    if (countPeriods(periods) < MULTIMAP_MIN_PERIODS) {
-        helpText.push(
-            i18n.t(
-                'Select {{number}} or more periods to enable timeline or split map views.',
-                {
-                    number: MULTIMAP_MIN_PERIODS,
-                }
-            )
-        )
-    }
-    if (hasOtherTimelineLayers) {
-        helpText.push(i18n.t('Only one timeline is allowed.'))
-    }
-    if (hasOtherLayers) {
-        helpText.push(i18n.t('Remove other layers to enable split map views.'))
-    }
-    if (hasTooManyPeriods) {
-        helpText.push(
-            i18n.t(
-                'Only up to {{number}} periods can be selected to enable split map views.',
-                {
-                    number: MULTIMAP_MAX_PERIODS,
-                }
-            )
-        )
-    }
-    helpText = helpText.join(' ')
+    const isTimelineDisabled = useMemo(
+        () => totalPeriods < MULTIMAP_MIN_PERIODS || hasOtherTimelineLayers,
+        [totalPeriods, hasOtherTimelineLayers]
+    )
+
+    const isSplitViewDisabled = useMemo(
+        () =>
+            totalPeriods < MULTIMAP_MIN_PERIODS ||
+            hasTooManyPeriods ||
+            hasOtherLayers,
+        [totalPeriods, hasTooManyPeriods, hasOtherLayers]
+    )
 
     return (
         <RadioGroup
@@ -149,23 +117,19 @@ const RenderingStrategy = ({
             boldLabel={true}
             compact={true}
         >
-            <Radio value="SINGLE" label={i18n.t('Single (combine periods)')} />
             <Radio
-                value="TIMELINE"
-                label={i18n.t('Timeline')}
-                disabled={
-                    countPeriods(periods) < MULTIMAP_MIN_PERIODS ||
-                    hasOtherTimelineLayers
-                }
+                value={RENDERING_STRATEGY_SINGLE}
+                label={i18n.t('Single (combine periods)')}
             />
             <Radio
-                value="SPLIT_BY_PERIOD"
+                value={RENDERING_STRATEGY_TIMELINE}
+                label={i18n.t('Timeline')}
+                disabled={isTimelineDisabled}
+            />
+            <Radio
+                value={RENDERING_STRATEGY_SPLIT_BY_PERIOD}
                 label={i18n.t('Split map views')}
-                disabled={
-                    countPeriods(periods) < MULTIMAP_MIN_PERIODS ||
-                    hasTooManyPeriods ||
-                    hasOtherLayers
-                }
+                disabled={isSplitViewDisabled}
             />
         </RadioGroup>
     )
