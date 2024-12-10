@@ -1,8 +1,14 @@
 import {
     getFixedPeriodsOptionsById,
     getRelativePeriodsOptionsById,
+    getRelativePeriodsDetails,
 } from '@dhis2/analytics'
-import { periodTypes, periodGroups } from '../constants/periods.js'
+import {
+    periodTypes,
+    periodGroups,
+    FIXED_PERIODS,
+} from '../constants/periods.js'
+import { sumObjectValues } from '../util/helpers.js'
 
 const getYearOffsetFromNow = (year) => year - new Date(Date.now()).getFullYear()
 
@@ -79,4 +85,51 @@ export const getHiddenPeriods = (systemSettings) => {
             (setting) => periodSetting.test(setting) && systemSettings[setting]
         )
         .map((setting) => setting.match(periodSetting)[1].toUpperCase())
+}
+
+// Count maximum number of periods returned by analytics api
+
+export const getPeriodsDurationByType = (
+    periods,
+    periodsDetails,
+    deduplication = true
+) => {
+    if (!deduplication) {
+        return periods.reduce((acc, { id }) => {
+            acc[id] = acc[id] || {}
+            acc[id].any = periodsDetails[id]?.duration || 1
+            return acc
+        }, {})
+    } else {
+        return periods.reduce((acc, { id }) => {
+            const {
+                type = FIXED_PERIODS,
+                offset = 0,
+                duration = 1,
+            } = periodsDetails[id] || {}
+
+            acc[type] = acc[type] || { first: 0, last: 0 }
+
+            if (type === FIXED_PERIODS && !periodsDetails[id]) {
+                acc[type].any = (acc[type].any || 0) + 1
+            } else {
+                acc[type].first = Math.max(acc[type].first, 1 + offset)
+                acc[type].last = Math.max(
+                    acc[type].last,
+                    duration - (1 + offset)
+                )
+            }
+            return acc
+        }, {})
+    }
+}
+
+export const countPeriods = (periods, deduplication) => {
+    const periodsDetails = getRelativePeriodsDetails()
+    const periodsDurationByType = getPeriodsDurationByType(
+        periods,
+        periodsDetails,
+        deduplication
+    )
+    return sumObjectValues(periodsDurationByType)
 }
