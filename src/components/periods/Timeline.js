@@ -8,61 +8,56 @@ import {
     getPeriodTypeFromId,
     getPeriodLevelFromPeriodType,
 } from '../../util/periods.js'
+import { doubleTicksPeriods } from '../../constants/periods.js'
 import timeTicks from '../../util/timeTicks.js'
 import styles from './styles/Timeline.module.css'
 
-const paddingLeft = 40
-const paddingRight = 20
-const labelWidth = 80
-const delay = 1500
-const playBtn = <path d="M8 5v14l11-7z" />
-const pauseBtn = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-const doubleTicksPeriods = ['LAST_6_BIMONTHS', 'BIMONTHS_THIS_YEAR']
-const rectHeight = 7
-const rectOffset = 10
+// Constants
+const PADDING_LEFT = 40
+const PADDING_RIGHT = 20
+const LABEL_WIDTH = 80
+const RECT_HEIGHT = 8
+const RECT_OFFSET = 8
+const DELAY = 1500
+const PLAY_ICON = <path d="M8 5v14l11-7z" />
+const PAUSE_ICON = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
 
-const addPeriodTypeAndLevel = (item) => {
-    item.type = getPeriodTypeFromId(item.id)
-    item.level = getPeriodLevelFromPeriodType(item.type)
-    return item
+// Utility Functions
+const addPeriodDetails = (period) => {
+    const type = getPeriodTypeFromId(period.id)
+    const level = getPeriodLevelFromPeriodType(type)
+    return { ...period, type, level }
 }
 
-const listLevelsFromPeriods = (periodsWithType) => [
-    ...new Set(periodsWithType.map((item) => item.level)),
+const getUniqueLevels = (periodsWithLevel) => [
+    ...new Set(periodsWithLevel.map((item) => item.level)),
 ]
 
 const countUniqueRanks = (periods) => {
-    const periodsWithType = periods.map((item) => addPeriodTypeAndLevel(item))
-    return listLevelsFromPeriods(periodsWithType).length
+    const periodsWithDetails = periods.map(addPeriodDetails)
+    return getUniqueLevels(periodsWithDetails).length
 }
 
 const sortPeriodsByLevelRank = (periods) => {
-    let periodsWithDetails
-    periodsWithDetails = periods.map((item) => addPeriodTypeAndLevel(item))
-
-    const sortedLevels = listLevelsFromPeriods(periodsWithDetails).sort(
+    const periodsWithDetails = periods.map(addPeriodDetails)
+    const sortedLevels = getUniqueLevels(periodsWithDetails).sort(
         (a, b) => b - a
     )
-    periodsWithDetails = periodsWithDetails.map((item) => ({
-        ...item,
-        levelRank: sortedLevels.indexOf(item.level),
-    }))
-
-    const sortedPeriods = periodsWithDetails.sort(
-        (a, b) => a.levelRank - b.levelRank
-    )
-    return sortedPeriods
+    return periodsWithDetails
+        .map((item) => ({
+            ...item,
+            levelRank: sortedLevels.indexOf(item.level),
+        }))
+        .sort((a, b) => a.levelRank - b.levelRank)
 }
 
-const sortPeriodsByLevelAndStartDate = (periods) => {
-    let sortedPeriods
-    sortedPeriods = periods.sort((a, b) => b.level - a.level)
-    sortedPeriods = periods.sort(
-        (a, b) => new Date(a.startDate) - new Date(b.startDate)
-    )
-    return sortedPeriods
-}
+const sortPeriodsByLevelAndStartDate = (periods) =>
+    periods
+        .map(addPeriodDetails)
+        .sort((a, b) => b.level - a.level)
+        .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
 
+// Timeline Component
 class Timeline extends Component {
     static contextTypes = {
         map: PropTypes.object,
@@ -98,7 +93,7 @@ class Timeline extends Component {
         const uniqueRanks = countUniqueRanks(this.props.periods)
 
         this.setTimeScale()
-        const rectTotalHeight = rectHeight + (uniqueRanks - 1) * rectOffset
+        const rectTotalHeight = RECT_HEIGHT + (uniqueRanks - 1) * RECT_OFFSET
         return (
             <svg
                 className={`dhis2-map-timeline ${styles.timeline}`}
@@ -114,15 +109,15 @@ class Timeline extends Component {
                     className={styles.play}
                 >
                     <path d="M0 0h24v24H0z" fillOpacity="0.0" />
-                    {mode === 'play' ? pauseBtn : playBtn}
+                    {mode === 'play' ? PAUSE_ICON : PLAY_ICON}
                 </g>
                 // rectangles
-                <g transform={`translate(${paddingLeft},10)`}>
+                <g transform={`translate(${PADDING_LEFT},10)`}>
                     {this.getPeriodRects()}
                 </g>
                 // x axis
                 <g
-                    transform={`translate(${paddingLeft},${
+                    transform={`translate(${PADDING_LEFT},${
                         12 + rectTotalHeight
                     })`}
                     ref={(node) => (this.node = node)}
@@ -150,9 +145,9 @@ class Timeline extends Component {
                         [styles.selected]: isCurrent,
                     })}
                     x={x}
-                    y={item.levelRank * rectOffset}
+                    y={item.levelRank * RECT_OFFSET}
                     width={width}
-                    height={rectHeight}
+                    height={RECT_HEIGHT}
                     onClick={() => this.onPeriodClick(item)}
                 />
             )
@@ -192,11 +187,15 @@ class Timeline extends Component {
 
     // Set timeline axis
     setTimeAxis = () => {
-        const { periodId, periods } = this.props
+        const { periods } = this.props
+        const periodsType = periods.map(({ id }) => getPeriodTypeFromId(id))
         const numPeriods =
-            periods.length * (doubleTicksPeriods.includes(periodId) ? 2 : 1)
+            periods.length *
+            (doubleTicksPeriods.some((element) => periodsType.includes(element))
+                ? 2
+                : 1)
         const { width } = this.state
-        const maxTicks = Math.round(width / labelWidth)
+        const maxTicks = Math.round(width / LABEL_WIDTH)
         const numTicks = maxTicks < numPeriods ? maxTicks : numPeriods
         const timeAxis = axisBottom(this.timeScale)
         const [startDate, endDate] = this.timeScale.domain()
@@ -212,7 +211,7 @@ class Timeline extends Component {
         if (this.node) {
             // clientWith returns 0 for SVG elements in Firefox
             const box = this.node.parentNode.getBoundingClientRect()
-            const width = box.right - box.left - paddingLeft - paddingRight
+            const width = box.right - box.left - PADDING_LEFT - PADDING_RIGHT
 
             this.setState({ width })
         }
@@ -264,8 +263,8 @@ class Timeline extends Component {
             onChange(sortedPeriods[index + 1])
         }
 
-        // Call itself after delay
-        this.timeout = setTimeout(this.play, delay)
+        // Call itself after DELAY
+        this.timeout = setTimeout(this.play, DELAY)
     }
 
     // Stop animation
