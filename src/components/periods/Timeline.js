@@ -62,17 +62,130 @@ class Timeline extends Component {
     static contextTypes = {
         map: PropTypes.object,
     }
-
     static propTypes = {
         period: PropTypes.object.isRequired,
-        periodId: PropTypes.string.isRequired,
         periods: PropTypes.array.isRequired,
         onChange: PropTypes.func.isRequired,
     }
-
     state = {
         width: null,
         mode: 'start',
+    }
+
+    // Set time scale
+    setTimeScale = () => {
+        const { periods } = this.props
+        const { width } = this.state
+
+        if (!periods.length) {
+            return
+        }
+
+        const { minStartDate, maxEndDate } = periods.reduce(
+            (acc, { startDate, endDate }) => {
+                const start = new Date(startDate)
+                const end = new Date(endDate)
+                return {
+                    minStartDate:
+                        start < acc.minStartDate ? start : acc.minStartDate,
+                    maxEndDate: end > acc.maxEndDate ? end : acc.maxEndDate,
+                }
+            },
+            {
+                minStartDate: new Date(periods[0].startDate),
+                maxEndDate: new Date(periods[0].endDate),
+            }
+        )
+
+        // Link time domain to timeline width
+        this.timeScale = scaleTime()
+            .domain([minStartDate, maxEndDate])
+            .range([0, width])
+    }
+
+    // Set timeline axis
+    setTimeAxis = () => {
+        const { periods } = this.props
+        const periodsType = periods.map(({ id }) => getPeriodTypeFromId(id))
+        const numPeriods =
+            periods.length *
+            (doubleTicksPeriods.some((element) => periodsType.includes(element))
+                ? 2
+                : 1)
+        const { width } = this.state
+        const maxTicks = Math.round(width / LABEL_WIDTH)
+        const numTicks = Math.min(maxTicks, numPeriods)
+        const ticks = timeTicks(...this.timeScale.domain(), numTicks)
+
+        const timeAxis = axisBottom(this.timeScale).tickValues(ticks)
+        select(this.node).call(timeAxis)
+    }
+
+    // Set timeline width from DOM element
+    setWidth = () => {
+        if (this.node) {
+            // clientWith returns 0 for SVG elements in Firefox
+            const box = this.node.parentNode.getBoundingClientRect()
+            const width = box.right - box.left - PADDING_LEFT - PADDING_RIGHT
+            this.setState({ width })
+        }
+    }
+
+    // Play animation
+    play = () => {
+        const { period, periods, onChange } = this.props
+        const sortedPeriods = sortPeriodsByLevelAndStartDate(periods)
+        const currentIndex = sortedPeriods.findIndex((p) => p.id === period.id)
+        const isLastPeriod = currentIndex === sortedPeriods.length - 1
+
+        // If new animation
+        if (!this.timeout) {
+            // Switch to first period if last
+            if (isLastPeriod) {
+                onChange(sortedPeriods[0])
+            }
+
+            this.setState({ mode: 'play' })
+        } else {
+            // Stop animation if last period
+            if (isLastPeriod) {
+                this.stop()
+                return
+            }
+
+            // Switch to next period
+            onChange(sortedPeriods[currentIndex + 1])
+        }
+
+        // Call itself after DELAY
+        this.timeout = setTimeout(this.play, DELAY)
+    }
+
+    // Stop animation
+    stop = () => {
+        this.setState({ mode: 'stop' })
+        clearTimeout(this.timeout)
+        delete this.timeout
+    }
+
+    // Handler for play/pause button
+    onPlayPause = () => {
+        if (this.state.mode === 'play') {
+            this.stop()
+        } else {
+            this.play()
+        }
+    }
+
+    // Handler for period click
+    onPeriodClick(period) {
+        // Switch to period if different
+        if (period.id !== this.props.period.id) {
+            this.props.onChange(period)
+        }
+
+        // Stop animation if running
+        this.stop()
     }
 
     componentDidMount() {
@@ -91,9 +204,9 @@ class Timeline extends Component {
     render() {
         const { mode } = this.state
         const uniqueRanks = countUniqueRanks(this.props.periods)
+        const rectTotalHeight = RECT_HEIGHT + (uniqueRanks - 1) * RECT_OFFSET
 
         this.setTimeScale()
-        const rectTotalHeight = RECT_HEIGHT + (uniqueRanks - 1) * RECT_OFFSET
         return (
             <svg
                 className={`dhis2-map-timeline ${styles.timeline}`}
@@ -102,7 +215,7 @@ class Timeline extends Component {
                     bottom: `30`,
                 }}
             >
-                // play/pause button
+                {/* Play/Pause Button */}
                 <g
                     onClick={this.onPlayPause}
                     transform={`translate(7,${rectTotalHeight / 2})`}
@@ -111,11 +224,11 @@ class Timeline extends Component {
                     <path d="M0 0h24v24H0z" fillOpacity="0.0" />
                     {mode === 'play' ? PAUSE_ICON : PLAY_ICON}
                 </g>
-                // rectangles
+                {/* Period Rectangles */}
                 <g transform={`translate(${PADDING_LEFT},10)`}>
                     {this.getPeriodRects()}
                 </g>
-                // x axis
+                {/* X-Axis */}
                 <g
                     transform={`translate(${PADDING_LEFT},${
                         12 + rectTotalHeight
@@ -152,126 +265,6 @@ class Timeline extends Component {
                 />
             )
         })
-    }
-
-    // Set time scale
-    setTimeScale = () => {
-        const { periods } = this.props
-        const { width } = this.state
-
-        if (!periods.length) {
-            return
-        }
-
-        const { minStartDate: startDate, maxEndDate: endDate } = periods.reduce(
-            (acc, item) => {
-                const start = new Date(item.startDate)
-                const end = new Date(item.endDate)
-                return {
-                    minStartDate:
-                        start < acc.minStartDate ? start : acc.minStartDate,
-                    maxEndDate: end > acc.maxEndDate ? end : acc.maxEndDate,
-                }
-            },
-            {
-                minStartDate: new Date(periods[0].startDate),
-                maxEndDate: new Date(periods[0].endDate),
-            }
-        )
-
-        // Link time domain to timeline width
-        this.timeScale = scaleTime()
-            .domain([startDate, endDate])
-            .range([0, width])
-    }
-
-    // Set timeline axis
-    setTimeAxis = () => {
-        const { periods } = this.props
-        const periodsType = periods.map(({ id }) => getPeriodTypeFromId(id))
-        const numPeriods =
-            periods.length *
-            (doubleTicksPeriods.some((element) => periodsType.includes(element))
-                ? 2
-                : 1)
-        const { width } = this.state
-        const maxTicks = Math.round(width / LABEL_WIDTH)
-        const numTicks = maxTicks < numPeriods ? maxTicks : numPeriods
-        const timeAxis = axisBottom(this.timeScale)
-        const [startDate, endDate] = this.timeScale.domain()
-        const ticks = timeTicks(startDate, endDate, numTicks)
-
-        timeAxis.tickValues(ticks)
-
-        select(this.node).call(timeAxis)
-    }
-
-    // Set timeline width from DOM el
-    setWidth = () => {
-        if (this.node) {
-            // clientWith returns 0 for SVG elements in Firefox
-            const box = this.node.parentNode.getBoundingClientRect()
-            const width = box.right - box.left - PADDING_LEFT - PADDING_RIGHT
-
-            this.setState({ width })
-        }
-    }
-
-    // Handler for period click
-    onPeriodClick(period) {
-        // Switch to period if different
-        if (period.id !== this.props.period.id) {
-            this.props.onChange(period)
-        }
-
-        // Stop animation if running
-        this.stop()
-    }
-
-    // Handler for play/pause button
-    onPlayPause = () => {
-        if (this.state.mode === 'play') {
-            this.stop()
-        } else {
-            this.play()
-        }
-    }
-
-    // Play animation
-    play = () => {
-        const { period, periods, onChange } = this.props
-        const sortedPeriods = sortPeriodsByLevelAndStartDate(periods)
-        const index = sortedPeriods.findIndex((p) => p.id === period.id)
-        const isLastPeriod = index === sortedPeriods.length - 1
-
-        // If new animation
-        if (!this.timeout) {
-            // Switch to first period if last
-            if (isLastPeriod) {
-                onChange(sortedPeriods[0])
-            }
-
-            this.setState({ mode: 'play' })
-        } else {
-            // Stop animation if last period
-            if (isLastPeriod) {
-                this.stop()
-                return
-            }
-
-            // Switch to next period
-            onChange(sortedPeriods[index + 1])
-        }
-
-        // Call itself after DELAY
-        this.timeout = setTimeout(this.play, DELAY)
-    }
-
-    // Stop animation
-    stop = () => {
-        this.setState({ mode: 'stop' })
-        clearTimeout(this.timeout)
-        delete this.timeout
     }
 }
 
