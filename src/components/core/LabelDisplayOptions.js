@@ -6,7 +6,7 @@ import {
     LABEL_TEMPLATE_NAME_AND_VALUE,
     LABEL_TEMPLATE_VALUE_ONLY,
 } from '../../constants/layers.js'
-import { SelectField } from '.'
+import SelectField from './SelectField.js'
 
 const getLabelDisplayOptions = () => [
     {
