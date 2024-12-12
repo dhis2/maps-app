@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import earthEngineLayers from '../../constants/earthEngineLayers/index.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../hooks/useManagedLayerSourcesStore.js'
 import LayerSource from './LayerSource.js'
 import styles from './styles/ManageLayerSourcesModal.module.css'
@@ -22,6 +23,8 @@ const layerSources = [...nonLegacyEarthEngineLayers]
 const ManageLayerSourcesModal = ({ onClose }) => {
     const { managedLayerSources, showLayerSource, hideLayerSource } =
         useManagedLayerSourcesStore()
+
+    useKeyDown('Escape', onClose)
 
     return (
         <Modal large position="middle" dataTest="managelayersourcesmodal">
