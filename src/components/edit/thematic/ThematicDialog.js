@@ -131,7 +131,6 @@ class ThematicDialog extends Component {
 
         const dataItem = getDataItemFromColumns(columns)
         const periods = getPeriodsFromFilters(filters)
-
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
 
@@ -151,11 +150,7 @@ class ThematicDialog extends Component {
             }
         }
 
-        const hasDate =
-            startDate !== undefined &&
-            startDate !== '' &&
-            endDate !== undefined &&
-            endDate !== ''
+        const hasDate = startDate !== undefined && endDate !== undefined
 
         if (hasDate) {
             const keepPeriod = false
@@ -209,7 +204,11 @@ class ThematicDialog extends Component {
             setRenderingStrategy,
             validateLayer,
             onLayerValidation,
+            startDate,
+            endDate,
+            filters,
         } = this.props
+        const { periodError } = this.state
 
         // Set rendering strategy to single if not relative period
         if (
@@ -241,19 +240,22 @@ class ThematicDialog extends Component {
         if (periodType !== prev.periodType) {
             switch (periodType) {
                 case PREDEFINED_PERIODS:
-                    // !TODO Backup Start-End dates
-                    // Remove Start-End dates
-                    // !TODO Restore Predefined periods backup
-                    setStartDate('')
-                    setEndDate('')
+                    setStartDate()
+                    setEndDate()
                     break
                 case START_END_DATES:
-                    // !TODO Backup Predefined periods
-                    // Remove Predefined periods
-                    // !TODO Restore Start-End dates backup
                     setPeriods([])
                     break
             }
+            this.setErrorState('periodError', null, 'period')
+        } else if (
+            periodError &&
+            (startDate !== prev.startDate ||
+                endDate !== prev.endDate ||
+                getPeriodsFromFilters(filters) !==
+                    getPeriodsFromFilters(prev.filters))
+        ) {
+            this.setErrorState('periodError', null, 'period')
         }
     }
 

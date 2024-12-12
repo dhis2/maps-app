@@ -7,8 +7,14 @@ import { setStartDate, setEndDate } from '../../actions/layerEdit.js'
 import styles from './styles/StartEndDate.module.css'
 
 const StartEndDate = (props) => {
-    const { startDate, endDate, setStartDate, setEndDate, periodsSettings } =
-        props
+    const {
+        startDate = '',
+        endDate = '',
+        setStartDate,
+        setEndDate,
+        errorText,
+        periodsSettings,
+    } = props
 
     const [start, setStart] = useState(startDate.slice(0, 10))
     const [end, setEnd] = useState(endDate.slice(0, 10))
@@ -52,6 +58,11 @@ const StartEndDate = (props) => {
                     dataTest="end-date-input"
                 />
             </div>
+            {errorText && (
+                <div key="error" className={styles.error}>
+                    {errorText}
+                </div>
+            )}
         </Field>
     ) : null
 }
@@ -59,6 +70,7 @@ StartEndDate.propTypes = {
     setEndDate: PropTypes.func.isRequired,
     setStartDate: PropTypes.func.isRequired,
     endDate: PropTypes.string,
+    errorText: PropTypes.string,
     periodsSettings: PropTypes.object,
     startDate: PropTypes.string,
 }

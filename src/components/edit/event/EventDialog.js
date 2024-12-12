@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox } from '@dhis2/ui'
+import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -18,8 +18,6 @@ import {
     setOrgUnits,
 } from '../../../actions/layerEdit.js'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
@@ -117,8 +115,6 @@ class EventDialog extends Component {
             endDate,
             orgUnits,
             setPeriod,
-            setStartDate,
-            setEndDate,
             setOrgUnits,
         } = this.props
 
@@ -126,20 +122,18 @@ class EventDialog extends Component {
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
 
+        const hasDate = startDate !== undefined && endDate !== undefined
+
         // Set default period from system settings
         if (
             !period &&
-            !startDate &&
-            !endDate &&
+            !hasDate &&
             defaultPeriod &&
             isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
             setPeriod({
                 id: defaultPeriod,
             })
-        } else if (!startDate && !endDate) {
-            setStartDate(DEFAULT_START_DATE)
-            setEndDate(DEFAULT_END_DATE)
         }
 
         // Set org unit tree roots as default
@@ -152,10 +146,31 @@ class EventDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props
+        const {
+            validateLayer,
+            onLayerValidation,
+            filters,
+            startDate,
+            endDate,
+            setStartDate,
+            setEndDate,
+        } = this.props
+        const { periodError } = this.state
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate())
+        }
+
+        const hasDate = startDate !== undefined || endDate !== undefined
+        if (hasDate && getPeriodFromFilters(filters) !== undefined) {
+            setStartDate()
+            setEndDate()
+            this.setErrorState('periodError', null, 'period')
+        } else if (
+            periodError &&
+            (startDate !== prev.startDate || endDate !== prev.endDate)
+        ) {
+            this.setErrorState('periodError', null, 'period')
         }
     }
 
@@ -163,7 +178,6 @@ class EventDialog extends Component {
         const {
             // layer options
             columns = [],
-            endDate,
             eventClustering,
             eventStatus,
             eventCoordinateField,
@@ -174,6 +188,7 @@ class EventDialog extends Component {
             program,
             programStage,
             startDate,
+            endDate,
             legendSet,
             periodsSettings,
         } = this.props
@@ -277,11 +292,16 @@ class EventDialog extends Component {
                                 <StartEndDate
                                     startDate={startDate}
                                     endDate={endDate}
-                                    errorText={periodError}
                                     setStartDate={setStartDate}
                                     setEndDate={setEndDate}
                                     periodsSettings={periodsSettings}
                                 />
+                            )}
+                            {periodError && (
+                                <div key="error" className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {periodError}
+                                </div>
                             )}
                         </div>
                     )}
