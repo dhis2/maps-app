@@ -35,6 +35,15 @@ describe('Timeline', () => {
             endDate: new Date('2019-06-30T24:00:00.000'),
         },
     ]
+    const periodOnChange = {
+        id: '201904',
+        name: 'April 2019',
+        startDate: new Date('2019-04-01T00:00:00.000'),
+        endDate: new Date('2019-04-30T24:00:00.000'),
+        level: 7,
+        levelRank: 0,
+        type: 'MONTHLY',
+    }
     const onChangeSpy = jest.fn()
     let props
 
@@ -69,8 +78,7 @@ describe('Timeline', () => {
     it('should call onChange with the period clicked', () => {
         const wrapper = renderWithProps(props)
         wrapper.find('rect').first().simulate('click')
-        // Update periods[0] to account for the updated sorting logic
-        expect(onChangeSpy).toHaveBeenCalledWith(periods[0])
+        expect(onChangeSpy).toHaveBeenCalledWith(periodOnChange)
     })
 
     it('Should toggle play mode when play/pause button is clicked', () => {
@@ -81,7 +89,7 @@ describe('Timeline', () => {
         playPauseBtn.simulate('click')
         expect(wrapper.state('mode')).toBe('play')
         // Called because current period is the last
-        expect(onChangeSpy).toHaveBeenCalledWith(periods[0])
+        expect(onChangeSpy).toHaveBeenCalledWith(periodOnChange)
         playPauseBtn.simulate('click')
         expect(wrapper.state('mode')).toBe('stop')
     })

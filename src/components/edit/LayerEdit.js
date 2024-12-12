@@ -9,7 +9,7 @@ import {
     ButtonStrip,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
@@ -46,6 +46,7 @@ const getLayerNames = () => ({
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
+    const modalRef = useRef(null)
     const { systemSettings, periodsSettings } = useCachedDataQuery()
     const orgUnits = useOrgUnits()
 
@@ -74,6 +75,13 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     }
 
     useKeyDown('Escape', cancelLayer)
+    useKeyDown('Enter', onValidateLayer)
+
+    useEffect(() => {
+        if (layer && modalRef.current) {
+            modalRef.current.focus()
+        }
+    }, [layer])
 
     if (!layer) {
         return null
@@ -97,7 +105,13 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         : i18n.t('Add new {{name}} layer', { name })
 
     return (
-        <Modal position="middle" dataTest="layeredit" large>
+        <Modal
+            position="middle"
+            dataTest="layeredit"
+            large
+            tabIndex={-1}
+            ref={modalRef}
+        >
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <div className={styles.content}>

@@ -310,7 +310,6 @@ class ThematicDialog extends Component {
         } = this.state
 
         const periods = getPeriodsFromFilters(filters)
-
         const dataItem = getDataItemFromColumns(columns)
         const dimensions = getDimensionsFromFilters(filters)
 

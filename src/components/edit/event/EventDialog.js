@@ -277,7 +277,7 @@ class EventDialog extends Component {
                                 <StartEndDate
                                     startDate={startDate}
                                     endDate={endDate}
-                                    //errorText={periodError}
+                                    errorText={periodError}
                                     setStartDate={setStartDate}
                                     setEndDate={setEndDate}
                                     periodsSettings={periodsSettings}

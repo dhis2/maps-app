@@ -2,13 +2,13 @@ import { mount } from 'enzyme'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import RenderingStrategy from '../RenderingStrategy'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
-} from '../../../constants/layers'
-import { countPeriods } from '../../../util/periods'
+} from '../../../constants/layers.js'
+import { countPeriods } from '../../../util/periods.js'
+import RenderingStrategy from '../RenderingStrategy.js'
 
 const mockStore = configureMockStore()
 
@@ -82,7 +82,7 @@ describe('RenderingStrategy', () => {
 
     it('automatically switches to SINGLE when conditions are not met', () => {
         countPeriods.mockReturnValue(1)
-        const wrapper = renderWithProps(props)
+        renderWithProps(props)
         expect(mockOnChange).toHaveBeenCalledWith(RENDERING_STRATEGY_SINGLE)
     })
 })

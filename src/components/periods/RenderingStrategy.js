@@ -13,8 +13,8 @@ import {
 } from '../../constants/periods.js'
 import usePrevious from '../../hooks/usePrevious.js'
 import { getPeriodsFromFilters } from '../../util/analytics.js'
-import { Radio, RadioGroup } from '../core/index.js'
 import { countPeriods } from '../../util/periods.js'
+import { Radio, RadioGroup } from '../core/index.js'
 
 const RenderingStrategy = ({
     layerId,
@@ -41,7 +41,9 @@ const RenderingStrategy = ({
     })
 
     useEffect(() => {
-        if (periods === prevPeriods) return
+        if (periods === prevPeriods) {
+            return
+        }
 
         if (
             totalPeriods < MULTIMAP_MIN_PERIODS &&
@@ -54,7 +56,7 @@ const RenderingStrategy = ({
         ) {
             onChange(RENDERING_STRATEGY_SINGLE)
         }
-    }, [value, periods, prevPeriods, onChange])
+    }, [value, periods, prevPeriods, onChange, totalPeriods])
 
     const helpText = useMemo(() => {
         const messages = []

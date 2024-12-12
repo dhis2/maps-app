@@ -4,11 +4,11 @@ import { scaleTime } from 'd3-scale'
 import { select } from 'd3-selection'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { doubleTicksPeriods } from '../../constants/periods.js'
 import {
     getPeriodTypeFromId,
     getPeriodLevelFromPeriodType,
 } from '../../util/periods.js'
-import { doubleTicksPeriods } from '../../constants/periods.js'
 import timeTicks from '../../util/timeTicks.js'
 import styles from './styles/Timeline.module.css'
 

@@ -97,10 +97,13 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
-    const presetPeriods = getPeriodsFromFilters(config.filters)
+    const names = getApiResponseNames(data)
+    const presetPeriods = getPeriodsFromFilters(config.filters).map((pe) => {
+        pe.name = names[pe.id]
+        return pe
+    })
     const periods = getPeriodsFromMetaData(data.metaData)
     const dimensions = getValidDimensionsFromFilters(config.filters)
-    const names = getApiResponseNames(data)
     const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
     const valueById = getValueById(data)
     const valueFeatures = noDataColor
@@ -151,7 +154,7 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
         title: name,
         period:
             presetPeriods.length > 0
-                ? presetPeriods.map((pe) => names[pe.id] || pe.id).join(', ')
+                ? presetPeriods.map((pe) => pe.name || pe.id).join(', ')
                 : formatStartEndDate(
                       getDateArray(config.startDate),
                       getDateArray(config.endDate)
