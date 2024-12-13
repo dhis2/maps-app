@@ -27,7 +27,12 @@ const ManageLayerSourcesModal = ({ onClose }) => {
     useKeyDown('Escape', onClose)
 
     return (
-        <Modal large position="middle" dataTest="managelayersourcesmodal">
+        <Modal
+            onClose={onClose}
+            large
+            position="middle"
+            dataTest="managelayersourcesmodal"
+        >
             <ModalTitle dataTest="managelayersourcesmodal-title">
                 {i18n.t('Configure available layer sources')}
             </ModalTitle>
@@ -54,7 +59,7 @@ const ManageLayerSourcesModal = ({ onClose }) => {
                     <Button
                         dataTest="managelayersourcesmodal-button"
                         secondary
-                        onClick={() => onClose()}
+                        onClick={onClose}
                     >
                         {i18n.t('Close')}
                     </Button>
