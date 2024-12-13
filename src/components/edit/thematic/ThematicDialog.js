@@ -247,10 +247,10 @@ class ThematicDialog extends Component {
                     setPeriods([])
                     break
             }
-            this.setErrorState('periodError', null, 'period')
         } else if (
             periodError &&
-            (startDate !== prev.startDate ||
+            (periodType !== prev.periodType ||
+                startDate !== prev.startDate ||
                 endDate !== prev.endDate ||
                 getPeriodsFromFilters(filters) !==
                     getPeriodsFromFilters(prev.filters))
