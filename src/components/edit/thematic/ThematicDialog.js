@@ -305,7 +305,6 @@ class ThematicDialog extends Component {
             calculationError,
             eventDataItemError,
             programIndicatorError,
-            // periodTypeError,
             periodError,
             orgUnitsError,
             legendSetError,
