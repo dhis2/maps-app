@@ -211,8 +211,8 @@ class Timeline extends Component {
             <svg
                 className={`dhis2-map-timeline ${styles.timeline}`}
                 style={{
-                    height: `${32 + rectTotalHeight}`,
-                    bottom: `30`,
+                    height: `${32 + rectTotalHeight}px`,
+                    bottom: `30px`,
                 }}
             >
                 {/* Play/Pause Button */}
