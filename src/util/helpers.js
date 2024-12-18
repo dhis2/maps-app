@@ -141,3 +141,16 @@ export const getLongestTextLength = (array, key) =>
                 : text,
         ''
     ).length
+
+// Sum all numbers in an object recursively
+export const sumObjectValues = (obj) =>
+    Object.values(obj).reduce((sum, value) => {
+        if (value === null || value === undefined) {
+            return sum
+        } else if (typeof value === 'object') {
+            return sum + sumObjectValues(value)
+        } else if (typeof value === 'number') {
+            return sum + value
+        }
+        return sum
+    }, 0)

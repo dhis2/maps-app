@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox } from '@dhis2/ui'
+import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
@@ -43,7 +43,7 @@ import {
     ColorPicker,
 } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
-import StartEndDates from '../../periods/StartEndDates.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect.js'
 import BufferRadius from '../shared/BufferRadius.js'
@@ -74,6 +74,7 @@ class TrackedEntityDialog extends Component {
         eventPointRadius: PropTypes.number,
         followUp: PropTypes.bool,
         orgUnits: PropTypes.object,
+        periodsSettings: PropTypes.object,
         program: PropTypes.object,
         programStatus: PropTypes.string,
         relatedPointColor: PropTypes.string,
@@ -105,8 +106,10 @@ class TrackedEntityDialog extends Component {
             setOrgUnits,
         } = this.props
 
+        const hasDate = startDate !== undefined && endDate !== undefined
+
         // Set default period (last year)
-        if (!startDate && !endDate) {
+        if (!hasDate) {
             setStartDate(DEFAULT_START_DATE)
             setEndDate(DEFAULT_END_DATE)
         }
@@ -127,10 +130,19 @@ class TrackedEntityDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props
+        const { validateLayer, onLayerValidation, startDate, endDate } =
+            this.props
+        const { periodError } = this.state
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate())
+        }
+
+        if (
+            periodError &&
+            (startDate !== prev.startDate || endDate !== prev.endDate)
+        ) {
+            this.setErrorState('periodError', null, 'period')
         }
     }
 
@@ -148,6 +160,7 @@ class TrackedEntityDialog extends Component {
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
+            periodsSettings,
         } = this.props
 
         const {
@@ -274,11 +287,19 @@ class TrackedEntityDialog extends Component {
                     {tab === 'period' && (
                         <div className={styles.flexRowFlow}>
                             <PeriodTypeSelect />
-                            <StartEndDates
+                            <StartEndDate
                                 startDate={startDate}
                                 endDate={endDate}
-                                errorText={periodError}
+                                setStartDate={setStartDate}
+                                setEndDate={setEndDate}
+                                periodsSettings={periodsSettings}
                             />
+                            {periodError && (
+                                <div key="error" className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {periodError}
+                                </div>
+                            )}
                         </div>
                     )}
                     {tab === 'orgunits' && (
