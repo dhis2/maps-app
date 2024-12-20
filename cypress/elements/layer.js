@@ -65,6 +65,7 @@ export class Layer {
     }
 
     typeStartDate(dateString) {
+        cy.getByDataTest('calendar-clear-button').eq(0).click()
         cy.getByDataTest('start-date-input-content')
             .find('input')
             .type(dateString)
@@ -74,6 +75,7 @@ export class Layer {
     }
 
     typeEndDate(dateString) {
+        cy.getByDataTest('calendar-clear-button').eq(1).click()
         cy.getByDataTest('end-date-input-content')
             .find('input')
             .type(dateString)

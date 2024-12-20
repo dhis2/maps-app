@@ -138,6 +138,7 @@ const StartEndDate = (props) => {
                     placeholder="YYYY-MM-DD"
                     dataTest="start-date-input"
                     strictValidation={true}
+                    clearable={true}
                 />
                 <div className={styles.icon}>
                     <IconArrowRight16 color={colors.grey500} />
@@ -152,6 +153,7 @@ const StartEndDate = (props) => {
                     placeholder="YYYY-MM-DD"
                     dataTest="end-date-input"
                     strictValidation={true}
+                    clearable={true}
                 />
             </div>
             {errorText && (

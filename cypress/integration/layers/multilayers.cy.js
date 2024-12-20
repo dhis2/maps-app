@@ -17,7 +17,7 @@ describe('Multiple Layers', () => {
             .selectIndicatorGroup('ANC')
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
-            .selectPeriodType('Yearly')
+            .selectPeriodType('YEARLY')
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .selectOuLevel('District')
