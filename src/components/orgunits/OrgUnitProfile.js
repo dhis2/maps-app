@@ -4,6 +4,7 @@ import { CenteredContent, CircularLoader, IconCross24 } from '@dhis2/ui'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeOrgUnitProfile } from '../../actions/orgUnits.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
 import Drawer from '../core/Drawer.js'
 import OrgUnitData from './OrgUnitData.js'
 import OrgUnitInfo from './OrgUnitInfo.js'
@@ -33,6 +34,8 @@ const OrgUnitProfile = () => {
             })
         }
     }, [id, refetch])
+
+    useKeyDown('Escape', () => dispatch(closeOrgUnitProfile()))
 
     if (!id) {
         return null

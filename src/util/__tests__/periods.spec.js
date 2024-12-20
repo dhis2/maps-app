@@ -1,4 +1,12 @@
-import { getFixedPeriodsByType } from '../periods.js'
+import { getFixedPeriodsByType, getPeriodsDurationByType } from '../periods.js'
+
+const periods = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
+
+const periodsDetails = {
+    1: { type: 'TYPE_A', offset: -1, duration: 3 },
+    2: { type: 'TYPE_B', offset: -1, duration: 2 },
+    3: { type: 'TYPE_A', offset: 0, duration: 4 },
+}
 
 describe('util/periods', () => {
     test('getFixedPeriodsByType - RELATIVE', () => {
@@ -316,6 +324,7 @@ describe('util/periods', () => {
             },
         ])
     })
+
     test('getFixedPeriodsByType - MONTHLY 2020', () => {
         expect(
             getFixedPeriodsByType({
@@ -436,5 +445,28 @@ describe('util/periods', () => {
                 startDate: '2020-01-01',
             },
         ])
+    })
+
+    it('getPeriodsDurationByType - should correctly calculate the duration by type with deduplication', () => {
+        const result = getPeriodsDurationByType(periods, periodsDetails)
+        expect(result).toEqual({
+            FIXED_PERIODS: {
+                any: 1,
+                first: 0,
+                last: 0,
+            },
+            TYPE_A: { first: 1, last: 3 },
+            TYPE_B: { first: 0, last: 2 },
+        })
+    })
+
+    it('getPeriodsDurationByType - should correctly calculate the duration by type without deduplication', () => {
+        const result = getPeriodsDurationByType(periods, periodsDetails, false)
+        expect(result).toEqual({
+            1: { any: 3 },
+            2: { any: 2 },
+            3: { any: 4 },
+            4: { any: 1 },
+        })
     })
 })

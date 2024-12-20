@@ -27,7 +27,7 @@
         "@semantic-release/exec": "^6",
         "@semantic-release/git": "^10",
         "@testing-library/react": "^12.1.5",
-        "cypress": "^12.16.0",
+        "cypress": "^13.17.0",
         "cypress-tags": "^1.1.2",
         "cypress-wait-until": "^1.7.2",
         "enzyme": "^3.11.0",
@@ -41,7 +41,7 @@
         "start-server-and-test": "^2.0.3"
     },
     "dependencies": {
-        "@dhis2/analytics": "^26.8.4",
+        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#8c539c2cee08357ef6c7daaab2521e3df6ef7801",
         "@dhis2/app-runtime": "^3.11.2",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",

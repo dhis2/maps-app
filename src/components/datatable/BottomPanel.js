@@ -8,6 +8,7 @@ import {
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import DataTable from './DataTable.js'
 import ErrorBoundary from './ErrorBoundary.js'
@@ -36,6 +37,8 @@ const BottomPanel = () => {
     const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0
     const tableWidth = width - layersWidth - rightPanelWidth
     const dataTableControlsHeight = 20
+
+    useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
     return (
         <div
