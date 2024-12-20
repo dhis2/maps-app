@@ -34,14 +34,16 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest('periodtypeselect-content').click()
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-content'
+        ).click()
 
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weekly')
+            .contains('Bi-weeks')
             .should('be.visible')
 
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weekly')
+            .contains('Weeks')
             .should('not.exist')
     })
 
@@ -52,14 +54,16 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest('periodtypeselect-content').click()
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-content'
+        ).click()
 
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weekly')
+            .contains('Bi-weeks')
             .should('be.visible')
 
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weekly')
+            .contains('Weeks')
             .should('be.visible')
     })
 

@@ -46,7 +46,7 @@ export class Layer {
             .contains(level)
             .find('input')
             .check()
-        cy.get('body').click() // Close the modal menu
+        cy.get('body').click()
 
         return this
     }
@@ -59,27 +59,26 @@ export class Layer {
             .find('input')
             .uncheck()
 
-        cy.get('body').click() // Close the modal menu
+        cy.get('body').click()
 
         return this
     }
 
     typeStartDate(dateString) {
-        cy.get('label')
-            .contains('Start date')
-            .next()
+        cy.getByDataTest('start-date-input-content')
             .find('input')
             .type(dateString)
+        cy.get('body').click(0, 0)
 
         return this
     }
 
     typeEndDate(dateString) {
-        cy.get('label')
-            .contains('End date')
-            .next()
+        cy.getByDataTest('end-date-input-content')
             .find('input')
             .type(dateString)
+        cy.get('body').click(0, 0)
+
         return this
     }
 
