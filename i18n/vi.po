@@ -23,10 +23,10 @@ msgid "Maps"
 msgstr "Bản đồ"
 
 msgid "Classification"
-msgstr ""
+msgstr "Phân loại"
 
 msgid "Classes"
-msgstr ""
+msgstr "Lớp"
 
 msgid "Legend set"
 msgstr "Tập Chú Thích"
@@ -41,7 +41,7 @@ msgid "Data element group"
 msgstr "Nhóm dữ liệu"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Toán hạng phần tử dữ liệu"
 
 msgid "Data element"
 msgstr "Phần tử dữ liệu"
@@ -71,13 +71,13 @@ msgid "Event data item"
 msgstr "Mục dữ liệu sự kiện"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Kiểu cách bởi phần tử dữ liệu"
 
 msgid "Data set"
 msgstr "Tập dữ liệu"
 
 msgid "Index"
-msgstr ""
+msgstr "Chỉ số (Index)"
 
 msgid "Org unit"
 msgstr "Đơn vị"
@@ -104,19 +104,20 @@ msgid "Level"
 msgstr "Cấp"
 
 msgid "Parent"
-msgstr ""
+msgstr "Đơn vị cha"
 
 msgid "Type"
 msgstr "Loại"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"Bảng dữ liệu không được hỗ trợ khi các sự kiện được nhóm trên máy chủ."
 
 msgid "Add filter"
 msgstr "Bộ lọc"
 
 msgid "Items"
-msgstr ""
+msgstr "Mục"
 
 msgid "Dimension"
 msgstr "Chiều kích"
@@ -125,17 +126,19 @@ msgid "Download"
 msgstr "Tải về"
 
 msgid "Download map"
-msgstr ""
+msgstr "Tải bản đồ"
 
 msgid "Show name"
 msgstr ""
 
 msgid "Show legend"
-msgstr ""
+msgstr "Hiện chú thích"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Trình duyệt của bạn không hỗ trợ tải xuống bản đồ. Hãy thử Google Chrome "
+"hoặc Firefox."
 
 msgid "Cancel"
 msgstr "Hủy"
@@ -160,40 +163,40 @@ msgid "Point radius"
 msgstr "Tỉ lệ Điểm"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Không có đơn vị nào được chọn"
 
 msgid "event"
 msgstr "sự kiện"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "cá thể"
 
 msgid "facility"
-msgstr ""
+msgstr "cơ sở"
 
 msgid "thematic"
-msgstr ""
+msgstr "chủ đề"
 
 msgid "org unit"
-msgstr ""
+msgstr "đơn vị"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Nền tảng Google Earth"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Sửa lớp {{name}}"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Thêm lớp mới {{name}}"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Cập nhật lớp"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Thêm lớp"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Phương pháp tổng hợp"
 
 msgid "Groups"
 msgstr "Các nhóm"
@@ -211,6 +214,8 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Dữ liệu sẽ được tính toán trên nền tảng Google Earth Engine cho các đơn vị "
+"tổ chức đã chọn."
 
 msgid ""
 "Multiple aggregation methods are available. See the aggregation results by "
@@ -219,7 +224,7 @@ msgid ""
 msgstr ""
 
 msgid "Unit"
-msgstr ""
+msgstr "Đơn vị"
 
 msgid "Source"
 msgstr "Nguồn"
@@ -228,22 +233,22 @@ msgid "Year"
 msgstr "Năm"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Các khoảng thời gian có sẵn được thiết lập bởi dữ liệu nguồn"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Đang tải thời điểm"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Giá trị nhỏ nhất là bắt buộc"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Giá trị lớn nhất là bắt buộc"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "Số lớn nhất phải lớn hơn số nhỏ nhất"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "Các bước hợp lệ từ {{minSteps}}bước đến {{maxSteps}}bước"
 
 msgid "Unit: {{ unit }}"
 msgstr ""
@@ -258,10 +263,10 @@ msgid "Steps"
 msgstr "Bước"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Xem trước chú giải"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Đơn vị"
 
 msgid "Filter"
 msgstr "Lọc"
@@ -270,40 +275,41 @@ msgid "Events"
 msgstr "Sự kiện"
 
 msgid "Group events"
-msgstr ""
+msgstr "Nhóm sự kiện"
 
 msgid "View all events"
-msgstr ""
+msgstr "Xem tất cả sự kiện"
 
 msgid "Radius"
-msgstr ""
+msgstr "Bán kính"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Bạn có thể định kiểu sự kiện theo phần tử dữ liệu sau khi chọn chương trình."
 
 msgid "Program is required"
-msgstr ""
+msgstr "Bắt buộc chọn Chương trình"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Bắt buộc chọn Giai đoạn chương trình"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Không có đơn vị nào được chọn"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Không có chú giải nào được chọn"
 
 msgid "Event status"
 msgstr "Tình trạng sự kiện"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Màu ranh giới"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Bộ đệm"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Bán kính tính bằng mét"
 
 msgid "Labels"
 msgstr "Nhãn"
@@ -315,40 +321,40 @@ msgid "Show no data"
 msgstr ""
 
 msgid "Low radius"
-msgstr ""
+msgstr "Bán kính thấp"
 
 msgid "High radius"
-msgstr ""
+msgstr "Bán kính cao"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "Bán kính cao phải lớn hơn bán kính thấp"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "Bán kính phải nằm trong khoảng {{min}}và {{max}}"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Bắt buộc chọn nhóm chỉ số"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Bắt buộc chọn chỉ số"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Bắt buộc chọn nhóm phần tử dữ liệu"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Bắt buộc chọn phần tử dữ liệu"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Bắt buộc chọn tập dữ liệu"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Bắt buộc chọn mục dữ liệu sự kiện"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Bắt buộc chọn Chỉ số chương trình"
 
 msgid "Period is required"
-msgstr ""
+msgstr "Bắt buộc chọn Thời điểm"
 
 msgid "Indicator"
 msgstr "Chỉ số"
@@ -366,13 +372,13 @@ msgid "Item type"
 msgstr "Kiểu mục"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "Chọn thời điểm khi các cá thể được cập nhật lần cuối"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Ngày đăng ký vào chương trình"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr ""
+msgstr "ngày cá thể được đăng ký vào chương trình"
 
 msgid "Program status"
 msgstr "Tình trạng chương trình"
@@ -385,14 +391,14 @@ msgstr "Theo dõi"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
+msgstr "Hãy chọn Loại cá thể trước khi chọn Mối quan hệ"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
+msgstr "Hiển thị mối quan hệ cá thể trong Bản đồ là một tính năng thử nghiệm"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "Hiển thị mối quan hệ cá thể"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
@@ -402,34 +408,34 @@ msgid "Selection mode"
 msgstr "Chọn Chế Độ"
 
 msgid "Selected only"
-msgstr ""
+msgstr "Chỉ được chọn"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "Đã chọn và bên dưới"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "Đã chọn và tất cả bên dưới"
 
 msgid "Tracked entities"
 msgstr "Các thực thể được theo dõi"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "Kiểu cách cá thể"
 
 msgid "Point size"
-msgstr ""
+msgstr "Kích thước điểm"
 
 msgid "Related entity style"
-msgstr ""
+msgstr "Kiểu cá thể liên quan"
 
 msgid "Line Color"
-msgstr ""
+msgstr "Màu đường kẻ"
 
 msgid "Failed to load relationship types."
 msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr ""
+msgstr "Không tìm thấy loại mối quan hệ nào cho loại cá thể {{type}}"
 
 msgid "Relationship type"
 msgstr "Loại quan hệ"
@@ -453,10 +459,10 @@ msgid "The following information may be requested by technical support."
 msgstr "Các thông tin sau có thể được yêu cầu bởi hỗ trợ kỹ thuật."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "Tính năng lọc có sẵn sau khi chọn giai đoạn chương trình."
 
 msgid "one of"
-msgstr ""
+msgstr "một trong"
 
 msgid "contains"
 msgstr "chứa chuỗi"
@@ -480,10 +486,10 @@ msgid "Group set"
 msgstr "Nhóm tập hợp"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "Không tải được nhóm đơn vị."
 
 msgid "Style by group set"
-msgstr ""
+msgstr "Kiểu theo tập nhóm đơn vị"
 
 msgid "Indicator group"
 msgstr "Nhóm chỉ số"
@@ -498,60 +504,62 @@ msgid "Expand"
 msgstr "Mở rộng"
 
 msgid "External basemap"
-msgstr ""
+msgstr "Bản đồ cơ sở bên ngoài"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Bản đồ cơ sở"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Tải xuống dữ liệu lớp"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "Đang tải dữ liệu GeoJSON cho lớp \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON được hỗ trợ bởi hầu hết các phần mềm GIS, bao gồm QGIS và ArcGIS "
+"Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Tải dữ liệu không thành công."
 
 msgid "ID Format"
-msgstr ""
+msgstr "Định dạng ID"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Sử dụng các mã có thể đọc được bằng mắt người"
 
 msgid "External layer"
 msgstr "Lớp ngoại"
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "Không thể kết hợp chế độ xem chia đôi với các loại lớp khác."
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Đang tải lớp"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}}đã bị xoá"
 
 msgid "Edit"
 msgstr "Chỉnh sửa"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Chuyển đổi khả năng hiển thị"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Đặt độ mờ của lớp"
 
 msgid "More actions"
-msgstr ""
+msgstr "Thêm hành động"
 
 msgid "Hide data table"
 msgstr "Ẩn bảng dữ liệu"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Hiển thị bảng dữ liệu"
 
 msgid "Open as chart"
 msgstr ""
@@ -563,10 +571,10 @@ msgid "Edit layer"
 msgstr "Sửa lớp"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Xoá lớp"
 
 msgid "Mid"
-msgstr ""
+msgstr "Giữa"
 
 msgid "Group"
 msgstr "Nhóm"
@@ -587,7 +595,7 @@ msgid "Show longitude/latitude"
 msgstr "Hiện kinh độ/vĩ độ"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Hiện {{name}}"
 
 msgid "Longitude"
 msgstr "Kinh độ"
@@ -614,58 +622,58 @@ msgid "no value"
 msgstr "không có giá trị"
 
 msgid "acres"
-msgstr ""
+msgstr "mẫu Anh"
 
 msgid "Area"
 msgstr "Khu vực"
 
 msgid "Center map on area"
-msgstr ""
+msgstr "Bản đồ trung tâm khu vực"
 
 msgid "Center map on line"
-msgstr ""
+msgstr "Canh chỉnh bản đồ vào tuyến đường"
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Nhấp vào vị trí tiếp theo"
 
 msgid "Click where you want to start the measurement"
-msgstr ""
+msgstr "Nhấp vào nơi bạn muốn bắt đầu đo lường"
 
 msgid "Delete"
 msgstr "Xóa"
 
 msgid "Distance"
-msgstr ""
+msgstr "Khoảng cách"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Toàn màn hình"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Thoát chế độ toàn màn hình"
 
 msgid "Finish measurement"
-msgstr ""
+msgstr "Hoàn thành đo lường"
 
 msgid "ha"
-msgstr ""
+msgstr "hecta"
 
 msgid "km"
-msgstr ""
+msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr ""
+msgstr "Đo lường khoảng cách và diện tích"
 
 msgid "mi"
-msgstr ""
+msgstr "dặm"
 
 msgid "Perimeter"
-msgstr ""
+msgstr "Chu vi"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "Đặt lại hướng về phía bắc"
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Tìm kiếm địa điểm hoặc địa chỉ"
 
 msgid "Zoom in"
 msgstr "Phóng to"
@@ -674,19 +682,21 @@ msgid "Zoom out"
 msgstr "Thu nhỏ"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "Phóng to nội dung"
 
 msgid "Open as map"
-msgstr ""
+msgstr "Mở dưới dạng bản đồ"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Biểu đồ/ bảng này có chứa {{numItems}}mục dữ liệu. Chọn mục bạn muốn nhập từ"
+" danh sách bên dưới. Mỗi mục dữ liệu sẽ được tạo dưới dạng một lớp bản đồ."
 
 msgid "Data items"
-msgstr ""
+msgstr "Mục dữ liệu"
 
 msgid "Proceed"
 msgstr "Tiếp tục"
@@ -698,15 +708,17 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
+"Phần tử dữ liệu này có quá nhiều tùy chọn ({{length}}). Số tùy chọn tối đa "
+"cho kiểu dáng là {{max}}."
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Không tìm thấy dữ liệu cho thời điểm này."
 
 msgid "Select groups"
 msgstr "Chọn nhóm"
 
 msgid "Image of the organisation unit"
-msgstr ""
+msgstr "Hình ảnh của đơn vị"
 
 msgid "Code"
 msgstr "Mã"
@@ -727,7 +739,7 @@ msgid "Link"
 msgstr "Liên kết"
 
 msgid "Contact"
-msgstr ""
+msgstr "Liên lạc"
 
 msgid "Email"
 msgstr "Thư điện tử (Email)"
@@ -736,7 +748,7 @@ msgid "Address"
 msgstr "Địa chỉ"
 
 msgid "Phone"
-msgstr ""
+msgstr "Điện thoại"
 
 msgid "ID"
 msgstr "Định danh"
@@ -748,7 +760,7 @@ msgid "Select levels"
 msgstr "Chọn Tuyến Đơn Vị"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "Hồ sơ đơn vị"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -789,7 +801,7 @@ msgid "User organisation units"
 msgstr ""
 
 msgid "Previous year"
-msgstr ""
+msgstr "Năm trước"
 
 msgid "Next year"
 msgstr "Năm sau"
@@ -804,22 +816,22 @@ msgid "Start/end dates"
 msgstr "Ngày bắt đầu/kết thúc"
 
 msgid "Only one timeline is allowed."
-msgstr ""
+msgstr "Chỉ được phép có một mốc thời gian."
 
 msgid "Remove other layers to enable split map views."
-msgstr ""
+msgstr "Xóa các lớp khác để bật chế độ xem bản đồ chia đôi."
 
 msgid "Display periods"
-msgstr ""
+msgstr "Hiển thị thời điểm"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "Đơn (tổng hợp)"
 
 msgid "Timeline"
 msgstr "Dòng thời gian"
 
 msgid "Split map views"
-msgstr ""
+msgstr "Xem chế độ chia tách bản đồ"
 
 msgid "Start date"
 msgstr "Ngày bắt đầu"
@@ -843,7 +855,7 @@ msgid "Stage"
 msgstr "Giai Đoạn Chương Trình"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Loại cá thể"
 
 msgid "By data element"
 msgstr "Theo Phần Tử Dữ Liệu"
@@ -867,10 +879,10 @@ msgid "Percentage"
 msgstr "Phần trăm"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Héc ta"
 
 msgid "Acres"
-msgstr ""
+msgstr "Mẫu Anh"
 
 msgid "Mean"
 msgstr "Giá Trị Trung Bình"
@@ -903,231 +915,240 @@ msgid "Bing Aerial Labels"
 msgstr "Big Aerial Labels"
 
 msgid "Population"
-msgstr ""
+msgstr "Dân số"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "người trên một hecta"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Ước tính số người sống trong một khu vực."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Nhóm tuổi dân số"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Ước tính số người sống trong một khu vực, được nhóm theo độ tuổi và giới "
+"tính."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Nam 0 - 1 tuổi"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Nam 1 - 4 tuổi"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Nam 5 - 9 tuổi"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Nam 10 - 14 tuổi"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Nam 15 - 19 tuổi"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Nam 20 - 24 tuổi"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Nam 25 - 29 tuổi"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Nam 30 - 34 tuổi"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Nam 35 - 39 tuổi"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Nam 40 - 44 tuổi"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Nam 45 - 49 tuổi"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Nam 50 - 54 tuổi"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Nam 55 - 59 tuổi"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Nam 60 - 64 tuổi"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Nam 65 - 69 tuổi"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Nam 70 - 74 tuổi"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Nam 75 - 79 tuổi"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Nam từ 80 tuổi trở lên"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Nữ 0 - 1 tuổi"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Nữ 1 - 4 tuổi"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Nữ 5 - 9 tuổi"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Nữ 10 - 14 tuổi"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Nữ 15 - 19 tuổi"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Nữ 20 - 24 tuổi"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Nữ 25 - 29 tuổi"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Nữ 30 - 34 tuổi"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Nữ 35 - 39 tuổi"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Nữ 40 - 44 tuổi"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Nữ 45 - 49 tuổi"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Nữ 50 - 54 tuổi"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Nữ 55 - 59 tuổi"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Nữ 60 - 64 tuổi"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Nữ 65 - 69 tuổi"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Nữ 70 - 74 tuổi"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Nữ 75 - 79 tuổi"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Nữ từ 80 tuổi trở lên"
 
 msgid "Elevation"
 msgstr "Độ cao"
 
 msgid "meters"
-msgstr ""
+msgstr "mét"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Độ cao trên mực nước biển."
 
 msgid "Precipitation"
 msgstr "Lượng mưa"
 
 msgid "millimeter"
-msgstr ""
+msgstr "milimét"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Lượng mưa thu thập từ vệ tinh và các trạm thời tiết trên mặt đất. Các giá "
+"trị được tính bằng milimét trong khoảng thời gian 5 ngày. Cập nhật hàng "
+"tháng, trong tuần thứ 3 của tháng tiếp theo."
 
 msgid "Temperature"
 msgstr "Nhiệt độ"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "°C vào ban ngày"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Nhiệt độ bề mặt đất được thu thập từ vệ tinh. Các điểm trống sẽ xuất hiện ở "
+"những khu vực có mây bao phủ liên tục."
 
 msgid "Landcover"
 msgstr "Phủ đất"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "Các loại đất che phủ khác nhau được thu thập từ vệ tinh."
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Rừng lá kim thường xanh"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Rừng lá rộng thường xanh"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Rừng lá kim rụng lá"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Rừng lá rộng rụng lá"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "Rừng hỗn hợp"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "Cây bụi khép kín"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "Cây bụi mở"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "Sa-van có cây gỗ"
 
 msgid "Savannas"
-msgstr ""
+msgstr "Trảng cỏ"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Đồng cỏ"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "Đất ngập nước vĩnh cửu"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Đất trồng trọt"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Đô thị và xây dựng"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "Đất trồng trọt/Khảm thảm thực vật tự nhiên"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Tuyết và băng"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Cằn cỗi hoặc ít cây cối"
 
 msgid "Water"
-msgstr ""
+msgstr "Nước"
 
 msgid "people per km²"
-msgstr ""
+msgstr "người trên mỗi km²"
 
 msgid "Nighttime lights"
 msgstr "Ánh sáng đêm"
 
 msgid "light intensity"
-msgstr ""
+msgstr "cường độ ánh sáng"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"Cường độ ánh sáng từ các thành phố, thị trấn và các địa điểm khác có ánh "
+"sáng liên tục, bao gồm cả ngọn lửa khí."
 
 msgid "All"
 msgstr "Tất cả"
@@ -1148,19 +1169,19 @@ msgid "Skipped"
 msgstr "Đã bỏ qua"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Bản đồ mã màu Choropleth"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Bản đồ bong bóng"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Chú giải màu tự động"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Chú giải màu được xác định trước"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Chú giải một màu"
 
 msgid "Equal intervals"
 msgstr "Chia đều tổng Giá trị dữ liệu"
@@ -1235,16 +1256,18 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "Không tìm thấy tọa độ"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Bạn không có quyền truy cập vào dữ liệu lớp này"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Đã xảy ra lỗi không xác định khi đọc dữ liệu lớp"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
+"Hiển thị {{pageSize}}trang trước trong tổng số {{total}}trang dữ liệu sự "
+"kiện."
 
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
@@ -1253,7 +1276,7 @@ msgid "Event"
 msgstr "Sự Kiện"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Cơ sở"
 
 msgid "No facilities found"
 msgstr ""
@@ -1277,45 +1300,47 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
-msgstr ""
+msgstr "có liên quan"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Chuyên đề"
 
 msgid "Org units"
 msgstr "Các đơn vị"
 
 msgid "not one of"
-msgstr ""
+msgstr "không phải một trong"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "không chứa"
 
 msgid "true"
-msgstr ""
+msgstr "Đúng"
 
 msgid "false"
-msgstr ""
+msgstr "Sai"
 
 msgid "No"
 msgstr "Không"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Lớp này yêu cầu tài khoản Google Earth Engine. Kiểm tra tài liệu DHIS2 để "
+"biết thêm thông tin."
 
 msgid "Facility"
 msgstr "Trạm Y tế"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Ngày bắt đầu không hợp lệ"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Ngày kết thúc không hợp lệ"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Ngày kết thúc không thể sớm hơn ngày bắt đầu"
