@@ -876,128 +876,130 @@ msgid "Bing Aerial Labels"
 msgstr "Big Aerial Labels"
 
 msgid "Population"
-msgstr ""
+msgstr "Dân số"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "người trên một hecta"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Ước tính số người sống trong một khu vực."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Nhóm tuổi dân số"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Ước tính số người sống trong một khu vực, được nhóm theo độ tuổi và giới "
+"tính."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Nam 0 - 1 tuổi"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Nam 1 - 4 tuổi"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Nam 5 - 9 tuổi"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Nam 10 - 14 tuổi"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Nam 15 - 19 tuổi"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Nam 20 - 24 tuổi"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Nam 25 - 29 tuổi"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Nam 30 - 34 tuổi"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Nam 35 - 39 tuổi"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Nam 40 - 44 tuổi"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Nam 45 - 49 tuổi"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Nam 50 - 54 tuổi"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Nam 55 - 59 tuổi"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Nam 60 - 64 tuổi"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Nam 65 - 69 tuổi"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Nam 70 - 74 tuổi"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Nam 75 - 79 tuổi"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Nam từ 80 tuổi trở lên"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Nữ 0 - 1 tuổi"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Nữ 1 - 4 tuổi"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Nữ 5 - 9 tuổi"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Nữ 10 - 14 tuổi"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Nữ 15 - 19 tuổi"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Nữ 20 - 24 tuổi"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Nữ 25 - 29 tuổi"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Nữ 30 - 34 tuổi"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Nữ 35 - 39 tuổi"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Nữ 40 - 44 tuổi"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Nữ 45 - 49 tuổi"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Nữ 50 - 54 tuổi"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Nữ 55 - 59 tuổi"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Nữ 60 - 64 tuổi"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Nữ 65 - 69 tuổi"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Nữ 70 - 74 tuổi"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Nữ 75 - 79 tuổi"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Nữ từ 80 tuổi trở lên"
 
 msgid "Elevation"
 msgstr "Độ cao"
@@ -1012,24 +1014,29 @@ msgid "Precipitation"
 msgstr "Lượng mưa"
 
 msgid "millimeter"
-msgstr ""
+msgstr "milimét"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Lượng mưa thu thập từ vệ tinh và các trạm thời tiết trên mặt đất. Các giá "
+"trị được tính bằng milimét trong khoảng thời gian 5 ngày. Cập nhật hàng "
+"tháng, trong tuần thứ 3 của tháng tiếp theo."
 
 msgid "Temperature"
 msgstr "Nhiệt độ"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "°C vào ban ngày"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Nhiệt độ bề mặt đất được thu thập từ vệ tinh. Các điểm trống sẽ xuất hiện ở "
+"những khu vực có mây bao phủ liên tục."
 
 msgid "Landcover"
 msgstr "Phủ đất"
@@ -1074,33 +1081,35 @@ msgid "Croplands"
 msgstr "Đất trồng trọt"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Đô thị và xây dựng"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "Đất trồng trọt/Khảm thảm thực vật tự nhiên"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Tuyết và băng"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Cằn cỗi hoặc ít cây cối"
 
 msgid "Water"
-msgstr ""
+msgstr "Nước"
 
 msgid "people per km²"
-msgstr ""
+msgstr "người trên mỗi km²"
 
 msgid "Nighttime lights"
 msgstr "Ánh sáng đêm"
 
 msgid "light intensity"
-msgstr ""
+msgstr "cường độ ánh sáng"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"Cường độ ánh sáng từ các thành phố, thị trấn và các địa điểm khác có ánh "
+"sáng liên tục, bao gồm cả ngọn lửa khí."
 
 msgid "All"
 msgstr "Tất cả"
@@ -1121,19 +1130,19 @@ msgid "Skipped"
 msgstr "Đã bỏ qua"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Bản đồ mã màu Choropleth"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Bản đồ bong bóng"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Chú giải màu tự động"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Chú giải màu được xác định trước"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Chú giải một màu"
 
 msgid "Equal intervals"
 msgstr "Chia đều tổng Giá trị dữ liệu"
@@ -1214,22 +1223,24 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Bạn không có quyền truy cập vào dữ liệu lớp này"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Đã xảy ra lỗi không xác định khi đọc dữ liệu lớp"
 
 msgid "Event"
 msgstr "Sự Kiện"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
+"Hiển thị {{pageSize}}trang trước trong tổng số {{total}}trang dữ liệu sự "
+"kiện."
 
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Cơ sở"
 
 msgid "Thematic layer"
 msgstr "Lớp Chuyên Đề"
@@ -1244,39 +1255,41 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
-msgstr ""
+msgstr "có liên quan"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Chuyên đề"
 
 msgid "not one of"
-msgstr ""
+msgstr "không phải một trong"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "không chứa"
 
 msgid "true"
-msgstr ""
+msgstr "Đúng"
 
 msgid "false"
-msgstr ""
+msgstr "Sai"
 
 msgid "No"
 msgstr "Không"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Lớp này yêu cầu tài khoản Google Earth Engine. Kiểm tra tài liệu DHIS2 để "
+"biết thêm thông tin."
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Ngày bắt đầu không hợp lệ"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Ngày kết thúc không hợp lệ"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Ngày kết thúc không thể sớm hơn ngày bắt đầu"
