@@ -1,7 +1,7 @@
 import { FieldGroup } from '@dhis2/ui'
 import { mount } from 'enzyme'
 import React from 'react'
-import RadioGroup, { RadioContext } from '../RadioGroup.js'
+import { Radio, RadioGroup } from '../index.js'
 
 describe('RadioGroup', () => {
     const mockOnChange = jest.fn()
@@ -12,8 +12,8 @@ describe('RadioGroup', () => {
     const label = 'Select an option'
     const helpText = 'Choose one of the available options'
     const children = [
-        <input key="key1" type="radio" value="option1" />,
-        <input key="key2" type="radio" value="option2" />,
+        <Radio value="option1" label="option1" key="option1" />,
+        <Radio value="option2" label="option2" key="option2" />,
     ]
     let props
 
@@ -34,21 +34,13 @@ describe('RadioGroup', () => {
 
     it('renders the label with the correct style', () => {
         const wrapper = renderWithProps(props)
-        const labelElement = wrapper.children().find('div').first()
+        const labelElement = wrapper.find('div.boldLabel')
         expect(labelElement.text()).toBe(label)
-        expect(labelElement.hasClass('boldLabel')).toBe(true)
     })
 
     it('renders the help text', () => {
         const wrapper = renderWithProps(props)
         expect(wrapper.find(FieldGroup).prop('helpText')).toBe(helpText)
-    })
-
-    it('provides the current value and onChange via context', () => {
-        const wrapper = renderWithProps(props)
-        const context = wrapper.find(RadioContext.Provider).prop('value')
-        expect(context.radio).toBe(value)
-        expect(context.onChange).toBe(mockOnChange)
     })
 
     it('renders children inside the FieldGroup', () => {
@@ -58,15 +50,16 @@ describe('RadioGroup', () => {
 
     it('updates the radio state when value prop changes', () => {
         const wrapper = renderWithProps(props)
-        expect(wrapper.find(RadioContext.Provider).prop('value').radio).toBe(
-            value
-        )
+        expect(
+            wrapper.find('input[type="radio"][value="option1"]').prop('checked')
+        ).toBe(true)
 
         wrapper.setProps({ value: 'option2' })
         wrapper.update()
-        expect(wrapper.find(RadioContext.Provider).prop('value').radio).toBe(
-            'option2'
-        )
+
+        expect(
+            wrapper.find('input[type="radio"][value="option2"]').prop('checked')
+        ).toBe(true)
     })
 
     it('applies the correct class based on display and compact props', () => {

@@ -52,13 +52,15 @@ describe('RenderingStrategy', () => {
     it('renders all radio buttons with correct labels', () => {
         countPeriods.mockReturnValue(5)
         const wrapper = renderWithProps(props)
+        expect(wrapper.find('div.boldLabel.compact').text()).toBe(
+            'Period display mode'
+        )
         expect(wrapper.find('input').length).toBe(3) // Three radio buttons
-        expect(wrapper.find('label').at(0).text()).toBe('Period display mode')
-        expect(wrapper.find('label').at(1).text()).toBe(
+        expect(wrapper.find('label').at(0).text()).toBe(
             'Single (combine periods)'
         )
-        expect(wrapper.find('label').at(2).text()).toBe('Timeline')
-        expect(wrapper.find('label').at(3).text()).toBe('Split map views')
+        expect(wrapper.find('label').at(1).text()).toBe('Timeline')
+        expect(wrapper.find('label').at(2).text()).toBe('Split map views')
     })
 
     it('disables timeline and split map views when total periods are below the minimum', () => {
