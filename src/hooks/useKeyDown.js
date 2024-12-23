@@ -1,29 +1,32 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo, useCallback } from 'react'
 
 const useKeyDown = (key, callback, longPress = false) => {
     const timerRef = useRef(null)
-
     const keys = useMemo(() => (Array.isArray(key) ? key : [key]), [key])
 
-    useEffect(() => {
-        const handleKeyDown = (event) => {
+    const handleKeyDown = useCallback(
+        (event) => {
             if (keys.includes(event.key)) {
-                if (!longPress) {
-                    callback(event)
+                if (longPress) {
+                    timerRef.current = setTimeout(() => callback(event), 250)
                 } else {
-                    timerRef.current = setTimeout(() => {
-                        callback(event)
-                    }, 250) // Adjust delay for long press detection
+                    callback(event)
                 }
             }
-        }
+        },
+        [keys, callback, longPress]
+    )
 
-        const handleKeyUp = (event) => {
+    const handleKeyUp = useCallback(
+        (event) => {
             if (keys.includes(event.key) && longPress) {
                 clearTimeout(timerRef.current)
             }
-        }
+        },
+        [keys, longPress]
+    )
 
+    useEffect(() => {
         window.addEventListener('keydown', handleKeyDown)
         window.addEventListener('keyup', handleKeyUp)
 
@@ -31,11 +34,7 @@ const useKeyDown = (key, callback, longPress = false) => {
             window.removeEventListener('keydown', handleKeyDown)
             window.removeEventListener('keyup', handleKeyUp)
         }
-    }, [keys, callback, longPress])
-
-    useEffect(() => {
-        return () => clearTimeout(timerRef.current)
-    }, [])
+    }, [handleKeyDown, handleKeyUp])
 }
 
 export default useKeyDown

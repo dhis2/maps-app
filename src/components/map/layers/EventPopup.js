@@ -7,8 +7,9 @@ import { formatTime, formatCoordinate } from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.js'
 
-// Returns true if value is not undefined or null;
+// Returns true if value is not undefined or null
 const hasValue = (value) => value !== undefined && value !== null
+
 const EVENTS_QUERY = {
     events: {
         resource: 'tracker/events',

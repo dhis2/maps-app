@@ -35,7 +35,7 @@ const OrgUnitProfile = () => {
         }
     }, [id, refetch])
 
-    useKeyDown('Escape', () => dispatch(closeOrgUnitProfile()))
+    useKeyDown('Escape', () => dispatch(closeOrgUnitProfile()), true)
 
     if (!id) {
         return null
