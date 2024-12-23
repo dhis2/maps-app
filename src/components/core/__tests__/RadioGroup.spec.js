@@ -1,6 +1,6 @@
+import { FieldGroup } from '@dhis2/ui'
 import { mount } from 'enzyme'
 import React from 'react'
-import { FieldGroup } from '@dhis2/ui'
 import RadioGroup, { RadioContext } from '../RadioGroup.js'
 
 describe('RadioGroup', () => {
