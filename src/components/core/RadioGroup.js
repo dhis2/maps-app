@@ -8,22 +8,20 @@ export const RadioContext = React.createContext()
 
 const RadioGroup = ({
     value,
-    label,
-    helpText,
-    display,
+    label = '',
+    helpText = '',
+    display = 'column',
     onChange,
-    boldLabel,
-    compact,
+    boldLabel = false,
+    compact = false,
     children,
     dataTest,
 }) => {
     const [radio, setRadio] = useState(value)
 
     useEffect(() => {
-        if (value !== radio) {
-            setRadio(value)
-        }
-    }, [value, radio])
+        setRadio(value)
+    }, [value])
 
     return (
         <RadioContext.Provider value={{ radio, onChange }}>
@@ -33,20 +31,17 @@ const RadioGroup = ({
                     [styles.compact]: compact,
                 })}
             >
-                <FieldGroup
-                    label={
-                        <span
-                            className={cx({
-                                [styles.boldLabel]: boldLabel,
-                                [styles.compact]: compact,
-                            })}
-                        >
-                            {label}
-                        </span>
-                    }
-                    helpText={helpText}
-                    dataTest={dataTest}
-                >
+                {label && (
+                    <div
+                        className={cx({
+                            [styles.boldLabel]: boldLabel,
+                            [styles.compact]: compact,
+                        })}
+                    >
+                        {label}
+                    </div>
+                )}
+                <FieldGroup helpText={helpText} dataTest={dataTest}>
                     {children}
                 </FieldGroup>
             </div>
@@ -60,7 +55,7 @@ RadioGroup.propTypes = {
     children: PropTypes.arrayOf(PropTypes.node),
     compact: PropTypes.bool,
     dataTest: PropTypes.string,
-    display: PropTypes.string,
+    display: PropTypes.oneOf(['row', 'column']),
     helpText: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
