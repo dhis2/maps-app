@@ -55,7 +55,7 @@ describe('RenderingStrategy', () => {
         expect(wrapper.find('div.boldLabel.compact').text()).toBe(
             'Period display mode'
         )
-        expect(wrapper.find('input').length).toBe(3) // Three radio buttons
+        expect(wrapper.find('input').length).toBe(3)
         expect(wrapper.find('label').at(0).text()).toBe(
             'Single (combine periods)'
         )
@@ -66,7 +66,7 @@ describe('RenderingStrategy', () => {
     it('disables timeline and split map views when total periods are below the minimum', () => {
         countPeriods.mockReturnValue(1)
         const wrapper = renderWithProps(props)
-        expect(wrapper.find('input').at(1).prop('disabled')).toBeDefined() // Timeline should be disabled
+        expect(wrapper.find('input').at(1).prop('disabled')).toBeDefined()
         expect(wrapper.find('input').at(2).prop('disabled')).toBeDefined()
     })
 

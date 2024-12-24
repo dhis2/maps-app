@@ -3,257 +3,143 @@ import { axisBottom } from 'd3-axis'
 import { scaleTime } from 'd3-scale'
 import { select } from 'd3-selection'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { doubleTicksPeriods } from '../../constants/periods.js'
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import {
-    getPeriodTypeFromId,
-    getPeriodLevelFromPeriodType,
+    addPeriodsDetails,
+    sortPeriodsByLevelAndStartDate,
+    checkLastPeriod,
+    getMinMaxDates,
 } from '../../util/periods.js'
 import timeTicks from '../../util/timeTicks.js'
 import styles from './styles/Timeline.module.css'
 
-// Constants
 const PADDING_LEFT = 40
 const PADDING_RIGHT = 20
 const LABEL_WIDTH = 80
 const RECT_HEIGHT = 8
 const RECT_OFFSET = 8
 const DELAY = 1500
-const PLAY_ICON = <path d="M8 5v14l11-7z" />
-const PAUSE_ICON = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
 
-// Utility Functions
-const addPeriodDetails = (period) => {
-    const type = getPeriodTypeFromId(period.id)
-    const level = getPeriodLevelFromPeriodType(type)
-    return { ...period, type, level }
-}
+const Timeline = ({ period, periods, onChange }) => {
+    const { layersPanelOpen, rightPanelOpen } = useSelector((state) => state.ui)
+    const [width, setWidth] = useState(null)
+    const [mode, setMode] = useState('start')
+    const [currentPeriod, setCurrentPeriod] = useState(period)
+    const svgRef = useRef(null)
+    const timeoutRef = useRef(null)
 
-const getUniqueLevels = (periodsWithLevel) => [
-    ...new Set(periodsWithLevel.map((item) => item.level)),
-]
-
-const countUniqueRanks = (periods) => {
-    const periodsWithDetails = periods.map(addPeriodDetails)
-    return getUniqueLevels(periodsWithDetails).length
-}
-
-const sortPeriodsByLevelRank = (periods) => {
-    const periodsWithDetails = periods.map(addPeriodDetails)
-    const sortedLevels = getUniqueLevels(periodsWithDetails).sort(
-        (a, b) => b - a
+    const TRANSPARENT_RECT = <path d="M0 0h24v24H0z" fillOpacity="0.0" />
+    const PLAY_ICON = <path d="M8 5v14l11-7z" className="play-icon" />
+    const PAUSE_ICON = (
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" className="pause-icon" />
     )
-    return periodsWithDetails
-        .map((item) => ({
-            ...item,
-            levelRank: sortedLevels.indexOf(item.level),
-        }))
-        .sort((a, b) => a.levelRank - b.levelRank)
-}
 
-const sortPeriodsByLevelAndStartDate = (periods) =>
-    periods
-        .map(addPeriodDetails)
-        .sort((a, b) => b.level - a.level)
-        .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+    const updateWidth = useCallback(() => {
+        if (svgRef.current) {
+            const box = svgRef.current.parentNode?.getBoundingClientRect()
+            const newWidth = box ? box.width - PADDING_LEFT - PADDING_RIGHT : 0
+            setWidth(newWidth)
+        }
+    }, [])
 
-// Timeline Component
-class Timeline extends Component {
-    static contextTypes = {
-        map: PropTypes.object,
-    }
-    static propTypes = {
-        period: PropTypes.object.isRequired,
-        periods: PropTypes.array.isRequired,
-        onChange: PropTypes.func.isRequired,
-    }
-    state = {
-        width: null,
-        mode: 'start',
-    }
+    useEffect(() => {
+        window.addEventListener('resize', updateWidth)
+        updateWidth()
+        return () => window.removeEventListener('resize', updateWidth)
+    }, [updateWidth, layersPanelOpen, rightPanelOpen])
 
-    // Set time scale
-    setTimeScale = () => {
-        const { periods } = this.props
-        const { width } = this.state
+    const { periodsWithTypeLevelAndRank, distinctLevelsCount } = useMemo(
+        () => addPeriodsDetails(periods),
+        [periods]
+    )
 
-        if (!periods.length) {
+    const sortedPeriods = useMemo(
+        () => sortPeriodsByLevelAndStartDate(periodsWithTypeLevelAndRank),
+        [periodsWithTypeLevelAndRank]
+    )
+
+    const isLastPeriod = useMemo(
+        () => checkLastPeriod(currentPeriod, sortedPeriods),
+        [currentPeriod, sortedPeriods]
+    )
+
+    const timeScale = useMemo(() => {
+        if (!sortedPeriods.length || !width) {
+            return null
+        }
+        return scaleTime()
+            .domain(getMinMaxDates(sortedPeriods))
+            .range([0, width])
+    }, [sortedPeriods, width])
+
+    const setTimeAxis = useCallback(() => {
+        if (!timeScale) {
             return
         }
-
-        const { minStartDate, maxEndDate } = periods.reduce(
-            (acc, { startDate, endDate }) => {
-                const start = new Date(startDate)
-                const end = new Date(endDate)
-                return {
-                    minStartDate:
-                        start < acc.minStartDate ? start : acc.minStartDate,
-                    maxEndDate: end > acc.maxEndDate ? end : acc.maxEndDate,
-                }
-            },
-            {
-                minStartDate: new Date(periods[0].startDate),
-                maxEndDate: new Date(periods[0].endDate),
-            }
-        )
-
-        // Link time domain to timeline width
-        this.timeScale = scaleTime()
-            .domain([minStartDate, maxEndDate])
-            .range([0, width])
-    }
-
-    // Set timeline axis
-    setTimeAxis = () => {
-        const { periods } = this.props
-        const periodsType = periods.map(({ id }) => getPeriodTypeFromId(id))
-        const numPeriods =
-            periods.length *
-            (doubleTicksPeriods.some((element) => periodsType.includes(element))
-                ? 2
-                : 1)
-        const { width } = this.state
         const maxTicks = Math.round(width / LABEL_WIDTH)
-        const numTicks = Math.min(maxTicks, numPeriods)
-        const ticks = timeTicks(...this.timeScale.domain(), numTicks)
+        const ticks = timeTicks(...timeScale.domain(), maxTicks)
+        const timeAxis = axisBottom(timeScale).tickValues(ticks)
+        select(svgRef.current).call(timeAxis)
+    }, [timeScale, width])
 
-        const timeAxis = axisBottom(this.timeScale).tickValues(ticks)
-        select(this.node).call(timeAxis)
-    }
+    useEffect(() => {
+        setTimeAxis()
+    }, [timeScale, setTimeAxis])
 
-    // Set timeline width from DOM element
-    setWidth = () => {
-        if (this.node) {
-            // clientWith returns 0 for SVG elements in Firefox
-            const box = this.node.parentNode.getBoundingClientRect()
-            const width = box.right - box.left - PADDING_LEFT - PADDING_RIGHT
-            this.setState({ width })
-        }
-    }
-
-    // Play animation
-    play = () => {
-        const { period, periods, onChange } = this.props
-        const sortedPeriods = sortPeriodsByLevelAndStartDate(periods)
-        const currentIndex = sortedPeriods.findIndex((p) => p.id === period.id)
-        const isLastPeriod = currentIndex === sortedPeriods.length - 1
-
-        // If new animation
-        if (!this.timeout) {
-            // Switch to first period if last
-            if (isLastPeriod) {
-                onChange(sortedPeriods[0])
+    const play = useCallback(() => {
+        timeoutRef.current = setTimeout(() => {
+            const nextPeriod = sortedPeriods.find(
+                (p) => p.startDate > currentPeriod.startDate
+            )
+            if (nextPeriod) {
+                setCurrentPeriod(nextPeriod)
+                onChange(nextPeriod)
+            } else {
+                setMode('pause')
             }
+        }, DELAY)
+        setMode('play')
+    }, [sortedPeriods, currentPeriod, onChange])
 
-            this.setState({ mode: 'play' })
-        } else {
-            // Stop animation if last period
-            if (isLastPeriod) {
-                this.stop()
-                return
-            }
+    const pause = useCallback(() => {
+        clearTimeout(timeoutRef.current)
+        setMode('pause')
+    }, [])
 
-            // Switch to next period
-            onChange(sortedPeriods[currentIndex + 1])
+    useEffect(() => {
+        mode === 'play' ? play() : pause()
+        return () => clearTimeout(timeoutRef.current)
+    }, [mode, play, pause])
+
+    const onPlayPause = useCallback(() => {
+        mode === 'play' ? pause() : play()
+        if (isLastPeriod) {
+            setCurrentPeriod(sortedPeriods[0])
+            onChange(sortedPeriods[0])
         }
+    }, [mode, isLastPeriod, play, pause, sortedPeriods, onChange])
 
-        // Call itself after DELAY
-        this.timeout = setTimeout(this.play, DELAY)
-    }
-
-    // Stop animation
-    stop = () => {
-        this.setState({ mode: 'stop' })
-        clearTimeout(this.timeout)
-        delete this.timeout
-    }
-
-    // Handler for play/pause button
-    onPlayPause = () => {
-        if (this.state.mode === 'play') {
-            this.stop()
-        } else {
-            this.play()
+    const onPeriodClick = (clickedPeriod) => {
+        if (clickedPeriod.id !== period.id) {
+            setCurrentPeriod(clickedPeriod)
+            onChange(clickedPeriod)
         }
+        pause()
     }
 
-    // Handler for period click
-    onPeriodClick(period) {
-        // Switch to period if different
-        if (period.id !== this.props.period.id) {
-            this.props.onChange(period)
-        }
+    const rectTotalHeight =
+        RECT_HEIGHT + (distinctLevelsCount - 1) * RECT_OFFSET
 
-        // Stop animation if running
-        this.stop()
-    }
-
-    componentDidMount() {
-        this.setWidth()
-        this.context.map.on('resize', this.setWidth)
-    }
-
-    componentDidUpdate() {
-        this.setTimeAxis()
-    }
-
-    componentWillUnmount() {
-        this.context.map.off('resize', this.setWidth)
-    }
-
-    render() {
-        const { mode } = this.state
-        const uniqueRanks = countUniqueRanks(this.props.periods)
-        const rectTotalHeight = RECT_HEIGHT + (uniqueRanks - 1) * RECT_OFFSET
-
-        this.setTimeScale()
-        return (
-            <svg
-                className={`dhis2-map-timeline ${styles.timeline}`}
-                style={{
-                    height: `${32 + rectTotalHeight}px`,
-                    bottom: `30px`,
-                }}
-            >
-                {/* Play/Pause Button */}
-                <g
-                    onClick={this.onPlayPause}
-                    transform={`translate(7,${rectTotalHeight / 2})`}
-                    className={styles.play}
-                >
-                    <path d="M0 0h24v24H0z" fillOpacity="0.0" />
-                    {mode === 'play' ? PAUSE_ICON : PLAY_ICON}
-                </g>
-                {/* Period Rectangles */}
-                <g transform={`translate(${PADDING_LEFT},10)`}>
-                    {this.getPeriodRects()}
-                </g>
-                {/* X-Axis */}
-                <g
-                    transform={`translate(${PADDING_LEFT},${
-                        12 + rectTotalHeight
-                    })`}
-                    ref={(node) => (this.node = node)}
-                />
-            </svg>
-        )
-    }
-
-    // Returns array of period rectangles
-    getPeriodRects = () => {
-        const { period, periods } = this.props
-
-        const sortedPeriods = sortPeriodsByLevelRank(periods)
-
+    const getPeriodRects = (sortedPeriods, timeScale) => {
         return sortedPeriods.map((item) => {
             const isCurrent = period.id === item.id
-            const { id, startDate, endDate } = item
-            const x = this.timeScale(startDate)
-            const width = this.timeScale(endDate) - x
+            const x = timeScale(new Date(item.startDate))
+            const width = timeScale(new Date(item.endDate)) - x
 
             return (
                 <rect
-                    key={id}
+                    key={item.id}
                     className={cx(styles.period, {
                         [styles.selected]: isCurrent,
                     })}
@@ -261,11 +147,50 @@ class Timeline extends Component {
                     y={item.levelRank * RECT_OFFSET}
                     width={width}
                     height={RECT_HEIGHT}
-                    onClick={() => this.onPeriodClick(item)}
+                    onClick={() => onPeriodClick(item)}
                 />
             )
         })
     }
+
+    return (
+        <svg
+            className={`dhis2-map-timeline ${styles.timeline}`}
+            style={{
+                height: `${32 + rectTotalHeight}px`,
+                bottom: `30px`,
+            }}
+        >
+            {/* Play/Pause Button */}
+            <g
+                onClick={onPlayPause}
+                transform={`translate(7, ${rectTotalHeight / 2})`}
+                className={styles.play}
+            >
+                {TRANSPARENT_RECT}
+                {mode === 'play' ? PAUSE_ICON : PLAY_ICON}
+            </g>
+            {/* Period Rectangles */}
+            {sortedPeriods && timeScale && (
+                <g transform={`translate(${PADDING_LEFT}, 10)`}>
+                    {getPeriodRects(sortedPeriods, timeScale)}
+                </g>
+            )}
+            {/* X-Axis */}
+            <g
+                transform={`translate(${PADDING_LEFT}, ${
+                    12 + rectTotalHeight
+                })`}
+                ref={svgRef}
+            />
+        </svg>
+    )
+}
+
+Timeline.propTypes = {
+    period: PropTypes.object.isRequired,
+    periods: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
 }
 
 export default Timeline

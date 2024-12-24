@@ -106,7 +106,7 @@ export const getHiddenPeriods = (systemSettings) => {
         .map((setting) => setting.match(periodSetting)[1].toUpperCase())
 }
 
-// Count maximum number of periods returned by analytics api
+// Count number of periods returned by analytics api (maximum ie. at some point fixed and relative periods will not overlap anymore)
 // Preliminary step
 export const getPeriodsDurationByType = (
     periods,
@@ -159,7 +159,8 @@ export const getPeriodTypeFromId = (periodId) => {
     )
 }
 
-export const getPeriodLevelFromPeriodType = (periodType) => {
+// Get period level as index of ordered array
+const getPeriodLevelFromPeriodType = (periodType) => {
     const periodTypesByLevel = [
         DAILY,
         WEEKLY,
@@ -181,4 +182,69 @@ export const getPeriodLevelFromPeriodType = (periodType) => {
         FYAPR,
     ]
     return periodTypesByLevel.indexOf(periodType)
+}
+
+// Get distinct levels from an array of periods
+const getDistinctLevels = (periodsWithLevel) =>
+    [...new Set(periodsWithLevel.map((item) => item.level))].sort(
+        (a, b) => b - a
+    )
+
+// Add type, level and levelRank to period object
+export const addPeriodsDetails = (periods) => {
+    const periodsWithTypeAndLevel = periods.map((period) => {
+        const type = getPeriodTypeFromId(period.id)
+        const level = getPeriodLevelFromPeriodType(type)
+        return { ...period, type, level }
+    })
+    const distinctLevels = getDistinctLevels(periodsWithTypeAndLevel)
+    const distinctLevelsCount = distinctLevels.length
+    const periodsWithTypeLevelAndRank = periodsWithTypeAndLevel.map(
+        (period) => ({
+            ...period,
+            levelRank: distinctLevels.indexOf(period.level),
+        })
+    )
+    return {
+        periodsWithTypeLevelAndRank,
+        distinctLevelsCount,
+    }
+}
+
+export const sortPeriodsByLevelAndStartDate = (periods) => {
+    if (!periods) {
+        return []
+    }
+    return periods.sort(
+        (a, b) =>
+            b.level - a.level || new Date(a.startDate) - new Date(b.startDate)
+    )
+}
+
+export const getMinMaxDates = (periods = []) => {
+    if (!periods.length) {
+        return [null, null]
+    }
+
+    return periods.reduce(
+        (acc, { startDate, endDate }) => {
+            const start = new Date(startDate)
+            const end = new Date(endDate)
+            return [
+                start < acc[0] ? start : acc[0], // minStartDate
+                end > acc[1] ? end : acc[1], // maxEndDate
+            ]
+        },
+        [
+            new Date(periods[0].startDate), // Initial minStartDate
+            new Date(periods[0].endDate), // Initial maxEndDate
+        ]
+    )
+}
+
+export const checkLastPeriod = (currentPeriod, sortedPeriods) => {
+    const currentIndex = sortedPeriods.findIndex(
+        (p) => p.id === currentPeriod.id
+    )
+    return currentIndex === sortedPeriods.length - 1
 }

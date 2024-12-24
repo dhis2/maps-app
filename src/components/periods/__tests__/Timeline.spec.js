@@ -1,17 +1,21 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
 import Timeline from '../Timeline.js'
 
-const context = {
-    map: {
-        on: jest.fn(),
-        off: jest.fn(),
-    },
-}
+const mockStore = configureStore()
 
 describe('Timeline', () => {
+    const store = mockStore({
+        ui: { layersPanelOpen: false, rightPanelOpen: false },
+    })
     const renderWithProps = (props) =>
-        shallow(<Timeline {...props} />, { context })
+        mount(
+            <Provider store={store}>
+                <Timeline {...props} />
+            </Provider>
+        )
 
     const periodId = 'LAST_3_MONTHS'
     const period = { id: '201906', name: 'June 2019' }
@@ -59,7 +63,8 @@ describe('Timeline', () => {
 
     it('should render svg', () => {
         const wrapper = renderWithProps(props)
-        expect(wrapper.type()).toBe('svg')
+        const svg = wrapper.find('svg')
+        expect(svg.exists()).toBe(true)
     })
 
     it('should render one rect for each period', () => {
@@ -84,13 +89,14 @@ describe('Timeline', () => {
     it('Should toggle play mode when play/pause button is clicked', () => {
         const wrapper = renderWithProps(props)
         const playPauseBtn = wrapper.find('g').first()
-
-        expect(wrapper.state('mode')).toBe('start')
+        expect(wrapper.find('.play-icon').length).toBe(1)
+        expect(wrapper.find('.pause-icon').length).toBe(0)
         playPauseBtn.simulate('click')
-        expect(wrapper.state('mode')).toBe('play')
-        // Called because current period is the last
+        expect(wrapper.find('.play-icon').length).toBe(0)
+        expect(wrapper.find('.pause-icon').length).toBe(1)
         expect(onChangeSpy).toHaveBeenCalledWith(periodOnChange)
         playPauseBtn.simulate('click')
-        expect(wrapper.state('mode')).toBe('stop')
+        expect(wrapper.find('.play-icon').length).toBe(1)
+        expect(wrapper.find('.pause-icon').length).toBe(0)
     })
 })
