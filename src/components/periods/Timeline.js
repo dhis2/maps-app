@@ -89,12 +89,13 @@ const Timeline = ({ period, periods, onChange }) => {
 
     const play = useCallback(() => {
         timeoutRef.current = setTimeout(() => {
-            const nextPeriod = sortedPeriods.find(
-                (p) => p.startDate > currentPeriod.startDate
+            const currentPeriodIndex = sortedPeriods.findIndex(
+                (period) => period.id === currentPeriod.id
             )
-            if (nextPeriod) {
-                setCurrentPeriod(nextPeriod)
-                onChange(nextPeriod)
+            const nextPeriodIndex = currentPeriodIndex + 1
+            if (nextPeriodIndex < sortedPeriods.length) {
+                setCurrentPeriod(sortedPeriods[nextPeriodIndex])
+                onChange(sortedPeriods[nextPeriodIndex])
             } else {
                 setMode('pause')
             }
@@ -158,7 +159,7 @@ const Timeline = ({ period, periods, onChange }) => {
             className={`dhis2-map-timeline ${styles.timeline}`}
             style={{
                 height: `${32 + rectTotalHeight}px`,
-                bottom: `30px`,
+                bottom: '30px',
             }}
         >
             {/* Play/Pause Button */}

@@ -215,10 +215,9 @@ export const sortPeriodsByLevelAndStartDate = (periods) => {
     if (!periods) {
         return []
     }
-    return periods.sort(
-        (a, b) =>
-            b.level - a.level || new Date(a.startDate) - new Date(b.startDate)
-    )
+    return periods
+        .sort((a, b) => b.level - a.level)
+        .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
 }
 
 export const getMinMaxDates = (periods = []) => {
@@ -231,14 +230,11 @@ export const getMinMaxDates = (periods = []) => {
             const start = new Date(startDate)
             const end = new Date(endDate)
             return [
-                start < acc[0] ? start : acc[0], // minStartDate
-                end > acc[1] ? end : acc[1], // maxEndDate
+                start < acc[0] ? start : acc[0],
+                end > acc[1] ? end : acc[1],
             ]
         },
-        [
-            new Date(periods[0].startDate), // Initial minStartDate
-            new Date(periods[0].endDate), // Initial maxEndDate
-        ]
+        [new Date(periods[0].startDate), new Date(periods[0].endDate)]
     )
 }
 
