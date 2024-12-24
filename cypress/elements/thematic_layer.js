@@ -55,9 +55,48 @@ export class ThematicLayer extends Layer {
         return this
     }
 
-    selectPeriodType(periodType) {
-        cy.get('[data-test="periodtypeselect"]').click()
-        cy.contains(periodType).click()
+    selectPeriodType(periodType, periodDimension = 'fixed', n = 'last') {
+        cy.getByDataTest(
+            `period-dimension-${periodDimension}-periods-button`
+        ).click()
+        cy.getByDataTest(
+            `period-dimension-${periodDimension}-period-filter${
+                periodDimension === 'fixed' ? '-period-type' : ''
+            }-content`
+        ).click()
+        cy.get(`[data-value="${periodType}"]`).then(($el) => {
+            if ($el.hasClass('active')) {
+                cy.get('body').click('topLeft')
+            } else {
+                cy.wrap($el).click()
+            }
+        })
+        if (n === 'last') {
+            cy.getByDataTest(
+                'period-dimension-transfer-actions-removeall'
+            ).click()
+            cy.getByDataTest('period-dimension-transfer-option-content')
+                .last()
+                .dblclick()
+        } else {
+            cy.getByDataTest(
+                'period-dimension-transfer-actions-removeall'
+            ).click()
+            cy.getByDataTest('period-dimension-transfer-option-content')
+                .eq(n)
+                .dblclick()
+        }
+
+        return this
+    }
+
+    selectPresets() {
+        cy.contains('Choose from presets').click()
+
+        return this
+    }
+    selectStartEndDates() {
+        cy.contains('Define start - end dates').click()
 
         return this
     }

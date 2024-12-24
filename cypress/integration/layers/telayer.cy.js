@@ -3,30 +3,10 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 describe('Tracked Entity Layers', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
     })
 
     const Layer = new TeLayer()
-
-    it('adds a tracked entity layer', () => {
-        Layer.openDialog('Tracked entities')
-            .selectTab('Data')
-            .selectTeType('Malaria Entity')
-            .selectTeProgram(
-                'Malaria case diagnosis, treatment and investigation'
-            )
-            .selectTab('Org Units')
-            .selectOu('Bombali')
-            .selectOu('Bo')
-            .addToMap()
-
-        Layer.validateDialogClosed(true)
-
-        Layer.validateCardTitle(
-            'Malaria case diagnosis, treatment and investigation'
-        )
-        Layer.validateCardItems(['Malaria Entity'])
-    })
 
     it('opens a tracked entity layer popup', () => {
         Layer.openDialog('Tracked entities')
@@ -79,5 +59,25 @@ describe('Tracked Entity Layers', () => {
 
         Layer.validateCardTitle('Malaria focus investigation')
         Layer.validateCardItems(['Focus area'])
+    })
+
+    it('adds a tracked entity layer', () => {
+        Layer.openDialog('Tracked entities')
+            .selectTab('Data')
+            .selectTeType('Malaria Entity')
+            .selectTeProgram(
+                'Malaria case diagnosis, treatment and investigation'
+            )
+            .selectTab('Org Units')
+            .selectOu('Bombali')
+            .selectOu('Bo')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(
+            'Malaria case diagnosis, treatment and investigation'
+        )
+        Layer.validateCardItems(['Malaria Entity'])
     })
 })

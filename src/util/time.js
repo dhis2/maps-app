@@ -27,7 +27,7 @@ const shortDateRegexp = /^\d{4}-\d{2}-\d{2}$/
  * @returns {String}
  */
 const isValidDateFormat = (dateString) =>
-    shortDateRegexp.test(dateString.substr(0, 10))
+    dateString && shortDateRegexp.test(dateString.substr(0, 10))
 
 /**
  * Formats a date string, timestamp or date array into format used by DHIS2 and <input> date
