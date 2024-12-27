@@ -1,5 +1,5 @@
-import { Temporal } from '@js-temporal/polyfill' // 13th months in etiopic calendar cannot be returned by getFixedPeriodByDate (@dhis2/multi-calendar-dates)
 import { getNowInCalendar } from '@dhis2/multi-calendar-dates'
+import { Temporal } from '@js-temporal/polyfill' // 13th months in etiopic calendar cannot be returned by getFixedPeriodByDate (@dhis2/multi-calendar-dates)
 
 // dhis2CalendarsMap and NEPALI_CALENDAR_DATA cannot be imported from @dhis2/multi-calendar-dates
 const dhis2CalendarsMap = {

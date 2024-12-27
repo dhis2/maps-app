@@ -148,13 +148,11 @@ class TrackedEntityDialog extends Component {
 
     render() {
         const {
-            endDate,
             eventPointColor,
             eventPointRadius,
             followUp,
             program,
             programStatus,
-            startDate,
             trackedEntityType,
             relationshipType,
             relatedPointColor,
@@ -287,13 +285,7 @@ class TrackedEntityDialog extends Component {
                     {tab === 'period' && (
                         <div className={styles.flexRowFlow}>
                             <PeriodTypeSelect />
-                            <StartEndDate
-                                startDate={startDate}
-                                endDate={endDate}
-                                setStartDate={setStartDate}
-                                setEndDate={setEndDate}
-                                periodsSettings={periodsSettings}
-                            />
+                            <StartEndDate periodsSettings={periodsSettings} />
                             {periodError && (
                                 <div key="error" className={styles.error}>
                                     <IconErrorFilled24 />

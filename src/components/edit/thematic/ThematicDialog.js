@@ -271,8 +271,6 @@ class ThematicDialog extends Component {
             operand,
             periodType,
             renderingStrategy,
-            startDate,
-            endDate,
             program,
             valueType,
             thematicMapType,
@@ -515,10 +513,6 @@ class ThematicDialog extends Component {
                             )}
                             {periodType === START_END_DATES && (
                                 <StartEndDate
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    setStartDate={setStartDate}
-                                    setEndDate={setEndDate}
                                     periodsSettings={periodsSettings}
                                 />
                             )}

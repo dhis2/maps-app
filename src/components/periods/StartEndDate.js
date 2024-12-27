@@ -1,45 +1,34 @@
 import i18n from '@dhis2/d2-i18n'
 import { Field, IconArrowRight16, CalendarInput, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { setStartDate, setEndDate } from '../../actions/layerEdit.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import styles from './styles/StartEndDate.module.css'
 import { formatDateInput } from '../../util/date.js'
+import styles from './styles/StartEndDate.module.css'
 
-const createBoundHandler = (localSetter, reduxSetter, calendar) => (value) => {
-    const formattedDate = formatDateInput(value, calendar)
-    localSetter(formattedDate)
-    reduxSetter(formattedDate)
-}
+const StartEndDate = ({ errorText, periodsSettings }) => {
+    const dispatch = useDispatch()
 
-const StartEndDate = (props) => {
-    const {
-        startDate = '',
-        endDate = '',
-        setStartDate,
-        setEndDate,
-        errorText,
-        periodsSettings,
-    } = props
-    const [startDateInput, setStartDateInput] = useState(
-        formatDateInput(startDate, periodsSettings?.calendar)
-    )
-    const [endDateInput, setEndDateInput] = useState(
-        formatDateInput(endDate, periodsSettings?.calendar)
-    )
+    const startDate = useSelector((state) => state.layerEdit.startDate || '')
+    const endDate = useSelector((state) => state.layerEdit.endDate || '')
 
-    const onStartDateChange = createBoundHandler(
-        setStartDateInput,
-        setStartDate,
+    const formattedStartDate = formatDateInput(
+        startDate,
         periodsSettings?.calendar
     )
-    const onEndDateChange = createBoundHandler(
-        setEndDateInput,
-        setEndDate,
-        periodsSettings?.calendar
-    )
+    const formattedEndDate = formatDateInput(endDate, periodsSettings?.calendar)
+
+    const onStartDateChange = (value) => {
+        const formattedDate = formatDateInput(value, periodsSettings?.calendar)
+        dispatch(setStartDate(formattedDate))
+    }
+
+    const onEndDateChange = (value) => {
+        const formattedDate = formatDateInput(value, periodsSettings?.calendar)
+        dispatch(setEndDate(formattedDate))
+    }
 
     // Forces calendar to close when using Tab/Enter navigation
     useKeyDown(['Tab', 'Enter'], () => {
@@ -65,7 +54,7 @@ const StartEndDate = (props) => {
                     label={i18n.t('Start date')}
                     calendar={periodsSettings?.calendar}
                     locale={periodsSettings?.locale}
-                    date={startDateInput}
+                    date={formattedStartDate}
                     onDateSelect={(e) =>
                         onStartDateChange(e?.calendarDateString)
                     }
@@ -82,7 +71,7 @@ const StartEndDate = (props) => {
                     label={i18n.t('End date')}
                     calendar={periodsSettings?.calendar}
                     locale={periodsSettings?.locale}
-                    date={endDateInput}
+                    date={formattedEndDate}
                     onDateSelect={(e) => onEndDateChange(e?.calendarDateString)}
                     onChange={(e) => onEndDateChange(e?.value)}
                     placeholder="YYYY-MM-DD"
@@ -100,15 +89,11 @@ const StartEndDate = (props) => {
     )
 }
 StartEndDate.propTypes = {
-    setEndDate: PropTypes.func.isRequired,
-    setStartDate: PropTypes.func.isRequired,
-    endDate: PropTypes.string,
     errorText: PropTypes.string,
     periodsSettings: PropTypes.shape({
         calendar: PropTypes.string,
         locale: PropTypes.string,
     }),
-    startDate: PropTypes.string,
 }
 
-export default connect(null, { setStartDate, setEndDate })(StartEndDate)
+export default StartEndDate

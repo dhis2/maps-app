@@ -187,8 +187,6 @@ class EventDialog extends Component {
             filters = [],
             program,
             programStage,
-            startDate,
-            endDate,
             legendSet,
             periodsSettings,
         } = this.props
@@ -290,10 +288,6 @@ class EventDialog extends Component {
                             />
                             {period && period.id === START_END_DATES && (
                                 <StartEndDate
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    setStartDate={setStartDate}
-                                    setEndDate={setEndDate}
                                     periodsSettings={periodsSettings}
                                 />
                             )}

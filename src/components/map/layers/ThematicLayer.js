@@ -13,11 +13,14 @@ import {
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
+import { sortPeriodsByLevelAndStartDate } from '../../../util/periods.js'
 import Timeline from '../../periods/Timeline.js'
 import { poleOfInaccessibility } from '../MapApi.js'
 import PeriodName from '../PeriodName.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
+
+export const ThematicLayerContext = React.createContext()
 
 // Translating polygons to points using poleOfInaccessibility from maps-gl
 const polygonsToPoints = (features) =>
@@ -145,19 +148,11 @@ class ThematicLayer extends Layer {
             return
         }
 
-        let sortedPeriods = []
-        if (periods) {
-            sortedPeriods = periods.sort((a, b) => b.level - a.level)
-            sortedPeriods = periods.sort(
-                (a, b) => new Date(a.startDate) - new Date(b.startDate)
-            )
-        }
-
         const initialPeriod = {
             period:
                 renderingStrategy === RENDERING_STRATEGY_SINGLE
                     ? null
-                    : period || sortedPeriods[0],
+                    : period || sortPeriodsByLevelAndStartDate(periods)[0],
         }
 
         // setPeriod without callback is called from the constructor (unmounted)
@@ -210,12 +205,16 @@ class ThematicLayer extends Layer {
                                 period={period.name}
                                 isTimeline={true}
                             />
-                            <Timeline
-                                periodId={id}
-                                period={period}
-                                periods={periods}
-                                onChange={this.onPeriodChange}
-                            />
+                            <ThematicLayerContext.Provider
+                                value={{ map: this.context.map }}
+                            >
+                                <Timeline
+                                    periodId={id}
+                                    period={period}
+                                    periods={periods}
+                                    onChange={this.onPeriodChange}
+                                />
+                            </ThematicLayerContext.Provider>
                         </Fragment>
                     )}
                 {popup && this.getPopup()}
