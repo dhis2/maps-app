@@ -32,26 +32,6 @@ export const periodGroups = [
     FINANCIAL,
 ]
 
-// TODO: import from @dhis2/analytics (needs to be defined)
-const TODAY = 'TODAY'
-const YESTERDAY = 'YESTERDAY'
-const THIS_WEEK = 'THIS_WEEK'
-const LAST_WEEK = 'LAST_WEEK'
-const THIS_BIWEEK = 'THIS_BIWEEK'
-const LAST_BIWEEK = 'LAST_BIWEEK'
-const THIS_MONTH = 'THIS_MONTH'
-const LAST_MONTH = 'LAST_MONTH'
-const THIS_BIMONTH = 'THIS_BIMONTH'
-const LAST_BIMONTH = 'LAST_BIMONTH'
-const THIS_QUARTER = 'THIS_QUARTER'
-const LAST_QUARTER = 'LAST_QUARTER'
-const THIS_SIX_MONTH = 'THIS_SIX_MONTH'
-const LAST_SIX_MONTH = 'LAST_SIX_MONTH'
-const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR'
-const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR'
-const THIS_YEAR = 'THIS_YEAR'
-const LAST_YEAR = 'LAST_YEAR'
-
 export const PREDEFINED_PERIODS = 'PREDEFINED_PERIODS'
 export const RELATIVE_PERIODS = 'RELATIVE_PERIODS'
 export const FIXED_PERIODS = 'FIXED_PERIODS'
@@ -155,28 +135,6 @@ export const periodTypes = (includeRelativePeriods) => [
         id: START_END_DATES,
         name: i18n.t('Start/end dates'),
     },
-]
-
-// Periods that will only produce a single map (not for timeline/split view)
-export const singleMapPeriods = [
-    TODAY,
-    YESTERDAY,
-    THIS_WEEK,
-    LAST_WEEK,
-    THIS_BIWEEK,
-    LAST_BIWEEK,
-    THIS_MONTH,
-    LAST_MONTH,
-    THIS_BIMONTH,
-    LAST_BIMONTH,
-    THIS_QUARTER,
-    LAST_QUARTER,
-    THIS_SIX_MONTH,
-    LAST_SIX_MONTH,
-    THIS_FINANCIAL_YEAR,
-    LAST_FINANCIAL_YEAR,
-    THIS_YEAR,
-    LAST_YEAR,
 ]
 
 // Periods not supported for split view (maximum 12 maps)

@@ -6,20 +6,14 @@ export const DEFAULT_SYSTEM_SETTINGS = {
     keyDefaultBaseMap: FALLBACK_BASEMAP_ID,
 }
 
-export const SYSTEM_SETTINGS_HIDE_DAILY_PERIODS = 'keyHideDailyPeriods'
-export const SYSTEM_SETTINGS_HIDE_WEEKLY_PERIODS = 'keyHideWeeklyPeriods'
-export const SYSTEM_SETTINGS_HIDE_BIWEEKLY_PERIODS = 'keyHideBiWeeklyPeriods'
-export const SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS = 'keyHideMonthlyPeriods'
-export const SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS = 'keyHideBiMonthlyPeriods'
-
 export const SYSTEM_SETTINGS = [
     'keyAnalysisRelativePeriod',
     'keyBingMapsApiKey',
-    SYSTEM_SETTINGS_HIDE_DAILY_PERIODS,
-    SYSTEM_SETTINGS_HIDE_WEEKLY_PERIODS,
-    SYSTEM_SETTINGS_HIDE_BIWEEKLY_PERIODS,
-    SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS,
-    SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
+    'keyHideDailyPeriods',
+    'keyHideWeeklyPeriods',
+    'keyHideBiWeeklyPeriods',
+    'keyHideMonthlyPeriods',
+    'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
 ]
 
