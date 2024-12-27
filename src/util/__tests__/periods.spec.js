@@ -1,4 +1,12 @@
-import { getFixedPeriodsByType, getPeriodsDurationByType } from '../periods.js'
+import {
+    getFixedPeriodsByType,
+    getPeriodsDurationByType,
+    getPeriodTypeFromId,
+    addPeriodsDetails,
+    sortPeriodsByLevelAndStartDate,
+    getMinMaxDates,
+    checkLastPeriod,
+} from '../periods.js'
 
 const periods = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
 
@@ -8,20 +16,20 @@ const periodsDetails = {
     3: { type: 'TYPE_A', offset: 0, duration: 4 },
 }
 
-describe('util/periods', () => {
-    test('getFixedPeriodsByType - RELATIVE', () => {
+describe('getFixedPeriodsByType', () => {
+    it('RELATIVE', () => {
         expect(
             getFixedPeriodsByType({ periodType: 'RELATIVE', year: 2020 })
         ).toBe(null)
     })
 
-    test('getFixedPeriodsByType - YEAR not provided', () => {
+    it('YEAR not provided', () => {
         expect(getFixedPeriodsByType({ periodType: 'MONTHLY' })).toStrictEqual(
             []
         )
     })
 
-    test('getFixedPeriodsByType - MONTHLY first and last date', () => {
+    it('MONTHLY first and last date', () => {
         expect(
             getFixedPeriodsByType({
                 periodType: 'MONTHLY',
@@ -73,7 +81,7 @@ describe('util/periods', () => {
         ])
     })
 
-    test('getFixedPeriodsByType - YEARLY first and last date', () => {
+    it('YEARLY first and last date', () => {
         expect(
             getFixedPeriodsByType({
                 periodType: 'YEARLY',
@@ -107,7 +115,7 @@ describe('util/periods', () => {
         ])
     })
 
-    test('getFixedPeriodsByType - YEARLY first date', () => {
+    it('YEARLY first date', () => {
         expect(
             getFixedPeriodsByType({
                 periodType: 'YEARLY',
@@ -117,7 +125,7 @@ describe('util/periods', () => {
         ).toStrictEqual([])
     })
 
-    test('getFixedPeriodsByType - FYAPR 2020', () => {
+    it('FYAPR 2020', () => {
         expect(
             getFixedPeriodsByType({
                 periodType: 'FYAPR',
@@ -221,7 +229,7 @@ describe('util/periods', () => {
         ])
     })
 
-    test('getFixedPeriodsByType YEARLY 2020', () => {
+    it('YEARLY 2020', () => {
         expect(
             getFixedPeriodsByType({
                 periodType: 'YEARLY',
@@ -325,7 +333,7 @@ describe('util/periods', () => {
         ])
     })
 
-    test('getFixedPeriodsByType - MONTHLY 2020', () => {
+    it('MONTHLY 2020', () => {
         expect(
             getFixedPeriodsByType({
                 periodType: 'MONTHLY',
@@ -446,8 +454,10 @@ describe('util/periods', () => {
             },
         ])
     })
+})
 
-    it('getPeriodsDurationByType - should correctly calculate the duration by type with deduplication', () => {
+describe('getPeriodsDurationByType', () => {
+    it('should correctly calculate the duration by type with deduplication', () => {
         const result = getPeriodsDurationByType(periods, periodsDetails)
         expect(result).toEqual({
             FIXED_PERIODS: {
@@ -460,7 +470,7 @@ describe('util/periods', () => {
         })
     })
 
-    it('getPeriodsDurationByType - should correctly calculate the duration by type without deduplication', () => {
+    it('should correctly calculate the duration by type without deduplication', () => {
         const result = getPeriodsDurationByType(periods, periodsDetails, false)
         expect(result).toEqual({
             1: { any: 3 },
@@ -468,5 +478,114 @@ describe('util/periods', () => {
             3: { any: 4 },
             4: { any: 1 },
         })
+    })
+})
+
+describe('getPeriodTypeFromId', () => {
+    it('should return the correct period type when the periodId matches a regex', () => {
+        expect(getPeriodTypeFromId('20240101')).toBe('DAILY')
+        expect(getPeriodTypeFromId('2024W01')).toBe('WEEKLY')
+        expect(getPeriodTypeFromId('202401')).toBe('MONTHLY')
+    })
+
+    it('should throw an error if the periodId does not match any regex', () => {
+        expect(() => getPeriodTypeFromId('INVALID')).toThrow(
+            'No matching period type found for periodId: INVALID'
+        )
+    })
+
+    it('should throw an error if the periodId is empty or null', () => {
+        expect(() => getPeriodTypeFromId('')).toThrow(
+            'The periodId cannot be null or empty.'
+        )
+        expect(() => getPeriodTypeFromId(null)).toThrow(
+            'The periodId cannot be null or empty.'
+        )
+    })
+})
+
+describe('addPeriodsDetails', () => {
+    it('should add type, level, and levelRank to each period', () => {
+        const periods = [
+            { id: '20240101' },
+            { id: '2024W01' },
+            { id: '202401' },
+        ]
+        const result = addPeriodsDetails(periods)
+
+        expect(result.periodsWithTypeLevelAndRank).toEqual([
+            {
+                id: '20240101',
+                type: 'DAILY',
+                level: 0,
+                levelRank: 2,
+            },
+            {
+                id: '2024W01',
+                type: 'WEEKLY',
+                level: 1,
+                levelRank: 1,
+            },
+            {
+                id: '202401',
+                type: 'MONTHLY',
+                level: 7,
+                levelRank: 0,
+            },
+        ])
+        expect(result.distinctLevelsCount).toBeGreaterThan(0)
+    })
+})
+
+describe('sortPeriodsByLevelAndStartDate', () => {
+    it('should sort periods by level descending and startDate ascending', () => {
+        const periods = [
+            { id: '1', level: 1, startDate: '2024-01-01' },
+            { id: '2', level: 2, startDate: '2024-01-03' },
+            { id: '3', level: 2, startDate: '2024-01-02' },
+            { id: '4', level: 3, startDate: '2024-01-02' },
+        ]
+        const result = sortPeriodsByLevelAndStartDate(periods)
+
+        expect(result).toEqual([
+            { id: '1', level: 1, startDate: '2024-01-01' },
+            { id: '4', level: 3, startDate: '2024-01-02' },
+            { id: '3', level: 2, startDate: '2024-01-02' },
+            { id: '2', level: 2, startDate: '2024-01-03' },
+        ])
+    })
+
+    it('should return an empty array if periods is null or undefined', () => {
+        expect(sortPeriodsByLevelAndStartDate(null)).toEqual([])
+        expect(sortPeriodsByLevelAndStartDate(undefined)).toEqual([])
+    })
+})
+
+describe('getMinMaxDates', () => {
+    it('should return the minimum and maximum dates from the periods', () => {
+        const periods = [
+            { startDate: '2024-01-01', endDate: '2024-01-10' },
+            { startDate: '2024-02-01', endDate: '2024-02-15' },
+        ]
+        const [minDate, maxDate] = getMinMaxDates(periods)
+
+        expect(minDate).toEqual(new Date('2024-01-01'))
+        expect(maxDate).toEqual(new Date('2024-02-15'))
+    })
+
+    it('should return [null, null] if periods array is empty', () => {
+        expect(getMinMaxDates([])).toEqual([null, null])
+    })
+})
+
+describe('checkLastPeriod', () => {
+    it('should return true if the currentPeriod is the last in sortedPeriods', () => {
+        const sortedPeriods = [{ id: '1' }, { id: '2' }, { id: '3' }]
+        expect(checkLastPeriod({ id: '3' }, sortedPeriods)).toBe(true)
+    })
+
+    it('should return false if the currentPeriod is not the last in sortedPeriods', () => {
+        const sortedPeriods = [{ id: '1' }, { id: '2' }, { id: '3' }]
+        expect(checkLastPeriod({ id: '2' }, sortedPeriods)).toBe(false)
     })
 })

@@ -154,9 +154,18 @@ export const countPeriods = (periods, deduplication) => {
 }
 
 export const getPeriodTypeFromId = (periodId) => {
-    return Object.keys(PERIOD_TYPE_REGEX).find((type) =>
+    if (!periodId) {
+        throw new Error('The periodId cannot be null or empty.')
+    }
+    const match = Object.keys(PERIOD_TYPE_REGEX).find((type) =>
         periodId.match(PERIOD_TYPE_REGEX[type])
     )
+    if (!match) {
+        throw new Error(
+            `No matching period type found for periodId: ${periodId}`
+        )
+    }
+    return match
 }
 
 // Get period level as index of ordered array
