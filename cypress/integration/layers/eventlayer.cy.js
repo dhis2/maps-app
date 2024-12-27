@@ -1,5 +1,5 @@
 import { EventLayer } from '../../elements/event_layer.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
+import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../../support/util.js'
 
 context('Event Layers', () => {
     beforeEach(() => {
@@ -38,7 +38,24 @@ context('Event Layers', () => {
         cy.contains('Program is required').should('be.visible')
     })
 
-    it('adds an event layer', () => {
+    it('shows error if no endDate is specified', () => {
+        Layer.openDialog('Events')
+            .selectProgram('Inpatient morbidity and mortality')
+            .validateStage('Inpatient morbidity and mortality')
+            .selectTab('Period')
+            .selectPeriodType('Start/end dates')
+            .typeStartDate(`${CURRENT_YEAR - 5}-02-01`)
+            .addToMap()
+
+        Layer.validateDialogClosed(false)
+        cy.contains('End date is invalid').should('be.visible')
+
+        Layer.selectTab('Period').typeEndDate('2')
+
+        cy.contains('End date is invalid').should('not.exist')
+    })
+
+    it('adds an event layer - relative period', () => {
         Layer.openDialog('Events')
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')
@@ -50,6 +67,31 @@ context('Event Layers', () => {
         Layer.validateDialogClosed(true)
 
         Layer.validateCardTitle('Inpatient morbidity and mortality')
+        Layer.validateCardItems(['Event'])
+    })
+
+    it('adds an event layer - start-end dates', () => {
+        Layer.openDialog('Events')
+            .selectProgram('Inpatient morbidity and mortality')
+            .validateStage('Inpatient morbidity and mortality')
+            .selectTab('Period')
+            .selectPeriodType('Start/end dates')
+            .typeStartDate(`${CURRENT_YEAR - 5}-00-00`)
+            .typeEndDate(`${CURRENT_YEAR}-11-30`)
+            .selectTab('Org Units')
+            .selectOu('Bombali')
+            .selectOu('Bo')
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(
+            'Inpatient morbidity and mortality'
+        ).validateCardPeriod(
+            `Feb 1, ${CURRENT_YEAR - 5} - Nov 30, ${CURRENT_YEAR}`
+        )
         Layer.validateCardItems(['Event'])
     })
 

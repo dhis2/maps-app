@@ -55,7 +55,19 @@ export class ThematicLayer extends Layer {
         return this
     }
 
-    selectPeriodType(periodType, periodDimension = 'fixed', n = 'last') {
+    removeAllPeriods() {
+        cy.getByDataTest('period-dimension-transfer-actions-removeall').click()
+
+        return this
+    }
+
+    /* eslint-disable max-params */
+    selectPeriodType(
+        periodType,
+        periodDimension = 'fixed',
+        n = 'last',
+        removeAll = true
+    ) {
         cy.getByDataTest(
             `period-dimension-${periodDimension}-periods-button`
         ).click()
@@ -71,17 +83,16 @@ export class ThematicLayer extends Layer {
                 cy.wrap($el).click()
             }
         })
-        if (n === 'last') {
+        if (removeAll) {
             cy.getByDataTest(
                 'period-dimension-transfer-actions-removeall'
             ).click()
+        }
+        if (n === 'last') {
             cy.getByDataTest('period-dimension-transfer-option-content')
                 .last()
                 .dblclick()
         } else {
-            cy.getByDataTest(
-                'period-dimension-transfer-actions-removeall'
-            ).click()
             cy.getByDataTest('period-dimension-transfer-option-content')
                 .eq(n)
                 .dblclick()
@@ -89,6 +100,7 @@ export class ThematicLayer extends Layer {
 
         return this
     }
+    /* eslint-enable max-params */
 
     selectPresets() {
         cy.contains('Choose from presets').click()

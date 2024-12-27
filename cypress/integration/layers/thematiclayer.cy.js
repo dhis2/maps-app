@@ -36,6 +36,30 @@ context('Thematic Layers', () => {
         cy.contains('Indicator is required').should('be.visible')
     })
 
+    it('shows error in layer edit modal if no period selected', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator(INDICATOR_NAME)
+            .selectTab('Period')
+            .removeAllPeriods()
+            .addToMap()
+
+        Layer.validateDialogClosed(false)
+        cy.contains('Period is required').should('be.visible')
+
+        Layer.selectTab('Period').selectStartEndDates()
+        cy.contains('Period is required').should('not.exist')
+
+        Layer.selectTab('Period').typeStartDate('2018-01-01').addToMap()
+
+        Layer.validateDialogClosed(false)
+        cy.contains('End date is invalid').should('be.visible')
+
+        Layer.selectTab('Period').typeEndDate('2')
+
+        cy.contains('End date is invalid').should('not.exist')
+    })
+
     it('adds a thematic layer', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
@@ -166,6 +190,89 @@ context('Thematic Layers', () => {
         cy.get('.maplibregl-popup')
             .contains('Value: No data')
             .should('be.visible')
+    })
+
+    it('available rendering strategies depend on selected periods', () => {
+        Layer.openDialog('Thematic').selectTab('Period').removeAllPeriods()
+        cy.get('input[value="SINGLE"]').should('not.be.disabled')
+        cy.get('input[value="TIMELINE"]').should('be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
+        cy.contains(
+            'Select 2 or more periods to enable timeline or split map views.'
+        ).should('be.visible')
+
+        Layer.selectTab('Period').selectPeriodType(
+            'QUARTERLY',
+            'relative',
+            2,
+            false
+        )
+        cy.get('input[value="SINGLE"]').should('not.be.disabled')
+        cy.get('input[value="TIMELINE"]').should('not.be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
+        cy.contains(
+            'Select 2 or more periods to enable timeline or split map views.'
+        ).should('not.exist')
+
+        Layer.selectTab('Period').selectPeriodType(
+            'DAILY',
+            'relative',
+            4,
+            false
+        )
+        cy.get('input[value="SINGLE"]').should('not.be.disabled')
+        cy.get('input[value="TIMELINE"]').should('not.be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
+        cy.contains(
+            'Only up to 12 periods can be selected to enable split map views.'
+        ).should('be.visible')
+    })
+
+    it('adds a thematic layer with timeline period', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('ANC')
+            .selectIndicator('ANC 1 Coverage')
+            .selectTab('Period')
+            .selectPeriodType('QUARTERLY', 'relative', 2)
+            .selectPeriodType('YEARLY', 'fixed', 8, false)
+
+        cy.get('[type="radio"]').should('have.length', 3)
+        cy.get('[type="radio"]').check('TIMELINE')
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.get('.dhis2-map-period').should('be.visible')
+        cy.get('svg.dhis2-map-timeline').find('rect').should('have.length', 5)
+        cy.get('svg.dhis2-map-timeline')
+            .find('rect')
+            .first()
+            .invoke('attr', 'class')
+            .should('contain', 'Timeline_selected')
+
+        cy.get('.play-icon').click()
+        cy.get('.pause-icon').should('be.visible')
+        cy.wait((5 - 1) * 1500)
+
+        cy.get('svg.dhis2-map-timeline')
+            .find('rect')
+            .last()
+            .invoke('attr', 'class')
+            .should('contain', 'Timeline_selected')
+        cy.get('.play-icon').should('be.visible')
+
+        Layer.openDialog('Thematic').selectTab('Period')
+
+        cy.get('input[value="SINGLE"]').should('not.be.disabled')
+        cy.get('input[value="TIMELINE"]').should('be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
+        cy.contains('Only one timeline is allowed.').should('be.visible')
+        cy.contains('Remove other layers to enable split map views.').should(
+            'be.visible'
+        )
     })
 
     it('adds a thematic layer with split view period', () => {

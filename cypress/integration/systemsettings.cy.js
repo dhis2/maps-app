@@ -38,13 +38,13 @@ describe('systemSettings', () => {
             'period-dimension-relative-period-filter-content'
         ).click()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weeks')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-BIWEEKLY'
+        ).should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weeks')
-            .should('not.exist')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-WEEKLY'
+        ).should('not.exist')
     })
 
     it('includes Weekly period type when weekly periods not hidden in system settings', () => {
@@ -58,13 +58,13 @@ describe('systemSettings', () => {
             'period-dimension-relative-period-filter-content'
         ).click()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weeks')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-BIWEEKLY'
+        ).should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weeks')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-WEEKLY'
+        ).should('be.visible')
     })
 
     it('uses Last 6 months as default relative period', () => {

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-12-24T08:04:42.345Z\n"
-"PO-Revision-Date: 2024-12-24T08:04:42.345Z\n"
+"POT-Creation-Date: 2024-12-27T23:49:08.516Z\n"
+"PO-Revision-Date: 2024-12-27T23:49:08.516Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -550,6 +550,9 @@ msgstr "Related entity style"
 
 msgid "Line Color"
 msgstr "Line Color"
+
+msgid "Tracked Entity Type is required"
+msgstr "Tracked Entity Type is required"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "No relationship types were found for tracked entity type {{type}}"

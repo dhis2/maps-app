@@ -1,4 +1,4 @@
-import { TeLayer } from '../../elements/te_layer.js'
+import { TeLayer } from '../../elements/trackedentity_layer.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 describe('Tracked Entity Layers', () => {
@@ -8,13 +8,33 @@ describe('Tracked Entity Layers', () => {
 
     const Layer = new TeLayer()
 
+    it('adds a tracked entity layer', () => {
+        Layer.openDialog('Tracked entities')
+            .selectTab('Data')
+            .selectTeType('Malaria Entity')
+            .selectTeProgram(
+                'Malaria case diagnosis, treatment and investigation'
+            )
+            .selectTab('Org Units')
+            .selectOu('Bombali')
+            .selectOu('Bo')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(
+            'Malaria case diagnosis, treatment and investigation'
+        )
+        Layer.validateCardItems(['Malaria Entity'])
+    })
+
     it('opens a tracked entity layer popup', () => {
         Layer.openDialog('Tracked entities')
             .selectTab('Data')
             .selectTeType('Focus area')
             .selectTeProgram('Malaria focus investigation')
             .selectTab('Period')
-            .typeStartDate('2018-01-01')
+            .typeStartDate('2018-00-00')
             .selectTab('Org Units')
 
         cy.getByDataTest('org-unit-tree-node')
@@ -61,23 +81,29 @@ describe('Tracked Entity Layers', () => {
         Layer.validateCardItems(['Focus area'])
     })
 
-    it('adds a tracked entity layer', () => {
+    it('shows error if no tracked entity type selected', () => {
+        Layer.openDialog('Tracked entities').addToMap()
+
+        Layer.validateDialogClosed(false)
+
+        cy.contains('Tracked Entity Type is required').should('be.visible')
+    })
+
+    it('shows error if no endDate is specified', () => {
         Layer.openDialog('Tracked entities')
             .selectTab('Data')
-            .selectTeType('Malaria Entity')
-            .selectTeProgram(
-                'Malaria case diagnosis, treatment and investigation'
-            )
-            .selectTab('Org Units')
-            .selectOu('Bombali')
-            .selectOu('Bo')
+            .selectTeType('Focus area')
+            .selectTeProgram('Malaria focus investigation')
+            .selectTab('Period')
+            .typeStartDate('2018-01-01')
+            .typeEndDate('2')
             .addToMap()
 
-        Layer.validateDialogClosed(true)
+        Layer.validateDialogClosed(false)
+        cy.contains('End date is invalid').should('be.visible')
 
-        Layer.validateCardTitle(
-            'Malaria case diagnosis, treatment and investigation'
-        )
-        Layer.validateCardItems(['Malaria Entity'])
+        Layer.selectTab('Period').typeEndDate('2')
+
+        cy.contains('End date is invalid').should('not.exist')
     })
 })

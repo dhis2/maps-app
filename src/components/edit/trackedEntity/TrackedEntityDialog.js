@@ -401,7 +401,7 @@ class TrackedEntityDialog extends Component {
         if (!trackedEntityType) {
             return this.setErrorState(
                 'trackedEntityTypeError',
-                i18n.t('This field is required'),
+                i18n.t('Tracked Entity Type is required'),
                 'data'
             )
         }
