@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-12-09T14:15:43.944Z\n"
-"PO-Revision-Date: 2024-12-09T14:15:43.944Z\n"
+"POT-Creation-Date: 2024-12-24T08:04:42.345Z\n"
+"PO-Revision-Date: 2024-12-24T08:04:42.345Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -920,9 +920,6 @@ msgstr "Previous year"
 
 msgid "Next year"
 msgstr "Next year"
-
-msgid "Period type"
-msgstr "Period type"
 
 msgid "Start/end dates"
 msgstr "Start/end dates"

@@ -6,75 +6,10 @@ import { connect } from 'react-redux'
 import { setStartDate, setEndDate } from '../../actions/layerEdit.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import styles from './styles/StartEndDate.module.css'
-
-const formatDate = (date, calendar = 'iso8601') => {
-    if (calendar === 'iso8601') {
-        return formatDateIso8601(date)
-    }
-    return formatDateDefault(date)
-}
-const formatDateDefault = (date) => {
-    if (!date) {
-        return ''
-    }
-    return date
-}
-const formatDateIso8601 = (date) => {
-    if (!date) {
-        return ''
-    }
-
-    const numericDate = date.replace(/\D/g, '')
-
-    if (numericDate.length < 5) {
-        return numericDate
-    }
-
-    const year = numericDate.slice(0, 4)
-    const month = numericDate.slice(4, 6)
-    const day = numericDate.slice(6, 8)
-
-    if (numericDate.length < 7) {
-        return `${year}-${month}`
-    }
-    if (numericDate.length < 8) {
-        return `${year}-${month}-${day}`
-    }
-
-    const formattedYear = year === '0000' ? '2000' : year
-    let formattedMonth = month === '00' ? '01' : month
-    formattedMonth = formattedMonth > 12 ? '12' : formattedMonth
-
-    let formattedDay = day === '00' ? '01' : day
-
-    const maxDaysInMonth = getMaxDaysInMonth(formattedYear, formattedMonth)
-    formattedDay = formattedDay > maxDaysInMonth ? maxDaysInMonth : formattedDay
-
-    return `${formattedYear}-${formattedMonth}-${formattedDay}`
-}
-
-const getMaxDaysInMonth = (year, month) => {
-    const monthDays = {
-        '02': 28,
-        '04': 30,
-        '06': 30,
-        '09': 30,
-        11: 30,
-    }
-
-    if (month === '02') {
-        return isLeapYear(year) ? 29 : 28
-    }
-
-    return monthDays[month] || 31
-}
-
-const isLeapYear = (year) => {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
-}
+import { formatDateInput } from '../../util/date.js'
 
 const createBoundHandler = (localSetter, reduxSetter, calendar) => (value) => {
-    const formattedDate = formatDate(value, calendar)
+    const formattedDate = formatDateInput(value, calendar)
     localSetter(formattedDate)
     reduxSetter(formattedDate)
 }
@@ -89,10 +24,10 @@ const StartEndDate = (props) => {
         periodsSettings,
     } = props
     const [startDateInput, setStartDateInput] = useState(
-        formatDate(startDate, periodsSettings?.calendar)
+        formatDateInput(startDate, periodsSettings?.calendar)
     )
     const [endDateInput, setEndDateInput] = useState(
-        formatDate(endDate, periodsSettings?.calendar)
+        formatDateInput(endDate, periodsSettings?.calendar)
     )
 
     const onStartDateChange = createBoundHandler(
