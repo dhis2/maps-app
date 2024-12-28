@@ -90,7 +90,7 @@ context('Event Layers', () => {
         Layer.validateCardTitle(
             'Inpatient morbidity and mortality'
         ).validateCardPeriod(
-            `Feb 1, ${CURRENT_YEAR - 5} - Nov 30, ${CURRENT_YEAR}`
+            `Jan 1, ${CURRENT_YEAR - 5} - Nov 30, ${CURRENT_YEAR}`
         )
         Layer.validateCardItems(['Event'])
     })
