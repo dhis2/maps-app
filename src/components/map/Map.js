@@ -74,6 +74,9 @@ class Map extends Component {
         if (isPlugin) {
             map.toggleMultiTouch(true)
             map.on('fullscreenchange', this.onFullscreenChange)
+            window.addEventListener('resize', () => {
+                this.onFullscreenChange(map, { isFullscreen: true })
+            })
         } else {
             map.on('contextmenu', this.onRightClick, this)
         }
