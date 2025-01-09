@@ -1,5 +1,5 @@
 import { EventLayer } from '../../elements/event_layer.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
+import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../../support/util.js'
 
 context('Event Layers', () => {
     beforeEach(() => {
@@ -57,6 +57,10 @@ context('Event Layers', () => {
         Layer.openDialog('Events')
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')
+            .selectTab('Period')
+            .selectPeriodType('Start/end dates')
+            .typeStartDate(`${CURRENT_YEAR - 5}-01-01`)
+            .typeEndDate(`${CURRENT_YEAR}-11-30`)
             .selectTab('Style')
             .selectViewAllEvents()
             .selectTab('Org Units')
