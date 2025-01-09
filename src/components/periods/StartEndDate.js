@@ -63,6 +63,11 @@ const StartEndDate = ({
                         onStartDateChange(e?.calendarDateString)
                     }
                     onChange={(e) => onStartDateChange(e?.value)}
+                    onBlur={(e) => {
+                        const v =
+                            e?.value?.length === 9 ? e.value + '0' : e?.value
+                        onStartDateChange(v)
+                    }}
                     placeholder="YYYY-MM-DD"
                     dataTest="start-date-input"
                     strictValidation={true}
@@ -78,6 +83,11 @@ const StartEndDate = ({
                     date={formattedEndDate}
                     onDateSelect={(e) => onEndDateChange(e?.calendarDateString)}
                     onChange={(e) => onEndDateChange(e?.value)}
+                    onBlur={(e) => {
+                        const v =
+                            e?.value?.length === 9 ? e.value + '0' : e?.value
+                        onEndDateChange(v)
+                    }}
                     placeholder="YYYY-MM-DD"
                     dataTest="end-date-input"
                     strictValidation={true}
