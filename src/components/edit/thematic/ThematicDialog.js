@@ -16,6 +16,7 @@ import {
     setPeriods,
     setStartDate,
     setEndDate,
+    setBackupPeriodsDates,
     setPeriodType,
     setRenderingStrategy,
     setProgram,
@@ -23,6 +24,8 @@ import {
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
     DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
@@ -68,6 +71,7 @@ import ValueTypeSelect from './ValueTypeSelect.js'
 
 class ThematicDialog extends Component {
     static propTypes = {
+        setBackupPeriodsDates: PropTypes.func.isRequired,
         setClassification: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
         setDataItem: PropTypes.func.isRequired,
@@ -85,6 +89,7 @@ class ThematicDialog extends Component {
         setValueType: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
+        backupPeriodsDates: PropTypes.object,
         columns: PropTypes.array,
         dataElementGroup: PropTypes.object,
         endDate: PropTypes.string,
@@ -125,6 +130,7 @@ class ThematicDialog extends Component {
             systemSettings,
             endDate,
             setPeriods,
+            setBackupPeriodsDates,
             setPeriodType,
             setOrgUnits,
         } = this.props
@@ -174,6 +180,10 @@ class ThematicDialog extends Component {
                 },
             ]
             setPeriods(defaultPeriods)
+            setBackupPeriodsDates({
+                startDate: DEFAULT_START_DATE,
+                endDate: DEFAULT_END_DATE,
+            })
         }
 
         // Set default org unit level
@@ -197,6 +207,7 @@ class ThematicDialog extends Component {
             periodType,
             renderingStrategy,
             setPeriods,
+            setBackupPeriodsDates,
             setStartDate,
             setEndDate,
             setClassification,
@@ -207,6 +218,7 @@ class ThematicDialog extends Component {
             startDate,
             endDate,
             filters,
+            backupPeriodsDates,
         } = this.props
         const { periodError } = this.state
 
@@ -237,13 +249,20 @@ class ThematicDialog extends Component {
             onLayerValidation(this.validate())
         }
 
-        if (periodType !== prev.periodType) {
+        if (prev.periodType && periodType !== prev.periodType) {
             switch (periodType) {
                 case PREDEFINED_PERIODS:
+                    setBackupPeriodsDates({ startDate, endDate })
+                    setPeriods(backupPeriodsDates?.periods || [])
                     setStartDate()
                     setEndDate()
                     break
                 case START_END_DATES:
+                    setBackupPeriodsDates({
+                        periods: getPeriodsFromFilters(filters),
+                    })
+                    setStartDate(backupPeriodsDates?.startDate)
+                    setEndDate(backupPeriodsDates?.endDate)
                     setPeriods([])
                     break
             }
@@ -513,6 +532,8 @@ class ThematicDialog extends Component {
                             )}
                             {periodType === START_END_DATES && (
                                 <StartEndDate
+                                    onSelectStartDate={setStartDate}
+                                    onSelectEndDate={setEndDate}
                                     periodsSettings={periodsSettings}
                                 />
                             )}
@@ -580,6 +601,7 @@ class ThematicDialog extends Component {
 
     validate() {
         const {
+            // Layer options
             valueType,
             indicatorGroup,
             dataElementGroup,
@@ -729,6 +751,7 @@ export default connect(
         setOperand,
         setOrgUnits,
         setPeriods,
+        setBackupPeriodsDates,
         setStartDate,
         setEndDate,
         setPeriodType,

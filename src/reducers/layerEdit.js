@@ -133,6 +133,12 @@ const layerEdit = (state = null, action) => {
                     : [],
             }
 
+        case types.LAYER_EDIT_BACKUP_PERIODSDATES_SET:
+            return {
+                ...state,
+                backupPeriodsDates: action.backupPeriodsDates,
+            }
+
         case types.LAYER_EDIT_RENDERING_STRATEGY_SET:
             return {
                 ...state,

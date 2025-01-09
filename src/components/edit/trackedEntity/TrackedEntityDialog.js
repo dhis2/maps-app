@@ -285,7 +285,11 @@ class TrackedEntityDialog extends Component {
                     {tab === 'period' && (
                         <div className={styles.flexRowFlow}>
                             <PeriodTypeSelect />
-                            <StartEndDate periodsSettings={periodsSettings} />
+                            <StartEndDate
+                                onSelectStartDate={setStartDate}
+                                onSelectEndDate={setEndDate}
+                                periodsSettings={periodsSettings}
+                            />
                             {periodError && (
                                 <div key="error" className={styles.error}>
                                     <IconErrorFilled24 />

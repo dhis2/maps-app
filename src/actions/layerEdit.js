@@ -209,6 +209,12 @@ export const setEndDate = (endDate) => ({
     endDate,
 })
 
+// Set periods or dates backup
+export const setBackupPeriodsDates = (backupPeriodsDates) => ({
+    type: types.LAYER_EDIT_BACKUP_PERIODSDATES_SET,
+    backupPeriodsDates,
+})
+
 // Set value type (thematic)
 export const setValueType = (valueType, keepColumns) => ({
     type: types.LAYER_EDIT_VALUE_TYPE_SET,

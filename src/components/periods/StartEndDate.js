@@ -3,12 +3,16 @@ import { Field, IconArrowRight16, CalendarInput, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setStartDate, setEndDate } from '../../actions/layerEdit.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { formatDateInput } from '../../util/date.js'
 import styles from './styles/StartEndDate.module.css'
 
-const StartEndDate = ({ errorText, periodsSettings }) => {
+const StartEndDate = ({
+    onSelectStartDate,
+    onSelectEndDate,
+    errorText,
+    periodsSettings,
+}) => {
     const dispatch = useDispatch()
 
     const startDate = useSelector((state) => state.layerEdit.startDate || '')
@@ -22,12 +26,12 @@ const StartEndDate = ({ errorText, periodsSettings }) => {
 
     const onStartDateChange = (value) => {
         const formattedDate = formatDateInput(value, periodsSettings?.calendar)
-        dispatch(setStartDate(formattedDate))
+        dispatch(onSelectStartDate(formattedDate))
     }
 
     const onEndDateChange = (value) => {
         const formattedDate = formatDateInput(value, periodsSettings?.calendar)
-        dispatch(setEndDate(formattedDate))
+        dispatch(onSelectEndDate(formattedDate))
     }
 
     // Forces calendar to close when using Tab/Enter navigation
@@ -89,6 +93,8 @@ const StartEndDate = ({ errorText, periodsSettings }) => {
     )
 }
 StartEndDate.propTypes = {
+    onSelectEndDate: PropTypes.func.isRequired,
+    onSelectStartDate: PropTypes.func.isRequired,
     errorText: PropTypes.string,
     periodsSettings: PropTypes.shape({
         calendar: PropTypes.string,
