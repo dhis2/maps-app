@@ -50,7 +50,7 @@ context('Thematic Layers', () => {
         Layer.selectTab('Period').selectStartEndDates()
         cy.contains('Period is required').should('not.exist')
 
-        Layer.selectTab('Period').typeStartDate('2018-01-01').addToMap()
+        Layer.selectTab('Period').typeEndDate().addToMap()
 
         Layer.validateDialogClosed(false)
         cy.contains('End date is invalid').should('be.visible')

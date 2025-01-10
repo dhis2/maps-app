@@ -13,7 +13,10 @@ import {
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
-import { sortPeriodsByLevelAndStartDate } from '../../../util/periods.js'
+import {
+    sortPeriodsByLevelAndStartDate,
+    addPeriodsDetails,
+} from '../../../util/periods.js'
 import Timeline from '../../periods/Timeline.js'
 import { poleOfInaccessibility } from '../MapApi.js'
 import PeriodName from '../PeriodName.js'
@@ -148,11 +151,14 @@ class ThematicLayer extends Layer {
             return
         }
 
+        console.log(sortPeriodsByLevelAndStartDate(periods))
         const initialPeriod = {
             period:
                 renderingStrategy === RENDERING_STRATEGY_SINGLE
                     ? null
-                    : period || sortPeriodsByLevelAndStartDate(periods)[0],
+                    : sortPeriodsByLevelAndStartDate(
+                          addPeriodsDetails(periods).periodsWithTypeLevelAndRank
+                      )[0] || period,
         }
 
         // setPeriod without callback is called from the constructor (unmounted)
