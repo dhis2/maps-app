@@ -44,7 +44,7 @@ context('Event Layers', () => {
             .validateStage('Inpatient morbidity and mortality')
             .selectTab('Period')
             .selectPeriodType('Start/end dates')
-            .typeStartDate(`${CURRENT_YEAR - 5}-02-01`)
+            .typeEndDate()
             .addToMap()
 
         Layer.validateDialogClosed(false)
