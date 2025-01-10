@@ -47,6 +47,8 @@ class ThematicLayer extends Layer {
 
         const { period } = this.state
 
+        const { isPlugin, map } = this.context
+
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
 
         let periodData = bubbleMap ? polygonsToPoints(data) : data
@@ -74,8 +76,6 @@ class ThematicLayer extends Layer {
                 )
             }
         }
-
-        const map = this.context.map
 
         const filteredData = filterData(periodData, dataFilters)
 
@@ -129,8 +129,12 @@ class ThematicLayer extends Layer {
 
         map.addLayer(this.layer)
 
-        // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce()
+        if (!isPlugin) {
+            // Fit map to layer bounds once (when first created)
+            this.fitBoundsOnce()
+        } else {
+            this.fitBounds()
+        }
     }
 
     // Set initial period
@@ -215,14 +219,7 @@ class ThematicLayer extends Layer {
         )
     }
 
-    onPeriodChange = (period) => {
-        if (this.context.isPlugin) {
-            const map = this.context.map
-            const layerBounds = map.getLayersBounds()
-            map.fitBounds(layerBounds)
-        }
-        this.setState({ period })
-    }
+    onPeriodChange = (period) => this.setState({ period })
 
     onFeatureClick(evt) {
         this.setState({ popup: evt })
