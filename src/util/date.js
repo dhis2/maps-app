@@ -193,6 +193,14 @@ export const formatDateInput = (date, calendar = 'gregory') => {
         return ''
     }
 
+    let finalHyphen = ''
+    if (
+        (date.length === 5 && date[4] === '-') ||
+        (date.length === 8 && date[7] === '-')
+    ) {
+        finalHyphen = '-'
+    }
+
     const numericDate = date.replace(/\D/g, '')
 
     const year = numericDate.slice(0, 4)
@@ -207,7 +215,7 @@ export const formatDateInput = (date, calendar = 'gregory') => {
         year === '0000' ? getCurrentYearInCalendar(calendar) : year
 
     if (numericDate.length === 4) {
-        return `${formattedYear}`
+        return `${formattedYear}${finalHyphen}`
     }
 
     if (numericDate.length < 6) {
@@ -219,7 +227,9 @@ export const formatDateInput = (date, calendar = 'gregory') => {
         month === '00' ? 1 : month > maxMonth ? maxMonth : month
 
     if (numericDate.length === 6) {
-        return `${formattedYear}-${formattedMonth.toString().padStart(2, '0')}`
+        return `${formattedYear}-${formattedMonth
+            .toString()
+            .padStart(2, '0')}${finalHyphen}`
     }
 
     if (numericDate.length < 8) {
