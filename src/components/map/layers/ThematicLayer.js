@@ -215,7 +215,14 @@ class ThematicLayer extends Layer {
         )
     }
 
-    onPeriodChange = (period) => this.setState({ period })
+    onPeriodChange = (period) => {
+        if (this.context.isPlugin) {
+            const map = this.context.map
+            const layerBounds = map.getLayersBounds()
+            map.fitBounds(layerBounds)
+        }
+        this.setState({ period })
+    }
 
     onFeatureClick(evt) {
         this.setState({ popup: evt })
