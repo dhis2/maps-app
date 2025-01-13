@@ -65,7 +65,7 @@ context('Thematic Layers', () => {
             .selectIndicatorGroup('HIV')
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
-            .selectPeriodType('YEARLY')
+            .selectPeriodType({ periodType: 'YEARLY' })
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .addToMap()
@@ -90,7 +90,7 @@ context('Thematic Layers', () => {
             .selectIndicatorGroup('HIV')
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
-            .selectPeriodType('YEARLY')
+            .selectPeriodType({ periodType: 'YEARLY' })
             .selectTab('Org Units')
             .selectOu('Bombali')
             .selectOu('Bo')
@@ -201,12 +201,12 @@ context('Thematic Layers', () => {
             'Select 2 or more periods to enable timeline or split map views.'
         ).should('be.visible')
 
-        Layer.selectTab('Period').selectPeriodType(
-            'QUARTERLY',
-            'relative',
-            2,
-            false
-        )
+        Layer.selectTab('Period').selectPeriodType({
+            periodType: 'QUARTERLY',
+            periodDimension: 'relative',
+            n: 2,
+            removeAll: false,
+        })
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('not.be.disabled')
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
@@ -214,12 +214,12 @@ context('Thematic Layers', () => {
             'Select 2 or more periods to enable timeline or split map views.'
         ).should('not.exist')
 
-        Layer.selectTab('Period').selectPeriodType(
-            'DAILY',
-            'relative',
-            4,
-            false
-        )
+        Layer.selectTab('Period').selectPeriodType({
+            periodType: 'DAILY',
+            periodDimension: 'relative',
+            n: 4,
+            removeAll: false,
+        })
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('not.be.disabled')
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
@@ -233,8 +233,17 @@ context('Thematic Layers', () => {
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
             .selectTab('Period')
-            .selectPeriodType('QUARTERLY', 'relative', 2)
-            .selectPeriodType('YEARLY', 'fixed', 8, false)
+            .selectPeriodType({
+                periodType: 'QUARTERLY',
+                periodDimension: 'relative',
+                n: 2,
+            })
+            .selectPeriodType({
+                periodType: 'YEARLY',
+                periodDimension: 'fixed',
+                n: 8,
+                removeAll: false,
+            })
 
         cy.get('[type="radio"]').should('have.length', 3)
         cy.get('[type="radio"]').check('TIMELINE')
@@ -282,7 +291,11 @@ context('Thematic Layers', () => {
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .selectTab('Period')
-            .selectPeriodType('MONTHLY', 'relative', 2)
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'relative',
+                n: 2,
+            })
 
         cy.get('[type="radio"]').should('have.length', 3)
         cy.get('[type="radio"]').check('SPLIT_BY_PERIOD')
@@ -412,7 +425,7 @@ context('Thematic Layers', () => {
             .selectIndicatorGroup('HIV')
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
-            .selectPeriodType('YEARLY')
+            .selectPeriodType({ periodType: 'YEARLY' })
             .selectTab('Org Units')
             .selectOu('Bo')
             .unselectOuLevel('District')

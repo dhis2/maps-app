@@ -61,21 +61,27 @@ export class ThematicLayer extends Layer {
         return this
     }
 
-    /* eslint-disable max-params */
-    selectPeriodType(
+    selectPeriodType({
         periodType,
         periodDimension = 'fixed',
         n = 'last',
-        removeAll = true
-    ) {
+        removeAll = true,
+    } = {}) {
+        if (!periodType) {
+            throw new Error("The 'periodType' parameter is required.")
+        }
+
+        // Select fixed / relative periods
         cy.getByDataTest(
             `period-dimension-${periodDimension}-periods-button`
         ).click()
+        // Open dropdown for period type
         cy.getByDataTest(
             `period-dimension-${periodDimension}-period-filter${
                 periodDimension === 'fixed' ? '-period-type' : ''
             }-content`
         ).click()
+        // Select period type in dropdown if not active already
         cy.get(`[data-value="${periodType}"]`).then(($el) => {
             if ($el.hasClass('active')) {
                 cy.get('body').click('topLeft')
@@ -83,6 +89,7 @@ export class ThematicLayer extends Layer {
                 cy.wrap($el).click()
             }
         })
+
         if (removeAll) {
             cy.getByDataTest(
                 'period-dimension-transfer-actions-removeall'
@@ -100,7 +107,6 @@ export class ThematicLayer extends Layer {
 
         return this
     }
-    /* eslint-enable max-params */
 
     selectPresets() {
         cy.contains('Choose from presets').click()
