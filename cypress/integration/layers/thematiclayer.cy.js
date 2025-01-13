@@ -12,6 +12,7 @@ import {
     EXTENDED_TIMEOUT,
 } from '../../support/util.js'
 
+const INDICATOR_GROUP = 'HIV'
 const INDICATOR_NAME = 'VCCT post-test counselling rate'
 
 context('Thematic Layers', () => {
@@ -30,7 +31,9 @@ context('Thematic Layers', () => {
     })
 
     it('shows error in layer edit modal if no indicator selected', () => {
-        Layer.openDialog('Thematic').selectIndicatorGroup('HIV').addToMap()
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup(INDICATOR_GROUP)
+            .addToMap()
 
         Layer.validateDialogClosed(false)
         cy.contains('Indicator is required').should('be.visible')
@@ -38,7 +41,7 @@ context('Thematic Layers', () => {
 
     it('shows error in layer edit modal if no period selected', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
+            .selectIndicatorGroup(INDICATOR_GROUP)
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
             .removeAllPeriods()
@@ -62,7 +65,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
+            .selectIndicatorGroup(INDICATOR_GROUP)
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType({ periodType: 'YEARLY' })
@@ -87,7 +90,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer for OU Bombali', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
+            .selectIndicatorGroup(INDICATOR_GROUP)
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType({ periodType: 'YEARLY' })
@@ -104,7 +107,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with start and end date', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
+            .selectIndicatorGroup(INDICATOR_GROUP)
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
             .selectStartEndDates()
@@ -422,7 +425,7 @@ context('Thematic Layers', () => {
         cy.visit('/')
 
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
+            .selectIndicatorGroup(INDICATOR_GROUP)
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType({ periodType: 'YEARLY' })
