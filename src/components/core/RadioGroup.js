@@ -8,12 +8,11 @@ export const RadioContext = React.createContext()
 
 const RadioGroup = ({
     value,
-    label = '',
-    helpText = '',
+    label,
+    helpText,
     display = 'column',
     onChange,
     boldLabel = false,
-    compact = false,
     children,
     dataTest,
 }) => {
@@ -28,14 +27,12 @@ const RadioGroup = ({
             <div
                 className={cx(styles.radioGroup, {
                     [styles.row]: display === 'row',
-                    [styles.compact]: compact,
                 })}
             >
                 {label && (
                     <div
                         className={cx({
                             [styles.boldLabel]: boldLabel,
-                            [styles.compact]: compact,
                         })}
                     >
                         {label}
@@ -53,7 +50,6 @@ RadioGroup.propTypes = {
     onChange: PropTypes.func.isRequired,
     boldLabel: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.node),
-    compact: PropTypes.bool,
     dataTest: PropTypes.string,
     display: PropTypes.oneOf(['row', 'column']),
     helpText: PropTypes.string,

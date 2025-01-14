@@ -52,9 +52,7 @@ describe('RenderingStrategy', () => {
     it('renders all radio buttons with correct labels', () => {
         countPeriods.mockReturnValue(5)
         const wrapper = renderWithProps(props)
-        expect(wrapper.find('div.boldLabel.compact').text()).toBe(
-            'Period display mode'
-        )
+        expect(wrapper.find('div.boldLabel').text()).toBe('Period display mode')
         expect(wrapper.find('input').length).toBe(3)
         expect(wrapper.find('label').at(0).text()).toBe(
             'Single (combine periods)'

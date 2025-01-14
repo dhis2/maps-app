@@ -14,11 +14,11 @@
 
 .tabContent {
     width: calc(100% + var(--spacers-dp32));
-    margin: var(--spacers-dp12) -16px 0;
-    height: 410px;
+    margin: var(--spacers-dp12) calc(var(--spacers-dp16) * -1) 0;
+    height: 512px;
     overflow-y: auto;
     font-size: 14px;
-    color: #333;
+    color: var(--colors-grey900);
 }
 
 .flexColumnFlow {
@@ -36,13 +36,13 @@
     flex: 1 1 0px;
     margin: var(--spacers-dp4) var(--spacers-dp16) 0;
     box-sizing: border-box;
-    max-width: 260px;
+    max-width: 340px;
 }
 
 .flexInnerColumnFlow {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -8px;
+    margin: 0 calc(var(--spacers-dp8) * -1);
     clear: both;
 }
 
@@ -84,7 +84,7 @@
     display: flex;
     align-items: center;
     line-height: 1;
-    gap: 8px;
+    gap: var(--spacers-dp8);
 }
 
 .indent {
@@ -107,18 +107,17 @@
 
 .numberField {
     composes: flexInnerColumn;
-    max-width: 140px;
 }
 
 .checkbox {
-    margin: 8px 0 0 -8px;
+    margin: var(--spacers-dp8) 0 0 calc(var(--spacers-dp8) * -1);
 }
 
 /* Thematic */
 
 .navigation {
     flex-grow: 0; 
-    margin-bottom: 8px;
+    margin-bottom: var(--spacers-dp8);
 }
 
 /* Tracked entity */
@@ -166,9 +165,9 @@
 
 .eeError {
     width: 100%;
-    color: rgb(244, 67, 54);
+    color: var(--colors-red400);
     font-size: 12px;
-    line-height: 12px;
+    line-height: var(--spacers-dp12);
     margin-left: var(--spacers-dp12);
 }
 
@@ -177,5 +176,5 @@
 }
 
 .labelDisplayOptions {
-    margin-left: 23px;
+    margin-left: var(--spacers-dp24);
 }

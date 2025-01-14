@@ -98,12 +98,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         : i18n.t('Add new {{name}} layer', { name })
 
     return (
-        <Modal
-            position="middle"
-            dataTest="layeredit"
-            large
-            onClose={cancelLayer}
-        >
+        <Modal position="top" dataTest="layeredit" large onClose={cancelLayer}>
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <div className={styles.content}>

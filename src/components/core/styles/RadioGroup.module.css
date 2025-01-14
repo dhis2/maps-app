@@ -7,11 +7,11 @@
 }
 
 .radioGroup fieldset > div > div > label {
-    height: 36px;
+    height: var(--spacers-dp32);
 }
 
-.radioGroup.compact fieldset>div>div>label {
-    height: 20px;
+.radioGroup.compact fieldset > div > div > label {
+    height: var(--spacers-dp24);
 }
 
 .row {

@@ -26,7 +26,6 @@ describe('RadioGroup', () => {
             display: 'column',
             onChange: mockOnChange,
             boldLabel: true,
-            compact: false,
             children,
             dataTest: 'radio-group',
         }
@@ -62,13 +61,11 @@ describe('RadioGroup', () => {
         ).toBe(true)
     })
 
-    it('applies the correct class based on display and compact props', () => {
+    it('applies the correct class based on display prop', () => {
         props.display = 'row'
-        props.compact = true
         const wrapper = renderWithProps(props)
         const container = wrapper.find('div').first()
 
         expect(container.hasClass('row')).toBe(true)
-        expect(container.hasClass('compact')).toBe(true)
     })
 })

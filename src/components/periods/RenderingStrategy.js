@@ -15,6 +15,7 @@ import usePrevious from '../../hooks/usePrevious.js'
 import { getPeriodsFromFilters } from '../../util/analytics.js'
 import { countPeriods } from '../../util/periods.js'
 import { Radio, RadioGroup } from '../core/index.js'
+import styles from './styles/RenderingStrategy.module.css'
 
 const RenderingStrategy = ({
     layerId,
@@ -110,30 +111,32 @@ const RenderingStrategy = ({
     )
 
     return (
-        <RadioGroup
-            label={i18n.t('Period display mode')}
-            value={value}
-            onChange={onChange}
-            helpText={helpText}
-            display={'row'}
-            boldLabel={true}
-            compact={true}
-        >
-            <Radio
-                value={RENDERING_STRATEGY_SINGLE}
-                label={i18n.t('Single (combine periods)')}
-            />
-            <Radio
-                value={RENDERING_STRATEGY_TIMELINE}
-                label={i18n.t('Timeline')}
-                disabled={isTimelineDisabled}
-            />
-            <Radio
-                value={RENDERING_STRATEGY_SPLIT_BY_PERIOD}
-                label={i18n.t('Split map views')}
-                disabled={isSplitViewDisabled}
-            />
-        </RadioGroup>
+        <div className={styles.renderingStrategy}>
+            <RadioGroup
+                label={i18n.t('Period display mode')}
+                value={value}
+                onChange={onChange}
+                helpText={helpText}
+                display="row"
+                boldLabel={true}
+                compact={true}
+            >
+                <Radio
+                    value={RENDERING_STRATEGY_SINGLE}
+                    label={i18n.t('Single (combine periods)')}
+                />
+                <Radio
+                    value={RENDERING_STRATEGY_TIMELINE}
+                    label={i18n.t('Timeline')}
+                    disabled={isTimelineDisabled}
+                />
+                <Radio
+                    value={RENDERING_STRATEGY_SPLIT_BY_PERIOD}
+                    label={i18n.t('Split map views')}
+                    disabled={isSplitViewDisabled}
+                />
+            </RadioGroup>
+        </div>
     )
 }
 

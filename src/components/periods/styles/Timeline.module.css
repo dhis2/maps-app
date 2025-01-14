@@ -9,27 +9,27 @@
 
 .play {
     cursor: pointer;
-    fill: #333;
+    fill: var(--colors-grey800);
 }
 
 .play:hover {
-    fill: #000;
+    fill: var(--colors-grey900);
 }
 
 .period {
-    fill: #ffffff;
-    stroke: #555;
+    fill: var(--colors-white);
+    stroke: var(--colors-grey700);
     stroke-width: 1px;
     fill-opacity: .8;
     cursor: pointer;
 }
 
 .period.selected {
-    fill: #147cd7;
+    fill: var(--colors-blue600);
     fill-opacity: 1;
 }
 
 .period:hover:not(.selected) {
-    fill: #F3F5F7;
+    fill: var(--colors-grey200);
     fill-opacity: .9;
 }
