@@ -20,6 +20,8 @@ const LABEL_WIDTH = 80
 const RECT_HEIGHT = 8
 const RECT_OFFSET = 8
 const DELAY = 1500
+const MODE_PLAY = 'play'
+const MODE_PAUSE = 'pause'
 
 const Timeline = ({ period, periods, onChange }) => {
     const { layersPanelOpen, rightPanelOpen } = useSelector((state) => state.ui)
@@ -97,24 +99,24 @@ const Timeline = ({ period, periods, onChange }) => {
                 setCurrentPeriod(sortedPeriods[nextPeriodIndex])
                 onChange(sortedPeriods[nextPeriodIndex])
             } else {
-                setMode('pause')
+                setMode(MODE_PAUSE)
             }
         }, DELAY)
-        setMode('play')
+        setMode(MODE_PLAY)
     }, [sortedPeriods, currentPeriod, onChange])
 
     const pause = useCallback(() => {
         clearTimeout(timeoutRef.current)
-        setMode('pause')
+        setMode(MODE_PAUSE)
     }, [])
 
     useEffect(() => {
-        mode === 'play' ? play() : pause()
+        mode === MODE_PLAY ? play() : pause()
         return () => clearTimeout(timeoutRef.current)
     }, [mode, play, pause])
 
     const onPlayPause = useCallback(() => {
-        mode === 'play' ? pause() : play()
+        mode === MODE_PLAY ? pause() : play()
         if (isLastPeriod) {
             setCurrentPeriod(sortedPeriods[0])
             onChange(sortedPeriods[0])
@@ -169,7 +171,7 @@ const Timeline = ({ period, periods, onChange }) => {
                 className={styles.play}
             >
                 {TRANSPARENT_RECT}
-                {mode === 'play' ? PAUSE_ICON : PLAY_ICON}
+                {mode === MODE_PLAY ? PAUSE_ICON : PLAY_ICON}
             </g>
             {/* Period Rectangles */}
             {sortedPeriods && timeScale && (
