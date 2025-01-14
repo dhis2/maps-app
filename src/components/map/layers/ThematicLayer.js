@@ -151,7 +151,6 @@ class ThematicLayer extends Layer {
             return
         }
 
-        console.log(sortPeriodsByLevelAndStartDate(periods))
         const initialPeriod = {
             period:
                 renderingStrategy === RENDERING_STRATEGY_SINGLE
