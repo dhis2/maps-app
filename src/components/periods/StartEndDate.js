@@ -94,11 +94,7 @@ const StartEndDate = ({
                     clearable={true}
                 />
             </div>
-            {errorText && (
-                <div key="error" className={styles.error}>
-                    {errorText}
-                </div>
-            )}
+            {errorText && <div className={styles.error}>{errorText}</div>}
         </Field>
     )
 }

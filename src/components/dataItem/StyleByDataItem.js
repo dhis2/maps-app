@@ -61,9 +61,7 @@ const StyleByDataItem = ({ program, programStage, error }) => {
                 onChange={onChange}
                 dataTest="style-by-data-element-select"
             />
-            {styleDataItem && (
-                <DataItemStyle key="style" dataItem={styleDataItem} />
-            )}
+            {styleDataItem && <DataItemStyle dataItem={styleDataItem} />}
             {error && <Help error>{error}</Help>}
         </div>
     )

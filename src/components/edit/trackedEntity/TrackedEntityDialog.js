@@ -291,7 +291,7 @@ class TrackedEntityDialog extends Component {
                                 periodsSettings={periodsSettings}
                             />
                             {periodError && (
-                                <div key="error" className={styles.error}>
+                                <div className={styles.error}>
                                     <IconErrorFilled24 />
                                     {periodError}
                                 </div>
