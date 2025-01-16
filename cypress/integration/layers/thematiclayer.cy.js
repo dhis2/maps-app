@@ -12,8 +12,14 @@ import {
     EXTENDED_TIMEOUT,
 } from '../../support/util.js'
 
-const INDICATOR_GROUP = 'HIV'
-const INDICATOR_NAME = 'VCCT post-test counselling rate'
+const HIV_INDICATOR_GROUP = 'HIV'
+const HIV_INDICATOR_NAME = 'VCCT post-test counselling rate'
+
+const ANC_INDICATOR_GROUP = 'ANC'
+const ANC_INDICATOR_NAME = 'ANC 1 Coverage'
+
+const ANC_DATAELEMENT_GROUP = 'ANC'
+const ANC_DATAELEMENT_NAME = 'ANC 1st visit'
 
 context('Thematic Layers', () => {
     beforeEach(() => {
@@ -32,7 +38,7 @@ context('Thematic Layers', () => {
 
     it('shows error in layer edit modal if no indicator selected', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup(INDICATOR_GROUP)
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .addToMap()
 
         Layer.validateDialogClosed(false)
@@ -41,8 +47,8 @@ context('Thematic Layers', () => {
 
     it('shows error in layer edit modal if no period selected', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup(INDICATOR_GROUP)
-            .selectIndicator(INDICATOR_NAME)
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
             .removeAllPeriods()
             .addToMap()
@@ -65,8 +71,8 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup(INDICATOR_GROUP)
-            .selectIndicator(INDICATOR_NAME)
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType({ periodType: 'YEARLY' })
             .selectTab('Org Units')
@@ -75,7 +81,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle(INDICATOR_NAME)
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
         // TODO: test this in a way that is not dependent on the date
         // Layer.validateCardItems([
         //     '70.2 - 76.72 (1)',
@@ -90,8 +96,8 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer for OU Bombali', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup(INDICATOR_GROUP)
-            .selectIndicator(INDICATOR_NAME)
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType({ periodType: 'YEARLY' })
             .selectTab('Org Units')
@@ -101,14 +107,52 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle(INDICATOR_NAME)
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
         getMaps().should('have.length', 1)
+    })
+
+    it('adds user sub-units and a Chiefdom OU', () => {
+        Layer.openDialog('Thematic')
+            .selectItemType('Data element')
+            .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
+            .selectDataElement(ANC_DATAELEMENT_NAME)
+            .selectTab('Org Units')
+            .unselectOuLevel('District')
+
+        cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
+
+        cy.getByDataTest('org-unit-tree-node')
+            .contains('Tonkolili')
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        cy.getByDataTest('org-unit-tree-node').contains('Gbonkonlenken').click()
+
+        cy.getByDataTest('layeredit-addbtn').click()
+
+        cy.get('.dhis2-map').click('center')
+
+        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+
+        cy.get('.dhis2-map').click('center')
+        cy.get('.maplibregl-popup')
+            .contains('Gbonkonlenken')
+            .should('be.visible')
+
+        cy.get('.dhis2-map').click(500, 500)
+        cy.get('.maplibregl-popup').contains('Bo').should('be.visible')
     })
 
     it('adds a thematic layer with start and end date', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup(INDICATOR_GROUP)
-            .selectIndicator(INDICATOR_NAME)
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
             .selectStartEndDates()
             .typeStartDate(`${CURRENT_YEAR}-02-01`)
@@ -119,7 +163,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle(INDICATOR_NAME).validateCardPeriod(
+        Layer.validateCardTitle(HIV_INDICATOR_NAME).validateCardPeriod(
             `Feb 1, ${CURRENT_YEAR} - Nov 30, ${CURRENT_YEAR}`
         )
 
@@ -233,8 +277,8 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with timeline period', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('ANC')
-            .selectIndicator('ANC 1 Coverage')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType({
                 periodType: 'QUARTERLY',
@@ -289,8 +333,8 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with split view period', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup('ANC')
-            .selectIndicator('ANC 1 Coverage')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .selectTab('Period')
@@ -309,7 +353,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle('ANC 1 Coverage')
+        Layer.validateCardTitle(ANC_INDICATOR_NAME)
 
         // check for 3 maps
         getMaps().should('have.length', 3)
@@ -404,16 +448,15 @@ context('Thematic Layers', () => {
     })
 
     it('adds a thematic layer for data element', () => {
-        const DE_NAME = 'ANC 1st visit'
         Layer.openDialog('Thematic')
             .selectItemType('Data element')
-            .selectDataElementGroup('ANC')
-            .selectDataElement(DE_NAME)
+            .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
+            .selectDataElement(ANC_DATAELEMENT_NAME)
             .addToMap()
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle(DE_NAME)
+        Layer.validateCardTitle(ANC_DATAELEMENT_NAME)
         cy.getByDataTest(`card-ANC1stvisit`)
             .findByDataTest('layerlegend-item')
             .should('have.length', 5)
@@ -425,8 +468,8 @@ context('Thematic Layers', () => {
         cy.visit('/')
 
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup(INDICATOR_GROUP)
-            .selectIndicator(INDICATOR_NAME)
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
             .selectPeriodType({ periodType: 'YEARLY' })
             .selectTab('Org Units')
@@ -437,13 +480,13 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle(INDICATOR_NAME)
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
 
         // check that loading completes and the layer card is present
         cy.getByDataTest('map-loading-mask').should('not.exist')
 
         cy.getByDataTest('layercard')
-            .contains(INDICATOR_NAME)
+            .contains(HIV_INDICATOR_NAME)
             .should('be.visible')
 
         // check that an error is displayed in the layer card
