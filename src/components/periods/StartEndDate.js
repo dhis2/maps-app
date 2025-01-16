@@ -68,7 +68,7 @@ const StartEndDate = ({
                             e?.value?.length === 9 ? e.value + '0' : e?.value
                         onStartDateChange(v)
                     }}
-                    placeholder="YYYY-MM-DD"
+                    placeholder="yyyy-mm-dd"
                     dataTest="start-date-input"
                     strictValidation={true}
                     clearable={true}
@@ -88,7 +88,7 @@ const StartEndDate = ({
                             e?.value?.length === 9 ? e.value + '0' : e?.value
                         onEndDateChange(v)
                     }}
-                    placeholder="YYYY-MM-DD"
+                    placeholder="yyyy-mm-dd"
                     dataTest="end-date-input"
                     strictValidation={true}
                     clearable={true}
