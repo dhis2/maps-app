@@ -701,7 +701,7 @@ class ThematicDialog extends Component {
             )
         }
 
-        if (periods?.length === 0 && periodType !== START_END_DATES) {
+        if ((periods ?? []).length === 0 && periodType !== START_END_DATES) {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
