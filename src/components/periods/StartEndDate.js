@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import { formatDateInput } from '../../util/date.js'
+import { formatDateInput, formatDateOnBlur } from '../../util/date.js'
 import styles from './styles/StartEndDate.module.css'
+
+const DATE_PLACEHOLDER = 'yyyy-mm-dd'
 
 const StartEndDate = ({
     onSelectStartDate,
@@ -63,12 +65,10 @@ const StartEndDate = ({
                         onStartDateChange(e?.calendarDateString)
                     }
                     onChange={(e) => onStartDateChange(e?.value)}
-                    onBlur={(e) => {
-                        const v =
-                            e?.value?.length === 9 ? e.value + '0' : e?.value
-                        onStartDateChange(v)
-                    }}
-                    placeholder="yyyy-mm-dd"
+                    onBlur={(e) =>
+                        onStartDateChange(formatDateOnBlur(e?.value))
+                    }
+                    placeholder={DATE_PLACEHOLDER}
                     dataTest="start-date-input"
                     strictValidation={true}
                     clearable={true}
@@ -83,12 +83,8 @@ const StartEndDate = ({
                     date={formattedEndDate}
                     onDateSelect={(e) => onEndDateChange(e?.calendarDateString)}
                     onChange={(e) => onEndDateChange(e?.value)}
-                    onBlur={(e) => {
-                        const v =
-                            e?.value?.length === 9 ? e.value + '0' : e?.value
-                        onEndDateChange(v)
-                    }}
-                    placeholder="yyyy-mm-dd"
+                    onBlur={(e) => onEndDateChange(formatDateOnBlur(e?.value))}
+                    placeholder={DATE_PLACEHOLDER}
                     dataTest="end-date-input"
                     strictValidation={true}
                     clearable={true}
