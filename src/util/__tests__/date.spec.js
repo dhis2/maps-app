@@ -107,13 +107,13 @@ describe('getMaxDaysInMonth', () => {
             calendar: 'nepali',
             year: 2081,
             month: 12,
-            expectedDays: 31,
+            expectedDays: 31, // No leap year logic in Nepali
         },
         {
             calendar: 'nepali',
             year: 2080,
             month: 12,
-            expectedDays: 30,
+            expectedDays: 30, // No leap year logic in Nepali
         },
     ]
 

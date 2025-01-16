@@ -1,16 +1,23 @@
 import { getNowInCalendar } from '@dhis2/multi-calendar-dates'
 import { Temporal } from '@js-temporal/polyfill' // 13th months in etiopic calendar cannot be returned by getFixedPeriodByDate (@dhis2/multi-calendar-dates)
 
+const JULIAN_CALENDAR_NAME = 'julian'
+const NEPALI_CALENDAR_NAME = 'nepali'
+const GREGORIAN_CALENDAR_NAME = 'gregory'
+const ETHIOPIAN_CALENDAR_NAME = 'ethiopic'
+const THAI_CALENDAR_NAME = 'buddhist'
+
 // dhis2CalendarsMap and NEPALI_CALENDAR_DATA cannot be imported from @dhis2/multi-calendar-dates
+
 const dhis2CalendarsMap = {
-    iso8601: 'gregory', // this is not supported by getNowInCalendar
-    ethiopian: 'ethiopic',
-    gregorian: 'gregory',
-    julian: 'gregory', // this is not supported by Temporal
-    thai: 'buddhist',
+    iso8601: GREGORIAN_CALENDAR_NAME, // this is not supported by getNowInCalendar
+    ethiopian: ETHIOPIAN_CALENDAR_NAME,
+    gregorian: GREGORIAN_CALENDAR_NAME,
+    julian: GREGORIAN_CALENDAR_NAME, // this is not supported by Temporal
+    thai: THAI_CALENDAR_NAME,
 }
 const NEPALI_CALENDAR_DATA = {
-    // Used in @dhis2/multi-calenda-dates and @kbwood/world-calendars
+    // Used in @dhis2/multi-calendar-dates and @kbwood/world-calendars
     // First value is used for 1st January calculation (not used here)
     // This data are from http://www.ashesh.com.np
     1970: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
@@ -149,10 +156,10 @@ const NEPALI_CALENDAR_DATA = {
 }
 
 export const getMaxDaysInMonth = (year, month, calendar) => {
-    if (calendar === 'julian' && year % 4 === 0 && month === 2) {
+    if (calendar === JULIAN_CALENDAR_NAME && year % 4 === 0 && month === 2) {
         return 29
     }
-    if (calendar === 'nepali') {
+    if (calendar === NEPALI_CALENDAR_NAME) {
         return NEPALI_CALENDAR_DATA[year][month]
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
@@ -167,7 +174,7 @@ export const getMaxDaysInMonth = (year, month, calendar) => {
 }
 
 export const getMaxMonthsInYear = (year, calendar) => {
-    if (calendar === 'nepali') {
+    if (calendar === NEPALI_CALENDAR_NAME) {
         return NEPALI_CALENDAR_DATA[year].length - 1
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
@@ -188,9 +195,13 @@ export const getCurrentYearInCalendar = (calendar) => {
     return today.eraYear
 }
 
-export const formatDateInput = (date, calendar = 'gregory') => {
+export const formatDateInput = (date, calendar = GREGORIAN_CALENDAR_NAME) => {
     if (!date) {
         return ''
+    }
+
+    if (date.length === 7 && date[6] === '-') {
+        date = date.slice(0, -2) + '0' + date.slice(-2)
     }
 
     let finalHyphen = ''
@@ -250,3 +261,6 @@ export const formatDateInput = (date, calendar = 'gregory') => {
         .toString()
         .padStart(2, '0')}-${formattedDay.toString().padStart(2, '0')}`
 }
+
+export const formatDateOnBlur = (date) =>
+    date?.length === 9 ? date.slice(0, -1) + '0' + date.slice(-1) : date
