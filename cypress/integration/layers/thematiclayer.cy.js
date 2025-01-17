@@ -239,6 +239,103 @@ context('Thematic Layers', () => {
             .should('be.visible')
     })
 
+    it('adds a thematic layer with multiple periods', () => {
+        const getNumericValue = (text) =>
+            parseFloat(text.replace('Value: ', ''))
+
+        Layer.openDialog('Thematic')
+            .selectItemType('Data element')
+            .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
+            .selectDataElement(ANC_DATAELEMENT_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 2,
+                y: '2024',
+            })
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 7,
+                removeAll: false,
+            })
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(ANC_DATAELEMENT_NAME)
+        Layer.validateCardTitle(
+            `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`
+        )
+
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('.dhis2-map').click('center')
+        cy.get('.maplibregl-popup').contains('Tonkolili').should('be.visible')
+
+        cy.get('.maplibregl-popup')
+            .contains('Value:')
+            .invoke('text')
+            .then((step1Text) => {
+                const val1 = getNumericValue(step1Text)
+                cy.wrap(val1).as('val1') // Store as alias
+            })
+
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Period').selectPeriodType({
+            periodType: 'MONTHLY',
+            periodDimension: 'fixed',
+            n: 2,
+            y: '2024',
+        })
+        cy.getByDataTest('layeredit-addbtn').click()
+
+        Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
+
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('.dhis2-map').click('center')
+        cy.get('.maplibregl-popup').contains('Tonkolili').should('be.visible')
+
+        cy.get('.maplibregl-popup')
+            .contains('Value:')
+            .invoke('text')
+            .then((step2Text) => {
+                const val2 = getNumericValue(step2Text)
+                cy.wrap(val2).as('val2') // Store as alias
+            })
+
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Period').selectPeriodType({
+            periodType: 'MONTHLY',
+            periodDimension: 'fixed',
+            n: 8,
+            y: '2024',
+        })
+        cy.getByDataTest('layeredit-addbtn').click()
+
+        Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
+
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.get('.dhis2-map').click('center')
+        cy.get('.maplibregl-popup').contains('Tonkolili').should('be.visible')
+
+        cy.get('.maplibregl-popup')
+            .contains('Value:')
+            .invoke('text')
+            .then((step3Text) => {
+                const val3 = getNumericValue(step3Text)
+                cy.wrap(val3).as('val3') // Store as alias
+            })
+
+        cy.get('@val1').then((val1) => {
+            cy.get('@val2').then((val2) => {
+                cy.get('@val3').then((val3) => {
+                    expect(val1).to.equal(val2 + val3)
+                })
+            })
+        })
+    })
+
     it('available rendering strategies depend on selected periods', () => {
         Layer.openDialog('Thematic').selectTab('Period').removeAllPeriods()
         cy.get('input[value="SINGLE"]').should('not.be.disabled')

@@ -65,6 +65,7 @@ export class ThematicLayer extends Layer {
         periodType,
         periodDimension = 'fixed',
         n = 'last',
+        y = '',
         removeAll = true,
     } = {}) {
         if (!periodType) {
@@ -94,6 +95,15 @@ export class ThematicLayer extends Layer {
             cy.getByDataTest(
                 'period-dimension-transfer-actions-removeall'
             ).click()
+        }
+
+        if (y !== '') {
+            cy.getByDataTest(
+                'period-dimension-fixed-period-filter-year-content'
+            )
+                .get('input[type="number"]')
+                .clear()
+                .type(y)
         }
         if (n === 'last') {
             cy.getByDataTest('period-dimension-transfer-option-content')
