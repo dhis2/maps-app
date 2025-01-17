@@ -103,6 +103,10 @@ export class ThematicLayer extends Layer {
             )
                 .get('input[type="number"]')
                 .clear()
+            cy.getByDataTest(
+                'period-dimension-fixed-period-filter-year-content'
+            )
+                .get('input[type="number"]')
                 .type(y)
         }
         if (n === 'last') {
