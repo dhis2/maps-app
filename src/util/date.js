@@ -262,5 +262,15 @@ export const formatDateInput = (date, calendar = GREGORIAN_CALENDAR_NAME) => {
         .padStart(2, '0')}-${formattedDay.toString().padStart(2, '0')}`
 }
 
-export const formatDateOnBlur = (date) =>
-    date?.length === 9 ? date.slice(0, -1) + '0' + date.slice(-1) : date
+export const formatDateOnBlur = (date) => {
+    if (
+        (date.length === 5 && date[4] === '-') ||
+        (date.length === 8 && date[7] === '-')
+    ) {
+        return date.slice(0, -1)
+    } else if (date?.length === 9) {
+        return date.slice(0, -1) + '0' + date.slice(-1)
+    } else {
+        return date
+    }
+}

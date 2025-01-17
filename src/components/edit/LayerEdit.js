@@ -74,7 +74,6 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     }
 
     useKeyDown('Escape', cancelLayer)
-    useKeyDown('Enter', onValidateLayer)
 
     if (!layer) {
         return null

@@ -70,7 +70,6 @@ const StartEndDate = ({
                     }
                     placeholder={DATE_PLACEHOLDER}
                     dataTest="start-date-input"
-                    strictValidation={true}
                     clearable={true}
                 />
                 <div className={styles.icon}>
@@ -86,7 +85,6 @@ const StartEndDate = ({
                     onBlur={(e) => onEndDateChange(formatDateOnBlur(e?.value))}
                     placeholder={DATE_PLACEHOLDER}
                     dataTest="end-date-input"
-                    strictValidation={true}
                     clearable={true}
                 />
             </div>
