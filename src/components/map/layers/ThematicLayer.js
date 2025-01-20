@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
     BOUNDARY_LAYER,
@@ -151,13 +152,19 @@ class ThematicLayer extends Layer {
             return
         }
 
-        const initialPeriod = {
-            period:
-                renderingStrategy === RENDERING_STRATEGY_SINGLE
-                    ? null
-                    : sortPeriodsByLevelAndStartDate(
-                          addPeriodsDetails(periods).periodsWithTypeLevelAndRank
-                      )[0] || period,
+        let initialPeriod = {}
+        switch (renderingStrategy) {
+            case RENDERING_STRATEGY_TIMELINE:
+                initialPeriod.period = sortPeriodsByLevelAndStartDate(
+                    addPeriodsDetails(periods).periodsWithTypeLevelAndRank
+                )[0]
+                break
+            case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
+                initialPeriod.period = period
+                break
+            default:
+                initialPeriod.period = null
+                break
         }
 
         // setPeriod without callback is called from the constructor (unmounted)
