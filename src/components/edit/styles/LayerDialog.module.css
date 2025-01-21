@@ -116,7 +116,7 @@
 /* Thematic */
 
 .navigation {
-    flex-grow: 0; 
+    flex-grow: 0;
     margin-bottom: var(--spacers-dp8);
 }
 

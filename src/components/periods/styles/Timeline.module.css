@@ -20,7 +20,7 @@
     fill: var(--colors-white);
     stroke: var(--colors-grey700);
     stroke-width: 1px;
-    fill-opacity: .8;
+    fill-opacity: 0.8;
     cursor: pointer;
 }
 
@@ -31,5 +31,5 @@
 
 .period:hover:not(.selected) {
     fill: var(--colors-grey200);
-    fill-opacity: .9;
+    fill-opacity: 0.9;
 }
