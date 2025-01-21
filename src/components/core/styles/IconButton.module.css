@@ -11,7 +11,7 @@
 .iconButton.disabled svg {
     fill: var(--colors-grey400);
     cursor: not-allowed;
-    color: var(--colors-grey400)
+    color: var(--colors-grey400);
 }
 
 .iconButton:not(.disabled):hover {
