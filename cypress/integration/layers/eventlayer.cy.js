@@ -67,7 +67,7 @@ context('Event Layers', () => {
             .selectOu('Sierra Leone')
 
         cy.getByDataTest('org-unit-tree-node')
-            .contains('Bo')
+            .contains('Western Area')
             .parents('[data-test="org-unit-tree-node"]')
             .first()
             .within(() => {
@@ -75,14 +75,14 @@ context('Event Layers', () => {
             })
 
         cy.getByDataTest('org-unit-tree-node')
-            .contains('Badjia')
+            .contains('Rural Western Area')
             .parents('[data-test="org-unit-tree-node"]')
             .first()
             .within(() => {
                 cy.getByDataTest('org-unit-tree-node-toggle').click()
             })
 
-        cy.getByDataTest('org-unit-tree-node').contains('Njandama MCHP').click()
+        cy.getByDataTest('org-unit-tree-node').contains('Sussex MCHP').click()
 
         cy.getByDataTest('layeredit-addbtn').click()
 
@@ -96,7 +96,7 @@ context('Event Layers', () => {
             .contains('Event location')
             .should('be.visible')
         cy.get('.maplibregl-popup')
-            .contains('0.000000 0.000000')
+            .contains('-13.188339 8.405215')
             .should('be.visible')
         cy.get('.maplibregl-popup')
             .contains('Organisation unit')
