@@ -5,7 +5,8 @@
 .list {
     max-width: 684px;
     max-height: calc(100vh - 150px);
-    padding: var(--spacers-dp8) var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp12);
+    padding: var(--spacers-dp8) var(--spacers-dp4) var(--spacers-dp8)
+        var(--spacers-dp12);
     overflow-y: auto;
 }
 
