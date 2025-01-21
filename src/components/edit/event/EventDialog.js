@@ -19,8 +19,6 @@ import {
     setOrgUnits,
 } from '../../../actions/layerEdit.js'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
@@ -34,6 +32,7 @@ import {
     getOrgUnitsFromRows,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
+import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import {
@@ -140,10 +139,8 @@ class EventDialog extends Component {
             setPeriod({
                 id: defaultPeriod,
             })
-            setBackupPeriodsDates({
-                startDate: DEFAULT_START_DATE,
-                endDate: DEFAULT_END_DATE,
-            })
+            const defaultDates = getDefaultDatesInCalendar()
+            setBackupPeriodsDates(defaultDates)
         }
 
         // Set org unit tree roots as default

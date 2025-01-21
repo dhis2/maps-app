@@ -1,6 +1,9 @@
 import { getNowInCalendar } from '@dhis2/multi-calendar-dates'
 import { Temporal } from '@js-temporal/polyfill' // 13th months in etiopic calendar cannot be returned by getFixedPeriodByDate (@dhis2/multi-calendar-dates)
 
+export const DEFAULT_CALENDAR = 'iso8601'
+export const DEFAULT_PLACEHOLDER = 'yyyy-mm-dd'
+
 const JULIAN_CALENDAR_NAME = 'julian'
 const NEPALI_CALENDAR_NAME = 'nepali'
 const GREGORIAN_CALENDAR_NAME = 'gregory'
@@ -189,13 +192,24 @@ export const getMaxMonthsInYear = (year, calendar) => {
     return date.monthsInYear
 }
 
+export const getDefaultDatesInCalendar = (calendar = DEFAULT_CALENDAR) => {
+    const calendarName = dhis2CalendarsMap[calendar] || calendar
+    const { day, month, eraYear: year } = getNowInCalendar(calendarName)
+    const formatDateString = (y, m, d) =>
+        `${y}-${m.toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
+    return {
+        startDate: formatDateString(year - 1, month, day),
+        endDate: formatDateString(year, month, day),
+    }
+}
+
 export const getCurrentYearInCalendar = (calendar) => {
     const calendarName = dhis2CalendarsMap[calendar] || calendar
     const today = getNowInCalendar(calendarName)
     return today.eraYear
 }
 
-export const formatDateInput = (date, calendar = GREGORIAN_CALENDAR_NAME) => {
+export const formatDateInput = (date, calendar = DEFAULT_CALENDAR) => {
     if (!date) {
         return ''
     }

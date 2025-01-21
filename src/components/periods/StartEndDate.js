@@ -4,10 +4,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import { formatDateInput, formatDateOnBlur } from '../../util/date.js'
+import {
+    DEFAULT_CALENDAR,
+    DEFAULT_PLACEHOLDER,
+    formatDateInput,
+    formatDateOnBlur,
+} from '../../util/date.js'
 import styles from './styles/StartEndDate.module.css'
-
-const DATE_PLACEHOLDER = 'yyyy-mm-dd'
 
 const StartEndDate = ({
     onSelectStartDate,
@@ -20,19 +23,16 @@ const StartEndDate = ({
     const startDate = useSelector((state) => state.layerEdit.startDate || '')
     const endDate = useSelector((state) => state.layerEdit.endDate || '')
 
-    const formattedStartDate = formatDateInput(
-        startDate,
-        periodsSettings?.calendar
-    )
-    const formattedEndDate = formatDateInput(endDate, periodsSettings?.calendar)
+    const formattedStartDate = formatDateInput(startDate)
+    const formattedEndDate = formatDateInput(endDate)
 
     const onStartDateChange = (value) => {
-        const formattedDate = formatDateInput(value, periodsSettings?.calendar)
+        const formattedDate = formatDateInput(value)
         dispatch(onSelectStartDate(formattedDate))
     }
 
     const onEndDateChange = (value) => {
-        const formattedDate = formatDateInput(value, periodsSettings?.calendar)
+        const formattedDate = formatDateInput(value)
         dispatch(onSelectEndDate(formattedDate))
     }
 
@@ -58,7 +58,7 @@ const StartEndDate = ({
             <div className={styles.row}>
                 <CalendarInput
                     label={i18n.t('Start date')}
-                    calendar={periodsSettings?.calendar}
+                    calendar={DEFAULT_CALENDAR}
                     locale={periodsSettings?.locale}
                     date={formattedStartDate}
                     onDateSelect={(e) =>
@@ -68,7 +68,7 @@ const StartEndDate = ({
                     onBlur={(e) =>
                         onStartDateChange(formatDateOnBlur(e?.value))
                     }
-                    placeholder={DATE_PLACEHOLDER}
+                    placeholder={DEFAULT_PLACEHOLDER}
                     dataTest="start-date-input"
                     clearable={true}
                 />
@@ -77,13 +77,13 @@ const StartEndDate = ({
                 </div>
                 <CalendarInput
                     label={i18n.t('End date')}
-                    calendar={periodsSettings?.calendar}
+                    calendar={DEFAULT_CALENDAR}
                     locale={periodsSettings?.locale}
                     date={formattedEndDate}
                     onDateSelect={(e) => onEndDateChange(e?.calendarDateString)}
                     onChange={(e) => onEndDateChange(e?.value)}
                     onBlur={(e) => onEndDateChange(formatDateOnBlur(e?.value))}
-                    placeholder={DATE_PLACEHOLDER}
+                    placeholder={DEFAULT_PLACEHOLDER}
                     dataTest="end-date-input"
                     clearable={true}
                 />

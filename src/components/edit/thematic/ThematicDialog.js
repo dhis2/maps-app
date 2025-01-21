@@ -24,8 +24,6 @@ import {
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
     DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
@@ -41,6 +39,7 @@ import {
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
+import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import CalculationSelect from '../../calculations/CalculationSelect.js'
@@ -180,10 +179,8 @@ class ThematicDialog extends Component {
                 },
             ]
             setPeriods(defaultPeriods)
-            setBackupPeriodsDates({
-                startDate: DEFAULT_START_DATE,
-                endDate: DEFAULT_END_DATE,
-            })
+            const defaultDates = getDefaultDatesInCalendar()
+            setBackupPeriodsDates(defaultDates)
         }
 
         // Set default org unit level

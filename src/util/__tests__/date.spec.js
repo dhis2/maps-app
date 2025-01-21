@@ -1,9 +1,16 @@
+import { getNowInCalendar } from '@dhis2/multi-calendar-dates'
 import {
     getMaxDaysInMonth,
     getMaxMonthsInYear,
     getCurrentYearInCalendar,
     formatDateInput,
+    formatDateOnBlur,
+    getDefaultDatesInCalendar,
 } from '../date.js'
+
+jest.mock('@dhis2/multi-calendar-dates', () => ({
+    getNowInCalendar: jest.fn(),
+}))
 
 describe('getMaxDaysInMonth', () => {
     const testCases = [
@@ -146,15 +153,39 @@ describe('getMaxMonthsInYear', () => {
     })
 })
 
+describe('getDefaultDatesInCalendar', () => {
+    it('should calculate correct startDate and endDate', () => {
+        getNowInCalendar.mockReturnValue({
+            day: 15,
+            month: 7,
+            eraYear: 2024,
+        })
+
+        const result = getDefaultDatesInCalendar()
+        expect(result.startDate).toBe('2023-07-15') // One year before
+        expect(result.endDate).toBe('2024-07-15') // Current year
+    })
+})
+
 describe('getCurrentYearInCalendar', () => {
+    getNowInCalendar.mockReturnValue({
+        day: 15,
+        month: 7,
+        eraYear: 2024,
+    })
+
     it('returns the current year', () => {
-        const currentYear = new Date().getFullYear()
-        expect(getCurrentYearInCalendar('gregory')).toBe(currentYear)
-        expect(getCurrentYearInCalendar('thai')).toBe(currentYear + 543)
+        expect(getCurrentYearInCalendar('gregory')).toBe(2024)
     })
 })
 
 describe('formatDateInput', () => {
+    getNowInCalendar.mockReturnValue({
+        day: 15,
+        month: 7,
+        eraYear: 2024,
+    })
+
     it('should remove non-numeric characters', () => {
         expect(formatDateInput('202a')).toBe('202')
         expect(formatDateInput('2021-1b')).toBe('2021-1')
@@ -162,8 +193,7 @@ describe('formatDateInput', () => {
     })
 
     it('should not allow years as 0000', () => {
-        const today = new Date()
-        expect(formatDateInput('0000')).toBe(today.getFullYear().toString())
+        expect(formatDateInput('0000')).toBe('2024')
     })
 
     it('should not allow months outside 1-12', () => {
@@ -201,5 +231,23 @@ describe('formatDateInput', () => {
     it('should allow valid dates', () => {
         expect(formatDateInput('2021-12-01')).toBe('2021-12-01')
         expect(formatDateInput('2004-02-29')).toBe('2004-02-29') // Leap year
+    })
+})
+
+describe('formatDateOnBlur', () => {
+    it('should remove the trailing dash when the length is 5 or 8 and ends with a dash', () => {
+        expect(formatDateOnBlur('2021-')).toBe('2021') // Case 5 characters
+        expect(formatDateOnBlur('2021-12-')).toBe('2021-12') // Case 8 characters
+    })
+
+    it('should pad the 9th character with "0" when the length is 9', () => {
+        expect(formatDateOnBlur('2021-12-3')).toBe('2021-12-03') // Pad day
+    })
+
+    it('should return the input unchanged for other lengths or conditions', () => {
+        expect(formatDateOnBlur('2021')).toBe('2021') // Length < 5
+        expect(formatDateOnBlur('2021-12')).toBe('2021-12') // Valid date, no trailing dash
+        expect(formatDateOnBlur('2021-12-03')).toBe('2021-12-03') // Properly formatted date
+        expect(formatDateOnBlur('')).toBe('') // Empty input
     })
 })

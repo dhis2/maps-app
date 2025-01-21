@@ -22,8 +22,6 @@ import {
     setStyleDataItem,
 } from '../../../actions/layerEdit.js'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
     TEI_COLOR,
     TEI_RADIUS,
     TEI_BUFFER,
@@ -34,6 +32,7 @@ import {
     MAX_RADIUS,
 } from '../../../constants/layers.js'
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
+import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import {
     Tab,
@@ -110,8 +109,9 @@ class TrackedEntityDialog extends Component {
 
         // Set default period (last year)
         if (!hasDate) {
-            setStartDate(DEFAULT_START_DATE)
-            setEndDate(DEFAULT_END_DATE)
+            const defaultDates = getDefaultDatesInCalendar()
+            setStartDate(defaultDates.startDate)
+            setEndDate(defaultDates.endDate)
         }
 
         if (relationshipType) {
