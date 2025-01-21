@@ -152,7 +152,7 @@ class ThematicLayer extends Layer {
             return
         }
 
-        let initialPeriod = {}
+        const initialPeriod = {}
         switch (renderingStrategy) {
             case RENDERING_STRATEGY_TIMELINE:
                 initialPeriod.period = sortPeriodsByLevelAndStartDate(
