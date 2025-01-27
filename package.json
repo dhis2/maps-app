@@ -19,7 +19,7 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^11.7.5",
+        "@dhis2/cli-app-scripts": "^11.8.0",
         "@dhis2/cli-style": "^10.5.1",
         "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^10.0.3",
@@ -41,8 +41,8 @@
         "start-server-and-test": "^2.0.3"
     },
     "dependencies": {
-        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#7978713b4489a26ec83e99ebeb17572a3560c4e0",
-        "@dhis2/app-runtime": "^3.11.2",
+        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#c4a4ef92f518898327b1745e6769ed1a32997d69",
+        "@dhis2/app-runtime": "^3.13.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.0.1",
