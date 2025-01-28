@@ -79,5 +79,8 @@
         "redux-thunk": "^2.4.2",
         "styled-jsx": "^4.0.1",
         "url-polyfill": "^1.1.12"
+    },
+    "resolutions": {
+        "webpack": "5.76.2"
     }
 }
