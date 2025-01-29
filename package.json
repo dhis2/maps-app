@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "100.7.10",
+    "version": "999.99.9-plugin-rc.2025-01-29",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -19,6 +19,7 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "@dhis2/cli-app-scripts": "^11.8.0",
         "@dhis2/cli-style": "^10.7.5",
         "@dhis2/cypress-commands": "^10.0.6",
