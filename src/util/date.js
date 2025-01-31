@@ -209,9 +209,40 @@ export const getCurrentYearInCalendar = (calendar) => {
     return today.eraYear
 }
 
-export const formatDateInput = (date, calendar = DEFAULT_CALENDAR) => {
+export function replaceAt(str, index, replacement) {
+    const cleanReplacement = replacement.replace(/\D/g, '')
+    if (index >= str.length) {
+        return str + cleanReplacement
+    }
+    if (index < 0) {
+        index = 0
+    }
+    return cleanReplacement
+        ? str.slice(0, index) + cleanReplacement + str.slice(index + 1)
+        : str
+}
+
+export const formatDateInput = ({
+    date,
+    prevDate,
+    caret,
+    calendar = DEFAULT_CALENDAR,
+}) => {
     if (!date) {
         return ''
+    }
+    if (!prevDate) {
+        return date
+    }
+
+    if (date.length > caret) {
+        if (date.length <= prevDate.length) {
+            date = prevDate
+        } else if (date[caret] === '-') {
+            date = replaceAt(prevDate, caret, date[caret - 1])
+        } else {
+            date = replaceAt(prevDate, caret - 1, date[caret - 1])
+        }
     }
 
     if (date.length === 7 && date[6] === '-') {
@@ -248,6 +279,7 @@ export const formatDateInput = (date, calendar = DEFAULT_CALENDAR) => {
     }
 
     const maxMonth = getMaxMonthsInYear(year, calendar)
+
     const formattedMonth =
         month === '00' ? 1 : month > maxMonth ? maxMonth : month
 
@@ -287,4 +319,21 @@ export const formatDateOnBlur = (date) => {
     } else {
         return date
     }
+}
+
+export const nextCharIsHyphen = ({ date, prevDate, caret }) => {
+    if (!date || !prevDate || !caret) {
+        return false
+    }
+    const isInsertingNewChar = date.length === prevDate.length + 1
+    const insertedCharIsDigit = date[caret - 1]?.replace(/\D/g, '') !== ''
+    const insertedCharIsHyphen = date[caret - 1] === '-'
+    const atHyphenPosition = caret === 5 || caret === 8
+    const atEarlyHyphenPosition = caret === 7 && date.length === 7
+
+    return (
+        isInsertingNewChar &&
+        ((insertedCharIsDigit && atHyphenPosition) ||
+            (insertedCharIsHyphen && atEarlyHyphenPosition))
+    )
 }
