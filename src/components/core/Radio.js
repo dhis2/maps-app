@@ -27,7 +27,7 @@ const Radio = ({ value, disabled, dense = true, dataTest, label }) => {
 }
 
 Radio.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
     dataTest: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,

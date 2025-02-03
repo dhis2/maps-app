@@ -55,10 +55,14 @@ describe('RenderingStrategy', () => {
         expect(wrapper.find('div.boldLabel').text()).toBe('Period display mode')
         expect(wrapper.find('input').length).toBe(3)
         expect(wrapper.find('label').at(0).text()).toBe(
-            'Single (combine periods)'
+            'SingleShow periods as a combined layer. Data is aggregated.'
         )
-        expect(wrapper.find('label').at(1).text()).toBe('Timeline')
-        expect(wrapper.find('label').at(2).text()).toBe('Split map views')
+        expect(wrapper.find('label').at(1).text()).toBe(
+            'TimelineShow multiple periods as an interactive timeline.'
+        )
+        expect(wrapper.find('label').at(2).text()).toBe(
+            'SplitShow multiple maps in view, one for each period (max 12).'
+        )
     })
 
     it('disables timeline and split map views when total periods are below the minimum', () => {

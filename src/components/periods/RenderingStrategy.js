@@ -14,7 +14,12 @@ import {
 import usePrevious from '../../hooks/usePrevious.js'
 import { getPeriodsFromFilters } from '../../util/analytics.js'
 import { countPeriods } from '../../util/periods.js'
-import { Radio, RadioGroup } from '../core/index.js'
+import { CustomRadioLabel, Radio, RadioGroup } from '../core/index.js'
+import {
+    IconPeriodDisplaySingle,
+    IconPeriodDisplaySplit,
+    IconPeriodDisplayTimeline,
+} from './icons.js'
 import styles from './styles/RenderingStrategy.module.css'
 
 const RenderingStrategy = ({
@@ -59,56 +64,86 @@ const RenderingStrategy = ({
         }
     }, [value, periods, prevPeriods, onChange, totalPeriods])
 
-    const helpText = useMemo(() => {
-        const messages = []
-        if (totalPeriods < MULTIMAP_MIN_PERIODS) {
-            messages.push(
-                i18n.t(
-                    'Select {{number}} or more periods to enable timeline or split map views.',
-                    {
-                        number: MULTIMAP_MIN_PERIODS,
-                    }
-                )
-            )
-        }
-        if (hasOtherTimelineLayers) {
-            messages.push(i18n.t('Only one timeline is allowed.'))
-        }
-        if (hasOtherLayers) {
-            messages.push(
-                i18n.t('Remove other layers to enable split map views.')
-            )
-        }
-        if (hasTooManyPeriods) {
-            messages.push(
-                i18n.t(
-                    'Only up to {{number}} periods can be selected to enable split map views.',
-                    {
-                        number: MULTIMAP_MAX_PERIODS,
-                    }
-                )
-            )
-        }
-        return messages.join(' ')
-    }, [
-        totalPeriods,
-        hasOtherTimelineLayers,
-        hasOtherLayers,
-        hasTooManyPeriods,
-    ])
-
-    const isTimelineDisabled = useMemo(
-        () => totalPeriods < MULTIMAP_MIN_PERIODS || hasOtherTimelineLayers,
-        [totalPeriods, hasOtherTimelineLayers]
-    )
-
-    const isSplitViewDisabled = useMemo(
-        () =>
-            totalPeriods < MULTIMAP_MIN_PERIODS ||
-            hasTooManyPeriods ||
+    const getHelpText = useMemo(
+        () => ({
+            [RENDERING_STRATEGY_SINGLE]: undefined,
+            [RENDERING_STRATEGY_TIMELINE]:
+                totalPeriods < MULTIMAP_MIN_PERIODS
+                    ? i18n.t(
+                          'Select at least {{number}} periods or 1 multi-period.',
+                          { number: MULTIMAP_MIN_PERIODS }
+                      )
+                    : hasOtherTimelineLayers
+                    ? i18n.t('Remove the exiting timeline to add a new one.')
+                    : undefined,
+            [RENDERING_STRATEGY_SPLIT_BY_PERIOD]:
+                totalPeriods < MULTIMAP_MIN_PERIODS
+                    ? i18n.t(
+                          'Select at least {{number}} periods or 1 multi-period.',
+                          { number: MULTIMAP_MIN_PERIODS }
+                      )
+                    : hasTooManyPeriods
+                    ? i18n.t(
+                          'Only up to a total of {{number}} periods (including those in multi-periods) can be selected.',
+                          { number: MULTIMAP_MAX_PERIODS }
+                      )
+                    : hasOtherLayers
+                    ? i18n.t('Remove other layers to add a split map view.')
+                    : undefined,
+        }),
+        [
+            totalPeriods,
+            hasOtherTimelineLayers,
+            hasTooManyPeriods,
             hasOtherLayers,
-        [totalPeriods, hasTooManyPeriods, hasOtherLayers]
+        ]
     )
+
+    const isDisabled = (strategy) => {
+        switch (strategy) {
+            case RENDERING_STRATEGY_TIMELINE:
+                return (
+                    totalPeriods < MULTIMAP_MIN_PERIODS ||
+                    hasOtherTimelineLayers
+                )
+            case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
+                return (
+                    totalPeriods < MULTIMAP_MIN_PERIODS ||
+                    hasTooManyPeriods ||
+                    hasOtherLayers
+                )
+            default:
+                return false
+        }
+    }
+
+    const strategies = [
+        {
+            value: RENDERING_STRATEGY_SINGLE,
+            icon: <IconPeriodDisplaySingle />,
+            label: i18n.t('Single'),
+            sublabel: i18n.t(
+                'Show periods as a combined layer. Data is aggregated.'
+            ),
+        },
+        {
+            value: RENDERING_STRATEGY_TIMELINE,
+            icon: <IconPeriodDisplayTimeline />,
+            label: i18n.t('Timeline'),
+            sublabel: i18n.t(
+                'Show multiple periods as an interactive timeline.'
+            ),
+        },
+        {
+            value: RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+            icon: <IconPeriodDisplaySplit />,
+            label: i18n.t('Split'),
+            sublabel: i18n.t(
+                'Show multiple maps in view, one for each period (max {{number}}).',
+                { number: MULTIMAP_MAX_PERIODS }
+            ),
+        },
+    ]
 
     return (
         <div className={styles.renderingStrategy}>
@@ -116,25 +151,28 @@ const RenderingStrategy = ({
                 label={i18n.t('Period display mode')}
                 value={value}
                 onChange={onChange}
-                helpText={helpText}
-                display="row"
                 boldLabel={true}
-                compact={true}
+                display="row"
             >
-                <Radio
-                    value={RENDERING_STRATEGY_SINGLE}
-                    label={i18n.t('Single (combine periods)')}
-                />
-                <Radio
-                    value={RENDERING_STRATEGY_TIMELINE}
-                    label={i18n.t('Timeline')}
-                    disabled={isTimelineDisabled}
-                />
-                <Radio
-                    value={RENDERING_STRATEGY_SPLIT_BY_PERIOD}
-                    label={i18n.t('Split map views')}
-                    disabled={isSplitViewDisabled}
-                />
+                {strategies.map(
+                    ({ value: strategy, icon, label, sublabel }) => (
+                        <Radio
+                            key={strategy}
+                            value={strategy}
+                            label={
+                                <CustomRadioLabel
+                                    icon={icon}
+                                    label={label}
+                                    sublabel={sublabel}
+                                    tooltip={getHelpText[strategy]}
+                                    checked={value === strategy}
+                                    disabled={isDisabled(strategy)}
+                                />
+                            }
+                            disabled={isDisabled(strategy)}
+                        />
+                    )
+                )}
             </RadioGroup>
         </div>
     )

@@ -31,7 +31,7 @@ const RadioGroup = ({
             >
                 {label && (
                     <div
-                        className={cx({
+                        className={cx(styles.label, {
                             [styles.boldLabel]: boldLabel,
                         })}
                     >

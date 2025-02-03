@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-12-27T23:49:08.516Z\n"
-"PO-Revision-Date: 2024-12-27T23:49:08.516Z\n"
+"POT-Creation-Date: 2025-02-03T15:46:26.042Z\n"
+"PO-Revision-Date: 2025-02-03T15:46:26.042Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -927,32 +927,52 @@ msgstr "Next year"
 msgid "Start/end dates"
 msgstr "Start/end dates"
 
-msgid "Select {{number}} or more periods to enable timeline or split map views."
-msgstr "Select {{number}} or more periods to enable timeline or split map views."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
 
-msgid "Only one timeline is allowed."
-msgstr "Only one timeline is allowed."
+msgid "Remove the exiting timeline to add a new one."
+msgstr "Remove the exiting timeline to add a new one."
 
-msgid "Remove other layers to enable split map views."
-msgstr "Remove other layers to enable split map views."
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
 
-msgid "Only up to {{number}} periods can be selected to enable split map views."
-msgstr "Only up to {{number}} periods can be selected to enable split map views."
+msgid "Remove other layers to add a split map view."
+msgstr "Remove other layers to add a split map view."
 
-msgid "Period display mode"
-msgstr "Period display mode"
+msgid "Single"
+msgstr "Single"
 
-msgid "Single (combine periods)"
-msgstr "Single (combine periods)"
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr "Show periods as a combined layer. Data is aggregated."
 
 msgid "Timeline"
 msgstr "Timeline"
 
-msgid "Split map views"
-msgstr "Split map views"
+msgid "Show multiple periods as an interactive timeline."
+msgstr "Show multiple periods as an interactive timeline."
+
+msgid "Split"
+msgstr "Split"
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr "Show multiple maps in view, one for each period (max {{number}})."
+
+msgid "Period display mode"
+msgstr "Period display mode"
 
 msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr "Start and end dates are inclusive and will be included in the outputs."
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
 
 msgid "Start date"
 msgstr "Start date"

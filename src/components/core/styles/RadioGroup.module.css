@@ -22,6 +22,12 @@
     margin-right: var(--spacers-dp16);
 }
 
+.label {
+    font-size: 13px;
+    color: var(--colors-grey700);
+    margin-bottom: 18px;
+}
+
 .boldLabel {
-    font-weight: bold;
+    font-weight: 500;
 }
