@@ -231,11 +231,8 @@ export const formatDateInput = ({
     if (!date) {
         return ''
     }
-    if (!prevDate) {
-        return date
-    }
 
-    if (date.length > caret) {
+    if (prevDate && date.length > caret) {
         if (date.length <= prevDate.length) {
             date = prevDate
         } else if (date[caret] === '-') {
@@ -252,7 +249,9 @@ export const formatDateInput = ({
     let finalHyphen = ''
     if (
         (date.length === 5 && date[4] === '-') ||
-        (date.length === 8 && date[7] === '-')
+        (date.length === 6 && date[4] === '-' && date[5] === '-') ||
+        (date.length === 8 && date[7] === '-') ||
+        (date.length === 9 && date[7] === '-' && date[8] === '-')
     ) {
         finalHyphen = '-'
     }
@@ -321,12 +320,12 @@ export const formatDateOnBlur = (date) => {
     }
 }
 
-export const nextCharIsHyphen = ({ date, prevDate, caret }) => {
+export const nextCharIsAutoHyphen = ({ date, prevDate, caret }) => {
     if (!date || !prevDate || !caret) {
         return false
     }
     const isInsertingNewChar = date.length === prevDate.length + 1
-    const insertedCharIsDigit = date[caret - 1]?.replace(/\D/g, '') !== ''
+    const insertedCharIsDigit = /\d/.test(date[caret - 1] || '')
     const insertedCharIsHyphen = date[caret - 1] === '-'
     const atHyphenPosition = caret === 5 || caret === 8
     const atEarlyHyphenPosition = caret === 7 && date.length === 7
@@ -336,4 +335,14 @@ export const nextCharIsHyphen = ({ date, prevDate, caret }) => {
         ((insertedCharIsDigit && atHyphenPosition) ||
             (insertedCharIsHyphen && atEarlyHyphenPosition))
     )
+}
+
+export const nextCharIsManualHyphen = ({ date, prevDate, caret }) => {
+    if (!date || !prevDate || !caret) {
+        return false
+    }
+    const atHyphenPosition = caret === 5 || caret === 8
+    const insertedCharIsHyphen = date[caret - 1] === '-'
+
+    return atHyphenPosition && insertedCharIsHyphen
 }

@@ -9,7 +9,8 @@ import {
     DEFAULT_PLACEHOLDER,
     formatDateInput,
     formatDateOnBlur,
-    nextCharIsHyphen,
+    nextCharIsAutoHyphen,
+    nextCharIsManualHyphen,
 } from '../../util/date.js'
 import styles from './styles/StartEndDate.module.css'
 
@@ -50,7 +51,6 @@ const StartEndDate = ({
                 setCaret: setEndCaretPosition,
             },
         }
-
         if (!(type in stateMap)) {
             console.error(
                 `Invalid type "${type}" passed to onDateChange. Expected "start" or "end".`
@@ -70,29 +70,24 @@ const StartEndDate = ({
             return
         }
 
-        let caret
-        if (caretOffset) {
-            caret = DEFAULT_PLACEHOLDER.length
-        } else {
-            const input = document.querySelector(inputSelector)
-            if (!input) {
-                console.warn(`Input element for type "${type}" not found.`)
-                return
-            }
-            caret = input.selectionStart
+        const caret = caretOffset
+            ? DEFAULT_PLACEHOLDER.length
+            : document.querySelector(inputSelector)?.selectionStart
+        const dateInfo = { date, prevDate, caret }
+
+        let newCaretPosition = caret
+        if (nextCharIsAutoHyphen(dateInfo)) {
+            newCaretPosition = caret + 1
+        } else if (nextCharIsManualHyphen(dateInfo)) {
+            // No change needed for caret position
+        } else if (/\D/.test(date?.[caret - 1] || '')) {
+            newCaretPosition = caret - 1
         }
-
-        const formattedDate = formatDateInput({ date, prevDate, caret })
-        const newCaretPosition = nextCharIsHyphen({
-            date,
-            prevDate,
-            caret,
-        })
-            ? caret + 1
-            : caret
-
         setCaret(newCaretPosition)
+
+        const formattedDate = formatDateInput(dateInfo)
         dispatch(dispatchAction(formattedDate))
+
         setDateChangeCount((prevCount) => prevCount + 1)
     }
 

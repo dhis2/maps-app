@@ -7,7 +7,8 @@ import {
     replaceAt,
     formatDateInput,
     formatDateOnBlur,
-    nextCharIsHyphen,
+    nextCharIsAutoHyphen,
+    nextCharIsManualHyphen,
 } from '../date.js'
 
 jest.mock('@dhis2/multi-calendar-dates', () => ({
@@ -419,21 +420,21 @@ describe('formatDateOnBlur', () => {
     })
 })
 
-describe('nextCharIsHyphen', () => {
+describe('nextCharIsAutoHyphen', () => {
     it('returns false when any argument is missing', () => {
-        expect(nextCharIsHyphen({ date: '', prevDate: '', caret: 0 })).toBe(
+        expect(nextCharIsAutoHyphen({ date: '', prevDate: '', caret: 0 })).toBe(
             false
         )
         expect(
-            nextCharIsHyphen({ date: '2022', prevDate: '2022', caret: 0 })
+            nextCharIsAutoHyphen({ date: '2022', prevDate: '2022', caret: 0 })
         ).toBe(false)
         expect(
-            nextCharIsHyphen({ date: '', prevDate: '2022-01', caret: 5 })
+            nextCharIsAutoHyphen({ date: '', prevDate: '2022-01', caret: 5 })
         ).toBe(false)
     })
 
     it('returns false if a non-digit character is inserted', () => {
-        const result = nextCharIsHyphen({
+        const result = nextCharIsAutoHyphen({
             date: '2022-0A',
             prevDate: '2022-0',
             caret: 7,
@@ -442,12 +443,12 @@ describe('nextCharIsHyphen', () => {
     })
 
     it('returns true when a digit is inserted at the hyphen position (position 5 or 8)', () => {
-        const result1 = nextCharIsHyphen({
+        const result1 = nextCharIsAutoHyphen({
             date: '20220',
             prevDate: '2022',
             caret: 5,
         })
-        const result2 = nextCharIsHyphen({
+        const result2 = nextCharIsAutoHyphen({
             date: '2022-011',
             prevDate: '2022-01',
             caret: 8,
@@ -458,7 +459,7 @@ describe('nextCharIsHyphen', () => {
     })
 
     it('returns false if the inserted character is not a digit and caret is at hyphen position', () => {
-        const result = nextCharIsHyphen({
+        const result = nextCharIsAutoHyphen({
             date: '2022A',
             prevDate: '2022',
             caret: 5,
@@ -467,12 +468,12 @@ describe('nextCharIsHyphen', () => {
     })
 
     it('returns true if the caret is at the hyphen position and next character is a hyphen', () => {
-        const result1 = nextCharIsHyphen({
+        const result1 = nextCharIsAutoHyphen({
             date: '20220-',
             prevDate: '2022-',
             caret: 5,
         })
-        const result2 = nextCharIsHyphen({
+        const result2 = nextCharIsAutoHyphen({
             date: '2022-011-',
             prevDate: '2022-01-',
             caret: 8,
@@ -482,7 +483,7 @@ describe('nextCharIsHyphen', () => {
     })
 
     it('returns true if adding an "early" hyphen', () => {
-        const result = nextCharIsHyphen({
+        const result = nextCharIsAutoHyphen({
             date: '2022-1-',
             prevDate: '2022-1',
             caret: 7,
@@ -491,11 +492,83 @@ describe('nextCharIsHyphen', () => {
     })
 
     it('returns false if the caret is not at the hyphen position', () => {
-        const result = nextCharIsHyphen({
+        const result = nextCharIsAutoHyphen({
             date: '2022-01',
             prevDate: '2022-0',
             caret: 6,
         })
         expect(result).toBe(false)
+    })
+})
+
+describe('nextCharIsManualHyphen', () => {
+    it('should return false if any of date, prevDate, or caret is missing', () => {
+        expect(
+            nextCharIsManualHyphen({
+                date: '2022-12-12',
+                prevDate: '2022-12-11',
+                caret: undefined,
+            })
+        ).toBe(false)
+        expect(
+            nextCharIsManualHyphen({
+                date: '2022-12-12',
+                prevDate: undefined,
+                caret: 5,
+            })
+        ).toBe(false)
+        expect(
+            nextCharIsManualHyphen({
+                date: undefined,
+                prevDate: '2022-12-11',
+                caret: 5,
+            })
+        ).toBe(false)
+        expect(
+            nextCharIsManualHyphen({
+                date: undefined,
+                prevDate: undefined,
+                caret: undefined,
+            })
+        ).toBe(false)
+    })
+
+    it('should return false if caret is not at positions 5 or 8', () => {
+        const result1 = nextCharIsManualHyphen({
+            date: '202',
+            prevDate: '20',
+            caret: 3,
+        })
+        const result2 = nextCharIsManualHyphen({
+            date: '2022-12-12',
+            prevDate: '2022-12-1',
+            caret: 10,
+        })
+        expect(result1).toBe(false)
+        expect(result2).toBe(false)
+    })
+
+    it('should return false if the inserted character is not a hyphen', () => {
+        const result = nextCharIsManualHyphen({
+            date: '20221',
+            prevDate: '2022',
+            caret: 5,
+        })
+        expect(result).toBe(false)
+    })
+
+    it('should return true if caret is at position 5 or 8 and inserted character is a hyphen', () => {
+        const result1 = nextCharIsManualHyphen({
+            date: '2022-',
+            prevDate: '2022',
+            caret: 5,
+        })
+        const result2 = nextCharIsManualHyphen({
+            date: '2022-12-',
+            prevDate: '2022-12',
+            caret: 8,
+        })
+        expect(result1).toBe(true)
+        expect(result2).toBe(true)
     })
 })
