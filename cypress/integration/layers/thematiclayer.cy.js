@@ -340,10 +340,15 @@ context('Thematic Layers', () => {
         Layer.openDialog('Thematic').selectTab('Period').removeAllPeriods()
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('be.disabled')
+        cy.get('div').contains('Timeline').realHover()
+        cy.contains('Select at least 2 periods or 1 multi-period.').should(
+            'be.visible'
+        )
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
-        cy.contains(
-            'Select 2 or more periods to enable timeline or split map views.'
-        ).should('be.visible')
+        cy.get('div').contains('Split').realHover()
+        cy.contains('Select at least 2 periods or 1 multi-period.').should(
+            'be.visible'
+        )
 
         Layer.selectTab('Period').selectPeriodType({
             periodType: 'QUARTERLY',
@@ -353,10 +358,15 @@ context('Thematic Layers', () => {
         })
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('not.be.disabled')
+        cy.get('div').contains('Timeline').realHover()
+        cy.contains('Select at least 2 periods or 1 multi-period.').should(
+            'not.exist'
+        )
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
-        cy.contains(
-            'Select 2 or more periods to enable timeline or split map views.'
-        ).should('not.exist')
+        cy.get('div').contains('Split').realHover()
+        cy.contains('Select at least 2 periods or 1 multi-period.').should(
+            'not.exist'
+        )
 
         Layer.selectTab('Period').selectPeriodType({
             periodType: 'DAILY',
@@ -367,8 +377,9 @@ context('Thematic Layers', () => {
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('not.be.disabled')
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
+        cy.get('div').contains('Split').realHover()
         cy.contains(
-            'Only up to 12 periods can be selected to enable split map views.'
+            'Only up to a total of 12 periods (including those in multi-periods) can be selected.'
         ).should('be.visible')
     })
 
@@ -421,9 +432,13 @@ context('Thematic Layers', () => {
 
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('be.disabled')
+        cy.get('div').contains('Timeline').realHover()
+        cy.contains('Remove the exiting timeline to add a new one.').should(
+            'be.visible'
+        )
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
-        cy.contains('Only one timeline is allowed.').should('be.visible')
-        cy.contains('Remove other layers to enable split map views.').should(
+        cy.get('div').contains('Split').realHover()
+        cy.contains('Remove other layers to add a split map view.').should(
             'be.visible'
         )
     })
