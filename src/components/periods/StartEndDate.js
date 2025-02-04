@@ -122,7 +122,7 @@ const StartEndDate = ({
         <Field
             className={styles.field}
             helpText={i18n.t(
-                'Start and end dates are inclusive and will be included in the outputs.'
+                'Start and end dates are inclusive and will be reflected in the outputs.'
             )}
         >
             {periodsSettings?.calendar !== DEFAULT_CALENDAR && (

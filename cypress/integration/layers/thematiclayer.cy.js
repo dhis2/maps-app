@@ -438,9 +438,9 @@ context('Thematic Layers', () => {
         )
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
         cy.get('div').contains('Split').realHover()
-        cy.contains('Remove other layers to add a split map view.').should(
-            'be.visible'
-        )
+        cy.contains(
+            'Remove all existing layers to add a split map view.'
+        ).should('be.visible')
     })
 
     it('adds a thematic layer with split view period', () => {
