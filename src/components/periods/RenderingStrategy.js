@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -88,7 +89,9 @@ const RenderingStrategy = ({
                           { number: MULTIMAP_MAX_PERIODS }
                       )
                     : hasOtherLayers
-                    ? i18n.t('Remove other layers to add a split map view.')
+                    ? i18n.t(
+                          'Remove all existing layers to add a split map view.'
+                      )
                     : undefined,
         }),
         [
@@ -155,23 +158,35 @@ const RenderingStrategy = ({
                 display="row"
             >
                 {strategies.map(
-                    ({ value: strategy, icon, label, sublabel }) => (
-                        <Radio
-                            key={strategy}
-                            value={strategy}
-                            label={
-                                <CustomRadioLabel
-                                    icon={icon}
-                                    label={label}
-                                    sublabel={sublabel}
-                                    tooltip={getHelpText[strategy]}
-                                    checked={value === strategy}
-                                    disabled={isDisabled(strategy)}
-                                />
-                            }
-                            disabled={isDisabled(strategy)}
-                        />
-                    )
+                    ({ value: strategy, icon, label, sublabel }) => {
+                        const content = (
+                            <Radio
+                                value={strategy}
+                                label={
+                                    <CustomRadioLabel
+                                        icon={icon}
+                                        label={label}
+                                        sublabel={sublabel}
+                                        checked={value === strategy}
+                                        disabled={isDisabled(strategy)}
+                                    />
+                                }
+                                disabled={isDisabled(strategy)}
+                            />
+                        )
+                        const tooltip = getHelpText[strategy]
+                        return (
+                            <div key={strategy}>
+                                {tooltip ? (
+                                    <Tooltip content={tooltip} placement="top">
+                                        {content}
+                                    </Tooltip>
+                                ) : (
+                                    content
+                                )}
+                            </div>
+                        )
+                    }
                 )}
             </RadioGroup>
         </div>

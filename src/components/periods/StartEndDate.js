@@ -120,6 +120,7 @@ const StartEndDate = ({
 
     return (
         <Field
+            className={styles.field}
             helpText={i18n.t(
                 'Start and end dates are inclusive and will be included in the outputs.'
             )}

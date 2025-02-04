@@ -78,7 +78,6 @@
 }
 
 .error {
-    margin-top: var(--spacers-dp8);
     color: var(--theme-error);
     font-size: 12px;
     display: flex;
