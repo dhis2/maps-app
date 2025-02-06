@@ -19,8 +19,8 @@
         "postinstall": "patch-package"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^11.7.5",
-        "@dhis2/cli-style": "^10.7.5",
+        "@dhis2/cli-app-scripts": "^12.3.0",
+        "@dhis2/cli-style": "^10.7.6",
         "@dhis2/cypress-commands": "^10.0.6",
         "@dhis2/cypress-plugins": "^10.0.6",
         "@semantic-release/changelog": "^6",
@@ -46,7 +46,7 @@
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.0.1",
-        "@dhis2/ui": "^9.13.0",
+        "@dhis2/ui": "^10.1.11",
         "@krakenjs/post-robot": "^11.0.0",
         "@testing-library/react-hooks": "^8.0.1",
         "abortcontroller-polyfill": "^1.7.5",
