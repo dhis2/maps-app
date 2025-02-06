@@ -34,7 +34,7 @@ const StartEndDate = ({
     const [startCaretPosition, setStartCaretPosition] = useState(null)
     const [endCaretPosition, setEndCaretPosition] = useState(null)
 
-    const onDateChange = (type, date, caretOffset = false) => {
+    const onDateChange = (type, date) => {
         const stateMap = {
             start: {
                 prevDate: startDate,
@@ -70,9 +70,7 @@ const StartEndDate = ({
             return
         }
 
-        const caret = caretOffset
-            ? DEFAULT_PLACEHOLDER.length
-            : document.querySelector(inputSelector)?.selectionStart
+        const caret = document.querySelector(inputSelector)?.selectionStart
         const dateInfo = { date, prevDate, caret }
 
         let newCaretPosition = caret
@@ -140,11 +138,11 @@ const StartEndDate = ({
                     locale={periodsSettings?.locale}
                     date={formattedStartDate}
                     onDateSelect={(e) =>
-                        onDateChange('start', e?.calendarDateString)
+                        dispatch(onSelectStartDate(e?.calendarDateString))
                     }
                     onChange={(e) => onDateChange('start', e?.value)}
                     onBlur={(e) =>
-                        onDateChange('start', formatDateOnBlur(e?.value), true)
+                        dispatch(onSelectStartDate(formatDateOnBlur(e?.value)))
                     }
                     placeholder={DEFAULT_PLACEHOLDER}
                     dataTest="start-date-input"
@@ -160,11 +158,11 @@ const StartEndDate = ({
                     locale={periodsSettings?.locale}
                     date={formattedEndDate}
                     onDateSelect={(e) =>
-                        onDateChange('end', e?.calendarDateString)
+                        dispatch(onSelectEndDate(e?.calendarDateString))
                     }
                     onChange={(e) => onDateChange('end', e?.value)}
                     onBlur={(e) =>
-                        onDateChange('end', formatDateOnBlur(e?.value), true)
+                        dispatch(onSelectEndDate(formatDateOnBlur(e?.value)))
                     }
                     placeholder={DEFAULT_PLACEHOLDER}
                     dataTest="end-date-input"

@@ -504,7 +504,14 @@ class ThematicDialog extends Component {
                                         },
                                     ]}
                                     selected={periodType}
-                                    onChange={setPeriodType}
+                                    onChange={(e) =>
+                                        setPeriodType(
+                                            {
+                                                value: e.value,
+                                            },
+                                            true
+                                        )
+                                    }
                                 ></SegmentedControl>
                             </div>
                             {periodType === PREDEFINED_PERIODS && (
