@@ -2528,18 +2528,7 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@dhis2/app-runtime@^3.10.6", "@dhis2/app-runtime@^3.13.2":
-  version "3.13.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.13.2.tgz#c3eded902b457fb35d949e05ccb5c17191f05e56"
-  integrity sha512-rY0DfADBytx5WD6cf8nYnjyzUmsEORxMUL20iIFgAQQ64H3073FI4GOJB11Xt9NF5cCJhtQLJsehAq8zhI7GUQ==
-  dependencies:
-    "@dhis2/app-service-alerts" "3.13.2"
-    "@dhis2/app-service-config" "3.13.2"
-    "@dhis2/app-service-data" "3.13.2"
-    "@dhis2/app-service-offline" "3.13.2"
-    "@dhis2/app-service-plugin" "3.13.2"
-
-"@dhis2/app-runtime@^3.12.0":
+"@dhis2/app-runtime@^3.12.0", "@dhis2/app-runtime@^3.13.1":
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.13.1.tgz#35182cdd85b61969652ff45bc1d04b1fae5c2c40"
   integrity sha512-PvoYGKqnFgkrd12xWjpMLuSYQzxN8pBVi2uomuKQaUKlp91tvJe0tGey5h1uKfp+p65HxIiDSX+AHPSNtmpFzQ==
