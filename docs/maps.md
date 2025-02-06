@@ -226,9 +226,9 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
     ![](resources/images/maps_thematic_layer_dialog_PERIOD.png)
 
-    Select the time span over which the thematic data is mapped. 
-    
-    - If you choose **Chose from presets**, you can combine one or more relative and fixed periods.
+    Select the time span over which the thematic data is mapped.
+
+    -   If you choose **Chose from presets**, you can combine one or more relative and fixed periods.
 
         -   _Relative period_
 
@@ -238,7 +238,7 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
         -   _Fixed period_
 
-            Select **Relative periods**, then choose the **Period type** you are interested in (**Yearly**, **Monthly**, etc.),  and finally, select one or more relative periods, such as **2024** or **January 2025** and **Febuary 2025**.
+            Select **Relative periods**, then choose the **Period type** you are interested in (**Yearly**, **Monthly**, etc.), and finally, select one or more relative periods, such as **2024** or **January 2025** and **Febuary 2025**.
 
         If your selection covers multiple years, months, weeks, and/or days, the layer can be displayed as:
 
@@ -252,10 +252,9 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
         -   _Split_
 
-            Show multiple maps side by side to compare different periods. The order follows your selection. Supports up to 12 periods (including those in multi-periods presets). Cannot be combined with other layer types.
+            Show multiple maps side by side to compare different periods. A split map supports up to 12 periods, including those in multi-period presets. It cannot be combined with other layer types.
 
     -   Alternatively, you can **Define start - end dates**. Start and end dates are inclusive and will be reflected in the outputs.
-    
 
 3.  In the **Org Units** tab:
 
