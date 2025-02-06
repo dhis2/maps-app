@@ -28,6 +28,7 @@
                 "@semantic-release/exec": "^6",
                 "@semantic-release/git": "^10",
                 "@testing-library/jest-dom": "^6.6.3",
+                "@testing-library/dom": "^10.4.0",
                 "@testing-library/react": "^16.2.0",
                 "cypress": "^13.17.0",
                 "cypress-real-events": "^1.13.0",
@@ -44,8 +45,8 @@
                 "start-server-and-test": "^2.0.10"
         },
         "dependencies": {
-                "@dhis2/analytics": "^27.0.0",
-                "@dhis2/app-runtime": "^3.13.2",
+                "@dhis2/analytics": "^26.8.4",
+                "@dhis2/app-runtime": "^3.11.2",
                 "@dhis2/app-runtime-adapter-d2": "^1.1.0",
                 "@dhis2/app-service-datastore": "^1.0.0-beta.3",
                 "@dhis2/maps-gl": "^4.0.1",
