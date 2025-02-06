@@ -10539,6 +10539,13 @@ idb@^7.0.1:
   resolved "https://registry.yarnpkg.com/idb/-/idb-7.1.1.tgz#d910ded866d32c7ced9befc5bfdf36f572ced72b"
   integrity sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==
 
+identity-obj-proxy@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/identity-obj-proxy/-/identity-obj-proxy-3.0.0.tgz#94d2bda96084453ef36fbc5aaec37e0f79f1fc14"
+  integrity sha512-00n6YnVHKrinT9t0d9+5yZC6UBNJANpYEQvL2LlX6Ab9lnmxzIRcEmTPuyGScvl1+jKuCICX1Z0Ab1pPKKdikA==
+  dependencies:
+    harmony-reflect "^1.4.6"
+
 ieee754@^1.1.12, ieee754@^1.1.13, ieee754@^1.1.4, ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
