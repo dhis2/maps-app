@@ -6,7 +6,6 @@ exports[`Org unit profile (location details) renders OrgUnitInfo 1`] = `
     class="info"
     data-test="org-unit-info"
   >
-    
     <h3>
       Port Loko
     </h3>
@@ -226,7 +225,6 @@ exports[`Org unit profile (location details) renders formatted dates if featureT
     class="info"
     data-test="org-unit-info"
   >
-    
     <h3>
       Port Loko
     </h3>
@@ -474,7 +472,6 @@ exports[`Org unit profile (location details) renders metadata attributes 1`] = `
     class="info"
     data-test="org-unit-info"
   >
-    
     <h3>
       Port Loko
     </h3>
@@ -708,7 +705,6 @@ exports[`Org unit profile (location details) renders org unit group memberships 
     class="info"
     data-test="org-unit-info"
   >
-    
     <h3>
       Port Loko
     </h3>
