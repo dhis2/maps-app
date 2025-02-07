@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox } from '@dhis2/ui'
+import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
@@ -22,8 +22,6 @@ import {
     setStyleDataItem,
 } from '../../../actions/layerEdit.js'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
     TEI_COLOR,
     TEI_RADIUS,
     TEI_BUFFER,
@@ -34,6 +32,7 @@ import {
     MAX_RADIUS,
 } from '../../../constants/layers.js'
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
+import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import {
     Tab,
@@ -43,7 +42,7 @@ import {
     ColorPicker,
 } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
-import StartEndDates from '../../periods/StartEndDates.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect.js'
 import BufferRadius from '../shared/BufferRadius.js'
@@ -74,6 +73,7 @@ class TrackedEntityDialog extends Component {
         eventPointRadius: PropTypes.number,
         followUp: PropTypes.bool,
         orgUnits: PropTypes.object,
+        periodsSettings: PropTypes.object,
         program: PropTypes.object,
         programStatus: PropTypes.string,
         relatedPointColor: PropTypes.string,
@@ -105,10 +105,13 @@ class TrackedEntityDialog extends Component {
             setOrgUnits,
         } = this.props
 
+        const hasDate = startDate !== undefined && endDate !== undefined
+
         // Set default period (last year)
-        if (!startDate && !endDate) {
-            setStartDate(DEFAULT_START_DATE)
-            setEndDate(DEFAULT_END_DATE)
+        if (!hasDate) {
+            const defaultDates = getDefaultDatesInCalendar()
+            setStartDate(defaultDates.startDate)
+            setEndDate(defaultDates.endDate)
         }
 
         if (relationshipType) {
@@ -127,27 +130,35 @@ class TrackedEntityDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props
+        const { validateLayer, onLayerValidation, startDate, endDate } =
+            this.props
+        const { periodError } = this.state
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate())
+        }
+
+        if (
+            periodError &&
+            (startDate !== prev.startDate || endDate !== prev.endDate)
+        ) {
+            this.setErrorState('periodError', null, 'period')
         }
     }
 
     render() {
         const {
-            endDate,
             eventPointColor,
             eventPointRadius,
             followUp,
             program,
             programStatus,
-            startDate,
             trackedEntityType,
             relationshipType,
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
+            periodsSettings,
         } = this.props
 
         const {
@@ -274,11 +285,17 @@ class TrackedEntityDialog extends Component {
                     {tab === 'period' && (
                         <div className={styles.flexRowFlow}>
                             <PeriodTypeSelect />
-                            <StartEndDates
-                                startDate={startDate}
-                                endDate={endDate}
-                                errorText={periodError}
+                            <StartEndDate
+                                onSelectStartDate={setStartDate}
+                                onSelectEndDate={setEndDate}
+                                periodsSettings={periodsSettings}
                             />
+                            {periodError && (
+                                <div className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {periodError}
+                                </div>
+                            )}
                         </div>
                     )}
                     {tab === 'orgunits' && (
@@ -388,7 +405,7 @@ class TrackedEntityDialog extends Component {
         if (!trackedEntityType) {
             return this.setErrorState(
                 'trackedEntityTypeError',
-                i18n.t('This field is required'),
+                i18n.t('Tracked Entity Type is required'),
                 'data'
             )
         }

@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { formatDate } from '../util/time.js'
 
 export const VECTOR_STYLE = 'vectorStyle'
 export const TILE_LAYER = 'tileLayer'
@@ -40,11 +39,6 @@ export const MAP_LAYER_POSITION_BASEMAP = 'BASEMAP'
 export const MAP_LAYER_POSITION_OVERLAY = 'OVERLAY'
 
 export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER]
-
-export const DEFAULT_START_DATE = formatDate(
-    new Date().setFullYear(new Date().getFullYear() - 1)
-)
-export const DEFAULT_END_DATE = formatDate(new Date())
 
 export const DEFAULT_ORG_UNIT_LEVEL = 1 // 0 is root level
 

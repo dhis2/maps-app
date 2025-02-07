@@ -185,6 +185,12 @@ export const setPeriodType = (periodType, keepPeriod) => ({
     keepPeriod,
 })
 
+// Set periods (thematic)
+export const setPeriods = (periods) => ({
+    type: types.LAYER_EDIT_PERIODS_SET,
+    periods,
+})
+
 // Set period (event & thematic)
 export const setPeriod = (period) => ({
     type: types.LAYER_EDIT_PERIOD_SET,
@@ -201,6 +207,12 @@ export const setStartDate = (startDate) => ({
 export const setEndDate = (endDate) => ({
     type: types.LAYER_EDIT_END_DATE_SET,
     endDate,
+})
+
+// Set periods or dates backup
+export const setBackupPeriodsDates = (backupPeriodsDates) => ({
+    type: types.LAYER_EDIT_BACKUP_PERIODSDATES_SET,
+    backupPeriodsDates,
 })
 
 // Set value type (thematic)

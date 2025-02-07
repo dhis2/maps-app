@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
+import useKeyDown from '../../hooks/useKeyDown.js'
 import OrgUnitButton from '../orgunits/OrgUnitButton.js'
 import './styles/Popup.css'
 
@@ -8,6 +9,8 @@ const Popup = (props, context) => {
     const { className = '', coordinates, orgUnitId, onClose, children } = props
     const { map, isPlugin } = context
     const container = useMemo(() => document.createElement('div'), [])
+
+    useKeyDown('Escape', () => map.closePopup())
 
     // Create and open popup on map
     useEffect(() => {

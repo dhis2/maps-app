@@ -42,7 +42,6 @@
 }
 
 .button:focus {
-    outline: 3px solid var(--theme-focus);
     outline-offset: -3px;
 }
 

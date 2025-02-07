@@ -570,11 +570,8 @@ describe('getDataWithRelationships', () => {
                 expect(result).toEqual(expected)
             } else {
                 expect(result).toHaveProperty('primary')
-                console.log('primary', result.primary)
                 expect(result).toHaveProperty('relationships')
-                console.log('relationships', result.relationships)
                 expect(result).toHaveProperty('secondary')
-                console.log('secondary', result.secondary)
 
                 const resultPrimaryIds = result.primary.map((item) => item.id)
                 expect(resultPrimaryIds.sort()).toEqual(expected.primary.sort())
@@ -691,11 +688,8 @@ describe('getDataWithRelationships', () => {
                 expect(result).toEqual(expected)
             } else {
                 expect(result).toHaveProperty('primary')
-                //console.log('primary', result.primary)
                 expect(result).toHaveProperty('relationships')
-                //console.log('relationships', result.relationships)
                 expect(result).toHaveProperty('secondary')
-                //console.log('secondary', result.secondary)
 
                 const resultPrimaryIds = result.primary.map((item) => item.id)
                 expect(resultPrimaryIds.sort()).toEqual(expected.primary.sort())
