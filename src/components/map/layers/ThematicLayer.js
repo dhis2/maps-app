@@ -204,7 +204,7 @@ class ThematicLayer extends Layer {
     }
 
     render() {
-        const { periods, renderingStrategy, filters } = this.props
+        const { periods, renderingStrategy, filters, resizeCount } = this.props
         const { period, popup } = this.state
         const { id } = getPeriodFromFilters(filters) || {}
 
@@ -225,6 +225,7 @@ class ThematicLayer extends Layer {
                                     period={period}
                                     periods={periods}
                                     onChange={this.onPeriodChange}
+                                    resizeCount={resizeCount}
                                 />
                             </ThematicLayerContext.Provider>
                         </Fragment>
