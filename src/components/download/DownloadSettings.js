@@ -3,6 +3,7 @@ import { Button, ButtonStrip } from '@dhis2/ui'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setDownloadConfig } from '../../actions/download.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
 import { standardizeFilename } from '../../util/dataDownload.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
@@ -104,6 +105,8 @@ const DownloadSettings = () => {
             }
         }
     }, [isPushAnalytics])
+
+    useKeyDown('Escape', closeDownloadMode)
 
     const isSupported = downloadSupport() && !error
     const isSplitView = !!getSplitViewLayer(mapViews)

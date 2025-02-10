@@ -22,7 +22,7 @@ import {
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getValidDimensionsFromFilters,
     getDataItemFromColumns,
     getApiResponseNames,
@@ -125,10 +125,13 @@ const thematicLoader = async ({
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
-    const period = getPeriodFromFilters(config.filters)
+    const names = getApiResponseNames(data)
+    const presetPeriods = getPeriodsFromFilters(config.filters).map((pe) => {
+        pe.name = names[pe.id]
+        return pe
+    })
     const periods = getPeriodsFromMetaData(data.metaData)
     const dimensions = getValidDimensionsFromFilters(config.filters)
-    const names = getApiResponseNames(data)
     const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
     const valueById = getValueById(data)
     const valueFeatures = noDataColor
@@ -176,12 +179,13 @@ const thematicLoader = async ({
 
     const legend = {
         title: name,
-        period: period
-            ? names[period.id] || period.id
-            : formatStartEndDate(
-                  getDateArray(config.startDate),
-                  getDateArray(config.endDate)
-              ),
+        period:
+            presetPeriods.length > 0
+                ? presetPeriods.map((pe) => pe.name || pe.id).join(', ')
+                : formatStartEndDate(
+                      getDateArray(config.startDate),
+                      getDateArray(config.endDate)
+                  ),
         items: legendItems,
     }
 
@@ -382,7 +386,7 @@ const loadData = async ({
         eventStatus,
     } = config
     const orgUnits = getOrgUnitsFromRows(rows)
-    const period = getPeriodFromFilters(filters)
+    const presetPeriods = getPeriodsFromFilters(filters)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const dataItem = getDataItemFromColumns(columns) || {}
     const coordinateField = getCoordinateField(config)
@@ -403,11 +407,18 @@ const loadData = async ({
         .withDisplayProperty(keyAnalysisDisplayProperty)
 
     if (!isSingleMap) {
-        analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
+        analyticsRequest = analyticsRequest.addPeriodDimension(
+            presetPeriods.map((pe) => pe.id)
+        )
     } else {
-        analyticsRequest = period
-            ? analyticsRequest.addPeriodFilter(period.id)
-            : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        analyticsRequest =
+            presetPeriods.length > 0
+                ? analyticsRequest.addPeriodFilter(
+                      presetPeriods.map((pe) => pe.id)
+                  )
+                : analyticsRequest
+                      .withStartDate(startDate.slice(0, 10))
+                      .withEndDate(endDate.slice(0, 10))
     }
 
     if (dimensions) {

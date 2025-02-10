@@ -1,3 +1,31 @@
+## [100.8.1](https://github.com/dhis2/maps-app/compare/v100.8.0...v100.8.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* Timeline not showning in dashboard ([#3454](https://github.com/dhis2/maps-app/issues/3454)) ([1179c87](https://github.com/dhis2/maps-app/commit/1179c8757834d0a7c65597de17581b06c9972f01))
+
+# [100.8.0](https://github.com/dhis2/maps-app/compare/v100.7.10...v100.8.0) (2025-02-07)
+
+
+### Features
+
+* Improved Period Selection and Usability Enhancements ([#3407](https://github.com/dhis2/maps-app/issues/3407)) ([412a3ad](https://github.com/dhis2/maps-app/commit/412a3ad85b6d4ab1d9ba957e4bbe21095431de58)), closes [#DHIS2-15796](https://github.com/dhis2/maps-app/issues/DHIS2-15796) [#DHIS2-16358](https://github.com/dhis2/maps-app/issues/DHIS2-16358) [#DHIS2-18722](https://github.com/dhis2/maps-app/issues/DHIS2-18722) [#DHIS2-18066](https://github.com/dhis2/maps-app/issues/DHIS2-18066)
+
+## [100.7.10](https://github.com/dhis2/maps-app/compare/v100.7.9...v100.7.10) (2025-01-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3428](https://github.com/dhis2/maps-app/issues/3428)) ([a501ec9](https://github.com/dhis2/maps-app/commit/a501ec9da8869eb49567069c864eff2f1627b2d1))
+
+## [100.7.9](https://github.com/dhis2/maps-app/compare/v100.7.8...v100.7.9) (2024-12-10)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3420](https://github.com/dhis2/maps-app/issues/3420)) ([929118f](https://github.com/dhis2/maps-app/commit/929118fbe8c28c4b10553fda903f5d7a328df8b0))
+
 ## [100.7.8](https://github.com/dhis2/maps-app/compare/v100.7.7...v100.7.8) (2024-12-03)
 
 

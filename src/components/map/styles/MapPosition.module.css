@@ -7,7 +7,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    flex: auto
+    flex: auto;
 }
 
 .mapContainer.download {

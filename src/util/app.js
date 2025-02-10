@@ -31,7 +31,7 @@ export const appQueries = {
     systemInfo: {
         resource: 'system/info',
         params: {
-            fields: 'calendar',
+            fields: 'calendar,dateFormat',
         },
     },
     userSettings: {
@@ -104,6 +104,7 @@ export const providerDataTransformation = ({
     periodsSettings: {
         locale: userSettings.keyUiLocale,
         calendar: systemInfo.calendar,
+        dateFormat: systemInfo.dateFormat,
     },
     basemaps: getBasemapList(
         externalMapLayers.externalMapLayers,

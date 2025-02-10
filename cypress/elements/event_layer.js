@@ -24,7 +24,11 @@ export class EventLayer extends Layer {
         return this
     }
 
-    selectPeriodType(periodType) {
+    selectPeriodType({ periodType } = {}) {
+        if (!periodType) {
+            throw new Error("The 'periodType' parameter is required.")
+        }
+
         cy.getByDataTest('relative-period-select-content').click()
         cy.contains(periodType).click()
 

@@ -1,5 +1,5 @@
 .radioGroup {
-    margin-bottom: var(--spacers-dp12);
+    margin-bottom: var(--spacers-dp16);
 }
 
 .radioGroup fieldset > div > label {
@@ -7,7 +7,7 @@
 }
 
 .radioGroup fieldset > div > div > label {
-    height: 36px;
+    height: var(--spacers-dp32);
 }
 
 .row {
@@ -16,8 +16,19 @@
 
 .row fieldset > div > div {
     display: flex;
+    gap: var(--spacers-dp16);
 }
 
 .row fieldset > div > div > label {
     margin-right: var(--spacers-dp16);
+}
+
+.label {
+    font-size: 13px;
+    color: var(--colors-grey700);
+    margin-bottom: var(--spacers-dp8);
+}
+
+.boldLabel {
+    font-weight: 500;
 }
