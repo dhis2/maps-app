@@ -12,6 +12,7 @@ import {
 import { START_END_DATES } from '../constants/periods.js'
 import {
     setFiltersFromPeriod,
+    setFiltersFromPeriods,
     setDataItemInColumns,
     setOrgUnitPathInRows,
     removePeriodFromFilters,
@@ -106,7 +107,7 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
             return {
                 ...state,
-                periodType: action.periodType.id,
+                periodType: action.periodType.value,
                 filters: action.keepPeriod
                     ? state.filters
                     : removePeriodFromFilters(state.filters),
@@ -119,6 +120,23 @@ const layerEdit = (state = null, action) => {
                     action.period.id !== START_END_DATES
                         ? setFiltersFromPeriod(state.filters, action.period)
                         : [],
+            }
+
+        case types.LAYER_EDIT_PERIODS_SET:
+            return {
+                ...state,
+                filters: !(
+                    action.periods.length === 1 &&
+                    action.periods[0].id === START_END_DATES
+                )
+                    ? setFiltersFromPeriods(state.filters, action.periods)
+                    : [],
+            }
+
+        case types.LAYER_EDIT_BACKUP_PERIODSDATES_SET:
+            return {
+                ...state,
+                backupPeriodsDates: action.backupPeriodsDates,
             }
 
         case types.LAYER_EDIT_RENDERING_STRATEGY_SET:

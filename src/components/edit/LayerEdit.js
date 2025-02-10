@@ -13,6 +13,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
 import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
 import EventDialog from './event/EventDialog.js'
@@ -72,6 +73,8 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         }
     }
 
+    useKeyDown('Escape', cancelLayer)
+
     if (!layer) {
         return null
     }
@@ -94,7 +97,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         : i18n.t('Add new {{name}} layer', { name })
 
     return (
-        <Modal position="middle" dataTest="layeredit">
+        <Modal position="top" dataTest="layeredit" large onClose={cancelLayer}>
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <div className={styles.content}>

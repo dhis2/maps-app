@@ -10,18 +10,17 @@ const RadioGroup = ({
     value,
     label,
     helpText,
-    display,
+    display = 'column',
     onChange,
+    boldLabel = false,
     children,
     dataTest,
 }) => {
     const [radio, setRadio] = useState(value)
 
     useEffect(() => {
-        if (value !== radio) {
-            setRadio(value)
-        }
-    }, [value, radio])
+        setRadio(value)
+    }, [value])
 
     return (
         <RadioContext.Provider value={{ radio, onChange }}>
@@ -30,11 +29,16 @@ const RadioGroup = ({
                     [styles.row]: display === 'row',
                 })}
             >
-                <FieldGroup
-                    label={label}
-                    helpText={helpText}
-                    dataTest={dataTest}
-                >
+                {label && (
+                    <div
+                        className={cx(styles.label, {
+                            [styles.boldLabel]: boldLabel,
+                        })}
+                    >
+                        {label}
+                    </div>
+                )}
+                <FieldGroup helpText={helpText} dataTest={dataTest}>
                     {children}
                 </FieldGroup>
             </div>
@@ -44,9 +48,10 @@ const RadioGroup = ({
 
 RadioGroup.propTypes = {
     onChange: PropTypes.func.isRequired,
+    boldLabel: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.node),
     dataTest: PropTypes.string,
-    display: PropTypes.string,
+    display: PropTypes.oneOf(['row', 'column']),
     helpText: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

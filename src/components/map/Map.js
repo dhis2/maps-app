@@ -156,6 +156,7 @@ class Map extends Component {
             openContextMenu,
             setAggregations,
             setFeatureProfile,
+            resizeCount,
         } = this.props
         const { map } = this.state
 
@@ -182,6 +183,7 @@ class Map extends Component {
                                     setFeatureProfile={setFeatureProfile}
                                     engine={engine}
                                     nameProperty={nameProperty}
+                                    resizeCount={resizeCount}
                                     {...config}
                                 />
                             )
