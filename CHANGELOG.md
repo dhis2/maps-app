@@ -1,3 +1,10 @@
+## [100.8.1](https://github.com/dhis2/maps-app/compare/v100.8.0...v100.8.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* Timeline not showning in dashboard ([#3454](https://github.com/dhis2/maps-app/issues/3454)) ([1179c87](https://github.com/dhis2/maps-app/commit/1179c8757834d0a7c65597de17581b06c9972f01))
+
 # [100.8.0](https://github.com/dhis2/maps-app/compare/v100.7.10...v100.8.0) (2025-02-07)
 
 
