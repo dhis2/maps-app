@@ -7060,6 +7060,11 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
+cypress-real-events@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/cypress-real-events/-/cypress-real-events-1.13.0.tgz#6b7cd32dcac172db1493608f97a2576c7d0bd5af"
+  integrity sha512-LoejtK+dyZ1jaT8wGT5oASTPfsNV8/ClRp99ruN60oPj8cBJYod80iJDyNwfPAu4GCxTXOhhAv9FO65Hpwt6Hg==
+
 cypress-tags@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cypress-tags/-/cypress-tags-1.2.2.tgz#1d992a3eb7f5db9b8b87911cc82c94d7ee9dd217"

@@ -200,7 +200,7 @@ const Table = ({ availableHeight, availableWidth }) => {
     })
 
     useEffect(() => {
-        /* The combination of automtic table layout and virtual scrolling
+        /* The combination of automatic table layout and virtual scrolling
          * causes a content shift when scrolling and filtering because the
          * cells in the DOM have a different content length which causes the
          * columns to have a different width. To avoid that we measure the

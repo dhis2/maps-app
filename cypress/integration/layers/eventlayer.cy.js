@@ -1,12 +1,50 @@
 import { EventLayer } from '../../elements/event_layer.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
+import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../../support/util.js'
+
+const programE2E = {
+    name: 'E2E program',
+    stage: 'Stage 1 - Repeatable',
+    de: 'E2E - Yes/no',
+    options: ['Yes', 'No', 'Not set'],
+}
+
+const programIP = {
+    name: 'Inpatient morbidity and mortality',
+    stage: 'Inpatient morbidity and mortality',
+    startDate: `${CURRENT_YEAR - 5}-00-00`,
+    endDate: `${CURRENT_YEAR}-11-30`,
+    periodText: `Jan 1, ${CURRENT_YEAR - 5} - Nov 30, ${CURRENT_YEAR}`,
+    ous: ['Bombali', 'Bo'],
+}
 
 context('Event Layers', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
     })
 
     const Layer = new EventLayer()
+
+    it('adds an event layer and applies style for boolean data element', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programE2E.name)
+            .validateStage(programE2E.stage)
+            .selectTab('Style')
+
+        cy.getByDataTest('style-by-data-element-select').click()
+
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains(programE2E.de)
+            .click()
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(programE2E.stage)
+        Layer.validateCardItems(programE2E.options)
+    })
 
     it('shows error if no program selected', () => {
         Layer.openDialog('Events').addToMap()
@@ -16,47 +54,69 @@ context('Event Layers', () => {
         cy.contains('Program is required').should('be.visible')
     })
 
-    it('adds an event layer', () => {
+    it('shows error if no endDate is specified', () => {
         Layer.openDialog('Events')
-            .selectProgram('Inpatient morbidity and mortality')
-            .validateStage('Inpatient morbidity and mortality')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeEndDate()
+            .addToMap()
+
+        Layer.validateDialogClosed(false)
+        cy.contains('End date is invalid').should('be.visible')
+
+        Layer.selectTab('Period').typeEndDate('2')
+
+        cy.contains('End date is invalid').should('not.exist')
+    })
+
+    it('adds an event layer - relative period', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
             .selectTab('Org Units')
-            .selectOu('Bombali')
-            .selectOu('Bo')
+            .selectOu(programIP.ous[0])
+            .selectOu(programIP.ous[1])
             .addToMap()
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle('Inpatient morbidity and mortality')
+        Layer.validateCardTitle(programIP.name)
         Layer.validateCardItems(['Event'])
     })
 
-    it('adds an event layer and applies style for boolean data element', () => {
+    it('adds an event layer - start-end dates', () => {
         Layer.openDialog('Events')
-            .selectProgram('E2E program')
-            .validateStage('Stage 1 - Repeatable')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programIP.startDate)
+            .typeEndDate(programIP.endDate)
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectOu(programIP.ous[1])
             .selectTab('Style')
-
-        cy.getByDataTest('style-by-data-element-select').click()
-
-        cy.getByDataTest('dhis2-uicore-singleselectoption')
-            .contains('E2E - Yes/no')
-            .click()
-
-        cy.getByDataTest('dhis2-uicore-modalactions')
-            .contains('Add layer')
-            .click()
+            .selectViewAllEvents()
+            .addToMap()
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle('Stage 1 - Repeatable')
-        Layer.validateCardItems(['Yes', 'No', 'Not set'])
+        Layer.validateCardTitle(programIP.name).validateCardPeriod(
+            programIP.periodText
+        )
+        Layer.validateCardItems(['Event'])
     })
 
     it('opens an event popup', () => {
         Layer.openDialog('Events')
-            .selectProgram('Inpatient morbidity and mortality')
-            .validateStage('Inpatient morbidity and mortality')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programIP.startDate)
+            .typeEndDate(programIP.endDate)
             .selectTab('Style')
             .selectViewAllEvents()
             .selectTab('Org Units')
@@ -106,7 +166,7 @@ context('Event Layers', () => {
             .contains('Mode of Discharge')
             .should('be.visible')
 
-        Layer.validateCardTitle('Inpatient morbidity and mortality')
+        Layer.validateCardTitle(programIP.name)
         Layer.validateCardItems(['Event'])
     })
 })

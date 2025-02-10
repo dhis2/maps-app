@@ -4,6 +4,7 @@ import ColorPicker from './ColorPicker.js'
 import ColorScale from './ColorScale.js'
 import ColorScaleSelect from './ColorScaleSelect.js'
 import ConditionalWrapper from './ConditionalWrapper.js'
+import CustomRadioLabel from './CustomRadioLabel.js'
 import DatePicker from './DatePicker.js'
 import FontStyle from './FontStyle.js'
 import Help from './Help.js'
@@ -34,6 +35,7 @@ export {
     LabelDisplayOptions,
     MenuButton,
     NumberField,
+    CustomRadioLabel,
     Radio,
     RadioGroup,
     SelectField,

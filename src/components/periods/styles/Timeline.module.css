@@ -3,34 +3,33 @@
     width: calc(100% - 20px);
     position: absolute;
     left: 10px;
-    bottom: 28px;
-    height: 48px;
     z-index: 1000px;
     user-select: none;
 }
 
 .play {
     cursor: pointer;
-    fill: #333;
+    fill: var(--colors-grey800);
 }
 
 .play:hover {
-    fill: #000;
+    fill: var(--colors-grey900);
 }
 
 .period {
-    fill: #333;
-    stroke: #555;
+    fill: var(--colors-white);
+    stroke: var(--colors-grey700);
     stroke-width: 1px;
-    fill-opacity: 0.1;
+    fill-opacity: 0.8;
     cursor: pointer;
 }
 
 .period.selected {
-    fill: #2b675c;
-    fill-opacity: 0.9;
+    fill: var(--colors-blue600);
+    fill-opacity: 1;
 }
 
 .period:hover:not(.selected) {
-    fill-opacity: 0.2;
+    fill: var(--colors-grey200);
+    fill-opacity: 0.9;
 }
