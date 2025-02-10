@@ -4,7 +4,6 @@ import { scaleTime } from 'd3-scale'
 import { select } from 'd3-selection'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
-import { useSelector } from 'react-redux'
 import {
     addPeriodsDetails,
     sortPeriodsByLevelAndStartDate,
@@ -23,8 +22,7 @@ const DELAY = 1500
 const MODE_PLAY = 'play'
 const MODE_PAUSE = 'pause'
 
-const Timeline = ({ period, periods, onChange }) => {
-    const { layersPanelOpen, rightPanelOpen } = useSelector((state) => state.ui)
+const Timeline = ({ period, periods, onChange, resizeCount }) => {
     const [width, setWidth] = useState(null)
     const [mode, setMode] = useState('start')
     const [currentPeriod, setCurrentPeriod] = useState(period)
@@ -49,7 +47,7 @@ const Timeline = ({ period, periods, onChange }) => {
         window.addEventListener('resize', updateWidth)
         updateWidth()
         return () => window.removeEventListener('resize', updateWidth)
-    }, [updateWidth, layersPanelOpen, rightPanelOpen])
+    }, [updateWidth, resizeCount])
 
     const { periodsWithTypeLevelAndRank, distinctLevelsCount } = useMemo(
         () => addPeriodsDetails(periods),
@@ -194,6 +192,7 @@ Timeline.propTypes = {
     period: PropTypes.object.isRequired,
     periods: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
+    resizeCount: PropTypes.number,
 }
 
 export default Timeline
