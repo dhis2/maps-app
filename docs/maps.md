@@ -226,45 +226,35 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
     ![](resources/images/maps_thematic_layer_dialog_PERIOD.png)
 
-    -   select the time span over which the thematic data is mapped.
-        You can select either a relative or a fixed period.
+    Select the time span over which the thematic data is mapped.
 
-        -   Relative period
+    -   If you choose **Chose from presets**, you can combine one or more relative and fixed periods.
 
-            In the **Period type** field select **Relative**, then
-            select one of the relative periods, for example **Last year** or
-            **Last 12 months**, in the **Period** field.
+        -   _Relative period_
 
-            A **default relative period for analysis** can be set in the **Systems Settings**
-            app.
+            Select **Relative periods**, then the **Period type** you are interested in (**Years**, **Months**, etc.), and finally, select one or more relative periods, such as **This year** and **Last year** or **Last 12 months**.
 
-            If you select a relative period covering multiple years/months/weeks/days
-            the layer can be displayed as
+            A **default relative period for analysis** can be set in the **Systems Settings** app.
 
-            -   Single (aggregate)
+        -   _Fixed period_
 
-                Show aggregate values for the relative period selected (default).
+            Select **Relative periods**, then choose the **Period type** you are interested in (**Yearly**, **Monthly**, etc.), and finally, select one or more relative periods, such as **2024** or **January 2025** and **Febuary 2025**.
 
-            -   Timeline
+        If your selection covers multiple years, months, weeks, and/or days, the layer can be displayed as:
 
-                Includes a timeline allowing you to step through the periods.
-                Only one timeline layer can be added to the same map.
+        -   _Single_ (default)
 
-            -   Split map views
+            Show periods as a combined layer. Data is aggregated.
 
-                Show multiple maps allowing you to compare different periods
-                side by side. Supported for relative periods with 12 items
-                or below. Can not be combined with other layer types.
+        -   _Timeline_
 
-        -   Fixed period
+            Show multiple periods as an interactive timeline. Periods are ordered chronologically. Only one timeline layer can be added per map.
 
-            In the **Period type** field select period length, then
-            select the target in the **Period** field.
+        -   _Split_
 
-        -   Start/end dates
+            Show multiple maps side by side to compare different periods. A split map supports up to 12 periods, including those in multi-period presets. It cannot be combined with other layer types.
 
-            In the **Period type** field select **Start/end dates**
-            and fill in a start date and an end date.
+    -   Alternatively, you can **Define start - end dates**. Start and end dates are inclusive and will be reflected in the outputs.
 
 3.  In the **Org Units** tab:
 
@@ -527,10 +517,10 @@ layer** selection. This opens the Events layer configuration dialog.
 
     ![](resources/images/maps_event_layer_dialog_PERIOD.png)
 
-    -   select the time span for when the events took place. You can
+    -   Select the time span for when the events took place. You can
         select either a fixed period or a relative period.
 
-        -   Relative period
+        -   _Relative period_
 
             In the **Period** field, select one of the relative periods,
             for example **This month** or **Last year**.
@@ -538,7 +528,7 @@ layer** selection. This opens the Events layer configuration dialog.
             A **default relative period for analysis** can be set in the
             **Systems Settings** app.
 
-        -   Fixed period
+        -   _Fixed period_
 
             In the **Period** field, select **Start/end dates** and fill
             in a start date and an end date.

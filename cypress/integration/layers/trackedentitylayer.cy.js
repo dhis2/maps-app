@@ -1,9 +1,9 @@
-import { TeLayer } from '../../elements/te_layer.js'
+import { TeLayer } from '../../elements/trackedentity_layer.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 describe('Tracked Entity Layers', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
     })
 
     const Layer = new TeLayer()
@@ -34,7 +34,7 @@ describe('Tracked Entity Layers', () => {
             .selectTeType('Focus area')
             .selectTeProgram('Malaria focus investigation')
             .selectTab('Period')
-            .typeStartDate('2018-01-01')
+            .typeStartDate('2018-00-00')
             .selectTab('Org Units')
 
         cy.getByDataTest('org-unit-tree-node')
@@ -79,5 +79,31 @@ describe('Tracked Entity Layers', () => {
 
         Layer.validateCardTitle('Malaria focus investigation')
         Layer.validateCardItems(['Focus area'])
+    })
+
+    it('shows error if no tracked entity type selected', () => {
+        Layer.openDialog('Tracked entities').addToMap()
+
+        Layer.validateDialogClosed(false)
+
+        cy.contains('Tracked Entity Type is required').should('be.visible')
+    })
+
+    it('shows error if no endDate is specified', () => {
+        Layer.openDialog('Tracked entities')
+            .selectTab('Data')
+            .selectTeType('Focus area')
+            .selectTeProgram('Malaria focus investigation')
+            .selectTab('Period')
+            .typeStartDate('2018-01-01')
+            .typeEndDate('2')
+            .addToMap()
+
+        Layer.validateDialogClosed(false)
+        cy.contains('End date is invalid').should('be.visible')
+
+        Layer.selectTab('Period').typeEndDate('2')
+
+        cy.contains('End date is invalid').should('not.exist')
     })
 })

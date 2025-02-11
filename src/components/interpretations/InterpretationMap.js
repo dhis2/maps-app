@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
-import { getPeriodFromFilters } from '../../util/analytics.js'
+import { getPeriodsFromFilters } from '../../util/analytics.js'
 import { getRelativePeriods } from '../../util/periods.js'
 import Map from '../plugin/Map.js'
 import styles from './styles/InterpretationMap.module.css'
@@ -14,10 +14,12 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
         // Find layers with relative periods
         const relativePeriodLayers = visualization.mapViews
             .filter((config) => {
-                const period = getPeriodFromFilters(config.filters)
+                const periods = getPeriodsFromFilters(config.filters)
                 return (
-                    period &&
-                    getRelativePeriods().find((p) => p.id === period.id)
+                    periods &&
+                    periods.some((period) =>
+                        getRelativePeriods().some((p) => p.id === period.id)
+                    )
                 )
             })
             .map((layer) => ({

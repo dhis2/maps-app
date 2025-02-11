@@ -1,3 +1,4 @@
+import 'cypress-real-events'
 import './commands.js'
 
 const LOGIN_ENDPOINT = 'dhis-web-commons-security/login.action'

@@ -1,15 +1,15 @@
 .drawer {
-    background-color: #f4f6f8;
+    background-color: var(--colors-grey200);
     height: 100%;
     overflow-y: auto;
 }
 
 .left {
-    border-right: 1px solid #e0e0e0;
-    box-shadow: 1px 0 1px 0 rgba(0, 0, 0, 0.2);
+    border-right: 1px solid var(--colors-grey400);
+    box-shadow: 1px 0 1px 0 rgba(var(--colors-grey900), 0.2);
 }
 
 .right {
-    border-left: 1px solid #e0e0e0;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border-left: 1px solid var(--colors-grey400);
+    box-shadow: 0 1px 2px 0 rgba(var(--colors-grey900), 0.2);
 }
