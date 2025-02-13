@@ -2031,9 +2031,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@git+https://github.com/d2-ci/analytics.git#0b917c587f9c0c9fcedf5f3b343dba5c6494c21e":
-  version "26.11.1"
-  resolved "git+https://github.com/d2-ci/analytics.git#0b917c587f9c0c9fcedf5f3b343dba5c6494c21e"
+"@dhis2/analytics@^26.12.0":
+  version "26.12.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.12.0.tgz#5c153048fcd76fee13bfb297af3d344f4069dc2f"
+  integrity sha512-Ou1lH1iDxnpzOliGu9OkbRKOmxcqsojTa0zq8HlccJbMjtHmpdnp8deWJ7KgQFz+A7dpuHgsPbvcaMROBIxyrg==
   dependencies:
     "@dhis2/multi-calendar-dates" "^1.2.2"
     "@dnd-kit/core" "^6.0.7"
