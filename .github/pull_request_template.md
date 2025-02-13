@@ -25,4 +25,4 @@ _description text_
 
 ### Screenshots
 
-_supporting text_
+_supporting images_
