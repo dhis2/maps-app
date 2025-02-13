@@ -6,13 +6,14 @@ Requires: _pull request link from analytics and/or maps-gl_
 
 ### Description
 
-_description text_
+_description textg_
 
 ### TODO
 
 -   [ ] Dashboard tested
 -   [ ] Tests added (Cypress and/or Jest)
 -   [ ] Docs added
+-   [ ] Update dependencies to not point to d2-ci
 -   [ ] _todo_
 
 ---
