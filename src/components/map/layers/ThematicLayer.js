@@ -10,6 +10,8 @@ import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
     LABEL_TEMPLATE_NAME_ONLY,
+    PADDING_DEFAULT,
+    PADDING_TIMELINE,
 } from '../../../constants/layers.js'
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
@@ -136,11 +138,14 @@ class ThematicLayer extends Layer {
 
         map.addLayer(this.layer)
 
+        const customPadding =
+            renderingStrategy === RENDERING_STRATEGY_TIMELINE
+                ? PADDING_TIMELINE
+                : PADDING_DEFAULT
         if (!isPlugin) {
-            // Fit map to layer bounds once (when first created)
-            this.fitBoundsOnce()
+            this.fitBoundsOnce(customPadding)
         } else {
-            this.fitBounds()
+            this.fitBounds(customPadding)
         }
     }
 
