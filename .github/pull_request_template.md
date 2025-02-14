@@ -6,7 +6,7 @@ Requires: _pull request link from analytics and/or maps-gl_
 
 ### Description
 
-_description textg_
+_description text_
 
 ### TODO
 
