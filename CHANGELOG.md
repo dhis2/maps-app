@@ -1,3 +1,17 @@
+# [101.0.0](https://github.com/dhis2/maps-app/compare/v100.8.1...v101.0.0) (2025-02-14)
+
+
+### Features
+
+* support new dashboard plugin architecture ([#3447](https://github.com/dhis2/maps-app/issues/3447)) ([92bdd12](https://github.com/dhis2/maps-app/commit/92bdd12a1f476f221bbff899a1c799ecf845b4ae))
+
+
+### BREAKING CHANGES
+
+* this version is only compatible with Dashboard app >=101.0.0
+
+Use generic components for plugins in app-platform and app-runtime.
+
 ## [100.8.1](https://github.com/dhis2/maps-app/compare/v100.8.0...v100.8.1) (2025-02-10)
 
 
