@@ -42,6 +42,10 @@ export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER]
 
 export const DEFAULT_ORG_UNIT_LEVEL = 1 // 0 is root level
 
+/* FITBOUNDS PADDING */
+export const PADDING_DEFAULT = 40
+export const PADDING_TIMELINE = { bottom: 90 }
+
 /* RENDERING STRATEGY */
 export const RENDERING_STRATEGY_SINGLE = 'SINGLE'
 export const RENDERING_STRATEGY_TIMELINE = 'TIMELINE'

@@ -1,7 +1,10 @@
 import log from 'loglevel'
 import PropTypes from 'prop-types'
 import { PureComponent } from 'react'
-import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers.js'
+import {
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+    PADDING_DEFAULT,
+} from '../../../constants/layers.js'
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -132,12 +135,22 @@ class Layer extends PureComponent {
     }
 
     // Fit map to layer bounds
-    fitBounds() {
+    fitBounds(customPadding = PADDING_DEFAULT) {
         const { map } = this.context
 
         if (this.layer.getBounds) {
+            const defaultPadding = {
+                top: PADDING_DEFAULT,
+                bottom: PADDING_DEFAULT,
+                left: PADDING_DEFAULT,
+                right: PADDING_DEFAULT,
+            }
+
             map.fitBounds(this.layer.getBounds(), {
-                padding: 40,
+                padding:
+                    typeof customPadding === 'number'
+                        ? customPadding
+                        : { ...defaultPadding, ...customPadding },
                 duration: 0,
                 bearing: map.getMapGL().getBearing(),
             })
@@ -145,9 +158,9 @@ class Layer extends PureComponent {
     }
 
     // Fit map to layer bounds once (when first created)
-    fitBoundsOnce() {
+    fitBoundsOnce(customPadding) {
         if (!this.isZoomed || this.context.map.getZoom() === undefined) {
-            this.fitBounds()
+            this.fitBounds(customPadding)
             this.isZoomed = true
         }
     }
