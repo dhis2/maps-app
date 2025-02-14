@@ -9,14 +9,14 @@
 # Ge Joao <gsimango@saudigitus.org>, 2024
 # Shelsea Chumaio, 2024
 # Helton Dias, 2024
-# António Fernando Macaringue, 2024
+# António Fernando Macaringue, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: António Fernando Macaringue, 2024\n"
+"Last-Translator: António Fernando Macaringue, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1033,7 +1033,7 @@ msgid "Acres"
 msgstr "Acres"
 
 msgid "Mean"
-msgstr "Principal"
+msgstr "Média"
 
 msgid "Median"
 msgstr "Mediana"

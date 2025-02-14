@@ -4,14 +4,14 @@
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
-# Em Le <em.hispvietnam@gmail.com>, 2024
+# Em Le <em.hispvietnam@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2024\n"
+"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -478,6 +478,12 @@ msgstr "Bán kính cao phải lớn hơn bán kính thấp"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Bán kính phải nằm trong khoảng {{min}}và {{max}}"
 
+msgid "Choose from presets"
+msgstr "Chọn từ các cài đặt trước"
+
+msgid "Define start - end dates"
+msgstr "Xác định ngày bắt đầu - kết thúc"
+
 msgid "Indicator group is required"
 msgstr "Bắt buộc chọn nhóm chỉ số"
 
@@ -563,6 +569,9 @@ msgstr "Kiểu cá thể liên quan"
 
 msgid "Line Color"
 msgstr "Màu đường kẻ"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Không tìm thấy loại mối quan hệ nào cho loại cá thể {{type}}"
@@ -933,29 +942,52 @@ msgstr "Năm trước"
 msgid "Next year"
 msgstr "Năm sau"
 
-msgid "Period type"
-msgstr "Loại thời điểm"
-
 msgid "Start/end dates"
 msgstr "Ngày bắt đầu/kết thúc"
 
-msgid "Only one timeline is allowed."
-msgstr "Chỉ được phép có một mốc thời gian."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Xóa các lớp khác để bật chế độ xem bản đồ chia đôi."
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Hiển thị thời điểm"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Đơn (tổng hợp)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Dòng thời gian"
 
-msgid "Split map views"
-msgstr "Xem chế độ chia tách bản đồ"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Ngày bắt đầu"

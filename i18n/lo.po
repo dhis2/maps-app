@@ -4,15 +4,15 @@
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Phouthasinh PHEUAYSITHIPHONE, 2023
 # Viktor Varland <viktor@dhis2.org>, 2024
-# Namwan Chanthavisouk, 2024
 # Saysamone Sibounma, 2024
+# Namwan Chanthavisouk, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Saysamone Sibounma, 2024\n"
+"Last-Translator: Namwan Chanthavisouk, 2025\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -469,6 +469,12 @@ msgstr "ລັດສະໝີທີ່ສູງຄວນຫຼາຍກ່ວາ
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "ລັດສະໝີຄວນຢູ່ລະຫວ່າງ {{min}}ແລະ {{max}}"
 
+msgid "Choose from presets"
+msgstr "ເລືອກຈາກການຕັ້ງຄ່າກ່ອນໜ້າ"
+
+msgid "Define start - end dates"
+msgstr "ກໍານົດວັນທີເລີ່ມຕົ້ນ - ສິ້ນສຸດ"
+
 msgid "Indicator group is required"
 msgstr "ຕ້ອງຕື່ມກຸ່ມຕົວຊີ້ວັດ"
 
@@ -554,6 +560,9 @@ msgstr ""
 
 msgid "Line Color"
 msgstr "ສີຂອງເສັ້ນ"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -915,29 +924,52 @@ msgstr "ປີກາຍ"
 msgid "Next year"
 msgstr "ປີຕໍ່ໄປ"
 
-msgid "Period type"
-msgstr "ແບບຊ່ວງເວລາ"
-
 msgid "Start/end dates"
 msgstr "ວັນເລີ້ມຕົ້ນ/ວັນສິ້ນສຸດ"
 
-msgid "Only one timeline is allowed."
+msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove other layers to enable split map views."
+msgid "Remove the exiting timeline to add a new one."
 msgstr ""
 
-msgid "Display periods"
-msgstr "ສະແດງຊ່ວງເວລາ"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "ດຽວ (ສັງລວມ)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr ""
 
-msgid "Split map views"
-msgstr "ແຍກມຸມມອງຂອງແຜ່ນທີ່"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "ວັນທີເລີ່ມຕົ້ນ"

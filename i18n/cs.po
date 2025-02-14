@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -473,6 +473,12 @@ msgstr "Vysoký poloměr by měl být větší než nízký poloměr"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Poloměr by měl být mezi {{min}} a {{max}}"
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr "Je vyžadována skupina indikátorů"
 
@@ -559,6 +565,9 @@ msgstr "Styl související entity"
 
 msgid "Line Color"
 msgstr "Barva čáry"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Pro trasovaný typ entity {{type}} nebyly nalezeny žádné typy vztahů"
@@ -745,6 +754,9 @@ msgstr "Nadřazená jednotka"
 msgid "No data"
 msgstr "Nejsou data"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
@@ -924,29 +936,52 @@ msgstr "Minulý rok"
 msgid "Next year"
 msgstr "Příští rok"
 
-msgid "Period type"
-msgstr "Typ období"
-
 msgid "Start/end dates"
 msgstr "Datum zahájení / ukončení"
 
-msgid "Only one timeline is allowed."
-msgstr "Je povolena pouze jedna časová osa."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Odebráním dalších vrstev povolíte rozdělená zobrazení mapy."
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Období zobrazení"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Samostatně (agregát)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Časová osa"
 
-msgid "Split map views"
-msgstr "Rozdělit zobrazení mapy"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Datum začátku"

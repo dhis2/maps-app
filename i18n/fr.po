@@ -11,15 +11,15 @@
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2024
 # Elise Desailly, 2024
+# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Elise Desailly, 2024\n"
+"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -489,6 +489,12 @@ msgstr "Le rayon supérieur doit être supérieur au rayon inférieur"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Le rayon doit se situer entre {{min}} et {{max}}"
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr "Le groupes d'indicateurs est requis"
 
@@ -582,6 +588,9 @@ msgstr "Style d'entité connexe"
 
 msgid "Line Color"
 msgstr "Couleur de la ligne"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Aucun type de relation trouvé pour l'entité suivie de type {{type}}"
@@ -769,6 +778,9 @@ msgstr "Unité parente"
 msgid "No data"
 msgstr "Aucune donnée"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Dernière mise à jour"
 
@@ -948,31 +960,52 @@ msgstr "L'année dernière"
 msgid "Next year"
 msgstr "L'année prochaine"
 
-msgid "Period type"
-msgstr "Type de période"
-
 msgid "Start/end dates"
 msgstr "Dates début-fin"
 
-msgid "Only one timeline is allowed."
-msgstr "Une seule chronologie est autorisée."
-
-msgid "Remove other layers to enable split map views."
+msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
-"Supprimer d'autres couches afin de permettre des vues de la carte "
-"fractionnées."
 
-msgid "Display periods"
-msgstr "Afficher les périodes"
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Unique (agrégation)"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
+
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Chronologie"
 
-msgid "Split map views"
-msgstr "Fractionner les vues de la carte"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Date de début"

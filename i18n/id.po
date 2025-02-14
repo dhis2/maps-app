@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -32,6 +32,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -468,6 +477,12 @@ msgstr "Radius tinggi harus lebih besar dari radius rendah"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius harus antara {{min}} dan {{max}}"
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr "Grup indikator wajib diisi"
 
@@ -489,6 +504,9 @@ msgstr "Item data event diperlukan"
 msgid "Program indicator is required"
 msgstr "Indikator program diperlukan"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Periode diperlukan"
 
@@ -503,6 +521,9 @@ msgstr "Item data event"
 
 msgid "Program indicators"
 msgstr "Indikator program"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Tipe item"
@@ -550,6 +571,9 @@ msgstr "Ragam entitas terkait"
 
 msgid "Line Color"
 msgstr "Warna garis"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -738,6 +762,9 @@ msgstr "Unit induk"
 msgid "No data"
 msgstr "Tidak ada data"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
 
@@ -915,29 +942,52 @@ msgstr "Tahun sebelumnya"
 msgid "Next year"
 msgstr "Tahun berikut"
 
-msgid "Period type"
-msgstr "tipe periode"
-
 msgid "Start/end dates"
 msgstr "Tanggal dimulai-berakhir"
 
-msgid "Only one timeline is allowed."
-msgstr "Hanya satu garis waktu yang diizinkan."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Hapus layer lain untuk mengaktifkan tampilan peta terpisah."
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Tampilkan periode"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Tunggal (agregat)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Linimasa"
 
-msgid "Split map views"
-msgstr "Membagi tampilan peta"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Tanggal mulai"
@@ -1452,6 +1502,9 @@ msgid "Organisation units"
 msgstr "Unit organisasi"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"

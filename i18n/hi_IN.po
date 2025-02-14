@@ -1,19 +1,18 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2024
-# Karoline Tufte Lien <karoline@dhis2.org>, 2025
+# Siddharth Agarwal, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2025\n"
-"Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
+"Last-Translator: Siddharth Agarwal, 2025\n"
+"Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
+"Language: hi_IN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "2020"
@@ -38,58 +37,58 @@ msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
-msgstr "Klassifisering"
+msgstr ""
 
 msgid "Classes"
-msgstr "Klasser"
+msgstr ""
 
 msgid "Legend set"
-msgstr "Tegnforklaringssett"
+msgstr ""
 
 msgid "Color"
-msgstr "Farge"
+msgstr ""
 
 msgid "Size"
-msgstr "Størrelse"
+msgstr ""
 
 msgid "Name"
-msgstr "Navn"
+msgstr "नाम"
 
 msgid "Name and value"
 msgstr ""
 
 msgid "Value"
-msgstr "Verdi"
+msgstr ""
 
 msgid "Display"
-msgstr "Vis"
+msgstr ""
 
 msgid "Data element group"
-msgstr "Dataelementgruppe"
+msgstr ""
 
 msgid "Data element operand"
-msgstr "Dataelementoperand"
+msgstr ""
 
 msgid "Data element"
-msgstr "Dataelement"
+msgstr ""
 
 msgid "Totals"
-msgstr "Totalsummer"
+msgstr ""
 
 msgid "Details"
-msgstr "Detaljer"
+msgstr ""
 
 msgid "Yes"
-msgstr "Ja"
+msgstr "हाँ"
 
 msgid "None"
-msgstr "Ingen"
+msgstr "कोई नहीं"
 
 msgid "Cascading"
 msgstr ""
 
 msgid "Event location"
-msgstr "Hendelsessted"
+msgstr ""
 
 msgid "Enrollment location"
 msgstr ""
@@ -104,7 +103,7 @@ msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
-msgstr "Koordinatfelt"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -113,58 +112,58 @@ msgid "Event > org unit coordinate"
 msgstr ""
 
 msgid "Event data item"
-msgstr "Hendelsesdatapunkt"
+msgstr ""
 
 msgid "Selected value not available in in list: {{name}}"
 msgstr ""
 
 msgid "Style by data element"
-msgstr "Style etter dataelement"
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
-msgstr "Filtrering er tilgjengelig etter valg av programfase."
+msgstr ""
 
 msgid "Add filter"
-msgstr "Legg til filter"
+msgstr ""
 
 msgid "Data item"
-msgstr "Datapunkt"
+msgstr ""
 
 msgid "one of"
-msgstr "en av"
+msgstr ""
 
 msgid "contains"
-msgstr "inneholder"
+msgstr ""
 
 msgid "is"
-msgstr "er"
+msgstr ""
 
 msgid "is not"
-msgstr "er ikke"
+msgstr ""
 
 msgid "Operator"
-msgstr "Operator"
+msgstr ""
 
 msgid "Date"
-msgstr "Dato"
+msgstr ""
 
 msgid "Data set"
-msgstr "Datasett"
+msgstr ""
 
 msgid "No results found"
-msgstr "Ingen resultater funnet"
+msgstr ""
 
 msgid "Sort by {{column}}"
-msgstr "Sorter etter {{column}}"
+msgstr ""
 
 msgid "Something went wrong"
-msgstr "Noe gikk galt"
+msgstr "कुछ गलत हुआ"
 
 msgid "Search"
-msgstr "Søk"
+msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr "Datatabell støttes ikke når hendelser er gruppert på serveren."
+msgstr ""
 
 msgid "No valid data was found for the current layer configuration."
 msgstr ""
@@ -178,46 +177,46 @@ msgid "No valid data fields were found for this layer."
 msgstr ""
 
 msgid "Index"
-msgstr "Indeks"
+msgstr ""
 
 msgid "Id"
-msgstr "Id"
+msgstr ""
 
 msgid "Level"
-msgstr "Nivå"
+msgstr ""
 
 msgid "Parent"
-msgstr "Overordnet"
+msgstr ""
 
 msgid "Type"
-msgstr "Type"
+msgstr ""
 
 msgid "Legend"
-msgstr "Tegnforklaring"
+msgstr ""
 
 msgid "Range"
-msgstr "Område"
+msgstr ""
 
 msgid "Org unit"
-msgstr "Org enhet"
+msgstr ""
 
 msgid "Event time"
-msgstr "Hendelsestid"
+msgstr ""
 
 msgid "Items"
-msgstr "Punkter"
+msgstr ""
 
 msgid "Dimension"
-msgstr "Dimensjon"
+msgstr ""
 
 msgid "Download"
-msgstr "Last ned"
+msgstr "डाउनलोड"
 
 msgid "Exit download mode"
 msgstr ""
 
 msgid "Download map"
-msgstr "Last ned kart"
+msgstr ""
 
 msgid "Show map name"
 msgstr ""
@@ -233,7 +232,7 @@ msgid ""
 msgstr ""
 
 msgid "Show legend"
-msgstr "Vis tegnforklaring"
+msgstr ""
 
 msgid "Show overview map"
 msgstr ""
@@ -250,77 +249,75 @@ msgstr ""
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
-"Kartnedlasting støttes ikke av nettleseren din. Prøv Google Chrome eller "
-"Firefox."
 
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr "रद्द करें"
 
 msgid "Close"
-msgstr "Lukk"
+msgstr "बंद करें"
 
 msgid "No organisation units are selected"
-msgstr "Ingen organisasjonsenheter er valgt"
+msgstr ""
 
 msgid "Organisation Units"
-msgstr "Organisasjonsenheter"
+msgstr ""
 
 msgid "Style"
-msgstr "Stil"
+msgstr ""
 
 msgid "Point color"
-msgstr "Punktfarge"
+msgstr ""
 
 msgid "Point radius"
-msgstr "Punktradius"
+msgstr ""
 
 msgid "event"
-msgstr "hendelse"
+msgstr ""
 
 msgid "tracked entity"
-msgstr "sporet enhet"
+msgstr ""
 
 msgid "facility"
-msgstr "fasilitet"
+msgstr ""
 
 msgid "thematic"
-msgstr "tematisk"
+msgstr ""
 
 msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
-msgstr "Earth Engine"
+msgstr ""
 
 msgid "feature"
 msgstr ""
 
 msgid "Edit {{name}} layer"
-msgstr "Rediger {{name}}-lag"
+msgstr ""
 
 msgid "Add new {{name}} layer"
-msgstr "Legg til nytt {{name}}-lag"
+msgstr ""
 
 msgid "Update layer"
-msgstr "Oppdater lag"
+msgstr ""
 
 msgid "Add layer"
-msgstr "Legg til lag"
+msgstr ""
 
 msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
-msgstr "Grupper"
+msgstr ""
 
 msgid "This field is required"
-msgstr "Dette er et påkrevd felt"
+msgstr ""
 
 msgid "Data"
-msgstr "Data"
+msgstr ""
 
 msgid "Period"
-msgstr "Periode"
+msgstr ""
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -348,13 +345,13 @@ msgid "Temporal coverage"
 msgstr ""
 
 msgid "Source"
-msgstr "Kilde"
+msgstr ""
 
 msgid "Legend preview"
-msgstr "Forhåndsvisning av tegnforklaring"
+msgstr ""
 
 msgid "Year"
-msgstr "År"
+msgstr "वर्ष"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -375,58 +372,58 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
-msgstr "Min"
+msgstr ""
 
 msgid "Max"
-msgstr "Max"
+msgstr ""
 
 msgid "Steps"
-msgstr "Trinn"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr ""
 
 msgid "Org Units"
-msgstr "Org Enheter"
+msgstr ""
 
 msgid "Filter"
-msgstr "Filter"
+msgstr ""
 
 msgid "Group events"
-msgstr "Grupper hendelser"
+msgstr ""
 
 msgid "View all events"
-msgstr "Vis alle hendelser"
+msgstr ""
 
 msgid "Radius"
-msgstr "Radius"
+msgstr ""
 
 msgid "You can style events by data element after selecting a program."
-msgstr "Du kan style hendelser etter dataelement etter å ha valgt et program."
+msgstr ""
 
 msgid "Program is required"
-msgstr "Program er påkrevd"
+msgstr ""
 
 msgid "Program stage is required"
-msgstr "Programfase er påkrevd"
+msgstr ""
 
 msgid "No organisation units are selected."
-msgstr "Ingen organisasjonsenheter er valgt"
+msgstr ""
 
 msgid "No legend set is selected"
-msgstr "Ingen tegnforklaringsett valgt"
+msgstr ""
 
 msgid "Event status"
-msgstr "Hendelsesstatus"
+msgstr ""
 
 msgid "Boundary color"
 msgstr ""
 
 msgid "Buffer"
-msgstr "Buffer"
+msgstr ""
 
 msgid "Radius in meters"
-msgstr "Radius i meter"
+msgstr ""
 
 msgid "Buffer can't be combined with associated geometry."
 msgstr ""
@@ -444,10 +441,10 @@ msgid "Line/stroke width must be between 0-10."
 msgstr ""
 
 msgid "Labels"
-msgstr "Etiketter"
+msgstr ""
 
 msgid "Aggregation type"
-msgstr "Aggregasjonstype"
+msgstr ""
 
 msgid "Only show completed events"
 msgstr ""
@@ -456,119 +453,108 @@ msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
-msgstr "Lav radius"
+msgstr ""
 
 msgid "High radius"
-msgstr "Høy radius"
+msgstr ""
 
 msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "Radius bør være mellom {{min}} og {{max}}"
-
-msgid "Choose from presets"
-msgstr "Velg blant forvalg"
-
-msgid "Define start - end dates"
-msgstr "Definer start - sluttdatoer"
+msgstr ""
 
 msgid "Indicator group is required"
-msgstr "Indikatorgruppe er påkrevd"
+msgstr ""
 
 msgid "Indicator is required"
-msgstr "Indikator er påkrevd"
+msgstr ""
 
 msgid "Data element group is required"
-msgstr "Dataelementgruppe er påkrevd"
+msgstr ""
 
 msgid "Data element is required"
-msgstr "Dataelement er påkrevd"
+msgstr ""
 
 msgid "Data set is required"
-msgstr "Datasett er påkrevd"
+msgstr ""
 
 msgid "Event data item is required"
-msgstr "Hendelsesdatapunkt er påkrevd"
+msgstr ""
 
 msgid "Program indicator is required"
-msgstr "Programindikator er påkrevd"
+msgstr ""
 
 msgid "Calculation is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr "Periode er påkrevd"
+msgstr ""
 
 msgid "Indicator"
-msgstr "Indikator"
+msgstr ""
 
 msgid "Reporting rates"
-msgstr "Rapporteringsrater"
+msgstr ""
 
 msgid "Event data items"
-msgstr "Hendelsesdatapunkter"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "Programindikatorer"
+msgstr ""
 
 msgid "Calculations"
 msgstr ""
 
 msgid "Item type"
-msgstr "Elementtype"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
-msgstr "Velg periode da sporede enheter sist ble oppdatert"
+msgstr ""
 
 msgid "Program/Enrollment date"
-msgstr "Program/Registreringsdato"
+msgstr ""
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr "datoen en sporet enhet ble registrert eller registrert i et program"
+msgstr ""
 
 msgid "Program status"
-msgstr "Programstatus"
+msgstr ""
 
 msgid "Relationships"
-msgstr "Relasjoner"
+msgstr ""
 
 msgid "Follow up"
-msgstr "Oppfølging"
+msgstr ""
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Velg en sporet enhetstype før du velger en relasjonstype"
+msgstr ""
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
-"Visning av relasjoner mellom sporede enheter i Kart er en eksperimentell "
-"funksjon"
 
 msgid "Display Tracked Entity relationships"
-msgstr "Vis sporet enhetsrelasjoner"
+msgstr ""
 
 msgid "Tracked entity style"
-msgstr "Sporet enhetstil"
+msgstr ""
 
 msgid "Point size"
-msgstr "Punktstørrelse"
+msgstr ""
 
 msgid "Related entity style"
-msgstr "Stil for relatert enhet"
+msgstr ""
 
 msgid "Line Color"
-msgstr "Linjefarge"
-
-msgid "Tracked Entity Type is required"
 msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr "Ingen relasjonstyper ble funnet for sporet enhetstype {{type}}"
+msgstr ""
 
 msgid "Relationship type"
-msgstr "Relasjonstype"
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -577,10 +563,10 @@ msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
-msgstr "Fjern filter"
+msgstr ""
 
 msgid "Group set"
-msgstr "Gruppesett"
+msgstr ""
 
 msgid "Failed to load organisation unit groups."
 msgstr ""
@@ -589,7 +575,7 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Indikatorgruppe"
+msgstr ""
 
 msgid "Manage available layer sources"
 msgstr ""
@@ -603,158 +589,156 @@ msgid ""
 msgstr ""
 
 msgid "Collapse"
-msgstr "Kollaps"
+msgstr ""
 
 msgid "Expand"
-msgstr "Utvid"
+msgstr ""
 
 msgid "External basemap"
-msgstr "Eksternt bakgrunnskart"
+msgstr ""
 
 msgid "Basemap"
-msgstr "Bakgrunnskart"
+msgstr ""
 
 msgid "Download Layer Data"
-msgstr "Last ned lagdata"
+msgstr ""
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Laster ned GeoJSON-data for \"{{layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
-"GeoJSON støttes av de fleste GIS-programvare, inkludert QGIS og ArcGIS "
-"Desktop."
 
 msgid "ID Format"
-msgstr "ID-format"
+msgstr ""
 
 msgid "Use human-readable keys"
-msgstr "Bruk menneskelige lesbare nøkler"
+msgstr ""
 
 msgid "Data download failed."
-msgstr "Nedlasting av data mislyktes."
+msgstr ""
 
 msgid "External layer"
-msgstr "Eksternt lag"
+msgstr ""
 
 msgid "Split view can not be combined with other layer types."
-msgstr "Delt visning kan ikke kombineres med andre lagtyper."
+msgstr ""
 
 msgid "Failed to load layer"
 msgstr ""
 
 msgid "Loading layer"
-msgstr "Laster lag"
+msgstr ""
 
 msgid "{{name}} deleted."
-msgstr "{{name}} slettet."
+msgstr ""
 
 msgid "Edit"
-msgstr "Rediger"
+msgstr "संपादन करें"
 
 msgid "Toggle visibility"
-msgstr "Slå av/på synlighet"
+msgstr ""
 
 msgid "Layer is invalid"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr "Angi lagets gjennomsiktighet"
+msgstr ""
 
 msgid "More actions"
-msgstr "Flere handlinger"
+msgstr ""
 
 msgid "Toggle layer menu"
 msgstr ""
 
 msgid "Hide data table"
-msgstr "Skjul datatabell"
+msgstr ""
 
 msgid "Show data table"
-msgstr "Vis datatabell"
+msgstr ""
 
 msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
-msgstr "Last ned data"
+msgstr ""
 
 msgid "Edit layer"
-msgstr "Rediger lag"
+msgstr ""
 
 msgid "Remove layer"
-msgstr "Fjern lag"
+msgstr ""
 
 msgid "Mid"
-msgstr "Midt"
+msgstr ""
 
 msgid "Group"
-msgstr "Gruppe"
+msgstr ""
 
 msgid "Filters"
-msgstr "Filter"
+msgstr ""
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "Ingen data funnet"
+msgstr ""
 
 msgid "Selected org units: No coordinates found"
 msgstr ""
 
 msgid "No coordinates found"
-msgstr "Ingen koordinater funnet"
+msgstr ""
 
 msgid "Error"
-msgstr "Feil"
+msgstr ""
 
 msgid "Drill up one level"
-msgstr "Drill opp ett nivå"
+msgstr ""
 
 msgid "Drill down one level"
-msgstr "Drill ned ett nivå"
+msgstr ""
 
 msgid "View profile"
-msgstr "Vis profil"
+msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr "Vis lengdegrad/breddegrad"
+msgstr ""
 
 msgid "Show {{name}}"
-msgstr "Vis {{name}}"
+msgstr ""
 
 msgid "Longitude"
-msgstr "Lengdegrad"
+msgstr ""
 
 msgid "Latitude"
-msgstr "Breddegrad"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
 msgid "Not set"
-msgstr "Ikke satt"
+msgstr ""
 
 msgid "Could not retrieve event data"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr "Organisasjonsenhet"
+msgstr ""
 
 msgid "Parent unit"
-msgstr "Overordnet enhet"
+msgstr ""
 
 msgid "No data"
-msgstr "Ingen data"
+msgstr ""
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Sist oppdatert"
+msgstr ""
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -762,7 +746,7 @@ msgid ""
 msgstr ""
 
 msgid "no value"
-msgstr "ingen verdi"
+msgstr ""
 
 msgid "All groups"
 msgstr ""
@@ -771,88 +755,85 @@ msgid "Loading data"
 msgstr ""
 
 msgid "acres"
-msgstr "dekar"
+msgstr ""
 
 msgid "Area"
-msgstr "Areal"
+msgstr ""
 
 msgid "Center map on area"
-msgstr "Midtstill kart på området"
+msgstr ""
 
 msgid "Center map on line"
-msgstr "Midtstill kart på linje"
+msgstr ""
 
 msgid "Click the next position"
-msgstr "Klikk på neste posisjon"
+msgstr ""
 
 msgid "Click where you want to start the measurement"
-msgstr "Klikk der du ønsker å starte målingen"
+msgstr ""
 
 msgid "Delete"
-msgstr "Slett"
+msgstr "हटाएं"
 
 msgid "Distance"
-msgstr "Avstand"
+msgstr ""
 
 msgid "Enter fullscreen"
-msgstr "Gå inn i fullskjerm"
+msgstr ""
 
 msgid "Exit fullscreen"
-msgstr "Gå ut av fullskjerm"
+msgstr ""
 
 msgid "Finish measurement"
-msgstr "Fullfør måling"
+msgstr ""
 
 msgid "ha"
-msgstr "ha"
+msgstr ""
 
 msgid "km"
-msgstr "km"
+msgstr ""
 
 msgid "Measure distances and areas"
-msgstr "Mål avstander og områder"
+msgstr ""
 
 msgid "mi"
-msgstr "internasjonal mil"
+msgstr ""
 
 msgid "Perimeter"
-msgstr "Omkrets"
+msgstr ""
 
 msgid "Reset bearing to north"
-msgstr "Tilbakestill peiling mot nord"
+msgstr ""
 
 msgid "Search for place or address"
-msgstr "Søk etter sted eller adresse"
+msgstr ""
 
 msgid "Zoom in"
-msgstr "Zoom inn"
+msgstr ""
 
 msgid "Zoom out"
-msgstr "Zoom ut"
+msgstr ""
 
 msgid "Zoom to content"
-msgstr "Zoom til innhold"
+msgstr ""
 
 msgid "Open as map"
-msgstr "Åpne som kart"
+msgstr ""
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
-"Dette diagrammet/tabellen inneholder {{numItems}} datapunkter. Velg hvilke "
-"punkter du vil importere fra listen nedenfor. Hvert datapunkt blir opprettet"
-" som et kartlag."
 
 msgid "Data items"
-msgstr "Datapunkter"
+msgstr ""
 
 msgid "Proceed"
-msgstr "Fortsett"
+msgstr ""
 
 msgid "Options"
-msgstr "Alternativer"
+msgstr ""
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -866,159 +847,136 @@ msgid "None (default)"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr "Ingen data funnet for denne perioden."
+msgstr ""
 
 msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr "Kode"
+msgstr ""
 
 msgid "Short name"
-msgstr "Kort navn"
+msgstr ""
 
 msgid "Opening date"
-msgstr "Åpningsdato"
+msgstr ""
 
 msgid "Closed date"
-msgstr "Stengt dato"
+msgstr ""
 
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 msgid "Link"
-msgstr "Link"
+msgstr ""
 
 msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr "E-post"
-
-msgid "Address"
-msgstr "Adresse"
-
-msgid "Phone"
 msgstr ""
 
+msgid "Address"
+msgstr ""
+
+msgid "Phone"
+msgstr "फोन"
+
 msgid "ID"
-msgstr "ID"
+msgstr "आईडी"
 
 msgid "Comment"
-msgstr "Kommentar"
+msgstr ""
 
 msgid "Organisation unit profile"
 msgstr ""
 
 msgid "Selected only"
-msgstr "Bare valgt"
+msgstr ""
 
 msgid "Selected and below"
-msgstr "Valgt og under"
+msgstr ""
 
 msgid "Selected and all below"
-msgstr "Valgt og alle under"
+msgstr ""
 
 msgid "Selection mode"
-msgstr "Valgmodus"
+msgstr ""
 
 msgid "Previous year"
-msgstr "Forrige år"
+msgstr ""
 
 msgid "Next year"
-msgstr "Neste år"
+msgstr ""
+
+msgid "Period type"
+msgstr ""
 
 msgid "Start/end dates"
-msgstr "Start/slutt-datoer"
-
-msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Only one timeline is allowed."
 msgstr ""
 
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be selected."
+msgid "Remove other layers to enable split map views."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Display periods"
 msgstr ""
 
-msgid "Single"
-msgstr ""
-
-msgid "Show periods as a combined layer. Data is aggregated."
+msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr "Tidslinje"
-
-msgid "Show multiple periods as an interactive timeline."
 msgstr ""
 
-msgid "Split"
-msgstr ""
-
-msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
-msgstr ""
-
-msgid ""
-"Start and end dates are inclusive and will be reflected in the outputs."
-msgstr ""
-
-msgid ""
-"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
-"format."
+msgid "Split map views"
 msgstr ""
 
 msgid "Start date"
-msgstr "Startdato"
+msgstr ""
 
 msgid "End date"
-msgstr "Sluttdato"
+msgstr ""
 
 msgid "Not available offline"
-msgstr "Ikke tilgjengelig i frakoblet modus"
+msgstr ""
 
 msgid "Program indicator"
-msgstr "Programindikator"
+msgstr ""
 
 msgid "No program"
-msgstr "Ingen program"
+msgstr ""
 
 msgid "Program"
-msgstr "Program"
+msgstr ""
 
 msgid "Stage"
-msgstr "Fase"
+msgstr ""
 
 msgid "Tracked Entity Type"
-msgstr "Sporet enhetstype"
+msgstr ""
 
 msgid "By data element"
-msgstr "Per datalement"
+msgstr ""
 
 msgid "Count"
-msgstr "Antall"
+msgstr ""
 
 msgid "Average"
-msgstr "Gjennomsnitt"
+msgstr ""
 
 msgid "Sum"
-msgstr "Sum"
+msgstr ""
 
 msgid "Standard deviation"
-msgstr "Standardavvik"
+msgstr ""
 
 msgid "Variance"
-msgstr "Varians"
+msgstr ""
 
 msgid "Percentage"
-msgstr "Prosent"
+msgstr ""
 
 msgid "Hectares"
 msgstr ""
@@ -1027,7 +985,7 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr "Gjennomsnitt"
+msgstr ""
 
 msgid "Median"
 msgstr ""
@@ -1036,22 +994,22 @@ msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
-msgstr "OSM tynn"
+msgstr ""
 
 msgid "OSM Detailed"
-msgstr "OSM Detaljert"
+msgstr ""
 
 msgid "Bing Road"
-msgstr "Bing Vei"
+msgstr ""
 
 msgid "Bing Dark"
-msgstr "Bing Mørk"
+msgstr ""
 
 msgid "Bing Aerial"
-msgstr "Bing Flyfoto"
+msgstr ""
 
 msgid "Bing Aerial Labels"
-msgstr "Bing Flyfoto Etiketter"
+msgstr ""
 
 msgid "Building footprints"
 msgstr ""
@@ -1084,10 +1042,10 @@ msgid "May 2023"
 msgstr ""
 
 msgid "Elevation"
-msgstr "Høyde"
+msgstr ""
 
 msgid "Elevation above sea-level."
-msgstr "Høyde over havet."
+msgstr ""
 
 msgid "meters"
 msgstr ""
@@ -1099,61 +1057,61 @@ msgid "Febuary 2000"
 msgstr ""
 
 msgid "Landcover"
-msgstr "Arealdekke"
+msgstr ""
 
 msgid "Distinct landcover types collected from satellites."
-msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
+msgstr ""
 
 msgid "Evergreen Needleleaf forest"
-msgstr "Eviggrønn nålskog"
+msgstr ""
 
 msgid "Evergreen Broadleaf forest"
-msgstr "Eviggrønn bredbladskog"
+msgstr ""
 
 msgid "Deciduous Needleleaf forest"
-msgstr "Lauvfellende nålskog"
+msgstr ""
 
 msgid "Deciduous Broadleaf forest"
-msgstr "Lauvfellende bredbladskog"
+msgstr ""
 
 msgid "Mixed forest"
-msgstr "Blandet skog"
+msgstr ""
 
 msgid "Closed shrublands"
-msgstr "Lukket krattskog"
+msgstr ""
 
 msgid "Open shrublands"
-msgstr "Åpen krattskog"
+msgstr ""
 
 msgid "Woody savannas"
-msgstr "Skogete savanner"
+msgstr ""
 
 msgid "Savannas"
-msgstr "Savanner"
+msgstr ""
 
 msgid "Grasslands"
-msgstr "Gresslette"
+msgstr ""
 
 msgid "Permanent wetlands"
-msgstr "Permanent våtmark"
+msgstr ""
 
 msgid "Croplands"
-msgstr "Åkre"
+msgstr ""
 
 msgid "Urban and built-up"
-msgstr "Urbant og utbygd"
+msgstr ""
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr "Åkre/Naturlig vegetasjonmosaikk"
+msgstr ""
 
 msgid "Snow and ice"
-msgstr "Snø og is"
+msgstr ""
 
 msgid "Barren or sparsely vegetated"
-msgstr "Impediment eller lite vegetasjon"
+msgstr ""
 
 msgid "Water"
-msgstr "Vann"
+msgstr ""
 
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
@@ -1161,23 +1119,21 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr "Kveldslys"
+msgstr ""
 
 msgid "light intensity"
-msgstr "lysintensitet"
+msgstr ""
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
-"Lysintensitet fra byer, tettsteder og andre steder med vedvarende belysning,"
-" inkludert gassfakler."
 
 msgid "Population"
 msgstr ""
 
 msgid "people per km²"
-msgstr "befolkning per km²"
+msgstr ""
 
 msgid "Estimated number of people living in an area."
 msgstr ""
@@ -1186,32 +1142,27 @@ msgid "people per hectare"
 msgstr ""
 
 msgid "Precipitation"
-msgstr "Nedbør"
+msgstr ""
 
 msgid "millimeter"
-msgstr "millimeter"
+msgstr ""
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
-"Nedbør samlet inn fra satellitt- og værstasjoner på bakken. Verdiene er i "
-"millimeter innen 5 dager. Oppdateres månedlig, i løpet av den tredje uken i "
-"den påfølgende måneden."
 
 msgid "Temperature MODIS"
 msgstr ""
 
 msgid "°C during daytime"
-msgstr "° C på dagtid"
+msgstr ""
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
-"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
-" i områder med et vedvarende skydekke."
 
 msgid "Population age groups"
 msgstr ""
@@ -1343,7 +1294,7 @@ msgid "~11 kilometers"
 msgstr ""
 
 msgid "Monthly"
-msgstr "Månedlig"
+msgstr ""
 
 msgid "Febuary 1950 - One month ago"
 msgstr ""
@@ -1357,112 +1308,112 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr "Alt"
+msgstr ""
 
 msgid "Active"
-msgstr "Aktiv"
+msgstr ""
 
 msgid "Completed"
-msgstr "Fullført"
+msgstr ""
 
 msgid "Choropleth"
-msgstr "Koroplet"
+msgstr ""
 
 msgid "Bubble map"
-msgstr "Boblekart"
+msgstr ""
 
 msgid "Automatic color legend"
-msgstr "Automatisk fargetegnforklaring"
+msgstr ""
 
 msgid "Predefined color legend"
-msgstr "Forhåndsdefinert fargetegnforklaring"
+msgstr ""
 
 msgid "Single color legend"
-msgstr "Ensfarget tegnforklaring"
+msgstr ""
 
 msgid "Equal intervals"
-msgstr "Like intervaller"
+msgstr ""
 
 msgid "Equal counts"
-msgstr "Likt antall"
+msgstr ""
 
 msgid "Symbol"
-msgstr "Symbol"
+msgstr ""
 
 msgid "Relative"
-msgstr "Relativ"
+msgstr ""
 
 msgid "Daily"
-msgstr "Daglig"
+msgstr ""
 
 msgid "Weekly"
-msgstr "Ukentlig"
+msgstr ""
 
 msgid "Weekly (Start Wednesday)"
-msgstr "Ukentlig (start onsdag)"
+msgstr ""
 
 msgid "Weekly (Start Thursday)"
-msgstr "Ukentlig (start torsdag)"
+msgstr ""
 
 msgid "Weekly (Start Saturday)"
-msgstr "Ukentlig (start lørdag)"
+msgstr ""
 
 msgid "Weekly (Start Sunday)"
-msgstr "Ukentlig (start søndag)"
+msgstr ""
 
 msgid "Bi-weekly"
-msgstr "Toukentlig"
+msgstr ""
 
 msgid "Bi-monthly"
-msgstr "Tomånedlig"
+msgstr ""
 
 msgid "Quarterly"
-msgstr "Kvartalsvis"
+msgstr ""
 
 msgid "Six-monthly"
-msgstr "Halvårlig"
+msgstr ""
 
 msgid "Six-monthly April"
-msgstr "Halvårig April"
+msgstr ""
 
 msgid "Yearly"
-msgstr "Årlig"
+msgstr ""
 
 msgid "Financial year (Start November)"
-msgstr "Regnskapsår (start november)"
+msgstr ""
 
 msgid "Financial year (Start October)"
-msgstr "Regnskapsår (start oktober)"
+msgstr ""
 
 msgid "Financial year (Start July)"
-msgstr "Regnskapsår (start juli)"
+msgstr ""
 
 msgid "Financial year (Start April)"
-msgstr "Regnskapsår (start april)"
+msgstr ""
 
 msgid "Cancelled"
-msgstr "Kansellert"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr ""
 
 msgid "You don't have access to this layer data"
-msgstr "Du har ikke tilgang til disse lagdataene"
+msgstr ""
 
 msgid "The event filter is not supported"
 msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
-msgstr "En ukjent feil oppstod under lesing av lagdata"
+msgstr ""
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "Event"
-msgstr "Hendelse"
+msgstr ""
 
 msgid "Facilities"
-msgstr "Bygninger"
+msgstr ""
 
 msgid "No coordinates found for selected facilities"
 msgstr ""
@@ -1474,16 +1425,16 @@ msgid "Feature"
 msgstr ""
 
 msgid "Polygon"
-msgstr "Polygon"
+msgstr ""
 
 msgid "Line"
-msgstr "Linje"
+msgstr ""
 
 msgid "Point"
-msgstr "Punkt"
+msgstr ""
 
 msgid "Organisation units"
-msgstr "Organisasjonsenheter"
+msgstr ""
 
 msgid "Org unit layer"
 msgstr ""
@@ -1492,28 +1443,28 @@ msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"
-msgstr "Tematisk lag"
+msgstr ""
 
 msgid "Tracked entity"
-msgstr "Sporet enhet"
+msgstr ""
 
 msgid "related"
-msgstr "relatert"
+msgstr ""
 
 msgid "not one of"
-msgstr "ikke en av"
+msgstr ""
 
 msgid "doesn't contains"
-msgstr "inneholder ikke"
+msgstr ""
 
 msgid "true"
-msgstr "sant"
+msgstr ""
 
 msgid "false"
-msgstr "usant"
+msgstr ""
 
 msgid "No"
-msgstr "Nei"
+msgstr "नहीं"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
@@ -1522,29 +1473,27 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
-"Dette kartlaget krever en Google Earth Engine-konto. Sjekk "
-"DHIS2-dokumentasjonen for mer informasjon."
 
 msgid "Thematic"
-msgstr "Tematisk"
+msgstr ""
 
 msgid "Events"
-msgstr "Hendelser"
+msgstr ""
 
 msgid "Tracked entities"
-msgstr "Sporede enheter"
+msgstr ""
 
 msgid "Org units"
-msgstr "Org enhet"
+msgstr ""
 
 msgid "Facility"
-msgstr "Fasilitet"
+msgstr ""
 
 msgid "Start date is invalid"
-msgstr "Startdato er ugyldig"
+msgstr ""
 
 msgid "End date is invalid"
-msgstr "Sluttdatoen er ugyldig"
+msgstr ""
 
 msgid "End date cannot be earlier than start date"
-msgstr "Sluttdato kan ikke være tidligere enn startdato"
+msgstr ""
