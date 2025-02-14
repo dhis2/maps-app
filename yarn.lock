@@ -2214,10 +2214,10 @@
     update-notifier "^3.0.0"
     yargs "^13.1.0"
 
-"@dhis2/cli-style@^10.7.5":
-  version "10.7.5"
-  resolved "https://registry.yarnpkg.com/@dhis2/cli-style/-/cli-style-10.7.5.tgz#d2794436723500d02d017b1849ec0e39d195b53b"
-  integrity sha512-M8K0vmtC8nHwpb7D4Njte8z7MJgpMrgl8BkxI3Y4NeCwun+QVMszCDF0xZQG32LGnsQTNwLvPDilyXTWN/NWLA==
+"@dhis2/cli-style@^10.7.6":
+  version "10.7.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/cli-style/-/cli-style-10.7.6.tgz#70bd7f1995ae31d6aecaaf4233ecff290a3840ef"
+  integrity sha512-MAu7zEVH5JaENlfwnIjRrrEiNUqpYBDLuOg+y209zpc9YNT+Cn1mnAXRzzdIa4Tlg0eGn+fGdlL9e+pOpb9IUA==
   dependencies:
     "@commitlint/cli" "^12.1.4"
     "@commitlint/config-conventional" "^13.1.0"
@@ -7061,10 +7061,10 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
-cypress-real-events@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/cypress-real-events/-/cypress-real-events-1.13.0.tgz#6b7cd32dcac172db1493608f97a2576c7d0bd5af"
-  integrity sha512-LoejtK+dyZ1jaT8wGT5oASTPfsNV8/ClRp99ruN60oPj8cBJYod80iJDyNwfPAu4GCxTXOhhAv9FO65Hpwt6Hg==
+cypress-real-events@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/cypress-real-events/-/cypress-real-events-1.14.0.tgz#c5495db50a2bd247f4accde983af7153566945d3"
+  integrity sha512-XmI8y3OZLh6cjRroPalzzS++iv+pGCaD9G9kfIbtspgv7GVsDt30dkZvSXfgZb4rAN+3pOkMVB7e0j4oXydW7Q==
 
 cypress-tags@^1.2.2:
   version "1.2.2"
