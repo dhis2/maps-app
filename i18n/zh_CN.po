@@ -1,14 +1,14 @@
 # 
 # Translators:
 # 晓东 林 <13981924470@126.com>, 2022
-# easylin <lin_xd@126.com>, 2023
+# easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -324,7 +324,7 @@ msgstr "汇总类型"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -566,7 +566,7 @@ msgstr ""
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
+msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
@@ -616,6 +616,9 @@ msgstr "机构"
 
 msgid "Parent unit"
 msgstr "上级机构"
+
+msgid "No data"
+msgstr "无数据"
 
 msgid "Last updated"
 msgstr "上次更新"
@@ -840,7 +843,7 @@ msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr ""
+msgstr "时间线"
 
 msgid "Split map views"
 msgstr ""
@@ -1298,9 +1301,6 @@ msgstr "组织机构"
 
 msgid "Thematic layer"
 msgstr "专题层"
-
-msgid "No data"
-msgstr "无数据"
 
 msgid "Tracked entity"
 msgstr "跟踪实体"
