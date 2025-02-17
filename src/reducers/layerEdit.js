@@ -374,6 +374,12 @@ const layerEdit = (state = null, action) => {
 
             return newState
 
+        case types.LAYER_EDIT_EVENT_HEATMAP_SET:
+            return {
+                ...state,
+                eventHeatmap: action.checked,
+            }
+
         case types.LAYER_EDIT_EVENT_CLUSTERING_SET:
             return {
                 ...state,

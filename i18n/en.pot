@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
-"PO-Revision-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2025-02-17T11:49:19.857Z\n"
+"PO-Revision-Date: 2025-02-17T11:49:19.857Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -391,6 +391,9 @@ msgstr "Group events"
 
 msgid "View all events"
 msgstr "View all events"
+
+msgid "View heat map"
+msgstr "View heat map"
 
 msgid "Radius"
 msgstr "Radius"

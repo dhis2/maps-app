@@ -30,6 +30,7 @@ class EventLayer extends Layer {
             bounds,
             data,
             engine,
+            eventHeatmap,
             eventClustering,
             eventPointColor,
             eventPointRadius,
@@ -117,6 +118,8 @@ class EventLayer extends Layer {
                     config.type = 'clientCluster'
                 }
             }
+        } else if (eventHeatmap) {
+            config.type = 'heat'
         } else if (areaRadius) {
             config.buffer = areaRadius
             config.bufferStyle = {
