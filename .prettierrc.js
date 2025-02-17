@@ -4,7 +4,7 @@ module.exports = {
     ...require(config.prettier),
     overrides: [
         {
-            files: '*.md',
+            files: 'pull_request_template.md',
             options: {
                 tabWidth: 2,
             },
