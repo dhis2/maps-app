@@ -13,7 +13,8 @@ _description text_
 - [ ] Dashboard tested
 - [ ] Tests added (Cypress and/or Jest)
 - [ ] Docs added
-- [ ] Update dependencies to not point to d2-ci
+- [ ] Strings generated
+- [ ] d2-ci dependency replaced
 - [ ] _todo_
 
 ---
