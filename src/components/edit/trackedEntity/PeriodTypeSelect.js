@@ -19,7 +19,7 @@ const PeriodTypeSelect = ({
         <RadioGroup
             name="type"
             value={periodType}
-            onChange={(type) => setPeriodType({ id: type })}
+            onChange={(type) => setPeriodType({ value: type })}
         >
             <Radio value="lastUpdated" label={label} />
             <Radio

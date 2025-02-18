@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
     BOUNDARY_LAYER,
@@ -13,11 +14,17 @@ import {
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
+import {
+    sortPeriodsByLevelAndStartDate,
+    addPeriodsDetails,
+} from '../../../util/periods.js'
 import Timeline from '../../periods/Timeline.js'
 import { poleOfInaccessibility } from '../MapApi.js'
 import PeriodName from '../PeriodName.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
+
+export const ThematicLayerContext = React.createContext()
 
 // Translating polygons to points using poleOfInaccessibility from maps-gl
 const polygonsToPoints = (features) =>
@@ -145,11 +152,19 @@ class ThematicLayer extends Layer {
             return
         }
 
-        const initialPeriod = {
-            period:
-                renderingStrategy === RENDERING_STRATEGY_SINGLE
-                    ? null
-                    : period || periods[0],
+        const initialPeriod = {}
+        switch (renderingStrategy) {
+            case RENDERING_STRATEGY_TIMELINE:
+                initialPeriod.period = sortPeriodsByLevelAndStartDate(
+                    addPeriodsDetails(periods).periodsWithTypeLevelAndRank
+                )[0]
+                break
+            case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
+                initialPeriod.period = period
+                break
+            default:
+                initialPeriod.period = null
+                break
         }
 
         // setPeriod without callback is called from the constructor (unmounted)
@@ -179,7 +194,7 @@ class ThematicLayer extends Layer {
                 <div>{indicator}</div>
                 <div>{periodName}</div>
                 <div>
-                    {i18n.t('Value')}: {value ? value : i18n.t('No data')}
+                    {i18n.t('Value')}: {value ?? i18n.t('No data')}
                 </div>
                 {aggregationType && aggregationType !== 'DEFAULT' && (
                     <div>{aggregationType}</div>
@@ -189,7 +204,7 @@ class ThematicLayer extends Layer {
     }
 
     render() {
-        const { periods, renderingStrategy, filters } = this.props
+        const { periods, renderingStrategy, filters, resizeCount } = this.props
         const { period, popup } = this.state
         const { id } = getPeriodFromFilters(filters) || {}
 
@@ -202,12 +217,17 @@ class ThematicLayer extends Layer {
                                 period={period.name}
                                 isTimeline={true}
                             />
-                            <Timeline
-                                periodId={id}
-                                period={period}
-                                periods={periods}
-                                onChange={this.onPeriodChange}
-                            />
+                            <ThematicLayerContext.Provider
+                                value={{ map: this.context.map }}
+                            >
+                                <Timeline
+                                    periodId={id}
+                                    period={period}
+                                    periods={periods}
+                                    onChange={this.onPeriodChange}
+                                    resizeCount={resizeCount}
+                                />
+                            </ThematicLayerContext.Provider>
                         </Fragment>
                     )}
                 {popup && this.getPopup()}

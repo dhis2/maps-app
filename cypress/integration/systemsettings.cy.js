@@ -34,15 +34,17 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest('periodtypeselect-content').click()
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-content'
+        ).click()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weekly')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-BIWEEKLY'
+        ).should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weekly')
-            .should('not.exist')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-WEEKLY'
+        ).should('not.exist')
     })
 
     it('includes Weekly period type when weekly periods not hidden in system settings', () => {
@@ -52,15 +54,17 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest('periodtypeselect-content').click()
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-content'
+        ).click()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weekly')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-BIWEEKLY'
+        ).should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weekly')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-option-WEEKLY'
+        ).should('be.visible')
     })
 
     it('uses Last 6 months as default relative period', () => {

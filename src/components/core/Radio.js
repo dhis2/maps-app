@@ -1,7 +1,9 @@
 import { Radio as UiRadio } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useContext } from 'react'
 import { RadioContext } from './RadioGroup.js'
+import styles from './styles/Radio.module.css'
 
 const Radio = ({ value, disabled, dense = true, dataTest, label }) => {
     const { radio, onChange } = useContext(RadioContext)
@@ -15,6 +17,9 @@ const Radio = ({ value, disabled, dense = true, dataTest, label }) => {
 
     return (
         <UiRadio
+            className={cx({
+                [styles.disabled]: disabled,
+            })}
             label={label}
             dense={dense}
             disabled={disabled}
@@ -27,7 +32,7 @@ const Radio = ({ value, disabled, dense = true, dataTest, label }) => {
 }
 
 Radio.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
     dataTest: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,

@@ -78,13 +78,6 @@ jobs:
 
             - name: Test
               run: yarn d2-app-scripts test
-              env:
-                  REPORTPORTAL_API_KEY: ${{ secrets.REPORTPORTAL_API_KEY }}
-                  REPORTPORTAL_ENDPOINT: ${{ vars.REPORTPORTAL_ENDPOINT }}
-                  REPORTPORTAL_PROJECT: ${{ vars.REPORTPORTAL_PROJECT }}
-                  CI_BUILD_ID: ${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}
-                  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-                  PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || format('Direct push to {0}', github.ref_name) }}
 
     call-workflow-e2e-prod:
         if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
@@ -97,6 +90,3 @@ jobs:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
-            reportportal_api_key: ${{ secrets.REPORTPORTAL_API_KEY }}
-            reportportal_endpoint: ${{ vars.REPORTPORTAL_ENDPOINT }}
-            reportportal_project: ${{ vars.REPORTPORTAL_PROJECT }}
