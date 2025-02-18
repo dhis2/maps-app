@@ -9,9 +9,9 @@ export const useEventDataItems = ({
     includeTypes,
     excludeTypes,
 }) => {
-    const { dataElements, loading: dataElementsLoading } =
+    const { dataElements, fetching: dataElementsFetching } =
         useProgramStageDataElements({ programStageId })
-    const { programAttributes, loading: attributesLoading } =
+    const { programAttributes, fetching: attributesFetching } =
         useProgramTrackedEntityAttributes({
             programId,
         })
@@ -30,6 +30,6 @@ export const useEventDataItems = ({
 
     return {
         eventDataItems,
-        loading: dataElementsLoading || attributesLoading,
+        fetching: dataElementsFetching || attributesFetching,
     }
 }

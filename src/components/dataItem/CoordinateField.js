@@ -23,7 +23,7 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
-    const { eventDataItems, loading } = useEventDataItems({
+    const { eventDataItems, fetching } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
         includeTypes,
@@ -84,10 +84,10 @@ const CoordinateField = ({
 
     // Reset default value when program is changed
     useEffect(() => {
-        if (program !== prevProgram) {
+        if (!fetching && program !== prevProgram) {
             onChange(defaultValue)
         }
-    }, [program, prevProgram, defaultValue, onChange])
+    }, [fetching, program, prevProgram, defaultValue, onChange])
 
     return (
         <div className={className}>
@@ -101,7 +101,7 @@ const CoordinateField = ({
                 value={
                     fields.find((f) => f.id === value) ? value : defaultValue
                 }
-                loading={loading}
+                loading={fetching}
                 helpText={
                     value === EVENT_COORDINATE_CASCADING
                         ? isTrackerProgram

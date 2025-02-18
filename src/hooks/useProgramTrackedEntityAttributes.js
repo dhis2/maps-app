@@ -22,10 +22,9 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
     const [programAttributes, setProgramAttributes] = useState(null)
     const { nameProperty } = useCachedDataQuery()
 
-    const { refetch, loading } = useDataQuery(
+    const { refetch, fetching } = useDataQuery(
         PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
         {
-            lazy: true,
             variables: { nameProperty },
             onComplete: (data) => {
                 const attributes =
@@ -50,6 +49,6 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
 
     return {
         programAttributes,
-        loading,
+        fetching,
     }
 }
