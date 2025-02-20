@@ -26,9 +26,10 @@ export const useProgramStageDataElements = ({ programStageId }) => {
         {
             variables: { nameProperty },
             onComplete: (data) => {
-                const elements = data.elements.programStageDataElements.map(
-                    (attr) => attr.dataElement
-                )
+                const elements =
+                    data?.elements?.programStageDataElements?.map(
+                        (attr) => attr.dataElement
+                    ) || []
 
                 setDataElements(getValidDataItems(elements))
             },
