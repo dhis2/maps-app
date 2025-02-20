@@ -75,7 +75,7 @@ const RenderingStrategy = ({
                           { number: MULTIMAP_MIN_PERIODS }
                       )
                     : hasOtherTimelineLayers
-                    ? i18n.t('Remove the exiting timeline to add a new one.')
+                    ? i18n.t('Remove the existing timeline to add a new one.')
                     : undefined,
             [RENDERING_STRATEGY_SPLIT_BY_PERIOD]:
                 totalPeriods < MULTIMAP_MIN_PERIODS
