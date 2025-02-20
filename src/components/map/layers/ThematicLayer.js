@@ -10,8 +10,8 @@ import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
     LABEL_TEMPLATE_NAME_ONLY,
-    PADDING_DEFAULT,
     PADDING_TIMELINE,
+    DURATION_TIMELINE,
 } from '../../../constants/layers.js'
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
@@ -138,14 +138,18 @@ class ThematicLayer extends Layer {
 
         map.addLayer(this.layer)
 
-        const customPadding =
-            renderingStrategy === RENDERING_STRATEGY_TIMELINE
-                ? PADDING_TIMELINE
-                : PADDING_DEFAULT
+        const options = {}
+        if (renderingStrategy === RENDERING_STRATEGY_TIMELINE) {
+            options.padding = PADDING_TIMELINE
+            if (isPlugin) {
+                options.duration = DURATION_TIMELINE
+            }
+        }
+
         if (!isPlugin) {
-            this.fitBoundsOnce(customPadding)
+            this.fitBoundsOnce(options)
         } else {
-            this.fitBounds(customPadding)
+            this.fitBounds(options)
         }
     }
 

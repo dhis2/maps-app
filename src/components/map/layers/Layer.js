@@ -4,6 +4,7 @@ import { PureComponent } from 'react'
 import {
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
     PADDING_DEFAULT,
+    DURATION_DEFAULT,
 } from '../../../constants/layers.js'
 
 class Layer extends PureComponent {
@@ -135,32 +136,23 @@ class Layer extends PureComponent {
     }
 
     // Fit map to layer bounds
-    fitBounds(customPadding = PADDING_DEFAULT) {
+    fitBounds({ padding = {}, duration = DURATION_DEFAULT }) {
         const { map } = this.context
 
         if (this.layer.getBounds) {
-            const defaultPadding = {
-                top: PADDING_DEFAULT,
-                bottom: PADDING_DEFAULT,
-                left: PADDING_DEFAULT,
-                right: PADDING_DEFAULT,
-            }
-
             map.fitBounds(this.layer.getBounds(), {
-                padding:
-                    typeof customPadding === 'number'
-                        ? customPadding
-                        : { ...defaultPadding, ...customPadding },
-                duration: 0,
+                padding: { ...PADDING_DEFAULT, ...padding },
+                duration: duration,
+                essential: true,
                 bearing: map.getMapGL().getBearing(),
             })
         }
     }
 
     // Fit map to layer bounds once (when first created)
-    fitBoundsOnce(customPadding) {
+    fitBoundsOnce(padding = {}) {
         if (!this.isZoomed || this.context.map.getZoom() === undefined) {
-            this.fitBounds(customPadding)
+            this.fitBounds(padding)
             this.isZoomed = true
         }
     }
