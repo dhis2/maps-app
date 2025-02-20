@@ -10,6 +10,8 @@ import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
     LABEL_TEMPLATE_NAME_ONLY,
+    PADDING_TIMELINE,
+    DURATION_TIMELINE,
 } from '../../../constants/layers.js'
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
@@ -54,6 +56,8 @@ class ThematicLayer extends Layer {
 
         const { period } = this.state
 
+        const { isPlugin, map } = this.context
+
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
 
         let periodData = bubbleMap ? polygonsToPoints(data) : data
@@ -81,8 +85,6 @@ class ThematicLayer extends Layer {
                 )
             }
         }
-
-        const map = this.context.map
 
         const filteredData = filterData(periodData, dataFilters)
 
@@ -136,8 +138,19 @@ class ThematicLayer extends Layer {
 
         map.addLayer(this.layer)
 
-        // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce()
+        const options = {}
+        if (renderingStrategy === RENDERING_STRATEGY_TIMELINE) {
+            options.padding = PADDING_TIMELINE
+            if (isPlugin) {
+                options.duration = DURATION_TIMELINE
+            }
+        }
+
+        if (!isPlugin) {
+            this.fitBoundsOnce(options)
+        } else {
+            this.fitBounds(options)
+        }
     }
 
     // Set initial period
