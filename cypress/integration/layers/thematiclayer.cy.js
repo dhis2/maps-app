@@ -433,7 +433,7 @@ context('Thematic Layers', () => {
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('be.disabled')
         cy.get('div').contains('Timeline').realHover()
-        cy.contains('Remove the exiting timeline to add a new one.').should(
+        cy.contains('Remove the existing timeline to add a new one.').should(
             'be.visible'
         )
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
