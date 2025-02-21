@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-02-20T13:37:02.693Z\n"
-"PO-Revision-Date: 2025-02-20T13:37:02.693Z\n"
+"POT-Creation-Date: 2025-02-21T15:01:57.821Z\n"
+"PO-Revision-Date: 2025-02-21T15:01:57.821Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1378,6 +1378,12 @@ msgstr "Choropleth"
 
 msgid "Bubble map"
 msgstr "Bubble map"
+
+msgid "Org unit location"
+msgstr "Org unit location"
+
+msgid "Cascading location"
+msgstr "Cascading location"
 
 msgid "Automatic color legend"
 msgstr "Automatic color legend"
