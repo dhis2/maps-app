@@ -15354,10 +15354,10 @@ react-virtualized@^9.22.5:
     prop-types "^15.7.2"
     react-lifecycles-compat "^3.0.4"
 
-react-virtuoso@^4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.6.2.tgz#74b59ebe3260e1f73e92340ffec84a6853285a12"
-  integrity sha512-vvlqvzPif+MvBrJ09+hJJrVY0xJK9yran+A+/1iwY78k0YCVKsyoNPqoLxOxzYPggspNBNXqUXEcvckN29OxyQ==
+react-virtuoso@^4.12.5:
+  version "4.12.5"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.12.5.tgz#cf92efc2527e56d6df1d4d63c6e4dd3fac5a4030"
+  integrity sha512-YeCbRRsC9CLf0buD0Rct7WsDbzf+yBU1wGbo05/XjbcN2nJuhgh040m3y3+6HVogTZxEqVm45ac9Fpae4/MxRQ==
 
 react@^16.14.0, react@^16.8.6:
   version "16.14.0"
