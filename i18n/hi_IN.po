@@ -1,19 +1,19 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2024
+# Siddharth Agarwal, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
-"Language-Team: Persian (Afghanistan) (https://app.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
+"Last-Translator: Siddharth Agarwal, 2025\n"
+"Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa_AF\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "2020"
 msgstr ""
@@ -43,52 +43,52 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "سیت لیجند"
+msgstr ""
 
 msgid "Color"
-msgstr "رنگ"
+msgstr ""
 
 msgid "Size"
 msgstr ""
 
 msgid "Name"
-msgstr "نام"
+msgstr "नाम"
 
 msgid "Name and value"
 msgstr ""
 
 msgid "Value"
-msgstr "مقدار"
+msgstr ""
 
 msgid "Display"
-msgstr "نمایش"
+msgstr ""
 
 msgid "Data element group"
-msgstr "د مالوماتو (ډاټا) د برخې ګروپ"
+msgstr ""
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "عناصر معلومات"
+msgstr ""
 
 msgid "Totals"
-msgstr "مجموعه"
+msgstr ""
 
 msgid "Details"
-msgstr "جزئیات"
+msgstr ""
 
 msgid "Yes"
-msgstr "بله"
+msgstr "हाँ"
 
 msgid "None"
-msgstr "هیچ‌کدام"
+msgstr "कोई नहीं"
 
 msgid "Cascading"
 msgstr ""
 
 msgid "Event location"
-msgstr "د پېښې طبقه"
+msgstr ""
 
 msgid "Enrollment location"
 msgstr ""
@@ -103,7 +103,7 @@ msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
-msgstr "ځانګړتیاوې"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -112,7 +112,7 @@ msgid "Event > org unit coordinate"
 msgstr ""
 
 msgid "Event data item"
-msgstr "د پېښې طبقه"
+msgstr ""
 
 msgid "Selected value not available in in list: {{name}}"
 msgstr ""
@@ -136,31 +136,31 @@ msgid "contains"
 msgstr ""
 
 msgid "is"
-msgstr "این"
+msgstr ""
 
 msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr "اپریتر"
+msgstr ""
 
 msgid "Date"
-msgstr "تاریخ"
+msgstr ""
 
 msgid "Data set"
-msgstr "د مالوماتو (ډاټا) ټولګه"
+msgstr ""
 
 msgid "No results found"
-msgstr "هیج نتیجه ی یافت نشد"
+msgstr ""
 
 msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "कुछ गलत हुआ"
 
 msgid "Search"
-msgstr "جستجو"
+msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -180,37 +180,37 @@ msgid "Index"
 msgstr ""
 
 msgid "Id"
-msgstr "آی دی"
+msgstr ""
 
 msgid "Level"
-msgstr "سطحه"
+msgstr ""
 
 msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "نمونه/ډول"
+msgstr ""
 
 msgid "Legend"
-msgstr "داستان"
+msgstr ""
 
 msgid "Range"
-msgstr "وسعت"
+msgstr ""
 
 msgid "Org unit"
 msgstr ""
 
 msgid "Event time"
-msgstr "د پېښې طبقه"
+msgstr ""
 
 msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr "ابعاد"
+msgstr ""
 
 msgid "Download"
-msgstr "دانلود"
+msgstr "डाउनलोड"
 
 msgid "Exit download mode"
 msgstr ""
@@ -251,25 +251,25 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "لغو کردن"
+msgstr "रद्द करें"
 
 msgid "Close"
-msgstr "بستن"
+msgstr "बंद करें"
 
 msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Organisation Units"
-msgstr "واحد های سازمان"
+msgstr ""
 
 msgid "Style"
-msgstr "استایل"
+msgstr ""
 
 msgid "Point color"
-msgstr "د نکتې پوړ"
+msgstr ""
 
 msgid "Point radius"
-msgstr "د نکتې پوړ"
+msgstr ""
 
 msgid "event"
 msgstr ""
@@ -308,16 +308,16 @@ msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
-msgstr "ګروپونه"
+msgstr ""
 
 msgid "This field is required"
-msgstr "اسم هذا از قبل ثبت و راجستر شده است"
+msgstr ""
 
 msgid "Data"
-msgstr "دیتا"
+msgstr ""
 
 msgid "Period"
-msgstr "دوره"
+msgstr ""
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -345,13 +345,13 @@ msgid "Temporal coverage"
 msgstr ""
 
 msgid "Source"
-msgstr "منبع"
+msgstr ""
 
 msgid "Legend preview"
 msgstr ""
 
 msgid "Year"
-msgstr "سال"
+msgstr "वर्ष"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -372,13 +372,13 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
-msgstr "کوچکتر"
+msgstr ""
 
 msgid "Max"
-msgstr "بزرگتر"
+msgstr ""
 
 msgid "Steps"
-msgstr "مرحله"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr ""
@@ -387,7 +387,7 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "فلتر"
+msgstr ""
 
 msgid "Group events"
 msgstr ""
@@ -441,10 +441,10 @@ msgid "Line/stroke width must be between 0-10."
 msgstr ""
 
 msgid "Labels"
-msgstr "برچسپ"
+msgstr ""
 
 msgid "Aggregation type"
-msgstr "نوع تجمع"
+msgstr ""
 
 msgid "Only show completed events"
 msgstr ""
@@ -462,12 +462,6 @@ msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
-
-msgid "Choose from presets"
-msgstr ""
-
-msgid "Define start - end dates"
 msgstr ""
 
 msgid "Indicator group is required"
@@ -498,22 +492,22 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr "شاخص"
+msgstr ""
 
 msgid "Reporting rates"
-msgstr "درجه راپور دهی"
+msgstr ""
 
 msgid "Event data items"
-msgstr "د پېښې د مالوماتو (ډاټا) موضوعات"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "د پروګرام شاخصونه"
+msgstr ""
 
 msgid "Calculations"
 msgstr ""
 
 msgid "Item type"
-msgstr "د نېټې ډول"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -528,7 +522,7 @@ msgid "Program status"
 msgstr ""
 
 msgid "Relationships"
-msgstr "وابستگی ها"
+msgstr ""
 
 msgid "Follow up"
 msgstr ""
@@ -556,14 +550,11 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
-msgid "Tracked Entity Type is required"
-msgstr ""
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr "نوع ابعاد اطلاعات"
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -575,7 +566,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Group set"
-msgstr "د ګروپ ټولګه"
+msgstr ""
 
 msgid "Failed to load organisation unit groups."
 msgstr ""
@@ -584,7 +575,7 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "د شاخص ګروپ"
+msgstr ""
 
 msgid "Manage available layer sources"
 msgstr ""
@@ -598,10 +589,10 @@ msgid ""
 msgstr ""
 
 msgid "Collapse"
-msgstr "فرو ریختن"
+msgstr ""
 
 msgid "Expand"
-msgstr "توسعه یافته"
+msgstr ""
 
 msgid "External basemap"
 msgstr ""
@@ -630,7 +621,7 @@ msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
-msgstr "د پېښې طبقه"
+msgstr ""
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
@@ -645,7 +636,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "ویرایش"
+msgstr "संपादन करें"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -663,7 +654,7 @@ msgid "Toggle layer menu"
 msgstr ""
 
 msgid "Hide data table"
-msgstr "د مالوماتو (ډاټا) جدول پټ کړئ"
+msgstr ""
 
 msgid "Show data table"
 msgstr ""
@@ -672,10 +663,10 @@ msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
-msgstr "دانلود دیتا"
+msgstr ""
 
 msgid "Edit layer"
-msgstr "طبقې تصحیح کړئ"
+msgstr ""
 
 msgid "Remove layer"
 msgstr ""
@@ -684,16 +675,16 @@ msgid "Mid"
 msgstr ""
 
 msgid "Group"
-msgstr "گروپ"
+msgstr ""
 
 msgid "Filters"
-msgstr "فیلټرونه"
+msgstr ""
 
 msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "هیچ معلوماتی یافت نشد"
+msgstr ""
 
 msgid "Selected org units: No coordinates found"
 msgstr ""
@@ -702,52 +693,52 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Error"
-msgstr "خطا"
+msgstr ""
 
 msgid "Drill up one level"
-msgstr "د نکتې سطحه غوره کړئ"
+msgstr ""
 
 msgid "Drill down one level"
-msgstr "یک ستحه پاین"
+msgstr ""
 
 msgid "View profile"
-msgstr "نمایش پروفایل"
+msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr "نمایش طولالبلد/عرضلبلد"
+msgstr ""
 
 msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr "طول البلد"
+msgstr ""
 
 msgid "Latitude"
-msgstr "عرض البلد"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
 msgid "Not set"
-msgstr "تعین نه گردیده است"
+msgstr ""
 
 msgid "Could not retrieve event data"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr "بخش نهاد/سازمان"
+msgstr ""
 
 msgid "Parent unit"
-msgstr "لوی واحد"
+msgstr ""
 
 msgid "No data"
-msgstr "معلوماتی وجود ندارد"
+msgstr ""
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
 
 msgid "Last updated"
-msgstr "تجدید آخیر"
+msgstr ""
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -782,7 +773,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "حذف"
+msgstr "हटाएं"
 
 msgid "Distance"
 msgstr ""
@@ -818,10 +809,10 @@ msgid "Search for place or address"
 msgstr ""
 
 msgid "Zoom in"
-msgstr "بزرگ‌نمایی"
+msgstr ""
 
 msgid "Zoom out"
-msgstr "کوچک ‌نمایی"
+msgstr ""
 
 msgid "Zoom to content"
 msgstr ""
@@ -839,10 +830,10 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr "ادامه دادن"
+msgstr ""
 
 msgid "Options"
-msgstr "گزینه‌ها"
+msgstr ""
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -862,19 +853,19 @@ msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr "کوډ یا شفر"
+msgstr ""
 
 msgid "Short name"
-msgstr "نام کوتاه"
+msgstr ""
 
 msgid "Opening date"
-msgstr "تاریخ باز کردن"
+msgstr ""
 
 msgid "Closed date"
-msgstr "تاریخ بسته کردن"
+msgstr ""
 
 msgid "URL"
-msgstr "نشانی اینترنتی"
+msgstr ""
 
 msgid "Link"
 msgstr ""
@@ -883,19 +874,19 @@ msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr "برېښنالیک"
-
-msgid "Address"
-msgstr "ادرس"
-
-msgid "Phone"
 msgstr ""
 
+msgid "Address"
+msgstr ""
+
+msgid "Phone"
+msgstr "फोन"
+
 msgid "ID"
-msgstr "آی دی"
+msgstr "आईडी"
 
 msgid "Comment"
-msgstr "نظر"
+msgstr ""
 
 msgid "Organisation unit profile"
 msgstr ""
@@ -910,105 +901,82 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Selection mode"
-msgstr "انتخاب شوی اکر"
+msgstr ""
 
 msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr "سال بعدی"
+msgstr ""
+
+msgid "Period type"
+msgstr ""
 
 msgid "Start/end dates"
-msgstr "د پیل او پای نېټې"
-
-msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Only one timeline is allowed."
 msgstr ""
 
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be selected."
+msgid "Remove other layers to enable split map views."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Display periods"
 msgstr ""
 
-msgid "Single"
-msgstr ""
-
-msgid "Show periods as a combined layer. Data is aggregated."
+msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
 msgstr ""
 
-msgid "Show multiple periods as an interactive timeline."
-msgstr ""
-
-msgid "Split"
-msgstr ""
-
-msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
-msgstr ""
-
-msgid ""
-"Start and end dates are inclusive and will be reflected in the outputs."
-msgstr ""
-
-msgid ""
-"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
-"format."
+msgid "Split map views"
 msgstr ""
 
 msgid "Start date"
-msgstr "تاریخ شروع"
+msgstr ""
 
 msgid "End date"
-msgstr "تاریخ اتمام"
+msgstr ""
 
 msgid "Not available offline"
 msgstr ""
 
 msgid "Program indicator"
-msgstr "شاخص پروگرام"
+msgstr ""
 
 msgid "No program"
-msgstr "هیچ پروگرام نیست"
+msgstr ""
 
 msgid "Program"
-msgstr "برنامه"
+msgstr ""
 
 msgid "Stage"
-msgstr "مرحله"
+msgstr ""
 
 msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr "با دیتا ایلمنت"
+msgstr ""
 
 msgid "Count"
-msgstr "تعداد"
+msgstr ""
 
 msgid "Average"
-msgstr "اوسط"
+msgstr ""
 
 msgid "Sum"
-msgstr "جمع"
+msgstr ""
 
 msgid "Standard deviation"
-msgstr "معیاري انحراف"
+msgstr ""
 
 msgid "Variance"
-msgstr "مغییرات"
+msgstr ""
 
 msgid "Percentage"
-msgstr "فیصدی"
+msgstr ""
 
 msgid "Hectares"
 msgstr ""
@@ -1026,7 +994,7 @@ msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
-msgstr "روشنی OSM"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr ""
@@ -1074,7 +1042,7 @@ msgid "May 2023"
 msgstr ""
 
 msgid "Elevation"
-msgstr "بلندی"
+msgstr ""
 
 msgid "Elevation above sea-level."
 msgstr ""
@@ -1089,7 +1057,7 @@ msgid "Febuary 2000"
 msgstr ""
 
 msgid "Landcover"
-msgstr "پوشش زمین"
+msgstr ""
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""
@@ -1151,7 +1119,7 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr "روشنی وقت شب"
+msgstr ""
 
 msgid "light intensity"
 msgstr ""
@@ -1174,7 +1142,7 @@ msgid "people per hectare"
 msgstr ""
 
 msgid "Precipitation"
-msgstr "تشریح"
+msgstr ""
 
 msgid "millimeter"
 msgstr ""
@@ -1326,7 +1294,7 @@ msgid "~11 kilometers"
 msgstr ""
 
 msgid "Monthly"
-msgstr "ماهانه"
+msgstr ""
 
 msgid "Febuary 1950 - One month ago"
 msgstr ""
@@ -1340,13 +1308,13 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr "همه"
+msgstr ""
 
 msgid "Active"
-msgstr "فعال"
+msgstr ""
 
 msgid "Completed"
-msgstr "تکمیل شد"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -1364,22 +1332,22 @@ msgid "Single color legend"
 msgstr ""
 
 msgid "Equal intervals"
-msgstr "مساوي انټروالونه"
+msgstr ""
 
 msgid "Equal counts"
-msgstr "مساوي حسابونه"
+msgstr ""
 
 msgid "Symbol"
-msgstr "سمبول"
+msgstr ""
 
 msgid "Relative"
-msgstr "اړونده"
+msgstr ""
 
 msgid "Daily"
-msgstr "روزنه"
+msgstr ""
 
 msgid "Weekly"
-msgstr "هفته وار"
+msgstr ""
 
 msgid "Weekly (Start Wednesday)"
 msgstr ""
@@ -1397,31 +1365,31 @@ msgid "Bi-weekly"
 msgstr ""
 
 msgid "Bi-monthly"
-msgstr "دوبار در- ماه"
+msgstr ""
 
 msgid "Quarterly"
-msgstr "سه ماهه"
+msgstr ""
 
 msgid "Six-monthly"
-msgstr "شش-ماهه"
+msgstr ""
 
 msgid "Six-monthly April"
-msgstr "شش-ماهه اپریل"
+msgstr ""
 
 msgid "Yearly"
-msgstr "سالانه"
+msgstr ""
 
 msgid "Financial year (Start November)"
 msgstr ""
 
 msgid "Financial year (Start October)"
-msgstr "اکتوبر مالی"
+msgstr ""
 
 msgid "Financial year (Start July)"
-msgstr "مالی جولای"
+msgstr ""
 
 msgid "Financial year (Start April)"
-msgstr "مالی اپریل"
+msgstr ""
 
 msgid "Cancelled"
 msgstr ""
@@ -1442,7 +1410,7 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "Event"
-msgstr "رویداد"
+msgstr ""
 
 msgid "Facilities"
 msgstr ""
@@ -1457,16 +1425,16 @@ msgid "Feature"
 msgstr ""
 
 msgid "Polygon"
-msgstr "چند ضلعی"
+msgstr ""
 
 msgid "Line"
 msgstr ""
 
 msgid "Point"
-msgstr "نکته"
+msgstr ""
 
 msgid "Organisation units"
-msgstr "واحد های سازمان"
+msgstr ""
 
 msgid "Org unit layer"
 msgstr ""
@@ -1475,10 +1443,10 @@ msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"
-msgstr "د موضوع اړوند طبقه"
+msgstr ""
 
 msgid "Tracked entity"
-msgstr "ردیابی هویت"
+msgstr ""
 
 msgid "related"
 msgstr ""
@@ -1496,7 +1464,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "نخیر"
+msgstr "नहीं"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
@@ -1510,16 +1478,16 @@ msgid "Thematic"
 msgstr ""
 
 msgid "Events"
-msgstr "پېښې"
+msgstr ""
 
 msgid "Tracked entities"
 msgstr ""
 
 msgid "Org units"
-msgstr "واحد های سازمان"
+msgstr ""
 
 msgid "Facility"
-msgstr "سهولت"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr ""
