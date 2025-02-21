@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Janeth Cruz, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -496,6 +496,12 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "El radio debe estar entre {{min}} y {{max}}"
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr "Se requiere grupo de indicadores"
 
@@ -589,6 +595,9 @@ msgstr "Estilo de entidad relacionada"
 
 msgid "Line Color"
 msgstr "Color de línea"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -778,6 +787,9 @@ msgstr "Unidad padre"
 msgid "No data"
 msgstr "No hay datos"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Última actualización"
 
@@ -957,29 +969,52 @@ msgstr "Año anterior"
 msgid "Next year"
 msgstr "Año siguiente"
 
-msgid "Period type"
-msgstr "Tipo de periodo"
-
 msgid "Start/end dates"
 msgstr "Fechas de inicio y fin"
 
-msgid "Only one timeline is allowed."
-msgstr "Sólo se permite una línea de tiempo."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Elimine otras capas para habilitar vistas de mapa divididas."
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Mostrar períodos"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Individual (agregado)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Línea de tiempo"
 
-msgid "Split map views"
-msgstr "Vistas de mapa divididas"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Fecha inicial"

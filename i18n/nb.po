@@ -1,14 +1,14 @@
 # 
 # Translators:
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2024
-# Karoline Tufte Lien <karoline@dhis2.org>, 2024
+# Karoline Tufte Lien <karoline@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2024\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,6 +26,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -458,6 +467,12 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius bør være mellom {{min}} og {{max}}"
 
+msgid "Choose from presets"
+msgstr "Velg blant forvalg"
+
+msgid "Define start - end dates"
+msgstr "Definer start - sluttdatoer"
+
 msgid "Indicator group is required"
 msgstr "Indikatorgruppe er påkrevd"
 
@@ -479,6 +494,9 @@ msgstr "Hendelsesdatapunkt er påkrevd"
 msgid "Program indicator is required"
 msgstr "Programindikator er påkrevd"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Periode er påkrevd"
 
@@ -493,6 +511,9 @@ msgstr "Hendelsesdatapunkter"
 
 msgid "Program indicators"
 msgstr "Programindikatorer"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Elementtype"
@@ -539,6 +560,9 @@ msgstr "Stil for relatert enhet"
 
 msgid "Line Color"
 msgstr "Linjefarge"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Ingen relasjonstyper ble funnet for sporet enhetstype {{type}}"
@@ -726,6 +750,9 @@ msgstr "Overordnet enhet"
 msgid "No data"
 msgstr "Ingen data"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Sist oppdatert"
 
@@ -901,29 +928,52 @@ msgstr "Forrige år"
 msgid "Next year"
 msgstr "Neste år"
 
-msgid "Period type"
-msgstr "Periodetype"
-
 msgid "Start/end dates"
 msgstr "Start/slutt-datoer"
 
-msgid "Only one timeline is allowed."
-msgstr "Bare en tidslinje er tillatt."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Fjern andre lag for å aktivere delt kartvisning."
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Vis perioder"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Enkel (aggregert)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Tidslinje"
 
-msgid "Split map views"
-msgstr "Delt kartvisninger"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Startdato"
@@ -1436,6 +1486,9 @@ msgid "Organisation units"
 msgstr "Organisasjonsenheter"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Martin <martin@moid.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/hisp-uio/teams/100509/sv/)\n"
@@ -28,6 +28,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -458,6 +467,12 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr ""
 
@@ -479,6 +494,9 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
@@ -493,6 +511,9 @@ msgstr "Händelsedataposter"
 
 msgid "Program indicators"
 msgstr "programindikatorer"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr ""
@@ -536,6 +557,9 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
+msgstr ""
+
+msgid "Tracked Entity Type is required"
 msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
@@ -722,6 +746,9 @@ msgstr "föräldraenheten"
 msgid "No data"
 msgstr ""
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr ""
 
@@ -894,28 +921,51 @@ msgstr ""
 msgid "Next year"
 msgstr ""
 
-msgid "Period type"
-msgstr "Periodtyp"
-
 msgid "Start/end dates"
 msgstr "Start/slutdatum"
 
-msgid "Only one timeline is allowed."
+msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove other layers to enable split map views."
+msgid "Remove the exiting timeline to add a new one."
 msgstr ""
 
-msgid "Display periods"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
 msgstr ""
 
-msgid "Single (aggregate)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
 msgstr ""
 
 msgid "Timeline"
 msgstr ""
 
-msgid "Split map views"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
 msgstr ""
 
 msgid "Start date"
@@ -1422,6 +1472,9 @@ msgid "Organisation units"
 msgstr "Organisation enheter"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"
