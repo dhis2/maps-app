@@ -2,6 +2,7 @@ import { getInstance as getD2 } from 'd2'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
+import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
     PROGRAM_STAGE_QUERY,
@@ -202,19 +203,15 @@ class EventLayer extends Layer {
 
     // Loads the data elements for a program stage to display in popup
     async loadDisplayElements(engine, nameProperty) {
-        const { programStage, eventCoordinateField } = this.props
+        const { program, programStage, eventCoordinateField } = this.props
 
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
-
         const { programStage: data } = await engine.query(PROGRAM_STAGE_QUERY, {
             variables: { id: programStage.id, nameProperty: displayNameProp },
         })
-
         const { programStageDataElements } = data
         let displayElements = []
-        let eventCoordinateFieldName
-
         if (Array.isArray(programStageDataElements)) {
             displayElements = programStageDataElements
                 .filter((d) => d.displayInReports)
@@ -223,17 +220,15 @@ class EventLayer extends Layer {
             for (const d of displayElements) {
                 await this.loadOptionSet(d, engine)
             }
-
-            if (eventCoordinateField) {
-                const coordElement = programStageDataElements.find(
-                    (d) => d.dataElement.id === eventCoordinateField
-                )
-
-                if (coordElement) {
-                    eventCoordinateFieldName = coordElement.dataElement.name
-                }
-            }
         }
+
+        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+            program,
+            programStage,
+            eventCoordinateField,
+            engine,
+            nameProperty,
+        })
 
         this.setState({ displayElements, eventCoordinateFieldName })
     }
