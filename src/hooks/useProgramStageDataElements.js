@@ -21,15 +21,15 @@ export const useProgramStageDataElements = ({ programStageId }) => {
     const [dataElements, setDataElements] = useState(null)
     const { nameProperty } = useCachedDataQuery()
 
-    const { refetch, loading } = useDataQuery(
+    const { refetch, fetching } = useDataQuery(
         PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
         {
-            lazy: true,
             variables: { nameProperty },
             onComplete: (data) => {
-                const elements = data.elements.programStageDataElements.map(
-                    (attr) => attr.dataElement
-                )
+                const elements =
+                    data?.elements?.programStageDataElements?.map(
+                        (attr) => attr.dataElement
+                    ) || []
 
                 setDataElements(getValidDataItems(elements))
             },
@@ -48,6 +48,6 @@ export const useProgramStageDataElements = ({ programStageId }) => {
 
     return {
         dataElements,
-        loading,
+        fetching,
     }
 }
