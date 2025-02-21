@@ -11,7 +11,7 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
-    // setFallbackCoordinateField,
+    setFallbackCoordinateField,
     setPeriod,
     setStartDate,
     setEndDate,
@@ -63,7 +63,7 @@ class EventDialog extends Component {
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
-        // setFallbackCoordinateField: PropTypes.func.isRequired,
+        setFallbackCoordinateField: PropTypes.func.isRequired,
         setOrgUnits: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
@@ -79,7 +79,7 @@ class EventDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         eventStatus: PropTypes.string,
-        // fallbackCoordinateField: PropTypes.string,
+        fallbackCoordinateField: PropTypes.string,
         filters: PropTypes.array,
         legendSet: PropTypes.object,
         method: PropTypes.number,
@@ -200,7 +200,7 @@ class EventDialog extends Component {
             eventCoordinateField,
             eventPointColor,
             eventPointRadius,
-            // fallbackCoordinateField,
+            fallbackCoordinateField,
             filters = [],
             program,
             programStage,
@@ -217,7 +217,7 @@ class EventDialog extends Component {
             setEventClustering,
             setEventPointColor,
             setEventPointRadius,
-            // setFallbackCoordinateField,
+            setFallbackCoordinateField,
             setPeriod,
         } = this.props
 
@@ -275,7 +275,7 @@ class EventDialog extends Component {
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
                             />
-                            {/* eventCoordinateField && (
+                            {eventCoordinateField && (
                                 <CoordinateField
                                     program={program}
                                     programStage={programStage}
@@ -284,7 +284,7 @@ class EventDialog extends Component {
                                     onChange={setFallbackCoordinateField}
                                     className={styles.select}
                                 />
-                            ) */}
+                            )}
                             <EventStatusSelect
                                 value={eventStatus}
                                 onChange={setEventStatus}
@@ -502,7 +502,7 @@ export default connect(
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,
-        // setFallbackCoordinateField,
+        setFallbackCoordinateField,
         setPeriod,
         setBackupPeriodsDates,
         setStartDate,
