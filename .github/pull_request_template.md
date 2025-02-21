@@ -10,17 +10,18 @@ _description text_
 
 ### TODO
 
--   [ ] Dashboard tested
--   [ ] Tests added (Cypress and/or Jest)
--   [ ] Docs added
--   [ ] Update dependencies to not point to d2-ci
--   [ ] _todo_
+- [ ] Dashboard tested
+- [ ] Tests added (Cypress and/or Jest)
+- [ ] Docs added
+- [ ] Strings generated
+- [ ] d2-ci dependency replaced
+- [ ] _todo_
 
 ---
 
 ### Known issues
 
--   [ ] _issue_
+- [ ] _issue_
 
 ---
 
