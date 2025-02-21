@@ -1,3 +1,31 @@
+## [101.0.2](https://github.com/dhis2/maps-app/compare/v101.0.1...v101.0.2) (2025-02-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([08b3b7e](https://github.com/dhis2/maps-app/commit/08b3b7ee3fe56537841e7afaad734f0f026a9419))
+
+## [101.0.1](https://github.com/dhis2/maps-app/compare/v101.0.0...v101.0.1) (2025-02-20)
+
+
+### Bug Fixes
+
+* timeline - increase bottom padding and re-center map when playing in dashboard ([#3441](https://github.com/dhis2/maps-app/issues/3441)) ([aa7ab30](https://github.com/dhis2/maps-app/commit/aa7ab306927183fd10828e9aea31f354b274af44))
+
+# [101.0.0](https://github.com/dhis2/maps-app/compare/v100.8.1...v101.0.0) (2025-02-14)
+
+
+### Features
+
+* support new dashboard plugin architecture ([#3447](https://github.com/dhis2/maps-app/issues/3447)) ([92bdd12](https://github.com/dhis2/maps-app/commit/92bdd12a1f476f221bbff899a1c799ecf845b4ae))
+
+
+### BREAKING CHANGES
+
+* this version is only compatible with Dashboard app >=101.0.0
+
+Use generic components for plugins in app-platform and app-runtime.
+
 ## [100.8.1](https://github.com/dhis2/maps-app/compare/v100.8.0...v100.8.1) (2025-02-10)
 
 
