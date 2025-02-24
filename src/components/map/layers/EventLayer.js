@@ -2,6 +2,7 @@ import { getInstance as getD2 } from 'd2'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
+import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
     PROGRAM_STAGE_QUERY,
@@ -128,7 +129,7 @@ class EventLayer extends Layer {
         }
 
         if (program && programStage) {
-            this.loadDisplayElements(engine, nameProperty)
+            this.loadDisplayElements(engine, nameProperty, styleDataItem)
         }
 
         // Create and add event layer based on config object
@@ -141,13 +142,12 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const { styleDataItem, nameProperty } = this.props
+        const { nameProperty } = this.props
         const { popup, displayElements, eventCoordinateFieldName } = this.state
 
         return popup && displayElements ? (
             <EventPopup
                 {...popup}
-                styleDataItem={styleDataItem}
                 nameProperty={nameProperty}
                 displayElements={displayElements}
                 eventCoordinateFieldName={eventCoordinateFieldName}
@@ -201,39 +201,44 @@ class EventLayer extends Layer {
     }
 
     // Loads the data elements for a program stage to display in popup
-    async loadDisplayElements(engine, nameProperty) {
-        const { programStage, eventCoordinateField } = this.props
+    async loadDisplayElements(engine, nameProperty, styleDataItem) {
+        const { program, programStage, eventCoordinateField } = this.props
 
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
-
         const { programStage: data } = await engine.query(PROGRAM_STAGE_QUERY, {
             variables: { id: programStage.id, nameProperty: displayNameProp },
         })
-
         const { programStageDataElements } = data
         let displayElements = []
-        let eventCoordinateFieldName
-
         if (Array.isArray(programStageDataElements)) {
             displayElements = programStageDataElements
-                .filter((d) => d.displayInReports)
+                .filter(
+                    (d) =>
+                        d.displayInReports ||
+                        d.dataElement.id === styleDataItem?.id
+                )
                 .map((d) => d.dataElement)
+
+            if (styleDataItem) {
+                displayElements = [
+                    ...displayElements.filter((d) => d.id === styleDataItem.id),
+                    ...displayElements.filter((d) => d.id !== styleDataItem.id),
+                ]
+            }
 
             for (const d of displayElements) {
                 await this.loadOptionSet(d, engine)
             }
-
-            if (eventCoordinateField) {
-                const coordElement = programStageDataElements.find(
-                    (d) => d.dataElement.id === eventCoordinateField
-                )
-
-                if (coordElement) {
-                    eventCoordinateFieldName = coordElement.dataElement.name
-                }
-            }
         }
+
+        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+            program,
+            programStage,
+            eventCoordinateField,
+            engine,
+            nameProperty,
+        })
 
         this.setState({ displayElements, eventCoordinateFieldName })
     }

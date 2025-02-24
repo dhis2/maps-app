@@ -248,7 +248,32 @@ class ThematicLayer extends Layer {
         )
     }
 
-    onPeriodChange = (period) => this.setState({ period })
+    onPeriodChange = (period) => {
+        this.setState((prevState) => {
+            if (!prevState.popup) {
+                return { period }
+            }
+
+            const { popup } = prevState
+            const { valuesByPeriod } = this.props
+            const newValues = valuesByPeriod[period.id] || {}
+            const updatedFeature = {
+                ...popup.feature,
+                properties: {
+                    ...popup.feature.properties,
+                    ...newValues[popup.feature.properties.id],
+                },
+            }
+
+            return {
+                period,
+                popup: {
+                    ...popup,
+                    feature: updatedFeature,
+                },
+            }
+        })
+    }
 
     onFeatureClick(evt) {
         this.setState({ popup: evt })
