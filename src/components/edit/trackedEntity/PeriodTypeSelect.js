@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { setPeriodType } from '../../../actions/layerEdit.js'
+import { LAST_UPDATED_DATES } from '../../../constants/periods.js'
 import { Radio, RadioGroup } from '../../core/index.js'
 import styles from './styles/PeriodTypeSelect.module.css'
 
 const PeriodTypeSelect = ({
     program,
-    periodType = 'lastUpdated',
+    periodType = LAST_UPDATED_DATES,
     setPeriodType,
 }) => {
     const label = i18n.t(

@@ -6,10 +6,11 @@ import {
     CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
+    TRACKED_ENTITY_LAYER,
     EE_BUFFER,
     NONE,
 } from '../constants/layers.js'
-import { START_END_DATES } from '../constants/periods.js'
+import { START_END_DATES, LAST_UPDATED_DATES } from '../constants/periods.js'
 import {
     setFiltersFromPeriod,
     setFiltersFromPeriods,
@@ -41,6 +42,10 @@ const layerEdit = (state = null, action) => {
                 program: program ? { ...program } : null,
                 columns: [],
                 programStage: null,
+                periodType:
+                    !program && state.layer === TRACKED_ENTITY_LAYER
+                        ? LAST_UPDATED_DATES
+                        : state.periodType,
                 styleDataItem: null,
             }
 

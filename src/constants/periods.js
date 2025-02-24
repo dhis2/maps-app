@@ -36,6 +36,7 @@ export const PREDEFINED_PERIODS = 'PREDEFINED_PERIODS'
 export const RELATIVE_PERIODS = 'RELATIVE_PERIODS'
 export const FIXED_PERIODS = 'FIXED_PERIODS'
 export const START_END_DATES = 'START_END_DATES'
+export const LAST_UPDATED_DATES = 'lastUpdated'
 
 export const periodTypes = (includeRelativePeriods) => [
     ...(includeRelativePeriods
