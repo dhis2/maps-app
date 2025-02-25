@@ -23,13 +23,14 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
-    const { eventDataItems, fetching } = useEventDataItems({
+    const { eventDataItems, loading } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
         includeTypes,
     })
 
     const prevProgram = usePrevious(program)
+    const prevProgramStage = usePrevious(programStage)
 
     const isTrackerProgram = !!program?.trackedEntityType
 
@@ -82,12 +83,22 @@ const CoordinateField = ({
             : fields
     }, [isTrackerProgram, eventDataItems, eventCoordinateField])
 
-    // Reset default value when program is changed
+    // Reset default value when program or programStage is changed
     useEffect(() => {
-        if (!fetching && program !== prevProgram) {
+        if (
+            (prevProgram && program !== prevProgram) ||
+            (prevProgramStage && programStage !== prevProgramStage)
+        ) {
             onChange(defaultValue)
         }
-    }, [fetching, program, prevProgram, defaultValue, onChange])
+    }, [
+        program,
+        prevProgram,
+        programStage,
+        prevProgramStage,
+        defaultValue,
+        onChange,
+    ])
 
     return (
         <div className={className}>
@@ -101,7 +112,7 @@ const CoordinateField = ({
                 value={
                     fields.find((f) => f.id === value) ? value : defaultValue
                 }
-                loading={fetching}
+                loading={loading}
                 helpText={
                     value === EVENT_COORDINATE_CASCADING
                         ? isTrackerProgram
