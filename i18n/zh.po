@@ -3,14 +3,14 @@
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # 晓东 林 <13981924470@126.com>, 2024
-# easylin <lin_xd@126.com>, 2024
+# easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
+"POT-Creation-Date: 2025-02-20T13:37:02.693Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -467,6 +467,12 @@ msgstr "高半径应大于低半径"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "半径应介于{{min}}至{{max}}之间"
 
+msgid "Choose from presets"
+msgstr "从预设中选择"
+
+msgid "Define start - end dates"
+msgstr "定义开始 - 结束日期"
+
 msgid "Indicator group is required"
 msgstr "需要指标组"
 
@@ -552,6 +558,9 @@ msgstr "相关实体风格"
 
 msgid "Line Color"
 msgstr "线颜色"
+
+msgid "Tracked Entity Type is required"
+msgstr "需要跟踪实体类型"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "跟踪的实体类型没有发现关系类型"
@@ -912,29 +921,52 @@ msgstr "前年"
 msgid "Next year"
 msgstr "来年"
 
-msgid "Period type"
-msgstr "周期类型"
-
 msgid "Start/end dates"
 msgstr "开始-结束日期"
 
-msgid "Only one timeline is allowed."
-msgstr "仅仅允许一个时限"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "至少选择{{number}} 期或 1 个多期。"
 
-msgid "Remove other layers to enable split map views."
-msgstr "移除其他图层使能分离视图功能"
+msgid "Remove the existing timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "显示期间"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr "最多只能选择{{number}} 个时段（包括多时段）。"
 
-msgid "Single (aggregate)"
-msgstr "单值（合计）"
+msgid "Remove all existing layers to add a split map view."
+msgstr "移除所有现有图层，添加分割地图视图。"
+
+msgid "Single"
+msgstr "单人"
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr "以组合图层的形式显示时段。数据已汇总。"
 
 msgid "Timeline"
 msgstr "时间线"
 
-msgid "Split map views"
-msgstr "拆分地图视图"
+msgid "Show multiple periods as an interactive timeline."
+msgstr "以互动时间轴的形式显示多个时期。"
+
+msgid "Split"
+msgstr "分割"
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr "在视图中显示多个地图，每个时段一个（最多{{number}} ）。"
+
+msgid "Period display mode"
+msgstr "周期显示模式"
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr "开始和结束日期包括在内，并将反映在产出中。"
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr "开始和结束日期必须使用 ISO 8601（公历）日期格式输入。"
 
 msgid "Start date"
 msgstr "开始日期"

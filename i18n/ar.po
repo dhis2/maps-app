@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -27,6 +27,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -458,6 +467,12 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "يجب أن يتراوح نصف القطر بين {{min}} و {{max}}"
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr "مجموعة المؤشر مطلوبة"
 
@@ -479,6 +494,9 @@ msgstr "عنصر بيانات الحدث مطلوب"
 msgid "Program indicator is required"
 msgstr "مؤشر البرنامج مطلوب"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "الفترة مطلوبة"
 
@@ -493,6 +511,9 @@ msgstr "عناصر بيانات الحدث"
 
 msgid "Program indicators"
 msgstr "مؤشرات البرنامج"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "نوع العنصر"
@@ -537,6 +558,9 @@ msgstr ""
 
 msgid "Line Color"
 msgstr "لون الخط"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "لم يتم العثور على أنواع العلاقات لنوع الكيان المتعقب {{type}}"
@@ -723,6 +747,9 @@ msgstr "الوحدة العليا"
 msgid "No data"
 msgstr "لا توجد بيانات"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "آخر تحديث"
 
@@ -897,29 +924,52 @@ msgstr "السنة الماضية"
 msgid "Next year"
 msgstr "السنة التالية"
 
-msgid "Period type"
-msgstr "نوع الفترة الزمنية"
-
 msgid "Start/end dates"
 msgstr "تواريخ- البدء-الانتهاء"
 
-msgid "Only one timeline is allowed."
-msgstr "مسموح بجدول زمني واحد فقط."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "قم بإزالة الطبقات الأخرى لتمكين عروض الخريطة المقسمة."
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "عرض الفترات"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
 msgstr ""
 
 msgid "Timeline"
 msgstr "الجدول الزمني"
 
-msgid "Split map views"
-msgstr "عروض الخريطة المقسمة"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "تاريخ البداية"
@@ -1432,6 +1482,9 @@ msgid "Organisation units"
 msgstr "الوحدات التنظيمية"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"

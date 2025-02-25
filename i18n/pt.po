@@ -8,15 +8,15 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Ge Joao <gsimango@saudigitus.org>, 2024
 # Shelsea Chumaio, 2024
-# Helton Dias, 2024
-# António Fernando Macaringue, 2024
+# António Fernando Macaringue, 2025
+# Helton Dias, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-10-23T12:50:51.401Z\n"
+"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: António Fernando Macaringue, 2024\n"
+"Last-Translator: Helton Dias, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -491,6 +491,12 @@ msgstr "O raio alto deve ser maior que o raio baixo"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "O raio deve estar entre {{min}} e {{max}}"
 
+msgid "Choose from presets"
+msgstr "Escolha entre predefinições"
+
+msgid "Define start - end dates"
+msgstr "Definir datas de início e de fim"
+
 msgid "Indicator group is required"
 msgstr "O grupo de indicadores é obrigatório"
 
@@ -583,6 +589,9 @@ msgstr "Estilo da entidade relacionada"
 
 msgid "Line Color"
 msgstr "Cor da linha "
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -957,29 +966,52 @@ msgstr "Ano anterior"
 msgid "Next year"
 msgstr "ano seguinte"
 
-msgid "Period type"
-msgstr "Tipo de periodo"
-
 msgid "Start/end dates"
 msgstr "Datas de Inicio/término"
 
-msgid "Only one timeline is allowed."
-msgstr "Apenas uma linha do tempo é permitida."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Remova outras camadas para activar as visualizações de mapa dividido."
+msgid "Remove the exiting timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Períodos de exibição"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Único (agregado)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Linha do tempo"
 
-msgid "Split map views"
-msgstr "Dividir visualizações de mapa"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Data Início"
@@ -1033,7 +1065,7 @@ msgid "Acres"
 msgstr "Acres"
 
 msgid "Mean"
-msgstr "Principal"
+msgstr "Média"
 
 msgid "Median"
 msgstr "Mediana"

@@ -6,6 +6,8 @@ const config = {
 
     minDHIS2Version: '2.40',
 
+    pluginType: 'DASHBOARD',
+
     pwa: {
         enabled: true,
         caching: {
@@ -21,8 +23,6 @@ const config = {
 
     coreApp: true,
     dataStoreNamespace: 'DHIS2_MAPS_APP_CORE',
-
-    skipPluginLogic: true,
 }
 
 module.exports = config
