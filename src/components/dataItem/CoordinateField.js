@@ -10,7 +10,6 @@ import {
     NONE,
 } from '../../constants/layers.js'
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
-import usePrevious from '../../hooks/usePrevious.js'
 import { SelectField } from '../core/index.js'
 
 const includeTypes = ['COORDINATE']
@@ -23,16 +22,11 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
-    const { eventDataItems, loading } = useEventDataItems({
+    const { eventDataItems, trackedEntityType, fetching } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
         includeTypes,
     })
-
-    const prevProgram = usePrevious(program)
-    const prevProgramStage = usePrevious(programStage)
-
-    const isTrackerProgram = !!program?.trackedEntityType
 
     const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
 
@@ -56,7 +50,7 @@ const CoordinateField = ({
             name: i18n.t('Event location'),
         })
 
-        if (isTrackerProgram) {
+        if (trackedEntityType) {
             fields.push({
                 id: EVENT_COORDINATE_ENROLLMENT,
                 name: i18n.t('Enrollment location'),
@@ -81,24 +75,14 @@ const CoordinateField = ({
         return eventCoordinateField
             ? fields.filter((f) => f.id !== eventCoordinateField)
             : fields
-    }, [isTrackerProgram, eventDataItems, eventCoordinateField])
+    }, [trackedEntityType, eventDataItems, eventCoordinateField])
 
-    // Reset default value when program or programStage is changed
+    // Reset default value when program or programStage is changed and prev value is not available anymore
     useEffect(() => {
-        if (
-            (prevProgram && program !== prevProgram) ||
-            (prevProgramStage && programStage !== prevProgramStage)
-        ) {
+        if (!fetching && !fields.find((f) => f.id === value)) {
             onChange(defaultValue)
         }
-    }, [
-        program,
-        prevProgram,
-        programStage,
-        prevProgramStage,
-        defaultValue,
-        onChange,
-    ])
+    }, [fetching, fields, value, defaultValue, onChange])
 
     return (
         <div className={className}>
@@ -112,10 +96,10 @@ const CoordinateField = ({
                 value={
                     fields.find((f) => f.id === value) ? value : defaultValue
                 }
-                loading={loading}
+                loading={fetching}
                 helpText={
                     value === EVENT_COORDINATE_CASCADING
-                        ? isTrackerProgram
+                        ? trackedEntityType
                             ? i18n.t(
                                   'Enrollment > event > tracked entity > org unit coordinate'
                               )

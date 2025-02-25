@@ -10,7 +10,7 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
         params: ({ nameProperty }) => {
             return {
                 fields: [
-                    `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),valueType,optionSet[id,displayName~rename(name)],legendSet]]`,
+                    `trackedEntityType,programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),valueType,optionSet[id,displayName~rename(name)],legendSet]]`,
                 ],
                 paging: false,
             }
@@ -20,26 +20,29 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
 
 export const useProgramTrackedEntityAttributes = ({ programId }) => {
     const [programAttributes, setProgramAttributes] = useState(null)
+    const [trackedEntityType, setTrackedEntityType] = useState(null)
     const { nameProperty } = useCachedDataQuery()
 
-    const { refetch, loading } = useDataQuery(
+    const { refetch, fetching } = useDataQuery(
         PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
         {
-            lazy: true,
             variables: { nameProperty },
             onComplete: (data) => {
                 const attributes =
-                    data.trackedEntityAttributes.programTrackedEntityAttributes.map(
+                    data?.trackedEntityAttributes?.programTrackedEntityAttributes?.map(
                         (attr) => attr.trackedEntityAttribute
-                    )
-
+                    ) || []
                 setProgramAttributes(getValidDataItems(attributes))
+                setTrackedEntityType(
+                    data?.trackedEntityAttributes?.trackedEntityType
+                )
             },
         }
     )
 
     useEffect(() => {
         setProgramAttributes(null)
+        setTrackedEntityType(null)
 
         if (programId) {
             refetch({
@@ -50,6 +53,7 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
 
     return {
         programAttributes,
-        loading,
+        trackedEntityType,
+        fetching,
     }
 }
