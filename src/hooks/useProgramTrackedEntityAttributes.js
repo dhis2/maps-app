@@ -23,9 +23,10 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
     const [trackedEntityType, setTrackedEntityType] = useState(null)
     const { nameProperty } = useCachedDataQuery()
 
-    const { refetch, fetching } = useDataQuery(
+    const { refetch, loading } = useDataQuery(
         PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
         {
+            lazy: true,
             variables: { nameProperty },
             onComplete: (data) => {
                 const attributes =
@@ -34,7 +35,7 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
                     ) || []
                 setProgramAttributes(getValidDataItems(attributes))
                 setTrackedEntityType(
-                    data?.trackedEntityAttributes?.trackedEntityType
+                    data?.trackedEntityAttributes?.trackedEntityType || {}
                 )
             },
         }
@@ -54,6 +55,6 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
     return {
         programAttributes,
         trackedEntityType,
-        fetching,
+        loading,
     }
 }
