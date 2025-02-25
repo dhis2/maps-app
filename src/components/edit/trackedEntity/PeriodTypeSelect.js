@@ -1,8 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
-import { setPeriodType } from '../../../actions/layerEdit.js'
 import { LAST_UPDATED_DATES } from '../../../constants/periods.js'
 import { Radio, RadioGroup } from '../../core/index.js'
 import styles from './styles/PeriodTypeSelect.module.css'
@@ -10,7 +8,7 @@ import styles from './styles/PeriodTypeSelect.module.css'
 const PeriodTypeSelect = ({
     program,
     periodType = LAST_UPDATED_DATES,
-    setPeriodType,
+    onChange,
 }) => {
     const label = i18n.t(
         'Select period when tracked entities were last updated'
@@ -20,7 +18,7 @@ const PeriodTypeSelect = ({
         <RadioGroup
             name="type"
             value={periodType}
-            onChange={(type) => setPeriodType({ value: type })}
+            onChange={(type) => onChange({ value: type })}
         >
             <Radio value="lastUpdated" label={label} />
             <Radio
@@ -36,15 +34,9 @@ const PeriodTypeSelect = ({
 }
 
 PeriodTypeSelect.propTypes = {
-    setPeriodType: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     periodType: PropTypes.string,
     program: PropTypes.object,
 }
 
-export default connect(
-    ({ layerEdit }) => ({
-        program: layerEdit.program,
-        periodType: layerEdit.periodType,
-    }),
-    { setPeriodType }
-)(PeriodTypeSelect)
+export default PeriodTypeSelect
