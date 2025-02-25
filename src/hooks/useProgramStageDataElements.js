@@ -27,7 +27,7 @@ export const useProgramStageDataElements = ({ programStageId }) => {
             lazy: true,
             variables: { nameProperty },
             onComplete: (data) => {
-                const elements = data?.elements?.programStageDataElements?.map(
+                const elements = data.elements.programStageDataElements.map(
                     (attr) => attr.dataElement
                 )
 

@@ -29,7 +29,7 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
             variables: { nameProperty },
             onComplete: (data) => {
                 const attributes =
-                    data?.trackedEntityAttributes?.programTrackedEntityAttributes?.map(
+                    data.trackedEntityAttributes.programTrackedEntityAttributes.map(
                         (attr) => attr.trackedEntityAttribute
                     )
 
