@@ -22,7 +22,7 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
-    const { eventDataItems, trackedEntityType, loading } = useEventDataItems({
+    const { eventDataItems, trackedEntityType } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
         includeTypes,
@@ -109,15 +109,17 @@ const CoordinateField = ({
                 }
                 items={fields}
                 value={
-                    fields.find((f) => f.id === value) ? value : defaultValue
+                    fields.find((f) => f.id === value) ? value : null
                 }
-                loading={loading}
+                loading={
+                    value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType
+                }
                 helpText={
                     value === EVENT_COORDINATE_CASCADING
                         ? trackedEntityType
                             ? i18n.t(
-                                  'Enrollment > event > tracked entity > org unit coordinate'
-                              )
+                                'Enrollment > event > tracked entity > org unit coordinate'
+                            )
                             : i18n.t('Event > org unit coordinate')
                         : null
                 }
