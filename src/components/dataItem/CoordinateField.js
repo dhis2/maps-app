@@ -108,9 +108,7 @@ const CoordinateField = ({
                         : i18n.t('Coordinate field')
                 }
                 items={fields}
-                value={
-                    fields.find((f) => f.id === value) ? value : null
-                }
+                value={fields.find((f) => f.id === value) ? value : null}
                 loading={
                     value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType
                 }
@@ -118,8 +116,8 @@ const CoordinateField = ({
                     value === EVENT_COORDINATE_CASCADING
                         ? trackedEntityType
                             ? i18n.t(
-                                'Enrollment > event > tracked entity > org unit coordinate'
-                            )
+                                  'Enrollment > event > tracked entity > org unit coordinate'
+                              )
                             : i18n.t('Event > org unit coordinate')
                         : null
                 }
