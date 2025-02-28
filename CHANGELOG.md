@@ -1,3 +1,16 @@
+# [101.1.0](https://github.com/dhis2/maps-app/compare/v101.0.3...v101.1.0) (2025-02-28)
+
+
+### Bug Fixes
+
+* maintain coordinate field value when editing Event layer [DHIS2-17710] ([#3478](https://github.com/dhis2/maps-app/issues/3478)) ([77daffe](https://github.com/dhis2/maps-app/commit/77daffe1a249d7abc333511ee27d2b443cd0800b))
+* prevent enrollment date setting with no program in TrackedEntity layer [DHIS2-18312] ([#3477](https://github.com/dhis2/maps-app/issues/3477)) ([ff18e20](https://github.com/dhis2/maps-app/commit/ff18e20d46d43b31fc45259105b23bd006d34eb4))
+
+
+### Features
+
+* resize map when opening full screen in dashboard [DHIS2-18641] ([#3476](https://github.com/dhis2/maps-app/issues/3476)) ([949c09f](https://github.com/dhis2/maps-app/commit/949c09fac32c9f3a0c4212ee8357313fddfe8a41))
+
 ## [101.0.3](https://github.com/dhis2/maps-app/compare/v101.0.2...v101.0.3) (2025-02-25)
 
 
