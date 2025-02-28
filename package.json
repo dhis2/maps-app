@@ -20,7 +20,7 @@
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^11.8.0",
-        "@dhis2/cli-style": "^10.7.5",
+        "@dhis2/cli-style": "^10.7.6",
         "@dhis2/cypress-commands": "^10.0.6",
         "@dhis2/cypress-plugins": "^10.0.6",
         "@semantic-release/changelog": "^6",
@@ -28,7 +28,7 @@
         "@semantic-release/git": "^10",
         "@testing-library/react": "^12.1.5",
         "cypress": "^13.17.0",
-        "cypress-real-events": "^1.13.0",
+        "cypress-real-events": "^1.14.0",
         "cypress-tags": "^1.2.2",
         "cypress-wait-until": "^1.7.2",
         "enzyme": "^3.11.0",
