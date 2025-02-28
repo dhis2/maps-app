@@ -128,7 +128,7 @@ class EventLayer extends Layer {
         }
 
         if (program && programStage) {
-            this.loadDisplayElements(engine, nameProperty)
+            this.loadDisplayElements(engine, nameProperty, styleDataItem)
         }
 
         // Create and add event layer based on config object
@@ -141,13 +141,12 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const { styleDataItem, nameProperty } = this.props
+        const { nameProperty } = this.props
         const { popup, displayElements, eventCoordinateFieldName } = this.state
 
         return popup && displayElements ? (
             <EventPopup
                 {...popup}
-                styleDataItem={styleDataItem}
                 nameProperty={nameProperty}
                 displayElements={displayElements}
                 eventCoordinateFieldName={eventCoordinateFieldName}
@@ -201,7 +200,7 @@ class EventLayer extends Layer {
     }
 
     // Loads the data elements for a program stage to display in popup
-    async loadDisplayElements(engine, nameProperty) {
+    async loadDisplayElements(engine, nameProperty, styleDataItem) {
         const { programStage, eventCoordinateField } = this.props
 
         const displayNameProp =
@@ -217,8 +216,20 @@ class EventLayer extends Layer {
 
         if (Array.isArray(programStageDataElements)) {
             displayElements = programStageDataElements
-                .filter((d) => d.displayInReports)
+                .filter(
+                    (d) =>
+                        d.displayInReports ||
+                        d.dataElement.id === styleDataItem?.id
+                )
                 .map((d) => d.dataElement)
+
+            if (styleDataItem) {
+                // Put styleDataItem first in array
+                displayElements = [
+                    ...displayElements.filter((d) => d.id === styleDataItem.id),
+                    ...displayElements.filter((d) => d.id !== styleDataItem.id),
+                ]
+            }
 
             for (const d of displayElements) {
                 await this.loadOptionSet(d, engine)
