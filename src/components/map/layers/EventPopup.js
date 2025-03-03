@@ -17,10 +17,23 @@ const EVENTS_QUERY = {
     },
 }
 
-const getDataRows = ({ displayElements, dataValues }) => {
+const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
     const dataRows = []
 
-    // Include rows for each data element used for styling and displayInReport
+    // Include data element used for styling if not included below
+    if (
+        styleDataItem &&
+        !displayElements.find((d) => d.id === styleDataItem.id)
+    ) {
+        dataRows.push(
+            <tr key={styleDataItem.id}>
+                <th>{styleDataItem.name}</th>
+                <td>{hasValue(value) ? value : i18n.t('Not set')}</td>
+            </tr>
+        )
+    }
+
+    // Include rows for each displayInReport data elements
     displayElements.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find((d) => d.dataElement === id) || {}
         let formattedValue = value
@@ -52,6 +65,7 @@ const getDataRows = ({ displayElements, dataValues }) => {
 const EventPopup = ({
     coordinates,
     feature,
+    styleDataItem,
     nameProperty,
     displayElements,
     eventCoordinateFieldName,
@@ -95,6 +109,7 @@ const EventPopup = ({
     }, [feature, nameProperty, refetchEvent, refetchOrgUnit])
 
     const { type, coordinates: coord } = feature.geometry
+    const { value } = feature.properties
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
 
     return (
@@ -118,6 +133,8 @@ const EventPopup = ({
                             getDataRows({
                                 displayElements,
                                 dataValues,
+                                styleDataItem,
+                                value,
                             })}
                         {type === 'Point' && (
                             <tr>
@@ -156,6 +173,7 @@ EventPopup.propTypes = {
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
+    styleDataItem: PropTypes.object,
 }
 
 export default EventPopup
