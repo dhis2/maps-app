@@ -31,6 +31,7 @@ class EventLayer extends Layer {
             data,
             engine,
             eventClustering,
+            eventCoordinateField,
             eventPointColor,
             eventPointRadius,
             nameProperty,
@@ -128,7 +129,13 @@ class EventLayer extends Layer {
         }
 
         if (program && programStage) {
-            this.loadDisplayElements(engine, nameProperty, styleDataItem)
+            this.loadDisplayElements({
+                engine,
+                nameProperty,
+                styleDataItem,
+                programStage,
+                eventCoordinateField,
+            })
         }
 
         // Create and add event layer based on config object
@@ -200,9 +207,13 @@ class EventLayer extends Layer {
     }
 
     // Loads the data elements for a program stage to display in popup
-    async loadDisplayElements(engine, nameProperty, styleDataItem) {
-        const { programStage, eventCoordinateField } = this.props
-
+    async loadDisplayElements({
+        engine,
+        nameProperty,
+        styleDataItem,
+        programStage,
+        eventCoordinateField,
+    }) {
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
 
