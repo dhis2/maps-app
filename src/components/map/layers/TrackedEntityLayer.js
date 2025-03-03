@@ -14,29 +14,12 @@ import {
     GEO_TYPE_FEATURE,
 } from '../../../util/geojson.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
+import {
+    ATTRIBUTES_QUERY,
+    PROGRAM_ATTRIBUTES_QUERY,
+} from '../../../util/trackedEntity.js'
 import Layer from './Layer.js'
 import TrackedEntityPopup from './TrackedEntityPopup.js'
-
-const ATTRIBUTES_QUERY = {
-    trackedEntityType: {
-        resource: 'trackedEntityTypes',
-        id: ({ id }) => id,
-        params: ({ nameProperty }) => ({
-            fields: `trackedEntityTypeAttributes[displayInList,trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
-            paging: false,
-        }),
-    },
-}
-const PROGRAM_ATTRIBUTES_QUERY = {
-    program: {
-        resource: 'programs',
-        id: ({ id }) => id,
-        params: ({ nameProperty }) => ({
-            fields: `programTrackedEntityAttributes[displayInList,trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
-            paging: false,
-        }),
-    },
-}
 
 const getCentroid = (points) => {
     const totals = points.reduce(
