@@ -72,9 +72,9 @@ class ThematicLayer extends Layer {
                     ...values[f.id],
                     ...(f.properties.hasAdditionalGeometry &&
                         f.geometry.type === 'Point' && {
-                            color: ORG_UNIT_COLOR,
-                            radius: ORG_UNIT_RADIUS_SMALL,
-                        }),
+                        color: ORG_UNIT_COLOR,
+                        radius: ORG_UNIT_RADIUS_SMALL,
+                    }),
                 },
             }))
 
@@ -248,32 +248,7 @@ class ThematicLayer extends Layer {
         )
     }
 
-    onPeriodChange = (period) => {
-        this.setState((prevState) => {
-            if (!prevState.popup) {
-                return { period }
-            }
-
-            const { popup } = prevState
-            const { valuesByPeriod } = this.props
-            const newValues = valuesByPeriod[period.id] || {}
-            const updatedFeature = {
-                ...popup.feature,
-                properties: {
-                    ...popup.feature.properties,
-                    ...newValues[popup.feature.properties.id],
-                },
-            }
-
-            return {
-                period,
-                popup: {
-                    ...popup,
-                    feature: updatedFeature,
-                },
-            }
-        })
-    }
+    onPeriodChange = (period) => this.setState({ period })
 
     onFeatureClick(evt) {
         this.setState({ popup: evt })
