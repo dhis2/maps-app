@@ -11,6 +11,7 @@ import {
     setFollowUpStatus,
     setTrackedEntityRelationshipType,
     setTrackedEntityRelationshipOutsideProgram,
+    setPeriodType,
     setStartDate,
     setEndDate,
     setOrgUnits,
@@ -31,6 +32,7 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
 } from '../../../constants/layers.js'
+import { LAST_UPDATED_DATES } from '../../../constants/periods.js'
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { getStartEndDateError } from '../../../util/time.js'
@@ -58,6 +60,7 @@ class TrackedEntityDialog extends Component {
         setEventPointRadius: PropTypes.func.isRequired,
         setFollowUpStatus: PropTypes.func.isRequired,
         setOrgUnits: PropTypes.func.isRequired,
+        setPeriodType: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
         setRelatedPointColor: PropTypes.func.isRequired,
@@ -73,6 +76,7 @@ class TrackedEntityDialog extends Component {
         eventPointRadius: PropTypes.number,
         followUp: PropTypes.bool,
         orgUnits: PropTypes.object,
+        periodType: PropTypes.string,
         periodsSettings: PropTypes.object,
         program: PropTypes.object,
         programStatus: PropTypes.string,
@@ -130,8 +134,14 @@ class TrackedEntityDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation, startDate, endDate } =
-            this.props
+        const {
+            validateLayer,
+            onLayerValidation,
+            startDate,
+            endDate,
+            program,
+            setPeriodType,
+        } = this.props
         const { periodError } = this.state
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
@@ -144,6 +154,10 @@ class TrackedEntityDialog extends Component {
         ) {
             this.setErrorState('periodError', null, 'period')
         }
+
+        if (!program && prev.program !== program) {
+            setPeriodType(LAST_UPDATED_DATES)
+        }
     }
 
     render() {
@@ -151,6 +165,7 @@ class TrackedEntityDialog extends Component {
             eventPointColor,
             eventPointRadius,
             followUp,
+            periodType,
             program,
             programStatus,
             trackedEntityType,
@@ -163,6 +178,7 @@ class TrackedEntityDialog extends Component {
 
         const {
             setTrackedEntityType,
+            setPeriodType,
             setProgram,
             setProgramStatus,
             setFollowUpStatus,
@@ -284,7 +300,11 @@ class TrackedEntityDialog extends Component {
                         ))}
                     {tab === 'period' && (
                         <div className={styles.flexRowFlow}>
-                            <PeriodTypeSelect />
+                            <PeriodTypeSelect
+                                program={program}
+                                periodType={periodType}
+                                onChange={setPeriodType}
+                            />
                             <StartEndDate
                                 onSelectStartDate={setStartDate}
                                 onSelectEndDate={setEndDate}
@@ -436,6 +456,7 @@ export default connect(
         setFollowUpStatus,
         setTrackedEntityRelationshipType,
         setTrackedEntityRelationshipOutsideProgram,
+        setPeriodType,
         setStartDate,
         setEndDate,
         setOrgUnits,
