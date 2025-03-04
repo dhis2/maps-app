@@ -17,11 +17,11 @@ const EVENTS_QUERY = {
     },
 }
 
-const getDataRows = ({ displayElements, dataValues }) => {
+const getDataRows = ({ displayItems, dataValues }) => {
     const dataRows = []
 
     // Include rows for each data element used for styling and displayInReport
-    displayElements.forEach(({ id, name, valueType, options }) => {
+    displayItems.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find((d) => d.dataElement === id) || {}
         let formattedValue = value
 
@@ -30,7 +30,7 @@ const getDataRows = ({ displayElements, dataValues }) => {
         } else if (!hasValue(value)) {
             formattedValue = i18n.t('Not set')
         } else if (options) {
-            formattedValue = options[value]
+            formattedValue = options[value] || value
         }
 
         dataRows.push(
@@ -52,8 +52,9 @@ const getDataRows = ({ displayElements, dataValues }) => {
 const EventPopup = ({
     coordinates,
     feature,
+    styleDataItem,
     nameProperty,
-    displayElements,
+    displayItems,
     eventCoordinateFieldName,
     onClose,
 }) => {
@@ -96,6 +97,12 @@ const EventPopup = ({
 
     const { type, coordinates: coord } = feature.geometry
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
+    if (!dataValues.some((d) => d.dataElement === styleDataItem?.id)) {
+        dataValues.push({
+            dataElement: styleDataItem?.id,
+            value: feature.properties[styleDataItem?.id],
+        })
+    }
 
     return (
         <Popup
@@ -116,7 +123,7 @@ const EventPopup = ({
                     <tbody>
                         {dataEvent?.events &&
                             getDataRows({
-                                displayElements,
+                                displayItems,
                                 dataValues,
                             })}
                         {type === 'Point' && (
@@ -151,11 +158,12 @@ const EventPopup = ({
 
 EventPopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
-    displayElements: PropTypes.array.isRequired,
+    displayItems: PropTypes.array.isRequired,
     feature: PropTypes.object.isRequired,
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
+    styleDataItem: PropTypes.object,
 }
 
 export default EventPopup

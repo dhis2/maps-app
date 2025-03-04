@@ -17,6 +17,21 @@ export const PROGRAM_STAGE_QUERY = {
     },
 }
 
+export const PROGRAM_QUERY = {
+    program: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => {
+            return {
+                fields: [
+                    `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
+                ],
+                paging: false,
+            }
+        },
+    },
+}
+
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
 const isValidDimension = ({ dimension, filter, items }) =>
