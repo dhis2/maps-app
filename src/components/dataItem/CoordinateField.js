@@ -100,30 +100,28 @@ const CoordinateField = ({
     ])
 
     return (
-        <div className={className}>
-            <SelectField
-                label={
-                    eventCoordinateField
-                        ? i18n.t('Fallback coordinate field')
-                        : i18n.t('Coordinate field')
-                }
-                items={fields}
-                value={fields.find((f) => f.id === value) ? value : null}
-                loading={
-                    value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType
-                }
-                helpText={
-                    value === EVENT_COORDINATE_CASCADING
-                        ? trackedEntityType
-                            ? i18n.t(
-                                  'Enrollment > event > tracked entity > org unit coordinate'
-                              )
-                            : i18n.t('Event > org unit coordinate')
-                        : null
-                }
-                onChange={(field) => onChange(field.id)}
-            />
-        </div>
+        <SelectField
+            label={
+                eventCoordinateField
+                    ? i18n.t('Fallback coordinate field')
+                    : i18n.t('Coordinate field')
+            }
+            items={fields}
+            value={fields.find((f) => f.id === value) ? value : null}
+            loading={value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType}
+            helpText={
+                value === EVENT_COORDINATE_CASCADING
+                    ? trackedEntityType
+                        ? i18n.t(
+                              'Enrollment > event > tracked entity > org unit coordinate'
+                          )
+                        : i18n.t('Event > org unit coordinate')
+                    : null
+            }
+            onChange={(field) => onChange(field.id)}
+            className={className}
+            dataTest="coordinatefield"
+        />
     )
 }
 
