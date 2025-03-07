@@ -183,6 +183,17 @@ const loadEventLayer = async ({
                 )),
             })
 
+        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+            program,
+            programStage,
+            eventCoordinateField,
+            engine,
+            nameProperty,
+        })
+        if (eventCoordinateFieldName) {
+            config.legend.coordinateFields = [eventCoordinateFieldName]
+        }
+
         config.headers = response.headers
 
         const numericDataItemHeaders = config.headers.filter(
@@ -207,23 +218,12 @@ const loadEventLayer = async ({
     }
 
     if (!styleDataItem) {
-        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
-            program,
-            programStage,
-            eventCoordinateField,
-            engine,
-            nameProperty,
-        })
         const color = cssColor(eventPointColor) || EVENT_COLOR
         const strokeColor = getContrastColor(color)
 
         config.legend.items = [
             {
-                name:
-                    i18n.t('Event') +
-                    (eventCoordinateFieldName
-                        ? ` (${eventCoordinateFieldName})`
-                        : ''),
+                name: i18n.t('Event'),
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,

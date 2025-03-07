@@ -72,9 +72,9 @@ class ThematicLayer extends Layer {
                     ...values[f.id],
                     ...(f.properties.hasAdditionalGeometry &&
                         f.geometry.type === 'Point' && {
-                        color: ORG_UNIT_COLOR,
-                        radius: ORG_UNIT_RADIUS_SMALL,
-                    }),
+                            color: ORG_UNIT_COLOR,
+                            radius: ORG_UNIT_RADIUS_SMALL,
+                        }),
                 },
             }))
 
