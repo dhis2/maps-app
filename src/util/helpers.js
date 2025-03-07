@@ -10,7 +10,6 @@ const baseFields = [
     'latitude',
     'zoom',
     'basemap',
-    'publicAccess',
     'created',
     'lastUpdated',
     'access',
@@ -35,12 +34,10 @@ const analysisFields = () => {
         'trackedEntityType[id,displayName~rename(name)]',
         'organisationUnitSelectionMode',
         '!href',
-        '!publicAccess',
         '!rewindRelativePeriods',
         '!userOrganisationUnit',
         '!userOrganisationUnitChildren',
         '!userOrganisationUnitGrandChildren',
-        '!externalAccess',
         '!access',
         '!relativePeriods',
         '!columnDimensions',
@@ -49,7 +46,6 @@ const analysisFields = () => {
         '!user',
         '!organisationUnitGroups',
         '!itemOrganisationUnitGroups',
-        '!userGroupAccesses',
         '!indicators',
         '!dataElements',
         '!dataElementOperands',
@@ -66,16 +62,6 @@ export const mapFields = () => {
     const fields = analysisFields()
     return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`
 }
-
-export const legendFields = [
-    '*',
-    '!created',
-    '!lastUpdated',
-    '!displayName',
-    '!externalAccess',
-    '!access',
-    '!userGroupAccesses',
-]
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
 export const addOrgUnitPaths = (mapViews) =>
