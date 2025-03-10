@@ -30,6 +30,7 @@ const programGeowR = {
     startDate: `2025-01-01`,
     endDate: `2025-03-31`,
     ous: ['Bo', 'Bargbe'],
+    filters: { item: 'Geo - DataElement - ID', value: '#C' },
 }
 
 context('Event Layers', () => {
@@ -38,65 +39,6 @@ context('Event Layers', () => {
     })
 
     const Layer = new EventLayer()
-
-    it('change coordinate field', () => {
-        function testCoordinate(n) {
-            Layer.selectTab('Data').selectCoordinate(
-                programGeowR.coordinates[n]
-            )
-            cy.getByDataTest('layeredit-addbtn').click()
-
-            Layer.validateDialogClosed(true)
-
-            cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
-
-            cy.get('#dhis2-map-container')
-                .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-                .should('not.exist')
-
-            cy.get('.dhis2-map').click('center') // Click in the middle of the map
-
-            cy.get('.maplibregl-popup')
-                .contains(programGeowR.coordinates[n])
-                .should('be.visible')
-
-            Layer.validateCardTitle(programGeowR.stage)
-            Layer.validateCardItems([`Event (${programGeowR.coordinates[n]})`])
-        }
-
-        Layer.openDialog('Events')
-            .selectProgram(programGeowR.name)
-            .selectStage(programGeowR.stage)
-            .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
-            .typeStartDate(programGeowR.startDate)
-            .typeEndDate(programGeowR.endDate)
-            .selectTab('Org Units')
-
-        cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains(programGeowR.ous[0])
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains(programGeowR.ous[1])
-            .click()
-
-        Layer.selectTab('Style').selectViewAllEvents()
-
-        testCoordinate(2)
-
-        cy.getByDataTest('layer-edit-button').click()
-        testCoordinate(1)
-
-        cy.getByDataTest('layer-edit-button').click()
-        testCoordinate(0)
-    })
 
     it('adds an event layer and applies style for boolean data element', () => {
         Layer.openDialog('Events')
@@ -183,7 +125,77 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
-    // it('change coordinate field', () => {
+    it('change coordinate field', () => {
+        function testCoordinate(n, open = true) {
+            if (open) {
+                cy.getByDataTest('layer-edit-button').click()
+            }
+            Layer.selectTab('Data').selectCoordinate(
+                programGeowR.coordinates[n]
+            )
+            cy.getByDataTest('layeredit-addbtn').click()
+
+            Layer.validateDialogClosed(true)
+
+            cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+            cy.get('#dhis2-map-container')
+                .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+                .should('not.exist')
+
+            cy.get('.dhis2-map').click('center') // Click in the middle of the map
+
+            cy.get('.maplibregl-popup')
+                .contains(programGeowR.coordinates[n])
+                .should('be.visible')
+
+            Layer.validateCardTitle(programGeowR.stage)
+            Layer.validateCardContents([
+                'Coordinate field',
+                `${programGeowR.coordinates[n]}`,
+            ])
+        }
+
+        Layer.openDialog('Events')
+            .selectProgram(programGeowR.name)
+            .selectStage(programGeowR.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programGeowR.startDate)
+            .typeEndDate(programGeowR.endDate)
+            .selectTab('Org Units')
+
+        cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
+
+        cy.getByDataTest('org-unit-tree-node')
+            .contains(programGeowR.ous[0])
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        cy.getByDataTest('org-unit-tree-node')
+            .contains(programGeowR.ous[1])
+            .click()
+
+        Layer.selectTab('Filter')
+
+        cy.contains('Add filter').click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.contains(programGeowR.filters.item).click()
+        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+            .find('input')
+            .type(programGeowR.filters.value)
+
+        Layer.selectTab('Style').selectViewAllEvents()
+
+        testCoordinate(3, false) // Geo - DataElement - Coordinate
+        testCoordinate(4) // Geo - TrackedEntityAttribute - Coordinate
+        testCoordinate(2) // Tracked entity location
+        testCoordinate(1) // Enrollment location
+        testCoordinate(0) // Event location
+    })
 
     it('opens an event popup', () => {
         Layer.openDialog('Events')

@@ -134,4 +134,15 @@ export class Layer {
 
         return this
     }
+
+    validateCardContents(contents) {
+        contents.forEach((content) => {
+            cy.getByDataTest('layercard')
+                .find('[data-test="layerlegend"]')
+                .contains(content)
+                .should('be.visible')
+        })
+
+        return this
+    }
 }
