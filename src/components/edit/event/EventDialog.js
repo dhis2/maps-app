@@ -274,6 +274,7 @@ class EventDialog extends Component {
                                 value={eventCoordinateField}
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
+                                data-test="eventdialog-coordinatefield"
                             />
                             {/* eventCoordinateField && (
                                 <CoordinateField
