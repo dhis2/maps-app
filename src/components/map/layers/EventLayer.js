@@ -221,9 +221,15 @@ class EventLayer extends Layer {
         let displayItems = []
         let eventCoordinateFieldName
 
-        const programStageResponse = await engine.query(PROGRAM_STAGE_DATA_ELEMENTS_QUERY, {
-            variables: { id: programStage.id, nameProperty: displayNameProp },
-        })
+        const programStageResponse = await engine.query(
+            PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+            {
+                variables: {
+                    id: programStage.id,
+                    nameProperty: displayNameProp,
+                },
+            }
+        )
         const programStageDataElements =
             programStageResponse?.programStage?.programStageDataElements
 
@@ -257,9 +263,15 @@ class EventLayer extends Layer {
                 !displayItems.some((item) => item.id === styleDataItem.id)) ||
             (eventCoordinateField && !eventCoordinateFieldName)
         ) {
-            const programResponse = await engine.query(PROGRAM_ATTRIBUTES_QUERY, {
-                variables: { id: program.id, nameProperty: displayNameProp },
-            })
+            const programResponse = await engine.query(
+                PROGRAM_ATTRIBUTES_QUERY,
+                {
+                    variables: {
+                        id: program.id,
+                        nameProperty: displayNameProp,
+                    },
+                }
+            )
             const programTrackedEntityAttributes =
                 programResponse?.program?.programTrackedEntityAttributes
 

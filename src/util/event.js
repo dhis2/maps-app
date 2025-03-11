@@ -39,9 +39,12 @@ export const getEventColumns = async (
     layer,
     { format = METADATA_FORMAT_NAME, nameProperty, engine }
 ) => {
-    const { programStage: result } = await engine.query(PROGRAM_STAGE_DATA_ELEMENTS_QUERY, {
-        variables: { id: layer.programStage.id, nameProperty },
-    })
+    const { programStage: result } = await engine.query(
+        PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+        {
+            variables: { id: layer.programStage.id, nameProperty },
+        }
+    )
 
     return result.programStageDataElements
         .filter((el) => el.displayInReports)
