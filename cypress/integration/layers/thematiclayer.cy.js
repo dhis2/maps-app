@@ -121,9 +121,7 @@ context('Thematic Layers', () => {
 
         cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
 
-        Layer.openOu('Tonkolili')
-            .selectOu('Gbonkonlenken')
-            .addToMap()
+        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken').addToMap()
 
         cy.get('.dhis2-map').click('center')
 
