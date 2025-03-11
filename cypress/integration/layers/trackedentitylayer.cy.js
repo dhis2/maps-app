@@ -49,7 +49,7 @@ describe('Tracked Entity Layers', () => {
             .should('not.exist')
         cy.get('.dhis2-map').click('center') // Click somewhere on the map
 
-        validatePopupContents([
+        Layer.validatePopupContents([
             'Organisation unit',
             'Last updated',
             'System Focus ID',

@@ -91,8 +91,6 @@ export const COORDINATE_FIELD_NAMES = {
     [EVENT_COORDINATE_DEFAULT]: i18n.t('Event location'),
     [EVENT_COORDINATE_ENROLLMENT]: i18n.t('Enrollment location'),
     [EVENT_COORDINATE_TRACKED_ENTITY]: i18n.t('Tracked entity location'),
-    [EVENT_COORDINATE_ORG_UNIT]: i18n.t('Org unit location'),
-    [EVENT_COORDINATE_CASCADING]: i18n.t('Cascading location'),
 }
 
 /* TEI LAYER */

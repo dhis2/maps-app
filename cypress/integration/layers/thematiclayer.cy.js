@@ -131,10 +131,10 @@ context('Thematic Layers', () => {
             .should('not.exist')
 
         cy.get('.dhis2-map').click('center')
-        validatePopupContents(['Gbonkonlenken'])
+        Layer.validatePopupContents(['Gbonkonlenken'])
 
         cy.get('.dhis2-map').click(500, 500)
-        validatePopupContents(['Bo'])
+        Layer.validatePopupContents(['Bo'])
     })
 
     it('adds a thematic layer with start and end date', () => {
@@ -184,7 +184,7 @@ context('Thematic Layers', () => {
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
         cy.get('.dhis2-map').click('center') //Click in the middle of the map
-        validatePopupContents(['Value: 0'])
+        Layer.validatePopupContents(['Value: 0'])
 
         // Value: No data
         cy.getByDataTest('layer-edit-button').click()
@@ -200,7 +200,7 @@ context('Thematic Layers', () => {
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
         cy.get('.dhis2-map').click('center') //Click in the middle of the map
-        validatePopupContents(['Value: No data'])
+        Layer.validatePopupContents(['Value: No data'])
     })
 
     it('adds a thematic layer with multiple periods', () => {
@@ -236,7 +236,7 @@ context('Thematic Layers', () => {
         cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('.dhis2-map').click('center')
 
-        validatePopupContents(['Tonkolili'])
+        Layer.validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
             .contains('Value:')
             .invoke('text')
@@ -259,7 +259,7 @@ context('Thematic Layers', () => {
         cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('.dhis2-map').click('center')
 
-        validatePopupContents(['Tonkolili'])
+        Layer.validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
             .contains('Value:')
             .invoke('text')
@@ -282,7 +282,7 @@ context('Thematic Layers', () => {
         cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('.dhis2-map').click('center')
 
-        validatePopupContents(['Tonkolili'])
+        Layer.validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
             .contains('Value:')
             .invoke('text')
