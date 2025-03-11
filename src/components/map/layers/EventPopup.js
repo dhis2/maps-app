@@ -20,7 +20,7 @@ const EVENTS_QUERY = {
 const getDataRows = ({ displayItems, dataValues }) => {
     const dataRows = []
 
-    // Include rows for each data element used for styling and displayInReport
+    // Include rows for each data item used for styling and displayInReport
     displayItems.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find((d) => d.dataElement === id) || {}
         let formattedValue = value

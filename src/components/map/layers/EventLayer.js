@@ -18,7 +18,7 @@ class EventLayer extends Layer {
 
     state = {
         popup: null,
-        dataElements: null,
+        displayItems: null,
         eventCoordinateFieldName: null,
     }
 
@@ -63,9 +63,6 @@ class EventLayer extends Layer {
         const map = this.context.map
         let d2
         let eventRequest
-
-        // Data items to display in event popup
-        this.displayItemss = {}
 
         // Default props = no cluster
         const config = {
@@ -209,7 +206,7 @@ class EventLayer extends Layer {
         return features
     }
 
-    // Loads the data elements for a program stage to display in popup
+    // Loads the data items for a program stage to display in popup
     async loadDisplayItems({
         engine,
         nameProperty,
