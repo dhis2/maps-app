@@ -21,11 +21,11 @@ const programGeowR = {
     name: 'GeoProgram - Points (with reg)',
     stage: 'Geo - Stage - Point',
     coordinates: [
-        'Event location',
-        'Enrollment location',
-        'Tracked entity location',
-        'Geo - DataElement - Coordinate',
-        'Geo - TrackedEntityAttribute - Coordinate',
+        { name: 'Event location', coords: '-11.499252 8.178188' },
+        { name: 'Enrollment location', coords: '-11.634007 8.011976' },
+        { name: 'Tracked entity location', coords: '-11.529636 8.040193' },
+        { name: 'Geo - DataElement - Coordinate', coords: '-11.602850 8.077288' },
+        { name: 'Geo - TrackedEntityAttribute - Coordinate', coords: '-11.499982 8.049881' },
     ],
     startDate: `2025-01-01`,
     endDate: `2025-03-31`,
@@ -146,13 +146,16 @@ context('Event Layers', () => {
             cy.get('.dhis2-map').click('center') // Click in the middle of the map
 
             cy.get('.maplibregl-popup')
-                .contains(programGeowR.coordinates[n])
+                .contains(programGeowR.coordinates[n].name)
+                .should('be.visible')
+            cy.get('.maplibregl-popup')
+                .contains(programGeowR.coordinates[n].coords)
                 .should('be.visible')
 
             Layer.validateCardTitle(programGeowR.stage)
             Layer.validateCardContents([
                 'Coordinate field',
-                `${programGeowR.coordinates[n]}`,
+                `${programGeowR.coordinates[n].name}`,
             ])
         }
 
