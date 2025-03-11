@@ -8,6 +8,7 @@ export const TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
         }),
     },
 }
+
 export const PROGRAM_ATTRIBUTES_QUERY = {
     program: {
         resource: 'programs',
