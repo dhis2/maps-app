@@ -137,7 +137,7 @@ context('Event Layers', () => {
                 cy.getByDataTest('layer-edit-button').click()
             }
             Layer.selectTab('Data').selectCoordinate(
-                programGeowR.coordinates[n]
+                programGeowR.coordinates[n].name
             )
             cy.getByDataTest('layeredit-addbtn').click()
 
