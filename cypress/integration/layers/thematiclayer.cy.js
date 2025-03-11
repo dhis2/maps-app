@@ -118,35 +118,23 @@ context('Thematic Layers', () => {
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .selectTab('Org Units')
             .unselectOuLevel('District')
-
-        cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Tonkolili')
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
-
-        cy.getByDataTest('org-unit-tree-node').contains('Gbonkonlenken').click()
-
-        cy.getByDataTest('layeredit-addbtn').click()
+            .unselectOu('Sierra Leone')
+            .openOu('Tonkolili')
+            .selectOu('Gbonkonlenken')
+            .addToMap()
 
         cy.get('.dhis2-map').click('center')
 
-        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
 
         cy.get('.dhis2-map').click('center')
-        cy.get('.maplibregl-popup')
-            .contains('Gbonkonlenken')
-            .should('be.visible')
+        validatePopupContents(['Gbonkonlenken'])
 
         cy.get('.dhis2-map').click(500, 500)
-        cy.get('.maplibregl-popup').contains('Bo').should('be.visible')
+        validatePopupContents(['Bo'])
     })
 
     it('adds a thematic layer with start and end date', () => {
@@ -183,60 +171,36 @@ context('Thematic Layers', () => {
             .selectTab('Org Units')
             .unselectOuLevel('District')
             .selectOuLevel('Facility')
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Western Area')
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Rural Western Area')
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
+            .openOu('Western Area')
+            .openOu('Rural Western Area')
 
         // Value: 0
-        cy.getByDataTest('org-unit-tree-node').contains('Tokeh MCHP').click()
-
-        cy.getByDataTest('layeredit-addbtn').click()
+        Layer.selectOu('Tokeh MCHP').addToMap()
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
         cy.get('.dhis2-map').click('center') //Click in the middle of the map
-
-        cy.get('.maplibregl-popup').contains('Value: 0').should('be.visible')
+        validatePopupContents(['Value: 0'])
 
         // Value: No data
         cy.getByDataTest('layer-edit-button').click()
         Layer.selectTab('Org Units')
-
-        cy.getByDataTest('org-unit-tree-node').contains('Tokeh MCHP').click()
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Lakka Hospital')
-            .click()
-
-        cy.getByDataTest('layeredit-addbtn').click()
+            .unselectOu('Tokeh MCHP')
+            .selectOu('Lakka Hospital')
+            .updateMap()
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
         cy.get('.dhis2-map').click('center') //Click in the middle of the map
-
-        cy.get('.maplibregl-popup')
-            .contains('Value: No data')
-            .should('be.visible')
+        validatePopupContents(['Value: No data'])
     })
 
     it('adds a thematic layer with multiple periods', () => {
@@ -271,8 +235,8 @@ context('Thematic Layers', () => {
 
         cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('.dhis2-map').click('center')
-        cy.get('.maplibregl-popup').contains('Tonkolili').should('be.visible')
 
+        validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
             .contains('Value:')
             .invoke('text')
@@ -294,8 +258,8 @@ context('Thematic Layers', () => {
 
         cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('.dhis2-map').click('center')
-        cy.get('.maplibregl-popup').contains('Tonkolili').should('be.visible')
 
+        validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
             .contains('Value:')
             .invoke('text')
@@ -317,8 +281,8 @@ context('Thematic Layers', () => {
 
         cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('.dhis2-map').click('center')
-        cy.get('.maplibregl-popup').contains('Tonkolili').should('be.visible')
 
+        validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
             .contains('Value:')
             .invoke('text')

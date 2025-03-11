@@ -28,6 +28,20 @@ export class Layer {
         return this
     }
 
+    openOu(ouName) {
+        cy.getByDataTest('org-unit-tree').contains(ouName).scrollIntoView()
+
+        cy.getByDataTest('org-unit-tree')
+            .contains(ouName)
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        return this
+    }
+
     unselectOu(ouName) {
         cy.getByDataTest('org-unit-tree').contains(ouName).scrollIntoView()
 
@@ -141,6 +155,14 @@ export class Layer {
                 .find('[data-test="layerlegend"]')
                 .contains(content)
                 .should('be.visible')
+        })
+
+        return this
+    }
+
+    validatePopupContents(contents) {
+        contents.forEach((content) => {
+            cy.get('.maplibregl-popup').contains(content).should('be.visible')
         })
 
         return this
