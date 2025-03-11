@@ -24,8 +24,14 @@ const programGeowR = {
         { name: 'Event location', coords: '-11.499252 8.178188' },
         { name: 'Enrollment location', coords: '-11.634007 8.011976' },
         { name: 'Tracked entity location', coords: '-11.529636 8.040193' },
-        { name: 'Geo - DataElement - Coordinate', coords: '-11.602850 8.077288' },
-        { name: 'Geo - TrackedEntityAttribute - Coordinate', coords: '-11.499982 8.049881' },
+        {
+            name: 'Geo - DataElement - Coordinate',
+            coords: '-11.602850 8.077288',
+        },
+        {
+            name: 'Geo - TrackedEntityAttribute - Coordinate',
+            coords: '-11.499982 8.049881',
+        },
     ],
     startDate: `2025-01-01`,
     endDate: `2025-03-31`,
