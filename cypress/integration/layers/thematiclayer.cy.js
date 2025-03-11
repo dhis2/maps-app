@@ -118,8 +118,10 @@ context('Thematic Layers', () => {
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .selectTab('Org Units')
             .unselectOuLevel('District')
-            .unselectOu('Sierra Leone')
-            .openOu('Tonkolili')
+
+        cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
+
+        Layer.openOu('Tonkolili')
             .selectOu('Gbonkonlenken')
             .addToMap()
 
