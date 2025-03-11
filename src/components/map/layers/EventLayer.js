@@ -4,8 +4,8 @@ import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
 import {
     getAnalyticsRequest,
-    PROGRAM_STAGE_QUERY,
-    PROGRAM_QUERY,
+    PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+    PROGRAM_ATTRIBUTES_QUERY,
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { formatCount } from '../../../util/numbers.js'
@@ -221,7 +221,7 @@ class EventLayer extends Layer {
         let displayItems = []
         let eventCoordinateFieldName
 
-        const programStageResponse = await engine.query(PROGRAM_STAGE_QUERY, {
+        const programStageResponse = await engine.query(PROGRAM_STAGE_DATA_ELEMENTS_QUERY, {
             variables: { id: programStage.id, nameProperty: displayNameProp },
         })
         const programStageDataElements =
@@ -257,7 +257,7 @@ class EventLayer extends Layer {
                 !displayItems.some((item) => item.id === styleDataItem.id)) ||
             (eventCoordinateField && !eventCoordinateFieldName)
         ) {
-            const programResponse = await engine.query(PROGRAM_QUERY, {
+            const programResponse = await engine.query(PROGRAM_ATTRIBUTES_QUERY, {
                 variables: { id: program.id, nameProperty: displayNameProp },
             })
             const programTrackedEntityAttributes =
