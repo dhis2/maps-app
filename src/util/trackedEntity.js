@@ -1,4 +1,4 @@
-export const ATTRIBUTES_QUERY = {
+export const TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
     trackedEntityType: {
         resource: 'trackedEntityTypes',
         id: ({ id }) => id,

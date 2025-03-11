@@ -15,7 +15,7 @@ import {
 } from '../../../util/geojson.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
 import {
-    ATTRIBUTES_QUERY,
+    TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
     PROGRAM_ATTRIBUTES_QUERY,
 } from '../../../util/trackedEntity.js'
 import Layer from './Layer.js'
@@ -198,7 +198,7 @@ class TrackedEntityLayer extends Layer {
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
 
         const { trackedEntityType: data } = await engine.query(
-            ATTRIBUTES_QUERY,
+            TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
             {
                 variables: {
                     id: trackedEntityType.id,

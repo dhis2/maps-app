@@ -5,7 +5,7 @@ import { getContrastColor } from '../../../util/colors.js'
 import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
-    PROGRAM_STAGE_QUERY,
+    PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { formatCount } from '../../../util/numbers.js'
@@ -218,9 +218,15 @@ class EventLayer extends Layer {
     }) {
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
-        const { programStage: data } = await engine.query(PROGRAM_STAGE_QUERY, {
-            variables: { id: programStage.id, nameProperty: displayNameProp },
-        })
+        const { programStage: data } = await engine.query(
+            PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+            {
+                variables: {
+                    id: programStage.id,
+                    nameProperty: displayNameProp,
+                },
+            }
+        )
         const { programStageDataElements } = data
         let displayElements = []
         if (Array.isArray(programStageDataElements)) {
