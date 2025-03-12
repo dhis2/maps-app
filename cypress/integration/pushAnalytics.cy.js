@@ -1,4 +1,4 @@
-import { EXTENDED_TIMEOUT } from '../support/util'
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('push-analytics', () => {
     it(['>=41'], 'has a push-analytics.json file', () => {
