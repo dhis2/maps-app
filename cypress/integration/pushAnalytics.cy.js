@@ -13,6 +13,6 @@ describe('push-analytics', () => {
         })
     })
     /* The Push Analytics service produces a map artefact using the exact
-     * same process as is veriefied in `mapDownload.cy.js`, so no further
+     * same process as is verified in `mapDownload.cy.js`, so no further
      * tests are required here. */
 })
