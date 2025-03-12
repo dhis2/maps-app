@@ -10,7 +10,6 @@ const baseFields = [
     'latitude',
     'zoom',
     'basemap',
-    'publicAccess',
     'created',
     'lastUpdated',
     'access',
@@ -66,16 +65,6 @@ export const mapFields = () => {
     const fields = analysisFields()
     return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`
 }
-
-export const legendFields = [
-    '*',
-    '!created',
-    '!lastUpdated',
-    '!displayName',
-    '!externalAccess',
-    '!access',
-    '!userGroupAccesses',
-]
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
 export const addOrgUnitPaths = (mapViews) =>

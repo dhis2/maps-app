@@ -1,25 +1,48 @@
 {
     "currentAnalyticalObject": {
-        "href": "http://localhost:8080/api/38/visualizations/UlfTKWZWV4u",
+        "href": "https://test.e2e.dhis2.org/analytics-2.41/api/41/visualizations/UlfTKWZWV4u",
         "rows": [
             {
                 "items": [
                     {
                         "id": "USER_ORGUNIT",
                         "name": "User organisation unit",
-                        "displayName": "USER_ORGUNIT"
+                        "access": {
+                            "read": true,
+                            "write": true,
+                            "delete": true,
+                            "manage": true,
+                            "update": true,
+                            "externalize": false
+                        },
+                        "displayName": "User organisation unit"
                     },
                     {
                         "id": "USER_ORGUNIT_CHILDREN",
                         "name": "User sub-units",
-                        "displayName": "USER_ORGUNIT_CHILDREN"
+                        "access": {
+                            "read": true,
+                            "write": true,
+                            "delete": true,
+                            "manage": true,
+                            "update": true,
+                            "externalize": false
+                        },
+                        "displayName": "User organisation unit children"
                     }
                 ],
                 "dimension": "ou"
             }
         ],
         "type": "BAR",
-        "user": { "name": "John Traore", "displayName": "John Traore" },
+        "user": {
+            "id": "xE7jOejl9FI",
+            "code": null,
+            "name": "John Traore",
+            "username": "admin",
+            "displayName": "John Traore"
+        },
+        "icons": [],
         "access": {
             "read": true,
             "write": true,
@@ -28,13 +51,23 @@
             "update": true,
             "externalize": true
         },
-        "legend": { "showKey": false },
+        "legend": {
+            "showKey": false
+        },
         "columns": [
             {
                 "items": [
                     {
                         "id": "Uvn6LCg7dVU",
                         "name": "ANC 1 Coverage",
+                        "access": {
+                            "read": true,
+                            "write": true,
+                            "delete": true,
+                            "manage": true,
+                            "update": true,
+                            "externalize": false
+                        },
                         "displayName": "ANC 1 Coverage",
                         "displayShortName": "ANC 1 Coverage",
                         "dimensionItemType": "INDICATOR"
@@ -42,6 +75,14 @@
                     {
                         "id": "sB79w2hiLp8",
                         "name": "ANC 3 Coverage",
+                        "access": {
+                            "read": true,
+                            "write": true,
+                            "delete": true,
+                            "manage": true,
+                            "update": true,
+                            "externalize": false
+                        },
                         "displayName": "ANC 3 Coverage",
                         "displayShortName": "ANC 3 Coverage",
                         "dimensionItemType": "INDICATOR"
@@ -56,7 +97,15 @@
                 "items": [
                     {
                         "id": "THIS_YEAR",
-                        "name": "Dette året",
+                        "name": "This year",
+                        "access": {
+                            "read": true,
+                            "write": true,
+                            "delete": true,
+                            "manage": true,
+                            "update": true,
+                            "externalize": false
+                        },
                         "displayName": "THIS_YEAR",
                         "displayShortName": "THIS_YEAR"
                     }
@@ -64,6 +113,7 @@
                 "dimension": "pe"
             }
         ],
+        "sorting": [],
         "favorite": false,
         "fontSize": "NORMAL",
         "showData": false,
@@ -71,19 +121,20 @@
         "colTotals": false,
         "hideTitle": false,
         "rowTotals": false,
-        "seriesKey": { "hidden": false },
+        "seriesKey": {
+            "hidden": false
+        },
         "sortOrder": 0,
         "regression": false,
         "subscribed": false,
         "description": "This chart allows us to compare the performance of districts and allows peers to measure their performance against each other. This implies we can spot poor performers as we all as top performers.",
         "lastUpdated": "2016-10-11T18:13:17.551",
+        "subscribers": [],
         "colSubTotals": false,
         "hideSubtitle": false,
-        "publicAccess": "rw------",
         "rowSubTotals": false,
         "skipRounding": false,
         "translations": [],
-        "userAccesses": [],
         "yearlySeries": [],
         "completedOnly": false,
         "fixRowHeaders": false,
@@ -94,8 +145,14 @@
         "regressionType": "NONE",
         "aggregationType": "DEFAULT",
         "interpretations": [
-            { "id": "Db1s6CsNsca", "created": "2021-10-10T18:20:04.272" },
-            { "id": "c5sjWWhIPDE", "created": "2021-11-03T11:02:30.780" }
+            {
+                "id": "Db1s6CsNsca",
+                "created": "2025-10-10T18:20:04.272"
+            },
+            {
+                "id": "c5sjWWhIPDE",
+                "created": "2025-11-03T11:02:30.780"
+            }
         ],
         "reportingParams": {
             "reportingPeriod": false,
@@ -107,7 +164,44 @@
         "fixColumnHeaders": false,
         "hideEmptyColumns": false,
         "hideEmptyRowItems": "NONE",
-        "userGroupAccesses": [],
+        "dataDimensionItems": [
+            {
+                "indicator": {
+                    "id": "Uvn6LCg7dVU",
+                    "name": "ANC 1 Coverage",
+                    "access": {
+                        "read": true,
+                        "write": true,
+                        "delete": true,
+                        "manage": true,
+                        "update": true,
+                        "externalize": false
+                    },
+                    "displayName": "ANC 1 Coverage",
+                    "displayShortName": "ANC 1 Coverage",
+                    "dimensionItemType": "INDICATOR"
+                },
+                "dataDimensionItemType": "INDICATOR"
+            },
+            {
+                "indicator": {
+                    "id": "sB79w2hiLp8",
+                    "name": "ANC 3 Coverage",
+                    "access": {
+                        "read": true,
+                        "write": true,
+                        "delete": true,
+                        "manage": true,
+                        "update": true,
+                        "externalize": false
+                    },
+                    "displayName": "ANC 3 Coverage",
+                    "displayShortName": "ANC 3 Coverage",
+                    "dimensionItemType": "INDICATOR"
+                },
+                "dataDimensionItemType": "INDICATOR"
+            }
+        ],
         "displayDescription": "This chart allows us to compare the performance of districts and allows peers to measure their performance against each other. This implies we can spot poor performers as we all as top performers.",
         "digitGroupSeparator": "SPACE",
         "showDimensionLabels": false,
