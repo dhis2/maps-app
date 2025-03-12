@@ -1,0 +1,22 @@
+diff --git a/node_modules/@dhis2/app-shell/src/PluginLoader.js b/node_modules/@dhis2/app-shell/src/PluginLoader.js
+index f6285e1..a7bda67 100644
+--- a/node_modules/@dhis2/app-shell/src/PluginLoader.js
++++ b/node_modules/@dhis2/app-shell/src/PluginLoader.js
+@@ -196,7 +196,7 @@ export const PluginLoader = ({ config, requiredProps, D2App }) => {
+     useEffect(() => {
+         // make first request for props to communicate that iframe is ready
+         postRobot
+-            .send(window.top, 'getPropsFromParent')
++            .send(window.parent, 'getPropsFromParent')
+             .then(receivePropsFromParent)
+             .catch((err) => {
+                 console.error(err)
+@@ -207,7 +207,7 @@ export const PluginLoader = ({ config, requiredProps, D2App }) => {
+         // set up listener to listen for subsequent sends from parent window
+         const listener = postRobot.on(
+             'updated',
+-            { window: window.top },
++            { window: window.parent },
+             (event) => {
+                 receivePropsFromParent(event)
+             }
