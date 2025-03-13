@@ -30,7 +30,7 @@ context('Event Layers', () => {
             .validateStage(programE2E.stage)
             .selectTab('Style')
 
-        cy.getByDataTest('style-by-data-element-select').click()
+        cy.getByDataTest('style-by-data-item-select').click()
 
         cy.getByDataTest('dhis2-uicore-singleselectoption')
             .contains(programE2E.de)

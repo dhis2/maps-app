@@ -590,8 +590,8 @@ layer** selection. This opens the Events layer configuration dialog.
         option is only available if you select **View all events**
         above.
 
-    -   Select a **Style by data element** to colorise the events
-        according to a data value. If you also select to group events,
+    -   Select a **Style by data item** (data element or attribute) to colorise
+        the events according to a data value. If you also select to group events,
         the culsters will be displayed as small donut charts showing
         the distribution of the data values. The available options vary for
         different data types:
@@ -600,7 +600,7 @@ layer** selection. This opens the Events layer configuration dialog.
             set. You can set default colors for an option in the
             Maintenance app.
 
-        -   **Numbers**: You can style a numeric data element in [the same
+        -   **Numbers**: You can style a numeric data item in [the same
             way as thematic layers](#using_maps_thematic_layer_style) using
             automatic or predefined legends.
 
@@ -651,8 +651,8 @@ The data table displays the data forming the event layer.
 
         filter by GIS display types containing the given text
 
-    -   **Style by data element**: If events are styled by a data element
-        (e.g. gender) both the data value and the color can be filtered.
+    -   **Style by data item**: If events are styled by a data element or 
+        attribute (e.g. gender) both the data value and the color can be filtered.
 
     -   **Display in reports**: Data elements checked to display in reports will
         be shown in separate columns (see below how to add them).
@@ -834,6 +834,23 @@ configuration dialog.
     desired.
 
 3.  Click **Update layer**.
+
+### Modify information in tracked entity popups
+
+If you have access to the selected program in the Maintenance app, you can modify the information displayed in the tracked entity pop-up window.
+
+![](resources/images/maps_eventlayer_eventinfopopup.png)
+
+1.  Open the **Maintenance** app.
+
+2.  Select **Program**.
+
+3.  Click the program you want to modify and select **(3) Attributes**.
+
+4.  For every attribute you want to display in the pop-up window,
+    select corresponding **Display in list**.
+
+5.  Click **Save**.
 
 ### Clear a tracked entity layer
 
