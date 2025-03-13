@@ -5,17 +5,22 @@ import { EE_MONTHLY } from '../constants/periods.js'
 import { apiFetch } from './api.js'
 import { formatStartEndDate } from './time.js'
 
+const oneDayInMs = 24 * 60 * 60 * 1000
+
 export const classAggregation = ['percentage', 'hectares', 'acres']
 
 export const hasClasses = (type) => classAggregation.includes(type)
 
-export const getStartEndDate = (data) =>
-    formatStartEndDate(
+export const getStartEndDate = (data) => {
+    const year = new Date(data['system:time_end']).getFullYear()
+    const period = formatStartEndDate(
         data['system:time_start'],
-        data['system:time_end'], // - 7200001, // Minus 2 hrs to end the day before
+        data['system:time_end'] - oneDayInMs, // Subtract one day to make it inclusive
         null,
         false
     )
+    return `${period} ${year}`
+}
 
 const getStaticFiltersFromDynamic = (filters, ...args) =>
     filters.map((filter) => ({
