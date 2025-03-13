@@ -97,7 +97,7 @@ export const useLoadMap = () => {
                 state: location.state,
             })
             dispatchEvent(popStateEvent)
-            
+
             const params = getHashUrlParams(location)
 
             if (
