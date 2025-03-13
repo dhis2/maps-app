@@ -218,7 +218,7 @@ class EventLayer extends Layer {
     }) {
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
-        
+
         let displayItems = []
 
         const programStageResponse = await engine.query(
@@ -250,7 +250,7 @@ class EventLayer extends Layer {
 
         if (
             styleDataItem &&
-                !displayItems.some((item) => item.id === styleDataItem.id)
+            !displayItems.some((item) => item.id === styleDataItem.id)
         ) {
             const programResponse = await engine.query(
                 PROGRAM_ATTRIBUTES_QUERY,
@@ -292,7 +292,7 @@ class EventLayer extends Layer {
                 ...displayItems.filter((d) => d.id !== styleDataItem.id),
             ]
         }
-        
+
         const eventCoordinateFieldName = await loadEventCoordinateFieldName({
             program,
             programStage,

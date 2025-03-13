@@ -19,25 +19,25 @@ const programIP = {
 }
 
 const programGeowR = {
-    name: 'GeoProgram - Points (with reg)',
-    stage: 'Geo - Stage - Point',
+    name: 'E2E - GeoProgram - Points (with reg)',
+    stage: 'E2E - Geo - Stage - Point',
     coordinates: [
         { name: 'Event location', coords: '-11.499252 8.178188' },
         { name: 'Enrollment location', coords: '-11.634007 8.011976' },
         { name: 'Tracked entity location', coords: '-11.529636 8.040193' },
         {
-            name: 'Geo - DataElement - Coordinate',
+            name: 'E2E - Geo - DE - Coordinate',
             coords: '-11.602850 8.077288',
         },
         {
-            name: 'Geo - TrackedEntityAttribute - Coordinate',
+            name: 'E2E - Geo - TEA - Coordinate',
             coords: '-11.499982 8.049881',
         },
     ],
     startDate: `2025-01-01`,
     endDate: `2025-03-31`,
     ous: ['Bo', 'Bargbe'],
-    filters: { item: 'Geo - DataElement - ID', value: '#C' },
+    filters: { item: 'E2E - Geo - DE - ID', value: '#C' },
 }
 
 context('Event Layers', () => {
