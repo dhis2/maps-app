@@ -1,3 +1,10 @@
+## [101.1.1](https://github.com/dhis2/maps-app/compare/v101.1.0...v101.1.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* prevent app crash when switching event layer to start/end dates [DHIS2-19204] ([#3486](https://github.com/dhis2/maps-app/issues/3486)) ([a951bf9](https://github.com/dhis2/maps-app/commit/a951bf9dda1efe2949c941dbd195e9d4653c8ff7))
+
 # [101.1.0](https://github.com/dhis2/maps-app/compare/v101.0.3...v101.1.0) (2025-02-28)
 
 
