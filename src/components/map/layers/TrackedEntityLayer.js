@@ -14,29 +14,12 @@ import {
     GEO_TYPE_FEATURE,
 } from '../../../util/geojson.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
+import {
+    TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
+    TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
+} from '../../../util/trackedEntity.js'
 import Layer from './Layer.js'
 import TrackedEntityPopup from './TrackedEntityPopup.js'
-
-const ATTRIBUTES_QUERY = {
-    trackedEntityType: {
-        resource: 'trackedEntityTypes',
-        id: ({ id }) => id,
-        params: ({ nameProperty }) => ({
-            fields: `trackedEntityTypeAttributes[displayInList,trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
-            paging: false,
-        }),
-    },
-}
-const PROGRAM_ATTRIBUTES_QUERY = {
-    program: {
-        resource: 'programs',
-        id: ({ id }) => id,
-        params: ({ nameProperty }) => ({
-            fields: `programTrackedEntityAttributes[displayInList,trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
-            paging: false,
-        }),
-    },
-}
 
 const getCentroid = (points) => {
     const totals = points.reduce(
@@ -215,7 +198,7 @@ class TrackedEntityLayer extends Layer {
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
 
         const { trackedEntityType: data } = await engine.query(
-            ATTRIBUTES_QUERY,
+            TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
             {
                 variables: {
                     id: trackedEntityType.id,
@@ -227,7 +210,7 @@ class TrackedEntityLayer extends Layer {
 
         if (program) {
             const { program: data } = await engine.query(
-                PROGRAM_ATTRIBUTES_QUERY,
+                TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
                 {
                     variables: {
                         id: program.id,

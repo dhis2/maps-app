@@ -2,10 +2,11 @@ import { getInstance as getD2 } from 'd2'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
+import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
-    PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
-    PROGRAM_ATTRIBUTES_QUERY,
+    EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+    EVENT_PROGRAM_ATTRIBUTES_QUERY,
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { formatCount } from '../../../util/numbers.js'
@@ -219,10 +220,9 @@ class EventLayer extends Layer {
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
 
         let displayItems = []
-        let eventCoordinateFieldName
 
         const programStageResponse = await engine.query(
-            PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+            EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
             {
                 variables: {
                     id: programStage.id,
@@ -246,25 +246,14 @@ class EventLayer extends Layer {
             for (const d of filteredProgramStageItems) {
                 await this.loadOptionSet(d, engine)
             }
-
-            if (eventCoordinateField) {
-                const coordElement = programStageDataElements.find(
-                    (d) => d.dataElement.id === eventCoordinateField
-                )
-
-                if (coordElement) {
-                    eventCoordinateFieldName = coordElement.dataElement.name
-                }
-            }
         }
 
         if (
-            (styleDataItem &&
-                !displayItems.some((item) => item.id === styleDataItem.id)) ||
-            (eventCoordinateField && !eventCoordinateFieldName)
+            styleDataItem &&
+            !displayItems.some((item) => item.id === styleDataItem.id)
         ) {
             const programResponse = await engine.query(
-                PROGRAM_ATTRIBUTES_QUERY,
+                EVENT_PROGRAM_ATTRIBUTES_QUERY,
                 {
                     variables: {
                         id: program.id,
@@ -293,18 +282,6 @@ class EventLayer extends Layer {
                         await this.loadOptionSet(d, engine)
                     }
                 }
-
-                if (eventCoordinateField && !eventCoordinateFieldName) {
-                    const coordAttribute = programTrackedEntityAttributes.find(
-                        (d) =>
-                            d.trackedEntityAttribute.id === eventCoordinateField
-                    )
-
-                    if (coordAttribute) {
-                        eventCoordinateFieldName =
-                            coordAttribute.trackedEntityAttribute.name
-                    }
-                }
             }
         }
 
@@ -315,6 +292,14 @@ class EventLayer extends Layer {
                 ...displayItems.filter((d) => d.id !== styleDataItem.id),
             ]
         }
+
+        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+            program,
+            programStage,
+            eventCoordinateField,
+            engine,
+            nameProperty,
+        })
 
         this.setState({ displayItems, eventCoordinateFieldName })
     }

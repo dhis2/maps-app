@@ -15,6 +15,29 @@ const programIP = {
     endDate: `${CURRENT_YEAR}-11-30`,
     periodText: `Jan 1, ${CURRENT_YEAR - 5} - Nov 30, ${CURRENT_YEAR}`,
     ous: ['Bombali', 'Bo'],
+    ousAlt: ['Western Area', 'Rural Western Area', 'Sussex MCHP'],
+}
+
+const programGeowR = {
+    name: 'E2E - GeoProgram - Points (with reg)',
+    stage: 'E2E - Geo - Stage - Point',
+    coordinates: [
+        { name: 'Event location', coords: '-11.499252 8.178188' },
+        { name: 'Enrollment location', coords: '-11.634007 8.011976' },
+        { name: 'Tracked entity location', coords: '-11.529636 8.040193' },
+        {
+            name: 'E2E - Geo - DE - Coordinate',
+            coords: '-11.602850 8.077288',
+        },
+        {
+            name: 'E2E - Geo - TEA - Coordinate',
+            coords: '-11.499982 8.049881',
+        },
+    ],
+    startDate: `2025-01-01`,
+    endDate: `2025-03-31`,
+    ous: ['Bo', 'Bargbe'],
+    filters: { item: 'E2E - Geo - DE - ID', value: '#C' },
 }
 
 context('Event Layers', () => {
@@ -36,9 +59,7 @@ context('Event Layers', () => {
             .contains(programE2E.de)
             .click()
 
-        cy.getByDataTest('dhis2-uicore-modalactions')
-            .contains('Add layer')
-            .click()
+        Layer.addToMap()
 
         Layer.validateDialogClosed(true)
 
@@ -67,7 +88,6 @@ context('Event Layers', () => {
         cy.contains('End date is invalid').should('be.visible')
 
         Layer.selectTab('Period').typeEndDate('2')
-
         cy.contains('End date is invalid').should('not.exist')
     })
 
@@ -109,6 +129,75 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('change coordinate field', () => {
+        function testCoordinate(coordinates, reOpenDialog = true) {
+            if (reOpenDialog) {
+                cy.getByDataTest('layer-edit-button').click()
+            }
+
+            // Change coordinate
+            Layer.selectTab('Data').selectCoordinate(coordinates.name)
+
+            if (reOpenDialog) {
+                Layer.updateMap()
+            } else {
+                Layer.addToMap()
+            }
+
+            Layer.validateDialogClosed(true)
+
+            // Wait for map to load
+            cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+            cy.get('#dhis2-map-container')
+                .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+                .should('not.exist')
+
+            // Check popup
+            cy.get('.dhis2-map').click('center') // Click in the middle of the map
+            Layer.validatePopupContents([coordinates.name, coordinates.coords])
+
+            // Check legend
+            Layer.validateCardTitle(programGeowR.stage)
+            Layer.validateCardContents([
+                'Coordinate field',
+                `${coordinates.name}`,
+            ])
+        }
+
+        // Event layer config
+
+        Layer.openDialog('Events')
+            .selectProgram(programGeowR.name)
+            .selectStage(programGeowR.stage)
+
+        Layer.selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programGeowR.startDate)
+            .typeEndDate(programGeowR.endDate)
+
+        Layer.selectTab('Org Units')
+            .unselectOu('Sierra Leone')
+            .openOu(programGeowR.ous[0])
+            .selectOu(programGeowR.ous[1])
+
+        Layer.selectTab('Filter')
+        cy.contains('Add filter').click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.contains(programGeowR.filters.item).click()
+        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+            .find('input')
+            .type(programGeowR.filters.value)
+
+        Layer.selectTab('Style').selectViewAllEvents()
+
+        // Test different coordinates
+        testCoordinate(programGeowR.coordinates[3], false) // Geo - DataElement - Coordinate
+        testCoordinate(programGeowR.coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
+        testCoordinate(programGeowR.coordinates[2]) // Tracked entity location
+        testCoordinate(programGeowR.coordinates[1]) // Enrollment location
+        testCoordinate(programGeowR.coordinates[0]) // Event location
+    })
+
     it('opens an event popup', () => {
         Layer.openDialog('Events')
             .selectProgram(programIP.name)
@@ -120,51 +209,26 @@ context('Event Layers', () => {
             .selectTab('Style')
             .selectViewAllEvents()
             .selectTab('Org Units')
-            .selectOu('Sierra Leone')
+            .unselectOu('Sierra Leone')
+            .openOu(programIP.ousAlt[0])
+            .openOu(programIP.ousAlt[1])
+            .selectOu(programIP.ousAlt[2])
+            .addToMap()
 
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Western Area')
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Rural Western Area')
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
-
-        cy.getByDataTest('org-unit-tree-node').contains('Sussex MCHP').click()
-
-        cy.getByDataTest('layeredit-addbtn').click()
-
-        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
+
         cy.get('.dhis2-map').click('center')
-
-        cy.get('.maplibregl-popup')
-            .contains('Event location')
-            .should('be.visible')
-        cy.get('.maplibregl-popup')
-            .contains('-13.188339 8.405215')
-            .should('be.visible')
-        cy.get('.maplibregl-popup')
-            .contains('Organisation unit')
-            .should('be.visible')
-        cy.get('.maplibregl-popup').contains('Event time').should('be.visible')
-
-        cy.get('.maplibregl-popup')
-            .contains('Age in years')
-            .should('be.visible')
-        cy.get('.maplibregl-popup')
-            .contains('Mode of Discharge')
-            .should('be.visible')
+        Layer.validatePopupContents([
+            'Event location',
+            '-13.188339 8.405215',
+            'Organisation unit',
+            'Event time',
+            'Age in years',
+            'Mode of Discharge',
+        ])
 
         Layer.validateCardTitle(programIP.name)
         Layer.validateCardItems(['Event'])

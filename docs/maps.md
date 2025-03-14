@@ -505,9 +505,7 @@ layer** selection. This opens the Events layer configuration dialog.
 
     -   Select a value from the **Coordinate field** for the positions
         shown on the map. By default, "Event location" is selected.
-        Depending on the data elements or attributes that belong to a
-        program, other coordinates such as "Household position" are
-        available.
+        Depending on the program, other options may include "Tracked entity location", "Enrollment location", and coordinate-type data elements or attributes such as "Household location".
 
     -   By default all events with coordinates are shown on the map.
         Use the **Event status** field to only show events having one

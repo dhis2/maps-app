@@ -6,7 +6,7 @@ import {
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
 
-export const PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
+export const EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
     programStage: {
         resource: 'programStages',
         id: ({ id }) => id,
@@ -17,7 +17,7 @@ export const PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
     },
 }
 
-export const PROGRAM_ATTRIBUTES_QUERY = {
+export const EVENT_PROGRAM_ATTRIBUTES_QUERY = {
     program: {
         resource: 'programs',
         id: ({ id }) => id,
@@ -40,7 +40,7 @@ export const getEventColumns = async (
     { format = METADATA_FORMAT_NAME, nameProperty, engine }
 ) => {
     const { programStage: result } = await engine.query(
-        PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+        EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
         {
             variables: { id: layer.programStage.id, nameProperty },
         }
