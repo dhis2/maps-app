@@ -263,7 +263,9 @@ class ThematicLayer extends Layer {
                     ...popup.feature,
                     properties: {
                         ...popup.feature.properties,
-                        ...newValues[popup.feature.properties.id],
+                        ...(newValues[popup.feature.properties.id] || {
+                            value: i18n.t('Not set'),
+                        }),
                     },
                 },
             }
