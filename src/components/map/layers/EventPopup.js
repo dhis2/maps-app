@@ -17,24 +17,11 @@ const EVENTS_QUERY = {
     },
 }
 
-const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
+const getDataRows = ({ displayItems, dataValues }) => {
     const dataRows = []
 
-    // Include data element used for styling if not included below
-    if (
-        styleDataItem &&
-        !displayElements.find((d) => d.id === styleDataItem.id)
-    ) {
-        dataRows.push(
-            <tr key={styleDataItem.id}>
-                <th>{styleDataItem.name}</th>
-                <td>{hasValue(value) ? value : i18n.t('Not set')}</td>
-            </tr>
-        )
-    }
-
-    // Include rows for each displayInReport data elements
-    displayElements.forEach(({ id, name, valueType, options }) => {
+    // Include rows for each data item used for styling and displayInReport
+    displayItems.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find((d) => d.dataElement === id) || {}
         let formattedValue = value
 
@@ -43,7 +30,7 @@ const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
         } else if (!hasValue(value)) {
             formattedValue = i18n.t('Not set')
         } else if (options) {
-            formattedValue = options[value]
+            formattedValue = options[value] || value
         }
 
         dataRows.push(
@@ -67,7 +54,7 @@ const EventPopup = ({
     feature,
     styleDataItem,
     nameProperty,
-    displayElements,
+    displayItems,
     eventCoordinateFieldName,
     onClose,
 }) => {
@@ -109,8 +96,13 @@ const EventPopup = ({
     }, [feature, nameProperty, refetchEvent, refetchOrgUnit])
 
     const { type, coordinates: coord } = feature.geometry
-    const { value } = feature.properties
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
+    if (!dataValues.some((d) => d.dataElement === styleDataItem?.id)) {
+        dataValues.push({
+            dataElement: styleDataItem?.id,
+            value: feature.properties[styleDataItem?.id],
+        })
+    }
 
     return (
         <Popup
@@ -131,10 +123,8 @@ const EventPopup = ({
                     <tbody>
                         {dataEvent?.events &&
                             getDataRows({
-                                displayElements,
+                                displayItems,
                                 dataValues,
-                                styleDataItem,
-                                value,
                             })}
                         {type === 'Point' && (
                             <tr>
@@ -168,7 +158,7 @@ const EventPopup = ({
 
 EventPopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
-    displayElements: PropTypes.array.isRequired,
+    displayItems: PropTypes.array.isRequired,
     feature: PropTypes.object.isRequired,
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,

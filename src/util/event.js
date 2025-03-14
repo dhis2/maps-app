@@ -6,12 +6,23 @@ import {
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
 
-export const PROGRAM_STAGE_QUERY = {
+export const EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
     programStage: {
         resource: 'programStages',
         id: ({ id }) => id,
         params: ({ nameProperty }) => ({
             fields: `programStageDataElements[displayInReports,dataElement[id,code,${nameProperty}~rename(name),optionSet,valueType]]`,
+            paging: false,
+        }),
+    },
+}
+
+export const EVENT_PROGRAM_ATTRIBUTES_QUERY = {
+    program: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
             paging: false,
         }),
     },
@@ -28,9 +39,12 @@ export const getEventColumns = async (
     layer,
     { format = METADATA_FORMAT_NAME, nameProperty, engine }
 ) => {
-    const { programStage: result } = await engine.query(PROGRAM_STAGE_QUERY, {
-        variables: { id: layer.programStage.id, nameProperty },
-    })
+    const { programStage: result } = await engine.query(
+        EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+        {
+            variables: { id: layer.programStage.id, nameProperty },
+        }
+    )
 
     return result.programStageDataElements
         .filter((el) => el.displayInReports)

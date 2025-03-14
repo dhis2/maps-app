@@ -87,6 +87,11 @@ export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
 export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
 export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_CASCADING = 'cascading'
+export const COORDINATE_FIELD_NAMES = {
+    [EVENT_COORDINATE_DEFAULT]: i18n.t('Event location'),
+    [EVENT_COORDINATE_ENROLLMENT]: i18n.t('Enrollment location'),
+    [EVENT_COORDINATE_TRACKED_ENTITY]: i18n.t('Tracked entity location'),
+}
 
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'

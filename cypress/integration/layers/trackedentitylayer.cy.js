@@ -36,46 +36,25 @@ describe('Tracked Entity Layers', () => {
             .selectTab('Period')
             .typeStartDate('2018-00-00')
             .selectTab('Org Units')
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Bo')
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
-
-        cy.getByDataTest('org-unit-tree-node')
-            .contains('Badjia')
-            .parents('[data-test="org-unit-tree-node"]')
-            .first()
-            .within(() => {
-                cy.getByDataTest('org-unit-tree-node-toggle').click()
-            })
-
-        cy.getByDataTest('org-unit-tree-node').contains('Njandama MCHP').click()
-
-        cy.getByDataTest('layeredit-addbtn').click()
+            .openOu('Bo')
+            .openOu('Badjia')
+            .selectOu('Njandama MCHP')
+            .addToMap()
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click('center') //Click somewhere on the map
+        cy.get('.dhis2-map').click('center') // Click somewhere on the map
 
-        cy.get('.maplibregl-popup')
-            .contains('Organisation unit')
-            .should('be.visible')
-        cy.get('.maplibregl-popup')
-            .contains('Last updated')
-            .should('be.visible')
-
-        cy.get('.maplibregl-popup')
-            .contains('System Focus ID')
-            .should('be.visible')
-        cy.get('.maplibregl-popup').contains('WQQ003161').should('be.visible')
+        Layer.validatePopupContents([
+            'Organisation unit',
+            'Last updated',
+            'System Focus ID',
+            'WQQ003161',
+        ])
 
         Layer.validateCardTitle('Malaria focus investigation')
         Layer.validateCardItems(['Focus area'])
