@@ -1,7 +1,7 @@
 import { COORDINATE_FIELD_NAMES } from '../constants/layers.js'
 import {
-    PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
-    PROGRAM_ATTRIBUTES_QUERY,
+    EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+    EVENT_PROGRAM_ATTRIBUTES_QUERY,
 } from '../util/event.js'
 
 export const loadEventCoordinateFieldName = async ({
@@ -23,7 +23,7 @@ export const loadEventCoordinateFieldName = async ({
         nameProperty === 'name' ? 'displayName' : 'displayShortName'
 
     const { programStage: programStageData } = await engine.query(
-        PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+        EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
         {
             variables: { id: programStage.id, nameProperty: displayNameProp },
         }
@@ -39,7 +39,7 @@ export const loadEventCoordinateFieldName = async ({
     }
 
     const { program: programData } = await engine.query(
-        PROGRAM_ATTRIBUTES_QUERY,
+        EVENT_PROGRAM_ATTRIBUTES_QUERY,
         {
             variables: {
                 id: program.id,

@@ -1,4 +1,4 @@
-export const TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
+export const TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
     trackedEntityType: {
         resource: 'trackedEntityTypes',
         id: ({ id }) => id,
@@ -9,7 +9,7 @@ export const TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
     },
 }
 
-export const PROGRAM_ATTRIBUTES_QUERY = {
+export const TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
     program: {
         resource: 'programs',
         id: ({ id }) => id,
