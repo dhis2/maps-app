@@ -21,7 +21,7 @@ export const styleByDataItem = async (config, engine) => {
         await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config, engine)
-    } else if (styleDataItem.valueType === 'BOOLEAN') {
+    } else if (['BOOLEAN', 'TRUE_ONLY'].includes(styleDataItem.valueType)) {
         await styleByBoolean(config, engine)
     }
 
@@ -39,18 +39,24 @@ const styleByBoolean = async (config, engine) => {
     const { id, name, values } = styleDataItem
 
     config.data = data.map((feature) => {
-        const value = feature.properties[id] || '0'
-
-        if (!value) {
-            return feature
-        }
+        const value = feature.properties[id]
 
         return {
             ...feature,
             properties: {
                 ...feature.properties,
-                value: value === '1' ? i18n.t('Yes') : i18n.t('No'),
-                color: value === '1' ? values.true : values.false,
+                value:
+                    value === '1'
+                        ? i18n.t('Yes')
+                        : value === '0'
+                        ? i18n.t('No')
+                        : i18n.t('Not set'),
+                color:
+                    value === '1'
+                        ? values.true
+                        : value === '0'
+                        ? values.false
+                        : EVENT_COLOR,
             },
         }
     })
