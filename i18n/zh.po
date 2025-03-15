@@ -928,7 +928,7 @@ msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr "至少选择{{number}} 期或 1 个多期。"
 
 msgid "Remove the existing timeline to add a new one."
-msgstr ""
+msgstr "删除现有时间线，添加新的时间线。"
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
