@@ -56,7 +56,7 @@ const StyleByDataItem = ({ program, programStage, error }) => {
         <div>
             <SelectField
                 label={i18n.t('Style by data item')}
-                value={styleDataItem ? styleDataItem.id : null}
+                value={styleDataItem ? styleDataItem.id : 'none'}
                 items={dataItems}
                 onChange={onChange}
                 dataTest="style-by-data-item-select"
