@@ -5,30 +5,55 @@ import {
     EVENT_RADIUS,
     CLASSIFICATION_PREDEFINED,
 } from '../constants/layers.js'
-import { numberValueTypes } from '../constants/valueTypes.js'
+import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
+
+// Returns true if value is not undefined or null;
+const hasValue = (value) =>
+    value !== undefined && value !== null && value !== ''
 
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
 // This function is modifiyng the config object before it's added to the redux store
 export const styleByDataItem = async (config, engine) => {
     const { styleDataItem } = config
-
     if (styleDataItem.optionSet) {
         await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config, engine)
-    } else if (['BOOLEAN', 'TRUE_ONLY'].includes(styleDataItem.valueType)) {
+    } else if (booleanValueTypes.includes(styleDataItem.valueType)) {
         await styleByBoolean(config, engine)
+    } else {
+        styleByDefault(config)
     }
 
     config.legend.items.push({
         name: i18n.t('Not set'),
         color: cssColor(config.eventPointColor) || EVENT_COLOR,
         radius: config.eventPointRadius || EVENT_RADIUS,
+    })
+
+    return config
+}
+
+const styleByDefault = async (config) => {
+    const { styleDataItem, data } = config
+    const { id } = styleDataItem
+
+    config.data = data.map((feature) => {
+        const value = feature.properties[id]
+
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                value: hasValue(value) ? value : i18n.t('Not set'),
+                color: EVENT_COLOR,
+            },
+        }
     })
 
     return config
@@ -50,6 +75,8 @@ const styleByBoolean = async (config, engine) => {
                         ? i18n.t('Yes')
                         : value === '0'
                         ? i18n.t('No')
+                        : hasValue(value)
+                        ? value
                         : i18n.t('Not set'),
                 color:
                     value === '1'
@@ -156,8 +183,8 @@ const styleByNumeric = async (config, engine) => {
             ...feature,
             properties: {
                 ...feature.properties,
-                value,
-                color: legendItem ? legendItem.color : null,
+                value: hasValue(value) ? value : i18n.t('Not set'),
+                color: legendItem ? legendItem.color : EVENT_COLOR,
             },
         }
     })
@@ -204,7 +231,14 @@ const styleByOptionSet = async (config, engine) => {
             }
         }
 
-        return feature
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                value: hasValue(name) ? name : i18n.t('Not set'),
+                color: EVENT_COLOR,
+            },
+        }
     })
 
     // Add legend data
