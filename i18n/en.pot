@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-02-20T13:37:02.693Z\n"
-"PO-Revision-Date: 2025-02-20T13:37:02.693Z\n"
+"POT-Creation-Date: 2025-03-17T14:36:03.164Z\n"
+"PO-Revision-Date: 2025-03-17T14:36:03.166Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -106,6 +106,9 @@ msgstr "Event > org unit coordinate"
 
 msgid "Event data item"
 msgstr "Event data item"
+
+msgid "Not instrested in this"
+msgstr "Not instrested in this"
 
 msgid "Selected value not available in in list: {{name}}"
 msgstr "Selected value not available in in list: {{name}}"

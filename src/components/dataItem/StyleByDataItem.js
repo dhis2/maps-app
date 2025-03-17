@@ -27,7 +27,7 @@ const StyleByDataItem = ({ program, programStage, error }) => {
         excludeTypes,
     })
 
-    const ITEM_NONE = { id: 'none', name: i18n.t('None') }
+    const ITEM_NONE = { id: 'none', name: i18n.t('Not instrested in this') }
 
     const onChange = (item) =>
         dispatch(setStyleDataItem(item.id !== ITEM_NONE.id ? item : null))
