@@ -97,11 +97,11 @@ const EventPopup = ({
 
     const { type, coordinates: coord } = feature.geometry
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
-    const index = dataValues.findIndex(
+    const dataValueIndex = dataValues.findIndex(
         (d) => d.dataElement === styleDataItem?.id
     )
-    if (index !== -1) {
-        dataValues[index] = {
+    if (dataValueIndex !== -1) {
+        dataValues[dataValueIndex] = {
             dataElement: styleDataItem?.id,
             value: feature.properties.value,
         }

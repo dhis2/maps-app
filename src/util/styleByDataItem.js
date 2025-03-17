@@ -11,7 +11,6 @@ import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
 
-// Returns true if value is not undefined or null;
 const hasValue = (value) =>
     value !== undefined && value !== null && value !== ''
 
@@ -65,25 +64,26 @@ const styleByBoolean = async (config, engine) => {
 
     config.data = data.map((feature) => {
         const value = feature.properties[id]
+        let displayValue
+        let color
+
+        if (value === '1') {
+            displayValue = i18n.t('Yes')
+            color = values.true
+        } else if (value === '0') {
+            displayValue = i18n.t('No')
+            color = values.false
+        } else {
+            displayValue = hasValue(value) ? value : i18n.t('Not set')
+            color = EVENT_COLOR
+        }
 
         return {
             ...feature,
             properties: {
                 ...feature.properties,
-                value:
-                    value === '1'
-                        ? i18n.t('Yes')
-                        : value === '0'
-                        ? i18n.t('No')
-                        : hasValue(value)
-                        ? value
-                        : i18n.t('Not set'),
-                color:
-                    value === '1'
-                        ? values.true
-                        : value === '0'
-                        ? values.false
-                        : EVENT_COLOR,
+                value: displayValue,
+                color: color,
             },
         }
     })
