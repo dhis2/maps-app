@@ -10,7 +10,6 @@ import {
     NONE,
 } from '../../constants/layers.js'
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
-import usePrevious from '../../hooks/usePrevious.js'
 import { SelectField } from '../core/index.js'
 
 const includeTypes = ['COORDINATE']
@@ -23,15 +22,11 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
-    const { eventDataItems, loading } = useEventDataItems({
+    const { eventDataItems, trackedEntityType } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
         includeTypes,
     })
-
-    const prevProgram = usePrevious(program)
-
-    const isTrackerProgram = !!program?.trackedEntityType
 
     const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
 
@@ -55,7 +50,11 @@ const CoordinateField = ({
             name: i18n.t('Event location'),
         })
 
-        if (isTrackerProgram) {
+        if (!trackedEntityType) {
+            return fields
+        }
+
+        if (trackedEntityType?.id) {
             fields.push({
                 id: EVENT_COORDINATE_ENROLLMENT,
                 name: i18n.t('Enrollment location'),
@@ -80,40 +79,49 @@ const CoordinateField = ({
         return eventCoordinateField
             ? fields.filter((f) => f.id !== eventCoordinateField)
             : fields
-    }, [isTrackerProgram, eventDataItems, eventCoordinateField])
+    }, [trackedEntityType, eventDataItems, eventCoordinateField])
 
-    // Reset default value when program is changed
+    // Reset default value when program or programStage is changed and prev value is not available anymore
     useEffect(() => {
-        if (program !== prevProgram) {
+        if (
+            trackedEntityType &&
+            eventDataItems &&
+            !fields.find((f) => f.id === value)
+        ) {
             onChange(defaultValue)
         }
-    }, [program, prevProgram, defaultValue, onChange])
+    }, [
+        trackedEntityType,
+        eventDataItems,
+        fields,
+        value,
+        defaultValue,
+        onChange,
+    ])
 
     return (
-        <div className={className}>
-            <SelectField
-                label={
-                    eventCoordinateField
-                        ? i18n.t('Fallback coordinate field')
-                        : i18n.t('Coordinate field')
-                }
-                items={fields}
-                value={
-                    fields.find((f) => f.id === value) ? value : defaultValue
-                }
-                loading={loading}
-                helpText={
-                    value === EVENT_COORDINATE_CASCADING
-                        ? isTrackerProgram
-                            ? i18n.t(
-                                  'Enrollment > event > tracked entity > org unit coordinate'
-                              )
-                            : i18n.t('Event > org unit coordinate')
-                        : null
-                }
-                onChange={(field) => onChange(field.id)}
-            />
-        </div>
+        <SelectField
+            label={
+                eventCoordinateField
+                    ? i18n.t('Fallback coordinate field')
+                    : i18n.t('Coordinate field')
+            }
+            items={fields}
+            value={fields.find((f) => f.id === value) ? value : null}
+            loading={value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType}
+            helpText={
+                value === EVENT_COORDINATE_CASCADING
+                    ? trackedEntityType
+                        ? i18n.t(
+                              'Enrollment > event > tracked entity > org unit coordinate'
+                          )
+                        : i18n.t('Event > org unit coordinate')
+                    : null
+            }
+            onChange={(field) => onChange(field.id)}
+            className={className}
+            dataTest="coordinatefield"
+        />
     )
 }
 
