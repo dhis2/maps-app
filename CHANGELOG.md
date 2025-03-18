@@ -1,3 +1,16 @@
+# [101.2.0](https://github.com/dhis2/maps-app/compare/v101.1.1...v101.2.0) (2025-03-17)
+
+
+### Bug Fixes
+
+* prevent DE or Attr used for styling from disappearing from popup [DHIS2-17711] ([#3481](https://github.com/dhis2/maps-app/issues/3481)) ([4f53af9](https://github.com/dhis2/maps-app/commit/4f53af9683194c57b374cbbad5ede45e3c19cfb1))
+* update value in popup with period change in timeline [DHIS2-19008] ([#3480](https://github.com/dhis2/maps-app/issues/3480)) ([c5e58a4](https://github.com/dhis2/maps-app/commit/c5e58a42fddd874a7f542bc3633f7c6ff674f54d))
+
+
+### Features
+
+* properly support alternative coordinates for event layers [DHIS2-19047] ([#3473](https://github.com/dhis2/maps-app/issues/3473)) ([4f11d3f](https://github.com/dhis2/maps-app/commit/4f11d3f8130ad95c44fd554a971834ee40fdfe87))
+
 ## [101.1.1](https://github.com/dhis2/maps-app/compare/v101.1.0...v101.1.1) (2025-03-13)
 
 
