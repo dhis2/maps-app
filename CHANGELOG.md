@@ -1,3 +1,30 @@
+## [101.2.2](https://github.com/dhis2/maps-app/compare/v101.2.1...v101.2.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* add hash routing and plugin support for the upcoming global shell [DHIS2-19601] ([#3485](https://github.com/dhis2/maps-app/issues/3485)) ([03a3332](https://github.com/dhis2/maps-app/commit/03a3332925692ae05ff8e8fe7d3a27a13932f50c))
+
+## [101.2.1](https://github.com/dhis2/maps-app/compare/v101.2.0...v101.2.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3490](https://github.com/dhis2/maps-app/issues/3490)) ([3abd499](https://github.com/dhis2/maps-app/commit/3abd4994e10fa80a2ceadf800eb6000604592a65))
+
+# [101.2.0](https://github.com/dhis2/maps-app/compare/v101.1.1...v101.2.0) (2025-03-17)
+
+
+### Bug Fixes
+
+* prevent DE or Attr used for styling from disappearing from popup [DHIS2-17711] ([#3481](https://github.com/dhis2/maps-app/issues/3481)) ([4f53af9](https://github.com/dhis2/maps-app/commit/4f53af9683194c57b374cbbad5ede45e3c19cfb1))
+* update value in popup with period change in timeline [DHIS2-19008] ([#3480](https://github.com/dhis2/maps-app/issues/3480)) ([c5e58a4](https://github.com/dhis2/maps-app/commit/c5e58a42fddd874a7f542bc3633f7c6ff674f54d))
+
+
+### Features
+
+* properly support alternative coordinates for event layers [DHIS2-19047] ([#3473](https://github.com/dhis2/maps-app/issues/3473)) ([4f11d3f](https://github.com/dhis2/maps-app/commit/4f11d3f8130ad95c44fd554a971834ee40fdfe87))
+
 ## [101.1.1](https://github.com/dhis2/maps-app/compare/v101.1.0...v101.1.1) (2025-03-13)
 
 

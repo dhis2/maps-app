@@ -16,6 +16,13 @@ export class EventLayer extends Layer {
         return this
     }
 
+    selectCoordinate(coordinate) {
+        cy.get('[data-test="coordinatefield"]').click()
+        cy.contains(coordinate).click()
+
+        return this
+    }
+
     validateStage(stage) {
         cy.get('[data-test="programstageselect"]')
             .contains(stage)
