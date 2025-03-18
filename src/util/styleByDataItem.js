@@ -29,17 +29,12 @@ export const styleByDataItem = async (config, engine) => {
         styleByDefault(config)
     }
 
-    config.legend.items.push({
-        name: i18n.t('Not set'),
-        color: cssColor(config.eventPointColor) || EVENT_COLOR,
-        radius: config.eventPointRadius || EVENT_RADIUS,
-    })
-
     return config
 }
 
 const styleByDefault = async (config) => {
-    const { styleDataItem, data } = config
+    const { styleDataItem, data, legend, eventPointColor, eventPointRadius } =
+        config
     const { id } = styleDataItem
 
     config.data = data.map((feature) => {
@@ -55,38 +50,22 @@ const styleByDefault = async (config) => {
         }
     })
 
+    legend.items = [
+        {
+            name: i18n.t('Not set'),
+            color: cssColor(eventPointColor) || EVENT_COLOR,
+            radius: eventPointRadius || EVENT_RADIUS,
+            count: data.length,
+        },
+    ]
+
     return config
 }
 
 const styleByBoolean = async (config, engine) => {
-    const { styleDataItem, data, legend, eventPointRadius } = config
+    const { styleDataItem, data, legend, eventPointColor, eventPointRadius } =
+        config
     const { id, name, values } = styleDataItem
-
-    config.data = data.map((feature) => {
-        const value = feature.properties[id]
-        let displayValue
-        let color
-
-        if (value === '1') {
-            displayValue = i18n.t('Yes')
-            color = values.true
-        } else if (value === '0') {
-            displayValue = i18n.t('No')
-            color = values.false
-        } else {
-            displayValue = hasValue(value) ? value : i18n.t('Not set')
-            color = EVENT_COLOR
-        }
-
-        return {
-            ...feature,
-            properties: {
-                ...feature.properties,
-                value: displayValue,
-                color: color,
-            },
-        }
-    })
 
     legend.unit =
         name ||
@@ -101,6 +80,7 @@ const styleByBoolean = async (config, engine) => {
             name: i18n.t('Yes'),
             color: values.true,
             radius: eventPointRadius || EVENT_RADIUS,
+            count: 0,
         },
     ]
 
@@ -109,8 +89,45 @@ const styleByBoolean = async (config, engine) => {
             name: i18n.t('No'),
             color: values.false,
             radius: eventPointRadius || EVENT_RADIUS,
+            count: 0,
         })
     }
+
+    legend.items.push({
+        name: i18n.t('Not set'),
+        color: cssColor(eventPointColor) || EVENT_COLOR,
+        radius: eventPointRadius || EVENT_RADIUS,
+        count: 0,
+    })
+
+    config.data = data.map((feature) => {
+        const value = feature.properties[id]
+        let displayValue
+        let color
+
+        if (value === '1') {
+            displayValue = i18n.t('Yes')
+            color = values.true
+            legend.items[0].count++
+        } else if (value === '0') {
+            displayValue = i18n.t('No')
+            color = values.false
+            legend.items[1].count++
+        } else {
+            displayValue = hasValue(value) ? value : i18n.t('Not set')
+            color = EVENT_COLOR
+            legend.items[legend.items.length - 1].count++
+        }
+
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                value: displayValue,
+                color: color,
+            },
+        }
+    })
 
     return config
 }
@@ -118,11 +135,13 @@ const styleByBoolean = async (config, engine) => {
 const styleByNumeric = async (config, engine) => {
     const {
         styleDataItem,
+        data,
+        legend,
         method,
         classes,
         colorScale,
+        eventPointColor,
         eventPointRadius,
-        data,
     } = config
 
     // If legend set
@@ -133,18 +152,21 @@ const styleByNumeric = async (config, engine) => {
         })
 
         // Use legend set name and legend unit
-        config.legend.unit = legendSet.name
+        legend.unit = legendSet.name
 
         // Generate legend items from legendSet
-        config.legend.items = getPredefinedLegendItems(legendSet)
+        legend.items = getPredefinedLegendItems(legendSet)
     } else {
         // Create array of sorted values needed for classification
         const sortedValues = data
-            .map((feature) => Number(feature.properties[styleDataItem.id]))
+            .map((feature) => feature.properties[styleDataItem.id])
+            .filter(hasValue)
+            .map(Number)
+            .filter((value) => !isNaN(value))
             .sort((a, b) => a - b)
 
         // Use data item name as legend unit (load from server if needed)
-        config.legend.unit =
+        legend.unit =
             styleDataItem.name ||
             (await engine
                 .query(DATA_ELEMENT_NAME_QUERY, {
@@ -153,7 +175,7 @@ const styleByNumeric = async (config, engine) => {
                 .then(({ dataElement }) => dataElement.name))
 
         // Generate legend items based on layer config
-        config.legend.items = getAutomaticLegendItems(
+        legend.items = getAutomaticLegendItems(
             sortedValues,
             method,
             classes,
@@ -161,22 +183,36 @@ const styleByNumeric = async (config, engine) => {
         )
     }
 
+    legend.items.push({
+        name: i18n.t('Not set'),
+        color: cssColor(eventPointColor) || EVENT_COLOR,
+    })
+
     // Add radius and count to each legend item
-    config.legend.items.forEach((item) => {
+    legend.items.forEach((item) => {
         item.radius = eventPointRadius || EVENT_RADIUS
         item.count = 0
     })
 
     // Helper function to get legend item for data value
-    const getLegendItem = curry(getLegendItemForValue)(config.legend.items)
+    const getLegendItem = curry(getLegendItemForValue)(
+        config.legend.items.slice(0, -1)
+    )
 
     // Add style data value and color to each feature
-    config.data = config.data.map((feature) => {
-        const value = Number(feature.properties[styleDataItem.id])
-        const legendItem = getLegendItem(value)
+    config.data = data.map((feature) => {
+        const value = feature.properties[styleDataItem.id]
+
+        let legendItem
+        if (hasValue(value)) {
+            const numericValue = Number(value)
+            legendItem = getLegendItem(numericValue)
+        }
 
         if (legendItem) {
             legendItem.count++
+        } else {
+            legend.items[legend.items.length - 1].count++
         }
 
         return {
@@ -193,7 +229,7 @@ const styleByNumeric = async (config, engine) => {
 }
 
 const styleByOptionSet = async (config, engine) => {
-    const { styleDataItem } = config
+    const { styleDataItem, legend, eventPointColor, eventPointRadius } = config
     const optionSet = await getOptionSet(styleDataItem.optionSet, engine)
     const id = styleDataItem.id
 
@@ -203,6 +239,22 @@ const styleByOptionSet = async (config, engine) => {
         name: optionSet.name,
         optionSet,
     }
+
+    // Add legend data
+    legend.unit = optionSet.name
+    legend.items = optionSet.options.map((option) => ({
+        name: option.name,
+        color: option.style.color,
+        radius: eventPointRadius || EVENT_RADIUS,
+        count: 0,
+    }))
+
+    legend.items.push({
+        name: i18n.t('Not set'),
+        color: cssColor(eventPointColor) || EVENT_COLOR,
+        radius: eventPointRadius || EVENT_RADIUS,
+        count: 0,
+    })
 
     // For easier and faster lookup below
     // TODO: There might be options with duplicate name, so code/id would be safer
@@ -220,6 +272,10 @@ const styleByOptionSet = async (config, engine) => {
             const option = optionsByName[name.toLowerCase()]
 
             if (option) {
+                const optionIndex = legend.items.findIndex(
+                    (item) => item.name === option.name
+                )
+                legend.items[optionIndex].count++
                 return {
                     ...feature,
                     properties: {
@@ -231,6 +287,7 @@ const styleByOptionSet = async (config, engine) => {
             }
         }
 
+        legend.items[legend.items.length - 1].count++
         return {
             ...feature,
             properties: {
@@ -240,14 +297,6 @@ const styleByOptionSet = async (config, engine) => {
             },
         }
     })
-
-    // Add legend data
-    config.legend.unit = optionSet.name
-    config.legend.items = optionSet.options.map((option) => ({
-        name: option.name,
-        color: option.style.color,
-        radius: config.eventPointRadius || EVENT_RADIUS,
-    }))
 
     return config
 }
