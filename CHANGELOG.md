@@ -1,3 +1,17 @@
+## [101.2.2](https://github.com/dhis2/maps-app/compare/v101.2.1...v101.2.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* add hash routing and plugin support for the upcoming global shell [DHIS2-19601] ([#3485](https://github.com/dhis2/maps-app/issues/3485)) ([03a3332](https://github.com/dhis2/maps-app/commit/03a3332925692ae05ff8e8fe7d3a27a13932f50c))
+
+## [101.2.1](https://github.com/dhis2/maps-app/compare/v101.2.0...v101.2.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3490](https://github.com/dhis2/maps-app/issues/3490)) ([3abd499](https://github.com/dhis2/maps-app/commit/3abd4994e10fa80a2ceadf800eb6000604592a65))
+
 # [101.2.0](https://github.com/dhis2/maps-app/compare/v101.1.1...v101.2.0) (2025-03-17)
 
 
