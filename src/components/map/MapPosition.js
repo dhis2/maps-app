@@ -1,8 +1,8 @@
 import cx from 'classnames'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { APP_MENU_HEIGHT, HEADER_HEIGHT } from '../../constants/layout.js'
-import { getSplitViewLayer } from '../../util/helpers.js'
+import { APP_MENU_HEIGHT } from '../../constants/layout.js'
+import { getSplitViewLayer, getHeaderHeight } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.js'
 import NorthArrow from '../download/NorthArrow.js'
 import MapContainer from '../map/MapContainer.js'
@@ -24,12 +24,13 @@ const MapPosition = () => {
         useSelector((state) => state.ui)
     const dataTableOpen = useSelector((state) => !!state.dataTable)
 
-    let mapHeight = `calc(100vh - ${HEADER_HEIGHT}px)`
+    const headerHeight = getHeaderHeight()
+    let mapHeight = `calc(100vh - ${headerHeight}px)`
     if (!downloadMode) {
         if (dataTableOpen) {
-            mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px - ${dataTableHeight}px)`
+            mapHeight = `calc(100vh - ${headerHeight}px - ${APP_MENU_HEIGHT}px - ${dataTableHeight}px)`
         } else {
-            mapHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${APP_MENU_HEIGHT}px)`
+            mapHeight = `calc(100vh - ${headerHeight}px - ${APP_MENU_HEIGHT}px)`
         }
     }
 
