@@ -143,3 +143,11 @@ export const sumObjectValues = (obj) =>
         }
         return sum
     }, 0)
+
+// Get the header height for height calculations
+export const getHeaderHeight = () =>
+    Number(
+        getComputedStyle(document.documentElement)
+            .getPropertyValue('--header-height')
+            .replace('px', '')
+    )
