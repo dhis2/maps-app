@@ -85,17 +85,37 @@ const trackedEntityLoader = async (config, serverVersion) => {
         ],
     }
 
+    // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
+    let trackerRootProp,
+        trackerOrgUnitsParam,
+        trackerOrgUnitsModeParam,
+        trackerValuesSeparator,
+        trackerPaging
+    if (`${serverVersion.major}.${serverVersion.minor}` == '2.40') {
+        trackerRootProp = 'instances'
+        trackerOrgUnitsParam = 'orgUnit'
+        trackerOrgUnitsModeParam = 'ouMode'
+        trackerValuesSeparator = ';'
+        trackerPaging = 'skipPaging=true'
+    } else {
+        trackerRootProp = 'trackedEntities'
+        trackerOrgUnitsParam = 'orgUnits'
+        trackerOrgUnitsModeParam = 'orgUnitMode'
+        trackerValuesSeparator = ','
+        trackerPaging = 'paging=false'
+    }
+
     const orgUnits = getOrgUnitsFromRows(rows)
         .map((ou) => ou.id)
-        .join(';')
+        .join(trackerValuesSeparator)
 
     const fieldsWithRelationships = [...fields, 'relationships']
-    let url = `/tracker/trackedEntities?skipPaging=true&fields=${fieldsWithRelationships}&orgUnit=${orgUnits}`
+    let url = `/tracker/trackedEntities?${trackerPaging}&fields=${fieldsWithRelationships}&${trackerOrgUnitsParam}=${orgUnits}`
     let alert
     let explanation
 
     if (organisationUnitSelectionMode) {
-        url += `&ouMode=${organisationUnitSelectionMode}`
+        url += `&${trackerOrgUnitsModeParam}=${organisationUnitSelectionMode}`
     }
 
     if (program) {
@@ -122,12 +142,6 @@ const trackedEntityLoader = async (config, serverVersion) => {
     }
 
     const primaryData = await apiFetch(url)
-
-    // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-    const trackerRootProp =
-        `${serverVersion.major}.${serverVersion.minor}` == '2.40'
-            ? 'instances'
-            : 'trackedEntities'
     const instances = primaryData[trackerRootProp].filter(
         (instance) =>
             teiGeometryTypes.includes(instance.geometry?.type) &&
