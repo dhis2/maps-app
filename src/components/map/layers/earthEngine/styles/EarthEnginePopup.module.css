@@ -1,5 +1,6 @@
 .popup {
     color: var(--colors-grey900);
+    min-width: 150px;
     max-height: 240px;
     overflow-y: auto;
     padding-right: var(--spacers-dp8);
