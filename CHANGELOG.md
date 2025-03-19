@@ -1,3 +1,17 @@
+## [101.2.4](https://github.com/dhis2/maps-app/compare/v101.2.3...v101.2.4) (2025-03-19)
+
+
+### Bug Fixes
+
+* replace deprecated or removed api request params [DHIS2-18981] ([#3489](https://github.com/dhis2/maps-app/issues/3489)) ([6747bb6](https://github.com/dhis2/maps-app/commit/6747bb635b42d84a71bcd1755c5cec4b3f9fa5c8))
+
+## [101.2.3](https://github.com/dhis2/maps-app/compare/v101.2.2...v101.2.3) (2025-03-19)
+
+
+### Bug Fixes
+
+* remove hardcoded HEADER_HEIGHT [DHIS2-19231] ([#3495](https://github.com/dhis2/maps-app/issues/3495)) ([ca1744e](https://github.com/dhis2/maps-app/commit/ca1744eaebfe37b37a8402f4b7f33bc4a44fd6ba))
+
 ## [101.2.2](https://github.com/dhis2/maps-app/compare/v101.2.1...v101.2.2) (2025-03-18)
 
 
