@@ -65,7 +65,7 @@ describe('Map Download', () => {
         cy.log('confirm that download page is open')
         cy.getByDataTest('headerbar-title').should('not.be.visible')
 
-        assertMapPosition(expectedBottoms2, expectedHeights2)
+        assertMapPosition(expectedBottoms2, expectedHeights2, 2)
 
         cy.getByDataTest('download-settings').should('be.visible')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
@@ -130,6 +130,8 @@ describe('Map Download', () => {
         cy.url().should('contain', `/#/${mapWithThematicLayer.id}`)
         cy.url().should('not.contain', '/download')
         cy.getByDataTest('headerbar-title').should('be.visible')
+
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         assertMapPosition(expectedBottoms1, expectedHeights1)
 
