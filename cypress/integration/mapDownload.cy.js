@@ -42,6 +42,7 @@ describe('Map Download', () => {
             .click()
 
         cy.log('confirm that download page is open')
+        cy.getByDataTest('headerbar-title').should('not.be.visible')
         cy.getByDataTest('download-settings').should('be.visible')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
         cy.get('button').contains('Exit download mode').should('be.visible')
@@ -104,6 +105,7 @@ describe('Map Download', () => {
         cy.get('button').contains('Exit download mode').click()
         cy.url().should('contain', `/#/${mapWithThematicLayer.id}`)
         cy.url().should('not.contain', '/download')
+        cy.getByDataTest('headerbar-title').should('be.visible')
         cy.getByDataTest('download-settings').should('not.exist')
         cy.get('[data-test="layercard"]')
             .find('h2')
