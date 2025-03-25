@@ -1,3 +1,11 @@
+import {
+    MENU_HEIGHT,
+    IFRAME_HEADER_HEIGHT,
+    GLOBAL_HEADER_HEIGHT,
+    DOWNLOAD_HEADER_HEIGHT,
+    DOWNLOAD_BORDER,
+    assertMapPosition,
+} from '../elements/map_canvas.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const mapWithThematicLayer = {
@@ -29,8 +37,21 @@ describe('Map Download', () => {
     })
 
     it('downloads a map', () => {
+        const viewportHeight = Cypress.config('viewportHeight')
+        const expectedBottoms1 = [viewportHeight]
+        const expectedHeights1 = [
+            GLOBAL_HEADER_HEIGHT,
+            IFRAME_HEADER_HEIGHT,
+        ].map((h) => viewportHeight - h - MENU_HEIGHT)
+        const expectedBottoms2 = [viewportHeight - DOWNLOAD_BORDER]
+        const expectedHeights2 = [
+            viewportHeight - DOWNLOAD_HEADER_HEIGHT - 2 * DOWNLOAD_BORDER,
+        ]
+
         cy.visit(`/#/${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        assertMapPosition(expectedBottoms1, expectedHeights1)
 
         cy.get('[data-test="layercard"]')
             .find('h2')
@@ -43,6 +64,9 @@ describe('Map Download', () => {
 
         cy.log('confirm that download page is open')
         cy.getByDataTest('headerbar-title').should('not.be.visible')
+
+        assertMapPosition(expectedBottoms2, expectedHeights2)
+
         cy.getByDataTest('download-settings').should('be.visible')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
         cy.get('button').contains('Exit download mode').should('be.visible')
@@ -106,6 +130,9 @@ describe('Map Download', () => {
         cy.url().should('contain', `/#/${mapWithThematicLayer.id}`)
         cy.url().should('not.contain', '/download')
         cy.getByDataTest('headerbar-title').should('be.visible')
+
+        assertMapPosition(expectedBottoms1, expectedHeights1)
+
         cy.getByDataTest('download-settings').should('not.exist')
         cy.get('[data-test="layercard"]')
             .find('h2')
