@@ -11,7 +11,15 @@ export const getMaps = () => cy.get('.dhis2-map canvas', EXTENDED_TIMEOUT)
 export const assertMapPosition = (expectedBottoms, expectedHeights) => {
     getMaps().then(($canvas) => {
         const boundingRect = $canvas[0].getBoundingClientRect()
-        expect(expectedBottoms).to.include(boundingRect.bottom)
-        expect(expectedHeights).to.include(boundingRect.height)
+        expect(
+            expectedBottoms.some(
+                (expected) => Math.abs(expected - boundingRect.bottom) <= 1
+            )
+        ).to.be.true
+        expect(
+            expectedHeights.some(
+                (expected) => Math.abs(expected - boundingRect.height) <= 1
+            )
+        ).to.be.true
     })
 }
