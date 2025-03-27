@@ -16,7 +16,7 @@ export const defaultBasemaps = () => [
             type: TILE_LAYER,
             url: '//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
             attribution:
-                '&copy; <a target=_blank href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a target=_blank href="https://cartodb.com/attributions">CartoDB</a>',
+                '&copy; <a target="_blank" rel="noreferrer" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a target="_blank" rel="noreferrer" href="https://cartodb.com/attributions">CartoDB</a>',
         },
         isDark: false,
     },
@@ -28,7 +28,7 @@ export const defaultBasemaps = () => [
             type: TILE_LAYER,
             url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             attribution:
-                '&copy; <a target=_blank href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                '&copy; <a target="_blank" rel="noreferrer" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         },
         isDark: false,
     },
