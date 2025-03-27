@@ -1,3 +1,10 @@
+## [101.2.5](https://github.com/dhis2/maps-app/compare/v101.2.4...v101.2.5) (2025-03-27)
+
+
+### Bug Fixes
+
+* header bar visibility issues in download mode [DHIS2-19279] ([#3500](https://github.com/dhis2/maps-app/issues/3500)) ([01288e1](https://github.com/dhis2/maps-app/commit/01288e1a2b348872c4a0a2af262109a259fc551a))
+
 ## [101.2.4](https://github.com/dhis2/maps-app/compare/v101.2.3...v101.2.4) (2025-03-19)
 
 
