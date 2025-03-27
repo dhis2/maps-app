@@ -87,7 +87,6 @@ export const downloadData = async ({
     aggregations,
     format,
     humanReadableKeys,
-    d2,
     nameProperty,
     engine,
 }) => {
@@ -110,11 +109,14 @@ export const downloadData = async ({
             }, {}),
         }
 
-        const result = await loadData(
-            await getAnalyticsRequest(config, { d2, nameProperty, engine }),
+        const result = await loadData({
+            request: await getAnalyticsRequest(config, {
+                nameProperty,
+                engine,
+            }),
             config,
-            d2
-        )
+            engine,
+        })
         layerData = result.data
     } else if (layer.valuesByPeriod) {
         layerData = includeValuesByPeriod(layer)
