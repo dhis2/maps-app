@@ -4,7 +4,6 @@
 
 // Number values types used for style by data item
 export const numberValueTypes = [
-    'AGE',
     'INTEGER',
     'INTEGER_NEGATIVE',
     'INTEGER_POSITIVE',
