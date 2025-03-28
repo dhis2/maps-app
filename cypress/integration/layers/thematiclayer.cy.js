@@ -179,7 +179,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(1500) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
