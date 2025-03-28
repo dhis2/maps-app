@@ -10,6 +10,7 @@ import {
     CURRENT_YEAR,
     getApiBaseUrl,
     EXTENDED_TIMEOUT,
+    POPUP_WAIT,
 } from '../../support/util.js'
 
 const HIV_INDICATOR_GROUP = 'HIV'
@@ -125,7 +126,7 @@ context('Thematic Layers', () => {
 
         getMaps().click('center')
 
-        cy.wait(1500) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
@@ -179,7 +180,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
@@ -195,7 +196,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
@@ -233,7 +234,7 @@ context('Thematic Layers', () => {
             `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`
         )
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -256,7 +257,7 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -279,7 +280,7 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])

@@ -1,6 +1,10 @@
 import { EventLayer } from '../../elements/event_layer.js'
 import { getMaps } from '../../elements/map_canvas.js'
-import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../../support/util.js'
+import {
+    CURRENT_YEAR,
+    EXTENDED_TIMEOUT,
+    POPUP_WAIT,
+} from '../../support/util.js'
 
 const programE2E = {
     name: 'E2E program',
@@ -148,7 +152,7 @@ context('Event Layers', () => {
             Layer.validateDialogClosed(true)
 
             // Wait for map to load
-            cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+            cy.wait(POPUP_WAIT)
             cy.get('#dhis2-map-container')
                 .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
                 .should('not.exist')
@@ -216,7 +220,7 @@ context('Event Layers', () => {
             .selectOu(programIP.ousAlt[2])
             .addToMap()
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')

@@ -1,6 +1,6 @@
 import { getMaps } from '../../elements/map_canvas.js'
 import { TeLayer } from '../../elements/trackedentity_layer.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
+import { EXTENDED_TIMEOUT, POPUP_WAIT } from '../../support/util.js'
 
 describe('Tracked Entity Layers', () => {
     beforeEach(() => {
@@ -44,7 +44,7 @@ describe('Tracked Entity Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
