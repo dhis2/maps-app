@@ -1,4 +1,5 @@
 import { EventLayer } from '../../elements/event_layer.js'
+import { getMaps } from '../../elements/map_canvas.js'
 import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const programE2E = {
@@ -153,7 +154,7 @@ context('Event Layers', () => {
                 .should('not.exist')
 
             // Check popup
-            cy.get('.dhis2-map').click('center') // Click in the middle of the map
+            getMaps().click('center') // Click in the middle of the map
             Layer.validatePopupContents([coordinates.name, coordinates.coords])
 
             // Check legend
@@ -220,7 +221,7 @@ context('Event Layers', () => {
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
 
-        cy.get('.dhis2-map').click('center')
+        getMaps().click('center')
         Layer.validatePopupContents([
             'Event location',
             '-13.188339 8.405215',
