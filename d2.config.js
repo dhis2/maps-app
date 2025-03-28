@@ -11,7 +11,9 @@ const config = {
     pwa: {
         enabled: true,
         caching: {
-            patternsToOmitFromAppShell: [/.*/],
+            patternsToOmitFromAppShell: [
+                /^(?!.*me\/authorization)(?!.*me\?fields).*$/,
+            ],
             globsToOmitFromPrecache: ['fonts/**', 'images/**'],
         },
     },
