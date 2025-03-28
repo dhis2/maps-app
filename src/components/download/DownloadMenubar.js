@@ -2,14 +2,14 @@ import i18n from '@dhis2/d2-i18n'
 import { Button, IconChevronLeft24, colors } from '@dhis2/ui'
 import React, { useEffect } from 'react'
 import { closeDownloadMode } from '../../util/history.js'
+import { setHeaderbarVisible } from '../../util/setHeaderbarVisible.js'
 import styles from './styles/DownloadMenubar.module.css'
 
 const DownloadMenubar = () => {
     useEffect(() => {
-        const header = document.getElementsByTagName('header')[0]
-        header.style.display = 'none'
+        setHeaderbarVisible(false)
         return () => {
-            header.style.display = 'block'
+            setHeaderbarVisible(true)
         }
     }, [])
 

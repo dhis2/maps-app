@@ -1,8 +1,7 @@
 import cx from 'classnames'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { APP_MENU_HEIGHT } from '../../constants/layout.js'
-import { getSplitViewLayer, getHeaderHeight } from '../../util/helpers.js'
+import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.js'
 import NorthArrow from '../download/NorthArrow.js'
 import MapContainer from '../map/MapContainer.js'
@@ -23,16 +22,6 @@ const MapPosition = () => {
     const { downloadMode, layersPanelOpen, rightPanelOpen, dataTableHeight } =
         useSelector((state) => state.ui)
     const dataTableOpen = useSelector((state) => !!state.dataTable)
-
-    const headerHeight = getHeaderHeight()
-    let mapHeight = `calc(100vh - ${headerHeight}px)`
-    if (!downloadMode) {
-        if (dataTableOpen) {
-            mapHeight = `calc(100vh - ${headerHeight}px - ${APP_MENU_HEIGHT}px - ${dataTableHeight}px)`
-        } else {
-            mapHeight = `calc(100vh - ${headerHeight}px - ${APP_MENU_HEIGHT}px)`
-        }
-    }
 
     const downloadMapInfoOpen =
         downloadMode &&
@@ -87,39 +76,44 @@ const MapPosition = () => {
     }, [map, downloadMode])
 
     return (
-        <div className={styles.mapPosition} style={{ height: mapHeight }}>
+        <div
+            className={cx(styles.mapDefault, {
+                [styles.mapDownload]: downloadMode,
+                [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
+            })}
+            style={
+                dataTableOpen
+                    ? {
+                          height: `calc(100vh - var(--header-height) - var(--toolbar-height) - ${dataTableHeight}px)`,
+                      }
+                    : {}
+            }
+        >
             <div
-                className={cx({
-                    [styles.mapDownload]: downloadMode,
-                    [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
+                id="dhis2-map-container"
+                className={cx(styles.mapContainer, {
+                    [styles.download]: downloadMode,
+                    'dhis2-map-download': downloadMode,
+                    'dhis2-map-new': !mapId,
                 })}
             >
-                <div
-                    id="dhis2-map-container"
-                    className={cx(styles.mapContainer, {
-                        [styles.download]: downloadMode,
-                        'dhis2-map-download': downloadMode,
-                        'dhis2-map-new': !mapId,
-                    })}
-                >
-                    <MapContainer resizeCount={resizeCount} setMap={setMap} />
-                    {downloadMode && map && (
-                        <>
-                            {downloadMapInfoOpen && (
-                                <DownloadMapInfo
-                                    map={map.getMapGL()}
-                                    isSplitView={isSplitView}
-                                />
-                            )}
-                            {showNorthArrow && !isSplitView && (
-                                <NorthArrow
-                                    map={map.getMapGL()}
-                                    downloadMapInfoOpen={downloadMapInfoOpen}
-                                />
-                            )}
-                        </>
-                    )}
-                </div>
+                <MapContainer resizeCount={resizeCount} setMap={setMap} />
+                {downloadMode && map && (
+                    <>
+                        {downloadMapInfoOpen && (
+                            <DownloadMapInfo
+                                map={map.getMapGL()}
+                                isSplitView={isSplitView}
+                            />
+                        )}
+                        {showNorthArrow && !isSplitView && (
+                            <NorthArrow
+                                map={map.getMapGL()}
+                                downloadMapInfoOpen={downloadMapInfoOpen}
+                            />
+                        )}
+                    </>
+                )}
             </div>
         </div>
     )
