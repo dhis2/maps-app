@@ -144,10 +144,10 @@ export const sumObjectValues = (obj) =>
         return sum
     }, 0)
 
-// Get the header height for height calculations
-export const getHeaderHeight = () =>
+// Get value given a css var name
+export const getCssVar = (cssVar) =>
     Number(
         getComputedStyle(document.documentElement)
-            .getPropertyValue('--header-height')
+            .getPropertyValue(cssVar)
             .replace('px', '')
     )

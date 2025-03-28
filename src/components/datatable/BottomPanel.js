@@ -3,12 +3,11 @@ import React, { useRef, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import {
-    APP_MENU_HEIGHT,
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import { getHeaderHeight } from '../../util/helpers.js'
+import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import DataTable from './DataTable.js'
 import ErrorBoundary from './ErrorBoundary.js'
@@ -30,8 +29,8 @@ const BottomPanel = () => {
         [panelRef]
     )
 
-    const headerHeight = getHeaderHeight()
-    const maxHeight = height - headerHeight - APP_MENU_HEIGHT
+    const maxHeight =
+        height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
     const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0
