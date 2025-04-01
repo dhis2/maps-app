@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "999.99.0-hyperlinks-fixes.2",
+    "version": "101.2.5",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -42,7 +42,7 @@
         "start-server-and-test": "^2.0.10"
     },
     "dependencies": {
-        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#599205999e91350516b6ee3510e1ea26d3133caf",
+        "@dhis2/analytics": "^26.13.3",
         "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
