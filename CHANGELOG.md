@@ -1,3 +1,17 @@
+## [101.2.6](https://github.com/dhis2/maps-app/compare/v101.2.5...v101.2.6) (2025-04-01)
+
+
+### Bug Fixes
+
+* ensure hyperlinks work when using the upcoming global shell [DHIS2-19274] ([#3501](https://github.com/dhis2/maps-app/issues/3501)) ([8d400f2](https://github.com/dhis2/maps-app/commit/8d400f2dd5d2aaed5163c2d77a29ba8782032b35))
+
+## [101.2.5](https://github.com/dhis2/maps-app/compare/v101.2.4...v101.2.5) (2025-03-27)
+
+
+### Bug Fixes
+
+* header bar visibility issues in download mode [DHIS2-19279] ([#3500](https://github.com/dhis2/maps-app/issues/3500)) ([01288e1](https://github.com/dhis2/maps-app/commit/01288e1a2b348872c4a0a2af262109a259fc551a))
+
 ## [101.2.4](https://github.com/dhis2/maps-app/compare/v101.2.3...v101.2.4) (2025-03-19)
 
 
