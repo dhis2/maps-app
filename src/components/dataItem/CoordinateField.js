@@ -12,7 +12,7 @@ import {
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
 
-const includeTypes = ['COORDINATE']
+const includeTypes = ['COORDINATE', 'ORGANISATION_UNIT']
 
 const CoordinateField = ({
     value,
@@ -45,6 +45,10 @@ const CoordinateField = ({
             })
         }
 
+        fields.push({
+            id: EVENT_COORDINATE_ORG_UNIT,
+            name: i18n.t('Organisation unit location'),
+        })
         fields.push({
             id: EVENT_COORDINATE_DEFAULT,
             name: i18n.t('Event location'),

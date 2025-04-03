@@ -19,7 +19,9 @@ const EVENTS_QUERY = {
     },
 }
 
-const getDataRows = ({ displayItems, dataValues }) => {
+const getDataRows = ({ displayItems, dataValues, orgUnitNames }) => {
+    console.log('🚀 ~ getDataRows ~ displayItems:', displayItems)
+    console.log('🚀 ~ getDataRows ~ orgUnitNames:', orgUnitNames)
     const dataRows = []
 
     // Include rows for each data item used for styling and displayInReport
@@ -57,6 +59,7 @@ const EventPopup = ({
     onClose,
 }) => {
     const [orgUnit, setOrgUnit] = useState()
+    const [orgUnitNames, setOrgUnitNames] = useState({})
 
     const { refetch: refetchOrgUnit, fetching: fetchingOrgUnit } = useDataQuery(
         ORG_UNIT_QUERY,
@@ -74,12 +77,13 @@ const EventPopup = ({
     })
 
     useEffect(() => {
-        const fetchEventandOU = async () => {
+        const fetchEventandOUs = async () => {
             const resultEvent = await refetchEvent({
                 id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
             })
             const idOrgUnit = resultEvent?.events?.orgUnit
 
+            // Fetch event org unit
             if (idOrgUnit) {
                 const resultOrgUnit = await refetchOrgUnit({
                     id: idOrgUnit,
@@ -89,9 +93,29 @@ const EventPopup = ({
 
                 setOrgUnit(nameOrgUnit)
             }
+
+            // Fetch all org units referenced in displayItems
+            const orgUnitIds = displayItems
+                .filter(({ valueType }) => valueType === 'ORGANISATION_UNIT')
+                .map(({ id }) => {
+                    const { value } =
+                        resultEvent?.events?.dataValues.find(
+                            (d) => d.dataElement === id
+                        ) || {}
+                    return value
+                })
+            const orgUnitPromises = orgUnitIds.map(async (id) => {
+                const result = await refetchOrgUnit({ id, nameProperty })
+                return { id, name: result?.orgUnit?.name }
+            })
+            const resolvedOrgUnits = await Promise.all(orgUnitPromises)
+            const nameMap = Object.fromEntries(
+                resolvedOrgUnits.map(({ id, name }) => [id, name])
+            )
+            setOrgUnitNames(nameMap)
         }
-        fetchEventandOU()
-    }, [feature, nameProperty, refetchEvent, refetchOrgUnit])
+        fetchEventandOUs()
+    }, [feature, nameProperty, refetchEvent, refetchOrgUnit, displayItems])
 
     const { type, coordinates: coord } = feature.geometry
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
@@ -131,6 +155,7 @@ const EventPopup = ({
                             getDataRows({
                                 displayItems,
                                 dataValues,
+                                orgUnitNames,
                             })}
                         {type === 'Point' && (
                             <tr>
