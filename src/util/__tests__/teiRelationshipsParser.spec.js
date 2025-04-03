@@ -9,26 +9,37 @@ jest.mock('../api.js')
 describe('fetchData', () => {
     it.each([
         {
-            customProps: { organisationUnitSelectionMode: 'someOUMode' },
+            customProps: {
+                orgUnitsMode: { param: 'orgUnitMode', value: 'someOUMode' },
+                trackerPaging: 'paging=false',
+            },
             expectedUrl:
-                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&ouMode=someOUMode',
+                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&orgUnitMode=someOUMode',
         },
         {
-            customProps: { type: { id: 'someTETypeId' } },
+            customProps: {
+                type: { id: 'someTETypeId' },
+                orgUnitsMode: { param: 'orgUnitMode' },
+                trackerPaging: 'paging=false',
+            },
             expectedUrl:
-                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&trackedEntityType=someTETypeId',
+                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&trackedEntityType=someTETypeId',
         },
         {
-            customProps: { program: 'someProgram' },
+            customProps: {
+                program: 'someProgram',
+                orgUnitsMode: { param: 'orgUnitMode' },
+                trackerPaging: 'paging=false',
+            },
             expectedUrl:
-                '/tracker/trackedEntities?skipPaging=true&fields=someFields&orgUnit=ouId&program=someProgram',
+                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&program=someProgram',
         },
     ])(
         'should call apiFetch correct url in different scenarios',
         async ({ customProps, expectedUrl }) => {
             const mockData = { some: 'object' }
             const baseProps = {
-                orgUnits: 'ouId',
+                orgUnits: { param: 'orgUnits', value: 'ouId' },
                 fields: 'someFields',
             }
 
@@ -426,8 +437,8 @@ describe('getDataWithRelationships', () => {
             },
         ]
         OUProps = {
-            orgUnits: 'someOU',
-            organisationUnitSelectionMode: 'someOUMode',
+            orgUnits: { param: 'orgUnits', value: 'someOU' },
+            orgUnitsMode: { param: 'orgUnitMode', value: 'someOUMode' },
         }
     })
     beforeEach(() => {

@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadModeMenu from '../download/DownloadMenubar.js'
@@ -16,6 +16,18 @@ import { useLoadDataStore } from './useLoadDataStore.js'
 import { useLoadMap } from './useLoadMap.js'
 
 const App = () => {
+    useEffect(() => {
+        // Store the header height for height calculations
+        const headerHeight = document
+            .querySelector('header')
+            .getBoundingClientRect().height
+
+        document.documentElement.style.setProperty(
+            '--header-height',
+            `${headerHeight}px`
+        )
+    }, [])
+
     useLoadMap()
     useLoadDataStore()
 

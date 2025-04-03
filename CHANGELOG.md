@@ -1,3 +1,38 @@
+## [101.2.6](https://github.com/dhis2/maps-app/compare/v101.2.5...v101.2.6) (2025-04-01)
+
+
+### Bug Fixes
+
+* ensure hyperlinks work when using the upcoming global shell [DHIS2-19274] ([#3501](https://github.com/dhis2/maps-app/issues/3501)) ([8d400f2](https://github.com/dhis2/maps-app/commit/8d400f2dd5d2aaed5163c2d77a29ba8782032b35))
+
+## [101.2.5](https://github.com/dhis2/maps-app/compare/v101.2.4...v101.2.5) (2025-03-27)
+
+
+### Bug Fixes
+
+* header bar visibility issues in download mode [DHIS2-19279] ([#3500](https://github.com/dhis2/maps-app/issues/3500)) ([01288e1](https://github.com/dhis2/maps-app/commit/01288e1a2b348872c4a0a2af262109a259fc551a))
+
+## [101.2.4](https://github.com/dhis2/maps-app/compare/v101.2.3...v101.2.4) (2025-03-19)
+
+
+### Bug Fixes
+
+* replace deprecated or removed api request params [DHIS2-18981] ([#3489](https://github.com/dhis2/maps-app/issues/3489)) ([6747bb6](https://github.com/dhis2/maps-app/commit/6747bb635b42d84a71bcd1755c5cec4b3f9fa5c8))
+
+## [101.2.3](https://github.com/dhis2/maps-app/compare/v101.2.2...v101.2.3) (2025-03-19)
+
+
+### Bug Fixes
+
+* remove hardcoded HEADER_HEIGHT [DHIS2-19231] ([#3495](https://github.com/dhis2/maps-app/issues/3495)) ([ca1744e](https://github.com/dhis2/maps-app/commit/ca1744eaebfe37b37a8402f4b7f33bc4a44fd6ba))
+
+## [101.2.2](https://github.com/dhis2/maps-app/compare/v101.2.1...v101.2.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* add hash routing and plugin support for the upcoming global shell [DHIS2-19601] ([#3485](https://github.com/dhis2/maps-app/issues/3485)) ([03a3332](https://github.com/dhis2/maps-app/commit/03a3332925692ae05ff8e8fe7d3a27a13932f50c))
+
 ## [101.2.1](https://github.com/dhis2/maps-app/compare/v101.2.0...v101.2.1) (2025-03-18)
 
 
