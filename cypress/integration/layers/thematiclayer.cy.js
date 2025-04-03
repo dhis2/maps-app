@@ -10,6 +10,7 @@ import {
     CURRENT_YEAR,
     getApiBaseUrl,
     EXTENDED_TIMEOUT,
+    POPUP_WAIT,
 } from '../../support/util.js'
 
 const HIV_INDICATOR_GROUP = 'HIV'
@@ -123,17 +124,17 @@ context('Thematic Layers', () => {
 
         Layer.openOu('Tonkolili').selectOu('Gbonkonlenken').addToMap()
 
-        cy.get('.dhis2-map').click('center')
+        getMaps().click('center')
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
 
-        cy.get('.dhis2-map').click('center')
+        getMaps().click('center')
         Layer.validatePopupContents(['Gbonkonlenken'])
 
-        cy.get('.dhis2-map').click(500, 500)
+        getMaps().click(500, 500)
         Layer.validatePopupContents(['Bo'])
     })
 
@@ -179,11 +180,11 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click('center') //Click in the middle of the map
+        getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: 0'])
 
         // Value: No data
@@ -195,11 +196,11 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT)
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click('center') //Click in the middle of the map
+        getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: No data'])
     })
 
@@ -233,8 +234,8 @@ context('Thematic Layers', () => {
             `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`
         )
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
-        cy.get('.dhis2-map').click('center')
+        cy.wait(POPUP_WAIT)
+        getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
@@ -256,8 +257,8 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
-        cy.get('.dhis2-map').click('center')
+        cy.wait(POPUP_WAIT)
+        getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
@@ -279,8 +280,8 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
-        cy.get('.dhis2-map').click('center')
+        cy.wait(POPUP_WAIT)
+        getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
         cy.get('.maplibregl-popup')
