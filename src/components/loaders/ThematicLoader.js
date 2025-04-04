@@ -10,15 +10,26 @@ const ThematicLoader = ({ config, onLoad, loaderAlertAction }) => {
     const { currentUser } = useCachedDataQuery()
     const engine = useDataEngine()
     const nameProperty = currentUser.keyAnalysisDisplayProperty.toUpperCase()
+    const userId = currentUser.id
 
     useEffect(() => {
-        thematicLoader({ config, engine, nameProperty }).then((result) => {
-            if (result.alerts?.length && loaderAlertAction) {
-                showAlerts(result.alerts)
+        thematicLoader({ config, engine, nameProperty, userId }).then(
+            (result) => {
+                if (result.alerts?.length && loaderAlertAction) {
+                    showAlerts(result.alerts)
+                }
+                onLoad(result)
             }
-            onLoad(result)
-        })
-    }, [config, engine, onLoad, nameProperty, showAlerts, loaderAlertAction])
+        )
+    }, [
+        config,
+        engine,
+        onLoad,
+        nameProperty,
+        userId,
+        showAlerts,
+        loaderAlertAction,
+    ])
 
     return null
 }
