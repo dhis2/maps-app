@@ -7,11 +7,12 @@ export const fetchTEIs = async ({
     type,
     fields,
     orgUnits,
-    organisationUnitSelectionMode,
+    orgUnitsMode,
+    trackerPaging,
 }) => {
-    let url = `/tracker/trackedEntities?skipPaging=true&fields=${fields}&orgUnit=${orgUnits}`
-    if (organisationUnitSelectionMode) {
-        url += `&ouMode=${organisationUnitSelectionMode}`
+    let url = `/tracker/trackedEntities?${trackerPaging}&fields=${fields}&${orgUnits.param}=${orgUnits.value}`
+    if (orgUnitsMode.value) {
+        url += `&${orgUnitsMode.param}=${orgUnitsMode.value}`
     }
     if (program) {
         url += `&program=${program}`
@@ -171,15 +172,30 @@ export const getDataWithRelationships = async (
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-        const trackerRootProp =
-            `${serverVersion.major}.${serverVersion.minor}` == '2.40'
-                ? 'instances'
-                : 'trackedEntities'
+        let trackerRootProp,
+            trackerOrgUnitsParam,
+            trackerOrgUnitsModeParam,
+            trackerPaging
+        if (`${serverVersion.major}.${serverVersion.minor}` == '2.40') {
+            trackerRootProp = 'instances'
+            trackerOrgUnitsParam = 'orgUnit'
+            trackerOrgUnitsModeParam = 'ouMode'
+            trackerPaging = 'skipPaging=true'
+        } else {
+            trackerRootProp = 'trackedEntities'
+            trackerOrgUnitsParam = 'orgUnits'
+            trackerOrgUnitsModeParam = 'orgUnitMode'
+            trackerPaging = 'paging=false'
+        }
         const potentialTargetInstances = await fetchTEIs({
             ...recursiveProp,
             fields,
-            orgUnits,
-            organisationUnitSelectionMode,
+            orgUnits: { param: trackerOrgUnitsParam, value: orgUnits },
+            orgUnitsMode: {
+                param: trackerOrgUnitsModeParam,
+                value: organisationUnitSelectionMode,
+            },
+            trackerPaging,
         })
         normalizedPotentialTargetInstances = normalizeInstances(
             potentialTargetInstances[trackerRootProp]

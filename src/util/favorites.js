@@ -16,7 +16,6 @@ const validMapProperties = [
     'description',
     'user',
     'zoom',
-    'publicAccess',
     'created',
     'lastUpdated',
 ]

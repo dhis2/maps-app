@@ -15,6 +15,7 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
 import { OPTION_SET_QUERY } from '../util/requests.js'
@@ -93,7 +94,9 @@ const loadEventLayer = async ({
         eventPointColor,
         eventPointRadius,
         filters,
+        program,
         programStage,
+        eventCoordinateField,
         startDate,
         styleDataItem,
         areaRadius,
@@ -183,6 +186,17 @@ const loadEventLayer = async ({
                     engine
                 )),
             })
+
+        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+            program,
+            programStage,
+            eventCoordinateField,
+            engine,
+            nameProperty,
+        })
+        if (eventCoordinateFieldName) {
+            config.legend.coordinateFields = [eventCoordinateFieldName]
+        }
 
         config.headers = response.headers
 
