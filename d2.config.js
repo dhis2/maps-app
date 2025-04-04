@@ -12,7 +12,7 @@ const config = {
         enabled: true,
         caching: {
             patternsToOmitFromAppShell: [
-                /^(?!.*me\/authorization)(?!.*me\?fields).*$/,
+                /^(?!.*me\/authorization)(?!.*me\?fields)(?!.*systemSettings)(?!.*analytics\?).*$/,
             ],
             globsToOmitFromPrecache: ['fonts/**', 'images/**'],
         },
