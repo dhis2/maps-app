@@ -65,7 +65,8 @@ const interceptNameProperty = (keyAnalysisDisplayProperty) => {
     interceptRequests(param)
     interceptRequest(
         '**systemSettings?key=keyAnalysisRelativePeriod,keyBingMapsApiKey,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap**',
-        param, 'body'
+        param,
+        'body'
     )
 }
 
