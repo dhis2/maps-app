@@ -1,3 +1,4 @@
+import { getMaps } from '../elements/map_canvas.js'
 import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('OrgUnitInfo', () => {
@@ -5,11 +6,11 @@ describe('OrgUnitInfo', () => {
         cy.visit('/#/ZBjCfSaLSqD', EXTENDED_TIMEOUT)
         cy.get('canvas').should('be.visible')
 
-        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('#dhis2-map-container')
             .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
-        cy.get('.dhis2-map').click(350, 350) //Click somewhere on the map
+        getMaps().click(350, 350) //Click somewhere on the map
 
         cy.get('.maplibregl-popup').contains('View profile').click()
 

@@ -124,6 +124,7 @@ class EventDialog extends Component {
             setPeriod,
             setBackupPeriodsDates,
             setOrgUnits,
+            backupPeriodsDates,
         } = this.props
 
         const period = getPeriodFromFilters(filters)
@@ -142,6 +143,10 @@ class EventDialog extends Component {
             setPeriod({
                 id: defaultPeriod,
             })
+        }
+
+        // Set default backup dates
+        if (!backupPeriodsDates) {
             const defaultDates = getDefaultDatesInCalendar()
             setBackupPeriodsDates(defaultDates)
         }
@@ -279,6 +284,7 @@ class EventDialog extends Component {
                                 value={eventCoordinateField}
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
+                                data-test="eventdialog-coordinatefield"
                             />
                             {/* eventCoordinateField && (
                                 <CoordinateField

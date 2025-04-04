@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-20T13:37:02.693Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -120,8 +120,8 @@ msgstr "事件数据条目"
 msgid "Selected value not available in in list: {{name}}"
 msgstr "所选值在列表中不可用：{{name}}"
 
-msgid "Style by data element"
-msgstr "按数据元风格显示"
+msgid "Style by data item"
+msgstr "按数据元定风格"
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "选择项目阶段后即可进行过滤。"
@@ -928,7 +928,7 @@ msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr "至少选择{{number}} 期或 1 个多期。"
 
 msgid "Remove the existing timeline to add a new one."
-msgstr ""
+msgstr "删除现有时间线，添加新的时间线。"
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -1352,7 +1352,7 @@ msgid "Completed"
 msgstr "完成"
 
 msgid "Choropleth"
-msgstr "胆管"
+msgstr "分级统计"
 
 msgid "Bubble map"
 msgstr "气泡图"
