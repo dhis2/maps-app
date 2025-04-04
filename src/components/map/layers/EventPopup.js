@@ -20,8 +20,6 @@ const EVENTS_QUERY = {
 }
 
 const getDataRows = ({ displayItems, dataValues, orgUnitNames }) => {
-    console.log('🚀 ~ getDataRows ~ displayItems:', displayItems)
-    console.log('🚀 ~ getDataRows ~ orgUnitNames:', orgUnitNames)
     const dataRows = []
 
     // Include rows for each data item used for styling and displayInReport
@@ -31,6 +29,7 @@ const getDataRows = ({ displayItems, dataValues, orgUnitNames }) => {
             value,
             valueType,
             options,
+            orgUnitNames,
         })
 
         dataRows.push(
@@ -90,7 +89,6 @@ const EventPopup = ({
                     nameProperty,
                 })
                 const nameOrgUnit = resultOrgUnit?.orgUnit?.name
-
                 setOrgUnit(nameOrgUnit)
             }
 
@@ -104,15 +102,12 @@ const EventPopup = ({
                         ) || {}
                     return value
                 })
-            const orgUnitPromises = orgUnitIds.map(async (id) => {
+            const orgUnitsNamesMap = {}
+            for (const id of orgUnitIds) {
                 const result = await refetchOrgUnit({ id, nameProperty })
-                return { id, name: result?.orgUnit?.name }
-            })
-            const resolvedOrgUnits = await Promise.all(orgUnitPromises)
-            const nameMap = Object.fromEntries(
-                resolvedOrgUnits.map(({ id, name }) => [id, name])
-            )
-            setOrgUnitNames(nameMap)
+                orgUnitsNamesMap[id] = result?.orgUnit?.name
+            }
+            setOrgUnitNames(orgUnitsNamesMap)
         }
         fetchEventandOUs()
     }, [feature, nameProperty, refetchEvent, refetchOrgUnit, displayItems])
