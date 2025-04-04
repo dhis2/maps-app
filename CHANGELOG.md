@@ -1,3 +1,10 @@
+## [101.2.8](https://github.com/dhis2/maps-app/compare/v101.2.7...v101.2.8) (2025-04-04)
+
+
+### Bug Fixes
+
+* restore navigation between maps using the browser address bar [DHIS2-19387] ([#3508](https://github.com/dhis2/maps-app/issues/3508)) ([f4cd8a1](https://github.com/dhis2/maps-app/commit/f4cd8a167309cca9429ba2a1e4a25942a88b15a7))
+
 ## [101.2.7](https://github.com/dhis2/maps-app/compare/v101.2.6...v101.2.7) (2025-04-04)
 
 
