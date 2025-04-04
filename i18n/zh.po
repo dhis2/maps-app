@@ -3,14 +3,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2022
 # 晓东 林 <13981924470@126.com>, 2022
 # Philip Larsen Donnelly, 2024
-# easylin <lin_xd@126.com>, 2024
+# easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1191,7 +1191,7 @@ msgid "Completed"
 msgstr "完成"
 
 msgid "Choropleth"
-msgstr "胆管"
+msgstr "分级统计"
 
 msgid "Bubble map"
 msgstr "气泡图"
