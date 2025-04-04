@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -129,8 +129,8 @@ msgstr "Elément de données évènement"
 msgid "Selected value not available in in list: {{name}}"
 msgstr ""
 
-msgid "Style by data element"
-msgstr "Style par élément de donnée"
+msgid "Style by data item"
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -490,10 +490,10 @@ msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Le rayon doit se situer entre {{min}} et {{max}}"
 
 msgid "Choose from presets"
-msgstr ""
+msgstr "Choisir parmi les prédéfinis"
 
 msgid "Define start - end dates"
-msgstr ""
+msgstr "Définir les dates de début et de fin"
 
 msgid "Indicator group is required"
 msgstr "Le groupes d'indicateurs est requis"
@@ -966,7 +966,7 @@ msgstr "Dates début-fin"
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Remove the existing timeline to add a new one."
 msgstr ""
 
 msgid ""
