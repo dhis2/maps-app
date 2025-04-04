@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Helton Dias, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -128,8 +128,8 @@ msgstr "Item de dados do evento"
 msgid "Selected value not available in in list: {{name}}"
 msgstr "O valor selecionado não está disponível na lista: {{name}}"
 
-msgid "Style by data element"
-msgstr "Estilo por elemento de dados"
+msgid "Style by data item"
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "A filtragem está disponível após a seleção de um estágio do programa."
@@ -972,7 +972,7 @@ msgstr "Datas de Inicio/término"
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Remove the existing timeline to add a new one."
 msgstr ""
 
 msgid ""
