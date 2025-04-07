@@ -31,19 +31,13 @@ const Timeline = ({ period, periods, onChange, resizeCount }) => {
 
     const TRANSPARENT_RECT = <path d="M0 0h24v24H0z" fillOpacity="0.0" />
     const PLAY_ICON = (
-        <path
-            d="M8 5v14l11-7z"
-            className="play-icon"
-            aria-label="play button"
-            data-testid="play-button"
-        />
+        <path d="M8 5v14l11-7z" className="play-icon" data-test="play-button" />
     )
     const PAUSE_ICON = (
         <path
             d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"
             className="pause-icon"
-            aria-label="pause button"
-            data-testid="pause-button"
+            data-test="pause-button"
         />
     )
 

@@ -1,4 +1,4 @@
-import { mount } from 'enzyme'
+import { render, screen, within } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -9,7 +9,7 @@ const mockStore = configureMockStore()
 describe('StartEndDate Component', () => {
     let store
     let props
-    let renderWithProps
+    // let renderWithProps
 
     beforeEach(() => {
         store = mockStore({
@@ -23,24 +23,27 @@ describe('StartEndDate Component', () => {
                 calendar: 'gregorian',
                 locale: 'en',
             },
+            onSelectEndDate: jest.fn(),
+            onSelectStartDate: jest.fn(),
         }
-        renderWithProps = (props) =>
-            mount(
-                <Provider store={store}>
-                    <StartEndDate {...props} />
-                </Provider>
-            )
     })
 
     it('renders StartEndDate with initial dates', () => {
-        const wrapper = renderWithProps(props)
-        const startDateInput = wrapper
-            .find('div[data-test="start-date-input-content"]')
-            .find('input')
-        const endDateInput = wrapper
-            .find('div[data-test="end-date-input-content"]')
-            .find('input')
-        expect(startDateInput.prop('value')).toBe('2023-01-01')
-        expect(endDateInput.prop('value')).toBe('2023-12-31')
+        render(
+            <Provider store={store}>
+                <StartEndDate {...props} />
+            </Provider>
+        )
+        const startDateInput = screen.getByTestId('start-date-input-content')
+
+        const input = within(startDateInput).getByRole('textbox')
+
+        expect(input).toBeInTheDocument()
+        expect(input).toHaveValue('2023-01-01')
+
+        const endDateInput = screen.getByTestId('end-date-input-content')
+        const endInput = within(endDateInput).getByRole('textbox')
+        expect(endInput).toBeInTheDocument()
+        expect(endInput).toHaveValue('2023-12-31')
     })
 })

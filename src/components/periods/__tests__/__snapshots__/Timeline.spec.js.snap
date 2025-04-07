@@ -17,10 +17,9 @@ exports[`Timeline should render timeline 1`] = `
         fill-opacity="0.0"
       />
       <path
-        aria-label="play button"
         class="play-icon"
         d="M8 5v14l11-7z"
-        data-testid="play-button"
+        data-test="play-button"
       />
     </g>
     <g
