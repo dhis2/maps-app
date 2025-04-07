@@ -97,10 +97,19 @@ const EventPopup = ({
 
     const { type, coordinates: coord } = feature.geometry
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
-    if (!dataValues.some((d) => d.dataElement === styleDataItem?.id)) {
+
+    const dataValueIndex = dataValues.findIndex(
+        (d) => d.dataElement === styleDataItem?.id
+    )
+    if (dataValueIndex !== -1) {
+        dataValues[dataValueIndex] = {
+            dataElement: styleDataItem?.id,
+            value: feature.properties.value,
+        }
+    } else {
         dataValues.push({
             dataElement: styleDataItem?.id,
-            value: feature.properties[styleDataItem?.id],
+            value: feature.properties.value,
         })
     }
 
