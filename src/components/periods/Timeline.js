@@ -30,9 +30,21 @@ const Timeline = ({ period, periods, onChange, resizeCount }) => {
     const timeoutRef = useRef(null)
 
     const TRANSPARENT_RECT = <path d="M0 0h24v24H0z" fillOpacity="0.0" />
-    const PLAY_ICON = <path d="M8 5v14l11-7z" className="play-icon" />
+    const PLAY_ICON = (
+        <path
+            d="M8 5v14l11-7z"
+            className="play-icon"
+            aria-label="play button"
+            data-testid="play-button"
+        />
+    )
     const PAUSE_ICON = (
-        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" className="pause-icon" />
+        <path
+            d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"
+            className="pause-icon"
+            aria-label="pause button"
+            data-testid="pause-button"
+        />
     )
 
     const updateWidth = useCallback(() => {
@@ -149,6 +161,7 @@ const Timeline = ({ period, periods, onChange, resizeCount }) => {
                     width={width}
                     height={RECT_HEIGHT}
                     onClick={() => onPeriodClick(item)}
+                    role="button"
                 />
             )
         })
@@ -167,6 +180,8 @@ const Timeline = ({ period, periods, onChange, resizeCount }) => {
                 onClick={onPlayPause}
                 transform={`translate(7, ${rectTotalHeight / 2})`}
                 className={styles.play}
+                role="button"
+                aria-label="Play/Pause"
             >
                 {TRANSPARENT_RECT}
                 {mode === MODE_PLAY ? PAUSE_ICON : PLAY_ICON}
