@@ -19,7 +19,6 @@ const hasValue = (value) =>
 // This function is modifiyng the config object before it's added to the redux store
 export const styleByDataItem = async (config, engine) => {
     const { styleDataItem } = config
-
     if (styleDataItem.optionSet) {
         await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
