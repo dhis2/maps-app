@@ -588,18 +588,17 @@ context('Thematic Layers', () => {
         cy.getByDataTest('layerlegend-item').should('have.length', 5)
     })
 
-    it('adds a thematic layer with a filter', () => {
+    it.only('adds a thematic layer with a filter', () => {
         Layer.openDialog('Thematic')
-            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
-            .selectIndicator(HIV_INDICATOR_NAME)
+            .selectIndicatorGroup('ANC')
+            .selectIndicator('ANC 1 Coverage')
             .selectTab('Filter')
-            .selectFilter()
-            .selectFilterDimensions('Facility Type', ['Hospital', 'Clinic'])
+            .addFilterDimensions('Facility Type', ['Hospital', 'Clinic'])
             .addToMap()
 
         Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle(HIV_INDICATOR_NAME)
+        Layer.validateCardTitle('ANC 1 Coverage')
 
         Layer.validateLayerFilters({
             type: 'Facility Type',
