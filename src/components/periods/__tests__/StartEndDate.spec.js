@@ -9,7 +9,6 @@ const mockStore = configureMockStore()
 describe('StartEndDate Component', () => {
     let store
     let props
-    // let renderWithProps
 
     beforeEach(() => {
         store = mockStore({
