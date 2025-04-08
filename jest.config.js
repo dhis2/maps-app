@@ -12,4 +12,5 @@ module.exports = {
 
     testRunner: 'jest-circus/runner',
     reporters: ['default'],
+    clearMocks: true,
 }

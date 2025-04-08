@@ -587,4 +587,41 @@ context('Thematic Layers', () => {
         // confirm that the map is valid now
         cy.getByDataTest('layerlegend-item').should('have.length', 5)
     })
+
+    it('adds a thematic layer with a filter', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
+            .selectTab('Filter')
+            .selectFilter()
+            .selectFilterDimensions('Facility Type', ['Hospital', 'Clinic'])
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
+
+        Layer.validateLayerFilters({
+            type: 'Facility Type',
+            items: ['Hospital', 'Clinic'],
+        })
+
+        getMaps().should('have.length', 1)
+
+        // edit the filter
+        cy.getByDataTest('layer-edit-button').click()
+
+        Layer.selectTab('Filter')
+        cy.getByDataTest('dhis2-uicore-multiselect')
+            .findByDataTest('dhis2-uicore-chip')
+            .should('have.length', 2)
+
+        Layer.removeFilterDimensions(['Clinic']).updateMap()
+
+        Layer.validateLayerFilters({
+            type: 'Facility Type',
+            items: ['Hospital'],
+            nonItems: ['Clinic'],
+        })
+    })
 })

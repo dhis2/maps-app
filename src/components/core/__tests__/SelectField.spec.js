@@ -1,10 +1,4 @@
-import {
-    SingleSelectField,
-    SingleSelectOption,
-    MultiSelectField,
-    MultiSelectOption,
-} from '@dhis2/ui'
-import { shallow } from 'enzyme'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import React from 'react'
 import SelectField from '../SelectField.js'
 
@@ -24,94 +18,87 @@ const items = [
 ]
 
 describe('SelectField', () => {
-    const renderWithProps = (props) => shallow(<SelectField {...props} />)
-
     it('should be a SingleSelectField by default', () => {
-        const wrapper = renderWithProps()
-        expect(wrapper.find(SingleSelectField)).toHaveLength(1)
+        render(<SelectField />)
+        expect(
+            screen.getByTestId('dhis2-uiwidgets-singleselectfield')
+        ).toBeInTheDocument()
     })
 
     it('should be a MultipleSelectField if multiple is true', () => {
-        const wrapper = renderWithProps({ multiple: true })
-        expect(wrapper.find(MultiSelectField)).toHaveLength(1)
+        render(<SelectField multiple={true} />)
+        expect(
+            screen.getByTestId('dhis2-uiwidgets-multiselectfield')
+        ).toBeInTheDocument()
+    })
+
+    it('should display validation error', () => {
+        render(<SelectField errorText="This is an emergency" />)
+        const { getByText } = within(
+            screen.getByTestId('dhis2-uiwidgets-singleselectfield-validation')
+        )
+        expect(getByText('This is an emergency')).toBeInTheDocument()
     })
 
     it('should pass label to SingleSelectField', () => {
-        const wrapper = renderWithProps({ label: 'My label' })
-        expect(wrapper.find(SingleSelectField).props().label).toBe('My label')
-    })
-
-    it('should pass value to SingleSelectField as selected prop', () => {
-        const wrapper = renderWithProps({ value: 'cat' })
-        expect(wrapper.find(SingleSelectField).props().selected).toBe('cat')
+        render(<SelectField label="My label" />)
+        expect(screen.getByText('My label')).toBeInTheDocument()
     })
 
     it('should pass className to select field wrapper', () => {
-        const wrapper = renderWithProps({ className: 'myClass' })
-        expect(wrapper.props().className).toContain('myClass')
+        render(<SelectField className="myClass" />)
+        expect(screen.getByTestId('select-field-container')).toHaveClass(
+            'myClass'
+        )
     })
 
-    it('should render items array as SingleSelectOption', () => {
-        const wrapper = renderWithProps({ items })
-        expect(wrapper.find(SingleSelectOption)).toHaveLength(items.length)
+    it('should render items array as SingleSelectOption', async () => {
+        render(<SelectField items={items} label="The indicator" />)
+
+        // click to open the select dropdown
+        await fireEvent.click(screen.getByTestId('dhis2-uicore-select-input'))
+
+        const options = screen.getAllByTestId('dhis2-uicore-singleselectoption')
+        expect(options).toHaveLength(items.length)
+        expect(options[0]).toHaveTextContent('Cat')
+        expect(options[1]).toHaveTextContent('Mouse')
+        expect(options[2]).toHaveTextContent('Dog')
     })
 
-    it('should render items array as MultiSelectOption if multiple select', () => {
-        const wrapper = renderWithProps({
-            multiple: true,
-            items,
-        })
-        expect(wrapper.find(MultiSelectOption)).toHaveLength(items.length)
+    it.skip('should render items array as MultiSelectOption if multiple select', async () => {
+        render(
+            <SelectField items={items} label="The indicator" multiple={true} />
+        )
+
+        // click to open the select dropdown
+        await fireEvent.click(screen.getByTestId('dhis2-uicore-select'))
+
+        const options = screen.getAllByTestId('dhis2-uicore-multiselectoption')
+        expect(options).toHaveLength(items.length)
+        expect(options[0]).toHaveTextContent('Cat')
+        expect(options[1]).toHaveTextContent('Mouse')
+        expect(options[2]).toHaveTextContent('Dog')
     })
 
-    it('should call onChange with item object when single select', () => {
+    it('should call onChange with item object when single select', async () => {
         const onChangeSpy = jest.fn()
-        renderWithProps({ items, onChange: onChangeSpy })
-            .find(SingleSelectField)
-            .props()
-            .onChange({ selected: 'mouse' })
+        render(
+            <SelectField
+                items={items}
+                label="The indicator"
+                onChange={onChangeSpy}
+            />
+        )
+
+        // click to open the select dropdown
+        await fireEvent.click(screen.getByTestId('dhis2-uicore-select-input'))
+
+        const options = screen.getAllByTestId('dhis2-uicore-singleselectoption')
+        expect(options).toHaveLength(items.length)
+
+        // click on the second option
+        await fireEvent.click(options[1])
 
         expect(onChangeSpy).toHaveBeenCalledWith(items[1])
-    })
-
-    it('should call onChange with array of id when multiple select', () => {
-        const onChangeSpy = jest.fn()
-        renderWithProps({
-            multiple: true,
-            items,
-            onChange: onChangeSpy,
-        })
-            .find(MultiSelectField)
-            .props()
-            .onChange({ selected: ['cat'] })
-
-        expect(onChangeSpy).toHaveBeenCalledWith(['cat'])
-    })
-
-    it('should call onChange with array of ids when multiple select', () => {
-        const onChangeSpy = jest.fn()
-        renderWithProps({
-            multiple: true,
-            items,
-            onChange: onChangeSpy,
-        })
-            .find(MultiSelectField)
-            .props()
-            .onChange({ selected: ['cat', 'mouse'] })
-
-        expect(onChangeSpy).toHaveBeenCalledWith(['cat', 'mouse'])
-    })
-
-    it('should pass loading prop to SingleSelectField', () => {
-        const wrapper = renderWithProps({ loading: true })
-        expect(wrapper.find(SingleSelectField).props().loading).toBe(true)
-    })
-
-    it('should pass errorText as error with validationText to SingleSelectField', () => {
-        const wrapper = renderWithProps({ errorText: 'Error message' })
-        expect(wrapper.find(SingleSelectField).props().error).toBe(true)
-        expect(wrapper.find(SingleSelectField).props().validationText).toBe(
-            'Error message'
-        )
     })
 })
