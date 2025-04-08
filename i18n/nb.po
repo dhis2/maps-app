@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -118,8 +118,8 @@ msgstr "Hendelsesdatapunkt"
 msgid "Selected value not available in in list: {{name}}"
 msgstr ""
 
-msgid "Style by data element"
-msgstr "Style etter dataelement"
+msgid "Style by data item"
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtrering er tilgjengelig etter valg av programfase."
@@ -934,7 +934,7 @@ msgstr "Start/slutt-datoer"
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Remove the existing timeline to add a new one."
 msgstr ""
 
 msgid ""
