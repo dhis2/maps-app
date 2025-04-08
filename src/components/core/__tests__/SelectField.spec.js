@@ -65,21 +65,6 @@ describe('SelectField', () => {
         expect(options[2]).toHaveTextContent('Dog')
     })
 
-    it.skip('should render items array as MultiSelectOption if multiple select', async () => {
-        render(
-            <SelectField items={items} label="The indicator" multiple={true} />
-        )
-
-        // click to open the select dropdown
-        await fireEvent.click(screen.getByTestId('dhis2-uicore-select'))
-
-        const options = screen.getAllByTestId('dhis2-uicore-multiselectoption')
-        expect(options).toHaveLength(items.length)
-        expect(options[0]).toHaveTextContent('Cat')
-        expect(options[1]).toHaveTextContent('Mouse')
-        expect(options[2]).toHaveTextContent('Dog')
-    })
-
     it('should call onChange with item object when single select', async () => {
         const onChangeSpy = jest.fn()
         render(
