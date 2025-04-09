@@ -431,7 +431,6 @@ const loadData = async (config, nameProperty, userId) => {
 
     // Features request
     const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)
-    console.log('🚀 ~ loadData ~ geoFeaturesParams:', geoFeaturesParams)
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest)
