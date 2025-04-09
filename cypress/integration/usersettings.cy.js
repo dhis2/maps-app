@@ -7,8 +7,8 @@ const testMap = {
     cardTitle: 'ANC LLITN coverage',
 }
 
-const interceptRequest = (url, param, where = 'body') => {
-    cy.intercept(url, (req) => {
+const interceptRequest = (matcher, param, where = 'body') => {
+    cy.intercept(matcher, (req) => {
         delete req.headers['if-none-match']
         req.reply((res) => {
             if (where === 'body') {
@@ -33,20 +33,32 @@ const interceptRequest = (url, param, where = 'body') => {
         })
     })
 }
+
 const interceptRequests = (param) => {
-    interceptRequest('**userSettings**', param, 'body')
+    interceptRequest({ method: 'GET', url: '**/userSettings' }, param, 'body')
     interceptRequest(
-        '**me?fields=authorities,avatar,email,name,settings**',
+        {
+            method: 'GET',
+            url: '**/me?fields=authorities,avatar,email,name,settings',
+        },
         param,
         'settings'
     )
     interceptRequest(
-        '**me?fields=:all,organisationUnits[id],userGroups[id],userCredentials[:all,!user,userRoles[id]**',
+        {
+            method: 'GET',
+            url: '**/me?fields=:all,organisationUnits[id],userGroups[id],userCredentials[:all,!user,userRoles[id]',
+        },
         param,
         'settings'
     )
     interceptRequest(
-        '**me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D**',
+        {
+            method: 'GET',
+            url: `**/me?fields=${encodeURIComponent(
+                'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty,keyUiLocale]'
+            )}`,
+        },
         param,
         'settings'
     )
@@ -64,7 +76,10 @@ const interceptNameProperty = (keyAnalysisDisplayProperty) => {
     }
     interceptRequests(param)
     interceptRequest(
-        '**systemSettings?key=keyAnalysisRelativePeriod,keyBingMapsApiKey,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap**',
+        {
+            method: 'GET',
+            url: '**/systemSettings?key=keyAnalysisRelativePeriod,keyBingMapsApiKey,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap',
+        },
         param,
         'body'
     )
