@@ -6,12 +6,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMapProps } from '../../actions/map.js'
+import { setOriginalMap } from '../../actions/originalMap.js'
 import {
     ALERT_CRITICAL,
     ALERT_MESSAGE_DYNAMIC,
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
+import { sGetOriginalMap } from '../../reducers/originalMap.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import history from '../../util/history.js'
 
@@ -52,6 +54,7 @@ const getSaveFailureMessage = (message) =>
 
 const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
+    const originalMap = useSelector(sGetOriginalMap)
     const dispatch = useDispatch()
     const { systemSettings, currentUser } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
@@ -122,8 +125,32 @@ const FileMenu = ({ onFileMenuAction }) => {
         }
     }
 
-    const onRename = ({ name, description }) => {
-        dispatch(setMapProps({ name: getMapName(name), description }))
+    const onRename = async ({ name, description }) => {
+        const config = cleanMapConfig({
+            config: originalMap,
+            defaultBasemapId: defaultBasemap,
+        })
+
+        config.name = name || config.name
+
+        if (description) {
+            config.description = description
+        }
+
+        await putMap({
+            id: map.id,
+            data: config,
+        })
+
+        dispatch(setMapProps({ name: config.name, description: config.name }))
+
+        const updatedOriginalMap = {
+            ...originalMap,
+            name: config.name,
+            description: config.description,
+        }
+        dispatch(setOriginalMap(updatedOriginalMap))
+
         onFileMenuAction()
     }
 
