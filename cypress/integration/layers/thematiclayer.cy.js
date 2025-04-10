@@ -589,7 +589,7 @@ context('Thematic Layers', () => {
         cy.getByDataTest('layerlegend-item').should('have.length', 5)
     })
 
-    it.only('adds a thematic layer with a filter', () => {
+    it('adds a thematic layer with a filter', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
