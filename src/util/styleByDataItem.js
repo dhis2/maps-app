@@ -47,7 +47,7 @@ const styleByDefault = async (config, engine) => {
             properties: {
                 ...feature.properties,
                 value: hasValue(value) ? value : i18n.t('Not set'),
-                color: EVENT_COLOR,
+                color: cssColor(eventPointColor) || EVENT_COLOR,
             },
         }
     })
@@ -111,7 +111,7 @@ const styleByBoolean = async (config, engine) => {
             legend.items[1].count++
         } else {
             displayValue = hasValue(value) ? value : i18n.t('Not set')
-            color = EVENT_COLOR
+            color = cssColor(eventPointColor) || EVENT_COLOR
             legend.items[legend.items.length - 1].count++
         }
 
@@ -210,7 +210,9 @@ const styleByNumeric = async (config, engine) => {
             properties: {
                 ...feature.properties,
                 value: hasValue(value) ? value : i18n.t('Not set'),
-                color: legendItem ? legendItem.color : EVENT_COLOR,
+                color: legendItem
+                    ? legendItem.color
+                    : cssColor(eventPointColor) || EVENT_COLOR,
             },
         }
     })
@@ -283,7 +285,7 @@ const styleByOptionSet = async (config, engine) => {
             properties: {
                 ...feature.properties,
                 value: hasValue(name) ? name : i18n.t('Not set'),
-                color: EVENT_COLOR,
+                color: cssColor(eventPointColor) || EVENT_COLOR,
             },
         }
     })
