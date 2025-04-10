@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-10T13:58:48.330Z\n"
-"PO-Revision-Date: 2025-04-10T13:58:48.330Z\n"
+"POT-Creation-Date: 2025-04-10T15:53:03.960Z\n"
+"PO-Revision-Date: 2025-04-10T15:53:03.960Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1547,6 +1547,9 @@ msgstr "Org units"
 
 msgid "Facility"
 msgstr "Facility"
+
+msgid "Other"
+msgstr "Other"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

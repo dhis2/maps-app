@@ -39,6 +39,15 @@ const styleByDefault = async (config, engine) => {
 
     legend.unit = await getLegendUnit(engine, styleDataItem)
 
+    legend.items = [
+        {
+            name: i18n.t('Event'),
+            color: cssColor(eventPointColor) || EVENT_COLOR,
+            radius: eventPointRadius || EVENT_RADIUS,
+            count: data.length,
+        },
+    ]
+
     config.data = data.map((feature) => {
         const value = feature.properties[id]
 
@@ -51,15 +60,6 @@ const styleByDefault = async (config, engine) => {
             },
         }
     })
-
-    legend.items = [
-        {
-            name: i18n.t('Event'),
-            color: cssColor(eventPointColor) || EVENT_COLOR,
-            radius: eventPointRadius || EVENT_RADIUS,
-            count: data.length,
-        },
-    ]
 
     return config
 }

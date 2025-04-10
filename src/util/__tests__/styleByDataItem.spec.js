@@ -16,6 +16,8 @@ const OPTION_SET_ID = 'optionSetId'
 const OPTION_SET_NAME = 'optionSetName'
 const LEGEND_SET_ID = 'legendSetId'
 const LEGEND_SET_NAME = 'legendSetName'
+const LEGEND_ITEM_EVENT = 'Event'
+const LEGEND_ITEM_OTHER = 'Other'
 const NOTSET_VALUE = 'Not set'
 const SOME_VALUE = 'some value'
 
@@ -87,7 +89,11 @@ describe('styleByDataItem', () => {
 
     it('should apply default styling when no specific type is matched', async () => {
         const config = {
-            styleDataItem: { id: STYLE_DATA_ITEM_ID, valueType: 'TEXT' },
+            styleDataItem: {
+                id: STYLE_DATA_ITEM_ID,
+                name: STYLE_DATA_ITEM_NAME,
+                valueType: 'TEXT',
+            },
             data: [
                 { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } },
                 { properties: {} },
@@ -109,7 +115,7 @@ describe('styleByDataItem', () => {
         expect(result.legend.items).toEqual(
             expect.arrayContaining([
                 expect.objectContaining({
-                    name: NOTSET_VALUE,
+                    name: LEGEND_ITEM_EVENT,
                     color: EVENT_COLOR,
                     radius: EVENT_RADIUS,
                     count: 2,
@@ -194,7 +200,7 @@ describe('styleByDataItem', () => {
                     count: 1,
                 }),
                 expect.objectContaining({
-                    name: NOTSET_VALUE,
+                    name: LEGEND_ITEM_OTHER,
                     color: EVENT_COLOR,
                     radius: 5,
                     count: 3,
@@ -273,7 +279,7 @@ describe('styleByDataItem', () => {
                     count: 1,
                 }),
                 expect.objectContaining({
-                    name: NOTSET_VALUE,
+                    name: LEGEND_ITEM_OTHER,
                     color: EVENT_COLOR,
                     radius: 5,
                     count: 2,
@@ -336,7 +342,7 @@ describe('styleByDataItem', () => {
                     count: 1,
                 }),
                 expect.objectContaining({
-                    name: NOTSET_VALUE,
+                    name: LEGEND_ITEM_OTHER,
                     color: EVENT_COLOR,
                     radius: 10,
                     count: 2,
@@ -409,7 +415,7 @@ describe('styleByDataItem', () => {
                     count: 1,
                 }),
                 expect.objectContaining({
-                    name: NOTSET_VALUE,
+                    name: LEGEND_ITEM_OTHER,
                     color: '#333333',
                     radius: 8,
                 }),

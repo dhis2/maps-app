@@ -125,7 +125,7 @@ describe('DetailsPanel', () => {
         test(`renders ${expected} when interpretation=${store.interpretation.id}, orgUnitProfile=${store.orgUnitProfile}, featureProfile=${store.featureProfile} and panelOpen=${store.ui.rightPanelOpen}`, () => {
             const { container } = render(
                 <Provider store={mockStore(store)}>
-                    <DetailsPanel />
+                    <DetailsPanel interpretationsRenderCount={1} />
                 </Provider>
             )
             expect(container).toMatchSnapshot()
