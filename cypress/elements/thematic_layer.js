@@ -143,7 +143,7 @@ export class ThematicLayer extends Layer {
         cy.get('button').contains('Add filter').click()
 
         cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
-        
+
         cy.getByDataTest('dimension-select-field').click()
         cy.get('input[placeholder="Filter dimensions"]').type(dimensionName)
 
