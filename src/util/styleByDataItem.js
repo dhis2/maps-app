@@ -26,16 +26,18 @@ export const styleByDataItem = async (config, engine) => {
     } else if (booleanValueTypes.includes(styleDataItem.valueType)) {
         await styleByBoolean(config, engine)
     } else {
-        styleByDefault(config)
+        styleByDefault(config, engine)
     }
 
     return config
 }
 
-const styleByDefault = async (config) => {
+const styleByDefault = async (config, engine) => {
     const { styleDataItem, data, legend, eventPointColor, eventPointRadius } =
         config
     const { id } = styleDataItem
+
+    legend.unit = await getLegendUnit(engine, styleDataItem)
 
     config.data = data.map((feature) => {
         const value = feature.properties[id]
@@ -65,15 +67,9 @@ const styleByDefault = async (config) => {
 const styleByBoolean = async (config, engine) => {
     const { styleDataItem, data, legend, eventPointColor, eventPointRadius } =
         config
-    const { id, name, values } = styleDataItem
+    const { id, values } = styleDataItem
 
-    legend.unit =
-        name ||
-        (await engine
-            .query(DATA_ELEMENT_NAME_QUERY, {
-                variables: { id },
-            })
-            .then(({ dataElement }) => dataElement.name))
+    legend.unit = await getLegendUnit(engine, styleDataItem)
 
     legend.items = [
         {
@@ -166,13 +162,7 @@ const styleByNumeric = async (config, engine) => {
             .sort((a, b) => a - b)
 
         // Use data item name as legend unit (load from server if needed)
-        legend.unit =
-            styleDataItem.name ||
-            (await engine
-                .query(DATA_ELEMENT_NAME_QUERY, {
-                    variables: { id: styleDataItem.id },
-                })
-                .then(({ dataElement }) => dataElement.name))
+        legend.unit = await getLegendUnit(engine, styleDataItem)
 
         // Generate legend items based on layer config
         legend.items = getAutomaticLegendItems(
@@ -333,4 +323,35 @@ const DATA_ELEMENT_NAME_QUERY = {
             fields: 'displayName~rename(name)',
         },
     },
+}
+
+const ATTRIBUTE_NAME_QUERY = {
+    trackedEntityAttribute: {
+        resource: 'trackedEntityAttributes',
+        id: ({ id }) => id,
+        params: {
+            fields: 'displayName~rename(name)',
+        },
+    },
+}
+
+const getLegendUnit = async (engine, styleDataItem) => {
+    if (styleDataItem.name) {
+        return styleDataItem.name
+    }
+
+    try {
+        const { dataElement } = await engine.query(DATA_ELEMENT_NAME_QUERY, {
+            variables: { id: styleDataItem.id },
+        })
+        return dataElement.name
+    } catch {
+        const { trackedEntityAttribute } = await engine.query(
+            ATTRIBUTE_NAME_QUERY,
+            {
+                variables: { id: styleDataItem.id },
+            }
+        )
+        return trackedEntityAttribute.name
+    }
 }
