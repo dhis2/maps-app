@@ -25,3 +25,6 @@ export const textValueTypes = [
 
 // Boolean value types
 export const booleanValueTypes = ['BOOLEAN', 'TRUE_ONLY']
+
+// Date value types
+export const dateValueTypes = ['DATE', 'AGE']

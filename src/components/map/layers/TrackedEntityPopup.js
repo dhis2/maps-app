@@ -2,8 +2,10 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { dateValueTypes } from '../../../constants/valueTypes.js'
 import { formatTime, formatCoordinate } from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
+import { formatDate } from '../../../util/time.js'
 import Popup from '../Popup.js'
 
 // Returns true if value is not undefined or null;
@@ -30,6 +32,8 @@ const getDataRows = ({ displayAttributes, attributes }) => {
 
         if (valueType === 'COORDINATE' && value) {
             formattedValue = formatCoordinate(value)
+        } else if (dateValueTypes.includes(valueType) && value) {
+            formattedValue = formatDate(value)
         } else if (!hasValue(value)) {
             formattedValue = i18n.t('Not set')
         } else if (options) {
