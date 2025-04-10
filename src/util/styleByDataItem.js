@@ -54,7 +54,7 @@ const styleByDefault = async (config, engine) => {
 
     legend.items = [
         {
-            name: i18n.t('Not set'),
+            name: i18n.t('Event'),
             color: cssColor(eventPointColor) || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
             count: data.length,
@@ -90,7 +90,7 @@ const styleByBoolean = async (config, engine) => {
     }
 
     legend.items.push({
-        name: i18n.t('Not set'),
+        name: i18n.t('Other'),
         color: cssColor(eventPointColor) || EVENT_COLOR,
         radius: eventPointRadius || EVENT_RADIUS,
         count: 0,
@@ -174,7 +174,7 @@ const styleByNumeric = async (config, engine) => {
     }
 
     legend.items.push({
-        name: i18n.t('Not set'),
+        name: i18n.t('Other'),
         color: cssColor(eventPointColor) || EVENT_COLOR,
     })
 
@@ -242,7 +242,7 @@ const styleByOptionSet = async (config, engine) => {
     }))
 
     legend.items.push({
-        name: i18n.t('Not set'),
+        name: i18n.t('Other'),
         color: cssColor(eventPointColor) || EVENT_COLOR,
         radius: eventPointRadius || EVENT_RADIUS,
         count: 0,
