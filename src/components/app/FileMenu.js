@@ -60,6 +60,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
+    const renameAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const saveAsAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const deleteAlert = useAlert(
         'Map successfully deleted',
@@ -71,6 +72,15 @@ const FileMenu = ({ onFileMenuAction }) => {
         onError: (e) => {
             saveAlert.show({
                 msg: getSaveFailureMessage(e.message),
+                isError: true,
+            })
+        },
+    })
+
+    const [renameMap] = useDataMutation(updateMapMutation, {
+        onError: () => {
+            renameAlert.show({
+                msg: i18n.t('Rename failed'),
                 isError: true,
             })
         },
@@ -132,12 +142,9 @@ const FileMenu = ({ onFileMenuAction }) => {
         })
 
         config.name = name || config.name
+        config.description = description
 
-        if (description) {
-            config.description = description
-        }
-
-        await putMap({
+        await renameMap({
             id: map.id,
             data: config,
         })
