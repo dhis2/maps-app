@@ -140,14 +140,16 @@ export class ThematicLayer extends Layer {
     }
 
     addFilterDimensions(dimensionName, dimensionItemNames) {
+        cy.intercept({ method: 'GET', url: /\/dimensions/ }).as(
+            'fetchDimensions'
+        )
         cy.get('button').contains('Add filter').click()
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait('@fetchDimensions')
 
         cy.getByDataTest('dimension-select-field').click()
         cy.get('input[placeholder="Filter dimensions"]').type(dimensionName)
 
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('li').contains(dimensionName).click()
 
         cy.getByDataTest('dimension-items-select-field').click()
