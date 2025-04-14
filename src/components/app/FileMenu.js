@@ -9,6 +9,7 @@ import { setMapProps } from '../../actions/map.js'
 import { setOriginalMap } from '../../actions/originalMap.js'
 import {
     ALERT_CRITICAL,
+    ALERT_WARNING,
     ALERT_MESSAGE_DYNAMIC,
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
@@ -60,7 +61,11 @@ const FileMenu = ({ onFileMenuAction }) => {
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
-    const renameAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
+    const renameFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_WARNING)
+    const renameSuccessAlert = useAlert(
+        ALERT_MESSAGE_DYNAMIC,
+        ALERT_SUCCESS_DELAY
+    )
     const saveAsAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const deleteAlert = useAlert(
         'Map successfully deleted',
@@ -79,7 +84,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const [renameMap] = useDataMutation(updateMapMutation, {
         onError: () => {
-            renameAlert.show({
+            renameFailedAlert.show({
                 msg: i18n.t('Rename failed'),
                 isError: true,
             })
@@ -157,6 +162,8 @@ const FileMenu = ({ onFileMenuAction }) => {
             description: config.description,
         }
         dispatch(setOriginalMap(updatedOriginalMap))
+
+        renameSuccessAlert.show({ msg: i18n.t('Rename successful') })
 
         onFileMenuAction()
     }
