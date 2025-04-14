@@ -168,7 +168,6 @@ export class ThematicLayer extends Layer {
         })
 
         cy.getByDataTest('dhis2-uicore-layer').last().click('topLeft')
-        // cy.get('.backdrop').click()
 
         return this
     }
