@@ -59,6 +59,7 @@ const DimensionItemsSelect = ({ dimension, value, onChange }) => {
             onChange={onDimensionItemClick}
             errorText={error?.message}
             className={styles.select}
+            dataTest="dimension-items-select-field"
         />
     )
 }

@@ -1,22 +1,8 @@
-import { mount } from 'enzyme'
+import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
-import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
 import Timeline from '../Timeline.js'
 
-const mockStore = configureMockStore()
-
 describe('Timeline', () => {
-    const store = mockStore({
-        ui: { layersPanelOpen: false, rightPanelOpen: false },
-    })
-    const renderWithProps = (props) =>
-        mount(
-            <Provider store={store}>
-                <Timeline {...props} />
-            </Provider>
-        )
-
     const periodId = 'LAST_3_MONTHS'
     const period = { id: '201906', name: 'June 2019' }
     const periods = [
@@ -61,42 +47,48 @@ describe('Timeline', () => {
         }
     })
 
-    it('should render svg', () => {
-        const wrapper = renderWithProps(props)
-        const svg = wrapper.find('svg')
-        expect(svg.exists()).toBe(true)
+    it('should render timeline', () => {
+        const { container } = render(<Timeline {...props} />)
+        expect(container).toMatchSnapshot()
     })
 
-    it('should render one rect for each period', () => {
-        const wrapper = renderWithProps(props)
-        expect(wrapper.find('rect')).toHaveLength(periods.length)
-    })
+    it('should call onChange with the period clicked', async () => {
+        render(<Timeline {...props} />)
 
-    it('should highlight the current period', () => {
-        const wrapper = renderWithProps(props)
-        const periodIndex = periods.findIndex((p) => p.id === period.id)
-        expect(wrapper.find('rect').at(periodIndex).hasClass('selected')).toBe(
-            true
-        )
-    })
+        // Find the first rect element
+        const rects = screen.getAllByRole('button')
+        const firstRect = rects[0]
 
-    it('should call onChange with the period clicked', () => {
-        const wrapper = renderWithProps(props)
-        wrapper.find('rect').first().simulate('click')
+        await fireEvent.click(firstRect)
+
         expect(onChangeSpy).toHaveBeenCalledWith(periodOnChange)
     })
 
-    it('Should toggle play mode when play/pause button is clicked', () => {
-        const wrapper = renderWithProps(props)
-        const playPauseBtn = wrapper.find('g').first()
-        expect(wrapper.find('.play-icon').length).toBe(1)
-        expect(wrapper.find('.pause-icon').length).toBe(0)
-        playPauseBtn.simulate('click')
-        expect(wrapper.find('.play-icon').length).toBe(0)
-        expect(wrapper.find('.pause-icon').length).toBe(1)
+    it('Should toggle play mode when play/pause button is clicked', async () => {
+        render(<Timeline {...props} />)
+
+        // Find the play/pause button
+        const playPauseBtn = screen.getByRole('button', { name: /Play/i })
+
+        // Initially, the play icon should be visible, and the pause icon should not
+        expect(screen.queryByTestId('play-button')).toBeInTheDocument()
+        expect(screen.queryByTestId('pause-button')).not.toBeInTheDocument()
+
+        // Simulate clicking the play/pause button
+        await fireEvent.click(playPauseBtn)
+
+        // After clicking, the pause icon should be visible, and the play icon should not
+        expect(screen.queryByTestId('play-button')).not.toBeInTheDocument()
+        expect(screen.queryByTestId('pause-button')).toBeInTheDocument()
+
+        // Ensure the onChangeSpy was called with the correct argument
         expect(onChangeSpy).toHaveBeenCalledWith(periodOnChange)
-        playPauseBtn.simulate('click')
-        expect(wrapper.find('.play-icon').length).toBe(1)
-        expect(wrapper.find('.pause-icon').length).toBe(0)
+
+        // Simulate clicking the play/pause button again
+        await fireEvent.click(playPauseBtn)
+
+        // After clicking again, the play icon should be visible, and the pause icon should not
+        expect(screen.queryByTestId('play-button')).toBeInTheDocument()
+        expect(screen.queryByTestId('pause-button')).not.toBeInTheDocument()
     })
 })

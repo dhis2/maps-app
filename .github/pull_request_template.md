@@ -13,7 +13,6 @@ _description text_
 - [ ] Dashboard tested
 - [ ] Tests added (Cypress and/or Jest)
 - [ ] Docs added
-- [ ] Strings generated
 - [ ] d2-ci dependency replaced
 - [ ] _todo_
 
