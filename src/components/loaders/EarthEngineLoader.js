@@ -8,15 +8,16 @@ const EarthEngineLoader = ({ config, onLoad, loaderAlertAction }) => {
     const { showAlerts } = useLoaderAlerts(loaderAlertAction)
     const { currentUser } = useCachedDataQuery()
     const nameProperty = currentUser.keyAnalysisDisplayProperty.toUpperCase()
+    const userId = currentUser.id
 
     useEffect(() => {
-        earthEngineLoader({ config, nameProperty }).then((result) => {
+        earthEngineLoader({ config, nameProperty, userId }).then((result) => {
             if (result.alerts?.length && loaderAlertAction) {
                 showAlerts(result.alerts)
             }
             onLoad(result)
         })
-    }, [config, onLoad, showAlerts, loaderAlertAction, nameProperty])
+    }, [config, onLoad, showAlerts, loaderAlertAction, nameProperty, userId])
 
     return null
 }
