@@ -10,7 +10,7 @@ const programE2E = {
     name: 'E2E program',
     stage: 'Stage 1 - Repeatable',
     de: 'E2E - Yes/no',
-    options: ['Yes', 'No', 'Not set'],
+    options: ['Yes', 'No', 'Other'],
 }
 
 const programIP = {
