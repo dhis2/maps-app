@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
-"PO-Revision-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-04-01T14:00:59.514Z\n"
+"PO-Revision-Date: 2025-04-01T14:00:59.514Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -80,6 +80,9 @@ msgstr "None"
 msgid "Cascading"
 msgstr "Cascading"
 
+msgid "Organisation unit location"
+msgstr "Organisation unit location"
+
 msgid "Event location"
 msgstr "Event location"
 
@@ -88,9 +91,6 @@ msgstr "Enrollment location"
 
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
-
-msgid "Organisation unit location"
-msgstr "Organisation unit location"
 
 msgid "Fallback coordinate field"
 msgstr "Fallback coordinate field"

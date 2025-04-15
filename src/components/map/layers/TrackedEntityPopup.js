@@ -20,7 +20,7 @@ const TRACKED_ENTITIES_QUERY = {
     },
 }
 
-const getDataRows = ({ displayAttributes, attributes }) => {
+const getDataRows = ({ displayAttributes, attributes, orgUnitNames }) => {
     const dataRows = []
 
     // Include rows for each displayInList attribute
@@ -28,7 +28,9 @@ const getDataRows = ({ displayAttributes, attributes }) => {
         const { value } = attributes.find((d) => d.attribute === id) || {}
         let formattedValue = value
 
-        if (valueType === 'COORDINATE' && value) {
+        if (valueType === 'ORGANISATION_UNIT' && value) {
+            formattedValue = orgUnitNames[value] || value
+        } else if (valueType === 'COORDINATE' && value) {
             formattedValue = formatCoordinate(value)
         } else if (!hasValue(value)) {
             formattedValue = i18n.t('Not set')
@@ -62,6 +64,7 @@ const TrackedEntityPopup = ({
     onClose,
 }) => {
     const [orgUnit, setOrgUnit] = useState()
+    const [orgUnitNames, setOrgUnitNames] = useState({})
 
     const { refetch: refetchOrgUnit, fetching: fetchingOrgUnit } = useDataQuery(
         ORG_UNIT_QUERY,
@@ -83,24 +86,47 @@ const TrackedEntityPopup = ({
     })
 
     useEffect(() => {
-        const fetchTEandOU = async () => {
+        const fetchTEandOUs = async () => {
             const resultTrackedEntity = await refetchTrackedEntity({
                 id: feature.properties.id,
             })
             const idOrgUnit = resultTrackedEntity?.trackedEntities?.orgUnit
 
+            // Fetch trackedEntity org unit
             if (idOrgUnit) {
                 const resultOrgUnit = await refetchOrgUnit({
                     id: idOrgUnit,
                     nameProperty,
                 })
                 const nameOrgUnit = resultOrgUnit?.orgUnit?.name
-
                 setOrgUnit(nameOrgUnit)
             }
+
+            // Fetch all org units referenced in displayAttributes
+            const orgUnitIds = displayAttributes
+                .filter(({ valueType }) => valueType === 'ORGANISATION_UNIT')
+                .map(({ id }) => {
+                    const { value } =
+                        resultTrackedEntity?.trackedEntities?.attributes.find(
+                            (d) => d.attribute === id
+                        ) || {}
+                    return value
+                })
+            const orgUnitsNamesMap = {}
+            for (const id of orgUnitIds) {
+                const result = await refetchOrgUnit({ id, nameProperty })
+                orgUnitsNamesMap[id] = result?.orgUnit?.name
+            }
+            setOrgUnitNames(orgUnitsNamesMap)
         }
-        fetchTEandOU()
-    }, [feature, nameProperty, refetchTrackedEntity, refetchOrgUnit])
+        fetchTEandOUs()
+    }, [
+        feature,
+        nameProperty,
+        refetchTrackedEntity,
+        refetchOrgUnit,
+        displayAttributes,
+    ])
 
     const { type, coordinates: coord } = feature.geometry
     const { attributes = [], updatedAt } =
@@ -130,6 +156,7 @@ const TrackedEntityPopup = ({
                             getDataRows({
                                 displayAttributes,
                                 attributes,
+                                orgUnitNames,
                             })}
                         {type === 'Point' && (
                             <tr>
