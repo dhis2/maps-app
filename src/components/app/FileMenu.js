@@ -1,5 +1,11 @@
-import { FileMenu as UiFileMenu, useCachedDataQuery } from '@dhis2/analytics'
-import { useDataMutation } from '@dhis2/app-runtime'
+import {
+    FileMenu as UiFileMenu,
+    useCachedDataQuery,
+    preparePayloadForSave,
+    preparePayloadForSaveAs,
+    VIS_TYPE_MAP,
+} from '@dhis2/analytics'
+import { useDataMutation, useDataEngine } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -57,6 +63,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
     const originalMap = useSelector(sGetOriginalMap)
     const dispatch = useDispatch()
+    const engine = useDataEngine()
     const { systemSettings, currentUser } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
@@ -100,10 +107,17 @@ const FileMenu = ({ onFileMenuAction }) => {
         },
     })
 
-    const onSave = async () => {
-        const config = cleanMapConfig({
+    const onSave = async ({ name, description }) => {
+        const visualization = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
+        })
+
+        const config = await preparePayloadForSave({
+            visualization: { ...visualization, type: VIS_TYPE_MAP },
+            name,
+            description,
+            engine,
         })
 
         await putMap({
@@ -117,37 +131,18 @@ const FileMenu = ({ onFileMenuAction }) => {
         }
     }
 
-    const onSaveAs = async ({ name, description }) => {
-        const data = {
-            ...cleanMapConfig({
-                config: map,
-                defaultBasemapId: defaultBasemap,
-            }),
-            name: getMapName(name),
-            description,
-        }
-
-        delete data.id
-
-        const res = await postMap({ data })
-
-        if (res.status === 'OK') {
-            saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
-
-            if (res.response.uid) {
-                history.push(`/${res.response.uid}`)
-            }
-        }
-    }
-
     const onRename = async ({ name, description }) => {
-        const config = cleanMapConfig({
+        const visualization = cleanMapConfig({
             config: originalMap,
             defaultBasemapId: defaultBasemap,
         })
 
-        config.name = name || config.name
-        config.description = description
+        const config = await preparePayloadForSave({
+            visualization: { ...visualization, type: VIS_TYPE_MAP },
+            name,
+            description,
+            engine,
+        })
 
         await renameMap({
             id: map.id,
@@ -166,6 +161,28 @@ const FileMenu = ({ onFileMenuAction }) => {
         renameSuccessAlert.show({ msg: i18n.t('Rename successful') })
 
         onFileMenuAction()
+    }
+
+    const onSaveAs = async ({ name, description }) => {
+        const visualization = cleanMapConfig({
+            config: map,
+            defaultBasemapId: defaultBasemap,
+        })
+        const data = preparePayloadForSaveAs({
+            visualization: { ...visualization, type: 'MAP' },
+            name,
+            description,
+        })
+
+        const res = await postMap({ data })
+
+        if (res.status === 'OK') {
+            saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
+
+            if (res.response.uid) {
+                history.push(`/${res.response.uid}`)
+            }
+        }
     }
 
     const onDelete = () => {
