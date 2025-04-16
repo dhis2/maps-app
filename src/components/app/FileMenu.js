@@ -149,7 +149,9 @@ const FileMenu = ({ onFileMenuAction }) => {
             data: config,
         })
 
-        dispatch(setMapProps({ name: config.name, description: config.name }))
+        dispatch(
+            setMapProps({ name: config.name, description: config.description })
+        )
 
         const updatedOriginalMap = {
             ...originalMap,
