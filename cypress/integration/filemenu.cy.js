@@ -3,6 +3,7 @@ import {
     openMap,
     saveAsNewMap,
     saveNewMap,
+    renameMap,
     saveExistingMap,
     deleteMap,
 } from '../elements/file_menu.js'
@@ -18,10 +19,7 @@ describe('File menu', () => {
     const ThemLayer = new ThematicLayer()
     const OULayer = new OrgUnitLayer()
 
-    it('saves a new map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
-
+    const createMap = (title) => {
         cy.intercept({ method: 'GET', url: /\/indicators/ }).as(
             'fetchIndicators'
         )
@@ -43,12 +41,88 @@ describe('File menu', () => {
             'postDataStatistics'
         )
 
-        saveNewMap(MAP_TITLE)
+        saveNewMap(title)
 
         cy.wait('@saveMap').its('response.statusCode').should('eq', 201)
         cy.wait('@postDataStatistics')
             .its('response.statusCode')
             .should('eq', 201)
+    }
+
+    it('saves a new map', () => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        createMap(MAP_TITLE)
+    })
+
+    it('renames a map', () => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        const title = 'test ' + new Date().toUTCString().slice(-24, -4)
+        const renamedTitle = `renamed ${title}`
+
+        createMap(title)
+        const description = 'this is the explanation of the map'
+        cy.intercept({
+            method: 'PUT',
+            url: /\/maps\//,
+        }).as('renameMap')
+        renameMap(renamedTitle, description)
+        cy.wait('@renameMap').its('response.statusCode').should('eq', 200)
+
+        cy.getByDataTest('dhis2-uicore-alertbar')
+            .contains('Rename successful')
+            .should('be.visible')
+
+        cy.getByDataTest('map-name').contains(renamedTitle).should('be.visible')
+
+        cy.contains('Interpretations and details').click()
+        cy.getByDataTest('details-panel')
+            .contains(description)
+            .should('be.visible')
+
+        deleteMap(renamedTitle)
+    })
+
+    it('handles a failure when renaming the map', () => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        const title = 'test ' + new Date().toUTCString().slice(-24, -4)
+        const renamedTitle =
+            'renamed ' + new Date().toUTCString().slice(-24, -4)
+
+        createMap(title)
+        const description = 'this is the explanation of the map'
+        cy.intercept('PUT', /\/maps\//, {
+            statusCode: 409,
+        }).as('renameMapFailure')
+        renameMap(renamedTitle, description)
+        cy.wait('@renameMapFailure')
+            .its('response.statusCode')
+            .should('eq', 409)
+
+        cy.getByDataTest('dhis2-uicore-alertbar')
+            .contains('Rename failed')
+            .should('be.visible')
+
+        cy.getByDataTest('map-name').contains(title).should('be.visible')
+
+        cy.contains('Interpretations and details').click()
+        cy.getByDataTest('details-panel')
+            .contains(description)
+            .should('not.exist')
+
+        cy.reload(true)
+
+        cy.getByDataTest('map-name').contains(title).should('be.visible')
+        cy.getByDataTest('details-panel')
+            .contains(description)
+            .should('not.exist')
+
+        deleteMap(renamedTitle)
     })
 
     it.skip('save existing as new map', () => {
