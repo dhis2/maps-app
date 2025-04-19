@@ -89,7 +89,9 @@ const EarthEnginePopup = (props) => {
 
             const header = (
                 <caption>
-                    {title} {period}
+                    {title}
+                    <br />
+                    {period}
                     {!onlySum && <div className={styles.unit}>{unit}</div>}
                 </caption>
             )
