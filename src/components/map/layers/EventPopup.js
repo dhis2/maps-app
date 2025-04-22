@@ -44,10 +44,10 @@ const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
 
         if (valueType === 'COORDINATE' && value) {
             formattedValue = formatCoordinate(value);
-        } else if (options) {
-            formattedValue = options[value];
         } else if (!hasValue(value)) {
             formattedValue = i18n.t('Not set');
+        } else if (options) {
+            formattedValue = options[value];
         }
 
         dataRows.push(
