@@ -7,7 +7,7 @@ import { formatTime, formatCoordinate } from '../../../util/helpers';
 import { EVENT_ID_FIELD } from '../../../util/geojson';
 
 // Returns true if value is not undefined or null;
-const hasValue = value => value !== undefined || value !== null;
+const hasValue = value => value !== undefined && value !== null;
 
 // Loads event data for the selected feature
 const loadEventData = async feature => {
