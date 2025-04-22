@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-10T15:53:03.960Z\n"
-"PO-Revision-Date: 2025-04-10T15:53:03.960Z\n"
+"POT-Creation-Date: 2025-04-14T09:56:29.478Z\n"
+"PO-Revision-Date: 2025-04-14T09:56:29.479Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -19,6 +19,12 @@ msgstr "Map \"{{- name}}\" is saved."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Failed to save map: {{message}}"
+
+msgid "Rename failed"
+msgstr "Rename failed"
+
+msgid "Rename successful"
+msgstr "Rename successful"
 
 msgid "Calculation"
 msgstr "Calculation"
