@@ -1,3 +1,10 @@
+## [101.2.9](https://github.com/dhis2/maps-app/compare/v101.2.8...v101.2.9) (2025-04-22)
+
+
+### Bug Fixes
+
+* rename map fails with thematic layers containing data elements [DHIS2-19433] ([#3514](https://github.com/dhis2/maps-app/issues/3514)) ([655f5f8](https://github.com/dhis2/maps-app/commit/655f5f80a78ba6bc077d92784df99906595a3dda))
+
 ## [101.2.8](https://github.com/dhis2/maps-app/compare/v101.2.7...v101.2.8) (2025-04-04)
 
 

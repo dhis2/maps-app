@@ -1,40 +1,33 @@
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
 import Drawer from '../Drawer.js'
 
 describe('Drawer', () => {
-    const renderWithProps = (props) => shallow(<Drawer {...props} />)
-
     it('should render a right drawer by default', () => {
-        const wrapper = renderWithProps()
-
-        expect(wrapper.hasClass('drawer')).toBeTruthy()
-        expect(wrapper.hasClass('right')).toBeTruthy()
-        expect(wrapper.hasClass('left')).toBeFalsy()
+        const { container } = render(<Drawer />)
+        expect(container).toMatchSnapshot()
     })
 
     it('should render a left drawer if left position', () => {
-        const wrapper = renderWithProps({ position: 'left' })
-
-        expect(wrapper.hasClass('left')).toBeTruthy()
-        expect(wrapper.hasClass('right')).toBeFalsy()
+        const { container } = render(<Drawer position="left" />)
+        expect(container).toMatchSnapshot()
     })
 
     it('should include class name if passed', () => {
-        const wrapper = renderWithProps({ className: 'myClass' })
-
-        expect(wrapper.hasClass('myClass')).toBeTruthy()
+        const { container } = render(
+            <Drawer position="left" className="myclass" />
+        )
+        expect(container).toMatchSnapshot()
     })
 
     it('should render children', () => {
-        const wrapper = shallow(
-            <Drawer>
+        const { container } = render(
+            <Drawer position="left" dataTest="the-data-test-drawer">
                 <h4>Title</h4>
                 <img src="" />
             </Drawer>
         )
 
-        expect(wrapper.find('h4')).toBeTruthy()
-        expect(wrapper.find('img')).toBeTruthy()
+        expect(container).toMatchSnapshot()
     })
 })
