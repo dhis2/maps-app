@@ -26,7 +26,7 @@ export const styleByDataItem = async (config, engine) => {
     } else if (booleanValueTypes.includes(styleDataItem.valueType)) {
         await styleByBoolean(config, engine)
     } else {
-        styleByDefault(config, engine)
+        await styleByDefault(config, engine)
     }
 
     return config
