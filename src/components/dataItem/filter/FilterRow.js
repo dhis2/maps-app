@@ -15,10 +15,6 @@ const FilterRow = ({
     onChange,
     onRemove,
 }) => {
-    if (!dataItems?.length) {
-        return null
-    }
-
     const { valueType, optionSet } =
         dataItems.find((d) => d.id === dimension) || {}
 
