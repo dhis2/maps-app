@@ -7,7 +7,7 @@ import { formatTime, formatCoordinate } from '../../../util/helpers';
 import { EVENT_ID_FIELD } from '../../../util/geojson';
 
 // Returns true if value is not undefined or null;
-const hasValue = value => value !== undefined || value !== null;
+const hasValue = value => value !== undefined && value !== null;
 
 // Loads event data for the selected feature
 const loadEventData = async feature => {
@@ -44,10 +44,10 @@ const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
 
         if (valueType === 'COORDINATE' && value) {
             formattedValue = formatCoordinate(value);
-        } else if (options) {
-            formattedValue = options[value];
         } else if (!hasValue(value)) {
             formattedValue = i18n.t('Not set');
+        } else if (options) {
+            formattedValue = options[value];
         }
 
         dataRows.push(
