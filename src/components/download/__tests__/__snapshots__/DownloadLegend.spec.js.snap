@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DownloadLegend Should render a legend component 1`] = `
+<div>
+  <div
+    class="legend"
+  >
+    <h2
+      class="title"
+      data-test="download-legend-title"
+    >
+      Layer 2
+      <span
+        class="period"
+      >
+        2017
+      </span>
+    </h2>
+    <dl
+      class="legend"
+      data-test="layerlegend"
+    />
+  </div>
+  <div
+    class="legend"
+  >
+    <h2
+      class="title"
+      data-test="download-legend-title"
+    >
+      Layer 1
+      <span
+        class="period"
+      >
+        2018
+      </span>
+    </h2>
+    <dl
+      class="legend"
+      data-test="layerlegend"
+    />
+  </div>
+</div>
+`;

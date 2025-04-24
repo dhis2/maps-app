@@ -18,7 +18,7 @@ export const appQueries = {
     currentUser: {
         resource: 'me',
         params: {
-            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty]',
+            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty,keyUiLocale]',
         },
     },
     systemSettings: {
@@ -32,12 +32,6 @@ export const appQueries = {
         resource: 'system/info',
         params: {
             fields: 'calendar,dateFormat',
-        },
-    },
-    userSettings: {
-        resource: 'userSettings',
-        params: {
-            key: ['keyUiLocale'],
         },
     },
 }
@@ -83,7 +77,6 @@ export const providerDataTransformation = ({
     currentUser,
     systemSettings,
     systemInfo,
-    userSettings,
     externalMapLayers,
 }) => ({
     currentUser: {
@@ -102,7 +95,7 @@ export const providerDataTransformation = ({
         hiddenPeriods: getHiddenPeriods(systemSettings),
     }),
     periodsSettings: {
-        locale: userSettings.keyUiLocale,
+        locale: currentUser.settings.keyUiLocale,
         calendar: systemInfo.calendar,
         dateFormat: systemInfo.dateFormat,
     },

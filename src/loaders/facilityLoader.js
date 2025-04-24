@@ -16,16 +16,24 @@ import {
     parseGroupSet,
 } from '../util/orgUnits.js'
 
-const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
+const facilityLoader = async ({
+    config,
+    engine,
+    nameProperty,
+    userId,
+    baseUrl,
+}) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
     const alerts = []
+    const d2 = await getD2()
+
+    const geoFeaturesParams = { _: userId }
     const orgUnitParams = orgUnits.map((item) => item.id)
     let associatedGeometries
 
-    const d2 = await getD2()
     const name = i18n.t('Facilities')
 
     const featuresRequest = d2.geoFeatures
@@ -35,6 +43,7 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     const requests = [
         featuresRequest
             .getAll({
+                ...geoFeaturesParams,
                 includeGroupSets,
             })
             .then(getPointItems)
@@ -78,6 +87,7 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     if (coordinateField) {
         associatedGeometries = await featuresRequest
             .getAll({
+                ...geoFeaturesParams,
                 coordinateField: coordinateField.id,
                 includeGroupSets,
             })

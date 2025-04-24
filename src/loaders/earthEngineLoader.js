@@ -21,7 +21,7 @@ import {
 } from '../util/orgUnits.js'
 
 // Returns a promise
-const earthEngineLoader = async ({ config, nameProperty }) => {
+const earthEngineLoader = async ({ config, nameProperty, userId }) => {
     const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
@@ -33,6 +33,8 @@ const earthEngineLoader = async ({ config, nameProperty }) => {
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2()
+
+        const geoFeaturesParams = { _: userId }
         const orgUnitParams = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
@@ -42,11 +44,14 @@ const earthEngineLoader = async ({ config, nameProperty }) => {
             .displayProperty(nameProperty)
 
         try {
-            mainFeatures = await featuresRequest.getAll().then(toGeoJson)
+            mainFeatures = await featuresRequest
+                .getAll(geoFeaturesParams)
+                .then(toGeoJson)
 
             if (coordinateField) {
                 associatedGeometries = await featuresRequest
                     .getAll({
+                        ...geoFeaturesParams,
                         coordinateField: coordinateField.id,
                     })
                     .then(toGeoJson)

@@ -28,6 +28,7 @@ const RadioGroup = ({
                 className={cx(styles.radioGroup, {
                     [styles.row]: display === 'row',
                 })}
+                data-test="radio-group"
             >
                 {label && (
                     <div

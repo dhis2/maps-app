@@ -138,4 +138,74 @@ export class ThematicLayer extends Layer {
 
         return this
     }
+
+    addFilterDimensions(dimensionName, dimensionItemNames) {
+        cy.intercept({ method: 'GET', url: /\/dimensions/ }).as(
+            'fetchDimensions'
+        )
+        cy.get('button').contains('Add filter').click()
+
+        cy.wait('@fetchDimensions')
+
+        cy.getByDataTest('dimension-select-field').click()
+        cy.get('input[placeholder="Filter dimensions"]').type(dimensionName)
+
+        cy.get('li').contains(dimensionName).click()
+
+        cy.getByDataTest('dimension-items-select-field').click()
+
+        dimensionItemNames.forEach((name) => {
+            cy.getByDataTest('dhis2-uicore-checkbox').contains(name).click()
+        })
+
+        // Confirm that the items are checked
+        dimensionItemNames.forEach((name) => {
+            cy.getByDataTest('dhis2-uicore-checkbox')
+                .contains(name)
+                .parent()
+                .find('input[type="checkbox"]')
+                .should('be.checked')
+        })
+
+        cy.getByDataTest('dhis2-uicore-layer').last().click('topLeft')
+
+        return this
+    }
+
+    removeFilterDimensions(dimensionItemNames) {
+        dimensionItemNames.forEach((name) => {
+            cy.getByDataTest('dhis2-uicore-chip')
+                .contains(name)
+                .siblings('[data-test="dhis2-uicore-chip-remove"]')
+                .click()
+        })
+
+        dimensionItemNames.forEach((name) => {
+            cy.getByDataTest('dhis2-uicore-chip')
+                .contains(name)
+                .should('not.exist')
+        })
+
+        return this
+    }
+
+    validateLayerFilters = ({ type, items, nonItems }) => {
+        cy.getByDataTest('layerlegend-filters')
+            .contains(type)
+            .should('be.visible')
+
+        items?.forEach((item) => {
+            cy.getByDataTest('layerlegend-filters')
+                .contains(item)
+                .should('be.visible')
+        })
+
+        nonItems?.forEach((item) => {
+            cy.getByDataTest('layerlegend-filters')
+                .contains(item)
+                .should('not.exist')
+        })
+
+        return this
+    }
 }

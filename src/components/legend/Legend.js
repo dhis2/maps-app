@@ -53,7 +53,7 @@ const Legend = ({
             </div>
         )}
         {Array.isArray(filters) && (
-            <div className={styles.filters}>
+            <div className={styles.filters} data-test="layerlegend-filters">
                 <div>{i18n.t('Filters')}:</div>
                 {filters.map((filter, index) => (
                     <div key={index}>{filter}</div>

@@ -53,7 +53,7 @@ const DimensionSelect = ({ dimension, onChange }) => {
         <>
             <div onClick={() => setIsOpen(true)} className={styles.dropdown}>
                 <label>{i18n.t('Dimension')}</label>
-                <div ref={dropdownRef}>
+                <div ref={dropdownRef} data-test="dimension-select-field">
                     <span>{selected ? selected.name : ''}</span>
                     <IconChevronDown24 />
                 </div>
@@ -66,7 +66,7 @@ const DimensionSelect = ({ dimension, onChange }) => {
                 >
                     <div className={styles.dimensions}>
                         <DimensionsPanel
-                            dimensions={data.dimensions.dimensions}
+                            dimensions={data?.dimensions?.dimensions}
                             onDimensionClick={onDimensionClick}
                             selectedIds={[dimension]}
                         />

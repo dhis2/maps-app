@@ -1,12 +1,28 @@
-import { FieldGroup } from '@dhis2/ui'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { Radio, RadioGroup } from '../index.js'
 
+/* eslint-disable react/prop-types */
+jest.mock('@dhis2/ui', () => {
+    const originalModule = jest.requireActual('@dhis2/ui')
+
+    return {
+        __esModule: true,
+        ...originalModule,
+        FieldGroup: function MockFieldGroup({ helpText, children }) {
+            return (
+                <div>
+                    <div>{helpText}</div>
+                    <div>{children}</div>
+                </div>
+            )
+        },
+    }
+})
+/* eslint-enable react/prop-types */
+
 describe('RadioGroup', () => {
     const mockOnChange = jest.fn()
-
-    const renderWithProps = (props) => mount(<RadioGroup {...props} />)
 
     const value = 'option1'
     const label = 'Select an option'
@@ -31,41 +47,42 @@ describe('RadioGroup', () => {
         }
     })
 
-    it('renders the label with the correct style', () => {
-        const wrapper = renderWithProps(props)
-        const labelElement = wrapper.find('div.boldLabel')
-        expect(labelElement.text()).toBe(label)
-    })
+    it('renders the RadioGroup', () => {
+        render(<RadioGroup {...props} />)
+        const labelElement = screen.getByText(label)
+        expect(labelElement).toBeInTheDocument()
 
-    it('renders the help text', () => {
-        const wrapper = renderWithProps(props)
-        expect(wrapper.find(FieldGroup).prop('helpText')).toBe(helpText)
-    })
+        // Check if the helpText is rendered
+        const helpTextElement = screen.getByText(helpText)
+        expect(helpTextElement).toBeInTheDocument()
 
-    it('renders children inside the FieldGroup', () => {
-        const wrapper = renderWithProps(props)
-        expect(wrapper.find(FieldGroup).contains(children)).toBe(true)
-    })
-
-    it('updates the radio state when value prop changes', () => {
-        const wrapper = renderWithProps(props)
-        expect(
-            wrapper.find('input[type="radio"][value="option1"]').prop('checked')
-        ).toBe(true)
-
-        wrapper.setProps({ value: 'option2' })
-        wrapper.update()
-
-        expect(
-            wrapper.find('input[type="radio"][value="option2"]').prop('checked')
-        ).toBe(true)
+        // Check if the children (radio buttons) are rendered
+        const radioButtons = screen.getAllByRole('radio')
+        expect(radioButtons.length).toBe(children.length)
+        expect(radioButtons[0]).toHaveAttribute('value', 'option1')
+        expect(radioButtons[1]).toHaveAttribute('value', 'option2')
     })
 
     it('applies the correct class based on display prop', () => {
-        props.display = 'row'
-        const wrapper = renderWithProps(props)
-        const container = wrapper.find('div').first()
+        render(<RadioGroup {...props} display="row" />)
+        const topDiv = screen.getByTestId('radio-group')
 
-        expect(container.hasClass('row')).toBe(true)
+        expect(topDiv).toHaveClass('row')
+    })
+
+    it('updates the radio state when value prop changes', async () => {
+        const { rerender } = render(<RadioGroup {...props} />)
+
+        // Check that the first radio button is initially checked
+        const radioButtons = screen.getAllByRole('radio')
+        expect(radioButtons[0]).toBeChecked()
+        expect(radioButtons[1]).not.toBeChecked()
+
+        // Update the value prop and re-render the component
+        rerender(<RadioGroup {...props} value="option2" />)
+
+        // Check that the second radio button is now checked
+        expect(radioButtons[0]).not.toBeChecked()
+        expect(radioButtons[1]).toBeChecked()
     })
 })

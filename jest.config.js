@@ -9,8 +9,8 @@ module.exports = {
         '\\.(css)$': 'identity-obj-proxy',
     },
     testURL: 'http://localhost/',
-    snapshotSerializers: ['enzyme-to-json/serializer'],
 
     testRunner: 'jest-circus/runner',
     reporters: ['default'],
+    clearMocks: true,
 }

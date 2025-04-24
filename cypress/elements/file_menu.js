@@ -36,6 +36,49 @@ export const openMap = (mapName) => {
     cy.getByDataTest('open-file-dialog-modal').should('not.be.visible')
 }
 
+export const renameMap = (title, description) => {
+    cy.contains('File').click()
+    cy.getByDataTest('file-menu-container').should('be.visible')
+
+    cy.getByDataTest('file-menu-rename').should('be.visible').click()
+
+    if (title !== undefined) {
+        cy.getByDataTest(
+            'file-menu-rename-modal-name-content',
+            EXTENDED_TIMEOUT
+        )
+            .find('input')
+            .clear()
+
+        cy.getByDataTest(
+            'file-menu-rename-modal-name-content',
+            EXTENDED_TIMEOUT
+        )
+            .find('input')
+            .type(title)
+    }
+
+    if (description !== undefined) {
+        cy.getByDataTest(
+            'file-menu-rename-modal-description-content',
+            EXTENDED_TIMEOUT
+        )
+            .find('textarea')
+            .clear()
+
+        cy.getByDataTest(
+            'file-menu-rename-modal-description-content',
+            EXTENDED_TIMEOUT
+        )
+            .find('textarea')
+            .type(description)
+    }
+
+    cy.get('button').contains('Rename').click()
+
+    cy.getByDataTest('file-menu-rename-modal').should('not.exist')
+}
+
 export const saveAsNewMap = (newMapName) => {
     cy.contains('File').click()
     cy.getByDataTest('file-menu-container').should('be.visible')
