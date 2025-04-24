@@ -1,3 +1,10 @@
+## [101.2.10](https://github.com/dhis2/maps-app/compare/v101.2.9...v101.2.10) (2025-04-23)
+
+
+### Bug Fixes
+
+* OU geometry cache not cleaned when switching user [DHIS2-19357] ([#3509](https://github.com/dhis2/maps-app/issues/3509)) ([b4aff94](https://github.com/dhis2/maps-app/commit/b4aff940699d1a4492d4afdc6d946764151e489b))
+
 ## [101.2.9](https://github.com/dhis2/maps-app/compare/v101.2.8...v101.2.9) (2025-04-22)
 
 
