@@ -1,3 +1,31 @@
+const omitPatterns = [
+    // User info
+    'me/authorization',
+    'me?fields',
+
+    // Settings
+    'systemSettings',
+    'userSettings',
+
+    // Data
+    'externalMapLayers',
+    'geoFeatures',
+    'analytics',
+    'tracker/trackedEntities',
+
+    // Metadata
+    'dataElements',
+    'trackedEntityAttributes',
+    'optionSets',
+    'legendSets',
+    'programs',
+    'programStages',
+    'trackedEntityTypes',
+    'relationshipTypes',
+    'organisationUnitLevels',
+    'organisationUnitGroupSets',
+]
+
 const config = {
     type: 'app',
     name: 'maps',
@@ -12,7 +40,7 @@ const config = {
         enabled: true,
         caching: {
             patternsToOmitFromAppShell: [
-                /^(?!.*me\/authorization)(?!.*me\?fields)(?!.*systemSettings)(?!.*userSettings)(?!.*geoFeatures)(?!.*analytics)(?!.*programStages)(?!.*externalMapLayers)(?!.*legendSets)(?!.*organisationUnitLevels\?)(?!.*organisationUnitGroupSets\/)(?!.*optionSets)(?!.*dataElements).*$/,
+                new RegExp(`^(?!.*(${omitPatterns.join('|')})).*$`),
             ],
             globsToOmitFromPrecache: ['fonts/**', 'images/**'],
         },
