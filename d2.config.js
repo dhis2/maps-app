@@ -1,7 +1,7 @@
 const omitPatterns = [
     // User info
     'me/authorization',
-    'me?fields',
+    'me\\?fields',
 
     // Settings
     'systemSettings',
