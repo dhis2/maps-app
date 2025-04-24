@@ -9,11 +9,12 @@ const FacilityLoader = ({ config, onLoad, loaderAlertAction }) => {
     const { showAlerts } = useLoaderAlerts(loaderAlertAction)
     const { currentUser } = useCachedDataQuery()
     const { baseUrl } = useConfig()
-    const nameProperty = currentUser.keyAnalysisDisplayProperty.toUpperCase()
     const engine = useDataEngine()
+    const nameProperty = currentUser.keyAnalysisDisplayProperty.toUpperCase()
+    const userId = currentUser.id
 
     useEffect(() => {
-        facilityLoader({ config, engine, nameProperty, baseUrl }).then(
+        facilityLoader({ config, engine, nameProperty, userId, baseUrl }).then(
             (result) => {
                 if (result.alerts?.length && loaderAlertAction) {
                     showAlerts(result.alerts)
@@ -26,6 +27,7 @@ const FacilityLoader = ({ config, onLoad, loaderAlertAction }) => {
         onLoad,
         engine,
         nameProperty,
+        userId,
         baseUrl,
         showAlerts,
         loaderAlertAction,
