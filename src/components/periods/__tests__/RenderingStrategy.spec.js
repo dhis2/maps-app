@@ -1,4 +1,4 @@
-import { mount } from 'enzyme'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -25,14 +25,13 @@ jest.mock('../../../util/periods', () => ({
     countPeriods: jest.fn(),
 }))
 
-describe('RenderingStrategy', () => {
-    const renderWithProps = (props) =>
-        mount(
-            <Provider store={store}>
-                <RenderingStrategy {...props} />
-            </Provider>
-        )
+jest.mock('../icons.js', () => ({
+    IconPeriodDisplaySingle: () => <div>IconPeriodDisplaySingle</div>,
+    IconPeriodDisplaySplit: () => <div>IconPeriodDisplaySplit</div>,
+    IconPeriodDisplayTimeline: () => <div>IconPeriodDisplayTimeline</div>,
+}))
 
+describe('RenderingStrategy', () => {
     const layerId = 'layer1'
     const value = RENDERING_STRATEGY_SPLIT_BY_PERIOD
     const periods = []
@@ -51,42 +50,76 @@ describe('RenderingStrategy', () => {
 
     it('renders all radio buttons with correct labels', () => {
         countPeriods.mockReturnValue(5)
-        const wrapper = renderWithProps(props)
-        expect(wrapper.find('div.boldLabel').text()).toBe('Period display mode')
-        expect(wrapper.find('input').length).toBe(3)
-        expect(wrapper.find('label').at(0).text()).toBe(
-            'SingleShow periods as a combined layer. Data is aggregated.'
+        render(
+            <Provider store={store}>
+                <RenderingStrategy {...props} />
+            </Provider>
         )
-        expect(wrapper.find('label').at(1).text()).toBe(
-            'TimelineShow multiple periods as an interactive timeline.'
-        )
-        expect(wrapper.find('label').at(2).text()).toBe(
-            'SplitShow multiple maps in view, one for each period (max 12).'
-        )
+
+        expect(screen.getByText('Period display mode')).toBeInTheDocument()
+
+        // Check for the number of radio buttons
+        const radioButtons = screen.getAllByRole('radio')
+        expect(radioButtons.length).toBe(3)
+
+        // Check for the labels of each radio button
+        expect(
+            screen.getByText(
+                'Show periods as a combined layer. Data is aggregated.'
+            )
+        ).toBeInTheDocument()
+        expect(
+            screen.getByText(
+                'Show multiple periods as an interactive timeline.'
+            )
+        ).toBeInTheDocument()
+        expect(
+            screen.getByText(
+                'Show multiple maps in view, one for each period (max 12).'
+            )
+        ).toBeInTheDocument()
     })
 
     it('disables timeline and split map views when total periods are below the minimum', () => {
         countPeriods.mockReturnValue(1)
-        const wrapper = renderWithProps(props)
-        expect(wrapper.find('input').at(1).prop('disabled')).toBeDefined()
-        expect(wrapper.find('input').at(2).prop('disabled')).toBeDefined()
+        render(
+            <Provider store={store}>
+                <RenderingStrategy {...props} />
+            </Provider>
+        )
+        const radioButtons = screen.getAllByRole('radio')
+
+        expect(radioButtons[0]).not.toBeDisabled()
+        expect(radioButtons[1]).toBeDisabled()
+        expect(radioButtons[2]).toBeDisabled()
     })
 
-    it('calls onChange with correct value when a radio button is clicked', () => {
+    it('calls onChange with correct value when a radio button is clicked', async () => {
         countPeriods.mockReturnValue(5)
-        const wrapper = renderWithProps(props)
-        wrapper
-            .find('input')
-            .at(1)
-            .simulate('change', {
-                target: { value: RENDERING_STRATEGY_TIMELINE },
-            })
-        expect(mockOnChange).toHaveBeenCalledWith(RENDERING_STRATEGY_TIMELINE)
+        const onChangeMockFn = jest.fn()
+        render(
+            <Provider store={store}>
+                <RenderingStrategy {...props} onChange={onChangeMockFn} />
+            </Provider>
+        )
+
+        const radioButtons = screen.getAllByRole('radio')
+
+        await fireEvent.click(radioButtons[1])
+
+        expect(onChangeMockFn).toHaveBeenCalledWith(RENDERING_STRATEGY_TIMELINE)
     })
 
-    it('automatically switches to SINGLE when conditions are not met', () => {
+    it('automatically switches to SINGLE when conditions are not met', async () => {
         countPeriods.mockReturnValue(1)
-        renderWithProps(props)
-        expect(mockOnChange).toHaveBeenCalledWith(RENDERING_STRATEGY_SINGLE)
+        const onChangeMockFn = jest.fn()
+        await act(async () => {
+            render(
+                <Provider store={store}>
+                    <RenderingStrategy {...props} onChange={onChangeMockFn} />
+                </Provider>
+            )
+        })
+        expect(onChangeMockFn).toHaveBeenCalledWith(RENDERING_STRATEGY_SINGLE)
     })
 })

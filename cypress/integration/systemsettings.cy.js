@@ -81,7 +81,7 @@ describe('systemSettings', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
         // cy.wait('@getSystemSettings6months')
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -114,7 +114,7 @@ describe('systemSettings', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         // cy.wait('@getSystemSettings12months')
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 

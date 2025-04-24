@@ -41,7 +41,7 @@ import {
 import { LEGEND_SET_QUERY } from '../util/requests.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async ({ config, engine, nameProperty }) => {
+const thematicLoader = async ({ config, engine, nameProperty, userId }) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -58,16 +58,18 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
 
     let loadError
 
-    const response = await loadData(config, nameProperty).catch((err) => {
-        loadError = err
+    const response = await loadData(config, nameProperty, userId).catch(
+        (err) => {
+            loadError = err
 
-        if (err.message) {
-            loadError =
-                err.errorCode === 'E7124' && err.message.includes('dx')
-                    ? i18n.t('Data item was not found')
-                    : err.message
+            if (err.message) {
+                loadError =
+                    err.errorCode === 'E7124' && err.message.includes('dx')
+                        ? i18n.t('Data item was not found')
+                        : err.message
+            }
         }
-    })
+    )
 
     if (!response) {
         return {
@@ -338,7 +340,7 @@ const getOrderedValues = (data) => {
 }
 
 // Load features and data values from api
-const loadData = async (config, nameProperty) => {
+const loadData = async (config, nameProperty, userId) => {
     const {
         rows,
         columns,
@@ -361,7 +363,7 @@ const loadData = async (config, nameProperty) => {
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const d2 = await getD2()
 
-    const geoFeaturesParams = {}
+    const geoFeaturesParams = { _: userId }
     const orgUnitParams = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 
