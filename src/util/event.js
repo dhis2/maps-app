@@ -102,7 +102,9 @@ export const getAnalyticsRequest = async (
 
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        : analyticsRequest
+              .withStartDate(startDate.slice(0, 10))
+              .withEndDate(endDate.slice(0, 10))
 
     if (relativePeriodDate) {
         analyticsRequest =

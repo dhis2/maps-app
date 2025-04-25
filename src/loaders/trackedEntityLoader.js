@@ -136,9 +136,15 @@ const trackedEntityLoader = async (config, serverVersion) => {
     }
 
     if (periodType === 'program') {
-        url += `&enrollmentEnrolledAfter=${startDate}&enrollmentEnrolledBefore=${endDate}`
+        url += `&enrollmentEnrolledAfter=${startDate.slice(
+            0,
+            10
+        )}&enrollmentEnrolledBefore=${endDate.slice(0, 10)}`
     } else {
-        url += `&updatedAfter=${startDate}&updatedBefore=${endDate}`
+        url += `&updatedAfter=${startDate.slice(
+            0,
+            10
+        )}&updatedBefore=${endDate.slice(0, 10)}`
     }
 
     const primaryData = await apiFetch(url)
