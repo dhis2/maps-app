@@ -11,6 +11,28 @@ const fetchMapQuery = {
     },
 }
 
+const fetchMapNameDescQuery = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: 'id,name,description,displayName,description',
+    },
+}
+
+export const fetchMapNameDesc = async (id, engine) =>
+    engine
+        .query(
+            { map: fetchMapNameDescQuery },
+            {
+                variables: {
+                    id,
+                },
+            }
+        )
+        .catch(() => {
+            throw new Error(`Could not load map with id "${id}"`)
+        })
+
 export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
     engine
         .query(
@@ -21,7 +43,10 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
                 },
             }
         )
-        .then((map) => getMigratedMapConfig(map.map, keyDefaultBaseMap))
+        .then((map) => {
+            console.log('jj here')
+            return getMigratedMapConfig(map.map, keyDefaultBaseMap)
+        })
         .catch(() => {
             throw new Error(`Could not load map with id "${id}"`)
         })

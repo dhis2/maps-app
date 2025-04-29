@@ -8,6 +8,10 @@ export const getMigratedMapConfig = (config, defaultBasemapId) =>
 
 // Different ways of specifying a basemap - TODO: simplify!
 const extractBasemap = (config, defaultBasemapId) => {
+    console.log('jj extractBasemap', {
+        config,
+        defaultBasemapId,
+    })
     const externalBasemap = config.mapViews.find(
         (view) =>
             view.layer === EXTERNAL_LAYER &&

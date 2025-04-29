@@ -23,6 +23,7 @@ import {
 import { sGetOriginalMap } from '../../reducers/originalMap.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import history from '../../util/history.js'
+import { fetchMap, fetchMapNameDesc } from '../../util/requests.js'
 
 const updateMapMutation = {
     resource: 'maps',
@@ -132,10 +133,19 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
+        // fetch the original Map
+        console.log('jj defaultbasemap', {
+            defaultBasemap,
+            ss: systemSettings,
+        })
+        const { map: origMap } = await fetchMap(map.id, engine, defaultBasemap)
+        console.log('jj origMap', origMap)
         const visualization = cleanMapConfig({
-            config: originalMap,
+            config: origMap,
             defaultBasemapId: defaultBasemap,
         })
+
+        console.log('jj visualization', visualization)
 
         const config = await preparePayloadForSave({
             visualization: { ...visualization, type: VIS_TYPE_MAP },
@@ -144,19 +154,24 @@ const FileMenu = ({ onFileMenuAction }) => {
             engine,
         })
 
+        console.log('jj config', config)
+
         await renameMap({
             id: map.id,
             data: config,
         })
 
-        dispatch(
-            setMapProps({ name: config.name, description: config.description })
-        )
+        console.log('jj here')
+
+        const updatedMapNameDesc = await fetchMapNameDesc(map.id, engine)
+
+        console.log('jj updatedMapNameDesc', updatedMapNameDesc)
+
+        dispatch(setMapProps(updatedMapNameDesc))
 
         const updatedOriginalMap = {
             ...originalMap,
-            name: config.name,
-            description: config.description,
+            ...updatedMapNameDesc,
         }
         dispatch(setOriginalMap(updatedOriginalMap))
 

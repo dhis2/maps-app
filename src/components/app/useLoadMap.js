@@ -39,6 +39,10 @@ export const useLoadMap = () => {
                 dispatch(setAnalyticalObject(true))
             } else {
                 try {
+                    console.log('jj fetchMap', {
+                        defaultBasemap,
+                        systemSettings,
+                    })
                     const map = await fetchMap(
                         params.mapId,
                         engine,
