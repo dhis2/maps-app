@@ -18,6 +18,7 @@ const validMapProperties = [
     'zoom',
     'created',
     'lastUpdated',
+    'subscribers',
 ]
 
 const validLayerProperties = [

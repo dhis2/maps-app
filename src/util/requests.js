@@ -15,7 +15,7 @@ const fetchMapNameDescQuery = {
     resource: 'maps',
     id: ({ id }) => id,
     params: {
-        fields: 'id,name,description,displayName,description',
+        fields: 'id,name,description,displayName,displayDescription',
     },
 }
 
@@ -44,7 +44,6 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
             }
         )
         .then((map) => {
-            console.log('jj here')
             return getMigratedMapConfig(map.map, keyDefaultBaseMap)
         })
         .catch(() => {

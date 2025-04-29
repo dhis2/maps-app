@@ -12,7 +12,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMapProps } from '../../actions/map.js'
-import { setOriginalMap } from '../../actions/originalMap.js'
 import {
     ALERT_CRITICAL,
     ALERT_WARNING,
@@ -20,7 +19,6 @@ import {
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
-import { sGetOriginalMap } from '../../reducers/originalMap.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import history from '../../util/history.js'
 import { fetchMap, fetchMapNameDesc } from '../../util/requests.js'
@@ -62,7 +60,6 @@ const getSaveFailureMessage = (message) =>
 
 const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
-    const originalMap = useSelector(sGetOriginalMap)
     const dispatch = useDispatch()
     const engine = useDataEngine()
     const { systemSettings, currentUser } = useCachedDataQuery()
@@ -134,46 +131,30 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onRename = async ({ name, description }) => {
         // fetch the original Map
-        console.log('jj defaultbasemap', {
-            defaultBasemap,
-            ss: systemSettings,
-        })
-        const { map: origMap } = await fetchMap(map.id, engine, defaultBasemap)
-        console.log('jj origMap', origMap)
-        const visualization = cleanMapConfig({
-            config: origMap,
+        const latestMap = await fetchMap(map.id, engine, defaultBasemap)
+
+        const cleanedMap = cleanMapConfig({
+            config: latestMap,
             defaultBasemapId: defaultBasemap,
         })
 
-        console.log('jj visualization', visualization)
-
-        const config = await preparePayloadForSave({
-            visualization: { ...visualization, type: VIS_TYPE_MAP },
+        const config = preparePayloadForSave({
+            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
             name,
             description,
-            engine,
         })
-
-        console.log('jj config', config)
 
         await renameMap({
             id: map.id,
             data: config,
         })
 
-        console.log('jj here')
-
-        const updatedMapNameDesc = await fetchMapNameDesc(map.id, engine)
-
-        console.log('jj updatedMapNameDesc', updatedMapNameDesc)
+        const { map: updatedMapNameDesc } = await fetchMapNameDesc(
+            map.id,
+            engine
+        )
 
         dispatch(setMapProps(updatedMapNameDesc))
-
-        const updatedOriginalMap = {
-            ...originalMap,
-            ...updatedMapNameDesc,
-        }
-        dispatch(setOriginalMap(updatedOriginalMap))
 
         renameSuccessAlert.show({ msg: i18n.t('Rename successful') })
 

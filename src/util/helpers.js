@@ -4,8 +4,10 @@ import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers.js'
 const baseFields = [
     'id',
     'user',
-    'displayName~rename(name)',
+    'name',
+    'displayName',
     'description',
+    'displayDescription',
     'longitude',
     'latitude',
     'zoom',
