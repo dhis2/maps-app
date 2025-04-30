@@ -160,7 +160,10 @@ class Layer extends PureComponent {
     // Fit map to layer bounds once (when first created)
     fitBoundsOnce(options) {
         if (!this.isZoomed || this.context.map.getZoom() === undefined) {
-            this.fitBounds({ ...options, fitToAllLayers: !this.props.editCounter })
+            this.fitBounds({
+                ...options,
+                fitToAllLayers: !this.props.editCounter,
+            })
             this.isZoomed = true
         }
     }
