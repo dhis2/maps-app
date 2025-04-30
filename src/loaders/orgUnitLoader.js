@@ -23,24 +23,33 @@ const GEOFEATURES_QUERY = {
             displayProperty,
             includeGroupSets,
             coordinateField,
+            userId,
         }) => ({
             ou,
             displayProperty,
             includeGroupSets,
             coordinateField,
+            _: userId,
         }),
     },
 }
 
-const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
+const orgUnitLoader = async ({
+    config,
+    engine,
+    nameProperty,
+    userId,
+    baseUrl,
+}) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
     const orgUnits = getOrgUnitsFromRows(rows)
-    const orgUnitParams = orgUnits.map((item) => item.id)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
+    const alerts = []
+
+    const orgUnitParams = orgUnits.map((item) => item.id)
 
     const name = i18n.t('Organisation units')
-    const alerts = []
 
     const ouParam = `ou:${orgUnitParams.join(';')}`
 
@@ -51,6 +60,7 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
                 ou: ouParam,
                 displayProperty: nameProperty,
                 includeGroupSets,
+                userId,
             },
         },
         {
@@ -68,7 +78,6 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     )
 
     const mainFeatures = data?.geoFeatures ? toGeoJson(data.geoFeatures) : null
-
     const orgUnitLevels = await apiFetchOrganisationUnitLevels(engine)
 
     // Load organisationUnitGroups if not passed
@@ -109,6 +118,7 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
                     displayProperty: nameProperty,
                     includeGroupSets,
                     coordinateField: coordinateField.id,
+                    userId,
                 },
             },
             {

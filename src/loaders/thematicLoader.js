@@ -48,11 +48,13 @@ const GEOFEATURES_QUERY = {
             displayProperty,
             includeGroupSets,
             coordinateField,
+            userId,
         }) => ({
             ou,
             displayProperty,
             includeGroupSets,
             coordinateField,
+            _: userId,
         }),
     },
 }
@@ -62,6 +64,7 @@ const thematicLoader = async ({
     engine,
     analyticsEngine,
     keyAnalysisDisplayProperty,
+    userId,
 }) => {
     const {
         columns,
@@ -86,6 +89,7 @@ const thematicLoader = async ({
         engine,
         analyticsEngine,
         alerts,
+        userId,
     }).catch((err) => {
         loadError = err
 
@@ -371,6 +375,7 @@ const loadData = async ({
     engine,
     analyticsEngine,
     alerts,
+    userId,
 }) => {
     const {
         rows,
@@ -393,7 +398,7 @@ const loadData = async ({
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
 
-    const geoFeaturesParams = {}
+    const geoFeaturesParams = { _: userId }
     const orgUnitParams = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 

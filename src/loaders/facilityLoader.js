@@ -23,21 +23,30 @@ const GEOFEATURES_QUERY = {
             displayProperty,
             includeGroupSets,
             coordinateField,
+            userId,
         }) => ({
             ou,
             displayProperty,
             includeGroupSets,
             coordinateField,
+            _: userId,
         }),
     },
 }
 
-const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
+const facilityLoader = async ({
+    config,
+    engine,
+    nameProperty,
+    userId,
+    baseUrl,
+}) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
     const alerts = []
+
     const orgUnitParams = orgUnits.map((item) => item.id)
     let associatedGeometries
 
@@ -52,6 +61,7 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
                 ou: ouParam,
                 displayProperty: nameProperty,
                 includeGroupSets,
+                userId,
             },
         },
         {
@@ -111,6 +121,7 @@ const facilityLoader = async ({ config, engine, nameProperty, baseUrl }) => {
                     displayProperty: nameProperty,
                     includeGroupSets,
                     coordinateField: coordinateField.id,
+                    userId,
                 },
             },
             {

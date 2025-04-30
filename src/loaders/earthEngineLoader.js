@@ -22,19 +22,20 @@ import {
 const GEOFEATURES_QUERY = {
     geoFeatures: {
         resource: 'geoFeatures',
-        params: ({ ou, displayProperty, coordinateField }) => ({
+        params: ({ ou, displayProperty, coordinateField, userId }) => ({
             ou,
             displayProperty,
             coordinateField,
+            _: userId,
         }),
     },
 }
 
-// Returns a promise
 const earthEngineLoader = async ({
     config,
     keyAnalysisDisplayProperty: nameProperty,
     engine,
+    userId,
 }) => {
     const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
@@ -59,6 +60,7 @@ const earthEngineLoader = async ({
                     variables: {
                         ou: ouParam,
                         displayProperty: nameProperty.toUpperCase(),
+                        userId,
                     },
                 },
                 {
