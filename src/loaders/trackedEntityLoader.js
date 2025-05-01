@@ -18,7 +18,7 @@ import {
     GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
-import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
@@ -136,15 +136,13 @@ const trackedEntityLoader = async (config, serverVersion) => {
     }
 
     if (periodType === 'program') {
-        url += `&enrollmentEnrolledAfter=${startDate.slice(
-            0,
-            10
-        )}&enrollmentEnrolledBefore=${endDate.slice(0, 10)}`
+        url += `&enrollmentEnrolledAfter=${trimTime(
+            startDate
+        )}&enrollmentEnrolledBefore=${trimTime(endDate)}`
     } else {
-        url += `&updatedAfter=${startDate.slice(
-            0,
-            10
-        )}&updatedBefore=${endDate.slice(0, 10)}`
+        url += `&updatedAfter=${trimTime(startDate)}&updatedBefore=${trimTime(
+            endDate
+        )}`
     }
 
     const primaryData = await apiFetch(url)
