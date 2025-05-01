@@ -21,7 +21,7 @@ jest.mock('@dhis2/ui', () => {
     }
 })
 
-jest.mock('../LayerToolbarMoreMenu.js', () => {
+jest.mock('../LayerToolbarMoreMenu.jsx', () => {
     return function LayerToolbarMoreMenu() {
         return <div>LayerToolbarMoreMenu</div>
     }

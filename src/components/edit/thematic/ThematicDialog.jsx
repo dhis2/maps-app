@@ -56,6 +56,7 @@ import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.jsx'
 import IndicatorSelect from '../../indicator/IndicatorSelect.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import Labels from '../shared/Labels.jsx'
@@ -268,7 +269,7 @@ class ThematicDialog extends Component {
                 startDate !== prev.startDate ||
                 endDate !== prev.endDate ||
                 getPeriodsFromFilters(filters).length !==
-                getPeriodsFromFilters(prev.filters).length)
+                    getPeriodsFromFilters(prev.filters).length)
         ) {
             this.setErrorState('periodError', null, 'period')
         }
@@ -362,62 +363,62 @@ class ThematicDialog extends Component {
                             />
                             {(!valueType ||
                                 valueType === dimConf.indicator.objectName) && [
-                                    // Indicator (default)
-                                    <IndicatorGroupSelect
-                                        key="group"
-                                        indicatorGroup={indicatorGroup}
-                                        onChange={setIndicatorGroup}
-                                        className={styles.select}
-                                        errorText={indicatorGroupError}
-                                    />,
-                                    <IndicatorSelect
-                                        key="indicator"
-                                        indicatorGroup={indicatorGroup}
-                                        indicator={dataItem}
-                                        onChange={setDataItem}
-                                        className={styles.select}
-                                        errorText={indicatorError}
-                                    />,
-                                ]}
+                                // Indicator (default)
+                                <IndicatorGroupSelect
+                                    key="group"
+                                    indicatorGroup={indicatorGroup}
+                                    onChange={setIndicatorGroup}
+                                    className={styles.select}
+                                    errorText={indicatorGroupError}
+                                />,
+                                <IndicatorSelect
+                                    key="indicator"
+                                    indicatorGroup={indicatorGroup}
+                                    indicator={dataItem}
+                                    onChange={setDataItem}
+                                    className={styles.select}
+                                    errorText={indicatorError}
+                                />,
+                            ]}
                             {(valueType === dimConf.dataElement.objectName ||
                                 valueType === dimConf.operand.objectName) && [
-                                    // Data element
-                                    <DataElementGroupSelect
-                                        key="group"
-                                        dataElementGroup={dataElementGroup}
-                                        onChange={setDataElementGroup}
+                                // Data element
+                                <DataElementGroupSelect
+                                    key="group"
+                                    dataElementGroup={dataElementGroup}
+                                    onChange={setDataElementGroup}
+                                    className={styles.select}
+                                    errorText={dataElementGroupError}
+                                />,
+                                dataElementGroup && (
+                                    <TotalsDetailsSelect
+                                        key="totals"
+                                        operand={operand}
+                                        onChange={setOperand}
                                         className={styles.select}
-                                        errorText={dataElementGroupError}
-                                    />,
-                                    dataElementGroup && (
-                                        <TotalsDetailsSelect
-                                            key="totals"
-                                            operand={operand}
-                                            onChange={setOperand}
-                                            className={styles.select}
-                                        />
-                                    ),
-                                    operand === true ||
-                                        valueType === dimConf.operand.objectName ? (
-                                        <DataElementOperandSelect
-                                            key="element"
-                                            dataElementGroup={dataElementGroup}
-                                            dataElement={dataItem}
-                                            onChange={setDataItem}
-                                            className={styles.select}
-                                            errorText={dataElementError}
-                                        />
-                                    ) : (
-                                        <DataElementSelect
-                                            key="element"
-                                            dataElementGroup={dataElementGroup}
-                                            dataElement={dataItem}
-                                            onChange={setDataItem}
-                                            className={styles.select}
-                                            errorText={dataElementError}
-                                        />
-                                    ),
-                                ]}
+                                    />
+                                ),
+                                operand === true ||
+                                valueType === dimConf.operand.objectName ? (
+                                    <DataElementOperandSelect
+                                        key="element"
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataItem}
+                                        className={styles.select}
+                                        errorText={dataElementError}
+                                    />
+                                ) : (
+                                    <DataElementSelect
+                                        key="element"
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataItem}
+                                        className={styles.select}
+                                        errorText={dataElementError}
+                                    />
+                                ),
+                            ]}
                             {valueType === dimConf.dataSet.objectName && ( // Reporting rates
                                 <DataSetsSelect
                                     key="item"
@@ -449,25 +450,25 @@ class ThematicDialog extends Component {
                             ]}
                             {valueType ===
                                 dimConf.programIndicator.objectName && [
-                                    // Program indicator
-                                    <ProgramSelect
-                                        key="program"
+                                // Program indicator
+                                <ProgramSelect
+                                    key="program"
+                                    program={program}
+                                    onChange={setProgram}
+                                    className={styles.select}
+                                    errorText={programError}
+                                />,
+                                program && (
+                                    <ProgramIndicatorSelect
+                                        key="indicator"
                                         program={program}
-                                        onChange={setProgram}
+                                        programIndicator={dataItem}
+                                        onChange={setDataItem}
                                         className={styles.select}
-                                        errorText={programError}
-                                    />,
-                                    program && (
-                                        <ProgramIndicatorSelect
-                                            key="indicator"
-                                            program={program}
-                                            programIndicator={dataItem}
-                                            onChange={setDataItem}
-                                            className={styles.select}
-                                            errorText={programIndicatorError}
-                                        />
-                                    ),
-                                ]}
+                                        errorText={programIndicatorError}
+                                    />
+                                ),
+                            ]}
                             {valueType === dimConf.calculation.objectName && (
                                 <CalculationSelect
                                     calculation={dataItem}
@@ -683,15 +684,15 @@ class ThematicDialog extends Component {
             } else if (!dataItem) {
                 return valueType === dimConf.eventDataItem.objectName
                     ? this.setErrorState(
-                        'eventDataItemError',
-                        i18n.t('Event data item is required'),
-                        'data'
-                    )
+                          'eventDataItemError',
+                          i18n.t('Event data item is required'),
+                          'data'
+                      )
                     : this.setErrorState(
-                        'programIndicatorError',
-                        i18n.t('Program indicator is required'),
-                        'data'
-                    )
+                          'programIndicatorError',
+                          i18n.t('Program indicator is required'),
+                          'data'
+                      )
             }
         }
 

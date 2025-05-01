@@ -2,7 +2,7 @@ import { Radio as UiRadio } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useContext } from 'react'
-import { RadioContext } from './RadioGroup.js'
+import { RadioContext } from './RadioGroup.jsx'
 import styles from './styles/Radio.module.css'
 
 const Radio = ({ value, disabled, dense = true, dataTest, label }) => {

@@ -47,7 +47,7 @@ import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect.jsx'
-import StartEndDates from '../../periods/StartEndDates.jsx'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
@@ -190,7 +190,7 @@ class EventDialog extends Component {
             (startDate !== prev.startDate ||
                 endDate !== prev.endDate ||
                 getPeriodFromFilters(filters) !==
-                getPeriodFromFilters(prev.filters))
+                    getPeriodFromFilters(prev.filters))
         ) {
             this.setErrorState('periodError', null, 'period')
         }

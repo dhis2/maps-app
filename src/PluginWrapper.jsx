@@ -1,7 +1,7 @@
 import { DashboardPluginWrapper } from '@dhis2/analytics'
 import { debounce } from 'lodash/fp'
 import React, { useLayoutEffect, useState } from 'react'
-import { Plugin } from './components/plugin/Plugin.js'
+import { Plugin } from './components/plugin/Plugin.jsx'
 import './locales/index.js'
 
 const PluginWrapper = (props) => {
