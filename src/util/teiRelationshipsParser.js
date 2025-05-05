@@ -2,7 +2,7 @@ import { apiFetch } from './api.js'
 
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
-export const fetchTEIs = async ({
+const fetchTEIs = async ({
     program,
     type,
     fields,
@@ -111,11 +111,14 @@ const getInstanceRelationships = (
 /* eslint-enable max-params */
 
 const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
-export const getDataWithRelationships = async (
+export const getDataWithRelationships = async ({
     serverVersion,
     sourceInstances,
-    { relationshipType, orgUnits, organisationUnitSelectionMode }
-) => {
+    queryOptions,
+    // engine,
+}) => {
+    const { relationshipType, orgUnits, organisationUnitSelectionMode } =
+        queryOptions
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
 
