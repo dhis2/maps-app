@@ -65,12 +65,16 @@ describe('File menu', () => {
 
         createMap(title)
         const description = 'this is the explanation of the map'
+
+        cy.intercept('GET', /\/maps\//).as('fetchMap')
         cy.intercept({
             method: 'PUT',
             url: /\/maps\//,
         }).as('renameMap')
         renameMap(renamedTitle, description)
         cy.wait('@renameMap').its('response.statusCode').should('eq', 200)
+        // Get visualization calls: original map and updated name and description after rename
+        cy.get('@fetchMap.all').should('have.length', 2)
 
         cy.getByDataTest('dhis2-uicore-alertbar')
             .contains('Rename successful')
