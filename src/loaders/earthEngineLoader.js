@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { precisionRound } from 'd3-format'
 import {
     WARNING_NO_OU_COORD,
@@ -20,8 +19,24 @@ import {
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
 
-// Returns a promise
-const earthEngineLoader = async ({ config, nameProperty, userId }) => {
+const GEOFEATURES_QUERY = {
+    geoFeatures: {
+        resource: 'geoFeatures',
+        params: ({ ou, displayProperty, coordinateField, userId }) => ({
+            ou,
+            displayProperty,
+            coordinateField,
+            _: userId,
+        }),
+    },
+}
+
+const earthEngineLoader = async ({
+    config,
+    keyAnalysisDisplayProperty: nameProperty,
+    engine,
+    userId,
+}) => {
     const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
@@ -32,29 +47,71 @@ const earthEngineLoader = async ({ config, nameProperty, userId }) => {
     let features
 
     if (orgUnits && orgUnits.length) {
-        const d2 = await getD2()
-
-        const geoFeaturesParams = { _: userId }
         const orgUnitParams = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
 
-        const featuresRequest = d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(nameProperty)
+        const ouParam = `ou:${orgUnitParams.join(';')}`
 
         try {
-            mainFeatures = await featuresRequest
-                .getAll(geoFeaturesParams)
-                .then(toGeoJson)
+            const geoFeatureData = await engine.query(
+                GEOFEATURES_QUERY,
+                {
+                    variables: {
+                        ou: ouParam,
+                        displayProperty: nameProperty.toUpperCase(),
+                        userId,
+                    },
+                },
+                {
+                    onError: (error) => {
+                        alerts.push({
+                            critical: true,
+                            code: ERROR_CRITICAL,
+                            message: i18n.t('Error: {{message}}', {
+                                message:
+                                    error.message ||
+                                    i18n.t('an error occurred'),
+                                nsSeparator: ';',
+                            }),
+                        })
+                    },
+                }
+            )
+
+            mainFeatures = geoFeatureData.geoFeatures
+                ? toGeoJson(geoFeatureData.geoFeatures)
+                : null
 
             if (coordinateField) {
-                associatedGeometries = await featuresRequest
-                    .getAll({
-                        ...geoFeaturesParams,
-                        coordinateField: coordinateField.id,
-                    })
-                    .then(toGeoJson)
+                const coordFieldData = await engine.query(
+                    GEOFEATURES_QUERY,
+                    {
+                        variables: {
+                            ou: ouParam,
+                            displayProperty: nameProperty,
+                            coordinateField: coordinateField.id,
+                        },
+                    },
+                    {
+                        onError: (error) => {
+                            alerts.push({
+                                critical: true,
+                                code: ERROR_CRITICAL,
+                                message: i18n.t('Error: {{message}}', {
+                                    message:
+                                        error.message ||
+                                        i18n.t('an error occurred'),
+                                    nsSeparator: ';',
+                                }),
+                            })
+                        },
+                    }
+                )
+
+                associatedGeometries = coordFieldData.geoFeatures
+                    ? toGeoJson(coordFieldData.geoFeatures)
+                    : null
 
                 if (!associatedGeometries.length) {
                     alerts.push({

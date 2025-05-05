@@ -30,7 +30,7 @@ const teiGeometryTypes = [
 ]
 
 //TODO: Refactor to share code with other loaders
-const trackedEntityLoader = async (config, serverVersion) => {
+const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)
@@ -85,25 +85,15 @@ const trackedEntityLoader = async (config, serverVersion) => {
         ],
     }
 
-    // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-    let trackerRootProp,
-        trackerOrgUnitsParam,
-        trackerOrgUnitsModeParam,
-        trackerValuesSeparator,
-        trackerPaging
-    if (`${serverVersion.major}.${serverVersion.minor}` == '2.40') {
-        trackerRootProp = 'instances'
-        trackerOrgUnitsParam = 'orgUnit'
-        trackerOrgUnitsModeParam = 'ouMode'
-        trackerValuesSeparator = ';'
-        trackerPaging = 'skipPaging=true'
-    } else {
-        trackerRootProp = 'trackedEntities'
-        trackerOrgUnitsParam = 'orgUnits'
-        trackerOrgUnitsModeParam = 'orgUnitMode'
-        trackerValuesSeparator = ','
-        trackerPaging = 'paging=false'
-    }
+    // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
+    const isVersion240 =
+        `${serverVersion.major}.${serverVersion.minor}` === '2.40'
+
+    const trackerRootProp = isVersion240 ? 'instances' : 'trackedEntities'
+    const trackerOrgUnitsParam = isVersion240 ? 'orgUnit' : 'orgUnits'
+    const trackerOrgUnitsModeParam = isVersion240 ? 'ouMode' : 'orgUnitMode'
+    const trackerValuesSeparator = isVersion240 ? ';' : ','
+    const trackerPaging = isVersion240 ? 'skipPaging=true' : 'paging=false'
 
     const orgUnits = getOrgUnitsFromRows(rows)
         .map((ou) => ou.id)
@@ -186,15 +176,16 @@ const trackedEntityLoader = async (config, serverVersion) => {
             }
         )
 
-        const dataWithRels = await getDataWithRelationships(
+        const dataWithRels = await getDataWithRelationships({
             serverVersion,
             instances,
-            {
+            queryOptions: {
                 relationshipType,
                 orgUnits,
                 organisationUnitSelectionMode,
-            }
-        )
+            },
+            engine,
+        })
 
         data = toGeoJson(dataWithRels.primary)
         relationships = dataWithRels.relationships
