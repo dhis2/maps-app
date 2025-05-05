@@ -111,11 +111,10 @@ const FileMenu = ({ onFileMenuAction }) => {
             defaultBasemapId: defaultBasemap,
         })
 
-        const config = await preparePayloadForSave({
+        const config = preparePayloadForSave({
             visualization: { ...visualization, type: VIS_TYPE_MAP },
             name,
             description,
-            engine,
         })
 
         await putMap({

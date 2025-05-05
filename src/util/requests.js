@@ -43,9 +43,7 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
                 },
             }
         )
-        .then((map) => {
-            return getMigratedMapConfig(map.map, keyDefaultBaseMap)
-        })
+        .then((map) => getMigratedMapConfig(map.map, keyDefaultBaseMap))
         .catch(() => {
             throw new Error(`Could not load map with id "${id}"`)
         })
