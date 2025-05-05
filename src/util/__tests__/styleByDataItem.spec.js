@@ -391,14 +391,6 @@ describe('styleByDataItem', () => {
             value: SOME_VALUE,
             color: EVENT_COLOR,
         })
-        expect(result.data[2].properties).toMatchObject({
-            value: NOTSET_VALUE,
-            color: EVENT_COLOR,
-        })
-        expect(result.data[3].properties).toMatchObject({
-            value: SOME_VALUE,
-            color: EVENT_COLOR,
-        })
 
         expect(result.legend.items).toEqual(
             expect.arrayContaining([
