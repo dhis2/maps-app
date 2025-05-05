@@ -51,17 +51,16 @@ const StyleByDataItem = ({ program, programStage, error }) => {
         )
     }
 
+    let selectValue = null
+    if (!(error || internalError)) {
+        selectValue = styleDataItem ? styleDataItem.id : ITEM_NONE.id
+    }
+
     return (
         <div>
             <SelectField
                 label={i18n.t('Style by data item')}
-                value={
-                    !(error || internalError)
-                        ? styleDataItem
-                            ? styleDataItem.id
-                            : ITEM_NONE.id
-                        : null
-                }
+                value={selectValue}
                 items={dataItems}
                 onChange={onChange}
                 dataTest="style-by-data-item-select"
