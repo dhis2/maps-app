@@ -1,3 +1,31 @@
+## [101.2.10](https://github.com/dhis2/maps-app/compare/v101.2.9...v101.2.10) (2025-04-23)
+
+
+### Bug Fixes
+
+* OU geometry cache not cleaned when switching user [DHIS2-19357] ([#3509](https://github.com/dhis2/maps-app/issues/3509)) ([b4aff94](https://github.com/dhis2/maps-app/commit/b4aff940699d1a4492d4afdc6d946764151e489b))
+
+## [101.2.9](https://github.com/dhis2/maps-app/compare/v101.2.8...v101.2.9) (2025-04-22)
+
+
+### Bug Fixes
+
+* rename map fails with thematic layers containing data elements [DHIS2-19433] ([#3514](https://github.com/dhis2/maps-app/issues/3514)) ([655f5f8](https://github.com/dhis2/maps-app/commit/655f5f80a78ba6bc077d92784df99906595a3dda))
+
+## [101.2.8](https://github.com/dhis2/maps-app/compare/v101.2.7...v101.2.8) (2025-04-04)
+
+
+### Bug Fixes
+
+* restore navigation between maps using the browser address bar [DHIS2-19387] ([#3508](https://github.com/dhis2/maps-app/issues/3508)) ([f4cd8a1](https://github.com/dhis2/maps-app/commit/f4cd8a167309cca9429ba2a1e4a25942a88b15a7))
+
+## [101.2.7](https://github.com/dhis2/maps-app/compare/v101.2.6...v101.2.7) (2025-04-04)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([17c928c](https://github.com/dhis2/maps-app/commit/17c928c6f675b9898035f51238ccc3ce93d4da17))
+
 ## [101.2.6](https://github.com/dhis2/maps-app/compare/v101.2.5...v101.2.6) (2025-04-01)
 
 

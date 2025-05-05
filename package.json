@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "101.2.6",
+    "version": "101.2.10",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -26,14 +26,12 @@
         "@semantic-release/changelog": "^6",
         "@semantic-release/exec": "^6",
         "@semantic-release/git": "^10",
+        "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^12.1.5",
         "cypress": "^13.17.0",
         "cypress-real-events": "^1.13.0",
         "cypress-tags": "^1.2.2",
         "cypress-wait-until": "^1.7.2",
-        "enzyme": "^3.11.0",
-        "enzyme-adapter-react-16": "^1.15.8",
-        "enzyme-to-json": "^3.6.2",
         "eslint-plugin-cypress": "^2.15.1",
         "patch-package": "^6.5.1",
         "redux-devtools": "^3.7.0",
@@ -42,7 +40,7 @@
         "start-server-and-test": "^2.0.10"
     },
     "dependencies": {
-        "@dhis2/analytics": "^26.13.3",
+        "@dhis2/analytics": "^27.0.0",
         "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",

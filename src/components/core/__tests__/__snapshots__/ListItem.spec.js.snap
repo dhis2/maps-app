@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer should change value if formatter is passed 1`] = `
+<div>
+  <table
+    class="listItem"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Item 1 in list
+        </th>
+        <td>
+          124
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Drawer should not render if children is missing 1`] = `<div />`;
+
+exports[`Drawer should render if a value is passed as children 1`] = `
+<div>
+  <table
+    class="listItem"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Item 1 in list
+        </th>
+        <td>
+          123
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
+import { setOriginalMap } from '../../actions/originalMap.js'
 import { openDownloadMode, closeDownloadMode } from '../../actions/ui.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
@@ -18,7 +19,7 @@ import history, {
 import { fetchMap } from '../../util/requests.js'
 
 // Used to avoid repeating `history` listener calls -- see below
-let lastLocationKey
+let lastLocation
 
 export const useLoadMap = () => {
     const previousParamsRef = useRef(defaultHashUrlParams)
@@ -54,13 +55,15 @@ export const useLoadMap = () => {
                         basemaps.find(({ id }) => id === defaultBasemap) ||
                         getFallbackBasemap()
 
-                    dispatch(
-                        setMap({
-                            ...map,
-                            mapViews: addOrgUnitPaths(map.mapViews),
-                            basemap: { ...map.basemap, ...basemapConfig },
-                        })
-                    )
+                    const mapForStore = {
+                        ...map,
+                        mapViews: addOrgUnitPaths(map.mapViews),
+                        basemap: { ...map.basemap, ...basemapConfig },
+                    }
+
+                    dispatch(setMap(mapForStore))
+
+                    dispatch(setOriginalMap(mapForStore))
                 } catch (e) {
                     log.error(e)
                     dispatch(newMap())
@@ -87,10 +90,15 @@ export const useLoadMap = () => {
             // Avoid duplicate actions for the same update object. This also
             // avoids a loop, because dispatching a pop state effect below also
             // triggers listeners again (but with the same location object key)
-            if (location.key === lastLocationKey) {
+            const { key, pathname, search } = location
+            if (
+                key === lastLocation?.key &&
+                pathname === lastLocation?.pathname &&
+                search === lastLocation?.search
+            ) {
                 return
             }
-            lastLocationKey = location.key
+            lastLocation = location
             // Dispatch this event for external routing listeners to observe,
             // e.g. global shell
             const popStateEvent = new PopStateEvent('popstate', {

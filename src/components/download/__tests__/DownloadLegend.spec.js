@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
 import DownloadLegend from '../DownloadLegend.js'
 
@@ -18,24 +18,13 @@ describe('DownloadLegend', () => {
                 period: '2017',
             },
         },
+        {
+            id: 'layer-3',
+        },
     ]
 
-    const renderComponent = (props) => shallow(<DownloadLegend {...props} />)
-
     it('Should render a legend component', () => {
-        expect(renderComponent({ layers }).exists()).toBe(true)
-    })
-
-    it('Should only render layers with legends', () => {
-        const wrapper = renderComponent({ layers })
-
-        expect(wrapper.length).toEqual(2)
-        expect(wrapper.find('Legend').length).toEqual(2)
-    })
-
-    it('Should render legend title and period', () => {
-        const wrapper = renderComponent({ layers })
-        expect(wrapper.containsMatchingElement('Layer 1')).toBe(true)
-        expect(wrapper.containsMatchingElement(<span>2018</span>)).toBe(true)
+        const { container } = render(<DownloadLegend layers={layers} />)
+        expect(container).toMatchSnapshot()
     })
 })
