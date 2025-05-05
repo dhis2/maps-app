@@ -50,12 +50,17 @@ const FilterRow = ({
         )
     }
 
+    let selectValue = null
+    if (!internalError) {
+        selectValue = dimension || null
+    }
+
     return (
         <div className={styles.filterRow}>
             <SelectField
                 label={i18n.t('Data item')}
                 items={dataItems}
-                value={!internalError ? dimension || null : null}
+                value={selectValue}
                 onChange={onSelect}
                 className={styles.dataItemSelect}
             />
