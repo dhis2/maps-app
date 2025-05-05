@@ -1,3 +1,17 @@
+## [101.2.10](https://github.com/dhis2/maps-app/compare/v101.2.9...v101.2.10) (2025-04-23)
+
+
+### Bug Fixes
+
+* OU geometry cache not cleaned when switching user [DHIS2-19357] ([#3509](https://github.com/dhis2/maps-app/issues/3509)) ([b4aff94](https://github.com/dhis2/maps-app/commit/b4aff940699d1a4492d4afdc6d946764151e489b))
+
+## [101.2.9](https://github.com/dhis2/maps-app/compare/v101.2.8...v101.2.9) (2025-04-22)
+
+
+### Bug Fixes
+
+* rename map fails with thematic layers containing data elements [DHIS2-19433] ([#3514](https://github.com/dhis2/maps-app/issues/3514)) ([655f5f8](https://github.com/dhis2/maps-app/commit/655f5f80a78ba6bc077d92784df99906595a3dda))
+
 ## [101.2.8](https://github.com/dhis2/maps-app/compare/v101.2.7...v101.2.8) (2025-04-04)
 
 

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
+import { setOriginalMap } from '../../actions/originalMap.js'
 import { openDownloadMode, closeDownloadMode } from '../../actions/ui.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
@@ -54,13 +55,15 @@ export const useLoadMap = () => {
                         basemaps.find(({ id }) => id === defaultBasemap) ||
                         getFallbackBasemap()
 
-                    dispatch(
-                        setMap({
-                            ...map,
-                            mapViews: addOrgUnitPaths(map.mapViews),
-                            basemap: { ...map.basemap, ...basemapConfig },
-                        })
-                    )
+                    const mapForStore = {
+                        ...map,
+                        mapViews: addOrgUnitPaths(map.mapViews),
+                        basemap: { ...map.basemap, ...basemapConfig },
+                    }
+
+                    dispatch(setMap(mapForStore))
+
+                    dispatch(setOriginalMap(mapForStore))
                 } catch (e) {
                     log.error(e)
                     dispatch(newMap())

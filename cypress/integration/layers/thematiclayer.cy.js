@@ -588,4 +588,40 @@ context('Thematic Layers', () => {
         // confirm that the map is valid now
         cy.getByDataTest('layerlegend-item').should('have.length', 5)
     })
+
+    it('adds a thematic layer with a filter', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('ANC')
+            .selectIndicator('ANC 1 Coverage')
+            .selectTab('Filter')
+            .addFilterDimensions('Facility Type', ['Hospital', 'Clinic'])
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle('ANC 1 Coverage')
+
+        Layer.validateLayerFilters({
+            type: 'Facility Type',
+            items: ['Hospital', 'Clinic'],
+        })
+
+        getMaps().should('have.length', 1)
+
+        // edit the filter
+        cy.getByDataTest('layer-edit-button').click()
+
+        Layer.selectTab('Filter')
+        cy.getByDataTest('dhis2-uicore-multiselect')
+            .findByDataTest('dhis2-uicore-chip')
+            .should('have.length', 2)
+
+        Layer.removeFilterDimensions(['Clinic']).updateMap()
+
+        Layer.validateLayerFilters({
+            type: 'Facility Type',
+            items: ['Hospital'],
+            nonItems: ['Clinic'],
+        })
+    })
 })

@@ -61,7 +61,10 @@ const SelectField = (props) => {
     )
 
     return (
-        <div className={cx(styles.inputField, className)}>
+        <div
+            className={cx(styles.inputField, className)}
+            data-test="select-field-container"
+        >
             <Select
                 dense={dense}
                 label={label}

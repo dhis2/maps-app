@@ -1,20 +1,25 @@
-Implements _jira issue link_
-
-Requires: _pull request link from analytics and/or maps-gl_
-
----
+Implements [DHIS2-XXXX](https://dhis2.atlassian.net/browse/DHIS2-XXXX)
 
 ### Description
 
-_description text_
+_text_
 
-### TODO
+---
+
+### Quality checklist
+
+Add _N/A_ to items that are not applicable.
 
 - [ ] Dashboard tested
-- [ ] Tests added (Cypress and/or Jest)
+- [ ] Cypress and/or Jest tests added/updated
 - [ ] Docs added
-- [ ] Strings generated
-- [ ] d2-ci dependency replaced
+- [ ] d2-ci dependencies replaced (analytics or maps-gl link https://github.com/dhis2/[lib]/pull/XXX)
+- [ ] Tester approved (name)
+
+---
+
+### ToDos
+
 - [ ] _todo_
 
 ---

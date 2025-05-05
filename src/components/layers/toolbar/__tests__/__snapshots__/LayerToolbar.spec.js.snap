@@ -1,79 +1,155 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
-<div
-  className="toolbar"
-  data-test="layertoolbar"
->
-  <IconButton
-    className="editButton"
-    dataTest="layer-edit-button"
-    onClick={[Function]}
-    tooltip="Edit"
-  >
-    <SvgEdit24 />
-  </IconButton>
-  <IconButton
-    className="visible"
-    dataTest="visibilitybutton"
-    onClick={[Function]}
-    tooltip="Toggle visibility"
-  >
-    <SvgView24 />
-  </IconButton>
+exports[`LayerToolbar Should render edit button 1`] = `
+<div>
   <div
-    className="sliderContainer"
+    class="toolbar"
+    data-test="layertoolbar"
   >
-    <Tooltip
-      content="Set layer opacity"
+    <button
+      class="iconButton editButton"
+      data-test="layer-edit-button"
     >
-      <OpacitySlider
-        disabled={false}
-        onChange={[Function]}
-        opacity={0}
-      />
-    </Tooltip>
-  </div>
-  <div
-    className="menuButton"
-  >
-    <Connect(LayerToolbarMoreMenu)
-      onEdit={[Function]}
-    />
+      <div>
+        <svg
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.287 4.297l.127.117 2.172 2.172a2 2 0 01.117 2.701l-.117.127L9 20H4v-5L14.586 4.414a2 2 0 012.701-.117zM16 5.828l-9.586 9.585 2.171 2.171L18.172 8z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+    </button>
+    <button
+      class="iconButton visible"
+      data-test="visibilitybutton"
+    >
+      <div>
+        <div>
+          IconView24
+        </div>
+      </div>
+    </button>
+    <div
+      class="sliderContainer"
+    >
+      <div>
+        <div
+          class="container"
+        >
+          <input
+            class="slider"
+            max="1"
+            min="0"
+            step="0.01"
+            type="range"
+            value="0"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="menuButton"
+    >
+      <div>
+        LayerToolbarMoreMenu
+      </div>
+    </div>
   </div>
 </div>
 `;
 
-exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
-<div
-  className="toolbar"
-  data-test="layertoolbar"
->
-  <IconButton
-    className="visible"
-    dataTest="visibilitybutton"
-    onClick={[Function]}
-    tooltip="Toggle visibility"
-  >
-    <SvgView24 />
-  </IconButton>
+exports[`LayerToolbar Should render only a visibility toggle and opacity slider 1`] = `
+<div>
   <div
-    className="sliderContainer"
+    class="toolbar"
+    data-test="layertoolbar"
   >
-    <Tooltip
-      content="Set layer opacity"
+    <button
+      class="iconButton visible"
+      data-test="visibilitybutton"
     >
-      <OpacitySlider
-        disabled={false}
-        onChange={[Function]}
-        opacity={0}
-      />
-    </Tooltip>
+      <div>
+        <div>
+          IconView24
+        </div>
+      </div>
+    </button>
+    <div
+      class="sliderContainer"
+    >
+      <div>
+        <div
+          class="container"
+        >
+          <input
+            class="slider"
+            max="1"
+            min="0"
+            step="0.01"
+            type="range"
+            value="0"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="menuButton"
+    >
+      <div>
+        LayerToolbarMoreMenu
+      </div>
+    </div>
   </div>
+</div>
+`;
+
+exports[`LayerToolbar Should show SvgViewOff24 when not visible 1`] = `
+<div>
   <div
-    className="menuButton"
+    class="toolbar"
+    data-test="layertoolbar"
   >
-    <Connect(LayerToolbarMoreMenu) />
+    <button
+      class="iconButton notvisible"
+      data-test="visibilitybutton"
+    >
+      <div>
+        <div>
+          IconViewOff24
+        </div>
+      </div>
+    </button>
+    <div
+      class="sliderContainer"
+    >
+      <div>
+        <div
+          class="container"
+        >
+          <input
+            class="slider"
+            disabled=""
+            max="1"
+            min="0"
+            step="0.01"
+            type="range"
+            value="0"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="menuButton"
+    >
+      <div>
+        LayerToolbarMoreMenu
+      </div>
+    </div>
   </div>
 </div>
 `;
