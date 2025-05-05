@@ -35,7 +35,7 @@ context('Manage Layer Sources', () => {
         // Make sure authority request response is not comming from cache
         cy.intercept(
             'GET',
-            '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%5D',
+            '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D',
             (request) => {
                 delete request.headers['if-none-match']
             }
@@ -174,7 +174,7 @@ context('Manage Layer Sources', () => {
         // Remove admin authority
         cy.intercept(
             'GET',
-            '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%5D',
+            '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D',
             (request) => {
                 delete request.headers['if-none-match']
                 request.continue((response) => {

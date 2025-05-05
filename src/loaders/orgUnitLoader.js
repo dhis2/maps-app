@@ -26,26 +26,33 @@ const ORG_UNIT_LEVELS_QUERY = {
     },
 }
 
-const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
+const orgUnitLoader = async ({
+    config,
+    engine,
+    nameProperty,
+    userId,
+    baseUrl,
+}) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
     const orgUnits = getOrgUnitsFromRows(rows)
-    const orgUnitParams = orgUnits.map((item) => item.id)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
-
-    const d2 = await getD2()
-    const name = i18n.t('Organisation units')
     const alerts = []
+    const d2 = await getD2()
+
+    const geoFeaturesParams = { _: userId }
+    const orgUnitParams = orgUnits.map((item) => item.id)
+    let associatedGeometries
+
+    const name = i18n.t('Organisation units')
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(nameProperty)
 
-    let associatedGeometries
-
     const requests = [
         featuresRequest
-            .getAll({ includeGroupSets })
+            .getAll({ ...geoFeaturesParams, includeGroupSets })
             .then(toGeoJson)
             .catch((error) => {
                 if (error?.message || error) {
@@ -88,6 +95,7 @@ const orgUnitLoader = async ({ config, engine, nameProperty, baseUrl }) => {
     if (coordinateField) {
         associatedGeometries = await featuresRequest
             .getAll({
+                ...geoFeaturesParams,
                 coordinateField: coordinateField.id,
                 includeGroupSets,
             })
