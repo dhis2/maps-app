@@ -26,23 +26,55 @@ const programIP = {
 const programGeowR = {
     name: 'E2E - GeoProgram - Points (with reg)',
     stage: 'E2E - Geo - Stage - Point',
-    coordinates: [
-        { name: 'Event location', coords: '-11.499252, 8.178188' },
-        { name: 'Enrollment location', coords: '-11.634007, 8.011976' },
-        { name: 'Tracked entity location', coords: '-11.529636, 8.040193' },
-        {
-            name: 'E2E - Geo - DE - Coordinate',
-            coords: '-11.602850, 8.077288',
-        },
-        {
-            name: 'E2E - Geo - TEA - Coordinate',
-            coords: '-11.499982, 8.049881',
-        },
-    ],
     startDate: `2025-01-01`,
     endDate: `2025-03-31`,
-    ous: ['Bo', 'Bargbe'],
-    filters: { item: 'E2E - Geo - DE - ID', value: '#C' },
+    ous: ['Bo'],
+    scenarios: [
+        {
+            ous: ['Bo', 'Bargbe'],
+            filters: { item: 'E2E - Geo - DE - ID', value: '#C' },
+            coordinates: [
+                { name: 'Event location', coords: '-11.499252 8.178188' },
+                { name: 'Enrollment location', coords: '-11.634007 8.011976' },
+                {
+                    name: 'Tracked entity location',
+                    coords: '-11.529636 8.040193',
+                },
+                {
+                    name: 'E2E - Geo - DE - Coordinate',
+                    coords: '-11.602850 8.077288',
+                },
+                {
+                    name: 'E2E - Geo - TEA - Coordinate',
+                    coords: '-11.499982 8.049881',
+                },
+            ],
+        },
+        {
+            ous: ['Bo', 'Badjia'],
+            filters: { item: 'E2E - Geo - DE - ID', value: 'C' },
+            coordinates: [
+                {
+                    name: 'E2E - Geo - DE - Organisation Unit',
+                    coords: '-11.686100 7.390850', // Bathurst MCHP
+                },
+                {
+                    name: 'E2E - Geo - TEA - Organisation Unit',
+                    coords: '-11.686100 7.390850', // Bathurst MCHP
+                },
+            ],
+        },
+        {
+            ous: ['Bo', 'Badjia', 'Ngelehun CHC'],
+            filters: { item: 'E2E - Geo - DE - ID', value: 'C' },
+            coordinates: [
+                {
+                    name: 'Organisation unit location',
+                    coords: '-11.419700 8.103900', // Ngelehun CHC
+                },
+            ],
+        },
+    ],
 }
 
 context('Event Layers', () => {
@@ -206,36 +238,68 @@ context('Event Layers', () => {
         }
 
         // Event layer config
-
         Layer.openDialog('Events')
             .selectProgram(programGeowR.name)
             .selectStage(programGeowR.stage)
-
         Layer.selectTab('Period')
             .selectPeriodType({ periodType: 'Start/end dates' })
             .typeStartDate(programGeowR.startDate)
             .typeEndDate(programGeowR.endDate)
+        Layer.selectTab('Style').selectViewAllEvents()
+
+        // Test coordinates in scenario 0
 
         Layer.selectTab('Org Units')
             .unselectOu('Sierra Leone')
-            .openOu(programGeowR.ous[0])
-            .selectOu(programGeowR.ous[1])
-
+            .openOu(programGeowR.scenarios[0].ous[0])
+            .selectOu(programGeowR.scenarios[0].ous[1])
         Layer.selectTab('Filter')
         cy.contains('Add filter').click()
         cy.getByDataTest('dhis2-uicore-select-input').last().click()
-        cy.contains(programGeowR.filters.item).click()
+        cy.contains(programGeowR.scenarios[0].filters.item).click()
         cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
             .find('input')
-            .type(programGeowR.filters.value)
+            .type(programGeowR.scenarios[0].filters.value)
 
-        Layer.selectTab('Style').selectViewAllEvents()
+        testCoordinate(programGeowR.scenarios[0].coordinates[3], false) // Geo - DataElement - Coordinate
+        testCoordinate(programGeowR.scenarios[0].coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
+        testCoordinate(programGeowR.scenarios[0].coordinates[2]) // Tracked entity location
+        testCoordinate(programGeowR.scenarios[0].coordinates[1]) // Enrollment location
+        testCoordinate(programGeowR.scenarios[0].coordinates[0]) // Event location
 
-        // Test different coordinates
-        testCoordinate(programGeowR.coordinates[3], false) // Geo - DataElement - Coordinate
-        testCoordinate(programGeowR.coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
-        testCoordinate(programGeowR.coordinates[2]) // Tracked entity location
-        testCoordinate(programGeowR.coordinates[1]) // Enrollment location
-        testCoordinate(programGeowR.coordinates[0]) // Event location
+        // Test coordinates in scenario 1
+
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Filter')
+        cy.getByDataTest('remove-filter-button').click()
+        Layer.updateMap()
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Org Units')
+            .unselectOu('Sierra Leone')
+            .selectOu(programGeowR.scenarios[0].ous[1])
+            .selectOu(programGeowR.scenarios[1].ous[1])
+        Layer.selectTab('Filter')
+        cy.contains('Add filter').click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.contains(programGeowR.scenarios[1].filters.item).click()
+        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+            .find('input')
+            .type(programGeowR.scenarios[1].filters.value)
+        Layer.updateMap()
+
+        testCoordinate(programGeowR.scenarios[1].coordinates[0]) // Geo - DataElement - Organisation Unit
+        testCoordinate(programGeowR.scenarios[1].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
+
+        // Test coordinates in scenario 2
+
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Org Units')
+            .unselectOu('Sierra Leone')
+            .selectOu(programGeowR.scenarios[1].ous[1])
+            .openOu(programGeowR.scenarios[2].ous[1])
+            .selectOu(programGeowR.scenarios[2].ous[2])
+        Layer.updateMap()
+
+        testCoordinate(programGeowR.scenarios[2].coordinates[0]) // Organisation Unit location
     })
 })
