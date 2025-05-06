@@ -129,6 +129,7 @@ export const getDataWithRelationships = async ({
 }) => {
     const { relationshipType, orgUnits, organisationUnitSelectionMode } =
         queryOptions
+
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
 
@@ -193,8 +194,8 @@ export const getDataWithRelationships = async ({
             {
                 variables: {
                     fields,
-                    orgUnits: orgUnits.value,
-                    orgUnitsMode: organisationUnitSelectionMode.value,
+                    orgUnits: orgUnits,
+                    orgUnitMode: organisationUnitSelectionMode,
                     program: recursiveProp?.program,
                     trackedEntityType: recursiveProp?.type?.id,
                 },
