@@ -12,7 +12,7 @@ import facilityLoader from '../loaders/facilityLoader.js'
 import geoJsonUrlLoader from '../loaders/geoJsonUrlLoader.js'
 import orgUnitLoader from '../loaders/orgUnitLoader.js'
 import thematicLoader from '../loaders/thematicLoader.js'
-// import trackedEntityLoader from '../loaders/trackedEntityLoader.js'
+import trackedEntityLoader from '../loaders/trackedEntityLoader.js'
 
 const loaders = {
     earthEngine: earthEngineLoader,
@@ -22,12 +22,11 @@ const loaders = {
     orgUnit: orgUnitLoader,
     thematic: thematicLoader,
     geoJsonUrl: geoJsonUrlLoader,
-
-    // trackedEntity: trackedEntityLoader,
+    trackedEntity: trackedEntityLoader,
 }
 
 export const useLayersLoader = () => {
-    const { baseUrl } = useConfig()
+    const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const { show: showLoaderAlert } = useAlert(
@@ -52,6 +51,7 @@ export const useLayersLoader = () => {
                 analyticsEngine,
                 baseUrl,
                 loadExtended: dataTableOpen, // for event loader
+                serverVersion, // for tracked entity loader
                 keyAnalysisDisplayProperty:
                     currentUser.keyAnalysisDisplayProperty,
             })
@@ -88,5 +88,6 @@ export const useLayersLoader = () => {
         showLoaderAlert,
         baseUrl,
         dataTableOpen,
+        serverVersion,
     ])
 }
