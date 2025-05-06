@@ -5,6 +5,7 @@ import {
 } from '../constants/layers.js'
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
+import { trimTime } from './time.js'
 
 export const EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
     programStage: {
@@ -102,7 +103,9 @@ export const getAnalyticsRequest = async (
 
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        : analyticsRequest
+              .withStartDate(trimTime(startDate))
+              .withEndDate(trimTime(endDate))
 
     if (relativePeriodDate) {
         analyticsRequest =

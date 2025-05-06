@@ -1,3 +1,12 @@
+## [101.2.11](https://github.com/dhis2/maps-app/compare/v101.2.10...v101.2.11) (2025-05-06)
+
+
+### Bug Fixes
+
+* allow caching necessary requests to render map offline in dashboard [DHIS2-19281] ([#3502](https://github.com/dhis2/maps-app/issues/3502)) ([8f61181](https://github.com/dhis2/maps-app/commit/8f611817ad8bae2fca9698bacb2ff235900af160))
+* prevent TE layer from becoming exclusive of last day on save [DHIS2-19224] ([#3519](https://github.com/dhis2/maps-app/issues/3519)) ([772fc8d](https://github.com/dhis2/maps-app/commit/772fc8d6797f2063fc65b10d07c258323793a73c))
+* use all layers in map to fit bounds on initial render [DHIS2-19522] ([#3518](https://github.com/dhis2/maps-app/issues/3518)) ([c6190f3](https://github.com/dhis2/maps-app/commit/c6190f32ee28bcde2d85e594ae19814eeaee570c))
+
 ## [101.2.10](https://github.com/dhis2/maps-app/compare/v101.2.9...v101.2.10) (2025-04-23)
 
 
