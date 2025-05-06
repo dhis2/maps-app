@@ -17,7 +17,7 @@ import {
     GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
-import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
@@ -191,11 +191,11 @@ const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
                 followUp: boolFollowUp,
                 trackedEntityType: !program ? trackedEntityType?.id : undefined,
                 enrollmentEnrolledAfter:
-                    periodType === 'program' ? startDate : undefined,
+                    periodType === 'program' ? trimTime(startDate) : undefined,
                 enrollmentEnrolledBefore:
-                    periodType === 'program' ? endDate : undefined,
-                updatedAfter: periodType !== 'program' ? startDate : undefined,
-                updatedBefore: periodType !== 'program' ? endDate : undefined,
+                    periodType === 'program' ? trimTime(endDate) : undefined,
+                updatedAfter: periodType !== 'program' ? trimTime(startDate) : undefined,
+                updatedBefore: periodType !== 'program' ? trimTime(endDate) : undefined,
             },
         }
     )

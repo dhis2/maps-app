@@ -38,7 +38,7 @@ import {
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY } from '../util/requests.js'
-import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
 const GEOFEATURES_QUERY = {
     geoFeatures: {
@@ -422,8 +422,8 @@ const loadData = async ({
                       presetPeriods.map((pe) => pe.id)
                   )
                 : analyticsRequest
-                      .withStartDate(startDate.slice(0, 10))
-                      .withEndDate(endDate.slice(0, 10))
+                      .withStartDate(trimTime(startDate))
+                      .withEndDate(trimTime(endDate))
     }
 
     if (dimensions) {
