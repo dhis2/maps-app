@@ -79,7 +79,6 @@ const programGeowR = {
 }
 
 context('Event Layers', () => {
-
     beforeEach(() => {
         cy.visit('/')
     })
