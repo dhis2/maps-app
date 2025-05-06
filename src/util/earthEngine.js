@@ -100,7 +100,8 @@ export const getAuthTokenFn = (engine) => () =>
 let workerPromise
 
 // Load EE worker and set token
-const getWorkerInstance = async () => {
+const getWorkerInstance = async (engine) => {
+    const getAuthToken = getAuthTokenFn(engine)
     workerPromise =
         workerPromise ||
         (async () => {
@@ -111,7 +112,12 @@ const getWorkerInstance = async () => {
     return workerPromise
 }
 
-export const getPeriods = async (eeId, periodType, filters) => {
+export const getPeriods = async ({
+    datasetId,
+    periodType,
+    filters,
+    engine,
+}) => {
     const useSystemIndex = filters.some((f) =>
         f.arguments.includes('system:index')
     )
@@ -133,9 +139,9 @@ export const getPeriods = async (eeId, periodType, filters) => {
               }
     }
 
-    const eeWorker = await getWorkerInstance()
+    const eeWorker = await getWorkerInstance(engine)
 
-    const { features } = await eeWorker.getPeriods(eeId)
+    const { features } = await eeWorker.getPeriods(datasetId)
 
     return features.map(getPeriod)
 }
