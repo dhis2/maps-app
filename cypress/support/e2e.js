@@ -69,7 +69,7 @@ before(() => {
         url: `${Cypress.env('dhis2BaseUrl')}/api/system/info?fields=version`,
     }).then(({ body: { version } }) => {
         const match = version.match(
-            /^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:-([\w.]+))?$/
+            /^(\d+)\.(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([\w.]+))?$/
         )
 
         if (!match) {
