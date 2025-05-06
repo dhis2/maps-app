@@ -4,6 +4,7 @@ import {
     CURRENT_YEAR,
     EXTENDED_TIMEOUT,
     POPUP_WAIT,
+    getDhis2Version,
 } from '../../support/util.js'
 
 const programE2E = {
@@ -51,6 +52,16 @@ const programGeowR = {
             ],
         },
         {
+            ous: ['Bo', 'Badjia', 'Ngelehun CHC'],
+            filters: { item: 'E2E - Geo - DE - ID', value: 'C' },
+            coordinates: [
+                {
+                    name: 'Organisation unit location',
+                    coords: '-11.419700 8.103900', // Ngelehun CHC
+                },
+            ],
+        },
+        {
             ous: ['Bo', 'Badjia'],
             filters: { item: 'E2E - Geo - DE - ID', value: 'C' },
             coordinates: [
@@ -64,20 +75,11 @@ const programGeowR = {
                 },
             ],
         },
-        {
-            ous: ['Bo', 'Badjia', 'Ngelehun CHC'],
-            filters: { item: 'E2E - Geo - DE - ID', value: 'C' },
-            coordinates: [
-                {
-                    name: 'Organisation unit location',
-                    coords: '-11.419700 8.103900', // Ngelehun CHC
-                },
-            ],
-        },
     ],
 }
 
 context('Event Layers', () => {
+
     beforeEach(() => {
         cy.visit('/')
     })
@@ -267,17 +269,11 @@ context('Event Layers', () => {
         testCoordinate(programGeowR.scenarios[0].coordinates[1]) // Enrollment location
         testCoordinate(programGeowR.scenarios[0].coordinates[0]) // Event location
 
-        // Test coordinates in scenario 1
-
         cy.getByDataTest('layer-edit-button').click()
         Layer.selectTab('Filter')
         cy.getByDataTest('remove-filter-button').click()
         Layer.updateMap()
         cy.getByDataTest('layer-edit-button').click()
-        Layer.selectTab('Org Units')
-            .unselectOu('Sierra Leone')
-            .selectOu(programGeowR.scenarios[0].ous[1])
-            .selectOu(programGeowR.scenarios[1].ous[1])
         Layer.selectTab('Filter')
         cy.contains('Add filter').click()
         cy.getByDataTest('dhis2-uicore-select-input').last().click()
@@ -287,19 +283,38 @@ context('Event Layers', () => {
             .type(programGeowR.scenarios[1].filters.value)
         Layer.updateMap()
 
-        testCoordinate(programGeowR.scenarios[1].coordinates[0]) // Geo - DataElement - Organisation Unit
-        testCoordinate(programGeowR.scenarios[1].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
-
-        // Test coordinates in scenario 2
+        // Test coordinates in scenario 1
 
         cy.getByDataTest('layer-edit-button').click()
         Layer.selectTab('Org Units')
-            .unselectOu('Sierra Leone')
-            .selectOu(programGeowR.scenarios[1].ous[1])
-            .openOu(programGeowR.scenarios[2].ous[1])
-            .selectOu(programGeowR.scenarios[2].ous[2])
+            .unselectOu(programGeowR.scenarios[0].ous[1])
+            .openOu(programGeowR.scenarios[1].ous[1])
+            .selectOu(programGeowR.scenarios[1].ous[2])
         Layer.updateMap()
 
-        testCoordinate(programGeowR.scenarios[2].coordinates[0]) // Organisation Unit location
+        testCoordinate(programGeowR.scenarios[1].coordinates[0]) // Organisation Unit location
+
+        // VERSION-TOGGLE
+        // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
+        // - [2.40.8] https://github.com/dhis2/dhis2-core/commit/f2286a5aa70b2957bd24925776e9394cd67d44c1
+        // - [2.41.4] https://github.com/dhis2/dhis2-core/commit/19f29f27385cfae1c7fac234439f49987ec2abe4
+        // - [2.42.0] https://github.com/dhis2/dhis2-core/commit/e5b29f4f1dbee791be9e6befb8a304151a1661c9
+        const serverVersion = getDhis2Version()
+        if (
+            (serverVersion.minor === 40 && serverVersion.patch >= 8) ||
+            (serverVersion.minor === 41 && serverVersion.patch >= 4) ||
+            serverVersion.minor >= 42
+        ) {
+            // Test coordinates in scenario 2
+
+            cy.getByDataTest('layer-edit-button').click()
+            Layer.selectTab('Org Units')
+                .unselectOu(programGeowR.scenarios[1].ous[2])
+                .selectOu(programGeowR.scenarios[2].ous[1])
+            Layer.updateMap()
+
+            testCoordinate(programGeowR.scenarios[2].coordinates[0]) // Geo - DataElement - Organisation Unit
+            testCoordinate(programGeowR.scenarios[2].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
+        }
     })
 })
