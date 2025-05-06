@@ -63,6 +63,26 @@ before(() => {
                 JSON.stringify(sessionCookieForBaseUrl)
             )
         })
+
+    cy.request({
+        method: 'GET',
+        url: `${Cypress.env('dhis2BaseUrl')}/api/system/info?fields=version`,
+    }).then(({ body: { version } }) => {
+        const match = version.match(/^(\d+)\.(\d+)\.(\d+)(?:-(\w+))?$/)
+
+        if (!match) {
+            throw new Error(`Unexpected version format: ${version}`)
+        }
+
+        const [full, major, minor, patch, tag] = match
+        Cypress.env('dhis2InstanceFullVersion', {
+            full,
+            major,
+            minor,
+            patch,
+            tag,
+        })
+    })
 })
 
 beforeEach(() => {
