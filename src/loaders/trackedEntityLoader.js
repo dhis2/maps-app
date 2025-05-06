@@ -9,7 +9,6 @@ import {
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { apiFetch } from '../util/api.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -28,6 +27,77 @@ const teiGeometryTypes = [
     GEO_TYPE_POLYGON,
     GEO_TYPE_MULTIPOLYGON,
 ]
+
+const TEI_240_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+    }) => ({
+        fields,
+        orgUnit: orgUnits,
+        ouMode: orgUnitMode,
+        program: program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        skipPaging: true,
+    }),
+}
+
+const TEI_241_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+    }) => ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        paging: false,
+    }),
+}
+
+const RELATIONSHIP_TYPES_QUERY = {
+    resource: 'relationshipTypes',
+    id: ({ id }) => id,
+}
+
+const TRACKED_ENTITY_TYPES_QUERY = {
+    resource: 'trackedEntityTypes',
+    id: ({ id }) => id,
+    params: {
+        fields: 'displayName,featureType',
+    },
+}
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
@@ -90,53 +160,53 @@ const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
         `${serverVersion.major}.${serverVersion.minor}` === '2.40'
 
     const trackerRootProp = isVersion240 ? 'instances' : 'trackedEntities'
-    const trackerOrgUnitsParam = isVersion240 ? 'orgUnit' : 'orgUnits'
-    const trackerOrgUnitsModeParam = isVersion240 ? 'ouMode' : 'orgUnitMode'
-    const trackerValuesSeparator = isVersion240 ? ';' : ','
-    const trackerPaging = isVersion240 ? 'skipPaging=true' : 'paging=false'
 
     const orgUnits = getOrgUnitsFromRows(rows)
         .map((ou) => ou.id)
-        .join(trackerValuesSeparator)
+        .join(isVersion240 ? ';' : ',')
 
     const fieldsWithRelationships = [...fields, 'relationships']
-    let url = `/tracker/trackedEntities?${trackerPaging}&fields=${fieldsWithRelationships}&${trackerOrgUnitsParam}=${orgUnits}`
-    let alert
     let explanation
+    let boolFollowUp = undefined
 
-    if (organisationUnitSelectionMode) {
-        url += `&${trackerOrgUnitsModeParam}=${organisationUnitSelectionMode}`
+    if (program && programStatus) {
+        explanation = `${i18n.t('Program status')}: ${
+            getProgramStatuses().find((s) => s.id === programStatus).name
+        }`
     }
 
-    if (program) {
-        url += `&program=${program.id}`
+    if (program && followUp !== undefined) {
+        boolFollowUp = followUp ? 'TRUE' : 'FALSE'
+    }
 
-        if (programStatus) {
-            url += `&programStatus=${programStatus}`
-            explanation = `${i18n.t('Program status')}: ${
-                getProgramStatuses().find((s) => s.id === programStatus).name
-            }`
+    const { trackedEntities } = await engine.query(
+        { trackedEntities: isVersion240 ? TEI_240_QUERY : TEI_241_QUERY },
+        {
+            variables: {
+                fields: fieldsWithRelationships,
+                orgUnits: orgUnits,
+                orgUnitMode: organisationUnitSelectionMode,
+                program: program?.id,
+                programStatus,
+                followUp: boolFollowUp,
+                trackedEntityType: !program ? trackedEntityType?.id : undefined,
+                enrollmentEnrolledAfter:
+                    periodType === 'program' ? startDate : undefined,
+                enrollmentEnrolledBefore:
+                    periodType === 'program' ? endDate : undefined,
+                updatedAfter: periodType !== 'program' ? startDate : undefined,
+                updatedBefore: periodType !== 'program' ? endDate : undefined,
+            },
         }
+    )
 
-        if (followUp !== undefined) {
-            url += `&followUp=${followUp ? 'TRUE' : 'FALSE'}`
-        }
-    } else {
-        url += `&trackedEntityType=${trackedEntityType.id}`
-    }
-
-    if (periodType === 'program') {
-        url += `&enrollmentEnrolledAfter=${startDate}&enrollmentEnrolledBefore=${endDate}`
-    } else {
-        url += `&updatedAfter=${startDate}&updatedBefore=${endDate}`
-    }
-
-    const primaryData = await apiFetch(url)
-    const instances = primaryData[trackerRootProp].filter(
+    const instances = trackedEntities[trackerRootProp].filter(
         (instance) =>
             teiGeometryTypes.includes(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
+
+    let alert
 
     if (!instances.length) {
         alert = {
@@ -148,14 +218,24 @@ const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
     let data, relationships, secondaryData
 
     if (relationshipTypeID) {
-        const relationshipType = await apiFetch(
-            `/relationshipTypes/${relationshipTypeID}`
+        const { relationshipType } = await engine.query(
+            { relationshipType: RELATIONSHIP_TYPES_QUERY },
+            {
+                variables: {
+                    id: relationshipTypeID,
+                },
+            }
         )
 
-        const relatedTypeId = relationshipType.toConstraint.trackedEntityType.id
-        const relatedEntityType = await apiFetch(
-            `/trackedEntityTypes/${relatedTypeId}?fields=displayName,featureType`
+        const { relatedEntityType } = await engine.query(
+            { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+            {
+                variables: {
+                    id: relationshipType.toConstraint.trackedEntityType.id,
+                },
+            }
         )
+
         const isPoint =
             relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
 
