@@ -194,7 +194,7 @@ export const getDataWithRelationships = async ({
             {
                 variables: {
                     fields,
-                    orgUnits: orgUnits,
+                    orgUnits,
                     orgUnitMode: organisationUnitSelectionMode,
                     program: recursiveProp?.program,
                     trackedEntityType: recursiveProp?.type?.id,
