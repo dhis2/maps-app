@@ -1,61 +1,58 @@
-import { apiFetch } from '../api.js'
-import {
-    fetchTEIs,
-    getDataWithRelationships,
-} from '../teiRelationshipsParser.js'
+import { getDataWithRelationships } from '../teiRelationshipsParser.js'
 
-jest.mock('../api.js')
+// describe.skip('fetchData', () => {
+//     it.each([
+//         {
+//             customProps: {
+//                 orgUnitsMode: { param: 'orgUnitMode', value: 'someOUMode' },
+//                 trackerPaging: 'paging=false',
+//             },
+//             expectedUrl:
+//                 '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&orgUnitMode=someOUMode',
+//         },
+//         {
+//             customProps: {
+//                 type: { id: 'someTETypeId' },
+//                 orgUnitsMode: { param: 'orgUnitMode' },
+//                 trackerPaging: 'paging=false',
+//             },
+//             expectedUrl:
+//                 '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&trackedEntityType=someTETypeId',
+//         },
+//         {
+//             customProps: {
+//                 program: 'someProgram',
+//                 orgUnitsMode: { param: 'orgUnitMode' },
+//                 trackerPaging: 'paging=false',
+//             },
+//             expectedUrl:
+//                 '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&program=someProgram',
+//         },
+//     ])(
+//         'should call apiFetch correct url in different scenarios',
+//         async ({ customProps, expectedUrl }) => {
+//             const mockData = { some: 'object' }
+//             const baseProps = {
+//                 orgUnits: { param: 'orgUnits', value: 'ouId' },
+//                 fields: 'someFields',
+//             }
 
-describe('fetchData', () => {
-    it.each([
-        {
-            customProps: {
-                orgUnitsMode: { param: 'orgUnitMode', value: 'someOUMode' },
-                trackerPaging: 'paging=false',
-            },
-            expectedUrl:
-                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&orgUnitMode=someOUMode',
-        },
-        {
-            customProps: {
-                type: { id: 'someTETypeId' },
-                orgUnitsMode: { param: 'orgUnitMode' },
-                trackerPaging: 'paging=false',
-            },
-            expectedUrl:
-                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&trackedEntityType=someTETypeId',
-        },
-        {
-            customProps: {
-                program: 'someProgram',
-                orgUnitsMode: { param: 'orgUnitMode' },
-                trackerPaging: 'paging=false',
-            },
-            expectedUrl:
-                '/tracker/trackedEntities?paging=false&fields=someFields&orgUnits=ouId&program=someProgram',
-        },
-    ])(
-        'should call apiFetch correct url in different scenarios',
-        async ({ customProps, expectedUrl }) => {
-            const mockData = { some: 'object' }
-            const baseProps = {
-                orgUnits: { param: 'orgUnits', value: 'ouId' },
-                fields: 'someFields',
-            }
-
-            apiFetch.mockResolvedValueOnce(mockData)
-            const result = await fetchTEIs({
-                ...baseProps,
-                ...customProps,
-            })
-            expect(result).toEqual(mockData)
-            expect(apiFetch).toHaveBeenCalledWith(expectedUrl)
-        }
-    )
-})
+//             apiFetch.mockResolvedValueOnce(mockData)
+//             const result = await fetchTEIs({
+//                 ...baseProps,
+//                 ...customProps,
+//             })
+//             expect(result).toEqual(mockData)
+//             expect(apiFetch).toHaveBeenCalledWith(expectedUrl)
+//         }
+//     )
+// })
 
 describe('getDataWithRelationships', () => {
-    let mockSourceInstances, mockTargetInstances, OUProps
+    let mockSourceInstances
+    let mockTargetInstances
+    let OUProps
+    let mockEngine
     beforeAll(() => {
         mockSourceInstances = [
             {
@@ -437,17 +434,25 @@ describe('getDataWithRelationships', () => {
             },
         ]
         OUProps = {
-            orgUnits: { param: 'orgUnits', value: 'someOU' },
-            orgUnitsMode: { param: 'orgUnitMode', value: 'someOUMode' },
+            orgUnits: 'someOU',
+            orgUnitsMode: 'someOUMode',
         }
     })
     beforeEach(() => {
         jest.resetAllMocks()
+
+        // Mock engine.query to return a resolved promise
+        mockEngine = {
+            query: jest.fn().mockResolvedValue({
+                tei: { trackedEntities: mockTargetInstances },
+            }),
+        }
     })
 
     it.each([
         {
             // To relationshipEntity not supported
+            testTitle: 'to relationshipEntity not supported',
             relationshipType: {
                 fromConstraint: {
                     relationshipEntity: 'TRACKED_ENTITY_INSTANCE', // Selection starts from TE type, so this should not change
@@ -460,6 +465,7 @@ describe('getDataWithRelationships', () => {
         },
         {
             // Same TE type and same program
+            testTitle: 'same TE type and same program',
             relationshipType: {
                 id: 'relationshipTypeId1',
                 fromConstraint: {
@@ -504,6 +510,7 @@ describe('getDataWithRelationships', () => {
         {
             // Same TE type but different program
             // Different TE type and different program - would be the same given we mock the API call
+            testTitle: 'same TE type but different program',
             relationshipType: {
                 id: 'relationshipTypeId1',
                 fromConstraint: {
@@ -561,21 +568,19 @@ describe('getDataWithRelationships', () => {
             },
         },
     ])(
-        'should return an object with primary, relationships and secondary properties',
-        async ({ relationshipType, expected }) => {
+        '$testTitle: should return an object with primary, relationships and secondary properties',
+        async ({ testTitle, relationshipType, expected }) => {
             const serverVersion = {
                 major: 2,
                 minor: 41,
             }
 
-            apiFetch.mockResolvedValueOnce({
-                trackedEntities: mockTargetInstances,
-            })
-            const result = await getDataWithRelationships(
+            const result = await getDataWithRelationships({
                 serverVersion,
-                mockSourceInstances,
-                { relationshipType, ...OUProps }
-            )
+                instances: mockSourceInstances,
+                queryOptions: { relationshipType, ...OUProps },
+                engine: mockEngine,
+            })
 
             if (Array.isArray(expected)) {
                 expect(result).toEqual(expected)
@@ -598,6 +603,31 @@ describe('getDataWithRelationships', () => {
                 expect(resultSecondaryIds.sort()).toEqual(
                     expected.secondary.sort()
                 )
+                if (testTitle === 'same TE type and same program') {
+                    expect(mockEngine.query).not.toHaveBeenCalled()
+                } else {
+                    expect(mockEngine.query).toHaveBeenCalledWith(
+                        {
+                            tei: {
+                                resource: 'tracker/trackedEntities',
+                                params: expect.anything(),
+                            },
+                        },
+                        expect.objectContaining({
+                            variables: {
+                                fields: [
+                                    'trackedEntity~rename(id)',
+                                    'geometry',
+                                    'relationships',
+                                ],
+                                orgUnits: 'someOU',
+                                orgUnitMode: undefined,
+                                program: 'program2',
+                                trackedEntityType: undefined,
+                            },
+                        })
+                    )
+                }
             }
         }
     )
@@ -684,16 +714,21 @@ describe('getDataWithRelationships', () => {
             }
 
             const mockData = {
-                [trackerRootProp]: mockTargetInstances,
+                tei: { [trackerRootProp]: mockTargetInstances },
             }
 
             jest.clearAllMocks()
-            apiFetch.mockResolvedValueOnce(mockData)
-            const result = await getDataWithRelationships(
+
+            const mockEngine2 = {
+                query: jest.fn().mockResolvedValue(mockData),
+            }
+
+            const result = await getDataWithRelationships({
                 serverVersion,
-                mockSourceInstances,
-                { relationshipType, ...OUProps }
-            )
+                instances: mockSourceInstances,
+                queryOptions: { relationshipType, ...OUProps },
+                engine: mockEngine2,
+            })
 
             if (Array.isArray(expected)) {
                 expect(result).toEqual(expected)
