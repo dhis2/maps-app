@@ -167,7 +167,7 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
-    it.only('change coordinate field', () => {
+    it('change coordinate field', () => {
         function testCoordinate(coordinates, reOpenDialog = true) {
             if (reOpenDialog) {
                 cy.getByDataTest('layer-edit-button').click()
