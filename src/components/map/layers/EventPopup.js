@@ -9,8 +9,12 @@ import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import { formatDate } from '../../../util/time.js'
 import Popup from '../Popup.js'
 
-// Returns true if value is not undefined or null
-const hasValue = (value) => value !== undefined && value !== null
+// Returns true if value is not undefined, null an empty string or has already be marked as 'Not set' (data item used for styling)
+const hasValue = (value) =>
+    value !== undefined &&
+    value !== null &&
+    value !== '' &&
+    value !== i18n.t('Not set')
 
 const EVENTS_QUERY = {
     events: {
