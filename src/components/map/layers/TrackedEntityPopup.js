@@ -28,16 +28,18 @@ const getDataRows = ({ displayAttributes, attributes }) => {
     // Include rows for each displayInList attribute
     displayAttributes.forEach(({ id, name, valueType, options }) => {
         const { value } = attributes.find((d) => d.attribute === id) || {}
-        let formattedValue = value
 
-        if (valueType === 'COORDINATE' && value) {
-            formattedValue = formatCoordinate(value)
-        } else if (dateValueTypes.includes(valueType) && value) {
-            formattedValue = formatDate(value)
-        } else if (!hasValue(value)) {
+        let formattedValue
+        if (!hasValue(value)) {
             formattedValue = i18n.t('Not set')
-        } else if (options) {
+        } else if (options && hasValue(options[value])) {
             formattedValue = options[value]
+        } else if (valueType === 'COORDINATE') {
+            formattedValue = formatCoordinate(value)
+        } else if (dateValueTypes.includes(valueType)) {
+            formattedValue = formatDate(value)
+        } else {
+            formattedValue = value
         }
 
         dataRows.push(

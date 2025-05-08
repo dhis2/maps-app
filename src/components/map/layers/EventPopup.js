@@ -25,16 +25,18 @@ const getDataRows = ({ displayItems, dataValues }) => {
     // Include rows for each data item used for styling and displayInReport
     displayItems.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find((d) => d.dataElement === id) || {}
-        let formattedValue = value
 
-        if (valueType === 'COORDINATE' && value) {
-            formattedValue = formatCoordinate(value)
-        } else if (dateValueTypes.includes(valueType) && value) {
-            formattedValue = formatDate(value)
-        } else if (!hasValue(value)) {
+        let formattedValue
+        if (!hasValue(value)) {
             formattedValue = i18n.t('Not set')
-        } else if (options) {
-            formattedValue = options[value] || value
+        } else if (options && hasValue(options[value])) {
+            formattedValue = options[value]
+        } else if (valueType === 'COORDINATE') {
+            formattedValue = formatCoordinate(value)
+        } else if (dateValueTypes.includes(valueType)) {
+            formattedValue = formatDate(value)
+        } else {
+            formattedValue = value
         }
 
         dataRows.push(
