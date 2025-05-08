@@ -138,22 +138,32 @@ class Layer extends PureComponent {
     // Fit map to layer bounds
     fitBounds(options = {}) {
         const { map } = this.context
-        const { padding = {}, duration = DURATION_DEFAULT } = options
+        const {
+            fitToAllLayers = false,
+            padding = {},
+            duration = DURATION_DEFAULT,
+        } = options
 
         if (this.layer.getBounds) {
-            map.fitBounds(this.layer.getBounds(), {
-                padding: { ...PADDING_DEFAULT, ...padding },
-                duration: duration,
-                essential: true,
-                bearing: map.getMapGL().getBearing(),
-            })
+            map.fitBounds(
+                fitToAllLayers ? map.getLayersBounds() : this.layer.getBounds(),
+                {
+                    padding: { ...PADDING_DEFAULT, ...padding },
+                    duration: duration,
+                    essential: true,
+                    bearing: map.getMapGL().getBearing(),
+                }
+            )
         }
     }
 
     // Fit map to layer bounds once (when first created)
     fitBoundsOnce(options) {
         if (!this.isZoomed || this.context.map.getZoom() === undefined) {
-            this.fitBounds(options)
+            this.fitBounds({
+                ...options,
+                fitToAllLayers: !this.props.editCounter,
+            })
             this.isZoomed = true
         }
     }
