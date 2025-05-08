@@ -39,7 +39,7 @@ import {
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY } from '../util/requests.js'
-import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async ({ config, engine, nameProperty, userId }) => {
     const {
@@ -387,8 +387,8 @@ const loadData = async (config, nameProperty, userId) => {
                       presetPeriods.map((pe) => pe.id)
                   )
                 : analyticsRequest
-                      .withStartDate(startDate.slice(0, 10))
-                      .withEndDate(endDate.slice(0, 10))
+                      .withStartDate(trimTime(startDate))
+                      .withEndDate(trimTime(endDate))
     }
 
     if (dimensions) {
