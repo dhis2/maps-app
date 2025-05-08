@@ -8,7 +8,7 @@ import {
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../../constants/layers.js'
 import { countPeriods } from '../../../util/periods.js'
-import RenderingStrategy from '../RenderingStrategy.js'
+import RenderingStrategy from '../RenderingStrategy.jsx'
 
 const mockStore = configureMockStore()
 
