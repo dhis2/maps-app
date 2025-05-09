@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo, useEffect } from 'react'
@@ -12,8 +13,6 @@ import {
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
 
-const includeTypes = ['COORDINATE']
-
 const CoordinateField = ({
     value,
     program,
@@ -22,6 +21,22 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
+    const { serverVersion } = useConfig()
+
+    // VERSION-TOGGLE
+    // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
+    // - [2.40.8] https://github.com/dhis2/dhis2-core/commit/f2286a5aa70b2957bd24925776e9394cd67d44c1
+    // - [2.41.4] https://github.com/dhis2/dhis2-core/commit/19f29f27385cfae1c7fac234439f49987ec2abe4
+    // - [2.42.0] https://github.com/dhis2/dhis2-core/commit/e5b29f4f1dbee791be9e6befb8a304151a1661c9
+    const includeTypes = ['COORDINATE']
+    if (
+        (serverVersion.minor === 40 && serverVersion.patch >= 8) ||
+        (serverVersion.minor === 41 && serverVersion.patch >= 4) ||
+        serverVersion.minor >= 42
+    ) {
+        includeTypes.push('ORGANISATION_UNIT')
+    }
+
     const { eventDataItems, trackedEntityType } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
@@ -45,6 +60,10 @@ const CoordinateField = ({
             })
         }
 
+        fields.push({
+            id: EVENT_COORDINATE_ORG_UNIT,
+            name: i18n.t('Organisation unit location'),
+        })
         fields.push({
             id: EVENT_COORDINATE_DEFAULT,
             name: i18n.t('Event location'),
