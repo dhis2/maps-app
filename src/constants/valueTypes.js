@@ -28,3 +28,9 @@ export const booleanValueTypes = ['BOOLEAN', 'TRUE_ONLY']
 
 // Date value types
 export const dateValueTypes = ['DATE', 'AGE']
+
+// Date-time value types
+export const datetimeValueTypes = ['DATETIME']
+
+// Coordinate value types
+export const coordinateValueTypes = ['COORDINATE']

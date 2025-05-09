@@ -2,18 +2,13 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { dateValueTypes } from '../../../constants/valueTypes.js'
-import { formatTime, formatCoordinate } from '../../../util/helpers.js'
+import {
+    formatDatetime,
+    formatCoordinate,
+    formatValueForDisplay,
+} from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
-import { formatDate } from '../../../util/time.js'
 import Popup from '../Popup.js'
-
-// Returns true if value is not undefined, null an empty string or has already be marked as 'Not set' (data item used for styling)
-const hasValue = (value) =>
-    value !== undefined &&
-    value !== null &&
-    value !== '' &&
-    value !== i18n.t('Not set')
 
 const TRACKED_ENTITIES_QUERY = {
     trackedEntities: {
@@ -32,19 +27,11 @@ const getDataRows = ({ displayAttributes, attributes }) => {
     // Include rows for each displayInList attribute
     displayAttributes.forEach(({ id, name, valueType, options }) => {
         const { value } = attributes.find((d) => d.attribute === id) || {}
-
-        let formattedValue
-        if (!hasValue(value)) {
-            formattedValue = i18n.t('Not set')
-        } else if (options && hasValue(options[value])) {
-            formattedValue = options[value]
-        } else if (valueType === 'COORDINATE') {
-            formattedValue = formatCoordinate(value)
-        } else if (dateValueTypes.includes(valueType)) {
-            formattedValue = formatDate(value)
-        } else {
-            formattedValue = value
-        }
+        const formattedValue = formatValueForDisplay({
+            value,
+            valueType,
+            options,
+        })
 
         dataRows.push(
             <tr key={id}>
@@ -144,9 +131,7 @@ const TrackedEntityPopup = ({
                         {type === 'Point' && (
                             <tr>
                                 <th>{i18n.t('Tracked entity location')}</th>
-                                <td>
-                                    {coord[0].toFixed(6)} {coord[1].toFixed(6)}
-                                </td>
+                                <td>{formatCoordinate(coord)}</td>
                             </tr>
                         )}
                         {orgUnit && (
@@ -158,7 +143,7 @@ const TrackedEntityPopup = ({
                         {updatedAt && (
                             <tr>
                                 <th>{i18n.t('Last updated')}</th>
-                                <td>{formatTime(updatedAt)}</td>
+                                <td>{formatDatetime(updatedAt)}</td>
                             </tr>
                         )}
                     </tbody>

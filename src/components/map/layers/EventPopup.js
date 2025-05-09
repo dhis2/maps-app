@@ -2,19 +2,14 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { dateValueTypes } from '../../../constants/valueTypes.js'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
-import { formatTime, formatCoordinate } from '../../../util/helpers.js'
+import {
+    formatDatetime,
+    formatCoordinate,
+    formatValueForDisplay,
+} from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
-import { formatDate } from '../../../util/time.js'
 import Popup from '../Popup.js'
-
-// Returns true if value is not undefined, null an empty string or has already be marked as 'Not set' (data item used for styling)
-const hasValue = (value) =>
-    value !== undefined &&
-    value !== null &&
-    value !== '' &&
-    value !== i18n.t('Not set')
 
 const EVENTS_QUERY = {
     events: {
@@ -29,19 +24,11 @@ const getDataRows = ({ displayItems, dataValues }) => {
     // Include rows for each data item used for styling and displayInReport
     displayItems.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find((d) => d.dataElement === id) || {}
-
-        let formattedValue
-        if (!hasValue(value)) {
-            formattedValue = i18n.t('Not set')
-        } else if (options && hasValue(options[value])) {
-            formattedValue = options[value]
-        } else if (valueType === 'COORDINATE') {
-            formattedValue = formatCoordinate(value)
-        } else if (dateValueTypes.includes(valueType)) {
-            formattedValue = formatDate(value)
-        } else {
-            formattedValue = value
-        }
+        const formattedValue = formatValueForDisplay({
+            value,
+            valueType,
+            options,
+        })
 
         dataRows.push(
             <tr key={id}>
@@ -150,9 +137,7 @@ const EventPopup = ({
                                     {eventCoordinateFieldName ||
                                         i18n.t('Event location')}
                                 </th>
-                                <td>
-                                    {coord[0].toFixed(6)} {coord[1].toFixed(6)}
-                                </td>
+                                <td>{formatCoordinate(coord)}</td>
                             </tr>
                         )}
                         {orgUnit && (
@@ -164,7 +149,7 @@ const EventPopup = ({
                         {occurredAt && (
                             <tr>
                                 <th>{i18n.t('Event time')}</th>
-                                <td>{formatTime(occurredAt)}</td>
+                                <td>{formatDatetime(occurredAt)}</td>
                             </tr>
                         )}
                     </tbody>
