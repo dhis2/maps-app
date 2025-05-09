@@ -21,7 +21,7 @@ const LegendTypeSelect = ({ mapType, method, setClassification }) =>
             onChange={(method) => setClassification(Number(method))}
         >
             {getLegendTypes(mapType === 'BUBBLE').map(({ id, name }) => (
-                <Radio key={id} value={id} label={name} />
+                <Radio key={id} value={String(id)} label={name} />
             ))}
         </RadioGroup>
     ) : null

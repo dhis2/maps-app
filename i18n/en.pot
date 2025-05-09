@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-10-31T13:42:41.352Z\n"
-"PO-Revision-Date: 2024-10-31T13:42:41.354Z\n"
+"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"PO-Revision-Date: 2025-05-09T08:00:36.002Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -80,6 +80,9 @@ msgstr "Details"
 msgid "Yes"
 msgstr "Yes"
 
+msgid "No"
+msgstr "No"
+
 msgid "None"
 msgstr "None"
 
@@ -113,8 +116,8 @@ msgstr "Event > org unit coordinate"
 msgid "Event data item"
 msgstr "Event data item"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr "Previously selected value not available in list: {{id}}"
 
 msgid "Style by data item"
 msgstr "Style by data item"
@@ -733,9 +736,6 @@ msgstr "Latitude"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basemap could not be added: {{message}}"
 
-msgid "Not set"
-msgstr "Not set"
-
 msgid "Could not retrieve event data"
 msgstr "Could not retrieve event data"
 
@@ -747,6 +747,9 @@ msgstr "Parent unit"
 
 msgid "No data"
 msgstr "No data"
+
+msgid "Not set"
+msgstr "Not set"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "Could not retrieve tracked entity data"
@@ -1532,9 +1535,6 @@ msgstr "true"
 msgid "false"
 msgstr "false"
 
-msgid "No"
-msgstr "No"
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "Cannot get authorization token for Google Earth Engine."
 
@@ -1559,6 +1559,9 @@ msgstr "Org units"
 
 msgid "Facility"
 msgstr "Facility"
+
+msgid "Other"
+msgstr "Other"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

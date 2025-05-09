@@ -231,6 +231,7 @@ const loadEventLayer = async ({
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
+                count: Array.isArray(config?.data) ? config.data.length : 0,
             },
         ]
     }
