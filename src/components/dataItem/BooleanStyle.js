@@ -36,7 +36,7 @@ const BooleanStyle = ({ valueType, values }) => {
             />
             {valueType === 'BOOLEAN' && (
                 <OptionStyle
-                    name={'No'}
+                    name={i18n.t('No')}
                     color={values.false}
                     onChange={(color) =>
                         dispatch(setBooleanStyle('false', color))

@@ -1,3 +1,10 @@
+## [101.2.12](https://github.com/dhis2/maps-app/compare/v101.2.11...v101.2.12) (2025-05-09)
+
+
+### Bug Fixes
+
+* multiple improvements to style by data item in event layers [DHIS2-19215] ([#3488](https://github.com/dhis2/maps-app/issues/3488)) ([a87e1f1](https://github.com/dhis2/maps-app/commit/a87e1f1f69f3474b2bb031f2b5019e0cde73382f))
+
 ## [101.2.11](https://github.com/dhis2/maps-app/compare/v101.2.10...v101.2.11) (2025-05-06)
 
 

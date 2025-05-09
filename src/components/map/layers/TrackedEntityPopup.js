@@ -2,12 +2,13 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { formatTime, formatCoordinate } from '../../../util/helpers.js'
+import {
+    formatDatetime,
+    formatCoordinate,
+    formatValueForDisplay,
+} from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.js'
-
-// Returns true if value is not undefined or null;
-const hasValue = (value) => value !== undefined && value !== null
 
 const TRACKED_ENTITIES_QUERY = {
     trackedEntities: {
@@ -26,17 +27,12 @@ const getDataRows = ({ displayAttributes, attributes, orgUnitNames }) => {
     // Include rows for each displayInList attribute
     displayAttributes.forEach(({ id, name, valueType, options }) => {
         const { value } = attributes.find((d) => d.attribute === id) || {}
-        let formattedValue = value
-
-        if (valueType === 'ORGANISATION_UNIT' && value) {
-            formattedValue = orgUnitNames[value] || value
-        } else if (valueType === 'COORDINATE' && value) {
-            formattedValue = formatCoordinate(value)
-        } else if (!hasValue(value)) {
-            formattedValue = i18n.t('Not set')
-        } else if (options) {
-            formattedValue = options[value]
-        }
+        const formattedValue = formatValueForDisplay({
+            value,
+            valueType,
+            options,
+            orgUnitNames,
+        })
 
         dataRows.push(
             <tr key={id}>
@@ -161,9 +157,7 @@ const TrackedEntityPopup = ({
                         {type === 'Point' && (
                             <tr>
                                 <th>{i18n.t('Tracked entity location')}</th>
-                                <td>
-                                    {coord[0].toFixed(6)} {coord[1].toFixed(6)}
-                                </td>
+                                <td>{formatCoordinate(coord)}</td>
                             </tr>
                         )}
                         {orgUnit && (
@@ -175,7 +169,7 @@ const TrackedEntityPopup = ({
                         {updatedAt && (
                             <tr>
                                 <th>{i18n.t('Last updated')}</th>
-                                <td>{formatTime(updatedAt)}</td>
+                                <td>{formatDatetime(updatedAt)}</td>
                             </tr>
                         )}
                     </tbody>

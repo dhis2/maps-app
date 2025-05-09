@@ -4,7 +4,6 @@
 
 // Number values types used for style by data item
 export const numberValueTypes = [
-    'AGE',
     'INTEGER',
     'INTEGER_NEGATIVE',
     'INTEGER_POSITIVE',
@@ -26,3 +25,12 @@ export const textValueTypes = [
 
 // Boolean value types
 export const booleanValueTypes = ['BOOLEAN', 'TRUE_ONLY']
+
+// Date value types
+export const dateValueTypes = ['DATE', 'AGE']
+
+// Date-time value types
+export const datetimeValueTypes = ['DATETIME']
+
+// Coordinate value types
+export const coordinateValueTypes = ['COORDINATE']
