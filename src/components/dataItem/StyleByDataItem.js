@@ -38,31 +38,38 @@ const StyleByDataItem = ({ program, programStage, error }) => {
 
     const dataItems = [ITEM_NONE, ...eventDataItems]
 
-    if (
-        styleDataItem &&
-        !dataItems.find((item) => item.id === styleDataItem.id)
-    ) {
-        return (
-            <Help error>
-                {i18n.t('Selected value not available in in list: {{name}}', {
-                    name: styleDataItem.name,
-                    nsSeparator: '^^',
-                })}
-            </Help>
+    const internalError =
+        styleDataItem && !dataItems.find((item) => item.id === styleDataItem.id)
+    let internalErrorText
+    if (internalError) {
+        internalErrorText = i18n.t(
+            'Previously selected value not available in list: {{id}}',
+            {
+                id: styleDataItem.id,
+                nsSeparator: '^^',
+            }
         )
+    }
+
+    let selectValue = null
+    if (!(error || internalError)) {
+        selectValue = styleDataItem ? styleDataItem.id : ITEM_NONE.id
     }
 
     return (
         <div>
             <SelectField
                 label={i18n.t('Style by data item')}
-                value={styleDataItem ? styleDataItem.id : null}
+                value={selectValue}
                 items={dataItems}
                 onChange={onChange}
                 dataTest="style-by-data-item-select"
             />
-            {styleDataItem && <DataItemStyle dataItem={styleDataItem} />}
+            {!(error || internalError) && styleDataItem && (
+                <DataItemStyle dataItem={styleDataItem} />
+            )}
             {error && <Help error>{error}</Help>}
+            {internalError && <Help error>{internalErrorText}</Help>}
         </div>
     )
 }
