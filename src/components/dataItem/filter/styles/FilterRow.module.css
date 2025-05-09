@@ -14,3 +14,8 @@
     margin-right: var(--spacers-dp12);
     width: calc((100% - 24px) / 8 * 3);
 }
+
+.help {
+    display: flex;
+    align-items: center;
+}
