@@ -52,6 +52,7 @@ export const useLayersLoader = () => {
                 baseUrl,
                 loadExtended: dataTableOpen, // for event loader
                 serverVersion, // for tracked entity loader
+                userId: currentUser.id,
                 keyAnalysisDisplayProperty:
                     currentUser.keyAnalysisDisplayProperty,
             })
@@ -82,6 +83,7 @@ export const useLayersLoader = () => {
         dispatch,
         nameProperty,
         currentUser.keyAnalysisDisplayProperty,
+        currentUser.id,
         engine,
         analyticsEngine,
         showAlerts,
