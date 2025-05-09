@@ -11,6 +11,28 @@ const fetchMapQuery = {
     },
 }
 
+const fetchMapNameDescQuery = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: 'id,name,description,displayName,displayDescription',
+    },
+}
+
+export const fetchMapNameDesc = async (id, engine) =>
+    engine
+        .query(
+            { map: fetchMapNameDescQuery },
+            {
+                variables: {
+                    id,
+                },
+            }
+        )
+        .catch(() => {
+            throw new Error(`Could not load map with id "${id}"`)
+        })
+
 export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
     engine
         .query(

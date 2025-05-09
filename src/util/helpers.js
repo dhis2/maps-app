@@ -11,8 +11,10 @@ import {
 const baseFields = [
     'id',
     'user',
-    'displayName~rename(name)',
+    'name',
+    'displayName',
     'description',
+    'displayDescription',
     'longitude',
     'latitude',
     'zoom',
