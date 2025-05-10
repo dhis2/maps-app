@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import EarthEngineLoader from './EarthEngineLoader.js'
-import EventLoader from './EventLoader.js'
-import ExternalLoader from './ExternalLoader.js'
-import FacilityLoader from './FacilityLoader.js'
-import GeoJsonUrlLoader from './GeoJsonUrlLoader.js'
-import OrgUnitLoader from './OrgUnitLoader.js'
-import ThematicLoader from './ThematicLoader.js'
-import TrackedEntityLoader from './TrackedEntityLoader.js'
+import EarthEngineLoader from '../loaders/EarthEngineLoader.js'
+import EventLoader from '../loaders/EventLoader.js'
+import ExternalLoader from '../loaders/ExternalLoader.js'
+import FacilityLoader from '../loaders/FacilityLoader.js'
+import GeoJsonUrlLoader from '../loaders/GeoJsonUrlLoader.js'
+import OrgUnitLoader from '../loaders/OrgUnitLoader.js'
+import ThematicLoader from '../loaders/ThematicLoader.js'
+import TrackedEntityLoader from '../loaders/TrackedEntityLoader.js'
 
 const layerType = {
     earthEngine: EarthEngineLoader,
