@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { CUSTOM_ALERT, WARNING_NO_DATA } from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
@@ -25,7 +24,7 @@ import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
-const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
+const shouldUseServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
@@ -45,14 +44,21 @@ const unknownErrorAlert = {
 
 // Returns a promise
 const eventLoader = async ({
-    layerConfig,
+    config: layerConfig,
     loadExtended,
     engine,
-    nameProperty,
+    displayProperty: nameProperty,
+    analyticsEngine,
 }) => {
     const config = { ...layerConfig }
     try {
-        await loadEventLayer({ config, loadExtended, engine, nameProperty })
+        await loadEventLayer({
+            config,
+            loadExtended,
+            engine,
+            nameProperty,
+            analyticsEngine,
+        })
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [
@@ -78,6 +84,7 @@ const loadEventLayer = async ({
     loadExtended,
     engine,
     nameProperty,
+    analyticsEngine,
 }) => {
     const {
         columns,
@@ -97,14 +104,13 @@ const loadEventLayer = async ({
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
-    const d2 = await getD2()
 
     config.isExtended = loadExtended
 
     const analyticsRequest = await getAnalyticsRequest(config, {
-        d2,
         nameProperty,
         engine,
+        analyticsEngine,
     })
     let alert
 
@@ -127,20 +133,18 @@ const loadEventLayer = async ({
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
     if (eventClustering && !styleDataItem) {
-        const response = await getCount(analyticsRequest)
+        const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        //FIXME
-        //eslint-disable-next-line react-hooks/rules-of-hooks
-        config.serverCluster = useServerCluster(response.count)
+        config.serverCluster = shouldUseServerCluster(response.count)
     }
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { names, data, response } = await loadData(
-            analyticsRequest,
+        const { names, data, response } = await loadData({
+            request: analyticsRequest,
             config,
-            d2
-        )
+            engine,
+        })
         const { total } = response.metaData.pager
 
         config.data = data
@@ -253,11 +257,6 @@ const loadEventLayer = async ({
     if (alert) {
         config.alerts = [alert]
     }
-}
-
-export const getCount = async (request) => {
-    const d2 = await getD2()
-    return await d2.analytics.events.getCount(request)
 }
 
 // If the layer included filters using option sets, this function return an object

@@ -1,29 +1,39 @@
-import { apiFetch } from './api.js'
-
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
-export const fetchTEIs = async ({
-    program,
-    type,
-    fields,
-    orgUnits,
-    orgUnitsMode,
-    trackerPaging,
-}) => {
-    let url = `/tracker/trackedEntities?${trackerPaging}&fields=${fields}&${orgUnits.param}=${orgUnits.value}`
-    if (orgUnitsMode.value) {
-        url += `&${orgUnitsMode.param}=${orgUnitsMode.value}`
-    }
-    if (program) {
-        url += `&program=${program}`
-    }
-    if (type) {
-        url += `&trackedEntityType=${type.id}`
-    }
+const TEI_240_QUERY = {
+    resource: 'trackedEntityInstances',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        trackedEntityType,
+    }) => ({
+        fields,
+        orgUnit: orgUnits,
+        ouMode: orgUnitMode,
+        program: program,
+        trackedEntityType,
+        skipPaging: true,
+    }),
+}
 
-    const data = await apiFetch(url)
-
-    return data
+const TEI_241_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        trackedEntityType,
+    }) => ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        trackedEntityType,
+        paging: false,
+    }),
 }
 
 const normalizeInstances = (instances) => {
@@ -111,11 +121,15 @@ const getInstanceRelationships = (
 /* eslint-enable max-params */
 
 const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
-export const getDataWithRelationships = async (
+export const getDataWithRelationships = async ({
     serverVersion,
-    sourceInstances,
-    { relationshipType, orgUnits, organisationUnitSelectionMode }
-) => {
+    instances: sourceInstances,
+    queryOptions,
+    engine,
+}) => {
+    const { relationshipType, orgUnits, organisationUnitSelectionMode } =
+        queryOptions
+
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
 
@@ -172,33 +186,24 @@ export const getDataWithRelationships = async (
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-        let trackerRootProp,
-            trackerOrgUnitsParam,
-            trackerOrgUnitsModeParam,
-            trackerPaging
-        if (`${serverVersion.major}.${serverVersion.minor}` == '2.40') {
-            trackerRootProp = 'instances'
-            trackerOrgUnitsParam = 'orgUnit'
-            trackerOrgUnitsModeParam = 'ouMode'
-            trackerPaging = 'skipPaging=true'
-        } else {
-            trackerRootProp = 'trackedEntities'
-            trackerOrgUnitsParam = 'orgUnits'
-            trackerOrgUnitsModeParam = 'orgUnitMode'
-            trackerPaging = 'paging=false'
-        }
-        const potentialTargetInstances = await fetchTEIs({
-            ...recursiveProp,
-            fields,
-            orgUnits: { param: trackerOrgUnitsParam, value: orgUnits },
-            orgUnitsMode: {
-                param: trackerOrgUnitsModeParam,
-                value: organisationUnitSelectionMode,
-            },
-            trackerPaging,
-        })
+        const isVersion240 =
+            `${serverVersion.major}.${serverVersion.minor}` === '2.40'
+
+        const { tei } = await engine.query(
+            { tei: isVersion240 ? TEI_240_QUERY : TEI_241_QUERY },
+            {
+                variables: {
+                    fields,
+                    orgUnits,
+                    orgUnitMode: organisationUnitSelectionMode,
+                    program: recursiveProp?.program,
+                    trackedEntityType: recursiveProp?.type?.id,
+                },
+            }
+        )
+
         normalizedPotentialTargetInstances = normalizeInstances(
-            potentialTargetInstances[trackerRootProp]
+            tei[isVersion240 ? 'instances' : 'trackedEntities']
         )
     }
 
