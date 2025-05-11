@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
-"PO-Revision-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-05-11T13:26:21.275Z\n"
+"PO-Revision-Date: 2025-05-11T13:26:21.276Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -696,9 +696,6 @@ msgstr "Group"
 
 msgid "Filters"
 msgstr "Filters"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "No data found"

@@ -1,58 +1,75 @@
-import { Analytics } from '@dhis2/analytics'
-import { useDataEngine } from '@dhis2/app-runtime'
+import { Analytics, useCachedDataQuery } from '@dhis2/analytics'
+import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-import EarthEngineLoader from '../loaders/EarthEngineLoader.js'
-import EventLoader from '../loaders/EventLoader.js'
-import ExternalLoader from '../loaders/ExternalLoader.js'
-import FacilityLoader from '../loaders/FacilityLoader.js'
-import GeoJsonUrlLoader from '../loaders/GeoJsonUrlLoader.js'
-import OrgUnitLoader from '../loaders/OrgUnitLoader.js'
-import ThematicLoader from '../loaders/ThematicLoader.js'
-import TrackedEntityLoader from '../loaders/TrackedEntityLoader.js'
+import { useState, useEffect } from 'react'
+import earthEngineLoader from '../../loaders/earthEngineLoader.js'
+import eventLoader from '../../loaders/eventLoader.js'
+import externalLoader from '../../loaders/externalLoader.js'
+import facilityLoader from '../../loaders/facilityLoader.js'
+import geoJsonUrlLoader from '../../loaders/geoJsonUrlLoader.js'
+import orgUnitLoader from '../../loaders/orgUnitLoader.js'
+import thematicLoader from '../../loaders/thematicLoader.js'
+import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
 
-const layerType = {
-    earthEngine: EarthEngineLoader,
-    event: EventLoader,
-    external: ExternalLoader,
-    facility: FacilityLoader,
-    orgUnit: OrgUnitLoader,
-    thematic: ThematicLoader,
-    trackedEntity: TrackedEntityLoader,
-    geoJsonUrl: GeoJsonUrlLoader,
+const loaders = {
+    earthEngine: earthEngineLoader,
+    event: eventLoader,
+    external: externalLoader,
+    facility: facilityLoader,
+    orgUnit: orgUnitLoader,
+    thematic: thematicLoader,
+    geoJsonUrl: geoJsonUrlLoader,
+    trackedEntity: trackedEntityLoader,
 }
 
-const LayerLoader = ({ config, dataTableOpen, onLoad, loaderAlertAction }) => {
-    const Loader = layerType[config.layer]
-    const engine = useDataEngine()
+const LayerLoader = ({ config, onLoad }) => {
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
+    const { currentUser } = useCachedDataQuery()
+    const { baseUrl, serverVersion } = useConfig()
+    const engine = useDataEngine()
+    const { systemInfo } = useConfig()
+    const { instanceBaseUrl } = systemInfo
+    const namePropertyUpper =
+        currentUser.keyAnalysisDisplayProperty.toUpperCase()
+    const userId = currentUser.id
+    const keyAnalysisDisplayProperty = currentUser.keyAnalysisDisplayProperty
 
-    if (!Loader) {
-        console.log('Unknown layer type', config.layer, config)
-        return null
-    }
+    useEffect(() => {
+        const loader = loaders[config.layer]
+        loader({
+            config,
+            engine,
+            analyticsEngine,
+            userId,
+            baseUrl,
+            displayProperty: namePropertyUpper, // TODO
+            keyAnalysisDisplayProperty,
+            instanceBaseUrl, // GeoJson loader
+            serverVersion, // Tracked entity loader
+        }).then((result) => {
+            // TODO handle errors
 
-    return (
-        <Loader
-            config={config}
-            onLoad={onLoad}
-            dataTableOpen={dataTableOpen}
-            loaderAlertAction={loaderAlertAction}
-            analyticsEngine={analyticsEngine}
-        />
-    )
-}
+            onLoad(result)
+        })
+    }, [
+        config,
+        onLoad,
+        engine,
+        analyticsEngine,
+        namePropertyUpper,
+        userId,
+        baseUrl,
+        keyAnalysisDisplayProperty,
+        instanceBaseUrl,
+        serverVersion,
+    ])
 
-LayerLoader.defaultProps = {
-    dataTableOpen: false,
-    onError: Function.prototype,
+    return null
 }
 
 LayerLoader.propTypes = {
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
-    dataTableOpen: PropTypes.bool,
-    loaderAlertAction: PropTypes.func,
 }
 
 export default LayerLoader

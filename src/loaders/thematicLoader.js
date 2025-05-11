@@ -66,13 +66,6 @@ const thematicLoader = async ({
     userId,
     keyAnalysisDisplayProperty,
 }) => {
-    console.log('jj thematicLoader', {
-        config,
-        engine,
-        analyticsEngine,
-        userId,
-        keyAnalysisDisplayProperty,
-    })
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -90,7 +83,6 @@ const thematicLoader = async ({
     let loadError
     const alerts = []
 
-    console.log('jj thematicLoader loadData')
     const response = await loadData({
         config,
         keyAnalysisDisplayProperty,
@@ -108,7 +100,6 @@ const thematicLoader = async ({
                     : err.message
         }
     })
-    console.log('jj thematicLoader loadData response', response)
 
     if (!response) {
         return {
@@ -469,11 +460,9 @@ const loadData = async ({
         })
     }
 
-    console.log('jj AAA')
     const rawData = await analyticsEngine.aggregate.get(analyticsRequest)
 
     const ouParam = `ou:${orgUnitParams.join(';')}`
-    console.log('jj BBB rawData', rawData)
     const geoFeatureData = await engine.query(
         GEOFEATURES_QUERY,
         {
@@ -496,7 +485,6 @@ const loadData = async ({
             },
         }
     )
-    console.log('jj CCC', { geoFeatureData })
 
     const mainFeatures = geoFeatureData?.geoFeatures
         ? toGeoJson(geoFeatureData.geoFeatures)
