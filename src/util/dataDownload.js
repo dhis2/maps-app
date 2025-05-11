@@ -1,3 +1,4 @@
+import { Analytics } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import FileSaver from 'file-saver'
 import { EVENT_LAYER } from '../constants/layers.js'
@@ -109,10 +110,12 @@ export const downloadData = async ({
             }, {}),
         }
 
+        const analyticsEngine = Analytics.getAnalytics(engine)
         const result = await loadData({
             request: await getAnalyticsRequest(config, {
                 nameProperty,
                 engine,
+                analyticsEngine,
             }),
             config,
             engine,
