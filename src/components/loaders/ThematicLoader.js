@@ -16,6 +16,7 @@ const ThematicLoader = ({
     const engine = useDataEngine()
     const nameProperty = currentUser.keyAnalysisDisplayProperty.toUpperCase()
     const userId = currentUser.id
+    const keyAnalysisDisplayProperty = currentUser.keyAnalysisDisplayProperty
 
     useEffect(() => {
         thematicLoader({
@@ -24,6 +25,7 @@ const ThematicLoader = ({
             analyticsEngine,
             nameProperty,
             userId,
+            keyAnalysisDisplayProperty,
         }).then((result) => {
             if (result.alerts?.length && loaderAlertAction) {
                 showAlerts(result.alerts)
@@ -39,6 +41,7 @@ const ThematicLoader = ({
         userId,
         showAlerts,
         loaderAlertAction,
+        keyAnalysisDisplayProperty,
     ])
 
     return null
