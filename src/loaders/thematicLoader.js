@@ -66,6 +66,13 @@ const thematicLoader = async ({
     userId,
     keyAnalysisDisplayProperty,
 }) => {
+    console.log('jj thematicLoader', {
+        config,
+        engine,
+        analyticsEngine,
+        userId,
+        keyAnalysisDisplayProperty,
+    })
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,

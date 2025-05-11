@@ -11,6 +11,7 @@ import LoadingMask from './LoadingMask.js'
 import Map from './Map.js'
 
 const MapContainer = ({ visualization }) => {
+    console.log('jj MapContainer visualization', visualization)
     const engine = useDataEngine()
     const { systemSettings } = useCachedDataQuery()
     const [config, setConfig] = useState(null)
