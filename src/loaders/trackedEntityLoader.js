@@ -194,8 +194,10 @@ const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
                     periodType === 'program' ? trimTime(startDate) : undefined,
                 enrollmentEnrolledBefore:
                     periodType === 'program' ? trimTime(endDate) : undefined,
-                updatedAfter: periodType !== 'program' ? trimTime(startDate) : undefined,
-                updatedBefore: periodType !== 'program' ? trimTime(endDate) : undefined,
+                updatedAfter:
+                    periodType !== 'program' ? trimTime(startDate) : undefined,
+                updatedBefore:
+                    periodType !== 'program' ? trimTime(endDate) : undefined,
             },
         }
     )
