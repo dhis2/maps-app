@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
+import { EVENT_LAYER } from '../constants/layers.js'
 import earthEngineLoader from '../loaders/earthEngineLoader.js'
 import eventLoader from '../loaders/eventLoader.js'
 import externalLoader from '../loaders/externalLoader.js'
@@ -40,8 +41,6 @@ export const useLayersLoader = () => {
     const dataTable = useSelector((state) => state.dataTable)
     const dispatch = useDispatch()
 
-    const dataTableOpen = !!dataTable
-
     useEffect(() => {
         async function loadLayer(config, loader) {
             const result = await loader({
@@ -50,7 +49,7 @@ export const useLayersLoader = () => {
                 engine,
                 analyticsEngine,
                 baseUrl,
-                loadExtended: dataTableOpen, // for event loader
+                loadExtended: !!dataTable, // for event loader
                 serverVersion, // for tracked entity loader
                 userId: currentUser.id,
                 keyAnalysisDisplayProperty:
@@ -62,11 +61,29 @@ export const useLayersLoader = () => {
             dispatch(updateLayer(result))
         }
 
-        const unloadedLayers = allLayers.filter(
-            (layer) =>
-                !layer.isLoading &&
-                (!layer.isLoaded || (layer.showDataTable && !layer.isExtended))
-        )
+        const unloadedLayers = allLayers.filter((layer) => {
+            if (layer.isLoading) {
+                return false
+            } else {
+                // The layer is not loaded - load it
+                if (!layer.isLoaded) {
+                    return true
+                }
+
+                // The layer is loaded but the data table is now displayed and
+                // event extended data hasn't been loaded yet - so load it
+                if (
+                    layer.layer === EVENT_LAYER &&
+                    layer.id === dataTable &&
+                    !layer.isExtended &&
+                    !layer.serverCluster
+                ) {
+                    return true
+                }
+
+                return false
+            }
+        })
 
         // only load layers that have not yet been loaded
         unloadedLayers.forEach((layerConfig) => {
@@ -89,7 +106,7 @@ export const useLayersLoader = () => {
         showAlerts,
         showLoaderAlert,
         baseUrl,
-        dataTableOpen,
+        dataTable,
         serverVersion,
     ])
 }
