@@ -5,7 +5,12 @@ import { useEffect } from 'react'
 import thematicLoader from '../../loaders/thematicLoader.js'
 import useLoaderAlerts from './useLoaderAlerts.js'
 
-const ThematicLoader = ({ config, onLoad, loaderAlertAction }) => {
+const ThematicLoader = ({
+    config,
+    onLoad,
+    loaderAlertAction,
+    analyticsEngine,
+}) => {
     const { showAlerts } = useLoaderAlerts(loaderAlertAction)
     const { currentUser } = useCachedDataQuery()
     const engine = useDataEngine()
@@ -13,17 +18,22 @@ const ThematicLoader = ({ config, onLoad, loaderAlertAction }) => {
     const userId = currentUser.id
 
     useEffect(() => {
-        thematicLoader({ config, engine, nameProperty, userId }).then(
-            (result) => {
-                if (result.alerts?.length && loaderAlertAction) {
-                    showAlerts(result.alerts)
-                }
-                onLoad(result)
+        thematicLoader({
+            config,
+            engine,
+            analyticsEngine,
+            nameProperty,
+            userId,
+        }).then((result) => {
+            if (result.alerts?.length && loaderAlertAction) {
+                showAlerts(result.alerts)
             }
-        )
+            onLoad(result)
+        })
     }, [
         config,
         engine,
+        analyticsEngine,
         onLoad,
         nameProperty,
         userId,
@@ -35,6 +45,7 @@ const ThematicLoader = ({ config, onLoad, loaderAlertAction }) => {
 }
 
 ThematicLoader.propTypes = {
+    analyticsEngine: PropTypes.object.isRequired,
     config: PropTypes.object.isRequired,
     onLoad: PropTypes.func.isRequired,
     loaderAlertAction: PropTypes.func,

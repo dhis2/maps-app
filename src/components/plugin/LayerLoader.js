@@ -1,5 +1,7 @@
+import { Analytics } from '@dhis2/analytics'
+import { useDataEngine } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import EarthEngineLoader from '../loaders/EarthEngineLoader.js'
 import EventLoader from '../loaders/EventLoader.js'
 import ExternalLoader from '../loaders/ExternalLoader.js'
@@ -22,6 +24,8 @@ const layerType = {
 
 const LayerLoader = ({ config, dataTableOpen, onLoad, loaderAlertAction }) => {
     const Loader = layerType[config.layer]
+    const engine = useDataEngine()
+    const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
 
     if (!Loader) {
         console.log('Unknown layer type', config.layer, config)
@@ -34,6 +38,7 @@ const LayerLoader = ({ config, dataTableOpen, onLoad, loaderAlertAction }) => {
             onLoad={onLoad}
             dataTableOpen={dataTableOpen}
             loaderAlertAction={loaderAlertAction}
+            analyticsEngine={analyticsEngine}
         />
     )
 }
