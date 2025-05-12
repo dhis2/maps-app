@@ -29,8 +29,6 @@ const LayerLoader = ({ config, onLoad }) => {
     const engine = useDataEngine()
     const { systemInfo } = useConfig()
     const { instanceBaseUrl } = systemInfo
-    const namePropertyUpper =
-        currentUser.keyAnalysisDisplayProperty.toUpperCase()
     const userId = currentUser.id
     const keyAnalysisDisplayProperty = currentUser.keyAnalysisDisplayProperty
 
@@ -55,7 +53,6 @@ const LayerLoader = ({ config, onLoad }) => {
         onLoad,
         engine,
         analyticsEngine,
-        namePropertyUpper,
         userId,
         baseUrl,
         keyAnalysisDisplayProperty,

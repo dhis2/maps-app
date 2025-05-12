@@ -18,22 +18,11 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
-
-const GEOFEATURES_QUERY = {
-    geoFeatures: {
-        resource: 'geoFeatures',
-        params: ({ ou, displayProperty, coordinateField, userId }) => ({
-            ou,
-            displayProperty,
-            coordinateField,
-            _: userId,
-        }),
-    },
-}
+import { GEOFEATURES_QUERY } from '../util/requests.js'
 
 const earthEngineLoader = async ({
     config,
-    keyAnalysisDisplayProperty: nameProperty,
+    keyAnalysisDisplayProperty,
     engine,
     userId,
 }) => {
@@ -59,7 +48,7 @@ const earthEngineLoader = async ({
                 {
                     variables: {
                         ou: ouParam,
-                        displayProperty: nameProperty.toUpperCase(),
+                        keyAnalysisDisplayProperty,
                         userId,
                     },
                 },
@@ -89,7 +78,7 @@ const earthEngineLoader = async ({
                     {
                         variables: {
                             ou: ouParam,
-                            displayProperty: nameProperty,
+                            keyAnalysisDisplayProperty,
                             coordinateField: coordinateField.id,
                         },
                     },

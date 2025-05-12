@@ -37,27 +37,8 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
-import { LEGEND_SET_QUERY } from '../util/requests.js'
+import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
-
-const GEOFEATURES_QUERY = {
-    geoFeatures: {
-        resource: 'geoFeatures',
-        params: ({
-            ou,
-            displayProperty,
-            includeGroupSets,
-            coordinateField,
-            userId,
-        }) => ({
-            ou,
-            displayProperty,
-            includeGroupSets,
-            coordinateField,
-            _: userId,
-        }),
-    },
-}
 
 const thematicLoader = async ({
     config,
@@ -468,7 +449,7 @@ const loadData = async ({
         {
             variables: {
                 ou: ouParam,
-                displayProperty: keyAnalysisDisplayProperty,
+                keyAnalysisDisplayProperty,
                 userOrgUnit: geoFeaturesParams.userOrgUnit, // TODO
             },
         },
@@ -499,7 +480,7 @@ const loadData = async ({
             {
                 variables: {
                     ou: ouParam,
-                    displayProperty: keyAnalysisDisplayProperty, // name/shortName
+                    keyAnalysisDisplayProperty, // name/shortName
                     userOrgUnit: geoFeaturesParams.userOrgUnit,
                     coordinateField: coordinateField.id,
                 },

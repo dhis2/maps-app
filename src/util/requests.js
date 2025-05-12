@@ -73,3 +73,22 @@ export const LEGEND_SET_QUERY = {
         },
     },
 }
+
+export const GEOFEATURES_QUERY = {
+    geoFeatures: {
+        resource: 'geoFeatures',
+        params: ({
+            ou,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            userId,
+        }) => ({
+            ou,
+            displayProperty: keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            _: userId,
+        }),
+    },
+}

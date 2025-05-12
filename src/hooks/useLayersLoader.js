@@ -30,30 +30,28 @@ export const useLayersLoader = () => {
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
+    const { currentUser } = useCachedDataQuery()
+    const { showAlerts } = useLoaderAlerts()
+    const allLayers = useSelector((state) => state.map.mapViews)
+    const dataTable = useSelector((state) => state.dataTable)
+    const dispatch = useDispatch()
     const { show: showLoaderAlert } = useAlert(
         ({ layer }) => `Could not load layer ${layer}`,
         { critical: true }
     )
-    const { nameProperty, currentUser } = useCachedDataQuery()
-    const { showAlerts } = useLoaderAlerts()
-
-    const allLayers = useSelector((state) => state.map.mapViews)
-    const dataTable = useSelector((state) => state.dataTable)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         async function loadLayer(config, loader) {
             const result = await loader({
                 config,
-                displayProperty: nameProperty,
                 engine,
-                analyticsEngine,
-                baseUrl,
-                loadExtended: !!dataTable, // for event loader
-                serverVersion, // for tracked entity loader
-                userId: currentUser.id,
                 keyAnalysisDisplayProperty:
                     currentUser.keyAnalysisDisplayProperty,
+                userId: currentUser.id,
+                baseUrl,
+                analyticsEngine,
+                loadExtended: !!dataTable, // for event loader
+                serverVersion, // for tracked entity loader
             })
             if (result.alerts) {
                 showAlerts(result.alerts)
@@ -98,7 +96,6 @@ export const useLayersLoader = () => {
     }, [
         allLayers,
         dispatch,
-        nameProperty,
         currentUser.keyAnalysisDisplayProperty,
         currentUser.id,
         engine,

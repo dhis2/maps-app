@@ -14,25 +14,7 @@ import {
     getCoordinateField,
     parseGroupSet,
 } from '../util/orgUnits.js'
-
-const GEOFEATURES_QUERY = {
-    geoFeatures: {
-        resource: 'geoFeatures',
-        params: ({
-            ou,
-            keyAnalysisDisplayProperty,
-            includeGroupSets,
-            coordinateField,
-            userId,
-        }) => ({
-            ou,
-            displayProperty: keyAnalysisDisplayProperty,
-            includeGroupSets,
-            coordinateField,
-            _: userId,
-        }),
-    },
-}
+import { GEOFEATURES_QUERY } from '../util/requests.js'
 
 const facilityLoader = async ({
     config,
