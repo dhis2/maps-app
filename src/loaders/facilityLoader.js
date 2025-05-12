@@ -20,13 +20,13 @@ const GEOFEATURES_QUERY = {
         resource: 'geoFeatures',
         params: ({
             ou,
-            displayProperty,
+            keyAnalysisDisplayProperty,
             includeGroupSets,
             coordinateField,
             userId,
         }) => ({
             ou,
-            displayProperty,
+            displayProperty: keyAnalysisDisplayProperty,
             includeGroupSets,
             coordinateField,
             _: userId,
@@ -37,7 +37,7 @@ const GEOFEATURES_QUERY = {
 const facilityLoader = async ({
     config,
     engine,
-    nameProperty,
+    keyAnalysisDisplayProperty,
     userId,
     baseUrl,
 }) => {
@@ -59,7 +59,7 @@ const facilityLoader = async ({
         {
             variables: {
                 ou: ouParam,
-                displayProperty: nameProperty,
+                keyAnalysisDisplayProperty,
                 includeGroupSets,
                 userId,
             },
@@ -118,7 +118,7 @@ const facilityLoader = async ({
             {
                 variables: {
                     ou: ouParam,
-                    displayProperty: nameProperty,
+                    keyAnalysisDisplayProperty,
                     includeGroupSets,
                     coordinateField: coordinateField.id,
                     userId,

@@ -39,11 +39,10 @@ const LayerLoader = ({ config, onLoad }) => {
         loader({
             config,
             engine,
-            analyticsEngine,
+            keyAnalysisDisplayProperty, // name/shortName
             userId,
             baseUrl,
-            displayProperty: namePropertyUpper, // TODO
-            keyAnalysisDisplayProperty,
+            analyticsEngine, // Thematic and Event loader
             instanceBaseUrl, // GeoJson loader
             serverVersion, // Tracked entity loader
         }).then((result) => {

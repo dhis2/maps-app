@@ -409,7 +409,7 @@ const loadData = async ({
     let analyticsRequest = new analyticsEngine.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(keyAnalysisDisplayProperty)
+        .withDisplayProperty(keyAnalysisDisplayProperty) // name/shortName
 
     if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(
@@ -499,7 +499,7 @@ const loadData = async ({
             {
                 variables: {
                     ou: ouParam,
-                    displayProperty: keyAnalysisDisplayProperty,
+                    displayProperty: keyAnalysisDisplayProperty, // name/shortName
                     userOrgUnit: geoFeaturesParams.userOrgUnit,
                     coordinateField: coordinateField.id,
                 },
