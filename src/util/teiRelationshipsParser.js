@@ -122,7 +122,7 @@ const getInstanceRelationships = (
 
 const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
 export const getDataWithRelationships = async ({
-    serverVersion,
+    isVersion40,
     instances: sourceInstances,
     queryOptions,
     engine,
@@ -185,10 +185,7 @@ export const getDataWithRelationships = async ({
     if (isRecursiveTrackedEntityType & isRecursiveProgram) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
-        // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-        const isVersion40 =
-            `${serverVersion.major}.${serverVersion.minor}` === '2.40'
-
+        // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
             {
