@@ -186,11 +186,11 @@ export const getDataWithRelationships = async ({
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-        const isVersion240 =
+        const isVersion40 =
             `${serverVersion.major}.${serverVersion.minor}` === '2.40'
 
         const { tei } = await engine.query(
-            { tei: isVersion240 ? TEI_240_QUERY : TEI_241_QUERY },
+            { tei: isVersion40 ? TEI_240_QUERY : TEI_241_QUERY },
             {
                 variables: {
                     fields,
@@ -203,7 +203,7 @@ export const getDataWithRelationships = async ({
         )
 
         normalizedPotentialTargetInstances = normalizeInstances(
-            tei[isVersion240 ? 'instances' : 'trackedEntities']
+            tei[isVersion40 ? 'instances' : 'trackedEntities']
         )
     }
 

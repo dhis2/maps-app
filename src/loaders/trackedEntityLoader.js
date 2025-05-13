@@ -71,6 +71,7 @@ const TEI_241_QUERY = {
         enrollmentEnrolledBefore,
         updatedAfter,
         updatedBefore,
+        // TODO no followUp?
     }) => ({
         fields,
         orgUnits,

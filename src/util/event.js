@@ -150,8 +150,7 @@ export const getAnalyticsRequest = async (
 
 export const loadData = async ({ request, config = {}, engine }) => {
     const analyticsEngine = Analytics.getAnalytics(engine)
-    const events = analyticsEngine.events
-    const response = await events.getQuery(
+    const response = await analyticsEngine.events.getQuery(
         request.withPageSize(EVENT_CLIENT_PAGE_SIZE)
     ) // DHIS2-10742
 
