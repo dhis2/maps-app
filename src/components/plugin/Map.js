@@ -26,7 +26,6 @@ const defaultBounds = [
 ]
 
 const Map = forwardRef((props, ref) => {
-    console.log('jj Map props', props)
     const { basemap, mapViews, controls, getResizeFunction } = props
 
     const layers = useRef(
@@ -48,7 +47,6 @@ const Map = forwardRef((props, ref) => {
     const onResize = () => setResizeCount((state) => state + 1)
 
     const onLayerLoad = useCallback((layer) => {
-        console.log('jj onLayerLoad', layer)
         layers.current = layers.current.map((l) =>
             layer.id === l.id ? layer : l
         )

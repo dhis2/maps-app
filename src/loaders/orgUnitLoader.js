@@ -27,7 +27,6 @@ const orgUnitLoader = async ({
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
-
     const alerts = []
 
     const orgUnitParams = orgUnits.map((item) => item.id)
