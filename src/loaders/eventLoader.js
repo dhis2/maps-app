@@ -47,10 +47,15 @@ const eventLoader = async ({
     config: layerConfig,
     loadExtended,
     engine,
-    displayProperty: nameProperty,
+    keyAnalysisDisplayProperty,
     analyticsEngine,
 }) => {
     const config = { ...layerConfig }
+    const nameProperty =
+        keyAnalysisDisplayProperty === 'name'
+            ? 'displayName'
+            : 'displayShortName'
+
     try {
         await loadEventLayer({
             config,
