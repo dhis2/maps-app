@@ -12,7 +12,9 @@
 .dhis2-map-popup-event,
 .dhis2-map-popup-trackedentity,
 .dhis2-map-popup-thematic,
-.dhis2-map-popup-orgunit {
+.dhis2-map-popup-facility,
+.dhis2-map-popup-orgunit,
+.dhis2-map-popup-earthengine {
     max-height: 50vh;
     overflow-y: auto;
     min-width: 160px;
@@ -21,6 +23,14 @@
 .dhis2-map-popup-event,
 .dhis2-map-popup-trackedentity {
     min-height: 56px;
+}
+
+.dhis2-map-popup-thematic .title,
+.dhis2-map-popup-facility .title,
+.dhis2-map-popup-orgunit .title {
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: var(--spacers-dp8);
 }
 
 .dhis2-map-popup-event table,

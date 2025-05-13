@@ -203,7 +203,7 @@ class ThematicLayer extends Layer {
                 onClose={this.onPopupClose}
             >
                 <div className="dhis2-map-popup-thematic">
-                    <em>{name}</em>
+                    <div className="title">{name}</div>
                     <div>{indicator}</div>
                     <div>{periodName}</div>
                     <div>

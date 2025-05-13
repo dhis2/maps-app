@@ -75,7 +75,7 @@ export default class OrgUnitLayer extends Layer {
                 onClose={this.onPopupClose}
             >
                 <div className="dhis2-map-popup-orgunit">
-                    <em>{name}</em>
+                    <div className="title">{name}</div>
                     {level && (
                         <div>
                             {i18n.t('Level')}: {level}

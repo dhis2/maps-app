@@ -29,9 +29,11 @@ const GroupSetSelect = ({
         variables: { nameProperty },
     })
 
+    const ITEM_NONE = { id: 'none', name: i18n.t('None') }
+
     const groupSets = useMemo(
         () => [
-            ...(allowNone ? [{ id: 'none', name: i18n.t('None') }] : []),
+            ...(allowNone ? [ITEM_NONE] : []),
             ...(data?.sets.organisationUnitGroupSets || []),
         ],
         [data, allowNone]
@@ -47,7 +49,7 @@ const GroupSetSelect = ({
             label={label}
             loading={loading}
             items={groupSets}
-            value={value ? value.id : null}
+            value={value ? value.id : ITEM_NONE.id}
             onChange={onGroupSetChange}
             errorText={
                 error?.message || (!value && errorText ? errorText : null)
