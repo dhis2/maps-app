@@ -103,7 +103,7 @@ class FacilityLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup
-        const { id, name, dimensions, pn } = feature.properties
+        const { id, name, dimensions, parentName } = feature.properties
         const { orgUnitFieldDisplayName } = this.props
 
         return (
@@ -111,25 +111,26 @@ class FacilityLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
-                className="dhis2-map-popup-orgunit"
             >
-                <em>{name}</em>
-                {this.state.isAssociatedGeometry && (
-                    <div>{orgUnitFieldDisplayName}</div>
-                )}
-                {isPlainObject(dimensions) && (
-                    <div>
-                        {i18n.t('Groups')}:
-                        {Object.keys(dimensions)
-                            .map((id) => dimensions[id])
-                            .join(', ')}
-                    </div>
-                )}
-                {pn && (
-                    <div>
-                        {i18n.t('Parent unit')}: {pn}
-                    </div>
-                )}
+                <div className="dhis2-map-popup-facility">
+                    <div className="title">{name}</div>
+                    {this.state.isAssociatedGeometry && (
+                        <div>{orgUnitFieldDisplayName}</div>
+                    )}
+                    {isPlainObject(dimensions) && (
+                        <div>
+                            {i18n.t('Groups')}:
+                            {Object.keys(dimensions)
+                                .map((id) => dimensions[id])
+                                .join(', ')}
+                        </div>
+                    )}
+                    {parentName && (
+                        <div>
+                            {i18n.t('Parent unit')}: {parentName}
+                        </div>
+                    )}
+                </div>
             </Popup>
         )
     }
