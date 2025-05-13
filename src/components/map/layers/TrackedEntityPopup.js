@@ -104,51 +104,51 @@ const TrackedEntityPopup = ({
         dataTrackedEntity?.trackedEntities || {}
 
     return (
-        <Popup
-            coordinates={coordinates}
-            onClose={onClose}
-            className="dhis2-map-popup-event"
-        >
-            {errorTrackedEntity && (
-                <table>
-                    <tbody>
-                        <tr>
-                            {i18n.t('Could not retrieve tracked entity data')}
-                        </tr>
-                        <tr key="divider" style={{ height: 5 }} />
-                    </tbody>
-                </table>
-            )}
-            {!fetchingTrackedEntity && !fetchingOrgUnit && (
-                <table>
-                    <tbody>
-                        {dataTrackedEntity?.trackedEntities &&
-                            activeDataSource == 'primary' &&
-                            getDataRows({
-                                displayAttributes,
-                                attributes,
-                            })}
-                        {type === 'Point' && (
+        <Popup coordinates={coordinates} onClose={onClose}>
+            <div className="dhis2-map-popup-trackedentity">
+                {errorTrackedEntity && (
+                    <table>
+                        <tbody>
                             <tr>
-                                <th>{i18n.t('Tracked entity location')}</th>
-                                <td>{formatCoordinate(coord)}</td>
+                                {i18n.t(
+                                    'Could not retrieve tracked entity data'
+                                )}
                             </tr>
-                        )}
-                        {orgUnit && (
-                            <tr>
-                                <th>{i18n.t('Organisation unit')}</th>
-                                <td>{orgUnit}</td>
-                            </tr>
-                        )}
-                        {updatedAt && (
-                            <tr>
-                                <th>{i18n.t('Last updated')}</th>
-                                <td>{formatDatetime(updatedAt)}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            )}
+                            <tr key="divider" style={{ height: 5 }} />
+                        </tbody>
+                    </table>
+                )}
+                {!fetchingTrackedEntity && !fetchingOrgUnit && (
+                    <table>
+                        <tbody>
+                            {dataTrackedEntity?.trackedEntities &&
+                                activeDataSource == 'primary' &&
+                                getDataRows({
+                                    displayAttributes,
+                                    attributes,
+                                })}
+                            {type === 'Point' && (
+                                <tr>
+                                    <th>{i18n.t('Tracked entity location')}</th>
+                                    <td>{formatCoordinate(coord)}</td>
+                                </tr>
+                            )}
+                            {orgUnit && (
+                                <tr>
+                                    <th>{i18n.t('Organisation unit')}</th>
+                                    <td>{orgUnit}</td>
+                                </tr>
+                            )}
+                            {updatedAt && (
+                                <tr>
+                                    <th>{i18n.t('Last updated')}</th>
+                                    <td>{formatDatetime(updatedAt)}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                )}
+            </div>
         </Popup>
     )
 }

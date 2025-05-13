@@ -201,17 +201,18 @@ class ThematicLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
-                className="dhis2-map-popup-orgunit"
             >
-                <em>{name}</em>
-                <div>{indicator}</div>
-                <div>{periodName}</div>
-                <div>
-                    {i18n.t('Value')}: {value ?? i18n.t('No data')}
+                <div className="dhis2-map-popup-thematic">
+                    <em>{name}</em>
+                    <div>{indicator}</div>
+                    <div>{periodName}</div>
+                    <div>
+                        {i18n.t('Value')}: {value ?? i18n.t('No data')}
+                    </div>
+                    {aggregationType && aggregationType !== 'DEFAULT' && (
+                        <div>{aggregationType}</div>
+                    )}
                 </div>
-                {aggregationType && aggregationType !== 'DEFAULT' && (
-                    <div>{aggregationType}</div>
-                )}
             </Popup>
         )
     }

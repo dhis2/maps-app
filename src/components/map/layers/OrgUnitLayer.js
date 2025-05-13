@@ -73,19 +73,20 @@ export default class OrgUnitLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
-                className="dhis2-map-popup-orgunit"
             >
-                <em>{name}</em>
-                {level && (
-                    <div>
-                        {i18n.t('Level')}: {level}
-                    </div>
-                )}
-                {parentName && (
-                    <div>
-                        {i18n.t('Parent unit')}: {parentName}
-                    </div>
-                )}
+                <div className="dhis2-map-popup-orgunit">
+                    <em>{name}</em>
+                    {level && (
+                        <div>
+                            {i18n.t('Level')}: {level}
+                        </div>
+                    )}
+                    {parentName && (
+                        <div>
+                            {i18n.t('Parent unit')}: {parentName}
+                        </div>
+                    )}
+                </div>
             </Popup>
         )
     }
