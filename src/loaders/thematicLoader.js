@@ -62,7 +62,6 @@ const thematicLoader = async ({
     const coordinateField = getCoordinateField(config)
 
     let loadError
-    const alerts = []
 
     const response = await loadData({
         config,
@@ -126,6 +125,7 @@ const thematicLoader = async ({
     let minValue = orderedValues[0]
     let maxValue = orderedValues[orderedValues.length - 1]
     const name = names[dataItem.id]
+    const alerts = []
 
     let legendSet = config.legendSet
 
@@ -356,7 +356,6 @@ const loadData = async ({
     keyAnalysisDisplayProperty,
     userId,
     analyticsEngine,
-    alerts,
 }) => {
     const {
         rows,
@@ -436,28 +435,13 @@ const loadData = async ({
     const rawData = await analyticsEngine.aggregate.get(analyticsRequest)
 
     const ou = `ou:${orgUnitParams.join(';')}`
-    const geoFeatureData = await engine.query(
-        GEOFEATURES_QUERY,
-        {
-            variables: {
-                ou,
-                keyAnalysisDisplayProperty,
-                userId,
-            },
+    const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            ou,
+            keyAnalysisDisplayProperty,
+            userId,
         },
-        {
-            onError: (error) => {
-                alerts.push({
-                    critical: true,
-                    code: ERROR_CRITICAL,
-                    message: i18n.t('Error: {{message}}', {
-                        message: error.message || i18n.t('an error occurred'),
-                        nsSeparator: ';',
-                    }),
-                })
-            },
-        }
-    )
+    })
 
     const mainFeatures = geoFeatureData?.geoFeatures
         ? toGeoJson(geoFeatureData.geoFeatures)
@@ -467,30 +451,14 @@ const loadData = async ({
 
     if (coordinateField) {
         // Associated geometry request
-        const coordFieldData = await engine.query(
-            GEOFEATURES_QUERY,
-            {
-                variables: {
-                    ou,
-                    keyAnalysisDisplayProperty, // name/shortName
-                    coordinateField: coordinateField.id,
-                    userId,
-                },
+        const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                ou,
+                keyAnalysisDisplayProperty, // name/shortName
+                coordinateField: coordinateField.id,
+                userId,
             },
-            {
-                onError: (error) => {
-                    alerts.push({
-                        critical: true,
-                        code: ERROR_CRITICAL,
-                        message: i18n.t('Error: {{message}}', {
-                            message:
-                                error.message || i18n.t('an error occurred'),
-                            nsSeparator: ';',
-                        }),
-                    })
-                },
-            }
-        )
+        })
 
         associatedGeometries = coordFieldData?.geoFeatures
             ? toGeoJson(coordFieldData.geoFeatures)

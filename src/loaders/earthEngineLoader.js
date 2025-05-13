@@ -43,60 +43,26 @@ const earthEngineLoader = async ({
         const ou = `ou:${orgUnitParams.join(';')}`
 
         try {
-            const geoFeatureData = await engine.query(
-                GEOFEATURES_QUERY,
-                {
-                    variables: {
-                        ou,
-                        keyAnalysisDisplayProperty,
-                        userId,
-                    },
+            const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
+                variables: {
+                    ou,
+                    keyAnalysisDisplayProperty,
+                    userId,
                 },
-                {
-                    onError: (error) => {
-                        alerts.push({
-                            critical: true,
-                            code: ERROR_CRITICAL,
-                            message: i18n.t('Error: {{message}}', {
-                                message:
-                                    error.message ||
-                                    i18n.t('an error occurred'),
-                                nsSeparator: ';',
-                            }),
-                        })
-                    },
-                }
-            )
+            })
 
             mainFeatures = geoFeatureData.geoFeatures
                 ? toGeoJson(geoFeatureData.geoFeatures)
                 : null
 
             if (coordinateField) {
-                const coordFieldData = await engine.query(
-                    GEOFEATURES_QUERY,
-                    {
-                        variables: {
-                            ou,
-                            keyAnalysisDisplayProperty,
-                            coordinateField: coordinateField.id,
-                        },
+                const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
+                    variables: {
+                        ou,
+                        keyAnalysisDisplayProperty,
+                        coordinateField: coordinateField.id,
                     },
-                    {
-                        onError: (error) => {
-                            alerts.push({
-                                critical: true,
-                                code: ERROR_CRITICAL,
-                                message: i18n.t('Error: {{message}}', {
-                                    message:
-                                        error.message ||
-                                        i18n.t('an error occurred'),
-                                    nsSeparator: ';',
-                                }),
-                            })
-                        },
-                    }
-                )
+                })
 
                 associatedGeometries = coordFieldData.geoFeatures
                     ? toGeoJson(coordFieldData.geoFeatures)

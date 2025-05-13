@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-11T13:26:21.275Z\n"
-"PO-Revision-Date: 2025-05-11T13:26:21.276Z\n"
+"POT-Creation-Date: 2025-05-13T15:00:28.817Z\n"
+"PO-Revision-Date: 2025-05-13T15:00:28.817Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1457,12 +1457,6 @@ msgstr "Financial year (Start April)"
 msgid "Cancelled"
 msgstr "Cancelled"
 
-msgid "Error: {{message}}"
-msgstr "Error: {{message}}"
-
-msgid "an error occurred"
-msgstr "an error occurred"
-
 msgid "Earth Engine layer"
 msgstr "Earth Engine layer"
 
@@ -1483,6 +1477,9 @@ msgstr "Event"
 
 msgid "Facilities"
 msgstr "Facilities"
+
+msgid "an error occurred"
+msgstr "an error occurred"
 
 msgid "No coordinates found for selected facilities"
 msgstr "No coordinates found for selected facilities"

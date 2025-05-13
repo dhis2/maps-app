@@ -50,10 +50,7 @@ const orgUnitLoader = async ({
                 alerts.push({
                     critical: true,
                     code: ERROR_CRITICAL,
-                    message: i18n.t('Error: {{message}}', {
-                        message: error.message || i18n.t('an error occurred'),
-                        nsSeparator: ';',
-                    }),
+                    message: error.message || i18n.t('an error occurred'),
                 })
             },
         }
@@ -66,15 +63,11 @@ const orgUnitLoader = async ({
     // Load organisationUnitGroups if not passed
     let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        orgUnitGroups = await engine.query(
-            ORG_UNITS_GROUP_SET_QUERY,
-            {
-                variables: {
-                    id: groupSet?.id,
-                },
+        orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: {
+                id: groupSet?.id,
             },
-            { onError: (error) => console.log('Error loading ouGroups', error) }
-        )
+        })
     }
 
     if (!mainFeatures.length && !alerts.length) {
@@ -93,31 +86,15 @@ const orgUnitLoader = async ({
 
     let associatedGeometries
     if (coordinateField) {
-        const rawData = await engine.query(
-            GEOFEATURES_QUERY,
-            {
-                variables: {
-                    ou,
-                    keyAnalysisDisplayProperty,
-                    includeGroupSets,
-                    coordinateField: coordinateField.id,
-                    userId,
-                },
+        const rawData = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                ou,
+                keyAnalysisDisplayProperty,
+                includeGroupSets,
+                coordinateField: coordinateField.id,
+                userId,
             },
-            {
-                onError: (error) => {
-                    alerts.push({
-                        critical: true,
-                        code: ERROR_CRITICAL,
-                        message: i18n.t('Error: {{message}}', {
-                            message:
-                                error.message || i18n.t('an error occurred'),
-                            nsSeparator: ';',
-                        }),
-                    })
-                },
-            }
-        )
+        })
 
         associatedGeometries = rawData?.geoFeatures
             ? toGeoJson(rawData.geoFeatures)
