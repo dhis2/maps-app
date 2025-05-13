@@ -28,7 +28,7 @@ const teiGeometryTypes = [
     GEO_TYPE_MULTIPOLYGON,
 ]
 
-const TEI_240_QUERY = {
+const TEI_40_QUERY = {
     resource: 'tracker/trackedEntities',
     params: ({
         fields,
@@ -58,7 +58,7 @@ const TEI_240_QUERY = {
     }),
 }
 
-const TEI_241_QUERY = {
+const TEI_41_QUERY = {
     resource: 'tracker/trackedEntities',
     params: ({
         fields,
@@ -100,8 +100,7 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-//TODO: Refactor to share code with other loaders
-const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
+const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)
@@ -157,14 +156,14 @@ const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
     }
 
     // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-    const isVersion240 =
+    const isVersion40 =
         `${serverVersion.major}.${serverVersion.minor}` === '2.40'
 
-    const trackerRootProp = isVersion240 ? 'instances' : 'trackedEntities'
+    const trackerRootProp = isVersion40 ? 'instances' : 'trackedEntities'
 
     const orgUnits = getOrgUnitsFromRows(rows)
         .map((ou) => ou.id)
-        .join(isVersion240 ? ';' : ',')
+        .join(isVersion40 ? ';' : ',')
 
     const fieldsWithRelationships = [...fields, 'relationships']
     let explanation
@@ -181,7 +180,7 @@ const trackedEntityLoader = async ({ config, serverVersion, engine }) => {
     }
 
     const { trackedEntities } = await engine.query(
-        { trackedEntities: isVersion240 ? TEI_240_QUERY : TEI_241_QUERY },
+        { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
             variables: {
                 fields: fieldsWithRelationships,

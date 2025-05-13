@@ -1,6 +1,6 @@
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
-const TEI_240_QUERY = {
+const TEI_40_QUERY = {
     resource: 'trackedEntityInstances',
     params: ({
         fields,
@@ -18,7 +18,7 @@ const TEI_240_QUERY = {
     }),
 }
 
-const TEI_241_QUERY = {
+const TEI_41_QUERY = {
     resource: 'tracker/trackedEntities',
     params: ({
         fields,
@@ -190,7 +190,7 @@ export const getDataWithRelationships = async ({
             `${serverVersion.major}.${serverVersion.minor}` === '2.40'
 
         const { tei } = await engine.query(
-            { tei: isVersion40 ? TEI_240_QUERY : TEI_241_QUERY },
+            { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
             {
                 variables: {
                     fields,

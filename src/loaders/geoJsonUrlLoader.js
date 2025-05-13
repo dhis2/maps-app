@@ -7,8 +7,8 @@ import {
     GEO_TYPE_POLYGON,
 } from '../util/geojson.js'
 
-const fetchData = async (url, engine, instanceBaseUrl) => {
-    if (url.includes(instanceBaseUrl)) {
+const fetchData = async (url, engine, baseUrl) => {
+    if (url.includes(baseUrl)) {
         // API route, use engine
         const routesIndex = url.indexOf('routes')
         if (routesIndex === -1) {
@@ -45,11 +45,7 @@ const fetchData = async (url, engine, instanceBaseUrl) => {
 }
 
 const EMPTY_FEATURE_STYLE = {}
-const geoJsonUrlLoader = async ({
-    config: layer,
-    engine,
-    baseUrl: instanceBaseUrl,
-}) => {
+const geoJsonUrlLoader = async ({ config: layer, engine, baseUrl }) => {
     const { config } = layer
 
     let newConfig
@@ -69,7 +65,7 @@ const geoJsonUrlLoader = async ({
     let loadError
 
     try {
-        geoJson = await fetchData(newConfig.url, engine, instanceBaseUrl)
+        geoJson = await fetchData(newConfig.url, engine, baseUrl)
     } catch (e) {
         loadError = i18n.t(
             'There was a problem with this layer. Contact a system administrator.'

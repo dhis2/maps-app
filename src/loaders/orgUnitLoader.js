@@ -33,13 +33,13 @@ const orgUnitLoader = async ({
 
     const name = i18n.t('Organisation units')
 
-    const ouParam = `ou:${orgUnitParams.join(';')}`
+    const ou = `ou:${orgUnitParams.join(';')}`
 
     const data = await engine.query(
         GEOFEATURES_QUERY,
         {
             variables: {
-                ou: ouParam,
+                ou,
                 keyAnalysisDisplayProperty,
                 includeGroupSets,
                 userId,
@@ -93,11 +93,11 @@ const orgUnitLoader = async ({
 
     let associatedGeometries
     if (coordinateField) {
-        const newdata = await engine.query(
+        const rawData = await engine.query(
             GEOFEATURES_QUERY,
             {
                 variables: {
-                    ou: ouParam,
+                    ou,
                     keyAnalysisDisplayProperty,
                     includeGroupSets,
                     coordinateField: coordinateField.id,
@@ -119,8 +119,8 @@ const orgUnitLoader = async ({
             }
         )
 
-        associatedGeometries = newdata?.geoFeatures
-            ? toGeoJson(newdata.geoFeatures)
+        associatedGeometries = rawData?.geoFeatures
+            ? toGeoJson(rawData.geoFeatures)
             : null
 
         if (!associatedGeometries.length) {

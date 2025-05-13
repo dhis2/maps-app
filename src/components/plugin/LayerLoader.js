@@ -23,14 +23,11 @@ const loaders = {
 }
 
 const LayerLoader = ({ config, onLoad }) => {
-    const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
-    const { currentUser } = useCachedDataQuery()
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
-    const { systemInfo } = useConfig()
-    const { instanceBaseUrl } = systemInfo
-    const userId = currentUser.id
-    const keyAnalysisDisplayProperty = currentUser.keyAnalysisDisplayProperty
+    const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
+    const { currentUser } = useCachedDataQuery()
+    const { keyAnalysisDisplayProperty, id: userId } = currentUser
 
     useEffect(() => {
         const loader = loaders[config.layer]
@@ -41,7 +38,6 @@ const LayerLoader = ({ config, onLoad }) => {
             userId,
             baseUrl,
             analyticsEngine, // Thematic and Event loader
-            instanceBaseUrl, // GeoJson loader
             serverVersion, // Tracked entity loader
         }).then((result) => {
             // TODO handle errors
@@ -56,7 +52,6 @@ const LayerLoader = ({ config, onLoad }) => {
         userId,
         baseUrl,
         keyAnalysisDisplayProperty,
-        instanceBaseUrl,
         serverVersion,
     ])
 

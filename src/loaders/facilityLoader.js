@@ -34,13 +34,13 @@ const facilityLoader = async ({
 
     const name = i18n.t('Facilities')
 
-    const ouParam = `ou:${orgUnitParams.join(';')}`
+    const ou = `ou:${orgUnitParams.join(';')}`
 
     const data = await engine.query(
         GEOFEATURES_QUERY,
         {
             variables: {
-                ou: ouParam,
+                ou,
                 keyAnalysisDisplayProperty,
                 includeGroupSets,
                 userId,
@@ -95,11 +95,11 @@ const facilityLoader = async ({
     legend.title = name
 
     if (coordinateField) {
-        const newdata = await engine.query(
+        const rawData = await engine.query(
             GEOFEATURES_QUERY,
             {
                 variables: {
-                    ou: ouParam,
+                    ou,
                     keyAnalysisDisplayProperty,
                     includeGroupSets,
                     coordinateField: coordinateField.id,
@@ -121,8 +121,8 @@ const facilityLoader = async ({
             }
         )
 
-        associatedGeometries = newdata?.geoFeatures
-            ? toGeoJson(getPolygonItems(newdata.geoFeatures))
+        associatedGeometries = rawData?.geoFeatures
+            ? toGeoJson(getPolygonItems(rawData.geoFeatures))
             : null
 
         if (!associatedGeometries.length) {
@@ -144,8 +144,6 @@ const facilityLoader = async ({
     if (areaRadius) {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`]
     }
-
-    legend.title = name
 
     if (!styledFeatures.length) {
         alerts.push({

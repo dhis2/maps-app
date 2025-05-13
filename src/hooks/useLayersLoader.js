@@ -40,18 +40,19 @@ export const useLayersLoader = () => {
         { critical: true }
     )
 
+    const { keyAnalysisDisplayProperty, id: userId } = currentUser
+
     useEffect(() => {
         async function loadLayer(config, loader) {
             const result = await loader({
                 config,
                 engine,
-                keyAnalysisDisplayProperty:
-                    currentUser.keyAnalysisDisplayProperty,
-                userId: currentUser.id,
+                keyAnalysisDisplayProperty, // name/shortName
+                userId,
                 baseUrl,
-                analyticsEngine,
-                loadExtended: !!dataTable, // for event loader
-                serverVersion, // for tracked entity loader
+                analyticsEngine, // Thematic and Event loader
+                serverVersion, // Tracked entity loader
+                loadExtended: !!dataTable, // Event loader
             })
             if (result.alerts) {
                 showAlerts(result.alerts)
@@ -96,8 +97,8 @@ export const useLayersLoader = () => {
     }, [
         allLayers,
         dispatch,
-        currentUser.keyAnalysisDisplayProperty,
-        currentUser.id,
+        keyAnalysisDisplayProperty,
+        userId,
         engine,
         analyticsEngine,
         showAlerts,

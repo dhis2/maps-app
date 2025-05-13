@@ -43,9 +43,9 @@ import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 const thematicLoader = async ({
     config,
     engine,
-    analyticsEngine,
-    userId,
     keyAnalysisDisplayProperty,
+    userId,
+    analyticsEngine,
 }) => {
     const {
         columns,
@@ -66,11 +66,11 @@ const thematicLoader = async ({
 
     const response = await loadData({
         config,
-        keyAnalysisDisplayProperty,
         engine,
+        keyAnalysisDisplayProperty,
+        userId,
         analyticsEngine,
         alerts,
-        userId,
     }).catch((err) => {
         loadError = err
 
@@ -352,11 +352,11 @@ const getOrderedValues = (data) => {
 // Load features and data values from api
 const loadData = async ({
     config,
-    keyAnalysisDisplayProperty,
     engine,
+    keyAnalysisDisplayProperty,
+    userId,
     analyticsEngine,
     alerts,
-    userId,
 }) => {
     const {
         rows,
@@ -435,12 +435,12 @@ const loadData = async ({
 
     const rawData = await analyticsEngine.aggregate.get(analyticsRequest)
 
-    const ouParam = `ou:${orgUnitParams.join(';')}`
+    const ou = `ou:${orgUnitParams.join(';')}`
     const geoFeatureData = await engine.query(
         GEOFEATURES_QUERY,
         {
             variables: {
-                ou: ouParam,
+                ou,
                 keyAnalysisDisplayProperty,
                 userId,
             },
@@ -471,7 +471,7 @@ const loadData = async ({
             GEOFEATURES_QUERY,
             {
                 variables: {
-                    ou: ouParam,
+                    ou,
                     keyAnalysisDisplayProperty, // name/shortName
                     coordinateField: coordinateField.id,
                     userId,

@@ -45,10 +45,10 @@ const unknownErrorAlert = {
 // Returns a promise
 const eventLoader = async ({
     config: layerConfig,
-    loadExtended,
     engine,
     keyAnalysisDisplayProperty,
     analyticsEngine,
+    loadExtended,
 }) => {
     const config = { ...layerConfig }
     const nameProperty =
@@ -59,10 +59,10 @@ const eventLoader = async ({
     try {
         await loadEventLayer({
             config,
-            loadExtended,
             engine,
             nameProperty,
             analyticsEngine,
+            loadExtended,
         })
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
@@ -86,10 +86,10 @@ const eventLoader = async ({
 
 const loadEventLayer = async ({
     config,
-    loadExtended,
     engine,
     nameProperty,
     analyticsEngine,
+    loadExtended,
 }) => {
     const {
         columns,
@@ -113,9 +113,9 @@ const loadEventLayer = async ({
     config.isExtended = loadExtended
 
     const analyticsRequest = await getAnalyticsRequest(config, {
+        analyticsEngine,
         nameProperty,
         engine,
-        analyticsEngine,
     })
     let alert
 

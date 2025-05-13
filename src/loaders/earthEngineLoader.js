@@ -22,8 +22,8 @@ import { GEOFEATURES_QUERY } from '../util/requests.js'
 
 const earthEngineLoader = async ({
     config,
-    keyAnalysisDisplayProperty,
     engine,
+    keyAnalysisDisplayProperty,
     userId,
 }) => {
     const { format, rows, aggregationType } = config
@@ -40,14 +40,14 @@ const earthEngineLoader = async ({
         let mainFeatures
         let associatedGeometries
 
-        const ouParam = `ou:${orgUnitParams.join(';')}`
+        const ou = `ou:${orgUnitParams.join(';')}`
 
         try {
             const geoFeatureData = await engine.query(
                 GEOFEATURES_QUERY,
                 {
                     variables: {
-                        ou: ouParam,
+                        ou,
                         keyAnalysisDisplayProperty,
                         userId,
                     },
@@ -77,7 +77,7 @@ const earthEngineLoader = async ({
                     GEOFEATURES_QUERY,
                     {
                         variables: {
-                            ou: ouParam,
+                            ou,
                             keyAnalysisDisplayProperty,
                             coordinateField: coordinateField.id,
                         },
