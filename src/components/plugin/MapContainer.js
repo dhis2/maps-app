@@ -19,7 +19,6 @@ const MapContainer = ({ visualization }) => {
         const {
             basemap: visBasemap,
             mapViews,
-            userOrgUnit,
             id,
             ...otherMapProps
         } = visualization
@@ -53,12 +52,6 @@ const MapContainer = ({ visualization }) => {
 
             setConfig({
                 ...initialConfig,
-                mapViews: userOrgUnit
-                    ? initialConfig.mapViews?.map((v) => ({
-                          ...v,
-                          userOrgUnit,
-                      }))
-                    : initialConfig.mapViews,
                 basemap,
             })
         }
@@ -69,7 +62,7 @@ const MapContainer = ({ visualization }) => {
     }, [visualization, systemSettings, engine])
 
     // eslint-disable-next-line no-unused-vars
-    const { basemap, mapViews, userOrgUnit, id, ...rest } = visualization
+    const { basemap, mapViews, id, ...rest } = visualization
 
     return !config ? <LoadingMask /> : <Map {...config} {...rest} />
 }

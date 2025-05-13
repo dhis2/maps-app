@@ -364,7 +364,6 @@ const loadData = async ({
         filters,
         startDate,
         endDate,
-        userOrgUnit,
         valueType,
         relativePeriodDate,
         aggregationType,
@@ -378,8 +377,6 @@ const loadData = async ({
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
-
-    const geoFeaturesParams = { _: userId }
     const orgUnitParams = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 
@@ -417,11 +414,6 @@ const loadData = async ({
         )
     }
 
-    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        geoFeaturesParams.userOrgUnit = userOrgUnit.join(';')
-        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit)
-    }
-
     if (relativePeriodDate) {
         analyticsRequest =
             analyticsRequest.withRelativePeriodDate(relativePeriodDate)
@@ -450,7 +442,7 @@ const loadData = async ({
             variables: {
                 ou: ouParam,
                 keyAnalysisDisplayProperty,
-                userOrgUnit: geoFeaturesParams.userOrgUnit, // TODO
+                userId,
             },
         },
         {
@@ -481,8 +473,8 @@ const loadData = async ({
                 variables: {
                     ou: ouParam,
                     keyAnalysisDisplayProperty, // name/shortName
-                    userOrgUnit: geoFeaturesParams.userOrgUnit,
                     coordinateField: coordinateField.id,
+                    userId,
                 },
             },
             {
