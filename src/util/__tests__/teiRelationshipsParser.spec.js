@@ -420,10 +420,7 @@ describe('getDataWithRelationships', () => {
         }
 
         const result = await getDataWithRelationships({
-            serverVersion: {
-                major: 2,
-                minor: 41,
-            },
+            isVersion40: false,
             instances: mockSourceInstances,
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
@@ -475,10 +472,7 @@ describe('getDataWithRelationships', () => {
         }
 
         const result = await getDataWithRelationships({
-            serverVersion: {
-                major: 2,
-                minor: 41,
-            },
+            isVersion40: false,
             instances: mockSourceInstances,
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
@@ -539,10 +533,7 @@ describe('getDataWithRelationships', () => {
             secondary: ['teTo5', 'teTo6', 'teTo7', 'teTo8A', 'teTo8B', 'teTo9'],
         }
         const result = await getDataWithRelationships({
-            serverVersion: {
-                major: 2,
-                minor: 41,
-            },
+            isVersion40: false,
             instances: mockSourceInstances,
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
@@ -575,26 +566,20 @@ describe('getDataWithRelationships', () => {
 
     it.each([
         {
-            serverVersion: {
-                major: 2,
-                minor: 40,
-            },
             trackerRootProp: 'instances',
             resource: 'trackedEntityInstances',
             versionString: '2.40',
+            isVersion40: true,
         },
         {
-            serverVersion: {
-                major: 2,
-                minor: 41,
-            },
             trackerRootProp: 'trackedEntities',
             resource: 'tracker/trackedEntities',
             versionString: '2.41',
+            isVersion40: false,
         },
     ])(
         '$versionString should use the tracker api root property "$trackerRootProp" and resource "$resource"',
-        async ({ serverVersion, trackerRootProp, resource }) => {
+        async ({ isVersion40, trackerRootProp, resource }) => {
             const relationshipType = {
                 id: 'relationshipTypeId1',
                 fromConstraint: {
@@ -660,7 +645,7 @@ describe('getDataWithRelationships', () => {
             }
 
             const result = await getDataWithRelationships({
-                serverVersion,
+                isVersion40,
                 instances: mockSourceInstances,
                 queryOptions: { relationshipType, ...OUProps },
                 engine: mockEngine,
