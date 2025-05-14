@@ -3,40 +3,10 @@ import { mapFields } from './helpers.js'
 
 // API requests
 
-const fetchMapQuery = {
-    resource: 'maps',
-    id: ({ id }) => id,
-    params: {
-        fields: mapFields(),
-    },
-}
-
-const fetchMapNameDescQuery = {
-    resource: 'maps',
-    id: ({ id }) => id,
-    params: {
-        fields: 'id,name,description,displayName,displayDescription',
-    },
-}
-
-export const fetchMapNameDesc = async (id, engine) =>
-    engine
-        .query(
-            { map: fetchMapNameDescQuery },
-            {
-                variables: {
-                    id,
-                },
-            }
-        )
-        .catch(() => {
-            throw new Error(`Could not load map with id "${id}"`)
-        })
-
 export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
     engine
         .query(
-            { map: fetchMapQuery },
+            { map: MAP_QUERY },
             {
                 variables: {
                     id,
@@ -47,6 +17,36 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
         .catch(() => {
             throw new Error(`Could not load map with id "${id}"`)
         })
+
+export const fetchMapNameDesc = async (id, engine) =>
+    engine
+        .query(
+            { map: MAP_NAME_DESC_QUERY },
+            {
+                variables: {
+                    id,
+                },
+            }
+        )
+        .catch(() => {
+            throw new Error(`Could not load map with id "${id}"`)
+        })
+
+const MAP_QUERY = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: mapFields(),
+    },
+}
+
+const MAP_NAME_DESC_QUERY = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: 'id,name,description,displayName,displayDescription',
+    },
+}
 
 export const EXTERNAL_MAP_LAYERS_QUERY = {
     resource: 'externalMapLayers',
