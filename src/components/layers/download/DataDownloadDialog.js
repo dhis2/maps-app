@@ -1,6 +1,5 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
@@ -22,7 +21,6 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
     const engine = useDataEngine()
     const { nameProperty } = useCachedDataQuery()
     const formatOptions = getFormatOptions()
-    const { d2 } = useD2()
     const [selectedFormat, setSelectedFormat] = useState(formatOptions[2])
     const [humanReadable, setHumanReadable] = useState(true)
     const [isDownloading, setIsDownloading] = useState(false)
@@ -55,7 +53,6 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
                 aggregations: aggregations[layer.id],
                 format: selectedFormat.id,
                 humanReadableKeys: humanReadable,
-                d2,
                 nameProperty,
                 engine,
             })

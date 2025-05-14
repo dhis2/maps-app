@@ -1,5 +1,5 @@
+import { apiFetchOrganisationUnitLevels } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import {
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
@@ -14,22 +14,12 @@ import {
     getCoordinateField,
     parseGroupSet,
 } from '../util/orgUnits.js'
-
-// orgUnitLevels do not have shortName property
-const ORG_UNIT_LEVELS_QUERY = {
-    orgUnitLevels: {
-        resource: 'organisationUnitLevels',
-        params: {
-            fields: 'id,level,displayName~rename(name)',
-            paging: false,
-        },
-    },
-}
+import { GEOFEATURES_QUERY } from '../util/requests.js'
 
 const orgUnitLoader = async ({
     config,
     engine,
-    nameProperty,
+    keyAnalysisDisplayProperty,
     userId,
     baseUrl,
 }) => {
@@ -38,45 +28,46 @@ const orgUnitLoader = async ({
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
     const alerts = []
-    const d2 = await getD2()
 
-    const geoFeaturesParams = { _: userId }
     const orgUnitParams = orgUnits.map((item) => item.id)
+    const ou = `ou:${orgUnitParams.join(';')}`
     let associatedGeometries
-
     const name = i18n.t('Organisation units')
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(nameProperty)
+    const data = await engine.query(
+        GEOFEATURES_QUERY,
+        {
+            variables: {
+                ou,
+                keyAnalysisDisplayProperty,
+                includeGroupSets,
+                userId,
+            },
+        },
+        {
+            onError: (error) => {
+                alerts.push({
+                    critical: true,
+                    code: ERROR_CRITICAL,
+                    message: error.message || i18n.t('an error occurred'),
+                })
+            },
+        }
+    )
 
-    const requests = [
-        featuresRequest
-            .getAll({ ...geoFeaturesParams, includeGroupSets })
-            .then(toGeoJson)
-            .catch((error) => {
-                if (error?.message || error) {
-                    alerts.push({
-                        code: ERROR_CRITICAL,
-                        message: error?.message || error,
-                    })
-                }
-            }),
-    ]
+    const mainFeatures = data?.geoFeatures ? toGeoJson(data.geoFeatures) : null
 
-    const levelsRequest = engine.query(ORG_UNIT_LEVELS_QUERY)
-    requests.push(levelsRequest)
+    const orgUnitLevels = await apiFetchOrganisationUnitLevels(engine)
 
     // Load organisationUnitGroups if not passed
+    let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-            variables: { id: groupSet.id },
+        orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: {
+                id: groupSet?.id,
+            },
         })
-        requests.push(orgUnitGroupsRequest)
     }
-
-    const [mainFeatures = [], { orgUnitLevels }, orgUnitGroups] =
-        await Promise.all(requests)
 
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
@@ -93,13 +84,19 @@ const orgUnitLoader = async ({
     }
 
     if (coordinateField) {
-        associatedGeometries = await featuresRequest
-            .getAll({
-                ...geoFeaturesParams,
-                coordinateField: coordinateField.id,
+        const rawData = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                ou,
+                keyAnalysisDisplayProperty,
                 includeGroupSets,
-            })
-            .then(toGeoJson)
+                coordinateField: coordinateField.id,
+                userId,
+            },
+        })
+
+        associatedGeometries = rawData?.geoFeatures
+            ? toGeoJson(rawData.geoFeatures)
+            : null
 
         if (!associatedGeometries.length) {
             alerts.push({
@@ -111,19 +108,19 @@ const orgUnitLoader = async ({
 
     const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
 
-    const { styledFeatures, legend } = getStyledOrgUnits(
+    const { styledFeatures, legend } = getStyledOrgUnits({
         features,
         groupSet,
         config,
         baseUrl,
-        orgUnitLevels.organisationUnitLevels.reduce(
+        orgUnitLevels: orgUnitLevels.reduce(
             (obj, item) => ({
                 ...obj,
                 [item.level]: item.name,
             }),
             {}
-        )
-    )
+        ),
+    })
 
     legend.title = name
 
