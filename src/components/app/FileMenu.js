@@ -106,13 +106,13 @@ const FileMenu = ({ onFileMenuAction }) => {
     })
 
     const onSave = async ({ name, description }) => {
-        const visualization = cleanMapConfig({
+        const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
         })
 
         const config = preparePayloadForSave({
-            visualization: { ...visualization, type: VIS_TYPE_MAP },
+            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
             name,
             description,
         })
@@ -161,17 +161,17 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const onSaveAs = async ({ name, description }) => {
-        const visualization = cleanMapConfig({
+        const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
         })
-        const data = preparePayloadForSaveAs({
-            visualization: { ...visualization, type: 'MAP' },
+        const config = preparePayloadForSaveAs({
+            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
             name,
             description,
         })
 
-        const res = await postMap({ data })
+        const res = await postMap({ data: config })
 
         if (res.status === 'OK') {
             saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
