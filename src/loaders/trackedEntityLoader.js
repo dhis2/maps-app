@@ -156,7 +156,7 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
     }
 
     // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-    const isVersion40 = serverVersion.minor === '40'
+    const isVersion40 = `${serverVersion.minor}` === '40'
     const trackerRootProp = isVersion40 ? 'instances' : 'trackedEntities'
 
     const orgUnits = getOrgUnitsFromRows(rows)
