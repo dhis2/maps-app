@@ -69,7 +69,6 @@ const thematicLoader = async ({
         keyAnalysisDisplayProperty,
         userId,
         analyticsEngine,
-        alerts,
     }).catch((err) => {
         loadError = err
 

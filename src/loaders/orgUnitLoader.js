@@ -30,10 +30,9 @@ const orgUnitLoader = async ({
     const alerts = []
 
     const orgUnitParams = orgUnits.map((item) => item.id)
-
-    const name = i18n.t('Organisation units')
-
     const ou = `ou:${orgUnitParams.join(';')}`
+    let associatedGeometries
+    const name = i18n.t('Organisation units')
 
     const data = await engine.query(
         GEOFEATURES_QUERY,
@@ -84,7 +83,6 @@ const orgUnitLoader = async ({
         })
     }
 
-    let associatedGeometries
     if (coordinateField) {
         const rawData = await engine.query(GEOFEATURES_QUERY, {
             variables: {

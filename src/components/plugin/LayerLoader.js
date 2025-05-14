@@ -40,8 +40,6 @@ const LayerLoader = ({ config, onLoad }) => {
             analyticsEngine, // Thematic and Event loader
             serverVersion, // Tracked entity loader
         }).then((result) => {
-            // TODO handle errors
-
             onLoad(result)
         })
     }, [
