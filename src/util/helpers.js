@@ -26,6 +26,7 @@ const baseFields = [
     'manage',
     'delete',
     'href',
+    'subscribers',
 ]
 
 const analysisFields = () => {
