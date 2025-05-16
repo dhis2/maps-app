@@ -38,11 +38,11 @@ export const useLoadMap = () => {
                 dispatch(setAnalyticalObject(true))
             } else {
                 try {
-                    const map = await fetchMap(
-                        params.mapId,
+                    const map = await fetchMap({
+                        id: params.mapId,
                         engine,
-                        defaultBasemap
-                    )
+                        defaultBasemap,
+                    })
 
                     engine.mutate(dataStatisticsMutation, {
                         variables: { id: params.mapId },

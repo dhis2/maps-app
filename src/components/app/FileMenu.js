@@ -130,7 +130,12 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onRename = async ({ name, description }) => {
         // fetch the original Map
-        const latestMap = await fetchMap(map.id, engine, defaultBasemap)
+        const latestMap = await fetchMap({
+            id: map.id,
+            engine,
+            defaultBasemap,
+            withSubscribers: true,
+        })
 
         const cleanedMap = cleanMapConfig({
             config: latestMap,
@@ -148,10 +153,10 @@ const FileMenu = ({ onFileMenuAction }) => {
             data: config,
         })
 
-        const { map: updatedMapNameDesc } = await fetchMapNameDesc(
-            map.id,
-            engine
-        )
+        const { map: updatedMapNameDesc } = await fetchMapNameDesc({
+            id: map.id,
+            engine,
+        })
 
         dispatch(setMapProps(updatedMapNameDesc))
 
@@ -165,6 +170,7 @@ const FileMenu = ({ onFileMenuAction }) => {
             config: map,
             defaultBasemapId: defaultBasemap,
         })
+
         const config = preparePayloadForSaveAs({
             visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
             name,

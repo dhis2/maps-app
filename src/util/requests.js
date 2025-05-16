@@ -3,22 +3,28 @@ import { mapFields } from './helpers.js'
 
 // API requests
 
-export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
+export const fetchMap = async ({
+    id,
+    engine,
+    defaultBasemap,
+    withSubscribers,
+}) =>
     engine
         .query(
             { map: MAP_QUERY },
             {
                 variables: {
                     id,
+                    withSubscribers,
                 },
             }
         )
-        .then((map) => getMigratedMapConfig(map.map, keyDefaultBaseMap))
+        .then((map) => getMigratedMapConfig(map.map, defaultBasemap))
         .catch(() => {
             throw new Error(`Could not load map with id "${id}"`)
         })
 
-export const fetchMapNameDesc = async (id, engine) =>
+export const fetchMapNameDesc = async ({ id, engine }) =>
     engine
         .query(
             { map: MAP_NAME_DESC_QUERY },
@@ -35,9 +41,9 @@ export const fetchMapNameDesc = async (id, engine) =>
 const MAP_QUERY = {
     resource: 'maps',
     id: ({ id }) => id,
-    params: {
-        fields: mapFields(),
-    },
+    params: ({ withSubscribers }) => ({
+        fields: mapFields(withSubscribers),
+    }),
 }
 
 const MAP_NAME_DESC_QUERY = {
