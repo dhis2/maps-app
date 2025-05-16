@@ -26,3 +26,19 @@ export const getDhis2Version = () => {
 
     return dhis2Version
 }
+
+export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
+    intercepts.forEach(({ method, url, alias }) => {
+        cy.intercept({ method, url }).as(alias)
+    })
+
+    triggerFn()
+
+    intercepts.forEach(({ method, alias }) => {
+        cy.wait(`@${alias}`, EXTENDED_TIMEOUT)
+            .its('request')
+            .then((req) => {
+                expect(req.method).to.equal(method)
+            })
+    })
+}
