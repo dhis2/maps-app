@@ -8,11 +8,13 @@ import {
     coordinateValueTypes,
 } from '../constants/valueTypes.js'
 
-const baseFields = [
+const getBaseFields = (withSubscribers) => [
     'id',
     'user',
-    'displayName~rename(name)',
+    'name',
+    'displayName',
     'description',
+    'displayDescription',
     'longitude',
     'latitude',
     'zoom',
@@ -24,6 +26,7 @@ const baseFields = [
     'manage',
     'delete',
     'href',
+    withSubscribers && 'subscribers',
 ]
 
 const analysisFields = () => {
@@ -68,9 +71,12 @@ const analysisFields = () => {
     ]
 }
 
-export const mapFields = () => {
+export const mapFields = (withSubscribers = false) => {
     const fields = analysisFields()
-    return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`
+
+    return `${getBaseFields(withSubscribers).join(',')}, mapViews[${fields.join(
+        ','
+    )}]`
 }
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212

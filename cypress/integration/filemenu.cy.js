@@ -53,6 +53,14 @@ describe('File menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
+        cy.intercept({ method: 'GET', url: /\/maps\// }, (req) => {
+            const url = new URL(req.url, window.location.origin)
+            const fieldsParam = url.searchParams.get('fields')
+            expect(fieldsParam).not.to.include('subscribers')
+
+            req.continue()
+        })
+
         createMap(MAP_TITLE)
     })
 
@@ -65,12 +73,25 @@ describe('File menu', () => {
 
         createMap(title)
         const description = 'this is the explanation of the map'
+
+        let firstRequestChecked = false
+        cy.intercept({ method: 'GET', url: /\/maps\// }, (req) => {
+            if (!firstRequestChecked) {
+                const url = new URL(req.url, window.location.origin)
+                const fieldsParam = url.searchParams.get('fields')
+                expect(fieldsParam).to.include('subscribers')
+                firstRequestChecked = true
+            }
+            req.continue()
+        }).as('fetchMap')
         cy.intercept({
             method: 'PUT',
             url: /\/maps\//,
         }).as('renameMap')
         renameMap(renamedTitle, description)
         cy.wait('@renameMap').its('response.statusCode').should('eq', 200)
+        // Get visualization calls: original map and updated name and description after rename
+        cy.get('@fetchMap.all').should('have.length', 2)
 
         cy.getByDataTest('dhis2-uicore-alertbar')
             .contains('Rename successful')
