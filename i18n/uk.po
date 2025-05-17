@@ -1,17 +1,17 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
-# phil_dhis2, 2021
+# Philip Larsen Donnelly, 2021
 # Éva Tamási, 2022
-# Nadiia <semchuk@aph.org.ua>, 2022
+# Nadiia <semchuk@aph.org.ua>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2022\n"
-"Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
+"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2025\n"
+"Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -171,7 +171,7 @@ msgid "Group set is required"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "подія"
 
 msgid "tracked entity"
 msgstr ""

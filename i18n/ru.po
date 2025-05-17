@@ -782,7 +782,7 @@ msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr ""
+msgstr "Временная шкала"
 
 msgid "Split map views"
 msgstr ""
