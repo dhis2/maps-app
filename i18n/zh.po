@@ -2,13 +2,13 @@
 # Translators:
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
-# 晓东 林 <13981924470@126.com>, 2024
+# 晓东 林 <13981924470@126.com>, 2025
 # easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -29,6 +29,12 @@ msgstr "地图“{{- name}}”已保存。"
 
 msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "重命名成功"
 
 msgid "Calculation"
 msgstr "计算"
@@ -84,6 +90,9 @@ msgstr "详情"
 msgid "Yes"
 msgstr "是"
 
+msgid "No"
+msgstr "否"
+
 msgid "None"
 msgstr "无"
 
@@ -117,8 +126,8 @@ msgstr "事件 > 组织单位坐标"
 msgid "Event data item"
 msgstr "事件数据条目"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "所选值在列表中不可用：{{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr "按数据元定风格"
@@ -731,9 +740,6 @@ msgstr "纬度"
 msgid "Basemap could not be added: {{message}}"
 msgstr "无法添加底图：{{message}}"
 
-msgid "Not set"
-msgstr "没有设置"
-
 msgid "Could not retrieve event data"
 msgstr "无法检索事件数据"
 
@@ -745,6 +751,9 @@ msgstr "上级机构"
 
 msgid "No data"
 msgstr "无数据"
+
+msgid "Not set"
+msgstr "没有设置"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "无法检索跟踪的实体数据"
@@ -1498,9 +1507,6 @@ msgstr "真"
 msgid "false"
 msgstr "假"
 
-msgid "No"
-msgstr "否"
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "无法获取Google Earth Engine的授权令牌。"
 
@@ -1523,6 +1529,9 @@ msgstr "组织机构"
 
 msgid "Facility"
 msgstr "功能"
+
+msgid "Other"
+msgstr "其它"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"
