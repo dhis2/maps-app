@@ -3,7 +3,6 @@
 # ericbp <ericbarredap@gmail.com>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Alison Andrade <aandrade@ippfwhr.org>, 2021
-# Philip Larsen Donnelly, 2021
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # Prabhjot Singh, 2021
 # Carlos Tejo Alonso, 2022
@@ -14,13 +13,14 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Janeth Cruz, 2024
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
+# Philip Larsen Donnelly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,12 @@ msgstr "El mapa \"{{- name}}\" está guardado."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Error al guardar el mapa: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Nombre actualizado"
 
 msgid "Calculation"
 msgstr "Cálculo"
@@ -94,6 +100,9 @@ msgstr "Detalles"
 msgid "Yes"
 msgstr "Si"
 
+msgid "No"
+msgstr "No"
+
 msgid "None"
 msgstr "Ninguno"
 
@@ -128,8 +137,8 @@ msgstr "Evento > coordenada de la unidad org"
 msgid "Event data item"
 msgstr "Event data item"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Valor seleccionado no disponible en la lista: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -772,9 +781,6 @@ msgstr "Latitud"
 msgid "Basemap could not be added: {{message}}"
 msgstr "No se pudo agregar el mapa base: {{message}}"
 
-msgid "Not set"
-msgstr "No configurado"
-
 msgid "Could not retrieve event data"
 msgstr "No se pudo recuperar el dato del evento"
 
@@ -786,6 +792,9 @@ msgstr "Unidad padre"
 
 msgid "No data"
 msgstr "No hay datos"
+
+msgid "Not set"
+msgstr "No configurado"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -1562,9 +1571,6 @@ msgstr "verdadero"
 msgid "false"
 msgstr "falso"
 
-msgid "No"
-msgstr "No"
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 "No se puede obtener el token de autorización para Google Earth Engine."
@@ -1590,6 +1596,9 @@ msgstr "Unidades organizativas"
 
 msgid "Facility"
 msgstr "Establecimiento"
+
+msgid "Other"
+msgstr "Otro"
 
 msgid "Start date is invalid"
 msgstr "La fecha de inicio no es válida"
