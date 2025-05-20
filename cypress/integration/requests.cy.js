@@ -1,4 +1,7 @@
-import { assertMultipleInterceptedRequests } from '../support/util.js'
+import {
+    assertMultipleInterceptedRequests,
+    EXTENDED_TIMEOUT,
+} from '../support/util.js'
 
 const commonRequests = [
     // -- @dhis2/app-adapter - adapter/src/utils/useVerifyLatestUser.js
@@ -28,6 +31,7 @@ const commonRequests = [
     },
     { method: 'GET', url: '**/me/dashboard', alias: 'getMe2' },
     // --
+
     // -- @dhis2/ui - components/header-bar/src/logo-image.js
     {
         method: 'GET',
@@ -148,32 +152,37 @@ const idDependentRequests = (id) => [
     // --
 ]
 
-describe('Multiple API requests on same trigger', () => {
+describe('API requests check for all layer types', () => {
     it('load thematic layer', () => {
-        const id = 'zDP78aJU8nX'
+        // E2E - Thematic Layer [tFVpGPWj7MJ]
+        const id = 'tFVpGPWj7MJ'
         assertMultipleInterceptedRequests(
             [
                 ...commonRequests,
                 ...idDependentRequests(id),
 
-                // TODO Add AssociatedGeometries
-
                 // -- thematicLoader - src/loaders/thematicLoader.js
                 // -- @dhis2/d2 - src/analytics/Analytics.js
                 {
                     method: 'GET',
-                    url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:ImspTQPwCqd;LEVEL-2&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
+                    url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
                     alias: 'getAnalytics1',
                 },
                 {
                     method: 'GET',
-                    url: '**/analytics.json?dimension=ou:ImspTQPwCqd;LEVEL-2&dimension=dx:Uvn6LCg7dVU&filter=pe:THIS_YEAR&displayProperty=NAME&skipMeta=false&skipData=true&includeMetadataDetails=true',
+                    url: '**/analytics.json?dimension=ou:PMa2VCrupOd;LEVEL-4&dimension=dx:Uvn6LCg7dVU&filter=pe:THIS_YEAR&filter=J5jldMd8OHv:EYbopBOJWsW&displayProperty=NAME&skipMeta=false&skipData=true&includeMetadataDetails=true',
                     alias: 'getAnalytics2',
+                },
+                // -- @dhis2/d2 - src/geofeatures/GeoFeatures.js
+                {
+                    method: 'GET',
+                    url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME',
+                    alias: 'getGeoFeatures1',
                 },
                 {
                     method: 'GET',
-                    url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3AImspTQPwCqd%3BLEVEL-2&displayProperty=NAME',
-                    alias: 'getGeoFeatures',
+                    url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
+                    alias: 'getGeoFeatures2',
                 },
                 // -- engine.query
                 {
@@ -189,22 +198,50 @@ describe('Multiple API requests on same trigger', () => {
         )
     })
 
-    it('load events layer', () => {
-        const id = 'kNYqHu3e7o3'
+    it('load events layer w/ server cluster', () => {
+        // E2E - Events Layer - Server Cluster [VzwBJhyad9P]
+        const id = 'VzwBJhyad9P'
         assertMultipleInterceptedRequests(
             [
                 ...commonRequests,
                 ...idDependentRequests(id),
 
-                // TODO Add cluster - qR8xw5pvVIn (server)
-                // TODO Add data item style - iicHgLpIYlm
-
                 // -- eventLoader - src/loaders/eventLoader.js
                 // -- @dhis2/d2 - src/analytics/Analytics.js
                 {
                     method: 'GET',
-                    url: '**/analytics/events/query/VBqh0ynB2wv.json?dimension=ou:at6UHUQatSo&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&pageSize=100000',
-                    alias: 'getAnalytics',
+                    url: '**/analytics/events/count/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry',
+                    alias: 'getAnalytics1',
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-14.0625%2C8.407168163601076%2C-11.25%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
+                    alias: 'getAnalytics2',
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-14.0625%2C5.61598581915534%2C-11.25%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
+                    alias: 'getAnalytics3',
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-11.25%2C8.407168163601076%2C-8.4375%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
+                    alias: 'getAnalytics4',
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-11.25%2C5.61598581915534%2C-8.4375%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
+                    alias: 'getAnalytics5',
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-16.875%2C5.61598581915534%2C-14.0625%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
+                    alias: 'getAnalytics6',
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-16.875%2C8.407168163601076%2C-14.0625%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
+                    alias: 'getAnalytics7',
                 },
                 // -- engine.query (w/ loadEventCoordinateFieldName)
                 {
@@ -219,6 +256,14 @@ describe('Multiple API requests on same trigger', () => {
                     alias: 'getOptionSets',
                 },
                 // --
+
+                // -- @dhis2/maps-gl - src/layers/ServerCluster.js
+                {
+                    method: 'GET',
+                    url: '**/dhis-web-maps/fonts/Open%20Sans%20Bold/0-255.pbf',
+                    alias: 'getFonts',
+                },
+                // --
             ],
             () => {
                 cy.visit(`#/${id}`)
@@ -226,14 +271,111 @@ describe('Multiple API requests on same trigger', () => {
         )
     })
 
-    it.skip('load tracked entities layer', () => {
-        const id = 'pending'
+    it('load events layer w/ coordinate field & data download', () => {
+        // E2E - Events Layer - Coordinate Field [ugVIdvX2qIG]
+        const id = 'ugVIdvX2qIG'
         assertMultipleInterceptedRequests(
             [
                 ...commonRequests,
                 ...idDependentRequests(id),
 
-                // TODO All (needs to be created)
+                // -- eventLoader - src/loaders/eventLoader.js
+                // -- @dhis2/d2 - src/analytics/Analytics.js
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/query/VBqh0ynB2wv.json?dimension=ou:fwxkctgmffZ&dimension=qrur9Dvnyt5:LT:5&dimension=oZg33kd9taw&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=F3ogKBuviRA&pageSize=100000',
+                    alias: 'getAnalytics1',
+                },
+                // -- engine.query (w/ loadEventCoordinateFieldName)
+                {
+                    method: 'GET',
+                    url: '**/programStages/pTo4uMt3xur?fields=programStageDataElements%5BdisplayInReports%2CdataElement%5Bid%2Ccode%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
+                    alias: 'getProgramStages',
+                },
+                // -- engine.query
+                {
+                    method: 'GET',
+                    url: '**/optionSets/pC3N9N77UmT?fields=id,displayName~rename(name),options%5Bid%2Ccode%2CdisplayName~rename(name)%5D&paging=false',
+                    alias: 'getOptionSets',
+                },
+                // --
+
+                // -- src/components/layers/download/DataDownloadDialog.js
+                // -- @dhis2/d2 - src/analytics/Analytics.js
+                // TODO: Why filter is not applied?
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/query/VBqh0ynB2wv.json?dimension=ou:fwxkctgmffZ&dimension=qrur9Dvnyt5&dimension=oZg33kd9taw&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=F3ogKBuviRA&pageSize=100000',
+                    alias: 'getAnalytics2',
+                },
+                // --
+            ],
+            () => {
+                cy.visit(`#/${id}`, EXTENDED_TIMEOUT)
+                cy.get('[data-test="moremenubutton"]').first().click()
+                cy.get('[data-test="more-menu"]')
+                    .find('li')
+                    .contains('Download data')
+                    .click()
+                cy.get('[data-test="data-download-modal"]')
+                    .find('button')
+                    .contains('Download')
+                    .click()
+                cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
+            }
+        )
+    })
+
+    it('load tracked entities layer', () => {
+        // E2E - Tracked Entities Layer [VuYJ5LIgQo2]
+        const id = 'VuYJ5LIgQo2'
+        assertMultipleInterceptedRequests(
+            [
+                ...commonRequests,
+                ...idDependentRequests(id),
+
+                // -- trackedEntityLoader - src/loaders/trackedEntityLoader.js
+                // -- apiFetch - src/util/api.js
+                // -- @dhis2/d2 - src/api/Api.js
+                {
+                    method: 'GET',
+                    url: '**/tracker/trackedEntities?paging=false&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&program=M3xtLkYBlKI&updatedAfter=2000-01-01&updatedBefore=2025-05-19',
+                    alias: 'getTrackedEntities1',
+                },
+                {
+                    method: 'GET',
+                    url: '**/relationshipTypes/Mv8R4MPcNcX',
+                    alias: 'getRelationshipType',
+                },
+                {
+                    method: 'GET',
+                    url: '**/trackedEntityTypes/Zy2SEgA61ys?fields=displayName,featureType',
+                    alias: 'getTrackedEntityType1',
+                },
+                // -- teiRelationshipsParser - src/util/teiRelationshipsParser.js
+                // -- apiFetch - src/util/api.js
+                // -- @dhis2/d2 - src/api/Api.js
+                // TODO: Should this be only TEIs within the same timeframe?
+                {
+                    method: 'GET',
+                    url: '**/tracker/trackedEntities?paging=false&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
+                    alias: 'getTrackedEntities2',
+                },
+                // --
+
+                // -- TrackedEntityLayer - src/components/map/layers/TrackedEntityLayer.js
+                // -- engine.query (/w loadDisplayAttributes)
+                {
+                    method: 'GET',
+                    url: '**/trackedEntityTypes/We9I19a3vO1?fields=trackedEntityTypeAttributes%5BdisplayInList%2CtrackedEntityAttribute%5Bid%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
+                    alias: 'getTrackedEntityType2',
+                },
+                {
+                    method: 'GET',
+                    url: '**/programs/M3xtLkYBlKI?fields=programTrackedEntityAttributes%5BdisplayInList%2CtrackedEntityAttribute%5Bid%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
+                    alias: 'getProgram',
+                },
+                // --
             ],
             () => {
                 cy.visit(`#/${id}`)
@@ -242,19 +384,21 @@ describe('Multiple API requests on same trigger', () => {
     })
 
     it('load facilities layer', () => {
-        const id = 'g5Zjei47geR'
+        // E2E - Facilities Layer [kIAUN3dInEz]
+        const id = 'kIAUN3dInEz'
         assertMultipleInterceptedRequests(
             [
                 ...commonRequests,
                 ...idDependentRequests(id),
 
                 // -- facilityLoader - src/loaders/facilityLoader.js
-                // -- @dhis2/d2 - src/analytics/Analytics.js
+                // -- @dhis2/d2 - src/geofeatures/GeoFeatures.js
                 {
                     method: 'GET',
-                    url: '**/geoFeatures?includeGroupSets=true&ou=ou%3AVth0fbpFcsO%3BLEVEL-4&displayProperty=NAME',
+                    url: '**/geoFeatures?_=xE7jOejl9FI&includeGroupSets=true&ou=ou%3AVth0fbpFcsO%3BLEVEL-4&displayProperty=NAME',
                     alias: 'getGeoFeatures',
                 },
+                // --  engine.query
                 {
                     method: 'GET',
                     url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=organisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
@@ -276,28 +420,36 @@ describe('Multiple API requests on same trigger', () => {
         )
     })
 
-    it.only('load org units layer', () => {
-        const id = 'qIu9nspIPhN'
+    it('load org units layer', () => {
+        // E2E - Org Units Layer [e2fjmQMtJ0c]
+        const id = 'e2fjmQMtJ0c'
         assertMultipleInterceptedRequests(
             [
                 ...commonRequests,
                 ...idDependentRequests(id),
 
-                // TODO Add OUGSs
-                // TODO Add AssociatedGeometries
-
                 // -- orgUnitLoader - src/loaders/orgUnitLoader.js
                 // -- @dhis2/d2 - src/analytics/Analytics.js
                 {
                     method: 'GET',
-                    url: '**/geoFeatures?_=xE7jOejl9FI&includeGroupSets=false&ou=ou%3AImspTQPwCqd%3BLEVEL-3&displayProperty=NAME',
-                    alias: 'getGeoFeatures',
+                    url: '**/geoFeatures?_=xE7jOejl9FI&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
+                    alias: 'getGeoFeatures1',
+                },
+                {
+                    method: 'GET',
+                    url: '**/geoFeatures?_=xE7jOejl9FI&coordinateField=ihn1wb9eho8&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
+                    alias: 'getGeoFeatures2',
                 },
                 // -- engine.query
                 {
                     method: 'GET',
+                    url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=organisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
+                    alias: 'getOrganisationUnitGroupSet',
+                },
+                {
+                    method: 'GET',
                     url: '**/organisationUnitLevels?fields=id%2Clevel%2CdisplayName~rename(name)&paging=false',
-                    alias: 'getOrganisationUnitLevels',
+                    alias: 'getOrganisationUnitLevels2',
                 },
                 // --
             ],
@@ -308,21 +460,66 @@ describe('Multiple API requests on same trigger', () => {
     })
 
     it('load earth engine layer', () => {
-        const id = 'HVIYhS1C4ft'
+        // E2E - Earth Engine Layer [VebBMVbwxX5]
+        const id = 'VebBMVbwxX5'
         assertMultipleInterceptedRequests(
             [
                 ...commonRequests,
                 ...idDependentRequests(id),
 
-                // TODO Add OUs
-
                 // -- earthEngineLoader - src/loaders/earthEngineLoader.js
-                // -- @dhis2/maps-gl - src/layers/EarthEngine.js
+                // -- @dhis2/d2 - src/analytics/Analytics.js
+                {
+                    method: 'GET',
+                    url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3AbL4ooGhyHRQ%3BLEVEL-4&displayProperty=NAME',
+                    alias: 'getGeoFeatures1',
+                },
+                {
+                    method: 'GET',
+                    url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3AbL4ooGhyHRQ%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
+                    alias: 'getGeoFeatures2',
+                },
+                // --
+
+                // -- EarthEngineLayer - src/components/map/layers/earthEngine/EarthEngineLayer.js
+                // -- getAuthToken - src/util/earthEngine.js
+                // -- apiFetch - src/util/api.js
+                // -- @dhis2/d2 - src/api/Api.js
                 { method: 'GET', url: '**/tokens/google', alias: 'getTokens' },
+
+                // -- @dhis2/maps-gl - src/layers/EarthEngine.js
                 {
                     method: 'GET',
                     url: /earthengine-legacy\/maps\/[^/]+\/tiles\/\d+\/\d+\/\d+/,
                     alias: 'getGEETile',
+                },
+                // --
+            ],
+            () => {
+                cy.visit(`#/${id}`)
+            }
+        )
+    })
+
+    it('load geojson layer', () => {
+        // E2E - GeoJSON Layer [gmtrb6NVsDP]
+        const id = 'gmtrb6NVsDP'
+        assertMultipleInterceptedRequests(
+            [
+                ...commonRequests,
+                ...idDependentRequests(id),
+
+                // -- geoJsonUrlLoader - src/loaders/geoJsonUrlLoader.js
+                // -- engine.query
+                {
+                    method: 'GET',
+                    url: '**/externalMapLayers/PJnZoIJ9hh7?fields=id%2CdisplayName~rename(name)%2Cservice%2Curl%2Cattribution%2CmapService%2Clayers%2CimageFormat%2CmapLayerPosition%2ClegendSet%2ClegendSetUrl',
+                    alias: 'getExternalMapLayer1',
+                },
+                {
+                    method: 'GET',
+                    url: 'https://raw.githubusercontent.com/openlayers/openlayers/refs/heads/main/examples/data/geojson/point-samples.geojson',
+                    alias: 'getExternalMapLayer2',
                 },
                 // --
             ],
