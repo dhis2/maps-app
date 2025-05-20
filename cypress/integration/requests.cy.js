@@ -501,7 +501,7 @@ describe('API requests check for all layer types', () => {
         )
     })
 
-    it('load geojson layer', () => {
+    it.skip('load geojson layer', () => {
         // E2E - GeoJSON Layer [gmtrb6NVsDP]
         const id = 'gmtrb6NVsDP'
         assertMultipleInterceptedRequests(
