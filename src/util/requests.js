@@ -1,6 +1,30 @@
 import { getMigratedMapConfig } from './getMigratedMapConfig.js'
 import { mapFields } from './helpers.js'
 
+const MAP_QUERY = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: ({ withSubscribers }) => ({
+        fields: mapFields(withSubscribers),
+    }),
+}
+
+const MAP_NAME_DESC_QUERY = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: 'id,name,description,displayName,displayDescription',
+    },
+}
+
+const MAP_SUBSCRIBERS_QUERY = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: 'subscribers',
+    },
+}
+
 // API requests
 
 export const fetchMap = async ({
@@ -38,21 +62,20 @@ export const fetchMapNameDesc = async ({ id, engine }) =>
             throw new Error(`Could not load map with id "${id}"`)
         })
 
-const MAP_QUERY = {
-    resource: 'maps',
-    id: ({ id }) => id,
-    params: ({ withSubscribers }) => ({
-        fields: mapFields(withSubscribers),
-    }),
-}
-
-const MAP_NAME_DESC_QUERY = {
-    resource: 'maps',
-    id: ({ id }) => id,
-    params: {
-        fields: 'id,name,description,displayName,displayDescription',
-    },
-}
+export const fetchMapSubscribers = async ({ id, engine }) =>
+    engine
+        .query(
+            { map: MAP_SUBSCRIBERS_QUERY },
+            {
+                variables: {
+                    id,
+                },
+            }
+        )
+        .then((map) => map.map)
+        .catch(() => {
+            throw new Error(`Could not load map with id "${id}"`)
+        })
 
 export const EXTERNAL_MAP_LAYERS_QUERY = {
     resource: 'externalMapLayers',

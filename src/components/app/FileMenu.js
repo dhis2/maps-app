@@ -21,7 +21,11 @@ import {
 } from '../../constants/alerts.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import history from '../../util/history.js'
-import { fetchMap, fetchMapNameDesc } from '../../util/requests.js'
+import {
+    fetchMap,
+    fetchMapNameDesc,
+    fetchMapSubscribers,
+} from '../../util/requests.js'
 
 const updateMapMutation = {
     resource: 'maps',
@@ -106,13 +110,22 @@ const FileMenu = ({ onFileMenuAction }) => {
     })
 
     const onSave = async ({ name, description }) => {
+        const { subscribers } = await fetchMapSubscribers({
+            id: map.id,
+            engine,
+        })
+
         const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
         })
 
         const config = preparePayloadForSave({
-            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
+            visualization: {
+                ...cleanedMap,
+                subscribers,
+                type: VIS_TYPE_MAP,
+            },
             name,
             description,
         })
