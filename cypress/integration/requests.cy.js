@@ -313,7 +313,9 @@ describe('API requests check for all layer types', () => {
             ],
             () => {
                 cy.visit(`#/${id}`, EXTENDED_TIMEOUT)
-                cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
+                cy.get('[data-test="layercard"]')
+                    .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
+                    .should('exist')
                 cy.get('[data-test="moremenubutton"]').first().click()
                 cy.get('[data-test="more-menu"]')
                     .find('li')
@@ -349,7 +351,7 @@ describe('API requests check for all layer types', () => {
                 // TODO: Should this be only TEIs within the same timeframe?
                 {
                     method: 'GET',
-                    url: '**/tracker/trackedEntities?skipPaging=true&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
+                    url: '**/tracker/trackedEntities?skipPaging=true&fields=trackedEntity~rename(id),geometry,relationships&orgUnit=ImspTQPwCqd&ouMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
                     alias: 'getTrackedEntities2',
                 },
                 // --
