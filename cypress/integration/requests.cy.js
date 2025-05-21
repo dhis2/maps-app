@@ -1,6 +1,7 @@
 import {
     assertMultipleInterceptedRequests,
     EXTENDED_TIMEOUT,
+    getDhis2Version,
 } from '../support/util.js'
 
 const commonRequests = [
@@ -312,6 +313,7 @@ describe('API requests check for all layer types', () => {
             ],
             () => {
                 cy.visit(`#/${id}`, EXTENDED_TIMEOUT)
+                cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
                 cy.get('[data-test="moremenubutton"]').first().click()
                 cy.get('[data-test="more-menu"]')
                     .find('li')
@@ -321,7 +323,6 @@ describe('API requests check for all layer types', () => {
                     .find('button')
                     .contains('Download')
                     .click()
-                cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
             }
         )
     })
@@ -329,11 +330,32 @@ describe('API requests check for all layer types', () => {
     it('load tracked entities layer', () => {
         // E2E - Tracked Entities Layer [VuYJ5LIgQo2]
         const id = 'VuYJ5LIgQo2'
-        assertMultipleInterceptedRequests(
-            [
-                ...commonRequests,
-                ...idDependentRequests(id),
 
+        const serverVersion = getDhis2Version()
+        let layerSpecificRequests
+        if (serverVersion.minor === 40) {
+            layerSpecificRequests = [
+                // -- trackedEntityLoader - src/loaders/trackedEntityLoader.js
+                // -- apiFetch - src/util/api.js
+                // -- @dhis2/d2 - src/api/Api.js
+                {
+                    method: 'GET',
+                    url: '**/tracker/trackedEntities?skipPaging=true&fields=trackedEntity~rename(id),geometry,relationships&orgUnit=ImspTQPwCqd&ouMode=DESCENDANTS&program=M3xtLkYBlKI&updatedAfter=2000-01-01&updatedBefore=2025-05-19',
+                    alias: 'getTrackedEntities1',
+                },
+                // -- teiRelationshipsParser - src/util/teiRelationshipsParser.js
+                // -- apiFetch - src/util/api.js
+                // -- @dhis2/d2 - src/api/Api.js
+                // TODO: Should this be only TEIs within the same timeframe?
+                {
+                    method: 'GET',
+                    url: '**/tracker/trackedEntities?skipPaging=true&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
+                    alias: 'getTrackedEntities2',
+                },
+                // --
+            ]
+        } else {
+            layerSpecificRequests = [
                 // -- trackedEntityLoader - src/loaders/trackedEntityLoader.js
                 // -- apiFetch - src/util/api.js
                 // -- @dhis2/d2 - src/api/Api.js
@@ -341,16 +363,6 @@ describe('API requests check for all layer types', () => {
                     method: 'GET',
                     url: '**/tracker/trackedEntities?paging=false&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&program=M3xtLkYBlKI&updatedAfter=2000-01-01&updatedBefore=2025-05-19',
                     alias: 'getTrackedEntities1',
-                },
-                {
-                    method: 'GET',
-                    url: '**/relationshipTypes/Mv8R4MPcNcX',
-                    alias: 'getRelationshipType',
-                },
-                {
-                    method: 'GET',
-                    url: '**/trackedEntityTypes/Zy2SEgA61ys?fields=displayName,featureType',
-                    alias: 'getTrackedEntityType1',
                 },
                 // -- teiRelationshipsParser - src/util/teiRelationshipsParser.js
                 // -- apiFetch - src/util/api.js
@@ -360,6 +372,29 @@ describe('API requests check for all layer types', () => {
                     method: 'GET',
                     url: '**/tracker/trackedEntities?paging=false&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
                     alias: 'getTrackedEntities2',
+                },
+                // --
+            ]
+        }
+
+        assertMultipleInterceptedRequests(
+            [
+                ...commonRequests,
+                ...idDependentRequests(id),
+                ...layerSpecificRequests,
+
+                // -- trackedEntityLoader - src/loaders/trackedEntityLoader.js
+                // -- apiFetch - src/util/api.js
+                // -- @dhis2/d2 - src/api/Api.js
+                {
+                    method: 'GET',
+                    url: '**/relationshipTypes/Mv8R4MPcNcX',
+                    alias: 'getRelationshipType',
+                },
+                {
+                    method: 'GET',
+                    url: '**/trackedEntityTypes/Zy2SEgA61ys?fields=displayName,featureType',
+                    alias: 'getTrackedEntityType1',
                 },
                 // --
 
@@ -501,6 +536,7 @@ describe('API requests check for all layer types', () => {
         )
     })
 
+    // Test layer cannot be added to E2E DB (base version is 2.38 and GeoJSON layers were introduced later)
     it.skip('load geojson layer', () => {
         // E2E - GeoJSON Layer [gmtrb6NVsDP]
         const id = 'gmtrb6NVsDP'
