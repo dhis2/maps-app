@@ -74,20 +74,30 @@ describe('File menu', () => {
         createMap(title)
         const description = 'this is the explanation of the map'
 
-        let firstRequestChecked = false
-        cy.intercept({ method: 'GET', url: /\/maps\// }, (req) => {
-            if (!firstRequestChecked) {
-                const url = new URL(req.url, window.location.origin)
-                const fieldsParam = url.searchParams.get('fields')
+        let fetchMapCount = 0
+        cy.intercept({ method: 'GET', url: /\/maps\/[^/]+(\?.*)?$/ }, (req) => {
+            const url = new URL(req.url, window.location.origin)
+            const fieldsParam = url.searchParams.get('fields')
+
+            fetchMapCount += 1
+
+            if (fetchMapCount === 1) {
                 expect(fieldsParam).to.include('subscribers')
-                firstRequestChecked = true
+            } else if (fetchMapCount === 2) {
+                expect(fieldsParam).not.to.include('subscribers')
+                expect(fieldsParam).to.include('name')
+                expect(fieldsParam).to.include('description')
+                expect(fieldsParam).to.include('displayName')
+                expect(fieldsParam).to.include('displayDescription')
             }
+
             req.continue()
         }).as('fetchMap')
         cy.intercept({
             method: 'PUT',
             url: /\/maps\//,
         }).as('renameMap')
+
         renameMap(renamedTitle, description)
         cy.wait('@renameMap').its('response.statusCode').should('eq', 200)
         // Get visualization calls: original map and updated name and description after rename
@@ -146,7 +156,7 @@ describe('File menu', () => {
         deleteMap(renamedTitle)
     })
 
-    it.skip('save existing as new map', () => {
+    it('save existing as new map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -166,6 +176,7 @@ describe('File menu', () => {
 
         cy.intercept({ method: 'POST', url: 'maps' }, (req) => {
             expect(req.body.mapViews).to.have.length(2)
+            expect(req.body).not.to.have.property('subscribers')
             req.continue()
         }).as('saveAsNewMap')
 
@@ -181,7 +192,7 @@ describe('File menu', () => {
             .should('eq', 201)
     })
 
-    it.skip('save changes to existing map', () => {
+    it('save changes to existing map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -201,6 +212,24 @@ describe('File menu', () => {
             .parents('[data-test=layercard]')
             .should('be.visible')
 
+        // subscribe to the Map
+        cy.getByDataTest(
+            'dhis2-analytics-interpretationsanddetailstoggler'
+        ).click()
+        cy.intercept('POST', /\/api\/\d+\/maps\/\w+\/subscriber/, (req) => {
+            req.continue((res) => {
+                expect([200, 201]).to.include(res.statusCode)
+            })
+        }).as('post-subscriber')
+        cy.get('button').contains('Subscribe').should('be.visible')
+        cy.get('button').contains('Subscribe').click()
+        cy.wait('@post-subscriber')
+        cy.get('button').contains('Unsubscribe').should('be.visible')
+        cy.getByDataTest(
+            'dhis2-analytics-interpretationsanddetailstoggler'
+        ).click()
+        cy.contains('About this map').should('not.exist')
+
         cy.intercept(
             {
                 method: 'PUT',
@@ -215,10 +244,20 @@ describe('File menu', () => {
         saveExistingMap()
         cy.wait('@saveTheExistingMap')
             .its('response.statusCode')
-            .should('eq', 204)
+            .should('eq', 200)
+
+        // check user is still subscribed
+        cy.getByDataTest(
+            'dhis2-analytics-interpretationsanddetailstoggler'
+        ).click()
+        cy.get('button').contains('Unsubscribe').should('be.visible')
+        cy.getByDataTest(
+            'dhis2-analytics-interpretationsanddetailstoggler'
+        ).click()
+        cy.contains('About this map').should('not.exist')
     })
 
-    it.skip('save changes to existing map fails', () => {
+    it('save changes to existing map fails', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -241,7 +280,7 @@ describe('File menu', () => {
             .should('be.visible')
     })
 
-    it.skip('save as new map fails', () => {
+    it('save as new map fails', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -282,7 +321,7 @@ describe('File menu', () => {
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
     })
 
-    it.skip('deletes SAVEAS_MAP_TITLE map', () => {
+    it('deletes SAVEAS_MAP_TITLE map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
