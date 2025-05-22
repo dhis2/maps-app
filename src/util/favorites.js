@@ -103,6 +103,12 @@ export const cleanMapConfig = ({ config, defaultBasemapId }) => ({
     mapViews: config.mapViews.map(cleanLayerConfig),
 })
 
+export const getUnloadedCleanMapConfig = ({ config, defaultBasemapId }) => ({
+    ...omitBy(isNil, pick(validMapProperties, config)),
+    basemap: getBasemapString(config.basemap, defaultBasemapId),
+    mapViews: config.mapViews.map(getUnloadedCleanedLayerConfig),
+})
+
 const getBasemapString = (basemap, defaultBasemapId) => {
     if (!basemap) {
         return defaultBasemapId
@@ -118,6 +124,37 @@ const getBasemapString = (basemap, defaultBasemapId) => {
 const cleanLayerConfig = (layer) => ({
     ...models2objects(pick(validLayerProperties, layer)),
 })
+
+const getUnloadedCleanedLayerConfig = (layer) => ({
+    ...deleteUnwantedProperties(pick(validLayerProperties, layer)),
+})
+
+const deleteUnwantedProperties = (layer) => {
+    const { layer: layerType } = layer
+
+    if (layerType === EARTH_ENGINE_LAYER) {
+        delete layer.layerId
+        delete layer.datasetId
+        delete layer.style
+        delete layer.period
+        delete layer.filter
+        delete layer.filters
+        delete layer.periodType
+        delete layer.aggregationType
+        delete layer.band
+    } else if (layerType === TRACKED_ENTITY_LAYER) {
+        delete layer.relationshipType
+        delete layer.relatedPointColor
+        delete layer.relatedPointRadius
+        delete layer.relationshipLineColor
+        delete layer.relationshipOutsideProgram
+        delete layer.periodType
+    }
+
+    delete layer.id
+
+    return layer
+}
 
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = (layer) => {

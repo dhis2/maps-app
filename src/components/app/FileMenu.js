@@ -19,7 +19,10 @@ import {
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
-import { cleanMapConfig } from '../../util/favorites.js'
+import {
+    cleanMapConfig,
+    getUnloadedCleanMapConfig,
+} from '../../util/favorites.js'
 import history from '../../util/history.js'
 import {
     fetchMap,
@@ -150,7 +153,7 @@ const FileMenu = ({ onFileMenuAction }) => {
             withSubscribers: true,
         })
 
-        const cleanedMap = cleanMapConfig({
+        const cleanedMap = getUnloadedCleanMapConfig({
             config: latestMap,
             defaultBasemapId: defaultBasemap,
         })
