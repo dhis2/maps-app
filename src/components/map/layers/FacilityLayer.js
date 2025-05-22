@@ -13,6 +13,7 @@ import { getLabelStyle } from '../../../util/labels.js'
 import Popup from '../Popup.js'
 import Alert from './Alert.js'
 import Layer from './Layer.js'
+import styles from './styles/Popup.module.css'
 
 class FacilityLayer extends Layer {
     state = {
@@ -112,8 +113,8 @@ class FacilityLayer extends Layer {
                 orgUnitId={id}
                 onClose={this.onPopupClose}
             >
-                <div className="dhis2-map-popup-facility">
-                    <div className="title">{name}</div>
+                <div className={styles.facilityPopup}>
+                    <div className={styles.title}>{name}</div>
                     {this.state.isAssociatedGeometry && (
                         <div>{orgUnitFieldDisplayName}</div>
                     )}

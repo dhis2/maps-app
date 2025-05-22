@@ -25,6 +25,7 @@ import { poleOfInaccessibility } from '../MapApi.js'
 import PeriodName from '../PeriodName.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
+import styles from './styles/Popup.module.css'
 
 export const ThematicLayerContext = React.createContext()
 
@@ -202,8 +203,8 @@ class ThematicLayer extends Layer {
                 orgUnitId={id}
                 onClose={this.onPopupClose}
             >
-                <div className="dhis2-map-popup-thematic">
-                    <div className="title">{name}</div>
+                <div className={styles.thematicPopup}>
+                    <div className={styles.title}>{name}</div>
                     <div>{indicator}</div>
                     <div>{periodName}</div>
                     <div>
