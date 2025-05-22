@@ -94,7 +94,7 @@ const commonRequests = [
     {
         method: 'GET',
         url: '**/externalMapLayers?fields=id%2CdisplayName~rename(name)%2Cservice%2Curl%2Cattribution%2CmapService%2Clayers%2CimageFormat%2CmapLayerPosition%2ClegendSet%2ClegendSetUrl&paging=false',
-        alias: 'getExternalMapLayersexternalMapLayers',
+        alias: 'getExternalMapLayers',
     },
     {
         method: 'GET',
