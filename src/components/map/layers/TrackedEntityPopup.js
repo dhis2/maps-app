@@ -105,51 +105,51 @@ const TrackedEntityPopup = ({
         dataTrackedEntity?.trackedEntities || {}
 
     return (
-        <Popup coordinates={coordinates} onClose={onClose}>
-            <div className={styles.trackedEntityPopup}>
-                {errorTrackedEntity && (
-                    <table>
-                        <tbody>
+        <Popup
+            coordinates={coordinates}
+            onClose={onClose}
+            className={styles.trackedEntityPopup}
+        >
+            {errorTrackedEntity && (
+                <table>
+                    <tbody>
+                        <tr>
+                            {i18n.t('Could not retrieve tracked entity data')}
+                        </tr>
+                        <tr key="divider" className={styles.divider} />
+                    </tbody>
+                </table>
+            )}
+            {!fetchingTrackedEntity && !fetchingOrgUnit && (
+                <table>
+                    <tbody>
+                        {dataTrackedEntity?.trackedEntities &&
+                            activeDataSource == 'primary' &&
+                            getDataRows({
+                                displayAttributes,
+                                attributes,
+                            })}
+                        {type === 'Point' && (
                             <tr>
-                                {i18n.t(
-                                    'Could not retrieve tracked entity data'
-                                )}
+                                <th>{i18n.t('Tracked entity location')}</th>
+                                <td>{formatCoordinate(coord)}</td>
                             </tr>
-                            <tr key="divider" className={styles.divider} />
-                        </tbody>
-                    </table>
-                )}
-                {!fetchingTrackedEntity && !fetchingOrgUnit && (
-                    <table>
-                        <tbody>
-                            {dataTrackedEntity?.trackedEntities &&
-                                activeDataSource == 'primary' &&
-                                getDataRows({
-                                    displayAttributes,
-                                    attributes,
-                                })}
-                            {type === 'Point' && (
-                                <tr>
-                                    <th>{i18n.t('Tracked entity location')}</th>
-                                    <td>{formatCoordinate(coord)}</td>
-                                </tr>
-                            )}
-                            {orgUnit && (
-                                <tr>
-                                    <th>{i18n.t('Organisation unit')}</th>
-                                    <td>{orgUnit}</td>
-                                </tr>
-                            )}
-                            {updatedAt && (
-                                <tr>
-                                    <th>{i18n.t('Last updated')}</th>
-                                    <td>{formatDatetime(updatedAt)}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                )}
-            </div>
+                        )}
+                        {orgUnit && (
+                            <tr>
+                                <th>{i18n.t('Organisation unit')}</th>
+                                <td>{orgUnit}</td>
+                            </tr>
+                        )}
+                        {updatedAt && (
+                            <tr>
+                                <th>{i18n.t('Last updated')}</th>
+                                <td>{formatDatetime(updatedAt)}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            )}
         </Popup>
     )
 }

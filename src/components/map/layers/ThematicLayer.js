@@ -202,18 +202,17 @@ class ThematicLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
+                className={styles.thematicPopup}
             >
-                <div className={styles.thematicPopup}>
-                    <div className={styles.title}>{name}</div>
-                    <div>{indicator}</div>
-                    <div>{periodName}</div>
-                    <div>
-                        {i18n.t('Value')}: {value ?? i18n.t('No data')}
-                    </div>
-                    {aggregationType && aggregationType !== 'DEFAULT' && (
-                        <div>{aggregationType}</div>
-                    )}
+                <div className={styles.title}>{name}</div>
+                <div>{indicator}</div>
+                <div>{periodName}</div>
+                <div>
+                    {i18n.t('Value')}: {value ?? i18n.t('No data')}
                 </div>
+                {aggregationType && aggregationType !== 'DEFAULT' && (
+                    <div>{aggregationType}</div>
+                )}
             </Popup>
         )
     }

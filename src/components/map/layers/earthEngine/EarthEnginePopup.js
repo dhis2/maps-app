@@ -167,17 +167,20 @@ const EarthEnginePopup = (props) => {
     }
 
     return (
-        <Popup coordinates={coordinates} orgUnitId={id} onClose={onClose}>
-            <div className={styles.earthEnginePopup}>
-                <div className={styles.title}>{name}</div>
-                {table}
-                {isLoading && (
-                    <div className={styles.loading}>
-                        <CircularLoader small />
-                        {i18n.t('Loading data')}
-                    </div>
-                )}
-            </div>
+        <Popup
+            coordinates={coordinates}
+            orgUnitId={id}
+            onClose={onClose}
+            className={styles.earthEnginePopup}
+        >
+            <div className={styles.title}>{name}</div>
+            {table}
+            {isLoading && (
+                <div className={styles.loading}>
+                    <CircularLoader small />
+                    {i18n.t('Loading data')}
+                </div>
+            )}
         </Popup>
     )
 }

@@ -112,26 +112,25 @@ class FacilityLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
+                className={styles.facilityPopup}
             >
-                <div className={styles.facilityPopup}>
-                    <div className={styles.title}>{name}</div>
-                    {this.state.isAssociatedGeometry && (
-                        <div>{orgUnitFieldDisplayName}</div>
-                    )}
-                    {isPlainObject(dimensions) && (
-                        <div>
-                            {i18n.t('Groups')}:
-                            {Object.keys(dimensions)
-                                .map((id) => dimensions[id])
-                                .join(', ')}
-                        </div>
-                    )}
-                    {parentName && (
-                        <div>
-                            {i18n.t('Parent unit')}: {parentName}
-                        </div>
-                    )}
-                </div>
+                <div className={styles.title}>{name}</div>
+                {this.state.isAssociatedGeometry && (
+                    <div>{orgUnitFieldDisplayName}</div>
+                )}
+                {isPlainObject(dimensions) && (
+                    <div>
+                        {i18n.t('Groups')}:
+                        {Object.keys(dimensions)
+                            .map((id) => dimensions[id])
+                            .join(', ')}
+                    </div>
+                )}
+                {parentName && (
+                    <div>
+                        {i18n.t('Parent unit')}: {parentName}
+                    </div>
+                )}
             </Popup>
         )
     }

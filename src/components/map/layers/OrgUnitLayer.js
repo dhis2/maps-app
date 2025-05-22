@@ -74,20 +74,19 @@ export default class OrgUnitLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
+                className={styles.orgUnitPopup}
             >
-                <div className={styles.orgUnitPopup}>
-                    <div className={styles.title}>{name}</div>
-                    {level && (
-                        <div>
-                            {i18n.t('Level')}: {level}
-                        </div>
-                    )}
-                    {parentName && (
-                        <div>
-                            {i18n.t('Parent unit')}: {parentName}
-                        </div>
-                    )}
-                </div>
+                <div className={styles.title}>{name}</div>
+                {level && (
+                    <div>
+                        {i18n.t('Level')}: {level}
+                    </div>
+                )}
+                {parentName && (
+                    <div>
+                        {i18n.t('Parent unit')}: {parentName}
+                    </div>
+                )}
             </Popup>
         )
     }
