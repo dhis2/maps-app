@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
-"PO-Revision-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-05-22T16:39:16.063Z\n"
+"PO-Revision-Date: 2025-05-22T16:39:16.063Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -580,9 +580,6 @@ msgstr "Remove filter"
 
 msgid "Group set"
 msgstr "Group set"
-
-msgid "Failed to load organisation unit groups."
-msgstr "Failed to load organisation unit groups."
 
 msgid "Style by group set"
 msgstr "Style by group set"

@@ -10,6 +10,7 @@ import {
 } from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.js'
+import styles from './styles/Popup.module.css'
 
 const EVENTS_QUERY = {
     events: {
@@ -39,7 +40,7 @@ const getDataRows = ({ displayItems, dataValues }) => {
     })
 
     if (dataRows.length) {
-        dataRows.push(<tr key="divider" style={{ height: 5 }} />)
+        dataRows.push(<tr key="divider" className={styles.divider} />)
     }
 
     return dataRows
@@ -113,13 +114,13 @@ const EventPopup = ({
         <Popup
             coordinates={coordinates}
             onClose={onClose}
-            className="dhis2-map-popup-event"
+            className={styles.eventPopup}
         >
             {errorEvent && (
                 <table>
                     <tbody>
                         <tr>{i18n.t('Could not retrieve event data')}</tr>
-                        <tr key="divider" style={{ height: 5 }} />
+                        <tr key="divider" className={styles.divider} />
                     </tbody>
                 </table>
             )}

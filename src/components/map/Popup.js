@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import OrgUnitButton from '../orgunits/OrgUnitButton.js'
-import './styles/Popup.css'
+import './styles/MaplibrePopup.css'
 
 const Popup = (props, context) => {
     const { className = '', coordinates, orgUnitId, onClose, children } = props

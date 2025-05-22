@@ -1,0 +1,57 @@
+.eventPopup,
+.trackedEntityPopup,
+.thematicPopup,
+.facilityPopup,
+.orgUnitPopup,
+.earthEnginePopup {
+    max-height: 50vh;
+    overflow-y: auto;
+    min-width: 160px;
+    color: var(--colors-grey900);
+    padding-right: var(--spacers-dp8);
+}
+
+.eventPopup,
+.trackedEntityPopup {
+    min-height: 56px;
+}
+
+.eventPopup table,
+.trackedEntityPopup table {
+    width: 100%;
+    border-collapse: collapse;
+    line-height: var(--spacers-dp16);
+    table-layout: fixed;
+}
+
+.eventPopup th,
+.eventPopup td,
+.trackedEntityPopup th,
+.trackedEntityPopup td {
+    text-align: left;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: var(--spacers-dp8);
+}
+
+.divider {
+    height: 5px;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    margin-bottom: var(--spacers-dp16);
+}
+
+.loading div {
+    display: inline-block;
+    margin-right: var(--spacers-dp12);
+}
