@@ -335,7 +335,7 @@ describe('API requests check for all layer types', () => {
 
         const serverVersion = getDhis2Version()
         let layerSpecificRequests
-        if (serverVersion.minor === 40) {
+        if (serverVersion.minor === '40') {
             layerSpecificRequests = [
                 // -- trackedEntityLoader - src/loaders/trackedEntityLoader.js
                 // -- apiFetch - src/util/api.js
