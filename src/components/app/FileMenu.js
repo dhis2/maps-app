@@ -12,7 +12,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMapProps } from '../../actions/map.js'
-import { setOriginalMap } from '../../actions/originalMap.js'
 import {
     ALERT_CRITICAL,
     ALERT_WARNING,
@@ -20,9 +19,16 @@ import {
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
-import { sGetOriginalMap } from '../../reducers/originalMap.js'
-import { cleanMapConfig } from '../../util/favorites.js'
+import {
+    cleanMapConfig,
+    getUnloadedCleanMapConfig,
+} from '../../util/favorites.js'
 import history from '../../util/history.js'
+import {
+    fetchMap,
+    fetchMapNameDesc,
+    fetchMapSubscribers,
+} from '../../util/requests.js'
 
 const updateMapMutation = {
     resource: 'maps',
@@ -61,7 +67,6 @@ const getSaveFailureMessage = (message) =>
 
 const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
-    const originalMap = useSelector(sGetOriginalMap)
     const dispatch = useDispatch()
     const engine = useDataEngine()
     const { systemSettings, currentUser } = useCachedDataQuery()
@@ -108,16 +113,24 @@ const FileMenu = ({ onFileMenuAction }) => {
     })
 
     const onSave = async ({ name, description }) => {
-        const visualization = cleanMapConfig({
+        const { subscribers } = await fetchMapSubscribers({
+            id: map.id,
+            engine,
+        })
+
+        const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
         })
 
-        const config = await preparePayloadForSave({
-            visualization: { ...visualization, type: VIS_TYPE_MAP },
+        const config = preparePayloadForSave({
+            visualization: {
+                ...cleanedMap,
+                subscribers,
+                type: VIS_TYPE_MAP,
+            },
             name,
             description,
-            engine,
         })
 
         await putMap({
@@ -132,16 +145,23 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
-        const visualization = cleanMapConfig({
-            config: originalMap,
+        // fetch the original Map
+        const latestMap = await fetchMap({
+            id: map.id,
+            engine,
+            defaultBasemap,
+            withSubscribers: true,
+        })
+
+        const cleanedMap = getUnloadedCleanMapConfig({
+            config: latestMap,
             defaultBasemapId: defaultBasemap,
         })
 
-        const config = await preparePayloadForSave({
-            visualization: { ...visualization, type: VIS_TYPE_MAP },
+        const config = preparePayloadForSave({
+            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
             name,
             description,
-            engine,
         })
 
         await renameMap({
@@ -149,16 +169,12 @@ const FileMenu = ({ onFileMenuAction }) => {
             data: config,
         })
 
-        dispatch(
-            setMapProps({ name: config.name, description: config.description })
-        )
+        const { map: updatedMapNameDesc } = await fetchMapNameDesc({
+            id: map.id,
+            engine,
+        })
 
-        const updatedOriginalMap = {
-            ...originalMap,
-            name: config.name,
-            description: config.description,
-        }
-        dispatch(setOriginalMap(updatedOriginalMap))
+        dispatch(setMapProps(updatedMapNameDesc))
 
         renameSuccessAlert.show({ msg: i18n.t('Rename successful') })
 
@@ -166,17 +182,18 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const onSaveAs = async ({ name, description }) => {
-        const visualization = cleanMapConfig({
+        const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
         })
-        const data = preparePayloadForSaveAs({
-            visualization: { ...visualization, type: 'MAP' },
+
+        const config = preparePayloadForSaveAs({
+            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
             name,
             description,
         })
 
-        const res = await postMap({ data })
+        const res = await postMap({ data: config })
 
         if (res.status === 'OK') {
             saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
