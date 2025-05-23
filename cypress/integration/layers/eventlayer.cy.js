@@ -10,7 +10,7 @@ const programE2E = {
     name: 'E2E program',
     stage: 'Stage 1 - Repeatable',
     de: 'E2E - Yes/no',
-    options: ['Yes', 'No', 'Not set'],
+    options: ['Yes', 'No', 'Other'],
 }
 
 const programIP = {
@@ -27,16 +27,16 @@ const programGeowR = {
     name: 'E2E - GeoProgram - Points (with reg)',
     stage: 'E2E - Geo - Stage - Point',
     coordinates: [
-        { name: 'Event location', coords: '-11.499252 8.178188' },
-        { name: 'Enrollment location', coords: '-11.634007 8.011976' },
-        { name: 'Tracked entity location', coords: '-11.529636 8.040193' },
+        { name: 'Event location', coords: '-11.499252, 8.178188' },
+        { name: 'Enrollment location', coords: '-11.634007, 8.011976' },
+        { name: 'Tracked entity location', coords: '-11.529636, 8.040193' },
         {
             name: 'E2E - Geo - DE - Coordinate',
-            coords: '-11.602850 8.077288',
+            coords: '-11.602850, 8.077288',
         },
         {
             name: 'E2E - Geo - TEA - Coordinate',
-            coords: '-11.499982 8.049881',
+            coords: '-11.499982, 8.049881',
         },
     ],
     startDate: `2025-01-01`,
@@ -134,6 +134,42 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('opens an event popup', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programIP.startDate)
+            .typeEndDate(programIP.endDate)
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .selectTab('Org Units')
+            .unselectOu('Sierra Leone')
+            .openOu(programIP.ousAlt[0])
+            .openOu(programIP.ousAlt[1])
+            .selectOu(programIP.ousAlt[2])
+            .addToMap()
+
+        cy.wait(POPUP_WAIT)
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+
+        getMaps().click('center')
+        Layer.validatePopupContents([
+            'Event location',
+            '-13.188339, 8.405215',
+            'Organisation unit',
+            'Event time',
+            'Age in years',
+            'Mode of Discharge',
+        ])
+
+        Layer.validateCardTitle(programIP.name)
+        Layer.validateCardItems(['Event'])
+    })
+
     it('change coordinate field', () => {
         function testCoordinate(coordinates, reOpenDialog = true) {
             if (reOpenDialog) {
@@ -201,41 +237,5 @@ context('Event Layers', () => {
         testCoordinate(programGeowR.coordinates[2]) // Tracked entity location
         testCoordinate(programGeowR.coordinates[1]) // Enrollment location
         testCoordinate(programGeowR.coordinates[0]) // Event location
-    })
-
-    it('opens an event popup', () => {
-        Layer.openDialog('Events')
-            .selectProgram(programIP.name)
-            .validateStage(programIP.stage)
-            .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
-            .typeStartDate(programIP.startDate)
-            .typeEndDate(programIP.endDate)
-            .selectTab('Style')
-            .selectViewAllEvents()
-            .selectTab('Org Units')
-            .unselectOu('Sierra Leone')
-            .openOu(programIP.ousAlt[0])
-            .openOu(programIP.ousAlt[1])
-            .selectOu(programIP.ousAlt[2])
-            .addToMap()
-
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
-
-        getMaps().click('center')
-        Layer.validatePopupContents([
-            'Event location',
-            '-13.188339 8.405215',
-            'Organisation unit',
-            'Event time',
-            'Age in years',
-            'Mode of Discharge',
-        ])
-
-        Layer.validateCardTitle(programIP.name)
-        Layer.validateCardItems(['Event'])
     })
 })

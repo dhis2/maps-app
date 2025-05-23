@@ -3,7 +3,7 @@ import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('OrgUnitInfo', () => {
     it('opens the panel for an OrgUnit', () => {
-        cy.visit('/#/ZBjCfSaLSqD', EXTENDED_TIMEOUT)
+        cy.visit('/#/eDlFx0jTtV9', EXTENDED_TIMEOUT)
         cy.get('canvas').should('be.visible')
 
         cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting

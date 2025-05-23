@@ -14,3 +14,31 @@ export const getApiBaseUrl = () => {
 
     return baseUrl
 }
+
+export const getDhis2Version = () => {
+    const dhis2Version = Cypress.env('dhis2InstanceFullVersion') || ''
+
+    if (!dhis2Version) {
+        throw new Error(
+            "No 'dhis2InstanceFullVersion' found. Please make sure it was parsed properly from api/system/info'"
+        )
+    }
+
+    return dhis2Version
+}
+
+export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
+    intercepts.forEach(({ method, url, alias }) => {
+        cy.intercept({ method, url }).as(alias)
+    })
+
+    triggerFn()
+
+    intercepts.forEach(({ method, alias }) => {
+        cy.wait(`@${alias}`, EXTENDED_TIMEOUT)
+            .its('request')
+            .then((req) => {
+                expect(req.method).to.equal(method)
+            })
+    })
+}
