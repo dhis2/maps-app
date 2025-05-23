@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
-import { getAuthToken } from '../../../../util/earthEngine.js'
+import { getAuthTokenFn } from '../../../../util/earthEngine.js'
 import { filterData } from '../../../../util/filter.js'
 import MapLoadingMask from '../../MapLoadingMask.js'
 import Alert from '../Alert.js'
@@ -75,6 +75,7 @@ export default class EarthEngineLayer extends Layer {
             areaRadius,
             tileScale,
             unmaskAggregation,
+            engine,
         } = this.props
 
         const { map, isPlugin } = this.context
@@ -126,7 +127,7 @@ export default class EarthEngineLayer extends Layer {
             this.setState({ isLoading: true })
         }
 
-        config.getAuthToken = getAuthToken
+        config.getAuthToken = getAuthTokenFn(engine)
 
         try {
             this.layer = map.createLayer(config)
