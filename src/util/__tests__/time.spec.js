@@ -5,6 +5,7 @@ import {
     getStartEndDateError,
     getYear,
     getDateArray,
+    trimTime,
 } from '../time.js'
 
 const validDateString = '2018-12-17T12:00:00'
@@ -77,5 +78,11 @@ describe('time utils', () => {
 
     it('getDateArray returns array from date string', () => {
         expect(getDateArray('2018-12-17')).toEqual([2018, 11, 17])
+    })
+
+    it('trimTime should return the date part from an ISO date-time string', () => {
+        expect(trimTime('2025-04-30T15:30:45')).toBe('2025-04-30')
+        expect(trimTime('2025-04-30T15:30:45.123Z')).toBe('2025-04-30')
+        expect(trimTime('2020-01-01')).toBe('2020-01-01')
     })
 })
