@@ -28,13 +28,15 @@ export const getDhis2Version = () => {
 }
 
 export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
-    intercepts.forEach(({ method, url, alias }) => {
+    const filteredIntercepts = intercepts.filter(({ skip }) => !skip)
+
+    filteredIntercepts.forEach(({ method, url, alias }) => {
         cy.intercept({ method, url }).as(alias)
     })
 
     triggerFn()
 
-    intercepts.forEach(({ method, alias }) => {
+    filteredIntercepts.forEach(({ method, alias }) => {
         cy.wait(`@${alias}`, EXTENDED_TIMEOUT)
             .its('request')
             .then((req) => {
