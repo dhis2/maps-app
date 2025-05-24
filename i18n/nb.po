@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -27,6 +27,12 @@ msgstr ""
 
 msgid "Failed to save map: {{message}}"
 msgstr ""
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Navneendring vellykket"
 
 msgid "Calculation"
 msgstr ""
@@ -82,6 +88,9 @@ msgstr "Detaljer"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "No"
+msgstr "Nei"
+
 msgid "None"
 msgstr "Ingen"
 
@@ -115,7 +124,7 @@ msgstr ""
 msgid "Event data item"
 msgstr "Hendelsesdatapunkt"
 
-msgid "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
@@ -735,9 +744,6 @@ msgstr "Breddegrad"
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "Ikke satt"
-
 msgid "Could not retrieve event data"
 msgstr ""
 
@@ -749,6 +755,9 @@ msgstr "Overordnet enhet"
 
 msgid "No data"
 msgstr "Ingen data"
+
+msgid "Not set"
+msgstr "Ikke satt"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -1512,9 +1521,6 @@ msgstr "sant"
 msgid "false"
 msgstr "usant"
 
-msgid "No"
-msgstr "Nei"
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
@@ -1539,6 +1545,9 @@ msgstr "Org enhet"
 
 msgid "Facility"
 msgstr "Fasilitet"
+
+msgid "Other"
+msgstr "Annet"
 
 msgid "Start date is invalid"
 msgstr "Startdato er ugyldig"

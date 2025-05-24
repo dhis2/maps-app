@@ -31,7 +31,7 @@ msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
 
 msgid "Rename failed"
-msgstr ""
+msgstr "重命名失败"
 
 msgid "Rename successful"
 msgstr "重命名成功"
@@ -127,7 +127,7 @@ msgid "Event data item"
 msgstr "事件数据条目"
 
 msgid "Previously selected value not available in list: {{id}}"
-msgstr ""
+msgstr "之前选择的值在列表{{id}}中不可用："
 
 msgid "Style by data item"
 msgstr "按数据元定风格"
