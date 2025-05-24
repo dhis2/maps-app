@@ -1,17 +1,17 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
 # Em Le <em.hispvietnam@gmail.com>, 2025
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2025
+# Philip Larsen Donnelly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +30,12 @@ msgstr "Bản đồ \"{{- name}}\" đã được lưu."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Lưu bản đồ thất bại: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Đổi tên thành công"
 
 msgid "Calculation"
 msgstr "Tính toán"
@@ -85,6 +91,9 @@ msgstr "Chi tiết"
 msgid "Yes"
 msgstr "Có"
 
+msgid "No"
+msgstr "Không"
+
 msgid "None"
 msgstr "Không"
 
@@ -118,8 +127,8 @@ msgstr "Sự kiện > toạ độ đơn vị"
 msgid "Event data item"
 msgstr "Mục dữ liệu sự kiện"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Giá trị đã chọn không có trong danh sách: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -746,9 +755,6 @@ msgstr "Vĩ độ"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Không thể thêm bản đồ cơ sở: {{message}}"
 
-msgid "Not set"
-msgstr "Không cài"
-
 msgid "Could not retrieve event data"
 msgstr "Không thể truy xuất dữ liệu sự kiện"
 
@@ -760,6 +766,9 @@ msgstr "Đơn vị cha"
 
 msgid "No data"
 msgstr "Không có dữ liệu"
+
+msgid "Not set"
+msgstr "Không cài"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "Không thể truy xuất dữ liệu cá thể"
@@ -1541,9 +1550,6 @@ msgstr "Đúng"
 msgid "false"
 msgstr "Sai"
 
-msgid "No"
-msgstr "Không"
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
 
@@ -1568,6 +1574,9 @@ msgstr "Đơn vị"
 
 msgid "Facility"
 msgstr "Cơ sở"
+
+msgid "Other"
+msgstr "Khác"
 
 msgid "Start date is invalid"
 msgstr "Ngày bắt đầu không hợp lệ"
