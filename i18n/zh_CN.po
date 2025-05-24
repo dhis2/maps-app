@@ -41,7 +41,7 @@ msgid "Color"
 msgstr "颜色"
 
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 msgid "Data element group"
 msgstr "数据元组"
@@ -71,7 +71,7 @@ msgid "None"
 msgstr "无"
 
 msgid "Data item"
-msgstr ""
+msgstr "数据条目"
 
 msgid "Event data item"
 msgstr "事件数据条目"
@@ -484,7 +484,7 @@ msgid "Date"
 msgstr "日期"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "移除过滤器"
 
 msgid "Group set"
 msgstr "组集"
@@ -852,7 +852,7 @@ msgid "End date"
 msgstr "结束日期"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "离线不可用"
 
 msgid "Program indicator"
 msgstr "项目指标"
@@ -897,10 +897,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "平均 "
 
 msgid "Median"
-msgstr ""
+msgstr "中位数"
 
 msgid "Std dev"
 msgstr ""
@@ -909,7 +909,7 @@ msgid "OSM Light"
 msgstr "OSM轻量"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM详细图"
 
 msgid "Google Streets"
 msgstr "谷歌街道"
@@ -918,16 +918,16 @@ msgid "Google Hybrid"
 msgstr "谷歌杂合"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing道路"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing夜图"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing空间图"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Bing空间标示图"
 
 msgid "Population"
 msgstr "人口"
