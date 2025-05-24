@@ -3,23 +3,23 @@
 # Austin McGee <austin@dhis2.org>, 2019
 # Matthieu Pinard <matthieu@dhis2.org>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Edem Kossi <ekossi@hispwca.org>, 2020
 # Bram Piot <bram.piot@gmail.com>, 2021
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2022
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Elise Desailly, 2024
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
+# Edem Kossi <ekossi@hispwca.org>, 2025
+# Philip Larsen Donnelly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,6 +38,12 @@ msgstr ""
 
 msgid "Failed to save map: {{message}}"
 msgstr ""
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Renommer avec succès"
 
 msgid "Calculation"
 msgstr ""
@@ -93,6 +99,9 @@ msgstr "Détails"
 msgid "Yes"
 msgstr "Oui"
 
+msgid "No"
+msgstr "Non"
+
 msgid "None"
 msgstr "Aucun"
 
@@ -126,7 +135,7 @@ msgstr ""
 msgid "Event data item"
 msgstr "Elément de données évènement"
 
-msgid "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
@@ -763,9 +772,6 @@ msgstr "Latitude"
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "Non défini"
-
 msgid "Could not retrieve event data"
 msgstr ""
 
@@ -777,6 +783,9 @@ msgstr "Unité parente"
 
 msgid "No data"
 msgstr "Aucune donnée"
+
+msgid "Not set"
+msgstr "Non défini"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -1555,9 +1564,6 @@ msgstr "vrai"
 msgid "false"
 msgstr "faux"
 
-msgid "No"
-msgstr "Non"
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 "Impossible d'obtenir le token d'autorisation pour Google Earth Engine."
@@ -1583,6 +1589,9 @@ msgstr "OrgUnit"
 
 msgid "Facility"
 msgstr "Etablissement"
+
+msgid "Other"
+msgstr "Autre"
 
 msgid "Start date is invalid"
 msgstr "La date de début n'est pas valable"
