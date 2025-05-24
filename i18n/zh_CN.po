@@ -1,12 +1,12 @@
 # 
 # Translators:
-# 晓东 林 <13981924470@126.com>, 2024
+# 晓东 林 <13981924470@126.com>, 2025
 # easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -27,6 +27,12 @@ msgstr ""
 
 msgid "Failed to save map: {{message}}"
 msgstr ""
+
+msgid "Rename failed"
+msgstr "重命名失败"
+
+msgid "Rename successful"
+msgstr "重命名成功"
 
 msgid "Calculation"
 msgstr ""
@@ -50,7 +56,7 @@ msgid "Color"
 msgstr "颜色"
 
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 msgid "Name"
 msgstr "名称"
@@ -81,6 +87,9 @@ msgstr "详情"
 
 msgid "Yes"
 msgstr "Yes"
+
+msgid "No"
+msgstr "No"
 
 msgid "None"
 msgstr "没有"
@@ -115,10 +124,10 @@ msgstr ""
 msgid "Event data item"
 msgstr "事件数据条目"
 
-msgid "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
-msgid "Style by data element"
+msgid "Style by data item"
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
@@ -128,7 +137,7 @@ msgid "Add filter"
 msgstr "添加过滤器"
 
 msgid "Data item"
-msgstr ""
+msgstr "数据条目"
 
 msgid "one of"
 msgstr ""
@@ -573,7 +582,7 @@ msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "移除过滤器"
 
 msgid "Group set"
 msgstr "组集"
@@ -729,9 +738,6 @@ msgstr "维度"
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "没有设置"
-
 msgid "Could not retrieve event data"
 msgstr ""
 
@@ -743,6 +749,9 @@ msgstr "上级机构"
 
 msgid "No data"
 msgstr "无数据"
+
+msgid "Not set"
+msgstr "没有设置"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -925,7 +934,7 @@ msgstr "开始-结束日期"
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Remove the existing timeline to add a new one."
 msgstr ""
 
 msgid ""
@@ -973,7 +982,7 @@ msgid "End date"
 msgstr "结束日期"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "离线不可用"
 
 msgid "Program indicator"
 msgstr "项目指标"
@@ -1018,10 +1027,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "平均 "
 
 msgid "Median"
-msgstr ""
+msgstr "中位数"
 
 msgid "Std dev"
 msgstr ""
@@ -1030,19 +1039,19 @@ msgid "OSM Light"
 msgstr "OSM轻量"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM详细图"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing道路"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing夜图"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing空间图"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Bing空间标示图"
 
 msgid "Building footprints"
 msgstr ""
@@ -1496,9 +1505,6 @@ msgstr ""
 msgid "false"
 msgstr ""
 
-msgid "No"
-msgstr "No"
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "无法获取 Google 地球引擎的授权令牌。"
 
@@ -1521,6 +1527,9 @@ msgstr ""
 
 msgid "Facility"
 msgstr ""
+
+msgid "Other"
+msgstr "其它"
 
 msgid "Start date is invalid"
 msgstr ""
