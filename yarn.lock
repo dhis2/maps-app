@@ -2036,10 +2036,9 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^27.0.0":
-  version "27.0.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-27.0.0.tgz#618ee9765750c3cfaae6796020670d5dc525d1d7"
-  integrity sha512-oNoksfCgjGRyWVqOAZkNxRLeqxkufrapWUPuMIkjd/DsfY3UjI2LINenlqFRwxfcIyFmHvE6oR7KjPuUvOx3eQ==
+"@dhis2/analytics@git+https://github.com/d2-ci/analytics.git#1d503e539af811a4a9eb969fff1e59f6e1633da2":
+  version "28.0.1"
+  resolved "git+https://github.com/d2-ci/analytics.git#1d503e539af811a4a9eb969fff1e59f6e1633da2"
   dependencies:
     "@dhis2/multi-calendar-dates" "^1.2.2"
     "@dnd-kit/core" "^6.0.7"
@@ -2050,7 +2049,7 @@
     crypto-js "^4.2.0"
     d2-utilizr "^0.2.16"
     d3-color "^1.2.3"
-    highcharts "^10.3.3"
+    highcharts "^12.1.2"
     lodash "^4.17.21"
     markdown-it "^13.0.1"
     mathjs "^9.4.2"
@@ -9677,10 +9676,10 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-highcharts@^10.3.3:
-  version "10.3.3"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.3.3.tgz#b8acca24f2d4b1f2f726540734166e59e07b35c4"
-  integrity sha512-r7wgUPQI9tr3jFDn3XT36qsNwEIZYcfgz4mkKEA6E4nn5p86y+u1EZjazIG4TRkl5/gmGRtkBUiZW81g029RIw==
+highcharts@^12.1.2:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-12.2.0.tgz#264633af7e815f0f6291c0d570b1da12e323e9de"
+  integrity sha512-UUN+osTP3aeGc4KmoMuWAjzpKif8GYHFozzYI4O8h1ILGof25M/ZGBpXLvgqf1z0LVh7N9eG7i0HnzMfjcR4nA==
 
 history@^5.3.0:
   version "5.3.0"
