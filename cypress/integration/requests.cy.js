@@ -357,8 +357,8 @@ describe('API requests check for all layer types', () => {
                     method: 'GET',
                     old: '**/programStages/pTo4uMt3xur?fields=programStageDataElements%5BdisplayInReports%2CdataElement%5Bid%2Ccode%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
                     url: encoder(
-                        '**/programStages/pTo4uMt3xur?fields=programStageDataElements[displayInReports%2CdataElement[id%2Ccode%2CdisplayShortName~rename(name)%2CoptionSet%2CvalueType]]&paging=false'
-                    ), // !CHANGE: displayName changed to displayShortName
+                        '**/programStages/pTo4uMt3xur?fields=programStageDataElements[displayInReports%2CdataElement[id%2Ccode%2CdisplayName~rename(name)%2CoptionSet%2CvalueType]]&paging=false'
+                    ), // !CHANGE: & !CHECK:FIXED displayName changed to displayShortName
                     alias: 'getProgramStages',
                 },
                 // -- engine.query
@@ -407,7 +407,6 @@ describe('API requests check for all layer types', () => {
         const serverVersion = getDhis2Version()
         let layerSpecificRequests
         if (serverVersion.minor === '40') {
-            // !CHANGE: Error
             layerSpecificRequests = [
                 // -- trackedEntityLoader - src/loaders/trackedEntityLoader.js
                 // -- apiFetch - src/util/api.js
@@ -425,7 +424,7 @@ describe('API requests check for all layer types', () => {
                 {
                     method: 'GET',
                     old: '**/tracker/trackedEntities?fields=trackedEntity~rename(id),geometry,relationships&orgUnit=ImspTQPwCqd&ouMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
-                    url: '**/tracker/trackedEntities?skipPaging=true&fields=trackedEntity~rename(id),geometry,relationships&orgUnit=ImspTQPwCqd&ouMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys&skipPaging=true', // !CHANGE: skipPaging=true moved to the end
+                    url: '**/tracker/trackedEntities?fields=trackedEntity~rename(id),geometry,relationships&orgUnit=ImspTQPwCqd&ouMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys&skipPaging=true', // !CHANGE: skipPaging=true moved to the end
                     alias: 'getTrackedEntities2',
                 },
                 // --
@@ -571,7 +570,7 @@ describe('API requests check for all layer types', () => {
                 {
                     method: 'GET',
                     old: '**/organisationUnitLevels?fields=id%2Clevel%2CdisplayName~rename(name)&paging=false',
-                    url: '**/organisationUnitLevels?fields=id%2Clevel%2CdisplayName~rename(displayName)%2Cname&paging=false', // !CHANGE: displayName~rename(name) changed to displayName~rename(displayName)%2Cname
+                    url: '**/organisationUnitLevels?fields=id%2Clevel%2CdisplayName~rename(displayName)%2Cname&paging=false', // !CHANGE: & !CHECK:FIXED displayName~rename(name) changed to displayName~rename(displayName)%2Cname
                     alias: 'getOrganisationUnitLevels2',
                 },
                 // --
@@ -601,8 +600,8 @@ describe('API requests check for all layer types', () => {
                 {
                     method: 'GET',
                     old: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3AbL4ooGhyHRQ%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
-                    url: '**/geoFeatures?ou=ou%3AbL4ooGhyHRQ%3BLEVEL-4&displayProperty=name&coordinateField=ihn1wb9eho8',
-                    alias: 'getGeoFeatures2', // !CHANGE: _=xE7jOejl9FI missing, NAME changed to name
+                    url: '**/geoFeatures?ou=ou%3AbL4ooGhyHRQ%3BLEVEL-4&displayProperty=name&coordinateField=ihn1wb9eho8&_=xE7jOejl9FI',
+                    alias: 'getGeoFeatures2', // !CHANGE: & !CHECK:FIXED _=xE7jOejl9FI moved to the end, NAME changed to name
                 },
                 // --
 
