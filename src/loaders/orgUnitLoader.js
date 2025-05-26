@@ -116,7 +116,7 @@ const orgUnitLoader = async ({
         orgUnitLevels: orgUnitLevels.reduce(
             (obj, item) => ({
                 ...obj,
-                [item.level]: item.name,
+                [item.level]: item.displayName, // orgUnitLevels do not have shortNames
             }),
             {}
         ),
