@@ -1,7 +1,7 @@
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
 const TEI_40_QUERY = {
-    resource: 'trackedEntityInstances',
+    resource: 'tracker/trackedEntities',
     params: ({
         fields,
         orgUnits,

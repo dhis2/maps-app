@@ -567,19 +567,17 @@ describe('getDataWithRelationships', () => {
     it.each([
         {
             trackerRootProp: 'instances',
-            resource: 'trackedEntityInstances',
             versionString: '2.40',
             isVersion40: true,
         },
         {
             trackerRootProp: 'trackedEntities',
-            resource: 'tracker/trackedEntities',
             versionString: '2.41',
             isVersion40: false,
         },
     ])(
         '$versionString should use the tracker api root property "$trackerRootProp" and resource "$resource"',
-        async ({ isVersion40, trackerRootProp, resource }) => {
+        async ({ isVersion40, trackerRootProp }) => {
             const relationshipType = {
                 id: 'relationshipTypeId1',
                 fromConstraint: {
@@ -655,7 +653,7 @@ describe('getDataWithRelationships', () => {
             expect(mockEngine.query).toHaveBeenCalledWith(
                 {
                     tei: {
-                        resource,
+                        resource: 'tracker/trackedEntities',
                         params: expect.anything(),
                     },
                 },
