@@ -51,7 +51,7 @@ const eventLoader = async ({
     loadExtended,
 }) => {
     const config = { ...layerConfig }
-    const nameProperty =
+    const displayNameProp =
         keyAnalysisDisplayProperty === 'name'
             ? 'displayName'
             : 'displayShortName'
@@ -60,7 +60,7 @@ const eventLoader = async ({
         await loadEventLayer({
             config,
             engine,
-            nameProperty,
+            displayNameProp,
             analyticsEngine,
             loadExtended,
         })
@@ -87,7 +87,7 @@ const eventLoader = async ({
 const loadEventLayer = async ({
     config,
     engine,
-    nameProperty,
+    displayNameProp,
     analyticsEngine,
     loadExtended,
 }) => {
@@ -114,7 +114,7 @@ const loadEventLayer = async ({
 
     const analyticsRequest = await getAnalyticsRequest(config, {
         analyticsEngine,
-        nameProperty,
+        nameProperty: displayNameProp,
         engine,
     })
     let alert
@@ -197,7 +197,7 @@ const loadEventLayer = async ({
             programStage,
             eventCoordinateField,
             engine,
-            nameProperty,
+            displayNameProp,
         })
         if (eventCoordinateFieldName) {
             config.legend.coordinateFields = [eventCoordinateFieldName]

@@ -297,7 +297,7 @@ class EventLayer extends Layer {
             programStage,
             eventCoordinateField,
             engine,
-            nameProperty,
+            displayNameProp,
         })
 
         this.setState({ displayItems, eventCoordinateFieldName })
