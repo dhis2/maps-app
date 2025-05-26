@@ -61,6 +61,7 @@ const earthEngineLoader = async ({
                         ou,
                         keyAnalysisDisplayProperty,
                         coordinateField: coordinateField.id,
+                        userId,
                     },
                 })
 
