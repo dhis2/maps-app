@@ -23,6 +23,7 @@ import {
     cleanMapConfig,
     getUnloadedCleanMapConfig,
 } from '../../util/favorites.js'
+import { addOrgUnitPaths } from '../../util/helpers.js'
 import history from '../../util/history.js'
 import {
     fetchMap,
@@ -146,12 +147,17 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onRename = async ({ name, description }) => {
         // fetch the original Map
-        const latestMap = await fetchMap({
+        const fetchedMap = await fetchMap({
             id: map.id,
             engine,
             defaultBasemap,
             withSubscribers: true,
         })
+
+        const latestMap = {
+            ...fetchedMap,
+            mapViews: addOrgUnitPaths(fetchedMap.mapViews),
+        }
 
         const cleanedMap = getUnloadedCleanMapConfig({
             config: latestMap,

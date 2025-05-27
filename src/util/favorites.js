@@ -132,6 +132,38 @@ const getUnloadedCleanedLayerConfig = (layer) => ({
 const deleteUnwantedProperties = (layer) => {
     const { layer: layerType } = layer
 
+    Object.keys(layer).forEach((key) => {
+        layer[key] = models.includes(key)
+            ? pick(validModelProperties, layer[key])
+            : layer[key]
+    })
+
+    if (layer.rows) {
+        layer.rows = layer.rows.map(cleanDimension)
+    }
+
+    // Color scale needs to be stored as a string in analytical object
+    if (Array.isArray(layer.colorScale)) {
+        layer.colorScale = layer.colorScale.join(',')
+    }
+
+    if (layer.styleDataItem) {
+        // Remove legendSet from styleDataItem as this is stored in a separate property
+        // Remove names as these can be translated and will be fetched on layer load
+        layer.styleDataItem = omit(
+            ['legendSet', 'name', 'optionSet.name'],
+            layer.styleDataItem
+        )
+
+        if (layer.styleDataItem.optionSet) {
+            // Remove name and code from options as these are not persistent
+            layer.styleDataItem.optionSet.options.forEach((option) => {
+                delete option.name
+                delete option.code
+            })
+        }
+    }
+
     if (layerType === EARTH_ENGINE_LAYER) {
         delete layer.layerId
         delete layer.datasetId
@@ -168,6 +200,10 @@ const models2objects = (layer) => {
 
     if (layer.rows) {
         layer.rows = layer.rows.map(cleanDimension)
+    }
+
+    if (isObject(layer.config)) {
+        layer.config = JSON.stringify(layer.config) // External overlay
     }
 
     if (layerType === EARTH_ENGINE_LAYER) {
