@@ -70,11 +70,19 @@ export const assertIntercepts = ({
     commonTriggerFn,
     commonAssertFn,
     timeout = EXTENDED_TIMEOUT,
-    perInterceptTrigger = false
+    perInterceptTrigger = false,
 }) => {
     const filtered = intercepts.filter(({ skip }) => !skip)
 
-    const setupIntercept = ({ method, url, alias, statusCode, body, forceNetworkError, onIntercept }) => {
+    const setupIntercept = ({
+        method,
+        url,
+        alias,
+        statusCode,
+        body,
+        forceNetworkError,
+        onIntercept,
+    }) => {
         cy.intercept({ method, url }, (req) => {
             if (typeof onIntercept === 'function') {
                 onIntercept(req)
@@ -94,7 +102,9 @@ export const assertIntercepts = ({
             expect(interception.request.method).to.equal(method)
             const fn = assertFn || commonAssertFn
             if (typeof fn !== 'function') {
-                throw new Error(`Missing assertFn for intercept alias: ${alias}`)
+                throw new Error(
+                    `Missing assertFn for intercept alias: ${alias}`
+                )
             }
             fn({ alias })
         })
@@ -109,13 +119,19 @@ export const assertIntercepts = ({
             if (index > 0) {
                 const prevIntercept = filtered[index - 1]
                 // Reset: no mocking, no destroying
-                setupIntercept({ method: prevIntercept.method, url: prevIntercept.url, alias: prevIntercept.alias })
+                setupIntercept({
+                    method: prevIntercept.method,
+                    url: prevIntercept.url,
+                    alias: prevIntercept.alias,
+                })
             }
             setupIntercept(intercept)
 
             const fn = triggerFn || commonTriggerFn
             if (typeof fn !== 'function') {
-                throw new Error(`Missing triggerFn for intercept alias: ${alias}`)
+                throw new Error(
+                    `Missing triggerFn for intercept alias: ${alias}`
+                )
             }
             fn({ alias })
 
