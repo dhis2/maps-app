@@ -43,6 +43,21 @@ export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
     })
 }
 
+const getHttpStatusText = (statusCode) => {
+    const statusTexts = {
+        400: 'Bad Request',
+        401: 'Unauthorized',
+        403: 'Forbidden',
+        404: 'Not Found',
+        409: 'Conflict',
+        422: 'Unprocessable Entity',
+        500: 'Internal Server Error',
+        502: 'Bad Gateway',
+        503: 'Service Unavailable',
+    }
+    return statusTexts[statusCode] || 'Error'
+}
+
 /**
  * Utility to set up multiple intercepts with optional custom responses,
  * trigger requests, and perform assertions.
@@ -58,6 +73,7 @@ export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
  *   @param {boolean} [intercepts[].forceNoCache] - Force server to treat request as fresh.
  *   @param {boolean} [intercepts[].forceNetworkError] - Simulate network error.
  *   @param {boolean} [intercepts[].forceNetworkErrorWithDelay] - Simulate network error with 1000ms delay.
+ *   @param {number} [intercepts[].forceError] - Simulate an error response with the given status code.
  *   @param {function} [intercepts[].onIntercept] - Optional callback to directly manipulate the request object.
  *   @param {function} [intercepts[].triggerFn] - Optional trigger function for this intercept.
  *   @param {function} [intercepts[].assertFn] - Optional assert function for this intercept.
@@ -88,6 +104,7 @@ export const assertIntercepts = ({
         forceNoCache,
         forceNetworkError,
         forceNetworkErrorWithDelay,
+        forceError,
         onIntercept,
     }) => {
         cy.intercept({ method, url }, (req) => {
@@ -101,10 +118,25 @@ export const assertIntercepts = ({
             }
             if (forceNetworkError || forceNetworkErrorWithDelay) {
                 req.destroy()
-            } else if (statusCode !== undefined || body !== undefined) {
+            } else if (
+                forceError ||
+                statusCode !== undefined ||
+                body !== undefined
+            ) {
+                const responseStatus = forceError || statusCode
+                let responseBody = body
+                if (forceError && body === undefined) {
+                    responseBody = {
+                        httpStatus: getHttpStatusText(forceError),
+                        httpStatusCode: forceError,
+                        status: 'ERROR',
+                        message: `Simulated error with status code ${forceError}`,
+                        errorCode: `E${forceError}`,
+                    }
+                }
                 req.reply({
-                    statusCode,
-                    body,
+                    statusCode: responseStatus,
+                    body: responseBody,
                     delay: forceNetworkErrorWithDelay ? 1000 : 0,
                 })
             } else {
