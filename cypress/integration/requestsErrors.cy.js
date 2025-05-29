@@ -83,12 +83,12 @@ describe('Error handling check for all layer types', () => {
 
         const commonAssertFn = () => {
             cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
-                .contains('Failed to load layer')
                 .should('be.visible')
+                .contains('Failed to load layer')
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('Error')
                 .should('be.visible')
+                .contains('Error')
         }
 
         cy.visit(`#/${id}`)
