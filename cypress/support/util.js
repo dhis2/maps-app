@@ -57,6 +57,7 @@ export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
  *   @param {any} [intercepts[].body] - Mock response body.
  *   @param {boolean} [intercepts[].forceNoCache] - Force server to treat request as fresh.
  *   @param {boolean} [intercepts[].forceNetworkError] - Simulate network error.
+ *   @param {boolean} [intercepts[].forceNetworkErrorWithDelay] - Simulate network error with 1000ms delay.
  *   @param {function} [intercepts[].onIntercept] - Optional callback to directly manipulate the request object.
  *   @param {function} [intercepts[].triggerFn] - Optional trigger function for this intercept.
  *   @param {function} [intercepts[].assertFn] - Optional assert function for this intercept.
@@ -86,6 +87,7 @@ export const assertIntercepts = ({
         body,
         forceNoCache,
         forceNetworkError,
+        forceNetworkErrorWithDelay,
         onIntercept,
     }) => {
         cy.intercept({ method, url }, (req) => {
@@ -97,10 +99,14 @@ export const assertIntercepts = ({
             if (typeof onIntercept === 'function') {
                 onIntercept(req)
             }
-            if (forceNetworkError) {
+            if (forceNetworkError || forceNetworkErrorWithDelay) {
                 req.destroy()
             } else if (statusCode !== undefined || body !== undefined) {
-                req.reply({ statusCode, body })
+                req.reply({
+                    statusCode,
+                    body,
+                    delay: forceNetworkErrorWithDelay ? 1000 : 0,
+                })
             } else {
                 req.continue()
             }

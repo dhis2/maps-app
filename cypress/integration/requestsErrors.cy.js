@@ -99,13 +99,13 @@ describe('Error handling check for all layer types', () => {
                     method: 'GET',
                     url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
                     alias: 'getAnalytics1',
-                    forceNetworkError: true,
+                    forceNetworkErrorWithDelay: true,
                 },
                 {
                     method: 'GET',
                     url: '**/analytics.json?dimension=ou:PMa2VCrupOd;LEVEL-4&dimension=dx:Uvn6LCg7dVU&filter=pe:THIS_YEAR&filter=J5jldMd8OHv:EYbopBOJWsW&displayProperty=NAME&skipMeta=false&skipData=true&includeMetadataDetails=true',
                     alias: 'getAnalytics2',
-                    forceNetworkError: true,
+                    forceNetworkErrorWithDelay: true,
                 },
                 {
                     method: 'GET',
