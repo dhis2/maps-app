@@ -55,6 +55,7 @@ export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
  *   @param {string} intercepts[].alias - Alias for the intercept (required).
  *   @param {number} [intercepts[].statusCode] - Mock status code.
  *   @param {any} [intercepts[].body] - Mock response body.
+ *   @param {boolean} [intercepts[].forceNoCache] - Force server to treat request as fresh.
  *   @param {boolean} [intercepts[].forceNetworkError] - Simulate network error.
  *   @param {function} [intercepts[].onIntercept] - Optional callback to directly manipulate the request object.
  *   @param {function} [intercepts[].triggerFn] - Optional trigger function for this intercept.
@@ -73,6 +74,9 @@ export const assertIntercepts = ({
     perInterceptTrigger = false,
 }) => {
     const filtered = intercepts.filter(({ skip }) => !skip)
+    if (filtered.length === 0) {
+        return
+    }
 
     const setupIntercept = ({
         method,
@@ -80,10 +84,16 @@ export const assertIntercepts = ({
         alias,
         statusCode,
         body,
+        forceNoCache,
         forceNetworkError,
         onIntercept,
     }) => {
         cy.intercept({ method, url }, (req) => {
+            if (forceNoCache) {
+                delete req.headers['if-none-match']
+                delete req.headers['if-modified-since']
+                req.headers['cache-control'] = 'no-cache'
+            }
             if (typeof onIntercept === 'function') {
                 onIntercept(req)
             }
@@ -116,9 +126,9 @@ export const assertIntercepts = ({
 
             cy.log(`Intercepting: ${alias}`)
 
+            // Reset previous: no mocking, no destroying
             if (index > 0) {
                 const prevIntercept = filtered[index - 1]
-                // Reset: no mocking, no destroying
                 setupIntercept({
                     method: prevIntercept.method,
                     url: prevIntercept.url,
@@ -137,6 +147,14 @@ export const assertIntercepts = ({
 
             waitAndAssert(intercept)
         })
+
+        // Reset last: no mocking, no destroying
+        const lastIntercept = filtered[filtered.length - 1] //.at(-1)
+        setupIntercept({
+            method: lastIntercept.method,
+            url: lastIntercept.url,
+            alias: lastIntercept.alias,
+        })
     } else {
         filtered.forEach(setupIntercept)
 
@@ -149,8 +167,8 @@ export const assertIntercepts = ({
 
         filtered.forEach(waitAndAssert)
 
+        // Reset all: no mocking, no destroying
         filtered.forEach(({ method, url, alias }) => {
-            // Reset: no mocking, no destroying
             setupIntercept({ method, url, alias })
         })
     }
