@@ -31,6 +31,7 @@ describe('API requests check for all layer types', () => {
         const id = 'tFVpGPWj7MJ'
 
         const commonAssertFn = () => {
+            cy.wait(50000) // eslint-disable-line cypress/no-unnecessary-waiting
             cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
                 .contains('Failed to load layer')
                 .should('be.visible')
