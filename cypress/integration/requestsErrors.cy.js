@@ -8,7 +8,7 @@ const commonTriggerFn = () => {
     cy.reload(true)
 }
 
-describe('API requests check for all layer types', () => {
+describe('Error handling check for all layer types', () => {
     it.skip('missing map', () => {
         // !TODO: Handle error
         const id = '00000000000'
@@ -31,7 +31,6 @@ describe('API requests check for all layer types', () => {
         const id = 'tFVpGPWj7MJ'
 
         const commonAssertFn = () => {
-            cy.wait(50000) // eslint-disable-line cypress/no-unnecessary-waiting
             cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
                 .contains('Failed to load layer')
                 .should('be.visible')
@@ -49,12 +48,14 @@ describe('API requests check for all layer types', () => {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME',
                     alias: 'getGeoFeatures1',
+                    forceNoCache: true,
                     forceNetworkError: true,
                 },
                 {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
                     alias: 'getGeoFeatures2',
+                    forceNoCache: true,
                     forceNetworkError: true,
                 },
             ],
@@ -69,6 +70,7 @@ describe('API requests check for all layer types', () => {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
                     alias: 'getGeoFeatures2',
+                    forceNoCache: true,
                     forceNetworkError: true,
                 },
             ],
@@ -83,12 +85,14 @@ describe('API requests check for all layer types', () => {
                     method: 'GET',
                     url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
                     alias: 'getAnalytics1',
+                    forceNoCache: true,
                     forceNetworkError: true,
                 },
                 {
                     method: 'GET',
                     url: '**/analytics.json?dimension=ou:PMa2VCrupOd;LEVEL-4&dimension=dx:Uvn6LCg7dVU&filter=pe:THIS_YEAR&filter=J5jldMd8OHv:EYbopBOJWsW&displayProperty=NAME&skipMeta=false&skipData=true&includeMetadataDetails=true',
                     alias: 'getAnalytics2',
+                    forceNoCache: true,
                     forceNetworkError: true,
                 },
                 {
