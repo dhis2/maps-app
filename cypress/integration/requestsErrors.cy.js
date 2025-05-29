@@ -26,7 +26,7 @@ describe('Error handling check for all layer types', () => {
         })
     })
 
-    it('load thematic layer', () => {
+    it('load thematic layer 1/2', () => {
         // E2E - Thematic Layer [tFVpGPWj7MJ]
         const id = 'tFVpGPWj7MJ'
 
@@ -75,6 +75,23 @@ describe('Error handling check for all layer types', () => {
             commonAssertFn,
             perInterceptTrigger: false,
         })
+    })
+
+    it('load thematic layer 2/2', () => {
+        // E2E - Thematic Layer [tFVpGPWj7MJ]
+        const id = 'tFVpGPWj7MJ'
+
+        const commonAssertFn = () => {
+            cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
+                .contains('Failed to load layer')
+                .should('be.visible')
+
+            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
+                .contains('Error')
+                .should('be.visible')
+        }
+
+        cy.visit(`#/${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -83,7 +100,6 @@ describe('Error handling check for all layer types', () => {
                     url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
                     alias: 'getAnalytics1',
                     forceNetworkError: true,
-                    skip: true, // !TODO: Test not working in GHA
                 },
                 {
                     method: 'GET',
