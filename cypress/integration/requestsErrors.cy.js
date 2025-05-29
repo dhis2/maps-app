@@ -46,6 +46,18 @@ describe('Error handling check for all layer types', () => {
             intercepts: [
                 {
                     method: 'GET',
+                    url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
+                    alias: 'getAnalytics1',
+                    forceNoCache: true,
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics.json?dimension=ou:PMa2VCrupOd;LEVEL-4&dimension=dx:Uvn6LCg7dVU&filter=pe:THIS_YEAR&filter=J5jldMd8OHv:EYbopBOJWsW&displayProperty=NAME&skipMeta=false&skipData=true&includeMetadataDetails=true',
+                    alias: 'getAnalytics2',
+                    forceNoCache: true,
+                },
+                {
+                    method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME',
                     alias: 'getGeoFeatures1',
                     forceNetworkError: true,
@@ -64,6 +76,18 @@ describe('Error handling check for all layer types', () => {
 
         assertIntercepts({
             intercepts: [
+                {
+                    method: 'GET',
+                    url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
+                    alias: 'getAnalytics1',
+                    forceNoCache: true,
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics.json?dimension=ou:PMa2VCrupOd;LEVEL-4&dimension=dx:Uvn6LCg7dVU&filter=pe:THIS_YEAR&filter=J5jldMd8OHv:EYbopBOJWsW&displayProperty=NAME&skipMeta=false&skipData=true&includeMetadataDetails=true',
+                    alias: 'getAnalytics2',
+                    forceNoCache: true,
+                },
                 {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
