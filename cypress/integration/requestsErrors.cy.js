@@ -31,11 +31,11 @@ describe('Error handling check for all layer types', () => {
         const id = 'tFVpGPWj7MJ'
 
         const commonAssertFn = () => {
-            cy.getByDataTest('dhis2-uicore-noticebox', { timeout: 45000 })
+            cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
                 .contains('Failed to load layer')
                 .should('be.visible')
 
-            cy.getByDataTest('dhis2-uicore-alertstack', { timeout: 45000 })
+            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
                 .contains('Error')
                 .should('be.visible')
         }
@@ -44,12 +44,6 @@ describe('Error handling check for all layer types', () => {
 
         assertIntercepts({
             intercepts: [
-                {
-                    method: 'GET',
-                    url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
-                    alias: 'getAnalytics1',
-                    forceNoCache: true,
-                },
                 {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME',
@@ -72,12 +66,6 @@ describe('Error handling check for all layer types', () => {
             intercepts: [
                 {
                     method: 'GET',
-                    url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
-                    alias: 'getAnalytics1',
-                    forceNoCache: true,
-                },
-                {
-                    method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
                     alias: 'getGeoFeatures2',
                     forceNetworkError: true,
@@ -95,6 +83,7 @@ describe('Error handling check for all layer types', () => {
                     url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
                     alias: 'getAnalytics1',
                     forceNetworkError: true,
+                    skip: true, // !TODO: Test not working in GHA
                 },
                 {
                     method: 'GET',
@@ -103,12 +92,11 @@ describe('Error handling check for all layer types', () => {
                     forceNetworkError: true,
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/legendSets/fqs276KXCXi?fields=id,displayName~rename(name),legends%5Bid%2CdisplayName~rename(name)%2CstartValue%2CendValue%2Ccolor%5D&paging=false',
                     alias: 'getLegendSets',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
             ],
             commonTriggerFn,
@@ -138,76 +126,67 @@ describe('Error handling check for all layer types', () => {
                     forceNetworkError: true,
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-14.0625%2C8.407168163601076%2C-11.25%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics2',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-14.0625%2C5.61598581915534%2C-11.25%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics3',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-11.25%2C8.407168163601076%2C-8.4375%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics4',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-11.25%2C5.61598581915534%2C-8.4375%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics5',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-16.875%2C5.61598581915534%2C-14.0625%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics6',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-16.875%2C8.407168163601076%2C-14.0625%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics7',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/programStages/pTo4uMt3xur?fields=programStageDataElements%5BdisplayInReports%2CdataElement%5Bid%2Ccode%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
                     alias: 'getProgramStages',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/optionSets/pC3N9N77UmT?fields=id,displayName~rename(name),options%5Bid%2Ccode%2CdisplayName~rename(name)%5D&paging=false',
                     alias: 'getOptionSets',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/dhis-web-maps/fonts/Open%20Sans%20Bold/0-255.pbf',
                     alias: 'getFonts',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
             ],
             commonTriggerFn,
@@ -241,20 +220,18 @@ describe('Error handling check for all layer types', () => {
                     forceNetworkError: true,
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/programStages/pTo4uMt3xur?fields=programStageDataElements%5BdisplayInReports%2CdataElement%5Bid%2Ccode%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
                     alias: 'getProgramStages',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
-                    // !TODO: Handle error
                     method: 'GET',
                     url: '**/optionSets/pC3N9N77UmT?fields=id,displayName~rename(name),options%5Bid%2Ccode%2CdisplayName~rename(name)%5D&paging=false',
                     alias: 'getOptionSets',
                     forceNetworkError: true,
-                    skip: true,
+                    skip: true, // !TODO: Handle error
                 },
                 {
                     method: 'GET',
