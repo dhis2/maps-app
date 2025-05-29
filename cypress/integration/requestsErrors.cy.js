@@ -31,11 +31,11 @@ describe('Error handling check for all layer types', () => {
         const id = 'tFVpGPWj7MJ'
 
         const commonAssertFn = () => {
-            cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
+            cy.getByDataTest('dhis2-uicore-noticebox', { timeout: 45000 })
                 .contains('Failed to load layer')
                 .should('be.visible')
 
-            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
+            cy.getByDataTest('dhis2-uicore-alertstack', { timeout: 45000 })
                 .contains('Error')
                 .should('be.visible')
         }
