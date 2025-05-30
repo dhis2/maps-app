@@ -19,7 +19,11 @@ const DownloadMapInfo = ({ map, isSplitView }) => {
         showOverviewMap,
     } = useSelector((state) => state.download)
 
-    const { mapViews, name, description } = useSelector((state) => state.map)
+    const {
+        mapViews,
+        displayName: name,
+        displayDescription: description,
+    } = useSelector((state) => state.map)
 
     useEffect(() => {
         setResizeCount((count) => count + 1)
