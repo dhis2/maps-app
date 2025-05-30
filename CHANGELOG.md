@@ -1,3 +1,10 @@
+## [101.2.13](https://github.com/dhis2/maps-app/compare/v101.2.12...v101.2.13) (2025-05-30)
+
+
+### Bug Fixes
+
+* do not overwrite newer changes by another user when renaming [DHIS2-19479] [DHIS2-19506] ([#3520](https://github.com/dhis2/maps-app/issues/3520)) ([0732cd9](https://github.com/dhis2/maps-app/commit/0732cd904739f790fa93804d6c4f5c6470fb3f21))
+
 ## [101.2.12](https://github.com/dhis2/maps-app/compare/v101.2.11...v101.2.12) (2025-05-09)
 
 
