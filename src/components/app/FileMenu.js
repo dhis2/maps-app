@@ -21,7 +21,7 @@ import {
 } from '../../constants/alerts.js'
 import {
     cleanMapConfig,
-    getUnloadedCleanMapConfig,
+    // getUnloadedCleanMapConfig,
 } from '../../util/favorites.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history from '../../util/history.js'
@@ -159,9 +159,10 @@ const FileMenu = ({ onFileMenuAction }) => {
             mapViews: addOrgUnitPaths(fetchedMap.mapViews),
         }
 
-        const cleanedMap = getUnloadedCleanMapConfig({
+        const cleanedMap = cleanMapConfig({
             config: latestMap,
             defaultBasemapId: defaultBasemap,
+            cleanMapviewConfig: false,
         })
 
         const config = preparePayloadForSave({
