@@ -8,26 +8,32 @@ import {
     coordinateValueTypes,
 } from '../constants/valueTypes.js'
 
-const getBaseFields = (withSubscribers) => [
-    'id',
-    'user',
-    'name',
-    'displayName',
-    'description',
-    'displayDescription',
-    'longitude',
-    'latitude',
-    'zoom',
-    'basemap',
-    'created',
-    'lastUpdated',
-    'access',
-    'update',
-    'manage',
-    'delete',
-    'href',
-    withSubscribers && 'subscribers',
-]
+const getBaseFields = (withSubscribers) => {
+    const baseFields = [
+        'id',
+        'user',
+        'name',
+        'displayName',
+        'description',
+        'displayDescription',
+        'longitude',
+        'latitude',
+        'zoom',
+        'basemap',
+        'created',
+        'lastUpdated',
+        'access',
+        'update',
+        'manage',
+        'delete',
+        'href',
+    ]
+    if (withSubscribers) {
+        baseFields.push('subscribers')
+    }
+    console.log('jj basefields', baseFields)
+    return baseFields
+}
 
 const analysisFields = () => {
     const nameProperty = `displayName~rename(name)`
