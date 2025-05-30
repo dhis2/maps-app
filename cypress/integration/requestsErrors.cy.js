@@ -26,7 +26,9 @@ describe('Error handling check for all layer types', () => {
         })
     })
 
-    it('load thematic layer 1/2', () => {
+    it('load thematic layer', () => {
+        // Caching mechanisms makes testing independant failures of
+        // getGeoFeatures1 & getGeoFeatures2 difficult
         // E2E - Thematic Layer [tFVpGPWj7MJ]
         const id = 'tFVpGPWj7MJ'
 
@@ -45,91 +47,73 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [
                 {
-                    method: 'GET',
-                    url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME',
-                    alias: 'getGeoFeatures1',
-                    forceNetworkError: true,
+                    intercepts: [
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME',
+                            alias: 'getGeoFeatures1',
+                            error: 'network',
+                        },
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
+                            alias: 'getGeoFeatures2',
+                            error: 'network',
+                        },
+                    ],
+                    alias: 'getGeoFeaturesGroup',
+                },
+                {
+                    intercepts: [
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME',
+                            alias: 'getGeoFeatures1',
+                            error: 409,
+                        },
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
+                            alias: 'getGeoFeatures2',
+                            error: 409,
+                        },
+                    ],
+                    alias: 'getGeoFeaturesGroup',
                 },
                 {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
                     alias: 'getGeoFeatures2',
-                    forceNetworkError: true,
+                    errors: ['network', 409],
                 },
-            ],
-            commonTriggerFn,
-            commonAssertFn,
-            perInterceptTrigger: false,
-        })
-
-        assertIntercepts({
-            intercepts: [
-                {
-                    method: 'GET',
-                    url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3APMa2VCrupOd%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
-                    alias: 'getGeoFeatures2',
-                    forceNetworkError: true,
-                },
-            ],
-            commonTriggerFn,
-            commonAssertFn,
-            perInterceptTrigger: false,
-        })
-    })
-
-    it('load thematic layer 2/2', () => {
-        // E2E - Thematic Layer [tFVpGPWj7MJ]
-        const id = 'tFVpGPWj7MJ'
-
-        const commonAssertFn = () => {
-            cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
-                .should('be.visible')
-                .contains('Failed to load layer')
-
-            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .should('be.visible')
-                .contains('Error')
-        }
-
-        cy.visit(`#/${id}`)
-
-        assertIntercepts({
-            intercepts: [
                 {
                     method: 'GET',
                     url: '**/analytics.json?dimension=dx:Uvn6LCg7dVU&dimension=ou:LEVEL-4;PMa2VCrupOd&filter=J5jldMd8OHv:EYbopBOJWsW&filter=pe:THIS_YEAR&displayProperty=NAME&skipData=false&skipMeta=true',
                     alias: 'getAnalytics1',
-                    forceError: 409,
+                    errors: [409], // !TODO: Double check network error handling
                 },
                 {
                     method: 'GET',
                     url: '**/analytics.json?dimension=ou:PMa2VCrupOd;LEVEL-4&dimension=dx:Uvn6LCg7dVU&filter=pe:THIS_YEAR&filter=J5jldMd8OHv:EYbopBOJWsW&displayProperty=NAME&skipMeta=false&skipData=true&includeMetadataDetails=true',
                     alias: 'getAnalytics2',
-                    forceError: 409,
+                    errors: [409], // !TODO: Double check network error handling
                 },
                 {
                     method: 'GET',
                     url: '**/legendSets/fqs276KXCXi?fields=id,displayName~rename(name),legends%5Bid%2CdisplayName~rename(name)%2CstartValue%2CendValue%2Ccolor%5D&paging=false',
                     alias: 'getLegendSets',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
             ],
             commonTriggerFn,
             commonAssertFn,
-            perInterceptTrigger: true,
         })
     })
 
     it('load events layer w/ server cluster', () => {
         // E2E - Events Layer - Server Cluster [VzwBJhyad9P]
         const id = 'VzwBJhyad9P'
-
-        const commonAssertFn = () => {
-            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('error')
-                .should('be.visible')
-        }
 
         cy.visit(`#/${id}`)
 
@@ -139,74 +123,97 @@ describe('Error handling check for all layer types', () => {
                     method: 'GET',
                     url: '**/analytics/events/count/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry',
                     alias: 'getAnalytics1',
-                    forceNetworkError: true,
+                    errors: ['network'],
+                    assertFn: () => {
+                        cy.getByDataTest(
+                            'dhis2-uicore-alertstack',
+                            EXTENDED_TIMEOUT
+                        )
+                            .contains('error')
+                            .should('be.visible')
+                    },
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/count/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry',
+                    alias: 'getAnalytics1',
+                    errors: [409],
+                    assertFn: () => {
+                        cy.getByDataTest(
+                            'dhis2-uicore-alertstack',
+                            EXTENDED_TIMEOUT
+                        )
+                            .contains(
+                                "You don't have access to this layer data"
+                            )
+                            .should('be.visible')
+                    },
                 },
                 {
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-14.0625%2C8.407168163601076%2C-11.25%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics2',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-14.0625%2C5.61598581915534%2C-11.25%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics3',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-11.25%2C8.407168163601076%2C-8.4375%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics4',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-11.25%2C5.61598581915534%2C-8.4375%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics5',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-16.875%2C5.61598581915534%2C-14.0625%2C8.407168163601076&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics6',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/analytics/events/cluster/VBqh0ynB2wv.json?dimension=ou:ImspTQPwCqd&dimension=qrur9Dvnyt5:LT:5&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=psigeometry&bbox=-16.875%2C8.407168163601076%2C-14.0625%2C11.178401873711785&clusterSize=67265&includeClusterPoints=false',
                     alias: 'getAnalytics7',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/programStages/pTo4uMt3xur?fields=programStageDataElements%5BdisplayInReports%2CdataElement%5Bid%2Ccode%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
                     alias: 'getProgramStages',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/optionSets/pC3N9N77UmT?fields=id,displayName~rename(name),options%5Bid%2Ccode%2CdisplayName~rename(name)%5D&paging=false',
                     alias: 'getOptionSets',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/dhis-web-maps/fonts/Open%20Sans%20Bold/0-255.pbf',
                     alias: 'getFonts',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
             ],
             commonTriggerFn,
-            commonAssertFn,
             perInterceptTrigger: true,
         })
     })
@@ -214,12 +221,6 @@ describe('Error handling check for all layer types', () => {
     it('load events layer w/ coordinate field & data download', () => {
         // E2E - Events Layer - Coordinate Field [ugVIdvX2qIG]
         const id = 'ugVIdvX2qIG'
-
-        const commonAssertFn = () => {
-            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('error')
-                .should('be.visible')
-        }
 
         cy.visit(`#/${id}`)
 
@@ -233,21 +234,49 @@ describe('Error handling check for all layer types', () => {
                         cy.reload(true)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
-                    forceNetworkError: true,
+                    errors: ['network'],
+                    assertFn: () => {
+                        cy.getByDataTest(
+                            'dhis2-uicore-alertstack',
+                            EXTENDED_TIMEOUT
+                        )
+                            .contains('error')
+                            .should('be.visible')
+                    },
+                },
+                {
+                    method: 'GET',
+                    url: '**/analytics/events/query/VBqh0ynB2wv.json?dimension=ou:fwxkctgmffZ&dimension=qrur9Dvnyt5:LT:5&dimension=oZg33kd9taw&stage=pTo4uMt3xur&coordinatesOnly=true&startDate=2024-01-01&endDate=2025-10-01&coordinateField=F3ogKBuviRA&pageSize=100000',
+                    alias: 'getAnalytics1',
+                    triggerFn: () => {
+                        cy.reload(true)
+                        cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
+                    },
+                    errors: [409],
+                    assertFn: () => {
+                        cy.getByDataTest(
+                            'dhis2-uicore-alertstack',
+                            EXTENDED_TIMEOUT
+                        )
+                            .contains(
+                                "You don't have access to this layer data"
+                            )
+                            .should('be.visible')
+                    },
                 },
                 {
                     method: 'GET',
                     url: '**/programStages/pTo4uMt3xur?fields=programStageDataElements%5BdisplayInReports%2CdataElement%5Bid%2Ccode%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
                     alias: 'getProgramStages',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/optionSets/pC3N9N77UmT?fields=id,displayName~rename(name),options%5Bid%2Ccode%2CdisplayName~rename(name)%5D&paging=false',
                     alias: 'getOptionSets',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
@@ -276,17 +305,16 @@ describe('Error handling check for all layer types', () => {
                             .contains('Data download failed.')
                             .should('be.visible')
                     },
-                    forceNetworkError: true,
+                    errors: ['network', 409],
                 },
             ],
             commonTriggerFn,
-            commonAssertFn,
             perInterceptTrigger: true,
         })
     })
 
     it.skip('load tracked entities layer', () => {
-        // !TODO: Handle error
+        // !TODO: Handle errors
         // E2E - Tracked Entities Layer [VuYJ5LIgQo2]
         const id = 'VuYJ5LIgQo2'
 
@@ -306,11 +334,15 @@ describe('Error handling check for all layer types', () => {
                     method: 'GET',
                     url: '**/tracker/trackedEntities?skipPaging=true&fields=trackedEntity~rename(id),geometry,relationships&orgUnit=ImspTQPwCqd&ouMode=DESCENDANTS&program=M3xtLkYBlKI&updatedAfter=2000-01-01&updatedBefore=2025-05-19',
                     alias: 'getTrackedEntities1',
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/tracker/trackedEntities?skipPaging=true&fields=trackedEntity~rename(id),geometry,relationships&orgUnit=ImspTQPwCqd&ouMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
                     alias: 'getTrackedEntities2',
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
             ]
         } else {
@@ -319,15 +351,15 @@ describe('Error handling check for all layer types', () => {
                     method: 'GET',
                     url: '**/tracker/trackedEntities?paging=false&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&program=M3xtLkYBlKI&updatedAfter=2000-01-01&updatedBefore=2025-05-19',
                     alias: 'getTrackedEntities1',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/tracker/trackedEntities?paging=false&fields=trackedEntity~rename(id),geometry,relationships&orgUnits=ImspTQPwCqd&orgUnitMode=DESCENDANTS&trackedEntityType=Zy2SEgA61ys',
                     alias: 'getTrackedEntities2',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
             ]
         }
@@ -339,29 +371,29 @@ describe('Error handling check for all layer types', () => {
                     method: 'GET',
                     url: '**/relationshipTypes/Mv8R4MPcNcX',
                     alias: 'getRelationshipType',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/trackedEntityTypes/Zy2SEgA61ys?fields=displayName,featureType',
                     alias: 'getTrackedEntityType1',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors (layer loads)
                 },
                 {
                     method: 'GET',
                     url: '**/trackedEntityTypes/We9I19a3vO1?fields=trackedEntityTypeAttributes%5BdisplayInList%2CtrackedEntityAttribute%5Bid%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
                     alias: 'getTrackedEntityType2',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors (layer loads)
                 },
                 {
                     method: 'GET',
                     url: '**/programs/M3xtLkYBlKI?fields=programTrackedEntityAttributes%5BdisplayInList%2CtrackedEntityAttribute%5Bid%2CdisplayName~rename(name)%2CoptionSet%2CvalueType%5D%5D&paging=false',
                     alias: 'getProgram',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors (layer loads)
                 },
             ],
             commonTriggerFn,
@@ -382,29 +414,30 @@ describe('Error handling check for all layer types', () => {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&includeGroupSets=true&ou=ou%3AVth0fbpFcsO%3BLEVEL-4&displayProperty=NAME',
                     alias: 'getGeoFeatures',
-                    forceNetworkError: true,
+                    errors: ['network', 409],
+                    assertFn: () => {
+                        cy.getByDataTest(
+                            'dhis2-uicore-alertstack',
+                            EXTENDED_TIMEOUT
+                        )
+                            .contains('Error')
+                            .should('be.visible')
+                        cy.getByDataTest(
+                            'dhis2-uicore-alertstack',
+                            EXTENDED_TIMEOUT
+                        )
+                            .contains(
+                                'No coordinates found for selected facilities'
+                            )
+                            .should('be.visible')
+                    },
                 },
-            ],
-            commonTriggerFn,
-            commonAssertFn: () => {
-                cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                    .contains('Error')
-                    .should('be.visible')
-                cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                    .contains('No coordinates found for selected facilities')
-                    .should('be.visible')
-            },
-            perInterceptTrigger: false,
-        })
-
-        assertIntercepts({
-            intercepts: [
                 {
                     method: 'GET',
                     url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=organisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
                     alias: 'getOrganisationUnitGroupSets',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
@@ -418,11 +451,10 @@ describe('Error handling check for all layer types', () => {
                             .contains('Symbol not found')
                             .should('be.visible')
                     },
-                    forceNetworkError: true,
+                    errors: ['network', 409],
                 },
             ],
             commonTriggerFn,
-            perInterceptTrigger: true,
         })
     })
 
@@ -442,60 +474,65 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [
                 {
-                    method: 'GET',
-                    url: '**/geoFeatures?_=xE7jOejl9FI&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
-                    alias: 'getGeoFeatures1',
-                    forceNetworkError: true,
+                    intercepts: [
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
+                            alias: 'getGeoFeatures1',
+                            error: 'network',
+                        },
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&coordinateField=ihn1wb9eho8&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
+                            alias: 'getGeoFeatures2',
+                            error: 'network',
+                        },
+                    ],
+                    alias: 'getGeoFeaturesGroup',
+                    skip: true, // !TODO: Handle error
+                },
+                {
+                    intercepts: [
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
+                            alias: 'getGeoFeatures1',
+                            error: 409,
+                        },
+                        {
+                            method: 'GET',
+                            url: '**/geoFeatures?_=xE7jOejl9FI&coordinateField=ihn1wb9eho8&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
+                            alias: 'getGeoFeatures2',
+                            error: 409,
+                        },
+                    ],
+                    alias: 'getGeoFeaturesGroup',
                     skip: true, // !TODO: Handle error
                 },
                 {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&coordinateField=ihn1wb9eho8&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
                     alias: 'getGeoFeatures2',
-                    forceNetworkError: true,
-                    skip: true,
+                    error: ['network', 409],
+                    skip: true, // !TODO: Handle errorss
                 },
-            ],
-            commonTriggerFn,
-            commonAssertFn,
-            perInterceptTrigger: false,
-        })
-
-        assertIntercepts({
-            intercepts: [
-                {
-                    method: 'GET',
-                    url: '**/geoFeatures?_=xE7jOejl9FI&coordinateField=ihn1wb9eho8&includeGroupSets=true&ou=ou%3Aat6UHUQatSo%3BLEVEL-4&displayProperty=NAME',
-                    alias: 'getGeoFeatures2',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
-                },
-            ],
-            commonTriggerFn,
-            commonAssertFn,
-            perInterceptTrigger: false,
-        })
-
-        assertIntercepts({
-            intercepts: [
                 {
                     method: 'GET',
                     url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=organisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
                     alias: 'getOrganisationUnitGroupSet',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
                 {
                     method: 'GET',
                     url: '**/organisationUnitLevels?fields=id%2Clevel%2CdisplayName~rename(name)&paging=false',
                     alias: 'getOrganisationUnitLevels2',
-                    forceNetworkError: true,
-                    skip: true, // !TODO: Handle error
+                    errors: ['network', 409],
+                    skip: true, // !TODO: Handle errors
                 },
             ],
             commonTriggerFn,
             commonAssertFn,
-            perInterceptTrigger: true,
         })
     })
 
@@ -517,35 +554,19 @@ describe('Error handling check for all layer types', () => {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3AbL4ooGhyHRQ%3BLEVEL-4&displayProperty=NAME',
                     alias: 'getGeoFeatures1',
-                    forceNetworkError: true,
+                    errors: ['network', 409],
                 },
-            ],
-            commonTriggerFn,
-            commonAssertFn,
-            perInterceptTrigger: false,
-        })
-
-        assertIntercepts({
-            intercepts: [
                 {
                     method: 'GET',
                     url: '**/geoFeatures?_=xE7jOejl9FI&ou=ou%3AbL4ooGhyHRQ%3BLEVEL-4&displayProperty=NAME&coordinateField=ihn1wb9eho8',
                     alias: 'getGeoFeatures2',
-                    forceNetworkError: true,
+                    errors: ['network', 409],
                 },
-            ],
-            commonTriggerFn,
-            commonAssertFn,
-            perInterceptTrigger: false,
-        })
-
-        assertIntercepts({
-            intercepts: [
                 {
                     method: 'GET',
                     url: '**/tokens/google',
                     alias: 'getTokens',
-                    forceNetworkError: true,
+                    errors: ['network'],
                     assertFn: () => {
                         cy.getByDataTest(
                             'dhis2-uicore-alertbar',
@@ -559,18 +580,33 @@ describe('Error handling check for all layer types', () => {
                 },
                 {
                     method: 'GET',
+                    url: '**/tokens/google',
+                    alias: 'getTokens',
+                    errors: [409],
+                    assertFn: () => {
+                        cy.getByDataTest(
+                            'dhis2-uicore-alertbar',
+                            EXTENDED_TIMEOUT
+                        )
+                            .contains(
+                                'This layer requires a Google Earth Engine account. '
+                            )
+                            .should('be.visible')
+                    },
+                },
+                {
+                    method: 'GET',
                     url: /earthengine-legacy\/maps\/[^/]+\/tiles\/\d+\/\d+\/\d+/,
                     alias: 'getGEETile',
-                    forceNetworkError: true,
+                    errors: ['network', 409],
                     assertFn: () => {
                         cy.wait(50000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
-                    skip: true, // !TODO: Handle error
+                    skip: true, // !TODO: Handle errors
                 },
             ],
             commonTriggerFn,
             commonAssertFn,
-            perInterceptTrigger: true,
         })
     })
 })
