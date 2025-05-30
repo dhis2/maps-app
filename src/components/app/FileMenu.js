@@ -19,10 +19,7 @@ import {
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
-import {
-    cleanMapConfig,
-    // getUnloadedCleanMapConfig,
-} from '../../util/favorites.js'
+import { cleanMapConfig } from '../../util/favorites.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history from '../../util/history.js'
 import {
