@@ -49,7 +49,7 @@ describe('File menu', () => {
             .should('eq', 201)
     }
 
-    it.only('saves a new map', () => {
+    it('saves a new map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -156,7 +156,7 @@ describe('File menu', () => {
         deleteMap(renamedTitle)
     })
 
-    it.only('save existing as new map', () => {
+    it('save existing as new map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -192,7 +192,7 @@ describe('File menu', () => {
             .should('eq', 201)
     })
 
-    it.only('save changes to existing map', () => {
+    it('save changes to existing map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
