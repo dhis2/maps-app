@@ -85,13 +85,14 @@ const trackedEntityLoader = async (config, serverVersion) => {
         ],
     }
 
-    // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
+    // VERSION-TOGGLE
+    // - [2.41.0] https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
     let trackerRootProp,
         trackerOrgUnitsParam,
         trackerOrgUnitsModeParam,
         trackerValuesSeparator,
         trackerPaging
-    if (`${serverVersion.major}.${serverVersion.minor}` == '2.40') {
+    if (`${serverVersion.major}.${serverVersion.minor}` === '2.40') {
         trackerRootProp = 'instances'
         trackerOrgUnitsParam = 'orgUnit'
         trackerOrgUnitsModeParam = 'ouMode'
