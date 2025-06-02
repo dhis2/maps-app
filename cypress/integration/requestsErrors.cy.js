@@ -581,7 +581,7 @@ describe('Error handling check for all layer types', () => {
                 {
                     method: 'GET',
                     url: '**/tokens/google',
-                    alias: 'getTokens',
+                    alias: 'getToken',
                     errors: [409],
                     assertFn: () => {
                         cy.getByDataTest(
@@ -599,9 +599,6 @@ describe('Error handling check for all layer types', () => {
                     url: /earthengine-legacy\/maps\/[^/]+\/tiles\/\d+\/\d+\/\d+/,
                     alias: 'getGEETile',
                     errors: ['network', 409],
-                    assertFn: () => {
-                        cy.wait(50000) // eslint-disable-line cypress/no-unnecessary-waiting
-                    },
                     skip: true, // !TODO: Handle errors
                 },
             ],
