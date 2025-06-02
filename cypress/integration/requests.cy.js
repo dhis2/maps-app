@@ -115,21 +115,21 @@ describe('API requests check for all layer types', () => {
                         ...getRequests([
                             // -- eventLoader - src/loaders/eventLoader.js
                             // -- @dhis2/d2 - src/analytics/Analytics.js
-                            'getEventsClusters_Analytics1',
-                            'getEventsClusters_Analytics2',
-                            'getEventsClusters_Analytics3',
-                            'getEventsClusters_Analytics4',
-                            'getEventsClusters_Analytics5',
-                            'getEventsClusters_Analytics6',
-                            'getEventsClusters_Analytics7',
+                            'getEventsCluster_Analytics1',
+                            'getEventsCluster_Analytics2',
+                            'getEventsCluster_Analytics3',
+                            'getEventsCluster_Analytics4',
+                            'getEventsCluster_Analytics5',
+                            'getEventsCluster_Analytics6',
+                            'getEventsCluster_Analytics7',
                             // -- engine.query (w/ loadEventCoordinateFieldName)
-                            'getEventsClusters_ProgramStages',
+                            'getEventsCluster_ProgramStages',
                             // -- engine.query
-                            'getEventsClusters_OptionSets',
+                            'getEventsCluster_OptionSets',
                             // --
 
                             // -- @dhis2/maps-gl - src/layers/ServerCluster.js
-                            'getEventsClusters_Fonts',
+                            'getEventsCluster_Fonts',
                             // --
                         ]),
                     ],
