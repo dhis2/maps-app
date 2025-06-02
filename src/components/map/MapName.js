@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import styles from './styles/MapName.module.css'
 
 const MapName = () => {
-    const name = useSelector((state) => state.map.name)
+    const name = useSelector((state) => state.map.displayName)
     const downloadMode = useSelector((state) => state.ui.downloadMode)
 
     return !downloadMode && name ? (
