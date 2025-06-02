@@ -27,24 +27,6 @@ export const getDhis2Version = () => {
     return dhis2Version
 }
 
-export const assertMultipleInterceptedRequests = (intercepts, triggerFn) => {
-    const filteredIntercepts = intercepts.filter(({ skip }) => !skip)
-
-    filteredIntercepts.forEach(({ method, url, alias }) => {
-        cy.intercept({ method, url }).as(alias)
-    })
-
-    triggerFn()
-
-    filteredIntercepts.forEach(({ method, alias }) => {
-        cy.wait(`@${alias}`, EXTENDED_TIMEOUT)
-            .its('request')
-            .then((req) => {
-                expect(req.method).to.equal(method)
-            })
-    })
-}
-
 /**
  * Utility to get HTTP status text from status code.
  *
