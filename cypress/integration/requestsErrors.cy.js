@@ -5,17 +5,7 @@ import {
     getDhis2Version,
 } from '../support/util.js'
 
-const clearAppCache = () => {
-    indexedDB.databases().then((dbs) => {
-        dbs.forEach((db) => indexedDB.deleteDatabase(db.name))
-    })
-
-    cy.clearLocalStorage()
-    cy.clearCookies()
-}
-
 const commonTriggerFn = () => {
-    clearAppCache()
     cy.reload(true)
 }
 
@@ -58,20 +48,19 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [
                 {
-                    ...getRequest('getThematic_GeoFeatures1'),
-                    errors: ['network', 409],
-                },
-                {
-                    ...getRequest('getThematic_GeoFeatures2'),
-                    errors: ['network', 409],
-                },
-                {
                     ...getRequest('getThematic_Analytics1'),
                     errors: ['network', 409],
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
-                    alias: 'getAnalytics2',
+                    errors: ['network', 409],
+                },
+                {
+                    ...getRequest('getThematic_GeoFeatures1'),
+                    errors: ['network', 409],
+                },
+                {
+                    ...getRequest('getThematic_GeoFeatures2'),
                     errors: ['network', 409],
                 },
                 {
@@ -228,7 +217,6 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getEventsStandard_Analytics1'),
                     triggerFn: () => {
-                        clearAppCache()
                         cy.reload(true)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
@@ -247,7 +235,6 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
-                        clearAppCache()
                         cy.reload(true)
                         cy.getByDataTest('layercard')
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
