@@ -34,30 +34,39 @@ const facilityLoader = async ({
 
     const name = i18n.t('Facilities')
 
-    const data = await engine.query(
-        GEOFEATURES_QUERY,
-        {
-            variables: {
-                orgUnitIds,
-                keyAnalysisDisplayProperty,
-                includeGroupSets,
-                userId,
+    let data = {}
+    try {
+        // Fetch geofeatures data
+        data = await engine.query(
+            GEOFEATURES_QUERY,
+            {
+                variables: {
+                    orgUnitIds,
+                    keyAnalysisDisplayProperty,
+                    includeGroupSets,
+                    userId,
+                },
             },
-        },
-        {
-            onError: (error) => {
-                alerts.push({
-                    critical: true,
-                    code: ERROR_CRITICAL,
-                    message: error.message || i18n.t('an error occurred'),
-                })
-            },
-        }
-    )
+            {
+                onError: (error) => {
+                    alerts.push({
+                        critical: true,
+                        code: ERROR_CRITICAL,
+                        message: error.message || i18n.t('an error occurred'),
+                    })
+                },
+            }
+        )
+    } catch (error) {
+        alerts.push({
+            critical: true,
+            code: ERROR_CRITICAL,
+            message: error.message || i18n.t('an error occurred'),
+        })
+    }
 
-    const features = data?.geoFeatures
-        ? toGeoJson(getPointItems(data.geoFeatures))
-        : null
+    const features =
+        data?.geoFeatures && toGeoJson(getPointItems(data.geoFeatures))
 
     // Load organisationUnitGroups if not passed
     let orgUnitGroups
@@ -82,7 +91,6 @@ const facilityLoader = async ({
         config,
         baseUrl,
     })
-
     legend.title = name
 
     if (coordinateField) {
