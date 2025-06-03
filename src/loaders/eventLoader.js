@@ -148,7 +148,7 @@ const loadEventLayer = async ({
         const { names, data, response } = await loadData({
             request: analyticsRequest,
             config,
-            engine,
+            analyticsEngine,
         })
         const { total } = response.metaData.pager
 

@@ -1,4 +1,3 @@
-import { Analytics } from '@dhis2/analytics'
 import {
     EVENT_CLIENT_PAGE_SIZE,
     EVENT_COORDINATE_CASCADING,
@@ -148,8 +147,7 @@ export const getAnalyticsRequest = async (
     return analyticsRequest
 }
 
-export const loadData = async ({ request, config = {}, engine }) => {
-    const analyticsEngine = Analytics.getAnalytics(engine)
+export const loadData = async ({ request, config = {}, analyticsEngine }) => {
     const response = await analyticsEngine.events.getQuery(
         request.withPageSize(EVENT_CLIENT_PAGE_SIZE)
     ) // DHIS2-10742

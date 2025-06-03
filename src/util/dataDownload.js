@@ -118,7 +118,7 @@ export const downloadData = async ({
                 analyticsEngine,
             }),
             config,
-            engine,
+            analyticsEngine,
         })
         layerData = result.data
     } else if (layer.valuesByPeriod) {
