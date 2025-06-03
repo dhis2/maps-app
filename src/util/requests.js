@@ -129,13 +129,13 @@ export const GEOFEATURES_QUERY = {
     geoFeatures: {
         resource: 'geoFeatures',
         params: ({
-            ou,
+            orgUnitIds,
             keyAnalysisDisplayProperty,
             includeGroupSets,
             coordinateField,
             userId,
         }) => ({
-            ou,
+            ou: `ou:${orgUnitIds.join(';')}`,
             displayProperty: keyAnalysisDisplayProperty,
             includeGroupSets,
             coordinateField,

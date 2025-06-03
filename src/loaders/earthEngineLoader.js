@@ -36,16 +36,14 @@ const earthEngineLoader = async ({
     let features
 
     if (orgUnits && orgUnits.length) {
-        const orgUnitParams = orgUnits.map((item) => item.id)
+        const orgUnitIds = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
-
-        const ou = `ou:${orgUnitParams.join(';')}`
 
         try {
             const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
                 variables: {
-                    ou,
+                    orgUnitIds,
                     keyAnalysisDisplayProperty,
                     userId,
                 },
@@ -58,7 +56,7 @@ const earthEngineLoader = async ({
             if (coordinateField) {
                 const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
                     variables: {
-                        ou,
+                        orgUnitIds,
                         keyAnalysisDisplayProperty,
                         coordinateField: coordinateField.id,
                         userId,

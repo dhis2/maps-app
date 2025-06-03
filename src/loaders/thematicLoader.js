@@ -375,7 +375,7 @@ const loadData = async ({
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
-    const orgUnitParams = orgUnits.map((item) => item.id)
+    const orgUnitIds = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 
     if (valueType === 'ds') {
@@ -433,10 +433,9 @@ const loadData = async ({
 
     const rawData = await analyticsEngine.aggregate.get(analyticsRequest)
 
-    const ou = `ou:${orgUnitParams.join(';')}`
     const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
         variables: {
-            ou,
+            orgUnitIds,
             keyAnalysisDisplayProperty,
             userId,
         },
@@ -452,7 +451,7 @@ const loadData = async ({
         // Associated geometry request
         const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
             variables: {
-                ou,
+                orgUnitIds,
                 keyAnalysisDisplayProperty, // name/shortName
                 coordinateField: coordinateField.id,
                 userId,

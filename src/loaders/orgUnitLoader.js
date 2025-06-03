@@ -29,8 +29,7 @@ const orgUnitLoader = async ({
     const coordinateField = getCoordinateField(config)
     const alerts = []
 
-    const orgUnitParams = orgUnits.map((item) => item.id)
-    const ou = `ou:${orgUnitParams.join(';')}`
+    const orgUnitIds = orgUnits.map((item) => item.id)
     let associatedGeometries
     const name = i18n.t('Organisation units')
 
@@ -38,7 +37,7 @@ const orgUnitLoader = async ({
         GEOFEATURES_QUERY,
         {
             variables: {
-                ou,
+                orgUnitIds,
                 keyAnalysisDisplayProperty,
                 includeGroupSets,
                 userId,
@@ -86,7 +85,7 @@ const orgUnitLoader = async ({
     if (coordinateField) {
         const rawData = await engine.query(GEOFEATURES_QUERY, {
             variables: {
-                ou,
+                orgUnitIds,
                 keyAnalysisDisplayProperty,
                 includeGroupSets,
                 coordinateField: coordinateField.id,
