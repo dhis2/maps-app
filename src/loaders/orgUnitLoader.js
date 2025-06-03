@@ -54,7 +54,7 @@ const orgUnitLoader = async ({
         }
     )
 
-    const mainFeatures = data?.geoFeatures ? toGeoJson(data.geoFeatures) : null
+    const mainFeatures = data?.geoFeatures ? toGeoJson(data.geoFeatures) : []
 
     const orgUnitLevels = await apiFetchOrganisationUnitLevels(engine)
 
