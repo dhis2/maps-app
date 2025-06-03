@@ -65,9 +65,12 @@ const eventLoader = async ({
             loadExtended,
         })
     } catch (e) {
-        if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
+        if (
+            e.details?.httpStatusCode === 403 ||
+            e.details?.httpStatusCode === 409
+        ) {
             config.alerts = [
-                e.message.includes('filter is invalid')
+                e.details?.message.includes('filter is invalid')
                     ? filterErrorAlert
                     : accessDeniedAlert,
             ]
