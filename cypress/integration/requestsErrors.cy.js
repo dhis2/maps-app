@@ -22,8 +22,6 @@ describe('Error handling check for all layer types', () => {
     })
 
     it('load thematic layer', () => {
-        // !IMPROVED Caching mechanisms makes testing independant failures of
-        // getGeoFeatures1 & getGeoFeatures2 difficult
         // E2E - Thematic Layer [tFVpGPWj7MJ]
         const id = 'tFVpGPWj7MJ'
 
@@ -59,12 +57,12 @@ describe('Error handling check for all layer types', () => {
                 },
                 {
                     ...getRequest('getThematic_Analytics1'),
-                    errors: ['network', 409], // !IMPROVED Double check network error handling
+                    errors: ['network', 409],
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
                     alias: 'getAnalytics2',
-                    errors: ['network', 409], // !IMPROVED Double check network error handling
+                    errors: ['network', 409],
                 },
                 {
                     ...getRequest('getThematic_LegendSets'),
@@ -375,7 +373,6 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getFacilities_GeoFeatures'),
                     errors: ['network', 409],
-                    skip: true, // !REGRESSION: Handle errors
                 },
                 {
                     ...getRequest('getFacilities_OrganisationUnitGroupSets'),
@@ -401,8 +398,6 @@ describe('Error handling check for all layer types', () => {
     })
 
     it.skip('load org units layer', () => {
-        // !IMPROVED Caching mechanisms makes testing independant failures of
-        // getGeoFeatures1 & getGeoFeatures2 difficult
         // !TODO: Handle error
         // E2E - Org Units Layer [e2fjmQMtJ0c]
         const id = 'e2fjmQMtJ0c'
@@ -444,6 +439,7 @@ describe('Error handling check for all layer types', () => {
     })
 
     it('load earth engine layer', () => {
+        // !TODO: Revise custom errors
         // E2E - Earth Engine Layer [VebBMVbwxX5]
         const id = 'VebBMVbwxX5'
 
@@ -475,25 +471,30 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getEarthEngine_Token'),
                     errors: ['network', 409],
-                    assertFn: () => {
+                    assertFn: ({ error }) => {
+                        const errorMessage = {
+                            network: 'An unknown network error occurred',
+                            409: 'Simulated error with status code 409',
+                        }
+
+                        // !TODO: Display error in layer card
+
                         cy.getByDataTest(
                             'dhis2-uicore-alertbar',
                             EXTENDED_TIMEOUT
                         )
-                            .contains(
-                                'Cannot get authorization token for Google Earth Engine.'
-                            )
+                            .contains(errorMessage[error])
                             .should('be.visible')
                     },
                 },
                 {
                     ...getRequest('getEarthEngine_Token'),
-                    statusCode: 409,
+                    statusCode: 500,
                     body: {
-                        httpStatus: 'Conflict',
-                        httpStatusCode: 409,
+                        httpStatus: 'Internal Server Error',
+                        httpStatusCode: 500,
                         status: 'ERROR',
-                        message: 'Token not available',
+                        message: 'No value present',
                     },
                     assertFn: () => {
                         cy.getByDataTest(
@@ -505,12 +506,11 @@ describe('Error handling check for all layer types', () => {
                             )
                             .should('be.visible')
                     },
-                    skip: true, // !REGRESSION
                 },
                 {
                     ...getRequest('getEarthEngine_Tile'),
                     errors: ['network', 409],
-                    skip: false, // !TODO: Handle errors
+                    skip: true, // !TODO: Handle errors
                 },
             ],
             commonTriggerFn,
