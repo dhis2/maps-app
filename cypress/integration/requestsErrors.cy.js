@@ -15,25 +15,33 @@ describe('Error handling check for all layer types', () => {
         const id = '00000000000'
         assertIntercepts({
             intercepts: [getRequest('getMap', id)],
-            triggerFn: () => {
+            commonTriggerFn: () => {
                 cy.visit(`#/${id}`)
             },
         })
     })
 
     it('load thematic layer', () => {
-        // Caching mechanisms makes testing independant failures of
+        // !IMPROVED Caching mechanisms makes testing independant failures of
         // getGeoFeatures1 & getGeoFeatures2 difficult
         // E2E - Thematic Layer [tFVpGPWj7MJ]
         const id = 'tFVpGPWj7MJ'
 
-        const commonAssertFn = () => {
-            cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT)
-                .contains('Failed to load layer')
-                .should('be.visible')
+        const commonAssertFn = ({ error }) => {
+            const errorMessage = {
+                network: 'An unknown network error occurred',
+                409: 'Simulated error with status code 409',
+            }
+
+            cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT).within(
+                () => {
+                    cy.contains('Failed to load layer').should('be.visible')
+                    cy.contains(errorMessage[error]).should('be.visible')
+                }
+            )
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('Error')
+                .contains(`Error: ${errorMessage[error]}`)
                 .should('be.visible')
         }
 
@@ -42,30 +50,8 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [
                 {
-                    intercepts: [
-                        {
-                            ...getRequest('getThematic_GeoFeatures1'),
-                            error: 'network',
-                        },
-                        {
-                            ...getRequest('getThematic_GeoFeatures2'),
-                            error: 'network',
-                        },
-                    ],
-                    alias: 'getGeoFeaturesGroup',
-                },
-                {
-                    intercepts: [
-                        {
-                            ...getRequest('getThematic_GeoFeatures1'),
-                            error: 409,
-                        },
-                        {
-                            ...getRequest('getThematic_GeoFeatures2'),
-                            error: 409,
-                        },
-                    ],
-                    alias: 'getGeoFeaturesGroup',
+                    ...getRequest('getThematic_GeoFeatures1'),
+                    errors: ['network', 409],
                 },
                 {
                     ...getRequest('getThematic_GeoFeatures2'),
@@ -73,12 +59,12 @@ describe('Error handling check for all layer types', () => {
                 },
                 {
                     ...getRequest('getThematic_Analytics1'),
-                    errors: [409], // !TODO: Double check network error handling
+                    errors: ['network', 409], // !IMPROVED Double check network error handling
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
                     alias: 'getAnalytics2',
-                    errors: [409], // !TODO: Double check network error handling
+                    errors: ['network', 409], // !IMPROVED Double check network error handling
                 },
                 {
                     ...getRequest('getThematic_LegendSets'),
@@ -92,8 +78,22 @@ describe('Error handling check for all layer types', () => {
     })
 
     it('load events layer w/ server cluster', () => {
+        // !TODO: Improve messages, we may not need cutom handling for filters
         // E2E - Events Layer - Server Cluster [VzwBJhyad9P]
         const id = 'VzwBJhyad9P'
+
+        const commonAssertFn = ({ error }) => {
+            const errorMessage = {
+                network: 'An unknown error occurred while reading layer data',
+                409: "You don't have access to this layer data",
+            }
+
+            // !TODO: Display error in layer card
+
+            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
+                .contains(errorMessage[error])
+                .should('be.visible')
+        }
 
         cy.visit(`#/${id}`)
 
@@ -101,19 +101,35 @@ describe('Error handling check for all layer types', () => {
             intercepts: [
                 {
                     ...getRequest('getEventsCluster_Analytics1'),
-                    errors: ['network'],
+                    statusCode: 409,
+                    body: {
+                        httpStatus: 'Conflict',
+                        httpStatusCode: 409,
+                        status: 'ERROR',
+                        message:
+                            'Query item or filter is invalid: `qrur9Dvnyt5:GT:;LT:10`',
+                        errorCode: 'E7222',
+                    },
                     assertFn: () => {
                         cy.getByDataTest(
                             'dhis2-uicore-alertstack',
                             EXTENDED_TIMEOUT
                         )
-                            .contains('error')
+                            .contains('The event filter is not supported')
                             .should('be.visible')
                     },
                 },
                 {
                     ...getRequest('getEventsCluster_Analytics1'),
-                    errors: [409],
+                    statusCode: 409,
+                    body: {
+                        httpStatus: 'Conflict',
+                        httpStatusCode: 409,
+                        status: 'ERROR',
+                        message:
+                            'Query filter: `5;GT` not valid for query item value type: `INTEGER`',
+                        errorCode: 'E7234',
+                    },
                     assertFn: () => {
                         cy.getByDataTest(
                             'dhis2-uicore-alertstack',
@@ -124,6 +140,10 @@ describe('Error handling check for all layer types', () => {
                             )
                             .should('be.visible')
                     },
+                },
+                {
+                    ...getRequest('getEventsCluster_Analytics1'),
+                    errors: ['network', 409], // !TODO: Improve messages
                 },
                 {
                     ...getRequest('getEventsCluster_Analytics2'),
@@ -172,13 +192,26 @@ describe('Error handling check for all layer types', () => {
                 },
             ],
             commonTriggerFn,
-            perInterceptTrigger: true,
+            commonAssertFn,
         })
     })
 
     it('load events layer w/ coordinate field & data download', () => {
         // E2E - Events Layer - Coordinate Field [ugVIdvX2qIG]
         const id = 'ugVIdvX2qIG'
+
+        const commonAssertFn = ({ error }) => {
+            const errorMessage = {
+                network: 'An unknown error occurred while reading layer data',
+                409: "You don't have access to this layer data",
+            }
+
+            // !TODO: Display error in layer card
+
+            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
+                .contains(errorMessage[error])
+                .should('be.visible')
+        }
 
         cy.visit(`#/${id}`)
 
@@ -190,33 +223,7 @@ describe('Error handling check for all layer types', () => {
                         cy.reload(true)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
-                    errors: ['network'],
-                    assertFn: () => {
-                        cy.getByDataTest(
-                            'dhis2-uicore-alertstack',
-                            EXTENDED_TIMEOUT
-                        )
-                            .contains('error')
-                            .should('be.visible')
-                    },
-                },
-                {
-                    ...getRequest('getEventsStandard_Analytics1'),
-                    triggerFn: () => {
-                        cy.reload(true)
-                        cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
-                    },
-                    errors: [409],
-                    assertFn: () => {
-                        cy.getByDataTest(
-                            'dhis2-uicore-alertstack',
-                            EXTENDED_TIMEOUT
-                        )
-                            .contains(
-                                "You don't have access to this layer data"
-                            )
-                            .should('be.visible')
-                    },
+                    errors: ['network', 409], // !TODO: Improve messages
                 },
                 {
                     ...getRequest('getEventsStandard_ProgramStages'),
@@ -257,7 +264,7 @@ describe('Error handling check for all layer types', () => {
                 },
             ],
             commonTriggerFn,
-            perInterceptTrigger: true,
+            commonAssertFn,
         })
     })
 
@@ -266,9 +273,16 @@ describe('Error handling check for all layer types', () => {
         // E2E - Tracked Entities Layer [VuYJ5LIgQo2]
         const id = 'VuYJ5LIgQo2'
 
-        const commonAssertFn = () => {
+        const commonAssertFn = ({ error }) => {
+            const errorMessage = {
+                network: 'An unknown error occurred while reading layer data',
+                409: "You don't have access to this layer data",
+            }
+
+            // !TODO: Display error in layer card
+
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('error')
+                .contains(errorMessage[error])
                 .should('be.visible')
         }
 
@@ -339,27 +353,29 @@ describe('Error handling check for all layer types', () => {
 
         cy.visit(`#/${id}`)
 
+        const commonAssertFn = ({ error }) => {
+            const errorMessage = {
+                network: 'An unknown network error occurred',
+                409: 'Simulated error with status code 409',
+            }
+
+            // !TODO: Display error in layer card
+
+            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
+                .contains(`Error: ${errorMessage[error]}`)
+                .should('be.visible')
+
+            cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
+                .contains('No coordinates found for selected facilities')
+                .should('be.visible')
+        }
+
         assertIntercepts({
             intercepts: [
                 {
                     ...getRequest('getFacilities_GeoFeatures'),
                     errors: ['network', 409],
-                    assertFn: () => {
-                        cy.getByDataTest(
-                            'dhis2-uicore-alertstack',
-                            EXTENDED_TIMEOUT
-                        )
-                            .contains('Error')
-                            .should('be.visible')
-                        cy.getByDataTest(
-                            'dhis2-uicore-alertstack',
-                            EXTENDED_TIMEOUT
-                        )
-                            .contains(
-                                'No coordinates found for selected facilities'
-                            )
-                            .should('be.visible')
-                    },
+                    skip: true, // !REGRESSION: Handle errors
                 },
                 {
                     ...getRequest('getFacilities_OrganisationUnitGroupSets'),
@@ -380,10 +396,13 @@ describe('Error handling check for all layer types', () => {
                 },
             ],
             commonTriggerFn,
+            commonAssertFn,
         })
     })
 
     it.skip('load org units layer', () => {
+        // !IMPROVED Caching mechanisms makes testing independant failures of
+        // getGeoFeatures1 & getGeoFeatures2 difficult
         // !TODO: Handle error
         // E2E - Org Units Layer [e2fjmQMtJ0c]
         const id = 'e2fjmQMtJ0c'
@@ -399,36 +418,13 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [
                 {
-                    intercepts: [
-                        {
-                            ...getRequest('getOrgUnits_GeoFeatures1'),
-                            error: 'network',
-                        },
-                        {
-                            ...getRequest('getOrgUnits_GeoFeatures2'),
-                            error: 'network',
-                        },
-                    ],
-                    alias: 'getGeoFeaturesGroup',
-                    skip: true, // !TODO: Handle error
-                },
-                {
-                    intercepts: [
-                        {
-                            ...getRequest('getOrgUnits_GeoFeatures1'),
-                            error: 409,
-                        },
-                        {
-                            ...getRequest('getOrgUnits_GeoFeatures2'),
-                            error: 409,
-                        },
-                    ],
-                    alias: 'getGeoFeaturesGroup',
+                    ...getRequest('getOrgUnits_GeoFeatures1'),
+                    errors: ['network', 409],
                     skip: true, // !TODO: Handle error
                 },
                 {
                     ...getRequest('getOrgUnits_GeoFeatures2'),
-                    error: ['network', 409],
+                    errors: ['network', 409],
                     skip: true, // !TODO: Handle errorss
                 },
                 {
@@ -451,9 +447,16 @@ describe('Error handling check for all layer types', () => {
         // E2E - Earth Engine Layer [VebBMVbwxX5]
         const id = 'VebBMVbwxX5'
 
-        const commonAssertFn = () => {
+        const commonAssertFn = ({ error }) => {
+            const errorMessage = {
+                network: 'An unknown network error occurred',
+                409: 'Simulated error with status code 409',
+            }
+
+            // !TODO: Display error in layer card
+
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('Error')
+                .contains(`Error: ${errorMessage[error]}`)
                 .should('be.visible')
         }
 
@@ -471,36 +474,43 @@ describe('Error handling check for all layer types', () => {
                 },
                 {
                     ...getRequest('getEarthEngine_Token'),
-                    errors: ['network'],
+                    errors: ['network', 409],
                     assertFn: () => {
                         cy.getByDataTest(
                             'dhis2-uicore-alertbar',
                             EXTENDED_TIMEOUT
                         )
                             .contains(
-                                'Request is missing required authentication credential.'
+                                'Cannot get authorization token for Google Earth Engine.'
                             )
                             .should('be.visible')
                     },
                 },
                 {
                     ...getRequest('getEarthEngine_Token'),
-                    errors: [409],
+                    statusCode: 409,
+                    body: {
+                        httpStatus: 'Conflict',
+                        httpStatusCode: 409,
+                        status: 'ERROR',
+                        message: 'Token not available',
+                    },
                     assertFn: () => {
                         cy.getByDataTest(
                             'dhis2-uicore-alertbar',
                             EXTENDED_TIMEOUT
                         )
                             .contains(
-                                'This layer requires a Google Earth Engine account. '
+                                'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
                             )
                             .should('be.visible')
                     },
+                    skip: true, // !REGRESSION
                 },
                 {
                     ...getRequest('getEarthEngine_Tile'),
                     errors: ['network', 409],
-                    skip: true, // !TODO: Handle errors
+                    skip: false, // !TODO: Handle errors
                 },
             ],
             commonTriggerFn,

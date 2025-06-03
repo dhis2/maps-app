@@ -128,6 +128,7 @@ const setupIntercept = ({
  * @param {Object} params
  * @param {string} params.method - The HTTP method to assert for the intercept.
  * @param {string} params.alias - The intercept alias to wait for.
+ * @param {string|number} [error] - Error code
  * @param {function} [params.assertFn] - Specific assertion function for this intercept.
  * @param {function} [params.commonAssertFn] - Fallback assertion function if assertFn is not provided.
  * @param {number} [params.timeout=EXTENDED_TIMEOUT] - Optional timeout for cy.wait.
@@ -135,6 +136,7 @@ const setupIntercept = ({
 const waitAndAssert = ({
     method,
     alias,
+    error,
     assertFn,
     timeout = EXTENDED_TIMEOUT,
 }) => {
@@ -142,7 +144,7 @@ const waitAndAssert = ({
         expect(interception.request.method).to.equal(method)
 
         if (typeof assertFn === 'function') {
-            assertFn({ alias, interception })
+            assertFn({ alias, error, interception })
         }
         // If no assertion function is provided, skip additional assertions
     })
@@ -298,10 +300,11 @@ export const assertIntercepts = ({
             fn({ alias })
 
             // Assert
-            groupIntercepts.forEach(({ method, alias }) => {
+            groupIntercepts.forEach(({ method, alias, error }) => {
                 waitAndAssert({
                     method,
                     alias,
+                    error,
                     assertFn: assertFn || commonAssertFn,
                     timeout,
                 })
@@ -332,12 +335,13 @@ export const assertIntercepts = ({
                         `[${n}] Missing triggerFn for single intercept: ${alias}`
                     )
                 }
-                fn({ alias })
+                fn({ alias, error })
 
                 // Assert
                 waitAndAssert({
                     method,
                     alias,
+                    error,
                     assertFn: assertFn || commonAssertFn,
                     timeout,
                 })
