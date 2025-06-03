@@ -5,7 +5,17 @@ import {
     getDhis2Version,
 } from '../support/util.js'
 
+const clearAppCache = () => {
+    indexedDB.databases().then((dbs) => {
+        dbs.forEach((db) => indexedDB.deleteDatabase(db.name))
+    })
+
+    cy.clearLocalStorage()
+    cy.clearCookies()
+}
+
 const commonTriggerFn = () => {
+    clearAppCache()
     cy.reload(true)
 }
 
@@ -58,11 +68,6 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getThematic_Analytics1'),
                     errors: ['network', 409],
-                    triggerFn: () => {
-                        cy.reload(true)
-                        cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
-                    },
-                    skip: true,
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
