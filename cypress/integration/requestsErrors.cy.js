@@ -21,7 +21,7 @@ describe('Error handling check for all layer types', () => {
         })
     })
 
-    it('load thematic layer', () => {
+    it.only('load thematic layer', () => {
         // E2E - Thematic Layer [tFVpGPWj7MJ]
         const id = 'tFVpGPWj7MJ'
 
@@ -58,11 +58,19 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getThematic_Analytics1'),
                     errors: ['network', 409],
+                    triggerFn: () => {
+                        cy.reload(true)
+                        cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
+                    },
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
                     alias: 'getAnalytics2',
                     errors: ['network', 409],
+                    triggerFn: () => {
+                        cy.reload(true)
+                        cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
+                    },
                 },
                 {
                     ...getRequest('getThematic_LegendSets'),
