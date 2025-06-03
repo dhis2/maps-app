@@ -64,38 +64,32 @@ export const getPeriodFromFilter = (filter, datasetId) => {
         year,
     }
 }
-// Returns auth token for EE API as a promise
-/* eslint-disable no-async-promise-executor */
-export const getAuthTokenFn = (engine) => () =>
-    new Promise(async (resolve, reject) => {
-        const { token } = await engine
-            .query({ token: { resource: 'tokens/google' } })
-            .catch(() =>
-                reject(
-                    new Error(
-                        i18n.t(
-                            'Cannot get authorization token for Google Earth Engine.'
-                        )
-                    )
-                )
-            )
+
+export const getAuthTokenFn = (engine) => async () => {
+    try {
+        const response = await engine.query({
+            token: { resource: 'tokens/google' },
+        })
+        const token = response.token
 
         if (token && token.status === 'ERROR') {
-            reject(
-                new Error(
-                    i18n.t(
-                        'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
-                    )
+            throw new Error(
+                i18n.t(
+                    'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
                 )
             )
         }
 
-        resolve({
+        return {
             token_type: 'Bearer',
             ...token,
-        })
-    })
-/* eslint-enable no-async-promise-executor */
+        }
+    } catch {
+        throw new Error(
+            i18n.t('Cannot get authorization token for Google Earth Engine.')
+        )
+    }
+}
 
 let workerPromise
 
