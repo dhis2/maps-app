@@ -59,6 +59,9 @@ describe('Error handling check for all layer types', () => {
                         },
                     ],
                     alias: 'getThematic_AnalyticsGroup',
+                    assertFn: () => {
+                        commonAssertFn({ error: 'network' })
+                    },
                 },
                 {
                     intercepts: [
@@ -72,6 +75,9 @@ describe('Error handling check for all layer types', () => {
                         },
                     ],
                     alias: 'getThematic_AnalyticsGroup',
+                    assertFn: () => {
+                        commonAssertFn({ error: 409 })
+                    },
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
