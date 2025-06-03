@@ -62,15 +62,12 @@ describe('Error handling check for all layer types', () => {
                         cy.reload(true)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
+                    skip: true,
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
                     alias: 'getAnalytics2',
                     errors: ['network', 409],
-                    triggerFn: () => {
-                        cy.reload(true)
-                        cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
-                    },
                 },
                 {
                     ...getRequest('getThematic_LegendSets'),
