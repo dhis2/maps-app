@@ -84,7 +84,19 @@ export const getAuthTokenFn = (engine) => async () => {
             token_type: 'Bearer',
             ...token,
         }
-    } catch {
+    } catch (e) {
+        if (e.details?.httpStatusCode === 500) {
+            throw new Error(
+                i18n.t(
+                    'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
+                )
+            )
+        }
+
+        if (e.message) {
+            throw new Error(e.message)
+        }
+
         throw new Error(
             i18n.t('Cannot get authorization token for Google Earth Engine.')
         )
