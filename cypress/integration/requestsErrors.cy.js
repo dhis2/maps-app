@@ -48,8 +48,30 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [
                 {
-                    ...getRequest('getThematic_Analytics1'),
-                    errors: ['network', 409],
+                    intercepts: [
+                        {
+                            ...getRequest('getThematic_Analytics1'),
+                            error: 'network',
+                        },
+                        {
+                            ...getRequest('getThematic_Analytics2'),
+                            error: 'network',
+                        },
+                    ],
+                    alias: 'getThematic_AnalyticsGroup',
+                },
+                {
+                    intercepts: [
+                        {
+                            ...getRequest('getThematic_Analytics1'),
+                            error: 409,
+                        },
+                        {
+                            ...getRequest('getThematic_Analytics2'),
+                            error: 'network',
+                        },
+                    ],
+                    alias: 'getThematic_AnalyticsGroup',
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
