@@ -31,7 +31,6 @@ const getBaseFields = (withSubscribers) => {
     if (withSubscribers) {
         baseFields.push('subscribers')
     }
-    console.log('jj basefields', baseFields)
     return baseFields
 }
 

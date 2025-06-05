@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-22T16:39:16.063Z\n"
-"PO-Revision-Date: 2025-05-22T16:39:16.063Z\n"
+"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
+"PO-Revision-Date: 2025-06-03T11:07:59.791Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -693,9 +693,6 @@ msgstr "Group"
 
 msgid "Filters"
 msgstr "Filters"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "No data found"
@@ -1478,6 +1475,9 @@ msgstr "Event"
 msgid "Facilities"
 msgstr "Facilities"
 
+msgid "an error occurred"
+msgstr "an error occurred"
+
 msgid "No coordinates found for selected facilities"
 msgstr "No coordinates found for selected facilities"
 
@@ -1526,15 +1526,15 @@ msgstr "true"
 msgid "false"
 msgstr "false"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Cannot get authorization token for Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Cannot get authorization token for Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thematic"

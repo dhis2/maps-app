@@ -17,14 +17,13 @@ describe('getStyledOrgUnits', () => {
             name: 'GroupSet1',
             organisationUnitGroups: [],
         }
-        const styleParams = { organisationUnitColor: 'red', radiusLow: 10 }
-        const contextPath = '/contextPath'
-        const result = getStyledOrgUnits(
+        const config = { organisationUnitColor: 'red', radiusLow: 10 }
+        const result = getStyledOrgUnits({
             features,
             groupSet,
-            styleParams,
-            contextPath
-        )
+            config,
+            baseUrl: '/baseUrl',
+        })
 
         expect(result.styledFeatures).toHaveLength(1)
         expect(result.styledFeatures[0]).toMatchObject({
@@ -49,7 +48,7 @@ describe('getStyledOrgUnits', () => {
         ]
         const groupSet = { name: 'GroupSet1', organisationUnitGroups: [] }
 
-        const styleParams = { organisationUnitColor: 'red', radiusLow: 10 }
+        const config = { organisationUnitColor: 'red', radiusLow: 10 }
 
         const orgUnitLevels = {
             1: 'Level1',
@@ -58,13 +57,13 @@ describe('getStyledOrgUnits', () => {
             4: 'Level4',
         }
 
-        const result = getStyledOrgUnits(
+        const result = getStyledOrgUnits({
             features,
             groupSet,
-            styleParams,
-            '/contextPath',
-            orgUnitLevels
-        )
+            config,
+            baseUrl: '/contextPath',
+            orgUnitLevels,
+        })
 
         expect(result.styledFeatures).toHaveLength(1)
         expect(result.styledFeatures[0]).toMatchObject({
