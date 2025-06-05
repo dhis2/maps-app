@@ -124,3 +124,22 @@ export const LEGEND_SET_QUERY = {
         },
     },
 }
+
+export const GEOFEATURES_QUERY = {
+    geoFeatures: {
+        resource: 'geoFeatures',
+        params: ({
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            userId,
+        }) => ({
+            ou: `ou:${orgUnitIds.join(';')}`,
+            displayProperty: keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            _: userId,
+        }),
+    },
+}

@@ -1,3 +1,4 @@
+import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -17,6 +18,7 @@ const EarthEnginePeriodSelect = ({
     errorText,
     className,
 }) => {
+    const engine = useDataEngine()
     const [periods, setPeriods] = useState()
     const [yearPeriods, setYearPeriods] = useState()
     const [year, setYear] = useState()
@@ -41,7 +43,7 @@ const EarthEnginePeriodSelect = ({
         let isCancelled = false
 
         if (periodType) {
-            getPeriods(datasetId, periodType, filters)
+            getPeriods({ datasetId, periodType, filters, engine })
                 .then((periods) => {
                     if (!isCancelled) {
                         setPeriods(periods)
@@ -56,7 +58,7 @@ const EarthEnginePeriodSelect = ({
         }
 
         return () => (isCancelled = true)
-    }, [datasetId, periodType, filters, onError])
+    }, [datasetId, periodType, filters, onError, engine])
 
     // Set year from period
     useEffect(() => {
