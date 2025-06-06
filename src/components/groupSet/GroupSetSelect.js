@@ -28,19 +28,19 @@ const GroupSetSelect = ({
         variables: { nameProperty },
     })
 
-    const ITEM_NONE = { id: 'none', name: i18n.t('None') }
+    const ITEM_NONE = useMemo(() => ({ id: 'none', name: i18n.t('None') }), [])
 
     const onGroupSetChange = useCallback(
-        (item) => onChange(item.id !== 'none' ? item : undefined),
-        [onChange]
+        (item) => onChange(item.id !== ITEM_NONE.id ? item : undefined),
+        [onChange, ITEM_NONE]
     )
- 
+
     const groupSets = useMemo(
         () => [
             ...(allowNone ? [ITEM_NONE] : []),
             ...(data?.sets.organisationUnitGroupSets || []),
         ],
-        [data, allowNone]
+        [data, allowNone, ITEM_NONE]
     )
 
     const internalError =
