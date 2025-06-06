@@ -1,3 +1,10 @@
+## [101.2.14](https://github.com/dhis2/maps-app/compare/v101.2.13...v101.2.14) (2025-06-06)
+
+
+### Bug Fixes
+
+* text overflow issues in popups [DHIS2-5920] ([#3525](https://github.com/dhis2/maps-app/issues/3525)) ([f0db1e1](https://github.com/dhis2/maps-app/commit/f0db1e19cf6b46bdde4405b1f8e8283c9c9bc8a9))
+
 ## [101.2.13](https://github.com/dhis2/maps-app/compare/v101.2.12...v101.2.13) (2025-05-30)
 
 
