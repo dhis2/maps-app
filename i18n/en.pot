@@ -581,6 +581,9 @@ msgstr "Remove filter"
 msgid "Group set"
 msgstr "Group set"
 
+msgid "Failed to load organisation unit groups."
+msgstr "Failed to load organisation unit groups."
+
 msgid "Style by group set"
 msgstr "Style by group set"
 
