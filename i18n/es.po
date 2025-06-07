@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -741,9 +741,6 @@ msgstr "Grupo"
 
 msgid "Filters"
 msgstr "Filtros"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "Dato no encontrado"
@@ -1521,6 +1518,9 @@ msgstr "Evento"
 msgid "Facilities"
 msgstr "Establecimientos"
 
+msgid "an error occurred"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1571,16 +1571,16 @@ msgstr "verdadero"
 msgid "false"
 msgstr "falso"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
-"No se puede obtener el token de autorización para Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Esta capa requiere una cuenta de Google Earth Engine. Consulte la "
 "documentación de DHIS2 para obtener más información."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+"No se puede obtener el token de autorización para Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Temática"

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Charel van den Elsen <zobeadzorg@gmail.com>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -729,9 +729,6 @@ msgstr "Groep"
 
 msgid "Filters"
 msgstr "Filters"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "Geen gegevens gevonden"
@@ -1518,6 +1515,9 @@ msgstr "Gebeurtenis"
 msgid "Facilities"
 msgstr "Instellingen"
 
+msgid "an error occurred"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr "Geen coördinaten gevonden voor geselecteerde faciliteiten"
 
@@ -1566,15 +1566,15 @@ msgstr "waar"
 msgid "false"
 msgstr "onwaar"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Deze laag vereist een Google Earth Engine-account. Kijk de "
 "DHIS2-documentation na voor meer informatie."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thematisch"
