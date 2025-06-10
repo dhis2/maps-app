@@ -33,6 +33,7 @@
         "cypress-tags": "^1.2.2",
         "cypress-wait-until": "^1.7.2",
         "eslint-plugin-cypress": "^2.15.1",
+        "jest-webgl-canvas-mock": "^2.5.3",
         "patch-package": "^6.5.1",
         "redux-devtools": "^3.7.0",
         "redux-mock-store": "^1.5.5",
