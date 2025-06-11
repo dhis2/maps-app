@@ -39,7 +39,7 @@ describe('ui', () => {
         cy.getByDataTest(map.cardSelector).should('be.visible')
     })
 
-    it('adds layersSorting class to body when dragging a layer', () => {
+    it('sets css user-select: none on document.body when dragging (sorting) a layer', () => {
         const ThemLayer = new ThematicLayer()
         const FacLayer = new FacilityLayer()
         // 1. Create a map and add a thematic layer and a facility layer
