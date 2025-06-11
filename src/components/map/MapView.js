@@ -65,20 +65,20 @@ const MapView = (props) => {
                         />
                     ) : (
                         <Map
-                            baseUrl={baseUrl}
-                            openContextMenu={openContextMenu}
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
                             basemap={basemap}
+                            layers={[...layers].reverse()}
                             bounds={bounds}
                             controls={mapControls}
-                            coordinatePopup={coordinatePopup}
-                            engine={engine}
-                            isFullscreen={isFullscreen}
-                            isPlugin={isPlugin}
-                            layers={[...layers].reverse()}
-                            nameProperty={nameProperty}
-                            resizeCount={resizeCount}
                             feature={feature}
+                            coordinatePopup={coordinatePopup}
+                            openContextMenu={openContextMenu}
+                            resizeCount={resizeCount}
                             setMapObject={setMapObject}
+                            baseUrl={baseUrl}
+                            engine={engine}
+                            nameProperty={nameProperty}
                             layersSorting={layersSorting}
                             {...layerDispatchActions}
                         />
