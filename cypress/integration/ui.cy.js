@@ -40,12 +40,12 @@ describe('ui', () => {
     })
 
     it('sets css user-select: none on document.body when dragging (sorting) a layer', () => {
-        const ThemLayer = new ThematicLayer()
-        const FacLayer = new FacilityLayer()
-        // 1. Create a map and add a thematic layer and a facility layer
         cy.visit('/')
         cy.get('canvas').should('be.visible')
 
+        // 1. Create a map and add a thematic layer and a facility layer
+        const ThemLayer = new ThematicLayer()
+        const FacLayer = new FacilityLayer()
         // Add thematic layer
         ThemLayer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
@@ -65,7 +65,7 @@ describe('ui', () => {
             const userSelect = getComputedStyle(doc.body).userSelect
             expect(userSelect).not.to.eq('none')
         })
-        // 2. Start dragging one of the layers (simulate drag handle mousedown and move)
+        // 2. Start dragging one of the layers
         // eslint-disable-next-line cypress/unsafe-to-chain-command
         cy.getByDataTest('sortable-handle')
             .first()
@@ -78,7 +78,7 @@ describe('ui', () => {
             expect(userSelect).to.eq('none')
         })
 
-        // 4. End the drag (mouseup) and assert the class is removed
+        // 4. End the drag (mouseup)
         cy.getByDataTest('sortable-handle')
             .first()
             .trigger('mouseup', { force: true })
