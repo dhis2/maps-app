@@ -43,7 +43,7 @@
         "@dhis2/analytics": "^28.0.0",
         "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#125f35d38f67308e2fd1da4b40b48a69f4348c97",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#eb35a1b120307f39736a17a572f17309db57175b",
         "@dhis2/ui": "^9.15.0",
         "@testing-library/react-hooks": "^8.0.1",
         "abortcontroller-polyfill": "^1.7.5",
