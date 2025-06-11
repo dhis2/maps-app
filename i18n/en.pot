@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
-"PO-Revision-Date: 2025-06-03T11:07:59.791Z\n"
+"POT-Creation-Date: 2025-06-11T10:23:44.240Z\n"
+"PO-Revision-Date: 2025-06-11T10:23:44.240Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1046,6 +1046,9 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
+msgid "Sentinel-2 EOX"
+msgstr "Sentinel-2 EOX"
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1057,6 +1060,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
+
+msgid "Azure Road"
+msgstr "Azure Road"
+
+msgid "Azure Dark"
+msgstr "Azure Dark"
+
+msgid "Azure Aerial"
+msgstr "Azure Aerial"
+
+msgid "Azure Aerial Labels"
+msgstr "Azure Aerial Labels"
 
 msgid "Building footprints"
 msgstr "Building footprints"
@@ -1456,6 +1471,9 @@ msgstr "Financial year (Start April)"
 
 msgid "Cancelled"
 msgstr "Cancelled"
+
+msgid "The API key provided is not valid for either MS Bing or Azure."
+msgstr "The API key provided is not valid for either MS Bing or Azure."
 
 msgid "Earth Engine layer"
 msgstr "Earth Engine layer"

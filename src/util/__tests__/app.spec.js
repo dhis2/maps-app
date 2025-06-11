@@ -102,7 +102,7 @@ describe('utils/app', () => {
             systemInfo,
         })
 
-        expect(cfg.basemaps).toHaveLength(9)
+        expect(cfg.basemaps).toHaveLength(10)
         expect(cfg.nameProperty).toEqual('displayName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
         expect(cfg.currentUser.username).toEqual('admin')
@@ -158,7 +158,7 @@ describe('utils/app', () => {
             systemInfo,
         })
 
-        expect(cfg.basemaps).toHaveLength(5)
+        expect(cfg.basemaps).toHaveLength(6)
         expect(cfg.nameProperty).toEqual('displayShortName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
         expect(cfg.currentUser).toMatchObject({

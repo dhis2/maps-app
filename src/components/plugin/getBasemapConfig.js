@@ -2,7 +2,10 @@ import {
     getFallbackBasemap,
     defaultBasemaps,
 } from '../../constants/basemaps.js'
-import { MAP_LAYER_POSITION_BASEMAP } from '../../constants/layers.js'
+import {
+    MAP_LAYER_POSITION_BASEMAP,
+    MS_LAYERS,
+} from '../../constants/layers.js'
 import { createExternalBasemapLayer } from '../../util/external.js'
 import { EXTERNAL_MAP_LAYERS_QUERY } from '../../util/requests.js'
 import { isValidUid } from '../../util/uid.js'
@@ -42,7 +45,7 @@ async function getBasemapConfig({
         basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
         getFallbackBasemap()
 
-    if (basemap.id.substring(0, 4) === 'bing') {
+    if (MS_LAYERS.includes(basemap.config.type)) {
         basemap.config.apiKey = keyBingMapsApiKey
     }
     if (typeof basemapVisible === 'boolean') {

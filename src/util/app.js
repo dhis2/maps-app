@@ -1,6 +1,6 @@
 import { layerTypes } from '../components/map/MapApi.js'
 import { defaultBasemaps } from '../constants/basemaps.js'
-import { BING_LAYER, MAP_LAYER_POSITION_BASEMAP } from '../constants/layers.js'
+import { MS_LAYERS, MAP_LAYER_POSITION_BASEMAP } from '../constants/layers.js'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
@@ -49,11 +49,11 @@ const getBasemapList = (externalMapLayers, systemSettings) => {
         .filter((basemap) => layerTypes.includes(basemap.config.type))
         .filter((basemap) =>
             !systemSettings.keyBingMapsApiKey
-                ? basemap.config.type !== BING_LAYER
+                ? !MS_LAYERS.includes(basemap.config.type)
                 : true
         )
         .map((basemap) => {
-            if (basemap.config.type === BING_LAYER) {
+            if (MS_LAYERS.includes(basemap.config.type)) {
                 basemap.config.apiKey = systemSettings.keyBingMapsApiKey
             }
             return basemap

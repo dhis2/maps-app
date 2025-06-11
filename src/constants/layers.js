@@ -5,6 +5,7 @@ export const TILE_LAYER = 'tileLayer'
 export const WMS_LAYER = 'wmsLayer'
 export const GOOGLE_LAYER = 'googleLayer'
 export const BING_LAYER = 'bingLayer'
+export const AZURE_LAYER = 'azureLayer'
 export const EVENT_LAYER = 'event'
 export const THEMATIC_LAYER = 'thematic'
 export const FACILITY_LAYER = 'facility'
@@ -16,6 +17,8 @@ export const TRACKED_ENTITY_LAYER = 'trackedEntity'
 export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
 export const GEOJSON_URL_LAYER = 'geoJsonUrl'
+
+export const MS_LAYERS = [BING_LAYER, AZURE_LAYER]
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
