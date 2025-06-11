@@ -61,8 +61,9 @@ describe('ui', () => {
             .selectOuLevel('Facility')
             .addToMap()
 
-        cy.document().then((doc) => {
-            expect([...doc.body.classList]).not.to.include('layersSorting')
+        cy.document().should((doc) => {
+            const userSelect = getComputedStyle(doc.body).userSelect
+            expect(userSelect).not.to.eq('none')
         })
         // 2. Start dragging one of the layers (simulate drag handle mousedown and move)
         // eslint-disable-next-line cypress/unsafe-to-chain-command
@@ -71,9 +72,10 @@ describe('ui', () => {
             .trigger('mousedown', { button: 0, force: true })
             .trigger('mousemove', { clientY: 100, force: true })
 
-        // 3. Check that document.body has class 'layersSorting'
-        cy.document().then((doc) => {
-            expect([...doc.body.classList]).to.include('layersSorting')
+        // 3. Check that document.body has style user-select: none
+        cy.document().should((doc) => {
+            const userSelect = getComputedStyle(doc.body).userSelect
+            expect(userSelect).to.eq('none')
         })
 
         // 4. End the drag (mouseup) and assert the class is removed
@@ -84,8 +86,9 @@ describe('ui', () => {
         // Wait for the timeout in onSortEnd (100ms)
         cy.wait(150) // eslint-disable-line cypress/no-unnecessary-waiting
 
-        cy.document().then((doc) => {
-            expect([...doc.body.classList]).not.to.include('layersSorting')
+        cy.document().should((doc) => {
+            const userSelect = getComputedStyle(doc.body).userSelect
+            expect(userSelect).not.to.eq('none')
         })
     })
 })
