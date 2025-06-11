@@ -10,6 +10,10 @@ import styles from './styles/LayersPanel.module.css'
 
 const SortableLayer = SortableElement(OverlayCard)
 
+const sortover = () => {
+    document.body.classList.add('dragging')
+}
+
 // Draggable layers - last layer on top
 const SortableLayersList = SortableContainer(({ layers }) => (
     <div data-test="sortable-layers-list">
@@ -25,8 +29,12 @@ const LayersPanel = () => {
 
     const dispatch = useDispatch()
 
-    const onSort = ({ oldIndex, newIndex }) =>
+    const onSort = ({ oldIndex, newIndex }) => {
+        setTimeout(() => {
+            document.body.classList.remove('dragging')
+        }, 100)
         dispatch(sortLayers({ oldIndex, newIndex }))
+    }
 
     return (
         <div
@@ -40,6 +48,7 @@ const LayersPanel = () => {
                     <>
                         <SortableLayersList
                             layers={layers}
+                            onSortStart={sortover}
                             onSortEnd={onSort}
                             useDragHandle={true}
                         />
