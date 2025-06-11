@@ -7,6 +7,6 @@
     --downloadheader-height: 48px;
 }
 
-.dragging {
+.layersSorting {
     user-select: none !important;
 }

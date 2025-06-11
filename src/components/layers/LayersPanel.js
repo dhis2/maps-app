@@ -3,16 +3,13 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
 import { sortLayers } from '../../actions/layers.js'
+import { layersSortingEnd, layersSortingStart } from '../../actions/ui.js'
 import BasemapCard from '../layers/basemaps/BasemapCard.js'
 import LayersToggle from '../layers/LayersToggle.js'
 import OverlayCard from './overlays/OverlayCard.js'
 import styles from './styles/LayersPanel.module.css'
 
 const SortableLayer = SortableElement(OverlayCard)
-
-const sortover = () => {
-    document.body.classList.add('dragging')
-}
 
 // Draggable layers - last layer on top
 const SortableLayersList = SortableContainer(({ layers }) => (
@@ -29,9 +26,15 @@ const LayersPanel = () => {
 
     const dispatch = useDispatch()
 
-    const onSort = ({ oldIndex, newIndex }) => {
+    const onSortStart = () => {
+        document.body.classList.add('layersSorting')
+        dispatch(layersSortingStart())
+    }
+
+    const onSortEnd = ({ oldIndex, newIndex }) => {
         setTimeout(() => {
-            document.body.classList.remove('dragging')
+            document.body.classList.remove('layersSorting')
+            dispatch(layersSortingEnd())
         }, 100)
         dispatch(sortLayers({ oldIndex, newIndex }))
     }
@@ -48,8 +51,8 @@ const LayersPanel = () => {
                     <>
                         <SortableLayersList
                             layers={layers}
-                            onSortStart={sortover}
-                            onSortEnd={onSort}
+                            onSortStart={onSortStart}
+                            onSortEnd={onSortEnd}
                             useDragHandle={true}
                         />
                         <div>

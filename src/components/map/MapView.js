@@ -23,6 +23,7 @@ const MapView = (props) => {
         openContextMenu,
         setMapObject,
         resizeCount,
+        layersSorting,
         ...layerDispatchActions
     } = props
 
@@ -60,23 +61,25 @@ const MapView = (props) => {
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
                             setMapObject={setMapObject}
+                            layersSorting={layersSorting}
                         />
                     ) : (
                         <Map
-                            isPlugin={isPlugin}
-                            isFullscreen={isFullscreen}
+                            baseUrl={baseUrl}
+                            openContextMenu={openContextMenu}
                             basemap={basemap}
-                            layers={[...layers].reverse()}
                             bounds={bounds}
                             controls={mapControls}
-                            feature={feature}
                             coordinatePopup={coordinatePopup}
-                            openContextMenu={openContextMenu}
-                            resizeCount={resizeCount}
-                            setMapObject={setMapObject}
-                            baseUrl={baseUrl}
                             engine={engine}
+                            isFullscreen={isFullscreen}
+                            isPlugin={isPlugin}
+                            layers={[...layers].reverse()}
                             nameProperty={nameProperty}
+                            resizeCount={resizeCount}
+                            feature={feature}
+                            setMapObject={setMapObject}
+                            layersSorting={layersSorting}
                             {...layerDispatchActions}
                         />
                     )}
@@ -96,6 +99,7 @@ MapView.propTypes = {
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
     layers: PropTypes.array,
+    layersSorting: PropTypes.bool,
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
     setMapObject: PropTypes.func,
