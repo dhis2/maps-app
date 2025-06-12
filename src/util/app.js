@@ -54,7 +54,7 @@ const TOKEN_VALIDATION_URLS = [
     ],
 ]
 
-const getMSKeyType = async (apiKey) => {
+export const getMSKeyType = async (apiKey) => {
     if (apiKey) {
         for (const [type, url] of TOKEN_VALIDATION_URLS) {
             try {

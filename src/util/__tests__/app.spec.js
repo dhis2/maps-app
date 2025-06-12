@@ -1,4 +1,9 @@
-import { providerDataTransformation } from '../app.js'
+import { AZURE_LAYER, BING_LAYER } from '../../constants/layers.js'
+import { providerDataTransformation, getMSKeyType } from '../app.js'
+
+const UNKNOWN_LAYER = 'unknownLayer'
+
+global.fetch = jest.fn()
 
 jest.mock('../earthEngine.js', () => ({ hasClasses: jest.fn() }))
 
@@ -23,7 +28,7 @@ jest.mock('@dhis2/maps-gl', () => {
     }
 })
 
-describe('utils/app', () => {
+describe('utils/app - providerDataTransformation', () => {
     const externalMapLayers = {
         externalMapLayers: [
             {
@@ -68,7 +73,14 @@ describe('utils/app', () => {
         ],
     }
 
-    test('providerDataTransformation', () => {
+    beforeEach(() => {
+        fetch.mockReset()
+    })
+
+    test('providerDataTransformation', async () => {
+        fetch.mockResolvedValueOnce({ ok: false })
+        fetch.mockResolvedValueOnce({ ok: true })
+
         const currentUser = {
             id: 'xE7jOejl9FI',
             username: 'admin',
@@ -94,7 +106,7 @@ describe('utils/app', () => {
             calendar: 'gregory',
         }
 
-        const cfg = providerDataTransformation({
+        const cfg = await providerDataTransformation({
             currentUser,
             systemSettings,
             externalMapLayers,
@@ -125,7 +137,7 @@ describe('utils/app', () => {
         })
     })
 
-    test('providerDataTransformation no keyBingMapsApiKey', () => {
+    test('providerDataTransformation no keyBingMapsApiKey', async () => {
         const currentUser = {
             id: 'xE7jOejl9FI',
             username: 'admin',
@@ -150,7 +162,7 @@ describe('utils/app', () => {
             calendar: 'gregory',
         }
 
-        const cfg = providerDataTransformation({
+        const cfg = await providerDataTransformation({
             currentUser,
             systemSettings,
             externalMapLayers,
@@ -177,5 +189,31 @@ describe('utils/app', () => {
             keyHideMonthlyPeriods: false,
             keyHideWeeklyPeriods: false,
         })
+    })
+})
+
+describe('utils/app - getMSKeyType', () => {
+    beforeAll(() => {
+        fetch.mockReset()
+    })
+
+    test('getMSKeyType returns correct type for valid key - AZURE_LAYER', async () => {
+        fetch.mockResolvedValueOnce({ ok: true })
+        const keyType = await getMSKeyType('some-valid-key')
+        expect(keyType).toBe(AZURE_LAYER)
+    })
+
+    test('getMSKeyType returns correct type for valid key - BING_LAYER', async () => {
+        fetch.mockResolvedValueOnce({ ok: false })
+        fetch.mockResolvedValueOnce({ ok: true })
+        const keyType = await getMSKeyType('some-valid-key')
+        expect(keyType).toBe(BING_LAYER)
+    })
+
+    test('getMSKeyType returns UNKNOWN_LAYER for invalid key', async () => {
+        fetch.mockResolvedValueOnce({ ok: false })
+        fetch.mockResolvedValueOnce({ ok: false })
+        const keyType = await getMSKeyType('invalid-key')
+        expect(keyType).toBe(UNKNOWN_LAYER)
     })
 })
