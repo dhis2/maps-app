@@ -1,5 +1,7 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
+import { useAlert } from '@dhis2/app-service-alerts'
+import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
@@ -7,6 +9,10 @@ import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
 import { openDownloadMode, closeDownloadMode } from '../../actions/ui.js'
+import {
+    ALERT_CRITICAL,
+    ALERT_MESSAGE_DYNAMIC,
+} from '../../constants/alerts.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
@@ -22,6 +28,9 @@ let lastLocation
 
 export const useLoadMap = () => {
     const previousParamsRef = useRef(defaultHashUrlParams)
+    const basemapInvalidAlertRef = useRef(
+        useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
+    )
     const { systemSettings, basemaps } = useCachedDataQuery()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
@@ -49,10 +58,22 @@ export const useLoadMap = () => {
                         onError: (error) => log.error('Error: ', error),
                     })
 
-                    const basemapConfig =
-                        basemaps.find(({ id }) => id === map.basemap.id) ||
-                        basemaps.find(({ id }) => id === defaultBasemap) ||
-                        getFallbackBasemap()
+                    let basemapConfig = basemaps.find(
+                        ({ id }) => id === map.basemap.id
+                    )
+                    if (!basemapConfig) {
+                        const msg = i18n.t(
+                            'Could not load basemap: {{id}} — using the default instead.',
+                            {
+                                id: map.basemap.id,
+                                nsSeparator: '^^',
+                            }
+                        )
+                        basemapInvalidAlertRef.current.show({ msg })
+                        basemapConfig =
+                            basemaps.find(({ id }) => id === defaultBasemap) ||
+                            getFallbackBasemap()
+                    }
 
                     const mapForStore = {
                         ...map,

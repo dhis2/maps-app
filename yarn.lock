@@ -2036,10 +2036,9 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^28.0.3":
+"@dhis2/analytics@git+https://github.com/d2-ci/analytics.git#6e37750a63f2837ba71da8f7ba19bd60aabffb1a":
   version "28.0.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-28.0.3.tgz#49f5234e7df691759b16765f6d2f297aab8b71ae"
-  integrity sha512-xX5WXN+bkIonjJHWNb7piyFWZVD4sEQ02qPBI0Sa66IybQObtemF/LJD8imW3Vo8xrj4e6fQgsJ8N6zY1dKf3w==
+  resolved "git+https://github.com/d2-ci/analytics.git#6e37750a63f2837ba71da8f7ba19bd60aabffb1a"
   dependencies:
     "@dhis2/multi-calendar-dates" "^1.2.2"
     "@dnd-kit/core" "^6.0.7"
@@ -2265,9 +2264,9 @@
     i18next "^10.3"
     moment "^2.24.0"
 
-"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#65d7c652e04fb5fc3b6a1effef7bb4b498ce5cb4":
+"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#73343312d1d0e7b423450f1204cb5d425eed25ca":
   version "4.0.1"
-  resolved "git+https://github.com/d2-ci/maps-gl.git#65d7c652e04fb5fc3b6a1effef7bb4b498ce5cb4"
+  resolved "git+https://github.com/d2-ci/maps-gl.git#73343312d1d0e7b423450f1204cb5d425eed25ca"
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
