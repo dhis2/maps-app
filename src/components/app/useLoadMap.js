@@ -63,7 +63,7 @@ export const useLoadMap = () => {
                     )
                     if (!basemapConfig) {
                         const msg = i18n.t(
-                            'Could not load basemap: {{id}} — using the default instead.',
+                            'Could not load: {{id}} — using the default basemap instead.',
                             {
                                 id: map.basemap.id,
                                 nsSeparator: '^^',

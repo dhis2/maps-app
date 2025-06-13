@@ -1,7 +1,9 @@
-import { AZURE_LAYER, BING_LAYER } from '../../constants/layers.js'
-import { providerDataTransformation, getMSKeyType } from '../app.js'
-
-const UNKNOWN_LAYER = 'unknownLayer'
+import {
+    AZURE_LAYER,
+    BING_LAYER,
+    KEYS_VALIDATION,
+} from '../../constants/layers.js'
+import { providerDataTransformation, validateKeys } from '../app.js'
 
 global.fetch = jest.fn()
 
@@ -192,28 +194,77 @@ describe('utils/app - providerDataTransformation', () => {
     })
 })
 
-describe('utils/app - getMSKeyType', () => {
+describe('utils/app - validateKeys', () => {
+    const findValidationByType = (type) => {
+        for (const validations of Object.values(KEYS_VALIDATION)) {
+            const match = validations.find((v) => v.type === type)
+            if (match) {
+                return match
+            }
+        }
+        return null
+    }
+
     beforeAll(() => {
         fetch.mockReset()
     })
 
-    test('getMSKeyType returns correct type for valid key - AZURE_LAYER', async () => {
-        fetch.mockResolvedValueOnce({ ok: true })
-        const keyType = await getMSKeyType('some-valid-key')
-        expect(keyType).toBe(AZURE_LAYER)
+    test('validateKeys returns correct status - AZURE_LAYER', async () => {
+        const systemSettings = {
+            keyBingMapsApiKey: 'bing_maps_api_key',
+        }
+        global.fetch = jest.fn((url) => {
+            if (url.startsWith(findValidationByType(AZURE_LAYER).url)) {
+                return Promise.resolve({ ok: true })
+            }
+            return Promise.resolve({ ok: false })
+        })
+
+        const keysStatus = await validateKeys(systemSettings)
+        expect(keysStatus).toEqual({
+            [AZURE_LAYER]: true,
+            [BING_LAYER]: false,
+        })
     })
 
-    test('getMSKeyType returns correct type for valid key - BING_LAYER', async () => {
-        fetch.mockResolvedValueOnce({ ok: false })
-        fetch.mockResolvedValueOnce({ ok: true })
-        const keyType = await getMSKeyType('some-valid-key')
-        expect(keyType).toBe(BING_LAYER)
+    test('validateKeys returns correct status - BING_LAYER', async () => {
+        const systemSettings = {
+            keyBingMapsApiKey: 'bing_maps_api_key',
+        }
+        global.fetch = jest.fn((url) => {
+            if (url.startsWith(findValidationByType(BING_LAYER).url)) {
+                return Promise.resolve({ ok: true })
+            }
+            return Promise.resolve({ ok: false })
+        })
+
+        const keysStatus = await validateKeys(systemSettings)
+        expect(keysStatus).toEqual({
+            [AZURE_LAYER]: false,
+            [BING_LAYER]: true,
+        })
     })
 
-    test('getMSKeyType returns UNKNOWN_LAYER for invalid key', async () => {
-        fetch.mockResolvedValueOnce({ ok: false })
-        fetch.mockResolvedValueOnce({ ok: false })
-        const keyType = await getMSKeyType('invalid-key')
-        expect(keyType).toBe(UNKNOWN_LAYER)
+    test('validateKeys returns correct status - invalid key', async () => {
+        const systemSettings = {
+            keyBingMapsApiKey: 'invalid_api_key',
+        }
+        global.fetch = jest.fn(() => Promise.resolve({ ok: false }))
+
+        const keysStatus = await validateKeys(systemSettings)
+        expect(keysStatus).toEqual({
+            [AZURE_LAYER]: false,
+            [BING_LAYER]: false,
+        })
+    })
+
+    test('validateKeys returns correct status - missing key', async () => {
+        const systemSettings = {}
+
+        const keysStatus = await validateKeys(systemSettings)
+        expect(keysStatus).toEqual({
+            [AZURE_LAYER]: false,
+            [BING_LAYER]: false,
+        })
     })
 })

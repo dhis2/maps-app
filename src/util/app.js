@@ -2,9 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import { layerTypes } from '../components/map/MapApi.js'
 import { defaultBasemaps } from '../constants/basemaps.js'
 import {
-    BING_LAYER,
-    AZURE_LAYER,
-    MS_LAYERS,
+    KEYS_VALIDATION,
+    LAYERS_TO_KEY_MAP,
     MAP_LAYER_POSITION_BASEMAP,
 } from '../constants/layers.js'
 import {
@@ -42,43 +41,61 @@ export const appQueries = {
     },
 }
 
-const UNKNOWN_LAYER = 'unknownLayer'
-const TOKEN_VALIDATION_URLS = [
-    [
-        AZURE_LAYER,
-        `https://atlas.microsoft.com/map/static/png?api-version=2.0&zoom=1&center=0,0&layer=basic&width=1&height=1&subscription-key=`,
-    ],
-    [
-        BING_LAYER,
-        `https://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial?key=`,
-    ],
-]
+export const validateKeys = async (systemSettings) => {
+    const keysStatus = Object.values(KEYS_VALIDATION)
+        .flat()
+        .reduce((acc, { type }) => {
+            acc[type] = false
+            return acc
+        }, {})
 
-export const getMSKeyType = async (apiKey) => {
-    if (apiKey) {
-        for (const [type, url] of TOKEN_VALIDATION_URLS) {
-            try {
-                const response = await fetch(`${url}${apiKey}`)
-                if (response.ok) {
-                    return type
+    for (const keyName of Object.keys(KEYS_VALIDATION)) {
+        if (systemSettings[keyName]) {
+            for (const { type, url } of KEYS_VALIDATION[keyName]) {
+                try {
+                    const response = await fetch(
+                        `${url}${systemSettings[keyName]}`
+                    )
+                    if (response.ok) {
+                        keysStatus[type] = true
+                        return keysStatus
+                    }
+                } catch (error) {
+                    continue
                 }
-            } catch (error) {
-                continue
             }
-        }
-        console.warn(
-            i18n.t(
-                'The API key provided is not valid for either MS Bing or Azure.'
+            console.warn(
+                i18n.t(
+                    '{{keyName}} is not valid for layer type(s): {{types}}',
+                    {
+                        keyName,
+                        types: KEYS_VALIDATION[keyName]
+                            .map((l) => l.type)
+                            .join(', '),
+                        nsSeparator: '^^',
+                    }
+                )
             )
-        )
-    } else {
-        console.warn(i18n.t('No API key provided for either MS Bing or Azure.'))
+        } else {
+            console.warn(
+                i18n.t(
+                    '{{keyName}} is not provided for layer type(s): {{types}}',
+                    {
+                        keyName,
+                        types: KEYS_VALIDATION[keyName]
+                            .map((l) => l.type)
+                            .join(', '),
+                        nsSeparator: '^^',
+                    }
+                )
+            )
+        }
+        return keysStatus
     }
-    return UNKNOWN_LAYER
 }
 
 const getBasemapList = async (externalMapLayers, systemSettings) => {
-    const keyType = await getMSKeyType(systemSettings.keyBingMapsApiKey)
+    const keysStatus = await validateKeys(systemSettings)
     const externalBasemaps = externalMapLayers
         .filter(
             (layer) => layer.mapLayerPosition === MAP_LAYER_POSITION_BASEMAP
@@ -87,20 +104,23 @@ const getBasemapList = async (externalMapLayers, systemSettings) => {
         .map(createExternalBasemapLayer)
         .filter((basemap) => layerTypes.includes(basemap.config.type))
 
-    return defaultBasemaps()
+    const basemapList = defaultBasemaps()
         .filter((basemap) => layerTypes.includes(basemap.config.type))
         .filter((basemap) =>
-            MS_LAYERS.includes(basemap.config.type)
-                ? keyType === basemap.config.type
+            Object.keys(keysStatus).includes(basemap.config.type)
+                ? keysStatus[basemap.config.type]
                 : true
         )
         .map((basemap) => {
-            if (MS_LAYERS.includes(basemap.config.type)) {
-                basemap.config.apiKey = systemSettings.keyBingMapsApiKey
+            if (LAYERS_TO_KEY_MAP[basemap.config.type]) {
+                basemap.config.apiKey =
+                    systemSettings[LAYERS_TO_KEY_MAP[basemap.config.type]]
             }
             return basemap
         })
         .concat(externalBasemaps)
+
+    return basemapList
 }
 
 const getDefaultLayerSources = (externalMapLayers) => {

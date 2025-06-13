@@ -4,7 +4,7 @@ import {
 } from '../../constants/basemaps.js'
 import {
     MAP_LAYER_POSITION_BASEMAP,
-    MS_LAYERS,
+    LAYERS_TO_KEY_MAP,
 } from '../../constants/layers.js'
 import { createExternalBasemapLayer } from '../../util/external.js'
 import { EXTERNAL_MAP_LAYERS_QUERY } from '../../util/requests.js'
@@ -35,7 +35,7 @@ async function getBasemapConfig({
     basemapId,
     basemapVisible,
     keyDefaultBaseMap,
-    keyBingMapsApiKey,
+    systemSettings,
     engine,
 }) {
     const basemaps = await getBasemaps(basemapId, keyDefaultBaseMap, engine)
@@ -45,8 +45,9 @@ async function getBasemapConfig({
         basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
         getFallbackBasemap()
 
-    if (MS_LAYERS.includes(basemap.config.type)) {
-        basemap.config.apiKey = keyBingMapsApiKey
+    if (LAYERS_TO_KEY_MAP[basemap.config.type]) {
+        basemap.config.apiKey =
+            systemSettings[LAYERS_TO_KEY_MAP[basemap.config.type]]
     }
     if (typeof basemapVisible === 'boolean') {
         basemap.isVisible = basemapVisible
