@@ -6,3 +6,7 @@
     --toolbar-height: 32px;
     --downloadheader-height: 48px;
 }
+
+.layersSorting {
+    user-select: none !important;
+}
