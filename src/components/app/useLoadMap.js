@@ -62,14 +62,16 @@ export const useLoadMap = () => {
                         ({ id }) => id === map.basemap.id
                     )
                     if (!basemapConfig) {
-                        const msg = i18n.t(
-                            'Could not load: {{id}} — using the default basemap instead.',
-                            {
-                                id: map.basemap.id,
-                                nsSeparator: '^^',
-                            }
-                        )
-                        basemapInvalidAlertRef.current.show({ msg })
+                        if (map.basemap.id) {
+                            const msg = i18n.t(
+                                'Could not load: {{id}} — using the default basemap instead.',
+                                {
+                                    id: map.basemap.id,
+                                    nsSeparator: '^^',
+                                }
+                            )
+                            basemapInvalidAlertRef.current.show({ msg })
+                        }
                         basemapConfig =
                             basemaps.find(({ id }) => id === defaultBasemap) ||
                             getFallbackBasemap()

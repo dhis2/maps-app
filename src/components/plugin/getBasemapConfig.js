@@ -40,9 +40,11 @@ const getBasemapConfig = async ({
 
     let basemap = basemaps.find(({ id }) => id === basemapId)
     if (!basemap) {
-        console.warn(
-            `Could not load: ${basemapId} — using the default basemap instead.`
-        )
+        if (basemapId) {
+            console.warn(
+                `Could not load: ${basemapId} — using the default basemap instead.`
+            )
+        }
         basemap =
             basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
             getFallbackBasemap()
