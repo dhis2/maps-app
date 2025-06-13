@@ -8,6 +8,7 @@ const defaultState = {
     dataTableHeight: 300,
     mapContextMenu: true,
     downloadMode: false,
+    layersSorting: false,
 }
 
 const ui = (state = defaultState, action) => {
@@ -58,6 +59,17 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 dataTableHeight: action.height,
+            }
+
+        case types.LAYERS_SORTING_START:
+            return {
+                ...state,
+                layersSorting: true,
+            }
+        case types.LAYERS_SORTING_END:
+            return {
+                ...state,
+                layersSorting: false,
             }
 
         default:

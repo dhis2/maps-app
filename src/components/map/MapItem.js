@@ -19,6 +19,7 @@ class MapItem extends PureComponent {
         setMapControls: PropTypes.func.isRequired,
         isFullscreen: PropTypes.bool,
         isPlugin: PropTypes.bool,
+        layersSorting: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -68,10 +69,14 @@ class MapItem extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const { count, isFullscreen, isPlugin } = this.props
+        const { count, isFullscreen, isPlugin, layersSorting } = this.props
 
         if (count !== prevProps.count) {
             this.fitLayerBounds()
+        }
+
+        if (layersSorting !== prevProps.layersSorting) {
+            this.map.setMouseMoveEnabled(!layersSorting)
         }
 
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {

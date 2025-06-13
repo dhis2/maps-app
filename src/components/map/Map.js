@@ -42,6 +42,7 @@ class Map extends Component {
         isPlugin: PropTypes.bool,
         latitude: PropTypes.number,
         layers: PropTypes.array,
+        layersSorting: PropTypes.bool,
         longitude: PropTypes.number,
         nameProperty: PropTypes.string,
         resizeCount: PropTypes.number,
@@ -123,10 +124,15 @@ class Map extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeCount, isFullscreen, isPlugin } = this.props
+        const { resizeCount, isFullscreen, isPlugin, layersSorting } =
+            this.props
 
         if (resizeCount !== prevProps.resizeCount) {
             this.map.resize()
+        }
+
+        if (layersSorting !== prevProps.layersSorting) {
+            this.map.setMouseMoveEnabled(!layersSorting)
         }
 
         // From map plugin resize method

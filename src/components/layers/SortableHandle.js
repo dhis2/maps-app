@@ -4,7 +4,7 @@ import { SortableHandle } from 'react-sortable-hoc'
 import styles from './styles/SortableHandle.module.css'
 
 const Handle = () => (
-    <div className={styles.handle}>
+    <div className={styles.handle} data-test="sortable-handle">
         <IconDragHandle24 />
     </div>
 )
