@@ -27,7 +27,6 @@ const defaultBounds = [
 
 const Map = forwardRef((props, ref) => {
     const { basemap, mapViews, controls, getResizeFunction } = props
-    console.log('🚀 ~ Map ~ basemap:', basemap)
 
     const layers = useRef(
         mapViews.map((config) => ({ ...config, isLoaded: false }))

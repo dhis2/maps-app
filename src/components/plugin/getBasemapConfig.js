@@ -31,14 +31,12 @@ const getBasemapConfig = async ({
     systemSettings,
     engine,
 }) => {
-    console.log('🚀 ~ getBasemapConfig ~ basemapId:', basemapId)
     const externalMapLayers = await getExternalMapLayers({
         engine,
         basemapId,
         defaultBasemapId: keyDefaultBaseMap,
     })
     const basemaps = await getBasemapList({ externalMapLayers, systemSettings })
-    console.log('🚀 ~ getBasemapConfig:', basemaps)
 
     let basemap = basemaps.find(({ id }) => id === basemapId)
     if (!basemap) {
