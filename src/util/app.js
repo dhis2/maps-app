@@ -94,7 +94,7 @@ export const validateKeys = async (systemSettings) => {
     }
 }
 
-const getBasemapList = async (externalMapLayers, systemSettings) => {
+export const getBasemapList = async ({ externalMapLayers, systemSettings }) => {
     const keysStatus = await validateKeys(systemSettings)
     const externalBasemaps = externalMapLayers
         .filter(
@@ -167,10 +167,10 @@ export const providerDataTransformation = async ({
             calendar: systemInfo.calendar,
             dateFormat: systemInfo.dateFormat,
         },
-        basemaps: await getBasemapList(
-            externalMapLayers.externalMapLayers,
-            systemSettings
-        ),
+        basemaps: await getBasemapList({
+            externalMapLayers: externalMapLayers.externalMapLayers,
+            systemSettings,
+        }),
         defaultLayerSources: getDefaultLayerSources(
             externalMapLayers.externalMapLayers
         ),
