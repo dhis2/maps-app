@@ -24,7 +24,7 @@ const MapContainer = ({ visualization }) => {
         } = visualization
 
         const prepareConfig = async () => {
-            const { keyBingMapsApiKey, keyDefaultBaseMap } = systemSettings
+            const { keyDefaultBaseMap } = systemSettings
             let initialConfig
             if (id && !mapViews) {
                 const map = await fetchMap({
@@ -50,7 +50,7 @@ const MapContainer = ({ visualization }) => {
                 basemapId: initialConfig.basemap?.id,
                 basemapVisible: initialConfig.basemap?.isVisible,
                 keyDefaultBaseMap,
-                keyBingMapsApiKey,
+                systemSettings,
                 engine,
             })
 
