@@ -23,3 +23,10 @@ export const openDownloadMode = () => ({
 export const closeDownloadMode = () => ({
     type: types.DOWNLOAD_MODE_CLOSE,
 })
+
+export const layersSortingStart = () => ({
+    type: types.LAYERS_SORTING_START,
+})
+export const layersSortingEnd = () => ({
+    type: types.LAYERS_SORTING_END,
+})
