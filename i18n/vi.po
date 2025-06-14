@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -715,9 +715,6 @@ msgstr "Nhóm"
 
 msgid "Filters"
 msgstr "Bộ lọc"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}:{{message}}"
 
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
@@ -1502,6 +1499,9 @@ msgstr "Sự Kiện"
 msgid "Facilities"
 msgstr "Cơ sở"
 
+msgid "an error occurred"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr "Không tìm thấy tọa độ cho các cơ sở đã chọn"
 
@@ -1550,15 +1550,15 @@ msgstr "Đúng"
 msgid "false"
 msgstr "Sai"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Lớp này yêu cầu tài khoản Google Earth Engine. Kiểm tra tài liệu DHIS2 để "
 "biết thêm thông tin."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Chuyên đề"
