@@ -1,6 +1,5 @@
 import {
     FileMenu as UiFileMenu,
-    useCachedDataQuery,
     preparePayloadForSave,
     preparePayloadForSaveAs,
     VIS_TYPE_MAP,
@@ -27,6 +26,7 @@ import {
     fetchMapNameDesc,
     fetchMapSubscribers,
 } from '../../util/requests.js'
+import { useAppData } from './AppDataProvider.js'
 
 const updateMapMutation = {
     resource: 'maps',
@@ -67,7 +67,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
     const dispatch = useDispatch()
     const engine = useDataEngine()
-    const { systemSettings, currentUser } = useCachedDataQuery()
+    const { systemSettings, currentUser } = useAppData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)

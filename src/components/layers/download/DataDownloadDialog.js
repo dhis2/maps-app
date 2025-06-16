@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
@@ -13,13 +12,14 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { EVENT_LAYER } from '../../../constants/layers.js'
 import { getFormatOptions, downloadData } from '../../../util/dataDownload.js'
+import { useAppData } from '../../app/AppDataProvider.js'
 import { SelectField, Checkbox, Help } from '../../core/index.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
 import styles from './styles/DataDownloadDialog.module.css'
 
 const DataDownloadDialog = ({ layer, onCloseDialog }) => {
     const engine = useDataEngine()
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useAppData()
     const formatOptions = getFormatOptions()
     const [selectedFormat, setSelectedFormat] = useState(formatOptions[2])
     const [humanReadable, setHumanReadable] = useState(true)

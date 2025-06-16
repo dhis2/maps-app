@@ -5,11 +5,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
-"PO-Revision-Date: 2025-06-03T11:07:59.791Z\n"
+"POT-Creation-Date: 2025-06-16T11:57:46.814Z\n"
+"PO-Revision-Date: 2025-06-16T11:57:46.814Z\n"
 
 msgid "2020"
 msgstr "2020"
+
+msgid "This app could not retrieve required data."
+msgstr "This app could not retrieve required data."
+
+msgid "Network error"
+msgstr "Network error"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"

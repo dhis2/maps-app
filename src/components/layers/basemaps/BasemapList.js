@@ -1,11 +1,11 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useAppData } from '../../app/AppDataProvider.js'
 import Basemap from './Basemap.js'
 import styles from './styles/BasemapList.module.css'
 
 const BasemapList = ({ selectedID, selectBasemap }) => {
-    const { basemaps } = useCachedDataQuery()
+    const { basemaps } = useAppData()
     return (
         <div className={styles.basemapList} data-test="basemaplist">
             {basemaps.map((basemap, index) => (

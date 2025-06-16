@@ -1,4 +1,4 @@
-import { OrgUnitDimension, useCachedDataQuery } from '@dhis2/analytics'
+import { OrgUnitDimension } from '@dhis2/analytics'
 import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -6,6 +6,7 @@ import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
+import { useAppData } from '../app/AppDataProvider.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
 import AssociatedGeometrySelect from './AssociatedGeometrySelect.js'
 import OrgUnitSelectMode from './OrgUnitSelectMode.js'
@@ -23,7 +24,7 @@ const OrgUnitSelect = ({
     hideGroupSelect = false,
     warning,
 }) => {
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useAppData()
     const { roots, levels, loading, error } = useOrgUnits()
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()

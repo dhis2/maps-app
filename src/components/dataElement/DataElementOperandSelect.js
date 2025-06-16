@@ -1,8 +1,8 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
+import { useAppData } from '../app/AppDataProvider.js'
 import { SelectField } from '../core/index.js'
 
 // Load all data elements within a group
@@ -24,7 +24,7 @@ const DataElementOperandSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useAppData()
     const { loading, error, data, refetch } = useDataQuery(
         DATA_ELEMENT_OPERAND_QUERY,
         {

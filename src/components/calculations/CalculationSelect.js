@@ -1,8 +1,8 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useAppData } from '../app/AppDataProvider.js'
 import { SelectField, Help } from '../core/index.js'
 import styles from './styles/CalculationSelect.module.css'
 
@@ -19,7 +19,7 @@ const CALCULATIONS_QUERY = {
 }
 
 const CalculationSelect = ({ calculation, className, errorText, onChange }) => {
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useAppData()
     const { loading, error, data } = useDataQuery(CALCULATIONS_QUERY, {
         variables: { nameProperty },
     })

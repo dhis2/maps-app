@@ -1,9 +1,10 @@
-import { DimensionsPanel, useCachedDataQuery } from '@dhis2/analytics'
+import { DimensionsPanel } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Popover, IconChevronDown24, Help } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
+import { useAppData } from '../app/AppDataProvider.js'
 import styles from './styles/DimensionSelect.module.css'
 
 // Include the following dimension types
@@ -28,7 +29,7 @@ const DIMENSIONS_QUERY = {
 
 const DimensionSelect = ({ dimension, onChange }) => {
     const [isOpen, setIsOpen] = useState(false)
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useAppData()
     const { error, data } = useDataQuery(DIMENSIONS_QUERY, {
         variables: { nameProperty },
     })
