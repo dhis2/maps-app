@@ -1,4 +1,4 @@
-import { getInstance as getD2 } from 'd2'
+import { Analytics } from '@dhis2/analytics'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
@@ -46,6 +46,8 @@ class EventLayer extends Layer {
             dataFilters,
         } = this.props
 
+        const analyticsEngine = Analytics.getAnalytics(engine)
+
         const filteredData = filterData(data, dataFilters)
 
         // Some older favorites don't have a valid color code
@@ -62,7 +64,6 @@ class EventLayer extends Layer {
         const radius = eventPointRadius || EVENT_RADIUS
 
         const map = this.context.map
-        let d2
         let eventRequest
 
         // Default props = no cluster
@@ -86,12 +87,10 @@ class EventLayer extends Layer {
                 config.bounds = bounds
 
                 config.load = async (params, callback) => {
-                    d2 = d2 || (await getD2())
-
                     eventRequest =
                         eventRequest ||
                         (await getAnalyticsRequest(this.props, {
-                            d2,
+                            analyticsEngine,
                             nameProperty,
                             engine,
                         }))
@@ -101,7 +100,7 @@ class EventLayer extends Layer {
                         .withClusterSize(params.clusterSize)
                         .withIncludeClusterPoints(params.includeClusterPoints)
 
-                    const clusterData = await d2.analytics.events.getCluster(
+                    const clusterData = await analyticsEngine.events.getCluster(
                         eventRequest
                     )
 
@@ -298,7 +297,7 @@ class EventLayer extends Layer {
             programStage,
             eventCoordinateField,
             engine,
-            nameProperty,
+            displayNameProp,
         })
 
         this.setState({ displayItems, eventCoordinateFieldName })

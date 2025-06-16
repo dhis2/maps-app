@@ -1,3 +1,24 @@
+## [101.2.14](https://github.com/dhis2/maps-app/compare/v101.2.13...v101.2.14) (2025-06-06)
+
+
+### Bug Fixes
+
+* text overflow issues in popups [DHIS2-5920] ([#3525](https://github.com/dhis2/maps-app/issues/3525)) ([f0db1e1](https://github.com/dhis2/maps-app/commit/f0db1e19cf6b46bdde4405b1f8e8283c9c9bc8a9))
+
+## [101.2.13](https://github.com/dhis2/maps-app/compare/v101.2.12...v101.2.13) (2025-05-30)
+
+
+### Bug Fixes
+
+* do not overwrite newer changes by another user when renaming [DHIS2-19479] [DHIS2-19506] ([#3520](https://github.com/dhis2/maps-app/issues/3520)) ([0732cd9](https://github.com/dhis2/maps-app/commit/0732cd904739f790fa93804d6c4f5c6470fb3f21))
+
+## [101.2.12](https://github.com/dhis2/maps-app/compare/v101.2.11...v101.2.12) (2025-05-09)
+
+
+### Bug Fixes
+
+* multiple improvements to style by data item in event layers [DHIS2-19215] ([#3488](https://github.com/dhis2/maps-app/issues/3488)) ([a87e1f1](https://github.com/dhis2/maps-app/commit/a87e1f1f69f3474b2bb031f2b5019e0cde73382f))
+
 ## [101.2.11](https://github.com/dhis2/maps-app/compare/v101.2.10...v101.2.11) (2025-05-06)
 
 

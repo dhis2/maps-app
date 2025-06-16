@@ -9,7 +9,8 @@ import {
     getPrecision,
 } from '../../../../util/numbers.js'
 import Popup from '../../Popup.jsx'
-import styles from './styles/EarthEnginePopup.module.css'
+import styles from '../styles/Popup.module.css'
+import earthEngineStyles from './styles/EarthEnginePopup.module.css'
 
 const EarthEnginePopup = (props) => {
     const { coordinates, feature, data, legend, valueType, onClose } = props
@@ -26,7 +27,7 @@ const EarthEnginePopup = (props) => {
             const valueFormat = getRoundToPrecisionFn(isPercentage ? 2 : 0)
 
             table = (
-                <table className={styles.table}>
+                <table className={earthEngineStyles.table}>
                     <thead>
                         <tr>
                             <th colSpan="2">
@@ -40,7 +41,10 @@ const EarthEnginePopup = (props) => {
                             .filter((i) => values[i.value])
                             .sort((a, b) => values[b.value] - values[a.value])
                             .map(({ value, name, color }) => (
-                                <tr key={value} className={styles.classes}>
+                                <tr
+                                    key={value}
+                                    className={earthEngineStyles.classes}
+                                >
                                     <th
                                         style={{
                                             backgroundColor: color,
@@ -90,13 +94,15 @@ const EarthEnginePopup = (props) => {
             const header = (
                 <caption>
                     {title} {period}
-                    {!onlySum && <div className={styles.unit}>{unit}</div>}
+                    {!onlySum && (
+                        <div className={earthEngineStyles.unit}>{unit}</div>
+                    )}
                 </caption>
             )
 
             if (groups) {
                 table = (
-                    <table className={styles.table}>
+                    <table className={earthEngineStyles.table}>
                         {header}
                         <thead>
                             <tr>
@@ -140,7 +146,7 @@ const EarthEnginePopup = (props) => {
                 )
             } else {
                 table = (
-                    <table className={styles.table}>
+                    <table className={earthEngineStyles.table}>
                         {header}
                         <tbody>
                             {valueType.map((type) => (
@@ -165,18 +171,16 @@ const EarthEnginePopup = (props) => {
             coordinates={coordinates}
             orgUnitId={id}
             onClose={onClose}
-            className="dhis2-map-popup-orgunit"
+            className={styles.earthEnginePopup}
         >
-            <div className={styles.popup}>
-                <div className={styles.title}>{name}</div>
-                {table}
-                {isLoading && (
-                    <div className={styles.loading}>
-                        <CircularLoader small />
-                        {i18n.t('Loading data')}
-                    </div>
-                )}
-            </div>
+            <div className={styles.title}>{name}</div>
+            {table}
+            {isLoading && (
+                <div className={styles.loading}>
+                    <CircularLoader small />
+                    {i18n.t('Loading data')}
+                </div>
+            )}
         </Popup>
     )
 }

@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import {
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
@@ -15,11 +14,12 @@ import {
     getCoordinateField,
     parseGroupSet,
 } from '../util/orgUnits.js'
+import { GEOFEATURES_QUERY } from '../util/requests.js'
 
 const facilityLoader = async ({
     config,
     engine,
-    nameProperty,
+    keyAnalysisDisplayProperty,
     userId,
     baseUrl,
 }) => {
@@ -28,45 +28,55 @@ const facilityLoader = async ({
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
     const alerts = []
-    const d2 = await getD2()
 
-    const geoFeaturesParams = { _: userId }
-    const orgUnitParams = orgUnits.map((item) => item.id)
+    const orgUnitIds = orgUnits.map((item) => item.id)
     let associatedGeometries
 
     const name = i18n.t('Facilities')
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(nameProperty)
-
-    const requests = [
-        featuresRequest
-            .getAll({
-                ...geoFeaturesParams,
-                includeGroupSets,
-            })
-            .then(getPointItems)
-            .then(toGeoJson)
-            .catch((error) => {
-                if (error?.message || error) {
+    let data = {}
+    try {
+        // Fetch geofeatures data
+        data = await engine.query(
+            GEOFEATURES_QUERY,
+            {
+                variables: {
+                    orgUnitIds,
+                    keyAnalysisDisplayProperty,
+                    includeGroupSets,
+                    userId,
+                },
+            },
+            {
+                onError: (error) => {
                     alerts.push({
+                        critical: true,
                         code: ERROR_CRITICAL,
-                        message: error.message,
+                        message: error.message || i18n.t('an error occurred'),
                     })
-                }
-            }),
-    ]
-
-    // Load organisationUnitGroups if not passed
-    if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        const orgUnitGroupsRequest = engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-            variables: { id: groupSet.id },
+                },
+            }
+        )
+    } catch (error) {
+        alerts.push({
+            critical: true,
+            code: ERROR_CRITICAL,
+            message: error.message || i18n.t('an error occurred'),
         })
-        requests.push(orgUnitGroupsRequest)
     }
 
-    const [features, orgUnitGroups] = await Promise.all(requests)
+    const features =
+        data?.geoFeatures && toGeoJson(getPointItems(data.geoFeatures))
+
+    // Load organisationUnitGroups if not passed
+    let orgUnitGroups
+    if (includeGroupSets && !groupSet.organisationUnitGroups) {
+        orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: {
+                id: groupSet?.id,
+            },
+        })
+    }
 
     if (orgUnitGroups) {
         const { groupSets } = orgUnitGroups
@@ -75,24 +85,28 @@ const facilityLoader = async ({
         })
     }
 
-    const { styledFeatures, legend } = getStyledOrgUnits(
+    const { styledFeatures, legend } = getStyledOrgUnits({
         features,
         groupSet,
         config,
-        baseUrl
-    )
-
+        baseUrl,
+    })
     legend.title = name
 
     if (coordinateField) {
-        associatedGeometries = await featuresRequest
-            .getAll({
-                ...geoFeaturesParams,
-                coordinateField: coordinateField.id,
+        const rawData = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                orgUnitIds,
+                keyAnalysisDisplayProperty,
                 includeGroupSets,
-            })
-            .then(getPolygonItems)
-            .then(toGeoJson)
+                coordinateField: coordinateField.id,
+                userId,
+            },
+        })
+
+        associatedGeometries = rawData?.geoFeatures
+            ? toGeoJson(getPolygonItems(rawData.geoFeatures))
+            : null
 
         if (!associatedGeometries.length) {
             alerts.push({

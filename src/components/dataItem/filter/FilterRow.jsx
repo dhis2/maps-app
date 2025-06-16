@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { Help } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SelectField } from '../../core/index.js'
@@ -14,10 +15,6 @@ const FilterRow = ({
     onChange,
     onRemove,
 }) => {
-    if (!dataItems?.length) {
-        return null
-    }
-
     const { valueType, optionSet } =
         dataItems.find((d) => d.id === dimension) || {}
 
@@ -40,12 +37,30 @@ const FilterRow = ({
         }
     }
 
+    const internalError =
+        dimension && !dataItems.find((item) => item.id === dimension)
+    let internalErrorText
+    if (internalError) {
+        internalErrorText = i18n.t(
+            'Previously selected value not available in list: {{id}}',
+            {
+                id: dimension,
+                nsSeparator: '^^',
+            }
+        )
+    }
+
+    let selectValue = null
+    if (!internalError) {
+        selectValue = dimension || null
+    }
+
     return (
         <div className={styles.filterRow}>
             <SelectField
                 label={i18n.t('Data item')}
                 items={dataItems}
-                value={dimension || null}
+                value={selectValue}
                 onChange={onSelect}
                 className={styles.dataItemSelect}
             />
@@ -60,6 +75,11 @@ const FilterRow = ({
                 />
             )}
             <RemoveFilter onClick={() => onRemove(index)} />
+            {internalError && (
+                <Help className={styles.help} error>
+                    {internalErrorText}
+                </Help>
+            )}
         </div>
     )
 }

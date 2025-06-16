@@ -2,7 +2,6 @@ import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { legacyNighttimeDatasetId } from '../constants/earthEngineLayers/legacy/nighttime_DMSP-OLS.js'
 import { EE_MONTHLY } from '../constants/periods.js'
-import { apiFetch } from './api.js'
 import { formatStartEndDate } from './time.js'
 
 export const classAggregation = ['percentage', 'hectares', 'acres']
@@ -66,41 +65,49 @@ export const getPeriodFromFilter = (filter, datasetId) => {
     }
 }
 
-// Returns auth token for EE API as a promise
-/* eslint-disable no-async-promise-executor */
-export const getAuthToken = () =>
-    new Promise(async (resolve, reject) => {
-        const token = await apiFetch('/tokens/google').catch(() =>
-            reject(
-                new Error(
-                    i18n.t(
-                        'Cannot get authorization token for Google Earth Engine.'
-                    )
-                )
-            )
-        )
+export const getAuthTokenFn = (engine) => async () => {
+    try {
+        const response = await engine.query({
+            token: { resource: 'tokens/google' },
+        })
+        const token = response.token
 
         if (token && token.status === 'ERROR') {
-            reject(
-                new Error(
-                    i18n.t(
-                        'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
-                    )
+            throw new Error(
+                i18n.t(
+                    'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
                 )
             )
         }
 
-        resolve({
+        return {
             token_type: 'Bearer',
             ...token,
-        })
-    })
-/* eslint-enable no-async-promise-executor */
+        }
+    } catch (e) {
+        if (e.details?.httpStatusCode === 500) {
+            throw new Error(
+                i18n.t(
+                    'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
+                )
+            )
+        }
+
+        if (e.message) {
+            throw new Error(e.message)
+        }
+
+        throw new Error(
+            i18n.t('Cannot get authorization token for Google Earth Engine.')
+        )
+    }
+}
 
 let workerPromise
 
 // Load EE worker and set token
-const getWorkerInstance = async () => {
+const getWorkerInstance = async (engine) => {
+    const getAuthToken = getAuthTokenFn(engine)
     workerPromise =
         workerPromise ||
         (async () => {
@@ -111,7 +118,12 @@ const getWorkerInstance = async () => {
     return workerPromise
 }
 
-export const getPeriods = async (eeId, periodType, filters) => {
+export const getPeriods = async ({
+    datasetId,
+    periodType,
+    filters,
+    engine,
+}) => {
     const useSystemIndex = filters.some((f) =>
         f.arguments.includes('system:index')
     )
@@ -133,9 +145,9 @@ export const getPeriods = async (eeId, periodType, filters) => {
               }
     }
 
-    const eeWorker = await getWorkerInstance()
+    const eeWorker = await getWorkerInstance(engine)
 
-    const { features } = await eeWorker.getPeriods(eeId)
+    const { features } = await eeWorker.getPeriods(datasetId)
 
     return features.map(getPeriod)
 }

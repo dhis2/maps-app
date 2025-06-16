@@ -27,7 +27,11 @@ const DownloadSettings = () => {
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
 
-    const { mapViews, name, description } = useSelector((state) => state.map)
+    const {
+        mapViews,
+        displayName: name,
+        displayDescription: description,
+    } = useSelector((state) => state.map)
     const {
         showName,
         showDescription,

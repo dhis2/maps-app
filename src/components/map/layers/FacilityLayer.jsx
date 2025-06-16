@@ -13,6 +13,7 @@ import { getLabelStyle } from '../../../util/labels.js'
 import Popup from '../Popup.jsx'
 import Alert from './Alert.jsx'
 import Layer from './Layer.js'
+import styles from './styles/Popup.module.css'
 
 class FacilityLayer extends Layer {
     state = {
@@ -103,7 +104,7 @@ class FacilityLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup
-        const { id, name, dimensions, pn } = feature.properties
+        const { id, name, dimensions, parentName } = feature.properties
         const { orgUnitFieldDisplayName } = this.props
 
         return (
@@ -111,9 +112,9 @@ class FacilityLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
-                className="dhis2-map-popup-orgunit"
+                className={styles.facilityPopup}
             >
-                <em>{name}</em>
+                <div className={styles.title}>{name}</div>
                 {this.state.isAssociatedGeometry && (
                     <div>{orgUnitFieldDisplayName}</div>
                 )}
@@ -125,9 +126,9 @@ class FacilityLayer extends Layer {
                             .join(', ')}
                     </div>
                 )}
-                {pn && (
+                {parentName && (
                     <div>
-                        {i18n.t('Parent unit')}: {pn}
+                        {i18n.t('Parent unit')}: {parentName}
                     </div>
                 )}
             </Popup>

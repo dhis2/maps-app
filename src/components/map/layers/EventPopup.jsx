@@ -3,12 +3,14 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
-import { formatTime, formatCoordinate } from '../../../util/helpers.js'
+import {
+    formatDatetime,
+    formatCoordinate,
+    formatValueForDisplay,
+} from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.jsx'
-
-// Returns true if value is not undefined or null
-const hasValue = (value) => value !== undefined && value !== null
+import styles from './styles/Popup.module.css'
 
 const EVENTS_QUERY = {
     events: {
@@ -23,15 +25,11 @@ const getDataRows = ({ displayItems, dataValues }) => {
     // Include rows for each data item used for styling and displayInReport
     displayItems.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find((d) => d.dataElement === id) || {}
-        let formattedValue = value
-
-        if (valueType === 'COORDINATE' && value) {
-            formattedValue = formatCoordinate(value)
-        } else if (!hasValue(value)) {
-            formattedValue = i18n.t('Not set')
-        } else if (options) {
-            formattedValue = options[value] || value
-        }
+        const formattedValue = formatValueForDisplay({
+            value,
+            valueType,
+            options,
+        })
 
         dataRows.push(
             <tr key={id}>
@@ -42,7 +40,7 @@ const getDataRows = ({ displayItems, dataValues }) => {
     })
 
     if (dataRows.length) {
-        dataRows.push(<tr key="divider" style={{ height: 5 }} />)
+        dataRows.push(<tr key="divider" className={styles.divider} />)
     }
 
     return dataRows
@@ -97,10 +95,18 @@ const EventPopup = ({
 
     const { type, coordinates: coord } = feature.geometry
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
-    if (!dataValues.some((d) => d.dataElement === styleDataItem?.id)) {
+    const dataValueIndex = dataValues.findIndex(
+        (d) => d.dataElement === styleDataItem?.id
+    )
+    if (dataValueIndex !== -1) {
+        dataValues[dataValueIndex] = {
+            dataElement: styleDataItem?.id,
+            value: feature.properties.value,
+        }
+    } else {
         dataValues.push({
             dataElement: styleDataItem?.id,
-            value: feature.properties[styleDataItem?.id],
+            value: feature.properties.value,
         })
     }
 
@@ -108,13 +114,13 @@ const EventPopup = ({
         <Popup
             coordinates={coordinates}
             onClose={onClose}
-            className="dhis2-map-popup-event"
+            className={styles.eventPopup}
         >
             {errorEvent && (
                 <table>
                     <tbody>
                         <tr>{i18n.t('Could not retrieve event data')}</tr>
-                        <tr key="divider" style={{ height: 5 }} />
+                        <tr key="divider" className={styles.divider} />
                     </tbody>
                 </table>
             )}
@@ -132,9 +138,7 @@ const EventPopup = ({
                                     {eventCoordinateFieldName ||
                                         i18n.t('Event location')}
                                 </th>
-                                <td>
-                                    {coord[0].toFixed(6)} {coord[1].toFixed(6)}
-                                </td>
+                                <td>{formatCoordinate(coord)}</td>
                             </tr>
                         )}
                         {orgUnit && (
@@ -146,7 +150,7 @@ const EventPopup = ({
                         {occurredAt && (
                             <tr>
                                 <th>{i18n.t('Event time')}</th>
-                                <td>{formatTime(occurredAt)}</td>
+                                <td>{formatDatetime(occurredAt)}</td>
                             </tr>
                         )}
                     </tbody>

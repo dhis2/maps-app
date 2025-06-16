@@ -14,9 +14,9 @@ import React, {
 } from 'react'
 import { drillUpDown } from '../../util/map.js'
 import { didViewsChange } from '../../util/pluginHelper.js'
-import LayerLoader from '../loaders/LayerLoader.jsx'
 import MapView from '../map/MapView.jsx'
 import ContextMenu from './ContextMenu.jsx'
+import LayerLoader from './LayerLoader.jsx'
 import Legend from './Legend.jsx'
 import styles from './styles/Map.module.css'
 
