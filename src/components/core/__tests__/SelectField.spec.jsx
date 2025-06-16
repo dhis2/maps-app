@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent, within, act } from '@testing-library/react'
 import React from 'react'
 import SelectField from '../SelectField.jsx'
 
@@ -56,7 +56,12 @@ describe('SelectField', () => {
         render(<SelectField items={items} label="The indicator" />)
 
         // click to open the select dropdown
-        await fireEvent.click(screen.getByTestId('dhis2-uicore-select-input'))
+        await act(async () => {
+            // click to open the select dropdown
+            await fireEvent.click(
+                screen.getByTestId('dhis2-uicore-select-input')
+            )
+        })
 
         const options = screen.getAllByTestId('dhis2-uicore-singleselectoption')
         expect(options).toHaveLength(items.length)
@@ -76,13 +81,21 @@ describe('SelectField', () => {
         )
 
         // click to open the select dropdown
-        await fireEvent.click(screen.getByTestId('dhis2-uicore-select-input'))
+        await act(async () => {
+            // click to open the select dropdown
+            await fireEvent.click(
+                screen.getByTestId('dhis2-uicore-select-input')
+            )
+        })
 
         const options = screen.getAllByTestId('dhis2-uicore-singleselectoption')
         expect(options).toHaveLength(items.length)
 
         // click on the second option
-        await fireEvent.click(options[1])
+        await act(async () => {
+            // click on the second option
+            await fireEvent.click(options[1])
+        })
 
         expect(onChangeSpy).toHaveBeenCalledWith(items[1])
     })

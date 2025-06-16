@@ -9,7 +9,7 @@ import OpacitySlider from './OpacitySlider.jsx'
 import styles from './styles/LayerToolbar.module.css'
 
 const LayerToolbar = ({
-    hasOpacity,
+    hasOpacity = true,
     opacity = 1,
     isVisible,
     onOpacityChange,
@@ -78,10 +78,6 @@ LayerToolbar.propTypes = {
     isVisible: PropTypes.bool,
     opacity: PropTypes.number,
     onEdit: PropTypes.func,
-}
-
-LayerToolbar.defaultProps = {
-    hasOpacity: true,
 }
 
 export default LayerToolbar
