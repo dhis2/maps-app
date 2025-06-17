@@ -4,7 +4,7 @@ import { useAlert } from '@dhis2/app-service-alerts'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
-import { useAppData } from '../components/app/AppDataProvider.js'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.js'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
 import { EVENT_LAYER } from '../constants/layers.js'
 import earthEngineLoader from '../loaders/earthEngineLoader.js'
@@ -31,7 +31,7 @@ export const useLayersLoader = () => {
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
-    const { currentUser } = useAppData()
+    const { currentUser } = useCachedData()
     const { showAlerts } = useLoaderAlerts()
     const allLayers = useSelector((state) => state.map.mapViews)
     const dataTable = useSelector((state) => state.dataTable)

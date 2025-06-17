@@ -8,7 +8,7 @@ import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useKeyDown from '../../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
-import { useAppData } from '../../app/AppDataProvider.js'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.js'
 import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.js'
 import LayerList from './LayerList.js'
 
@@ -32,7 +32,7 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         isSplitViewMap(state.map.mapViews)
     )
     const dispatch = useDispatch()
-    const { defaultLayerSources } = useAppData()
+    const { defaultLayerSources } = useCachedData()
     const { managedLayerSources } = useManagedLayerSourcesStore()
     const layerSources = includeEarthEngineLayers(
         defaultLayerSources,

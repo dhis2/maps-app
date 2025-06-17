@@ -5,7 +5,7 @@ import queryString from 'query-string'
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.js'
-import { AppDataProvider } from './components/app/AppDataProvider.js'
+import { CachedDataProvider } from './components/cachedDataProvider/CachedDataProvider.js'
 import OrgUnitsProvider from './components/OrgUnitsProvider.js'
 import WindowDimensionsProvider from './components/WindowDimensionsProvider.js'
 import store from './store/index.js'
@@ -59,7 +59,7 @@ const AppWrapper = () => {
     return (
         <ReduxProvider store={store}>
             <DataStoreProvider namespace={USER_DATASTORE_NAMESPACE}>
-                <AppDataProvider
+                <CachedDataProvider
                     query={appQueries}
                     dataTransformation={providerDataTransformation}
                 >
@@ -69,7 +69,7 @@ const AppWrapper = () => {
                             <App />
                         </OrgUnitsProvider>
                     </WindowDimensionsProvider>
-                </AppDataProvider>
+                </CachedDataProvider>
             </DataStoreProvider>
         </ReduxProvider>
     )

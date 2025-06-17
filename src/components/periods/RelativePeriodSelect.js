@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
 import { START_END_DATES } from '../../constants/periods.js'
 import { getRelativePeriods } from '../../util/periods.js'
-import { useAppData } from '../app/AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { SelectField } from '../core/index.js'
 
 const RelativePeriodSelect = ({
@@ -13,7 +13,7 @@ const RelativePeriodSelect = ({
     className,
     errorText,
 }) => {
-    const { systemSettings } = useAppData()
+    const { systemSettings } = useCachedData()
     const hiddenPeriods = systemSettings.hiddenPeriods
 
     const periods = useMemo(

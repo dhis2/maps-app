@@ -10,7 +10,7 @@ import geoJsonUrlLoader from '../../loaders/geoJsonUrlLoader.js'
 import orgUnitLoader from '../../loaders/orgUnitLoader.js'
 import thematicLoader from '../../loaders/thematicLoader.js'
 import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
-import { useAppData } from '../app/AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 
 const loaders = {
     earthEngine: earthEngineLoader,
@@ -27,7 +27,7 @@ const LayerLoader = ({ config, onLoad }) => {
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
-    const { currentUser } = useAppData()
+    const { currentUser } = useCachedData()
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
 
     useEffect(() => {

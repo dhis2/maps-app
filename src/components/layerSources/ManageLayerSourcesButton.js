@@ -3,11 +3,11 @@ import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { MAPS_ADMIN_AUTHORITY_ID } from '../../constants/settings.js'
-import { useAppData } from '../app/AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import styles from './styles/ManageLayerSourcesButton.module.css'
 
 const ManageLayerSourcesButton = ({ onClick }) => {
-    const { currentUser } = useAppData()
+    const { currentUser } = useCachedData()
     const isMapsAdmin = currentUser.authorities.has(MAPS_ADMIN_AUTHORITY_ID)
 
     if (!isMapsAdmin) {

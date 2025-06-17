@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useAppData } from '../../app/AppDataProvider.js'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.js'
 import Basemap from './Basemap.js'
 import styles from './styles/BasemapList.module.css'
 
 const BasemapList = ({ selectedID, selectBasemap }) => {
-    const { basemaps } = useAppData()
+    const { basemaps } = useCachedData()
     return (
         <div className={styles.basemapList} data-test="basemaplist">
             {basemaps.map((basemap, index) => (

@@ -4,9 +4,9 @@ import { Layer, CenteredContent, CircularLoader, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
-const AppDataCtx = createContext({})
+const CachedDataCtx = createContext({})
 
-const AppDataProvider = ({
+const CachedDataProvider = ({
     query,
     dataTransformation,
     children,
@@ -69,19 +69,19 @@ const AppDataProvider = ({
     }
 
     return (
-        <AppDataCtx.Provider value={transformedData}>
+        <CachedDataCtx.Provider value={transformedData}>
             {children}
-        </AppDataCtx.Provider>
+        </CachedDataCtx.Provider>
     )
 }
 
-AppDataProvider.propTypes = {
+CachedDataProvider.propTypes = {
     children: PropTypes.node.isRequired,
     query: PropTypes.object.isRequired,
     dataTransformation: PropTypes.func,
     translucent: PropTypes.bool,
 }
 
-const useAppData = () => useContext(AppDataCtx)
+const useCachedData = () => useContext(CachedDataCtx)
 
-export { AppDataProvider, useAppData }
+export { CachedDataProvider, useCachedData }

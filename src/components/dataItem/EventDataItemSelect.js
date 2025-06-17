@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
 import { combineDataItems } from '../../util/analytics.js'
-import { useAppData } from '../app/AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { SelectField } from '../core/index.js'
 
 const excludeValueTypes = [
@@ -39,7 +39,7 @@ const EventDataItemSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty } = useAppData()
+    const { nameProperty } = useCachedData()
     const { programAttributes } = useProgramTrackedEntityAttributes({
         programId: program?.id,
     })

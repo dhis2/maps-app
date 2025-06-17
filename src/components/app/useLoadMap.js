@@ -15,14 +15,14 @@ import history, {
     defaultHashUrlParams,
 } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
-import { useAppData } from './AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
 
 export const useLoadMap = () => {
     const previousParamsRef = useRef(defaultHashUrlParams)
-    const { systemSettings, basemaps } = useAppData()
+    const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()

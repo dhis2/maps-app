@@ -6,7 +6,7 @@ import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
-import { useAppData } from '../app/AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
 import AssociatedGeometrySelect from './AssociatedGeometrySelect.js'
 import OrgUnitSelectMode from './OrgUnitSelectMode.js'
@@ -24,7 +24,7 @@ const OrgUnitSelect = ({
     hideGroupSelect = false,
     warning,
 }) => {
-    const { nameProperty } = useAppData()
+    const { nameProperty } = useCachedData()
     const { roots, levels, loading, error } = useOrgUnits()
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()

@@ -5,14 +5,14 @@ import React, { useState, useEffect } from 'react'
 import { getConfigFromNonMapConfig } from '../../util/getConfigFromNonMapConfig.js'
 import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import { fetchMap } from '../../util/requests.js'
-import { useAppData } from '../app/AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import getBasemapConfig from './getBasemapConfig.js'
 import LoadingMask from './LoadingMask.js'
 import Map from './Map.js'
 
 const MapContainer = ({ visualization }) => {
     const engine = useDataEngine()
-    const { systemSettings } = useAppData()
+    const { systemSettings } = useCachedData()
     const [config, setConfig] = useState(null)
 
     useEffect(() => {

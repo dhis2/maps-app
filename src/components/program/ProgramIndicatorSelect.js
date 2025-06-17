@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import { sortBy } from 'lodash/fp'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import { useAppData } from '../app/AppDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { SelectField } from '../core/index.js'
 
 // Load program indicators for one program
@@ -25,7 +25,7 @@ const ProgramIndicatorSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty } = useAppData()
+    const { nameProperty } = useCachedData()
 
     const { data, loading, error, refetch } = useDataQuery(
         PROGRAM_INDICATORS_QUERY,

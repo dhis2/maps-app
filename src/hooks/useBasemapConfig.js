@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useAppData } from '../components/app/AppDataProvider.js'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.js'
 import { getFallbackBasemap } from '../constants/basemaps.js'
 import { defaultBasemapState } from '../reducers/map.js'
 
@@ -7,7 +7,7 @@ const emptyBasemap = { config: {} }
 
 function useBasemapConfig(selected) {
     const [basemap, setBasemap] = useState(emptyBasemap)
-    const { systemSettings, basemaps } = useAppData()
+    const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
 
     useEffect(() => {

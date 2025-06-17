@@ -5,7 +5,7 @@ import {
     SYSTEM_SETTINGS,
 } from '../../constants/settings.js'
 import { getHiddenPeriods } from '../../util/periods.js'
-import { AppDataProvider } from '../app/AppDataProvider.js'
+import { CachedDataProvider } from '../cachedDataProvider/CachedDataProvider.js'
 import MapContainer from './MapContainer.js'
 
 const query = {
@@ -50,7 +50,7 @@ const providerDataTransformation = ({ systemSettings, currentUser }) => {
 
 export const Plugin = ({ visualization, displayProperty }) => {
     return (
-        <AppDataProvider
+        <CachedDataProvider
             query={query}
             dataTransformation={providerDataTransformation}
             translucent={false}
@@ -59,7 +59,7 @@ export const Plugin = ({ visualization, displayProperty }) => {
                 visualization={visualization}
                 displayProperty={displayProperty}
             />
-        </AppDataProvider>
+        </CachedDataProvider>
     )
 }
 

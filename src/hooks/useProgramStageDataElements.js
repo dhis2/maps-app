@@ -1,6 +1,6 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useState, useEffect } from 'react'
-import { useAppData } from '../components/app/AppDataProvider.js'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.js'
 import { getValidDataItems } from '../util/helpers.js'
 
 const PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
@@ -19,7 +19,7 @@ const PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
 }
 export const useProgramStageDataElements = ({ programStageId }) => {
     const [dataElements, setDataElements] = useState(null)
-    const { nameProperty } = useAppData()
+    const { nameProperty } = useCachedData()
 
     const { refetch, loading } = useDataQuery(
         PROGRAM_STAGE_DATA_ELEMENTS_QUERY,

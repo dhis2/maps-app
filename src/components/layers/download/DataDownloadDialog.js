@@ -12,14 +12,14 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { EVENT_LAYER } from '../../../constants/layers.js'
 import { getFormatOptions, downloadData } from '../../../util/dataDownload.js'
-import { useAppData } from '../../app/AppDataProvider.js'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.js'
 import { SelectField, Checkbox, Help } from '../../core/index.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
 import styles from './styles/DataDownloadDialog.module.css'
 
 const DataDownloadDialog = ({ layer, onCloseDialog }) => {
     const engine = useDataEngine()
-    const { nameProperty } = useAppData()
+    const { nameProperty } = useCachedData()
     const formatOptions = getFormatOptions()
     const [selectedFormat, setSelectedFormat] = useState(formatOptions[2])
     const [humanReadable, setHumanReadable] = useState(true)
