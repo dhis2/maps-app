@@ -145,6 +145,7 @@ const StartEndDate = ({
                         dispatch(onSelectStartDate(formatDateOnBlur(e?.value)))
                     }
                     placeholder={DEFAULT_PLACEHOLDER}
+                    width={styles.width}
                     dataTest="start-date-input"
                     clearable={true}
                 />
@@ -165,6 +166,7 @@ const StartEndDate = ({
                         dispatch(onSelectEndDate(formatDateOnBlur(e?.value)))
                     }
                     placeholder={DEFAULT_PLACEHOLDER}
+                    width={styles.width}
                     dataTest="end-date-input"
                     clearable={true}
                 />
