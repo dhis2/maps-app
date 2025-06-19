@@ -1,20 +1,11 @@
-import i18n from '@dhis2/d2-i18n'
 import { layerTypes } from '../components/map/MapApi.js'
-import { defaultBasemaps } from '../constants/basemaps.js'
-import {
-    KEYS_VALIDATION,
-    LAYERS_TO_KEY_MAP,
-    MAP_LAYER_POSITION_BASEMAP,
-} from '../constants/layers.js'
+import { MAP_LAYER_POSITION_BASEMAP } from '../constants/layers.js'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
 } from '../constants/settings.js'
-import {
-    createExternalBasemapLayer,
-    createExternalOverlayLayer,
-    supportedMapServices,
-} from './external.js'
+import { getBasemapList } from './basemaps.js'
+import { createExternalOverlayLayer, supportedMapServices } from './external.js'
 import { getDefaultLayerTypes } from './getDefaultLayerTypes.js'
 import { getHiddenPeriods } from './periods.js'
 import { EXTERNAL_MAP_LAYERS_QUERY } from './requests.js'
@@ -39,88 +30,6 @@ export const appQueries = {
             fields: 'calendar,dateFormat',
         },
     },
-}
-
-export const validateKeys = async (systemSettings) => {
-    const keysStatus = Object.values(KEYS_VALIDATION)
-        .flat()
-        .reduce((acc, { type }) => {
-            acc[type] = false
-            return acc
-        }, {})
-
-    for (const keyName of Object.keys(KEYS_VALIDATION)) {
-        if (systemSettings[keyName]) {
-            for (const { type, url } of KEYS_VALIDATION[keyName]) {
-                try {
-                    const response = await fetch(
-                        `${url}${systemSettings[keyName]}`
-                    )
-                    if (response.ok) {
-                        keysStatus[type] = true
-                        return keysStatus
-                    }
-                } catch (error) {
-                    continue
-                }
-            }
-            console.warn(
-                i18n.t(
-                    '{{keyName}} is not valid for layer type(s): {{types}}',
-                    {
-                        keyName,
-                        types: KEYS_VALIDATION[keyName]
-                            .map((l) => l.type)
-                            .join(', '),
-                        nsSeparator: '^^',
-                    }
-                )
-            )
-        } else {
-            console.warn(
-                i18n.t(
-                    '{{keyName}} is not provided for layer type(s): {{types}}',
-                    {
-                        keyName,
-                        types: KEYS_VALIDATION[keyName]
-                            .map((l) => l.type)
-                            .join(', '),
-                        nsSeparator: '^^',
-                    }
-                )
-            )
-        }
-        return keysStatus
-    }
-}
-
-export const getBasemapList = async ({ externalMapLayers, systemSettings }) => {
-    const keysStatus = await validateKeys(systemSettings)
-    const externalBasemaps = externalMapLayers
-        .filter(
-            (layer) => layer.mapLayerPosition === MAP_LAYER_POSITION_BASEMAP
-        )
-        .filter((layer) => supportedMapServices.includes(layer.mapService))
-        .map(createExternalBasemapLayer)
-        .filter((basemap) => layerTypes.includes(basemap.config.type))
-
-    const basemapList = defaultBasemaps()
-        .filter((basemap) => layerTypes.includes(basemap.config.type))
-        .filter((basemap) =>
-            Object.keys(keysStatus).includes(basemap.config.type)
-                ? keysStatus[basemap.config.type]
-                : true
-        )
-        .map((basemap) => {
-            if (LAYERS_TO_KEY_MAP[basemap.config.type]) {
-                basemap.config.apiKey =
-                    systemSettings[LAYERS_TO_KEY_MAP[basemap.config.type]]
-            }
-            return basemap
-        })
-        .concat(externalBasemaps)
-
-    return basemapList
 }
 
 const getDefaultLayerSources = (externalMapLayers) => {

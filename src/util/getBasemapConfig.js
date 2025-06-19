@@ -1,7 +1,6 @@
-import { getFallbackBasemap } from '../../constants/basemaps.js'
-import { getBasemapList } from '../../util/app.js'
-import { EXTERNAL_MAP_LAYERS_QUERY } from '../../util/requests.js'
-import { isValidUid } from '../../util/uid.js'
+import { getBasemapList, getBasemapOrFallback } from './basemaps.js'
+import { EXTERNAL_MAP_LAYERS_QUERY } from './requests.js'
+import { isValidUid } from './uid.js'
 
 const getExternalMapLayers = async ({
     engine,
@@ -38,20 +37,17 @@ const getBasemapConfig = async ({
     })
     const basemaps = await getBasemapList({ externalMapLayers, systemSettings })
 
-    let basemap = basemaps.find(({ id }) => id === basemapId)
-    if (!basemap) {
-        if (basemapId) {
-            console.warn(
-                `Could not load: ${basemapId} — using the default basemap instead.`
-            )
-        }
-        basemap =
-            basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
-            getFallbackBasemap()
-    }
+    const basemap = getBasemapOrFallback({
+        basemaps,
+        id: basemapId,
+        defaultId: keyDefaultBaseMap,
+        onMissing: (msg) => console.warn(msg),
+    })
+
     if (typeof basemapVisible === 'boolean') {
         basemap.isVisible = basemapVisible
     }
+
     return {
         basemap,
     }

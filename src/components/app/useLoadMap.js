@@ -1,7 +1,6 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
-import i18n from '@dhis2/d2-i18n'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
@@ -13,9 +12,9 @@ import {
     ALERT_CRITICAL,
     ALERT_MESSAGE_DYNAMIC,
 } from '../../constants/alerts.js'
-import { getFallbackBasemap } from '../../constants/basemaps.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
+import { getBasemapOrFallback } from '../../util/basemaps.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history, {
     getHashUrlParams,
@@ -58,24 +57,13 @@ export const useLoadMap = () => {
                         onError: (error) => log.error('Error: ', error),
                     })
 
-                    let basemapConfig = basemaps.find(
-                        ({ id }) => id === map.basemap.id
-                    )
-                    if (!basemapConfig) {
-                        if (map.basemap.id) {
-                            const msg = i18n.t(
-                                'Could not load: {{id}} — using the default basemap instead.',
-                                {
-                                    id: map.basemap.id,
-                                    nsSeparator: '^^',
-                                }
-                            )
-                            basemapInvalidAlertRef.current.show({ msg })
-                        }
-                        basemapConfig =
-                            basemaps.find(({ id }) => id === defaultBasemap) ||
-                            getFallbackBasemap()
-                    }
+                    const basemapConfig = getBasemapOrFallback({
+                        basemaps,
+                        id: map.basemap.id,
+                        defaultId: defaultBasemap,
+                        onMissing: (msg) =>
+                            basemapInvalidAlertRef.current.show({ msg }),
+                    })
 
                     const mapForStore = {
                         ...map,

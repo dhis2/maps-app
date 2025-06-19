@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-13T13:01:09.446Z\n"
-"PO-Revision-Date: 2025-06-13T13:01:09.446Z\n"
+"POT-Creation-Date: 2025-06-19T16:09:42.815Z\n"
+"PO-Revision-Date: 2025-06-19T16:09:42.815Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -25,9 +25,6 @@ msgstr "Rename failed"
 
 msgid "Rename successful"
 msgstr "Rename successful"
-
-msgid "Could not load: {{id}} — using the default basemap instead."
-msgstr "Could not load: {{id}} — using the default basemap instead."
 
 msgid "Calculation"
 msgstr "Calculation"
@@ -1547,11 +1544,14 @@ msgstr "true"
 msgid "false"
 msgstr "false"
 
-msgid "{{keyName}} is not valid for layer type(s): {{types}}"
-msgstr "{{keyName}} is not valid for layer type(s): {{types}}"
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr "{{keyName}} is not valid for layer type: {{type}}"
 
 msgid "{{keyName}} is not provided for layer type(s): {{types}}"
 msgstr "{{keyName}} is not provided for layer type(s): {{types}}"
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr "Could not load: {{id}} — using the default basemap instead."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "

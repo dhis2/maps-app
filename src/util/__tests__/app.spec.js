@@ -1,13 +1,17 @@
-import {
-    AZURE_LAYER,
-    BING_LAYER,
-    KEYS_VALIDATION,
-} from '../../constants/layers.js'
-import { providerDataTransformation, validateKeys } from '../app.js'
+import { BING_LAYER, KEYS_VALIDATION } from '../../constants/layers.js'
+import { providerDataTransformation } from '../app.js'
+
+const findValidationByType = (type) => {
+    for (const validations of Object.values(KEYS_VALIDATION)) {
+        const match = validations.find((v) => v.type === type)
+        if (match) {
+            return match
+        }
+    }
+    return null
+}
 
 global.fetch = jest.fn()
-
-jest.mock('../earthEngine.js', () => ({ hasClasses: jest.fn() }))
 
 jest.mock('@dhis2/maps-gl', () => {
     return {
@@ -80,8 +84,12 @@ describe('utils/app - providerDataTransformation', () => {
     })
 
     test('providerDataTransformation', async () => {
-        fetch.mockResolvedValueOnce({ ok: false })
-        fetch.mockResolvedValueOnce({ ok: true })
+        global.fetch = jest.fn((url) => {
+            if (url.startsWith(findValidationByType(BING_LAYER).url)) {
+                return Promise.resolve({ ok: true })
+            }
+            return Promise.resolve({ ok: false })
+        })
 
         const currentUser = {
             id: 'xE7jOejl9FI',
@@ -190,81 +198,6 @@ describe('utils/app - providerDataTransformation', () => {
             keyHideDailyPeriods: false,
             keyHideMonthlyPeriods: false,
             keyHideWeeklyPeriods: false,
-        })
-    })
-})
-
-describe('utils/app - validateKeys', () => {
-    const findValidationByType = (type) => {
-        for (const validations of Object.values(KEYS_VALIDATION)) {
-            const match = validations.find((v) => v.type === type)
-            if (match) {
-                return match
-            }
-        }
-        return null
-    }
-
-    beforeAll(() => {
-        fetch.mockReset()
-    })
-
-    test('validateKeys returns correct status - AZURE_LAYER', async () => {
-        const systemSettings = {
-            keyBingMapsApiKey: 'bing_maps_api_key',
-        }
-        global.fetch = jest.fn((url) => {
-            if (url.startsWith(findValidationByType(AZURE_LAYER).url)) {
-                return Promise.resolve({ ok: true })
-            }
-            return Promise.resolve({ ok: false })
-        })
-
-        const keysStatus = await validateKeys(systemSettings)
-        expect(keysStatus).toEqual({
-            [AZURE_LAYER]: true,
-            [BING_LAYER]: false,
-        })
-    })
-
-    test('validateKeys returns correct status - BING_LAYER', async () => {
-        const systemSettings = {
-            keyBingMapsApiKey: 'bing_maps_api_key',
-        }
-        global.fetch = jest.fn((url) => {
-            if (url.startsWith(findValidationByType(BING_LAYER).url)) {
-                return Promise.resolve({ ok: true })
-            }
-            return Promise.resolve({ ok: false })
-        })
-
-        const keysStatus = await validateKeys(systemSettings)
-        expect(keysStatus).toEqual({
-            [AZURE_LAYER]: false,
-            [BING_LAYER]: true,
-        })
-    })
-
-    test('validateKeys returns correct status - invalid key', async () => {
-        const systemSettings = {
-            keyBingMapsApiKey: 'invalid_api_key',
-        }
-        global.fetch = jest.fn(() => Promise.resolve({ ok: false }))
-
-        const keysStatus = await validateKeys(systemSettings)
-        expect(keysStatus).toEqual({
-            [AZURE_LAYER]: false,
-            [BING_LAYER]: false,
-        })
-    })
-
-    test('validateKeys returns correct status - missing key', async () => {
-        const systemSettings = {}
-
-        const keysStatus = await validateKeys(systemSettings)
-        expect(keysStatus).toEqual({
-            [AZURE_LAYER]: false,
-            [BING_LAYER]: false,
         })
     })
 })
