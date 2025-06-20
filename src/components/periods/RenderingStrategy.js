@@ -90,7 +90,7 @@ const RenderingStrategy = ({
                       )
                     : hasOtherLayers
                     ? i18n.t(
-                          'Remove all existing layers to add a split map view.'
+                          'Remove all other layers to add a split map view.'
                       )
                     : undefined,
         }),
