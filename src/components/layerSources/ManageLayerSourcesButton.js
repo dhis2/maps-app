@@ -8,7 +8,7 @@ import styles from './styles/ManageLayerSourcesButton.module.css'
 
 const ManageLayerSourcesButton = ({ onClick }) => {
     const { currentUser } = useCachedDataQuery()
-    const isMapsAdmin = MAPS_ADMIN_AUTHORITY_IDS.some(id =>
+    const isMapsAdmin = MAPS_ADMIN_AUTHORITY_IDS.some((id) =>
         currentUser.authorities.has(id)
     )
 
