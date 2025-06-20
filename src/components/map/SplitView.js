@@ -18,6 +18,7 @@ const SplitView = ({
     isFullscreen,
     interpretationModalOpen,
     setMapObject,
+    layersSorting,
 }) => {
     const { baseUrl } = useConfig()
     const [showFullscreen, setShowFullscreen] = useState()
@@ -78,6 +79,7 @@ const SplitView = ({
                     isPlugin={isPlugin}
                     isFullscreen={showFullscreen}
                     baseUrl={baseUrl}
+                    layersSorting={layersSorting}
                 >
                     <BasemapLayer {...basemap} />
                     <ThematicLayer
@@ -103,6 +105,7 @@ SplitView.propTypes = {
     interpretationModalOpen: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
+    layersSorting: PropTypes.bool,
     setMapObject: PropTypes.func,
 }
 
