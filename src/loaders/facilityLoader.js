@@ -83,6 +83,7 @@ const facilityLoader = async ({
         groupSet.organisationUnitGroups = parseGroupSet({
             organisationUnitGroups: groupSets.organisationUnitGroups,
         })
+        groupSet.name = groupSets.name
     }
 
     const { styledFeatures, legend } = getStyledOrgUnits({
