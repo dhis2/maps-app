@@ -25,7 +25,7 @@ jest.mock('../../../util/periods', () => ({
     countPeriods: jest.fn(),
 }))
 
-jest.mock('../icons.js', () => ({
+jest.mock('../icons.jsx', () => ({
     IconPeriodDisplaySingle: () => <div>IconPeriodDisplaySingle</div>,
     IconPeriodDisplaySplit: () => <div>IconPeriodDisplaySplit</div>,
     IconPeriodDisplayTimeline: () => <div>IconPeriodDisplayTimeline</div>,

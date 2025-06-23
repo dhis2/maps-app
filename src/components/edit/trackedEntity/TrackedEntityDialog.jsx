@@ -44,7 +44,7 @@ import {
     ColorPicker,
 } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
-import StartEndDate from '../../periods/StartEndDate.js'
+import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'

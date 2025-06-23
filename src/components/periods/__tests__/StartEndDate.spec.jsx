@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import StartEndDate from '../StartEndDate.js'
+import StartEndDate from '../StartEndDate.jsx'
 
 const mockStore = configureMockStore()
 

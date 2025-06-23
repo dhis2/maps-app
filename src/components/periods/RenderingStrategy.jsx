@@ -20,7 +20,7 @@ import {
     IconPeriodDisplaySingle,
     IconPeriodDisplaySplit,
     IconPeriodDisplayTimeline,
-} from './icons.js'
+} from './icons.jsx'
 import styles from './styles/RenderingStrategy.module.css'
 
 const RenderingStrategy = ({
