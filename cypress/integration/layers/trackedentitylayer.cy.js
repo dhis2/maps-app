@@ -29,13 +29,13 @@ describe('Tracked Entity Layers', () => {
         Layer.validateCardItems(['Malaria Entity'])
     })
 
-    it.skip('opens a tracked entity layer popup', () => {
+    it.only('opens a tracked entity layer popup', () => {
         Layer.openDialog('Tracked entities')
             .selectTab('Data')
             .selectTeType('Focus area')
             .selectTeProgram('Malaria focus investigation')
             .selectTab('Period')
-            .typeStartDate('2018-00-00')
+            .typeStartDate('2018-01-01') // TODO
             .selectTab('Org Units')
             .openOu('Bo')
             .openOu('Badjia')
