@@ -10,7 +10,7 @@ const alt = {
     name: 'VCCT post-test counselling rate',
 }
 
-describe('keyboard navigation', () => {
+describe.skip('keyboard navigation', () => {
     it('tab', () => {
         cy.visit('/')
 

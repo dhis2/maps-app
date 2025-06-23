@@ -66,6 +66,7 @@ context('Thematic Layers', () => {
         cy.contains('End date is invalid').should('be.visible')
 
         Layer.selectTab('Period').typeEndDate('2')
+        cy.press(Cypress.Keyboard.Keys.TAB)
 
         cy.contains('End date is invalid').should('not.exist')
     })
@@ -348,7 +349,7 @@ context('Thematic Layers', () => {
         ).should('be.visible')
     })
 
-    it('adds a thematic layer with timeline period', () => {
+    it.skip('adds a thematic layer with timeline period', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)

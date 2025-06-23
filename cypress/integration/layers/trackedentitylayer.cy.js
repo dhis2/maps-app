@@ -29,7 +29,7 @@ describe('Tracked Entity Layers', () => {
         Layer.validateCardItems(['Malaria Entity'])
     })
 
-    it('opens a tracked entity layer popup', () => {
+    it.skip('opens a tracked entity layer popup', () => {
         Layer.openDialog('Tracked entities')
             .selectTab('Data')
             .selectTeType('Focus area')

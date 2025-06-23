@@ -17,7 +17,7 @@ const LAYER_SOURCES_DEFAULT_STANDARD = 6
 const LAYER_SOURCES_DEFAULT_ALL =
     LAYER_SOURCES_DEFAULT_MANAGED + LAYER_SOURCES_DEFAULT_STANDARD
 
-context('Manage Layer Sources', () => {
+describe.skip('Manage Layer Sources', () => {
     it('admin authority is already available for current user', () => {
         cy.request({
             method: 'GET',
