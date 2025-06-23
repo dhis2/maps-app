@@ -349,7 +349,7 @@ context('Thematic Layers', () => {
         ).should('be.visible')
     })
 
-    it.skip('adds a thematic layer with timeline period', () => {
+    it('adds a thematic layer with timeline period', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)
@@ -375,23 +375,37 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
+        // check that the first timeline period is shown in blue
         cy.get('.dhis2-map-period').should('be.visible')
         cy.get('svg.dhis2-map-timeline').find('rect').should('have.length', 5)
         cy.get('svg.dhis2-map-timeline')
             .find('rect')
             .first()
-            .invoke('attr', 'class')
-            .should('contain', 'Timeline_selected')
+            .should('have.css', 'fill', 'rgb(20, 124, 215)')
+            .and('have.css', 'fill-opacity', '1')
+
+        cy.get('svg.dhis2-map-timeline')
+            .find('rect')
+            .last()
+            .should('have.css', 'fill', 'rgb(255, 255, 255)')
+            .and('have.css', 'fill-opacity', '0.8')
 
         cy.get('.play-icon').click()
         cy.get('.pause-icon').should('be.visible')
         cy.wait((5 - 1) * 1500)
 
+        // check that the last timeline period is shown in blue
+        cy.get('svg.dhis2-map-timeline')
+            .find('rect')
+            .first()
+            .should('have.css', 'fill', 'rgb(255, 255, 255)')
+            .and('have.css', 'fill-opacity', '0.8')
+
         cy.get('svg.dhis2-map-timeline')
             .find('rect')
             .last()
-            .invoke('attr', 'class')
-            .should('contain', 'Timeline_selected')
+            .should('have.css', 'fill', 'rgb(20, 124, 215)')
+            .and('have.css', 'fill-opacity', '1')
         cy.get('.play-icon').should('be.visible')
 
         Layer.openDialog('Thematic').selectTab('Period')
