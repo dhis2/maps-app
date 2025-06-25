@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Field, IconArrowRight16, CalendarInput, colors } from '@dhis2/ui'
+import { Field, IconArrowRight16, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,6 +12,7 @@ import {
     nextCharIsAutoHyphen,
     nextCharIsManualHyphen,
 } from '../../util/date.js'
+import { CalendarInput } from './CalendarInput.js'
 import styles from './styles/StartEndDate.module.css'
 
 const StartEndDate = ({
