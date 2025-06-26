@@ -7,7 +7,6 @@ import { getConfigFromNonMapConfig } from '../../util/getConfigFromNonMapConfig.
 import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import { fetchMap } from '../../util/requests.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
-import getBasemapConfig from './getBasemapConfig.js'
 import LoadingMask from './LoadingMask.js'
 import Map from './Map.js'
 
