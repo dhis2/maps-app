@@ -1,8 +1,8 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo, useCallback } from 'react'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { SelectField } from '../core/index.js'
 
 // Load org unit group sets
@@ -25,7 +25,7 @@ const GroupSetSelect = ({
     onChange,
     className,
 }) => {
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useCachedData()
     const { loading, error, data } = useDataQuery(ORG_UNIT_GROUP_SETS_QUERY, {
         variables: { nameProperty },
     })

@@ -1,8 +1,8 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { SelectField } from '../core/index.js'
 import styles from './styles/DimensionItemsSelect.module.css'
 
@@ -20,7 +20,7 @@ const DIMENSION_ITEMS_QUERY = {
 }
 
 const DimensionItemsSelect = ({ dimension, value, onChange }) => {
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useCachedData()
     const { loading, error, data, refetch } = useDataQuery(
         DIMENSION_ITEMS_QUERY,
         {

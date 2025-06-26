@@ -1,13 +1,13 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { MAPS_ADMIN_AUTHORITY_IDS } from '../../constants/settings.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import styles from './styles/ManageLayerSourcesButton.module.css'
 
 const ManageLayerSourcesButton = ({ onClick }) => {
-    const { currentUser } = useCachedDataQuery()
+    const { currentUser } = useCachedData()
     const isMapsAdmin = MAPS_ADMIN_AUTHORITY_IDS.some((id) =>
         currentUser.authorities.has(id)
     )
