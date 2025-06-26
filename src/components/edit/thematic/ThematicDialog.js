@@ -560,7 +560,7 @@ class ThematicDialog extends Component {
                                 <StartEndDate
                                     onSelectStartDate={setStartDate}
                                     onSelectEndDate={setEndDate}
-                                    onPeriodError={(error, msg) =>
+                                    onDateError={(error, msg) =>
                                         this.setErrorState(error, msg, 'period')
                                     }
                                     periodsSettings={periodsSettings}
