@@ -16,6 +16,8 @@ const ORG_UNIT_GROUP_SETS_QUERY = {
     },
 }
 
+const ITEM_NONE = { id: 'none', name: i18n.t('None') }
+
 const GroupSetSelect = ({
     label = i18n.t('Group set'),
     value,
@@ -28,11 +30,9 @@ const GroupSetSelect = ({
         variables: { nameProperty },
     })
 
-    const ITEM_NONE = useMemo(() => ({ id: 'none', name: i18n.t('None') }), [])
-
     const onGroupSetChange = useCallback(
         (item) => onChange(item.id !== ITEM_NONE.id ? item : undefined),
-        [onChange, ITEM_NONE]
+        [onChange]
     )
 
     const groupSets = useMemo(
@@ -40,7 +40,7 @@ const GroupSetSelect = ({
             ...(allowNone ? [ITEM_NONE] : []),
             ...(data?.sets.organisationUnitGroupSets || []),
         ],
-        [data, allowNone, ITEM_NONE]
+        [data, allowNone]
     )
 
     const internalError =
