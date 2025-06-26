@@ -26,6 +26,12 @@ msgstr "Rename failed"
 msgid "Rename successful"
 msgstr "Rename successful"
 
+msgid "This app could not retrieve required data."
+msgstr "This app could not retrieve required data."
+
+msgid "Network error"
+msgstr "Network error"
+
 msgid "Calculation"
 msgstr "Calculation"
 
