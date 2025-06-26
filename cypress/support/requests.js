@@ -64,7 +64,7 @@ const requests = {
     },
     getCachedDataProvider_SystemSettings: {
         method: 'GET',
-        url: '**/systemSettings?key=keyAnalysisRelativePeriod,keyBingMapsApiKey,keyAzureMapsApiKey,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap',
+        url: '**/systemSettings?key=keyAnalysisRelativePeriod,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap,keyBingMapsApiKey,keyAzureMapsApiKey',
     },
     getCachedDataProvider_ExternalMapLayers: {
         method: 'GET',
