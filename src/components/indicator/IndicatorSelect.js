@@ -1,8 +1,8 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { SelectField } from '../core/index.js'
 
 // Load all indicators within a group
@@ -24,7 +24,7 @@ const IndicatorSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useCachedData()
     const { loading, error, data, refetch } = useDataQuery(INDICATORS_QUERY, {
         lazy: true,
     })
