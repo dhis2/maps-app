@@ -217,7 +217,7 @@ class ThematicDialog extends Component {
             filters,
             backupPeriodsDates,
         } = this.props
-        const { periodError } = this.state
+        const { periodError, startDateError, endDateError } = this.state
 
         // Set rendering strategy to single if not relative period
         if (
@@ -272,6 +272,26 @@ class ThematicDialog extends Component {
                     getPeriodsFromFilters(prev.filters).length)
         ) {
             this.setErrorState('periodError', null, 'period')
+            this.setErrorState('startDateError', null, 'period')
+            this.setErrorState('endDateError', null, 'period')
+        }
+        if (
+            startDateError &&
+            (periodType !== prev.periodType ||
+                (startDate !== prev.startDate && !!startDate) ||
+                getPeriodsFromFilters(filters).length !==
+                    getPeriodsFromFilters(prev.filters).length)
+        ) {
+            this.setErrorState('startDateError', null, 'period')
+        }
+        if (
+            endDateError &&
+            (periodType !== prev.periodType ||
+                (endDate !== prev.endDate && !!endDate) ||
+                getPeriodsFromFilters(filters).length !==
+                    getPeriodsFromFilters(prev.filters).length)
+        ) {
+            this.setErrorState('endDateError', null, 'period')
         }
     }
 
@@ -320,6 +340,8 @@ class ThematicDialog extends Component {
             eventDataItemError,
             programIndicatorError,
             periodError,
+            startDateError,
+            endDateError,
             orgUnitsError,
             legendSetError,
         } = this.state
@@ -538,8 +560,23 @@ class ThematicDialog extends Component {
                                 <StartEndDate
                                     onSelectStartDate={setStartDate}
                                     onSelectEndDate={setEndDate}
+                                    onPeriodError={(error, msg) =>
+                                        this.setErrorState(error, msg, 'period')
+                                    }
                                     periodsSettings={periodsSettings}
                                 />
+                            )}
+                            {startDateError && (
+                                <div className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {startDateError}
+                                </div>
+                            )}
+                            {endDateError && (
+                                <div className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {endDateError}
+                                </div>
                             )}
                             {periodError && (
                                 <div className={styles.error}>
@@ -621,6 +658,7 @@ class ThematicDialog extends Component {
             method,
             legendSet,
         } = this.props
+        const { startDateError, endDateError } = this.state
         const dataItem = getDataItemFromColumns(columns)
         const periods = getPeriodsFromFilters(filters)
 
@@ -712,9 +750,12 @@ class ThematicDialog extends Component {
                 'period'
             )
         } else if (periodType === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate)
+            if (startDateError || endDateError) {
+                return this.setErrorState(null, null, 'period')
+            }
+            const [error, msg] = getStartEndDateError(startDate, endDate)
             if (error) {
-                return this.setErrorState('periodError', error, 'period')
+                return this.setErrorState(error, msg, 'period')
             }
         }
 

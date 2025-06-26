@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
-"PO-Revision-Date: 2025-06-20T07:43:21.017Z\n"
+"POT-Creation-Date: 2025-06-26T10:59:48.796Z\n"
+"PO-Revision-Date: 2025-06-26T10:59:48.796Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -983,8 +983,20 @@ msgstr ""
 msgid "Start date"
 msgstr "Start date"
 
+msgid "Start date is empty"
+msgstr "Start date is empty"
+
+msgid "Start date is invalid"
+msgstr "Start date is invalid"
+
 msgid "End date"
 msgstr "End date"
+
+msgid "End date is empty"
+msgstr "End date is empty"
+
+msgid "End date is invalid"
+msgstr "End date is invalid"
 
 msgid "Not available offline"
 msgstr "Not available offline"
@@ -1556,12 +1568,6 @@ msgstr "Facility"
 
 msgid "Other"
 msgstr "Other"
-
-msgid "Start date is invalid"
-msgstr "Start date is invalid"
-
-msgid "End date is invalid"
-msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
