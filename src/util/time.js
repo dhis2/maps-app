@@ -119,18 +119,21 @@ export const getDateArray = (dateString) => {
  */
 export const getStartEndDateError = (startDateStr, endDateStr) => {
     if (!isValidDateFormat(startDateStr)) {
-        return i18n.t('Start date is invalid')
+        return ['startDateError', i18n.t('Start date is invalid')]
     } else if (!isValidDateFormat(endDateStr)) {
-        return i18n.t('End date is invalid')
+        return ['endDateError', i18n.t('End date is invalid')]
     }
 
     const startDateArr = getDateArray(startDateStr)
     const endDateArr = getDateArray(endDateStr)
 
     if (toDate(endDateArr) < toDate(startDateArr)) {
-        return i18n.t('End date cannot be earlier than start date')
+        return [
+            'periodError',
+            i18n.t('End date cannot be earlier than start date'),
+        ]
     }
-    return null
+    return [null, null]
 }
 
 /**
