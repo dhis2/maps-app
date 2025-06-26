@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import log from 'loglevel'
@@ -21,6 +20,7 @@ import history, {
     defaultHashUrlParams,
 } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
@@ -30,7 +30,7 @@ export const useLoadMap = () => {
     const basemapInvalidAlertRef = useRef(
         useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
     )
-    const { systemSettings, basemaps } = useCachedDataQuery()
+    const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()
