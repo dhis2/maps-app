@@ -33,12 +33,12 @@ const commonRequests = getRequests([
     'getDataStoreProvider_UserDataStore2',
     // --
 
-    // -- CachedDataQueryProvider - src/AppWrapper.js
-    // -- @dhis2/analytics - src/components/CachedDataQueryProvider.js
-    'getCachedDataQueryProvider_Me',
-    'getCachedDataQueryProvider_SystemSettings',
-    'getCachedDataQueryProvider_ExternalMapLayers',
-    'getCachedDataQueryProvider_SystemInfo',
+    // -- CachedDataProvider - src/AppWrapper.js
+    // -- @dhis2/analytics - src/components/CachedDataProvider.js
+    'getCachedDataProvider_Me',
+    'getCachedDataProvider_SystemSettings',
+    'getCachedDataProvider_ExternalMapLayers',
+    'getCachedDataProvider_SystemInfo',
     // --
 
     // -- OrgUnitsProvider - src/AppWrapper.js

@@ -58,19 +58,19 @@ const requests = {
         method: 'GET',
         url: '**/userDataStore/analytics/savedObjects',
     },
-    getCachedDataQueryProvider_Me: {
+    getCachedDataProvider_Me: {
         method: 'GET',
         url: '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D',
     },
-    getCachedDataQueryProvider_SystemSettings: {
+    getCachedDataProvider_SystemSettings: {
         method: 'GET',
-        url: '**/systemSettings?key=keyAnalysisRelativePeriod,keyBingMapsApiKey,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap',
+        url: '**/systemSettings?key=keyAnalysisRelativePeriod,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap,keyBingMapsApiKey,keyAzureMapsApiKey',
     },
-    getCachedDataQueryProvider_ExternalMapLayers: {
+    getCachedDataProvider_ExternalMapLayers: {
         method: 'GET',
         url: '**/externalMapLayers?fields=id%2CdisplayName~rename(name)%2Cservice%2Curl%2Cattribution%2CmapService%2Clayers%2CimageFormat%2CmapLayerPosition%2ClegendSet%2ClegendSetUrl&paging=false',
     },
-    getCachedDataQueryProvider_SystemInfo: {
+    getCachedDataProvider_SystemInfo: {
         method: 'GET',
         url: '**/system/info?fields=calendar%2CdateFormat',
     },
