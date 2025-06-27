@@ -24,9 +24,12 @@ const facilityLoader = async ({
     baseUrl,
 }) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
+
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
+
+    let loadError
     const alerts = []
 
     const orgUnitIds = orgUnits.map((item) => item.id)
@@ -71,11 +74,15 @@ const facilityLoader = async ({
     // Load organisationUnitGroups if not passed
     let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-            variables: {
-                id: groupSet?.id,
-            },
-        })
+        try {
+            orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+                variables: {
+                    id: groupSet?.id,
+                },
+            })
+        } catch (err) {
+            loadError = i18n.t('GroupSet used for styling was not found')
+        }
     }
 
     if (orgUnitGroups) {
@@ -83,6 +90,7 @@ const facilityLoader = async ({
         groupSet.organisationUnitGroups = parseGroupSet({
             organisationUnitGroups: groupSets.organisationUnitGroups,
         })
+        groupSet.name = groupSets.name
     }
 
     const { styledFeatures, legend } = getStyledOrgUnits({
@@ -147,6 +155,7 @@ const facilityLoader = async ({
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 

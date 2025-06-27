@@ -47,7 +47,7 @@ export const ORG_UNITS_GROUP_SET_QUERY = {
         resource: 'organisationUnitGroupSets',
         id: ({ id }) => id,
         params: {
-            fields: ['organisationUnitGroups[id,name,color,symbol]'],
+            fields: ['name,organisationUnitGroups[id,name,color,symbol]'],
         },
     },
 }

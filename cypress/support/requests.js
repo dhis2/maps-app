@@ -260,7 +260,7 @@ const requests = {
     },
     getFacilities_OrganisationUnitGroupSets: {
         method: 'GET',
-        url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=organisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
+        url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=name%2CorganisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
     },
     getFacilities_OUGSImage: {
         method: 'GET',
@@ -283,7 +283,7 @@ const requests = {
     },
     getOrgUnits_OrganisationUnitGroupSet: {
         method: 'GET',
-        url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=organisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
+        url: '**/organisationUnitGroupSets/J5jldMd8OHv?fields=name%2CorganisationUnitGroups%5Bid%2Cname%2Ccolor%2Csymbol%5D',
     },
     getOrgUnits_OrganisationUnitLevels: {
         method: 'GET',
