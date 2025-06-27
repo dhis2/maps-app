@@ -2,13 +2,13 @@ import {
     AboutAOUnit,
     InterpretationsUnit,
     InterpretationModal,
-    useCachedDataQuery,
 } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
 import React, { useRef, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import history, { getHashUrlParams } from '../../util/history.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import Drawer from '../core/Drawer.js'
 import InterpretationMap from './InterpretationMap.js'
 
@@ -26,7 +26,7 @@ const closeInterpretationModal = () => {
 }
 
 const InterpretationsPanel = ({ renderCount }) => {
-    const { currentUser } = useCachedDataQuery()
+    const { currentUser } = useCachedData()
     const interpretationsUnitRef = useRef()
     const map = useSelector((state) => state.map)
     const interpretationId = useSelector((state) => state.interpretation?.id)

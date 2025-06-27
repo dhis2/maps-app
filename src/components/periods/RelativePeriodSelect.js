@@ -1,9 +1,9 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
 import { START_END_DATES } from '../../constants/periods.js'
 import { getRelativePeriods } from '../../util/periods.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { SelectField } from '../core/index.js'
 
 const RelativePeriodSelect = ({
@@ -13,7 +13,7 @@ const RelativePeriodSelect = ({
     className,
     errorText,
 }) => {
-    const { systemSettings } = useCachedDataQuery()
+    const { systemSettings } = useCachedData()
     const hiddenPeriods = systemSettings.hiddenPeriods
 
     const periods = useMemo(

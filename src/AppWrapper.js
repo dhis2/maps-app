@@ -1,12 +1,11 @@
-import { CachedDataQueryProvider } from '@dhis2/analytics'
-import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
-import { CssVariables, CenteredContent, CircularLoader } from '@dhis2/ui'
+import { CssVariables } from '@dhis2/ui'
 import log from 'loglevel'
 import queryString from 'query-string'
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.js'
+import { CachedDataProvider } from './components/cachedDataProvider/CachedDataProvider.js'
 import OrgUnitsProvider from './components/OrgUnitsProvider.js'
 import WindowDimensionsProvider from './components/WindowDimensionsProvider.js'
 import store from './store/index.js'
@@ -18,10 +17,6 @@ import history from './util/history.js'
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 )
-
-const d2Config = {
-    schemas: [],
-}
 
 const replaceLegacyUrl = () => {
     // support legacy urls
@@ -64,44 +59,17 @@ const AppWrapper = () => {
     return (
         <ReduxProvider store={store}>
             <DataStoreProvider namespace={USER_DATASTORE_NAMESPACE}>
-                <D2Shim d2Config={d2Config}>
-                    {({ d2, d2Error }) => {
-                        if (!d2 && !d2Error) {
-                            return (
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        width: '100%',
-                                        height: '100%',
-                                        top: 0,
-                                    }}
-                                >
-                                    <CenteredContent>
-                                        <CircularLoader />
-                                    </CenteredContent>
-                                </div>
-                            )
-                        }
-                        return (
-                            <CachedDataQueryProvider
-                                query={appQueries}
-                                dataTransformation={providerDataTransformation}
-                            >
-                                <WindowDimensionsProvider>
-                                    <OrgUnitsProvider>
-                                        <CssVariables
-                                            colors
-                                            elevations
-                                            spacers
-                                            theme
-                                        />
-                                        <App />
-                                    </OrgUnitsProvider>
-                                </WindowDimensionsProvider>
-                            </CachedDataQueryProvider>
-                        )
-                    }}
-                </D2Shim>
+                <CachedDataProvider
+                    query={appQueries}
+                    dataTransformation={providerDataTransformation}
+                >
+                    <WindowDimensionsProvider>
+                        <OrgUnitsProvider>
+                            <CssVariables colors elevations spacers theme />
+                            <App />
+                        </OrgUnitsProvider>
+                    </WindowDimensionsProvider>
+                </CachedDataProvider>
             </DataStoreProvider>
         </ReduxProvider>
     )
