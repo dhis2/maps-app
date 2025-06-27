@@ -14,7 +14,7 @@ const SplitView = ({
     layer,
     feature,
     controls,
-    openContextMenu,
+    openContextMenu = Function.prototype,
     isFullscreen,
     interpretationModalOpen,
     setMapObject,
@@ -104,10 +104,6 @@ SplitView.propTypes = {
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
     setMapObject: PropTypes.func,
-}
-
-SplitView.defaultProps = {
-    openContextMenu: () => {},
 }
 
 export default SplitView
