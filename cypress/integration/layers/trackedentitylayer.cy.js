@@ -35,7 +35,7 @@ describe('Tracked Entity Layers', () => {
             .selectTeType('Focus area')
             .selectTeProgram('Malaria focus investigation')
             .selectTab('Period')
-            .typeStartDate('2018-01-01') // TODO
+            .typeStartDate('2018-00-00')
             .selectTab('Org Units')
             .openOu('Bo')
             .openOu('Badjia')

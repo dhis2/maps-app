@@ -25,11 +25,10 @@ describe('keyboard navigation', () => {
             .contains('Period')
             .click()
         cy.contains('Define start - end dates').click()
-        // TODO adjusted for new calendar component
         cy.getByDataTest('calendar-clear-button').eq(0).click()
         cy.getByDataTest('calendar').should('not.exist')
         cy.getByDataTest('start-date-input-content').find('input').type('123')
-        cy.getByDataTest('calendar').should('not.exist')
+        cy.getByDataTest('calendar').should('be.visible')
         cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('not.exist')
         cy.press(Cypress.Keyboard.Keys.TAB)
@@ -70,15 +69,14 @@ describe('keyboard navigation', () => {
         cy.contains(alt.group).click()
         cy.get('[data-test="indicatorselect"]').click()
         cy.contains(alt.name).click()
-        // TODO - fix test and re-enable these steps
-        // cy.realPress('Escape')
-        // cy.getByDataTest('layeredit').should('not.exist')
-        // cy.getByDataTest('layercard')
-        //     .contains(map.cardTitle, { timeout: 50000 })
-        //     .should('be.visible')
+        cy.realPress('Escape')
+        cy.getByDataTest('layeredit').should('not.exist')
+        cy.getByDataTest('layercard')
+            .contains(map.cardTitle, { timeout: 50000 })
+            .should('be.visible')
 
-        // // StartEndDate
-        // cy.getByDataTest('layer-edit-button').click()
-        // cy.getByDataTest('layeredit').should('be.visible')
+        // StartEndDate
+        cy.getByDataTest('layer-edit-button').click()
+        cy.getByDataTest('layeredit').should('be.visible')
     })
 })

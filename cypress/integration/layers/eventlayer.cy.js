@@ -16,7 +16,7 @@ const programE2E = {
 const programIP = {
     name: 'Inpatient morbidity and mortality',
     stage: 'Inpatient morbidity and mortality',
-    startDate: `${CURRENT_YEAR - 5}-01-01`, // TODO - temporary fix to make test work
+    startDate: `${CURRENT_YEAR - 5}-00-00`,
     endDate: `${CURRENT_YEAR}-11-30`,
     periodText: `Jan 1, ${CURRENT_YEAR - 5} - Nov 30, ${CURRENT_YEAR}`,
     ous: ['Bombali', 'Bo'],
