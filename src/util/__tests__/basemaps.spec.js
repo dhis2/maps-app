@@ -4,12 +4,16 @@ import {
     BING_LAYER,
     KEYS_VALIDATION,
     MAP_LAYER_POSITION_BASEMAP,
+    MAP_LAYER_POSITION_OVERLAY,
 } from '../../constants/layers.js'
 import {
     validateKeys,
     getBasemapList,
     getBasemapOrFallback,
 } from '../basemaps.js'
+
+const AZURE_LAYER_KEY = 'azure_maps_api_key'
+const BING_LAYER_KEY = 'bing_maps_api_key'
 
 const findValidationByType = (type) => {
     for (const validations of Object.values(KEYS_VALIDATION)) {
@@ -40,7 +44,7 @@ jest.mock('../../constants/basemaps.js', () => ({
 }))
 
 jest.mock('../../components/map/MapApi', () => ({
-    layerTypes: ['azureLayer', 'bingLayer'],
+    layerTypes: ['azureLayer', 'bingLayer', 'tileLayer'],
 }))
 
 describe('utils/basemaps - validateKeys', () => {
@@ -48,9 +52,9 @@ describe('utils/basemaps - validateKeys', () => {
         fetch.mockReset()
     })
 
-    test('validateKeys returns correct status - AZURE_LAYER 1', async () => {
+    it('returns correct status - AZURE_LAYER 1', async () => {
         const systemSettings = {
-            keyBingMapsApiKey: 'azure_maps_api_key',
+            keyBingMapsApiKey: AZURE_LAYER_KEY,
         }
         global.fetch = jest.fn((url) => {
             if (url.startsWith(findValidationByType(AZURE_LAYER).url)) {
@@ -61,14 +65,14 @@ describe('utils/basemaps - validateKeys', () => {
 
         const keysStatus = await validateKeys(systemSettings)
         expect(keysStatus).toEqual({
-            [AZURE_LAYER]: 'azure_maps_api_key',
+            [AZURE_LAYER]: AZURE_LAYER_KEY,
             [BING_LAYER]: false,
         })
     })
 
-    test('validateKeys returns correct status - AZURE_LAYER 2', async () => {
+    it('returns correct status - AZURE_LAYER 2', async () => {
         const systemSettings = {
-            keyAzureMapsApiKey: 'azure_maps_api_key',
+            keyAzureMapsApiKey: AZURE_LAYER_KEY,
         }
         global.fetch = jest.fn((url) => {
             if (url.startsWith(findValidationByType(AZURE_LAYER).url)) {
@@ -79,14 +83,14 @@ describe('utils/basemaps - validateKeys', () => {
 
         const keysStatus = await validateKeys(systemSettings)
         expect(keysStatus).toEqual({
-            [AZURE_LAYER]: 'azure_maps_api_key',
+            [AZURE_LAYER]: AZURE_LAYER_KEY,
             [BING_LAYER]: false,
         })
     })
 
-    test('validateKeys returns correct status - BING_LAYER', async () => {
+    it('returns correct status - BING_LAYER', async () => {
         const systemSettings = {
-            keyBingMapsApiKey: 'bing_maps_api_key',
+            keyBingMapsApiKey: BING_LAYER_KEY,
         }
         global.fetch = jest.fn((url) => {
             if (url.startsWith(findValidationByType(BING_LAYER).url)) {
@@ -98,11 +102,11 @@ describe('utils/basemaps - validateKeys', () => {
         const keysStatus = await validateKeys(systemSettings)
         expect(keysStatus).toEqual({
             [AZURE_LAYER]: false,
-            [BING_LAYER]: 'bing_maps_api_key',
+            [BING_LAYER]: BING_LAYER_KEY,
         })
     })
 
-    test('validateKeys returns correct status - invalid key', async () => {
+    it('returns correct status - invalid key', async () => {
         const systemSettings = {
             keyBingMapsApiKey: 'invalid_api_key',
         }
@@ -115,7 +119,7 @@ describe('utils/basemaps - validateKeys', () => {
         })
     })
 
-    test('validateKeys returns correct status - missing key', async () => {
+    it('returns correct status - missing key', async () => {
         const systemSettings = {}
 
         const keysStatus = await validateKeys(systemSettings)
@@ -170,15 +174,13 @@ describe('utils/basemaps - getBasemapOrFallback', () => {
     })
 })
 
-describe.skip('utils/basemaps - getBasemapList', () => {
-    const mockValidateKeys = jest.spyOn(
-        require('../basemaps.js'),
-        'validateKeys'
-    )
+describe('utils/basemaps - getBasemapList', () => {
+    const MAP_SERVICE_XYZ = 'XYZ'
+    const IMAGE_FORMAT = 'PNG'
 
     it('returns default basemaps matching supported layer types, with apiKeys if present', async () => {
-        mockValidateKeys.mockResolvedValue({
-            azureLayer: 'apikey',
+        const mockValidateKeys = jest.fn().mockResolvedValue({
+            azureLayer: AZURE_LAYER_KEY,
             bingLayer: false,
         })
 
@@ -187,52 +189,51 @@ describe.skip('utils/basemaps - getBasemapList', () => {
         const result = await getBasemapList({
             externalMapLayers,
             systemSettings: {},
+            validationFn: mockValidateKeys,
         })
 
         expect(result).toEqual([
             {
-                id: 'default1',
-                config: { type: 'DEFAULT_TYPE', apiKey: 'apikey' },
+                id: 'azureLayerId',
+                config: { type: AZURE_LAYER, apiKey: AZURE_LAYER_KEY },
             },
         ])
     })
 
     it('includes external basemaps matching supported map services', async () => {
-        mockValidateKeys.mockResolvedValue({ DEFAULT_TYPE: 'apikey' })
+        const mockValidateKeys = jest.fn().mockResolvedValue({
+            azureLayer: AZURE_LAYER_KEY,
+            bingLayer: false,
+        })
 
         const externalMapLayers = [
             {
                 id: 'ext1',
                 name: 'External 1',
+                url: 'https://path-to-xyz',
+                mapService: MAP_SERVICE_XYZ,
+                imageFormat: IMAGE_FORMAT,
                 mapLayerPosition: MAP_LAYER_POSITION_BASEMAP,
-                mapService: 'TMS',
-                config: { type: 'DEFAULT_TYPE' },
             },
             {
                 id: 'ext2',
                 name: 'External 2',
-                mapLayerPosition: 'OVERLAY',
-                mapService: 'TMS',
+                url: 'https://path-to-xyz',
+                mapService: MAP_SERVICE_XYZ,
+                imageFormat: IMAGE_FORMAT,
+                mapLayerPosition: MAP_LAYER_POSITION_OVERLAY,
             },
         ]
 
         const result = await getBasemapList({
             externalMapLayers,
             systemSettings: {},
+            validationFn: mockValidateKeys,
         })
 
+        expect(result.some((b) => b.id === 'azureLayerId')).toBe(true)
+        expect(result.some((b) => b.id === 'bingLayerId')).toBe(false)
         expect(result.some((b) => b.id === 'ext1')).toBe(true)
         expect(result.some((b) => b.id === 'ext2')).toBe(false)
-    })
-
-    it('excludes default basemaps if keysStatus[type] is falsy', async () => {
-        mockValidateKeys.mockResolvedValue({ DEFAULT_TYPE: false })
-
-        const result = await getBasemapList({
-            externalMapLayers: [],
-            systemSettings: {},
-        })
-
-        expect(result).toEqual([])
     })
 })

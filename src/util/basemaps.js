@@ -58,8 +58,12 @@ export const validateKeys = async (systemSettings) => {
     return keysStatus
 }
 
-export const getBasemapList = async ({ externalMapLayers, systemSettings }) => {
-    const keysStatus = await validateKeys(systemSettings)
+export const getBasemapList = async ({
+    externalMapLayers,
+    systemSettings,
+    validationFn = validateKeys,
+}) => {
+    const keysStatus = await validationFn(systemSettings)
     const externalBasemaps = externalMapLayers
         .filter(
             (layer) =>
