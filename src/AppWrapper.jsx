@@ -1,4 +1,3 @@
-import { CachedDataQueryProvider } from '@dhis2/analytics'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
 import { CssVariables } from '@dhis2/ui'
 import log from 'loglevel'
@@ -6,6 +5,7 @@ import queryString from 'query-string'
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.jsx'
+import { CachedDataProvider } from './components/cachedDataProvider/CachedDataProvider.jsx'
 import OrgUnitsProvider from './components/OrgUnitsProvider.jsx'
 import WindowDimensionsProvider from './components/WindowDimensionsProvider.jsx'
 import store from './store/index.js'
@@ -59,7 +59,7 @@ const AppWrapper = () => {
     return (
         <ReduxProvider store={store}>
             <DataStoreProvider namespace={USER_DATASTORE_NAMESPACE}>
-                <CachedDataQueryProvider
+                <CachedDataProvider
                     query={appQueries}
                     dataTransformation={providerDataTransformation}
                 >
@@ -69,7 +69,7 @@ const AppWrapper = () => {
                             <App />
                         </OrgUnitsProvider>
                     </WindowDimensionsProvider>
-                </CachedDataQueryProvider>
+                </CachedDataProvider>
             </DataStoreProvider>
         </ReduxProvider>
     )

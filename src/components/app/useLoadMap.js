@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
@@ -16,13 +15,14 @@ import history, {
     defaultHashUrlParams,
 } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
 
 export const useLoadMap = () => {
     const previousParamsRef = useRef(defaultHashUrlParams)
-    const { systemSettings, basemaps } = useCachedDataQuery()
+    const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()

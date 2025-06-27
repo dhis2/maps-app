@@ -1,4 +1,3 @@
-import { CachedDataQueryProvider } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
@@ -6,6 +5,7 @@ import {
     SYSTEM_SETTINGS,
 } from '../../constants/settings.js'
 import { getHiddenPeriods } from '../../util/periods.js'
+import { CachedDataProvider } from '../cachedDataProvider/CachedDataProvider.jsx'
 import MapContainer from './MapContainer.jsx'
 
 const query = {
@@ -50,7 +50,7 @@ const providerDataTransformation = ({ systemSettings, currentUser }) => {
 
 export const Plugin = ({ visualization, displayProperty }) => {
     return (
-        <CachedDataQueryProvider
+        <CachedDataProvider
             query={query}
             dataTransformation={providerDataTransformation}
             translucent={false}
@@ -59,7 +59,7 @@ export const Plugin = ({ visualization, displayProperty }) => {
                 visualization={visualization}
                 displayProperty={displayProperty}
             />
-        </CachedDataQueryProvider>
+        </CachedDataProvider>
     )
 }
 

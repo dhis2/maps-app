@@ -1,4 +1,4 @@
-import { Analytics, useCachedDataQuery } from '@dhis2/analytics'
+import { Analytics } from '@dhis2/analytics'
 import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
@@ -10,6 +10,7 @@ import geoJsonUrlLoader from '../../loaders/geoJsonUrlLoader.js'
 import orgUnitLoader from '../../loaders/orgUnitLoader.js'
 import thematicLoader from '../../loaders/thematicLoader.js'
 import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 
 const loaders = {
     earthEngine: earthEngineLoader,
@@ -26,7 +27,7 @@ const LayerLoader = ({ config, onLoad }) => {
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
-    const { currentUser } = useCachedDataQuery()
+    const { currentUser } = useCachedData()
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
 
     useEffect(() => {

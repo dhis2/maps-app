@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
@@ -6,13 +5,14 @@ import React, { useState, useEffect } from 'react'
 import { getConfigFromNonMapConfig } from '../../util/getConfigFromNonMapConfig.js'
 import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import { fetchMap } from '../../util/requests.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import getBasemapConfig from './getBasemapConfig.js'
 import LoadingMask from './LoadingMask.jsx'
 import Map from './Map.jsx'
 
 const MapContainer = ({ visualization }) => {
     const engine = useDataEngine()
-    const { systemSettings } = useCachedDataQuery()
+    const { systemSettings } = useCachedData()
     const [config, setConfig] = useState(null)
 
     useEffect(() => {

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-16T11:17:13.141Z\n"
-"PO-Revision-Date: 2025-06-16T11:17:13.142Z\n"
+"POT-Creation-Date: 2025-06-17T09:10:19.191Z\n"
+"PO-Revision-Date: 2025-06-17T09:10:19.191Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -25,6 +25,12 @@ msgstr "Rename failed"
 
 msgid "Rename successful"
 msgstr "Rename successful"
+
+msgid "This app could not retrieve required data."
+msgstr "This app could not retrieve required data."
+
+msgid "Network error"
+msgstr "Network error"
 
 msgid "Calculation"
 msgstr "Calculation"
