@@ -9,17 +9,17 @@
 # Yury Rogachev <yury@dhis2.org>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Elise Desailly, 2024
-# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
 # Edem Kossi <ekossi@hispwca.org>, 2025
 # Philip Larsen Donnelly, 2025
+# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
+# Elise Desailly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2025\n"
+"Last-Translator: Elise Desailly, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +44,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Renommer avec succès"
+
+msgid "This app could not retrieve required data."
+msgstr "Cette application n'a pas pu récupérer les données nécessaires."
+
+msgid "Network error"
+msgstr "Erreur réseau"
 
 msgid "Calculation"
 msgstr ""
@@ -619,9 +625,6 @@ msgstr "Supprimer le filtre"
 msgid "Group set"
 msgstr "Ensemble de groupes"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Échec du chargement des groupes d'unités d'organisation."
-
 msgid "Style by group set"
 msgstr "Style par ensemble de groupes"
 
@@ -732,9 +735,6 @@ msgstr "Groupe"
 
 msgid "Filters"
 msgstr "Filtres"
-
-msgid "{{layername}}: {{message}}"
-msgstr ""
 
 msgid "No data found"
 msgstr "Aucune valeur trouvée"
@@ -983,7 +983,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1516,6 +1516,12 @@ msgstr "Evènement"
 msgid "Facilities"
 msgstr "Établissements"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1564,16 +1570,16 @@ msgstr "vrai"
 msgid "false"
 msgstr "faux"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
-"Impossible d'obtenir le token d'autorisation pour Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Cette couche nécessite un compte Google Earth Engine. Consultez la "
 "documentation du DHIS2 pour plus d'informations."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+"Impossible d'obtenir le token d'autorisation pour Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thématique"

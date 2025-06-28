@@ -1,17 +1,17 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2024
-# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
-# Em Le <em.hispvietnam@gmail.com>, 2025
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2025
 # Philip Larsen Donnelly, 2025
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2025
+# Em Le <em.hispvietnam@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2025\n"
+"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Đổi tên thành công"
+
+msgid "This app could not retrieve required data."
+msgstr "Ứng dụng này không thể truy xuất dữ liệu cần thiết."
+
+msgid "Network error"
+msgstr "Lỗi mạng"
 
 msgid "Calculation"
 msgstr "Tính toán"
@@ -600,9 +606,6 @@ msgstr "Xóa bộ lọc"
 msgid "Group set"
 msgstr "Tập nhóm"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Không tải được nhóm đơn vị."
-
 msgid "Style by group set"
 msgstr "Kiểu theo tập nhóm đơn vị"
 
@@ -962,7 +965,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1500,6 +1503,9 @@ msgid "Facilities"
 msgstr "Cơ sở"
 
 msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
 msgstr ""
 
 msgid "No coordinates found for selected facilities"

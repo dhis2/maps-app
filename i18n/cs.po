@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -32,6 +32,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Přejmenování bylo úspěšné"
+
+msgid "This app could not retrieve required data."
+msgstr "Tato aplikace nemohla načíst požadovaná data."
+
+msgid "Network error"
+msgstr "Chyba sítě"
 
 msgid "Calculation"
 msgstr "Výpočet"
@@ -598,9 +604,6 @@ msgstr "Odebrat filtr"
 msgid "Group set"
 msgstr "Skupinová sada"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Skupiny organizačních jednotek se nepodařilo načíst."
-
 msgid "Style by group set"
 msgstr "Styl podle sady skupiny"
 
@@ -958,9 +961,8 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
-"Odstraněním všech stávajících vrstev přidáte rozdělené zobrazení mapy."
 
 msgid "Single"
 msgstr ""
@@ -1489,6 +1491,9 @@ msgid "Facilities"
 msgstr "Zařízení"
 
 msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
 msgstr ""
 
 msgid "No coordinates found for selected facilities"

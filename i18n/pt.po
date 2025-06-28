@@ -5,18 +5,18 @@
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Ge Joao <gsimango@saudigitus.org>, 2024
-# Shelsea Chumaio, 2024
 # António Fernando Macaringue, 2025
 # Helton Dias, 2025
 # Sheila André <sandre@saudigitus.org>, 2025
 # Philip Larsen Donnelly, 2025
+# Shelsea Chumaio, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2025\n"
+"Last-Translator: Shelsea Chumaio, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +41,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Renomeado com sucesso"
+
+msgid "This app could not retrieve required data."
+msgstr " Esta aplicação não conseguiu obter os dados necessários."
+
+msgid "Network error"
+msgstr " Erro de rede"
 
 msgid "Calculation"
 msgstr " Cálculo"
@@ -622,9 +628,6 @@ msgstr "Remover filtro "
 msgid "Group set"
 msgstr "Conjunto do grupo"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Falha ao carregar grupos de unidades organizacionais."
-
 msgid "Style by group set"
 msgstr "Estilo por conjunto de grupo"
 
@@ -986,7 +989,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1524,6 +1527,9 @@ msgid "Facilities"
 msgstr "Instalações"
 
 msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
 msgstr ""
 
 msgid "No coordinates found for selected facilities"
