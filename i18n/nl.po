@@ -5,13 +5,14 @@
 # Philip Larsen Donnelly, 2024
 # Rica, 2025
 # Charel van den Elsen <zobeadzorg@gmail.com>, 2025
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Charel van den Elsen <zobeadzorg@gmail.com>, 2025\n"
+"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +37,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Hernoeming geslaagd"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Netwerkfout"
 
 msgid "Calculation"
 msgstr ""
@@ -613,9 +620,6 @@ msgstr "Verwijder filter"
 msgid "Group set"
 msgstr "Groepsreeks"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Laden van organisatieëenheidgroepen mislukt."
-
 msgid "Style by group set"
 msgstr "Stileer volgens groepsreeks"
 
@@ -977,7 +981,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1516,6 +1520,9 @@ msgid "Facilities"
 msgstr "Instellingen"
 
 msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
 msgstr ""
 
 msgid "No coordinates found for selected facilities"

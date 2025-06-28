@@ -11,16 +11,16 @@
 # Pablo Del Médico, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Janeth Cruz, 2024
-# Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
 # Philip Larsen Donnelly, 2025
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
+# Janeth Cruz, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2025\n"
+"Last-Translator: Janeth Cruz, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +45,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Nombre actualizado"
+
+msgid "This app could not retrieve required data."
+msgstr "Esta aplicación no pudo recuperar los datos requeridos."
+
+msgid "Network error"
+msgstr "Error de red"
 
 msgid "Calculation"
 msgstr "Cálculo"
@@ -628,9 +634,6 @@ msgstr "Quitar filtro"
 msgid "Group set"
 msgstr "Set de grupos"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Error al cargar grupos de unidades organizativas."
-
 msgid "Style by group set"
 msgstr "Estilo por set de grupos"
 
@@ -989,7 +992,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1519,6 +1522,9 @@ msgid "Facilities"
 msgstr "Establecimientos"
 
 msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
 msgstr ""
 
 msgid "No coordinates found for selected facilities"
