@@ -3,7 +3,6 @@
 # ericbp <ericbarredap@gmail.com>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Alison Andrade <aandrade@ippfwhr.org>, 2021
-# Philip Larsen Donnelly, 2021
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # Prabhjot Singh, 2021
 # Carlos Tejo Alonso, 2022
@@ -12,15 +11,16 @@
 # Pablo Del Médico, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Janeth Cruz, 2024
+# Philip Larsen Donnelly, 2025
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
+# Janeth Cruz, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2025\n"
+"Last-Translator: Janeth Cruz, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,18 @@ msgstr "El mapa \"{{- name}}\" está guardado."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Error al guardar el mapa: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Nombre actualizado"
+
+msgid "This app could not retrieve required data."
+msgstr "Esta aplicación no pudo recuperar los datos requeridos."
+
+msgid "Network error"
+msgstr "Error de red"
 
 msgid "Calculation"
 msgstr "Cálculo"
@@ -94,6 +106,9 @@ msgstr "Detalles"
 msgid "Yes"
 msgstr "Si"
 
+msgid "No"
+msgstr "No"
+
 msgid "None"
 msgstr "Ninguno"
 
@@ -128,8 +143,8 @@ msgstr "Evento > coordenada de la unidad org"
 msgid "Event data item"
 msgstr "Event data item"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Valor seleccionado no disponible en la lista: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -619,9 +634,6 @@ msgstr "Quitar filtro"
 msgid "Group set"
 msgstr "Set de grupos"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Error al cargar grupos de unidades organizativas."
-
 msgid "Style by group set"
 msgstr "Estilo por set de grupos"
 
@@ -733,9 +745,6 @@ msgstr "Grupo"
 msgid "Filters"
 msgstr "Filtros"
 
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
-
 msgid "No data found"
 msgstr "Dato no encontrado"
 
@@ -772,9 +781,6 @@ msgstr "Latitud"
 msgid "Basemap could not be added: {{message}}"
 msgstr "No se pudo agregar el mapa base: {{message}}"
 
-msgid "Not set"
-msgstr "No configurado"
-
 msgid "Could not retrieve event data"
 msgstr "No se pudo recuperar el dato del evento"
 
@@ -786,6 +792,9 @@ msgstr "Unidad padre"
 
 msgid "No data"
 msgstr "No hay datos"
+
+msgid "Not set"
+msgstr "No configurado"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -983,7 +992,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1512,6 +1521,12 @@ msgstr "Evento"
 msgid "Facilities"
 msgstr "Establecimientos"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1562,19 +1577,16 @@ msgstr "verdadero"
 msgid "false"
 msgstr "falso"
 
-msgid "No"
-msgstr "No"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
-"No se puede obtener el token de autorización para Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Esta capa requiere una cuenta de Google Earth Engine. Consulte la "
 "documentación de DHIS2 para obtener más información."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+"No se puede obtener el token de autorización para Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Temática"
@@ -1590,6 +1602,9 @@ msgstr "Unidades organizativas"
 
 msgid "Facility"
 msgstr "Establecimiento"
+
+msgid "Other"
+msgstr "Otro"
 
 msgid "Start date is invalid"
 msgstr "La fecha de inicio no es válida"

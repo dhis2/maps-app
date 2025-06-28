@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
-# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2025
+# Philip Larsen Donnelly, 2025
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2025
 # Em Le <em.hispvietnam@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -30,6 +30,18 @@ msgstr "Bản đồ \"{{- name}}\" đã được lưu."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Lưu bản đồ thất bại: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Đổi tên thành công"
+
+msgid "This app could not retrieve required data."
+msgstr "Ứng dụng này không thể truy xuất dữ liệu cần thiết."
+
+msgid "Network error"
+msgstr "Lỗi mạng"
 
 msgid "Calculation"
 msgstr "Tính toán"
@@ -85,6 +97,9 @@ msgstr "Chi tiết"
 msgid "Yes"
 msgstr "Có"
 
+msgid "No"
+msgstr "Không"
+
 msgid "None"
 msgstr "Không"
 
@@ -118,8 +133,8 @@ msgstr "Sự kiện > toạ độ đơn vị"
 msgid "Event data item"
 msgstr "Mục dữ liệu sự kiện"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Giá trị đã chọn không có trong danh sách: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -591,9 +606,6 @@ msgstr "Xóa bộ lọc"
 msgid "Group set"
 msgstr "Tập nhóm"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Không tải được nhóm đơn vị."
-
 msgid "Style by group set"
 msgstr "Kiểu theo tập nhóm đơn vị"
 
@@ -707,9 +719,6 @@ msgstr "Nhóm"
 msgid "Filters"
 msgstr "Bộ lọc"
 
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}:{{message}}"
-
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
 
@@ -746,9 +755,6 @@ msgstr "Vĩ độ"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Không thể thêm bản đồ cơ sở: {{message}}"
 
-msgid "Not set"
-msgstr "Không cài"
-
 msgid "Could not retrieve event data"
 msgstr "Không thể truy xuất dữ liệu sự kiện"
 
@@ -760,6 +766,9 @@ msgstr "Đơn vị cha"
 
 msgid "No data"
 msgstr "Không có dữ liệu"
+
+msgid "Not set"
+msgstr "Không cài"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "Không thể truy xuất dữ liệu cá thể"
@@ -956,7 +965,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1493,6 +1502,12 @@ msgstr "Sự Kiện"
 msgid "Facilities"
 msgstr "Cơ sở"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr "Không tìm thấy tọa độ cho các cơ sở đã chọn"
 
@@ -1541,18 +1556,15 @@ msgstr "Đúng"
 msgid "false"
 msgstr "Sai"
 
-msgid "No"
-msgstr "Không"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Lớp này yêu cầu tài khoản Google Earth Engine. Kiểm tra tài liệu DHIS2 để "
 "biết thêm thông tin."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Chuyên đề"
@@ -1568,6 +1580,9 @@ msgstr "Đơn vị"
 
 msgid "Facility"
 msgstr "Cơ sở"
+
+msgid "Other"
+msgstr "Khác"
 
 msgid "Start date is invalid"
 msgstr "Ngày bắt đầu không hợp lệ"
