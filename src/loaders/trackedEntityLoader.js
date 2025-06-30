@@ -167,8 +167,9 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
     let boolFollowUp = undefined
 
     if (program && programStatus) {
-        explanation = `${i18n.t('Program status')}: ${getProgramStatuses().find((s) => s.id === programStatus).name
-            }`
+        explanation = `${i18n.t('Program status')}: ${
+            getProgramStatuses().find((s) => s.id === programStatus).name
+        }`
     }
 
     if (program && followUp !== undefined) {
