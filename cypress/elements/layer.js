@@ -85,7 +85,6 @@ export class Layer {
             cy.getByDataTest('start-date-input-content')
                 .find('input')
                 .type(dateString)
-            cy.get('body').click(0, 0)
         }
 
         return this
@@ -98,7 +97,6 @@ export class Layer {
             cy.getByDataTest('end-date-input-content')
                 .find('input')
                 .type(dateString)
-            cy.get('body').click(0, 0)
         }
 
         return this
