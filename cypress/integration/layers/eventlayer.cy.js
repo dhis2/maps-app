@@ -35,19 +35,19 @@ const programGeowR = {
             ous: ['Bo', 'Bargbe'],
             filters: { item: 'E2E - Geo - DE - ID', value: '#C' },
             coordinates: [
-                { name: 'Event location', coords: '-11.499252 8.178188' },
-                { name: 'Enrollment location', coords: '-11.634007 8.011976' },
+                { name: 'Event location', coords: '-11.499252, 8.178188' },
+                { name: 'Enrollment location', coords: '-11.634007, 8.011976' },
                 {
                     name: 'Tracked entity location',
-                    coords: '-11.529636 8.040193',
+                    coords: '-11.529636, 8.040193',
                 },
                 {
                     name: 'E2E - Geo - DE - Coordinate',
-                    coords: '-11.602850 8.077288',
+                    coords: '-11.602850, 8.077288',
                 },
                 {
                     name: 'E2E - Geo - TEA - Coordinate',
-                    coords: '-11.499982 8.049881',
+                    coords: '-11.499982, 8.049881',
                 },
             ],
         },
@@ -57,7 +57,7 @@ const programGeowR = {
             coordinates: [
                 {
                     name: 'Organisation unit location',
-                    coords: '-11.419700 8.103900', // Ngelehun CHC
+                    coords: '-11.419700, 8.103900', // Ngelehun CHC
                 },
             ],
         },
@@ -67,11 +67,11 @@ const programGeowR = {
             coordinates: [
                 {
                     name: 'E2E - Geo - DE - Organisation Unit',
-                    coords: '-11.686100 7.390850', // Bathurst MCHP
+                    coords: '-11.686100, 7.390850', // Bathurst MCHP
                 },
                 {
                     name: 'E2E - Geo - TEA - Organisation Unit',
-                    coords: '-11.686100 7.390850', // Bathurst MCHP
+                    coords: '-11.686100, 7.390850', // Bathurst MCHP
                 },
             ],
         },
