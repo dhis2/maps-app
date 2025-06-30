@@ -23,6 +23,7 @@ const MapView = (props) => {
         openContextMenu,
         setMapObject,
         resizeCount,
+        layersSorting,
         ...layerDispatchActions
     } = props
 
@@ -60,6 +61,7 @@ const MapView = (props) => {
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
                             setMapObject={setMapObject}
+                            layersSorting={layersSorting}
                         />
                     ) : (
                         <Map
@@ -77,6 +79,7 @@ const MapView = (props) => {
                             baseUrl={baseUrl}
                             engine={engine}
                             nameProperty={nameProperty}
+                            layersSorting={layersSorting}
                             {...layerDispatchActions}
                         />
                     )}
@@ -96,6 +99,7 @@ MapView.propTypes = {
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
     layers: PropTypes.array,
+    layersSorting: PropTypes.bool,
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
     setMapObject: PropTypes.func,

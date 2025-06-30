@@ -89,9 +89,7 @@ const RenderingStrategy = ({
                           { number: MULTIMAP_MAX_PERIODS }
                       )
                     : hasOtherLayers
-                    ? i18n.t(
-                          'Remove all existing layers to add a split map view.'
-                      )
+                    ? i18n.t('Remove all other layers to add a split map view.')
                     : undefined,
         }),
         [

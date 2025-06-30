@@ -17,6 +17,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
         (state) => !!state.interpretation.id
     )
     const feature = useSelector((state) => state.feature)
+    const { layersSorting } = useSelector((state) => state.ui)
     const basemapConfig = useBasemapConfig(basemap)
     const dispatch = useDispatch()
 
@@ -40,6 +41,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 setFeatureProfile={(val) => dispatch(setFeatureProfile(val))}
                 resizeCount={resizeCount}
                 setMapObject={setMap}
+                layersSorting={layersSorting}
             />
             {isLoading && <MapLoadingMask />}
         </>
