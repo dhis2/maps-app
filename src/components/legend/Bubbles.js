@@ -1,9 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
+import { precisionRound } from 'd3-format'
 import { scaleSqrt } from 'd3-scale'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { getContrastColor } from '../../util/colors.js'
 import { getLongestTextLength } from '../../util/helpers.js'
+import { getRoundToPrecisionFn } from '../../util/numbers.js'
 import Bubble from './Bubble.js'
 
 const style = {
@@ -26,6 +28,10 @@ const Bubbles = ({
     const noData = classes.find((c) => c.noData === true)
     const filteredClasses = classes.filter((c) => !c.noData)
 
+    const binSize = (maxValue - minValue) / (filteredClasses.length || 3)
+    const precision = precisionRound(binSize, maxValue)
+    const valueFormat = getRoundToPrecisionFn(precision)
+
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
 
@@ -45,14 +51,14 @@ const Bubbles = ({
             radius: itemScale(c.endValue),
             maxRadius: radiusHigh,
             color: c.color,
-            text: c.endValue.toFixed(2),
+            text: valueFormat(c.endValue),
         }))
 
         // Add the smallest bubble for the lowest value
         bubbles.push({
             radius: itemScale(startValue),
             maxRadius: radiusHigh,
-            text: startValue.toFixed(2),
+            text: valueFormat(startValue),
         })
     } else {
         // If single color
@@ -67,21 +73,21 @@ const Bubbles = ({
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: maxValue.toFixed(2) || i18n.t('Max'),
+                text: valueFormat(maxValue) || i18n.t('Max'),
             },
             {
                 radius: radiusMid,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: midValue.toFixed(2) || i18n.t('Mid'),
+                text: valueFormat(midValue) || i18n.t('Mid'),
             },
             {
                 radius: radiusLow,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: minValue.toFixed(2) || i18n.t('Min'),
+                text: valueFormat(minValue) || i18n.t('Min'),
             },
         ]
     }
