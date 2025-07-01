@@ -82,24 +82,36 @@ const upgradeGisAppLayers = (config) => {
 // Change colorScale from string to array
 // TODO: Change in db with an upgrade script
 const upgradeMapViews = (config) => {
-    if (
-        config.mapViews.find(
-            (view) =>
-                view.layer === 'boundary' || typeof view.colorScale === 'string'
-        )
-    ) {
-        return {
-            ...config,
-            mapViews: config.mapViews.map((view) => ({
-                ...view,
-                layer: view.layer === 'boundary' ? 'orgUnit' : view.layer,
-                colorScale:
-                    typeof view.colorScale === 'string'
-                        ? view.colorScale.split(',')
-                        : view.colorScale,
-            })),
-        }
-    } else {
+    const needsUpgrade = config.mapViews.some(
+        (view) =>
+            view.layer === 'boundary' || typeof view.colorScale === 'string'
+    )
+
+    if (!needsUpgrade) {
         return config
+    }
+
+    const upgradedViews = config.mapViews.map((view) => {
+        let layer = view.layer
+        if (layer === 'boundary') {
+            layer = 'orgUnit'
+        }
+
+        let colorScale = view.colorScale
+        if (typeof colorScale === 'string') {
+            const parts = colorScale.split(',')
+            colorScale = parts.length === 1 ? parts[0] : parts
+        }
+
+        return {
+            ...view,
+            layer,
+            colorScale,
+        }
+    })
+
+    return {
+        ...config,
+        mapViews: upgradedViews,
     }
 }
