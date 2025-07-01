@@ -15,10 +15,16 @@ const digitWidth = 6.8
 export const guideLength = 16
 export const textPadding = 4
 
-const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
+const Bubbles = ({
+    radiusLow,
+    radiusHigh,
+    color,
+    minValue,
+    maxValue,
+    classes,
+}) => {
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
-    const radiusMid = scale(0.5)
 
     if (isNaN(radiusLow) || isNaN(radiusHigh)) {
         return null
@@ -36,18 +42,21 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
             radius: itemScale(c.endValue),
             maxRadius: radiusHigh,
             color: c.color,
-            text: String(c.endValue),
+            text: c.endValue.toFixed(1),
         }))
 
         // Add the smallest bubble for the lowest value
         bubbles.push({
             radius: itemScale(startValue),
             maxRadius: radiusHigh,
-            text: String(startValue),
+            text: startValue.toFixed(1),
         })
     } else {
         // If single color
         const stroke = color && getContrastColor(color)
+        const itemScale = scale.domain([minValue, maxValue])
+        const midValue = (maxValue + minValue) / 2
+        const radiusMid = itemScale(midValue)
 
         bubbles = [
             {
@@ -55,21 +64,21 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: i18n.t('Max'),
+                text: maxValue.toFixed(1) || i18n.t('Max'),
             },
             {
                 radius: radiusMid,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: i18n.t('Mid'),
+                text: midValue.toFixed(1) || i18n.t('Mid'),
             },
             {
                 radius: radiusLow,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: i18n.t('Min'),
+                text: minValue.toFixed(1) || i18n.t('Min'),
             },
         ]
     }
@@ -167,6 +176,8 @@ Bubbles.propTypes = {
     radiusLow: PropTypes.number.isRequired,
     classes: PropTypes.array,
     color: PropTypes.string,
+    maxValue: PropTypes.number,
+    minValue: PropTypes.number,
 }
 
 export default Bubbles

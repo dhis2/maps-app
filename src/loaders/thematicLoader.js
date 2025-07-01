@@ -190,6 +190,8 @@ const thematicLoader = async ({
         legend.bubbles = {
             radiusLow,
             radiusHigh,
+            minValue,
+            maxValue,
             color: isSingleColor ? colorScale : null,
         }
     }
