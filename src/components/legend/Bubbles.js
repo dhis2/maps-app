@@ -42,14 +42,14 @@ const Bubbles = ({
             radius: itemScale(c.endValue),
             maxRadius: radiusHigh,
             color: c.color,
-            text: c.endValue.toFixed(1),
+            text: c.endValue.toFixed(2),
         }))
 
         // Add the smallest bubble for the lowest value
         bubbles.push({
             radius: itemScale(startValue),
             maxRadius: radiusHigh,
-            text: startValue.toFixed(1),
+            text: startValue.toFixed(2),
         })
     } else {
         // If single color
@@ -64,21 +64,21 @@ const Bubbles = ({
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: maxValue.toFixed(1) || i18n.t('Max'),
+                text: maxValue.toFixed(2) || i18n.t('Max'),
             },
             {
                 radius: radiusMid,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: midValue.toFixed(1) || i18n.t('Mid'),
+                text: midValue.toFixed(2) || i18n.t('Mid'),
             },
             {
                 radius: radiusLow,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: minValue.toFixed(1) || i18n.t('Min'),
+                text: minValue.toFixed(2) || i18n.t('Min'),
             },
         ]
     }
