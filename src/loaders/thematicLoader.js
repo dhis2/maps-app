@@ -276,8 +276,12 @@ const thematicLoader = async ({
         })
     }
 
-    if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
-        legend.items.push({ color: noDataColor, name: i18n.t('No data') })
+    if (noDataColor && Array.isArray(legend.items)) {
+        legend.items.push({
+            color: noDataColor,
+            name: i18n.t('No data'),
+            noData: true,
+        })
     }
 
     return {

@@ -23,6 +23,9 @@ const Bubbles = ({
     maxValue,
     classes,
 }) => {
+    const noData = classes.find((c) => c.noData === true)
+    const filteredClasses = classes.filter((c) => !c.noData)
+
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
 
@@ -33,12 +36,12 @@ const Bubbles = ({
     let bubbles = []
 
     // If color legend
-    if (Array.isArray(classes) && classes.length) {
-        const startValue = classes[0].startValue
-        const endValue = classes[classes.length - 1].endValue
+    if (Array.isArray(filteredClasses) && filteredClasses.length) {
+        const startValue = filteredClasses[0].startValue
+        const endValue = filteredClasses[filteredClasses.length - 1].endValue
         const itemScale = scale.domain([startValue, endValue])
 
-        bubbles = [...classes].reverse().map((c) => ({
+        bubbles = [...filteredClasses].reverse().map((c) => ({
             radius: itemScale(c.endValue),
             maxRadius: radiusHigh,
             color: c.color,
@@ -86,8 +89,8 @@ const Bubbles = ({
     // Calculate the pixel length of the longest number
     let textLength = Math.ceil(
         Math.max(
-            getLongestTextLength(classes, 'startValue'),
-            getLongestTextLength(classes, 'endValue')
+            getLongestTextLength(filteredClasses, 'startValue'),
+            getLongestTextLength(filteredClasses, 'endValue')
         ) * digitWidth
     )
 
@@ -154,7 +157,7 @@ const Bubbles = ({
 
     return (
         <div style={style}>
-            <svg width={legendWidth} height={height + 20}>
+            <svg width={legendWidth} height={height + 20 + (noData ? 6 : 0)}>
                 <g transform={`translate(${alternate ? offset : '2'} 10)`}>
                     {bubbles.map((bubble, i) => (
                         <Bubble
@@ -166,6 +169,34 @@ const Bubbles = ({
                         />
                     ))}
                 </g>
+                {noData && (
+                    <>
+                        {' '}
+                        <circle
+                            transform={`translate(${
+                                alternate ? offset : '2'
+                            } 20)`}
+                            cx={radiusHigh}
+                            cy={height}
+                            r={radiusLow}
+                            stroke="#000"
+                            style={{
+                                fill: noData.color,
+                                strokeWidth: 0.5,
+                            }}
+                        />
+                        <text
+                            transform={`translate(${
+                                alternate ? offset : '2'
+                            } 20)`}
+                            x={radiusHigh + radiusLow + 5}
+                            y={height + 4}
+                            fontSize={12}
+                        >
+                            {noData.name}
+                        </text>
+                    </>
+                )}
             </svg>
         </div>
     )
