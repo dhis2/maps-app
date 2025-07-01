@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-19T16:09:42.815Z\n"
-"PO-Revision-Date: 2025-06-19T16:09:42.815Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
+"PO-Revision-Date: 2025-06-20T07:43:21.017Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -587,9 +587,6 @@ msgstr "Remove filter"
 msgid "Group set"
 msgstr "Group set"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Failed to load organisation unit groups."
-
 msgid "Style by group set"
 msgstr "Style by group set"
 
@@ -952,8 +949,8 @@ msgstr ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 
-msgid "Remove all existing layers to add a split map view."
-msgstr "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
+msgstr "Remove all other layers to add a split map view."
 
 msgid "Single"
 msgstr "Single"
@@ -1501,6 +1498,9 @@ msgstr "Facilities"
 
 msgid "an error occurred"
 msgstr "an error occurred"
+
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet used for styling was not found"
 
 msgid "No coordinates found for selected facilities"
 msgstr "No coordinates found for selected facilities"
