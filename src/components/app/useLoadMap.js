@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
@@ -6,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
-import { setOriginalMap } from '../../actions/originalMap.js'
 import { openDownloadMode, closeDownloadMode } from '../../actions/ui.js'
 import { getFallbackBasemap } from '../../constants/basemaps.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
@@ -17,13 +15,14 @@ import history, {
     defaultHashUrlParams,
 } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
 
 export const useLoadMap = () => {
     const previousParamsRef = useRef(defaultHashUrlParams)
-    const { systemSettings, basemaps } = useCachedDataQuery()
+    const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()
@@ -39,11 +38,11 @@ export const useLoadMap = () => {
                 dispatch(setAnalyticalObject(true))
             } else {
                 try {
-                    const map = await fetchMap(
-                        params.mapId,
+                    const map = await fetchMap({
+                        id: params.mapId,
                         engine,
-                        defaultBasemap
-                    )
+                        defaultBasemap,
+                    })
 
                     engine.mutate(dataStatisticsMutation, {
                         variables: { id: params.mapId },
@@ -62,8 +61,6 @@ export const useLoadMap = () => {
                     }
 
                     dispatch(setMap(mapForStore))
-
-                    dispatch(setOriginalMap(mapForStore))
                 } catch (e) {
                     log.error(e)
                     dispatch(newMap())

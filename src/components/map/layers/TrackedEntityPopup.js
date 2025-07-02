@@ -9,6 +9,7 @@ import {
 } from '../../../util/helpers.js'
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.js'
+import styles from './styles/Popup.module.css'
 
 const TRACKED_ENTITIES_QUERY = {
     trackedEntities: {
@@ -42,7 +43,7 @@ const getDataRows = ({ displayAttributes, attributes }) => {
     })
 
     if (dataRows.length) {
-        dataRows.push(<tr key="divider" style={{ height: 5 }} />)
+        dataRows.push(<tr key="divider" className={styles.divider} />)
     }
 
     return dataRows
@@ -107,7 +108,7 @@ const TrackedEntityPopup = ({
         <Popup
             coordinates={coordinates}
             onClose={onClose}
-            className="dhis2-map-popup-event"
+            className={styles.trackedEntityPopup}
         >
             {errorTrackedEntity && (
                 <table>
@@ -115,7 +116,7 @@ const TrackedEntityPopup = ({
                         <tr>
                             {i18n.t('Could not retrieve tracked entity data')}
                         </tr>
-                        <tr key="divider" style={{ height: 5 }} />
+                        <tr key="divider" className={styles.divider} />
                     </tbody>
                 </table>
             )}
