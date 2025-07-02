@@ -61,6 +61,8 @@ describe('ui', () => {
             .selectOuLevel('Facility')
             .addToMap()
 
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+
         cy.document().should((doc) => {
             const userSelect = getComputedStyle(doc.body).userSelect
             expect(userSelect).not.to.eq('none')
