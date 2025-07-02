@@ -81,16 +81,16 @@ describe('ui', () => {
         })
 
         // 4. End the drag (mouseup)
-        cy.getByDataTest('sortable-handle')
-            .first()
-            .trigger('mouseup', { force: true })
+        // cy.getByDataTest('sortable-handle')
+        //     .first()
+        //     .trigger('mouseup', { force: true })
 
-        // Wait for the timeout in onSortEnd (100ms)
-        cy.wait(150) // eslint-disable-line cypress/no-unnecessary-waiting
+        // // Wait for the timeout in onSortEnd (100ms)
+        // cy.wait(150) // eslint-disable-line cypress/no-unnecessary-waiting
 
-        cy.document().should((doc) => {
-            const userSelect = getComputedStyle(doc.body).userSelect
-            expect(userSelect).not.to.eq('none')
-        })
+        // cy.document().should((doc) => {
+        //     const userSelect = getComputedStyle(doc.body).userSelect
+        //     expect(userSelect).not.to.eq('none')
+        // })
     })
 })

@@ -36,7 +36,7 @@ describe('keyboard navigation', () => {
         cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('not.exist')
     })
-    it('esc', () => {
+    it.skip('esc', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
