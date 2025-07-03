@@ -465,7 +465,7 @@ describe('Error handling check for all layer types', () => {
         })
     })
 
-    it.skip('load earth engine layer', () => {
+    it('load earth engine layer', () => {
         // !TODO: Revise custom errors
         // E2E - Earth Engine Layer [VebBMVbwxX5]
         const id = 'VebBMVbwxX5'
