@@ -28,6 +28,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
     getAutomaticLegendItems,
@@ -272,8 +273,10 @@ const thematicLoader = async ({
             const isPoint = geometry.type === 'Point'
             const { hasAdditionalGeometry } = properties
 
-            if (isSingleColor) {
+            if (isSingleColor && hasValue(value)) {
                 properties.color = colorScale
+            } else if (isSingleColor && !hasValue(value)) {
+                properties.color = legend ? legend.color : NO_DATA_COLOR
             } else if (item) {
                 // Only count org units once in legend
                 if (!hasAdditionalGeometry) {

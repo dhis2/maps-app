@@ -4,11 +4,12 @@ import {
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
 } from '../constants/layers.js'
+import { hasValue } from './helpers.js'
 import { getRoundToPrecisionFn } from './numbers.js'
 
 // Returns legend item where a value belongs
 export const getLegendItemForValue = (legendItems, value, clamp = false) => {
-    if (legendItems.length === 0) {
+    if (!hasValue(value) || legendItems.length === 0) {
         return []
     }
 
