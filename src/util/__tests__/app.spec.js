@@ -1,8 +1,8 @@
-import { BING_LAYER, KEYS_VALIDATION } from '../../constants/layers.js'
+import { BING_LAYER, MAP_SERVICE_KEY_TESTS } from '../../constants/layers.js'
 import { providerDataTransformation } from '../app.js'
 
 const findValidationByType = (type) => {
-    for (const validations of Object.values(KEYS_VALIDATION)) {
+    for (const validations of Object.values(MAP_SERVICE_KEY_TESTS)) {
         const match = validations.find((v) => v.type === type)
         if (match) {
             return match

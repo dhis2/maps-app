@@ -1,5 +1,5 @@
 import { FALLBACK_BASEMAP_ID } from './basemaps.js'
-import { KEYS_VALIDATION } from './layers.js'
+import { MAP_SERVICE_KEY_TESTS } from './layers.js'
 
 export const apiVersion = 40
 
@@ -15,7 +15,7 @@ export const SYSTEM_SETTINGS = [
     'keyHideMonthlyPeriods',
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
-    ...Object.keys(KEYS_VALIDATION),
+    ...Object.keys(MAP_SERVICE_KEY_TESTS),
 ]
 
 export const MAPS_ADMIN_AUTHORITY_IDS = [

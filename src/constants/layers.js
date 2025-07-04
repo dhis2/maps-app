@@ -18,7 +18,7 @@ export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
 export const GEOJSON_URL_LAYER = 'geoJsonUrl'
 
-export const KEYS_VALIDATION = {
+export const MAP_SERVICE_KEY_TESTS = {
     keyBingMapsApiKey: [
         {
             type: BING_LAYER,

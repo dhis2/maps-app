@@ -2,12 +2,12 @@ import { getFallbackBasemap } from '../../constants/basemaps.js'
 import {
     AZURE_LAYER,
     BING_LAYER,
-    KEYS_VALIDATION,
+    MAP_SERVICE_KEY_TESTS,
     MAP_LAYER_POSITION_BASEMAP,
     MAP_LAYER_POSITION_OVERLAY,
 } from '../../constants/layers.js'
 import {
-    validateKeys,
+    validateMapServiceKeys,
     getBasemapList,
     getBasemapOrFallback,
 } from '../basemaps.js'
@@ -16,7 +16,7 @@ const AZURE_LAYER_KEY = 'azure_maps_api_key'
 const BING_LAYER_KEY = 'bing_maps_api_key'
 
 const findValidationByType = (type) => {
-    for (const validations of Object.values(KEYS_VALIDATION)) {
+    for (const validations of Object.values(MAP_SERVICE_KEY_TESTS)) {
         const match = validations.find((v) => v.type === type)
         if (match) {
             return match
@@ -47,7 +47,7 @@ jest.mock('../../components/map/MapApi', () => ({
     layerTypes: ['azureLayer', 'bingLayer', 'tileLayer'],
 }))
 
-describe('utils/basemaps - validateKeys', () => {
+describe('utils/basemaps - validateMapServiceKeys', () => {
     beforeAll(() => {
         fetch.mockReset()
     })
@@ -63,7 +63,7 @@ describe('utils/basemaps - validateKeys', () => {
             return Promise.resolve({ ok: false })
         })
 
-        const keysStatus = await validateKeys(systemSettings)
+        const keysStatus = await validateMapServiceKeys(systemSettings)
         expect(keysStatus).toEqual({
             [AZURE_LAYER]: AZURE_LAYER_KEY,
             [BING_LAYER]: false,
@@ -81,7 +81,7 @@ describe('utils/basemaps - validateKeys', () => {
             return Promise.resolve({ ok: false })
         })
 
-        const keysStatus = await validateKeys(systemSettings)
+        const keysStatus = await validateMapServiceKeys(systemSettings)
         expect(keysStatus).toEqual({
             [AZURE_LAYER]: AZURE_LAYER_KEY,
             [BING_LAYER]: false,
@@ -99,7 +99,7 @@ describe('utils/basemaps - validateKeys', () => {
             return Promise.resolve({ ok: false })
         })
 
-        const keysStatus = await validateKeys(systemSettings)
+        const keysStatus = await validateMapServiceKeys(systemSettings)
         expect(keysStatus).toEqual({
             [AZURE_LAYER]: false,
             [BING_LAYER]: BING_LAYER_KEY,
@@ -112,7 +112,7 @@ describe('utils/basemaps - validateKeys', () => {
         }
         global.fetch = jest.fn(() => Promise.resolve({ ok: false }))
 
-        const keysStatus = await validateKeys(systemSettings)
+        const keysStatus = await validateMapServiceKeys(systemSettings)
         expect(keysStatus).toEqual({
             [AZURE_LAYER]: false,
             [BING_LAYER]: false,
@@ -122,7 +122,7 @@ describe('utils/basemaps - validateKeys', () => {
     it('returns correct status - missing key', async () => {
         const systemSettings = {}
 
-        const keysStatus = await validateKeys(systemSettings)
+        const keysStatus = await validateMapServiceKeys(systemSettings)
         expect(keysStatus).toEqual({
             [AZURE_LAYER]: false,
             [BING_LAYER]: false,
@@ -179,7 +179,7 @@ describe('utils/basemaps - getBasemapList', () => {
     const IMAGE_FORMAT = 'PNG'
 
     it('returns default basemaps matching supported layer types, with apiKeys if present', async () => {
-        const mockValidateKeys = jest.fn().mockResolvedValue({
+        const mockValidateMapServiceKeys = jest.fn().mockResolvedValue({
             azureLayer: AZURE_LAYER_KEY,
             bingLayer: false,
         })
@@ -189,7 +189,7 @@ describe('utils/basemaps - getBasemapList', () => {
         const result = await getBasemapList({
             externalMapLayers,
             systemSettings: {},
-            validationFn: mockValidateKeys,
+            validationFn: mockValidateMapServiceKeys,
         })
 
         expect(result).toEqual([
@@ -201,7 +201,7 @@ describe('utils/basemaps - getBasemapList', () => {
     })
 
     it('includes external basemaps matching supported map services', async () => {
-        const mockValidateKeys = jest.fn().mockResolvedValue({
+        const mockValidateMapServiceKeys = jest.fn().mockResolvedValue({
             azureLayer: AZURE_LAYER_KEY,
             bingLayer: false,
         })
@@ -228,7 +228,7 @@ describe('utils/basemaps - getBasemapList', () => {
         const result = await getBasemapList({
             externalMapLayers,
             systemSettings: {},
-            validationFn: mockValidateKeys,
+            validationFn: mockValidateMapServiceKeys,
         })
 
         expect(result.some((b) => b.id === 'azureLayerId')).toBe(true)
