@@ -28,6 +28,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
     getAutomaticLegendItems,
@@ -182,6 +183,14 @@ const thematicLoader = async ({
         )
     }
 
+    if (noDataColor && Array.isArray(legend.items)) {
+        legend.items.push({
+            color: noDataColor,
+            name: i18n.t('No data'),
+            noData: true,
+        })
+    }
+
     if (isSingleMap) {
         legend.items.forEach((item) => (item.count = 0))
     }
@@ -190,11 +199,22 @@ const thematicLoader = async ({
         legend.bubbles = {
             radiusLow,
             radiusHigh,
+            minValue,
+            maxValue,
             color: isSingleColor ? colorScale : null,
         }
     }
 
-    const getLegendItem = curry(getLegendItemForValue)(legend.items)
+    let getLegendItem
+    if (legendSet) {
+        getLegendItem = curry((a, b) => getLegendItemForValue(a, b, false))(
+            legend.items.filter((item) => !item.noData)
+        )
+    } else {
+        getLegendItem = curry((a, b) => getLegendItemForValue(a, b, true))(
+            legend.items.filter((item) => !item.noData)
+        )
+    }
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
         minValue = legend.items[0].startValue
@@ -246,14 +266,17 @@ const thematicLoader = async ({
             })
         })
     } else {
+        const noDataItem = legend.items.find((i) => i.noData === true)
         valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id]
             const item = getLegendItem(value)
             const isPoint = geometry.type === 'Point'
             const { hasAdditionalGeometry } = properties
 
-            if (isSingleColor) {
+            if (isSingleColor && hasValue(value)) {
                 properties.color = colorScale
+            } else if (isSingleColor && !hasValue(value)) {
+                properties.color = legend ? legend.color : NO_DATA_COLOR
             } else if (item) {
                 // Only count org units once in legend
                 if (!hasAdditionalGeometry) {
@@ -265,6 +288,8 @@ const thematicLoader = async ({
                         : item.color
                 properties.legend = item.name // Shown in data table
                 properties.range = `${item.startValue} - ${item.endValue}` // Shown in data table
+            } else if (noDataItem) {
+                noDataItem.count++
             }
 
             properties.value = value
@@ -272,10 +297,6 @@ const thematicLoader = async ({
                 ? ORG_UNIT_RADIUS_SMALL
                 : getRadiusForValue(value)
         })
-    }
-
-    if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
-        legend.items.push({ color: noDataColor, name: i18n.t('No data') })
     }
 
     return {

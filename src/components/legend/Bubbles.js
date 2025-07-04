@@ -1,9 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
+import { precisionRound } from 'd3-format'
 import { scaleSqrt } from 'd3-scale'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { getContrastColor } from '../../util/colors.js'
 import { getLongestTextLength } from '../../util/helpers.js'
+import { getRoundToPrecisionFn } from '../../util/numbers.js'
 import Bubble from './Bubble.js'
 
 const style = {
@@ -15,10 +17,23 @@ const digitWidth = 6.8
 export const guideLength = 16
 export const textPadding = 4
 
-const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
+const Bubbles = ({
+    radiusLow,
+    radiusHigh,
+    color,
+    minValue,
+    maxValue,
+    classes,
+}) => {
+    const noData = classes.find((c) => c.noData === true)
+    const filteredClasses = classes.filter((c) => !c.noData)
+
+    const binSize = (maxValue - minValue) / (filteredClasses.length || 3)
+    const precision = precisionRound(binSize, maxValue)
+    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
+
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
-    const radiusMid = scale(0.5)
 
     if (isNaN(radiusLow) || isNaN(radiusHigh)) {
         return null
@@ -27,27 +42,30 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
     let bubbles = []
 
     // If color legend
-    if (Array.isArray(classes) && classes.length) {
-        const startValue = classes[0].startValue
-        const endValue = classes[classes.length - 1].endValue
+    if (Array.isArray(filteredClasses) && filteredClasses.length) {
+        const startValue = filteredClasses[0].startValue
+        const endValue = filteredClasses[filteredClasses.length - 1].endValue
         const itemScale = scale.domain([startValue, endValue])
 
-        bubbles = [...classes].reverse().map((c) => ({
+        bubbles = [...filteredClasses].reverse().map((c) => ({
             radius: itemScale(c.endValue),
             maxRadius: radiusHigh,
             color: c.color,
-            text: String(c.endValue),
+            text: valueFormat(c.endValue),
         }))
 
         // Add the smallest bubble for the lowest value
         bubbles.push({
             radius: itemScale(startValue),
             maxRadius: radiusHigh,
-            text: String(startValue),
+            text: valueFormat(startValue),
         })
     } else {
         // If single color
         const stroke = color && getContrastColor(color)
+        const itemScale = scale.domain([minValue, maxValue])
+        const midValue = (maxValue + minValue) / 2
+        const radiusMid = itemScale(midValue)
 
         bubbles = [
             {
@@ -55,21 +73,21 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: i18n.t('Max'),
+                text: valueFormat(maxValue) || i18n.t('Max'),
             },
             {
                 radius: radiusMid,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: i18n.t('Mid'),
+                text: valueFormat(midValue) || i18n.t('Mid'),
             },
             {
                 radius: radiusLow,
                 maxRadius: radiusHigh,
                 color,
                 stroke,
-                text: i18n.t('Min'),
+                text: valueFormat(minValue) || i18n.t('Min'),
             },
         ]
     }
@@ -77,8 +95,8 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
     // Calculate the pixel length of the longest number
     let textLength = Math.ceil(
         Math.max(
-            getLongestTextLength(classes, 'startValue'),
-            getLongestTextLength(classes, 'endValue')
+            getLongestTextLength(filteredClasses, 'startValue'),
+            getLongestTextLength(filteredClasses, 'endValue')
         ) * digitWidth
     )
 
@@ -145,7 +163,7 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
 
     return (
         <div style={style}>
-            <svg width={legendWidth} height={height + 20}>
+            <svg width={legendWidth} height={height + 20 + (noData ? 6 : 0)}>
                 <g transform={`translate(${alternate ? offset : '2'} 10)`}>
                     {bubbles.map((bubble, i) => (
                         <Bubble
@@ -157,6 +175,34 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
                         />
                     ))}
                 </g>
+                {noData && (
+                    <>
+                        {' '}
+                        <circle
+                            transform={`translate(${
+                                alternate ? offset : '2'
+                            } 20)`}
+                            cx={radiusHigh}
+                            cy={height}
+                            r={radiusLow}
+                            stroke="#000"
+                            style={{
+                                fill: noData.color,
+                                strokeWidth: 0.5,
+                            }}
+                        />
+                        <text
+                            transform={`translate(${
+                                alternate ? offset : '2'
+                            } 20)`}
+                            x={radiusHigh + radiusLow + 5}
+                            y={height + 4}
+                            fontSize={12}
+                        >
+                            {noData.name}
+                        </text>
+                    </>
+                )}
             </svg>
         </div>
     )
@@ -167,6 +213,8 @@ Bubbles.propTypes = {
     radiusLow: PropTypes.number.isRequired,
     classes: PropTypes.array,
     color: PropTypes.string,
+    maxValue: PropTypes.number,
+    minValue: PropTypes.number,
 }
 
 export default Bubbles
