@@ -5,6 +5,7 @@ export const TILE_LAYER = 'tileLayer'
 export const WMS_LAYER = 'wmsLayer'
 export const GOOGLE_LAYER = 'googleLayer'
 export const BING_LAYER = 'bingLayer'
+export const AZURE_LAYER = 'azureLayer'
 export const EVENT_LAYER = 'event'
 export const THEMATIC_LAYER = 'thematic'
 export const FACILITY_LAYER = 'facility'
@@ -16,6 +17,25 @@ export const TRACKED_ENTITY_LAYER = 'trackedEntity'
 export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
 export const GEOJSON_URL_LAYER = 'geoJsonUrl'
+
+export const MAP_SERVICE_KEY_TESTS = {
+    keyBingMapsApiKey: [
+        {
+            type: BING_LAYER,
+            url: 'https://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial?key=',
+        },
+        {
+            type: AZURE_LAYER,
+            url: 'https://atlas.microsoft.com/map/static/png?api-version=2.0&zoom=1&center=0,0&layer=basic&width=1&height=1&subscription-key=',
+        },
+    ],
+    keyAzureMapsApiKey: [
+        {
+            type: AZURE_LAYER,
+            url: 'https://atlas.microsoft.com/map/static/png?api-version=2.0&zoom=1&center=0,0&layer=basic&width=1&height=1&subscription-key=',
+        },
+    ],
+}
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,

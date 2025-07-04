@@ -1,6 +1,17 @@
+import { BING_LAYER, MAP_SERVICE_KEY_TESTS } from '../../constants/layers.js'
 import { providerDataTransformation } from '../app.js'
 
-jest.mock('../earthEngine.js', () => ({ hasClasses: jest.fn() }))
+const findValidationByType = (type) => {
+    for (const validations of Object.values(MAP_SERVICE_KEY_TESTS)) {
+        const match = validations.find((v) => v.type === type)
+        if (match) {
+            return match
+        }
+    }
+    return null
+}
+
+global.fetch = jest.fn()
 
 jest.mock('@dhis2/maps-gl', () => {
     return {
@@ -23,7 +34,7 @@ jest.mock('@dhis2/maps-gl', () => {
     }
 })
 
-describe('utils/app', () => {
+describe('utils/app - providerDataTransformation', () => {
     const externalMapLayers = {
         externalMapLayers: [
             {
@@ -68,7 +79,18 @@ describe('utils/app', () => {
         ],
     }
 
-    test('providerDataTransformation', () => {
+    beforeEach(() => {
+        fetch.mockReset()
+    })
+
+    test('providerDataTransformation', async () => {
+        global.fetch = jest.fn((url) => {
+            if (url.startsWith(findValidationByType(BING_LAYER).url)) {
+                return Promise.resolve({ ok: true })
+            }
+            return Promise.resolve({ ok: false })
+        })
+
         const currentUser = {
             id: 'xE7jOejl9FI',
             username: 'admin',
@@ -94,7 +116,7 @@ describe('utils/app', () => {
             calendar: 'gregory',
         }
 
-        const cfg = providerDataTransformation({
+        const cfg = await providerDataTransformation({
             currentUser,
             systemSettings,
             externalMapLayers,
@@ -102,7 +124,7 @@ describe('utils/app', () => {
             systemInfo,
         })
 
-        expect(cfg.basemaps).toHaveLength(9)
+        expect(cfg.basemaps).toHaveLength(10)
         expect(cfg.nameProperty).toEqual('displayName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
         expect(cfg.currentUser.username).toEqual('admin')
@@ -125,7 +147,7 @@ describe('utils/app', () => {
         })
     })
 
-    test('providerDataTransformation no keyBingMapsApiKey', () => {
+    test('providerDataTransformation no keyBingMapsApiKey', async () => {
         const currentUser = {
             id: 'xE7jOejl9FI',
             username: 'admin',
@@ -150,7 +172,7 @@ describe('utils/app', () => {
             calendar: 'gregory',
         }
 
-        const cfg = providerDataTransformation({
+        const cfg = await providerDataTransformation({
             currentUser,
             systemSettings,
             externalMapLayers,
@@ -158,7 +180,7 @@ describe('utils/app', () => {
             systemInfo,
         })
 
-        expect(cfg.basemaps).toHaveLength(5)
+        expect(cfg.basemaps).toHaveLength(6)
         expect(cfg.nameProperty).toEqual('displayShortName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
         expect(cfg.currentUser).toMatchObject({
