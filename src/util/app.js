@@ -63,14 +63,11 @@ export const providerDataTransformation = async ({
             currentUser.settings.keyAnalysisDisplayProperty === 'name'
                 ? 'displayName'
                 : 'displayShortName',
-        systemSettings: Object.assign(
-            {},
-            DEFAULT_SYSTEM_SETTINGS,
-            systemSettings,
-            {
-                hiddenPeriods: getHiddenPeriods(systemSettings),
-            }
-        ),
+        systemSettings: {
+            ...DEFAULT_SYSTEM_SETTINGS,
+            ...systemSettings,
+            hiddenPeriods: getHiddenPeriods(systemSettings),
+        },
         periodsSettings: {
             locale: currentUser.settings.keyUiLocale,
             calendar: systemInfo.calendar,
