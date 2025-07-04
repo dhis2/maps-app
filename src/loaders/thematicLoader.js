@@ -208,11 +208,11 @@ const thematicLoader = async ({
     let getLegendItem
     if (legendSet) {
         getLegendItem = curry((a, b) => getLegendItemForValue(a, b, false))(
-            legend.items
+            legend.items.filter((item) => !item.noData)
         )
     } else {
         getLegendItem = curry((a, b) => getLegendItemForValue(a, b, true))(
-            legend.items
+            legend.items.filter((item) => !item.noData)
         )
     }
 
