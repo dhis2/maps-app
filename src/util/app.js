@@ -49,36 +49,34 @@ export const providerDataTransformation = async ({
     systemSettings,
     systemInfo,
     externalMapLayers,
-}) => {
-    return {
-        currentUser: {
-            id: currentUser.id,
-            name: currentUser.name,
-            username: currentUser.username,
-            authorities: new Set(currentUser.authorities),
-            keyAnalysisDisplayProperty:
-                currentUser.settings.keyAnalysisDisplayProperty,
-        },
-        nameProperty:
-            currentUser.settings.keyAnalysisDisplayProperty === 'name'
-                ? 'displayName'
-                : 'displayShortName',
-        systemSettings: {
-            ...DEFAULT_SYSTEM_SETTINGS,
-            ...systemSettings,
-            hiddenPeriods: getHiddenPeriods(systemSettings),
-        },
-        periodsSettings: {
-            locale: currentUser.settings.keyUiLocale,
-            calendar: systemInfo.calendar,
-            dateFormat: systemInfo.dateFormat,
-        },
-        basemaps: await getBasemapList({
-            externalMapLayers: externalMapLayers.externalMapLayers,
-            systemSettings,
-        }),
-        defaultLayerSources: getDefaultLayerSources(
-            externalMapLayers.externalMapLayers
-        ),
-    }
-}
+}) => ({
+    currentUser: {
+        id: currentUser.id,
+        name: currentUser.name,
+        username: currentUser.username,
+        authorities: new Set(currentUser.authorities),
+        keyAnalysisDisplayProperty:
+            currentUser.settings.keyAnalysisDisplayProperty,
+    },
+    nameProperty:
+        currentUser.settings.keyAnalysisDisplayProperty === 'name'
+            ? 'displayName'
+            : 'displayShortName',
+    systemSettings: {
+        ...DEFAULT_SYSTEM_SETTINGS,
+        ...systemSettings,
+        hiddenPeriods: getHiddenPeriods(systemSettings),
+    },
+    periodsSettings: {
+        locale: currentUser.settings.keyUiLocale,
+        calendar: systemInfo.calendar,
+        dateFormat: systemInfo.dateFormat,
+    },
+    basemaps: await getBasemapList({
+        externalMapLayers: externalMapLayers.externalMapLayers,
+        systemSettings,
+    }),
+    defaultLayerSources: getDefaultLayerSources(
+        externalMapLayers.externalMapLayers
+    ),
+})
