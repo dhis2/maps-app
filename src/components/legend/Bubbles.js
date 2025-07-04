@@ -30,7 +30,7 @@ const Bubbles = ({
 
     const binSize = (maxValue - minValue) / (filteredClasses.length || 3)
     const precision = precisionRound(binSize, maxValue)
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
 
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
