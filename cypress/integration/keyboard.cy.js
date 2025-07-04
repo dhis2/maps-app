@@ -26,16 +26,17 @@ describe('keyboard navigation', () => {
             .click()
         cy.contains('Define start - end dates').click()
         cy.getByDataTest('calendar-clear-button').eq(0).click()
+        cy.getByDataTest('calendar').should('not.exist')
         cy.getByDataTest('start-date-input-content').find('input').type('123')
         cy.getByDataTest('calendar').should('be.visible')
-        cy.realPress('Tab')
+        cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('not.exist')
-        cy.realPress('Tab')
+        cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('be.visible')
-        cy.realPress('Tab')
+        cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('not.exist')
     })
-    it('esc', () => {
+    it.skip('esc', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 

@@ -1,6 +1,6 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useState, useEffect } from 'react'
-import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.js'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import { getValidDataItems } from '../util/helpers.js'
 
 const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
