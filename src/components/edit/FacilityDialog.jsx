@@ -33,9 +33,10 @@ const QUERY = {
 }
 
 const ORGUNITS_TAB = 'orgunits'
+const DEFAULT_NO_ROWS = []
 
 const FacilityDialog = ({
-    rows = [],
+    rows = DEFAULT_NO_ROWS,
     radiusLow,
     organisationUnitColor,
     organisationUnitGroupSet,

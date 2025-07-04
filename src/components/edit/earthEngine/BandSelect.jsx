@@ -5,7 +5,9 @@ import { connect } from 'react-redux'
 import { setBand } from '../../../actions/layerEdit.js'
 import { SelectField } from '../../core/index.js'
 
-const BandSelect = ({ band = [], bands, setBand, errorText }) => (
+const DEFAULT_NO_BAND = []
+
+const BandSelect = ({ band = DEFAULT_NO_BAND, bands, setBand, errorText }) => (
     <SelectField
         label={i18n.t('Groups')}
         items={bands}

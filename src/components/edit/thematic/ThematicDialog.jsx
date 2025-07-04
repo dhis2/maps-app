@@ -324,9 +324,12 @@ class ThematicDialog extends Component {
             legendSetError,
         } = this.state
 
+        console.log('jj filters', filters)
+
         const periods = getPeriodsFromFilters(filters)
         const dataItem = getDataItemFromColumns(columns)
         const dimensions = getDimensionsFromFilters(filters)
+        console.log('jj dimensions', dimensions)
 
         return (
             <div className={styles.content} data-test="thematicdialog">

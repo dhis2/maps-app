@@ -12,7 +12,7 @@ import DimensionFilterRow from './DimensionFilterRow.jsx'
 import styles from './styles/DimensionFilter.module.css'
 
 const DimensionFilter = ({
-    dimensions = [],
+    dimensions,
     addDimensionFilter,
     changeDimensionFilter,
     removeDimensionFilter,
@@ -38,8 +38,8 @@ const DimensionFilter = ({
 DimensionFilter.propTypes = {
     addDimensionFilter: PropTypes.func.isRequired,
     changeDimensionFilter: PropTypes.func.isRequired,
+    dimensions: PropTypes.array.isRequired,
     removeDimensionFilter: PropTypes.func.isRequired,
-    dimensions: PropTypes.array,
 }
 
 export default connect(null, {

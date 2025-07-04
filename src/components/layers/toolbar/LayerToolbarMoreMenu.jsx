@@ -19,7 +19,7 @@ import { IconButton } from '../../core/index.js'
 import styles from './styles/LayerToolbarMore.module.css'
 
 const LayerToolbarMoreMenu = ({
-    layer = {},
+    layer,
     onEdit,
     onRemove,
     toggleDataTable,
@@ -149,8 +149,13 @@ LayerToolbarMoreMenu.propTypes = {
     onRemove: PropTypes.func,
 }
 
+const DEFAULT_EMPTY_LAYER = {}
+
 export default connect(
-    ({ dataTable: dataTableOpen, aggregations }, { layer = {} }) => {
+    (
+        { dataTable: dataTableOpen, aggregations },
+        { layer = DEFAULT_EMPTY_LAYER }
+    ) => {
         const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER
         const hasOrgUnitData =
             layer.data && (!isEarthEngine || layer.aggregationType?.length > 0)

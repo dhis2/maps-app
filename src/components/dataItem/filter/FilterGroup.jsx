@@ -14,7 +14,7 @@ import styles from './styles/FilterGroup.module.css'
 
 const excludeTypes = ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE']
 
-const FilterGroup = ({ filters = [], program, programStage }) => {
+const FilterGroup = ({ filters, program, programStage }) => {
     const dispatch = useDispatch()
     const { eventDataItems } = useEventDataItems({
         programId: program?.id,
@@ -59,7 +59,7 @@ const FilterGroup = ({ filters = [], program, programStage }) => {
     )
 }
 FilterGroup.propTypes = {
-    filters: PropTypes.array,
+    filters: PropTypes.array.isRequired,
     program: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),
