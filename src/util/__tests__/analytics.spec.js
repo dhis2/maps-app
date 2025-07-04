@@ -115,6 +115,18 @@ describe('getPeriodsFromFilters', () => {
             { id: 'period2' },
         ])
     })
+
+    it('should return empty array if filters is undefined', () => {
+        expect(getPeriodsFromFilters(undefined)).toEqual([])
+    })
+
+    it('should return empty array if filters is defined but there are no periods', () => {
+        const filters = [
+            { dimension: 'dx', items: [{ id: 'data1' }] },
+            { dimension: 'ou', items: [{ id: 'org1' }] },
+        ]
+        expect(getPeriodsFromFilters(filters)).toEqual([])
+    })
 })
 
 describe('removePeriodFromFilters', () => {

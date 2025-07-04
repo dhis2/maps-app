@@ -26,7 +26,7 @@ import styles from './styles/RenderingStrategy.module.css'
 const RenderingStrategy = ({
     layerId,
     value = RENDERING_STRATEGY_SINGLE,
-    periods = [],
+    periods,
     onChange,
 }) => {
     const prevPeriods = usePrevious(periods)
@@ -192,9 +192,9 @@ const RenderingStrategy = ({
 }
 
 RenderingStrategy.propTypes = {
+    periods: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     layerId: PropTypes.string,
-    periods: PropTypes.array,
     value: PropTypes.string,
 }
 

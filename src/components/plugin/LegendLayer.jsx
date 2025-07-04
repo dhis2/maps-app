@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 import LayerLegend from '../legend/Legend.jsx'
 
+const DEFAULT_NO_ALERTS = []
+
 // Renders a legend with alerts for one map layer
-const LegendLayer = ({ id, legend, alerts = [] }) => (
+const LegendLayer = ({ id, legend, alerts = DEFAULT_NO_ALERTS }) => (
     <div key={id}>
         {legend && (
             <Fragment>
