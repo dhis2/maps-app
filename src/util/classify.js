@@ -8,7 +8,7 @@ import { getRoundToPrecisionFn } from './numbers.js'
 
 // Returns legend item where a value belongs
 export const getLegendItemForValue = (legendItems, value, clamp = false) => {
-    if (!legendItems) {
+    if (legendItems.length === 0) {
         return []
     }
 
