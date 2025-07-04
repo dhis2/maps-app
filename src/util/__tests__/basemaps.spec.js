@@ -150,7 +150,7 @@ describe('utils/basemaps - getBasemapOrFallback', () => {
         expect(result).toEqual({ id: 'two', name: 'Two' })
     })
 
-    it('returns getFallbackBasemap if neither id nor defaultId are found', () => {
+    it('calls getFallbackBasemap and returns fallback basemap if neither id nor defaultId are found', () => {
         const result = getBasemapOrFallback({
             basemaps,
             id: 'missing',
