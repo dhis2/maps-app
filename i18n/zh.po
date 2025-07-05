@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-03T11:07:59.790Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -35,6 +35,12 @@ msgstr "重命名失败"
 
 msgid "Rename successful"
 msgstr "重命名成功"
+
+msgid "This app could not retrieve required data."
+msgstr "此应用无法检索所需数据。"
+
+msgid "Network error"
+msgstr "网络错误"
 
 msgid "Calculation"
 msgstr "计算"
@@ -589,9 +595,6 @@ msgstr "移除过滤器"
 msgid "Group set"
 msgstr "组集"
 
-msgid "Failed to load organisation unit groups."
-msgstr "未能加载组织机构组。"
-
 msgid "Style by group set"
 msgstr "按组集设置样式"
 
@@ -941,8 +944,8 @@ msgid ""
 "can be selected."
 msgstr "最多只能选择{{number}} 个时段（包括多时段）。"
 
-msgid "Remove all existing layers to add a split map view."
-msgstr "移除所有现有图层，添加分割地图视图。"
+msgid "Remove all other layers to add a split map view."
+msgstr "移除所有其他图层并添加一个分开的地图视图。"
 
 msgid "Single"
 msgstr "单人"
@@ -1458,6 +1461,9 @@ msgstr "机构设施"
 
 msgid "an error occurred"
 msgstr "出现错误"
+
+msgid "GroupSet used for styling was not found"
+msgstr "未找到用于样式的 组集"
 
 msgid "No coordinates found for selected facilities"
 msgstr "未找到选定设施的坐标"

@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Oscar Mesones Lapouble <oscar.lapouble@gmail.com>, 2022
-# Thiago Rocha, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2025
+# Thiago Rocha, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2025\n"
+"Last-Translator: Thiago Rocha, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr ""
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Erro de rede"
 
 msgid "Calculation"
 msgstr ""
@@ -589,9 +595,6 @@ msgstr ""
 msgid "Group set"
 msgstr "Conjunto do grupo"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
 
@@ -699,9 +702,6 @@ msgid "Group"
 msgstr "Grupo"
 
 msgid "Filters"
-msgstr ""
-
-msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "No data found"
@@ -944,7 +944,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1459,6 +1459,12 @@ msgstr "Evento"
 msgid "Facilities"
 msgstr ""
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1507,12 +1513,12 @@ msgstr ""
 msgid "false"
 msgstr ""
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
 msgid "Thematic"
