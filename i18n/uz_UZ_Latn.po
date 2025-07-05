@@ -1,14 +1,15 @@
 # 
 # Translators:
 # Philip Larsen Donnelly, 2024
-# Yury Rogachev <yury@dhis2.org>, 2024
+# Yury Rogachev <yury@dhis2.org>, 2025
+# Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
+"Last-Translator: Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +28,18 @@ msgstr ""
 
 msgid "Failed to save map: {{message}}"
 msgstr ""
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Muvaffaqiyatli qayta nomlash"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Тармоқда хатолик"
 
 msgid "Calculation"
 msgstr ""
@@ -82,6 +95,9 @@ msgstr "Тафсилотлари"
 msgid "Yes"
 msgstr "Ҳа"
 
+msgid "No"
+msgstr "Йўқ"
+
 msgid "None"
 msgstr "Йўқ"
 
@@ -115,7 +131,7 @@ msgstr ""
 msgid "Event data item"
 msgstr "Hodisa/Tadbir maʼlumoti elementi"
 
-msgid "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
@@ -591,9 +607,6 @@ msgstr "Filtrni olib tashlash"
 msgid "Group set"
 msgstr ""
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
 
@@ -707,9 +720,6 @@ msgstr "Гуруҳ"
 msgid "Filters"
 msgstr "Filrlar"
 
-msgid "{{layername}}: {{message}}"
-msgstr ""
-
 msgid "No data found"
 msgstr "Maʼlumotlar topilmadi"
 
@@ -746,9 +756,6 @@ msgstr "Kenglik"
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "Oʼrnatilmagan"
-
 msgid "Could not retrieve event data"
 msgstr ""
 
@@ -760,6 +767,9 @@ msgstr "Аjdod boʼlimi"
 
 msgid "No data"
 msgstr "Maʼlumot yoʼq"
+
+msgid "Not set"
+msgstr "Oʼrnatilmagan"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -953,7 +963,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1475,6 +1485,12 @@ msgstr "Hodisa/Tadbir"
 msgid "Facilities"
 msgstr "Muassasalar"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1523,18 +1539,15 @@ msgstr "toʼgʼri"
 msgid "false"
 msgstr "yolgʼon"
 
-msgid "No"
-msgstr "Йўқ"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Ushbu qatlam uchun Google Earth Engine akkaunti zarur. Qoʼshimcha maʼlumot "
 "olish uchunDHIS2 hujjatlarini tekshiring."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
 
 msgid "Thematic"
 msgstr ""
@@ -1550,6 +1563,9 @@ msgstr ""
 
 msgid "Facility"
 msgstr ""
+
+msgid "Other"
+msgstr "Boshqa"
 
 msgid "Start date is invalid"
 msgstr "Boshlanish sanasi notoʼgʼri"
