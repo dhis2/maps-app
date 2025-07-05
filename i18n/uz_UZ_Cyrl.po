@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -33,6 +33,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Қайта номлаш муваффақиятли амалга оширилди"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Тармоқда хатолик"
 
 msgid "Calculation"
 msgstr ""
@@ -605,9 +611,6 @@ msgstr "Фильтрни олиб ташлаш"
 msgid "Group set"
 msgstr "Гуруҳлар тўплами"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Ташкилий бирлик гуруҳларини юклашда хатолик юз берди."
-
 msgid "Style by group set"
 msgstr "Гуруҳ созламалари стилидан фойдаланиш"
 
@@ -719,9 +722,6 @@ msgstr "Гуруҳ"
 
 msgid "Filters"
 msgstr "Фильрлар"
-
-msgid "{{layername}}: {{message}}"
-msgstr ""
 
 msgid "No data found"
 msgstr "Маълумотлар топилмади"
@@ -970,7 +970,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1498,6 +1498,12 @@ msgstr "Тадбир"
 msgid "Facilities"
 msgstr "Муассасалар"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1546,15 +1552,15 @@ msgstr "тўғри"
 msgid "false"
 msgstr "ёлғон"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Google Earth Engine учун авторизация токенини олиш имконсиз"
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Ушбу қатлам учун Google Earth Engine аккаунти зарур. Қўшимча маълумот олиш "
 "учунDHIS2 ҳужжатларини текширинг."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Google Earth Engine учун авторизация токенини олиш имконсиз"
 
 msgid "Thematic"
 msgstr "Тематик"

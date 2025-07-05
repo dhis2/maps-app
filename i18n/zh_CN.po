@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -33,6 +33,12 @@ msgstr "重命名失败"
 
 msgid "Rename successful"
 msgstr "重命名成功"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "网络错误"
 
 msgid "Calculation"
 msgstr ""
@@ -587,9 +593,6 @@ msgstr "移除过滤器"
 msgid "Group set"
 msgstr "组集"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
 
@@ -697,9 +700,6 @@ msgid "Group"
 msgstr "组"
 
 msgid "Filters"
-msgstr ""
-
-msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "No data found"
@@ -942,7 +942,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1457,6 +1457,12 @@ msgstr "事件"
 msgid "Facilities"
 msgstr ""
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1505,13 +1511,13 @@ msgstr ""
 msgid "false"
 msgstr ""
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "无法获取 Google 地球引擎的授权令牌。"
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "无法获取 Google 地球引擎的授权令牌。"
 
 msgid "Thematic"
 msgstr ""
