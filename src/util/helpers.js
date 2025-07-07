@@ -6,6 +6,7 @@ import {
     dateValueTypes,
     datetimeValueTypes,
     coordinateValueTypes,
+    ouValueTypes,
 } from '../constants/valueTypes.js'
 
 const getBaseFields = (withSubscribers) => {
@@ -186,7 +187,12 @@ const hasValue = (value) =>
 
 // Formats value for display
 // Ref: https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/metadata.html#metadata-attribute-value-type-and-validations
-export const formatValueForDisplay = ({ value, valueType, options }) => {
+export const formatValueForDisplay = ({
+    value,
+    valueType,
+    options,
+    orgUnitNames,
+}) => {
     if (!hasValue(value)) {
         return i18n.t('Not set')
     }
@@ -197,6 +203,13 @@ export const formatValueForDisplay = ({ value, valueType, options }) => {
     }
     if (options && hasValue(options[value])) {
         return options[value]
+    }
+    if (
+        ouValueTypes.includes(valueType) &&
+        orgUnitNames &&
+        hasValue(orgUnitNames[value])
+    ) {
+        return orgUnitNames[value]
     }
     if (coordinateValueTypes.includes(valueType)) {
         return formatCoordinate(value)

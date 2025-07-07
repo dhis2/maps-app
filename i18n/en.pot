@@ -95,6 +95,9 @@ msgstr "None"
 msgid "Cascading"
 msgstr "Cascading"
 
+msgid "Organisation unit location"
+msgstr "Organisation unit location"
+
 msgid "Event location"
 msgstr "Event location"
 
@@ -103,9 +106,6 @@ msgstr "Enrollment location"
 
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
-
-msgid "Organisation unit location"
-msgstr "Organisation unit location"
 
 msgid "Fallback coordinate field"
 msgstr "Fallback coordinate field"
