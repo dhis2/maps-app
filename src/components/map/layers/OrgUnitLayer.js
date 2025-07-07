@@ -9,6 +9,7 @@ import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
+import styles from './styles/Popup.module.css'
 
 export default class OrgUnitLayer extends Layer {
     state = {
@@ -73,9 +74,9 @@ export default class OrgUnitLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
-                className="dhis2-map-popup-orgunit"
+                className={styles.orgUnitPopup}
             >
-                <em>{name}</em>
+                <div className={styles.title}>{name}</div>
                 {level && (
                     <div>
                         {i18n.t('Level')}: {level}

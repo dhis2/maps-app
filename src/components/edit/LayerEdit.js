@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
@@ -14,6 +13,7 @@ import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import { useOrgUnits } from '../OrgUnitsProvider.js'
 import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
 import EventDialog from './event/EventDialog.js'
@@ -46,7 +46,7 @@ const getLayerNames = () => ({
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
-    const { systemSettings, periodsSettings } = useCachedDataQuery()
+    const { systemSettings, periodsSettings } = useCachedData()
     const orgUnits = useOrgUnits()
 
     const onValidateLayer = () => setIsValidLayer(true)

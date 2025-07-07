@@ -1,11 +1,11 @@
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useLayersLoader } from '../../hooks/useLayersLoader.js'
 import BottomPanel from '../datatable/BottomPanel.js'
 import DownloadModeMenu from '../download/DownloadMenubar.js'
 import DownloadSettings from '../download/DownloadSettings.js'
 import LayersPanel from '../layers/LayersPanel.js'
-import LayersLoader from '../loaders/LayersLoader.js'
 import MapPosition from '../map/MapPosition.js'
 import AppMenu from './AppMenu.js'
 import DetailsPanel from './DetailsPanel.js'
@@ -30,6 +30,7 @@ const App = () => {
 
     useLoadMap()
     useLoadDataStore()
+    useLayersLoader()
 
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)
@@ -67,7 +68,6 @@ const App = () => {
                     />
                 )}
             </div>
-            <LayersLoader />
             <ModalContainer />
         </>
     )

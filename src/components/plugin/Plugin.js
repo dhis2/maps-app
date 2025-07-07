@@ -1,5 +1,3 @@
-import { CachedDataQueryProvider } from '@dhis2/analytics'
-import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
@@ -7,12 +5,8 @@ import {
     SYSTEM_SETTINGS,
 } from '../../constants/settings.js'
 import { getHiddenPeriods } from '../../util/periods.js'
-import LoadingMask from './LoadingMask.js'
+import { CachedDataProvider } from '../cachedDataProvider/CachedDataProvider.js'
 import MapContainer from './MapContainer.js'
-
-const d2Config = {
-    schemas: [],
-}
 
 const query = {
     systemSettings: {
@@ -56,26 +50,16 @@ const providerDataTransformation = ({ systemSettings, currentUser }) => {
 
 export const Plugin = ({ visualization, displayProperty }) => {
     return (
-        <D2Shim d2Config={d2Config}>
-            {({ d2, d2Error }) => {
-                if (!d2 && !d2Error) {
-                    return <LoadingMask />
-                }
-
-                return (
-                    <CachedDataQueryProvider
-                        query={query}
-                        dataTransformation={providerDataTransformation}
-                        translucent={false}
-                    >
-                        <MapContainer
-                            visualization={visualization}
-                            displayProperty={displayProperty}
-                        />
-                    </CachedDataQueryProvider>
-                )
-            }}
-        </D2Shim>
+        <CachedDataProvider
+            query={query}
+            dataTransformation={providerDataTransformation}
+            translucent={false}
+        >
+            <MapContainer
+                visualization={visualization}
+                displayProperty={displayProperty}
+            />
+        </CachedDataProvider>
     )
 }
 
