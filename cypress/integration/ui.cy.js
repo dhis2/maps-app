@@ -70,11 +70,11 @@ describe('ui', () => {
         })
 
         // Start dragging one of the layers
-        // eslint-disable-next-line cypress/unsafe-to-chain-command
         cy.getByDataTest('sortable-handle')
             .first()
-            .trigger('mousedown', { button: 0, force: true })
-            .trigger('mousemove', { clientY: 100, force: true })
+            .trigger('mousedown', { button: 0 })
+        // Dragging is initialised on the sortable-handle but moves are tracked on the document
+        cy.document().trigger('mousemove', { clientY: 100 })
 
         // Check that document.body has style user-select: none
         cy.document().should((doc) => {
