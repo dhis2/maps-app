@@ -36,6 +36,9 @@ describe('keyboard navigation', () => {
         cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('not.exist')
     })
+
+    // TODO: Re-enable this test once @dhis2/ui is upgraded to 10.7.7
+    // See Github PR https://github.com/dhis2/ui/pull/1696
     it.skip('esc', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
