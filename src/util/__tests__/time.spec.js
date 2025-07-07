@@ -57,16 +57,22 @@ describe('time utils', () => {
     })
 
     it('getStartEndDateError should report errors correctly', () => {
-        expect(getStartEndDateError('2018-12-17', '2018-12-18')).toBeNull()
-        expect(getStartEndDateError('2018-12-17', '2018-12-16')).toEqual(
-            'End date cannot be earlier than start date'
-        )
-        expect(getStartEndDateError('2018-12-7', '2018-12-16')).toEqual(
-            'Start date is invalid'
-        )
-        expect(getStartEndDateError('2018-12-17', '2018-2-16')).toEqual(
-            'End date is invalid'
-        )
+        expect(getStartEndDateError('2018-12-17', '2018-12-18')).toEqual([
+            null,
+            null,
+        ])
+        expect(getStartEndDateError('2018-12-17', '2018-12-16')).toEqual([
+            'periodError',
+            'End date cannot be earlier than start date',
+        ])
+        expect(getStartEndDateError('2018-12-7', '2018-12-16')).toEqual([
+            'startDateError',
+            'Start date is invalid',
+        ])
+        expect(getStartEndDateError('2018-12-17', '2018-2-16')).toEqual([
+            'endDateError',
+            'End date is invalid',
+        ])
     })
 
     it('getYear should return the year from a date, or the current year', () => {

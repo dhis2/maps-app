@@ -4,6 +4,10 @@
     align-items: flex-end;
 }
 
+.width {
+    width: 248px;
+}
+
 .icon {
     flex-grow: 0;
     height: 40px;
