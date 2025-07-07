@@ -16,12 +16,13 @@ const ORG_UNIT_GROUP_SETS_QUERY = {
     },
 }
 
+const ITEM_NONE = { id: 'none', name: i18n.t('None') }
+
 const GroupSetSelect = ({
     label = i18n.t('Group set'),
     value,
     allowNone,
     onChange,
-    errorText,
     className,
 }) => {
     const { nameProperty } = useCachedData()
@@ -29,29 +30,45 @@ const GroupSetSelect = ({
         variables: { nameProperty },
     })
 
+    const onGroupSetChange = useCallback(
+        (item) => onChange(item.id !== ITEM_NONE.id ? item : undefined),
+        [onChange]
+    )
+
     const groupSets = useMemo(
         () => [
-            ...(allowNone ? [{ id: 'none', name: i18n.t('None') }] : []),
+            ...(allowNone ? [ITEM_NONE] : []),
             ...(data?.sets.organisationUnitGroupSets || []),
         ],
         [data, allowNone]
     )
 
-    const onGroupSetChange = useCallback(
-        (item) => onChange(item.id !== 'none' ? item : undefined),
-        [onChange]
-    )
+    const internalError =
+        value && !groupSets.find((item) => item.id === value.id)
+    let internalErrorText
+    if (internalError) {
+        internalErrorText = i18n.t(
+            'Previously selected value not available in list: {{id}}',
+            {
+                id: value.id,
+                nsSeparator: '^^',
+            }
+        )
+    }
+
+    let selectValue = null
+    if (!(error || internalError)) {
+        selectValue = value ? value.id : ITEM_NONE.id
+    }
 
     return (
         <SelectField
             label={label}
             loading={loading}
             items={groupSets}
-            value={value ? value.id : null}
+            value={selectValue}
             onChange={onGroupSetChange}
-            errorText={
-                error?.message || (!value && errorText ? errorText : null)
-            }
+            errorText={internalErrorText || error?.message}
             className={className}
             dataTest="orgunitgroupsetselect"
         />
@@ -62,7 +79,6 @@ GroupSetSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
     allowNone: PropTypes.bool,
     className: PropTypes.string,
-    errorText: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.object,
 }
