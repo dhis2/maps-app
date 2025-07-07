@@ -1,3 +1,10 @@
+# [101.3.0](https://github.com/dhis2/maps-app/compare/v101.2.15...v101.3.0) (2025-07-07)
+
+
+### Features
+
+* S2-EOX basemap and Azure as alternative to Bing [DHIS2-18500] [DHIS2-19152] ([#3543](https://github.com/dhis2/maps-app/issues/3543)) ([ebd109b](https://github.com/dhis2/maps-app/commit/ebd109bbbfbe9eef438e5ce7c11ec0387b1998e2))
+
 ## [101.2.15](https://github.com/dhis2/maps-app/compare/v101.2.14...v101.2.15) (2025-06-27)
 
 
