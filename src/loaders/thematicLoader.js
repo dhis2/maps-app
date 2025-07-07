@@ -254,41 +254,41 @@ const thematicLoader = async ({
             orgUnits.forEach((orgunit) => {
                 const item = valuesByPeriod[period][orgunit]
                 const value = Number(item.value)
-                const legend = getLegendItem(value)
+                const legendItem = getLegendItem(value)
 
                 if (isSingleColor) {
                     item.color = colorScale
                 } else {
-                    item.color = legend ? legend.color : NO_DATA_COLOR
+                    item.color = legendItem ? legendItem.color : NO_DATA_COLOR
                 }
 
                 item.radius = getRadiusForValue(value)
             })
         })
     } else {
-        const noDataItem = legend.items.find((i) => i.noData === true)
+        const noDataLegendItem = legend.items.find((i) => i.noData === true)
         valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id]
-            const item = getLegendItem(value)
+            const legendItem = getLegendItem(value)
             const isPoint = geometry.type === 'Point'
             const { hasAdditionalGeometry } = properties
 
             if (isSingleColor) {
                 properties.color = hasValue(value)
                     ? colorScale
-                    : legend?.color || NO_DATA_COLOR
-            } else if (item) {
+                    : noDataLegendItem?.color || NO_DATA_COLOR
+            } else if (legendItem) {
                 properties.color =
                     hasAdditionalGeometry && isPoint
                         ? ORG_UNIT_COLOR
-                        : item.color
-                properties.legend = item.name // Shown in data table
-                properties.range = `${item.startValue} - ${item.endValue}` // Shown in data table
+                        : legendItem.color
+                properties.legend = legendItem.name // Shown in data table
+                properties.range = `${legendItem.startValue} - ${legendItem.endValue}` // Shown in data table
             }
 
             // Only count org units once in legend
             if (!hasAdditionalGeometry) {
-                const targetItem = item || noDataItem
+                const targetItem = legendItem || noDataLegendItem
                 if (targetItem) {
                     targetItem.count++
                 }
