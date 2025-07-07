@@ -297,7 +297,7 @@ const thematicLoader = async ({
             properties.value = value
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : getRadiusForValue(value)
+                : getRadiusForValue(value || minValue)
         })
     }
 
