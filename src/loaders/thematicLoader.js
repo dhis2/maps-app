@@ -273,23 +273,25 @@ const thematicLoader = async ({
             const isPoint = geometry.type === 'Point'
             const { hasAdditionalGeometry } = properties
 
-            if (isSingleColor && hasValue(value)) {
-                properties.color = colorScale
-            } else if (isSingleColor && !hasValue(value)) {
-                properties.color = legend ? legend.color : NO_DATA_COLOR
+            if (isSingleColor) {
+                properties.color = hasValue(value)
+                    ? colorScale
+                    : legend?.color || NO_DATA_COLOR
             } else if (item) {
-                // Only count org units once in legend
-                if (!hasAdditionalGeometry) {
-                    item.count++
-                }
                 properties.color =
                     hasAdditionalGeometry && isPoint
                         ? ORG_UNIT_COLOR
                         : item.color
                 properties.legend = item.name // Shown in data table
                 properties.range = `${item.startValue} - ${item.endValue}` // Shown in data table
-            } else if (noDataItem) {
-                noDataItem.count++
+            }
+
+            // Only count org units once in legend
+            if (!hasAdditionalGeometry) {
+                const targetItem = item || noDataItem
+                if (targetItem) {
+                    targetItem.count++
+                }
             }
 
             properties.value = value
