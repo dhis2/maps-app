@@ -42,7 +42,7 @@ const Bubbles = ({
     let bubbles = []
 
     // If color legend
-    if (Array.isArray(bubbleClasses) && bubbleClasses.length) {
+    if (bubbleClasses.length) {
         const startValue = bubbleClasses[0].startValue
         const endValue = bubbleClasses[bubbleClasses.length - 1].endValue
         const itemScale = scale.domain([startValue, endValue])
