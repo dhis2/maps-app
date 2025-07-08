@@ -84,8 +84,16 @@ context('Thematic Layers', () => {
             'none',
             choroplethColors[5],
         ]
+
+        // Examples of choropleth labels:
+        // "3.2 - 7.5 (100)"
+        // "No data (0)"
         const choroplethLegendTextPattern =
             /^\s*(\d+(\.\d+)?\s*-\s*\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
+
+        // Examples of bubble labels:
+        // "10.5"
+        // "No data"
         const bubbleLabelTextPattern = /^(\d+(\.\d+)?|No data)$/
 
         // Choropleth
