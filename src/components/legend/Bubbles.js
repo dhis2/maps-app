@@ -3,6 +3,7 @@ import { precisionRound } from 'd3-format'
 import { scaleSqrt } from 'd3-scale'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { THEMATIC_RADIUS_DEFAULT } from '../../constants/layers.js'
 import { getContrastColor } from '../../util/colors.js'
 import { getLongestTextLength } from '../../util/helpers.js'
 import { getRoundToPrecisionFn } from '../../util/numbers.js'
@@ -165,7 +166,11 @@ const Bubbles = ({
         <div style={style}>
             <svg
                 width={legendWidth}
-                height={height + 20 + (noDataClass ? 6 : 0)}
+                height={
+                    height +
+                    20 +
+                    (noDataClass ? THEMATIC_RADIUS_DEFAULT + 1 : 0)
+                }
             >
                 <g transform={`translate(${alternate ? offset : '2'} 10)`}>
                     {bubbles.map((bubble, i) => (
@@ -187,7 +192,7 @@ const Bubbles = ({
                             } 20)`}
                             cx={radiusHigh}
                             cy={height}
-                            r={radiusLow}
+                            r={THEMATIC_RADIUS_DEFAULT}
                             stroke="#000"
                             style={{
                                 fill: noDataClass.color,
@@ -198,7 +203,7 @@ const Bubbles = ({
                             transform={`translate(${
                                 alternate ? offset : '2'
                             } 20)`}
-                            x={radiusHigh + radiusLow + 5}
+                            x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
                             y={height + 4}
                             fontSize={12}
                         >

@@ -11,6 +11,7 @@ import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
     THEMATIC_BUBBLE,
+    THEMATIC_RADIUS_DEFAULT,
     THEMATIC_RADIUS_LOW,
     THEMATIC_RADIUS_HIGH,
     RENDERING_STRATEGY_SINGLE,
@@ -293,7 +294,7 @@ const thematicLoader = async ({
             properties.value = value
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : getRadiusForValue(value || minValue)
+                : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
         })
     }
 
