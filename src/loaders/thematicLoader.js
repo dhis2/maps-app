@@ -19,7 +19,6 @@ import {
     CLASSIFICATION_SINGLE_COLOR,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
-    NO_DATA_COLOR,
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
@@ -255,8 +254,8 @@ const thematicLoader = async ({
 
                 if (isSingleColor) {
                     item.color = colorScale
-                } else {
-                    item.color = legendItem ? legendItem.color : NO_DATA_COLOR
+                } else if (legendItem) {
+                    item.color = legendItem.color
                 }
 
                 item.radius = getRadiusForValue(value)
@@ -273,7 +272,7 @@ const thematicLoader = async ({
             if (isSingleColor) {
                 properties.color = hasValue(value)
                     ? colorScale
-                    : noDataLegendItem?.color || NO_DATA_COLOR
+                    : noDataLegendItem?.color
             } else if (legendItem) {
                 properties.color =
                     hasAdditionalGeometry && isPoint
