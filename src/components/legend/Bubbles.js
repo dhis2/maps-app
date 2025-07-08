@@ -25,10 +25,10 @@ const Bubbles = ({
     maxValue,
     classes,
 }) => {
-    const noData = classes.find((c) => c.noData === true)
-    const filteredClasses = classes.filter((c) => !c.noData)
+    const noDataClass = classes.find((c) => c.noData === true)
+    const bubbleClasses = classes.filter((c) => !c.noData)
 
-    const binSize = (maxValue - minValue) / (filteredClasses.length || 3)
+    const binSize = (maxValue - minValue) / (bubbleClasses.length || 3)
     const precision = precisionRound(binSize, maxValue)
     const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
 
@@ -42,12 +42,12 @@ const Bubbles = ({
     let bubbles = []
 
     // If color legend
-    if (Array.isArray(filteredClasses) && filteredClasses.length) {
-        const startValue = filteredClasses[0].startValue
-        const endValue = filteredClasses[filteredClasses.length - 1].endValue
+    if (Array.isArray(bubbleClasses) && bubbleClasses.length) {
+        const startValue = bubbleClasses[0].startValue
+        const endValue = bubbleClasses[bubbleClasses.length - 1].endValue
         const itemScale = scale.domain([startValue, endValue])
 
-        bubbles = [...filteredClasses].reverse().map((c) => ({
+        bubbles = [...bubbleClasses].reverse().map((c) => ({
             radius: itemScale(c.endValue),
             maxRadius: radiusHigh,
             color: c.color,
@@ -95,8 +95,8 @@ const Bubbles = ({
     // Calculate the pixel length of the longest number
     let textLength = Math.ceil(
         Math.max(
-            getLongestTextLength(filteredClasses, 'startValue'),
-            getLongestTextLength(filteredClasses, 'endValue')
+            getLongestTextLength(bubbleClasses, 'startValue'),
+            getLongestTextLength(bubbleClasses, 'endValue')
         ) * digitWidth
     )
 
@@ -163,7 +163,10 @@ const Bubbles = ({
 
     return (
         <div style={style}>
-            <svg width={legendWidth} height={height + 20 + (noData ? 6 : 0)}>
+            <svg
+                width={legendWidth}
+                height={height + 20 + (noDataClass ? 6 : 0)}
+            >
                 <g transform={`translate(${alternate ? offset : '2'} 10)`}>
                     {bubbles.map((bubble, i) => (
                         <Bubble
@@ -175,7 +178,7 @@ const Bubbles = ({
                         />
                     ))}
                 </g>
-                {noData && (
+                {noDataClass && (
                     <>
                         {' '}
                         <circle
@@ -187,7 +190,7 @@ const Bubbles = ({
                             r={radiusLow}
                             stroke="#000"
                             style={{
-                                fill: noData.color,
+                                fill: noDataClass.color,
                                 strokeWidth: 0.5,
                             }}
                         />
@@ -199,7 +202,7 @@ const Bubbles = ({
                             y={height + 4}
                             fontSize={12}
                         >
-                            {noData.name}
+                            {noDataClass.name}
                         </text>
                     </>
                 )}
