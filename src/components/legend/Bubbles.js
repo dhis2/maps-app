@@ -13,7 +13,6 @@ const style = {
     paddingTop: 10,
 }
 
-const legendWidth = 245
 const digitWidth = 6.8
 export const guideLength = 16
 export const textPadding = 4
@@ -25,7 +24,9 @@ const Bubbles = ({
     minValue,
     maxValue,
     classes,
+    isPlugin,
 }) => {
+    const legendWidth = !isPlugin ? 245 : 150
     const noDataClass = classes.find((c) => c.noData === true)
     const bubbleClasses = classes.filter((c) => !c.noData)
 
@@ -221,6 +222,7 @@ Bubbles.propTypes = {
     radiusLow: PropTypes.number.isRequired,
     classes: PropTypes.array,
     color: PropTypes.string,
+    isPlugin: PropTypes.bool,
     maxValue: PropTypes.number,
     minValue: PropTypes.number,
 }
