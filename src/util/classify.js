@@ -8,7 +8,11 @@ import { hasValue } from './helpers.js'
 import { getRoundToPrecisionFn } from './numbers.js'
 
 // Returns legend item where a value belongs
-export const getLegendItemForValue = (legendItems, value, clamp = false) => {
+export const getLegendItemForValue = ({
+    value,
+    legendItems,
+    clamp = false,
+}) => {
     if (!hasValue(value) || legendItems.length === 0) {
         return
     }

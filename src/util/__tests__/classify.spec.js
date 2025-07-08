@@ -22,37 +22,48 @@ describe('getLegendItemForValue', () => {
         { startValue: 10, endValue: 20 },
         { startValue: 20, endValue: 30 },
     ]
+    const clamp = true
 
     it('returns undefined if value is null', () => {
-        expect(getLegendItemForValue(legendItems, null)).toBeUndefined()
+        expect(
+            getLegendItemForValue({ value: null, legendItems })
+        ).toBeUndefined()
     })
 
     it('returns undefined if legendItems is empty', () => {
-        expect(getLegendItemForValue([], 5)).toBeUndefined()
+        expect(
+            getLegendItemForValue({ value: 5, legendItems: [] })
+        ).toBeUndefined()
     })
 
     it('returns correct item for value in range', () => {
-        expect(getLegendItemForValue(legendItems, 15)).toEqual(legendItems[1])
-    })
-
-    it('returns last bin if value equals last bin end', () => {
-        expect(getLegendItemForValue(legendItems, 30)).toEqual(legendItems[2])
-    })
-
-    it('returns clamped first bin if value is below range', () => {
-        expect(getLegendItemForValue(legendItems, -5, true)).toEqual(
-            legendItems[0]
+        expect(getLegendItemForValue({ value: 15, legendItems })).toEqual(
+            legendItems[1]
         )
     })
 
-    it('returns clamped last bin if value is above range', () => {
-        expect(getLegendItemForValue(legendItems, 100, true)).toEqual(
+    it('returns last bin if value equals last bin end', () => {
+        expect(getLegendItemForValue({ value: 30, legendItems })).toEqual(
             legendItems[2]
         )
     })
 
+    it('returns clamped first bin if value is below range', () => {
+        expect(
+            getLegendItemForValue({ value: -5, legendItems, clamp })
+        ).toEqual(legendItems[0])
+    })
+
+    it('returns clamped last bin if value is above range', () => {
+        expect(
+            getLegendItemForValue({ value: 100, legendItems, clamp })
+        ).toEqual(legendItems[2])
+    })
+
     it('returns undefined if unclamped value is out of range', () => {
-        expect(getLegendItemForValue(legendItems, -1, false)).toBeUndefined()
+        expect(
+            getLegendItemForValue({ value: -1, legendItems })
+        ).toBeUndefined()
     })
 })
 

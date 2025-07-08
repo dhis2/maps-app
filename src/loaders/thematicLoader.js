@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { scaleSqrt } from 'd3-scale'
-import { findIndex, curry } from 'lodash/fp'
+import { findIndex } from 'lodash/fp'
 import {
     WARNING_NO_DATA,
     WARNING_NO_OU_COORD,
@@ -205,9 +205,12 @@ const thematicLoader = async ({
         }
     }
 
-    const getLegendItem = curry((a, b) =>
-        getLegendItemForValue(a, b, !legendSet)
-    )(legend.items.filter((item) => !item.noData))
+    const getLegendItem = (value) =>
+        getLegendItemForValue({
+            value,
+            legendItems: legend.items.filter((item) => !item.noData),
+            clamp: !legendSet,
+        })
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
         minValue = legend.items[0].startValue
