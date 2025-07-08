@@ -78,9 +78,6 @@ const upgradeGisAppLayers = (config) => {
     }
 }
 
-// Change layer name from boundary to orgUnit when loading an old map
-// Change colorScale from string to array
-// TODO: Change in db with an upgrade script
 const upgradeMapViews = (config) => {
     const needsUpgrade = config.mapViews.some(
         (view) =>
