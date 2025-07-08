@@ -205,16 +205,9 @@ const thematicLoader = async ({
         }
     }
 
-    let getLegendItem
-    if (legendSet) {
-        getLegendItem = curry((a, b) => getLegendItemForValue(a, b, false))(
-            legend.items.filter((item) => !item.noData)
-        )
-    } else {
-        getLegendItem = curry((a, b) => getLegendItemForValue(a, b, true))(
-            legend.items.filter((item) => !item.noData)
-        )
-    }
+    const getLegendItem = curry((a, b) =>
+        getLegendItemForValue(a, b, !legendSet)
+    )(legend.items.filter((item) => !item.noData))
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
         minValue = legend.items[0].startValue
