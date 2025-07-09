@@ -25,7 +25,7 @@ const Bubbles = ({
     classes,
     isPlugin,
 }) => {
-    const legendWidth = !isPlugin ? 245 : 150
+    const legendWidth = isPlugin ? 150 : 245
     const noDataClass = classes.find((c) => c.noData === true)
     const bubbleClasses = classes.filter((c) => !c.noData)
 
