@@ -1,3 +1,10 @@
+## [101.3.1](https://github.com/dhis2/maps-app/compare/v101.3.0...v101.3.1) (2025-07-09)
+
+
+### Bug Fixes
+
+* various bubble layer issues [DHIS2-15696] [DHIS2-19209] [DHIS2-19447] [DHIS2-19448] ([#3550](https://github.com/dhis2/maps-app/issues/3550)) ([8dbd273](https://github.com/dhis2/maps-app/commit/8dbd273d9d311bc6544284190c4262fdf1d719ae))
+
 # [101.3.0](https://github.com/dhis2/maps-app/compare/v101.2.15...v101.3.0) (2025-07-07)
 
 
