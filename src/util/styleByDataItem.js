@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { curry } from 'lodash/fp'
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
@@ -185,9 +184,11 @@ const styleByNumeric = async (config, engine) => {
     })
 
     // Helper function to get legend item for data value
-    const getLegendItem = curry(getLegendItemForValue)(
-        config.legend.items.slice(0, -1)
-    )
+    const getLegendItem = (value) =>
+        getLegendItemForValue({
+            value,
+            legendItems: config.legend.items.slice(0, -1),
+        })
 
     // Add style data value and color to each feature
     config.data = data.map((feature) => {

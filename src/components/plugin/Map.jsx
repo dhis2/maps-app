@@ -40,7 +40,7 @@ const Map = forwardRef((props, ref) => {
         }
     }, [mapViews])
 
-    const [mapIsLoaded, setMapIsLoaded] = useState(false)
+    const [mapIsLoaded, setMapIsLoaded] = useState(mapViews.length === 0)
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
 
@@ -140,7 +140,7 @@ const Map = forwardRef((props, ref) => {
                 openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
             />
-            <Legend layers={layers.current} />
+            {mapViews.length > 0 && <Legend layers={layers.current} />}
             {contextMenu && (
                 <ContextMenu
                     {...contextMenu}

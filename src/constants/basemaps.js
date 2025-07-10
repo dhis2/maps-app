@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { TILE_LAYER, BING_LAYER } from '../constants/layers.js'
+import { TILE_LAYER, BING_LAYER, AZURE_LAYER } from '../constants/layers.js'
 
 export const FALLBACK_BASEMAP_ID = 'osmLight'
 
@@ -29,6 +29,20 @@ export const defaultBasemaps = () => [
             url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             attribution:
                 '&copy; <a target="_blank" rel="noreferrer" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        },
+        isDark: false,
+    },
+    {
+        id: 'sentinel2eox',
+        name: i18n.t('Sentinel-2 EOX'),
+        img: 'images/s2eox.png',
+        config: {
+            type: TILE_LAYER,
+            layers: 's2cloudless-2024_3857',
+            format: 'image/jpeg',
+            url: '//tiles.maps.eox.at',
+            attribution:
+                '&copy; <a target="_blank" rel="noreferrer" href="https://s2maps.eu/">Sentinel-2 cloudless</a> by <a target="_blank" rel="noreferrer" href="https://eox.at/">EOX IT Services GmbH</a> (Contains modified Copernicus Sentinel data 2024)',
         },
         isDark: false,
     },
@@ -70,6 +84,46 @@ export const defaultBasemaps = () => [
         config: {
             type: BING_LAYER,
             style: 'AerialWithLabelsOnDemand',
+        },
+        isDark: true,
+    },
+    {
+        id: 'azureLight',
+        name: i18n.t('Azure Road'),
+        img: 'images/azureroad.png',
+        config: {
+            type: AZURE_LAYER,
+            style: ['microsoft.base.road'],
+        },
+        isDark: false,
+    },
+    {
+        id: 'azureDark',
+        name: i18n.t('Azure Dark'),
+        img: 'images/azuredark.png',
+        config: {
+            type: AZURE_LAYER,
+            style: ['microsoft.base.darkgrey'],
+        },
+        isDark: true,
+    },
+    {
+        id: 'azureAerial',
+        name: i18n.t('Azure Aerial'),
+        img: 'images/azureaerial.png',
+        config: {
+            type: AZURE_LAYER,
+            style: ['microsoft.imagery'],
+        },
+        isDark: true,
+    },
+    {
+        id: 'azureHybrid',
+        name: i18n.t('Azure Aerial Labels'),
+        img: 'images/azurehybrid.png',
+        config: {
+            type: AZURE_LAYER,
+            style: ['microsoft.imagery', 'microsoft.base.hybrid.road'],
         },
         isDark: true,
     },

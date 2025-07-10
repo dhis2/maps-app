@@ -1,137 +1,66 @@
-import i18n from '@dhis2/d2-i18n'
 import { scaleSqrt } from 'd3-scale'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { getContrastColor } from '../../util/colors.js'
-import { getLongestTextLength } from '../../util/helpers.js'
+import { THEMATIC_RADIUS_DEFAULT } from '../../constants/layers.js'
+import {
+    createBubbleItems,
+    createSingleColorBubbles,
+    computeLayout,
+} from '../../util/bubbles.js'
 import Bubble from './Bubble.jsx'
 
 const style = {
     paddingTop: 10,
 }
-
-const legendWidth = 245
-const digitWidth = 6.8
+export const digitWidth = 6.8
 export const guideLength = 16
 export const textPadding = 4
 
-const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
+const Bubbles = ({
+    radiusLow,
+    radiusHigh,
+    color,
+    minValue,
+    maxValue,
+    classes,
+    isPlugin,
+}) => {
+    const legendWidth = isPlugin ? 150 : 245
+    const noDataClass = classes.find((c) => c.noData === true)
+    const bubbleClasses = classes.filter((c) => !c.noData)
+
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
-    const radiusMid = scale(0.5)
 
     if (isNaN(radiusLow) || isNaN(radiusHigh)) {
         return null
     }
 
-    let bubbles = []
+    const bubbles = bubbleClasses.length
+        ? createBubbleItems({
+              classes: bubbleClasses,
+              minValue,
+              maxValue,
+              scale,
+              radiusHigh,
+          })
+        : createSingleColorBubbles({
+              color,
+              minValue,
+              maxValue,
+              scale,
+              radiusLow,
+              radiusHigh,
+          })
 
-    // If color legend
-    if (Array.isArray(classes) && classes.length) {
-        const startValue = classes[0].startValue
-        const endValue = classes[classes.length - 1].endValue
-        const itemScale = scale.domain([startValue, endValue])
-
-        bubbles = [...classes].reverse().map((c) => ({
-            radius: itemScale(c.endValue),
-            maxRadius: radiusHigh,
-            color: c.color,
-            text: String(c.endValue),
-        }))
-
-        // Add the smallest bubble for the lowest value
-        bubbles.push({
-            radius: itemScale(startValue),
-            maxRadius: radiusHigh,
-            text: String(startValue),
-        })
-    } else {
-        // If single color
-        const stroke = color && getContrastColor(color)
-
-        bubbles = [
-            {
-                radius: radiusHigh,
-                maxRadius: radiusHigh,
-                color,
-                stroke,
-                text: i18n.t('Max'),
-            },
-            {
-                radius: radiusMid,
-                maxRadius: radiusHigh,
-                color,
-                stroke,
-                text: i18n.t('Mid'),
-            },
-            {
-                radius: radiusLow,
-                maxRadius: radiusHigh,
-                color,
-                stroke,
-                text: i18n.t('Min'),
-            },
-        ]
-    }
-
-    // Calculate the pixel length of the longest number
-    let textLength = Math.ceil(
-        Math.max(
-            getLongestTextLength(classes, 'startValue'),
-            getLongestTextLength(classes, 'endValue')
-        ) * digitWidth
-    )
-
-    // Calculate the total length if numbers are alternate on each side
-    const alternateLength =
-        (radiusHigh + guideLength + textPadding + textLength) * 2
-
-    let smallestGap = bubbles.reduce((prev, curr, i) => {
-        const gap = prev.radius - curr.radius
-        const smallestGap =
-            prev.gap === undefined || gap < prev.gap ? gap : prev.gap
-
-        return i === bubbles.length - 1
-            ? Math.round(smallestGap * 2)
-            : {
-                  radius: curr.radius,
-                  gap: smallestGap,
-              }
+    const { alternate, offset, showNumbers } = computeLayout({
+        bubbles,
+        bubbleClasses,
+        radiusHigh,
+        legendWidth,
     })
 
-    const alternateFit = alternateLength < legendWidth
-
-    const alternate = alternateFit && smallestGap > 5 && smallestGap < 12
-
-    if (!alternateFit) {
-        smallestGap = smallestGap / 2
-    }
-
-    // Too cramped to show number for each bubble
-    if (smallestGap < 6) {
-        const [maxBubble] = bubbles
-        const minBubble = bubbles[bubbles.length - 1]
-        const gap = maxBubble.radius - minBubble.radius
-        const showNumbers = [0] // Always show largest number
-
-        if (gap > 6) {
-            showNumbers.push(bubbles.length - 1)
-        }
-
-        if (gap > 15) {
-            const midRadius = minBubble.radius + gap / 2
-
-            // Find the closest bubble above the mid radius
-            const midBubble = bubbles.reduce((prev, curr) =>
-                curr.radius >= midRadius &&
-                curr.radius - midRadius < prev.radius - midRadius
-                    ? curr
-                    : prev
-            )
-
-            showNumbers.push(bubbles.indexOf(midBubble))
-        }
-
+    if (showNumbers) {
         bubbles.forEach((b, i) => {
             if (!showNumbers.includes(i)) {
                 delete b.text
@@ -139,13 +68,16 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
         })
     }
 
-    textLength = Math.ceil(getLongestTextLength(bubbles, 'text') * digitWidth)
-
-    const offset = textLength + guideLength + textPadding
-
     return (
         <div style={style}>
-            <svg width={legendWidth} height={height + 20}>
+            <svg
+                width={legendWidth}
+                height={
+                    height +
+                    20 +
+                    (noDataClass ? THEMATIC_RADIUS_DEFAULT + 1 : 0)
+                }
+            >
                 <g transform={`translate(${alternate ? offset : '2'} 10)`}>
                     {bubbles.map((bubble, i) => (
                         <Bubble
@@ -157,6 +89,34 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
                         />
                     ))}
                 </g>
+                {noDataClass && (
+                    <>
+                        {' '}
+                        <circle
+                            transform={`translate(${
+                                alternate ? offset : '2'
+                            } 20)`}
+                            cx={radiusHigh}
+                            cy={height}
+                            r={THEMATIC_RADIUS_DEFAULT}
+                            stroke="#000"
+                            style={{
+                                fill: noDataClass.color,
+                                strokeWidth: 0.5,
+                            }}
+                        />
+                        <text
+                            transform={`translate(${
+                                alternate ? offset : '2'
+                            } 20)`}
+                            x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
+                            y={height + 4}
+                            fontSize={12}
+                        >
+                            {noDataClass.name}
+                        </text>
+                    </>
+                )}
             </svg>
         </div>
     )
@@ -167,6 +127,9 @@ Bubbles.propTypes = {
     radiusLow: PropTypes.number.isRequired,
     classes: PropTypes.array,
     color: PropTypes.string,
+    isPlugin: PropTypes.bool,
+    maxValue: PropTypes.number,
+    minValue: PropTypes.number,
 }
 
 export default Bubbles
