@@ -20,7 +20,7 @@ import history, {
     defaultHashUrlParams,
 } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
-import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation

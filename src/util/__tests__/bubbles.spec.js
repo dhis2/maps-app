@@ -13,7 +13,7 @@ jest.mock('d3-format', () => ({
     precisionRound: jest.fn(() => 1),
 }))
 
-jest.mock('../../components/legend/Bubbles.js', () => ({
+jest.mock('../../components/legend/Bubbles.jsx', () => ({
     digitWidth: 5,
     guideLength: 10,
     textPadding: 2,
