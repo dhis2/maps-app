@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
-"PO-Revision-Date: 2025-06-20T07:43:21.017Z\n"
+"POT-Creation-Date: 2025-07-08T14:01:49.308Z\n"
+"PO-Revision-Date: 2025-07-08T14:01:49.308Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -690,9 +690,6 @@ msgstr "Edit layer"
 
 msgid "Remove layer"
 msgstr "Remove layer"
-
-msgid "Mid"
-msgstr "Mid"
 
 msgid "Group"
 msgstr "Group"
@@ -1558,6 +1555,9 @@ msgstr "{{keyName}} is not provided for layer type(s): {{types}}"
 
 msgid "Could not load: {{id}} — using the default basemap instead."
 msgstr "Could not load: {{id}} — using the default basemap instead."
+
+msgid "Mid"
+msgstr "Mid"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "

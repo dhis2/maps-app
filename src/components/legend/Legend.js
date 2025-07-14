@@ -18,6 +18,7 @@ const Legend = ({
     url,
     source,
     sourceUrl,
+    isPlugin = false,
 }) => (
     <dl className={styles.legend} data-test="layerlegend">
         {description && <div className={styles.description}>{description}</div>}
@@ -31,7 +32,7 @@ const Legend = ({
         )}
         {unit && items && <div className={styles.unit}>{unit}</div>}
         {bubbles ? (
-            <Bubbles {...bubbles} classes={items} />
+            <Bubbles {...bubbles} isPlugin={isPlugin} classes={items} />
         ) : (
             Array.isArray(items) && (
                 <table>
@@ -93,6 +94,7 @@ Legend.propTypes = {
     explanation: PropTypes.array,
     filters: PropTypes.array,
     groups: PropTypes.array,
+    isPlugin: PropTypes.bool,
     items: PropTypes.array,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,

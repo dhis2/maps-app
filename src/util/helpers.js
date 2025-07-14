@@ -179,7 +179,7 @@ export const formatDatetime = (value) => {
 }
 
 // Returns true if value is not undefined, null, empty string, or already marked as 'Not set'
-const hasValue = (value) =>
+export const hasValue = (value) =>
     value !== undefined &&
     value !== null &&
     value !== '' &&

@@ -13,7 +13,7 @@ const LegendLayer = ({ id, legend, alerts = [] }) => (
                         {legend.period}
                     </span>
                 </h2>
-                <LayerLegend {...legend} />
+                <LayerLegend isPlugin={true} {...legend} />
             </Fragment>
         )}
         {alerts.map((alert, index) => (
