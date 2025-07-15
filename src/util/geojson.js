@@ -1,6 +1,28 @@
+import { geoPath } from 'd3-geo'
 import findIndex from 'lodash/findIndex'
 
 export const EVENT_ID_FIELD = 'psi'
+
+const TYPE_NUMBER = 'number'
+const TYPE_STRING = 'string'
+
+export const DHIS2_PROP = '__dhis2propertyid__'
+
+export const GEO_TYPE_POINT = 'Point'
+export const GEO_TYPE_POLYGON = 'Polygon'
+export const GEO_TYPE_MULTIPOLYGON = 'MultiPolygon'
+export const GEO_TYPE_LINE = 'LineString'
+export const GEO_TYPE_FEATURE = 'Feature'
+const GEO_TYPE_FEATURE_COLLECTION = 'FeatureCollection'
+
+const rawGeometryTypes = [
+    GEO_TYPE_POINT,
+    GEO_TYPE_LINE,
+    GEO_TYPE_POLYGON,
+    'MultiPoint',
+    'MultiLineString',
+    GEO_TYPE_MULTIPOLYGON,
+]
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
 /* eslint-disable max-params */
@@ -10,9 +32,14 @@ export const createEventFeature = (
     options,
     event,
     id,
-    getGeometry
+    getGeometry,
+    showCentroids
 ) => {
-    const geometry = getGeometry(event)
+    let geometry = getGeometry(event)
+    if (showCentroids) {
+        geometry = getCentroid(geometry, CENTROID_FORMAT.GEOJSON)
+    }
+
     const properties = event.reduce((props, value, i) => {
         const header = headers[i]
         let option
@@ -69,12 +96,19 @@ export const createEventFeatures = (response, config = {}) => {
             options,
             row,
             row[idCol],
-            getGeometry
+            getGeometry,
+            config.showCentroids
         )
     )
 
     // Sort to draw polygons before points
-    data.sort((feature) => (feature.geometry.type === 'Polygon' ? -1 : 0))
+    data.sort((feature) =>
+        [GEO_TYPE_POLYGON, GEO_TYPE_MULTIPOLYGON].includes(
+            feature.geometry.type
+        )
+            ? -1
+            : 0
+    )
 
     return { data, names }
 }
@@ -116,10 +150,35 @@ export const getCoordinatesBounds = (coordinates) =>
         ]
     )
 
-const TYPE_NUMBER = 'number'
-const TYPE_STRING = 'string'
+export const CENTROID_FORMAT = {
+    ARRAY: 'array',
+    GEOJSON: 'geojson',
+}
+const path = geoPath()
+export const getCentroid = (geometry, format = CENTROID_FORMAT.ARRAY) => {
+    if (!geometry || !geometry.type) {
+        return null
+    }
 
-export const DHIS2_PROP = '__dhis2propertyid__'
+    let coords
+
+    switch (geometry.type) {
+        case 'Point':
+            coords = geometry.coordinates
+            break
+        case 'Polygon':
+        case 'MultiPolygon':
+            coords = path.centroid(geometry)
+            break
+        default:
+            return null
+    }
+
+    if (format === CENTROID_FORMAT.GEOJSON) {
+        return { type: 'Point', coordinates: coords }
+    }
+    return coords
+}
 
 export const getGeojsonDisplayData = (feature) => {
     const { properties } = feature
@@ -151,21 +210,6 @@ export const getGeojsonDisplayData = (feature) => {
             }
         })
 }
-export const GEO_TYPE_POINT = 'Point'
-export const GEO_TYPE_POLYGON = 'Polygon'
-export const GEO_TYPE_MULTIPOLYGON = 'MultiPolygon'
-export const GEO_TYPE_LINE = 'LineString'
-export const GEO_TYPE_FEATURE = 'Feature'
-const GEO_TYPE_FEATURE_COLLECTION = 'FeatureCollection'
-
-const rawGeometryTypes = [
-    GEO_TYPE_POINT,
-    GEO_TYPE_LINE,
-    GEO_TYPE_POLYGON,
-    'MultiPoint',
-    'MultiLineString',
-    GEO_TYPE_MULTIPOLYGON,
-]
 
 // Ensure that we are always working with a FeatureCollection
 export const buildGeoJsonFeatures = (geoJson) => {

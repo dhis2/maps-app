@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-07-08T14:01:49.308Z\n"
-"PO-Revision-Date: 2025-07-08T14:01:49.308Z\n"
+"POT-Creation-Date: 2025-07-15T14:33:59.377Z\n"
+"PO-Revision-Date: 2025-07-15T14:33:59.377Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -431,6 +431,9 @@ msgstr "Event status"
 msgid "Boundary color"
 msgstr "Boundary color"
 
+msgid "Draws a buffer area around each location."
+msgstr "Draws a buffer area around each location."
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -454,6 +457,12 @@ msgstr "Line/stroke width must be between 0-10."
 
 msgid "Labels"
 msgstr "Labels"
+
+msgid "Convert polygons to their centroids."
+msgstr "Convert polygons to their centroids."
+
+msgid "Centroids"
+msgstr "Centroids"
 
 msgid "Aggregation type"
 msgstr "Aggregation type"

@@ -24,6 +24,7 @@ const validMapProperties = [
 const validLayerProperties = [
     'aggregationType',
     'areaRadius',
+    'showCentroids',
     'band',
     'classes',
     'colorHigh', // Deprecated
