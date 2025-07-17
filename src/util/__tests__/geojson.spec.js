@@ -1,5 +1,7 @@
 import {
+    CENTROID_FORMAT,
     getBounds,
+    getCentroid,
     addStyleDataItem,
     createEventFeature,
     buildEventGeometryGetter,
@@ -629,6 +631,108 @@ describe('geojson utils', () => {
                 id: '123',
             })
             expect(featureCollection[0].id).toEqual(456)
+        })
+    })
+
+    describe('getCentroid', () => {
+        const polygon = {
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [0, 0],
+                    [4, 0],
+                    [4, 4],
+                    [0, 4],
+                    [0, 0],
+                ],
+            ],
+        }
+
+        const multipolygon = {
+            type: 'MultiPolygon',
+            coordinates: [
+                [
+                    [
+                        [0, 0],
+                        [2, 0],
+                        [2, 2],
+                        [0, 2],
+                        [0, 0],
+                    ],
+                ],
+                [
+                    [
+                        [5, 5],
+                        [7, 5],
+                        [7, 7],
+                        [5, 7],
+                        [5, 5],
+                    ],
+                ],
+            ],
+        }
+
+        const point = {
+            type: 'Point',
+            coordinates: [1, 2],
+        }
+
+        it('returns centroid as array for Polygon', () => {
+            const centroid = getCentroid(polygon)
+            expect(Array.isArray(centroid)).toBe(true)
+            expect(centroid.length).toBe(2)
+        })
+
+        it('returns centroid as GeoJSON for Polygon with format=geojson', () => {
+            const centroid = getCentroid(polygon, CENTROID_FORMAT.GEOJSON)
+            expect(centroid).toEqual({
+                type: 'Point',
+                coordinates: expect.any(Array),
+            })
+            expect(centroid.coordinates.length).toBe(2)
+        })
+
+        it('returns centroid as array for MultiPolygon', () => {
+            const centroid = getCentroid(multipolygon)
+            expect(Array.isArray(centroid)).toBe(true)
+            expect(centroid.length).toBe(2)
+        })
+
+        it('returns centroid as GeoJSON for MultiPolygon with format=geojson', () => {
+            const centroid = getCentroid(multipolygon, CENTROID_FORMAT.GEOJSON)
+            expect(centroid).toEqual({
+                type: 'Point',
+                coordinates: expect.any(Array),
+            })
+            expect(centroid.coordinates.length).toBe(2)
+        })
+
+        it('returns coordinates for Point', () => {
+            const centroid = getCentroid(point)
+            expect(centroid).toEqual([1, 2])
+        })
+
+        it('returns GeoJSON Point for Point with format=geojson', () => {
+            const centroid = getCentroid(point, CENTROID_FORMAT.GEOJSON)
+            expect(centroid).toEqual({
+                type: 'Point',
+                coordinates: [1, 2],
+            })
+        })
+
+        it('returns null for null geometry', () => {
+            expect(getCentroid(null)).toBeNull()
+        })
+
+        it('returns null for unknown geometry type', () => {
+            const unknown = {
+                type: 'LineString',
+                coordinates: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            }
+            expect(getCentroid(unknown)).toBeNull()
         })
     })
 })

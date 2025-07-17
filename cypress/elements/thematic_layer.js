@@ -133,6 +133,18 @@ export class ThematicLayer extends Layer {
         return this
     }
 
+    selectChoropleth() {
+        cy.contains('Choropleth').click()
+
+        return this
+    }
+
+    selectBubbleMap() {
+        cy.contains('Bubble map').click()
+
+        return this
+    }
+
     selectIncludeNoDataOU() {
         cy.contains('Include org units with no data').click()
 

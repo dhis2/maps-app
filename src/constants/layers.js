@@ -5,6 +5,7 @@ export const TILE_LAYER = 'tileLayer'
 export const WMS_LAYER = 'wmsLayer'
 export const GOOGLE_LAYER = 'googleLayer'
 export const BING_LAYER = 'bingLayer'
+export const AZURE_LAYER = 'azureLayer'
 export const EVENT_LAYER = 'event'
 export const THEMATIC_LAYER = 'thematic'
 export const FACILITY_LAYER = 'facility'
@@ -16,6 +17,25 @@ export const TRACKED_ENTITY_LAYER = 'trackedEntity'
 export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
 export const GEOJSON_URL_LAYER = 'geoJsonUrl'
+
+export const MAP_SERVICE_KEY_TESTS = {
+    keyBingMapsApiKey: [
+        {
+            type: BING_LAYER,
+            url: 'https://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial?key=',
+        },
+        {
+            type: AZURE_LAYER,
+            url: 'https://atlas.microsoft.com/map/static/png?api-version=2.0&zoom=1&center=0,0&layer=basic&width=1&height=1&subscription-key=',
+        },
+    ],
+    keyAzureMapsApiKey: [
+        {
+            type: AZURE_LAYER,
+            url: 'https://atlas.microsoft.com/map/static/png?api-version=2.0&zoom=1&center=0,0&layer=basic&width=1&height=1&subscription-key=',
+        },
+    ],
+}
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
@@ -56,6 +76,7 @@ export const RENDERING_STRATEGY_SPLIT_BY_PERIOD = 'SPLIT_BY_PERIOD'
 /* THEMATIC LAYER */
 export const THEMATIC_CHOROPLETH = 'CHOROPLETH'
 export const THEMATIC_BUBBLE = 'BUBBLE'
+export const THEMATIC_RADIUS_DEFAULT = 6
 export const THEMATIC_RADIUS_LOW = 5
 export const THEMATIC_RADIUS_HIGH = 30
 export const THEMATIC_RADIUS_MIN = 0
@@ -83,15 +104,21 @@ export const EVENT_COLOR = '#333333'
 export const EVENT_RADIUS = 6
 export const EVENT_BUFFER = 100
 export const EVENT_COORDINATE_DEFAULT = 'psigeometry'
+export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
 export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
-export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_CASCADING = 'cascading'
 export const COORDINATE_FIELD_NAMES = {
     [EVENT_COORDINATE_DEFAULT]: i18n.t('Event location'),
+    [EVENT_COORDINATE_ORG_UNIT]: i18n.t('Organisation unit location'),
     [EVENT_COORDINATE_ENROLLMENT]: i18n.t('Enrollment location'),
     [EVENT_COORDINATE_TRACKED_ENTITY]: i18n.t('Tracked entity location'),
 }
+export const EVENT_CENTROID_DEFAULT = [
+    EVENT_COORDINATE_DEFAULT,
+    EVENT_COORDINATE_ENROLLMENT,
+    EVENT_COORDINATE_TRACKED_ENTITY,
+]
 
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'

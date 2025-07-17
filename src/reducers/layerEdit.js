@@ -515,6 +515,12 @@ const layerEdit = (state = null, action) => {
                 areaRadius: action.radius,
             }
 
+        case types.LAYER_EDIT_GEOMETRY_CENTROIDS_SET:
+            return {
+                ...state,
+                geometryCentroid: action.payload,
+            }
+
         case types.LAYER_EDIT_RADIUS_LOW_SET:
             return {
                 ...state,

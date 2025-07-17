@@ -1,4 +1,5 @@
 import { FALLBACK_BASEMAP_ID } from './basemaps.js'
+import { MAP_SERVICE_KEY_TESTS } from './layers.js'
 
 export const apiVersion = 40
 
@@ -8,13 +9,14 @@ export const DEFAULT_SYSTEM_SETTINGS = {
 
 export const SYSTEM_SETTINGS = [
     'keyAnalysisRelativePeriod',
-    'keyBingMapsApiKey',
     'keyHideDailyPeriods',
     'keyHideWeeklyPeriods',
     'keyHideBiWeeklyPeriods',
     'keyHideMonthlyPeriods',
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
+    'orgUnitCentroidsInEventsAnalytics',
+    ...Object.keys(MAP_SERVICE_KEY_TESTS),
 ]
 
 export const MAPS_ADMIN_AUTHORITY_IDS = [
