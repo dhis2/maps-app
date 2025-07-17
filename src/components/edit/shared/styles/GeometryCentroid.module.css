@@ -1,9 +1,9 @@
-.centroids {
+.centroid {
     margin: 0 -8px;
     clear: both;
     align-items: center;
 }
 
-.centroids > span > div {
+.centroid > span > div {
     margin: var(--spacers-dp8);
 }

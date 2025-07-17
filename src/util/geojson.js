@@ -33,10 +33,10 @@ export const createEventFeature = (
     event,
     id,
     getGeometry,
-    showCentroids
+    geometryCentroid
 ) => {
     let geometry = getGeometry(event)
-    if (showCentroids) {
+    if (geometryCentroid) {
         geometry = getCentroid(geometry, CENTROID_FORMAT.GEOJSON)
     }
 
@@ -97,7 +97,7 @@ export const createEventFeatures = (response, config = {}) => {
             row,
             row[idCol],
             getGeometry,
-            config.showCentroids
+            config.geometryCentroid
         )
     )
 

@@ -51,7 +51,7 @@ import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import ProgramStageSelect from '../../program/ProgramStageSelect.js'
 import BufferRadius from '../shared/BufferRadius.js'
-import ShowCentroids from '../shared/ShowCentroids.js'
+import GeometryCentroid from '../shared/GeometryCentroid.js'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.js'
 
@@ -391,7 +391,7 @@ class EventDialog extends Component {
                                         onChange={setEventPointRadius}
                                     />
                                 </div>
-                                <ShowCentroids />
+                                <GeometryCentroid />
                                 <BufferRadius
                                     disabled={eventClustering}
                                     defaultRadius={EVENT_BUFFER}

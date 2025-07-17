@@ -305,9 +305,9 @@ export const setBufferRadius = (radius) => ({
     radius,
 })
 
-// Set polygons geometry to centroids (events)
-export const setShowCentroids = (checked) => ({
-    type: types.LAYER_EDIT_SHOW_CENTROIDS_SET,
+// Set geometry to centroid (events)
+export const setGeometryCentroid = (checked) => ({
+    type: types.LAYER_EDIT_GEOMETRY_CENTROIDS_SET,
     payload: checked,
 })
 

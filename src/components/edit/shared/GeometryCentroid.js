@@ -4,49 +4,51 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { setShowCentroids } from '../../../actions/layerEdit.js'
+import { setGeometryCentroid } from '../../../actions/layerEdit.js'
 import { EVENT_CENTROID_DEFAULT } from '../../../constants/layers.js'
 import Checkbox from '../../core/Checkbox.js'
-import styles from './styles/ShowCentroids.module.css'
+import styles from './styles/GeometryCentroid.module.css'
 
-const ShowCentroids = ({
-    showCentroids,
+const GeometryCentroid = ({
+    geometryCentroid,
     eventCoordinateField,
     className,
-    setShowCentroids,
+    setGeometryCentroid,
 }) => {
     useEffect(() => {
-        setShowCentroids(!EVENT_CENTROID_DEFAULT.includes(eventCoordinateField))
-    }, [setShowCentroids, eventCoordinateField])
+        setGeometryCentroid(
+            !EVENT_CENTROID_DEFAULT.includes(eventCoordinateField)
+        )
+    }, [setGeometryCentroid, eventCoordinateField])
 
     return (
-        <div className={cx(styles.centroids, className)}>
+        <div className={cx(styles.centroid, className)}>
             <Tooltip
                 content={i18n.t('Convert polygons to their centroids.')}
                 placement="top"
             >
                 <Checkbox
                     label={i18n.t('Centroids')}
-                    disabled={true} // Until prop showCentroids can be saved with mapViews
-                    checked={showCentroids}
-                    onChange={(isChecked) => setShowCentroids(isChecked)}
+                    disabled={true} // Until prop geometryCentroid can be saved with mapViews
+                    checked={geometryCentroid}
+                    onChange={(isChecked) => setGeometryCentroid(isChecked)}
                 />
             </Tooltip>
         </div>
     )
 }
 
-ShowCentroids.propTypes = {
-    setShowCentroids: PropTypes.func.isRequired,
+GeometryCentroid.propTypes = {
+    setGeometryCentroid: PropTypes.func.isRequired,
     className: PropTypes.string,
     eventCoordinateField: PropTypes.string,
-    showCentroids: PropTypes.bool,
+    geometryCentroid: PropTypes.bool,
 }
 
 export default connect(
     ({ layerEdit }) => ({
-        showCentroids: layerEdit.showCentroids,
+        geometryCentroid: layerEdit.geometryCentroid,
         eventCoordinateField: layerEdit.eventCoordinateField,
     }),
-    { setShowCentroids }
-)(ShowCentroids)
+    { setGeometryCentroid }
+)(GeometryCentroid)

@@ -83,7 +83,7 @@ const upgradeMapViews = (config) => {
         (view) =>
             view.layer === 'boundary' ||
             typeof view.colorScale === 'string' ||
-            view.showCentroids === undefined
+            view.geometryCentroid === undefined
     )
 
     if (!needsUpgrade) {
@@ -97,11 +97,11 @@ const upgradeMapViews = (config) => {
         }
 
         if (
-            view.showCentroids === undefined &&
+            view.geometryCentroid === undefined &&
             view.layer === 'event' &&
             !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
         ) {
-            view.showCentroids = true
+            view.geometryCentroid = true
         }
 
         let colorScale = view.colorScale
