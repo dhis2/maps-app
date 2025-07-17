@@ -509,10 +509,10 @@ layer** selection. This opens the Events layer configuration dialog.
         If there is only one stage available for the selected program,
         the stage is automatically selected.
 
-    -   Select a value from the **Coordinate field** to determine which positions are shown 
+    -   Select a value from the **Coordinate field** to determine which positions are displayed 
         on the map. By default, "Event location" is selected. You can also choose "Organisation unit location".
-        Depending on the program, additional options may include "Tracked entity location", "Enrollment location", and coordinate-type/organisation-unit-type data elements or attributes such as "Household location"/"Referal facility".
-        Note that the number of events represented on the map may vary depending on the selected option and the availability of coordinates.
+        Depending on the selected program, additional options may include "Tracked entity location", "Enrollment location", and coordinate-type/organisation-unit-type data elements or attributes such as "Household location"/"Referral facility".
+        The number of events represented on the map may vary depending on the selected option and the availability of coordinates. Organisation units are represented by their centroids.
 
     -   By default all events with coordinates are shown on the map.
         Use the **Event status** field to only show events having one
