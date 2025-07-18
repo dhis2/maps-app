@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-07-15T14:33:59.377Z\n"
-"PO-Revision-Date: 2025-07-15T14:33:59.377Z\n"
+"POT-Creation-Date: 2025-07-18T13:42:06.919Z\n"
+"PO-Revision-Date: 2025-07-18T13:42:06.919Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -95,8 +95,8 @@ msgstr "None"
 msgid "Cascading"
 msgstr "Cascading"
 
-msgid "Organisation unit location"
-msgstr "Organisation unit location"
+msgid "Org Unit location"
+msgstr "Org Unit location"
 
 msgid "Event location"
 msgstr "Event location"
@@ -104,8 +104,8 @@ msgstr "Event location"
 msgid "Enrollment location"
 msgstr "Enrollment location"
 
-msgid "Tracked entity location"
-msgstr "Tracked entity location"
+msgid "Tracked Entity location"
+msgstr "Tracked Entity location"
 
 msgid "Fallback coordinate field"
 msgstr "Fallback coordinate field"
@@ -113,11 +113,11 @@ msgstr "Fallback coordinate field"
 msgid "Coordinate field"
 msgstr "Coordinate field"
 
-msgid "Enrollment > event > tracked entity > org unit coordinate"
-msgstr "Enrollment > event > tracked entity > org unit coordinate"
+msgid "Event > Enrollment > Tracked Entity > Org Unit location"
+msgstr "Event > Enrollment > Tracked Entity > Org Unit location"
 
-msgid "Event > org unit coordinate"
-msgstr "Event > org unit coordinate"
+msgid "Event > Org Unit location"
+msgstr "Event > Org Unit location"
 
 msgid "Event data item"
 msgstr "Event data item"
@@ -455,14 +455,14 @@ msgstr "Line/stroke width"
 msgid "Line/stroke width must be between 0-10."
 msgstr "Line/stroke width must be between 0-10."
 
-msgid "Labels"
-msgstr "Labels"
-
 msgid "Convert polygons to their centroids."
 msgstr "Convert polygons to their centroids."
 
 msgid "Centroids"
 msgstr "Centroids"
+
+msgid "Labels"
+msgstr "Labels"
 
 msgid "Aggregation type"
 msgstr "Aggregation type"
@@ -759,6 +759,9 @@ msgstr "Not set"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "Could not retrieve tracked entity data"
+
+msgid "Tracked entity location"
+msgstr "Tracked entity location"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -1408,6 +1411,9 @@ msgstr "Choropleth"
 
 msgid "Bubble map"
 msgstr "Bubble map"
+
+msgid "Organisation unit location"
+msgstr "Organisation unit location"
 
 msgid "Automatic color legend"
 msgstr "Automatic color legend"
