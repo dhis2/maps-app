@@ -43,7 +43,10 @@ const CoordinateField = ({
         includeTypes,
     })
 
-    const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
+    const defaultValue = useMemo(
+        () => (eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT),
+        [eventCoordinateField]
+    )
 
     const fields = useMemo(() => {
         const isFallback = !!eventCoordinateField
@@ -62,7 +65,7 @@ const CoordinateField = ({
 
         fields.push({
             id: EVENT_COORDINATE_ORG_UNIT,
-            name: i18n.t('Organisation unit location'),
+            name: i18n.t('Org Unit location'),
         })
         fields.push({
             id: EVENT_COORDINATE_DEFAULT,
@@ -80,7 +83,7 @@ const CoordinateField = ({
             })
             fields.push({
                 id: EVENT_COORDINATE_TRACKED_ENTITY,
-                name: i18n.t('Tracked entity location'),
+                name: i18n.t('Tracked Entity location'),
             })
         }
 
@@ -88,14 +91,7 @@ const CoordinateField = ({
             fields.push(...eventDataItems)
         }
 
-        if (isFallback) {
-            fields.push({
-                id: EVENT_COORDINATE_ORG_UNIT,
-                name: i18n.t('Organisation unit location'),
-            })
-        }
-
-        return eventCoordinateField
+        return isFallback
             ? fields.filter((f) => f.id !== eventCoordinateField)
             : fields
     }, [trackedEntityType, eventDataItems, eventCoordinateField])
@@ -105,7 +101,9 @@ const CoordinateField = ({
         if (
             trackedEntityType &&
             eventDataItems &&
-            !fields.find((f) => f.id === value)
+            !fields.find((f) => f.id === value) &&
+            value !== defaultValue &&
+            fields.length > 0
         ) {
             onChange(defaultValue)
         }
@@ -127,14 +125,14 @@ const CoordinateField = ({
             }
             items={fields}
             value={fields.find((f) => f.id === value) ? value : null}
-            loading={value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType}
+            loading={!trackedEntityType}
             helpText={
                 value === EVENT_COORDINATE_CASCADING
                     ? trackedEntityType
                         ? i18n.t(
-                              'Enrollment > event > tracked entity > org unit coordinate'
+                              'Event > Enrollment > Tracked Entity > Org Unit location'
                           )
-                        : i18n.t('Event > org unit coordinate')
+                        : i18n.t('Event > Org Unit location')
                     : null
             }
             onChange={(field) => onChange(field.id)}

@@ -17,7 +17,7 @@ export class EventLayer extends Layer {
     }
 
     selectCoordinate(coordinate) {
-        cy.get('[data-test="coordinatefield"]').click()
+        cy.get('[data-test="coordinatefield"]').first().click()
         cy.contains(coordinate).click()
 
         return this
