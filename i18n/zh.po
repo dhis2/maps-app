@@ -1041,7 +1041,7 @@ msgid "OSM Detailed"
 msgstr "OSM详细图"
 
 msgid "Sentinel-2 EOX"
-msgstr ""
+msgstr "哨兵-2 EOX"
 
 msgid "Bing Road"
 msgstr "Bing道路"
@@ -1059,7 +1059,7 @@ msgid "Azure Road"
 msgstr "Azure 路网"
 
 msgid "Azure Dark"
-msgstr "Azure 黑野"
+msgstr "Azure 黑夜"
 
 msgid "Azure Aerial"
 msgstr "Azure 卫星图"
@@ -1526,13 +1526,13 @@ msgid "false"
 msgstr "假"
 
 msgid "{{keyName}} is not valid for layer type: {{type}}"
-msgstr ""
+msgstr "{{keyName}} 对图层类型无效：{{type}}"
 
 msgid "{{keyName}} is not provided for layer type(s): {{types}}"
-msgstr ""
+msgstr "{{keyName}} 未为图层类型提供：{{types}}"
 
 msgid "Could not load: {{id}} — using the default basemap instead."
-msgstr ""
+msgstr "无法加载： {{id}} - 使用默认基图。"
 
 msgid "Mid"
 msgstr "中"
