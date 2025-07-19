@@ -3,15 +3,16 @@
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
 # Philip Larsen Donnelly, 2024
-# Rica, 2024
+# Rica, 2025
 # Charel van den Elsen <zobeadzorg@gmail.com>, 2025
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Charel van den Elsen <zobeadzorg@gmail.com>, 2025\n"
+"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +31,18 @@ msgstr "Kaart \"{{- name}}\" is opgeslagen."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Opslaan kaart mislukt: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Hernoeming geslaagd"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Netwerkfout"
 
 msgid "Calculation"
 msgstr ""
@@ -85,6 +98,9 @@ msgstr "Details"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "No"
+msgstr "Nee"
+
 msgid "None"
 msgstr "Geen"
 
@@ -118,8 +134,8 @@ msgstr "Evenement > coördinaat org-eenheid"
 msgid "Event data item"
 msgstr "Gebeurtenisgegevensitem"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Geselecteerde waarde niet beschikbaar in deze lijst: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -604,9 +620,6 @@ msgstr "Verwijder filter"
 msgid "Group set"
 msgstr "Groepsreeks"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Laden van organisatieëenheidgroepen mislukt."
-
 msgid "Style by group set"
 msgstr "Stileer volgens groepsreeks"
 
@@ -721,9 +734,6 @@ msgstr "Groep"
 msgid "Filters"
 msgstr "Filters"
 
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
-
 msgid "No data found"
 msgstr "Geen gegevens gevonden"
 
@@ -760,9 +770,6 @@ msgstr "Breedtegraad"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basiskaart kon niet toegevoegd worden: {{message}}"
 
-msgid "Not set"
-msgstr "Niet vastgesteld"
-
 msgid "Could not retrieve event data"
 msgstr "Evenementengegevens konden niet herkregen worden"
 
@@ -774,6 +781,9 @@ msgstr "Boveliggende eenheid"
 
 msgid "No data"
 msgstr "Geen gegevens"
+
+msgid "Not set"
+msgstr "Niet vastgesteld"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -971,7 +981,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1509,6 +1519,12 @@ msgstr "Gebeurtenis"
 msgid "Facilities"
 msgstr "Instellingen"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr "Geen coördinaten gevonden voor geselecteerde faciliteiten"
 
@@ -1557,18 +1573,15 @@ msgstr "waar"
 msgid "false"
 msgstr "onwaar"
 
-msgid "No"
-msgstr "Nee"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Deze laag vereist een Google Earth Engine-account. Kijk de "
 "DHIS2-documentation na voor meer informatie."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thematisch"
@@ -1584,6 +1597,9 @@ msgstr "Organisatieëenheden"
 
 msgid "Facility"
 msgstr "Faciliteit"
+
+msgid "Other"
+msgstr "Anders"
 
 msgid "Start date is invalid"
 msgstr "Startdatum is ongeldig"
