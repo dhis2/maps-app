@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { scaleSqrt } from 'd3-scale'
-import { findIndex, curry } from 'lodash/fp'
+import { findIndex } from 'lodash/fp'
 import {
     WARNING_NO_DATA,
     WARNING_NO_OU_COORD,
@@ -11,6 +11,7 @@ import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
     THEMATIC_BUBBLE,
+    THEMATIC_RADIUS_DEFAULT,
     THEMATIC_RADIUS_LOW,
     THEMATIC_RADIUS_HIGH,
     RENDERING_STRATEGY_SINGLE,
@@ -18,7 +19,6 @@ import {
     CLASSIFICATION_SINGLE_COLOR,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
-    NO_DATA_COLOR,
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
@@ -28,6 +28,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
     getAutomaticLegendItems,
@@ -182,6 +183,14 @@ const thematicLoader = async ({
         )
     }
 
+    if (noDataColor && Array.isArray(legend.items)) {
+        legend.items.push({
+            color: noDataColor,
+            name: i18n.t('No data'),
+            noData: true,
+        })
+    }
+
     if (isSingleMap) {
         legend.items.forEach((item) => (item.count = 0))
     }
@@ -190,11 +199,18 @@ const thematicLoader = async ({
         legend.bubbles = {
             radiusLow,
             radiusHigh,
+            minValue,
+            maxValue,
             color: isSingleColor ? colorScale : null,
         }
     }
 
-    const getLegendItem = curry(getLegendItemForValue)(legend.items)
+    const getLegendItem = (value) =>
+        getLegendItemForValue({
+            value,
+            legendItems: legend.items.filter((item) => !item.noData),
+            clamp: !legendSet,
+        })
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
         minValue = legend.items[0].startValue
@@ -234,48 +250,51 @@ const thematicLoader = async ({
             orgUnits.forEach((orgunit) => {
                 const item = valuesByPeriod[period][orgunit]
                 const value = Number(item.value)
-                const legend = getLegendItem(value)
+                const legendItem = getLegendItem(value)
 
                 if (isSingleColor) {
                     item.color = colorScale
-                } else {
-                    item.color = legend ? legend.color : NO_DATA_COLOR
+                } else if (legendItem) {
+                    item.color = legendItem.color
                 }
 
                 item.radius = getRadiusForValue(value)
             })
         })
     } else {
+        const noDataLegendItem = legend.items.find((i) => i.noData === true)
         valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id]
-            const item = getLegendItem(value)
+            const legendItem = getLegendItem(value)
             const isPoint = geometry.type === 'Point'
             const { hasAdditionalGeometry } = properties
 
             if (isSingleColor) {
-                properties.color = colorScale
-            } else if (item) {
-                // Only count org units once in legend
-                if (!hasAdditionalGeometry) {
-                    item.count++
-                }
+                properties.color = hasValue(value)
+                    ? colorScale
+                    : noDataLegendItem?.color
+            } else if (legendItem) {
                 properties.color =
                     hasAdditionalGeometry && isPoint
                         ? ORG_UNIT_COLOR
-                        : item.color
-                properties.legend = item.name // Shown in data table
-                properties.range = `${item.startValue} - ${item.endValue}` // Shown in data table
+                        : legendItem.color
+                properties.legend = legendItem.name // Shown in data table
+                properties.range = `${legendItem.startValue} - ${legendItem.endValue}` // Shown in data table
+            }
+
+            // Only count org units once in legend
+            if (!hasAdditionalGeometry) {
+                const targetItem = legendItem || noDataLegendItem
+                if (targetItem) {
+                    targetItem.count++
+                }
             }
 
             properties.value = value
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : getRadiusForValue(value)
+                : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
         })
-    }
-
-    if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
-        legend.items.push({ color: noDataColor, name: i18n.t('No data') })
     }
 
     return {
