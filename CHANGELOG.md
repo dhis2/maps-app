@@ -1,3 +1,27 @@
+## [101.3.1](https://github.com/dhis2/maps-app/compare/v101.3.0...v101.3.1) (2025-07-09)
+
+
+### Bug Fixes
+
+* various bubble layer issues [DHIS2-15696] [DHIS2-19209] [DHIS2-19447] [DHIS2-19448] ([#3550](https://github.com/dhis2/maps-app/issues/3550)) ([8dbd273](https://github.com/dhis2/maps-app/commit/8dbd273d9d311bc6544284190c4262fdf1d719ae))
+
+# [101.3.0](https://github.com/dhis2/maps-app/compare/v101.2.15...v101.3.0) (2025-07-07)
+
+
+### Features
+
+* S2-EOX basemap and Azure as alternative to Bing [DHIS2-18500] [DHIS2-19152] ([#3543](https://github.com/dhis2/maps-app/issues/3543)) ([ebd109b](https://github.com/dhis2/maps-app/commit/ebd109bbbfbe9eef438e5ce7c11ec0387b1998e2))
+
+## [101.2.15](https://github.com/dhis2/maps-app/compare/v101.2.14...v101.2.15) (2025-06-27)
+
+
+### Bug Fixes
+
+* give user with ALL authority access to layer sources management [DHIS2-19716] ([#3547](https://github.com/dhis2/maps-app/issues/3547)) ([ba1426c](https://github.com/dhis2/maps-app/commit/ba1426c35330727e0d0724ea511ea780e5dc6cd4))
+* GroupSetSelect handling of None and missing values [DHIS2-19730] ([#3540](https://github.com/dhis2/maps-app/issues/3540)) ([7ecf878](https://github.com/dhis2/maps-app/commit/7ecf878e5860d93ab68c457d6e8cad662e8405e2))
+* prevent text from being highlighted while dragging map layer cards to sort [DHIS2-6683] ([#3541](https://github.com/dhis2/maps-app/issues/3541)) ([6f9fe0e](https://github.com/dhis2/maps-app/commit/6f9fe0e83448251a08966eedb6938dd009da8a60))
+* update split map help text [DHIS2-19718] ([#3546](https://github.com/dhis2/maps-app/issues/3546)) ([dbe67b1](https://github.com/dhis2/maps-app/commit/dbe67b12a9017e515445ca9d781b03b53a2f0e26))
+
 ## [101.2.14](https://github.com/dhis2/maps-app/compare/v101.2.13...v101.2.14) (2025-06-06)
 
 

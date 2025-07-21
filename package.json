@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "101.2.14",
+    "version": "101.3.1",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -20,7 +20,7 @@
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^11.8.2",
-        "@dhis2/cli-style": "^10.7.5",
+        "@dhis2/cli-style": "^10.7.7",
         "@dhis2/cypress-commands": "^10.1.0",
         "@dhis2/cypress-plugins": "^10.1.0",
         "@semantic-release/changelog": "^6",
@@ -29,7 +29,7 @@
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^12.1.5",
         "cypress": "^13.17.0",
-        "cypress-real-events": "^1.13.0",
+        "cypress-real-events": "^1.14.0",
         "cypress-tags": "^1.2.2",
         "cypress-wait-until": "^1.7.2",
         "eslint-plugin-cypress": "^2.15.1",
@@ -38,13 +38,13 @@
         "redux-devtools": "^3.7.0",
         "redux-mock-store": "^1.5.5",
         "semantic-release": "^20",
-        "start-server-and-test": "^2.0.10"
+        "start-server-and-test": "^2.0.11"
     },
     "dependencies": {
         "@dhis2/analytics": "^28.0.3",
         "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "^4",
+        "@dhis2/maps-gl": "^4.1.1",
         "@dhis2/ui": "^10.7.4",
         "@testing-library/react-hooks": "^8.0.1",
         "abortcontroller-polyfill": "^1.7.5",
