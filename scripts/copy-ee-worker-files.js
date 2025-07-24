@@ -16,6 +16,7 @@ const targetDir = path.resolve(
 
 const log = {
     info: chalk.cyan('Copying maps-gl earthengine worker files...'),
+    success: (msg) => console.log(chalk.dim(`${msg}`)),
     warn: (msg) => console.warn(chalk.dim(`${msg}`)),
     error: (msg) => console.error(chalk.red(`${msg}`)),
 }
@@ -64,6 +65,7 @@ function waitForTargetDir(timeout = 5000) {
 
             if (fs.existsSync(src)) {
                 fse.copySync(src, dest)
+                log.success(`Copied ${file} → ${dest}`)
             } else {
                 log.warn(`Missing: ${file}`)
             }
