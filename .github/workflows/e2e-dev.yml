@@ -49,10 +49,13 @@ jobs:
             - name: Generate translations
               run: yarn d2-app-scripts i18n generate
 
+            - name: Copy earthengine workers
+              run: node scripts/copy-ee-worker-files.js
+
             - name: Run e2e tests
               uses: cypress-io/github-action@v5
               with:
-                  start: yarn start
+                  start: yarn d2-app-scripts start
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
                   record: ${{ env.SHOULD_RECORD  == 'true' }}
