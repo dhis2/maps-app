@@ -12,12 +12,10 @@ const sourceDir = path.resolve(
 const targetDir = path.resolve(
     __dirname,
     '../node_modules/@dhis2/app-shell/node_modules/.vite/earthengine'
-    //'../.d2/shell/node_modules/.vite/earthengine'
 )
 
 const log = {
     info: chalk.cyan('Copying maps-gl earthengine worker files...'),
-    success: (msg) => console.log(chalk.dim(`${msg}`)),
     warn: (msg) => console.warn(chalk.dim(`${msg}`)),
     error: (msg) => console.error(chalk.red(`${msg}`)),
 }
@@ -66,7 +64,6 @@ function waitForTargetDir(timeout = 5000) {
 
             if (fs.existsSync(src)) {
                 fse.copySync(src, dest)
-                log.success(`Copied ${file} → ${dest}`)
             } else {
                 log.warn(`Missing: ${file}`)
             }
