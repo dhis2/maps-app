@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "build": "d2-app-scripts build",
-        "start": "d2-app-scripts start",
+        "start": "node scripts/copy-ee-worker-files.js && d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
         "lint": "d2-style check",
@@ -15,8 +15,7 @@
         "validate-commit": "d2-style check --staged",
         "validate-push": "yarn test",
         "cy:open": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress open --e2e'",
-        "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run'",
-        "postinstall": "patch-package"
+        "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run'"
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^12.6.4",
@@ -46,7 +45,7 @@
         "@dhis2/analytics": "^28.0.4",
         "@dhis2/app-runtime": "^3.14.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#4fca0adadc3275904d615079021f3be274242fb4",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#56c0c64ae239e746029647ce97356f10018f8dc3",
         "@dhis2/ui": "^9.15.0",
         "abortcontroller-polyfill": "^1.7.5",
         "array-move": "^4.0.0",
