@@ -49,9 +49,6 @@ jobs:
             - name: Generate translations
               run: yarn d2-app-scripts i18n generate
 
-            - name: Copy earthengine workers
-              run: node scripts/copy-ee-worker-files.js
-
             - name: Run e2e tests
               uses: cypress-io/github-action@v5
               with:
