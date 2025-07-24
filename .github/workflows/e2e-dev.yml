@@ -52,7 +52,7 @@ jobs:
             - name: Run e2e tests
               uses: cypress-io/github-action@v5
               with:
-                  start: yarn d2-app-scripts start
+                  start: yarn start
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
                   record: ${{ env.SHOULD_RECORD  == 'true' }}
