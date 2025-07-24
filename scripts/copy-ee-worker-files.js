@@ -11,7 +11,8 @@ const sourceDir = path.resolve(
 )
 const targetDir = path.resolve(
     __dirname,
-    '../.d2/shell/node_modules/.vite/earthengine'
+    '../node_modules/@dhis2/app-shell/node_modules/.vite/earthengine'
+    //'../.d2/shell/node_modules/.vite/earthengine'
 )
 
 const log = {
