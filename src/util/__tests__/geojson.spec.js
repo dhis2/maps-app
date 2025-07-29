@@ -1,5 +1,7 @@
 import {
-    CENTROID_FORMAT,
+    GEO_TYPE_POINT,
+    GEO_TYPE_FEATURE,
+    CENTROID_FORMAT_GEOJSON,
     getBounds,
     getCentroid,
     addStyleDataItem,
@@ -20,7 +22,7 @@ describe('geojson utils', () => {
         const dummyID = 'IAmAnID'
         const dummyEventRow = ['What is the question?', 42]
         const dummyGeometry = {
-            geometry: { coordinates: [0, 0], type: 'Point' },
+            geometry: { coordinates: [0, 0], type: GEO_TYPE_POINT },
         }
         const dummyGetGeometry = jest.fn(() => dummyGeometry)
         it('Should create a single feature from a single event with no Names passed', () => {
@@ -34,7 +36,7 @@ describe('geojson utils', () => {
                     dummyGetGeometry
                 )
             ).toEqual({
-                type: 'Feature',
+                type: GEO_TYPE_FEATURE,
                 id: dummyID,
                 properties: {
                     id: dummyID,
@@ -60,7 +62,7 @@ describe('geojson utils', () => {
                     dummyGetGeometry
                 )
             ).toEqual({
-                type: 'Feature',
+                type: GEO_TYPE_FEATURE,
                 id: dummyID,
                 properties: {
                     id: dummyID,
@@ -86,7 +88,7 @@ describe('geojson utils', () => {
         const stringCoords = [9, 14.3]
         const arrayCoords = [21.1, 42.2]
         const point = {
-            type: 'Point',
+            type: GEO_TYPE_POINT,
             coordinates: [0, 0],
         }
         const dummyEvent = [
@@ -122,7 +124,7 @@ describe('geojson utils', () => {
         }
 
         const point = {
-            type: 'Point',
+            type: GEO_TYPE_POINT,
             coordinates: [0, 0],
         }
         const pointString = JSON.stringify(point)
@@ -152,7 +154,7 @@ describe('geojson utils', () => {
             expect(out.names).toEqual(defaultNames)
             expect(out.data).toEqual(
                 rows.map((row) => ({
-                    type: 'Feature',
+                    type: GEO_TYPE_FEATURE,
                     id: row[1],
                     properties: headers.reduce(
                         (out, header, i) => ({
@@ -171,7 +173,7 @@ describe('geojson utils', () => {
             expect(out.names).toEqual(defaultNames)
             expect(out.data).toEqual(
                 rows.map((row) => ({
-                    type: 'Feature',
+                    type: GEO_TYPE_FEATURE,
                     id: row[2],
                     properties: headers.reduce(
                         (out, header, i) => ({
@@ -192,7 +194,7 @@ describe('geojson utils', () => {
             expect(out.names).toEqual(defaultNames)
             expect(out.data).toEqual(
                 rows.map((row) => ({
-                    type: 'Feature',
+                    type: GEO_TYPE_FEATURE,
                     id: row[1],
                     properties: headers.reduce(
                         (out, header, i) => ({
@@ -220,7 +222,7 @@ describe('geojson utils', () => {
             expect(out.names).toEqual(columnNames)
             expect(out.data).toEqual(
                 rows.map((row) => ({
-                    type: 'Feature',
+                    type: GEO_TYPE_FEATURE,
                     id: row[1],
                     properties: headers.reduce(
                         (out, header, i) => ({
@@ -382,10 +384,10 @@ describe('geojson utils', () => {
                 type: 'FeatureCollection',
                 features: [
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         id: '33',
                         geometry: {
-                            type: 'Point',
+                            type: GEO_TYPE_POINT,
                             coordinates: [125.6, 10.1],
                         },
                         properties: {
@@ -393,7 +395,7 @@ describe('geojson utils', () => {
                         },
                     },
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         id: '44',
                         geometry: {
                             type: 'LineString',
@@ -410,8 +412,8 @@ describe('geojson utils', () => {
             }
 
             const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-            expect(types).toEqual(['Point', 'LineString'])
-            expect(featureCollection[0].type).toEqual('Feature')
+            expect(types).toEqual([GEO_TYPE_POINT, 'LineString'])
+            expect(featureCollection[0].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[0].geometry).toEqual(
                 geoJson.features[0].geometry
             )
@@ -421,7 +423,7 @@ describe('geojson utils', () => {
             })
             expect(featureCollection[0].id).toEqual('33')
 
-            expect(featureCollection[1].type).toEqual('Feature')
+            expect(featureCollection[1].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[1].geometry).toEqual(
                 geoJson.features[1].geometry
             )
@@ -437,16 +439,16 @@ describe('geojson utils', () => {
                 type: 'FeatureCollection',
                 features: [
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         geometry: {
-                            type: 'Point',
+                            type: GEO_TYPE_POINT,
                         },
                         properties: {
                             id: 'thefeature100',
                         },
                     },
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         geometry: {
                             type: 'LineString',
                         },
@@ -455,7 +457,7 @@ describe('geojson utils', () => {
                         },
                     },
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         geometry: {
                             type: 'Polygon',
                         },
@@ -464,7 +466,7 @@ describe('geojson utils', () => {
                         },
                     },
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         geometry: {
                             type: 'MultiPoint',
                         },
@@ -473,7 +475,7 @@ describe('geojson utils', () => {
                         },
                     },
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         geometry: {
                             type: 'MultiLineString',
                         },
@@ -482,7 +484,7 @@ describe('geojson utils', () => {
                         },
                     },
                     {
-                        type: 'Feature',
+                        type: GEO_TYPE_FEATURE,
                         geometry: {
                             type: 'MultiPolygon',
                         },
@@ -494,7 +496,7 @@ describe('geojson utils', () => {
             }
 
             const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-            expect(types).toEqual(['Point', 'LineString', 'Polygon'])
+            expect(types).toEqual([GEO_TYPE_POINT, 'LineString', 'Polygon'])
             expect(featureCollection[5].properties).toEqual({
                 id: 'thefeature105',
             })
@@ -502,9 +504,9 @@ describe('geojson utils', () => {
 
         it('should handle a Feature', () => {
             const geoJson = {
-                type: 'Feature',
+                type: GEO_TYPE_FEATURE,
                 geometry: {
-                    type: 'Point',
+                    type: GEO_TYPE_POINT,
                     coordinates: [125.6, 10.1],
                 },
                 properties: {
@@ -513,9 +515,9 @@ describe('geojson utils', () => {
             }
 
             const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-            expect(types).toEqual(['Point'])
+            expect(types).toEqual([GEO_TYPE_POINT])
             expect(featureCollection.length).toEqual(1)
-            expect(featureCollection[0].type).toEqual('Feature')
+            expect(featureCollection[0].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[0].geometry).toEqual(geoJson.geometry)
             expect(featureCollection[0].properties).toEqual({
                 name: 'Dinagat Islands',
@@ -526,14 +528,14 @@ describe('geojson utils', () => {
 
         it('should handle a raw geometry type', () => {
             const geoJson = {
-                type: 'Point',
+                type: GEO_TYPE_POINT,
                 coordinates: [125.6, 10.1],
             }
 
             const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-            expect(types).toEqual(['Point'])
+            expect(types).toEqual([GEO_TYPE_POINT])
             expect(featureCollection.length).toEqual(1)
-            expect(featureCollection[0].type).toEqual('Feature')
+            expect(featureCollection[0].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[0].id).toBe(undefined)
             expect(featureCollection[0].properties).toEqual({
                 id: '__dhis2propertyid__0',
@@ -545,7 +547,7 @@ describe('geojson utils', () => {
                 type: 'GeometryCollection',
                 geometries: [
                     {
-                        type: 'Point',
+                        type: GEO_TYPE_POINT,
                         coordinates: [125.6, 10.1],
                     },
                     {
@@ -559,12 +561,12 @@ describe('geojson utils', () => {
             }
 
             const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-            expect(types).toEqual(['Point', 'LineString'])
+            expect(types).toEqual([GEO_TYPE_POINT, 'LineString'])
             expect(featureCollection.length).toEqual(2)
 
-            expect(featureCollection[0].type).toEqual('Feature')
+            expect(featureCollection[0].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[0].geometry).toEqual({
-                type: 'Point',
+                type: GEO_TYPE_POINT,
                 coordinates: [125.6, 10.1],
             })
             expect(featureCollection[0].properties).toEqual({
@@ -572,7 +574,7 @@ describe('geojson utils', () => {
             })
             expect(featureCollection[0].id).toBe(undefined)
 
-            expect(featureCollection[1].type).toEqual('Feature')
+            expect(featureCollection[1].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[1].geometry).toEqual({
                 type: 'LineString',
                 coordinates: [
@@ -588,10 +590,10 @@ describe('geojson utils', () => {
 
         it('should add a properties.id property if it does not exist', () => {
             const geoJson = {
-                type: 'Feature',
+                type: GEO_TYPE_FEATURE,
                 id: '123',
                 geometry: {
-                    type: 'Point',
+                    type: GEO_TYPE_POINT,
                     coordinates: [125.6, 10.1],
                 },
                 properties: {
@@ -600,8 +602,8 @@ describe('geojson utils', () => {
             }
 
             const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-            expect(types).toEqual(['Point'])
-            expect(featureCollection[0].type).toEqual('Feature')
+            expect(types).toEqual([GEO_TYPE_POINT])
+            expect(featureCollection[0].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[0].properties).toEqual({
                 name: 'Dinagat Islands',
                 id: '__dhis2propertyid__0',
@@ -611,10 +613,10 @@ describe('geojson utils', () => {
 
         it('should not add ids if they exist already', () => {
             const geoJson = {
-                type: 'Feature',
+                type: GEO_TYPE_FEATURE,
                 id: 456,
                 geometry: {
-                    type: 'Point',
+                    type: GEO_TYPE_POINT,
                     coordinates: [125.6, 10.1],
                 },
                 properties: {
@@ -624,8 +626,8 @@ describe('geojson utils', () => {
             }
 
             const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-            expect(types).toEqual(['Point'])
-            expect(featureCollection[0].type).toEqual('Feature')
+            expect(types).toEqual([GEO_TYPE_POINT])
+            expect(featureCollection[0].type).toEqual(GEO_TYPE_FEATURE)
             expect(featureCollection[0].properties).toEqual({
                 name: 'Dinagat Islands',
                 id: '123',
@@ -673,7 +675,7 @@ describe('geojson utils', () => {
         }
 
         const point = {
-            type: 'Point',
+            type: GEO_TYPE_POINT,
             coordinates: [1, 2],
         }
 
@@ -681,30 +683,38 @@ describe('geojson utils', () => {
             const centroid = getCentroid(polygon)
             expect(Array.isArray(centroid)).toBe(true)
             expect(centroid.length).toBe(2)
+            expect(Number.isFinite(centroid[0])).toBe(true)
+            expect(Number.isFinite(centroid[1])).toBe(true)
         })
 
         it('returns centroid as GeoJSON for Polygon with format=geojson', () => {
-            const centroid = getCentroid(polygon, CENTROID_FORMAT.GEOJSON)
+            const centroid = getCentroid(polygon, CENTROID_FORMAT_GEOJSON)
             expect(centroid).toEqual({
-                type: 'Point',
+                type: GEO_TYPE_POINT,
                 coordinates: expect.any(Array),
             })
             expect(centroid.coordinates.length).toBe(2)
+            expect(Number.isFinite(centroid.coordinates[0])).toBe(true)
+            expect(Number.isFinite(centroid.coordinates[1])).toBe(true)
         })
 
         it('returns centroid as array for MultiPolygon', () => {
             const centroid = getCentroid(multipolygon)
             expect(Array.isArray(centroid)).toBe(true)
             expect(centroid.length).toBe(2)
+            expect(Number.isFinite(centroid[0])).toBe(true)
+            expect(Number.isFinite(centroid[1])).toBe(true)
         })
 
         it('returns centroid as GeoJSON for MultiPolygon with format=geojson', () => {
-            const centroid = getCentroid(multipolygon, CENTROID_FORMAT.GEOJSON)
+            const centroid = getCentroid(multipolygon, CENTROID_FORMAT_GEOJSON)
             expect(centroid).toEqual({
-                type: 'Point',
+                type: GEO_TYPE_POINT,
                 coordinates: expect.any(Array),
             })
             expect(centroid.coordinates.length).toBe(2)
+            expect(Number.isFinite(centroid.coordinates[0])).toBe(true)
+            expect(Number.isFinite(centroid.coordinates[1])).toBe(true)
         })
 
         it('returns coordinates for Point', () => {
@@ -713,9 +723,9 @@ describe('geojson utils', () => {
         })
 
         it('returns GeoJSON Point for Point with format=geojson', () => {
-            const centroid = getCentroid(point, CENTROID_FORMAT.GEOJSON)
+            const centroid = getCentroid(point, CENTROID_FORMAT_GEOJSON)
             expect(centroid).toEqual({
-                type: 'Point',
+                type: GEO_TYPE_POINT,
                 coordinates: [1, 2],
             })
         })

@@ -6,7 +6,7 @@ export const EVENT_ID_FIELD = 'psi'
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 
-export const DHIS2_PROP = '__dhis2propertyid__'
+const DHIS2_PROP = '__dhis2propertyid__'
 
 export const GEO_TYPE_POINT = 'Point'
 export const GEO_TYPE_POLYGON = 'Polygon'
@@ -14,6 +14,7 @@ export const GEO_TYPE_MULTIPOLYGON = 'MultiPolygon'
 export const GEO_TYPE_LINE = 'LineString'
 export const GEO_TYPE_FEATURE = 'Feature'
 const GEO_TYPE_FEATURE_COLLECTION = 'FeatureCollection'
+const GEO_TYPE_GEOMETRY_COLLECTION = 'GeometryCollection'
 
 const rawGeometryTypes = [
     GEO_TYPE_POINT,
@@ -35,10 +36,9 @@ export const createEventFeature = (
     getGeometry,
     geometryCentroid
 ) => {
-    let geometry = getGeometry(event)
-    if (geometryCentroid) {
-        geometry = getCentroid(geometry, CENTROID_FORMAT.GEOJSON)
-    }
+    const geometry = geometryCentroid
+        ? getCentroid(getGeometry(event), CENTROID_FORMAT_GEOJSON)
+        : getGeometry(event)
 
     const properties = event.reduce((props, value, i) => {
         const header = headers[i]
@@ -57,7 +57,7 @@ export const createEventFeature = (
     }, {})
 
     return {
-        type: 'Feature',
+        type: GEO_TYPE_FEATURE,
         id,
         properties,
         geometry,
@@ -150,12 +150,10 @@ export const getCoordinatesBounds = (coordinates) =>
         ]
     )
 
-export const CENTROID_FORMAT = {
-    ARRAY: 'array',
-    GEOJSON: 'geojson',
-}
+const CENTROID_FORMAT_ARRAY = 'array'
+export const CENTROID_FORMAT_GEOJSON = 'geojson'
 const path = geoPath()
-export const getCentroid = (geometry, format = CENTROID_FORMAT.ARRAY) => {
+export const getCentroid = (geometry, format = CENTROID_FORMAT_ARRAY) => {
     if (!geometry || !geometry.type) {
         return null
     }
@@ -163,19 +161,19 @@ export const getCentroid = (geometry, format = CENTROID_FORMAT.ARRAY) => {
     let coords
 
     switch (geometry.type) {
-        case 'Point':
+        case GEO_TYPE_POINT:
             coords = geometry.coordinates
             break
-        case 'Polygon':
-        case 'MultiPolygon':
+        case GEO_TYPE_POLYGON:
+        case GEO_TYPE_MULTIPOLYGON:
             coords = path.centroid(geometry)
             break
         default:
             return null
     }
 
-    if (format === CENTROID_FORMAT.GEOJSON) {
-        return { type: 'Point', coordinates: coords }
+    if (format === CENTROID_FORMAT_GEOJSON) {
+        return { type: GEO_TYPE_POINT, coordinates: coords }
     }
     return coords
 }
@@ -231,7 +229,7 @@ export const buildGeoJsonFeatures = (geoJson) => {
                 },
             ],
         }
-    } else if (geoJson.type === 'GeometryCollection') {
+    } else if (geoJson.type === GEO_TYPE_GEOMETRY_COLLECTION) {
         const features = geoJson.geometries.map((geometry) => ({
             type: GEO_TYPE_FEATURE,
             geometry,
