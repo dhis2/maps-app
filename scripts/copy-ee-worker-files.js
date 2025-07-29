@@ -29,47 +29,22 @@ if (process.env.NODE_ENV === 'production') {
     process.exit(0)
 }
 
-function waitForTargetDir(timeout = 5000) {
-    const interval = 200
-    let waited = 0
+try {
+    console.log(log.info)
 
-    return new Promise((resolve) => {
-        const check = () => {
-            if (fs.existsSync(path.dirname(targetDir))) {
-                return resolve()
-            }
+    fse.ensureDirSync(targetDir)
 
-            if (waited >= timeout) {
-                fse.ensureDirSync(targetDir)
-                return resolve()
-            }
+    for (const file of files) {
+        const source = path.join(sourceDir, file)
+        const target = path.join(targetDir, file)
 
-            waited += interval
-            setTimeout(check, interval)
+        if (fs.existsSync(source)) {
+            fse.copySync(source, target)
+        } else {
+            log.warn(`Missing: ${file}`)
         }
-
-        check()
-    })
-}
-
-;(async () => {
-    try {
-        console.log(log.info)
-        await waitForTargetDir()
-        fse.ensureDirSync(targetDir)
-
-        for (const file of files) {
-            const src = path.join(sourceDir, file)
-            const dest = path.join(targetDir, file)
-
-            if (fs.existsSync(src)) {
-                fse.copySync(src, dest)
-            } else {
-                log.warn(`Missing: ${file}`)
-            }
-        }
-    } catch (err) {
-        log.error(`Error copying earthengine workers: ${err.message}`)
-        process.exit(1)
     }
-})()
+} catch (err) {
+    log.error(`Error copying earthengine workers: ${err.message}`)
+    process.exit(1)
+}
