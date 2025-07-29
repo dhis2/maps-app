@@ -96,6 +96,7 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
                     value={value || ''}
                     onChange={(newValue) => onChange(`${operator}:${newValue}`)}
                     className={styles.inputField}
+                    dataTest="filter-select-text-field"
                 />
             )}
             {booleanValueTypes.includes(valueType) && (

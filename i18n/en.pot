@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-07-15T14:33:59.377Z\n"
-"PO-Revision-Date: 2025-07-15T14:33:59.377Z\n"
+"POT-Creation-Date: 2025-07-29T13:34:16.749Z\n"
+"PO-Revision-Date: 2025-07-29T13:34:16.750Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -455,14 +455,14 @@ msgstr "Line/stroke width"
 msgid "Line/stroke width must be between 0-10."
 msgstr "Line/stroke width must be between 0-10."
 
-msgid "Labels"
-msgstr "Labels"
-
 msgid "Convert polygons to their centroids."
 msgstr "Convert polygons to their centroids."
 
 msgid "Centroids"
 msgstr "Centroids"
+
+msgid "Labels"
+msgstr "Labels"
 
 msgid "Aggregation type"
 msgstr "Aggregation type"

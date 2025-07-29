@@ -63,6 +63,7 @@ const FilterRow = ({
                 value={selectValue}
                 onChange={onSelect}
                 className={styles.dataItemSelect}
+                dataTest="filter-row-data-item-select"
             />
             {valueType && (
                 <FilterSelect

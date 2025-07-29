@@ -32,48 +32,54 @@ const programGeowR = {
     ous: ['Bo'],
     scenarios: [
         {
-            ous: ['Bo', 'Bargbe'],
+            ous: { Bo: 'Bo', Bargbe: 'Bargbe' },
             filters: { item: 'E2E - Geo - DE - ID', value: '#C' },
-            coordinates: [
-                { name: 'Event location', coords: '-11.499252, 8.178188' },
-                { name: 'Enrollment location', coords: '-11.634007, 8.011976' },
-                {
+            coordinates: {
+                'Event location': {
+                    name: 'Event location',
+                    coords: '-11.499252, 8.178188',
+                },
+                'Enrollment location': {
+                    name: 'Enrollment location',
+                    coords: '-11.634007, 8.011976',
+                },
+                'Tracked entity location': {
                     name: 'Tracked entity location',
                     coords: '-11.529636, 8.040193',
                 },
-                {
+                'Geo - DE - Coordinate': {
                     name: 'E2E - Geo - DE - Coordinate',
                     coords: '-11.602850, 8.077288',
                 },
-                {
+                'Geo - TEA - Coordinate': {
                     name: 'E2E - Geo - TEA - Coordinate',
                     coords: '-11.499982, 8.049881',
                 },
-            ],
+            },
         },
         {
-            ous: ['Bo', 'Badjia', 'Ngelehun CHC'],
+            ous: { Bo: 'Bo', Badjia: 'Badjia', 'Ngelehun CHC': 'Ngelehun CHC' },
             filters: { item: 'E2E - Geo - DE - ID', value: 'C' },
-            coordinates: [
-                {
+            coordinates: {
+                'Organisation unit location': {
                     name: 'Organisation unit location',
                     coords: '-11.419700, 8.103900', // Ngelehun CHC
                 },
-            ],
+            },
         },
         {
-            ous: ['Bo', 'Badjia'],
+            ous: { Bo: 'Bo', Badjia: 'Badjia' },
             filters: { item: 'E2E - Geo - DE - ID', value: 'C' },
-            coordinates: [
-                {
+            coordinates: {
+                'Geo - DataElement - Organisation Unit': {
                     name: 'E2E - Geo - DE - Organisation Unit',
                     coords: '-11.686100, 7.390850', // Bathurst MCHP
                 },
-                {
+                'Geo - TrackedEntityAttribute - Organisation Unit': {
                     name: 'E2E - Geo - TEA - Organisation Unit',
                     coords: '-11.686100, 7.390850', // Bathurst MCHP
                 },
-            ],
+            },
         },
     ],
 }
@@ -252,21 +258,32 @@ context('Event Layers', () => {
 
         Layer.selectTab('Org Units')
             .unselectOu('Sierra Leone')
-            .openOu(programGeowR.scenarios[0].ous[0])
-            .selectOu(programGeowR.scenarios[0].ous[1])
+            .openOu(programGeowR.scenarios[0].ous['Bo'])
+            .selectOu(programGeowR.scenarios[0].ous['Bargbe'])
         Layer.selectTab('Filter')
         cy.contains('Add filter').click()
-        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('filter-row-data-item-select')
+            .findByDataTest('dhis2-uicore-select-input')
+            .click()
         cy.contains(programGeowR.scenarios[0].filters.item).click()
-        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+        cy.getByDataTest('filter-select-text-field')
             .find('input')
             .type(programGeowR.scenarios[0].filters.value)
 
-        testCoordinate(programGeowR.scenarios[0].coordinates[3], false) // Geo - DataElement - Coordinate
-        testCoordinate(programGeowR.scenarios[0].coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
-        testCoordinate(programGeowR.scenarios[0].coordinates[2]) // Tracked entity location
-        testCoordinate(programGeowR.scenarios[0].coordinates[1]) // Enrollment location
-        testCoordinate(programGeowR.scenarios[0].coordinates[0]) // Event location
+        testCoordinate(
+            programGeowR.scenarios[0].coordinates['Geo - DE - Coordinate'],
+            false
+        )
+        testCoordinate(
+            programGeowR.scenarios[0].coordinates['Geo - TEA - Coordinate']
+        )
+        testCoordinate(
+            programGeowR.scenarios[0].coordinates['Tracked entity location']
+        )
+        testCoordinate(
+            programGeowR.scenarios[0].coordinates['Enrollment location']
+        )
+        testCoordinate(programGeowR.scenarios[0].coordinates['Event location'])
 
         cy.getByDataTest('layer-edit-button').click()
         Layer.selectTab('Filter')
@@ -275,9 +292,11 @@ context('Event Layers', () => {
         cy.getByDataTest('layer-edit-button').click()
         Layer.selectTab('Filter')
         cy.contains('Add filter').click()
-        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('filter-row-data-item-select')
+            .findByDataTest('dhis2-uicore-select-input')
+            .click()
         cy.contains(programGeowR.scenarios[1].filters.item).click()
-        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+        cy.getByDataTest('filter-select-text-field')
             .find('input')
             .type(programGeowR.scenarios[1].filters.value)
         Layer.updateMap()
@@ -286,12 +305,14 @@ context('Event Layers', () => {
 
         cy.getByDataTest('layer-edit-button').click()
         Layer.selectTab('Org Units')
-            .unselectOu(programGeowR.scenarios[0].ous[1])
-            .openOu(programGeowR.scenarios[1].ous[1])
-            .selectOu(programGeowR.scenarios[1].ous[2])
+            .unselectOu(programGeowR.scenarios[0].ous['Bargbe'])
+            .openOu(programGeowR.scenarios[1].ous['Badjia'])
+            .selectOu(programGeowR.scenarios[1].ous['Ngelehun CHC'])
         Layer.updateMap()
 
-        testCoordinate(programGeowR.scenarios[1].coordinates[0]) // Organisation Unit location
+        testCoordinate(
+            programGeowR.scenarios[1].coordinates['Organisation unit location']
+        )
 
         // VERSION-TOGGLE
         // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
@@ -308,12 +329,20 @@ context('Event Layers', () => {
 
             cy.getByDataTest('layer-edit-button').click()
             Layer.selectTab('Org Units')
-                .unselectOu(programGeowR.scenarios[1].ous[2])
-                .selectOu(programGeowR.scenarios[2].ous[1])
+                .unselectOu(programGeowR.scenarios[1].ous['Ngelehun CHC'])
+                .selectOu(programGeowR.scenarios[2].ous['Badjia'])
             Layer.updateMap()
 
-            testCoordinate(programGeowR.scenarios[2].coordinates[0]) // Geo - DataElement - Organisation Unit
-            testCoordinate(programGeowR.scenarios[2].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
+            testCoordinate(
+                programGeowR.scenarios[2].coordinates[
+                    'Geo - DataElement - Organisation Unit'
+                ]
+            )
+            testCoordinate(
+                programGeowR.scenarios[2].coordinates[
+                    'Geo - TrackedEntityAttribute - Organisation Unit'
+                ]
+            )
         }
     })
 })

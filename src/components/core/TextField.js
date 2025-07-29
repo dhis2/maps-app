@@ -12,6 +12,7 @@ const TextField = ({
     dense = true,
     onChange,
     className,
+    dataTest,
 }) => (
     <div className={cx(styles.inputField, className)}>
         <InputField
@@ -20,6 +21,7 @@ const TextField = ({
             label={label}
             value={value}
             onChange={({ value }) => onChange(value)}
+            dataTest={dataTest}
         />
     </div>
 )
@@ -28,6 +30,7 @@ TextField.propTypes = {
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
+    dataTest: PropTypes.string,
     dense: PropTypes.bool,
     type: PropTypes.string,
     value: PropTypes.string,
