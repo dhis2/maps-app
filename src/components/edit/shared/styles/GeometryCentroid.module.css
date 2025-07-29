@@ -7,3 +7,7 @@
 .centroid > span > div {
     margin: var(--spacers-dp8);
 }
+
+.notice {
+    margin: var(--spacers-dp16) 0;
+}

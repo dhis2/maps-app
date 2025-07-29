@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Tooltip } from '@dhis2/ui'
+import { Tooltip, NoticeBox } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
@@ -22,18 +22,31 @@ const GeometryCentroid = ({
     }, [setGeometryCentroid, eventCoordinateField])
 
     return (
-        <div className={cx(styles.centroid, className)}>
-            <Tooltip
-                content={i18n.t('Convert polygons to their centroids.')}
-                placement="top"
+        <div>
+            <div
+                className={cx(styles.centroid, className)}
+                style={{ display: 'none' }} // Until prop geometryCentroid can be saved with mapViews
             >
-                <Checkbox
-                    label={i18n.t('Centroids')}
-                    disabled={true} // Until prop geometryCentroid can be saved with mapViews
-                    checked={geometryCentroid}
-                    onChange={(isChecked) => setGeometryCentroid(isChecked)}
-                />
-            </Tooltip>
+                <Tooltip
+                    content={i18n.t('Convert polygons to their centroids.')}
+                    placement="top"
+                >
+                    <Checkbox
+                        label={i18n.t('Centroids')}
+                        checked={geometryCentroid}
+                        onChange={(isChecked) => setGeometryCentroid(isChecked)}
+                    />
+                </Tooltip>
+            </div>
+            {geometryCentroid && (
+                <div className={cx(styles.notice)}>
+                    <NoticeBox info>
+                        {i18n.t(
+                            'Polygons will be converted to their centroids.'
+                        )}
+                    </NoticeBox>
+                </div>
+            )}
         </div>
     )
 }
