@@ -22,6 +22,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
+    EVENT_CENTROID_DEFAULT,
     CLASSIFICATION_PREDEFINED,
     MIN_RADIUS,
     MAX_RADIUS,
@@ -282,6 +283,18 @@ class EventDialog extends Component {
                                 className={styles.select}
                                 data-test="eventdialog-coordinatefield"
                             />
+                            {eventCoordinateField &&
+                                !EVENT_CENTROID_DEFAULT.includes(
+                                    eventCoordinateField
+                                ) && (
+                                    <div className={styles.noticeCompact}>
+                                        <NoticeBox warning>
+                                            {i18n.t(
+                                                'May cause slow layer loading.'
+                                            )}
+                                        </NoticeBox>
+                                    </div>
+                                )}
                             {/* eventCoordinateField && (
                                 <CoordinateField
                                     program={program}

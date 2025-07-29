@@ -41,9 +41,7 @@ const GeometryCentroid = ({
             {geometryCentroid && (
                 <div className={cx(styles.notice)}>
                     <NoticeBox info>
-                        {i18n.t(
-                            'Polygons will be converted to their centroids.'
-                        )}
+                        {i18n.t('Polygons are represented by their centroids.')}
                     </NoticeBox>
                 </div>
             )}
