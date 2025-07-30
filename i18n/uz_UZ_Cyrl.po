@@ -1,14 +1,14 @@
 # 
 # Translators:
 # Philip Larsen Donnelly, 2024
-# Khurshid Ibatov <Khurshid.Ibatov@tibbiysugurta.uz>, 2024
+# Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Khurshid Ibatov <Khurshid.Ibatov@tibbiysugurta.uz>, 2024\n"
+"Last-Translator: Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +27,18 @@ msgstr "Харита \"{{- name}}\" сақланган."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Харитани сақлашда хатолик юз берди: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Қайта номлаш муваффақиятли амалга оширилди"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Тармоқда хатолик"
 
 msgid "Calculation"
 msgstr ""
@@ -82,6 +94,9 @@ msgstr "Тафсилотлари"
 msgid "Yes"
 msgstr "Ҳа"
 
+msgid "No"
+msgstr "Йўқ"
+
 msgid "None"
 msgstr "Йўқ"
 
@@ -115,8 +130,8 @@ msgstr "Ҳолат > ташкилий бирлик координатаси"
 msgid "Event data item"
 msgstr "Ҳодиса/Тадбир маълумоти элементи"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Ушбу рўйхатда танланган қиймат мавжуд эмас: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -596,9 +611,6 @@ msgstr "Фильтрни олиб ташлаш"
 msgid "Group set"
 msgstr "Гуруҳлар тўплами"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Ташкилий бирлик гуруҳларини юклашда хатолик юз берди."
-
 msgid "Style by group set"
 msgstr "Гуруҳ созламалари стилидан фойдаланиш"
 
@@ -711,9 +723,6 @@ msgstr "Гуруҳ"
 msgid "Filters"
 msgstr "Фильрлар"
 
-msgid "{{layername}}: {{message}}"
-msgstr ""
-
 msgid "No data found"
 msgstr "Маълумотлар топилмади"
 
@@ -750,9 +759,6 @@ msgstr "Кенглик"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Асосий харитани қўшиб бўлмади: {{message}}"
 
-msgid "Not set"
-msgstr "Ўрнатилмаган"
-
 msgid "Could not retrieve event data"
 msgstr "Тадбир/Ҳодиса маълумотлари олинмай қолди"
 
@@ -764,6 +770,9 @@ msgstr "Аждод бўлими"
 
 msgid "No data"
 msgstr "Маълумот йўқ"
+
+msgid "Not set"
+msgstr "Ўрнатилмаган"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -961,7 +970,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1489,6 +1498,12 @@ msgstr "Тадбир"
 msgid "Facilities"
 msgstr "Муассасалар"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1537,18 +1552,15 @@ msgstr "тўғри"
 msgid "false"
 msgstr "ёлғон"
 
-msgid "No"
-msgstr "Йўқ"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Google Earth Engine учун авторизация токенини олиш имконсиз"
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Ушбу қатлам учун Google Earth Engine аккаунти зарур. Қўшимча маълумот олиш "
 "учунDHIS2 ҳужжатларини текширинг."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Google Earth Engine учун авторизация токенини олиш имконсиз"
 
 msgid "Thematic"
 msgstr "Тематик"
@@ -1564,6 +1576,9 @@ msgstr "Ташкилий бўлим"
 
 msgid "Facility"
 msgstr "Объект"
+
+msgid "Other"
+msgstr "Бошқа"
 
 msgid "Start date is invalid"
 msgstr "Бошланиш санаси нотўғри"

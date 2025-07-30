@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -26,6 +26,18 @@ msgstr "Mapa \"{{- name}}\" je uložena."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Nepodařilo se uložit mapu: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Přejmenování bylo úspěšné"
+
+msgid "This app could not retrieve required data."
+msgstr "Tato aplikace nemohla načíst požadovaná data."
+
+msgid "Network error"
+msgstr "Chyba sítě"
 
 msgid "Calculation"
 msgstr "Výpočet"
@@ -81,6 +93,9 @@ msgstr "Detaily"
 msgid "Yes"
 msgstr "Ano"
 
+msgid "No"
+msgstr "Ne"
+
 msgid "None"
 msgstr "Žádný"
 
@@ -115,8 +130,8 @@ msgstr "Událost > souřadnice organizační jednotky"
 msgid "Event data item"
 msgstr "Datová položka události"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Vybraná hodnota není dostupná v seznamu: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr "Styl podle datové položky"
@@ -589,9 +604,6 @@ msgstr "Odebrat filtr"
 msgid "Group set"
 msgstr "Skupinová sada"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Skupiny organizačních jednotek se nepodařilo načíst."
-
 msgid "Style by group set"
 msgstr "Styl podle sady skupiny"
 
@@ -702,9 +714,6 @@ msgstr "Skupina"
 msgid "Filters"
 msgstr "Filtry"
 
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
-
 msgid "No data found"
 msgstr "Nenalezena žádná data"
 
@@ -741,9 +750,6 @@ msgstr "Zeměpisná šířka"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Základní mapu nelze přidat: {{message}}"
 
-msgid "Not set"
-msgstr "Nenastaveno"
-
 msgid "Could not retrieve event data"
 msgstr "Nepodařilo se načíst data události"
 
@@ -755,6 +761,9 @@ msgstr "Nadřazená jednotka"
 
 msgid "No data"
 msgstr "Nejsou data"
+
+msgid "Not set"
+msgstr "Nenastaveno"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -952,9 +961,8 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
-"Odstraněním všech stávajících vrstev přidáte rozdělené zobrazení mapy."
 
 msgid "Single"
 msgstr ""
@@ -1482,6 +1490,12 @@ msgstr "Událost"
 msgid "Facilities"
 msgstr "Zařízení"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1530,18 +1544,15 @@ msgstr "true"
 msgid "false"
 msgstr "false"
 
-msgid "No"
-msgstr "Ne"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Nelze získat autorizační token pro Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "Tato vrstva vyžaduje účet Google Earth Engine. Další informace najdete v "
 "dokumentaci DHIS2."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Nelze získat autorizační token pro Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Tematický"
@@ -1557,6 +1568,9 @@ msgstr "Organizační jednotky"
 
 msgid "Facility"
 msgstr "Zařízení"
+
+msgid "Other"
+msgstr "jiný"
 
 msgid "Start date is invalid"
 msgstr "Datum zahájení je neplatné"
