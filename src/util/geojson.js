@@ -26,16 +26,15 @@ const rawGeometryTypes = [
 ]
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
-/* eslint-disable max-params */
-export const createEventFeature = (
+export const createEventFeature = ({
     headers,
     names,
     options,
     event,
     id,
     getGeometry,
-    geometryCentroid
-) => {
+    geometryCentroid,
+}) => {
     const geometry = geometryCentroid
         ? getCentroid(getGeometry(event), CENTROID_FORMAT_GEOJSON)
         : getGeometry(event)
@@ -90,15 +89,15 @@ export const createEventFeatures = (response, config = {}) => {
     const options = Object.values(response.metaData.items)
 
     const data = response.rows.map((row) =>
-        createEventFeature(
-            response.headers,
-            config.outputIdScheme !== 'ID' ? names : {},
+        createEventFeature({
+            headers: response.headers,
+            names: config.outputIdScheme !== 'ID' ? names : {},
             options,
-            row,
-            row[idCol],
+            event: row,
+            id: row[idCol],
             getGeometry,
-            config.geometryCentroid
-        )
+            geometryCentroid: config.geometryCentroid,
+        })
     )
 
     // Sort to draw polygons before points

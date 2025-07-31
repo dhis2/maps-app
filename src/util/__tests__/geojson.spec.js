@@ -27,14 +27,14 @@ describe('geojson utils', () => {
         const dummyGetGeometry = jest.fn(() => dummyGeometry)
         it('Should create a single feature from a single event with no Names passed', () => {
             expect(
-                createEventFeature(
+                createEventFeature({
                     headers,
-                    {},
-                    [],
-                    dummyEventRow,
-                    dummyID,
-                    dummyGetGeometry
-                )
+                    names: {},
+                    options: [],
+                    event: dummyEventRow,
+                    id: dummyID,
+                    getGeometry: dummyGetGeometry,
+                })
             ).toEqual({
                 type: GEO_TYPE_FEATURE,
                 id: dummyID,
@@ -53,14 +53,14 @@ describe('geojson utils', () => {
                 [headers[0].name]: 'Column #1',
             }
             expect(
-                createEventFeature(
+                createEventFeature({
                     headers,
                     names,
-                    [],
-                    dummyEventRow,
-                    dummyID,
-                    dummyGetGeometry
-                )
+                    options: [],
+                    event: dummyEventRow,
+                    id: dummyID,
+                    getGeometry: dummyGetGeometry,
+                })
             ).toEqual({
                 type: GEO_TYPE_FEATURE,
                 id: dummyID,
