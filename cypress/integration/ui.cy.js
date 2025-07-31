@@ -43,9 +43,10 @@ describe('ui', () => {
         cy.visit('/')
         cy.get('canvas').should('be.visible')
 
-        // 1. Create a map and add a thematic layer and a facility layer
+        // Create a map and add a thematic layer and a facility layer
         const ThemLayer = new ThematicLayer()
         const FacLayer = new FacilityLayer()
+
         // Add thematic layer
         ThemLayer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
@@ -61,24 +62,27 @@ describe('ui', () => {
             .selectOuLevel('Facility')
             .addToMap()
 
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+
         cy.document().should((doc) => {
             const userSelect = getComputedStyle(doc.body).userSelect
             expect(userSelect).not.to.eq('none')
         })
-        // 2. Start dragging one of the layers
-        // eslint-disable-next-line cypress/unsafe-to-chain-command
+
+        // Start dragging one of the layers
         cy.getByDataTest('sortable-handle')
             .first()
-            .trigger('mousedown', { button: 0, force: true })
-            .trigger('mousemove', { clientY: 100, force: true })
+            .trigger('mousedown', { button: 0 })
+        // Dragging is initialised on the sortable-handle but moves are tracked on the document
+        cy.document().trigger('mousemove', { clientY: 100 })
 
-        // 3. Check that document.body has style user-select: none
+        // Check that document.body has style user-select: none
         cy.document().should((doc) => {
             const userSelect = getComputedStyle(doc.body).userSelect
             expect(userSelect).to.eq('none')
         })
 
-        // 4. End the drag (mouseup)
+        // End the drag (mouseup)
         cy.getByDataTest('sortable-handle')
             .first()
             .trigger('mouseup', { force: true })

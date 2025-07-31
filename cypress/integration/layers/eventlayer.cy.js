@@ -126,7 +126,10 @@ context('Event Layers', () => {
         cy.contains('End date is invalid').should('be.visible')
 
         Layer.selectTab('Period').typeEndDate('2')
+        cy.press(Cypress.Keyboard.Keys.TAB)
         cy.contains('End date is invalid').should('not.exist')
+        Layer.addToMap()
+        cy.contains('End date is invalid').should('be.visible')
     })
 
     it('adds an event layer - relative period', () => {
