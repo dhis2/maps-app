@@ -15,6 +15,7 @@ import { SelectField } from '../core/index.js'
 
 const CoordinateField = ({
     value,
+    type,
     program,
     programStage,
     eventCoordinateField,
@@ -100,6 +101,16 @@ const CoordinateField = ({
             : fields
     }, [trackedEntityType, eventDataItems, eventCoordinateField])
 
+    // Initiate type when editing saved layer
+    useEffect(() => {
+        if (type === undefined && eventDataItems != null) {
+            const selectedField = fields.find((f) => f.id === value)
+            const selectedId = selectedField?.id || defaultValue
+            const selectedType = selectedField?.valueType || selectedId
+            onChange(selectedId, selectedType)
+        }
+    }, [type, eventDataItems, fields, value, defaultValue, onChange])
+
     // Reset default value when program or programStage is changed and prev value is not available anymore
     useEffect(() => {
         if (
@@ -107,7 +118,7 @@ const CoordinateField = ({
             eventDataItems &&
             !fields.find((f) => f.id === value)
         ) {
-            onChange(defaultValue)
+            onChange(defaultValue, defaultValue)
         }
     }, [
         trackedEntityType,
@@ -137,7 +148,9 @@ const CoordinateField = ({
                         : i18n.t('Event > org unit coordinate')
                     : null
             }
-            onChange={(field) => onChange(field.id)}
+            onChange={(field) =>
+                onChange(field.id, field.valueType || field.id)
+            }
             className={className}
             dataTest="coordinatefield"
         />
@@ -150,6 +163,7 @@ CoordinateField.propTypes = {
     eventCoordinateField: PropTypes.string,
     program: PropTypes.object,
     programStage: PropTypes.object,
+    type: PropTypes.string,
     value: PropTypes.string,
 }
 

@@ -101,6 +101,8 @@ const upgradeMapViews = (config) => {
             view.layer === 'event' &&
             !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
         ) {
+            // We should test !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateFieldType) but it is not currently saved with the mapView.
+            // This will set geometryCentroid: true when eventCoordinateField is a DE/TEA of type 'COORDINATE' too, which is unnecessary but harmless.
             view.geometryCentroid = true
         }
 

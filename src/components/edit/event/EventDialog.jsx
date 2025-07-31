@@ -78,6 +78,7 @@ class EventDialog extends Component {
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
+        eventCoordinateFieldType: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         eventStatus: PropTypes.string,
@@ -205,6 +206,7 @@ class EventDialog extends Component {
             eventClustering,
             eventStatus,
             eventCoordinateField,
+            eventCoordinateFieldType,
             eventPointColor,
             eventPointRadius,
             // fallbackCoordinateField,
@@ -279,13 +281,14 @@ class EventDialog extends Component {
                                 program={program}
                                 programStage={programStage}
                                 value={eventCoordinateField}
+                                type={eventCoordinateFieldType}
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
                                 data-test="eventdialog-coordinatefield"
                             />
-                            {eventCoordinateField &&
+                            {eventCoordinateFieldType &&
                                 !EVENT_CENTROID_DEFAULT.includes(
-                                    eventCoordinateField
+                                    eventCoordinateFieldType
                                 ) && (
                                     <div className={styles.noticeCompact}>
                                         <NoticeBox warning>

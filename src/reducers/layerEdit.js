@@ -361,6 +361,7 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 eventCoordinateField: action.fieldId,
+                eventCoordinateFieldType: action.fieldType,
             }
 
         case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:

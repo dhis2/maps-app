@@ -11,15 +11,15 @@ import styles from './styles/GeometryCentroid.module.css'
 
 const GeometryCentroid = ({
     geometryCentroid,
-    eventCoordinateField,
+    eventCoordinateFieldType,
     className,
     setGeometryCentroid,
 }) => {
     useEffect(() => {
         setGeometryCentroid(
-            !EVENT_CENTROID_DEFAULT.includes(eventCoordinateField)
+            !EVENT_CENTROID_DEFAULT.includes(eventCoordinateFieldType)
         )
-    }, [setGeometryCentroid, eventCoordinateField])
+    }, [setGeometryCentroid, eventCoordinateFieldType])
 
     return (
         <div>
@@ -52,14 +52,14 @@ const GeometryCentroid = ({
 GeometryCentroid.propTypes = {
     setGeometryCentroid: PropTypes.func.isRequired,
     className: PropTypes.string,
-    eventCoordinateField: PropTypes.string,
+    eventCoordinateFieldType: PropTypes.string,
     geometryCentroid: PropTypes.bool,
 }
 
 export default connect(
     ({ layerEdit }) => ({
         geometryCentroid: layerEdit.geometryCentroid,
-        eventCoordinateField: layerEdit.eventCoordinateField,
+        eventCoordinateFieldType: layerEdit.eventCoordinateFieldType,
     }),
     { setGeometryCentroid }
 )(GeometryCentroid)
