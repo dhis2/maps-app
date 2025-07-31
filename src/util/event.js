@@ -147,9 +147,14 @@ export const getAnalyticsRequest = async (
     return analyticsRequest
 }
 
-export const loadData = async ({ request, config = {}, analyticsEngine }) => {
+export const loadData = async ({
+    request,
+    config = {},
+    analyticsEngine,
+    pageSize = EVENT_CLIENT_PAGE_SIZE,
+}) => {
     const response = await analyticsEngine.events.getQuery(
-        request.withPageSize(EVENT_CLIENT_PAGE_SIZE)
+        request.withPageSize(pageSize)
     ) // DHIS2-10742
 
     const { data, names } = createEventFeatures(response, config)
