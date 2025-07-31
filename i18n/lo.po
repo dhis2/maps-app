@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2021
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Phouthasinh PHEUAYSITHIPHONE, 2023
 # Viktor Varland <viktor@dhis2.org>, 2024
-# Saysamone Sibounma, 2024
+# Philip Larsen Donnelly, 2025
+# Saysamone Sibounma, 2025
 # Namwan Chanthavisouk, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Namwan Chanthavisouk, 2025\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -31,6 +31,18 @@ msgstr "ແຜນທີ \" {{- name}} \" ບັນທຶກແລ້ວ"
 
 msgid "Failed to save map: {{message}}"
 msgstr "ບໍ່ສາມາດບັນທືກແຜນທີ່ໄດ້: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "ປ່ຽນຊື່ສຳເລັດແລ້ວ"
+
+msgid "This app could not retrieve required data."
+msgstr "ແອັບນີ້ບໍ່ສາມາດດຶງຂໍ້ມູນທີ່ຕ້ອງການໄດ້"
+
+msgid "Network error"
+msgstr "ຂໍ້ຜິດພາດທາງເຄື່ອຂ່າຍ"
 
 msgid "Calculation"
 msgstr "ການຄິດໄລ່"
@@ -86,6 +98,9 @@ msgstr "ລາຍລະອຽດ"
 msgid "Yes"
 msgstr "ແມ່ນ"
 
+msgid "No"
+msgstr "ບໍ່ແມນ"
+
 msgid "None"
 msgstr "ບໍ່ແມນ"
 
@@ -119,8 +134,8 @@ msgstr "ເຫດການ > ຫົວໜ່ວຍການຈັດຕັ້ງ
 msgid "Event data item"
 msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "ຄ່າທີ່ເລືອກບໍ່ມີຢູ່ໃນລາຍການ: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -582,9 +597,6 @@ msgstr "ເອົາຕົວກອງອອກ"
 msgid "Group set"
 msgstr "ກຸ່ມຂອງກຸ່ມ"
 
-msgid "Failed to load organisation unit groups."
-msgstr "ບໍ່ສາມາດໂຫຼດກຸ່ມຂອງຫົວໜ່ວຍການຈັດຕັ້ງໄດ້."
-
 msgid "Style by group set"
 msgstr "ແບບໂດຍກຸ່ມຂອງກຸ່ມ"
 
@@ -695,9 +707,6 @@ msgstr "ກຸ່ມ"
 msgid "Filters"
 msgstr "ກັ່ນຕອງ"
 
-msgid "{{layername}}: {{message}}"
-msgstr ""
-
 msgid "No data found"
 msgstr "No data found"
 
@@ -734,9 +743,6 @@ msgstr "ເສັ້ນແວ້ງ"
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "Not set"
-
 msgid "Could not retrieve event data"
 msgstr "ບໍ່ສາມາດດຶງຂໍ້ມູນຂໍ້ມູນເຫດການໄດ້"
 
@@ -748,6 +754,9 @@ msgstr ""
 
 msgid "No data"
 msgstr "ບໍ່ມີຂໍ້ມູນ"
+
+msgid "Not set"
+msgstr "Not set"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -938,7 +947,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1453,6 +1462,12 @@ msgstr "ເຫດການ"
 msgid "Facilities"
 msgstr ""
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1501,15 +1516,12 @@ msgstr ""
 msgid "false"
 msgstr ""
 
-msgid "No"
-msgstr "ບໍ່ແມນ"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
 msgid "Thematic"
@@ -1526,6 +1538,9 @@ msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "Facility"
 msgstr "ສະຖານທີ່ບໍລິການ"
+
+msgid "Other"
+msgstr "ອື່ນໆ"
 
 msgid "Start date is invalid"
 msgstr ""
