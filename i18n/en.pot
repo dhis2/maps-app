@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-07-29T16:15:20.558Z\n"
-"PO-Revision-Date: 2025-07-29T16:15:20.558Z\n"
+"POT-Creation-Date: 2025-07-31T10:25:57.888Z\n"
+"PO-Revision-Date: 2025-07-31T10:25:57.888Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -401,6 +401,9 @@ msgstr "Org Units"
 msgid "Filter"
 msgstr "Filter"
 
+msgid "May cause slow layer loading."
+msgstr "May cause slow layer loading."
+
 msgid "Group events"
 msgstr "Group events"
 
@@ -455,14 +458,17 @@ msgstr "Line/stroke width"
 msgid "Line/stroke width must be between 0-10."
 msgstr "Line/stroke width must be between 0-10."
 
-msgid "Labels"
-msgstr "Labels"
-
 msgid "Convert polygons to their centroids."
 msgstr "Convert polygons to their centroids."
 
 msgid "Centroids"
 msgstr "Centroids"
+
+msgid "Polygons are represented by their centroids."
+msgstr "Polygons are represented by their centroids."
+
+msgid "Labels"
+msgstr "Labels"
 
 msgid "Aggregation type"
 msgstr "Aggregation type"
@@ -1604,3 +1610,11 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Maps"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Maps"
