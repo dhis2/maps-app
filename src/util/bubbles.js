@@ -4,7 +4,7 @@ import {
     digitWidth,
     guideLength,
     textPadding,
-} from '../components/legend/Bubbles.js'
+} from '../components/legend/Bubbles.jsx'
 import { getContrastColor } from './colors.js'
 import { getLongestTextLength } from './helpers.js'
 import { getRoundToPrecisionFn } from './numbers.js'

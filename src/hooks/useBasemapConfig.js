@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.js'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import { getFallbackBasemap } from '../constants/basemaps.js'
 import { defaultBasemapState } from '../reducers/map.js'
 

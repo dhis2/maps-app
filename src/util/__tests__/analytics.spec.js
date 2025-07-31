@@ -11,6 +11,7 @@ import {
     setFiltersFromPeriods,
     getFiltersFromColumns,
     getRenderingStrategy,
+    getDimensionsFromFilters,
 } from '../analytics.js'
 
 describe('getDataItemFromColumns', () => {
@@ -115,6 +116,18 @@ describe('getPeriodsFromFilters', () => {
             { id: 'period2' },
         ])
     })
+
+    it('should return empty array if filters is undefined', () => {
+        expect(getPeriodsFromFilters(undefined)).toEqual([])
+    })
+
+    it('should return empty array if filters is defined but there are no periods', () => {
+        const filters = [
+            { dimension: 'dx', items: [{ id: 'data1' }] },
+            { dimension: 'ou', items: [{ id: 'org1' }] },
+        ]
+        expect(getPeriodsFromFilters(filters)).toEqual([])
+    })
 })
 
 describe('removePeriodFromFilters', () => {
@@ -202,5 +215,78 @@ describe('getRenderingStrategy', () => {
     it('should return "single" if no specific rendering strategy is found', () => {
         const mapViews = [{ renderingStrategy: 'OTHER' }]
         expect(getRenderingStrategy({ mapViews })).toBe('single')
+    })
+})
+
+describe('getDimensionsFromFilters', () => {
+    it('should return an array of dimension names from filters', () => {
+        const filters = [
+            {
+                items: [
+                    {
+                        dimensionItemType: 'PERIOD',
+                        name: 'This year',
+                    },
+                ],
+                dimension: 'pe',
+            },
+            {
+                dimension: 'J5jldMd8OHv',
+                items: [
+                    {
+                        name: 'CHC',
+                    },
+                ],
+            },
+            {
+                dimension: 'Bpx0589u8y0',
+                items: [
+                    {
+                        name: 'Mission',
+                    },
+                ],
+            },
+        ]
+
+        const expectedDimensions = [
+            {
+                dimension: 'J5jldMd8OHv',
+                items: [
+                    {
+                        name: 'CHC',
+                    },
+                ],
+            },
+            {
+                dimension: 'Bpx0589u8y0',
+                items: [
+                    {
+                        name: 'Mission',
+                    },
+                ],
+            },
+        ]
+        expect(getDimensionsFromFilters(filters)).toEqual(expectedDimensions)
+    })
+
+    it('should return an empty array if filters is undefined', () => {
+        expect(getDimensionsFromFilters(undefined)).toEqual([])
+    })
+
+    it('should return an empty array if filters is empty', () => {
+        expect(getDimensionsFromFilters([])).toEqual([])
+    })
+
+    it('should ignore filter objects without a dimension property', () => {
+        const filters = [
+            { dimension: 'pe', items: [{ id: 'period1' }] },
+            { items: [{ id: 'data1' }] },
+        ]
+        expect(getDimensionsFromFilters(filters)).toEqual([])
+    })
+
+    it('should ignore the pe property', () => {
+        const filters = [{ dimension: 'pe', items: [{ id: 'period1' }] }]
+        expect(getDimensionsFromFilters(filters)).toEqual([])
     })
 })
