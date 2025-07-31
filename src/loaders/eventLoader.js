@@ -262,9 +262,7 @@ const loadEventLayer = async ({
         config.legend.explanation = explanation
     }
 
-    if (alert) {
-        config.alerts = [alert]
-    }
+    config.alerts = alert ? [alert] : undefined
 }
 
 // If the layer included filters using option sets, this function return an object
