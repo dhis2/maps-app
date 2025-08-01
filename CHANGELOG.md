@@ -1,3 +1,10 @@
+# [101.4.0](https://github.com/dhis2/maps-app/compare/v101.3.2...v101.4.0) (2025-08-01)
+
+
+### Features
+
+* support DE/TEA of type OU and Event OU in Event layers [DHIS2-3354] ([#3511](https://github.com/dhis2/maps-app/issues/3511)) ([8240f5f](https://github.com/dhis2/maps-app/commit/8240f5fd2d03e64701288daf8638538cfda300d2))
+
 ## [101.3.2](https://github.com/dhis2/maps-app/compare/v101.3.1...v101.3.2) (2025-07-30)
 
 
