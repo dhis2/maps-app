@@ -8,8 +8,7 @@ import {
     GEOJSON_LAYER,
 } from '../../../constants/layers.js'
 import {
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
+    getCentroid,
     GEO_TYPE_LINE,
     GEO_TYPE_FEATURE,
 } from '../../../util/geojson.js'
@@ -21,33 +20,9 @@ import {
 import Layer from './Layer.js'
 import TrackedEntityPopup from './TrackedEntityPopup.jsx'
 
-const getCentroid = (points) => {
-    const totals = points.reduce(
-        (accum, point) => {
-            accum[0] += point[0]
-            accum[1] += point[1]
-            return accum
-        },
-        [0, 0]
-    )
-    return [totals[0] / points.length, totals[1] / points.length]
-}
-
-const geomToCentroid = (geometry) => {
-    switch (geometry.type) {
-        case GEO_TYPE_POINT:
-            return geometry.coordinates
-        case GEO_TYPE_POLYGON:
-            // TODO: Support multipolygon / use turf
-            return getCentroid(geometry.coordinates[0])
-        default:
-            return null
-    }
-}
-
 const makeRelationshipGeometry = ({ from, to }) => {
-    const fromGeom = geomToCentroid(from.geometry)
-    const toGeom = geomToCentroid(to.geometry)
+    const fromGeom = getCentroid(from.geometry)
+    const toGeom = getCentroid(to.geometry)
     if (!fromGeom || !toGeom) {
         // console.error('Invalid relationship geometries', from, to);
         return null

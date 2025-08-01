@@ -104,15 +104,22 @@ export const EVENT_COLOR = '#333333'
 export const EVENT_RADIUS = 6
 export const EVENT_BUFFER = 100
 export const EVENT_COORDINATE_DEFAULT = 'psigeometry'
+export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
 export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
-export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_CASCADING = 'cascading'
 export const COORDINATE_FIELD_NAMES = {
     [EVENT_COORDINATE_DEFAULT]: i18n.t('Event location'),
+    [EVENT_COORDINATE_ORG_UNIT]: i18n.t('Organisation unit location'),
     [EVENT_COORDINATE_ENROLLMENT]: i18n.t('Enrollment location'),
     [EVENT_COORDINATE_TRACKED_ENTITY]: i18n.t('Tracked entity location'),
 }
+export const EVENT_CENTROID_DEFAULT = [
+    EVENT_COORDINATE_DEFAULT,
+    EVENT_COORDINATE_ENROLLMENT,
+    EVENT_COORDINATE_TRACKED_ENTITY,
+    'COORDINATE',
+]
 
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'

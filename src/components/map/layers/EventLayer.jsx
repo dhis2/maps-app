@@ -9,6 +9,7 @@ import {
     EVENT_PROGRAM_ATTRIBUTES_QUERY,
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
+import { getCentroid, CENTROID_FORMAT_GEOJSON } from '../../../util/geojson.js'
 import { formatCount } from '../../../util/numbers.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
 import EventPopup from './EventPopup.jsx'
@@ -40,6 +41,7 @@ class EventLayer extends Layer {
             program,
             programStage,
             serverCluster,
+            geometryCentroid,
             areaRadius,
             styleDataItem,
             legend,
@@ -104,7 +106,10 @@ class EventLayer extends Layer {
                         eventRequest
                     )
 
-                    callback(params.tileId, this.toGeoJson(clusterData))
+                    callback(
+                        params.tileId,
+                        this.toGeoJson(clusterData, geometryCentroid)
+                    )
                 }
             } else {
                 config.clusterPane = id
@@ -171,7 +176,7 @@ class EventLayer extends Layer {
     }
 
     // Convert server cluster response to GeoJSON
-    toGeoJson(data) {
+    toGeoJson(data, geometryCentroid) {
         const header = {}
         const features = []
 
@@ -183,11 +188,14 @@ class EventLayer extends Layer {
                 const extent = row[header.extent].match(/([-\d.]+)/g)
                 const count = parseInt(row[header.count], 10)
                 const clusterId = ++this.clusterCount
+                const clusterGeometry = JSON.parse(row[header.center])
 
                 features.push({
                     type: 'Feature',
                     id: clusterId,
-                    geometry: JSON.parse(row[header.center]),
+                    geometry: geometryCentroid
+                        ? getCentroid(clusterGeometry, CENTROID_FORMAT_GEOJSON)
+                        : clusterGeometry,
                     properties: {
                         cluster: count > 1,
                         cluster_id: clusterId,

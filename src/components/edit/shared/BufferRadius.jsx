@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -26,14 +27,21 @@ const BufferRadius = ({
 
     return (
         <div className={cx(styles.buffer, className)}>
-            <Checkbox
-                label={i18n.t('Buffer')}
-                checked={showBuffer}
-                disabled={isDisabled}
-                onChange={(isChecked) =>
-                    setBufferRadius(isChecked ? radius || defaultRadius : null)
-                }
-            />
+            <Tooltip
+                content={i18n.t('Draws a buffer area around each location.')}
+                placement="top"
+            >
+                <Checkbox
+                    label={i18n.t('Buffer')}
+                    checked={showBuffer}
+                    disabled={isDisabled}
+                    onChange={(isChecked) =>
+                        setBufferRadius(
+                            isChecked ? radius || defaultRadius : null
+                        )
+                    }
+                />
+            </Tooltip>
             {showBuffer && (
                 <NumberField
                     label={i18n.t('Radius in meters')}

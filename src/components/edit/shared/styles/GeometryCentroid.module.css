@@ -1,0 +1,18 @@
+.centroid {
+    margin: 0 -8px;
+    clear: both;
+    align-items: center;
+}
+
+.centroid > span > div {
+    margin: var(--spacers-dp8);
+}
+
+.notice {
+    margin: var(--spacers-dp16) 0;
+}
+
+.noticeCompact {
+    margin: 0 0 var(--spacers-dp8);
+    max-width: 340px;
+}

@@ -51,6 +51,7 @@ import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
+import GeometryCentroid from '../shared/GeometryCentroid.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.jsx'
 
@@ -76,6 +77,7 @@ class EventDialog extends Component {
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
+        eventCoordinateFieldType: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         eventStatus: PropTypes.string,
@@ -203,6 +205,7 @@ class EventDialog extends Component {
             eventClustering,
             eventStatus,
             eventCoordinateField,
+            eventCoordinateFieldType,
             eventPointColor,
             eventPointRadius,
             // fallbackCoordinateField,
@@ -277,10 +280,12 @@ class EventDialog extends Component {
                                 program={program}
                                 programStage={programStage}
                                 value={eventCoordinateField}
+                                type={eventCoordinateFieldType}
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
                                 data-test="eventdialog-coordinatefield"
                             />
+                            <GeometryCentroid tab={'data'} />
                             {/* eventCoordinateField && (
                                 <CoordinateField
                                     program={program}
@@ -390,6 +395,7 @@ class EventDialog extends Component {
                                         onChange={setEventPointRadius}
                                     />
                                 </div>
+                                <GeometryCentroid tab={'style'} />
                                 <BufferRadius
                                     disabled={eventClustering}
                                     defaultRadius={EVENT_BUFFER}
