@@ -1,4 +1,4 @@
-import { geoPath } from 'd3-geo'
+import centroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
 
 export const EVENT_ID_FIELD = 'psi'
@@ -151,7 +151,6 @@ export const getCoordinatesBounds = (coordinates) =>
 
 const CENTROID_FORMAT_ARRAY = 'array'
 export const CENTROID_FORMAT_GEOJSON = 'geojson'
-const path = geoPath()
 export const getCentroid = (geometry, format = CENTROID_FORMAT_ARRAY) => {
     if (!geometry || !geometry.type) {
         return null
@@ -165,7 +164,7 @@ export const getCentroid = (geometry, format = CENTROID_FORMAT_ARRAY) => {
             break
         case GEO_TYPE_POLYGON:
         case GEO_TYPE_MULTIPOLYGON:
-            coords = path.centroid(geometry)
+            coords = centroid(geometry).geometry.coordinates
             break
         default:
             return null
