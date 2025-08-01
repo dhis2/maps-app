@@ -1,5 +1,5 @@
 export const EXTENDED_TIMEOUT = { timeout: 25000 }
-export const POPUP_WAIT = 5000
+export const POPUP_WAIT = 2500
 
 export const CURRENT_YEAR = new Date().getFullYear()
 

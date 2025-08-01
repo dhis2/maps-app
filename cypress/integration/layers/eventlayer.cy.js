@@ -78,6 +78,39 @@ const programGeowR = {
     ],
 }
 
+const testCoordinate = (Layer, coordinates, reOpenDialog = true) => {
+    cy.log(`Test coord: ${coordinates.name}`)
+
+    if (reOpenDialog) {
+        cy.getByDataTest('layer-edit-button').click()
+    }
+
+    // Change coordinate
+    Layer.selectTab('Data').selectCoordinate(coordinates.name)
+
+    if (reOpenDialog) {
+        Layer.updateMap()
+    } else {
+        Layer.addToMap()
+    }
+
+    Layer.validateDialogClosed(true)
+
+    // Wait for map to load
+    cy.wait(POPUP_WAIT)
+    cy.get('#dhis2-map-container')
+        .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+        .should('not.exist')
+
+    // Check popup
+    getMaps().click('center') // Click in the middle of the map
+    Layer.validatePopupContents([coordinates.name, coordinates.coords])
+
+    // Check legend
+    Layer.validateCardTitle(programGeowR.stage)
+    Layer.validateCardContents(['Coordinate field', `${coordinates.name}`])
+}
+
 context('Event Layers', () => {
     beforeEach(() => {
         cy.visit('/')
@@ -206,45 +239,12 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
-    it('change coordinate field', () => {
-        function testCoordinate(coordinates, reOpenDialog = true) {
-            if (reOpenDialog) {
-                cy.getByDataTest('layer-edit-button').click()
-            }
-
-            // Change coordinate
-            Layer.selectTab('Data').selectCoordinate(coordinates.name)
-
-            if (reOpenDialog) {
-                Layer.updateMap()
-            } else {
-                Layer.addToMap()
-            }
-
-            Layer.validateDialogClosed(true)
-
-            // Wait for map to load
-            cy.wait(POPUP_WAIT)
-            cy.get('#dhis2-map-container')
-                .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-                .should('not.exist')
-
-            // Check popup
-            getMaps().click('center') // Click in the middle of the map
-            Layer.validatePopupContents([coordinates.name, coordinates.coords])
-
-            // Check legend
-            Layer.validateCardTitle(programGeowR.stage)
-            Layer.validateCardContents([
-                'Coordinate field',
-                `${coordinates.name}`,
-            ])
-        }
-
+    it('change coordinate field - de/tea coordinate', () => {
         // Event layer config
         Layer.openDialog('Events')
             .selectProgram(programGeowR.name)
             .selectStage(programGeowR.stage)
+            .selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
         Layer.selectTab('Period')
             .selectPeriodType({ periodType: 'Start/end dates' })
             .typeStartDate(programGeowR.startDate)
@@ -252,7 +252,6 @@ context('Event Layers', () => {
         Layer.selectTab('Style').selectViewAllEvents()
 
         // Test coordinates in scenario 0
-
         Layer.selectTab('Org Units')
             .unselectOu('Sierra Leone')
             .openOu(programGeowR.scenarios[0].ous[0])
@@ -265,22 +264,25 @@ context('Event Layers', () => {
             .find('input')
             .type(programGeowR.scenarios[0].filters.value)
 
-        cy.log('Coord: Geo - DataElement - Coordinate')
-        testCoordinate(programGeowR.scenarios[0].coordinates[3], false) // Geo - DataElement - Coordinate
-        cy.log('Coord: Geo - TrackedEntityAttribute - Coordinate')
-        testCoordinate(programGeowR.scenarios[0].coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
-        cy.log('Coord: Tracked entity location')
-        testCoordinate(programGeowR.scenarios[0].coordinates[2]) // Tracked entity location
-        cy.log('Coord: Enrollment location')
-        testCoordinate(programGeowR.scenarios[0].coordinates[1]) // Enrollment location
-        cy.log('Coord: Event location')
-        testCoordinate(programGeowR.scenarios[0].coordinates[0]) // Event location
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[3], false) // Geo - DataElement - Coordinate
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[2]) // Tracked entity location
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[1]) // Enrollment location
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[0]) // Event location
+    })
 
-        cy.getByDataTest('layer-edit-button').click()
-        Layer.selectTab('Filter')
-        cy.getByDataTest('remove-filter-button').click()
-        Layer.updateMap()
-        cy.getByDataTest('layer-edit-button').click()
+    it('change coordinate field - event orgunit', () => {
+        // Event layer config
+        Layer.openDialog('Events')
+            .selectProgram(programGeowR.name)
+            .selectStage(programGeowR.stage)
+            .selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
+        Layer.selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programGeowR.startDate)
+            .typeEndDate(programGeowR.endDate)
+        Layer.selectTab('Style').selectViewAllEvents()
+
         Layer.selectTab('Filter')
         cy.contains('Add filter').click()
         cy.getByDataTest('dhis2-uicore-select-input').last().click()
@@ -288,20 +290,17 @@ context('Event Layers', () => {
         cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
             .find('input')
             .type(programGeowR.scenarios[1].filters.value)
-        Layer.updateMap()
 
         // Test coordinates in scenario 1
-
-        cy.getByDataTest('layer-edit-button').click()
         Layer.selectTab('Org Units')
-            .unselectOu(programGeowR.scenarios[0].ous[1])
+            .unselectOu('Sierra Leone')
+            .openOu(programGeowR.scenarios[1].ous[0])
             .openOu(programGeowR.scenarios[1].ous[1])
             .selectOu(programGeowR.scenarios[1].ous[2])
-        Layer.updateMap()
 
-        cy.log('Coord: Organisation Unit location')
-        testCoordinate(programGeowR.scenarios[1].coordinates[0]) // Organisation Unit location
-
+        testCoordinate(Layer, programGeowR.scenarios[1].coordinates[0], false) // Organisation Unit location
+    })
+    it('change coordinate field - de/tea orgunit', () => {
         // VERSION-TOGGLE
         // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
         // - [2.40.8] https://github.com/dhis2/dhis2-core/commit/f2286a5aa70b2957bd24925776e9394cd67d44c1
@@ -313,18 +312,37 @@ context('Event Layers', () => {
             (serverVersion.minor === 41 && serverVersion.patch >= 4) ||
             serverVersion.minor >= 42
         ) {
+            // Event layer config
+            Layer.openDialog('Events')
+                .selectProgram(programGeowR.name)
+                .selectStage(programGeowR.stage)
+                .selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
+            Layer.selectTab('Period')
+                .selectPeriodType({ periodType: 'Start/end dates' })
+                .typeStartDate(programGeowR.startDate)
+                .typeEndDate(programGeowR.endDate)
+            Layer.selectTab('Style').selectViewAllEvents()
+
+            Layer.selectTab('Filter')
+            cy.contains('Add filter').click()
+            cy.getByDataTest('dhis2-uicore-select-input').last().click()
+            cy.contains(programGeowR.scenarios[2].filters.item).click()
+            cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+                .find('input')
+                .type(programGeowR.scenarios[2].filters.value)
+
             // Test coordinates in scenario 2
-
-            cy.getByDataTest('layer-edit-button').click()
             Layer.selectTab('Org Units')
-                .unselectOu(programGeowR.scenarios[1].ous[2])
+                .unselectOu('Sierra Leone')
+                .openOu(programGeowR.scenarios[2].ous[0])
                 .selectOu(programGeowR.scenarios[2].ous[1])
-            Layer.updateMap()
 
-            cy.log('Coord: Geo - DataElement - Organisation Unit')
-            testCoordinate(programGeowR.scenarios[2].coordinates[0]) // Geo - DataElement - Organisation Unit
-            cy.log('Coord: Geo - TrackedEntityAttribute - Organisation Unit')
-            testCoordinate(programGeowR.scenarios[2].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
+            testCoordinate(
+                Layer,
+                programGeowR.scenarios[2].coordinates[0],
+                false
+            ) // Geo - DataElement - Organisation Unit
+            testCoordinate(Layer, programGeowR.scenarios[2].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
         }
     })
 })
