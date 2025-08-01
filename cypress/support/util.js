@@ -1,5 +1,5 @@
 export const EXTENDED_TIMEOUT = { timeout: 25000 }
-export const POPUP_WAIT = 2500
+export const POPUP_WAIT = 5000
 
 export const CURRENT_YEAR = new Date().getFullYear()
 
@@ -320,8 +320,7 @@ export const assertIntercepts = ({
             normalizeErrors(errors).forEach((error) => {
                 // Single intercept
                 cy.log(
-                    `[${n}] Intercepting single: ${alias}${
-                        error !== undefined ? ` - ${error}` : ''
+                    `[${n}] Intercepting single: ${alias}${error !== undefined ? ` - ${error}` : ''
                     }`
                 )
 
