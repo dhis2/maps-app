@@ -265,10 +265,15 @@ context('Event Layers', () => {
             .find('input')
             .type(programGeowR.scenarios[0].filters.value)
 
+        cy.log('Coord: Geo - DataElement - Coordinate')
         testCoordinate(programGeowR.scenarios[0].coordinates[3], false) // Geo - DataElement - Coordinate
+        cy.log('Coord: Geo - TrackedEntityAttribute - Coordinate')
         testCoordinate(programGeowR.scenarios[0].coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
+        cy.log('Coord: Tracked entity location')
         testCoordinate(programGeowR.scenarios[0].coordinates[2]) // Tracked entity location
+        cy.log('Coord: Enrollment location')
         testCoordinate(programGeowR.scenarios[0].coordinates[1]) // Enrollment location
+        cy.log('Coord: Event location')
         testCoordinate(programGeowR.scenarios[0].coordinates[0]) // Event location
 
         cy.getByDataTest('layer-edit-button').click()
@@ -294,6 +299,7 @@ context('Event Layers', () => {
             .selectOu(programGeowR.scenarios[1].ous[2])
         Layer.updateMap()
 
+        cy.log('Coord: Organisation Unit location')
         testCoordinate(programGeowR.scenarios[1].coordinates[0]) // Organisation Unit location
 
         // VERSION-TOGGLE
@@ -315,7 +321,9 @@ context('Event Layers', () => {
                 .selectOu(programGeowR.scenarios[2].ous[1])
             Layer.updateMap()
 
+            cy.log('Coord: Geo - DataElement - Organisation Unit')
             testCoordinate(programGeowR.scenarios[2].coordinates[0]) // Geo - DataElement - Organisation Unit
+            cy.log('Coord: Geo - TrackedEntityAttribute - Organisation Unit')
             testCoordinate(programGeowR.scenarios[2].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
         }
     })
