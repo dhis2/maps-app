@@ -6,7 +6,6 @@ import {
     EVENT_SERVER_CLUSTER_COUNT,
     EVENT_COLOR,
     EVENT_RADIUS,
-    EVENT_COORDINATE_DEFAULT,
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import {
@@ -141,13 +140,8 @@ const loadEventLayer = async ({
 
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
-    // Server clustering only uses Event location
     let serverCount
-    if (
-        eventClustering &&
-        !styleDataItem &&
-        eventCoordinateField === EVENT_COORDINATE_DEFAULT
-    ) {
+    if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
         config.serverCluster = shouldUseServerCluster(response.count)

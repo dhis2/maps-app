@@ -79,11 +79,6 @@
     margin: var(--spacers-dp16) 0;
 }
 
-.noticeCompact {
-    margin: 0 0 var(--spacers-dp8);
-    max-width: 340px;
-}
-
 .error {
     color: var(--theme-error);
     font-size: 12px;

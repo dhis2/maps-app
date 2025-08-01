@@ -10,35 +10,49 @@ import Checkbox from '../../core/Checkbox.jsx'
 import styles from './styles/GeometryCentroid.module.css'
 
 const GeometryCentroid = ({
+    tab,
     geometryCentroid,
     eventCoordinateFieldType,
     className,
     setGeometryCentroid,
 }) => {
     useEffect(() => {
-        setGeometryCentroid(
-            !EVENT_CENTROID_DEFAULT.includes(eventCoordinateFieldType)
-        )
+        if (eventCoordinateFieldType) {
+            setGeometryCentroid(
+                !EVENT_CENTROID_DEFAULT.includes(eventCoordinateFieldType)
+            )
+        }
     }, [setGeometryCentroid, eventCoordinateFieldType])
 
     return (
         <div>
-            <div
-                className={cx(styles.centroid, className)}
-                style={{ display: 'none' }} // Until prop geometryCentroid can be saved with mapViews
-            >
-                <Tooltip
-                    content={i18n.t('Convert polygons to their centroids.')}
-                    placement="top"
+            {tab === 'data' && geometryCentroid && (
+                <div className={styles.noticeCompact}>
+                    <NoticeBox warning>
+                        {i18n.t('May cause slow layer loading.')}
+                    </NoticeBox>
+                </div>
+            )}
+            {tab === 'style' && (
+                <div
+                    className={cx(styles.centroid, className)}
+                    style={{ display: 'none' }} // Until prop geometryCentroid can be saved with mapViews
                 >
-                    <Checkbox
-                        label={i18n.t('Centroids')}
-                        checked={geometryCentroid}
-                        onChange={(isChecked) => setGeometryCentroid(isChecked)}
-                    />
-                </Tooltip>
-            </div>
-            {geometryCentroid && (
+                    <Tooltip
+                        content={i18n.t('Convert polygons to their centroids.')}
+                        placement="top"
+                    >
+                        <Checkbox
+                            label={i18n.t('Centroids')}
+                            checked={geometryCentroid}
+                            onChange={(isChecked) =>
+                                setGeometryCentroid(isChecked)
+                            }
+                        />
+                    </Tooltip>
+                </div>
+            )}
+            {tab === 'style' && geometryCentroid && (
                 <div className={cx(styles.notice)}>
                     <NoticeBox info>
                         {i18n.t('Polygons are represented by their centroids.')}
@@ -54,6 +68,7 @@ GeometryCentroid.propTypes = {
     className: PropTypes.string,
     eventCoordinateFieldType: PropTypes.string,
     geometryCentroid: PropTypes.bool,
+    tab: PropTypes.string,
 }
 
 export default connect(
