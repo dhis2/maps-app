@@ -320,7 +320,8 @@ export const assertIntercepts = ({
             normalizeErrors(errors).forEach((error) => {
                 // Single intercept
                 cy.log(
-                    `[${n}] Intercepting single: ${alias}${error !== undefined ? ` - ${error}` : ''
+                    `[${n}] Intercepting single: ${alias}${
+                        error !== undefined ? ` - ${error}` : ''
                     }`
                 )
 
