@@ -111,6 +111,17 @@ const testCoordinate = (Layer, coordinates, reOpenDialog = true) => {
     Layer.validateCardContents(['Coordinate field', `${coordinates.name}`])
 }
 
+const selectProgramAndStage = (Layer, programName, stageName) => {
+    cy.intercept(
+        'GET',
+        /\/programStages\/[a-zA-Z0-9]{11}\?fields=programStageDataElements/
+    ).as('getProgramStageDataElements')
+
+    Layer.openDialog('Events').selectProgram(programName).selectStage(stageName)
+
+    cy.wait('@getProgramStageDataElements')
+}
+
 context('Event Layers', () => {
     beforeEach(() => {
         cy.visit('/')
@@ -241,10 +252,10 @@ context('Event Layers', () => {
 
     it('change coordinate field - de/tea coordinate', () => {
         // Event layer config
-        Layer.openDialog('Events')
-            .selectProgram(programGeowR.name)
-            .selectStage(programGeowR.stage)
-            .selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
+
+        selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
+
+        Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
         Layer.selectTab('Period')
             .selectPeriodType({ periodType: 'Start/end dates' })
             .typeStartDate(programGeowR.startDate)
@@ -273,10 +284,8 @@ context('Event Layers', () => {
 
     it('change coordinate field - event orgunit', () => {
         // Event layer config
-        Layer.openDialog('Events')
-            .selectProgram(programGeowR.name)
-            .selectStage(programGeowR.stage)
-            .selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
+        selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
+        Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
         Layer.selectTab('Period')
             .selectPeriodType({ periodType: 'Start/end dates' })
             .typeStartDate(programGeowR.startDate)
@@ -313,10 +322,10 @@ context('Event Layers', () => {
             serverVersion.minor >= 42
         ) {
             // Event layer config
-            Layer.openDialog('Events')
-                .selectProgram(programGeowR.name)
-                .selectStage(programGeowR.stage)
-                .selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
+            selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
+            Layer.selectCoordinate(
+                programGeowR.scenarios[0].coordinates[0].name
+            )
             Layer.selectTab('Period')
                 .selectPeriodType({ periodType: 'Start/end dates' })
                 .typeStartDate(programGeowR.startDate)
