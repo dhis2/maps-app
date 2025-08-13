@@ -17,8 +17,18 @@ export class EventLayer extends Layer {
     }
 
     selectCoordinate(coordinate) {
-        cy.get('[data-test="coordinatefield"]').click()
-        cy.contains(coordinate).click()
+        cy.getByDataTest('coordinatefield-content').then(($element) => {
+            // Check if the coordinate is already selected by looking at the text content
+            if ($element.text().trim() !== coordinate) {
+                cy.log('Select the coordinate')
+                cy.getByDataTest('coordinatefield-content').click()
+                cy.getByDataTest('dhis2-uicore-popper')
+                    .containsExact(coordinate)
+                    .click()
+            } else {
+                cy.log('Coordinate already selected, no action needed')
+            }
+        })
 
         return this
     }
