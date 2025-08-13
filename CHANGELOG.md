@@ -1,3 +1,10 @@
+## [101.4.1](https://github.com/dhis2/maps-app/compare/v101.4.0...v101.4.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* update cli app scripts to open links in same tab [DHIS2-19973] ([#3561](https://github.com/dhis2/maps-app/issues/3561)) ([4e91f02](https://github.com/dhis2/maps-app/commit/4e91f029dc953069f201fabf73edffbe32f6276b))
+
 # [101.4.0](https://github.com/dhis2/maps-app/compare/v101.3.2...v101.4.0) (2025-08-01)
 
 
