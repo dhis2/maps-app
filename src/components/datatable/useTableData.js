@@ -301,6 +301,21 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             a = a[sortField]
             b = b[sortField]
 
+            // All undefined values should be sorted to the end
+            if (a === undefined && b === undefined) {
+                return 0
+            }
+
+            if (a === undefined) {
+                // a goes to end
+                return 1
+            }
+
+            if (b === undefined) {
+                // b goes to end
+                return -1
+            }
+
             if (typeof a === TYPE_NUMBER) {
                 return sortDirection === ASCENDING ? a - b : b - a
             }
