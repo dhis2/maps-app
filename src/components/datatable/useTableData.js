@@ -307,26 +307,21 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             }
 
             if (a === undefined) {
-                // a goes to end
-                return 1
+                return 1 // a goes to end
             }
 
             if (b === undefined) {
-                // b goes to end
-                return -1
+                return -1 // b goes to end
             }
 
             if (typeof a === TYPE_NUMBER) {
                 return sortDirection === ASCENDING ? a - b : b - a
             }
-            // TODO: Make sure sorting works across different locales
-            if (a !== undefined) {
-                return sortDirection === ASCENDING
-                    ? a.localeCompare(b)
-                    : b.localeCompare(a)
-            }
 
-            return 0
+            // TODO: Make sure sorting works across different locales
+            return sortDirection === ASCENDING
+                ? a.localeCompare(b)
+                : b.localeCompare(a)
         })
 
         return filteredData.map((item) =>
