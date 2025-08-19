@@ -1,5 +1,5 @@
 import { isString, isObject, sortBy } from 'lodash/fp'
-import { EXTERNAL_LAYER } from '../constants/layers.js'
+import { EXTERNAL_LAYER, EVENT_CENTROID_DEFAULT } from '../constants/layers.js'
 
 export const getMigratedMapConfig = (config, defaultBasemapId) =>
     upgradeMapViews(
@@ -81,7 +81,9 @@ const upgradeGisAppLayers = (config) => {
 const upgradeMapViews = (config) => {
     const needsUpgrade = config.mapViews.some(
         (view) =>
-            view.layer === 'boundary' || typeof view.colorScale === 'string'
+            view.layer === 'boundary' ||
+            typeof view.colorScale === 'string' ||
+            view.geometryCentroid === undefined
     )
 
     if (!needsUpgrade) {
@@ -92,6 +94,16 @@ const upgradeMapViews = (config) => {
         let layer = view.layer
         if (layer === 'boundary') {
             layer = 'orgUnit'
+        }
+
+        if (
+            view.geometryCentroid === undefined &&
+            view.layer === 'event' &&
+            !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
+        ) {
+            // We should test !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateFieldType) but it is not currently saved with the mapView.
+            // This will set geometryCentroid: true when eventCoordinateField is a DE/TEA of type 'COORDINATE' too, which is unnecessary but harmless.
+            view.geometryCentroid = true
         }
 
         let colorScale = view.colorScale

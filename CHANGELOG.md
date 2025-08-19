@@ -1,3 +1,31 @@
+## [101.4.2](https://github.com/dhis2/maps-app/compare/v101.4.1...v101.4.2) (2025-08-19)
+
+
+### Bug Fixes
+
+* data table crashes on columns containing empty values [DHIS2-19267] ([#3564](https://github.com/dhis2/maps-app/issues/3564)) ([5152bb1](https://github.com/dhis2/maps-app/commit/5152bb12acd0aaa78662d647301b4a404369fe35))
+
+## [101.4.1](https://github.com/dhis2/maps-app/compare/v101.4.0...v101.4.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* update cli app scripts to open links in same tab [DHIS2-19973] ([#3561](https://github.com/dhis2/maps-app/issues/3561)) ([4e91f02](https://github.com/dhis2/maps-app/commit/4e91f029dc953069f201fabf73edffbe32f6276b))
+
+# [101.4.0](https://github.com/dhis2/maps-app/compare/v101.3.2...v101.4.0) (2025-08-01)
+
+
+### Features
+
+* support DE/TEA of type OU and Event OU in Event layers [DHIS2-3354] ([#3511](https://github.com/dhis2/maps-app/issues/3511)) ([8240f5f](https://github.com/dhis2/maps-app/commit/8240f5fd2d03e64701288daf8638538cfda300d2))
+
+## [101.3.2](https://github.com/dhis2/maps-app/compare/v101.3.1...v101.3.2) (2025-07-30)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3528](https://github.com/dhis2/maps-app/issues/3528)) ([f25db38](https://github.com/dhis2/maps-app/commit/f25db38d896c9ddfada1ec54fae375c25467fd42))
+
 ## [101.3.1](https://github.com/dhis2/maps-app/compare/v101.3.0...v101.3.1) (2025-07-09)
 
 

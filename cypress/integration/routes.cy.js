@@ -29,7 +29,7 @@ describe('Routes', () => {
         )
         cy.visit('/?id=ytkZY3ChM6J', EXTENDED_TIMEOUT) //ANC: 3rd visit coverage last year by district
 
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
 

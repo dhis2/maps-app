@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-07-08T14:01:49.308Z\n"
-"PO-Revision-Date: 2025-07-08T14:01:49.308Z\n"
+"POT-Creation-Date: 2025-08-01T00:47:23.508Z\n"
+"PO-Revision-Date: 2025-08-01T00:47:23.508Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -95,6 +95,9 @@ msgstr "None"
 msgid "Cascading"
 msgstr "Cascading"
 
+msgid "Organisation unit location"
+msgstr "Organisation unit location"
+
 msgid "Event location"
 msgstr "Event location"
 
@@ -103,9 +106,6 @@ msgstr "Enrollment location"
 
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
-
-msgid "Organisation unit location"
-msgstr "Organisation unit location"
 
 msgid "Fallback coordinate field"
 msgstr "Fallback coordinate field"
@@ -431,6 +431,9 @@ msgstr "Event status"
 msgid "Boundary color"
 msgstr "Boundary color"
 
+msgid "Draws a buffer area around each location."
+msgstr "Draws a buffer area around each location."
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -451,6 +454,18 @@ msgstr "Line/stroke width"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "Line/stroke width must be between 0-10."
+
+msgid "May cause slow layer loading."
+msgstr "May cause slow layer loading."
+
+msgid "Convert polygons to their centroids."
+msgstr "Convert polygons to their centroids."
+
+msgid "Centroids"
+msgstr "Centroids"
+
+msgid "Polygons are represented by their centroids."
+msgstr "Polygons are represented by their centroids."
 
 msgid "Labels"
 msgstr "Labels"

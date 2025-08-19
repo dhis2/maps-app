@@ -111,9 +111,10 @@ export const setEventStatus = (status) => ({
 })
 
 // Set coordinate field
-export const setEventCoordinateField = (fieldId) => ({
+export const setEventCoordinateField = (fieldId, fieldType) => ({
     type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET,
     fieldId,
+    fieldType,
 })
 
 // Set fallback coordinate field
@@ -303,6 +304,12 @@ export const setLabelFontColor = (color) => ({
 export const setBufferRadius = (radius) => ({
     type: types.LAYER_EDIT_BUFFER_RADIUS_SET,
     radius,
+})
+
+// Set geometry to centroid (events)
+export const setGeometryCentroid = (checked) => ({
+    type: types.LAYER_EDIT_GEOMETRY_CENTROIDS_SET,
+    payload: checked,
 })
 
 // Set point radius low (thematic, org unit)

@@ -33,6 +33,8 @@
 }
 
 .flexColumn {
+    display: flex;
+    flex-direction: column;
     flex: 1 1 0px;
     margin: var(--spacers-dp4) var(--spacers-dp16) 0;
     box-sizing: border-box;
