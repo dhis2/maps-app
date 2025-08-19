@@ -939,6 +939,9 @@ msgstr "Selected and all below"
 msgid "Selection mode"
 msgstr "Selection mode"
 
+msgid "Clear"
+msgstr "Clear"
+
 msgid "Previous year"
 msgstr "Previous year"
 
