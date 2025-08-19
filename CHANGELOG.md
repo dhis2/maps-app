@@ -1,3 +1,10 @@
+## [101.4.2](https://github.com/dhis2/maps-app/compare/v101.4.1...v101.4.2) (2025-08-19)
+
+
+### Bug Fixes
+
+* data table crashes on columns containing empty values [DHIS2-19267] ([#3564](https://github.com/dhis2/maps-app/issues/3564)) ([5152bb1](https://github.com/dhis2/maps-app/commit/5152bb12acd0aaa78662d647301b4a404369fe35))
+
 ## [101.4.1](https://github.com/dhis2/maps-app/compare/v101.4.0...v101.4.1) (2025-08-13)
 
 
