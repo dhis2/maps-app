@@ -10,7 +10,7 @@ jest.mock('../../map/MapApi.js', () => ({
 
 const mockStore = configureMockStore()
 
-describe('useTableData', () => {
+describe('useTableData headers', () => {
     test('gets headers and rows for facility layer', () => {
         const store = {
             aggregations: {},
@@ -535,5 +535,214 @@ describe('useTableData', () => {
             { value: 3.976, dataKey: 'mean' },
         ])
         expect(isLoading).toBe(false)
+    })
+})
+
+describe('useTableData sorting', () => {
+    const mockLayer = {
+        id: 'test-layer',
+        layer: 'thematic',
+        dataFilters: null,
+        data: [
+            { id: '1', properties: { name: 'Item A', value: 10 } },
+            { id: '2', properties: { name: 'Item B', value: 5 } },
+            { id: '3', properties: { name: 'Item C', value: undefined } },
+            { id: '4', properties: { name: 'Item D', value: 15 } },
+            { id: '5', properties: { name: 'Item E', value: undefined } },
+        ],
+    }
+
+    test('sorts numeric values in ascending order with undefined/null at end', () => {
+        const store = {
+            aggregations: {},
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: mockLayer,
+                    sortField: 'value',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        expect(valueColumn).toEqual([5, 10, 15, null, null])
+    })
+
+    test('sorts numeric values in descending order with undefined/null at end', () => {
+        const store = {
+            aggregations: {},
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: mockLayer,
+                    sortField: 'value',
+                    sortDirection: 'desc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        expect(valueColumn).toEqual([15, 10, 5, null, null])
+    })
+
+    test('sorts string values in ascending order with undefined at end', () => {
+        const layerWithStringData = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                { id: '1', properties: { name: 'Zebra', value: 10 } },
+                { id: '2', properties: { name: 'Apple', value: 5 } },
+                { id: '3', properties: { name: undefined, value: 20 } },
+                { id: '4', properties: { name: 'Banana', value: 15 } },
+            ],
+        }
+
+        const store = {
+            aggregations: {},
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: layerWithStringData,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
+        expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
+    })
+
+    test('sorts string values in descending order with undefined at end', () => {
+        const layerWithStringData = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                { id: '1', properties: { name: 'Zebra', value: 10 } },
+                { id: '2', properties: { name: 'Apple', value: 5 } },
+                { id: '3', properties: { name: undefined, value: 20 } },
+                { id: '4', properties: { name: 'Banana', value: 15 } },
+            ],
+        }
+
+        const store = {
+            aggregations: {},
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: layerWithStringData,
+                    sortField: 'name',
+                    sortDirection: 'desc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
+        expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', undefined])
+    })
+
+    test('handles multiple undefined values correctly', () => {
+        const layerWithManyUndefined = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                { id: '1', properties: { name: 'Item A', value: 10 } },
+                {
+                    id: '2',
+                    properties: { name: 'Item B', value: undefined },
+                },
+                {
+                    id: '3',
+                    properties: { name: 'Item C', value: undefined },
+                },
+                { id: '4', properties: { name: 'Item D', value: 5 } },
+            ],
+        }
+
+        const store = {
+            aggregations: {},
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: layerWithManyUndefined,
+                    sortField: 'value',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        expect(valueColumn).toEqual([5, 10, null, null])
+    })
+
+    test('handles all undefined values', () => {
+        const layerWithAllUndefined = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                {
+                    id: '1',
+                    properties: { name: 'Item A', value: undefined },
+                },
+                {
+                    id: '2',
+                    properties: { name: 'Item B', value: undefined },
+                },
+                {
+                    id: '3',
+                    properties: { name: 'Item C', value: undefined },
+                },
+            ],
+        }
+
+        const store = {
+            aggregations: {},
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: layerWithAllUndefined,
+                    sortField: 'value',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        expect(valueColumn).toEqual([null, null, null])
     })
 })
