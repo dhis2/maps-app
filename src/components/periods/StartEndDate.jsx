@@ -12,7 +12,7 @@ import {
     nextCharIsAutoHyphen,
     nextCharIsManualHyphen,
 } from '../../util/date.js'
-import { CalendarInput } from './CalendarInput.js'
+import { CalendarInput } from './CalendarInput.jsx'
 import styles from './styles/StartEndDate.module.css'
 
 const StartEndDate = ({
