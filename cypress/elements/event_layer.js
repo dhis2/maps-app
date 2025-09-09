@@ -30,9 +30,7 @@ export class EventLayer extends Layer {
                         .should('be.visible')
                         .each(($popper) => {
                             cy.wrap($popper).within(() => {
-                                cy.containsExact(coordinate).click({
-                                    force: true,
-                                })
+                                cy.contains(coordinate).click()
                             })
                         })
                 } else {
