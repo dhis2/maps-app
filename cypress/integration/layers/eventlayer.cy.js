@@ -275,11 +275,11 @@ context('Event Layers', () => {
             .find('input')
             .type(programGeowR.scenarios[0].filters.value)
 
-        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[2], false) // Tracked entity location
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[0], false) // Event location
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[1]) // Enrollment location
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[2]) // Tracked entity location
         testCoordinate(Layer, programGeowR.scenarios[0].coordinates[3]) // E2E - Geo - DE - Coordinate
         testCoordinate(Layer, programGeowR.scenarios[0].coordinates[4]) // E2E - Geo - TEA - Coordinate
-        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[1]) // Enrollment location
-        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[0]) // Event location
     })
 
     it('change coordinate field - event orgunit', () => {
