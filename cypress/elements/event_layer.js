@@ -27,6 +27,7 @@ export class EventLayer extends Layer {
                     cy.log('Select the coordinate')
                     cy.getByDataTest('coordinatefield-content').click()
                     cy.getByDataTest('dhis2-uicore-popper')
+                        .first()
                         .should('be.visible')
                         .within(() => {
                             cy.containsExact(coordinate).click()
