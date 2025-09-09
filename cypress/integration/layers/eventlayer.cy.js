@@ -309,6 +309,7 @@ context('Event Layers', () => {
 
         testCoordinate(Layer, programGeowR.scenarios[1].coordinates[0], false) // Organisation Unit location
     })
+
     it('change coordinate field - de/tea orgunit', () => {
         // VERSION-TOGGLE
         // https://dhis2.atlassian.net/browse/DHIS2-19010 and:

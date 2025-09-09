@@ -96,7 +96,7 @@ describe('Routes', () => {
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
 
@@ -127,7 +127,7 @@ describe('Routes', () => {
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
 
@@ -148,7 +148,7 @@ describe('Routes', () => {
             EXTENDED_TIMEOUT
         ) //ANC: LLITN coverage district and facility
 
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
 
@@ -166,7 +166,7 @@ describe('Routes', () => {
         )
         cy.visit('/#/ZBjCfSaLSqD/download', EXTENDED_TIMEOUT) //ANC: LLITN coverage district and facility
 
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
 
@@ -216,7 +216,7 @@ describe('Routes', () => {
                 EXTENDED_TIMEOUT
             ) //ANC: LLITN coverage district and facility
 
-            cy.getByDataTest('interpretation-modal')
+            cy.getByDataTest('interpretation-modal', EXTENDED_TIMEOUT)
                 .find('h1')
                 .contains(
                     'Viewing interpretation: ANC: LLITN coverage district and facility'

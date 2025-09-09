@@ -17,18 +17,22 @@ export class EventLayer extends Layer {
     }
 
     selectCoordinate(coordinate) {
-        cy.getByDataTest('coordinatefield-content').then(($element) => {
-            // Check if the coordinate is already selected by looking at the text content
-            if ($element.text().trim() !== coordinate) {
-                cy.log('Select the coordinate')
-                cy.getByDataTest('coordinatefield-content').click()
-                cy.getByDataTest('dhis2-uicore-popper')
-                    .containsExact(coordinate)
-                    .click()
-            } else {
-                cy.log('Coordinate already selected, no action needed')
-            }
-        })
+        cy.getByDataTest('coordinatefield-content')
+            .should(($element) => {
+                expect($element.text().trim()).to.not.equal('')
+            })
+            .then(($element) => {
+                // Check if the coordinate is already selected by looking at the text content
+                if ($element.text().trim() !== coordinate) {
+                    cy.log('Select the coordinate')
+                    cy.getByDataTest('coordinatefield-content').click()
+                    cy.getByDataTest('dhis2-uicore-popper')
+                        .containsExact(coordinate)
+                        .click()
+                } else {
+                    cy.log('Coordinate already selected, no action needed')
+                }
+            })
 
         return this
     }
