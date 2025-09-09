@@ -27,10 +27,13 @@ export class EventLayer extends Layer {
                     cy.log('Select the coordinate')
                     cy.getByDataTest('coordinatefield-content').click()
                     cy.getByDataTest('dhis2-uicore-popper')
-                        .first()
                         .should('be.visible')
-                        .within(() => {
-                            cy.containsExact(coordinate).click()
+                        .each(($popper) => {
+                            cy.wrap($popper).within(() => {
+                                cy.containsExact(coordinate).click({
+                                    force: true,
+                                })
+                            })
                         })
                 } else {
                     cy.log('Coordinate already selected, no action needed')

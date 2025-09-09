@@ -275,8 +275,8 @@ context('Event Layers', () => {
             .find('input')
             .type(programGeowR.scenarios[0].filters.value)
 
-        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[3], false) // Geo - DataElement - Coordinate
-        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[4]) // Geo - TrackedEntityAttribute - Coordinate
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[3], false) // E2E - Geo - DE - Coordinate
+        testCoordinate(Layer, programGeowR.scenarios[0].coordinates[4]) // E2E - Geo - TEA - Coordinate
         testCoordinate(Layer, programGeowR.scenarios[0].coordinates[2]) // Tracked entity location
         testCoordinate(Layer, programGeowR.scenarios[0].coordinates[1]) // Enrollment location
         testCoordinate(Layer, programGeowR.scenarios[0].coordinates[0]) // Event location
@@ -307,7 +307,7 @@ context('Event Layers', () => {
             .openOu(programGeowR.scenarios[1].ous[1])
             .selectOu(programGeowR.scenarios[1].ous[2])
 
-        testCoordinate(Layer, programGeowR.scenarios[1].coordinates[0], false) // Organisation Unit location
+        testCoordinate(Layer, programGeowR.scenarios[1].coordinates[0], false) // Organisation unit location
     })
 
     it('change coordinate field - de/tea orgunit', () => {
@@ -351,8 +351,8 @@ context('Event Layers', () => {
                 Layer,
                 programGeowR.scenarios[2].coordinates[0],
                 false
-            ) // Geo - DataElement - Organisation Unit
-            testCoordinate(Layer, programGeowR.scenarios[2].coordinates[1]) // Geo - TrackedEntityAttribute - Organisation Unit
+            ) // E2E - Geo - DE - Organisation Unit
+            testCoordinate(Layer, programGeowR.scenarios[2].coordinates[1]) // E2E - Geo - TEA - Organisation Unit
         }
     })
 })
