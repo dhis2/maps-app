@@ -60,12 +60,13 @@ const StartEndDate = ({
         }
 
         const {
-            prevDate,
+            prevDate: rawPrevDate,
             inputSelector,
             dispatchAction,
             setDateChangeCount,
             setCaret,
         } = stateMap[type]
+        const prevDate = rawPrevDate ? rawPrevDate.split('T')[0] : ''
 
         if (prevDate === date) {
             return
