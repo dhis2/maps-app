@@ -12,10 +12,10 @@ const alt = {
 
 describe('keyboard navigation', () => {
     it('tab', () => {
-        cy.visit('/')
+        cy.visit('/', EXTENDED_TIMEOUT)
 
         // StartEndDate
-        cy.getByDataTest('add-layer-button').click()
+        cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click()
 
         cy.get(`[data-test="addlayeritem-thematic"]`).click()
         cy.getByDataTest('layeredit').should('be.visible')
@@ -26,15 +26,21 @@ describe('keyboard navigation', () => {
             .click()
         cy.contains('Define start - end dates').click()
         cy.getByDataTest('calendar-clear-button').eq(0).click()
-        cy.getByDataTest('start-date-input-content').find('input').type('123')
-        cy.getByDataTest('calendar').should('be.visible')
-        cy.realPress('Tab')
         cy.getByDataTest('calendar').should('not.exist')
-        cy.realPress('Tab')
+        cy.getByDataTest('start-date-input-content').eq(0).click()
         cy.getByDataTest('calendar').should('be.visible')
-        cy.realPress('Tab')
+        cy.getByDataTest('start-date-input-content')
+            .eq(0)
+            .find('input')
+            .type('123', { force: true })
+        cy.press(Cypress.Keyboard.Keys.TAB)
+        cy.getByDataTest('calendar').should('not.exist')
+        cy.press(Cypress.Keyboard.Keys.TAB)
+        cy.getByDataTest('calendar').should('be.visible')
+        cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('not.exist')
     })
+
     it('esc', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')

@@ -1,3 +1,5 @@
+import { FacilityLayer } from '../elements/facility_layer.js'
+import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const map = {
@@ -35,5 +37,62 @@ describe('ui', () => {
         cy.getByDataTest('add-layer-button').should('be.visible')
         cy.getByDataTest('layers-panel').should('be.visible')
         cy.getByDataTest(map.cardSelector).should('be.visible')
+    })
+
+    it('sets css user-select: none on document.body when dragging (sorting) a layer', () => {
+        cy.visit('/')
+        cy.get('canvas').should('be.visible')
+
+        // Create a map and add a thematic layer and a facility layer
+        const ThemLayer = new ThematicLayer()
+        const FacLayer = new FacilityLayer()
+
+        // Add thematic layer
+        ThemLayer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator('VCCT post-test counselling rate')
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
+            .addToMap()
+
+        // Add facility layer
+        FacLayer.openDialog('Facilities')
+            .selectTab('Organisation Units')
+            .selectOu('Bo')
+            .selectOuLevel('Facility')
+            .addToMap()
+
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        cy.document().should((doc) => {
+            const userSelect = getComputedStyle(doc.body).userSelect
+            expect(userSelect).not.to.eq('none')
+        })
+
+        // Start dragging one of the layers
+        cy.getByDataTest('sortable-handle')
+            .first()
+            .trigger('mousedown', { button: 0 })
+        // Dragging is initialised on the sortable-handle but moves are tracked on the document
+        cy.document().trigger('mousemove', { clientY: 100 })
+
+        // Check that document.body has style user-select: none
+        cy.document().should((doc) => {
+            const userSelect = getComputedStyle(doc.body).userSelect
+            expect(userSelect).to.eq('none')
+        })
+
+        // End the drag (mouseup)
+        cy.getByDataTest('sortable-handle')
+            .first()
+            .trigger('mouseup', { force: true })
+
+        // Wait for the timeout in onSortEnd (100ms)
+        cy.wait(150) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        cy.document().should((doc) => {
+            const userSelect = getComputedStyle(doc.body).userSelect
+            expect(userSelect).not.to.eq('none')
+        })
     })
 })

@@ -29,8 +29,14 @@ and groups, or downloaded as an image.
         are arranged and managed in this panel.
 
     -   The **basemap** card is always shown in the panel. The default available
-        basemaps are OpenStreetMap Light (OSM Light) and OpenStreetMap Detailed (OSM Detailed). The default selected basemap is OSM Light, unless a different
-        basemap has been configured in the system settings. OSM Detailed contains more map features and place names. If the Bing Maps API key has been added by a system administrator, then there will be an additional 4 basemaps from Bing Maps (Bing replaced Google Maps provided in previous versions). Bing Road and Bing Dark show roads, borders and places. Use the dark version if the colors on your map layers are bright. Bing Aerial and Bing Aerial Labels show satellite and detailed aerial imagery. Switch between them by selecting the desired image.
+        basemaps are OpenStreetMap Light (OSM Light), OpenStreetMap Detailed (OSM Detailed)
+        and Sentinel-2 Cloudless by EOX (Sentinel-2 EOX). The default selected basemap is OSM Light,
+        unless a different basemap has been configured in the system settings. 
+        OSM Detailed contains more map features and place names. Sentinel-2 Cloudless is a cloud-free satellite imagery showing natural-color views of the Earth's surface with a 10m resolution.
+        
+        If the Azure or Bing Maps API key has been added by a system administrator, then there will be an additional 4 basemaps from Azure/Bing Maps. Road and Dark show roads, borders and places. Use the dark version if the colors on your map layers are bright. Aerial and Aerial Labels show satellite and detailed aerial imagery. Switch between them by selecting the desired image.
+
+        *Note: Bing maps is being retired, see the announcement on the [Bing Maps Blog](https://aka.ms/BMERetirementAnnouncement). For migration to Azure Maps, you can consult the [Bing Maps Migration Overview](https://learn.microsoft.com/azure/azure-maps/migrate-bing-maps-overview).*
 
     -   The small arrow button to the right of the layer panel, at the
         top, allows the panel to be hidden or shown.
@@ -503,9 +509,10 @@ layer** selection. This opens the Events layer configuration dialog.
         If there is only one stage available for the selected program,
         the stage is automatically selected.
 
-    -   Select a value from the **Coordinate field** for the positions
-        shown on the map. By default, "Event location" is selected.
-        Depending on the program, other options may include "Tracked entity location", "Enrollment location", and coordinate-type data elements or attributes such as "Household location".
+    -   Select a value from the **Coordinate field** to determine which positions are displayed 
+        on the map. By default, "Event location" is selected. You can also choose "Organisation unit location".
+        Depending on the selected program, additional options may include "Tracked entity location", "Enrollment location", and coordinate-type/organisation-unit-type data elements or attributes such as "Household location"/"Referral facility".
+        The number of events represented on the map may vary depending on the selected option and the availability of coordinates. Organisation units are represented by their centroids.
 
     -   By default all events with coordinates are shown on the map.
         Use the **Event status** field to only show events having one

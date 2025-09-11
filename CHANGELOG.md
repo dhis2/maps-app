@@ -1,3 +1,69 @@
+## [101.4.2](https://github.com/dhis2/maps-app/compare/v101.4.1...v101.4.2) (2025-08-19)
+
+
+### Bug Fixes
+
+* data table crashes on columns containing empty values [DHIS2-19267] ([#3564](https://github.com/dhis2/maps-app/issues/3564)) ([5152bb1](https://github.com/dhis2/maps-app/commit/5152bb12acd0aaa78662d647301b4a404369fe35))
+
+## [101.4.1](https://github.com/dhis2/maps-app/compare/v101.4.0...v101.4.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* update cli app scripts to open links in same tab [DHIS2-19973] ([#3561](https://github.com/dhis2/maps-app/issues/3561)) ([4e91f02](https://github.com/dhis2/maps-app/commit/4e91f029dc953069f201fabf73edffbe32f6276b))
+
+# [101.4.0](https://github.com/dhis2/maps-app/compare/v101.3.2...v101.4.0) (2025-08-01)
+
+
+### Features
+
+* support DE/TEA of type OU and Event OU in Event layers [DHIS2-3354] ([#3511](https://github.com/dhis2/maps-app/issues/3511)) ([8240f5f](https://github.com/dhis2/maps-app/commit/8240f5fd2d03e64701288daf8638538cfda300d2))
+
+## [101.3.2](https://github.com/dhis2/maps-app/compare/v101.3.1...v101.3.2) (2025-07-30)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3528](https://github.com/dhis2/maps-app/issues/3528)) ([f25db38](https://github.com/dhis2/maps-app/commit/f25db38d896c9ddfada1ec54fae375c25467fd42))
+
+## [101.3.1](https://github.com/dhis2/maps-app/compare/v101.3.0...v101.3.1) (2025-07-09)
+
+
+### Bug Fixes
+
+* various bubble layer issues [DHIS2-15696] [DHIS2-19209] [DHIS2-19447] [DHIS2-19448] ([#3550](https://github.com/dhis2/maps-app/issues/3550)) ([8dbd273](https://github.com/dhis2/maps-app/commit/8dbd273d9d311bc6544284190c4262fdf1d719ae))
+
+# [101.3.0](https://github.com/dhis2/maps-app/compare/v101.2.15...v101.3.0) (2025-07-07)
+
+
+### Features
+
+* S2-EOX basemap and Azure as alternative to Bing [DHIS2-18500] [DHIS2-19152] ([#3543](https://github.com/dhis2/maps-app/issues/3543)) ([ebd109b](https://github.com/dhis2/maps-app/commit/ebd109bbbfbe9eef438e5ce7c11ec0387b1998e2))
+
+## [101.2.15](https://github.com/dhis2/maps-app/compare/v101.2.14...v101.2.15) (2025-06-27)
+
+
+### Bug Fixes
+
+* give user with ALL authority access to layer sources management [DHIS2-19716] ([#3547](https://github.com/dhis2/maps-app/issues/3547)) ([ba1426c](https://github.com/dhis2/maps-app/commit/ba1426c35330727e0d0724ea511ea780e5dc6cd4))
+* GroupSetSelect handling of None and missing values [DHIS2-19730] ([#3540](https://github.com/dhis2/maps-app/issues/3540)) ([7ecf878](https://github.com/dhis2/maps-app/commit/7ecf878e5860d93ab68c457d6e8cad662e8405e2))
+* prevent text from being highlighted while dragging map layer cards to sort [DHIS2-6683] ([#3541](https://github.com/dhis2/maps-app/issues/3541)) ([6f9fe0e](https://github.com/dhis2/maps-app/commit/6f9fe0e83448251a08966eedb6938dd009da8a60))
+* update split map help text [DHIS2-19718] ([#3546](https://github.com/dhis2/maps-app/issues/3546)) ([dbe67b1](https://github.com/dhis2/maps-app/commit/dbe67b12a9017e515445ca9d781b03b53a2f0e26))
+
+## [101.2.14](https://github.com/dhis2/maps-app/compare/v101.2.13...v101.2.14) (2025-06-06)
+
+
+### Bug Fixes
+
+* text overflow issues in popups [DHIS2-5920] ([#3525](https://github.com/dhis2/maps-app/issues/3525)) ([f0db1e1](https://github.com/dhis2/maps-app/commit/f0db1e19cf6b46bdde4405b1f8e8283c9c9bc8a9))
+
+## [101.2.13](https://github.com/dhis2/maps-app/compare/v101.2.12...v101.2.13) (2025-05-30)
+
+
+### Bug Fixes
+
+* do not overwrite newer changes by another user when renaming [DHIS2-19479] [DHIS2-19506] ([#3520](https://github.com/dhis2/maps-app/issues/3520)) ([0732cd9](https://github.com/dhis2/maps-app/commit/0732cd904739f790fa93804d6c4f5c6470fb3f21))
+
 ## [101.2.12](https://github.com/dhis2/maps-app/compare/v101.2.11...v101.2.12) (2025-05-09)
 
 

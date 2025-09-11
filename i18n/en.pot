@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
-"PO-Revision-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
+"PO-Revision-Date: 2025-09-11T09:58:39.984Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -25,6 +25,12 @@ msgstr "Rename failed"
 
 msgid "Rename successful"
 msgstr "Rename successful"
+
+msgid "This app could not retrieve required data."
+msgstr "This app could not retrieve required data."
+
+msgid "Network error"
+msgstr "Network error"
 
 msgid "Calculation"
 msgstr "Calculation"
@@ -89,6 +95,9 @@ msgstr "None"
 msgid "Cascading"
 msgstr "Cascading"
 
+msgid "Organisation unit location"
+msgstr "Organisation unit location"
+
 msgid "Event location"
 msgstr "Event location"
 
@@ -97,9 +106,6 @@ msgstr "Enrollment location"
 
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
-
-msgid "Organisation unit location"
-msgstr "Organisation unit location"
 
 msgid "Fallback coordinate field"
 msgstr "Fallback coordinate field"
@@ -428,6 +434,9 @@ msgstr "Event status"
 msgid "Boundary color"
 msgstr "Boundary color"
 
+msgid "Draws a buffer area around each location."
+msgstr "Draws a buffer area around each location."
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -448,6 +457,18 @@ msgstr "Line/stroke width"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "Line/stroke width must be between 0-10."
+
+msgid "May cause slow layer loading."
+msgstr "May cause slow layer loading."
+
+msgid "Convert polygons to their centroids."
+msgstr "Convert polygons to their centroids."
+
+msgid "Centroids"
+msgstr "Centroids"
+
+msgid "Polygons are represented by their centroids."
+msgstr "Polygons are represented by their centroids."
 
 msgid "Labels"
 msgstr "Labels"
@@ -584,9 +605,6 @@ msgstr "Remove filter"
 msgid "Group set"
 msgstr "Group set"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Failed to load organisation unit groups."
-
 msgid "Style by group set"
 msgstr "Style by group set"
 
@@ -691,17 +709,11 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
-msgid "Mid"
-msgstr "Mid"
-
 msgid "Group"
 msgstr "Group"
 
 msgid "Filters"
 msgstr "Filters"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "No data found"
@@ -930,6 +942,9 @@ msgstr "Selected and all below"
 msgid "Selection mode"
 msgstr "Selection mode"
 
+msgid "Clear"
+msgstr "Clear"
+
 msgid "Previous year"
 msgstr "Previous year"
 
@@ -952,8 +967,8 @@ msgstr ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 
-msgid "Remove all existing layers to add a split map view."
-msgstr "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
+msgstr "Remove all other layers to add a split map view."
 
 msgid "Single"
 msgstr "Single"
@@ -1052,6 +1067,9 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
+msgid "Sentinel-2 EOX"
+msgstr "Sentinel-2 EOX"
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1063,6 +1081,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
+
+msgid "Azure Road"
+msgstr "Azure Road"
+
+msgid "Azure Dark"
+msgstr "Azure Dark"
+
+msgid "Azure Aerial"
+msgstr "Azure Aerial"
+
+msgid "Azure Aerial Labels"
+msgstr "Azure Aerial Labels"
 
 msgid "Building footprints"
 msgstr "Building footprints"
@@ -1484,6 +1514,12 @@ msgstr "Event"
 msgid "Facilities"
 msgstr "Facilities"
 
+msgid "an error occurred"
+msgstr "an error occurred"
+
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet used for styling was not found"
+
 msgid "No coordinates found for selected facilities"
 msgstr "No coordinates found for selected facilities"
 
@@ -1532,8 +1568,17 @@ msgstr "true"
 msgid "false"
 msgstr "false"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Cannot get authorization token for Google Earth Engine."
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr "{{keyName}} is not valid for layer type: {{type}}"
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr "{{keyName}} is not provided for layer type(s): {{types}}"
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr "Could not load: {{id}} — using the default basemap instead."
+
+msgid "Mid"
+msgstr "Mid"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1541,6 +1586,9 @@ msgid ""
 msgstr ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Cannot get authorization token for Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thematic"

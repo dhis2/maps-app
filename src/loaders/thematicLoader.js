@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
-import { findIndex, curry } from 'lodash/fp'
+import { findIndex } from 'lodash/fp'
 import {
     WARNING_NO_DATA,
     WARNING_NO_OU_COORD,
@@ -12,6 +11,7 @@ import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
     THEMATIC_BUBBLE,
+    THEMATIC_RADIUS_DEFAULT,
     THEMATIC_RADIUS_LOW,
     THEMATIC_RADIUS_HIGH,
     RENDERING_STRATEGY_SINGLE,
@@ -19,7 +19,6 @@ import {
     CLASSIFICATION_SINGLE_COLOR,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
-    NO_DATA_COLOR,
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
@@ -29,6 +28,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
     getAutomaticLegendItems,
@@ -38,10 +38,16 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
-import { LEGEND_SET_QUERY } from '../util/requests.js'
+import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async ({ config, engine, nameProperty, userId }) => {
+const thematicLoader = async ({
+    config,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+    analyticsEngine,
+}) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -58,18 +64,22 @@ const thematicLoader = async ({ config, engine, nameProperty, userId }) => {
 
     let loadError
 
-    const response = await loadData(config, nameProperty, userId).catch(
-        (err) => {
-            loadError = err
+    const response = await loadData({
+        config,
+        engine,
+        keyAnalysisDisplayProperty,
+        userId,
+        analyticsEngine,
+    }).catch((err) => {
+        loadError = err
 
-            if (err.message) {
-                loadError =
-                    err.errorCode === 'E7124' && err.message.includes('dx')
-                        ? i18n.t('Data item was not found')
-                        : err.message
-            }
+        if (err.message) {
+            loadError =
+                err.errorCode === 'E7124' && err.message.includes('dx')
+                    ? i18n.t('Data item was not found')
+                    : err.message
         }
-    )
+    })
 
     if (!response) {
         return {
@@ -173,6 +183,14 @@ const thematicLoader = async ({ config, engine, nameProperty, userId }) => {
         )
     }
 
+    if (noDataColor && Array.isArray(legend.items)) {
+        legend.items.push({
+            color: noDataColor,
+            name: i18n.t('No data'),
+            noData: true,
+        })
+    }
+
     if (isSingleMap) {
         legend.items.forEach((item) => (item.count = 0))
     }
@@ -181,11 +199,18 @@ const thematicLoader = async ({ config, engine, nameProperty, userId }) => {
         legend.bubbles = {
             radiusLow,
             radiusHigh,
+            minValue,
+            maxValue,
             color: isSingleColor ? colorScale : null,
         }
     }
 
-    const getLegendItem = curry(getLegendItemForValue)(legend.items)
+    const getLegendItem = (value) =>
+        getLegendItemForValue({
+            value,
+            legendItems: legend.items.filter((item) => !item.noData),
+            clamp: !legendSet,
+        })
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
         minValue = legend.items[0].startValue
@@ -225,48 +250,51 @@ const thematicLoader = async ({ config, engine, nameProperty, userId }) => {
             orgUnits.forEach((orgunit) => {
                 const item = valuesByPeriod[period][orgunit]
                 const value = Number(item.value)
-                const legend = getLegendItem(value)
+                const legendItem = getLegendItem(value)
 
                 if (isSingleColor) {
                     item.color = colorScale
-                } else {
-                    item.color = legend ? legend.color : NO_DATA_COLOR
+                } else if (legendItem) {
+                    item.color = legendItem.color
                 }
 
                 item.radius = getRadiusForValue(value)
             })
         })
     } else {
+        const noDataLegendItem = legend.items.find((i) => i.noData === true)
         valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id]
-            const item = getLegendItem(value)
+            const legendItem = getLegendItem(value)
             const isPoint = geometry.type === 'Point'
             const { hasAdditionalGeometry } = properties
 
             if (isSingleColor) {
-                properties.color = colorScale
-            } else if (item) {
-                // Only count org units once in legend
-                if (!hasAdditionalGeometry) {
-                    item.count++
-                }
+                properties.color = hasValue(value)
+                    ? colorScale
+                    : noDataLegendItem?.color
+            } else if (legendItem) {
                 properties.color =
                     hasAdditionalGeometry && isPoint
                         ? ORG_UNIT_COLOR
-                        : item.color
-                properties.legend = item.name // Shown in data table
-                properties.range = `${item.startValue} - ${item.endValue}` // Shown in data table
+                        : legendItem.color
+                properties.legend = legendItem.name // Shown in data table
+                properties.range = `${legendItem.startValue} - ${legendItem.endValue}` // Shown in data table
+            }
+
+            // Only count org units once in legend
+            if (!hasAdditionalGeometry) {
+                const targetItem = legendItem || noDataLegendItem
+                if (targetItem) {
+                    targetItem.count++
+                }
             }
 
             properties.value = value
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : getRadiusForValue(value)
+                : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
         })
-    }
-
-    if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
-        legend.items.push({ color: noDataColor, name: i18n.t('No data') })
     }
 
     return {
@@ -340,14 +368,19 @@ const getOrderedValues = (data) => {
 }
 
 // Load features and data values from api
-const loadData = async (config, nameProperty, userId) => {
+const loadData = async ({
+    config,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+    analyticsEngine,
+}) => {
     const {
         rows,
         columns,
         filters,
         startDate,
         endDate,
-        userOrgUnit,
         valueType,
         relativePeriodDate,
         aggregationType,
@@ -361,20 +394,17 @@ const loadData = async (config, nameProperty, userId) => {
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
-    const d2 = await getD2()
-
-    const geoFeaturesParams = { _: userId }
-    const orgUnitParams = orgUnits.map((item) => item.id)
+    const orgUnitIds = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 
     if (valueType === 'ds') {
         dataDimension += '.REPORTING_RATE'
     }
 
-    let analyticsRequest = new d2.analytics.request()
+    let analyticsRequest = new analyticsEngine.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(nameProperty)
+        .withDisplayProperty(keyAnalysisDisplayProperty) // name/shortName
 
     if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(
@@ -401,11 +431,6 @@ const loadData = async (config, nameProperty, userId) => {
         )
     }
 
-    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        geoFeaturesParams.userOrgUnit = userOrgUnit.join(';')
-        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit)
-    }
-
     if (relativePeriodDate) {
         analyticsRequest =
             analyticsRequest.withRelativePeriodDate(relativePeriodDate)
@@ -425,32 +450,43 @@ const loadData = async (config, nameProperty, userId) => {
         })
     }
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(nameProperty)
+    const rawData = await analyticsEngine.aggregate.get(analyticsRequest)
 
-    // Features request
-    const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)
+    const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            userId,
+        },
+    })
 
-    // Data request
-    const dataReq = d2.analytics.aggregate.get(analyticsRequest)
+    const mainFeatures = geoFeatureData?.geoFeatures
+        ? toGeoJson(geoFeatureData.geoFeatures)
+        : null
 
-    const requests = [orgUnitReq, dataReq]
+    let associatedGeometries
 
     if (coordinateField) {
         // Associated geometry request
-        requests.push(
-            featuresRequest
-                .getAll({
-                    ...geoFeaturesParams,
-                    coordinateField: coordinateField.id,
-                })
-                .then(toGeoJson)
-        )
+        const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                orgUnitIds,
+                keyAnalysisDisplayProperty, // name/shortName
+                coordinateField: coordinateField.id,
+                userId,
+            },
+        })
+
+        associatedGeometries = coordFieldData?.geoFeatures
+            ? toGeoJson(coordFieldData.geoFeatures)
+            : null
     }
 
-    // Return promise with all requests
-    return Promise.all(requests)
+    return [
+        mainFeatures,
+        new analyticsEngine.response(rawData),
+        associatedGeometries,
+    ]
 }
 
 export default thematicLoader

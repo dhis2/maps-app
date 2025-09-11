@@ -361,6 +361,7 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 eventCoordinateField: action.fieldId,
+                eventCoordinateFieldType: action.fieldType,
             }
 
         case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
@@ -519,6 +520,12 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 areaRadius: action.radius,
+            }
+
+        case types.LAYER_EDIT_GEOMETRY_CENTROIDS_SET:
+            return {
+                ...state,
+                geometryCentroid: action.payload,
             }
 
         case types.LAYER_EDIT_RADIUS_LOW_SET:
