@@ -7,7 +7,10 @@ const OpacitySlider = ({ opacity, disabled, onChange }) => {
     const upperFill = `var(--colors-grey${disabled ? 300 : 400})`
 
     const onSliderChange = useCallback(
-        (evt) => onChange(Number(evt.target.value)),
+        (evt) => {
+            console.log(evt.target.value)
+            onChange(Number(evt.target.value))
+        },
         [onChange]
     )
 

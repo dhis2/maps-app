@@ -146,6 +146,57 @@ class EventLayer extends Layer {
         }
 
         // Create and add event layer based on config object
+        console.log('🚀 ~ EventLayer ~ createLayer ~ config:', config)
+        console.log('🚀 ~ EventLayer ~ createLayer ~ this.props:', this.props)
+        console.log(
+            '🚀 ~ EventLayer ~ createLayer ~ this.props.colorScale:',
+            this.props.colorScale
+        )
+        if (config.type === 'heat') {
+            config.weight = 0.1
+            /*config.intensity = .5 [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                0,
+                .1,
+                .9,
+                .3
+            ] */
+            const classes = this.props.classes
+            const colorScale = this.props.colorScale
+            const step = 1 / classes
+            const colorScaleReady = colorScale.flatMap((color, i) => [
+                (i + 1) * step,
+                color,
+            ])
+            console.log(
+                '🚀 ~ EventLayer ~ createLayer ~ colorScaleReady:',
+                colorScaleReady
+            )
+            config.color = [
+                'interpolate',
+                ['linear'],
+                ['heatmap-density'],
+                0,
+                'rgba(33,102,172,0)',
+                ...colorScaleReady,
+            ]
+            console.log(
+                '🚀 ~ EventLayer ~ createLayer ~ config.color:',
+                config.color
+            )
+            config.radius = [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                7,
+                25,
+                20,
+                500,
+            ]
+            //config.opacity = .8
+        }
         this.layer = map.createLayer(config)
 
         map.addLayer(this.layer)

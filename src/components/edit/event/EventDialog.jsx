@@ -36,6 +36,7 @@ import { cssColor } from '../../../util/colors.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
+import Classification from '../../classification/Classification.jsx'
 import {
     Tab,
     Tabs,
@@ -427,21 +428,23 @@ class EventDialog extends Component {
                                 />
                             </div>
                             <div className={styles.flexColumn}>
-                                {program ? (
-                                    <StyleByDataItem
-                                        program={program}
-                                        programStage={programStage}
-                                        error={!legendSet && legendSetError}
-                                    />
-                                ) : (
-                                    <div className={styles.notice}>
-                                        <NoticeBox>
-                                            {i18n.t(
-                                                'You can style events by data element after selecting a program.'
-                                            )}
-                                        </NoticeBox>
-                                    </div>
-                                )}
+                                {!eventHeatmap &&
+                                    (program ? (
+                                        <StyleByDataItem
+                                            program={program}
+                                            programStage={programStage}
+                                            error={!legendSet && legendSetError}
+                                        />
+                                    ) : (
+                                        <div className={styles.notice}>
+                                            <NoticeBox>
+                                                {i18n.t(
+                                                    'You can style events by data element after selecting a program.'
+                                                )}
+                                            </NoticeBox>
+                                        </div>
+                                    ))}
+                                {eventHeatmap && <Classification />}
                             </div>
                         </div>
                     )}

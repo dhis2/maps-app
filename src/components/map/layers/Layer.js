@@ -21,6 +21,7 @@ class Layer extends PureComponent {
         editCounter: PropTypes.number,
         feature: PropTypes.object,
         index: PropTypes.number,
+        intensity: PropTypes.number,
         isVisible: PropTypes.bool,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
@@ -28,6 +29,7 @@ class Layer extends PureComponent {
 
     static defaultProps = {
         opacity: 1,
+        intensity: 0.5,
         isVisible: true,
     }
 
@@ -45,6 +47,7 @@ class Layer extends PureComponent {
             data,
             index,
             opacity,
+            intensity,
             isVisible,
             editCounter,
             dataFilters,
@@ -78,6 +81,10 @@ class Layer extends PureComponent {
             this.setLayerOpacity()
         }
 
+        if (intensity !== prevProps.intensity) {
+            this.setLayerIntensity()
+        }
+
         if (isVisible !== prevProps.isVisible) {
             this.setLayerVisibility()
         }
@@ -93,7 +100,14 @@ class Layer extends PureComponent {
 
     // Create new layer from config object (override in subclasses)
     async createLayer() {
-        const { id, index = 0, config, opacity, isVisible } = this.props
+        const {
+            id,
+            index = 0,
+            config,
+            opacity,
+            intensity,
+            isVisible,
+        } = this.props
         const { map } = this.context
 
         this.layer = map.createLayer({
@@ -101,6 +115,7 @@ class Layer extends PureComponent {
             id,
             index,
             opacity,
+            intensity,
             isVisible,
         })
 
@@ -127,6 +142,14 @@ class Layer extends PureComponent {
 
     setLayerOpacity() {
         this.layer.setOpacity(this.props.opacity)
+    }
+
+    setLayerIntensity() {
+        console.log(
+            '🚀 ~ Layer ~ setLayerIntensity ~ this.props.intensity:',
+            this.props.intensity
+        )
+        this.layer.setIntensity(this.props.intensity)
     }
 
     setLayerOrder() {

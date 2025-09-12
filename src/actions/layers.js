@@ -48,6 +48,13 @@ export const changeLayerOpacity = (id, opacity) => ({
     opacity,
 })
 
+// Set overlay intensity
+export const changeLayerIntensity = (id, intensity) => ({
+    type: types.LAYER_CHANGE_INTENSITY,
+    id,
+    intensity,
+})
+
 // Change ordering of overlays
 export const sortLayers = ({ oldIndex, newIndex }) => ({
     type: types.LAYER_SORT,

@@ -11,6 +11,7 @@ import {
     editLayer,
     removeLayer,
     changeLayerOpacity,
+    changeLayerIntensity,
     toggleLayerExpand,
     toggleLayerVisibility,
 } from '../../../actions/layers.js'
@@ -32,6 +33,7 @@ import {
 import Legend from '../../legend/Legend.jsx'
 import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
+import OpacitySlider from '../toolbar/OpacitySlider.jsx'
 import styles from './styles/OverlayCard.module.css'
 
 const OverlayCard = ({
@@ -39,6 +41,7 @@ const OverlayCard = ({
     editLayer,
     removeLayer,
     changeLayerOpacity,
+    changeLayerIntensity,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
@@ -54,11 +57,15 @@ const OverlayCard = ({
         legend,
         isExpanded = true,
         opacity,
+        intensity = 0.5,
+        radius = 0.5,
         isVisible,
         layer: layerType,
         isLoaded,
         loadError,
     } = layer
+    console.log('🚀 ~ OverlayCard ~ intensity:', intensity)
+    console.log('🚀 ~ OverlayCard ~ layer:', layer)
 
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
@@ -82,6 +89,58 @@ const OverlayCard = ({
             legend && (
                 <div className={styles.legend}>
                     <Legend {...legend} />
+                    {layer.eventHeatmap && (
+                        <div>
+                            <span
+                                style={{
+                                    fontSize: '12px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        lineHeight: 1,
+                                        marginBottom: '12px',
+                                    }}
+                                >
+                                    Intensity:
+                                </span>
+                                <OpacitySlider
+                                    opacity={intensity}
+                                    onChange={(newIntensity) =>
+                                        changeLayerIntensity(id, newIntensity)
+                                    }
+                                    disabled={false}
+                                />
+                            </span>
+                            <span
+                                style={{
+                                    fontSize: '12px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        lineHeight: 1,
+                                        marginBottom: '12px',
+                                    }}
+                                >
+                                    Radius:
+                                </span>
+                                <OpacitySlider
+                                    opacity={radius}
+                                    onChange={(newIntensity) =>
+                                        changeLayerIntensity(id, newIntensity)
+                                    }
+                                    disabled={false}
+                                />
+                            </span>
+                        </div>
+                    )}
                 </div>
             )
         )
@@ -151,6 +210,7 @@ const OverlayCard = ({
 }
 
 OverlayCard.propTypes = {
+    changeLayerIntensity: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
@@ -164,6 +224,7 @@ export default connect(null, {
     editLayer,
     removeLayer,
     changeLayerOpacity,
+    changeLayerIntensity,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
