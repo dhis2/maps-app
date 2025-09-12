@@ -1,3 +1,10 @@
+## [101.4.3](https://github.com/dhis2/maps-app/compare/v101.4.2...v101.4.3) (2025-09-12)
+
+
+### Bug Fixes
+
+* calendar updates [DHIS2-19717] ([#3542](https://github.com/dhis2/maps-app/issues/3542)) ([9daf4de](https://github.com/dhis2/maps-app/commit/9daf4deaf740c27534f5371935cc0aa1b9fd437a))
+
 ## [101.4.2](https://github.com/dhis2/maps-app/compare/v101.4.1...v101.4.2) (2025-08-19)
 
 
