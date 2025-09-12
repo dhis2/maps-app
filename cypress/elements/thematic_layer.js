@@ -127,6 +127,7 @@ export class ThematicLayer extends Layer {
 
         return this
     }
+
     selectStartEndDates() {
         cy.contains('Define start - end dates').click()
 

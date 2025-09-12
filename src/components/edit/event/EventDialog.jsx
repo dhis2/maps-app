@@ -121,7 +121,8 @@ class EventDialog extends Component {
             endDate,
             orgUnits,
             setPeriod,
-            setBackupPeriodsDates,
+            setStartDate,
+            setEndDate,
             setOrgUnits,
             backupPeriodsDates,
         } = this.props
@@ -144,10 +145,11 @@ class EventDialog extends Component {
             })
         }
 
-        // Set default backup dates
+        // Set default dates
         if (!backupPeriodsDates) {
             const defaultDates = getDefaultDatesInCalendar()
-            setBackupPeriodsDates(defaultDates)
+            setStartDate(defaultDates.startDate)
+            setEndDate(defaultDates.endDate)
         }
 
         // Set org unit tree roots as default
@@ -177,12 +179,14 @@ class EventDialog extends Component {
             onLayerValidation(this.validate())
         }
 
-        const hasDate = startDate !== undefined || endDate !== undefined
-        if (hasDate && getPeriodFromFilters(filters) !== undefined) {
+        const prevPeriod = getPeriodFromFilters(prev.filters)
+        const currentPeriod = getPeriodFromFilters(filters)
+
+        if (prevPeriod === undefined && currentPeriod !== undefined) {
             setBackupPeriodsDates({ startDate, endDate })
             setStartDate()
             setEndDate()
-        } else if (!hasDate && getPeriodFromFilters(filters) === undefined) {
+        } else if (prevPeriod !== undefined && currentPeriod === undefined) {
             setStartDate(backupPeriodsDates?.startDate)
             setEndDate(backupPeriodsDates?.endDate)
         }
@@ -191,8 +195,7 @@ class EventDialog extends Component {
             periodError &&
             (startDate !== prev.startDate ||
                 endDate !== prev.endDate ||
-                getPeriodFromFilters(filters) !==
-                    getPeriodFromFilters(prev.filters))
+                currentPeriod !== prevPeriod)
         ) {
             this.setErrorState('periodError', null, 'period')
         }

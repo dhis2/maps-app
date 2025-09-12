@@ -1,10 +1,12 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
+
 export class Layer {
     openDialog(layer) {
         const dataTest = `addlayeritem-${layer
             .toLowerCase()
             .replace(/\s/g, '_')}`
 
-        cy.getByDataTest('add-layer-button').click()
+        cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click()
 
         cy.get(`[data-test="${dataTest}"]`).click()
 
@@ -85,7 +87,6 @@ export class Layer {
             cy.getByDataTest('start-date-input-content')
                 .find('input')
                 .type(dateString)
-            cy.get('body').click(0, 0)
         }
 
         return this
@@ -98,7 +99,6 @@ export class Layer {
             cy.getByDataTest('end-date-input-content')
                 .find('input')
                 .type(dateString)
-            cy.get('body').click(0, 0)
         }
 
         return this

@@ -17,6 +17,8 @@ export class EventLayer extends Layer {
     }
 
     selectCoordinate(coordinate) {
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+
         cy.getByDataTest('coordinatefield-content').then(($element) => {
             // Check if the coordinate is already selected by looking at the text content
             if ($element.text().trim() !== coordinate) {
