@@ -12,6 +12,7 @@ import {
     removeLayer,
     changeLayerOpacity,
     changeLayerIntensity,
+    changeLayerRadius,
     toggleLayerExpand,
     toggleLayerVisibility,
 } from '../../../actions/layers.js'
@@ -33,7 +34,7 @@ import {
 import Legend from '../../legend/Legend.jsx'
 import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
-import OpacitySlider from '../toolbar/OpacitySlider.jsx'
+import HeatSlider from './HeatSlider.jsx'
 import styles from './styles/OverlayCard.module.css'
 
 const OverlayCard = ({
@@ -42,6 +43,7 @@ const OverlayCard = ({
     removeLayer,
     changeLayerOpacity,
     changeLayerIntensity,
+    changeLayerRadius,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
@@ -57,15 +59,13 @@ const OverlayCard = ({
         legend,
         isExpanded = true,
         opacity,
-        intensity = 0.5,
-        radius = 0.5,
+        heatIntensity = 0.5,
+        heatRadius = 0.5,
         isVisible,
         layer: layerType,
         isLoaded,
         loadError,
     } = layer
-    console.log('🚀 ~ OverlayCard ~ intensity:', intensity)
-    console.log('🚀 ~ OverlayCard ~ layer:', layer)
 
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
@@ -107,8 +107,8 @@ const OverlayCard = ({
                                 >
                                     Intensity:
                                 </span>
-                                <OpacitySlider
-                                    opacity={intensity}
+                                <HeatSlider
+                                    heat={heatIntensity}
                                     onChange={(newIntensity) =>
                                         changeLayerIntensity(id, newIntensity)
                                     }
@@ -131,10 +131,10 @@ const OverlayCard = ({
                                 >
                                     Radius:
                                 </span>
-                                <OpacitySlider
-                                    opacity={radius}
-                                    onChange={(newIntensity) =>
-                                        changeLayerIntensity(id, newIntensity)
+                                <HeatSlider
+                                    heat={heatRadius}
+                                    onChange={(newRadius) =>
+                                        changeLayerRadius(id, newRadius)
                                     }
                                     disabled={false}
                                 />
@@ -212,6 +212,7 @@ const OverlayCard = ({
 OverlayCard.propTypes = {
     changeLayerIntensity: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
+    changeLayerRadius: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
     removeLayer: PropTypes.func.isRequired,
@@ -225,6 +226,7 @@ export default connect(null, {
     removeLayer,
     changeLayerOpacity,
     changeLayerIntensity,
+    changeLayerRadius,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,

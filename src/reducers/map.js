@@ -82,7 +82,17 @@ const layer = (state, action) => {
 
             return {
                 ...state,
-                intensity: action.intensity,
+                heatIntensity: action.heatIntensity,
+            }
+
+        case types.LAYER_CHANGE_RADIUS:
+            if (state.id !== action.id) {
+                return state
+            }
+
+            return {
+                ...state,
+                heatRadius: action.heatRadius,
             }
 
         case types.LAYER_LOADING_SET:
@@ -255,6 +265,7 @@ const map = (state = defaultState, action) => {
         case types.LAYER_EDIT:
         case types.LAYER_CHANGE_OPACITY:
         case types.LAYER_CHANGE_INTENSITY:
+        case types.LAYER_CHANGE_RADIUS:
         case types.LAYER_TOGGLE_VISIBILITY:
         case types.LAYER_TOGGLE_EXPAND:
         case types.DATA_FILTER_SET:

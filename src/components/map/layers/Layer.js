@@ -20,8 +20,9 @@ class Layer extends PureComponent {
         dataFilters: PropTypes.object,
         editCounter: PropTypes.number,
         feature: PropTypes.object,
+        heatIntensity: PropTypes.number,
+        heatRadius: PropTypes.number,
         index: PropTypes.number,
-        intensity: PropTypes.number,
         isVisible: PropTypes.bool,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
@@ -29,7 +30,8 @@ class Layer extends PureComponent {
 
     static defaultProps = {
         opacity: 1,
-        intensity: 0.5,
+        heatIntensity: 0.5,
+        heatRadius: 0.5,
         isVisible: true,
     }
 
@@ -47,7 +49,8 @@ class Layer extends PureComponent {
             data,
             index,
             opacity,
-            intensity,
+            heatIntensity,
+            heatRadius,
             isVisible,
             editCounter,
             dataFilters,
@@ -81,8 +84,12 @@ class Layer extends PureComponent {
             this.setLayerOpacity()
         }
 
-        if (intensity !== prevProps.intensity) {
+        if (heatIntensity !== prevProps.heatIntensity) {
             this.setLayerIntensity()
+        }
+
+        if (heatRadius !== prevProps.heatRadius) {
+            this.setLayerRadius()
         }
 
         if (isVisible !== prevProps.isVisible) {
@@ -105,7 +112,8 @@ class Layer extends PureComponent {
             index = 0,
             config,
             opacity,
-            intensity,
+            heatIntensity,
+            heatRadius,
             isVisible,
         } = this.props
         const { map } = this.context
@@ -115,7 +123,8 @@ class Layer extends PureComponent {
             id,
             index,
             opacity,
-            intensity,
+            heatIntensity,
+            heatRadius,
             isVisible,
         })
 
@@ -145,11 +154,11 @@ class Layer extends PureComponent {
     }
 
     setLayerIntensity() {
-        console.log(
-            '🚀 ~ Layer ~ setLayerIntensity ~ this.props.intensity:',
-            this.props.intensity
-        )
-        this.layer.setIntensity(this.props.intensity)
+        this.layer.setIntensity(this.props.heatIntensity)
+    }
+
+    setLayerRadius() {
+        this.layer.setRadius(this.props.heatRadius)
     }
 
     setLayerOrder() {

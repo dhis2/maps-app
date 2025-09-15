@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
-import styles from './styles/OpacitySlider.module.css'
+import styles from './styles/HeatSlider.module.css'
 
-const OpacitySlider = ({ opacity, disabled, onChange }) => {
+const HeatSlider = ({ heat, disabled, onChange }) => {
     const lowerFill = `var(--colors-grey${disabled ? 400 : 600})`
     const upperFill = `var(--colors-grey${disabled ? 300 : 400})`
 
@@ -18,7 +18,7 @@ const OpacitySlider = ({ opacity, disabled, onChange }) => {
                 min="0"
                 max="1"
                 step="0.01"
-                value={opacity}
+                value={heat}
                 disabled={disabled}
                 onChange={onSliderChange}
                 className={styles.slider}
@@ -26,8 +26,8 @@ const OpacitySlider = ({ opacity, disabled, onChange }) => {
                     background: `linear-gradient(
                         to right,
                         ${lowerFill} 0%,
-                        ${lowerFill} ${opacity * 100}%,
-                        ${upperFill} ${opacity * 100}%,
+                        ${lowerFill} ${heat * 100}%,
+                        ${upperFill} ${heat * 100}%,
                         ${upperFill} 100%
                     )`,
                 }}
@@ -36,10 +36,10 @@ const OpacitySlider = ({ opacity, disabled, onChange }) => {
     )
 }
 
-OpacitySlider.propTypes = {
-    opacity: PropTypes.number.isRequired,
+HeatSlider.propTypes = {
+    heat: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
 }
 
-export default OpacitySlider
+export default HeatSlider
