@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "101.4.2",
+    "version": "101.4.3",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -46,7 +46,7 @@
         "@dhis2/app-runtime": "^3.14.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.1.2",
-        "@dhis2/ui": "^9.15.0",
+        "@dhis2/ui": "^10.9.0",
         "@turf/centroid": "^6.5.0",
         "abortcontroller-polyfill": "^1.7.5",
         "array-move": "^4.0.0",
@@ -75,9 +75,6 @@
         "redux-thunk": "^2.4.2",
         "styled-jsx": "^4.0.1",
         "url-polyfill": "^1.1.12"
-    },
-    "resolutions": {
-        "@dhis2/ui": "^9.15.0"
     },
     "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

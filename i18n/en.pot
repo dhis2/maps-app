@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-08-01T00:47:23.508Z\n"
-"PO-Revision-Date: 2025-08-01T00:47:23.508Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
+"PO-Revision-Date: 2025-09-11T09:58:39.984Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -938,6 +938,9 @@ msgstr "Selected and all below"
 
 msgid "Selection mode"
 msgstr "Selection mode"
+
+msgid "Clear"
+msgstr "Clear"
 
 msgid "Previous year"
 msgstr "Previous year"

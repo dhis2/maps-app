@@ -12,10 +12,10 @@ const alt = {
 
 describe('keyboard navigation', () => {
     it('tab', () => {
-        cy.visit('/')
+        cy.visit('/', EXTENDED_TIMEOUT)
 
         // StartEndDate
-        cy.getByDataTest('add-layer-button').click()
+        cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click()
 
         cy.get(`[data-test="addlayeritem-thematic"]`).click()
         cy.getByDataTest('layeredit').should('be.visible')
@@ -27,8 +27,12 @@ describe('keyboard navigation', () => {
         cy.contains('Define start - end dates').click()
         cy.getByDataTest('calendar-clear-button').eq(0).click()
         cy.getByDataTest('calendar').should('not.exist')
-        cy.getByDataTest('start-date-input-content').find('input').type('123')
+        cy.getByDataTest('start-date-input-content').eq(0).click()
         cy.getByDataTest('calendar').should('be.visible')
+        cy.getByDataTest('start-date-input-content')
+            .eq(0)
+            .find('input')
+            .type('123', { force: true })
         cy.press(Cypress.Keyboard.Keys.TAB)
         cy.getByDataTest('calendar').should('not.exist')
         cy.press(Cypress.Keyboard.Keys.TAB)
@@ -37,9 +41,7 @@ describe('keyboard navigation', () => {
         cy.getByDataTest('calendar').should('not.exist')
     })
 
-    // TODO: Re-enable this test once @dhis2/ui is upgraded to 10.7.7
-    // See Github PR https://github.com/dhis2/ui/pull/1696
-    it.skip('esc', () => {
+    it('esc', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
