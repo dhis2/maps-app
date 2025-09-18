@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-18T13:35:40.715Z\n"
-"PO-Revision-Date: 2025-09-18T13:35:40.715Z\n"
+"POT-Creation-Date: 2025-09-18T14:18:07.024Z\n"
+"PO-Revision-Date: 2025-09-18T14:18:07.024Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1140,6 +1140,31 @@ msgstr "~30 meters"
 msgid "Febuary 2000"
 msgstr "Febuary 2000"
 
+msgid "EVI"
+msgstr "EVI"
+
+msgid ""
+"Enhanced Vegetation Index (EVI) is similar to Normalized Difference "
+"Vegetation Index (NDVI) and can be used to quantify vegetation greenness. "
+"However, EVI corrects for some atmospheric conditions and canopy background "
+"noise and is more sensitive in areas with dense vegetation. EVI values "
+"range from -1 to 1, with higher values indicating denser vegetation."
+msgstr ""
+"Enhanced Vegetation Index (EVI) is similar to Normalized Difference "
+"Vegetation Index (NDVI) and can be used to quantify vegetation greenness. "
+"However, EVI corrects for some atmospheric conditions and canopy background "
+"noise and is more sensitive in areas with dense vegetation. EVI values "
+"range from -1 to 1, with higher values indicating denser vegetation."
+
+msgid "250 meter"
+msgstr "250 meter"
+
+msgid "16-day"
+msgstr "16-day"
+
+msgid "Febuary 2000 - One month ago"
+msgstr "Febuary 2000 - One month ago"
+
 msgid "Landcover"
 msgstr "Landcover"
 
@@ -1257,29 +1282,19 @@ msgstr ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 
-msgid "Vegetation index (NDVI)"
-msgstr "Vegetation index (NDVI)"
+msgid "NDVI"
+msgstr "NDVI"
 
 msgid ""
 "Normalized difference vegetation index (NDVI) is used to quantify "
 "vegetation greenness and is useful in understanding vegetation density and "
-"assessing changes in plant health."
+"assessing changes in plant health. NDVI values range from -1 to 1, with "
+"higher values indicating denser vegetation."
 msgstr ""
 "Normalized difference vegetation index (NDVI) is used to quantify "
 "vegetation greenness and is useful in understanding vegetation density and "
-"assessing changes in plant health."
-
-msgid "NDVI"
-msgstr "NDVI"
-
-msgid "250 meter"
-msgstr "250 meter"
-
-msgid "16-day"
-msgstr "16-day"
-
-msgid "Febuary 2000 - One month ago"
-msgstr "Febuary 2000 - One month ago"
+"assessing changes in plant health. NDVI values range from -1 to 1, with "
+"higher values indicating denser vegetation."
 
 msgid "Population age groups"
 msgstr "Population age groups"

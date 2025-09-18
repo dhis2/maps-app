@@ -1,5 +1,6 @@
 import buildings from './buildings_GOOGLE.js'
 import elevation from './elevation_SRTM.js'
+import eviModis250m from './evi_MOD13Q1.js'
 import landcover from './landcover_MCD12Q1.js'
 import legacyBuildings from './legacy/buildings_GOOGLE.js'
 import legacyNighttime from './legacy/nighttime_DMSP-OLS.js'
@@ -22,6 +23,7 @@ const earthEngineLayers = [
     temperatureMonthly,
     landcover,
     ndviModis250m,
+    eviModis250m,
     legacyBuildings,
     legacyNighttime,
     legacyPopulation100m,

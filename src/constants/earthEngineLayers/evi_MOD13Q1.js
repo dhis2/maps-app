@@ -4,13 +4,13 @@ import { BY_YEAR } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    layerId: 'MODIS/061/MOD13Q1/NDVI',
+    layerId: 'MODIS/061/MOD13Q1/EVI',
     datasetId: 'MODIS/061/MOD13Q1',
     format: 'ImageCollection',
     img: 'images/ndvi.png',
-    name: i18n.t('NDVI'),
+    name: i18n.t('EVI'),
     description: i18n.t(
-        'Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. NDVI values range from -1 to 1, with higher values indicating denser vegetation.'
+        'Enhanced Vegetation Index (EVI) is similar to Normalized Difference Vegetation Index (NDVI) and can be used to quantify vegetation greenness. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation. EVI values range from -1 to 1, with higher values indicating denser vegetation.'
     ),
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:
@@ -29,7 +29,7 @@ export default {
             arguments: ['system:index', '$1'],
         },
     ],
-    band: 'NDVI',
+    band: 'EVI',
     methods: [
         {
             name: 'multiply',
