@@ -18,7 +18,7 @@ jobs:
         outputs:
             matrix: ${{ steps.set-matrix.outputs.specs }}
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - name: Generate Test matrix
               id: set-matrix
               run: echo "::set-output name=specs::$(node cypress/support/generateTestMatrix.js)"
@@ -26,8 +26,8 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
               with:
                   node-version: 18.x
 
@@ -37,7 +37,7 @@ jobs:
             - name: Build
               run: yarn d2-app-scripts build
 
-            - uses: actions/upload-artifact@v3
+            - uses: actions/upload-artifact@v4
               with:
                   name: app-build
                   path: |
@@ -48,8 +48,8 @@ jobs:
     lint:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
               with:
                   node-version: 18.x
 
@@ -65,8 +65,8 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
               with:
                   node-version: 18.x
 
@@ -78,18 +78,11 @@ jobs:
 
             - name: Test
               run: yarn d2-app-scripts test
-              env:
-                  REPORTPORTAL_API_KEY: ${{ secrets.REPORTPORTAL_API_KEY }}
-                  REPORTPORTAL_ENDPOINT: ${{ vars.REPORTPORTAL_ENDPOINT }}
-                  REPORTPORTAL_PROJECT: ${{ vars.REPORTPORTAL_PROJECT }}
-                  CI_BUILD_ID: ${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}
-                  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-                  PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || format('Direct push to {0}', github.ref_name) }}
 
     call-workflow-e2e-prod:
         if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
         needs: [build, lint, test, setup-matrix]
-        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@feat/support-hardcoded-dev-version
+        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@feat/hardcoded-dev-version-minor
         with:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
@@ -97,6 +90,3 @@ jobs:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
-            reportportal_api_key: ${{ secrets.REPORTPORTAL_API_KEY }}
-            reportportal_endpoint: ${{ vars.REPORTPORTAL_ENDPOINT }}
-            reportportal_project: ${{ vars.REPORTPORTAL_PROJECT }}

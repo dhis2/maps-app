@@ -1,6 +1,25 @@
+import 'cypress-real-events'
 import './commands.js'
 
-const LOGIN_ENDPOINT = 'dhis-web-commons-security/login.action'
+Cypress.on('uncaught:exception', (err) => {
+    // This prevents a benign error:
+    //   This error means that ResizeObserver was not able to deliver all
+    //   observations within a single animation frame. It is benign (your site
+    //   will not break).
+    //
+    // Source: https://stackoverflow.com/a/50387233/1319140
+    const errMsg = err.toString()
+
+    if (
+        errMsg.match(/ResizeObserver loop limit exceeded/) ||
+        errMsg.match(
+            /ResizeObserver loop completed with undelivered notifications/
+        )
+    ) {
+        return false
+    }
+})
+
 const SESSION_COOKIE_NAME = 'JSESSIONID'
 const LOCAL_STORAGE_KEY = 'DHIS2_BASE_URL'
 
@@ -21,20 +40,16 @@ before(() => {
     const password = Cypress.env('dhis2Password')
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
+    const hideRequestsFromLog = Cypress.env('hideRequestsFromLog')
 
-    cy.request({
-        url: `${baseUrl}/${LOGIN_ENDPOINT}`,
-        method: 'POST',
-        form: true,
-        followRedirect: true,
-        body: {
-            j_username: username,
-            j_password: password,
-            '2fa_code': '',
-        },
-    }).should((response) => {
-        expect(response.status).to.eq(200)
-    })
+    if (hideRequestsFromLog) {
+        // disable Cypress's default behavior of logging all XMLHttpRequests and fetches
+        cy.intercept({ resourceType: /xhr|fetch/ }, { log: false })
+    }
+
+    cy.loginByApi({ username, password, baseUrl })
+        .its('status')
+        .should('equal', 200)
 
     cy.getAllCookies()
         .should((cookies) => {
@@ -50,6 +65,29 @@ before(() => {
                 JSON.stringify(sessionCookieForBaseUrl)
             )
         })
+
+    cy.request({
+        method: 'GET',
+        url: `${Cypress.env('dhis2BaseUrl')}/api/system/info?fields=version`,
+    }).then(({ body: { version } }) => {
+        const match = version.match(
+            /^(\d+)\.(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([\w.]+))?$/
+        )
+
+        if (!match) {
+            throw new Error(`Unexpected version format: ${version}`)
+        }
+
+        const [full, major, minor, patch, hotfix, tag] = match
+        Cypress.env('dhis2InstanceFullVersion', {
+            full,
+            major,
+            minor,
+            patch,
+            hotfix,
+            tag,
+        })
+    })
 })
 
 beforeEach(() => {

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Khurshid Ibatov <Khurshid.Ibatov@tibbiysugurta.uz>, 2024\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -27,6 +27,15 @@ msgstr "Харита \"{{- name}}\" сақланган."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Харитани сақлашда хатолик юз берди: {{message}}"
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
 
 msgid "Classification"
 msgstr "Таснифи"
@@ -109,8 +118,8 @@ msgstr "Ҳодиса/Тадбир маълумоти элементи"
 msgid "Selected value not available in in list: {{name}}"
 msgstr "Ушбу рўйхатда танланган қиймат мавжуд эмас: {{name}}"
 
-msgid "Style by data element"
-msgstr "Маълумот элементи бўйича услуб"
+msgid "Style by data item"
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "Дастур босқичи танлангандан сўнг Фильтрдан фойдаланиш мумкин"
@@ -471,6 +480,12 @@ msgstr "Юқори радиус паст радиусдан каттароқ б�
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Радиус {{min}} ва {{max}} оралиғида бўлиши лозим"
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr "Индикатор гуруҳи талаб қилинади"
 
@@ -492,6 +507,9 @@ msgstr "Ҳодиса/Тадбир маълумоти элементи талаб
 msgid "Program indicator is required"
 msgstr "Дастур индикатори талаб қилинади"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Давр талаб қилинади"
 
@@ -506,6 +524,9 @@ msgstr "Ҳодиса/Тадбирлар ҳақида маълумот элеме
 
 msgid "Program indicators"
 msgstr "Дастур кўрсатгичлари"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Элемент тури"
@@ -553,6 +574,9 @@ msgstr "Ўзаро боғланган хусусиятлар"
 
 msgid "Line Color"
 msgstr "Қатор ранги"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Кузатувдаги объектлар ўзаро алоқалар турлари {{type}} топилмади"
@@ -741,6 +765,9 @@ msgstr "Аждод бўлими"
 msgid "No data"
 msgstr "Маълумот йўқ"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Охирги янгиланган"
 
@@ -920,29 +947,52 @@ msgstr "Олдинги йил"
 msgid "Next year"
 msgstr "Кейнги йил"
 
-msgid "Period type"
-msgstr "Давр тури"
-
 msgid "Start/end dates"
 msgstr "Бошланиш/Тугаш вақтлари"
 
-msgid "Only one timeline is allowed."
-msgstr "Фақатгина битта вақт оралиғи бўлиши мумкин"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Харитани кўздан кечириш режимини ёқиш учун, бошқа қаватларни ўчиринг "
+msgid "Remove the existing timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Кўриниш даврлари"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Якка (Бирлаштирилган)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Хронология"
 
-msgid "Split map views"
-msgstr "Харита кўринишларини ажратиш"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Бошланиш санаси"
@@ -1461,6 +1511,9 @@ msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"

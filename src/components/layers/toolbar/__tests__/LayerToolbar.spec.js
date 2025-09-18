@@ -1,86 +1,96 @@
-import { shallow } from 'enzyme'
+import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
 import LayerToolbar from '../LayerToolbar.js'
 
+/* eslint-disable react/prop-types */
+jest.mock('@dhis2/ui', () => {
+    const originalModule = jest.requireActual('@dhis2/ui')
+
+    return {
+        __esModule: true,
+        ...originalModule,
+        Tooltip: function Tooltip({ children }) {
+            return <div>{children}</div>
+        },
+        IconView24: function IconView24() {
+            return <div>IconView24</div>
+        },
+        IconViewOff24: function IconViewOff24() {
+            return <div>IconViewOff24</div>
+        },
+    }
+})
+
+jest.mock('../LayerToolbarMoreMenu.js', () => {
+    return function LayerToolbarMoreMenu() {
+        return <div>LayerToolbarMoreMenu</div>
+    }
+})
+/* eslint-enable react/prop-types */
+
+const props = {
+    opacity: 0,
+    isVisible: true,
+    toggleLayerVisibility: jest.fn(),
+    onOpacityChange: jest.fn(),
+}
+
 describe('LayerToolbar', () => {
-    const shallowRenderLayerToolbar = (props) =>
-        shallow(
-            <LayerToolbar
-                opacity={0}
-                isVisible={true}
-                toggleLayerVisibility={() => null}
-                onOpacityChange={() => null}
-                {...props}
-            />
-        )
     it('Should render only a visibility toggle and opacity slider', () => {
-        const wrapper = shallowRenderLayerToolbar()
-        expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1) // Visibility toggle
-        expect(wrapper.find('OpacitySlider').length).toBe(1)
-    })
-
-    it('Should show SvgView24 when visible', () => {
-        const wrapper = shallowRenderLayerToolbar({
-            isVisible: true,
-        })
-
-        expect(wrapper.find('SvgView24').length).toBe(1)
-        expect(wrapper.find('SvgViewOff24').length).toBe(0)
+        const { container } = render(
+            <LayerToolbar {...props} isVisible={true} />
+        )
+        expect(container).toMatchSnapshot()
     })
 
     it('Should show SvgViewOff24 when not visible', () => {
-        const wrapper = shallowRenderLayerToolbar({
-            isVisible: false,
-        })
-
-        expect(wrapper.find('SvgView24').length).toBe(0)
-        expect(wrapper.find('SvgViewOff24').length).toBe(1)
+        const { container } = render(
+            <LayerToolbar {...props} isVisible={false} />
+        )
+        expect(container).toMatchSnapshot()
     })
 
-    it('Should call toggleLayerVisibility callback on button press', () => {
+    it('Should call toggleLayerVisibility callback on button press', async () => {
         const toggleVisibleFn = jest.fn()
-        const wrapper = shallowRenderLayerToolbar({
-            toggleLayerVisibility: toggleVisibleFn,
-        })
-        wrapper.find('[dataTest="visibilitybutton"]').simulate('click')
-        expect(toggleVisibleFn).toHaveBeenCalled()
+        const { container } = render(
+            <LayerToolbar {...props} toggleLayerVisibility={toggleVisibleFn} />
+        )
+
+        await fireEvent.click(
+            container.querySelector('[data-test="visibilitybutton"]')
+        )
+        expect(toggleVisibleFn).toHaveBeenCalledTimes(1)
     })
 
-    it('Should match toolbar snapshot without Edit button', () => {
-        const wrapper = shallowRenderLayerToolbar()
-        expect(wrapper).toMatchSnapshot()
+    it('Should render edit button', () => {
+        const { container } = render(
+            <LayerToolbar {...props} onEdit={jest.fn()} />
+        )
+        expect(container).toMatchSnapshot()
     })
 
-    it('Should render edit button if passed onEdit prop', () => {
-        const wrapper = shallowRenderLayerToolbar({
-            onEdit: () => null,
-        })
-        expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1)
-        expect(wrapper.find('OpacitySlider').length).toBe(1)
-    })
-
-    it('Should match toolbar snapshot WITH Edit button', () => {
-        const wrapper = shallowRenderLayerToolbar({
-            onEdit: () => null,
-        })
-        expect(wrapper).toMatchSnapshot()
-    })
-
-    it('Should call onEdit callback on button press', () => {
+    it('Should call onEdit callback on button press', async () => {
         const toggleVisibleFn = jest.fn()
         const editFn = jest.fn()
 
-        const wrapper = shallowRenderLayerToolbar({
-            toggleLayerVisibility: toggleVisibleFn,
-            onEdit: editFn,
-        })
+        const { container } = render(
+            <LayerToolbar
+                {...props}
+                onEdit={editFn}
+                toggleLayerVisibility={toggleVisibleFn}
+            />
+        )
 
-        wrapper.find('[dataTest="editbutton"]').simulate('click')
-        expect(editFn).toHaveBeenCalled()
+        await fireEvent.click(
+            container.querySelector('[data-test="layer-edit-button"]')
+        )
+        expect(editFn).toHaveBeenCalledTimes(1)
         expect(toggleVisibleFn).not.toHaveBeenCalled()
 
-        wrapper.find('[dataTest="visibilitybutton"]').simulate('click')
-        expect(toggleVisibleFn).toHaveBeenCalled()
+        await fireEvent.click(
+            container.querySelector('[data-test="visibilitybutton"]')
+        )
+        expect(toggleVisibleFn).toHaveBeenCalledTimes(1)
         expect(editFn).toHaveBeenCalledTimes(1)
     })
 })

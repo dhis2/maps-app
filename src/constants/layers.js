@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { formatDate } from '../util/time.js'
 
 export const VECTOR_STYLE = 'vectorStyle'
 export const TILE_LAYER = 'tileLayer'
@@ -41,12 +40,13 @@ export const MAP_LAYER_POSITION_OVERLAY = 'OVERLAY'
 
 export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER]
 
-export const DEFAULT_START_DATE = formatDate(
-    new Date().setFullYear(new Date().getFullYear() - 1)
-)
-export const DEFAULT_END_DATE = formatDate(new Date())
-
 export const DEFAULT_ORG_UNIT_LEVEL = 1 // 0 is root level
+
+/* FITBOUNDS */
+export const PADDING_DEFAULT = { top: 40, right: 40, bottom: 40, left: 40 }
+export const PADDING_TIMELINE = { bottom: 90 }
+export const DURATION_DEFAULT = 0
+export const DURATION_TIMELINE = 500
 
 /* RENDERING STRATEGY */
 export const RENDERING_STRATEGY_SINGLE = 'SINGLE'
@@ -87,6 +87,11 @@ export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
 export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
 export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_CASCADING = 'cascading'
+export const COORDINATE_FIELD_NAMES = {
+    [EVENT_COORDINATE_DEFAULT]: i18n.t('Event location'),
+    [EVENT_COORDINATE_ENROLLMENT]: i18n.t('Enrollment location'),
+    [EVENT_COORDINATE_TRACKED_ENTITY]: i18n.t('Tracked entity location'),
+}
 
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'

@@ -115,7 +115,6 @@ const LayerToolbarMoreMenu = ({
                                         setIsOpen(false)
                                         onEdit()
                                     }}
-                                    disabled={hasError}
                                 />
                             )}
                             {onRemove && (

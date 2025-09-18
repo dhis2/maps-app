@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex, curry } from 'lodash/fp'
 import {
@@ -23,7 +22,7 @@ import {
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getValidDimensionsFromFilters,
     getDataItemFromColumns,
     getApiResponseNames,
@@ -38,10 +37,16 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
-import { LEGEND_SET_QUERY } from '../util/requests.js'
-import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
+import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async ({ config, engine, nameProperty }) => {
+const thematicLoader = async ({
+    config,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+    analyticsEngine,
+}) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -58,7 +63,13 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
 
     let loadError
 
-    const response = await loadData(config, nameProperty).catch((err) => {
+    const response = await loadData({
+        config,
+        engine,
+        keyAnalysisDisplayProperty,
+        userId,
+        analyticsEngine,
+    }).catch((err) => {
         loadError = err
 
         if (err.message) {
@@ -97,10 +108,13 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
-    const period = getPeriodFromFilters(config.filters)
+    const names = getApiResponseNames(data)
+    const presetPeriods = getPeriodsFromFilters(config.filters).map((pe) => {
+        pe.name = names[pe.id]
+        return pe
+    })
     const periods = getPeriodsFromMetaData(data.metaData)
     const dimensions = getValidDimensionsFromFilters(config.filters)
-    const names = getApiResponseNames(data)
     const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
     const valueById = getValueById(data)
     const valueFeatures = noDataColor
@@ -149,12 +163,13 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
 
     const legend = {
         title: name,
-        period: period
-            ? names[period.id] || period.id
-            : formatStartEndDate(
-                  getDateArray(config.startDate),
-                  getDateArray(config.endDate)
-              ),
+        period:
+            presetPeriods.length > 0
+                ? presetPeriods.map((pe) => pe.name || pe.id).join(', ')
+                : formatStartEndDate(
+                      getDateArray(config.startDate),
+                      getDateArray(config.endDate)
+                  ),
         items: legendItems,
     }
 
@@ -276,6 +291,7 @@ const thematicLoader = async ({ config, engine, nameProperty }) => {
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 
@@ -333,14 +349,19 @@ const getOrderedValues = (data) => {
 }
 
 // Load features and data values from api
-const loadData = async (config, nameProperty) => {
+const loadData = async ({
+    config,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+    analyticsEngine,
+}) => {
     const {
         rows,
         columns,
         filters,
         startDate,
         endDate,
-        userOrgUnit,
         valueType,
         relativePeriodDate,
         aggregationType,
@@ -348,33 +369,37 @@ const loadData = async (config, nameProperty) => {
         eventStatus,
     } = config
     const orgUnits = getOrgUnitsFromRows(rows)
-    const period = getPeriodFromFilters(filters)
+    const presetPeriods = getPeriodsFromFilters(filters)
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const dataItem = getDataItemFromColumns(columns) || {}
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
-    const d2 = await getD2()
-
-    const geoFeaturesParams = {}
-    const orgUnitParams = orgUnits.map((item) => item.id)
+    const orgUnitIds = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 
     if (valueType === 'ds') {
         dataDimension += '.REPORTING_RATE'
     }
 
-    let analyticsRequest = new d2.analytics.request()
+    let analyticsRequest = new analyticsEngine.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(nameProperty)
+        .withDisplayProperty(keyAnalysisDisplayProperty) // name/shortName
 
     if (!isSingleMap) {
-        analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
+        analyticsRequest = analyticsRequest.addPeriodDimension(
+            presetPeriods.map((pe) => pe.id)
+        )
     } else {
-        analyticsRequest = period
-            ? analyticsRequest.addPeriodFilter(period.id)
-            : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        analyticsRequest =
+            presetPeriods.length > 0
+                ? analyticsRequest.addPeriodFilter(
+                      presetPeriods.map((pe) => pe.id)
+                  )
+                : analyticsRequest
+                      .withStartDate(trimTime(startDate))
+                      .withEndDate(trimTime(endDate))
     }
 
     if (dimensions) {
@@ -385,11 +410,6 @@ const loadData = async (config, nameProperty) => {
                     d.items.map((i) => i.id)
                 ))
         )
-    }
-
-    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        geoFeaturesParams.userOrgUnit = userOrgUnit.join(';')
-        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit)
     }
 
     if (relativePeriodDate) {
@@ -411,32 +431,43 @@ const loadData = async (config, nameProperty) => {
         })
     }
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(nameProperty)
+    const rawData = await analyticsEngine.aggregate.get(analyticsRequest)
 
-    // Features request
-    const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)
+    const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            userId,
+        },
+    })
 
-    // Data request
-    const dataReq = d2.analytics.aggregate.get(analyticsRequest)
+    const mainFeatures = geoFeatureData?.geoFeatures
+        ? toGeoJson(geoFeatureData.geoFeatures)
+        : null
 
-    const requests = [orgUnitReq, dataReq]
+    let associatedGeometries
 
     if (coordinateField) {
         // Associated geometry request
-        requests.push(
-            featuresRequest
-                .getAll({
-                    ...geoFeaturesParams,
-                    coordinateField: coordinateField.id,
-                })
-                .then(toGeoJson)
-        )
+        const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                orgUnitIds,
+                keyAnalysisDisplayProperty, // name/shortName
+                coordinateField: coordinateField.id,
+                userId,
+            },
+        })
+
+        associatedGeometries = coordFieldData?.geoFeatures
+            ? toGeoJson(coordFieldData.geoFeatures)
+            : null
     }
 
-    // Return promise with all requests
-    return Promise.all(requests)
+    return [
+        mainFeatures,
+        new analyticsEngine.response(rawData),
+        associatedGeometries,
+    ]
 }
 
 export default thematicLoader

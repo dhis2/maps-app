@@ -9,18 +9,18 @@
 # Carlos Tejo Alonso, 2022
 # Marta Vila <marta@dhis2.org>, 2023
 # Alejandra Avila <alejandra@dhis2.org>, 2023
-# Enzo Nicolas Rossi <enzo@dhis2.org>, 2024
 # Pablo Del Médico, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Janeth Cruz, 2024
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Janeth Cruz, 2024\n"
+"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,15 @@ msgstr "El mapa \"{{- name}}\" está guardado."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Error al guardar el mapa: {{message}}"
+
+msgid "Calculation"
+msgstr "Cálculo"
+
+msgid "No calculations found"
+msgstr "No se encontraron cálculos"
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr ""
 
 msgid "Classification"
 msgstr "Clasificación"
@@ -122,8 +131,8 @@ msgstr "Event data item"
 msgid "Selected value not available in in list: {{name}}"
 msgstr "Valor seleccionado no disponible en la lista: {{name}}"
 
-msgid "Style by data element"
-msgstr "Estilo por elemento de datos"
+msgid "Style by data item"
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -487,6 +496,12 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "El radio debe estar entre {{min}} y {{max}}"
 
+msgid "Choose from presets"
+msgstr "Elija entre ajustes preestablecidos"
+
+msgid "Define start - end dates"
+msgstr "Definir fechas de inicio - finalización"
+
 msgid "Indicator group is required"
 msgstr "Se requiere grupo de indicadores"
 
@@ -508,6 +523,9 @@ msgstr "Se requiere el dato de evento"
 msgid "Program indicator is required"
 msgstr "Se requiere indicador de programa"
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr "Período requerido"
 
@@ -522,6 +540,9 @@ msgstr "Datos de eventos"
 
 msgid "Program indicators"
 msgstr "Indicadores de programa"
+
+msgid "Calculations"
+msgstr "Cálculos"
 
 msgid "Item type"
 msgstr "Item type"
@@ -574,6 +595,9 @@ msgstr "Estilo de entidad relacionada"
 
 msgid "Line Color"
 msgstr "Color de línea"
+
+msgid "Tracked Entity Type is required"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -763,6 +787,9 @@ msgstr "Unidad padre"
 msgid "No data"
 msgstr "No hay datos"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Última actualización"
 
@@ -942,29 +969,52 @@ msgstr "Año anterior"
 msgid "Next year"
 msgstr "Año siguiente"
 
-msgid "Period type"
-msgstr "Tipo de periodo"
-
 msgid "Start/end dates"
 msgstr "Fechas de inicio y fin"
 
-msgid "Only one timeline is allowed."
-msgstr "Sólo se permite una línea de tiempo."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Elimine otras capas para habilitar vistas de mapa divididas."
+msgid "Remove the existing timeline to add a new one."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Mostrar períodos"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Individual (agregado)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Línea de tiempo"
 
-msgid "Split map views"
-msgstr "Vistas de mapa divididas"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Fecha inicial"
@@ -1486,6 +1536,9 @@ msgid "Organisation units"
 msgstr "Unidades organizativas"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"

@@ -11,7 +11,6 @@ const chartConfig = {
     name: 'ANC: ANC 3 coverage by districts last 12 months',
     showData: false,
     fixRowHeaders: false,
-    publicAccess: 'rw------',
     type: 'COLUMN',
     hideEmptyColumns: false,
     hideEmptyRows: false,
@@ -76,9 +75,7 @@ const chartConfig = {
     interpretations: [
         { created: '2021-04-29T16:08:57.322', id: 'sKom2UDKRay' },
     ],
-    userGroupAccesses: [],
     subscribers: [],
-    userAccesses: [],
     favorites: [],
     columns: [
         {

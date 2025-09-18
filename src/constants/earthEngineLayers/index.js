@@ -7,11 +7,11 @@ import legacyPopulationWorldPop from './legacy/population_WorldPop.js'
 import legacyPopulation100m from './legacy/population_WorldPop_100m.js'
 import legacyPrecipitation from './legacy/precipitation_pentad_CHIRPS.js'
 import legacyTemperature from './legacy/temperature_MOD11A2v061.js'
+import ndviModis250m from './ndvi_MOD13Q1.js'
 import populationAgeSex from './population_age_sex_WorldPop.js'
 import populationTotal from './population_total_WorldPop.js'
 import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
-import ndviModis250m from './ndvi_MOD13Q1.js'
 
 const earthEngineLayers = [
     populationTotal,

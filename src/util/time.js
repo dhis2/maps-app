@@ -7,6 +7,14 @@ const dateLocale = (locale) =>
     locale && locale.includes('_') ? locale.replace('_', '-') : locale
 
 /**
+ * Trims the time part from an ISO date-time string, returning only the date (YYYY-MM-DD).
+ * Assumes input is always a valid ISO date or date-time string (e.g., 'YYYY-MM-DD' or 'YYYY-MM-DDThh:mm:ss').
+ * @param {String} dateTime
+ * @returns {String}
+ */
+export const trimTime = (dateTime) => dateTime.slice(0, 10)
+
+/**
  * Converts a date string or timestamp to a date object
  * @param {String|Number|Array|Date} date
  * @returns {String}
@@ -27,7 +35,7 @@ const shortDateRegexp = /^\d{4}-\d{2}-\d{2}$/
  * @returns {String}
  */
 const isValidDateFormat = (dateString) =>
-    shortDateRegexp.test(dateString.substr(0, 10))
+    dateString && shortDateRegexp.test(dateString.substr(0, 10))
 
 /**
  * Formats a date string, timestamp or date array into format used by DHIS2 and <input> date

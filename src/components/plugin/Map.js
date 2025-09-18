@@ -14,9 +14,9 @@ import React, {
 } from 'react'
 import { drillUpDown } from '../../util/map.js'
 import { didViewsChange } from '../../util/pluginHelper.js'
-import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
 import ContextMenu from './ContextMenu.js'
+import LayerLoader from './LayerLoader.js'
 import Legend from './Legend.js'
 import styles from './styles/Map.module.css'
 
@@ -104,7 +104,14 @@ const Map = forwardRef((props, ref) => {
     }
 
     if (!mapIsLoaded) {
-        const layersToLoad = layers.current.filter((config) => !config.isLoaded)
+        const layersToLoad = layers.current.filter(
+            (config) => !config.isLoaded && !config.isLoading
+        )
+        layers.current = layers.current.map((layer) =>
+            layersToLoad.find((l) => l.id === layer.id)
+                ? { ...layer, isLoading: true }
+                : layer
+        )
         return (
             <CenteredContent>
                 <CircularLoader />

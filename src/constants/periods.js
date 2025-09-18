@@ -32,33 +32,11 @@ export const periodGroups = [
     FINANCIAL,
 ]
 
-// TODO: import from @dhis2/analytics (needs to be defined)
-const TODAY = 'TODAY'
-const YESTERDAY = 'YESTERDAY'
-const LAST_14_DAYS = 'LAST_14_DAYS'
-const LAST_30_DAYS = 'LAST_30_DAYS'
-const LAST_60_DAYS = 'LAST_60_DAYS'
-const LAST_90_DAYS = 'LAST_90_DAYS'
-const LAST_180_DAYS = 'LAST_180_DAYS'
-const THIS_WEEK = 'THIS_WEEK'
-const LAST_WEEK = 'LAST_WEEK'
-const LAST_52_WEEKS = 'LAST_52_WEEKS'
-const WEEKS_THIS_YEAR = 'WEEKS_THIS_YEAR'
-const THIS_BIWEEK = 'THIS_BIWEEK'
-const LAST_BIWEEK = 'LAST_BIWEEK'
-const THIS_MONTH = 'THIS_MONTH'
-const LAST_MONTH = 'LAST_MONTH'
-const THIS_BIMONTH = 'THIS_BIMONTH'
-const LAST_BIMONTH = 'LAST_BIMONTH'
-const THIS_QUARTER = 'THIS_QUARTER'
-const LAST_QUARTER = 'LAST_QUARTER'
-const THIS_YEAR = 'THIS_YEAR'
-const LAST_YEAR = 'LAST_YEAR'
-const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR'
-const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR'
-
+export const PREDEFINED_PERIODS = 'PREDEFINED_PERIODS'
 export const RELATIVE_PERIODS = 'RELATIVE_PERIODS'
+export const FIXED_PERIODS = 'FIXED_PERIODS'
 export const START_END_DATES = 'START_END_DATES'
+export const LAST_UPDATED_DATES = 'lastUpdated'
 
 export const periodTypes = (includeRelativePeriods) => [
     ...(includeRelativePeriods
@@ -160,36 +138,9 @@ export const periodTypes = (includeRelativePeriods) => [
     },
 ]
 
-// Periods that will only produce a single map (not for timeline/split view)
-export const singleMapPeriods = [
-    TODAY,
-    YESTERDAY,
-    THIS_WEEK,
-    LAST_WEEK,
-    THIS_BIWEEK,
-    LAST_BIWEEK,
-    THIS_MONTH,
-    LAST_MONTH,
-    THIS_BIMONTH,
-    LAST_BIMONTH,
-    THIS_QUARTER,
-    LAST_QUARTER,
-    THIS_YEAR,
-    LAST_YEAR,
-    THIS_FINANCIAL_YEAR,
-    LAST_FINANCIAL_YEAR,
-]
-
 // Periods not supported for split view (maximum 12 maps)
-export const invalidSplitViewPeriods = [
-    LAST_14_DAYS,
-    LAST_30_DAYS,
-    LAST_60_DAYS,
-    LAST_90_DAYS,
-    LAST_180_DAYS,
-    LAST_52_WEEKS,
-    WEEKS_THIS_YEAR,
-]
+export const MULTIMAP_MIN_PERIODS = 2
+export const MULTIMAP_MAX_PERIODS = 12
 
 // Period types used for Earth Engine layers
 export const BY_YEAR = 'BY_YEAR'

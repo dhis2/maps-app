@@ -42,6 +42,7 @@ class Map extends Component {
         isPlugin: PropTypes.bool,
         latitude: PropTypes.number,
         layers: PropTypes.array,
+        layersSorting: PropTypes.bool,
         longitude: PropTypes.number,
         nameProperty: PropTypes.string,
         resizeCount: PropTypes.number,
@@ -74,6 +75,9 @@ class Map extends Component {
         if (isPlugin) {
             map.toggleMultiTouch(true)
             map.on('fullscreenchange', this.onFullscreenChange)
+            window.addEventListener('resize', () => {
+                this.onFullscreenChange({ isFullscreen: false })
+            })
         } else {
             map.on('contextmenu', this.onRightClick, this)
         }
@@ -120,10 +124,15 @@ class Map extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeCount, isFullscreen, isPlugin } = this.props
+        const { resizeCount, isFullscreen, isPlugin, layersSorting } =
+            this.props
 
         if (resizeCount !== prevProps.resizeCount) {
             this.map.resize()
+        }
+
+        if (layersSorting !== prevProps.layersSorting) {
+            this.map.setMouseMoveEnabled(!layersSorting)
         }
 
         // From map plugin resize method
@@ -153,6 +162,7 @@ class Map extends Component {
             openContextMenu,
             setAggregations,
             setFeatureProfile,
+            resizeCount,
         } = this.props
         const { map } = this.state
 
@@ -179,6 +189,7 @@ class Map extends Component {
                                     setFeatureProfile={setFeatureProfile}
                                     engine={engine}
                                     nameProperty={nameProperty}
+                                    resizeCount={resizeCount}
                                     {...config}
                                 />
                             )

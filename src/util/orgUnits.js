@@ -47,8 +47,18 @@ export const ORG_UNITS_GROUP_SET_QUERY = {
         resource: 'organisationUnitGroupSets',
         id: ({ id }) => id,
         params: {
-            fields: ['organisationUnitGroups[id,name,color,symbol]'],
+            fields: ['name,organisationUnitGroups[id,name,color,symbol]'],
         },
+    },
+}
+
+export const ORG_UNIT_QUERY = {
+    orgUnit: {
+        resource: 'organisationUnits',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: [`${nameProperty}~rename(name)`],
+        }),
     },
 }
 
@@ -83,14 +93,16 @@ export const getOrgUnitGroupLegendItems = (
               }
     )
 
-/* eslint-disable max-params */
-export const getStyledOrgUnits = (
+export const getStyledOrgUnits = ({
     features = [],
     groupSet = {},
-    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow = ORG_UNIT_RADIUS },
-    contextPath,
-    orgUnitLevels
-) => {
+    config: {
+        organisationUnitColor = ORG_UNIT_COLOR,
+        radiusLow = ORG_UNIT_RADIUS,
+    },
+    baseUrl,
+    orgUnitLevels,
+}) => {
     const {
         name,
         styleType = orgUnitLevels ? STYLE_TYPE_COLOR : STYLE_TYPE_SYMBOL,
@@ -140,7 +152,7 @@ export const getStyledOrgUnits = (
         if (useColor && color) {
             properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color
         } else if (symbol) {
-            properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`
+            properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
         }
 
         if (properties.level && levelWeight) {
@@ -161,7 +173,7 @@ export const getStyledOrgUnits = (
     const groupItems = getOrgUnitGroupLegendItems(
         organisationUnitGroups,
         useColor,
-        contextPath
+        baseUrl
     )
 
     const facilityItems =
@@ -183,7 +195,6 @@ export const getStyledOrgUnits = (
         },
     }
 }
-/* eslint-enable max-params */
 
 // Converts "LEVEL-x" to newer "LEVEL-uid" format
 export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {

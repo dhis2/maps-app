@@ -5,6 +5,7 @@ import {
     openInterpretationsPanel,
     closeInterpretationsPanel,
 } from '../../actions/ui.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
 
 const InterpretationsToggle = () => {
     const interpretationsEnabled = useSelector((state) => Boolean(state.map.id))
@@ -20,6 +21,14 @@ const InterpretationsToggle = () => {
             dispatch(openInterpretationsPanel())
         }
     }, [dispatch, interpretationsOpen])
+
+    const onClose = useCallback(() => {
+        if (interpretationsOpen) {
+            dispatch(closeInterpretationsPanel())
+        }
+    }, [dispatch, interpretationsOpen])
+
+    useKeyDown('Escape', onClose, true)
 
     return (
         <AnalyticsInterpretationsAndDetailsToggler

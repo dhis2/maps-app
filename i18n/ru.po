@@ -5,13 +5,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2024
 # Yury Rogachev <yury@dhis2.org>, 2024
+# Nadiia <semchuk@aph.org.ua>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
+"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,6 +30,15 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Calculation"
+msgstr ""
+
+msgid "No calculations found"
+msgstr ""
+
+msgid "Calculations can be created in the Data Visualizer app."
 msgstr ""
 
 msgid "Classification"
@@ -112,7 +122,7 @@ msgstr "Элемент данных событий"
 msgid "Selected value not available in in list: {{name}}"
 msgstr ""
 
-msgid "Style by data element"
+msgid "Style by data item"
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
@@ -193,7 +203,7 @@ msgid "Range"
 msgstr "Диапазон"
 
 msgid "Org unit"
-msgstr ""
+msgstr "Организационная единица"
 
 msgid "Event time"
 msgstr "Время события"
@@ -459,6 +469,12 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr ""
 
@@ -480,6 +496,9 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Calculation is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
@@ -494,6 +513,9 @@ msgstr "Элементы данных событий"
 
 msgid "Program indicators"
 msgstr "Программные показатели"
+
+msgid "Calculations"
+msgstr ""
 
 msgid "Item type"
 msgstr "Тип элемента"
@@ -537,6 +559,9 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
+msgstr ""
+
+msgid "Tracked Entity Type is required"
 msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
@@ -723,6 +748,9 @@ msgstr "Родительская"
 msgid "No data"
 msgstr "Нет данных"
 
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
 msgid "Last updated"
 msgstr "Последнее обновление"
 
@@ -732,7 +760,7 @@ msgid ""
 msgstr ""
 
 msgid "no value"
-msgstr ""
+msgstr "нет значения"
 
 msgid "All groups"
 msgstr ""
@@ -895,28 +923,51 @@ msgstr ""
 msgid "Next year"
 msgstr "След. Год"
 
-msgid "Period type"
-msgstr "Виды периода"
-
 msgid "Start/end dates"
 msgstr "Дата начала / окончания"
 
-msgid "Only one timeline is allowed."
+msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove other layers to enable split map views."
+msgid "Remove the existing timeline to add a new one."
 msgstr ""
 
-msgid "Display periods"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
 msgstr ""
 
-msgid "Single (aggregate)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
 msgstr ""
 
 msgid "Timeline"
 msgstr ""
 
-msgid "Split map views"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
 msgstr ""
 
 msgid "Start date"
@@ -1423,6 +1474,9 @@ msgid "Organisation units"
 msgstr "Организационные единицы"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"

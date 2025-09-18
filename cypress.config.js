@@ -23,34 +23,6 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
     projectId: 'r5jduj',
-    reporter: '@reportportal/agent-js-cypress',
-    reporterOptions: {
-        endpoint: process.env.REPORTPORTAL_ENDPOINT,
-        apiKey: process.env.REPORTPORTAL_API_KEY,
-        launch: 'maps_app',
-        project: process.env.REPORTPORTAL_PROJECT,
-        description: '',
-        autoMerge: true,
-        parallel: true,
-        debug: false,
-        restClientConfig: {
-            timeout: 660000,
-        },
-        attributes: [
-            {
-                key: 'version',
-                value: 'master',
-            },
-            {
-                key: 'app_name',
-                value: 'maps-app',
-            },
-            {
-                key: 'test_level',
-                value: 'e2e',
-            },
-        ],
-    },
     e2e: {
         setupNodeEvents,
         baseUrl: 'http://localhost:3000',

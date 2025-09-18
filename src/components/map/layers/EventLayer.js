@@ -1,10 +1,12 @@
-import { getInstance as getD2 } from 'd2'
+import { Analytics } from '@dhis2/analytics'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
+import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
-    PROGRAM_STAGE_QUERY,
+    EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+    EVENT_PROGRAM_ATTRIBUTES_QUERY,
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { formatCount } from '../../../util/numbers.js'
@@ -17,7 +19,7 @@ class EventLayer extends Layer {
 
     state = {
         popup: null,
-        dataElements: null,
+        displayItems: null,
         eventCoordinateFieldName: null,
     }
 
@@ -31,6 +33,7 @@ class EventLayer extends Layer {
             data,
             engine,
             eventClustering,
+            eventCoordinateField,
             eventPointColor,
             eventPointRadius,
             nameProperty,
@@ -42,6 +45,8 @@ class EventLayer extends Layer {
             legend,
             dataFilters,
         } = this.props
+
+        const analyticsEngine = Analytics.getAnalytics(engine)
 
         const filteredData = filterData(data, dataFilters)
 
@@ -59,11 +64,7 @@ class EventLayer extends Layer {
         const radius = eventPointRadius || EVENT_RADIUS
 
         const map = this.context.map
-        let d2
         let eventRequest
-
-        // Data elements to display in event popup
-        this.displayElements = {}
 
         // Default props = no cluster
         const config = {
@@ -86,12 +87,10 @@ class EventLayer extends Layer {
                 config.bounds = bounds
 
                 config.load = async (params, callback) => {
-                    d2 = d2 || (await getD2())
-
                     eventRequest =
                         eventRequest ||
                         (await getAnalyticsRequest(this.props, {
-                            d2,
+                            analyticsEngine,
                             nameProperty,
                             engine,
                         }))
@@ -101,7 +100,7 @@ class EventLayer extends Layer {
                         .withClusterSize(params.clusterSize)
                         .withIncludeClusterPoints(params.includeClusterPoints)
 
-                    const clusterData = await d2.analytics.events.getCluster(
+                    const clusterData = await analyticsEngine.events.getCluster(
                         eventRequest
                     )
 
@@ -128,7 +127,14 @@ class EventLayer extends Layer {
         }
 
         if (program && programStage) {
-            this.loadDisplayElements(engine, nameProperty)
+            this.loadDisplayItems({
+                engine,
+                nameProperty,
+                styleDataItem,
+                program,
+                programStage,
+                eventCoordinateField,
+            })
         }
 
         // Create and add event layer based on config object
@@ -141,14 +147,15 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const { styleDataItem } = this.props
-        const { popup, displayElements, eventCoordinateFieldName } = this.state
+        const { styleDataItem, nameProperty } = this.props
+        const { popup, displayItems, eventCoordinateFieldName } = this.state
 
-        return popup && displayElements ? (
+        return popup && displayItems ? (
             <EventPopup
                 {...popup}
                 styleDataItem={styleDataItem}
-                displayElements={displayElements}
+                nameProperty={nameProperty}
+                displayItems={displayItems}
                 eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}
             />
@@ -199,42 +206,101 @@ class EventLayer extends Layer {
         return features
     }
 
-    // Loads the data elements for a program stage to display in popup
-    async loadDisplayElements(engine, nameProperty) {
-        const { programStage, eventCoordinateField } = this.props
-
+    // Loads the data items for a program stage to display in popup
+    async loadDisplayItems({
+        engine,
+        nameProperty,
+        styleDataItem,
+        program,
+        programStage,
+        eventCoordinateField,
+    }) {
         const displayNameProp =
             nameProperty === 'name' ? 'displayName' : 'displayShortName'
 
-        const { programStage: data } = await engine.query(PROGRAM_STAGE_QUERY, {
-            variables: { id: programStage.id, nameProperty: displayNameProp },
-        })
+        let displayItems = []
 
-        const { programStageDataElements } = data
-        let displayElements = []
-        let eventCoordinateFieldName
+        const programStageResponse = await engine.query(
+            EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+            {
+                variables: {
+                    id: programStage.id,
+                    nameProperty: displayNameProp,
+                },
+            }
+        )
+        const programStageDataElements =
+            programStageResponse?.programStage?.programStageDataElements
 
         if (Array.isArray(programStageDataElements)) {
-            displayElements = programStageDataElements
-                .filter((d) => d.displayInReports)
+            const filteredProgramStageItems = programStageDataElements
+                .filter(
+                    (d) =>
+                        d.displayInReports ||
+                        d.dataElement.id === styleDataItem?.id
+                )
                 .map((d) => d.dataElement)
+            displayItems.push(...filteredProgramStageItems)
 
-            for (const d of displayElements) {
+            for (const d of filteredProgramStageItems) {
                 await this.loadOptionSet(d, engine)
             }
+        }
 
-            if (eventCoordinateField) {
-                const coordElement = programStageDataElements.find(
-                    (d) => d.dataElement.id === eventCoordinateField
-                )
+        if (
+            styleDataItem &&
+            !displayItems.some((item) => item.id === styleDataItem.id)
+        ) {
+            const programResponse = await engine.query(
+                EVENT_PROGRAM_ATTRIBUTES_QUERY,
+                {
+                    variables: {
+                        id: program.id,
+                        nameProperty: displayNameProp,
+                    },
+                }
+            )
+            const programTrackedEntityAttributes =
+                programResponse?.program?.programTrackedEntityAttributes
 
-                if (coordElement) {
-                    eventCoordinateFieldName = coordElement.dataElement.name
+            if (Array.isArray(programTrackedEntityAttributes)) {
+                if (
+                    styleDataItem &&
+                    !displayItems.some((item) => item.id === styleDataItem.id)
+                ) {
+                    const filteredProgramItems = programTrackedEntityAttributes
+                        .filter(
+                            (d) =>
+                                d.trackedEntityAttribute.id ===
+                                styleDataItem?.id
+                        )
+                        .map((d) => d.trackedEntityAttribute)
+                    displayItems.push(...filteredProgramItems)
+
+                    for (const d of filteredProgramItems) {
+                        await this.loadOptionSet(d, engine)
+                    }
                 }
             }
         }
 
-        this.setState({ displayElements, eventCoordinateFieldName })
+        if (styleDataItem) {
+            // Put styleDataItem first in array
+            displayItems = [
+                ...displayItems.filter((d) => d.id === styleDataItem.id),
+                ...displayItems.filter((d) => d.id !== styleDataItem.id),
+            ]
+        }
+
+        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+            program,
+            programStage,
+            eventCoordinateField,
+            engine,
+            displayNameProp,
+        })
+
+        this.setState({ displayItems, eventCoordinateFieldName })
     }
 
     // Loads an option set for an data element to get option names

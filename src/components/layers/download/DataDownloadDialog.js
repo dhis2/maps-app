@@ -1,6 +1,4 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
@@ -14,15 +12,15 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { EVENT_LAYER } from '../../../constants/layers.js'
 import { getFormatOptions, downloadData } from '../../../util/dataDownload.js'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.js'
 import { SelectField, Checkbox, Help } from '../../core/index.js'
 import DataDownloadDialogActions from './DataDownloadDialogActions.js'
 import styles from './styles/DataDownloadDialog.module.css'
 
 const DataDownloadDialog = ({ layer, onCloseDialog }) => {
     const engine = useDataEngine()
-    const { nameProperty } = useCachedDataQuery()
+    const { nameProperty } = useCachedData()
     const formatOptions = getFormatOptions()
-    const { d2 } = useD2()
     const [selectedFormat, setSelectedFormat] = useState(formatOptions[2])
     const [humanReadable, setHumanReadable] = useState(true)
     const [isDownloading, setIsDownloading] = useState(false)
@@ -55,7 +53,6 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
                 aggregations: aggregations[layer.id],
                 format: selectedFormat.id,
                 humanReadableKeys: humanReadable,
-                d2,
                 nameProperty,
                 engine,
             })

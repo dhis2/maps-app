@@ -19,16 +19,15 @@ jobs:
         runs-on: ubuntu-latest
         if: >
             ${{ !github.event.push.repository.fork &&
-            github.actor != 'dependabot[bot]' &&
-            !contains(github.event.head_commit.message, '[skip ci]') &&
-            !contains(github.event.head_commit.message, '[skip release]') &&
-            !startsWith(github.event.head_commit.message, 'chore') }}
+            github.actor != 'dependabot[bot]' }}
+        outputs:
+            build_exists: ${{ steps.check_build.outputs.build_exists }}
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
               with:
                   token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v4
               with:
                   node-version: 18.x
 
@@ -41,33 +40,40 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
+            - name: Set build_exists output
+              id: check_build
+              run: |
+                  if ls build/bundle/maps-*.zip 1> /dev/null 2>&1; then
+                      echo "build_exists=yes" >> $GITHUB_OUTPUT
+                  else
+                      echo "build_exists=no" >> $GITHUB_OUTPUT
+                  fi
+
             - name: Publish to AppHub
+              if: ${{ steps.check_build.outputs.build_exists == 'yes' }}
               run: yarn run d2-app-scripts publish
 
     report-release-result:
         runs-on: ubuntu-latest
+        if: ${{ always() }}
         needs: release
-        if: >
-            ${{ !github.event.push.repository.fork &&
-            github.actor != 'dependabot[bot]' &&
-            !contains(github.event.head_commit.message, '[skip ci]') &&
-            !contains(github.event.head_commit.message, '[skip release]') }}
         steps:
             - name: Checkout code
+              if: ${{ needs.release.outputs.build_exists == 'yes' && success() }}
               uses: actions/checkout@v4
               with:
                   ref: master
                   fetch-depth: 0
 
             - name: Extract version
-              if: success()
+              if: ${{ needs.release.outputs.build_exists == 'yes' && success() }}
               id: extract_version
-              uses: Saionaro/extract-package-version@v1.2.1
+              uses: Saionaro/extract-package-version@v1.3.0
 
             - name: Send success message to analytics-internal-bot slack channel
-              if: success()
+              if: ${{ needs.release.outputs.build_exists == 'yes' && success() }}
               id: slack_success
-              uses: slackapi/slack-github-action@v1.23.0
+              uses: slackapi/slack-github-action@v1.27.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
@@ -117,7 +123,7 @@ jobs:
             - name: Send failure message to analytics-internal-bot slack channel
               if: ${{ failure() && !cancelled() }}
               id: slack_failure
-              uses: slackapi/slack-github-action@v1.23.0
+              uses: slackapi/slack-github-action@v1.27.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |

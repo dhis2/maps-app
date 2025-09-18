@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox } from '@dhis2/ui'
+import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -15,11 +15,10 @@ import {
     setPeriod,
     setStartDate,
     setEndDate,
+    setBackupPeriodsDates,
     setOrgUnits,
 } from '../../../actions/layerEdit.js'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
@@ -33,6 +32,7 @@ import {
     getOrgUnitsFromRows,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
+import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import {
@@ -47,7 +47,7 @@ import FilterGroup from '../../dataItem/filter/FilterGroup.js'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
-import StartEndDates from '../../periods/StartEndDates.js'
+import StartEndDate from '../../periods/StartEndDate.js'
 import ProgramSelect from '../../program/ProgramSelect.js'
 import ProgramStageSelect from '../../program/ProgramStageSelect.js'
 import BufferRadius from '../shared/BufferRadius.js'
@@ -56,6 +56,7 @@ import EventStatusSelect from './EventStatusSelect.js'
 
 class EventDialog extends Component {
     static propTypes = {
+        setBackupPeriodsDates: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
         setEventCoordinateField: PropTypes.func.isRequired,
@@ -70,6 +71,7 @@ class EventDialog extends Component {
         setStartDate: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
+        backupPeriodsDates: PropTypes.object,
         columns: PropTypes.array,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
@@ -82,6 +84,7 @@ class EventDialog extends Component {
         legendSet: PropTypes.object,
         method: PropTypes.number,
         orgUnits: PropTypes.object,
+        periodsSettings: PropTypes.object,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
             trackedEntityType: PropTypes.object,
@@ -116,29 +119,33 @@ class EventDialog extends Component {
             endDate,
             orgUnits,
             setPeriod,
-            setStartDate,
-            setEndDate,
+            setBackupPeriodsDates,
             setOrgUnits,
+            backupPeriodsDates,
         } = this.props
 
         const period = getPeriodFromFilters(filters)
         const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
             systemSettings
 
+        const hasDate = startDate !== undefined && endDate !== undefined
+
         // Set default period from system settings
         if (
             !period &&
-            !startDate &&
-            !endDate &&
+            !hasDate &&
             defaultPeriod &&
             isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
             setPeriod({
                 id: defaultPeriod,
             })
-        } else if (!startDate && !endDate) {
-            setStartDate(DEFAULT_START_DATE)
-            setEndDate(DEFAULT_END_DATE)
+        }
+
+        // Set default backup dates
+        if (!backupPeriodsDates) {
+            const defaultDates = getDefaultDatesInCalendar()
+            setBackupPeriodsDates(defaultDates)
         }
 
         // Set org unit tree roots as default
@@ -151,10 +158,41 @@ class EventDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props
+        const {
+            validateLayer,
+            onLayerValidation,
+            filters,
+            startDate,
+            endDate,
+            setBackupPeriodsDates,
+            setStartDate,
+            setEndDate,
+            backupPeriodsDates,
+        } = this.props
+        const { periodError } = this.state
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate())
+        }
+
+        const hasDate = startDate !== undefined || endDate !== undefined
+        if (hasDate && getPeriodFromFilters(filters) !== undefined) {
+            setBackupPeriodsDates({ startDate, endDate })
+            setStartDate()
+            setEndDate()
+        } else if (!hasDate && getPeriodFromFilters(filters) === undefined) {
+            setStartDate(backupPeriodsDates?.startDate)
+            setEndDate(backupPeriodsDates?.endDate)
+        }
+
+        if (
+            periodError &&
+            (startDate !== prev.startDate ||
+                endDate !== prev.endDate ||
+                getPeriodFromFilters(filters) !==
+                    getPeriodFromFilters(prev.filters))
+        ) {
+            this.setErrorState('periodError', null, 'period')
         }
     }
 
@@ -162,7 +200,6 @@ class EventDialog extends Component {
         const {
             // layer options
             columns = [],
-            endDate,
             eventClustering,
             eventStatus,
             eventCoordinateField,
@@ -172,8 +209,8 @@ class EventDialog extends Component {
             filters = [],
             program,
             programStage,
-            startDate,
             legendSet,
+            periodsSettings,
         } = this.props
 
         const {
@@ -242,6 +279,7 @@ class EventDialog extends Component {
                                 value={eventCoordinateField}
                                 onChange={setEventCoordinateField}
                                 className={styles.select}
+                                data-test="eventdialog-coordinatefield"
                             />
                             {/* eventCoordinateField && (
                                 <CoordinateField
@@ -272,11 +310,17 @@ class EventDialog extends Component {
                                 className={styles.select}
                             />
                             {period && period.id === START_END_DATES && (
-                                <StartEndDates
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    errorText={periodError}
+                                <StartEndDate
+                                    onSelectStartDate={setStartDate}
+                                    onSelectEndDate={setEndDate}
+                                    periodsSettings={periodsSettings}
                                 />
+                            )}
+                            {periodError && (
+                                <div className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {periodError}
+                                </div>
                             )}
                         </div>
                     )}
@@ -466,6 +510,7 @@ export default connect(
         setEventPointRadius,
         // setFallbackCoordinateField,
         setPeriod,
+        setBackupPeriodsDates,
         setStartDate,
         setEndDate,
         setOrgUnits,

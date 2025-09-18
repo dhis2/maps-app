@@ -1,7 +1,11 @@
 import log from 'loglevel'
 import PropTypes from 'prop-types'
 import { PureComponent } from 'react'
-import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers.js'
+import {
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+    PADDING_DEFAULT,
+    DURATION_DEFAULT,
+} from '../../../constants/layers.js'
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -132,22 +136,34 @@ class Layer extends PureComponent {
     }
 
     // Fit map to layer bounds
-    fitBounds() {
+    fitBounds(options = {}) {
         const { map } = this.context
+        const {
+            fitToAllLayers = false,
+            padding = {},
+            duration = DURATION_DEFAULT,
+        } = options
 
         if (this.layer.getBounds) {
-            map.fitBounds(this.layer.getBounds(), {
-                padding: 40,
-                duration: 0,
-                bearing: map.getMapGL().getBearing(),
-            })
+            map.fitBounds(
+                fitToAllLayers ? map.getLayersBounds() : this.layer.getBounds(),
+                {
+                    padding: { ...PADDING_DEFAULT, ...padding },
+                    duration: duration,
+                    essential: true,
+                    bearing: map.getMapGL().getBearing(),
+                }
+            )
         }
     }
 
     // Fit map to layer bounds once (when first created)
-    fitBoundsOnce() {
+    fitBoundsOnce(options) {
         if (!this.isZoomed || this.context.map.getZoom() === undefined) {
-            this.fitBounds()
+            this.fitBounds({
+                ...options,
+                fitToAllLayers: !this.props.editCounter,
+            })
             this.isZoomed = true
         }
     }

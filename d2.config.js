@@ -1,3 +1,31 @@
+const omitPatterns = [
+    // User info
+    'me/authorization',
+    'me\\?fields',
+
+    // Settings
+    'systemSettings',
+    'userSettings',
+
+    // Data
+    'externalMapLayers',
+    'geoFeatures',
+    'analytics',
+    'tracker/trackedEntities',
+
+    // Metadata
+    'dataElements',
+    'trackedEntityAttributes',
+    'optionSets',
+    'legendSets',
+    'programs',
+    'programStages',
+    'trackedEntityTypes',
+    'relationshipTypes',
+    'organisationUnitLevels',
+    'organisationUnitGroupSets',
+]
+
 const config = {
     type: 'app',
     name: 'maps',
@@ -6,10 +34,14 @@ const config = {
 
     minDHIS2Version: '2.40',
 
+    pluginType: 'DASHBOARD',
+
     pwa: {
         enabled: true,
         caching: {
-            patternsToOmitFromAppShell: [/.*/],
+            patternsToOmitFromAppShell: [
+                new RegExp(`^(?!.*(${omitPatterns.join('|')})).*$`),
+            ],
             globsToOmitFromPrecache: ['fonts/**', 'images/**'],
         },
     },
@@ -21,8 +53,6 @@ const config = {
 
     coreApp: true,
     dataStoreNamespace: 'DHIS2_MAPS_APP_CORE',
-
-    skipPluginLogic: true,
 }
 
 module.exports = config

@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
@@ -16,10 +15,14 @@ import history, {
     defaultHashUrlParams,
 } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
+
+// Used to avoid repeating `history` listener calls -- see below
+let lastLocation
 
 export const useLoadMap = () => {
     const previousParamsRef = useRef(defaultHashUrlParams)
-    const { systemSettings, basemaps } = useCachedDataQuery()
+    const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()
@@ -35,11 +38,11 @@ export const useLoadMap = () => {
                 dispatch(setAnalyticalObject(true))
             } else {
                 try {
-                    const map = await fetchMap(
-                        params.mapId,
+                    const map = await fetchMap({
+                        id: params.mapId,
                         engine,
-                        defaultBasemap
-                    )
+                        defaultBasemap,
+                    })
 
                     engine.mutate(dataStatisticsMutation, {
                         variables: { id: params.mapId },
@@ -51,13 +54,13 @@ export const useLoadMap = () => {
                         basemaps.find(({ id }) => id === defaultBasemap) ||
                         getFallbackBasemap()
 
-                    dispatch(
-                        setMap({
-                            ...map,
-                            mapViews: addOrgUnitPaths(map.mapViews),
-                            basemap: { ...map.basemap, ...basemapConfig },
-                        })
-                    )
+                    const mapForStore = {
+                        ...map,
+                        mapViews: addOrgUnitPaths(map.mapViews),
+                        basemap: { ...map.basemap, ...basemapConfig },
+                    }
+
+                    dispatch(setMap(mapForStore))
                 } catch (e) {
                     log.error(e)
                     dispatch(newMap())
@@ -81,6 +84,25 @@ export const useLoadMap = () => {
 
     useEffect(() => {
         const unlisten = history.listen(({ action, location }) => {
+            // Avoid duplicate actions for the same update object. This also
+            // avoids a loop, because dispatching a pop state effect below also
+            // triggers listeners again (but with the same location object key)
+            const { key, pathname, search } = location
+            if (
+                key === lastLocation?.key &&
+                pathname === lastLocation?.pathname &&
+                search === lastLocation?.search
+            ) {
+                return
+            }
+            lastLocation = location
+            // Dispatch this event for external routing listeners to observe,
+            // e.g. global shell
+            const popStateEvent = new PopStateEvent('popstate', {
+                state: location.state,
+            })
+            dispatchEvent(popStateEvent)
+
             const params = getHashUrlParams(location)
 
             if (

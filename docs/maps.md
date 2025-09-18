@@ -226,45 +226,35 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
     ![](resources/images/maps_thematic_layer_dialog_PERIOD.png)
 
-    -   select the time span over which the thematic data is mapped.
-        You can select either a relative or a fixed period.
+    Select the time span over which the thematic data is mapped.
 
-        -   Relative period
+    -   If you choose **Chose from presets**, you can combine one or more relative and fixed periods.
 
-            In the **Period type** field select **Relative**, then
-            select one of the relative periods, for example **Last year** or
-            **Last 12 months**, in the **Period** field.
+        -   _Relative period_
 
-            A **default relative period for analysis** can be set in the **Systems Settings**
-            app.
+            Select **Relative periods**, then the **Period type** you are interested in (**Years**, **Months**, etc.), and finally, select one or more relative periods, such as **This year** and **Last year** or **Last 12 months**.
 
-            If you select a relative period covering multiple years/months/weeks/days
-            the layer can be displayed as
+            A **default relative period for analysis** can be set in the **Systems Settings** app.
 
-            -   Single (aggregate)
+        -   _Fixed period_
 
-                Show aggregate values for the relative period selected (default).
+            Select **Relative periods**, then choose the **Period type** you are interested in (**Yearly**, **Monthly**, etc.), and finally, select one or more relative periods, such as **2024** or **January 2025** and **Febuary 2025**.
 
-            -   Timeline
+        If your selection covers multiple years, months, weeks, and/or days, the layer can be displayed as:
 
-                Includes a timeline allowing you to step through the periods.
-                Only one timeline layer can be added to the same map.
+        -   _Single_ (default)
 
-            -   Split map views
+            Show periods as a combined layer. Data is aggregated.
 
-                Show multiple maps allowing you to compare different periods
-                side by side. Supported for relative periods with 12 items
-                or below. Can not be combined with other layer types.
+        -   _Timeline_
 
-        -   Fixed period
+            Show multiple periods as an interactive timeline. Periods are ordered chronologically. Only one timeline layer can be added per map.
 
-            In the **Period type** field select period length, then
-            select the target in the **Period** field.
+        -   _Split_
 
-        -   Start/end dates
+            Show multiple maps side by side to compare different periods. A split map supports up to 12 periods, including those in multi-period presets. It cannot be combined with other layer types.
 
-            In the **Period type** field select **Start/end dates**
-            and fill in a start date and an end date.
+    -   Alternatively, you can **Define start - end dates**. Start and end dates are inclusive and will be reflected in the outputs.
 
 3.  In the **Org Units** tab:
 
@@ -515,9 +505,7 @@ layer** selection. This opens the Events layer configuration dialog.
 
     -   Select a value from the **Coordinate field** for the positions
         shown on the map. By default, "Event location" is selected.
-        Depending on the data elements or attributes that belong to a
-        program, other coordinates such as "Household position" are
-        available.
+        Depending on the program, other options may include "Tracked entity location", "Enrollment location", and coordinate-type data elements or attributes such as "Household location".
 
     -   By default all events with coordinates are shown on the map.
         Use the **Event status** field to only show events having one
@@ -527,10 +515,10 @@ layer** selection. This opens the Events layer configuration dialog.
 
     ![](resources/images/maps_event_layer_dialog_PERIOD.png)
 
-    -   select the time span for when the events took place. You can
+    -   Select the time span for when the events took place. You can
         select either a fixed period or a relative period.
 
-        -   Relative period
+        -   _Relative period_
 
             In the **Period** field, select one of the relative periods,
             for example **This month** or **Last year**.
@@ -538,7 +526,7 @@ layer** selection. This opens the Events layer configuration dialog.
             A **default relative period for analysis** can be set in the
             **Systems Settings** app.
 
-        -   Fixed period
+        -   _Fixed period_
 
             In the **Period** field, select **Start/end dates** and fill
             in a start date and an end date.
@@ -600,8 +588,8 @@ layer** selection. This opens the Events layer configuration dialog.
         option is only available if you select **View all events**
         above.
 
-    -   Select a **Style by data element** to colorise the events
-        according to a data value. If you also select to group events,
+    -   Select a **Style by data item** (data element or attribute) to colorise
+        the events according to a data value. If you also select to group events,
         the culsters will be displayed as small donut charts showing
         the distribution of the data values. The available options vary for
         different data types:
@@ -610,7 +598,7 @@ layer** selection. This opens the Events layer configuration dialog.
             set. You can set default colors for an option in the
             Maintenance app.
 
-        -   **Numbers**: You can style a numeric data element in [the same
+        -   **Numbers**: You can style a numeric data item in [the same
             way as thematic layers](#using_maps_thematic_layer_style) using
             automatic or predefined legends.
 
@@ -661,8 +649,8 @@ The data table displays the data forming the event layer.
 
         filter by GIS display types containing the given text
 
-    -   **Style by data element**: If events are styled by a data element
-        (e.g. gender) both the data value and the color can be filtered.
+    -   **Style by data item**: If events are styled by a data element or 
+        attribute (e.g. gender) both the data value and the color can be filtered.
 
     -   **Display in reports**: Data elements checked to display in reports will
         be shown in separate columns (see below how to add them).
@@ -844,6 +832,23 @@ configuration dialog.
     desired.
 
 3.  Click **Update layer**.
+
+### Modify information in tracked entity popups
+
+If you have access to the selected program in the Maintenance app, you can modify the information displayed in the tracked entity pop-up window.
+
+![](resources/images/maps_eventlayer_eventinfopopup.png)
+
+1.  Open the **Maintenance** app.
+
+2.  Select **Program**.
+
+3.  Click the program you want to modify and select **(3) Attributes**.
+
+4.  For every attribute you want to display in the pop-up window,
+    select corresponding **Display in list**.
+
+5.  Click **Save**.
 
 ### Clear a tracked entity layer
 

@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký, 2024
+# Jiří Podhorecký <jirka.p@volny.cz>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-07-29T08:57:17.532Z\n"
+"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Jiří Podhorecký, 2024\n"
+"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "2020"
-msgstr ""
+msgstr "2020"
 
 msgid "Untitled map, {{date}}"
 msgstr "Mapa bez názvu, {{date}}"
@@ -26,6 +26,15 @@ msgstr "Mapa \"{{- name}}\" je uložena."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Nepodařilo se uložit mapu: {{message}}"
+
+msgid "Calculation"
+msgstr "Výpočet"
+
+msgid "No calculations found"
+msgstr "Nenalezeny žádné výpočty"
+
+msgid "Calculations can be created in the Data Visualizer app."
+msgstr "Výpočty lze vytvářet v aplikaci Data Visualizer."
 
 msgid "Classification"
 msgstr "Klasifikace"
@@ -109,8 +118,8 @@ msgstr "Datová položka události"
 msgid "Selected value not available in in list: {{name}}"
 msgstr "Vybraná hodnota není dostupná v seznamu: {{name}}"
 
-msgid "Style by data element"
-msgstr "Styl podle datového prvku"
+msgid "Style by data item"
+msgstr "Styl podle datové položky"
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtrování je k dispozici po výběru fáze programu."
@@ -159,15 +168,17 @@ msgstr ""
 "Tabulka dat není podporována, pokud jsou události seskupeny na serveru."
 
 msgid "No valid data was found for the current layer configuration."
-msgstr ""
+msgstr "Pro aktuální konfiguraci vrstvy nebyla nalezena žádná platná data."
 
 msgid ""
 "Data table is not supported when there is more than one geometry type in the"
 " dataset."
 msgstr ""
+"Datová tabulka není podporována, pokud je v datové sadě více než jeden typ "
+"geometrie."
 
 msgid "No valid data fields were found for this layer."
-msgstr ""
+msgstr "Pro tuto vrstvu nebyla nalezena žádná platná datová pole."
 
 msgid "Index"
 msgstr "Index"
@@ -286,7 +297,7 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "feature"
-msgstr ""
+msgstr "funkce"
 
 msgid "Edit {{name}} layer"
 msgstr "Upravit vrstvu {{name}}"
@@ -336,13 +347,13 @@ msgid "Unit"
 msgstr "Jednotka"
 
 msgid "Spatial resolution"
-msgstr ""
+msgstr "Prostorové rozlišení"
 
 msgid "Temporal resolution"
-msgstr ""
+msgstr "Časové rozlišení"
 
 msgid "Temporal coverage"
-msgstr ""
+msgstr "Časové pokrytí"
 
 msgid "Source"
 msgstr "Zdroj"
@@ -429,16 +440,16 @@ msgid "Buffer can't be combined with associated geometry."
 msgstr "Vyrovnávací paměť nelze kombinovat s přidruženou geometrií."
 
 msgid "Fill color"
-msgstr ""
+msgstr "Barva výplně"
 
 msgid "Line/stroke color"
-msgstr ""
+msgstr "Barva čáry/tahu"
 
 msgid "Line/stroke width"
-msgstr ""
+msgstr "Šířka čáry/tahu"
 
 msgid "Line/stroke width must be between 0-10."
-msgstr ""
+msgstr "Šířka čáry/tahu musí být v rozmezí 0-10."
 
 msgid "Labels"
 msgstr "Štítky"
@@ -450,7 +461,7 @@ msgid "Only show completed events"
 msgstr "Zobrazí pouze dokončené události"
 
 msgid "Include org units with no data"
-msgstr ""
+msgstr "Zahrnout organizační jednotky bez dat"
 
 msgid "Low radius"
 msgstr "Malý poloměr"
@@ -463,6 +474,12 @@ msgstr "Vysoký poloměr by měl být větší než nízký poloměr"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Poloměr by měl být mezi {{min}} a {{max}}"
+
+msgid "Choose from presets"
+msgstr "Vyberte si z předvoleb"
+
+msgid "Define start - end dates"
+msgstr "Definujte počáteční a koncová data"
 
 msgid "Indicator group is required"
 msgstr "Je vyžadována skupina indikátorů"
@@ -485,6 +502,9 @@ msgstr "Položka dat události je povinná"
 msgid "Program indicator is required"
 msgstr "Je vyžadován indikátor programu"
 
+msgid "Calculation is required"
+msgstr "Je vyžadován výpočet"
+
 msgid "Period is required"
 msgstr "Období je vyžadováno"
 
@@ -499,6 +519,9 @@ msgstr "Položky dat události"
 
 msgid "Program indicators"
 msgstr "Ukazatele programu"
+
+msgid "Calculations"
+msgstr "Výpočty"
 
 msgid "Item type"
 msgstr "Typ položky"
@@ -545,6 +568,9 @@ msgstr "Styl související entity"
 msgid "Line Color"
 msgstr "Barva čáry"
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Pro trasovaný typ entity {{type}} nebyly nalezeny žádné typy vztahů"
 
@@ -552,7 +578,7 @@ msgid "Relationship type"
 msgstr "Typ vztahu"
 
 msgid "No data to show for this feature."
-msgstr ""
+msgstr "Pro tuto funkci nejsou k dispozici žádná data."
 
 msgid "Feature profile"
 msgstr ""
@@ -638,7 +664,7 @@ msgid "Toggle visibility"
 msgstr "Přepnout viditelnost"
 
 msgid "Layer is invalid"
-msgstr ""
+msgstr "Vrstva je neplatná"
 
 msgid "Set layer opacity"
 msgstr "Nastavit neprůhlednost vrstvy"
@@ -677,7 +703,7 @@ msgid "Filters"
 msgstr "Filtry"
 
 msgid "{{layername}}: {{message}}"
-msgstr ""
+msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "Nenalezena žádná data"
@@ -729,6 +755,9 @@ msgstr "Nadřazená jednotka"
 
 msgid "No data"
 msgstr "Nejsou data"
+
+msgid "Could not retrieve tracked entity data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
@@ -909,29 +938,53 @@ msgstr "Minulý rok"
 msgid "Next year"
 msgstr "Příští rok"
 
-msgid "Period type"
-msgstr "Typ období"
-
 msgid "Start/end dates"
 msgstr "Datum zahájení / ukončení"
 
-msgid "Only one timeline is allowed."
-msgstr "Je povolena pouze jedna časová osa."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Odebráním dalších vrstev povolíte rozdělená zobrazení mapy."
+msgid "Remove the existing timeline to add a new one."
+msgstr "Odeberte stávající časovou osu a přidejte novou."
 
-msgid "Display periods"
-msgstr "Období zobrazení"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Samostatně (agregát)"
+msgid "Remove all existing layers to add a split map view."
+msgstr ""
+"Odstraněním všech stávajících vrstev přidáte rozdělené zobrazení mapy."
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Časová osa"
 
-msgid "Split map views"
-msgstr "Rozdělit zobrazení mapy"
+msgid "Show multiple periods as an interactive timeline."
+msgstr "Zobrazte více období jako interaktivní časovou osu."
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid "Period display mode"
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Datum začátku"
@@ -1451,6 +1504,9 @@ msgid "Organisation units"
 msgstr "Organizační jednotky"
 
 msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"

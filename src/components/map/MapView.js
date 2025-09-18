@@ -1,10 +1,10 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import { getMapControls } from '../../util/mapControls.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 import Map from './Map.js'
 import SplitView from './SplitView.js'
 
@@ -23,12 +23,13 @@ const MapView = (props) => {
         openContextMenu,
         setMapObject,
         resizeCount,
+        layersSorting,
         ...layerDispatchActions
     } = props
 
     const { baseUrl } = useConfig()
     const engine = useDataEngine()
-    const { currentUser } = useCachedDataQuery()
+    const { currentUser } = useCachedData()
     const nameProperty = currentUser.keyAnalysisDisplayProperty
 
     const splitViewLayer = getSplitViewLayer(layers)
@@ -60,6 +61,7 @@ const MapView = (props) => {
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
                             setMapObject={setMapObject}
+                            layersSorting={layersSorting}
                         />
                     ) : (
                         <Map
@@ -77,6 +79,7 @@ const MapView = (props) => {
                             baseUrl={baseUrl}
                             engine={engine}
                             nameProperty={nameProperty}
+                            layersSorting={layersSorting}
                             {...layerDispatchActions}
                         />
                     )}
@@ -96,6 +99,7 @@ MapView.propTypes = {
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
     layers: PropTypes.array,
+    layersSorting: PropTypes.bool,
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
     setMapObject: PropTypes.func,

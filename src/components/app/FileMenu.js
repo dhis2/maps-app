@@ -1,5 +1,10 @@
-import { FileMenu as UiFileMenu, useCachedDataQuery } from '@dhis2/analytics'
-import { useDataMutation } from '@dhis2/app-runtime'
+import {
+    FileMenu as UiFileMenu,
+    preparePayloadForSave,
+    preparePayloadForSaveAs,
+    VIS_TYPE_MAP,
+} from '@dhis2/analytics'
+import { useDataMutation, useDataEngine } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -8,12 +13,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setMapProps } from '../../actions/map.js'
 import {
     ALERT_CRITICAL,
+    ALERT_WARNING,
     ALERT_MESSAGE_DYNAMIC,
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
 import { cleanMapConfig } from '../../util/favorites.js'
+import { addOrgUnitPaths } from '../../util/helpers.js'
 import history from '../../util/history.js'
+import {
+    fetchMap,
+    fetchMapNameDesc,
+    fetchMapSubscribers,
+} from '../../util/requests.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
 
 const updateMapMutation = {
     resource: 'maps',
@@ -53,10 +66,16 @@ const getSaveFailureMessage = (message) =>
 const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
     const dispatch = useDispatch()
-    const { systemSettings, currentUser } = useCachedDataQuery()
+    const engine = useDataEngine()
+    const { systemSettings, currentUser } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
+    const renameFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_WARNING)
+    const renameSuccessAlert = useAlert(
+        ALERT_MESSAGE_DYNAMIC,
+        ALERT_SUCCESS_DELAY
+    )
     const saveAsAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const deleteAlert = useAlert(
         'Map successfully deleted',
@@ -73,6 +92,15 @@ const FileMenu = ({ onFileMenuAction }) => {
         },
     })
 
+    const [renameMap] = useDataMutation(updateMapMutation, {
+        onError: () => {
+            renameFailedAlert.show({
+                msg: i18n.t('Rename failed'),
+                isError: true,
+            })
+        },
+    })
+
     const [postMap] = useDataMutation(createMapMutation, {
         onError: (e) => {
             saveAsAlert.show({
@@ -82,10 +110,25 @@ const FileMenu = ({ onFileMenuAction }) => {
         },
     })
 
-    const onSave = async () => {
-        const config = cleanMapConfig({
+    const onSave = async ({ name, description }) => {
+        const { subscribers } = await fetchMapSubscribers({
+            id: map.id,
+            engine,
+        })
+
+        const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
+        })
+
+        const config = preparePayloadForSave({
+            visualization: {
+                ...cleanedMap,
+                subscribers,
+                type: VIS_TYPE_MAP,
+            },
+            name,
+            description,
         })
 
         await putMap({
@@ -99,19 +142,62 @@ const FileMenu = ({ onFileMenuAction }) => {
         }
     }
 
-    const onSaveAs = async ({ name, description }) => {
-        const data = {
-            ...cleanMapConfig({
-                config: map,
-                defaultBasemapId: defaultBasemap,
-            }),
-            name: getMapName(name),
-            description,
+    const onRename = async ({ name, description }) => {
+        // fetch the original Map
+        const fetchedMap = await fetchMap({
+            id: map.id,
+            engine,
+            defaultBasemap,
+            withSubscribers: true,
+        })
+
+        const latestMap = {
+            ...fetchedMap,
+            mapViews: addOrgUnitPaths(fetchedMap.mapViews),
         }
 
-        delete data.id
+        const cleanedMap = cleanMapConfig({
+            config: latestMap,
+            defaultBasemapId: defaultBasemap,
+            cleanMapviewConfig: false,
+        })
 
-        const res = await postMap({ data })
+        const config = preparePayloadForSave({
+            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
+            name,
+            description,
+        })
+
+        await renameMap({
+            id: map.id,
+            data: config,
+        })
+
+        const { map: updatedMapNameDesc } = await fetchMapNameDesc({
+            id: map.id,
+            engine,
+        })
+
+        dispatch(setMapProps(updatedMapNameDesc))
+
+        renameSuccessAlert.show({ msg: i18n.t('Rename successful') })
+
+        onFileMenuAction()
+    }
+
+    const onSaveAs = async ({ name, description }) => {
+        const cleanedMap = cleanMapConfig({
+            config: map,
+            defaultBasemapId: defaultBasemap,
+        })
+
+        const config = preparePayloadForSaveAs({
+            visualization: { ...cleanedMap, type: VIS_TYPE_MAP },
+            name,
+            description,
+        })
+
+        const res = await postMap({ data: config })
 
         if (res.status === 'OK') {
             saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
@@ -120,11 +206,6 @@ const FileMenu = ({ onFileMenuAction }) => {
                 history.push(`/${res.response.uid}`)
             }
         }
-    }
-
-    const onRename = ({ name, description }) => {
-        dispatch(setMapProps({ name: getMapName(name), description }))
-        onFileMenuAction()
     }
 
     const onDelete = () => {

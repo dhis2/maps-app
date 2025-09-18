@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -6,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addLayer, editLayer } from '../../../actions/layers.js'
 import earthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
+import useKeyDown from '../../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.js'
 import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.js'
 import LayerList from './LayerList.js'
 
@@ -31,12 +32,14 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         isSplitViewMap(state.map.mapViews)
     )
     const dispatch = useDispatch()
-    const { defaultLayerSources } = useCachedDataQuery()
+    const { defaultLayerSources } = useCachedData()
     const { managedLayerSources } = useManagedLayerSourcesStore()
     const layerSources = includeEarthEngineLayers(
         defaultLayerSources,
         managedLayerSources
     )
+
+    useKeyDown('Escape', onClose)
 
     const onLayerSelect = (layer) => {
         const config = { ...layer }

@@ -16,6 +16,13 @@ export class EventLayer extends Layer {
         return this
     }
 
+    selectCoordinate(coordinate) {
+        cy.get('[data-test="coordinatefield"]').click()
+        cy.contains(coordinate).click()
+
+        return this
+    }
+
     validateStage(stage) {
         cy.get('[data-test="programstageselect"]')
             .contains(stage)
@@ -24,9 +31,20 @@ export class EventLayer extends Layer {
         return this
     }
 
-    selectPeriodType(periodType) {
+    selectPeriodType({ periodType } = {}) {
+        if (!periodType) {
+            throw new Error("The 'periodType' parameter is required.")
+        }
+
         cy.getByDataTest('relative-period-select-content').click()
         cy.contains(periodType).click()
+
+        return this
+    }
+
+    selectViewAllEvents() {
+        // Group events by default or View all events
+        cy.get('[src="images/nocluster.png"]').click()
 
         return this
     }

@@ -1,18 +1,8 @@
-import { shallow } from 'enzyme'
+import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
 import Timeline from '../Timeline.js'
 
-const context = {
-    map: {
-        on: jest.fn(),
-        off: jest.fn(),
-    },
-}
-
 describe('Timeline', () => {
-    const renderWithProps = (props) =>
-        shallow(<Timeline {...props} />, { context })
-
     const periodId = 'LAST_3_MONTHS'
     const period = { id: '201906', name: 'June 2019' }
     const periods = [
@@ -35,6 +25,15 @@ describe('Timeline', () => {
             endDate: new Date('2019-06-30T24:00:00.000'),
         },
     ]
+    const periodOnChange = {
+        id: '201904',
+        name: 'April 2019',
+        startDate: new Date('2019-04-01T00:00:00.000'),
+        endDate: new Date('2019-04-30T24:00:00.000'),
+        level: 7,
+        levelRank: 0,
+        type: 'MONTHLY',
+    }
     const onChangeSpy = jest.fn()
     let props
 
@@ -48,40 +47,48 @@ describe('Timeline', () => {
         }
     })
 
-    it('should render svg', () => {
-        const wrapper = renderWithProps(props)
-        expect(wrapper.type()).toBe('svg')
+    it('should render timeline', () => {
+        const { container } = render(<Timeline {...props} />)
+        expect(container).toMatchSnapshot()
     })
 
-    it('should render one rect for each period', () => {
-        const wrapper = renderWithProps(props)
-        expect(wrapper.find('rect')).toHaveLength(periods.length)
+    it('should call onChange with the period clicked', async () => {
+        render(<Timeline {...props} />)
+
+        // Find the first rect element
+        const rects = screen.getAllByRole('button')
+        const firstRect = rects[0]
+
+        await fireEvent.click(firstRect)
+
+        expect(onChangeSpy).toHaveBeenCalledWith(periodOnChange)
     })
 
-    it('should highlight the current period', () => {
-        const wrapper = renderWithProps(props)
-        const periodIndex = periods.findIndex((p) => p.id === period.id)
-        expect(wrapper.find('rect').at(periodIndex).hasClass('selected')).toBe(
-            true
-        )
-    })
+    it('Should toggle play mode when play/pause button is clicked', async () => {
+        render(<Timeline {...props} />)
 
-    it('should call onChange with the period clicked', () => {
-        const wrapper = renderWithProps(props)
-        wrapper.find('rect').first().simulate('click')
-        expect(onChangeSpy).toHaveBeenCalledWith(periods[0])
-    })
+        // Find the play/pause button
+        const playPauseBtn = screen.getByRole('button', { name: /Play/i })
 
-    it('Should toggle play mode when play/pause button is clicked', () => {
-        const wrapper = renderWithProps(props)
-        const playPauseBtn = wrapper.find('g').first()
+        // Initially, the play icon should be visible, and the pause icon should not
+        expect(screen.queryByTestId('play-button')).toBeInTheDocument()
+        expect(screen.queryByTestId('pause-button')).not.toBeInTheDocument()
 
-        expect(wrapper.state('mode')).toBe('start')
-        playPauseBtn.simulate('click')
-        expect(wrapper.state('mode')).toBe('play')
-        // Called because current period is the last
-        expect(onChangeSpy).toHaveBeenCalledWith(periods[0])
-        playPauseBtn.simulate('click')
-        expect(wrapper.state('mode')).toBe('stop')
+        // Simulate clicking the play/pause button
+        await fireEvent.click(playPauseBtn)
+
+        // After clicking, the pause icon should be visible, and the play icon should not
+        expect(screen.queryByTestId('play-button')).not.toBeInTheDocument()
+        expect(screen.queryByTestId('pause-button')).toBeInTheDocument()
+
+        // Ensure the onChangeSpy was called with the correct argument
+        expect(onChangeSpy).toHaveBeenCalledWith(periodOnChange)
+
+        // Simulate clicking the play/pause button again
+        await fireEvent.click(playPauseBtn)
+
+        // After clicking again, the play icon should be visible, and the pause icon should not
+        expect(screen.queryByTestId('play-button')).toBeInTheDocument()
+        expect(screen.queryByTestId('pause-button')).not.toBeInTheDocument()
     })
 })

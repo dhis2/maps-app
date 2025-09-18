@@ -1,33 +1,44 @@
-import { apiFetch } from './api.js'
-
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
-export const fetchTEIs = async ({
-    program,
-    type,
-    orgUnits,
-    fields,
-    organisationUnitSelectionMode,
-}) => {
-    let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`
-    if (organisationUnitSelectionMode) {
-        url += `&ouMode=${organisationUnitSelectionMode}`
-    }
-    if (program) {
-        url += `&program=${program}`
-    }
-    if (type) {
-        url += `&trackedEntityType=${type.id}`
-    }
+const TEI_40_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        trackedEntityType,
+    }) => ({
+        fields,
+        orgUnit: orgUnits,
+        ouMode: orgUnitMode,
+        program: program,
+        trackedEntityType,
+        skipPaging: true,
+    }),
+}
 
-    const data = await apiFetch(url)
-
-    return data.trackedEntityInstances
+const TEI_41_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        trackedEntityType,
+    }) => ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        trackedEntityType,
+        paging: false,
+    }),
 }
 
 const normalizeInstances = (instances) => {
     return instances
-        .filter((instance) => !!instance.coordinates)
+        .filter((instance) => !!instance.geometry?.coordinates)
         .reduce((out, instance) => {
             out[instance.id] = instance
             return out
@@ -35,7 +46,7 @@ const normalizeInstances = (instances) => {
 }
 
 export const parseTEInstanceId = (instance) =>
-    instance.trackedEntityInstance.trackedEntityInstance
+    instance.trackedEntity.trackedEntity
 
 const isValidRel = (rel, type, id) =>
     rel.relationshipType === type &&
@@ -109,17 +120,16 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-const fields = [
-    'trackedEntityInstance~rename(id)',
-    'featureType',
-    'coordinates',
-    'relationships',
-]
-export const getDataWithRelationships = async (
-    sourceInstances,
-    relationshipType,
-    { orgUnits, organisationUnitSelectionMode }
-) => {
+const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
+export const getDataWithRelationships = async ({
+    isVersion40,
+    instances: sourceInstances,
+    queryOptions,
+    engine,
+}) => {
+    const { relationshipType, orgUnits, organisationUnitSelectionMode } =
+        queryOptions
+
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
 
@@ -171,17 +181,28 @@ export const getDataWithRelationships = async (
     const normalizedSourceInstances = normalizeInstances(sourceInstances)
 
     // Retrieve potential target instances
-    const potentialTargetInstances =
-        isRecursiveTrackedEntityType & isRecursiveProgram
-            ? normalizedSourceInstances
-            : normalizeInstances(
-                  await fetchTEIs({
-                      ...recursiveProp,
-                      fields,
-                      orgUnits,
-                      organisationUnitSelectionMode,
-                  })
-              )
+    let normalizedPotentialTargetInstances
+    if (isRecursiveTrackedEntityType & isRecursiveProgram) {
+        normalizedPotentialTargetInstances = normalizedSourceInstances
+    } else {
+        // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
+        const { tei } = await engine.query(
+            { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
+            {
+                variables: {
+                    fields,
+                    orgUnits,
+                    orgUnitMode: organisationUnitSelectionMode,
+                    program: recursiveProp?.program,
+                    trackedEntityType: recursiveProp?.type?.id,
+                },
+            }
+        )
+
+        normalizedPotentialTargetInstances = normalizeInstances(
+            tei[isVersion40 ? 'instances' : 'trackedEntities']
+        )
+    }
 
     const targetInstanceIds = []
     // Keep TEI with relationship of correct type
@@ -196,15 +217,15 @@ export const getDataWithRelationships = async (
         getInstanceRelationships(
             relationshipsById,
             instance,
-            potentialTargetInstances,
+            normalizedPotentialTargetInstances,
             relationshipType.id
         )
     )
 
     // Keep only instances that are the target of a relationship
-    const targetInstances = Object.values(potentialTargetInstances).filter(
-        (instance) => targetInstanceIds.includes(instance.id)
-    )
+    const targetInstances = Object.values(
+        normalizedPotentialTargetInstances
+    ).filter((instance) => targetInstanceIds.includes(instance.id))
 
     return {
         primary: Object.values(normalizedSourceInstances),

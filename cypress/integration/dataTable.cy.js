@@ -1,4 +1,10 @@
 import { EventLayer } from '../elements/event_layer.js'
+import {
+    MENU_HEIGHT,
+    IFRAME_HEADER_HEIGHT,
+    GLOBAL_HEADER_HEIGHT,
+    assertMapPosition,
+} from '../elements/map_canvas.js'
 import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../support/util.js'
 
 Cypress.on('uncaught:exception', (err) => {
@@ -20,8 +26,18 @@ const map = {
 
 describe('data table', () => {
     it('opens data table and filters and sorts', () => {
+        const viewportHeight = Cypress.config('viewportHeight')
+        const expectedBottoms1 = [viewportHeight]
+        const expectedHeights1 = [
+            GLOBAL_HEADER_HEIGHT,
+            IFRAME_HEADER_HEIGHT,
+        ].map((h) => viewportHeight - h - MENU_HEIGHT)
+
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        //check that the map resizes properly
+        assertMapPosition(expectedBottoms1, expectedHeights1)
 
         cy.getByDataTest('moremenubutton').first().click()
 
@@ -37,6 +53,18 @@ describe('data table', () => {
 
         //check that the bottom panel is present
         cy.getByDataTest('bottom-panel').should('be.visible')
+
+        //check that the map resizes properly
+        cy.getByDataTest('bottom-panel')
+            .invoke('height')
+            .then((height) => {
+                const expectedBottoms2 = [viewportHeight - height]
+                const expectedHeights2 = [
+                    GLOBAL_HEADER_HEIGHT,
+                    IFRAME_HEADER_HEIGHT,
+                ].map((h) => viewportHeight - h - MENU_HEIGHT - height)
+                assertMapPosition(expectedBottoms2, expectedHeights2)
+            })
 
         // check number of columns
         cy.getByDataTest('bottom-panel')
@@ -131,6 +159,19 @@ describe('data table', () => {
 
         // check that the org unit profile drawer is opened
         cy.getByDataTest('org-unit-profile').should('be.visible')
+
+        // close the datatable
+        cy.getByDataTest('moremenubutton').first().click()
+        cy.getByDataTest('more-menu')
+            .find('li')
+            .contains('Hide data table')
+            .click()
+
+        //check that the bottom panel is closed
+        cy.getByDataTest('bottom-panel').should('not.exist')
+
+        //check that the map resizes properly
+        assertMapPosition(expectedBottoms1, expectedHeights1)
     })
 
     it('opens the data table for an Event layer', () => {
@@ -142,7 +183,7 @@ describe('data table', () => {
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')
             .selectTab('Period')
-            .selectPeriodType('Start/end dates')
+            .selectPeriodType({ periodType: 'Start/end dates' })
             .typeStartDate(`${CURRENT_YEAR - 1}-01-01`)
             .typeEndDate(`${CURRENT_YEAR - 1}-01-03`)
             .addToMap()

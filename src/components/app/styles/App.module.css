@@ -14,9 +14,9 @@
 }
 
 /* Avoid vertical layer dialog scroll on small screens */
-:global(#dhis2-portal-root) aside[role=dialog],
-:global(#dhis2-portal-root) aside[role=dialog] > div > div {
-    max-height: calc(100vh - 64px)
+:global(#dhis2-portal-root) aside[role='dialog'],
+:global(#dhis2-portal-root) aside[role='dialog'] > div > div {
+    max-height: calc(100vh - 64px);
 }
 
 /* Scrollbar width */
@@ -38,8 +38,8 @@
 }
 
 .downloadContent {
-    margin-top: var(--header-height);
-    height: calc(100vh - var(--header-height));
+    margin-top: var(--downloadheader-height);
+    height: calc(100vh - var(--downloadheader-height));
 }
 
 .appMapAndTable {

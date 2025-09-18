@@ -3,11 +3,11 @@ import React, { useRef, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import {
-    HEADER_HEIGHT,
-    APP_MENU_HEIGHT,
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
+import useKeyDown from '../../hooks/useKeyDown.js'
+import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.js'
 import DataTable from './DataTable.js'
 import ErrorBoundary from './ErrorBoundary.js'
@@ -29,13 +29,16 @@ const BottomPanel = () => {
         [panelRef]
     )
 
-    const maxHeight = height - HEADER_HEIGHT - APP_MENU_HEIGHT
+    const maxHeight =
+        height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
     const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0
     const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0
     const tableWidth = width - layersWidth - rightPanelWidth
     const dataTableControlsHeight = 20
+
+    useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
     return (
         <div

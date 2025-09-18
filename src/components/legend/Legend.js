@@ -9,6 +9,7 @@ import styles from './styles/Legend.module.css'
 const Legend = ({
     description,
     filters,
+    coordinateFields,
     groups,
     unit,
     items,
@@ -43,8 +44,16 @@ const Legend = ({
             )
         )}
         {url && <img className={styles.legendImage} src={url} />}
+        {Array.isArray(coordinateFields) && (
+            <div className={styles.coordinateFields}>
+                <div>{i18n.t('Coordinate field')}:</div>
+                {coordinateFields.map((coordinateField, index) => (
+                    <div key={index}>{coordinateField}</div>
+                ))}
+            </div>
+        )}
         {Array.isArray(filters) && (
-            <div className={styles.filters}>
+            <div className={styles.filters} data-test="layerlegend-filters">
                 <div>{i18n.t('Filters')}:</div>
                 {filters.map((filter, index) => (
                     <div key={index}>{filter}</div>
@@ -79,6 +88,7 @@ Legend.propTypes = {
         radiusLow: PropTypes.number.isRequired,
         color: PropTypes.string,
     }),
+    coordinateFields: PropTypes.array,
     description: PropTypes.string,
     explanation: PropTypes.array,
     filters: PropTypes.array,

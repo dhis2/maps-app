@@ -3,7 +3,21 @@
         "master"
     ],
     "plugins": [
-        "@semantic-release/commit-analyzer",
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "releaseRules": [
+                    {
+                        "message": "[skip release]",
+                        "release": false
+                    },
+                    {
+                        "message": "[skip ci]",
+                        "release": false
+                    }
+                ]
+            }
+        ],
         "@semantic-release/release-notes-generator",
         "@semantic-release/changelog",
         "@semantic-release/npm",

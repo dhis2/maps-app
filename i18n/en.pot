@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-09-24T14:47:22.063Z\n"
-"PO-Revision-Date: 2024-09-24T14:47:22.066Z\n"
+"POT-Creation-Date: 2025-09-18T13:35:40.715Z\n"
+"PO-Revision-Date: 2025-09-18T13:35:40.715Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -19,6 +19,18 @@ msgstr "Map \"{{- name}}\" is saved."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Failed to save map: {{message}}"
+
+msgid "Rename failed"
+msgstr "Rename failed"
+
+msgid "Rename successful"
+msgstr "Rename successful"
+
+msgid "This app could not retrieve required data."
+msgstr "This app could not retrieve required data."
+
+msgid "Network error"
+msgstr "Network error"
 
 msgid "Calculation"
 msgstr "Calculation"
@@ -74,6 +86,9 @@ msgstr "Details"
 msgid "Yes"
 msgstr "Yes"
 
+msgid "No"
+msgstr "No"
+
 msgid "None"
 msgstr "None"
 
@@ -107,11 +122,11 @@ msgstr "Event > org unit coordinate"
 msgid "Event data item"
 msgstr "Event data item"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr "Previously selected value not available in list: {{id}}"
 
-msgid "Style by data element"
-msgstr "Style by data element"
+msgid "Style by data item"
+msgstr "Style by data item"
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtering is available after selecting a program stage."
@@ -461,6 +476,12 @@ msgstr "High radius should be greater than low radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
 
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
+
 msgid "Indicator group is required"
 msgstr "Indicator group is required"
 
@@ -545,6 +566,9 @@ msgstr "Related entity style"
 msgid "Line Color"
 msgstr "Line Color"
 
+msgid "Tracked Entity Type is required"
+msgstr "Tracked Entity Type is required"
+
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "No relationship types were found for tracked entity type {{type}}"
 
@@ -562,9 +586,6 @@ msgstr "Remove filter"
 
 msgid "Group set"
 msgstr "Group set"
-
-msgid "Failed to load organisation unit groups."
-msgstr "Failed to load organisation unit groups."
 
 msgid "Style by group set"
 msgstr "Style by group set"
@@ -679,9 +700,6 @@ msgstr "Group"
 msgid "Filters"
 msgstr "Filters"
 
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
-
 msgid "No data found"
 msgstr "No data found"
 
@@ -718,9 +736,6 @@ msgstr "Latitude"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basemap could not be added: {{message}}"
 
-msgid "Not set"
-msgstr "Not set"
-
 msgid "Could not retrieve event data"
 msgstr "Could not retrieve event data"
 
@@ -732,6 +747,12 @@ msgstr "Parent unit"
 
 msgid "No data"
 msgstr "No data"
+
+msgid "Not set"
+msgstr "Not set"
+
+msgid "Could not retrieve tracked entity data"
+msgstr "Could not retrieve tracked entity data"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -912,29 +933,55 @@ msgstr "Previous year"
 msgid "Next year"
 msgstr "Next year"
 
-msgid "Period type"
-msgstr "Period type"
-
 msgid "Start/end dates"
 msgstr "Start/end dates"
 
-msgid "Only one timeline is allowed."
-msgstr "Only one timeline is allowed."
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
 
-msgid "Remove other layers to enable split map views."
-msgstr "Remove other layers to enable split map views."
+msgid "Remove the existing timeline to add a new one."
+msgstr "Remove the existing timeline to add a new one."
 
-msgid "Display periods"
-msgstr "Display periods"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
 
-msgid "Single (aggregate)"
-msgstr "Single (aggregate)"
+msgid "Remove all other layers to add a split map view."
+msgstr "Remove all other layers to add a split map view."
+
+msgid "Single"
+msgstr "Single"
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr "Show periods as a combined layer. Data is aggregated."
 
 msgid "Timeline"
 msgstr "Timeline"
 
-msgid "Split map views"
-msgstr "Split map views"
+msgid "Show multiple periods as an interactive timeline."
+msgstr "Show multiple periods as an interactive timeline."
+
+msgid "Split"
+msgstr "Split"
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr "Show multiple maps in view, one for each period (max {{number}})."
+
+msgid "Period display mode"
+msgstr "Period display mode"
+
+msgid "Start and end dates are inclusive and will be reflected in the outputs."
+msgstr "Start and end dates are inclusive and will be reflected in the outputs."
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
 
 msgid "Start date"
 msgstr "Start date"
@@ -1179,6 +1226,30 @@ msgid ""
 msgstr ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
+
+msgid "Vegetation index (NDVI)"
+msgstr "Vegetation index (NDVI)"
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health."
+msgstr ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health."
+
+msgid "NDVI"
+msgstr "NDVI"
+
+msgid "250 meter"
+msgstr "250 meter"
+
+msgid "16-day"
+msgstr "16-day"
+
+msgid "Febuary 2000 - One month ago"
+msgstr "Febuary 2000 - One month ago"
 
 msgid "Population age groups"
 msgstr "Population age groups"
@@ -1434,6 +1505,12 @@ msgstr "Event"
 msgid "Facilities"
 msgstr "Facilities"
 
+msgid "an error occurred"
+msgstr "an error occurred"
+
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet used for styling was not found"
+
 msgid "No coordinates found for selected facilities"
 msgstr "No coordinates found for selected facilities"
 
@@ -1482,18 +1559,15 @@ msgstr "true"
 msgid "false"
 msgstr "false"
 
-msgid "No"
-msgstr "No"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Cannot get authorization token for Google Earth Engine."
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Cannot get authorization token for Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thematic"
@@ -1509,6 +1583,9 @@ msgstr "Org units"
 
 msgid "Facility"
 msgstr "Facility"
+
+msgid "Other"
+msgstr "Other"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

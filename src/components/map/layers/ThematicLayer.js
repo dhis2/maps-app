@@ -3,21 +3,31 @@ import React, { Fragment } from 'react'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
     BOUNDARY_LAYER,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
     LABEL_TEMPLATE_NAME_ONLY,
+    PADDING_TIMELINE,
+    DURATION_TIMELINE,
 } from '../../../constants/layers.js'
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
+import {
+    sortPeriodsByLevelAndStartDate,
+    addPeriodsDetails,
+} from '../../../util/periods.js'
 import Timeline from '../../periods/Timeline.js'
 import { poleOfInaccessibility } from '../MapApi.js'
 import PeriodName from '../PeriodName.js'
 import Popup from '../Popup.js'
 import Layer from './Layer.js'
+import styles from './styles/Popup.module.css'
+
+export const ThematicLayerContext = React.createContext()
 
 // Translating polygons to points using poleOfInaccessibility from maps-gl
 const polygonsToPoints = (features) =>
@@ -47,6 +57,8 @@ class ThematicLayer extends Layer {
 
         const { period } = this.state
 
+        const { isPlugin, map } = this.context
+
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
 
         let periodData = bubbleMap ? polygonsToPoints(data) : data
@@ -74,8 +86,6 @@ class ThematicLayer extends Layer {
                 )
             }
         }
-
-        const map = this.context.map
 
         const filteredData = filterData(periodData, dataFilters)
 
@@ -129,8 +139,19 @@ class ThematicLayer extends Layer {
 
         map.addLayer(this.layer)
 
-        // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce()
+        const options = {}
+        if (renderingStrategy === RENDERING_STRATEGY_TIMELINE) {
+            options.padding = PADDING_TIMELINE
+            if (isPlugin) {
+                options.duration = DURATION_TIMELINE
+            }
+        }
+
+        if (!isPlugin) {
+            this.fitBoundsOnce(options)
+        } else {
+            this.fitBounds(options)
+        }
     }
 
     // Set initial period
@@ -145,11 +166,19 @@ class ThematicLayer extends Layer {
             return
         }
 
-        const initialPeriod = {
-            period:
-                renderingStrategy === RENDERING_STRATEGY_SINGLE
-                    ? null
-                    : period || periods[0],
+        const initialPeriod = {}
+        switch (renderingStrategy) {
+            case RENDERING_STRATEGY_TIMELINE:
+                initialPeriod.period = sortPeriodsByLevelAndStartDate(
+                    addPeriodsDetails(periods).periodsWithTypeLevelAndRank
+                )[0]
+                break
+            case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
+                initialPeriod.period = period
+                break
+            default:
+                initialPeriod.period = null
+                break
         }
 
         // setPeriod without callback is called from the constructor (unmounted)
@@ -173,13 +202,13 @@ class ThematicLayer extends Layer {
                 coordinates={coordinates}
                 orgUnitId={id}
                 onClose={this.onPopupClose}
-                className="dhis2-map-popup-orgunit"
+                className={styles.thematicPopup}
             >
-                <em>{name}</em>
+                <div className={styles.title}>{name}</div>
                 <div>{indicator}</div>
                 <div>{periodName}</div>
                 <div>
-                    {i18n.t('Value')}: {value ? value : i18n.t('No data')}
+                    {i18n.t('Value')}: {value ?? i18n.t('No data')}
                 </div>
                 {aggregationType && aggregationType !== 'DEFAULT' && (
                     <div>{aggregationType}</div>
@@ -189,7 +218,7 @@ class ThematicLayer extends Layer {
     }
 
     render() {
-        const { periods, renderingStrategy, filters } = this.props
+        const { periods, renderingStrategy, filters, resizeCount } = this.props
         const { period, popup } = this.state
         const { id } = getPeriodFromFilters(filters) || {}
 
@@ -202,12 +231,17 @@ class ThematicLayer extends Layer {
                                 period={period.name}
                                 isTimeline={true}
                             />
-                            <Timeline
-                                periodId={id}
-                                period={period}
-                                periods={periods}
-                                onChange={this.onPeriodChange}
-                            />
+                            <ThematicLayerContext.Provider
+                                value={{ map: this.context.map }}
+                            >
+                                <Timeline
+                                    periodId={id}
+                                    period={period}
+                                    periods={periods}
+                                    onChange={this.onPeriodChange}
+                                    resizeCount={resizeCount}
+                                />
+                            </ThematicLayerContext.Provider>
                         </Fragment>
                     )}
                 {popup && this.getPopup()}
@@ -215,7 +249,34 @@ class ThematicLayer extends Layer {
         )
     }
 
-    onPeriodChange = (period) => this.setState({ period })
+    onPeriodChange = (period) => {
+        this.setState((prevState) => {
+            const { popup } = prevState
+            if (!popup) {
+                return { period }
+            }
+
+            const { valuesByPeriod } = this.props
+            const newValues = valuesByPeriod[period.id] || {}
+            const updatedPopup = {
+                ...popup,
+                feature: {
+                    ...popup.feature,
+                    properties: {
+                        ...popup.feature.properties,
+                        ...(newValues[popup.feature.properties.id] || {
+                            value: i18n.t('Not set'),
+                        }),
+                    },
+                },
+            }
+
+            return {
+                period,
+                popup: updatedPopup,
+            }
+        })
+    }
 
     onFeatureClick(evt) {
         this.setState({ popup: evt })

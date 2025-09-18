@@ -1,6 +1,6 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useState, useEffect } from 'react'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.js'
 import { getValidDataItems } from '../util/helpers.js'
 
 const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
@@ -10,7 +10,7 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
         params: ({ nameProperty }) => {
             return {
                 fields: [
-                    `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),valueType,optionSet[id,displayName~rename(name)],legendSet]]`,
+                    `trackedEntityType,programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),valueType,optionSet[id,displayName~rename(name)],legendSet]]`,
                 ],
                 paging: false,
             }
@@ -20,7 +20,8 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
 
 export const useProgramTrackedEntityAttributes = ({ programId }) => {
     const [programAttributes, setProgramAttributes] = useState(null)
-    const { nameProperty } = useCachedDataQuery()
+    const [trackedEntityType, setTrackedEntityType] = useState(null)
+    const { nameProperty } = useCachedData()
 
     const { refetch, loading } = useDataQuery(
         PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
@@ -29,17 +30,20 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
             variables: { nameProperty },
             onComplete: (data) => {
                 const attributes =
-                    data.trackedEntityAttributes.programTrackedEntityAttributes.map(
+                    data?.trackedEntityAttributes?.programTrackedEntityAttributes?.map(
                         (attr) => attr.trackedEntityAttribute
-                    )
-
+                    ) || []
                 setProgramAttributes(getValidDataItems(attributes))
+                setTrackedEntityType(
+                    data?.trackedEntityAttributes?.trackedEntityType || {}
+                )
             },
         }
     )
 
     useEffect(() => {
         setProgramAttributes(null)
+        setTrackedEntityType(null)
 
         if (programId) {
             refetch({
@@ -50,6 +54,7 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
 
     return {
         programAttributes,
+        trackedEntityType,
         loading,
     }
 }

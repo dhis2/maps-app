@@ -5,13 +5,25 @@ import {
 } from '../constants/layers.js'
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
+import { trimTime } from './time.js'
 
-export const PROGRAM_STAGE_QUERY = {
+export const EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
     programStage: {
         resource: 'programStages',
         id: ({ id }) => id,
         params: ({ nameProperty }) => ({
             fields: `programStageDataElements[displayInReports,dataElement[id,code,${nameProperty}~rename(name),optionSet,valueType]]`,
+            paging: false,
+        }),
+    },
+}
+
+export const EVENT_PROGRAM_ATTRIBUTES_QUERY = {
+    program: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
             paging: false,
         }),
     },
@@ -28,9 +40,12 @@ export const getEventColumns = async (
     layer,
     { format = METADATA_FORMAT_NAME, nameProperty, engine }
 ) => {
-    const { programStage: result } = await engine.query(PROGRAM_STAGE_QUERY, {
-        variables: { id: layer.programStage.id, nameProperty },
-    })
+    const { programStage: result } = await engine.query(
+        EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+        {
+            variables: { id: layer.programStage.id, nameProperty },
+        }
+    )
 
     return result.programStageDataElements
         .filter((el) => el.displayInReports)
@@ -58,7 +73,7 @@ export const getAnalyticsRequest = async (
         relativePeriodDate,
         isExtended,
     },
-    { d2, nameProperty, engine }
+    { nameProperty, engine, analyticsEngine }
 ) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
@@ -81,14 +96,16 @@ export const getAnalyticsRequest = async (
         })
     }
 
-    let analyticsRequest = new d2.analytics.request()
+    let analyticsRequest = new analyticsEngine.request()
         .withProgram(program.id)
         .withStage(programStage.id)
         .withCoordinatesOnly(true)
 
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        : analyticsRequest
+              .withStartDate(trimTime(startDate))
+              .withEndDate(trimTime(endDate))
 
     if (relativePeriodDate) {
         analyticsRequest =
@@ -130,8 +147,8 @@ export const getAnalyticsRequest = async (
     return analyticsRequest
 }
 
-export const loadData = async (request, config = {}, d2) => {
-    const response = await d2.analytics.events.getQuery(
+export const loadData = async ({ request, config = {}, analyticsEngine }) => {
+    const response = await analyticsEngine.events.getQuery(
         request.withPageSize(EVENT_CLIENT_PAGE_SIZE)
     ) // DHIS2-10742
 
