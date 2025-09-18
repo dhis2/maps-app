@@ -1,4 +1,5 @@
 import { useDataEngine } from '@dhis2/app-runtime'
+import { useAlert } from '@dhis2/app-service-alerts'
 import log from 'loglevel'
 import { useRef, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
@@ -6,22 +7,29 @@ import { setAnalyticalObject } from '../../actions/analyticalObject.js'
 import { setInterpretation } from '../../actions/interpretations.js'
 import { newMap, setMap } from '../../actions/map.js'
 import { openDownloadMode, closeDownloadMode } from '../../actions/ui.js'
-import { getFallbackBasemap } from '../../constants/basemaps.js'
+import {
+    ALERT_CRITICAL,
+    ALERT_MESSAGE_DYNAMIC,
+} from '../../constants/alerts.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
+import { getBasemapOrFallback } from '../../util/basemaps.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history, {
     getHashUrlParams,
     defaultHashUrlParams,
 } from '../../util/history.js'
 import { fetchMap } from '../../util/requests.js'
-import { useCachedData } from '../cachedDataProvider/CachedDataProvider.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
 
 export const useLoadMap = () => {
     const previousParamsRef = useRef(defaultHashUrlParams)
+    const basemapInvalidAlertRef = useRef(
+        useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
+    )
     const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
@@ -49,10 +57,13 @@ export const useLoadMap = () => {
                         onError: (error) => log.error('Error: ', error),
                     })
 
-                    const basemapConfig =
-                        basemaps.find(({ id }) => id === map.basemap.id) ||
-                        basemaps.find(({ id }) => id === defaultBasemap) ||
-                        getFallbackBasemap()
+                    const basemapConfig = getBasemapOrFallback({
+                        basemaps,
+                        id: map.basemap.id,
+                        defaultId: defaultBasemap,
+                        onMissing: (msg) =>
+                            basemapInvalidAlertRef.current.show({ msg }),
+                    })
 
                     const mapForStore = {
                         ...map,

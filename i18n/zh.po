@@ -2,13 +2,13 @@
 # Translators:
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
-# 晓东 林 <13981924470@126.com>, 2024
+# 晓东 林 <13981924470@126.com>, 2025
 # easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-07-08T14:01:49.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -29,6 +29,18 @@ msgstr "地图“{{- name}}”已保存。"
 
 msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
+
+msgid "Rename failed"
+msgstr "重命名失败"
+
+msgid "Rename successful"
+msgstr "重命名成功"
+
+msgid "This app could not retrieve required data."
+msgstr "此应用无法检索所需数据。"
+
+msgid "Network error"
+msgstr "网络错误"
 
 msgid "Calculation"
 msgstr "计算"
@@ -84,6 +96,9 @@ msgstr "详情"
 msgid "Yes"
 msgstr "是"
 
+msgid "No"
+msgstr "否"
+
 msgid "None"
 msgstr "无"
 
@@ -117,8 +132,8 @@ msgstr "事件 > 组织单位坐标"
 msgid "Event data item"
 msgstr "事件数据条目"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "所选值在列表中不可用：{{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr "之前选择的值在列表{{id}}中不可用："
 
 msgid "Style by data item"
 msgstr "按数据元定风格"
@@ -580,9 +595,6 @@ msgstr "移除过滤器"
 msgid "Group set"
 msgstr "组集"
 
-msgid "Failed to load organisation unit groups."
-msgstr "未能加载组织机构组。"
-
 msgid "Style by group set"
 msgstr "按组集设置样式"
 
@@ -683,17 +695,11 @@ msgstr "编辑图层"
 msgid "Remove layer"
 msgstr "移除图层"
 
-msgid "Mid"
-msgstr "中"
-
 msgid "Group"
 msgstr "组"
 
 msgid "Filters"
 msgstr "过滤器"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}：{{message}}"
 
 msgid "No data found"
 msgstr "没有数据被找到"
@@ -731,9 +737,6 @@ msgstr "纬度"
 msgid "Basemap could not be added: {{message}}"
 msgstr "无法添加底图：{{message}}"
 
-msgid "Not set"
-msgstr "没有设置"
-
 msgid "Could not retrieve event data"
 msgstr "无法检索事件数据"
 
@@ -745,6 +748,9 @@ msgstr "上级机构"
 
 msgid "No data"
 msgstr "无数据"
+
+msgid "Not set"
+msgstr "没有设置"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "无法检索跟踪的实体数据"
@@ -935,8 +941,8 @@ msgid ""
 "can be selected."
 msgstr "最多只能选择{{number}} 个时段（包括多时段）。"
 
-msgid "Remove all existing layers to add a split map view."
-msgstr "移除所有现有图层，添加分割地图视图。"
+msgid "Remove all other layers to add a split map view."
+msgstr "移除所有其他图层并添加一个分开的地图视图。"
 
 msgid "Single"
 msgstr "单人"
@@ -1034,6 +1040,9 @@ msgstr "OSM轻量"
 msgid "OSM Detailed"
 msgstr "OSM详细图"
 
+msgid "Sentinel-2 EOX"
+msgstr "哨兵-2 EOX"
+
 msgid "Bing Road"
 msgstr "Bing道路"
 
@@ -1045,6 +1054,18 @@ msgstr "Bing空间图"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
+
+msgid "Azure Road"
+msgstr "Azure 路网"
+
+msgid "Azure Dark"
+msgstr "Azure 黑夜"
+
+msgid "Azure Aerial"
+msgstr "Azure 卫星图"
+
+msgid "Azure Aerial Labels"
+msgstr "Azure 卫星带标签图"
 
 msgid "Building footprints"
 msgstr "构建足迹"
@@ -1450,6 +1471,12 @@ msgstr "事件"
 msgid "Facilities"
 msgstr "机构设施"
 
+msgid "an error occurred"
+msgstr "出现错误"
+
+msgid "GroupSet used for styling was not found"
+msgstr "未找到用于样式的 组集"
+
 msgid "No coordinates found for selected facilities"
 msgstr "未找到选定设施的坐标"
 
@@ -1498,16 +1525,25 @@ msgstr "真"
 msgid "false"
 msgstr "假"
 
-msgid "No"
-msgstr "否"
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr "{{keyName}} 对图层类型无效：{{type}}"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "无法获取Google Earth Engine的授权令牌。"
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr "{{keyName}} 未为图层类型提供：{{types}}"
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr "无法加载： {{id}} - 使用默认基图。"
+
+msgid "Mid"
+msgstr "中"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "无法获取Google Earth Engine的授权令牌。"
 
 msgid "Thematic"
 msgstr "专题图"
@@ -1523,6 +1559,9 @@ msgstr "组织机构"
 
 msgid "Facility"
 msgstr "功能"
+
+msgid "Other"
+msgstr "其它"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

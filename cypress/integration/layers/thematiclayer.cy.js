@@ -71,6 +71,32 @@ context('Thematic Layers', () => {
     })
 
     it('adds a thematic layer', () => {
+        const choroplethColors = [
+            'rgb(255, 255, 212)',
+            'rgb(254, 217, 142)',
+            'rgb(254, 153, 41)',
+            'rgb(217, 95, 14)',
+            'rgb(153, 52, 4)',
+            'rgb(204, 204, 204)',
+        ]
+        const bubbleColors = [
+            ...choroplethColors.slice(0, 5).reverse(),
+            'none',
+            choroplethColors[5],
+        ]
+
+        // Examples of choropleth labels:
+        // "3.2 - 7.5 (100)"
+        // "No data (0)"
+        const choroplethLegendTextPattern =
+            /^\s*(\d+(\.\d+)?\s*-\s*\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
+
+        // Examples of bubble labels:
+        // "10.5"
+        // "No data"
+        const bubbleLabelTextPattern = /^(\d+(\.\d+)?|No data)$/
+
+        // Choropleth
         Layer.openDialog('Thematic')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
@@ -78,21 +104,55 @@ context('Thematic Layers', () => {
             .selectPeriodType({ periodType: 'YEARLY' })
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
+            .selectTab('Style')
+            .selectIncludeNoDataOU()
             .addToMap()
 
         Layer.validateDialogClosed(true)
-
         Layer.validateCardTitle(HIV_INDICATOR_NAME)
-        // TODO: test this in a way that is not dependent on the date
-        // Layer.validateCardItems([
-        //     '70.2 - 76.72 (1)',
-        //     '76.72 - 83.24 (1)',
-        //     '83.24 - 89.76 (2)',
-        //     '89.76 - 96.28 (3)',
-        //     '96.28 - 102.8 (4)',
-        // ]);
 
         getMaps().should('have.length', 1)
+        cy.getByDataTest('layerlegend')
+            .getByDataTest('layerlegend-item')
+            .should('have.length', 6)
+        choroplethColors.forEach((color, index) => {
+            cy.getByDataTest('layerlegend-item')
+                .eq(index)
+                .within(() => {
+                    cy.get('span')
+                        .should('have.attr', 'style')
+                        .and('include', `background-color: ${color}`)
+                    cy.get('td')
+                        .invoke('text')
+                        .should('match', choroplethLegendTextPattern)
+                })
+        })
+
+        // Bubble map
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.selectTab('Style').selectBubbleMap()
+        Layer.updateMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
+
+        getMaps().should('have.length', 1)
+        cy.getByDataTest('layerlegend')
+            .get('svg circle')
+            .should('have.length', 7)
+        bubbleColors.forEach((color, index) => {
+            cy.getByDataTest('layerlegend')
+                .get('svg circle')
+                .eq(index)
+                .should('have.attr', 'style')
+                .and('include', `fill: ${color}`)
+            cy.getByDataTest('layerlegend')
+                .get('svg text:visible')
+                .each(($el) => {
+                    const text = $el.text().trim()
+                    expect(text).to.match(bubbleLabelTextPattern)
+                })
+        })
     })
 
     it('adds a thematic layer for OU Bombali', () => {
@@ -374,23 +434,37 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
+        // check that the first timeline period is shown in blue
         cy.get('.dhis2-map-period').should('be.visible')
         cy.get('svg.dhis2-map-timeline').find('rect').should('have.length', 5)
         cy.get('svg.dhis2-map-timeline')
             .find('rect')
             .first()
-            .invoke('attr', 'class')
-            .should('contain', 'Timeline_selected')
+            .should('have.css', 'fill', 'rgb(20, 124, 215)')
+            .and('have.css', 'fill-opacity', '1')
+
+        cy.get('svg.dhis2-map-timeline')
+            .find('rect')
+            .last()
+            .should('have.css', 'fill', 'rgb(255, 255, 255)')
+            .and('have.css', 'fill-opacity', '0.8')
 
         cy.get('.play-icon').click()
         cy.get('.pause-icon').should('be.visible')
         cy.wait((5 - 1) * 1500)
 
+        // check that the last timeline period is shown in blue
+        cy.get('svg.dhis2-map-timeline')
+            .find('rect')
+            .first()
+            .should('have.css', 'fill', 'rgb(255, 255, 255)')
+            .and('have.css', 'fill-opacity', '0.8')
+
         cy.get('svg.dhis2-map-timeline')
             .find('rect')
             .last()
-            .invoke('attr', 'class')
-            .should('contain', 'Timeline_selected')
+            .should('have.css', 'fill', 'rgb(20, 124, 215)')
+            .and('have.css', 'fill-opacity', '1')
         cy.get('.play-icon').should('be.visible')
 
         Layer.openDialog('Thematic').selectTab('Period')

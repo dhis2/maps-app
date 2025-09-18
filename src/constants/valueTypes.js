@@ -34,3 +34,6 @@ export const datetimeValueTypes = ['DATETIME']
 
 // Coordinate value types
 export const coordinateValueTypes = ['COORDINATE']
+
+// Organisation unit value types
+export const ouValueTypes = ['ORGANISATION_UNIT']

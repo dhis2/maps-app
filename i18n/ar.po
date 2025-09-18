@@ -1,15 +1,16 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2021
 # Viktor Varland <viktor@dhis2.org>, 2024
-# Hamza Assada <7amza.it@gmail.com>, 2024
+# Hamza Assada <7amza.it@gmail.com>, 2025
+# Philip Larsen Donnelly, 2025
+# Nadiia <semchuk@aph.org.ua>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2024\n"
+"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +29,18 @@ msgstr ""
 
 msgid "Failed to save map: {{message}}"
 msgstr ""
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "تمت إعادة التسمية بنجاح"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "خطأ في الشبكة"
 
 msgid "Calculation"
 msgstr ""
@@ -83,6 +96,9 @@ msgstr "التفاصيل"
 msgid "Yes"
 msgstr "نعم"
 
+msgid "No"
+msgstr "لا"
+
 msgid "None"
 msgstr "لا شيء"
 
@@ -116,10 +132,10 @@ msgstr ""
 msgid "Event data item"
 msgstr "عنصر بيانات حدث"
 
-msgid "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
-msgid "Style by data element"
+msgid "Style by data item"
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
@@ -580,9 +596,6 @@ msgstr "إزالة عامل التصفية"
 msgid "Group set"
 msgstr "حزمة المجموعات"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
 
@@ -693,9 +706,6 @@ msgstr "المجموعة"
 msgid "Filters"
 msgstr "‏‏عوامل التصفية"
 
-msgid "{{layername}}: {{message}}"
-msgstr ""
-
 msgid "No data found"
 msgstr "لم توجد بيانات"
 
@@ -732,9 +742,6 @@ msgstr "خط العرض"
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "غير مضبوط"
-
 msgid "Could not retrieve event data"
 msgstr ""
 
@@ -746,6 +753,9 @@ msgstr "الوحدة العليا"
 
 msgid "No data"
 msgstr "لا توجد بيانات"
+
+msgid "Not set"
+msgstr "غير مضبوط"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -930,7 +940,7 @@ msgstr "تواريخ- البدء-الانتهاء"
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Remove the existing timeline to add a new one."
 msgstr ""
 
 msgid ""
@@ -938,7 +948,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1460,6 +1470,12 @@ msgstr "الحدث"
 msgid "Facilities"
 msgstr "مرافق"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1508,18 +1524,15 @@ msgstr "true"
 msgid "false"
 msgstr "false"
 
-msgid "No"
-msgstr "لا"
-
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
-
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
 "تتطلب هذه الطبقة حساب Google Earth Engine. تحقق من وثائق DHIS2 لمزيد من "
 "المعلومات."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
 
 msgid "Thematic"
 msgstr ""
@@ -1535,6 +1548,9 @@ msgstr "الوحدات التنظيمية"
 
 msgid "Facility"
 msgstr "المنشأة"
+
+msgid "Other"
+msgstr "أخرى"
 
 msgid "Start date is invalid"
 msgstr "تاريخ البدء غير صالح"
