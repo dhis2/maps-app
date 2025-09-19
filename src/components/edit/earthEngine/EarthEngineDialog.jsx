@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
+    setBand,
     setOrgUnits,
     setEarthEnginePeriod,
     setBufferRadius,
@@ -33,12 +34,14 @@ const EarthEngineDialog = (props) => {
         datasetId,
         defaultAggregations,
         description,
+        descriptionComplement,
         filters,
         maskOperator,
         notice,
         orgUnitField,
         orgUnits,
         rows,
+        setBand,
         setOrgUnits,
         source,
         sourceUrl,
@@ -53,12 +56,21 @@ const EarthEngineDialog = (props) => {
         onLayerValidation,
     } = props
 
-    const noBandSelected = Array.isArray(bands) && (!band || !band.length)
+    const noBandSelected = bands && (!band || !band.length)
 
     const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
 
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
+
+    // Set default band
+    useEffect(() => {
+        if (!band) {
+            if (bands?.default) {
+                setBand(bands.default)
+            }
+        }
+    }, [band, bands, setBand])
 
     // Set default org unit level
     useEffect(() => {
@@ -127,6 +139,9 @@ const EarthEngineDialog = (props) => {
                     <div className={styles.flexRowFlow}>
                         <Help>
                             <p>{description}</p>
+                            {descriptionComplement && (
+                                <p>{descriptionComplement}</p>
+                            )}
                             <p>
                                 {i18n.t(
                                     'Data will be calculated on Google Earth Engine for the chosen organisation units.'
@@ -224,6 +239,7 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
+    setBand: PropTypes.func.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setEarthEnginePeriod: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
@@ -232,12 +248,13 @@ EarthEngineDialog.propTypes = {
     aggregations: PropTypes.array,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    bands: PropTypes.array,
+    bands: PropTypes.object,
     defaultAggregations: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.string,
     ]),
     description: PropTypes.string,
+    descriptionComplement: PropTypes.string,
     filters: PropTypes.array,
     legend: PropTypes.object,
     maskOperator: PropTypes.string,
@@ -268,7 +285,7 @@ EarthEngineDialog.propTypes = {
 
 export default connect(
     null,
-    { setOrgUnits, setEarthEnginePeriod, setBufferRadius },
+    { setBand, setOrgUnits, setEarthEnginePeriod, setBufferRadius },
     null,
     {
         forwardRef: true,

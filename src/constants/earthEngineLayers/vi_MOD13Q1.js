@@ -8,13 +8,17 @@ export default {
     datasetId: 'MODIS/061/MOD13Q1',
     format: 'ImageCollection',
     img: 'images/ndvi.png',
-    name: i18n.t('NDVI'),
+    name: i18n.t('Vegetation index'),
     description: i18n.t(
-        'Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. NDVI values range from -1 to 1, with higher values indicating denser vegetation.'
+        'NDVI and EVI values range from -1 to 1, with higher values indicating denser vegetation.'
+    ),
+    descriptionComplement: i18n.t(
+        'Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation.'
     ),
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD13Q1',
+    unit: i18n.t('unitless'),
     resolution: {
         spatial: i18n.t('250 meter'),
         temporal: i18n.t('16-day'),
@@ -29,7 +33,15 @@ export default {
             arguments: ['system:index', '$1'],
         },
     ],
-    band: 'NDVI',
+    bands: {
+        label: i18n.t('Index'),
+        multiple: false,
+        default: 'NDVI',
+        list: [
+            { id: 'NDVI', name: i18n.t('NDVI') },
+            { id: 'EVI', name: i18n.t('EVI') },
+        ],
+    },
     methods: [
         {
             name: 'multiply',
@@ -38,15 +50,18 @@ export default {
     ],
     style: {
         min: 0,
-        max: 1,
+        max: 0.8,
         palette: [
-            '#ffffcc',
-            '#c2e699',
-            '#78c679',
-            '#31a354',
+            '#f1eda9',
+            '#ffffbf',
+            '#d9ef8b',
+            '#a6d96a',
+            '#66bd63',
+            '#1a9850',
+            '#238443',
             '#006837',
             '#004529',
-        ], // YlGn (ColorBrewer)
+        ], // Vegetation (custom scale)
     },
     popup: '{name}: {value}',
     maskOperator: 'gte',
