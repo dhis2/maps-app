@@ -30,7 +30,17 @@ export default {
             arguments: ['system:index', '$1'],
         },
     ],
-    band: 'temperature_2m',
+    bands: {
+        label: i18n.t('Temporal aggregatation method'),
+        multiple: false,
+        default: 'temperature_2m',
+        list: [
+            { id: 'temperature_2m', name: i18n.t('Mean') },
+            { id: 'temperature_2m_min', name: i18n.t('Min') },
+            { id: 'temperature_2m_max', name: i18n.t('Max') },
+        ],
+    },
+    band: '',
     methods: [
         {
             name: 'toFloat',

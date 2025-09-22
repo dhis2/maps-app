@@ -30,7 +30,7 @@ const AggregationSelect = ({
 
     return (
         <SelectField
-            label={i18n.t('Aggregation method')}
+            label={i18n.t('Spatial aggregation method')}
             items={types}
             multiple={!classes}
             value={aggregationType}
