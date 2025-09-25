@@ -99,7 +99,7 @@ Legend.propTypes = {
     description: PropTypes.string,
     explanation: PropTypes.array,
     filters: PropTypes.array,
-    groups: PropTypes.oneOf([PropTypes.array, PropTypes.object]),
+    groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     isPlugin: PropTypes.bool,
     items: PropTypes.array,
     source: PropTypes.string,
