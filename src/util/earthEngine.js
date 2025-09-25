@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { legacyNighttimeDatasetId } from '../constants/earthEngineLayers/legacy/nighttime_DMSP-OLS.js'
-import { EE_MONTHLY } from '../constants/periods.js'
+import { EE_MONTHLY, EE_DAILY } from '../constants/periods.js'
 import { formatStartEndDate } from './time.js'
 
 const oneDayInMs = 24 * 60 * 60 * 1000
@@ -11,14 +11,12 @@ export const classAggregation = ['percentage', 'hectares', 'acres']
 export const hasClasses = (type) => classAggregation.includes(type)
 
 export const getStartEndDate = (data) => {
-    const year = new Date(data['system:time_end']).getFullYear()
     const period = formatStartEndDate(
         data['system:time_start'],
         data['system:time_end'] - oneDayInMs, // Subtract one day to make it inclusive
-        null,
-        false
+        null
     )
-    return `${period} ${year}`
+    return period
 }
 
 const getStaticFiltersFromDynamic = (filters, ...args) =>
@@ -35,6 +33,33 @@ const getMonth = (data) => {
     const month = date.toLocaleString('default', { month: 'long' })
     const year = date.getFullYear()
     return `${month} ${year}`
+}
+
+const getDay = (data) =>
+    new Date(data['system:time_start']).toISOString().slice(0, 10)
+
+const getDatasetPeriodInfo = (first, last) => {
+    const [startYear, endYear] = [first, last].map((img) =>
+        new Date(img.properties['system:time_start']).getFullYear()
+    )
+    const [startIndex, endIndex] = [first, last].map(
+        (img) => img.properties['system:index']
+    )
+
+    let periodicity = 'OTHER'
+    if (/^\d{8}$/.test(startIndex) && /^\d{8}$/.test(endIndex)) {
+        periodicity = EE_DAILY
+    } else if (/^\d{6}$/.test(startIndex) && /^\d{6}$/.test(endIndex)) {
+        periodicity = EE_MONTHLY
+    } else if (/^\d{4}$/.test(startIndex) && /^\d{4}$/.test(endIndex)) {
+        periodicity = 'YEARLY'
+    }
+
+    return {
+        periodicity,
+        startYear,
+        endYear,
+    }
 }
 
 export const getStaticFilterFromPeriod = (period, filters) => {
@@ -126,6 +151,7 @@ const getWorkerInstance = async (engine) => {
 export const getPeriods = async ({
     datasetId,
     periodType,
+    year,
     filters,
     engine,
 }) => {
@@ -134,25 +160,49 @@ export const getPeriods = async ({
     )
 
     const getPeriod = ({ id, properties }) => {
-        const year =
+        const yearProp =
             properties.year ||
             new Date(properties['system:time_start']).getFullYear()
 
-        return periodType === 'YEARLY'
-            ? { id: useSystemIndex ? id : year, name: String(year) }
-            : {
-                  id,
-                  name:
-                      periodType === EE_MONTHLY
-                          ? getMonth(properties)
-                          : getStartEndDate(properties),
-                  year,
-              }
+        switch (periodType) {
+            case 'YEARLY':
+                return {
+                    id: useSystemIndex ? id : yearProp,
+                    name: String(yearProp),
+                }
+            case EE_MONTHLY:
+                return {
+                    id,
+                    name: getMonth(properties),
+                    yearProp,
+                }
+            case EE_DAILY:
+                return {
+                    id,
+                    name: getDay(properties),
+                    yearProp,
+                }
+            default:
+                return {
+                    id,
+                    name: getStartEndDate(properties),
+                    yearProp,
+                }
+        }
     }
 
     const eeWorker = await getWorkerInstance(engine)
 
-    const { features } = await eeWorker.getPeriods(datasetId)
+    const { features } = await eeWorker.getPeriods(datasetId, year)
 
     return features.map(getPeriod)
+}
+
+export const getYears = async ({ datasetId, engine }) => {
+    const eeWorker = await getWorkerInstance(engine)
+
+    const { first, last } = await eeWorker.getCollectionSpan(datasetId)
+    const periodInfo = getDatasetPeriodInfo(first, last)
+
+    return periodInfo
 }

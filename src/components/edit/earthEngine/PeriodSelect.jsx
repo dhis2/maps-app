@@ -2,9 +2,9 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { BY_YEAR, EE_MONTHLY } from '../../../constants/periods.js'
-import { getPeriods } from '../../../util/earthEngine.js'
+import React, { useState, useCallback, useEffect } from 'react'
+import { BY_YEAR, EE_MONTHLY, EE_DAILY } from '../../../constants/periods.js'
+import { getPeriods, getYears } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
@@ -20,80 +20,87 @@ const EarthEnginePeriodSelect = ({
 }) => {
     const engine = useDataEngine()
     const [periods, setPeriods] = useState()
-    const [yearPeriods, setYearPeriods] = useState()
     const [year, setYear] = useState()
-    const byYear = periodType === BY_YEAR || periodType === EE_MONTHLY
+    const [years, setYears] = useState()
+    const [loadingPeriods, setLoadingPeriods] = useState(false)
+    const byYear =
+        periodType === BY_YEAR ||
+        periodType === EE_MONTHLY ||
+        periodType === EE_DAILY
 
-    const years = useMemo(
-        () =>
-            byYear && periods
-                ? [...new Set(periods.map((p) => p.year))].map((year) => ({
-                      id: year,
-                      name: String(year),
-                  }))
-                : null,
-        [byYear, periods]
-    )
+    // Get years for dataset
+    useEffect(() => {
+        let isCancelled = false
+
+        if (byYear) {
+            getYears({ datasetId, engine })
+                .then(({ startYear, endYear }) => {
+                    if (!isCancelled) {
+                        const newYears = Array.from(
+                            { length: endYear - startYear + 1 },
+                            (_, i) => {
+                                const year = endYear - i
+                                return { id: year, name: String(year) }
+                            }
+                        )
+                        setYears(newYears)
+                    }
+                })
+                .catch((error) => {
+                    return onError({
+                        type: 'engine',
+                        message: error.message,
+                    })
+                })
+        }
+
+        return () => (isCancelled = true)
+    }, [datasetId, byYear, onError, engine])
+
+    // Set year to latest available year by default
+    useEffect(() => {
+        if (byYear && years) {
+            setYear(years[0].id)
+        }
+    }, [byYear, years])
+
+    // Get periods for dataset and selected year
+    useEffect(() => {
+        let isCancelled = false
+
+        if (periodType && year) {
+            setLoadingPeriods(true)
+
+            getPeriods({ datasetId, periodType, year, filters, engine })
+                .then((periods) => {
+                    if (!isCancelled) {
+                        setPeriods(periods)
+                        setLoadingPeriods(false)
+                    }
+                })
+                .catch((error) => {
+                    return onError({
+                        type: 'engine',
+                        message: error.message,
+                    })
+                })
+        }
+
+        return () => (isCancelled = true)
+    }, [datasetId, periodType, year, filters, onError, engine])
+
+    // Set most recent period by default
+    useEffect(() => {
+        if (Array.isArray(periods) && periods.length) {
+            onChange(periods[0])
+        }
+    }, [periods, onChange])
 
     const onYearChange = useCallback(({ id }) => {
         setYear(id)
     }, [])
 
-    useEffect(() => {
-        let isCancelled = false
-
-        if (periodType) {
-            getPeriods({ datasetId, periodType, filters, engine })
-                .then((periods) => {
-                    if (!isCancelled) {
-                        setPeriods(periods)
-                    }
-                })
-                .catch((error) =>
-                    onError({
-                        type: 'engine',
-                        message: error.message,
-                    })
-                )
-        }
-
-        return () => (isCancelled = true)
-    }, [datasetId, periodType, filters, onError, engine])
-
-    // Set year from period
-    useEffect(() => {
-        if (!year && byYear && period) {
-            setYear(period.year)
-        }
-    }, [year, byYear, period])
-
-    // Set most recent period by default
-    useEffect(() => {
-        if (!period && Array.isArray(periods) && periods.length) {
-            onChange(periods[0])
-        }
-    }, [period, periods, onChange])
-
-    // Set avaiable periods for one year
-    useEffect(() => {
-        if (byYear && year && periods) {
-            setYearPeriods(periods.filter((p) => p.year === year))
-        }
-    }, [year, byYear, periods])
-
-    // If year is changed, set most recent period for one year
-    useEffect(() => {
-        if (
-            byYear &&
-            period &&
-            yearPeriods &&
-            !yearPeriods.find(({ id }) => id === period.id)
-        ) {
-            onChange(yearPeriods[0])
-        }
-    }, [byYear, period, yearPeriods, onChange])
-
-    const items = yearPeriods || periods
+    const items = periods
 
     return items ? (
         <div className={className}>
@@ -108,8 +115,8 @@ const EarthEnginePeriodSelect = ({
             )}
             <SelectField
                 label={i18n.t('Period')}
-                loading={!periods}
-                items={items}
+                loading={loadingPeriods}
+                items={!loadingPeriods ? items : null}
                 value={
                     items &&
                     period &&

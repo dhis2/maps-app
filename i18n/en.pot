@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-22T14:36:01.407Z\n"
-"PO-Revision-Date: 2025-09-22T14:36:01.407Z\n"
+"POT-Creation-Date: 2025-09-25T13:45:58.750Z\n"
+"PO-Revision-Date: 2025-09-25T13:45:58.750Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1137,6 +1137,62 @@ msgstr "~30 meters"
 msgid "Febuary 2000"
 msgstr "Febuary 2000"
 
+msgid "Heat stress daily"
+msgstr "Heat stress daily"
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) is an index that combines the "
+"effects of air temperature, humidity, wind speed, and radiation on the "
+"human body. It is a measure of the thermal stress experienced by a person "
+"in a given environment. Felt temperature in °C."
+msgstr ""
+"The Universal Thermal Climate Index (UTCI) is an index that combines the "
+"effects of air temperature, humidity, wind speed, and radiation on the "
+"human body. It is a measure of the thermal stress experienced by a person "
+"in a given environment. Felt temperature in °C."
+
+msgid "~28 kilometers"
+msgstr "~28 kilometers"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Febuary 1950 - One month ago"
+msgstr "Febuary 1950 - One month ago"
+
+msgid "Temporal aggregatation method"
+msgstr "Temporal aggregatation method"
+
+msgid "Humidity daily"
+msgstr "Humidity daily"
+
+msgid ""
+"Percentage of water vapor in the air compared to the total amount of vapor "
+"that can exist in the air at its current temperature. Calculated using air "
+"temperature and dewpoint temperature at 2 m above surface."
+msgstr ""
+"Percentage of water vapor in the air compared to the total amount of vapor "
+"that can exist in the air at its current temperature. Calculated using air "
+"temperature and dewpoint temperature at 2 m above surface."
+
+msgid "%"
+msgstr "%"
+
+msgid "~9 kilometers"
+msgstr "~9 kilometers"
+
+msgid "Febuary 1950 - One week ago"
+msgstr "Febuary 1950 - One week ago"
+
+msgid "Bands"
+msgstr "Bands"
+
+msgid "Dewpoint temperature"
+msgstr "Dewpoint temperature"
+
+msgid "Temperature"
+msgstr "Temperature"
+
 msgid "Landcover"
 msgstr "Landcover"
 
@@ -1371,8 +1427,8 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation monthly"
-msgstr "Precipitation monthly"
+msgid "Precipitation daily"
+msgstr "Precipitation daily"
 
 msgid ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
@@ -1381,17 +1437,14 @@ msgstr ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
 
-msgid "~11 kilometers"
-msgstr "~11 kilometers"
+msgid "Precipitation monthly"
+msgstr "Precipitation monthly"
 
 msgid "Monthly"
 msgstr "Monthly"
 
-msgid "Febuary 1950 - One month ago"
-msgstr "Febuary 1950 - One month ago"
-
-msgid "Temperature monthly"
-msgstr "Temperature monthly"
+msgid "Temperature daily"
+msgstr "Temperature daily"
 
 msgid ""
 "Temperature at 2m above the surface. Combines model data with observations "
@@ -1400,8 +1453,8 @@ msgstr ""
 "Temperature at 2m above the surface. Combines model data with observations "
 "from across the world."
 
-msgid "Temporal aggregatation method"
-msgstr "Temporal aggregatation method"
+msgid "Temperature monthly"
+msgstr "Temperature monthly"
 
 msgid "Vegetation index"
 msgstr "Vegetation index"
@@ -1478,9 +1531,6 @@ msgstr "Symbol"
 
 msgid "Relative"
 msgstr "Relative"
-
-msgid "Daily"
-msgstr "Daily"
 
 msgid "Weekly"
 msgstr "Weekly"
