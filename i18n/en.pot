@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-25T16:09:25.247Z\n"
-"PO-Revision-Date: 2025-09-25T16:09:25.247Z\n"
+"POT-Creation-Date: 2025-09-26T15:06:39.331Z\n"
+"PO-Revision-Date: 2025-09-26T15:06:39.331Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -359,11 +359,11 @@ msgstr "Source"
 msgid "Legend preview"
 msgstr "Legend preview"
 
-msgid "Year"
-msgstr "Year"
-
 msgid "Available periods are set by the source data"
 msgstr "Available periods are set by the source data"
+
+msgid "Year"
+msgstr "Year"
 
 msgid "Loading periods"
 msgstr "Loading periods"
@@ -1193,6 +1193,12 @@ msgstr "Very strong heat stress 38 - 46"
 msgid "Extreme heat stress 46 - 60"
 msgstr "Extreme heat stress 46 - 60"
 
+msgid "Heat stress monthly"
+msgstr "Heat stress monthly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
 msgid "Humidity daily"
 msgstr "Humidity daily"
 
@@ -1470,9 +1476,6 @@ msgstr ""
 msgid "Precipitation monthly"
 msgstr "Precipitation monthly"
 
-msgid "Monthly"
-msgstr "Monthly"
-
 msgid "Temperature daily"
 msgstr "Temperature daily"
 
@@ -1486,8 +1489,8 @@ msgstr ""
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
 
-msgid "Vegetation index"
-msgstr "Vegetation index"
+msgid "Vegetation index monthly"
+msgstr "Vegetation index monthly"
 
 msgid ""
 "NDVI and EVI values range from -1 to 1, with higher values indicating "
@@ -1528,6 +1531,9 @@ msgstr "NDVI"
 
 msgid "EVI"
 msgstr "EVI"
+
+msgid "Vegetation index 16-day"
+msgstr "Vegetation index 16-day"
 
 msgid "Active"
 msgstr "Active"

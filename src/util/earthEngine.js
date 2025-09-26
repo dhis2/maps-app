@@ -151,6 +151,7 @@ const getWorkerInstance = async (engine) => {
 export const getPeriods = async ({
     datasetId,
     periodType,
+    periodReducer,
     year,
     filters,
     engine,
@@ -192,17 +193,21 @@ export const getPeriods = async ({
     }
 
     const eeWorker = await getWorkerInstance(engine)
-
-    const { features } = await eeWorker.getPeriods(datasetId, year)
-
+    const { features } = await eeWorker.getPeriods(
+        datasetId,
+        year,
+        periodReducer
+    )
     return features.map(getPeriod)
 }
 
-export const getYears = async ({ datasetId, engine }) => {
+export const getYears = async ({ datasetId, periodReducer, engine }) => {
     const eeWorker = await getWorkerInstance(engine)
 
-    const { first, last } = await eeWorker.getCollectionSpan(datasetId)
+    const { first, last } = await eeWorker.getCollectionSpan(
+        datasetId,
+        periodReducer
+    )
     const periodInfo = getDatasetPeriodInfo(first, last)
-
     return periodInfo
 }

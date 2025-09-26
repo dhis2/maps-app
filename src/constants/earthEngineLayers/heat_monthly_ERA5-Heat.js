@@ -1,14 +1,14 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../layers.js'
-import { EE_DAILY } from '../periods.js'
+import { EE_MONTHLY } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    layerId: 'projects/climate-engine-pro/assets/ce-era5-heat/utci',
+    layerId: 'projects/climate-engine-pro/assets/ce-era5-heat/utci/monthly',
     datasetId: 'projects/climate-engine-pro/assets/ce-era5-heat',
     format: 'ImageCollection',
     img: 'images/heatstress.png',
-    name: i18n.t('Heat stress daily'),
+    name: i18n.t('Heat stress monthly'),
     description: i18n.t(
         'The Universal Thermal Climate Index (UTCI) is an index that combines the effects of air temperature, humidity, wind speed, and radiation on the human body. It is a measure of the thermal stress experienced by a person in a given environment. Felt temperature in °C.'
     ),
@@ -17,12 +17,13 @@ export default {
     unit: '°C',
     resolution: {
         spatial: i18n.t('~28 kilometers'),
-        temporal: i18n.t('Daily'),
+        temporal: i18n.t('Monthly'),
         temporalCoverage: i18n.t('Febuary 1950 - One month ago'),
     },
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    periodType: EE_DAILY,
+    periodType: EE_MONTHLY,
+    periodReducer: EE_MONTHLY,
     filters: [
         {
             type: 'eq',

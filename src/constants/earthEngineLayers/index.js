@@ -1,6 +1,7 @@
 import buildings from './buildings_GOOGLE.js'
 import elevation from './elevation_SRTM.js'
 import heatDaily from './heat_daily_ERA5-Heat.js'
+import heatMonthly from './heat_monthly_ERA5-Heat.js'
 import landcover from './landcover_MCD12Q1.js'
 import legacyBuildings from './legacy/buildings_GOOGLE.js'
 import legacyNighttime from './legacy/nighttime_DMSP-OLS.js'
@@ -14,7 +15,8 @@ import precipitationDaily from './precipitation_daily_ERA5-Land.js'
 import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
-import viModis250m from './vi_MOD13Q1.js'
+import viModisMonthly from './vi_monthly_MOD13Q1.js'
+import viModisOriginal from './vi_original_MOD13Q1.js'
 
 const earthEngineLayers = [
     populationTotal,
@@ -22,12 +24,14 @@ const earthEngineLayers = [
     buildings,
     elevation,
     heatDaily,
+    heatMonthly,
     precipitationDaily,
     precipitationMonthly,
     temperatureDaily,
     temperatureMonthly,
     landcover,
-    viModis250m,
+    viModisOriginal,
+    viModisMonthly,
     legacyBuildings,
     legacyNighttime,
     legacyPopulation100m,

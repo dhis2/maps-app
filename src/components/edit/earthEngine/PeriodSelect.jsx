@@ -1,6 +1,6 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { CircularLoader } from '@dhis2/ui'
+import { NoticeBox, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
 import { BY_YEAR, EE_MONTHLY, EE_DAILY } from '../../../constants/periods.js'
@@ -10,6 +10,7 @@ import styles from './styles/PeriodSelect.module.css'
 
 const EarthEnginePeriodSelect = ({
     periodType,
+    periodReducer,
     period,
     datasetId,
     filters,
@@ -33,7 +34,7 @@ const EarthEnginePeriodSelect = ({
         let isCancelled = false
 
         if (byYear) {
-            getYears({ datasetId, engine })
+            getYears({ datasetId, periodReducer, engine })
                 .then(({ startYear, endYear }) => {
                     if (!isCancelled) {
                         const newYears = Array.from(
@@ -55,7 +56,7 @@ const EarthEnginePeriodSelect = ({
         }
 
         return () => (isCancelled = true)
-    }, [datasetId, byYear, onError, engine])
+    }, [datasetId, periodReducer, byYear, onError, engine])
 
     // Set year to latest available year by default
     useEffect(() => {
@@ -71,7 +72,14 @@ const EarthEnginePeriodSelect = ({
         if (periodType && year) {
             setLoadingPeriods(true)
 
-            getPeriods({ datasetId, periodType, year, filters, engine })
+            getPeriods({
+                datasetId,
+                periodType,
+                periodReducer,
+                year,
+                filters,
+                engine,
+            })
                 .then((periods) => {
                     if (!isCancelled) {
                         setPeriods(periods)
@@ -87,7 +95,7 @@ const EarthEnginePeriodSelect = ({
         }
 
         return () => (isCancelled = true)
-    }, [datasetId, periodType, year, filters, onError, engine])
+    }, [datasetId, periodType, periodReducer, year, filters, onError, engine])
 
     // Set most recent period by default
     useEffect(() => {
@@ -102,39 +110,43 @@ const EarthEnginePeriodSelect = ({
 
     const items = periods
 
-    return items ? (
-        <div className={className}>
-            {byYear && (
-                <SelectField
-                    label={i18n.t('Year')}
-                    items={years}
-                    value={year}
-                    onChange={onYearChange}
-                    className={styles.year}
-                />
+    return (
+        <div className={styles.flexColumn}>
+            <NoticeBox className={styles.notice}>
+                {i18n.t('Available periods are set by the source data')}
+            </NoticeBox>
+            {items ? (
+                <div className={className}>
+                    {byYear && (
+                        <SelectField
+                            label={i18n.t('Year')}
+                            items={years}
+                            value={year}
+                            onChange={onYearChange}
+                            className={styles.year}
+                        />
+                    )}
+                    <SelectField
+                        label={i18n.t('Period')}
+                        loading={loadingPeriods}
+                        items={!loadingPeriods ? items : null}
+                        value={
+                            items &&
+                            period &&
+                            items.find(({ id }) => id === period.id) &&
+                            period.id
+                        }
+                        onChange={onChange}
+                        errorText={!period && errorText ? errorText : null}
+                        className={styles.period}
+                    />
+                </div>
+            ) : (
+                <div className={styles.loading}>
+                    <CircularLoader small />
+                    {i18n.t('Loading periods')}
+                </div>
             )}
-            <SelectField
-                label={i18n.t('Period')}
-                loading={loadingPeriods}
-                items={!loadingPeriods ? items : null}
-                value={
-                    items &&
-                    period &&
-                    items.find(({ id }) => id === period.id) &&
-                    period.id
-                }
-                onChange={onChange}
-                helpText={i18n.t(
-                    'Available periods are set by the source data'
-                )}
-                errorText={!period && errorText ? errorText : null}
-                className={styles.period}
-            />
-        </div>
-    ) : (
-        <div className={styles.loading}>
-            <CircularLoader small />
-            {i18n.t('Loading periods')}
         </div>
     )
 }
@@ -148,6 +160,7 @@ EarthEnginePeriodSelect.propTypes = {
     errorText: PropTypes.string,
     filters: PropTypes.array,
     period: PropTypes.object,
+    periodReducer: PropTypes.string,
 }
 
 export default EarthEnginePeriodSelect

@@ -45,7 +45,7 @@
         "@dhis2/analytics": "^28.0.4",
         "@dhis2/app-runtime": "^3.14.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#7b75fba84d91fe7e5579695966becdca63b69183",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#705384d74f77eb06389014dc4385dd2bc3b77aae",
         "@dhis2/ui": "^10.9.0",
         "@turf/centroid": "^6.5.0",
         "abortcontroller-polyfill": "^1.7.5",

@@ -43,9 +43,11 @@ const Legend = ({
             Array.isArray(items) && (
                 <table>
                     <tbody>
-                        {items.map((item, index) => (
-                            <LegendItem {...item} key={`item-${index}`} />
-                        ))}
+                        {items
+                            .sort((a, b) => b.from - a.from)
+                            .map((item, index) => (
+                                <LegendItem {...item} key={`item-${index}`} />
+                            ))}
                     </tbody>
                 </table>
             )

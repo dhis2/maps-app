@@ -48,6 +48,7 @@ const EarthEngineDialog = (props) => {
         style,
         period,
         periodType,
+        periodReducer,
         setBufferRadius,
         setEarthEnginePeriod,
         unit,
@@ -213,6 +214,7 @@ const EarthEngineDialog = (props) => {
                     <PeriodSelect
                         datasetId={datasetId}
                         periodType={periodType}
+                        periodReducer={periodReducer}
                         period={period}
                         filters={filters}
                         onChange={setEarthEnginePeriod}
@@ -262,6 +264,7 @@ EarthEngineDialog.propTypes = {
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
     period: PropTypes.object,
+    periodReducer: PropTypes.string,
     periodType: PropTypes.string,
     precision: PropTypes.number,
     resolution: PropTypes.shape({
