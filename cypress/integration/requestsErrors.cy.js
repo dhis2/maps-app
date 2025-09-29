@@ -4,8 +4,6 @@ import { assertIntercepts, getDhis2Version } from '../support/util.js'
 const EXTRA_EXTENDED_TIMEOUT = { timeout: 60000 }
 
 const commonTriggerFn = () => {
-    cy.reload(true)
-
     cy.clearCookies()
     cy.clearLocalStorage()
 
@@ -16,6 +14,8 @@ const commonTriggerFn = () => {
     cy.loginByApi({ username, password, baseUrl })
         .its('status')
         .should('equal', 200)
+
+    cy.reload(true)
 }
 
 describe('Error handling check for all layer types', () => {
