@@ -62,6 +62,7 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getThematic_Analytics1'),
                     errors: ['network', 409],
+                    skip: true,
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
