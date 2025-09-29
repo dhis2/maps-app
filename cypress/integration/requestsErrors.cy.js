@@ -11,7 +11,7 @@ describe('Error handling check for all layer types', () => {
     beforeEach(() => {
         cy.clearCookies()
         cy.clearLocalStorage()
-        
+
         const username = Cypress.env('dhis2Username')
         const password = Cypress.env('dhis2Password')
         const baseUrl = Cypress.env('dhis2BaseUrl')
