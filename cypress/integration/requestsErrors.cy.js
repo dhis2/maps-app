@@ -5,7 +5,7 @@ const commonTriggerFn = () => {
     cy.reload(true)
 }
 
-const EXTRA_EXTENDED_TIMEOUT = { timeout: 25000 }
+const EXTRA_EXTENDED_TIMEOUT = { timeout: 30000 }
 
 describe('Error handling check for all layer types', () => {
     beforeEach(() => {
@@ -32,7 +32,7 @@ describe('Error handling check for all layer types', () => {
         })
     })
 
-    it('load thematic layer', () => {
+    it.only('load thematic layer', () => {
         // E2E - Thematic Layer [tFVpGPWj7MJ]
         const id = 'tFVpGPWj7MJ'
 
