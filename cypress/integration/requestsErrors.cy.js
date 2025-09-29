@@ -5,12 +5,20 @@ const commonTriggerFn = () => {
     cy.reload(true)
 }
 
-const EXTRA_EXTENDED_TIMEOUT = { timeout: 30000 }
+const EXTRA_EXTENDED_TIMEOUT = { timeout: 25000 }
 
 describe('Error handling check for all layer types', () => {
     beforeEach(() => {
         cy.clearCookies()
         cy.clearLocalStorage()
+        
+        const username = Cypress.env('dhis2Username')
+        const password = Cypress.env('dhis2Password')
+        const baseUrl = Cypress.env('dhis2BaseUrl')
+
+        cy.loginByApi({ username, password, baseUrl })
+            .its('status')
+            .should('equal', 200)
     })
 
     it.skip('missing map', () => {
