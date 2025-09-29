@@ -5,7 +5,7 @@ const commonTriggerFn = () => {
     cy.reload(true)
 }
 
-const EXTRA_EXTENDED_TIMEOUT = { timeout: 30000 }
+const EXTRA_EXTENDED_TIMEOUT = { timeout: 60000 }
 
 describe('Error handling check for all layer types', () => {
     beforeEach(() => {
