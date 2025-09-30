@@ -118,17 +118,16 @@ const createGroupsByDuration = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
     // Sort longest duration first (greedy assignment works better this way)
     enriched.sort((a, b) => b.duration - a.duration)
 
-    let groups = Array.from({ length: numberOfGroups }, (_, i) => ({
+    const groups = Array.from({ length: numberOfGroups }, (_, i) => ({
         id: i + 1,
         tests: [],
         totalDuration: 0,
     }))
-    for (const file of enriched) {
+    for (const f of enriched) {
         groups.sort((a, b) => a.totalDuration - b.totalDuration)
-        groups[0].tests.push(file)
-        groups[0].totalDuration += file.duration
+        groups[0].tests.push(f.file)
+        groups[0].totalDuration += f.duration
     }
-    groups = groups.map(({ id, tests }) => ({ id, tests }))
     return groups
 }
 
