@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const NUMBER_OF_GROUPS = 5
+const NUMBER_OF_GROUPS = 1
 const CYPRESS_FILES = {
     'cypress/integration/basemaps.cy.js': { include: false, duration: 60 },
     'cypress/integration/dataDownload.cy.js': { include: false, duration: 60 },
