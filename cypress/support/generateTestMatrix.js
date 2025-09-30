@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const NUMBER_OF_GROUPS = 1
+const NUMBER_OF_GROUPS = 5
 const CYPRESS_FILES = {
     'cypress/integration/basemaps.cy.js': { include: false, duration: 60 },
     'cypress/integration/dataDownload.cy.js': { include: false, duration: 60 },
@@ -118,7 +118,7 @@ const createGroupsByDuration = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
     // Sort longest duration first (greedy assignment works better this way)
     enriched.sort((a, b) => b.duration - a.duration)
 
-    const groups = Array.from({ length: numberOfGroups }, (_, i) => ({
+    let groups = Array.from({ length: numberOfGroups }, (_, i) => ({
         id: i + 1,
         tests: [],
         totalDuration: 0,
@@ -128,6 +128,7 @@ const createGroupsByDuration = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
         groups[0].tests.push(file)
         groups[0].totalDuration += file.duration
     }
+    groups = groups.map(({ id, tests }) => ({ id, tests }))
     return groups
 }
 
@@ -139,11 +140,12 @@ const createGroups = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
     const durations = Object.values(CYPRESS_FILES)
         .map((f) => f.duration)
         .filter((d) => typeof d === 'number' && !isNaN(d))
+    const adjustedNumberOfGroups = Math.min(files.length, numberOfGroups)
 
     if (durations.length === 0) {
-        return createGroupsStandard(files, numberOfGroups)
+        return createGroupsStandard(files, adjustedNumberOfGroups)
     } else {
-        return createGroupsByDuration(files, numberOfGroups)
+        return createGroupsByDuration(files, adjustedNumberOfGroups)
     }
 }
 
