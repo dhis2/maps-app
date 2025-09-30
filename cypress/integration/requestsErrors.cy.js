@@ -17,7 +17,7 @@ const clearAndLogin = () => {
         .its('status')
         .should('equal', 200)
 
-    cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(100) // eslint-disable-line cypress/no-unnecessary-waiting
 }
 
 const commonTriggerFn = () => {
@@ -32,7 +32,6 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [getRequest('getMap', id)],
             commonTriggerFn: () => {
-                clearAndLogin()
                 cy.visit(`#/${id}`)
             },
         })
@@ -60,7 +59,6 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        clearAndLogin()
         cy.visit(`#/${id}`)
 
         assertIntercepts({
@@ -111,7 +109,6 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        clearAndLogin()
         cy.visit(`#/${id}`)
 
         assertIntercepts({
@@ -231,7 +228,6 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        clearAndLogin()
         cy.visit(`#/${id}`)
 
         assertIntercepts({
@@ -308,7 +304,6 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        clearAndLogin()
         cy.visit(`#/${id}`)
 
         const serverVersion = getDhis2Version()
@@ -375,7 +370,6 @@ describe('Error handling check for all layer types', () => {
         // E2E - Facilities Layer [kIAUN3dInEz]
         const id = 'kIAUN3dInEz'
 
-        clearAndLogin()
         cy.visit(`#/${id}`)
 
         const commonAssertFn = ({ error }) => {
@@ -436,7 +430,6 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        clearAndLogin()
         cy.visit(`#/${id}`)
 
         assertIntercepts({
@@ -486,7 +479,6 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        clearAndLogin()
         cy.visit(`#/${id}`)
 
         assertIntercepts({
