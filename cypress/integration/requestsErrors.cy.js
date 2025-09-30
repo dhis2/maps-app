@@ -20,9 +20,9 @@ const clearAndLogin = () => {
     cy.wait(100) // eslint-disable-line cypress/no-unnecessary-waiting
 }
 
-const commonTriggerFn = () => {
+const commonTriggerFn = (id) => () => {
     clearAndLogin()
-    cy.reload(true)
+    cy.visit(`#/${id}`)
 }
 
 describe('Error handling check for all layer types', () => {
@@ -85,7 +85,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn,
+            commonTriggerFn: commonTriggerFn(id),
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -205,7 +205,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn,
+            commonTriggerFn: commonTriggerFn(id),
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -236,7 +236,7 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics1'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.reload(true)
+                        cy.visit(`#/${id}`)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
                     errors: ['network', 409], // !TODO: Improve messages
@@ -255,7 +255,7 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.reload(true)
+                        cy.visit(`#/${id}`)
                         cy.getByDataTest('layercard')
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                             .should('exist')
@@ -280,7 +280,7 @@ describe('Error handling check for all layer types', () => {
                     errors: ['network', 409],
                 },
             ],
-            commonTriggerFn,
+            commonTriggerFn: commonTriggerFn(id),
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -360,7 +360,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors (layer loads)
                 },
             ],
-            commonTriggerFn,
+            commonTriggerFn: commonTriggerFn(id),
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -413,7 +413,7 @@ describe('Error handling check for all layer types', () => {
                     errors: ['network', 409],
                 },
             ],
-            commonTriggerFn,
+            commonTriggerFn: commonTriggerFn(id),
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -455,7 +455,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn,
+            commonTriggerFn: commonTriggerFn(id),
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -536,7 +536,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn,
+            commonTriggerFn: commonTriggerFn(id),
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
