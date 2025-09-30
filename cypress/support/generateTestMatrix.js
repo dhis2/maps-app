@@ -1,35 +1,74 @@
 const fs = require('fs')
 const path = require('path')
 
-const excludedFiles = new Set([
-    'basemaps.cy.js',
-    'dataDownload.cy.js',
-    'dataTable.cy.js',
-    'fetcherrors.cy.js',
-    'filemenu.cy.js',
-    'interpretations.cy.js',
-    'keyboard.cy.js',
-    'manageLayerSources.cy.js',
-    'mapDownload.cy.js',
-    'orgUnitInfo.cy.js',
-    'plugin.cy.js',
-    'pushAnalytics.cy.js',
-    'requests.cy.js',
-    'routes.cy.js',
-    'systemsettings.cy.js',
-    'ui.cy.js',
-    'usersettings.cy.js',
-    'eventlayer.cy.js',
-    'multilayers.cy.js',
-    'externallayer.cy.js',
-    'orgunitlayer.cy.js',
-    'facilitylayer.cy.js',
-    'thematiclayer.cy.js',
-    'geojsonlayer.cy.js',
-    'trackedentitylayer.cy.js',
-])
+const NUMBER_OF_GROUPS = 5
+const CYPRESS_FILES = {
+    'cypress/integration/basemaps.cy.js': { include: false, duration: 60 },
+    'cypress/integration/dataDownload.cy.js': { include: false, duration: 60 },
+    'cypress/integration/dataTable.cy.js': { include: false, duration: 60 },
+    'cypress/integration/fetcherrors.cy.js': { include: false, duration: 30 },
+    'cypress/integration/filemenu.cy.js': { include: false, duration: 90 },
+    'cypress/integration/interpretations.cy.js': {
+        include: false,
+        duration: 45,
+    },
+    'cypress/integration/keyboard.cy.js': { include: false, duration: 30 },
+    'cypress/integration/manageLayerSources.cy.js': {
+        include: false,
+        duration: 45,
+    },
+    'cypress/integration/mapDownload.cy.js': { include: false, duration: 15 },
+    'cypress/integration/orgUnitInfo.cy.js': { include: false, duration: 15 },
+    'cypress/integration/plugin.cy.js': { include: false, duration: 15 },
+    'cypress/integration/pushAnalytics.cy.js': { include: false, duration: 15 },
+    'cypress/integration/requests.cy.js': { include: false, duration: 120 },
+    'cypress/integration/requestsErrors.cy.js': {
+        include: true,
+        duration: 480,
+    },
+    'cypress/integration/routes.cy.js': { include: false, duration: 120 },
+    'cypress/integration/systemsettings.cy.js': {
+        include: false,
+        duration: 45,
+    },
+    'cypress/integration/ui.cy.js': { include: false, duration: 30 },
+    'cypress/integration/usersettings.cy.js': { include: false, duration: 45 },
+    'cypress/integration/layers/eventlayer.cy.js': {
+        include: false,
+        duration: 210,
+    },
+    'cypress/integration/layers/multilayers.cy.js': {
+        include: false,
+        duration: 15,
+    },
+    'cypress/integration/layers/externallayer.cy.js': {
+        include: false,
+        duration: 15,
+    },
+    'cypress/integration/layers/orgunitlayer.cy.js': {
+        include: false,
+        duration: 30,
+    },
+    'cypress/integration/layers/facilitylayer.cy.js': {
+        include: false,
+        duration: 30,
+    },
+    'cypress/integration/layers/thematiclayer.cy.js': {
+        include: false,
+        duration: 240,
+    },
+    'cypress/integration/layers/geojsonlayer.cy.js': {
+        include: false,
+        duration: 30,
+    },
+    'cypress/integration/layers/trackedentitylayer.cy.js': {
+        include: false,
+        duration: 60,
+    },
+}
 
-const filterFn = (file) => !excludedFiles.has(file)
+const filterFn = (fullPath) =>
+    CYPRESS_FILES[fullPath] ? CYPRESS_FILES[fullPath].include : true // include files by default
 
 const getAllFiles = (dirPath, arrayOfFiles = [], filterFn = () => true) => {
     const files = fs.readdirSync(dirPath)
@@ -40,7 +79,7 @@ const getAllFiles = (dirPath, arrayOfFiles = [], filterFn = () => true) => {
 
         if (stats.isDirectory()) {
             arrayOfFiles = getAllFiles(fullPath, arrayOfFiles, filterFn)
-        } else if (path.extname(file) === '.js' && filterFn(file, fullPath)) {
+        } else if (path.extname(file) === '.js' && filterFn(fullPath)) {
             arrayOfFiles.push(fullPath)
         }
     })
@@ -48,8 +87,8 @@ const getAllFiles = (dirPath, arrayOfFiles = [], filterFn = () => true) => {
     return arrayOfFiles
 }
 
-const createGroups = (files, numberOfGroups = 1) => {
-    const groups = []
+const createGroupsStandard = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
+    let groups = []
     for (let i = 0; i < numberOfGroups; i++) {
         groups.push([])
     }
@@ -57,8 +96,55 @@ const createGroups = (files, numberOfGroups = 1) => {
     files.forEach((file, index) => {
         groups[index % numberOfGroups].push(file)
     })
+    groups = groups.map((group, index) => ({ id: index + 1, tests: group }))
+    return groups
+}
 
-    return groups.map((group, index) => ({ id: index + 1, tests: group }))
+const createGroupsByDuration = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
+    const durations = Object.values(CYPRESS_FILES)
+        .map((f) => f.duration)
+        .filter((d) => typeof d === 'number' && !isNaN(d))
+    const avgDuration =
+        durations.reduce((sum, d) => sum + d, 0) / durations.length
+
+    const enriched = files.map((f) => {
+        const meta = CYPRESS_FILES[f] ?? {}
+        return {
+            file: f,
+            duration:
+                typeof meta.duration === 'number' ? meta.duration : avgDuration,
+        }
+    })
+    // Sort longest duration first (greedy assignment works better this way)
+    enriched.sort((a, b) => b.duration - a.duration)
+
+    const groups = Array.from({ length: numberOfGroups }, (_, i) => ({
+        id: i + 1,
+        tests: [],
+        totalDuration: 0,
+    }))
+    for (const file of enriched) {
+        groups.sort((a, b) => a.totalDuration - b.totalDuration)
+        groups[0].tests.push(file)
+        groups[0].totalDuration += file.duration
+    }
+    return groups
+}
+
+const createGroups = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
+    if (!files.length || numberOfGroups < 1) {
+        return []
+    }
+
+    const durations = Object.values(CYPRESS_FILES)
+        .map((f) => f.duration)
+        .filter((d) => typeof d === 'number' && !isNaN(d))
+
+    if (durations.length === 0) {
+        return createGroupsStandard(files, numberOfGroups)
+    } else {
+        return createGroupsByDuration(files, numberOfGroups)
+    }
 }
 
 const cypressSpecsPath = './cypress/integration'

@@ -3,7 +3,7 @@ import { assertIntercepts, getDhis2Version } from '../support/util.js'
 
 const EXTRA_EXTENDED_TIMEOUT = { timeout: 60000 }
 
-const commonTriggerFn = () => {
+const clearAndLogin = () => {
     cy.clearCookies()
     cy.clearLocalStorage()
 
@@ -15,6 +15,11 @@ const commonTriggerFn = () => {
         .its('status')
         .should('equal', 200)
 
+    cy.wait(100) // eslint-disable-line cypress/no-unnecessary-waiting
+}
+
+const commonTriggerFn = () => {
+    clearAndLogin()
     cy.reload(true)
 }
 
@@ -229,6 +234,7 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getEventsStandard_Analytics1'),
                     triggerFn: () => {
+                        clearAndLogin()
                         cy.reload(true)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
@@ -247,6 +253,7 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
+                        clearAndLogin()
                         cy.reload(true)
                         cy.getByDataTest('layercard')
                             .find(
