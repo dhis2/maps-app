@@ -5,6 +5,14 @@ import {
     EXTENDED_TIMEOUT,
 } from '../support/util.js'
 
+const SESSION_COOKIE_NAME = 'JSESSIONID'
+
+// '2.39' or 39?
+const computeEnvVariableName = (instanceVersion) =>
+    typeof instanceVersion === 'number'
+        ? `${SESSION_COOKIE_NAME}_${instanceVersion}`
+        : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.').pop()}`
+
 const clearAndLogin = () => {
     cy.clearCookies()
     cy.clearLocalStorage()
@@ -12,12 +20,16 @@ const clearAndLogin = () => {
     const username = Cypress.env('dhis2Username')
     const password = Cypress.env('dhis2Password')
     const baseUrl = Cypress.env('dhis2BaseUrl')
+    const instanceVersion = Cypress.env('dhis2InstanceVersion')
+    const envVariableName = computeEnvVariableName(instanceVersion)
 
     cy.loginByApi({ username, password, baseUrl })
         .its('status')
         .should('equal', 200)
 
-    cy.wait(100) // eslint-disable-line cypress/no-unnecessary-waiting
+    const { name, value, ...options } = JSON.parse(Cypress.env(envVariableName))
+    localStorage.setItem('DHIS2_BASE_URL', baseUrl)
+    cy.setCookie(name, value, options)
 }
 
 const commonTriggerFn = (id) => () => {
