@@ -5,14 +5,6 @@ import {
     EXTENDED_TIMEOUT,
 } from '../support/util.js'
 
-const SESSION_COOKIE_NAME = 'JSESSIONID'
-
-// '2.39' or 39?
-const computeEnvVariableName = (instanceVersion) =>
-    typeof instanceVersion === 'number'
-        ? `${SESSION_COOKIE_NAME}_${instanceVersion}`
-        : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.').pop()}`
-
 const clearAndLogin = () => {
     cy.clearCookies()
     cy.clearLocalStorage()
@@ -20,21 +12,16 @@ const clearAndLogin = () => {
     const username = Cypress.env('dhis2Username')
     const password = Cypress.env('dhis2Password')
     const baseUrl = Cypress.env('dhis2BaseUrl')
-    const instanceVersion = Cypress.env('dhis2InstanceVersion')
-    const envVariableName = computeEnvVariableName(instanceVersion)
 
     cy.loginByApi({ username, password, baseUrl })
         .its('status')
         .should('equal', 200)
-
-    const { name, value, ...options } = JSON.parse(Cypress.env(envVariableName))
-    localStorage.setItem('DHIS2_BASE_URL', baseUrl)
-    cy.setCookie(name, value, options)
 }
 
-const commonTriggerFn = (id) => () => {
+const commonTriggerFn = () => {
+    cy.reload()
     clearAndLogin()
-    cy.visit(`#/${id}`)
+    cy.reload()
 }
 
 describe('Error handling check for all layer types', () => {
@@ -44,7 +31,7 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [getRequest('getMap', id)],
             commonTriggerFn: () => {
-                cy.visit(`#/${id}`)
+                cy.visit(`/?id=${id}`)
             },
         })
     })
@@ -61,17 +48,22 @@ describe('Error handling check for all layer types', () => {
 
             cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT).within(
                 () => {
-                    cy.contains('Failed to load layer').should('be.visible')
-                    cy.contains(errorMessage[error]).should('be.visible')
+                    cy.contains(
+                        'Failed to load layer',
+                        EXTENDED_TIMEOUT
+                    ).should('be.visible')
+                    cy.contains(errorMessage[error], EXTENDED_TIMEOUT).should(
+                        'be.visible'
+                    )
                 }
             )
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains(`Error: ${errorMessage[error]}`)
+                .contains(`Error: ${errorMessage[error]}`, EXTENDED_TIMEOUT)
                 .should('be.visible')
         }
 
-        cy.visit(`#/${id}`)
+        cy.visit(`/?id=${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -97,7 +89,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn: commonTriggerFn(id),
+            commonTriggerFn,
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -117,11 +109,11 @@ describe('Error handling check for all layer types', () => {
             // !TODO: Display error in layer card
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains(errorMessage[error])
+                .contains(errorMessage[error], EXTENDED_TIMEOUT)
                 .should('be.visible')
         }
 
-        cy.visit(`#/${id}`)
+        cy.visit(`/?id=${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -141,7 +133,10 @@ describe('Error handling check for all layer types', () => {
                             'dhis2-uicore-alertstack',
                             EXTENDED_TIMEOUT
                         )
-                            .contains('The event filter is not supported')
+                            .contains(
+                                'The event filter is not supported',
+                                EXTENDED_TIMEOUT
+                            )
                             .should('be.visible')
                     },
                 },
@@ -162,7 +157,8 @@ describe('Error handling check for all layer types', () => {
                             EXTENDED_TIMEOUT
                         )
                             .contains(
-                                "You don't have access to this layer data"
+                                "You don't have access to this layer data",
+                                EXTENDED_TIMEOUT
                             )
                             .should('be.visible')
                     },
@@ -217,7 +213,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn: commonTriggerFn(id),
+            commonTriggerFn,
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -236,11 +232,11 @@ describe('Error handling check for all layer types', () => {
             // !TODO: Display error in layer card
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains(errorMessage[error])
+                .contains(errorMessage[error], EXTENDED_TIMEOUT)
                 .should('be.visible')
         }
 
-        cy.visit(`#/${id}`)
+        cy.visit(`/?id=${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -248,7 +244,7 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics1'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.visit(`#/${id}`)
+                        cy.visit(`/?id=${id}`)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
                     errors: ['network', 409], // !TODO: Improve messages
@@ -267,8 +263,8 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.visit(`#/${id}`)
-                        cy.getByDataTest('layercard')
+                        cy.visit(`/?id=${id}`)
+                        cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                             .should('exist')
                         cy.getByDataTest('moremenubutton').first().click()
@@ -286,13 +282,13 @@ describe('Error handling check for all layer types', () => {
                             'dhis2-uicore-noticebox',
                             EXTENDED_TIMEOUT
                         )
-                            .contains('Data download failed.')
+                            .contains('Data download failed.', EXTENDED_TIMEOUT)
                             .should('be.visible')
                     },
                     errors: ['network', 409],
                 },
             ],
-            commonTriggerFn: commonTriggerFn(id),
+            commonTriggerFn,
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -312,11 +308,11 @@ describe('Error handling check for all layer types', () => {
             // !TODO: Display error in layer card
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains(errorMessage[error])
+                .contains(errorMessage[error], EXTENDED_TIMEOUT)
                 .should('be.visible')
         }
 
-        cy.visit(`#/${id}`)
+        cy.visit(`/?id=${id}`)
 
         const serverVersion = getDhis2Version()
         let layerSpecificRequests
@@ -372,7 +368,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors (layer loads)
                 },
             ],
-            commonTriggerFn: commonTriggerFn(id),
+            commonTriggerFn,
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -382,7 +378,7 @@ describe('Error handling check for all layer types', () => {
         // E2E - Facilities Layer [kIAUN3dInEz]
         const id = 'kIAUN3dInEz'
 
-        cy.visit(`#/${id}`)
+        cy.visit(`/?id=${id}`)
 
         const commonAssertFn = ({ error }) => {
             const errorMessage = {
@@ -393,11 +389,14 @@ describe('Error handling check for all layer types', () => {
             // !TODO: Display error in layer card
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains(`Error: ${errorMessage[error]}`)
+                .contains(`Error: ${errorMessage[error]}`, EXTENDED_TIMEOUT)
                 .should('be.visible')
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('No coordinates found for selected facilities')
+                .contains(
+                    'No coordinates found for selected facilities',
+                    EXTENDED_TIMEOUT
+                )
                 .should('be.visible')
         }
 
@@ -419,13 +418,13 @@ describe('Error handling check for all layer types', () => {
                             'dhis2-uicore-alertbar',
                             EXTENDED_TIMEOUT
                         )
-                            .contains('Symbol not found')
+                            .contains('Symbol not found', EXTENDED_TIMEOUT)
                             .should('be.visible')
                     },
                     errors: ['network', 409],
                 },
             ],
-            commonTriggerFn: commonTriggerFn(id),
+            commonTriggerFn,
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -438,11 +437,11 @@ describe('Error handling check for all layer types', () => {
 
         const commonAssertFn = () => {
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains('error')
+                .contains('error', EXTENDED_TIMEOUT)
                 .should('be.visible')
         }
 
-        cy.visit(`#/${id}`)
+        cy.visit(`/?id=${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -467,7 +466,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn: commonTriggerFn(id),
+            commonTriggerFn,
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
@@ -487,11 +486,11 @@ describe('Error handling check for all layer types', () => {
             // !TODO: Display error in layer card
 
             cy.getByDataTest('dhis2-uicore-alertstack', EXTENDED_TIMEOUT)
-                .contains(`Error: ${errorMessage[error]}`)
+                .contains(`Error: ${errorMessage[error]}`, EXTENDED_TIMEOUT)
                 .should('be.visible')
         }
 
-        cy.visit(`#/${id}`)
+        cy.visit(`/?id=${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -518,7 +517,7 @@ describe('Error handling check for all layer types', () => {
                             'dhis2-uicore-alertbar',
                             EXTENDED_TIMEOUT
                         )
-                            .contains(errorMessage[error])
+                            .contains(errorMessage[error], EXTENDED_TIMEOUT)
                             .should('be.visible')
                     },
                 },
@@ -537,7 +536,8 @@ describe('Error handling check for all layer types', () => {
                             EXTENDED_TIMEOUT
                         )
                             .contains(
-                                'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
+                                'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.',
+                                EXTENDED_TIMEOUT
                             )
                             .should('be.visible')
                     },
@@ -548,7 +548,7 @@ describe('Error handling check for all layer types', () => {
                     skip: true, // !TODO: Handle errors
                 },
             ],
-            commonTriggerFn: commonTriggerFn(id),
+            commonTriggerFn,
             commonAssertFn,
             timeout: EXTENDED_TIMEOUT,
         })
