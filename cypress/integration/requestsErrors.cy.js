@@ -13,12 +13,11 @@ const clearAndLogin = () => {
     const password = Cypress.env('dhis2Password')
     const baseUrl = Cypress.env('dhis2BaseUrl')
 
-    cy.loginByApi({ username, password, baseUrl }).then(() => {
-        cy.getAllCookies().should((cookies) => {
-            const jsession = cookies.find((c) => c.name === 'JSESSIONID')
-            expect(jsession).to.exist
-        })
-    })
+    cy.loginByApi({ username, password, baseUrl })
+        .its('status')
+        .should('equal', 200)
+
+    cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
 }
 
 const commonTriggerFn = () => {
