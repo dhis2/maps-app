@@ -17,7 +17,7 @@ const clearAndLogin = () => {
         .its('status')
         .should('equal', 200)
 
-    cy.wait(500) // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
 }
 
 const commonTriggerFn = () => {
