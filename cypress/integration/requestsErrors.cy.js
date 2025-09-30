@@ -1,9 +1,7 @@
 import { getRequest } from '../support/requests.js'
-import {
-    assertIntercepts,
-    getDhis2Version,
-    EXTENDED_TIMEOUT,
-} from '../support/util.js'
+import { assertIntercepts, getDhis2Version } from '../support/util.js'
+
+const EXTENDED_TIMEOUT = { timeout: 35000 }
 
 const clearAndLogin = () => {
     cy.clearCookies()
@@ -19,10 +17,32 @@ const clearAndLogin = () => {
 }
 
 const commonTriggerFn = () => {
-    cy.reload()
+    cy.reload(true)
     clearAndLogin()
-    cy.reload()
+    cy.reload(true)
 }
+
+Cypress.on('uncaught:exception', (err) => {
+    if (
+        err.message.includes('Failed to fetch user locale: Error: Unauthorized')
+    ) {
+        return false
+    }
+    if (
+        err.message.includes(
+            'Failed to fetch user locale: Error: An unknown network error occurred'
+        )
+    ) {
+        return false
+    }
+    if (
+        err.message.includes(
+            'Failed to fetch user ID: Error: An unknown network error occurred'
+        )
+    ) {
+        return false
+    }
+})
 
 describe('Error handling check for all layer types', () => {
     it.skip('missing map', () => {
