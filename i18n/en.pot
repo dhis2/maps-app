@@ -407,6 +407,9 @@ msgstr "Group events"
 msgid "View all events"
 msgstr "View all events"
 
+msgid "View heat map"
+msgstr "View heat map"
+
 msgid "Radius"
 msgstr "Radius"
 

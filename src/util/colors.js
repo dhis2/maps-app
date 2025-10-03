@@ -37,13 +37,34 @@ export const colorScales = [
     'Set3',
 ]
 
+export const heatScales = [
+    'YlOrBr',
+    'Reds',
+    'YlGn',
+    'Greens',
+    'Blues',
+    'BuPu',
+    'RdPu',
+    'PuRd',
+    'Greys',
+    'PuOr_reverse',
+    'BrBG_reverse',
+    'PRGn_reverse',
+    'PiYG_reverse',
+    'RdBu_reverse',
+    'RdGy_reverse',
+    'RdYlBu_reverse',
+    'Spectral_reverse',
+    'RdYlGn_reverse',
+]
+
 // Returns a color brewer scale for a number of classes
 export const getColorPalette = (scale, classes) => colorbrewer[scale][classes]
 
 // Returns color scale name for a palette
 // join(',') is used to compare two arrays of colors
-export const getColorScale = (palette) =>
-    colorScales.find(
+export const getColorScale = (palette, heat) =>
+    (!heat ? colorScales : heatScales).find(
         (name) =>
             colorbrewer[name][palette.length].join(',') === palette.join(',')
     )

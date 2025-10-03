@@ -29,10 +29,13 @@ class EventLayer extends Layer {
             id,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
             bounds,
             data,
             engine,
+            eventHeatmap,
             eventClustering,
             eventCoordinateField,
             eventPointColor,
@@ -74,6 +77,8 @@ class EventLayer extends Layer {
             id,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
             data: filteredData,
             fillColor,
@@ -121,6 +126,8 @@ class EventLayer extends Layer {
                     config.type = 'clientCluster'
                 }
             }
+        } else if (eventHeatmap) {
+            config.type = 'heat'
         } else if (areaRadius) {
             config.buffer = areaRadius
             config.bufferStyle = {
@@ -143,6 +150,24 @@ class EventLayer extends Layer {
         }
 
         // Create and add event layer based on config object
+        if (config.type === 'heat') {
+            config.heatWeight = 1
+            const classes = this.props.classes
+            const colorScale = this.props.colorScale
+            const step = 1 / classes
+            const colorScaleReady = colorScale.flatMap((color, i) => [
+                (i + 1) * step,
+                color,
+            ])
+            config.heatColor = [
+                'interpolate',
+                ['linear'],
+                ['heatmap-density'],
+                0,
+                'rgba(33,102,172,0)',
+                ...colorScaleReady,
+            ]
+        }
         this.layer = map.createLayer(config)
 
         map.addLayer(this.layer)

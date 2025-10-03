@@ -4,18 +4,19 @@ import PropTypes from 'prop-types'
 import React, { Fragment, useState, useRef } from 'react'
 import {
     colorScales,
+    heatScales,
     getColorScale,
     getColorPalette,
 } from '../../util/colors.js'
 import ColorScale from './ColorScale.jsx'
 import styles from './styles/ColorScaleSelect.module.css'
 
-const ColorScaleSelect = ({ palette, width, onChange, className }) => {
+const ColorScaleSelect = ({ palette, width, heat, onChange, className }) => {
     const [isOpen, setIsOpen] = useState(false)
     const anchorRef = useRef()
 
     const bins = palette.length
-    const scale = getColorScale(palette)
+    const scale = getColorScale(palette, heat)
 
     const onColorScaleSelect = (scale) => {
         onChange(getColorPalette(scale, bins))
@@ -43,15 +44,17 @@ const ColorScaleSelect = ({ palette, width, onChange, className }) => {
                         className={styles.popover}
                         style={{ width: width + 24 || 260 }}
                     >
-                        {colorScales.map((scale, index) => (
-                            <ColorScale
-                                key={index}
-                                scale={scale}
-                                bins={bins}
-                                onClick={onColorScaleSelect}
-                                width={width || 260}
-                            />
-                        ))}
+                        {(!heat ? colorScales : heatScales).map(
+                            (scale, index) => (
+                                <ColorScale
+                                    key={index}
+                                    scale={scale}
+                                    bins={bins}
+                                    onClick={onColorScaleSelect}
+                                    width={width || 260}
+                                />
+                            )
+                        )}
                     </div>
                 </Popover>
             )}
@@ -63,6 +66,7 @@ ColorScaleSelect.propTypes = {
     palette: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
+    heat: PropTypes.bool,
     width: PropTypes.number,
 }
 

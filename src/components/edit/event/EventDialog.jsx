@@ -8,6 +8,7 @@ import {
     setProgramStage,
     setEventStatus,
     setEventCoordinateField,
+    setEventHeatmap,
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
@@ -35,6 +36,7 @@ import { cssColor } from '../../../util/colors.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
+import ContinuousScale from '../../classification/ContinuousScale.jsx'
 import {
     Tab,
     Tabs,
@@ -61,6 +63,7 @@ class EventDialog extends Component {
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
         setEventCoordinateField: PropTypes.func.isRequired,
+        setEventHeatmap: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
@@ -78,6 +81,7 @@ class EventDialog extends Component {
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
         eventCoordinateFieldType: PropTypes.string,
+        eventHeatmap: PropTypes.bool,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         eventStatus: PropTypes.string,
@@ -205,6 +209,7 @@ class EventDialog extends Component {
         const {
             // layer options
             columns = [],
+            eventHeatmap,
             eventClustering,
             eventStatus,
             eventCoordinateField,
@@ -225,6 +230,7 @@ class EventDialog extends Component {
             setProgramStage,
             setEventStatus,
             setEventCoordinateField,
+            setEventHeatmap,
             setEventClustering,
             setEventPointColor,
             setEventPointRadius,
@@ -365,7 +371,10 @@ class EventDialog extends Component {
                                         id="cluster"
                                         img="images/cluster.png"
                                         title={i18n.t('Group events')}
-                                        onClick={() => setEventClustering(true)}
+                                        onClick={() => {
+                                            setEventClustering(true)
+                                            setEventHeatmap(false)
+                                        }}
                                         isSelected={eventClustering}
                                         className={styles.flexInnerColumn}
                                     />
@@ -373,10 +382,24 @@ class EventDialog extends Component {
                                         id="nocluster"
                                         img="images/nocluster.png"
                                         title={i18n.t('View all events')}
-                                        onClick={() =>
+                                        onClick={() => {
                                             setEventClustering(false)
+                                            setEventHeatmap(false)
+                                        }}
+                                        isSelected={
+                                            !eventClustering && !eventHeatmap
                                         }
-                                        isSelected={!eventClustering}
+                                        className={styles.flexInnerColumn}
+                                    />
+                                    <ImageSelect
+                                        id="heat"
+                                        img="images/heatmap.png"
+                                        title={i18n.t('View heat map')}
+                                        onClick={() => {
+                                            setEventClustering(false)
+                                            setEventHeatmap(true)
+                                        }}
+                                        isSelected={eventHeatmap}
                                         className={styles.flexInnerColumn}
                                     />
                                 </div>
@@ -405,7 +428,9 @@ class EventDialog extends Component {
                                 />
                             </div>
                             <div className={styles.flexColumn}>
-                                {program ? (
+                                {eventHeatmap ? (
+                                    <ContinuousScale />
+                                ) : program ? (
                                     <StyleByDataItem
                                         program={program}
                                         programStage={programStage}
@@ -514,6 +539,7 @@ export default connect(
         setProgramStage,
         setEventStatus,
         setEventCoordinateField,
+        setEventHeatmap,
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,

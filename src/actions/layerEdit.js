@@ -123,6 +123,12 @@ export const setFallbackCoordinateField = (fieldId) => ({
     fieldId,
 })
 
+// Set if event heatmap should be used (event)
+export const setEventHeatmap = (checked) => ({
+    type: types.LAYER_EDIT_EVENT_HEATMAP_SET,
+    checked,
+})
+
 // Set if event clustering should be used (event)
 export const setEventClustering = (checked) => ({
     type: types.LAYER_EDIT_EVENT_CLUSTERING_SET,
