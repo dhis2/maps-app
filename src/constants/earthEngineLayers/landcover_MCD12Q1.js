@@ -12,6 +12,7 @@ export default {
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:
         'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
+    unit: i18n.t('unitless'),
     resolution: {
         spatial: i18n.t('0.5 meter'),
         temporal: i18n.t('Single point in time'),

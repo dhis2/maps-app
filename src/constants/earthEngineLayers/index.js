@@ -11,7 +11,7 @@ import populationAgeSex from './population_age_sex_WorldPop.js'
 import populationTotal from './population_total_WorldPop.js'
 import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
-import viModis250m from './vi_MOD13Q1.js'
+import vegetationModis250m from './vegetation_MOD13Q1.js'
 
 const earthEngineLayers = [
     populationTotal,
@@ -21,7 +21,7 @@ const earthEngineLayers = [
     precipitationMonthly,
     temperatureMonthly,
     landcover,
-    viModis250m,
+    vegetationModis250m,
     legacyBuildings,
     legacyNighttime,
     legacyPopulation100m,

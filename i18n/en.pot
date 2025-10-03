@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-19T13:46:21.878Z\n"
-"PO-Revision-Date: 2025-09-19T13:46:21.878Z\n"
+"POT-Creation-Date: 2025-10-03T18:17:34.357Z\n"
+"PO-Revision-Date: 2025-10-03T18:17:34.357Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1143,6 +1143,9 @@ msgstr "Landcover"
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
 
+msgid "unitless"
+msgstr "unitless"
+
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
 
@@ -1424,9 +1427,6 @@ msgstr ""
 " Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects "
 "for some atmospheric conditions and canopy background noise and is more "
 "sensitive in areas with dense vegetation."
-
-msgid "unitless"
-msgstr "unitless"
 
 msgid "250 meter"
 msgstr "250 meter"
