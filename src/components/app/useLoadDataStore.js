@@ -53,7 +53,7 @@ export const useLoadDataStore = () => {
                         }
                     })
                     .catch(() => {
-                        // Create key if missing in namespace
+                        // Try to create key, if it already exists, fall back to update
                         engine
                             .mutate({
                                 resource: resourceLayerSourcesVisibility,
@@ -64,6 +64,23 @@ export const useLoadDataStore = () => {
                                 dispatch(
                                     initLayerSources(layerSourceDefaultIds)
                                 )
+                            })
+                            .catch(() => {
+                                // Try update
+                                engine
+                                    .mutate({
+                                        resource:
+                                            resourceLayerSourcesVisibility,
+                                        type: 'update',
+                                        data: layerSourceDefaultIds,
+                                    })
+                                    .then(() => {
+                                        dispatch(
+                                            initLayerSources(
+                                                layerSourceDefaultIds
+                                            )
+                                        )
+                                    })
                             })
                     })
             }
