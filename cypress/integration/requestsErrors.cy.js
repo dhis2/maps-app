@@ -32,7 +32,7 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [getRequest('getMap', id)],
             commonTriggerFn: () => {
-                cy.visit(`/?id=${id}`)
+                cy.visit(`#/${id}`)
             },
         })
     })
@@ -59,7 +59,7 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        cy.visit(`/?id=${id}`)
+        cy.visit(`#/${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -108,7 +108,7 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        cy.visit(`/?id=${id}`)
+        cy.visit(`#/${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -226,7 +226,7 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        cy.visit(`/?id=${id}`)
+        cy.visit(`#/${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -234,7 +234,7 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics1'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.visit(`/?id=${id}`)
+                        cy.visit(`#/${id}`)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
                     errors: ['network', 409], // !TODO: Improve messages
@@ -253,7 +253,7 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.visit(`/?id=${id}`)
+                        cy.visit(`#/${id}`)
                         cy.getByDataTest('layercard')
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                             .should('exist')
@@ -301,7 +301,7 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        cy.visit(`/?id=${id}`)
+        cy.visit(`#/${id}`)
 
         const serverVersion = getDhis2Version()
         let layerSpecificRequests
@@ -366,7 +366,7 @@ describe('Error handling check for all layer types', () => {
         // E2E - Facilities Layer [kIAUN3dInEz]
         const id = 'kIAUN3dInEz'
 
-        cy.visit(`/?id=${id}`)
+        cy.visit(`#/${id}`)
 
         const commonAssertFn = ({ error }) => {
             const errorMessage = {
@@ -425,7 +425,7 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        cy.visit(`/?id=${id}`)
+        cy.visit(`#/${id}`)
 
         assertIntercepts({
             intercepts: [
@@ -473,7 +473,7 @@ describe('Error handling check for all layer types', () => {
                 .should('be.visible')
         }
 
-        cy.visit(`/?id=${id}`)
+        cy.visit(`#/${id}`)
 
         assertIntercepts({
             intercepts: [
