@@ -234,7 +234,7 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics1'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.visit(`/?id=${id}`)
+                        cy.visit(`#/${id}`)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
                     errors: ['network', 409], // !TODO: Improve messages
@@ -253,7 +253,7 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
                         clearAndLogin()
-                        cy.visit(`/?id=${id}`)
+                        cy.visit(`#/${id}`)
                         cy.getByDataTest('layercard')
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                             .should('exist')
