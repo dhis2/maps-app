@@ -57,8 +57,6 @@ const EarthEngineDialog = (props) => {
         onLayerValidation,
     } = props
 
-    const noBandSelected = bands && (!band || !band.length)
-
     const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
 
@@ -67,8 +65,10 @@ const EarthEngineDialog = (props) => {
     // Set default band
     useEffect(() => {
         if (!band) {
-            if (bands?.default) {
-                setBand(bands.default)
+            const defaultBand = bands?.default
+
+            if (defaultBand) {
+                setBand(defaultBand)
             }
         }
     }, [band, bands, setBand])
@@ -97,27 +97,31 @@ const EarthEngineDialog = (props) => {
 
     useEffect(() => {
         if (validateLayer) {
-            const isValid = !noBandSelected && (!periodType || period)
+            const noPeriodSelected = periodType && !period
+            const noBandSelected = bands && (!band || !band.length)
+
+            const isValid = !noBandSelected && !noPeriodSelected
 
             if (!isValid) {
-                if (noBandSelected) {
-                    setError({
-                        type: 'band',
-                        message: i18n.t('This field is required'),
-                    })
-                    setTab('data')
-                } else {
+                if (noPeriodSelected) {
                     setError({
                         type: 'period',
                         message: i18n.t('This field is required'),
                     })
                     setTab('period')
                 }
+                if (noBandSelected) {
+                    setError({
+                        type: 'band',
+                        message: i18n.t('This field is required'),
+                    })
+                    setTab('data')
+                }
             }
 
             onLayerValidation(isValid)
         }
-    }, [validateLayer, periodType, period, onLayerValidation, noBandSelected])
+    }, [validateLayer, periodType, period, bands, band, onLayerValidation])
 
     if (error && error.type === 'engine') {
         return (

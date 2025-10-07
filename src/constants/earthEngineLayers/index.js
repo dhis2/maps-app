@@ -15,8 +15,8 @@ import precipitationDaily from './precipitation_daily_ERA5-Land.js'
 import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
-import viModisMonthly from './vi_monthly_MOD13Q1.js'
-import viModisOriginal from './vi_original_MOD13Q1.js'
+import vegetationModisMonthly from './vegetation_monthly_MOD13Q1.js'
+import vegetationModisOriginal from './vegetation_original_MOD13Q1.js'
 
 const earthEngineLayers = [
     populationTotal,
@@ -30,8 +30,8 @@ const earthEngineLayers = [
     temperatureDaily,
     temperatureMonthly,
     landcover,
-    viModisOriginal,
-    viModisMonthly,
+    vegetationModisOriginal,
+    vegetationModisMonthly,
     legacyBuildings,
     legacyNighttime,
     legacyPopulation100m,

@@ -100,7 +100,7 @@ const EarthEnginePopup = (props) => {
                 </caption>
             )
 
-            if (groups?.multiple) {
+            if (groups?.multiple === true) {
                 table = (
                     <table className={earthEngineStyles.table}>
                         {header}

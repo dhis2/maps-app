@@ -128,7 +128,7 @@ const createGroupsByDuration = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
         groups[0].tests.push(f.file)
         groups[0].totalDuration += f.duration
     }
-    return groups
+    return groups.sort((a, b) => a.id - b.id)
 }
 
 const createGroups = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
