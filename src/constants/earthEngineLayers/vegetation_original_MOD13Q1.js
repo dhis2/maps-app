@@ -7,7 +7,7 @@ export default {
     layerId: 'MODIS/061/MOD13Q1/NDVI',
     datasetId: 'MODIS/061/MOD13Q1',
     format: 'ImageCollection',
-    img: 'images/ndvi.png',
+    img: 'images/vegetation.png',
     name: i18n.t('Vegetation index 16-day'),
     description: i18n.t(
         'NDVI and EVI values range from -1 to 1, with higher values indicating denser vegetation.'

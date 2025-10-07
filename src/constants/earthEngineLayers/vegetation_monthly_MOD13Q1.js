@@ -1,14 +1,14 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../layers.js'
-import { BY_YEAR } from '../periods.js'
+import { EE_MONTHLY } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    layerId: 'MODIS/061/MOD13Q1/VI',
+    layerId: 'MODIS/061/MOD13Q1/NDVI/MONTHLY',
     datasetId: 'MODIS/061/MOD13Q1',
     format: 'ImageCollection',
     img: 'images/vegetation.png',
-    name: i18n.t('Vegetation index'),
+    name: i18n.t('Vegetation index monthly'),
     description: i18n.t(
         'NDVI and EVI values range from -1 to 1, with higher values indicating denser vegetation.'
     ),
@@ -26,7 +26,8 @@ export default {
     },
     aggregations: ['min', 'max', 'mean', 'median', 'sum', 'stdDev', 'variance'],
     defaultAggregations: ['mean'],
-    periodType: BY_YEAR,
+    periodType: EE_MONTHLY,
+    periodReducer: EE_MONTHLY,
     filters: [
         {
             type: 'eq',
