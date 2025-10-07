@@ -1251,6 +1251,10 @@ The following layer sources are supported and displayed by default:
 
 -   **Land cover**: 17 distinct landcover types collected from satellites by NASA. Available yearly, between 2001 and 2022.
 
+Additional layer sources hiddent by default include:
+
+- **Vegetation indexes**: Normalized difference vegetation index (NDVI) and Enhanced Vegetation Index (EVI), used to quantify vegetation greenness. Collected from satellites by NASA. Available at 16-day intervals, from 2000.
+
 > **Note**
 >
 > The [**Maps app administrator**](#maps_app_administrator) can show or hide layer sources from other users.

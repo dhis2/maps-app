@@ -170,10 +170,14 @@ const earthEngineLoader = async ({
     const hasBand = (b) =>
         Array.isArray(band) ? band.includes(b.id) : band === b.id
 
-    const groups =
-        band && Array.isArray(bands) && bands.length
-            ? bands.filter(hasBand)
-            : null
+    let groups = null
+    if (band && Array.isArray(bands?.list) && bands.list.length) {
+        groups = {
+            list: bands.list.filter(hasBand),
+            label: bands?.label,
+            multiple: bands?.multiple,
+        }
+    }
 
     const legend = {
         ...layer.legend,

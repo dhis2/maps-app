@@ -35,6 +35,7 @@ export const colorScales = [
     'Pastel1',
     'Set1',
     'Set3',
+    'Vegetation',
 ]
 
 // Returns a color brewer scale for a number of classes
