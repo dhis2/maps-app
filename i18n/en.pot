@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-07T10:09:05.300Z\n"
-"PO-Revision-Date: 2025-10-07T10:09:05.300Z\n"
+"POT-Creation-Date: 2025-10-09T16:53:40.072Z\n"
+"PO-Revision-Date: 2025-10-09T16:53:40.072Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -359,8 +359,8 @@ msgstr "Source"
 msgid "Legend preview"
 msgstr "Legend preview"
 
-msgid "Available periods are set by the source data"
-msgstr "Available periods are set by the source data"
+msgid "Available periods are retrieved from the source data"
+msgstr "Available periods are retrieved from the source data"
 
 msgid "Year"
 msgstr "Year"
@@ -1199,6 +1199,12 @@ msgstr "Heat stress monthly"
 msgid "Monthly"
 msgstr "Monthly"
 
+msgid "Heat stress weekly"
+msgstr "Heat stress weekly"
+
+msgid "Weekly"
+msgstr "Weekly"
+
 msgid "Landcover"
 msgstr "Landcover"
 
@@ -1455,6 +1461,9 @@ msgstr "Febuary 1950 - One week ago"
 msgid "Precipitation monthly"
 msgstr "Precipitation monthly"
 
+msgid "Precipitation weekly"
+msgstr "Precipitation weekly"
+
 msgid "Temperature daily"
 msgstr "Temperature daily"
 
@@ -1467,6 +1476,9 @@ msgstr ""
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
+
+msgid "Temperature weekly"
+msgstr "Temperature weekly"
 
 msgid "Vegetation index monthly"
 msgstr "Vegetation index monthly"
@@ -1511,6 +1523,9 @@ msgstr "EVI"
 msgid "Vegetation index 16-day"
 msgstr "Vegetation index 16-day"
 
+msgid "Vegetation index weekly"
+msgstr "Vegetation index weekly"
+
 msgid "Active"
 msgstr "Active"
 
@@ -1543,9 +1558,6 @@ msgstr "Symbol"
 
 msgid "Relative"
 msgstr "Relative"
-
-msgid "Weekly"
-msgstr "Weekly"
 
 msgid "Weekly (Start Wednesday)"
 msgstr "Weekly (Start Wednesday)"

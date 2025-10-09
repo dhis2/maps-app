@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { legacyNighttimeDatasetId } from '../constants/earthEngineLayers/legacy/nighttime_DMSP-OLS.js'
-import { EE_MONTHLY, EE_DAILY } from '../constants/periods.js'
+import { EE_MONTHLY, EE_WEEKLY, EE_DAILY } from '../constants/periods.js'
 import { formatStartEndDate } from './time.js'
 
 const oneDayInMs = 24 * 60 * 60 * 1000
@@ -33,6 +33,14 @@ const getMonth = (data) => {
     const month = date.toLocaleString('default', { month: 'long' })
     const year = date.getFullYear()
     return `${month} ${year}`
+}
+
+const getWeek = (data) => {
+    const dateStart = new Date(data['system:time_start'])
+    const dateEnd = new Date(data['system:time_end'])
+    return `Week ${data['week']} - ${dateStart
+        .toISOString()
+        .slice(0, 10)} - ${dateEnd.toISOString().slice(0, 10)}`
 }
 
 const getDay = (data) =>
@@ -177,6 +185,12 @@ export const getPeriods = async ({
                     name: getMonth(properties),
                     yearProp,
                 }
+            case EE_WEEKLY:
+                return {
+                    id,
+                    name: getWeek(properties),
+                    yearProp,
+                }
             case EE_DAILY:
                 return {
                     id,
@@ -203,7 +217,6 @@ export const getPeriods = async ({
 
 export const getYears = async ({ datasetId, periodReducer, engine }) => {
     const eeWorker = await getWorkerInstance(engine)
-
     const { first, last } = await eeWorker.getCollectionSpan(
         datasetId,
         periodReducer

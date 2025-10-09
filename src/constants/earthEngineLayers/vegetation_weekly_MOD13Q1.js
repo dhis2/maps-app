@@ -1,14 +1,14 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../layers.js'
-import { EE_MONTHLY } from '../periods.js'
+import { EE_WEEKLY } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    layerId: 'MODIS/061/MOD13Q1/VI/MONTHLY',
+    layerId: 'MODIS/061/MOD13Q1/VI/WEEKLY',
     datasetId: 'MODIS/061/MOD13Q1',
     format: 'ImageCollection',
     img: 'images/vegetation.png',
-    name: i18n.t('Vegetation index monthly'),
+    name: i18n.t('Vegetation index weekly'),
     description: i18n.t(
         'NDVI and EVI values range from -1 to 1, with higher values indicating denser vegetation.'
     ),
@@ -21,13 +21,13 @@ export default {
     unit: i18n.t('unitless'),
     resolution: {
         spatial: i18n.t('250 meter'),
-        temporal: i18n.t('16-day'),
+        temporal: i18n.t('Weekly'),
         temporalCoverage: i18n.t('Febuary 2000 - One month ago'),
     },
     aggregations: ['min', 'max', 'mean', 'median', 'sum', 'stdDev', 'variance'],
     defaultAggregations: ['mean'],
-    periodType: EE_MONTHLY,
-    periodReducer: 'EE_MONTHLY_WEIGHTED',
+    periodType: EE_WEEKLY,
+    periodReducer: 'EE_WEEKLY_WEIGHTED',
     filters: [
         {
             type: 'eq',

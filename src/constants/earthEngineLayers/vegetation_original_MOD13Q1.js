@@ -4,7 +4,7 @@ import { BY_YEAR } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    layerId: 'MODIS/061/MOD13Q1/NDVI',
+    layerId: 'MODIS/061/MOD13Q1/VI',
     datasetId: 'MODIS/061/MOD13Q1',
     format: 'ImageCollection',
     img: 'images/vegetation.png',

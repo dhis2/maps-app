@@ -3,7 +3,12 @@ import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
-import { BY_YEAR, EE_MONTHLY, EE_DAILY } from '../../../constants/periods.js'
+import {
+    BY_YEAR,
+    EE_MONTHLY,
+    EE_WEEKLY,
+    EE_DAILY,
+} from '../../../constants/periods.js'
 import { getPeriods, getYears } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
@@ -27,6 +32,7 @@ const EarthEnginePeriodSelect = ({
     const byYear =
         periodType === BY_YEAR ||
         periodType === EE_MONTHLY ||
+        periodType === EE_WEEKLY ||
         periodType === EE_DAILY
 
     // Get years for dataset
@@ -113,7 +119,7 @@ const EarthEnginePeriodSelect = ({
     return (
         <div className={styles.flexColumn}>
             <NoticeBox className={styles.notice}>
-                {i18n.t('Available periods are set by the source data')}
+                {i18n.t('Available periods are retrieved from the source data')}
             </NoticeBox>
             {items ? (
                 <div className={className}>

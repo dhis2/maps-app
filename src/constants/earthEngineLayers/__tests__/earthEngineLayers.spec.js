@@ -82,7 +82,15 @@ const configSchema = {
         unmaskAggregation: { type: 'boolean' },
         periodType: {
             type: 'string',
-            enum: ['BY_YEAR', 'YEARLY', 'EE_MONTHLY', 'EE_DAILY'],
+            enum: [
+                'BY_YEAR',
+                'YEARLY',
+                'EE_MONTHLY',
+                'EE_MONTHLY_WEIGHTED',
+                'EE_WEEKLY',
+                'EE_WEEKLY_WEIGHTED',
+                'EE_DAILY',
+            ],
         },
         filters: {
             type: 'array',
