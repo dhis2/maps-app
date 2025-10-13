@@ -28,7 +28,7 @@ import styles from './styles/OpenAsMapDialog.module.css'
 const OpenAsMapDialog = () => {
     const dispatch = useDispatch()
     const [currentAO] = useSetting(CURRENT_AO_KEY)
-    const { type, layerId } = currentAO
+    const { type, layerId } = currentAO ?? {}
     const engine = useDataEngine()
     const allDataDimensions = getDataDimensionsFromAnalyticalObject(currentAO)
     const firstDimensionId = allDataDimensions[0]?.id
