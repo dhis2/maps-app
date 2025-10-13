@@ -79,10 +79,6 @@ export default class EarthEngineLayer extends Layer {
             unmaskAggregation,
             engine,
         } = this.props
-        console.log(
-            '🚀 ~ EarthEngineLayer ~ createLayer ~ periodReducerType:',
-            periodReducerType
-        )
 
         const { map, isPlugin } = this.context
 
