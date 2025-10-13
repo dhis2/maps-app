@@ -14,10 +14,13 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearAnalyticalObject } from '../../actions/analyticalObject.js'
 import { addLayer } from '../../actions/layers.js'
+import earthEngineLayers from '../../constants/earthEngineLayers/index.js'
+import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
 import {
     CURRENT_AO_KEY,
     getDataDimensionsFromAnalyticalObject,
     getThematicLayerFromAnalyticalObject,
+    getEarthEngineLayerFromAnalyticalObject,
 } from '../../util/analyticalObject.js'
 import { SelectField } from '../core/index.js'
 import styles from './styles/OpenAsMapDialog.module.css'
@@ -25,6 +28,7 @@ import styles from './styles/OpenAsMapDialog.module.css'
 const OpenAsMapDialog = () => {
     const dispatch = useDispatch()
     const [currentAO] = useSetting(CURRENT_AO_KEY)
+    const { type, layerId } = currentAO
     const engine = useDataEngine()
     const allDataDimensions = getDataDimensionsFromAnalyticalObject(currentAO)
     const firstDimensionId = allDataDimensions[0]?.id
@@ -52,14 +56,45 @@ const OpenAsMapDialog = () => {
         dispatch(clearAnalyticalObject())
     }
 
-    if (!allDataDimensions.length) {
-        log.info('No data items found in analytical object')
-        return null // TODO show error
+    const addEarthEngineLayersToMap = () => {
+        const layerSource = earthEngineLayers.find(
+            ({ layerId: id }) => layerId === id
+        )
+        const layer = getEarthEngineLayerFromAnalyticalObject({
+            ao: currentAO,
+        })
+        const consolidatedLayer = {
+            ...layerSource,
+            aggregationType: layerSource.defaultAggregations,
+            ...layer,
+        }
+        if (layerSource && layer) {
+            dispatch(addLayer(consolidatedLayer))
+        }
+
+        dispatch(clearAnalyticalObject())
     }
 
-    if (allDataDimensions.length === 1) {
-        addLayersToMap()
-        return null
+    switch (type) {
+        case EARTH_ENGINE_LAYER:
+            if (!layerId) {
+                log.info('No earth engine layer id found in analytical object')
+                return null // TODO show error
+            }
+            addEarthEngineLayersToMap()
+            return null
+
+        default:
+            if (!allDataDimensions.length) {
+                log.info('No data items found in analytical object')
+                return null // TODO show error
+            }
+
+            if (allDataDimensions.length === 1) {
+                addLayersToMap()
+                return null
+            }
+            break
     }
 
     return (
