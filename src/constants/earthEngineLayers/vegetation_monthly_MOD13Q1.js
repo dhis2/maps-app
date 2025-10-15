@@ -6,6 +6,12 @@ export default {
     layer: EARTH_ENGINE_LAYER,
     layerId: 'MODIS/061/MOD13Q1/VI/MONTHLY',
     datasetId: 'MODIS/061/MOD13Q1',
+    group: {
+        groupId: 'vegetation',
+        groupType: 'period',
+        name: i18n.t('Vegetation'),
+        img: 'images/vegetation.png',
+    },
     format: 'ImageCollection',
     img: 'images/vegetation.png',
     name: i18n.t('Vegetation index monthly'),

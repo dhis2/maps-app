@@ -1,20 +1,22 @@
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect, useCallback } from 'react'
+import { connect, useDispatch } from 'react-redux'
 import {
     setBand,
     setOrgUnits,
     setEarthEnginePeriod,
     setBufferRadius,
 } from '../../../actions/layerEdit.js'
+import { editLayer } from '../../../actions/layers.js'
+import { getEarthEngineLayer } from '../../../constants/earthEngineLayers/index.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
-import { Help, Tab, Tabs } from '../../core/index.js'
+import { Help, Tab, Tabs, SelectField } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationSelect from './AggregationSelect.jsx'
@@ -25,16 +27,19 @@ import StyleTab from './StyleTab.jsx'
 const EarthEngineDialog = (props) => {
     const [tab, setTab] = useState('data')
     const [error, setError] = useState()
-
+    const dispatch = useDispatch()
     const {
         aggregations,
+        aggregationType,
         areaRadius,
         band,
         bands,
+        layerId,
         datasetId,
         defaultAggregations,
         description,
         descriptionComplement,
+        group,
         filters,
         maskOperator,
         notice,
@@ -62,6 +67,22 @@ const EarthEngineDialog = (props) => {
 
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
 
+    const onLayerSelect = useCallback(
+        (layer) => {
+            const config = getEarthEngineLayer(layer.id)
+            dispatch(
+                editLayer({
+                    ...config,
+                    group,
+                    band,
+                    aggregationType,
+                    rows,
+                    areaRadius,
+                })
+            )
+        },
+        [dispatch, group, band, aggregationType, rows, areaRadius]
+    )
     // Set default band
     useEffect(() => {
         if (!band) {
@@ -142,6 +163,15 @@ const EarthEngineDialog = (props) => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
+                        {group?.groupType === 'data' &&
+                            group?.items.length > 1 && (
+                                <SelectField
+                                    label={i18n.t('Dataset')}
+                                    items={group.items}
+                                    value={layerId}
+                                    onChange={onLayerSelect}
+                                />
+                            )}
                         <Help>
                             <p>{description}</p>
                             {descriptionComplement && (
@@ -215,19 +245,33 @@ const EarthEngineDialog = (props) => {
                     </div>
                 )}
                 {tab === 'period' && (
-                    <PeriodSelect
-                        datasetId={datasetId}
-                        periodType={periodType}
-                        periodReducer={periodReducer}
-                        period={period}
-                        filters={filters}
-                        onChange={setEarthEnginePeriod}
-                        onError={setError}
-                        errorText={
-                            error && error.type === 'period' && error.message
-                        }
-                        className={styles.flexRowFlow}
-                    />
+                    <>
+                        {group?.groupType === 'period' &&
+                            group?.items.length > 1 && (
+                                <SelectField
+                                    label={i18n.t('Dataset')}
+                                    items={group.items}
+                                    value={layerId}
+                                    onChange={onLayerSelect}
+                                    className={styles.flexRowFlow}
+                                />
+                            )}
+                        <PeriodSelect
+                            datasetId={datasetId}
+                            periodType={periodType}
+                            periodReducer={periodReducer}
+                            period={period}
+                            filters={filters}
+                            onChange={setEarthEnginePeriod}
+                            onError={setError}
+                            errorText={
+                                error &&
+                                error.type === 'period' &&
+                                error.message
+                            }
+                            className={styles.flexRowFlow}
+                        />
+                    </>
                 )}
                 {tab === 'orgunits' && <OrgUnitSelect />}
                 {tab === 'style' && (
@@ -245,12 +289,14 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
+    layerId: PropTypes.string.isRequired,
     setBand: PropTypes.func.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setEarthEnginePeriod: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
+    aggregationType: PropTypes.array,
     aggregations: PropTypes.array,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -262,6 +308,7 @@ EarthEngineDialog.propTypes = {
     description: PropTypes.string,
     descriptionComplement: PropTypes.string,
     filters: PropTypes.array,
+    group: PropTypes.object,
     legend: PropTypes.object,
     maskOperator: PropTypes.string,
     notice: PropTypes.string,

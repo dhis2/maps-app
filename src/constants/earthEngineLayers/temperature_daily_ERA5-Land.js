@@ -6,6 +6,12 @@ export default {
     layer: EARTH_ENGINE_LAYER,
     layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m',
     datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+    group: {
+        groupId: 'temperature',
+        groupType: 'period',
+        name: i18n.t('Temperature'),
+        img: 'images/temperature.png',
+    },
     format: 'ImageCollection',
     img: 'images/temperature.png',
     name: i18n.t('Temperature daily'),

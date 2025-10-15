@@ -4,8 +4,14 @@ import { BY_YEAR } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    layerId: 'MODIS/061/MOD13Q1/VI',
+    layerId: 'MODIS/061/MOD13Q1/VI/16DAY',
     datasetId: 'MODIS/061/MOD13Q1',
+    group: {
+        groupId: 'vegetation',
+        groupType: 'period',
+        name: i18n.t('Vegetation'),
+        img: 'images/vegetation.png',
+    },
     format: 'ImageCollection',
     img: 'images/vegetation.png',
     name: i18n.t('Vegetation index 16-day'),

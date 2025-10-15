@@ -6,6 +6,12 @@ export default {
     layer: EARTH_ENGINE_LAYER,
     layerId: 'projects/climate-engine-pro/assets/ce-era5-heat/utci',
     datasetId: 'projects/climate-engine-pro/assets/ce-era5-heat',
+    group: {
+        groupId: 'heat',
+        groupType: 'period',
+        name: i18n.t('Heat stress'),
+        img: 'images/heatstress.png',
+    },
     format: 'ImageCollection',
     img: 'images/heatstress.png',
     name: i18n.t('Heat stress daily'),

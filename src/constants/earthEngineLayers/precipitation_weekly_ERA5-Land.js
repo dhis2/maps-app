@@ -6,6 +6,12 @@ export default {
     layer: EARTH_ENGINE_LAYER,
     layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/total_precipitation_sum',
     datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+    group: {
+        groupId: 'precipitation',
+        groupType: 'period',
+        name: i18n.t('Precipitation'),
+        img: 'images/precipitation.png',
+    },
     format: 'ImageCollection',
     img: 'images/precipitation.png',
     name: i18n.t('Precipitation weekly'),

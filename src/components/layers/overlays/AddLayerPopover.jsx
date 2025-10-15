@@ -14,9 +14,9 @@ import LayerList from './LayerList.jsx'
 
 const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Earth Engine layers that are added to this DHIS2 instance
-    const managedEarthEngineLayers = earthEngineLayers
-        .filter((l) => !l.legacy && managedLayerSources.includes(l.layerId))
-        .sort((a, b) => a.name.localeCompare(b.name))
+    const managedEarthEngineLayers = earthEngineLayers.filter(
+        (l) => !l.legacy && managedLayerSources.includes(l.layerId)
+    )
 
     // Make copy before slicing below
     const layerSources = [...defaultLayerSources]
@@ -25,6 +25,44 @@ const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     layerSources.splice(5, 0, ...managedEarthEngineLayers)
 
     return layerSources
+}
+
+const groupLayerSources = (layerSources) => {
+    const groupedLayerSources = Object.values(
+        layerSources.reduce((acc, obj) => {
+            if (!obj.group) {
+                const { layer, layerId, config, ...layerProps } = obj
+                const id = layerId ?? config?.id ?? layer
+                acc[id] = { layer, id, ...layerProps }
+            } else {
+                const { groupId, ...groupProps } = obj.group
+                if (!acc[groupId]) {
+                    acc[groupId] = {
+                        layer: obj.layer,
+                        id: groupId,
+                        ...groupProps,
+                        group: [],
+                    }
+                }
+                acc[groupId].group.push(obj)
+            }
+            return acc
+        }, {})
+    )
+
+    groupedLayerSources.forEach((item) => {
+        if (item.group) {
+            const summary = item.group.map((g) => ({
+                id: g.layerId ?? g.config?.id ?? g.layer,
+                name: g.name ?? g.label ?? g.id,
+            }))
+            item.group.forEach((g) => {
+                g.group.items = summary
+            })
+        }
+    })
+
+    return groupedLayerSources
 }
 
 const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
@@ -38,12 +76,18 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         defaultLayerSources,
         managedLayerSources
     )
+    const groupedLayerSources = groupLayerSources(layerSources)
 
     useKeyDown('Escape', onClose)
 
     const onLayerSelect = (layer) => {
-        const config = { ...layer }
-        const layerType = layer.layer
+        let selectedLayer = layer
+        if (layer.group) {
+            selectedLayer = layer.group[0]
+        }
+
+        const config = { ...selectedLayer }
+        const layerType = selectedLayer.layer
 
         dispatch(
             layerType === EXTERNAL_LAYER ? addLayer(config) : editLayer(config)
@@ -62,7 +106,7 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
             dataTest="addlayerpopover"
         >
             <LayerList
-                layers={layerSources}
+                layers={groupedLayerSources}
                 isSplitView={isSplitView}
                 onLayerSelect={onLayerSelect}
             />

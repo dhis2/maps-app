@@ -24,6 +24,28 @@ const configSchema = {
         legacy: { type: 'boolean' },
         layerId: { type: 'string' },
         datasetId: { type: 'string' },
+        group: {
+            type: 'object',
+            required: ['groupId', 'groupType', 'name', 'img'],
+            properties: {
+                groupId: {
+                    type: 'string',
+                    enum: [
+                        'heat',
+                        'population',
+                        'precipitation',
+                        'temperature',
+                        'vegetation',
+                    ],
+                },
+                groupType: {
+                    type: 'string',
+                    enum: ['data', 'period'],
+                },
+                name: { type: 'string' },
+                img: { type: 'string' },
+            },
+        },
         format: {
             type: 'string',
             enum: ['Image', 'ImageCollection', 'FeatureCollection'],
