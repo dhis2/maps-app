@@ -72,7 +72,6 @@ const EarthEngineDialog = (props) => {
         (layer) => {
             const sanitizedUpdates = {
                 ...{
-                    group,
                     band,
                     aggregationType,
                     period,
@@ -92,6 +91,7 @@ const EarthEngineDialog = (props) => {
                 editLayer({
                     ...config,
                     ...sanitizedUpdates,
+                    group,
                     id,
                 })
             )

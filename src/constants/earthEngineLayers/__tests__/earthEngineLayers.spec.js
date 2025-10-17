@@ -44,6 +44,20 @@ const configSchema = {
                 },
                 name: { type: 'string' },
                 img: { type: 'string' },
+                excludeOnSwitch: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                        enum: [
+                            'band',
+                            'aggregationType',
+                            'period',
+                            'rows',
+                            'areaRadius',
+                            'style',
+                        ],
+                    },
+                },
             },
         },
         format: {
