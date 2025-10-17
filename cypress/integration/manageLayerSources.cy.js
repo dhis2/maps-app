@@ -5,7 +5,6 @@ const MAPS_APP_NAMESPACE = 'DHIS2_MAPS_APP_CORE'
 const MAPS_APP_KEY_MANAGED_LAYER_SOURCES = 'MANAGED_LAYER_SOURCES'
 const LAYER_SOURCES_DEFAULT_MANAGED_LIST = [
     'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
-    'WorldPop/GP/100m/pop_age_sex_cons_unadj',
     'ECMWF/ERA5_LAND/MONTHLY_AGGR/total_precipitation_sum',
     'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
     'MODIS/006/MCD12Q1',
