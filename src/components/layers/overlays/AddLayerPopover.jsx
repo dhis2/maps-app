@@ -32,19 +32,19 @@ const groupLayerSources = (layerSources) => {
         layerSources.reduce((acc, obj) => {
             if (!obj.group) {
                 const { layer, layerId, config, ...layerProps } = obj
-                const id = layerId ?? config?.id ?? layer
-                acc[id] = { layer, id, ...layerProps }
+                const key = layerId ?? config?.id ?? layer
+                acc[key] = { layer, layerId, ...layerProps }
             } else {
-                const { groupId, ...groupProps } = obj.group
-                if (!acc[groupId]) {
-                    acc[groupId] = {
+                const { groupId: key, ...groupProps } = obj.group
+                if (!acc[key]) {
+                    acc[key] = {
                         layer: obj.layer,
-                        id: groupId,
+                        id: key,
                         ...groupProps,
                         group: [],
                     }
                 }
-                acc[groupId].group.push(obj)
+                acc[key].group.push(obj)
             }
             return acc
         }, {})

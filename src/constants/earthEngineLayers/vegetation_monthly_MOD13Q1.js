@@ -11,6 +11,7 @@ export default {
         groupType: 'period',
         name: i18n.t('Vegetation'),
         img: 'images/vegetation.png',
+        excludeOnSwitch: ['period'],
     },
     format: 'ImageCollection',
     img: 'images/vegetation.png',

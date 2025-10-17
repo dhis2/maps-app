@@ -11,6 +11,7 @@ export default {
         groupType: 'period',
         name: i18n.t('Precipitation'),
         img: 'images/precipitation.png',
+        excludeOnSwitch: ['period', 'style'],
     },
     format: 'ImageCollection',
     img: 'images/precipitation.png',

@@ -41,6 +41,7 @@ const EarthEngineDialog = (props) => {
         descriptionComplement,
         group,
         filters,
+        id,
         maskOperator,
         notice,
         orgUnitField,
@@ -69,19 +70,43 @@ const EarthEngineDialog = (props) => {
 
     const onLayerSelect = useCallback(
         (layer) => {
+            const sanitizedUpdates = {
+                ...{
+                    group,
+                    band,
+                    aggregationType,
+                    period,
+                    rows,
+                    areaRadius,
+                    style,
+                },
+            }
+            if (group?.excludeOnSwitch) {
+                group.excludeOnSwitch.forEach((key) => {
+                    delete sanitizedUpdates[key]
+                })
+            }
+
             const config = getEarthEngineLayer(layer.id)
             dispatch(
                 editLayer({
                     ...config,
-                    group,
-                    band,
-                    aggregationType,
-                    rows,
-                    areaRadius,
+                    ...sanitizedUpdates,
+                    id,
                 })
             )
         },
-        [dispatch, group, band, aggregationType, rows, areaRadius]
+        [
+            dispatch,
+            group,
+            band,
+            aggregationType,
+            period,
+            rows,
+            areaRadius,
+            style,
+            id,
+        ]
     )
     // Set default band
     useEffect(() => {
@@ -296,7 +321,7 @@ EarthEngineDialog.propTypes = {
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
-    aggregationType: PropTypes.array,
+    aggregationType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     aggregations: PropTypes.array,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -309,6 +334,7 @@ EarthEngineDialog.propTypes = {
     descriptionComplement: PropTypes.string,
     filters: PropTypes.array,
     group: PropTypes.object,
+    id: PropTypes.string,
     legend: PropTypes.object,
     maskOperator: PropTypes.string,
     notice: PropTypes.string,

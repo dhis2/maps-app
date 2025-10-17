@@ -29,16 +29,13 @@ const EarthEnginePeriodSelect = ({
     const [year, setYear] = useState()
     const [years, setYears] = useState()
     const [loadingPeriods, setLoadingPeriods] = useState(false)
-    const byYear =
-        periodType === BY_YEAR ||
-        periodType === EE_MONTHLY ||
-        periodType === EE_WEEKLY ||
-        periodType === EE_DAILY
+    const byYear = [BY_YEAR, EE_MONTHLY, EE_WEEKLY, EE_DAILY].includes(
+        periodType
+    )
 
     // Get years for dataset
     useEffect(() => {
         let isCancelled = false
-
         if (byYear) {
             getYears({ datasetId, periodReducer, engine })
                 .then(({ startYear, endYear }) => {
@@ -60,24 +57,23 @@ const EarthEnginePeriodSelect = ({
                     })
                 })
         }
-
         return () => (isCancelled = true)
     }, [datasetId, periodReducer, byYear, onError, engine])
 
-    // Set year to latest available year by default
     useEffect(() => {
-        if (byYear && years) {
+        if (period?.yearProp) {
+            setYear(period.yearProp)
+        } else if (byYear && years) {
+            // Set year to latest available year by default
             setYear(years[0].id)
         }
-    }, [byYear, years])
+    }, [period, byYear, years])
 
     // Get periods for dataset and selected year
     useEffect(() => {
         let isCancelled = false
-
-        if (periodType && year) {
+        if (periodType && (!byYear || year)) {
             setLoadingPeriods(true)
-
             getPeriods({
                 datasetId,
                 periodType,
@@ -99,16 +95,30 @@ const EarthEnginePeriodSelect = ({
                     })
                 })
         }
-
         return () => (isCancelled = true)
-    }, [datasetId, periodType, periodReducer, year, filters, onError, engine])
+    }, [
+        datasetId,
+        periodType,
+        periodReducer,
+        byYear,
+        year,
+        filters,
+        onError,
+        engine,
+    ])
 
-    // Set most recent period by default
     useEffect(() => {
-        if (Array.isArray(periods) && periods.length) {
+        if (
+            Array.isArray(periods) &&
+            periods.length &&
+            periods.find(({ id }) => id === period?.id)
+        ) {
+            onChange(period)
+        } else if (Array.isArray(periods) && periods.length) {
+            // Set most recent period by default
             onChange(periods[0])
         }
-    }, [periods, onChange])
+    }, [period, periods, onChange])
 
     const onYearChange = useCallback(({ id }) => {
         setYear(id)

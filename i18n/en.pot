@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-13T11:07:51.564Z\n"
-"PO-Revision-Date: 2025-10-13T11:07:51.564Z\n"
+"POT-Creation-Date: 2025-10-16T09:43:37.150Z\n"
+"PO-Revision-Date: 2025-10-16T09:43:37.150Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -323,6 +323,9 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Period"
+
+msgid "Dataset"
+msgstr "Dataset"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -1137,6 +1140,9 @@ msgstr "~30 meters"
 msgid "Febuary 2000"
 msgstr "Febuary 2000"
 
+msgid "Heat stress"
+msgstr "Heat stress"
+
 msgid "Heat stress daily"
 msgstr "Heat stress daily"
 
@@ -1464,6 +1470,9 @@ msgstr "Precipitation monthly"
 msgid "Precipitation weekly"
 msgstr "Precipitation weekly"
 
+msgid "Temperature"
+msgstr "Temperature"
+
 msgid "Temperature daily"
 msgstr "Temperature daily"
 
@@ -1479,6 +1488,9 @@ msgstr "Temperature monthly"
 
 msgid "Temperature weekly"
 msgstr "Temperature weekly"
+
+msgid "Vegetation"
+msgstr "Vegetation"
 
 msgid "Vegetation index monthly"
 msgstr "Vegetation index monthly"

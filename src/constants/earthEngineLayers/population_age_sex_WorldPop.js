@@ -10,6 +10,7 @@ export default {
         groupType: 'data',
         name: i18n.t('Population'),
         img: 'images/population.png',
+        excludeOnSwitch: ['band', 'style'],
     },
     format: 'ImageCollection',
     img: 'images/population.png',

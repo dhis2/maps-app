@@ -11,6 +11,7 @@ export default {
         groupType: 'period',
         name: i18n.t('Temperature'),
         img: 'images/temperature.png',
+        excludeOnSwitch: ['period'],
     },
     format: 'ImageCollection',
     img: 'images/temperature.png',
