@@ -33,7 +33,7 @@ const groupLayerSources = (layerSources) => {
             if (!obj.group) {
                 const { layer, layerId, config, ...layerProps } = obj
                 const key = layerId ?? config?.id ?? layer
-                acc[key] = { layer, layerId, ...layerProps }
+                acc[key] = { layer, layerId, config, ...layerProps }
             } else {
                 const { groupId: key, ...groupProps } = obj.group
                 if (!acc[key]) {
