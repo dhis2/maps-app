@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "101.4.3",
+    "version": "999.99.9-eeera5-rc1.2025-10-17",
     "description": "DHIS2 Maps",
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
@@ -45,7 +45,7 @@
         "@dhis2/analytics": "^28.0.4",
         "@dhis2/app-runtime": "^3.14.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#4a7d3092e8838106242747714667992f40da82a3",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#f366f192088dcf863a291711951da3ff5999faf9",
         "@dhis2/ui": "^10.9.0",
         "@turf/centroid": "^6.5.0",
         "abortcontroller-polyfill": "^1.7.5",
