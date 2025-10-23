@@ -61,8 +61,8 @@ const EarthEnginePeriodSelect = ({
     }, [datasetId, periodReducer, byYear, onError, engine])
 
     useEffect(() => {
-        if (period?.yearProp) {
-            setYear(period.yearProp)
+        if (byYear && years && period?.year) {
+            setYear(period.year)
         } else if (byYear && years) {
             // Set year to latest available year by default
             setYear(years[0].id)
