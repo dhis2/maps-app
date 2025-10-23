@@ -110,6 +110,7 @@ const EarthEngineDialog = (props) => {
             rows,
             areaRadius,
             style,
+            orgUnitField,
             id,
         ]
     )
