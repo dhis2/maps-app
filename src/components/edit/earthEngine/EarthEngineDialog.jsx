@@ -77,14 +77,13 @@ const EarthEngineDialog = (props) => {
     const onLayerSelect = useCallback(
         (layer) => {
             const sanitizedUpdates = {
-                ...{
-                    band,
-                    aggregationType,
-                    period,
-                    rows,
-                    areaRadius,
-                    style,
-                },
+                band,
+                aggregationType,
+                period,
+                rows,
+                areaRadius,
+                style,
+                orgUnitField,
             }
             if (group?.excludeOnSwitch) {
                 group.excludeOnSwitch.forEach((key) => {

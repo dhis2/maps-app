@@ -47,6 +47,7 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         let selectedLayer = layer
         if (layer.items) {
             selectedLayer = layer.items[0]
+            delete selectedLayer.id
         }
 
         const config = { ...selectedLayer }
