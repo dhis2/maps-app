@@ -86,10 +86,6 @@ const EarthEnginePeriodSelect = ({
                 engine,
             })
                 .then((periods) => {
-                    console.log(
-                        '🚀 ~ EarthEnginePeriodSelect ~ periods:',
-                        periods
-                    )
                     if (!isCancelled) {
                         setPeriods(periods)
                         setLoadingPeriods(false)
