@@ -1,8 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect, useCallback } from 'react'
-import { connect, useDispatch } from 'react-redux'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import {
     setBand,
     setOrgUnits,
@@ -16,6 +16,7 @@ import {
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
+import { getLayerSourceGroup } from '../../../util/layerSources.js'
 import { Help, Tab, Tabs, SelectField } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import styles from '../styles/LayerDialog.module.css'
@@ -39,7 +40,6 @@ const EarthEngineDialog = (props) => {
         defaultAggregations,
         description,
         descriptionComplement,
-        group,
         filters,
         id,
         maskOperator,
@@ -62,6 +62,12 @@ const EarthEngineDialog = (props) => {
         validateLayer,
         onLayerValidation,
     } = props
+
+    const managedLayerSources = useSelector((state) => state.layerSources)
+    const group = useMemo(
+        () => getLayerSourceGroup(layerId, managedLayerSources),
+        [layerId, managedLayerSources]
+    )
 
     const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
@@ -189,7 +195,7 @@ const EarthEngineDialog = (props) => {
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
                         {group?.groupType === 'data' &&
-                            group?.items.length > 1 && (
+                            group?.items?.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
                                     items={group.items}
@@ -333,7 +339,6 @@ EarthEngineDialog.propTypes = {
     description: PropTypes.string,
     descriptionComplement: PropTypes.string,
     filters: PropTypes.array,
-    group: PropTypes.object,
     id: PropTypes.string,
     legend: PropTypes.object,
     maskOperator: PropTypes.string,

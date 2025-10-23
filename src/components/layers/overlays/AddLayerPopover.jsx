@@ -8,6 +8,7 @@ import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useKeyDown from '../../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
+import { groupLayerSources } from '../../../util/layerSources.js'
 import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
 import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.jsx'
 import LayerList from './LayerList.jsx'
@@ -27,44 +28,6 @@ const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     return layerSources
 }
 
-const groupLayerSources = (layerSources) => {
-    const groupedLayerSources = Object.values(
-        layerSources.reduce((acc, obj) => {
-            if (!obj.group) {
-                const { layer, layerId, config, ...layerProps } = obj
-                const key = layerId ?? config?.id ?? layer
-                acc[key] = { layer, layerId, config, ...layerProps }
-            } else {
-                const { groupId: key, ...groupProps } = obj.group
-                if (!acc[key]) {
-                    acc[key] = {
-                        layer: obj.layer,
-                        id: key,
-                        ...groupProps,
-                        group: [],
-                    }
-                }
-                acc[key].group.push(obj)
-            }
-            return acc
-        }, {})
-    )
-
-    groupedLayerSources.forEach((item) => {
-        if (item.group) {
-            const summary = item.group.map((g) => ({
-                id: g.layerId ?? g.config?.id ?? g.layer,
-                name: g.name ?? g.label ?? g.id,
-            }))
-            item.group.forEach((g) => {
-                g.group.items = summary
-            })
-        }
-    })
-
-    return groupedLayerSources
-}
-
 const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     const isSplitView = useSelector((state) =>
         isSplitViewMap(state.map.mapViews)
@@ -82,8 +45,8 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
 
     const onLayerSelect = (layer) => {
         let selectedLayer = layer
-        if (layer.group) {
-            selectedLayer = layer.group[0]
+        if (layer.items) {
+            selectedLayer = layer.items[0]
         }
 
         const config = { ...selectedLayer }
