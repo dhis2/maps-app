@@ -48,7 +48,12 @@ const getDay = (data) =>
 
 const getDatasetPeriodInfo = (first, last) => {
     const startDate = new Date(first.properties['system:time_start'])
-    const endDate = new Date(last.properties['system:time_end'])
+    let endDate
+    if (last.properties['system:time_end']) {
+        endDate = new Date(last.properties['system:time_end'])
+    } else {
+        endDate = new Date(last.properties['system:time_start'])
+    }
     const startYear = startDate.getUTCFullYear()
     const endYear = endDate.getUTCFullYear()
     return {
@@ -197,18 +202,22 @@ export const getPeriods = async ({
     }
 
     const eeWorker = await getWorkerInstance(engine)
+    console.log('🚀 ~ getPeriods ~ periodReducer:', periodReducer)
     const { features } = await eeWorker.getPeriods({
         datasetId,
         year,
         datesRange,
         periodReducer,
     })
+    console.log('🚀 ~ getPeriods ~ features:', features)
     return features.map(getPeriod)
 }
 
 export const getYears = async ({ datasetId, engine }) => {
     const eeWorker = await getWorkerInstance(engine)
     const { first, last } = await eeWorker.getCollectionSpan(datasetId)
+    console.log('🚀 ~ getYears ~ first, last:', first, last)
     const periodInfo = getDatasetPeriodInfo(first, last)
+    console.log('🚀 ~ getYears ~ periodInfo:', periodInfo)
     return periodInfo
 }
