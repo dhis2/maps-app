@@ -47,24 +47,13 @@ const getDay = (data) =>
     new Date(data['system:time_start']).toISOString().slice(0, 10)
 
 const getDatasetPeriodInfo = (first, last) => {
-    const [startYear, endYear] = [first, last].map((img) =>
-        new Date(img.properties['system:time_start']).getFullYear()
-    )
-    const [startIndex, endIndex] = [first, last].map(
-        (img) => img.properties['system:index']
-    )
-
-    let periodicity = 'OTHER'
-    if (/^\d{8}$/.test(startIndex) && /^\d{8}$/.test(endIndex)) {
-        periodicity = EE_DAILY
-    } else if (/^\d{6}$/.test(startIndex) && /^\d{6}$/.test(endIndex)) {
-        periodicity = EE_MONTHLY
-    } else if (/^\d{4}$/.test(startIndex) && /^\d{4}$/.test(endIndex)) {
-        periodicity = 'YEARLY'
-    }
-
+    const startDate = new Date(first.properties['system:time_start'])
+    const endDate = new Date(last.properties['system:time_end'])
+    const startYear = startDate.getUTCFullYear()
+    const endYear = endDate.getUTCFullYear()
     return {
-        periodicity,
+        startDate,
+        endDate,
         startYear,
         endYear,
     }
@@ -161,6 +150,7 @@ export const getPeriods = async ({
     periodType,
     periodReducer,
     year,
+    datesRange,
     filters,
     engine,
 }) => {
@@ -207,20 +197,18 @@ export const getPeriods = async ({
     }
 
     const eeWorker = await getWorkerInstance(engine)
-    const { features } = await eeWorker.getPeriods(
+    const { features } = await eeWorker.getPeriods({
         datasetId,
         year,
-        periodReducer
-    )
+        datesRange,
+        periodReducer,
+    })
     return features.map(getPeriod)
 }
 
-export const getYears = async ({ datasetId, periodReducer, engine }) => {
+export const getYears = async ({ datasetId, engine }) => {
     const eeWorker = await getWorkerInstance(engine)
-    const { first, last } = await eeWorker.getCollectionSpan(
-        datasetId,
-        periodReducer
-    )
+    const { first, last } = await eeWorker.getCollectionSpan(datasetId)
     const periodInfo = getDatasetPeriodInfo(first, last)
     return periodInfo
 }

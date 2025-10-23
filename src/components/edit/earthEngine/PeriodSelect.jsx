@@ -28,6 +28,7 @@ const EarthEnginePeriodSelect = ({
     const [periods, setPeriods] = useState()
     const [year, setYear] = useState()
     const [years, setYears] = useState()
+    const [datesRange, setDatesRange] = useState()
     const [loadingPeriods, setLoadingPeriods] = useState(false)
     const byYear = [BY_YEAR, EE_MONTHLY, EE_WEEKLY, EE_DAILY].includes(
         periodType
@@ -37,17 +38,18 @@ const EarthEnginePeriodSelect = ({
     useEffect(() => {
         let isCancelled = false
         if (byYear) {
-            getYears({ datasetId, periodReducer, engine })
-                .then(({ startYear, endYear }) => {
+            getYears({ datasetId, engine })
+                .then(({ startYear, endYear, startDate, endDate }) => {
                     if (!isCancelled) {
-                        const newYears = Array.from(
+                        const years = Array.from(
                             { length: endYear - startYear + 1 },
                             (_, i) => {
                                 const year = endYear - i
                                 return { id: year, name: String(year) }
                             }
                         )
-                        setYears(newYears)
+                        setYears(years)
+                        setDatesRange({ startDate, endDate })
                     }
                 })
                 .catch((error) => {
@@ -79,6 +81,7 @@ const EarthEnginePeriodSelect = ({
                 periodType,
                 periodReducer,
                 year,
+                datesRange,
                 filters,
                 engine,
             })
@@ -102,6 +105,7 @@ const EarthEnginePeriodSelect = ({
         periodReducer,
         byYear,
         year,
+        datesRange,
         filters,
         onError,
         engine,
