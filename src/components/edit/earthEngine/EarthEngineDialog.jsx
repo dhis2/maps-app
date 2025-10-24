@@ -289,6 +289,7 @@ const EarthEngineDialog = (props) => {
                             )}
                         <PeriodSelect
                             datasetId={datasetId}
+                            layerId={layerId}
                             periodType={periodType}
                             periodReducer={periodReducer}
                             period={period}

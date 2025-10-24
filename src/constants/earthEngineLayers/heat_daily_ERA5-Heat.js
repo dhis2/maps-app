@@ -11,6 +11,7 @@ export default {
         groupType: 'period',
         name: i18n.t('Heat stress'),
         img: 'images/heatstress.png',
+        excludeOnSwitch: ['period'],
     },
     format: 'ImageCollection',
     img: 'images/heatstress.png',
