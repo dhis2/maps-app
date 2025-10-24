@@ -30,7 +30,7 @@ const AggregationSelect = ({
 
     return (
         <SelectField
-            label={i18n.t('Spatial aggregation method (popup and data table)')}
+            label={i18n.t('Spatial aggregation method (popups and data table)')}
             items={types}
             multiple={!classes}
             value={aggregationType}
