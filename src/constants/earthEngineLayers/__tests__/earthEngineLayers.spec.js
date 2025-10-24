@@ -33,7 +33,8 @@ const configSchema = {
                     enum: [
                         'heat',
                         'population',
-                        'precipitation',
+                        'precipitation_ERA5',
+                        'precipitation_CHIRPS',
                         'temperature',
                         'vegetation',
                     ],

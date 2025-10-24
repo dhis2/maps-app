@@ -7,7 +7,7 @@ export default {
     datasetId: 'USGS/SRTMGL1_003',
     format: 'Image',
     img: 'images/elevation.png',
-    name: i18n.t('Elevation'),
+    name: i18n.t('Elevation SRTM'),
     description: i18n.t('Elevation above sea-level.'),
     source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
     sourceUrl:

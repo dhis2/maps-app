@@ -9,13 +9,13 @@ export default {
     group: {
         groupId: 'temperature',
         groupType: 'period',
-        name: i18n.t('Temperature'),
+        name: i18n.t('Temperature ERA5'),
         img: 'images/temperature.png',
         excludeOnSwitch: ['period'],
     },
     format: 'ImageCollection',
     img: 'images/temperature.png',
-    name: i18n.t('Temperature weekly'),
+    name: i18n.t('Temperature weekly ERA5'),
     description: i18n.t(
         'Temperature at 2m above the surface. Combines model data with observations from across the world.'
     ),

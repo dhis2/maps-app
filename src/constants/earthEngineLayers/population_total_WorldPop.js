@@ -8,13 +8,13 @@ export default {
     group: {
         groupId: 'population',
         groupType: 'data',
-        name: i18n.t('Population'),
+        name: i18n.t('Population WorldPop'),
         img: 'images/population.png',
         excludeOnSwitch: ['band', 'style'],
     },
     format: 'ImageCollection',
     img: 'images/population.png',
-    name: i18n.t('Population'),
+    name: i18n.t('Population WorldPop'),
     description: i18n.t('Estimated number of people living in an area.'),
     source: 'WorldPop / Google Earth Engine',
     sourceUrl:

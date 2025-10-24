@@ -12,8 +12,11 @@ import legacyPrecipitation from './legacy/precipitation_pentad_CHIRPS.js'
 import legacyTemperature from './legacy/temperature_MOD11A2v061.js'
 import populationAgeSex from './population_age_sex_WorldPop.js'
 import populationTotal from './population_total_WorldPop.js'
+import precipitationChirpsDaily from './precipitation_daily_CHIRPS.js'
 import precipitationDaily from './precipitation_daily_ERA5-Land.js'
+import precipitationChirpsMonthly from './precipitation_monthly_CHIRPS.js'
 import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
+import precipitationChirpsWeekly from './precipitation_weekly_CHIRPS.js'
 import precipitationWeekly from './precipitation_weekly_ERA5-Land.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
@@ -30,6 +33,9 @@ const earthEngineLayers = [
     heatMonthly,
     heatWeekly,
     heatDaily,
+    precipitationChirpsMonthly,
+    precipitationChirpsWeekly,
+    precipitationChirpsDaily,
     precipitationMonthly,
     precipitationWeekly,
     precipitationDaily,

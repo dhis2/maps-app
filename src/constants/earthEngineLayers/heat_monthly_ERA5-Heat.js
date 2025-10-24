@@ -9,13 +9,13 @@ export default {
     group: {
         groupId: 'heat',
         groupType: 'period',
-        name: i18n.t('Heat stress'),
+        name: i18n.t('Heat stress ERA5'),
         img: 'images/heatstress.png',
         excludeOnSwitch: ['period'],
     },
     format: 'ImageCollection',
     img: 'images/heatstress.png',
-    name: i18n.t('Heat stress monthly'),
+    name: i18n.t('Heat stress monthly ERA5'),
     description: i18n.t(
         'The Universal Thermal Climate Index (UTCI) is an index that combines the effects of air temperature, humidity, wind speed, and radiation on the human body. It is a measure of the thermal stress experienced by a person in a given environment. Felt temperature in °C.'
     ),

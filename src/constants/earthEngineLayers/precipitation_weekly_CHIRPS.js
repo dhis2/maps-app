@@ -1,52 +1,48 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../layers.js'
-import { EE_DAILY } from '../periods.js'
+import { EE_WEEKLY } from '../periods.js'
 
 export default {
     layer: EARTH_ENGINE_LAYER,
-    layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/total_precipitation_sum',
-    datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
+    layerId: 'UCSB-CHG/CHIRPS/WEEKLY/precipitation',
+    datasetId: 'UCSB-CHG/CHIRPS/DAILY',
     group: {
-        groupId: 'precipitation_ERA5',
+        groupId: 'precipitation_CHIRPS',
         groupType: 'period',
-        name: i18n.t('Precipitation ERA5'),
+        name: i18n.t('Precipitation CHIRPS'),
         img: 'images/precipitation.png',
         excludeOnSwitch: ['period', 'style'],
     },
     format: 'ImageCollection',
     img: 'images/precipitation.png',
-    name: i18n.t('Precipitation daily ERA5'),
+    name: i18n.t('Precipitation weekly CHIRPS'),
     description: i18n.t(
-        'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
+        'Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS) incorporates satellite imagery with in-situ station data to create gridded rainfall time series.'
     ),
-    source: 'Copernicus Climate Data Store / Google Earth Engine',
+    source: 'Climate Hazards Center / UCSB',
     sourceUrl:
-        'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_DAILY_AGGR',
+        'https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY',
     unit: i18n.t('millimeter'),
     resolution: {
-        spatial: i18n.t('~9 kilometers'),
-        temporal: i18n.t('Daily'),
-        temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
+        spatial: i18n.t('~5.5 kilometers'),
+        temporal: i18n.t('Weekly'),
+        temporalCoverage: i18n.t('January 1981 - One month ago'),
     },
     aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
     defaultAggregations: ['mean', 'min', 'max'],
-    periodType: EE_DAILY,
+    periodType: EE_WEEKLY,
+    periodReducer: EE_WEEKLY,
+    periodReducerType: 'sum',
     filters: [
         {
             type: 'eq',
             arguments: ['system:index', '$1'],
         },
     ],
-    band: 'total_precipitation_sum',
-    methods: [
-        {
-            name: 'multiply',
-            arguments: [1000],
-        },
-    ],
+    band: 'precipitation',
     style: {
         min: 0,
-        max: 200,
+        max: 400,
         palette: [
             '#f7fbff',
             '#deebf7',
