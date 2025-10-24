@@ -2,7 +2,7 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
     BY_YEAR,
     EE_MONTHLY,
@@ -67,7 +67,7 @@ const EarthEnginePeriodSelect = ({
     useEffect(() => {
         const layerChanged = prevLayerId.current !== layerId
         if (byYear && years && period?.year) {
-            setYear(period.year)
+            setYear(year ?? period.year)
         } else if (
             !layerChanged &&
             byYear &&
@@ -135,10 +135,6 @@ const EarthEnginePeriodSelect = ({
         prevLayerId.current = layerId
     })
 
-    const onYearChange = useCallback(({ id }) => {
-        setYear(id)
-    }, [])
-
     const items = periods
 
     return (
@@ -153,7 +149,9 @@ const EarthEnginePeriodSelect = ({
                             label={i18n.t('Year')}
                             items={years}
                             value={year}
-                            onChange={onYearChange}
+                            onChange={({ id }) => {
+                                setYear(id)
+                            }}
                             className={styles.year}
                         />
                     )}
