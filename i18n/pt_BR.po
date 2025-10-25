@@ -4,13 +4,14 @@
 # Philip Larsen Donnelly, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Thiago Rocha, 2024
+# Mozafar Haider, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: Thiago Rocha, 2024\n"
+"Last-Translator: Mozafar Haider, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -326,7 +327,7 @@ msgstr "Tipo de agregacão"
 msgid "Only show completed events"
 msgstr ""
 
-msgid "Show no data"
+msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -375,7 +376,7 @@ msgid "Event data items"
 msgstr ""
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Indicador do programa"
 
 msgid "Item type"
 msgstr ""
@@ -568,7 +569,7 @@ msgstr "Ocultar tabela de dados"
 msgid "Show data table"
 msgstr ""
 
-msgid "Open as chart"
+msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
@@ -618,6 +619,9 @@ msgstr "Unidade organizacional"
 
 msgid "Parent unit"
 msgstr ""
+
+msgid "No data"
+msgstr "Não ha dados"
 
 msgid "Last updated"
 msgstr "Última actualização"
@@ -1300,9 +1304,6 @@ msgstr "Unidades organizacionais"
 
 msgid "Thematic layer"
 msgstr "Camada temática"
-
-msgid "No data"
-msgstr "Não ha dados"
 
 msgid "Tracked entity"
 msgstr "Entidade rastreada"
