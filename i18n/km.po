@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2024
-# channara rin, 2024
 # Philip Larsen Donnelly, 2025
 # Em Le <em.hispvietnam@gmail.com>, 2025
+# channara rin, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-08-01T00:47:23.508Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2025\n"
+"Last-Translator: channara rin, 2025\n"
 "Language-Team: Khmer (https://app.transifex.com/hisp-uio/teams/100509/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,10 +31,10 @@ msgid "Failed to save map: {{message}}"
 msgstr ""
 
 msgid "Rename failed"
-msgstr ""
+msgstr "ការផ្លាស់ប្តូរឈ្មោះ បរាជ័យ"
 
 msgid "Rename successful"
-msgstr ""
+msgstr "ការផ្លាស់ប្តូរឈ្មោះ បានជោគជ័យ"
 
 msgid "This app could not retrieve required data."
 msgstr ""
@@ -64,7 +64,7 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
-msgstr ""
+msgstr "ទំហំ"
 
 msgid "Name"
 msgstr "ឈ្មោះ"
@@ -76,7 +76,7 @@ msgid "Value"
 msgstr "តម្លៃ"
 
 msgid "Display"
-msgstr ""
+msgstr "បង្ហាញ"
 
 msgid "Data element group"
 msgstr ""
@@ -88,7 +88,7 @@ msgid "Data element"
 msgstr "ទិន្នន័យធាតុដើម"
 
 msgid "Totals"
-msgstr ""
+msgstr "តម្លៃសរុប"
 
 msgid "Details"
 msgstr "លម្អិត"
@@ -145,7 +145,7 @@ msgid "Add filter"
 msgstr ""
 
 msgid "Data item"
-msgstr ""
+msgstr "ទិន្នន័យ"
 
 msgid "one of"
 msgstr ""
@@ -175,7 +175,7 @@ msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "មានអ្វីមួយខុសប្រក្រតី"
 
 msgid "Search"
 msgstr "ស្វែងរក"
@@ -210,7 +210,7 @@ msgid "Type"
 msgstr ""
 
 msgid "Legend"
-msgstr ""
+msgstr "រូបតំណាង"
 
 msgid "Range"
 msgstr ""
@@ -228,7 +228,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "ទាយយក"
 
 msgid "Exit download mode"
 msgstr ""
@@ -326,7 +326,7 @@ msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "ក្រុម"
 
 msgid "This field is required"
 msgstr ""
@@ -396,7 +396,7 @@ msgid "Max"
 msgstr "អតិបរមា"
 
 msgid "Steps"
-msgstr ""
+msgstr "ជំហ៊ាន"
 
 msgid "Facility buffer"
 msgstr ""
@@ -474,10 +474,10 @@ msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "ស្លាក"
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "ប្រភេទទិន្នន័យសរុប"
 
 msgid "Only show completed events"
 msgstr ""
@@ -936,6 +936,9 @@ msgstr ""
 msgid "Selection mode"
 msgstr ""
 
+msgid "Clear"
+msgstr "សម្អាត"
+
 msgid "Previous year"
 msgstr ""
 
@@ -1014,7 +1017,7 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "ទៅតាមធាតុនៃទិន្នន័យ"
 
 msgid "Count"
 msgstr "ផលរាប់"
@@ -1026,10 +1029,10 @@ msgid "Sum"
 msgstr "ផល​បូក"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "គំលាតគំរូ"
 
 msgid "Variance"
-msgstr ""
+msgstr "ភាពប្រែប្រួល"
 
 msgid "Percentage"
 msgstr ""
@@ -1041,10 +1044,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "មធ្យម"
 
 msgid "Median"
-msgstr ""
+msgstr "ម៉េឌីយ៉ាន"
 
 msgid "Std dev"
 msgstr ""
