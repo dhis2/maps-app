@@ -5,6 +5,13 @@ export default {
     layer: EARTH_ENGINE_LAYER,
     layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
     datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+    group: {
+        groupId: 'population',
+        groupType: 'data',
+        name: i18n.t('Population'),
+        img: 'images/population.png',
+        excludeOnSwitch: ['band', 'style'],
+    },
     format: 'ImageCollection',
     img: 'images/population.png',
     name: i18n.t('Population'),
