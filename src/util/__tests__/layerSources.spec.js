@@ -31,15 +31,17 @@ const externalLayerSource = {
     },
 }
 
+const PRECIPITATION_GROUP = 'precipitation_ERA5'
+
 describe('resolveGroupKey', () => {
     test('returns correct key depending on layer type and properties', () => {
         expect(resolveGroupKey(standardLayerSource)).toBe('standard')
         expect(resolveGroupKey(externalLayerSource)).toBe('suB1SFdc6RD')
         expect(resolveGroupKey(precipitationMonthlyLayerSource)).toBe(
-            'precipitation'
+            PRECIPITATION_GROUP
         )
         expect(resolveGroupKey(precipitationWeeklyLayerSource)).toBe(
-            'precipitation'
+            PRECIPITATION_GROUP
         )
         expect(resolveGroupKey(vegetationMonthlyLayerSource)).toBe('vegetation')
         expect(resolveGroupKey(buildingsLayerSource)).toBe(
@@ -75,7 +77,9 @@ describe('groupLayerSources', () => {
         expect(external.layer).toBe('external')
 
         // Precipitation group should combine monthly and weekly layers
-        const precipitationGroup = grouped.find((l) => l.id === 'precipitation')
+        const precipitationGroup = grouped.find(
+            (l) => l.id === PRECIPITATION_GROUP
+        )
         expect(precipitationGroup).toBeDefined()
         expect(Array.isArray(precipitationGroup.items)).toBe(true)
         expect(precipitationGroup.items.length).toBe(2)
@@ -110,7 +114,9 @@ describe('groupLayerSources', () => {
         ]
 
         const grouped = groupLayerSources(layers)
-        const precipitationGroup = grouped.find((l) => l.id === 'precipitation')
+        const precipitationGroup = grouped.find(
+            (l) => l.id === PRECIPITATION_GROUP
+        )
 
         expect(precipitationGroup.items.length).toBe(2)
         expect(precipitationGroup.items.map((i) => i.layerId)).toEqual(
@@ -132,7 +138,7 @@ describe('getLayerSourceGroup', () => {
         const result = getLayerSourceGroup(
             precipitationMonthlyLayerSource.layerId
         )
-        expect(result.id).toBe('precipitation')
+        expect(result.id).toBe(PRECIPITATION_GROUP)
         expect(Array.isArray(result.items)).toBe(true)
         expect(result.items.length).toBe(1)
         expect(result.items[0].layerId).toBe(
@@ -147,7 +153,7 @@ describe('getLayerSourceGroup', () => {
             layerIds
         )
 
-        expect(result.id).toBe('precipitation')
+        expect(result.id).toBe(PRECIPITATION_GROUP)
         expect(result.items.length).toBe(2)
         const ids = result.items.map((i) => i.layerId)
         expect(ids).toEqual(
@@ -165,7 +171,7 @@ describe('getLayerSourceGroup', () => {
             layerIds
         )
 
-        expect(result.id).toBe('precipitation')
+        expect(result.id).toBe(PRECIPITATION_GROUP)
         expect(result.items.length).toBe(1)
         expect(result.items[0].layerId).toBe(
             precipitationMonthlyLayerSource.layerId
