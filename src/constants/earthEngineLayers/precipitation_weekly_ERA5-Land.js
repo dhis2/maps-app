@@ -7,15 +7,15 @@ export default {
     layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/total_precipitation_sum',
     datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
     group: {
-        groupId: 'precipitation',
+        groupId: 'precipitation_ERA5',
         groupType: 'period',
-        name: i18n.t('Precipitation'),
+        name: i18n.t('Precipitation ERA5'),
         img: 'images/precipitation.png',
         excludeOnSwitch: ['period', 'style'],
     },
     format: 'ImageCollection',
     img: 'images/precipitation.png',
-    name: i18n.t('Precipitation weekly'),
+    name: i18n.t('Precipitation weekly ERA5'),
     description: i18n.t(
         'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
     ),

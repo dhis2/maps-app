@@ -7,7 +7,7 @@ export default {
     datasetId: 'MODIS/061/MCD12Q1', // No longer in use: 'MODIS/006/MCD12Q1' / 'MODIS/051/MCD12Q1',
     format: 'ImageCollection',
     img: 'images/landcover.png',
-    name: i18n.t('Landcover'),
+    name: i18n.t('Landcover MODIS'),
     description: i18n.t('Distinct landcover types collected from satellites.'),
     source: 'NASA LP DAAC / Google Earth Engine',
     sourceUrl:

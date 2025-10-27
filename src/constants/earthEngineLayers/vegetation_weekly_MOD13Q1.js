@@ -9,13 +9,13 @@ export default {
     group: {
         groupId: 'vegetation',
         groupType: 'period',
-        name: i18n.t('Vegetation'),
+        name: i18n.t('Vegetation MODIS'),
         img: 'images/vegetation.png',
         excludeOnSwitch: ['period'],
     },
     format: 'ImageCollection',
     img: 'images/vegetation.png',
-    name: i18n.t('Vegetation index weekly'),
+    name: i18n.t('Vegetation index weekly MODIS'),
     description: i18n.t(
         'NDVI and EVI values range from -1 to 1, with higher values indicating denser vegetation.'
     ),
