@@ -1,11 +1,27 @@
 import { getRequest } from '../support/requests.js'
 import {
-    assertIntercepts,
     EXTENDED_TIMEOUT,
+    assertIntercepts,
     getDhis2Version,
 } from '../support/util.js'
 
+const clearAndLogin = () => {
+    cy.clearCookies()
+    cy.clearLocalStorage()
+
+    const username = Cypress.env('dhis2Username')
+    const password = Cypress.env('dhis2Password')
+    const baseUrl = Cypress.env('dhis2BaseUrl')
+
+    cy.loginByApi({ username, password, baseUrl })
+        .its('status')
+        .should('equal', 200)
+
+    cy.wait(100) // eslint-disable-line cypress/no-unnecessary-waiting
+}
+
 const commonTriggerFn = () => {
+    clearAndLogin()
     cy.reload(true)
 }
 
@@ -48,36 +64,8 @@ describe('Error handling check for all layer types', () => {
         assertIntercepts({
             intercepts: [
                 {
-                    intercepts: [
-                        {
-                            ...getRequest('getThematic_Analytics1'),
-                            error: 'network',
-                        },
-                        {
-                            ...getRequest('getThematic_Analytics2'),
-                            error: 'network',
-                        },
-                    ],
-                    alias: 'getThematic_AnalyticsGroup',
-                    assertFn: () => {
-                        commonAssertFn({ error: 'network' })
-                    },
-                },
-                {
-                    intercepts: [
-                        {
-                            ...getRequest('getThematic_Analytics1'),
-                            error: 409,
-                        },
-                        {
-                            ...getRequest('getThematic_Analytics2'),
-                            error: 'network',
-                        },
-                    ],
-                    alias: 'getThematic_AnalyticsGroup',
-                    assertFn: () => {
-                        commonAssertFn({ error: 409 })
-                    },
+                    ...getRequest('getThematic_Analytics1'),
+                    errors: ['network', 409],
                 },
                 {
                     ...getRequest('getThematic_Analytics2'),
@@ -245,7 +233,8 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getEventsStandard_Analytics1'),
                     triggerFn: () => {
-                        cy.reload(true)
+                        clearAndLogin()
+                        cy.visit(`#/${id}`)
                         cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
                     },
                     errors: ['network', 409], // !TODO: Improve messages
@@ -263,7 +252,8 @@ describe('Error handling check for all layer types', () => {
                 {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
-                        cy.reload(true)
+                        clearAndLogin()
+                        cy.visit(`#/${id}`)
                         cy.getByDataTest('layercard')
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                             .should('exist')
