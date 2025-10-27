@@ -100,11 +100,11 @@ describe('Routes', () => {
             .should('be.visible')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
 
-        cy.getByDataTest(`card-Heatstressdaily`)
+        cy.getByDataTest(`card-HeatstressdailyERA5`)
             .findByDataTest('layerlegend-item')
             .should('have.length', 10)
 
-        cy.getByDataTest(`card-Heatstressdaily`)
+        cy.getByDataTest(`card-HeatstressdailyERA5`)
             .findByDataTest('layerlegend-item')
             .first()
             .contains('Extreme heat stress 46 - 60')
