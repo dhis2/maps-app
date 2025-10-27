@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-27T09:49:13.976Z\n"
-"PO-Revision-Date: 2025-10-27T09:49:13.976Z\n"
+"POT-Creation-Date: 2025-10-27T15:52:46.419Z\n"
+"PO-Revision-Date: 2025-10-27T15:52:46.419Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1211,28 +1211,6 @@ msgstr "Heat stress weekly ERA5"
 msgid "Weekly"
 msgstr "Weekly"
 
-msgid "Precipitation ERA5"
-msgstr "Precipitation ERA5"
-
-msgid "Precipitation daily ERA5"
-msgstr "Precipitation daily ERA5"
-
-msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
-msgstr ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid "~9 kilometers"
-msgstr "~9 kilometers"
-
-msgid "Febuary 1950 - One week ago"
-msgstr "Febuary 1950 - One week ago"
-
 msgid "Landcover MODIS"
 msgstr "Landcover MODIS"
 
@@ -1490,6 +1468,33 @@ msgstr "~5.5 kilometers"
 
 msgid "January 1981 - One month ago"
 msgstr "January 1981 - One month ago"
+
+msgid "Precipitation ERA5"
+msgstr "Precipitation ERA5"
+
+msgid "Precipitation daily ERA5"
+msgstr "Precipitation daily ERA5"
+
+msgid ""
+"Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS) "
+"incorporates satellite imagery with in-situ station data to create gridded "
+"rainfall time series."
+msgstr ""
+"Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS) "
+"incorporates satellite imagery with in-situ station data to create gridded "
+"rainfall time series."
+
+msgid "~5.5 kilometers"
+msgstr "~5.5 kilometers"
+
+msgid "January 1981 - One month ago"
+msgstr "January 1981 - One month ago"
+
+msgid "Precipitation monthly CHIRPS"
+msgstr "Precipitation monthly CHIRPS"
+
+msgid "Precipitation monthly ERA5"
+msgstr "Precipitation monthly ERA5"
 
 msgid "Precipitation monthly CHIRPS"
 msgstr "Precipitation monthly CHIRPS"
