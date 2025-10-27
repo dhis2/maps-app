@@ -42,7 +42,7 @@
         "start-server-and-test": "^2.0.11"
     },
     "dependencies": {
-        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#49e3f9fa13e60920d3b0c79ee325c6c6c5b5a153",
+        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#1204d03291ae12fb824f99e38d98dd3da7000145",
         "@dhis2/app-runtime": "^3.14.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.1.2",
