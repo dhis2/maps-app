@@ -7,21 +7,31 @@ import './styles/Legend.css'
 // Renders a legend for all map layers
 const Legend = ({ layers }) => {
     const [isOpen, toggleOpen] = useState(false)
+    const [isPinned, setIsPinned] = useState(false)
 
     const legendLayers = layers
         .filter((layer) => layer.legend || layer.alerts)
         .reverse() // Show top layer first
 
     return (
-        <div className="dhis2-map-legend">
+        <div className={`dhis2-map-legend${isPinned ? ' pinned' : ''}`}>
             {isOpen ? (
                 <div
-                    className="dhis2-map-legend-content"
-                    onMouseLeave={() => toggleOpen(false)}
+                    title={
+                        isPinned
+                            ? i18n.t('Click to unpin legend')
+                            : i18n.t('Click to pin legend')
+                    }
                 >
-                    {legendLayers.map((layer) => (
-                        <LegendLayer key={layer.id} {...layer} />
-                    ))}
+                    <div
+                        className="dhis2-map-legend-content"
+                        onMouseLeave={() => toggleOpen(isPinned || false)}
+                        onClick={() => setIsPinned(!isPinned)}
+                    >
+                        {legendLayers.map((layer) => (
+                            <LegendLayer key={layer.id} {...layer} />
+                        ))}
+                    </div>
                 </div>
             ) : (
                 <div
