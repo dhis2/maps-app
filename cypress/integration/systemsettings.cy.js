@@ -34,9 +34,7 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest(
-            'period-dimension-relative-period-filter-content'
-        ).click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
         cy.getByDataTest(
             'period-dimension-relative-period-filter-option-BIWEEKLY'
@@ -54,9 +52,7 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest(
-            'period-dimension-relative-period-filter-content'
-        ).click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
         cy.getByDataTest(
             'period-dimension-relative-period-filter-option-BIWEEKLY'
