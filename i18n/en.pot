@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-28T14:18:41.167Z\n"
-"PO-Revision-Date: 2025-10-28T14:18:41.167Z\n"
+"POT-Creation-Date: 2025-10-28T15:28:22.915Z\n"
+"PO-Revision-Date: 2025-10-28T15:28:22.915Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1619,11 +1619,3 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
-
-msgctxt "Application title"
-msgid "__MANIFEST_APP_TITLE"
-msgstr "Maps"
-
-msgctxt "Application description"
-msgid "__MANIFEST_APP_DESCRIPTION"
-msgstr "DHIS2 Maps"
