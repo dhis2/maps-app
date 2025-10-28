@@ -10,7 +10,13 @@
     overflow-y: auto;
 }
 
+.dhis2-map-legend.pinned {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
 .dhis2-map-legend-button {
+    cursor: pointer;
     width: 26px;
     height: 26px;
     background-position: 50% 50%;
@@ -20,6 +26,7 @@
 }
 
 .dhis2-map-legend-content {
+    cursor: pointer;
     overflow-y: auto;
     min-width: 150px;
     max-width: 200px;
