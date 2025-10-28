@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import LegendLayer from './LegendLayer.jsx'
@@ -14,7 +15,7 @@ const Legend = ({ layers }) => {
         .reverse() // Show top layer first
 
     return (
-        <div className={`dhis2-map-legend${isPinned ? ' pinned' : ''}`}>
+        <div className={cx('dhis2-map-legend', { pinned: isPinned })}>
             {isOpen ? (
                 <div
                     title={
