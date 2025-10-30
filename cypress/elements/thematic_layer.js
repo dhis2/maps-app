@@ -80,7 +80,7 @@ export class ThematicLayer extends Layer {
         cy.getByDataTest(
             `period-dimension-${periodDimension}-period-filter${
                 periodDimension === 'fixed' ? '-period-type' : ''
-            }-content`
+            }`
         ).click()
         // Select period type in dropdown if not active already
         cy.get(`[data-value="${periodType}"]`).then(($el) => {
