@@ -13,13 +13,14 @@
 # Philip Larsen Donnelly, 2025
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
 # Elise Desailly, 2025
+# Esther Tokouli, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Elise Desailly, 2025\n"
+"Last-Translator: Esther Tokouli, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +41,7 @@ msgid "Failed to save map: {{message}}"
 msgstr ""
 
 msgid "Rename failed"
-msgstr ""
+msgstr "Échec du renommage"
 
 msgid "Rename successful"
 msgstr "Renommer avec succès"
@@ -52,7 +53,7 @@ msgid "Network error"
 msgstr "Erreur réseau"
 
 msgid "Calculation"
-msgstr ""
+msgstr "Calcul"
 
 msgid "No calculations found"
 msgstr "Aucun calcul trouvé"
@@ -114,6 +115,9 @@ msgstr "Aucun"
 msgid "Cascading"
 msgstr ""
 
+msgid "Organisation unit location"
+msgstr ""
+
 msgid "Event location"
 msgstr "Lieu de l'évènement"
 
@@ -121,9 +125,6 @@ msgid "Enrollment location"
 msgstr ""
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
 msgstr ""
 
 msgid "Fallback coordinate field"
@@ -458,6 +459,9 @@ msgstr "Statut de l'événement"
 msgid "Boundary color"
 msgstr "Couleur de limite"
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr "Mémoire tampon"
 
@@ -478,6 +482,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -550,7 +566,7 @@ msgid "Program indicators"
 msgstr "Program indicators"
 
 msgid "Calculations"
-msgstr ""
+msgstr "Calculs"
 
 msgid "Item type"
 msgstr "Type d'élément"
@@ -726,9 +742,6 @@ msgstr "Modifier la couche"
 
 msgid "Remove layer"
 msgstr "Supprimer la couche"
-
-msgid "Mid"
-msgstr "Moyen"
 
 msgid "Group"
 msgstr "Groupe"
@@ -963,6 +976,9 @@ msgstr "Élément sélectionné et tout ce qui se trouve en-dessous"
 msgid "Selection mode"
 msgstr "Sélectionner le mode"
 
+msgid "Clear"
+msgstr "Supprimer"
+
 msgid "Previous year"
 msgstr "L'année dernière"
 
@@ -1082,6 +1098,9 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM détaillée"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1093,6 +1112,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Étiquettes Bing Aerial"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr "Empreintes des bâtiments"
@@ -1569,6 +1600,18 @@ msgstr "vrai"
 
 msgid "false"
 msgstr "faux"
+
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Moyen"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "

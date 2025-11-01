@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/hisp-uio/teams/100509/sv/)\n"
@@ -34,6 +34,12 @@ msgid "Rename failed"
 msgstr ""
 
 msgid "Rename successful"
+msgstr ""
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
 msgstr ""
 
 msgid "Calculation"
@@ -99,6 +105,9 @@ msgstr "Ingen"
 msgid "Cascading"
 msgstr ""
 
+msgid "Organisation unit location"
+msgstr ""
+
 msgid "Event location"
 msgstr ""
 
@@ -106,9 +115,6 @@ msgid "Enrollment location"
 msgstr ""
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
 msgstr ""
 
 msgid "Fallback coordinate field"
@@ -431,6 +437,9 @@ msgstr "Händelsestatus"
 msgid "Boundary color"
 msgstr ""
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
@@ -450,6 +459,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -589,9 +610,6 @@ msgstr ""
 msgid "Group set"
 msgstr "Grupp set"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
 
@@ -692,16 +710,10 @@ msgstr "Redigera skikt"
 msgid "Remove layer"
 msgstr ""
 
-msgid "Mid"
-msgstr ""
-
 msgid "Group"
 msgstr ""
 
 msgid "Filters"
-msgstr ""
-
-msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "No data found"
@@ -924,6 +936,9 @@ msgstr ""
 msgid "Selection mode"
 msgstr "valläget"
 
+msgid "Clear"
+msgstr "Klar"
+
 msgid "Previous year"
 msgstr ""
 
@@ -944,7 +959,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1043,6 +1058,9 @@ msgstr "OSM Ljus"
 msgid "OSM Detailed"
 msgstr ""
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr ""
 
@@ -1053,6 +1071,18 @@ msgid "Bing Aerial"
 msgstr ""
 
 msgid "Bing Aerial Labels"
+msgstr ""
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
 msgstr ""
 
 msgid "Building footprints"
@@ -1459,6 +1489,12 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1507,12 +1543,24 @@ msgstr ""
 msgid "false"
 msgstr ""
 
-msgid "Cannot get authorization token for Google Earth Engine."
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
 msgstr ""
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
 msgid "Thematic"

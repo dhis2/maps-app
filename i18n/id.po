@@ -5,16 +5,16 @@
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
 # Philip Larsen Donnelly, 2024
-# Viktor Varland <viktor@dhis2.org>, 2024
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2025
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2025
+# Viktor Varland <viktor@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2025\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,12 @@ msgstr ""
 
 msgid "Rename successful"
 msgstr "Penamaan ulang berhasil"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr ""
 
 msgid "Calculation"
 msgstr ""
@@ -103,6 +109,9 @@ msgstr "Tidak ada"
 msgid "Cascading"
 msgstr ""
 
+msgid "Organisation unit location"
+msgstr ""
+
 msgid "Event location"
 msgstr "Lokasi even"
 
@@ -110,9 +119,6 @@ msgid "Enrollment location"
 msgstr ""
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
 msgstr ""
 
 msgid "Fallback coordinate field"
@@ -441,6 +447,9 @@ msgstr "Status Event"
 msgid "Boundary color"
 msgstr ""
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -460,6 +469,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -603,9 +624,6 @@ msgstr "Hapus filter"
 msgid "Group set"
 msgstr "set satu grup"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
 
@@ -708,17 +726,11 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Hapus layer"
 
-msgid "Mid"
-msgstr "Pertengahan"
-
 msgid "Group"
 msgstr "Grup"
 
 msgid "Filters"
 msgstr "Penyaringan"
-
-msgid "{{layername}}: {{message}}"
-msgstr ""
 
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
@@ -945,6 +957,9 @@ msgstr "Dipilih dan semuanya di bawah"
 msgid "Selection mode"
 msgstr "Mode pemilihan Selection"
 
+msgid "Clear"
+msgstr "Hapus"
+
 msgid "Previous year"
 msgstr "Tahun sebelumnya"
 
@@ -965,7 +980,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1064,6 +1079,9 @@ msgstr "Cahaya OSM"
 msgid "OSM Detailed"
 msgstr "Detail OSM"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Jalan Bing"
 
@@ -1075,6 +1093,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Label Udara Bing"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr ""
@@ -1489,6 +1519,12 @@ msgstr "Kejadian"
 msgid "Facilities"
 msgstr "Fasilitas"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1537,8 +1573,17 @@ msgstr "benar"
 msgid "false"
 msgstr "Salah"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Tidak bisa mendapatkan token otorisasi untuk Google Earth Engine."
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Pertengahan"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1546,6 +1591,9 @@ msgid ""
 msgstr ""
 "Layer ini memerlukan akun Google Earth Engine. Periksa dokumentasi DHIS2 "
 "untuk informasi lebih lanjut."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Tidak bisa mendapatkan token otorisasi untuk Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Tematik"

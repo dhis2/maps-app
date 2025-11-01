@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # 晓东 林 <13981924470@126.com>, 2025
 # easylin <lin_xd@126.com>, 2025
+# Philip Larsen Donnelly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-07-08T14:01:49.308Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -105,6 +105,9 @@ msgstr "无"
 msgid "Cascading"
 msgstr "级联"
 
+msgid "Organisation unit location"
+msgstr "组织单位位置"
+
 msgid "Event location"
 msgstr "事件位置"
 
@@ -113,9 +116,6 @@ msgstr "招生地点"
 
 msgid "Tracked entity location"
 msgstr "跟踪实体位置"
-
-msgid "Organisation unit location"
-msgstr "组织单位位置"
 
 msgid "Fallback coordinate field"
 msgstr "回退坐标字段"
@@ -437,6 +437,9 @@ msgstr "事件状态"
 msgid "Boundary color"
 msgstr "边界颜色"
 
+msgid "Draws a buffer area around each location."
+msgstr "在每个位置周围绘制缓冲区。"
+
 msgid "Buffer"
 msgstr "缓冲"
 
@@ -457,6 +460,18 @@ msgstr "线条/笔划宽度"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "线条/描边宽度必须介于 0-10 之间。"
+
+msgid "May cause slow layer loading."
+msgstr "可能导致图层加载缓慢。"
+
+msgid "Convert polygons to their centroids."
+msgstr "将多边形转换为其中心点。"
+
+msgid "Centroids"
+msgstr "中心点"
+
+msgid "Polygons are represented by their centroids."
+msgstr "多边形由其中心点表示。"
 
 msgid "Labels"
 msgstr "标签"
@@ -920,6 +935,9 @@ msgstr "选择的和所有下面的"
 
 msgid "Selection mode"
 msgstr "选择模式"
+
+msgid "Clear"
+msgstr "清除"
 
 msgid "Previous year"
 msgstr "前年"
