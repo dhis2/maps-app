@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # 晓东 林 <13981924470@126.com>, 2025
 # easylin <lin_xd@126.com>, 2025
+# Philip Larsen Donnelly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-08-01T00:47:23.508Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -935,6 +935,9 @@ msgstr "选择的和所有下面的"
 
 msgid "Selection mode"
 msgstr "选择模式"
+
+msgid "Clear"
+msgstr "清除"
 
 msgid "Previous year"
 msgstr "前年"
