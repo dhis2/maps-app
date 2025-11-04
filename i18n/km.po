@@ -3,13 +3,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Philip Larsen Donnelly, 2022
 # channara rin, 2023
+# Em Le <em.hispvietnam@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: channara rin, 2023\n"
+"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2025\n"
 "Language-Team: Khmer (https://app.transifex.com/hisp-uio/teams/100509/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "ផែនទី"
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
@@ -42,7 +43,7 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
-msgstr ""
+msgstr "ទំហំ"
 
 msgid "Data element group"
 msgstr ""
@@ -54,7 +55,7 @@ msgid "Data element"
 msgstr "ទិន្នន័យធាតុដើម"
 
 msgid "Totals"
-msgstr ""
+msgstr "តម្លៃសរុប"
 
 msgid "Details"
 msgstr "លម្អិត"
@@ -72,7 +73,7 @@ msgid "None"
 msgstr "គ្មាន"
 
 msgid "Data item"
-msgstr ""
+msgstr "ទិន្នន័យ"
 
 msgid "Event data item"
 msgstr ""
@@ -102,7 +103,7 @@ msgid "Value"
 msgstr "តម្លៃ"
 
 msgid "Legend"
-msgstr ""
+msgstr "រូបតំណាង"
 
 msgid "Range"
 msgstr ""
@@ -129,7 +130,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "ទាយយក"
 
 msgid "Download map"
 msgstr ""
@@ -202,7 +203,7 @@ msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "ក្រុម"
 
 msgid "This field is required"
 msgstr ""
@@ -266,13 +267,13 @@ msgid "Max"
 msgstr "អតិបរមា"
 
 msgid "Steps"
-msgstr ""
+msgstr "ជំហ៊ាន"
 
 msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "ការច្រោះ"
 
 msgid "Events"
 msgstr "ព្រឹត្តិការណ៏"
@@ -317,10 +318,10 @@ msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "ស្លាក"
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "ប្រភេទទិន្នន័យសរុប"
 
 msgid "Show no data"
 msgstr ""
@@ -449,7 +450,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "មានអ្វីមួយខុសប្រក្រតី"
 
 msgid "Refresh to try again"
 msgstr ""
@@ -714,7 +715,7 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "ជម្រើស"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -734,7 +735,7 @@ msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr ""
+msgstr "លេខកូដ"
 
 msgid "Short name"
 msgstr "ឈ្មោះ​​ខ្លី"
@@ -853,7 +854,7 @@ msgid "End date"
 msgstr "កាល​បរិច្ឆេទ​បញ្ចប់​"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "មិនអាចប្រើប្រាស់បាននៅពេលបណ្ដាញត្រូវបានផ្តាច់"
 
 msgid "Program indicator"
 msgstr ""
@@ -871,7 +872,7 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "ទៅតាមធាតុនៃទិន្នន័យ"
 
 msgid "Count"
 msgstr "ផលរាប់"
@@ -883,10 +884,10 @@ msgid "Sum"
 msgstr "ផល​បូក"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "គំលាតគំរូ"
 
 msgid "Variance"
-msgstr ""
+msgstr "ភាពប្រែប្រួល"
 
 msgid "Percentage"
 msgstr ""
@@ -898,10 +899,10 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "មធ្យម"
 
 msgid "Median"
-msgstr ""
+msgstr "ម៉េឌីយ៉ាន"
 
 msgid "Std dev"
 msgstr ""
