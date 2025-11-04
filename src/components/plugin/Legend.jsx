@@ -7,7 +7,7 @@ import './styles/Legend.css'
 
 // Renders a legend for all map layers
 const Legend = ({ layers }) => {
-    const [isOpen, toggleOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     const [isPinned, setIsPinned] = useState(false)
 
     const legendLayers = layers
@@ -26,7 +26,7 @@ const Legend = ({ layers }) => {
                 >
                     <div
                         className="dhis2-map-legend-content"
-                        onMouseLeave={() => toggleOpen(isPinned || false)}
+                        onMouseLeave={() => !isPinned && setIsOpen(false)}
                         onClick={() => setIsPinned(!isPinned)}
                     >
                         {legendLayers.map((layer) => (
@@ -38,7 +38,7 @@ const Legend = ({ layers }) => {
                 <div
                     className="dhis2-map-legend-button"
                     title={i18n.t('Legend')}
-                    onMouseEnter={() => toggleOpen(true)}
+                    onMouseEnter={() => setIsOpen(true)}
                 />
             )}
         </div>
