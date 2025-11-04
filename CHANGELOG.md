@@ -1,3 +1,10 @@
+## [101.4.4](https://github.com/dhis2/maps-app/compare/v101.4.3...v101.4.4) (2025-10-30)
+
+
+### Bug Fixes
+
+* use interpretations provider from analytics [DHIS2-19822] ([#3568](https://github.com/dhis2/maps-app/issues/3568)) ([96b9b5d](https://github.com/dhis2/maps-app/commit/96b9b5df9b43d207b82cdfbb7181bff216a2a300))
+
 ## [101.4.3](https://github.com/dhis2/maps-app/compare/v101.4.2...v101.4.3) (2025-09-12)
 
 
