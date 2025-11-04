@@ -1,14 +1,14 @@
 # 
 # Translators:
-# 晓东 林 <13981924470@126.com>, 2025
 # easylin <lin_xd@126.com>, 2025
+# 晓东 林 <13981924470@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,6 +103,9 @@ msgstr "没有"
 msgid "Cascading"
 msgstr ""
 
+msgid "Organisation unit location"
+msgstr ""
+
 msgid "Event location"
 msgstr "事件位置"
 
@@ -110,9 +113,6 @@ msgid "Enrollment location"
 msgstr ""
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
 msgstr ""
 
 msgid "Fallback coordinate field"
@@ -435,6 +435,9 @@ msgstr "事件状态"
 msgid "Boundary color"
 msgstr ""
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
@@ -454,6 +457,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -693,9 +708,6 @@ msgstr "编辑图层"
 msgid "Remove layer"
 msgstr ""
 
-msgid "Mid"
-msgstr ""
-
 msgid "Group"
 msgstr "组"
 
@@ -922,6 +934,9 @@ msgstr ""
 msgid "Selection mode"
 msgstr "选择模式"
 
+msgid "Clear"
+msgstr "清除"
+
 msgid "Previous year"
 msgstr ""
 
@@ -1041,6 +1056,9 @@ msgstr "OSM轻量"
 msgid "OSM Detailed"
 msgstr "OSM详细图"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Bing道路"
 
@@ -1052,6 +1070,18 @@ msgstr "Bing空间图"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr ""
@@ -1509,6 +1539,18 @@ msgid "true"
 msgstr ""
 
 msgid "false"
+msgstr ""
+
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
 msgstr ""
 
 msgid ""
