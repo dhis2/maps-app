@@ -1,3 +1,10 @@
+## [101.4.6](https://github.com/dhis2/maps-app/compare/v101.4.5...v101.4.6) (2025-11-05)
+
+
+### Bug Fixes
+
+* pin legend on click in dashboard [DHIS2-16467] ([#3576](https://github.com/dhis2/maps-app/issues/3576)) ([aa43735](https://github.com/dhis2/maps-app/commit/aa437350990d68e69c1b58544e5fede46a49f58a))
+
 ## [101.4.5](https://github.com/dhis2/maps-app/compare/v101.4.4...v101.4.5) (2025-11-04)
 
 
