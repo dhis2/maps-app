@@ -1,3 +1,24 @@
+## [101.4.6](https://github.com/dhis2/maps-app/compare/v101.4.5...v101.4.6) (2025-11-05)
+
+
+### Bug Fixes
+
+* pin legend on click in dashboard [DHIS2-16467] ([#3576](https://github.com/dhis2/maps-app/issues/3576)) ([aa43735](https://github.com/dhis2/maps-app/commit/aa437350990d68e69c1b58544e5fede46a49f58a))
+
+## [101.4.5](https://github.com/dhis2/maps-app/compare/v101.4.4...v101.4.5) (2025-11-04)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3556](https://github.com/dhis2/maps-app/issues/3556)) ([d8982af](https://github.com/dhis2/maps-app/commit/d8982af1c0dbe09f25302e8557c49543f70eef33))
+
+## [101.4.4](https://github.com/dhis2/maps-app/compare/v101.4.3...v101.4.4) (2025-10-30)
+
+
+### Bug Fixes
+
+* use interpretations provider from analytics [DHIS2-19822] ([#3568](https://github.com/dhis2/maps-app/issues/3568)) ([96b9b5d](https://github.com/dhis2/maps-app/commit/96b9b5df9b43d207b82cdfbb7181bff216a2a300))
+
 ## [101.4.3](https://github.com/dhis2/maps-app/compare/v101.4.2...v101.4.3) (2025-09-12)
 
 
