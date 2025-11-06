@@ -6,6 +6,7 @@ export default {
     legacy: true, // Kept for backward compability
     layerId: 'WorldPop/GP/100m/pop',
     datasetId: 'WorldPop/GP/100m/pop',
+    format: 'ImageCollection',
     name: i18n.t('Population'),
     unit: i18n.t('people per hectare'),
     description: i18n.t('Estimated number of people living in an area.'),
