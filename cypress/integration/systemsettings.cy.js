@@ -34,16 +34,14 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest(
-            'period-dimension-relative-period-filter-content'
-        ).click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-BIWEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-BIWEEKLY'
         ).should('be.visible')
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-WEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-WEEKLY'
         ).should('not.exist')
     })
 
@@ -54,16 +52,14 @@ describe('systemSettings', () => {
 
         Layer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest(
-            'period-dimension-relative-period-filter-content'
-        ).click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-BIWEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-BIWEEKLY'
         ).should('be.visible')
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-WEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-WEEKLY'
         ).should('be.visible')
     })
 
