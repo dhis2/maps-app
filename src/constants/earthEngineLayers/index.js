@@ -22,7 +22,7 @@ import vegetationModisMonthly from './vegetation_monthly_MOD13Q1.js'
 import vegetationModisOriginal from './vegetation_original_MOD13Q1.js'
 import vegetationModisWeekly from './vegetation_weekly_MOD13Q1.js'
 
-const earthEngineLayers = [
+const earthEngineLayersFns = [
     populationTotal,
     populationAgeSex,
     buildings,
@@ -48,7 +48,9 @@ const earthEngineLayers = [
     legacyTemperature,
 ]
 
-const earthEngineLayersDefault = [
+const earthEngineLayers = () => earthEngineLayersFns.map((l) => l())
+
+const earthEngineLayersDefaultFns = [
     populationTotal,
     populationAgeSex,
     buildings,
@@ -58,11 +60,10 @@ const earthEngineLayersDefault = [
     landcover,
 ]
 
-export const earthEngineLayersDefaultIds = earthEngineLayersDefault.map(
-    (l) => l.layerId
-)
+export const earthEngineLayersDefaultIds = () =>
+    earthEngineLayersDefaultFns.map((l) => l().layerId)
 
 export const getEarthEngineLayer = (id) =>
-    earthEngineLayers.find((l) => l.layerId === id)
+    earthEngineLayers().find((l) => l.layerId === id)
 
 export default earthEngineLayers
