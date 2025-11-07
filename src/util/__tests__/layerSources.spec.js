@@ -35,14 +35,16 @@ describe('resolveGroupKey', () => {
     test('returns correct key depending on layer type and properties', () => {
         expect(resolveGroupKey(standardLayerSource)).toBe('standard')
         expect(resolveGroupKey(externalLayerSource)).toBe('suB1SFdc6RD')
-        expect(resolveGroupKey(precipitationMonthlyLayerSource)).toBe(
+        expect(resolveGroupKey(precipitationMonthlyLayerSource())).toBe(
             'precipitation'
         )
-        expect(resolveGroupKey(precipitationWeeklyLayerSource)).toBe(
+        expect(resolveGroupKey(precipitationWeeklyLayerSource())).toBe(
             'precipitation'
         )
-        expect(resolveGroupKey(vegetationMonthlyLayerSource)).toBe('vegetation')
-        expect(resolveGroupKey(buildingsLayerSource)).toBe(
+        expect(resolveGroupKey(vegetationMonthlyLayerSource())).toBe(
+            'vegetation'
+        )
+        expect(resolveGroupKey(buildingsLayerSource())).toBe(
             'GOOGLE/Research/open-buildings/v3/polygons'
         )
     })
@@ -53,10 +55,10 @@ describe('groupLayerSources', () => {
         const layers = [
             standardLayerSource,
             externalLayerSource,
-            precipitationMonthlyLayerSource,
-            precipitationWeeklyLayerSource,
-            vegetationMonthlyLayerSource,
-            buildingsLayerSource,
+            precipitationMonthlyLayerSource(),
+            precipitationWeeklyLayerSource(),
+            vegetationMonthlyLayerSource(),
+            buildingsLayerSource(),
         ]
 
         const grouped = groupLayerSources(layers)
@@ -81,8 +83,8 @@ describe('groupLayerSources', () => {
         expect(precipitationGroup.items.length).toBe(2)
         expect(precipitationGroup.items.map((i) => i.layerId)).toEqual(
             expect.arrayContaining([
-                precipitationMonthlyLayerSource.layerId,
-                precipitationWeeklyLayerSource.layerId,
+                precipitationMonthlyLayerSource().layerId,
+                precipitationWeeklyLayerSource().layerId,
             ])
         )
 
@@ -91,12 +93,12 @@ describe('groupLayerSources', () => {
         expect(vegetationGroup).toBeDefined()
         expect(vegetationGroup.items.length).toBe(1)
         expect(vegetationGroup.items[0].layerId).toBe(
-            vegetationMonthlyLayerSource.layerId
+            vegetationMonthlyLayerSource().layerId
         )
 
         // Buildings layer (no group) should be preserved
         const buildings = grouped.find(
-            (l) => l.layerId === buildingsLayerSource.layerId
+            (l) => l.layerId === buildingsLayerSource().layerId
         )
         expect(buildings).toBeDefined()
         expect(buildings.layer).toBe('earthEngine')
@@ -104,9 +106,9 @@ describe('groupLayerSources', () => {
 
     test('does not add duplicate layers to group items', () => {
         const layers = [
-            precipitationMonthlyLayerSource,
-            precipitationMonthlyLayerSource, // duplicate
-            precipitationWeeklyLayerSource,
+            precipitationMonthlyLayerSource(),
+            precipitationMonthlyLayerSource(), // duplicate
+            precipitationWeeklyLayerSource(),
         ]
 
         const grouped = groupLayerSources(layers)
@@ -115,8 +117,8 @@ describe('groupLayerSources', () => {
         expect(precipitationGroup.items.length).toBe(2)
         expect(precipitationGroup.items.map((i) => i.layerId)).toEqual(
             expect.arrayContaining([
-                precipitationMonthlyLayerSource.layerId,
-                precipitationWeeklyLayerSource.layerId,
+                precipitationMonthlyLayerSource().layerId,
+                precipitationWeeklyLayerSource().layerId,
             ])
         )
     })
@@ -124,26 +126,26 @@ describe('groupLayerSources', () => {
 
 describe('getLayerSourceGroup', () => {
     test('returns empty array if layer has no group', () => {
-        const result = getLayerSourceGroup(buildingsLayerSource.layerId)
+        const result = getLayerSourceGroup(buildingsLayerSource().layerId)
         expect(result).toEqual([])
     })
 
     test('returns group with only the layer if no managed layers', () => {
         const result = getLayerSourceGroup(
-            precipitationMonthlyLayerSource.layerId
+            precipitationMonthlyLayerSource().layerId
         )
         expect(result.id).toBe('precipitation')
         expect(Array.isArray(result.items)).toBe(true)
         expect(result.items.length).toBe(1)
         expect(result.items[0].layerId).toBe(
-            precipitationMonthlyLayerSource.layerId
+            precipitationMonthlyLayerSource().layerId
         )
     })
 
     test('includes managed layers from the same group', () => {
-        const layerIds = [precipitationWeeklyLayerSource.layerId]
+        const layerIds = [precipitationWeeklyLayerSource().layerId]
         const result = getLayerSourceGroup(
-            precipitationMonthlyLayerSource.layerId,
+            precipitationMonthlyLayerSource().layerId,
             layerIds
         )
 
@@ -152,36 +154,36 @@ describe('getLayerSourceGroup', () => {
         const ids = result.items.map((i) => i.layerId)
         expect(ids).toEqual(
             expect.arrayContaining([
-                precipitationMonthlyLayerSource.layerId,
-                precipitationWeeklyLayerSource.layerId,
+                precipitationMonthlyLayerSource().layerId,
+                precipitationWeeklyLayerSource().layerId,
             ])
         )
     })
 
     test('does not include layers from other groups', () => {
-        const layerIds = [vegetationMonthlyLayerSource.layerId]
+        const layerIds = [vegetationMonthlyLayerSource().layerId]
         const result = getLayerSourceGroup(
-            precipitationMonthlyLayerSource.layerId,
+            precipitationMonthlyLayerSource().layerId,
             layerIds
         )
 
         expect(result.id).toBe('precipitation')
         expect(result.items.length).toBe(1)
         expect(result.items[0].layerId).toBe(
-            precipitationMonthlyLayerSource.layerId
+            precipitationMonthlyLayerSource().layerId
         )
     })
 
     test('does not duplicate layers when a managed layer is the same as the main layer', () => {
-        const layerIds = [precipitationMonthlyLayerSource.layerId]
+        const layerIds = [precipitationMonthlyLayerSource().layerId]
         const result = getLayerSourceGroup(
-            precipitationMonthlyLayerSource.layerId,
+            precipitationMonthlyLayerSource().layerId,
             layerIds
         )
 
         expect(result.items.length).toBe(1)
         expect(result.items[0].layerId).toBe(
-            precipitationMonthlyLayerSource.layerId
+            precipitationMonthlyLayerSource().layerId
         )
     })
 })

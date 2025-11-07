@@ -235,7 +235,7 @@ const validateConfig = (config) => {
     return true
 }
 
-describe.each(earthEngineLayers)('GEE config validation', (config) => {
+describe.each(earthEngineLayers())('GEE config validation', (config) => {
     test(`config '${config.layerId}' is well-formed`, () => {
         validateConfig(config)
     })
