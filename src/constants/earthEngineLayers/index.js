@@ -1,5 +1,8 @@
 import buildings from './buildings_GOOGLE.js'
 import elevation from './elevation_SRTM.js'
+import heatDaily from './heat_daily_ERA5-Heat.js'
+import heatMonthly from './heat_monthly_ERA5-Heat.js'
+import heatWeekly from './heat_weekly_ERA5-Heat.js'
 import landcover from './landcover_MCD12Q1.js'
 import legacyBuildings from './legacy/buildings_GOOGLE.js'
 import legacyNighttime from './legacy/nighttime_DMSP-OLS.js'
@@ -9,19 +12,34 @@ import legacyPrecipitation from './legacy/precipitation_pentad_CHIRPS.js'
 import legacyTemperature from './legacy/temperature_MOD11A2v061.js'
 import populationAgeSex from './population_age_sex_WorldPop.js'
 import populationTotal from './population_total_WorldPop.js'
+import precipitationDaily from './precipitation_daily_ERA5-Land.js'
 import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
+import precipitationWeekly from './precipitation_weekly_ERA5-Land.js'
+import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
-import vegetationModis250m from './vegetation_MOD13Q1.js'
+import temperatureWeekly from './temperature_weekly_ERA5-Land.js'
+import vegetationModis16day from './vegetation_16day_MOD13Q1.js'
+import vegetationModisMonthly from './vegetation_monthly_MOD13Q1.js'
+import vegetationModisWeekly from './vegetation_weekly_MOD13Q1.js'
 
-const earthEngineLayers = [
+const earthEngineLayersFns = [
     populationTotal,
     populationAgeSex,
     buildings,
     elevation,
+    heatMonthly,
+    heatWeekly,
+    heatDaily,
     precipitationMonthly,
+    precipitationWeekly,
+    precipitationDaily,
     temperatureMonthly,
+    temperatureWeekly,
+    temperatureDaily,
     landcover,
-    vegetationModis250m,
+    vegetationModisMonthly,
+    vegetationModis16day,
+    vegetationModisWeekly,
     legacyBuildings,
     legacyNighttime,
     legacyPopulation100m,
@@ -30,7 +48,9 @@ const earthEngineLayers = [
     legacyTemperature,
 ]
 
-const earthEngineLayersDefault = [
+const earthEngineLayers = () => earthEngineLayersFns.map((l) => l())
+
+const earthEngineLayersDefaultFns = [
     populationTotal,
     populationAgeSex,
     buildings,
@@ -40,11 +60,10 @@ const earthEngineLayersDefault = [
     landcover,
 ]
 
-export const earthEngineLayersDefaultIds = earthEngineLayersDefault.map(
-    (l) => l.layerId
-)
+export const earthEngineLayersDefaultIds = () =>
+    earthEngineLayersDefaultFns.map((l) => l().layerId)
 
 export const getEarthEngineLayer = (id) =>
-    earthEngineLayers.find((l) => l.layerId === id)
+    earthEngineLayers().find((l) => l.layerId === id)
 
 export default earthEngineLayers
