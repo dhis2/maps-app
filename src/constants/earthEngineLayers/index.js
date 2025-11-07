@@ -18,8 +18,8 @@ import precipitationWeekly from './precipitation_weekly_ERA5-Land.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
 import temperatureWeekly from './temperature_weekly_ERA5-Land.js'
+import vegetationModis16day from './vegetation_16day_MOD13Q1.js'
 import vegetationModisMonthly from './vegetation_monthly_MOD13Q1.js'
-import vegetationModisOriginal from './vegetation_original_MOD13Q1.js'
 import vegetationModisWeekly from './vegetation_weekly_MOD13Q1.js'
 
 const earthEngineLayersFns = [
@@ -38,7 +38,7 @@ const earthEngineLayersFns = [
     temperatureDaily,
     landcover,
     vegetationModisMonthly,
-    vegetationModisOriginal,
+    vegetationModis16day,
     vegetationModisWeekly,
     legacyBuildings,
     legacyNighttime,
