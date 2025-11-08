@@ -14,13 +14,14 @@
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
 # Alejandra Avila <alejandra@dhis2.org>, 2023
 # Janeth Cruz, 2024
+# Bruno Raimbault, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Janeth Cruz, 2024\n"
+"Last-Translator: Bruno Raimbault, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -329,13 +330,13 @@ msgid "Boundary color"
 msgstr "Color del límite"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Tampón"
 
 msgid "Radius in meters"
 msgstr "Radio en metros"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "El búfer no puede combinarse con la geometría asociada."
 
 msgid "Labels"
 msgstr "Etiquetas"
@@ -347,13 +348,13 @@ msgid "Show no data"
 msgstr "No mostrar datos"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Radio bajo"
 
 msgid "High radius"
-msgstr ""
+msgstr "Radio alto"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "El radio alto debe ser mayor que el radio bajo"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "El radio debe estar entre {{min}} y {{max}}"
@@ -585,7 +586,7 @@ msgid "Edit"
 msgstr "Editar"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Alternar visibilidad"
 
 msgid "Set layer opacity"
 msgstr "Establecer la opacidad de la capa"
@@ -612,7 +613,7 @@ msgid "Remove layer"
 msgstr "Eliminar capa"
 
 msgid "Mid"
-msgstr ""
+msgstr "Medio"
 
 msgid "Group"
 msgstr "Grupo"
@@ -673,7 +674,7 @@ msgid "Loading data"
 msgstr "Cargando datos"
 
 msgid "acres"
-msgstr ""
+msgstr "acres"
 
 msgid "Area"
 msgstr "Área"
@@ -706,7 +707,7 @@ msgid "Finish measurement"
 msgstr "Terminar medición"
 
 msgid "ha"
-msgstr ""
+msgstr "ha"
 
 msgid "km"
 msgstr "km"
@@ -715,7 +716,7 @@ msgid "Measure distances and areas"
 msgstr "Medir distancias y áreas"
 
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 msgid "Perimeter"
 msgstr "Perímetro"
@@ -939,7 +940,7 @@ msgid "Hectares"
 msgstr "Hectáreas"
 
 msgid "Acres"
-msgstr ""
+msgstr "Acres"
 
 msgid "Mean"
 msgstr "Media"
@@ -948,7 +949,7 @@ msgid "Median"
 msgstr "Mediana"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Desviación estándar"
 
 msgid "OSM Light"
 msgstr "OSM Sencillo"
@@ -1169,16 +1170,16 @@ msgid "Distinct landcover types collected from satellites."
 msgstr "Distintos tipos de cubierta terrestre recogidos desde satélites."
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Bosque perennifolio de agujas"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Bosque latifoliado perennifolio"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Bosque caducifolio de agujas"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Bosque caducifolio latifoliado"
 
 msgid "Mixed forest"
 msgstr "Bosque mixto"
@@ -1196,16 +1197,16 @@ msgid "Savannas"
 msgstr "Sabanas"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Pastizales"
 
 msgid "Permanent wetlands"
 msgstr "Zonas húmedas permanentes"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Tierras de cultivo"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Urbano y urbanizado"
 
 msgid "Cropland/Natural vegetation mosaic"
 msgstr "Mosaico de vegetación natural/tierras de cultivo"
@@ -1245,10 +1246,10 @@ msgid "Completed"
 msgstr "Completado"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Capa coroplética"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Mapa de burbujas"
 
 msgid "Automatic color legend"
 msgstr "Leyenda de color automática"
