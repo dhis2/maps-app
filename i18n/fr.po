@@ -12,13 +12,14 @@
 # Yury Rogachev <yury@dhis2.org>, 2022
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2022
 # Philip Larsen Donnelly, 2024
+# Bruno Raimbault, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Last-Translator: Bruno Raimbault, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -241,6 +242,9 @@ msgid ""
 "clicking map regions or viewing the data table. The results can also be "
 "downloaded."
 msgstr ""
+"Plusieurs méthodes d’agrégation sont disponibles. Consultez les résultats "
+"d’agrégation en cliquant sur les régions de la carte ou en affichant le "
+"tableau de données. Les résultats peuvent également être téléchargés."
 
 msgid "Unit"
 msgstr "Unité"
@@ -630,7 +634,7 @@ msgid "Organisation unit"
 msgstr "Unité d'organisation"
 
 msgid "Loading layer data"
-msgstr ""
+msgstr "Chargement des données de la couche"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
@@ -756,6 +760,7 @@ msgstr ""
 
 msgid "Click the map where you want to relocate the facility."
 msgstr ""
+"Cliquez sur la carte à l’endroit où vous souhaitez déplacer l’établissement."
 
 msgid "user organisation unit"
 msgstr "Unités d'organisation de l'utilisateur"
