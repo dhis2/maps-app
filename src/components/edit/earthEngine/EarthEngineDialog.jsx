@@ -68,6 +68,7 @@ const EarthEngineDialog = (props) => {
         () => getLayerSourceGroup(layerId, managedLayerSources),
         [layerId, managedLayerSources]
     )
+    console.log('🚀 ~ EarthEngineDialog ~ group:', group)
 
     const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
@@ -85,8 +86,8 @@ const EarthEngineDialog = (props) => {
                 style,
                 orgUnitField,
             }
-            if (group?.excludeOnSwitch) {
-                group.excludeOnSwitch.forEach((key) => {
+            if (group?.groupExcludeOnSwitch) {
+                group.groupExcludeOnSwitch.forEach((key) => {
                     delete sanitizedUpdates[key]
                 })
             }
@@ -194,11 +195,11 @@ const EarthEngineDialog = (props) => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
-                        {group?.groupType === 'data' &&
-                            group?.items?.length > 1 && (
+                        {group.group?.groupType === 'data' &&
+                            group.group?.items?.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
-                                    items={group.items}
+                                    items={group.group.items}
                                     value={layerId}
                                     onChange={onLayerSelect}
                                 />
@@ -277,11 +278,11 @@ const EarthEngineDialog = (props) => {
                 )}
                 {tab === 'period' && (
                     <>
-                        {group?.groupType === 'period' &&
-                            group?.items.length > 1 && (
+                        {group.group?.groupType === 'period' &&
+                            group.group?.items.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
-                                    items={group.items}
+                                    items={group.group.items}
                                     value={layerId}
                                     onChange={onLayerSelect}
                                     className={styles.flexRowFlow}
