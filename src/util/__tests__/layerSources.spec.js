@@ -37,10 +37,10 @@ describe('resolveGroupKey', () => {
     test('returns correct key depending on layer type and properties', () => {
         expect(resolveGroupKey(standardLayerSource)).toBe('standard')
         expect(resolveGroupKey(externalLayerSource)).toBe('suB1SFdc6RD')
-        expect(resolveGroupKey(precipitationMonthlyLayerSource)).toBe(
+        expect(resolveGroupKey(precipitationMonthlyLayerSource())).toBe(
             PRECIPITATION_GROUP
         )
-        expect(resolveGroupKey(precipitationWeeklyLayerSource)).toBe(
+        expect(resolveGroupKey(precipitationWeeklyLayerSource())).toBe(
             PRECIPITATION_GROUP
         )
         expect(resolveGroupKey(vegetationMonthlyLayerSource())).toBe(
