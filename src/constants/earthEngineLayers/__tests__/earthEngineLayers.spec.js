@@ -32,6 +32,7 @@ const configSchema = {
                     type: 'string',
                     enum: [
                         'heat',
+                        'humidity',
                         'population',
                         'precipitation',
                         'temperature',
@@ -174,7 +175,13 @@ const configSchema = {
                 properties: {
                     name: {
                         type: 'string',
-                        enum: ['multiply', 'toFloat', 'subtract'],
+                        enum: [
+                            'multiply',
+                            'toFloat',
+                            'subtract',
+                            'expression',
+                            'rename',
+                        ],
                     },
                     arguments: { type: 'array' },
                 },
