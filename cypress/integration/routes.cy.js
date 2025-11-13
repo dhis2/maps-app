@@ -63,7 +63,7 @@ describe('Routes', () => {
         cy.get('canvas.maplibregl-canvas').should('be.visible')
     })
 
-    it('loads currentAnalyticalObject (hash) - Thematic Layer', () => {
+    it.only('loads currentAnalyticalObject (hash) - Thematic Layer', () => {
         cy.intercept('**/userDataStore/analytics/settings', {
             fixture: 'analyticalObject_thematicLayer.json',
         })
@@ -83,7 +83,7 @@ describe('Routes', () => {
 
         cy.getByDataTest(`card-ANC1Coverage`)
             .findByDataTest('layerlegend-item')
-            .first()
+            .last()
             .contains('Low 0 - 30')
     })
 

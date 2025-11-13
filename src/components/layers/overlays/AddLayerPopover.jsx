@@ -15,7 +15,7 @@ import LayerList from './LayerList.jsx'
 
 const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Earth Engine layers that are added to this DHIS2 instance
-    const managedEarthEngineLayers = earthEngineLayers.filter(
+    const managedEarthEngineLayers = earthEngineLayers().filter(
         (l) => !l.legacy && managedLayerSources.includes(l.layerId)
     )
 

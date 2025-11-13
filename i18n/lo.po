@@ -3,16 +3,17 @@
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
 # Phouthasinh PHEUAYSITHIPHONE, 2023
 # Viktor Varland <viktor@dhis2.org>, 2024
-# Philip Larsen Donnelly, 2025
 # Saysamone Sibounma, 2025
 # Namwan Chanthavisouk, 2025
+# Em Le <em.hispvietnam@gmail.com>, 2025
+# Philip Larsen Donnelly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Namwan Chanthavisouk, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgid "Failed to save map: {{message}}"
 msgstr "ບໍ່ສາມາດບັນທືກແຜນທີ່ໄດ້: {{message}}"
 
 msgid "Rename failed"
-msgstr ""
+msgstr "ປ່ຽນຊື່ບໍ່ສຳເລັດ"
 
 msgid "Rename successful"
 msgstr "ປ່ຽນຊື່ສຳເລັດແລ້ວ"
@@ -107,6 +108,9 @@ msgstr "ບໍ່ແມນ"
 msgid "Cascading"
 msgstr ""
 
+msgid "Organisation unit location"
+msgstr "ທີ່ຕັ້ງຫົວໜ່ວຍການຈັດຕັ້ງ"
+
 msgid "Event location"
 msgstr "ທີ່ຕັ້ງເຫດການ"
 
@@ -115,9 +119,6 @@ msgstr "ທີ່ຕັ້ງຂອງການລົງທະບຽນ"
 
 msgid "Tracked entity location"
 msgstr "ທີ່ຕັ້ງຕິດຕາມລາຍບຸກຄົນ"
-
-msgid "Organisation unit location"
-msgstr "ທີ່ຕັ້ງຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid "Fallback coordinate field"
 msgstr "ການສຳຮອງຜູ້ປະສານງານພາກສະໜາມ"
@@ -439,6 +440,9 @@ msgstr "ສະຖານະເຫດການ"
 msgid "Boundary color"
 msgstr ""
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
@@ -458,6 +462,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -698,9 +714,6 @@ msgstr "ເລືອກຂໍ້ມູນ"
 msgid "Remove layer"
 msgstr "ເອົາຊັ້ນອອກ"
 
-msgid "Mid"
-msgstr "Mid"
-
 msgid "Group"
 msgstr "ກຸ່ມ"
 
@@ -927,6 +940,9 @@ msgstr "ເລືອກ ແລະຕ່ຳກ່ວາທັງໝົດ"
 msgid "Selection mode"
 msgstr "ເລືອກຮູບແບບ"
 
+msgid "Clear"
+msgstr "ລຶບ"
+
 msgid "Previous year"
 msgstr "ປີກາຍ"
 
@@ -1046,6 +1062,9 @@ msgstr "ແຜນທີ່ແບບ OSM"
 msgid "OSM Detailed"
 msgstr "OSM ລາຍລະອຽດ"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr ""
 
@@ -1056,6 +1075,18 @@ msgid "Bing Aerial"
 msgstr ""
 
 msgid "Bing Aerial Labels"
+msgstr ""
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
 msgstr ""
 
 msgid "Building footprints"
@@ -1515,6 +1546,18 @@ msgstr ""
 
 msgid "false"
 msgstr ""
+
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Mid"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "

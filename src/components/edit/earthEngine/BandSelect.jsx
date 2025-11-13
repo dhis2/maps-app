@@ -7,7 +7,7 @@ import { SelectField } from '../../core/index.js'
 const DEFAULT_NO_BAND = []
 
 const BandSelect = ({ band, bands, setBand, errorText }) => {
-    const value = band ?? bands?.default ?? DEFAULT_NO_BAND
+    const value = band ?? bands.default ?? DEFAULT_NO_BAND
     return (
         <SelectField
             label={bands.label}

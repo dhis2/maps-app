@@ -174,8 +174,8 @@ const earthEngineLoader = async ({
     if (band && Array.isArray(bands?.list) && bands.list.length) {
         groups = {
             list: bands.list.filter(hasBand),
-            label: bands?.label,
-            multiple: bands?.multiple,
+            label: bands.label,
+            multiple: bands.multiple,
         }
     }
 
