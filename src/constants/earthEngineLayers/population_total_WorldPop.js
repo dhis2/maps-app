@@ -6,7 +6,7 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
-        group: {
+        groupping: {
             img: 'images/population.png',
             groupId: 'population',
             groupType: 'data',

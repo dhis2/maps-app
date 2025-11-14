@@ -114,6 +114,7 @@ const EarthEngineDialog = (props) => {
         [
             dispatch,
             groupping,
+            props,
             band,
             aggregationType,
             period,

@@ -7,7 +7,7 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/total_precipitation_sum',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
-        group: {
+        groupping: {
             img: 'images/precipitation.png',
             groupId: 'precipitation',
             groupType: 'data',

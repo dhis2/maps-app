@@ -7,7 +7,7 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'UCSB-CHG/CHIRPS/WEEKLY/precipitation',
         datasetId: 'UCSB-CHG/CHIRPS/DAILY',
-        group: {
+        groupping: {
             img: 'images/precipitation.png',
             groupId: 'precipitation',
             groupType: 'data',

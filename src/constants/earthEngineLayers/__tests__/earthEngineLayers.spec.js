@@ -24,10 +24,11 @@ const configSchema = {
         legacy: { type: 'boolean' },
         layerId: { type: 'string' },
         datasetId: { type: 'string' },
-        group: {
+        groupping: {
             type: 'object',
-            required: ['groupId', 'groupType', 'name', 'img'],
+            required: ['img', 'groupId', 'groupType', 'groupName'],
             properties: {
+                img: { type: 'string' },
                 groupId: {
                     type: 'string',
                     enum: [
@@ -42,9 +43,35 @@ const configSchema = {
                     type: 'string',
                     enum: ['data', 'period'],
                 },
-                name: { type: 'string' },
-                img: { type: 'string' },
-                excludeOnSwitch: {
+                groupName: { type: 'string' },
+                groupExcludeOnSwitch: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                        enum: [
+                            'band',
+                            'aggregationType',
+                            'period',
+                            'rows',
+                            'areaRadius',
+                            'style',
+                        ],
+                    },
+                },
+                groupMatchOnSwitch: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                        enum: ['periodType'],
+                    },
+                },
+                subGroupid: { type: 'string' },
+                subGroupType: {
+                    type: 'string',
+                    enum: ['data', 'period'],
+                },
+                subGroupName: { type: 'string' },
+                subGroupExcludeOnSwitch: {
                     type: 'array',
                     items: {
                         type: 'string',

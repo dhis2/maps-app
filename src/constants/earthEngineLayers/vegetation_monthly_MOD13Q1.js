@@ -7,7 +7,7 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'MODIS/061/MOD13Q1/VI/MONTHLY',
         datasetId: 'MODIS/061/MOD13Q1',
-        group: {
+        groupping: {
             img: 'images/vegetation.png',
             groupId: 'vegetation',
             groupType: 'period',

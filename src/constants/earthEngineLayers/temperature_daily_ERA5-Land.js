@@ -7,7 +7,7 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/ERA5_LAND/DAILY_AGGR/temperature_2m',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
-        group: {
+        groupping: {
             img: 'images/temperature.png',
             groupId: 'temperature',
             groupType: 'period',

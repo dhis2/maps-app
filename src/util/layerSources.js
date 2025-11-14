@@ -40,8 +40,8 @@ export const groupLayerSourcesX = (layers) => {
 export const getLayerSourceGroupping = (layerId, layers = []) => {
     const groupping = {}
     const dataset = getEarthEngineLayer(layerId)
-    const { groupId, groupType, subGroupId, subGroupType } = dataset.group
-    if (!dataset?.group) {
+    const { groupId, groupType, subGroupId, subGroupType } = dataset.groupping
+    if (!dataset?.groupping) {
         return groupping
     }
 
@@ -65,9 +65,8 @@ export const getLayerSourceGroupping = (layerId, layers = []) => {
     return groupping
 }
 
-// --- Helper: ensure a main group object exists ---
-function ensureGroup(groups, layer) {
-    const g = layer.group
+const ensureGroup = (groups, layer) => {
+    const g = layer.groupping
     if (!groups[g.groupId]) {
         groups[g.groupId] = {
             id: g.groupId,
@@ -77,18 +76,16 @@ function ensureGroup(groups, layer) {
             img: g.img,
             excludeOnSwitch: g.groupExcludeOnSwitch,
             matchOnSwitch: g.groupMatchOnSwitch,
-            items: [], // array of sub-groups
+            items: [],
         }
     }
     return groups[g.groupId]
 }
 
-// --- Helper: ensure a subgroup object exists inside a group ---
-function ensureSubGroup(group, layer) {
-    const g = layer.group
+const ensureSubGroup = (group, layer) => {
+    const g = layer.groupping
     const subId = g.subGroupId || '__default__'
     let subGroup = group.items.find((sg) => sg.id === subId)
-
     if (!subGroup) {
         subGroup = {
             id: subId,
@@ -101,18 +98,16 @@ function ensureSubGroup(group, layer) {
         }
         group.items.push(subGroup)
     }
-
     return subGroup
 }
 
-// --- Helper: add a layer into a (sub)group if not already added ---
-function addLayer(subGroup, layer) {
+const addLayer = (subGroup, layer) => {
     if (!subGroup.items.some((l) => l.layerId === layer.layerId)) {
         subGroup.items.push({ id: layer.layerId, ...layer })
     }
 }
 
-function simplifyDefaultSubGroups(groups) {
+const simplifyDefaultSubGroups = (groups) => {
     return groups.map((group) => {
         if (
             group.items &&
@@ -125,20 +120,14 @@ function simplifyDefaultSubGroups(groups) {
     })
 }
 
-// --- Main function: groups layers by group and sub-group ---
-export function groupLayerSources(layers) {
+export const groupLayerSources = (layers) => {
     const groups = {}
-
     for (const layer of layers) {
-        const g = layer.group
-
-        // Case 1: no group → standalone
+        const g = layer.groupping
         if (!g) {
             groups[resolveGroupKey(layer)] = { id: layer.layerId, ...layer }
             continue
         }
-
-        // Case 2 & 3: group exists
         const group = ensureGroup(groups, layer)
         const subGroup = ensureSubGroup(group, layer)
         addLayer(subGroup, layer)
@@ -147,6 +136,5 @@ export function groupLayerSources(layers) {
     let groupedArray = Object.values(groups)
     groupedArray = simplifyDefaultSubGroups(groupedArray)
 
-    // Return array of groups + standalone layers
     return groupedArray
 }
