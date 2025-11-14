@@ -66,6 +66,9 @@ const earthEngineLayersDefaultFns = [
     landcover,
 ]
 
+export const earthEngineLayersIds = () =>
+    earthEngineLayersFns.map((l) => l().layerId)
+
 export const earthEngineLayersDefaultIds = () =>
     earthEngineLayersDefaultFns.map((l) => l().layerId)
 

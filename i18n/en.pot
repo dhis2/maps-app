@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-13T13:10:46.370Z\n"
-"PO-Revision-Date: 2025-11-13T13:10:46.370Z\n"
+"POT-Creation-Date: 2025-11-14T09:50:48.430Z\n"
+"PO-Revision-Date: 2025-11-14T09:50:48.430Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1454,8 +1454,8 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation CHIRPS"
-msgstr "Precipitation CHIRPS"
+msgid "CHIRPS"
+msgstr "CHIRPS"
 
 msgid "Precipitation daily CHIRPS"
 msgstr "Precipitation daily CHIRPS"
@@ -1474,6 +1474,9 @@ msgstr "~5.5 kilometers"
 
 msgid "January 1981 - One month ago"
 msgstr "January 1981 - One month ago"
+
+msgid "ERA5"
+msgstr "ERA5"
 
 msgid "Precipitation daily"
 msgstr "Precipitation daily"

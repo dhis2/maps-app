@@ -16,7 +16,7 @@ import {
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
-import { getLayerSourceGroup } from '../../../util/layerSources.js'
+import { getLayerSourceGroupping } from '../../../util/layerSources.js'
 import { Help, Tab, Tabs, SelectField } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import styles from '../styles/LayerDialog.module.css'
@@ -64,11 +64,10 @@ const EarthEngineDialog = (props) => {
     } = props
 
     const managedLayerSources = useSelector((state) => state.layerSources)
-    const group = useMemo(
-        () => getLayerSourceGroup(layerId, managedLayerSources),
+    const groupping = useMemo(
+        () => getLayerSourceGroupping(layerId, managedLayerSources),
         [layerId, managedLayerSources]
     )
-    console.log('🚀 ~ EarthEngineDialog ~ group:', group)
 
     const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
@@ -76,7 +75,17 @@ const EarthEngineDialog = (props) => {
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
 
     const onLayerSelect = useCallback(
-        (layer) => {
+        (layer, tab) => {
+            const groupDetails = groupping[tab].group
+            if (groupDetails.matchOnSwitch) {
+                let filteredItems = layer.items
+                for (const matchProp of groupDetails.matchOnSwitch) {
+                    filteredItems = filteredItems.filter(
+                        (item) => item[matchProp] === props[matchProp]
+                    )
+                }
+                layer = filteredItems[0] || layer.items[0]
+            }
             const sanitizedUpdates = {
                 band,
                 aggregationType,
@@ -86,8 +95,8 @@ const EarthEngineDialog = (props) => {
                 style,
                 orgUnitField,
             }
-            if (group?.groupExcludeOnSwitch) {
-                group.groupExcludeOnSwitch.forEach((key) => {
+            if (groupDetails.excludeOnSwitch) {
+                groupDetails.excludeOnSwitch.forEach((key) => {
                     delete sanitizedUpdates[key]
                 })
             }
@@ -97,14 +106,14 @@ const EarthEngineDialog = (props) => {
                 editLayer({
                     ...config,
                     ...sanitizedUpdates,
-                    group,
+                    groupping,
                     id,
                 })
             )
         },
         [
             dispatch,
-            group,
+            groupping,
             band,
             aggregationType,
             period,
@@ -195,13 +204,13 @@ const EarthEngineDialog = (props) => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
-                        {group.group?.groupType === 'data' &&
-                            group.group?.items?.length > 1 && (
+                        {groupping?.data &&
+                            groupping.data.group.items?.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
-                                    items={group.group.items}
-                                    value={layerId}
-                                    onChange={onLayerSelect}
+                                    items={groupping.data.group.items}
+                                    value={groupping.data.id}
+                                    onChange={(e) => onLayerSelect(e, 'data')}
                                 />
                             )}
                         <Help>
@@ -278,13 +287,13 @@ const EarthEngineDialog = (props) => {
                 )}
                 {tab === 'period' && (
                     <>
-                        {group.group?.groupType === 'period' &&
-                            group.group?.items.length > 1 && (
+                        {groupping?.period &&
+                            groupping.period.group.items?.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
-                                    items={group.group.items}
-                                    value={layerId}
-                                    onChange={onLayerSelect}
+                                    items={groupping.period.group.items}
+                                    value={groupping.period.id}
+                                    onChange={(e) => onLayerSelect(e, 'period')}
                                     className={styles.flexRowFlow}
                                 />
                             )}

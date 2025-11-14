@@ -10,17 +10,17 @@ export default function createConfig() {
         group: {
             img: 'images/precipitation.png',
             groupId: 'precipitation',
-            groupType: 'period',
+            groupType: 'data',
             groupName: i18n.t('Precipitation'),
-            groupExcludeOnSwitch: ['period', 'style'],
+            groupMatchOnSwitch: ['periodType'],
             subGroupId: 'precipitation_era5',
-            subGroupType: 'data',
+            subGroupType: 'period',
             subGroupName: i18n.t('ERA5'),
             subGroupExcludeOnSwitch: ['period', 'style'],
         },
         format: 'ImageCollection',
         img: 'images/precipitation.png',
-        name: i18n.t('Precipitation daily'),
+        name: i18n.t('Precipitation daily ERA5'),
         description: i18n.t(
             'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
         ),

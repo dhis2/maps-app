@@ -37,26 +37,32 @@ export const groupLayerSourcesX = (layers) => {
     return Object.values(groups)
 }
 
-export const getLayerSourceGroup = (layerId, layers = []) => {
+export const getLayerSourceGroupping = (layerId, layers = []) => {
+    const groupping = {}
     const dataset = getEarthEngineLayer(layerId)
-    const groupId = dataset.group.groupId
-    const subGroupId = dataset.group.subGroupId
-    console.log('🚀 ~ getLayerSourceGroup ~ dataset:', dataset)
+    const { groupId, groupType, subGroupId, subGroupType } = dataset.group
     if (!dataset?.group) {
-        return []
+        return groupping
     }
-    const allSources = [
-        dataset,
-        ...layers.map(getEarthEngineLayer).filter(Boolean),
-    ]
+
+    const mappedLayers = layers.map(getEarthEngineLayer).filter(Boolean)
+    const allSources = mappedLayers.find(
+        ({ layerId }) => layerId === dataset.layerId
+    )
+        ? mappedLayers
+        : [dataset, ...mappedLayers]
     const grouped = groupLayerSources(allSources)
-    console.log('🚀 ~ getLayerSourceGroup ~ grouped:', grouped)
-    const group = grouped.find((g) => g.id === groupId) || []
-    let subGroup = []
-    if (group) {
-        subGroup = group.items.find((sg) => sg.id === subGroupId) || []
+
+    const group = grouped.find((g) => g.id === groupId)
+    groupping[groupType] = {
+        id: subGroupId ?? layerId,
+        group: group,
     }
-    return { group, subGroup }
+    if (group) {
+        const subGroup = group.items.find((sg) => sg.id === subGroupId)
+        groupping[subGroupType] = { id: layerId, group: subGroup }
+    }
+    return groupping
 }
 
 // --- Helper: ensure a main group object exists ---
@@ -70,6 +76,7 @@ function ensureGroup(groups, layer) {
             groupType: g.groupType,
             img: g.img,
             excludeOnSwitch: g.groupExcludeOnSwitch,
+            matchOnSwitch: g.groupMatchOnSwitch,
             items: [], // array of sub-groups
         }
     }
@@ -85,11 +92,11 @@ function ensureSubGroup(group, layer) {
     if (!subGroup) {
         subGroup = {
             id: subId,
-            name: g.subGroupName || g.groupName,
+            name: g.subGroupName,
             groupId: subId,
-            groupType: g.subGroupType || g.groupType,
-            excludeOnSwitch:
-                g.subGroupExcludeOnSwitch || g.groupExcludeOnSwitch,
+            groupType: g.subGroupType,
+            excludeOnSwitch: g.subGroupExcludeOnSwitch,
+            matchOnSwitch: g.subGroupMatchOnSwitch,
             items: [],
         }
         group.items.push(subGroup)

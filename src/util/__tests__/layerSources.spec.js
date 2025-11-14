@@ -5,7 +5,7 @@ import vegetationMonthlyLayerSource from '../../constants/earthEngineLayers/vege
 import {
     resolveGroupKey,
     groupLayerSources,
-    getLayerSourceGroup,
+    getLayerSourceGroupping,
 } from '../layerSources.js'
 
 const standardLayerSource = {
@@ -130,14 +130,14 @@ describe('groupLayerSources', () => {
     })
 })
 
-describe('getLayerSourceGroup', () => {
+describe('getLayerSourceGroupping', () => {
     test('returns empty array if layer has no group', () => {
-        const result = getLayerSourceGroup(buildingsLayerSource().layerId)
+        const result = getLayerSourceGroupping(buildingsLayerSource().layerId)
         expect(result).toEqual([])
     })
 
     test('returns group with only the layer if no managed layers', () => {
-        const result = getLayerSourceGroup(
+        const result = getLayerSourceGroupping(
             precipitationMonthlyLayerSource().layerId
         )
         expect(result.id).toBe(PRECIPITATION_GROUP)
@@ -150,7 +150,7 @@ describe('getLayerSourceGroup', () => {
 
     test('includes managed layers from the same group', () => {
         const layerIds = [precipitationWeeklyLayerSource().layerId]
-        const result = getLayerSourceGroup(
+        const result = getLayerSourceGroupping(
             precipitationMonthlyLayerSource().layerId,
             layerIds
         )
@@ -168,7 +168,7 @@ describe('getLayerSourceGroup', () => {
 
     test('does not include layers from other groups', () => {
         const layerIds = [vegetationMonthlyLayerSource().layerId]
-        const result = getLayerSourceGroup(
+        const result = getLayerSourceGroupping(
             precipitationMonthlyLayerSource().layerId,
             layerIds
         )
@@ -182,7 +182,7 @@ describe('getLayerSourceGroup', () => {
 
     test('does not duplicate layers when a managed layer is the same as the main layer', () => {
         const layerIds = [precipitationMonthlyLayerSource().layerId]
-        const result = getLayerSourceGroup(
+        const result = getLayerSourceGroupping(
             precipitationMonthlyLayerSource().layerId,
             layerIds
         )

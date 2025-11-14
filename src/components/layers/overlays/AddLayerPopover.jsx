@@ -40,10 +40,6 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         managedLayerSources
     )
     const groupedLayerSources = groupLayerSources(layerSources)
-    console.log(
-        '🚀 ~ AddLayerPopover ~ groupedLayerSources:',
-        groupedLayerSources
-    )
 
     useKeyDown('Escape', onClose)
 
@@ -51,7 +47,6 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         let selectedLayer = layer
         if (layer.items) {
             selectedLayer = layer.items[0]?.items?.[0] || layer.items[0]
-            console.log('🚀 ~ onLayerSelect ~ selectedLayer:', selectedLayer)
             delete selectedLayer.id
         }
 
