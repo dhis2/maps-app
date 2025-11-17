@@ -24,18 +24,18 @@ const configSchema = {
         legacy: { type: 'boolean' },
         layerId: { type: 'string' },
         datasetId: { type: 'string' },
-        group: {
+        groupping: {
             type: 'object',
-            required: ['groupId', 'groupType', 'name', 'img'],
+            required: ['img', 'groupId', 'groupType', 'groupName'],
             properties: {
+                img: { type: 'string' },
                 groupId: {
                     type: 'string',
                     enum: [
                         'heat',
                         'humidity',
                         'population',
-                        'precipitation_ERA5',
-                        'precipitation_CHIRPS',
+                        'precipitation',
                         'temperature',
                         'vegetation',
                     ],
@@ -44,9 +44,35 @@ const configSchema = {
                     type: 'string',
                     enum: ['data', 'period'],
                 },
-                name: { type: 'string' },
-                img: { type: 'string' },
-                excludeOnSwitch: {
+                groupName: { type: 'string' },
+                groupExcludeOnSwitch: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                        enum: [
+                            'band',
+                            'aggregationType',
+                            'period',
+                            'rows',
+                            'areaRadius',
+                            'style',
+                        ],
+                    },
+                },
+                groupMatchOnSwitch: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                        enum: ['periodType'],
+                    },
+                },
+                subGroupid: { type: 'string' },
+                subGroupType: {
+                    type: 'string',
+                    enum: ['data', 'period'],
+                },
+                subGroupName: { type: 'string' },
+                subGroupExcludeOnSwitch: {
                     type: 'array',
                     items: {
                         type: 'string',
@@ -243,8 +269,8 @@ const validateConfig = (config) => {
     return true
 }
 
-describe.each(earthEngineLayers)('GEE config validation', (config) => {
-    test('config is well-formed', () => {
+describe.each(earthEngineLayers())('GEE config validation', (config) => {
+    test(`config '${config.layerId}' is well-formed`, () => {
         validateConfig(config)
     })
 })

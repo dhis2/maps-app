@@ -16,19 +16,19 @@ import legacyTemperature from './legacy/temperature_MOD11A2v061.js'
 import populationAgeSex from './population_age_sex_WorldPop.js'
 import populationTotal from './population_total_WorldPop.js'
 import precipitationChirpsDaily from './precipitation_daily_CHIRPS.js'
-import precipitationDaily from './precipitation_daily_ERA5-Land.js'
+import precipitationEra5Daily from './precipitation_daily_ERA5-Land.js'
 import precipitationChirpsMonthly from './precipitation_monthly_CHIRPS.js'
-import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
+import precipitationEra5Monthly from './precipitation_monthly_ERA5-Land.js'
 import precipitationChirpsWeekly from './precipitation_weekly_CHIRPS.js'
-import precipitationWeekly from './precipitation_weekly_ERA5-Land.js'
+import precipitationEra5Weekly from './precipitation_weekly_ERA5-Land.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
 import temperatureWeekly from './temperature_weekly_ERA5-Land.js'
+import vegetationModis16day from './vegetation_16day_MOD13Q1.js'
 import vegetationModisMonthly from './vegetation_monthly_MOD13Q1.js'
-import vegetationModisOriginal from './vegetation_original_MOD13Q1.js'
 import vegetationModisWeekly from './vegetation_weekly_MOD13Q1.js'
 
-const earthEngineLayers = [
+const earthEngineLayersFns = [
     populationTotal,
     populationAgeSex,
     buildings,
@@ -39,18 +39,18 @@ const earthEngineLayers = [
     humidityMonthly,
     humidityWeekly,
     humidityDaily,
+    precipitationEra5Monthly,
+    precipitationEra5Weekly,
+    precipitationEra5Daily,
     precipitationChirpsMonthly,
     precipitationChirpsWeekly,
     precipitationChirpsDaily,
-    precipitationMonthly,
-    precipitationWeekly,
-    precipitationDaily,
     temperatureMonthly,
     temperatureWeekly,
     temperatureDaily,
     landcover,
     vegetationModisMonthly,
-    vegetationModisOriginal,
+    vegetationModis16day,
     vegetationModisWeekly,
     legacyBuildings,
     legacyNighttime,
@@ -60,21 +60,25 @@ const earthEngineLayers = [
     legacyTemperature,
 ]
 
-const earthEngineLayersDefault = [
+const earthEngineLayers = () => earthEngineLayersFns.map((l) => l())
+
+const earthEngineLayersDefaultFns = [
     populationTotal,
     populationAgeSex,
     buildings,
     elevation,
-    precipitationMonthly,
+    precipitationEra5Monthly,
     temperatureMonthly,
     landcover,
 ]
 
-export const earthEngineLayersDefaultIds = earthEngineLayersDefault.map(
-    (l) => l.layerId
-)
+export const earthEngineLayersIds = () =>
+    earthEngineLayersFns.map((l) => l().layerId)
+
+export const earthEngineLayersDefaultIds = () =>
+    earthEngineLayersDefaultFns.map((l) => l().layerId)
 
 export const getEarthEngineLayer = (id) =>
-    earthEngineLayers.find((l) => l.layerId === id)
+    earthEngineLayers().find((l) => l.layerId === id)
 
 export default earthEngineLayers

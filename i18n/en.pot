@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-27T15:52:46.419Z\n"
-"PO-Revision-Date: 2025-10-27T15:52:46.419Z\n"
+"POT-Creation-Date: 2025-11-14T09:50:48.430Z\n"
+"PO-Revision-Date: 2025-11-14T09:50:48.430Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1007,6 +1007,12 @@ msgstr "End date"
 msgid "Not available offline"
 msgstr "Not available offline"
 
+msgid "Click to unpin legend"
+msgstr "Click to unpin legend"
+
+msgid "Click to pin legend"
+msgstr "Click to pin legend"
+
 msgid "Program indicator"
 msgstr "Program indicator"
 
@@ -1125,8 +1131,8 @@ msgstr "Single point in time"
 msgid "May 2023"
 msgstr "May 2023"
 
-msgid "Elevation SRTM"
-msgstr "Elevation SRTM"
+msgid "Elevation"
+msgstr "Elevation"
 
 msgid "Elevation above sea-level."
 msgstr "Elevation above sea-level."
@@ -1140,11 +1146,11 @@ msgstr "~30 meters"
 msgid "Febuary 2000"
 msgstr "Febuary 2000"
 
-msgid "Heat stress ERA5"
-msgstr "Heat stress ERA5"
+msgid "Heat stress"
+msgstr "Heat stress"
 
-msgid "Heat stress daily ERA5"
-msgstr "Heat stress daily ERA5"
+msgid "Heat stress daily"
+msgstr "Heat stress daily"
 
 msgid ""
 "The Universal Thermal Climate Index (UTCI) is an index that combines the "
@@ -1199,20 +1205,20 @@ msgstr "Very strong heat stress 38 - 46"
 msgid "Extreme heat stress 46 - 60"
 msgstr "Extreme heat stress 46 - 60"
 
-msgid "Heat stress monthly ERA5"
-msgstr "Heat stress monthly ERA5"
+msgid "Heat stress monthly"
+msgstr "Heat stress monthly"
 
 msgid "Monthly"
 msgstr "Monthly"
 
-msgid "Heat stress weekly ERA5"
-msgstr "Heat stress weekly ERA5"
+msgid "Heat stress weekly"
+msgstr "Heat stress weekly"
 
 msgid "Weekly"
 msgstr "Weekly"
 
-msgid "Landcover MODIS"
-msgstr "Landcover MODIS"
+msgid "Landcover"
+msgstr "Landcover"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
@@ -1328,11 +1334,8 @@ msgstr ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 
-msgid "Population WorldPop"
-msgstr "Population WorldPop"
-
-msgid "Population age groups WorldPop"
-msgstr "Population age groups WorldPop"
+msgid "Population age groups"
+msgstr "Population age groups"
 
 msgid "Estimated number of people living in an area, grouped by age and gender."
 msgstr "Estimated number of people living in an area, grouped by age and gender."
@@ -1448,8 +1451,8 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation CHIRPS"
-msgstr "Precipitation CHIRPS"
+msgid "CHIRPS"
+msgstr "CHIRPS"
 
 msgid "Precipitation daily CHIRPS"
 msgstr "Precipitation daily CHIRPS"
@@ -1469,11 +1472,11 @@ msgstr "~5.5 kilometers"
 msgid "January 1981 - One month ago"
 msgstr "January 1981 - One month ago"
 
-msgid "Precipitation ERA5"
-msgstr "Precipitation ERA5"
+msgid "ERA5"
+msgstr "ERA5"
 
-msgid "Precipitation daily ERA5"
-msgstr "Precipitation daily ERA5"
+msgid "Precipitation daily"
+msgstr "Precipitation daily"
 
 msgid ""
 "Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS) "
@@ -1499,20 +1502,20 @@ msgstr "Precipitation monthly ERA5"
 msgid "Precipitation monthly CHIRPS"
 msgstr "Precipitation monthly CHIRPS"
 
-msgid "Precipitation monthly ERA5"
-msgstr "Precipitation monthly ERA5"
+msgid "Precipitation monthly"
+msgstr "Precipitation monthly"
 
 msgid "Precipitation weekly CHIRPS"
 msgstr "Precipitation weekly CHIRPS"
 
-msgid "Precipitation weekly ERA5"
-msgstr "Precipitation weekly ERA5"
+msgid "Precipitation weekly"
+msgstr "Precipitation weekly"
 
-msgid "Temperature ERA5"
-msgstr "Temperature ERA5"
+msgid "Temperature"
+msgstr "Temperature"
 
-msgid "Temperature daily ERA5"
-msgstr "Temperature daily ERA5"
+msgid "Temperature daily"
+msgstr "Temperature daily"
 
 msgid ""
 "Temperature at 2m above the surface. Combines model data with observations "
@@ -1521,17 +1524,17 @@ msgstr ""
 "Temperature at 2m above the surface. Combines model data with observations "
 "from across the world."
 
-msgid "Temperature monthly ERA5"
-msgstr "Temperature monthly ERA5"
+msgid "Temperature monthly"
+msgstr "Temperature monthly"
 
-msgid "Temperature weekly ERA5"
-msgstr "Temperature weekly ERA5"
+msgid "Temperature weekly"
+msgstr "Temperature weekly"
 
-msgid "Vegetation MODIS"
-msgstr "Vegetation MODIS"
+msgid "Vegetation"
+msgstr "Vegetation"
 
-msgid "Vegetation index monthly MODIS"
-msgstr "Vegetation index monthly MODIS"
+msgid "Vegetation index 16-day"
+msgstr "Vegetation index 16-day"
 
 msgid ""
 "NDVI and EVI values range from -1 to 1, with higher values indicating "
@@ -1570,11 +1573,11 @@ msgstr "NDVI"
 msgid "EVI"
 msgstr "EVI"
 
-msgid "Vegetation index 16-day MODIS"
-msgstr "Vegetation index 16-day MODIS"
+msgid "Vegetation index monthly"
+msgstr "Vegetation index monthly"
 
-msgid "Vegetation index weekly MODIS"
-msgstr "Vegetation index weekly MODIS"
+msgid "Vegetation index weekly"
+msgstr "Vegetation index weekly"
 
 msgid "Active"
 msgstr "Active"

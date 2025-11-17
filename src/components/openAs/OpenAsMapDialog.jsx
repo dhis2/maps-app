@@ -57,7 +57,7 @@ const OpenAsMapDialog = () => {
     }
 
     const addEarthEngineLayersToMap = () => {
-        const layerSource = earthEngineLayers.find(
+        const layerSource = earthEngineLayers().find(
             ({ layerId: id }) => layerId === id
         )
         const layer = getEarthEngineLayerFromAnalyticalObject({

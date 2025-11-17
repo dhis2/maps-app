@@ -1,7 +1,6 @@
 # 
 # Translators:
 # Fernando Jorge Bade, 2021
-# David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Ge Joao <gsimango@saudigitus.org>, 2024
@@ -10,13 +9,14 @@
 # Sheila André <sandre@saudigitus.org>, 2025
 # Philip Larsen Donnelly, 2025
 # Shelsea Chumaio, 2025
+# David Júnior <davidjr.mondlane@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Shelsea Chumaio, 2025\n"
+"Last-Translator: David Júnior <davidjr.mondlane@gmail.com>, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -111,6 +111,9 @@ msgstr "Nenhum"
 msgid "Cascading"
 msgstr "Em cascata"
 
+msgid "Organisation unit location"
+msgstr "Localização da unidade organizacional"
+
 msgid "Event location"
 msgstr "Localização do evento "
 
@@ -119,9 +122,6 @@ msgstr "Local de inscrição"
 
 msgid "Tracked entity location"
 msgstr "Localização da entidade rastreada"
-
-msgid "Organisation unit location"
-msgstr "Localização da unidade organizacional"
 
 msgid "Fallback coordinate field"
 msgstr "substituir Campo de coordenadas"
@@ -461,6 +461,9 @@ msgstr "Estado do evento "
 msgid "Boundary color"
 msgstr "Cor dos limites"
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -481,6 +484,18 @@ msgstr "Largura da linha/traço"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "A largura da linha/traço deve estar compreendida entre 0-10."
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
+msgstr ""
 
 msgid "Labels"
 msgstr "Etiquetas"
@@ -733,9 +748,6 @@ msgstr "Editar camadas"
 msgid "Remove layer"
 msgstr "Remover camada"
 
-msgid "Mid"
-msgstr "Meio"
-
 msgid "Group"
 msgstr "Grupo"
 
@@ -969,6 +981,9 @@ msgstr "Selecionado e tudo abaixo"
 msgid "Selection mode"
 msgstr "Modo de seleção"
 
+msgid "Clear"
+msgstr "Claro"
+
 msgid "Previous year"
 msgstr "Ano anterior"
 
@@ -1088,6 +1103,9 @@ msgstr "OSM Ligth"
 msgid "OSM Detailed"
 msgstr "OSM Detalhado"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1099,6 +1117,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Etiquetas aéreas"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr "Áreas de implantação dos edifícios"
@@ -1580,6 +1610,18 @@ msgstr "Verdadeiro"
 
 msgid "false"
 msgstr "Falso "
+
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Meio"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "

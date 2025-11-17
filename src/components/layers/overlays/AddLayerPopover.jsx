@@ -15,7 +15,7 @@ import LayerList from './LayerList.jsx'
 
 const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Earth Engine layers that are added to this DHIS2 instance
-    const managedEarthEngineLayers = earthEngineLayers.filter(
+    const managedEarthEngineLayers = earthEngineLayers().filter(
         (l) => !l.legacy && managedLayerSources.includes(l.layerId)
     )
 
@@ -46,7 +46,7 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     const onLayerSelect = (layer) => {
         let selectedLayer = layer
         if (layer.items) {
-            selectedLayer = layer.items[0]
+            selectedLayer = layer.items[0]?.items?.[0] || layer.items[0]
             delete selectedLayer.id
         }
 
