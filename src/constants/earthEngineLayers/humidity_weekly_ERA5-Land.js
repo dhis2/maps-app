@@ -7,16 +7,16 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/relative_humidity_2m',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
-        group: {
+        groupping: {
+            img: 'images/humidity.png',
             groupId: 'humidity',
             groupType: 'period',
-            name: i18n.t('Humidity ERA5'),
-            img: 'images/humidity.png',
-            excludeOnSwitch: ['period'],
+            groupName: i18n.t('Humidity'),
+            groupExcludeOnSwitch: ['period'],
         },
         format: 'ImageCollection',
         img: 'images/humidity.png',
-        name: i18n.t('Humidity weekly ERA5'),
+        name: i18n.t('Humidity weekly'),
         description: i18n.t(
             'Relative humidity is the the amount of water vapour present in air expressed as a percentage of the amount needed for saturation at the same temperature (dewpoint).'
         ),
