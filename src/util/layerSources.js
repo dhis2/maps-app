@@ -2,7 +2,7 @@ import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 
 export const resolveGroupKey = (layer) => {
     return (
-        layer?.group?.groupId ?? // If part of a group, use the group's ID ('population', 'temperature').
+        layer?.groupping?.groupId ?? // If part of a group, use the group's ID ('population', 'temperature').
         layer?.layerId ?? // Else if single ee layer, use its layerId ('USGS/SRTMGL1_003').
         layer?.config?.id ?? // Else if external/custom layer, use config.id ('suB1SFdc6RD').
         layer?.layer // Else fallback to layer ('thematic', 'event').
@@ -40,10 +40,10 @@ export const groupLayerSourcesX = (layers) => {
 export const getLayerSourceGroupping = (layerId, layers = []) => {
     const groupping = {}
     const dataset = getEarthEngineLayer(layerId)
-    const { groupId, groupType, subGroupId, subGroupType } = dataset.groupping
     if (!dataset?.groupping) {
         return groupping
     }
+    const { groupId, groupType, subGroupId, subGroupType } = dataset.groupping
 
     const mappedLayers = layers.map(getEarthEngineLayer).filter(Boolean)
     const allSources = mappedLayers.find(
