@@ -24,66 +24,77 @@ const configSchema = {
         legacy: { type: 'boolean' },
         layerId: { type: 'string' },
         datasetId: { type: 'string' },
-        groupping: {
+        grouping: {
             type: 'object',
-            required: ['img', 'groupId', 'groupType', 'groupName'],
+            required: ['group'],
             properties: {
-                img: { type: 'string' },
-                groupId: {
-                    type: 'string',
-                    enum: [
-                        'heat',
-                        'humidity',
-                        'population',
-                        'precipitation',
-                        'temperature',
-                        'vegetation',
-                    ],
-                },
-                groupType: {
-                    type: 'string',
-                    enum: ['data', 'period'],
-                },
-                groupName: { type: 'string' },
-                groupExcludeOnSwitch: {
-                    type: 'array',
-                    items: {
-                        type: 'string',
-                        enum: [
-                            'band',
-                            'aggregationType',
-                            'period',
-                            'rows',
-                            'areaRadius',
-                            'style',
-                        ],
+                group: {
+                    type: 'object',
+                    required: ['img', 'id', 'type', 'name'],
+                    properties: {
+                        img: { type: 'string' },
+                        id: {
+                            type: 'string',
+                            enum: [
+                                'heat',
+                                'humidity',
+                                'population',
+                                'precipitation',
+                                'temperature',
+                                'vegetation',
+                            ],
+                        },
+                        type: {
+                            type: 'string',
+                            enum: ['data', 'period'],
+                        },
+                        name: { type: 'string' },
+                        excludeOnSwitch: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                enum: [
+                                    'band',
+                                    'aggregationType',
+                                    'period',
+                                    'rows',
+                                    'areaRadius',
+                                    'style',
+                                ],
+                            },
+                        },
+                        matchOnSwitch: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                enum: ['periodType'],
+                            },
+                        },
                     },
                 },
-                groupMatchOnSwitch: {
-                    type: 'array',
-                    items: {
-                        type: 'string',
-                        enum: ['periodType'],
-                    },
-                },
-                subGroupid: { type: 'string' },
-                subGroupType: {
-                    type: 'string',
-                    enum: ['data', 'period'],
-                },
-                subGroupName: { type: 'string' },
-                subGroupExcludeOnSwitch: {
-                    type: 'array',
-                    items: {
-                        type: 'string',
-                        enum: [
-                            'band',
-                            'aggregationType',
-                            'period',
-                            'rows',
-                            'areaRadius',
-                            'style',
-                        ],
+                subGroup: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string' },
+                        type: {
+                            type: 'string',
+                            enum: ['data', 'period'],
+                        },
+                        name: { type: 'string' },
+                        excludeOnSwitch: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                enum: [
+                                    'band',
+                                    'aggregationType',
+                                    'period',
+                                    'rows',
+                                    'areaRadius',
+                                    'style',
+                                ],
+                            },
+                        },
                     },
                 },
             },

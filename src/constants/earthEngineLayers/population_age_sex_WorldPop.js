@@ -6,12 +6,14 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
-        groupping: {
-            img: 'images/population.png',
-            groupId: 'population',
-            groupType: 'data',
-            groupName: i18n.t('Population'),
-            groupExcludeOnSwitch: ['band', 'style'],
+        grouping: {
+            group: {
+                img: 'images/population.png',
+                id: 'population',
+                type: 'data',
+                name: i18n.t('Population'),
+                excludeOnSwitch: ['band', 'style'],
+            },
         },
         format: 'ImageCollection',
         img: 'images/population.png',

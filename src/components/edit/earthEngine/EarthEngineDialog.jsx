@@ -16,7 +16,7 @@ import {
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
-import { getLayerSourceGroupping } from '../../../util/layerSources.js'
+import { getLayerSourceGrouping } from '../../../util/layerSources.js'
 import { Help, Tab, Tabs, SelectField } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import styles from '../styles/LayerDialog.module.css'
@@ -64,8 +64,8 @@ const EarthEngineDialog = (props) => {
     } = props
 
     const managedLayerSources = useSelector((state) => state.layerSources)
-    const groupping = useMemo(
-        () => getLayerSourceGroupping(layerId, managedLayerSources),
+    const grouping = useMemo(
+        () => getLayerSourceGrouping(layerId, managedLayerSources),
         [layerId, managedLayerSources]
     )
 
@@ -76,7 +76,7 @@ const EarthEngineDialog = (props) => {
 
     const onLayerSelect = useCallback(
         (layer, tab) => {
-            const groupDetails = groupping[tab].group
+            const groupDetails = grouping[tab].group
             if (groupDetails.matchOnSwitch) {
                 let filteredItems = layer.items
                 for (const matchProp of groupDetails.matchOnSwitch) {
@@ -106,14 +106,14 @@ const EarthEngineDialog = (props) => {
                 editLayer({
                     ...config,
                     ...sanitizedUpdates,
-                    groupping,
+                    grouping,
                     id,
                 })
             )
         },
         [
             dispatch,
-            groupping,
+            grouping,
             props,
             band,
             aggregationType,
@@ -125,6 +125,7 @@ const EarthEngineDialog = (props) => {
             id,
         ]
     )
+
     // Set default band
     useEffect(() => {
         if (!band) {
@@ -205,12 +206,12 @@ const EarthEngineDialog = (props) => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
-                        {groupping?.data &&
-                            groupping.data.group.items?.length > 1 && (
+                        {grouping?.data &&
+                            grouping.data.group.items?.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
-                                    items={groupping.data.group.items}
-                                    value={groupping.data.id}
+                                    items={grouping.data.group.items}
+                                    value={grouping.data.id}
                                     onChange={(e) => onLayerSelect(e, 'data')}
                                 />
                             )}
@@ -288,12 +289,12 @@ const EarthEngineDialog = (props) => {
                 )}
                 {tab === 'period' && (
                     <>
-                        {groupping?.period &&
-                            groupping.period.group.items?.length > 1 && (
+                        {grouping?.period &&
+                            grouping.period.group.items?.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
-                                    items={groupping.period.group.items}
-                                    value={groupping.period.id}
+                                    items={grouping.period.group.items}
+                                    value={grouping.period.id}
                                     onChange={(e) => onLayerSelect(e, 'period')}
                                     className={styles.flexRowFlow}
                                 />
