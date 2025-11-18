@@ -15,7 +15,7 @@ import useManagedLayerSourcesStore from '../../hooks/useManagedLayerSourcesStore
 import LayerSource from './LayerSource.jsx'
 import styles from './styles/ManageLayerSourcesModal.module.css'
 
-const nonLegacyEarthEngineLayers = earthEngineLayers
+const nonLegacyEarthEngineLayers = earthEngineLayers()
     .filter((l) => !l.legacy)
     .sort((a, b) => a.name.localeCompare(b.name))
 const layerSources = [...nonLegacyEarthEngineLayers]

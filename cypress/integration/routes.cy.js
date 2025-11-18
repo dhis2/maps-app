@@ -50,7 +50,7 @@ describe('Routes', () => {
 
     it('loads currentAnalyticalObject (legacy)', () => {
         cy.intercept('**/userDataStore/analytics/settings', {
-            fixture: 'analyticalObject.json',
+            fixture: 'analyticalObject_thematicLayer.json',
         })
 
         cy.visit('/?currentAnalyticalObject=true', EXTENDED_TIMEOUT)
@@ -63,9 +63,9 @@ describe('Routes', () => {
         cy.get('canvas.maplibregl-canvas').should('be.visible')
     })
 
-    it('loads currentAnalyticalObject (hash)', () => {
+    it('loads currentAnalyticalObject (hash) - Thematic Layer', () => {
         cy.intercept('**/userDataStore/analytics/settings', {
-            fixture: 'analyticalObject.json',
+            fixture: 'analyticalObject_thematicLayer.json',
         })
 
         cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
@@ -83,8 +83,31 @@ describe('Routes', () => {
 
         cy.getByDataTest(`card-ANC1Coverage`)
             .findByDataTest('layerlegend-item')
-            .first()
+            .last()
             .contains('Low 0 - 30')
+    })
+
+    it('loads currentAnalyticalObject (hash) - Earth Engine Layer', () => {
+        cy.intercept('**/userDataStore/analytics/settings', {
+            fixture: 'analyticalObject_earthEngineLayer.json',
+        })
+
+        cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        cy.getByDataTest('layercard')
+            .contains('Heat stress daily', { timeout: 50000 })
+            .should('be.visible')
+        cy.get('canvas.maplibregl-canvas').should('be.visible')
+
+        cy.getByDataTest(`card-Heatstressdaily`)
+            .findByDataTest('layerlegend-item')
+            .should('have.length', 10)
+
+        cy.getByDataTest(`card-Heatstressdaily`)
+            .findByDataTest('layerlegend-item')
+            .first()
+            .contains('Extreme heat stress 46 - 60')
     })
 
     it('loads with map id (legacy) and interpretationid lowercase', () => {
@@ -175,7 +198,7 @@ describe('Routes', () => {
 
     it('loads download page currentAnalyticalObject (hash)', () => {
         cy.intercept('**/userDataStore/analytics/settings', {
-            fixture: 'analyticalObject.json',
+            fixture: 'analyticalObject_thematicLayer.json',
         })
 
         cy.visit('/#/currentAnalyticalObject/download', EXTENDED_TIMEOUT)
@@ -230,7 +253,7 @@ describe('Routes', () => {
 
         it('navigates from currentAnalyticalObject to saved map in download mode', () => {
             cy.intercept('**/userDataStore/analytics/settings', {
-                fixture: 'analyticalObject.json',
+                fixture: 'analyticalObject_thematicLayer.json',
             })
 
             cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
