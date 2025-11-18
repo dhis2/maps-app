@@ -2,48 +2,22 @@ import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 
 export const resolveGroupKey = (layer) => {
     return (
-        layer?.groupping?.groupId ?? // If part of a group, use the group's ID ('population', 'temperature').
+        layer?.grouping?.group.id ?? // If part of a group, use the group's ID ('population', 'temperature').
         layer?.layerId ?? // Else if single ee layer, use its layerId ('USGS/SRTMGL1_003').
         layer?.config?.id ?? // Else if external/custom layer, use config.id ('suB1SFdc6RD').
         layer?.layer // Else fallback to layer ('thematic', 'event').
     )
 }
 
-export const groupLayerSourcesX = (layers) => {
-    const groups = {}
-    for (const layer of layers) {
-        const key = resolveGroupKey(layer)
-        if (layer.group) {
-            if (!groups[key]) {
-                groups[key] = {
-                    layer: layer.layer,
-                    id: key,
-                    name: layer.group.groupName,
-                    ...layer.group,
-                    items: [],
-                }
-            }
-            if (
-                !groups[key].items.some(
-                    (item) => item.layerId === layer.layerId
-                )
-            ) {
-                groups[key].items.push({ id: layer.layerId, ...layer })
-            }
-        } else {
-            groups[key] = { ...layer }
-        }
-    }
-    return Object.values(groups)
-}
-
-export const getLayerSourceGroupping = (layerId, layers = []) => {
-    const groupping = {}
+export const getLayerSourceGrouping = (layerId, layers = []) => {
+    const grouping = {}
     const dataset = getEarthEngineLayer(layerId)
-    if (!dataset?.groupping) {
-        return groupping
+    if (!dataset?.grouping?.group) {
+        return grouping
     }
-    const { groupId, groupType, subGroupId, subGroupType } = dataset.groupping
+    const { id: groupId, type: groupType } = dataset.grouping.group
+    const { id: subGroupId, type: subGroupType } =
+        dataset.grouping.subGroup || {}
 
     const mappedLayers = layers.map(getEarthEngineLayer).filter(Boolean)
     const allSources = mappedLayers.find(
@@ -54,48 +28,31 @@ export const getLayerSourceGroupping = (layerId, layers = []) => {
     const grouped = groupLayerSources(allSources)
 
     const group = grouped.find((g) => g.id === groupId)
-    groupping[groupType] = {
+    grouping[groupType] = {
         id: subGroupId ?? layerId,
         group: group,
     }
     if (group) {
         const subGroup = group.items.find((sg) => sg.id === subGroupId)
-        groupping[subGroupType] = { id: layerId, group: subGroup }
+        grouping[subGroupType] = { id: layerId, group: subGroup }
     }
-    return groupping
+    return grouping
 }
 
 const ensureGroup = (groups, layer) => {
-    const g = layer.groupping
-    if (!groups[g.groupId]) {
-        groups[g.groupId] = {
-            id: g.groupId,
-            name: g.groupName,
-            groupId: g.groupId,
-            groupType: g.groupType,
-            img: g.img,
-            excludeOnSwitch: g.groupExcludeOnSwitch,
-            matchOnSwitch: g.groupMatchOnSwitch,
-            items: [],
-        }
+    const g = layer.grouping.group
+    if (!groups[g.id]) {
+        groups[g.id] = { ...g, items: [] }
     }
-    return groups[g.groupId]
+    return groups[g.id]
 }
 
 const ensureSubGroup = (group, layer) => {
-    const g = layer.groupping
-    const subId = g.subGroupId || '__default__'
+    const g = layer.grouping.subGroup || {}
+    const subId = g.id || '__default__'
     let subGroup = group.items.find((sg) => sg.id === subId)
     if (!subGroup) {
-        subGroup = {
-            id: subId,
-            name: g.subGroupName,
-            groupId: subId,
-            groupType: g.subGroupType,
-            excludeOnSwitch: g.subGroupExcludeOnSwitch,
-            matchOnSwitch: g.subGroupMatchOnSwitch,
-            items: [],
-        }
+        subGroup = { ...g, id: subId, items: [] }
         group.items.push(subGroup)
     }
     return subGroup
@@ -123,9 +80,9 @@ const simplifyDefaultSubGroups = (groups) => {
 export const groupLayerSources = (layers) => {
     const groups = {}
     for (const layer of layers) {
-        const g = layer.groupping
+        const g = layer.grouping
         if (!g) {
-            groups[resolveGroupKey(layer)] = { id: layer.layerId, ...layer }
+            groups[resolveGroupKey(layer)] = { ...layer }
             continue
         }
         const group = ensureGroup(groups, layer)

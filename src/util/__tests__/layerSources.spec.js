@@ -1,14 +1,14 @@
-import buildingsLayerSource from '../../constants/earthEngineLayers/buildings_GOOGLE.js' // Groupping: none
-import populationAgeSexLayerSource from '../../constants/earthEngineLayers/population_age_sex_WorldPop.js' // Groupping: population
-import populationTotalLayerSource from '../../constants/earthEngineLayers/population_total_WorldPop.js' // Groupping: population
-import precipitationMonthlyCHIRPSLayerSource from '../../constants/earthEngineLayers/precipitation_monthly_CHIRPS.js' // Groupping: precipitation & precipitation_chirps
-import precipitationMonthlyERA5LayerSource from '../../constants/earthEngineLayers/precipitation_monthly_ERA5-Land.js' // Groupping: precipitation & precipitation_era5
-import precipitationWeeklyERA5LayerSource from '../../constants/earthEngineLayers/precipitation_weekly_ERA5-Land.js' // Groupping: precipitation & precipitation_era5
-import vegetationMonthlyLayerSource from '../../constants/earthEngineLayers/vegetation_monthly_MOD13Q1.js' // Groupping: vegetation
+import buildingsLayerSource from '../../constants/earthEngineLayers/buildings_GOOGLE.js' // Grouping: none
+import populationAgeSexLayerSource from '../../constants/earthEngineLayers/population_age_sex_WorldPop.js' // Grouping: population
+import populationTotalLayerSource from '../../constants/earthEngineLayers/population_total_WorldPop.js' // Grouping: population
+import precipitationMonthlyCHIRPSLayerSource from '../../constants/earthEngineLayers/precipitation_monthly_CHIRPS.js' // Grouping: precipitation & precipitation_chirps
+import precipitationMonthlyERA5LayerSource from '../../constants/earthEngineLayers/precipitation_monthly_ERA5-Land.js' // Grouping: precipitation & precipitation_era5
+import precipitationWeeklyERA5LayerSource from '../../constants/earthEngineLayers/precipitation_weekly_ERA5-Land.js' // Grouping: precipitation & precipitation_era5
+import vegetationMonthlyLayerSource from '../../constants/earthEngineLayers/vegetation_monthly_MOD13Q1.js' // Grouping: vegetation
 import {
     resolveGroupKey,
     groupLayerSources,
-    getLayerSourceGroupping,
+    getLayerSourceGrouping,
 } from '../layerSources.js'
 
 const standardLayerSource = {
@@ -101,8 +101,8 @@ describe('groupLayerSources', () => {
         expect(precipitationGroup.items.length).toBe(2)
         expect(precipitationGroup.items.map((i) => i.id)).toEqual(
             expect.arrayContaining([
-                precipitationMonthlyERA5LayerSource().groupping.subGroupId,
-                precipitationWeeklyERA5LayerSource().groupping.subGroupId,
+                precipitationMonthlyERA5LayerSource().grouping.subGroup.id,
+                precipitationWeeklyERA5LayerSource().grouping.subGroup.id,
             ])
         )
         // Precipitation ERA5 sub-group should combine monthly and weekly layers
@@ -148,14 +148,14 @@ describe('groupLayerSources', () => {
         expect(precipitationGroup.items.length).toBe(2)
         expect(precipitationGroup.items.map((i) => i.id)).toEqual(
             expect.arrayContaining([
-                precipitationMonthlyERA5LayerSource().groupping.subGroupId,
-                precipitationWeeklyERA5LayerSource().groupping.subGroupId,
+                precipitationMonthlyERA5LayerSource().grouping.subGroup.id,
+                precipitationWeeklyERA5LayerSource().grouping.subGroup.id,
             ])
         )
     })
 })
 
-describe('getLayerSourceGroupping', () => {
+describe('getLayerSourceGrouping', () => {
     const expectGroupItemIds = (
         group,
         { groupId, expectedIds, key = 'id' }
@@ -170,12 +170,12 @@ describe('getLayerSourceGroupping', () => {
     }
 
     test('returns empty array if layer has no group', () => {
-        const result = getLayerSourceGroupping(buildingsLayerSource().layerId)
+        const result = getLayerSourceGrouping(buildingsLayerSource().layerId)
         expect(result).toEqual({})
     })
 
     test('returns group with only the layer if no managed layers', () => {
-        const populationGroup = getLayerSourceGroupping(
+        const populationGroup = getLayerSourceGrouping(
             populationTotalLayerSource().layerId
         )
         const populationGroupData = populationGroup.data.group
@@ -185,7 +185,7 @@ describe('getLayerSourceGroupping', () => {
         })
         expect(populationGroup).not.toHaveProperty('period')
 
-        const precipitationGroup = getLayerSourceGroupping(
+        const precipitationGroup = getLayerSourceGrouping(
             precipitationMonthlyERA5LayerSource().layerId
         )
         const precipitationGroupData = precipitationGroup.data.group // Group
@@ -206,7 +206,7 @@ describe('getLayerSourceGroupping', () => {
 
     test('includes managed layers from the same group', () => {
         const populationLayerIds = [populationAgeSexLayerSource().layerId]
-        const populationGroup = getLayerSourceGroupping(
+        const populationGroup = getLayerSourceGrouping(
             populationTotalLayerSource().layerId,
             populationLayerIds
         )
@@ -224,7 +224,7 @@ describe('getLayerSourceGroupping', () => {
             precipitationMonthlyERA5LayerSource().layerId,
             precipitationMonthlyCHIRPSLayerSource().layerId,
         ]
-        const precipitationGroup = getLayerSourceGroupping(
+        const precipitationGroup = getLayerSourceGrouping(
             precipitationWeeklyERA5LayerSource().layerId,
             precipitationLayerIds
         )
@@ -256,7 +256,7 @@ describe('getLayerSourceGroupping', () => {
 
     test('does not include layers from other groups', () => {
         const layerIds = [vegetationMonthlyLayerSource().layerId]
-        const populationGroup = getLayerSourceGroupping(
+        const populationGroup = getLayerSourceGrouping(
             populationTotalLayerSource().layerId,
             layerIds
         )
@@ -267,7 +267,7 @@ describe('getLayerSourceGroupping', () => {
         })
         expect(populationGroup).not.toHaveProperty('period')
 
-        const precipitationGroup = getLayerSourceGroupping(
+        const precipitationGroup = getLayerSourceGrouping(
             precipitationMonthlyERA5LayerSource().layerId,
             layerIds
         )
@@ -289,7 +289,7 @@ describe('getLayerSourceGroupping', () => {
 
     test('does not duplicate layers when a managed layer is the same as the main layer', () => {
         const populationLayerIds = [populationTotalLayerSource().layerId]
-        const populationGroup = getLayerSourceGroupping(
+        const populationGroup = getLayerSourceGrouping(
             populationTotalLayerSource().layerId,
             populationLayerIds
         )
@@ -303,7 +303,7 @@ describe('getLayerSourceGroupping', () => {
         const precipitationLayerIds = [
             precipitationMonthlyERA5LayerSource().layerId,
         ]
-        const precipitationGroup = getLayerSourceGroupping(
+        const precipitationGroup = getLayerSourceGrouping(
             precipitationMonthlyERA5LayerSource().layerId,
             precipitationLayerIds
         )
