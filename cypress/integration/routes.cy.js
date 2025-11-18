@@ -63,7 +63,7 @@ describe('Routes', () => {
         cy.get('canvas.maplibregl-canvas').should('be.visible')
     })
 
-    it.only('loads currentAnalyticalObject (hash) - Thematic Layer', () => {
+    it('loads currentAnalyticalObject (hash) - Thematic Layer', () => {
         cy.intercept('**/userDataStore/analytics/settings', {
             fixture: 'analyticalObject_thematicLayer.json',
         })
