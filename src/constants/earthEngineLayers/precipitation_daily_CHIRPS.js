@@ -12,6 +12,7 @@ export default function createConfig() {
             groupId: 'precipitation',
             groupType: 'data',
             groupName: i18n.t('Precipitation'),
+            groupExcludeOnSwitch: ['band'],
             groupMatchOnSwitch: ['periodType'],
             subGroupId: 'precipitation_chirps',
             subGroupType: 'period',
