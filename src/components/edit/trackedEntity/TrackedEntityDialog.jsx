@@ -127,17 +127,11 @@ const TrackedEntityDialog = () => {
         if (!rows && orgUnits?.roots) {
             dispatch(setOrgUnits({ dimension: 'ou', items: orgUnits.roots }))
         }
-    }, [dispatch, endDate, orgUnits.roots, relationshipType, rows, startDate])
+    }, [dispatch, endDate, orgUnits?.roots, relationshipType, rows, startDate])
 
     // --------------------------
     // Lifecycle: componentDidUpdate
     // --------------------------
-    useEffect(() => {
-        if (validateLayer) {
-            onLayerValidation(validate())
-        }
-    }, [validateLayer, validate, onLayerValidation])
-
     useEffect(() => {
         if (periodError && startDate && endDate) {
             setPeriodError(null)
@@ -193,6 +187,15 @@ const TrackedEntityDialog = () => {
 
         return true
     }, [trackedEntityType, startDate, endDate, rows, setErrorState])
+
+    // --------------------------
+    // Lifecycle: componentDidUpdate
+    // --------------------------
+    useEffect(() => {
+        if (validateLayer) {
+            onLayerValidation(validate())
+        }
+    }, [validateLayer, validate, onLayerValidation])
 
     // --------------------------
     // Render
