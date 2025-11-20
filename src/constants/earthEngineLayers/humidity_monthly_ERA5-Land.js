@@ -7,7 +7,7 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/relative_humidity_2m',
         datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
-        groupping: {
+        grouping: {
             group: {
                 img: 'images/humidity.png',
                 id: 'humidity',

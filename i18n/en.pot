@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-20T11:42:51.041Z\n"
-"PO-Revision-Date: 2025-11-20T11:42:51.041Z\n"
+"POT-Creation-Date: 2025-11-20T13:15:14.743Z\n"
+"PO-Revision-Date: 2025-11-20T13:15:14.743Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1241,6 +1241,9 @@ msgstr "Febuary 1950 - One week ago"
 msgid "Humidity monthly"
 msgstr "Humidity monthly"
 
+msgid "Monthly"
+msgstr "Monthly"
+
 msgid "Humidity weekly"
 msgstr "Humidity weekly"
 
@@ -1522,9 +1525,6 @@ msgstr "Precipitation monthly CHIRPS"
 
 msgid "Precipitation monthly ERA5"
 msgstr "Precipitation monthly ERA5"
-
-msgid "Monthly"
-msgstr "Monthly"
 
 msgid "Precipitation weekly CHIRPS"
 msgstr "Precipitation weekly CHIRPS"
