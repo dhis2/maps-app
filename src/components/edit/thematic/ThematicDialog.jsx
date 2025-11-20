@@ -540,14 +540,17 @@ class ThematicDialog extends Component {
                                     {renderingStrategy ===
                                         RENDERING_STRATEGY_TIMELINE && (
                                         <div className={styles.periodText}>
-                                            Choose period for all timeline
-                                            layers
+                                            {i18n.t(
+                                                'Choose period for all timeline layers'
+                                            )}
                                         </div>
                                     )}
                                     {renderingStrategy ===
                                         RENDERING_STRATEGY_SPLIT_BY_PERIOD && (
                                         <div className={styles.periodText}>
-                                            Choose period for all split layers
+                                            {i18n.t(
+                                                'Choose period for all split layers'
+                                            )}
                                         </div>
                                     )}
                                 </div>
