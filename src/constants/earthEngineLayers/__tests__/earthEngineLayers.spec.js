@@ -213,7 +213,13 @@ const configSchema = {
                 properties: {
                     name: {
                         type: 'string',
-                        enum: ['multiply', 'toFloat', 'subtract'],
+                        enum: [
+                            'multiply',
+                            'toFloat',
+                            'subtract',
+                            'expression',
+                            'rename',
+                        ],
                     },
                     arguments: { type: 'array' },
                 },
