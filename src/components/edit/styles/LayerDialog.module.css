@@ -179,3 +179,21 @@
 .labelDisplayOptions {
     margin-left: var(--spacers-dp24);
 }
+
+.background {
+    background-color: var(--colors-grey100);
+    padding: var(--spacers-dp8);
+    border-radius: 3px;
+    height: 512px;
+}
+
+.periodBox {
+    height: 32px;
+}
+
+.periodText {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--colors-grey700);
+    padding: 8px 16px;
+}

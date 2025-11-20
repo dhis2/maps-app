@@ -1,6 +1,7 @@
 import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -28,6 +29,8 @@ import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
     RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -130,6 +133,8 @@ class ThematicDialog extends Component {
             endDate,
             setPeriods,
             setBackupPeriodsDates,
+            renderingStrategy,
+            setRenderingStrategy,
             setPeriodType,
             setOrgUnits,
         } = this.props
@@ -181,6 +186,11 @@ class ThematicDialog extends Component {
             setPeriods(defaultPeriods)
             const defaultDates = getDefaultDatesInCalendar()
             setBackupPeriodsDates(defaultDates)
+        }
+
+        // Set default rendering strategy
+        if (!renderingStrategy) {
+            setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
         }
 
         // Set default org unit level
@@ -487,66 +497,94 @@ class ThematicDialog extends Component {
                             data-test="thematicdialog-periodtab"
                         >
                             <div className={styles.navigation}>
-                                <SegmentedControl
-                                    className={styles.flexRowFlow}
-                                    options={[
-                                        {
-                                            label: i18n.t(
-                                                'Choose from presets'
-                                            ),
-                                            value: PREDEFINED_PERIODS,
-                                        },
-                                        {
-                                            label: i18n.t(
-                                                'Define start - end dates'
-                                            ),
-                                            value: START_END_DATES,
-                                        },
-                                    ]}
-                                    selected={periodType}
-                                    onChange={(e) =>
-                                        setPeriodType(
-                                            {
-                                                value: e.value,
-                                            },
-                                            true
-                                        )
-                                    }
-                                ></SegmentedControl>
-                            </div>
-                            {periodType === PREDEFINED_PERIODS && (
-                                <PeriodDimension
-                                    selectedPeriods={periods}
-                                    onSelect={(e) => {
-                                        setPeriods(e.items)
-                                    }}
-                                    excludedPeriodTypes={
-                                        systemSettings.hiddenPeriods
-                                    }
-                                    height="348px"
-                                />
-                            )}
-                            {periodType === PREDEFINED_PERIODS && (
                                 <RenderingStrategy
                                     value={renderingStrategy}
                                     periods={periods}
                                     layerId={id}
                                     onChange={setRenderingStrategy}
                                 />
-                            )}
-                            {periodType === START_END_DATES && (
-                                <StartEndDate
-                                    onSelectStartDate={setStartDate}
-                                    onSelectEndDate={setEndDate}
-                                    periodsSettings={periodsSettings}
-                                />
-                            )}
-                            {periodError && (
-                                <div className={styles.error}>
-                                    <IconErrorFilled24 />
-                                    {periodError}
+                            </div>
+                            <div className={styles.background}>
+                                <div
+                                    className={cx(
+                                        styles.navigation,
+                                        styles.periodBox
+                                    )}
+                                >
+                                    {renderingStrategy ===
+                                        RENDERING_STRATEGY_SINGLE && (
+                                        <div>
+                                            <SegmentedControl
+                                                className={styles.flexRowFlow}
+                                                options={[
+                                                    {
+                                                        label: i18n.t(
+                                                            'Choose from presets'
+                                                        ),
+                                                        value: PREDEFINED_PERIODS,
+                                                    },
+                                                    {
+                                                        label: i18n.t(
+                                                            'Define start - end dates'
+                                                        ),
+                                                        value: START_END_DATES,
+                                                    },
+                                                ]}
+                                                selected={periodType}
+                                                onChange={(e) =>
+                                                    setPeriodType(
+                                                        {
+                                                            value: e.value,
+                                                        },
+                                                        true
+                                                    )
+                                                }
+                                            ></SegmentedControl>
+                                        </div>
+                                    )}
+                                    {renderingStrategy ===
+                                        RENDERING_STRATEGY_TIMELINE && (
+                                        <div className={styles.periodText}>
+                                            {i18n.t(
+                                                'Choose period for all timeline layers'
+                                            )}
+                                        </div>
+                                    )}
+                                    {renderingStrategy ===
+                                        RENDERING_STRATEGY_SPLIT_BY_PERIOD && (
+                                        <div className={styles.periodText}>
+                                            {i18n.t(
+                                                'Choose period for all split layers'
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
-                            )}
+                                {periodType === PREDEFINED_PERIODS && (
+                                    <PeriodDimension
+                                        selectedPeriods={periods}
+                                        onSelect={(e) => {
+                                            setPeriods(e.items)
+                                        }}
+                                        excludedPeriodTypes={
+                                            systemSettings.hiddenPeriods
+                                        }
+                                        height="348px"
+                                    />
+                                )}
+                                {periodType === START_END_DATES && (
+                                    <StartEndDate
+                                        onSelectStartDate={setStartDate}
+                                        onSelectEndDate={setEndDate}
+                                        periodsSettings={periodsSettings}
+                                    />
+                                )}
+                                {periodError && (
+                                    <div className={styles.error}>
+                                        <IconErrorFilled24 />
+                                        {periodError}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                     {tab === 'orgunits' && (
