@@ -12,9 +12,12 @@ import legacyPrecipitation from './legacy/precipitation_pentad_CHIRPS.js'
 import legacyTemperature from './legacy/temperature_MOD11A2v061.js'
 import populationAgeSex from './population_age_sex_WorldPop.js'
 import populationTotal from './population_total_WorldPop.js'
-import precipitationDaily from './precipitation_daily_ERA5-Land.js'
-import precipitationMonthly from './precipitation_monthly_ERA5-Land.js'
-import precipitationWeekly from './precipitation_weekly_ERA5-Land.js'
+import precipitationChirpsDaily from './precipitation_daily_CHIRPS.js'
+import precipitationEra5Daily from './precipitation_daily_ERA5-Land.js'
+import precipitationChirpsMonthly from './precipitation_monthly_CHIRPS.js'
+import precipitationEra5Monthly from './precipitation_monthly_ERA5-Land.js'
+import precipitationChirpsWeekly from './precipitation_weekly_CHIRPS.js'
+import precipitationEra5Weekly from './precipitation_weekly_ERA5-Land.js'
 import temperatureDaily from './temperature_daily_ERA5-Land.js'
 import temperatureMonthly from './temperature_monthly_ERA5-Land.js'
 import temperatureWeekly from './temperature_weekly_ERA5-Land.js'
@@ -30,9 +33,12 @@ const earthEngineLayersFns = [
     heatMonthly,
     heatWeekly,
     heatDaily,
-    precipitationMonthly,
-    precipitationWeekly,
-    precipitationDaily,
+    precipitationEra5Monthly,
+    precipitationEra5Weekly,
+    precipitationEra5Daily,
+    precipitationChirpsMonthly,
+    precipitationChirpsWeekly,
+    precipitationChirpsDaily,
     temperatureMonthly,
     temperatureWeekly,
     temperatureDaily,
@@ -55,10 +61,13 @@ const earthEngineLayersDefaultFns = [
     populationAgeSex,
     buildings,
     elevation,
-    precipitationMonthly,
+    precipitationEra5Monthly,
     temperatureMonthly,
     landcover,
 ]
+
+export const earthEngineLayersIds = () =>
+    earthEngineLayersFns.map((l) => l().layerId)
 
 export const earthEngineLayersDefaultIds = () =>
     earthEngineLayersDefaultFns.map((l) => l().layerId)

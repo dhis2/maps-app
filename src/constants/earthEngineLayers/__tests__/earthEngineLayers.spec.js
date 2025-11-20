@@ -24,38 +24,77 @@ const configSchema = {
         legacy: { type: 'boolean' },
         layerId: { type: 'string' },
         datasetId: { type: 'string' },
-        group: {
+        grouping: {
             type: 'object',
-            required: ['groupId', 'groupType', 'name', 'img'],
+            required: ['group'],
             properties: {
-                groupId: {
-                    type: 'string',
-                    enum: [
-                        'heat',
-                        'population',
-                        'precipitation',
-                        'temperature',
-                        'vegetation',
-                    ],
+                group: {
+                    type: 'object',
+                    required: ['img', 'id', 'type', 'name'],
+                    properties: {
+                        img: { type: 'string' },
+                        id: {
+                            type: 'string',
+                            enum: [
+                                'heat',
+                                'humidity',
+                                'population',
+                                'precipitation',
+                                'temperature',
+                                'vegetation',
+                            ],
+                        },
+                        type: {
+                            type: 'string',
+                            enum: ['data', 'period'],
+                        },
+                        name: { type: 'string' },
+                        excludeOnSwitch: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                enum: [
+                                    'band',
+                                    'aggregationType',
+                                    'period',
+                                    'rows',
+                                    'areaRadius',
+                                    'style',
+                                ],
+                            },
+                        },
+                        matchOnSwitch: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                enum: ['periodType'],
+                            },
+                        },
+                    },
                 },
-                groupType: {
-                    type: 'string',
-                    enum: ['data', 'period'],
-                },
-                name: { type: 'string' },
-                img: { type: 'string' },
-                excludeOnSwitch: {
-                    type: 'array',
-                    items: {
-                        type: 'string',
-                        enum: [
-                            'band',
-                            'aggregationType',
-                            'period',
-                            'rows',
-                            'areaRadius',
-                            'style',
-                        ],
+                subGroup: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string' },
+                        type: {
+                            type: 'string',
+                            enum: ['data', 'period'],
+                        },
+                        name: { type: 'string' },
+                        excludeOnSwitch: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                enum: [
+                                    'band',
+                                    'aggregationType',
+                                    'period',
+                                    'rows',
+                                    'areaRadius',
+                                    'style',
+                                ],
+                            },
+                        },
                     },
                 },
             },

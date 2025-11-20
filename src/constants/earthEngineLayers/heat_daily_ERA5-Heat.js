@@ -7,12 +7,14 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'projects/climate-engine-pro/assets/ce-era5-heat/utci',
         datasetId: 'projects/climate-engine-pro/assets/ce-era5-heat',
-        group: {
-            groupId: 'heat',
-            groupType: 'period',
-            name: i18n.t('Heat stress'),
-            img: 'images/heatstress.png',
-            excludeOnSwitch: ['period'],
+        grouping: {
+            group: {
+                img: 'images/heatstress.png',
+                id: 'heat',
+                type: 'period',
+                name: i18n.t('Heat stress'),
+                excludeOnSwitch: ['period'],
+            },
         },
         format: 'ImageCollection',
         img: 'images/heatstress.png',
