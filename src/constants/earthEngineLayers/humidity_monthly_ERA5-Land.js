@@ -8,11 +8,13 @@ export default function createConfig() {
         layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/relative_humidity_2m',
         datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
         groupping: {
-            img: 'images/humidity.png',
-            groupId: 'humidity',
-            groupType: 'period',
-            groupName: i18n.t('Humidity'),
-            groupExcludeOnSwitch: ['period'],
+            group: {
+                img: 'images/humidity.png',
+                id: 'humidity',
+                type: 'period',
+                name: i18n.t('Humidity'),
+                excludeOnSwitch: ['period'],
+            },
         },
         format: 'ImageCollection',
         img: 'images/humidity.png',

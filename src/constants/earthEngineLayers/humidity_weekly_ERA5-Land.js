@@ -8,11 +8,13 @@ export default function createConfig() {
         layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/relative_humidity_2m',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
         groupping: {
-            img: 'images/humidity.png',
-            groupId: 'humidity',
-            groupType: 'period',
-            groupName: i18n.t('Humidity'),
-            groupExcludeOnSwitch: ['period'],
+            group: {
+                img: 'images/humidity.png',
+                id: 'humidity',
+                type: 'period',
+                name: i18n.t('Humidity'),
+                excludeOnSwitch: ['period'],
+            },
         },
         format: 'ImageCollection',
         img: 'images/humidity.png',
@@ -26,7 +28,7 @@ export default function createConfig() {
         unit: '%',
         resolution: {
             spatial: i18n.t('~9 kilometers'),
-            temporal: i18n.t('Weekly'),
+            temporal: i18n.t('Weekly (aggregated from Daily data)'),
             temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
