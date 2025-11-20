@@ -133,6 +133,7 @@ class ThematicDialog extends Component {
             endDate,
             setPeriods,
             setBackupPeriodsDates,
+            setRenderingStrategy,
             setPeriodType,
             setOrgUnits,
         } = this.props
@@ -184,6 +185,7 @@ class ThematicDialog extends Component {
             setPeriods(defaultPeriods)
             const defaultDates = getDefaultDatesInCalendar()
             setBackupPeriodsDates(defaultDates)
+            setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
         }
 
         // Set default org unit level
