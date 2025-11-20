@@ -33,15 +33,6 @@ const OrgUnitDialog = ({
     const [orgUnitsError, setOrgUnitsError] = useState(null)
 
     // --------------------------
-    // Validation (was componentDidUpdate)
-    // --------------------------
-    useEffect(() => {
-        if (validateLayer) {
-            onLayerValidation(validate())
-        }
-    }, [validateLayer, validate, onLayerValidation])
-
-    // --------------------------
     // Validation handler
     // --------------------------
     const setErrorState = useCallback((message, tabName) => {
@@ -59,6 +50,15 @@ const OrgUnitDialog = ({
         }
         return true
     }, [rows, setErrorState])
+
+    // --------------------------
+    // Validation (was componentDidUpdate)
+    // --------------------------
+    useEffect(() => {
+        if (validateLayer) {
+            onLayerValidation(validate())
+        }
+    }, [validateLayer, validate, onLayerValidation])
 
     // --------------------------
     // Render
