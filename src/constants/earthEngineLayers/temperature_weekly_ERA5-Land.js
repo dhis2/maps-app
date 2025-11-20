@@ -28,7 +28,7 @@ export default function createConfig() {
         unit: '°C',
         resolution: {
             spatial: i18n.t('~9 kilometers'),
-            temporal: i18n.t('Weekly'),
+            temporal: i18n.t('Weekly (aggregated from Daily data)'),
             temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],

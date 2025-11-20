@@ -31,7 +31,7 @@ export default function createConfig() {
         unit: i18n.t('unitless'),
         resolution: {
             spatial: i18n.t('250 meter'),
-            temporal: i18n.t('Weekly'),
+            temporal: i18n.t('Weekly (aggregated from 16-day data)'),
             temporalCoverage: i18n.t('Febuary 2000 - One month ago'),
         },
         aggregations: [

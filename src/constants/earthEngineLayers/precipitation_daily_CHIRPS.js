@@ -27,7 +27,7 @@ export default function createConfig() {
         img: 'images/precipitation.png',
         name: i18n.t('Precipitation daily CHIRPS'),
         description: i18n.t(
-            'Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS) incorporates satellite imagery with in-situ station data to create gridded rainfall time series.'
+            'Gridded precipitation dataset blending satellite imagery with in-situ station data, providing rainfall-focused estimates over land at higher spatial resolution but with a longer lag in data availability.'
         ),
         source: 'Climate Hazards Center / UCSB',
         sourceUrl:

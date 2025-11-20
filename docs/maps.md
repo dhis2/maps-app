@@ -1257,12 +1257,17 @@ The following layer sources are supported (sources marked with an asterisk
     -   **Heat stress weekly** (derived from daily dataset). 
     -   **Heat stress monthly** (derived from daily dataset). 
 
--   **Precipitation (group)**: Accumulated liquid and frozen water, including
-    rain and snow, that falls to the surface. Combines model data with 
-    observations from across the world. Available from 1950.
-    -   **Precipitation daily**. 
-    -   **Precipitation weekly** (derived from daily dataset). 
-    -   **Precipitation monthly** *. 
+-   **Precipitation (group)**: Accumulated water that falls to the surface. 
+    Combines model data with observations from across the world. Two sources are
+    available: 
+    - ERA5-Land. Available from 1950.
+        -   **Precipitation daily**. 
+        -   **Precipitation weekly** (derived from daily dataset). 
+        -   **Precipitation monthly** *. 
+    - CHIRPS. Available from 1981.
+        -   **Precipitation daily**. 
+        -   **Precipitation weekly** (derived from daily dataset). 
+        -   **Precipitation monthly** (derived from daily dataset).
 
 -   **Temperature (group)**: Temperature at 2m above the surface. Combines 
     model data with observations from across the world. Available from 1950.
