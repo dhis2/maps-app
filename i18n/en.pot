@@ -1013,6 +1013,12 @@ msgstr "End date"
 msgid "Not available offline"
 msgstr "Not available offline"
 
+msgid "Click to unpin legend"
+msgstr "Click to unpin legend"
+
+msgid "Click to pin legend"
+msgstr "Click to pin legend"
+
 msgid "Program indicator"
 msgstr "Program indicator"
 
