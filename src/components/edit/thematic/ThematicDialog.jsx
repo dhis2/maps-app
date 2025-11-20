@@ -133,6 +133,7 @@ class ThematicDialog extends Component {
             endDate,
             setPeriods,
             setBackupPeriodsDates,
+            renderingStrategy,
             setRenderingStrategy,
             setPeriodType,
             setOrgUnits,
@@ -185,6 +186,10 @@ class ThematicDialog extends Component {
             setPeriods(defaultPeriods)
             const defaultDates = getDefaultDatesInCalendar()
             setBackupPeriodsDates(defaultDates)
+        }
+
+        // Set default rendering strategy
+        if (!renderingStrategy) {
             setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
         }
 
