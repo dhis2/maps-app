@@ -27,7 +27,7 @@ export default function createConfig() {
         img: 'images/precipitation.png',
         name: i18n.t('Precipitation weekly ERA5'),
         description: i18n.t(
-            'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
+            'Gridded precipitation dataset combining model data with observations from around the world, providing estimates of both rain and snow over land at high temporal resolution, typically available within about one week.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:
@@ -35,7 +35,7 @@ export default function createConfig() {
         unit: i18n.t('millimeter'),
         resolution: {
             spatial: i18n.t('~9 kilometers'),
-            temporal: i18n.t('Weekly'),
+            temporal: i18n.t('Weekly (aggregated from Daily data)'),
             temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],

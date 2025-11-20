@@ -27,7 +27,7 @@ export default function createConfig() {
         img: 'images/precipitation.png',
         name: i18n.t('Precipitation monthly ERA5'),
         description: i18n.t(
-            'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
+            'Gridded precipitation dataset combining model data with observations from around the world, providing estimates of both rain and snow over land at high temporal resolution, typically available within about one week.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:

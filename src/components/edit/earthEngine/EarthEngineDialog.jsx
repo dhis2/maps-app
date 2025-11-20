@@ -292,7 +292,7 @@ const EarthEngineDialog = (props) => {
                         {grouping?.period &&
                             grouping.period.group.items?.length > 1 && (
                                 <SelectField
-                                    label={i18n.t('Dataset')}
+                                    label={i18n.t('Temporal resolution')}
                                     items={grouping.period.group.items}
                                     value={grouping.period.id}
                                     onChange={(e) => onLayerSelect(e, 'period')}
