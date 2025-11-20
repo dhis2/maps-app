@@ -39,7 +39,7 @@ const OrgUnitDialog = ({
         if (validateLayer) {
             onLayerValidation(validate())
         }
-    }, [validateLayer])
+    }, [validateLayer, validate, onLayerValidation])
 
     // --------------------------
     // Validation handler
@@ -119,8 +119,6 @@ const OrgUnitDialog = ({
 }
 
 OrgUnitDialog.propTypes = {
-    setOrganisationUnitColor: PropTypes.func,
-    setRadiusLow: PropTypes.func,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
     organisationUnitColor: PropTypes.string,
