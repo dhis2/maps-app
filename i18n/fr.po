@@ -4,22 +4,22 @@
 # Austin McGee <austin@dhis2.org>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
+# Bram Piot <bram.piot@gmail.com>, 2020
 # Yayra Gomado <ygomado@hispwca.org>, 2021
-# Bram Piot <bram.piot@gmail.com>, 2021
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Yury Rogachev <yury@dhis2.org>, 2022
 # Philip Larsen Donnelly, 2024
 # Bruno Raimbault, 2025
-# Cyrille Kabrane, 2025
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
+# Cyrille Kabrane, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025\n"
+"Last-Translator: Cyrille Kabrane, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +37,7 @@ msgid "Classes"
 msgstr "Classes"
 
 msgid "Legend set"
-msgstr "Jeu de légende"
+msgstr "Jeu de légendes"
 
 msgid "Color"
 msgstr "Couleur"
@@ -321,7 +321,7 @@ msgid "No legend set is selected"
 msgstr "Aucun jeu de légendes n'est sélectionné"
 
 msgid "Event status"
-msgstr "Statut d'événement"
+msgstr "Statut de l'événement"
 
 msgid "Buffer"
 msgstr "Zone tampon"
@@ -445,7 +445,7 @@ msgid "Tracked entities"
 msgstr "Entités suivies "
 
 msgid "Tracked entity style"
-msgstr "Style des entités suivies"
+msgstr "Style d’entité suivie"
 
 msgid "Point size"
 msgstr "Taille de point"
@@ -489,16 +489,16 @@ msgstr ""
 "Le filtrage est disponible après la sélection d'un stade de programme."
 
 msgid "one of"
-msgstr "un sur"
+msgstr "one of"
 
 msgid "contains"
-msgstr "contient"
+msgstr "contains"
 
 msgid "is"
-msgstr "est"
+msgstr "is"
 
 msgid "is not"
-msgstr "n'est pas"
+msgstr "is not"
 
 msgid "Operator"
 msgstr "Opérateur"
@@ -667,7 +667,7 @@ msgid "Distance"
 msgstr "Distance"
 
 msgid "Enter fullscreen"
-msgstr "Accéder au plein écran"
+msgstr "Passer au plein écran"
 
 msgid "Exit fullscreen"
 msgstr "Quitter le plein écran"
@@ -829,7 +829,7 @@ msgid "Timeline"
 msgstr "Chronologie"
 
 msgid "Split map views"
-msgstr "Fractionner les vues de la carte"
+msgstr "Vues de carte fractionnées"
 
 msgid "Start date"
 msgstr "Date de début"
@@ -1069,8 +1069,8 @@ msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
-"Températures à la surface du sol recueillies par satellite. Des zones sans "
-"informations apparaitront pour les régions qui présentent une couverture "
+"Températures à la surface du sol recueillies par satellite. Des espaces sans"
+" informations apparaitront dans les zones qui présentent une couverture "
 "nuageuse persistante."
 
 msgid "Landcover"
@@ -1087,7 +1087,7 @@ msgid "Evergreen Broadleaf forest"
 msgstr "Forêt de feuillus sempervirentes"
 
 msgid "Deciduous Needleleaf forest"
-msgstr "Forêt d'arbres à aiguilles caduques"
+msgstr "Forêt de conifères à feuillage caduc"
 
 msgid "Deciduous Broadleaf forest"
 msgstr "Forêt d' arbres à feuillage caduc"
@@ -1193,16 +1193,16 @@ msgid "Weekly"
 msgstr "Hebdomadaire"
 
 msgid "Weekly (Start Wednesday)"
-msgstr "Hebdomadaire (début mercredi)"
+msgstr "Hebdomadaire (à partir de mercredi)"
 
 msgid "Weekly (Start Thursday)"
-msgstr "Hebdomadaire (début jeudi)"
+msgstr "Hebdomadaire (à partir de jeudi)"
 
 msgid "Weekly (Start Saturday)"
-msgstr "Hebdomadaire (début samedi)"
+msgstr "Hebdomadaire (à partir de samedi)"
 
 msgid "Weekly (Start Sunday)"
-msgstr "Hebdomadaire (début dimanche)"
+msgstr "Hebdomadaire (à partir de dimanche)"
 
 msgid "Bi-weekly"
 msgstr "Bimensuel"
@@ -1226,16 +1226,16 @@ msgid "Yearly"
 msgstr "Annuel"
 
 msgid "Financial year (Start November)"
-msgstr "Exercice financier (début novembre)"
+msgstr "Exercice financier (à partir de novembre)"
 
 msgid "Financial year (Start October)"
-msgstr "Exercice financier (début octobre)"
+msgstr "Exercice financier (à partir d'octobre)"
 
 msgid "Financial year (Start July)"
-msgstr "Exercice financier (début juillet)"
+msgstr "Exercice financier (à partir de juillet)"
 
 msgid "Financial year (Start April)"
-msgstr "Exercice financier (début avril)"
+msgstr "Exercice financier (à partir d'avril)"
 
 msgid "Cancelled"
 msgstr "Annulé"
@@ -1297,10 +1297,10 @@ msgid "Thematic"
 msgstr "Thématique"
 
 msgid "not one of"
-msgstr "ne fait pas partie de"
+msgstr "not one of"
 
 msgid "doesn't contains"
-msgstr "ne contient pas"
+msgstr "doesn't contains"
 
 msgid "true"
 msgstr "true"
