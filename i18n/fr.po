@@ -166,7 +166,7 @@ msgid "Data item"
 msgstr "Item de données"
 
 msgid "one of"
-msgstr "un sur"
+msgstr "one of"
 
 msgid "contains"
 msgstr "contient"
@@ -469,7 +469,7 @@ msgid "No legend set is selected"
 msgstr "Aucun jeu de légendes n'est sélectionné"
 
 msgid "Event status"
-msgstr "Statut des événements"
+msgstr "Statut de l'événement"
 
 msgid "Boundary color"
 msgstr "Couleur de limite"
@@ -623,7 +623,7 @@ msgid "Display Tracked Entity relationships"
 msgstr "Afficher les relations des entités suivies"
 
 msgid "Tracked entity style"
-msgstr "Style des entités suivies"
+msgstr "Style d’entité suivie"
 
 msgid "Point size"
 msgstr "Taille de point"
@@ -863,7 +863,7 @@ msgid "Distance"
 msgstr "Distance"
 
 msgid "Enter fullscreen"
-msgstr "Accéder au plein écran"
+msgstr "Passer au plein écran"
 
 msgid "Exit fullscreen"
 msgstr "Quitter le plein écran"
@@ -1067,7 +1067,7 @@ msgid "End date"
 msgstr "Date de fin"
 
 msgid "Not available offline"
-msgstr "Non disponible hors ligne"
+msgstr "Non disponible en mode hors ligne"
 
 msgid "Click to unpin legend"
 msgstr "Cliquer pour désépingler la légende"
@@ -1225,7 +1225,7 @@ msgid "Evergreen Broadleaf forest"
 msgstr "Forêt de feuillus sempervirentes"
 
 msgid "Deciduous Needleleaf forest"
-msgstr "Forêt d'arbres à aiguilles caduques"
+msgstr "Forêt de conifères à feuillage caduc"
 
 msgid "Deciduous Broadleaf forest"
 msgstr "Forêt d'arbres à feuillage caduc"
@@ -1326,8 +1326,8 @@ msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
-"Températures à la surface du sol recueillies par satellite. Des zones sans "
-"informations apparaitront pour les régions qui présentent une couverture "
+"Températures à la surface du sol recueillies par satellite. Des espaces sans"
+" informations apparaitront dans les zones qui présentent une couverture "
 "nuageuse persistante."
 
 msgid "Population age groups"
@@ -1523,16 +1523,16 @@ msgid "Weekly"
 msgstr "Hebdomadaire"
 
 msgid "Weekly (Start Wednesday)"
-msgstr "Hebdomadaire (début mercredi)"
+msgstr "Hebdomadaire (à partir de mercredi)"
 
 msgid "Weekly (Start Thursday)"
-msgstr "Hebdomadaire (début jeudi)"
+msgstr "Hebdomadaire (à partir de jeudi)"
 
 msgid "Weekly (Start Saturday)"
-msgstr "Hebdomadaire (début samedi)"
+msgstr "Hebdomadaire (à partir de samedi)"
 
 msgid "Weekly (Start Sunday)"
-msgstr "Hebdomadaire (début dimanche)"
+msgstr "Hebdomadaire (à partir de dimanche)"
 
 msgid "Bi-weekly"
 msgstr "Bimensuel"
@@ -1553,16 +1553,16 @@ msgid "Yearly"
 msgstr "Annuel"
 
 msgid "Financial year (Start November)"
-msgstr "Exercice financier (début novembre)"
+msgstr "Exercice financier (à partir de novembre)"
 
 msgid "Financial year (Start October)"
-msgstr "Exercice financier (début octobre)"
+msgstr "Exercice financier (à partir d'octobre)"
 
 msgid "Financial year (Start July)"
-msgstr "Exercice financier (début juillet)"
+msgstr "Exercice financier (à partir de juillet)"
 
 msgid "Financial year (Start April)"
-msgstr "Exercice financier (début avril)"
+msgstr "Exercice financier (à partir d'avril)"
 
 msgid "Cancelled"
 msgstr "Annulé"
@@ -1635,7 +1635,7 @@ msgid "related"
 msgstr "associé"
 
 msgid "not one of"
-msgstr "ne fait pas partie de"
+msgstr "not one of"
 
 msgid "doesn't contains"
 msgstr "ne contient pas"
