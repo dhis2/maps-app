@@ -1,4 +1,8 @@
-import { THEMATIC_LAYER, EARTH_ENGINE_LAYER } from '../constants/layers.js'
+import {
+    THEMATIC_LAYER,
+    EARTH_ENGINE_LAYER,
+    EE_BUFFER,
+} from '../constants/layers.js'
 import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics.js'
 import { cleanDimension } from './favorites.js'
 import { loadDataItemLegendSet } from './legend.js'
@@ -82,7 +86,8 @@ export const getEarthEngineLayerFromAnalyticalObject = ({
     ao = {},
     isVisible = true,
 }) => {
-    const { layerId, band } = ao
+    const { layerId, ...aoProps } = ao
+    delete aoProps.filters
     const dims = getDimensionsFromAnalyticalObject(ao)
     const orgUnits = dims.find((i) => i.dimension === 'ou')
     const periods = dims.find((i) => i.dimension === 'pe')
@@ -94,11 +99,12 @@ export const getEarthEngineLayerFromAnalyticalObject = ({
     const layer = {
         layer: EARTH_ENGINE_LAYER,
         layerId,
-        band,
         period: periods.items[0][0],
         rows: [orgUnits],
         isVisible,
         opacity: 0.9,
+        areaRadius: EE_BUFFER,
+        ...aoProps,
     }
     return layer
 }
