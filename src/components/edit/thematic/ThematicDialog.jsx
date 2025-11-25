@@ -101,7 +101,6 @@ const ThematicDialog = ({
     const [tab, setTab] = useState('data')
     const [errors, setErrors] = useState({})
 
-    const prevColumns = usePrevious(columns)
     const prevFilters = usePrevious(filters)
     const prevPeriodType = usePrevious(periodType)
     const prevStartDate = usePrevious(startDate)
@@ -306,19 +305,16 @@ const ThematicDialog = ({
 
     // Set the default classification/legend for selected data item without visiting the style tab
     useEffect(() => {
-        if (columns !== prevColumns) {
-            const dataItem = getDataItemFromColumns(columns) // ? Why replace existing dataItem
-            if (dataItem) {
-                if (dataItem.legendSet) {
-                    dispatch(setClassification(CLASSIFICATION_PREDEFINED))
-                    dispatch(setLegendSet(dataItem.legendSet))
-                } else {
-                    dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
-                    dispatch(setLegendSet())
-                }
+        if (dataItem) {
+            if (dataItem.legendSet) {
+                dispatch(setClassification(CLASSIFICATION_PREDEFINED))
+                dispatch(setLegendSet(dataItem.legendSet))
+            } else {
+                dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
+                dispatch(setLegendSet())
             }
         }
-    }, [columns, prevColumns, dataItem, dispatch])
+    }, [dataItem, dispatch])
 
     // Run validation
     useEffect(() => {
@@ -355,7 +351,10 @@ const ThematicDialog = ({
                 getPeriodsFromFilters(filters).length !==
                     getPeriodsFromFilters(prevFilters).length)
         ) {
-            setErrors('periodError', null, 'period')
+            setErrors((prev) => ({
+                ...prev,
+                periodError: null,
+            }))
         }
     }, [
         periodType,
