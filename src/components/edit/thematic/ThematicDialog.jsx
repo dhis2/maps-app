@@ -33,6 +33,7 @@ import {
     PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
+import usePrevious from '../../../hooks/usePrevious.js'
 import {
     getDataItemFromColumns,
     getOrgUnitsFromRows,
@@ -76,6 +77,7 @@ const ThematicDialog = ({
     valueType,
     startDate,
     endDate,
+    backupPeriodsDates,
     systemSettings,
     periodType,
     renderingStrategy,
@@ -99,11 +101,18 @@ const ThematicDialog = ({
     const [tab, setTab] = useState('data')
     const [errors, setErrors] = useState({})
 
+    const prevColumns = usePrevious(columns)
+    const prevFilters = usePrevious(filters)
+    const prevPeriodType = usePrevious(periodType)
+    const prevStartDate = usePrevious(startDate)
+    const prevEndDate = usePrevious(endDate)
+    const prevValidateLayer = usePrevious(validateLayer)
+
     const dataItem = getDataItemFromColumns(columns)
     const periods = getPeriodsFromFilters(filters)
     const dimensions = getDimensionsFromFilters(filters)
 
-    /** Validate the layer */
+    // Layer validation function
     const validate = useCallback(() => {
         const newErrors = {}
 
@@ -216,11 +225,8 @@ const ThematicDialog = ({
         periods,
     ])
 
-    // ComponentDidMount logic
+    // Set value type if favorite is loaded
     useEffect(() => {
-        const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
-            systemSettings || {}
-
         if (!valueType) {
             if (dataItem?.dimensionItemType) {
                 const dimension = Object.keys(dimConf).find(
@@ -234,31 +240,42 @@ const ThematicDialog = ({
                 dispatch(setValueType(dimConf.indicator.objectName))
             }
         }
+    })
 
-        const hasDate = startDate && endDate
-        if (hasDate) {
-            dispatch(setPeriodType({ value: START_END_DATES }, false))
-        } else {
-            dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
+    // Set period type if favorite is loaded or dates are present
+    useEffect(() => {
+        if (!periodType) {
+            const hasDate = startDate !== undefined && endDate !== undefined
+            if (hasDate) {
+                dispatch(setPeriodType({ value: START_END_DATES }, false))
+            } else {
+                dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
+            }
         }
+    }, [periodType, startDate, endDate, dispatch])
 
-        if (
-            (periods?.length ?? 0) === 0 &&
-            !hasDate &&
-            defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
-        ) {
-            dispatch(
-                setPeriods([
-                    {
-                        id: defaultPeriod,
-                        name: getRelativePeriodsName()[defaultPeriod],
-                    },
-                ])
-            )
-            dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+    // Set default period from system settings if filters not available and no dates
+    useEffect(() => {
+        if (!filters) {
+            const hasDate = startDate !== undefined && endDate !== undefined
+            const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
+                systemSettings || {}
+            if (!hasDate && isPeriodAvailable(defaultPeriod, hiddenPeriods)) {
+                dispatch(
+                    setPeriods([
+                        {
+                            id: defaultPeriod,
+                            name: getRelativePeriodsName()[defaultPeriod],
+                        },
+                    ])
+                )
+                dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+            }
         }
+    }, [filters, systemSettings, startDate, endDate, dispatch])
 
+    // Set default org unit level if not available from favorite
+    useEffect(() => {
         if (!rows) {
             const defaultLevel = orgUnits?.levels?.[DEFAULT_ORG_UNIT_LEVEL]
             if (defaultLevel) {
@@ -275,21 +292,9 @@ const ThematicDialog = ({
                 )
             }
         }
-    }, [
-        columns,
-        filters,
-        rows,
-        orgUnits,
-        startDate,
-        endDate,
-        valueType,
-        dataItem,
-        systemSettings,
-        dispatch,
-        periods,
-    ])
+    }, [rows, orgUnits, dispatch])
 
-    // ComponentDidUpdate logic for classification & rendering strategy
+    // Set rendering strategy to single if not relative period
     useEffect(() => {
         if (
             periodType !== PREDEFINED_PERIODS &&
@@ -297,26 +302,74 @@ const ThematicDialog = ({
         ) {
             dispatch(setRenderingStrategy(RENDERING_STRATEGY_SINGLE))
         }
+    }, [periodType, renderingStrategy, dispatch])
 
-        if (dataItem) {
-            if (dataItem.legendSet) {
-                dispatch(setClassification(CLASSIFICATION_PREDEFINED))
-                dispatch(setLegendSet(dataItem.legendSet))
-            } else {
-                dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
-                dispatch(setLegendSet())
+    // Set the default classification/legend for selected data item without visiting the style tab
+    useEffect(() => {
+        if (columns !== prevColumns) {
+            const dataItem = getDataItemFromColumns(columns) // ? Why replace existing dataItem
+            if (dataItem) {
+                if (dataItem.legendSet) {
+                    dispatch(setClassification(CLASSIFICATION_PREDEFINED))
+                    dispatch(setLegendSet(dataItem.legendSet))
+                } else {
+                    dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
+                    dispatch(setLegendSet())
+                }
             }
         }
-    }, [dataItem, periodType, renderingStrategy, dispatch])
+    }, [columns, prevColumns, dataItem, dispatch])
 
-    // Run validation only when validateLayer changes
+    // Run validation
     useEffect(() => {
-        if (!validateLayer) {
-            return
+        if (validateLayer && validateLayer !== prevValidateLayer) {
+            onLayerValidation(validate())
         }
-        const valid = validate()
-        onLayerValidation?.(valid)
-    }, [validateLayer, validate, onLayerValidation])
+    }, [validateLayer, prevValidateLayer, validate, onLayerValidation])
+
+    useEffect(() => {
+        if (prevPeriodType && periodType !== prevPeriodType) {
+            switch (periodType) {
+                case PREDEFINED_PERIODS:
+                    dispatch(setBackupPeriodsDates({ startDate, endDate }))
+                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    dispatch(setStartDate())
+                    dispatch(setEndDate())
+                    break
+                case START_END_DATES:
+                    dispatch(
+                        setBackupPeriodsDates({
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    dispatch(setStartDate(backupPeriodsDates?.startDate))
+                    dispatch(setEndDate(backupPeriodsDates?.endDate))
+                    dispatch(setPeriods([]))
+                    break
+            }
+        } else if (
+            errors.periodError &&
+            (periodType !== prevPeriodType ||
+                startDate !== prevStartDate ||
+                endDate !== prevEndDate ||
+                getPeriodsFromFilters(filters).length !==
+                    getPeriodsFromFilters(prevFilters).length)
+        ) {
+            setErrors('periodError', null, 'period')
+        }
+    }, [
+        periodType,
+        prevPeriodType,
+        startDate,
+        prevStartDate,
+        endDate,
+        prevEndDate,
+        backupPeriodsDates,
+        errors.periodError,
+        filters,
+        prevFilters,
+        dispatch,
+    ])
 
     return (
         <div className={styles.content} data-test="thematicdialog">
@@ -337,9 +390,7 @@ const ThematicDialog = ({
                     {i18n.t('Style')}
                 </Tab>
             </Tabs>
-
             <div className={styles.tabContent}>
-                {/* DATA TAB */}
                 {tab === 'data' && (
                     <div
                         className={styles.flexRowFlow}
@@ -350,7 +401,6 @@ const ThematicDialog = ({
                             className={styles.select}
                             onChange={(v) => dispatch(setValueType(v))}
                         />
-
                         {(!valueType ||
                             valueType === dimConf.indicator.objectName) && (
                             <>
@@ -373,7 +423,6 @@ const ThematicDialog = ({
                                 />
                             </>
                         )}
-
                         {(valueType === dimConf.dataElement.objectName ||
                             valueType === dimConf.operand.objectName) && (
                             <>
@@ -418,7 +467,6 @@ const ThematicDialog = ({
                                 )}
                             </>
                         )}
-
                         {valueType === dimConf.dataSet.objectName && (
                             <DataSetsSelect
                                 dataSet={dataItem}
@@ -427,7 +475,6 @@ const ThematicDialog = ({
                                 errorText={errors.dataSetError}
                             />
                         )}
-
                         {valueType === dimConf.eventDataItem.objectName && (
                             <>
                                 <ProgramSelect
@@ -449,7 +496,6 @@ const ThematicDialog = ({
                                 )}
                             </>
                         )}
-
                         {valueType === dimConf.programIndicator.objectName && (
                             <>
                                 <ProgramSelect
@@ -471,7 +517,6 @@ const ThematicDialog = ({
                                 )}
                             </>
                         )}
-
                         {valueType === dimConf.calculation.objectName && (
                             <CalculationSelect
                                 calculation={dataItem}
@@ -486,7 +531,6 @@ const ThematicDialog = ({
                     </div>
                 )}
 
-                {/* PERIOD TAB */}
                 {tab === 'period' && (
                     <div
                         className={styles.flexRowFlow}
@@ -555,12 +599,10 @@ const ThematicDialog = ({
                     </div>
                 )}
 
-                {/* ORG UNITS TAB */}
                 {tab === 'orgunits' && (
                     <OrgUnitSelect warning={errors.orgUnitsError} />
                 )}
 
-                {/* FILTER TAB */}
                 {tab === 'filter' && (
                     <div
                         className={styles.flexRowFlow}
@@ -570,7 +612,6 @@ const ThematicDialog = ({
                     </div>
                 )}
 
-                {/* STYLE TAB */}
                 {tab === 'style' && (
                     <div
                         className={styles.flexColumnFlow}
@@ -603,6 +644,7 @@ const ThematicDialog = ({
 }
 
 ThematicDialog.propTypes = {
+    backupPeriodsDates: PropTypes.object,
     columns: PropTypes.array,
     dataElementGroup: PropTypes.object,
     endDate: PropTypes.string,
