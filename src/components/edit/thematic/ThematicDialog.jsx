@@ -2,7 +2,7 @@ import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
     setClassification,
@@ -107,9 +107,12 @@ const ThematicDialog = ({
     const prevEndDate = usePrevious(endDate)
     const prevValidateLayer = usePrevious(validateLayer)
 
-    const dataItem = getDataItemFromColumns(columns)
-    const periods = getPeriodsFromFilters(filters)
-    const dimensions = getDimensionsFromFilters(filters)
+    const dataItem = useMemo(() => getDataItemFromColumns(columns), [columns])
+    const periods = useMemo(() => getPeriodsFromFilters(filters), [filters])
+    const dimensions = useMemo(
+        () => getDimensionsFromFilters(filters),
+        [filters]
+    )
 
     // Layer validation function
     const validate = useCallback(() => {
