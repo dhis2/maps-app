@@ -242,7 +242,7 @@ const ThematicDialog = ({
                 dispatch(setValueType(dimConf.indicator.objectName))
             }
         }
-    }, [valueType, dataItem.dimensionItemType, dispatch])
+    }, [valueType, dataItem?.dimensionItemType, dispatch])
 
     // Set period type if favorite is loaded or dates are present
     useEffect(() => {
@@ -294,7 +294,7 @@ const ThematicDialog = ({
                 )
             }
         }
-    }, [rows, orgUnits.levels, dispatch])
+    }, [rows, orgUnits?.levels, dispatch])
 
     // Set rendering strategy to single if not relative period
     useEffect(() => {
@@ -367,7 +367,7 @@ const ThematicDialog = ({
         endDate,
         prevEndDate,
         backupPeriodsDates,
-        errors.periodError,
+        errors?.periodError,
         filters,
         prevFilters,
         dispatch,
