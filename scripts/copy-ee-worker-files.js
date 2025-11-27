@@ -3,7 +3,12 @@ const path = require('path')
 const chalk = require('chalk')
 const fse = require('fs-extra')
 
-const files = ['ee_api_js_worker.js', 'ee_worker_cache.js', 'ee_worker_utils.js', 'ee_worker.js']
+const files = [
+    'ee_api_js_worker.js',
+    'ee_worker_cache.js',
+    'ee_worker_utils.js',
+    'ee_worker.js',
+]
 
 const sourceDir = path.resolve(
     __dirname,
