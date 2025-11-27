@@ -304,7 +304,7 @@ const ThematicDialog = ({
                 )
             }
         }
-    }, [rows, orgUnits, dispatch])
+    }, [rows, orgUnits.levels, dispatch])
 
     // Set rendering strategy to single if not relative period
     useEffect(() => {
