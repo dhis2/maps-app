@@ -5,6 +5,7 @@ import {
     GLOBAL_HEADER_HEIGHT,
     assertMapPosition,
 } from '../elements/map_canvas.js'
+import { ThematicLayer } from '../elements/thematic_layer.js'
 import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../support/util.js'
 
 Cypress.on('uncaught:exception', (err) => {
@@ -22,6 +23,16 @@ const map = {
     name: 'ANC: LLITN Cov Chiefdom this year',
     downloadFileNamePrefix: 'ANC LLITN Cov Chiefdom this year',
     cardTitle: 'ANC LLITN coverage',
+}
+
+const checkTableCell = ({ row = 0, column = 0, expectedContent }) => {
+    cy.getByDataTest('bottom-panel')
+        .findByDataTest('dhis2-uicore-tablebody')
+        .find('tr')
+        .eq(row)
+        .find('td')
+        .eq(column)
+        .should('contain', expectedContent)
 }
 
 describe('data table', () => {
@@ -83,41 +94,15 @@ describe('data table', () => {
             .should('have.length', 7)
 
         // confirm that the sort order is initially ascending by Name
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .first()
-            .find('td')
-            .eq(1)
-            .should('contain', 'Bargbe')
-
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .last()
-            .find('td')
-            .eq(1)
-            .should('contain', 'Upper Bambara')
+        checkTableCell({ row: 0, column: 1, expectedContent: 'Bargbe' })
+        checkTableCell({ row: 6, column: 1, expectedContent: 'Upper Bambara' })
 
         // Sort by name
         cy.get('button[title="Sort by Name"]').click()
 
         // confirm that the rows are sorted by Name descending
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .first()
-            .find('td')
-            .eq(1)
-            .should('contain', 'Upper Bambara')
-
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .last()
-            .find('td')
-            .eq(1)
-            .should('contain', 'Bargbe')
+        checkTableCell({ row: 0, column: 1, expectedContent: 'Upper Bambara' })
+        checkTableCell({ row: 6, column: 1, expectedContent: 'Bargbe' })
 
         // filter by Value (numeric)
         cy.getByDataTest('data-table-column-filter-input-Value')
@@ -134,21 +119,8 @@ describe('data table', () => {
         cy.get('button[title="Sort by Value"]').click()
 
         // check that the rows are sorted by Value ascending
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .first()
-            .find('td')
-            .eq(3)
-            .should('contain', '35')
-
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .last()
-            .find('td')
-            .eq(3)
-            .should('contain', '76')
+        checkTableCell({ row: 0, column: 3, expectedContent: '35' })
+        checkTableCell({ row: 4, column: 3, expectedContent: '76' })
 
         // click on a row
         cy.getByDataTest('bottom-panel')
@@ -219,22 +191,8 @@ describe('data table', () => {
             .type(ouName)
 
         // check that all the rows have Org unit Moyowa
-
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .first()
-            .find('td')
-            .eq(1)
-            .should('contain', ouName)
-
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .last()
-            .find('td')
-            .eq(1)
-            .should('contain', ouName)
+        checkTableCell({ row: 0, column: 1, expectedContent: ouName })
+        checkTableCell({ row: 2, column: 1, expectedContent: ouName })
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
@@ -275,21 +233,8 @@ describe('data table', () => {
         cy.get('button[title="Sort by Age in years"]').click()
 
         // confirm that the rows are sorted by Age in years descending
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .first()
-            .find('td')
-            .eq(7)
-            .should('contain', '32')
-
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .find('tr')
-            .last()
-            .find('td')
-            .eq(7)
-            .should('contain', '6')
+        checkTableCell({ row: 0, column: 7, expectedContent: '32' })
+        checkTableCell({ row: 1, column: 7, expectedContent: '6' })
 
         // click on a row
         cy.getByDataTest('bottom-panel')
@@ -300,5 +245,93 @@ describe('data table', () => {
 
         // check that the org unit profile drawer is NOT opened
         cy.getByDataTest('org-unit-profile').should('not.exist')
+    })
+
+    it('places undefined data at the end when sorting', () => {
+        cy.visit('/')
+
+        const Layer = new ThematicLayer()
+
+        const INDICATOR_NAME = 'Measles Coverage <1y'
+
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('Immunization')
+            .selectIndicator(INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 3, // April
+                y: CURRENT_YEAR,
+            })
+            .selectTab('Org Units')
+            .unselectOu('Sierra Leone')
+            .selectOu('Bonthe')
+            .unselectOuLevel('District')
+            .selectOuLevel('Facility')
+            .selectTab('Style')
+            .selectIncludeNoDataOU()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardTitle(INDICATOR_NAME)
+
+        // Open the data table
+        cy.getByDataTest('moremenubutton').first().click()
+        cy.getByDataTest('more-menu')
+            .find('li')
+            .contains('Show data table')
+            .click()
+
+        // Check that the bottom panel is present
+        cy.getByDataTest('bottom-panel').should('be.visible')
+
+        // Confirm that the sort order is initially ascending by Name
+        checkTableCell({ row: 0, column: 1, expectedContent: 'Bendu CHC' })
+
+        cy.get('button[title="Sort by Value"]').click()
+
+        // Check that first row has Gbamgbama CHC with value 117.98
+        checkTableCell({ row: 0, column: 1, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 0, column: 3, expectedContent: '117.98' })
+
+        // Check that row 5 has Tihun CHC with value 28.63
+        checkTableCell({ row: 5, column: 1, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 5, column: 3, expectedContent: '28.63' })
+
+        // Check that row 6 has no value (undefined)
+        checkTableCell({ row: 6, column: 3, expectedContent: '' })
+
+        // Sort ascending by Value
+        cy.get('button[title="Sort by Value"]').click()
+
+        checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 0, column: 3, expectedContent: '28.63' })
+
+        checkTableCell({ row: 5, column: 1, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 5, column: 3, expectedContent: '117.98' })
+
+        checkTableCell({ row: 6, column: 3, expectedContent: '' })
+
+        // Sort by index and scroll to the top
+        cy.get('button[title="Sort by Index"]').click()
+        cy.get('[data-test-id="virtuoso-scroller"]').scrollTo('top')
+
+        checkTableCell({ row: 0, column: 0, expectedContent: '28' })
+
+        // Check that row 0 range value is empty
+        checkTableCell({ row: 0, column: 5, expectedContent: '' })
+
+        // Sort by range, which is a string
+        cy.get('button[title="Sort by Range"]').click()
+
+        // Check that row 0 range value has value '0-40'
+        checkTableCell({ row: 0, column: 5, expectedContent: '0 - 40' })
+
+        // Check that row 5 range value has value '90 - 120'
+        checkTableCell({ row: 5, column: 5, expectedContent: '90 - 120' })
+
+        // Check that row 6 range value is empty
+        checkTableCell({ row: 6, column: 5, expectedContent: '' })
     })
 })

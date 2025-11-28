@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-20T07:43:21.017Z\n"
-"PO-Revision-Date: 2025-06-20T07:43:21.017Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
+"PO-Revision-Date: 2025-10-28T16:10:10.277Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -95,6 +95,9 @@ msgstr "None"
 msgid "Cascading"
 msgstr "Cascading"
 
+msgid "Organisation unit location"
+msgstr "Organisation unit location"
+
 msgid "Event location"
 msgstr "Event location"
 
@@ -103,9 +106,6 @@ msgstr "Enrollment location"
 
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
-
-msgid "Organisation unit location"
-msgstr "Organisation unit location"
 
 msgid "Fallback coordinate field"
 msgstr "Fallback coordinate field"
@@ -431,6 +431,9 @@ msgstr "Event status"
 msgid "Boundary color"
 msgstr "Boundary color"
 
+msgid "Draws a buffer area around each location."
+msgstr "Draws a buffer area around each location."
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -451,6 +454,18 @@ msgstr "Line/stroke width"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "Line/stroke width must be between 0-10."
+
+msgid "May cause slow layer loading."
+msgstr "May cause slow layer loading."
+
+msgid "Convert polygons to their centroids."
+msgstr "Convert polygons to their centroids."
+
+msgid "Centroids"
+msgstr "Centroids"
+
+msgid "Polygons are represented by their centroids."
+msgstr "Polygons are represented by their centroids."
 
 msgid "Labels"
 msgstr "Labels"
@@ -691,9 +706,6 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
-msgid "Mid"
-msgstr "Mid"
-
 msgid "Group"
 msgstr "Group"
 
@@ -927,6 +939,9 @@ msgstr "Selected and all below"
 msgid "Selection mode"
 msgstr "Selection mode"
 
+msgid "Clear"
+msgstr "Clear"
+
 msgid "Previous year"
 msgstr "Previous year"
 
@@ -992,6 +1007,12 @@ msgstr "End date"
 msgid "Not available offline"
 msgstr "Not available offline"
 
+msgid "Click to unpin legend"
+msgstr "Click to unpin legend"
+
+msgid "Click to pin legend"
+msgstr "Click to pin legend"
+
 msgid "Program indicator"
 msgstr "Program indicator"
 
@@ -1049,6 +1070,9 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
+msgid "Sentinel-2 EOX"
+msgstr "Sentinel-2 EOX"
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1060,6 +1084,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
+
+msgid "Azure Road"
+msgstr "Azure Road"
+
+msgid "Azure Dark"
+msgstr "Azure Dark"
+
+msgid "Azure Aerial"
+msgstr "Azure Aerial"
+
+msgid "Azure Aerial Labels"
+msgstr "Azure Aerial Labels"
 
 msgid "Building footprints"
 msgstr "Building footprints"
@@ -1534,6 +1570,18 @@ msgstr "true"
 
 msgid "false"
 msgstr "false"
+
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr "{{keyName}} is not valid for layer type: {{type}}"
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr "{{keyName}} is not provided for layer type(s): {{types}}"
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr "Could not load: {{id}} — using the default basemap instead."
+
+msgid "Mid"
+msgstr "Mid"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "

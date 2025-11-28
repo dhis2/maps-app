@@ -1,123 +1,141 @@
 import { formatValueForDisplay, sumObjectValues } from '../helpers.js'
 
 describe('formatValueForDisplay', () => {
-    it('returns "0", "1" as is without transformation', () => {
-        expect(formatValueForDisplay({ value: '0', valueType: 'NUMBER' })).toBe(
-            '0'
-        )
-        expect(formatValueForDisplay({ value: '1', valueType: 'NUMBER' })).toBe(
-            '1'
-        )
-    })
-
-    it('returns "Not set" for null/undefined/empty string', () => {
-        expect(formatValueForDisplay({ value: null })).toBe('Not set')
-        expect(formatValueForDisplay({ value: undefined })).toBe('Not set')
-        expect(formatValueForDisplay({ value: '' })).toBe('Not set')
-        expect(formatValueForDisplay({ value: 'Not set' })).toBe('Not set')
-    })
-
-    it('returns option label if present in options', () => {
-        const result = formatValueForDisplay({
-            value: 'A',
-            options: { A: 'Option A', B: 'Option B' },
-        })
-        expect(result).toBe('Option A')
-    })
-
-    it('ignores options if value not in options', () => {
-        const result = formatValueForDisplay({
-            value: 'C',
-            options: { A: 'Option A', B: 'Option B' },
-            valueType: 'TEXT',
-        })
-        expect(result).toBe('C')
-    })
-
-    it('formats coordinates when valueType is coordinate (string)', () => {
-        const result = formatValueForDisplay({
-            value: '[12.3456781, 98.7654321]',
-            valueType: 'COORDINATE',
-        })
-        expect(result).toBe('12.345678, 98.765432')
-    })
-
-    it('formats coordinates when valueType is coordinate (array of numbers)', () => {
-        const result = formatValueForDisplay({
-            value: [12.3456781, 98.7654321],
-            valueType: 'COORDINATE',
-        })
-        expect(result).toBe('12.345678, 98.765432')
-    })
-
-    it('formats coordinates when valueType is coordinate (array of strings)', () => {
-        const result = formatValueForDisplay({
-            value: ['12.3456781', '98.7654321'],
-            valueType: 'COORDINATE',
-        })
-        expect(result).toBe('12.345678, 98.765432')
-    })
-
-    it('returns raw value when coordinate parsing fails', () => {
-        const result = formatValueForDisplay({
-            value: 'invalid json',
-            valueType: 'COORDINATE',
-        })
-        expect(result).toBe('invalid json')
-    })
-
-    it('formats boolean true/false', () => {
-        const trueResult = formatValueForDisplay({
-            value: 'true',
-            valueType: 'BOOLEAN',
-        })
-        expect(trueResult).toBe('Yes')
-
-        const falseResult = formatValueForDisplay({
-            value: 'false',
-            valueType: 'BOOLEAN',
-        })
-        expect(falseResult).toBe('No')
-    })
-
-    it('returns raw value if boolean is not true/false', () => {
-        const result = formatValueForDisplay({
-            value: 'maybe',
-            valueType: 'BOOLEAN',
-        })
-        expect(result).toBe('maybe')
-    })
-
-    it('formats date', () => {
-        const result = formatValueForDisplay({
-            value: '2025-05-08T00:00:00Z',
-            valueType: 'DATE',
-        })
-        expect(result).toBe('2025-05-08')
-    })
-
-    it('returns raw value if date is too short', () => {
-        const result = formatValueForDisplay({
-            value: '2025-05',
-            valueType: 'DATE',
-        })
-        expect(result).toBe('2025-05')
-    })
-
-    it('formats datetime', () => {
-        const result = formatValueForDisplay({
-            value: '2025-05-08T00:00:00Z',
-            valueType: 'DATETIME',
-        })
-        expect(result).toBe('2025-05-08 00:00')
-    })
-
-    it('returns raw value if datetime is too short', () => {
-        const result = formatValueForDisplay({
-            value: '2025-05-08T00',
-            valueType: 'DATETIME',
-        })
-        expect(result).toBe('2025-05-08T00')
+    it.each([
+        {
+            desc: 'returns "0" as is without transformation',
+            input: { value: '0', valueType: 'NUMBER' },
+            expected: '0',
+        },
+        {
+            desc: 'returns "1" as is without transformation',
+            input: { value: '1', valueType: 'NUMBER' },
+            expected: '1',
+        },
+        {
+            desc: 'returns "Not set" for null',
+            input: { value: null },
+            expected: 'Not set',
+        },
+        {
+            desc: 'returns "Not set" for undefined',
+            input: { value: undefined },
+            expected: 'Not set',
+        },
+        {
+            desc: 'returns "Not set" for empty string',
+            input: { value: '' },
+            expected: 'Not set',
+        },
+        {
+            desc: 'returns "Not set" for string "Not set"',
+            input: { value: 'Not set' },
+            expected: 'Not set',
+        },
+        {
+            desc: 'returns option label if present in options',
+            input: {
+                value: 'A',
+                options: { A: 'Option A', B: 'Option B' },
+            },
+            expected: 'Option A',
+        },
+        {
+            desc: 'ignores options if value not in options',
+            input: {
+                value: 'C',
+                options: { A: 'Option A', B: 'Option B' },
+                valueType: 'TEXT',
+            },
+            expected: 'C',
+        },
+        {
+            desc: 'formats coordinates (string)',
+            input: {
+                value: '[12.3456781, 98.7654321]',
+                valueType: 'COORDINATE',
+            },
+            expected: '12.345678, 98.765432',
+        },
+        {
+            desc: 'formats coordinates (array of numbers)',
+            input: {
+                value: [12.3456781, 98.7654321],
+                valueType: 'COORDINATE',
+            },
+            expected: '12.345678, 98.765432',
+        },
+        {
+            desc: 'formats coordinates (array of strings)',
+            input: {
+                value: ['12.3456781', '98.7654321'],
+                valueType: 'COORDINATE',
+            },
+            expected: '12.345678, 98.765432',
+        },
+        {
+            desc: 'returns raw value when coordinate parsing fails',
+            input: {
+                value: 'invalid json',
+                valueType: 'COORDINATE',
+            },
+            expected: 'invalid json',
+        },
+        {
+            desc: 'formats boolean true',
+            input: { value: 'true', valueType: 'BOOLEAN' },
+            expected: 'Yes',
+        },
+        {
+            desc: 'formats boolean false',
+            input: { value: 'false', valueType: 'BOOLEAN' },
+            expected: 'No',
+        },
+        {
+            desc: 'returns raw value if boolean is not true/false',
+            input: { value: 'maybe', valueType: 'BOOLEAN' },
+            expected: 'maybe',
+        },
+        {
+            desc: 'formats date',
+            input: { value: '2025-05-08T00:00:00Z', valueType: 'DATE' },
+            expected: '2025-05-08',
+        },
+        {
+            desc: 'returns raw value if date is too short',
+            input: { value: '2025-05', valueType: 'DATE' },
+            expected: '2025-05',
+        },
+        {
+            desc: 'formats datetime',
+            input: { value: '2025-05-08T00:00:00Z', valueType: 'DATETIME' },
+            expected: '2025-05-08 00:00',
+        },
+        {
+            desc: 'returns raw value if datetime is too short',
+            input: { value: '2025-05-08T00', valueType: 'DATETIME' },
+            expected: '2025-05-08T00',
+        },
+        {
+            desc: 'returns org unit name if orgUnitNames has the value',
+            input: {
+                value: 'ou123',
+                valueType: 'ORGANISATION_UNIT',
+                orgUnitNames: { ou123: 'Sierra Leone' },
+            },
+            expected: 'Sierra Leone',
+        },
+        {
+            desc: 'returns raw value if orgUnitNames does not have the value',
+            input: {
+                value: 'ou999',
+                valueType: 'ORGANISATION_UNIT',
+                orgUnitNames: { ou123: 'Sierra Leone' },
+            },
+            expected: 'ou999',
+        },
+    ])('$desc', ({ input, expected }) => {
+        expect(formatValueForDisplay(input)).toBe(expected)
     })
 
     it('returns raw value for other DHIS2 types not specially handled', () => {
@@ -137,7 +155,6 @@ describe('formatValueForDisplay', () => {
             INTEGER_NEGATIVE: '-3',
             INTEGER_ZERO_OR_POSITIVE: '0',
             USERNAME: 'jdoe',
-            ORGANISATION_UNIT: 'Sierra Leone',
             URL: 'https://dhis2.org',
             GEOJSON: '{"type":"Point","coordinates":[125.6, 10.1]}',
         }

@@ -140,15 +140,17 @@ const loadEventLayer = async ({
 
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
+    let serverCount
     if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
         config.serverCluster = shouldUseServerCluster(response.count)
+        serverCount = response.count
     }
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { names, data, response } = await loadData({
+        const { data, response } = await loadData({
             request: analyticsRequest,
             config,
             analyticsEngine,
@@ -182,30 +184,6 @@ const loadEventLayer = async ({
             }
         }
 
-        // TODO: Add filters to legend when using server cluster
-        // Currently not done as names are not available
-        config.legend.filters =
-            dataFilters &&
-            getFiltersAsText(dataFilters, {
-                ...names,
-                ...(await getFilterOptionNames(
-                    dataFilters,
-                    response.headers,
-                    engine
-                )),
-            })
-
-        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
-            program,
-            programStage,
-            eventCoordinateField,
-            engine,
-            displayNameProp,
-        })
-        if (eventCoordinateFieldName) {
-            config.legend.coordinateFields = [eventCoordinateFieldName]
-        }
-
         config.headers = response.headers
 
         const numericDataItemHeaders = config.headers.filter(
@@ -229,6 +207,34 @@ const loadEventLayer = async ({
         }
     }
 
+    if (dataFilters) {
+        const { names, response } = await loadData({
+            request: analyticsRequest,
+            config,
+            analyticsEngine,
+            pageSize: 0,
+        })
+        config.legend.filters = getFiltersAsText(dataFilters, {
+            ...names,
+            ...(await getFilterOptionNames(
+                dataFilters,
+                response.headers,
+                engine
+            )),
+        })
+    }
+
+    const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+        program,
+        programStage,
+        eventCoordinateField,
+        engine,
+        displayNameProp,
+    })
+    if (eventCoordinateFieldName) {
+        config.legend.coordinateFields = [eventCoordinateFieldName]
+    }
+
     if (!styleDataItem) {
         const color = cssColor(eventPointColor) || EVENT_COLOR
         const strokeColor = getContrastColor(color)
@@ -239,7 +245,9 @@ const loadEventLayer = async ({
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
-                count: Array.isArray(config?.data) ? config.data.length : 0,
+                count:
+                    serverCount ||
+                    (Array.isArray(config?.data) ? config.data.length : 0),
             },
         ]
     }
@@ -262,9 +270,7 @@ const loadEventLayer = async ({
         config.legend.explanation = explanation
     }
 
-    if (alert) {
-        config.alerts = [alert]
-    }
+    config.alerts = alert ? [alert] : undefined
 }
 
 // If the layer included filters using option sets, this function return an object
