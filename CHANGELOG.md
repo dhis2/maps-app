@@ -1,3 +1,10 @@
+## [101.4.7](https://github.com/dhis2/maps-app/compare/v101.4.6...v101.4.7) (2025-11-25)
+
+
+### Bug Fixes
+
+* make selected radio option visible in style tab [DHIS2-19809] ([#3589](https://github.com/dhis2/maps-app/issues/3589)) ([74e8655](https://github.com/dhis2/maps-app/commit/74e8655ac9e4367a1648d6fea55069d2ea0aed18))
+
 ## [101.4.6](https://github.com/dhis2/maps-app/compare/v101.4.5...v101.4.6) (2025-11-05)
 
 
