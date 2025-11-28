@@ -40,7 +40,7 @@ export default function createConfig() {
             },
         ],
         bands: {
-            label: i18n.t('Temporal aggregatation method'),
+            label: i18n.t('Temporal aggregation method'),
             multiple: false,
             default: 'temperature_2m',
             list: [
