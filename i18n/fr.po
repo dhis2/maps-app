@@ -3,23 +3,24 @@
 # Austin McGee <austin@dhis2.org>, 2019
 # Matthieu Pinard <matthieu@dhis2.org>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Edem Kossi <ekossi@hispwca.org>, 2020
 # Bram Piot <bram.piot@gmail.com>, 2021
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2022
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Elise Desailly, 2024
+# Edem Kossi <ekossi@hispwca.org>, 2025
+# Philip Larsen Donnelly, 2025
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
+# Elise Desailly, 2025
+# Esther Tokouli, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025\n"
+"Last-Translator: Esther Tokouli, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,8 +40,20 @@ msgstr ""
 msgid "Failed to save map: {{message}}"
 msgstr ""
 
+msgid "Rename failed"
+msgstr "Échec du renommage"
+
+msgid "Rename successful"
+msgstr "Renommer avec succès"
+
+msgid "This app could not retrieve required data."
+msgstr "Cette application n'a pas pu récupérer les données nécessaires."
+
+msgid "Network error"
+msgstr "Erreur réseau"
+
 msgid "Calculation"
-msgstr ""
+msgstr "Calcul"
 
 msgid "No calculations found"
 msgstr "Aucun calcul trouvé"
@@ -93,10 +106,16 @@ msgstr "Détails"
 msgid "Yes"
 msgstr "Oui"
 
+msgid "No"
+msgstr "Non"
+
 msgid "None"
 msgstr "Aucun"
 
 msgid "Cascading"
+msgstr ""
+
+msgid "Organisation unit location"
 msgstr ""
 
 msgid "Event location"
@@ -106,9 +125,6 @@ msgid "Enrollment location"
 msgstr ""
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
 msgstr ""
 
 msgid "Fallback coordinate field"
@@ -126,7 +142,7 @@ msgstr ""
 msgid "Event data item"
 msgstr "Elément de données évènement"
 
-msgid "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
@@ -443,6 +459,9 @@ msgstr "Statut de l'événement"
 msgid "Boundary color"
 msgstr "Couleur de limite"
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr "Mémoire tampon"
 
@@ -463,6 +482,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -535,7 +566,7 @@ msgid "Program indicators"
 msgstr "Program indicators"
 
 msgid "Calculations"
-msgstr ""
+msgstr "Calculs"
 
 msgid "Item type"
 msgstr "Type d'élément"
@@ -609,9 +640,6 @@ msgstr "Supprimer le filtre"
 
 msgid "Group set"
 msgstr "Ensemble de groupes"
-
-msgid "Failed to load organisation unit groups."
-msgstr "Échec du chargement des groupes d'unités d'organisation."
 
 msgid "Style by group set"
 msgstr "Style par ensemble de groupes"
@@ -715,17 +743,11 @@ msgstr "Modifier la couche"
 msgid "Remove layer"
 msgstr "Supprimer la couche"
 
-msgid "Mid"
-msgstr "Moyen"
-
 msgid "Group"
 msgstr "Groupe"
 
 msgid "Filters"
 msgstr "Filtres"
-
-msgid "{{layername}}: {{message}}"
-msgstr ""
 
 msgid "No data found"
 msgstr "Aucune valeur trouvée"
@@ -763,9 +785,6 @@ msgstr "Latitude"
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "Non défini"
-
 msgid "Could not retrieve event data"
 msgstr ""
 
@@ -777,6 +796,9 @@ msgstr "Unité parente"
 
 msgid "No data"
 msgstr "Aucune donnée"
+
+msgid "Not set"
+msgstr "Non défini"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -954,6 +976,9 @@ msgstr "Élément sélectionné et tout ce qui se trouve en-dessous"
 msgid "Selection mode"
 msgstr "Sélectionner le mode"
 
+msgid "Clear"
+msgstr "Supprimer"
+
 msgid "Previous year"
 msgstr "L'année dernière"
 
@@ -974,7 +999,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1073,6 +1098,9 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM détaillée"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1084,6 +1112,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Étiquettes Bing Aerial"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr "Empreintes des bâtiments"
@@ -1507,6 +1547,12 @@ msgstr "Evènement"
 msgid "Facilities"
 msgstr "Établissements"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1555,12 +1601,17 @@ msgstr "vrai"
 msgid "false"
 msgstr "faux"
 
-msgid "No"
-msgstr "Non"
-
-msgid "Cannot get authorization token for Google Earth Engine."
+msgid "{{keyName}} is not valid for layer type: {{type}}"
 msgstr ""
-"Impossible d'obtenir le token d'autorisation pour Google Earth Engine."
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Moyen"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1568,6 +1619,10 @@ msgid ""
 msgstr ""
 "Cette couche nécessite un compte Google Earth Engine. Consultez la "
 "documentation du DHIS2 pour plus d'informations."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+"Impossible d'obtenir le token d'autorisation pour Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thématique"
@@ -1583,6 +1638,9 @@ msgstr "OrgUnit"
 
 msgid "Facility"
 msgstr "Etablissement"
+
+msgid "Other"
+msgstr "Autre"
 
 msgid "Start date is invalid"
 msgstr "La date de début n'est pas valable"

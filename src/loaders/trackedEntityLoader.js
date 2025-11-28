@@ -9,7 +9,6 @@ import {
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { apiFetch } from '../util/api.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -29,8 +28,79 @@ const teiGeometryTypes = [
     GEO_TYPE_MULTIPOLYGON,
 ]
 
-//TODO: Refactor to share code with other loaders
-const trackedEntityLoader = async (config, serverVersion) => {
+const TEI_40_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+    }) => ({
+        fields,
+        orgUnit: orgUnits,
+        ouMode: orgUnitMode,
+        program: program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        skipPaging: true,
+    }),
+}
+
+const TEI_41_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        // TODO no followUp?
+    }) => ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        paging: false,
+    }),
+}
+
+const RELATIONSHIP_TYPES_QUERY = {
+    resource: 'relationshipTypes',
+    id: ({ id }) => id,
+}
+
+const TRACKED_ENTITY_TYPES_QUERY = {
+    resource: 'trackedEntityTypes',
+    id: ({ id }) => id,
+    params: {
+        fields: 'displayName,featureType',
+    },
+}
+
+const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)
@@ -85,72 +155,59 @@ const trackedEntityLoader = async (config, serverVersion) => {
         ],
     }
 
-    // https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-    let trackerRootProp,
-        trackerOrgUnitsParam,
-        trackerOrgUnitsModeParam,
-        trackerValuesSeparator,
-        trackerPaging
-    if (`${serverVersion.major}.${serverVersion.minor}` == '2.40') {
-        trackerRootProp = 'instances'
-        trackerOrgUnitsParam = 'orgUnit'
-        trackerOrgUnitsModeParam = 'ouMode'
-        trackerValuesSeparator = ';'
-        trackerPaging = 'skipPaging=true'
-    } else {
-        trackerRootProp = 'trackedEntities'
-        trackerOrgUnitsParam = 'orgUnits'
-        trackerOrgUnitsModeParam = 'orgUnitMode'
-        trackerValuesSeparator = ','
-        trackerPaging = 'paging=false'
-    }
+    // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
+    const isVersion40 = `${serverVersion.minor}` === '40'
 
     const orgUnits = getOrgUnitsFromRows(rows)
         .map((ou) => ou.id)
-        .join(trackerValuesSeparator)
+        .join(isVersion40 ? ';' : ',')
 
     const fieldsWithRelationships = [...fields, 'relationships']
-    let url = `/tracker/trackedEntities?${trackerPaging}&fields=${fieldsWithRelationships}&${trackerOrgUnitsParam}=${orgUnits}`
-    let alert
     let explanation
+    let boolFollowUp = undefined
 
-    if (organisationUnitSelectionMode) {
-        url += `&${trackerOrgUnitsModeParam}=${organisationUnitSelectionMode}`
+    if (program && programStatus) {
+        explanation = `${i18n.t('Program status')}: ${
+            getProgramStatuses().find((s) => s.id === programStatus).name
+        }`
     }
 
-    if (program) {
-        url += `&program=${program.id}`
+    if (program && followUp !== undefined) {
+        boolFollowUp = followUp ? 'TRUE' : 'FALSE'
+    }
 
-        if (programStatus) {
-            url += `&programStatus=${programStatus}`
-            explanation = `${i18n.t('Program status')}: ${
-                getProgramStatuses().find((s) => s.id === programStatus).name
-            }`
+    const { trackedEntities } = await engine.query(
+        { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
+        {
+            variables: {
+                fields: fieldsWithRelationships,
+                orgUnits: orgUnits,
+                orgUnitMode: organisationUnitSelectionMode,
+                program: program?.id,
+                programStatus,
+                followUp: boolFollowUp,
+                trackedEntityType: !program ? trackedEntityType?.id : undefined,
+                enrollmentEnrolledAfter:
+                    periodType === 'program' ? trimTime(startDate) : undefined,
+                enrollmentEnrolledBefore:
+                    periodType === 'program' ? trimTime(endDate) : undefined,
+                updatedAfter:
+                    periodType !== 'program' ? trimTime(startDate) : undefined,
+                updatedBefore:
+                    periodType !== 'program' ? trimTime(endDate) : undefined,
+            },
         }
+    )
 
-        if (followUp !== undefined) {
-            url += `&followUp=${followUp ? 'TRUE' : 'FALSE'}`
-        }
-    } else {
-        url += `&trackedEntityType=${trackedEntityType.id}`
-    }
-
-    if (periodType === 'program') {
-        url += `&enrollmentEnrolledAfter=${trimTime(
-            startDate
-        )}&enrollmentEnrolledBefore=${trimTime(endDate)}`
-    } else {
-        url += `&updatedAfter=${trimTime(startDate)}&updatedBefore=${trimTime(
-            endDate
-        )}`
-    }
-
-    const primaryData = await apiFetch(url)
-    const instances = primaryData[trackerRootProp].filter(
+    const instances = trackedEntities[
+        isVersion40 ? 'instances' : 'trackedEntities'
+    ].filter(
         (instance) =>
             teiGeometryTypes.includes(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
+
+    let alert
 
     if (!instances.length) {
         alert = {
@@ -162,14 +219,24 @@ const trackedEntityLoader = async (config, serverVersion) => {
     let data, relationships, secondaryData
 
     if (relationshipTypeID) {
-        const relationshipType = await apiFetch(
-            `/relationshipTypes/${relationshipTypeID}`
+        const { relationshipType } = await engine.query(
+            { relationshipType: RELATIONSHIP_TYPES_QUERY },
+            {
+                variables: {
+                    id: relationshipTypeID,
+                },
+            }
         )
 
-        const relatedTypeId = relationshipType.toConstraint.trackedEntityType.id
-        const relatedEntityType = await apiFetch(
-            `/trackedEntityTypes/${relatedTypeId}?fields=displayName,featureType`
+        const { relatedEntityType } = await engine.query(
+            { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+            {
+                variables: {
+                    id: relationshipType.toConstraint.trackedEntityType.id,
+                },
+            }
         )
+
         const isPoint =
             relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
 
@@ -190,15 +257,16 @@ const trackedEntityLoader = async (config, serverVersion) => {
             }
         )
 
-        const dataWithRels = await getDataWithRelationships(
-            serverVersion,
+        const dataWithRels = await getDataWithRelationships({
+            isVersion40,
             instances,
-            {
+            queryOptions: {
                 relationshipType,
                 orgUnits,
                 organisationUnitSelectionMode,
-            }
-        )
+            },
+            engine,
+        })
 
         data = toGeoJson(dataWithRels.primary)
         relationships = dataWithRels.relationships

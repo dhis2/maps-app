@@ -18,11 +18,13 @@ const validMapProperties = [
     'zoom',
     'created',
     'lastUpdated',
+    'subscribers',
 ]
 
 const validLayerProperties = [
     'aggregationType',
     'areaRadius',
+    'geometryCentroid',
     'band',
     'classes',
     'colorHigh', // Deprecated
@@ -96,10 +98,16 @@ const validModelProperties = [
     'dimensionItemType',
 ]
 
-export const cleanMapConfig = ({ config, defaultBasemapId }) => ({
+export const cleanMapConfig = ({
+    config,
+    defaultBasemapId,
+    cleanMapviewConfig = true,
+}) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
     basemap: getBasemapString(config.basemap, defaultBasemapId),
-    mapViews: config.mapViews.map(cleanLayerConfig),
+    mapViews: config.mapViews.map((view) =>
+        cleanLayerConfig(view, cleanMapviewConfig)
+    ),
 })
 
 const getBasemapString = (basemap, defaultBasemapId) => {
@@ -114,12 +122,12 @@ const getBasemapString = (basemap, defaultBasemapId) => {
     return basemap.id || defaultBasemapId
 }
 
-const cleanLayerConfig = (layer) => ({
-    ...models2objects(pick(validLayerProperties, layer)),
+const cleanLayerConfig = (layer, cleanMapviewConfig) => ({
+    ...models2objects(pick(validLayerProperties, layer), cleanMapviewConfig),
 })
 
 // TODO: This feels hacky, find better way to clean map configs before saving
-const models2objects = (layer) => {
+const models2objects = (layer, cleanMapviewConfig) => {
     const { layer: layerType } = layer
 
     Object.keys(layer).forEach((key) => {
@@ -133,21 +141,23 @@ const models2objects = (layer) => {
     }
 
     if (layerType === EARTH_ENGINE_LAYER) {
-        const { layerId: id, band, style, aggregationType, period } = layer
+        if (cleanMapviewConfig) {
+            const { layerId: id, band, style, aggregationType, period } = layer
 
-        const eeConfig = {
-            id,
-            style,
-            band,
-            aggregationType,
-            period,
+            const eeConfig = {
+                id,
+                style,
+                band,
+                aggregationType,
+                period,
+            }
+
+            // Removes undefined keys before stringify
+            Object.keys(eeConfig).forEach(
+                (key) => eeConfig[key] === undefined && delete eeConfig[key]
+            )
+            layer.config = JSON.stringify(eeConfig)
         }
-
-        // Removes undefined keys before stringify
-        Object.keys(eeConfig).forEach(
-            (key) => eeConfig[key] === undefined && delete eeConfig[key]
-        )
-        layer.config = JSON.stringify(eeConfig)
 
         delete layer.layerId
         delete layer.datasetId
@@ -159,19 +169,21 @@ const models2objects = (layer) => {
         delete layer.aggregationType
         delete layer.band
     } else if (layerType === TRACKED_ENTITY_LAYER) {
-        layer.config = JSON.stringify({
-            relationships: layer.relationshipType
-                ? {
-                      type: layer.relationshipType,
-                      pointColor: layer.relatedPointColor,
-                      pointRadius: layer.relatedPointRadius,
-                      lineColor: layer.relationshipLineColor,
-                      relationshipOutsideProgram:
-                          layer.relationshipOutsideProgram,
-                  }
-                : null,
-            periodType: layer.periodType,
-        })
+        if (cleanMapviewConfig) {
+            layer.config = JSON.stringify({
+                relationships: layer.relationshipType
+                    ? {
+                          type: layer.relationshipType,
+                          pointColor: layer.relatedPointColor,
+                          pointRadius: layer.relatedPointRadius,
+                          lineColor: layer.relationshipLineColor,
+                          relationshipOutsideProgram:
+                              layer.relationshipOutsideProgram,
+                      }
+                    : null,
+                periodType: layer.periodType,
+            })
+        }
 
         delete layer.relationshipType
         delete layer.relatedPointColor
@@ -180,9 +192,11 @@ const models2objects = (layer) => {
         delete layer.relationshipOutsideProgram
         delete layer.periodType
     } else if (layerType === GEOJSON_URL_LAYER) {
-        layer.config = {
-            ...layer.config,
-            featureStyle: { ...layer.featureStyle },
+        if (cleanMapviewConfig) {
+            layer.config = {
+                ...layer.config,
+                featureStyle: { ...layer.featureStyle },
+            }
         }
 
         delete layer.featureStyle

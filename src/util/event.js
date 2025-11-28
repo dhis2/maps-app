@@ -73,7 +73,7 @@ export const getAnalyticsRequest = async (
         relativePeriodDate,
         isExtended,
     },
-    { d2, nameProperty, engine }
+    { nameProperty, engine, analyticsEngine }
 ) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
@@ -96,7 +96,7 @@ export const getAnalyticsRequest = async (
         })
     }
 
-    let analyticsRequest = new d2.analytics.request()
+    let analyticsRequest = new analyticsEngine.request()
         .withProgram(program.id)
         .withStage(programStage.id)
         .withCoordinatesOnly(true)
@@ -147,9 +147,14 @@ export const getAnalyticsRequest = async (
     return analyticsRequest
 }
 
-export const loadData = async (request, config = {}, d2) => {
-    const response = await d2.analytics.events.getQuery(
-        request.withPageSize(EVENT_CLIENT_PAGE_SIZE)
+export const loadData = async ({
+    request,
+    config = {},
+    analyticsEngine,
+    pageSize = EVENT_CLIENT_PAGE_SIZE,
+}) => {
+    const response = await analyticsEngine.events.getQuery(
+        request.withPageSize(pageSize)
     ) // DHIS2-10742
 
     const { data, names } = createEventFeatures(response, config)

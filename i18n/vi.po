@@ -1,17 +1,17 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
-# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2024
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2025
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2025
 # Em Le <em.hispvietnam@gmail.com>, 2025
+# Philip Larsen Donnelly, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +30,18 @@ msgstr "Bản đồ \"{{- name}}\" đã được lưu."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Lưu bản đồ thất bại: {{message}}"
+
+msgid "Rename failed"
+msgstr "Đổi tên thất bại"
+
+msgid "Rename successful"
+msgstr "Đổi tên thành công"
+
+msgid "This app could not retrieve required data."
+msgstr "Ứng dụng này không thể truy xuất dữ liệu cần thiết."
+
+msgid "Network error"
+msgstr "Lỗi mạng"
 
 msgid "Calculation"
 msgstr "Tính toán"
@@ -85,11 +97,17 @@ msgstr "Chi tiết"
 msgid "Yes"
 msgstr "Có"
 
+msgid "No"
+msgstr "Không"
+
 msgid "None"
 msgstr "Không"
 
 msgid "Cascading"
 msgstr "Xếp tầng"
+
+msgid "Organisation unit location"
+msgstr "Địa điểm đơn vị"
 
 msgid "Event location"
 msgstr "Địa điểm sự kiện"
@@ -99,9 +117,6 @@ msgstr "Địa điểm đăng ký"
 
 msgid "Tracked entity location"
 msgstr "Địa điểm cá thể"
-
-msgid "Organisation unit location"
-msgstr "Địa điểm đơn vị"
 
 msgid "Fallback coordinate field"
 msgstr "Tọa độ dự phòng"
@@ -118,11 +133,11 @@ msgstr "Sự kiện > toạ độ đơn vị"
 msgid "Event data item"
 msgstr "Mục dữ liệu sự kiện"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Giá trị đã chọn không có trong danh sách: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr "Giá trị đã chọn trước đó không có trong danh sách: {{id}}"
 
 msgid "Style by data item"
-msgstr ""
+msgstr "Kiểu dáng bởi mục dữ liệu"
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "Tính năng lọc có sẵn sau khi chọn giai đoạn chương trình."
@@ -433,6 +448,9 @@ msgstr "Trạng thái sự kiện"
 msgid "Boundary color"
 msgstr "Màu ranh giới"
 
+msgid "Draws a buffer area around each location."
+msgstr "Vẽ vùng đệm xung quanh mỗi vị trí."
+
 msgid "Buffer"
 msgstr "Vùng đệm"
 
@@ -453,6 +471,18 @@ msgstr "Chiều rộng dòng/nét"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "Độ rộng của nét/nét phải nằm trong khoảng từ 0-10."
+
+msgid "May cause slow layer loading."
+msgstr "Có thể khiến lớp tải chậm."
+
+msgid "Convert polygons to their centroids."
+msgstr "Chuyển đổi đa giác thành trọng tâm của chúng."
+
+msgid "Centroids"
+msgstr "Trọng tâm"
+
+msgid "Polygons are represented by their centroids."
+msgstr "Đa giác được biểu diễn bằng trọng tâm của chúng."
 
 msgid "Labels"
 msgstr "Nhãn"
@@ -571,7 +601,7 @@ msgid "Line Color"
 msgstr "Màu đường kẻ"
 
 msgid "Tracked Entity Type is required"
-msgstr ""
+msgstr "Loại cá thể là bắt buộc"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Không tìm thấy loại mối quan hệ nào cho loại cá thể {{type}}"
@@ -590,9 +620,6 @@ msgstr "Xóa bộ lọc"
 
 msgid "Group set"
 msgstr "Tập nhóm"
-
-msgid "Failed to load organisation unit groups."
-msgstr "Không tải được nhóm đơn vị."
 
 msgid "Style by group set"
 msgstr "Kiểu theo tập nhóm đơn vị"
@@ -698,17 +725,11 @@ msgstr "Sửa lớp"
 msgid "Remove layer"
 msgstr "Xoá lớp"
 
-msgid "Mid"
-msgstr "Giữa"
-
 msgid "Group"
 msgstr "Nhóm"
 
 msgid "Filters"
 msgstr "Bộ lọc"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}:{{message}}"
 
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
@@ -746,9 +767,6 @@ msgstr "Vĩ độ"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Không thể thêm bản đồ cơ sở: {{message}}"
 
-msgid "Not set"
-msgstr "Không cài"
-
 msgid "Could not retrieve event data"
 msgstr "Không thể truy xuất dữ liệu sự kiện"
 
@@ -760,6 +778,9 @@ msgstr "Đơn vị cha"
 
 msgid "No data"
 msgstr "Không có dữ liệu"
+
+msgid "Not set"
+msgstr "Không cài"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "Không thể truy xuất dữ liệu cá thể"
@@ -936,6 +957,9 @@ msgstr "Đã chọn và tất cả bên dưới"
 msgid "Selection mode"
 msgstr "Chế độ chọn"
 
+msgid "Clear"
+msgstr "Xóa"
+
 msgid "Previous year"
 msgstr "Năm trước"
 
@@ -946,48 +970,56 @@ msgid "Start/end dates"
 msgstr "Ngày bắt đầu/kết thúc"
 
 msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr ""
+msgstr "Chọn ít nhất {{number}} thời điểm hoặc 1 đa thời điểm"
 
 msgid "Remove the existing timeline to add a new one."
-msgstr ""
+msgstr "Xóa dòng thời gian hiện tại để thêm dòng thời gian mới."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 msgstr ""
+"Chỉ đến tổng của {{number}} thời điểm (bao gồm đa thời điểm) có thể được "
+"chọn."
 
-msgid "Remove all existing layers to add a split map view."
-msgstr ""
+msgid "Remove all other layers to add a split map view."
+msgstr "Xóa tất cả các lớp khác để thêm chế độ xem bản đồ chia đôi."
 
 msgid "Single"
-msgstr ""
+msgstr "Đơn lẻ"
 
 msgid "Show periods as a combined layer. Data is aggregated."
-msgstr ""
+msgstr "Hiển thị thời điểm thành một lớp kết hợp. Dữ liệu là tổng hợp."
 
 msgid "Timeline"
 msgstr "Dòng thời gian"
 
 msgid "Show multiple periods as an interactive timeline."
-msgstr ""
+msgstr "Hiển thị nhiều giai đoạn dưới dạng dòng thời gian tương tác."
 
 msgid "Split"
-msgstr ""
+msgstr "Chia tách"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr ""
+"Hiển thị nhiều bản đồ trong chế độ xem, một bản đồ cho mỗi giai đoạn (tối đa"
+" {{number}}). "
 
 msgid "Period display mode"
-msgstr ""
+msgstr "Chế độ hiển thị thời điểm"
 
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr ""
+"Ngày bắt đầu và ngày kết thúc sẽ bao gồm và được phản ánh trong kết quả đầu "
+"ra."
 
 msgid ""
 "Start and end dates must be entered using the ISO 8601 (Gregorian) date "
 "format."
 msgstr ""
+"Ngày bắt đầu và ngày kết thúc phải được nhập theo định dạng ngày theo tiêu "
+"chuẩn ISO 8601 (lịch Gregorian)."
 
 msgid "Start date"
 msgstr "Ngày bắt đầu"
@@ -1055,6 +1087,9 @@ msgstr "Bản đồ ánh sáng OSM"
 msgid "OSM Detailed"
 msgstr "Bản đồ chi tiết OSM"
 
+msgid "Sentinel-2 EOX"
+msgstr "Sentinel-2 EOX"
+
 msgid "Bing Road"
 msgstr "Bản đồ Bing Road"
 
@@ -1066,6 +1101,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Big Aerial Labels"
+
+msgid "Azure Road"
+msgstr "Đường Azure"
+
+msgid "Azure Dark"
+msgstr "Azure tối"
+
+msgid "Azure Aerial"
+msgstr "Azure Aerial"
+
+msgid "Azure Aerial Labels"
+msgstr "Azure Aerial Labels"
 
 msgid "Building footprints"
 msgstr "Hình dạng tòa nhà"
@@ -1493,6 +1540,12 @@ msgstr "Sự Kiện"
 msgid "Facilities"
 msgstr "Cơ sở"
 
+msgid "an error occurred"
+msgstr "một lỗi xuất hiện"
+
+msgid "GroupSet used for styling was not found"
+msgstr "Không tìm thấy tập nhóm dùng để tạo kiểu"
+
 msgid "No coordinates found for selected facilities"
 msgstr "Không tìm thấy tọa độ cho các cơ sở đã chọn"
 
@@ -1541,11 +1594,17 @@ msgstr "Đúng"
 msgid "false"
 msgstr "Sai"
 
-msgid "No"
-msgstr "Không"
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr "{{keyName}} không hợp lệ cho loại lớp: {{type}}"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr "{{keyName}} không cung cấp cho loại lớp: {{types}}"
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr "Không thể tải: {{id}} - sử dụng bản đồ nền mặc định thay thế."
+
+msgid "Mid"
+msgstr "Giữa"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1553,6 +1612,9 @@ msgid ""
 msgstr ""
 "Lớp này yêu cầu tài khoản Google Earth Engine. Kiểm tra tài liệu DHIS2 để "
 "biết thêm thông tin."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Không thể nhận được mã thông báo xác thực cho Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Chuyên đề"
@@ -1568,6 +1630,9 @@ msgstr "Đơn vị"
 
 msgid "Facility"
 msgstr "Cơ sở"
+
+msgid "Other"
+msgstr "Khác"
 
 msgid "Start date is invalid"
 msgstr "Ngày bắt đầu không hợp lệ"
