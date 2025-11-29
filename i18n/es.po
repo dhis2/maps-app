@@ -330,13 +330,13 @@ msgid "Boundary color"
 msgstr "Color del límite"
 
 msgid "Buffer"
-msgstr "Tampón"
+msgstr "Zona de influencia"
 
 msgid "Radius in meters"
 msgstr "Radio en metros"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr "El búfer no puede combinarse con la geometría asociada."
+msgstr "La zona de influencia no puede combinarse con la geometría asociada."
 
 msgid "Labels"
 msgstr "Etiquetas"
