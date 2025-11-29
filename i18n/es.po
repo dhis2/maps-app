@@ -324,7 +324,7 @@ msgid "Boundary color"
 msgstr "Color del límite"
 
 msgid "Buffer"
-msgstr "Tampón"
+msgstr "Zona de influencia"
 
 msgid "Radius in meters"
 msgstr "Radio en metros"
