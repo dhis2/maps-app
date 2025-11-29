@@ -1061,10 +1061,10 @@ msgid "Not available offline"
 msgstr "No disponible sin conexión a internet"
 
 msgid "Click to unpin legend"
-msgstr ""
+msgstr "Haz clic para desanclar la leyenda"
 
 msgid "Click to pin legend"
-msgstr ""
+msgstr "Haz clic para anclar la leyenda"
 
 msgid "Program indicator"
 msgstr "Indicador de Programa"

@@ -14,15 +14,15 @@
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
 # Elise Desailly, 2025
 # Esther Tokouli, 2025
-# Bruno Raimbault, 2025
 # Cyrille Kabrane, 2025
+# Bruno Raimbault, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Cyrille Kabrane, 2025\n"
+"Last-Translator: Bruno Raimbault, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,7 +116,7 @@ msgid "None"
 msgstr "Aucun"
 
 msgid "Cascading"
-msgstr ""
+msgstr "Cascade"
 
 msgid "Organisation unit location"
 msgstr "Localisation de l'unité d'organisation"
@@ -131,7 +131,7 @@ msgid "Tracked entity location"
 msgstr "Localisation de l'entité suivie"
 
 msgid "Fallback coordinate field"
-msgstr ""
+msgstr "Champ de coordonnées alternatif"
 
 msgid "Coordinate field"
 msgstr "Champ de coordonnées"
@@ -166,7 +166,7 @@ msgid "Data item"
 msgstr "Item de données"
 
 msgid "one of"
-msgstr "one of"
+msgstr "parmi"
 
 msgid "contains"
 msgstr "contient"
@@ -887,7 +887,7 @@ msgid "Perimeter"
 msgstr "Périmètre"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "Réinitialiser la position sur le Nord"
 
 msgid "Search for place or address"
 msgstr "Rechercher un lieu ou une adresse"
@@ -1508,7 +1508,7 @@ msgid "Equal intervals"
 msgstr "Intervalles égaux"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Effectifs égaux (quantiles)"
 
 msgid "Symbol"
 msgstr "Symbole"
@@ -1635,7 +1635,7 @@ msgid "related"
 msgstr "associé"
 
 msgid "not one of"
-msgstr "not one of"
+msgstr "pas parmi"
 
 msgid "doesn't contains"
 msgstr "ne contient pas"
