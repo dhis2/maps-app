@@ -684,7 +684,7 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "ऑप्शन्स"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"

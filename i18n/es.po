@@ -84,7 +84,7 @@ msgid "Style by data element"
 msgstr "Estilo por elemento de datos"
 
 msgid "Data set"
-msgstr "Set de Datos\\:"
+msgstr "Set de Datos"
 
 msgid "Index"
 msgstr "índice"
@@ -326,7 +326,7 @@ msgid "Event status"
 msgstr "Estado del evento"
 
 msgid "Buffer"
-msgstr "Tampón"
+msgstr "Zona de influencia"
 
 msgid "Radius in meters"
 msgstr "Radio en metros"
