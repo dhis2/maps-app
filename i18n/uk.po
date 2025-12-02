@@ -4,13 +4,14 @@
 # Philip Larsen Donnelly, 2021
 # Éva Tamási, 2022
 # Nadiia <semchuk@aph.org.ua>, 2025
+# Yury Rogachev <yury@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2025\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -473,7 +474,7 @@ msgid "Date"
 msgstr "Дата"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Видалити фільтр"
 
 msgid "Indicator group"
 msgstr "Група показників"

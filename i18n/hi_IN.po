@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Siddharth Agarwal, 2025
-# Rohit Wadhwani, 2025
 # AkashJindal, 2025
+# Rohit Wadhwani, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: AkashJindal, 2025\n"
+"Last-Translator: Rohit Wadhwani, 2025\n"
 "Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -170,7 +170,7 @@ msgid "Group set is required"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "इवेंट"
 
 msgid "tracked entity"
 msgstr ""
@@ -600,7 +600,7 @@ msgid "Loading layer data"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
+msgstr "अंतिम अपडेट"
 
 msgid "no value"
 msgstr ""
@@ -684,7 +684,7 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "ऑप्शन्स"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -796,10 +796,10 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr ""
+msgstr "प्रोग्राम"
 
 msgid "Stage"
-msgstr ""
+msgstr "स्टेज"
 
 msgid "Tracked Entity Type"
 msgstr ""
