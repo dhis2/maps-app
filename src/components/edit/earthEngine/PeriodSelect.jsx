@@ -2,16 +2,30 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import {
     BY_YEAR,
     EE_MONTHLY,
     EE_WEEKLY,
     EE_DAILY,
 } from '../../../constants/periods.js'
+import usePrevious from '../../../hooks/usePrevious.js'
 import { getPeriods, getYears } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
+
+const AVAILABLE_UP_TO = 'Available up to:'
+const isPeriodComplete = ({ endDateDataset, endDatePeriod, periodName }) => {
+    const complete = endDateDataset >= endDatePeriod
+
+    const name = complete
+        ? periodName
+        : `${periodName} (${AVAILABLE_UP_TO} ${endDateDataset
+              .toISOString()
+              .slice(0, 10)})`
+
+    return { complete, name }
+}
 
 const EarthEnginePeriodSelect = ({
     periodType,
@@ -26,14 +40,31 @@ const EarthEnginePeriodSelect = ({
     className,
 }) => {
     const engine = useDataEngine()
-    const prevLayerId = useRef(layerId)
+    const prevLayerId = usePrevious(layerId)
     const [periods, setPeriods] = useState()
+    const prevPeriods = usePrevious(periods)
     const [year, setYear] = useState()
+    const trackedYear = useRef(year)
     const [years, setYears] = useState()
     const [datesRange, setDatesRange] = useState()
     const [loadingPeriods, setLoadingPeriods] = useState(false)
     const byYear = [BY_YEAR, EE_MONTHLY, EE_WEEKLY, EE_DAILY].includes(
         periodType
+    )
+
+    const handlePeriodChange = useCallback(
+        (e) => {
+            let name = e.name
+            if (name.includes(AVAILABLE_UP_TO)) {
+                const regex = new RegExp(`\\s*\\(${AVAILABLE_UP_TO}.*\\)$`)
+                name = name.replace(regex, '')
+            }
+            onChange({
+                ...e,
+                name,
+            })
+        },
+        [onChange]
     )
 
     // Get years for dataset
@@ -65,17 +96,21 @@ const EarthEnginePeriodSelect = ({
     }, [datasetId, periodReducer, byYear, onError, engine])
 
     useEffect(() => {
-        const layerChanged = prevLayerId.current !== layerId
+        const layerChanged = prevLayerId !== layerId
         if (byYear && years && period?.year) {
-            setYear(year ?? period.year)
+            const newYear = year ?? period.year
+            setYear(newYear)
+            trackedYear.current = newYear
         } else if (
             !layerChanged &&
             byYear &&
             years &&
             !years.some((y) => y.id === year)
         ) {
+            const newYear = years[0].id
             // Set year to latest available year by default
-            setYear(years[0].id)
+            setYear(newYear)
+            trackedYear.current = newYear
         }
     }, [layerId, period, byYear, year, years])
 
@@ -95,6 +130,12 @@ const EarthEnginePeriodSelect = ({
             })
                 .then((periods) => {
                     if (!isCancelled) {
+                        const { name } = isPeriodComplete({
+                            endDateDataset: datesRange.endDate,
+                            endDatePeriod: periods[0].endDate,
+                            periodName: periods[0].name,
+                        })
+                        periods[0].name = name
                         setPeriods(periods)
                         setLoadingPeriods(false)
                     }
@@ -120,20 +161,31 @@ const EarthEnginePeriodSelect = ({
     ])
 
     useEffect(() => {
-        const layerChanged = prevLayerId.current !== layerId
-        if (Array.isArray(periods) && periods.length) {
-            if (period && periods.find(({ id }) => id === period.id)) {
+        const periodsChanged = prevPeriods !== periods
+        const yearChanged = trackedYear.current !== year
+        const layerChanged = prevLayerId !== layerId
+        if (periodsChanged && Array.isArray(periods) && periods.length) {
+            if (
+                !yearChanged &&
+                period &&
+                periods.find(({ id }) => id === period.id)
+            ) {
                 onChange(period)
+                trackedYear.current = year
             } else if (!layerChanged) {
-                // Set most recent period by default
-                onChange(periods[0])
+                // Set most recent complete period by default
+                const { complete } = isPeriodComplete({
+                    endDateDataset: datesRange.endDate,
+                    endDatePeriod: periods[0].endDate,
+                    periodName: periods[0].name,
+                })
+                const defaultPeriod =
+                    complete || periods.length === 1 ? periods[0] : periods[1]
+                onChange(defaultPeriod)
+                trackedYear.current = year
             }
         }
-    }, [layerId, periods, period, onChange])
-
-    useEffect(() => {
-        prevLayerId.current = layerId
-    })
+    }, [layerId, year, periods, period, datesRange?.endDate, onChange])
 
     const items = periods
 
@@ -165,7 +217,7 @@ const EarthEnginePeriodSelect = ({
                             items.find(({ id }) => id === period.id) &&
                             period.id
                         }
-                        onChange={onChange}
+                        onChange={handlePeriodChange}
                         errorText={!period && errorText ? errorText : null}
                         className={styles.period}
                     />
