@@ -1257,6 +1257,12 @@ The following layer sources are supported (sources marked with an asterisk
     -   **Heat stress weekly** (derived from daily dataset). 
     -   **Heat stress monthly** (derived from daily dataset). 
 
+-   **Humidity (group)**: Relative humidity is the the amount of water vapour 
+    present in air. Available from 1950.
+    -   **Humidity daily**. 
+    -   **Humidity weekly** (derived from daily dataset). 
+    -   **Humidity monthly**. 
+
 -   **Precipitation (group)**: Accumulated water that falls to the surface. 
     Combines model data with observations from across the world. Two sources are
     available: 
