@@ -14,13 +14,14 @@
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
 # Janeth Cruz, 2025
 # Prabhjot Singh, 2025
+# Bruno Raimbault, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Prabhjot Singh, 2025\n"
+"Last-Translator: Bruno Raimbault, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,10 +30,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "2020"
-msgstr ""
+msgstr "2020"
 
 msgid "Untitled map, {{date}}"
-msgstr "mapa sin titulo, {{date}}"
+msgstr "Mapa sin titulo, {{date}}"
 
 msgid "Map \"{{- name}}\" is saved."
 msgstr "El mapa \"{{- name}}\" está guardado."
@@ -41,7 +42,7 @@ msgid "Failed to save map: {{message}}"
 msgstr "Error al guardar el mapa: {{message}}"
 
 msgid "Rename failed"
-msgstr ""
+msgstr "Error al renombrar"
 
 msgid "Rename successful"
 msgstr "Nombre actualizado"
@@ -59,7 +60,7 @@ msgid "No calculations found"
 msgstr "No se encontraron cálculos"
 
 msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
+msgstr "Los cálculos pueden crearse en la aplicación Visualizador de Datos."
 
 msgid "Classification"
 msgstr "Clasificación"
@@ -113,7 +114,7 @@ msgid "None"
 msgstr "Ninguno"
 
 msgid "Cascading"
-msgstr ""
+msgstr "En cascada"
 
 msgid "Organisation unit location"
 msgstr "Ubicación de la unidad organizativa"
@@ -125,17 +126,18 @@ msgid "Enrollment location"
 msgstr "Ubicación de inscripción"
 
 msgid "Tracked entity location"
-msgstr "Localización de la entidad de seguimiento"
+msgstr "Localización de la entidad de registrada"
 
 msgid "Fallback coordinate field"
-msgstr ""
+msgstr "Campo de coordenadas de alternativo"
 
 msgid "Coordinate field"
 msgstr "Coordinate field"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
-"Inscripción > evento > entidad tracked > coordenada de unidad organizativa"
+"Inscripción > evento > entidad registrada > coordenada de unidad "
+"organizativa"
 
 msgid "Event > org unit coordinate"
 msgstr "Evento > coordenada de la unidad org"
@@ -145,9 +147,10 @@ msgstr "Event data item"
 
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
+"El valor seleccionado anteriormente no está disponible en la lista: {{id}}"
 
 msgid "Style by data item"
-msgstr ""
+msgstr "Aplicar estilo por item de datos"
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -310,13 +313,13 @@ msgid "Point color"
 msgstr "Color de punto"
 
 msgid "Point radius"
-msgstr "Point radius"
+msgstr "Radio de punto"
 
 msgid "event"
 msgstr "evento"
 
 msgid "tracked entity"
-msgstr "entidad de seguimiento"
+msgstr "entidad registrada"
 
 msgid "facility"
 msgstr "establecimiento"
@@ -331,7 +334,7 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "feature"
-msgstr "característica"
+msgstr "entidad geográfica"
 
 msgid "Edit {{name}} layer"
 msgstr "Editar capa {{name}}"
@@ -381,13 +384,13 @@ msgid "Unit"
 msgstr "Unidad"
 
 msgid "Spatial resolution"
-msgstr ""
+msgstr "Resolución espacial"
 
 msgid "Temporal resolution"
-msgstr ""
+msgstr "Resolución temporal"
 
 msgid "Temporal coverage"
-msgstr ""
+msgstr "Cobertura temporal"
 
 msgid "Source"
 msgstr "Fuente"
@@ -426,7 +429,7 @@ msgid "Steps"
 msgstr "Pasos"
 
 msgid "Facility buffer"
-msgstr ""
+msgstr "Zona de influencia de establecimiento"
 
 msgid "Org Units"
 msgstr "Unidades organizativas"
@@ -467,16 +470,16 @@ msgid "Boundary color"
 msgstr "Color del límite"
 
 msgid "Draws a buffer area around each location."
-msgstr ""
+msgstr "Dibuja una zona de influencia alrededor de cada ubicación."
 
 msgid "Buffer"
-msgstr ""
+msgstr "Zona de influencia"
 
 msgid "Radius in meters"
 msgstr "Radio en metros"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "La zona de influencia no puede combinarse con la geometría asociada."
 
 msgid "Fill color"
 msgstr "Color de relleno"
@@ -491,16 +494,16 @@ msgid "Line/stroke width must be between 0-10."
 msgstr "El ancho de línea/trazo debe estar entre 0-10."
 
 msgid "May cause slow layer loading."
-msgstr ""
+msgstr "Puede provocar una carga lenta de las capas."
 
 msgid "Convert polygons to their centroids."
-msgstr ""
+msgstr "Convertir polígonos a sus centroides."
 
 msgid "Centroids"
-msgstr ""
+msgstr "Centroides"
 
 msgid "Polygons are represented by their centroids."
-msgstr ""
+msgstr "Los polígonos se representan por sus centroides."
 
 msgid "Labels"
 msgstr "Etiquetas"
@@ -512,16 +515,16 @@ msgid "Only show completed events"
 msgstr "Mostrar solo eventos completados"
 
 msgid "Include org units with no data"
-msgstr ""
+msgstr "Incluir unidades organizativas sin datos"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Radio bajo"
 
 msgid "High radius"
-msgstr ""
+msgstr "Radio alto"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "El radio alto debe ser mayor que el radio bajo"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "El radio debe estar entre {{min}} y {{max}}"
@@ -539,7 +542,7 @@ msgid "Indicator is required"
 msgstr "Se requiere indicador"
 
 msgid "Data element group is required"
-msgstr " Se requiere grupos de elementos de datos"
+msgstr "Se requiere grupos de elementos de datos"
 
 msgid "Data element is required"
 msgstr "Se requiere el elemento de datos"
@@ -554,7 +557,7 @@ msgid "Program indicator is required"
 msgstr "Se requiere indicador de programa"
 
 msgid "Calculation is required"
-msgstr ""
+msgstr "Se requier cálculo"
 
 msgid "Period is required"
 msgstr "Período requerido"
@@ -579,7 +582,7 @@ msgstr "Item type"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
-"Período seleccionado en el que las entidades rastreadas se actualizaron por "
+"Período seleccionado en el que las entidades registrada se actualizaron por "
 "última vez"
 
 msgid "Program/Enrollment date"
@@ -587,7 +590,7 @@ msgstr "Programa/Fecha de inscripción"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
-"la fecha en que una entidad rastreada fue registrada o inscrita en un "
+"la fecha en que una entidad registrada fue registrada o inscrita en un "
 "programa"
 
 msgid "Program status"
@@ -602,20 +605,20 @@ msgstr "Seguimiento"
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
-"Seleccione un tipo de entidad tracked antes de seleccionar un tipo de "
+"Seleccione un tipo de entidad registrada antes de seleccionar un tipo de "
 "relación"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
-"Mostrar relaciones de entidades tracked en Maps es una característica "
-"experimental"
+"La visualización de las relaciones entre entidades registrada en Mapas es "
+"una función experimental"
 
 msgid "Display Tracked Entity relationships"
-msgstr "Mostrar relaciones de entidades Tracked"
+msgstr "Mostrar relaciones de entidades registradas"
 
 msgid "Tracked entity style"
-msgstr "Estilo de entidad de tracked"
+msgstr "Estilo de entidad registrada"
 
 msgid "Point size"
 msgstr "Tamaño de punto"
@@ -627,21 +630,21 @@ msgid "Line Color"
 msgstr "Color de línea"
 
 msgid "Tracked Entity Type is required"
-msgstr ""
+msgstr "Se requiere un tipo de entidad registrada"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
-"No se encontraron tipos de relación para el tipo de entidad rastreada "
-"tracked {{type}}"
+"No se encontraron tipos de relación para el tipo de entidad registrada "
+"{{type}}"
 
 msgid "Relationship type"
-msgstr "Relationship type"
+msgstr "Tipo de relación"
 
 msgid "No data to show for this feature."
-msgstr "No hay datos que mostrar para esta función."
+msgstr "No hay datos que mostrar para esta entidad geográfica."
 
 msgid "Feature profile"
-msgstr ""
+msgstr "Perfil de la entidad geográfica"
 
 msgid "Remove filter"
 msgstr "Quitar filtro"
@@ -656,15 +659,17 @@ msgid "Indicator group"
 msgstr "Grupo de indicadores"
 
 msgid "Manage available layer sources"
-msgstr ""
+msgstr "Gestionar las fuentes de capas disponibles"
 
 msgid "Configure available layer sources"
-msgstr ""
+msgstr "Configurar las fuentes de capas disponibles"
 
 msgid ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
 msgstr ""
+"Elija qué fuentes de capas están disponibles para añadir a los mapas. Esta "
+"selección se aplica a todos los usuarios."
 
 msgid "Collapse"
 msgstr "Contraer"
@@ -719,7 +724,7 @@ msgid "Edit"
 msgstr "Editar"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Alternar visibilidad"
 
 msgid "Layer is invalid"
 msgstr "Capa no válida"
@@ -731,7 +736,7 @@ msgid "More actions"
 msgstr "Más acciones"
 
 msgid "Toggle layer menu"
-msgstr ""
+msgstr "Alternar menú de capas"
 
 msgid "Hide data table"
 msgstr "Ocultar tabla de datos"
@@ -809,7 +814,7 @@ msgid "Not set"
 msgstr "No configurado"
 
 msgid "Could not retrieve tracked entity data"
-msgstr ""
+msgstr "No se han podido recuperar los datos de la entidad registrada"
 
 msgid "Last updated"
 msgstr "Última actualización"
@@ -831,7 +836,7 @@ msgid "Loading data"
 msgstr "Cargando datos"
 
 msgid "acres"
-msgstr ""
+msgstr "acres"
 
 msgid "Area"
 msgstr "Área"
@@ -864,7 +869,7 @@ msgid "Finish measurement"
 msgstr "Terminar medición"
 
 msgid "ha"
-msgstr ""
+msgstr "ha"
 
 msgid "km"
 msgstr "km"
@@ -873,7 +878,7 @@ msgid "Measure distances and areas"
 msgstr "Medir distancias y áreas"
 
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 msgid "Perimeter"
 msgstr "Perímetro"
@@ -997,48 +1002,54 @@ msgid "Start/end dates"
 msgstr "Fechas de inicio y fin"
 
 msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr ""
+msgstr "Seleccione al menos {{number}} periodos o 1 multiperiodo."
 
 msgid "Remove the existing timeline to add a new one."
-msgstr ""
+msgstr "Elimine la línea de tiempo existente para añadir una nueva."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 msgstr ""
+"Sólo se puede seleccionar hasta un total de {{number}} periodos (incluidos "
+"los multiperiodos)."
 
 msgid "Remove all other layers to add a split map view."
-msgstr ""
+msgstr "Elimine todas las demás capas para añadir una vista de mapa dividida."
 
 msgid "Single"
-msgstr ""
+msgstr "Único"
 
 msgid "Show periods as a combined layer. Data is aggregated."
-msgstr ""
+msgstr "Mostrar periodos como una capa combinada. Los datos están agregados."
 
 msgid "Timeline"
 msgstr "Línea de tiempo"
 
 msgid "Show multiple periods as an interactive timeline."
-msgstr ""
+msgstr "Muestre varios periodos como una línea de tiempo interactiva."
 
 msgid "Split"
-msgstr ""
+msgstr "Dividir"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr ""
+"Mostrar varios mapas en la vista, uno para cada periodo (máx. {{number}})."
 
 msgid "Period display mode"
-msgstr ""
+msgstr "Modo de visualización de períodos"
 
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr ""
+"Las fechas de inicio y fin son inclusivas y se reflejarán en los resultados."
 
 msgid ""
 "Start and end dates must be entered using the ISO 8601 (Gregorian) date "
 "format."
 msgstr ""
+"Las fechas de inicio y fin deben introducirse utilizando el formato de fecha"
+" ISO 8601 (gregoriano)."
 
 msgid "Start date"
 msgstr "Fecha inicial"
@@ -1048,6 +1059,12 @@ msgstr "Fecha final"
 
 msgid "Not available offline"
 msgstr "No disponible sin conexión a internet"
+
+msgid "Click to unpin legend"
+msgstr "Haz clic para desanclar la leyenda"
+
+msgid "Click to pin legend"
+msgstr "Haz clic para anclar la leyenda"
 
 msgid "Program indicator"
 msgstr "Indicador de Programa"
@@ -1062,7 +1079,7 @@ msgid "Stage"
 msgstr "Fase"
 
 msgid "Tracked Entity Type"
-msgstr "Tipo de entidad de Tracker"
+msgstr "Tipo de entidad registrada"
 
 msgid "By data element"
 msgstr "Por elemento de datos"
@@ -1089,7 +1106,7 @@ msgid "Hectares"
 msgstr "Hectáreas"
 
 msgid "Acres"
-msgstr ""
+msgstr "Acres"
 
 msgid "Mean"
 msgstr "Media"
@@ -1098,7 +1115,7 @@ msgid "Median"
 msgstr "Mediana"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Desviación estándar"
 
 msgid "OSM Light"
 msgstr "OSM Sencillo"
@@ -1107,31 +1124,31 @@ msgid "OSM Detailed"
 msgstr "OSM Detallado"
 
 msgid "Sentinel-2 EOX"
-msgstr ""
+msgstr "Sentinel-2 EOX"
 
 msgid "Bing Road"
 msgstr "Bing Carretera"
 
 msgid "Bing Dark"
-msgstr "Bing Dark"
+msgstr "Bing Oscuro"
 
 msgid "Bing Aerial"
-msgstr "Bing Aéreo"
+msgstr "Bing Vista Aérea"
 
 msgid "Bing Aerial Labels"
-msgstr "Etiquetas aéreas Bing"
+msgstr "Bing Vista Aérea con Etiquetas"
 
 msgid "Azure Road"
-msgstr ""
+msgstr "Azure Carretera"
 
 msgid "Azure Dark"
-msgstr ""
+msgstr "Azure Oscuro"
 
 msgid "Azure Aerial"
-msgstr ""
+msgstr "Azure Vista Aérea"
 
 msgid "Azure Aerial Labels"
-msgstr ""
+msgstr "Azure Vista Aérea con Etiquetas"
 
 msgid "Building footprints"
 msgstr "Huellas de los edificios"
@@ -1141,6 +1158,9 @@ msgid ""
 "Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
 "the Caribbean."
 msgstr ""
+"Contornos de edificios obtenidos a partir de imágenes de satélite de alta "
+"resolución. Solo para África subsahariana, Asia meridional y sudoriental, "
+"América Latina y el Caribe."
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
@@ -1159,13 +1179,13 @@ msgid "Number of buildings"
 msgstr "Número de edificios"
 
 msgid "0.5 meter"
-msgstr ""
+msgstr "0,5 metros"
 
 msgid "Single point in time"
-msgstr ""
+msgstr "Único punto en el tiempo"
 
 msgid "May 2023"
-msgstr ""
+msgstr "Mayo de 2023"
 
 msgid "Elevation"
 msgstr "Elevación"
@@ -1177,10 +1197,10 @@ msgid "meters"
 msgstr "metros"
 
 msgid "~30 meters"
-msgstr ""
+msgstr "~30 metros"
 
 msgid "Febuary 2000"
-msgstr ""
+msgstr "Febrero de 2000"
 
 msgid "Landcover"
 msgstr "Cubierta de tierra"
@@ -1189,16 +1209,16 @@ msgid "Distinct landcover types collected from satellites."
 msgstr "Distintos tipos de cubierta terrestre recogidos desde satélites."
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Bosque perennifolio de agujas"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Bosque latifoliado perennifolio"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Bosque caducifolio de agujas"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Bosque caducifolio latifoliado"
 
 msgid "Mixed forest"
 msgstr "Bosque mixto"
@@ -1216,16 +1236,16 @@ msgid "Savannas"
 msgstr "Sabanas"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Pastizales"
 
 msgid "Permanent wetlands"
 msgstr "Zonas húmedas permanentes"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Tierras de cultivo"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Urbano y urbanizado"
 
 msgid "Cropland/Natural vegetation mosaic"
 msgstr "Mosaico de vegetación natural/tierras de cultivo"
@@ -1287,7 +1307,7 @@ msgstr ""
 "Actualizado mensualmente, durante la 3ª semana del mes siguiente."
 
 msgid "Temperature MODIS"
-msgstr ""
+msgstr "Temperatura MODIS"
 
 msgid "°C during daytime"
 msgstr "°C durante el día"
@@ -1308,7 +1328,7 @@ msgstr ""
 "Número estimado de personas que viven en un área, agrupadas por edad y sexo."
 
 msgid "~100 meters"
-msgstr ""
+msgstr "~100 metros"
 
 msgid "Male 0 - 1 years"
 msgstr "Masculino 0 - 1 años"
@@ -1419,29 +1439,34 @@ msgid "Female 80 years and above"
 msgstr "Femenino de 80 años y más"
 
 msgid "Precipitation monthly"
-msgstr ""
+msgstr "Precipitaciones mensuales"
 
 msgid ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
 msgstr ""
+"Agua líquida y congelada acumulada, incluidas la lluvia y la nieve, que cae "
+"a la superficie. Combina datos de modelos con observaciones de todo el "
+"mundo."
 
 msgid "~11 kilometers"
-msgstr ""
+msgstr "~11 kilómetros"
 
 msgid "Monthly"
 msgstr "Mensual"
 
 msgid "Febuary 1950 - One month ago"
-msgstr ""
+msgstr "Febrero 1950 - Hace un mes"
 
 msgid "Temperature monthly"
-msgstr ""
+msgstr "Temperatura mensual"
 
 msgid ""
 "Temperature at 2m above the surface. Combines model data with observations "
 "from across the world."
 msgstr ""
+"Temperatura a 2 m por encima de la superficie. Combina datos de modelos con "
+"observaciones de todo el mundo."
 
 msgid "All"
 msgstr "Todos"
@@ -1453,10 +1478,10 @@ msgid "Completed"
 msgstr "Completado"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Capa coroplética"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Mapa de burbujas"
 
 msgid "Automatic color legend"
 msgstr "Leyenda de color automática"
@@ -1471,7 +1496,7 @@ msgid "Equal intervals"
 msgstr "Intervalos iguales"
 
 msgid "Equal counts"
-msgstr "Cuentas iguales"
+msgstr "Recuentos iguales (cuantiles)"
 
 msgid "Symbol"
 msgstr "Símbolo"
@@ -1486,16 +1511,16 @@ msgid "Weekly"
 msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
-msgstr "Semanal (Inicio miércoles)"
+msgstr "Semanal (inicio miércoles)"
 
 msgid "Weekly (Start Thursday)"
-msgstr "Semanal (Inicio jueves)"
+msgstr "Semanal (inicio jueves)"
 
 msgid "Weekly (Start Saturday)"
-msgstr "Semanal (Inicio sábado)"
+msgstr "Semanal (inicio sábado)"
 
 msgid "Weekly (Start Sunday)"
-msgstr "Semanal (Inicio domingo)"
+msgstr "Semanal (inicio domingo)"
 
 msgid "Bi-weekly"
 msgstr "Quincenal"
@@ -1516,22 +1541,22 @@ msgid "Yearly"
 msgstr "Anual"
 
 msgid "Financial year (Start November)"
-msgstr "Año fiscal (Inicio noviembre)"
+msgstr "Año fiscal (inicio Noviembre)"
 
 msgid "Financial year (Start October)"
-msgstr "Año fiscal - Octubre"
+msgstr "Año fiscal (inicio Octubre)"
 
 msgid "Financial year (Start July)"
-msgstr "Año fiscal - Julio"
+msgstr "Año fiscal (inicio Julio)"
 
 msgid "Financial year (Start April)"
-msgstr "Año fiscal - Abril"
+msgstr "Año fiscal (inicio Abril)"
 
 msgid "Cancelled"
 msgstr "Cancelar"
 
 msgid "Earth Engine layer"
-msgstr ""
+msgstr "Capa Earth Engine"
 
 msgid "You don't have access to this layer data"
 msgstr "No tiene acceso a los datos de esta capa"
@@ -1552,13 +1577,14 @@ msgid "Facilities"
 msgstr "Establecimientos"
 
 msgid "an error occurred"
-msgstr ""
+msgstr "se ha producido un error"
 
 msgid "GroupSet used for styling was not found"
-msgstr ""
+msgstr "No se ha encontrado el GroupSet utilizado para el estilo"
 
 msgid "No coordinates found for selected facilities"
 msgstr ""
+"No se han encontrado coordenadas para los establecimientos seleccionados"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
@@ -1566,7 +1592,7 @@ msgstr ""
 " sistema."
 
 msgid "Feature"
-msgstr "Característica"
+msgstr "Entidad geográfica"
 
 msgid "Polygon"
 msgstr "Polígono"
@@ -1581,16 +1607,16 @@ msgid "Organisation units"
 msgstr "Unidades organizativas"
 
 msgid "Org unit layer"
-msgstr ""
+msgstr "Capa de unidades organizativas"
 
 msgid "Data item was not found"
-msgstr ""
+msgstr "No se ha encontrado el item de datos"
 
 msgid "Thematic layer"
 msgstr "Capa temática"
 
 msgid "Tracked entity"
-msgstr "Tracked entity"
+msgstr "Entidad registrada"
 
 msgid "related"
 msgstr "relacionado"
@@ -1608,16 +1634,18 @@ msgid "false"
 msgstr "falso"
 
 msgid "{{keyName}} is not valid for layer type: {{type}}"
-msgstr ""
+msgstr "{{keyName}} no es válido para el tipo de capa: {{type}}"
 
 msgid "{{keyName}} is not provided for layer type(s): {{types}}"
-msgstr ""
+msgstr "{{keyName}} no se proporciona para los tipos de capa: {{types}}"
 
 msgid "Could not load: {{id}} — using the default basemap instead."
 msgstr ""
+"No se ha podido cargar: {{id}} - utilizando el mapa base por defecto en su "
+"lugar."
 
 msgid "Mid"
-msgstr ""
+msgstr "Medio"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1637,7 +1665,7 @@ msgid "Events"
 msgstr "Eventos"
 
 msgid "Tracked entities"
-msgstr "Entidades monitoreadas"
+msgstr "Entidades registradas"
 
 msgid "Org units"
 msgstr "Unidades organizativas"
