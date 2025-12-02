@@ -20,7 +20,10 @@ export default function createConfig() {
         img: 'images/temperature.png',
         name: i18n.t('Temperature weekly'),
         description: i18n.t(
-            'Temperature at 2m above the surface. Combines model data with observations from across the world.'
+            'Gridded temperature dataset at 2m above the surface.'
+        ),
+        descriptionComplement: i18n.t(
+            'Combines model data with observations from across the world.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:

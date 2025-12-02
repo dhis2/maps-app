@@ -20,7 +20,10 @@ export default function createConfig() {
         img: 'images/heatstress.png',
         name: i18n.t('Heat stress daily'),
         description: i18n.t(
-            'The Universal Thermal Climate Index (UTCI) is an index that combines the effects of air temperature, humidity, wind speed, and radiation on the human body. It is a measure of the thermal stress experienced by a person in a given environment. Felt temperature in °C.'
+            'A measure of the thermal stress experienced by a person.'
+        ),
+        descriptionComplement: i18n.t(
+            'The Universal Thermal Climate Index (UTCI) combines the effects of air temperature, humidity, wind speed, and radiation on the human body. Felt temperature in °C.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl: 'https://gee-community-catalog.org/projects/era5_heat',

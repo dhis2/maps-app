@@ -19,8 +19,9 @@ export default function createConfig() {
         format: 'ImageCollection',
         img: 'images/humidity.png',
         name: i18n.t('Humidity weekly'),
-        description: i18n.t(
-            'Relative humidity is the the amount of water vapour present in air expressed as a percentage of the amount needed for saturation at the same temperature (dewpoint).'
+        description: i18n.t('Amount of water vapour present in air.'),
+        descriptionComplement: i18n.t(
+            'Relative humidity is expressed as a percentage of the maximum amount of water vapor the air can hold at the same temperature.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:

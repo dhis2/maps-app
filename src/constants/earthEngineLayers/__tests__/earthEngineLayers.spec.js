@@ -106,6 +106,7 @@ const configSchema = {
         img: { type: 'string' },
         name: { type: 'string' },
         description: { type: 'string' },
+        descriptionComplement: { type: 'string' },
         notice: { type: 'string' },
         error: { type: 'string' },
         source: { type: 'string' },
