@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
-"PO-Revision-Date: 2025-10-28T16:10:10.277Z\n"
+"POT-Creation-Date: 2025-11-28T17:10:22.591Z\n"
+"PO-Revision-Date: 2025-11-28T17:10:22.591Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -312,8 +312,8 @@ msgstr "Update layer"
 msgid "Add layer"
 msgstr "Add layer"
 
-msgid "Aggregation method"
-msgstr "Aggregation method"
+msgid "Spatial aggregation method (popups and data table)"
+msgstr "Spatial aggregation method (popups and data table)"
 
 msgid "This field is required"
 msgstr "This field is required"
@@ -323,6 +323,9 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Period"
+
+msgid "Dataset"
+msgstr "Dataset"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -359,11 +362,11 @@ msgstr "Source"
 msgid "Legend preview"
 msgstr "Legend preview"
 
+msgid "Available periods are retrieved from the source data"
+msgstr "Available periods are retrieved from the source data"
+
 msgid "Year"
 msgstr "Year"
-
-msgid "Available periods are set by the source data"
-msgstr "Available periods are set by the source data"
 
 msgid "Loading periods"
 msgstr "Loading periods"
@@ -1143,6 +1146,77 @@ msgstr "~30 meters"
 msgid "Febuary 2000"
 msgstr "Febuary 2000"
 
+msgid "Heat stress"
+msgstr "Heat stress"
+
+msgid "Heat stress daily"
+msgstr "Heat stress daily"
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) is an index that combines the "
+"effects of air temperature, humidity, wind speed, and radiation on the "
+"human body. It is a measure of the thermal stress experienced by a person "
+"in a given environment. Felt temperature in °C."
+msgstr ""
+"The Universal Thermal Climate Index (UTCI) is an index that combines the "
+"effects of air temperature, humidity, wind speed, and radiation on the "
+"human body. It is a measure of the thermal stress experienced by a person "
+"in a given environment. Felt temperature in °C."
+
+msgid "~28 kilometers"
+msgstr "~28 kilometers"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Febuary 1950 - One month ago"
+msgstr "Febuary 1950 - One month ago"
+
+msgid "Temporal aggregation method"
+msgstr "Temporal aggregation method"
+
+msgid "Extreme cold stress -60 - -40"
+msgstr "Extreme cold stress -60 - -40"
+
+msgid "Very strong cold stress -40 - -27"
+msgstr "Very strong cold stress -40 - -27"
+
+msgid "Strong cold stress -27 - -13"
+msgstr "Strong cold stress -27 - -13"
+
+msgid "Moderate cold stress -13 - 0"
+msgstr "Moderate cold stress -13 - 0"
+
+msgid "Slight cold stress 0 - 9"
+msgstr "Slight cold stress 0 - 9"
+
+msgid "No thermal stress 9 - 26"
+msgstr "No thermal stress 9 - 26"
+
+msgid "Moderate heat stress 26 - 32"
+msgstr "Moderate heat stress 26 - 32"
+
+msgid "Strong heat stress 32 - 38"
+msgstr "Strong heat stress 32 - 38"
+
+msgid "Very strong heat stress 38 - 46"
+msgstr "Very strong heat stress 38 - 46"
+
+msgid "Extreme heat stress 46 - 60"
+msgstr "Extreme heat stress 46 - 60"
+
+msgid "Heat stress monthly"
+msgstr "Heat stress monthly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "Heat stress weekly"
+msgstr "Heat stress weekly"
+
+msgid "Weekly"
+msgstr "Weekly"
+
 msgid "Landcover"
 msgstr "Landcover"
 
@@ -1380,8 +1454,8 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation monthly"
-msgstr "Precipitation monthly"
+msgid "Precipitation daily"
+msgstr "Precipitation daily"
 
 msgid ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
@@ -1390,27 +1464,42 @@ msgstr ""
 "Accumulated liquid and frozen water, including rain and snow, that falls to "
 "the surface. Combines model data with observations from across the world."
 
-msgid "~11 kilometers"
-msgstr "~11 kilometers"
+msgid "~9 kilometers"
+msgstr "~9 kilometers"
 
-msgid "Monthly"
-msgstr "Monthly"
+msgid "Febuary 1950 - One week ago"
+msgstr "Febuary 1950 - One week ago"
 
-msgid "Febuary 1950 - One month ago"
-msgstr "Febuary 1950 - One month ago"
+msgid "Precipitation monthly"
+msgstr "Precipitation monthly"
+
+msgid "Precipitation weekly"
+msgstr "Precipitation weekly"
+
+msgid "Temperature"
+msgstr "Temperature"
+
+msgid "Temperature daily"
+msgstr "Temperature daily"
+
+msgid ""
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
+msgstr ""
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
-msgstr ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
+msgstr "Temperature weekly"
 
-msgid "Vegetation index"
-msgstr "Vegetation index"
+msgid "Vegetation"
+msgstr "Vegetation"
+
+msgid "Vegetation index 16-day"
+msgstr "Vegetation index 16-day"
 
 msgid ""
 "NDVI and EVI values range from -1 to 1, with higher values indicating "
@@ -1449,6 +1538,12 @@ msgstr "NDVI"
 msgid "EVI"
 msgstr "EVI"
 
+msgid "Vegetation index monthly"
+msgstr "Vegetation index monthly"
+
+msgid "Vegetation index weekly"
+msgstr "Vegetation index weekly"
+
 msgid "Active"
 msgstr "Active"
 
@@ -1481,12 +1576,6 @@ msgstr "Symbol"
 
 msgid "Relative"
 msgstr "Relative"
-
-msgid "Daily"
-msgstr "Daily"
-
-msgid "Weekly"
-msgstr "Weekly"
 
 msgid "Weekly (Start Wednesday)"
 msgstr "Weekly (Start Wednesday)"
