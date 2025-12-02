@@ -1,6 +1,6 @@
 .orgUnitSelect {
     margin: 0 var(--spacers-dp16);
-    height: 488px;
+    height: 468px;
 }
 
 .orgUnitSelect :global(.userOrgUnitsWrapper label) {
