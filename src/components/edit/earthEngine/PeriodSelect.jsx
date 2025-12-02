@@ -112,7 +112,7 @@ const EarthEnginePeriodSelect = ({
             setYear(newYear)
             trackedYear.current = newYear
         }
-    }, [layerId, period, byYear, year, years])
+    }, [layerId, prevLayerId, period, byYear, year, years])
 
     // Get periods for dataset and selected year
     useEffect(() => {
@@ -185,7 +185,16 @@ const EarthEnginePeriodSelect = ({
                 trackedYear.current = year
             }
         }
-    }, [layerId, year, periods, period, datesRange?.endDate, onChange])
+    }, [
+        layerId,
+        prevLayerId,
+        year,
+        periods,
+        prevPeriods,
+        period,
+        datesRange?.endDate,
+        onChange,
+    ])
 
     const items = periods
 
