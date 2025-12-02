@@ -26,8 +26,9 @@ export default function createConfig() {
         format: 'ImageCollection',
         img: 'images/precipitation.png',
         name: i18n.t('Precipitation daily ERA5'),
-        description: i18n.t(
-            'Gridded precipitation dataset combining model data with observations from around the world, providing estimates of both rain and snow over land at high temporal resolution, typically available within about one week.'
+        description: i18n.t('Gridded precipitation dataset.'),
+        descriptionComplement: i18n.t(
+            'Combines model data with observations from around the world and provides estimates of both rain and snow over land at high temporal resolution, typically available within about one week.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:
