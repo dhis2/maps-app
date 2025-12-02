@@ -24,10 +24,16 @@ const Legend = ({
         {description && <div className={styles.description}>{description}</div>}
         {groups && (
             <div className={styles.group}>
-                {groups.length > 1 ? i18n.t('Groups') : i18n.t('Group')}
-                {groups.map(({ id, name }) => (
-                    <div key={id}>{name}</div>
-                ))}
+                {groups.multiple === false ? (
+                    <>{groups.list[0].name}</>
+                ) : (
+                    <>
+                        {groups.label}
+                        {groups.list.map(({ id, name }) => (
+                            <div key={id}>{name}</div>
+                        ))}
+                    </>
+                )}
             </div>
         )}
         {unit && items && <div className={styles.unit}>{unit}</div>}
@@ -93,7 +99,7 @@ Legend.propTypes = {
     description: PropTypes.string,
     explanation: PropTypes.array,
     filters: PropTypes.array,
-    groups: PropTypes.array,
+    groups: PropTypes.oneOf([PropTypes.array, PropTypes.object]),
     isPlugin: PropTypes.bool,
     items: PropTypes.array,
     source: PropTypes.string,
