@@ -70,7 +70,7 @@ const LayerCard = ({
             </div>
             <div className={styles.collapsibleContent}>
                 <div className={styles.content}>{children}</div>
-                <LayerToolbar {...layerToolbarProps} />
+                <LayerToolbar layer={layer} {...layerToolbarProps} />
             </div>
         </Card>
     </div>
