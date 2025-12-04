@@ -118,10 +118,10 @@ export const getValidDataItems = (items) =>
 
 // Returns split view layers if exist
 export const getSplitViewLayers = (layers) =>
-    layers.filter(
+    layers?.filter(
         (layer) =>
             layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-    )
+    ) || []
 export const getSplitViewLayer = (layers) => getSplitViewLayers(layers)[0]
 
 // Checks if split view map

@@ -23,6 +23,7 @@ import {
     setProgram,
     setValueType,
 } from '../../../actions/layerEdit.js'
+import { periodsSync } from '../../../actions/map.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
@@ -100,6 +101,14 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
+    /*
+    const timelineFilters = useSelector(
+        (state) =>
+            state.map.mapViews.find(
+                (mv) => mv.renderingStrategy === RENDERING_STRATEGY_TIMELINE
+            )?.filters
+    )
+    */
     const splitFilters = useSelector(
         (state) =>
             state.map.mapViews.find(
@@ -356,9 +365,23 @@ const ThematicDialog = ({
     // Run validation
     useEffect(() => {
         if (validateLayer && validateLayer !== prevValidateLayer) {
-            onLayerValidation(validate())
+            const isValid = validate()
+            onLayerValidation(isValid)
+            if (isValid && splitFilters) {
+                dispatch(
+                    periodsSync(periods, RENDERING_STRATEGY_SPLIT_BY_PERIOD)
+                )
+            }
         }
-    }, [validateLayer, prevValidateLayer, validate, onLayerValidation])
+    }, [
+        validateLayer,
+        prevValidateLayer,
+        validate,
+        splitFilters,
+        periods,
+        onLayerValidation,
+        dispatch,
+    ])
 
     useEffect(() => {
         if (prevPeriodType && periodType !== prevPeriodType) {
