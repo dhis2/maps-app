@@ -101,14 +101,13 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
-    /*
     const timelineFilters = useSelector(
         (state) =>
             state.map.mapViews.find(
                 (mv) => mv.renderingStrategy === RENDERING_STRATEGY_TIMELINE
             )?.filters
     )
-    */
+    console.log("🚀 ~ ThematicDialog ~ timelineFilters:", timelineFilters)
     const splitFilters = useSelector(
         (state) =>
             state.map.mapViews.find(
@@ -409,7 +408,7 @@ const ThematicDialog = ({
                 startDate !== prevStartDate ||
                 endDate !== prevEndDate ||
                 getPeriodsFromFilters(filters).length !==
-                    getPeriodsFromFilters(prevFilters).length)
+                getPeriodsFromFilters(prevFilters).length)
         ) {
             setErrors((prev) => ({
                 ...prev,
@@ -462,70 +461,70 @@ const ThematicDialog = ({
                         />
                         {(!valueType ||
                             valueType === dimConf.indicator.objectName) && (
-                            <>
-                                <IndicatorGroupSelect
-                                    indicatorGroup={indicatorGroup}
-                                    onChange={(v) =>
-                                        dispatch(setIndicatorGroup(v))
-                                    }
-                                    className={styles.select}
-                                    errorText={errors.indicatorGroupError}
-                                />
-                                <IndicatorSelect
-                                    indicatorGroup={indicatorGroup}
-                                    indicator={dataItem}
-                                    onChange={(v, t) =>
-                                        dispatch(setDataItem(v, t))
-                                    }
-                                    className={styles.select}
-                                    errorText={errors.indicatorError}
-                                />
-                            </>
-                        )}
+                                <>
+                                    <IndicatorGroupSelect
+                                        indicatorGroup={indicatorGroup}
+                                        onChange={(v) =>
+                                            dispatch(setIndicatorGroup(v))
+                                        }
+                                        className={styles.select}
+                                        errorText={errors.indicatorGroupError}
+                                    />
+                                    <IndicatorSelect
+                                        indicatorGroup={indicatorGroup}
+                                        indicator={dataItem}
+                                        onChange={(v, t) =>
+                                            dispatch(setDataItem(v, t))
+                                        }
+                                        className={styles.select}
+                                        errorText={errors.indicatorError}
+                                    />
+                                </>
+                            )}
                         {(valueType === dimConf.dataElement.objectName ||
                             valueType === dimConf.operand.objectName) && (
-                            <>
-                                <DataElementGroupSelect
-                                    dataElementGroup={dataElementGroup}
-                                    onChange={(v) =>
-                                        dispatch(setDataElementGroup(v))
-                                    }
-                                    className={styles.select}
-                                    errorText={errors.dataElementGroupError}
-                                />
-                                {dataElementGroup && (
-                                    <TotalsDetailsSelect
-                                        operand={operand}
+                                <>
+                                    <DataElementGroupSelect
+                                        dataElementGroup={dataElementGroup}
                                         onChange={(v) =>
-                                            dispatch(setOperand(v))
+                                            dispatch(setDataElementGroup(v))
                                         }
                                         className={styles.select}
+                                        errorText={errors.dataElementGroupError}
                                     />
-                                )}
-                                {operand ||
-                                valueType === dimConf.operand.objectName ? (
-                                    <DataElementOperandSelect
-                                        dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={(v, t) =>
-                                            dispatch(setDataItem(v, t))
-                                        }
-                                        className={styles.select}
-                                        errorText={errors.dataElementError}
-                                    />
-                                ) : (
-                                    <DataElementSelect
-                                        dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={(v, t) =>
-                                            dispatch(setDataItem(v, t))
-                                        }
-                                        className={styles.select}
-                                        errorText={errors.dataElementError}
-                                    />
-                                )}
-                            </>
-                        )}
+                                    {dataElementGroup && (
+                                        <TotalsDetailsSelect
+                                            operand={operand}
+                                            onChange={(v) =>
+                                                dispatch(setOperand(v))
+                                            }
+                                            className={styles.select}
+                                        />
+                                    )}
+                                    {operand ||
+                                        valueType === dimConf.operand.objectName ? (
+                                        <DataElementOperandSelect
+                                            dataElementGroup={dataElementGroup}
+                                            dataElement={dataItem}
+                                            onChange={(v, t) =>
+                                                dispatch(setDataItem(v, t))
+                                            }
+                                            className={styles.select}
+                                            errorText={errors.dataElementError}
+                                        />
+                                    ) : (
+                                        <DataElementSelect
+                                            dataElementGroup={dataElementGroup}
+                                            dataElement={dataItem}
+                                            onChange={(v, t) =>
+                                                dispatch(setDataItem(v, t))
+                                            }
+                                            className={styles.select}
+                                            errorText={errors.dataElementError}
+                                        />
+                                    )}
+                                </>
+                            )}
                         {valueType === dimConf.dataSet.objectName && (
                             <DataSetsSelect
                                 dataSet={dataItem}
@@ -614,51 +613,51 @@ const ThematicDialog = ({
                             >
                                 {renderingStrategy ===
                                     RENDERING_STRATEGY_SINGLE && (
-                                    <div>
-                                        <SegmentedControl
-                                            className={styles.flexRowFlow}
-                                            options={[
-                                                {
-                                                    label: i18n.t(
-                                                        'Choose from presets'
-                                                    ),
-                                                    value: PREDEFINED_PERIODS,
-                                                },
-                                                {
-                                                    label: i18n.t(
-                                                        'Define start - end dates'
-                                                    ),
-                                                    value: START_END_DATES,
-                                                },
-                                            ]}
-                                            selected={periodType}
-                                            onChange={(e) =>
-                                                dispatch(
-                                                    setPeriodType(
-                                                        { value: e.value },
-                                                        true
+                                        <div>
+                                            <SegmentedControl
+                                                className={styles.flexRowFlow}
+                                                options={[
+                                                    {
+                                                        label: i18n.t(
+                                                            'Choose from presets'
+                                                        ),
+                                                        value: PREDEFINED_PERIODS,
+                                                    },
+                                                    {
+                                                        label: i18n.t(
+                                                            'Define start - end dates'
+                                                        ),
+                                                        value: START_END_DATES,
+                                                    },
+                                                ]}
+                                                selected={periodType}
+                                                onChange={(e) =>
+                                                    dispatch(
+                                                        setPeriodType(
+                                                            { value: e.value },
+                                                            true
+                                                        )
                                                     )
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                )}
+                                                }
+                                            />
+                                        </div>
+                                    )}
                                 {renderingStrategy ===
                                     RENDERING_STRATEGY_TIMELINE && (
-                                    <div className={styles.periodText}>
-                                        {i18n.t(
-                                            'Choose period for all timeline layers'
-                                        )}
-                                    </div>
-                                )}
+                                        <div className={styles.periodText}>
+                                            {i18n.t(
+                                                'Choose period for all timeline layers'
+                                            )}
+                                        </div>
+                                    )}
                                 {renderingStrategy ===
                                     RENDERING_STRATEGY_SPLIT_BY_PERIOD && (
-                                    <div className={styles.periodText}>
-                                        {i18n.t(
-                                            'Choose period for all split layers'
-                                        )}
-                                    </div>
-                                )}
+                                        <div className={styles.periodText}>
+                                            {i18n.t(
+                                                'Choose period for all split layers'
+                                            )}
+                                        </div>
+                                    )}
                             </div>
                             {periodType === PREDEFINED_PERIODS && (
                                 <PeriodDimension
