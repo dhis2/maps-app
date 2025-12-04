@@ -116,15 +116,16 @@ export const getValidDataItems = (items) =>
             mandatoryDataItemAttributes.every((prop) => prop in item)
     )
 
-// Returns split view layer if exist
-export const getSplitViewLayer = (layers) =>
-    layers.find(
+// Returns split view layers if exist
+export const getSplitViewLayers = (layers) =>
+    layers.filter(
         (layer) =>
             layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
     )
+export const getSplitViewLayer = (layers) => getSplitViewLayers(layers)[0]
 
 // Checks if split view map
-export const isSplitViewMap = (layers) => !!getSplitViewLayer(layers)
+export const isSplitViewMap = (layers) => getSplitViewLayers(layers).length > 0
 
 // Get the longest text length from an object property in an array
 export const getLongestTextLength = (array, key) =>
