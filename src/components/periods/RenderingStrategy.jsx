@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import {
     RENDERING_STRATEGY_SINGLE,
@@ -12,7 +12,6 @@ import {
     MULTIMAP_MIN_PERIODS,
     MULTIMAP_MAX_PERIODS,
 } from '../../constants/periods.js'
-import usePrevious from '../../hooks/usePrevious.js'
 import { getPeriodsFromFilters } from '../../util/analytics.js'
 import { countPeriods } from '../../util/periods.js'
 import { CustomRadioLabel, Radio, RadioGroup } from '../core/index.js'
@@ -29,11 +28,17 @@ const RenderingStrategy = ({
     periods,
     onChange,
 }) => {
-    const prevPeriods = usePrevious(periods)
     const totalPeriods = useMemo(() => countPeriods(periods), [periods])
 
     const hasOtherLayers = useSelector(({ map }) =>
         map.mapViews.some(({ id }) => id !== layerId)
+    )
+    const hasOtherNonSplitLayers = useSelector(({ map }) =>
+        map.mapViews.some(
+            (layer) =>
+                layer.renderingStrategy !==
+                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && layer.id !== layerId
+        )
     )
     const hasOtherTimelineLayers = useSelector(({ map }) =>
         map.mapViews.some(
@@ -42,28 +47,18 @@ const RenderingStrategy = ({
                 layer.id !== layerId
         )
     )
+    const hasOtherSplitLayers = useSelector(({ map }) =>
+        map.mapViews.some(
+            (layer) =>
+                layer.renderingStrategy ===
+                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && layer.id !== layerId
+        )
+    )
+
     const hasTooManyPeriods = useSelector(({ layerEdit }) => {
         const periods = getPeriodsFromFilters(layerEdit.filters)
         return countPeriods(periods) > MULTIMAP_MAX_PERIODS
     })
-
-    useEffect(() => {
-        if (periods === prevPeriods) {
-            return
-        }
-
-        if (
-            totalPeriods < MULTIMAP_MIN_PERIODS &&
-            value !== RENDERING_STRATEGY_SINGLE
-        ) {
-            onChange(RENDERING_STRATEGY_SINGLE)
-        } else if (
-            totalPeriods > MULTIMAP_MAX_PERIODS &&
-            value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-        ) {
-            onChange(RENDERING_STRATEGY_SINGLE)
-        }
-    }, [value, periods, prevPeriods, onChange, totalPeriods])
 
     const getHelpText = useMemo(
         () => ({
@@ -102,17 +97,14 @@ const RenderingStrategy = ({
 
     const isDisabled = (strategy) => {
         switch (strategy) {
+            case RENDERING_STRATEGY_SINGLE:
+                return hasOtherSplitLayers
             case RENDERING_STRATEGY_TIMELINE:
                 return (
-                    totalPeriods < MULTIMAP_MIN_PERIODS ||
-                    hasOtherTimelineLayers
+                    totalPeriods < MULTIMAP_MIN_PERIODS || hasOtherSplitLayers
                 )
             case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
-                return (
-                    totalPeriods < MULTIMAP_MIN_PERIODS ||
-                    hasTooManyPeriods ||
-                    hasOtherLayers
-                )
+                return hasOtherNonSplitLayers
             default:
                 return false
         }

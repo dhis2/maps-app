@@ -4,7 +4,7 @@ import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     setClassification,
     setDataItem,
@@ -100,6 +100,13 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
+    const splitFilters = useSelector(
+        (state) =>
+            state.map.mapViews.find(
+                (mv) =>
+                    mv.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+            )?.filters
+    )
 
     const [tab, setTab] = useState('data')
     const [errors, setErrors] = useState({})
@@ -250,9 +257,15 @@ const ThematicDialog = ({
     // Set default rendering strategy
     useEffect(() => {
         if (!renderingStrategy) {
-            dispatch(setRenderingStrategy(RENDERING_STRATEGY_SINGLE))
+            dispatch(
+                setRenderingStrategy(
+                    splitFilters
+                        ? RENDERING_STRATEGY_SPLIT_BY_PERIOD
+                        : RENDERING_STRATEGY_SINGLE
+                )
+            )
         }
-    }, [renderingStrategy, dispatch])
+    }, [renderingStrategy, splitFilters, dispatch])
 
     // Set period type if favorite is loaded or dates are present
     useEffect(() => {
@@ -270,21 +283,31 @@ const ThematicDialog = ({
     useEffect(() => {
         if (!filters) {
             const hasDate = startDate !== undefined && endDate !== undefined
-            const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
-                systemSettings || {}
-            if (!hasDate && isPeriodAvailable(defaultPeriod, hiddenPeriods)) {
-                dispatch(
-                    setPeriods([
-                        {
-                            id: defaultPeriod,
-                            name: getRelativePeriodsName()[defaultPeriod],
-                        },
-                    ])
-                )
+            if (splitFilters?.[0]?.items?.length > 0) {
+                dispatch(setPeriods(splitFilters[0].items))
                 dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+            } else {
+                const {
+                    keyAnalysisRelativePeriod: defaultPeriod,
+                    hiddenPeriods,
+                } = systemSettings || {}
+                if (
+                    !hasDate &&
+                    isPeriodAvailable(defaultPeriod, hiddenPeriods)
+                ) {
+                    dispatch(
+                        setPeriods([
+                            {
+                                id: defaultPeriod,
+                                name: getRelativePeriodsName()[defaultPeriod],
+                            },
+                        ])
+                    )
+                    dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+                }
             }
         }
-    }, [filters, systemSettings, startDate, endDate, dispatch])
+    }, [filters, splitFilters, systemSettings, startDate, endDate, dispatch])
 
     // Set default org unit level if not available from favorite
     useEffect(() => {
@@ -309,6 +332,7 @@ const ThematicDialog = ({
     // Set rendering strategy to single if not relative period
     useEffect(() => {
         if (
+            periodType &&
             periodType !== PREDEFINED_PERIODS &&
             renderingStrategy !== RENDERING_STRATEGY_SINGLE
         ) {
@@ -622,7 +646,7 @@ const ThematicDialog = ({
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods
                                     }
-                                    height="348px"
+                                    height="325px"
                                 />
                             )}
                             {periodType === START_END_DATES && (
