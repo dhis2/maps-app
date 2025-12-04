@@ -17,7 +17,7 @@ const getRenderingLabel = (strategy) => {
         [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: i18n.t('Split'),
         [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
     }
-    return map[strategy] || null
+    return map[strategy] ? ' • ' + map[strategy] : null
 }
 
 const LayerCard = ({
@@ -47,8 +47,7 @@ const LayerCard = ({
                     {subtitle && (
                         <h3>
                             {subtitle}
-                            {' • ' +
-                                getRenderingLabel(layer?.renderingStrategy)}
+                            {getRenderingLabel(layer?.renderingStrategy)}
                         </h3>
                     )}
                 </div>
