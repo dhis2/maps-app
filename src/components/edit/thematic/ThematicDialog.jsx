@@ -40,13 +40,11 @@ import {
 import usePrevious from '../../../hooks/usePrevious.js'
 import {
     getDataItemFromColumns,
-    getOrgUnitsFromRows,
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
-import { getStartEndDateError } from '../../../util/time.js'
 import CalculationSelect from '../../calculations/CalculationSelect.jsx'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs } from '../../core/index.js'
@@ -69,8 +67,9 @@ import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
 import NoDataColor from './NoDataColor.jsx'
-import RadiusSelect, { isValidRadius } from './RadiusSelect.jsx'
+import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
+import { validateThematicLayer } from './validateThematicLayer.js'
 import ValueTypeSelect from './ValueTypeSelect.jsx'
 
 const ThematicDialog = ({
@@ -135,100 +134,27 @@ const ThematicDialog = ({
 
     // Layer validation function
     const validate = useCallback(() => {
-        const newErrors = {}
-
-        // Indicators
-        if (valueType === dimConf.indicator.objectName) {
-            if (!indicatorGroup && !dataItem) {
-                newErrors.indicatorGroupError = i18n.t(
-                    'Indicator group is required'
-                )
-            }
-            if (!dataItem) {
-                newErrors.indicatorError = i18n.t('Indicator is required')
-            }
-        }
-
-        // Data elements
-        if (
-            [
-                dimConf.dataElement.objectName,
-                dimConf.operand.objectName,
-            ].includes(valueType)
-        ) {
-            if (!dataElementGroup && !dataItem) {
-                newErrors.dataElementGroupError = i18n.t(
-                    'Data element group is required'
-                )
-            }
-            if (!dataItem) {
-                newErrors.dataElementError = i18n.t('Data element is required')
-            }
-        }
-
-        // Data sets
-        if (valueType === dimConf.dataSet.objectName && !dataItem) {
-            newErrors.dataSetError = i18n.t('Data set is required')
-        }
-
-        // Event data items / Program indicators
-        if (
-            [
-                dimConf.eventDataItem.objectName,
-                dimConf.programIndicator.objectName,
-            ].includes(valueType)
-        ) {
-            if (!program && !dataItem) {
-                newErrors.programError = i18n.t('Program is required')
-            }
-            if (!dataItem) {
-                if (valueType === dimConf.eventDataItem.objectName) {
-                    newErrors.eventDataItemError = i18n.t(
-                        'Event data item is required'
-                    )
-                } else {
-                    newErrors.programIndicatorError = i18n.t(
-                        'Program indicator is required'
-                    )
-                }
-            }
-        }
-
-        // Calculation
-        if (valueType === dimConf.calculation.objectName && !dataItem) {
-            newErrors.calculationError = i18n.t('Calculation is required')
-        }
-
-        // Periods
-        if ((periods ?? []).length === 0 && periodType !== START_END_DATES) {
-            newErrors.periodError = i18n.t('Period is required')
-        }
-        if (periodType === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate)
-            if (error) {
-                newErrors.periodError = error
-            }
-        }
-
-        // Org units
-        if (!getOrgUnitsFromRows(rows).length) {
-            newErrors.orgUnitsError = i18n.t(
-                'No organisation units are selected'
-            )
-        }
-
-        // Legend set
-        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
-            newErrors.legendSetError = i18n.t('No legend set is selected')
-        }
-
-        // Radius
-        if (!isValidRadius(radiusLow, radiusHigh)) {
-            setTab('style')
-        }
+        const { isValid, errors: newErrors } = validateThematicLayer({
+            valueType,
+            indicatorGroup,
+            dataElementGroup,
+            dataItem,
+            program,
+            periodType,
+            startDate,
+            endDate,
+            rows,
+            legendSet,
+            radiusLow,
+            radiusHigh,
+            renderingStrategy,
+            method,
+            periods,
+        })
 
         setErrors(newErrors)
-        return Object.keys(newErrors).length === 0
+        setTab(newErrors.tab)
+        return isValid
     }, [
         valueType,
         indicatorGroup,
@@ -242,6 +168,7 @@ const ThematicDialog = ({
         legendSet,
         radiusLow,
         radiusHigh,
+        renderingStrategy,
         method,
         periods,
     ])
