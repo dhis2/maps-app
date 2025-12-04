@@ -3,12 +3,25 @@ import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+} from '../../constants/layers.js'
 import { IconButton } from '../core/index.js'
 import SortableHandle from './SortableHandle.jsx'
 import styles from './styles/LayerCard.module.css'
 import LayerToolbar from './toolbar/LayerToolbar.jsx'
 
+const getRenderingLabel = (strategy) => {
+    const map = {
+        [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: i18n.t('Split'),
+        [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
+    }
+    return map[strategy] || null
+}
+
 const LayerCard = ({
+    layer,
     title = '',
     subtitle,
     isOverlay,
@@ -31,7 +44,13 @@ const LayerCard = ({
                     })}
                 >
                     <h2>{title}</h2>
-                    {subtitle && <h3>{subtitle}</h3>}
+                    {subtitle && (
+                        <h3>
+                            {subtitle}
+                            {' • ' +
+                                getRenderingLabel(layer?.renderingStrategy)}
+                        </h3>
+                    )}
                 </div>
                 <div className={styles.action}>
                     {isOverlay && <SortableHandle />}
@@ -67,6 +86,7 @@ LayerCard.propTypes = {
         PropTypes.node,
     ]),
     isOverlay: PropTypes.bool,
+    layer: PropTypes.object,
     subtitle: PropTypes.string,
 }
 
