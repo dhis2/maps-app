@@ -4,6 +4,16 @@ import { onFullscreenChange } from '../../util/map.js'
 import mapApi from './MapApi.js'
 import styles from './styles/MapItem.module.css'
 
+const getMapItemWidth = (count) => {
+    if (count === 1) {
+        return '100%'
+    }
+    if (count === 2 || count === 4) {
+        return '50%'
+    }
+    return '33.3333%'
+}
+
 class MapItem extends PureComponent {
     static childContextTypes = {
         map: PropTypes.object.isRequired,
@@ -102,7 +112,7 @@ class MapItem extends PureComponent {
                 ref={(node) => (this.node = node)}
                 className={styles.mapItem}
                 style={{
-                    width: count === 4 ? '50%' : '33.3333%',
+                    width: getMapItemWidth(count),
                 }}
             >
                 {map && children}

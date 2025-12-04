@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-20T16:01:34.451Z\n"
-"PO-Revision-Date: 2025-11-20T16:01:34.452Z\n"
+"POT-Creation-Date: 2025-12-03T11:37:40.875Z\n"
+"PO-Revision-Date: 2025-12-03T11:37:40.875Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -491,18 +491,6 @@ msgstr "High radius should be greater than low radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
 
-msgid "Choose from presets"
-msgstr "Choose from presets"
-
-msgid "Define start - end dates"
-msgstr "Define start - end dates"
-
-msgid "Choose period for all timeline layers"
-msgstr "Choose period for all timeline layers"
-
-msgid "Choose period for all split layers"
-msgstr "Choose period for all split layers"
-
 msgid "Indicator group is required"
 msgstr "Indicator group is required"
 
@@ -529,6 +517,18 @@ msgstr "Calculation is required"
 
 msgid "Period is required"
 msgstr "Period is required"
+
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
+
+msgid "Choose period for all timeline layers"
+msgstr "Choose period for all timeline layers"
+
+msgid "Choose period for all split layers"
+msgstr "Choose period for all split layers"
 
 msgid "Indicator"
 msgstr "Indicator"
@@ -627,6 +627,12 @@ msgstr ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
 
+msgid "Split"
+msgstr "Split"
+
+msgid "Timeline"
+msgstr "Timeline"
+
 msgid "Collapse"
 msgstr "Collapse"
 
@@ -663,9 +669,6 @@ msgstr "Data download failed."
 
 msgid "External layer"
 msgstr "External layer"
-
-msgid "Split view can not be combined with other layer types."
-msgstr "Split view can not be combined with other layer types."
 
 msgid "Failed to load layer"
 msgstr "Failed to load layer"
@@ -979,14 +982,8 @@ msgstr "Single"
 msgid "Show periods as a combined layer. Data is aggregated."
 msgstr "Show periods as a combined layer. Data is aggregated."
 
-msgid "Timeline"
-msgstr "Timeline"
-
 msgid "Show multiple periods as an interactive timeline."
 msgstr "Show multiple periods as an interactive timeline."
-
-msgid "Split"
-msgstr "Split"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "Show multiple maps in view, one for each period (max {{number}})."
