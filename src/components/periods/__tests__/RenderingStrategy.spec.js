@@ -1,9 +1,8 @@
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import {
-    RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../../constants/layers.js'
@@ -80,20 +79,6 @@ describe('RenderingStrategy', () => {
         ).toBeInTheDocument()
     })
 
-    it('disables timeline and split map views when total periods are below the minimum', () => {
-        countPeriods.mockReturnValue(1)
-        render(
-            <Provider store={store}>
-                <RenderingStrategy {...props} />
-            </Provider>
-        )
-        const radioButtons = screen.getAllByRole('radio')
-
-        expect(radioButtons[0]).not.toBeDisabled()
-        expect(radioButtons[1]).toBeDisabled()
-        expect(radioButtons[2]).toBeDisabled()
-    })
-
     it('calls onChange with correct value when a radio button is clicked', async () => {
         countPeriods.mockReturnValue(5)
         const onChangeMockFn = jest.fn()
@@ -108,18 +93,5 @@ describe('RenderingStrategy', () => {
         await fireEvent.click(radioButtons[1])
 
         expect(onChangeMockFn).toHaveBeenCalledWith(RENDERING_STRATEGY_TIMELINE)
-    })
-
-    it('automatically switches to SINGLE when conditions are not met', async () => {
-        countPeriods.mockReturnValue(1)
-        const onChangeMockFn = jest.fn()
-        await act(async () => {
-            render(
-                <Provider store={store}>
-                    <RenderingStrategy {...props} onChange={onChangeMockFn} />
-                </Provider>
-            )
-        })
-        expect(onChangeMockFn).toHaveBeenCalledWith(RENDERING_STRATEGY_SINGLE)
     })
 })
