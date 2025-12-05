@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
-"PO-Revision-Date: 2025-10-28T16:10:10.277Z\n"
+"POT-Creation-Date: 2025-12-05T11:45:17.344Z\n"
+"PO-Revision-Date: 2025-12-05T11:45:17.344Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -497,6 +497,30 @@ msgstr "Choose from presets"
 msgid "Define start - end dates"
 msgstr "Define start - end dates"
 
+msgid "Choose period for all timeline layers"
+msgstr "Choose period for all timeline layers"
+
+msgid "Choose period for all split layers"
+msgstr "Choose period for all split layers"
+
+msgid "Indicator"
+msgstr "Indicator"
+
+msgid "Reporting rates"
+msgstr "Reporting rates"
+
+msgid "Event data items"
+msgstr "Event data items"
+
+msgid "Program indicators"
+msgstr "Program indicators"
+
+msgid "Calculations"
+msgstr "Calculations"
+
+msgid "Item type"
+msgstr "Item type"
+
 msgid "Indicator group is required"
 msgstr "Indicator group is required"
 
@@ -524,23 +548,18 @@ msgstr "Calculation is required"
 msgid "Period is required"
 msgstr "Period is required"
 
-msgid "Indicator"
-msgstr "Indicator"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 
-msgid "Reporting rates"
-msgstr "Reporting rates"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
 
-msgid "Event data items"
-msgstr "Event data items"
-
-msgid "Program indicators"
-msgstr "Program indicators"
-
-msgid "Calculations"
-msgstr "Calculations"
-
-msgid "Item type"
-msgstr "Item type"
+msgid "Specified radius values are invalid"
+msgstr "Specified radius values are invalid"
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Select period when tracked entities were last updated"
@@ -621,6 +640,12 @@ msgstr ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
 
+msgid "Split"
+msgstr "Split"
+
+msgid "Timeline"
+msgstr "Timeline"
+
 msgid "Collapse"
 msgstr "Collapse"
 
@@ -657,9 +682,6 @@ msgstr "Data download failed."
 
 msgid "External layer"
 msgstr "External layer"
-
-msgid "Split view can not be combined with other layer types."
-msgstr "Split view can not be combined with other layer types."
 
 msgid "Failed to load layer"
 msgstr "Failed to load layer"
@@ -951,11 +973,11 @@ msgstr "Next year"
 msgid "Start/end dates"
 msgstr "Start/end dates"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Select at least {{number}} periods or 1 multi-period."
-
 msgid "Remove the existing timeline to add a new one."
 msgstr "Remove the existing timeline to add a new one."
+
+msgid "Remove all other layers to add a split view."
+msgstr "Remove all other layers to add a split view."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -964,23 +986,14 @@ msgstr ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 
-msgid "Remove all other layers to add a split map view."
-msgstr "Remove all other layers to add a split map view."
-
 msgid "Single"
 msgstr "Single"
 
 msgid "Show periods as a combined layer. Data is aggregated."
 msgstr "Show periods as a combined layer. Data is aggregated."
 
-msgid "Timeline"
-msgstr "Timeline"
-
 msgid "Show multiple periods as an interactive timeline."
 msgstr "Show multiple periods as an interactive timeline."
-
-msgid "Split"
-msgstr "Split"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "Show multiple maps in view, one for each period (max {{number}})."

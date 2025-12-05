@@ -11,7 +11,7 @@ import styles from './styles/SplitView.module.css'
 const SplitView = ({
     isPlugin,
     basemap,
-    layer,
+    layers,
     feature,
     controls,
     openContextMenu = Function.prototype,
@@ -62,7 +62,8 @@ const SplitView = ({
         setShowFullscreen(isFullscreen)
     }, [isFullscreen])
 
-    const { id, periods = [] } = layer
+    const { periods = [] } = layers[0]
+    const layersId = layers.map(({ id }) => id).join(',')
 
     return !interpretationModalOpen ? (
         <div
@@ -74,21 +75,26 @@ const SplitView = ({
                     key={period.id}
                     index={index}
                     count={periods.length}
-                    layerId={id}
+                    layerId={layersId}
                     setMapControls={setMap}
                     isPlugin={isPlugin}
                     isFullscreen={showFullscreen}
                     baseUrl={baseUrl}
                     layersSorting={layersSorting}
                 >
+                    {layers.map((layer, index) => {
+                        return (
+                            <ThematicLayer
+                                key={`${period.id}-${layer.id}`}
+                                index={layers.length - index}
+                                {...layer} // needs to be before period
+                                period={period}
+                                feature={feature}
+                                openContextMenu={openContextMenu}
+                            />
+                        )
+                    })}
                     <BasemapLayer {...basemap} />
-                    <ThematicLayer
-                        index={1}
-                        {...layer} // needs to be before period
-                        period={period}
-                        feature={feature}
-                        openContextMenu={openContextMenu}
-                    />
                     <PeriodName period={period.name} />
                 </MapItem>
             ))}
@@ -97,7 +103,12 @@ const SplitView = ({
 }
 
 SplitView.propTypes = {
-    layer: PropTypes.object.isRequired,
+    layers: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string,
+            periods: PropTypes.array,
+        })
+    ).isRequired,
     openContextMenu: PropTypes.func.isRequired,
     basemap: PropTypes.object,
     controls: PropTypes.array,
