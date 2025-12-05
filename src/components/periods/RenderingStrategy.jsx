@@ -73,8 +73,9 @@ const RenderingStrategy = ({
     const isDisabled = (strategy) => {
         switch (strategy) {
             case RENDERING_STRATEGY_SINGLE:
-            case RENDERING_STRATEGY_TIMELINE:
                 return hasOtherSplitLayers
+            case RENDERING_STRATEGY_TIMELINE:
+                return hasOtherTimelineLayers || hasOtherSplitLayers
             case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
                 return hasOtherNonSplitLayers
             default:
