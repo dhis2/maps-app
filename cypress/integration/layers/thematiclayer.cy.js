@@ -471,13 +471,19 @@ context('Thematic Layers', () => {
 
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('be.disabled')
-        cy.get('div').contains('Timeline').realHover()
+        cy.get('div')
+            .contains('Show multiple periods as an interactive timeline.')
+            .realHover()
         cy.contains('Remove the existing timeline to add a new one.').should(
             'be.visible'
         )
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
-        cy.get('div').contains('Split').realHover()
-        cy.contains('Remove all other layers to add a split map view.').should(
+        cy.get('div')
+            .contains(
+                'Show multiple maps in view, one for each period (max 12).'
+            )
+            .realHover()
+        cy.contains('Remove all other layers to add a split view.').should(
             'be.visible'
         )
     })
