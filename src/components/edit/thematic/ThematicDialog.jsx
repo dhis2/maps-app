@@ -265,16 +265,27 @@ const ThematicDialog = ({
         }
     }, [rows, orgUnits?.levels, dispatch])
 
-    // Set rendering strategy to single if not relative period
+    // Set period type to predefined periods if rendering strategy set to timeline or split
     useEffect(() => {
         if (
             periodType &&
             periodType !== PREDEFINED_PERIODS &&
             renderingStrategy !== RENDERING_STRATEGY_SINGLE
         ) {
-            dispatch(setRenderingStrategy(RENDERING_STRATEGY_SINGLE))
+            dispatch(setPeriodType(PREDEFINED_PERIODS))
+            dispatch(setBackupPeriodsDates({ startDate, endDate }))
+            dispatch(setPeriods(backupPeriodsDates?.periods || []))
+            dispatch(setStartDate())
+            dispatch(setEndDate())
         }
-    }, [periodType, renderingStrategy, dispatch])
+    }, [
+        periodType,
+        renderingStrategy,
+        startDate,
+        endDate,
+        backupPeriodsDates,
+        dispatch,
+    ])
 
     // Set the default classification/legend for selected data item without visiting the style tab
     useEffect(() => {
