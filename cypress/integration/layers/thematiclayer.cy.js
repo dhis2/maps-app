@@ -482,7 +482,8 @@ context('Thematic Layers', () => {
         )
     })
 
-    it('adds a thematic layer with split view period', () => {
+    it.only('adds two thematic layer with split view period', () => {
+        // add a first layer
         Layer.openDialog('Thematic')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)
@@ -508,6 +509,41 @@ context('Thematic Layers', () => {
 
         // check for 3 maps
         getMaps().should('have.length', 3)
+        // check for 1 layer
+        cy.getByDataTest('sortable-layers-list')
+            .children()
+            .should('have.length', 1)
+
+        // add a second layer
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
+            .selectTab('Period')
+
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.checked')
+        cy.getByDataTest('period-dimension-transfer-option-content')
+            .contains('Last 3 months')
+            .should('exist')
+
+        Layer.selectTab('Style').selectBubbleMap()
+
+        cy.getByDataTest('color-scale').click()
+        cy.getByDataTest('color-scale').eq(3).click()
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateDialogClosed(true)
+
+        // check for 3 maps
+        getMaps().should('have.length', 3)
+        // check for 2 layers
+        cy.getByDataTest('sortable-layers-list')
+            .children()
+            .should('have.length', 2)
 
         // wait to make sure the maps are loaded
         cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
