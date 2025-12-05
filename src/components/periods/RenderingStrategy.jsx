@@ -65,6 +65,11 @@ const RenderingStrategy = ({
                     : undefined,
             [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: hasOtherNonSplitLayers
                 ? i18n.t('Remove all other layers to add a split view.')
+                : totalPeriods > MULTIMAP_MAX_PERIODS
+                ? i18n.t(
+                      'Only up to a total of {{number}} periods (including those in multi-periods) can be selected.',
+                      { number: MULTIMAP_MAX_PERIODS }
+                  )
                 : undefined,
         }),
         [totalPeriods, hasOtherTimelineLayers, hasOtherNonSplitLayers]

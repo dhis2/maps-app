@@ -364,12 +364,12 @@ context('Thematic Layers', () => {
     it('available rendering strategies depend on selected periods', () => {
         Layer.openDialog('Thematic').selectTab('Period').removeAllPeriods()
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
-        cy.get('input[value="TIMELINE"]').should('be.disabled')
+        cy.get('input[value="TIMELINE"]').should('not.be.disabled')
         cy.get('div').contains('Timeline').realHover()
         cy.contains('Select at least 2 periods or 1 multi-period.').should(
             'be.visible'
         )
-        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
         cy.get('div').contains('Split').realHover()
         cy.contains('Select at least 2 periods or 1 multi-period.').should(
             'be.visible'
@@ -401,7 +401,7 @@ context('Thematic Layers', () => {
         })
         cy.get('input[value="SINGLE"]').should('not.be.disabled')
         cy.get('input[value="TIMELINE"]').should('not.be.disabled')
-        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
         cy.get('div').contains('Split').realHover()
         cy.contains(
             'Only up to a total of 12 periods (including those in multi-periods) can be selected.'
@@ -482,7 +482,7 @@ context('Thematic Layers', () => {
         )
     })
 
-    it.only('adds two thematic layer with split view period', () => {
+    it('adds two thematic layer with split view period', () => {
         // add a first layer
         Layer.openDialog('Thematic')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
