@@ -263,13 +263,13 @@ const EarthEngineDialog = (props) => {
                                 {resolution?.spatial}
                             </div>
                         )}
-                        {resolution?.temporal && (
+                        {!periodType && resolution?.temporal && (
                             <div className={styles.paragraph}>
                                 {i18n.t('Temporal resolution')}:{' '}
                                 {resolution?.temporal}
                             </div>
                         )}
-                        {resolution?.temporalCoverage && (
+                        {!periodType && resolution?.temporalCoverage && (
                             <div className={styles.paragraph}>
                                 {i18n.t('Temporal coverage')}:{' '}
                                 {resolution?.temporalCoverage}
@@ -292,13 +292,27 @@ const EarthEngineDialog = (props) => {
                         {grouping?.period &&
                             grouping.period.group.items?.length > 1 && (
                                 <SelectField
-                                    label={i18n.t('Temporal resolution')}
+                                    label={i18n.t('Period type')}
                                     items={grouping.period.group.items}
                                     value={grouping.period.id}
                                     onChange={(e) => onLayerSelect(e, 'period')}
                                     className={styles.flexRowFlow}
                                 />
                             )}
+                        <div className={styles.flexRowFlow}>
+                            {resolution?.temporal && (
+                                <div className={styles.paragraph}>
+                                    {i18n.t('Temporal resolution')}:{' '}
+                                    {resolution?.temporal}
+                                </div>
+                            )}
+                            {resolution?.temporalCoverage && (
+                                <div className={styles.paragraph}>
+                                    {i18n.t('Temporal coverage')}:{' '}
+                                    {resolution?.temporalCoverage}
+                                </div>
+                            )}
+                        </div>
                         <PeriodSelect
                             datasetId={datasetId}
                             layerId={layerId}

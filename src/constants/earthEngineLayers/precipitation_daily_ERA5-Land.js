@@ -37,7 +37,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~9 kilometers'),
             temporal: i18n.t('Daily'),
-            temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
+            temporalCoverage: i18n.t('Since Febuary 1950'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],

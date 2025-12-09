@@ -31,7 +31,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~28 kilometers'),
             temporal: i18n.t('Daily'),
-            temporalCoverage: i18n.t('Febuary 1950 - One month ago'),
+            temporalCoverage: i18n.t('Since January 1940'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
@@ -43,7 +43,7 @@ export default function createConfig() {
             },
         ],
         bands: {
-            label: i18n.t('Temporal aggregation method'),
+            label: i18n.t('Base daily value'),
             multiple: false,
             default: 'utci_mean',
             list: [

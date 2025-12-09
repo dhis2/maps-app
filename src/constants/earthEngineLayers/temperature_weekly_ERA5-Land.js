@@ -32,7 +32,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~9 kilometers'),
             temporal: i18n.t('Weekly (aggregated from Daily data)'),
-            temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
+            temporalCoverage: i18n.t('Since Febuary 1950'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
@@ -45,7 +45,7 @@ export default function createConfig() {
             },
         ],
         bands: {
-            label: i18n.t('Temporal aggregation method'),
+            label: i18n.t('Base daily value'),
             multiple: false,
             default: 'temperature_2m',
             list: [
