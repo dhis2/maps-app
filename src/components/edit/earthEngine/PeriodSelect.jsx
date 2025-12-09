@@ -14,13 +14,27 @@ import { getPeriods, getYears } from '../../../util/earthEngine.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
+const isValidDate = (d) => {
+    return d instanceof Date && !isNaN(d)
+}
+const normalizeToDayBefore2359 = (date) => {
+    const d = new Date(date)
+    if (d.getHours() < 23 || (d.getHours() === 23 && d.getMinutes() < 59)) {
+        d.setDate(d.getDate() - 1)
+        d.setHours(23, 59, 0, 0)
+    }
+    return d
+}
 const AVAILABLE_UP_TO = 'Available up to:'
 const isPeriodComplete = ({ endDateDataset, endDatePeriod, periodName }) => {
-    const complete = endDateDataset >= endDatePeriod
-
+    const complete =
+        normalizeToDayBefore2359(endDateDataset) >=
+        normalizeToDayBefore2359(endDatePeriod)
     const name = complete
         ? periodName
-        : `${periodName} (${AVAILABLE_UP_TO} ${endDateDataset
+        : `${periodName} (${AVAILABLE_UP_TO} ${normalizeToDayBefore2359(
+              endDateDataset
+          )
               .toISOString()
               .slice(0, 10)})`
 
@@ -132,7 +146,9 @@ const EarthEnginePeriodSelect = ({
                     if (!isCancelled) {
                         const { name } = isPeriodComplete({
                             endDateDataset: datesRange.endDate,
-                            endDatePeriod: periods[0].endDate,
+                            endDatePeriod: isValidDate(periods[0].endDate)
+                                ? periods[0].endDate
+                                : periods[0].startDate,
                             periodName: periods[0].name,
                         })
                         periods[0].name = name
