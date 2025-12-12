@@ -223,10 +223,12 @@ const earthEngineLoader = async ({
 
 export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
     if (ranges && ranges.length === palette.length) {
-        return ranges.map((range, index) => ({
-            ...range,
-            color: palette[index],
-        }))
+        return sortLegendItems(
+            ranges.map((range, index) => ({
+                ...range,
+                color: palette[index],
+            }))
+        )
     }
 
     const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
