@@ -10,6 +10,26 @@ import styles from '../styles/LayerDialog.module.css'
 const minSteps = 3
 const maxSteps = 9
 
+export const getStyleSelectError = ({ min, max, steps, palette }) => {
+    steps = steps ?? palette.length
+    if (Number.isNaN(min)) {
+        return i18n.t('Min value is required')
+    }
+    if (Number.isNaN(max)) {
+        return i18n.t('Max value is required')
+    }
+    if (max <= min) {
+        return i18n.t('Max should be greater than min')
+    }
+    if (steps < minSteps || steps > maxSteps) {
+        return i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
+            minSteps,
+            maxSteps,
+        })
+    }
+    return undefined
+}
+
 const StyleSelect = ({ unit, style, setStyle }) => {
     const { min, max, palette } = style
     const [steps, setSteps] = useState(palette.length)
@@ -30,20 +50,11 @@ const StyleSelect = ({ unit, style, setStyle }) => {
         [palette, setStyle]
     )
 
-    let warningText
-
-    if (Number.isNaN(min)) {
-        warningText = i18n.t('Min value is required')
-    } else if (Number.isNaN(max)) {
-        warningText = i18n.t('Max value is required')
-    } else if (max <= min) {
-        warningText = i18n.t('Max should be greater than min')
-    } else if (steps < minSteps || steps > maxSteps) {
-        warningText = i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
-            minSteps,
-            maxSteps,
-        })
-    }
+    const errorText = getStyleSelectError({
+        min,
+        max,
+        steps,
+    })
 
     return (
         <div>
@@ -71,9 +82,7 @@ const StyleSelect = ({ unit, style, setStyle }) => {
                     onChange={onStepsChange}
                     className={styles.stepField}
                 />
-                {warningText && (
-                    <div className={styles.eeError}>{warningText}</div>
-                )}
+                {errorText && <div className={styles.eeError}>{errorText}</div>}
                 <div className={styles.scale}>
                     <ColorScaleSelect
                         palette={style.palette}

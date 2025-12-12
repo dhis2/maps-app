@@ -23,6 +23,7 @@ import styles from '../styles/LayerDialog.module.css'
 import AggregationSelect from './AggregationSelect.jsx'
 import BandSelect from './BandSelect.jsx'
 import PeriodSelect from './PeriodSelect.jsx'
+import { getStyleSelectError } from './StyleSelect.jsx'
 import StyleTab from './StyleTab.jsx'
 
 const EarthEngineDialog = (props) => {
@@ -161,12 +162,21 @@ const EarthEngineDialog = (props) => {
 
     useEffect(() => {
         if (validateLayer) {
+            const errorStyleSelect = getStyleSelectError(style)
             const noPeriodSelected = periodType && !period
             const noBandSelected = bands && (!band || !band.length)
 
-            const isValid = !noBandSelected && !noPeriodSelected
+            const isValid =
+                !noBandSelected && !noPeriodSelected && !errorStyleSelect
 
             if (!isValid) {
+                if (errorStyleSelect) {
+                    setError({
+                        type: 'style',
+                        message: errorStyleSelect,
+                    })
+                    setTab('style')
+                }
                 if (noPeriodSelected) {
                     setError({
                         type: 'period',
@@ -185,7 +195,15 @@ const EarthEngineDialog = (props) => {
 
             onLayerValidation(isValid)
         }
-    }, [validateLayer, periodType, period, bands, band, onLayerValidation])
+    }, [
+        validateLayer,
+        periodType,
+        period,
+        bands,
+        band,
+        style,
+        onLayerValidation,
+    ])
 
     if (error && error.type === 'engine') {
         return (
