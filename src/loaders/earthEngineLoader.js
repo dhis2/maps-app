@@ -12,6 +12,7 @@ import {
     getStaticFilterFromPeriod,
     getPeriodFromFilter,
 } from '../util/earthEngine.js'
+import { sortLegendItems } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
 import { getRoundToPrecisionFn } from '../util/numbers.js'
 import {
@@ -235,30 +236,32 @@ export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
     let from = valueFormat(min)
     let to = valueFormat(min + step)
 
-    return palette.map((color, index) => {
-        const item = { color }
+    return sortLegendItems(
+        palette.map((color, index) => {
+            const item = { color }
 
-        if (index === 0 && showBelowMin) {
-            // Less than min
-            item.from = -Infinity
-            item.to = min
-            item.name = '< ' + min
-            to = min
-        } else if (+from < max) {
-            item.from = +from
-            item.to = +to
-            item.name = from + ' - ' + to
-        } else {
-            // Higher than max
-            item.from = +from
-            item.name = '> ' + from
-        }
+            if (index === 0 && showBelowMin) {
+                // Less than min
+                item.from = -Infinity
+                item.to = min
+                item.name = '< ' + min
+                to = min
+            } else if (+from < max) {
+                item.from = +from
+                item.to = +to
+                item.name = from + ' - ' + to
+            } else {
+                // Higher than max
+                item.from = +from
+                item.name = '> ' + from
+            }
 
-        from = to
-        to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
+            from = to
+            to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
 
-        return item
-    })
+            return item
+        })
+    )
 }
 
 export default earthEngineLoader
