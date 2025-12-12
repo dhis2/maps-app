@@ -29,6 +29,8 @@ const earthEngineLoader = async ({
     const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
+
+    let loadError
     const alerts = []
 
     let layerConfig = {}
@@ -87,6 +89,7 @@ const earthEngineLoader = async ({
                 })
             }
         } catch (error) {
+            loadError = error.message || error
             alerts.push({
                 code: ERROR_CRITICAL,
                 message: error.message || error,
@@ -213,6 +216,7 @@ const earthEngineLoader = async ({
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 
