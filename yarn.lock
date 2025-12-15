@@ -2149,9 +2149,10 @@
     i18next "^10.3"
     moment "^2.24.0"
 
-"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#567bace1795709d333b02cf49845fba6bd0543fb":
-  version "4.1.2"
-  resolved "git+https://github.com/d2-ci/maps-gl.git#567bace1795709d333b02cf49845fba6bd0543fb"
+"@dhis2/maps-gl@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.2.0.tgz#e256bc95e117e14b4e7fa5bca11ff40f2f641ffa"
+  integrity sha512-51T1G2JCCK9bVOQ5TXy25HPg87gPhcegPmr/Pa1UKeGQCBpXyd+fEb8q42Yw/TDxNsYzMi91kPoZ7rKn3Ec/ZQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
