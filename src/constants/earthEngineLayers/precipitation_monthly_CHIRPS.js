@@ -5,8 +5,8 @@ import { EE_MONTHLY } from '../periods.js'
 export default function createConfig() {
     return {
         layer: EARTH_ENGINE_LAYER,
-        layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/total_precipitation_sum',
-        datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
+        layerId: 'UCSB-CHG/CHIRPS/MONTHLY/precipitation',
+        datasetId: 'UCSB-CHG/CHIRPS/DAILY',
         grouping: {
             group: {
                 img: 'images/precipitation.png',
@@ -17,43 +17,39 @@ export default function createConfig() {
                 matchOnSwitch: ['periodType'],
             },
             subGroup: {
-                id: 'precipitation_era5',
+                id: 'precipitation_chirps',
                 type: 'period',
-                name: i18n.t('ERA5'),
+                name: i18n.t('CHIRPS'),
                 excludeOnSwitch: ['period', 'style'],
             },
         },
         format: 'ImageCollection',
         img: 'images/precipitation.png',
-        name: i18n.t('Precipitation monthly ERA5'),
+        name: i18n.t('Precipitation monthly CHIRPS'),
         description: i18n.t(
-            'Gridded precipitation dataset combining model data with observations from around the world, providing estimates of both rain and snow over land at high temporal resolution, typically available within about one week.'
+            'Gridded precipitation dataset blending satellite imagery with in-situ station data, providing rainfall-focused estimates over land at higher spatial resolution but with a longer lag in data availability.'
         ),
-        source: 'Copernicus Climate Data Store / Google Earth Engine',
+        source: 'Climate Hazards Center / UCSB',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_MONTHLY_AGGR',
+            'https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY',
         unit: i18n.t('millimeter'),
         resolution: {
-            spatial: i18n.t('~9 kilometers'),
-            temporal: i18n.t('Monthly'),
-            temporalCoverage: i18n.t('Febuary 1950 - One month ago'),
+            spatial: i18n.t('~5.5 kilometers'),
+            temporal: i18n.t('Monthly (aggregated from Daily data)'),
+            temporalCoverage: i18n.t('January 1981 - One month ago'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
         periodType: EE_MONTHLY,
+        periodReducer: EE_MONTHLY,
+        periodReducerType: 'sum',
         filters: [
             {
                 type: 'eq',
                 arguments: ['system:index', '$1'],
             },
         ],
-        band: 'total_precipitation_sum',
-        methods: [
-            {
-                name: 'multiply',
-                arguments: [1000],
-            },
-        ],
+        band: 'precipitation',
         style: {
             min: 0,
             max: 700,

@@ -1208,14 +1208,14 @@ msgstr "Extreme heat stress 46 - 60"
 msgid "Heat stress monthly"
 msgstr "Heat stress monthly"
 
-msgid "Monthly"
-msgstr "Monthly"
+msgid "Monthly (aggregated from Daily data)"
+msgstr "Monthly (aggregated from Daily data)"
 
 msgid "Heat stress weekly"
 msgstr "Heat stress weekly"
 
-msgid "Weekly"
-msgstr "Weekly"
+msgid "Weekly (aggregated from Daily data)"
+msgstr "Weekly (aggregated from Daily data)"
 
 msgid "Landcover"
 msgstr "Landcover"
@@ -1454,15 +1454,41 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation daily"
-msgstr "Precipitation daily"
+msgid "CHIRPS"
+msgstr "CHIRPS"
+
+msgid "Precipitation daily CHIRPS"
+msgstr "Precipitation daily CHIRPS"
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Gridded precipitation dataset blending satellite imagery with in-situ "
+"station data, providing rainfall-focused estimates over land at higher "
+"spatial resolution but with a longer lag in data availability."
 msgstr ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Gridded precipitation dataset blending satellite imagery with in-situ "
+"station data, providing rainfall-focused estimates over land at higher "
+"spatial resolution but with a longer lag in data availability."
+
+msgid "~5.5 kilometers"
+msgstr "~5.5 kilometers"
+
+msgid "January 1981 - One month ago"
+msgstr "January 1981 - One month ago"
+
+msgid "ERA5"
+msgstr "ERA5"
+
+msgid "Precipitation daily ERA5"
+msgstr "Precipitation daily ERA5"
+
+msgid ""
+"Gridded precipitation dataset combining model data with observations from "
+"around the world, providing estimates of both rain and snow over land at "
+"high temporal resolution, typically available within about one week."
+msgstr ""
+"Gridded precipitation dataset combining model data with observations from "
+"around the world, providing estimates of both rain and snow over land at "
+"high temporal resolution, typically available within about one week."
 
 msgid "~9 kilometers"
 msgstr "~9 kilometers"
@@ -1470,11 +1496,20 @@ msgstr "~9 kilometers"
 msgid "Febuary 1950 - One week ago"
 msgstr "Febuary 1950 - One week ago"
 
-msgid "Precipitation monthly"
-msgstr "Precipitation monthly"
+msgid "Precipitation monthly CHIRPS"
+msgstr "Precipitation monthly CHIRPS"
 
-msgid "Precipitation weekly"
-msgstr "Precipitation weekly"
+msgid "Precipitation monthly ERA5"
+msgstr "Precipitation monthly ERA5"
+
+msgid "Febuary 1950 - One week ago"
+msgstr "Febuary 1950 - One week ago"
+
+msgid "Precipitation weekly CHIRPS"
+msgstr "Precipitation weekly CHIRPS"
+
+msgid "Precipitation weekly ERA5"
+msgstr "Precipitation weekly ERA5"
 
 msgid "Temperature"
 msgstr "Temperature"
@@ -1541,8 +1576,14 @@ msgstr "EVI"
 msgid "Vegetation index monthly"
 msgstr "Vegetation index monthly"
 
+msgid "Monthly (aggregated from 16-day data)"
+msgstr "Monthly (aggregated from 16-day data)"
+
 msgid "Vegetation index weekly"
 msgstr "Vegetation index weekly"
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr "Weekly (aggregated from 16-day data)"
 
 msgid "Active"
 msgstr "Active"
@@ -1576,6 +1617,9 @@ msgstr "Symbol"
 
 msgid "Relative"
 msgstr "Relative"
+
+msgid "Weekly"
+msgstr "Weekly"
 
 msgid "Weekly (Start Wednesday)"
 msgstr "Weekly (Start Wednesday)"

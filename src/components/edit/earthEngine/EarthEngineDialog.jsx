@@ -16,7 +16,7 @@ import {
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
-import { getLayerSourceGroup } from '../../../util/layerSources.js'
+import { getLayerSourceGrouping } from '../../../util/layerSources.js'
 import { Help, Tab, Tabs, SelectField } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import styles from '../styles/LayerDialog.module.css'
@@ -64,8 +64,8 @@ const EarthEngineDialog = (props) => {
     } = props
 
     const managedLayerSources = useSelector((state) => state.layerSources)
-    const group = useMemo(
-        () => getLayerSourceGroup(layerId, managedLayerSources),
+    const grouping = useMemo(
+        () => getLayerSourceGrouping(layerId, managedLayerSources),
         [layerId, managedLayerSources]
     )
 
@@ -75,7 +75,17 @@ const EarthEngineDialog = (props) => {
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
 
     const onLayerSelect = useCallback(
-        (layer) => {
+        (layer, tab) => {
+            const groupDetails = grouping[tab].group
+            if (groupDetails.matchOnSwitch) {
+                let filteredItems = layer.items
+                for (const matchProp of groupDetails.matchOnSwitch) {
+                    filteredItems = filteredItems.filter(
+                        (item) => item[matchProp] === props[matchProp]
+                    )
+                }
+                layer = filteredItems[0] || layer.items[0]
+            }
             const sanitizedUpdates = {
                 band,
                 aggregationType,
@@ -85,8 +95,8 @@ const EarthEngineDialog = (props) => {
                 style,
                 orgUnitField,
             }
-            if (group?.excludeOnSwitch) {
-                group.excludeOnSwitch.forEach((key) => {
+            if (groupDetails.excludeOnSwitch) {
+                groupDetails.excludeOnSwitch.forEach((key) => {
                     delete sanitizedUpdates[key]
                 })
             }
@@ -96,14 +106,15 @@ const EarthEngineDialog = (props) => {
                 editLayer({
                     ...config,
                     ...sanitizedUpdates,
-                    group,
+                    grouping,
                     id,
                 })
             )
         },
         [
             dispatch,
-            group,
+            grouping,
+            props,
             band,
             aggregationType,
             period,
@@ -114,6 +125,7 @@ const EarthEngineDialog = (props) => {
             id,
         ]
     )
+
     // Set default band
     useEffect(() => {
         if (!band) {
@@ -194,13 +206,13 @@ const EarthEngineDialog = (props) => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
-                        {group?.groupType === 'data' &&
-                            group?.items?.length > 1 && (
+                        {grouping?.data &&
+                            grouping.data.group.items?.length > 1 && (
                                 <SelectField
                                     label={i18n.t('Dataset')}
-                                    items={group.items}
-                                    value={layerId}
-                                    onChange={onLayerSelect}
+                                    items={grouping.data.group.items}
+                                    value={grouping.data.id}
+                                    onChange={(e) => onLayerSelect(e, 'data')}
                                 />
                             )}
                         <Help>
@@ -277,13 +289,13 @@ const EarthEngineDialog = (props) => {
                 )}
                 {tab === 'period' && (
                     <>
-                        {group?.groupType === 'period' &&
-                            group?.items.length > 1 && (
+                        {grouping?.period &&
+                            grouping.period.group.items?.length > 1 && (
                                 <SelectField
-                                    label={i18n.t('Dataset')}
-                                    items={group.items}
-                                    value={layerId}
-                                    onChange={onLayerSelect}
+                                    label={i18n.t('Temporal resolution')}
+                                    items={grouping.period.group.items}
+                                    value={grouping.period.id}
+                                    onChange={(e) => onLayerSelect(e, 'period')}
                                     className={styles.flexRowFlow}
                                 />
                             )}

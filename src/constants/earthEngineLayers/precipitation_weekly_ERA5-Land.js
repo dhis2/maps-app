@@ -7,18 +7,27 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/total_precipitation_sum',
         datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
-        group: {
-            groupId: 'precipitation',
-            groupType: 'period',
-            name: i18n.t('Precipitation'),
-            img: 'images/precipitation.png',
-            excludeOnSwitch: ['period', 'style'],
+        grouping: {
+            group: {
+                img: 'images/precipitation.png',
+                id: 'precipitation',
+                type: 'data',
+                name: i18n.t('Precipitation'),
+                excludeOnSwitch: ['band'],
+                matchOnSwitch: ['periodType'],
+            },
+            subGroup: {
+                id: 'precipitation_era5',
+                type: 'period',
+                name: i18n.t('ERA5'),
+                excludeOnSwitch: ['period', 'style'],
+            },
         },
         format: 'ImageCollection',
         img: 'images/precipitation.png',
-        name: i18n.t('Precipitation weekly'),
+        name: i18n.t('Precipitation weekly ERA5'),
         description: i18n.t(
-            'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
+            'Gridded precipitation dataset combining model data with observations from around the world, providing estimates of both rain and snow over land at high temporal resolution, typically available within about one week.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:
@@ -26,7 +35,7 @@ export default function createConfig() {
         unit: i18n.t('millimeter'),
         resolution: {
             spatial: i18n.t('~9 kilometers'),
-            temporal: i18n.t('Weekly'),
+            temporal: i18n.t('Weekly (aggregated from Daily data)'),
             temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],

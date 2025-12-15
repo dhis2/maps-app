@@ -7,12 +7,14 @@ export default function createConfig() {
         layer: EARTH_ENGINE_LAYER,
         layerId: 'MODIS/061/MOD13Q1/VI/MONTHLY',
         datasetId: 'MODIS/061/MOD13Q1',
-        group: {
-            groupId: 'vegetation',
-            groupType: 'period',
-            name: i18n.t('Vegetation'),
-            img: 'images/vegetation.png',
-            excludeOnSwitch: ['period'],
+        grouping: {
+            group: {
+                img: 'images/vegetation.png',
+                id: 'vegetation',
+                type: 'period',
+                name: i18n.t('Vegetation'),
+                excludeOnSwitch: ['period'],
+            },
         },
         format: 'ImageCollection',
         img: 'images/vegetation.png',
@@ -29,7 +31,7 @@ export default function createConfig() {
         unit: i18n.t('unitless'),
         resolution: {
             spatial: i18n.t('250 meter'),
-            temporal: i18n.t('16-day'),
+            temporal: i18n.t('Monthly (aggregated from 16-day data)'),
             temporalCoverage: i18n.t('Febuary 2000 - One month ago'),
         },
         aggregations: [
