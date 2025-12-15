@@ -14,7 +14,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearAnalyticalObject } from '../../actions/analyticalObject.js'
 import { addLayer } from '../../actions/layers.js'
-import earthEngineLayers from '../../constants/earthEngineLayers/index.js'
+import getEarthEngineLayers from '../../constants/earthEngineLayers/index.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
 import {
     CURRENT_AO_KEY,
@@ -57,7 +57,7 @@ const OpenAsMapDialog = () => {
     }
 
     const addEarthEngineLayersToMap = () => {
-        const layerSource = earthEngineLayers().find(
+        const layerSource = getEarthEngineLayers().find(
             ({ layerId: id }) => layerId === id
         )
         const layer = getEarthEngineLayerFromAnalyticalObject({
