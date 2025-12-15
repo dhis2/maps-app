@@ -1502,8 +1502,8 @@ msgstr "Precipitation monthly CHIRPS"
 msgid "Precipitation monthly ERA5"
 msgstr "Precipitation monthly ERA5"
 
-msgid "Monthly"
-msgstr "Monthly"
+msgid "Febuary 1950 - One week ago"
+msgstr "Febuary 1950 - One week ago"
 
 msgid "Precipitation weekly CHIRPS"
 msgstr "Precipitation weekly CHIRPS"
