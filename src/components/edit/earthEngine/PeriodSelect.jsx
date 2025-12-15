@@ -26,10 +26,18 @@ const normalizeToDayBefore2359 = (date) => {
     return d
 }
 const AVAILABLE_UP_TO = 'Available up to:'
-const isPeriodComplete = ({ endDateDataset, endDatePeriod, periodName }) => {
-    const complete =
-        normalizeToDayBefore2359(endDateDataset) >=
-        normalizeToDayBefore2359(endDatePeriod)
+const isPeriodComplete = ({
+    endDateDataset,
+    startDatePeriod,
+    endDatePeriod,
+    periodName,
+}) => {
+    const normalizedEndDataset = normalizeToDayBefore2359(endDateDataset)
+    const normalizedStartPeriod = normalizeToDayBefore2359(startDatePeriod)
+    const normalizedEndPeriod = normalizeToDayBefore2359(endDatePeriod)
+
+    const empty = normalizedEndDataset <= normalizedStartPeriod
+    const complete = normalizedEndDataset >= normalizedEndPeriod
     const name = complete
         ? periodName
         : `${periodName} (${AVAILABLE_UP_TO} ${normalizeToDayBefore2359(
@@ -38,7 +46,7 @@ const isPeriodComplete = ({ endDateDataset, endDatePeriod, periodName }) => {
               .toISOString()
               .slice(0, 10)})`
 
-    return { complete, name }
+    return { empty, complete, name }
 }
 
 const EarthEnginePeriodSelect = ({
@@ -144,14 +152,19 @@ const EarthEnginePeriodSelect = ({
             })
                 .then((periods) => {
                     if (!isCancelled) {
-                        const { name } = isPeriodComplete({
+                        const { empty, name } = isPeriodComplete({
                             endDateDataset: datesRange.endDate,
+                            startDatePeriod: periods[0].startDate,
                             endDatePeriod: isValidDate(periods[0].endDate)
                                 ? periods[0].endDate
                                 : periods[0].startDate,
                             periodName: periods[0].name,
                         })
-                        periods[0].name = name
+                        if (empty) {
+                            periods.shift()
+                        } else {
+                            periods[0].name = name
+                        }
                         setPeriods(periods)
                         setLoadingPeriods(false)
                     }
@@ -192,7 +205,10 @@ const EarthEnginePeriodSelect = ({
                 // Set most recent complete period by default
                 const { complete } = isPeriodComplete({
                     endDateDataset: datesRange.endDate,
-                    endDatePeriod: periods[0].endDate,
+                    startDatePeriod: periods[0].startDate,
+                    endDatePeriod: isValidDate(periods[0].endDate)
+                        ? periods[0].endDate
+                        : periods[0].startDate,
                     periodName: periods[0].name,
                 })
                 const defaultPeriod =
