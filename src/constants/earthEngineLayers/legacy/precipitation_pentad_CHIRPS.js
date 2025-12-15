@@ -12,7 +12,7 @@ export default function createConfig() {
         name: i18n.t('Precipitation'),
         unit: i18n.t('millimeter'),
         description: i18n.t(
-            'Precipitation collected from satellite and weather stations on the ground. The values are in millimeters within 5 days periods. Updated monthly, during the 3rd week of the following month.'
+            'Precipitation collected from satellite and weather stations on the ground. The values are in millimeters within 5-day periods. Updated monthly, during the 3rd week of the following month.'
         ),
         source: 'UCSB / CHG / Google Earth Engine',
         sourceUrl:

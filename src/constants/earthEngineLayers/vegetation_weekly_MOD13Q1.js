@@ -32,7 +32,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('250 meter'),
             temporal: i18n.t('Weekly (aggregated from 16-day data)'),
-            temporalCoverage: i18n.t('Since Febuary 2000'),
+            temporalCoverage: i18n.t('Since February 2000'),
         },
         aggregations: [
             'min',

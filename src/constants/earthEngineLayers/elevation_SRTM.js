@@ -17,7 +17,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~30 meters'),
             temporal: i18n.t('Single point in time'),
-            temporalCoverage: i18n.t('Febuary 2000'),
+            temporalCoverage: i18n.t('February 2000'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
