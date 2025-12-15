@@ -3,6 +3,9 @@ import elevation from './elevation_SRTM.js'
 import heatDaily from './heat_daily_ERA5-Heat.js'
 import heatMonthly from './heat_monthly_ERA5-Heat.js'
 import heatWeekly from './heat_weekly_ERA5-Heat.js'
+import humidityDaily from './humidity_daily_ERA5-Land.js'
+import humidityMonthly from './humidity_monthly_ERA5-Land.js'
+import humidityWeekly from './humidity_weekly_ERA5-Land.js'
 import landcover from './landcover_MCD12Q1.js'
 import legacyBuildings from './legacy/buildings_GOOGLE.js'
 import legacyNighttime from './legacy/nighttime_DMSP-OLS.js'
@@ -33,6 +36,9 @@ const earthEngineLayersFns = [
     heatMonthly,
     heatWeekly,
     heatDaily,
+    humidityMonthly,
+    humidityWeekly,
+    humidityDaily,
     precipitationEra5Monthly,
     precipitationEra5Weekly,
     precipitationEra5Daily,

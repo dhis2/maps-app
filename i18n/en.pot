@@ -1217,6 +1217,36 @@ msgstr "Heat stress weekly"
 msgid "Weekly (aggregated from Daily data)"
 msgstr "Weekly (aggregated from Daily data)"
 
+msgid "Humidity"
+msgstr "Humidity"
+
+msgid "Humidity daily"
+msgstr "Humidity daily"
+
+msgid ""
+"Relative humidity is the the amount of water vapour present in air "
+"expressed as a percentage of the amount needed for saturation at the same "
+"temperature (dewpoint)."
+msgstr ""
+"Relative humidity is the the amount of water vapour present in air "
+"expressed as a percentage of the amount needed for saturation at the same "
+"temperature (dewpoint)."
+
+msgid "~9 kilometers"
+msgstr "~9 kilometers"
+
+msgid "Febuary 1950 - One week ago"
+msgstr "Febuary 1950 - One week ago"
+
+msgid "Humidity monthly"
+msgstr "Humidity monthly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "Humidity weekly"
+msgstr "Humidity weekly"
+
 msgid "Landcover"
 msgstr "Landcover"
 
@@ -1490,20 +1520,11 @@ msgstr ""
 "around the world, providing estimates of both rain and snow over land at "
 "high temporal resolution, typically available within about one week."
 
-msgid "~9 kilometers"
-msgstr "~9 kilometers"
-
-msgid "Febuary 1950 - One week ago"
-msgstr "Febuary 1950 - One week ago"
-
 msgid "Precipitation monthly CHIRPS"
 msgstr "Precipitation monthly CHIRPS"
 
 msgid "Precipitation monthly ERA5"
 msgstr "Precipitation monthly ERA5"
-
-msgid "Febuary 1950 - One week ago"
-msgstr "Febuary 1950 - One week ago"
 
 msgid "Precipitation weekly CHIRPS"
 msgstr "Precipitation weekly CHIRPS"
