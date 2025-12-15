@@ -20,7 +20,10 @@ export default function createConfig() {
         img: 'images/heatstress.png',
         name: i18n.t('Heat stress weekly'),
         description: i18n.t(
-            'The Universal Thermal Climate Index (UTCI) is an index that combines the effects of air temperature, humidity, wind speed, and radiation on the human body. It is a measure of the thermal stress experienced by a person in a given environment. Felt temperature in °C.'
+            'A measure of the thermal stress experienced by a person.'
+        ),
+        descriptionComplement: i18n.t(
+            'The Universal Thermal Climate Index (UTCI) combines the effects of air temperature, humidity, wind speed, and radiation on the human body. Felt temperature in °C.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl: 'https://gee-community-catalog.org/projects/era5_heat',
@@ -28,7 +31,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~28 kilometers'),
             temporal: i18n.t('Weekly (aggregated from Daily data)'),
-            temporalCoverage: i18n.t('Febuary 1950 - One month ago'),
+            temporalCoverage: i18n.t('Since January 1940'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
@@ -41,7 +44,7 @@ export default function createConfig() {
             },
         ],
         bands: {
-            label: i18n.t('Temporal aggregation method'),
+            label: i18n.t('Base daily value'),
             multiple: false,
             default: 'utci_mean',
             list: [

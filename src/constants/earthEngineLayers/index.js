@@ -60,7 +60,7 @@ const earthEngineLayersFns = [
     legacyTemperature,
 ]
 
-const earthEngineLayers = () => earthEngineLayersFns.map((l) => l())
+const getEarthEngineLayers = () => earthEngineLayersFns.map((l) => l())
 
 const earthEngineLayersDefaultFns = [
     populationTotal,
@@ -79,6 +79,6 @@ export const earthEngineLayersDefaultIds = () =>
     earthEngineLayersDefaultFns.map((l) => l().layerId)
 
 export const getEarthEngineLayer = (id) =>
-    earthEngineLayers().find((l) => l.layerId === id)
+    getEarthEngineLayers().find((l) => l.layerId === id)
 
-export default earthEngineLayers
+export default getEarthEngineLayers

@@ -164,39 +164,42 @@ export const getPeriods = async ({
     )
 
     const getPeriod = ({ id, properties }) => {
-        const year =
-            properties.year ||
-            new Date(properties['system:time_start']).getFullYear()
+        const startDate = new Date(properties['system:time_start'])
+        const endDate = new Date(properties['system:time_end'])
+        const year = properties.year || endDate.getFullYear()
+        const base = {
+            id,
+            startDate,
+            endDate,
+            year,
+        }
 
         switch (periodType) {
             case 'YEARLY':
                 return {
+                    ...base,
                     id: useSystemIndex ? id : year,
                     name: String(year),
                 }
             case EE_MONTHLY:
                 return {
-                    id,
+                    ...base,
                     name: getMonth(properties),
-                    year,
                 }
             case EE_WEEKLY:
                 return {
-                    id,
+                    ...base,
                     name: getWeek(properties),
-                    year,
                 }
             case EE_DAILY:
                 return {
-                    id,
+                    ...base,
                     name: getDay(properties),
-                    year,
                 }
             default:
                 return {
-                    id,
+                    ...base,
                     name: getStartEndDate(properties),
-                    year,
                 }
         }
     }

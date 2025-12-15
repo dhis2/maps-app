@@ -20,7 +20,10 @@ export default function createConfig() {
         img: 'images/temperature.png',
         name: i18n.t('Temperature monthly'),
         description: i18n.t(
-            'Temperature at 2m above the surface. Combines model data with observations from across the world.'
+            'Gridded temperature dataset at 2m above the surface.'
+        ),
+        descriptionComplement: i18n.t(
+            'Combines model data with observations from across the world.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:
@@ -29,7 +32,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~9 kilometers'),
             temporal: i18n.t('Monthly'),
-            temporalCoverage: i18n.t('Febuary 1950 - One month ago'),
+            temporalCoverage: i18n.t('Since February 1950'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
@@ -41,7 +44,7 @@ export default function createConfig() {
             },
         ],
         bands: {
-            label: i18n.t('Temporal aggregation method'),
+            label: i18n.t('Base daily value'),
             multiple: false,
             default: 'temperature_2m',
             list: [

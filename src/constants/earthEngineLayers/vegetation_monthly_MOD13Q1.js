@@ -20,7 +20,7 @@ export default function createConfig() {
         img: 'images/vegetation.png',
         name: i18n.t('Vegetation index monthly'),
         description: i18n.t(
-            'NDVI and EVI values range from -1 to 1, with higher values indicating denser vegetation.'
+            'Vegetation index values range from -1 to 1, with higher values indicating denser vegetation.'
         ),
         descriptionComplement: i18n.t(
             'Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation.'
@@ -32,7 +32,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('250 meter'),
             temporal: i18n.t('Monthly (aggregated from 16-day data)'),
-            temporalCoverage: i18n.t('Febuary 2000 - One month ago'),
+            temporalCoverage: i18n.t('Since February 2000'),
         },
         aggregations: [
             'min',

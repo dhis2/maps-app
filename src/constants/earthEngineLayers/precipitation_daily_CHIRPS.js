@@ -26,8 +26,9 @@ export default function createConfig() {
         format: 'ImageCollection',
         img: 'images/precipitation.png',
         name: i18n.t('Precipitation daily CHIRPS'),
-        description: i18n.t(
-            'Gridded precipitation dataset blending satellite imagery with in-situ station data, providing rainfall-focused estimates over land at higher spatial resolution but with a longer lag in data availability.'
+        description: i18n.t('Gridded precipitation dataset.'),
+        descriptionComplement: i18n.t(
+            'Combines satellite imagery with in-situ station data and provides rainfall-focused estimates over land at higher spatial resolution but with a longer lag in data availability.'
         ),
         source: 'Climate Hazards Center / UCSB',
         sourceUrl:
@@ -36,7 +37,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~5.5 kilometers'),
             temporal: i18n.t('Daily'),
-            temporalCoverage: i18n.t('January 1981 - One month ago'),
+            temporalCoverage: i18n.t('Since January 1981'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],

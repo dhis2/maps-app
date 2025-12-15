@@ -79,6 +79,7 @@ export default class EarthEngineLayer extends Layer {
             tileScale,
             unmaskAggregation,
             engine,
+            loadError,
         } = this.props
 
         const { map, isPlugin } = this.context
@@ -134,6 +135,10 @@ export default class EarthEngineLayer extends Layer {
         }
 
         config.getAuthToken = getAuthTokenFn(engine)
+
+        if (loadError) {
+            return
+        }
 
         try {
             this.layer = map.createLayer(config)
@@ -211,12 +216,12 @@ export default class EarthEngineLayer extends Layer {
     }
 
     render() {
-        const { legend, aggregationType } = this.props
+        const { legend, aggregationType, loadError } = this.props
         const { isLoading, popup, aggregations, error } = this.state
 
         return (
             <>
-                {isLoading && <MapLoadingMask />}
+                {isLoading && !loadError && <MapLoadingMask />}
                 {error && (
                     <Alert
                         critical={true}

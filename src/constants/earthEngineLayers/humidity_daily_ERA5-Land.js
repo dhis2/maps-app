@@ -12,15 +12,16 @@ export default function createConfig() {
                 img: 'images/humidity.png',
                 id: 'humidity',
                 type: 'period',
-                name: i18n.t('Humidity'),
+                name: i18n.t('Relative humidity'),
                 excludeOnSwitch: ['period'],
             },
         },
         format: 'ImageCollection',
         img: 'images/humidity.png',
-        name: i18n.t('Humidity daily'),
-        description: i18n.t(
-            'Relative humidity is the the amount of water vapour present in air expressed as a percentage of the amount needed for saturation at the same temperature (dewpoint).'
+        name: i18n.t('Relative humidity daily'),
+        description: i18n.t('Amount of water vapour present in air.'),
+        descriptionComplement: i18n.t(
+            'Relative humidity is expressed as a percentage of the maximum amount of water vapor the air can hold at the same temperature.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:
@@ -29,7 +30,7 @@ export default function createConfig() {
         resolution: {
             spatial: i18n.t('~9 kilometers'),
             temporal: i18n.t('Daily'),
-            temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
+            temporalCoverage: i18n.t('Since February 1950'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
@@ -56,18 +57,16 @@ export default function createConfig() {
             },
         ],
         style: {
-            min: 20,
+            min: 15,
             max: 90,
             palette: [
-                '#fcfbfd',
-                '#efedf5',
+                '#f2f0f7',
                 '#dadaeb',
                 '#bcbddc',
                 '#9e9ac8',
                 '#807dba',
                 '#6a51a3',
-                '#54278f',
-                '#3f007d',
+                '#4a1486',
             ],
         },
         opacity: 0.9,
