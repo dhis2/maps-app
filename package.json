@@ -18,7 +18,7 @@
         "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run'"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^12.7.2",
+        "@dhis2/cli-app-scripts": "^12.9.1",
         "@dhis2/cli-style": "^10.7.9",
         "@dhis2/cypress-commands": "^10.1.0",
         "@dhis2/cypress-plugins": "^10.1.0",

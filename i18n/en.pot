@@ -315,9 +315,6 @@ msgstr "Add layer"
 msgid "Aggregation method"
 msgstr "Aggregation method"
 
-msgid "Groups"
-msgstr "Groups"
-
 msgid "This field is required"
 msgstr "This field is required"
 
@@ -706,9 +703,6 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
-msgid "Group"
-msgstr "Group"
-
 msgid "Filters"
 msgstr "Filters"
 
@@ -754,6 +748,9 @@ msgstr "Could not retrieve event data"
 msgid "Organisation unit"
 msgstr "Organisation unit"
 
+msgid "Groups"
+msgstr "Groups"
+
 msgid "Parent unit"
 msgstr "Parent unit"
 
@@ -779,8 +776,8 @@ msgstr ""
 msgid "no value"
 msgstr "no value"
 
-msgid "All groups"
-msgstr "All groups"
+msgid "All"
+msgstr "All"
 
 msgid "Loading data"
 msgstr "Loading data"
@@ -1152,6 +1149,9 @@ msgstr "Landcover"
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
 
+msgid "unitless"
+msgstr "unitless"
+
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
 
@@ -1409,8 +1409,45 @@ msgstr ""
 "Temperature at 2m above the surface. Combines model data with observations "
 "from across the world."
 
-msgid "All"
-msgstr "All"
+msgid "Vegetation index"
+msgstr "Vegetation index"
+
+msgid ""
+"NDVI and EVI values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+"NDVI and EVI values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects "
+"for some atmospheric conditions and canopy background noise and is more "
+"sensitive in areas with dense vegetation."
+msgstr ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects "
+"for some atmospheric conditions and canopy background noise and is more "
+"sensitive in areas with dense vegetation."
+
+msgid "250 meter"
+msgstr "250 meter"
+
+msgid "16-day"
+msgstr "16-day"
+
+msgid "Febuary 2000 - One month ago"
+msgstr "Febuary 2000 - One month ago"
+
+msgid "NDVI"
+msgstr "NDVI"
+
+msgid "EVI"
+msgstr "EVI"
 
 msgid "Active"
 msgstr "Active"
