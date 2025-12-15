@@ -11,7 +11,7 @@ const minSteps = 3
 const maxSteps = 9
 
 export const getStyleSelectError = ({ min, max, steps, palette, ranges }) => {
-    steps = steps ?? palette.length
+    steps = steps ?? palette?.length
     if (Number.isNaN(min)) {
         return i18n.t('Min value is required')
     }
@@ -21,7 +21,7 @@ export const getStyleSelectError = ({ min, max, steps, palette, ranges }) => {
     if (max <= min) {
         return i18n.t('Max should be greater than min')
     }
-    if (!ranges && (steps < minSteps || steps > maxSteps)) {
+    if (!ranges && steps && (steps < minSteps || steps > maxSteps)) {
         return i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
             minSteps,
             maxSteps,
