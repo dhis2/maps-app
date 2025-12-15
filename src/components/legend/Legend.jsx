@@ -22,9 +22,7 @@ const Legend = ({
     isPlugin = false,
 }) => (
     <dl className={styles.legend} data-test="layerlegend">
-        {description && (
-            <div className={styles.description}>{description}</div>
-        )}
+        {description && <div className={styles.description}>{description}</div>}
         {groups && (
             <div className={styles.group}>
                 {groups.multiple === false ? (
