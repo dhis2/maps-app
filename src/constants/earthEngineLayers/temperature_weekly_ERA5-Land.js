@@ -1,12 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../layers.js'
-import { EE_MONTHLY } from '../periods.js'
+import { EE_WEEKLY } from '../periods.js'
 
 export default function createConfig() {
     return {
         layer: EARTH_ENGINE_LAYER,
-        layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/temperature_2m',
-        datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
+        layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/temperature_2m',
+        datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
         group: {
             groupId: 'temperature',
             groupType: 'period',
@@ -16,22 +16,23 @@ export default function createConfig() {
         },
         format: 'ImageCollection',
         img: 'images/temperature.png',
-        name: i18n.t('Temperature monthly'),
+        name: i18n.t('Temperature weekly'),
         description: i18n.t(
             'Temperature at 2m above the surface. Combines model data with observations from across the world.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_MONTHLY_AGGR',
+            'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_DAILY_AGGR',
         unit: '°C',
         resolution: {
             spatial: i18n.t('~9 kilometers'),
-            temporal: i18n.t('Monthly'),
-            temporalCoverage: i18n.t('Febuary 1950 - One month ago'),
+            temporal: i18n.t('Weekly'),
+            temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
-        periodType: EE_MONTHLY,
+        periodType: EE_WEEKLY,
+        periodReducer: EE_WEEKLY,
         filters: [
             {
                 type: 'eq',

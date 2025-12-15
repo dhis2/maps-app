@@ -216,7 +216,14 @@ const earthEngineLoader = async ({
     }
 }
 
-export const createLegend = ({ min, max, palette }, showBelowMin) => {
+export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
+    if (ranges && ranges.length === palette.length) {
+        return ranges.map((range, index) => ({
+            ...range,
+            color: palette[index],
+        }))
+    }
+
     const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
     const precision = precisionRound(step, max)
     const valueFormat = getRoundToPrecisionFn(precision)

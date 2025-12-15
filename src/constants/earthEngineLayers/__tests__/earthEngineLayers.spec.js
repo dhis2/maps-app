@@ -24,6 +24,42 @@ const configSchema = {
         legacy: { type: 'boolean' },
         layerId: { type: 'string' },
         datasetId: { type: 'string' },
+        group: {
+            type: 'object',
+            required: ['groupId', 'groupType', 'name', 'img'],
+            properties: {
+                groupId: {
+                    type: 'string',
+                    enum: [
+                        'heat',
+                        'population',
+                        'precipitation',
+                        'temperature',
+                        'vegetation',
+                    ],
+                },
+                groupType: {
+                    type: 'string',
+                    enum: ['data', 'period'],
+                },
+                name: { type: 'string' },
+                img: { type: 'string' },
+                excludeOnSwitch: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                        enum: [
+                            'band',
+                            'aggregationType',
+                            'period',
+                            'rows',
+                            'areaRadius',
+                            'style',
+                        ],
+                    },
+                },
+            },
+        },
         format: {
             type: 'string',
             enum: ['Image', 'ImageCollection', 'FeatureCollection'],
@@ -82,7 +118,15 @@ const configSchema = {
         unmaskAggregation: { type: 'boolean' },
         periodType: {
             type: 'string',
-            enum: ['BY_YEAR', 'YEARLY', 'EE_MONTHLY'],
+            enum: [
+                'BY_YEAR',
+                'YEARLY',
+                'EE_MONTHLY',
+                'EE_MONTHLY_WEIGHTED',
+                'EE_WEEKLY',
+                'EE_WEEKLY_WEIGHTED',
+                'EE_DAILY',
+            ],
         },
         filters: {
             type: 'array',
@@ -191,7 +235,7 @@ const validateConfig = (config) => {
     return true
 }
 
-describe.each(earthEngineLayers)('GEE config validation', (config) => {
+describe.each(earthEngineLayers())('GEE config validation', (config) => {
     test(`config '${config.layerId}' is well-formed`, () => {
         validateConfig(config)
     })

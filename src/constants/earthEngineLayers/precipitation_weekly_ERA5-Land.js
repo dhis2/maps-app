@@ -1,12 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
 import { EARTH_ENGINE_LAYER } from '../layers.js'
-import { EE_MONTHLY } from '../periods.js'
+import { EE_WEEKLY } from '../periods.js'
 
 export default function createConfig() {
     return {
         layer: EARTH_ENGINE_LAYER,
-        layerId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR/total_precipitation_sum',
-        datasetId: 'ECMWF/ERA5_LAND/MONTHLY_AGGR',
+        layerId: 'ECMWF/ERA5_LAND/WEEKLY_AGGR/total_precipitation_sum',
+        datasetId: 'ECMWF/ERA5_LAND/DAILY_AGGR',
         group: {
             groupId: 'precipitation',
             groupType: 'period',
@@ -16,22 +16,24 @@ export default function createConfig() {
         },
         format: 'ImageCollection',
         img: 'images/precipitation.png',
-        name: i18n.t('Precipitation monthly'),
+        name: i18n.t('Precipitation weekly'),
         description: i18n.t(
             'Accumulated liquid and frozen water, including rain and snow, that falls to the surface. Combines model data with observations from across the world.'
         ),
         source: 'Copernicus Climate Data Store / Google Earth Engine',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_MONTHLY_AGGR',
+            'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_DAILY_AGGR',
         unit: i18n.t('millimeter'),
         resolution: {
             spatial: i18n.t('~9 kilometers'),
-            temporal: i18n.t('Monthly'),
-            temporalCoverage: i18n.t('Febuary 1950 - One month ago'),
+            temporal: i18n.t('Weekly'),
+            temporalCoverage: i18n.t('Febuary 1950 - One week ago'),
         },
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregations: ['mean', 'min', 'max'],
-        periodType: EE_MONTHLY,
+        periodType: EE_WEEKLY,
+        periodReducer: EE_WEEKLY,
+        periodReducerType: 'sum',
         filters: [
             {
                 type: 'eq',
@@ -47,7 +49,7 @@ export default function createConfig() {
         ],
         style: {
             min: 0,
-            max: 700,
+            max: 400,
             palette: [
                 '#f7fbff',
                 '#deebf7',
@@ -56,7 +58,8 @@ export default function createConfig() {
                 '#6baed6',
                 '#4292c6',
                 '#2171b5',
-                '#084594',
+                '#08519c',
+                '#08306b',
             ],
         },
         maskOperator: 'gt',
