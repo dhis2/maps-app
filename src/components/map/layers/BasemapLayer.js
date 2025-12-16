@@ -20,7 +20,7 @@ const getAlertError = (message) => {
 }
 
 const BasemapLayer = (
-    { id, config, opacity, isVisible },
+    { id, config, opacity = 1, isVisible = true },
     { map, isPlugin }
 ) => {
     const basemapNotFoundAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
@@ -68,11 +68,6 @@ BasemapLayer.propTypes = {
     id: PropTypes.string,
     isVisible: PropTypes.bool,
     opacity: PropTypes.number,
-}
-
-BasemapLayer.defaultProps = {
-    opacity: 1,
-    isVisible: true,
 }
 
 export default BasemapLayer

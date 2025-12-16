@@ -1,22 +1,22 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2021
 # Fernando Jorge Bade, 2021
-# David Júnior <davidjr.mondlane@gmail.com>, 2023
-# Sheila André <sandre@saudigitus.org>, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Ge Joao <gsimango@saudigitus.org>, 2024
-# Shelsea Chumaio, 2024
 # António Fernando Macaringue, 2025
 # Helton Dias, 2025
+# Sheila André <sandre@saudigitus.org>, 2025
+# Philip Larsen Donnelly, 2025
+# Shelsea Chumaio, 2025
+# David Júnior <davidjr.mondlane@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Helton Dias, 2025\n"
+"Last-Translator: David Júnior <davidjr.mondlane@gmail.com>, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,18 @@ msgstr "O mapa \"{{- name}}\" foi guardado."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Falha ao guardar o mapa: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Renomeado com sucesso"
+
+msgid "This app could not retrieve required data."
+msgstr " Esta aplicação não conseguiu obter os dados necessários."
+
+msgid "Network error"
+msgstr " Erro de rede"
 
 msgid "Calculation"
 msgstr " Cálculo"
@@ -90,11 +102,17 @@ msgstr "Detalhes"
 msgid "Yes"
 msgstr "Sim"
 
+msgid "No"
+msgstr "Não"
+
 msgid "None"
 msgstr "Nenhum"
 
 msgid "Cascading"
 msgstr "Em cascata"
+
+msgid "Organisation unit location"
+msgstr "Localização da unidade organizacional"
 
 msgid "Event location"
 msgstr "Localização do evento "
@@ -104,9 +122,6 @@ msgstr "Local de inscrição"
 
 msgid "Tracked entity location"
 msgstr "Localização da entidade rastreada"
-
-msgid "Organisation unit location"
-msgstr "Localização da unidade organizacional"
 
 msgid "Fallback coordinate field"
 msgstr "substituir Campo de coordenadas"
@@ -125,8 +140,8 @@ msgstr "Evento > coordenada da unidade organizacional"
 msgid "Event data item"
 msgstr "Item de dados do evento"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "O valor selecionado não está disponível na lista: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -446,6 +461,9 @@ msgstr "Estado do evento "
 msgid "Boundary color"
 msgstr "Cor dos limites"
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -466,6 +484,18 @@ msgstr "Largura da linha/traço"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "A largura da linha/traço deve estar compreendida entre 0-10."
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
+msgstr ""
 
 msgid "Labels"
 msgstr "Etiquetas"
@@ -613,9 +643,6 @@ msgstr "Remover filtro "
 msgid "Group set"
 msgstr "Conjunto do grupo"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Falha ao carregar grupos de unidades organizacionais."
-
 msgid "Style by group set"
 msgstr "Estilo por conjunto de grupo"
 
@@ -721,17 +748,11 @@ msgstr "Editar camadas"
 msgid "Remove layer"
 msgstr "Remover camada"
 
-msgid "Mid"
-msgstr "Meio"
-
 msgid "Group"
 msgstr "Grupo"
 
 msgid "Filters"
 msgstr "Filtros"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "Dado não encontrado"
@@ -769,9 +790,6 @@ msgstr "Latitude"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Não foi possível adicionar o mapa de base: {{message}}"
 
-msgid "Not set"
-msgstr "Não definido"
-
 msgid "Could not retrieve event data"
 msgstr "Não foi possível recuperar os dados do evento"
 
@@ -783,6 +801,9 @@ msgstr "Unidade parental"
 
 msgid "No data"
 msgstr "Não ha dados"
+
+msgid "Not set"
+msgstr "Não definido"
 
 msgid "Could not retrieve tracked entity data"
 msgstr "Não foi possível recuperar os dados da entidade rastreada"
@@ -960,6 +981,9 @@ msgstr "Selecionado e tudo abaixo"
 msgid "Selection mode"
 msgstr "Modo de seleção"
 
+msgid "Clear"
+msgstr "Claro"
+
 msgid "Previous year"
 msgstr "Ano anterior"
 
@@ -980,7 +1004,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1079,6 +1103,9 @@ msgstr "OSM Ligth"
 msgid "OSM Detailed"
 msgstr "OSM Detalhado"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1090,6 +1117,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Etiquetas aéreas"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr "Áreas de implantação dos edifícios"
@@ -1517,6 +1556,12 @@ msgstr "Evento"
 msgid "Facilities"
 msgstr "Instalações"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr "Não foram encontradas coordenadas para as instalações selecionadas"
 
@@ -1566,12 +1611,17 @@ msgstr "Verdadeiro"
 msgid "false"
 msgstr "Falso "
 
-msgid "No"
-msgstr "Não"
-
-msgid "Cannot get authorization token for Google Earth Engine."
+msgid "{{keyName}} is not valid for layer type: {{type}}"
 msgstr ""
-"Não é possível obter o token de autorização para o Google Earth Engine."
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Meio"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1579,6 +1629,10 @@ msgid ""
 msgstr ""
 "Esta camada requer uma conta do Google Earth Engine. Consulte a documentação"
 " do DHIS2 para obter mais informações."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+"Não é possível obter o token de autorização para o Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Temático"
@@ -1594,6 +1648,9 @@ msgstr "Unidades organizacionais"
 
 msgid "Facility"
 msgstr "Instalação"
+
+msgid "Other"
+msgstr "Outro"
 
 msgid "Start date is invalid"
 msgstr "A data de início é inválida"

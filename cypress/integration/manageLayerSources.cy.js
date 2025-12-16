@@ -13,11 +13,20 @@ const LAYER_SOURCES_DEFAULT_MANAGED_LIST = [
     'GOOGLE/Research/open-buildings/v3/polygons',
 ]
 const LAYER_SOURCES_DEFAULT_MANAGED = LAYER_SOURCES_DEFAULT_MANAGED_LIST.length
+const LAYER_SOURCES_DEFAULT_GROUPED = 1
 const LAYER_SOURCES_DEFAULT_STANDARD = 6
 const LAYER_SOURCES_DEFAULT_ALL =
-    LAYER_SOURCES_DEFAULT_MANAGED + LAYER_SOURCES_DEFAULT_STANDARD
+    LAYER_SOURCES_DEFAULT_MANAGED +
+    LAYER_SOURCES_DEFAULT_STANDARD -
+    LAYER_SOURCES_DEFAULT_GROUPED
 
-context('Manage Layer Sources', () => {
+Cypress.Commands.add('waitForLayerContainers', (n) => {
+    cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
+        .find('[data-test^="addlayeritem-"]')
+        .should('have.length', n)
+})
+
+describe('Manage Layer Sources', () => {
     it('admin authority is already available for current user', () => {
         cy.request({
             method: 'GET',
@@ -72,11 +81,6 @@ context('Manage Layer Sources', () => {
     })
 
     it('w/ admin authority: add and remove layers', () => {
-        Cypress.Commands.add('waitForLayerContainers', (n) => {
-            cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
-                .find('[class^="Layer_container"]')
-                .should('have.length', n)
-        })
         Cypress.Commands.add('waitForCheckbox', (index, assertion) => {
             cy.getByDataTest('layersource-checkbox', EXTENDED_TIMEOUT)
                 .eq(index)
@@ -165,12 +169,6 @@ context('Manage Layer Sources', () => {
     })
 
     it('w/o admin authority: check managelayersources button is hidden', () => {
-        Cypress.Commands.add('waitForLayerContainers', (n) => {
-            cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
-                .find('[class^="Layer_container"]')
-                .should('have.length', n)
-        })
-
         // Remove admin authority
         cy.intercept(
             'GET',
@@ -231,12 +229,6 @@ context('Manage Layer Sources', () => {
     })
 
     it('at start, if dataStore = [], app initializes namespace', () => {
-        Cypress.Commands.add('waitForLayerContainers', (n) => {
-            cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
-                .find('[class^="Layer_container"]')
-                .should('have.length', n)
-        })
-
         // Mock empty dataStore
         cy.intercept('GET', '**/dataStore', (request) => {
             delete request.headers['if-none-match']
@@ -276,12 +268,6 @@ context('Manage Layer Sources', () => {
     })
 
     it('at start, if namespace = {}, app re-initializes namespace', () => {
-        Cypress.Commands.add('waitForLayerContainers', (n) => {
-            cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
-                .find('[class^="Layer_container"]')
-                .should('have.length', n)
-        })
-
         // Mock object namespace
         cy.intercept(
             'GET',
@@ -325,12 +311,6 @@ context('Manage Layer Sources', () => {
     })
 
     it('at start, if "invalid_source_id" in namespace, app ignores id', () => {
-        Cypress.Commands.add('waitForLayerContainers', (n) => {
-            cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
-                .find('[class^="Layer_container"]')
-                .should('have.length', n)
-        })
-
         // Mock "invalid_source_id" in namespace
         cy.intercept(
             'GET',

@@ -80,7 +80,7 @@ export class ThematicLayer extends Layer {
         cy.getByDataTest(
             `period-dimension-${periodDimension}-period-filter${
                 periodDimension === 'fixed' ? '-period-type' : ''
-            }-content`
+            }`
         ).click()
         // Select period type in dropdown if not active already
         cy.get(`[data-value="${periodType}"]`).then(($el) => {
@@ -127,8 +127,21 @@ export class ThematicLayer extends Layer {
 
         return this
     }
+
     selectStartEndDates() {
         cy.contains('Define start - end dates').click()
+
+        return this
+    }
+
+    selectChoropleth() {
+        cy.contains('Choropleth').click()
+
+        return this
+    }
+
+    selectBubbleMap() {
+        cy.contains('Bubble map').click()
 
         return this
     }

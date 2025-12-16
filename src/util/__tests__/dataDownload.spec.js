@@ -5,7 +5,7 @@ jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
 
 jest.mock('../earthEngine.js', () => ({ hasClasses: jest.fn() }))
 
-global.Blob = function (content, options) {
+window.Blob = function (content, options) {
     return { content, options }
 }
 

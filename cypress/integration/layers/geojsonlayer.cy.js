@@ -1,3 +1,5 @@
+import { EXTENDED_TIMEOUT } from '../../support/util.js'
+
 // values for these constants comes from the externalMapLayersWithGeojson.json fixture
 const OVERLAY_TITLE = 'Feature geojson'
 const GEOJSON_URL =
@@ -21,7 +23,7 @@ describe('GeoJSON URL Layer', () => {
 
         cy.visit('/')
 
-        cy.wait('@externalMapLayers')
+        cy.wait('@externalMapLayers', EXTENDED_TIMEOUT)
 
         // add a geojson layer (provided by the fixture)
         cy.getByDataTest('add-layer-button').click()
@@ -96,7 +98,7 @@ describe('GeoJSON URL Layer', () => {
 
         cy.visit('/')
 
-        cy.wait('@externalMapLayers')
+        cy.wait('@externalMapLayers', EXTENDED_TIMEOUT)
 
         // add a geojson layer (provided by the fixture)
         cy.getByDataTest('add-layer-button').click()
@@ -159,7 +161,7 @@ describe('GeoJSON URL Layer', () => {
 
         cy.visit('/')
 
-        cy.wait('@externalMapLayers')
+        cy.wait('@externalMapLayers', EXTENDED_TIMEOUT)
 
         // add a geojson layer (provided by the fixture)
         cy.getByDataTest('add-layer-button').click()

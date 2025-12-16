@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { precisionRound } from 'd3-format'
 import {
     WARNING_NO_OU_COORD,
@@ -13,18 +12,26 @@ import {
     getStaticFilterFromPeriod,
     getPeriodFromFilter,
 } from '../util/earthEngine.js'
+import { sortLegendItems } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
 import { getRoundToPrecisionFn } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
+import { GEOFEATURES_QUERY } from '../util/requests.js'
 
-// Returns a promise
-const earthEngineLoader = async ({ config, nameProperty, userId }) => {
+const earthEngineLoader = async ({
+    config,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+}) => {
     const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
+
+    let loadError
     const alerts = []
 
     let layerConfig = {}
@@ -32,29 +39,36 @@ const earthEngineLoader = async ({ config, nameProperty, userId }) => {
     let features
 
     if (orgUnits && orgUnits.length) {
-        const d2 = await getD2()
-
-        const geoFeaturesParams = { _: userId }
-        const orgUnitParams = orgUnits.map((item) => item.id)
+        const orgUnitIds = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
 
-        const featuresRequest = d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(nameProperty)
-
         try {
-            mainFeatures = await featuresRequest
-                .getAll(geoFeaturesParams)
-                .then(toGeoJson)
+            const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
+                variables: {
+                    orgUnitIds,
+                    keyAnalysisDisplayProperty,
+                    userId,
+                },
+            })
+
+            mainFeatures = geoFeatureData.geoFeatures
+                ? toGeoJson(geoFeatureData.geoFeatures)
+                : null
 
             if (coordinateField) {
-                associatedGeometries = await featuresRequest
-                    .getAll({
-                        ...geoFeaturesParams,
+                const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
+                    variables: {
+                        orgUnitIds,
+                        keyAnalysisDisplayProperty,
                         coordinateField: coordinateField.id,
-                    })
-                    .then(toGeoJson)
+                        userId,
+                    },
+                })
+
+                associatedGeometries = coordFieldData.geoFeatures
+                    ? toGeoJson(coordFieldData.geoFeatures)
+                    : null
 
                 if (!associatedGeometries.length) {
                     alerts.push({
@@ -76,6 +90,7 @@ const earthEngineLoader = async ({ config, nameProperty, userId }) => {
                 })
             }
         } catch (error) {
+            loadError = error.message || error
             alerts.push({
                 code: ERROR_CRITICAL,
                 message: error.message || error,
@@ -159,10 +174,14 @@ const earthEngineLoader = async ({ config, nameProperty, userId }) => {
     const hasBand = (b) =>
         Array.isArray(band) ? band.includes(b.id) : band === b.id
 
-    const groups =
-        band && Array.isArray(bands) && bands.length
-            ? bands.filter(hasBand)
-            : null
+    let groups = null
+    if (band && Array.isArray(bands?.list) && bands.list.length) {
+        groups = {
+            list: bands.list.filter(hasBand),
+            label: bands.label,
+            multiple: bands.multiple,
+        }
+    }
 
     const legend = {
         ...layer.legend,
@@ -198,10 +217,20 @@ const earthEngineLoader = async ({ config, nameProperty, userId }) => {
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 
-export const createLegend = ({ min, max, palette }, showBelowMin) => {
+export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
+    if (ranges && ranges.length === palette.length) {
+        return sortLegendItems(
+            ranges.map((range, index) => ({
+                ...range,
+                color: palette[index],
+            }))
+        )
+    }
+
     const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
     const precision = precisionRound(step, max)
     const valueFormat = getRoundToPrecisionFn(precision)
@@ -209,30 +238,32 @@ export const createLegend = ({ min, max, palette }, showBelowMin) => {
     let from = valueFormat(min)
     let to = valueFormat(min + step)
 
-    return palette.map((color, index) => {
-        const item = { color }
+    return sortLegendItems(
+        palette.map((color, index) => {
+            const item = { color }
 
-        if (index === 0 && showBelowMin) {
-            // Less than min
-            item.from = -Infinity
-            item.to = min
-            item.name = '< ' + min
-            to = min
-        } else if (+from < max) {
-            item.from = +from
-            item.to = +to
-            item.name = from + ' - ' + to
-        } else {
-            // Higher than max
-            item.from = +from
-            item.name = '> ' + from
-        }
+            if (index === 0 && showBelowMin) {
+                // Less than min
+                item.from = -Infinity
+                item.to = min
+                item.name = '< ' + min
+                to = min
+            } else if (+from < max) {
+                item.from = +from
+                item.to = +to
+                item.name = from + ' - ' + to
+            } else {
+                // Higher than max
+                item.from = +from
+                item.name = '> ' + from
+            }
 
-        from = to
-        to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
+            from = to
+            to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
 
-        return item
-    })
+            return item
+        })
+    )
 }
 
 export default earthEngineLoader

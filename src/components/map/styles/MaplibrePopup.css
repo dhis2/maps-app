@@ -1,0 +1,10 @@
+.maplibregl-popup {
+    width: fit-content;
+    overflow-wrap: break-word;
+    max-width: min(320px, 80%);
+}
+
+.maplibregl-popup-content {
+    width: 100%;
+    padding-top: var(--spacers-dp16);
+}

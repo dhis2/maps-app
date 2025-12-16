@@ -10,6 +10,7 @@ describe('Basemap checks', () => {
             req.continue()
         })
     })
+
     it('open map with basemap = none uses default basemap set to not visible', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/ytkZY3ChM6J/ }, (req) => {
             delete req.headers['if-none-match']
@@ -115,7 +116,7 @@ describe('Basemap checks', () => {
         }).as('openMap')
 
         cy.visit('/?id=wIIoj44X77r', EXTENDED_TIMEOUT)
-        cy.wait('@systemSettings')
+        cy.wait('@systemSettings', EXTENDED_TIMEOUT)
         cy.wait('@openMap', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')

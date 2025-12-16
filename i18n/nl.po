@@ -3,13 +3,14 @@
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
 # Philip Larsen Donnelly, 2024
-# Rica, 2024
+# Rica, 2025
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
 # Charel van den Elsen <zobeadzorg@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-04T14:01:01.904Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Charel van den Elsen <zobeadzorg@gmail.com>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -30,6 +31,18 @@ msgstr "Kaart \"{{- name}}\" is opgeslagen."
 
 msgid "Failed to save map: {{message}}"
 msgstr "Opslaan kaart mislukt: {{message}}"
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Hernoeming geslaagd"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Netwerkfout"
 
 msgid "Calculation"
 msgstr ""
@@ -85,11 +98,17 @@ msgstr "Details"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "No"
+msgstr "Nee"
+
 msgid "None"
 msgstr "Geen"
 
 msgid "Cascading"
 msgstr "Trapsgewijs"
+
+msgid "Organisation unit location"
+msgstr "Organisatie-eenheidslocatie"
 
 msgid "Event location"
 msgstr "Gebeurtenislocatie"
@@ -99,9 +118,6 @@ msgstr "Inschrijvingslocatie"
 
 msgid "Tracked entity location"
 msgstr "Gevolgde entiteitslocatie"
-
-msgid "Organisation unit location"
-msgstr "Organisatie-eenheidslocatie"
 
 msgid "Fallback coordinate field"
 msgstr "Terugvalcoördinatenveld"
@@ -118,8 +134,8 @@ msgstr "Evenement > coördinaat org-eenheid"
 msgid "Event data item"
 msgstr "Gebeurtenisgegevensitem"
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "Geselecteerde waarde niet beschikbaar in deze lijst: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
 
 msgid "Style by data item"
 msgstr ""
@@ -439,6 +455,9 @@ msgstr "Gebeurtenisstatus"
 msgid "Boundary color"
 msgstr "Grenskleur"
 
+msgid "Draws a buffer area around each location."
+msgstr ""
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -459,6 +478,18 @@ msgstr "Breedte lijn/slag"
 
 msgid "Line/stroke width must be between 0-10."
 msgstr "Breedte lijn/slag moet tussen 0-10 zijn."
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
+msgstr ""
 
 msgid "Labels"
 msgstr "Labels"
@@ -604,9 +635,6 @@ msgstr "Verwijder filter"
 msgid "Group set"
 msgstr "Groepsreeks"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Laden van organisatieëenheidgroepen mislukt."
-
 msgid "Style by group set"
 msgstr "Stileer volgens groepsreeks"
 
@@ -712,17 +740,11 @@ msgstr "Bewerk laag"
 msgid "Remove layer"
 msgstr "Verwijder laag"
 
-msgid "Mid"
-msgstr "Midden"
-
 msgid "Group"
 msgstr "Groep"
 
 msgid "Filters"
 msgstr "Filters"
-
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}: {{message}}"
 
 msgid "No data found"
 msgstr "Geen gegevens gevonden"
@@ -760,9 +782,6 @@ msgstr "Breedtegraad"
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basiskaart kon niet toegevoegd worden: {{message}}"
 
-msgid "Not set"
-msgstr "Niet vastgesteld"
-
 msgid "Could not retrieve event data"
 msgstr "Evenementengegevens konden niet herkregen worden"
 
@@ -774,6 +793,9 @@ msgstr "Boveliggende eenheid"
 
 msgid "No data"
 msgstr "Geen gegevens"
+
+msgid "Not set"
+msgstr "Niet vastgesteld"
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
@@ -951,6 +973,9 @@ msgstr "Geselecteerd en alle onderstaanden"
 msgid "Selection mode"
 msgstr "Selectiemodus"
 
+msgid "Clear"
+msgstr "Verwijder"
+
 msgid "Previous year"
 msgstr "Vorig jaar"
 
@@ -971,7 +996,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1070,6 +1095,9 @@ msgstr "OSM Light"
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Bing Road"
 
@@ -1081,6 +1109,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr "Footprints van gebouwen"
@@ -1509,6 +1549,12 @@ msgstr "Gebeurtenis"
 msgid "Facilities"
 msgstr "Instellingen"
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr "Geen coördinaten gevonden voor geselecteerde faciliteiten"
 
@@ -1557,11 +1603,17 @@ msgstr "waar"
 msgid "false"
 msgstr "onwaar"
 
-msgid "No"
-msgstr "Nee"
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Midden"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1569,6 +1621,9 @@ msgid ""
 msgstr ""
 "Deze laag vereist een Google Earth Engine-account. Kijk de "
 "DHIS2-documentation na voor meer informatie."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thematisch"
@@ -1584,6 +1639,9 @@ msgstr "Organisatieëenheden"
 
 msgid "Facility"
 msgstr "Faciliteit"
+
+msgid "Other"
+msgstr "Anders"
 
 msgid "Start date is invalid"
 msgstr "Startdatum is ongeldig"

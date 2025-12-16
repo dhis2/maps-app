@@ -8,7 +8,7 @@ import {
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../../constants/layers.js'
 import { countPeriods } from '../../../util/periods.js'
-import RenderingStrategy from '../RenderingStrategy.js'
+import RenderingStrategy from '../RenderingStrategy.jsx'
 
 const mockStore = configureMockStore()
 
@@ -25,7 +25,7 @@ jest.mock('../../../util/periods', () => ({
     countPeriods: jest.fn(),
 }))
 
-jest.mock('../icons.js', () => ({
+jest.mock('../icons.jsx', () => ({
     IconPeriodDisplaySingle: () => <div>IconPeriodDisplaySingle</div>,
     IconPeriodDisplaySplit: () => <div>IconPeriodDisplaySplit</div>,
     IconPeriodDisplayTimeline: () => <div>IconPeriodDisplayTimeline</div>,

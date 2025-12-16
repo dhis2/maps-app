@@ -175,8 +175,6 @@ describe('cleanMapConfig', () => {
             defaultBasemapId: 'thedefaultBasemap',
         })
 
-        console.log(JSON.stringify(cleanedConfig))
-
         expect(cleanedConfig).toEqual({
             basemap: 'thedefaultBasemap',
             mapViews: [

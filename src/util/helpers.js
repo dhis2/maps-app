@@ -6,25 +6,34 @@ import {
     dateValueTypes,
     datetimeValueTypes,
     coordinateValueTypes,
+    ouValueTypes,
 } from '../constants/valueTypes.js'
 
-const baseFields = [
-    'id',
-    'user',
-    'displayName~rename(name)',
-    'description',
-    'longitude',
-    'latitude',
-    'zoom',
-    'basemap',
-    'created',
-    'lastUpdated',
-    'access',
-    'update',
-    'manage',
-    'delete',
-    'href',
-]
+const getBaseFields = (withSubscribers) => {
+    const baseFields = [
+        'id',
+        'user',
+        'name',
+        'displayName',
+        'description',
+        'displayDescription',
+        'longitude',
+        'latitude',
+        'zoom',
+        'basemap',
+        'created',
+        'lastUpdated',
+        'access',
+        'update',
+        'manage',
+        'delete',
+        'href',
+    ]
+    if (withSubscribers) {
+        baseFields.push('subscribers')
+    }
+    return baseFields
+}
 
 const analysisFields = () => {
     const nameProperty = `displayName~rename(name)`
@@ -68,9 +77,12 @@ const analysisFields = () => {
     ]
 }
 
-export const mapFields = () => {
+export const mapFields = (withSubscribers = false) => {
     const fields = analysisFields()
-    return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`
+
+    return `${getBaseFields(withSubscribers).join(',')}, mapViews[${fields.join(
+        ','
+    )}]`
 }
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
@@ -167,7 +179,7 @@ export const formatDatetime = (value) => {
 }
 
 // Returns true if value is not undefined, null, empty string, or already marked as 'Not set'
-const hasValue = (value) =>
+export const hasValue = (value) =>
     value !== undefined &&
     value !== null &&
     value !== '' &&
@@ -175,7 +187,12 @@ const hasValue = (value) =>
 
 // Formats value for display
 // Ref: https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/metadata.html#metadata-attribute-value-type-and-validations
-export const formatValueForDisplay = ({ value, valueType, options }) => {
+export const formatValueForDisplay = ({
+    value,
+    valueType,
+    options,
+    orgUnitNames,
+}) => {
     if (!hasValue(value)) {
         return i18n.t('Not set')
     }
@@ -186,6 +203,13 @@ export const formatValueForDisplay = ({ value, valueType, options }) => {
     }
     if (options && hasValue(options[value])) {
         return options[value]
+    }
+    if (
+        ouValueTypes.includes(valueType) &&
+        orgUnitNames &&
+        hasValue(orgUnitNames[value])
+    ) {
+        return orgUnitNames[value]
     }
     if (coordinateValueTypes.includes(valueType)) {
         return formatCoordinate(value)

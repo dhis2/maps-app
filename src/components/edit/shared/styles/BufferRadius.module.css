@@ -5,7 +5,7 @@
     min-height: 76px;
 }
 
-.buffer > div {
+.buffer > span > div {
     margin: var(--spacers-dp8);
 }
 
