@@ -9,7 +9,7 @@ const LayerList = ({ layers, isSplitView, onLayerSelect }) => (
         {isSplitView ? (
             <div className={styles.split}>
                 {i18n.t(
-                    'Split view can not be combined with other layer types.'
+                    'Split view cannot be combined with other layer types.'
                 )}
             </div>
         ) : (
