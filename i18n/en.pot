@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
-"PO-Revision-Date: 2025-10-28T16:10:10.277Z\n"
+"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"PO-Revision-Date: 2025-12-15T15:35:44.699Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -312,11 +312,8 @@ msgstr "Update layer"
 msgid "Add layer"
 msgstr "Add layer"
 
-msgid "Aggregation method"
-msgstr "Aggregation method"
-
-msgid "Groups"
-msgstr "Groups"
+msgid "Area statistics (popups and data table)"
+msgstr "Area statistics (popups and data table)"
 
 msgid "This field is required"
 msgstr "This field is required"
@@ -326,6 +323,9 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Period"
+
+msgid "Dataset"
+msgstr "Dataset"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -359,14 +359,17 @@ msgstr "Temporal coverage"
 msgid "Source"
 msgstr "Source"
 
+msgid "Period type"
+msgstr "Period type"
+
 msgid "Legend preview"
 msgstr "Legend preview"
 
+msgid "Available periods are retrieved from the source data"
+msgstr "Available periods are retrieved from the source data"
+
 msgid "Year"
 msgstr "Year"
-
-msgid "Available periods are set by the source data"
-msgstr "Available periods are set by the source data"
 
 msgid "Loading periods"
 msgstr "Loading periods"
@@ -431,8 +434,8 @@ msgstr "Event status"
 msgid "Boundary color"
 msgstr "Boundary color"
 
-msgid "Draws a buffer area around each location."
-msgstr "Draws a buffer area around each location."
+msgid "Draws a buffer area around each point location."
+msgstr "Draws a buffer area around each point location."
 
 msgid "Buffer"
 msgstr "Buffer"
@@ -658,8 +661,8 @@ msgstr "Data download failed."
 msgid "External layer"
 msgstr "External layer"
 
-msgid "Split view can not be combined with other layer types."
-msgstr "Split view can not be combined with other layer types."
+msgid "Split view cannot be combined with other layer types."
+msgstr "Split view cannot be combined with other layer types."
 
 msgid "Failed to load layer"
 msgstr "Failed to load layer"
@@ -706,9 +709,6 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
-msgid "Group"
-msgstr "Group"
-
 msgid "Filters"
 msgstr "Filters"
 
@@ -754,6 +754,9 @@ msgstr "Could not retrieve event data"
 msgid "Organisation unit"
 msgstr "Organisation unit"
 
+msgid "Groups"
+msgstr "Groups"
+
 msgid "Parent unit"
 msgstr "Parent unit"
 
@@ -779,8 +782,8 @@ msgstr ""
 msgid "no value"
 msgstr "no value"
 
-msgid "All groups"
-msgstr "All groups"
+msgid "All"
+msgstr "All"
 
 msgid "Loading data"
 msgstr "Loading data"
@@ -1143,14 +1146,120 @@ msgstr "meters"
 msgid "~30 meters"
 msgstr "~30 meters"
 
-msgid "Febuary 2000"
-msgstr "Febuary 2000"
+msgid "February 2000"
+msgstr "February 2000"
+
+msgid "Heat stress"
+msgstr "Heat stress"
+
+msgid "Heat stress daily"
+msgstr "Heat stress daily"
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr "A measure of the thermal stress experienced by a person."
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+
+msgid "~28 kilometers"
+msgstr "~28 kilometers"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Since January 1940"
+msgstr "Since January 1940"
+
+msgid "Base daily value"
+msgstr "Base daily value"
+
+msgid "Extreme cold stress -60 - -40"
+msgstr "Extreme cold stress -60 - -40"
+
+msgid "Very strong cold stress -40 - -27"
+msgstr "Very strong cold stress -40 - -27"
+
+msgid "Strong cold stress -27 - -13"
+msgstr "Strong cold stress -27 - -13"
+
+msgid "Moderate cold stress -13 - 0"
+msgstr "Moderate cold stress -13 - 0"
+
+msgid "Slight cold stress 0 - 9"
+msgstr "Slight cold stress 0 - 9"
+
+msgid "No thermal stress 9 - 26"
+msgstr "No thermal stress 9 - 26"
+
+msgid "Moderate heat stress 26 - 32"
+msgstr "Moderate heat stress 26 - 32"
+
+msgid "Strong heat stress 32 - 38"
+msgstr "Strong heat stress 32 - 38"
+
+msgid "Very strong heat stress 38 - 46"
+msgstr "Very strong heat stress 38 - 46"
+
+msgid "Extreme heat stress 46 - 60"
+msgstr "Extreme heat stress 46 - 60"
+
+msgid "Heat stress monthly"
+msgstr "Heat stress monthly"
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr "Monthly (aggregated from Daily data)"
+
+msgid "Heat stress weekly"
+msgstr "Heat stress weekly"
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr "Weekly (aggregated from Daily data)"
+
+msgid "Relative humidity"
+msgstr "Relative humidity"
+
+msgid "Relative humidity daily"
+msgstr "Relative humidity daily"
+
+msgid "Amount of water vapour present in air."
+msgstr "Amount of water vapour present in air."
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+
+msgid "~9 kilometers"
+msgstr "~9 kilometers"
+
+msgid "Since February 1950"
+msgstr "Since February 1950"
+
+msgid "Relative humidity monthly"
+msgstr "Relative humidity monthly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "Relative humidity weekly"
+msgstr "Relative humidity weekly"
 
 msgid "Landcover"
 msgstr "Landcover"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
+
+msgid "unitless"
+msgstr "unitless"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
@@ -1243,12 +1352,12 @@ msgstr "millimeter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 
 msgid "Temperature MODIS"
 msgstr "Temperature MODIS"
@@ -1380,37 +1489,129 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation monthly"
-msgstr "Precipitation monthly"
+msgid "CHIRPS"
+msgstr "CHIRPS"
+
+msgid "Precipitation daily CHIRPS"
+msgstr "Precipitation daily CHIRPS"
+
+msgid "Gridded precipitation dataset."
+msgstr "Gridded precipitation dataset."
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides "
+"rainfall-focused estimates over land at higher spatial resolution but with "
+"a longer lag in data availability."
 msgstr ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides "
+"rainfall-focused estimates over land at higher spatial resolution but with "
+"a longer lag in data availability."
 
-msgid "~11 kilometers"
-msgstr "~11 kilometers"
+msgid "~5.5 kilometers"
+msgstr "~5.5 kilometers"
 
-msgid "Monthly"
-msgstr "Monthly"
+msgid "Since January 1981"
+msgstr "Since January 1981"
 
-msgid "Febuary 1950 - One month ago"
-msgstr "Febuary 1950 - One month ago"
+msgid "ERA5"
+msgstr "ERA5"
+
+msgid "Precipitation daily ERA5"
+msgstr "Precipitation daily ERA5"
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+
+msgid "Precipitation monthly CHIRPS"
+msgstr "Precipitation monthly CHIRPS"
+
+msgid "Precipitation monthly ERA5"
+msgstr "Precipitation monthly ERA5"
+
+msgid "Precipitation weekly CHIRPS"
+msgstr "Precipitation weekly CHIRPS"
+
+msgid "Precipitation weekly ERA5"
+msgstr "Precipitation weekly ERA5"
+
+msgid "Temperature"
+msgstr "Temperature"
+
+msgid "Temperature daily"
+msgstr "Temperature daily"
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr "Gridded temperature dataset at 2m above the surface."
+
+msgid "Combines model data with observations from across the world."
+msgstr "Combines model data with observations from across the world."
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
-msgstr ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
+msgstr "Temperature weekly"
 
-msgid "All"
-msgstr "All"
+msgid "Vegetation"
+msgstr "Vegetation"
+
+msgid "Vegetation index 16-day"
+msgstr "Vegetation index 16-day"
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects "
+"for some atmospheric conditions and canopy background noise and is more "
+"sensitive in areas with dense vegetation."
+msgstr ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects "
+"for some atmospheric conditions and canopy background noise and is more "
+"sensitive in areas with dense vegetation."
+
+msgid "250 meter"
+msgstr "250 meter"
+
+msgid "16-day"
+msgstr "16-day"
+
+msgid "Since February 2000"
+msgstr "Since February 2000"
+
+msgid "NDVI"
+msgstr "NDVI"
+
+msgid "EVI"
+msgstr "EVI"
+
+msgid "Vegetation index monthly"
+msgstr "Vegetation index monthly"
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr "Monthly (aggregated from 16-day data)"
+
+msgid "Vegetation index weekly"
+msgstr "Vegetation index weekly"
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr "Weekly (aggregated from 16-day data)"
 
 msgid "Active"
 msgstr "Active"
@@ -1444,9 +1645,6 @@ msgstr "Symbol"
 
 msgid "Relative"
 msgstr "Relative"
-
-msgid "Daily"
-msgstr "Daily"
 
 msgid "Weekly"
 msgstr "Weekly"
@@ -1562,8 +1760,8 @@ msgstr "related"
 msgid "not one of"
 msgstr "not one of"
 
-msgid "doesn't contains"
-msgstr "doesn't contains"
+msgid "doesn't contain"
+msgstr "doesn't contain"
 
 msgid "true"
 msgstr "true"
