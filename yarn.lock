@@ -2149,10 +2149,10 @@
     i18next "^10.3"
     moment "^2.24.0"
 
-"@dhis2/maps-gl@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.1.2.tgz#5e15ef0441e8a9560d19f577ea4d79bea92203c9"
-  integrity sha512-rhGG5j6SqrlwMA910aEbmB6Gxu/+h1dIc2GxNoOWLE6ekfUgjcuMSSN7rU5IEmrSOVUQ4wnX1c12rwhPDCLqAQ==
+"@dhis2/maps-gl@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.2.1.tgz#fdb456211b6a45a81347c5af66d3ec90a9cb065d"
+  integrity sha512-3mwRb5JD15lmyMZy+pjpcuLOXg9y5vDm7iDK1Tt6mxYWW3Ge4PrxAZYWBMmKztiAcshVzn7TVn0GKd3r+Rp+IQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
@@ -5524,9 +5524,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001733:
-  version "1.0.30001734"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001734.tgz#f97e08599e2d75664543ae4b6ef25dc2183c5cc6"
-  integrity sha512-uhE1Ye5vgqju6OI71HTQqcBCZrvHugk0MjLak7Q+HfoBgoq5Bi+5YnwjP4fjDgrtYr/l8MVRBvzz9dPD4KyK0A==
+  version "1.0.30001751"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001751.tgz"
+  integrity sha512-A0QJhug0Ly64Ii3eIqHu5X51ebln3k4yTUkY1j8drqpWHVreg/VLijN48cZ1bYPiqOQuqpkIKnzr/Ul8V+p6Cw==
 
 cardinal@^2.1.1:
   version "2.1.1"

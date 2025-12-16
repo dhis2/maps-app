@@ -15,7 +15,7 @@ import earthEngineStyles from './styles/EarthEnginePopup.module.css'
 const EarthEnginePopup = (props) => {
     const { coordinates, feature, data, legend, valueType, onClose } = props
     const { id, name } = feature.properties
-    const { title, period = '', unit, items = [], groups } = legend
+    const { title, unit, items = [], groups } = legend
     const values = typeof data === 'object' ? data[id] : null
     const classes = hasClasses(valueType)
     const isPercentage = valueType === 'percentage'
@@ -30,9 +30,7 @@ const EarthEnginePopup = (props) => {
                 <table className={earthEngineStyles.table}>
                     <thead>
                         <tr>
-                            <th colSpan="2">
-                                {title} {period}
-                            </th>
+                            <th colSpan="2">{title}</th>
                             <th>{valueType}</th>
                         </tr>
                     </thead>
@@ -93,20 +91,22 @@ const EarthEnginePopup = (props) => {
 
             const header = (
                 <caption>
-                    {title} {period}
+                    {title}
+                    <br />
+                    {groups?.multiple === false && groups.list[0].name}
                     {!onlySum && (
                         <div className={earthEngineStyles.unit}>{unit}</div>
                     )}
                 </caption>
             )
 
-            if (groups) {
+            if (groups?.multiple === true) {
                 table = (
                     <table className={earthEngineStyles.table}>
                         {header}
                         <thead>
                             <tr>
-                                <th>Group</th>
+                                <th>{groups.label}</th>
                                 {valueType.map((type) => (
                                     <th key={type}>
                                         {getEarthEngineAggregationType(type)}
@@ -115,7 +115,7 @@ const EarthEnginePopup = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {groups.map(({ id, name }) => (
+                            {groups.list.map(({ id, name }) => (
                                 <tr key={id}>
                                     <th>{name}</th>
                                     {valueType.map((type) => (
@@ -128,10 +128,10 @@ const EarthEnginePopup = (props) => {
                                 </tr>
                             ))}
                         </tbody>
-                        {groups.length > 1 && (
+                        {groups.list.length > 1 && (
                             <tfoot>
                                 <tr>
-                                    <th>{i18n.t('All groups')}</th>
+                                    <th>{i18n.t('All')}</th>
                                     {valueType.map((type) => (
                                         <td key={type}>
                                             {typeValueFormat[type](

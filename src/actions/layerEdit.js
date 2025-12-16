@@ -262,7 +262,7 @@ export const setFilter = (filter) => ({
 // Set band (EE)
 export const setBand = (band) => ({
     type: types.LAYER_EDIT_BAND_SET,
-    payload: band,
+    payload: band?.id || band,
 })
 
 // Set label visibility
