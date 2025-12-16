@@ -1,50 +1,61 @@
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import {
+    setBand,
     setOrgUnits,
     setEarthEnginePeriod,
     setBufferRadius,
 } from '../../../actions/layerEdit.js'
+import { editLayer } from '../../../actions/layers.js'
+import { getEarthEngineLayer } from '../../../constants/earthEngineLayers/index.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     EE_BUFFER,
     NONE,
 } from '../../../constants/layers.js'
-import { Help, Tab, Tabs } from '../../core/index.js'
+import { getLayerSourceGrouping } from '../../../util/layerSources.js'
+import { Help, Tab, Tabs, SelectField } from '../../core/index.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationSelect from './AggregationSelect.jsx'
 import BandSelect from './BandSelect.jsx'
 import PeriodSelect from './PeriodSelect.jsx'
+import { getStyleSelectError } from './StyleSelect.jsx'
 import StyleTab from './StyleTab.jsx'
 
 const EarthEngineDialog = (props) => {
     const [tab, setTab] = useState('data')
     const [error, setError] = useState()
-
+    const dispatch = useDispatch()
     const {
         aggregations,
+        aggregationType,
         areaRadius,
         band,
         bands,
+        layerId,
         datasetId,
         defaultAggregations,
         description,
+        descriptionComplement,
         filters,
+        id,
         maskOperator,
         notice,
         orgUnitField,
         orgUnits,
         rows,
+        setBand,
         setOrgUnits,
         source,
         sourceUrl,
         style,
         period,
         periodType,
+        periodReducer,
         setBufferRadius,
         setEarthEnginePeriod,
         unit,
@@ -53,12 +64,79 @@ const EarthEngineDialog = (props) => {
         onLayerValidation,
     } = props
 
-    const noBandSelected = Array.isArray(bands) && (!band || !band.length)
+    const managedLayerSources = useSelector((state) => state.layerSources)
+    const grouping = useMemo(
+        () => getLayerSourceGrouping(layerId, managedLayerSources),
+        [layerId, managedLayerSources]
+    )
 
     const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
 
     const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
+
+    const onLayerSelect = useCallback(
+        (layer, tab) => {
+            const groupDetails = grouping[tab].group
+            if (groupDetails.matchOnSwitch) {
+                let filteredItems = layer.items
+                for (const matchProp of groupDetails.matchOnSwitch) {
+                    filteredItems = filteredItems.filter(
+                        (item) => item[matchProp] === props[matchProp]
+                    )
+                }
+                layer = filteredItems[0] || layer.items[0]
+            }
+            const sanitizedUpdates = {
+                band,
+                aggregationType,
+                period,
+                rows,
+                areaRadius,
+                style,
+                orgUnitField,
+            }
+            if (groupDetails.excludeOnSwitch) {
+                groupDetails.excludeOnSwitch.forEach((key) => {
+                    delete sanitizedUpdates[key]
+                })
+            }
+
+            const config = getEarthEngineLayer(layer.id)
+            dispatch(
+                editLayer({
+                    ...config,
+                    ...sanitizedUpdates,
+                    grouping,
+                    id,
+                })
+            )
+        },
+        [
+            dispatch,
+            grouping,
+            props,
+            band,
+            aggregationType,
+            period,
+            rows,
+            areaRadius,
+            style,
+            orgUnitField,
+            id,
+        ]
+    )
+
+    // Set default band
+    useEffect(() => {
+        if (!band) {
+            const defaultBand = bands?.default
+
+            if (defaultBand) {
+                setBand(defaultBand)
+            }
+        }
+    }, [band, bands, setBand])
 
     // Set default org unit level
     useEffect(() => {
@@ -84,27 +162,48 @@ const EarthEngineDialog = (props) => {
 
     useEffect(() => {
         if (validateLayer) {
-            const isValid = !noBandSelected && (!periodType || period)
+            const errorStyleSelect = getStyleSelectError(style)
+            const noPeriodSelected = periodType && !period
+            const noBandSelected = bands && (!band || !band.length)
+
+            const isValid =
+                !noBandSelected && !noPeriodSelected && !errorStyleSelect
 
             if (!isValid) {
-                if (noBandSelected) {
+                if (errorStyleSelect) {
                     setError({
-                        type: 'band',
-                        message: i18n.t('This field is required'),
+                        type: 'style',
+                        message: errorStyleSelect,
                     })
-                    setTab('data')
-                } else {
+                    setTab('style')
+                }
+                if (noPeriodSelected) {
                     setError({
                         type: 'period',
                         message: i18n.t('This field is required'),
                     })
                     setTab('period')
                 }
+                if (noBandSelected) {
+                    setError({
+                        type: 'band',
+                        message: i18n.t('This field is required'),
+                    })
+                    setTab('data')
+                }
             }
 
             onLayerValidation(isValid)
         }
-    }, [validateLayer, periodType, period, onLayerValidation, noBandSelected])
+    }, [
+        validateLayer,
+        periodType,
+        period,
+        bands,
+        band,
+        style,
+        onLayerValidation,
+    ])
 
     if (error && error.type === 'engine') {
         return (
@@ -125,8 +224,20 @@ const EarthEngineDialog = (props) => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
+                        {grouping?.data &&
+                            grouping.data.group.items?.length > 1 && (
+                                <SelectField
+                                    label={i18n.t('Dataset')}
+                                    items={grouping.data.group.items}
+                                    value={grouping.data.id}
+                                    onChange={(e) => onLayerSelect(e, 'data')}
+                                />
+                            )}
                         <Help>
                             <p>{description}</p>
+                            {descriptionComplement && (
+                                <p>{descriptionComplement}</p>
+                            )}
                             <p>
                                 {i18n.t(
                                     'Data will be calculated on Google Earth Engine for the chosen organisation units.'
@@ -170,13 +281,13 @@ const EarthEngineDialog = (props) => {
                                 {resolution?.spatial}
                             </div>
                         )}
-                        {resolution?.temporal && (
+                        {!periodType && resolution?.temporal && (
                             <div className={styles.paragraph}>
                                 {i18n.t('Temporal resolution')}:{' '}
                                 {resolution?.temporal}
                             </div>
                         )}
-                        {resolution?.temporalCoverage && (
+                        {!periodType && resolution?.temporalCoverage && (
                             <div className={styles.paragraph}>
                                 {i18n.t('Temporal coverage')}:{' '}
                                 {resolution?.temporalCoverage}
@@ -195,18 +306,48 @@ const EarthEngineDialog = (props) => {
                     </div>
                 )}
                 {tab === 'period' && (
-                    <PeriodSelect
-                        datasetId={datasetId}
-                        periodType={periodType}
-                        period={period}
-                        filters={filters}
-                        onChange={setEarthEnginePeriod}
-                        onError={setError}
-                        errorText={
-                            error && error.type === 'period' && error.message
-                        }
-                        className={styles.flexRowFlow}
-                    />
+                    <>
+                        {grouping?.period &&
+                            grouping.period.group.items?.length > 1 && (
+                                <SelectField
+                                    label={i18n.t('Period type')}
+                                    items={grouping.period.group.items}
+                                    value={grouping.period.id}
+                                    onChange={(e) => onLayerSelect(e, 'period')}
+                                    className={styles.flexRowFlow}
+                                />
+                            )}
+                        <div className={styles.flexRowFlow}>
+                            {resolution?.temporal && (
+                                <div className={styles.paragraph}>
+                                    {i18n.t('Temporal resolution')}:{' '}
+                                    {resolution?.temporal}
+                                </div>
+                            )}
+                            {resolution?.temporalCoverage && (
+                                <div className={styles.paragraph}>
+                                    {i18n.t('Temporal coverage')}:{' '}
+                                    {resolution?.temporalCoverage}
+                                </div>
+                            )}
+                        </div>
+                        <PeriodSelect
+                            datasetId={datasetId}
+                            layerId={layerId}
+                            periodType={periodType}
+                            periodReducer={periodReducer}
+                            period={period}
+                            filters={filters}
+                            onChange={setEarthEnginePeriod}
+                            onError={setError}
+                            errorText={
+                                error &&
+                                error.type === 'period' &&
+                                error.message
+                            }
+                            className={styles.flexRowFlow}
+                        />
+                    </>
                 )}
                 {tab === 'orgunits' && <OrgUnitSelect />}
                 {tab === 'style' && (
@@ -224,27 +365,33 @@ const EarthEngineDialog = (props) => {
 
 EarthEngineDialog.propTypes = {
     datasetId: PropTypes.string.isRequired,
+    layerId: PropTypes.string.isRequired,
+    setBand: PropTypes.func.isRequired,
     setBufferRadius: PropTypes.func.isRequired,
     setEarthEnginePeriod: PropTypes.func.isRequired,
     setOrgUnits: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
+    aggregationType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     aggregations: PropTypes.array,
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    bands: PropTypes.array,
+    bands: PropTypes.object,
     defaultAggregations: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.string,
     ]),
     description: PropTypes.string,
+    descriptionComplement: PropTypes.string,
     filters: PropTypes.array,
+    id: PropTypes.string,
     legend: PropTypes.object,
     maskOperator: PropTypes.string,
     notice: PropTypes.string,
     orgUnitField: PropTypes.string,
     orgUnits: PropTypes.object,
     period: PropTypes.object,
+    periodReducer: PropTypes.string,
     periodType: PropTypes.string,
     precision: PropTypes.number,
     resolution: PropTypes.shape({
@@ -268,7 +415,7 @@ EarthEngineDialog.propTypes = {
 
 export default connect(
     null,
-    { setOrgUnits, setEarthEnginePeriod, setBufferRadius },
+    { setBand, setOrgUnits, setEarthEnginePeriod, setBufferRadius },
     null,
     {
         forwardRef: true,

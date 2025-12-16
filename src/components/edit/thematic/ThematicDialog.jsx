@@ -523,7 +523,7 @@ class ThematicDialog extends Component {
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods
                                     }
-                                    height="348px"
+                                    height="324px"
                                 />
                             )}
                             {periodType === PREDEFINED_PERIODS && (
