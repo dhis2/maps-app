@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { createLegend } from '../../../loaders/earthEngineLoader.js'
+import { sortLegendItems } from '../../../util/legend.js'
 import LegendItem from '../../legend/LegendItem.jsx'
 import styles from '../styles/LayerDialog.module.css'
 
@@ -17,7 +18,7 @@ const LegendPreview = ({ style, showBelowMin }) => {
             <div className={styles.legend}>
                 <table>
                     <tbody>
-                        {legend.map((item, index) => (
+                        {sortLegendItems(legend).map((item, index) => (
                             <LegendItem {...item} key={`item-${index}`} />
                         ))}
                     </tbody>

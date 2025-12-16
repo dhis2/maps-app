@@ -1,3 +1,26 @@
+# [101.5.0](https://github.com/dhis2/maps-app/compare/v101.4.8...v101.5.0) (2025-12-16)
+
+
+### Bug Fixes
+
+* population group aggregates in popup [DHIS2-20276] ([#3571](https://github.com/dhis2/maps-app/issues/3571)) ([13db418](https://github.com/dhis2/maps-app/commit/13db41876e403d1e55646365daa7119e2f0f7eac))
+
+
+### Features
+
+* cache GEE data [DHIS2-20523] ([#3591](https://github.com/dhis2/maps-app/issues/3591)) ([5e5f318](https://github.com/dhis2/maps-app/commit/5e5f3182d33613329f6fd46a70c477dfeaa5f16c))
+* new GEE layers: additional ERA5 meteorological data [DHIS2-20149] ([#3570](https://github.com/dhis2/maps-app/issues/3570)) ([c12979d](https://github.com/dhis2/maps-app/commit/c12979d5f340ea7ed20c0e36ecb56ac88da285c5))
+* new GEE layers: CHIRPS precipitation data [DHIS2-1764] ([#3582](https://github.com/dhis2/maps-app/issues/3582)) ([1128a92](https://github.com/dhis2/maps-app/commit/1128a92a9cf3754299b6602cbd459a22e57613f6))
+* new GEE layers: ERA5 relative humidity [DHIS2-20355] ([#3575](https://github.com/dhis2/maps-app/issues/3575)) ([1eab885](https://github.com/dhis2/maps-app/commit/1eab88546fdc17d28d1d2d5f2866fba25f3ea665))
+* new GEE layers: NDVI and EVI [DHIS2-17856] ([#3363](https://github.com/dhis2/maps-app/issues/3363)) ([a8710ea](https://github.com/dhis2/maps-app/commit/a8710ea2b6631453ed8fffef04436ab8f9230e04))
+
+## [101.4.8](https://github.com/dhis2/maps-app/compare/v101.4.7...v101.4.8) (2025-12-02)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3577](https://github.com/dhis2/maps-app/issues/3577)) ([81b327b](https://github.com/dhis2/maps-app/commit/81b327bc07e2488e3c29eac9ffbe150ce2dec8b0))
+
 ## [101.4.7](https://github.com/dhis2/maps-app/compare/v101.4.6...v101.4.7) (2025-11-25)
 
 
