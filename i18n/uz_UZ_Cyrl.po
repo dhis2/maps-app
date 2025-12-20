@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
+"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -328,11 +328,8 @@ msgstr "Қатламни янгилаш"
 msgid "Add layer"
 msgstr "Қатлам қўшиш"
 
-msgid "Aggregation method"
-msgstr "Бирлаштириш услуби"
-
-msgid "Groups"
-msgstr "Гуруҳлар"
+msgid "Area statistics (popups and data table)"
+msgstr ""
 
 msgid "This field is required"
 msgstr "Ушбу қатор тўлдирилиши шарт"
@@ -342,6 +339,9 @@ msgstr "Маълумот"
 
 msgid "Period"
 msgstr "Давр"
+
+msgid "Dataset"
+msgstr "Маълумотлар тўплами"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -375,15 +375,17 @@ msgstr ""
 msgid "Source"
 msgstr "Манба"
 
+msgid "Period type"
+msgstr "Давр тури"
+
 msgid "Legend preview"
 msgstr "Аввалги таъриф"
 
+msgid "Available periods are retrieved from the source data"
+msgstr ""
+
 msgid "Year"
 msgstr "Йил"
-
-msgid "Available periods are set by the source data"
-msgstr ""
-"Мавжуд муддатлар манба маълумотлари манба маълумотлари билан белгиланади"
 
 msgid "Loading periods"
 msgstr "Даврлар юкланмоқда"
@@ -449,7 +451,7 @@ msgstr "Ҳодиса/Тадбир ҳолати"
 msgid "Boundary color"
 msgstr "Чегара ранги"
 
-msgid "Draws a buffer area around each location."
+msgid "Draws a buffer area around each point location."
 msgstr ""
 
 msgid "Buffer"
@@ -680,9 +682,8 @@ msgstr "Маълумот юкланиши амалга ошмади"
 msgid "External layer"
 msgstr "Ташқи қават"
 
-msgid "Split view can not be combined with other layer types."
+msgid "Split view cannot be combined with other layer types."
 msgstr ""
-"Ажратилган кўринишларни бошқа қатлам турлари билан бирлаштириб бўлмайди."
 
 msgid "Failed to load layer"
 msgstr ""
@@ -729,9 +730,6 @@ msgstr "Қатламни таҳрирлаш"
 msgid "Remove layer"
 msgstr "Қатламни ўчириш"
 
-msgid "Group"
-msgstr "Гуруҳ"
-
 msgid "Filters"
 msgstr "Фильрлар"
 
@@ -777,6 +775,9 @@ msgstr "Тадбир/Ҳодиса маълумотлари олинмай қол
 msgid "Organisation unit"
 msgstr "Ташкилий бирлик"
 
+msgid "Groups"
+msgstr "Гуруҳлар"
+
 msgid "Parent unit"
 msgstr "Аждод бўлими"
 
@@ -802,8 +803,8 @@ msgstr ""
 msgid "no value"
 msgstr "қиймат йўқ"
 
-msgid "All groups"
-msgstr "Барча гуруҳлар"
+msgid "All"
+msgstr "Барчаси"
 
 msgid "Loading data"
 msgstr "Маълумотлар юкланмоқда"
@@ -1027,6 +1028,12 @@ msgstr "Якунланиш санаси"
 msgid "Not available offline"
 msgstr "Оффлайн режимда мавжуд эмас"
 
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
+msgstr ""
+
 msgid "Program indicator"
 msgstr "Дастур индикатори"
 
@@ -1156,7 +1163,105 @@ msgstr "метр"
 msgid "~30 meters"
 msgstr ""
 
-msgid "Febuary 2000"
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+
+msgid "~28 kilometers"
+msgstr ""
+
+msgid "Daily"
+msgstr "Кунлик"
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Ойлик"
+
+msgid "Relative humidity weekly"
 msgstr ""
 
 msgid "Landcover"
@@ -1164,6 +1269,9 @@ msgstr "Ўсимликлар қавати"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Спутник ёрдамида ер қатламининг тури аниқланган "
+
+msgid "unitless"
+msgstr ""
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Доимий яшил нина баргли ўрмонлар"
@@ -1256,12 +1364,9 @@ msgstr "миллиметр"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
-"Сунъий йўлдош ва ердаги станциялардан йиғилган ёғингарчилик маълумотлари. "
-"Қийматлар 5 кунлик йиғилган маълумотлар асосида мм ларда акс эттирилади. "
-"Доимо ойнинг 3чи ҳафтасида янгиланади."
 
 msgid "Temperature MODIS"
 msgstr ""
@@ -1395,33 +1500,111 @@ msgstr "Аёл 75 - 79 ёш"
 msgid "Female 80 years and above"
 msgstr "Аёл 80 ёш ва ундан катта"
 
-msgid "Precipitation monthly"
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
 msgstr ""
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
 msgstr ""
 
-msgid "~11 kilometers"
+msgid "~5.5 kilometers"
 msgstr ""
 
-msgid "Monthly"
-msgstr "Ойлик"
+msgid "Since January 1981"
+msgstr ""
 
-msgid "Febuary 1950 - One month ago"
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
 msgstr ""
 
 msgid "Temperature monthly"
 msgstr ""
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
 msgstr ""
 
-msgid "All"
-msgstr "Барчаси"
+msgid "Vegetation"
+msgstr ""
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "250 meter"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr ""
 
 msgid "Active"
 msgstr "Фаол"
@@ -1455,9 +1638,6 @@ msgstr "Белгилар"
 
 msgid "Relative"
 msgstr "Ўзаро боғлиқлик"
-
-msgid "Daily"
-msgstr "Кунлик"
 
 msgid "Weekly"
 msgstr "Ҳафталик"
@@ -1573,8 +1753,8 @@ msgstr "боғлиқлик"
 msgid "not one of"
 msgstr "биттаси ҳам эмас"
 
-msgid "doesn't contains"
-msgstr "ўз ичига олмайди"
+msgid "doesn't contain"
+msgstr ""
 
 msgid "true"
 msgstr "тўғри"
