@@ -363,7 +363,7 @@ msgid "Source"
 msgstr "منبع"
 
 msgid "Period type"
-msgstr ""
+msgstr "د مودې ډول"
 
 msgid "Legend preview"
 msgstr ""
@@ -1509,7 +1509,7 @@ msgid "Precipitation weekly ERA5"
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "درجه حرارت"
 
 msgid "Temperature daily"
 msgstr ""

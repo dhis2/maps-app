@@ -1191,7 +1191,7 @@ msgid "February 2000"
 msgstr ""
 
 msgid "Heat stress"
-msgstr ""
+msgstr "Stress térmico"
 
 msgid "Heat stress daily"
 msgstr ""
@@ -1571,7 +1571,7 @@ msgid "Precipitation weekly ERA5"
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatura"
 
 msgid "Temperature daily"
 msgstr ""

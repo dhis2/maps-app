@@ -1510,7 +1510,7 @@ msgid "Precipitation weekly ERA5"
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "درجہ حرارت"
 
 msgid "Temperature daily"
 msgstr ""

@@ -339,7 +339,7 @@ msgid "Period"
 msgstr "Období"
 
 msgid "Dataset"
-msgstr ""
+msgstr "Dataset"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -374,7 +374,7 @@ msgid "Source"
 msgstr "Zdroj"
 
 msgid "Period type"
-msgstr ""
+msgstr "Typ období"
 
 msgid "Legend preview"
 msgstr "Náhled legendy"
@@ -1161,7 +1161,7 @@ msgid "February 2000"
 msgstr ""
 
 msgid "Heat stress"
-msgstr ""
+msgstr "Tepelný stres"
 
 msgid "Heat stress daily"
 msgstr ""
@@ -1540,7 +1540,7 @@ msgid "Precipitation weekly ERA5"
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Teplota"
 
 msgid "Temperature daily"
 msgstr ""
@@ -1558,7 +1558,7 @@ msgid "Temperature weekly"
 msgstr ""
 
 msgid "Vegetation"
-msgstr ""
+msgstr "Vegetace"
 
 msgid "Vegetation index 16-day"
 msgstr ""
@@ -1583,10 +1583,10 @@ msgid "Since February 2000"
 msgstr ""
 
 msgid "NDVI"
-msgstr ""
+msgstr "NDVI"
 
 msgid "EVI"
-msgstr ""
+msgstr "EVI"
 
 msgid "Vegetation index monthly"
 msgstr ""
@@ -1715,7 +1715,7 @@ msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
 
 msgid "Feature"
-msgstr ""
+msgstr "Funkce"
 
 msgid "Polygon"
 msgstr "Polygon"

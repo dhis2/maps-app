@@ -1546,7 +1546,7 @@ msgid "Precipitation weekly ERA5"
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Температура"
 
 msgid "Temperature daily"
 msgstr ""
