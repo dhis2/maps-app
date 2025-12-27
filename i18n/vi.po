@@ -1,17 +1,17 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2024
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2025
-# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2025
-# Em Le <em.hispvietnam@gmail.com>, 2025
 # Philip Larsen Donnelly, 2025
+# Em Le <em.hispvietnam@gmail.com>, 2025
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2025
+# Viktor Varland <viktor@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
+"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2025\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -328,11 +328,8 @@ msgstr "Cập nhật lớp"
 msgid "Add layer"
 msgstr "Thêm lớp"
 
-msgid "Aggregation method"
-msgstr "Phương pháp tổng hợp"
-
-msgid "Groups"
-msgstr "Nhóm"
+msgid "Area statistics (popups and data table)"
+msgstr ""
 
 msgid "This field is required"
 msgstr "Đây là trường bắt buộc"
@@ -342,6 +339,9 @@ msgstr "Dữ liệu"
 
 msgid "Period"
 msgstr "Thời điểm"
+
+msgid "Dataset"
+msgstr ""
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -375,14 +375,17 @@ msgstr "Phạm vi thời gian"
 msgid "Source"
 msgstr "Nguồn"
 
+msgid "Period type"
+msgstr "Kiểu thời điểm"
+
 msgid "Legend preview"
 msgstr "Xem trước chú giải"
 
+msgid "Available periods are retrieved from the source data"
+msgstr ""
+
 msgid "Year"
 msgstr "Năm"
-
-msgid "Available periods are set by the source data"
-msgstr "Các khoảng thời gian có sẵn được thiết lập bởi dữ liệu nguồn"
 
 msgid "Loading periods"
 msgstr "Đang tải thời điểm"
@@ -448,8 +451,8 @@ msgstr "Trạng thái sự kiện"
 msgid "Boundary color"
 msgstr "Màu ranh giới"
 
-msgid "Draws a buffer area around each location."
-msgstr "Vẽ vùng đệm xung quanh mỗi vị trí."
+msgid "Draws a buffer area around each point location."
+msgstr ""
 
 msgid "Buffer"
 msgstr "Vùng đệm"
@@ -677,8 +680,8 @@ msgstr "Tải dữ liệu không thành công."
 msgid "External layer"
 msgstr "Lớp bên ngoài"
 
-msgid "Split view can not be combined with other layer types."
-msgstr "Không thể kết hợp chế độ xem chia đôi với các loại lớp khác."
+msgid "Split view cannot be combined with other layer types."
+msgstr ""
 
 msgid "Failed to load layer"
 msgstr "Không tải được lớp"
@@ -725,9 +728,6 @@ msgstr "Sửa lớp"
 msgid "Remove layer"
 msgstr "Xoá lớp"
 
-msgid "Group"
-msgstr "Nhóm"
-
 msgid "Filters"
 msgstr "Bộ lọc"
 
@@ -773,6 +773,9 @@ msgstr "Không thể truy xuất dữ liệu sự kiện"
 msgid "Organisation unit"
 msgstr "Đơn vị"
 
+msgid "Groups"
+msgstr "Nhóm"
+
 msgid "Parent unit"
 msgstr "Đơn vị cha"
 
@@ -798,8 +801,8 @@ msgstr ""
 msgid "no value"
 msgstr "không có giá trị"
 
-msgid "All groups"
-msgstr "Tất cả nhóm"
+msgid "All"
+msgstr "Tất cả"
 
 msgid "Loading data"
 msgstr "Đang tải dữ liệu"
@@ -1030,6 +1033,12 @@ msgstr "Ngày kết thúc"
 msgid "Not available offline"
 msgstr "Không có cho ngoại tuyến"
 
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
+msgstr ""
+
 msgid "Program indicator"
 msgstr "Chỉ số chương trình"
 
@@ -1161,14 +1170,115 @@ msgstr "mét"
 msgid "~30 meters"
 msgstr "~30 mét"
 
-msgid "Febuary 2000"
-msgstr "Tháng Hai 2000"
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+
+msgid "~28 kilometers"
+msgstr ""
+
+msgid "Daily"
+msgstr "Hàng ngày"
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Hàng tháng"
+
+msgid "Relative humidity weekly"
+msgstr ""
 
 msgid "Landcover"
 msgstr "Đất bao phủ"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Các loại đất che phủ khác nhau được thu thập từ vệ tinh."
+
+msgid "unitless"
+msgstr ""
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Rừng lá kim thường xanh"
@@ -1261,12 +1371,9 @@ msgstr "milimét"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
-"Lượng mưa thu thập từ vệ tinh và các trạm thời tiết trên mặt đất. Các giá "
-"trị được tính bằng milimét trong khoảng thời gian 5 ngày. Cập nhật hàng "
-"tháng, trong tuần thứ 3 của tháng tiếp theo."
 
 msgid "Temperature MODIS"
 msgstr "Nhiệt độ MODIS"
@@ -1401,37 +1508,111 @@ msgstr "Nữ 75 - 79 tuổi"
 msgid "Female 80 years and above"
 msgstr "Nữ từ 80 tuổi trở lên"
 
-msgid "Precipitation monthly"
-msgstr "Lượng mưa hàng tháng"
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
+msgstr ""
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
 msgstr ""
-"Chất lỏng tích tụ và nước đóng băng, bao gồm mưa và tuyết, rơi xuống bề mặt."
-" Kết hợp dữ liệu mô hình với các quan sát từ khắp nơi trên thế giới."
 
-msgid "~11 kilometers"
-msgstr "~11 km"
+msgid "~5.5 kilometers"
+msgstr ""
 
-msgid "Monthly"
-msgstr "Hàng tháng"
+msgid "Since January 1981"
+msgstr ""
 
-msgid "Febuary 1950 - One month ago"
-msgstr "Tháng Hai 1950 - Một tháng trước"
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr "Nhiệt độ"
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
+msgstr ""
 
 msgid "Temperature monthly"
 msgstr "Nhiệt độ hàng tháng"
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
 msgstr ""
-"Nhiệt độ ở độ cao 2m so với bề mặt. Kết hợp dữ liệu mô hình với các quan sát"
-" từ khắp nơi trên thế giới."
 
-msgid "All"
-msgstr "Tất cả"
+msgid "Vegetation"
+msgstr "Thảm thực vật"
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "250 meter"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr ""
 
 msgid "Active"
 msgstr "Hoạt động"
@@ -1465,9 +1646,6 @@ msgstr "Ký hiệu"
 
 msgid "Relative"
 msgstr "Tương đối"
-
-msgid "Daily"
-msgstr "Hàng ngày"
 
 msgid "Weekly"
 msgstr "Hàng tuần"
@@ -1585,8 +1763,8 @@ msgstr "có liên quan"
 msgid "not one of"
 msgstr "không phải một trong"
 
-msgid "doesn't contains"
-msgstr "không chứa"
+msgid "doesn't contain"
+msgstr ""
 
 msgid "true"
 msgstr "Đúng"

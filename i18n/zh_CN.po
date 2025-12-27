@@ -1,14 +1,14 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2025
 # 晓东 林 <13981924470@126.com>, 2025
+# easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
+"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2025\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -320,11 +320,8 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Aggregation method"
+msgid "Area statistics (popups and data table)"
 msgstr ""
-
-msgid "Groups"
-msgstr "组"
 
 msgid "This field is required"
 msgstr "这个字段是必填的"
@@ -334,6 +331,9 @@ msgstr "数据"
 
 msgid "Period"
 msgstr "期间"
+
+msgid "Dataset"
+msgstr ""
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -363,14 +363,17 @@ msgstr ""
 msgid "Source"
 msgstr "资源"
 
+msgid "Period type"
+msgstr "周期类型"
+
 msgid "Legend preview"
+msgstr ""
+
+msgid "Available periods are retrieved from the source data"
 msgstr ""
 
 msgid "Year"
 msgstr "年"
-
-msgid "Available periods are set by the source data"
-msgstr ""
 
 msgid "Loading periods"
 msgstr "载入期间"
@@ -435,7 +438,7 @@ msgstr "事件状态"
 msgid "Boundary color"
 msgstr ""
 
-msgid "Draws a buffer area around each location."
+msgid "Draws a buffer area around each point location."
 msgstr ""
 
 msgid "Buffer"
@@ -660,7 +663,7 @@ msgstr ""
 msgid "External layer"
 msgstr "外部图层"
 
-msgid "Split view can not be combined with other layer types."
+msgid "Split view cannot be combined with other layer types."
 msgstr ""
 
 msgid "Failed to load layer"
@@ -708,9 +711,6 @@ msgstr "编辑图层"
 msgid "Remove layer"
 msgstr ""
 
-msgid "Group"
-msgstr "组"
-
 msgid "Filters"
 msgstr ""
 
@@ -756,6 +756,9 @@ msgstr ""
 msgid "Organisation unit"
 msgstr "机构"
 
+msgid "Groups"
+msgstr "组"
+
 msgid "Parent unit"
 msgstr "上级机构"
 
@@ -779,8 +782,8 @@ msgstr ""
 msgid "no value"
 msgstr "无值"
 
-msgid "All groups"
-msgstr ""
+msgid "All"
+msgstr "全部"
 
 msgid "Loading data"
 msgstr ""
@@ -999,6 +1002,12 @@ msgstr "结束日期"
 msgid "Not available offline"
 msgstr "离线不可用"
 
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
+msgstr ""
+
 msgid "Program indicator"
 msgstr "项目指标"
 
@@ -1125,13 +1134,114 @@ msgstr ""
 msgid "~30 meters"
 msgstr ""
 
-msgid "Febuary 2000"
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+
+msgid "~28 kilometers"
+msgstr ""
+
+msgid "Daily"
+msgstr "每日"
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "每月"
+
+msgid "Relative humidity weekly"
 msgstr ""
 
 msgid "Landcover"
 msgstr "陆地覆盖"
 
 msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "unitless"
 msgstr ""
 
 msgid "Evergreen Needleleaf forest"
@@ -1221,8 +1331,8 @@ msgstr ""
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
 
 msgid "Temperature MODIS"
@@ -1354,33 +1464,111 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Precipitation monthly"
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
 msgstr ""
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
 msgstr ""
 
-msgid "~11 kilometers"
+msgid "~5.5 kilometers"
 msgstr ""
 
-msgid "Monthly"
-msgstr "每月"
+msgid "Since January 1981"
+msgstr ""
 
-msgid "Febuary 1950 - One month ago"
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr "温度"
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
 msgstr ""
 
 msgid "Temperature monthly"
 msgstr ""
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
 msgstr ""
 
-msgid "All"
-msgstr "全部"
+msgid "Vegetation"
+msgstr ""
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "250 meter"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr ""
 
 msgid "Active"
 msgstr "活跃的"
@@ -1414,9 +1602,6 @@ msgstr "符号"
 
 msgid "Relative"
 msgstr "关系"
-
-msgid "Daily"
-msgstr "每日"
 
 msgid "Weekly"
 msgstr "每周"
@@ -1532,7 +1717,7 @@ msgstr ""
 msgid "not one of"
 msgstr ""
 
-msgid "doesn't contains"
+msgid "doesn't contain"
 msgstr ""
 
 msgid "true"

@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Valeriu Plesca <vplesca@gmail.com>, 2024
+# Valeriu Plesca <vplesca@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-02-04T11:20:55.610Z\n"
+"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Valeriu Plesca <vplesca@gmail.com>, 2024\n"
+"Last-Translator: Valeriu Plesca <vplesca@gmail.com>, 2025\n"
 "Language-Team: Romanian (https://app.transifex.com/hisp-uio/teams/100509/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +25,18 @@ msgid "Map \"{{- name}}\" is saved."
 msgstr ""
 
 msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr ""
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
 msgstr ""
 
 msgid "Calculation"
@@ -81,10 +93,16 @@ msgstr ""
 msgid "Yes"
 msgstr "Da"
 
+msgid "No"
+msgstr "Nu"
+
 msgid "None"
 msgstr ""
 
 msgid "Cascading"
+msgstr ""
+
+msgid "Organisation unit location"
 msgstr ""
 
 msgid "Event location"
@@ -94,9 +112,6 @@ msgid "Enrollment location"
 msgstr ""
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
 msgstr ""
 
 msgid "Fallback coordinate field"
@@ -114,10 +129,10 @@ msgstr ""
 msgid "Event data item"
 msgstr ""
 
-msgid "Selected value not available in in list: {{name}}"
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
-msgid "Style by data element"
+msgid "Style by data item"
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
@@ -304,11 +319,8 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Aggregation method"
+msgid "Area statistics (popups and data table)"
 msgstr ""
-
-msgid "Groups"
-msgstr "Grupuri"
 
 msgid "This field is required"
 msgstr ""
@@ -317,6 +329,9 @@ msgid "Data"
 msgstr ""
 
 msgid "Period"
+msgstr ""
+
+msgid "Dataset"
 msgstr ""
 
 msgid ""
@@ -347,14 +362,17 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
+msgid "Period type"
+msgstr "Tipul perioadei"
+
 msgid "Legend preview"
+msgstr ""
+
+msgid "Available periods are retrieved from the source data"
 msgstr ""
 
 msgid "Year"
 msgstr "An"
-
-msgid "Available periods are set by the source data"
-msgstr ""
 
 msgid "Loading periods"
 msgstr ""
@@ -419,6 +437,9 @@ msgstr ""
 msgid "Boundary color"
 msgstr ""
 
+msgid "Draws a buffer area around each point location."
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
@@ -438,6 +459,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -577,9 +610,6 @@ msgstr ""
 msgid "Group set"
 msgstr ""
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
 
@@ -632,7 +662,7 @@ msgstr ""
 msgid "External layer"
 msgstr ""
 
-msgid "Split view can not be combined with other layer types."
+msgid "Split view cannot be combined with other layer types."
 msgstr ""
 
 msgid "Failed to load layer"
@@ -680,16 +710,7 @@ msgstr ""
 msgid "Remove layer"
 msgstr ""
 
-msgid "Mid"
-msgstr ""
-
-msgid "Group"
-msgstr "Grup"
-
 msgid "Filters"
-msgstr ""
-
-msgid "{{layername}}: {{message}}"
 msgstr ""
 
 msgid "No data found"
@@ -728,19 +749,22 @@ msgstr ""
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
-msgid "Not set"
-msgstr ""
-
 msgid "Could not retrieve event data"
 msgstr ""
 
 msgid "Organisation unit"
 msgstr "Unitate organizațională"
 
+msgid "Groups"
+msgstr "Grupuri"
+
 msgid "Parent unit"
 msgstr ""
 
 msgid "No data"
+msgstr ""
+
+msgid "Not set"
 msgstr ""
 
 msgid "Could not retrieve tracked entity data"
@@ -757,7 +781,7 @@ msgstr ""
 msgid "no value"
 msgstr ""
 
-msgid "All groups"
+msgid "All"
 msgstr ""
 
 msgid "Loading data"
@@ -912,6 +936,9 @@ msgstr ""
 msgid "Selection mode"
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 msgid "Previous year"
 msgstr ""
 
@@ -924,7 +951,7 @@ msgstr ""
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Remove the exiting timeline to add a new one."
+msgid "Remove the existing timeline to add a new one."
 msgstr ""
 
 msgid ""
@@ -932,7 +959,7 @@ msgid ""
 "can be selected."
 msgstr ""
 
-msgid "Remove all existing layers to add a split map view."
+msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -972,6 +999,12 @@ msgid "End date"
 msgstr "Data de sfîrșit"
 
 msgid "Not available offline"
+msgstr ""
+
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
 msgstr ""
 
 msgid "Program indicator"
@@ -1031,6 +1064,9 @@ msgstr ""
 msgid "OSM Detailed"
 msgstr ""
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr ""
 
@@ -1041,6 +1077,18 @@ msgid "Bing Aerial"
 msgstr ""
 
 msgid "Bing Aerial Labels"
+msgstr ""
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
 msgstr ""
 
 msgid "Building footprints"
@@ -1085,13 +1133,114 @@ msgstr ""
 msgid "~30 meters"
 msgstr ""
 
-msgid "Febuary 2000"
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+
+msgid "~28 kilometers"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Lunar"
+
+msgid "Relative humidity weekly"
 msgstr ""
 
 msgid "Landcover"
 msgstr ""
 
 msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "unitless"
 msgstr ""
 
 msgid "Evergreen Needleleaf forest"
@@ -1181,8 +1330,8 @@ msgstr ""
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
 
 msgid "Temperature MODIS"
@@ -1314,32 +1463,110 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Precipitation monthly"
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
 msgstr ""
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
 msgstr ""
 
-msgid "~11 kilometers"
+msgid "~5.5 kilometers"
 msgstr ""
 
-msgid "Monthly"
-msgstr "Lunar"
+msgid "Since January 1981"
+msgstr ""
 
-msgid "Febuary 1950 - One month ago"
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
 msgstr ""
 
 msgid "Temperature monthly"
 msgstr ""
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
 msgstr ""
 
-msgid "All"
+msgid "Vegetation"
+msgstr ""
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "250 meter"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
 msgstr ""
 
 msgid "Active"
@@ -1373,9 +1600,6 @@ msgid "Symbol"
 msgstr ""
 
 msgid "Relative"
-msgstr ""
-
-msgid "Daily"
 msgstr ""
 
 msgid "Weekly"
@@ -1447,6 +1671,12 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
 msgid "No coordinates found for selected facilities"
 msgstr ""
 
@@ -1486,7 +1716,7 @@ msgstr ""
 msgid "not one of"
 msgstr ""
 
-msgid "doesn't contains"
+msgid "doesn't contain"
 msgstr ""
 
 msgid "true"
@@ -1495,15 +1725,24 @@ msgstr ""
 msgid "false"
 msgstr ""
 
-msgid "No"
-msgstr "Nu"
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
 
-msgid "Cannot get authorization token for Google Earth Engine."
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
 msgstr ""
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
+msgstr ""
+
+msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
 msgid "Thematic"
@@ -1520,6 +1759,9 @@ msgstr "Unități organizaționale"
 
 msgid "Facility"
 msgstr "Facilitate"
+
+msgid "Other"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr ""
