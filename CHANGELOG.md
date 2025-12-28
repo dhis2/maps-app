@@ -1,3 +1,10 @@
+## [101.5.1](https://github.com/dhis2/maps-app/compare/v101.5.0...v101.5.1) (2025-12-28)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f9624f7](https://github.com/dhis2/maps-app/commit/f9624f7311285fbdb83bbb084df795a46dac8c5c))
+
 # [101.5.0](https://github.com/dhis2/maps-app/compare/v101.4.8...v101.5.0) (2025-12-16)
 
 
