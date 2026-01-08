@@ -126,31 +126,12 @@ export class Layer {
 
     validateCardTitle(titles) {
         const titlesArray = Array.isArray(titles) ? titles : [titles]
-        let found = false
+        const regex = new RegExp(titlesArray.join('|'))
+        cy.getByDataTest('layercard')
+            .contains(regex, { timeout: 50000 })
+            .should('be.visible')
 
-        return cy.wrap(null).then(() => {
-            const checks = titlesArray.map((title) =>
-                cy
-                    .getByDataTest('layercard', { timeout: 50000 })
-                    .contains(title)
-                    .then(() => {
-                        found = true
-                    })
-                    .catch(() => {
-                        // ignore errors for individual titles
-                    })
-            )
-
-            return Cypress.Promise.all(checks).then(() => {
-                if (!found) {
-                    throw new Error(
-                        `None of the titles were found: ${titlesArray.join(
-                            ', '
-                        )}`
-                    )
-                }
-            })
-        })
+        return this
     }
 
     validateCardPeriod(period) {
