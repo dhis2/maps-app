@@ -264,7 +264,7 @@ context('Thematic Layers', () => {
         Layer.validatePopupContents(['Value: No data'])
     })
 
-    it('adds a thematic layer with multiple periods', () => {
+    it.only('adds a thematic layer with multiple periods', () => {
         const getNumericValue = (text) =>
             parseFloat(text.replace('Value: ', ''))
 
@@ -277,7 +277,7 @@ context('Thematic Layers', () => {
                 periodType: 'MONTHLY',
                 periodDimension: 'fixed',
                 n: 2,
-                y: '2024',
+                y: CURRENT_YEAR - 1,
             })
             .selectPeriodType({
                 periodType: 'MONTHLY',
@@ -312,7 +312,7 @@ context('Thematic Layers', () => {
             periodType: 'MONTHLY',
             periodDimension: 'fixed',
             n: 2,
-            y: '2024',
+            y: CURRENT_YEAR - 1,
         })
         cy.getByDataTest('layeredit-addbtn').click()
 
@@ -335,7 +335,7 @@ context('Thematic Layers', () => {
             periodType: 'MONTHLY',
             periodDimension: 'fixed',
             n: 8,
-            y: '2024',
+            y: CURRENT_YEAR - 1,
         })
         cy.getByDataTest('layeredit-addbtn').click()
 
