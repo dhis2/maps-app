@@ -290,9 +290,10 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         Layer.validateCardTitle(ANC_DATAELEMENT_NAME)
-        Layer.validateCardTitle(
-            `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`
-        )
+        Layer.validateCardTitle([
+            `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`,
+            `${CURRENT_YEAR - 1} March, ${CURRENT_YEAR - 1} September`,
+        ])
 
         cy.wait(POPUP_WAIT)
         getMaps().click('center')

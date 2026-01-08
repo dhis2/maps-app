@@ -124,10 +124,25 @@ export class Layer {
         }
     }
 
-    validateCardTitle(title) {
-        cy.getByDataTest('layercard')
-            .contains(title, { timeout: 50000 })
-            .should('be.visible')
+    validateCardTitle(titles) {
+        const titlesArray = Array.isArray(titles) ? titles : [titles]
+        let found = false
+        let lastError
+
+        titlesArray.forEach((title) => {
+            try {
+                cy.getByDataTest('layercard')
+                    .contains(title, { timeout: 50000 })
+                    .should('be.visible')
+                found = true
+            } catch (error) {
+                lastError = error
+            }
+        })
+
+        if (!found) {
+            throw lastError
+        }
 
         return this
     }
