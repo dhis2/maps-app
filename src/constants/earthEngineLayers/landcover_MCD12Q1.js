@@ -18,8 +18,8 @@ export default function createConfig() {
         unit: i18n.t('unitless'),
         resolution: {
             spatial: i18n.t('0.5 meter'),
-            temporal: i18n.t('Single point in time'),
-            temporalCoverage: i18n.t('May 2023'),
+            temporal: i18n.t('Yearly'),
+            temporalCoverage: i18n.t('Since 2001'),
         },
         defaultAggregations: 'percentage',
         periodType: 'YEARLY',
