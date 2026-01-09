@@ -264,7 +264,7 @@ context('Thematic Layers', () => {
         Layer.validatePopupContents(['Value: No data'])
     })
 
-    it.only('adds a thematic layer with multiple periods', () => {
+    it('adds a thematic layer with multiple periods', () => {
         const getNumericValue = (text) =>
             parseFloat(text.replace('Value: ', ''))
 
