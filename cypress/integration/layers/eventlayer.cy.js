@@ -283,7 +283,8 @@ context('Event Layers', () => {
         testCoordinate(Layer, programGeowR.scenarios[0].coordinates[4]) // E2E - Geo - TEA - Coordinate
     })
 
-    it('change coordinate field - event orgunit', () => {
+    it.skip('change coordinate field - event orgunit', () => {
+        // TODO: E2E DB fix
         // Event layer config
         selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
         Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)

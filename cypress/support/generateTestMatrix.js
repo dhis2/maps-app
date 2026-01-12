@@ -21,7 +21,7 @@ const CYPRESS_FILES = {
     'cypress/integration/orgUnitInfo.cy.js': { include: true, duration: 15 },
     'cypress/integration/plugin.cy.js': { include: true, duration: 15 },
     'cypress/integration/pushAnalytics.cy.js': { include: true, duration: 15 },
-    'cypress/integration/requests.cy.js': { include: true, duration: 120 },
+    'cypress/integration/requests.cy.js': { include: false, duration: 120 }, // TODO: E2E DB fix
     'cypress/integration/requestsErrors.cy.js': {
         include: false,
         duration: 480,
