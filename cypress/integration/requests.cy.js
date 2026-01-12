@@ -310,8 +310,7 @@ describe('API requests check for all layer types', () => {
         })
     })
 
-    it.skip('load earth engine layer', () => {
-        // TODO: E2E DB fix
+    it('load earth engine layer', () => {
         // E2E - Earth Engine Layer [VebBMVbwxX5]
         const id = 'VebBMVbwxX5'
         assertIntercepts({
