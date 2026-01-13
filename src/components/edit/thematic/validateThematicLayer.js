@@ -35,9 +35,10 @@ export const validateThematicLayer = ({
     const errors = {}
     const setErrorState = ({ key, msg, tab }) => {
         errors[key] = msg
-        if (!errors.tab) {
-            errors.tab = tab
-        }
+
+        // The first error tab determines which tab to focus.
+        // Validation order defines tab priority.
+        errors.firstErrorTab ??= tab
     }
 
     // Indicators

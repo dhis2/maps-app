@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-01-09T09:59:36.844Z\n"
-"PO-Revision-Date: 2026-01-09T09:59:36.844Z\n"
+"POT-Creation-Date: 2026-01-13T11:40:18.213Z\n"
+"PO-Revision-Date: 2026-01-13T11:40:18.213Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -643,12 +643,6 @@ msgstr ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
 
-msgid "Split"
-msgstr "Split"
-
-msgid "Timeline"
-msgstr "Timeline"
-
 msgid "Collapse"
 msgstr "Collapse"
 
@@ -995,8 +989,14 @@ msgstr "Single"
 msgid "Show periods as a combined layer. Data is aggregated."
 msgstr "Show periods as a combined layer. Data is aggregated."
 
+msgid "Timeline"
+msgstr "Timeline"
+
 msgid "Show multiple periods as an interactive timeline."
 msgstr "Show multiple periods as an interactive timeline."
+
+msgid "Split"
+msgstr "Split"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "Show multiple maps in view, one for each period (max {{number}})."

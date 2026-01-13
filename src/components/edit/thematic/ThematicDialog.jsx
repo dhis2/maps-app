@@ -153,7 +153,7 @@ const ThematicDialog = ({
         })
 
         setErrors(newErrors)
-        setTab(newErrors.tab)
+        setTab(newErrors.firstErrorTab)
         return isValid
     }, [
         valueType,
