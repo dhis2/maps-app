@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
-"PO-Revision-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-01-09T09:59:36.844Z\n"
+"PO-Revision-Date: 2026-01-09T09:59:36.844Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1274,6 +1274,12 @@ msgstr "Distinct landcover types collected from satellites."
 msgid "unitless"
 msgstr "unitless"
 
+msgid "Yearly"
+msgstr "Yearly"
+
+msgid "Since 2001"
+msgstr "Since 2001"
+
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
 
@@ -1688,9 +1694,6 @@ msgstr "Six-monthly"
 
 msgid "Six-monthly April"
 msgstr "Six-monthly April"
-
-msgid "Yearly"
-msgstr "Yearly"
 
 msgid "Financial year (Start November)"
 msgstr "Financial year (Start November)"

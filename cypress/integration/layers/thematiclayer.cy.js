@@ -277,7 +277,7 @@ context('Thematic Layers', () => {
                 periodType: 'MONTHLY',
                 periodDimension: 'fixed',
                 n: 2,
-                y: '2024',
+                y: CURRENT_YEAR - 1,
             })
             .selectPeriodType({
                 periodType: 'MONTHLY',
@@ -290,9 +290,10 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         Layer.validateCardTitle(ANC_DATAELEMENT_NAME)
-        Layer.validateCardTitle(
-            `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`
-        )
+        Layer.validateCardTitle([
+            `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`,
+            `${CURRENT_YEAR - 1} March, ${CURRENT_YEAR - 1} September`,
+        ])
 
         cy.wait(POPUP_WAIT)
         getMaps().click('center')
@@ -311,7 +312,7 @@ context('Thematic Layers', () => {
             periodType: 'MONTHLY',
             periodDimension: 'fixed',
             n: 2,
-            y: '2024',
+            y: CURRENT_YEAR - 1,
         })
         cy.getByDataTest('layeredit-addbtn').click()
 
@@ -334,7 +335,7 @@ context('Thematic Layers', () => {
             periodType: 'MONTHLY',
             periodDimension: 'fixed',
             n: 8,
-            y: '2024',
+            y: CURRENT_YEAR - 1,
         })
         cy.getByDataTest('layeredit-addbtn').click()
 

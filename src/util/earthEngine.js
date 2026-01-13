@@ -166,7 +166,8 @@ export const getPeriods = async ({
     const getPeriod = ({ id, properties }) => {
         const startDate = new Date(properties['system:time_start'])
         const endDate = new Date(properties['system:time_end'])
-        const year = properties.year || endDate.getFullYear()
+        const year = properties.year || endDate.getFullYear() // So periods in between years are asociated with most recent year
+        const yearYearly = properties.year || startDate.getFullYear() // Because some yearly dataset use 01/01 of next year as endDate
         const base = {
             id,
             startDate,
@@ -178,8 +179,9 @@ export const getPeriods = async ({
             case 'YEARLY':
                 return {
                     ...base,
-                    id: useSystemIndex ? id : year,
-                    name: String(year),
+                    year: yearYearly,
+                    id: useSystemIndex ? id : yearYearly,
+                    name: String(yearYearly),
                 }
             case EE_MONTHLY:
                 return {
