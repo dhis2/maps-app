@@ -72,15 +72,15 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer', () => {
         const choroplethColors = [
-            'rgb(255, 255, 212)',
-            'rgb(254, 217, 142)',
-            'rgb(254, 153, 41)',
-            'rgb(217, 95, 14)',
             'rgb(153, 52, 4)',
+            'rgb(217, 95, 14)',
+            'rgb(254, 153, 41)',
+            'rgb(254, 217, 142)',
+            'rgb(255, 255, 212)',
             'rgb(204, 204, 204)',
         ]
         const bubbleColors = [
-            ...choroplethColors.slice(0, 5).reverse(),
+            ...choroplethColors.slice(0, 5),
             'none',
             choroplethColors[5],
         ]

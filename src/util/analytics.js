@@ -174,7 +174,7 @@ export const getFilterOperatorAsText = (operator, value) => {
         IN: i18n.t('one of'),
         '!IN': i18n.t('not one of'),
         LIKE: i18n.t('contains'),
-        '!LIKE': i18n.t("doesn't contains"),
+        '!LIKE': i18n.t("doesn't contain"),
     }[operator]
 }
 
