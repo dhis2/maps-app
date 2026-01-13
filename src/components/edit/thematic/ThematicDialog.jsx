@@ -571,7 +571,7 @@ const ThematicDialog = ({
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods
                                     }
-                                    height="348px"
+                                    height="324px"
                                 />
                                 <RenderingStrategy
                                     value={renderingStrategy}
