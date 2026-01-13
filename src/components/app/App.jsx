@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useLayersLoader } from '../../hooks/useLayersLoader.jsx'
+import { useLayersLoader } from '../../hooks/useLayersLoader.js'
 import BottomPanel from '../datatable/BottomPanel.jsx'
 import DownloadModeMenu from '../download/DownloadMenubar.jsx'
 import DownloadSettings from '../download/DownloadSettings.jsx'
