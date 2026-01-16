@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-01-09T09:59:36.844Z\n"
-"PO-Revision-Date: 2026-01-09T09:59:36.844Z\n"
+"POT-Creation-Date: 2026-01-16T11:00:19.611Z\n"
+"PO-Revision-Date: 2026-01-16T11:00:19.611Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1125,8 +1125,8 @@ msgstr ""
 msgid "Number of buildings"
 msgstr "Number of buildings"
 
-msgid "0.5 meter"
-msgstr "0.5 meter"
+msgid "~0.5 meter"
+msgstr "~0.5 meter"
 
 msgid "Single point in time"
 msgstr "Single point in time"
@@ -1260,6 +1260,9 @@ msgstr "Distinct landcover types collected from satellites."
 
 msgid "unitless"
 msgstr "unitless"
+
+msgid "~500 meters"
+msgstr "~500 meters"
 
 msgid "Yearly"
 msgstr "Yearly"
@@ -1592,8 +1595,8 @@ msgstr ""
 "for some atmospheric conditions and canopy background noise and is more "
 "sensitive in areas with dense vegetation."
 
-msgid "250 meter"
-msgstr "250 meter"
+msgid "~250 meters"
+msgstr "~250 meters"
 
 msgid "16-day"
 msgstr "16-day"
