@@ -17,9 +17,9 @@ export default function createConfig() {
             'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1',
         unit: i18n.t('unitless'),
         resolution: {
-            spatial: i18n.t('0.5 meter'),
-            temporal: i18n.t('Single point in time'),
-            temporalCoverage: i18n.t('May 2023'),
+            spatial: i18n.t('~500 meters'),
+            temporal: i18n.t('Yearly'),
+            temporalCoverage: i18n.t('Since 2001'),
         },
         defaultAggregations: 'percentage',
         periodType: 'YEARLY',

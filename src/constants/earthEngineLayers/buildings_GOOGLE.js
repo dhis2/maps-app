@@ -23,7 +23,7 @@ export default function createConfig() {
             'https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_Research_open-buildings_v3_polygons',
         unit: i18n.t('Number of buildings'),
         resolution: {
-            spatial: i18n.t('0.5 meter'),
+            spatial: i18n.t('~0.5 meter'),
             temporal: i18n.t('Single point in time'),
             temporalCoverage: i18n.t('May 2023'),
         },

@@ -152,18 +152,20 @@ const EarthEnginePeriodSelect = ({
             })
                 .then((periods) => {
                     if (!isCancelled) {
-                        const { empty, name } = isPeriodComplete({
-                            endDateDataset: datesRange.endDate,
-                            startDatePeriod: periods[0].startDate,
-                            endDatePeriod: isValidDate(periods[0].endDate)
-                                ? periods[0].endDate
-                                : periods[0].startDate,
-                            periodName: periods[0].name,
-                        })
-                        if (empty) {
-                            periods.shift()
-                        } else {
-                            periods[0].name = name
+                        if (periods.length > 0) {
+                            const { empty, name } = isPeriodComplete({
+                                endDateDataset: datesRange.endDate,
+                                startDatePeriod: periods[0].startDate,
+                                endDatePeriod: isValidDate(periods[0].endDate)
+                                    ? periods[0].endDate
+                                    : periods[0].startDate,
+                                periodName: periods[0].name,
+                            })
+                            if (empty) {
+                                periods.shift()
+                            } else {
+                                periods[0].name = name
+                            }
                         }
                         setPeriods(periods)
                         setLoadingPeriods(false)
