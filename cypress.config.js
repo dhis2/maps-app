@@ -18,6 +18,16 @@ async function setupNodeEvents(on, config) {
         )
     }
 
+    on('before:browser:launch', (browser = {}, launchOptions) => {
+        if (browser.family === 'chromium') {
+            launchOptions.args.push('--use-gl=swiftshader')
+            launchOptions.args.push('--ignore-gpu-blacklist')
+            launchOptions.args.push('--disable-gpu-sandbox')
+            launchOptions.args.push('--no-sandbox')
+        }
+        return launchOptions
+    })
+
     return config
 }
 
