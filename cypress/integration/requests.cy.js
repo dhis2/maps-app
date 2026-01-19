@@ -55,7 +55,8 @@ const commonRequests = getRequests([
 
     // -- useLoadMap - src/components/app/useLoadMap.js
     // -- @dhis2/maps-gl - src/layers/TileLayer.js
-    'getLoadMap_BasemapTile',
+    // Dropping this intercept because MapLibre v5 loads raster tiles via <img> instead of XHR/fetch
+    // 'getLoadMap_BasemapTile',
     // --
 ])
 
