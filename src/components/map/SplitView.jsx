@@ -85,9 +85,9 @@ const SplitView = ({
                     {layers.map((layer, index) => {
                         return (
                             <ThematicLayer
+                                {...layer}
                                 key={`${period.id}-${layer.id}`}
                                 index={layers.length - index}
-                                {...layer} // needs to be before period
                                 period={period}
                                 feature={feature}
                                 openContextMenu={openContextMenu}

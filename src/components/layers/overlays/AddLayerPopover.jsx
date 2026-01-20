@@ -3,20 +3,21 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addLayer, editLayer } from '../../../actions/layers.js'
-import earthEngineLayers from '../../../constants/earthEngineLayers/index.js'
+import getEarthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useKeyDown from '../../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
+import { groupLayerSources } from '../../../util/layerSources.js'
 import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
 import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.jsx'
 import LayerList from './LayerList.jsx'
 
 const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Earth Engine layers that are added to this DHIS2 instance
-    const managedEarthEngineLayers = earthEngineLayers
-        .filter((l) => !l.legacy && managedLayerSources.includes(l.layerId))
-        .sort((a, b) => a.name.localeCompare(b.name))
+    const managedEarthEngineLayers = getEarthEngineLayers().filter(
+        (l) => !l.legacy && managedLayerSources.includes(l.layerId)
+    )
 
     // Make copy before slicing below
     const layerSources = [...defaultLayerSources]
@@ -38,12 +39,19 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
         defaultLayerSources,
         managedLayerSources
     )
+    const groupedLayerSources = groupLayerSources(layerSources)
 
     useKeyDown('Escape', onClose)
 
     const onLayerSelect = (layer) => {
-        const config = { ...layer }
-        const layerType = layer.layer
+        let selectedLayer = layer
+        if (layer.items) {
+            selectedLayer = layer.items[0]?.items?.[0] || layer.items[0]
+            delete selectedLayer.id
+        }
+
+        const config = { ...selectedLayer }
+        const layerType = selectedLayer.layer
 
         dispatch(
             layerType === EXTERNAL_LAYER ? addLayer(config) : editLayer(config)
@@ -62,7 +70,7 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
             dataTest="addlayerpopover"
         >
             <LayerList
-                layers={layerSources}
+                layers={groupedLayerSources}
                 isSplitView={isSplitView}
                 onLayerSelect={onLayerSelect}
             />

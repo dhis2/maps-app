@@ -72,7 +72,7 @@ msgid "Name and value"
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "वैल्यू"
 
 msgid "Display"
 msgstr ""
@@ -162,7 +162,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "तारीख"
 
 msgid "Data set"
 msgstr ""
@@ -331,7 +331,7 @@ msgid "This field is required"
 msgstr ""
 
 msgid "Data"
-msgstr ""
+msgstr "डेटा"
 
 msgid "Period"
 msgstr ""
@@ -761,7 +761,7 @@ msgid "Parent unit"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "कोई डेटा नहीं"
 
 msgid "Not set"
 msgstr ""
@@ -1429,16 +1429,16 @@ msgid "Weekly"
 msgstr "साप्ताहिक"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "साप्ताहिक (बुधवार से शुरू)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "साप्ताहिक (गुरुवार से शुरू)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "साप्ताहिक (शनिवार से शुरू)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "साप्ताहिक (रविवार से शुरू)"
 
 msgid "Bi-weekly"
 msgstr ""

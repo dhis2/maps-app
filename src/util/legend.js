@@ -43,6 +43,16 @@ const DATA_SET_QUERY = {
     },
 }
 
+export const sortLegendItems = (items) =>
+    items.sort((a, b) => {
+        if ('from' in a) {
+            return b.from - a.from
+        }
+        if ('startValue' in a) {
+            return b.startValue - a.startValue
+        }
+    })
+
 export const loadDataItemLegendSet = async (dataItem, engine) => {
     if (!dataItem) {
         return null

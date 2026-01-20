@@ -95,7 +95,7 @@ export const formatStartEndDate = (startDate, endDate, locale, showYear) => {
     const loc = locale || i18n.language || DEFAULT_LOCALE
     return `${formatLocaleDate(startDate, loc, showYear)} - ${formatLocaleDate(
         endDate,
-        locale,
+        loc,
         showYear
     )}`
 }

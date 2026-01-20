@@ -152,7 +152,7 @@ const ThematicDialog = ({
         })
 
         setErrors(newErrors)
-        setTab(newErrors.tab)
+        setTab(newErrors.firstErrorTab)
         return isValid
     }, [
         valueType,
@@ -606,7 +606,7 @@ const ThematicDialog = ({
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods
                                     }
-                                    height="325px"
+                                    height="324px"
                                 />
                             )}
                             {periodType === START_END_DATES && (

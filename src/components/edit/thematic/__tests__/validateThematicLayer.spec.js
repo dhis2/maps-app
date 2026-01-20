@@ -52,7 +52,7 @@ describe('validateThematicLayer', () => {
         expect(res.isValid).toBe(false)
         expect(res.errors.indicatorGroupError).toBeDefined()
         expect(res.errors.indicatorError).toBeDefined()
-        expect(res.errors.tab).toBe('data')
+        expect(res.errors.firstErrorTab).toBe('data')
     })
 
     it('returns errors for missing data element group and data element when valueType is dataElement', () => {
@@ -65,7 +65,7 @@ describe('validateThematicLayer', () => {
         expect(res.isValid).toBe(false)
         expect(res.errors.dataElementGroupError).toBeDefined()
         expect(res.errors.dataElementError).toBeDefined()
-        expect(res.errors.tab).toBe('data')
+        expect(res.errors.firstErrorTab).toBe('data')
     })
 
     it('returns errors for missing data element group and data element when valueType is operand', () => {
@@ -78,7 +78,7 @@ describe('validateThematicLayer', () => {
         expect(res.isValid).toBe(false)
         expect(res.errors.dataElementGroupError).toBeDefined()
         expect(res.errors.dataElementError).toBeDefined()
-        expect(res.errors.tab).toBe('data')
+        expect(res.errors.firstErrorTab).toBe('data')
     })
 
     it('returns dataSetError when valueType is dataSet and no dataItem', () => {
@@ -90,7 +90,7 @@ describe('validateThematicLayer', () => {
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
         expect(res.errors.dataSetError).toBeDefined()
-        expect(res.errors.tab).toBe('data')
+        expect(res.errors.firstErrorTab).toBe('data')
     })
 
     it('returns program and event data item errors when valueType is eventDataItem and missing program/dataItem', () => {
@@ -105,7 +105,7 @@ describe('validateThematicLayer', () => {
         expect(res.isValid).toBe(false)
         expect(res.errors.programError).toBeDefined()
         expect(res.errors.eventDataItemError).toBeDefined()
-        expect(res.errors.tab).toBe('data')
+        expect(res.errors.firstErrorTab).toBe('data')
     })
 
     it('returns program and program indicator errors when valueType is programIndicator and missing program/dataItem', () => {
@@ -120,7 +120,7 @@ describe('validateThematicLayer', () => {
         expect(res.isValid).toBe(false)
         expect(res.errors.programError).toBeDefined()
         expect(res.errors.programIndicatorError).toBeDefined()
-        expect(res.errors.tab).toBe('data')
+        expect(res.errors.firstErrorTab).toBe('data')
     })
 
     it('returns calculationError when valueType is calculation and no dataItem', () => {
@@ -133,7 +133,7 @@ describe('validateThematicLayer', () => {
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
         expect(res.errors.calculationError).toBeDefined()
-        expect(res.errors.tab).toBe('data')
+        expect(res.errors.firstErrorTab).toBe('data')
     })
 
     it('returns periodError when periods array is empty and periodType is not START_END_DATES', () => {
@@ -148,7 +148,7 @@ describe('validateThematicLayer', () => {
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
         expect(res.errors.periodError).toBeDefined()
-        expect(res.errors.tab).toBe('period')
+        expect(res.errors.firstErrorTab).toBe('period')
     })
 
     it('returns periodError when too many periods for split rendering strategy', () => {
@@ -168,7 +168,7 @@ describe('validateThematicLayer', () => {
         expect(res.isValid).toBe(false)
         expect(res.errors.periodError).toBeDefined()
         expect(res.errors.periodError).toContain(String(MULTIMAP_MAX_PERIODS))
-        expect(res.errors.tab).toBe('period')
+        expect(res.errors.firstErrorTab).toBe('period')
     })
 
     it('returns periodError when too few periods for timeline or split rendering', () => {
@@ -188,7 +188,7 @@ describe('validateThematicLayer', () => {
         expect(res.isValid).toBe(false)
         expect(res.errors.periodError).toBeDefined()
         expect(res.errors.periodError).toContain(String(MULTIMAP_MIN_PERIODS))
-        expect(res.errors.tab).toBe('period')
+        expect(res.errors.firstErrorTab).toBe('period')
     })
 
     it('returns start/end period error when periodType is START_END_DATES and getStartEndDateError returns message', () => {
@@ -206,7 +206,7 @@ describe('validateThematicLayer', () => {
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
         expect(res.errors.periodError).toBe('bad dates')
-        expect(res.errors.tab).toBe('period')
+        expect(res.errors.firstErrorTab).toBe('period')
     })
 
     it('returns orgUnits error when no org units in rows', () => {
@@ -222,7 +222,7 @@ describe('validateThematicLayer', () => {
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
         expect(res.errors.orgUnitsError).toBeDefined()
-        expect(res.errors.tab).toBe('orgunits')
+        expect(res.errors.firstErrorTab).toBe('orgunits')
     })
 
     it('returns legendSetError when method is CLASSIFICATION_PREDEFINED and no legendSet', () => {
@@ -238,7 +238,7 @@ describe('validateThematicLayer', () => {
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
         expect(res.errors.legendSetError).toBeDefined()
-        expect(res.errors.tab).toBe('style')
+        expect(res.errors.firstErrorTab).toBe('style')
     })
 
     it('returns radiusError when radius is invalid', () => {
@@ -253,6 +253,6 @@ describe('validateThematicLayer', () => {
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
         expect(res.errors.radiusError).toBeDefined()
-        expect(res.errors.tab).toBe('style')
+        expect(res.errors.firstErrorTab).toBe('style')
     })
 })
