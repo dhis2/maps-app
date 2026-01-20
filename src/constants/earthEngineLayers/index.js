@@ -14,7 +14,9 @@ import legacyPopulation100m from './legacy/population_WorldPop_100m.js'
 import legacyPrecipitation from './legacy/precipitation_pentad_CHIRPS.js'
 import legacyTemperature from './legacy/temperature_MOD11A2v061.js'
 import populationAgeSex from './population_age_sex_WorldPop.js'
+import populationAgeSex2 from './population_age_sex_WorldPop2.js'
 import populationTotal from './population_total_WorldPop.js'
+import populationTotal2 from './population_total_WorldPop2.js'
 import precipitationChirpsDaily from './precipitation_daily_CHIRPS.js'
 import precipitationEra5Daily from './precipitation_daily_ERA5-Land.js'
 import precipitationChirpsMonthly from './precipitation_monthly_CHIRPS.js'
@@ -30,7 +32,9 @@ import vegetationModisWeekly from './vegetation_weekly_MOD13Q1.js'
 
 const earthEngineLayersFns = [
     populationTotal,
+    populationTotal2,
     populationAgeSex,
+    populationAgeSex2,
     buildings,
     elevation,
     heatMonthly,
