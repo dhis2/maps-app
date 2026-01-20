@@ -30,7 +30,7 @@ export default function createConfig() {
             'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD13Q1',
         unit: i18n.t('unitless'),
         resolution: {
-            spatial: i18n.t('250 meter'),
+            spatial: i18n.t('~250 meters'),
             temporal: i18n.t('16-day'),
             temporalCoverage: i18n.t('Since February 2000'),
         },
