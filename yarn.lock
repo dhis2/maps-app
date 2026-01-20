@@ -2149,10 +2149,10 @@
     i18next "^10.3"
     moment "^2.24.0"
 
-"@dhis2/maps-gl@^4.2.4":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.2.4.tgz#8c3823e565c5dcad86f98498abe3df46e6781bec"
-  integrity sha512-/F3Y2vgGfkwo3aVfNEpIjRYZBAWJW2N6EPgVJVe99oFqKM1hyFIIutK8Ezi11+TXC4Dqel9ZLdOEnzPT5jXAJg==
+"@dhis2/maps-gl@^4.2.7":
+  version "4.2.7"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.2.7.tgz#30fb5cf8c3e8941aa5686c36ec732fdc45a617ce"
+  integrity sha512-LGcMA5RpEq5BYeIac3iijVDr4T4eMfWdRu2MRMkcHUC5W8PUnqJSPT3si0GPOZkqNkiAlIpuWwcYlVGeVYMofA==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
