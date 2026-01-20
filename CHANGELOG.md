@@ -1,3 +1,10 @@
+## [101.5.2](https://github.com/dhis2/maps-app/compare/v101.5.1...v101.5.2) (2026-01-19)
+
+
+### Bug Fixes
+
+* errors with dates in ee layers [DHIS2-20684] ([#3602](https://github.com/dhis2/maps-app/issues/3602)) ([867f645](https://github.com/dhis2/maps-app/commit/867f645e38441efaa2dd5f9f61e5b19ea692dde3))
+
 ## [101.5.1](https://github.com/dhis2/maps-app/compare/v101.5.0...v101.5.1) (2025-12-28)
 
 
