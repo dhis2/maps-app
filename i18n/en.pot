@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
-"PO-Revision-Date: 2026-01-16T21:08:51.068Z\n"
+"POT-Creation-Date: 2026-01-23T10:58:00.021Z\n"
+"PO-Revision-Date: 2026-01-23T10:58:00.021Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -494,12 +494,6 @@ msgstr "High radius should be greater than low radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
 
-msgid "Choose from presets"
-msgstr "Choose from presets"
-
-msgid "Define start - end dates"
-msgstr "Define start - end dates"
-
 msgid "Indicator group is required"
 msgstr "Indicator group is required"
 
@@ -526,6 +520,12 @@ msgstr "Calculation is required"
 
 msgid "Period is required"
 msgstr "Period is required"
+
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
 
 msgid "Indicator"
 msgstr "Indicator"
