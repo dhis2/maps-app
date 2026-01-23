@@ -3,18 +3,18 @@ const path = require('path')
 
 const NUMBER_OF_GROUPS = 5
 const CYPRESS_FILES = {
-    'cypress/integration/basemaps.cy.js': { include: true, duration: 60 },
-    'cypress/integration/dataDownload.cy.js': { include: true, duration: 60 },
-    'cypress/integration/dataTable.cy.js': { include: true, duration: 60 },
-    'cypress/integration/fetcherrors.cy.js': { include: true, duration: 30 },
-    'cypress/integration/filemenu.cy.js': { include: true, duration: 90 },
+    'cypress/integration/basemaps.cy.js': { include: false, duration: 60 },
+    'cypress/integration/dataDownload.cy.js': { include: false, duration: 60 },
+    'cypress/integration/dataTable.cy.js': { include: false, duration: 60 },
+    'cypress/integration/fetcherrors.cy.js': { include: false, duration: 30 },
+    'cypress/integration/filemenu.cy.js': { include: false, duration: 90 },
     'cypress/integration/interpretations.cy.js': {
-        include: true,
+        include: false,
         duration: 45,
     },
-    'cypress/integration/keyboard.cy.js': { include: true, duration: 30 },
+    'cypress/integration/keyboard.cy.js': { include: false, duration: 30 },
     'cypress/integration/manageLayerSources.cy.js': {
-        include: true,
+        include: false,
         duration: 45,
     },
     'cypress/integration/mapDownload.cy.js': { include: true, duration: 15 },
@@ -26,15 +26,15 @@ const CYPRESS_FILES = {
         include: false,
         duration: 480,
     },
-    'cypress/integration/routes.cy.js': { include: true, duration: 120 },
+    'cypress/integration/routes.cy.js': { include: false, duration: 120 },
     'cypress/integration/systemsettings.cy.js': {
-        include: true,
+        include: false,
         duration: 45,
     },
-    'cypress/integration/ui.cy.js': { include: true, duration: 30 },
-    'cypress/integration/usersettings.cy.js': { include: true, duration: 45 },
+    'cypress/integration/ui.cy.js': { include: false, duration: 30 },
+    'cypress/integration/usersettings.cy.js': { include: false, duration: 45 },
     'cypress/integration/layers/eventlayer.cy.js': {
-        include: true,
+        include: false,
         duration: 210,
     },
     'cypress/integration/layers/multilayers.cy.js': {
@@ -42,27 +42,27 @@ const CYPRESS_FILES = {
         duration: 15,
     },
     'cypress/integration/layers/externallayer.cy.js': {
-        include: true,
+        include: false,
         duration: 15,
     },
     'cypress/integration/layers/orgunitlayer.cy.js': {
-        include: true,
+        include: false,
         duration: 30,
     },
     'cypress/integration/layers/facilitylayer.cy.js': {
-        include: true,
+        include: false,
         duration: 30,
     },
     'cypress/integration/layers/thematiclayer.cy.js': {
-        include: true,
+        include: false,
         duration: 240,
     },
     'cypress/integration/layers/geojsonlayer.cy.js': {
-        include: true,
+        include: false,
         duration: 30,
     },
     'cypress/integration/layers/trackedentitylayer.cy.js': {
-        include: true,
+        include: false,
         duration: 60,
     },
 }

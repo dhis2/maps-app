@@ -12,12 +12,16 @@ async function setupNodeEvents(on, config) {
     excludeByVersionTags(on, config)
     downloadedFileTasks(on)
 
-    on('before:browser:launch', (browser = {}, args) => {
-        if (browser.name === 'chromium') {
-            const newArgs = args.filter((arg) => arg !== '--disable-gpu')
-            newArgs.push('--ignore-gpu-blacklist')
-            return newArgs
+    on('before:browser:launch', (browser, launchOptions) => {
+        if (browser.family === 'chromium') {
+            launchOptions.args.push(
+                '--use-gl=swiftshader',
+                '--enable-webgl',
+                '--ignore-gpu-blacklist',
+                '--disable-gpu'
+            )
         }
+        return launchOptions
     })
 
     if (!config.env.dhis2InstanceVersion) {
