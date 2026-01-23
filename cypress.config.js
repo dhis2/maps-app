@@ -12,21 +12,6 @@ async function setupNodeEvents(on, config) {
     excludeByVersionTags(on, config)
     downloadedFileTasks(on)
 
-    Cypress.on('window:before:load', (win) => {
-        const originalGetContext = win.HTMLCanvasElement.prototype.getContext
-        win.HTMLCanvasElement.prototype.getContext = function (
-            type,
-            attrs = {}
-        ) {
-            if (type === 'webgl' || type === 'webgl2') {
-                delete attrs.powerPreference
-                delete attrs.failIfMajorPerformanceCaveat
-            }
-
-            return originalGetContext.call(this, type, attrs)
-        }
-    })
-
     if (!config.env.dhis2InstanceVersion) {
         throw new Error(
             'dhis2InstanceVersion is missing. Check the README for more information.'

@@ -1,6 +1,19 @@
 import 'cypress-real-events'
 import './commands.js'
 
+Cypress.on('window:before:load', (win) => {
+    // WebGL workaround for headless CI
+    const originalGetContext = win.HTMLCanvasElement.prototype.getContext
+    win.HTMLCanvasElement.prototype.getContext = function (type, attrs = {}) {
+        if (type === 'webgl' || type === 'webgl2') {
+            delete attrs.powerPreference
+            delete attrs.failIfMajorPerformanceCaveat
+            return null // optional: stub to null so Three.js does not crash
+        }
+        return originalGetContext.call(this, type, attrs)
+    }
+})
+
 Cypress.on('uncaught:exception', (err) => {
     // This prevents a benign error:
     //   This error means that ResizeObserver was not able to deliver all
