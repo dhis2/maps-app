@@ -12,21 +12,6 @@ async function setupNodeEvents(on, config) {
     excludeByVersionTags(on, config)
     downloadedFileTasks(on)
 
-    on('before:browser:launch', (browser, launchOptions) => {
-        if (browser.family === 'chromium' && browser.isHeadless) {
-            launchOptions.args.push(
-                '--enable-unsafe-swiftshader',
-                '--use-gl=swiftshader',
-                '--disable-gpu',
-                '--headless=new',
-                '--no-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-software-rasterizer'
-            )
-        }
-        return launchOptions
-    })
-
     if (!config.env.dhis2InstanceVersion) {
         throw new Error(
             'dhis2InstanceVersion is missing. Check the README for more information.'
