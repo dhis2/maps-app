@@ -18,9 +18,6 @@ Cypress.on('uncaught:exception', (err) => {
     ) {
         return false
     }
-    if (err.message.includes('t2.startsWith')) {
-        return false
-    }
 })
 
 const SESSION_COOKIE_NAME = 'JSESSIONID'
