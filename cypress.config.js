@@ -12,16 +12,19 @@ async function setupNodeEvents(on, config) {
     excludeByVersionTags(on, config)
     downloadedFileTasks(on)
 
-    on('before:browser:launch', (browser, launchOptions) => {
-        if (browser.family === 'chromium') {
-            launchOptions.args.push(
-                '--use-gl=swiftshader',
-                '--enable-webgl',
-                '--ignore-gpu-blacklist',
-                '--disable-gpu'
-            )
+    Cypress.on('window:before:load', (win) => {
+        const originalGetContext = win.HTMLCanvasElement.prototype.getContext
+        win.HTMLCanvasElement.prototype.getContext = function (
+            type,
+            attrs = {}
+        ) {
+            if (type === 'webgl' || type === 'webgl2') {
+                delete attrs.powerPreference
+                delete attrs.failIfMajorPerformanceCaveat
+            }
+
+            return originalGetContext.call(this, type, attrs)
         }
-        return launchOptions
     })
 
     if (!config.env.dhis2InstanceVersion) {
