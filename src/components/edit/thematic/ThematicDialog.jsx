@@ -100,14 +100,13 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
-    /*
     const timelineFilters = useSelector(
         (state) =>
             state.map.mapViews.find(
                 (mv) => mv.renderingStrategy === RENDERING_STRATEGY_TIMELINE
             )?.filters
     )
-    */
+    console.log('🚀 ~ ThematicDialog ~ timelineFilters:', timelineFilters)
     const splitFilters = useSelector(
         (state) =>
             state.map.mapViews.find(

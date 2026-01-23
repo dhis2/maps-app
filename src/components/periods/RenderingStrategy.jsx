@@ -80,7 +80,7 @@ const RenderingStrategy = ({
             case RENDERING_STRATEGY_SINGLE:
                 return hasOtherSplitLayers
             case RENDERING_STRATEGY_TIMELINE:
-                return hasOtherTimelineLayers || hasOtherSplitLayers
+                return hasOtherSplitLayers
             case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
                 return hasOtherNonSplitLayers
             default:
