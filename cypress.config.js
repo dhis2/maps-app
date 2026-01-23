@@ -20,7 +20,7 @@ async function setupNodeEvents(on, config) {
                 '--disable-gpu',
                 '--use-gl=swiftshader',
                 '--disable-dev-shm-usage',
-                '--enable-features=Vulkan'
+                '--disable-software-rasterizer'
             )
         }
         return launchOptions
