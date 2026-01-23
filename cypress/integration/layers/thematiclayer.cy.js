@@ -72,15 +72,15 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer', () => {
         const choroplethColors = [
-            'rgb(255, 255, 212)',
-            'rgb(254, 217, 142)',
-            'rgb(254, 153, 41)',
-            'rgb(217, 95, 14)',
             'rgb(153, 52, 4)',
+            'rgb(217, 95, 14)',
+            'rgb(254, 153, 41)',
+            'rgb(254, 217, 142)',
+            'rgb(255, 255, 212)',
             'rgb(204, 204, 204)',
         ]
         const bubbleColors = [
-            ...choroplethColors.slice(0, 5).reverse(),
+            ...choroplethColors.slice(0, 5),
             'none',
             choroplethColors[5],
         ]
@@ -277,7 +277,7 @@ context('Thematic Layers', () => {
                 periodType: 'MONTHLY',
                 periodDimension: 'fixed',
                 n: 2,
-                y: '2024',
+                y: CURRENT_YEAR - 1,
             })
             .selectPeriodType({
                 periodType: 'MONTHLY',
@@ -290,9 +290,10 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         Layer.validateCardTitle(ANC_DATAELEMENT_NAME)
-        Layer.validateCardTitle(
-            `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`
-        )
+        Layer.validateCardTitle([
+            `March ${CURRENT_YEAR - 1}, September ${CURRENT_YEAR - 1}`,
+            `${CURRENT_YEAR - 1} March, ${CURRENT_YEAR - 1} September`,
+        ])
 
         cy.wait(POPUP_WAIT)
         getMaps().click('center')
@@ -311,7 +312,7 @@ context('Thematic Layers', () => {
             periodType: 'MONTHLY',
             periodDimension: 'fixed',
             n: 2,
-            y: '2024',
+            y: CURRENT_YEAR - 1,
         })
         cy.getByDataTest('layeredit-addbtn').click()
 
@@ -334,7 +335,7 @@ context('Thematic Layers', () => {
             periodType: 'MONTHLY',
             periodDimension: 'fixed',
             n: 8,
-            y: '2024',
+            y: CURRENT_YEAR - 1,
         })
         cy.getByDataTest('layeredit-addbtn').click()
 
