@@ -8,7 +8,6 @@ Cypress.on('window:before:load', (win) => {
         if (type === 'webgl' || type === 'webgl2') {
             delete attrs.powerPreference
             delete attrs.failIfMajorPerformanceCaveat
-            return null // optional: stub to null so Three.js does not crash
         }
         return originalGetContext.call(this, type, attrs)
     }
