@@ -12,6 +12,14 @@ async function setupNodeEvents(on, config) {
     excludeByVersionTags(on, config)
     downloadedFileTasks(on)
 
+    on('before:browser:launch', (browser = {}, args) => {
+        if (browser.name === 'chromium') {
+            const newArgs = args.filter((arg) => arg !== '--disable-gpu')
+            newArgs.push('--ignore-gpu-blacklist')
+            return newArgs
+        }
+    })
+
     if (!config.env.dhis2InstanceVersion) {
         throw new Error(
             'dhis2InstanceVersion is missing. Check the README for more information.'
@@ -50,6 +58,10 @@ module.exports = defineConfig({
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-maps',
+        dhis2BaseUrl: 'https://test.e2e.dhis2.org/anly-42',
+        dhis2InstanceVersion: '2.42',
+        dhis2Username: 'admin',
+        dhis2Password: 'district',
         networkMode: 'live',
     },
 })
