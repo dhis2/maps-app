@@ -1,28 +1,6 @@
 import 'cypress-real-events'
 import './commands.js'
 
-Cypress.on('window:before:load', (win) => {
-    win.map = {
-        // Event listeners
-        on: () => {},
-        off: () => {},
-        // Simulate projection (lat/lng -> x/y)
-        project: () => ({ x: 400, y: 300 }),
-        unproject: () => ({ lng: 0, lat: 0 }),
-        // Simulate canvas dimensions
-        getCanvas: () => ({ width: 800, height: 600 }),
-        // Any other methods your app calls
-        flyTo: () => {},
-        setCenter: () => {},
-        setZoom: () => {},
-        addLayer: () => {},
-        removeLayer: () => {},
-        addSource: () => {},
-        removeSource: () => {},
-        triggerClick: () => {}, // optional for test simulation
-    }
-})
-
 Cypress.on('uncaught:exception', (err) => {
     // This prevents a benign error:
     //   This error means that ResizeObserver was not able to deliver all

@@ -51,7 +51,5 @@ module.exports = defineConfig({
     env: {
         dhis2DatatestPrefix: 'dhis2-maps',
         networkMode: 'live',
-        CYPRESS_CHROME_FLAGS:
-            '--use-gl=swiftshader --disable-gpu-driver-bug-workarounds --disable-software-rasterizer --no-sandbox --disable-setuid-sandbox',
     },
 })
