@@ -15,10 +15,11 @@ async function setupNodeEvents(on, config) {
     on('before:browser:launch', (browser, launchOptions) => {
         if (browser.family === 'chromium' && browser.isHeadless) {
             launchOptions.args.push(
+                '--enable-unsafe-swiftshader',
+                '--use-gl=swiftshader',
+                '--disable-gpu',
                 '--headless=new',
                 '--no-sandbox',
-                '--disable-gpu',
-                '--use-gl=swiftshader',
                 '--disable-dev-shm-usage',
                 '--disable-software-rasterizer'
             )
