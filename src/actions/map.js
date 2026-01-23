@@ -41,3 +41,9 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
 export const clearAlerts = () => ({
     type: types.MAP_ALERTS_CLEAR,
 })
+
+export const periodsSync = (periods, renderingStrategy) => ({
+    type: types.MAP_PERIODS_SYNC,
+    periods,
+    renderingStrategy,
+})

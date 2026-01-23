@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
+import { getRenderingLabel } from '../../util/legend.js'
 import LayerLegend from '../legend/Legend.jsx'
 
 const DEFAULT_NO_ALERTS = []
 
 // Renders a legend with alerts for one map layer
-const LegendLayer = ({ id, legend, alerts = DEFAULT_NO_ALERTS }) => (
+const LegendLayer = ({
+    id,
+    legend,
+    renderingStrategy,
+    alerts = DEFAULT_NO_ALERTS,
+}) => (
     <div key={id}>
         {legend && (
             <Fragment>
@@ -13,6 +19,7 @@ const LegendLayer = ({ id, legend, alerts = DEFAULT_NO_ALERTS }) => (
                     {legend.title}
                     <span className="dhis2-map-legend-period">
                         {legend.period}
+                        {getRenderingLabel(renderingStrategy)}
                     </span>
                 </h2>
                 <LayerLegend isPlugin={true} {...legend} />
@@ -32,6 +39,7 @@ LegendLayer.propTypes = {
     data: PropTypes.array,
     layer: PropTypes.string,
     legend: PropTypes.object,
+    renderingStrategy: PropTypes.string,
     serverCluster: PropTypes.bool,
 }
 

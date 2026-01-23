@@ -2,7 +2,7 @@ import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
-import { getSplitViewLayer } from '../../util/helpers.js'
+import { getSplitViewLayers } from '../../util/helpers.js'
 import { getMapControls } from '../../util/mapControls.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Map from './Map.jsx'
@@ -32,8 +32,8 @@ const MapView = (props) => {
     const { currentUser } = useCachedData()
     const nameProperty = currentUser.keyAnalysisDisplayProperty
 
-    const splitViewLayer = getSplitViewLayer(layers)
-    const isSplitView = !!splitViewLayer
+    const splitViewLayers = getSplitViewLayers(layers)
+    const isSplitView = splitViewLayers.length > 0
     const mapControls = useMemo(
         () => getMapControls(isPlugin, isSplitView, controls),
         [isPlugin, isSplitView, controls]
@@ -54,7 +54,7 @@ const MapView = (props) => {
                             isPlugin={isPlugin}
                             isFullscreen={isFullscreen}
                             basemap={basemap}
-                            layer={splitViewLayer}
+                            layers={splitViewLayers.reverse()}
                             controls={mapControls}
                             feature={feature}
                             interpretationModalOpen={interpretationModalOpen}
