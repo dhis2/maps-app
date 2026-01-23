@@ -50,10 +50,8 @@ module.exports = defineConfig({
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-maps',
-        dhis2BaseUrl: 'https://test.e2e.dhis2.org/anly-42',
-        dhis2InstanceVersion: '2.42',
-        dhis2Username: 'admin',
-        dhis2Password: 'district',
         networkMode: 'live',
+        CYPRESS_CHROME_FLAGS:
+            '--use-gl=swiftshader --disable-gpu-driver-bug-workarounds --disable-software-rasterizer',
     },
 })
