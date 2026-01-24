@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -1157,8 +1157,8 @@ msgstr ""
 msgid "Number of buildings"
 msgstr "Aantal gebouwen"
 
-msgid "0.5 meter"
-msgstr "0.5 meter"
+msgid "~0.5 meter"
+msgstr ""
 
 msgid "Single point in time"
 msgstr "Enkel punt in de tijd"
@@ -1286,6 +1286,15 @@ msgid "Distinct landcover types collected from satellites."
 msgstr "Verschillende landbedekkingstypes verzameld van satellieten."
 
 msgid "unitless"
+msgstr ""
+
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "Jaarlijks"
+
+msgid "Since 2001"
 msgstr ""
 
 msgid "Evergreen Needleleaf forest"
@@ -1595,7 +1604,7 @@ msgid ""
 " Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
 msgstr ""
 
-msgid "250 meter"
+msgid "~250 meters"
 msgstr ""
 
 msgid "16-day"
@@ -1684,9 +1693,6 @@ msgstr "Zesmaandelijks"
 
 msgid "Six-monthly April"
 msgstr "Zesmaandelijks april"
-
-msgid "Yearly"
-msgstr "Jaarlijks"
 
 msgid "Financial year (Start November)"
 msgstr "Financieel jaar (Start november)"
