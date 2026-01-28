@@ -17,7 +17,7 @@ export default function createConfig() {
         },
         format: 'ImageCollection',
         img: 'images/population.png',
-        name: i18n.t('Population age groups Global2'),
+        name: i18n.t('Population age groups WorldPop Global2'),
         description: i18n.t(
             'Estimated number of people living in an area, grouped by age and gender.'
         ),

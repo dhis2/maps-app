@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { EARTH_ENGINE_LAYER } from '../layers.js'
+import { EARTH_ENGINE_LAYER } from '../../layers.js'
 
 export default function createConfig() {
     return {
@@ -17,7 +17,7 @@ export default function createConfig() {
         },
         format: 'ImageCollection',
         img: 'images/population.png',
-        name: i18n.t('Population age groups Global1'),
+        name: i18n.t('Population age groups WorldPop Global1'),
         description: i18n.t(
             'Estimated number of people living in an area, grouped by age and gender.'
         ),

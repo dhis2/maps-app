@@ -1,11 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
-import { EARTH_ENGINE_LAYER } from '../layers.js'
+import { EARTH_ENGINE_LAYER } from '../../layers.js'
 
 export default function createConfig() {
     return {
         layer: EARTH_ENGINE_LAYER,
-        layerId: 'projects/sat-io/open-datasets/WORLDPOP/pop',
-        datasetId: 'projects/sat-io/open-datasets/WORLDPOP/pop',
+        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
+        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         grouping: {
             group: {
                 img: 'images/population.png',
@@ -17,7 +17,7 @@ export default function createConfig() {
         },
         format: 'ImageCollection',
         img: 'images/population.png',
-        name: i18n.t('Population Global2'),
+        name: i18n.t('Population WorldPop Global1'),
         description: i18n.t('Estimated number of people living in an area.'),
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
@@ -25,8 +25,8 @@ export default function createConfig() {
         unit: i18n.t('people per hectare'),
         resolution: {
             spatial: i18n.t('~100 meters'),
-            temporal: i18n.t('Yearly'),
-            temporalCoverage: i18n.t('2015 - 2030'),
+            temporal: i18n.t('Single point in time'),
+            temporalCoverage: i18n.t('2020'),
         },
         aggregations: [
             'min',
