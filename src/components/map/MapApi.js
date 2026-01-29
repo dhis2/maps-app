@@ -15,11 +15,19 @@ const map = (options) => {
     div.style.width = '100%'
     div.style.height = '100%'
 
-    return new MapApi(div, {
-        ...options,
-        locale: getMapLocale(),
-        glyphs,
-    })
+    try {
+        return new MapApi(div, {
+            ...options,
+            locale: getMapLocale(),
+            glyphs,
+        })
+    } catch (error) {
+        const wrappedError = new Error(
+            'Failed to initialize the map. Your system may not support WebGL. Verify compatibility here: https://get.webgl.org/\n\n' +
+                (error.stack || error)
+        )
+        throw wrappedError
+    }
 }
 
 export {
