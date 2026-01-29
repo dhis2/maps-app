@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n'
 import MapApi, {
     layerTypes,
     controlTypes,
@@ -24,8 +25,14 @@ const map = (options) => {
     } catch (error) {
         if (/webgl/i.test(error?.message ?? '')) {
             throw new Error(
-                'Failed to initialize the map. Your system may not support WebGL. ' +
-                    'Verify compatibility here: https://get.webgl.org/\n\n' +
+                i18n.t(
+                    'Failed to initialize the map. Your system may not support WebGL. Verify compatibility here: {{url}}',
+                    {
+                        url: 'https://get.webgl.org/',
+                        nsSeparator: ';',
+                    }
+                ) +
+                    '\n\n' +
                     (error.stack || error)
             )
         }
