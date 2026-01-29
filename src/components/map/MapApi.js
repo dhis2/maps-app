@@ -22,11 +22,14 @@ const map = (options) => {
             glyphs,
         })
     } catch (error) {
-        const wrappedError = new Error(
-            'Failed to initialize the map. Your system may not support WebGL. Verify compatibility here: https://get.webgl.org/\n\n' +
-                (error.stack || error)
-        )
-        throw wrappedError
+        if (/webgl/i.test(error?.message ?? '')) {
+            throw new Error(
+                'Failed to initialize the map. Your system may not support WebGL. ' +
+                    'Verify compatibility here: https://get.webgl.org/\n\n' +
+                    (error.stack || error)
+            )
+        }
+        throw error
     }
 }
 
