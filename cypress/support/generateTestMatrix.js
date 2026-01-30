@@ -4,9 +4,9 @@ const path = require('path')
 const NUMBER_OF_GROUPS = 5
 const CYPRESS_FILES = {
     'cypress/integration/basemaps.cy.js': { include: true, duration: 60 },
-    'cypress/integration/dataDownload.cy.js': { include: true, duration: 60 },
+    'cypress/integration/dataDownload.cy.js': { include: true, duration: 45 },
     'cypress/integration/dataTable.cy.js': { include: true, duration: 60 },
-    'cypress/integration/fetcherrors.cy.js': { include: true, duration: 30 },
+    'cypress/integration/fetcherrors.cy.js': { include: true, duration: 15 },
     'cypress/integration/filemenu.cy.js': { include: true, duration: 90 },
     'cypress/integration/interpretations.cy.js': {
         include: true,
@@ -19,14 +19,14 @@ const CYPRESS_FILES = {
     },
     'cypress/integration/mapDownload.cy.js': { include: true, duration: 15 },
     'cypress/integration/orgUnitInfo.cy.js': { include: true, duration: 15 },
-    'cypress/integration/plugin.cy.js': { include: true, duration: 15 },
+    'cypress/integration/plugin.cy.js': { include: false, duration: 15 },
     'cypress/integration/pushAnalytics.cy.js': { include: true, duration: 15 },
-    'cypress/integration/requests.cy.js': { include: true, duration: 120 },
+    'cypress/integration/requests.cy.js': { include: false, duration: 120 }, // TODO: E2E DB fix
     'cypress/integration/requestsErrors.cy.js': {
         include: false,
         duration: 480,
     },
-    'cypress/integration/routes.cy.js': { include: true, duration: 120 },
+    'cypress/integration/routes.cy.js': { include: true, duration: 150 },
     'cypress/integration/systemsettings.cy.js': {
         include: true,
         duration: 45,
@@ -35,7 +35,7 @@ const CYPRESS_FILES = {
     'cypress/integration/usersettings.cy.js': { include: true, duration: 45 },
     'cypress/integration/layers/eventlayer.cy.js': {
         include: true,
-        duration: 210,
+        duration: 120,
     },
     'cypress/integration/layers/multilayers.cy.js': {
         include: true,
@@ -55,7 +55,7 @@ const CYPRESS_FILES = {
     },
     'cypress/integration/layers/thematiclayer.cy.js': {
         include: true,
-        duration: 240,
+        duration: 270,
     },
     'cypress/integration/layers/geojsonlayer.cy.js': {
         include: true,
@@ -63,7 +63,7 @@ const CYPRESS_FILES = {
     },
     'cypress/integration/layers/trackedentitylayer.cy.js': {
         include: true,
-        duration: 60,
+        duration: 45,
     },
 }
 

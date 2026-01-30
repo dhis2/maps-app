@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký <jirka.p@volny.cz>, 2025
+# Jiří Podhorecký <jirka.p@volny.cz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
+"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
+"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgid "Failed to save map: {{message}}"
 msgstr "Nepodařilo se uložit mapu: {{message}}"
 
 msgid "Rename failed"
-msgstr ""
+msgstr "Přejmenování selhalo"
 
 msgid "Rename successful"
 msgstr "Přejmenování bylo úspěšné"
@@ -326,11 +326,8 @@ msgstr "Aktualizovat vrstvu"
 msgid "Add layer"
 msgstr "Přidat vrstvu"
 
-msgid "Aggregation method"
-msgstr "Metoda agregace"
-
-msgid "Groups"
-msgstr "Skupiny"
+msgid "Area statistics (popups and data table)"
+msgstr "Statistiky oblasti (vyskakovací okna a tabulka s daty)"
 
 msgid "This field is required"
 msgstr "Toto pole je povinné"
@@ -340,6 +337,9 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Období"
+
+msgid "Dataset"
+msgstr "Dataset"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -373,14 +373,17 @@ msgstr "Časové pokrytí"
 msgid "Source"
 msgstr "Zdroj"
 
+msgid "Period type"
+msgstr "Typ období"
+
 msgid "Legend preview"
 msgstr "Náhled legendy"
 
+msgid "Available periods are retrieved from the source data"
+msgstr "Dostupná období se načítají ze zdrojových dat."
+
 msgid "Year"
 msgstr "Rok"
-
-msgid "Available periods are set by the source data"
-msgstr "Dostupné období jsou nastaveny podle zdrojových dat"
 
 msgid "Loading periods"
 msgstr "Načítání období"
@@ -445,7 +448,7 @@ msgstr "Stav události"
 msgid "Boundary color"
 msgstr "Barva hraničních okrajů"
 
-msgid "Draws a buffer area around each location."
+msgid "Draws a buffer area around each point location."
 msgstr ""
 
 msgid "Buffer"
@@ -470,16 +473,16 @@ msgid "Line/stroke width must be between 0-10."
 msgstr "Šířka čáry/tahu musí být v rozmezí 0-10."
 
 msgid "May cause slow layer loading."
-msgstr ""
+msgstr "Může způsobit pomalé načítání vrstev."
 
 msgid "Convert polygons to their centroids."
-msgstr ""
+msgstr "Převést polygony na jejich centroidy."
 
 msgid "Centroids"
-msgstr ""
+msgstr "Centroidy"
 
 msgid "Polygons are represented by their centroids."
-msgstr ""
+msgstr "Polygony jsou reprezentovány svými centroidy."
 
 msgid "Labels"
 msgstr "Štítky"
@@ -629,12 +632,14 @@ msgid "Manage available layer sources"
 msgstr ""
 
 msgid "Configure available layer sources"
-msgstr ""
+msgstr "Konfigurace dostupných zdrojů vrstev"
 
 msgid ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
 msgstr ""
+"Vyberte, které zdroje vrstev jsou k dispozici pro přidání do map. Tento "
+"výběr platí pro všechny uživatele."
 
 msgid "Collapse"
 msgstr "Sbalit"
@@ -672,11 +677,11 @@ msgstr "Stažení dat se nezdařilo."
 msgid "External layer"
 msgstr "Vnější vrstva"
 
-msgid "Split view can not be combined with other layer types."
+msgid "Split view cannot be combined with other layer types."
 msgstr "Rozdělené zobrazení nelze kombinovat s jinými typy vrstev."
 
 msgid "Failed to load layer"
-msgstr ""
+msgstr "Nepodařilo se načíst vrstvu"
 
 msgid "Loading layer"
 msgstr "Načítání vrstvy"
@@ -709,7 +714,7 @@ msgid "Show data table"
 msgstr "Zobrazit tabulku dat"
 
 msgid "Open in Data Visualizer app"
-msgstr ""
+msgstr "Otevřít v aplikaci Vizualizér dat"
 
 msgid "Download data"
 msgstr "Stáhnout data"
@@ -719,9 +724,6 @@ msgstr "Upravit vrstvu"
 
 msgid "Remove layer"
 msgstr "Odstraňte vrstvu"
-
-msgid "Group"
-msgstr "Skupina"
 
 msgid "Filters"
 msgstr "Filtry"
@@ -768,6 +770,9 @@ msgstr "Nepodařilo se načíst data události"
 msgid "Organisation unit"
 msgstr "Organizační jednotka"
 
+msgid "Groups"
+msgstr "Skupiny"
+
 msgid "Parent unit"
 msgstr "Nadřazená jednotka"
 
@@ -778,7 +783,7 @@ msgid "Not set"
 msgstr "Nenastaveno"
 
 msgid "Could not retrieve tracked entity data"
-msgstr ""
+msgstr "Nepodařilo se načíst data trasované entity"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
@@ -793,8 +798,8 @@ msgstr ""
 msgid "no value"
 msgstr "žádná hodnota"
 
-msgid "All groups"
-msgstr "Všechny skupiny"
+msgid "All"
+msgstr "Vše"
 
 msgid "Loading data"
 msgstr "Načítání dat"
@@ -977,13 +982,13 @@ msgid ""
 msgstr ""
 
 msgid "Remove all other layers to add a split map view."
-msgstr ""
+msgstr "Odstraňte všechny ostatní vrstvy a přidejte rozdělené zobrazení mapy."
 
 msgid "Single"
 msgstr ""
 
 msgid "Show periods as a combined layer. Data is aggregated."
-msgstr ""
+msgstr "Zobrazit období jako kombinovanou vrstvu. Data jsou agregovaná."
 
 msgid "Timeline"
 msgstr "Časová osa"
@@ -1003,11 +1008,15 @@ msgstr ""
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr ""
+"Data zahájení a ukončení jsou uvedena včetně a budou zohledněna ve "
+"výstupech."
 
 msgid ""
 "Start and end dates must be entered using the ISO 8601 (Gregorian) date "
 "format."
 msgstr ""
+"Počáteční a koncové datum musí být zadáno ve formátu ISO 8601 "
+"(gregoriánský)."
 
 msgid "Start date"
 msgstr "Datum začátku"
@@ -1017,6 +1026,12 @@ msgstr "Datum ukončení"
 
 msgid "Not available offline"
 msgstr "Není k dispozici offline"
+
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
+msgstr ""
 
 msgid "Program indicator"
 msgstr "Indikátor programu"
@@ -1076,7 +1091,7 @@ msgid "OSM Detailed"
 msgstr "OSM Detailed"
 
 msgid "Sentinel-2 EOX"
-msgstr ""
+msgstr "Sentinel-2 EOX"
 
 msgid "Bing Road"
 msgstr "Bing Road"
@@ -1110,6 +1125,8 @@ msgid ""
 "Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
 "the Caribbean."
 msgstr ""
+"Obrysy budov odvozené ze satelitních snímků s vysokým rozlišením. Pouze pro "
+"subsaharskou Afriku, jižní a jihovýchodní Asii, Latinskou Ameriku a Karibik."
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
@@ -1128,13 +1145,13 @@ msgid "Number of buildings"
 msgstr "Počet budov"
 
 msgid "0.5 meter"
-msgstr ""
+msgstr "0,5 metru"
 
 msgid "Single point in time"
-msgstr ""
+msgstr "Jeden časový bod"
 
 msgid "May 2023"
-msgstr ""
+msgstr "květen 2023"
 
 msgid "Elevation"
 msgstr "Nadmořská výška"
@@ -1146,16 +1163,122 @@ msgid "meters"
 msgstr "metrů"
 
 msgid "~30 meters"
-msgstr ""
+msgstr "~30 metrů"
 
-msgid "Febuary 2000"
+msgid "February 2000"
+msgstr "únor 2000"
+
+msgid "Heat stress"
+msgstr "Tepelný stres"
+
+msgid "Heat stress daily"
+msgstr "Denní tepelný stres"
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr "Měřítko tepelné zátěže, kterou člověk zažívá."
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
 msgstr ""
+"Univerzální tepelně-klimatický index (UTCI) kombinuje účinky teploty "
+"vzduchu, vlhkosti, rychlosti větru a záření na lidské tělo. Pocitová teplota"
+" ve °C."
+
+msgid "~28 kilometers"
+msgstr "~28 kilometrů"
+
+msgid "Daily"
+msgstr "Denně"
+
+msgid "Since January 1940"
+msgstr "Od ledna 1940"
+
+msgid "Base daily value"
+msgstr "Základní denní hodnota"
+
+msgid "Extreme cold stress -60 - -40"
+msgstr "Extrémní chladový stres -60 - -40"
+
+msgid "Very strong cold stress -40 - -27"
+msgstr "Velmi silný chladový stres -40 - -27"
+
+msgid "Strong cold stress -27 - -13"
+msgstr "Silný chladový stres -27 - -13"
+
+msgid "Moderate cold stress -13 - 0"
+msgstr "Mírný chladový stres -13 - 0"
+
+msgid "Slight cold stress 0 - 9"
+msgstr "Slabý chladový stres 0 - 9"
+
+msgid "No thermal stress 9 - 26"
+msgstr "Bez tepelného stresu 9 - 26"
+
+msgid "Moderate heat stress 26 - 32"
+msgstr "Mírný tepelný stres 26 - 32"
+
+msgid "Strong heat stress 32 - 38"
+msgstr "Silný tepelný stres 32 - 38"
+
+msgid "Very strong heat stress 38 - 46"
+msgstr "Velmi silný tepelný stres 38 - 46"
+
+msgid "Extreme heat stress 46 - 60"
+msgstr "Extrémní tepelný stres 46 - 60"
+
+msgid "Heat stress monthly"
+msgstr "Tepelný stres měsíčně"
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr "Měsíční (agregované z denních údajů)"
+
+msgid "Heat stress weekly"
+msgstr "Týdenní tepelný stres"
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr "Týdenní (agregované z denních údajů)"
+
+msgid "Relative humidity"
+msgstr "Relativní vlhkost"
+
+msgid "Relative humidity daily"
+msgstr "Relativní vlhkost vzduchu denně"
+
+msgid "Amount of water vapour present in air."
+msgstr "Množství vodní páry přítomné ve vzduchu."
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+"Relativní vlhkost se vyjadřuje v procentech jako maximální množství vodní "
+"páry, které může vzduch při stejné teplotě zadržet."
+
+msgid "~9 kilometers"
+msgstr "~9 kilometrů"
+
+msgid "Since February 1950"
+msgstr "Od února 1950"
+
+msgid "Relative humidity monthly"
+msgstr "Relativní vlhkost měsíčně"
+
+msgid "Monthly"
+msgstr "Měsíčně"
+
+msgid "Relative humidity weekly"
+msgstr "Relativní vlhkost týdně"
 
 msgid "Landcover"
 msgstr "krajinné pokrytí"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
+
+msgid "unitless"
+msgstr "bez jednotek"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Jehličnatý les"
@@ -1248,15 +1371,15 @@ msgstr "milimetr"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
-"Srážky shromážděné ze satelitů a pozemních meteorologických stanic. Hodnoty "
-"jsou v milimetrech během 5 dnů. Aktualizováno měsíčně, během 3. týdne "
-"následujícího měsíce."
+"Srážky získané ze satelitů a pozemních meteorologických stanic. Hodnoty jsou"
+" uvedeny v milimetrech za pětidenní období. Aktualizováno měsíčně, během 3. "
+"týdne následujícího měsíce."
 
 msgid "Temperature MODIS"
-msgstr ""
+msgstr "Teplota MODIS"
 
 msgid "°C during daytime"
 msgstr "°C přes den"
@@ -1277,7 +1400,7 @@ msgstr ""
 "Odhadovaný počet lidí žijících v oblasti seskupených podle věku a pohlaví."
 
 msgid "~100 meters"
-msgstr ""
+msgstr "~100 metrů"
 
 msgid "Male 0 - 1 years"
 msgstr "Muž 0-1 rok"
@@ -1387,33 +1510,121 @@ msgstr "Žena 75 - 79 let"
 msgid "Female 80 years and above"
 msgstr "Žena 80 let a více"
 
-msgid "Precipitation monthly"
-msgstr ""
+msgid "CHIRPS"
+msgstr "CHIRPS"
+
+msgid "Precipitation daily CHIRPS"
+msgstr "Denní úhrn srážek CHIRPS"
+
+msgid "Gridded precipitation dataset."
+msgstr "Sada dat o srážkách s mřížkou."
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
 msgstr ""
+"Kombinuje satelitní snímky s daty ze stanic in situ a poskytuje odhady "
+"zaměřené na srážky na pevnině s vyšším prostorovým rozlišením, ale s delším "
+"zpožděním v dostupnosti dat."
 
-msgid "~11 kilometers"
+msgid "~5.5 kilometers"
+msgstr "~5,5 km"
+
+msgid "Since January 1981"
+msgstr "Od ledna 1981"
+
+msgid "ERA5"
+msgstr "ERA5"
+
+msgid "Precipitation daily ERA5"
+msgstr "Denní úhrn srážek ERA5"
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
 msgstr ""
+"Kombinuje modelová data s pozorováními z celého světa a poskytuje odhady "
+"dešťových i sněhových srážek na pevnině s vysokým časovým rozlišením, které "
+"jsou obvykle k dispozici přibližně za jeden týden."
 
-msgid "Monthly"
-msgstr "Měsíčně"
+msgid "Precipitation monthly CHIRPS"
+msgstr "Srážky měsíčně CHIRPS"
 
-msgid "Febuary 1950 - One month ago"
-msgstr ""
+msgid "Precipitation monthly ERA5"
+msgstr "Srážky měsíčně ERA5"
+
+msgid "Precipitation weekly CHIRPS"
+msgstr "Srážky týdně CHIRPS"
+
+msgid "Precipitation weekly ERA5"
+msgstr "Srážky týdně ERA5"
+
+msgid "Temperature"
+msgstr "Teplota"
+
+msgid "Temperature daily"
+msgstr "Teplota denně"
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr "Soubor dat o teplotě v mřížce ve výšce 2 m nad povrchem."
+
+msgid "Combines model data with observations from across the world."
+msgstr "Kombinuje modelová data s pozorováními z celého světa."
 
 msgid "Temperature monthly"
-msgstr ""
+msgstr "Teplota měsíčně"
+
+msgid "Temperature weekly"
+msgstr "Teplota týdně"
+
+msgid "Vegetation"
+msgstr "Vegetace"
+
+msgid "Vegetation index 16-day"
+msgstr "Vegetační index 16denní"
 
 msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
 msgstr ""
+"Hodnoty vegetačního indexu se pohybují od -1 do 1, přičemž vyšší hodnoty "
+"znamenají hustší vegetaci."
 
-msgid "All"
-msgstr "Vše"
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+"Normalizovaný rozdílový vegetační index (NDVI) se používá ke kvantifikaci zeleně vegetace a je užitečný pro pochopení hustoty vegetace a posouzení změn zdravotního stavu rostlin. \n"
+" Rozšířený vegetační index (EVI) je podobný indexu NDVI. EVI však koriguje některé atmosférické podmínky a šum pozadí koruny a je citlivější v oblastech s hustou vegetací."
+
+msgid "250 meter"
+msgstr "250 metrů"
+
+msgid "16-day"
+msgstr "16denní"
+
+msgid "Since February 2000"
+msgstr "Od února 2000"
+
+msgid "NDVI"
+msgstr "NDVI"
+
+msgid "EVI"
+msgstr "EVI"
+
+msgid "Vegetation index monthly"
+msgstr "Vegetační index měsíčně"
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr "Měsíčně (agregované z 16denních údajů)"
+
+msgid "Vegetation index weekly"
+msgstr "Vegetační index týdně"
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr "Týdně (agregované z 16denních údajů)"
 
 msgid "Active"
 msgstr "Aktivní"
@@ -1447,9 +1658,6 @@ msgstr "Symbol"
 
 msgid "Relative"
 msgstr "Relativní"
-
-msgid "Daily"
-msgstr "Denně"
 
 msgid "Weekly"
 msgstr "Týdně"
@@ -1500,7 +1708,7 @@ msgid "Cancelled"
 msgstr "Zrušeno"
 
 msgid "Earth Engine layer"
-msgstr ""
+msgstr "Vrstva Earth Engine"
 
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
@@ -1521,19 +1729,19 @@ msgid "Facilities"
 msgstr "Zařízení"
 
 msgid "an error occurred"
-msgstr ""
+msgstr "došlo k chybě"
 
 msgid "GroupSet used for styling was not found"
-msgstr ""
+msgstr "GroupSet použitý pro stylování nebyl nalezen"
 
 msgid "No coordinates found for selected facilities"
-msgstr ""
+msgstr "Pro vybraná zařízení nebyly nalezeny žádné souřadnice"
 
 msgid "There was a problem with this layer. Contact a system administrator."
-msgstr ""
+msgstr "S touto vrstvou byl problém. Obraťte se na správce systému."
 
 msgid "Feature"
-msgstr ""
+msgstr "Funkce"
 
 msgid "Polygon"
 msgstr "Polygon"
@@ -1548,10 +1756,10 @@ msgid "Organisation units"
 msgstr "Organizační jednotky"
 
 msgid "Org unit layer"
-msgstr ""
+msgstr "Vrstva organizační jednotky"
 
 msgid "Data item was not found"
-msgstr ""
+msgstr "Datová položka nebyla nalezena"
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
@@ -1565,7 +1773,7 @@ msgstr "příbuzný"
 msgid "not one of"
 msgstr "není jeden z"
 
-msgid "doesn't contains"
+msgid "doesn't contain"
 msgstr "neobsahuje"
 
 msgid "true"

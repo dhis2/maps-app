@@ -1,24 +1,19 @@
 # 
 # Translators:
-# Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021
-# Ulanbek Abakirov <ulans@mail.ru>, 2021
-# Yury Rogachev <yury@dhis2.org>, 2024
-# Nadiia <semchuk@aph.org.ua>, 2025
-# Philip Larsen Donnelly, 2025
-# Viktor Varland <viktor@dhis2.org>, 2025
+# Rohit Wadhwani, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
-"Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
+"Last-Translator: Rohit Wadhwani, 2025\n"
+"Language-Team: English (United States) (https://app.transifex.com/hisp-uio/teams/100509/en_US/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "2020"
 msgstr ""
@@ -36,13 +31,13 @@ msgid "Rename failed"
 msgstr ""
 
 msgid "Rename successful"
-msgstr "Переименовать удачно"
+msgstr ""
 
 msgid "This app could not retrieve required data."
 msgstr ""
 
 msgid "Network error"
-msgstr "Ошибка сети"
+msgstr ""
 
 msgid "Calculation"
 msgstr ""
@@ -60,49 +55,49 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Legend set"
+msgstr ""
 
 msgid "Color"
-msgstr "Цвет"
+msgstr ""
 
 msgid "Size"
 msgstr ""
 
 msgid "Name"
-msgstr "Название"
+msgstr ""
 
 msgid "Name and value"
 msgstr ""
 
 msgid "Value"
-msgstr "Значение"
+msgstr ""
 
 msgid "Display"
-msgstr "Показать"
+msgstr ""
 
 msgid "Data element group"
-msgstr "Группы элемента данных"
+msgstr ""
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Элемент данных"
+msgstr ""
 
 msgid "Totals"
-msgstr "Итоги"
+msgstr ""
 
 msgid "Details"
-msgstr "Детали"
+msgstr ""
 
 msgid "Yes"
-msgstr "Да"
+msgstr "हाँ"
 
 msgid "No"
-msgstr "Нет"
+msgstr "नहीं"
 
 msgid "None"
-msgstr "Не известное значение"
+msgstr "कोई नहीं"
 
 msgid "Cascading"
 msgstr ""
@@ -111,7 +106,7 @@ msgid "Organisation unit location"
 msgstr ""
 
 msgid "Event location"
-msgstr "Местоположение события"
+msgstr ""
 
 msgid "Enrollment location"
 msgstr ""
@@ -123,7 +118,7 @@ msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
-msgstr "Поле координат"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -132,7 +127,7 @@ msgid "Event > org unit coordinate"
 msgstr ""
 
 msgid "Event data item"
-msgstr "Элемент данных событий"
+msgstr ""
 
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
@@ -144,10 +139,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Add filter"
-msgstr "Добавить фильтр"
+msgstr ""
 
 msgid "Data item"
-msgstr "Переменная"
+msgstr ""
 
 msgid "one of"
 msgstr ""
@@ -156,31 +151,31 @@ msgid "contains"
 msgstr ""
 
 msgid "is"
-msgstr "есть"
+msgstr ""
 
 msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr "Операция"
+msgstr ""
 
 msgid "Date"
-msgstr "Дата"
+msgstr ""
 
 msgid "Data set"
-msgstr "Набор данных"
+msgstr ""
 
 msgid "No results found"
-msgstr "Результаты не найдены"
+msgstr ""
 
 msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "Что-то пошло не так"
+msgstr ""
 
 msgid "Search"
-msgstr "Поиск"
+msgstr "खोज"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -200,37 +195,37 @@ msgid "Index"
 msgstr ""
 
 msgid "Id"
-msgstr "ID"
+msgstr ""
 
 msgid "Level"
-msgstr "Уровень"
+msgstr ""
 
 msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Тип"
+msgstr ""
 
 msgid "Legend"
-msgstr "Легенда"
+msgstr ""
 
 msgid "Range"
-msgstr "Диапазон"
+msgstr ""
 
 msgid "Org unit"
-msgstr "Организационная единица"
+msgstr ""
 
 msgid "Event time"
-msgstr "Время события"
+msgstr ""
 
 msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr "Измерение"
+msgstr ""
 
 msgid "Download"
-msgstr "Загрузить"
+msgstr ""
 
 msgid "Exit download mode"
 msgstr ""
@@ -271,28 +266,28 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Отменить"
+msgstr "कैंसल"
 
 msgid "Close"
-msgstr "Закрыть"
+msgstr "बंद करे"
 
 msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Organisation Units"
-msgstr "Организации"
+msgstr ""
 
 msgid "Style"
-msgstr "Стиль"
+msgstr ""
 
 msgid "Point color"
-msgstr "Цвет точки"
+msgstr ""
 
 msgid "Point radius"
-msgstr "Радиус точки"
+msgstr ""
 
 msgid "event"
-msgstr "событие"
+msgstr "इवेंट्"
 
 msgid "tracked entity"
 msgstr ""
@@ -322,21 +317,21 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
-msgstr "Добавить слой"
+msgstr ""
 
-msgid "Area statistics (popups and data table)"
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Groups"
 msgstr ""
 
 msgid "This field is required"
-msgstr "Это поле обязательно к заполнению"
+msgstr ""
 
 msgid "Data"
-msgstr "Данные"
+msgstr ""
 
 msgid "Period"
-msgstr "Период"
-
-msgid "Dataset"
 msgstr ""
 
 msgid ""
@@ -365,19 +360,16 @@ msgid "Temporal coverage"
 msgstr ""
 
 msgid "Source"
-msgstr "Источник"
-
-msgid "Period type"
-msgstr "Виды периода"
+msgstr ""
 
 msgid "Legend preview"
 msgstr ""
 
-msgid "Available periods are retrieved from the source data"
+msgid "Year"
 msgstr ""
 
-msgid "Year"
-msgstr "Год"
+msgid "Available periods are set by the source data"
+msgstr ""
 
 msgid "Loading periods"
 msgstr ""
@@ -395,13 +387,13 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
-msgstr "Минимум"
+msgstr ""
 
 msgid "Max"
-msgstr "Максимум"
+msgstr ""
 
 msgid "Steps"
-msgstr "Шаги"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr ""
@@ -410,7 +402,7 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "Фильтр"
+msgstr ""
 
 msgid "Group events"
 msgstr ""
@@ -437,12 +429,12 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
-msgstr "Статус события"
+msgstr ""
 
 msgid "Boundary color"
 msgstr ""
 
-msgid "Draws a buffer area around each point location."
+msgid "Draws a buffer area around each location."
 msgstr ""
 
 msgid "Buffer"
@@ -479,10 +471,10 @@ msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
-msgstr "Метки"
+msgstr ""
 
 msgid "Aggregation type"
-msgstr "Тип агрегации"
+msgstr ""
 
 msgid "Only show completed events"
 msgstr ""
@@ -536,22 +528,22 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr "Индикатор"
+msgstr ""
 
 msgid "Reporting rates"
-msgstr "Показатель отчетности"
+msgstr ""
 
 msgid "Event data items"
-msgstr "Элементы данных событий"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "Программные показатели"
+msgstr ""
 
 msgid "Calculations"
 msgstr ""
 
 msgid "Item type"
-msgstr "Тип элемента"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -563,13 +555,13 @@ msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
-msgstr "Статус программы"
+msgstr ""
 
 msgid "Relationships"
-msgstr "Зависимости"
+msgstr ""
 
 msgid "Follow up"
-msgstr "Отслеживать"
+msgstr ""
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -601,7 +593,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr "Relationship type"
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -610,16 +602,16 @@ msgid "Feature profile"
 msgstr ""
 
 msgid "Remove filter"
-msgstr "Удалить фильтр"
+msgstr ""
 
 msgid "Group set"
-msgstr "Набор группы"
+msgstr ""
 
 msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Группа индикаторов"
+msgstr ""
 
 msgid "Manage available layer sources"
 msgstr ""
@@ -633,10 +625,10 @@ msgid ""
 msgstr ""
 
 msgid "Collapse"
-msgstr "Свернуть"
+msgstr ""
 
 msgid "Expand"
-msgstr "Развернуть"
+msgstr ""
 
 msgid "External basemap"
 msgstr ""
@@ -665,9 +657,9 @@ msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
-msgstr "Внешний слой"
+msgstr ""
 
-msgid "Split view cannot be combined with other layer types."
+msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Failed to load layer"
@@ -680,7 +672,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "Редактировать"
+msgstr ""
 
 msgid "Toggle visibility"
 msgstr ""
@@ -698,7 +690,7 @@ msgid "Toggle layer menu"
 msgstr ""
 
 msgid "Hide data table"
-msgstr "Спрятать таблицу данных"
+msgstr ""
 
 msgid "Show data table"
 msgstr ""
@@ -707,19 +699,22 @@ msgid "Open in Data Visualizer app"
 msgstr ""
 
 msgid "Download data"
-msgstr "Скачать данные"
+msgstr ""
 
 msgid "Edit layer"
-msgstr "Редактировать уровень"
+msgstr ""
 
 msgid "Remove layer"
 msgstr ""
 
+msgid "Group"
+msgstr ""
+
 msgid "Filters"
-msgstr "Фильтры"
+msgstr ""
 
 msgid "No data found"
-msgstr "Данные не найдены"
+msgstr ""
 
 msgid "Selected org units: No coordinates found"
 msgstr ""
@@ -728,28 +723,28 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Error"
-msgstr "Ошибка"
+msgstr ""
 
 msgid "Drill up one level"
-msgstr "Свернуть на один уровень"
+msgstr ""
 
 msgid "Drill down one level"
-msgstr "Развернуть на один уровень"
+msgstr ""
 
 msgid "View profile"
-msgstr "Просмотреть профиль"
+msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr "Показать долготу / широту"
+msgstr ""
 
 msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr "Долгота"
+msgstr ""
 
 msgid "Latitude"
-msgstr "Широта"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
@@ -758,25 +753,22 @@ msgid "Could not retrieve event data"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr "Организация"
-
-msgid "Groups"
-msgstr "Группы"
+msgstr ""
 
 msgid "Parent unit"
-msgstr "Родительская"
+msgstr ""
 
 msgid "No data"
-msgstr "Нет данных"
+msgstr ""
 
 msgid "Not set"
-msgstr "Не устнановлен"
+msgstr ""
 
 msgid "Could not retrieve tracked entity data"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Последнее обновление"
+msgstr "अंतिम अपडेट"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -784,10 +776,10 @@ msgid ""
 msgstr ""
 
 msgid "no value"
-msgstr "нет значения"
+msgstr ""
 
-msgid "All"
-msgstr "Все"
+msgid "All groups"
+msgstr ""
 
 msgid "Loading data"
 msgstr ""
@@ -796,7 +788,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr "Диаграмма-области"
+msgstr ""
 
 msgid "Center map on area"
 msgstr ""
@@ -811,7 +803,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "Удалить"
+msgstr "डिलीट"
 
 msgid "Distance"
 msgstr ""
@@ -847,10 +839,10 @@ msgid "Search for place or address"
 msgstr ""
 
 msgid "Zoom in"
-msgstr "Приблизить"
+msgstr ""
 
 msgid "Zoom out"
-msgstr "Уменьшить"
+msgstr ""
 
 msgid "Zoom to content"
 msgstr ""
@@ -868,10 +860,10 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr "Продолжить"
+msgstr ""
 
 msgid "Options"
-msgstr "Опции"
+msgstr ""
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -891,40 +883,40 @@ msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr "Код"
+msgstr ""
 
 msgid "Short name"
-msgstr "Короткое название"
+msgstr ""
 
 msgid "Opening date"
-msgstr "Дата открытия"
+msgstr ""
 
 msgid "Closed date"
-msgstr "Дата закрытия"
+msgstr ""
 
 msgid "URL"
-msgstr "Url"
+msgstr ""
 
 msgid "Link"
-msgstr "Ссылка"
+msgstr ""
 
 msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr "адрес электронной почты"
+msgstr ""
 
 msgid "Address"
-msgstr "Адрес"
+msgstr ""
 
 msgid "Phone"
 msgstr ""
 
 msgid "ID"
-msgstr "Ид"
+msgstr ""
 
 msgid "Comment"
-msgstr "Комментарий"
+msgstr ""
 
 msgid "Organisation unit profile"
 msgstr ""
@@ -939,19 +931,19 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Selection mode"
-msgstr "Режим выбора"
+msgstr ""
 
 msgid "Clear"
-msgstr "Очистить"
+msgstr "साफ़ करें"
 
 msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr "След. Год"
+msgstr ""
 
 msgid "Start/end dates"
-msgstr "Дата начала / окончания"
+msgstr ""
 
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
@@ -974,7 +966,7 @@ msgid "Show periods as a combined layer. Data is aggregated."
 msgstr ""
 
 msgid "Timeline"
-msgstr "Временная шкала"
+msgstr ""
 
 msgid "Show multiple periods as an interactive timeline."
 msgstr ""
@@ -998,13 +990,13 @@ msgid ""
 msgstr ""
 
 msgid "Start date"
-msgstr "Дата начала"
+msgstr ""
 
 msgid "End date"
-msgstr "Дата окончания"
+msgstr ""
 
 msgid "Not available offline"
-msgstr "Недоступно в автономном режиме"
+msgstr ""
 
 msgid "Click to unpin legend"
 msgstr ""
@@ -1013,40 +1005,40 @@ msgid "Click to pin legend"
 msgstr ""
 
 msgid "Program indicator"
-msgstr "Program indicator"
+msgstr ""
 
 msgid "No program"
-msgstr "Программа отсутствует"
+msgstr ""
 
 msgid "Program"
-msgstr "Program"
+msgstr "प्रोग्राम"
 
 msgid "Stage"
-msgstr "Этап"
+msgstr ""
 
 msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr "По элементу данных"
+msgstr ""
 
 msgid "Count"
-msgstr "Количество"
+msgstr ""
 
 msgid "Average"
-msgstr "Среднее"
+msgstr ""
 
 msgid "Sum"
-msgstr "Сумма"
+msgstr ""
 
 msgid "Standard deviation"
-msgstr "Стандартное отклонение"
+msgstr ""
 
 msgid "Variance"
-msgstr "Дисперсия"
+msgstr ""
 
 msgid "Percentage"
-msgstr "Процент"
+msgstr ""
 
 msgid "Hectares"
 msgstr ""
@@ -1127,7 +1119,7 @@ msgid "May 2023"
 msgstr ""
 
 msgid "Elevation"
-msgstr "Высота"
+msgstr ""
 
 msgid "Elevation above sea-level."
 msgstr ""
@@ -1138,114 +1130,13 @@ msgstr ""
 msgid "~30 meters"
 msgstr ""
 
-msgid "February 2000"
-msgstr ""
-
-msgid "Heat stress"
-msgstr ""
-
-msgid "Heat stress daily"
-msgstr ""
-
-msgid "A measure of the thermal stress experienced by a person."
-msgstr ""
-
-msgid ""
-"The Universal Thermal Climate Index (UTCI) combines the effects of air "
-"temperature, humidity, wind speed, and radiation on the human body. Felt "
-"temperature in °C."
-msgstr ""
-
-msgid "~28 kilometers"
-msgstr ""
-
-msgid "Daily"
-msgstr "Ежедневно"
-
-msgid "Since January 1940"
-msgstr ""
-
-msgid "Base daily value"
-msgstr ""
-
-msgid "Extreme cold stress -60 - -40"
-msgstr ""
-
-msgid "Very strong cold stress -40 - -27"
-msgstr ""
-
-msgid "Strong cold stress -27 - -13"
-msgstr ""
-
-msgid "Moderate cold stress -13 - 0"
-msgstr ""
-
-msgid "Slight cold stress 0 - 9"
-msgstr ""
-
-msgid "No thermal stress 9 - 26"
-msgstr ""
-
-msgid "Moderate heat stress 26 - 32"
-msgstr ""
-
-msgid "Strong heat stress 32 - 38"
-msgstr ""
-
-msgid "Very strong heat stress 38 - 46"
-msgstr ""
-
-msgid "Extreme heat stress 46 - 60"
-msgstr ""
-
-msgid "Heat stress monthly"
-msgstr ""
-
-msgid "Monthly (aggregated from Daily data)"
-msgstr ""
-
-msgid "Heat stress weekly"
-msgstr ""
-
-msgid "Weekly (aggregated from Daily data)"
-msgstr ""
-
-msgid "Relative humidity"
-msgstr ""
-
-msgid "Relative humidity daily"
-msgstr ""
-
-msgid "Amount of water vapour present in air."
-msgstr ""
-
-msgid ""
-"Relative humidity is expressed as a percentage of the maximum amount of "
-"water vapor the air can hold at the same temperature."
-msgstr ""
-
-msgid "~9 kilometers"
-msgstr ""
-
-msgid "Since February 1950"
-msgstr ""
-
-msgid "Relative humidity monthly"
-msgstr ""
-
-msgid "Monthly"
-msgstr "Ежемесячно"
-
-msgid "Relative humidity weekly"
+msgid "Febuary 2000"
 msgstr ""
 
 msgid "Landcover"
-msgstr "Растительный покров"
-
-msgid "Distinct landcover types collected from satellites."
 msgstr ""
 
-msgid "unitless"
+msgid "Distinct landcover types collected from satellites."
 msgstr ""
 
 msgid "Evergreen Needleleaf forest"
@@ -1305,7 +1196,7 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr "Ночные огни"
+msgstr ""
 
 msgid "light intensity"
 msgstr ""
@@ -1328,15 +1219,15 @@ msgid "people per hectare"
 msgstr ""
 
 msgid "Precipitation"
-msgstr "Осадки"
+msgstr ""
 
 msgid "millimeter"
 msgstr ""
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
 msgstr ""
 
 msgid "Temperature MODIS"
@@ -1468,117 +1359,39 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "CHIRPS"
-msgstr ""
-
-msgid "Precipitation daily CHIRPS"
-msgstr ""
-
-msgid "Gridded precipitation dataset."
+msgid "Precipitation monthly"
 msgstr ""
 
 msgid ""
-"Combines satellite imagery with in-situ station data and provides rainfall-"
-"focused estimates over land at higher spatial resolution but with a longer "
-"lag in data availability."
+"Accumulated liquid and frozen water, including rain and snow, that falls to "
+"the surface. Combines model data with observations from across the world."
 msgstr ""
 
-msgid "~5.5 kilometers"
+msgid "~11 kilometers"
 msgstr ""
 
-msgid "Since January 1981"
+msgid "Monthly"
 msgstr ""
 
-msgid "ERA5"
-msgstr ""
-
-msgid "Precipitation daily ERA5"
-msgstr ""
-
-msgid ""
-"Combines model data with observations from around the world and provides "
-"estimates of both rain and snow over land at high temporal resolution, "
-"typically available within about one week."
-msgstr ""
-
-msgid "Precipitation monthly CHIRPS"
-msgstr ""
-
-msgid "Precipitation monthly ERA5"
-msgstr ""
-
-msgid "Precipitation weekly CHIRPS"
-msgstr ""
-
-msgid "Precipitation weekly ERA5"
-msgstr ""
-
-msgid "Temperature"
-msgstr "Температура"
-
-msgid "Temperature daily"
-msgstr ""
-
-msgid "Gridded temperature dataset at 2m above the surface."
-msgstr ""
-
-msgid "Combines model data with observations from across the world."
+msgid "Febuary 1950 - One month ago"
 msgstr ""
 
 msgid "Temperature monthly"
 msgstr ""
 
-msgid "Temperature weekly"
-msgstr ""
-
-msgid "Vegetation"
-msgstr ""
-
-msgid "Vegetation index 16-day"
-msgstr ""
-
 msgid ""
-"Vegetation index values range from -1 to 1, with higher values indicating "
-"denser vegetation."
+"Temperature at 2m above the surface. Combines model data with observations "
+"from across the world."
 msgstr ""
 
-msgid ""
-"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
-" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
-msgstr ""
-
-msgid "250 meter"
-msgstr ""
-
-msgid "16-day"
-msgstr ""
-
-msgid "Since February 2000"
-msgstr ""
-
-msgid "NDVI"
-msgstr ""
-
-msgid "EVI"
-msgstr ""
-
-msgid "Vegetation index monthly"
-msgstr ""
-
-msgid "Monthly (aggregated from 16-day data)"
-msgstr ""
-
-msgid "Vegetation index weekly"
-msgstr ""
-
-msgid "Weekly (aggregated from 16-day data)"
+msgid "All"
 msgstr ""
 
 msgid "Active"
-msgstr "Действующий"
+msgstr ""
 
 msgid "Completed"
-msgstr "Завершенный"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -1596,64 +1409,67 @@ msgid "Single color legend"
 msgstr ""
 
 msgid "Equal intervals"
-msgstr "Равные интервалы"
+msgstr ""
 
 msgid "Equal counts"
-msgstr "Равный счет"
+msgstr ""
 
 msgid "Symbol"
-msgstr "Символ"
+msgstr ""
 
 msgid "Relative"
-msgstr "Родственник"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
 
 msgid "Weekly"
-msgstr "Еженедельно"
+msgstr ""
 
 msgid "Weekly (Start Wednesday)"
-msgstr "Еженедельно(Начало Среда)"
+msgstr ""
 
 msgid "Weekly (Start Thursday)"
-msgstr "Еженедельно(Начало Четверг)"
+msgstr ""
 
 msgid "Weekly (Start Saturday)"
-msgstr "Еженедельно(Начало Суббота)"
+msgstr ""
 
 msgid "Weekly (Start Sunday)"
-msgstr "Еженедельно(Начало Воскресенье)"
+msgstr ""
 
 msgid "Bi-weekly"
-msgstr "Каждые две недели"
+msgstr ""
 
 msgid "Bi-monthly"
-msgstr "Раз в два месяца"
+msgstr ""
 
 msgid "Quarterly"
-msgstr "Ежеквартально"
+msgstr ""
 
 msgid "Six-monthly"
-msgstr "Раз в полугодие"
+msgstr ""
 
 msgid "Six-monthly April"
-msgstr "Полугодовой-Апрель"
+msgstr ""
 
 msgid "Yearly"
-msgstr "Ежегодно"
+msgstr ""
 
 msgid "Financial year (Start November)"
-msgstr "Финансовый год (начало Ноябрь)"
+msgstr ""
 
 msgid "Financial year (Start October)"
-msgstr "Финансовый год - Октябрь"
+msgstr ""
 
 msgid "Financial year (Start July)"
-msgstr "Финансовый год - Июль"
+msgstr ""
 
 msgid "Financial year (Start April)"
-msgstr "Финансовый год - Апрель"
+msgstr ""
 
 msgid "Cancelled"
-msgstr "Отмененный"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr ""
@@ -1671,10 +1487,10 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "Event"
-msgstr "Событие"
+msgstr ""
 
 msgid "Facilities"
-msgstr "Удобства"
+msgstr ""
 
 msgid "an error occurred"
 msgstr ""
@@ -1692,16 +1508,16 @@ msgid "Feature"
 msgstr ""
 
 msgid "Polygon"
-msgstr "Полигон"
+msgstr ""
 
 msgid "Line"
-msgstr "Линейная"
+msgstr ""
 
 msgid "Point"
-msgstr "пункт"
+msgstr ""
 
 msgid "Organisation units"
-msgstr "Организационные единицы"
+msgstr ""
 
 msgid "Org unit layer"
 msgstr ""
@@ -1710,10 +1526,10 @@ msgid "Data item was not found"
 msgstr ""
 
 msgid "Thematic layer"
-msgstr "Тематический уровень"
+msgstr ""
 
 msgid "Tracked entity"
-msgstr "Tracked entity"
+msgstr ""
 
 msgid "related"
 msgstr ""
@@ -1721,7 +1537,7 @@ msgstr ""
 msgid "not one of"
 msgstr ""
 
-msgid "doesn't contain"
+msgid "doesn't contains"
 msgstr ""
 
 msgid "true"
@@ -1751,22 +1567,22 @@ msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
 msgid "Thematic"
-msgstr "Тематический"
+msgstr ""
 
 msgid "Events"
-msgstr "Events"
+msgstr ""
 
 msgid "Tracked entities"
-msgstr "Отслеживаемые объекты"
+msgstr ""
 
 msgid "Org units"
-msgstr "Организации"
+msgstr ""
 
 msgid "Facility"
-msgstr "Учреждение"
+msgstr ""
 
 msgid "Other"
-msgstr "Другое"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr ""

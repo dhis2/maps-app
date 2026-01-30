@@ -3,26 +3,24 @@
 # Austin McGee <austin@dhis2.org>, 2019
 # Matthieu Pinard <matthieu@dhis2.org>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Edem Kossi <ekossi@hispwca.org>, 2020
 # Bram Piot <bram.piot@gmail.com>, 2021
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
-# Yayra Gomado <ygomado@hispwca.org>, 2021
-# Yury Rogachev <yury@dhis2.org>, 2022
-# Viktor Varland <viktor@dhis2.org>, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Philip Larsen Donnelly, 2025
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
 # Elise Desailly, 2025
 # Esther Tokouli, 2025
-# Cyrille Kabrane, 2025
 # Bruno Raimbault, 2025
+# Philip Larsen Donnelly, 2025
+# Edem Kossi <ekossi@hispwca.org>, 2025
+# Viktor Varland <viktor@dhis2.org>, 2025
+# Cyrille Kabrane, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
+"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Bruno Raimbault, 2025\n"
+"Last-Translator: Cyrille Kabrane, 2026\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -352,11 +350,9 @@ msgstr "Mettre à jour la couche"
 msgid "Add layer"
 msgstr "Ajouter une couche"
 
-msgid "Aggregation method"
-msgstr "Méthode d'agrégation"
-
-msgid "Groups"
-msgstr "Groupes"
+msgid "Area statistics (popups and data table)"
+msgstr ""
+"Statistiques de la zone (fenêtres contextuelles et tableau de données)"
 
 msgid "This field is required"
 msgstr "Ce champs est requis"
@@ -366,6 +362,9 @@ msgstr "Données"
 
 msgid "Period"
 msgstr "Période"
+
+msgid "Dataset"
+msgstr "Ensemble de données"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -400,14 +399,17 @@ msgstr "Couverture temporelle"
 msgid "Source"
 msgstr "Source"
 
+msgid "Period type"
+msgstr "Type de période"
+
 msgid "Legend preview"
 msgstr "Aperçu de la légende"
 
+msgid "Available periods are retrieved from the source data"
+msgstr "Les périodes disponibles sont extraites des données source"
+
 msgid "Year"
 msgstr "Année"
-
-msgid "Available periods are set by the source data"
-msgstr "Les périodes disponibles sont définies par les données sources"
 
 msgid "Loading periods"
 msgstr "Chargement des périodes"
@@ -474,8 +476,8 @@ msgstr "Statut de l'événement"
 msgid "Boundary color"
 msgstr "Couleur de limite"
 
-msgid "Draws a buffer area around each location."
-msgstr "Dessine une zone tampon autour de chaque emplacement."
+msgid "Draws a buffer area around each point location."
+msgstr "Dessine une zone tampon autour de chaque point."
 
 msgid "Buffer"
 msgstr "Zone tampon"
@@ -711,7 +713,7 @@ msgstr "Échec du téléchargement des données."
 msgid "External layer"
 msgstr "Couche externe"
 
-msgid "Split view can not be combined with other layer types."
+msgid "Split view cannot be combined with other layer types."
 msgstr "La vue fractionnée ne peut être associée à d'autres types de couche."
 
 msgid "Failed to load layer"
@@ -759,9 +761,6 @@ msgstr "Modifier la couche"
 msgid "Remove layer"
 msgstr "Supprimer la couche"
 
-msgid "Group"
-msgstr "Groupe"
-
 msgid "Filters"
 msgstr "Filtres"
 
@@ -807,6 +806,9 @@ msgstr "Impossible de récupérer les données d'événement"
 msgid "Organisation unit"
 msgstr "Unité d'organisation"
 
+msgid "Groups"
+msgstr "Groupes"
+
 msgid "Parent unit"
 msgstr "Unité parente"
 
@@ -832,8 +834,8 @@ msgstr ""
 msgid "no value"
 msgstr "pas de valeur"
 
-msgid "All groups"
-msgstr " Tous les groupes"
+msgid "All"
+msgstr "Tout"
 
 msgid "Loading data"
 msgstr "Chargement des données"
@@ -1208,15 +1210,120 @@ msgstr "mètres"
 msgid "~30 meters"
 msgstr "~30 mètres"
 
-msgid "Febuary 2000"
+msgid "February 2000"
 msgstr "Février 2000"
 
+msgid "Heat stress"
+msgstr "Stress thermique"
+
+msgid "Heat stress daily"
+msgstr "Stress thermique quotidien"
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr "Mesure du stress thermique subi par une personne."
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+"L'indice universel du climat thermique (UTCI) combine les effets de la "
+"température de l'air, de l'humidité, de la vitesse du vent et du rayonnement"
+" sur le corps humain. Température ressentie en °C."
+
+msgid "~28 kilometers"
+msgstr "~28 kilomètres"
+
+msgid "Daily"
+msgstr "Quotidien"
+
+msgid "Since January 1940"
+msgstr "Depuis janvier 1940"
+
+msgid "Base daily value"
+msgstr "Valeur quotidienne de base"
+
+msgid "Extreme cold stress -60 - -40"
+msgstr "Stress dû au froid extrême -60 - -40"
+
+msgid "Very strong cold stress -40 - -27"
+msgstr "Très fort stress dû au froid -40 - -27"
+
+msgid "Strong cold stress -27 - -13"
+msgstr "Fort stress dû au froid -27 - -13"
+
+msgid "Moderate cold stress -13 - 0"
+msgstr "Stress modéré dû au froid -13 - 0"
+
+msgid "Slight cold stress 0 - 9"
+msgstr "Léger stress dû au froid 0 - 9"
+
+msgid "No thermal stress 9 - 26"
+msgstr "Pas de stress thermique 9 - 26"
+
+msgid "Moderate heat stress 26 - 32"
+msgstr "Stress thermique modéré 26 - 32"
+
+msgid "Strong heat stress 32 - 38"
+msgstr "Fort stress thermique 32 - 38"
+
+msgid "Very strong heat stress 38 - 46"
+msgstr "Très fort stress thermique 38 - 46"
+
+msgid "Extreme heat stress 46 - 60"
+msgstr "Stress thermique intense 46 - 60"
+
+msgid "Heat stress monthly"
+msgstr "Stress thermique mensuel"
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr "Mensuel (agrégé à partir des données quotidiennes)"
+
+msgid "Heat stress weekly"
+msgstr "Stress thermique hebdomadaire"
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr "Hebdomadaire (agrégé à partir des données quotidiennes)"
+
+msgid "Relative humidity"
+msgstr "Humidité relative"
+
+msgid "Relative humidity daily"
+msgstr "Humidité relative quotidienne"
+
+msgid "Amount of water vapour present in air."
+msgstr "Quantité de vapeur d'eau présente dans l'air."
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+"L'humidité relative est exprimée en pourcentage de la quantité maximale de "
+"vapeur d'eau que l'air peut contenir à la même température."
+
+msgid "~9 kilometers"
+msgstr "~9 kilomètres"
+
+msgid "Since February 1950"
+msgstr "Depuis février 1950"
+
+msgid "Relative humidity monthly"
+msgstr "Humidité relative mensuelle"
+
+msgid "Monthly"
+msgstr "Mensuel"
+
+msgid "Relative humidity weekly"
+msgstr "Humidité relative hebdomadaire"
+
 msgid "Landcover"
-msgstr "Couverture du sol"
+msgstr "Couverture terrestre"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
-"Types de couverture terrestre distincts recueillis par des satellites."
+msgstr "Types de couverture terrestre distincts recueillis par satellite."
+
+msgid "unitless"
+msgstr "sans unité"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Forêt de conifères sempervirentes "
@@ -1309,12 +1416,13 @@ msgstr "millimètres"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
 "Précipitations recueillies par satellite et par les stations météorologiques"
-" au sol. Les valeurs sont en millimètres et comptent pour une période de "
-"5 jours. Mise à jour mensuelle, au cours de la 3è semaine du mois suivant."
+" au sol. Les valeurs sont exprimées en millimètres et comptent pour une "
+"période de 5 jours. Mise à jour mensuelle, au cours de la 3è semaine du mois"
+" suivant."
 
 msgid "Temperature MODIS"
 msgstr "Température MODIS"
@@ -1450,38 +1558,117 @@ msgstr "Féminin 75 - 79 ans"
 msgid "Female 80 years and above"
 msgstr "Féminin 80 ans et plus"
 
-msgid "Precipitation monthly"
-msgstr "Précipitations mensuelles"
+msgid "CHIRPS"
+msgstr "CHIRPS"
+
+msgid "Precipitation daily CHIRPS"
+msgstr "Précipitations quotidiennes (CHIRPS)"
+
+msgid "Gridded precipitation dataset."
+msgstr "Ensemble de données sur les grilles de précipitations."
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
 msgstr ""
-"Accumulation d'eau liquide et gelée, y compris la pluie et la neige, qui "
-"tombe à la surface du sol. Combine des données issues de modèles avec des "
-"observations faites dans le monde entier."
 
-msgid "~11 kilometers"
-msgstr "~11 kilomètres"
+msgid "~5.5 kilometers"
+msgstr "~5,5 kilomètres"
 
-msgid "Monthly"
-msgstr "Mensuel"
+msgid "Since January 1981"
+msgstr "Depuis janvier 1981"
 
-msgid "Febuary 1950 - One month ago"
-msgstr "Février 1950 - Il y a un mois"
+msgid "ERA5"
+msgstr "ERA5"
+
+msgid "Precipitation daily ERA5"
+msgstr "Précipitations quotidiennes (ERA5)"
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr "Précipitations mensuelles (CHIRPS)"
+
+msgid "Precipitation monthly ERA5"
+msgstr "Précipitations mensuelles (ERA5)"
+
+msgid "Precipitation weekly CHIRPS"
+msgstr "Précipitations hebdomadaires (CHIRPS)"
+
+msgid "Precipitation weekly ERA5"
+msgstr "Précipitations hebdomadaires (ERA5)"
+
+msgid "Temperature"
+msgstr "Température"
+
+msgid "Temperature daily"
+msgstr "Température quotidienne"
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+"Ensemble de données sur les grilles de température à 2 m au-dessus de la "
+"surface."
+
+msgid "Combines model data with observations from across the world."
+msgstr ""
+"Combine des données modélisées avec des observations provenant du monde "
+"entier."
 
 msgid "Temperature monthly"
 msgstr "Température mensuelle"
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
-msgstr ""
-"Température à 2 m au-dessus de la surface. Combine des données modélisées "
-"avec des observations faites dans le monde entier."
+msgid "Temperature weekly"
+msgstr "Température hebdomadaire"
 
-msgid "All"
-msgstr "Tout"
+msgid "Vegetation"
+msgstr "Végétation"
+
+msgid "Vegetation index 16-day"
+msgstr "Indice de végétation (16 jours)"
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+"Les valeurs de l'indice de végétation vont de -1 à 1, les valeurs les plus "
+"élevées indiquant une végétation plus dense."
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "250 meter"
+msgstr "250 mètres"
+
+msgid "16-day"
+msgstr "16 jours"
+
+msgid "Since February 2000"
+msgstr "Depuis février 2000"
+
+msgid "NDVI"
+msgstr "NDVI"
+
+msgid "EVI"
+msgstr "EVI"
+
+msgid "Vegetation index monthly"
+msgstr "Indice de végétation mensuel"
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr "Mensuel (agrégé à partir des données de 16 jours)"
+
+msgid "Vegetation index weekly"
+msgstr "Indice de végétation hebdomadaire"
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr "Hebdomadaire (agrégé à partir des données de 16 jours)"
 
 msgid "Active"
 msgstr "Actif"
@@ -1515,9 +1702,6 @@ msgstr "Symbole"
 
 msgid "Relative"
 msgstr "Relatif"
-
-msgid "Daily"
-msgstr "Quotidien"
 
 msgid "Weekly"
 msgstr "Hebdomadaire"
@@ -1637,7 +1821,7 @@ msgstr "associé"
 msgid "not one of"
 msgstr "pas parmi"
 
-msgid "doesn't contains"
+msgid "doesn't contain"
 msgstr "ne contient pas"
 
 msgid "true"

@@ -1,3 +1,24 @@
+## [101.5.3](https://github.com/dhis2/maps-app/compare/v101.5.2...v101.5.3) (2026-01-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([892a068](https://github.com/dhis2/maps-app/commit/892a068b6e8ef6407e10ae4876a963c02b7e93fd))
+
+## [101.5.2](https://github.com/dhis2/maps-app/compare/v101.5.1...v101.5.2) (2026-01-19)
+
+
+### Bug Fixes
+
+* errors with dates in ee layers [DHIS2-20684] ([#3602](https://github.com/dhis2/maps-app/issues/3602)) ([867f645](https://github.com/dhis2/maps-app/commit/867f645e38441efaa2dd5f9f61e5b19ea692dde3))
+
+## [101.5.1](https://github.com/dhis2/maps-app/compare/v101.5.0...v101.5.1) (2025-12-28)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f9624f7](https://github.com/dhis2/maps-app/commit/f9624f7311285fbdb83bbb084df795a46dac8c5c))
+
 # [101.5.0](https://github.com/dhis2/maps-app/compare/v101.4.8...v101.5.0) (2025-12-16)
 
 
