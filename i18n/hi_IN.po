@@ -2,17 +2,17 @@
 # Translators:
 # Siddharth Agarwal, 2025
 # AkashJindal, 2025
-# Rohit Wadhwani, 2025
+# Rohit Wadhwani, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Rohit Wadhwani, 2025\n"
+"Last-Translator: Rohit Wadhwani, 2026\n"
 "Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hi_IN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -42,7 +42,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "डेटा एलिमेंट"
 
 msgid "Totals"
 msgstr "कुल"
@@ -72,7 +72,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "डेटा सेट"
 
 msgid "Index"
 msgstr ""
@@ -247,10 +247,10 @@ msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "न्यूनतम"
 
 msgid "Max"
-msgstr ""
+msgstr "अधिकतम"
 
 msgid "Steps"
 msgstr ""
@@ -740,7 +740,7 @@ msgid "ID"
 msgstr "आईडी"
 
 msgid "Comment"
-msgstr ""
+msgstr "कमेंट"
 
 msgid "Select levels"
 msgstr ""
@@ -790,7 +790,7 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "➡️ अगला वर्ष"
 
 msgid "Relative"
 msgstr ""
