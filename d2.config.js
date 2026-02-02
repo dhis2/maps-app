@@ -46,18 +46,6 @@ const config = {
         },
     },
 
-    viteConfigExtensions: {
-        build: {
-            rollupOptions: {
-                output: {
-                    manualChunks: {
-                        'maps-gl': ['@dhis2/maps-gl'],
-                    },
-                },
-            },
-        },
-    },
-
     entryPoints: {
         app: './src/AppWrapper.jsx',
         plugin: './src/PluginWrapper.jsx',
