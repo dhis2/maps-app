@@ -1,3 +1,17 @@
+## [101.5.5](https://github.com/dhis2/maps-app/compare/v101.5.4...v101.5.5) (2026-02-03)
+
+
+### Bug Fixes
+
+* error on new Maps app version install [DHIS2-20425] ([#3592](https://github.com/dhis2/maps-app/issues/3592)) ([5272de6](https://github.com/dhis2/maps-app/commit/5272de6b76b09541c1e6b214f4810bab9b48bff7))
+
+## [101.5.4](https://github.com/dhis2/maps-app/compare/v101.5.3...v101.5.4) (2026-01-31)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b39d629](https://github.com/dhis2/maps-app/commit/b39d629ed182a929437134481c8091f9261e0e38))
+
 ## [101.5.3](https://github.com/dhis2/maps-app/compare/v101.5.2...v101.5.3) (2026-01-21)
 
 
