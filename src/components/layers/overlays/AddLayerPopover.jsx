@@ -74,7 +74,7 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
                 isSplitView={isSplitView}
                 onLayerSelect={onLayerSelect}
             />
-            <ManageLayerSourcesButton onClick={onManaging} />
+            {!isSplitView && <ManageLayerSourcesButton onClick={onManaging} />}
         </Popover>
     )
 }

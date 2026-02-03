@@ -3,8 +3,13 @@ import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_DATA_SET,
 } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import { sortBy, pick } from 'lodash/fp'
-import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers.js'
+import {
+    CLASSIFICATION_EQUAL_INTERVALS,
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+} from '../constants/layers.js'
 import { getLegendItems } from '../util/classify.js'
 import { defaultClasses, defaultColorScale } from '../util/colors.js'
 
@@ -139,3 +144,11 @@ export const getAutomaticLegendItems = (
     }))
 }
 /* eslint-enable max-params */
+
+export const getRenderingLabel = (strategy) => {
+    const map = {
+        [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: i18n.t('Split'),
+        [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
+    }
+    return map[strategy] ? ' • ' + map[strategy] : null
+}

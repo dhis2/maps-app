@@ -3,12 +3,14 @@ import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { getRenderingLabel } from '../../util/legend.js'
 import { IconButton } from '../core/index.js'
 import SortableHandle from './SortableHandle.jsx'
 import styles from './styles/LayerCard.module.css'
 import LayerToolbar from './toolbar/LayerToolbar.jsx'
 
 const LayerCard = ({
+    layer,
     title = '',
     subtitle,
     isOverlay,
@@ -31,7 +33,12 @@ const LayerCard = ({
                     })}
                 >
                     <h2>{title}</h2>
-                    {subtitle && <h3>{subtitle}</h3>}
+                    {subtitle && (
+                        <h3>
+                            {subtitle}
+                            {getRenderingLabel(layer?.renderingStrategy)}
+                        </h3>
+                    )}
                 </div>
                 <div className={styles.action}>
                     {isOverlay && <SortableHandle />}
@@ -52,7 +59,7 @@ const LayerCard = ({
             </div>
             <div className={styles.collapsibleContent}>
                 <div className={styles.content}>{children}</div>
-                <LayerToolbar {...layerToolbarProps} />
+                <LayerToolbar layer={layer} {...layerToolbarProps} />
             </div>
         </Card>
     </div>
@@ -67,6 +74,7 @@ LayerCard.propTypes = {
         PropTypes.node,
     ]),
     isOverlay: PropTypes.bool,
+    layer: PropTypes.object,
     subtitle: PropTypes.string,
 }
 
