@@ -1,7 +1,13 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
+import { RENDERING_STRATEGY_TIMELINE } from '../../constants/layers.js'
 import { onFullscreenChange } from '../../util/map.js'
+import {
+    sortPeriodsByLevelAndStartDate,
+    addPeriodsDetails,
+} from '../../util/periods.js'
+import Timeline from '../periods/Timeline.jsx'
 import BasemapLayer from './layers/BasemapLayer.js'
 import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer.jsx'
 import EventLayer from './layers/EventLayer.jsx'
@@ -13,6 +19,7 @@ import OrgUnitLayer from './layers/OrgUnitLayer.jsx'
 import ThematicLayer from './layers/ThematicLayer.jsx'
 import TrackedEntityLayer from './layers/TrackedEntityLayer.jsx'
 import mapApi, { controlTypes } from './MapApi.js'
+import PeriodName from './PeriodName.jsx'
 import Popup from './Popup.jsx'
 import styles from './styles/Map.module.css'
 
@@ -61,7 +68,10 @@ class Map extends Component {
         isPlugin: PropTypes.bool.isRequired,
     }
 
-    state = {}
+    state = {
+        map: null,
+        period: null,
+    }
 
     constructor(props, context) {
         super(props, context)
@@ -124,7 +134,7 @@ class Map extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeCount, isFullscreen, isPlugin, layersSorting } =
+        const { resizeCount, isFullscreen, isPlugin, layers, layersSorting } =
             this.props
 
         if (resizeCount !== prevProps.resizeCount) {
@@ -139,6 +149,10 @@ class Map extends Component {
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
             onFullscreenChange(this.map, isFullscreen)
         }
+
+        const overlays = this.getLoadedLayers(layers)
+        const timelineOverlay = this.getTimelineOverlay(overlays)
+        this.initializeTimelinePeriod(timelineOverlay)
     }
 
     // Remove map
@@ -164,14 +178,33 @@ class Map extends Component {
             setFeatureProfile,
             resizeCount,
         } = this.props
-        const { map } = this.state
 
-        const overlays = layers.filter((layer) => layer.isLoaded)
+        const { map, period } = this.state
+
+        const overlays = this.getLoadedLayers(layers)
+        const timelineOverlay = this.getTimelineOverlay(overlays)
 
         return (
             <div ref={(node) => (this.node = node)} className={styles.map}>
                 {map && (
                     <Fragment>
+                        {!!timelineOverlay && period && (
+                            <Fragment>
+                                <PeriodName
+                                    period={period.name}
+                                    isTimeline={true}
+                                />
+                                <Timeline
+                                    periodId={period.id}
+                                    period={period}
+                                    periods={timelineOverlay?.periods}
+                                    onChange={(period) =>
+                                        this.setState({ period })
+                                    }
+                                    resizeCount={resizeCount}
+                                />
+                            </Fragment>
+                        )}
                         {overlays.map((config, index) => {
                             const Overlay = layerType[config.layer] || Layer
                             const highlight =
@@ -181,14 +214,15 @@ class Map extends Component {
 
                             return (
                                 <Overlay
-                                    key={config.id}
-                                    index={overlays.length - index}
+                                    key={`${config.id}-${index}`}
+                                    index={layers.length - index}
                                     feature={highlight}
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
                                     setFeatureProfile={setFeatureProfile}
                                     engine={engine}
                                     nameProperty={nameProperty}
+                                    period={period}
                                     resizeCount={resizeCount}
                                     {...config}
                                 />
@@ -237,6 +271,31 @@ class Map extends Component {
     // From built-in fullscreen control
     onFullscreenChange = ({ isFullscreen }) => {
         onFullscreenChange(this.map, isFullscreen)
+    }
+
+    getLoadedLayers = (layers = []) => layers.filter((layer) => layer.isLoaded)
+
+    getTimelineOverlay = (layers) =>
+        layers.find(
+            (layer) => layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE
+        )
+
+    initializeTimelinePeriod = (timelineOverlay) => {
+        if (!timelineOverlay || this.state.period) {
+            return
+        }
+
+        const { periodsWithTypeLevelAndRank } = addPeriodsDetails(
+            timelineOverlay.periods
+        )
+
+        const [initialPeriod] = sortPeriodsByLevelAndStartDate(
+            periodsWithTypeLevelAndRank
+        )
+
+        if (initialPeriod) {
+            this.setState({ period: initialPeriod })
+        }
     }
 }
 
