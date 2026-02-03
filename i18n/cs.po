@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -1144,8 +1144,8 @@ msgstr ""
 msgid "Number of buildings"
 msgstr "Počet budov"
 
-msgid "0.5 meter"
-msgstr "0,5 metru"
+msgid "~0.5 meter"
+msgstr ""
 
 msgid "Single point in time"
 msgstr "Jeden časový bod"
@@ -1279,6 +1279,15 @@ msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
 
 msgid "unitless"
 msgstr "bez jednotek"
+
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "Ročně"
+
+msgid "Since 2001"
+msgstr ""
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Jehličnatý les"
@@ -1599,8 +1608,8 @@ msgstr ""
 "Normalizovaný rozdílový vegetační index (NDVI) se používá ke kvantifikaci zeleně vegetace a je užitečný pro pochopení hustoty vegetace a posouzení změn zdravotního stavu rostlin. \n"
 " Rozšířený vegetační index (EVI) je podobný indexu NDVI. EVI však koriguje některé atmosférické podmínky a šum pozadí koruny a je citlivější v oblastech s hustou vegetací."
 
-msgid "250 meter"
-msgstr "250 metrů"
+msgid "~250 meters"
+msgstr ""
 
 msgid "16-day"
 msgstr "16denní"
@@ -1688,9 +1697,6 @@ msgstr "Šestiměsíční"
 
 msgid "Six-monthly April"
 msgstr "Duben šest měsíců"
-
-msgid "Yearly"
-msgstr "Ročně"
 
 msgid "Financial year (Start November)"
 msgstr "Finanční rok (od listopadu)"
