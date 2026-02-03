@@ -1,3 +1,10 @@
+## [101.5.5](https://github.com/dhis2/maps-app/compare/v101.5.4...v101.5.5) (2026-02-03)
+
+
+### Bug Fixes
+
+* error on new Maps app version install [DHIS2-20425] ([#3592](https://github.com/dhis2/maps-app/issues/3592)) ([5272de6](https://github.com/dhis2/maps-app/commit/5272de6b76b09541c1e6b214f4810bab9b48bff7))
+
 ## [101.5.4](https://github.com/dhis2/maps-app/compare/v101.5.3...v101.5.4) (2026-01-31)
 
 
