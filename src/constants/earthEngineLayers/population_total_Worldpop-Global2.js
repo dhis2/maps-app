@@ -19,9 +19,11 @@ export default function createConfig() {
         img: 'images/population.png',
         name: i18n.t('Population WorldPop Global2'),
         description: i18n.t('Estimated number of people living in an area.'),
+        descriptionComplement: i18n.t(
+            'The data are produced using a top-down population modelling approach, where official population totals are distributed across space and constrained to areas likely to be inhabited. Estimates are provided annually and include current, historical, and projected population values.'
+        ),
         source: 'WorldPop / Google Earth Engine',
-        sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
+        sourceUrl: 'https://gee-community-catalog.org/projects/worldpop',
         unit: i18n.t('people per hectare'),
         resolution: {
             spatial: i18n.t('~100 meters'),

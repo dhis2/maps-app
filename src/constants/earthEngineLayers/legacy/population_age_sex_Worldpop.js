@@ -4,6 +4,7 @@ import { EARTH_ENGINE_LAYER } from '../../layers.js'
 export default function createConfig() {
     return {
         layer: EARTH_ENGINE_LAYER,
+        legacy: true, // Kept for backward compability
         layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         grouping: {
