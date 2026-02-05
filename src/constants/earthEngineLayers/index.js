@@ -76,6 +76,12 @@ const earthEngineLayersDefaultFns = [
     landcover,
 ]
 
+export const earthEngineLayersUpdates = {
+    [legacyPopulationTotal().layerId]: populationTotalWorldpopGlobal2().layerId, // v101.5.6
+    [legacyPopulationAgeSex().layerId]:
+        populationAgeSexWorldpopGlobal2().layerId, // v101.5.6
+}
+
 export const earthEngineLayersIds = () =>
     earthEngineLayersFns.map((l) => l().layerId)
 
