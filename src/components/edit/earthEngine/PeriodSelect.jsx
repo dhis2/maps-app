@@ -11,6 +11,7 @@ import {
 } from '../../../constants/periods.js'
 import usePrevious from '../../../hooks/usePrevious.js'
 import { getPeriods, getYears } from '../../../util/earthEngine.js'
+import { getYear } from '../../../util/time.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
@@ -129,8 +130,11 @@ const EarthEnginePeriodSelect = ({
             years &&
             !years.some((y) => y.id === year)
         ) {
-            const newYear = years[0].id
-            // Set year to latest available year by default
+            const currentYear = getYear()
+            const mostRecentYear = years[0].id
+            // Set year to current year or latest available year by default
+            const newYear =
+                years.find((y) => y.id === currentYear)?.id || mostRecentYear
             setYear(newYear)
             trackedYear.current = newYear
         }
