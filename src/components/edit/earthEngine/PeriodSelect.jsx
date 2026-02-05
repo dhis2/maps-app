@@ -208,17 +208,29 @@ const EarthEnginePeriodSelect = ({
                 onChange(period)
                 trackedYear.current = year
             } else if (!layerChanged) {
-                // Set most recent complete period by default
-                const { complete } = isPeriodComplete({
-                    endDateDataset: datesRange.endDate,
-                    startDatePeriod: periods[0].startDate,
-                    endDatePeriod: isValidDate(periods[0].endDate)
-                        ? periods[0].endDate
-                        : periods[0].startDate,
-                    periodName: periods[0].name,
-                })
-                const defaultPeriod =
-                    complete || periods.length === 1 ? periods[0] : periods[1]
+                let defaultPeriod
+                if (periodType === 'YEARLY') {
+                    const currentYear = getYear()
+                    const mostRecentPeriod = periods[0]
+                    // Set year to current year or latest available year by default
+                    defaultPeriod =
+                        periods.find((y) => y.id == currentYear) ||
+                        mostRecentPeriod
+                } else {
+                    // Set most recent complete period by default
+                    const { complete } = isPeriodComplete({
+                        endDateDataset: datesRange.endDate,
+                        startDatePeriod: periods[0].startDate,
+                        endDatePeriod: isValidDate(periods[0].endDate)
+                            ? periods[0].endDate
+                            : periods[0].startDate,
+                        periodName: periods[0].name,
+                    })
+                    defaultPeriod =
+                        complete || periods.length === 1
+                            ? periods[0]
+                            : periods[1]
+                }
                 onChange(defaultPeriod)
                 trackedYear.current = year
             }
@@ -248,9 +260,7 @@ const EarthEnginePeriodSelect = ({
                             label={i18n.t('Year')}
                             items={years}
                             value={year}
-                            onChange={({ id }) => {
-                                setYear(id)
-                            }}
+                            onChange={({ id }) => setYear(id)}
                             className={styles.year}
                         />
                     )}
