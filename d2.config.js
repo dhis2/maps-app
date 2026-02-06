@@ -53,6 +53,7 @@ const config = {
             },
         },
         build: {
+            target: 'es2022',
             rollupOptions: {
                 output: {
                     manualChunks: {
