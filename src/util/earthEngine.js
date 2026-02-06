@@ -170,8 +170,10 @@ export const getPeriods = async ({
         // - use properties.year if available
         // - otherwise endDate year for periods between years (eg weekly datasets)
         // - fallback to startDate year (eg daily datasets or yearly datasets with next-year endDate)
-        const year = properties.year || endDate.getFullYear()
-        const yearFallback = properties.year || startDate.getFullYear()
+        const year = parseInt(properties.year || endDate.getFullYear())
+        const yearFallback = parseInt(
+            properties.year || startDate.getFullYear()
+        )
         const base = {
             id,
             startDate,
@@ -184,14 +186,14 @@ export const getPeriods = async ({
                 return {
                     ...base,
                     year: yearFallback,
-                    id: useSystemIndex ? id : yearFallback,
+                    id: useSystemIndex ? id : String(yearFallback),
                     name: String(yearFallback),
                 }
             case EE_DAILY:
                 return {
                     ...base,
                     year: yearFallback,
-                    id: useSystemIndex ? id : yearFallback,
+                    id: useSystemIndex ? id : String(yearFallback),
                     name: getDay(properties),
                 }
             case EE_WEEKLY:
