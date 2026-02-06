@@ -47,6 +47,11 @@ const config = {
     },
 
     viteConfigExtensions: {
+        optimizeDeps: {
+            esbuildOptions: {
+                target: 'es2022',
+            },
+        },
         build: {
             rollupOptions: {
                 output: {
