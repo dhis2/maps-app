@@ -25,7 +25,7 @@ export default function createConfig() {
             'The data are produced using a top-down population modelling approach, where official population totals are distributed across space and constrained to areas likely to be inhabited. Estimates are provided annually and include current, historical, and projected population values.'
         ),
         source: 'WorldPop / Google Earth Engine',
-        sourceUrl: 'https://gee-community-catalog.org/projects/worldpopv',
+        sourceUrl: 'https://gee-community-catalog.org/projects/worldpop',
         unit: i18n.t('people per hectare'),
         resolution: {
             spatial: i18n.t('~100 meters'),
