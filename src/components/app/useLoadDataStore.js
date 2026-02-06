@@ -2,6 +2,7 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import { useDispatch } from 'react-redux'
 import { initLayerSources } from '../../actions/layerSources.js'
 import {
+    earthEngineLayersUpdates,
     earthEngineLayersIds,
     earthEngineLayersDefaultIds,
 } from '../../constants/earthEngineLayers/index.js'
@@ -9,6 +10,17 @@ import {
     MAPS_APP_NAMESPACE,
     MAPS_APP_KEY_MANAGED_LAYER_SOURCES,
 } from '../../constants/settings.js'
+
+const applyUpdates = (currentIds) => {
+    const hasUpdates = currentIds.some((id) => id in earthEngineLayersUpdates)
+    if (!hasUpdates) {
+        return { ids: currentIds, changed: false }
+    }
+    const updatedIds = currentIds.map(
+        (id) => earthEngineLayersUpdates[id] || id
+    )
+    return { ids: updatedIds, changed: true }
+}
 
 export const useLoadDataStore = () => {
     // Keys: MAPS_APP_KEY_MANAGED_LAYER_SOURCES
@@ -52,10 +64,26 @@ export const useLoadDataStore = () => {
                                     )
                                 })
                         } else {
-                            const validIds = earthEngineLayersIds().filter(
-                                (id) => layerSourcesVisibility.includes(id)
+                            const { ids, changed } = applyUpdates(
+                                layerSourcesVisibility
                             )
-                            dispatch(initLayerSources(validIds))
+                            const validIds = earthEngineLayersIds().filter(
+                                (id) => ids.includes(id)
+                            )
+                            if (changed) {
+                                engine
+                                    .mutate({
+                                        resource:
+                                            resourceLayerSourcesVisibility,
+                                        type: 'update',
+                                        data: validIds,
+                                    })
+                                    .then(() => {
+                                        dispatch(initLayerSources(validIds))
+                                    })
+                            } else {
+                                dispatch(initLayerSources(validIds))
+                            }
                         }
                     })
                     .catch(() => {
