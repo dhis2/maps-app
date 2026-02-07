@@ -752,7 +752,7 @@ msgstr "纬度"
 msgid ""
 "Failed to initialize the map. Your system may not support WebGL. Verify "
 "compatibility here: {{url}}"
-msgstr ""
+msgstr "地图初始化失败。您的系统可能不支持 WebGL。请在此处验证兼容性：{{url}}"
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "无法添加底图：{{message}}"
