@@ -241,6 +241,7 @@ const EarthEnginePeriodSelect = ({
         year,
         periods,
         prevPeriods,
+        periodType,
         period,
         datesRange?.endDate,
         onChange,
