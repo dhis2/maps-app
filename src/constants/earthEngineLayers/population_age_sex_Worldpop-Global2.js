@@ -47,7 +47,7 @@ export default function createConfig() {
         filters: [
             {
                 type: 'eq',
-                arguments: ['year', '$1'],
+                arguments: ['year', '$1:number'],
             },
         ],
         bands: {

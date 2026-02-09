@@ -84,14 +84,10 @@ const EarthEnginePeriodSelect = ({
             }
             onChange({
                 ...e,
-                id:
-                    typeof periods[0].id === 'string'
-                        ? String(e.id)
-                        : Number(e.id),
                 name,
             })
         },
-        [onChange, periods]
+        [onChange]
     )
 
     // Get years for dataset
@@ -250,10 +246,8 @@ const EarthEnginePeriodSelect = ({
         onChange,
     ])
 
-    const items = periods?.map((period) => ({
-        ...period,
-        id: String(period.id),
-    }))
+    const items = periods
+
     return (
         <div className={styles.flexColumn}>
             <NoticeBox className={styles.notice}>
@@ -278,7 +272,7 @@ const EarthEnginePeriodSelect = ({
                             items &&
                             period &&
                             items.find(({ id }) => id == period.id) &&
-                            String(period.id)
+                            period.id
                         }
                         onChange={handlePeriodChange}
                         errorText={!period && errorText ? errorText : null}
