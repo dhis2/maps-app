@@ -33,30 +33,31 @@ export const validateThematicLayer = ({
     periods,
 }) => {
     const errors = {}
-    const setErrorState = ({ key, msg, tab }) => {
+    const setError = ({ key, msg, tab }) => {
         errors[key] = msg
 
         // The first error tab determines which tab to focus.
         // Validation order defines tab priority.
         errors.firstErrorTab ??= tab
     }
+    const rules = []
 
     // Indicators
     if (valueType === dimConf.indicator.objectName) {
-        if (!indicatorGroup && !dataItem) {
-            setErrorState({
+        rules.push(
+            {
+                condition: !indicatorGroup && !dataItem,
                 key: 'indicatorGroupError',
                 msg: i18n.t('Indicator group is required'),
                 tab: 'data',
-            })
-        }
-        if (!dataItem) {
-            setErrorState({
+            },
+            {
+                condition: !dataItem,
                 key: 'indicatorError',
                 msg: i18n.t('Indicator is required'),
                 tab: 'data',
-            })
-        }
+            }
+        )
     }
 
     // Data elements & operands
@@ -65,25 +66,26 @@ export const validateThematicLayer = ({
             valueType
         )
     ) {
-        if (!dataElementGroup && !dataItem) {
-            setErrorState({
+        rules.push(
+            {
+                condition: !dataElementGroup && !dataItem,
                 key: 'dataElementGroupError',
                 msg: i18n.t('Data element group is required'),
                 tab: 'data',
-            })
-        }
-        if (!dataItem) {
-            setErrorState({
+            },
+            {
+                condition: !dataItem,
                 key: 'dataElementError',
                 msg: i18n.t('Data element is required'),
                 tab: 'data',
-            })
-        }
+            }
+        )
     }
 
     // Data sets
     if (valueType === dimConf.dataSet.objectName && !dataItem) {
-        setErrorState({
+        rules.push({
+            condition: true,
             key: 'dataSetError',
             msg: i18n.t('Data set is required'),
             tab: 'data',
@@ -97,33 +99,35 @@ export const validateThematicLayer = ({
             dimConf.programIndicator.objectName,
         ].includes(valueType)
     ) {
-        if (!program && !dataItem) {
-            setErrorState({
+        rules.push(
+            {
+                condition: !program && !dataItem,
                 key: 'programError',
                 msg: i18n.t('Program is required'),
                 tab: 'data',
-            })
-        }
-        if (!dataItem) {
-            if (valueType === dimConf.eventDataItem.objectName) {
-                setErrorState({
-                    key: 'eventDataItemError',
-                    msg: i18n.t('Event data item is required'),
-                    tab: 'data',
-                })
-            } else {
-                setErrorState({
-                    key: 'programIndicatorError',
-                    msg: i18n.t('Program indicator is required'),
-                    tab: 'data',
-                })
+            },
+            {
+                condition:
+                    !dataItem && valueType === dimConf.eventDataItem.objectName,
+                key: 'eventDataItemError',
+                msg: i18n.t('Event data item is required'),
+                tab: 'data',
+            },
+            {
+                condition:
+                    !dataItem &&
+                    valueType === dimConf.programIndicator.objectName,
+                key: 'programIndicatorError',
+                msg: i18n.t('Program indicator is required'),
+                tab: 'data',
             }
-        }
+        )
     }
 
     // Calculation
     if (valueType === dimConf.calculation.objectName && !dataItem) {
-        setErrorState({
+        rules.push({
+            condition: true,
             key: 'calculationError',
             msg: i18n.t('Calculation is required'),
             tab: 'data',
@@ -132,80 +136,80 @@ export const validateThematicLayer = ({
 
     // Periods
     if (periodType !== START_END_DATES) {
-        if ((periods ?? []).length === 0) {
-            setErrorState({
+        const periodCount = countPeriods(periods)
+        rules.push(
+            {
+                condition: periodCount === 0,
                 key: 'periodError',
                 msg: i18n.t('Period is required'),
                 tab: 'period',
-            })
-        }
-        if (
-            [RENDERING_STRATEGY_SPLIT_BY_PERIOD].includes(renderingStrategy) &&
-            countPeriods(periods) > MULTIMAP_MAX_PERIODS
-        ) {
-            setErrorState({
+            },
+            {
+                condition:
+                    renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD &&
+                    periodCount > MULTIMAP_MAX_PERIODS,
                 key: 'periodError',
                 msg: i18n.t(
                     'Only up to a total of {{number}} periods (including those in multi-periods) can be added to a split layer.',
                     { number: MULTIMAP_MAX_PERIODS }
                 ),
                 tab: 'period',
-            })
-        }
-        if (
-            [
-                RENDERING_STRATEGY_TIMELINE,
-                RENDERING_STRATEGY_SPLIT_BY_PERIOD,
-            ].includes(renderingStrategy) &&
-            countPeriods(periods) < MULTIMAP_MIN_PERIODS
-        ) {
-            setErrorState({
+            },
+            {
+                condition:
+                    [
+                        RENDERING_STRATEGY_TIMELINE,
+                        RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+                    ].includes(renderingStrategy) &&
+                    periodCount < MULTIMAP_MIN_PERIODS,
                 key: 'periodError',
                 msg: i18n.t(
                     'Select at least {{number}} periods or 1 multi-period.',
                     { number: MULTIMAP_MIN_PERIODS }
                 ),
                 tab: 'period',
-            })
-        }
-    }
-    if (periodType === START_END_DATES) {
+            }
+        )
+    } else {
         const error = getStartEndDateError(startDate, endDate)
-        if (error) {
-            setErrorState({
-                key: 'periodError',
-                msg: error,
-                tab: 'period',
-            })
-        }
+        rules.push({
+            condition: !!error,
+            key: 'periodError',
+            msg: error,
+            tab: 'period',
+        })
     }
 
     // Org units
-    if (!getOrgUnitsFromRows(rows).length) {
-        setErrorState({
-            key: 'orgUnitsError',
-            msg: i18n.t('No organisation units are selected'),
-            tab: 'orgunits',
-        })
-    }
+    rules.push({
+        condition: !getOrgUnitsFromRows(rows).length,
+        key: 'orgUnitsError',
+        msg: i18n.t('No organisation units are selected'),
+        tab: 'orgunits',
+    })
 
     // Legend set
-    if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
-        setErrorState({
-            key: 'legendSetError',
-            msg: i18n.t('No legend set is selected'),
-            tab: 'style',
-        })
-    }
+    rules.push({
+        condition: method === CLASSIFICATION_PREDEFINED && !legendSet,
+        key: 'legendSetError',
+        msg: i18n.t('No legend set is selected'),
+        tab: 'style',
+    })
 
     // Radius
-    if (!isValidRadius(radiusLow, radiusHigh)) {
-        setErrorState({
-            key: 'radiusError',
-            msg: i18n.t('Specified radius values are invalid'),
-            tab: 'style',
-        })
-    }
+    rules.push({
+        condition: !isValidRadius(radiusLow, radiusHigh),
+        key: 'radiusError',
+        msg: i18n.t('Specified radius values are invalid'),
+        tab: 'style',
+    })
+
+    // Apply all rules
+    rules.forEach((rule) => {
+        if (rule.condition) {
+            setError(rule)
+        }
+    })
 
     return {
         isValid: Object.keys(errors).length === 0,

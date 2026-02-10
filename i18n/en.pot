@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
-"PO-Revision-Date: 2026-02-09T14:26:15.087Z\n"
+"POT-Creation-Date: 2026-02-10T11:23:59.263Z\n"
+"PO-Revision-Date: 2026-02-10T11:23:59.264Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -494,12 +494,17 @@ msgstr "High radius should be greater than low radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
 
-
 msgid "Choose from presets"
 msgstr "Choose from presets"
 
 msgid "Define start - end dates"
 msgstr "Define start - end dates"
+
+msgid "Choose period for all timeline layers"
+msgstr "Choose period for all timeline layers"
+
+msgid "Choose period for all split layers"
+msgstr "Choose period for all split layers"
 
 msgid "Indicator"
 msgstr "Indicator"
@@ -512,12 +517,6 @@ msgstr "Event data items"
 
 msgid "Program indicators"
 msgstr "Program indicators"
-
-msgid "Choose period for all timeline layers"
-msgstr "Choose period for all timeline layers"
-
-msgid "Choose period for all split layers"
-msgstr "Choose period for all split layers"
 
 msgid "Calculations"
 msgstr "Calculations"

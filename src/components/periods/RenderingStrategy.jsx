@@ -51,29 +51,41 @@ const RenderingStrategy = ({
         )
     )
 
-    const getHelpText = useMemo(
-        () => ({
+    const getHelpText = useMemo(() => {
+        let timelineHelp
+        if (totalPeriods < MULTIMAP_MIN_PERIODS) {
+            timelineHelp = i18n.t(
+                'Select at least {{number}} periods or 1 multi-period.',
+                { number: MULTIMAP_MIN_PERIODS }
+            )
+        } else if (hasOtherTimelineLayers) {
+            timelineHelp = i18n.t(
+                'Remove the existing timeline to add a new one.'
+            )
+        } else {
+            timelineHelp = undefined
+        }
+
+        let splitByPeriodHelp
+        if (hasOtherNonSplitLayers) {
+            splitByPeriodHelp = i18n.t(
+                'Remove all other layers to add a split view.'
+            )
+        } else if (totalPeriods > MULTIMAP_MAX_PERIODS) {
+            splitByPeriodHelp = i18n.t(
+                'Only up to a total of {{number}} periods (including those in multi-periods) can be selected.',
+                { number: MULTIMAP_MAX_PERIODS }
+            )
+        } else {
+            splitByPeriodHelp = undefined
+        }
+
+        return {
             [RENDERING_STRATEGY_SINGLE]: undefined,
-            [RENDERING_STRATEGY_TIMELINE]:
-                totalPeriods < MULTIMAP_MIN_PERIODS
-                    ? i18n.t(
-                          'Select at least {{number}} periods or 1 multi-period.',
-                          { number: MULTIMAP_MIN_PERIODS }
-                      )
-                    : hasOtherTimelineLayers
-                    ? i18n.t('Remove the existing timeline to add a new one.')
-                    : undefined,
-            [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: hasOtherNonSplitLayers
-                ? i18n.t('Remove all other layers to add a split view.')
-                : totalPeriods > MULTIMAP_MAX_PERIODS
-                ? i18n.t(
-                      'Only up to a total of {{number}} periods (including those in multi-periods) can be selected.',
-                      { number: MULTIMAP_MAX_PERIODS }
-                  )
-                : undefined,
-        }),
-        [totalPeriods, hasOtherTimelineLayers, hasOtherNonSplitLayers]
-    )
+            [RENDERING_STRATEGY_TIMELINE]: timelineHelp,
+            [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: splitByPeriodHelp,
+        }
+    }, [totalPeriods, hasOtherTimelineLayers, hasOtherNonSplitLayers])
 
     const isDisabled = (strategy) => {
         switch (strategy) {

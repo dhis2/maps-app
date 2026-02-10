@@ -19,7 +19,6 @@ describe('validateThematicLayer', () => {
     beforeEach(() => {
         jest.resetAllMocks()
         analytics.getOrgUnitsFromRows = jest.fn().mockReturnValue([1])
-        periodsUtil.countPeriods = jest.fn().mockReturnValue(2)
         timeUtil.getStartEndDateError = jest.fn().mockReturnValue(null)
         radiusModule.isValidRadius = jest.fn().mockReturnValue(true)
     })
