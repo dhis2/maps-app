@@ -1240,11 +1240,9 @@ popups or in the data table.
 The following layer sources are supported (sources marked with an asterisk 
 "*" are available by default):
 
--   **Population (group)**:
-    -   **Population** *: Detailed population data from WorldPop showing the
-        estimated number of people living in an area. Available for 2020.
-    -   **Population age groups** *: Estimated number of people living in an 
-        area, grouped by age and gender. Available for 2020.
+-   **Population (group)**: Detailed population data from WorldPop. Estimates are provided annually and include current, historical, and projected population values. Available between 2015 and 2030.
+    -   **Population** *: Total population count.
+    -   **Population age groups** *: Population broken down by age and gender.
 
 -   **Building footprints** *: The outlines of buildings derived from 
     high-resolution satellite imagery. Only for sub-Saharan Africa, South and 

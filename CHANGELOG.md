@@ -1,3 +1,10 @@
+# [101.6.0](https://github.com/dhis2/maps-app/compare/v101.5.5...v101.6.0) (2026-02-10)
+
+
+### Features
+
+* new worldpop global2 layer sources [DHIS2-20774] ([#3608](https://github.com/dhis2/maps-app/issues/3608)) ([3f19a8b](https://github.com/dhis2/maps-app/commit/3f19a8b57eb5a79b6cdf93d5c999ad1ab8fce37b))
+
 ## [101.5.5](https://github.com/dhis2/maps-app/compare/v101.5.4...v101.5.5) (2026-02-03)
 
 

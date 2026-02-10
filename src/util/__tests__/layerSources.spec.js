@@ -1,6 +1,6 @@
 import buildingsLayerSource from '../../constants/earthEngineLayers/buildings_GOOGLE.js' // Grouping: none
-import populationAgeSexLayerSource from '../../constants/earthEngineLayers/population_age_sex_WorldPop.js' // Grouping: population
-import populationTotalLayerSource from '../../constants/earthEngineLayers/population_total_WorldPop.js' // Grouping: population
+import populationAgeSexLayerSource from '../../constants/earthEngineLayers/population_age_sex_Worldpop-Global2.js' // Grouping: population
+import populationTotalLayerSource from '../../constants/earthEngineLayers/population_total_Worldpop-Global2.js' // Grouping: population
 import precipitationMonthlyCHIRPSLayerSource from '../../constants/earthEngineLayers/precipitation_monthly_CHIRPS.js' // Grouping: precipitation & precipitation_chirps
 import precipitationMonthlyERA5LayerSource from '../../constants/earthEngineLayers/precipitation_monthly_ERA5-Land.js' // Grouping: precipitation & precipitation_era5
 import precipitationWeeklyERA5LayerSource from '../../constants/earthEngineLayers/precipitation_weekly_ERA5-Land.js' // Grouping: precipitation & precipitation_era5
