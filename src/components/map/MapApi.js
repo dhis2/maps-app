@@ -28,7 +28,7 @@ const map = (options) => {
                 i18n.t(
                     'Failed to initialize the map. Your system may not support WebGL. Verify compatibility here: {{url}}',
                     {
-                        url: 'https://get.webgl.org/',
+                        url: 'get.webgl.org',
                         nsSeparator: ';',
                     }
                 ) +
