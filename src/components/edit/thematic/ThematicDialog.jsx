@@ -191,17 +191,17 @@ const ThematicDialog = ({
 
     // Set default rendering strategy
     useEffect(() => {
-        if (!renderingStrategy) {
-            dispatch(
-                setRenderingStrategy(
-                    timelineFilters
-                        ? RENDERING_STRATEGY_TIMELINE
-                        : splitFilters
-                        ? RENDERING_STRATEGY_SPLIT_BY_PERIOD
-                        : RENDERING_STRATEGY_SINGLE
-                )
-            )
+        if (renderingStrategy) {
+            return
         }
+
+        let defaultStrategy = RENDERING_STRATEGY_SINGLE
+        if (timelineFilters) {
+            defaultStrategy = RENDERING_STRATEGY_TIMELINE
+        } else if (splitFilters) {
+            defaultStrategy = RENDERING_STRATEGY_SPLIT_BY_PERIOD
+        }
+        dispatch(setRenderingStrategy(defaultStrategy))
     }, [renderingStrategy, splitFilters, dispatch])
 
     // Set period type if favorite is loaded or dates are present
