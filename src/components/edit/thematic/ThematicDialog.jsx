@@ -194,7 +194,9 @@ const ThematicDialog = ({
         if (!renderingStrategy) {
             dispatch(
                 setRenderingStrategy(
-                    splitFilters
+                    timelineFilters
+                        ? RENDERING_STRATEGY_TIMELINE
+                        : splitFilters
                         ? RENDERING_STRATEGY_SPLIT_BY_PERIOD
                         : RENDERING_STRATEGY_SINGLE
                 )
@@ -218,7 +220,10 @@ const ThematicDialog = ({
     useEffect(() => {
         if (!filters) {
             const hasDate = startDate !== undefined && endDate !== undefined
-            if (splitFilters?.[0]?.items?.length > 0) {
+            if (timelineFilters?.[0]?.items?.length > 0) {
+                dispatch(setPeriods(timelineFilters[0].items))
+                dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+            } else if (splitFilters?.[0]?.items?.length > 0) {
                 dispatch(setPeriods(splitFilters[0].items))
                 dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
             } else {
@@ -304,7 +309,19 @@ const ThematicDialog = ({
         if (validateLayer && validateLayer !== prevValidateLayer) {
             const isValid = validate()
             onLayerValidation(isValid)
-            if (isValid && splitFilters) {
+            if (!isValid) {
+                return
+            }
+            if (
+                renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
+                timelineFilters
+            ) {
+                dispatch(periodsSync(periods, RENDERING_STRATEGY_TIMELINE))
+            }
+            if (
+                renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD &&
+                splitFilters
+            ) {
                 dispatch(
                     periodsSync(periods, RENDERING_STRATEGY_SPLIT_BY_PERIOD)
                 )
@@ -314,6 +331,7 @@ const ThematicDialog = ({
         validateLayer,
         prevValidateLayer,
         validate,
+        timelineFilters,
         splitFilters,
         periods,
         onLayerValidation,

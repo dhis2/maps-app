@@ -227,7 +227,7 @@ class ThematicLayer extends Layer {
             try {
                 this.layer.setData(filteredData)
             } catch (e) {
-                console.warning('Failed to set layer data incrementally.')
+                console.warning('Failed to set layer data incrementally:', e)
                 // fallback to full update on error
                 this.updateLayer()
             }
