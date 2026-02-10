@@ -88,7 +88,7 @@ const SplitView = ({
                                 {...layer}
                                 key={`${period.id}-${layer.id}`}
                                 index={layers.length - index}
-                                period={period}
+                                externalPeriod={period}
                                 feature={feature}
                                 openContextMenu={openContextMenu}
                             />

@@ -124,12 +124,12 @@ class ThematicLayer extends Layer {
     // Set initial period
     setPeriod(callback) {
         const {
-            period,
+            externalPeriod,
             periods,
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
         } = this.props
 
-        if (!period && !periods) {
+        if (!externalPeriod && !periods) {
             return
         }
 
@@ -141,7 +141,7 @@ class ThematicLayer extends Layer {
                 )[0]
                 break
             case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
-                initialPeriod.period = period
+                initialPeriod.period = externalPeriod
                 break
             default:
                 initialPeriod.period = null
@@ -157,12 +157,12 @@ class ThematicLayer extends Layer {
     }
 
     getPopup() {
-        const { columns, aggregationType, legend, period } = this.props
+        const { columns, aggregationType, legend, externalPeriod } = this.props
         const { popup } = this.state
         const { coordinates, feature } = popup
         const { id, name, value } = feature.properties
         const indicator = columns[0].items[0].name || ''
-        const periodName = period ? period.name : legend.period
+        const periodName = externalPeriod ? externalPeriod.name : legend.period
 
         return (
             <Popup
@@ -190,8 +190,8 @@ class ThematicLayer extends Layer {
     }
 
     componentDidUpdate(prevProps) {
-        const prevPeriodId = prevProps.period?.id
-        const newPeriodId = this.props.period?.id
+        const prevPeriodId = prevProps.externalPeriod?.id
+        const newPeriodId = this.props.externalPeriod?.id
 
         const dataChanged = prevProps.data !== this.props.data
         const valuesChanged =
@@ -207,6 +207,9 @@ class ThematicLayer extends Layer {
             !renderingChanged &&
             prevPeriodId === newPeriodId
         ) {
+            this.setLayerOpacity()
+            this.setLayerVisibility()
+            this.setLayerOrder()
             return
         }
 
@@ -227,7 +230,7 @@ class ThematicLayer extends Layer {
             try {
                 this.layer.setData(filteredData)
             } catch (e) {
-                console.warning('Failed to set layer data incrementally:', e)
+                console.warn('Failed to set layer data incrementally:', e)
                 // fallback to full update on error
                 this.updateLayer()
             }
@@ -238,11 +241,11 @@ class ThematicLayer extends Layer {
 
         // Sync popup contents if open
         const { popup } = this.state
-        if (popup && this.props.period) {
+        if (popup && this.props.externalPeriod) {
             const newValues =
                 (valuesByPeriod &&
-                    this.props.period &&
-                    valuesByPeriod[this.props.period.id]) ||
+                    this.props.externalPeriod &&
+                    valuesByPeriod[this.props.externalPeriod.id]) ||
                 {}
             const updatedPopup = {
                 ...popup,
@@ -273,7 +276,7 @@ class ThematicLayer extends Layer {
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
             thematicMapType = THEMATIC_CHOROPLETH,
             noDataColor,
-            period,
+            externalPeriod,
         } = props
 
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
@@ -281,8 +284,8 @@ class ThematicLayer extends Layer {
         // Convert polygons to points for bubble maps
         let periodData = bubbleMap ? polygonsToPoints(data) : data
 
-        if (renderingStrategy !== RENDERING_STRATEGY_SINGLE && period) {
-            const values = valuesByPeriod?.[period.id] || {}
+        if (renderingStrategy !== RENDERING_STRATEGY_SINGLE && externalPeriod) {
+            const values = valuesByPeriod?.[externalPeriod.id] || {}
 
             periodData = periodData.map((f) => ({
                 ...f,

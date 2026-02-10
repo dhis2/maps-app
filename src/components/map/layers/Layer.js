@@ -24,7 +24,6 @@ class Layer extends PureComponent {
         isVisible: PropTypes.bool,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
-        period: PropTypes.object,
     }
 
     static defaultProps = {
@@ -50,8 +49,8 @@ class Layer extends PureComponent {
             editCounter,
             dataFilters,
             feature,
-            period,
         } = this.props
+        const { period } = this.state
         const { period: prevPeriod } = prevState || {}
         const isEdited = editCounter !== prevProps.editCounter
 

@@ -106,7 +106,6 @@ const ThematicDialog = ({
                 (mv) => mv.renderingStrategy === RENDERING_STRATEGY_TIMELINE
             )?.filters
     )
-    console.log('🚀 ~ ThematicDialog ~ timelineFilters:', timelineFilters)
     const splitFilters = useSelector(
         (state) =>
             state.map.mapViews.find(

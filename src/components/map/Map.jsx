@@ -214,7 +214,7 @@ class Map extends Component {
 
                             return (
                                 <Overlay
-                                    key={`${config.id}-${index}`}
+                                    key={config.id}
                                     index={layers.length - index}
                                     feature={highlight}
                                     openContextMenu={openContextMenu}
@@ -222,7 +222,7 @@ class Map extends Component {
                                     setFeatureProfile={setFeatureProfile}
                                     engine={engine}
                                     nameProperty={nameProperty}
-                                    period={period}
+                                    externalPeriod={period}
                                     resizeCount={resizeCount}
                                     {...config}
                                 />
