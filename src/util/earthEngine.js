@@ -19,12 +19,44 @@ export const getStartEndDate = (data) => {
     return period
 }
 
+const VALUE_TYPES = {
+    STRING: 'string',
+    NUMBER: 'number',
+    BOOLEAN: 'boolean',
+}
+
+const castValue = (value, type) => {
+    switch (type) {
+        case VALUE_TYPES.STRING:
+            return String(value)
+
+        case VALUE_TYPES.NUMBER: {
+            return Number(value)
+        }
+        case VALUE_TYPES.BOOLEAN:
+            return value === true || value === 'true'
+        default:
+            return value
+    }
+}
+
 const getStaticFiltersFromDynamic = (filters, ...args) =>
     filters.map((filter) => ({
         ...filter,
         arguments: filter.arguments.map((arg) => {
-            const match = arg.match(/^\$([0-9]+)$/)
-            return match ? args[match[1] - 1] : arg
+            if (typeof arg !== 'string') {
+                return arg
+            }
+            const match = arg.match(
+                `^\\$([0-9]+)(?::(${Object.values(VALUE_TYPES).join('|')}))?$`
+            )
+            if (!match) {
+                return arg
+            }
+            const index = Number(match[1]) - 1
+            const type = match[2]
+            const value = args[index]
+            return type ? castValue(value, type) : value
         }),
     }))
 
@@ -166,8 +198,14 @@ export const getPeriods = async ({
     const getPeriod = ({ id, properties }) => {
         const startDate = new Date(properties['system:time_start'])
         const endDate = new Date(properties['system:time_end'])
-        const year = properties.year || endDate.getFullYear() // So periods in between years are asociated with most recent year
-        const yearYearly = properties.year || startDate.getFullYear() // Because some yearly dataset use 01/01 of next year as endDate
+        // Determine the period year:
+        // - use properties.year if available
+        // - otherwise endDate year for periods between years (eg weekly datasets)
+        // - fallback to startDate year (eg daily datasets or yearly datasets with next-year endDate)
+        const year = parseInt(properties.year || endDate.getFullYear())
+        const yearFallback = parseInt(
+            properties.year || startDate.getFullYear()
+        )
         const base = {
             id,
             startDate,
@@ -179,24 +217,26 @@ export const getPeriods = async ({
             case 'YEARLY':
                 return {
                     ...base,
-                    year: yearYearly,
-                    id: useSystemIndex ? id : yearYearly,
-                    name: String(yearYearly),
+                    year: yearFallback,
+                    id: useSystemIndex ? id : String(yearFallback),
+                    name: String(yearFallback),
                 }
-            case EE_MONTHLY:
+            case EE_DAILY:
                 return {
                     ...base,
-                    name: getMonth(properties),
+                    year: yearFallback,
+                    id: useSystemIndex ? id : String(yearFallback),
+                    name: getDay(properties),
                 }
             case EE_WEEKLY:
                 return {
                     ...base,
                     name: getWeek(properties),
                 }
-            case EE_DAILY:
+            case EE_MONTHLY:
                 return {
                     ...base,
-                    name: getDay(properties),
+                    name: getMonth(properties),
                 }
             default:
                 return {
