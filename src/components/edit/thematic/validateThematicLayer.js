@@ -135,7 +135,15 @@ export const validateThematicLayer = ({
     }
 
     // Periods
-    if (periodType !== START_END_DATES) {
+    if (periodType === START_END_DATES) {
+        const error = getStartEndDateError(startDate, endDate)
+        rules.push({
+            condition: !!error,
+            key: 'periodError',
+            msg: error,
+            tab: 'period',
+        })
+    } else {
         const periodCount = countPeriods(periods)
         rules.push(
             {
@@ -170,39 +178,31 @@ export const validateThematicLayer = ({
                 tab: 'period',
             }
         )
-    } else {
-        const error = getStartEndDateError(startDate, endDate)
-        rules.push({
-            condition: !!error,
-            key: 'periodError',
-            msg: error,
-            tab: 'period',
-        })
     }
 
-    // Org units
-    rules.push({
-        condition: !getOrgUnitsFromRows(rows).length,
-        key: 'orgUnitsError',
-        msg: i18n.t('No organisation units are selected'),
-        tab: 'orgunits',
-    })
-
-    // Legend set
-    rules.push({
-        condition: method === CLASSIFICATION_PREDEFINED && !legendSet,
-        key: 'legendSetError',
-        msg: i18n.t('No legend set is selected'),
-        tab: 'style',
-    })
-
-    // Radius
-    rules.push({
-        condition: !isValidRadius(radiusLow, radiusHigh),
-        key: 'radiusError',
-        msg: i18n.t('Specified radius values are invalid'),
-        tab: 'style',
-    })
+    rules.push(
+        // Org units
+        {
+            condition: !getOrgUnitsFromRows(rows).length,
+            key: 'orgUnitsError',
+            msg: i18n.t('No organisation units are selected'),
+            tab: 'orgunits',
+        },
+        // Legend set
+        {
+            condition: method === CLASSIFICATION_PREDEFINED && !legendSet,
+            key: 'legendSetError',
+            msg: i18n.t('No legend set is selected'),
+            tab: 'style',
+        },
+        // Radius
+        {
+            condition: !isValidRadius(radiusLow, radiusHigh),
+            key: 'radiusError',
+            msg: i18n.t('Specified radius values are invalid'),
+            tab: 'style',
+        }
+    )
 
     // Apply all rules
     rules.forEach((rule) => {
