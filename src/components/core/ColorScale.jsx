@@ -10,6 +10,7 @@ const ColorScale = ({ scale, bins, width, onClick }) => {
 
     return (
         <ul
+            data-test="color-scale"
             onClick={() => onClick(scale)}
             className={styles.colorScale}
             style={{
