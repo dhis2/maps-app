@@ -202,7 +202,7 @@ const ThematicDialog = ({
             defaultStrategy = RENDERING_STRATEGY_SPLIT_BY_PERIOD
         }
         dispatch(setRenderingStrategy(defaultStrategy))
-    }, [renderingStrategy, splitFilters, dispatch])
+    }, [renderingStrategy, timelineFilters, splitFilters, dispatch])
 
     // Set period type if favorite is loaded or dates are present
     useEffect(() => {
@@ -247,7 +247,15 @@ const ThematicDialog = ({
                 }
             }
         }
-    }, [filters, splitFilters, systemSettings, startDate, endDate, dispatch])
+    }, [
+        filters,
+        timelineFilters,
+        splitFilters,
+        systemSettings,
+        startDate,
+        endDate,
+        dispatch,
+    ])
 
     // Set default org unit level if not available from favorite
     useEffect(() => {
@@ -331,6 +339,7 @@ const ThematicDialog = ({
         validateLayer,
         prevValidateLayer,
         validate,
+        renderingStrategy,
         timelineFilters,
         splitFilters,
         periods,
