@@ -190,8 +190,8 @@ class ThematicLayer extends Layer {
     }
 
     componentDidUpdate(prevProps) {
-        const prevPeriodId = prevProps.period && prevProps.period.id
-        const newPeriodId = this.props.period && this.props.period.id
+        const prevPeriodId = prevProps.period?.id
+        const newPeriodId = this.props.period?.id
 
         const dataChanged = prevProps.data !== this.props.data
         const valuesChanged =
@@ -227,6 +227,7 @@ class ThematicLayer extends Layer {
             try {
                 this.layer.setData(filteredData)
             } catch (e) {
+                console.warning('Failed to set layer data incrementally.')
                 // fallback to full update on error
                 this.updateLayer()
             }
