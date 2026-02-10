@@ -9,6 +9,7 @@ const {
     MULTIMAP_MAX_PERIODS,
     MULTIMAP_MIN_PERIODS,
     START_END_DATES,
+    PREDEFINED_PERIODS,
 } = require('../../../../constants/periods.js')
 const analytics = require('../../../../util/analytics.js')
 const periodsUtil = require('../../../../util/periods.js')
@@ -19,6 +20,7 @@ describe('validateThematicLayer', () => {
     beforeEach(() => {
         jest.resetAllMocks()
         analytics.getOrgUnitsFromRows = jest.fn().mockReturnValue([1])
+        periodsUtil.countPeriods = jest.fn().mockReturnValue(2)
         timeUtil.getStartEndDateError = jest.fn().mockReturnValue(null)
         radiusModule.isValidRadius = jest.fn().mockReturnValue(true)
     })
@@ -135,13 +137,15 @@ describe('validateThematicLayer', () => {
         expect(res.errors.firstErrorTab).toBe('data')
     })
 
-    it('returns periodError when periods array is empty and periodType is not START_END_DATES', () => {
+    it('returns periodError when periods array is empty and periodType is PREDEFINED_PERIODS', () => {
+        periodsUtil.countPeriods = jest.fn().mockReturnValue(0)
+
         const args = {
             ...baseArgs,
             valueType: dimConf.dataElement.objectName,
             dataItem: { id: 'x' },
             periods: [],
-            periodType: null,
+            periodType: PREDEFINED_PERIODS,
         }
 
         const res = validateThematicLayer(args)
@@ -161,6 +165,7 @@ describe('validateThematicLayer', () => {
             dataItem: { id: 'x' },
             renderingStrategy: RENDERING_STRATEGY_SPLIT_BY_PERIOD,
             periods: [{}, {}],
+            periodType: PREDEFINED_PERIODS,
         }
 
         const res = validateThematicLayer(args)
@@ -181,6 +186,7 @@ describe('validateThematicLayer', () => {
             dataItem: { id: 'x' },
             renderingStrategy: RENDERING_STRATEGY_TIMELINE,
             periods: [{}, {}],
+            periodType: PREDEFINED_PERIODS,
         }
 
         const res = validateThematicLayer(args)
