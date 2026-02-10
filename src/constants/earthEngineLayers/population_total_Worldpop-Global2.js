@@ -4,8 +4,8 @@ import { EARTH_ENGINE_LAYER } from '../layers.js'
 export default function createConfig() {
     return {
         layer: EARTH_ENGINE_LAYER,
-        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj_TOTAL',
-        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+        layerId: 'projects/sat-io/open-datasets/WORLDPOP/pop',
+        datasetId: 'projects/sat-io/open-datasets/WORLDPOP/pop',
         grouping: {
             group: {
                 img: 'images/population.png',
@@ -17,16 +17,18 @@ export default function createConfig() {
         },
         format: 'ImageCollection',
         img: 'images/population.png',
-        name: i18n.t('Population'),
+        name: i18n.t('Population WorldPop Global2'),
         description: i18n.t('Estimated number of people living in an area.'),
+        descriptionComplement: i18n.t(
+            'The data are produced using a top-down population modelling approach, where official population totals are distributed across space and constrained to areas likely to be inhabited. Estimates are provided annually and include current, historical, and projected population values.'
+        ),
         source: 'WorldPop / Google Earth Engine',
-        sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
+        sourceUrl: 'https://gee-community-catalog.org/projects/worldpop',
         unit: i18n.t('people per hectare'),
         resolution: {
             spatial: i18n.t('~100 meters'),
-            temporal: i18n.t('Single point in time'),
-            temporalCoverage: i18n.t('2020'),
+            temporal: i18n.t('Yearly'),
+            temporalCoverage: i18n.t('2015 - 2030'),
         },
         aggregations: [
             'min',

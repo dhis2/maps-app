@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-01-29T22:51:50.462Z\n"
-"PO-Revision-Date: 2026-01-29T22:51:50.462Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
+"PO-Revision-Date: 2026-02-09T14:26:15.087Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1360,36 +1360,8 @@ msgstr "Estimated number of people living in an area."
 msgid "people per hectare"
 msgstr "people per hectare"
 
-msgid "Precipitation"
-msgstr "Precipitation"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-
-msgid "Temperature MODIS"
-msgstr "Temperature MODIS"
-
-msgid "°C during daytime"
-msgstr "°C during daytime"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-
-msgid "Population age groups"
-msgstr "Population age groups"
+msgid "Population age groups WorldPop Global1"
+msgstr "Population age groups WorldPop Global1"
 
 msgid "Estimated number of people living in an area, grouped by age and gender."
 msgstr "Estimated number of people living in an area, grouped by age and gender."
@@ -1504,6 +1476,75 @@ msgstr "Female 75 - 79 years"
 
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
+
+msgid "Population WorldPop Global1"
+msgstr "Population WorldPop Global1"
+
+msgid "Precipitation"
+msgstr "Precipitation"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+
+msgid "Temperature MODIS"
+msgstr "Temperature MODIS"
+
+msgid "°C during daytime"
+msgstr "°C during daytime"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+
+msgid "Population age groups WorldPop Global2"
+msgstr "Population age groups WorldPop Global2"
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+
+msgid "2015 - 2030"
+msgstr "2015 - 2030"
+
+msgid "Male 80 - 84 years"
+msgstr "Male 80 - 84 years"
+
+msgid "Male 85 - 89 years"
+msgstr "Male 85 - 89 years"
+
+msgid "Male 90 years and above"
+msgstr "Male 90 years and above"
+
+msgid "Female 80 - 84 years"
+msgstr "Female 80 - 84 years"
+
+msgid "Female 85 - 89 years"
+msgstr "Female 85 - 89 years"
+
+msgid "Female 90 years and above"
+msgstr "Female 90 years and above"
+
+msgid "Population WorldPop Global2"
+msgstr "Population WorldPop Global2"
 
 msgid "CHIRPS"
 msgstr "CHIRPS"
