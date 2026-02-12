@@ -58,7 +58,9 @@ import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.jsx'
 import IndicatorSelect from '../../indicator/IndicatorSelect.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
-import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
+import RenderingStrategy, {
+    getInfoBoxText,
+} from '../../periods/RenderingStrategy.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
@@ -626,6 +628,9 @@ const ThematicDialog = ({
                             {periodType === PREDEFINED_PERIODS && (
                                 <PeriodDimension
                                     selectedPeriods={periods}
+                                    infoBoxMessage={getInfoBoxText(
+                                        renderingStrategy
+                                    )}
                                     onSelect={(e) =>
                                         dispatch(setPeriods(e.items))
                                     }
