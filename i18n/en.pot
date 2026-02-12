@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-02-10T11:23:59.263Z\n"
-"PO-Revision-Date: 2026-02-10T11:23:59.264Z\n"
+"POT-Creation-Date: 2026-02-12T13:01:53.867Z\n"
+"PO-Revision-Date: 2026-02-12T13:01:53.868Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -977,11 +977,20 @@ msgstr "Next year"
 msgid "Start/end dates"
 msgstr "Start/end dates"
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Remove the existing timeline to add a new one."
+msgid "Applies to all timeline layers."
+msgstr "Applies to all timeline layers."
 
-msgid "Remove all other layers to add a split view."
-msgstr "Remove all other layers to add a split view."
+msgid "Applies to all split layers."
+msgstr "Applies to all split layers."
+
+msgid "Remove all split layers to add a single layer."
+msgstr "Remove all split layers to add a single layer."
+
+msgid "Remove all split layers to add a timeline layer."
+msgstr "Remove all split layers to add a timeline layer."
+
+msgid "Remove all other layers to add a split layer."
+msgstr "Remove all other layers to add a split layer."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "

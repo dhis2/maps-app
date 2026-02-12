@@ -3,6 +3,7 @@ import {
     DRILL_UP,
     DRILL_DOWN,
     VIEW_PROFILE,
+    SHOW_LONG_LAT,
     expectContextMenuOptions,
 } from '../../elements/map_context_menu.js'
 import { ThematicLayer } from '../../elements/thematic_layer.js'
@@ -409,7 +410,7 @@ context('Thematic Layers', () => {
         ).should('be.visible')
     })
 
-    it('adds a thematic layer with timeline period', () => {
+    it('adds two thematic layer with timeline period', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)
@@ -427,6 +428,10 @@ context('Thematic Layers', () => {
             })
 
         cy.get('[type="radio"]').should('have.length', 3)
+        cy.get('input[value="SINGLE"]').should('not.be.disabled')
+        cy.get('input[value="TIMELINE"]').should('not.be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
+        cy.get('input[value="SINGLE"]').should('be.checked')
         cy.get('[type="radio"]').check('TIMELINE')
 
         cy.getByDataTest('dhis2-uicore-modalactions')
@@ -434,6 +439,61 @@ context('Thematic Layers', () => {
             .click()
 
         Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(ANC_INDICATOR_NAME)
+
+        // check for 1 maps
+        getMaps().should('have.length', 1)
+        // check for 1 layer
+        cy.getByDataTest('sortable-layers-list')
+            .children()
+            .should('have.length', 1)
+
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
+            .selectTab('Period')
+
+        cy.get('input[value="SINGLE"]').should('not.be.disabled')
+        cy.get('input[value="TIMELINE"]').should('not.be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
+        cy.get('div')
+            .contains(
+                'Show multiple maps in view, one for each period (max 12).'
+            )
+            .realHover()
+        cy.contains('Remove all other layers to add a split layer.').should(
+            'be.visible'
+        )
+
+        cy.get('input[value="TIMELINE"]').should('be.checked')
+        cy.getByDataTest('period-dimension-transfer-option-content')
+            .contains('Last 4 quarters')
+            .should('exist')
+        cy.getByDataTest('period-dimension-transfer-option-content')
+            .contains(CURRENT_YEAR - 1)
+            .should('exist')
+
+        Layer.selectTab('Style').selectBubbleMap()
+
+        cy.getByDataTest('color-scale').click()
+        cy.getByDataTest('color-scale').eq(3).click()
+
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        // check for 1 maps
+        getMaps().should('have.length', 1)
+        // check for 2 layer
+        cy.getByDataTest('sortable-layers-list')
+            .children()
+            .should('have.length', 2)
+
+        // wait to make sure the maps are loaded
+        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         // check that the first timeline period is shown in blue
         cy.get('.dhis2-map-period').should('be.visible')
@@ -468,25 +528,12 @@ context('Thematic Layers', () => {
             .and('have.css', 'fill-opacity', '1')
         cy.get('.play-icon').should('be.visible')
 
-        Layer.openDialog('Thematic').selectTab('Period')
-
-        cy.get('input[value="SINGLE"]').should('not.be.disabled')
-        cy.get('input[value="TIMELINE"]').should('be.disabled')
-        cy.get('div')
-            .contains('Show multiple periods as an interactive timeline.')
-            .realHover()
-        cy.contains('Remove the existing timeline to add a new one.').should(
-            'be.visible'
-        )
-        cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.disabled')
-        cy.get('div')
-            .contains(
-                'Show multiple maps in view, one for each period (max 12).'
-            )
-            .realHover()
-        cy.contains('Remove all other layers to add a split view.').should(
-            'be.visible'
-        )
+        expectContextMenuOptions([
+            { name: DRILL_UP, disabled: true },
+            { name: DRILL_DOWN },
+            { name: VIEW_PROFILE },
+            { name: SHOW_LONG_LAT },
+        ])
     })
 
     it('adds two thematic layer with split view period', () => {
@@ -504,6 +551,10 @@ context('Thematic Layers', () => {
             })
 
         cy.get('[type="radio"]').should('have.length', 3)
+        cy.get('input[value="SINGLE"]').should('not.be.disabled')
+        cy.get('input[value="TIMELINE"]').should('not.be.disabled')
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
+        cy.get('input[value="SINGLE"]').should('be.checked')
         cy.get('[type="radio"]').check('SPLIT_BY_PERIOD')
 
         cy.getByDataTest('dhis2-uicore-modalactions')
@@ -528,6 +579,22 @@ context('Thematic Layers', () => {
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .selectTab('Period')
+
+        cy.get('input[value="SINGLE"]').should('be.disabled')
+        cy.get('div')
+            .contains('Show periods as a combined layer. Data is aggregated.')
+            .realHover()
+        cy.contains('Remove all split layers to add a single layer.').should(
+            'be.visible'
+        )
+        cy.get('input[value="TIMELINE"]').should('be.disabled')
+        cy.get('div')
+            .contains('Show multiple periods as an interactive timeline.')
+            .realHover()
+        cy.contains('Remove all split layers to add a timeline layer.').should(
+            'be.visible'
+        )
+        cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')
 
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('be.checked')
         cy.getByDataTest('period-dimension-transfer-option-content')

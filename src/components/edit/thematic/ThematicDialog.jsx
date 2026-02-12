@@ -58,7 +58,9 @@ import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.jsx'
 import IndicatorSelect from '../../indicator/IndicatorSelect.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
-import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
+import RenderingStrategy, {
+    getInfoBoxText,
+} from '../../periods/RenderingStrategy.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
@@ -100,14 +102,12 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
-    /*
     const timelineFilters = useSelector(
         (state) =>
             state.map.mapViews.find(
                 (mv) => mv.renderingStrategy === RENDERING_STRATEGY_TIMELINE
             )?.filters
     )
-    */
     const splitFilters = useSelector(
         (state) =>
             state.map.mapViews.find(
@@ -192,16 +192,18 @@ const ThematicDialog = ({
 
     // Set default rendering strategy
     useEffect(() => {
-        if (!renderingStrategy) {
-            dispatch(
-                setRenderingStrategy(
-                    splitFilters
-                        ? RENDERING_STRATEGY_SPLIT_BY_PERIOD
-                        : RENDERING_STRATEGY_SINGLE
-                )
-            )
+        if (renderingStrategy) {
+            return
         }
-    }, [renderingStrategy, splitFilters, dispatch])
+
+        let defaultStrategy = RENDERING_STRATEGY_SINGLE
+        if (timelineFilters) {
+            defaultStrategy = RENDERING_STRATEGY_TIMELINE
+        } else if (splitFilters) {
+            defaultStrategy = RENDERING_STRATEGY_SPLIT_BY_PERIOD
+        }
+        dispatch(setRenderingStrategy(defaultStrategy))
+    }, [renderingStrategy, timelineFilters, splitFilters, dispatch])
 
     // Set period type if favorite is loaded or dates are present
     useEffect(() => {
@@ -219,7 +221,10 @@ const ThematicDialog = ({
     useEffect(() => {
         if (!filters) {
             const hasDate = startDate !== undefined && endDate !== undefined
-            if (splitFilters?.[0]?.items?.length > 0) {
+            if (timelineFilters?.[0]?.items?.length > 0) {
+                dispatch(setPeriods(timelineFilters[0].items))
+                dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+            } else if (splitFilters?.[0]?.items?.length > 0) {
                 dispatch(setPeriods(splitFilters[0].items))
                 dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
             } else {
@@ -243,7 +248,15 @@ const ThematicDialog = ({
                 }
             }
         }
-    }, [filters, splitFilters, systemSettings, startDate, endDate, dispatch])
+    }, [
+        filters,
+        timelineFilters,
+        splitFilters,
+        systemSettings,
+        startDate,
+        endDate,
+        dispatch,
+    ])
 
     // Set default org unit level if not available from favorite
     useEffect(() => {
@@ -289,7 +302,7 @@ const ThematicDialog = ({
 
     // Set the default classification/legend for selected data item without visiting the style tab
     useEffect(() => {
-        if (dataItem) {
+        if (!method && dataItem) {
             if (dataItem.legendSet) {
                 dispatch(setClassification(CLASSIFICATION_PREDEFINED))
                 dispatch(setLegendSet(dataItem.legendSet))
@@ -298,14 +311,26 @@ const ThematicDialog = ({
                 dispatch(setLegendSet())
             }
         }
-    }, [dataItem, dispatch])
+    }, [method, dataItem, dispatch])
 
     // Run validation
     useEffect(() => {
         if (validateLayer && validateLayer !== prevValidateLayer) {
             const isValid = validate()
             onLayerValidation(isValid)
-            if (isValid && splitFilters) {
+            if (!isValid) {
+                return
+            }
+            if (
+                renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
+                timelineFilters
+            ) {
+                dispatch(periodsSync(periods, RENDERING_STRATEGY_TIMELINE))
+            }
+            if (
+                renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD &&
+                splitFilters
+            ) {
                 dispatch(
                     periodsSync(periods, RENDERING_STRATEGY_SPLIT_BY_PERIOD)
                 )
@@ -315,6 +340,8 @@ const ThematicDialog = ({
         validateLayer,
         prevValidateLayer,
         validate,
+        renderingStrategy,
+        timelineFilters,
         splitFilters,
         periods,
         onLayerValidation,
@@ -601,13 +628,16 @@ const ThematicDialog = ({
                             {periodType === PREDEFINED_PERIODS && (
                                 <PeriodDimension
                                     selectedPeriods={periods}
+                                    infoBoxMessage={getInfoBoxText(
+                                        renderingStrategy
+                                    )}
                                     onSelect={(e) =>
                                         dispatch(setPeriods(e.items))
                                     }
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods
                                     }
-                                    height="324px"
+                                    height="310px"
                                 />
                             )}
                             {periodType === START_END_DATES && (

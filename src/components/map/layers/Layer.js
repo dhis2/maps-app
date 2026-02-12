@@ -19,6 +19,7 @@ class Layer extends PureComponent {
         data: PropTypes.array,
         dataFilters: PropTypes.object,
         editCounter: PropTypes.number,
+        externalPeriod: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
         feature: PropTypes.object,
         index: PropTypes.number,
         isVisible: PropTypes.bool,
