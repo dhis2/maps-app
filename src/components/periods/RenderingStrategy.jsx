@@ -49,13 +49,6 @@ const RenderingStrategy = ({
 }) => {
     const totalPeriods = useMemo(() => countPeriods(periods), [periods])
 
-    const hasOtherTimelineLayers = useSelector(({ map }) =>
-        map.mapViews.some(
-            (layer) =>
-                layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
-                layer.id !== layerId
-        )
-    )
     const hasOtherSplitLayers = useSelector(({ map }) =>
         map.mapViews.some(
             (layer) =>
@@ -114,12 +107,7 @@ const RenderingStrategy = ({
             [RENDERING_STRATEGY_TIMELINE]: timelineHelp,
             [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: splitByPeriodHelp,
         }
-    }, [
-        totalPeriods,
-        hasOtherTimelineLayers,
-        hasOtherSplitLayers,
-        hasOtherNonSplitLayers,
-    ])
+    }, [totalPeriods, hasOtherSplitLayers, hasOtherNonSplitLayers])
 
     const isDisabled = (strategy) => {
         switch (strategy) {

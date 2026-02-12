@@ -302,7 +302,7 @@ const ThematicDialog = ({
 
     // Set the default classification/legend for selected data item without visiting the style tab
     useEffect(() => {
-        if (dataItem) {
+        if (!method && dataItem) {
             if (dataItem.legendSet) {
                 dispatch(setClassification(CLASSIFICATION_PREDEFINED))
                 dispatch(setLegendSet(dataItem.legendSet))
@@ -311,7 +311,7 @@ const ThematicDialog = ({
                 dispatch(setLegendSet())
             }
         }
-    }, [dataItem, dispatch])
+    }, [method, dataItem, dispatch])
 
     // Run validation
     useEffect(() => {
