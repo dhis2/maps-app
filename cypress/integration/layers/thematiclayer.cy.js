@@ -464,7 +464,7 @@ context('Thematic Layers', () => {
                 'Show multiple maps in view, one for each period (max 12).'
             )
             .realHover()
-        cy.contains('Remove all other layers to add a split view.').should(
+        cy.contains('Remove all other layers to add a split layer.').should(
             'be.visible'
         )
 
@@ -584,14 +584,14 @@ context('Thematic Layers', () => {
         cy.get('div')
             .contains('Show periods as a combined layer. Data is aggregated.')
             .realHover()
-        cy.contains('Remove all split views to add a single layer.').should(
+        cy.contains('Remove all split layers to add a single layer.').should(
             'be.visible'
         )
         cy.get('input[value="TIMELINE"]').should('be.disabled')
         cy.get('div')
             .contains('Show multiple periods as an interactive timeline.')
             .realHover()
-        cy.contains('Remove all split views to add a timeline layer.').should(
+        cy.contains('Remove all split layers to add a timeline layer.').should(
             'be.visible'
         )
         cy.get('input[value="SPLIT_BY_PERIOD"]').should('not.be.disabled')

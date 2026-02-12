@@ -74,7 +74,9 @@ const RenderingStrategy = ({
     const getHelpText = useMemo(() => {
         let singleHelp
         if (hasOtherSplitLayers) {
-            singleHelp = i18n.t('Remove all split views to add a single layer.')
+            singleHelp = i18n.t(
+                'Remove all split layers to add a single layer.'
+            )
         } else {
             singleHelp = undefined
         }
@@ -82,7 +84,7 @@ const RenderingStrategy = ({
         let timelineHelp
         if (hasOtherSplitLayers) {
             timelineHelp = i18n.t(
-                'Remove all split views to add a timeline layer.'
+                'Remove all split layers to add a timeline layer.'
             )
         } else if (totalPeriods < MULTIMAP_MIN_PERIODS) {
             timelineHelp = i18n.t(
