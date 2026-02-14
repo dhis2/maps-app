@@ -3,17 +3,17 @@
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2025
 # 晓东 林 <13981924470@126.com>, 2025
-# easylin <lin_xd@126.com>, 2025
+# easylin <lin_xd@126.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -749,6 +749,11 @@ msgstr "经度"
 msgid "Latitude"
 msgstr "纬度"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr "地图初始化失败。您的系统可能不支持 WebGL。请在此处验证兼容性：{{url}}"
+
 msgid "Basemap could not be added: {{message}}"
 msgstr "无法添加底图：{{message}}"
 
@@ -1115,8 +1120,8 @@ msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。
 msgid "Number of buildings"
 msgstr "构建物数量"
 
-msgid "0.5 meter"
-msgstr "0.5 米"
+msgid "~0.5 meter"
+msgstr "~0.5 米"
 
 msgid "Single point in time"
 msgstr "单个时间点"
@@ -1246,6 +1251,15 @@ msgstr "从卫星收集的独特的土地覆被类型。"
 msgid "unitless"
 msgstr "无单位"
 
+msgid "~500 meters"
+msgstr "~500 米"
+
+msgid "Yearly"
+msgstr "每年"
+
+msgid "Since 2001"
+msgstr "自 2001 年起"
+
 msgid "Evergreen Needleleaf forest"
 msgstr "常绿针叶林"
 
@@ -1325,31 +1339,8 @@ msgstr "居住在一个地区的估计人数。"
 msgid "people per hectare"
 msgstr "每公顷人数"
 
-msgid "Precipitation"
-msgstr "降水"
-
-msgid "millimeter"
-msgstr "毫米"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr "从卫星和地面气象站收集的降水量。数值以 5 天内的毫米为单位。每月更新一次，更新时间为下一个月的第 3 周。"
-
-msgid "Temperature MODIS"
-msgstr "温度 MODIS"
-
-msgid "°C during daytime"
-msgstr "白天°C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
-
-msgid "Population age groups"
-msgstr "人口年龄组"
+msgid "Population age groups WorldPop Global1"
+msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1466,6 +1457,66 @@ msgstr "女性 75 - 79 岁"
 msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "降水"
+
+msgid "millimeter"
+msgstr "毫米"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr "从卫星和地面气象站收集的降水量。数值以 5 天内的毫米为单位。每月更新一次，更新时间为下一个月的第 3 周。"
+
+msgid "Temperature MODIS"
+msgstr "温度 MODIS"
+
+msgid "°C during daytime"
+msgstr "白天°C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr "CHIRPS"
 
@@ -1547,8 +1598,8 @@ msgstr ""
 "归一化差异植被指数（NDVI）用于量化植被绿度，有助于了解植被密度和评估植物健康变化。 \n"
 " 增强植被指数（EVI）与归一化差异植被指数类似。不过，EVI 会对一些大气条件和树冠背景噪声进行校正，在植被茂密的地区更为灵敏。"
 
-msgid "250 meter"
-msgstr "250 米"
+msgid "~250 meters"
+msgstr "~250 米"
 
 msgid "16-day"
 msgstr "16 天"
@@ -1636,9 +1687,6 @@ msgstr "六个月"
 
 msgid "Six-monthly April"
 msgstr "半年四月"
-
-msgid "Yearly"
-msgstr "每年"
 
 msgid "Financial year (Start November)"
 msgstr "财政年（11月始）"

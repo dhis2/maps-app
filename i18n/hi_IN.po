@@ -2,17 +2,17 @@
 # Translators:
 # Siddharth Agarwal, 2025
 # AkashJindal, 2025
-# Rohit Wadhwani, 2025
+# Rohit Wadhwani, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-10-28T16:10:10.276Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Rohit Wadhwani, 2025\n"
+"Last-Translator: Rohit Wadhwani, 2026\n"
 "Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hi_IN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -84,7 +84,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "डेटा एलिमेंट"
 
 msgid "Totals"
 msgstr "कुल"
@@ -165,7 +165,7 @@ msgid "Date"
 msgstr "तारीख"
 
 msgid "Data set"
-msgstr ""
+msgstr "डेटा सेट"
 
 msgid "No results found"
 msgstr "कोई परिणाम नहीं मिला"
@@ -321,19 +321,19 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Aggregation method"
-msgstr ""
-
-msgid "Groups"
+msgid "Area statistics (popups and data table)"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "यह फ़ील्ड आवश्यक है"
 
 msgid "Data"
 msgstr "डेटा"
 
 msgid "Period"
+msgstr ""
+
+msgid "Dataset"
 msgstr ""
 
 msgid ""
@@ -364,14 +364,17 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
+msgid "Period type"
+msgstr ""
+
 msgid "Legend preview"
+msgstr ""
+
+msgid "Available periods are retrieved from the source data"
 msgstr ""
 
 msgid "Year"
 msgstr "वर्ष"
-
-msgid "Available periods are set by the source data"
-msgstr ""
 
 msgid "Loading periods"
 msgstr ""
@@ -389,10 +392,10 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "न्यूनतम"
 
 msgid "Max"
-msgstr ""
+msgstr "अधिकतम"
 
 msgid "Steps"
 msgstr ""
@@ -436,7 +439,7 @@ msgstr ""
 msgid "Boundary color"
 msgstr ""
 
-msgid "Draws a buffer area around each location."
+msgid "Draws a buffer area around each point location."
 msgstr ""
 
 msgid "Buffer"
@@ -661,7 +664,7 @@ msgstr ""
 msgid "External layer"
 msgstr ""
 
-msgid "Split view can not be combined with other layer types."
+msgid "Split view cannot be combined with other layer types."
 msgstr ""
 
 msgid "Failed to load layer"
@@ -709,9 +712,6 @@ msgstr ""
 msgid "Remove layer"
 msgstr ""
 
-msgid "Group"
-msgstr ""
-
 msgid "Filters"
 msgstr ""
 
@@ -743,9 +743,14 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr ""
+msgstr "देशांतर"
 
 msgid "Latitude"
+msgstr "अक्षांश"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
 msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
@@ -755,6 +760,9 @@ msgid "Could not retrieve event data"
 msgstr ""
 
 msgid "Organisation unit"
+msgstr ""
+
+msgid "Groups"
 msgstr ""
 
 msgid "Parent unit"
@@ -780,8 +788,8 @@ msgstr ""
 msgid "no value"
 msgstr ""
 
-msgid "All groups"
-msgstr ""
+msgid "All"
+msgstr "सभी"
 
 msgid "Loading data"
 msgstr ""
@@ -906,7 +914,7 @@ msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "ईमेल"
 
 msgid "Address"
 msgstr ""
@@ -918,7 +926,7 @@ msgid "ID"
 msgstr "आईडी"
 
 msgid "Comment"
-msgstr ""
+msgstr "कमेंट"
 
 msgid "Organisation unit profile"
 msgstr ""
@@ -942,7 +950,7 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "➡️ अगला वर्ष"
 
 msgid "Start/end dates"
 msgstr ""
@@ -1111,7 +1119,7 @@ msgstr ""
 msgid "Number of buildings"
 msgstr ""
 
-msgid "0.5 meter"
+msgid "~0.5 meter"
 msgstr ""
 
 msgid "Single point in time"
@@ -1132,13 +1140,123 @@ msgstr ""
 msgid "~30 meters"
 msgstr ""
 
-msgid "Febuary 2000"
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+
+msgid "~28 kilometers"
+msgstr ""
+
+msgid "Daily"
+msgstr "रोज़ाना"
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "मासिक"
+
+msgid "Relative humidity weekly"
 msgstr ""
 
 msgid "Landcover"
 msgstr ""
 
 msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "unitless"
+msgstr ""
+
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "वार्षिक"
+
+msgid "Since 2001"
 msgstr ""
 
 msgid "Evergreen Needleleaf forest"
@@ -1220,30 +1338,7 @@ msgstr ""
 msgid "people per hectare"
 msgstr ""
 
-msgid "Precipitation"
-msgstr ""
-
-msgid "millimeter"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Population age groups"
+msgid "Population age groups WorldPop Global1"
 msgstr ""
 
 msgid ""
@@ -1361,39 +1456,177 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Precipitation monthly"
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
 msgstr ""
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
 
-msgid "~11 kilometers"
+msgid "Temperature MODIS"
 msgstr ""
 
-msgid "Monthly"
-msgstr "मासिक"
+msgid "°C during daytime"
+msgstr ""
 
-msgid "Febuary 1950 - One month ago"
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
+msgstr ""
+
+msgid ""
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
+msgstr ""
+
+msgid "~5.5 kilometers"
+msgstr ""
+
+msgid "Since January 1981"
+msgstr ""
+
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
 msgstr ""
 
 msgid "Temperature monthly"
 msgstr ""
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
 msgstr ""
 
-msgid "All"
+msgid "Vegetation"
+msgstr ""
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "~250 meters"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
 msgstr ""
 
 msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr ""
+msgstr "पूरा हुआ"
 
 msgid "Choropleth"
 msgstr ""
@@ -1421,9 +1654,6 @@ msgstr ""
 
 msgid "Relative"
 msgstr ""
-
-msgid "Daily"
-msgstr "रोज़ाना"
 
 msgid "Weekly"
 msgstr "साप्ताहिक"
@@ -1454,9 +1684,6 @@ msgstr ""
 
 msgid "Six-monthly April"
 msgstr ""
-
-msgid "Yearly"
-msgstr "वार्षिक"
 
 msgid "Financial year (Start November)"
 msgstr ""
@@ -1539,7 +1766,7 @@ msgstr ""
 msgid "not one of"
 msgstr ""
 
-msgid "doesn't contains"
+msgid "doesn't contain"
 msgstr ""
 
 msgid "true"
@@ -1572,7 +1799,7 @@ msgid "Thematic"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "इवेंट्स"
 
 msgid "Tracked entities"
 msgstr ""
