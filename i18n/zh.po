@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-29T22:51:50.462Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -1339,31 +1339,8 @@ msgstr "居住在一个地区的估计人数。"
 msgid "people per hectare"
 msgstr "每公顷人数"
 
-msgid "Precipitation"
-msgstr "降水"
-
-msgid "millimeter"
-msgstr "毫米"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr "从卫星和地面气象站收集的降水量。数值以 5 天内的毫米为单位。每月更新一次，更新时间为下一个月的第 3 周。"
-
-msgid "Temperature MODIS"
-msgstr "温度 MODIS"
-
-msgid "°C during daytime"
-msgstr "白天°C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
-
-msgid "Population age groups"
-msgstr "人口年龄组"
+msgid "Population age groups WorldPop Global1"
+msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1479,6 +1456,66 @@ msgstr "女性 75 - 79 岁"
 
 msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "降水"
+
+msgid "millimeter"
+msgstr "毫米"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr "从卫星和地面气象站收集的降水量。数值以 5 天内的毫米为单位。每月更新一次，更新时间为下一个月的第 3 周。"
+
+msgid "Temperature MODIS"
+msgstr "温度 MODIS"
+
+msgid "°C during daytime"
+msgstr "白天°C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
 
 msgid "CHIRPS"
 msgstr "CHIRPS"

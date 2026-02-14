@@ -18,12 +18,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Cyrille Kabrane, 2026\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
@@ -797,6 +797,11 @@ msgstr "Longitude"
 msgid "Latitude"
 msgstr "Latitude"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+
 msgid "Basemap could not be added: {{message}}"
 msgstr "Le fond de carte n'a pas pu être ajouté : {{message}}"
 
@@ -1417,38 +1422,8 @@ msgstr "Estimation du nombre de personnes vivant dans une zone."
 msgid "people per hectare"
 msgstr "personnes par hectare"
 
-msgid "Precipitation"
-msgstr "Précipitations"
-
-msgid "millimeter"
-msgstr "millimètres"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-"Précipitations recueillies par satellite et par les stations météorologiques"
-" au sol. Les valeurs sont exprimées en millimètres et comptent pour une "
-"période de 5 jours. Mise à jour mensuelle, au cours de la 3è semaine du mois"
-" suivant."
-
-msgid "Temperature MODIS"
-msgstr "Température MODIS"
-
-msgid "°C during daytime"
-msgstr "°C pendant la journée"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Températures à la surface du sol recueillies par satellite. Des espaces sans"
-" informations apparaitront dans les zones qui présentent une couverture "
-"nuageuse persistante."
-
-msgid "Population age groups"
-msgstr "Groupes d'âge de la population"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1566,6 +1541,73 @@ msgstr "Féminin 75 - 79 ans"
 
 msgid "Female 80 years and above"
 msgstr "Féminin 80 ans et plus"
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Précipitations"
+
+msgid "millimeter"
+msgstr "millimètres"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+"Précipitations recueillies par satellite et par les stations météorologiques"
+" au sol. Les valeurs sont exprimées en millimètres et comptent pour une "
+"période de 5 jours. Mise à jour mensuelle, au cours de la 3è semaine du mois"
+" suivant."
+
+msgid "Temperature MODIS"
+msgstr "Température MODIS"
+
+msgid "°C during daytime"
+msgstr "°C pendant la journée"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Températures à la surface du sol recueillies par satellite. Des espaces sans"
+" informations apparaitront dans les zones qui présentent une couverture "
+"nuageuse persistante."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
 
 msgid "CHIRPS"
 msgstr "CHIRPS"

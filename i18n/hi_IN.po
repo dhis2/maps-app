@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-29T22:51:50.462Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rohit Wadhwani, 2026\n"
 "Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
@@ -325,7 +325,7 @@ msgid "Area statistics (popups and data table)"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "यह फ़ील्ड आवश्यक है"
 
 msgid "Data"
 msgstr "डेटा"
@@ -743,10 +743,10 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr ""
+msgstr "देशांतर"
 
 msgid "Latitude"
-msgstr ""
+msgstr "अक्षांश"
 
 msgid ""
 "Failed to initialize the map. Your system may not support WebGL. Verify "
@@ -789,7 +789,7 @@ msgid "no value"
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "सभी"
 
 msgid "Loading data"
 msgstr ""
@@ -914,7 +914,7 @@ msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "ईमेल"
 
 msgid "Address"
 msgstr ""
@@ -1338,30 +1338,7 @@ msgstr ""
 msgid "people per hectare"
 msgstr ""
 
-msgid "Precipitation"
-msgstr ""
-
-msgid "millimeter"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Population age groups"
+msgid "Population age groups WorldPop Global1"
 msgstr ""
 
 msgid ""
@@ -1479,6 +1456,66 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr ""
 
@@ -1589,7 +1626,7 @@ msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr ""
+msgstr "पूरा हुआ"
 
 msgid "Choropleth"
 msgstr ""
@@ -1762,7 +1799,7 @@ msgid "Thematic"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "इवेंट्स"
 
 msgid "Tracked entities"
 msgstr ""

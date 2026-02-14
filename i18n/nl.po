@@ -10,12 +10,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -778,6 +778,11 @@ msgstr "Lengtegraad"
 msgid "Latitude"
 msgstr "Breedtegraad"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basiskaart kon niet toegevoegd worden: {{message}}"
 
@@ -1380,33 +1385,8 @@ msgstr "Geschat aantal inwoners in een gebied."
 msgid "people per hectare"
 msgstr "bevolking per hectare"
 
-msgid "Precipitation"
-msgstr "Neerslag"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-
-msgid "Temperature MODIS"
-msgstr "Temperatuur MODIS"
-
-msgid "°C during daytime"
-msgstr "°C tijdens de dag"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
-"zich in gebieden met aanhoudende bewolking."
-
-msgid "Population age groups"
-msgstr "Bevolkingsleeftijdsgroepen"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1524,6 +1504,68 @@ msgstr "Vrouw 75 - 79 jaar"
 
 msgid "Female 80 years and above"
 msgstr "Vrouw 80 jaar en ouder"
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Neerslag"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr "Temperatuur MODIS"
+
+msgid "°C during daytime"
+msgstr "°C tijdens de dag"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
+"zich in gebieden met aanhoudende bewolking."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
 
 msgid "CHIRPS"
 msgstr ""
