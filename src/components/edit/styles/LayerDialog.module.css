@@ -196,4 +196,6 @@
 .periodText {
     font-size: 14px;
     padding: 8px 14px;
+    display: inline-flex;
+    gap: var(--spacers-dp8);
 }

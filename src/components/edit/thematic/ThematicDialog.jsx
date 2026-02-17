@@ -1,6 +1,6 @@
 import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
+import { SegmentedControl, IconSync16, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
@@ -58,9 +58,7 @@ import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.jsx'
 import IndicatorSelect from '../../indicator/IndicatorSelect.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
-import RenderingStrategy, {
-    getInfoBoxText,
-} from '../../periods/RenderingStrategy.jsx'
+import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
@@ -614,6 +612,7 @@ const ThematicDialog = ({
                                         {i18n.t(
                                             'Choose period for all timeline layers'
                                         )}
+                                        <IconSync16 />
                                     </div>
                                 )}
                                 {renderingStrategy ===
@@ -622,15 +621,13 @@ const ThematicDialog = ({
                                         {i18n.t(
                                             'Choose period for all split layers'
                                         )}
+                                        <IconSync16 />
                                     </div>
                                 )}
                             </div>
                             {periodType === PREDEFINED_PERIODS && (
                                 <PeriodDimension
                                     selectedPeriods={periods}
-                                    infoBoxMessage={getInfoBoxText(
-                                        renderingStrategy
-                                    )}
                                     onSelect={(e) =>
                                         dispatch(setPeriods(e.items))
                                     }

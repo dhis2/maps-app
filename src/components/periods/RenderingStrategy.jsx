@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { IconSync16, Tooltip } from '@dhis2/ui'
+import { Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -20,26 +20,6 @@ import {
     IconPeriodDisplayTimeline,
 } from './icons.jsx'
 import styles from './styles/RenderingStrategy.module.css'
-
-export const getInfoBoxText = (renderingStrategy) => {
-    let text
-    switch (renderingStrategy) {
-        case RENDERING_STRATEGY_TIMELINE:
-            text = i18n.t('Applies to all timeline layers.')
-            break
-        case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
-            text = i18n.t('Applies to all split layers.')
-            break
-        default:
-            return null
-    }
-    return (
-        <span className={styles.infoBoxText}>
-            {text}
-            <IconSync16 />
-        </span>
-    )
-}
 
 const RenderingStrategy = ({
     layerId,

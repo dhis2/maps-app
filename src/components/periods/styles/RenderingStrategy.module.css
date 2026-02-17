@@ -1,9 +1,3 @@
 .renderingStrategy {
     margin-top: var(--spacers-dp8);
 }
-
-.infoBoxText {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacers-dp8);
-}
