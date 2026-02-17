@@ -637,7 +637,7 @@ const ThematicDialog = ({
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods
                                     }
-                                    height="310px"
+                                    height="324px"
                                 />
                             )}
                             {periodType === START_END_DATES && (

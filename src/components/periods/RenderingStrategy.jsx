@@ -152,13 +152,7 @@ const RenderingStrategy = ({
 
     return (
         <div className={styles.renderingStrategy}>
-            <RadioGroup
-                label={i18n.t('Period display mode')}
-                value={value}
-                onChange={onChange}
-                boldLabel={true}
-                display="row"
-            >
+            <RadioGroup value={value} onChange={onChange} display="row">
                 {strategies.map(
                     ({ value: strategy, icon, label, sublabel }) => {
                         const content = (

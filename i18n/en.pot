@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-02-12T13:01:53.867Z\n"
-"PO-Revision-Date: 2026-02-12T13:01:53.868Z\n"
+"POT-Creation-Date: 2026-02-17T08:34:40.293Z\n"
+"PO-Revision-Date: 2026-02-17T08:34:40.293Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1016,9 +1016,6 @@ msgstr "Split"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "Show multiple maps in view, one for each period (max {{number}})."
-
-msgid "Period display mode"
-msgstr "Period display mode"
 
 msgid "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr "Start and end dates are inclusive and will be reflected in the outputs."
