@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconSync16, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import React, { useRef, useState, useMemo, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
     setClassification,
@@ -102,6 +102,7 @@ const ThematicDialog = ({
     const dispatch = useDispatch()
     const { defaultRenderingStrategy, syncFromOtherLayers, syncToOtherLayers } =
         useLayerPeriodSync()
+    const hasLayerPeriodSyncOnce = useRef(false)
 
     // State management
     // -----
@@ -194,9 +195,10 @@ const ThematicDialog = ({
         }
 
         if (syncFromOtherLayers({ renderingStrategy })) {
+            hasLayerPeriodSyncOnce.current = true
             dispatch(
                 setBackupPeriodsDates({
-                    type: PREDEFINED_PERIODS,
+                    type: START_END_DATES,
                     periods: defaultPeriods | [],
                     ...getDefaultDatesInCalendar(),
                 })
@@ -274,26 +276,14 @@ const ThematicDialog = ({
         }
 
         switch (renderingStrategy) {
-            case RENDERING_STRATEGY_SINGLE:
-                if (defaultRenderingStrategy) {
-                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
-                }
-                if (backupPeriodsDates?.type === START_END_DATES) {
-                    dispatch(setPeriodType({ value: START_END_DATES }, true))
-                }
-                break
             case RENDERING_STRATEGY_TIMELINE:
+            case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
+                if (!hasLayerPeriodSyncOnce.current) {
+                    syncFromOtherLayers({ renderingStrategy })
+                    hasLayerPeriodSyncOnce.current = true
+                }
                 if (periodType === START_END_DATES) {
                     dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
-                } else {
-                    dispatch(
-                        setBackupPeriodsDates({
-                            ...backupPeriodsDates,
-                            type: PREDEFINED_PERIODS,
-                            periods: getPeriodsFromFilters(filters),
-                        })
-                    )
-                    syncFromOtherLayers({ renderingStrategy })
                 }
                 break
         }
@@ -326,7 +316,11 @@ const ThematicDialog = ({
                             endDate,
                         })
                     )
-                    if (!syncFromOtherLayers({ renderingStrategy })) {
+                    if (
+                        renderingStrategy === RENDERING_STRATEGY_SINGLE ||
+                        !defaultRenderingStrategy ||
+                        hasLayerPeriodSyncOnce.current
+                    ) {
                         dispatch(setPeriods(backupPeriodsDates?.periods || []))
                     }
                     dispatch(setStartDate())
