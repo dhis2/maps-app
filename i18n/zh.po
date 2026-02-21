@@ -1,4 +1,3 @@
-# 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2025
@@ -1340,7 +1339,7 @@ msgid "people per hectare"
 msgstr "每公顷人数"
 
 msgid "Population age groups WorldPop Global1"
-msgstr ""
+msgstr "人口年龄组 WorldPop Global1"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1458,7 +1457,7 @@ msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
 
 msgid "Population WorldPop Global1"
-msgstr ""
+msgstr "全球人口1"
 
 msgid "Precipitation"
 msgstr "降水"
@@ -1484,7 +1483,7 @@ msgid ""
 msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
 
 msgid "Population age groups WorldPop Global2"
-msgstr ""
+msgstr "人口年龄组 WorldPop Global2"
 
 msgid ""
 "The data are produced using a top-down population modelling approach, where "
@@ -1492,30 +1491,31 @@ msgid ""
 "areas likely to be inhabited. Estimates are provided annually and include "
 "current, historical, and projected population values."
 msgstr ""
+"数据 采用自上而下的人口建模方法，将官方人口总数分布到各个空间，并限制在可能有人居住的地区。估计数每年提供一次，包括当前、历史和预测人口值。"
 
 msgid "2015 - 2030"
-msgstr ""
+msgstr "2015 - 2030"
 
 msgid "Male 80 - 84 years"
-msgstr ""
+msgstr "男性 80 - 84 岁"
 
 msgid "Male 85 - 89 years"
-msgstr ""
+msgstr "男 85 - 89 岁"
 
 msgid "Male 90 years and above"
-msgstr ""
+msgstr "男性 90 岁及以上"
 
 msgid "Female 80 - 84 years"
-msgstr ""
+msgstr "女性 80 - 84 岁"
 
 msgid "Female 85 - 89 years"
-msgstr ""
+msgstr "女性 85 - 89 岁"
 
 msgid "Female 90 years and above"
-msgstr ""
+msgstr "女性 90 岁及以上"
 
 msgid "Population WorldPop Global2"
-msgstr ""
+msgstr "人口 WorldPop Global2"
 
 msgid "CHIRPS"
 msgstr "CHIRPS"
