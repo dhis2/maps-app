@@ -389,6 +389,7 @@ const ThematicDialog = ({
         prevPeriodType,
         prevRenderingStrategy,
         renderingStrategy,
+        shouldSyncFromOtherLayers,
         syncFromOtherLayers,
         startDate,
         prevStartDate,
