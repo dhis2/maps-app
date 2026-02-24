@@ -100,8 +100,12 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
-    const { defaultRenderingStrategy, syncFromOtherLayers, syncToOtherLayers } =
-        useLayerPeriodSync()
+    const {
+        defaultRenderingStrategy,
+        shouldSyncFromOtherLayers,
+        syncFromOtherLayers,
+        syncToOtherLayers,
+    } = useLayerPeriodSync()
 
     // State management
     // -----
@@ -275,7 +279,16 @@ const ThematicDialog = ({
 
         switch (renderingStrategy) {
             case RENDERING_STRATEGY_SINGLE:
-                if (defaultRenderingStrategy) {
+                if (
+                    shouldSyncFromOtherLayers &&
+                    backupPeriodsDates?.type === PREDEFINED_PERIODS
+                ) {
+                    dispatch(
+                        setBackupPeriodsDates({
+                            type: `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
                     dispatch(setPeriods(backupPeriodsDates?.periods || []))
                 }
                 if (backupPeriodsDates?.type === START_END_DATES) {
@@ -285,7 +298,7 @@ const ThematicDialog = ({
             case RENDERING_STRATEGY_TIMELINE:
                 if (periodType === START_END_DATES) {
                     dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
-                } else {
+                } else if (shouldSyncFromOtherLayers) {
                     dispatch(
                         setBackupPeriodsDates({
                             ...backupPeriodsDates,
@@ -293,7 +306,14 @@ const ThematicDialog = ({
                             periods: getPeriodsFromFilters(filters),
                         })
                     )
-                    syncFromOtherLayers({ renderingStrategy })
+                    if (
+                        backupPeriodsDates?.type ===
+                        `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`
+                    ) {
+                        dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    } else {
+                        syncFromOtherLayers({ renderingStrategy })
+                    }
                 }
                 break
         }
@@ -301,7 +321,7 @@ const ThematicDialog = ({
         periodType,
         prevRenderingStrategy,
         renderingStrategy,
-        defaultRenderingStrategy,
+        shouldSyncFromOtherLayers,
         startDate,
         endDate,
         backupPeriodsDates,
@@ -326,7 +346,13 @@ const ThematicDialog = ({
                             endDate,
                         })
                     )
-                    if (!syncFromOtherLayers({ renderingStrategy })) {
+                    if (
+                        renderingStrategy === RENDERING_STRATEGY_SINGLE ||
+                        !(
+                            shouldSyncFromOtherLayers &&
+                            syncFromOtherLayers({ renderingStrategy })
+                        )
+                    ) {
                         dispatch(setPeriods(backupPeriodsDates?.periods || []))
                     }
                     dispatch(setStartDate())
