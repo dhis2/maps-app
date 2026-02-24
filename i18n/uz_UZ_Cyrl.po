@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uz@Cyrl\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -766,6 +766,11 @@ msgstr "Узунлик"
 msgid "Latitude"
 msgstr "Кенглик"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+
 msgid "Basemap could not be added: {{message}}"
 msgstr "Асосий харитани қўшиб бўлмади: {{message}}"
 
@@ -1142,7 +1147,7 @@ msgstr ""
 msgid "Number of buildings"
 msgstr "Бино рақамлари"
 
-msgid "0.5 meter"
+msgid "~0.5 meter"
 msgstr ""
 
 msgid "Single point in time"
@@ -1273,6 +1278,15 @@ msgstr "Спутник ёрдамида ер қатламининг тури а�
 msgid "unitless"
 msgstr ""
 
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "Йиллик"
+
+msgid "Since 2001"
+msgstr ""
+
 msgid "Evergreen Needleleaf forest"
 msgstr "Доимий яшил нина баргли ўрмонлар"
 
@@ -1356,33 +1370,8 @@ msgstr "Ҳудудда яшовчи аҳолининг тахминий сони
 msgid "people per hectare"
 msgstr "Аҳоли сони, гектарда"
 
-msgid "Precipitation"
-msgstr "Ёғингарчилик"
-
-msgid "millimeter"
-msgstr "миллиметр"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr "Кундузги °C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Ер усти ҳарорати сунъий йўлдош орқали аниқлаштирилган. Доимий булутлар билан"
-" қопланган майдонларда бўш доғлар пайдо бўлади."
-
-msgid "Population age groups"
-msgstr "Аҳоли ёш гуруҳлари"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1500,6 +1489,68 @@ msgstr "Аёл 75 - 79 ёш"
 msgid "Female 80 years and above"
 msgstr "Аёл 80 ёш ва ундан катта"
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Ёғингарчилик"
+
+msgid "millimeter"
+msgstr "миллиметр"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "Кундузги °C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Ер усти ҳарорати сунъий йўлдош орқали аниқлаштирилган. Доимий булутлар билан"
+" қопланган майдонларда бўш доғлар пайдо бўлади."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr ""
 
@@ -1579,7 +1630,7 @@ msgid ""
 " Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
 msgstr ""
 
-msgid "250 meter"
+msgid "~250 meters"
 msgstr ""
 
 msgid "16-day"
@@ -1668,9 +1719,6 @@ msgstr "Ярим йиллик"
 
 msgid "Six-monthly April"
 msgstr "Ярим йиллик Апрель"
-
-msgid "Yearly"
-msgstr "Йиллик"
 
 msgid "Financial year (Start November)"
 msgstr "Молиявий йил (Бошланиши Ноябрь)"
