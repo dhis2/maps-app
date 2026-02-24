@@ -281,20 +281,23 @@ class Map extends Component {
         )
 
     initializeTimelinePeriod = (timelineOverlay) => {
-        if (!timelineOverlay || this.state.period) {
+        if (!timelineOverlay) {
             return
         }
 
-        const { periodsWithTypeLevelAndRank } = addPeriodsDetails(
-            timelineOverlay.periods
-        )
+        const periodIds = (timelineOverlay.periods || []).map(({ id }) => id)
+        if (!this.state.period || !periodIds.includes(this.state.period.id)) {
+            const { periodsWithTypeLevelAndRank } = addPeriodsDetails(
+                timelineOverlay.periods
+            )
 
-        const [initialPeriod] = sortPeriodsByLevelAndStartDate(
-            periodsWithTypeLevelAndRank
-        )
+            const [initialPeriod] = sortPeriodsByLevelAndStartDate(
+                periodsWithTypeLevelAndRank
+            )
 
-        if (initialPeriod) {
-            this.setState({ period: initialPeriod })
+            if (initialPeriod) {
+                this.setState({ period: initialPeriod })
+            }
         }
     }
 }
