@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -747,6 +747,11 @@ msgstr "经度"
 msgid "Latitude"
 msgstr "维度"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
@@ -1113,7 +1118,7 @@ msgstr ""
 msgid "Number of buildings"
 msgstr ""
 
-msgid "0.5 meter"
+msgid "~0.5 meter"
 msgstr ""
 
 msgid "Single point in time"
@@ -1244,6 +1249,15 @@ msgstr ""
 msgid "unitless"
 msgstr ""
 
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "每年"
+
+msgid "Since 2001"
+msgstr ""
+
 msgid "Evergreen Needleleaf forest"
 msgstr ""
 
@@ -1323,31 +1337,8 @@ msgstr ""
 msgid "people per hectare"
 msgstr ""
 
-msgid "Precipitation"
-msgstr "降水"
-
-msgid "millimeter"
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Population age groups"
-msgstr "人口年龄组"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1464,6 +1455,66 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "降水"
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr ""
 
@@ -1543,7 +1594,7 @@ msgid ""
 " Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
 msgstr ""
 
-msgid "250 meter"
+msgid "~250 meters"
 msgstr ""
 
 msgid "16-day"
@@ -1632,9 +1683,6 @@ msgstr "六个月"
 
 msgid "Six-monthly April"
 msgstr "半年的四月"
-
-msgid "Yearly"
-msgstr "每年"
 
 msgid "Financial year (Start November)"
 msgstr ""
