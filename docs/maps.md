@@ -236,15 +236,20 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
         -   _Single_ (default)
 
-            Displays all selected periods as a single combined layer with aggregated data. (Required when only one period is selected or when using start–end dates.)
+            Displays all selected periods as a single combined layer with aggregated data. 
+            (Required when only one period is selected or when using start–end dates.)
 
         -   _Timeline_
 
-            Displays multiple periods as an interactive timeline ordered chronologically. Only one timeline layer can be added per map.
+            Displays multiple periods as an interactive timeline ordered chronologically. 
+            Multiple timeline layers can be added to a map (they will all share the same 
+            periods).
 
         -   _Split_
 
-            Displays multiple periods side by side for comparison. Supports up to 12 periods (including multi-period presets) and can only be combined with other split layers.
+            Displays multiple periods side by side for comparison. Supports up to 12 periods 
+            (including multi-period presets) and can only be combined with other split layers 
+            (they will al share the same periods).
 
     -   After selecting a display mode, choose how to define the period(s):
     
