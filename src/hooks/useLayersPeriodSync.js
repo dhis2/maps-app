@@ -1,11 +1,11 @@
 import { useRef, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPeriods } from '../../../actions/layerEdit.js'
-import { syncMapPeriods } from '../../../actions/map.js'
+import { setPeriods } from '../actions/layerEdit.js'
+import { syncMapPeriods } from '../actions/map.js'
 import {
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
-} from '../../../constants/layers.js'
+} from '../constants/layers.js'
 
 const useInitialSelector = (selector) => {
     const selectedValue = useSelector(selector)
@@ -13,7 +13,7 @@ const useInitialSelector = (selector) => {
     return ref.current
 }
 
-export const useLayerPeriodSync = () => {
+const useLayersPeriodSync = () => {
     const dispatch = useDispatch()
     const mapViews = useSelector((state) => state.map.mapViews)
     const renderingStrategy = useInitialSelector(
@@ -100,3 +100,5 @@ export const useLayerPeriodSync = () => {
         syncToOtherLayers,
     }
 }
+
+export default useLayersPeriodSync

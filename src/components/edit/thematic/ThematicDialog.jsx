@@ -36,6 +36,7 @@ import {
     PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
+import useLayersPeriodSync from '../../../hooks/useLayersPeriodSync.js'
 import usePrevious from '../../../hooks/usePrevious.js'
 import {
     getDataItemFromColumns,
@@ -68,7 +69,6 @@ import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
 import NoDataColor from './NoDataColor.jsx'
 import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
-import { useLayerPeriodSync } from './useLayerPeriodSync.js'
 import { validateThematicLayer } from './validateThematicLayer.js'
 import ValueTypeSelect from './ValueTypeSelect.jsx'
 
@@ -105,7 +105,7 @@ const ThematicDialog = ({
         shouldSyncFromOtherLayers,
         syncFromOtherLayers,
         syncToOtherLayers,
-    } = useLayerPeriodSync()
+    } = useLayersPeriodSync()
 
     // State management
     // -----
