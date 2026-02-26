@@ -17,7 +17,7 @@ const defaultState = {
     mapViews: [],
 }
 
-const upsertFilter = (filters = [], dimension, items) => {
+const upsertFilter = ({ dimension, items, filters = [] }) => {
     const exists = filters.some((f) => f.dimension === dimension)
 
     return exists
@@ -27,15 +27,20 @@ const upsertFilter = (filters = [], dimension, items) => {
 
 const updatePeriodFiltersByStrategy = (state, strategy, periods) => ({
     ...state,
-    mapViews: state.mapViews.map((mv) =>
-        mv.renderingStrategy === strategy
-            ? {
-                  ...mv,
-                  filters: upsertFilter(mv.filters, 'pe', periods),
-                  isLoaded: false,
-              }
-            : mv
-    ),
+    mapViews: state.mapViews.map((mv) => {
+        if (mv.renderingStrategy !== strategy) {
+            return mv
+        }
+        return {
+            ...mv,
+            filters: upsertFilter({
+                dimension: 'pe',
+                items: periods,
+                filters: mv.filters,
+            }),
+            isLoaded: false,
+        }
+    }),
 })
 
 const basemap = (state, action) => {
