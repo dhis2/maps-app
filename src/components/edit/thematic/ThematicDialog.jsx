@@ -1,6 +1,6 @@
 import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { SegmentedControl, IconSync16, IconErrorFilled24 } from '@dhis2/ui'
+import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
@@ -685,18 +685,27 @@ const ThematicDialog = ({
                                     RENDERING_STRATEGY_TIMELINE && (
                                     <div className={styles.periodText}>
                                         {i18n.t(
-                                            'Choose period for all timeline layers'
+                                            'Choose periods for all timeline layers'
                                         )}
-                                        <IconSync16 />
+                                        {shouldSyncFromOtherLayers && (
+                                            <>
+                                                <span
+                                                    className={styles.infoText}
+                                                >
+                                                    {i18n.t(
+                                                        'Selection is initialized from shared periods'
+                                                    )}
+                                                </span>
+                                            </>
+                                        )}
                                     </div>
                                 )}
                                 {renderingStrategy ===
                                     RENDERING_STRATEGY_SPLIT_BY_PERIOD && (
                                     <div className={styles.periodText}>
                                         {i18n.t(
-                                            'Choose period for all split layers'
+                                            'Choose periods for all split layers'
                                         )}
-                                        <IconSync16 />
                                     </div>
                                 )}
                             </div>
