@@ -249,7 +249,7 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
             Displays multiple periods side by side for comparison. Supports up to 12 periods 
             (including multi-period presets) and can only be combined with other split layers 
-            (they will al share the same periods).
+            (they will all share the same periods).
 
     -   After selecting a display mode, choose how to define the period(s):
     
