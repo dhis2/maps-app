@@ -1,7 +1,7 @@
 import { useRef, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPeriods } from '../../../actions/layerEdit.js'
-import { periodsSync } from '../../../actions/map.js'
+import { syncMapPeriods } from '../../../actions/map.js'
 import {
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
@@ -87,7 +87,7 @@ export const useLayerPeriodSync = () => {
                 return false
             }
 
-            dispatch(periodsSync(periods, renderingStrategy))
+            dispatch(syncMapPeriods(periods, renderingStrategy))
             return true
         },
         [strategyFiltersMap, dispatch]
