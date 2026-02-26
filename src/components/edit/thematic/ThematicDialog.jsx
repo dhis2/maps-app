@@ -688,15 +688,11 @@ const ThematicDialog = ({
                                             'Choose periods for all timeline layers'
                                         )}
                                         {shouldSyncFromOtherLayers && (
-                                            <>
-                                                <span
-                                                    className={styles.infoText}
-                                                >
-                                                    {i18n.t(
-                                                        'Selection is initialized from shared periods'
-                                                    )}
-                                                </span>
-                                            </>
+                                            <span className={styles.infoText}>
+                                                {i18n.t(
+                                                    'Selection is initialized from shared periods'
+                                                )}
+                                            </span>
                                         )}
                                     </div>
                                 )}
