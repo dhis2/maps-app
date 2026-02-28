@@ -205,7 +205,7 @@ msgid "Groups"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "यह फ़ील्ड आवश्यक है"
 
 msgid "Data"
 msgstr "डेटा"
@@ -275,7 +275,7 @@ msgid "Filter"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "इवेंट्स"
 
 msgid "Group events"
 msgstr ""
@@ -604,10 +604,10 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr ""
+msgstr "देशांतर"
 
 msgid "Latitude"
-msgstr ""
+msgstr "अक्षांश"
 
 msgid "Not set"
 msgstr ""
@@ -758,7 +758,7 @@ msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "ईमेल"
 
 msgid "Address"
 msgstr ""
@@ -1181,13 +1181,13 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "सभी"
 
 msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr ""
+msgstr "पूरा हुआ"
 
 msgid "Choropleth"
 msgstr ""
