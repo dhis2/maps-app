@@ -58,6 +58,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
 
             const config = {
                 ...layer,
+                backupPeriodsDates: undefined,
                 editCounter: editCounter + 1,
                 isLoaded: false,
                 isLoading: false,

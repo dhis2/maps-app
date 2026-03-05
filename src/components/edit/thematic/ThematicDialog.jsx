@@ -1,9 +1,10 @@
-import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
+import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import {
     setClassification,
     setDataItem,
@@ -12,7 +13,6 @@ import {
     setLegendSet,
     setNoDataColor,
     setOperand,
-    setOrgUnits,
     setPeriods,
     setStartDate,
     setEndDate,
@@ -24,24 +24,23 @@ import {
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
-    DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
     RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
+import useLayersPeriodSync from '../../../hooks/useLayersPeriodSync.js'
+import usePrevious from '../../../hooks/usePrevious.js'
 import {
     getDataItemFromColumns,
-    getOrgUnitsFromRows,
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
-import { getDefaultDatesInCalendar } from '../../../util/date.js'
-import { isPeriodAvailable } from '../../../util/periods.js'
-import { getStartEndDateError } from '../../../util/time.js'
 import CalculationSelect from '../../calculations/CalculationSelect.jsx'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs } from '../../core/index.js'
@@ -50,7 +49,7 @@ import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect
 import DataElementSelect from '../../dataElement/DataElementSelect.jsx'
 import TotalsDetailsSelect from '../../dataElement/TotalsDetailsSelect.jsx'
 import EventDataItemSelect from '../../dataItem/EventDataItemSelect.jsx'
-import DataSetsSelect from '../../dataSets/DataSetsSelect.jsx' // Reporting rate
+import DataSetsSelect from '../../dataSets/DataSetsSelect.jsx'
 import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.jsx'
 import IndicatorSelect from '../../indicator/IndicatorSelect.jsx'
@@ -63,708 +62,645 @@ import Labels from '../shared/Labels.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
+import { initializeThematicLayer } from './initializeThematicLayer.js'
 import NoDataColor from './NoDataColor.jsx'
-import RadiusSelect, { isValidRadius } from './RadiusSelect.jsx'
+import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
+import { validateThematicLayer } from './validateThematicLayer.js'
 import ValueTypeSelect from './ValueTypeSelect.jsx'
 
-class ThematicDialog extends Component {
-    static propTypes = {
-        setBackupPeriodsDates: PropTypes.func.isRequired,
-        setClassification: PropTypes.func.isRequired,
-        setDataElementGroup: PropTypes.func.isRequired,
-        setDataItem: PropTypes.func.isRequired,
-        setEndDate: PropTypes.func.isRequired,
-        setIndicatorGroup: PropTypes.func.isRequired,
-        setLegendSet: PropTypes.func.isRequired,
-        setNoDataColor: PropTypes.func.isRequired,
-        setOperand: PropTypes.func.isRequired,
-        setOrgUnits: PropTypes.func.isRequired,
-        setPeriodType: PropTypes.func.isRequired,
-        setPeriods: PropTypes.func.isRequired,
-        setProgram: PropTypes.func.isRequired,
-        setRenderingStrategy: PropTypes.func.isRequired,
-        setStartDate: PropTypes.func.isRequired,
-        setValueType: PropTypes.func.isRequired,
-        validateLayer: PropTypes.bool.isRequired,
-        onLayerValidation: PropTypes.func.isRequired,
-        backupPeriodsDates: PropTypes.object,
-        columns: PropTypes.array,
-        dataElementGroup: PropTypes.object,
-        endDate: PropTypes.string,
-        filters: PropTypes.array,
-        id: PropTypes.string,
-        indicatorGroup: PropTypes.object,
-        legendSet: PropTypes.object,
-        method: PropTypes.number,
-        noDataColor: PropTypes.string,
-        operand: PropTypes.bool,
-        orgUnits: PropTypes.object,
-        periodType: PropTypes.string,
-        periodsSettings: PropTypes.object,
-        program: PropTypes.object,
-        radiusHigh: PropTypes.number,
-        radiusLow: PropTypes.number,
-        renderingStrategy: PropTypes.string,
-        rows: PropTypes.array,
-        startDate: PropTypes.string,
-        systemSettings: PropTypes.object,
-        thematicMapType: PropTypes.string,
-        valueType: PropTypes.string,
-    }
+const ThematicDialog = ({
+    columns,
+    rows,
+    filters,
+    orgUnits,
+    valueType,
+    startDate,
+    endDate,
+    backupPeriodsDates,
+    systemSettings,
+    periodType,
+    renderingStrategy,
+    id,
+    program,
+    noDataColor,
+    periodsSettings,
+    validateLayer,
+    onLayerValidation,
+    indicatorGroup,
+    dataElementGroup,
+    legendSet,
+    radiusLow,
+    radiusHigh,
+    method,
+    thematicMapType,
+    operand,
+}) => {
+    const dispatch = useDispatch()
+    const {
+        defaultRenderingStrategy,
+        shouldSyncFromOtherLayers,
+        syncFromOtherLayers,
+        syncToOtherLayers,
+    } = useLayersPeriodSync()
 
-    state = {
-        tab: 'data',
-    }
+    // State management
+    // -----
 
-    componentDidMount() {
-        const {
-            valueType,
-            columns,
-            rows,
-            filters,
-            orgUnits,
-            setValueType,
-            startDate,
-            systemSettings,
-            endDate,
-            setPeriods,
-            setBackupPeriodsDates,
-            setPeriodType,
-            setOrgUnits,
-        } = this.props
+    const [tab, setTab] = useState('data')
+    const [errors, setErrors] = useState({})
 
-        const dataItem = getDataItemFromColumns(columns)
-        const periods = getPeriodsFromFilters(filters)
-        const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
-            systemSettings
+    const prevFilters = usePrevious(filters)
+    const prevRenderingStrategy = usePrevious(renderingStrategy)
+    const prevPeriodType = usePrevious(periodType)
+    const prevStartDate = usePrevious(startDate)
+    const prevEndDate = usePrevious(endDate)
+    const prevValidateLayer = usePrevious(validateLayer)
 
-        // Set value type if favorite is loaded
-        if (!valueType) {
-            if (dataItem && dataItem.dimensionItemType) {
-                const dimension = Object.keys(dimConf).find(
-                    (dim) =>
-                        dimConf[dim].itemType === dataItem.dimensionItemType
-                )
+    const dataItem = useMemo(() => getDataItemFromColumns(columns), [columns])
+    const periods = useMemo(() => getPeriodsFromFilters(filters), [filters])
+    const dimensions = useMemo(
+        () => getDimensionsFromFilters(filters),
+        [filters]
+    )
 
-                if (dimension) {
-                    setValueType(dimConf[dimension].objectName, true)
-                }
+    useEffect(() => {
+        dispatch(
+            initializeThematicLayer({
+                valueType,
+                dataItem,
+                renderingStrategy,
+                defaultRenderingStrategy,
+                periodType,
+                startDate,
+                endDate,
+                filters,
+                rows,
+                orgUnits,
+                method,
+                systemSettings,
+                syncFromOtherLayers,
+            })
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    // Changes handling
+    // -----
+
+    // Handle classification and legend
+    useEffect(() => {
+        if (!method && dataItem) {
+            if (dataItem.legendSet) {
+                dispatch(setClassification(CLASSIFICATION_PREDEFINED))
+                dispatch(setLegendSet(dataItem.legendSet))
             } else {
-                setValueType(dimConf.indicator.objectName)
+                dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
+                dispatch(setLegendSet())
             }
         }
+    }, [method, dataItem, dispatch])
 
-        const hasDate = startDate !== undefined && endDate !== undefined
-
-        if (hasDate) {
-            const keepPeriod = false
-            setPeriodType({ value: START_END_DATES }, keepPeriod)
-        } else {
-            const keepPeriod = true
-            setPeriodType({ value: PREDEFINED_PERIODS }, keepPeriod)
-        }
-
-        // Set default period from system settings
+    // Handle rendering strategy change
+    useEffect(() => {
         if (
-            periods?.length == 0 &&
-            !hasDate &&
-            defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+            !prevRenderingStrategy ||
+            prevRenderingStrategy === renderingStrategy
         ) {
-            const defaultPeriods = [
-                {
-                    id: defaultPeriod,
-                    name: getRelativePeriodsName()[defaultPeriod],
-                },
-            ]
-            setPeriods(defaultPeriods)
-            const defaultDates = getDefaultDatesInCalendar()
-            setBackupPeriodsDates(defaultDates)
+            return
         }
 
-        // Set default org unit level
-        if (!rows) {
-            const defaultLevel = orgUnits.levels?.[DEFAULT_ORG_UNIT_LEVEL]
-
-            if (defaultLevel) {
-                const { id, name } = defaultLevel
-
-                setOrgUnits({
-                    dimension: 'ou',
-                    items: [{ id: `LEVEL-${id}`, name }],
-                })
-            }
-        }
-    }
-
-    componentDidUpdate(prev) {
-        const {
-            columns,
-            periodType,
-            renderingStrategy,
-            setPeriods,
-            setBackupPeriodsDates,
-            setStartDate,
-            setEndDate,
-            setClassification,
-            setLegendSet,
-            setRenderingStrategy,
-            validateLayer,
-            onLayerValidation,
-            startDate,
-            endDate,
-            filters,
-            backupPeriodsDates,
-        } = this.props
-        const { periodError } = this.state
-
-        // Set rendering strategy to single if not relative period
-        if (
-            periodType !== PREDEFINED_PERIODS &&
-            renderingStrategy !== RENDERING_STRATEGY_SINGLE
-        ) {
-            setRenderingStrategy(RENDERING_STRATEGY_SINGLE)
-        }
-
-        // Set the default classification/legend for selected data item without visiting the style tab
-        if (columns !== prev.columns) {
-            const dataItem = getDataItemFromColumns(columns)
-
-            if (dataItem) {
-                if (dataItem.legendSet) {
-                    setClassification(CLASSIFICATION_PREDEFINED)
-                    setLegendSet(dataItem.legendSet)
-                } else {
-                    setClassification(CLASSIFICATION_EQUAL_INTERVALS)
-                    setLegendSet()
+        switch (renderingStrategy) {
+            case RENDERING_STRATEGY_SINGLE:
+                if (
+                    shouldSyncFromOtherLayers &&
+                    backupPeriodsDates?.type === PREDEFINED_PERIODS
+                ) {
+                    dispatch(
+                        setBackupPeriodsDates({
+                            type: `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
                 }
-            }
+                if (backupPeriodsDates?.type === START_END_DATES) {
+                    dispatch(setPeriodType({ value: START_END_DATES }, true))
+                }
+                break
+            case RENDERING_STRATEGY_TIMELINE:
+                if (periodType === START_END_DATES) {
+                    dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
+                } else if (shouldSyncFromOtherLayers) {
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: PREDEFINED_PERIODS,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    if (
+                        backupPeriodsDates?.type ===
+                        `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`
+                    ) {
+                        dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    } else {
+                        syncFromOtherLayers({ renderingStrategy })
+                    }
+                }
+                break
         }
+    }, [
+        periodType,
+        prevRenderingStrategy,
+        renderingStrategy,
+        shouldSyncFromOtherLayers,
+        startDate,
+        endDate,
+        backupPeriodsDates,
+        filters,
+        syncFromOtherLayers,
+        dispatch,
+    ])
 
-        if (validateLayer && validateLayer !== prev.validateLayer) {
-            onLayerValidation(this.validate())
+    // Handle period type change
+    useEffect(() => {
+        if (prevRenderingStrategy !== renderingStrategy) {
+            return
         }
-
-        if (prev.periodType && periodType !== prev.periodType) {
+        if (prevPeriodType && periodType !== prevPeriodType) {
             switch (periodType) {
                 case PREDEFINED_PERIODS:
-                    setBackupPeriodsDates({ startDate, endDate })
-                    setPeriods(backupPeriodsDates?.periods || [])
-                    setStartDate()
-                    setEndDate()
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: START_END_DATES,
+                            startDate,
+                            endDate,
+                        })
+                    )
+                    if (
+                        renderingStrategy === RENDERING_STRATEGY_SINGLE ||
+                        !(
+                            shouldSyncFromOtherLayers &&
+                            syncFromOtherLayers({ renderingStrategy })
+                        )
+                    ) {
+                        dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    }
+                    dispatch(setStartDate())
+                    dispatch(setEndDate())
                     break
                 case START_END_DATES:
-                    setBackupPeriodsDates({
-                        periods: getPeriodsFromFilters(filters),
-                    })
-                    setStartDate(backupPeriodsDates?.startDate)
-                    setEndDate(backupPeriodsDates?.endDate)
-                    setPeriods([])
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: PREDEFINED_PERIODS,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    dispatch(setStartDate(backupPeriodsDates?.startDate))
+                    dispatch(setEndDate(backupPeriodsDates?.endDate))
+                    dispatch(setPeriods([]))
                     break
             }
         } else if (
-            periodError &&
-            (periodType !== prev.periodType ||
-                startDate !== prev.startDate ||
-                endDate !== prev.endDate ||
+            errors.periodError &&
+            (periodType !== prevPeriodType ||
+                startDate !== prevStartDate ||
+                endDate !== prevEndDate ||
                 getPeriodsFromFilters(filters).length !==
-                    getPeriodsFromFilters(prev.filters).length)
+                    getPeriodsFromFilters(prevFilters).length)
         ) {
-            this.setErrorState('periodError', null, 'period')
+            setErrors((prev) => ({
+                ...prev,
+                periodError: null,
+            }))
         }
-    }
+    }, [
+        periodType,
+        prevPeriodType,
+        prevRenderingStrategy,
+        renderingStrategy,
+        shouldSyncFromOtherLayers,
+        syncFromOtherLayers,
+        startDate,
+        prevStartDate,
+        endDate,
+        prevEndDate,
+        backupPeriodsDates,
+        errors?.periodError,
+        filters,
+        prevFilters,
+        dispatch,
+    ])
 
-    render() {
-        const {
-            // Layer options
-            columns,
-            dataElementGroup,
-            filters,
-            id,
-            indicatorGroup,
-            noDataColor,
-            operand,
-            periodType,
-            renderingStrategy,
-            program,
+    // Validation
+    // ----------
+
+    // Layer validation function
+    const validate = useCallback(() => {
+        return validateThematicLayer({
             valueType,
-            thematicMapType,
-            systemSettings,
-            periodsSettings,
-        } = this.props
+            indicatorGroup,
+            dataElementGroup,
+            dataItem,
+            program,
+            periodType,
+            startDate,
+            endDate,
+            rows,
+            legendSet,
+            radiusLow,
+            radiusHigh,
+            renderingStrategy,
+            method,
+            periods,
+        })
+    }, [
+        valueType,
+        indicatorGroup,
+        dataElementGroup,
+        dataItem,
+        program,
+        periodType,
+        startDate,
+        endDate,
+        rows,
+        legendSet,
+        radiusLow,
+        radiusHigh,
+        renderingStrategy,
+        method,
+        periods,
+    ])
 
-        const {
-            // Handlers
-            setDataItem,
-            setDataElementGroup,
-            setIndicatorGroup,
-            setNoDataColor,
-            setOperand,
-            setPeriods,
-            setPeriodType,
-            setRenderingStrategy,
-            setProgram,
-            setValueType,
-        } = this.props
+    // Run layer validation
+    useEffect(() => {
+        if (!validateLayer || validateLayer === prevValidateLayer) {
+            return
+        }
 
-        const {
-            tab,
-            indicatorGroupError,
-            indicatorError,
-            dataElementGroupError,
-            dataElementError,
-            dataSetError,
-            programError,
-            calculationError,
-            eventDataItemError,
-            programIndicatorError,
-            periodError,
-            orgUnitsError,
-            legendSetError,
-        } = this.state
+        const { isValid, errors } = validate()
+        setErrors(errors)
+        setTab(errors.firstErrorTab)
+        onLayerValidation(isValid)
 
-        const periods = getPeriodsFromFilters(filters)
-        const dataItem = getDataItemFromColumns(columns)
-        const dimensions = getDimensionsFromFilters(filters)
+        if (!isValid) {
+            return
+        }
+        syncToOtherLayers({ periods, renderingStrategy })
+    }, [
+        validateLayer,
+        prevValidateLayer,
+        validate,
+        renderingStrategy,
+        periods,
+        onLayerValidation,
+        syncToOtherLayers,
+        dispatch,
+    ])
 
-        return (
-            <div className={styles.content} data-test="thematicdialog">
-                <Tabs value={tab} onChange={(tab) => this.setState({ tab })}>
-                    <Tab value="data" dataTest="thematicdialog-tabs-data">
-                        {i18n.t('Data')}
-                    </Tab>
-                    <Tab value="period" dataTest="thematicdialog-tabs-period">
-                        {i18n.t('Period')}
-                    </Tab>
-                    <Tab
-                        value="orgunits"
-                        dataTest="thematicdialog-tabs-orgunits"
+    return (
+        <div className={styles.content} data-test="thematicdialog">
+            <Tabs value={tab} onChange={setTab}>
+                <Tab value="data" dataTest="thematicdialog-tabs-data">
+                    {i18n.t('Data')}
+                </Tab>
+                <Tab value="period" dataTest="thematicdialog-tabs-period">
+                    {i18n.t('Period')}
+                </Tab>
+                <Tab value="orgunits" dataTest="thematicdialog-tabs-orgunits">
+                    {i18n.t('Org Units')}
+                </Tab>
+                <Tab value="filter" dataTest="thematicdialog-tabs-filter">
+                    {i18n.t('Filter')}
+                </Tab>
+                <Tab value="style" dataTest="thematicdialog-tabs-style">
+                    {i18n.t('Style')}
+                </Tab>
+            </Tabs>
+            <div className={styles.tabContent}>
+                {tab === 'data' && (
+                    <div
+                        className={styles.flexRowFlow}
+                        data-test="thematicdialog-datatab"
                     >
-                        {i18n.t('Org Units')}
-                    </Tab>
-                    <Tab value="filter" dataTest="thematicdialog-tabs-filter">
-                        {i18n.t('Filter')}
-                    </Tab>
-                    <Tab value="style" dataTest="thematicdialog-tabs-style">
-                        {i18n.t('Style')}
-                    </Tab>
-                </Tabs>
-                <div className={styles.tabContent}>
-                    {tab === 'data' && (
-                        <div
-                            className={styles.flexRowFlow}
-                            data-test="thematicdialog-datatab"
-                        >
-                            <ValueTypeSelect
-                                value={valueType}
-                                className={styles.select}
-                                onChange={setValueType}
-                            />
-                            {(!valueType ||
-                                valueType === dimConf.indicator.objectName) && [
-                                // Indicator (default)
+                        <ValueTypeSelect
+                            value={valueType}
+                            className={styles.select}
+                            onChange={(v) => dispatch(setValueType(v))}
+                        />
+                        {(!valueType ||
+                            valueType === dimConf.indicator.objectName) && (
+                            <>
                                 <IndicatorGroupSelect
-                                    key="group"
                                     indicatorGroup={indicatorGroup}
-                                    onChange={setIndicatorGroup}
+                                    onChange={(v) =>
+                                        dispatch(setIndicatorGroup(v))
+                                    }
                                     className={styles.select}
-                                    errorText={indicatorGroupError}
-                                />,
+                                    errorText={errors.indicatorGroupError}
+                                />
                                 <IndicatorSelect
-                                    key="indicator"
                                     indicatorGroup={indicatorGroup}
                                     indicator={dataItem}
-                                    onChange={setDataItem}
+                                    onChange={(v, t) =>
+                                        dispatch(setDataItem(v, t))
+                                    }
                                     className={styles.select}
-                                    errorText={indicatorError}
-                                />,
-                            ]}
-                            {(valueType === dimConf.dataElement.objectName ||
-                                valueType === dimConf.operand.objectName) && [
-                                // Data element
+                                    errorText={errors.indicatorError}
+                                />
+                            </>
+                        )}
+                        {(valueType === dimConf.dataElement.objectName ||
+                            valueType === dimConf.operand.objectName) && (
+                            <>
                                 <DataElementGroupSelect
-                                    key="group"
                                     dataElementGroup={dataElementGroup}
-                                    onChange={setDataElementGroup}
+                                    onChange={(v) =>
+                                        dispatch(setDataElementGroup(v))
+                                    }
                                     className={styles.select}
-                                    errorText={dataElementGroupError}
-                                />,
-                                dataElementGroup && (
+                                    errorText={errors.dataElementGroupError}
+                                />
+                                {dataElementGroup && (
                                     <TotalsDetailsSelect
-                                        key="totals"
                                         operand={operand}
-                                        onChange={setOperand}
+                                        onChange={(v) =>
+                                            dispatch(setOperand(v))
+                                        }
                                         className={styles.select}
                                     />
-                                ),
-                                operand === true ||
+                                )}
+                                {operand ||
                                 valueType === dimConf.operand.objectName ? (
                                     <DataElementOperandSelect
-                                        key="element"
                                         dataElementGroup={dataElementGroup}
                                         dataElement={dataItem}
-                                        onChange={setDataItem}
+                                        onChange={(v, t) =>
+                                            dispatch(setDataItem(v, t))
+                                        }
                                         className={styles.select}
-                                        errorText={dataElementError}
+                                        errorText={errors.dataElementError}
                                     />
                                 ) : (
                                     <DataElementSelect
-                                        key="element"
                                         dataElementGroup={dataElementGroup}
                                         dataElement={dataItem}
-                                        onChange={setDataItem}
+                                        onChange={(v, t) =>
+                                            dispatch(setDataItem(v, t))
+                                        }
                                         className={styles.select}
-                                        errorText={dataElementError}
+                                        errorText={errors.dataElementError}
                                     />
-                                ),
-                            ]}
-                            {valueType === dimConf.dataSet.objectName && ( // Reporting rates
-                                <DataSetsSelect
-                                    key="item"
-                                    dataSet={dataItem}
-                                    onChange={setDataItem}
-                                    className={styles.select}
-                                    errorText={dataSetError}
-                                />
-                            )}
-                            {valueType === dimConf.eventDataItem.objectName && [
-                                // Event data items
+                                )}
+                            </>
+                        )}
+                        {valueType === dimConf.dataSet.objectName && (
+                            <DataSetsSelect
+                                dataSet={dataItem}
+                                onChange={(v, t) => dispatch(setDataItem(v, t))}
+                                className={styles.select}
+                                errorText={errors.dataSetError}
+                            />
+                        )}
+                        {valueType === dimConf.eventDataItem.objectName && (
+                            <>
                                 <ProgramSelect
-                                    key="program"
                                     program={program}
-                                    onChange={setProgram}
+                                    onChange={(v) => dispatch(setProgram(v))}
                                     className={styles.select}
-                                    errorText={programError}
-                                />,
-                                program && (
+                                    errorText={errors.programError}
+                                />
+                                {program && (
                                     <EventDataItemSelect
-                                        key="item"
                                         program={program}
                                         dataItem={dataItem}
-                                        onChange={setDataItem}
+                                        onChange={(v, t) =>
+                                            dispatch(setDataItem(v, t))
+                                        }
                                         className={styles.select}
-                                        errorText={eventDataItemError}
+                                        errorText={errors.eventDataItemError}
                                     />
-                                ),
-                            ]}
-                            {valueType ===
-                                dimConf.programIndicator.objectName && [
-                                // Program indicator
+                                )}
+                            </>
+                        )}
+                        {valueType === dimConf.programIndicator.objectName && (
+                            <>
                                 <ProgramSelect
-                                    key="program"
                                     program={program}
-                                    onChange={setProgram}
+                                    onChange={(v) => dispatch(setProgram(v))}
                                     className={styles.select}
-                                    errorText={programError}
-                                />,
-                                program && (
+                                    errorText={errors.programError}
+                                />
+                                {program && (
                                     <ProgramIndicatorSelect
-                                        key="indicator"
                                         program={program}
                                         programIndicator={dataItem}
-                                        onChange={setDataItem}
+                                        onChange={(v, t) =>
+                                            dispatch(setDataItem(v, t))
+                                        }
                                         className={styles.select}
-                                        errorText={programIndicatorError}
+                                        errorText={errors.programIndicatorError}
                                     />
-                                ),
-                            ]}
-                            {valueType === dimConf.calculation.objectName && (
-                                <CalculationSelect
-                                    calculation={dataItem}
-                                    onChange={setDataItem}
-                                    className={styles.select}
-                                    errorText={calculationError}
-                                />
-                            )}
-                            <AggregationTypeSelect className={styles.select} />
-                            <CompletedOnlyCheckbox valueType={valueType} />
+                                )}
+                            </>
+                        )}
+                        {valueType === dimConf.calculation.objectName && (
+                            <CalculationSelect
+                                calculation={dataItem}
+                                onChange={(v, t) => dispatch(setDataItem(v, t))}
+                                className={styles.select}
+                                errorText={errors.calculationError}
+                            />
+                        )}
+
+                        <AggregationTypeSelect className={styles.select} />
+                        <CompletedOnlyCheckbox valueType={valueType} />
+                    </div>
+                )}
+
+                {tab === 'period' && (
+                    <div
+                        className={styles.flexRowFlow}
+                        data-test="thematicdialog-periodtab"
+                    >
+                        <div className={styles.navigation}>
+                            <RenderingStrategy
+                                value={renderingStrategy}
+                                periods={periods}
+                                layerId={id}
+                                onChange={(v) =>
+                                    dispatch(setRenderingStrategy(v))
+                                }
+                            />
                         </div>
-                    )}
-                    {tab === 'period' && (
-                        <div
-                            className={styles.flexRowFlow}
-                            data-test="thematicdialog-periodtab"
-                        >
-                            <div className={styles.navigation}>
-                                <SegmentedControl
-                                    className={styles.flexRowFlow}
-                                    options={[
-                                        {
-                                            label: i18n.t(
-                                                'Choose from presets'
-                                            ),
-                                            value: PREDEFINED_PERIODS,
-                                        },
-                                        {
-                                            label: i18n.t(
-                                                'Define start - end dates'
-                                            ),
-                                            value: START_END_DATES,
-                                        },
-                                    ]}
-                                    selected={periodType}
-                                    onChange={(e) =>
-                                        setPeriodType(
-                                            {
-                                                value: e.value,
-                                            },
-                                            true
-                                        )
-                                    }
-                                ></SegmentedControl>
+                        <div className={styles.background}>
+                            <div
+                                className={cx(
+                                    styles.navigation,
+                                    styles.periodBox
+                                )}
+                            >
+                                {renderingStrategy ===
+                                    RENDERING_STRATEGY_SINGLE && (
+                                    <div>
+                                        <SegmentedControl
+                                            className={styles.flexRowFlow}
+                                            options={[
+                                                {
+                                                    label: i18n.t(
+                                                        'Choose from presets'
+                                                    ),
+                                                    value: PREDEFINED_PERIODS,
+                                                },
+                                                {
+                                                    label: i18n.t(
+                                                        'Define start - end dates'
+                                                    ),
+                                                    value: START_END_DATES,
+                                                },
+                                            ]}
+                                            selected={periodType}
+                                            onChange={(e) =>
+                                                dispatch(
+                                                    setPeriodType(
+                                                        { value: e.value },
+                                                        true
+                                                    )
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                )}
+                                {renderingStrategy ===
+                                    RENDERING_STRATEGY_TIMELINE && (
+                                    <div className={styles.periodText}>
+                                        {i18n.t(
+                                            'Choose periods for all timeline layers'
+                                        )}
+                                        {shouldSyncFromOtherLayers && (
+                                            <span className={styles.infoText}>
+                                                {i18n.t(
+                                                    'Selection is initialized from shared periods'
+                                                )}
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+                                {renderingStrategy ===
+                                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && (
+                                    <div className={styles.periodText}>
+                                        {i18n.t(
+                                            'Choose periods for all split layers'
+                                        )}
+                                    </div>
+                                )}
                             </div>
                             {periodType === PREDEFINED_PERIODS && (
                                 <PeriodDimension
                                     selectedPeriods={periods}
-                                    onSelect={(e) => {
-                                        setPeriods(e.items)
-                                    }}
+                                    onSelect={(e) =>
+                                        dispatch(setPeriods(e.items))
+                                    }
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods
                                     }
                                     height="324px"
                                 />
                             )}
-                            {periodType === PREDEFINED_PERIODS && (
-                                <RenderingStrategy
-                                    value={renderingStrategy}
-                                    periods={periods}
-                                    layerId={id}
-                                    onChange={setRenderingStrategy}
-                                />
-                            )}
                             {periodType === START_END_DATES && (
                                 <StartEndDate
-                                    onSelectStartDate={setStartDate}
-                                    onSelectEndDate={setEndDate}
+                                    onSelectStartDate={(v) =>
+                                        dispatch(setStartDate(v))
+                                    }
+                                    onSelectEndDate={(v) =>
+                                        dispatch(setEndDate(v))
+                                    }
                                     periodsSettings={periodsSettings}
                                 />
                             )}
-                            {periodError && (
+                            {errors.periodError && (
                                 <div className={styles.error}>
                                     <IconErrorFilled24 />
-                                    {periodError}
+                                    {errors.periodError}
                                 </div>
                             )}
                         </div>
-                    )}
-                    {tab === 'orgunits' && (
-                        <OrgUnitSelect warning={orgUnitsError} />
-                    )}
-                    {tab === 'filter' && (
-                        <div
-                            className={styles.flexRowFlow}
-                            data-test="thematicdialog-filtertab"
-                        >
-                            <DimensionFilter dimensions={dimensions} />
-                        </div>
-                    )}
-                    {tab === 'style' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="thematicdialog-styletab"
-                        >
-                            <div className={styles.flexColumn}>
-                                <ThematicMapTypeSelect type={thematicMapType} />
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <RadiusSelect
-                                        className={styles.numberField}
-                                    />
-                                </div>
-                                <Labels includeDisplayOption={true} />
+                    </div>
+                )}
+
+                {tab === 'orgunits' && (
+                    <OrgUnitSelect warning={errors.orgUnitsError} />
+                )}
+
+                {tab === 'filter' && (
+                    <div
+                        className={styles.flexRowFlow}
+                        data-test="thematicdialog-filtertab"
+                    >
+                        <DimensionFilter dimensions={dimensions} />
+                    </div>
+                )}
+
+                {tab === 'style' && (
+                    <div
+                        className={styles.flexColumnFlow}
+                        data-test="thematicdialog-styletab"
+                    >
+                        <div className={styles.flexColumn}>
+                            <ThematicMapTypeSelect type={thematicMapType} />
+                            <div className={styles.flexInnerColumnFlow}>
+                                <RadiusSelect className={styles.numberField} />
                             </div>
-                            <div className={styles.flexColumn}>
-                                <NumericLegendStyle
-                                    mapType={thematicMapType}
-                                    dataItem={dataItem}
-                                    legendSetError={legendSetError}
-                                    className={styles.select}
-                                />
-                                <NoDataColor
-                                    value={noDataColor}
-                                    onChange={setNoDataColor}
-                                />
-                            </div>
+                            <Labels includeDisplayOption />
                         </div>
-                    )}
-                </div>
+                        <div className={styles.flexColumn}>
+                            <NumericLegendStyle
+                                mapType={thematicMapType}
+                                dataItem={dataItem}
+                                legendSetError={errors.legendSetError}
+                                className={styles.select}
+                            />
+                            <NoDataColor
+                                value={noDataColor}
+                                onChange={(v) => dispatch(setNoDataColor(v))}
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
-        )
-    }
-
-    // TODO: Add to parent class?
-    setErrorState(key, message, tab) {
-        this.setState({
-            [key]: message,
-            tab,
-        })
-
-        return false
-    }
-
-    validate() {
-        const {
-            // Layer options
-            valueType,
-            indicatorGroup,
-            dataElementGroup,
-            program,
-            periodType,
-            columns,
-            rows,
-            filters,
-            startDate,
-            endDate,
-            radiusLow,
-            radiusHigh,
-            method,
-            legendSet,
-        } = this.props
-        const dataItem = getDataItemFromColumns(columns)
-        const periods = getPeriodsFromFilters(filters)
-
-        // Indicators
-        if (valueType === dimConf.indicator.objectName) {
-            if (!indicatorGroup && !dataItem) {
-                return this.setErrorState(
-                    'indicatorGroupError',
-                    i18n.t('Indicator group is required'),
-                    'data'
-                )
-            } else if (!dataItem) {
-                return this.setErrorState(
-                    'indicatorError',
-                    i18n.t('Indicator is required'),
-                    'data'
-                )
-            }
-        }
-
-        // Data elements
-        if (
-            valueType === dimConf.dataElement.objectName ||
-            valueType === dimConf.operand.objectName
-        ) {
-            if (!dataElementGroup && !dataItem) {
-                return this.setErrorState(
-                    'dataElementGroupError',
-                    i18n.t('Data element group is required'),
-                    'data'
-                )
-            } else if (!dataItem) {
-                return this.setErrorState(
-                    'dataElementError',
-                    i18n.t('Data element is required'),
-                    'data'
-                )
-            }
-        }
-
-        // Reporting rates
-        if (valueType === dimConf.dataSet.objectName && !dataItem) {
-            return this.setErrorState(
-                'dataSetError',
-                i18n.t('Data set is required'),
-                'data'
-            )
-        }
-
-        // Event data items / Program indicators
-        if (
-            valueType === dimConf.eventDataItem.objectName ||
-            valueType === dimConf.programIndicator.objectName
-        ) {
-            if (!program && !dataItem) {
-                return this.setErrorState(
-                    'programError',
-                    i18n.t('Program is required'),
-                    'data'
-                )
-            } else if (!dataItem) {
-                return valueType === dimConf.eventDataItem.objectName
-                    ? this.setErrorState(
-                          'eventDataItemError',
-                          i18n.t('Event data item is required'),
-                          'data'
-                      )
-                    : this.setErrorState(
-                          'programIndicatorError',
-                          i18n.t('Program indicator is required'),
-                          'data'
-                      )
-            }
-        }
-
-        // Calculation
-        if (valueType === dimConf.calculation.objectName && !dataItem) {
-            return this.setErrorState(
-                'calculationError',
-                i18n.t('Calculation is required'),
-                'data'
-            )
-        }
-
-        if ((periods ?? []).length === 0 && periodType !== START_END_DATES) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('Period is required'),
-                'period'
-            )
-        } else if (periodType === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate)
-            if (error) {
-                return this.setErrorState('periodError', error, 'period')
-            }
-        }
-
-        if (!getOrgUnitsFromRows(rows).length) {
-            return this.setErrorState(
-                'orgUnitsError',
-                i18n.t('No organisation units are selected'),
-                'orgunits'
-            )
-        }
-
-        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
-            return this.setErrorState(
-                'legendSetError',
-                i18n.t('No legend set is selected'),
-                'style'
-            )
-        }
-
-        if (!isValidRadius(radiusLow, radiusHigh)) {
-            this.setState({ tab: 'style' })
-            return false
-        }
-
-        return true
-    }
+        </div>
+    )
 }
 
-export default connect(
-    null,
-    {
-        setClassification,
-        setDataItem,
-        setDataElementGroup,
-        setIndicatorGroup,
-        setLegendSet,
-        setNoDataColor,
-        setOperand,
-        setOrgUnits,
-        setPeriods,
-        setBackupPeriodsDates,
-        setStartDate,
-        setEndDate,
-        setPeriodType,
-        setRenderingStrategy,
-        setProgram,
-        setValueType,
-    },
-    null,
-    {
-        forwardRef: true,
-    }
-)(ThematicDialog)
+ThematicDialog.propTypes = {
+    backupPeriodsDates: PropTypes.object,
+    columns: PropTypes.array,
+    dataElementGroup: PropTypes.object,
+    endDate: PropTypes.string,
+    filters: PropTypes.array,
+    id: PropTypes.string,
+    indicatorGroup: PropTypes.object,
+    legendSet: PropTypes.object,
+    method: PropTypes.number,
+    noDataColor: PropTypes.string,
+    operand: PropTypes.bool,
+    orgUnits: PropTypes.object,
+    periodType: PropTypes.string,
+    periodsSettings: PropTypes.object,
+    program: PropTypes.object,
+    radiusHigh: PropTypes.number,
+    radiusLow: PropTypes.number,
+    renderingStrategy: PropTypes.string,
+    rows: PropTypes.array,
+    startDate: PropTypes.string,
+    systemSettings: PropTypes.object,
+    thematicMapType: PropTypes.string,
+    validateLayer: PropTypes.bool,
+    valueType: PropTypes.string,
+    onLayerValidation: PropTypes.func,
+}
+
+export default ThematicDialog
