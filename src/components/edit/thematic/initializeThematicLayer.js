@@ -22,135 +22,136 @@ import {
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 
-export const initializeThematicLayer =
-    ({
-        valueType,
-        dataItem,
-        renderingStrategy,
-        defaultRenderingStrategy,
-        periodType,
-        startDate,
-        endDate,
-        filters,
-        rows,
-        orgUnits,
-        method,
-        systemSettings,
-        syncFromOtherLayers,
-    }) =>
-    (dispatch) => {
-        // Data
-        // -----
-
-        // Initialize value type
-        if (!valueType) {
-            if (dataItem?.dimensionItemType) {
-                const dimension = Object.keys(dimConf).find(
-                    (dim) =>
-                        dimConf[dim].itemType === dataItem.dimensionItemType
-                )
-                if (dimension) {
-                    dispatch(setValueType(dimConf[dimension].objectName, true))
-                }
-            } else {
-                dispatch(setValueType(dimConf.indicator.objectName))
-            }
-        }
-
-        // Period
-        // -----
-
-        // Initialize rendering strategy
-        if (!renderingStrategy) {
-            dispatch(setRenderingStrategy(defaultRenderingStrategy))
-        }
-
-        // Initialize period type
-        if (!periodType) {
-            const hasDate = startDate !== undefined && endDate !== undefined
-            if (hasDate) {
-                dispatch(setPeriodType({ value: START_END_DATES }, false))
-            } else {
-                dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
-            }
-        }
-
-        // Initialize periods
-        if (!filters) {
-            const hasDate = startDate !== undefined && endDate !== undefined
-            if (!hasDate) {
-                const {
-                    keyAnalysisRelativePeriod: defaultPeriod,
-                    hiddenPeriods,
-                } = systemSettings || {}
-
-                let defaultPeriods
-                if (isPeriodAvailable(defaultPeriod, hiddenPeriods)) {
-                    defaultPeriods = [
-                        {
-                            id: defaultPeriod,
-                            name: getRelativePeriodsName()[defaultPeriod],
-                        },
-                    ]
-                }
-
-                if (
-                    syncFromOtherLayers({
-                        renderingStrategy:
-                            renderingStrategy || defaultRenderingStrategy,
-                    })
-                ) {
-                    dispatch(
-                        setBackupPeriodsDates({
-                            type: PREDEFINED_PERIODS,
-                            periods: defaultPeriods || [],
-                            ...getDefaultDatesInCalendar(),
-                        })
-                    )
-                } else {
-                    dispatch(
-                        setBackupPeriodsDates({
-                            type: START_END_DATES,
-                            ...getDefaultDatesInCalendar(),
-                        })
-                    )
-                    dispatch(setPeriods(defaultPeriods || []))
-                }
-            }
-        }
-
-        // OrgUnits
-        // -----
-
-        // Initialize org unit level
-        if (!rows) {
-            const defaultLevel = orgUnits?.levels?.[DEFAULT_ORG_UNIT_LEVEL]
-            if (defaultLevel) {
-                dispatch(
-                    setOrgUnits({
-                        dimension: 'ou',
-                        items: [
-                            {
-                                id: `LEVEL-${defaultLevel.id}`,
-                                name: defaultLevel.name,
-                            },
-                        ],
-                    })
-                )
-            }
-        }
-
-        // Style
-        // -----
-
-        // Set initial classification and legend
-        if (!method && dataItem) {
-            if (dataItem.legendSet) {
-                dispatch(setClassification(CLASSIFICATION_PREDEFINED))
-                dispatch(setLegendSet(dataItem.legendSet))
-            } else {
-                dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
-                dispatch(setLegendSet())
-            }
+const initializeValueType = (dispatch, { valueType, dataItem }) => {
+    if (valueType) {
+        return
+    }
+    if (dataItem?.dimensionItemType) {
+        const dimension = Object.keys(dimConf).find(
+            (dim) => dimConf[dim].itemType === dataItem.dimensionItemType
+        )
+        if (dimension) {
+            dispatch(setValueType(dimConf[dimension].objectName, true))
+            return
         }
     }
+    dispatch(setValueType(dimConf.indicator.objectName))
+}
+
+const initializeRenderingStrategy = (
+    dispatch,
+    { renderingStrategy, defaultRenderingStrategy }
+) => {
+    if (renderingStrategy) {
+        return
+    }
+    dispatch(setRenderingStrategy(defaultRenderingStrategy))
+}
+
+const initializePeriodType = (dispatch, { periodType, startDate, endDate }) => {
+    if (periodType) {
+        return
+    }
+    const hasDate = startDate !== undefined && endDate !== undefined
+    dispatch(
+        setPeriodType(
+            { value: hasDate ? START_END_DATES : PREDEFINED_PERIODS },
+            !hasDate
+        )
+    )
+}
+
+const getDefaultPeriods = (systemSettings) => {
+    const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
+        systemSettings || {}
+    if (!isPeriodAvailable(defaultPeriod, hiddenPeriods)) {
+        return undefined
+    }
+    return [
+        { id: defaultPeriod, name: getRelativePeriodsName()[defaultPeriod] },
+    ]
+}
+
+const initializePeriods = (
+    dispatch,
+    {
+        filters,
+        startDate,
+        endDate,
+        renderingStrategy,
+        defaultRenderingStrategy,
+        systemSettings,
+        syncFromOtherLayers,
+    }
+) => {
+    if (filters || (startDate !== undefined && endDate !== undefined)) {
+        return
+    }
+
+    const defaultPeriods = getDefaultPeriods(systemSettings)
+
+    if (
+        syncFromOtherLayers({
+            renderingStrategy: renderingStrategy || defaultRenderingStrategy,
+        })
+    ) {
+        dispatch(
+            setBackupPeriodsDates({
+                type: PREDEFINED_PERIODS,
+                periods: defaultPeriods || [],
+                ...getDefaultDatesInCalendar(),
+            })
+        )
+    } else {
+        dispatch(
+            setBackupPeriodsDates({
+                type: START_END_DATES,
+                ...getDefaultDatesInCalendar(),
+            })
+        )
+        dispatch(setPeriods(defaultPeriods || []))
+    }
+}
+
+const initializeOrgUnits = (dispatch, { rows, orgUnits }) => {
+    if (rows) {
+        return
+    }
+    const defaultLevel = orgUnits?.levels?.[DEFAULT_ORG_UNIT_LEVEL]
+    if (defaultLevel) {
+        dispatch(
+            setOrgUnits({
+                dimension: 'ou',
+                items: [
+                    { id: `LEVEL-${defaultLevel.id}`, name: defaultLevel.name },
+                ],
+            })
+        )
+    }
+}
+
+const initializeClassification = (dispatch, { method, dataItem }) => {
+    if (method || !dataItem) {
+        return
+    }
+    if (dataItem.legendSet) {
+        dispatch(setClassification(CLASSIFICATION_PREDEFINED))
+        dispatch(setLegendSet(dataItem.legendSet))
+    } else {
+        dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
+        dispatch(setLegendSet())
+    }
+}
+
+export const initializeThematicLayer = (params) => (dispatch) => {
+    // Data
+    initializeValueType(dispatch, params)
+    // Period
+    initializeRenderingStrategy(dispatch, params)
+    initializePeriodType(dispatch, params)
+    initializePeriods(dispatch, params)
+    // OrgUnits
+    initializeOrgUnits(dispatch, params)
+    // Style
+    initializeClassification(dispatch, params)
+}
