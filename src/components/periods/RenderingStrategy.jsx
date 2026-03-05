@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import {
     RENDERING_STRATEGY_SINGLE,
@@ -12,8 +12,6 @@ import {
     MULTIMAP_MIN_PERIODS,
     MULTIMAP_MAX_PERIODS,
 } from '../../constants/periods.js'
-import usePrevious from '../../hooks/usePrevious.js'
-import { getPeriodsFromFilters } from '../../util/analytics.js'
 import { countPeriods } from '../../util/periods.js'
 import { CustomRadioLabel, Radio, RadioGroup } from '../core/index.js'
 import {
@@ -29,12 +27,8 @@ const RenderingStrategy = ({
     periods,
     onChange,
 }) => {
-    const prevPeriods = usePrevious(periods)
     const totalPeriods = useMemo(() => countPeriods(periods), [periods])
 
-    const hasOtherLayers = useSelector(({ map }) =>
-        map.mapViews.some(({ id }) => id !== layerId)
-    )
     const hasOtherTimelineLayers = useSelector(({ map }) =>
         map.mapViews.some(
             (layer) =>
@@ -42,77 +36,65 @@ const RenderingStrategy = ({
                 layer.id !== layerId
         )
     )
-    const hasTooManyPeriods = useSelector(({ layerEdit }) => {
-        const periods = getPeriodsFromFilters(layerEdit.filters)
-        return countPeriods(periods) > MULTIMAP_MAX_PERIODS
-    })
-
-    useEffect(() => {
-        if (periods === prevPeriods) {
-            return
-        }
-
-        if (
-            totalPeriods < MULTIMAP_MIN_PERIODS &&
-            value !== RENDERING_STRATEGY_SINGLE
-        ) {
-            onChange(RENDERING_STRATEGY_SINGLE)
-        } else if (
-            totalPeriods > MULTIMAP_MAX_PERIODS &&
-            value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-        ) {
-            onChange(RENDERING_STRATEGY_SINGLE)
-        }
-    }, [value, periods, prevPeriods, onChange, totalPeriods])
-
-    const getHelpText = useMemo(
-        () => ({
-            [RENDERING_STRATEGY_SINGLE]: undefined,
-            [RENDERING_STRATEGY_TIMELINE]:
-                totalPeriods < MULTIMAP_MIN_PERIODS
-                    ? i18n.t(
-                          'Select at least {{number}} periods or 1 multi-period.',
-                          { number: MULTIMAP_MIN_PERIODS }
-                      )
-                    : hasOtherTimelineLayers
-                    ? i18n.t('Remove the existing timeline to add a new one.')
-                    : undefined,
-            [RENDERING_STRATEGY_SPLIT_BY_PERIOD]:
-                totalPeriods < MULTIMAP_MIN_PERIODS
-                    ? i18n.t(
-                          'Select at least {{number}} periods or 1 multi-period.',
-                          { number: MULTIMAP_MIN_PERIODS }
-                      )
-                    : hasTooManyPeriods
-                    ? i18n.t(
-                          'Only up to a total of {{number}} periods (including those in multi-periods) can be selected.',
-                          { number: MULTIMAP_MAX_PERIODS }
-                      )
-                    : hasOtherLayers
-                    ? i18n.t('Remove all other layers to add a split map view.')
-                    : undefined,
-        }),
-        [
-            totalPeriods,
-            hasOtherTimelineLayers,
-            hasTooManyPeriods,
-            hasOtherLayers,
-        ]
+    const hasOtherSplitLayers = useSelector(({ map }) =>
+        map.mapViews.some(
+            (layer) =>
+                layer.renderingStrategy ===
+                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && layer.id !== layerId
+        )
     )
+    const hasOtherNonSplitLayers = useSelector(({ map }) =>
+        map.mapViews.some(
+            (layer) =>
+                layer.renderingStrategy !==
+                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && layer.id !== layerId
+        )
+    )
+
+    const getHelpText = useMemo(() => {
+        let timelineHelp
+        if (totalPeriods < MULTIMAP_MIN_PERIODS) {
+            timelineHelp = i18n.t(
+                'Select at least {{number}} periods or 1 multi-period.',
+                { number: MULTIMAP_MIN_PERIODS }
+            )
+        } else if (hasOtherTimelineLayers) {
+            timelineHelp = i18n.t(
+                'Remove the existing timeline to add a new one.'
+            )
+        } else {
+            timelineHelp = undefined
+        }
+
+        let splitByPeriodHelp
+        if (hasOtherNonSplitLayers) {
+            splitByPeriodHelp = i18n.t(
+                'Remove all other layers to add a split view.'
+            )
+        } else if (totalPeriods > MULTIMAP_MAX_PERIODS) {
+            splitByPeriodHelp = i18n.t(
+                'Only up to a total of {{number}} periods (including those in multi-periods) can be selected.',
+                { number: MULTIMAP_MAX_PERIODS }
+            )
+        } else {
+            splitByPeriodHelp = undefined
+        }
+
+        return {
+            [RENDERING_STRATEGY_SINGLE]: undefined,
+            [RENDERING_STRATEGY_TIMELINE]: timelineHelp,
+            [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: splitByPeriodHelp,
+        }
+    }, [totalPeriods, hasOtherTimelineLayers, hasOtherNonSplitLayers])
 
     const isDisabled = (strategy) => {
         switch (strategy) {
+            case RENDERING_STRATEGY_SINGLE:
+                return hasOtherSplitLayers
             case RENDERING_STRATEGY_TIMELINE:
-                return (
-                    totalPeriods < MULTIMAP_MIN_PERIODS ||
-                    hasOtherTimelineLayers
-                )
+                return hasOtherTimelineLayers || hasOtherSplitLayers
             case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
-                return (
-                    totalPeriods < MULTIMAP_MIN_PERIODS ||
-                    hasTooManyPeriods ||
-                    hasOtherLayers
-                )
+                return hasOtherNonSplitLayers
             default:
                 return false
         }

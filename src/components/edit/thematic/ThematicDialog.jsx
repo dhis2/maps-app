@@ -1,9 +1,10 @@
 import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     setClassification,
     setDataItem,
@@ -22,12 +23,15 @@ import {
     setProgram,
     setValueType,
 } from '../../../actions/layerEdit.js'
+import { periodsSync } from '../../../actions/map.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
     RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -36,13 +40,11 @@ import {
 import usePrevious from '../../../hooks/usePrevious.js'
 import {
     getDataItemFromColumns,
-    getOrgUnitsFromRows,
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
-import { getStartEndDateError } from '../../../util/time.js'
 import CalculationSelect from '../../calculations/CalculationSelect.jsx'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs } from '../../core/index.js'
@@ -65,8 +67,9 @@ import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
 import NoDataColor from './NoDataColor.jsx'
-import RadiusSelect, { isValidRadius } from './RadiusSelect.jsx'
+import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
+import { validateThematicLayer } from './validateThematicLayer.js'
 import ValueTypeSelect from './ValueTypeSelect.jsx'
 
 const ThematicDialog = ({
@@ -97,6 +100,21 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
+    /*
+    const timelineFilters = useSelector(
+        (state) =>
+            state.map.mapViews.find(
+                (mv) => mv.renderingStrategy === RENDERING_STRATEGY_TIMELINE
+            )?.filters
+    )
+    */
+    const splitFilters = useSelector(
+        (state) =>
+            state.map.mapViews.find(
+                (mv) =>
+                    mv.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+            )?.filters
+    )
 
     const [tab, setTab] = useState('data')
     const [errors, setErrors] = useState({})
@@ -116,100 +134,27 @@ const ThematicDialog = ({
 
     // Layer validation function
     const validate = useCallback(() => {
-        const newErrors = {}
-
-        // Indicators
-        if (valueType === dimConf.indicator.objectName) {
-            if (!indicatorGroup && !dataItem) {
-                newErrors.indicatorGroupError = i18n.t(
-                    'Indicator group is required'
-                )
-            }
-            if (!dataItem) {
-                newErrors.indicatorError = i18n.t('Indicator is required')
-            }
-        }
-
-        // Data elements
-        if (
-            [
-                dimConf.dataElement.objectName,
-                dimConf.operand.objectName,
-            ].includes(valueType)
-        ) {
-            if (!dataElementGroup && !dataItem) {
-                newErrors.dataElementGroupError = i18n.t(
-                    'Data element group is required'
-                )
-            }
-            if (!dataItem) {
-                newErrors.dataElementError = i18n.t('Data element is required')
-            }
-        }
-
-        // Data sets
-        if (valueType === dimConf.dataSet.objectName && !dataItem) {
-            newErrors.dataSetError = i18n.t('Data set is required')
-        }
-
-        // Event data items / Program indicators
-        if (
-            [
-                dimConf.eventDataItem.objectName,
-                dimConf.programIndicator.objectName,
-            ].includes(valueType)
-        ) {
-            if (!program && !dataItem) {
-                newErrors.programError = i18n.t('Program is required')
-            }
-            if (!dataItem) {
-                if (valueType === dimConf.eventDataItem.objectName) {
-                    newErrors.eventDataItemError = i18n.t(
-                        'Event data item is required'
-                    )
-                } else {
-                    newErrors.programIndicatorError = i18n.t(
-                        'Program indicator is required'
-                    )
-                }
-            }
-        }
-
-        // Calculation
-        if (valueType === dimConf.calculation.objectName && !dataItem) {
-            newErrors.calculationError = i18n.t('Calculation is required')
-        }
-
-        // Periods
-        if ((periods ?? []).length === 0 && periodType !== START_END_DATES) {
-            newErrors.periodError = i18n.t('Period is required')
-        }
-        if (periodType === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate)
-            if (error) {
-                newErrors.periodError = error
-            }
-        }
-
-        // Org units
-        if (!getOrgUnitsFromRows(rows).length) {
-            newErrors.orgUnitsError = i18n.t(
-                'No organisation units are selected'
-            )
-        }
-
-        // Legend set
-        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
-            newErrors.legendSetError = i18n.t('No legend set is selected')
-        }
-
-        // Radius
-        if (!isValidRadius(radiusLow, radiusHigh)) {
-            setTab('style')
-        }
+        const { isValid, errors: newErrors } = validateThematicLayer({
+            valueType,
+            indicatorGroup,
+            dataElementGroup,
+            dataItem,
+            program,
+            periodType,
+            startDate,
+            endDate,
+            rows,
+            legendSet,
+            radiusLow,
+            radiusHigh,
+            renderingStrategy,
+            method,
+            periods,
+        })
 
         setErrors(newErrors)
-        return Object.keys(newErrors).length === 0
+        setTab(newErrors.firstErrorTab)
+        return isValid
     }, [
         valueType,
         indicatorGroup,
@@ -223,6 +168,7 @@ const ThematicDialog = ({
         legendSet,
         radiusLow,
         radiusHigh,
+        renderingStrategy,
         method,
         periods,
     ])
@@ -244,6 +190,19 @@ const ThematicDialog = ({
         }
     }, [valueType, dataItem?.dimensionItemType, dispatch])
 
+    // Set default rendering strategy
+    useEffect(() => {
+        if (!renderingStrategy) {
+            dispatch(
+                setRenderingStrategy(
+                    splitFilters
+                        ? RENDERING_STRATEGY_SPLIT_BY_PERIOD
+                        : RENDERING_STRATEGY_SINGLE
+                )
+            )
+        }
+    }, [renderingStrategy, splitFilters, dispatch])
+
     // Set period type if favorite is loaded or dates are present
     useEffect(() => {
         if (!periodType) {
@@ -260,21 +219,31 @@ const ThematicDialog = ({
     useEffect(() => {
         if (!filters) {
             const hasDate = startDate !== undefined && endDate !== undefined
-            const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
-                systemSettings || {}
-            if (!hasDate && isPeriodAvailable(defaultPeriod, hiddenPeriods)) {
-                dispatch(
-                    setPeriods([
-                        {
-                            id: defaultPeriod,
-                            name: getRelativePeriodsName()[defaultPeriod],
-                        },
-                    ])
-                )
+            if (splitFilters?.[0]?.items?.length > 0) {
+                dispatch(setPeriods(splitFilters[0].items))
                 dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+            } else {
+                const {
+                    keyAnalysisRelativePeriod: defaultPeriod,
+                    hiddenPeriods,
+                } = systemSettings || {}
+                if (
+                    !hasDate &&
+                    isPeriodAvailable(defaultPeriod, hiddenPeriods)
+                ) {
+                    dispatch(
+                        setPeriods([
+                            {
+                                id: defaultPeriod,
+                                name: getRelativePeriodsName()[defaultPeriod],
+                            },
+                        ])
+                    )
+                    dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
+                }
             }
         }
-    }, [filters, systemSettings, startDate, endDate, dispatch])
+    }, [filters, splitFilters, systemSettings, startDate, endDate, dispatch])
 
     // Set default org unit level if not available from favorite
     useEffect(() => {
@@ -296,15 +265,27 @@ const ThematicDialog = ({
         }
     }, [rows, orgUnits?.levels, dispatch])
 
-    // Set rendering strategy to single if not relative period
+    // Set period type to predefined periods if rendering strategy set to timeline or split
     useEffect(() => {
         if (
+            periodType &&
             periodType !== PREDEFINED_PERIODS &&
             renderingStrategy !== RENDERING_STRATEGY_SINGLE
         ) {
-            dispatch(setRenderingStrategy(RENDERING_STRATEGY_SINGLE))
+            dispatch(setPeriodType(PREDEFINED_PERIODS))
+            dispatch(setBackupPeriodsDates({ startDate, endDate }))
+            dispatch(setPeriods(backupPeriodsDates?.periods || []))
+            dispatch(setStartDate())
+            dispatch(setEndDate())
         }
-    }, [periodType, renderingStrategy, dispatch])
+    }, [
+        periodType,
+        renderingStrategy,
+        startDate,
+        endDate,
+        backupPeriodsDates,
+        dispatch,
+    ])
 
     // Set the default classification/legend for selected data item without visiting the style tab
     useEffect(() => {
@@ -322,9 +303,23 @@ const ThematicDialog = ({
     // Run validation
     useEffect(() => {
         if (validateLayer && validateLayer !== prevValidateLayer) {
-            onLayerValidation(validate())
+            const isValid = validate()
+            onLayerValidation(isValid)
+            if (isValid && splitFilters) {
+                dispatch(
+                    periodsSync(periods, RENDERING_STRATEGY_SPLIT_BY_PERIOD)
+                )
+            }
         }
-    }, [validateLayer, prevValidateLayer, validate, onLayerValidation])
+    }, [
+        validateLayer,
+        prevValidateLayer,
+        validate,
+        splitFilters,
+        periods,
+        onLayerValidation,
+        dispatch,
+    ])
 
     useEffect(() => {
         if (prevPeriodType && periodType !== prevPeriodType) {
@@ -539,30 +534,71 @@ const ThematicDialog = ({
                         data-test="thematicdialog-periodtab"
                     >
                         <div className={styles.navigation}>
-                            <SegmentedControl
-                                className={styles.flexRowFlow}
-                                options={[
-                                    {
-                                        label: i18n.t('Choose from presets'),
-                                        value: PREDEFINED_PERIODS,
-                                    },
-                                    {
-                                        label: i18n.t(
-                                            'Define start - end dates'
-                                        ),
-                                        value: START_END_DATES,
-                                    },
-                                ]}
-                                selected={periodType}
-                                onChange={(e) =>
-                                    dispatch(
-                                        setPeriodType({ value: e.value }, true)
-                                    )
+                            <RenderingStrategy
+                                value={renderingStrategy}
+                                periods={periods}
+                                layerId={id}
+                                onChange={(v) =>
+                                    dispatch(setRenderingStrategy(v))
                                 }
                             />
                         </div>
-                        {periodType === PREDEFINED_PERIODS && (
-                            <>
+                        <div className={styles.background}>
+                            <div
+                                className={cx(
+                                    styles.navigation,
+                                    styles.periodBox
+                                )}
+                            >
+                                {renderingStrategy ===
+                                    RENDERING_STRATEGY_SINGLE && (
+                                    <div>
+                                        <SegmentedControl
+                                            className={styles.flexRowFlow}
+                                            options={[
+                                                {
+                                                    label: i18n.t(
+                                                        'Choose from presets'
+                                                    ),
+                                                    value: PREDEFINED_PERIODS,
+                                                },
+                                                {
+                                                    label: i18n.t(
+                                                        'Define start - end dates'
+                                                    ),
+                                                    value: START_END_DATES,
+                                                },
+                                            ]}
+                                            selected={periodType}
+                                            onChange={(e) =>
+                                                dispatch(
+                                                    setPeriodType(
+                                                        { value: e.value },
+                                                        true
+                                                    )
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                )}
+                                {renderingStrategy ===
+                                    RENDERING_STRATEGY_TIMELINE && (
+                                    <div className={styles.periodText}>
+                                        {i18n.t(
+                                            'Choose period for all timeline layers'
+                                        )}
+                                    </div>
+                                )}
+                                {renderingStrategy ===
+                                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && (
+                                    <div className={styles.periodText}>
+                                        {i18n.t(
+                                            'Choose period for all split layers'
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                            {periodType === PREDEFINED_PERIODS && (
                                 <PeriodDimension
                                     selectedPeriods={periods}
                                     onSelect={(e) =>
@@ -573,31 +609,25 @@ const ThematicDialog = ({
                                     }
                                     height="324px"
                                 />
-                                <RenderingStrategy
-                                    value={renderingStrategy}
-                                    periods={periods}
-                                    layerId={id}
-                                    onChange={(v) =>
-                                        dispatch(setRenderingStrategy(v))
+                            )}
+                            {periodType === START_END_DATES && (
+                                <StartEndDate
+                                    onSelectStartDate={(v) =>
+                                        dispatch(setStartDate(v))
                                     }
+                                    onSelectEndDate={(v) =>
+                                        dispatch(setEndDate(v))
+                                    }
+                                    periodsSettings={periodsSettings}
                                 />
-                            </>
-                        )}
-                        {periodType === START_END_DATES && (
-                            <StartEndDate
-                                onSelectStartDate={(v) =>
-                                    dispatch(setStartDate(v))
-                                }
-                                onSelectEndDate={(v) => dispatch(setEndDate(v))}
-                                periodsSettings={periodsSettings}
-                            />
-                        )}
-                        {errors.periodError && (
-                            <div className={styles.error}>
-                                <IconErrorFilled24 />
-                                {errors.periodError}
-                            </div>
-                        )}
+                            )}
+                            {errors.periodError && (
+                                <div className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {errors.periodError}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
 

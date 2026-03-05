@@ -17,6 +17,21 @@ const defaultState = {
     mapViews: [],
 }
 
+const updateFiltersByStrategy = (state, strategy, periods) => {
+    return {
+        ...state,
+        mapViews: state.mapViews.map((mv) =>
+            mv.renderingStrategy === strategy
+                ? {
+                      ...mv,
+                      filters: [{ dimension: 'pe', items: periods }],
+                      isLoaded: false,
+                  }
+                : mv
+        ),
+    }
+}
+
 const basemap = (state, action) => {
     switch (action.type) {
         case types.BASEMAP_SELECTED:
@@ -267,6 +282,13 @@ const map = (state = defaultState, action) => {
                 alerts: undefined,
                 mapViews: state.mapViews.map((l) => layer(l, action)),
             }
+
+        case types.MAP_PERIODS_SYNC:
+            return updateFiltersByStrategy(
+                state,
+                action.renderingStrategy,
+                action.periods
+            )
 
         default:
             return state
