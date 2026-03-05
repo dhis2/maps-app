@@ -1,3 +1,11 @@
+# [101.7.0](https://github.com/dhis2/maps-app/compare/v101.6.1...v101.7.0) (2026-03-05)
+
+
+### Features
+
+* support multiple split layers [DHIS2-19542] ([#3584](https://github.com/dhis2/maps-app/issues/3584)) ([36d0e18](https://github.com/dhis2/maps-app/commit/36d0e18c262abc23f81ba7e90236d4b384bf33ec))
+* support multiple timeline layers [DHIS2-19542] ([#3628](https://github.com/dhis2/maps-app/issues/3628)) ([fd9eeab](https://github.com/dhis2/maps-app/commit/fd9eeabd75fc602ed321edb33b485081fab2ac86))
+
 ## [101.6.1](https://github.com/dhis2/maps-app/compare/v101.6.0...v101.6.1) (2026-02-22)
 
 
