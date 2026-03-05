@@ -4,7 +4,7 @@ import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
     setClassification,
     setDataItem,
@@ -22,7 +22,6 @@ import {
     setProgram,
     setValueType,
 } from '../../../actions/layerEdit.js'
-import { periodsSync } from '../../../actions/map.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
     CLASSIFICATION_PREDEFINED,

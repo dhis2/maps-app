@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-05T10:18:17.609Z\n"
-"PO-Revision-Date: 2026-03-05T10:18:17.610Z\n"
+"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
+"PO-Revision-Date: 2026-03-05T13:27:31.684Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -988,9 +988,6 @@ msgstr "Remove all split layers to add a timeline layer."
 
 msgid "Remove all other layers to add a split layer."
 msgstr "Remove all other layers to add a split layer."
-
-msgid "Remove all other layers to add a split view."
-msgstr "Remove all other layers to add a split view."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
