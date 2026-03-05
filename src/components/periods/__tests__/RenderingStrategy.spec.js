@@ -55,8 +55,6 @@ describe('RenderingStrategy', () => {
             </Provider>
         )
 
-        expect(screen.getByText('Period display mode')).toBeInTheDocument()
-
         // Check for the number of radio buttons
         const radioButtons = screen.getAllByRole('radio')
         expect(radioButtons.length).toBe(3)

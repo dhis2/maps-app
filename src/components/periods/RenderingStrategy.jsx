@@ -29,13 +29,6 @@ const RenderingStrategy = ({
 }) => {
     const totalPeriods = useMemo(() => countPeriods(periods), [periods])
 
-    const hasOtherTimelineLayers = useSelector(({ map }) =>
-        map.mapViews.some(
-            (layer) =>
-                layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
-                layer.id !== layerId
-        )
-    )
     const hasOtherSplitLayers = useSelector(({ map }) =>
         map.mapViews.some(
             (layer) =>
@@ -52,15 +45,24 @@ const RenderingStrategy = ({
     )
 
     const getHelpText = useMemo(() => {
+        let singleHelp
+        if (hasOtherSplitLayers) {
+            singleHelp = i18n.t(
+                'Remove all split layers to add a single layer.'
+            )
+        } else {
+            singleHelp = undefined
+        }
+
         let timelineHelp
-        if (totalPeriods < MULTIMAP_MIN_PERIODS) {
+        if (hasOtherSplitLayers) {
+            timelineHelp = i18n.t(
+                'Remove all split layers to add a timeline layer.'
+            )
+        } else if (totalPeriods < MULTIMAP_MIN_PERIODS) {
             timelineHelp = i18n.t(
                 'Select at least {{number}} periods or 1 multi-period.',
                 { number: MULTIMAP_MIN_PERIODS }
-            )
-        } else if (hasOtherTimelineLayers) {
-            timelineHelp = i18n.t(
-                'Remove the existing timeline to add a new one.'
             )
         } else {
             timelineHelp = undefined
@@ -69,7 +71,7 @@ const RenderingStrategy = ({
         let splitByPeriodHelp
         if (hasOtherNonSplitLayers) {
             splitByPeriodHelp = i18n.t(
-                'Remove all other layers to add a split view.'
+                'Remove all other layers to add a split layer.'
             )
         } else if (totalPeriods > MULTIMAP_MAX_PERIODS) {
             splitByPeriodHelp = i18n.t(
@@ -81,18 +83,18 @@ const RenderingStrategy = ({
         }
 
         return {
-            [RENDERING_STRATEGY_SINGLE]: undefined,
+            [RENDERING_STRATEGY_SINGLE]: singleHelp,
             [RENDERING_STRATEGY_TIMELINE]: timelineHelp,
             [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: splitByPeriodHelp,
         }
-    }, [totalPeriods, hasOtherTimelineLayers, hasOtherNonSplitLayers])
+    }, [totalPeriods, hasOtherSplitLayers, hasOtherNonSplitLayers])
 
     const isDisabled = (strategy) => {
         switch (strategy) {
             case RENDERING_STRATEGY_SINGLE:
                 return hasOtherSplitLayers
             case RENDERING_STRATEGY_TIMELINE:
-                return hasOtherTimelineLayers || hasOtherSplitLayers
+                return hasOtherSplitLayers
             case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
                 return hasOtherNonSplitLayers
             default:
@@ -130,13 +132,7 @@ const RenderingStrategy = ({
 
     return (
         <div className={styles.renderingStrategy}>
-            <RadioGroup
-                label={i18n.t('Period display mode')}
-                value={value}
-                onChange={onChange}
-                boldLabel={true}
-                display="row"
-            >
+            <RadioGroup value={value} onChange={onChange} display="row">
                 {strategies.map(
                     ({ value: strategy, icon, label, sublabel }) => {
                         const content = (

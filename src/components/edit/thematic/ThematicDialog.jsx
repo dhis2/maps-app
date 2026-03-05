@@ -1,10 +1,10 @@
-import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
+import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
     setClassification,
     setDataItem,
@@ -13,7 +13,6 @@ import {
     setLegendSet,
     setNoDataColor,
     setOperand,
-    setOrgUnits,
     setPeriods,
     setStartDate,
     setEndDate,
@@ -23,10 +22,8 @@ import {
     setProgram,
     setValueType,
 } from '../../../actions/layerEdit.js'
-import { periodsSync } from '../../../actions/map.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
-    DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
     RENDERING_STRATEGY_SINGLE,
@@ -37,14 +34,13 @@ import {
     PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
+import useLayersPeriodSync from '../../../hooks/useLayersPeriodSync.js'
 import usePrevious from '../../../hooks/usePrevious.js'
 import {
     getDataItemFromColumns,
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
-import { getDefaultDatesInCalendar } from '../../../util/date.js'
-import { isPeriodAvailable } from '../../../util/periods.js'
 import CalculationSelect from '../../calculations/CalculationSelect.jsx'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs } from '../../core/index.js'
@@ -66,6 +62,7 @@ import Labels from '../shared/Labels.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
+import { initializeThematicLayer } from './initializeThematicLayer.js'
 import NoDataColor from './NoDataColor.jsx'
 import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
@@ -100,26 +97,21 @@ const ThematicDialog = ({
     operand,
 }) => {
     const dispatch = useDispatch()
-    /*
-    const timelineFilters = useSelector(
-        (state) =>
-            state.map.mapViews.find(
-                (mv) => mv.renderingStrategy === RENDERING_STRATEGY_TIMELINE
-            )?.filters
-    )
-    */
-    const splitFilters = useSelector(
-        (state) =>
-            state.map.mapViews.find(
-                (mv) =>
-                    mv.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-            )?.filters
-    )
+    const {
+        defaultRenderingStrategy,
+        shouldSyncFromOtherLayers,
+        syncFromOtherLayers,
+        syncToOtherLayers,
+    } = useLayersPeriodSync()
+
+    // State management
+    // -----
 
     const [tab, setTab] = useState('data')
     const [errors, setErrors] = useState({})
 
     const prevFilters = usePrevious(filters)
+    const prevRenderingStrategy = usePrevious(renderingStrategy)
     const prevPeriodType = usePrevious(periodType)
     const prevStartDate = usePrevious(startDate)
     const prevEndDate = usePrevious(endDate)
@@ -132,164 +124,33 @@ const ThematicDialog = ({
         [filters]
     )
 
-    // Layer validation function
-    const validate = useCallback(() => {
-        const { isValid, errors: newErrors } = validateThematicLayer({
-            valueType,
-            indicatorGroup,
-            dataElementGroup,
-            dataItem,
-            program,
-            periodType,
-            startDate,
-            endDate,
-            rows,
-            legendSet,
-            radiusLow,
-            radiusHigh,
-            renderingStrategy,
-            method,
-            periods,
-        })
-
-        setErrors(newErrors)
-        setTab(newErrors.firstErrorTab)
-        return isValid
-    }, [
-        valueType,
-        indicatorGroup,
-        dataElementGroup,
-        dataItem,
-        program,
-        periodType,
-        startDate,
-        endDate,
-        rows,
-        legendSet,
-        radiusLow,
-        radiusHigh,
-        renderingStrategy,
-        method,
-        periods,
-    ])
-
-    // Set value type if favorite is loaded
     useEffect(() => {
-        if (!valueType) {
-            if (dataItem?.dimensionItemType) {
-                const dimension = Object.keys(dimConf).find(
-                    (dim) =>
-                        dimConf[dim].itemType === dataItem.dimensionItemType
-                )
-                if (dimension) {
-                    dispatch(setValueType(dimConf[dimension].objectName, true))
-                }
-            } else {
-                dispatch(setValueType(dimConf.indicator.objectName))
-            }
-        }
-    }, [valueType, dataItem?.dimensionItemType, dispatch])
+        dispatch(
+            initializeThematicLayer({
+                valueType,
+                dataItem,
+                renderingStrategy,
+                defaultRenderingStrategy,
+                periodType,
+                startDate,
+                endDate,
+                filters,
+                rows,
+                orgUnits,
+                method,
+                systemSettings,
+                syncFromOtherLayers,
+            })
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    // Set default rendering strategy
-    useEffect(() => {
-        if (!renderingStrategy) {
-            dispatch(
-                setRenderingStrategy(
-                    splitFilters
-                        ? RENDERING_STRATEGY_SPLIT_BY_PERIOD
-                        : RENDERING_STRATEGY_SINGLE
-                )
-            )
-        }
-    }, [renderingStrategy, splitFilters, dispatch])
+    // Changes handling
+    // -----
 
-    // Set period type if favorite is loaded or dates are present
+    // Handle classification and legend
     useEffect(() => {
-        if (!periodType) {
-            const hasDate = startDate !== undefined && endDate !== undefined
-            if (hasDate) {
-                dispatch(setPeriodType({ value: START_END_DATES }, false))
-            } else {
-                dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
-            }
-        }
-    }, [periodType, startDate, endDate, dispatch])
-
-    // Set default period from system settings if filters not available and no dates
-    useEffect(() => {
-        if (!filters) {
-            const hasDate = startDate !== undefined && endDate !== undefined
-            if (splitFilters?.[0]?.items?.length > 0) {
-                dispatch(setPeriods(splitFilters[0].items))
-                dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
-            } else {
-                const {
-                    keyAnalysisRelativePeriod: defaultPeriod,
-                    hiddenPeriods,
-                } = systemSettings || {}
-                if (
-                    !hasDate &&
-                    isPeriodAvailable(defaultPeriod, hiddenPeriods)
-                ) {
-                    dispatch(
-                        setPeriods([
-                            {
-                                id: defaultPeriod,
-                                name: getRelativePeriodsName()[defaultPeriod],
-                            },
-                        ])
-                    )
-                    dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
-                }
-            }
-        }
-    }, [filters, splitFilters, systemSettings, startDate, endDate, dispatch])
-
-    // Set default org unit level if not available from favorite
-    useEffect(() => {
-        if (!rows) {
-            const defaultLevel = orgUnits?.levels?.[DEFAULT_ORG_UNIT_LEVEL]
-            if (defaultLevel) {
-                dispatch(
-                    setOrgUnits({
-                        dimension: 'ou',
-                        items: [
-                            {
-                                id: `LEVEL-${defaultLevel.id}`,
-                                name: defaultLevel.name,
-                            },
-                        ],
-                    })
-                )
-            }
-        }
-    }, [rows, orgUnits?.levels, dispatch])
-
-    // Set period type to predefined periods if rendering strategy set to timeline or split
-    useEffect(() => {
-        if (
-            periodType &&
-            periodType !== PREDEFINED_PERIODS &&
-            renderingStrategy !== RENDERING_STRATEGY_SINGLE
-        ) {
-            dispatch(setPeriodType(PREDEFINED_PERIODS))
-            dispatch(setBackupPeriodsDates({ startDate, endDate }))
-            dispatch(setPeriods(backupPeriodsDates?.periods || []))
-            dispatch(setStartDate())
-            dispatch(setEndDate())
-        }
-    }, [
-        periodType,
-        renderingStrategy,
-        startDate,
-        endDate,
-        backupPeriodsDates,
-        dispatch,
-    ])
-
-    // Set the default classification/legend for selected data item without visiting the style tab
-    useEffect(() => {
-        if (dataItem) {
+        if (!method && dataItem) {
             if (dataItem.legendSet) {
                 dispatch(setClassification(CLASSIFICATION_PREDEFINED))
                 dispatch(setLegendSet(dataItem.legendSet))
@@ -298,41 +159,103 @@ const ThematicDialog = ({
                 dispatch(setLegendSet())
             }
         }
-    }, [dataItem, dispatch])
+    }, [method, dataItem, dispatch])
 
-    // Run validation
+    // Handle rendering strategy change
     useEffect(() => {
-        if (validateLayer && validateLayer !== prevValidateLayer) {
-            const isValid = validate()
-            onLayerValidation(isValid)
-            if (isValid && splitFilters) {
-                dispatch(
-                    periodsSync(periods, RENDERING_STRATEGY_SPLIT_BY_PERIOD)
-                )
-            }
+        if (
+            !prevRenderingStrategy ||
+            prevRenderingStrategy === renderingStrategy
+        ) {
+            return
+        }
+
+        switch (renderingStrategy) {
+            case RENDERING_STRATEGY_SINGLE:
+                if (
+                    shouldSyncFromOtherLayers &&
+                    backupPeriodsDates?.type === PREDEFINED_PERIODS
+                ) {
+                    dispatch(
+                        setBackupPeriodsDates({
+                            type: `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                }
+                if (backupPeriodsDates?.type === START_END_DATES) {
+                    dispatch(setPeriodType({ value: START_END_DATES }, true))
+                }
+                break
+            case RENDERING_STRATEGY_TIMELINE:
+                if (periodType === START_END_DATES) {
+                    dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
+                } else if (shouldSyncFromOtherLayers) {
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: PREDEFINED_PERIODS,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    if (
+                        backupPeriodsDates?.type ===
+                        `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`
+                    ) {
+                        dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    } else {
+                        syncFromOtherLayers({ renderingStrategy })
+                    }
+                }
+                break
         }
     }, [
-        validateLayer,
-        prevValidateLayer,
-        validate,
-        splitFilters,
-        periods,
-        onLayerValidation,
+        periodType,
+        prevRenderingStrategy,
+        renderingStrategy,
+        shouldSyncFromOtherLayers,
+        startDate,
+        endDate,
+        backupPeriodsDates,
+        filters,
+        syncFromOtherLayers,
         dispatch,
     ])
 
+    // Handle period type change
     useEffect(() => {
+        if (prevRenderingStrategy !== renderingStrategy) {
+            return
+        }
         if (prevPeriodType && periodType !== prevPeriodType) {
             switch (periodType) {
                 case PREDEFINED_PERIODS:
-                    dispatch(setBackupPeriodsDates({ startDate, endDate }))
-                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: START_END_DATES,
+                            startDate,
+                            endDate,
+                        })
+                    )
+                    if (
+                        renderingStrategy === RENDERING_STRATEGY_SINGLE ||
+                        !(
+                            shouldSyncFromOtherLayers &&
+                            syncFromOtherLayers({ renderingStrategy })
+                        )
+                    ) {
+                        dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    }
                     dispatch(setStartDate())
                     dispatch(setEndDate())
                     break
                 case START_END_DATES:
                     dispatch(
                         setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: PREDEFINED_PERIODS,
                             periods: getPeriodsFromFilters(filters),
                         })
                     )
@@ -357,6 +280,10 @@ const ThematicDialog = ({
     }, [
         periodType,
         prevPeriodType,
+        prevRenderingStrategy,
+        renderingStrategy,
+        shouldSyncFromOtherLayers,
+        syncFromOtherLayers,
         startDate,
         prevStartDate,
         endDate,
@@ -365,6 +292,72 @@ const ThematicDialog = ({
         errors?.periodError,
         filters,
         prevFilters,
+        dispatch,
+    ])
+
+    // Validation
+    // ----------
+
+    // Layer validation function
+    const validate = useCallback(() => {
+        return validateThematicLayer({
+            valueType,
+            indicatorGroup,
+            dataElementGroup,
+            dataItem,
+            program,
+            periodType,
+            startDate,
+            endDate,
+            rows,
+            legendSet,
+            radiusLow,
+            radiusHigh,
+            renderingStrategy,
+            method,
+            periods,
+        })
+    }, [
+        valueType,
+        indicatorGroup,
+        dataElementGroup,
+        dataItem,
+        program,
+        periodType,
+        startDate,
+        endDate,
+        rows,
+        legendSet,
+        radiusLow,
+        radiusHigh,
+        renderingStrategy,
+        method,
+        periods,
+    ])
+
+    // Run layer validation
+    useEffect(() => {
+        if (!validateLayer || validateLayer === prevValidateLayer) {
+            return
+        }
+
+        const { isValid, errors } = validate()
+        setErrors(errors)
+        setTab(errors.firstErrorTab)
+        onLayerValidation(isValid)
+
+        if (!isValid) {
+            return
+        }
+        syncToOtherLayers({ periods, renderingStrategy })
+    }, [
+        validateLayer,
+        prevValidateLayer,
+        validate,
+        renderingStrategy,
+        periods,
+        onLayerValidation,
+        syncToOtherLayers,
         dispatch,
     ])
 
@@ -585,7 +578,14 @@ const ThematicDialog = ({
                                     RENDERING_STRATEGY_TIMELINE && (
                                     <div className={styles.periodText}>
                                         {i18n.t(
-                                            'Choose period for all timeline layers'
+                                            'Choose periods for all timeline layers'
+                                        )}
+                                        {shouldSyncFromOtherLayers && (
+                                            <span className={styles.infoText}>
+                                                {i18n.t(
+                                                    'Selection is initialized from shared periods'
+                                                )}
+                                            </span>
                                         )}
                                     </div>
                                 )}
@@ -593,7 +593,7 @@ const ThematicDialog = ({
                                     RENDERING_STRATEGY_SPLIT_BY_PERIOD && (
                                     <div className={styles.periodText}>
                                         {i18n.t(
-                                            'Choose period for all split layers'
+                                            'Choose periods for all split layers'
                                         )}
                                     </div>
                                 )}
