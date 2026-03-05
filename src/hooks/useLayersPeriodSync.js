@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPeriods } from '../actions/layerEdit.js'
 import { syncMapPeriods } from '../actions/map.js'
 import {
+    RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../constants/layers.js'
@@ -46,7 +47,7 @@ const useLayersPeriodSync = () => {
         if (hasSplitLayer) {
             return RENDERING_STRATEGY_SPLIT_BY_PERIOD
         }
-        return undefined // component can choose fallback
+        return RENDERING_STRATEGY_SINGLE
     }, [hasTimelineLayer, hasSplitLayer])
 
     const shouldSyncFromOtherLayers = useMemo(() => {

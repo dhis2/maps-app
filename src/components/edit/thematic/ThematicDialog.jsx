@@ -155,11 +155,7 @@ const ThematicDialog = ({
         if (renderingStrategy) {
             return
         }
-        dispatch(
-            setRenderingStrategy(
-                defaultRenderingStrategy || RENDERING_STRATEGY_SINGLE
-            )
-        )
+        dispatch(setRenderingStrategy(defaultRenderingStrategy))
     }, [renderingStrategy, defaultRenderingStrategy, dispatch])
 
     // Set initial period type
