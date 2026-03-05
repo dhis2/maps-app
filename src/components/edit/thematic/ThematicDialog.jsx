@@ -6,9 +6,11 @@ import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
+    setClassification,
     setDataItem,
     setDataElementGroup,
     setIndicatorGroup,
+    setLegendSet,
     setNoDataColor,
     setOperand,
     setPeriods,
@@ -22,6 +24,8 @@ import {
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
+    CLASSIFICATION_PREDEFINED,
+    CLASSIFICATION_EQUAL_INTERVALS,
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
@@ -143,6 +147,19 @@ const ThematicDialog = ({
 
     // Changes handling
     // -----
+
+    // Handle classification and legend
+    useEffect(() => {
+        if (!method && dataItem) {
+            if (dataItem.legendSet) {
+                dispatch(setClassification(CLASSIFICATION_PREDEFINED))
+                dispatch(setLegendSet(dataItem.legendSet))
+            } else {
+                dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
+                dispatch(setLegendSet())
+            }
+        }
+    }, [method, dataItem, dispatch])
 
     // Handle rendering strategy change
     useEffect(() => {

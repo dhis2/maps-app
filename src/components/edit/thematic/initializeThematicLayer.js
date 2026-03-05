@@ -1,7 +1,5 @@
 import { getRelativePeriodsName } from '@dhis2/analytics'
 import {
-    setClassification,
-    setLegendSet,
     setOrgUnits,
     setPeriods,
     setBackupPeriodsDates,
@@ -10,11 +8,7 @@ import {
     setValueType,
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
-import {
-    DEFAULT_ORG_UNIT_LEVEL,
-    CLASSIFICATION_PREDEFINED,
-    CLASSIFICATION_EQUAL_INTERVALS,
-} from '../../../constants/layers.js'
+import { DEFAULT_ORG_UNIT_LEVEL } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
     START_END_DATES,
@@ -130,19 +124,6 @@ const initializeOrgUnits = (dispatch, { rows, orgUnits }) => {
     }
 }
 
-const initializeClassification = (dispatch, { method, dataItem }) => {
-    if (method || !dataItem) {
-        return
-    }
-    if (dataItem.legendSet) {
-        dispatch(setClassification(CLASSIFICATION_PREDEFINED))
-        dispatch(setLegendSet(dataItem.legendSet))
-    } else {
-        dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
-        dispatch(setLegendSet())
-    }
-}
-
 export const initializeThematicLayer = (params) => (dispatch) => {
     // Data
     initializeValueType(dispatch, params)
@@ -152,6 +133,4 @@ export const initializeThematicLayer = (params) => (dispatch) => {
     initializePeriods(dispatch, params)
     // OrgUnits
     initializeOrgUnits(dispatch, params)
-    // Style
-    initializeClassification(dispatch, params)
 }
