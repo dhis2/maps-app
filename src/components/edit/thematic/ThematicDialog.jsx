@@ -1,4 +1,4 @@
-import { PeriodDimension, getRelativePeriodsName } from '@dhis2/analytics'
+import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -6,14 +6,11 @@ import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
-    setClassification,
     setDataItem,
     setDataElementGroup,
     setIndicatorGroup,
-    setLegendSet,
     setNoDataColor,
     setOperand,
-    setOrgUnits,
     setPeriods,
     setStartDate,
     setEndDate,
@@ -25,9 +22,6 @@ import {
 } from '../../../actions/layerEdit.js'
 import { dimConf } from '../../../constants/dimension.js'
 import {
-    DEFAULT_ORG_UNIT_LEVEL,
-    CLASSIFICATION_PREDEFINED,
-    CLASSIFICATION_EQUAL_INTERVALS,
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
@@ -43,8 +37,6 @@ import {
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
-import { getDefaultDatesInCalendar } from '../../../util/date.js'
-import { isPeriodAvailable } from '../../../util/periods.js'
 import CalculationSelect from '../../calculations/CalculationSelect.jsx'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs } from '../../core/index.js'
@@ -66,6 +58,7 @@ import Labels from '../shared/Labels.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
+import { initializeThematicLayer } from './initializeThematicLayer.js'
 import NoDataColor from './NoDataColor.jsx'
 import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
@@ -127,139 +120,26 @@ const ThematicDialog = ({
         [filters]
     )
 
-    // Data
-    // -----
-
-    // Set initial value type
     useEffect(() => {
-        if (valueType) {
-            return
-        }
-        if (dataItem?.dimensionItemType) {
-            const dimension = Object.keys(dimConf).find(
-                (dim) => dimConf[dim].itemType === dataItem.dimensionItemType
-            )
-            if (dimension) {
-                dispatch(setValueType(dimConf[dimension].objectName, true))
-            }
-        } else {
-            dispatch(setValueType(dimConf.indicator.objectName))
-        }
-    }, [valueType, dataItem?.dimensionItemType, dispatch])
-
-    // Period
-    // -----
-
-    // Set initial rendering strategy
-    useEffect(() => {
-        if (renderingStrategy) {
-            return
-        }
-        dispatch(setRenderingStrategy(defaultRenderingStrategy))
-    }, [renderingStrategy, defaultRenderingStrategy, dispatch])
-
-    // Set initial period type
-    useEffect(() => {
-        if (periodType) {
-            return
-        }
-        const hasDate = startDate !== undefined && endDate !== undefined
-        if (hasDate) {
-            dispatch(setPeriodType({ value: START_END_DATES }, false))
-        } else {
-            dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
-        }
-    }, [periodType, startDate, endDate, dispatch])
-
-    // Set initial periods
-    useEffect(() => {
-        if (!renderingStrategy || filters) {
-            return
-        }
-        const hasDate = startDate !== undefined && endDate !== undefined
-        if (hasDate) {
-            return
-        }
-
-        let defaultPeriods
-        const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
-            systemSettings || {}
-        if (isPeriodAvailable(defaultPeriod, hiddenPeriods)) {
-            defaultPeriods = [
-                {
-                    id: defaultPeriod,
-                    name: getRelativePeriodsName()[defaultPeriod],
-                },
-            ]
-        }
-
-        if (syncFromOtherLayers({ renderingStrategy })) {
-            dispatch(
-                setBackupPeriodsDates({
-                    type: PREDEFINED_PERIODS,
-                    periods: defaultPeriods | [],
-                    ...getDefaultDatesInCalendar(),
-                })
-            )
-            return
-        } else {
-            dispatch(
-                setBackupPeriodsDates({
-                    type: START_END_DATES,
-                    ...getDefaultDatesInCalendar(),
-                })
-            )
-        }
-        dispatch(setPeriods(defaultPeriods || []))
-    }, [
-        filters,
-        startDate,
-        endDate,
-        syncFromOtherLayers,
-        systemSettings,
-        renderingStrategy,
-        dispatch,
-    ])
-
-    // OrgUnits
-    // -----
-
-    // Set initial org unit level
-    useEffect(() => {
-        if (rows) {
-            return
-        }
-        const defaultLevel = orgUnits?.levels?.[DEFAULT_ORG_UNIT_LEVEL]
-        if (defaultLevel) {
-            dispatch(
-                setOrgUnits({
-                    dimension: 'ou',
-                    items: [
-                        {
-                            id: `LEVEL-${defaultLevel.id}`,
-                            name: defaultLevel.name,
-                        },
-                    ],
-                })
-            )
-        }
-    }, [rows, orgUnits?.levels, dispatch])
-
-    // Style
-    // -----
-
-    // Set initial classification and legend
-    useEffect(() => {
-        if (!method && dataItem) {
-            if (dataItem.legendSet) {
-                dispatch(setClassification(CLASSIFICATION_PREDEFINED))
-                dispatch(setLegendSet(dataItem.legendSet))
-            } else {
-                dispatch(setClassification(CLASSIFICATION_EQUAL_INTERVALS))
-                dispatch(setLegendSet())
-            }
-        }
-    }, [method, dataItem, dispatch])
+        dispatch(
+            initializeThematicLayer({
+                valueType,
+                dataItem,
+                renderingStrategy,
+                defaultRenderingStrategy,
+                periodType,
+                startDate,
+                endDate,
+                filters,
+                rows,
+                orgUnits,
+                method,
+                systemSettings,
+                syncFromOtherLayers,
+            })
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // Changes handling
     // -----
