@@ -1,4 +1,3 @@
-# 
 # Translators:
 # ericbp <ericbarredap@gmail.com>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
@@ -19,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
+"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -538,6 +537,33 @@ msgstr "Elija entre ajustes preestablecidos"
 msgid "Define start - end dates"
 msgstr "Definir fechas de inicio - finalización"
 
+msgid "Choose periods for all timeline layers"
+msgstr ""
+
+msgid "Selection is initialized from shared periods"
+msgstr ""
+
+msgid "Choose periods for all split layers"
+msgstr ""
+
+msgid "Indicator"
+msgstr "Indicadores"
+
+msgid "Reporting rates"
+msgstr "Tasas de Informes"
+
+msgid "Event data items"
+msgstr "Datos de eventos"
+
+msgid "Program indicators"
+msgstr "Indicadores de programa"
+
+msgid "Calculations"
+msgstr "Cálculos"
+
+msgid "Item type"
+msgstr "Item type"
+
 msgid "Indicator group is required"
 msgstr "Se requiere grupo de indicadores"
 
@@ -565,23 +591,16 @@ msgstr "Se requier cálculo"
 msgid "Period is required"
 msgstr "Período requerido"
 
-msgid "Indicator"
-msgstr "Indicadores"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "Tasas de Informes"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Seleccione al menos {{number}} periodos o 1 multiperiodo."
 
-msgid "Event data items"
-msgstr "Datos de eventos"
-
-msgid "Program indicators"
-msgstr "Indicadores de programa"
-
-msgid "Calculations"
-msgstr "Cálculos"
-
-msgid "Item type"
-msgstr "Item type"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -710,9 +729,6 @@ msgstr "Error en la descarga de datos."
 
 msgid "External layer"
 msgstr "Capa externa"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
 
 msgid "Failed to load layer"
 msgstr "Error al cargar la capa"
@@ -1009,11 +1025,14 @@ msgstr "Año siguiente"
 msgid "Start/end dates"
 msgstr "Fechas de inicio y fin"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Seleccione al menos {{number}} periodos o 1 multiperiodo."
+msgid "Remove all split layers to add a single layer."
+msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Elimine la línea de tiempo existente para añadir una nueva."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -1021,9 +1040,6 @@ msgid ""
 msgstr ""
 "Sólo se puede seleccionar hasta un total de {{number}} periodos (incluidos "
 "los multiperiodos)."
-
-msgid "Remove all other layers to add a split map view."
-msgstr "Elimine todas las demás capas para añadir una vista de mapa dividida."
 
 msgid "Single"
 msgstr "Único"
@@ -1043,9 +1059,6 @@ msgstr "Dividir"
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr ""
 "Mostrar varios mapas en la vista, uno para cada periodo (máx. {{number}})."
-
-msgid "Period display mode"
-msgstr "Modo de visualización de períodos"
 
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
