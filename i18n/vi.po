@@ -1,4 +1,3 @@
-# 
 # Translators:
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2025
 # Philip Larsen Donnelly, 2025
@@ -9,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
+"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -517,6 +516,33 @@ msgstr "Chọn từ các cài đặt trước"
 msgid "Define start - end dates"
 msgstr "Xác định ngày bắt đầu - kết thúc"
 
+msgid "Choose periods for all timeline layers"
+msgstr ""
+
+msgid "Selection is initialized from shared periods"
+msgstr ""
+
+msgid "Choose periods for all split layers"
+msgstr ""
+
+msgid "Indicator"
+msgstr "Chỉ số"
+
+msgid "Reporting rates"
+msgstr "Tỷ lệ báo cáo"
+
+msgid "Event data items"
+msgstr "Mục dữ liệu sự kiện"
+
+msgid "Program indicators"
+msgstr "Chỉ Số Chương Trình"
+
+msgid "Calculations"
+msgstr "Tính toán"
+
+msgid "Item type"
+msgstr "Kiểu mục"
+
 msgid "Indicator group is required"
 msgstr "Bắt buộc chọn nhóm chỉ số"
 
@@ -544,23 +570,16 @@ msgstr "Bắt buộc Tính toán"
 msgid "Period is required"
 msgstr "Bắt buộc chọn Thời điểm"
 
-msgid "Indicator"
-msgstr "Chỉ số"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "Tỷ lệ báo cáo"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Chọn ít nhất {{number}} thời điểm hoặc 1 đa thời điểm"
 
-msgid "Event data items"
-msgstr "Mục dữ liệu sự kiện"
-
-msgid "Program indicators"
-msgstr "Chỉ Số Chương Trình"
-
-msgid "Calculations"
-msgstr "Tính toán"
-
-msgid "Item type"
-msgstr "Kiểu mục"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Chọn thời điểm khi các cá thể được cập nhật lần cuối"
@@ -679,9 +698,6 @@ msgstr "Tải dữ liệu không thành công."
 
 msgid "External layer"
 msgstr "Lớp bên ngoài"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
 
 msgid "Failed to load layer"
 msgstr "Không tải được lớp"
@@ -977,11 +993,14 @@ msgstr "Năm sau"
 msgid "Start/end dates"
 msgstr "Ngày bắt đầu/kết thúc"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Chọn ít nhất {{number}} thời điểm hoặc 1 đa thời điểm"
+msgid "Remove all split layers to add a single layer."
+msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Xóa dòng thời gian hiện tại để thêm dòng thời gian mới."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -989,9 +1008,6 @@ msgid ""
 msgstr ""
 "Chỉ đến tổng của {{number}} thời điểm (bao gồm đa thời điểm) có thể được "
 "chọn."
-
-msgid "Remove all other layers to add a split map view."
-msgstr "Xóa tất cả các lớp khác để thêm chế độ xem bản đồ chia đôi."
 
 msgid "Single"
 msgstr "Đơn lẻ"
@@ -1012,9 +1028,6 @@ msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr ""
 "Hiển thị nhiều bản đồ trong chế độ xem, một bản đồ cho mỗi giai đoạn (tối đa"
 " {{number}}). "
-
-msgid "Period display mode"
-msgstr "Chế độ hiển thị thời điểm"
 
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."

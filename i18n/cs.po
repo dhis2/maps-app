@@ -1,11 +1,10 @@
-# 
 # Translators:
 # Jiří Podhorecký <jirka.p@volny.cz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
+"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -514,6 +513,33 @@ msgstr "Vyberte si z předvoleb"
 msgid "Define start - end dates"
 msgstr "Definujte počáteční a koncová data"
 
+msgid "Choose periods for all timeline layers"
+msgstr ""
+
+msgid "Selection is initialized from shared periods"
+msgstr ""
+
+msgid "Choose periods for all split layers"
+msgstr ""
+
+msgid "Indicator"
+msgstr "Indikátor"
+
+msgid "Reporting rates"
+msgstr "Míry vykazování"
+
+msgid "Event data items"
+msgstr "Položky dat události"
+
+msgid "Program indicators"
+msgstr "Ukazatele programu"
+
+msgid "Calculations"
+msgstr "Výpočty"
+
+msgid "Item type"
+msgstr "Typ položky"
+
 msgid "Indicator group is required"
 msgstr "Je vyžadována skupina indikátorů"
 
@@ -541,23 +567,16 @@ msgstr "Je vyžadován výpočet"
 msgid "Period is required"
 msgstr "Období je vyžadováno"
 
-msgid "Indicator"
-msgstr "Indikátor"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "Míry vykazování"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Event data items"
-msgstr "Položky dat události"
-
-msgid "Program indicators"
-msgstr "Ukazatele programu"
-
-msgid "Calculations"
-msgstr "Výpočty"
-
-msgid "Item type"
-msgstr "Typ položky"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Vyberte období, kdy byly trasované entity naposledy aktualizovány"
@@ -676,9 +695,6 @@ msgstr "Stažení dat se nezdařilo."
 
 msgid "External layer"
 msgstr "Vnější vrstva"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr "Rozdělené zobrazení nelze kombinovat s jinými typy vrstev."
 
 msgid "Failed to load layer"
 msgstr "Nepodařilo se načíst vrstvu"
@@ -975,19 +991,19 @@ msgstr "Příští rok"
 msgid "Start/end dates"
 msgstr "Datum zahájení / ukončení"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Odeberte stávající časovou osu a přidejte novou."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 msgstr ""
-
-msgid "Remove all other layers to add a split map view."
-msgstr "Odstraňte všechny ostatní vrstvy a přidejte rozdělené zobrazení mapy."
 
 msgid "Single"
 msgstr ""
@@ -1005,9 +1021,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
