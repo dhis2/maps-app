@@ -3691,13 +3691,23 @@
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
-"@turf/centroid@7.3.3", "@turf/centroid@^7.3.3":
+"@turf/centroid@7.3.3":
   version "7.3.3"
   resolved "https://registry.yarnpkg.com/@turf/centroid/-/centroid-7.3.3.tgz#8c32af4313fb791705add92665230a551f6398c1"
   integrity sha512-3vWLnF1CksLk7xTUH11IzOQJ6fOoj7zhuL8M3GTxcKruVkGat/vIm3Ye5b68sDVcE5nFDA2pYjjbL7Rfmn3/GQ==
   dependencies:
     "@turf/helpers" "7.3.3"
     "@turf/meta" "7.3.3"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
+"@turf/centroid@^7.3.4":
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/@turf/centroid/-/centroid-7.3.4.tgz#8c2722075721a04940fa0492287b54fadbca4bb6"
+  integrity sha512-6c3kyTSKBrmiPMe75UkHw6MgedroZ6eR5usEvdlDhXgA3MudFPXIZkMFmMd1h9XeJ9xFfkmq+HPCdF0cOzvztA==
+  dependencies:
+    "@turf/helpers" "7.3.4"
+    "@turf/meta" "7.3.4"
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
@@ -3759,6 +3769,14 @@
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
+"@turf/helpers@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-7.3.4.tgz#a8c918981599dddcf452421c7b307c5832d05f02"
+  integrity sha512-U/S5qyqgx3WTvg4twaH0WxF3EixoTCfDsmk98g1E3/5e2YKp7JKYZdz0vivsS5/UZLJeZDEElOSFH4pUgp+l7g==
+  dependencies:
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
 "@turf/invariant@7.3.3":
   version "7.3.3"
   resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-7.3.3.tgz#e8c96e200de92df26ef0619290916583c4fcdf66"
@@ -3792,6 +3810,15 @@
   integrity sha512-Tz1j4h70iFB5SebWWoVv/uL59x4aOngXU+d1xQDXzOCn/O6txnreGVGMcYU362c5F06yqZx38H9UFTQ553lK0w==
   dependencies:
     "@turf/helpers" "7.3.3"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
+"@turf/meta@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-7.3.4.tgz#8e917d29de9da96a0f95f3f16119ba9abde7dee6"
+  integrity sha512-tlmw9/Hs1p2n0uoHVm1w3ugw1I6L8jv9YZrcdQa4SH5FX5UY0ATrKeIvfA55FlL//PGuYppJp+eyg/0eb4goqw==
+  dependencies:
+    "@turf/helpers" "7.3.4"
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
