@@ -98,3 +98,9 @@ export const dimConf = {
         objectName: 'value',
     },
 }
+
+Object.values(dimConf).forEach((v) => {
+    if (v.itemType) {
+        dimConf[v.itemType] = v
+    }
+})

@@ -1,4 +1,4 @@
-import { PeriodDimension } from '@dhis2/analytics'
+import { DataDimension, PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -85,6 +85,7 @@ const ThematicDialog = ({
     program,
     noDataColor,
     periodsSettings,
+    currentUser,
     validateLayer,
     onLayerValidation,
     indicatorGroup,
@@ -103,6 +104,8 @@ const ThematicDialog = ({
         syncFromOtherLayers,
         syncToOtherLayers,
     } = useLayersPeriodSync()
+    //const displayProperty = useSelector((state) => state.settings.displayProperty)
+    console.log('🚀 ~ ThematicDialog ~ currentUser:')
 
     // State management
     // -----
@@ -118,6 +121,7 @@ const ThematicDialog = ({
     const prevValidateLayer = usePrevious(validateLayer)
 
     const dataItem = useMemo(() => getDataItemFromColumns(columns), [columns])
+    console.log('🚀 ~ ThematicDialog ~ dataItem:', dataItem)
     const periods = useMemo(() => getPeriodsFromFilters(filters), [filters])
     const dimensions = useMemo(
         () => getDimensionsFromFilters(filters),
@@ -364,6 +368,9 @@ const ThematicDialog = ({
     return (
         <div className={styles.content} data-test="thematicdialog">
             <Tabs value={tab} onChange={setTab}>
+                <Tab value="datanew" dataTest="thematicdialog-tabs-datanew">
+                    {i18n.t('Data New')}
+                </Tab>
                 <Tab value="data" dataTest="thematicdialog-tabs-data">
                     {i18n.t('Data')}
                 </Tab>
@@ -381,6 +388,35 @@ const ThematicDialog = ({
                 </Tab>
             </Tabs>
             <div className={styles.tabContent}>
+                {tab === 'datanew' && (
+                    <div
+                        className={cx(
+                            styles.navigation2
+                            //styles.periodBox
+                        )}
+                    >
+                        <DataDimension
+                            //enabledDataTypes={dataTypes}
+                            displayNameProp={
+                                currentUser.keyAnalysisDisplayProperty
+                            }
+                            selectedDimensions={dataItem ? [dataItem] : []}
+                            //infoBoxMessage={infoBoxMessage}
+                            onSelect={(v) => {
+                                console.log('🚀 ~ ThematicDialog ~ v:', v)
+                                console.log(v.items)
+                                const w = v.items.at(-1)
+                                dispatch(setDataItem(w, w.type))
+                            }}
+                            onCalculationSave={(s) => {
+                                console.log(s)
+                            }}
+                            maxSelections={1}
+                            //visType={visType}
+                        />
+                    </div>
+                )}
+
                 {tab === 'data' && (
                     <div
                         className={styles.flexRowFlow}
@@ -448,9 +484,14 @@ const ThematicDialog = ({
                                     <DataElementSelect
                                         dataElementGroup={dataElementGroup}
                                         dataElement={dataItem}
-                                        onChange={(v, t) =>
-                                            dispatch(setDataItem(v, t))
-                                        }
+                                        onChange={(v, t) => {
+                                            console.log(
+                                                '🚀 ~ ThematicDialog ~ v, t:',
+                                                v,
+                                                t
+                                            )
+                                            return dispatch(setDataItem(v, t))
+                                        }}
                                         className={styles.select}
                                         errorText={errors.dataElementError}
                                     />
@@ -678,6 +719,7 @@ const ThematicDialog = ({
 ThematicDialog.propTypes = {
     backupPeriodsDates: PropTypes.object,
     columns: PropTypes.array,
+    currentUser: PropTypes.object,
     dataElementGroup: PropTypes.object,
     endDate: PropTypes.string,
     filters: PropTypes.array,

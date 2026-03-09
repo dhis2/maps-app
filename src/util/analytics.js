@@ -30,6 +30,7 @@ export const getDataItemFromColumns = (columns = []) =>
     getDimensionItems('dx', columns)[0]
 
 export const setDataItemInColumns = (dataItem, dimension) => {
+    console.log('🚀 ~ setDataItemInColumns ~ dimConf:', dimConf)
     const dim = dimConf[dimension]
     return dim
         ? [

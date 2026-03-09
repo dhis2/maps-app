@@ -127,6 +127,18 @@
     margin-bottom: var(--spacers-dp8);
 }
 
+.navigation2 {
+    height: 400px;
+    width: 96%;
+    padding-left: 12px;
+    margin-left: 12px;
+}
+
+.navigation2 > * {
+    min-height: 0 !important;
+    min-width: 0 !important;
+}
+
 .background {
     background-color: var(--colors-grey100);
     padding: var(--spacers-dp8);
