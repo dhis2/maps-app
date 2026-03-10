@@ -367,9 +367,6 @@ const ThematicDialog = ({
         <div className={styles.content} data-test="thematicdialog">
             <Tabs value={tab} onChange={setTab}>
                 <Tab value="datanew" dataTest="thematicdialog-tabs-datanew">
-                    {i18n.t('Data New')}
-                </Tab>
-                <Tab value="data" dataTest="thematicdialog-tabs-data">
                     {i18n.t('Data')}
                 </Tab>
                 <Tab value="period" dataTest="thematicdialog-tabs-period">
@@ -387,26 +384,44 @@ const ThematicDialog = ({
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'datanew' && (
-                    <div
-                        className={styles.navigation2}
-                        data-test="thematicdialog-datatab"
-                    >
-                        <DataDimension
-                            displayNameProp={
-                                currentUser.keyAnalysisDisplayProperty
-                            }
-                            selectedDimensions={dataItem ? [dataItem] : []}
-                            onSelect={(v) => {
-                                console.log('🚀 ~ ThematicDialog ~ v:', v)
-                                console.log(v.items)
-                                const w = v.items.at(-1)
-                                dispatch(setDataItem(w, w.type))
-                            }}
-                            onCalculationSave={(s) => {
-                                console.log(s)
-                            }}
-                            height="410px"
-                        />
+                    <div data-test="thematicdialog-datatab">
+                        <div className={styles.flexRowFlow}>
+                            <div className={styles.navigation2}>
+                                <DataDimension
+                                    displayNameProp={
+                                        currentUser.keyAnalysisDisplayProperty
+                                    }
+                                    selectedDimensions={
+                                        dataItem
+                                            ? [
+                                                  {
+                                                      ...dataItem,
+                                                      type: dataItem.dimensionItemType,
+                                                  },
+                                              ]
+                                            : []
+                                    }
+                                    onSelect={(v) => {
+                                        console.log(
+                                            '🚀 ~ ThematicDialog ~ v:',
+                                            v
+                                        )
+                                        console.log(v.items)
+                                        const w =
+                                            v.items.length > 0
+                                                ? v.items.at(-1)
+                                                : {}
+                                        dispatch(setDataItem(w, w.type))
+                                    }}
+                                    onCalculationSave={(s) => {
+                                        console.log(s)
+                                    }}
+                                    height="410px"
+                                    heightCalculation="375px"
+                                    maxSelections={1}
+                                />
+                            </div>
+                        </div>
 
                         <div
                             className={cx(

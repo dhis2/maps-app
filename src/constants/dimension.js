@@ -58,6 +58,12 @@ export const dimConf = {
         objectName: 'di',
         itemType: 'PROGRAM_ATTRIBUTE',
     },
+    programAttributeOption: {
+        value: 'programAttribute',
+        dimensionName: 'dx',
+        objectName: 'di',
+        itemType: 'PROGRAM_ATTRIBUTE_OPTION',
+    },
     programIndicator: {
         value: 'programIndicator',
         dimensionName: 'dx',

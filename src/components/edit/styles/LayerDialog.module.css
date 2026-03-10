@@ -127,12 +127,6 @@
     margin-bottom: var(--spacers-dp8);
 }
 
-.navigation2 {
-    width: 96%;
-    padding-left: 12px;
-    margin-left: 12px;
-}
-
 .navigation2 > * {
     min-height: 0 !important;
     min-width: 0 !important;
