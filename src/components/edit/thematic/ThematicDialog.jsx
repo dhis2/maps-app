@@ -104,8 +104,6 @@ const ThematicDialog = ({
         syncFromOtherLayers,
         syncToOtherLayers,
     } = useLayersPeriodSync()
-    //const displayProperty = useSelector((state) => state.settings.displayProperty)
-    console.log('🚀 ~ ThematicDialog ~ currentUser:')
 
     // State management
     // -----
@@ -390,18 +388,14 @@ const ThematicDialog = ({
             <div className={styles.tabContent}>
                 {tab === 'datanew' && (
                     <div
-                        className={cx(
-                            styles.navigation2
-                            //styles.periodBox
-                        )}
+                        className={styles.navigation2}
+                        data-test="thematicdialog-datatab"
                     >
                         <DataDimension
-                            //enabledDataTypes={dataTypes}
                             displayNameProp={
                                 currentUser.keyAnalysisDisplayProperty
                             }
                             selectedDimensions={dataItem ? [dataItem] : []}
-                            //infoBoxMessage={infoBoxMessage}
                             onSelect={(v) => {
                                 console.log('🚀 ~ ThematicDialog ~ v:', v)
                                 console.log(v.items)
@@ -411,9 +405,24 @@ const ThematicDialog = ({
                             onCalculationSave={(s) => {
                                 console.log(s)
                             }}
-                            maxSelections={1}
-                            //visType={visType}
+                            height="410px"
                         />
+
+                        <div
+                            className={cx(
+                                styles.flexColumnFlow,
+                                styles.dataOptions
+                            )}
+                        >
+                            <div className={styles.flexColumn}>
+                                <AggregationTypeSelect
+                                    className={styles.select}
+                                />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                <CompletedOnlyCheckbox valueType={valueType} />
+                            </div>
+                        </div>
                     </div>
                 )}
 

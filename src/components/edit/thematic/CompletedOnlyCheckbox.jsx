@@ -30,15 +30,18 @@ const CompletedOnlyCheckbox = ({
     }, [completedOnly, hasEventData, setEventStatus])
 
     return hasEventData ? (
-        <Checkbox
-            label={i18n.t('Only show completed events')}
-            checked={completedOnly}
-            onChange={(isChecked) =>
-                setEventStatus(
-                    isChecked ? EVENT_STATUS_COMPLETED : EVENT_STATUS_ALL
-                )
-            }
-        />
+        <>
+            <span style={{ marginBottom: '-12px' }}>Event data</span>
+            <Checkbox
+                label={i18n.t('Only show completed events')}
+                checked={completedOnly}
+                onChange={(isChecked) =>
+                    setEventStatus(
+                        isChecked ? EVENT_STATUS_COMPLETED : EVENT_STATUS_ALL
+                    )
+                }
+            />
+        </>
     ) : null
 }
 
