@@ -40,6 +40,7 @@ context('Thematic Layers', () => {
 
     it('shows error in layer edit modal if no indicator selected', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .addToMap()
 
@@ -49,6 +50,7 @@ context('Thematic Layers', () => {
 
     it('shows error in layer edit modal if no period selected', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -99,6 +101,7 @@ context('Thematic Layers', () => {
 
         // Choropleth
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -158,6 +161,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer for OU Bombali', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -175,7 +179,7 @@ context('Thematic Layers', () => {
 
     it('adds user sub-units and a Chiefdom OU', () => {
         Layer.openDialog('Thematic')
-            .selectItemType('Data element')
+            .selectItemType('Data elements')
             .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .selectTab('Org Units')
@@ -201,6 +205,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with start and end date', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -222,6 +227,7 @@ context('Thematic Layers', () => {
 
     it('opens a thematic layer popup with data and nodata', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('Stock')
             .selectIndicator('BCG Stock PHU')
             .selectTab('Period')
@@ -270,7 +276,7 @@ context('Thematic Layers', () => {
             parseFloat(text.replace('Value: ', ''))
 
         Layer.openDialog('Thematic')
-            .selectItemType('Data element')
+            .selectItemType('Data elements')
             .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .selectTab('Period')
@@ -412,6 +418,7 @@ context('Thematic Layers', () => {
 
     it('adds two thematic layer with timeline period', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)
             .selectTab('Period')
@@ -450,6 +457,7 @@ context('Thematic Layers', () => {
             .should('have.length', 1)
 
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Org Units')
@@ -539,6 +547,7 @@ context('Thematic Layers', () => {
     it('adds two thematic layer with split view period', () => {
         // add a first layer
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)
             .selectTab('Org Units')
@@ -574,6 +583,7 @@ context('Thematic Layers', () => {
 
         // add a second layer
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Org Units')
@@ -710,7 +720,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer for data element', () => {
         Layer.openDialog('Thematic')
-            .selectItemType('Data element')
+            .selectItemType('Data elements')
             .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .addToMap()
@@ -729,6 +739,7 @@ context('Thematic Layers', () => {
         cy.visit('/')
 
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -775,6 +786,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with a filter', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
             .selectTab('Filter')
