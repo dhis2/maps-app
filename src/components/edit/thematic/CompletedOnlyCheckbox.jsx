@@ -14,7 +14,7 @@ const CompletedOnlyCheckbox = ({ completedOnly, setEventStatus }) => {
         if (completedOnly) {
             setEventStatus(EVENT_STATUS_ALL)
         }
-    }, [completedOnly, setEventStatus])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Checkbox

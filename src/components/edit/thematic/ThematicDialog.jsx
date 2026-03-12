@@ -100,7 +100,6 @@ const ThematicDialog = ({
     const prevValidateLayer = usePrevious(validateLayer)
 
     const dataItem = useMemo(() => getDataItemFromColumns(columns), [columns])
-    console.log('🚀 ~ ThematicDialog ~ dataItem:', dataItem)
     const periods = useMemo(() => getPeriodsFromFilters(filters), [filters])
     const dimensions = useMemo(
         () => getDimensionsFromFilters(filters),
@@ -367,71 +366,39 @@ const ThematicDialog = ({
                 {tab === 'data' && (
                     <div data-test="thematicdialog-datatab">
                         <div className={styles.flexRowFlow}>
-                            <div className={styles.navigation2}>
-                                <DataDimension
-                                    displayNameProp={
-                                        currentUser.keyAnalysisDisplayProperty
-                                    }
-                                    selectedDimensions={
-                                        dataItem
-                                            ? [
-                                                  {
-                                                      ...dataItem,
-                                                      type: dataItem.dimensionItemType,
-                                                  },
-                                              ]
-                                            : []
-                                    }
-                                    onSelect={(v) => {
-                                        console.log(
-                                            '🚀 ~ ThematicDialog ~ v:',
-                                            v
-                                        )
-                                        console.log(v.items)
-                                        const w =
-                                            v.items.length > 0
-                                                ? v.items.at(-1)
-                                                : {}
-                                        dispatch(setDataItem(w, w.type))
-                                    }}
-                                    onCalculationSave={(s) => {
-                                        console.log(s)
-                                    }}
-                                    height="398px"
-                                    heightCalculation="375px"
-                                    maxSelections={1}
-                                />
-                            </div>
+                            <DataDimension
+                                displayNameProp={
+                                    currentUser.keyAnalysisDisplayProperty
+                                }
+                                selectedDimensions={
+                                    dataItem
+                                        ? [
+                                              {
+                                                  ...dataItem,
+                                                  type: dataItem.dimensionItemType,
+                                              },
+                                          ]
+                                        : []
+                                }
+                                onSelect={({ items }) => {
+                                    const selected = items.at(-1) ?? {}
+                                    dispatch(
+                                        setDataItem(selected, selected.type)
+                                    )
+                                }}
+                                onCalculationSave={() => null}
+                                height="408px"
+                                heightCalculation="375px"
+                                maxSelections={1}
+                            />
                         </div>
 
                         <div className={cx(styles.dataOptions)}>
-                            <div
-                                className={styles.flexRowFlow}
-                                style={{
-                                    fontSize: '14px',
-                                    fontWeight: 500,
-                                    marginBottom: '4px',
-                                }}
-                            >
-                                Options
-                            </div>
-                            <div className={styles.flexColumnFlow}>
-                                <div className={styles.flexColumn}>
-                                    <AggregationTypeSelect
-                                        className={styles.select}
-                                    />
-                                </div>
-                                <div
-                                    className={styles.flexColumn}
-                                    style={{
-                                        paddingLeft: '4px',
-                                        height: '32px',
-                                        border: '0px solid rgb(160, 173, 186)',
-                                        borderRadius: '3px',
-                                    }}
-                                >
-                                    <CompletedOnlyCheckbox />
-                                </div>
+                            <div className={styles.flexColumn}>
+                                <AggregationTypeSelect
+                                    className={styles.select}
+                                />
+                                <CompletedOnlyCheckbox />
                             </div>
                         </div>
                     </div>
@@ -479,10 +446,10 @@ const ThematicDialog = ({
                                                 },
                                             ]}
                                             selected={periodType}
-                                            onChange={(e) =>
+                                            onChange={({ value }) =>
                                                 dispatch(
                                                     setPeriodType(
-                                                        { value: e.value },
+                                                        { value },
                                                         true
                                                     )
                                                 )
@@ -517,8 +484,8 @@ const ThematicDialog = ({
                             {periodType === PREDEFINED_PERIODS && (
                                 <PeriodDimension
                                     selectedPeriods={periods}
-                                    onSelect={(e) =>
-                                        dispatch(setPeriods(e.items))
+                                    onSelect={({ items }) =>
+                                        dispatch(setPeriods(items))
                                     }
                                     excludedPeriodTypes={
                                         systemSettings.hiddenPeriods

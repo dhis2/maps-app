@@ -127,15 +127,9 @@
     margin-bottom: var(--spacers-dp8);
 }
 
-.navigation2 > * {
-    min-height: 0 !important;
-    min-width: 0 !important;
-}
-
 .dataOptions {
     margin-top: var(--spacers-dp8);
-    padding: var(--spacers-dp8);
-    background-color: var(--colors-grey100);
+    padding-top: var(--spacers-dp8);
 }
 
 .background {
