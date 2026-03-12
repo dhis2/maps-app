@@ -13,7 +13,7 @@
 }
 
 .tabContent {
-    width: calc(100% + var(--spacers-dp32));
+    width: 936px;
     margin: var(--spacers-dp12) calc(var(--spacers-dp16) * -1) 0;
     height: min(548px, 100%);
     overflow-y: auto;
@@ -133,7 +133,9 @@
 }
 
 .dataOptions {
-    padding-top: var(--spacers-dp12);
+    margin-top: var(--spacers-dp8);
+    padding: var(--spacers-dp8);
+    background-color: var(--colors-grey100);
 }
 
 .background {

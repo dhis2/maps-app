@@ -8,21 +8,15 @@ import { useDispatch } from 'react-redux'
 import {
     setClassification,
     setDataItem,
-    setDataElementGroup,
-    setIndicatorGroup,
     setLegendSet,
     setNoDataColor,
-    setOperand,
     setPeriods,
     setStartDate,
     setEndDate,
     setBackupPeriodsDates,
     setPeriodType,
     setRenderingStrategy,
-    setProgram,
-    setValueType,
 } from '../../../actions/layerEdit.js'
-import { dimConf } from '../../../constants/dimension.js'
 import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
@@ -41,23 +35,12 @@ import {
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
-import CalculationSelect from '../../calculations/CalculationSelect.jsx'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs } from '../../core/index.js'
-import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect.jsx'
-import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect.jsx'
-import DataElementSelect from '../../dataElement/DataElementSelect.jsx'
-import TotalsDetailsSelect from '../../dataElement/TotalsDetailsSelect.jsx'
-import EventDataItemSelect from '../../dataItem/EventDataItemSelect.jsx'
-import DataSetsSelect from '../../dataSets/DataSetsSelect.jsx'
 import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
-import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.jsx'
-import IndicatorSelect from '../../indicator/IndicatorSelect.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
-import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect.jsx'
-import ProgramSelect from '../../program/ProgramSelect.jsx'
 import Labels from '../shared/Labels.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
@@ -67,7 +50,6 @@ import NoDataColor from './NoDataColor.jsx'
 import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
 import { validateThematicLayer } from './validateThematicLayer.js'
-import ValueTypeSelect from './ValueTypeSelect.jsx'
 
 const ThematicDialog = ({
     columns,
@@ -95,7 +77,6 @@ const ThematicDialog = ({
     radiusHigh,
     method,
     thematicMapType,
-    operand,
 }) => {
     const dispatch = useDispatch()
     const {
@@ -366,7 +347,7 @@ const ThematicDialog = ({
     return (
         <div className={styles.content} data-test="thematicdialog">
             <Tabs value={tab} onChange={setTab}>
-                <Tab value="datanew" dataTest="thematicdialog-tabs-datanew">
+                <Tab value="data" dataTest="thematicdialog-tabs-data">
                     {i18n.t('Data')}
                 </Tab>
                 <Tab value="period" dataTest="thematicdialog-tabs-period">
@@ -383,7 +364,7 @@ const ThematicDialog = ({
                 </Tab>
             </Tabs>
             <div className={styles.tabContent}>
-                {tab === 'datanew' && (
+                {tab === 'data' && (
                     <div data-test="thematicdialog-datatab">
                         <div className={styles.flexRowFlow}>
                             <div className={styles.navigation2}>
@@ -416,173 +397,43 @@ const ThematicDialog = ({
                                     onCalculationSave={(s) => {
                                         console.log(s)
                                     }}
-                                    height="410px"
+                                    height="398px"
                                     heightCalculation="375px"
                                     maxSelections={1}
                                 />
                             </div>
                         </div>
 
-                        <div
-                            className={cx(
-                                styles.flexColumnFlow,
-                                styles.dataOptions
-                            )}
-                        >
-                            <div className={styles.flexColumn}>
-                                <AggregationTypeSelect
-                                    className={styles.select}
-                                />
+                        <div className={cx(styles.dataOptions)}>
+                            <div
+                                className={styles.flexRowFlow}
+                                style={{
+                                    fontSize: '14px',
+                                    fontWeight: 500,
+                                    marginBottom: '4px',
+                                }}
+                            >
+                                Options
                             </div>
-                            <div className={styles.flexColumn}>
-                                <CompletedOnlyCheckbox valueType={valueType} />
+                            <div className={styles.flexColumnFlow}>
+                                <div className={styles.flexColumn}>
+                                    <AggregationTypeSelect
+                                        className={styles.select}
+                                    />
+                                </div>
+                                <div
+                                    className={styles.flexColumn}
+                                    style={{
+                                        paddingLeft: '4px',
+                                        height: '32px',
+                                        border: '0px solid rgb(160, 173, 186)',
+                                        borderRadius: '3px',
+                                    }}
+                                >
+                                    <CompletedOnlyCheckbox />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
-
-                {tab === 'data' && (
-                    <div
-                        className={styles.flexRowFlow}
-                        data-test="thematicdialog-datatab"
-                    >
-                        <ValueTypeSelect
-                            value={valueType}
-                            className={styles.select}
-                            onChange={(v) => dispatch(setValueType(v))}
-                        />
-                        {(!valueType ||
-                            valueType === dimConf.indicator.objectName) && (
-                            <>
-                                <IndicatorGroupSelect
-                                    indicatorGroup={indicatorGroup}
-                                    onChange={(v) =>
-                                        dispatch(setIndicatorGroup(v))
-                                    }
-                                    className={styles.select}
-                                    errorText={errors.indicatorGroupError}
-                                />
-                                <IndicatorSelect
-                                    indicatorGroup={indicatorGroup}
-                                    indicator={dataItem}
-                                    onChange={(v, t) =>
-                                        dispatch(setDataItem(v, t))
-                                    }
-                                    className={styles.select}
-                                    errorText={errors.indicatorError}
-                                />
-                            </>
-                        )}
-                        {(valueType === dimConf.dataElement.objectName ||
-                            valueType === dimConf.operand.objectName) && (
-                            <>
-                                <DataElementGroupSelect
-                                    dataElementGroup={dataElementGroup}
-                                    onChange={(v) =>
-                                        dispatch(setDataElementGroup(v))
-                                    }
-                                    className={styles.select}
-                                    errorText={errors.dataElementGroupError}
-                                />
-                                {dataElementGroup && (
-                                    <TotalsDetailsSelect
-                                        operand={operand}
-                                        onChange={(v) =>
-                                            dispatch(setOperand(v))
-                                        }
-                                        className={styles.select}
-                                    />
-                                )}
-                                {operand ||
-                                valueType === dimConf.operand.objectName ? (
-                                    <DataElementOperandSelect
-                                        dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={(v, t) =>
-                                            dispatch(setDataItem(v, t))
-                                        }
-                                        className={styles.select}
-                                        errorText={errors.dataElementError}
-                                    />
-                                ) : (
-                                    <DataElementSelect
-                                        dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={(v, t) => {
-                                            console.log(
-                                                '🚀 ~ ThematicDialog ~ v, t:',
-                                                v,
-                                                t
-                                            )
-                                            return dispatch(setDataItem(v, t))
-                                        }}
-                                        className={styles.select}
-                                        errorText={errors.dataElementError}
-                                    />
-                                )}
-                            </>
-                        )}
-                        {valueType === dimConf.dataSet.objectName && (
-                            <DataSetsSelect
-                                dataSet={dataItem}
-                                onChange={(v, t) => dispatch(setDataItem(v, t))}
-                                className={styles.select}
-                                errorText={errors.dataSetError}
-                            />
-                        )}
-                        {valueType === dimConf.eventDataItem.objectName && (
-                            <>
-                                <ProgramSelect
-                                    program={program}
-                                    onChange={(v) => dispatch(setProgram(v))}
-                                    className={styles.select}
-                                    errorText={errors.programError}
-                                />
-                                {program && (
-                                    <EventDataItemSelect
-                                        program={program}
-                                        dataItem={dataItem}
-                                        onChange={(v, t) =>
-                                            dispatch(setDataItem(v, t))
-                                        }
-                                        className={styles.select}
-                                        errorText={errors.eventDataItemError}
-                                    />
-                                )}
-                            </>
-                        )}
-                        {valueType === dimConf.programIndicator.objectName && (
-                            <>
-                                <ProgramSelect
-                                    program={program}
-                                    onChange={(v) => dispatch(setProgram(v))}
-                                    className={styles.select}
-                                    errorText={errors.programError}
-                                />
-                                {program && (
-                                    <ProgramIndicatorSelect
-                                        program={program}
-                                        programIndicator={dataItem}
-                                        onChange={(v, t) =>
-                                            dispatch(setDataItem(v, t))
-                                        }
-                                        className={styles.select}
-                                        errorText={errors.programIndicatorError}
-                                    />
-                                )}
-                            </>
-                        )}
-                        {valueType === dimConf.calculation.objectName && (
-                            <CalculationSelect
-                                calculation={dataItem}
-                                onChange={(v, t) => dispatch(setDataItem(v, t))}
-                                className={styles.select}
-                                errorText={errors.calculationError}
-                            />
-                        )}
-
-                        <AggregationTypeSelect className={styles.select} />
-                        <CompletedOnlyCheckbox valueType={valueType} />
                     </div>
                 )}
 
@@ -752,7 +603,6 @@ ThematicDialog.propTypes = {
     legendSet: PropTypes.object,
     method: PropTypes.number,
     noDataColor: PropTypes.string,
-    operand: PropTypes.bool,
     orgUnits: PropTypes.object,
     periodType: PropTypes.string,
     periodsSettings: PropTypes.object,
