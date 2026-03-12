@@ -1,3 +1,4 @@
+import { ThematicLayer } from '../elements/thematic_layer.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const map = {
@@ -17,7 +18,7 @@ describe('keyboard navigation', () => {
         // StartEndDate
         cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click()
 
-        cy.get(`[data-test="addlayeritem-thematic"]`).click()
+        cy.getByDataTest('addlayeritem-thematic').click()
         cy.getByDataTest('layeredit').should('be.visible')
 
         cy.getByDataTest('dhis2-uicore-tabbar-tabs')
@@ -70,10 +71,10 @@ describe('keyboard navigation', () => {
         // Layer edit
         cy.getByDataTest('layer-edit-button').click()
         cy.getByDataTest('layeredit').should('be.visible')
-        cy.get('[data-test="indicatorgroupselect"]').click()
-        cy.contains(alt.group).click()
-        cy.get('[data-test="indicatorselect"]').click()
-        cy.contains(alt.name).click()
+        const ThemLayer = new ThematicLayer()
+        ThemLayer.selectItemType('Indicators')
+            .selectIndicatorGroup(alt.group)
+            .selectIndicator(alt.name)
         cy.realPress('Escape')
         cy.getByDataTest('layeredit').should('not.exist')
         cy.getByDataTest('layercard')
