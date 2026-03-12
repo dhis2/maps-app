@@ -64,14 +64,11 @@ const ThematicDialog = ({
     periodType,
     renderingStrategy,
     id,
-    program,
     noDataColor,
     periodsSettings,
     currentUser,
     validateLayer,
     onLayerValidation,
-    indicatorGroup,
-    dataElementGroup,
     legendSet,
     radiusLow,
     radiusHigh,
@@ -129,6 +126,16 @@ const ThematicDialog = ({
 
     // Changes handling
     // -----
+
+    // Data item
+    useEffect(() => {
+        if (dataItem) {
+            setErrors((prev) => ({
+                ...prev,
+                dataError: null,
+            }))
+        }
+    }, [dataItem])
 
     // Handle classification and legend
     useEffect(() => {
@@ -283,11 +290,7 @@ const ThematicDialog = ({
     // Layer validation function
     const validate = useCallback(() => {
         return validateThematicLayer({
-            valueType,
-            indicatorGroup,
-            dataElementGroup,
             dataItem,
-            program,
             periodType,
             startDate,
             endDate,
@@ -300,11 +303,7 @@ const ThematicDialog = ({
             periods,
         })
     }, [
-        valueType,
-        indicatorGroup,
-        dataElementGroup,
         dataItem,
-        program,
         periodType,
         startDate,
         endDate,
@@ -393,12 +392,25 @@ const ThematicDialog = ({
                             />
                         </div>
 
-                        <div className={cx(styles.dataOptions)}>
+                        <div className={styles.flexColumnFlow}>
                             <div className={styles.flexColumn}>
-                                <AggregationTypeSelect
-                                    className={styles.select}
-                                />
-                                <CompletedOnlyCheckbox />
+                                <div className={cx(styles.dataOptions)}>
+                                    <AggregationTypeSelect
+                                        className={styles.select}
+                                    />
+                                    <CompletedOnlyCheckbox />
+                                </div>
+                            </div>
+                            <div className={styles.flexColumn}>
+                                {errors.dataError && (
+                                    <div
+                                        className={styles.error}
+                                        style={{ paddingLeft: '110px' }}
+                                    >
+                                        <IconErrorFilled24 />
+                                        {errors.dataError}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -505,7 +517,10 @@ const ThematicDialog = ({
                                 />
                             )}
                             {errors.periodError && (
-                                <div className={styles.error}>
+                                <div
+                                    className={styles.error}
+                                    style={{ paddingLeft: '474px' }}
+                                >
                                     <IconErrorFilled24 />
                                     {errors.periodError}
                                 </div>
@@ -562,18 +577,15 @@ ThematicDialog.propTypes = {
     backupPeriodsDates: PropTypes.object,
     columns: PropTypes.array,
     currentUser: PropTypes.object,
-    dataElementGroup: PropTypes.object,
     endDate: PropTypes.string,
     filters: PropTypes.array,
     id: PropTypes.string,
-    indicatorGroup: PropTypes.object,
     legendSet: PropTypes.object,
     method: PropTypes.number,
     noDataColor: PropTypes.string,
     orgUnits: PropTypes.object,
     periodType: PropTypes.string,
     periodsSettings: PropTypes.object,
-    program: PropTypes.object,
     radiusHigh: PropTypes.number,
     radiusLow: PropTypes.number,
     renderingStrategy: PropTypes.string,

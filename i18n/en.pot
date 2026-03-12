@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-12T12:22:48.343Z\n"
-"PO-Revision-Date: 2026-03-12T12:22:48.343Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"PO-Revision-Date: 2026-03-12T18:11:56.380Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -479,29 +479,8 @@ msgstr "Selection is initialized from shared periods"
 msgid "Choose periods for all split layers"
 msgstr "Choose periods for all split layers"
 
-msgid "Indicator group is required"
-msgstr "Indicator group is required"
-
-msgid "Indicator is required"
-msgstr "Indicator is required"
-
-msgid "Data element group is required"
-msgstr "Data element group is required"
-
-msgid "Data element is required"
-msgstr "Data element is required"
-
-msgid "Data set is required"
-msgstr "Data set is required"
-
-msgid "Event data item is required"
-msgstr "Event data item is required"
-
-msgid "Program indicator is required"
-msgstr "Program indicator is required"
-
-msgid "Calculation is required"
-msgstr "Calculation is required"
+msgid "Data is required"
+msgstr "Data is required"
 
 msgid "Period is required"
 msgstr "Period is required"

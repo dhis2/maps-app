@@ -128,8 +128,7 @@
 }
 
 .dataOptions {
-    margin-top: var(--spacers-dp8);
-    padding-top: var(--spacers-dp8);
+    padding-top: var(--spacers-dp16);
 }
 
 .background {
