@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
-import { EVENT_LAYER } from '../constants/layers.js'
+import { THEMATIC_LAYER, EVENT_LAYER } from '../constants/layers.js'
 import earthEngineLoader from '../loaders/earthEngineLoader.js'
 import eventLoader from '../loaders/eventLoader.js'
 import externalLoader from '../loaders/externalLoader.js'
@@ -92,6 +92,12 @@ export const useLayersLoader = () => {
             const loader = loaders[layerConfig.layer]
             if (!loader) {
                 showLoaderAlert({ layer: layerConfig.layer })
+                return
+            }
+            if (
+                !periodTypeData?.enabledPeriodTypesData &&
+                [THEMATIC_LAYER, EVENT_LAYER].includes(layerConfig.layer)
+            ) {
                 return
             }
             dispatch(setLayerLoading(layerConfig.id))

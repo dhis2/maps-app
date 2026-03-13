@@ -1,3 +1,4 @@
+import { useDataOutputPeriodTypes } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
@@ -15,6 +16,7 @@ const RelativePeriodSelect = ({
 }) => {
     const { systemSettings } = useCachedData()
     const hiddenPeriods = systemSettings.hiddenPeriods
+    const periodTypeData = useDataOutputPeriodTypes()
 
     const periods = useMemo(
         () =>
@@ -26,7 +28,13 @@ const RelativePeriodSelect = ({
                       },
                   ]
                 : []
-            ).concat(getRelativePeriods(hiddenPeriods)),
+            ).concat(
+                getRelativePeriods(
+                    hiddenPeriods,
+                    periodTypeData?.enabledPeriodTypesData?.enabledTypes,
+                    periodTypeData?.enabledPeriodTypesData?.metaData
+                )
+            ),
         [hiddenPeriods, startEndDates]
     )
 
