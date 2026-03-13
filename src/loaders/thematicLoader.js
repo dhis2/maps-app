@@ -115,9 +115,9 @@ const thematicLoader = async ({
             ? {
                   ...data,
                   metaData: {
-                      ...(data.metaData ?? {}),
+                      ...data.metaData,
                       items: {
-                          ...(data.metaData?.items ?? {}),
+                          ...data.metaData?.items,
                           ...periodTypeData.enabledPeriodTypesData.metaData,
                       },
                   },
