@@ -1,4 +1,4 @@
-import { Analytics } from '@dhis2/analytics'
+import { Analytics, useDataOutputPeriodTypes } from '@dhis2/analytics'
 import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import { useState, useEffect } from 'react'
@@ -40,6 +40,7 @@ export const useLayersLoader = () => {
         ({ layer }) => `Could not load layer ${layer}`,
         { critical: true }
     )
+    const periodTypeData = useDataOutputPeriodTypes()
 
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
 
@@ -52,6 +53,7 @@ export const useLayersLoader = () => {
                 userId,
                 baseUrl,
                 analyticsEngine, // Thematic and Event loader
+                periodTypeData, // Thematic and Event loader
                 serverVersion, // Tracked entity loader
                 loadExtended: !!dataTable, // Event loader
             })
@@ -102,6 +104,7 @@ export const useLayersLoader = () => {
         userId,
         engine,
         analyticsEngine,
+        periodTypeData,
         showAlerts,
         showLoaderAlert,
         baseUrl,

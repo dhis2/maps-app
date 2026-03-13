@@ -47,6 +47,7 @@ const thematicLoader = async ({
     keyAnalysisDisplayProperty,
     userId,
     analyticsEngine,
+    periodTypeData,
 }) => {
     const {
         columns,
@@ -109,7 +110,20 @@ const thematicLoader = async ({
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
-    const names = getApiResponseNames(data)
+    const names = getApiResponseNames(
+        data && periodTypeData?.enabledPeriodTypesData?.metaData
+            ? {
+                  ...data,
+                  metaData: {
+                      ...(data.metaData ?? {}),
+                      items: {
+                          ...(data.metaData?.items ?? {}),
+                          ...periodTypeData.enabledPeriodTypesData.metaData,
+                      },
+                  },
+              }
+            : undefined
+    )
     const presetPeriods = getPeriodsFromFilters(config.filters).map((pe) => {
         pe.name = names[pe.id]
         return pe

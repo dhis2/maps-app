@@ -1,4 +1,4 @@
-import { Analytics } from '@dhis2/analytics'
+import { Analytics, useDataOutputPeriodTypes } from '@dhis2/analytics'
 import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
@@ -29,6 +29,7 @@ const LayerLoader = ({ config, onLoad }) => {
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const { currentUser } = useCachedData()
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
+    const periodTypeData = useDataOutputPeriodTypes()
 
     useEffect(() => {
         const loader = loaders[config.layer]
@@ -39,6 +40,7 @@ const LayerLoader = ({ config, onLoad }) => {
             userId,
             baseUrl,
             analyticsEngine, // Thematic and Event loader
+            periodTypeData, // Thematic and Event loader
             serverVersion, // Tracked entity loader
         }).then((result) => {
             onLoad(result)
@@ -48,6 +50,7 @@ const LayerLoader = ({ config, onLoad }) => {
         onLoad,
         engine,
         analyticsEngine,
+        periodTypeData,
         userId,
         baseUrl,
         keyAnalysisDisplayProperty,
