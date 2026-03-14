@@ -10,6 +10,8 @@ const GREGORIAN_CALENDAR_NAME = 'gregory'
 const ETHIOPIAN_CALENDAR_NAME = 'ethiopic'
 const THAI_CALENDAR_NAME = 'buddhist'
 
+const ERA_CALENDARS = { coptic: 'era1', ethiopian: 'era1', ethiopic: 'era1' }
+
 // dhis2CalendarsMap and NEPALI_CALENDAR_DATA cannot be imported from @dhis2/multi-calendar-dates
 
 const dhis2CalendarsMap = {
@@ -166,12 +168,11 @@ export const getMaxDaysInMonth = (year, month, calendar) => {
         return NEPALI_CALENDAR_DATA[year][month]
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const date = Temporal.PlainDate.from({
-        year: year,
-        month: month,
-        day: 1,
-        calendar: calendarName,
-    })
+    const era = ERA_CALENDARS[calendar]
+    const dateFields = era
+        ? { era, eraYear: year, month, day: 1, calendar: calendarName }
+        : { year, month, day: 1, calendar: calendarName }
+    const date = Temporal.PlainDate.from(dateFields)
 
     return date.daysInMonth
 }
@@ -181,13 +182,11 @@ export const getMaxMonthsInYear = (year, calendar) => {
         return NEPALI_CALENDAR_DATA[year].length - 1
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-
-    const date = Temporal.PlainDate.from({
-        year: year,
-        month: 1,
-        day: 1,
-        calendar: calendarName,
-    })
+    const era = ERA_CALENDARS[calendar]
+    const dateFields = era
+        ? { era, eraYear: year, month: 1, day: 1, calendar: calendarName }
+        : { year, month: 1, day: 1, calendar: calendarName }
+    const date = Temporal.PlainDate.from(dateFields)
 
     return date.monthsInYear
 }
