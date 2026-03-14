@@ -6,13 +6,14 @@
 # Philip Larsen Donnelly, 2025
 # Yury Rogachev <yury@dhis2.org>, 2025
 # Mykhailo Siusko <m.siusko@redcross.org.ua>, 2026
+# Nancy Espinoza, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
+"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Mykhailo Siusko <m.siusko@redcross.org.ua>, 2026\n"
+"Last-Translator: Nancy Espinoza, 2026\n"
 "Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -368,7 +369,7 @@ msgid "Source"
 msgstr "Source"
 
 msgid "Period type"
-msgstr ""
+msgstr "Тип періоду"
 
 msgid "Legend preview"
 msgstr ""
@@ -508,6 +509,33 @@ msgstr ""
 msgid "Define start - end dates"
 msgstr ""
 
+msgid "Choose periods for all timeline layers"
+msgstr ""
+
+msgid "Selection is initialized from shared periods"
+msgstr ""
+
+msgid "Choose periods for all split layers"
+msgstr ""
+
+msgid "Indicator"
+msgstr "Показник"
+
+msgid "Reporting rates"
+msgstr "Частота повідомлень"
+
+msgid "Event data items"
+msgstr "Складові дані події"
+
+msgid "Program indicators"
+msgstr "Програмні показники"
+
+msgid "Calculations"
+msgstr ""
+
+msgid "Item type"
+msgstr ""
+
 msgid "Indicator group is required"
 msgstr ""
 
@@ -535,22 +563,15 @@ msgstr ""
 msgid "Period is required"
 msgstr ""
 
-msgid "Indicator"
-msgstr "Показник"
-
-msgid "Reporting rates"
-msgstr "Частота повідомлень"
-
-msgid "Event data items"
-msgstr "Складові дані події"
-
-msgid "Program indicators"
-msgstr "Програмні показники"
-
-msgid "Calculations"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 msgstr ""
 
-msgid "Item type"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
+msgid "Specified radius values are invalid"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
@@ -665,9 +686,6 @@ msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
-msgstr ""
-
-msgid "Split view cannot be combined with other layer types."
 msgstr ""
 
 msgid "Failed to load layer"
@@ -958,18 +976,18 @@ msgstr "Наступний рік"
 msgid "Start/end dates"
 msgstr ""
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -988,9 +1006,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
