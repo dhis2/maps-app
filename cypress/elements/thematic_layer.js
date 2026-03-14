@@ -33,6 +33,9 @@ export class ThematicLayer extends Layer {
         cy.getByDataTest(
             'data-dimension-transfer-actions-addindividual'
         ).click()
+        cy.getByDataTest('data-dimension-transfer-pickedoptions')
+            .contains(dataItem)
+            .should('exist')
         return this
     }
 
@@ -162,15 +165,24 @@ export class ThematicLayer extends Layer {
 
         cy.wait('@fetchDimensions')
 
-        cy.getByDataTest('dimension-select-field').click()
-        cy.get('input[placeholder="Filter dimensions"]').type(dimensionName)
+        cy.getByDataTest('dimension-select-field')
+            .should('not.be.disabled')
+            .click()
+        cy.get('input[placeholder="Filter dimensions"]')
+            .should('be.visible')
+            .type(dimensionName)
 
-        cy.get('li').contains(dimensionName).click()
+        cy.get('li').contains(dimensionName).should('be.visible').click()
 
-        cy.getByDataTest('dimension-items-select-field').click()
+        cy.getByDataTest('dimension-items-select-field')
+            .should('not.be.disabled')
+            .click()
 
         dimensionItemNames.forEach((name) => {
-            cy.getByDataTest('dhis2-uicore-checkbox').contains(name).click()
+            cy.getByDataTest('dhis2-uicore-checkbox')
+                .contains(name)
+                .should('be.visible')
+                .click()
         })
 
         // Confirm that the items are checked

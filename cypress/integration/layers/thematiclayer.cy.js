@@ -29,23 +29,12 @@ context('Thematic Layers', () => {
     })
 
     const Layer = new ThematicLayer()
-
-    it('shows error in layer edit modal if no indicator group selected', () => {
+    it('shows error in layer edit modal if no data selected', () => {
         Layer.openDialog('Thematic').addToMap()
 
         Layer.validateDialogClosed(false)
 
-        cy.contains('Indicator group is required').should('be.visible')
-    })
-
-    it('shows error in layer edit modal if no indicator selected', () => {
-        Layer.openDialog('Thematic')
-            .selectItemType('Indicators')
-            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
-            .addToMap()
-
-        Layer.validateDialogClosed(false)
-        cy.contains('Indicator is required').should('be.visible')
+        cy.contains('Data is required').should('be.visible')
     })
 
     it('shows error in layer edit modal if no period selected', () => {
@@ -651,56 +640,12 @@ context('Thematic Layers', () => {
             expression: '#{fbfJHSPpUQD}/2',
         }).then((response) => {
             expect(response.status).to.eq(201)
-
             const calculationUid = response.body.response.uid
 
-            // open thematic dialog
-            cy.getByDataTest('add-layer-button').click()
-            cy.getByDataTest('addlayeritem-thematic').click()
-
-            // choose "Calculation" in item type
-            cy.getByDataTest('thematic-layer-value-type-select').click()
-            cy.contains('Calculations').click()
-
-            // assert that the label on the Calculation select is "Calculation"
-            cy.getByDataTest('calculationselect-label').contains('Calculation')
-
-            // click to open the calculation select
-            cy.getByDataTest('calculationselect').click()
-
-            // check search box exists "Type to filter options"
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .should('have.attr', 'placeholder', 'Type to filter options')
-
-            // search for something that doesn't exist
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .type('foo')
-
-            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-                .contains('No options found')
-                .should('be.visible')
-
-            // try search for something that exists
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .clear()
-
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .type(calculationName)
-
-            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-                .contains(calculationName)
-                .should('be.visible')
-
-            // select the calculation and close dialog
-            cy.contains(calculationName).click()
-
-            cy.getByDataTest('dhis2-uicore-modalactions')
-                .contains('Add layer')
-                .click()
+            Layer.openDialog('Thematic')
+                .selectItemType('Calculations')
+                .selectDataItem(calculationName)
+            Layer.addToMap()
 
             // check the layer card title
             cy.getByDataTest('layercard')
