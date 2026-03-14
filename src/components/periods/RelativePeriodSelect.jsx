@@ -35,7 +35,7 @@ const RelativePeriodSelect = ({
                     periodTypeData?.enabledPeriodTypesData?.metaData
                 )
             ),
-        [hiddenPeriods, startEndDates]
+        [hiddenPeriods, periodTypeData, startEndDates]
     )
 
     const value =
