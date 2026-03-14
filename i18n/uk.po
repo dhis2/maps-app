@@ -5,13 +5,14 @@
 # Nadiia <semchuk@aph.org.ua>, 2025
 # Yury Rogachev <yury@dhis2.org>, 2025
 # Mykhailo Siusko <m.siusko@redcross.org.ua>, 2026
+# Nancy Espinoza, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-06-04T09:13:34.373Z\n"
 "PO-Revision-Date: 2022-10-15 22:31+0000\n"
-"Last-Translator: Mykhailo Siusko <m.siusko@redcross.org.ua>, 2026\n"
+"Last-Translator: Nancy Espinoza, 2026\n"
 "Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -828,7 +829,7 @@ msgid "Relative"
 msgstr "Родич"
 
 msgid "Period type"
-msgstr ""
+msgstr "Тип періоду"
 
 msgid "Start/end dates"
 msgstr ""
