@@ -149,9 +149,9 @@ describe('data table', () => {
     it('opens the data table for an Event layer', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        const Layer = new EventLayer()
+        const EvenLayer = new EventLayer()
 
-        Layer.openDialog('Events')
+        EvenLayer.openDialog('Events')
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')
             .selectTab('Period')
@@ -160,9 +160,9 @@ describe('data table', () => {
             .typeEndDate(`${CURRENT_YEAR - 1}-01-03`)
             .addToMap()
 
-        Layer.validateDialogClosed(true)
+        EvenLayer.validateDialogClosed(true)
 
-        Layer.validateCardTitle('Inpatient morbidity and mortality')
+        EvenLayer.validateCardTitle('Inpatient morbidity and mortality')
 
         cy.getByDataTest('moremenubutton').first().click()
 
@@ -250,11 +250,12 @@ describe('data table', () => {
     it('places undefined data at the end when sorting', () => {
         cy.visit('/')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
         const INDICATOR_NAME = 'Measles Coverage <1y'
 
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('Immunization')
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
@@ -273,8 +274,8 @@ describe('data table', () => {
             .selectIncludeNoDataOU()
             .addToMap()
 
-        Layer.validateDialogClosed(true)
-        Layer.validateCardTitle(INDICATOR_NAME)
+        ThemLayer.validateDialogClosed(true)
+        ThemLayer.validateCardTitle(INDICATOR_NAME)
 
         // Open the data table
         cy.getByDataTest('moremenubutton').first().click()

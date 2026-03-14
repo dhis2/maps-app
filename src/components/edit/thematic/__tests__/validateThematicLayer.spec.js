@@ -26,10 +26,7 @@ describe('validateThematicLayer', () => {
     })
 
     const baseArgs = {
-        indicatorGroup: null,
-        dataElementGroup: null,
         dataItem: null,
-        program: null,
         periodType: null,
         startDate: null,
         endDate: null,
@@ -42,98 +39,15 @@ describe('validateThematicLayer', () => {
         periods: [{ id: '202001' }],
     }
 
-    it('returns errors for missing indicator group and indicator when valueType is indicator', () => {
+    it('returns dataError when no dataItem', () => {
         const args = {
             ...baseArgs,
-            valueType: dimConf.indicator.objectName,
-            rows: [],
-        }
-
-        const res = validateThematicLayer(args)
-        expect(res.isValid).toBe(false)
-        expect(res.errors.indicatorGroupError).toBeDefined()
-        expect(res.errors.indicatorError).toBeDefined()
-        expect(res.errors.firstErrorTab).toBe('data')
-    })
-
-    it('returns errors for missing data element group and data element when valueType is dataElement', () => {
-        const args = {
-            ...baseArgs,
-            valueType: dimConf.dataElement.objectName,
-        }
-
-        const res = validateThematicLayer(args)
-        expect(res.isValid).toBe(false)
-        expect(res.errors.dataElementGroupError).toBeDefined()
-        expect(res.errors.dataElementError).toBeDefined()
-        expect(res.errors.firstErrorTab).toBe('data')
-    })
-
-    it('returns errors for missing data element group and data element when valueType is operand', () => {
-        const args = {
-            ...baseArgs,
-            valueType: dimConf.operand.objectName,
-        }
-
-        const res = validateThematicLayer(args)
-        expect(res.isValid).toBe(false)
-        expect(res.errors.dataElementGroupError).toBeDefined()
-        expect(res.errors.dataElementError).toBeDefined()
-        expect(res.errors.firstErrorTab).toBe('data')
-    })
-
-    it('returns dataSetError when valueType is dataSet and no dataItem', () => {
-        const args = {
-            ...baseArgs,
-            valueType: dimConf.dataSet.objectName,
-        }
-
-        const res = validateThematicLayer(args)
-        expect(res.isValid).toBe(false)
-        expect(res.errors.dataSetError).toBeDefined()
-        expect(res.errors.firstErrorTab).toBe('data')
-    })
-
-    it('returns program and event data item errors when valueType is eventDataItem and missing program/dataItem', () => {
-        const args = {
-            ...baseArgs,
-            valueType: dimConf.eventDataItem.objectName,
-            program: null,
             dataItem: null,
         }
 
         const res = validateThematicLayer(args)
         expect(res.isValid).toBe(false)
-        expect(res.errors.programError).toBeDefined()
-        expect(res.errors.eventDataItemError).toBeDefined()
-        expect(res.errors.firstErrorTab).toBe('data')
-    })
-
-    it('returns program and program indicator errors when valueType is programIndicator and missing program/dataItem', () => {
-        const args = {
-            ...baseArgs,
-            valueType: dimConf.programIndicator.objectName,
-            program: null,
-            dataItem: null,
-        }
-
-        const res = validateThematicLayer(args)
-        expect(res.isValid).toBe(false)
-        expect(res.errors.programError).toBeDefined()
-        expect(res.errors.programIndicatorError).toBeDefined()
-        expect(res.errors.firstErrorTab).toBe('data')
-    })
-
-    it('returns calculationError when valueType is calculation and no dataItem', () => {
-        const args = {
-            ...baseArgs,
-            valueType: dimConf.calculation.objectName,
-            dataItem: null,
-        }
-
-        const res = validateThematicLayer(args)
-        expect(res.isValid).toBe(false)
-        expect(res.errors.calculationError).toBeDefined()
+        expect(res.errors.dataError).toBeDefined()
         expect(res.errors.firstErrorTab).toBe('data')
     })
 

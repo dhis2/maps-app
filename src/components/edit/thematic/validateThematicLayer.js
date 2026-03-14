@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { dimConf } from '../../../constants/dimension.js'
 import {
     CLASSIFICATION_PREDEFINED,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
@@ -17,11 +16,7 @@ import { getStartEndDateError } from '../../../util/time.js'
 import { isValidRadius } from './RadiusSelect.jsx'
 
 export const validateThematicLayer = ({
-    valueType,
-    indicatorGroup,
-    dataElementGroup,
     dataItem,
-    program,
     periodType,
     startDate,
     endDate,
@@ -43,95 +38,12 @@ export const validateThematicLayer = ({
     }
     const rules = []
 
-    // Data
-    const dataTypeRules = [
-        {
-            // Indicators
-            types: [dimConf.indicator.objectName],
-            rules: [
-                {
-                    condition: !indicatorGroup && !dataItem,
-                    key: 'indicatorGroupError',
-                    msg: i18n.t('Indicator group is required'),
-                },
-                {
-                    condition: !dataItem,
-                    key: 'indicatorError',
-                    msg: i18n.t('Indicator is required'),
-                },
-            ],
-        },
-        {
-            // Data elements & operands
-            types: [dimConf.dataElement.objectName, dimConf.operand.objectName],
-            rules: [
-                {
-                    condition: !dataElementGroup && !dataItem,
-                    key: 'dataElementGroupError',
-                    msg: i18n.t('Data element group is required'),
-                },
-                {
-                    condition: !dataItem,
-                    key: 'dataElementError',
-                    msg: i18n.t('Data element is required'),
-                },
-            ],
-        },
-        {
-            // Data sets
-            types: [dimConf.dataSet.objectName],
-            rules: [
-                {
-                    condition: !dataItem,
-                    key: 'dataSetError',
-                    msg: i18n.t('Data set is required'),
-                },
-            ],
-        },
-        {
-            // Event data items / Program indicators
-            types: [
-                dimConf.eventDataItem.objectName,
-                dimConf.programIndicator.objectName,
-            ],
-            rules: [
-                {
-                    condition: !program && !dataItem,
-                    key: 'programError',
-                    msg: i18n.t('Program is required'),
-                },
-                {
-                    condition:
-                        !dataItem &&
-                        valueType === dimConf.eventDataItem.objectName,
-                    key: 'eventDataItemError',
-                    msg: i18n.t('Event data item is required'),
-                },
-                {
-                    condition:
-                        !dataItem &&
-                        valueType === dimConf.programIndicator.objectName,
-                    key: 'programIndicatorError',
-                    msg: i18n.t('Program indicator is required'),
-                },
-            ],
-        },
-        {
-            // Calculation
-            types: [dimConf.calculation.objectName],
-            rules: [
-                {
-                    condition: !dataItem,
-                    key: 'calculationError',
-                    msg: i18n.t('Calculation is required'),
-                },
-            ],
-        },
-    ]
-    dataTypeRules.forEach((dataTypeRule) => {
-        if (dataTypeRule.types.includes(valueType)) {
-            dataTypeRule.rules.forEach((r) => rules.push({ ...r, tab: 'data' }))
-        }
+    rules.push({
+        // Data
+        condition: !dataItem,
+        key: 'dataError',
+        msg: i18n.t('Data is required'),
+        tab: 'data',
     })
 
     // Periods

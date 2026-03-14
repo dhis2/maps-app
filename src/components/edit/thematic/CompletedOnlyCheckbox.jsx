@@ -3,34 +3,22 @@ import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { setEventStatus } from '../../../actions/layerEdit.js'
-import { dimConf } from '../../../constants/dimension.js'
 import {
     EVENT_STATUS_ALL,
     EVENT_STATUS_COMPLETED,
 } from '../../../constants/eventStatuses.js'
 import { Checkbox } from '../../core/index.js'
 
-const eventDataTypes = [
-    dimConf.indicator.objectName,
-    dimConf.programIndicator.objectName,
-    dimConf.eventDataItem.objectName,
-]
-
-const CompletedOnlyCheckbox = ({
-    valueType,
-    completedOnly,
-    setEventStatus,
-}) => {
-    const hasEventData = eventDataTypes.includes(valueType)
-
+const CompletedOnlyCheckbox = ({ completedOnly, setEventStatus }) => {
     useEffect(() => {
-        if (completedOnly && !hasEventData) {
+        if (completedOnly) {
             setEventStatus(EVENT_STATUS_ALL)
         }
-    }, [completedOnly, hasEventData, setEventStatus])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-    return hasEventData ? (
+    return (
         <Checkbox
+            style={{ margin: 'auto 0' }}
             label={i18n.t('Only show completed events')}
             checked={completedOnly}
             onChange={(isChecked) =>
@@ -39,13 +27,12 @@ const CompletedOnlyCheckbox = ({
                 )
             }
         />
-    ) : null
+    )
 }
 
 CompletedOnlyCheckbox.propTypes = {
     setEventStatus: PropTypes.func.isRequired,
     completedOnly: PropTypes.bool,
-    valueType: PropTypes.string,
 }
 
 export default connect(

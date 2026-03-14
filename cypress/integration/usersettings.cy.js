@@ -136,15 +136,17 @@ describe('uses the correct name property', () => {
         cy.visit('/')
         const ThemLayer = new ThematicLayer()
         ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC visit clinical prof')
 
-        ThemLayer.selectItemType('Data element')
+        ThemLayer.selectItemType('Data elements')
             .selectDataElementGroup('Acute Flaccid Paralysis (AFP)')
             .selectDataElement('AFP follow-up')
 
-        cy.get('input[type=radio][value=details]').click()
-        ThemLayer.selectDataElementOperand('AFP follow-up 0-11m')
+        ThemLayer.selectSubGroup('Details only').selectDataItem(
+            'AFP follow-up 0-11m'
+        )
     })
     it('shows names', () => {
         interceptNameProperty('name')
@@ -152,6 +154,7 @@ describe('uses the correct name property', () => {
         cy.visit('/')
         const ThemLayer = new ThematicLayer()
         ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC visits per clinical professional')
 
@@ -159,8 +162,7 @@ describe('uses the correct name property', () => {
             .selectDataElementGroup('Acute Flaccid Paralysis (AFP)')
             .selectDataElement('Acute Flaccid Paralysis (AFP) follow-up')
 
-        cy.get('input[type=radio][value=details]').click()
-        ThemLayer.selectDataElementOperand(
+        ThemLayer.selectSubGroup('Details only').selectDataItem(
             'Acute Flaccid Paralysis (AFP) follow-up 0-11m'
         )
     })

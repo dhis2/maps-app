@@ -58,6 +58,12 @@ export const dimConf = {
         objectName: 'di',
         itemType: 'PROGRAM_ATTRIBUTE',
     },
+    programAttributeOption: {
+        value: 'programAttribute',
+        dimensionName: 'dx',
+        objectName: 'di',
+        itemType: 'PROGRAM_ATTRIBUTE_OPTION',
+    },
     programIndicator: {
         value: 'programIndicator',
         dimensionName: 'dx',
@@ -98,3 +104,9 @@ export const dimConf = {
         objectName: 'value',
     },
 }
+
+Object.values(dimConf).forEach((v) => {
+    if (v.itemType) {
+        dimConf[v.itemType] = v
+    }
+})

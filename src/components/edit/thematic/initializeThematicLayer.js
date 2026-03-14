@@ -5,9 +5,7 @@ import {
     setBackupPeriodsDates,
     setPeriodType,
     setRenderingStrategy,
-    setValueType,
 } from '../../../actions/layerEdit.js'
-import { dimConf } from '../../../constants/dimension.js'
 import { DEFAULT_ORG_UNIT_LEVEL } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -15,22 +13,6 @@ import {
 } from '../../../constants/periods.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
-
-const initializeValueType = (dispatch, { valueType, dataItem }) => {
-    if (valueType) {
-        return
-    }
-    if (dataItem?.dimensionItemType) {
-        const dimension = Object.keys(dimConf).find(
-            (dim) => dimConf[dim].itemType === dataItem.dimensionItemType
-        )
-        if (dimension) {
-            dispatch(setValueType(dimConf[dimension].objectName, true))
-            return
-        }
-    }
-    dispatch(setValueType(dimConf.indicator.objectName))
-}
 
 const initializeRenderingStrategy = (
     dispatch,
@@ -125,8 +107,6 @@ const initializeOrgUnits = (dispatch, { rows, orgUnits }) => {
 }
 
 export const initializeThematicLayer = (params) => (dispatch) => {
-    // Data
-    initializeValueType(dispatch, params)
     // Period
     initializeRenderingStrategy(dispatch, params)
     initializePeriodType(dispatch, params)
