@@ -1,4 +1,4 @@
-export const dimConf = {
+const baseDimConf = {
     data: {
         id: 'data',
         value: 'data',
@@ -51,6 +51,12 @@ export const dimConf = {
         dimensionName: 'dx',
         objectName: 'di',
         itemType: 'PROGRAM_DATA_ELEMENT',
+    },
+    programDataElementOption: {
+        value: 'programDataElementOption',
+        dimensionName: 'dx',
+        objectName: 'di',
+        itemType: 'PROGRAM_DATA_ELEMENT_OPTION',
     },
     programAttribute: {
         value: 'programAttribute',
@@ -105,8 +111,12 @@ export const dimConf = {
     },
 }
 
-Object.values(dimConf).forEach((v) => {
-    if (v.itemType) {
-        dimConf[v.itemType] = v
+const dimConf = Object.entries(baseDimConf).reduce((acc, [key, value]) => {
+    acc[key] = value
+    if (value.itemType) {
+        acc[value.itemType] = value
     }
-})
+    return acc
+}, {})
+
+export { dimConf }
