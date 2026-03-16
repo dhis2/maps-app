@@ -111,7 +111,7 @@ const thematicLoader = async ({
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
     const names = getApiResponseNames(
-        data && periodTypeData?.enabledPeriodTypesData?.metaData
+        periodTypeData?.enabledPeriodTypesData?.metaData
             ? {
                   ...data,
                   metaData: {
@@ -122,7 +122,7 @@ const thematicLoader = async ({
                       },
                   },
               }
-            : undefined
+            : data
     )
     const presetPeriods = getPeriodsFromFilters(config.filters).map((pe) => {
         pe.name = names[pe.id]

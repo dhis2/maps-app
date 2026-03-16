@@ -95,6 +95,7 @@ export const useLayersLoader = () => {
                 return
             }
             if (
+                periodTypeData?.supportsEnabledPeriodTypes &&
                 !periodTypeData?.enabledPeriodTypesData &&
                 [THEMATIC_LAYER, EVENT_LAYER].includes(layerConfig.layer)
             ) {
