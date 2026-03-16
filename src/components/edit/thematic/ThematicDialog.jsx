@@ -332,6 +332,14 @@ const ThematicDialog = ({
         if (!isValid) {
             return
         }
+        if (
+            ![
+                RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+                RENDERING_STRATEGY_TIMELINE,
+            ].includes(renderingStrategy)
+        ) {
+            return
+        }
         syncToOtherLayers({ periods, renderingStrategy })
     }, [
         validateLayer,
