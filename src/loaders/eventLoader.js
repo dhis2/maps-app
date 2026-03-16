@@ -48,6 +48,7 @@ const eventLoader = async ({
     engine,
     keyAnalysisDisplayProperty,
     analyticsEngine,
+    periodTypeData,
     loadExtended,
 }) => {
     const config = { ...layerConfig }
@@ -62,6 +63,7 @@ const eventLoader = async ({
             engine,
             displayNameProp,
             analyticsEngine,
+            periodTypeData,
             loadExtended,
         })
     } catch (e) {
@@ -92,6 +94,7 @@ const loadEventLayer = async ({
     engine,
     displayNameProp,
     analyticsEngine,
+    periodTypeData,
     loadExtended,
 }) => {
     const {
@@ -111,6 +114,10 @@ const loadEventLayer = async ({
     } = config
 
     const period = getPeriodFromFilters(filters)
+    const periodName =
+        periodTypeData?.enabledPeriodTypesData?.metaData?.[period?.id]?.name ??
+        getPeriodNameFromId(period?.id)
+
     const dataFilters = getFiltersFromColumns(columns)
 
     config.isExtended = loadExtended
@@ -127,7 +134,7 @@ const loadEventLayer = async ({
     config.legend = {
         title: config.name,
         period: period
-            ? getPeriodNameFromId(period.id)
+            ? periodName
             : formatStartEndDate(
                   getDateArray(startDate),
                   getDateArray(endDate)
