@@ -675,7 +675,7 @@ context('Thematic Layers', () => {
         Layer.validateCardTitle(ANC_DATAELEMENT_NAME)
         cy.getByDataTest(`card-ANC1stvisit`)
             .findByDataTest('layerlegend-item')
-            .should('have.length', 5)
+            .should('have.length', 7)
 
         getMaps().should('have.length', 1)
     })
