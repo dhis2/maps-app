@@ -57,7 +57,7 @@ const ThematicDialog = ({
     rows,
     filters,
     orgUnits,
-    valueType,
+    eventStatus,
     startDate,
     endDate,
     backupPeriodsDates,
@@ -108,8 +108,7 @@ const ThematicDialog = ({
     useEffect(() => {
         dispatch(
             initializeThematicLayer({
-                valueType,
-                dataItem,
+                eventStatus,
                 renderingStrategy,
                 defaultRenderingStrategy,
                 periodType,
@@ -118,7 +117,6 @@ const ThematicDialog = ({
                 filters,
                 rows,
                 orgUnits,
-                method,
                 systemSettings,
                 syncFromOtherLayers,
             })
@@ -596,6 +594,7 @@ ThematicDialog.propTypes = {
     columns: PropTypes.array,
     currentUser: PropTypes.object,
     endDate: PropTypes.string,
+    eventStatus: PropTypes.string,
     filters: PropTypes.array,
     id: PropTypes.string,
     legendSet: PropTypes.object,
@@ -612,7 +611,6 @@ ThematicDialog.propTypes = {
     systemSettings: PropTypes.object,
     thematicMapType: PropTypes.string,
     validateLayer: PropTypes.bool,
-    valueType: PropTypes.string,
     onLayerValidation: PropTypes.func,
 }
 

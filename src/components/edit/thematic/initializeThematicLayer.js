@@ -3,9 +3,11 @@ import {
     setOrgUnits,
     setPeriods,
     setBackupPeriodsDates,
+    setEventStatus,
     setPeriodType,
     setRenderingStrategy,
 } from '../../../actions/layerEdit.js'
+import { EVENT_STATUS_ALL } from '../../../constants/eventStatuses.js'
 import { DEFAULT_ORG_UNIT_LEVEL } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -13,6 +15,13 @@ import {
 } from '../../../constants/periods.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
+
+const initializeEventStatus = (dispatch, { eventStatus }) => {
+    if (eventStatus) {
+        return
+    }
+    dispatch(setEventStatus(EVENT_STATUS_ALL))
+}
 
 const initializeRenderingStrategy = (
     dispatch,
@@ -107,6 +116,8 @@ const initializeOrgUnits = (dispatch, { rows, orgUnits }) => {
 }
 
 export const initializeThematicLayer = (params) => (dispatch) => {
+    // Data
+    initializeEventStatus(dispatch, params)
     // Period
     initializeRenderingStrategy(dispatch, params)
     initializePeriodType(dispatch, params)
