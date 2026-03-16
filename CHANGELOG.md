@@ -1,3 +1,10 @@
+# [101.8.0](https://github.com/dhis2/maps-app/compare/v101.7.1...v101.8.0) (2026-03-16)
+
+
+### Features
+
+* use enabled period types and custom lables [DHIS2-21001] ([#3633](https://github.com/dhis2/maps-app/issues/3633)) ([0994d52](https://github.com/dhis2/maps-app/commit/0994d5270f684b85800130e8d243d9d932bb6fdb))
+
 ## [101.7.1](https://github.com/dhis2/maps-app/compare/v101.7.0...v101.7.1) (2026-03-08)
 
 
