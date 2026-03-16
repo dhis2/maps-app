@@ -393,7 +393,9 @@ const ThematicDialog = ({
                                         )
                                     )
                                 }}
-                                onCalculationSave={() => null}
+                                onCalculationSave={(items) =>
+                                    dispatch(setDataItem(items, items.type))
+                                }
                                 height="408px"
                                 heightCalculation="375px"
                                 maxSelections={1}
