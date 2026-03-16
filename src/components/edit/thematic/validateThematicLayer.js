@@ -36,15 +36,15 @@ export const validateThematicLayer = ({
         // Validation order defines tab priority.
         errors.firstErrorTab ??= tab
     }
-    const rules = []
-
-    rules.push({
-        // Data
-        condition: !dataItem,
-        key: 'dataError',
-        msg: i18n.t('Data is required'),
-        tab: 'data',
-    })
+    const rules = [
+        {
+            // Data
+            condition: !dataItem,
+            key: 'dataError',
+            msg: i18n.t('Data is required'),
+            tab: 'data',
+        },
+    ]
 
     // Periods
     const periodCount = countPeriods(periods || [])
