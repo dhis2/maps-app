@@ -2,6 +2,7 @@ import { Analytics, useDataOutputPeriodTypes } from '@dhis2/analytics'
 import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
+import { THEMATIC_LAYER, EVENT_LAYER } from '../../constants/layers.js'
 import earthEngineLoader from '../../loaders/earthEngineLoader.js'
 import eventLoader from '../../loaders/eventLoader.js'
 import externalLoader from '../../loaders/externalLoader.js'
@@ -32,6 +33,13 @@ const LayerLoader = ({ config, onLoad }) => {
     const periodTypeData = useDataOutputPeriodTypes()
 
     useEffect(() => {
+        if (
+            periodTypeData?.supportsEnabledPeriodTypes &&
+            !periodTypeData?.enabledPeriodTypesData &&
+            [THEMATIC_LAYER, EVENT_LAYER].includes(config.layer)
+        ) {
+            return
+        }
         const loader = loaders[config.layer]
         loader({
             config,
