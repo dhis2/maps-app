@@ -29,7 +29,7 @@ context('Thematic Layers', () => {
     })
 
     const Layer = new ThematicLayer()
-    
+
     it('shows error in layer edit modal if no data selected', () => {
         Layer.openDialog('Thematic').addToMap()
 
