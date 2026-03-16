@@ -212,9 +212,7 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
     ![](resources/images/maps_thematic_layer_dialog_DATA.png)
 
-    -   Select a data type and then select respectively the group and
-        the target element. The available fields depend on the type of
-        item selected.
+    -   Select a data item.
 
     -   Select a value from the **Aggregation type** field for the data
         values to be shown on the map. By default, "By data element" is
