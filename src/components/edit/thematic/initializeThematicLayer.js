@@ -3,11 +3,11 @@ import {
     setOrgUnits,
     setPeriods,
     setBackupPeriodsDates,
+    setEventStatus,
     setPeriodType,
     setRenderingStrategy,
-    setValueType,
 } from '../../../actions/layerEdit.js'
-import { dimConf } from '../../../constants/dimension.js'
+import { EVENT_STATUS_ALL } from '../../../constants/eventStatuses.js'
 import { DEFAULT_ORG_UNIT_LEVEL } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -16,20 +16,11 @@ import {
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 
-const initializeValueType = (dispatch, { valueType, dataItem }) => {
-    if (valueType) {
+const initializeEventStatus = (dispatch, { eventStatus }) => {
+    if (eventStatus) {
         return
     }
-    if (dataItem?.dimensionItemType) {
-        const dimension = Object.keys(dimConf).find(
-            (dim) => dimConf[dim].itemType === dataItem.dimensionItemType
-        )
-        if (dimension) {
-            dispatch(setValueType(dimConf[dimension].objectName, true))
-            return
-        }
-    }
-    dispatch(setValueType(dimConf.indicator.objectName))
+    dispatch(setEventStatus(EVENT_STATUS_ALL))
 }
 
 const initializeRenderingStrategy = (
@@ -126,7 +117,7 @@ const initializeOrgUnits = (dispatch, { rows, orgUnits }) => {
 
 export const initializeThematicLayer = (params) => (dispatch) => {
     // Data
-    initializeValueType(dispatch, params)
+    initializeEventStatus(dispatch, params)
     // Period
     initializeRenderingStrategy(dispatch, params)
     initializePeriodType(dispatch, params)

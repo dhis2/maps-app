@@ -57,18 +57,6 @@ export const setDataItem = (dataItem, dimension) => ({
     dimension,
 })
 
-// Set program indicator used (thematic)
-export const setDataElementGroup = (dataElementGroup) => ({
-    type: types.LAYER_EDIT_DATA_ELEMENT_GROUP_SET,
-    dataElementGroup,
-})
-
-// Set data element operand (operand = true = details, operand = false = totals)
-export const setOperand = (operand) => ({
-    type: types.LAYER_EDIT_OPERAND_SET,
-    operand,
-})
-
 // Set data element used for styling (event)
 export const setStyleDataItem = (dataItem) => ({
     type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
@@ -214,19 +202,6 @@ export const setEndDate = (endDate) => ({
 export const setBackupPeriodsDates = (backupPeriodsDates) => ({
     type: types.LAYER_EDIT_BACKUP_PERIODSDATES_SET,
     backupPeriodsDates,
-})
-
-// Set value type (thematic)
-export const setValueType = (valueType, keepColumns) => ({
-    type: types.LAYER_EDIT_VALUE_TYPE_SET,
-    valueType,
-    keepColumns, // Kept if favorite is loaded
-})
-
-// Set indicator group (thematic)
-export const setIndicatorGroup = (indicatorGroup) => ({
-    type: types.LAYER_EDIT_INDICATOR_GROUP_SET,
-    indicatorGroup,
 })
 
 // Set aggregation type (thematic/earth engine)

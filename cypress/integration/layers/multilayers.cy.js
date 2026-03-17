@@ -9,11 +9,12 @@ describe('Multiple Layers', () => {
         cy.visit('/')
     })
 
-    const TLayer = new ThematicLayer()
+    const ThemLayer = new ThematicLayer()
     const OULayer = new OrgUnitLayer()
 
     it('adds a thematic layer and an orgunit layer', () => {
-        TLayer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('ANC')
             .selectIndicator(INDICATOR_NAME)
             .selectTab('Period')
@@ -23,9 +24,9 @@ describe('Multiple Layers', () => {
             .selectOuLevel('District')
             .addToMap()
 
-        TLayer.validateDialogClosed(true)
+        ThemLayer.validateDialogClosed(true)
 
-        TLayer.validateCardTitle(INDICATOR_NAME)
+        ThemLayer.validateCardTitle(INDICATOR_NAME)
 
         getMaps().should('have.length', 1)
 

@@ -24,7 +24,9 @@ describe('File menu', () => {
             'fetchIndicators'
         )
 
-        ThemLayer.openDialog('Thematic').selectIndicatorGroup('HIV')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup('HIV')
 
         cy.wait('@fetchIndicators')
         ThemLayer.selectIndicator('VCCT post-test counselling rate')

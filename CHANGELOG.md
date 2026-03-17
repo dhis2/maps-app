@@ -1,3 +1,10 @@
+# [101.9.0](https://github.com/dhis2/maps-app/compare/v101.8.0...v101.9.0) (2026-03-17)
+
+
+### Features
+
+* use common data selector for thematic layers [DHIS2-19344] ([#3632](https://github.com/dhis2/maps-app/issues/3632)) ([25dd748](https://github.com/dhis2/maps-app/commit/25dd74834ef673242d3a87dc6ef16c1f15df89bd))
+
 # [101.8.0](https://github.com/dhis2/maps-app/compare/v101.7.1...v101.8.0) (2026-03-16)
 
 
