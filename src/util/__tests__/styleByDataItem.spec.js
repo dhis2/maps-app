@@ -8,6 +8,7 @@ import { styleByDataItem } from '../styleByDataItem.js'
 jest.mock('@dhis2/d2-i18n', () => ({
     t: jest.fn((str) => str),
     addResources: jest.fn(),
+    addResourceBundle: jest.fn()
 }))
 
 const STYLE_DATA_ITEM_ID = 'styleDataItemId'
