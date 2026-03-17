@@ -30,25 +30,17 @@ context('Thematic Layers', () => {
 
     const Layer = new ThematicLayer()
 
-    it('shows error in layer edit modal if no indicator group selected', () => {
+    it('shows error in layer edit modal if no data selected', () => {
         Layer.openDialog('Thematic').addToMap()
 
         Layer.validateDialogClosed(false)
 
-        cy.contains('Indicator group is required').should('be.visible')
-    })
-
-    it('shows error in layer edit modal if no indicator selected', () => {
-        Layer.openDialog('Thematic')
-            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
-            .addToMap()
-
-        Layer.validateDialogClosed(false)
-        cy.contains('Indicator is required').should('be.visible')
+        cy.contains('Data is required').should('be.visible')
     })
 
     it('shows error in layer edit modal if no period selected', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -99,6 +91,7 @@ context('Thematic Layers', () => {
 
         // Choropleth
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -158,6 +151,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer for OU Bombali', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -175,7 +169,7 @@ context('Thematic Layers', () => {
 
     it('adds user sub-units and a Chiefdom OU', () => {
         Layer.openDialog('Thematic')
-            .selectItemType('Data element')
+            .selectItemType('Data elements')
             .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .selectTab('Org Units')
@@ -201,6 +195,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with start and end date', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -222,6 +217,7 @@ context('Thematic Layers', () => {
 
     it('opens a thematic layer popup with data and nodata', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('Stock')
             .selectIndicator('BCG Stock PHU')
             .selectTab('Period')
@@ -270,7 +266,7 @@ context('Thematic Layers', () => {
             parseFloat(text.replace('Value: ', ''))
 
         Layer.openDialog('Thematic')
-            .selectItemType('Data element')
+            .selectItemType('Data elements')
             .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .selectTab('Period')
@@ -412,6 +408,7 @@ context('Thematic Layers', () => {
 
     it('adds two thematic layer with timeline period', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)
             .selectTab('Period')
@@ -450,6 +447,7 @@ context('Thematic Layers', () => {
             .should('have.length', 1)
 
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Org Units')
@@ -539,6 +537,7 @@ context('Thematic Layers', () => {
     it('adds two thematic layer with split view period', () => {
         // add a first layer
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(ANC_INDICATOR_GROUP)
             .selectIndicator(ANC_INDICATOR_NAME)
             .selectTab('Org Units')
@@ -574,6 +573,7 @@ context('Thematic Layers', () => {
 
         // add a second layer
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Org Units')
@@ -641,56 +641,12 @@ context('Thematic Layers', () => {
             expression: '#{fbfJHSPpUQD}/2',
         }).then((response) => {
             expect(response.status).to.eq(201)
-
             const calculationUid = response.body.response.uid
 
-            // open thematic dialog
-            cy.getByDataTest('add-layer-button').click()
-            cy.getByDataTest('addlayeritem-thematic').click()
-
-            // choose "Calculation" in item type
-            cy.getByDataTest('thematic-layer-value-type-select').click()
-            cy.contains('Calculations').click()
-
-            // assert that the label on the Calculation select is "Calculation"
-            cy.getByDataTest('calculationselect-label').contains('Calculation')
-
-            // click to open the calculation select
-            cy.getByDataTest('calculationselect').click()
-
-            // check search box exists "Type to filter options"
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .should('have.attr', 'placeholder', 'Type to filter options')
-
-            // search for something that doesn't exist
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .type('foo')
-
-            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-                .contains('No options found')
-                .should('be.visible')
-
-            // try search for something that exists
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .clear()
-
-            cy.getByDataTest('dhis2-uicore-popper')
-                .find('input[type="text"]')
-                .type(calculationName)
-
-            cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-                .contains(calculationName)
-                .should('be.visible')
-
-            // select the calculation and close dialog
-            cy.contains(calculationName).click()
-
-            cy.getByDataTest('dhis2-uicore-modalactions')
-                .contains('Add layer')
-                .click()
+            Layer.openDialog('Thematic')
+                .selectItemType('Calculations')
+                .selectDataItem(calculationName)
+            Layer.addToMap()
 
             // check the layer card title
             cy.getByDataTest('layercard')
@@ -710,7 +666,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer for data element', () => {
         Layer.openDialog('Thematic')
-            .selectItemType('Data element')
+            .selectItemType('Data elements')
             .selectDataElementGroup(ANC_DATAELEMENT_GROUP)
             .selectDataElement(ANC_DATAELEMENT_NAME)
             .addToMap()
@@ -720,7 +676,7 @@ context('Thematic Layers', () => {
         Layer.validateCardTitle(ANC_DATAELEMENT_NAME)
         cy.getByDataTest(`card-ANC1stvisit`)
             .findByDataTest('layerlegend-item')
-            .should('have.length', 5)
+            .should('have.length', 7)
 
         getMaps().should('have.length', 1)
     })
@@ -729,6 +685,7 @@ context('Thematic Layers', () => {
         cy.visit('/')
 
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup(HIV_INDICATOR_GROUP)
             .selectIndicator(HIV_INDICATOR_NAME)
             .selectTab('Period')
@@ -775,6 +732,7 @@ context('Thematic Layers', () => {
 
     it('adds a thematic layer with a filter', () => {
         Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
             .selectTab('Filter')

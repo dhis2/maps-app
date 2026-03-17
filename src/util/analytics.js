@@ -43,6 +43,7 @@ export const setDataItemInColumns = (dataItem, dimension) => {
                                   ? '.REPORTING_RATE'
                                   : ''),
                           name: dataItem.name,
+                          expression: dataItem.expression,
                           dimensionItemType: dim.itemType,
                           legendSet: dataItem.legendSet, // TODO: Keep outside of columns?
                       },

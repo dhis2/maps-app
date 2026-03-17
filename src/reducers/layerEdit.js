@@ -54,40 +54,6 @@ const layerEdit = (state = null, action) => {
                 styleDataItem: null,
             }
 
-        case types.LAYER_EDIT_VALUE_TYPE_SET:
-            return {
-                ...state,
-                valueType: action.valueType,
-                columns: action.keepColumns ? state.columns : [], // Kept if favorite is loaded
-            }
-
-        case types.LAYER_EDIT_INDICATOR_GROUP_SET:
-            return {
-                ...state,
-                indicatorGroup: {
-                    id: action.indicatorGroup.id,
-                    name: action.indicatorGroup.name,
-                },
-                columns: [],
-            }
-
-        case types.LAYER_EDIT_DATA_ELEMENT_GROUP_SET:
-            return {
-                ...state,
-                dataElementGroup: {
-                    id: action.dataElementGroup.id,
-                    name: action.dataElementGroup.name,
-                },
-                columns: [],
-            }
-
-        case types.LAYER_EDIT_OPERAND_SET:
-            return {
-                ...state,
-                operand: action.operand,
-                columns: [],
-            }
-
         case types.LAYER_EDIT_DATA_ITEM_SET:
             return {
                 ...state,

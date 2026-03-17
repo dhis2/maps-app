@@ -30,9 +30,9 @@ describe('systemSettings', () => {
 
         cy.visit('/')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic').selectTab('Period')
+        ThemLayer.openDialog('Thematic').selectTab('Period')
 
         cy.getByDataTest('period-dimension-relative-period-filter').click()
 
@@ -48,9 +48,9 @@ describe('systemSettings', () => {
     it('includes Weekly period type when weekly periods not hidden in system settings', () => {
         cy.visit('/')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic').selectTab('Period')
+        ThemLayer.openDialog('Thematic').selectTab('Period')
 
         cy.getByDataTest('period-dimension-relative-period-filter').click()
 
@@ -81,9 +81,10 @@ describe('systemSettings', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('HIV')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
@@ -91,7 +92,7 @@ describe('systemSettings', () => {
             .selectOu('Sierra Leone')
             .addToMap()
 
-        Layer.validateCardPeriod('Last 6 months')
+        ThemLayer.validateCardPeriod('Last 6 months')
         // })
     })
 
@@ -114,9 +115,10 @@ describe('systemSettings', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('HIV')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
@@ -124,7 +126,7 @@ describe('systemSettings', () => {
             .selectOu('Sierra Leone')
             .addToMap()
 
-        Layer.validateCardPeriod('Last 12 months')
+        ThemLayer.validateCardPeriod('Last 12 months')
         // })
     })
 
