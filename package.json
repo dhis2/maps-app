@@ -47,7 +47,7 @@
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.2.8",
         "@dhis2/ui": "^10.12.6",
-        "@turf/centroid": "^7.3.3",
+        "@turf/centroid": "^7.3.4",
         "abortcontroller-polyfill": "^1.7.8",
         "array-move": "^4.0.0",
         "classnames": "^2.5.1",
