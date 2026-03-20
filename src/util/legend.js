@@ -46,10 +46,12 @@ const DATA_SET_QUERY = {
 export const sortLegendItems = (items) =>
     items.sort((a, b) => {
         if ('from' in a) {
-            return b.from - a.from
+            return b.from == a.from ? b.to - a.to : b.from - a.from
         }
         if ('startValue' in a) {
-            return b.startValue - a.startValue
+            return b.startValue == a.startValue
+                ? b.endValue - a.endValue
+                : b.startValue - a.startValue
         }
     })
 
@@ -136,12 +138,17 @@ export const getAutomaticLegendItems = (
     classes = defaultClasses,
     colorScale = defaultColorScale
 ) => {
-    const items = data.length ? getLegendItems(data, method, classes) : []
-
-    return items.map((item, index) => ({
-        ...item,
-        color: colorScale[index],
-    }))
+    if (data.length === 0) {
+        return { items: [] }
+    }
+    const classification = getLegendItems(data, method, classes)
+    return {
+        items: classification.items.map((item, index) => ({
+            ...item,
+            color: colorScale[index],
+        })),
+        valueFormat: classification.valueFormat,
+    }
 }
 /* eslint-enable max-params */
 

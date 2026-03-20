@@ -96,7 +96,7 @@ describe('legend utils', () => {
     describe('getAutomaticLegendItems', () => {
         it('returns items with colors from default color scale', () => {
             const data = [1, 2, 3, 4, 5]
-            const items = getAutomaticLegendItems(
+            const { items } = getAutomaticLegendItems(
                 data,
                 CLASSIFICATION_EQUAL_INTERVALS,
                 defaultClasses,
@@ -110,7 +110,7 @@ describe('legend utils', () => {
         })
 
         it('returns empty array when no data', () => {
-            const items = getAutomaticLegendItems(
+            const { items } = getAutomaticLegendItems(
                 [],
                 CLASSIFICATION_EQUAL_INTERVALS,
                 defaultClasses,
