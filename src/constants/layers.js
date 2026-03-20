@@ -144,6 +144,8 @@ export const EE_BUFFER = 5000
 export const CLASSIFICATION_PREDEFINED = 1
 export const CLASSIFICATION_EQUAL_INTERVALS = 2
 export const CLASSIFICATION_EQUAL_COUNTS = 3
+export const CLASSIFICATION_NATURAL_BREAKS_RANGES = 4
+export const CLASSIFICATION_NATURAL_BREAKS_CLUSTERS = 5
 export const CLASSIFICATION_SINGLE_COLOR = 10
 
 export const getLegendTypes = (isBubble) => [
@@ -173,6 +175,14 @@ export const getClassificationTypes = () => [
     {
         id: CLASSIFICATION_EQUAL_COUNTS,
         name: i18n.t('Equal counts'),
+    },
+    {
+        id: CLASSIFICATION_NATURAL_BREAKS_RANGES,
+        name: i18n.t('Natural breaks (ranges)'),
+    },
+    {
+        id: CLASSIFICATION_NATURAL_BREAKS_CLUSTERS,
+        name: i18n.t('Natural breaks (clusters)'),
     },
 ]
 

@@ -9,6 +9,14 @@ import { getContrastColor } from './colors.js'
 import { getLongestTextLength } from './helpers.js'
 import { getRoundToPrecisionFn } from './numbers.js'
 
+const getValueFormat = (minValue, maxValue, divisor) => {
+    if (minValue === maxValue) {
+        return (n) => n.toString()
+    }
+    const precision = precisionRound((maxValue - minValue) / divisor, maxValue)
+    return (n) => getRoundToPrecisionFn(precision)(n).toString()
+}
+
 export const createBubbleItems = ({
     classes,
     minValue,
@@ -16,10 +24,7 @@ export const createBubbleItems = ({
     scale,
     radiusHigh,
 }) => {
-    const binSize = (maxValue - minValue) / classes.length
-    const precision = precisionRound(binSize, maxValue)
-    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
-
+    const valueFormat = getValueFormat(minValue, maxValue, classes.length)
     const startValue = classes[0].startValue
     const endValue = classes[classes.length - 1].endValue
     const itemScale = scale.domain([startValue, endValue])
@@ -48,12 +53,22 @@ export const createSingleColorBubbles = ({
     radiusLow,
     radiusHigh,
 }) => {
-    const binSize = (maxValue - minValue) / 3
-    const precision = precisionRound(binSize, maxValue)
-    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
-
     const stroke = color && getContrastColor(color)
     const itemScale = scale.domain([minValue, maxValue])
+
+    if (minValue === maxValue) {
+        return [
+            {
+                radius: itemScale(minValue),
+                maxRadius: radiusHigh,
+                color,
+                stroke,
+                text: minValue.toString(),
+            },
+        ]
+    }
+
+    const valueFormat = getValueFormat(minValue, maxValue, 3)
     const midValue = (maxValue + minValue) / 2
 
     return [

@@ -139,6 +139,8 @@ const styleByNumeric = async (config, engine) => {
         eventPointRadius,
     } = config
 
+    let valueFormat
+
     // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
         // Load legend set from server
@@ -164,12 +166,14 @@ const styleByNumeric = async (config, engine) => {
         legend.unit = await getLegendUnit(engine, styleDataItem)
 
         // Generate legend items based on layer config
-        legend.items = getAutomaticLegendItems(
+        const classification = getAutomaticLegendItems(
             sortedValues,
             method,
             classes,
             colorScale
         )
+        legend.items = classification.items
+        valueFormat = classification.valueFormat
     }
 
     legend.items.push({
@@ -184,9 +188,11 @@ const styleByNumeric = async (config, engine) => {
     })
 
     // Helper function to get legend item for data value
-    const getLegendItem = (value) =>
+    const getLegendItem = (value, method) =>
         getLegendItemForValue({
             value,
+            valueFormat,
+            method,
             legendItems: config.legend.items.slice(0, -1),
         })
 
@@ -197,7 +203,7 @@ const styleByNumeric = async (config, engine) => {
         let legendItem
         if (hasValue(value)) {
             const numericValue = Number(value)
-            legendItem = getLegendItem(numericValue)
+            legendItem = getLegendItem(numericValue, method)
         }
 
         if (legendItem) {
