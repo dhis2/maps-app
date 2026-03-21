@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -38,15 +38,6 @@ msgstr "Tato aplikace nemohla načíst požadovaná data."
 msgid "Network error"
 msgstr "Chyba sítě"
 
-msgid "Calculation"
-msgstr "Výpočet"
-
-msgid "No calculations found"
-msgstr "Nenalezeny žádné výpočty"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Výpočty lze vytvářet v aplikaci Data Visualizer."
-
 msgid "Classification"
 msgstr "Klasifikace"
 
@@ -73,21 +64,6 @@ msgstr "Hodnota"
 
 msgid "Display"
 msgstr "Zobrazit"
-
-msgid "Data element group"
-msgstr "Skupina datových prvků"
-
-msgid "Data element operand"
-msgstr "Operand datového prvku"
-
-msgid "Data element"
-msgstr "Datový prvek"
-
-msgid "Totals"
-msgstr "Součty"
-
-msgid "Details"
-msgstr "Detaily"
 
 msgid "Yes"
 msgstr "Ano"
@@ -126,9 +102,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr "Událost > souřadnice organizační jednotky"
 
-msgid "Event data item"
-msgstr "Datová položka události"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -161,9 +134,6 @@ msgstr "Operátor"
 
 msgid "Date"
 msgstr "datum"
-
-msgid "Data set"
-msgstr "Datová sada"
 
 msgid "No results found"
 msgstr "Nenalezeny žádné výsledky"
@@ -522,47 +492,8 @@ msgstr ""
 msgid "Choose periods for all split layers"
 msgstr ""
 
-msgid "Indicator"
-msgstr "Indikátor"
-
-msgid "Reporting rates"
-msgstr "Míry vykazování"
-
-msgid "Event data items"
-msgstr "Položky dat události"
-
-msgid "Program indicators"
-msgstr "Ukazatele programu"
-
-msgid "Calculations"
-msgstr "Výpočty"
-
-msgid "Item type"
-msgstr "Typ položky"
-
-msgid "Indicator group is required"
-msgstr "Je vyžadována skupina indikátorů"
-
-msgid "Indicator is required"
-msgstr "Indikátor je vyžadován"
-
-msgid "Data element group is required"
-msgstr "Skupina datových prvků je povinná"
-
-msgid "Data element is required"
-msgstr "Datový prvek je povinný"
-
-msgid "Data set is required"
-msgstr "Soubor dat je povinný"
-
-msgid "Event data item is required"
-msgstr "Položka dat události je povinná"
-
-msgid "Program indicator is required"
-msgstr "Je vyžadován indikátor programu"
-
-msgid "Calculation is required"
-msgstr "Je vyžadován výpočet"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "Období je vyžadováno"
@@ -643,9 +574,6 @@ msgstr "Skupinová sada"
 
 msgid "Style by group set"
 msgstr "Styl podle sady skupiny"
-
-msgid "Indicator group"
-msgstr "Skupina indikátorů"
 
 msgid "Manage available layer sources"
 msgstr ""
@@ -1050,9 +978,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Indikátor programu"
 
 msgid "No program"
 msgstr "Žádný program"

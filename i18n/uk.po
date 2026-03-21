@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Nancy Espinoza, 2026\n"
 "Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -45,15 +45,6 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr ""
 
@@ -80,21 +71,6 @@ msgstr "Значення"
 
 msgid "Display"
 msgstr "Відображення"
-
-msgid "Data element group"
-msgstr "Група елементів даних"
-
-msgid "Data element operand"
-msgstr ""
-
-msgid "Data element"
-msgstr "Елемент даних"
-
-msgid "Totals"
-msgstr "Підсумки"
-
-msgid "Details"
-msgstr "Деталі"
 
 msgid "Yes"
 msgstr "Так"
@@ -132,9 +108,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
-msgid "Event data item"
-msgstr ""
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -167,9 +140,6 @@ msgstr "Оператор"
 
 msgid "Date"
 msgstr "Дата"
-
-msgid "Data set"
-msgstr "Набір даних"
 
 msgid "No results found"
 msgstr "Результатів не знайдено"
@@ -518,46 +488,7 @@ msgstr ""
 msgid "Choose periods for all split layers"
 msgstr ""
 
-msgid "Indicator"
-msgstr "Показник"
-
-msgid "Reporting rates"
-msgstr "Частота повідомлень"
-
-msgid "Event data items"
-msgstr "Складові дані події"
-
-msgid "Program indicators"
-msgstr "Програмні показники"
-
-msgid "Calculations"
-msgstr ""
-
-msgid "Item type"
-msgstr ""
-
-msgid "Indicator group is required"
-msgstr ""
-
-msgid "Indicator is required"
-msgstr ""
-
-msgid "Data element group is required"
-msgstr ""
-
-msgid "Data element is required"
-msgstr ""
-
-msgid "Data set is required"
-msgstr ""
-
-msgid "Event data item is required"
-msgstr ""
-
-msgid "Program indicator is required"
-msgstr ""
-
-msgid "Calculation is required"
+msgid "Data is required"
 msgstr ""
 
 msgid "Period is required"
@@ -638,9 +569,6 @@ msgstr ""
 
 msgid "Style by group set"
 msgstr ""
-
-msgid "Indicator group"
-msgstr "Група показників"
 
 msgid "Manage available layer sources"
 msgstr ""
@@ -1031,9 +959,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Program indicator"
 
 msgid "No program"
 msgstr ""

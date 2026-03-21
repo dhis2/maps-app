@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -41,15 +41,6 @@ msgstr "此应用无法检索所需数据。"
 msgid "Network error"
 msgstr "网络错误"
 
-msgid "Calculation"
-msgstr "计算"
-
-msgid "No calculations found"
-msgstr "没有找到计算结果"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "可在数据可视化应用中创建计算。"
-
 msgid "Classification"
 msgstr "分类"
 
@@ -76,21 +67,6 @@ msgstr "值"
 
 msgid "Display"
 msgstr "显示"
-
-msgid "Data element group"
-msgstr "数据元组"
-
-msgid "Data element operand"
-msgstr "数据元操作符"
-
-msgid "Data element"
-msgstr "数据元"
-
-msgid "Totals"
-msgstr "总共"
-
-msgid "Details"
-msgstr "详情"
 
 msgid "Yes"
 msgstr "是"
@@ -128,9 +104,6 @@ msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
 msgid "Event > org unit coordinate"
 msgstr "事件 > 组织单位坐标"
 
-msgid "Event data item"
-msgstr "事件数据条目"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "之前选择的值在列表{{id}}中不可用："
 
@@ -163,9 +136,6 @@ msgstr "操作符"
 
 msgid "Date"
 msgstr "日期"
-
-msgid "Data set"
-msgstr "数据集"
 
 msgid "No results found"
 msgstr "没有结果"
@@ -514,47 +484,8 @@ msgstr ""
 msgid "Choose periods for all split layers"
 msgstr ""
 
-msgid "Indicator"
-msgstr "指标"
-
-msgid "Reporting rates"
-msgstr "上报率"
-
-msgid "Event data items"
-msgstr "事件数据项"
-
-msgid "Program indicators"
-msgstr "项目指标"
-
-msgid "Calculations"
-msgstr "计算"
-
-msgid "Item type"
-msgstr "条目类型"
-
-msgid "Indicator group is required"
-msgstr "需要指标组"
-
-msgid "Indicator is required"
-msgstr "需要指标"
-
-msgid "Data element group is required"
-msgstr "需要数据元组"
-
-msgid "Data element is required"
-msgstr "需要数据元"
-
-msgid "Data set is required"
-msgstr "需要数据"
-
-msgid "Event data item is required"
-msgstr "需要事件数据项"
-
-msgid "Program indicator is required"
-msgstr "需要项目指标"
-
-msgid "Calculation is required"
-msgstr "需要计算"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "需要期间"
@@ -634,9 +565,6 @@ msgstr "组集"
 
 msgid "Style by group set"
 msgstr "按组集设置样式"
-
-msgid "Indicator group"
-msgstr "指标组"
 
 msgid "Manage available layer sources"
 msgstr "管理可用的图层源"
@@ -1027,9 +955,6 @@ msgstr "点击取消固定图例"
 
 msgid "Click to pin legend"
 msgstr "点击固定图例"
-
-msgid "Program indicator"
-msgstr "项目指标"
 
 msgid "No program"
 msgstr "无项目"

@@ -1,13 +1,11 @@
-# 
 # Translators:
 # Siddharth Agarwal, 2025
-# AkashJindal, 2025
 # Rohit Wadhwani, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rohit Wadhwani, 2026\n"
 "Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
@@ -41,15 +39,6 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr ""
 
@@ -75,21 +64,6 @@ msgid "Value"
 msgstr "वैल्यू"
 
 msgid "Display"
-msgstr ""
-
-msgid "Data element group"
-msgstr ""
-
-msgid "Data element operand"
-msgstr ""
-
-msgid "Data element"
-msgstr "डेटा एलिमेंट"
-
-msgid "Totals"
-msgstr "कुल"
-
-msgid "Details"
 msgstr ""
 
 msgid "Yes"
@@ -128,9 +102,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
-msgid "Event data item"
-msgstr ""
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -163,9 +134,6 @@ msgstr ""
 
 msgid "Date"
 msgstr "तारीख"
-
-msgid "Data set"
-msgstr "डेटा सेट"
 
 msgid "No results found"
 msgstr "कोई परिणाम नहीं मिला"
@@ -505,49 +473,30 @@ msgstr ""
 msgid "Define start - end dates"
 msgstr ""
 
-msgid "Indicator group is required"
+msgid "Choose periods for all timeline layers"
 msgstr ""
 
-msgid "Indicator is required"
+msgid "Selection is initialized from shared periods"
 msgstr ""
 
-msgid "Data element group is required"
+msgid "Choose periods for all split layers"
 msgstr ""
 
-msgid "Data element is required"
-msgstr ""
-
-msgid "Data set is required"
-msgstr ""
-
-msgid "Event data item is required"
-msgstr ""
-
-msgid "Program indicator is required"
-msgstr ""
-
-msgid "Calculation is required"
+msgid "Data is required"
 msgstr ""
 
 msgid "Period is required"
 msgstr ""
 
-msgid "Indicator"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 msgstr ""
 
-msgid "Reporting rates"
+msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
-msgid "Event data items"
-msgstr ""
-
-msgid "Program indicators"
-msgstr ""
-
-msgid "Calculations"
-msgstr ""
-
-msgid "Item type"
+msgid "Specified radius values are invalid"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
@@ -615,9 +564,6 @@ msgstr ""
 msgid "Style by group set"
 msgstr ""
 
-msgid "Indicator group"
-msgstr ""
-
 msgid "Manage available layer sources"
 msgstr ""
 
@@ -662,9 +608,6 @@ msgid "Data download failed."
 msgstr ""
 
 msgid "External layer"
-msgstr ""
-
-msgid "Split view cannot be combined with other layer types."
 msgstr ""
 
 msgid "Failed to load layer"
@@ -955,18 +898,18 @@ msgstr "➡️ अगला वर्ष"
 msgid "Start/end dates"
 msgstr ""
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -985,9 +928,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
@@ -1012,9 +952,6 @@ msgid "Click to unpin legend"
 msgstr ""
 
 msgid "Click to pin legend"
-msgstr ""
-
-msgid "Program indicator"
 msgstr ""
 
 msgid "No program"
