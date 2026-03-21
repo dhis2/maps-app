@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-05T13:27:31.684Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Cyrille Kabrane, 2026\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -51,16 +51,6 @@ msgstr "Cette application n'a pas pu récupérer les données nécessaires."
 msgid "Network error"
 msgstr "Erreur réseau"
 
-msgid "Calculation"
-msgstr "Calcul"
-
-msgid "No calculations found"
-msgstr "Aucun calcul trouvé"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-"Les calculs peuvent être créés dans l'application Visualiseur de données."
-
 msgid "Classification"
 msgstr "Classification"
 
@@ -87,21 +77,6 @@ msgstr "Valeur"
 
 msgid "Display"
 msgstr "Afficher"
-
-msgid "Data element group"
-msgstr "Groupe d'éléments de données"
-
-msgid "Data element operand"
-msgstr "Opérande d'élément de données"
-
-msgid "Data element"
-msgstr "Élément de données"
-
-msgid "Totals"
-msgstr "Totaux "
-
-msgid "Details"
-msgstr "Détails"
 
 msgid "Yes"
 msgstr "Oui"
@@ -141,9 +116,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr "Événement > coordonnée de l'unité d'organisation"
 
-msgid "Event data item"
-msgstr "Elément de données évènement"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 "La valeur précédemment sélectionnée n'est pas disponible dans la liste : "
@@ -179,9 +151,6 @@ msgstr "Opérateur"
 
 msgid "Date"
 msgstr "Date"
-
-msgid "Data set"
-msgstr "Ensemble de données"
 
 msgid "No results found"
 msgstr "Aucun résultat trouvé"
@@ -550,47 +519,8 @@ msgstr ""
 msgid "Choose periods for all split layers"
 msgstr ""
 
-msgid "Indicator"
-msgstr "Indicateur"
-
-msgid "Reporting rates"
-msgstr "Taux de rapport"
-
-msgid "Event data items"
-msgstr "Eléments de données évènement"
-
-msgid "Program indicators"
-msgstr "Indicateurs de programme"
-
-msgid "Calculations"
-msgstr "Calculs"
-
-msgid "Item type"
-msgstr "Type d'élément"
-
-msgid "Indicator group is required"
-msgstr "Un groupe d'indicateurs est requis"
-
-msgid "Indicator is required"
-msgstr "Un indicateur est requis"
-
-msgid "Data element group is required"
-msgstr "Un groupe d'éléments de données est requis"
-
-msgid "Data element is required"
-msgstr "Un élément de données est requis"
-
-msgid "Data set is required"
-msgstr "Un ensemble de données est requis"
-
-msgid "Event data item is required"
-msgstr "Un item de données d'évènement est requis"
-
-msgid "Program indicator is required"
-msgstr "Un indicateur de programme est requis"
-
-msgid "Calculation is required"
-msgstr "Un calcul est requis"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "Une période est requise"
@@ -678,9 +608,6 @@ msgstr "Ensemble de groupes"
 
 msgid "Style by group set"
 msgstr "Style par ensemble de groupes"
-
-msgid "Indicator group"
-msgstr "Groupe d'indicateurs"
 
 msgid "Manage available layer sources"
 msgstr "Gérer les sources de couches disponibles"
@@ -1092,9 +1019,6 @@ msgstr "Cliquer pour désépingler la légende"
 
 msgid "Click to pin legend"
 msgstr "Cliquer pour épingler la légende"
-
-msgid "Program indicator"
-msgstr "Gestion des indicateurs de programme"
 
 msgid "No program"
 msgstr "Aucun programme"
