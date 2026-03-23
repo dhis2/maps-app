@@ -49,11 +49,11 @@ const Legend = ({
                 Array.isArray(items) && (
                     <table>
                         <tbody>
-                            {sortLegendItems(items).map((item, index) => (
+                            {sortLegendItems(items).map((item) => (
                                 <LegendItem
                                     {...item}
                                     showRange={showRange}
-                                    key={`item-${index}`}
+                                    key={`item-${item.startValue}-${item.endValue}`}
                                 />
                             ))}
                         </tbody>

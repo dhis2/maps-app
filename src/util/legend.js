@@ -155,7 +155,7 @@ export const getRenderingLabel = (strategy) => {
 }
 
 const nameContainsValue = (name, val) =>
-    new RegExp(`(?<![\\d.])${val}(?![\\d.])`).test(name)
+    new RegExp(String.raw`(?<![\d.])${val}(?![\d.])`).test(name)
 
 const rangeInName = (name, startValue, endValue) =>
     (String(startValue) !== '' && nameContainsValue(name, startValue)) ||
@@ -163,7 +163,8 @@ const rangeInName = (name, startValue, endValue) =>
 
 export const legendNamesContainRange = (items) => {
     const numericItems = items.filter(
-        ({ startValue, endValue }) => !isNaN(startValue) && !isNaN(endValue)
+        ({ startValue, endValue }) =>
+            !Number.isNaN(startValue) && !Number.isNaN(endValue)
     )
 
     if (!numericItems.length) {

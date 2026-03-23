@@ -10,10 +10,11 @@ const LegendItemRange = ({
     count,
 }) => {
     const range = `${startValue} - ${endValue}`
-    const displayName =
-        isNaN(startValue) || !showRange
-            ? name
-            : `${name ? name + ' ' : ''}${range}`
+    const showRangeValue =
+        !Number.isNaN(startValue) && !Number.isNaN(endValue) && showRange
+    const displayName = showRangeValue
+        ? `${name ? name + ' ' : ''}${range}`
+        : name
 
     return (
         <td className={styles.legendItemRange}>
