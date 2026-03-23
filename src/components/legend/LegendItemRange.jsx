@@ -13,7 +13,7 @@ const LegendItemRange = ({
     const showRangeValue =
         startValue !== undefined && endValue !== undefined && showRange
     const rangeLabel = showRangeValue ? `${startValue} - ${endValue}` : ''
-    const countLabel = count !== undefined ? ` (${count})` : ''
+    const countLabel = count === undefined ? '' : ` (${count})`
     return (
         <td className={styles.legendItemRange}>
             {nameLabel}
