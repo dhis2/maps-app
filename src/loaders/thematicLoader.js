@@ -235,9 +235,7 @@ const thematicLoader = async ({
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
         minValue = legend.items[0].startValue
-        maxValue =
-            legend.items[legend.items.length - 1].endValue ||
-            legend.items[legend.items.length - 2].endValue // in case show nodata = true
+        maxValue = legend.at(-1).endValue || legend.at(-2).endValue // in case show nodata = true
     }
 
     const getRadiusForValue = scaleSqrt()
