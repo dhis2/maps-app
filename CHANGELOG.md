@@ -1,3 +1,10 @@
+# [101.10.0](https://github.com/dhis2/maps-app/compare/v101.9.0...v101.10.0) (2026-03-17)
+
+
+### Features
+
+* upgrade app-platform to support loading custom translations from datastore ([#3635](https://github.com/dhis2/maps-app/issues/3635)) ([ccf5b8d](https://github.com/dhis2/maps-app/commit/ccf5b8d923c6d056dd6fe25719270354f98453d3))
+
 # [101.9.0](https://github.com/dhis2/maps-app/compare/v101.8.0...v101.9.0) (2026-03-17)
 
 
