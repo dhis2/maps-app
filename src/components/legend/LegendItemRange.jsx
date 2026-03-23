@@ -9,17 +9,16 @@ const LegendItemRange = ({
     endValue,
     count,
 }) => {
-    const range = `${startValue} - ${endValue}`
+    const nameLabel = name ? `${name} ` : ''
     const showRangeValue =
-        !Number.isNaN(startValue) && !Number.isNaN(endValue) && showRange
-    const displayName = showRangeValue
-        ? `${name ? name + ' ' : ''}${range}`
-        : name
-
+        startValue !== undefined && endValue !== undefined && showRange
+    const rangeLabel = showRangeValue ? `${startValue} - ${endValue}` : ''
+    const countLabel = count !== undefined ? ` (${count})` : ''
     return (
         <td className={styles.legendItemRange}>
-            {displayName}
-            {count !== undefined ? ` (${count})` : ''}
+            {nameLabel}
+            {rangeLabel}
+            {countLabel}
         </td>
     )
 }
