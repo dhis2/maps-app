@@ -46,10 +46,12 @@ const DATA_SET_QUERY = {
 export const sortLegendItems = (items) =>
     items.sort((a, b) => {
         if ('from' in a) {
-            return b.from - a.from
+            return b.from == a.from ? b.to - a.to : b.from - a.from
         }
         if ('startValue' in a) {
-            return b.startValue - a.startValue
+            return b.startValue == a.startValue
+                ? b.endValue - a.endValue
+                : b.startValue - a.startValue
         }
     })
 
@@ -120,13 +122,7 @@ export const getLabelsFromLegendItems = (legendItems) => {
 export const getPredefinedLegendItems = (legendSet) => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color'])
 
-    return sortBy('startValue', legendSet.legends)
-        .map(pickSome)
-        .map((item) =>
-            item.name === `${item.startValue} - ${item.endValue}`
-                ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                : item
-        )
+    return sortBy('startValue', legendSet.legends).map(pickSome)
 }
 
 /* eslint-disable max-params */
@@ -136,12 +132,17 @@ export const getAutomaticLegendItems = (
     classes = defaultClasses,
     colorScale = defaultColorScale
 ) => {
-    const items = data.length ? getLegendItems(data, method, classes) : []
-
-    return items.map((item, index) => ({
-        ...item,
-        color: colorScale[index],
-    }))
+    if (data.length === 0) {
+        return { items: [] }
+    }
+    const classification = getLegendItems(data, method, classes)
+    return {
+        items: classification.items.map((item, index) => ({
+            ...item,
+            color: colorScale[index],
+        })),
+        valueFormat: classification.valueFormat,
+    }
 }
 /* eslint-enable max-params */
 
@@ -151,4 +152,29 @@ export const getRenderingLabel = (strategy) => {
         [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
     }
     return map[strategy] ? ' • ' + map[strategy] : null
+}
+
+const nameContainsValue = (name, val) =>
+    new RegExp(String.raw`(?<![\d.])${val}(?![\d.])`).test(name)
+
+const rangeInName = (name, startValue, endValue) =>
+    (String(startValue) !== '' && nameContainsValue(name, startValue)) ||
+    (String(endValue) !== '' && nameContainsValue(name, endValue))
+
+export const legendNamesContainRange = (items) => {
+    const numericItems = items.filter(
+        ({ startValue, endValue }) =>
+            !Number.isNaN(startValue) && !Number.isNaN(endValue)
+    )
+
+    if (!numericItems.length) {
+        return false
+    }
+
+    const itemsWithRange = numericItems.filter(
+        ({ name = '', startValue, endValue }) =>
+            rangeInName(name, startValue, endValue)
+    )
+
+    return itemsWithRange.length / numericItems.length >= 0.5
 }

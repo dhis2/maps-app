@@ -17,6 +17,7 @@ const LegendItem = ({
     radius,
     weight,
     name,
+    showRange,
     startValue,
     endValue,
     count,
@@ -63,6 +64,7 @@ const LegendItem = ({
             </th>
             <LegendItemRange
                 name={name}
+                showRange={showRange}
                 startValue={startValue}
                 endValue={endValue}
                 count={count}
@@ -79,6 +81,7 @@ LegendItem.propTypes = {
     image: PropTypes.string,
     name: PropTypes.string,
     radius: PropTypes.number,
+    showRange: PropTypes.bool,
     startValue: PropTypes.number,
     strokeColor: PropTypes.string,
     type: PropTypes.string,

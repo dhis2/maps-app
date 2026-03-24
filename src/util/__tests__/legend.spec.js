@@ -88,15 +88,14 @@ describe('legend utils', () => {
             const result = getPredefinedLegendItems(legendSet)
             // sorted by startValue -> first item is startValue 0 (name 'A')
             expect(result[0].name).toBe('A')
-            // second item had name equal to range and should be cleared
-            expect(result[1].name).toBe('')
+            expect(result[1].name).toBe('10 - 20')
         })
     })
 
     describe('getAutomaticLegendItems', () => {
         it('returns items with colors from default color scale', () => {
             const data = [1, 2, 3, 4, 5]
-            const items = getAutomaticLegendItems(
+            const { items } = getAutomaticLegendItems(
                 data,
                 CLASSIFICATION_EQUAL_INTERVALS,
                 defaultClasses,
@@ -110,7 +109,7 @@ describe('legend utils', () => {
         })
 
         it('returns empty array when no data', () => {
-            const items = getAutomaticLegendItems(
+            const { items } = getAutomaticLegendItems(
                 [],
                 CLASSIFICATION_EQUAL_INTERVALS,
                 defaultClasses,
