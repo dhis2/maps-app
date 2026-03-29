@@ -7,7 +7,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    flex: auto
+    flex: auto;
 }
 
 .mapContainer.download {
@@ -28,7 +28,12 @@
     flex: auto;
 }
 
+.mapDefault {
+    height: calc(100vh - var(--header-height) - var(--toolbar-height));
+}
+
 .mapDownload {
+    height: calc(100vh - var(--downloadheader-height));
     border: var(--spacers-dp24) solid #fff;
     background-color: var(--colors-white);
 }

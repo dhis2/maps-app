@@ -1,4 +1,3 @@
 .colorPicker {
-    margin-top: -6px;
-    margin-left: 23px;
+    margin-left: var(--spacers-dp24);
 }

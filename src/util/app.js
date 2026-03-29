@@ -1,24 +1,20 @@
 import { layerTypes } from '../components/map/MapApi.js'
-import { defaultBasemaps } from '../constants/basemaps.js'
-import { BING_LAYER, MAP_LAYER_POSITION_BASEMAP } from '../constants/layers.js'
+import { MAP_LAYER_POSITION_BASEMAP } from '../constants/layers.js'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
 } from '../constants/settings.js'
-import {
-    createExternalBasemapLayer,
-    createExternalOverlayLayer,
-    supportedMapServices,
-} from './external.js'
+import { getBasemapList } from './basemaps.js'
+import { createExternalOverlayLayer, supportedMapServices } from './external.js'
 import { getDefaultLayerTypes } from './getDefaultLayerTypes.js'
 import { getHiddenPeriods } from './periods.js'
-import { fetchExternalLayersQuery } from './requests.js'
+import { EXTERNAL_MAP_LAYERS_QUERY } from './requests.js'
 
 export const appQueries = {
     currentUser: {
         resource: 'me',
         params: {
-            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty]',
+            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty,keyUiLocale]',
         },
     },
     systemSettings: {
@@ -27,36 +23,17 @@ export const appQueries = {
             key: SYSTEM_SETTINGS,
         },
     },
-    externalMapLayers: fetchExternalLayersQuery,
+    externalMapLayers: EXTERNAL_MAP_LAYERS_QUERY,
+    systemInfo: {
+        resource: 'system/info',
+        params: {
+            fields: 'calendar,dateFormat',
+        },
+    },
 }
 
-const getBasemapList = (externalMapLayers, systemSettings) => {
-    const externalBasemaps = externalMapLayers
-        .filter(
-            (layer) => layer.mapLayerPosition === MAP_LAYER_POSITION_BASEMAP
-        )
-        .filter((layer) => supportedMapServices.includes(layer.mapService))
-        .map(createExternalBasemapLayer)
-        .filter((basemap) => layerTypes.includes(basemap.config.type))
-
-    return defaultBasemaps()
-        .filter((basemap) => layerTypes.includes(basemap.config.type))
-        .filter((basemap) =>
-            !systemSettings.keyBingMapsApiKey
-                ? basemap.config.type !== BING_LAYER
-                : true
-        )
-        .map((basemap) => {
-            if (basemap.config.type === BING_LAYER) {
-                basemap.config.apiKey = systemSettings.keyBingMapsApiKey
-            }
-            return basemap
-        })
-        .concat(externalBasemaps)
-}
-
-const getLayerTypes = (externalMapLayers) => {
-    const externalLayerTypes = externalMapLayers
+const getDefaultLayerSources = (externalMapLayers) => {
+    const externalLayerSources = externalMapLayers
         .filter(
             (layer) => layer.mapLayerPosition !== MAP_LAYER_POSITION_BASEMAP
         )
@@ -64,12 +41,13 @@ const getLayerTypes = (externalMapLayers) => {
         .map(createExternalOverlayLayer)
         .filter((overlay) => layerTypes.includes(overlay.config.type))
 
-    return getDefaultLayerTypes().concat(externalLayerTypes)
+    return getDefaultLayerTypes().concat(externalLayerSources)
 }
 
-export const providerDataTransformation = ({
+export const providerDataTransformation = async ({
     currentUser,
     systemSettings,
+    systemInfo,
     externalMapLayers,
 }) => ({
     currentUser: {
@@ -77,17 +55,28 @@ export const providerDataTransformation = ({
         name: currentUser.name,
         username: currentUser.username,
         authorities: new Set(currentUser.authorities),
+        keyAnalysisDisplayProperty:
+            currentUser.settings.keyAnalysisDisplayProperty,
     },
     nameProperty:
         currentUser.settings.keyAnalysisDisplayProperty === 'name'
             ? 'displayName'
             : 'displayShortName',
-    systemSettings: Object.assign({}, DEFAULT_SYSTEM_SETTINGS, systemSettings, {
+    systemSettings: {
+        ...DEFAULT_SYSTEM_SETTINGS,
+        ...systemSettings,
         hiddenPeriods: getHiddenPeriods(systemSettings),
+    },
+    periodsSettings: {
+        locale: currentUser.settings.keyUiLocale,
+        calendar: systemInfo.calendar,
+        dateFormat: systemInfo.dateFormat,
+    },
+    basemaps: await getBasemapList({
+        externalMapLayers: externalMapLayers.externalMapLayers,
+        systemSettings,
     }),
-    basemaps: getBasemapList(
-        externalMapLayers.externalMapLayers,
-        systemSettings
+    defaultLayerSources: getDefaultLayerSources(
+        externalMapLayers.externalMapLayers
     ),
-    layerTypes: getLayerTypes(externalMapLayers.externalMapLayers),
 })

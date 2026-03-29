@@ -1,0 +1,1760 @@
+# Translators:
+# Siddharth Agarwal, 2025
+# Rohit Wadhwani, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: Rohit Wadhwani, 2026\n"
+"Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "2020"
+msgstr ""
+
+msgid "Untitled map, {{date}}"
+msgstr ""
+
+msgid "Map \"{{- name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map: {{message}}"
+msgstr ""
+
+msgid "Rename failed"
+msgstr ""
+
+msgid "Rename successful"
+msgstr ""
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr ""
+
+msgid "Classification"
+msgstr ""
+
+msgid "Classes"
+msgstr ""
+
+msgid "Legend set"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Name"
+msgstr "नाम"
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr "वैल्यू"
+
+msgid "Display"
+msgstr ""
+
+msgid "Yes"
+msgstr "हाँ"
+
+msgid "No"
+msgstr "नहीं"
+
+msgid "None"
+msgstr "कोई नहीं"
+
+msgid "Cascading"
+msgstr ""
+
+msgid "Organisation unit location"
+msgstr ""
+
+msgid "Event location"
+msgstr ""
+
+msgid "Enrollment location"
+msgstr ""
+
+msgid "Tracked entity location"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
+
+msgid "Coordinate field"
+msgstr ""
+
+msgid "Enrollment > event > tracked entity > org unit coordinate"
+msgstr ""
+
+msgid "Event > org unit coordinate"
+msgstr ""
+
+msgid "Previously selected value not available in list: {{id}}"
+msgstr ""
+
+msgid "Style by data item"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Data item"
+msgstr ""
+
+msgid "one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr ""
+
+msgid "Date"
+msgstr "तारीख"
+
+msgid "No results found"
+msgstr "कोई परिणाम नहीं मिला"
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "कुछ गलत हुआ"
+
+msgid "Search"
+msgstr "सर्च करें / खोजें"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
+
+msgid "No valid data was found for the current layer configuration."
+msgstr ""
+
+msgid ""
+"Data table is not supported when there is more than one geometry type in the"
+" dataset."
+msgstr ""
+
+msgid "No valid data fields were found for this layer."
+msgstr ""
+
+msgid "Index"
+msgstr ""
+
+msgid "Id"
+msgstr ""
+
+msgid "Level"
+msgstr ""
+
+msgid "Parent"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Legend"
+msgstr ""
+
+msgid "Range"
+msgstr ""
+
+msgid "Org unit"
+msgstr ""
+
+msgid "Event time"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Dimension"
+msgstr ""
+
+msgid "Download"
+msgstr "डाउनलोड"
+
+msgid "Exit download mode"
+msgstr ""
+
+msgid "Download map"
+msgstr ""
+
+msgid "Show map name"
+msgstr ""
+
+msgid "Show map description"
+msgstr ""
+
+msgid "Description can be changed from File > Rename menu"
+msgstr ""
+
+msgid ""
+"Set the map description when you save the map or from File > Rename menu"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid "Show overview map"
+msgstr ""
+
+msgid "Show north arrow"
+msgstr ""
+
+msgid "Include margins in download"
+msgstr ""
+
+msgid "Resize your browser window to change the map dimensions."
+msgstr ""
+
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgstr ""
+
+msgid "Cancel"
+msgstr "रद्द करें"
+
+msgid "Close"
+msgstr "बंद करें"
+
+msgid "No organisation units are selected"
+msgstr ""
+
+msgid "Organisation Units"
+msgstr ""
+
+msgid "Style"
+msgstr ""
+
+msgid "Point color"
+msgstr ""
+
+msgid "Point radius"
+msgstr ""
+
+msgid "event"
+msgstr "इवेंट"
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "org unit"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
+msgid "feature"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr ""
+
+msgid "Add new {{name}} layer"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr ""
+
+msgid "Area statistics (popups and data table)"
+msgstr ""
+
+msgid "This field is required"
+msgstr "यह फ़ील्ड आवश्यक है"
+
+msgid "Data"
+msgstr "डेटा"
+
+msgid "Period"
+msgstr ""
+
+msgid "Dataset"
+msgstr ""
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid "Multiple aggregation methods are available."
+msgstr ""
+
+msgid ""
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Spatial resolution"
+msgstr ""
+
+msgid "Temporal resolution"
+msgstr ""
+
+msgid "Temporal coverage"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Period type"
+msgstr ""
+
+msgid "Legend preview"
+msgstr ""
+
+msgid "Available periods are retrieved from the source data"
+msgstr ""
+
+msgid "Year"
+msgstr "वर्ष"
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Min"
+msgstr "न्यूनतम"
+
+msgid "Max"
+msgstr "अधिकतम"
+
+msgid "Steps"
+msgstr ""
+
+msgid "Facility buffer"
+msgstr ""
+
+msgid "Org Units"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "No legend set is selected"
+msgstr ""
+
+msgid "Event status"
+msgstr ""
+
+msgid "Boundary color"
+msgstr ""
+
+msgid "Draws a buffer area around each point location."
+msgstr ""
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr ""
+
+msgid "Buffer can't be combined with associated geometry."
+msgstr ""
+
+msgid "Fill color"
+msgstr ""
+
+msgid "Line/stroke color"
+msgstr ""
+
+msgid "Line/stroke width"
+msgstr ""
+
+msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
+msgstr ""
+
+msgid "Labels"
+msgstr ""
+
+msgid "Aggregation type"
+msgstr ""
+
+msgid "Only show completed events"
+msgstr ""
+
+msgid "Include org units with no data"
+msgstr ""
+
+msgid "Low radius"
+msgstr ""
+
+msgid "High radius"
+msgstr ""
+
+msgid "High radius should be greater than low radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Choose periods for all timeline layers"
+msgstr ""
+
+msgid "Selection is initialized from shared periods"
+msgstr ""
+
+msgid "Choose periods for all split layers"
+msgstr ""
+
+msgid "Data is required"
+msgstr ""
+
+msgid "Period is required"
+msgstr ""
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
+msgid "Specified radius values are invalid"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
+msgstr ""
+
+msgid "Program status"
+msgstr ""
+
+msgid "Relationships"
+msgstr ""
+
+msgid "Follow up"
+msgstr ""
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid "Tracked entity style"
+msgstr ""
+
+msgid "Point size"
+msgstr ""
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
+msgstr ""
+
+msgid "Tracked Entity Type is required"
+msgstr ""
+
+msgid "No relationship types were found for tracked entity type {{type}}"
+msgstr ""
+
+msgid "Relationship type"
+msgstr ""
+
+msgid "No data to show for this feature."
+msgstr ""
+
+msgid "Feature profile"
+msgstr ""
+
+msgid "Remove filter"
+msgstr ""
+
+msgid "Group set"
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
+msgid "Manage available layer sources"
+msgstr ""
+
+msgid "Configure available layer sources"
+msgstr ""
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+
+msgid "Collapse"
+msgstr ""
+
+msgid "Expand"
+msgstr ""
+
+msgid "External basemap"
+msgstr ""
+
+msgid "Basemap"
+msgstr ""
+
+msgid "Download Layer Data"
+msgstr ""
+
+msgid "Downloading GeoJSON data for \"{{layerName}}\""
+msgstr ""
+
+msgid ""
+"GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
+"Desktop."
+msgstr ""
+
+msgid "ID Format"
+msgstr ""
+
+msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Data download failed."
+msgstr ""
+
+msgid "External layer"
+msgstr ""
+
+msgid "Failed to load layer"
+msgstr ""
+
+msgid "Loading layer"
+msgstr ""
+
+msgid "{{name}} deleted."
+msgstr ""
+
+msgid "Edit"
+msgstr "संपादन करें"
+
+msgid "Toggle visibility"
+msgstr ""
+
+msgid "Layer is invalid"
+msgstr ""
+
+msgid "Set layer opacity"
+msgstr ""
+
+msgid "More actions"
+msgstr ""
+
+msgid "Toggle layer menu"
+msgstr ""
+
+msgid "Hide data table"
+msgstr ""
+
+msgid "Show data table"
+msgstr ""
+
+msgid "Open in Data Visualizer app"
+msgstr ""
+
+msgid "Download data"
+msgstr ""
+
+msgid "Edit layer"
+msgstr ""
+
+msgid "Remove layer"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "No data found"
+msgstr ""
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "Error"
+msgstr "त्रुटि"
+
+msgid "Drill up one level"
+msgstr ""
+
+msgid "Drill down one level"
+msgstr ""
+
+msgid "View profile"
+msgstr ""
+
+msgid "Show longitude/latitude"
+msgstr ""
+
+msgid "Show {{name}}"
+msgstr ""
+
+msgid "Longitude"
+msgstr "देशांतर"
+
+msgid "Latitude"
+msgstr "अक्षांश"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
+
+msgid "Could not retrieve event data"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Parent unit"
+msgstr ""
+
+msgid "No data"
+msgstr "कोई डेटा नहीं"
+
+msgid "Not set"
+msgstr ""
+
+msgid "Could not retrieve tracked entity data"
+msgstr ""
+
+msgid "Last updated"
+msgstr "अंतिम अपडेट"
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
+
+msgid "no value"
+msgstr ""
+
+msgid "All"
+msgstr "सभी"
+
+msgid "Loading data"
+msgstr ""
+
+msgid "acres"
+msgstr ""
+
+msgid "Area"
+msgstr ""
+
+msgid "Center map on area"
+msgstr ""
+
+msgid "Center map on line"
+msgstr ""
+
+msgid "Click the next position"
+msgstr ""
+
+msgid "Click where you want to start the measurement"
+msgstr ""
+
+msgid "Delete"
+msgstr "हटाएं"
+
+msgid "Distance"
+msgstr ""
+
+msgid "Enter fullscreen"
+msgstr ""
+
+msgid "Exit fullscreen"
+msgstr ""
+
+msgid "Finish measurement"
+msgstr ""
+
+msgid "ha"
+msgstr ""
+
+msgid "km"
+msgstr ""
+
+msgid "Measure distances and areas"
+msgstr ""
+
+msgid "mi"
+msgstr ""
+
+msgid "Perimeter"
+msgstr ""
+
+msgid "Reset bearing to north"
+msgstr ""
+
+msgid "Search for place or address"
+msgstr ""
+
+msgid "Zoom in"
+msgstr ""
+
+msgid "Zoom out"
+msgstr ""
+
+msgid "Zoom to content"
+msgstr ""
+
+msgid "Open as map"
+msgstr ""
+
+msgid ""
+"This chart/table contains {{numItems}} data items. Choose which items you "
+"want to import from the list below. Each data item will be created as a map "
+"layer."
+msgstr ""
+
+msgid "Data items"
+msgstr ""
+
+msgid "Proceed"
+msgstr ""
+
+msgid "Options"
+msgstr "ऑप्शन्स"
+
+msgid ""
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
+msgstr ""
+
+msgid "Use associated geometry"
+msgstr ""
+
+msgid "None (default)"
+msgstr ""
+
+msgid "No data found for this period."
+msgstr ""
+
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr ""
+
+msgid "Short name"
+msgstr ""
+
+msgid "Opening date"
+msgstr ""
+
+msgid "Closed date"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "ईमेल"
+
+msgid "Address"
+msgstr ""
+
+msgid "Phone"
+msgstr "फोन"
+
+msgid "ID"
+msgstr "आईडी"
+
+msgid "Comment"
+msgstr "कमेंट"
+
+msgid "Organisation unit profile"
+msgstr ""
+
+msgid "Selected only"
+msgstr ""
+
+msgid "Selected and below"
+msgstr ""
+
+msgid "Selected and all below"
+msgstr ""
+
+msgid "Selection mode"
+msgstr ""
+
+msgid "Clear"
+msgstr "साफ़ करें"
+
+msgid "Previous year"
+msgstr ""
+
+msgid "Next year"
+msgstr "➡️ अगला वर्ष"
+
+msgid "Start/end dates"
+msgstr ""
+
+msgid "Remove all split layers to add a single layer."
+msgstr ""
+
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
+
+msgid "Timeline"
+msgstr ""
+
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "Not available offline"
+msgstr ""
+
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
+msgstr ""
+
+msgid "No program"
+msgstr ""
+
+msgid "Program"
+msgstr "प्रोग्राम"
+
+msgid "Stage"
+msgstr "स्टेज"
+
+msgid "Tracked Entity Type"
+msgstr ""
+
+msgid "By data element"
+msgstr ""
+
+msgid "Count"
+msgstr ""
+
+msgid "Average"
+msgstr ""
+
+msgid "Sum"
+msgstr ""
+
+msgid "Standard deviation"
+msgstr ""
+
+msgid "Variance"
+msgstr ""
+
+msgid "Percentage"
+msgstr ""
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
+msgid "Std dev"
+msgstr ""
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Sentinel-2 EOX"
+msgstr ""
+
+msgid "Bing Road"
+msgstr ""
+
+msgid "Bing Dark"
+msgstr ""
+
+msgid "Bing Aerial"
+msgstr ""
+
+msgid "Bing Aerial Labels"
+msgstr ""
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
+
+msgid "Building footprints"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid "~0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr ""
+
+msgid "May 2023"
+msgstr ""
+
+msgid "Elevation"
+msgstr ""
+
+msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "meters"
+msgstr ""
+
+msgid "~30 meters"
+msgstr ""
+
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+
+msgid "~28 kilometers"
+msgstr ""
+
+msgid "Daily"
+msgstr "रोज़ाना"
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "मासिक"
+
+msgid "Relative humidity weekly"
+msgstr ""
+
+msgid "Landcover"
+msgstr ""
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "unitless"
+msgstr ""
+
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "वार्षिक"
+
+msgid "Since 2001"
+msgstr ""
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr ""
+
+msgid "Mixed forest"
+msgstr ""
+
+msgid "Closed shrublands"
+msgstr ""
+
+msgid "Open shrublands"
+msgstr ""
+
+msgid "Woody savannas"
+msgstr ""
+
+msgid "Savannas"
+msgstr ""
+
+msgid "Grasslands"
+msgstr ""
+
+msgid "Permanent wetlands"
+msgstr ""
+
+msgid "Croplands"
+msgstr ""
+
+msgid "Urban and built-up"
+msgstr ""
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr ""
+
+msgid "Snow and ice"
+msgstr ""
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr ""
+
+msgid "light intensity"
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
+msgid "Population"
+msgstr ""
+
+msgid "people per km²"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Population age groups WorldPop Global1"
+msgstr ""
+
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "~100 meters"
+msgstr ""
+
+msgid "Male 0 - 1 years"
+msgstr ""
+
+msgid "Male 1 - 4 years"
+msgstr ""
+
+msgid "Male 5 - 9 years"
+msgstr ""
+
+msgid "Male 10 - 14 years"
+msgstr ""
+
+msgid "Male 15 - 19 years"
+msgstr ""
+
+msgid "Male 20 - 24 years"
+msgstr ""
+
+msgid "Male 25 - 29 years"
+msgstr ""
+
+msgid "Male 30 - 34 years"
+msgstr ""
+
+msgid "Male 35 - 39 years"
+msgstr ""
+
+msgid "Male 40 - 44 years"
+msgstr ""
+
+msgid "Male 45 - 49 years"
+msgstr ""
+
+msgid "Male 50 - 54 years"
+msgstr ""
+
+msgid "Male 55 - 59 years"
+msgstr ""
+
+msgid "Male 60 - 64 years"
+msgstr ""
+
+msgid "Male 65 - 69 years"
+msgstr ""
+
+msgid "Male 70 - 74 years"
+msgstr ""
+
+msgid "Male 75 - 79 years"
+msgstr ""
+
+msgid "Male 80 years and above"
+msgstr ""
+
+msgid "Female 0 - 1 years"
+msgstr ""
+
+msgid "Female 1 - 4 years"
+msgstr ""
+
+msgid "Female 5 - 9 years"
+msgstr ""
+
+msgid "Female 10 - 14 years"
+msgstr ""
+
+msgid "Female 15 - 19 years"
+msgstr ""
+
+msgid "Female 20 - 24 years"
+msgstr ""
+
+msgid "Female 25 - 29 years"
+msgstr ""
+
+msgid "Female 30 - 34 years"
+msgstr ""
+
+msgid "Female 35 - 39 years"
+msgstr ""
+
+msgid "Female 40 - 44 years"
+msgstr ""
+
+msgid "Female 45 - 49 years"
+msgstr ""
+
+msgid "Female 50 - 54 years"
+msgstr ""
+
+msgid "Female 55 - 59 years"
+msgstr ""
+
+msgid "Female 60 - 64 years"
+msgstr ""
+
+msgid "Female 65 - 69 years"
+msgstr ""
+
+msgid "Female 70 - 74 years"
+msgstr ""
+
+msgid "Female 75 - 79 years"
+msgstr ""
+
+msgid "Female 80 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
+msgstr ""
+
+msgid ""
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
+msgstr ""
+
+msgid "~5.5 kilometers"
+msgstr ""
+
+msgid "Since January 1981"
+msgstr ""
+
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
+msgstr ""
+
+msgid "Temperature monthly"
+msgstr ""
+
+msgid "Temperature weekly"
+msgstr ""
+
+msgid "Vegetation"
+msgstr ""
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "~250 meters"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Completed"
+msgstr "पूरा हुआ"
+
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
+msgid "Equal intervals"
+msgstr ""
+
+msgid "Equal counts"
+msgstr ""
+
+msgid "Symbol"
+msgstr ""
+
+msgid "Relative"
+msgstr ""
+
+msgid "Weekly"
+msgstr "साप्ताहिक"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "साप्ताहिक (बुधवार से शुरू)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "साप्ताहिक (गुरुवार से शुरू)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "साप्ताहिक (शनिवार से शुरू)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "साप्ताहिक (रविवार से शुरू)"
+
+msgid "Bi-weekly"
+msgstr ""
+
+msgid "Bi-monthly"
+msgstr ""
+
+msgid "Quarterly"
+msgstr ""
+
+msgid "Six-monthly"
+msgstr ""
+
+msgid "Six-monthly April"
+msgstr ""
+
+msgid "Financial year (Start November)"
+msgstr ""
+
+msgid "Financial year (Start October)"
+msgstr ""
+
+msgid "Financial year (Start July)"
+msgstr ""
+
+msgid "Financial year (Start April)"
+msgstr ""
+
+msgid "Cancelled"
+msgstr ""
+
+msgid "Earth Engine layer"
+msgstr ""
+
+msgid "You don't have access to this layer data"
+msgstr ""
+
+msgid "The event filter is not supported"
+msgstr ""
+
+msgid "An unknown error occurred while reading layer data"
+msgstr ""
+
+msgid "Displaying first {{pageSize}} events out of {{total}}"
+msgstr ""
+
+msgid "Event"
+msgstr ""
+
+msgid "Facilities"
+msgstr ""
+
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
+
+msgid "No coordinates found for selected facilities"
+msgstr ""
+
+msgid "There was a problem with this layer. Contact a system administrator."
+msgstr ""
+
+msgid "Feature"
+msgstr ""
+
+msgid "Polygon"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Point"
+msgstr ""
+
+msgid "Organisation units"
+msgstr ""
+
+msgid "Org unit layer"
+msgstr ""
+
+msgid "Data item was not found"
+msgstr ""
+
+msgid "Thematic layer"
+msgstr ""
+
+msgid "Tracked entity"
+msgstr ""
+
+msgid "related"
+msgstr ""
+
+msgid "not one of"
+msgstr ""
+
+msgid "doesn't contain"
+msgstr ""
+
+msgid "true"
+msgstr ""
+
+msgid "false"
+msgstr ""
+
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Events"
+msgstr "इवेंट्स"
+
+msgid "Tracked entities"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "Facility"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Start date is invalid"
+msgstr ""
+
+msgid "End date is invalid"
+msgstr ""
+
+msgid "End date cannot be earlier than start date"
+msgstr ""

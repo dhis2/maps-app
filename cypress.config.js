@@ -12,6 +12,13 @@ async function setupNodeEvents(on, config) {
     excludeByVersionTags(on, config)
     downloadedFileTasks(on)
 
+    on('before:browser:launch', (browser = {}, launchOptions) => {
+        if (browser.name === 'chrome' && browser.isHeadless) {
+            launchOptions.args.push('--enable-unsafe-swiftshader')
+        }
+        return launchOptions
+    })
+
     if (!config.env.dhis2InstanceVersion) {
         throw new Error(
             'dhis2InstanceVersion is missing. Check the README for more information.'
@@ -23,34 +30,6 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
     projectId: 'r5jduj',
-    reporter: '@reportportal/agent-js-cypress',
-    reporterOptions: {
-        endpoint: process.env.REPORTPORTAL_ENDPOINT,
-        apiKey: process.env.REPORTPORTAL_API_KEY,
-        launch: 'maps_app',
-        project: process.env.REPORTPORTAL_PROJECT,
-        description: '',
-        autoMerge: true,
-        parallel: true,
-        debug: false,
-        restClientConfig: {
-            timeout: 660000,
-        },
-        attributes: [
-            {
-                key: 'version',
-                value: 'master',
-            },
-            {
-                key: 'app_name',
-                value: 'maps-app',
-            },
-            {
-                key: 'test_level',
-                value: 'e2e',
-            },
-        ],
-    },
     e2e: {
         setupNodeEvents,
         baseUrl: 'http://localhost:3000',

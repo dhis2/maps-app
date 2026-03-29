@@ -43,6 +43,7 @@ export const setDataItemInColumns = (dataItem, dimension) => {
                                   ? '.REPORTING_RATE'
                                   : ''),
                           name: dataItem.name,
+                          expression: dataItem.expression,
                           dimensionItemType: dim.itemType,
                           legendSet: dataItem.legendSet, // TODO: Keep outside of columns?
                       },
@@ -83,6 +84,9 @@ export const setOrgUnitPathInRows = (rows = [], id, path) => {
 export const getPeriodFromFilters = (filters = []) =>
     getDimensionItems('pe', filters)[0]
 
+export const getPeriodsFromFilters = (filters = []) =>
+    getDimensionItems('pe', filters)
+
 export const removePeriodFromFilters = (filters = []) => [
     ...filters.filter((f) => f.dimension !== 'pe'),
 ]
@@ -92,6 +96,11 @@ export const getPeriodNameFromId = (id) => getPeriodNames()[id]
 export const setFiltersFromPeriod = (filters, period) => [
     ...removePeriodFromFilters(filters),
     createDimension('pe', [{ ...period }]),
+]
+
+export const setFiltersFromPeriods = (filters, periods) => [
+    ...removePeriodFromFilters(filters),
+    createDimension('pe', periods),
 ]
 
 /* DYNAMIC DIMENSION FILTERS */
@@ -166,7 +175,7 @@ export const getFilterOperatorAsText = (operator, value) => {
         IN: i18n.t('one of'),
         '!IN': i18n.t('not one of'),
         LIKE: i18n.t('contains'),
-        '!LIKE': i18n.t("doesn't contains"),
+        '!LIKE': i18n.t("doesn't contain"),
     }[operator]
 }
 
@@ -205,7 +214,7 @@ export const combineDataItems = (
 
 /* eslint-enable max-params */
 
-// TODO: This is VERY expensive because metaData.items can have 100000+ elements.  Consider removing.
+// TODO: This is VERY expensive because metaData.items can have 100000+ elements. Consider removing.
 // Builds an object with key/names pairs from an API response
 export const getApiResponseNames = ({ metaData, headers }) => ({
     ...Object.keys(metaData.items).reduce(

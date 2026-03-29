@@ -20,12 +20,14 @@
     max-width: 100%;
 }
 
-.filters {
+.filters,
+.coordinateFields {
     padding-top: var(--spacers-dp16);
     font-size: 12px;
 }
 
-.filters > div:first-child {
+.filters > div:first-child,
+.coordinateFields > div:first-child {
     font-weight: bold;
 }
 

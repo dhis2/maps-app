@@ -57,18 +57,6 @@ export const setDataItem = (dataItem, dimension) => ({
     dimension,
 })
 
-// Set program indicator used (thematic)
-export const setDataElementGroup = (dataElementGroup) => ({
-    type: types.LAYER_EDIT_DATA_ELEMENT_GROUP_SET,
-    dataElementGroup,
-})
-
-// Set data element operand (operand = true = details, operand = false = totals)
-export const setOperand = (operand) => ({
-    type: types.LAYER_EDIT_OPERAND_SET,
-    operand,
-})
-
 // Set data element used for styling (event)
 export const setStyleDataItem = (dataItem) => ({
     type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
@@ -111,9 +99,10 @@ export const setEventStatus = (status) => ({
 })
 
 // Set coordinate field
-export const setEventCoordinateField = (fieldId) => ({
+export const setEventCoordinateField = (fieldId, fieldType) => ({
     type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET,
     fieldId,
+    fieldType,
 })
 
 // Set fallback coordinate field
@@ -179,10 +168,16 @@ export const setPeriodName = (periodName) => ({
 })
 
 // Set period type (thematic)
-export const setPeriodType = (periodType, clearPeriod = true) => ({
+export const setPeriodType = (periodType, keepPeriod) => ({
     type: types.LAYER_EDIT_PERIOD_TYPE_SET,
     periodType,
-    clearPeriod,
+    keepPeriod,
+})
+
+// Set periods (thematic)
+export const setPeriods = (periods) => ({
+    type: types.LAYER_EDIT_PERIODS_SET,
+    periods,
 })
 
 // Set period (event & thematic)
@@ -203,17 +198,10 @@ export const setEndDate = (endDate) => ({
     endDate,
 })
 
-// Set value type (thematic)
-export const setValueType = (valueType, keepColumns) => ({
-    type: types.LAYER_EDIT_VALUE_TYPE_SET,
-    valueType,
-    keepColumns, // Kept if favorite is loaded
-})
-
-// Set indicator group (thematic)
-export const setIndicatorGroup = (indicatorGroup) => ({
-    type: types.LAYER_EDIT_INDICATOR_GROUP_SET,
-    indicatorGroup,
+// Set periods or dates backup
+export const setBackupPeriodsDates = (backupPeriodsDates) => ({
+    type: types.LAYER_EDIT_BACKUP_PERIODSDATES_SET,
+    backupPeriodsDates,
 })
 
 // Set aggregation type (thematic/earth engine)
@@ -234,10 +222,10 @@ export const setOrgUnitMode = (mode) => ({
     payload: mode,
 })
 
-// Set layer params (EE)
-export const setParams = (params) => ({
-    type: types.LAYER_EDIT_PARAMS_SET,
-    payload: params,
+// Set layer style (EE)
+export const setStyle = (payload) => ({
+    type: types.LAYER_EDIT_STYLE_SET,
+    payload,
 })
 
 // Set collection filter (EE)
@@ -249,7 +237,7 @@ export const setFilter = (filter) => ({
 // Set band (EE)
 export const setBand = (band) => ({
     type: types.LAYER_EDIT_BAND_SET,
-    payload: band,
+    payload: band?.id || band,
 })
 
 // Set label visibility
@@ -291,6 +279,12 @@ export const setLabelFontColor = (color) => ({
 export const setBufferRadius = (radius) => ({
     type: types.LAYER_EDIT_BUFFER_RADIUS_SET,
     radius,
+})
+
+// Set geometry to centroid (events)
+export const setGeometryCentroid = (checked) => ({
+    type: types.LAYER_EDIT_GEOMETRY_CENTROIDS_SET,
+    payload: checked,
 })
 
 // Set point radius low (thematic, org unit)
@@ -357,6 +351,12 @@ export const setRenderingStrategy = (display) => ({
 export const setNoDataColor = (color) => ({
     type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
     payload: color,
+})
+
+// Set period for EE layer
+export const setEarthEnginePeriod = (payload) => ({
+    type: types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET,
+    payload,
 })
 
 // Set feature style

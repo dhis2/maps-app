@@ -16,13 +16,13 @@
 .content {
     margin: 0;
     font-size: 13px;
-    line-height: 17px;
+    line-height: var(--spacers-dp16);
     cursor: help;
 }
 
 .content p {
     margin: 0 0 var(--spacers-dp8);
     font-size: 13px;
-    line-height: 17px;
+    line-height: var(--spacers-dp16);
     cursor: help;
 }

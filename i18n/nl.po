@@ -1,32 +1,47 @@
-# 
 # Translators:
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
 # Philip Larsen Donnelly, 2024
-# Charel van den Elsen, 2024
-# Rica Zamora Duchateau, 2024
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
+# Charel van den Elsen <zobeadzorg@gmail.com>, 2025
+# Rica, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Rica Zamora Duchateau, 2024\n"
+"Last-Translator: Rica, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "2020"
+msgstr "2020"
+
 msgid "Untitled map, {{date}}"
-msgstr ""
+msgstr "Ongetitelde kaart, {{date}}"
 
 msgid "Map \"{{- name}}\" is saved."
-msgstr ""
+msgstr "Kaart \"{{- name}}\" is opgeslagen."
 
 msgid "Failed to save map: {{message}}"
+msgstr "Opslaan kaart mislukt: {{message}}"
+
+msgid "Rename failed"
 msgstr ""
+
+msgid "Rename successful"
+msgstr "Hernoeming geslaagd"
+
+msgid "This app could not retrieve required data."
+msgstr ""
+
+msgid "Network error"
+msgstr "Netwerkfout"
 
 msgid "Classification"
 msgstr "Classificatie"
@@ -47,7 +62,7 @@ msgid "Name"
 msgstr "Naam"
 
 msgid "Name and value"
-msgstr ""
+msgstr "Naam en waarde"
 
 msgid "Value"
 msgstr "Waarde"
@@ -55,62 +70,47 @@ msgstr "Waarde"
 msgid "Display"
 msgstr "Weergave"
 
-msgid "Data element group"
-msgstr "Gegevenselementengroep"
-
-msgid "Data element operand"
-msgstr "Gegevenselementenoperand"
-
-msgid "Data element"
-msgstr "informatie onderdeel"
-
-msgid "Totals"
-msgstr "Totalen"
-
-msgid "Details"
-msgstr "Details"
-
 msgid "Yes"
 msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
 
 msgid "None"
 msgstr "Geen"
 
 msgid "Cascading"
-msgstr ""
+msgstr "Trapsgewijs"
+
+msgid "Organisation unit location"
+msgstr "Organisatie-eenheidslocatie"
 
 msgid "Event location"
 msgstr "Gebeurtenislocatie"
 
 msgid "Enrollment location"
-msgstr ""
+msgstr "Inschrijvingslocatie"
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
-msgstr ""
+msgstr "Gevolgde entiteitslocatie"
 
 msgid "Fallback coordinate field"
-msgstr ""
+msgstr "Terugvalcoördinatenveld"
 
 msgid "Coordinate field"
 msgstr "Coördinatenveld"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
-msgstr ""
+msgstr "Inschrijving > evenement > gevolgde entiteit > coördinaat org-eenheid"
 
 msgid "Event > org unit coordinate"
+msgstr "Evenement > coördinaat org-eenheid"
+
+msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
-msgid "Event data item"
-msgstr "Gebeurtenisgegevensitem"
-
-msgid "Selected value not available in in list: {{name}}"
+msgid "Style by data item"
 msgstr ""
-
-msgid "Style by data element"
-msgstr "Stileer volgens gegevenselement"
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filteren is beschikbaar nadat een programmastadium geselecteerd is."
@@ -139,9 +139,6 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Datum\n"
 
-msgid "Data set"
-msgstr "Gegevensreeks"
-
 msgid "No results found"
 msgstr "Geen resultaten gevonden"
 
@@ -160,15 +157,17 @@ msgstr ""
 "gegroepeerd zijn."
 
 msgid "No valid data was found for the current layer configuration."
-msgstr ""
+msgstr "Er werd geen geldige data gevonden voor de huidige laagconfiguratie."
 
 msgid ""
 "Data table is not supported when there is more than one geometry type in the"
 " dataset."
 msgstr ""
+"Datatabel wordt niet ondersteund wanneer er meer dan een geometriesoort is "
+"in de dataset."
 
 msgid "No valid data fields were found for this layer."
-msgstr ""
+msgstr "Er werden geen geldige datavelden gevonden voor deze laag."
 
 msgid "Index"
 msgstr "Index"
@@ -207,38 +206,42 @@ msgid "Download"
 msgstr "Download"
 
 msgid "Exit download mode"
-msgstr ""
+msgstr "Verlaat downloadmodus"
 
 msgid "Download map"
 msgstr "Download kaart"
 
 msgid "Show map name"
-msgstr ""
+msgstr "Toon kaartnaam"
 
 msgid "Show map description"
-msgstr ""
+msgstr "Toon kaartbeschrijving"
 
 msgid "Description can be changed from File > Rename menu"
-msgstr ""
+msgstr "Beschrijving kan veranderd worden van het menu Bestand > Hernoemen"
 
 msgid ""
 "Set the map description when you save the map or from File > Rename menu"
 msgstr ""
+"Stel de kaartbeschrijving in wanneer je de kaart opslaat of vanuit het menu "
+"Bestand > Hernoemen"
 
 msgid "Show legend"
 msgstr "Toon legenda"
 
 msgid "Show overview map"
-msgstr ""
+msgstr "Toon overzichtskaart"
 
 msgid "Show north arrow"
-msgstr ""
+msgstr "Toon noordpijl"
 
 msgid "Include margins in download"
-msgstr ""
+msgstr "Betrek marges bij download"
 
 msgid "Resize your browser window to change the map dimensions."
 msgstr ""
+"Wijzig de grootte van je browservenster door de kaartdimensies te "
+"veranderen."
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -262,7 +265,7 @@ msgid "Style"
 msgstr "Stijl"
 
 msgid "Point color"
-msgstr ""
+msgstr "Puntkleur"
 
 msgid "Point radius"
 msgstr "Puntradius"
@@ -286,7 +289,7 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "feature"
-msgstr ""
+msgstr "object"
 
 msgid "Edit {{name}} layer"
 msgstr "Bewerk {{name}}-laag"
@@ -300,11 +303,8 @@ msgstr "Werk laag bij"
 msgid "Add layer"
 msgstr "Voeg laag toe"
 
-msgid "Aggregation method"
-msgstr "Aggregatiemethode"
-
-msgid "Groups"
-msgstr "Groepen"
+msgid "Area statistics (popups and data table)"
+msgstr ""
 
 msgid "This field is required"
 msgstr "Dit veld is verplicht."
@@ -315,6 +315,9 @@ msgstr "Gegevens"
 msgid "Period"
 msgstr "Periode"
 
+msgid "Dataset"
+msgstr ""
+
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
@@ -323,27 +326,41 @@ msgstr ""
 "organisatieëenheden."
 
 msgid "Multiple aggregation methods are available."
-msgstr ""
+msgstr "Verscheidene aggregatiemethodes zijn beschikbaar."
 
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
 msgstr ""
+"Zie de aggregatieresultaten door te klikken op kaartregio's of door de "
+"datatabel te bekijken. De resultaten kunnen ook gedownload worden."
 
 msgid "Unit"
 msgstr "Eenheid"
 
+msgid "Spatial resolution"
+msgstr "Ruimtelijke resolutie"
+
+msgid "Temporal resolution"
+msgstr "Temporele resolutie"
+
+msgid "Temporal coverage"
+msgstr "Temporele omvang"
+
 msgid "Source"
 msgstr "Bron"
+
+msgid "Period type"
+msgstr "Soort periode"
 
 msgid "Legend preview"
 msgstr "Voorbeeldweergave van legenda"
 
+msgid "Available periods are retrieved from the source data"
+msgstr ""
+
 msgid "Year"
 msgstr "Jaar"
-
-msgid "Available periods are set by the source data"
-msgstr "Beschikbare periodes worden door de brongegevens vastgesteld"
 
 msgid "Loading periods"
 msgstr "Laadperiodes"
@@ -360,9 +377,6 @@ msgstr "Max. moet groter zijn dan min."
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Geldige stappen zijn {{minSteps}} tot {{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr "Eenheid: {{ unit }}"
-
 msgid "Min"
 msgstr "Min"
 
@@ -371,6 +385,9 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Stappen"
+
+msgid "Facility buffer"
+msgstr "Faciliteitsbuffer"
 
 msgid "Org Units"
 msgstr "Organisatieëenheden"
@@ -408,6 +425,9 @@ msgid "Event status"
 msgstr "Gebeurtenisstatus"
 
 msgid "Boundary color"
+msgstr "Grenskleur"
+
+msgid "Draws a buffer area around each point location."
 msgstr ""
 
 msgid "Buffer"
@@ -417,18 +437,30 @@ msgid "Radius in meters"
 msgstr "Radius in meters"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "Buffer kan niet gecombineerd worden met geassocieerde geometrie."
 
 msgid "Fill color"
-msgstr ""
+msgstr "Opvulkleur"
 
 msgid "Line/stroke color"
-msgstr ""
+msgstr "Kleur lijn/slag"
 
 msgid "Line/stroke width"
-msgstr ""
+msgstr "Breedte lijn/slag"
 
 msgid "Line/stroke width must be between 0-10."
+msgstr "Breedte lijn/slag moet tussen 0-10 zijn."
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -438,10 +470,10 @@ msgid "Aggregation type"
 msgstr "Aggregatietype"
 
 msgid "Only show completed events"
-msgstr ""
+msgstr "Toon alleen voltooide evenementen"
 
-msgid "Show no data"
-msgstr "Toon geen gegevens"
+msgid "Include org units with no data"
+msgstr "Omvat organisatieëenheden met geen data"
 
 msgid "Low radius"
 msgstr "Lage radius"
@@ -455,44 +487,37 @@ msgstr "Hoge radius moet groter zijn dan lage radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius moet tussen {{min}} en {{max}} zijn"
 
-msgid "Indicator group is required"
-msgstr "Indicatorgroep is verplicht"
+msgid "Choose from presets"
+msgstr "Kies uit voorinstellingen"
 
-msgid "Indicator is required"
-msgstr "Indicator is verplicht"
+msgid "Define start - end dates"
+msgstr "Definieer begin- en einddatums"
 
-msgid "Data element group is required"
-msgstr "Gegevenselementengroep is verplicht"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "Gegevenselement is verplicht"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data set is required"
-msgstr "Gegevensreeks is verplicht"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Event data item is required"
-msgstr "Gegevensitem van gebeurtenis is verplicht"
-
-msgid "Program indicator is required"
-msgstr "Programmaindicator is verplicht"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "Periode is verplicht"
 
-msgid "Indicator"
-msgstr "Indicator"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "Rapporteringsgraden"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Event data items"
-msgstr "Gebeurtenisgegevensitems"
-
-msgid "Program indicators"
-msgstr "Programmaindicators"
-
-msgid "Item type"
-msgstr "Itemsoort"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -541,6 +566,9 @@ msgstr "Stijl van gerelateerde entiteit"
 msgid "Line Color"
 msgstr "Lijnkleur"
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 "Geen relatiesoorten werden gevonden voor getraceerde entiteitssoort {{type}}"
@@ -549,10 +577,10 @@ msgid "Relationship type"
 msgstr "Relatiesoort"
 
 msgid "No data to show for this feature."
-msgstr ""
+msgstr "Geen data om te tonen voor dit object."
 
 msgid "Feature profile"
-msgstr ""
+msgstr "Objectprofiel"
 
 msgid "Remove filter"
 msgstr "Verwijder filter"
@@ -560,14 +588,21 @@ msgstr "Verwijder filter"
 msgid "Group set"
 msgstr "Groepsreeks"
 
-msgid "Failed to load organisation unit groups."
-msgstr "Laden van organisatieëenheidgroepen mislukt."
-
 msgid "Style by group set"
 msgstr "Stileer volgens groepsreeks"
 
-msgid "Indicator group"
-msgstr "Indicatorgroep"
+msgid "Manage available layer sources"
+msgstr "Beheer beschikbare laagbronnen"
+
+msgid "Configure available layer sources"
+msgstr "Configureer beschikbare laagbronnen"
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr ""
+"Kies welke laagbronnen beschikbaar zijn om toe te voegen aan kaarten. Deze "
+"keuze is van toepassing op alle gebruikers."
 
 msgid "Collapse"
 msgstr "Inklappen"
@@ -606,12 +641,8 @@ msgstr "Downloaden van gegevens mislukt."
 msgid "External layer"
 msgstr "Externe laag"
 
-msgid "Split view can not be combined with other layer types."
-msgstr ""
-"Gesplitste weergave kan niet gecombineerd worden met aandere laagsoorten."
-
 msgid "Failed to load layer"
-msgstr ""
+msgstr "Laden van laag mislukt"
 
 msgid "Loading layer"
 msgstr "Laag aan het laden"
@@ -626,7 +657,7 @@ msgid "Toggle visibility"
 msgstr "Schakel zichtbaarheid in"
 
 msgid "Layer is invalid"
-msgstr ""
+msgstr "Laag is ongeldig"
 
 msgid "Set layer opacity"
 msgstr "Doorzichtigheid van laag instellen"
@@ -635,7 +666,7 @@ msgid "More actions"
 msgstr "Meerdere taken"
 
 msgid "Toggle layer menu"
-msgstr ""
+msgstr "Laagmenu inschakelen"
 
 msgid "Hide data table"
 msgstr "Verberg gegevenstabel"
@@ -643,8 +674,8 @@ msgstr "Verberg gegevenstabel"
 msgid "Show data table"
 msgstr "Toon gegevenstabel"
 
-msgid "Open as chart"
-msgstr "Open als grafiek"
+msgid "Open in Data Visualizer app"
+msgstr "Open in Datavisualisatie-app"
 
 msgid "Download data"
 msgstr "Download gegevens"
@@ -655,17 +686,20 @@ msgstr "Bewerk laag"
 msgid "Remove layer"
 msgstr "Verwijder laag"
 
-msgid "Mid"
-msgstr "Midden"
-
-msgid "Group"
-msgstr "Groep"
-
 msgid "Filters"
 msgstr "Filters"
 
-msgid "{{layername}}: {{message}}"
-msgstr ""
+msgid "No data found"
+msgstr "Geen gegevens gevonden"
+
+msgid "Selected org units: No coordinates found"
+msgstr "Geselecteerde organisatieëenheden: Geen coördinaten gevonden"
+
+msgid "No coordinates found"
+msgstr "Geen coördinaten gevonden"
+
+msgid "Error"
+msgstr "Fout"
 
 msgid "Drill up one level"
 msgstr "Ga één niveau omhoog"
@@ -688,20 +722,34 @@ msgstr "Lengtegraad"
 msgid "Latitude"
 msgstr "Breedtegraad"
 
-msgid "Basemap could not be added: {{message}}"
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
 msgstr ""
 
-msgid "Not set"
-msgstr "Niet vastgesteld"
+msgid "Basemap could not be added: {{message}}"
+msgstr "Basiskaart kon niet toegevoegd worden: {{message}}"
 
 msgid "Could not retrieve event data"
-msgstr ""
+msgstr "Evenementengegevens konden niet herkregen worden"
 
 msgid "Organisation unit"
 msgstr "Organisatieëenheid"
 
+msgid "Groups"
+msgstr "Groepen"
+
 msgid "Parent unit"
 msgstr "Boveliggende eenheid"
+
+msgid "No data"
+msgstr "Geen gegevens"
+
+msgid "Not set"
+msgstr "Niet vastgesteld"
+
+msgid "Could not retrieve tracked entity data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
@@ -710,15 +758,17 @@ msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
 "instance?"
 msgstr ""
+"Google Earth Engine mislukt. Is de dienst geconfigureerd voor deze "
+"DHIS2-instantie?"
 
 msgid "no value"
 msgstr "geen waarde"
 
-msgid "All groups"
-msgstr ""
+msgid "All"
+msgstr "Alle"
 
 msgid "Loading data"
-msgstr ""
+msgstr "Gegevens zijn aan het laden"
 
 msgid "acres"
 msgstr "aren"
@@ -812,10 +862,10 @@ msgstr ""
 "opties voor styleren is {{max}}."
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "Gebruik geassocieerde geometrie"
 
 msgid "None (default)"
-msgstr ""
+msgstr "Geen (standaard)"
 
 msgid "No data found for this period."
 msgstr "Geen gegevens gevonden voor deze periode."
@@ -874,38 +924,58 @@ msgstr "Geselecteerd en alle onderstaanden"
 msgid "Selection mode"
 msgstr "Selectiemodus"
 
+msgid "Clear"
+msgstr "Verwijder"
+
 msgid "Previous year"
 msgstr "Vorig jaar"
 
 msgid "Next year"
 msgstr "Volgend jaar"
 
-msgid "Relative"
-msgstr "Relatief"
-
-msgid "Period type"
-msgstr "Soort periode"
-
 msgid "Start/end dates"
 msgstr "Start-/einddatums"
 
-msgid "Only one timeline is allowed."
-msgstr "Alleen één tijdslijn is toegelaten."
+msgid "Remove all split layers to add a single layer."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "Verwijder andere lagen om gesplitste kaartweergaven in te schakelen."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
 
-msgid "Display periods"
-msgstr "Toon periodes"
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "Enkelvoudig (aggregaat)"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr ""
 
 msgid "Timeline"
 msgstr "Tijdlijn"
 
-msgid "Split map views"
-msgstr "Splits kaartweergaves"
+msgid "Show multiple periods as an interactive timeline."
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr ""
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr ""
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr ""
 
 msgid "Start date"
 msgstr "Startdatum"
@@ -916,8 +986,11 @@ msgstr "Einddatum"
 msgid "Not available offline"
 msgstr "Niet beschikbaar offline"
 
-msgid "Program indicator"
-msgstr "Programmaindicator"
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
+msgstr ""
 
 msgid "No program"
 msgstr "Geen programma"
@@ -965,13 +1038,16 @@ msgid "Median"
 msgstr "Mediaan"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Std dev"
 
 msgid "OSM Light"
 msgstr "OSM Light"
 
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
+
+msgid "Sentinel-2 EOX"
+msgstr ""
 
 msgid "Bing Road"
 msgstr "Bing Road"
@@ -985,194 +1061,184 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
-msgid "Population"
-msgstr "Bevolking"
-
-msgid "people per hectare"
-msgstr "bevolking per hectare"
-
-msgid "Estimated number of people living in an area."
-msgstr "Geschat aantal inwoners in een gebied."
-
-msgid "Population age groups"
-msgstr "Bevolkingsleeftijdsgroepen"
-
-msgid ""
-"Estimated number of people living in an area, grouped by age and gender."
-msgstr ""
-"Geschat aantal inwoners in een gebied, gegroepeerd volgens leeftijd en "
-"geslacht."
-
-msgid "Male 0 - 1 years"
+msgid "Azure Road"
 msgstr ""
 
-msgid "Male 1 - 4 years"
+msgid "Azure Dark"
 msgstr ""
 
-msgid "Male 5 - 9 years"
+msgid "Azure Aerial"
 msgstr ""
 
-msgid "Male 10 - 14 years"
-msgstr ""
-
-msgid "Male 15 - 19 years"
-msgstr ""
-
-msgid "Male 20 - 24 years"
-msgstr ""
-
-msgid "Male 25 - 29 years"
-msgstr ""
-
-msgid "Male 30 - 34 years"
-msgstr ""
-
-msgid "Male 35 - 39 years"
-msgstr ""
-
-msgid "Male 40 - 44 years"
-msgstr ""
-
-msgid "Male 45 - 49 years"
-msgstr ""
-
-msgid "Male 50 - 54 years"
-msgstr ""
-
-msgid "Male 55 - 59 years"
-msgstr ""
-
-msgid "Male 60 - 64 years"
-msgstr ""
-
-msgid "Male 65 - 69 years"
-msgstr ""
-
-msgid "Male 70 - 74 years"
-msgstr ""
-
-msgid "Male 75 - 79 years"
-msgstr ""
-
-msgid "Male 80 years and above"
-msgstr ""
-
-msgid "Female 0 - 1 years"
-msgstr ""
-
-msgid "Female 1 - 4 years"
-msgstr ""
-
-msgid "Female 5 - 9 years"
-msgstr ""
-
-msgid "Female 10 - 14 years"
-msgstr ""
-
-msgid "Female 15 - 19 years"
-msgstr ""
-
-msgid "Female 20 - 24 years"
-msgstr ""
-
-msgid "Female 25 - 29 years"
-msgstr ""
-
-msgid "Female 30 - 34 years"
-msgstr ""
-
-msgid "Female 35 - 39 years"
-msgstr ""
-
-msgid "Female 40 - 44 years"
-msgstr ""
-
-msgid "Female 45 - 49 years"
-msgstr ""
-
-msgid "Female 50 - 54 years"
-msgstr ""
-
-msgid "Female 55 - 59 years"
-msgstr ""
-
-msgid "Female 60 - 64 years"
-msgstr ""
-
-msgid "Female 65 - 69 years"
-msgstr ""
-
-msgid "Female 70 - 74 years"
-msgstr ""
-
-msgid "Female 75 - 79 years"
-msgstr ""
-
-msgid "Female 80 years and above"
+msgid "Azure Aerial Labels"
 msgstr ""
 
 msgid "Building footprints"
-msgstr ""
-
-msgid "Number of buildings"
-msgstr ""
+msgstr "Footprints van gebouwen"
 
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
 msgstr ""
+"De omtrekken van gebouwen zijn afgeleid van hoge-resolutie satellietbeelden."
+" Alleen voor Sub-Sahara-Afrika, Zuid- en Zuidoost-Azië, Latijns Amerika en "
+"de Caraïben."
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
 msgstr ""
+"Het aantal gebouwen is alleen beschikbaar voor kleinere organisatieëenheden."
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
 msgstr ""
+"Kies een kleiner gebied of een enkele organisatieëenheid om het aantal "
+"gebouwen te zien."
+
+msgid "Number of buildings"
+msgstr "Aantal gebouwen"
+
+msgid "~0.5 meter"
+msgstr ""
+
+msgid "Single point in time"
+msgstr "Enkel punt in de tijd"
+
+msgid "May 2023"
+msgstr "mei 2023"
 
 msgid "Elevation"
 msgstr "Hoogte"
 
-msgid "meters"
-msgstr "meters"
-
 msgid "Elevation above sea-level."
 msgstr "Hoogte boven zeespiegel"
 
-msgid "Precipitation"
-msgstr "Neerslag"
+msgid "meters"
+msgstr "meters"
 
-msgid "millimeter"
-msgstr "millimeter"
+msgid "~30 meters"
+msgstr "~30 meter"
+
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
 
 msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
 msgstr ""
-"Neerslag verzameld van satelliet- en weerstations aan de grond. De waarden "
-"zijn in millimeters binnen 5-daagse periodes. Maandelijks geüpdatet, tijdens"
-" de 3de week van de volgende maand."
 
-msgid "Temperature"
-msgstr "Temperatuur"
+msgid "~28 kilometers"
+msgstr ""
 
-msgid "°C during daytime"
-msgstr "°C tijdens de dag"
+msgid "Daily"
+msgstr "Dagelijks"
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
 
 msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
 msgstr ""
-"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
-"zich in gebieden met aanhoudende bewolking."
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Maandelijks"
+
+msgid "Relative humidity weekly"
+msgstr ""
 
 msgid "Landcover"
 msgstr "Landbedekking"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Verschillende landbedekkingstypes verzameld van satellieten."
+
+msgid "unitless"
+msgstr ""
+
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "Jaarlijks"
+
+msgid "Since 2001"
+msgstr ""
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Groenblijvend naaldbos"
@@ -1225,8 +1291,12 @@ msgstr "Kaal of schaars begroeid"
 msgid "Water"
 msgstr "Water"
 
-msgid "people per km²"
-msgstr "mensen per km²"
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+"De omtrekken van gebouwen zijn afgeleid van hoge-resolutie satellietbeelden."
+" Alleen voor het continent van Afrika."
 
 msgid "Nighttime lights"
 msgstr "Nachtelijke lichten"
@@ -1241,8 +1311,305 @@ msgstr ""
 "Lichtintensiteit van grootsteden, steden, en andere plaatsen met aanhoudende"
 " belichting, inclusief gasvlammen."
 
-msgid "All"
-msgstr "Alle"
+msgid "Population"
+msgstr "Bevolking"
+
+msgid "people per km²"
+msgstr "mensen per km²"
+
+msgid "Estimated number of people living in an area."
+msgstr "Geschat aantal inwoners in een gebied."
+
+msgid "people per hectare"
+msgstr "bevolking per hectare"
+
+msgid "Population age groups WorldPop Global1"
+msgstr ""
+
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+"Geschat aantal inwoners in een gebied, gegroepeerd volgens leeftijd en "
+"geslacht."
+
+msgid "~100 meters"
+msgstr "~100 meter"
+
+msgid "Male 0 - 1 years"
+msgstr "Man 0 - 1 jaar"
+
+msgid "Male 1 - 4 years"
+msgstr "Man 1 - 4 jaar"
+
+msgid "Male 5 - 9 years"
+msgstr "Man 5 - 9 jaar"
+
+msgid "Male 10 - 14 years"
+msgstr "Man 10 - 14 jaar"
+
+msgid "Male 15 - 19 years"
+msgstr "Man 15 - 19 jaar"
+
+msgid "Male 20 - 24 years"
+msgstr "Man 20 - 24  jaar"
+
+msgid "Male 25 - 29 years"
+msgstr "Man 25 - 29 jaar"
+
+msgid "Male 30 - 34 years"
+msgstr "Man 30 - 34 jaar"
+
+msgid "Male 35 - 39 years"
+msgstr "Man 35 - 39 jaar"
+
+msgid "Male 40 - 44 years"
+msgstr "Man 40 - 44 jaar"
+
+msgid "Male 45 - 49 years"
+msgstr "Man 45 - 49 jaar"
+
+msgid "Male 50 - 54 years"
+msgstr "Man 50 - 54 jaar"
+
+msgid "Male 55 - 59 years"
+msgstr "Man 55 - 59 jaar"
+
+msgid "Male 60 - 64 years"
+msgstr "Man 60 - 64 jaar"
+
+msgid "Male 65 - 69 years"
+msgstr "Man 65 - 69 jaar"
+
+msgid "Male 70 - 74 years"
+msgstr "Man 70 - 74 jaar"
+
+msgid "Male 75 - 79 years"
+msgstr "Man 75 - 79 jaar"
+
+msgid "Male 80 years and above"
+msgstr "Man 80 jaar en ouder"
+
+msgid "Female 0 - 1 years"
+msgstr "Vrouw 0 - 1 jaar"
+
+msgid "Female 1 - 4 years"
+msgstr "Vrouw 1 - 4 jaar"
+
+msgid "Female 5 - 9 years"
+msgstr "Vrouw 5 - 9 jaar"
+
+msgid "Female 10 - 14 years"
+msgstr "Vrouw 10 - 14 jaar"
+
+msgid "Female 15 - 19 years"
+msgstr "Vrouw 15 - 19 jaar"
+
+msgid "Female 20 - 24 years"
+msgstr "Vrouw 20 - 24 jaar"
+
+msgid "Female 25 - 29 years"
+msgstr "Vrouw 25 - 29 jaar"
+
+msgid "Female 30 - 34 years"
+msgstr "Vrouw 30 - 34 jaar"
+
+msgid "Female 35 - 39 years"
+msgstr "Vrouw 35 - 39 jaar"
+
+msgid "Female 40 - 44 years"
+msgstr "Vrouw 40 - 44 jaar"
+
+msgid "Female 45 - 49 years"
+msgstr "Vrouw 45 - 49 jaar"
+
+msgid "Female 50 - 54 years"
+msgstr "Vrouw 50 - 54 jaar"
+
+msgid "Female 55 - 59 years"
+msgstr "Vrouw 55 - 59 jaar"
+
+msgid "Female 60 - 64 years"
+msgstr "Vrouw 60 - 64 jaar"
+
+msgid "Female 65 - 69 years"
+msgstr "Vrouw 65 - 69 jaar"
+
+msgid "Female 70 - 74 years"
+msgstr "Vrouw 70 - 74 jaar"
+
+msgid "Female 75 - 79 years"
+msgstr "Vrouw 75 - 79 jaar"
+
+msgid "Female 80 years and above"
+msgstr "Vrouw 80 jaar en ouder"
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Neerslag"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr "Temperatuur MODIS"
+
+msgid "°C during daytime"
+msgstr "°C tijdens de dag"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
+"zich in gebieden met aanhoudende bewolking."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
+msgstr ""
+
+msgid ""
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
+msgstr ""
+
+msgid "~5.5 kilometers"
+msgstr ""
+
+msgid "Since January 1981"
+msgstr ""
+
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr "Temperatuur"
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
+msgstr ""
+
+msgid "Temperature monthly"
+msgstr "Temperatuur maandelijks"
+
+msgid "Temperature weekly"
+msgstr ""
+
+msgid "Vegetation"
+msgstr ""
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "~250 meters"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr ""
 
 msgid "Active"
 msgstr "Actief"
@@ -1274,8 +1641,8 @@ msgstr "Gelijke aantallen"
 msgid "Symbol"
 msgstr "Symbool"
 
-msgid "Daily"
-msgstr "Dagelijks"
+msgid "Relative"
+msgstr "Relatief"
 
 msgid "Weekly"
 msgstr "Wekelijks"
@@ -1295,9 +1662,6 @@ msgstr "Wekelijks (Start op zondag)"
 msgid "Bi-weekly"
 msgstr "Tweewekelijks"
 
-msgid "Monthly"
-msgstr "Maandelijks"
-
 msgid "Bi-monthly"
 msgstr "Tweemaandelijks"
 
@@ -1309,9 +1673,6 @@ msgstr "Zesmaandelijks"
 
 msgid "Six-monthly April"
 msgstr "Zesmaandelijks april"
-
-msgid "Yearly"
-msgstr "Jaarlijks"
 
 msgid "Financial year (Start November)"
 msgstr "Financieel jaar (Start november)"
@@ -1328,20 +1689,14 @@ msgstr "Financieel jaar (Start april)"
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-msgid "{{name}}: No coordinates found"
-msgstr ""
-
-msgid "Selected org units: No coordinates found"
-msgstr ""
-
-msgid "Error: {{message}}"
-msgstr ""
+msgid "Earth Engine layer"
+msgstr "Earth Engine-laag"
 
 msgid "You don't have access to this layer data"
 msgstr "U heeft geen toegang to deze laaggegevens."
 
 msgid "The event filter is not supported"
-msgstr ""
+msgstr "De evenementenfilter is niet ondersteund"
 
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
@@ -1350,26 +1705,26 @@ msgstr ""
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Toon de eerste {{pageSize}} evenementen van de {{total}}"
 
-msgid "No data found"
-msgstr "Geen gegevens gevonden"
-
 msgid "Event"
 msgstr "Gebeurtenis"
 
 msgid "Facilities"
 msgstr "Instellingen"
 
-msgid "Facilities: No coordinates found"
+msgid "an error occurred"
 msgstr ""
 
-msgid "Url to geojson is invalid."
+msgid "GroupSet used for styling was not found"
 msgstr ""
+
+msgid "No coordinates found for selected facilities"
+msgstr "Geen coördinaten gevonden voor geselecteerde faciliteiten"
 
 msgid "There was a problem with this layer. Contact a system administrator."
-msgstr ""
+msgstr "Er is een probleem met deze laag. Contacteer een systeembeheerder."
 
 msgid "Feature"
-msgstr ""
+msgstr "Object"
 
 msgid "Polygon"
 msgstr "Veelhoek"
@@ -1378,25 +1733,22 @@ msgid "Line"
 msgstr "Lijn"
 
 msgid "Point"
-msgstr ""
+msgstr "Punt"
 
 msgid "Organisation units"
 msgstr "Organisatieëenheden"
 
-msgid "Error"
-msgstr "Fout"
+msgid "Org unit layer"
+msgstr "Organisatieëenheidslaag"
+
+msgid "Data item was not found"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Thematische laag"
 
-msgid "No data"
-msgstr "Geen gegevens"
-
 msgid "Tracked entity"
 msgstr "Getraceerde entiteit"
-
-msgid "No tracked entities found"
-msgstr "Geen getraceerde entiteiten gevonden"
 
 msgid "related"
 msgstr "gerelateerd"
@@ -1404,8 +1756,8 @@ msgstr "gerelateerd"
 msgid "not one of"
 msgstr "niet één van"
 
-msgid "doesn't contains"
-msgstr "bevat niet"
+msgid "doesn't contain"
+msgstr ""
 
 msgid "true"
 msgstr "waar"
@@ -1413,11 +1765,17 @@ msgstr "waar"
 msgid "false"
 msgstr "onwaar"
 
-msgid "No"
-msgstr "Nee"
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Midden"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1425,6 +1783,9 @@ msgid ""
 msgstr ""
 "Deze laag vereist een Google Earth Engine-account. Kijk de "
 "DHIS2-documentation na voor meer informatie."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Thematisch"
@@ -1440,6 +1801,9 @@ msgstr "Organisatieëenheden"
 
 msgid "Facility"
 msgstr "Faciliteit"
+
+msgid "Other"
+msgstr "Anders"
 
 msgid "Start date is invalid"
 msgstr "Startdatum is ongeldig"

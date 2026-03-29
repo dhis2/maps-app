@@ -19,6 +19,7 @@ const getMapLocale = () => ({
     km: i18n.t('km'),
     'Measure distances and areas': i18n.t('Measure distances and areas'),
     mi: i18n.t('mi'),
+    'No data': i18n.t('No data'),
     Perimeter: i18n.t('Perimeter'),
     'Reset bearing to north': i18n.t('Reset bearing to north'),
     'Search for place or address': i18n.t('Search for place or address'),

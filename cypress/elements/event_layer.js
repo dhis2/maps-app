@@ -16,6 +16,25 @@ export class EventLayer extends Layer {
         return this
     }
 
+    selectCoordinate(coordinate) {
+        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        cy.getByDataTest('coordinatefield-content').then(($element) => {
+            // Check if the coordinate is already selected by looking at the text content
+            if ($element.text().trim() !== coordinate) {
+                cy.log('Select the coordinate')
+                cy.getByDataTest('coordinatefield-content').click()
+                cy.getByDataTest('dhis2-uicore-popper')
+                    .containsExact(coordinate)
+                    .click()
+            } else {
+                cy.log('Coordinate already selected, no action needed')
+            }
+        })
+
+        return this
+    }
+
     validateStage(stage) {
         cy.get('[data-test="programstageselect"]')
             .contains(stage)
@@ -24,9 +43,20 @@ export class EventLayer extends Layer {
         return this
     }
 
-    selectPeriodType(periodType) {
+    selectPeriodType({ periodType } = {}) {
+        if (!periodType) {
+            throw new Error("The 'periodType' parameter is required.")
+        }
+
         cy.getByDataTest('relative-period-select-content').click()
         cy.contains(periodType).click()
+
+        return this
+    }
+
+    selectViewAllEvents() {
+        // Group events by default or View all events
+        cy.get('[src="images/nocluster.png"]').click()
 
         return this
     }

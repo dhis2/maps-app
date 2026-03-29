@@ -1,8 +1,8 @@
 import { isString, isObject, sortBy } from 'lodash/fp'
-import { EXTERNAL_LAYER } from '../constants/layers.js'
+import { EXTERNAL_LAYER, EVENT_CENTROID_DEFAULT } from '../constants/layers.js'
 
 export const getMigratedMapConfig = (config, defaultBasemapId) =>
-    renameBoundaryLayerToOrgUnitLayer(
+    upgradeMapViews(
         upgradeGisAppLayers(extractBasemap(config, defaultBasemapId))
     )
 
@@ -78,16 +78,49 @@ const upgradeGisAppLayers = (config) => {
     }
 }
 
-// Change layer name from boundary to orgUnit when loading an old map
-// TODO: Change in db with an upgrade script
-const renameBoundaryLayerToOrgUnitLayer = (config) => ({
-    ...config,
-    mapViews: config.mapViews.map((v) =>
-        v.layer === 'boundary'
-            ? {
-                  ...v,
-                  layer: 'orgUnit',
-              }
-            : v
-    ),
-})
+const upgradeMapViews = (config) => {
+    const needsUpgrade = config.mapViews.some(
+        (view) =>
+            view.layer === 'boundary' ||
+            typeof view.colorScale === 'string' ||
+            view.geometryCentroid === undefined
+    )
+
+    if (!needsUpgrade) {
+        return config
+    }
+
+    const upgradedViews = config.mapViews.map((view) => {
+        let layer = view.layer
+        if (layer === 'boundary') {
+            layer = 'orgUnit'
+        }
+
+        if (
+            view.geometryCentroid === undefined &&
+            view.layer === 'event' &&
+            !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
+        ) {
+            // We should test !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateFieldType) but it is not currently saved with the mapView.
+            // This will set geometryCentroid: true when eventCoordinateField is a DE/TEA of type 'COORDINATE' too, which is unnecessary but harmless.
+            view.geometryCentroid = true
+        }
+
+        let colorScale = view.colorScale
+        if (typeof colorScale === 'string') {
+            const parts = colorScale.split(',')
+            colorScale = parts.length === 1 ? parts[0] : parts
+        }
+
+        return {
+            ...view,
+            layer,
+            colorScale,
+        }
+    })
+
+    return {
+        ...config,
+        mapViews: upgradedViews,
+    }
+}

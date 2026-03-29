@@ -1,3 +1,567 @@
+## [101.10.1](https://github.com/dhis2/maps-app/compare/v101.10.0...v101.10.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([c03b01f](https://github.com/dhis2/maps-app/commit/c03b01f0e48b22772576dd29f39c84a57a52fca6))
+
+# [101.10.0](https://github.com/dhis2/maps-app/compare/v101.9.0...v101.10.0) (2026-03-17)
+
+
+### Features
+
+* upgrade app-platform to support loading custom translations from datastore ([#3635](https://github.com/dhis2/maps-app/issues/3635)) ([ccf5b8d](https://github.com/dhis2/maps-app/commit/ccf5b8d923c6d056dd6fe25719270354f98453d3))
+
+# [101.9.0](https://github.com/dhis2/maps-app/compare/v101.8.0...v101.9.0) (2026-03-17)
+
+
+### Features
+
+* use common data selector for thematic layers [DHIS2-19344] ([#3632](https://github.com/dhis2/maps-app/issues/3632)) ([25dd748](https://github.com/dhis2/maps-app/commit/25dd74834ef673242d3a87dc6ef16c1f15df89bd))
+
+# [101.8.0](https://github.com/dhis2/maps-app/compare/v101.7.1...v101.8.0) (2026-03-16)
+
+
+### Features
+
+* use enabled period types and custom lables [DHIS2-21001] ([#3633](https://github.com/dhis2/maps-app/issues/3633)) ([0994d52](https://github.com/dhis2/maps-app/commit/0994d5270f684b85800130e8d243d9d932bb6fdb))
+
+## [101.7.1](https://github.com/dhis2/maps-app/compare/v101.7.0...v101.7.1) (2026-03-08)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([2439e09](https://github.com/dhis2/maps-app/commit/2439e097fbece793653e518bb290672ad0ff892a))
+
+# [101.7.0](https://github.com/dhis2/maps-app/compare/v101.6.1...v101.7.0) (2026-03-05)
+
+
+### Features
+
+* support multiple split layers [DHIS2-19542] ([#3584](https://github.com/dhis2/maps-app/issues/3584)) ([36d0e18](https://github.com/dhis2/maps-app/commit/36d0e18c262abc23f81ba7e90236d4b384bf33ec))
+* support multiple timeline layers [DHIS2-19542] ([#3628](https://github.com/dhis2/maps-app/issues/3628)) ([fd9eeab](https://github.com/dhis2/maps-app/commit/fd9eeabd75fc602ed321edb33b485081fab2ac86))
+
+## [101.6.1](https://github.com/dhis2/maps-app/compare/v101.6.0...v101.6.1) (2026-02-22)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([d49b18a](https://github.com/dhis2/maps-app/commit/d49b18a499e412249a9e9baa2fde5bc3a08f49b0))
+
+# [101.6.0](https://github.com/dhis2/maps-app/compare/v101.5.5...v101.6.0) (2026-02-10)
+
+
+### Features
+
+* new worldpop global2 layer sources [DHIS2-20774] ([#3608](https://github.com/dhis2/maps-app/issues/3608)) ([3f19a8b](https://github.com/dhis2/maps-app/commit/3f19a8b57eb5a79b6cdf93d5c999ad1ab8fce37b))
+
+## [101.5.5](https://github.com/dhis2/maps-app/compare/v101.5.4...v101.5.5) (2026-02-03)
+
+
+### Bug Fixes
+
+* error on new Maps app version install [DHIS2-20425] ([#3592](https://github.com/dhis2/maps-app/issues/3592)) ([5272de6](https://github.com/dhis2/maps-app/commit/5272de6b76b09541c1e6b214f4810bab9b48bff7))
+
+## [101.5.4](https://github.com/dhis2/maps-app/compare/v101.5.3...v101.5.4) (2026-01-31)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b39d629](https://github.com/dhis2/maps-app/commit/b39d629ed182a929437134481c8091f9261e0e38))
+
+## [101.5.3](https://github.com/dhis2/maps-app/compare/v101.5.2...v101.5.3) (2026-01-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([892a068](https://github.com/dhis2/maps-app/commit/892a068b6e8ef6407e10ae4876a963c02b7e93fd))
+
+## [101.5.2](https://github.com/dhis2/maps-app/compare/v101.5.1...v101.5.2) (2026-01-19)
+
+
+### Bug Fixes
+
+* errors with dates in ee layers [DHIS2-20684] ([#3602](https://github.com/dhis2/maps-app/issues/3602)) ([867f645](https://github.com/dhis2/maps-app/commit/867f645e38441efaa2dd5f9f61e5b19ea692dde3))
+
+## [101.5.1](https://github.com/dhis2/maps-app/compare/v101.5.0...v101.5.1) (2025-12-28)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f9624f7](https://github.com/dhis2/maps-app/commit/f9624f7311285fbdb83bbb084df795a46dac8c5c))
+
+# [101.5.0](https://github.com/dhis2/maps-app/compare/v101.4.8...v101.5.0) (2025-12-16)
+
+
+### Bug Fixes
+
+* population group aggregates in popup [DHIS2-20276] ([#3571](https://github.com/dhis2/maps-app/issues/3571)) ([13db418](https://github.com/dhis2/maps-app/commit/13db41876e403d1e55646365daa7119e2f0f7eac))
+
+
+### Features
+
+* cache GEE data [DHIS2-20523] ([#3591](https://github.com/dhis2/maps-app/issues/3591)) ([5e5f318](https://github.com/dhis2/maps-app/commit/5e5f3182d33613329f6fd46a70c477dfeaa5f16c))
+* new GEE layers: additional ERA5 meteorological data [DHIS2-20149] ([#3570](https://github.com/dhis2/maps-app/issues/3570)) ([c12979d](https://github.com/dhis2/maps-app/commit/c12979d5f340ea7ed20c0e36ecb56ac88da285c5))
+* new GEE layers: CHIRPS precipitation data [DHIS2-1764] ([#3582](https://github.com/dhis2/maps-app/issues/3582)) ([1128a92](https://github.com/dhis2/maps-app/commit/1128a92a9cf3754299b6602cbd459a22e57613f6))
+* new GEE layers: ERA5 relative humidity [DHIS2-20355] ([#3575](https://github.com/dhis2/maps-app/issues/3575)) ([1eab885](https://github.com/dhis2/maps-app/commit/1eab88546fdc17d28d1d2d5f2866fba25f3ea665))
+* new GEE layers: NDVI and EVI [DHIS2-17856] ([#3363](https://github.com/dhis2/maps-app/issues/3363)) ([a8710ea](https://github.com/dhis2/maps-app/commit/a8710ea2b6631453ed8fffef04436ab8f9230e04))
+
+## [101.4.8](https://github.com/dhis2/maps-app/compare/v101.4.7...v101.4.8) (2025-12-02)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3577](https://github.com/dhis2/maps-app/issues/3577)) ([81b327b](https://github.com/dhis2/maps-app/commit/81b327bc07e2488e3c29eac9ffbe150ce2dec8b0))
+
+## [101.4.7](https://github.com/dhis2/maps-app/compare/v101.4.6...v101.4.7) (2025-11-25)
+
+
+### Bug Fixes
+
+* make selected radio option visible in style tab [DHIS2-19809] ([#3589](https://github.com/dhis2/maps-app/issues/3589)) ([74e8655](https://github.com/dhis2/maps-app/commit/74e8655ac9e4367a1648d6fea55069d2ea0aed18))
+
+## [101.4.6](https://github.com/dhis2/maps-app/compare/v101.4.5...v101.4.6) (2025-11-05)
+
+
+### Bug Fixes
+
+* pin legend on click in dashboard [DHIS2-16467] ([#3576](https://github.com/dhis2/maps-app/issues/3576)) ([aa43735](https://github.com/dhis2/maps-app/commit/aa437350990d68e69c1b58544e5fede46a49f58a))
+
+## [101.4.5](https://github.com/dhis2/maps-app/compare/v101.4.4...v101.4.5) (2025-11-04)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3556](https://github.com/dhis2/maps-app/issues/3556)) ([d8982af](https://github.com/dhis2/maps-app/commit/d8982af1c0dbe09f25302e8557c49543f70eef33))
+
+## [101.4.4](https://github.com/dhis2/maps-app/compare/v101.4.3...v101.4.4) (2025-10-30)
+
+
+### Bug Fixes
+
+* use interpretations provider from analytics [DHIS2-19822] ([#3568](https://github.com/dhis2/maps-app/issues/3568)) ([96b9b5d](https://github.com/dhis2/maps-app/commit/96b9b5df9b43d207b82cdfbb7181bff216a2a300))
+
+## [101.4.3](https://github.com/dhis2/maps-app/compare/v101.4.2...v101.4.3) (2025-09-12)
+
+
+### Bug Fixes
+
+* calendar updates [DHIS2-19717] ([#3542](https://github.com/dhis2/maps-app/issues/3542)) ([9daf4de](https://github.com/dhis2/maps-app/commit/9daf4deaf740c27534f5371935cc0aa1b9fd437a))
+
+## [101.4.2](https://github.com/dhis2/maps-app/compare/v101.4.1...v101.4.2) (2025-08-19)
+
+
+### Bug Fixes
+
+* data table crashes on columns containing empty values [DHIS2-19267] ([#3564](https://github.com/dhis2/maps-app/issues/3564)) ([5152bb1](https://github.com/dhis2/maps-app/commit/5152bb12acd0aaa78662d647301b4a404369fe35))
+
+## [101.4.1](https://github.com/dhis2/maps-app/compare/v101.4.0...v101.4.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* update cli app scripts to open links in same tab [DHIS2-19973] ([#3561](https://github.com/dhis2/maps-app/issues/3561)) ([4e91f02](https://github.com/dhis2/maps-app/commit/4e91f029dc953069f201fabf73edffbe32f6276b))
+
+# [101.4.0](https://github.com/dhis2/maps-app/compare/v101.3.2...v101.4.0) (2025-08-01)
+
+
+### Features
+
+* support DE/TEA of type OU and Event OU in Event layers [DHIS2-3354] ([#3511](https://github.com/dhis2/maps-app/issues/3511)) ([8240f5f](https://github.com/dhis2/maps-app/commit/8240f5fd2d03e64701288daf8638538cfda300d2))
+
+## [101.3.2](https://github.com/dhis2/maps-app/compare/v101.3.1...v101.3.2) (2025-07-30)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3528](https://github.com/dhis2/maps-app/issues/3528)) ([f25db38](https://github.com/dhis2/maps-app/commit/f25db38d896c9ddfada1ec54fae375c25467fd42))
+
+## [101.3.1](https://github.com/dhis2/maps-app/compare/v101.3.0...v101.3.1) (2025-07-09)
+
+
+### Bug Fixes
+
+* various bubble layer issues [DHIS2-15696] [DHIS2-19209] [DHIS2-19447] [DHIS2-19448] ([#3550](https://github.com/dhis2/maps-app/issues/3550)) ([8dbd273](https://github.com/dhis2/maps-app/commit/8dbd273d9d311bc6544284190c4262fdf1d719ae))
+
+# [101.3.0](https://github.com/dhis2/maps-app/compare/v101.2.15...v101.3.0) (2025-07-07)
+
+
+### Features
+
+* S2-EOX basemap and Azure as alternative to Bing [DHIS2-18500] [DHIS2-19152] ([#3543](https://github.com/dhis2/maps-app/issues/3543)) ([ebd109b](https://github.com/dhis2/maps-app/commit/ebd109bbbfbe9eef438e5ce7c11ec0387b1998e2))
+
+## [101.2.15](https://github.com/dhis2/maps-app/compare/v101.2.14...v101.2.15) (2025-06-27)
+
+
+### Bug Fixes
+
+* give user with ALL authority access to layer sources management [DHIS2-19716] ([#3547](https://github.com/dhis2/maps-app/issues/3547)) ([ba1426c](https://github.com/dhis2/maps-app/commit/ba1426c35330727e0d0724ea511ea780e5dc6cd4))
+* GroupSetSelect handling of None and missing values [DHIS2-19730] ([#3540](https://github.com/dhis2/maps-app/issues/3540)) ([7ecf878](https://github.com/dhis2/maps-app/commit/7ecf878e5860d93ab68c457d6e8cad662e8405e2))
+* prevent text from being highlighted while dragging map layer cards to sort [DHIS2-6683] ([#3541](https://github.com/dhis2/maps-app/issues/3541)) ([6f9fe0e](https://github.com/dhis2/maps-app/commit/6f9fe0e83448251a08966eedb6938dd009da8a60))
+* update split map help text [DHIS2-19718] ([#3546](https://github.com/dhis2/maps-app/issues/3546)) ([dbe67b1](https://github.com/dhis2/maps-app/commit/dbe67b12a9017e515445ca9d781b03b53a2f0e26))
+
+## [101.2.14](https://github.com/dhis2/maps-app/compare/v101.2.13...v101.2.14) (2025-06-06)
+
+
+### Bug Fixes
+
+* text overflow issues in popups [DHIS2-5920] ([#3525](https://github.com/dhis2/maps-app/issues/3525)) ([f0db1e1](https://github.com/dhis2/maps-app/commit/f0db1e19cf6b46bdde4405b1f8e8283c9c9bc8a9))
+
+## [101.2.13](https://github.com/dhis2/maps-app/compare/v101.2.12...v101.2.13) (2025-05-30)
+
+
+### Bug Fixes
+
+* do not overwrite newer changes by another user when renaming [DHIS2-19479] [DHIS2-19506] ([#3520](https://github.com/dhis2/maps-app/issues/3520)) ([0732cd9](https://github.com/dhis2/maps-app/commit/0732cd904739f790fa93804d6c4f5c6470fb3f21))
+
+## [101.2.12](https://github.com/dhis2/maps-app/compare/v101.2.11...v101.2.12) (2025-05-09)
+
+
+### Bug Fixes
+
+* multiple improvements to style by data item in event layers [DHIS2-19215] ([#3488](https://github.com/dhis2/maps-app/issues/3488)) ([a87e1f1](https://github.com/dhis2/maps-app/commit/a87e1f1f69f3474b2bb031f2b5019e0cde73382f))
+
+## [101.2.11](https://github.com/dhis2/maps-app/compare/v101.2.10...v101.2.11) (2025-05-06)
+
+
+### Bug Fixes
+
+* allow caching necessary requests to render map offline in dashboard [DHIS2-19281] ([#3502](https://github.com/dhis2/maps-app/issues/3502)) ([8f61181](https://github.com/dhis2/maps-app/commit/8f611817ad8bae2fca9698bacb2ff235900af160))
+* prevent TE layer from becoming exclusive of last day on save [DHIS2-19224] ([#3519](https://github.com/dhis2/maps-app/issues/3519)) ([772fc8d](https://github.com/dhis2/maps-app/commit/772fc8d6797f2063fc65b10d07c258323793a73c))
+* use all layers in map to fit bounds on initial render [DHIS2-19522] ([#3518](https://github.com/dhis2/maps-app/issues/3518)) ([c6190f3](https://github.com/dhis2/maps-app/commit/c6190f32ee28bcde2d85e594ae19814eeaee570c))
+
+## [101.2.10](https://github.com/dhis2/maps-app/compare/v101.2.9...v101.2.10) (2025-04-23)
+
+
+### Bug Fixes
+
+* OU geometry cache not cleaned when switching user [DHIS2-19357] ([#3509](https://github.com/dhis2/maps-app/issues/3509)) ([b4aff94](https://github.com/dhis2/maps-app/commit/b4aff940699d1a4492d4afdc6d946764151e489b))
+
+## [101.2.9](https://github.com/dhis2/maps-app/compare/v101.2.8...v101.2.9) (2025-04-22)
+
+
+### Bug Fixes
+
+* rename map fails with thematic layers containing data elements [DHIS2-19433] ([#3514](https://github.com/dhis2/maps-app/issues/3514)) ([655f5f8](https://github.com/dhis2/maps-app/commit/655f5f80a78ba6bc077d92784df99906595a3dda))
+
+## [101.2.8](https://github.com/dhis2/maps-app/compare/v101.2.7...v101.2.8) (2025-04-04)
+
+
+### Bug Fixes
+
+* restore navigation between maps using the browser address bar [DHIS2-19387] ([#3508](https://github.com/dhis2/maps-app/issues/3508)) ([f4cd8a1](https://github.com/dhis2/maps-app/commit/f4cd8a167309cca9429ba2a1e4a25942a88b15a7))
+
+## [101.2.7](https://github.com/dhis2/maps-app/compare/v101.2.6...v101.2.7) (2025-04-04)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([17c928c](https://github.com/dhis2/maps-app/commit/17c928c6f675b9898035f51238ccc3ce93d4da17))
+
+## [101.2.6](https://github.com/dhis2/maps-app/compare/v101.2.5...v101.2.6) (2025-04-01)
+
+
+### Bug Fixes
+
+* ensure hyperlinks work when using the upcoming global shell [DHIS2-19274] ([#3501](https://github.com/dhis2/maps-app/issues/3501)) ([8d400f2](https://github.com/dhis2/maps-app/commit/8d400f2dd5d2aaed5163c2d77a29ba8782032b35))
+
+## [101.2.5](https://github.com/dhis2/maps-app/compare/v101.2.4...v101.2.5) (2025-03-27)
+
+
+### Bug Fixes
+
+* header bar visibility issues in download mode [DHIS2-19279] ([#3500](https://github.com/dhis2/maps-app/issues/3500)) ([01288e1](https://github.com/dhis2/maps-app/commit/01288e1a2b348872c4a0a2af262109a259fc551a))
+
+## [101.2.4](https://github.com/dhis2/maps-app/compare/v101.2.3...v101.2.4) (2025-03-19)
+
+
+### Bug Fixes
+
+* replace deprecated or removed api request params [DHIS2-18981] ([#3489](https://github.com/dhis2/maps-app/issues/3489)) ([6747bb6](https://github.com/dhis2/maps-app/commit/6747bb635b42d84a71bcd1755c5cec4b3f9fa5c8))
+
+## [101.2.3](https://github.com/dhis2/maps-app/compare/v101.2.2...v101.2.3) (2025-03-19)
+
+
+### Bug Fixes
+
+* remove hardcoded HEADER_HEIGHT [DHIS2-19231] ([#3495](https://github.com/dhis2/maps-app/issues/3495)) ([ca1744e](https://github.com/dhis2/maps-app/commit/ca1744eaebfe37b37a8402f4b7f33bc4a44fd6ba))
+
+## [101.2.2](https://github.com/dhis2/maps-app/compare/v101.2.1...v101.2.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* add hash routing and plugin support for the upcoming global shell [DHIS2-19601] ([#3485](https://github.com/dhis2/maps-app/issues/3485)) ([03a3332](https://github.com/dhis2/maps-app/commit/03a3332925692ae05ff8e8fe7d3a27a13932f50c))
+
+## [101.2.1](https://github.com/dhis2/maps-app/compare/v101.2.0...v101.2.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3490](https://github.com/dhis2/maps-app/issues/3490)) ([3abd499](https://github.com/dhis2/maps-app/commit/3abd4994e10fa80a2ceadf800eb6000604592a65))
+
+# [101.2.0](https://github.com/dhis2/maps-app/compare/v101.1.1...v101.2.0) (2025-03-17)
+
+
+### Bug Fixes
+
+* prevent DE or Attr used for styling from disappearing from popup [DHIS2-17711] ([#3481](https://github.com/dhis2/maps-app/issues/3481)) ([4f53af9](https://github.com/dhis2/maps-app/commit/4f53af9683194c57b374cbbad5ede45e3c19cfb1))
+* update value in popup with period change in timeline [DHIS2-19008] ([#3480](https://github.com/dhis2/maps-app/issues/3480)) ([c5e58a4](https://github.com/dhis2/maps-app/commit/c5e58a42fddd874a7f542bc3633f7c6ff674f54d))
+
+
+### Features
+
+* properly support alternative coordinates for event layers [DHIS2-19047] ([#3473](https://github.com/dhis2/maps-app/issues/3473)) ([4f11d3f](https://github.com/dhis2/maps-app/commit/4f11d3f8130ad95c44fd554a971834ee40fdfe87))
+
+## [101.1.1](https://github.com/dhis2/maps-app/compare/v101.1.0...v101.1.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* prevent app crash when switching event layer to start/end dates [DHIS2-19204] ([#3486](https://github.com/dhis2/maps-app/issues/3486)) ([a951bf9](https://github.com/dhis2/maps-app/commit/a951bf9dda1efe2949c941dbd195e9d4653c8ff7))
+
+# [101.1.0](https://github.com/dhis2/maps-app/compare/v101.0.3...v101.1.0) (2025-02-28)
+
+
+### Bug Fixes
+
+* maintain coordinate field value when editing Event layer [DHIS2-17710] ([#3478](https://github.com/dhis2/maps-app/issues/3478)) ([77daffe](https://github.com/dhis2/maps-app/commit/77daffe1a249d7abc333511ee27d2b443cd0800b))
+* prevent enrollment date setting with no program in TrackedEntity layer [DHIS2-18312] ([#3477](https://github.com/dhis2/maps-app/issues/3477)) ([ff18e20](https://github.com/dhis2/maps-app/commit/ff18e20d46d43b31fc45259105b23bd006d34eb4))
+
+
+### Features
+
+* resize map when opening full screen in dashboard [DHIS2-18641] ([#3476](https://github.com/dhis2/maps-app/issues/3476)) ([949c09f](https://github.com/dhis2/maps-app/commit/949c09fac32c9f3a0c4212ee8357313fddfe8a41))
+
+## [101.0.3](https://github.com/dhis2/maps-app/compare/v101.0.2...v101.0.3) (2025-02-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3474](https://github.com/dhis2/maps-app/issues/3474)) ([9ee1571](https://github.com/dhis2/maps-app/commit/9ee1571c180be0cf103ebf1251373092adaa73b4))
+
+## [101.0.2](https://github.com/dhis2/maps-app/compare/v101.0.1...v101.0.2) (2025-02-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([08b3b7e](https://github.com/dhis2/maps-app/commit/08b3b7ee3fe56537841e7afaad734f0f026a9419))
+
+## [101.0.1](https://github.com/dhis2/maps-app/compare/v101.0.0...v101.0.1) (2025-02-20)
+
+
+### Bug Fixes
+
+* timeline - increase bottom padding and re-center map when playing in dashboard ([#3441](https://github.com/dhis2/maps-app/issues/3441)) ([aa7ab30](https://github.com/dhis2/maps-app/commit/aa7ab306927183fd10828e9aea31f354b274af44))
+
+# [101.0.0](https://github.com/dhis2/maps-app/compare/v100.8.1...v101.0.0) (2025-02-14)
+
+
+### Features
+
+* support new dashboard plugin architecture ([#3447](https://github.com/dhis2/maps-app/issues/3447)) ([92bdd12](https://github.com/dhis2/maps-app/commit/92bdd12a1f476f221bbff899a1c799ecf845b4ae))
+
+
+### BREAKING CHANGES
+
+* this version is only compatible with Dashboard app >=101.0.0
+
+Use generic components for plugins in app-platform and app-runtime.
+
+## [100.8.1](https://github.com/dhis2/maps-app/compare/v100.8.0...v100.8.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* Timeline not showning in dashboard ([#3454](https://github.com/dhis2/maps-app/issues/3454)) ([1179c87](https://github.com/dhis2/maps-app/commit/1179c8757834d0a7c65597de17581b06c9972f01))
+
+# [100.8.0](https://github.com/dhis2/maps-app/compare/v100.7.10...v100.8.0) (2025-02-07)
+
+
+### Features
+
+* Improved Period Selection and Usability Enhancements ([#3407](https://github.com/dhis2/maps-app/issues/3407)) ([412a3ad](https://github.com/dhis2/maps-app/commit/412a3ad85b6d4ab1d9ba957e4bbe21095431de58)), closes [#DHIS2-15796](https://github.com/dhis2/maps-app/issues/DHIS2-15796) [#DHIS2-16358](https://github.com/dhis2/maps-app/issues/DHIS2-16358) [#DHIS2-18722](https://github.com/dhis2/maps-app/issues/DHIS2-18722) [#DHIS2-18066](https://github.com/dhis2/maps-app/issues/DHIS2-18066)
+
+## [100.7.10](https://github.com/dhis2/maps-app/compare/v100.7.9...v100.7.10) (2025-01-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3428](https://github.com/dhis2/maps-app/issues/3428)) ([a501ec9](https://github.com/dhis2/maps-app/commit/a501ec9da8869eb49567069c864eff2f1627b2d1))
+
+## [100.7.9](https://github.com/dhis2/maps-app/compare/v100.7.8...v100.7.9) (2024-12-10)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3420](https://github.com/dhis2/maps-app/issues/3420)) ([929118f](https://github.com/dhis2/maps-app/commit/929118fbe8c28c4b10553fda903f5d7a328df8b0))
+
+## [100.7.8](https://github.com/dhis2/maps-app/compare/v100.7.7...v100.7.8) (2024-12-03)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([4cd5d45](https://github.com/dhis2/maps-app/commit/4cd5d456ce8669ef975c1fd4a0d0321c60685085))
+
+## [100.7.7](https://github.com/dhis2/maps-app/compare/v100.7.6...v100.7.7) (2024-11-29)
+
+
+### Bug Fixes
+
+* update 'No data' handling ([#3408](https://github.com/dhis2/maps-app/issues/3408)) ([d774e7a](https://github.com/dhis2/maps-app/commit/d774e7a2a849cf40bca3d039aca2d1c6ce1f5331))
+
+## [100.7.6](https://github.com/dhis2/maps-app/compare/v100.7.5...v100.7.6) (2024-11-17)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f5856b9](https://github.com/dhis2/maps-app/commit/f5856b99455f5b1d414ccbe28cc22fd97e60997f))
+
+## [100.7.5](https://github.com/dhis2/maps-app/compare/v100.7.4...v100.7.5) (2024-11-12)
+
+
+### Bug Fixes
+
+* allow editing invalid layers ([#3396](https://github.com/dhis2/maps-app/issues/3396)) ([13931b0](https://github.com/dhis2/maps-app/commit/13931b0ea4b37ac86b701b97643ea757c2642a0f))
+
+## [100.7.4](https://github.com/dhis2/maps-app/compare/v100.7.3...v100.7.4) (2024-11-04)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3387](https://github.com/dhis2/maps-app/issues/3387)) ([46a3632](https://github.com/dhis2/maps-app/commit/46a3632c57ab39a64d865237695df516dc03f4bc))
+
+## [100.7.3](https://github.com/dhis2/maps-app/compare/v100.7.2...v100.7.3) (2024-11-01)
+
+
+### Bug Fixes
+
+* update queries to tracker endpoint ([#3346](https://github.com/dhis2/maps-app/issues/3346)) ([885403c](https://github.com/dhis2/maps-app/commit/885403c3d39d4c4f661c8f3a91ebd366f93edf1d))
+
+## [100.7.2](https://github.com/dhis2/maps-app/compare/v100.7.1...v100.7.2) (2024-10-27)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([915e385](https://github.com/dhis2/maps-app/commit/915e385006b594e39ae794c409ca86a70a272e1f))
+
+## [100.7.1](https://github.com/dhis2/maps-app/compare/v100.7.0...v100.7.1) (2024-10-21)
+
+
+### Bug Fixes
+
+* add Laos language support to glyphs ([#3364](https://github.com/dhis2/maps-app/issues/3364)) ([6da46ea](https://github.com/dhis2/maps-app/commit/6da46eaa483553ae32a3629b337df473abf97eb5))
+
+# [100.7.0](https://github.com/dhis2/maps-app/compare/v100.6.7...v100.7.0) (2024-10-04)
+
+
+### Features
+
+* add user-created custom calculations to maps ([#3088](https://github.com/dhis2/maps-app/issues/3088)) ([505401f](https://github.com/dhis2/maps-app/commit/505401f50684747bf7b4bbdcf86148191bb0acd2))
+
+## [100.6.7](https://github.com/dhis2/maps-app/compare/v100.6.6...v100.6.7) (2024-09-13)
+
+
+### Bug Fixes
+
+* grey background flashing when loading dashboard ([#3327](https://github.com/dhis2/maps-app/issues/3327)) ([76c52d2](https://github.com/dhis2/maps-app/commit/76c52d2ff34aa0a39b5d59a380a8ceb36cfc12d4))
+
+## [100.6.6](https://github.com/dhis2/maps-app/compare/v100.6.5...v100.6.6) (2024-08-22)
+
+
+### Bug Fixes
+
+* TEs layer not showing all relationships when source and target are of same type ([#3281](https://github.com/dhis2/maps-app/issues/3281)) ([80f15e7](https://github.com/dhis2/maps-app/commit/80f15e77f9d475bf79a9d4295b16cdaa134c9931))
+
+## [100.6.5](https://github.com/dhis2/maps-app/compare/v100.6.4...v100.6.5) (2024-08-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f0ceb11](https://github.com/dhis2/maps-app/commit/f0ceb1105b3a7c39ae4d6b3073f05be2d46bbac9))
+
+## [100.6.4](https://github.com/dhis2/maps-app/compare/v100.6.3...v100.6.4) (2024-08-19)
+
+
+### Bug Fixes
+
+* schemas were unnecessarily loaded and taking up valuable bandwidth ([#3197](https://github.com/dhis2/maps-app/issues/3197)) ([4b8dd61](https://github.com/dhis2/maps-app/commit/4b8dd6121de6cf9b153de4f996601c96c925274b))
+
+## [100.6.3](https://github.com/dhis2/maps-app/compare/v100.6.2...v100.6.3) (2024-08-15)
+
+
+### Bug Fixes
+
+* plugin crashes for Earth Engine layers in the dashboard ([#3302](https://github.com/dhis2/maps-app/issues/3302)) ([8409f97](https://github.com/dhis2/maps-app/commit/8409f97f2fe48edff42983f005c068aa515a75f5))
+
+## [100.6.2](https://github.com/dhis2/maps-app/compare/v100.6.1...v100.6.2) (2024-08-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([6830454](https://github.com/dhis2/maps-app/commit/68304548d1078cbdd3112b9c4167600350de4fc0))
+
+## [100.6.1](https://github.com/dhis2/maps-app/compare/v100.6.0...v100.6.1) (2024-08-14)
+
+
+### Bug Fixes
+
+* avoid crash when opening map with unsupported Earth Engine layer ([#3286](https://github.com/dhis2/maps-app/issues/3286)) ([69c3eed](https://github.com/dhis2/maps-app/commit/69c3eed5fceb9258dc3f62e7bc553b4d9a87a120)), closes [#3021](https://github.com/dhis2/maps-app/issues/3021)
+
+# [100.6.0](https://github.com/dhis2/maps-app/compare/v100.5.9...v100.6.0) (2024-07-31)
+
+
+### Features
+
+* Earth Engine layers update and Maps Admin auth managing layer sources ([d0f0b92](https://github.com/dhis2/maps-app/commit/d0f0b9283baefaca31005cf45ac371f10bf32ceb))
+
+## [100.5.9](https://github.com/dhis2/maps-app/compare/v100.5.8...v100.5.9) (2024-07-31)
+
+
+### Bug Fixes
+
+* loader alert messages were being duplicated ([#2796](https://github.com/dhis2/maps-app/issues/2796)) ([69776ad](https://github.com/dhis2/maps-app/commit/69776ad8b71ba1bac586283a9c39b77bc4ec1970))
+
+## [100.5.8](https://github.com/dhis2/maps-app/compare/v100.5.7...v100.5.8) (2024-07-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([96815bc](https://github.com/dhis2/maps-app/commit/96815bca6a30743a9386f929d25253cacc793838))
+
+## [100.5.7](https://github.com/dhis2/maps-app/compare/v100.5.6...v100.5.7) (2024-07-04)
+
+
+### Bug Fixes
+
+* enable hidding basemap in dashboard ([#3275](https://github.com/dhis2/maps-app/issues/3275)) ([eee5805](https://github.com/dhis2/maps-app/commit/eee580515634ef43722d4c9b6d23b0abce656eed))
+
+## [100.5.6](https://github.com/dhis2/maps-app/compare/v100.5.5...v100.5.6) (2024-06-26)
+
+
+### Bug Fixes
+
+* support "week", "bi-week" and months in period translations ([#3269](https://github.com/dhis2/maps-app/issues/3269)) ([977e075](https://github.com/dhis2/maps-app/commit/977e0755615f52e1237911730adc2eb0e0fcee36))
+
+## [100.5.5](https://github.com/dhis2/maps-app/compare/v100.5.4...v100.5.5) (2024-06-13)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (dev) ([#3237](https://github.com/dhis2/maps-app/issues/3237)) ([8e9a46d](https://github.com/dhis2/maps-app/commit/8e9a46d903d3a4534bfd5d684745df9e1249bc32))
+* unclear 'show no data' ([#3204](https://github.com/dhis2/maps-app/issues/3204)) ([ec24ca0](https://github.com/dhis2/maps-app/commit/ec24ca09268d04cb62c3a621c20b2b70dc43dcd0))
+* use improved rich text editor from analytics (DHIS2-15522) ([#3236](https://github.com/dhis2/maps-app/issues/3236)) ([3c842d4](https://github.com/dhis2/maps-app/commit/3c842d49c5900da0a16c32e40db955bfaf78201d))
+* **translations:** sync translations from transifex (dev) ([230dc08](https://github.com/dhis2/maps-app/commit/230dc0868d17533e96ce3aa6df2ae7ca73df7fed))
+* **translations:** sync translations from transifex (dev) ([83393cb](https://github.com/dhis2/maps-app/commit/83393cb9f0fd11dbd9e23c26119cce94ca6be0ce))
+
+## [100.5.4](https://github.com/dhis2/maps-app/compare/v100.5.3...v100.5.4) (2024-05-16)
+
+
+### Bug Fixes
+
+* system / user setting for display name not respected in Org Unit tree (DHIS2-15000) ([#3195](https://github.com/dhis2/maps-app/issues/3195)) ([8560478](https://github.com/dhis2/maps-app/commit/856047826a884da243f15317d19cc8dc434dd6a9))
+* users losing work when opening as chart ([#3196](https://github.com/dhis2/maps-app/issues/3196)) ([3c69a86](https://github.com/dhis2/maps-app/commit/3c69a86249bd3c22b239eb344a5eb45288699161))
+
 ## [100.5.3](https://github.com/dhis2/maps-app/compare/v100.5.2...v100.5.3) (2024-05-03)
 
 

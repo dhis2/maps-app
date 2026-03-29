@@ -1,4 +1,4 @@
-export const dimConf = {
+const baseDimConf = {
     data: {
         id: 'data',
         value: 'data',
@@ -52,17 +52,35 @@ export const dimConf = {
         objectName: 'di',
         itemType: 'PROGRAM_DATA_ELEMENT',
     },
+    programDataElementOption: {
+        value: 'programDataElementOption',
+        dimensionName: 'dx',
+        objectName: 'di',
+        itemType: 'PROGRAM_DATA_ELEMENT_OPTION',
+    },
     programAttribute: {
         value: 'programAttribute',
         dimensionName: 'dx',
         objectName: 'di',
         itemType: 'PROGRAM_ATTRIBUTE',
     },
+    programAttributeOption: {
+        value: 'programAttribute',
+        dimensionName: 'dx',
+        objectName: 'di',
+        itemType: 'PROGRAM_ATTRIBUTE_OPTION',
+    },
     programIndicator: {
         value: 'programIndicator',
         dimensionName: 'dx',
         objectName: 'pi',
         itemType: 'PROGRAM_INDICATOR',
+    },
+    calculation: {
+        value: 'expressionDimensionItems',
+        dimensionName: 'dx',
+        objectName: 'ed',
+        itemType: 'EXPRESSION_DIMENSION_ITEM',
     },
     period: {
         id: 'period',
@@ -92,3 +110,13 @@ export const dimConf = {
         objectName: 'value',
     },
 }
+
+const dimConf = Object.entries(baseDimConf).reduce((acc, [key, value]) => {
+    acc[key] = value
+    if (value.itemType) {
+        acc[value.itemType] = value
+    }
+    return acc
+}, {})
+
+export { dimConf }

@@ -1,0 +1,47 @@
+.customRadioLabel {
+    display: flex;
+    gap: var(--spacers-dp8);
+    color: var(--colors-grey900);
+}
+
+.labelsWrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.customRadioLabel .icon svg {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+}
+
+.customRadioLabel .iconChecked svg {
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+}
+
+.customRadioLabel .iconChecked svg .border {
+    stroke: var(--colors-teal600);
+}
+
+.customRadioLabel.disabled .icon {
+    opacity: 0.5;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.customRadioLabel.disabled .label {
+    color: var(--colors-grey600);
+}
+
+.sublabel {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--colors-grey700);
+}
+
+.customRadioLabel.disabled .sublabel {
+    color: var(--colors-grey600);
+}

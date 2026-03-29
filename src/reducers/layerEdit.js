@@ -12,6 +12,7 @@ import {
 import { START_END_DATES } from '../constants/periods.js'
 import {
     setFiltersFromPeriod,
+    setFiltersFromPeriods,
     setDataItemInColumns,
     setOrgUnitPathInRows,
     removePeriodFromFilters,
@@ -53,40 +54,6 @@ const layerEdit = (state = null, action) => {
                 styleDataItem: null,
             }
 
-        case types.LAYER_EDIT_VALUE_TYPE_SET:
-            return {
-                ...state,
-                valueType: action.valueType,
-                columns: action.keepColumns ? state.columns : [], // Kept if favorite is loaded
-            }
-
-        case types.LAYER_EDIT_INDICATOR_GROUP_SET:
-            return {
-                ...state,
-                indicatorGroup: {
-                    id: action.indicatorGroup.id,
-                    name: action.indicatorGroup.name,
-                },
-                columns: [],
-            }
-
-        case types.LAYER_EDIT_DATA_ELEMENT_GROUP_SET:
-            return {
-                ...state,
-                dataElementGroup: {
-                    id: action.dataElementGroup.id,
-                    name: action.dataElementGroup.name,
-                },
-                columns: [],
-            }
-
-        case types.LAYER_EDIT_OPERAND_SET:
-            return {
-                ...state,
-                operand: action.operand,
-                columns: [],
-            }
-
         case types.LAYER_EDIT_DATA_ITEM_SET:
             return {
                 ...state,
@@ -106,10 +73,10 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
             return {
                 ...state,
-                periodType: action.periodType.id,
-                filters: action.clearPeriod
-                    ? removePeriodFromFilters(state.filters)
-                    : state.filters,
+                periodType: action.periodType.value,
+                filters: action.keepPeriod
+                    ? state.filters
+                    : removePeriodFromFilters(state.filters),
             }
 
         case types.LAYER_EDIT_PERIOD_SET:
@@ -119,6 +86,23 @@ const layerEdit = (state = null, action) => {
                     action.period.id !== START_END_DATES
                         ? setFiltersFromPeriod(state.filters, action.period)
                         : [],
+            }
+
+        case types.LAYER_EDIT_PERIODS_SET:
+            return {
+                ...state,
+                filters: !(
+                    action.periods.length === 1 &&
+                    action.periods[0].id === START_END_DATES
+                )
+                    ? setFiltersFromPeriods(state.filters, action.periods)
+                    : [],
+            }
+
+        case types.LAYER_EDIT_BACKUP_PERIODSDATES_SET:
+            return {
+                ...state,
+                backupPeriodsDates: action.backupPeriodsDates,
             }
 
         case types.LAYER_EDIT_RENDERING_STRATEGY_SET:
@@ -318,7 +302,7 @@ const layerEdit = (state = null, action) => {
             newState = {
                 ...state,
                 colorScale: action.colorScale,
-                classes: action.colorScale.split(',').length,
+                classes: action.colorScale.length,
             }
 
             if (newState.styleDataItem) {
@@ -343,6 +327,7 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 eventCoordinateField: action.fieldId,
+                eventCoordinateFieldType: action.fieldType,
             }
 
         case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
@@ -440,11 +425,11 @@ const layerEdit = (state = null, action) => {
                 band: action.payload,
             }
 
-        case types.LAYER_EDIT_PARAMS_SET:
+        case types.LAYER_EDIT_STYLE_SET:
             return {
                 ...state,
-                params: {
-                    ...state.params,
+                style: {
+                    ...state.style,
                     ...action.payload,
                 },
             }
@@ -495,6 +480,12 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 areaRadius: action.radius,
+            }
+
+        case types.LAYER_EDIT_GEOMETRY_CENTROIDS_SET:
+            return {
+                ...state,
+                geometryCentroid: action.payload,
             }
 
         case types.LAYER_EDIT_RADIUS_LOW_SET:
@@ -568,6 +559,12 @@ const layerEdit = (state = null, action) => {
             }
 
             return newState
+
+        case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:
+            return {
+                ...state,
+                period: action.payload,
+            }
 
         case types.LAYER_EDIT_FEATURE_STYLE_SET:
             return {

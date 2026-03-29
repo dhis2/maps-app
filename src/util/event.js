@@ -5,6 +5,29 @@ import {
 } from '../constants/layers.js'
 import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
+import { trimTime } from './time.js'
+
+export const EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
+    programStage: {
+        resource: 'programStages',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: `programStageDataElements[displayInReports,dataElement[id,code,${nameProperty}~rename(name),optionSet,valueType]]`,
+            paging: false,
+        }),
+    },
+}
+
+export const EVENT_PROGRAM_ATTRIBUTES_QUERY = {
+    program: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
+            paging: false,
+        }),
+    },
+}
 
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
@@ -15,12 +38,14 @@ const METADATA_FORMAT_NAME = 'name'
 
 export const getEventColumns = async (
     layer,
-    { format = METADATA_FORMAT_NAME, nameProperty, d2 }
+    { format = METADATA_FORMAT_NAME, nameProperty, engine }
 ) => {
-    const result = await d2.models.programStage.get(layer.programStage.id, {
-        fields: `programStageDataElements[displayInReports,dataElement[id,code,${nameProperty}~rename(name),optionSet]]`,
-        paging: false,
-    })
+    const { programStage: result } = await engine.query(
+        EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
+        {
+            variables: { id: layer.programStage.id, nameProperty },
+        }
+    )
 
     return result.programStageDataElements
         .filter((el) => el.displayInReports)
@@ -48,7 +73,7 @@ export const getAnalyticsRequest = async (
         relativePeriodDate,
         isExtended,
     },
-    { d2, nameProperty }
+    { nameProperty, engine, analyticsEngine }
 ) => {
     const orgUnits = getOrgUnitsFromRows(rows)
     const period = getPeriodFromFilters(filters)
@@ -61,7 +86,7 @@ export const getAnalyticsRequest = async (
     if (isExtended) {
         const displayColumns = await getEventColumns(
             { programStage },
-            { d2, nameProperty }
+            { engine, nameProperty }
         )
 
         displayColumns.forEach((col) => {
@@ -71,14 +96,16 @@ export const getAnalyticsRequest = async (
         })
     }
 
-    let analyticsRequest = new d2.analytics.request()
+    let analyticsRequest = new analyticsEngine.request()
         .withProgram(program.id)
         .withStage(programStage.id)
         .withCoordinatesOnly(true)
 
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
+        : analyticsRequest
+              .withStartDate(trimTime(startDate))
+              .withEndDate(trimTime(endDate))
 
     if (relativePeriodDate) {
         analyticsRequest =
@@ -120,9 +147,14 @@ export const getAnalyticsRequest = async (
     return analyticsRequest
 }
 
-export const loadData = async (request, config = {}, d2) => {
-    const response = await d2.analytics.events.getQuery(
-        request.withPageSize(EVENT_CLIENT_PAGE_SIZE)
+export const loadData = async ({
+    request,
+    config = {},
+    analyticsEngine,
+    pageSize = EVENT_CLIENT_PAGE_SIZE,
+}) => {
+    const response = await analyticsEngine.events.getQuery(
+        request.withPageSize(pageSize)
     ) // DHIS2-10742
 
     const { data, names } = createEventFeatures(response, config)

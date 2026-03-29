@@ -1,22 +1,24 @@
-# 
 # Translators:
-# Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
-# 晓东 林 <13981924470@126.com>, 2024
-# easylin <lin_xd@126.com>, 2024
+# Philip Larsen Donnelly, 2025
+# 晓东 林 <13981924470@126.com>, 2025
+# easylin <lin_xd@126.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-13T15:13:17.773Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "2020"
+msgstr "2020"
 
 msgid "Untitled map, {{date}}"
 msgstr "无标题地图，{{date}}"
@@ -26,6 +28,18 @@ msgstr "地图“{{- name}}”已保存。"
 
 msgid "Failed to save map: {{message}}"
 msgstr "无法保存地图：{{message}}"
+
+msgid "Rename failed"
+msgstr "重命名失败"
+
+msgid "Rename successful"
+msgstr "重命名成功"
+
+msgid "This app could not retrieve required data."
+msgstr "此应用无法检索所需数据。"
+
+msgid "Network error"
+msgstr "网络错误"
 
 msgid "Classification"
 msgstr "分类"
@@ -54,29 +68,20 @@ msgstr "值"
 msgid "Display"
 msgstr "显示"
 
-msgid "Data element group"
-msgstr "数据元组"
-
-msgid "Data element operand"
-msgstr "数据元操作符"
-
-msgid "Data element"
-msgstr "数据元"
-
-msgid "Totals"
-msgstr "总共"
-
-msgid "Details"
-msgstr "详情"
-
 msgid "Yes"
 msgstr "是"
+
+msgid "No"
+msgstr "否"
 
 msgid "None"
 msgstr "无"
 
 msgid "Cascading"
 msgstr "级联"
+
+msgid "Organisation unit location"
+msgstr "组织单位位置"
 
 msgid "Event location"
 msgstr "事件位置"
@@ -86,9 +91,6 @@ msgstr "招生地点"
 
 msgid "Tracked entity location"
 msgstr "跟踪实体位置"
-
-msgid "Organisation unit location"
-msgstr "组织单位位置"
 
 msgid "Fallback coordinate field"
 msgstr "回退坐标字段"
@@ -102,14 +104,11 @@ msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
 msgid "Event > org unit coordinate"
 msgstr "事件 > 组织单位坐标"
 
-msgid "Event data item"
-msgstr "事件数据条目"
+msgid "Previously selected value not available in list: {{id}}"
+msgstr "之前选择的值在列表{{id}}中不可用："
 
-msgid "Selected value not available in in list: {{name}}"
-msgstr "所选值在列表中不可用：{{name}}"
-
-msgid "Style by data element"
-msgstr "按数据元风格显示"
+msgid "Style by data item"
+msgstr "按数据元定风格"
 
 msgid "Filtering is available after selecting a program stage."
 msgstr "选择项目阶段后即可进行过滤。"
@@ -137,9 +136,6 @@ msgstr "操作符"
 
 msgid "Date"
 msgstr "日期"
-
-msgid "Data set"
-msgstr "数据集"
 
 msgid "No results found"
 msgstr "没有结果"
@@ -295,11 +291,8 @@ msgstr "更新图层"
 msgid "Add layer"
 msgstr "添加图层"
 
-msgid "Aggregation method"
-msgstr "汇总方法"
-
-msgid "Groups"
-msgstr "组"
+msgid "Area statistics (popups and data table)"
+msgstr "区域统计（弹窗和数据表）"
 
 msgid "This field is required"
 msgstr "这个字段是必填的"
@@ -309,6 +302,9 @@ msgstr "数据"
 
 msgid "Period"
 msgstr "周期"
+
+msgid "Dataset"
+msgstr "数据集"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -326,17 +322,29 @@ msgstr "通过单击地图区域或查看数据表查看聚合结果。结果也
 msgid "Unit"
 msgstr "单元"
 
+msgid "Spatial resolution"
+msgstr "空间分辨率"
+
+msgid "Temporal resolution"
+msgstr "时间分辨率"
+
+msgid "Temporal coverage"
+msgstr "时间覆盖范围"
+
 msgid "Source"
 msgstr "资源"
+
+msgid "Period type"
+msgstr "期间类型"
 
 msgid "Legend preview"
 msgstr "图例预览"
 
+msgid "Available periods are retrieved from the source data"
+msgstr "从源数据中检索可用时段"
+
 msgid "Year"
 msgstr "年"
-
-msgid "Available periods are set by the source data"
-msgstr "可用期间由源数据设置"
 
 msgid "Loading periods"
 msgstr "加载期"
@@ -353,9 +361,6 @@ msgstr "最大值应大于最小值"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
 
-msgid "Unit: {{ unit }}"
-msgstr "机构: {{ unit }}"
-
 msgid "Min"
 msgstr "最小"
 
@@ -364,6 +369,9 @@ msgstr "最大"
 
 msgid "Steps"
 msgstr "步"
+
+msgid "Facility buffer"
+msgstr "设施缓冲区"
 
 msgid "Org Units"
 msgstr "机构"
@@ -401,6 +409,9 @@ msgstr "事件状态"
 msgid "Boundary color"
 msgstr "边界颜色"
 
+msgid "Draws a buffer area around each point location."
+msgstr "在每个点位置周围绘制缓冲区。"
+
 msgid "Buffer"
 msgstr "缓冲"
 
@@ -422,6 +433,18 @@ msgstr "线条/笔划宽度"
 msgid "Line/stroke width must be between 0-10."
 msgstr "线条/描边宽度必须介于 0-10 之间。"
 
+msgid "May cause slow layer loading."
+msgstr "可能导致图层加载缓慢。"
+
+msgid "Convert polygons to their centroids."
+msgstr "将多边形转换为其中心点。"
+
+msgid "Centroids"
+msgstr "中心点"
+
+msgid "Polygons are represented by their centroids."
+msgstr "多边形由其中心点表示。"
+
 msgid "Labels"
 msgstr "标签"
 
@@ -431,8 +454,8 @@ msgstr "汇总类型"
 msgid "Only show completed events"
 msgstr "仅显示已完成的事件"
 
-msgid "Show no data"
-msgstr "显示无数据"
+msgid "Include org units with no data"
+msgstr "包括无数据的组织机构"
 
 msgid "Low radius"
 msgstr "低半径"
@@ -446,44 +469,37 @@ msgstr "高半径应大于低半径"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "半径应介于{{min}}至{{max}}之间"
 
-msgid "Indicator group is required"
-msgstr "需要指标组"
+msgid "Choose from presets"
+msgstr "从预设中选择"
 
-msgid "Indicator is required"
-msgstr "需要指标"
+msgid "Define start - end dates"
+msgstr "定义开始 - 结束日期"
 
-msgid "Data element group is required"
-msgstr "需要数据元组"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "需要数据元"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data set is required"
-msgstr "需要数据"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Event data item is required"
-msgstr "需要事件数据项"
-
-msgid "Program indicator is required"
-msgstr "需要项目指标"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "需要期间"
 
-msgid "Indicator"
-msgstr "指标"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "上报率"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "至少选择{{number}} 期或 1 个多期。"
 
-msgid "Event data items"
-msgstr "事件数据项"
-
-msgid "Program indicators"
-msgstr "项目指标"
-
-msgid "Item type"
-msgstr "条目类型"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
@@ -526,6 +542,9 @@ msgstr "相关实体风格"
 msgid "Line Color"
 msgstr "线颜色"
 
+msgid "Tracked Entity Type is required"
+msgstr "需要跟踪实体类型"
+
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "跟踪的实体类型没有发现关系类型"
 
@@ -544,14 +563,19 @@ msgstr "移除过滤器"
 msgid "Group set"
 msgstr "组集"
 
-msgid "Failed to load organisation unit groups."
-msgstr "未能加载组织机构组。"
-
 msgid "Style by group set"
 msgstr "按组集设置样式"
 
-msgid "Indicator group"
-msgstr "指标组"
+msgid "Manage available layer sources"
+msgstr "管理可用的图层源"
+
+msgid "Configure available layer sources"
+msgstr "配置可用的图层源"
+
+msgid ""
+"Choose which layer sources are available to add to maps. This selection "
+"applies to all users."
+msgstr "选择哪些图层源可添加到地图中。此选择适用于所有用户。"
 
 msgid "Collapse"
 msgstr "折叠"
@@ -588,9 +612,6 @@ msgstr "下载数据失败"
 msgid "External layer"
 msgstr "外部图层"
 
-msgid "Split view can not be combined with other layer types."
-msgstr "分离视图不能和其它图层混合"
-
 msgid "Failed to load layer"
 msgstr "加载图层失败"
 
@@ -624,8 +645,8 @@ msgstr "隐藏数据表"
 msgid "Show data table"
 msgstr "显示数据表"
 
-msgid "Open as chart"
-msgstr "打开图表"
+msgid "Open in Data Visualizer app"
+msgstr "在数据可视化应用程序中打开"
 
 msgid "Download data"
 msgstr "下载数据"
@@ -636,17 +657,20 @@ msgstr "编辑图层"
 msgid "Remove layer"
 msgstr "移除图层"
 
-msgid "Mid"
-msgstr "中"
-
-msgid "Group"
-msgstr "组"
-
 msgid "Filters"
 msgstr "过滤器"
 
-msgid "{{layername}}: {{message}}"
-msgstr "{{layername}}：{{message}}"
+msgid "No data found"
+msgstr "没有数据被找到"
+
+msgid "Selected org units: No coordinates found"
+msgstr "选定的组织单位：未找到坐标"
+
+msgid "No coordinates found"
+msgstr "没有找到坐标"
+
+msgid "Error"
+msgstr "错误"
 
 msgid "Drill up one level"
 msgstr "上钻一级"
@@ -669,11 +693,13 @@ msgstr "经度"
 msgid "Latitude"
 msgstr "纬度"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr "地图初始化失败。您的系统可能不支持 WebGL。请在此处验证兼容性：{{url}}"
+
 msgid "Basemap could not be added: {{message}}"
 msgstr "无法添加底图：{{message}}"
-
-msgid "Not set"
-msgstr "没有设置"
 
 msgid "Could not retrieve event data"
 msgstr "无法检索事件数据"
@@ -681,11 +707,23 @@ msgstr "无法检索事件数据"
 msgid "Organisation unit"
 msgstr "组织机构"
 
+msgid "Groups"
+msgstr "组"
+
 msgid "Parent unit"
 msgstr "上级机构"
 
+msgid "No data"
+msgstr "无数据"
+
+msgid "Not set"
+msgstr "没有设置"
+
+msgid "Could not retrieve tracked entity data"
+msgstr "无法检索跟踪的实体数据"
+
 msgid "Last updated"
-msgstr "Last updated"
+msgstr "最后更新"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -695,8 +733,8 @@ msgstr "Google 地球引擎失败。是否为此 DHIS2 实例配置了服务？"
 msgid "no value"
 msgstr "无值"
 
-msgid "All groups"
-msgstr "所有组"
+msgid "All"
+msgstr "全部"
 
 msgid "Loading data"
 msgstr "加载数据中"
@@ -850,38 +888,58 @@ msgstr "选择的和所有下面的"
 msgid "Selection mode"
 msgstr "选择模式"
 
+msgid "Clear"
+msgstr "清除"
+
 msgid "Previous year"
 msgstr "前年"
 
 msgid "Next year"
 msgstr "来年"
 
-msgid "Relative"
-msgstr "相对时间"
-
-msgid "Period type"
-msgstr "周期类型"
-
 msgid "Start/end dates"
 msgstr "开始-结束日期"
 
-msgid "Only one timeline is allowed."
-msgstr "仅仅允许一个时限"
+msgid "Remove all split layers to add a single layer."
+msgstr ""
 
-msgid "Remove other layers to enable split map views."
-msgstr "移除其他图层使能分离视图功能"
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
 
-msgid "Display periods"
-msgstr "显示期间"
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
-msgid "Single (aggregate)"
-msgstr "单值（合计）"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be selected."
+msgstr "最多只能选择{{number}} 个时段（包括多时段）。"
+
+msgid "Single"
+msgstr "单人"
+
+msgid "Show periods as a combined layer. Data is aggregated."
+msgstr "以组合图层的形式显示时段。数据已汇总。"
 
 msgid "Timeline"
 msgstr "时间线"
 
-msgid "Split map views"
-msgstr "拆分地图视图"
+msgid "Show multiple periods as an interactive timeline."
+msgstr "以互动时间轴的形式显示多个时期。"
+
+msgid "Split"
+msgstr "分割"
+
+msgid "Show multiple maps in view, one for each period (max {{number}})."
+msgstr "在视图中显示多个地图，每个时段一个（最多{{number}} ）。"
+
+msgid ""
+"Start and end dates are inclusive and will be reflected in the outputs."
+msgstr "开始和结束日期包括在内，并将反映在产出中。"
+
+msgid ""
+"Start and end dates must be entered using the ISO 8601 (Gregorian) date "
+"format."
+msgstr "开始和结束日期必须使用 ISO 8601（公历）日期格式输入。"
 
 msgid "Start date"
 msgstr "开始日期"
@@ -892,8 +950,11 @@ msgstr "结束日期"
 msgid "Not available offline"
 msgstr "离线不可用"
 
-msgid "Program indicator"
-msgstr "项目指标"
+msgid "Click to unpin legend"
+msgstr "点击取消固定图例"
+
+msgid "Click to pin legend"
+msgstr "点击固定图例"
 
 msgid "No program"
 msgstr "无项目"
@@ -949,6 +1010,9 @@ msgstr "OSM轻量"
 msgid "OSM Detailed"
 msgstr "OSM详细图"
 
+msgid "Sentinel-2 EOX"
+msgstr "哨兵-2 EOX"
+
 msgid "Bing Road"
 msgstr "Bing道路"
 
@@ -961,21 +1025,267 @@ msgstr "Bing空间图"
 msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
 
+msgid "Azure Road"
+msgstr "Azure 路网"
+
+msgid "Azure Dark"
+msgstr "Azure 黑夜"
+
+msgid "Azure Aerial"
+msgstr "Azure 卫星图"
+
+msgid "Azure Aerial Labels"
+msgstr "Azure 卫星带标签图"
+
+msgid "Building footprints"
+msgstr "构建足迹"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for Sub-Saharan Africa, South and South-East Asia, Latin America and "
+"the Caribbean."
+msgstr "根据高分辨率卫星图像绘制的建筑物轮廓。仅适用于撒哈拉以南非洲、南亚和东南亚、拉丁美洲和加勒比地区。"
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr "建筑物计数仅适用于较小的组织单位区域。"
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。"
+
+msgid "Number of buildings"
+msgstr "构建物数量"
+
+msgid "~0.5 meter"
+msgstr "~0.5 米"
+
+msgid "Single point in time"
+msgstr "单个时间点"
+
+msgid "May 2023"
+msgstr "2023 年 5 月"
+
+msgid "Elevation"
+msgstr "高程"
+
+msgid "Elevation above sea-level."
+msgstr "海拔高于海平面。"
+
+msgid "meters"
+msgstr "米数"
+
+msgid "~30 meters"
+msgstr "~30米"
+
+msgid "February 2000"
+msgstr "2000 年 2 月"
+
+msgid "Heat stress"
+msgstr "热应激"
+
+msgid "Heat stress daily"
+msgstr "每日热应激"
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr "人所承受的热应力的量度。"
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr "通用热气候指数（UTCI）综合了空气温度、湿度、风速和辐射对人体的影响。感觉温度（°C）。"
+
+msgid "~28 kilometers"
+msgstr "~28 公里"
+
+msgid "Daily"
+msgstr "每日"
+
+msgid "Since January 1940"
+msgstr "自 1940 年 1 月起"
+
+msgid "Base daily value"
+msgstr "每日基本价值"
+
+msgid "Extreme cold stress -60 - -40"
+msgstr "极冷应力 -60 - -40"
+
+msgid "Very strong cold stress -40 - -27"
+msgstr "极强冷应力 -40 - -27"
+
+msgid "Strong cold stress -27 - -13"
+msgstr "强冷应激 -27 - -13"
+
+msgid "Moderate cold stress -13 - 0"
+msgstr "中度冷应激 -13 - 0"
+
+msgid "Slight cold stress 0 - 9"
+msgstr "轻微冷应力 0 - 9"
+
+msgid "No thermal stress 9 - 26"
+msgstr "无热应力 9 - 26"
+
+msgid "Moderate heat stress 26 - 32"
+msgstr "中度热应力 26 - 32"
+
+msgid "Strong heat stress 32 - 38"
+msgstr "强热应力 32 - 38"
+
+msgid "Very strong heat stress 38 - 46"
+msgstr "极强热应力 38 - 46"
+
+msgid "Extreme heat stress 46 - 60"
+msgstr "极端热应激 46 - 60"
+
+msgid "Heat stress monthly"
+msgstr "热应激每月"
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr "月度（根据每日数据汇总）"
+
+msgid "Heat stress weekly"
+msgstr "每周热应激"
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr "每周（根据每日数据汇总）"
+
+msgid "Relative humidity"
+msgstr "相对湿度"
+
+msgid "Relative humidity daily"
+msgstr "每日相对湿度"
+
+msgid "Amount of water vapour present in air."
+msgstr "空气中的水蒸气含量。"
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr "相对湿度表示为在相同温度下空气所能容纳的最大水蒸气量的百分比。"
+
+msgid "~9 kilometers"
+msgstr "~9 公里"
+
+msgid "Since February 1950"
+msgstr "自 1950 年 2 月起"
+
+msgid "Relative humidity monthly"
+msgstr "每月相对湿度"
+
+msgid "Monthly"
+msgstr "每月"
+
+msgid "Relative humidity weekly"
+msgstr "每周相对湿度"
+
+msgid "Landcover"
+msgstr "陆地覆盖"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "从卫星收集的独特的土地覆被类型。"
+
+msgid "unitless"
+msgstr "无单位"
+
+msgid "~500 meters"
+msgstr "~500 米"
+
+msgid "Yearly"
+msgstr "每年"
+
+msgid "Since 2001"
+msgstr "自 2001 年起"
+
+msgid "Evergreen Needleleaf forest"
+msgstr "常绿针叶林"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "常绿阔叶林"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "落叶针叶林"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "落叶阔叶林"
+
+msgid "Mixed forest"
+msgstr "混交林"
+
+msgid "Closed shrublands"
+msgstr "封闭灌木丛"
+
+msgid "Open shrublands"
+msgstr "开放灌木丛"
+
+msgid "Woody savannas"
+msgstr "伍迪大草原"
+
+msgid "Savannas"
+msgstr "稀树草原"
+
+msgid "Grasslands"
+msgstr "草原"
+
+msgid "Permanent wetlands"
+msgstr "永久湿地"
+
+msgid "Croplands"
+msgstr "耕地"
+
+msgid "Urban and built-up"
+msgstr "城市和建筑"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "农田/天然植被马赛克"
+
+msgid "Snow and ice"
+msgstr "冰雪"
+
+msgid "Barren or sparsely vegetated"
+msgstr "贫瘠或稀疏的植被"
+
+msgid "Water"
+msgstr "水"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr "来自高分辨率卫星图像的建筑物轮廓。仅适用于非洲大陆。"
+
+msgid "Nighttime lights"
+msgstr "夜间灯光"
+
+msgid "light intensity"
+msgstr "光强度"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr "各个城市城镇的灯光亮度，包括烟雾"
+
 msgid "Population"
 msgstr "人口"
 
-msgid "people per hectare"
-msgstr "每公顷人数"
+msgid "people per km²"
+msgstr "每平方公里的人数"
 
 msgid "Estimated number of people living in an area."
 msgstr "居住在一个地区的估计人数。"
 
-msgid "Population age groups"
-msgstr "人口年龄组"
+msgid "people per hectare"
+msgstr "每公顷人数"
+
+msgid "Population age groups WorldPop Global1"
+msgstr "人口年龄组 WorldPop Global1"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr "按年龄和性别分组的估计居住在该地区的人数。"
+
+msgid "~100 meters"
+msgstr "~100 米"
 
 msgid "Male 0 - 1 years"
 msgstr "男性 0 - 1 岁"
@@ -1085,34 +1395,8 @@ msgstr "女性 75 - 79 岁"
 msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
 
-msgid "Building footprints"
-msgstr "构建足迹"
-
-msgid "Number of buildings"
-msgstr "构建物数量"
-
-msgid ""
-"The outlines of buildings derived from high-resolution satellite imagery. "
-"Only for the continent of Africa."
-msgstr "来自高分辨率卫星图像的建筑物轮廓。仅适用于非洲大陆。"
-
-msgid ""
-"Building counts are only available for smaller organisation unit areas."
-msgstr "建筑物计数仅适用于较小的组织单位区域。"
-
-msgid ""
-"Select a smaller area or single organization unit to see the count of "
-"buildings."
-msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。"
-
-msgid "Elevation"
-msgstr "高程"
-
-msgid "meters"
-msgstr "米数"
-
-msgid "Elevation above sea-level."
-msgstr "海拔高于海平面。"
+msgid "Population WorldPop Global1"
+msgstr "全球人口1"
 
 msgid "Precipitation"
 msgstr "降水"
@@ -1122,12 +1406,12 @@ msgstr "毫米"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr "从卫星和地面气象站收集的降水量。数值以 5 天内的毫米为单位。每月更新一次，更新时间为下一个月的第 3 周。"
 
-msgid "Temperature"
-msgstr "温度"
+msgid "Temperature MODIS"
+msgstr "温度 MODIS"
 
 msgid "°C during daytime"
 msgstr "白天°C"
@@ -1137,79 +1421,148 @@ msgid ""
 "in areas with a persistent cloud cover."
 msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
 
-msgid "Landcover"
-msgstr "陆地覆盖"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "从卫星收集的独特的土地覆被类型。"
-
-msgid "Evergreen Needleleaf forest"
-msgstr "常绿针叶林"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "常绿阔叶林"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "落叶针叶林"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "落叶阔叶林"
-
-msgid "Mixed forest"
-msgstr "混交林"
-
-msgid "Closed shrublands"
-msgstr "封闭灌木丛"
-
-msgid "Open shrublands"
-msgstr "开放灌木丛"
-
-msgid "Woody savannas"
-msgstr "伍迪大草原"
-
-msgid "Savannas"
-msgstr "稀树草原"
-
-msgid "Grasslands"
-msgstr "草原"
-
-msgid "Permanent wetlands"
-msgstr "永久湿地"
-
-msgid "Croplands"
-msgstr "耕地"
-
-msgid "Urban and built-up"
-msgstr "城市和建筑"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "农田/天然植被马赛克"
-
-msgid "Snow and ice"
-msgstr "冰雪"
-
-msgid "Barren or sparsely vegetated"
-msgstr "贫瘠或稀疏的植被"
-
-msgid "Water"
-msgstr "水"
-
-msgid "people per km²"
-msgstr "每平方公里的人数"
-
-msgid "Nighttime lights"
-msgstr "夜间灯光"
-
-msgid "light intensity"
-msgstr "光强度"
+msgid "Population age groups WorldPop Global2"
+msgstr "人口年龄组 WorldPop Global2"
 
 msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr "各个城市城镇的灯光亮度，包括烟雾"
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+"数据 采用自上而下的人口建模方法，将官方人口总数分布到各个空间，并限制在可能有人居住的地区。估计数每年提供一次，包括当前、历史和预测人口值。"
 
-msgid "All"
-msgstr "全部"
+msgid "2015 - 2030"
+msgstr "2015 - 2030"
+
+msgid "Male 80 - 84 years"
+msgstr "男性 80 - 84 岁"
+
+msgid "Male 85 - 89 years"
+msgstr "男 85 - 89 岁"
+
+msgid "Male 90 years and above"
+msgstr "男性 90 岁及以上"
+
+msgid "Female 80 - 84 years"
+msgstr "女性 80 - 84 岁"
+
+msgid "Female 85 - 89 years"
+msgstr "女性 85 - 89 岁"
+
+msgid "Female 90 years and above"
+msgstr "女性 90 岁及以上"
+
+msgid "Population WorldPop Global2"
+msgstr "人口 WorldPop Global2"
+
+msgid "CHIRPS"
+msgstr "CHIRPS"
+
+msgid "Precipitation daily CHIRPS"
+msgstr "每日降水量 CHIRPS"
+
+msgid "Gridded precipitation dataset."
+msgstr "网格降水数据集。"
+
+msgid ""
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
+msgstr "将卫星图像与现场站点数据相结合，以更高的空间分辨率提供以陆地降雨量为重点的估算数据，但数据提供的滞后期较长。"
+
+msgid "~5.5 kilometers"
+msgstr "~5.5 公里"
+
+msgid "Since January 1981"
+msgstr "自 1981 年 1 月起"
+
+msgid "ERA5"
+msgstr "ERA5"
+
+msgid "Precipitation daily ERA5"
+msgstr "每日降水量 ERA5"
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr "将模型数据与世界各地的观测数据相结合，提供高时间分辨率的陆地雨雪估测数据，通常可在一周内提供。"
+
+msgid "Precipitation monthly CHIRPS"
+msgstr "每月降水量 CHIRPS"
+
+msgid "Precipitation monthly ERA5"
+msgstr "每月降水量 ERA5"
+
+msgid "Precipitation weekly CHIRPS"
+msgstr "每周降水量 CHIRPS"
+
+msgid "Precipitation weekly ERA5"
+msgstr "每周降水量 ERA5"
+
+msgid "Temperature"
+msgstr "温度"
+
+msgid "Temperature daily"
+msgstr "每日温度"
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr "地表以上 2 米的网格温度数据集。"
+
+msgid "Combines model data with observations from across the world."
+msgstr "将模型数据与世界各地的观测数据相结合。"
+
+msgid "Temperature monthly"
+msgstr "每月气温"
+
+msgid "Temperature weekly"
+msgstr "每周温度"
+
+msgid "Vegetation"
+msgstr "植被"
+
+msgid "Vegetation index 16-day"
+msgstr "植被指数 16 天"
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr "植被指数的数值范围为-1 至 1，数值越高表示植被越茂密。"
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+"归一化差异植被指数（NDVI）用于量化植被绿度，有助于了解植被密度和评估植物健康变化。 \n"
+" 增强植被指数（EVI）与归一化差异植被指数类似。不过，EVI 会对一些大气条件和树冠背景噪声进行校正，在植被茂密的地区更为灵敏。"
+
+msgid "~250 meters"
+msgstr "~250 米"
+
+msgid "16-day"
+msgstr "16 天"
+
+msgid "Since February 2000"
+msgstr "自 2000 年 2 月起"
+
+msgid "NDVI"
+msgstr "NDVI"
+
+msgid "EVI"
+msgstr "EVI"
+
+msgid "Vegetation index monthly"
+msgstr "每月植被指数"
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr "每月（根据 16 天数据汇总）"
+
+msgid "Vegetation index weekly"
+msgstr "植被指数周报"
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr "每周（根据 16 天数据汇总）"
 
 msgid "Active"
 msgstr "活跃的"
@@ -1218,7 +1571,7 @@ msgid "Completed"
 msgstr "完成"
 
 msgid "Choropleth"
-msgstr "胆管"
+msgstr "分级统计"
 
 msgid "Bubble map"
 msgstr "气泡图"
@@ -1241,8 +1594,8 @@ msgstr "等数量"
 msgid "Symbol"
 msgstr "符号"
 
-msgid "Daily"
-msgstr "每日"
+msgid "Relative"
+msgstr "相对时间"
 
 msgid "Weekly"
 msgstr "每周"
@@ -1262,9 +1615,6 @@ msgstr "每周（始于周日）"
 msgid "Bi-weekly"
 msgstr "两周"
 
-msgid "Monthly"
-msgstr "每月"
-
 msgid "Bi-monthly"
 msgstr "每两月"
 
@@ -1276,9 +1626,6 @@ msgstr "六个月"
 
 msgid "Six-monthly April"
 msgstr "半年四月"
-
-msgid "Yearly"
-msgstr "每年"
 
 msgid "Financial year (Start November)"
 msgstr "财政年（11月始）"
@@ -1295,14 +1642,8 @@ msgstr "财务四月"
 msgid "Cancelled"
 msgstr "已取消"
 
-msgid "{{name}}: No coordinates found"
-msgstr "{{name}}：未找到坐标"
-
-msgid "Selected org units: No coordinates found"
-msgstr "选定的组织单位：未找到坐标"
-
-msgid "Error: {{message}}"
-msgstr "错误: {{message}}"
+msgid "Earth Engine layer"
+msgstr "地球引擎层"
 
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
@@ -1316,20 +1657,20 @@ msgstr "读取图层数据时发生未知错误"
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "显示{{total}}中的前{{pageSize}}个事件"
 
-msgid "No data found"
-msgstr "没有数据被找到"
-
 msgid "Event"
-msgstr "四级"
+msgstr "事件"
 
 msgid "Facilities"
 msgstr "机构设施"
 
-msgid "Facilities: No coordinates found"
-msgstr "机构设施：未找到坐标"
+msgid "an error occurred"
+msgstr "出现错误"
 
-msgid "Url to geojson is invalid."
-msgstr "geojson 的 URL 无效。"
+msgid "GroupSet used for styling was not found"
+msgstr "未找到用于样式的 组集"
+
+msgid "No coordinates found for selected facilities"
+msgstr "未找到选定设施的坐标"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "这层有问题。联系系统管理员。"
@@ -1349,20 +1690,17 @@ msgstr "点"
 msgid "Organisation units"
 msgstr "组织机构"
 
-msgid "Error"
-msgstr "错误"
+msgid "Org unit layer"
+msgstr "组织机构层"
+
+msgid "Data item was not found"
+msgstr "未找到数据项"
 
 msgid "Thematic layer"
 msgstr "专题层"
 
-msgid "No data"
-msgstr "无数据"
-
 msgid "Tracked entity"
 msgstr "跟踪实体"
-
-msgid "No tracked entities found"
-msgstr "没有找到跟踪实体"
 
 msgid "related"
 msgstr "相关的"
@@ -1370,7 +1708,7 @@ msgstr "相关的"
 msgid "not one of"
 msgstr "不是当中一个"
 
-msgid "doesn't contains"
+msgid "doesn't contain"
 msgstr "不包含"
 
 msgid "true"
@@ -1379,16 +1717,25 @@ msgstr "真"
 msgid "false"
 msgstr "假"
 
-msgid "No"
-msgstr "否"
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr "{{keyName}} 对图层类型无效：{{type}}"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "无法获取Google Earth Engine的授权令牌。"
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr "{{keyName}} 未为图层类型提供：{{types}}"
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr "无法加载： {{id}} - 使用默认基图。"
+
+msgid "Mid"
+msgstr "中"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "无法获取Google Earth Engine的授权令牌。"
 
 msgid "Thematic"
 msgstr "专题图"
@@ -1404,6 +1751,9 @@ msgstr "组织机构"
 
 msgid "Facility"
 msgstr "功能"
+
+msgid "Other"
+msgstr "其它"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

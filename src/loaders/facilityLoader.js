@@ -1,90 +1,125 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
+import {
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+    CUSTOM_ALERT,
+} from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
-    fetchOrgUnitGroupSet,
+    ORG_UNITS_GROUP_SET_QUERY,
     getPointItems,
     getPolygonItems,
     getStyledOrgUnits,
     getCoordinateField,
+    parseGroupSet,
 } from '../util/orgUnits.js'
+import { GEOFEATURES_QUERY } from '../util/requests.js'
 
-const facilityLoader = async (config) => {
+const facilityLoader = async ({
+    config,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+    baseUrl,
+}) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
+
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
+
+    let loadError
     const alerts = []
-    const orgUnitParams = orgUnits.map((item) => item.id)
+
+    const orgUnitIds = orgUnits.map((item) => item.id)
     let associatedGeometries
 
-    const d2 = await getD2()
-    const displayProperty = getDisplayProperty(d2).toUpperCase()
-    const { contextPath } = d2.system.systemInfo
     const name = i18n.t('Facilities')
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
-
-    const requests = [
-        featuresRequest
-            .getAll({
-                includeGroupSets,
-            })
-            .then(getPointItems)
-            .then(toGeoJson)
-            .catch((error) => {
-                if (error && error.message) {
+    let data = {}
+    try {
+        // Fetch geofeatures data
+        data = await engine.query(
+            GEOFEATURES_QUERY,
+            {
+                variables: {
+                    orgUnitIds,
+                    keyAnalysisDisplayProperty,
+                    includeGroupSets,
+                    userId,
+                },
+            },
+            {
+                onError: (error) => {
                     alerts.push({
                         critical: true,
-                        message: i18n.t('Error: {{message}}', {
-                            message: error.message,
-                            nsSeparator: ';',
-                        }),
+                        code: ERROR_CRITICAL,
+                        message: error.message || i18n.t('an error occurred'),
                     })
-                }
-            }),
-    ]
+                },
+            }
+        )
+    } catch (error) {
+        alerts.push({
+            critical: true,
+            code: ERROR_CRITICAL,
+            message: error.message || i18n.t('an error occurred'),
+        })
+    }
+
+    const features =
+        data?.geoFeatures && toGeoJson(getPointItems(data.geoFeatures))
 
     // Load organisationUnitGroups if not passed
+    let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        requests.push(fetchOrgUnitGroupSet(groupSet.id))
+        try {
+            orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+                variables: {
+                    id: groupSet?.id,
+                },
+            })
+        } catch (err) {
+            loadError = i18n.t('GroupSet used for styling was not found')
+        }
     }
 
-    const [features, organisationUnitGroups] = await Promise.all(requests)
-
-    if (organisationUnitGroups) {
-        groupSet.organisationUnitGroups = organisationUnitGroups
+    if (orgUnitGroups) {
+        const { groupSets } = orgUnitGroups
+        groupSet.organisationUnitGroups = parseGroupSet({
+            organisationUnitGroups: groupSets.organisationUnitGroups,
+        })
+        groupSet.name = groupSets.name
     }
 
-    const { styledFeatures, legend } = getStyledOrgUnits(
+    const { styledFeatures, legend } = getStyledOrgUnits({
         features,
         groupSet,
         config,
-        contextPath
-    )
-
+        baseUrl,
+    })
     legend.title = name
 
     if (coordinateField) {
-        associatedGeometries = await featuresRequest
-            .getAll({
-                coordinateField: coordinateField.id,
+        const rawData = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                orgUnitIds,
+                keyAnalysisDisplayProperty,
                 includeGroupSets,
-            })
-            .then(getPolygonItems)
-            .then(toGeoJson)
+                coordinateField: coordinateField.id,
+                userId,
+            },
+        })
+
+        associatedGeometries = rawData?.geoFeatures
+            ? toGeoJson(getPolygonItems(rawData.geoFeatures))
+            : null
 
         if (!associatedGeometries.length) {
             alerts.push({
-                warning: true,
-                message: i18n.t('{{name}}: No coordinates found', {
-                    name: coordinateField.name,
-                    nsSeparator: ';',
-                }),
+                code: WARNING_NO_GEOMETRY_COORD,
+                message: coordinateField.name,
             })
         }
 
@@ -104,9 +139,8 @@ const facilityLoader = async (config) => {
     if (!styledFeatures.length) {
         alerts.push({
             warning: true,
-            message: i18n.t('Facilities: No coordinates found', {
-                nsSeparator: ';',
-            }),
+            code: CUSTOM_ALERT,
+            message: i18n.t('No coordinates found for selected facilities'),
         })
     }
 
@@ -121,6 +155,7 @@ const facilityLoader = async (config) => {
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 

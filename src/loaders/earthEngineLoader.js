@@ -1,22 +1,37 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { precisionRound } from 'd3-format'
-import { getEarthEngineLayer } from '../constants/earthEngine.js'
+import {
+    WARNING_NO_OU_COORD,
+    WARNING_NO_GEOMETRY_COORD,
+    ERROR_CRITICAL,
+} from '../constants/alerts.js'
+import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
-import { getDisplayProperty } from '../util/helpers.js'
+import {
+    hasClasses,
+    getStaticFilterFromPeriod,
+    getPeriodFromFilter,
+} from '../util/earthEngine.js'
+import { sortLegendItems } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
 import { getRoundToPrecisionFn } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
 } from '../util/orgUnits.js'
+import { GEOFEATURES_QUERY } from '../util/requests.js'
 
-// Returns a promise
-const earthEngineLoader = async (config) => {
-    const { rows, aggregationType } = config
+const earthEngineLoader = async ({
+    config,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+}) => {
+    const { format, rows, aggregationType } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
+
+    let loadError
     const alerts = []
 
     let layerConfig = {}
@@ -24,33 +39,41 @@ const earthEngineLoader = async (config) => {
     let features
 
     if (orgUnits && orgUnits.length) {
-        const d2 = await getD2()
-        const displayProperty = getDisplayProperty(d2).toUpperCase()
-        const orgUnitParams = orgUnits.map((item) => item.id)
+        const orgUnitIds = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
 
-        const featuresRequest = d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
-
         try {
-            mainFeatures = await featuresRequest.getAll().then(toGeoJson)
+            const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
+                variables: {
+                    orgUnitIds,
+                    keyAnalysisDisplayProperty,
+                    userId,
+                },
+            })
+
+            mainFeatures = geoFeatureData.geoFeatures
+                ? toGeoJson(geoFeatureData.geoFeatures)
+                : null
 
             if (coordinateField) {
-                associatedGeometries = await featuresRequest
-                    .getAll({
+                const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
+                    variables: {
+                        orgUnitIds,
+                        keyAnalysisDisplayProperty,
                         coordinateField: coordinateField.id,
-                    })
-                    .then(toGeoJson)
+                        userId,
+                    },
+                })
+
+                associatedGeometries = coordFieldData.geoFeatures
+                    ? toGeoJson(coordFieldData.geoFeatures)
+                    : null
 
                 if (!associatedGeometries.length) {
                     alerts.push({
-                        warning: true,
-                        message: i18n.t('{{name}}: No coordinates found', {
-                            name: coordinateField.name,
-                            nsSeparator: ';',
-                        }),
+                        code: WARNING_NO_GEOMETRY_COORD,
+                        message: coordinateField.name,
                     })
                 }
             }
@@ -62,22 +85,15 @@ const earthEngineLoader = async (config) => {
 
             if (!features.length) {
                 alerts.push({
-                    warning: true,
-                    message: i18n.t(
-                        'Selected org units: No coordinates found',
-                        {
-                            nsSeparator: ';',
-                        }
-                    ),
+                    code: WARNING_NO_OU_COORD,
+                    message: i18n.t('Earth Engine layer'),
                 })
             }
         } catch (error) {
+            loadError = error.message || error
             alerts.push({
-                critical: true,
-                message: i18n.t('Error: {{message}}', {
-                    message: error.message,
-                    nsSeparator: ';',
-                }),
+                code: ERROR_CRITICAL,
+                message: error.message || error,
             })
         }
     }
@@ -86,26 +102,37 @@ const earthEngineLoader = async (config) => {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
 
-        // Backward compability for layers with periods saved before 2.36
-        // (could also be fixed in a db update script)
         if (layerConfig.image) {
+            // Backward compability for layers with periods saved before 2.36
             const filter = layerConfig.filter?.[0]
 
             if (filter) {
-                const period = filter.arguments?.[1]
-                let name = String(layerConfig.image)
+                const id = filter.arguments?.[1]
+                const name = String(layerConfig.image)
+                const year =
+                    typeof id === 'string' && id.length > 4
+                        ? parseInt(id.substring(0, 4), 10)
+                        : undefined
 
-                if (typeof period === 'string' && period.length > 4) {
-                    const year = period.substring(0, 4)
-                    filter.year = parseInt(year, 10)
+                layerConfig.period = { id, name, year }
 
-                    if (name.slice(-4) === year) {
-                        name = name.slice(0, -4)
-                    }
-                }
-
-                filter.name = name
+                delete layerConfig.filter
             }
+            delete layerConfig.image
+        } else if (layerConfig.filter) {
+            // Backward compability for layers saved before v100.6.0
+            layerConfig.period = getPeriodFromFilter(filter, layerConfig.id)
+            delete layerConfig.filter
+        }
+
+        if (layerConfig.params) {
+            // Backward compability for layers saved before v100.6.0
+            layerConfig.style = layerConfig.params
+            if (typeof layerConfig.params.palette === 'string') {
+                layerConfig.style.palette =
+                    layerConfig.params.palette.split(',')
+            }
+            delete layerConfig.params
         }
 
         dataset = getEarthEngineLayer(layerConfig.id)
@@ -115,6 +142,9 @@ const earthEngineLoader = async (config) => {
         }
 
         delete config.config
+        // Remove the always empty filters array from saved map layer object
+        // so as not to overwrite the filters array from the layer config
+        delete config.filters
     } else {
         dataset = getEarthEngineLayer(layerConfig.id)
     }
@@ -125,23 +155,39 @@ const earthEngineLoader = async (config) => {
         ...layerConfig,
     }
 
-    const { unit, filter, description, source, sourceUrl, band, bands } = layer
+    const {
+        unit,
+        period,
+        filters,
+        description,
+        source,
+        sourceUrl,
+        band,
+        bands,
+        style,
+        maskOperator,
+    } = layer
+
     const { name } = dataset || config
-    const period = getPeriodNameFromFilter(filter)
     const data =
         Array.isArray(features) && features.length ? features : undefined
     const hasBand = (b) =>
         Array.isArray(band) ? band.includes(b.id) : band === b.id
 
-    const groups =
-        band && Array.isArray(bands) && bands.length
-            ? bands.filter(hasBand)
-            : null
+    let groups = null
+    if (band && Array.isArray(bands?.list) && bands.list.length) {
+        groups = {
+            list: bands.list.filter(hasBand),
+            label: bands.label,
+            multiple: bands.multiple,
+        }
+    }
 
     const legend = {
         ...layer.legend,
+        items: Array.isArray(style) ? style : null,
         title: name,
-        period,
+        period: period?.name,
         groups,
         unit,
         description,
@@ -150,56 +196,74 @@ const earthEngineLoader = async (config) => {
     }
 
     // Create/update legend items from params
-    if (!hasClasses(aggregationType) && layer.params) {
-        legend.items = createLegend(layer.params)
+    if (
+        format !== 'FeatureCollection' &&
+        !hasClasses(aggregationType) &&
+        style?.palette
+    ) {
+        legend.items = createLegend(style, !maskOperator)
     }
+
+    const filter = getStaticFilterFromPeriod(period, filters)
 
     return {
         ...layer,
         legend,
         name,
         data,
+        filter,
         alerts,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
         isVisible: true,
+        loadError,
     }
 }
 
-export const createLegend = ({ min, max, palette }) => {
-    const colors = palette.split(',')
-    const step = (max - min) / (colors.length - (min > 0 ? 2 : 1))
+export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
+    if (ranges && ranges.length === palette.length) {
+        return sortLegendItems(
+            ranges.map((range, index) => ({
+                ...range,
+                color: palette[index],
+            }))
+        )
+    }
+
+    const step = (max - min) / (palette.length - (showBelowMin ? 2 : 1))
     const precision = precisionRound(step, max)
     const valueFormat = getRoundToPrecisionFn(precision)
 
-    let from = min
+    let from = valueFormat(min)
     let to = valueFormat(min + step)
 
-    return colors.map((color, index) => {
-        const item = { color }
+    return sortLegendItems(
+        palette.map((color, index) => {
+            const item = { color }
 
-        if (index === 0 && min > 0) {
-            // Less than min
-            item.from = 0
-            item.to = min
-            item.name = '< ' + min
-            to = min
-        } else if (from < max) {
-            item.from = from
-            item.to = to
-            item.name = from + ' - ' + to
-        } else {
-            // Higher than max
-            item.from = from
-            item.name = '> ' + from
-        }
+            if (index === 0 && showBelowMin) {
+                // Less than min
+                item.from = -Infinity
+                item.to = min
+                item.name = '< ' + min
+                to = min
+            } else if (+from < max) {
+                item.from = +from
+                item.to = +to
+                item.name = from + ' - ' + to
+            } else {
+                // Higher than max
+                item.from = +from
+                item.name = '> ' + from
+            }
 
-        from = to
-        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)))
+            from = to
+            to = valueFormat(min + step * (index + (showBelowMin ? 1 : 2)))
 
-        return item
-    })
+            return item
+        })
+    )
 }
 
 export default earthEngineLoader

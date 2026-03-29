@@ -9,9 +9,7 @@ import {
     STYLE_TYPE_SYMBOL,
     NONE,
 } from '../constants/layers.js'
-import { apiFetch } from './api.js'
 import { getUniqueColor } from './colors.js'
-import { getDisplayPropertyUrl } from './helpers.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -44,10 +42,25 @@ export const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     }))
 }
 
-export const fetchOrgUnitGroupSet = (id) =>
-    apiFetch(
-        `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
-    ).then(parseGroupSet)
+export const ORG_UNITS_GROUP_SET_QUERY = {
+    groupSets: {
+        resource: 'organisationUnitGroupSets',
+        id: ({ id }) => id,
+        params: {
+            fields: ['name,organisationUnitGroups[id,name,color,symbol]'],
+        },
+    },
+}
+
+export const ORG_UNIT_QUERY = {
+    orgUnit: {
+        resource: 'organisationUnits',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => ({
+            fields: [`${nameProperty}~rename(name)`],
+        }),
+    },
+}
 
 export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 
@@ -80,14 +93,16 @@ export const getOrgUnitGroupLegendItems = (
               }
     )
 
-/* eslint-disable max-params */
-export const getStyledOrgUnits = (
+export const getStyledOrgUnits = ({
     features = [],
     groupSet = {},
-    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow = ORG_UNIT_RADIUS },
-    contextPath,
-    orgUnitLevels
-) => {
+    config: {
+        organisationUnitColor = ORG_UNIT_COLOR,
+        radiusLow = ORG_UNIT_RADIUS,
+    },
+    baseUrl,
+    orgUnitLevels,
+}) => {
     const {
         name,
         styleType = orgUnitLevels ? STYLE_TYPE_COLOR : STYLE_TYPE_SYMBOL,
@@ -137,7 +152,7 @@ export const getStyledOrgUnits = (
         if (useColor && color) {
             properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color
         } else if (symbol) {
-            properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`
+            properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
         }
 
         if (properties.level && levelWeight) {
@@ -158,7 +173,7 @@ export const getStyledOrgUnits = (
     const groupItems = getOrgUnitGroupLegendItems(
         organisationUnitGroups,
         useColor,
-        contextPath
+        baseUrl
     )
 
     const facilityItems =
@@ -179,25 +194,6 @@ export const getStyledOrgUnits = (
             items: [...levelItems, ...groupItems, ...facilityItems],
         },
     }
-}
-/* eslint-enable max-params */
-
-// This function returns the org unit level names used in the legend
-export const getOrgUnitLevels = async (d2) => {
-    const orgUnitLevels = await d2.models.organisationUnitLevels.list({
-        fields: `id,${getDisplayPropertyUrl(d2)},level`,
-        paging: false,
-    })
-
-    return orgUnitLevels
-        ? orgUnitLevels.toArray().reduce(
-              (obj, item) => ({
-                  ...obj,
-                  [item.level]: item.name,
-              }),
-              {}
-          )
-        : {}
 }
 
 // Converts "LEVEL-x" to newer "LEVEL-uid" format

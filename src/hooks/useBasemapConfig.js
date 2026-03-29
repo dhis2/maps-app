@@ -1,5 +1,5 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useState, useEffect } from 'react'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import { getFallbackBasemap } from '../constants/basemaps.js'
 import { defaultBasemapState } from '../reducers/map.js'
 
@@ -7,7 +7,7 @@ const emptyBasemap = { config: {} }
 
 function useBasemapConfig(selected) {
     const [basemap, setBasemap] = useState(emptyBasemap)
-    const { systemSettings, basemaps } = useCachedDataQuery()
+    const { systemSettings, basemaps } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
 
     useEffect(() => {

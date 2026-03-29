@@ -16,4 +16,9 @@
     height: 100%;
     background-repeat: no-repeat;
     background-position: center center;
+    /* Ensure background prints correctly */
+    -webkit-print-color-adjust: exact;
+    /* Chrome, Safari */
+    print-color-adjust: exact;
+    /* Firefox */
 }

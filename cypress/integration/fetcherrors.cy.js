@@ -37,7 +37,7 @@ describe('Fetch errors', () => {
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
     })
 
-    // TODO - need to make changes in analytics CachedDataQueryProvider to make this test pass
+    // TODO - need to make changes in analytics CachedDataProvider to make this test pass
     it.skip('error in external layers request does not crash app', () => {
         cy.intercept('GET', 'externalMapLayers?*', {
             statusCode: 409,

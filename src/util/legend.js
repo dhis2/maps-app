@@ -1,27 +1,91 @@
-import { getInstance as getD2 } from 'd2'
+import {
+    DIMENSION_TYPE_INDICATOR,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_DATA_SET,
+} from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import { sortBy, pick } from 'lodash/fp'
-import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers.js'
+import {
+    CLASSIFICATION_EQUAL_INTERVALS,
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+} from '../constants/layers.js'
 import { getLegendItems } from '../util/classify.js'
 import { defaultClasses, defaultColorScale } from '../util/colors.js'
 
-export const loadLegendSet = async (legendSet) => {
-    const d2 = await getD2()
-    return d2.models.legendSet.get(legendSet.id) // TODO: Restrict loading fields
+const INDICATOR_QUERY = {
+    dimension: {
+        resource: 'indicators',
+        id: ({ id }) => id,
+        params: {
+            fields: 'legendSet[id,displayName~rename(name)]',
+        },
+    },
 }
 
-export const loadDataItemLegendSet = async (dataItem) => {
-    const type = (dataItem.dimensionItemType || '').toLowerCase()
-    const d2 = await getD2()
+const DATA_ELEMENT_QUERY = {
+    dimension: {
+        resource: 'dataElements',
+        id: ({ id }) => id,
+        params: {
+            fields: 'legendSet[id,displayName~rename(name)]',
+        },
+    },
+}
 
-    if (!type || !d2.models[type]) {
-        return
+const DATA_SET_QUERY = {
+    dimension: {
+        resource: 'dataSets',
+        id: ({ id }) => id,
+        params: {
+            fields: 'legendSet[id,displayName~rename(name)]',
+        },
+    },
+}
+
+export const sortLegendItems = (items) =>
+    items.sort((a, b) => {
+        if ('from' in a) {
+            return b.from - a.from
+        }
+        if ('startValue' in a) {
+            return b.startValue - a.startValue
+        }
+    })
+
+export const loadDataItemLegendSet = async (dataItem, engine) => {
+    if (!dataItem) {
+        return null
     }
 
-    return d2.models[type]
-        .get(dataItem.id, {
-            fields: 'legendSet[id,displayName~rename(name)]',
-        })
-        .then((model) => model.legendSet)
+    let result = null
+    switch (dataItem.dimensionItemType) {
+        case DIMENSION_TYPE_INDICATOR:
+            {
+                result = await engine.query(INDICATOR_QUERY, {
+                    variables: { id: dataItem.id },
+                })
+            }
+            break
+        case DIMENSION_TYPE_DATA_ELEMENT:
+            {
+                result = await engine.query(DATA_ELEMENT_QUERY, {
+                    variables: { id: dataItem.id },
+                })
+            }
+            break
+        case DIMENSION_TYPE_DATA_SET:
+            {
+                result = await engine.query(DATA_SET_QUERY, {
+                    variables: { id: dataItem.id },
+                })
+            }
+            break
+        default:
+            return null
+    }
+
+    return result.dimension.legendSet
 }
 
 export const formatLegendItems = (legendItems) => {
@@ -73,11 +137,18 @@ export const getAutomaticLegendItems = (
     colorScale = defaultColorScale
 ) => {
     const items = data.length ? getLegendItems(data, method, classes) : []
-    const colors = colorScale.split(',')
 
     return items.map((item, index) => ({
         ...item,
-        color: colors[index],
+        color: colorScale[index],
     }))
 }
 /* eslint-enable max-params */
+
+export const getRenderingLabel = (strategy) => {
+    const map = {
+        [RENDERING_STRATEGY_SPLIT_BY_PERIOD]: i18n.t('Split'),
+        [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
+    }
+    return map[strategy] ? ' • ' + map[strategy] : null
+}

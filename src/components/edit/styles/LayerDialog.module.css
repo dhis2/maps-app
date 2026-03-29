@@ -13,12 +13,12 @@
 }
 
 .tabContent {
-    width: calc(100% + var(--spacers-dp32));
-    margin: var(--spacers-dp12) -16px 0;
-    height: 410px;
+    width: 936px;
+    margin: var(--spacers-dp12) calc(var(--spacers-dp16) * -1) 0;
+    height: min(548px, 100%);
     overflow-y: auto;
     font-size: 14px;
-    color: #333;
+    color: var(--colors-grey900);
 }
 
 .flexColumnFlow {
@@ -30,19 +30,22 @@
     display: flex;
     flex-direction: column;
     margin: 0 var(--spacers-dp16);
+    white-space: pre-line;
 }
 
 .flexColumn {
+    display: flex;
+    flex-direction: column;
     flex: 1 1 0px;
     margin: var(--spacers-dp4) var(--spacers-dp16) 0;
     box-sizing: border-box;
-    max-width: 260px;
+    max-width: 340px;
 }
 
 .flexInnerColumnFlow {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -8px;
+    margin: 0 calc(var(--spacers-dp8) * -1);
     clear: both;
 }
 
@@ -78,8 +81,13 @@
 }
 
 .error {
-    margin-top: var(--spacers-dp8);
     color: var(--theme-error);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    padding-top: var(--spacers-dp8);
+    gap: var(--spacers-dp8);
 }
 
 .indent {
@@ -102,11 +110,47 @@
 
 .numberField {
     composes: flexInnerColumn;
-    max-width: 140px;
 }
 
 .checkbox {
-    margin: 8px 0 0 -8px;
+    margin: var(--spacers-dp8) 0 0 calc(var(--spacers-dp8) * -1);
+}
+
+.labelDisplayOptions {
+    margin-left: var(--spacers-dp24);
+}
+
+/* Thematic */
+
+.navigation {
+    flex-grow: 0;
+    margin-bottom: var(--spacers-dp8);
+}
+
+.dataOptions {
+    padding-top: var(--spacers-dp16);
+}
+
+.background {
+    background-color: var(--colors-grey100);
+    padding: var(--spacers-dp8);
+    border-radius: 3px;
+    height: 412px;
+}
+
+.periodBox {
+    height: 32px;
+}
+
+.periodText {
+    font-size: 14px;
+    padding: 8px 14px;
+    display: inline-flex;
+    gap: var(--spacers-dp8);
+}
+
+.infoText {
+    color: var(--colors-grey600);
 }
 
 /* Tracked entity */
@@ -154,16 +198,12 @@
 
 .eeError {
     width: 100%;
-    color: rgb(244, 67, 54);
+    color: var(--colors-red400);
     font-size: 12px;
-    line-height: 12px;
+    line-height: var(--spacers-dp12);
     margin-left: var(--spacers-dp12);
 }
 
 .eeNotice {
     font-weight: bold;
-}
-
-.labelDisplayOptions {
-    margin-left: 23px;
 }

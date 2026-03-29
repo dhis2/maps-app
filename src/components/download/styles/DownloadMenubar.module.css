@@ -3,11 +3,11 @@
     position: absolute;
     align-items: center;
     width: 100%;
-    height: var(--header-height);
+    height: var(--downloadheader-height);
     z-index: 1200;
     background-color: var(--colors-grey600);
     left: 0;
-    top: 0
+    top: 0;
 }
 
 .downloadModeMenu button {
@@ -19,4 +19,3 @@
 :global(.dhis2-map-downloading .maplibregl-popup-close-button) {
     display: none;
 }
-

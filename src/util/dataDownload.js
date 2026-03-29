@@ -1,3 +1,4 @@
+import { Analytics } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import FileSaver from 'file-saver'
 import { EVENT_LAYER } from '../constants/layers.js'
@@ -87,8 +88,8 @@ export const downloadData = async ({
     aggregations,
     format,
     humanReadableKeys,
-    d2,
     nameProperty,
+    engine,
 }) => {
     const { name, layer: layerType } = layer
     let layerData = layer.data
@@ -97,7 +98,7 @@ export const downloadData = async ({
         const columns = await getEventColumns(layer, {
             format,
             nameProperty,
-            d2,
+            engine,
         })
         const config = {
             ...layer,
@@ -109,11 +110,16 @@ export const downloadData = async ({
             }, {}),
         }
 
-        const result = await loadData(
-            await getAnalyticsRequest(config, { d2, nameProperty }),
+        const analyticsEngine = Analytics.getAnalytics(engine)
+        const result = await loadData({
+            request: await getAnalyticsRequest(config, {
+                nameProperty,
+                engine,
+                analyticsEngine,
+            }),
             config,
-            d2
-        )
+            analyticsEngine,
+        })
         layerData = result.data
     } else if (layer.valuesByPeriod) {
         layerData = includeValuesByPeriod(layer)

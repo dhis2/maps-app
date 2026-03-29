@@ -1,10 +1,12 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
+
 export class Layer {
     openDialog(layer) {
         const dataTest = `addlayeritem-${layer
             .toLowerCase()
             .replace(/\s/g, '_')}`
 
-        cy.getByDataTest('add-layer-button').click()
+        cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click()
 
         cy.get(`[data-test="${dataTest}"]`).click()
 
@@ -28,39 +30,89 @@ export class Layer {
         return this
     }
 
+    openOu(ouName) {
+        cy.getByDataTest('org-unit-tree').contains(ouName).scrollIntoView()
+
+        cy.getByDataTest('org-unit-tree')
+            .contains(ouName)
+            .parents('[data-test="org-unit-tree-node"]')
+            .first()
+            .within(() => {
+                cy.getByDataTest('org-unit-tree-node-toggle').click()
+            })
+
+        return this
+    }
+
+    unselectOu(ouName) {
+        cy.getByDataTest('org-unit-tree').contains(ouName).scrollIntoView()
+
+        cy.getByDataTest('org-unit-tree')
+            .contains(ouName)
+            .find('input')
+            .uncheck()
+
+        return this
+    }
+
     selectOuLevel(level) {
         cy.getByDataTest('org-unit-level-select').click()
 
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
             .contains(level)
-            .click()
-        cy.get('body').click() // Close the modal menu
+            .find('input')
+            .check()
+        cy.get('body').click()
+
+        return this
+    }
+
+    unselectOuLevel(level) {
+        cy.getByDataTest('org-unit-level-select').click()
+
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+            .contains(level)
+            .find('input')
+            .uncheck()
+
+        cy.get('body').click()
 
         return this
     }
 
     typeStartDate(dateString) {
-        cy.get('label')
-            .contains('Start date')
-            .next()
-            .find('input')
-            .type(dateString)
+        cy.getByDataTest('calendar-clear-button').eq(0).click()
+
+        if (dateString) {
+            cy.getByDataTest('start-date-input-content')
+                .find('input')
+                .type(dateString)
+        }
 
         return this
     }
 
     typeEndDate(dateString) {
-        cy.get('label')
-            .contains('End date')
-            .next()
-            .find('input')
-            .type(dateString)
+        cy.getByDataTest('calendar-clear-button').eq(1).click()
+
+        if (dateString) {
+            cy.getByDataTest('end-date-input-content')
+                .find('input')
+                .type(dateString)
+        }
+
         return this
     }
 
     addToMap() {
         cy.getByDataTest('dhis2-uicore-modalactions')
             .contains('Add layer')
+            .click()
+    }
+
+    updateMap() {
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Update layer')
             .click()
     }
 
@@ -72,9 +124,11 @@ export class Layer {
         }
     }
 
-    validateCardTitle(title) {
+    validateCardTitle(titles) {
+        const titlesArray = Array.isArray(titles) ? titles : [titles]
+        const regex = new RegExp(titlesArray.join('|'))
         cy.getByDataTest('layercard')
-            .contains(title, { timeout: 50000 })
+            .contains(regex, { timeout: 50000 })
             .should('be.visible')
 
         return this
@@ -92,6 +146,25 @@ export class Layer {
                 .find('[data-test="layerlegend-item"]')
                 .contains(item)
                 .should('be.visible')
+        })
+
+        return this
+    }
+
+    validateCardContents(contents) {
+        contents.forEach((content) => {
+            cy.getByDataTest('layercard')
+                .find('[data-test="layerlegend"]')
+                .contains(content)
+                .should('be.visible')
+        })
+
+        return this
+    }
+
+    validatePopupContents(contents) {
+        contents.forEach((content) => {
+            cy.get('.maplibregl-popup').contains(content).should('be.visible')
         })
 
         return this

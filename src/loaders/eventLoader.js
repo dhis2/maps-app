@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
+import { CUSTOM_ALERT, WARNING_NO_DATA } from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
     EVENT_CLIENT_PAGE_SIZE,
@@ -15,38 +15,64 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
+import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
-const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
+const shouldUseServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
+    code: CUSTOM_ALERT,
     message: i18n.t("You don't have access to this layer data"),
 }
 const filterErrorAlert = {
     warning: true,
+    code: CUSTOM_ALERT,
     message: i18n.t('The event filter is not supported'),
 }
 const unknownErrorAlert = {
     critical: true,
+    code: CUSTOM_ALERT,
     message: i18n.t('An unknown error occurred while reading layer data'),
 }
 
-// TODO: Refactor to share code with other loaders
 // Returns a promise
-const eventLoader = async (layerConfig, loadExtended) => {
+const eventLoader = async ({
+    config: layerConfig,
+    engine,
+    keyAnalysisDisplayProperty,
+    analyticsEngine,
+    periodTypeData,
+    loadExtended,
+}) => {
     const config = { ...layerConfig }
+    const displayNameProp =
+        keyAnalysisDisplayProperty === 'name'
+            ? 'displayName'
+            : 'displayShortName'
+
     try {
-        await loadEventLayer(config, loadExtended)
+        await loadEventLayer({
+            config,
+            engine,
+            displayNameProp,
+            analyticsEngine,
+            periodTypeData,
+            loadExtended,
+        })
     } catch (e) {
-        if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
+        if (
+            e.details?.httpStatusCode === 403 ||
+            e.details?.httpStatusCode === 409
+        ) {
             config.alerts = [
-                e.message.includes('filter is invalid')
+                e.details?.message.includes('filter is invalid')
                     ? filterErrorAlert
                     : accessDeniedAlert,
             ]
@@ -63,7 +89,14 @@ const eventLoader = async (layerConfig, loadExtended) => {
     return config
 }
 
-const loadEventLayer = async (config, loadExtended) => {
+const loadEventLayer = async ({
+    config,
+    engine,
+    displayNameProp,
+    analyticsEngine,
+    periodTypeData,
+    loadExtended,
+}) => {
     const {
         columns,
         endDate,
@@ -72,21 +105,27 @@ const loadEventLayer = async (config, loadExtended) => {
         eventPointColor,
         eventPointRadius,
         filters,
+        program,
         programStage,
+        eventCoordinateField,
         startDate,
         styleDataItem,
         areaRadius,
     } = config
 
     const period = getPeriodFromFilters(filters)
+    const periodName =
+        periodTypeData?.enabledPeriodTypesData?.metaData?.[period?.id]?.name ??
+        getPeriodNameFromId(period?.id)
+
     const dataFilters = getFiltersFromColumns(columns)
-    const d2 = await getD2()
 
     config.isExtended = loadExtended
 
     const analyticsRequest = await getAnalyticsRequest(config, {
-        d2,
-        nameProperty: d2.currentUser.settings.keyAnalysisDisplayProperty,
+        analyticsEngine,
+        nameProperty: displayNameProp,
+        engine,
     })
     let alert
 
@@ -95,7 +134,7 @@ const loadEventLayer = async (config, loadExtended) => {
     config.legend = {
         title: config.name,
         period: period
-            ? getPeriodNameFromId(period.id)
+            ? periodName
             : formatStartEndDate(
                   getDateArray(startDate),
                   getDateArray(endDate)
@@ -108,33 +147,34 @@ const loadEventLayer = async (config, loadExtended) => {
 
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
+    let serverCount
     if (eventClustering && !styleDataItem) {
-        const response = await getCount(analyticsRequest)
+        const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        //FIXME
-        //eslint-disable-next-line react-hooks/rules-of-hooks
-        config.serverCluster = useServerCluster(response.count)
+        config.serverCluster = shouldUseServerCluster(response.count)
+        serverCount = response.count
     }
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { names, data, response } = await loadData(
-            analyticsRequest,
+        const { data, response } = await loadData({
+            request: analyticsRequest,
             config,
-            d2
-        )
+            analyticsEngine,
+        })
         const { total } = response.metaData.pager
 
         config.data = data
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
-                await styleByDataItem(config)
+                await styleByDataItem(config, engine)
             }
 
             if (total > EVENT_CLIENT_PAGE_SIZE) {
                 alert = {
                     warning: true,
+                    code: CUSTOM_ALERT,
                     message: `${config.name}: ${i18n.t(
                         'Displaying first {{pageSize}} events out of {{total}}',
                         {
@@ -146,19 +186,10 @@ const loadEventLayer = async (config, loadExtended) => {
             }
         } else {
             alert = {
-                warning: true,
-                message: `${config.name}: ${i18n.t('No data found')}`,
+                code: WARNING_NO_DATA,
+                message: config.name,
             }
         }
-
-        // TODO: Add filters to legend when using server cluster
-        // Currently not done as names are not available
-        config.legend.filters =
-            dataFilters &&
-            getFiltersAsText(dataFilters, {
-                ...names,
-                ...(await getFilterOptionNames(dataFilters, response.headers)),
-            })
 
         config.headers = response.headers
 
@@ -183,6 +214,34 @@ const loadEventLayer = async (config, loadExtended) => {
         }
     }
 
+    if (dataFilters) {
+        const { names, response } = await loadData({
+            request: analyticsRequest,
+            config,
+            analyticsEngine,
+            pageSize: 0,
+        })
+        config.legend.filters = getFiltersAsText(dataFilters, {
+            ...names,
+            ...(await getFilterOptionNames(
+                dataFilters,
+                response.headers,
+                engine
+            )),
+        })
+    }
+
+    const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+        program,
+        programStage,
+        eventCoordinateField,
+        engine,
+        displayNameProp,
+    })
+    if (eventCoordinateFieldName) {
+        config.legend.coordinateFields = [eventCoordinateFieldName]
+    }
+
     if (!styleDataItem) {
         const color = cssColor(eventPointColor) || EVENT_COLOR
         const strokeColor = getContrastColor(color)
@@ -193,6 +252,9 @@ const loadEventLayer = async (config, loadExtended) => {
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
+                count:
+                    serverCount ||
+                    (Array.isArray(config?.data) ? config.data.length : 0),
             },
         ]
     }
@@ -215,21 +277,12 @@ const loadEventLayer = async (config, loadExtended) => {
         config.legend.explanation = explanation
     }
 
-    if (alert) {
-        config.alerts = [alert]
-    }
-}
-
-export const getCount = async (request) => {
-    const d2 = await getD2()
-    return await d2.analytics.events.getCount(request)
+    config.alerts = alert ? [alert] : undefined
 }
 
 // If the layer included filters using option sets, this function return an object
 // mapping option codes to named used to translate codes in the legend
-const getFilterOptionNames = async (filters, headers) => {
-    const d2 = await getD2()
-
+const getFilterOptionNames = async (filters, headers, engine) => {
     if (!filters) {
         return null
     }
@@ -246,30 +299,29 @@ const getFilterOptionNames = async (filters, headers) => {
         return
     }
 
-    const mappedOptionSets = await Promise.all(
+    const allOptionSets = await Promise.all(
         optionSets.map((id) =>
-            d2.models.optionSets
-                .get(id, {
-                    fields: 'options[code,displayName~rename(name)]',
-                })
-                .then((model) => model.options)
-                .then((options) =>
-                    options.reduce((obj, { code, name }) => {
-                        obj[code] = name
-                        return obj
-                    }, {})
-                )
+            engine.query(OPTION_SET_QUERY, {
+                variables: { id },
+            })
         )
     )
 
     // Returns one object with all option codes mapped to names
-    return mappedOptionSets.reduce(
-        (obj, set) => ({
-            ...obj,
-            ...set,
-        }),
-        {}
-    )
+    return allOptionSets
+        .map(({ optionSet }) =>
+            optionSet.options.reduce((obj, { code, name }) => {
+                obj[code] = name
+                return obj
+            }, {})
+        )
+        .reduce(
+            (obj, set) => ({
+                ...obj,
+                ...set,
+            }),
+            {}
+        )
 }
 
 export default eventLoader

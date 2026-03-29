@@ -30,37 +30,37 @@ describe('systemSettings', () => {
 
         cy.visit('/')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic').selectTab('Period')
+        ThemLayer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest('periodtypeselect-content').click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weekly')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-period-type-option-BIWEEKLY'
+        ).should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weekly')
-            .should('not.exist')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-period-type-option-WEEKLY'
+        ).should('not.exist')
     })
 
     it('includes Weekly period type when weekly periods not hidden in system settings', () => {
         cy.visit('/')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic').selectTab('Period')
+        ThemLayer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest('periodtypeselect-content').click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Bi-weekly')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-period-type-option-BIWEEKLY'
+        ).should('be.visible')
 
-        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
-            .contains('Weekly')
-            .should('be.visible')
+        cy.getByDataTest(
+            'period-dimension-relative-period-filter-period-type-option-WEEKLY'
+        ).should('be.visible')
     })
 
     it('uses Last 6 months as default relative period', () => {
@@ -77,13 +77,14 @@ describe('systemSettings', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
         // cy.wait('@getSystemSettings6months')
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('HIV')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
@@ -91,7 +92,7 @@ describe('systemSettings', () => {
             .selectOu('Sierra Leone')
             .addToMap()
 
-        Layer.validateCardPeriod('Last 6 months')
+        ThemLayer.validateCardPeriod('Last 6 months')
         // })
     })
 
@@ -110,13 +111,14 @@ describe('systemSettings', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         // cy.wait('@getSystemSettings12months')
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('HIV')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
@@ -124,7 +126,7 @@ describe('systemSettings', () => {
             .selectOu('Sierra Leone')
             .addToMap()
 
-        Layer.validateCardPeriod('Last 12 months')
+        ThemLayer.validateCardPeriod('Last 12 months')
         // })
     })
 
