@@ -1,4 +1,3 @@
-# 
 # Translators:
 # Philip Larsen Donnelly, 2024
 # Khurshid Ibatov <x.ibatov@dtsj.uz>, 2025
@@ -7,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2025\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uz@Latn\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -41,15 +40,6 @@ msgstr ""
 msgid "Network error"
 msgstr "Тармоқда хатолик"
 
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr "Tasnifi"
 
@@ -76,21 +66,6 @@ msgstr "Қиймат"
 
 msgid "Display"
 msgstr "Ekranda koʼrsatish"
-
-msgid "Data element group"
-msgstr "Maʼlumotlar elementi guruhi"
-
-msgid "Data element operand"
-msgstr "Maʼlumotlar guruhi operandi"
-
-msgid "Data element"
-msgstr "Maʼlumotlar elementi"
-
-msgid "Totals"
-msgstr "Жами"
-
-msgid "Details"
-msgstr "Тафсилотлари"
 
 msgid "Yes"
 msgstr "Ҳа"
@@ -128,9 +103,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
-msgid "Event data item"
-msgstr "Hodisa/Tadbir maʼlumoti elementi"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -163,9 +135,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Sana"
-
-msgid "Data set"
-msgstr "Maʼlumotlar toʼplami"
 
 msgid "No results found"
 msgstr "Hech qanday natija topilmadi"
@@ -512,50 +481,31 @@ msgstr ""
 msgid "Define start - end dates"
 msgstr ""
 
-msgid "Indicator group is required"
-msgstr "Koʼrsatgichlar guruhi talab qilinadi"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "Indikator talab qilinadi"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "Maʼlumot elementi talab qilinadi"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "Maʼlumot elementi talab qilingan"
-
-msgid "Data set is required"
-msgstr "Maʼlumot toʼplami talab qilingan"
-
-msgid "Event data item is required"
-msgstr "Hodisa/Tadbir maʼlumoti elementi talab qilinadi"
-
-msgid "Program indicator is required"
-msgstr "Dastur indikatori talab qilinadi"
-
-msgid "Calculation is required"
+msgid "Data is required"
 msgstr ""
 
 msgid "Period is required"
 msgstr "Davr talab qilinadi"
 
-msgid "Indicator"
-msgstr "Indikator"
-
-msgid "Reporting rates"
-msgstr "Ҳисобот таърифлари"
-
-msgid "Event data items"
-msgstr "Hodisalar haqida maʼlumot elementlari"
-
-msgid "Program indicators"
-msgstr "Dastur koʼrsatgichlari"
-
-msgid "Calculations"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 msgstr ""
 
-msgid "Item type"
-msgstr "Element turi"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -628,9 +578,6 @@ msgstr ""
 msgid "Style by group set"
 msgstr ""
 
-msgid "Indicator group"
-msgstr "Koʼrsatgich guruhi"
-
 msgid "Manage available layer sources"
 msgstr ""
 
@@ -678,9 +625,6 @@ msgstr "Maʼlumot yuklanishi amalga oshmadi"
 
 msgid "External layer"
 msgstr "Tashqi qavat"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
 
 msgid "Failed to load layer"
 msgstr ""
@@ -762,6 +706,11 @@ msgstr "Kenglik"
 
 msgid "Latitude"
 msgstr "Kenglik"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
@@ -968,18 +917,18 @@ msgstr "Keyngi yil"
 msgid "Start/end dates"
 msgstr "Boshlanish/Tugash vaqtlari"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -998,9 +947,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
@@ -1026,9 +972,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Dastur indikatori"
 
 msgid "No program"
 msgstr "Dastur mavjud emas"
@@ -1132,7 +1075,7 @@ msgstr ""
 msgid "Number of buildings"
 msgstr ""
 
-msgid "0.5 meter"
+msgid "~0.5 meter"
 msgstr ""
 
 msgid "Single point in time"
@@ -1263,6 +1206,15 @@ msgstr "Sputnik yordamida yer qatlamining turi aniqlangan"
 msgid "unitless"
 msgstr ""
 
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "Йиллик"
+
+msgid "Since 2001"
+msgstr ""
+
 msgid "Evergreen Needleleaf forest"
 msgstr "Yashil igna bargli doimiy oʼrmonlar"
 
@@ -1344,32 +1296,7 @@ msgstr ""
 msgid "people per hectare"
 msgstr ""
 
-msgid "Precipitation"
-msgstr "Yogʼingarchilik"
-
-msgid "millimeter"
-msgstr "millimetr"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr "Kunduzgi °C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Yer usti harorati sunʼiy yoʼldosh orqali aniqlashtirilgan. Doimiy bulutlar "
-"bilan qoplangan maydonlarda boʼsh dogʼlar paydo boʼladi"
-
-msgid "Population age groups"
+msgid "Population age groups WorldPop Global1"
 msgstr ""
 
 msgid ""
@@ -1487,6 +1414,68 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Yogʼingarchilik"
+
+msgid "millimeter"
+msgstr "millimetr"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "Kunduzgi °C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Yer usti harorati sunʼiy yoʼldosh orqali aniqlashtirilgan. Doimiy bulutlar "
+"bilan qoplangan maydonlarda boʼsh dogʼlar paydo boʼladi"
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr ""
 
@@ -1566,7 +1555,7 @@ msgid ""
 " Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
 msgstr ""
 
-msgid "250 meter"
+msgid "~250 meters"
 msgstr ""
 
 msgid "16-day"
@@ -1655,9 +1644,6 @@ msgstr "Yarim yillik"
 
 msgid "Six-monthly April"
 msgstr "Yarim yillik Аprel"
-
-msgid "Yearly"
-msgstr "Йиллик"
 
 msgid "Financial year (Start November)"
 msgstr "Moliyaviy yil (Boshlanishi Noyabr)"
