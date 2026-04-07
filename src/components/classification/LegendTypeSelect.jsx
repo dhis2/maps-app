@@ -4,18 +4,21 @@ import { connect } from 'react-redux'
 import { setClassification } from '../../actions/layerEdit.js'
 import {
     getLegendTypes,
-    CLASSIFICATION_EQUAL_INTERVALS,
-    CLASSIFICATION_EQUAL_COUNTS,
+    getClassificationTypes,
 } from '../../constants/layers.js'
 import { Radio, RadioGroup } from '../core/index.js'
+
+const CLASSIFICATION_AUTO = 2
 
 // Select between user defined (automatic), predefined or single color
 const LegendTypeSelect = ({ mapType, method, setClassification }) =>
     method ? (
         <RadioGroup
             value={
-                method === CLASSIFICATION_EQUAL_COUNTS
-                    ? CLASSIFICATION_EQUAL_INTERVALS
+                getClassificationTypes()
+                    .map(({ id }) => id)
+                    .includes(method)
+                    ? CLASSIFICATION_AUTO
                     : method
             }
             onChange={(method) => setClassification(Number(method))}
