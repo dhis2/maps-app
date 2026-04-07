@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-02-09T14:26:15.087Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -41,15 +41,6 @@ msgstr "此应用无法检索所需数据。"
 msgid "Network error"
 msgstr "网络错误"
 
-msgid "Calculation"
-msgstr "计算"
-
-msgid "No calculations found"
-msgstr "没有找到计算结果"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "可在数据可视化应用中创建计算。"
-
 msgid "Classification"
 msgstr "分类"
 
@@ -76,21 +67,6 @@ msgstr "值"
 
 msgid "Display"
 msgstr "显示"
-
-msgid "Data element group"
-msgstr "数据元组"
-
-msgid "Data element operand"
-msgstr "数据元操作符"
-
-msgid "Data element"
-msgstr "数据元"
-
-msgid "Totals"
-msgstr "总共"
-
-msgid "Details"
-msgstr "详情"
 
 msgid "Yes"
 msgstr "是"
@@ -128,9 +104,6 @@ msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
 msgid "Event > org unit coordinate"
 msgstr "事件 > 组织单位坐标"
 
-msgid "Event data item"
-msgstr "事件数据条目"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "之前选择的值在列表{{id}}中不可用："
 
@@ -163,9 +136,6 @@ msgstr "操作符"
 
 msgid "Date"
 msgstr "日期"
-
-msgid "Data set"
-msgstr "数据集"
 
 msgid "No results found"
 msgstr "没有结果"
@@ -505,50 +475,31 @@ msgstr "从预设中选择"
 msgid "Define start - end dates"
 msgstr "定义开始 - 结束日期"
 
-msgid "Indicator group is required"
-msgstr "需要指标组"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "需要指标"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "需要数据元组"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "需要数据元"
-
-msgid "Data set is required"
-msgstr "需要数据"
-
-msgid "Event data item is required"
-msgstr "需要事件数据项"
-
-msgid "Program indicator is required"
-msgstr "需要项目指标"
-
-msgid "Calculation is required"
-msgstr "需要计算"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "需要期间"
 
-msgid "Indicator"
-msgstr "指标"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "上报率"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "至少选择{{number}} 期或 1 个多期。"
 
-msgid "Event data items"
-msgstr "事件数据项"
-
-msgid "Program indicators"
-msgstr "项目指标"
-
-msgid "Calculations"
-msgstr "计算"
-
-msgid "Item type"
-msgstr "条目类型"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
@@ -615,9 +566,6 @@ msgstr "组集"
 msgid "Style by group set"
 msgstr "按组集设置样式"
 
-msgid "Indicator group"
-msgstr "指标组"
-
 msgid "Manage available layer sources"
 msgstr "管理可用的图层源"
 
@@ -663,9 +611,6 @@ msgstr "下载数据失败"
 
 msgid "External layer"
 msgstr "外部图层"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr "分割视图不能与其他图层类型结合使用。"
 
 msgid "Failed to load layer"
 msgstr "加载图层失败"
@@ -955,19 +900,19 @@ msgstr "来年"
 msgid "Start/end dates"
 msgstr "开始-结束日期"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "至少选择{{number}} 期或 1 个多期。"
+msgid "Remove all split layers to add a single layer."
+msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "删除现有时间线，添加新的时间线。"
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 msgstr "最多只能选择{{number}} 个时段（包括多时段）。"
-
-msgid "Remove all other layers to add a split map view."
-msgstr "移除所有其他图层并添加一个分开的地图视图。"
 
 msgid "Single"
 msgstr "单人"
@@ -986,9 +931,6 @@ msgstr "分割"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "在视图中显示多个地图，每个时段一个（最多{{number}} ）。"
-
-msgid "Period display mode"
-msgstr "周期显示模式"
 
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
@@ -1013,9 +955,6 @@ msgstr "点击取消固定图例"
 
 msgid "Click to pin legend"
 msgstr "点击固定图例"
-
-msgid "Program indicator"
-msgstr "项目指标"
 
 msgid "No program"
 msgstr "无项目"

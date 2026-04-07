@@ -1,4 +1,3 @@
-# 
 # Translators:
 # Karoline Tufte Lien <karoline@dhis2.org>, 2025
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2025
@@ -6,12 +5,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -40,15 +39,6 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr "Klassifisering"
 
@@ -75,21 +65,6 @@ msgstr "Verdi"
 
 msgid "Display"
 msgstr "Vis"
-
-msgid "Data element group"
-msgstr "Dataelementgruppe"
-
-msgid "Data element operand"
-msgstr "Dataelementoperand"
-
-msgid "Data element"
-msgstr "Dataelement"
-
-msgid "Totals"
-msgstr "Totalsummer"
-
-msgid "Details"
-msgstr "Detaljer"
 
 msgid "Yes"
 msgstr "Ja"
@@ -127,9 +102,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
-msgid "Event data item"
-msgstr "Hendelsesdatapunkt"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -162,9 +134,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Dato"
-
-msgid "Data set"
-msgstr "Datasett"
 
 msgid "No results found"
 msgstr "Ingen resultater funnet"
@@ -506,50 +475,31 @@ msgstr "Velg blant forvalg"
 msgid "Define start - end dates"
 msgstr "Definer start - sluttdatoer"
 
-msgid "Indicator group is required"
-msgstr "Indikatorgruppe er påkrevd"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "Indikator er påkrevd"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "Dataelementgruppe er påkrevd"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "Dataelement er påkrevd"
-
-msgid "Data set is required"
-msgstr "Datasett er påkrevd"
-
-msgid "Event data item is required"
-msgstr "Hendelsesdatapunkt er påkrevd"
-
-msgid "Program indicator is required"
-msgstr "Programindikator er påkrevd"
-
-msgid "Calculation is required"
+msgid "Data is required"
 msgstr ""
 
 msgid "Period is required"
 msgstr "Periode er påkrevd"
 
-msgid "Indicator"
-msgstr "Indikator"
-
-msgid "Reporting rates"
-msgstr "Rapporteringsrater"
-
-msgid "Event data items"
-msgstr "Hendelsesdatapunkter"
-
-msgid "Program indicators"
-msgstr "Programindikatorer"
-
-msgid "Calculations"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 msgstr ""
 
-msgid "Item type"
-msgstr "Elementtype"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Velg periode da sporede enheter sist ble oppdatert"
@@ -618,9 +568,6 @@ msgstr "Gruppesett"
 msgid "Style by group set"
 msgstr ""
 
-msgid "Indicator group"
-msgstr "Indikatorgruppe"
-
 msgid "Manage available layer sources"
 msgstr ""
 
@@ -668,9 +615,6 @@ msgstr "Nedlasting av data mislyktes."
 
 msgid "External layer"
 msgstr "Eksternt lag"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
 
 msgid "Failed to load layer"
 msgstr ""
@@ -752,6 +696,11 @@ msgstr "Lengdegrad"
 
 msgid "Latitude"
 msgstr "Breddegrad"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
@@ -958,18 +907,18 @@ msgstr "Neste år"
 msgid "Start/end dates"
 msgstr "Start/slutt-datoer"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -988,9 +937,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
@@ -1016,9 +962,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Programindikator"
 
 msgid "No program"
 msgstr "Ingen program"
@@ -1122,7 +1065,7 @@ msgstr ""
 msgid "Number of buildings"
 msgstr ""
 
-msgid "0.5 meter"
+msgid "~0.5 meter"
 msgstr ""
 
 msgid "Single point in time"
@@ -1253,6 +1196,15 @@ msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
 msgid "unitless"
 msgstr ""
 
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "Årlig"
+
+msgid "Since 2001"
+msgstr ""
+
 msgid "Evergreen Needleleaf forest"
 msgstr "Eviggrønn nålskog"
 
@@ -1334,32 +1286,7 @@ msgstr ""
 msgid "people per hectare"
 msgstr ""
 
-msgid "Precipitation"
-msgstr "Nedbør"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr "° C på dagtid"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
-" i områder med et vedvarende skydekke."
-
-msgid "Population age groups"
+msgid "Population age groups WorldPop Global1"
 msgstr ""
 
 msgid ""
@@ -1477,6 +1404,68 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Nedbør"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "° C på dagtid"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
+" i områder med et vedvarende skydekke."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr ""
 
@@ -1556,7 +1545,7 @@ msgid ""
 " Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
 msgstr ""
 
-msgid "250 meter"
+msgid "~250 meters"
 msgstr ""
 
 msgid "16-day"
@@ -1645,9 +1634,6 @@ msgstr "Halvårlig"
 
 msgid "Six-monthly April"
 msgstr "Halvårig April"
-
-msgid "Yearly"
-msgstr "Årlig"
 
 msgid "Financial year (Start November)"
 msgstr "Regnskapsår (start november)"
