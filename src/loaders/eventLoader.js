@@ -47,11 +47,15 @@ const eventLoader = async ({
     config: layerConfig,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     analyticsEngine,
     periodTypeData,
     loadExtended,
 }) => {
-    const config = { ...layerConfig }
+    const config = {
+        ...layerConfig,
+        keyAnalysisDigitGroupSeparator,
+    }
     const displayNameProp =
         keyAnalysisDisplayProperty === 'name'
             ? 'displayName'
@@ -243,20 +247,24 @@ const loadEventLayer = async ({
     }
 
     if (!styleDataItem) {
-        const color = cssColor(eventPointColor) || EVENT_COLOR
-        const strokeColor = getContrastColor(color)
-
-        config.legend.items = [
-            {
-                name: i18n.t('Event'),
-                color,
-                strokeColor,
-                radius: eventPointRadius || EVENT_RADIUS,
-                count:
-                    serverCount ||
-                    (Array.isArray(config?.data) ? config.data.length : 0),
-            },
-        ]
+        const count =
+            serverCount ||
+            (Array.isArray(config?.data) ? config.data.length : 0)
+        if (count > 0) {
+            const color = cssColor(eventPointColor) || EVENT_COLOR
+            const strokeColor = getContrastColor(color)
+            config.legend.items = [
+                {
+                    name: i18n.t('Event'),
+                    color,
+                    strokeColor,
+                    radius: eventPointRadius || EVENT_RADIUS,
+                    count:
+                        serverCount ||
+                        (Array.isArray(config?.data) ? config.data.length : 0),
+                },
+            ]
+        }
     }
 
     const explanation = []

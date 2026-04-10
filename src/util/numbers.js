@@ -57,3 +57,24 @@ export const getPrecision = (values = []) => {
 
     return 0
 }
+
+const DIGIT_GROUP_SEPARATORS = {
+    SPACE: ' ',
+    COMMA: ',',
+    NONE: '',
+}
+
+export const formatWithSeparator = (value, separator, force = false) => {
+    if (!force && typeof value !== 'number') {
+        return value
+    }
+    const sep = DIGIT_GROUP_SEPARATORS[separator] ?? ''
+    const [integer, decimal] = String(value).split('.')
+    const grouped = integer.replace(/\B(?=(\d{3})+(?!\d))/g, sep)
+    return decimal ? `${grouped}.${decimal}` : grouped
+}
+
+export const parseWithSeparator = (value) => {
+    const num = Number(String(value).replace(/[\s,]/g, ''))
+    return isNaN(num) ? undefined : num
+}

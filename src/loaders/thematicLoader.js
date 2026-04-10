@@ -34,6 +34,7 @@ import {
     getAutomaticLegendItems,
 } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
+import { formatWithSeparator } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
@@ -45,6 +46,7 @@ const thematicLoader = async ({
     config,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     userId,
     analyticsEngine,
     periodTypeData,
@@ -300,7 +302,13 @@ const thematicLoader = async ({
                         ? ORG_UNIT_COLOR
                         : legendItem.color
                 properties.legend = legendItem.name // Shown in data table
-                properties.range = `${legendItem.startValue} - ${legendItem.endValue}` // Shown in data table
+                properties.range = `${formatWithSeparator(
+                    legendItem.startValue,
+                    keyAnalysisDigitGroupSeparator
+                )} - ${formatWithSeparator(
+                    legendItem.endValue,
+                    keyAnalysisDigitGroupSeparator
+                )}` // Shown in data table
             }
 
             // Only count org units once in legend
@@ -311,7 +319,11 @@ const thematicLoader = async ({
                 }
             }
 
-            properties.value = value
+            properties.value = formatWithSeparator(
+                value,
+                keyAnalysisDigitGroupSeparator
+            ) // Shown in tooltip, label, pop-up and data table
+            properties.rawValue = value // Used in data table
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
                 : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
@@ -323,6 +335,7 @@ const thematicLoader = async ({
         data: valueFeatures,
         periods,
         valuesByPeriod,
+        keyAnalysisDigitGroupSeparator,
         name,
         legend,
         method,

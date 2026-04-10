@@ -8,6 +8,7 @@ export const DEFAULT_SYSTEM_SETTINGS = {
 }
 
 export const SYSTEM_SETTINGS = [
+    'keyAnalysisDigitGroupSeparator',
     'keyAnalysisRelativePeriod',
     'keyHideDailyPeriods',
     'keyHideWeeklyPeriods',

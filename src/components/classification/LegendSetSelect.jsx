@@ -1,7 +1,7 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLegendSet } from '../../actions/layerEdit.js'
 import { SelectField } from '../core/index.js'
@@ -21,10 +21,21 @@ const style = {
     width: '100%',
 }
 
-const LegendSetSelect = ({ legendSetError }) => {
+const LegendSetSelect = ({ defaultLegendSet, legendSetError }) => {
     const legendSet = useSelector((state) => state.layerEdit.legendSet)
     const dispatch = useDispatch()
     const { loading, error, data } = useDataQuery(LEGEND_SETS_QUERY)
+
+    useEffect(() => {
+        if (!legendSet && data?.sets.legendSets?.length) {
+            const legendSets = data.sets.legendSets
+            const defaultItem = defaultLegendSet
+                ? legendSets.find((ls) => ls.id === defaultLegendSet.id) ??
+                  legendSets[0]
+                : legendSets[0]
+            dispatch(setLegendSet(defaultItem))
+        }
+    }, [legendSet, data, defaultLegendSet, dispatch])
 
     return (
         <SelectField
@@ -40,6 +51,9 @@ const LegendSetSelect = ({ legendSetError }) => {
 }
 
 LegendSetSelect.propTypes = {
+    defaultLegendSet: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
     legendSetError: PropTypes.string,
 }
 

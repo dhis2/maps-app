@@ -26,6 +26,8 @@ import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import { isDarkColor } from '../../util/colors.js'
+import { formatWithSeparator } from '../../util/numbers.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import FilterInput from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
 import { useTableData } from './useTableData.js'
@@ -88,6 +90,11 @@ const TableComponents = {
 }
 
 const Table = ({ availableHeight, availableWidth }) => {
+    const {
+        //systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
+    const keyAnalysisDigitGroupSeparator = 'COMMA'
+
     const headerRowRef = useRef(null)
     const [columnWidths, setColumnWidths] = useState([])
     const { mapViews } = useSelector((state) => state.map)
@@ -293,7 +300,12 @@ const Table = ({ availableHeight, availableWidth }) => {
                             backgroundColor={dataKey === 'color' ? value : null}
                             align={align}
                         >
-                            {dataKey === 'color' ? value?.toLowerCase() : value}
+                            {dataKey === 'color'
+                                ? value?.toLowerCase()
+                                : formatWithSeparator(
+                                      value,
+                                      keyAnalysisDigitGroupSeparator
+                                  )}
                         </DataTableCell>
                     ))
                 }

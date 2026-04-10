@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { createLegend } from '../../../loaders/earthEngineLoader.js'
 import { sortLegendItems } from '../../../util/legend.js'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
 import LegendItem from '../../legend/LegendItem.jsx'
 import styles from '../styles/LayerDialog.module.css'
 
@@ -10,7 +11,13 @@ const styleIsValid = ({ min, max }) =>
     !Number.isNaN(min) && !Number.isNaN(max) && max > min
 
 const LegendPreview = ({ style, showBelowMin }) => {
-    const legend = styleIsValid(style) && createLegend(style, showBelowMin)
+    const {
+        //systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
+    const keyAnalysisDigitGroupSeparator = 'COMMA'
+    const legend =
+        styleIsValid(style) &&
+        createLegend(style, showBelowMin, keyAnalysisDigitGroupSeparator)
 
     return legend ? (
         <div className={styles.flexColumn}>

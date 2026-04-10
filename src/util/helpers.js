@@ -6,8 +6,10 @@ import {
     dateValueTypes,
     datetimeValueTypes,
     coordinateValueTypes,
+    numberValueTypes,
     ouValueTypes,
 } from '../constants/valueTypes.js'
+import { formatWithSeparator } from './numbers.js'
 
 const getBaseFields = (withSubscribers) => {
     const baseFields = [
@@ -193,6 +195,7 @@ export const formatValueForDisplay = ({
     valueType,
     options,
     orgUnitNames,
+    keyAnalysisDigitGroupSeparator,
 }) => {
     if (!hasValue(value)) {
         return i18n.t('Not set')
@@ -224,7 +227,9 @@ export const formatValueForDisplay = ({
     if (datetimeValueTypes.includes(valueType)) {
         return formatDatetime(value)
     }
-    // TODO formatNumeric
+    if (numberValueTypes.includes(valueType)) {
+        return formatWithSeparator(value, keyAnalysisDigitGroupSeparator, true)
+    }
     return value
 }
 

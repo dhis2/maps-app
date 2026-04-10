@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import {
     EVENT_LAYER,
@@ -13,7 +13,12 @@ import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData } from '../../util/geojson.js'
-import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
+import { parseRange } from '../../util/legend.js'
+import {
+    getRoundToPrecisionFn,
+    getPrecision,
+    parseWithSeparator,
+} from '../../util/numbers.js'
 import { isValidUid } from '../../util/uid.js'
 
 const ASCENDING = 'asc'
@@ -25,7 +30,7 @@ const TYPE_DATE = 'date'
 const INDEX = 'index'
 const NAME = 'name'
 const ID = 'id'
-const VALUE = 'value'
+const VALUE = 'rawValue'
 const LEGEND = 'legend'
 const RANGE = 'range'
 const LEVEL = 'level'
@@ -139,7 +144,7 @@ const getFacilityHeaders = () =>
 const toTitleCase = (str) =>
     str.replace(
         /\w\S*/g,
-        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()
     )
 
 const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
@@ -175,17 +180,12 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
-const getGeoJsonUrlHeaders = (firstDataItem) =>
-    getGeojsonDisplayData(firstDataItem)
-
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 
 export const useTableData = ({ layer, sortField, sortDirection }) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
-
-    const errorCode = useRef(null)
 
     const {
         layer: layerType,
@@ -198,58 +198,62 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         serverCluster,
     } = layer || EMPTY_LAYER
 
-    const dataWithAggregations = useMemo(() => {
-        errorCode.current = null
+    const { data: dataWithAggregations, error: dataError } = useMemo(() => {
         if (serverCluster) {
-            errorCode.current = ERROR_SERVER_CLUSTER
-            return null
+            return { data: null, error: ERROR_SERVER_CLUSTER }
         }
 
         if (!data?.length) {
-            errorCode.current = ERROR_NO_VALID_DATA
-            return null
+            return { data: null, error: ERROR_NO_VALID_DATA }
         }
 
         if (layerType === GEOJSON_URL_LAYER) {
-            return data.map((d) => ({
-                ...d.properties,
-            }))
+            return {
+                data: data.map((d) => ({ ...d.properties })),
+                error: null,
+            }
         }
 
-        return data
-            .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, index) => ({
-                ...(d.properties || d),
-                ...aggregations[d.id],
-                index,
-            }))
+        return {
+            data: data
+                .filter((d) => !d.properties.hasAdditionalGeometry)
+                .map((d, index) => ({
+                    ...(d.properties || d),
+                    ...aggregations[d.id],
+                    index,
+                })),
+            error: null,
+        }
     }, [data, aggregations, serverCluster, layerType])
 
-    const headers = useMemo(() => {
-        if (errorCode.current) {
-            return null
+    const { headers, error: headersError } = useMemo(() => {
+        if (dataError) {
+            return { headers: null, error: dataError }
         }
 
-        let headers = null
+        let computedHeaders = null
         switch (layerType) {
             case THEMATIC_LAYER:
-                headers = getThematicHeaders()
+                computedHeaders = getThematicHeaders()
                 break
             case EVENT_LAYER:
-                headers = getEventHeaders({ layerHeaders, styleDataItem })
+                computedHeaders = getEventHeaders({
+                    layerHeaders,
+                    styleDataItem,
+                })
                 break
             case ORG_UNIT_LAYER:
-                headers = getOrgUnitHeaders()
+                computedHeaders = getOrgUnitHeaders()
                 break
             case EARTH_ENGINE_LAYER:
-                headers = getEarthEngineHeaders({
+                computedHeaders = getEarthEngineHeaders({
                     aggregationType,
                     legend,
                     data: dataWithAggregations,
                 })
                 break
             case FACILITY_LAYER:
-                headers = getFacilityHeaders()
+                computedHeaders = getFacilityHeaders()
                 break
             case GEOJSON_URL_LAYER: {
                 if (
@@ -258,22 +262,23 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                             feature.geometry.type !== data[0].geometry.type
                     )
                 ) {
-                    errorCode.current = ERROR_NON_HOMOGENOUS_FEATURES
-                    return null
+                    return {
+                        headers: null,
+                        error: ERROR_NON_HOMOGENOUS_FEATURES,
+                    }
                 }
 
-                headers = getGeoJsonUrlHeaders(data[0])
+                computedHeaders = getGeojsonDisplayData(data[0])
                 break
             }
             default:
                 break
         }
 
-        if (!headers?.length) {
-            errorCode.current = ERROR_NO_HEADERS
-            return null
+        if (!computedHeaders?.length) {
+            return { headers: null, error: ERROR_NO_HEADERS }
         }
-        return headers
+        return { headers: computedHeaders, error: null }
     }, [
         layerType,
         aggregationType,
@@ -282,15 +287,11 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         dataWithAggregations,
         data,
         layerHeaders,
+        dataError,
     ])
 
     const rows = useMemo(() => {
-        if (errorCode.current) {
-            return null
-        }
-
-        if (!headers.length) {
-            errorCode.current = ERROR_NO_HEADERS
+        if (headersError) {
             return null
         }
 
@@ -298,57 +299,84 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
 
         //sort
         filteredData.sort((a, b) => {
-            a = a[sortField]
-            b = b[sortField]
+            const aVal = a[sortField]
+            const bVal = b[sortField]
 
             // All undefined values should be sorted to the end
-            if (a === undefined && b === undefined) {
+            if (aVal === undefined && bVal === undefined) {
                 return 0
             }
 
-            if (a === undefined) {
-                return 1 // a goes to end
+            if (aVal === undefined) {
+                return 1 // aVal goes to end
             }
 
-            if (b === undefined) {
-                return -1 // b goes to end
+            if (bVal === undefined) {
+                return -1 // bVal goes to end
             }
 
-            if (typeof a === TYPE_NUMBER) {
-                return sortDirection === ASCENDING ? a - b : b - a
+            if (typeof aVal === TYPE_NUMBER) {
+                return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
+            }
+
+            if (sortField === RANGE) {
+                const [aStart, aEnd] = parseRange(aVal)
+                const [bStart, bEnd] = parseRange(bVal)
+                const startDiff =
+                    sortDirection === ASCENDING
+                        ? aStart - bStart
+                        : bStart - aStart
+                if (startDiff !== 0) {
+                    return startDiff
+                }
+                return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
             }
 
             // TODO: Make sure sorting works across different locales
             return sortDirection === ASCENDING
-                ? a.localeCompare(b)
-                : b.localeCompare(a)
+                ? aVal.localeCompare(bVal)
+                : bVal.localeCompare(aVal)
         })
 
         return filteredData.map((item) =>
             headers.map(({ dataKey, roundFn, type }) => {
-                const value = roundFn ? roundFn(item[dataKey]) : item[dataKey]
+                const raw = roundFn ? roundFn(item[dataKey]) : item[dataKey]
+                let value
+                if (type === TYPE_NUMBER) {
+                    const parsed = parseWithSeparator(raw)
+                    value = isNaN(parsed) ? null : parsed
+                } else {
+                    value = raw
+                }
 
                 return {
                     dataKey,
-                    value: type === TYPE_NUMBER && isNaN(value) ? null : value,
+                    value,
                     align: type === TYPE_NUMBER ? 'right' : 'left',
                     itemId: item.id,
                 }
             })
         )
-    }, [headers, dataWithAggregations, dataFilters, sortField, sortDirection])
+    }, [
+        headers,
+        dataWithAggregations,
+        dataFilters,
+        sortField,
+        sortDirection,
+        headersError,
+    ])
 
     // EE layers and event layers may be loading additional data
     const isLoading =
         (layerType === EARTH_ENGINE_LAYER &&
             aggregationType?.length &&
-            (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
+            aggregations === EMPTY_AGGREGATIONS) ||
         (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
 
     return {
         headers,
         rows,
         isLoading,
-        error: getErrorCodeText(errorCode.current),
+        error: getErrorCodeText(headersError),
     }
 }

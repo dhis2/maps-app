@@ -100,7 +100,12 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
+const trackedEntityLoader = async ({
+    config,
+    engine,
+    keyAnalysisDigitGroupSeparator,
+    serverVersion,
+}) => {
     if (config.config && typeof config.config === 'string') {
         try {
             const customConfig = JSON.parse(config.config)
@@ -283,6 +288,7 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
         ...config,
         name,
         data,
+        keyAnalysisDigitGroupSeparator,
         relationships,
         secondaryData,
         legend,

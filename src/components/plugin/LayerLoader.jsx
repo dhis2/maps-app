@@ -28,7 +28,11 @@ const LayerLoader = ({ config, onLoad }) => {
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
-    const { currentUser } = useCachedData()
+    const {
+        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        currentUser,
+    } = useCachedData()
+    const keyAnalysisDigitGroupSeparator = 'COMMA'
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
     const periodTypeData = useDataOutputPeriodTypes()
 
@@ -45,6 +49,7 @@ const LayerLoader = ({ config, onLoad }) => {
             config,
             engine,
             keyAnalysisDisplayProperty, // name/shortName
+            keyAnalysisDigitGroupSeparator, // NONE/SPACE/COMMA
             userId,
             baseUrl,
             analyticsEngine, // Thematic and Event loader
@@ -62,6 +67,7 @@ const LayerLoader = ({ config, onLoad }) => {
         userId,
         baseUrl,
         keyAnalysisDisplayProperty,
+        keyAnalysisDigitGroupSeparator,
         serverVersion,
     ])
 

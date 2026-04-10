@@ -12,6 +12,7 @@ import {
 } from '../constants/layers.js'
 import { getLegendItems } from '../util/classify.js'
 import { defaultClasses, defaultColorScale } from '../util/colors.js'
+import { parseWithSeparator } from './numbers.js'
 
 const INDICATOR_QUERY = {
     dimension: {
@@ -90,6 +91,11 @@ export const loadDataItemLegendSet = async (dataItem, engine) => {
     return result.dimension.legendSet
 }
 
+export const parseRange = (str) => {
+    const [start, end] = str.split(' - ')
+    return [parseWithSeparator(start), parseWithSeparator(end)]
+}
+
 export const formatLegendItems = (legendItems) => {
     const sortedItems = sortBy('startValue', legendItems)
     return sortedItems.map((item) => ({
@@ -154,8 +160,15 @@ export const getRenderingLabel = (strategy) => {
     return map[strategy] ? ' • ' + map[strategy] : null
 }
 
-const nameContainsValue = (name, val) =>
-    new RegExp(String.raw`(?<![\d.])${val}(?![\d.])`).test(name)
+const normalize = (str) => String(str).replace(/[\s,]/g, '')
+
+const nameContainsValue = (name, val) => {
+    const normalizedName = normalize(name)
+    const normalizedVal = normalize(val)
+    return new RegExp(String.raw`(?<![\d.])${normalizedVal}(?![\d.])`).test(
+        normalizedName
+    )
+}
 
 const rangeInName = (name, startValue, endValue) =>
     (String(startValue) !== '' && nameContainsValue(name, startValue)) ||
