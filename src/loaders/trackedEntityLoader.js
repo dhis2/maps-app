@@ -182,6 +182,40 @@ const fetchRelationshipData = async ({
     }
 }
 
+const buildQueryVariables = ({
+    fields,
+    orgUnits,
+    orgUnitMode,
+    program,
+    programStatus,
+    followUp,
+    trackedEntityType,
+    periodType,
+    startDate,
+    endDate,
+}) => {
+    const followUpBool = followUp ? 'TRUE' : 'FALSE'
+    const boolFollowUp =
+        program && followUp !== undefined ? followUpBool : undefined
+
+    return {
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program: program?.id,
+        programStatus,
+        followUp: boolFollowUp,
+        trackedEntityType: !program ? trackedEntityType?.id : undefined,
+        enrollmentEnrolledAfter:
+            periodType === 'program' ? trimTime(startDate) : undefined,
+        enrollmentEnrolledBefore:
+            periodType === 'program' ? trimTime(endDate) : undefined,
+        updatedAfter:
+            periodType !== 'program' ? trimTime(startDate) : undefined,
+        updatedBefore: periodType !== 'program' ? trimTime(endDate) : undefined,
+    }
+}
+
 const trackedEntityLoader = async ({
     config,
     engine,
@@ -244,33 +278,21 @@ const trackedEntityLoader = async ({
         }`
     }
 
-    const boolFollowUp =
-        program && followUp !== undefined
-            ? followUp
-                ? 'TRUE'
-                : 'FALSE'
-            : undefined
-
     const { trackedEntities } = await engine.query(
         { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
-            variables: {
+            variables: buildQueryVariables({
                 fields: fieldsWithRelationships,
-                orgUnits: orgUnits,
+                orgUnits,
                 orgUnitMode: organisationUnitSelectionMode,
-                program: program?.id,
+                program,
                 programStatus,
-                followUp: boolFollowUp,
-                trackedEntityType: !program ? trackedEntityType?.id : undefined,
-                enrollmentEnrolledAfter:
-                    periodType === 'program' ? trimTime(startDate) : undefined,
-                enrollmentEnrolledBefore:
-                    periodType === 'program' ? trimTime(endDate) : undefined,
-                updatedAfter:
-                    periodType !== 'program' ? trimTime(startDate) : undefined,
-                updatedBefore:
-                    periodType !== 'program' ? trimTime(endDate) : undefined,
-            },
+                followUp,
+                trackedEntityType,
+                periodType,
+                startDate,
+                endDate,
+            }),
         }
     )
 
