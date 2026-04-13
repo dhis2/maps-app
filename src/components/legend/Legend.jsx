@@ -16,6 +16,7 @@ const Legend = ({
     items,
     bubbles,
     explanation,
+    eventsWithoutCoordinatesCount,
     url,
     source,
     sourceUrl,
@@ -46,16 +47,35 @@ const Legend = ({
             {bubbles ? (
                 <Bubbles {...bubbles} isPlugin={isPlugin} classes={items} />
             ) : (
-                Array.isArray(items) && (
+                (Array.isArray(items) ||
+                    eventsWithoutCoordinatesCount !== undefined) && (
                     <table>
                         <tbody>
-                            {sortLegendItems(items).map((item) => (
-                                <LegendItem
-                                    {...item}
-                                    showRange={showRange}
-                                    key={`item-${item.startValue}-${item.endValue}`}
-                                />
-                            ))}
+                            {Array.isArray(items) &&
+                                sortLegendItems(items).map((item) => (
+                                    <LegendItem
+                                        {...item}
+                                        showRange={showRange}
+                                        key={`item-${item.startValue}-${item.endValue}`}
+                                    />
+                                ))}
+                            {eventsWithoutCoordinatesCount !== undefined && (
+                                <tr>
+                                    <td
+                                        colSpan={2}
+                                        className={styles.noCoordinates}
+                                    >
+                                        {i18n.t(
+                                            '{{count}} event without coordinates',
+                                            {
+                                                count: eventsWithoutCoordinatesCount,
+                                                defaultValue_plural:
+                                                    '{{count}} events without coordinates',
+                                            }
+                                        )}
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 )
@@ -108,6 +128,7 @@ Legend.propTypes = {
     }),
     coordinateFields: PropTypes.array,
     description: PropTypes.string,
+    eventsWithoutCoordinatesCount: PropTypes.number,
     explanation: PropTypes.array,
     filters: PropTypes.array,
     groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),

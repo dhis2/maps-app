@@ -258,7 +258,7 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(8)
+        expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
             { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Org unit', dataKey: 'ouname', type: 'string' },
@@ -272,10 +272,15 @@ describe('useTableData headers', () => {
             { name: 'Last updated on', dataKey: 'lastupdated', type: 'string' },
             { name: 'Event status', dataKey: 'eventstatus', type: 'string' },
             { name: 'Gender', dataKey: 'oZg33kd9taw', type: 'string' },
+            {
+                name: 'Coordinate field',
+                dataKey: 'coordinate',
+                type: 'string',
+            },
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(8)
+        expect(rows[0]).toHaveLength(9)
         expect(rows[0]).toMatchObject([
             { value: 0, dataKey: 'index' },
             { value: 'Lumley Hospital', dataKey: 'ouname' },
@@ -284,6 +289,7 @@ describe('useTableData headers', () => {
             { value: '2018-04-12 20:58:51.31', dataKey: 'lastupdated' },
             { value: 'ACTIVE', dataKey: 'eventstatus' },
             { value: 'Female', dataKey: 'oZg33kd9taw' },
+            { value: null, dataKey: 'coordinate' },
             { value: 'Point', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
@@ -663,7 +669,7 @@ describe('useTableData sorting', () => {
         )
 
         const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
-        expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
+        expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', null])
     })
 
     test('sorts string values in descending order with undefined at end', () => {
@@ -709,7 +715,7 @@ describe('useTableData sorting', () => {
         )
 
         const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
-        expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', undefined])
+        expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', null])
     })
 
     test('handles multiple undefined values correctly', () => {

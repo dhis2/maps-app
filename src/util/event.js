@@ -72,6 +72,7 @@ export const getAnalyticsRequest = async (
         fallbackCoordinateField,
         relativePeriodDate,
         isExtended,
+        countEventsWithoutCoordinates,
     },
     { nameProperty, engine, analyticsEngine }
 ) => {
@@ -99,7 +100,7 @@ export const getAnalyticsRequest = async (
     let analyticsRequest = new analyticsEngine.request()
         .withProgram(program.id)
         .withStage(programStage.id)
-        .withCoordinatesOnly(true)
+        .withCoordinatesOnly(!countEventsWithoutCoordinates)
 
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
@@ -157,11 +158,15 @@ export const loadData = async ({
         request.withPageSize(pageSize)
     ) // DHIS2-10742
 
-    const { data, names } = createEventFeatures(response, config)
+    const { data, names, dataWithoutCoords } = createEventFeatures(
+        response,
+        config
+    )
 
     return {
         data,
         names,
         response,
+        dataWithoutCoords,
     }
 }

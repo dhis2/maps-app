@@ -53,6 +53,7 @@ import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
 import GeometryCentroid from '../shared/GeometryCentroid.jsx'
 import styles from '../styles/LayerDialog.module.css'
+import CountEventsWithoutCoords from './CountEventsWithoutCoords.jsx'
 import EventStatusSelect from './EventStatusSelect.jsx'
 
 class EventDialog extends Component {
@@ -420,6 +421,7 @@ class EventDialog extends Component {
                                         </NoticeBox>
                                     </div>
                                 )}
+                                <CountEventsWithoutCoords />
                             </div>
                         </div>
                     )}

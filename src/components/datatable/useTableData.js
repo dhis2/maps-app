@@ -9,10 +9,14 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
-import { numberValueTypes } from '../../constants/valueTypes.js'
+import {
+    numberValueTypes,
+    coordinateValueTypes,
+} from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData } from '../../util/geojson.js'
+import { formatCoordinate } from '../../util/helpers.js'
 import { parseRange } from '../../util/legend.js'
 import {
     getRoundToPrecisionFn,
@@ -39,6 +43,7 @@ const TYPE = 'type'
 const COLOR = 'color'
 const OUNAME = 'ouname'
 const EVENTDATE = 'eventdate'
+const COORDINATE = 'coordinate'
 
 const ERROR_SERVER_CLUSTER = 'SERVER_CLUSTER'
 const ERROR_NO_VALID_DATA = 'NO_VALID_DATA'
@@ -93,6 +98,11 @@ const defaultFieldsMap = () => ({
         type: TYPE_STRING,
         renderer: 'rendercolor',
     },
+    [COORDINATE]: {
+        name: i18n.t('Coordinate field'),
+        dataKey: COORDINATE,
+        type: TYPE_STRING,
+    },
 })
 
 const getThematicHeaders = () =>
@@ -124,6 +134,7 @@ const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
                 : TYPE_STRING,
         }))
 
+    customFields.push(defaultFieldsMap()[COORDINATE])
     customFields.push(defaultFieldsMap()[TYPE])
 
     if (styleDataItem) {
@@ -193,6 +204,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         legend,
         styleDataItem,
         data,
+        dataWithoutCoords,
         dataFilters,
         headers: layerHeaders,
         serverCluster,
@@ -203,28 +215,60 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return { data: null, error: ERROR_SERVER_CLUSTER }
         }
 
-        if (!data?.length) {
+        const allData =
+            layerType === EVENT_LAYER && dataWithoutCoords?.length
+                ? [...(data || []), ...dataWithoutCoords]
+                : data
+
+        if (!allData?.length) {
             return { data: null, error: ERROR_NO_VALID_DATA }
         }
 
         if (layerType === GEOJSON_URL_LAYER) {
             return {
-                data: data.map((d) => ({ ...d.properties })),
+                data: allData.map((d) => ({ ...d.properties })),
                 error: null,
             }
         }
 
+        const coordKeys = new Set(
+            (layerHeaders || [])
+                .filter(({ valueType }) =>
+                    coordinateValueTypes.includes(valueType)
+                )
+                .map(({ name }) => name)
+        )
+
         return {
-            data: data
+            data: allData
                 .filter((d) => !d.properties.hasAdditionalGeometry)
-                .map((d, index) => ({
-                    ...(d.properties || d),
-                    ...aggregations[d.id],
-                    index,
-                })),
+                .map((d, index) => {
+                    const properties = { ...(d.properties || d) }
+                    coordKeys.forEach((key) => {
+                        if (properties[key] !== undefined) {
+                            properties[key] = formatCoordinate(properties[key])
+                        }
+                    })
+                    return {
+                        ...properties,
+                        ...aggregations[d.id],
+                        index,
+                        coordinate:
+                            d.geometry?.type === 'Point'
+                                ? formatCoordinate(d.geometry.coordinates)
+                                : undefined,
+                    }
+                }),
             error: null,
         }
-    }, [data, aggregations, serverCluster, layerType])
+    }, [
+        data,
+        dataWithoutCoords,
+        aggregations,
+        serverCluster,
+        layerType,
+        layerHeaders,
+    ])
 
     const { headers, error: headersError } = useMemo(() => {
         if (dataError) {
@@ -346,7 +390,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                     const parsed = parseWithSeparator(raw)
                     value = parsed ?? null
                 } else {
-                    value = raw
+                    value = raw ?? null
                 }
 
                 return {

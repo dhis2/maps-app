@@ -1,6 +1,7 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
     EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
     GEOJSON_URL_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
@@ -38,6 +39,7 @@ const validLayerProperties = [
     'endDate',
     'eventCoordinateField',
     'eventClustering',
+    'countEventsWithoutCoordinates',
     'eventPointColor',
     'eventPointRadius',
     'eventStatus',
@@ -191,6 +193,13 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.relationshipLineColor
         delete layer.relationshipOutsideProgram
         delete layer.periodType
+    } else if (layerType === EVENT_LAYER) {
+        if (cleanMapviewConfig && layer.countEventsWithoutCoordinates) {
+            layer.config = JSON.stringify({
+                countEventsWithoutCoordinates: true,
+            })
+        }
+        delete layer.countEventsWithoutCoordinates
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

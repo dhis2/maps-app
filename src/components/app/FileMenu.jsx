@@ -138,7 +138,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
         saveAlert.show({ msg: getSavedMessage(map.name) })
         if (map.id) {
-            history.replaceAll(`/${map.id}`)
+            history.replace(`/${map.id}`)
         }
     }
 
@@ -215,7 +215,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onNew = () => {
         if (history.location.pathname === '/') {
-            history.replaceAll('/')
+            history.replace('/')
         } else {
             history.push('/')
         }
@@ -224,7 +224,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const onOpen = async (id) => {
         const path = `/${id}`
         if (history.location.pathname === path) {
-            history.replaceAll(path)
+            history.replace(path)
         } else {
             history.push(path)
         }

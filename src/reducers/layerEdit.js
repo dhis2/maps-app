@@ -347,6 +347,12 @@ const layerEdit = (state = null, action) => {
                 eventClustering: action.checked,
             }
 
+        case types.LAYER_EDIT_COUNT_EVENTS_WITHOUT_COORDS_SET:
+            return {
+                ...state,
+                countEventsWithoutCoordinates: action.checked,
+            }
+
         case types.LAYER_EDIT_EVENT_POINT_RADIUS_SET:
             return {
                 ...state,

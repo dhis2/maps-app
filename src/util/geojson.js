@@ -65,7 +65,10 @@ export const createEventFeature = ({
 
 export const buildEventGeometryGetter = (headers) => {
     const geomCol = findIndex(headers, (h) => h.name === 'geometry')
-    return (event) => JSON.parse(event[geomCol])
+    return (event) => {
+        const value = event[geomCol]
+        return value ? JSON.parse(value) : null
+    }
 }
 
 export const createEventFeatures = (response, config = {}) => {
@@ -88,8 +91,11 @@ export const createEventFeatures = (response, config = {}) => {
     )
     const options = Object.values(response.metaData.items)
 
-    const data = response.rows.map((row) =>
-        createEventFeature({
+    const data = []
+    const dataWithoutCoords = []
+
+    response.rows.forEach((row) => {
+        const feature = createEventFeature({
             headers: response.headers,
             names: config.outputIdScheme !== 'ID' ? names : {},
             options,
@@ -98,7 +104,12 @@ export const createEventFeatures = (response, config = {}) => {
             getGeometry,
             geometryCentroid: config.geometryCentroid,
         })
-    )
+        if (feature.geometry) {
+            data.push(feature)
+        } else {
+            dataWithoutCoords.push(feature)
+        }
+    })
 
     // Sort to draw polygons before points
     data.sort((feature) =>
@@ -109,7 +120,7 @@ export const createEventFeatures = (response, config = {}) => {
             : 0
     )
 
-    return { data, names }
+    return { data, names, dataWithoutCoords }
 }
 
 // Include column for data element used for styling (if not already used in filter)

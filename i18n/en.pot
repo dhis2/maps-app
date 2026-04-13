@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-13T11:11:44.357Z\n"
-"PO-Revision-Date: 2026-04-13T11:11:44.357Z\n"
+"POT-Creation-Date: 2026-04-13T17:11:24.747Z\n"
+"PO-Revision-Date: 2026-04-13T17:11:24.747Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -368,6 +368,9 @@ msgstr "Steps"
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
+
 msgid "Org Units"
 msgstr "Org Units"
 
@@ -655,6 +658,11 @@ msgstr "Edit layer"
 
 msgid "Remove layer"
 msgstr "Remove layer"
+
+msgid "{{count}} event without coordinates"
+msgid_plural "{{count}} event without coordinates"
+msgstr[0] "{{count}} event without coordinates"
+msgstr[1] "{{count}} events without coordinates"
 
 msgid "Filters"
 msgstr "Filters"

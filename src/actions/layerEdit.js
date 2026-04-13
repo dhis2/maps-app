@@ -117,6 +117,12 @@ export const setEventClustering = (checked) => ({
     checked,
 })
 
+// Set if events without coordinates should be counted and added to data table (event)
+export const setCountEventsWithoutCoordinates = (checked) => ({
+    type: types.LAYER_EDIT_COUNT_EVENTS_WITHOUT_COORDS_SET,
+    checked,
+})
+
 // Set event point radius (event layer)
 export const setEventPointRadius = (radius) => ({
     type: types.LAYER_EDIT_EVENT_POINT_RADIUS_SET,
