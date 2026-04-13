@@ -160,7 +160,7 @@ const fetchRelationshipData = async ({
             radius: isPoint
                 ? relatedPointRadius || TEI_RELATED_RADIUS
                 : undefined,
-            weight: !isPoint ? 1 : undefined,
+            weight: isPoint ? undefined : 1,
         }
     )
 
@@ -205,14 +205,14 @@ const buildQueryVariables = ({
         program: program?.id,
         programStatus,
         followUp: boolFollowUp,
-        trackedEntityType: !program ? trackedEntityType?.id : undefined,
+        trackedEntityType: program ? undefined : trackedEntityType?.id,
         enrollmentEnrolledAfter:
             periodType === 'program' ? trimTime(startDate) : undefined,
         enrollmentEnrolledBefore:
             periodType === 'program' ? trimTime(endDate) : undefined,
         updatedAfter:
-            periodType !== 'program' ? trimTime(startDate) : undefined,
-        updatedBefore: periodType !== 'program' ? trimTime(endDate) : undefined,
+            periodType === 'program' ? undefined : trimTime(startDate),
+        updatedBefore: periodType === 'program' ? undefined : trimTime(endDate),
     }
 }
 
