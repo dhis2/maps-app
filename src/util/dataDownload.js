@@ -25,7 +25,7 @@ export const getFormatOptions = () => [
 // Other layers will include layer name after aggregation type
 export const addPropNames = (layer, data) => {
     const { aggregationType, name, legend } = layer
-    const layerName = name.replaceAll(/ /g, '_').toLowerCase()
+    const layerName = name.replaceAll(' ', '_').toLowerCase()
     const { items } = legend
 
     return hasClasses(aggregationType)

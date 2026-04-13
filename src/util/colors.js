@@ -74,7 +74,7 @@ export const getUniqueColor = (defaultColors) => {
     const colors = [...defaultColors]
 
     function randomColor() {
-        const color = '#000000'.replaceAll(/0/g, () =>
+        const color = '#000000'.replaceAll('0', () =>
             (~~(Math.random() * 16)).toString(16)
         )
 
