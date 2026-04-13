@@ -70,7 +70,13 @@ export const formatWithSeparator = (value, separator, force = false) => {
     }
     const sep = DIGIT_GROUP_SEPARATORS[separator] ?? ''
     const [integer, decimal] = String(value).split('.')
-    const grouped = integer.replaceAll(/\B(?=(\d{3})+(?!\d))/g, sep)
+    const isNegative = integer.startsWith('-')
+    const digits = isNegative ? integer.slice(1) : integer
+    const groups = []
+    for (let i = digits.length; i > 0; i -= 3) {
+        groups.unshift(digits.slice(Math.max(0, i - 3), i))
+    }
+    const grouped = (isNegative ? '-' : '') + groups.join(sep)
     return decimal ? `${grouped}.${decimal}` : grouped
 }
 
