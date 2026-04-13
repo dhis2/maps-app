@@ -12,9 +12,8 @@ const styleIsValid = ({ min, max }) =>
 
 const LegendPreview = ({ style, showBelowMin }) => {
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
     const legend =
         styleIsValid(style) &&
         createLegend(style, showBelowMin, keyAnalysisDigitGroupSeparator)

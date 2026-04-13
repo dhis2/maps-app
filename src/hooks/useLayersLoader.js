@@ -32,10 +32,9 @@ export const useLayersLoader = () => {
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
         currentUser,
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
     const { showAlerts } = useLoaderAlerts()
     const allLayers = useSelector((state) => state.map.mapViews)
     const dataTable = useSelector((state) => state.dataTable)

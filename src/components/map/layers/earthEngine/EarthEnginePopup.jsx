@@ -13,6 +13,13 @@ import Popup from '../../Popup.jsx'
 import styles from '../styles/Popup.module.css'
 import earthEngineStyles from './styles/EarthEnginePopup.module.css'
 
+const getValuesForType = (data, type) =>
+    Object.values(data).flatMap((ou) =>
+        Object.entries(ou)
+            .filter(([key]) => key.includes(type))
+            .map(([, val]) => val)
+    )
+
 const EarthEnginePopup = (props) => {
     const {
         coordinates,
@@ -86,13 +93,7 @@ const EarthEnginePopup = (props) => {
             const getValueFormat = (type) => (value) =>
                 formatWithSeparator(
                     getRoundToPrecisionFn(
-                        getPrecision(
-                            Object.values(data).flatMap((ou) =>
-                                Object.entries(ou)
-                                    .filter(([key]) => key.includes(type))
-                                    .map(([, val]) => val)
-                            )
-                        )
+                        getPrecision(getValuesForType(data, type))
                     )(value),
                     keyAnalysisDigitGroupSeparator
                 )

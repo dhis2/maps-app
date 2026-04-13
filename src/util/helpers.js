@@ -146,7 +146,7 @@ export const formatCoordinate = (value) => {
         if (
             Array.isArray(array) &&
             array.length === 2 &&
-            array.every((v) => !isNaN(Number(v)))
+            array.every((v) => !Number.isNaN(Number(v)))
         ) {
             return array.map((v) => Number(v).toFixed(6)).join(', ')
         }
@@ -251,5 +251,5 @@ export const getCssVar = (cssVar) =>
     Number(
         getComputedStyle(document.documentElement)
             .getPropertyValue(cssVar)
-            .replace('px', '')
+            .replaceAll('px', '')
     )

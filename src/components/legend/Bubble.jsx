@@ -14,9 +14,8 @@ const Bubble = ({
     pattern,
 }) => {
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
     const leftAlign = textAlign === 'left'
     const x = maxRadius
     const y = maxRadius * 2 - radius

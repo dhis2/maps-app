@@ -70,11 +70,11 @@ export const formatWithSeparator = (value, separator, force = false) => {
     }
     const sep = DIGIT_GROUP_SEPARATORS[separator] ?? ''
     const [integer, decimal] = String(value).split('.')
-    const grouped = integer.replace(/\B(?=(\d{3})+(?!\d))/g, sep)
+    const grouped = integer.replaceAll(/\B(?=(\d{3})+(?!\d))/g, sep)
     return decimal ? `${grouped}.${decimal}` : grouped
 }
 
 export const parseWithSeparator = (value) => {
-    const num = Number(String(value).replace(/[\s,]/g, ''))
-    return isNaN(num) ? undefined : num
+    const num = Number(String(value).replaceAll(/[\s,]/g, ''))
+    return Number.isNaN(num) ? undefined : num
 }

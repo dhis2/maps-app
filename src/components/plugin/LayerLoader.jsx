@@ -29,10 +29,9 @@ const LayerLoader = ({ config, onLoad }) => {
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
         currentUser,
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
     const periodTypeData = useDataOutputPeriodTypes()
 

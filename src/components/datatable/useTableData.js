@@ -142,7 +142,7 @@ const getFacilityHeaders = () =>
     [INDEX, NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
 
 const toTitleCase = (str) =>
-    str.replace(
+    str.replaceAll(
         /\w\S*/g,
         (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()
     )
@@ -344,7 +344,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 let value
                 if (type === TYPE_NUMBER) {
                     const parsed = parseWithSeparator(raw)
-                    value = isNaN(parsed) ? null : parsed
+                    value = parsed ?? null
                 } else {
                     value = raw
                 }

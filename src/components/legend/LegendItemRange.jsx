@@ -12,9 +12,8 @@ const LegendItemRange = ({
     count,
 }) => {
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
     const nameLabel = name ? `${name} ` : ''
     const showRangeValue =
         startValue !== undefined && endValue !== undefined && showRange

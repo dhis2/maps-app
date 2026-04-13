@@ -159,7 +159,7 @@ const styleByNumeric = async (config, engine) => {
             .map((feature) => feature.properties[styleDataItem.id])
             .filter(hasValue)
             .map(Number)
-            .filter((value) => !isNaN(value))
+            .filter((value) => !Number.isNaN(value))
             .sort((a, b) => a - b)
 
         // Use data item name as legend unit (load from server if needed)

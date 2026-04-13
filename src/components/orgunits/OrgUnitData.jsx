@@ -38,9 +38,8 @@ const OrgUnitData = ({ id }) => {
         lazy: true,
     })
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
 
     useEffect(() => {
         if (id && period) {

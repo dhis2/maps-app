@@ -46,9 +46,8 @@ const OrgUnitInfo = ({
 }) => {
     const { baseUrl } = useConfig()
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
     return (
         <div className={styles.info} data-test="org-unit-info">
             {imageId && (

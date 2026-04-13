@@ -91,9 +91,8 @@ const TableComponents = {
 
 const Table = ({ availableHeight, availableWidth }) => {
     const {
-        //systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    const keyAnalysisDigitGroupSeparator = 'COMMA'
 
     const headerRowRef = useRef(null)
     const [columnWidths, setColumnWidths] = useState([])

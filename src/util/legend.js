@@ -160,7 +160,7 @@ export const getRenderingLabel = (strategy) => {
     return map[strategy] ? ' • ' + map[strategy] : null
 }
 
-const normalize = (str) => String(str).replace(/[\s,]/g, '')
+const normalize = (str) => String(str).replaceAll(/[\s,]/g, '')
 
 const nameContainsValue = (name, val) => {
     const normalizedName = normalize(name)

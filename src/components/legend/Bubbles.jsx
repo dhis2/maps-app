@@ -32,7 +32,7 @@ const Bubbles = ({
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
 
-    if (isNaN(radiusLow) || isNaN(radiusHigh)) {
+    if (Number.isNaN(radiusLow) || Number.isNaN(radiusHigh)) {
         return null
     }
 

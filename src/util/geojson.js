@@ -241,7 +241,7 @@ export const buildGeoJsonFeatures = (geoJson) => {
 
     const types = []
     const featureCollection = finalGeoJson.features.map((f, i) => {
-        const nonMultiType = f.geometry.type.replace('Multi', '')
+        const nonMultiType = f.geometry.type.replaceAll('Multi', '')
         // return list of types in the data (but not Multi* types,
         // because those should get lumped in with the non-Multi* type for the legend)
         if (!types.includes(nonMultiType)) {
