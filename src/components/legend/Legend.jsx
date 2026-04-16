@@ -56,29 +56,26 @@ const Legend = ({
                                     <LegendItem
                                         {...item}
                                         showRange={showRange}
-                                        key={`item-${item.startValue}-${item.endValue}`}
+                                        key={`item-${
+                                            item.startValue ?? item.from
+                                        }-${item.endValue ?? item.to}`}
                                     />
                                 ))}
-                            {eventsWithoutCoordinatesCount !== undefined && (
-                                <tr>
-                                    <td
-                                        colSpan={2}
-                                        className={styles.noCoordinates}
-                                    >
-                                        {i18n.t(
-                                            '{{count}} event without coordinates',
-                                            {
-                                                count: eventsWithoutCoordinatesCount,
-                                                defaultValue_plural:
-                                                    '{{count}} events without coordinates',
-                                            }
-                                        )}
-                                    </td>
-                                </tr>
-                            )}
                         </tbody>
                     </table>
                 )
+            )}
+            {typeof eventsWithoutCoordinatesCount === 'number' && (
+                <div className={styles.dataQuality}>
+                    <div>{i18n.t('Data quality')}:</div>
+                    <div>
+                        {i18n.t('{{count}} event without coordinates', {
+                            count: eventsWithoutCoordinatesCount,
+                            defaultValue_plural:
+                                '{{count}} events without coordinates',
+                        })}
+                    </div>
+                </div>
             )}
             {url && <img className={styles.legendImage} src={url} />}
             {Array.isArray(coordinateFields) && (

@@ -20,12 +20,14 @@
     max-width: 100%;
 }
 
+.dataQuality,
 .filters,
 .coordinateFields {
     padding-top: var(--spacers-dp16);
     font-size: 12px;
 }
 
+.dataQuality > div:first-child,
 .filters > div:first-child,
 .coordinateFields > div:first-child {
     font-weight: bold;

@@ -177,7 +177,7 @@ describe('data table', () => {
         // check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 10)
+            .should('have.length', 11)
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
