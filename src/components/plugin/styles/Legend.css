@@ -39,6 +39,30 @@
     font-size: 14px;
     line-height: 18px;
     padding-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.dhis2-map-legend-title-text {
+    flex: 1;
+}
+
+.dhis2-map-legend-visibility-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #555;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+.dhis2-map-legend-visibility-btn:hover {
+    color: #000;
 }
 
 .dhis2-map-legend-period {
