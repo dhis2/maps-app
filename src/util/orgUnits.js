@@ -299,6 +299,28 @@ export const getOrgUnitsWithoutCoordsCount = async ({
     }
 }
 
+const OU_DETAILS_QUERY = {
+    orgUnits: {
+        resource: 'organisationUnits',
+        params: ({ ids }) => ({
+            filter: `id:in:[${ids.join(',')}]`,
+            fields: 'id,level,parent[displayName~rename(name)]',
+            paging: false,
+        }),
+    },
+}
+
+export const fetchOrgUnitDetails = async (engine, ids) => {
+    if (!ids.length) {
+        return {}
+    }
+    const result = await engine.query(OU_DETAILS_QUERY, { variables: { ids } })
+    return (result.orgUnits.organisationUnits || []).reduce((acc, ou) => {
+        acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
+        return acc
+    }, {})
+}
+
 export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
     legendItems.forEach((item) => (item.count = 0))
     features.forEach((f) => {

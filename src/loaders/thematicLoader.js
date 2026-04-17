@@ -40,6 +40,7 @@ import {
     getCoordinateField,
     addAssociatedGeometries,
     getOrgUnitsWithoutCoordsCount,
+    fetchOrgUnitDetails,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
@@ -128,7 +129,27 @@ const thematicLoader = async ({
         })
         orgUnitsWithoutCoordsCount = count
         if (count > 0) {
-            config.dataWithoutCoords = missingOrgUnits
+            const ouValues = getValueById(data)
+            const details = await fetchOrgUnitDetails(
+                engine,
+                missingOrgUnits.map((o) => o.id)
+            )
+            config.dataWithoutCoords = missingOrgUnits.map((ou) => ({
+                ...ou,
+                properties: {
+                    ...ou.properties,
+                    level: details[ou.id]?.level,
+                    parentName: details[ou.id]?.parentName,
+                    rawValue: ouValues[ou.id],
+                    value:
+                        ouValues[ou.id] !== undefined
+                            ? formatWithSeparator(
+                                  ouValues[ou.id],
+                                  keyAnalysisDigitGroupSeparator
+                              )
+                            : undefined,
+                },
+            }))
         }
     }
 

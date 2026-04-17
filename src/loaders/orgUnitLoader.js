@@ -15,6 +15,7 @@ import {
     getCoordinateField,
     parseGroupSet,
     getOrgUnitsWithoutCoordsCount,
+    fetchOrgUnitDetails,
     addGroupCountsToLegend,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
@@ -167,7 +168,18 @@ const orgUnitLoader = async ({
         })
         if (count > 0) {
             legend.orgUnitsWithoutCoordinatesCount = count
-            config.dataWithoutCoords = missingOrgUnits
+            const details = await fetchOrgUnitDetails(
+                engine,
+                missingOrgUnits.map((o) => o.id)
+            )
+            config.dataWithoutCoords = missingOrgUnits.map((ou) => ({
+                ...ou,
+                properties: {
+                    ...ou.properties,
+                    level: details[ou.id]?.level,
+                    parentName: details[ou.id]?.parentName,
+                },
+            }))
         }
     }
 

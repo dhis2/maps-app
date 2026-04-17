@@ -53,20 +53,6 @@ const earthEngineLoader = async ({
         const orgUnitIds = orgUnits.map((item) => item.id)
         let mainFeatures
 
-        if (config.countOrgUnitsWithoutCoordinates) {
-            const { count, missingOrgUnits } =
-                await getOrgUnitsWithoutCoordsCount({
-                    engine,
-                    orgUnitIds,
-                    userId,
-                    features: mainFeatures || [],
-                })
-            if (count > 0) {
-                orgUnitsWithoutCoordsCount = count
-                config.dataWithoutCoords = missingOrgUnits
-            }
-        }
-
         let associatedGeometries
 
         try {
@@ -81,6 +67,20 @@ const earthEngineLoader = async ({
             mainFeatures = geoFeatureData.geoFeatures
                 ? toGeoJson(geoFeatureData.geoFeatures)
                 : null
+
+            if (config.countOrgUnitsWithoutCoordinates) {
+                const { count, missingOrgUnits } =
+                    await getOrgUnitsWithoutCoordsCount({
+                        engine,
+                        orgUnitIds,
+                        userId,
+                        features: mainFeatures || [],
+                    })
+                if (count > 0) {
+                    orgUnitsWithoutCoordsCount = count
+                    config.dataWithoutCoords = missingOrgUnits
+                }
+            }
 
             if (coordinateField) {
                 const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
