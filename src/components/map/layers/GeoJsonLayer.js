@@ -48,6 +48,7 @@ class GeoJsonLayer extends Layer {
         })
 
         map.addLayer(this.layer)
+        this.setLayerVisibility()
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()

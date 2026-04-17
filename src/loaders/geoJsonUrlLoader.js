@@ -128,7 +128,7 @@ const geoJsonUrlLoader = async ({
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
+        isVisible: layer.isVisible ?? true,
         loadError,
     }
 }

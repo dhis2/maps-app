@@ -154,7 +154,7 @@ const facilityLoader = async ({
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
+        isVisible: config.isVisible ?? true,
         loadError,
     }
 }

@@ -62,6 +62,7 @@ const validLayerProperties = [
     'name',
     'noDataColor',
     'opacity',
+    'hidden',
     'organisationUnitColor',
     'organisationUnitGroupSet',
     'organisationUnitSelectionMode',
@@ -125,7 +126,13 @@ const getBasemapString = (basemap, defaultBasemapId) => {
 }
 
 const cleanLayerConfig = (layer, cleanMapviewConfig) => ({
-    ...models2objects(pick(validLayerProperties, layer), cleanMapviewConfig),
+    ...models2objects(
+        pick(validLayerProperties, {
+            ...layer,
+            hidden: layer.isVisible === false,
+        }),
+        cleanMapviewConfig
+    ),
 })
 
 // TODO: This feels hacky, find better way to clean map configs before saving

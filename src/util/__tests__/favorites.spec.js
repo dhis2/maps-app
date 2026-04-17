@@ -180,6 +180,7 @@ describe('cleanMapConfig', () => {
             mapViews: [
                 {
                     areaRadius: 5000,
+                    hidden: false,
                     layer: 'earthEngine',
                     name: 'Population',
                     opacity: 0.9,
@@ -278,6 +279,7 @@ describe('cleanMapConfig', () => {
             mapViews: [
                 {
                     config: '{"id":"CSYRWeK81E7","type":"geoJson","url":"https://debug.dhis2.org/analytics-dev/api/routes/aaa11122233/run","name":"Bo catchment areas","tms":false,"format":"image/png","featureStyle":{"color":"transparent","strokeColor":"#333333","weight":1,"pointSize":5}}',
+                    hidden: false,
                     layer: 'geoJsonUrl',
                     name: 'Bo catchment areas',
                     opacity: 1,
@@ -387,6 +389,7 @@ describe('cleanMapConfig', () => {
                 {
                     startDate: '2018-02-19',
                     endDate: '2024-02-19',
+                    hidden: false,
                     layer: 'trackedEntity',
                     name: 'Tracked entity',
                     opacity: 0.5,

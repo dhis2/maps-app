@@ -88,7 +88,7 @@ const eventLoader = async ({
     config.isLoaded = true
     config.isLoading = false
     config.isExpanded = true
-    config.isVisible = true
+    config.isVisible = config.isVisible ?? true
 
     return config
 }

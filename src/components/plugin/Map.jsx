@@ -48,9 +48,12 @@ const Map = forwardRef((props, ref) => {
     const onResize = () => setResizeCount((state) => state + 1)
 
     const onLayerLoad = useCallback((layer) => {
-        layers.current = layers.current.map((l) =>
-            layer.id === l.id ? layer : l
-        )
+        layers.current = layers.current.map((l) => {
+            if (layer.id !== l.id) {
+                return l
+            }
+            return { ...layer, isVisible: l.isVisible ?? true }
+        })
         if (layers.current.every((l) => l.isLoaded)) {
             setMapIsLoaded(true)
         }

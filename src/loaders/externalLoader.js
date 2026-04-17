@@ -37,7 +37,7 @@ const externalLoader = async ({ config: layer, engine }) => {
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
+        isVisible: layer.isVisible ?? true,
     }
 }
 

@@ -79,43 +79,41 @@ const upgradeGisAppLayers = (config) => {
 }
 
 const upgradeMapViews = (config) => {
-    const needsUpgrade = config.mapViews.some(
+    const needsLegacyUpgrade = config.mapViews.some(
         (view) =>
             view.layer === 'boundary' ||
             typeof view.colorScale === 'string' ||
             view.geometryCentroid === undefined
     )
 
-    if (!needsUpgrade) {
-        return config
-    }
-
     const upgradedViews = config.mapViews.map((view) => {
         let layer = view.layer
-        if (layer === 'boundary') {
-            layer = 'orgUnit'
-        }
-
-        if (
-            view.geometryCentroid === undefined &&
-            view.layer === 'event' &&
-            !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
-        ) {
-            // We should test !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateFieldType) but it is not currently saved with the mapView.
-            // This will set geometryCentroid: true when eventCoordinateField is a DE/TEA of type 'COORDINATE' too, which is unnecessary but harmless.
-            view.geometryCentroid = true
-        }
-
         let colorScale = view.colorScale
-        if (typeof colorScale === 'string') {
-            const parts = colorScale.split(',')
-            colorScale = parts.length === 1 ? parts[0] : parts
+
+        if (needsLegacyUpgrade) {
+            if (layer === 'boundary') {
+                layer = 'orgUnit'
+            }
+            if (
+                view.geometryCentroid === undefined &&
+                view.layer === 'event' &&
+                !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
+            ) {
+                // We should test !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateFieldType) but it is not currently saved with the mapView.
+                // This will set geometryCentroid: true when eventCoordinateField is a DE/TEA of type 'COORDINATE' too, which is unnecessary but harmless.
+                view.geometryCentroid = true
+            }
+            if (typeof colorScale === 'string') {
+                const parts = colorScale.split(',')
+                colorScale = parts.length === 1 ? parts[0] : parts
+            }
         }
 
         return {
             ...view,
             layer,
             colorScale,
+            isVisible: view.hidden !== true,
         }
     })
 
