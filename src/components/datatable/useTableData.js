@@ -134,8 +134,7 @@ const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
                 : TYPE_STRING,
         }))
 
-    customFields.push(defaultFieldsMap()[COORDINATE])
-    customFields.push(defaultFieldsMap()[TYPE])
+    customFields.push(defaultFieldsMap()[COORDINATE], defaultFieldsMap()[TYPE])
 
     if (styleDataItem) {
         customFields.push(defaultFieldsMap()[COLOR])

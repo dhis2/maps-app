@@ -63,7 +63,7 @@ const Map = forwardRef((props, ref) => {
         setVisibilityOverrides((prev) => {
             const layer = layers.current.find((l) => l.id === id)
             const current =
-                prev[id] !== undefined ? prev[id] : layer?.isVisible ?? true
+                prev[id] === undefined ? layer?.isVisible ?? true : prev[id]
             return { ...prev, [id]: !current }
         })
     }, [])
@@ -140,9 +140,9 @@ const Map = forwardRef((props, ref) => {
     }
 
     const layersWithVisibility = layers.current.map((l) =>
-        visibilityOverrides[l.id] !== undefined
-            ? { ...l, isVisible: visibilityOverrides[l.id] }
-            : l
+        visibilityOverrides[l.id] === undefined
+            ? l
+            : { ...l, isVisible: visibilityOverrides[l.id] }
     )
 
     return (

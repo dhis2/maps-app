@@ -100,7 +100,7 @@ const parseJsonConfig = (config) => {
             if (countEventsWithoutCoordinates) {
                 config.countEventsWithoutCoordinates = true
             }
-        } catch (e) {
+        } catch {
             // malformed config — safe to ignore
         }
         delete config.config
