@@ -126,12 +126,13 @@ const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
 
     const customFields = layerHeaders
         .filter(({ name }) => isValidUid(name))
-        .map(({ name: dataKey, column: name, valueType }) => ({
+        .map(({ name: dataKey, column: name, valueType, optionSet }) => ({
             name,
             dataKey,
-            type: numberValueTypes.includes(valueType)
-                ? TYPE_NUMBER
-                : TYPE_STRING,
+            type:
+                numberValueTypes.includes(valueType) && !optionSet
+                    ? TYPE_NUMBER
+                    : TYPE_STRING,
         }))
 
     customFields.push(defaultFieldsMap()[COORDINATE], defaultFieldsMap()[TYPE])
