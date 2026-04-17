@@ -54,12 +54,17 @@ const earthEngineLoader = async ({
         let mainFeatures
 
         if (config.countOrgUnitsWithoutCoordinates) {
-            orgUnitsWithoutCoordsCount = await getOrgUnitsWithoutCoordsCount({
-                engine,
-                orgUnitIds,
-                userId,
-                featuresCount: mainFeatures?.length || 0,
-            })
+            const { count, missingOrgUnits } =
+                await getOrgUnitsWithoutCoordsCount({
+                    engine,
+                    orgUnitIds,
+                    userId,
+                    features: mainFeatures || [],
+                })
+            if (count > 0) {
+                orgUnitsWithoutCoordsCount = count
+                config.dataWithoutCoords = missingOrgUnits
+            }
         }
 
         let associatedGeometries

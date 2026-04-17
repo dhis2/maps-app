@@ -215,10 +215,9 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return { data: null, error: ERROR_SERVER_CLUSTER }
         }
 
-        const allData =
-            layerType === EVENT_LAYER && dataWithoutCoords?.length
-                ? [...(data || []), ...dataWithoutCoords]
-                : data
+        const allData = dataWithoutCoords?.length
+            ? [...(data || []), ...dataWithoutCoords]
+            : data
 
         if (!allData?.length) {
             return { data: null, error: ERROR_NO_VALID_DATA }
@@ -261,14 +260,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 }),
             error: null,
         }
-    }, [
-        data,
-        dataWithoutCoords,
-        aggregations,
-        serverCluster,
-        layerType,
-        layerHeaders,
-    ])
+    }, [data, dataWithoutCoords, aggregations, serverCluster, layerHeaders])
 
     const { headers, error: headersError } = useMemo(() => {
         if (dataError) {

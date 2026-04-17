@@ -159,14 +159,15 @@ const orgUnitLoader = async ({
     }
 
     if (config.countOrgUnitsWithoutCoordinates) {
-        const withoutCoords = await getOrgUnitsWithoutCoordsCount({
+        const { count, missingOrgUnits } = await getOrgUnitsWithoutCoordsCount({
             engine,
             orgUnitIds,
             userId,
-            featuresCount: mainFeatures?.length || 0,
+            features: mainFeatures || [],
         })
-        if (withoutCoords > 0) {
-            legend.orgUnitsWithoutCoordinatesCount = withoutCoords
+        if (count > 0) {
+            legend.orgUnitsWithoutCoordinatesCount = count
+            config.dataWithoutCoords = missingOrgUnits
         }
     }
 

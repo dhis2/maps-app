@@ -269,23 +269,33 @@ export const getOrgUnitsWithoutCoordsCount = async ({
     engine,
     orgUnitIds,
     userId,
-    featuresCount,
+    features = [],
 }) => {
     try {
         const deResult = await engine.query(FIRST_DATA_ELEMENT_QUERY)
         const dataElementId = deResult?.dataElements?.dataElements?.[0]?.id
         if (!dataElementId) {
-            return 0
+            return { count: 0, missingOrgUnits: [] }
         }
 
         const countData = await engine.query(ORG_UNITS_COUNT_QUERY, {
             variables: { dataElementId, orgUnitIds, userId },
         })
-        const totalCount =
-            countData?.orgUnitsCount?.metaData?.dimensions?.ou?.length || 0
-        return Math.max(0, totalCount - featuresCount)
+        const allOuIds =
+            countData?.orgUnitsCount?.metaData?.dimensions?.ou || []
+        const metaItems = countData?.orgUnitsCount?.metaData?.items || {}
+
+        const featureIds = new Set(features.map((f) => f.id))
+        const missingOrgUnits = allOuIds
+            .filter((id) => !featureIds.has(id))
+            .map((id) => ({
+                id,
+                properties: { id, name: metaItems[id]?.name || id },
+            }))
+
+        return { count: missingOrgUnits.length, missingOrgUnits }
     } catch {
-        return 0
+        return { count: 0, missingOrgUnits: [] }
     }
 }
 

@@ -68,6 +68,8 @@ const thematicLoader = async ({
     if (countOrgUnitsWithoutCoordinates) {
         config.countOrgUnitsWithoutCoordinates = true
     }
+    delete config.config
+
     const orgUnitIds = getOrgUnitsFromRows(config.rows).map((item) => item.id)
     let orgUnitsWithoutCoordsCount = 0
 
@@ -118,12 +120,16 @@ const thematicLoader = async ({
 
     const [mainFeatures, data, associatedGeometries] = response
     if (config.countOrgUnitsWithoutCoordinates) {
-        orgUnitsWithoutCoordsCount = await getOrgUnitsWithoutCoordsCount({
+        const { count, missingOrgUnits } = await getOrgUnitsWithoutCoordsCount({
             engine,
             orgUnitIds,
             userId,
-            featuresCount: mainFeatures?.length || 0,
+            features: mainFeatures || [],
         })
+        orgUnitsWithoutCoordsCount = count
+        if (count > 0) {
+            config.dataWithoutCoords = missingOrgUnits
+        }
     }
 
     const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
