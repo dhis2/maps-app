@@ -167,6 +167,12 @@ export const setOrganisationUnitField = (payload) => ({
     payload,
 })
 
+// Set if organisation unit without coordinates should be counted and added to data table
+export const setCountOrgUnitsWithoutCoordinates = (checked) => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNIT_WITHOUT_COORDS_SET,
+    checked,
+})
+
 // Set period label (earth engine)
 export const setPeriodName = (periodName) => ({
     type: types.LAYER_EDIT_PERIOD_NAME_SET,

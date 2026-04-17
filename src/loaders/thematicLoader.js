@@ -28,6 +28,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { parseJsonConfig } from '../util/config.js'
 import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
@@ -38,6 +39,7 @@ import { formatWithSeparator } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
+    getOrgUnitsWithoutCoordsCount,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
@@ -61,6 +63,13 @@ const thematicLoader = async ({
         thematicMapType,
         noDataColor,
     } = config
+
+    const { countOrgUnitsWithoutCoordinates } = parseJsonConfig(config.config)
+    if (countOrgUnitsWithoutCoordinates) {
+        config.countOrgUnitsWithoutCoordinates = true
+    }
+    const orgUnitIds = getOrgUnitsFromRows(config.rows).map((item) => item.id)
+    let orgUnitsWithoutCoordsCount = 0
 
     const dataItem = getDataItemFromColumns(columns)
     const coordinateField = getCoordinateField(config)
@@ -108,6 +117,15 @@ const thematicLoader = async ({
     }
 
     const [mainFeatures, data, associatedGeometries] = response
+    if (config.countOrgUnitsWithoutCoordinates) {
+        orgUnitsWithoutCoordsCount = await getOrgUnitsWithoutCoordsCount({
+            engine,
+            orgUnitIds,
+            userId,
+            featuresCount: mainFeatures?.length || 0,
+        })
+    }
+
     const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
@@ -193,6 +211,10 @@ const thematicLoader = async ({
                       getDateArray(config.endDate)
                   ),
         items: legendItems,
+    }
+
+    if (orgUnitsWithoutCoordsCount > 0) {
+        legend.orgUnitsWithoutCoordinatesCount = orgUnitsWithoutCoordsCount
     }
 
     if (dimensions && dimensions.length) {

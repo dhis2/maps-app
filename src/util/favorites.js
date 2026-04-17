@@ -1,9 +1,12 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
-    EARTH_ENGINE_LAYER,
+    THEMATIC_LAYER,
     EVENT_LAYER,
-    GEOJSON_URL_LAYER,
     TRACKED_ENTITY_LAYER,
+    FACILITY_LAYER,
+    ORG_UNIT_LAYER,
+    EARTH_ENGINE_LAYER,
+    GEOJSON_URL_LAYER,
 } from '../constants/layers.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
@@ -68,6 +71,7 @@ const validLayerProperties = [
     'organisationUnitSelectionMode',
     'orgUnitField',
     'orgUnitFieldDisplayName',
+    'countOrgUnitsWithoutCoordinates',
     'style',
     'period',
     'periodType',
@@ -162,9 +166,27 @@ const models2objects = (layer, cleanMapviewConfig) => {
         layer.rows = layer.rows.map(cleanDimension)
     }
 
-    if (layerType === EARTH_ENGINE_LAYER) {
+    if (
+        layerType === THEMATIC_LAYER ||
+        layerType === ORG_UNIT_LAYER ||
+        layerType === FACILITY_LAYER
+    ) {
+        if (cleanMapviewConfig && layer.countOrgUnitsWithoutCoordinates) {
+            layer.config = JSON.stringify({
+                countOrgUnitsWithoutCoordinates: true,
+            })
+        }
+        delete layer.countOrgUnitsWithoutCoordinates
+    } else if (layerType === EARTH_ENGINE_LAYER) {
         if (cleanMapviewConfig) {
-            const { layerId: id, band, style, aggregationType, period } = layer
+            const {
+                layerId: id,
+                band,
+                style,
+                aggregationType,
+                period,
+                countOrgUnitsWithoutCoordinates,
+            } = layer
 
             const eeConfig = {
                 id,
@@ -172,12 +194,14 @@ const models2objects = (layer, cleanMapviewConfig) => {
                 band,
                 aggregationType,
                 period,
+                countOrgUnitsWithoutCoordinates,
             }
 
             // Removes undefined keys before stringify
             Object.keys(eeConfig).forEach(
                 (key) => eeConfig[key] === undefined && delete eeConfig[key]
             )
+
             layer.config = JSON.stringify(eeConfig)
         }
 
@@ -190,6 +214,7 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.periodType
         delete layer.aggregationType
         delete layer.band
+        delete layer.countOrgUnitsWithoutCoordinates
     } else if (layerType === TRACKED_ENTITY_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = JSON.stringify({

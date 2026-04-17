@@ -17,6 +17,7 @@ import {
     setEndDate,
     setBackupPeriodsDates,
     setOrgUnits,
+    setCountEventsWithoutCoordinates,
 } from '../../../actions/layerEdit.js'
 import {
     EVENT_COLOR,
@@ -41,6 +42,7 @@ import {
     NumberField,
     ImageSelect,
     ColorPicker,
+    Checkbox,
 } from '../../core/index.js'
 import CoordinateField from '../../dataItem/CoordinateField.jsx'
 import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
@@ -53,12 +55,12 @@ import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
 import GeometryCentroid from '../shared/GeometryCentroid.jsx'
 import styles from '../styles/LayerDialog.module.css'
-import CountEventsWithoutCoords from './CountEventsWithoutCoords.jsx'
 import EventStatusSelect from './EventStatusSelect.jsx'
 
 class EventDialog extends Component {
     static propTypes = {
         setBackupPeriodsDates: PropTypes.func.isRequired,
+        setCountEventsWithoutCoordinates: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
         setEventCoordinateField: PropTypes.func.isRequired,
@@ -75,6 +77,7 @@ class EventDialog extends Component {
         onLayerValidation: PropTypes.func.isRequired,
         backupPeriodsDates: PropTypes.object,
         columns: PropTypes.array,
+        countEventsWithoutCoordinates: PropTypes.bool,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
@@ -218,6 +221,7 @@ class EventDialog extends Component {
             programStage,
             legendSet,
             periodsSettings,
+            countEventsWithoutCoordinates,
         } = this.props
 
         const {
@@ -231,6 +235,7 @@ class EventDialog extends Component {
             setEventPointRadius,
             // setFallbackCoordinateField,
             setPeriod,
+            setCountEventsWithoutCoordinates,
         } = this.props
 
         const {
@@ -421,7 +426,13 @@ class EventDialog extends Component {
                                         </NoticeBox>
                                     </div>
                                 )}
-                                <CountEventsWithoutCoords />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count events without coordinates'
+                                    )}
+                                    checked={!!countEventsWithoutCoordinates}
+                                    onChange={setCountEventsWithoutCoordinates}
+                                />
                             </div>
                         </div>
                     )}
@@ -525,6 +536,7 @@ export default connect(
         setStartDate,
         setEndDate,
         setOrgUnits,
+        setCountEventsWithoutCoordinates,
     },
     null,
     {

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-16T15:26:51.871Z\n"
-"PO-Revision-Date: 2026-04-16T15:26:51.872Z\n"
+"POT-Creation-Date: 2026-04-17T12:14:55.045Z\n"
+"PO-Revision-Date: 2026-04-17T12:14:55.045Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -249,6 +249,9 @@ msgstr "Point color"
 msgid "Point radius"
 msgstr "Point radius"
 
+msgid "Count org units without coordinates"
+msgstr "Count org units without coordinates"
+
 msgid "event"
 msgstr "event"
 
@@ -368,9 +371,6 @@ msgstr "Steps"
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
-msgid "Count events without coordinates"
-msgstr "Count events without coordinates"
-
 msgid "Org Units"
 msgstr "Org Units"
 
@@ -388,6 +388,9 @@ msgstr "Radius"
 
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
+
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
 
 msgid "Program is required"
 msgstr "Program is required"
@@ -666,6 +669,11 @@ msgid "{{count}} event without coordinates"
 msgid_plural "{{count}} event without coordinates"
 msgstr[0] "{{count}} event without coordinates"
 msgstr[1] "{{count}} events without coordinates"
+
+msgid "{{count}} org unit without coordinates"
+msgid_plural "{{count}} org unit without coordinates"
+msgstr[0] "{{count}} org unit without coordinates"
+msgstr[1] "{{count}} org units without coordinates"
 
 msgid "Filters"
 msgstr "Filters"

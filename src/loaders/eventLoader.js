@@ -15,6 +15,7 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
@@ -93,20 +94,6 @@ const eventLoader = async ({
     return config
 }
 
-const parseJsonConfig = (config) => {
-    if (config.config && typeof config.config === 'string') {
-        try {
-            const { countEventsWithoutCoordinates } = JSON.parse(config.config)
-            if (countEventsWithoutCoordinates) {
-                config.countEventsWithoutCoordinates = true
-            }
-        } catch {
-            // malformed config — safe to ignore
-        }
-        delete config.config
-    }
-}
-
 const loadEventLayer = async ({
     config,
     engine,
@@ -115,7 +102,12 @@ const loadEventLayer = async ({
     periodTypeData,
     loadExtended,
 }) => {
-    parseJsonConfig(config)
+    const { countEventsWithoutCoordinates } = parseJsonConfig(config.config)
+    if (countEventsWithoutCoordinates) {
+        config.countEventsWithoutCoordinates = true
+    }
+    delete config.config
+
     const {
         columns,
         endDate,
@@ -130,7 +122,6 @@ const loadEventLayer = async ({
         startDate,
         styleDataItem,
         areaRadius,
-        countEventsWithoutCoordinates,
     } = config
 
     const period = getPeriodFromFilters(filters)
@@ -185,7 +176,7 @@ const loadEventLayer = async ({
         const { total } = response.metaData.pager
 
         config.data = data
-        if (countEventsWithoutCoordinates) {
+        if (config.countEventsWithoutCoordinates) {
             config.dataWithoutCoords = dataWithoutCoords
         }
 
@@ -301,7 +292,10 @@ const loadEventLayer = async ({
         explanation.push(`${i18n.t('Buffer')}: ${areaRadius} ${'m'}`)
     }
 
-    if (countEventsWithoutCoordinates && config.dataWithoutCoords?.length > 0) {
+    if (
+        config.countEventsWithoutCoordinates &&
+        config.dataWithoutCoords?.length > 0
+    ) {
         config.legend.eventsWithoutCoordinatesCount =
             config.dataWithoutCoords.length
     }

@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
 import { sortLayers } from '../../actions/layers.js'
@@ -22,8 +22,8 @@ const SortableLayersList = SortableContainer(({ layers }) => (
 
 const LayersPanel = () => {
     const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
-    const layers = useSelector((state) => [...state.map.mapViews].reverse())
-
+    const mapViews = useSelector((state) => state.map.mapViews)
+    const layers = useMemo(() => [...mapViews].reverse(), [mapViews])
     const dispatch = useDispatch()
 
     const onSortStart = () => {

@@ -6,6 +6,7 @@ import {
     ERROR_CRITICAL,
 } from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
 import {
     ORG_UNITS_GROUP_SET_QUERY,
@@ -13,6 +14,8 @@ import {
     getStyledOrgUnits,
     getCoordinateField,
     parseGroupSet,
+    getOrgUnitsWithoutCoordsCount,
+    addGroupCountsToLegend,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
@@ -24,6 +27,11 @@ const orgUnitLoader = async ({
     baseUrl,
 }) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
+    const { countOrgUnitsWithoutCoordinates } = parseJsonConfig(config.config)
+    if (countOrgUnitsWithoutCoordinates) {
+        config.countOrgUnitsWithoutCoordinates = true
+    }
+    delete config.config
 
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
@@ -130,6 +138,37 @@ const orgUnitLoader = async ({
     })
 
     legend.title = name
+
+    legend.items.forEach((item) => (item.count = 0))
+
+    if (!groupSet?.id) {
+        // Level items — match by level number using the orgUnitLevels array
+        mainFeatures.forEach((f) => {
+            const levelInfo = orgUnitLevels.find(
+                (l) => l.level === f.properties.level
+            )
+            const item =
+                levelInfo &&
+                legend.items.find((i) => i.name === levelInfo.displayName)
+            if (item) {
+                item.count++
+            }
+        })
+    } else {
+        addGroupCountsToLegend(legend.items, mainFeatures, groupSet)
+    }
+
+    if (config.countOrgUnitsWithoutCoordinates) {
+        const withoutCoords = await getOrgUnitsWithoutCoordsCount({
+            engine,
+            orgUnitIds,
+            userId,
+            featuresCount: mainFeatures?.length || 0,
+        })
+        if (withoutCoords > 0) {
+            legend.orgUnitsWithoutCoordinatesCount = withoutCoords
+        }
+    }
 
     return {
         ...config,

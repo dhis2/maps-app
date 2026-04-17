@@ -7,6 +7,7 @@ import {
 } from '../constants/alerts.js'
 import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import {
     hasClasses,
     getStaticFilterFromPeriod,
@@ -18,6 +19,7 @@ import { getRoundToPrecisionFn, formatWithSeparator } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
+    getOrgUnitsWithoutCoordsCount,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
@@ -39,9 +41,27 @@ const earthEngineLoader = async ({
     let dataset
     let features
 
+    const { countOrgUnitsWithoutCoordinates: flagFromConfig } = parseJsonConfig(
+        config.config
+    )
+    if (flagFromConfig) {
+        config.countOrgUnitsWithoutCoordinates = true
+    }
+    let orgUnitsWithoutCoordsCount = 0
+
     if (orgUnits && orgUnits.length) {
         const orgUnitIds = orgUnits.map((item) => item.id)
         let mainFeatures
+
+        if (config.countOrgUnitsWithoutCoordinates) {
+            orgUnitsWithoutCoordsCount = await getOrgUnitsWithoutCoordsCount({
+                engine,
+                orgUnitIds,
+                userId,
+                featuresCount: mainFeatures?.length || 0,
+            })
+        }
+
         let associatedGeometries
 
         try {
@@ -102,6 +122,7 @@ const earthEngineLoader = async ({
     if (typeof config.config === 'string') {
         // From database as favorite
         layerConfig = JSON.parse(config.config)
+        delete layerConfig.countOrgUnitsWithoutCoordinates
 
         if (layerConfig.image) {
             // Backward compability for layers with periods saved before 2.36
@@ -207,6 +228,10 @@ const earthEngineLoader = async ({
             !maskOperator,
             keyAnalysisDigitGroupSeparator
         )
+    }
+
+    if (orgUnitsWithoutCoordsCount > 0) {
+        legend.orgUnitsWithoutCoordinatesCount = orgUnitsWithoutCoordsCount
     }
 
     const filter = getStaticFilterFromPeriod(period, filters)

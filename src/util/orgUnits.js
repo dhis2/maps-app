@@ -10,6 +10,7 @@ import {
     NONE,
 } from '../constants/layers.js'
 import { getUniqueColor } from './colors.js'
+import { FIRST_DATA_ELEMENT_QUERY, ORG_UNITS_COUNT_QUERY } from './requests.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -191,7 +192,9 @@ export const getStyledOrgUnits = ({
         styledFeatures,
         legend: {
             unit: name,
-            items: [...levelItems, ...groupItems, ...facilityItems],
+            items: groupItems.length
+                ? groupItems
+                : [...levelItems, ...facilityItems],
         },
     }
 }
@@ -260,4 +263,44 @@ export const addAssociatedGeometries = (mainFeatures, associatedGeometries) => {
                 : f
         })
         .concat(associatedGeometries)
+}
+
+export const getOrgUnitsWithoutCoordsCount = async ({
+    engine,
+    orgUnitIds,
+    userId,
+    featuresCount,
+}) => {
+    try {
+        const deResult = await engine.query(FIRST_DATA_ELEMENT_QUERY)
+        const dataElementId = deResult?.dataElements?.dataElements?.[0]?.id
+        if (!dataElementId) {
+            return 0
+        }
+
+        const countData = await engine.query(ORG_UNITS_COUNT_QUERY, {
+            variables: { dataElementId, orgUnitIds, userId },
+        })
+        const totalCount =
+            countData?.orgUnitsCount?.metaData?.dimensions?.ou?.length || 0
+        return Math.max(0, totalCount - featuresCount)
+    } catch {
+        return 0
+    }
+}
+
+export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
+    legendItems.forEach((item) => (item.count = 0))
+    features.forEach((f) => {
+        const groupId = f.properties?.dimensions?.[groupSet.id]
+        const group = groupSet.organisationUnitGroups?.find(
+            (g) => g.id === groupId
+        )
+        if (group) {
+            const item = legendItems.find((i) => i.name === group.name)
+            if (item) {
+                item.count++
+            }
+        }
+    })
 }

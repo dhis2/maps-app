@@ -425,6 +425,12 @@ const layerEdit = (state = null, action) => {
                 organisationUnitSelectionMode: action.payload,
             }
 
+        case types.LAYER_EDIT_ORGANISATION_UNIT_WITHOUT_COORDS_SET:
+            return {
+                ...state,
+                countOrgUnitsWithoutCoordinates: action.checked,
+            }
+
         case types.LAYER_EDIT_BAND_SET:
             return {
                 ...state,

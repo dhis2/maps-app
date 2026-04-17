@@ -5,6 +5,7 @@ import {
     CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
 import {
     ORG_UNITS_GROUP_SET_QUERY,
@@ -13,6 +14,8 @@ import {
     getStyledOrgUnits,
     getCoordinateField,
     parseGroupSet,
+    getOrgUnitsWithoutCoordsCount,
+    addGroupCountsToLegend,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
@@ -24,6 +27,11 @@ const facilityLoader = async ({
     baseUrl,
 }) => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
+    const { countOrgUnitsWithoutCoordinates } = parseJsonConfig(config.config)
+    if (countOrgUnitsWithoutCoordinates) {
+        config.countOrgUnitsWithoutCoordinates = true
+    }
+    delete config.config
 
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
@@ -100,6 +108,26 @@ const facilityLoader = async ({
         baseUrl,
     })
     legend.title = name
+
+    if (!groupSet?.id) {
+        if (legend.items[0]) {
+            legend.items[0].count = styledFeatures.length
+        }
+    } else {
+        addGroupCountsToLegend(legend.items, styledFeatures, groupSet)
+    }
+
+    if (config.countOrgUnitsWithoutCoordinates) {
+        const withoutCoords = await getOrgUnitsWithoutCoordsCount({
+            engine,
+            orgUnitIds,
+            userId,
+            featuresCount: features?.length || 0,
+        })
+        if (withoutCoords > 0) {
+            legend.orgUnitsWithoutCoordinatesCount = withoutCoords
+        }
+    }
 
     if (coordinateField) {
         const rawData = await engine.query(GEOFEATURES_QUERY, {

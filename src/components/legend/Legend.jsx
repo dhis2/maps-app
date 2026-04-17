@@ -17,6 +17,7 @@ const Legend = ({
     bubbles,
     explanation,
     eventsWithoutCoordinatesCount,
+    orgUnitsWithoutCoordinatesCount,
     url,
     source,
     sourceUrl,
@@ -47,8 +48,7 @@ const Legend = ({
             {bubbles ? (
                 <Bubbles {...bubbles} isPlugin={isPlugin} classes={items} />
             ) : (
-                (Array.isArray(items) ||
-                    eventsWithoutCoordinatesCount !== undefined) && (
+                Array.isArray(items) && (
                     <table>
                         <tbody>
                             {Array.isArray(items) &&
@@ -56,25 +56,37 @@ const Legend = ({
                                     <LegendItem
                                         {...item}
                                         showRange={showRange}
-                                        key={`item-${
-                                            item.startValue ?? item.from
-                                        }-${item.endValue ?? item.to}`}
+                                        key={`${item.name ?? ''}-${
+                                            item.startValue ?? item.from ?? ''
+                                        }-${item.endValue ?? item.to ?? ''}`}
                                     />
                                 ))}
                         </tbody>
                     </table>
                 )
             )}
-            {typeof eventsWithoutCoordinatesCount === 'number' && (
+            {(typeof eventsWithoutCoordinatesCount === 'number' ||
+                typeof orgUnitsWithoutCoordinatesCount === 'number') && (
                 <div className={styles.dataQuality}>
                     <div>{i18n.t('Data quality')}:</div>
-                    <div>
-                        {i18n.t('{{count}} event without coordinates', {
-                            count: eventsWithoutCoordinatesCount,
-                            defaultValue_plural:
-                                '{{count}} events without coordinates',
-                        })}
-                    </div>
+                    {typeof eventsWithoutCoordinatesCount === 'number' && (
+                        <div>
+                            {i18n.t('{{count}} event without coordinates', {
+                                count: eventsWithoutCoordinatesCount,
+                                defaultValue_plural:
+                                    '{{count}} events without coordinates',
+                            })}
+                        </div>
+                    )}
+                    {typeof orgUnitsWithoutCoordinatesCount === 'number' && (
+                        <div>
+                            {i18n.t('{{count}} org unit without coordinates', {
+                                count: orgUnitsWithoutCoordinatesCount,
+                                defaultValue_plural:
+                                    '{{count}} org units without coordinates',
+                            })}
+                        </div>
+                    )}
                 </div>
             )}
             {url && <img className={styles.legendImage} src={url} />}
@@ -131,6 +143,7 @@ Legend.propTypes = {
     groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     isPlugin: PropTypes.bool,
     items: PropTypes.array,
+    orgUnitsWithoutCoordinatesCount: PropTypes.number,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,
     unit: PropTypes.string,

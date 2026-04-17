@@ -4,7 +4,7 @@ import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     setClassification,
     setDataItem,
@@ -16,6 +16,7 @@ import {
     setBackupPeriodsDates,
     setPeriodType,
     setRenderingStrategy,
+    setCountOrgUnitsWithoutCoordinates,
 } from '../../../actions/layerEdit.js'
 import {
     CLASSIFICATION_PREDEFINED,
@@ -37,7 +38,7 @@ import {
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
-import { Tab, Tabs } from '../../core/index.js'
+import { Tab, Tabs, Checkbox } from '../../core/index.js'
 import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
@@ -77,6 +78,9 @@ const ThematicDialog = ({
     thematicMapType,
 }) => {
     const dispatch = useDispatch()
+    const countOrgUnitsWithoutCoordinates = useSelector(
+        (state) => state.layerEdit.countOrgUnitsWithoutCoordinates
+    )
     const {
         defaultRenderingStrategy,
         shouldSyncFromOtherLayers,
@@ -580,6 +584,19 @@ const ThematicDialog = ({
                             <NoDataColor
                                 value={noDataColor}
                                 onChange={(v) => dispatch(setNoDataColor(v))}
+                            />
+                            <Checkbox
+                                label={i18n.t(
+                                    'Count org units without coordinates'
+                                )}
+                                checked={!!countOrgUnitsWithoutCoordinates}
+                                onChange={(checked) =>
+                                    dispatch(
+                                        setCountOrgUnitsWithoutCoordinates(
+                                            checked
+                                        )
+                                    )
+                                }
                             />
                         </div>
                     </div>
