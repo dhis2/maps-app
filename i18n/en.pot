@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-17T12:14:55.045Z\n"
-"PO-Revision-Date: 2026-04-17T12:14:55.045Z\n"
+"POT-Creation-Date: 2026-04-20T08:45:36.721Z\n"
+"PO-Revision-Date: 2026-04-20T08:45:36.721Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -32,11 +32,17 @@ msgstr "This app could not retrieve required data."
 msgid "Network error"
 msgstr "Network error"
 
+msgid "Auto"
+msgstr "Auto"
+
 msgid "Classification"
 msgstr "Classification"
 
 msgid "Classes"
 msgstr "Classes"
+
+msgid "Decimal places"
+msgstr "Decimal places"
 
 msgid "Legend set"
 msgstr "Legend set"

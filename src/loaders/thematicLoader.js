@@ -65,9 +65,13 @@ const thematicLoader = async ({
         noDataColor,
     } = config
 
-    const { countOrgUnitsWithoutCoordinates } = parseJsonConfig(config.config)
+    const { countOrgUnitsWithoutCoordinates, legendDecimalPlaces } =
+        parseJsonConfig(config.config)
     if (countOrgUnitsWithoutCoordinates) {
         config.countOrgUnitsWithoutCoordinates = true
+    }
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
     }
     delete config.config
 
@@ -221,7 +225,8 @@ const thematicLoader = async ({
                 orderedValues,
                 method,
                 classes,
-                colorScale
+                colorScale,
+                legendDecimalPlaces
             )
             legendItems = classification.items
             valueFormat = classification.valueFormat
@@ -353,10 +358,16 @@ const thematicLoader = async ({
                 properties.legend = legendItem.name // Shown in data table
                 properties.range = `${formatWithSeparator(
                     legendItem.startValue,
-                    keyAnalysisDigitGroupSeparator
+                    keyAnalysisDigitGroupSeparator,
+                    legendItem.decimalPlaces !== undefined
+                        ? { precision: legendItem.decimalPlaces }
+                        : undefined
                 )} - ${formatWithSeparator(
                     legendItem.endValue,
-                    keyAnalysisDigitGroupSeparator
+                    keyAnalysisDigitGroupSeparator,
+                    legendItem.decimalPlaces !== undefined
+                        ? { precision: legendItem.decimalPlaces }
+                        : undefined
                 )}` // Shown in data table
             }
 

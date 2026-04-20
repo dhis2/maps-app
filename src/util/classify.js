@@ -47,7 +47,11 @@ export const getLegendItemForValue = ({
     )
 }
 
-export const getLegendItems = (values, method, numClasses) => {
+export const getLegendItems = (
+    values,
+    method,
+    { numClasses, precision } = {}
+) => {
     if (
         !getClassificationTypes()
             .map(({ id }) => id)
@@ -73,13 +77,24 @@ export const getLegendItems = (values, method, numClasses) => {
 
     let classification
     if (method === CLASSIFICATION_EQUAL_INTERVALS) {
-        classification = getEqualIntervals(minValue, maxValue, numClasses)
+        classification = getEqualIntervals(minValue, maxValue, {
+            numClasses,
+            precision,
+        })
     } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
-        classification = getQuantiles(values, k)
+        classification = getQuantiles(values, { numClasses: k, precision })
     } else if (method === CLASSIFICATION_NATURAL_BREAKS_RANGES) {
-        classification = getCkMeans(values, k, true)
+        classification = getCkMeans(values, {
+            numClasses: k,
+            continuous: true,
+            precision,
+        })
     } else if (method === CLASSIFICATION_NATURAL_BREAKS_CLUSTERS) {
-        classification = getCkMeans(values, k, false)
+        classification = getCkMeans(values, {
+            numClasses: k,
+            continuous: false,
+            precision,
+        })
     }
 
     return {
@@ -93,11 +108,12 @@ export const getLegendItems = (values, method, numClasses) => {
     }
 }
 
-const getEqualIntervals = (minValue, maxValue, numClasses) => {
+const getEqualIntervals = (minValue, maxValue, { numClasses, precision }) => {
     const items = []
     const binSize = (maxValue - minValue) / numClasses
-    const precision = precisionRound(binSize, maxValue)
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision !== undefined ? precision : precisionRound(binSize, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     for (let i = 0; i < numClasses; i++) {
         const startValue = minValue + i * binSize
@@ -115,16 +131,16 @@ const getEqualIntervals = (minValue, maxValue, numClasses) => {
     }
 }
 
-const getQuantiles = (values, numClasses) => {
+const getQuantiles = (values, { numClasses, precision }) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
     const items = []
     const binCount = values.length / numClasses
-    const precision = precisionRound(
-        (maxValue - minValue) / numClasses,
-        maxValue
-    )
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision !== undefined
+            ? precision
+            : precisionRound((maxValue - minValue) / numClasses, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     let binLastValPos = binCount === 0 ? 0 : binCount
 
@@ -148,14 +164,14 @@ const getQuantiles = (values, numClasses) => {
     }
 }
 
-const getCkMeans = (values, numClasses, continuous = false) => {
+const getCkMeans = (values, { numClasses, continuous = false, precision }) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
-    const precision = precisionRound(
-        (maxValue - minValue) / numClasses,
-        maxValue
-    )
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision !== undefined
+            ? precision
+            : precisionRound((maxValue - minValue) / numClasses, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     const k = Math.min(numClasses, values.length)
     const clusters = ckmeans(values, k)

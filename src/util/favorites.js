@@ -57,6 +57,7 @@ const validLayerProperties = [
     'labelFontWeight',
     'labelFontColor',
     'labelTemplate',
+    'legendDecimalPlaces',
     'lastUpdated',
     'layer',
     'layerId',
@@ -171,12 +172,18 @@ const models2objects = (layer, cleanMapviewConfig) => {
         layerType === ORG_UNIT_LAYER ||
         layerType === FACILITY_LAYER
     ) {
+        const configData = {}
         if (cleanMapviewConfig && layer.countOrgUnitsWithoutCoordinates) {
-            layer.config = JSON.stringify({
-                countOrgUnitsWithoutCoordinates: true,
-            })
+            configData.countOrgUnitsWithoutCoordinates = true
+        }
+        if (layer.legendDecimalPlaces !== undefined) {
+            configData.legendDecimalPlaces = layer.legendDecimalPlaces
+        }
+        if (Object.keys(configData).length) {
+            layer.config = JSON.stringify(configData)
         }
         delete layer.countOrgUnitsWithoutCoordinates
+        delete layer.legendDecimalPlaces
     } else if (layerType === EARTH_ENGINE_LAYER) {
         if (cleanMapviewConfig) {
             const {
@@ -239,12 +246,18 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.relationshipOutsideProgram
         delete layer.periodType
     } else if (layerType === EVENT_LAYER) {
+        const configData = {}
         if (cleanMapviewConfig && layer.countEventsWithoutCoordinates) {
-            layer.config = JSON.stringify({
-                countEventsWithoutCoordinates: true,
-            })
+            configData.countEventsWithoutCoordinates = true
+        }
+        if (layer.legendDecimalPlaces !== undefined) {
+            configData.legendDecimalPlaces = layer.legendDecimalPlaces
+        }
+        if (Object.keys(configData).length) {
+            layer.config = JSON.stringify(configData)
         }
         delete layer.countEventsWithoutCoordinates
+        delete layer.legendDecimalPlaces
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

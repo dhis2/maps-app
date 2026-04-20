@@ -260,7 +260,14 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 }),
             error: null,
         }
-    }, [data, dataWithoutCoords, aggregations, serverCluster, layerHeaders])
+    }, [
+        data,
+        dataWithoutCoords,
+        aggregations,
+        serverCluster,
+        layerHeaders,
+        layerType,
+    ])
 
     const { headers, error: headersError } = useMemo(() => {
         if (dataError) {

@@ -229,7 +229,9 @@ export const formatValueForDisplay = ({
         return formatDatetime(value)
     }
     if (numberValueTypes.includes(valueType)) {
-        return formatWithSeparator(value, keyAnalysisDigitGroupSeparator, true)
+        return formatWithSeparator(value, keyAnalysisDigitGroupSeparator, {
+            force: true,
+        })
     }
     return value
 }

@@ -292,6 +292,13 @@ const layerEdit = (state = null, action) => {
                 delete newState.legendSet
             }
 
+            if (
+                action.method === CLASSIFICATION_PREDEFINED ||
+                action.method === CLASSIFICATION_SINGLE_COLOR
+            ) {
+                delete newState.legendDecimalPlaces
+            }
+
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet
             }
@@ -307,6 +314,17 @@ const layerEdit = (state = null, action) => {
 
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET:
+            newState = { ...state }
+
+            if (action.legendDecimalPlaces === undefined) {
+                delete newState.legendDecimalPlaces
+            } else {
+                newState.legendDecimalPlaces = action.legendDecimalPlaces
             }
 
             return newState

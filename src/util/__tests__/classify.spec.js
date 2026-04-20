@@ -73,7 +73,9 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_EQUAL_INTERVALS,
-            4
+            {
+                numClasses: 4,
+            }
         )
         expect(items).toEqual([
             { startValue: 0.0, endValue: 25.0 },
@@ -85,7 +87,9 @@ describe('getLegendItems', () => {
 
     it('returns quantiles for CLASSIFICATION_EQUAL_COUNTS', () => {
         const values = [1, 2, 3, 4, 5, 6]
-        const { items } = getLegendItems(values, CLASSIFICATION_EQUAL_COUNTS, 3)
+        const { items } = getLegendItems(values, CLASSIFICATION_EQUAL_COUNTS, {
+            numClasses: 3,
+        })
         expect(items).toEqual([
             { startValue: 1.0, endValue: 3.0 },
             { startValue: 3.0, endValue: 5.0 },
@@ -94,7 +98,7 @@ describe('getLegendItems', () => {
     })
 
     it('returns undefined if method is unknown', () => {
-        const { items } = getLegendItems([0, 100], 'UNKNOWN', 3)
+        const { items } = getLegendItems([0, 100], 'UNKNOWN', { numClasses: 3 })
         expect(items).toBeUndefined()
     })
 })

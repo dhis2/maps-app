@@ -21,6 +21,7 @@ const LegendItem = ({
     startValue,
     endValue,
     count,
+    decimalPlaces,
 }) => {
     if (!name && startValue === undefined) {
         return null
@@ -68,6 +69,7 @@ const LegendItem = ({
                 startValue={startValue}
                 endValue={endValue}
                 count={count}
+                decimalPlaces={decimalPlaces}
             />
         </tr>
     )
@@ -76,6 +78,7 @@ const LegendItem = ({
 LegendItem.propTypes = {
     color: PropTypes.string,
     count: PropTypes.number,
+    decimalPlaces: PropTypes.number,
     endValue: PropTypes.number,
     fillColor: PropTypes.string,
     image: PropTypes.string,

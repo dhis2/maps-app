@@ -102,9 +102,13 @@ const loadEventLayer = async ({
     periodTypeData,
     loadExtended,
 }) => {
-    const { countEventsWithoutCoordinates } = parseJsonConfig(config.config)
+    const { countEventsWithoutCoordinates, legendDecimalPlaces } =
+        parseJsonConfig(config.config)
     if (countEventsWithoutCoordinates) {
         config.countEventsWithoutCoordinates = true
+    }
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
     }
     delete config.config
 

@@ -64,12 +64,20 @@ const DIGIT_GROUP_SEPARATORS = {
     NONE: '',
 }
 
-export const formatWithSeparator = (value, separator, force = false) => {
+export const formatWithSeparator = (
+    value,
+    separator,
+    { force = false, precision } = {}
+) => {
     if (!force && typeof value !== 'number') {
         return value
     }
     const sep = DIGIT_GROUP_SEPARATORS[separator] ?? ''
-    const [integer, decimal] = String(value).split('.')
+    const formatted =
+        precision !== undefined
+            ? Number(value).toFixed(precision)
+            : String(value)
+    const [integer, decimal] = formatted.split('.')
     const isNegative = integer.startsWith('-')
     const digits = isNegative ? integer.slice(1) : integer
     const groups = []

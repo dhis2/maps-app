@@ -10,6 +10,7 @@ const LegendItemRange = ({
     startValue,
     endValue,
     count,
+    decimalPlaces,
 }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
@@ -17,11 +18,18 @@ const LegendItemRange = ({
     const nameLabel = name ? `${name} ` : ''
     const showRangeValue =
         startValue !== undefined && endValue !== undefined && showRange
+    const precisionOpt =
+        decimalPlaces !== undefined ? { precision: decimalPlaces } : undefined
     const rangeLabel = showRangeValue
         ? `${formatWithSeparator(
               startValue,
-              keyAnalysisDigitGroupSeparator
-          )} - ${formatWithSeparator(endValue, keyAnalysisDigitGroupSeparator)}`
+              keyAnalysisDigitGroupSeparator,
+              precisionOpt
+          )} - ${formatWithSeparator(
+              endValue,
+              keyAnalysisDigitGroupSeparator,
+              precisionOpt
+          )}`
         : ''
     const countLabel =
         count === undefined
@@ -38,6 +46,7 @@ const LegendItemRange = ({
 
 LegendItemRange.propTypes = {
     count: PropTypes.number,
+    decimalPlaces: PropTypes.number,
     endValue: PropTypes.number,
     name: PropTypes.string,
     showRange: PropTypes.bool,

@@ -2,19 +2,21 @@
     width: 100%;
 }
 
+.classesRow {
+    display: flex;
+    gap: var(--spacers-dp64);
+}
+
 .classes {
     width: 50px;
-    margin-right: var(--spacers-dp16);
-    top: -8px;
-    float: left;
 }
 
 .scale {
     display: block;
     padding-top: var(--spacers-dp8);
-    clear: both;
 }
 
-.clear {
-    clear: both;
+.decimalPlaces {
+    width: 50px;
+    white-space: nowrap;
 }
