@@ -44,16 +44,41 @@ const DATA_SET_QUERY = {
     },
 }
 
+const getRange = (item) => {
+    if ('from' in item) {
+        return { start: item.from, end: item.to }
+    }
+    if ('startValue' in item) {
+        return { start: item.startValue, end: item.endValue }
+    }
+    return null
+}
+
 export const sortLegendItems = (items) =>
-    items.sort((a, b) => {
-        if ('from' in a) {
-            return b.from == a.from ? b.to - a.to : b.from - a.from
+    [...items].sort((a, b) => {
+        const aRange = getRange(a)
+        const bRange = getRange(b)
+
+        if (!aRange && !bRange) {
+            return 0
         }
-        if ('startValue' in a) {
-            return b.startValue == a.startValue
-                ? b.endValue - a.endValue
-                : b.startValue - a.startValue
+        if (!aRange) {
+            return 1
         }
+        if (!bRange) {
+            return -1
+        }
+
+        if (a.isLegendIsolated && !b.isLegendIsolated) {
+            return 1
+        }
+        if (!a.isLegendIsolated && b.isLegendIsolated) {
+            return -1
+        }
+
+        return bRange.start !== aRange.start
+            ? bRange.start - aRange.start
+            : bRange.end - aRange.end
     })
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
@@ -137,24 +162,66 @@ export const getAutomaticLegendItems = (
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
     colorScale = defaultColorScale,
-    legendDecimalPlaces
+    legendDecimalPlaces,
+    legendIsolated
 ) => {
     if (data.length === 0) {
         return { items: [] }
     }
-    const classification = getLegendItems(data, method, {
+
+    const applyColor = (item, color) => ({
+        ...item,
+        color,
+        ...(legendDecimalPlaces !== undefined && {
+            decimalPlaces: legendDecimalPlaces,
+        }),
+    })
+
+    const {
+        value: isolatedValue,
+        color: isolatedColor,
+        name: isolatedName,
+    } = legendIsolated ?? {}
+
+    if (isolatedValue !== undefined) {
+        const nonIsolatedData = data.filter((v) => v !== isolatedValue)
+        const isolatedItem = applyColor(
+            {
+                startValue: isolatedValue,
+                endValue: isolatedValue,
+                isLegendIsolated: true,
+                ...(isolatedName && { name: isolatedName }),
+            },
+            isolatedColor || colorScale[0]
+        )
+
+        if (nonIsolatedData.length === 0) {
+            return { items: [isolatedItem] }
+        }
+
+        const cls = getLegendItems(nonIsolatedData, method, {
+            numClasses: classes,
+            precision: legendDecimalPlaces,
+        })
+        const colorOffset = isolatedColor ? 0 : 1
+        return {
+            items: [
+                isolatedItem,
+                ...cls.items.map((item, i) =>
+                    applyColor(item, colorScale[colorOffset + i])
+                ),
+            ],
+            valueFormat: cls.valueFormat,
+        }
+    }
+
+    const cls = getLegendItems(data, method, {
         numClasses: classes,
         precision: legendDecimalPlaces,
     })
     return {
-        items: classification.items.map((item, index) => ({
-            ...item,
-            color: colorScale[index],
-            ...(legendDecimalPlaces !== undefined && {
-                decimalPlaces: legendDecimalPlaces,
-            }),
-        })),
-        valueFormat: classification.valueFormat,
+        items: cls.items.map((item, i) => applyColor(item, colorScale[i])),
+        valueFormat: cls.valueFormat,
     }
 }
 /* eslint-enable max-params */

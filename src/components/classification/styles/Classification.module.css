@@ -20,3 +20,27 @@
     width: 50px;
     white-space: nowrap;
 }
+
+.isolatedRow {
+    display: flex;
+    gap: var(--spacers-dp8);
+    align-items: flex-end;
+    margin-left: var(--spacers-dp24);
+    margin-bottom: var(--spacers-dp12);
+}
+
+.isolatedField {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.isolatedColor {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.isolatedName {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}

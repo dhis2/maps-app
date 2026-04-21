@@ -97,6 +97,11 @@ export const setLegendDecimalPlaces = (legendDecimalPlaces) => ({
     legendDecimalPlaces,
 })
 
+export const setLegendIsolated = (legendIsolated) => ({
+    type: types.LAYER_EDIT_LEGEND_ISOLATED_SET,
+    legendIsolated,
+})
+
 // Set event status
 export const setEventStatus = (status) => ({
     type: types.LAYER_EDIT_EVENT_STATUS_SET,

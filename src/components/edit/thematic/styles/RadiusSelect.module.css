@@ -1,4 +1,4 @@
-div.error {
+.error {
     flex: none;
     margin: 0 0 var(--spacers-dp8);
     padding-left: var(--spacers-dp8);

@@ -58,6 +58,7 @@ const validLayerProperties = [
     'labelFontColor',
     'labelTemplate',
     'legendDecimalPlaces',
+    'legendIsolated',
     'lastUpdated',
     'layer',
     'layerId',
@@ -179,11 +180,15 @@ const models2objects = (layer, cleanMapviewConfig) => {
         if (layer.legendDecimalPlaces !== undefined) {
             configData.legendDecimalPlaces = layer.legendDecimalPlaces
         }
+        if (layer.legendIsolated !== undefined) {
+            configData.legendIsolated = layer.legendIsolated
+        }
         if (Object.keys(configData).length) {
             layer.config = JSON.stringify(configData)
         }
         delete layer.countOrgUnitsWithoutCoordinates
         delete layer.legendDecimalPlaces
+        delete layer.legendIsolated
     } else if (layerType === EARTH_ENGINE_LAYER) {
         if (cleanMapviewConfig) {
             const {
@@ -253,11 +258,15 @@ const models2objects = (layer, cleanMapviewConfig) => {
         if (layer.legendDecimalPlaces !== undefined) {
             configData.legendDecimalPlaces = layer.legendDecimalPlaces
         }
+        if (layer.legendIsolated !== undefined) {
+            configData.legendIsolated = layer.legendIsolated
+        }
         if (Object.keys(configData).length) {
             layer.config = JSON.stringify(configData)
         }
         delete layer.countEventsWithoutCoordinates
         delete layer.legendDecimalPlaces
+        delete layer.legendIsolated
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

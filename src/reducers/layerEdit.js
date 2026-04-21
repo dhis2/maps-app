@@ -297,6 +297,7 @@ const layerEdit = (state = null, action) => {
                 action.method === CLASSIFICATION_SINGLE_COLOR
             ) {
                 delete newState.legendDecimalPlaces
+                delete newState.legendIsolated
             }
 
             if (newState.styleDataItem) {
@@ -325,6 +326,17 @@ const layerEdit = (state = null, action) => {
                 delete newState.legendDecimalPlaces
             } else {
                 newState.legendDecimalPlaces = action.legendDecimalPlaces
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_ISOLATED_SET:
+            newState = { ...state }
+
+            if (action.legendIsolated === undefined) {
+                delete newState.legendIsolated
+            } else {
+                newState.legendIsolated = action.legendIsolated
             }
 
             return newState

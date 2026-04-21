@@ -21,15 +21,21 @@ const LegendItemRange = ({
     const precisionOpt =
         decimalPlaces !== undefined ? { precision: decimalPlaces } : undefined
     const rangeLabel = showRangeValue
-        ? `${formatWithSeparator(
-              startValue,
-              keyAnalysisDigitGroupSeparator,
-              precisionOpt
-          )} - ${formatWithSeparator(
-              endValue,
-              keyAnalysisDigitGroupSeparator,
-              precisionOpt
-          )}`
+        ? startValue === endValue
+            ? formatWithSeparator(
+                  startValue,
+                  keyAnalysisDigitGroupSeparator,
+                  precisionOpt
+              )
+            : `${formatWithSeparator(
+                  startValue,
+                  keyAnalysisDigitGroupSeparator,
+                  precisionOpt
+              )} - ${formatWithSeparator(
+                  endValue,
+                  keyAnalysisDigitGroupSeparator,
+                  precisionOpt
+              )}`
         : ''
     const countLabel =
         count === undefined

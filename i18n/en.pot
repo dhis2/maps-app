@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-20T08:45:36.721Z\n"
-"PO-Revision-Date: 2026-04-20T08:45:36.721Z\n"
+"POT-Creation-Date: 2026-04-20T17:03:43.203Z\n"
+"PO-Revision-Date: 2026-04-20T17:03:43.204Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -44,23 +44,26 @@ msgstr "Classes"
 msgid "Decimal places"
 msgstr "Decimal places"
 
-msgid "Legend set"
-msgstr "Legend set"
+msgid "Isolated value"
+msgstr "Isolated value"
+
+msgid "Value"
+msgstr "Value"
 
 msgid "Color"
 msgstr "Color"
 
-msgid "Size"
-msgstr "Size"
-
 msgid "Name"
 msgstr "Name"
 
+msgid "Legend set"
+msgstr "Legend set"
+
+msgid "Size"
+msgstr "Size"
+
 msgid "Name and value"
 msgstr "Name and value"
-
-msgid "Value"
-msgstr "Value"
 
 msgid "Display"
 msgstr "Display"

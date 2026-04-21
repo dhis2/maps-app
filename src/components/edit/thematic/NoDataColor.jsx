@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
 import { NO_DATA_COLOR } from '../../../constants/layers.js'
 import { Checkbox, ColorPicker } from '../../core/index.js'
-import styles from './styles/NoDataColor.module.css'
+import styles from '../styles/LayerDialog.module.css'
 
 const NoDataColor = ({ value, onChange }) => {
     const onCheck = useCallback(
@@ -24,7 +24,7 @@ const NoDataColor = ({ value, onChange }) => {
                     color={value}
                     onChange={onChange}
                     width={50}
-                    className={styles.colorPicker}
+                    className={styles.indent}
                 />
             )}
         </div>

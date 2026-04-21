@@ -65,13 +65,19 @@ const thematicLoader = async ({
         noDataColor,
     } = config
 
-    const { countOrgUnitsWithoutCoordinates, legendDecimalPlaces } =
-        parseJsonConfig(config.config)
+    const {
+        countOrgUnitsWithoutCoordinates,
+        legendDecimalPlaces,
+        legendIsolated,
+    } = parseJsonConfig(config.config)
     if (countOrgUnitsWithoutCoordinates) {
         config.countOrgUnitsWithoutCoordinates = true
     }
     if (legendDecimalPlaces !== undefined) {
         config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    if (legendIsolated !== undefined) {
+        config.legendIsolated = legendIsolated
     }
     delete config.config
 
@@ -226,7 +232,8 @@ const thematicLoader = async ({
                 method,
                 classes,
                 colorScale,
-                legendDecimalPlaces
+                config.legendDecimalPlaces,
+                config.legendIsolated
             )
             legendItems = classification.items
             valueFormat = classification.valueFormat
