@@ -30,7 +30,10 @@ export const getLegendItemForValue = ({
     }
 
     const isolatedItem = legendItems.find(
-        (item) => item.isLegendIsolated && value == item.startValue
+        (item) =>
+            item.isLegendIsolated &&
+            value >= item.startValue &&
+            value <= item.endValue
     )
     if (isolatedItem) {
         return isolatedItem

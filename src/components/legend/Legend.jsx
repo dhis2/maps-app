@@ -136,6 +136,7 @@ Legend.propTypes = {
         radiusHigh: PropTypes.number.isRequired,
         radiusLow: PropTypes.number.isRequired,
         color: PropTypes.string,
+        legendDecimalPlaces: PropTypes.number,
     }),
     coordinateFields: PropTypes.array,
     description: PropTypes.string,

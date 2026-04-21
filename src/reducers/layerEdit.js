@@ -292,11 +292,11 @@ const layerEdit = (state = null, action) => {
                 delete newState.legendSet
             }
 
-            if (
-                action.method === CLASSIFICATION_PREDEFINED ||
-                action.method === CLASSIFICATION_SINGLE_COLOR
-            ) {
+            if (action.method === CLASSIFICATION_PREDEFINED) {
                 delete newState.legendDecimalPlaces
+            }
+
+            if (action.method === CLASSIFICATION_PREDEFINED) {
                 delete newState.legendIsolated
             }
 

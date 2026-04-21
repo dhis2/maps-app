@@ -21,16 +21,34 @@
     white-space: nowrap;
 }
 
-.isolatedRow {
+.singleColorRow {
     display: flex;
-    gap: var(--spacers-dp8);
+    gap: var(--spacers-dp16);
     align-items: flex-end;
+    margin-bottom: var(--spacers-dp12);
+}
+
+.singleColorField {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.isolatedRows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
     margin-left: var(--spacers-dp24);
     margin-bottom: var(--spacers-dp12);
 }
 
+.isolatedRow {
+    display: flex;
+    gap: var(--spacers-dp8);
+    align-items: flex-end;
+}
+
 .isolatedField {
-    flex-shrink: 0;
+    flex: 1;
     margin-bottom: 0;
 }
 

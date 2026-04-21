@@ -168,14 +168,14 @@ const styleByNumeric = async (config, engine) => {
         legend.unit = await getLegendUnit(engine, styleDataItem)
 
         // Generate legend items based on layer config
-        const classification = getAutomaticLegendItems(
-            sortedValues,
+        const classification = getAutomaticLegendItems({
+            data: sortedValues,
             method,
             classes,
             colorScale,
             legendDecimalPlaces,
-            legendIsolated
-        )
+            legendIsolated,
+        })
         legend.items = classification.items
         valueFormat = classification.valueFormat
     }

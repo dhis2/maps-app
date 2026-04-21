@@ -58,7 +58,7 @@ const Bubble = ({
                         {formatWithSeparator(
                             text,
                             keyAnalysisDigitGroupSeparator,
-                            true
+                            { force: true }
                         )}
                     </text>
                 </g>

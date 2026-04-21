@@ -7,12 +7,10 @@ import {
     setClassification,
     setColorScale,
     setLegendDecimalPlaces,
-    setLegendIsolated,
 } from '../../actions/layerEdit.js'
 import {
     getClassificationTypes,
     CLASSIFICATION_EQUAL_INTERVALS,
-    NO_DATA_COLOR,
 } from '../../constants/layers.js'
 import {
     defaultColorScaleName,
@@ -21,14 +19,8 @@ import {
     getColorPalette,
     getColorScale,
 } from '../../util/colors.js'
-import {
-    SelectField,
-    ColorScaleSelect,
-    Checkbox,
-    ColorPicker,
-    NumberField,
-    TextField,
-} from '../core/index.js'
+import { SelectField, ColorScaleSelect } from '../core/index.js'
+import IsolatedClass from './IsolatedClass.jsx'
 import styles from './styles/Classification.module.css'
 
 const classRange = range(3, 10).map((num) => ({
@@ -48,11 +40,9 @@ const Classification = ({
     classes,
     colorScale,
     legendDecimalPlaces,
-    legendIsolated,
     setClassification,
     setColorScale,
     setLegendDecimalPlaces,
-    setLegendIsolated,
 }) => {
     const colorScaleName = colorScale
         ? getColorScale(colorScale)
@@ -102,48 +92,7 @@ const Classification = ({
                 width={190}
                 className={styles.scale}
             />
-            <Checkbox
-                label={i18n.t('Isolated value')}
-                checked={legendIsolated !== undefined}
-                onChange={(checked) =>
-                    setLegendIsolated(
-                        checked ? { value: 0, color: NO_DATA_COLOR } : undefined
-                    )
-                }
-            />
-            {legendIsolated !== undefined && (
-                <div className={styles.isolatedRow}>
-                    <NumberField
-                        label={i18n.t('Value')}
-                        value={legendIsolated.value}
-                        onChange={(value) =>
-                            setLegendIsolated({ ...legendIsolated, value })
-                        }
-                        inputWidth="70px"
-                        className={styles.isolatedField}
-                    />
-                    <ColorPicker
-                        label={i18n.t('Color')}
-                        color={legendIsolated.color || NO_DATA_COLOR}
-                        onChange={(color) =>
-                            setLegendIsolated({ ...legendIsolated, color })
-                        }
-                        width={50}
-                        className={styles.isolatedColor}
-                    />
-                    <TextField
-                        label={i18n.t('Name')}
-                        value={legendIsolated.name || ''}
-                        onChange={(name) =>
-                            setLegendIsolated({
-                                ...legendIsolated,
-                                name: name || undefined,
-                            })
-                        }
-                        className={styles.isolatedName}
-                    />
-                </div>
-            )}
+            <IsolatedClass />
         </div>,
     ]
 }
@@ -152,15 +101,9 @@ Classification.propTypes = {
     setClassification: PropTypes.func.isRequired,
     setColorScale: PropTypes.func.isRequired,
     setLegendDecimalPlaces: PropTypes.func.isRequired,
-    setLegendIsolated: PropTypes.func.isRequired,
     classes: PropTypes.number,
     colorScale: PropTypes.array,
     legendDecimalPlaces: PropTypes.number,
-    legendIsolated: PropTypes.shape({
-        color: PropTypes.string,
-        name: PropTypes.string,
-        value: PropTypes.number,
-    }),
     method: PropTypes.number,
 }
 
@@ -170,12 +113,6 @@ export default connect(
         classes: layerEdit.classes,
         colorScale: layerEdit.colorScale,
         legendDecimalPlaces: layerEdit.legendDecimalPlaces,
-        legendIsolated: layerEdit.legendIsolated,
     }),
-    {
-        setClassification,
-        setColorScale,
-        setLegendDecimalPlaces,
-        setLegendIsolated,
-    }
+    { setClassification, setColorScale, setLegendDecimalPlaces }
 )(Classification)

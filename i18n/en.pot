@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-21T10:29:44.494Z\n"
-"PO-Revision-Date: 2026-04-21T10:29:44.494Z\n"
+"POT-Creation-Date: 2026-04-21T11:53:56.934Z\n"
+"PO-Revision-Date: 2026-04-21T11:53:56.934Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -44,11 +44,14 @@ msgstr "Classes"
 msgid "Decimal places"
 msgstr "Decimal places"
 
-msgid "Isolated value"
-msgstr "Isolated value"
+msgid "Isolated class"
+msgstr "Isolated class"
 
-msgid "Value"
-msgstr "Value"
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
 
 msgid "Color"
 msgstr "Color"
@@ -64,6 +67,9 @@ msgstr "Size"
 
 msgid "Name and value"
 msgstr "Name and value"
+
+msgid "Value"
+msgstr "Value"
 
 msgid "Display"
 msgstr "Display"
@@ -367,12 +373,6 @@ msgstr "Max should be greater than min"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
 
 msgid "Steps"
 msgstr "Steps"

@@ -156,15 +156,14 @@ export const getPredefinedLegendItems = (legendSet) => {
     return sortBy('startValue', legendSet.legends).map(pickSome)
 }
 
-/* eslint-disable max-params */
-export const getAutomaticLegendItems = (
+export const getAutomaticLegendItems = ({
     data,
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
     colorScale = defaultColorScale,
     legendDecimalPlaces,
-    legendIsolated
-) => {
+    legendIsolated,
+}) => {
     if (data.length === 0) {
         return { items: [] }
     }
@@ -178,17 +177,20 @@ export const getAutomaticLegendItems = (
     })
 
     const {
-        value: isolatedValue,
+        min: isolatedMin,
+        max: isolatedMax,
         color: isolatedColor,
         name: isolatedName,
     } = legendIsolated ?? {}
 
-    if (isolatedValue !== undefined) {
-        const nonIsolatedData = data.filter((v) => v !== isolatedValue)
+    if (isolatedMin !== undefined) {
+        const nonIsolatedData = data.filter(
+            (v) => v < isolatedMin || v > isolatedMax
+        )
         const isolatedItem = applyColor(
             {
-                startValue: isolatedValue,
-                endValue: isolatedValue,
+                startValue: isolatedMin,
+                endValue: isolatedMax,
                 isLegendIsolated: true,
                 ...(isolatedName && { name: isolatedName }),
             },
@@ -224,7 +226,6 @@ export const getAutomaticLegendItems = (
         valueFormat: cls.valueFormat,
     }
 }
-/* eslint-enable max-params */
 
 export const getRenderingLabel = (strategy) => {
     const map = {

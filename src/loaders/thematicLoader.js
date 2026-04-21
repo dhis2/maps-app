@@ -227,16 +227,34 @@ const thematicLoader = async ({
         if (legendSet) {
             legendItems = getPredefinedLegendItems(legendSet)
         } else {
-            const classification = getAutomaticLegendItems(
-                orderedValues,
+            const classification = getAutomaticLegendItems({
+                data: orderedValues,
                 method,
                 classes,
                 colorScale,
-                config.legendDecimalPlaces,
-                config.legendIsolated
-            )
+                legendDecimalPlaces: config.legendDecimalPlaces,
+                legendIsolated: config.legendIsolated,
+            })
             legendItems = classification.items
             valueFormat = classification.valueFormat
+        }
+    } else if (config.legendIsolated) {
+        const { min, max, color, name } = config.legendIsolated
+        legendItems = [
+            {
+                startValue: min,
+                endValue: max,
+                color,
+                name,
+                isLegendIsolated: true,
+            },
+        ]
+        const nonIsolatedValues = orderedValues.filter(
+            (v) => v < min || v > max
+        )
+        if (nonIsolatedValues.length > 0) {
+            minValue = nonIsolatedValues[0]
+            maxValue = nonIsolatedValues[nonIsolatedValues.length - 1]
         }
     }
 
@@ -284,6 +302,9 @@ const thematicLoader = async ({
             minValue,
             maxValue,
             color: isSingleColor ? colorScale : null,
+            ...(config.legendDecimalPlaces !== undefined && {
+                legendDecimalPlaces: config.legendDecimalPlaces,
+            }),
         }
     }
 
@@ -337,12 +358,16 @@ const thematicLoader = async ({
                 const legendItem = getLegendItem(value)
 
                 if (isSingleColor) {
-                    item.color = colorScale
+                    item.color = legendItem?.isLegendIsolated
+                        ? legendItem.color
+                        : colorScale
                 } else if (legendItem) {
                     item.color = legendItem.color
                 }
 
-                item.radius = getRadiusForValue(value)
+                item.radius = legendItem?.isLegendIsolated
+                    ? THEMATIC_RADIUS_DEFAULT
+                    : getRadiusForValue(value)
             })
         })
     } else {
@@ -354,7 +379,9 @@ const thematicLoader = async ({
             const { hasAdditionalGeometry } = properties
 
             if (isSingleColor) {
-                properties.color = hasValue(value)
+                properties.color = legendItem?.isLegendIsolated
+                    ? legendItem.color
+                    : hasValue(value)
                     ? colorScale
                     : noDataLegendItem?.color
             } else if (legendItem) {
@@ -393,6 +420,8 @@ const thematicLoader = async ({
             properties.rawValue = value // Used in data table
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
+                : legendItem?.isLegendIsolated
+                ? THEMATIC_RADIUS_DEFAULT
                 : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
         })
     }
