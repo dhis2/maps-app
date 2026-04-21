@@ -65,7 +65,8 @@ const validLayerProperties = [
     'legendSet',
     'method',
     'name',
-    'noDataColor',
+    'noDataLegend',
+    'unclassifiedLegend',
     'opacity',
     'hidden',
     'organisationUnitColor',
@@ -183,12 +184,23 @@ const models2objects = (layer, cleanMapviewConfig) => {
         if (layer.legendIsolated !== undefined) {
             configData.legendIsolated = layer.legendIsolated
         }
+        if (layer.unclassifiedLegend) {
+            configData.unclassifiedLegend = layer.unclassifiedLegend
+        }
+        if (layer.noDataLegend) {
+            layer.noDataColor = layer.noDataLegend.color
+            if (layer.noDataLegend.name) {
+                configData.noDataName = layer.noDataLegend.name
+            }
+        }
         if (Object.keys(configData).length) {
             layer.config = JSON.stringify(configData)
         }
         delete layer.countOrgUnitsWithoutCoordinates
         delete layer.legendDecimalPlaces
         delete layer.legendIsolated
+        delete layer.unclassifiedLegend
+        delete layer.noDataLegend
     } else if (layerType === EARTH_ENGINE_LAYER) {
         if (cleanMapviewConfig) {
             const {
@@ -261,12 +273,23 @@ const models2objects = (layer, cleanMapviewConfig) => {
         if (layer.legendIsolated !== undefined) {
             configData.legendIsolated = layer.legendIsolated
         }
+        if (layer.unclassifiedLegend) {
+            configData.unclassifiedLegend = layer.unclassifiedLegend
+        }
+        if (layer.noDataLegend) {
+            layer.noDataColor = layer.noDataLegend.color
+            if (layer.noDataLegend.name) {
+                configData.noDataName = layer.noDataLegend.name
+            }
+        }
         if (Object.keys(configData).length) {
             layer.config = JSON.stringify(configData)
         }
         delete layer.countEventsWithoutCoordinates
         delete layer.legendDecimalPlaces
         delete layer.legendIsolated
+        delete layer.unclassifiedLegend
+        delete layer.noDataLegend
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

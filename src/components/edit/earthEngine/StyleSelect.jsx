@@ -75,7 +75,7 @@ const StyleSelect = ({ unit, style, setStyle }) => {
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
-                    label={i18n.t('Steps')}
+                    label={i18n.t('Classes')}
                     value={steps}
                     min={minSteps}
                     max={maxSteps}

@@ -62,13 +62,14 @@ const thematicLoader = async ({
         colorScale,
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         thematicMapType,
-        noDataColor,
     } = config
 
     const {
         countOrgUnitsWithoutCoordinates,
         legendDecimalPlaces,
         legendIsolated,
+        unclassifiedLegend: unclassifiedLegendFromConfig,
+        noDataName,
     } = parseJsonConfig(config.config)
     if (countOrgUnitsWithoutCoordinates) {
         config.countOrgUnitsWithoutCoordinates = true
@@ -79,7 +80,22 @@ const thematicLoader = async ({
     if (legendIsolated !== undefined) {
         config.legendIsolated = legendIsolated
     }
+    // Reconstruct noData from schema field (saved favorites) or use redux state directly
+    if (config.noDataColor) {
+        config.noDataLegend = {
+            color: config.noDataColor,
+            ...(noDataName && { name: noDataName }),
+        }
+        delete config.noDataColor
+    }
+    // Reconstruct unclassifiedLegend from config JSON (saved favorites)
+    if (unclassifiedLegendFromConfig) {
+        config.unclassifiedLegend = unclassifiedLegendFromConfig
+    }
     delete config.config
+
+    const noData = config.noDataLegend
+    const unclassifiedLegend = config.unclassifiedLegend
 
     const orgUnitIds = getOrgUnitsFromRows(config.rows).map((item) => item.id)
     let orgUnitsWithoutCoordsCount = 0
@@ -189,7 +205,7 @@ const thematicLoader = async ({
     const dimensions = getValidDimensionsFromFilters(config.filters)
     const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
     const valueById = getValueById(data)
-    const valueFeatures = noDataColor
+    let valueFeatures = noData
         ? features
         : features.filter(({ id }) => valueById[id] !== undefined)
     const orderedValues = getOrderedValues(data)
@@ -283,10 +299,18 @@ const thematicLoader = async ({
         )
     }
 
-    if (noDataColor && Array.isArray(legend.items)) {
+    if (unclassifiedLegend && legendSet && Array.isArray(legend.items)) {
         legend.items.push({
-            color: noDataColor,
-            name: i18n.t('No data'),
+            color: unclassifiedLegend.color,
+            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            outsideLegend: true,
+        })
+    }
+
+    if (noData && Array.isArray(legend.items)) {
+        legend.items.push({
+            color: noData.color,
+            name: noData.name || i18n.t('No data'),
             noData: true,
         })
     }
@@ -313,13 +337,18 @@ const thematicLoader = async ({
             value,
             valueFormat,
             method,
-            legendItems: legend.items.filter((item) => !item.noData),
+            legendItems: legend.items.filter(
+                (item) => !item.noData && !item.outsideLegend
+            ),
             clamp: !legendSet,
         })
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
-        minValue = legend.items[0].startValue
-        maxValue = legend.items.at(-1).endValue || legend.items.at(-2).endValue // in case show nodata = true
+        const regularItems = legend.items.filter(
+            (i) => !i.noData && !i.outsideLegend
+        )
+        minValue = regularItems[0].startValue
+        maxValue = regularItems.at(-1).endValue
     }
 
     const getRadiusForValue = scaleSqrt()
@@ -348,6 +377,10 @@ const thematicLoader = async ({
         })
     }
 
+    const outsideLegendLegendItem = legend.items.find(
+        (i) => i.outsideLegend === true
+    )
+
     if (valuesByPeriod) {
         const periods = Object.keys(valuesByPeriod)
         periods.forEach((period) => {
@@ -356,6 +389,8 @@ const thematicLoader = async ({
                 const item = valuesByPeriod[period][orgunit]
                 const value = Number(item.value)
                 const legendItem = getLegendItem(value)
+                const isOutsideLegend =
+                    legendSet && !legendItem && !Number.isNaN(value)
 
                 if (isSingleColor) {
                     item.color = legendItem?.isLegendIsolated
@@ -363,20 +398,34 @@ const thematicLoader = async ({
                         : colorScale
                 } else if (legendItem) {
                     item.color = legendItem.color
+                } else if (isOutsideLegend) {
+                    if (outsideLegendLegendItem) {
+                        item.color = outsideLegendLegendItem.color
+                    } else {
+                        item.outsideLegend = true
+                    }
                 }
 
-                item.radius = legendItem?.isLegendIsolated
-                    ? THEMATIC_RADIUS_DEFAULT
-                    : getRadiusForValue(value)
+                item.radius =
+                    legendItem?.isLegendIsolated || isOutsideLegend
+                        ? THEMATIC_RADIUS_DEFAULT
+                        : getRadiusForValue(value)
             })
         })
     } else {
         const noDataLegendItem = legend.items.find((i) => i.noData === true)
+        const filteredValueFeatures = []
+
         valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id]
             const legendItem = getLegendItem(value)
             const isPoint = geometry.type === 'Point'
             const { hasAdditionalGeometry } = properties
+            const isOutsideLegend = legendSet && !legendItem && hasValue(value)
+
+            if (isOutsideLegend && !outsideLegendLegendItem) {
+                return
+            }
 
             if (isSingleColor) {
                 properties.color = legendItem?.isLegendIsolated
@@ -403,11 +452,18 @@ const thematicLoader = async ({
                         ? { precision: legendItem.decimalPlaces }
                         : undefined
                 )}` // Shown in data table
+            } else if (isOutsideLegend) {
+                properties.color = outsideLegendLegendItem.color
+                properties.legend = outsideLegendLegendItem.name
             }
 
             // Only count org units once in legend
             if (!hasAdditionalGeometry) {
-                const targetItem = legendItem || noDataLegendItem
+                const targetItem =
+                    legendItem ||
+                    (isOutsideLegend
+                        ? outsideLegendLegendItem
+                        : noDataLegendItem)
                 if (targetItem) {
                     targetItem.count++
                 }
@@ -420,10 +476,14 @@ const thematicLoader = async ({
             properties.rawValue = value // Used in data table
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : legendItem?.isLegendIsolated
+                : legendItem?.isLegendIsolated || isOutsideLegend
                 ? THEMATIC_RADIUS_DEFAULT
                 : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
+
+            filteredValueFeatures.push({ id, geometry, properties })
         })
+
+        valueFeatures = filteredValueFeatures
     }
 
     return {

@@ -25,7 +25,9 @@ const Legend = ({
 }) => {
     const showRange = Array.isArray(items) && !legendNamesContainRange(items)
     const getShowRange = (item) =>
-        item.isLegendIsolated ? !legendNamesContainRange([item]) : showRange
+        item.isLegendIsolated
+            ? !legendNamesContainRange([item])
+            : !item.name || showRange
 
     return (
         <dl className={styles.legend} data-test="layerlegend">

@@ -310,13 +310,28 @@ const OU_DETAILS_QUERY = {
     },
 }
 
+const OU_DETAILS_BATCH_SIZE = 100
+
 export const fetchOrgUnitDetails = async (engine, ids) => {
     if (!ids.length) {
         return {}
     }
-    const result = await engine.query(OU_DETAILS_QUERY, { variables: { ids } })
-    return (result.orgUnits.organisationUnits || []).reduce((acc, ou) => {
-        acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
+
+    const batches = []
+    for (let i = 0; i < ids.length; i += OU_DETAILS_BATCH_SIZE) {
+        batches.push(ids.slice(i, i + OU_DETAILS_BATCH_SIZE))
+    }
+
+    const results = await Promise.all(
+        batches.map((batch) =>
+            engine.query(OU_DETAILS_QUERY, { variables: { ids: batch } })
+        )
+    )
+
+    return results.reduce((acc, result) => {
+        ;(result.orgUnits.organisationUnits || []).forEach((ou) => {
+            acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
+        })
         return acc
     }, {})
 }

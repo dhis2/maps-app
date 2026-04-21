@@ -18,7 +18,6 @@ const OPTION_SET_NAME = 'optionSetName'
 const LEGEND_SET_ID = 'legendSetId'
 const LEGEND_SET_NAME = 'legendSetName'
 const LEGEND_ITEM_EVENT = 'Event'
-const LEGEND_ITEM_OTHER = 'Other'
 const NOTSET_VALUE = 'Not set'
 const SOME_VALUE = 'some value'
 
@@ -135,9 +134,9 @@ describe('styleByDataItem', () => {
                 { properties: { [STYLE_DATA_ITEM_ID]: 0.5 } },
                 { properties: { [STYLE_DATA_ITEM_ID]: 1.5 } },
                 { properties: { [STYLE_DATA_ITEM_ID]: 2.5 } },
-                { properties: { [STYLE_DATA_ITEM_ID]: 3.5 } },
-                { properties: {} },
-                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } },
+                { properties: { [STYLE_DATA_ITEM_ID]: 3.5 } }, // outside legend range
+                { properties: {} }, // no data
+                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // non-numeric
             ],
             method: 1,
             legendSet: { id: LEGEND_SET_ID },
@@ -149,6 +148,8 @@ describe('styleByDataItem', () => {
 
         expect(mockEngine.query).toHaveBeenCalled()
 
+        // Only 3 features classified — outside-legend, no-data, non-numeric are filtered out
+        expect(result.data).toHaveLength(3)
         expect(result.data[0].properties).toMatchObject({
             value: 0.5,
             color: 'green',
@@ -160,18 +161,6 @@ describe('styleByDataItem', () => {
         expect(result.data[2].properties).toMatchObject({
             value: 2.5,
             color: 'red',
-        })
-        expect(result.data[3].properties).toMatchObject({
-            value: 3.5,
-            color: EVENT_COLOR,
-        })
-        expect(result.data[4].properties).toMatchObject({
-            value: NOTSET_VALUE,
-            color: EVENT_COLOR,
-        })
-        expect(result.data[5].properties).toMatchObject({
-            value: SOME_VALUE,
-            color: EVENT_COLOR,
         })
 
         expect(result.legend.items).toEqual(
@@ -200,15 +189,48 @@ describe('styleByDataItem', () => {
                     radius: 5,
                     count: 1,
                 }),
-                expect.objectContaining({
-                    name: LEGEND_ITEM_OTHER,
-                    color: EVENT_COLOR,
-                    radius: 5,
-                    count: 3,
-                }),
             ])
         )
         expect(result.legend.unit).toEqual(LEGEND_SET_NAME)
+    })
+
+    it('should apply numeric styling - predefined - with unclassifiedLegend and noDataLegend', async () => {
+        const unclassifiedLegend = { color: '#aaaaaa', name: 'Unclassified' }
+        const noDataLegend = { color: '#cccccc', name: 'No data' }
+        const config = {
+            styleDataItem: {
+                id: STYLE_DATA_ITEM_ID,
+                valueType: numberValueTypes[3],
+            },
+            data: [
+                { properties: { [STYLE_DATA_ITEM_ID]: 0.5 } },
+                { properties: { [STYLE_DATA_ITEM_ID]: 3.5 } }, // outside legend
+                { properties: {} }, // no data
+            ],
+            method: 1,
+            legendSet: { id: LEGEND_SET_ID },
+            eventPointRadius: 5,
+            legend: { items: [] },
+            unclassifiedLegend,
+            noDataLegend,
+        }
+
+        const result = await styleByDataItem(config, mockEngine)
+
+        expect(result.data).toHaveLength(3)
+        expect(result.data[0].properties).toMatchObject({
+            value: 0.5,
+            color: 'green',
+        })
+        expect(result.data[1].properties).toMatchObject({ color: '#aaaaaa' })
+        expect(result.data[2].properties).toMatchObject({
+            value: NOTSET_VALUE,
+            color: '#cccccc',
+        })
+
+        const legendNames = result.legend.items.map((i) => i.name)
+        expect(legendNames).toContain('Unclassified')
+        expect(legendNames).toContain('No data')
     })
 
     it('should apply numeric styling when valueType is a number - classification auto', async () => {
@@ -221,8 +243,8 @@ describe('styleByDataItem', () => {
                 { properties: { [STYLE_DATA_ITEM_ID]: 0 } },
                 { properties: { [STYLE_DATA_ITEM_ID]: 1 } },
                 { properties: { [STYLE_DATA_ITEM_ID]: 2 } },
-                { properties: {} },
-                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } },
+                { properties: {} }, // no data
+                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // non-numeric
             ],
             method: 2,
             classes: 3,
@@ -235,6 +257,8 @@ describe('styleByDataItem', () => {
 
         expect(mockEngine.query).toHaveBeenCalled()
 
+        // Only 3 classified features — no-data and non-numeric are filtered out
+        expect(result.data).toHaveLength(3)
         expect(result.data[0].properties).toMatchObject({
             value: 0,
             color: '#ff0000',
@@ -246,14 +270,6 @@ describe('styleByDataItem', () => {
         expect(result.data[2].properties).toMatchObject({
             value: 2,
             color: '#0000ff',
-        })
-        expect(result.data[3].properties).toMatchObject({
-            value: NOTSET_VALUE,
-            color: EVENT_COLOR,
-        })
-        expect(result.data[4].properties).toMatchObject({
-            value: SOME_VALUE,
-            color: EVENT_COLOR,
         })
 
         expect(result.legend.items).toEqual(
@@ -279,12 +295,6 @@ describe('styleByDataItem', () => {
                     radius: 5,
                     count: 1,
                 }),
-                expect.objectContaining({
-                    name: LEGEND_ITEM_OTHER,
-                    color: EVENT_COLOR,
-                    radius: 5,
-                    count: 2,
-                }),
             ])
         )
         expect(result.legend.unit).toEqual(STYLE_DATA_ITEM_NAME)
@@ -300,8 +310,8 @@ describe('styleByDataItem', () => {
             data: [
                 { properties: { [STYLE_DATA_ITEM_ID]: '1' } },
                 { properties: { [STYLE_DATA_ITEM_ID]: '0' } },
-                { properties: {} },
-                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } },
+                { properties: {} }, // no data — filtered without noDataLegend
+                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // unclassified — filtered without unclassifiedLegend
             ],
             legend: { items: [] },
             eventPointRadius: 10,
@@ -311,6 +321,8 @@ describe('styleByDataItem', () => {
 
         expect(mockEngine.query).toHaveBeenCalled()
 
+        // Only 2 features — no-data and unclassified are filtered out
+        expect(result.data).toHaveLength(2)
         expect(result.data[0].properties).toMatchObject({
             value: 'Yes',
             color: 'red',
@@ -318,14 +330,6 @@ describe('styleByDataItem', () => {
         expect(result.data[1].properties).toMatchObject({
             value: 'No',
             color: 'blue',
-        })
-        expect(result.data[2].properties).toMatchObject({
-            value: NOTSET_VALUE,
-            color: EVENT_COLOR,
-        })
-        expect(result.data[3].properties).toMatchObject({
-            value: SOME_VALUE,
-            color: EVENT_COLOR,
         })
 
         expect(result.legend.items).toEqual(
@@ -342,15 +346,49 @@ describe('styleByDataItem', () => {
                     radius: 10,
                     count: 1,
                 }),
-                expect.objectContaining({
-                    name: LEGEND_ITEM_OTHER,
-                    color: EVENT_COLOR,
-                    radius: 10,
-                    count: 2,
-                }),
             ])
         )
+        // No "Other" or "No data" items when unclassifiedLegend/noDataLegend are not set
+        expect(result.legend.items).toHaveLength(2)
         expect(result.legend.unit).toEqual(STYLE_DATA_ITEM_NAME)
+    })
+
+    it('should apply boolean styling - with unclassifiedLegend and noDataLegend', async () => {
+        const unclassifiedLegend = { color: '#aaaaaa' }
+        const noDataLegend = { color: '#cccccc' }
+        const config = {
+            styleDataItem: {
+                id: STYLE_DATA_ITEM_ID,
+                valueType: booleanValueTypes[0],
+                values: { true: 'red', false: 'blue' },
+            },
+            data: [
+                { properties: { [STYLE_DATA_ITEM_ID]: '1' } },
+                { properties: {} }, // no data
+                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // unclassified
+            ],
+            legend: { items: [] },
+            eventPointRadius: 10,
+            unclassifiedLegend,
+            noDataLegend,
+        }
+
+        const result = await styleByDataItem(config, mockEngine)
+
+        expect(result.data).toHaveLength(3)
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Yes',
+            color: 'red',
+        })
+        expect(result.data[1].properties).toMatchObject({
+            value: NOTSET_VALUE,
+            color: '#cccccc',
+        })
+        expect(result.data[2].properties).toMatchObject({ color: '#aaaaaa' })
+
+        const legendNames = result.legend.items.map((i) => i.name)
+        expect(legendNames).toContain('Unclassified')
+        expect(legendNames).toContain('No data')
     })
 
     it('should handle option set styling correctly', async () => {
@@ -365,8 +403,8 @@ describe('styleByDataItem', () => {
             data: [
                 { properties: { [STYLE_DATA_ITEM_ID]: 'Option 1' } },
                 { properties: { [STYLE_DATA_ITEM_ID]: 'Option 2' } },
-                { properties: {} },
-                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } },
+                { properties: {} }, // no data — filtered without noDataLegend
+                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // unclassified — filtered without unclassifiedLegend
             ],
             legend: { items: [] },
             eventPointRadius: 8,
@@ -376,6 +414,8 @@ describe('styleByDataItem', () => {
 
         expect(mockEngine.query).toHaveBeenCalled()
 
+        // Only 2 matched features — no-data and unclassified are filtered out
+        expect(result.data).toHaveLength(2)
         expect(result.data[0].properties).toMatchObject({
             value: 'Option 1',
             color: 'green',
@@ -383,14 +423,6 @@ describe('styleByDataItem', () => {
         expect(result.data[1].properties).toMatchObject({
             value: 'Option 2',
             color: 'yellow',
-        })
-        expect(result.data[2].properties).toMatchObject({
-            value: NOTSET_VALUE,
-            color: EVENT_COLOR,
-        })
-        expect(result.data[3].properties).toMatchObject({
-            value: SOME_VALUE,
-            color: EVENT_COLOR,
         })
 
         expect(result.legend.items).toEqual(
@@ -407,13 +439,50 @@ describe('styleByDataItem', () => {
                     radius: 8,
                     count: 1,
                 }),
-                expect.objectContaining({
-                    name: LEGEND_ITEM_OTHER,
-                    color: '#333333',
-                    radius: 8,
-                }),
             ])
         )
+        // No "Other" or "No data" items when unclassifiedLegend/noDataLegend are not set
+        expect(result.legend.items).toHaveLength(2)
         expect(result.legend.unit).toEqual(OPTION_SET_NAME)
+    })
+
+    it('should handle option set styling - with unclassifiedLegend and noDataLegend', async () => {
+        const unclassifiedLegend = { color: '#aaaaaa' }
+        const noDataLegend = { color: '#cccccc' }
+        const config = {
+            styleDataItem: {
+                id: STYLE_DATA_ITEM_ID,
+                optionSet: {
+                    id: OPTION_SET_ID,
+                    options: [{ id: '1' }, { id: '2' }],
+                },
+            },
+            data: [
+                { properties: { [STYLE_DATA_ITEM_ID]: 'Option 1' } },
+                { properties: {} }, // no data
+                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // unclassified
+            ],
+            legend: { items: [] },
+            eventPointRadius: 8,
+            unclassifiedLegend,
+            noDataLegend,
+        }
+
+        const result = await styleByDataItem(config, mockEngine)
+
+        expect(result.data).toHaveLength(3)
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Option 1',
+            color: 'green',
+        })
+        expect(result.data[1].properties).toMatchObject({
+            value: NOTSET_VALUE,
+            color: '#cccccc',
+        })
+        expect(result.data[2].properties).toMatchObject({ color: '#aaaaaa' })
+
+        const legendNames = result.legend.items.map((i) => i.name)
+        expect(legendNames).toContain('Unclassified')
+        expect(legendNames).toContain('No data')
     })
 })

@@ -29,8 +29,9 @@ const Bubbles = ({
     const legendWidth = isPlugin ? 150 : 245
     const noDataClass = classes.find((c) => c.noData === true)
     const isolatedClass = classes.find((c) => c.isLegendIsolated)
+    const outsideLegendClass = classes.find((c) => c.outsideLegend === true)
     const bubbleClasses = classes.filter(
-        (c) => !c.noData && !c.isLegendIsolated
+        (c) => !c.noData && !c.isLegendIsolated && !c.outsideLegend
     )
 
     const height = radiusHigh * 2 + 4
@@ -85,6 +86,7 @@ const Bubbles = ({
                     height +
                     20 +
                     (isolatedClass ? extraRowHeight : 0) +
+                    (outsideLegendClass ? extraRowHeight : 0) +
                     (noDataClass ? THEMATIC_RADIUS_DEFAULT + 1 : 0)
                 }
             >
@@ -122,12 +124,43 @@ const Bubbles = ({
                         </text>
                     </>
                 )}
-                {noDataClass && (
+                {outsideLegendClass && (
                     <>
                         <circle
                             transform={`translate(${tx} 20)`}
                             cx={radiusHigh}
                             cy={height + (isolatedClass ? extraRowHeight : 0)}
+                            r={THEMATIC_RADIUS_DEFAULT}
+                            stroke="#000"
+                            style={{
+                                fill: outsideLegendClass.color,
+                                strokeWidth: 0.5,
+                            }}
+                        />
+                        <text
+                            transform={`translate(${tx} 20)`}
+                            x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
+                            y={
+                                height +
+                                (isolatedClass ? extraRowHeight : 0) +
+                                4
+                            }
+                            fontSize={12}
+                        >
+                            {outsideLegendClass.name}
+                        </text>
+                    </>
+                )}
+                {noDataClass && (
+                    <>
+                        <circle
+                            transform={`translate(${tx} 20)`}
+                            cx={radiusHigh}
+                            cy={
+                                height +
+                                (isolatedClass ? extraRowHeight : 0) +
+                                (outsideLegendClass ? extraRowHeight : 0)
+                            }
                             r={THEMATIC_RADIUS_DEFAULT}
                             stroke="#000"
                             style={{
@@ -141,6 +174,7 @@ const Bubbles = ({
                             y={
                                 height +
                                 (isolatedClass ? extraRowHeight : 0) +
+                                (outsideLegendClass ? extraRowHeight : 0) +
                                 4
                             }
                             fontSize={12}

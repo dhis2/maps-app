@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-21T11:53:56.934Z\n"
-"PO-Revision-Date: 2026-04-21T11:53:56.934Z\n"
+"POT-Creation-Date: 2026-04-21T16:18:01.789Z\n"
+"PO-Revision-Date: 2026-04-21T16:18:01.790Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -374,9 +374,6 @@ msgstr "Max should be greater than min"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
 
-msgid "Steps"
-msgstr "Steps"
-
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
@@ -395,11 +392,17 @@ msgstr "View all events"
 msgid "Radius"
 msgstr "Radius"
 
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
+
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
 
-msgid "Count events without coordinates"
-msgstr "Count events without coordinates"
+msgid "Include unclassified events"
+msgstr "Include unclassified events"
+
+msgid "Include events with no data"
+msgstr "Include events with no data"
 
 msgid "Program is required"
 msgstr "Program is required"
@@ -458,14 +461,23 @@ msgstr "Polygons are represented by their centroids."
 msgid "Labels"
 msgstr "Labels"
 
+msgid "Include org units with no data"
+msgstr "Include org units with no data"
+
+msgid "No data"
+msgstr "No data"
+
+msgid "Include unclassified org units"
+msgstr "Include unclassified org units"
+
+msgid "Unclassified"
+msgstr "Unclassified"
+
 msgid "Aggregation type"
 msgstr "Aggregation type"
 
 msgid "Only show completed events"
 msgstr "Only show completed events"
-
-msgid "Include org units with no data"
-msgstr "Include org units with no data"
 
 msgid "Low radius"
 msgstr "Low radius"
@@ -741,9 +753,6 @@ msgstr "Groups"
 
 msgid "Parent unit"
 msgstr "Parent unit"
-
-msgid "No data"
-msgstr "No data"
 
 msgid "Not set"
 msgstr "Not set"
@@ -1846,9 +1855,6 @@ msgstr "Org units"
 
 msgid "Facility"
 msgstr "Facility"
-
-msgid "Other"
-msgstr "Other"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

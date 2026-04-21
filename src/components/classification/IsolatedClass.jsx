@@ -53,6 +53,9 @@ const IsolatedClass = ({ legendIsolated, setLegendIsolated }) => (
                     <TextField
                         label={i18n.t('Name')}
                         value={legendIsolated.name || ''}
+                        placeholder={`${
+                            legendIsolated.min ?? i18n.t('Min')
+                        } - ${legendIsolated.max ?? i18n.t('Max')}`}
                         onChange={(name) =>
                             setLegendIsolated({
                                 ...legendIsolated,

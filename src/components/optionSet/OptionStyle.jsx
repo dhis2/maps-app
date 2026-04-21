@@ -9,6 +9,7 @@ const OptionStyle = ({ name, color, onChange }) => (
             color={color}
             onChange={onChange}
             className={styles.color}
+            width={50}
         />
         <span className={styles.label}>{name}</span>
     </div>

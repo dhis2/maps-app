@@ -369,10 +369,14 @@ export const setRenderingStrategy = (display) => ({
     payload: display,
 })
 
-// Set no data color
-export const setNoDataColor = (color) => ({
-    type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
-    payload: color,
+export const setNoDataLegend = (noDataLegend) => ({
+    type: types.LAYER_EDIT_NO_DATA_LEGEND_SET,
+    payload: noDataLegend,
+})
+
+export const setUnclassifiedLegend = (unclassifiedLegend) => ({
+    type: types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET,
+    payload: unclassifiedLegend,
 })
 
 // Set period for EE layer

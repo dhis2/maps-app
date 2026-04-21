@@ -64,8 +64,14 @@ const styleByDefault = async (config, engine) => {
 }
 
 const styleByBoolean = async (config, engine) => {
-    const { styleDataItem, data, legend, eventPointColor, eventPointRadius } =
-        config
+    const {
+        styleDataItem,
+        data,
+        legend,
+        eventPointRadius,
+        noDataLegend,
+        unclassifiedLegend,
+    } = config
     const { id, values } = styleDataItem
 
     legend.unit = await getLegendUnit(engine, styleDataItem)
@@ -88,14 +94,30 @@ const styleByBoolean = async (config, engine) => {
         })
     }
 
-    legend.items.push({
-        name: i18n.t('Other'),
-        color: cssColor(eventPointColor) || EVENT_COLOR,
-        radius: eventPointRadius || EVENT_RADIUS,
-        count: 0,
-    })
+    if (unclassifiedLegend) {
+        legend.items.push({
+            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            color: unclassifiedLegend.color,
+            radius: eventPointRadius || EVENT_RADIUS,
+            count: 0,
+            unclassified: true,
+        })
+    }
 
-    config.data = data.map((feature) => {
+    if (noDataLegend) {
+        legend.items.push({
+            name: noDataLegend.name || i18n.t('No data'),
+            color: noDataLegend.color,
+            radius: eventPointRadius || EVENT_RADIUS,
+            count: 0,
+            noData: true,
+        })
+    }
+
+    const noDataItem = legend.items.find((i) => i.noData)
+    const unclassifiedItem = legend.items.find((i) => i.unclassified)
+
+    config.data = data.reduce((acc, feature) => {
         const value = feature.properties[id]
         let displayValue
         let color
@@ -108,21 +130,33 @@ const styleByBoolean = async (config, engine) => {
             displayValue = i18n.t('No')
             color = values.false
             legend.items[1].count++
+        } else if (!hasValue(value)) {
+            if (!noDataItem) {
+                return acc
+            }
+            displayValue = i18n.t('Not set')
+            color = noDataLegend.color
+            noDataItem.count++
         } else {
-            displayValue = hasValue(value) ? value : i18n.t('Not set')
-            color = cssColor(eventPointColor) || EVENT_COLOR
-            legend.items[legend.items.length - 1].count++
+            if (!unclassifiedItem) {
+                return acc
+            }
+            displayValue = value
+            color = unclassifiedLegend.color
+            unclassifiedItem.count++
         }
 
-        return {
+        acc.push({
             ...feature,
             properties: {
                 ...feature.properties,
                 value: displayValue,
                 color: color,
             },
-        }
-    })
+        })
+
+        return acc
+    }, [])
 
     return config
 }
@@ -137,8 +171,9 @@ const styleByNumeric = async (config, engine) => {
         colorScale,
         legendDecimalPlaces,
         legendIsolated,
-        eventPointColor,
         eventPointRadius,
+        noDataLegend,
+        unclassifiedLegend,
     } = config
 
     let valueFormat
@@ -180,10 +215,21 @@ const styleByNumeric = async (config, engine) => {
         valueFormat = classification.valueFormat
     }
 
-    legend.items.push({
-        name: i18n.t('Other'),
-        color: cssColor(eventPointColor) || EVENT_COLOR,
-    })
+    if (unclassifiedLegend) {
+        legend.items.push({
+            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            color: unclassifiedLegend.color,
+            unclassified: true,
+        })
+    }
+
+    if (noDataLegend) {
+        legend.items.push({
+            name: noDataLegend.name || i18n.t('No data'),
+            color: noDataLegend.color,
+            noData: true,
+        })
+    }
 
     // Add radius and count to each legend item
     legend.items.forEach((item) => {
@@ -191,48 +237,77 @@ const styleByNumeric = async (config, engine) => {
         item.count = 0
     })
 
+    const noDataItem = legend.items.find((i) => i.noData)
+    const unclassifiedItem = legend.items.find((i) => i.unclassified)
+
     // Helper function to get legend item for data value
+    // Exclude no-data and unclassified items from classification lookup
+    const classificationItems = legend.items.filter(
+        (i) => !i.noData && !i.unclassified
+    )
     const getLegendItem = (value, method) =>
         getLegendItemForValue({
             value,
             valueFormat,
             method,
-            legendItems: config.legend.items.slice(0, -1),
+            legendItems: classificationItems,
         })
 
     // Add style data value and color to each feature
-    config.data = data.map((feature) => {
+    config.data = data.reduce((acc, feature) => {
         const value = feature.properties[styleDataItem.id]
 
-        let legendItem
-        if (hasValue(value)) {
-            const numericValue = Number(value)
-            legendItem = getLegendItem(numericValue, method)
+        if (!hasValue(value)) {
+            if (!noDataItem) {
+                return acc
+            }
+            noDataItem.count++
+            acc.push({
+                ...feature,
+                properties: {
+                    ...feature.properties,
+                    value: i18n.t('Not set'),
+                    color: noDataLegend.color,
+                },
+            })
+            return acc
         }
+
+        const numericValue = Number(value)
+        const legendItem = getLegendItem(numericValue, method)
 
         if (legendItem) {
             legendItem.count++
         } else {
-            legend.items[legend.items.length - 1].count++
+            if (!unclassifiedItem) {
+                return acc
+            }
+            unclassifiedItem.count++
         }
 
-        return {
+        acc.push({
             ...feature,
             properties: {
                 ...feature.properties,
-                value: hasValue(value) ? value : i18n.t('Not set'),
-                color: legendItem
-                    ? legendItem.color
-                    : cssColor(eventPointColor) || EVENT_COLOR,
+                value,
+                color: legendItem ? legendItem.color : unclassifiedLegend.color,
             },
-        }
-    })
+        })
+
+        return acc
+    }, [])
 
     return config
 }
 
 const styleByOptionSet = async (config, engine) => {
-    const { styleDataItem, legend, eventPointColor, eventPointRadius } = config
+    const {
+        styleDataItem,
+        legend,
+        eventPointRadius,
+        noDataLegend,
+        unclassifiedLegend,
+    } = config
     const optionSet = await getOptionSet(styleDataItem.optionSet, engine)
     const id = styleDataItem.id
 
@@ -252,12 +327,28 @@ const styleByOptionSet = async (config, engine) => {
         count: 0,
     }))
 
-    legend.items.push({
-        name: i18n.t('Other'),
-        color: cssColor(eventPointColor) || EVENT_COLOR,
-        radius: eventPointRadius || EVENT_RADIUS,
-        count: 0,
-    })
+    if (unclassifiedLegend) {
+        legend.items.push({
+            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            color: unclassifiedLegend.color,
+            radius: eventPointRadius || EVENT_RADIUS,
+            count: 0,
+            unclassified: true,
+        })
+    }
+
+    if (noDataLegend) {
+        legend.items.push({
+            name: noDataLegend.name || i18n.t('No data'),
+            color: noDataLegend.color,
+            radius: eventPointRadius || EVENT_RADIUS,
+            count: 0,
+            noData: true,
+        })
+    }
+
+    const noDataItem = legend.items.find((i) => i.noData)
+    const unclassifiedItem = legend.items.find((i) => i.unclassified)
 
     // For easier and faster lookup below
     // TODO: There might be options with duplicate name, so code/id would be safer
@@ -268,38 +359,57 @@ const styleByOptionSet = async (config, engine) => {
     }, {})
 
     // Add style data value and color to each feature
-    config.data = config.data.map((feature) => {
+    config.data = config.data.reduce((acc, feature) => {
         const name = feature.properties[id]
 
-        if (name) {
-            const option = optionsByName[name.toLowerCase()]
-
-            if (option) {
-                const optionIndex = legend.items.findIndex(
-                    (item) => item.name === option.name
-                )
-                legend.items[optionIndex].count++
-                return {
-                    ...feature,
-                    properties: {
-                        ...feature.properties,
-                        value: option.name,
-                        color: option.style.color,
-                    },
-                }
+        if (!hasValue(name)) {
+            if (!noDataItem) {
+                return acc
             }
+            noDataItem.count++
+            acc.push({
+                ...feature,
+                properties: {
+                    ...feature.properties,
+                    value: i18n.t('Not set'),
+                    color: noDataLegend.color,
+                },
+            })
+            return acc
         }
 
-        legend.items[legend.items.length - 1].count++
-        return {
-            ...feature,
-            properties: {
-                ...feature.properties,
-                value: hasValue(name) ? name : i18n.t('Not set'),
-                color: cssColor(eventPointColor) || EVENT_COLOR,
-            },
+        const option = optionsByName[name.toLowerCase()]
+
+        if (option) {
+            const optionIndex = legend.items.findIndex(
+                (item) => item.name === option.name
+            )
+            legend.items[optionIndex].count++
+            acc.push({
+                ...feature,
+                properties: {
+                    ...feature.properties,
+                    value: option.name,
+                    color: option.style.color,
+                },
+            })
+        } else {
+            if (!unclassifiedItem) {
+                return acc
+            }
+            unclassifiedItem.count++
+            acc.push({
+                ...feature,
+                properties: {
+                    ...feature.properties,
+                    value: name,
+                    color: unclassifiedLegend.color,
+                },
+            })
         }
-    })
+
+        return acc
+    }, [])
 
     return config
 }

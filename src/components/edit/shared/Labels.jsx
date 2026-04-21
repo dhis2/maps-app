@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
@@ -37,7 +36,7 @@ const Labels = ({
     }, [labels, includeDisplayOption, labelTemplate, setLabelTemplate])
 
     return (
-        <div className={cx(styles.flexInnerColumnFlow)}>
+        <div className={styles.labels}>
             <div>
                 <Checkbox
                     label={i18n.t('Labels')}

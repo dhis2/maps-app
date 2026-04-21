@@ -106,6 +106,8 @@ const loadEventLayer = async ({
         countEventsWithoutCoordinates,
         legendDecimalPlaces,
         legendIsolated,
+        unclassifiedLegend,
+        noDataName,
     } = parseJsonConfig(config.config)
     if (countEventsWithoutCoordinates) {
         config.countEventsWithoutCoordinates = true
@@ -115,6 +117,16 @@ const loadEventLayer = async ({
     }
     if (legendIsolated !== undefined) {
         config.legendIsolated = legendIsolated
+    }
+    if (unclassifiedLegend) {
+        config.unclassifiedLegend = unclassifiedLegend
+    }
+    if (config.noDataColor) {
+        config.noDataLegend = {
+            color: config.noDataColor,
+            ...(noDataName && { name: noDataName }),
+        }
+        delete config.noDataColor
     }
     delete config.config
 
