@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-20T17:03:43.203Z\n"
-"PO-Revision-Date: 2026-04-20T17:03:43.204Z\n"
+"POT-Creation-Date: 2026-04-21T10:29:44.494Z\n"
+"PO-Revision-Date: 2026-04-21T10:29:44.494Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1672,11 +1672,17 @@ msgstr "Equal intervals"
 msgid "Equal counts"
 msgstr "Equal counts"
 
-msgid "Natural breaks (ranges)"
-msgstr "Natural breaks (ranges)"
+msgid "Natural breaks (intervals)"
+msgstr "Natural breaks (intervals)"
 
 msgid "Natural breaks (clusters)"
 msgstr "Natural breaks (clusters)"
+
+msgid "Pretty breaks"
+msgstr "Pretty breaks"
+
+msgid "Logarithmic scale"
+msgstr "Logarithmic scale"
 
 msgid "Symbol"
 msgstr "Symbol"

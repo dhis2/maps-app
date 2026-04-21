@@ -1,6 +1,9 @@
 import {
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
+    CLASSIFICATION_STANDARD_DEVIATION,
+    CLASSIFICATION_LOGARITHMIC,
+    CLASSIFICATION_PRETTY_BREAKS,
 } from '../../constants/layers.js'
 import { getLegendItemForValue, getLegendItems } from '../classify.js'
 
@@ -65,6 +68,61 @@ describe('getLegendItemForValue', () => {
             getLegendItemForValue({ value: -1, legendItems })
         ).toBeUndefined()
     })
+
+    it('does not clamp values below isolated value to the isolated item', () => {
+        const isolatedItem = {
+            startValue: 15,
+            endValue: 15,
+            isLegendIsolated: true,
+        }
+        const itemsWithIsolated = [isolatedItem, ...legendItems]
+        // value=5 is below isolated=15 but should map to legendItems[0], not isolated
+        expect(
+            getLegendItemForValue({
+                value: 5,
+                legendItems: itemsWithIsolated,
+                clamp: true,
+            })
+        ).toEqual(legendItems[0])
+    })
+
+    it('returns isolated item when isolated value is the minimum', () => {
+        const isolatedItem = {
+            startValue: 0,
+            endValue: 0,
+            isLegendIsolated: true,
+        }
+        const rangeItems = [
+            { startValue: 1, endValue: 15 },
+            { startValue: 15, endValue: 30 },
+        ]
+        expect(
+            getLegendItemForValue({
+                value: 0,
+                legendItems: [isolatedItem, ...rangeItems],
+                clamp: true,
+            })
+        ).toEqual(isolatedItem)
+    })
+
+    it('returns isolated item when isolated value is the maximum', () => {
+        const isolatedItem = {
+            startValue: 30,
+            endValue: 30,
+            isLegendIsolated: true,
+        }
+        const rangeItems = [
+            { startValue: 0, endValue: 15 },
+            { startValue: 15, endValue: 29 },
+        ]
+        expect(
+            getLegendItemForValue({
+                value: 30,
+                legendItems: [isolatedItem, ...rangeItems],
+                clamp: true,
+            })
+        ).toEqual(isolatedItem)
+    })
 })
 
 describe('getLegendItems', () => {
@@ -100,5 +158,66 @@ describe('getLegendItems', () => {
     it('returns undefined if method is unknown', () => {
         const { items } = getLegendItems([0, 100], 'UNKNOWN', { numClasses: 3 })
         expect(items).toBeUndefined()
+    })
+
+    it('returns standard deviation classification', () => {
+        // values: mean=50, sd≈31.62, 5 classes → breaks at 50-2*sd, 50-sd, 50, 50+sd
+        const values = [0, 10, 20, 50, 80, 90, 100]
+        const { items } = getLegendItems(
+            values,
+            CLASSIFICATION_STANDARD_DEVIATION,
+            { numClasses: 5 }
+        )
+        expect(items.length).toBeGreaterThanOrEqual(1)
+        expect(items.length).toBeLessThanOrEqual(5)
+        expect(items[0].startValue).toBe(0)
+        expect(items[items.length - 1].endValue).toBe(100)
+    })
+
+    it('returns logarithmic classification with equal number of items', () => {
+        const values = [1, 10, 100, 1000, 10000]
+        const { items } = getLegendItems(values, CLASSIFICATION_LOGARITHMIC, {
+            numClasses: 4,
+        })
+        expect(items).toHaveLength(4)
+        expect(items[0].startValue).toBe(1)
+        expect(items[3].endValue).toBe(10000)
+        // Each class should span one order of magnitude on the log scale
+        expect(items[0].endValue).toBe(items[1].startValue)
+    })
+
+    it('falls back to equal intervals for logarithmic when min <= 0', () => {
+        const values = [0, 25, 50, 75, 100]
+        const { items: logItems } = getLegendItems(
+            values,
+            CLASSIFICATION_LOGARITHMIC,
+            { numClasses: 4 }
+        )
+        const { items: equalItems } = getLegendItems(
+            values,
+            CLASSIFICATION_EQUAL_INTERVALS,
+            { numClasses: 4 }
+        )
+        expect(logItems).toEqual(equalItems)
+    })
+
+    it('returns pretty breaks with round class boundaries', () => {
+        const values = [0, 100]
+        const { items } = getLegendItems(values, CLASSIFICATION_PRETTY_BREAKS, {
+            numClasses: 5,
+        })
+        expect(items.length).toBeGreaterThanOrEqual(1)
+        expect(items.length).toBeLessThanOrEqual(5)
+        expect(items[0].startValue).toBe(0)
+        expect(items[items.length - 1].endValue).toBe(100)
+    })
+
+    it('pretty breaks internal boundaries are multiples of a round step', () => {
+        const values = [0, 100]
+        const { items } = getLegendItems(values, CLASSIFICATION_PRETTY_BREAKS, {
+            numClasses: 5,
+        })
+        // Internal break should be at 20 (niceStep=20 for range=100, n=5)
+        expect(items[0].endValue).toBe(20)
     })
 })

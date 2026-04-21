@@ -146,6 +146,9 @@ export const CLASSIFICATION_EQUAL_INTERVALS = 2
 export const CLASSIFICATION_EQUAL_COUNTS = 3
 export const CLASSIFICATION_NATURAL_BREAKS_RANGES = 4
 export const CLASSIFICATION_NATURAL_BREAKS_CLUSTERS = 5
+export const CLASSIFICATION_PRETTY_BREAKS = 6
+export const CLASSIFICATION_LOGARITHMIC = 7
+export const CLASSIFICATION_STANDARD_DEVIATION = 8
 export const CLASSIFICATION_SINGLE_COLOR = 10
 
 export const getLegendTypes = (isBubble) => [
@@ -178,11 +181,23 @@ export const getClassificationTypes = () => [
     },
     {
         id: CLASSIFICATION_NATURAL_BREAKS_RANGES,
-        name: i18n.t('Natural breaks (ranges)'),
+        name: i18n.t('Natural breaks (intervals)'),
     },
     {
         id: CLASSIFICATION_NATURAL_BREAKS_CLUSTERS,
         name: i18n.t('Natural breaks (clusters)'),
+    },
+    {
+        id: CLASSIFICATION_PRETTY_BREAKS,
+        name: i18n.t('Pretty breaks'),
+    },
+    {
+        id: CLASSIFICATION_LOGARITHMIC,
+        name: i18n.t('Logarithmic scale'),
+    },
+    {
+        id: CLASSIFICATION_STANDARD_DEVIATION,
+        name: i18n.t('Standard deviation'),
     },
 ]
 
