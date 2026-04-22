@@ -20,6 +20,28 @@ import {
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
+const fetchAssociatedGeometries = async (
+    engine,
+    {
+        orgUnitIds,
+        keyAnalysisDisplayProperty,
+        includeGroupSets,
+        coordinateField,
+        userId,
+    }
+) => {
+    const rawData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField: coordinateField.id,
+            userId,
+        },
+    })
+    return rawData?.geoFeatures ? toGeoJson(rawData.geoFeatures) : null
+}
+
 const fetchAndParseGroupSet = async (engine, groupSet) => {
     try {
         const orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
@@ -98,21 +120,15 @@ const orgUnitLoader = async ({
     }
 
     if (coordinateField) {
-        const rawData = await engine.query(GEOFEATURES_QUERY, {
-            variables: {
-                orgUnitIds,
-                keyAnalysisDisplayProperty,
-                includeGroupSets,
-                coordinateField: coordinateField.id,
-                userId,
-            },
+        associatedGeometries = await fetchAssociatedGeometries(engine, {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            userId,
         })
 
-        associatedGeometries = rawData?.geoFeatures
-            ? toGeoJson(rawData.geoFeatures)
-            : null
-
-        if (!associatedGeometries.length) {
+        if (!associatedGeometries?.length) {
             alerts.push({
                 code: WARNING_NO_GEOMETRY_COORD,
                 message: coordinateField.name,
