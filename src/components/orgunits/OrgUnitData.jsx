@@ -65,30 +65,26 @@ const OrgUnitData = ({ id }) => {
                         <CircularLoader />
                     </div>
                 )}
-                {Array.isArray(data?.profile.dataItems) &&
-                data.profile.dataItems.length ? (
-                    <table data-test="org-unit-data-table">
-                        <tbody>
-                            {data.profile.dataItems.map(
-                                ({ id, label, value }) => (
-                                    <tr key={id}>
-                                        <th>{label}</th>
-                                        <td>
-                                            {formatWithSeparator(
-                                                value,
-                                                keyAnalysisDigitGroupSeparator
-                                            )}
-                                        </td>
-                                    </tr>
-                                )
-                            )}
-                        </tbody>
-                    </table>
-                ) : (
-                    <div className={styles.noData}>
-                        {i18n.t('No data found for this period.')}
-                    </div>
-                )}
+                {!loading &&
+                    (Array.isArray(data?.profile.dataItems) &&
+                    data.profile.dataItems.length ? (
+                        <table data-test="org-unit-data-table">
+                            <tbody>
+                                {data.profile.dataItems.map(
+                                    ({ id, label, value }) => (
+                                        <tr key={id}>
+                                            <th>{label}</th>
+                                            <td>{value}</td>
+                                        </tr>
+                                    )
+                                )}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className={styles.noData}>
+                            {i18n.t('No data found for this period.')}
+                        </div>
+                    ))}
             </div>
         </div>
     )
