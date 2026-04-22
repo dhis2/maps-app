@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-21T16:18:01.789Z\n"
-"PO-Revision-Date: 2026-04-21T16:18:01.790Z\n"
+"POT-Creation-Date: 2026-04-22T17:25:30.092Z\n"
+"PO-Revision-Date: 2026-04-22T17:25:30.092Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1762,14 +1762,14 @@ msgstr "Displaying first {{pageSize}} events out of {{total}}"
 msgid "Event"
 msgstr "Event"
 
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet used for styling was not found"
+
 msgid "Facilities"
 msgstr "Facilities"
 
 msgid "an error occurred"
 msgstr "an error occurred"
-
-msgid "GroupSet used for styling was not found"
-msgstr "GroupSet used for styling was not found"
 
 msgid "No coordinates found for selected facilities"
 msgstr "No coordinates found for selected facilities"

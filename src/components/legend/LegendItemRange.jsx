@@ -19,7 +19,7 @@ const LegendItemRange = ({
     const showRangeValue =
         startValue !== undefined && endValue !== undefined && showRange
     const precisionOpt =
-        decimalPlaces !== undefined ? { precision: decimalPlaces } : undefined
+        decimalPlaces === undefined ? undefined : { precision: decimalPlaces }
     const rangeLabel = showRangeValue
         ? `${formatWithSeparator(
               startValue,

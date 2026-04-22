@@ -76,9 +76,9 @@ export const sortLegendItems = (items) =>
             return -1
         }
 
-        return bRange.start !== aRange.start
-            ? bRange.start - aRange.start
-            : bRange.end - aRange.end
+        return bRange.start === aRange.start
+            ? bRange.end - aRange.end
+            : bRange.start - aRange.start
     })
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {

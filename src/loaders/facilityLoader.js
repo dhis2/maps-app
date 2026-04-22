@@ -19,6 +19,46 @@ import {
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
+const fetchAndParseGroupSet = async (engine, groupSet) => {
+    try {
+        const orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: { id: groupSet?.id },
+        })
+        const { groupSets } = orgUnitGroups
+        groupSet.organisationUnitGroups = parseGroupSet({
+            organisationUnitGroups: groupSets.organisationUnitGroups,
+        })
+        groupSet.name = groupSets.name
+        return null
+    } catch {
+        return i18n.t('GroupSet used for styling was not found')
+    }
+}
+
+const fetchAssociatedGeometries = async (
+    engine,
+    {
+        orgUnitIds,
+        keyAnalysisDisplayProperty,
+        includeGroupSets,
+        coordinateField,
+        userId,
+    }
+) => {
+    const rawData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField: coordinateField.id,
+            userId,
+        },
+    })
+    return rawData?.geoFeatures
+        ? toGeoJson(getPolygonItems(rawData.geoFeatures))
+        : null
+}
+
 const facilityLoader = async ({
     config,
     engine,
@@ -79,26 +119,8 @@ const facilityLoader = async ({
     const features =
         data?.geoFeatures && toGeoJson(getPointItems(data.geoFeatures))
 
-    // Load organisationUnitGroups if not passed
-    let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        try {
-            orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-                variables: {
-                    id: groupSet?.id,
-                },
-            })
-        } catch (err) {
-            loadError = i18n.t('GroupSet used for styling was not found')
-        }
-    }
-
-    if (orgUnitGroups) {
-        const { groupSets } = orgUnitGroups
-        groupSet.organisationUnitGroups = parseGroupSet({
-            organisationUnitGroups: groupSets.organisationUnitGroups,
-        })
-        groupSet.name = groupSets.name
+        loadError = await fetchAndParseGroupSet(engine, groupSet)
     }
 
     const { styledFeatures, legend } = getStyledOrgUnits({
@@ -109,12 +131,10 @@ const facilityLoader = async ({
     })
     legend.title = name
 
-    if (!groupSet?.id) {
-        if (legend.items[0]) {
-            legend.items[0].count = styledFeatures.length
-        }
-    } else {
+    if (groupSet?.id) {
         addGroupCountsToLegend(legend.items, styledFeatures, groupSet)
+    } else if (legend.items[0]) {
+        legend.items[0].count = styledFeatures.length
     }
 
     if (config.countOrgUnitsWithoutCoordinates) {
@@ -131,19 +151,13 @@ const facilityLoader = async ({
     }
 
     if (coordinateField) {
-        const rawData = await engine.query(GEOFEATURES_QUERY, {
-            variables: {
-                orgUnitIds,
-                keyAnalysisDisplayProperty,
-                includeGroupSets,
-                coordinateField: coordinateField.id,
-                userId,
-            },
+        associatedGeometries = await fetchAssociatedGeometries(engine, {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            userId,
         })
-
-        associatedGeometries = rawData?.geoFeatures
-            ? toGeoJson(getPolygonItems(rawData.geoFeatures))
-            : null
 
         if (!associatedGeometries.length) {
             alerts.push({

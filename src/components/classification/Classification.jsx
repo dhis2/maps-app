@@ -70,11 +70,7 @@ const Classification = ({
                 />
                 <SelectField
                     label={i18n.t('Decimal places')}
-                    value={
-                        legendDecimalPlaces !== undefined
-                            ? legendDecimalPlaces
-                            : DECIMAL_PLACES_AUTO
-                    }
+                    value={legendDecimalPlaces ?? DECIMAL_PLACES_AUTO}
                     items={decimalPlacesItems}
                     onChange={(item) =>
                         setLegendDecimalPlaces(

@@ -130,20 +130,20 @@ const styleByBoolean = async (config, engine) => {
             displayValue = i18n.t('No')
             color = values.false
             legend.items[1].count++
-        } else if (!hasValue(value)) {
-            if (!noDataItem) {
-                return acc
-            }
-            displayValue = i18n.t('Not set')
-            color = noDataLegend.color
-            noDataItem.count++
-        } else {
+        } else if (hasValue(value)) {
             if (!unclassifiedItem) {
                 return acc
             }
             displayValue = value
             color = unclassifiedLegend.color
             unclassifiedItem.count++
+        } else {
+            if (!noDataItem) {
+                return acc
+            }
+            displayValue = i18n.t('Not set')
+            color = noDataLegend.color
+            noDataItem.count++
         }
 
         acc.push({

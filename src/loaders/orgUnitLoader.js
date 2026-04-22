@@ -20,6 +20,22 @@ import {
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
+const fetchAndParseGroupSet = async (engine, groupSet) => {
+    try {
+        const orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: { id: groupSet?.id },
+        })
+        const { groupSets } = orgUnitGroups
+        groupSet.organisationUnitGroups = parseGroupSet({
+            organisationUnitGroups: groupSets.organisationUnitGroups,
+        })
+        groupSet.name = groupSets.name
+        return null
+    } catch {
+        return i18n.t('GroupSet used for styling was not found')
+    }
+}
+
 const orgUnitLoader = async ({
     config,
     engine,
@@ -70,18 +86,8 @@ const orgUnitLoader = async ({
 
     const orgUnitLevels = await apiFetchOrganisationUnitLevels(engine)
 
-    // Load organisationUnitGroups if not passed
-    let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        try {
-            orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-                variables: {
-                    id: groupSet?.id,
-                },
-            })
-        } catch (err) {
-            loadError = i18n.t('GroupSet used for styling was not found')
-        }
+        loadError = await fetchAndParseGroupSet(engine, groupSet)
     }
 
     if (!mainFeatures.length && !alerts.length) {
@@ -89,14 +95,6 @@ const orgUnitLoader = async ({
             code: WARNING_NO_OU_COORD,
             message: i18n.t('Org unit layer'),
         })
-    }
-
-    if (orgUnitGroups) {
-        const { groupSets } = orgUnitGroups
-        groupSet.organisationUnitGroups = parseGroupSet({
-            organisationUnitGroups: groupSets.organisationUnitGroups,
-        })
-        groupSet.name = groupSets.name
     }
 
     if (coordinateField) {
@@ -142,7 +140,9 @@ const orgUnitLoader = async ({
 
     legend.items.forEach((item) => (item.count = 0))
 
-    if (!groupSet?.id) {
+    if (groupSet?.id) {
+        addGroupCountsToLegend(legend.items, mainFeatures, groupSet)
+    } else {
         // Level items — match by level number using the orgUnitLevels array
         mainFeatures.forEach((f) => {
             const levelInfo = orgUnitLevels.find(
@@ -155,8 +155,6 @@ const orgUnitLoader = async ({
                 item.count++
             }
         })
-    } else {
-        addGroupCountsToLegend(legend.items, mainFeatures, groupSet)
     }
 
     if (config.countOrgUnitsWithoutCoordinates) {

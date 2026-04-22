@@ -602,10 +602,10 @@ const layerEdit = (state = null, action) => {
 
         case types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET:
             newState = { ...state }
-            if (!action.payload) {
-                delete newState.unclassifiedLegend
-            } else {
+            if (action.payload) {
                 newState.unclassifiedLegend = action.payload
+            } else {
+                delete newState.unclassifiedLegend
             }
             return newState
 

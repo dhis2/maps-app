@@ -153,8 +153,7 @@ export const getLegendItems = (
 const getEqualIntervals = (minValue, maxValue, { numClasses, precision }) => {
     const items = []
     const binSize = (maxValue - minValue) / numClasses
-    const resolvedPrecision =
-        precision !== undefined ? precision : precisionRound(binSize, maxValue)
+    const resolvedPrecision = precision ?? precisionRound(binSize, maxValue)
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     for (let i = 0; i < numClasses; i++) {
@@ -179,9 +178,8 @@ const getQuantiles = (values, { numClasses, precision }) => {
     const items = []
     const binCount = values.length / numClasses
     const resolvedPrecision =
-        precision !== undefined
-            ? precision
-            : precisionRound((maxValue - minValue) / numClasses, maxValue)
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     let binLastValPos = binCount === 0 ? 0 : binCount
@@ -210,9 +208,8 @@ const getCkMeans = (values, { numClasses, continuous = false, precision }) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
     const resolvedPrecision =
-        precision !== undefined
-            ? precision
-            : precisionRound((maxValue - minValue) / numClasses, maxValue)
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     const k = Math.min(numClasses, values.length)
@@ -253,9 +250,8 @@ const getStandardDeviation = (values, { numClasses, precision }) => {
     const mu = mean(values)
     const sigma = standardDeviation(values)
     const resolvedPrecision =
-        precision !== undefined
-            ? precision
-            : precisionRound((maxValue - minValue) / numClasses, maxValue)
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     // Place numClasses-1 internal breaks at 1-sigma intervals centered on mean
@@ -282,9 +278,8 @@ const getLogarithmic = (minValue, maxValue, { numClasses, precision }) => {
     const logMax = Math.log(maxValue)
     const logStep = (logMax - logMin) / numClasses
     const resolvedPrecision =
-        precision !== undefined
-            ? precision
-            : precisionRound((maxValue - minValue) / numClasses, maxValue)
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     const items = []
@@ -306,14 +301,17 @@ const getPrettyBreaks = (minValue, maxValue, { numClasses, precision }) => {
     const roughStep = range / numClasses
     const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)))
     const niceSteps = [1, 2, 5, 10].map((n) => n * magnitude)
-    const niceStep = niceSteps.reduce((best, step) =>
-        Math.abs(step - roughStep) < Math.abs(best - roughStep) ? step : best
+    const niceStep = niceSteps.reduce(
+        (best, step) =>
+            Math.abs(step - roughStep) < Math.abs(best - roughStep)
+                ? step
+                : best,
+        niceSteps[0]
     )
 
     const resolvedPrecision =
-        precision !== undefined
-            ? precision
-            : precisionRound((maxValue - minValue) / numClasses, maxValue)
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     // Collect internal breaks at niceStep intervals, capped at numClasses-1

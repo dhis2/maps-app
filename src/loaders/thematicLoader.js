@@ -168,12 +168,12 @@ const thematicLoader = async ({
                     parentName: details[ou.id]?.parentName,
                     rawValue: ouValues[ou.id],
                     value:
-                        ouValues[ou.id] !== undefined
-                            ? formatWithSeparator(
+                        ouValues[ou.id] === undefined
+                            ? undefined
+                            : formatWithSeparator(
                                   ouValues[ou.id],
                                   keyAnalysisDigitGroupSeparator
-                              )
-                            : undefined,
+                              ),
                 },
             }))
         }
@@ -416,6 +416,48 @@ const thematicLoader = async ({
         const noDataLegendItem = legend.items.find((i) => i.noData === true)
         const filteredValueFeatures = []
 
+        const assignStyleProps = (
+            properties,
+            {
+                value,
+                legendItem,
+                isPoint,
+                hasAdditionalGeometry,
+                isOutsideLegend,
+            }
+        ) => {
+            if (isSingleColor) {
+                const fallbackColor = hasValue(value)
+                    ? colorScale
+                    : noDataLegendItem?.color
+                properties.color = legendItem?.isLegendIsolated
+                    ? legendItem.color
+                    : fallbackColor
+            } else if (legendItem) {
+                properties.color =
+                    hasAdditionalGeometry && isPoint
+                        ? ORG_UNIT_COLOR
+                        : legendItem.color
+                properties.legend = legendItem.name // Shown in data table
+                const decimalPlacesOpt =
+                    legendItem.decimalPlaces === undefined
+                        ? undefined
+                        : { precision: legendItem.decimalPlaces }
+                properties.range = `${formatWithSeparator(
+                    legendItem.startValue,
+                    keyAnalysisDigitGroupSeparator,
+                    decimalPlacesOpt
+                )} - ${formatWithSeparator(
+                    legendItem.endValue,
+                    keyAnalysisDigitGroupSeparator,
+                    decimalPlacesOpt
+                )}` // Shown in data table
+            } else if (isOutsideLegend) {
+                properties.color = outsideLegendLegendItem.color
+                properties.legend = outsideLegendLegendItem.name
+            }
+        }
+
         valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id]
             const legendItem = getLegendItem(value)
@@ -427,35 +469,13 @@ const thematicLoader = async ({
                 return
             }
 
-            if (isSingleColor) {
-                properties.color = legendItem?.isLegendIsolated
-                    ? legendItem.color
-                    : hasValue(value)
-                    ? colorScale
-                    : noDataLegendItem?.color
-            } else if (legendItem) {
-                properties.color =
-                    hasAdditionalGeometry && isPoint
-                        ? ORG_UNIT_COLOR
-                        : legendItem.color
-                properties.legend = legendItem.name // Shown in data table
-                properties.range = `${formatWithSeparator(
-                    legendItem.startValue,
-                    keyAnalysisDigitGroupSeparator,
-                    legendItem.decimalPlaces !== undefined
-                        ? { precision: legendItem.decimalPlaces }
-                        : undefined
-                )} - ${formatWithSeparator(
-                    legendItem.endValue,
-                    keyAnalysisDigitGroupSeparator,
-                    legendItem.decimalPlaces !== undefined
-                        ? { precision: legendItem.decimalPlaces }
-                        : undefined
-                )}` // Shown in data table
-            } else if (isOutsideLegend) {
-                properties.color = outsideLegendLegendItem.color
-                properties.legend = outsideLegendLegendItem.name
-            }
+            assignStyleProps(properties, {
+                value,
+                legendItem,
+                isPoint,
+                hasAdditionalGeometry,
+                isOutsideLegend,
+            })
 
             // Only count org units once in legend
             if (!hasAdditionalGeometry) {
@@ -474,11 +494,13 @@ const thematicLoader = async ({
                 keyAnalysisDigitGroupSeparator
             ) // Shown in tooltip, label, pop-up and data table
             properties.rawValue = value // Used in data table
+            const innerRadius =
+                legendItem?.isLegendIsolated || isOutsideLegend
+                    ? THEMATIC_RADIUS_DEFAULT
+                    : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : legendItem?.isLegendIsolated || isOutsideLegend
-                ? THEMATIC_RADIUS_DEFAULT
-                : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
+                : innerRadius
 
             filteredValueFeatures.push({ id, geometry, properties })
         })

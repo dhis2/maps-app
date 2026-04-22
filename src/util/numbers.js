@@ -74,9 +74,9 @@ export const formatWithSeparator = (
     }
     const sep = DIGIT_GROUP_SEPARATORS[separator] ?? ''
     const formatted =
-        precision !== undefined
-            ? Number(value).toFixed(precision)
-            : String(value)
+        precision === undefined
+            ? String(value)
+            : Number(value).toFixed(precision)
     const [integer, decimal] = formatted.split('.')
     const isNegative = integer.startsWith('-')
     const digits = isNegative ? integer.slice(1) : integer
