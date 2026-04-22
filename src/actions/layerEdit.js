@@ -92,6 +92,16 @@ export const setColorScale = (colorScale) => ({
     colorScale,
 })
 
+export const setLegendDecimalPlaces = (legendDecimalPlaces) => ({
+    type: types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET,
+    legendDecimalPlaces,
+})
+
+export const setLegendIsolated = (legendIsolated) => ({
+    type: types.LAYER_EDIT_LEGEND_ISOLATED_SET,
+    legendIsolated,
+})
+
 // Set event status
 export const setEventStatus = (status) => ({
     type: types.LAYER_EDIT_EVENT_STATUS_SET,
@@ -114,6 +124,12 @@ export const setFallbackCoordinateField = (fieldId) => ({
 // Set if event clustering should be used (event)
 export const setEventClustering = (checked) => ({
     type: types.LAYER_EDIT_EVENT_CLUSTERING_SET,
+    checked,
+})
+
+// Set if events without coordinates should be counted and added to data table (event)
+export const setCountEventsWithoutCoordinates = (checked) => ({
+    type: types.LAYER_EDIT_COUNT_EVENTS_WITHOUT_COORDS_SET,
     checked,
 })
 
@@ -159,6 +175,12 @@ export const setOrganisationUnitColor = (color) => ({
 export const setOrganisationUnitField = (payload) => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_FIELD_SET,
     payload,
+})
+
+// Set if organisation unit without coordinates should be counted and added to data table
+export const setCountOrgUnitsWithoutCoordinates = (checked) => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNIT_WITHOUT_COORDS_SET,
+    checked,
 })
 
 // Set period label (earth engine)
@@ -347,10 +369,14 @@ export const setRenderingStrategy = (display) => ({
     payload: display,
 })
 
-// Set no data color
-export const setNoDataColor = (color) => ({
-    type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
-    payload: color,
+export const setNoDataLegend = (noDataLegend) => ({
+    type: types.LAYER_EDIT_NO_DATA_LEGEND_SET,
+    payload: noDataLegend,
+})
+
+export const setUnclassifiedLegend = (unclassifiedLegend) => ({
+    type: types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET,
+    payload: unclassifiedLegend,
 })
 
 // Set period for EE layer

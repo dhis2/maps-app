@@ -12,6 +12,7 @@ import {
 } from '../constants/layers.js'
 import { getLegendItems } from '../util/classify.js'
 import { defaultClasses, defaultColorScale } from '../util/colors.js'
+import { parseWithSeparator } from './numbers.js'
 
 const INDICATOR_QUERY = {
     dimension: {
@@ -43,14 +44,41 @@ const DATA_SET_QUERY = {
     },
 }
 
+const getRange = (item) => {
+    if ('from' in item) {
+        return { start: item.from, end: item.to }
+    }
+    if ('startValue' in item) {
+        return { start: item.startValue, end: item.endValue }
+    }
+    return null
+}
+
 export const sortLegendItems = (items) =>
-    items.sort((a, b) => {
-        if ('from' in a) {
-            return b.from - a.from
+    [...items].sort((a, b) => {
+        const aRange = getRange(a)
+        const bRange = getRange(b)
+
+        if (!aRange && !bRange) {
+            return 0
         }
-        if ('startValue' in a) {
-            return b.startValue - a.startValue
+        if (!aRange) {
+            return 1
         }
+        if (!bRange) {
+            return -1
+        }
+
+        if (a.isLegendIsolated && !b.isLegendIsolated) {
+            return 1
+        }
+        if (!a.isLegendIsolated && b.isLegendIsolated) {
+            return -1
+        }
+
+        return bRange.start === aRange.start
+            ? bRange.end - aRange.end
+            : bRange.start - aRange.start
     })
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
@@ -88,6 +116,11 @@ export const loadDataItemLegendSet = async (dataItem, engine) => {
     return result.dimension.legendSet
 }
 
+export const parseRange = (str) => {
+    const [start, end] = str.split(' - ')
+    return [parseWithSeparator(start), parseWithSeparator(end)]
+}
+
 export const formatLegendItems = (legendItems) => {
     const sortedItems = sortBy('startValue', legendItems)
     return sortedItems.map((item) => ({
@@ -120,30 +153,79 @@ export const getLabelsFromLegendItems = (legendItems) => {
 export const getPredefinedLegendItems = (legendSet) => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color'])
 
-    return sortBy('startValue', legendSet.legends)
-        .map(pickSome)
-        .map((item) =>
-            item.name === `${item.startValue} - ${item.endValue}`
-                ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                : item
-        )
+    return sortBy('startValue', legendSet.legends).map(pickSome)
 }
 
-/* eslint-disable max-params */
-export const getAutomaticLegendItems = (
+export const getAutomaticLegendItems = ({
     data,
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
-    colorScale = defaultColorScale
-) => {
-    const items = data.length ? getLegendItems(data, method, classes) : []
+    colorScale = defaultColorScale,
+    legendDecimalPlaces,
+    legendIsolated,
+}) => {
+    if (data.length === 0) {
+        return { items: [] }
+    }
 
-    return items.map((item, index) => ({
+    const applyColor = (item, color) => ({
         ...item,
-        color: colorScale[index],
-    }))
+        color,
+        ...(legendDecimalPlaces !== undefined && {
+            decimalPlaces: legendDecimalPlaces,
+        }),
+    })
+
+    const {
+        min: isolatedMin,
+        max: isolatedMax,
+        color: isolatedColor,
+        name: isolatedName,
+    } = legendIsolated ?? {}
+
+    if (isolatedMin !== undefined) {
+        const nonIsolatedData = data.filter(
+            (v) => v < isolatedMin || v > isolatedMax
+        )
+        const isolatedItem = applyColor(
+            {
+                startValue: isolatedMin,
+                endValue: isolatedMax,
+                isLegendIsolated: true,
+                ...(isolatedName && { name: isolatedName }),
+            },
+            isolatedColor || colorScale[0]
+        )
+
+        if (nonIsolatedData.length === 0) {
+            return { items: [isolatedItem] }
+        }
+
+        const cls = getLegendItems(nonIsolatedData, method, {
+            numClasses: classes,
+            precision: legendDecimalPlaces,
+        })
+        const colorOffset = isolatedColor ? 0 : 1
+        return {
+            items: [
+                isolatedItem,
+                ...cls.items.map((item, i) =>
+                    applyColor(item, colorScale[colorOffset + i])
+                ),
+            ],
+            valueFormat: cls.valueFormat,
+        }
+    }
+
+    const cls = getLegendItems(data, method, {
+        numClasses: classes,
+        precision: legendDecimalPlaces,
+    })
+    return {
+        items: cls.items.map((item, i) => applyColor(item, colorScale[i])),
+        valueFormat: cls.valueFormat,
+    }
 }
-/* eslint-enable max-params */
 
 export const getRenderingLabel = (strategy) => {
     const map = {
@@ -151,4 +233,36 @@ export const getRenderingLabel = (strategy) => {
         [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
     }
     return map[strategy] ? ' • ' + map[strategy] : null
+}
+
+const normalize = (str) => String(str).replaceAll(/[\s,]/g, '')
+
+const nameContainsValue = (name, val) => {
+    const normalizedName = normalize(name)
+    const normalizedVal = normalize(val)
+    return new RegExp(String.raw`(?<![\d.])${normalizedVal}(?![\d.])`).test(
+        normalizedName
+    )
+}
+
+const rangeInName = (name, startValue, endValue) =>
+    (String(startValue) !== '' && nameContainsValue(name, startValue)) ||
+    (String(endValue) !== '' && nameContainsValue(name, endValue))
+
+export const legendNamesContainRange = (items) => {
+    const numericItems = items.filter(
+        ({ startValue, endValue }) =>
+            !Number.isNaN(startValue) && !Number.isNaN(endValue)
+    )
+
+    if (!numericItems.length) {
+        return false
+    }
+
+    const itemsWithRange = numericItems.filter(
+        ({ name = '', startValue, endValue }) =>
+            rangeInName(name, startValue, endValue)
+    )
+
+    return itemsWithRange.length / numericItems.length >= 0.5
 }

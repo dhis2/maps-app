@@ -2,12 +2,13 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     setOrgUnits,
     setRadiusLow,
     setOrganisationUnitGroupSet,
     setOrganisationUnitColor,
+    setCountOrgUnitsWithoutCoordinates,
 } from '../../actions/layerEdit.js'
 import {
     ORG_UNIT_COLOR,
@@ -19,7 +20,7 @@ import {
     NONE,
 } from '../../constants/layers.js'
 import { getOrgUnitsFromRows } from '../../util/analytics.js'
-import { Tab, Tabs, NumberField, ColorPicker } from '../core/index.js'
+import { Tab, Tabs, NumberField, ColorPicker, Checkbox } from '../core/index.js'
 import StyleByGroupSet from '../groupSet/StyleByGroupSet.jsx'
 import OrgUnitSelect from '../orgunits/OrgUnitSelect.jsx'
 import BufferRadius from './shared/BufferRadius.jsx'
@@ -49,6 +50,9 @@ const FacilityDialog = ({
     const [orgUnitsError, setOrgUnitsError] = useState()
     const { data } = useDataQuery(QUERY)
     const dispatch = useDispatch()
+    const countOrgUnitsWithoutCoordinates = useSelector(
+        (state) => state.layerEdit.countOrgUnitsWithoutCoordinates
+    )
 
     const facilityOrgUnitLevel = data?.configuration.facilityOrgUnitLevel
     const facilityOrgUnitGroupSet = data?.configuration.facilityOrgUnitGroupSet
@@ -152,6 +156,19 @@ const FacilityDialog = ({
                                     />
                                 </>
                             )}
+                            <Checkbox
+                                label={i18n.t(
+                                    'Count org units without coordinates'
+                                )}
+                                checked={!!countOrgUnitsWithoutCoordinates}
+                                onChange={(checked) =>
+                                    dispatch(
+                                        setCountOrgUnitsWithoutCoordinates(
+                                            checked
+                                        )
+                                    )
+                                }
+                            />
                         </div>
                     </div>
                 )}

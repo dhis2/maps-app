@@ -20,7 +20,7 @@ const currentYear = new Date().getFullYear()
 // https://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
 const isValidDateString = (str) => {
     const d = new Date(str)
-    return d instanceof Date && !isNaN(d.getTime())
+    return d instanceof Date && !Number.isNaN(d.getTime())
 }
 
 describe('time utils', () => {

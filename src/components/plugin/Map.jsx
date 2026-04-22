@@ -35,24 +35,37 @@ const Map = forwardRef((props, ref) => {
     useEffect(() => {
         if (didViewsChange(layers.current, mapViews)) {
             layers.current = mapViews.map((v) => ({ ...v, isLoaded: false }))
-
             setMapIsLoaded(false)
+            setVisibilityOverrides({})
         }
     }, [mapViews])
 
     const [mapIsLoaded, setMapIsLoaded] = useState(mapViews.length === 0)
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
+    const [visibilityOverrides, setVisibilityOverrides] = useState({})
 
     const onResize = () => setResizeCount((state) => state + 1)
 
     const onLayerLoad = useCallback((layer) => {
-        layers.current = layers.current.map((l) =>
-            layer.id === l.id ? layer : l
-        )
+        layers.current = layers.current.map((l) => {
+            if (layer.id !== l.id) {
+                return l
+            }
+            return { ...layer, isVisible: l.isVisible ?? true }
+        })
         if (layers.current.every((l) => l.isLoaded)) {
             setMapIsLoaded(true)
         }
+    }, [])
+
+    const toggleLayerVisibility = useCallback((id) => {
+        setVisibilityOverrides((prev) => {
+            const layer = layers.current.find((l) => l.id === id)
+            const current =
+                prev[id] === undefined ? layer?.isVisible ?? true : prev[id]
+            return { ...prev, [id]: !current }
+        })
     }, [])
 
     // TODO: Remove when map.js is refactored
@@ -126,6 +139,12 @@ const Map = forwardRef((props, ref) => {
         )
     }
 
+    const layersWithVisibility = layers.current.map((l) =>
+        visibilityOverrides[l.id] === undefined
+            ? l
+            : { ...l, isVisible: visibilityOverrides[l.id] }
+    )
+
     return (
         <div ref={ref} className={`dhis2-map-plugin ${styles.map}`}>
             <CssReset />
@@ -134,13 +153,18 @@ const Map = forwardRef((props, ref) => {
                 isPlugin={true}
                 isFullscreen={false}
                 basemap={basemap}
-                layers={layers.current}
+                layers={layersWithVisibility}
                 controls={controls}
                 bounds={defaultBounds}
                 openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
             />
-            {mapViews.length > 0 && <Legend layers={layers.current} />}
+            {mapViews.length > 0 && (
+                <Legend
+                    layers={layersWithVisibility}
+                    toggleLayerVisibility={toggleLayerVisibility}
+                />
+            )}
             {contextMenu && (
                 <ContextMenu
                     {...contextMenu}

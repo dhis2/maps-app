@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {
     setRadiusLow,
     setOrganisationUnitColor,
+    setCountOrgUnitsWithoutCoordinates,
 } from '../../../actions/layerEdit.js'
 import {
     ORG_UNIT_COLOR,
@@ -14,7 +15,13 @@ import {
     MAX_RADIUS,
 } from '../../../constants/layers.js'
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
-import { Tab, Tabs, NumberField, ColorPicker } from '../../core/index.js'
+import {
+    Tab,
+    Tabs,
+    NumberField,
+    ColorPicker,
+    Checkbox,
+} from '../../core/index.js'
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import Labels from '../shared/Labels.jsx'
@@ -22,10 +29,12 @@ import styles from '../styles/LayerDialog.module.css'
 
 class OrgUnitDialog extends Component {
     static propTypes = {
+        setCountOrgUnitsWithoutCoordinates: PropTypes.func.isRequired,
         setOrganisationUnitColor: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
+        countOrgUnitsWithoutCoordinates: PropTypes.bool,
         organisationUnitColor: PropTypes.string,
         radiusLow: PropTypes.number,
         rows: PropTypes.array,
@@ -47,8 +56,10 @@ class OrgUnitDialog extends Component {
         const {
             radiusLow,
             organisationUnitColor,
+            countOrgUnitsWithoutCoordinates,
             setOrganisationUnitColor,
             setRadiusLow,
+            setCountOrgUnitsWithoutCoordinates,
         } = this.props
 
         const { tab, orgUnitsError } = this.state
@@ -95,6 +106,15 @@ class OrgUnitDialog extends Component {
                                 <StyleByGroupSet
                                     defaultStyleType={STYLE_TYPE_COLOR}
                                 />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count org units without coordinates'
+                                    )}
+                                    checked={!!countOrgUnitsWithoutCoordinates}
+                                    onChange={
+                                        setCountOrgUnitsWithoutCoordinates
+                                    }
+                                />
                             </div>
                         </div>
                     )}
@@ -133,6 +153,7 @@ export default connect(
     {
         setRadiusLow,
         setOrganisationUnitColor,
+        setCountOrgUnitsWithoutCoordinates,
     },
     null,
     {

@@ -21,11 +21,30 @@ const extractBasemap = (config, defaultBasemapId) => {
         mapViews = config.mapViews.filter(
             (view) => view.id !== externalBasemap.id
         )
+    } else if (Array.isArray(config.basemaps) && config.basemaps.length > 0) {
+        const { id, opacity, hidden } = config.basemaps[0]
+        basemap = {
+            id: id || defaultBasemapId,
+            opacity: opacity ?? 1,
+            isVisible: !hidden,
+        }
     } else if (isString(config.basemap)) {
-        basemap =
-            config.basemap === 'none'
-                ? { id: defaultBasemapId, isVisible: false }
-                : { id: config.basemap }
+        if (config.basemap === 'none') {
+            basemap = { id: defaultBasemapId, isVisible: false }
+        } else {
+            try {
+                // JSON-encoded config with opacity and id when hidden
+                const parsed = JSON.parse(config.basemap)
+                basemap = {
+                    id: parsed.id || defaultBasemapId,
+                    opacity: parsed.opacity ?? 1,
+                    isVisible: !parsed.hidden,
+                }
+            } catch {
+                // Plain basemap ID saved before JSON encoding
+                basemap = { id: config.basemap }
+            }
+        }
     } else if (isObject(config.basemap)) {
         basemap = config.basemap
     } else {
@@ -79,43 +98,41 @@ const upgradeGisAppLayers = (config) => {
 }
 
 const upgradeMapViews = (config) => {
-    const needsUpgrade = config.mapViews.some(
+    const needsLegacyUpgrade = config.mapViews.some(
         (view) =>
             view.layer === 'boundary' ||
             typeof view.colorScale === 'string' ||
             view.geometryCentroid === undefined
     )
 
-    if (!needsUpgrade) {
-        return config
-    }
-
     const upgradedViews = config.mapViews.map((view) => {
         let layer = view.layer
-        if (layer === 'boundary') {
-            layer = 'orgUnit'
-        }
-
-        if (
-            view.geometryCentroid === undefined &&
-            view.layer === 'event' &&
-            !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
-        ) {
-            // We should test !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateFieldType) but it is not currently saved with the mapView.
-            // This will set geometryCentroid: true when eventCoordinateField is a DE/TEA of type 'COORDINATE' too, which is unnecessary but harmless.
-            view.geometryCentroid = true
-        }
-
         let colorScale = view.colorScale
-        if (typeof colorScale === 'string') {
-            const parts = colorScale.split(',')
-            colorScale = parts.length === 1 ? parts[0] : parts
+
+        if (needsLegacyUpgrade) {
+            if (layer === 'boundary') {
+                layer = 'orgUnit'
+            }
+            if (
+                view.geometryCentroid === undefined &&
+                view.layer === 'event' &&
+                !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateField)
+            ) {
+                // We should test !EVENT_CENTROID_DEFAULT.includes(view.eventCoordinateFieldType) but it is not currently saved with the mapView.
+                // This will set geometryCentroid: true when eventCoordinateField is a DE/TEA of type 'COORDINATE' too, which is unnecessary but harmless.
+                view.geometryCentroid = true
+            }
+            if (typeof colorScale === 'string') {
+                const parts = colorScale.split(',')
+                colorScale = parts.length === 1 ? parts[0] : parts
+            }
         }
 
         return {
             ...view,
             layer,
             colorScale,
+            isVisible: view.hidden !== true,
         }
     })
 

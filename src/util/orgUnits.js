@@ -10,6 +10,7 @@ import {
     NONE,
 } from '../constants/layers.js'
 import { getUniqueColor } from './colors.js'
+import { FIRST_DATA_ELEMENT_QUERY, ORG_UNITS_COUNT_QUERY } from './requests.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -191,7 +192,9 @@ export const getStyledOrgUnits = ({
         styledFeatures,
         legend: {
             unit: name,
-            items: [...levelItems, ...groupItems, ...facilityItems],
+            items: groupItems.length
+                ? groupItems
+                : [...levelItems, ...facilityItems],
         },
     }
 }
@@ -260,4 +263,91 @@ export const addAssociatedGeometries = (mainFeatures, associatedGeometries) => {
                 : f
         })
         .concat(associatedGeometries)
+}
+
+export const getOrgUnitsWithoutCoordsCount = async ({
+    engine,
+    orgUnitIds,
+    userId,
+    features = [],
+}) => {
+    try {
+        const deResult = await engine.query(FIRST_DATA_ELEMENT_QUERY)
+        const dataElementId = deResult?.dataElements?.dataElements?.[0]?.id
+        if (!dataElementId) {
+            return { count: 0, missingOrgUnits: [] }
+        }
+
+        const countData = await engine.query(ORG_UNITS_COUNT_QUERY, {
+            variables: { dataElementId, orgUnitIds, userId },
+        })
+        const allOuIds =
+            countData?.orgUnitsCount?.metaData?.dimensions?.ou || []
+        const metaItems = countData?.orgUnitsCount?.metaData?.items || {}
+
+        const featureIds = new Set(features.map((f) => f.id))
+        const missingOrgUnits = allOuIds
+            .filter((id) => !featureIds.has(id))
+            .map((id) => ({
+                id,
+                properties: { id, name: metaItems[id]?.name || id },
+            }))
+
+        return { count: missingOrgUnits.length, missingOrgUnits }
+    } catch {
+        return { count: 0, missingOrgUnits: [] }
+    }
+}
+
+const OU_DETAILS_QUERY = {
+    orgUnits: {
+        resource: 'organisationUnits',
+        params: ({ ids }) => ({
+            filter: `id:in:[${ids.join(',')}]`,
+            fields: 'id,level,parent[displayName~rename(name)]',
+            paging: false,
+        }),
+    },
+}
+
+const OU_DETAILS_BATCH_SIZE = 100
+
+export const fetchOrgUnitDetails = async (engine, ids) => {
+    if (!ids.length) {
+        return {}
+    }
+
+    const batches = []
+    for (let i = 0; i < ids.length; i += OU_DETAILS_BATCH_SIZE) {
+        batches.push(ids.slice(i, i + OU_DETAILS_BATCH_SIZE))
+    }
+
+    const results = await Promise.all(
+        batches.map((batch) =>
+            engine.query(OU_DETAILS_QUERY, { variables: { ids: batch } })
+        )
+    )
+
+    return results.reduce((acc, result) => {
+        ;(result.orgUnits.organisationUnits || []).forEach((ou) => {
+            acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
+        })
+        return acc
+    }, {})
+}
+
+export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
+    legendItems.forEach((item) => (item.count = 0))
+    features.forEach((f) => {
+        const groupId = f.properties?.dimensions?.[groupSet.id]
+        const group = groupSet.organisationUnitGroups?.find(
+            (g) => g.id === groupId
+        )
+        if (group) {
+            const item = legendItems.find((i) => i.name === group.name)
+            if (item) {
+                item.count++
+            }
+        }
+    })
 }

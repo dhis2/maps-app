@@ -146,13 +146,15 @@ class EventLayer extends Layer {
         this.layer = map.createLayer(config)
 
         map.addLayer(this.layer)
+        this.setLayerVisibility()
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()
     }
 
     render() {
-        const { styleDataItem, nameProperty } = this.props
+        const { styleDataItem, nameProperty, keyAnalysisDigitGroupSeparator } =
+            this.props
         const { popup, displayItems, eventCoordinateFieldName } = this.state
 
         return popup && displayItems ? (
@@ -160,6 +162,7 @@ class EventLayer extends Layer {
                 {...popup}
                 styleDataItem={styleDataItem}
                 nameProperty={nameProperty}
+                keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 displayItems={displayItems}
                 eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}

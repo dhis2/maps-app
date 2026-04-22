@@ -35,7 +35,6 @@ const OrgUnitData = ({ id }) => {
     const { loading, data, refetch } = useDataQuery(ORGUNIT_PROFILE_QUERY, {
         lazy: true,
     })
-
     useEffect(() => {
         if (id && period) {
             refetch({

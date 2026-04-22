@@ -22,7 +22,12 @@ const TRACKED_ENTITIES_QUERY = {
     },
 }
 
-const getDataRows = ({ displayAttributes, attributes, orgUnitNames }) => {
+const getDataRows = ({
+    displayAttributes,
+    attributes,
+    orgUnitNames,
+    keyAnalysisDigitGroupSeparator,
+}) => {
     const dataRows = []
 
     // Include rows for each displayInList attribute
@@ -33,6 +38,7 @@ const getDataRows = ({ displayAttributes, attributes, orgUnitNames }) => {
             valueType,
             options,
             orgUnitNames,
+            keyAnalysisDigitGroupSeparator,
         })
 
         dataRows.push(
@@ -57,6 +63,7 @@ const TrackedEntityPopup = ({
     activeDataSource,
     program,
     nameProperty,
+    keyAnalysisDigitGroupSeparator,
     displayAttributes,
     onClose,
 }) => {
@@ -154,6 +161,7 @@ const TrackedEntityPopup = ({
                                 displayAttributes,
                                 attributes,
                                 orgUnitNames,
+                                keyAnalysisDigitGroupSeparator,
                             })}
                         {type === 'Point' && (
                             <tr>
@@ -187,6 +195,7 @@ TrackedEntityPopup.propTypes = {
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     activeDataSource: PropTypes.string,
+    keyAnalysisDigitGroupSeparator: PropTypes.string,
     program: PropTypes.object,
 }
 

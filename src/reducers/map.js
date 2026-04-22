@@ -240,6 +240,7 @@ const map = (state = defaultState, action) => {
                 mapViews: [
                     ...state.mapViews,
                     {
+                        isVisible: true,
                         ...action.payload,
                         id: generateUid(),
                     },

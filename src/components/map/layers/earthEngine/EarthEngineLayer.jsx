@@ -143,6 +143,7 @@ export default class EarthEngineLayer extends Layer {
         try {
             this.layer = map.createLayer(config)
             await map.addLayer(this.layer)
+            this.setLayerVisibility()
         } catch (error) {
             this.onError(error)
         }
@@ -216,7 +217,12 @@ export default class EarthEngineLayer extends Layer {
     }
 
     render() {
-        const { legend, aggregationType, loadError } = this.props
+        const {
+            legend,
+            aggregationType,
+            keyAnalysisDigitGroupSeparator,
+            loadError,
+        } = this.props
         const { isLoading, popup, aggregations, error } = this.state
 
         return (
@@ -235,6 +241,9 @@ export default class EarthEngineLayer extends Layer {
                         legend={legend}
                         valueType={aggregationType}
                         onClose={this.onPopupClose}
+                        keyAnalysisDigitGroupSeparator={
+                            keyAnalysisDigitGroupSeparator
+                        }
                         {...popup}
                     />
                 )}

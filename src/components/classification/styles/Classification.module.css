@@ -2,19 +2,63 @@
     width: 100%;
 }
 
+.classesRow {
+    display: flex;
+    gap: var(--spacers-dp64);
+}
+
 .classes {
     width: 50px;
-    margin-right: var(--spacers-dp16);
-    top: -8px;
-    float: left;
 }
 
 .scale {
     display: block;
     padding-top: var(--spacers-dp8);
-    clear: both;
 }
 
-.clear {
-    clear: both;
+.decimalPlaces {
+    width: 50px;
+    white-space: nowrap;
+}
+
+.singleColorRow {
+    display: flex;
+    gap: var(--spacers-dp16);
+    align-items: flex-end;
+    margin-bottom: var(--spacers-dp12);
+}
+
+.singleColorField {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.isolatedRows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+    margin-left: var(--spacers-dp24);
+    margin-bottom: var(--spacers-dp12);
+}
+
+.isolatedRow {
+    display: flex;
+    gap: var(--spacers-dp8);
+    align-items: flex-end;
+}
+
+.isolatedField {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.isolatedColor {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.isolatedName {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
 }

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
-"PO-Revision-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-04-22T17:25:30.092Z\n"
+"PO-Revision-Date: 2026-04-22T17:25:30.092Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -32,23 +32,38 @@ msgstr "This app could not retrieve required data."
 msgid "Network error"
 msgstr "Network error"
 
+msgid "Auto"
+msgstr "Auto"
+
 msgid "Classification"
 msgstr "Classification"
 
 msgid "Classes"
 msgstr "Classes"
 
-msgid "Legend set"
-msgstr "Legend set"
+msgid "Decimal places"
+msgstr "Decimal places"
+
+msgid "Isolated class"
+msgstr "Isolated class"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
 
 msgid "Color"
 msgstr "Color"
 
-msgid "Size"
-msgstr "Size"
-
 msgid "Name"
 msgstr "Name"
+
+msgid "Legend set"
+msgstr "Legend set"
+
+msgid "Size"
+msgstr "Size"
 
 msgid "Name and value"
 msgstr "Name and value"
@@ -249,6 +264,9 @@ msgstr "Point color"
 msgid "Point radius"
 msgstr "Point radius"
 
+msgid "Count org units without coordinates"
+msgstr "Count org units without coordinates"
+
 msgid "event"
 msgstr "event"
 
@@ -356,15 +374,6 @@ msgstr "Max should be greater than min"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
 
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
-msgstr "Steps"
-
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
@@ -383,8 +392,17 @@ msgstr "View all events"
 msgid "Radius"
 msgstr "Radius"
 
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
+
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
+
+msgid "Include unclassified events"
+msgstr "Include unclassified events"
+
+msgid "Include events with no data"
+msgstr "Include events with no data"
 
 msgid "Program is required"
 msgstr "Program is required"
@@ -443,14 +461,23 @@ msgstr "Polygons are represented by their centroids."
 msgid "Labels"
 msgstr "Labels"
 
+msgid "Include org units with no data"
+msgstr "Include org units with no data"
+
+msgid "No data"
+msgstr "No data"
+
+msgid "Include unclassified org units"
+msgstr "Include unclassified org units"
+
+msgid "Unclassified"
+msgstr "Unclassified"
+
 msgid "Aggregation type"
 msgstr "Aggregation type"
 
 msgid "Only show completed events"
 msgstr "Only show completed events"
-
-msgid "Include org units with no data"
-msgstr "Include org units with no data"
 
 msgid "Low radius"
 msgstr "Low radius"
@@ -656,6 +683,19 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
+msgid "Data quality"
+msgstr "Data quality"
+
+msgid "{{count}} event without coordinates"
+msgid_plural "{{count}} event without coordinates"
+msgstr[0] "{{count}} event without coordinates"
+msgstr[1] "{{count}} events without coordinates"
+
+msgid "{{count}} org unit without coordinates"
+msgid_plural "{{count}} org unit without coordinates"
+msgstr[0] "{{count}} org unit without coordinates"
+msgstr[1] "{{count}} org units without coordinates"
+
 msgid "Filters"
 msgstr "Filters"
 
@@ -713,9 +753,6 @@ msgstr "Groups"
 
 msgid "Parent unit"
 msgstr "Parent unit"
-
-msgid "No data"
-msgstr "No data"
 
 msgid "Not set"
 msgstr "Not set"
@@ -966,6 +1003,12 @@ msgstr "Click to unpin legend"
 
 msgid "Click to pin legend"
 msgstr "Click to pin legend"
+
+msgid "Hide layer"
+msgstr "Hide layer"
+
+msgid "Show layer"
+msgstr "Show layer"
 
 msgid "No program"
 msgstr "No program"
@@ -1638,6 +1681,18 @@ msgstr "Equal intervals"
 msgid "Equal counts"
 msgstr "Equal counts"
 
+msgid "Natural breaks (intervals)"
+msgstr "Natural breaks (intervals)"
+
+msgid "Natural breaks (clusters)"
+msgstr "Natural breaks (clusters)"
+
+msgid "Pretty breaks"
+msgstr "Pretty breaks"
+
+msgid "Logarithmic scale"
+msgstr "Logarithmic scale"
+
 msgid "Symbol"
 msgstr "Symbol"
 
@@ -1707,14 +1762,14 @@ msgstr "Displaying first {{pageSize}} events out of {{total}}"
 msgid "Event"
 msgstr "Event"
 
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet used for styling was not found"
+
 msgid "Facilities"
 msgstr "Facilities"
 
 msgid "an error occurred"
 msgstr "an error occurred"
-
-msgid "GroupSet used for styling was not found"
-msgstr "GroupSet used for styling was not found"
 
 msgid "No coordinates found for selected facilities"
 msgstr "No coordinates found for selected facilities"
@@ -1746,11 +1801,11 @@ msgstr "Data item was not found"
 msgid "Thematic layer"
 msgstr "Thematic layer"
 
-msgid "Tracked entity"
-msgstr "Tracked entity"
-
 msgid "related"
 msgstr "related"
+
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
 msgid "not one of"
 msgstr "not one of"
@@ -1800,9 +1855,6 @@ msgstr "Org units"
 
 msgid "Facility"
 msgstr "Facility"
-
-msgid "Other"
-msgstr "Other"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

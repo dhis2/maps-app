@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { setClassification, setLegendSet } from '../../actions/layerEdit.js'
+import { setClassification } from '../../actions/layerEdit.js'
 import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_SINGLE_COLOR,
 } from '../../constants/layers.js'
 import Classification from './Classification.jsx'
+import IsolatedClass from './IsolatedClass.jsx'
 import LegendSetSelect from './LegendSetSelect.jsx'
 import LegendTypeSelect from './LegendTypeSelect.jsx'
 import SingleColor from './SingleColor.jsx'
@@ -18,9 +19,7 @@ const NumericLegendStyle = (props) => {
         mapType,
         method,
         dataItem,
-        legendSet,
         setClassification,
-        setLegendSet,
         legendSetError,
         style,
     } = props
@@ -40,13 +39,6 @@ const NumericLegendStyle = (props) => {
         }
     }, [method, dataItem, setClassification])
 
-    useEffect(() => {
-        // Set legend set defined for data item in use by default
-        if (isPredefined && !legendSet && dataItem?.legendSet) {
-            setLegendSet(dataItem.legendSet)
-        }
-    }, [isPredefined, legendSet, dataItem, setLegendSet])
-
     return (
         <div style={style}>
             <LegendTypeSelect
@@ -55,9 +47,15 @@ const NumericLegendStyle = (props) => {
                 dataItem={dataItem}
             />
             {isSingleColor ? (
-                <SingleColor />
+                <>
+                    <SingleColor />
+                    <IsolatedClass />
+                </>
             ) : isPredefined ? (
-                <LegendSetSelect legendSetError={legendSetError} />
+                <LegendSetSelect
+                    legendSetError={legendSetError}
+                    defaultLegendSet={dataItem?.legendSet}
+                />
             ) : (
                 <Classification />
             )}
@@ -67,9 +65,7 @@ const NumericLegendStyle = (props) => {
 
 NumericLegendStyle.propTypes = {
     setClassification: PropTypes.func.isRequired,
-    setLegendSet: PropTypes.func.isRequired,
     dataItem: PropTypes.object,
-    legendSet: PropTypes.object,
     legendSetError: PropTypes.string,
     mapType: PropTypes.string,
     method: PropTypes.number,
@@ -79,7 +75,6 @@ NumericLegendStyle.propTypes = {
 export default connect(
     ({ layerEdit }) => ({
         method: layerEdit.method,
-        legendSet: layerEdit.legendSet,
     }),
-    { setClassification, setLegendSet }
+    { setClassification }
 )(NumericLegendStyle)

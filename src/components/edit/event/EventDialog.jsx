@@ -12,11 +12,14 @@ import {
     setEventPointColor,
     setEventPointRadius,
     // setFallbackCoordinateField,
+    setNoDataLegend,
+    setUnclassifiedLegend,
     setPeriod,
     setStartDate,
     setEndDate,
     setBackupPeriodsDates,
     setOrgUnits,
+    setCountEventsWithoutCoordinates,
 } from '../../../actions/layerEdit.js'
 import {
     EVENT_COLOR,
@@ -41,6 +44,7 @@ import {
     NumberField,
     ImageSelect,
     ColorPicker,
+    Checkbox,
 } from '../../core/index.js'
 import CoordinateField from '../../dataItem/CoordinateField.jsx'
 import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
@@ -52,12 +56,15 @@ import ProgramSelect from '../../program/ProgramSelect.jsx'
 import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
 import GeometryCentroid from '../shared/GeometryCentroid.jsx'
+import NoDataLegend from '../shared/NoDataLegend.jsx'
+import UnclassifiedLegend from '../shared/UnclassifiedLegend.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.jsx'
 
 class EventDialog extends Component {
     static propTypes = {
         setBackupPeriodsDates: PropTypes.func.isRequired,
+        setCountEventsWithoutCoordinates: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
         setEventCoordinateField: PropTypes.func.isRequired,
@@ -65,15 +72,18 @@ class EventDialog extends Component {
         setEventPointRadius: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
         // setFallbackCoordinateField: PropTypes.func.isRequired,
+        setNoDataLegend: PropTypes.func.isRequired,
         setOrgUnits: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStage: PropTypes.func.isRequired,
         setStartDate: PropTypes.func.isRequired,
+        setUnclassifiedLegend: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         backupPeriodsDates: PropTypes.object,
         columns: PropTypes.array,
+        countEventsWithoutCoordinates: PropTypes.bool,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
@@ -85,6 +95,10 @@ class EventDialog extends Component {
         filters: PropTypes.array,
         legendSet: PropTypes.object,
         method: PropTypes.number,
+        noDataLegend: PropTypes.shape({
+            color: PropTypes.string,
+            name: PropTypes.string,
+        }),
         orgUnits: PropTypes.object,
         periodsSettings: PropTypes.object,
         program: PropTypes.shape({
@@ -103,6 +117,10 @@ class EventDialog extends Component {
             }),
         }),
         systemSettings: PropTypes.object,
+        unclassifiedLegend: PropTypes.shape({
+            color: PropTypes.string,
+            name: PropTypes.string,
+        }),
     }
 
     constructor(props, context) {
@@ -211,12 +229,16 @@ class EventDialog extends Component {
             eventCoordinateFieldType,
             eventPointColor,
             eventPointRadius,
+            noDataLegend,
+            unclassifiedLegend,
             // fallbackCoordinateField,
             filters = [],
             program,
             programStage,
             legendSet,
             periodsSettings,
+            countEventsWithoutCoordinates,
+            styleDataItem,
         } = this.props
 
         const {
@@ -229,7 +251,10 @@ class EventDialog extends Component {
             setEventPointColor,
             setEventPointRadius,
             // setFallbackCoordinateField,
+            setNoDataLegend,
+            setUnclassifiedLegend,
             setPeriod,
+            setCountEventsWithoutCoordinates,
         } = this.props
 
         const {
@@ -403,6 +428,13 @@ class EventDialog extends Component {
                                     disabled={eventClustering}
                                     defaultRadius={EVENT_BUFFER}
                                 />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count events without coordinates'
+                                    )}
+                                    checked={!!countEventsWithoutCoordinates}
+                                    onChange={setCountEventsWithoutCoordinates}
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
@@ -419,6 +451,24 @@ class EventDialog extends Component {
                                             )}
                                         </NoticeBox>
                                     </div>
+                                )}
+                                {styleDataItem && (
+                                    <UnclassifiedLegend
+                                        label={i18n.t(
+                                            'Include unclassified events'
+                                        )}
+                                        value={unclassifiedLegend}
+                                        onChange={setUnclassifiedLegend}
+                                    />
+                                )}
+                                {styleDataItem && (
+                                    <NoDataLegend
+                                        label={i18n.t(
+                                            'Include events with no data'
+                                        )}
+                                        value={noDataLegend}
+                                        onChange={setNoDataLegend}
+                                    />
                                 )}
                             </div>
                         </div>
@@ -518,11 +568,14 @@ export default connect(
         setEventPointColor,
         setEventPointRadius,
         // setFallbackCoordinateField,
+        setNoDataLegend,
+        setUnclassifiedLegend,
         setPeriod,
         setBackupPeriodsDates,
         setStartDate,
         setEndDate,
         setOrgUnits,
+        setCountEventsWithoutCoordinates,
     },
     null,
     {

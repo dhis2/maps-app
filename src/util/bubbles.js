@@ -9,17 +9,36 @@ import { getContrastColor } from './colors.js'
 import { getLongestTextLength } from './helpers.js'
 import { getRoundToPrecisionFn } from './numbers.js'
 
+const getValueFormat = ({
+    minValue,
+    maxValue,
+    divisor,
+    legendDecimalPlaces,
+}) => {
+    if (legendDecimalPlaces !== undefined) {
+        return (n) => Number(n).toFixed(legendDecimalPlaces)
+    }
+    if (minValue === maxValue) {
+        return (n) => n.toString()
+    }
+    const precision = precisionRound((maxValue - minValue) / divisor, maxValue)
+    return (n) => getRoundToPrecisionFn(precision)(n).toString()
+}
+
 export const createBubbleItems = ({
     classes,
     minValue,
     maxValue,
     scale,
     radiusHigh,
+    legendDecimalPlaces,
 }) => {
-    const binSize = (maxValue - minValue) / classes.length
-    const precision = precisionRound(binSize, maxValue)
-    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
-
+    const valueFormat = getValueFormat({
+        minValue,
+        maxValue,
+        divisor: classes.length,
+        legendDecimalPlaces,
+    })
     const startValue = classes[0].startValue
     const endValue = classes[classes.length - 1].endValue
     const itemScale = scale.domain([startValue, endValue])
@@ -47,13 +66,29 @@ export const createSingleColorBubbles = ({
     scale,
     radiusLow,
     radiusHigh,
+    legendDecimalPlaces,
 }) => {
-    const binSize = (maxValue - minValue) / 3
-    const precision = precisionRound(binSize, maxValue)
-    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
-
     const stroke = color && getContrastColor(color)
     const itemScale = scale.domain([minValue, maxValue])
+
+    if (minValue === maxValue) {
+        return [
+            {
+                radius: itemScale(minValue),
+                maxRadius: radiusHigh,
+                color,
+                stroke,
+                text: minValue.toString(),
+            },
+        ]
+    }
+
+    const valueFormat = getValueFormat({
+        minValue,
+        maxValue,
+        divisor: 3,
+        legendDecimalPlaces,
+    })
     const midValue = (maxValue + minValue) / 2
 
     return [

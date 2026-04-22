@@ -6,6 +6,7 @@ import {
     ERROR_CRITICAL,
 } from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
 import {
     ORG_UNITS_GROUP_SET_QUERY,
@@ -13,8 +14,49 @@ import {
     getStyledOrgUnits,
     getCoordinateField,
     parseGroupSet,
+    getOrgUnitsWithoutCoordsCount,
+    fetchOrgUnitDetails,
+    addGroupCountsToLegend,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
+
+const fetchAssociatedGeometries = async (
+    engine,
+    {
+        orgUnitIds,
+        keyAnalysisDisplayProperty,
+        includeGroupSets,
+        coordinateField,
+        userId,
+    }
+) => {
+    const rawData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField: coordinateField.id,
+            userId,
+        },
+    })
+    return rawData?.geoFeatures ? toGeoJson(rawData.geoFeatures) : null
+}
+
+const fetchAndParseGroupSet = async (engine, groupSet) => {
+    try {
+        const orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: { id: groupSet?.id },
+        })
+        const { groupSets } = orgUnitGroups
+        groupSet.organisationUnitGroups = parseGroupSet({
+            organisationUnitGroups: groupSets.organisationUnitGroups,
+        })
+        groupSet.name = groupSets.name
+        return null
+    } catch {
+        return i18n.t('GroupSet used for styling was not found')
+    }
+}
 
 const orgUnitLoader = async ({
     config,
@@ -24,6 +66,11 @@ const orgUnitLoader = async ({
     baseUrl,
 }) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
+    const { countOrgUnitsWithoutCoordinates } = parseJsonConfig(config.config)
+    if (countOrgUnitsWithoutCoordinates) {
+        config.countOrgUnitsWithoutCoordinates = true
+    }
+    delete config.config
 
     const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
@@ -61,18 +108,8 @@ const orgUnitLoader = async ({
 
     const orgUnitLevels = await apiFetchOrganisationUnitLevels(engine)
 
-    // Load organisationUnitGroups if not passed
-    let orgUnitGroups
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        try {
-            orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-                variables: {
-                    id: groupSet?.id,
-                },
-            })
-        } catch (err) {
-            loadError = i18n.t('GroupSet used for styling was not found')
-        }
+        loadError = await fetchAndParseGroupSet(engine, groupSet)
     }
 
     if (!mainFeatures.length && !alerts.length) {
@@ -82,30 +119,16 @@ const orgUnitLoader = async ({
         })
     }
 
-    if (orgUnitGroups) {
-        const { groupSets } = orgUnitGroups
-        groupSet.organisationUnitGroups = parseGroupSet({
-            organisationUnitGroups: groupSets.organisationUnitGroups,
-        })
-        groupSet.name = groupSets.name
-    }
-
     if (coordinateField) {
-        const rawData = await engine.query(GEOFEATURES_QUERY, {
-            variables: {
-                orgUnitIds,
-                keyAnalysisDisplayProperty,
-                includeGroupSets,
-                coordinateField: coordinateField.id,
-                userId,
-            },
+        associatedGeometries = await fetchAssociatedGeometries(engine, {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            userId,
         })
 
-        associatedGeometries = rawData?.geoFeatures
-            ? toGeoJson(rawData.geoFeatures)
-            : null
-
-        if (!associatedGeometries.length) {
+        if (!associatedGeometries?.length) {
             alerts.push({
                 code: WARNING_NO_GEOMETRY_COORD,
                 message: coordinateField.name,
@@ -131,6 +154,49 @@ const orgUnitLoader = async ({
 
     legend.title = name
 
+    legend.items.forEach((item) => (item.count = 0))
+
+    if (groupSet?.id) {
+        addGroupCountsToLegend(legend.items, mainFeatures, groupSet)
+    } else {
+        // Level items — match by level number using the orgUnitLevels array
+        mainFeatures.forEach((f) => {
+            const levelInfo = orgUnitLevels.find(
+                (l) => l.level === f.properties.level
+            )
+            const item =
+                levelInfo &&
+                legend.items.find((i) => i.name === levelInfo.displayName)
+            if (item) {
+                item.count++
+            }
+        })
+    }
+
+    if (config.countOrgUnitsWithoutCoordinates) {
+        const { count, missingOrgUnits } = await getOrgUnitsWithoutCoordsCount({
+            engine,
+            orgUnitIds,
+            userId,
+            features: mainFeatures || [],
+        })
+        if (count > 0) {
+            legend.orgUnitsWithoutCoordinatesCount = count
+            const details = await fetchOrgUnitDetails(
+                engine,
+                missingOrgUnits.map((o) => o.id)
+            )
+            config.dataWithoutCoords = missingOrgUnits.map((ou) => ({
+                ...ou,
+                properties: {
+                    ...ou.properties,
+                    level: details[ou.id]?.level,
+                    parentName: details[ou.id]?.parentName,
+                },
+            }))
+        }
+    }
+
     return {
         ...config,
         data: styledFeatures,
@@ -140,7 +206,7 @@ const orgUnitLoader = async ({
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
+        isVisible: config.isVisible ?? true,
         loadError,
     }
 }

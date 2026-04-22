@@ -24,15 +24,20 @@ const Bubbles = ({
     maxValue,
     classes,
     isPlugin,
+    legendDecimalPlaces,
 }) => {
     const legendWidth = isPlugin ? 150 : 245
     const noDataClass = classes.find((c) => c.noData === true)
-    const bubbleClasses = classes.filter((c) => !c.noData)
+    const isolatedClass = classes.find((c) => c.isLegendIsolated)
+    const outsideLegendClass = classes.find((c) => c.outsideLegend === true)
+    const bubbleClasses = classes.filter(
+        (c) => !c.noData && !c.isLegendIsolated && !c.outsideLegend
+    )
 
     const height = radiusHigh * 2 + 4
     const scale = scaleSqrt().range([radiusLow, radiusHigh])
 
-    if (isNaN(radiusLow) || isNaN(radiusHigh)) {
+    if (Number.isNaN(radiusLow) || Number.isNaN(radiusHigh)) {
         return null
     }
 
@@ -43,6 +48,7 @@ const Bubbles = ({
               maxValue,
               scale,
               radiusHigh,
+              legendDecimalPlaces,
           })
         : createSingleColorBubbles({
               color,
@@ -51,6 +57,7 @@ const Bubbles = ({
               scale,
               radiusLow,
               radiusHigh,
+              legendDecimalPlaces,
           })
 
     const { alternate, offset, showNumbers } = computeLayout({
@@ -68,6 +75,9 @@ const Bubbles = ({
         })
     }
 
+    const extraRowHeight = THEMATIC_RADIUS_DEFAULT * 2 + 4
+    const tx = alternate ? offset : '2'
+
     return (
         <div style={style}>
             <svg
@@ -75,10 +85,12 @@ const Bubbles = ({
                 height={
                     height +
                     20 +
+                    (isolatedClass ? extraRowHeight : 0) +
+                    (outsideLegendClass ? extraRowHeight : 0) +
                     (noDataClass ? THEMATIC_RADIUS_DEFAULT + 1 : 0)
                 }
             >
-                <g transform={`translate(${alternate ? offset : '2'} 10)`}>
+                <g transform={`translate(${tx} 10)`}>
                     {bubbles.map((bubble, i) => (
                         <Bubble
                             key={i}
@@ -89,15 +101,66 @@ const Bubbles = ({
                         />
                     ))}
                 </g>
-                {noDataClass && (
+                {isolatedClass && (
                     <>
-                        {' '}
                         <circle
-                            transform={`translate(${
-                                alternate ? offset : '2'
-                            } 20)`}
+                            transform={`translate(${tx} 20)`}
                             cx={radiusHigh}
                             cy={height}
+                            r={THEMATIC_RADIUS_DEFAULT}
+                            stroke="#000"
+                            style={{
+                                fill: isolatedClass.color,
+                                strokeWidth: 0.5,
+                            }}
+                        />
+                        <text
+                            transform={`translate(${tx} 20)`}
+                            x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
+                            y={height + 4}
+                            fontSize={12}
+                        >
+                            {isolatedClass.name}
+                        </text>
+                    </>
+                )}
+                {outsideLegendClass && (
+                    <>
+                        <circle
+                            transform={`translate(${tx} 20)`}
+                            cx={radiusHigh}
+                            cy={height + (isolatedClass ? extraRowHeight : 0)}
+                            r={THEMATIC_RADIUS_DEFAULT}
+                            stroke="#000"
+                            style={{
+                                fill: outsideLegendClass.color,
+                                strokeWidth: 0.5,
+                            }}
+                        />
+                        <text
+                            transform={`translate(${tx} 20)`}
+                            x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
+                            y={
+                                height +
+                                (isolatedClass ? extraRowHeight : 0) +
+                                4
+                            }
+                            fontSize={12}
+                        >
+                            {outsideLegendClass.name}
+                        </text>
+                    </>
+                )}
+                {noDataClass && (
+                    <>
+                        <circle
+                            transform={`translate(${tx} 20)`}
+                            cx={radiusHigh}
+                            cy={
+                                height +
+                                (isolatedClass ? extraRowHeight : 0) +
+                                (outsideLegendClass ? extraRowHeight : 0)
+                            }
                             r={THEMATIC_RADIUS_DEFAULT}
                             stroke="#000"
                             style={{
@@ -106,11 +169,14 @@ const Bubbles = ({
                             }}
                         />
                         <text
-                            transform={`translate(${
-                                alternate ? offset : '2'
-                            } 20)`}
+                            transform={`translate(${tx} 20)`}
                             x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
-                            y={height + 4}
+                            y={
+                                height +
+                                (isolatedClass ? extraRowHeight : 0) +
+                                (outsideLegendClass ? extraRowHeight : 0) +
+                                4
+                            }
                             fontSize={12}
                         >
                             {noDataClass.name}
@@ -128,6 +194,7 @@ Bubbles.propTypes = {
     classes: PropTypes.array,
     color: PropTypes.string,
     isPlugin: PropTypes.bool,
+    legendDecimalPlaces: PropTypes.number,
     maxValue: PropTypes.number,
     minValue: PropTypes.number,
 }

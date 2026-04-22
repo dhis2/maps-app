@@ -136,7 +136,8 @@ describe('useTableData headers', () => {
                         color: '#FFFFB2',
                         legend: 'Great',
                         range: '90 - 120',
-                        value: 106.3,
+                        value: '106.3',
+                        rawValue: 106.3,
                     },
                 },
             ],
@@ -160,7 +161,7 @@ describe('useTableData headers', () => {
             { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
-            { name: 'Value', dataKey: 'value', type: 'number' },
+            { name: 'Value', dataKey: 'rawValue', type: 'number' },
             { name: 'Legend', dataKey: 'legend', type: 'string' },
             { name: 'Range', dataKey: 'range', type: 'string' },
             { name: 'Level', dataKey: 'level', type: 'number' },
@@ -179,7 +180,7 @@ describe('useTableData headers', () => {
             { value: 0, dataKey: 'index' },
             { value: 'Ngelehun CHC', dataKey: 'name' },
             { value: 'thematicId-1', dataKey: 'id' },
-            { value: 106.3, dataKey: 'value' },
+            { value: 106.3, dataKey: 'rawValue' },
             { value: 'Great', dataKey: 'legend' },
             { value: '90 - 120', dataKey: 'range' },
             { value: 4, dataKey: 'level' },
@@ -257,7 +258,7 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(8)
+        expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
             { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Org unit', dataKey: 'ouname', type: 'string' },
@@ -271,10 +272,15 @@ describe('useTableData headers', () => {
             { name: 'Last updated on', dataKey: 'lastupdated', type: 'string' },
             { name: 'Event status', dataKey: 'eventstatus', type: 'string' },
             { name: 'Gender', dataKey: 'oZg33kd9taw', type: 'string' },
+            {
+                name: 'Coordinate field',
+                dataKey: 'coordinate',
+                type: 'string',
+            },
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(8)
+        expect(rows[0]).toHaveLength(9)
         expect(rows[0]).toMatchObject([
             { value: 0, dataKey: 'index' },
             { value: 'Lumley Hospital', dataKey: 'ouname' },
@@ -283,6 +289,7 @@ describe('useTableData headers', () => {
             { value: '2018-04-12 20:58:51.31', dataKey: 'lastupdated' },
             { value: 'ACTIVE', dataKey: 'eventstatus' },
             { value: 'Female', dataKey: 'oZg33kd9taw' },
+            { value: null, dataKey: 'coordinate' },
             { value: 'Point', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
@@ -544,11 +551,34 @@ describe('useTableData sorting', () => {
         layer: 'thematic',
         dataFilters: null,
         data: [
-            { id: '1', properties: { name: 'Item A', value: 10 } },
-            { id: '2', properties: { name: 'Item B', value: 5 } },
-            { id: '3', properties: { name: 'Item C', value: undefined } },
-            { id: '4', properties: { name: 'Item D', value: 15 } },
-            { id: '5', properties: { name: 'Item E', value: undefined } },
+            {
+                id: '1',
+                properties: { name: 'Item A', value: '10', rawValue: 10 },
+            },
+            {
+                id: '2',
+                properties: { name: 'Item B', value: '5', rawValue: 5 },
+            },
+            {
+                id: '3',
+                properties: {
+                    name: 'Item C',
+                    value: undefined,
+                    rawValue: undefined,
+                },
+            },
+            {
+                id: '4',
+                properties: { name: 'Item D', value: '15', rawValue: 15 },
+            },
+            {
+                id: '5',
+                properties: {
+                    name: 'Item E',
+                    value: undefined,
+                    rawValue: undefined,
+                },
+            },
         ],
     }
 
@@ -560,7 +590,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: mockLayer,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'asc',
                 }),
             {
@@ -582,7 +612,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: mockLayer,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'desc',
                 }),
             {
@@ -602,10 +632,22 @@ describe('useTableData sorting', () => {
             layer: 'thematic',
             dataFilters: null,
             data: [
-                { id: '1', properties: { name: 'Zebra', value: 10 } },
-                { id: '2', properties: { name: 'Apple', value: 5 } },
-                { id: '3', properties: { name: undefined, value: 20 } },
-                { id: '4', properties: { name: 'Banana', value: 15 } },
+                {
+                    id: '1',
+                    properties: { name: 'Zebra', value: '10', rawValue: 10 },
+                },
+                {
+                    id: '2',
+                    properties: { name: 'Apple', value: '5', rawValue: 5 },
+                },
+                {
+                    id: '3',
+                    properties: { name: undefined, value: '20', rawValue: 20 },
+                },
+                {
+                    id: '4',
+                    properties: { name: 'Banana', value: '15', rawValue: 15 },
+                },
             ],
         }
 
@@ -627,7 +669,7 @@ describe('useTableData sorting', () => {
         )
 
         const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
-        expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
+        expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', null])
     })
 
     test('sorts string values in descending order with undefined at end', () => {
@@ -636,10 +678,22 @@ describe('useTableData sorting', () => {
             layer: 'thematic',
             dataFilters: null,
             data: [
-                { id: '1', properties: { name: 'Zebra', value: 10 } },
-                { id: '2', properties: { name: 'Apple', value: 5 } },
-                { id: '3', properties: { name: undefined, value: 20 } },
-                { id: '4', properties: { name: 'Banana', value: 15 } },
+                {
+                    id: '1',
+                    properties: { name: 'Zebra', value: '10', rawValue: 10 },
+                },
+                {
+                    id: '2',
+                    properties: { name: 'Apple', value: '5', rawValue: 5 },
+                },
+                {
+                    id: '3',
+                    properties: { name: undefined, value: '20', rawValue: 20 },
+                },
+                {
+                    id: '4',
+                    properties: { name: 'Banana', value: '15', rawValue: 15 },
+                },
             ],
         }
 
@@ -661,7 +715,7 @@ describe('useTableData sorting', () => {
         )
 
         const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
-        expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', undefined])
+        expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', null])
     })
 
     test('handles multiple undefined values correctly', () => {
@@ -670,16 +724,30 @@ describe('useTableData sorting', () => {
             layer: 'thematic',
             dataFilters: null,
             data: [
-                { id: '1', properties: { name: 'Item A', value: 10 } },
+                {
+                    id: '1',
+                    properties: { name: 'Item A', value: '10', rawValue: 10 },
+                },
                 {
                     id: '2',
-                    properties: { name: 'Item B', value: undefined },
+                    properties: {
+                        name: 'Item B',
+                        value: undefined,
+                        rawValue: undefined,
+                    },
                 },
                 {
                     id: '3',
-                    properties: { name: 'Item C', value: undefined },
+                    properties: {
+                        name: 'Item C',
+                        value: undefined,
+                        rawValue: undefined,
+                    },
                 },
-                { id: '4', properties: { name: 'Item D', value: 5 } },
+                {
+                    id: '4',
+                    properties: { name: 'Item D', value: '5', rawValue: 5 },
+                },
             ],
         }
 
@@ -690,7 +758,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: layerWithManyUndefined,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'asc',
                 }),
             {
@@ -712,15 +780,27 @@ describe('useTableData sorting', () => {
             data: [
                 {
                     id: '1',
-                    properties: { name: 'Item A', value: undefined },
+                    properties: {
+                        name: 'Item A',
+                        value: undefined,
+                        rawValue: undefined,
+                    },
                 },
                 {
                     id: '2',
-                    properties: { name: 'Item B', value: undefined },
+                    properties: {
+                        name: 'Item B',
+                        value: undefined,
+                        rawValue: undefined,
+                    },
                 },
                 {
                     id: '3',
-                    properties: { name: 'Item C', value: undefined },
+                    properties: {
+                        name: 'Item C',
+                        value: undefined,
+                        rawValue: undefined,
+                    },
                 },
             ],
         }
@@ -732,7 +812,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: layerWithAllUndefined,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'asc',
                 }),
             {

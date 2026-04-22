@@ -36,6 +36,7 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
                     layer: 'thematic',
                     id: 'thematic layer id',
                     name: 'All the pretty colors',
+                    isVisible: true,
                     config: {
                         mapLayerPosition: 'OVERLAY',
                     },
@@ -62,8 +63,16 @@ test('getMigratedMapConfig when basemap is a string but not "none"', () => {
             name: 'map name',
             basemap: { id: 'TheRainbowBasemap' },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -75,8 +84,16 @@ test('getMigratedMapConfig when basemap is string "none"', () => {
         name: 'map name',
         basemap: 'none',
         mapViews: [
-            { layer: 'thematic', name: 'All the pretty colors' },
-            { layer: 'facilities', name: 'All the facilities' },
+            {
+                layer: 'thematic',
+                name: 'All the pretty colors',
+                isVisible: true,
+            },
+            {
+                layer: 'facilities',
+                name: 'All the facilities',
+                isVisible: true,
+            },
         ],
     }
 
@@ -89,8 +106,16 @@ test('getMigratedMapConfig when basemap is string "none"', () => {
                 isVisible: false,
             },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -105,8 +130,16 @@ test('getMigratedMapConfig when basemap is an object', () => {
             displayName: 'Basemap name',
         },
         mapViews: [
-            { layer: 'thematic', name: 'All the pretty colors' },
-            { layer: 'facilities', name: 'All the facilities' },
+            {
+                layer: 'thematic',
+                name: 'All the pretty colors',
+                isVisible: true,
+            },
+            {
+                layer: 'facilities',
+                name: 'All the facilities',
+                isVisible: true,
+            },
         ],
     }
 
@@ -116,8 +149,16 @@ test('getMigratedMapConfig when basemap is an object', () => {
             name: 'map name',
             basemap: { id: 'osmStreet', displayName: 'Basemap name' },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -128,8 +169,16 @@ test('getMigratedMapConfig when no basemap in config', () => {
         id: 'mapId',
         name: 'map name',
         mapViews: [
-            { layer: 'thematic', name: 'All the pretty colors' },
-            { layer: 'facilities', name: 'All the facilities' },
+            {
+                layer: 'thematic',
+                name: 'All the pretty colors',
+                isVisible: true,
+            },
+            {
+                layer: 'facilities',
+                name: 'All the facilities',
+                isVisible: true,
+            },
         ],
     }
 
@@ -139,8 +188,16 @@ test('getMigratedMapConfig when no basemap in config', () => {
             name: 'map name',
             basemap: { id: defaultBasemapId },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -153,9 +210,21 @@ test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
         name: 'map name',
         basemap: { id: 'osmStreet' },
         mapViews: [
-            { layer: 'thematic1', name: 'Thematic layer 1' },
-            { layer: 'thematic2', name: 'Thematic layer 2' },
-            { layer: 'boundary', name: 'Boundary layer' },
+            {
+                layer: 'thematic1',
+                name: 'Thematic layer 1',
+                isVisible: true,
+            },
+            {
+                layer: 'thematic2',
+                name: 'Thematic layer 2',
+                isVisible: true,
+            },
+            {
+                layer: 'boundary',
+                name: 'Boundary layer',
+                isVisible: true,
+            },
         ],
     }
 
@@ -165,9 +234,21 @@ test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
             name: 'map name',
             basemap: { id: 'osmStreet' },
             mapViews: [
-                { layer: 'thematic', name: 'Thematic layer 2' },
-                { layer: 'thematic', name: 'Thematic layer 1' },
-                { layer: 'orgUnit', name: 'Boundary layer' },
+                {
+                    layer: 'thematic',
+                    name: 'Thematic layer 2',
+                    isVisible: true,
+                },
+                {
+                    layer: 'thematic',
+                    name: 'Thematic layer 1',
+                    isVisible: true,
+                },
+                {
+                    layer: 'orgUnit',
+                    name: 'Boundary layer',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -196,6 +277,7 @@ test('getMigratedMapConfig with colorScale with multiple values converted to an 
                 {
                     layer: 'thematic',
                     name: 'Thematic layer',
+                    isVisible: true,
                     colorScale: [
                         '#fee5d9',
                         '#fcbba1',
@@ -233,6 +315,7 @@ test('getMigratedMapConfig with colorScale with single value returns value', () 
                 {
                     layer: 'thematic',
                     name: 'Thematic layer',
+                    isVisible: true,
                     colorScale: '#fee5d9',
                 },
             ],

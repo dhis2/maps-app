@@ -209,7 +209,7 @@ export const getCurrentYearInCalendar = (calendar) => {
 }
 
 export function replaceAt(str, index, replacement) {
-    const cleanReplacement = replacement.replace(/\D/g, '')
+    const cleanReplacement = replacement.replaceAll(/\D/g, '')
     if (index >= str.length) {
         return str + cleanReplacement
     }
@@ -255,7 +255,7 @@ export const formatDateInput = ({
         finalHyphen = '-'
     }
 
-    const numericDate = date.replace(/\D/g, '')
+    const numericDate = date.replaceAll(/\D/g, '')
 
     const year = numericDate.slice(0, 4)
     const month = numericDate.slice(4, 6)

@@ -1,13 +1,17 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
+    THEMATIC_LAYER,
+    EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
+    FACILITY_LAYER,
+    ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
     GEOJSON_URL_LAYER,
-    TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
-    'basemap',
+    // 'basemap' and 'basemaps' removed — set exclusively by getBasemapPayload
     'id',
     'latitude',
     'longitude',
@@ -38,6 +42,7 @@ const validLayerProperties = [
     'endDate',
     'eventCoordinateField',
     'eventClustering',
+    'countEventsWithoutCoordinates',
     'eventPointColor',
     'eventPointRadius',
     'eventStatus',
@@ -52,19 +57,24 @@ const validLayerProperties = [
     'labelFontWeight',
     'labelFontColor',
     'labelTemplate',
+    'legendDecimalPlaces',
+    'legendIsolated',
     'lastUpdated',
     'layer',
     'layerId',
     'legendSet',
     'method',
     'name',
-    'noDataColor',
+    'noDataLegend',
+    'unclassifiedLegend',
     'opacity',
+    'hidden',
     'organisationUnitColor',
     'organisationUnitGroupSet',
     'organisationUnitSelectionMode',
     'orgUnitField',
     'orgUnitFieldDisplayName',
+    'countOrgUnitsWithoutCoordinates',
     'style',
     'period',
     'periodType',
@@ -101,29 +111,48 @@ const validModelProperties = [
 export const cleanMapConfig = ({
     config,
     defaultBasemapId,
+    serverVersion,
     cleanMapviewConfig = true,
 }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: getBasemapString(config.basemap, defaultBasemapId),
+    ...getBasemapPayload(config.basemap, defaultBasemapId, serverVersion),
     mapViews: config.mapViews.map((view) =>
         cleanLayerConfig(view, cleanMapviewConfig)
     ),
 })
 
-const getBasemapString = (basemap, defaultBasemapId) => {
-    if (!basemap) {
-        return defaultBasemapId
+// VERSION-TOGGLE: https://dhis2.atlassian.net/browse/DHIS2-20417
+const getBasemapPayload = (basemap, defaultBasemapId, serverVersion) => {
+    if (serverVersion?.minor >= 43) {
+        return {
+            basemaps: [
+                {
+                    id: basemap?.id || defaultBasemapId,
+                    opacity: basemap?.opacity ?? 1,
+                    hidden: basemap?.isVisible === false,
+                },
+            ],
+        }
     }
 
-    if (basemap.isVisible === false) {
-        return 'none'
+    // Legacy: store as JSON to preserve opacity and id when hidden
+    return {
+        basemap: JSON.stringify({
+            id: basemap?.id || defaultBasemapId,
+            opacity: basemap?.opacity ?? 1,
+            hidden: basemap?.isVisible === false,
+        }),
     }
-
-    return basemap.id || defaultBasemapId
 }
 
 const cleanLayerConfig = (layer, cleanMapviewConfig) => ({
-    ...models2objects(pick(validLayerProperties, layer), cleanMapviewConfig),
+    ...models2objects(
+        pick(validLayerProperties, {
+            ...layer,
+            hidden: layer.isVisible === false,
+        }),
+        cleanMapviewConfig
+    ),
 })
 
 // TODO: This feels hacky, find better way to clean map configs before saving
@@ -140,9 +169,48 @@ const models2objects = (layer, cleanMapviewConfig) => {
         layer.rows = layer.rows.map(cleanDimension)
     }
 
-    if (layerType === EARTH_ENGINE_LAYER) {
+    if (
+        layerType === THEMATIC_LAYER ||
+        layerType === ORG_UNIT_LAYER ||
+        layerType === FACILITY_LAYER
+    ) {
+        const configData = {}
+        if (cleanMapviewConfig && layer.countOrgUnitsWithoutCoordinates) {
+            configData.countOrgUnitsWithoutCoordinates = true
+        }
+        if (layer.legendDecimalPlaces !== undefined) {
+            configData.legendDecimalPlaces = layer.legendDecimalPlaces
+        }
+        if (layer.legendIsolated !== undefined) {
+            configData.legendIsolated = layer.legendIsolated
+        }
+        if (layer.unclassifiedLegend) {
+            configData.unclassifiedLegend = layer.unclassifiedLegend
+        }
+        if (layer.noDataLegend) {
+            layer.noDataColor = layer.noDataLegend.color
+            if (layer.noDataLegend.name) {
+                configData.noDataName = layer.noDataLegend.name
+            }
+        }
+        if (Object.keys(configData).length) {
+            layer.config = JSON.stringify(configData)
+        }
+        delete layer.countOrgUnitsWithoutCoordinates
+        delete layer.legendDecimalPlaces
+        delete layer.legendIsolated
+        delete layer.unclassifiedLegend
+        delete layer.noDataLegend
+    } else if (layerType === EARTH_ENGINE_LAYER) {
         if (cleanMapviewConfig) {
-            const { layerId: id, band, style, aggregationType, period } = layer
+            const {
+                layerId: id,
+                band,
+                style,
+                aggregationType,
+                period,
+                countOrgUnitsWithoutCoordinates,
+            } = layer
 
             const eeConfig = {
                 id,
@@ -150,12 +218,14 @@ const models2objects = (layer, cleanMapviewConfig) => {
                 band,
                 aggregationType,
                 period,
+                countOrgUnitsWithoutCoordinates,
             }
 
             // Removes undefined keys before stringify
             Object.keys(eeConfig).forEach(
                 (key) => eeConfig[key] === undefined && delete eeConfig[key]
             )
+
             layer.config = JSON.stringify(eeConfig)
         }
 
@@ -168,6 +238,7 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.periodType
         delete layer.aggregationType
         delete layer.band
+        delete layer.countOrgUnitsWithoutCoordinates
     } else if (layerType === TRACKED_ENTITY_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = JSON.stringify({
@@ -191,6 +262,34 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.relationshipLineColor
         delete layer.relationshipOutsideProgram
         delete layer.periodType
+    } else if (layerType === EVENT_LAYER) {
+        const configData = {}
+        if (cleanMapviewConfig && layer.countEventsWithoutCoordinates) {
+            configData.countEventsWithoutCoordinates = true
+        }
+        if (layer.legendDecimalPlaces !== undefined) {
+            configData.legendDecimalPlaces = layer.legendDecimalPlaces
+        }
+        if (layer.legendIsolated !== undefined) {
+            configData.legendIsolated = layer.legendIsolated
+        }
+        if (layer.unclassifiedLegend) {
+            configData.unclassifiedLegend = layer.unclassifiedLegend
+        }
+        if (layer.noDataLegend) {
+            layer.noDataColor = layer.noDataLegend.color
+            if (layer.noDataLegend.name) {
+                configData.noDataName = layer.noDataLegend.name
+            }
+        }
+        if (Object.keys(configData).length) {
+            layer.config = JSON.stringify(configData)
+        }
+        delete layer.countEventsWithoutCoordinates
+        delete layer.legendDecimalPlaces
+        delete layer.legendIsolated
+        delete layer.unclassifiedLegend
+        delete layer.noDataLegend
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

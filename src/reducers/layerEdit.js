@@ -290,6 +290,15 @@ const layerEdit = (state = null, action) => {
 
             if (action.method !== CLASSIFICATION_PREDEFINED) {
                 delete newState.legendSet
+                delete newState.unclassifiedLegend
+            }
+
+            if (action.method === CLASSIFICATION_PREDEFINED) {
+                delete newState.legendDecimalPlaces
+            }
+
+            if (action.method === CLASSIFICATION_PREDEFINED) {
+                delete newState.legendIsolated
             }
 
             if (newState.styleDataItem) {
@@ -307,6 +316,28 @@ const layerEdit = (state = null, action) => {
 
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET:
+            newState = { ...state }
+
+            if (action.legendDecimalPlaces === undefined) {
+                delete newState.legendDecimalPlaces
+            } else {
+                newState.legendDecimalPlaces = action.legendDecimalPlaces
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_ISOLATED_SET:
+            newState = { ...state }
+
+            if (action.legendIsolated === undefined) {
+                delete newState.legendIsolated
+            } else {
+                newState.legendIsolated = action.legendIsolated
             }
 
             return newState
@@ -345,6 +376,12 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 eventClustering: action.checked,
+            }
+
+        case types.LAYER_EDIT_COUNT_EVENTS_WITHOUT_COORDS_SET:
+            return {
+                ...state,
+                countEventsWithoutCoordinates: action.checked,
             }
 
         case types.LAYER_EDIT_EVENT_POINT_RADIUS_SET:
@@ -417,6 +454,12 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 organisationUnitSelectionMode: action.payload,
+            }
+
+        case types.LAYER_EDIT_ORGANISATION_UNIT_WITHOUT_COORDS_SET:
+            return {
+                ...state,
+                countOrgUnitsWithoutCoordinates: action.checked,
             }
 
         case types.LAYER_EDIT_BAND_SET:
@@ -548,16 +591,22 @@ const layerEdit = (state = null, action) => {
                 followUp: action.payload,
             }
 
-        case types.LAYER_EDIT_NO_DATA_COLOR_SET:
+        case types.LAYER_EDIT_NO_DATA_LEGEND_SET:
             newState = { ...state }
-
-            // Default is to show no feature
             if (!action.payload) {
-                delete newState.noDataColor
+                delete newState.noDataLegend
             } else {
-                newState.noDataColor = action.payload
+                newState.noDataLegend = action.payload
             }
+            return newState
 
+        case types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET:
+            newState = { ...state }
+            if (action.payload) {
+                newState.unclassifiedLegend = action.payload
+            } else {
+                delete newState.unclassifiedLegend
+            }
             return newState
 
         case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:

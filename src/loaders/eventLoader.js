@@ -15,6 +15,7 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
@@ -47,11 +48,15 @@ const eventLoader = async ({
     config: layerConfig,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     analyticsEngine,
     periodTypeData,
     loadExtended,
 }) => {
-    const config = { ...layerConfig }
+    const config = {
+        ...layerConfig,
+        keyAnalysisDigitGroupSeparator,
+    }
     const displayNameProp =
         keyAnalysisDisplayProperty === 'name'
             ? 'displayName'
@@ -84,7 +89,7 @@ const eventLoader = async ({
     config.isLoaded = true
     config.isLoading = false
     config.isExpanded = true
-    config.isVisible = true
+    config.isVisible = config.isVisible ?? true
 
     return config
 }
@@ -97,6 +102,34 @@ const loadEventLayer = async ({
     periodTypeData,
     loadExtended,
 }) => {
+    const {
+        countEventsWithoutCoordinates,
+        legendDecimalPlaces,
+        legendIsolated,
+        unclassifiedLegend,
+        noDataName,
+    } = parseJsonConfig(config.config)
+    if (countEventsWithoutCoordinates) {
+        config.countEventsWithoutCoordinates = true
+    }
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    if (legendIsolated !== undefined) {
+        config.legendIsolated = legendIsolated
+    }
+    if (unclassifiedLegend) {
+        config.unclassifiedLegend = unclassifiedLegend
+    }
+    if (config.noDataColor) {
+        config.noDataLegend = {
+            color: config.noDataColor,
+            ...(noDataName && { name: noDataName }),
+        }
+        delete config.noDataColor
+    }
+    delete config.config
+
     const {
         columns,
         endDate,
@@ -157,7 +190,7 @@ const loadEventLayer = async ({
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { data, response } = await loadData({
+        const { data, response, dataWithoutCoords } = await loadData({
             request: analyticsRequest,
             config,
             analyticsEngine,
@@ -165,6 +198,9 @@ const loadEventLayer = async ({
         const { total } = response.metaData.pager
 
         config.data = data
+        if (config.countEventsWithoutCoordinates) {
+            config.dataWithoutCoords = dataWithoutCoords
+        }
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
@@ -196,7 +232,8 @@ const loadEventLayer = async ({
         const numericDataItemHeaders = config.headers.filter(
             (header) =>
                 isValidUid(header.name) &&
-                numberValueTypes.includes(header.valueType)
+                numberValueTypes.includes(header.valueType) &&
+                !header.optionSet
         )
 
         if (numericDataItemHeaders.length) {
@@ -243,20 +280,24 @@ const loadEventLayer = async ({
     }
 
     if (!styleDataItem) {
-        const color = cssColor(eventPointColor) || EVENT_COLOR
-        const strokeColor = getContrastColor(color)
-
-        config.legend.items = [
-            {
-                name: i18n.t('Event'),
-                color,
-                strokeColor,
-                radius: eventPointRadius || EVENT_RADIUS,
-                count:
-                    serverCount ||
-                    (Array.isArray(config?.data) ? config.data.length : 0),
-            },
-        ]
+        const count =
+            serverCount ||
+            (Array.isArray(config?.data) ? config.data.length : 0)
+        if (count > 0) {
+            const color = cssColor(eventPointColor) || EVENT_COLOR
+            const strokeColor = getContrastColor(color)
+            config.legend.items = [
+                {
+                    name: i18n.t('Event'),
+                    color,
+                    strokeColor,
+                    radius: eventPointRadius || EVENT_RADIUS,
+                    count:
+                        serverCount ||
+                        (Array.isArray(config?.data) ? config.data.length : 0),
+                },
+            ]
+        }
     }
 
     const explanation = []
@@ -271,6 +312,14 @@ const loadEventLayer = async ({
 
     if (areaRadius) {
         explanation.push(`${i18n.t('Buffer')}: ${areaRadius} ${'m'}`)
+    }
+
+    if (
+        config.countEventsWithoutCoordinates &&
+        config.dataWithoutCoords?.length > 0
+    ) {
+        config.legend.eventsWithoutCoordinatesCount =
+            config.dataWithoutCoords.length
     }
 
     if (explanation.length) {

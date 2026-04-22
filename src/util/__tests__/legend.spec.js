@@ -6,6 +6,7 @@ import {
 import { defaultClasses, defaultColorScale } from '../colors.js'
 import {
     loadDataItemLegendSet,
+    sortLegendItems,
     formatLegendItems,
     getBinsFromLegendItems,
     getColorScaleFromLegendItems,
@@ -88,20 +89,19 @@ describe('legend utils', () => {
             const result = getPredefinedLegendItems(legendSet)
             // sorted by startValue -> first item is startValue 0 (name 'A')
             expect(result[0].name).toBe('A')
-            // second item had name equal to range and should be cleared
-            expect(result[1].name).toBe('')
+            expect(result[1].name).toBe('10 - 20')
         })
     })
 
     describe('getAutomaticLegendItems', () => {
         it('returns items with colors from default color scale', () => {
             const data = [1, 2, 3, 4, 5]
-            const items = getAutomaticLegendItems(
+            const { items } = getAutomaticLegendItems({
                 data,
-                CLASSIFICATION_EQUAL_INTERVALS,
-                defaultClasses,
-                defaultColorScale
-            )
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: defaultClasses,
+                colorScale: defaultColorScale,
+            })
             expect(items.length).toBeGreaterThan(0)
             // each item should have a color from the provided colorScale
             items.forEach((item, idx) => {
@@ -110,13 +110,89 @@ describe('legend utils', () => {
         })
 
         it('returns empty array when no data', () => {
-            const items = getAutomaticLegendItems(
-                [],
-                CLASSIFICATION_EQUAL_INTERVALS,
-                defaultClasses,
-                defaultColorScale
-            )
+            const { items } = getAutomaticLegendItems({
+                data: [],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: defaultClasses,
+                colorScale: defaultColorScale,
+            })
             expect(items).toEqual([])
+        })
+    })
+
+    describe('sortLegendItems', () => {
+        it('returns a new array, does not mutate input', () => {
+            const input = [
+                { startValue: 0, endValue: 10 },
+                { startValue: 20, endValue: 30 },
+            ]
+            const result = sortLegendItems(input)
+            expect(result).not.toBe(input)
+            expect(input[0].startValue).toBe(0)
+        })
+
+        it('sorts from/to items descending by start', () => {
+            const items = [
+                { from: 0, to: 10 },
+                { from: 20, to: 30 },
+                { from: 10, to: 20 },
+            ]
+            const result = sortLegendItems(items)
+            expect(result.map((i) => i.from)).toEqual([20, 10, 0])
+        })
+
+        it('sorts startValue/endValue items descending by start', () => {
+            const items = [
+                { startValue: 0, endValue: 10 },
+                { startValue: 20, endValue: 30 },
+                { startValue: 10, endValue: 20 },
+            ]
+            const result = sortLegendItems(items)
+            expect(result.map((i) => i.startValue)).toEqual([20, 10, 0])
+        })
+
+        it('uses end as tiebreaker when start values are equal', () => {
+            const items = [
+                { from: 10, to: 20 },
+                { from: 10, to: 30 },
+            ]
+            const result = sortLegendItems(items)
+            expect(result[0].to).toBe(30)
+        })
+
+        it('places no-range items last', () => {
+            const items = [
+                { name: 'label only' },
+                { startValue: 10, endValue: 20 },
+            ]
+            const result = sortLegendItems(items)
+            expect(result[0].startValue).toBe(10)
+            expect(result[1].name).toBe('label only')
+        })
+
+        it('places isLegendIsolated items after regular, before no-range', () => {
+            const items = [
+                { name: 'label only' },
+                { startValue: 5, endValue: 10, isLegendIsolated: true },
+                { startValue: 10, endValue: 20 },
+            ]
+            const result = sortLegendItems(items)
+            expect(result[0].startValue).toBe(10)
+            expect(result[1].isLegendIsolated).toBe(true)
+            expect(result[2].name).toBe('label only')
+        })
+
+        it('sorts both-isolated items numerically', () => {
+            const items = [
+                { startValue: 5, endValue: 10, isLegendIsolated: true },
+                { startValue: 15, endValue: 20, isLegendIsolated: true },
+            ]
+            const result = sortLegendItems(items)
+            expect(result[0].startValue).toBe(15)
+        })
+
+        it('handles empty array', () => {
+            expect(sortLegendItems([])).toEqual([])
         })
     })
 

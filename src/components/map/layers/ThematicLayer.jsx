@@ -47,7 +47,7 @@ class ThematicLayer extends Layer {
             labels,
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
             thematicMapType = THEMATIC_CHOROPLETH,
-            noDataColor,
+            noDataLegend,
         } = this.props
 
         const { isPlugin, map } = this.context
@@ -64,7 +64,7 @@ class ThematicLayer extends Layer {
             isVisible,
             data: filteredData,
             hoverLabel: '{name} ({value})',
-            color: noDataColor,
+            color: noDataLegend?.color,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         }
@@ -105,6 +105,7 @@ class ThematicLayer extends Layer {
         }
 
         map.addLayer(this.layer)
+        this.setLayerVisibility()
 
         const options = {}
         if (renderingStrategy === RENDERING_STRATEGY_TIMELINE) {
@@ -275,7 +276,8 @@ class ThematicLayer extends Layer {
             valuesByPeriod,
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
             thematicMapType = THEMATIC_CHOROPLETH,
-            noDataColor,
+            noDataLegend,
+            unclassifiedLegend,
             externalPeriod,
         } = props
 
@@ -300,10 +302,15 @@ class ThematicLayer extends Layer {
                 },
             }))
 
-            // Remove org unit features if noDataColor is missing
-            if (!noDataColor) {
+            if (!noDataLegend) {
                 periodData = periodData.filter(
                     (feature) => values[feature.id] !== undefined
+                )
+            }
+
+            if (!unclassifiedLegend) {
+                periodData = periodData.filter(
+                    (feature) => !values[feature.id]?.outsideLegend
                 )
             }
         }
