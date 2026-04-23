@@ -378,7 +378,7 @@ The data table displays the data forming the thematic layer.
         than), `<` (less than), `>=` (greater than or equal), or `<=`
         (less than or equal). Use `,` for OR and `&` for AND logic, for
         example: `2,>3&<8` matches the value 2, or any value greater
-        than 3 and less than 8
+        than 3 and less than 8.
 
     -   LEGEND
 
