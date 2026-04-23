@@ -21,16 +21,37 @@ describe('filterData', () => {
         expect(filterData(data, filters)).toEqual([{ a: '2' }])
     })
 
-    // TODO the following tests fail because the code has a bug
-    it.skip('should filter data based on a numeric filter', () => {
+    it('should filter data based on a numeric filter', () => {
         const data = [{ a: 1 }, { a: 2 }, { a: 3 }]
         const filters = { a: '>1' }
         expect(filterData(data, filters)).toEqual([{ a: 2 }, { a: 3 }])
     })
 
-    it.skip('should handle complex numeric filters', () => {
+    it('should handle complex numeric filters', () => {
         const data = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }, { a: 5 }]
         const filters = { a: '>1&<5' }
+        expect(filterData(data, filters)).toEqual([
+            { a: 2 },
+            { a: 3 },
+            { a: 4 },
+        ])
+    })
+
+    it('should filter data using >= operator', () => {
+        const data = [{ a: 1 }, { a: 2 }, { a: 3 }]
+        const filters = { a: '>=2' }
+        expect(filterData(data, filters)).toEqual([{ a: 2 }, { a: 3 }])
+    })
+
+    it('should filter data using <= operator', () => {
+        const data = [{ a: 1 }, { a: 2 }, { a: 3 }]
+        const filters = { a: '<=2' }
+        expect(filterData(data, filters)).toEqual([{ a: 1 }, { a: 2 }])
+    })
+
+    it('should handle complex numeric filters with >= and <=', () => {
+        const data = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }, { a: 5 }]
+        const filters = { a: '>=2&<=4' }
         expect(filterData(data, filters)).toEqual([
             { a: 2 },
             { a: 3 },
