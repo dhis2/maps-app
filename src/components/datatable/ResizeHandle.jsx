@@ -26,6 +26,7 @@ const ResizeHandle = ({
     }
 
     const onDrag = (evt) => {
+        evt.preventDefault() // Prevents globe/unavailable cursor in Chrome
         const height = getHeight(evt || window.event)
 
         if (height && onResize) {
