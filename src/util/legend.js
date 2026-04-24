@@ -43,14 +43,34 @@ const DATA_SET_QUERY = {
     },
 }
 
+const getRange = (item) => {
+    if ('from' in item) {
+        return { start: item.from, end: item.to }
+    }
+    if ('startValue' in item) {
+        return { start: item.startValue, end: item.endValue }
+    }
+    return null
+}
+
 export const sortLegendItems = (items) =>
-    items.sort((a, b) => {
-        if ('from' in a) {
-            return b.from - a.from
+    [...items].sort((a, b) => {
+        const aRange = getRange(a)
+        const bRange = getRange(b)
+
+        if (!aRange && !bRange) {
+            return 0
         }
-        if ('startValue' in a) {
-            return b.startValue - a.startValue
+        if (!aRange) {
+            return 1
         }
+        if (!bRange) {
+            return -1
+        }
+
+        return bRange.start === aRange.start
+            ? bRange.end - aRange.end
+            : bRange.start - aRange.start
     })
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
