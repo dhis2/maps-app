@@ -17,8 +17,8 @@ export const isValidRadius = (
     radiusLow = THEMATIC_RADIUS_LOW,
     radiusHigh = THEMATIC_RADIUS_HIGH
 ) =>
-    !isNaN(radiusLow) &&
-    !isNaN(radiusHigh) &&
+    !Number.isNaN(radiusLow) &&
+    !Number.isNaN(radiusHigh) &&
     radiusLow <= radiusHigh &&
     radiusLow >= THEMATIC_RADIUS_MIN &&
     radiusHigh <= THEMATIC_RADIUS_MAX
@@ -33,7 +33,7 @@ const RadiusSelect = ({
     <Fragment>
         <NumberField
             label={i18n.t('Low radius')}
-            value={isNaN(radiusLow) ? '' : radiusLow}
+            value={Number.isNaN(radiusLow) ? '' : radiusLow}
             min={THEMATIC_RADIUS_MIN}
             max={THEMATIC_RADIUS_MAX}
             onChange={setRadiusLow}
@@ -41,7 +41,7 @@ const RadiusSelect = ({
         />
         <NumberField
             label={i18n.t('High radius')}
-            value={isNaN(radiusHigh) ? '' : radiusHigh}
+            value={Number.isNaN(radiusHigh) ? '' : radiusHigh}
             min={THEMATIC_RADIUS_MIN}
             max={THEMATIC_RADIUS_MAX}
             onChange={setRadiusHigh}
