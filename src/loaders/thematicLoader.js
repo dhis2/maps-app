@@ -228,6 +228,7 @@ const thematicLoader = async ({
         getLegendItemForValue({
             value,
             valueFormat,
+            method,
             legendItems: legend.items.filter((item) => !item.noData),
             clamp: method !== CLASSIFICATION_PREDEFINED,
         })
