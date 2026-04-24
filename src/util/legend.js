@@ -149,21 +149,25 @@ export const getPredefinedLegendItems = (legendSet) => {
         )
 }
 
-/* eslint-disable max-params */
-export const getAutomaticLegendItems = (
+export const getAutomaticLegendItems = ({
     data,
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
-    colorScale = defaultColorScale
-) => {
-    const items = data.length ? getLegendItems(data, method, classes) : []
+    colorScale = defaultColorScale,
+}) => {
+    if (data.length === 0) {
+        return { items: [] }
+    }
 
-    return items.map((item, index) => ({
-        ...item,
-        color: colorScale[index],
-    }))
+    const classification = getLegendItems(data, method, classes)
+    return {
+        items: classification.items.map((item, index) => ({
+            ...item,
+            color: colorScale[index],
+        })),
+        valueFormat: classification.valueFormat,
+    }
 }
-/* eslint-enable max-params */
 
 export const getRenderingLabel = (strategy) => {
     const map = {

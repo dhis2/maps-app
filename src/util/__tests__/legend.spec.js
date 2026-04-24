@@ -96,12 +96,12 @@ describe('legend utils', () => {
     describe('getAutomaticLegendItems', () => {
         it('returns items with colors from default color scale', () => {
             const data = [1, 2, 3, 4, 5]
-            const items = getAutomaticLegendItems(
+            const { items } = getAutomaticLegendItems({
                 data,
-                CLASSIFICATION_EQUAL_INTERVALS,
-                defaultClasses,
-                defaultColorScale
-            )
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: defaultClasses,
+                colorScale: defaultColorScale,
+            })
             expect(items.length).toBeGreaterThan(0)
             // each item should have a color from the provided colorScale
             items.forEach((item, idx) => {
@@ -110,12 +110,12 @@ describe('legend utils', () => {
         })
 
         it('returns empty array when no data', () => {
-            const items = getAutomaticLegendItems(
-                [],
-                CLASSIFICATION_EQUAL_INTERVALS,
-                defaultClasses,
-                defaultColorScale
-            )
+            const { items } = getAutomaticLegendItems({
+                data: [],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: defaultClasses,
+                colorScale: defaultColorScale,
+            })
             expect(items).toEqual([])
         })
     })
