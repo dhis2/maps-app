@@ -65,6 +65,17 @@ describe('getLegendItemForValue', () => {
             getLegendItemForValue({ value: -1, legendItems })
         ).toBeUndefined()
     })
+
+    it('applies valueFormat to value before lookup', () => {
+        // 9.999 formatted to 2 decimals → 10.00, which falls in the second bin [10, 20)
+        expect(
+            getLegendItemForValue({
+                value: 9.999,
+                valueFormat: (v) => Number(v.toFixed(2)),
+                legendItems,
+            })
+        ).toEqual(legendItems[1])
+    })
 })
 
 describe('getLegendItems', () => {
@@ -96,5 +107,14 @@ describe('getLegendItems', () => {
     it('returns undefined if method is unknown', () => {
         const { items } = getLegendItems([0, 100], 'UNKNOWN', 3)
         expect(items).toBeUndefined()
+    })
+
+    it('returns a valueFormat function for known methods', () => {
+        const { valueFormat } = getLegendItems(
+            [0, 100],
+            CLASSIFICATION_EQUAL_INTERVALS,
+            4
+        )
+        expect(typeof valueFormat).toBe('function')
     })
 })

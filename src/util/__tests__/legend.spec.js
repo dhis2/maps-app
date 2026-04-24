@@ -6,6 +6,7 @@ import {
 import { defaultClasses, defaultColorScale } from '../colors.js'
 import {
     loadDataItemLegendSet,
+    sortLegendItems,
     formatLegendItems,
     getBinsFromLegendItems,
     getColorScaleFromLegendItems,
@@ -14,6 +15,61 @@ import {
     getAutomaticLegendItems,
     getRenderingLabel,
 } from '../legend.js'
+
+describe('sortLegendItems', () => {
+    it('sorts items by startValue descending', () => {
+        const items = [
+            { startValue: 20, endValue: 30 },
+            { startValue: 0, endValue: 10 },
+            { startValue: 10, endValue: 20 },
+        ]
+        expect(sortLegendItems(items).map((i) => i.startValue)).toEqual([
+            20, 10, 0,
+        ])
+    })
+
+    it('sorts items with from/to keys descending', () => {
+        const items = [
+            { from: 5, to: 10 },
+            { from: 0, to: 5 },
+            { from: 10, to: 15 },
+        ]
+        expect(sortLegendItems(items).map((i) => i.from)).toEqual([10, 5, 0])
+    })
+
+    it('places items without range keys at the end', () => {
+        const items = [
+            { startValue: 10, endValue: 20 },
+            { name: 'Other', color: 'grey' },
+            { startValue: 0, endValue: 10 },
+        ]
+        const sorted = sortLegendItems(items)
+        expect(sorted[0].startValue).toBe(10)
+        expect(sorted[1].startValue).toBe(0)
+        expect(sorted[2].name).toBe('Other')
+    })
+
+    it('does not mutate the original array', () => {
+        const items = [
+            { startValue: 10, endValue: 20 },
+            { startValue: 0, endValue: 10 },
+        ]
+        const copy = [...items]
+        sortLegendItems(items)
+        expect(items).toEqual(copy)
+    })
+
+    it('sorts by endValue descending when startValues are equal', () => {
+        const items = [
+            { startValue: 0, endValue: 10 },
+            { startValue: 0, endValue: 20 },
+            { startValue: 0, endValue: 15 },
+        ]
+        expect(sortLegendItems(items).map((i) => i.endValue)).toEqual([
+            20, 15, 10,
+        ])
+    })
+})
 
 describe('legend utils', () => {
     describe('loadDataItemLegendSet', () => {
@@ -117,6 +173,17 @@ describe('legend utils', () => {
                 colorScale: defaultColorScale,
             })
             expect(items).toEqual([])
+        })
+
+        it('returns a valueFormat function alongside items', () => {
+            const { items, valueFormat } = getAutomaticLegendItems({
+                data: [0, 50, 100],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale: defaultColorScale,
+            })
+            expect(items.length).toBe(3)
+            expect(typeof valueFormat).toBe('function')
         })
     })
 
