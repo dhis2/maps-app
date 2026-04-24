@@ -80,7 +80,7 @@ describe('getLegendItemForValue', () => {
 
 describe('getLegendItems', () => {
     it('returns equal intervals for CLASSIFICATION_EQUAL_INTERVALS', () => {
-        const values = [0, 100]
+        const values = [0, 25, 50, 75, 100]
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_EQUAL_INTERVALS,

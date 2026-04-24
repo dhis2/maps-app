@@ -51,23 +51,31 @@ export const getLegendItemForValue = ({
 export const getLegendItems = (values, method, numClasses) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
-    // TODO: guard against minValue === maxValue. Currently handled downstream
-    // (DHIS2-20818 for bubble legend; still produces degenerate output for
-    // other methods like pretty breaks where Math.log10(0) = -Infinity).
+    if (minValue === maxValue) {
+        return {
+            items: [{ startValue: minValue, endValue: maxValue }],
+        }
+    }
+
+    const distinctValues = [...new Set(values)]
+    const k = Math.min(numClasses, distinctValues.length)
+
     let classification
 
     if (method === CLASSIFICATION_EQUAL_INTERVALS) {
-        classification = getEqualIntervals(minValue, maxValue, { numClasses })
+        classification = getEqualIntervals(minValue, maxValue, {
+            numClasses: k,
+        })
     } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
-        classification = getQuantiles(values, { numClasses })
+        classification = getQuantiles(values, { numClasses: k })
     } else if (method === CLASSIFICATION_NATURAL_BREAKS_RANGES) {
         classification = getCkMeans(values, {
-            numClasses,
+            numClasses: k,
             continuous: true,
         })
     } else if (method === CLASSIFICATION_NATURAL_BREAKS_CLUSTERS) {
         classification = getCkMeans(values, {
-            numClasses,
+            numClasses: k,
             continuous: false,
         })
     } else if (method === CLASSIFICATION_STANDARD_DEVIATION) {
