@@ -31,10 +31,12 @@ export const getLegendItemForValue = ({
     }
 
     const isLast = (index) => index === legendItems.length - 1
-    return legendItems.find(
-        (item, index) =>
-            value >= item.startValue &&
-            (value < item.endValue || (isLast(index) && value == item.endValue))
+    return legendItems.find((item, index) =>
+        item.startValue === item.endValue
+            ? value === item.startValue
+            : value >= item.startValue &&
+              (value < item.endValue ||
+                  (isLast(index) && value === item.endValue))
     )
 }
 
@@ -49,7 +51,18 @@ export const getLegendItems = (values, method, numClasses) => {
         classification = getQuantiles(values, numClasses)
     }
 
-    return classification ?? {}
+    if (!classification) {
+        return {}
+    }
+    return {
+        items: classification.items.filter(
+            (bin, index, arr) =>
+                index === 0 ||
+                bin.startValue !== arr[index - 1].startValue ||
+                bin.endValue !== arr[index - 1].endValue
+        ),
+        valueFormat: classification.valueFormat,
+    }
 }
 
 // This function is not in use, but keeping it
