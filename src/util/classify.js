@@ -278,8 +278,7 @@ const getPrettyBreaks = (minValue, maxValue, { numClasses }) => {
     const roughStep = range / numClasses
     const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)))
     const niceSteps = [1, 2, 5].map((n) => n * magnitude)
-    const niceStep =
-        niceSteps.filter((s) => s <= roughStep).pop() ?? niceSteps[0]
+    const niceStep = niceSteps.findLast((s) => s <= roughStep) ?? niceSteps[0]
 
     const precision = precisionRound(niceStep, maxValue)
     const valueFormat = getRoundToPrecisionFn(precision)
