@@ -18,7 +18,7 @@ jest.mock('../helpers.js', () => ({
 }))
 
 jest.mock('../numbers.js', () => ({
-    getRoundToPrecisionFn: jest.fn(() => (val) => Number(val.toFixed(2))),
+    getRoundToPrecisionFn: jest.fn((p) => (val) => Number(val.toFixed(p ?? 2))),
 }))
 
 describe('getLegendItemForValue', () => {
@@ -355,5 +355,29 @@ describe('getLegendItems', () => {
         expect(getLegendItemForValue({ value: 7, legendItems: items })).toEqual(
             items[0]
         )
+    })
+
+    it('respects precision: 0 by rounding range values to whole numbers', () => {
+        const { items } = getLegendItems(
+            [0, 100],
+            CLASSIFICATION_EQUAL_INTERVALS,
+            { numClasses: 4, precision: 0 }
+        )
+        items.forEach(({ startValue, endValue }) => {
+            expect(Number.isInteger(startValue)).toBe(true)
+            expect(Number.isInteger(endValue)).toBe(true)
+        })
+    })
+
+    it('respects precision: 3 by rounding range values to 3 decimal places', () => {
+        const { items } = getLegendItems(
+            [0, 1],
+            CLASSIFICATION_EQUAL_INTERVALS,
+            { numClasses: 4, precision: 3 }
+        )
+        items.forEach(({ startValue, endValue }) => {
+            expect(startValue).toBe(Number.parseFloat(startValue.toFixed(3)))
+            expect(endValue).toBe(Number.parseFloat(endValue.toFixed(3)))
+        })
     })
 })
