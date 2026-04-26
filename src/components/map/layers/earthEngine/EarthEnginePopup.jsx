@@ -7,13 +7,29 @@ import { hasClasses } from '../../../../util/earthEngine.js'
 import {
     getRoundToPrecisionFn,
     getPrecision,
+    formatWithSeparator,
 } from '../../../../util/numbers.js'
 import Popup from '../../Popup.jsx'
 import styles from '../styles/Popup.module.css'
 import earthEngineStyles from './styles/EarthEnginePopup.module.css'
 
+const getValuesForType = (data, type) =>
+    Object.values(data).flatMap((ou) =>
+        Object.entries(ou)
+            .filter(([key]) => key.includes(type))
+            .map(([, val]) => val)
+    )
+
 const EarthEnginePopup = (props) => {
-    const { coordinates, feature, data, legend, valueType, onClose } = props
+    const {
+        coordinates,
+        feature,
+        data,
+        legend,
+        valueType,
+        onClose,
+        keyAnalysisDigitGroupSeparator,
+    } = props
     const { id, name } = feature.properties
     const { title, unit, items = [], groups } = legend
     const values = typeof data === 'object' ? data[id] : null
@@ -24,7 +40,11 @@ const EarthEnginePopup = (props) => {
 
     if (values) {
         if (classes) {
-            const valueFormat = getRoundToPrecisionFn(isPercentage ? 2 : 0)
+            const valueFormat = (value) =>
+                formatWithSeparator(
+                    getRoundToPrecisionFn(isPercentage ? 2 : 0)(value),
+                    keyAnalysisDigitGroupSeparator
+                )
 
             table = (
                 <table className={earthEngineStyles.table}>
@@ -70,17 +90,12 @@ const EarthEnginePopup = (props) => {
                     : `${group}_${type}`
 
             // Returns the value format (precision) for an aggregation type
-            const getValueFormat = (type) =>
-                getRoundToPrecisionFn(
-                    getPrecision(
-                        Object.values(data)
-                            .map((ou) =>
-                                Object.keys(ou)
-                                    .filter((key) => key.includes(type))
-                                    .map((key) => ou[key])
-                            )
-                            .flat()
-                    )
+            const getValueFormat = (type) => (value) =>
+                formatWithSeparator(
+                    getRoundToPrecisionFn(
+                        getPrecision(getValuesForType(data, type))
+                    )(value),
+                    keyAnalysisDigitGroupSeparator
                 )
 
             // Create value format function for each aggregation type
@@ -191,6 +206,7 @@ EarthEnginePopup.propTypes = {
     legend: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    keyAnalysisDigitGroupSeparator: PropTypes.string,
     valueType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 }
 
