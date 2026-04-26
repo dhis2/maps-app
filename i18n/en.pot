@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-24T10:52:00.804Z\n"
-"PO-Revision-Date: 2026-04-24T10:52:00.804Z\n"
+"POT-Creation-Date: 2026-04-26T10:03:57.925Z\n"
+"PO-Revision-Date: 2026-04-26T10:03:57.925Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1758,11 +1758,11 @@ msgstr "Data item was not found"
 msgid "Thematic layer"
 msgstr "Thematic layer"
 
-msgid "Tracked entity"
-msgstr "Tracked entity"
-
 msgid "related"
 msgstr "related"
+
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
 msgid "not one of"
 msgstr "not one of"

@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { formatWithSeparator } from '../../util/numbers.js'
-import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { guideLength, textPadding } from './Bubbles.jsx'
 
 const Bubble = ({
@@ -13,9 +11,6 @@ const Bubble = ({
     stroke,
     pattern,
 }) => {
-    const {
-        systemSettings: { keyAnalysisDigitGroupSeparator },
-    } = useCachedData()
     const leftAlign = textAlign === 'left'
     const x = maxRadius
     const y = maxRadius * 2 - radius
@@ -55,11 +50,7 @@ const Bubble = ({
                         alignmentBaseline="middle"
                         style={{ fontSize: 12 }}
                     >
-                        {formatWithSeparator(
-                            text,
-                            keyAnalysisDigitGroupSeparator,
-                            { force: true }
-                        )}
+                        {text}
                     </text>
                 </g>
             )}

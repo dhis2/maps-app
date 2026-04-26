@@ -28,6 +28,7 @@ jest.mock('../helpers.js', () => ({
 }))
 
 jest.mock('../numbers.js', () => ({
+    formatWithSeparator: jest.fn((n) => String(n)),
     getRoundToPrecisionFn: jest.fn(() => (n) => n),
 }))
 
