@@ -150,10 +150,11 @@ export const CLASSIFICATION_PRETTY_BREAKS = 6
 export const CLASSIFICATION_LOGARITHMIC = 7
 export const CLASSIFICATION_STANDARD_DEVIATION = 8
 export const CLASSIFICATION_SINGLE_COLOR = 10
+export const CLASSIFICATION_AUTO_DEFAULT = CLASSIFICATION_EQUAL_INTERVALS
 
 export const getLegendTypes = (isBubble) => [
     {
-        id: CLASSIFICATION_EQUAL_INTERVALS,
+        id: CLASSIFICATION_AUTO_DEFAULT,
         name: i18n.t('Automatic color legend'),
     },
     {
