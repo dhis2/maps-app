@@ -1,21 +1,18 @@
 .item {
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
     font-size: 14px;
     margin-bottom: var(--spacers-dp4);
 }
 
 .color {
-    display: inline-block;
-    vertical-align: top;
-    width: var(--spacers-dp32);
-    height: var(--spacers-dp32);
-    margin: 0 var(--spacers-dp8) 0 0;
+    flex-shrink: 0;
+    margin-bottom: 0;
 }
 
 .label {
-    display: inline-block;
-    vertical-align: top;
-    height: 32px;
-    line-height: 32px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
