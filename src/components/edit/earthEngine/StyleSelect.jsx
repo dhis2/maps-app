@@ -22,7 +22,7 @@ export const getStyleSelectError = ({ min, max, steps, palette, ranges }) => {
         return i18n.t('Max should be greater than min')
     }
     if (!ranges && steps && (steps < minSteps || steps > maxSteps)) {
-        return i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
+        return i18n.t('Valid classes are {{minSteps}} to {{maxSteps}}', {
             minSteps,
             maxSteps,
         })
@@ -75,7 +75,7 @@ const StyleSelect = ({ unit, style, setStyle }) => {
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
-                    label={i18n.t('Steps')}
+                    label={i18n.t('Classes')}
                     value={steps}
                     min={minSteps}
                     max={maxSteps}
