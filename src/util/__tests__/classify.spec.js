@@ -153,7 +153,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_EQUAL_INTERVALS,
-            4
+            { numClasses: 4 }
         )
         expect(items).toEqual([
             { startValue: 0.0, endValue: 25.0 },
@@ -165,7 +165,9 @@ describe('getLegendItems', () => {
 
     it('returns quantiles for CLASSIFICATION_EQUAL_COUNTS', () => {
         const values = [1, 2, 3, 4, 5, 6]
-        const { items } = getLegendItems(values, CLASSIFICATION_EQUAL_COUNTS, 3)
+        const { items } = getLegendItems(values, CLASSIFICATION_EQUAL_COUNTS, {
+            numClasses: 3,
+        })
         expect(items).toEqual([
             { startValue: 1.0, endValue: 3.0 },
             { startValue: 3.0, endValue: 5.0 },
@@ -174,7 +176,7 @@ describe('getLegendItems', () => {
     })
 
     it('returns undefined if method is unknown', () => {
-        const { items } = getLegendItems([0, 100], 'UNKNOWN', 3)
+        const { items } = getLegendItems([0, 100], 'UNKNOWN', { numClasses: 3 })
         expect(items).toBeUndefined()
     })
 
@@ -182,7 +184,7 @@ describe('getLegendItems', () => {
         const { valueFormat } = getLegendItems(
             [0, 100],
             CLASSIFICATION_EQUAL_INTERVALS,
-            4
+            { numClasses: 4 }
         )
         expect(typeof valueFormat).toBe('function')
     })
@@ -192,7 +194,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_NATURAL_BREAKS_RANGES,
-            3
+            { numClasses: 3 }
         )
         expect(items).toHaveLength(3)
         expect(items[0].endValue).toBe(items[1].startValue)
@@ -206,7 +208,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_NATURAL_BREAKS_CLUSTERS,
-            3
+            { numClasses: 3 }
         )
         expect(items).toHaveLength(3)
         expect(items[0].endValue).toBeLessThan(items[1].startValue)
@@ -215,7 +217,9 @@ describe('getLegendItems', () => {
 
     it('returns logarithmic bins for strictly positive data', () => {
         const values = [1, 10, 100, 1000, 10000]
-        const { items } = getLegendItems(values, CLASSIFICATION_LOGARITHMIC, 4)
+        const { items } = getLegendItems(values, CLASSIFICATION_LOGARITHMIC, {
+            numClasses: 4,
+        })
         expect(items).toHaveLength(4)
         expect(items[0].startValue).toBe(1)
         expect(items[3].endValue).toBe(10000)
@@ -227,12 +231,12 @@ describe('getLegendItems', () => {
         const { items: logItems } = getLegendItems(
             values,
             CLASSIFICATION_LOGARITHMIC,
-            4
+            { numClasses: 4 }
         )
         const { items: equalItems } = getLegendItems(
             values,
             CLASSIFICATION_EQUAL_INTERVALS,
-            4
+            { numClasses: 4 }
         )
         expect(logItems).toEqual(equalItems)
     })
@@ -242,7 +246,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_STANDARD_DEVIATION,
-            5
+            { numClasses: 5 }
         )
         expect(items[0].startValue).toBe(0)
         expect(items[items.length - 1].endValue).toBe(100)
@@ -254,14 +258,16 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             [0, 100],
             CLASSIFICATION_PRETTY_BREAKS,
-            5
+            { numClasses: 5 }
         )
         expect(items[0].endValue).toBe(20)
     })
 
     it('removes consecutive duplicate bins', () => {
         const values = [5, 5, 5, 5, 5, 10, 10, 10]
-        const { items } = getLegendItems(values, CLASSIFICATION_EQUAL_COUNTS, 5)
+        const { items } = getLegendItems(values, CLASSIFICATION_EQUAL_COUNTS, {
+            numClasses: 5,
+        })
         for (let i = 1; i < items.length; i++) {
             expect(
                 items[i].startValue === items[i - 1].startValue &&
@@ -274,7 +280,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             [1, 2, 3],
             CLASSIFICATION_NATURAL_BREAKS_RANGES,
-            5
+            { numClasses: 5 }
         )
         expect(items).toHaveLength(3)
     })
@@ -283,7 +289,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             [1, 2, 3],
             CLASSIFICATION_NATURAL_BREAKS_CLUSTERS,
-            5
+            { numClasses: 5 }
         )
         expect(items).toHaveLength(3)
     })
@@ -292,20 +298,24 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             [1, 2, 3],
             CLASSIFICATION_EQUAL_COUNTS,
-            5
+            { numClasses: 5 }
         )
         expect(items.length).toBeLessThanOrEqual(3)
     })
 
     it('does not throw for pretty breaks with few distinct values', () => {
         expect(() =>
-            getLegendItems([1, 2], CLASSIFICATION_PRETTY_BREAKS, 5)
+            getLegendItems([1, 2], CLASSIFICATION_PRETTY_BREAKS, {
+                numClasses: 5,
+            })
         ).not.toThrow()
     })
 
     it('does not throw for standard deviation with few distinct values', () => {
         expect(() =>
-            getLegendItems([1, 2], CLASSIFICATION_STANDARD_DEVIATION, 5)
+            getLegendItems([1, 2], CLASSIFICATION_STANDARD_DEVIATION, {
+                numClasses: 5,
+            })
         ).not.toThrow()
     })
 
@@ -313,7 +323,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             [5, 5, 5, 5],
             CLASSIFICATION_EQUAL_INTERVALS,
-            4
+            { numClasses: 4 }
         )
         expect(items).toEqual([{ startValue: 5, endValue: 5 }])
     })
@@ -329,7 +339,9 @@ describe('getLegendItems', () => {
             CLASSIFICATION_PRETTY_BREAKS,
         ]
         methods.forEach((method) => {
-            const { items } = getLegendItems([7, 7, 7], method, 5)
+            const { items } = getLegendItems([7, 7, 7], method, {
+                numClasses: 5,
+            })
             expect(items).toEqual([{ startValue: 7, endValue: 7 }])
         })
     })
@@ -338,7 +350,7 @@ describe('getLegendItems', () => {
         const { items } = getLegendItems(
             [7, 7, 7],
             CLASSIFICATION_EQUAL_INTERVALS,
-            5
+            { numClasses: 5 }
         )
         expect(getLegendItemForValue({ value: 7, legendItems: items })).toEqual(
             items[0]

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-26T11:57:55.415Z\n"
-"PO-Revision-Date: 2026-04-26T11:57:55.415Z\n"
+"POT-Creation-Date: 2026-04-26T16:23:04.108Z\n"
+"PO-Revision-Date: 2026-04-26T16:23:04.108Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -37,6 +37,12 @@ msgstr "Classification"
 
 msgid "Classes"
 msgstr "Classes"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Decimal places"
+msgstr "Decimal places"
 
 msgid "Legend set"
 msgstr "Legend set"

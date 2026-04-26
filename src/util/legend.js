@@ -160,16 +160,23 @@ export const getAutomaticLegendItems = ({
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
     colorScale = defaultColorScale,
+    legendDecimalPlaces,
 }) => {
     if (data.length === 0) {
         return { items: [] }
     }
 
-    const classification = getLegendItems(data, method, classes)
+    const classification = getLegendItems(data, method, {
+        numClasses: classes,
+        precision: legendDecimalPlaces,
+    })
     return {
         items: classification.items.map((item, index) => ({
             ...item,
             color: colorScale[index],
+            ...(legendDecimalPlaces !== undefined && {
+                decimalPlaces: legendDecimalPlaces,
+            }),
         })),
         valueFormat: classification.valueFormat,
     }

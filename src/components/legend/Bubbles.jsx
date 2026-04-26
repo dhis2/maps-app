@@ -24,6 +24,7 @@ const Bubbles = ({
     color,
     minValue,
     maxValue,
+    legendDecimalPlaces,
     classes,
     isPlugin,
 }) => {
@@ -65,6 +66,7 @@ const Bubbles = ({
                 keyAnalysisDigitGroupSeparator,
                 {
                     force: true,
+                    precision: legendDecimalPlaces,
                 }
             )
         }
@@ -145,6 +147,7 @@ Bubbles.propTypes = {
     classes: PropTypes.array,
     color: PropTypes.string,
     isPlugin: PropTypes.bool,
+    legendDecimalPlaces: PropTypes.number,
     maxValue: PropTypes.number,
     minValue: PropTypes.number,
 }
