@@ -7,6 +7,8 @@ import {
     createSingleColorBubbles,
     computeLayout,
 } from '../../util/bubbles.js'
+import { formatWithSeparator } from '../../util/numbers.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Bubble from './Bubble.jsx'
 
 const style = {
@@ -25,6 +27,9 @@ const Bubbles = ({
     classes,
     isPlugin,
 }) => {
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
     const legendWidth = isPlugin ? 150 : 245
     const noDataClass = classes.find((c) => c.noData === true)
     const bubbleClasses = classes.filter((c) => !c.noData)
@@ -52,6 +57,18 @@ const Bubbles = ({
               radiusLow,
               radiusHigh,
           })
+
+    bubbles.forEach((bubble) => {
+        if (bubble.text !== undefined) {
+            bubble.text = formatWithSeparator(
+                bubble.text,
+                keyAnalysisDigitGroupSeparator,
+                {
+                    force: true,
+                }
+            )
+        }
+    })
 
     const { alternate, offset, showNumbers } = computeLayout({
         bubbles,
