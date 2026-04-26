@@ -47,11 +47,15 @@ const eventLoader = async ({
     config: layerConfig,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     analyticsEngine,
     periodTypeData,
     loadExtended,
 }) => {
-    const config = { ...layerConfig }
+    const config = {
+        ...layerConfig,
+        keyAnalysisDigitGroupSeparator,
+    }
     const displayNameProp =
         keyAnalysisDisplayProperty === 'name'
             ? 'displayName'

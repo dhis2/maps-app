@@ -3,11 +3,17 @@ import { MAP_SERVICE_KEY_TESTS } from './layers.js'
 
 export const apiVersion = 40
 
+export const DIGIT_GROUP_SEPARATOR_SPACE = 'SPACE'
+export const DIGIT_GROUP_SEPARATOR_COMMA = 'COMMA'
+export const DIGIT_GROUP_SEPARATOR_NONE = 'NONE'
+
 export const DEFAULT_SYSTEM_SETTINGS = {
     keyDefaultBaseMap: FALLBACK_BASEMAP_ID,
+    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_NONE,
 }
 
 export const SYSTEM_SETTINGS = [
+    'keyAnalysisDigitGroupSeparator',
     'keyAnalysisRelativePeriod',
     'keyHideDailyPeriods',
     'keyHideWeeklyPeriods',

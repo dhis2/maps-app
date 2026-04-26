@@ -3,8 +3,12 @@ import i18n from '@dhis2/d2-i18n'
 import { IconDimensionOrgUnit16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { getRoundToPrecisionFn } from '../../util/numbers.js'
+import {
+    getRoundToPrecisionFn,
+    formatWithSeparator,
+} from '../../util/numbers.js'
 import { formatDate } from '../../util/time.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ListItem from '../core/ListItem.jsx'
 import styles from './styles/OrgUnitInfo.module.css'
 
@@ -41,6 +45,9 @@ const OrgUnitInfo = ({
     url,
 }) => {
     const { baseUrl } = useConfig()
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
     return (
         <div className={styles.info} data-test="org-unit-info">
             {imageId && (
@@ -111,7 +118,10 @@ const OrgUnitInfo = ({
                 <ListItem label={i18n.t('Comment')}>{comment}</ListItem>
                 {attributes.map(({ id, label, value }) => (
                     <ListItem key={id} label={label}>
-                        {value}
+                        {formatWithSeparator(
+                            value,
+                            keyAnalysisDigitGroupSeparator
+                        )}
                     </ListItem>
                 ))}
             </div>
