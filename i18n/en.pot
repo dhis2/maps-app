@@ -1827,3 +1827,11 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Maps"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Maps"
