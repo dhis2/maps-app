@@ -146,13 +146,7 @@ export const getLabelsFromLegendItems = (legendItems) => {
 export const getPredefinedLegendItems = (legendSet) => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color'])
 
-    return sortBy('startValue', legendSet.legends)
-        .map(pickSome)
-        .map((item) =>
-            item.name === `${item.startValue} - ${item.endValue}`
-                ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                : item
-        )
+    return sortBy('startValue', legendSet.legends).map(pickSome)
 }
 
 export const getAutomaticLegendItems = ({
@@ -185,4 +179,36 @@ export const getRenderingLabel = (strategy) => {
         [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
     }
     return map[strategy] ? ' • ' + map[strategy] : null
+}
+
+const normalize = (str) => String(str).replaceAll(/[\s,]/g, '')
+
+const nameContainsValue = (name, val) => {
+    const normalizedName = normalize(name)
+    const normalizedVal = normalize(val)
+    return new RegExp(String.raw`(?<![\d.])${normalizedVal}(?![\d.])`).test(
+        normalizedName
+    )
+}
+
+const rangeInName = (name, startValue, endValue) =>
+    (String(startValue) !== '' && nameContainsValue(name, startValue)) ||
+    (String(endValue) !== '' && nameContainsValue(name, endValue))
+
+export const legendNamesContainRange = (items) => {
+    const numericItems = items.filter(
+        ({ startValue, endValue }) =>
+            !Number.isNaN(startValue) && !Number.isNaN(endValue)
+    )
+
+    if (!numericItems.length) {
+        return false
+    }
+
+    const itemsWithRange = numericItems.filter(
+        ({ name = '', startValue, endValue }) =>
+            rangeInName(name, startValue, endValue)
+    )
+
+    return itemsWithRange.length / numericItems.length >= 0.5
 }

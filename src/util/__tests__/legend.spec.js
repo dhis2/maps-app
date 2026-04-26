@@ -129,7 +129,7 @@ describe('legend utils', () => {
     })
 
     describe('getPredefinedLegendItems', () => {
-        it('returns legends sorted and clears name when equals range', () => {
+        it('returns legends sorted and preserves names as-is', () => {
             const legendSet = {
                 legends: [
                     {
@@ -145,8 +145,8 @@ describe('legend utils', () => {
             const result = getPredefinedLegendItems(legendSet)
             // sorted by startValue -> first item is startValue 0 (name 'A')
             expect(result[0].name).toBe('A')
-            // second item had name equal to range and should be cleared
-            expect(result[1].name).toBe('')
+            // name equal to range is preserved as-is
+            expect(result[1].name).toBe('10 - 20')
         })
     })
 

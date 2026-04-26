@@ -6,6 +6,7 @@ import styles from './styles/LegendItemRange.module.css'
 
 const LegendItemRange = ({
     name = '',
+    showRange = true,
     startValue,
     endValue,
     count,
@@ -17,9 +18,8 @@ const LegendItemRange = ({
 
     const nameLabel = name ? `${name} ` : ''
     const rangeLabel =
-        startValue === undefined || Number.isNaN(startValue)
-            ? ''
-            : `${formatWithSeparator(
+        startValue !== undefined && endValue !== undefined && showRange
+            ? `${formatWithSeparator(
                   startValue,
                   keyAnalysisDigitGroupSeparator,
                   {
@@ -32,6 +32,7 @@ const LegendItemRange = ({
                       precision: decimalPlaces,
                   }
               )}`
+            : ''
     const countLabel =
         count === undefined
             ? ''
@@ -51,6 +52,7 @@ LegendItemRange.propTypes = {
     decimalPlaces: PropTypes.number,
     endValue: PropTypes.number,
     name: PropTypes.string,
+    showRange: PropTypes.bool,
     startValue: PropTypes.number,
 }
 
