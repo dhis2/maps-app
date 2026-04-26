@@ -200,7 +200,8 @@ const loadEventLayer = async ({
         const numericDataItemHeaders = config.headers.filter(
             (header) =>
                 isValidUid(header.name) &&
-                numberValueTypes.includes(header.valueType)
+                numberValueTypes.includes(header.valueType) &&
+                !header.optionSet
         )
 
         if (numericDataItemHeaders.length) {
