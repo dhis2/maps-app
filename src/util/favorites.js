@@ -1,7 +1,9 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
     EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
     GEOJSON_URL_LAYER,
+    THEMATIC_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 
@@ -52,6 +54,7 @@ const validLayerProperties = [
     'labelFontWeight',
     'labelFontColor',
     'labelTemplate',
+    'legendDecimalPlaces',
     'lastUpdated',
     'layer',
     'layerId',
@@ -191,6 +194,16 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.relationshipLineColor
         delete layer.relationshipOutsideProgram
         delete layer.periodType
+    } else if (layerType === THEMATIC_LAYER || layerType === EVENT_LAYER) {
+        if (cleanMapviewConfig) {
+            if (layer.legendDecimalPlaces !== undefined) {
+                layer.config = JSON.stringify({
+                    legendDecimalPlaces: layer.legendDecimalPlaces,
+                })
+            }
+        }
+
+        delete layer.legendDecimalPlaces
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

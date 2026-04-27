@@ -2,19 +2,32 @@
     width: 100%;
 }
 
+.classesRow {
+    display: flex;
+    gap: var(--spacers-dp16);
+}
+
 .classes {
-    width: 50px;
-    margin-right: var(--spacers-dp16);
-    top: -8px;
-    float: left;
+    flex: 0 0 auto;
 }
 
 .scale {
     display: block;
     padding-top: var(--spacers-dp8);
-    clear: both;
 }
 
-.clear {
-    clear: both;
+.decimalPlaces {
+    flex: 0 0 auto;
+}
+
+.singleColorRow {
+    display: flex;
+    gap: var(--spacers-dp16);
+    align-items: flex-end;
+    margin-bottom: var(--spacers-dp12);
+}
+
+.singleColorField {
+    flex-shrink: 0;
+    margin-bottom: 0;
 }

@@ -92,6 +92,11 @@ export const setColorScale = (colorScale) => ({
     colorScale,
 })
 
+export const setLegendDecimalPlaces = (legendDecimalPlaces) => ({
+    type: types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET,
+    legendDecimalPlaces,
+})
+
 // Set event status
 export const setEventStatus = (status) => ({
     type: types.LAYER_EDIT_EVENT_STATUS_SET,

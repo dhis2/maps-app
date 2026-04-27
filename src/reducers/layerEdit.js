@@ -309,6 +309,18 @@ const layerEdit = (state = null, action) => {
 
             return newState
 
+        case types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET:
+            newState = {
+                ...state,
+                legendDecimalPlaces: action.legendDecimalPlaces,
+            }
+
+            if (newState.legendDecimalPlaces === undefined) {
+                delete newState.legendDecimalPlaces
+            }
+
+            return newState
+
         case types.LAYER_EDIT_EVENT_STATUS_SET:
             newState = { ...state }
 

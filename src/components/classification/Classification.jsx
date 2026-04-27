@@ -3,7 +3,11 @@ import { range } from 'lodash/fp'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { setClassification, setColorScale } from '../../actions/layerEdit.js'
+import {
+    setClassification,
+    setColorScale,
+    setLegendDecimalPlaces,
+} from '../../actions/layerEdit.js'
 import {
     getClassificationTypes,
     CLASSIFICATION_EQUAL_INTERVALS,
@@ -16,6 +20,7 @@ import {
     getColorScale,
 } from '../../util/colors.js'
 import { SelectField, ColorScaleSelect } from '../core/index.js'
+import DecimalPlacesSelect from './DecimalPlacesSelect.jsx'
 import styles from './styles/Classification.module.css'
 
 const classRange = range(3, 10).map((num) => ({
@@ -27,8 +32,10 @@ const Classification = ({
     method,
     classes,
     colorScale,
+    legendDecimalPlaces,
     setClassification,
     setColorScale,
+    setLegendDecimalPlaces,
 }) => {
     const colorScaleName = colorScale
         ? getColorScale(colorScale)
@@ -44,22 +51,28 @@ const Classification = ({
             className={styles.select}
         />,
         <div key="scale">
-            <SelectField
-                label={i18n.t('Classes')}
-                value={classes !== undefined ? classes : defaultClasses}
-                items={classRange}
-                onChange={(item) =>
-                    setColorScale(getColorPalette(colorScaleName, item.id))
-                }
-                className={styles.classes}
-            />
+            <div className={styles.classesRow}>
+                <SelectField
+                    label={i18n.t('Classes')}
+                    value={classes !== undefined ? classes : defaultClasses}
+                    items={classRange}
+                    onChange={(item) =>
+                        setColorScale(getColorPalette(colorScaleName, item.id))
+                    }
+                    className={styles.classes}
+                />
+                <DecimalPlacesSelect
+                    value={legendDecimalPlaces}
+                    onChange={setLegendDecimalPlaces}
+                    className={styles.decimalPlaces}
+                />
+            </div>
             <ColorScaleSelect
                 palette={colorScale ? colorScale : defaultColorScale}
                 onChange={setColorScale}
                 width={190}
                 className={styles.scale}
             />
-            <div className={styles.clear} />
         </div>,
     ]
 }
@@ -67,8 +80,10 @@ const Classification = ({
 Classification.propTypes = {
     setClassification: PropTypes.func.isRequired,
     setColorScale: PropTypes.func.isRequired,
+    setLegendDecimalPlaces: PropTypes.func.isRequired,
     classes: PropTypes.number,
     colorScale: PropTypes.array,
+    legendDecimalPlaces: PropTypes.number,
     method: PropTypes.number,
 }
 
@@ -77,6 +92,7 @@ export default connect(
         method: layerEdit.method,
         classes: layerEdit.classes,
         colorScale: layerEdit.colorScale,
+        legendDecimalPlaces: layerEdit.legendDecimalPlaces,
     }),
-    { setClassification, setColorScale }
+    { setClassification, setColorScale, setLegendDecimalPlaces }
 )(Classification)

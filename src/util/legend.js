@@ -12,6 +12,7 @@ import {
 } from '../constants/layers.js'
 import { getLegendItems } from '../util/classify.js'
 import { defaultClasses, defaultColorScale } from '../util/colors.js'
+import { parseWithSeparator } from './numbers.js'
 
 const INDICATOR_QUERY = {
     dimension: {
@@ -72,6 +73,11 @@ export const sortLegendItems = (items) =>
             ? bRange.end - aRange.end
             : bRange.start - aRange.start
     })
+
+export const parseRange = (str) => {
+    const [start, end] = str.split(' - ')
+    return [parseWithSeparator(start), parseWithSeparator(end)]
+}
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
     if (!dataItem) {
@@ -154,12 +160,16 @@ export const getAutomaticLegendItems = ({
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
     colorScale = defaultColorScale,
+    legendDecimalPlaces,
 }) => {
     if (data.length === 0) {
         return { items: [] }
     }
 
-    const classification = getLegendItems(data, method, classes)
+    const classification = getLegendItems(data, method, {
+        numClasses: classes,
+        precision: legendDecimalPlaces,
+    })
     return {
         items: classification.items.map((item, index) => ({
             ...item,
