@@ -18,30 +18,27 @@ export const digitWidth = 6.8
 export const guideLength = 16
 export const textPadding = 4
 
-const Bubbles = ({
-    radiusLow,
-    radiusHigh,
+const filterBubbleText = (bubbles, showNumbers) => {
+    if (!showNumbers) {
+        return
+    }
+    bubbles.forEach((b, i) => {
+        if (!showNumbers.includes(i)) {
+            delete b.text
+        }
+    })
+}
+
+const computeBubbleLayout = ({
+    bubbleClasses,
     color,
     minValue,
     maxValue,
-    legendDecimalPlaces,
-    classes,
-    isPlugin,
+    scale,
+    radiusLow,
+    radiusHigh,
+    legendWidth,
 }) => {
-    const {
-        systemSettings: { keyAnalysisDigitGroupSeparator },
-    } = useCachedData()
-    const legendWidth = isPlugin ? 150 : 245
-    const noDataClass = classes.find((c) => c.noData === true)
-    const bubbleClasses = classes.filter((c) => !c.noData)
-
-    const height = radiusHigh * 2 + 4
-    const scale = scaleSqrt().range([radiusLow, radiusHigh])
-
-    if (isNaN(radiusLow) || isNaN(radiusHigh)) {
-        return null
-    }
-
     const bubbles = bubbleClasses.length
         ? createBubbleItems({
               classes: bubbleClasses,
@@ -59,45 +56,93 @@ const Bubbles = ({
               radiusHigh,
           })
 
-    bubbles.forEach((bubble) => {
-        if (bubble.text !== undefined) {
-            bubble.text = formatWithSeparator(
-                bubble.text,
-                keyAnalysisDigitGroupSeparator,
-                {
-                    force: true,
-                    precision: legendDecimalPlaces,
-                }
-            )
-        }
-    })
-
-    const { alternate, offset, showNumbers } = computeLayout({
+    const layout = computeLayout({
         bubbles,
         bubbleClasses,
         radiusHigh,
         legendWidth,
     })
+    filterBubbleText(bubbles, layout.showNumbers)
 
-    if (showNumbers) {
-        bubbles.forEach((b, i) => {
-            if (!showNumbers.includes(i)) {
-                delete b.text
+    return { bubbles, alternate: layout.alternate, offset: layout.offset }
+}
+
+const Bubbles = ({
+    radiusLow,
+    radiusHigh,
+    color,
+    minValue,
+    maxValue,
+    legendDecimalPlaces,
+    classes,
+    isPlugin,
+}) => {
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
+    const legendWidth = isPlugin ? 150 : 245
+    const noDataClass = classes.find((c) => c.noData === true)
+    const bubbleClasses = classes.filter((c) => !c.noData)
+    const hasDataRange = minValue != null && maxValue != null
+    const height = hasDataRange
+        ? radiusHigh * 2 + 4
+        : THEMATIC_RADIUS_DEFAULT + 2
+    const scale = scaleSqrt().range([radiusLow, radiusHigh])
+    const noDataTranslateY = hasDataRange ? 20 : 0
+
+    if (isNaN(radiusLow) || isNaN(radiusHigh)) {
+        return null
+    }
+
+    if (!hasDataRange && !noDataClass) {
+        return null
+    }
+
+    let bubbles = []
+    let alternate = false
+    let offset = '2'
+
+    if (hasDataRange) {
+        ;({ bubbles, alternate, offset } = computeBubbleLayout({
+            bubbleClasses,
+            color,
+            minValue,
+            maxValue,
+            scale,
+            radiusLow,
+            radiusHigh,
+            legendWidth,
+        }))
+
+        bubbles.forEach((bubble) => {
+            if (bubble.text !== undefined) {
+                bubble.text = formatWithSeparator(
+                    bubble.text,
+                    keyAnalysisDigitGroupSeparator,
+                    {
+                        force: true,
+                        precision: legendDecimalPlaces,
+                    }
+                )
             }
         })
     }
+
+    const xTranslate = alternate ? offset : '2'
 
     return (
         <div style={style}>
             <svg
                 width={legendWidth}
                 height={
-                    height +
-                    20 +
-                    (noDataClass ? THEMATIC_RADIUS_DEFAULT + 1 : 0)
+                    hasDataRange
+                        ? height +
+                          20 +
+                          (noDataClass ? THEMATIC_RADIUS_DEFAULT + 1 : 0)
+                        : 20
                 }
             >
-                <g transform={`translate(${alternate ? offset : '2'} 10)`}>
+                <g transform={`translate(${xTranslate} 10)`}>
                     {bubbles.map((bubble, i) => (
                         <Bubble
                             key={i}
@@ -112,9 +157,7 @@ const Bubbles = ({
                     <>
                         {' '}
                         <circle
-                            transform={`translate(${
-                                alternate ? offset : '2'
-                            } 20)`}
+                            transform={`translate(${xTranslate} ${noDataTranslateY})`}
                             cx={radiusHigh}
                             cy={height}
                             r={THEMATIC_RADIUS_DEFAULT}
@@ -125,9 +168,7 @@ const Bubbles = ({
                             }}
                         />
                         <text
-                            transform={`translate(${
-                                alternate ? offset : '2'
-                            } 20)`}
+                            transform={`translate(${xTranslate} ${noDataTranslateY})`}
                             x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
                             y={height + 4}
                             fontSize={12}
