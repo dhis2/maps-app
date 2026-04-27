@@ -151,6 +151,9 @@ const loadEventLayer = async ({
                   getDateArray(endDate)
               ),
         items: [],
+        ...(config.legendDecimalPlaces !== undefined && {
+            decimalPlaces: config.legendDecimalPlaces,
+        }),
     }
 
     // Delete serverCluster option if previously set

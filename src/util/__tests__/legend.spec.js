@@ -187,32 +187,6 @@ describe('legend utils', () => {
             expect(typeof valueFormat).toBe('function')
         })
 
-        it('adds decimalPlaces to each item when legendDecimalPlaces is set', () => {
-            const { items } = getAutomaticLegendItems({
-                data: [0, 100],
-                method: CLASSIFICATION_EQUAL_INTERVALS,
-                classes: 4,
-                colorScale: defaultColorScale,
-                legendDecimalPlaces: 2,
-            })
-            items.forEach((item) => {
-                expect(item.decimalPlaces).toBe(2)
-            })
-        })
-
-        it('adds decimalPlaces: 0 when legendDecimalPlaces is 0', () => {
-            const { items } = getAutomaticLegendItems({
-                data: [0, 100],
-                method: CLASSIFICATION_EQUAL_INTERVALS,
-                classes: 4,
-                colorScale: defaultColorScale,
-                legendDecimalPlaces: 0,
-            })
-            items.forEach((item) => {
-                expect(item.decimalPlaces).toBe(0)
-            })
-        })
-
         it('does not add decimalPlaces when legendDecimalPlaces is undefined', () => {
             const { items } = getAutomaticLegendItems({
                 data: [0, 100],
@@ -222,6 +196,34 @@ describe('legend utils', () => {
             })
             items.forEach((item) => {
                 expect(item).not.toHaveProperty('decimalPlaces')
+            })
+        })
+
+        it('applies legendDecimalPlaces as precision to item boundary values', () => {
+            const { items } = getAutomaticLegendItems({
+                data: [0, 0.5, 1],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale: defaultColorScale,
+                legendDecimalPlaces: 2,
+            })
+            expect(items[0].endValue).toBe(0.33)
+            expect(items[1].startValue).toBe(0.33)
+            expect(items[1].endValue).toBe(0.67)
+            expect(items[2].startValue).toBe(0.67)
+        })
+
+        it('rounds item boundary values to integers when legendDecimalPlaces is 0', () => {
+            const { items } = getAutomaticLegendItems({
+                data: [0, 0.5, 1],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale: defaultColorScale,
+                legendDecimalPlaces: 0,
+            })
+            items.forEach((item) => {
+                expect(Number.isInteger(item.startValue)).toBe(true)
+                expect(Number.isInteger(item.endValue)).toBe(true)
             })
         })
     })

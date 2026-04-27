@@ -174,9 +174,6 @@ export const getAutomaticLegendItems = ({
         items: classification.items.map((item, index) => ({
             ...item,
             color: colorScale[index],
-            ...(legendDecimalPlaces !== undefined && {
-                decimalPlaces: legendDecimalPlaces,
-            }),
         })),
         valueFormat: classification.valueFormat,
     }

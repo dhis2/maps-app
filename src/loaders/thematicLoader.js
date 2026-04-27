@@ -201,6 +201,9 @@ const thematicLoader = async ({
                       getDateArray(config.endDate)
                   ),
         items: legendItems,
+        ...(config.legendDecimalPlaces !== undefined && {
+            decimalPlaces: config.legendDecimalPlaces,
+        }),
     }
 
     if (dimensions && dimensions.length) {
@@ -315,11 +318,11 @@ const thematicLoader = async ({
                 properties.range = `${formatWithSeparator(
                     legendItem.startValue,
                     keyAnalysisDigitGroupSeparator,
-                    { precision: legendItem.decimalPlaces }
+                    { precision: config.legendDecimalPlaces }
                 )} - ${formatWithSeparator(
                     legendItem.endValue,
                     keyAnalysisDigitGroupSeparator,
-                    { precision: legendItem.decimalPlaces }
+                    { precision: config.legendDecimalPlaces }
                 )}` // Shown in data table
             }
 

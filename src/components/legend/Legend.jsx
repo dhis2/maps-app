@@ -19,6 +19,7 @@ const Legend = ({
     url,
     source,
     sourceUrl,
+    decimalPlaces,
     isPlugin = false,
 }) => (
     <dl className={styles.legend} data-test="layerlegend">
@@ -44,8 +45,14 @@ const Legend = ({
             Array.isArray(items) && (
                 <table>
                     <tbody>
-                        {sortLegendItems(items).map((item, index) => (
-                            <LegendItem {...item} key={`item-${index}`} />
+                        {sortLegendItems(items).map((item) => (
+                            <LegendItem
+                                {...item}
+                                decimalPlaces={decimalPlaces}
+                                key={`${item.name}-${
+                                    item.startValue ?? item.from
+                                }-${item.endValue ?? item.to}`}
+                            />
                         ))}
                     </tbody>
                 </table>
@@ -97,6 +104,7 @@ Legend.propTypes = {
         color: PropTypes.string,
     }),
     coordinateFields: PropTypes.array,
+    decimalPlaces: PropTypes.number,
     description: PropTypes.string,
     explanation: PropTypes.array,
     filters: PropTypes.array,
