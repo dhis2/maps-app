@@ -32,6 +32,34 @@ jest.mock('../numbers.js', () => ({
 }))
 
 describe('createBubbleItems', () => {
+    it('should return a single bubble when minValue === maxValue', () => {
+        const mockScale = { domain: jest.fn(() => () => 5) }
+        const classes = [{ startValue: 7, endValue: 7, color: '#abc' }]
+        const bubbles = createBubbleItems({
+            classes,
+            minValue: 7,
+            maxValue: 7,
+            scale: mockScale,
+            radiusHigh: 20,
+        })
+        expect(bubbles).toHaveLength(1)
+        expect(bubbles[0].text).toBe('7')
+        expect(bubbles[0].color).toBe('#abc')
+    })
+
+    it('should not produce NaN text when minValue === maxValue', () => {
+        const mockScale = { domain: jest.fn(() => () => 5) }
+        const classes = [{ startValue: 42, endValue: 42, color: '#def' }]
+        const bubbles = createBubbleItems({
+            classes,
+            minValue: 42,
+            maxValue: 42,
+            scale: mockScale,
+            radiusHigh: 20,
+        })
+        expect(bubbles[0].text).not.toContain('NaN')
+    })
+
     it('should create bubble items from class breaks', () => {
         const mockScale = {
             domain: jest.fn(() => (value) => value * 2),
@@ -57,6 +85,34 @@ describe('createBubbleItems', () => {
 })
 
 describe('createSingleColorBubbles', () => {
+    it('should return a single bubble when minValue === maxValue', () => {
+        const mockScale = { domain: jest.fn(() => () => 5) }
+        const bubbles = createSingleColorBubbles({
+            color: '#abc',
+            minValue: 50,
+            maxValue: 50,
+            scale: mockScale,
+            radiusLow: 5,
+            radiusHigh: 20,
+        })
+        expect(bubbles).toHaveLength(1)
+        expect(bubbles[0].text).toBe('50')
+        expect(bubbles[0].color).toBe('#abc')
+    })
+
+    it('should not produce NaN text when minValue === maxValue', () => {
+        const mockScale = { domain: jest.fn(() => () => 5) }
+        const bubbles = createSingleColorBubbles({
+            color: '#abc',
+            minValue: 100,
+            maxValue: 100,
+            scale: mockScale,
+            radiusLow: 5,
+            radiusHigh: 20,
+        })
+        expect(bubbles[0].text).not.toContain('NaN')
+    })
+
     it('should return three bubbles with single color and formatted values', () => {
         const mockScale = {
             domain: jest.fn(() => (value) => value * 0.5),
