@@ -45,7 +45,12 @@ const fetchData = async (url, engine, baseUrl) => {
 }
 
 const EMPTY_FEATURE_STYLE = {}
-const geoJsonUrlLoader = async ({ config: layer, engine, baseUrl }) => {
+const geoJsonUrlLoader = async ({
+    config: layer,
+    engine,
+    baseUrl,
+    keyAnalysisDigitGroupSeparator,
+}) => {
     const { config } = layer
 
     let newConfig
@@ -114,9 +119,10 @@ const geoJsonUrlLoader = async ({ config: layer, engine, baseUrl }) => {
 
     return {
         ...layer,
-        name: newConfig.name, // TODO - will be fixed by DHIS2-16088
+        name: newConfig.name, // Overrides layer.name from spread — redundant on 2.42+ (DHIS2-16088), remove when 2.41 support is dropped
         legend,
         data,
+        keyAnalysisDigitGroupSeparator,
         config: newConfig,
         featureStyle,
         isLoaded: true,

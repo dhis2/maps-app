@@ -152,7 +152,8 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const { styleDataItem, nameProperty } = this.props
+        const { styleDataItem, nameProperty, keyAnalysisDigitGroupSeparator } =
+            this.props
         const { popup, displayItems, eventCoordinateFieldName } = this.state
 
         return popup && displayItems ? (
@@ -160,6 +161,7 @@ class EventLayer extends Layer {
                 {...popup}
                 styleDataItem={styleDataItem}
                 nameProperty={nameProperty}
+                keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 displayItems={displayItems}
                 eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}

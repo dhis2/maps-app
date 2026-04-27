@@ -6,8 +6,10 @@ import {
     dateValueTypes,
     datetimeValueTypes,
     coordinateValueTypes,
+    numberValueTypes,
     ouValueTypes,
 } from '../constants/valueTypes.js'
+import { formatWithSeparator } from './numbers.js'
 
 const getBaseFields = (withSubscribers) => {
     const baseFields = [
@@ -144,7 +146,7 @@ export const formatCoordinate = (value) => {
         if (
             Array.isArray(array) &&
             array.length === 2 &&
-            array.every((v) => !isNaN(Number(v)))
+            array.every((v) => !Number.isNaN(Number(v)))
         ) {
             return array.map((v) => Number(v).toFixed(6)).join(', ')
         }
@@ -193,6 +195,7 @@ export const formatValueForDisplay = ({
     valueType,
     options,
     orgUnitNames,
+    keyAnalysisDigitGroupSeparator,
 }) => {
     if (!hasValue(value)) {
         return i18n.t('Not set')
@@ -224,7 +227,11 @@ export const formatValueForDisplay = ({
     if (datetimeValueTypes.includes(valueType)) {
         return formatDatetime(value)
     }
-    // TODO formatNumeric
+    if (numberValueTypes.includes(valueType)) {
+        return formatWithSeparator(value, keyAnalysisDigitGroupSeparator, {
+            force: true,
+        })
+    }
     return value
 }
 
@@ -246,5 +253,5 @@ export const getCssVar = (cssVar) =>
     Number(
         getComputedStyle(document.documentElement)
             .getPropertyValue(cssVar)
-            .replace('px', '')
+            .replaceAll('px', '')
     )

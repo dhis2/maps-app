@@ -6,6 +6,12 @@ jest.mock('@dhis2/app-runtime', () => ({
     useConfig: jest.fn(() => ({ baseUrl: 'dhis2' })),
 }))
 
+jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
+    useCachedData: jest.fn(() => ({
+        systemSettings: { keyAnalysisDigitGroupSeparator: 'NONE' },
+    })),
+}))
+
 const groupSets = [
     {
         id: 'Bpx0589u8y0',
