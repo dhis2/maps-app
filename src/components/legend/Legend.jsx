@@ -49,9 +49,8 @@ const Legend = ({
                             <LegendItem
                                 {...item}
                                 decimalPlaces={decimalPlaces}
-                                key={`${item.name}-${
-                                    item.startValue ?? item.from
-                                }-${item.endValue ?? item.to}`}
+                                key={`${item.name}-${item.startValue ?? item.from
+                                    }-${item.endValue ?? item.to}`}
                             />
                         ))}
                     </tbody>
