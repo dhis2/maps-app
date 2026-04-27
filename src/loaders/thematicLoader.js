@@ -239,6 +239,10 @@ const thematicLoader = async ({
         const regularItems = legend.items.filter((item) => !item.noData)
         minValue = regularItems[0].startValue
         maxValue = regularItems.at(-1).endValue
+        if (legend.bubbles) {
+            legend.bubbles.minValue ??= minValue
+            legend.bubbles.maxValue ??= maxValue
+        }
     }
 
     const getRadiusForValue = scaleSqrt()
