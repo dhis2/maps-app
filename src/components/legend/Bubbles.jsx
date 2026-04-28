@@ -7,7 +7,10 @@ import {
     createSingleColorBubbles,
     computeLayout,
 } from '../../util/bubbles.js'
-import { formatWithSeparator } from '../../util/numbers.js'
+import {
+    formatRangeWithSeparator,
+    formatWithSeparator,
+} from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Bubble from './Bubble.jsx'
 
@@ -18,13 +21,32 @@ export const digitWidth = 6.8
 export const guideLength = 16
 export const textPadding = 4
 
+const formatBubbleText = (
+    bubbles,
+    keyAnalysisDigitGroupSeparator,
+    legendDecimalPlaces
+) => {
+    bubbles.forEach((bubble) => {
+        if (bubble.text !== undefined) {
+            bubble.text = formatWithSeparator(
+                bubble.text,
+                keyAnalysisDigitGroupSeparator,
+                {
+                    force: true,
+                    precision: legendDecimalPlaces,
+                }
+            )
+        }
+    })
+}
+
 const filterBubbleText = (bubbles, showNumbers) => {
     if (!showNumbers) {
         return
     }
-    bubbles.forEach((b, i) => {
+    bubbles.forEach((bubble, i) => {
         if (!showNumbers.includes(i)) {
-            delete b.text
+            delete bubble.text
         }
     })
 }
@@ -38,6 +60,8 @@ const computeBubbleLayout = ({
     radiusLow,
     radiusHigh,
     legendWidth,
+    legendDecimalPlaces,
+    keyAnalysisDigitGroupSeparator,
 }) => {
     const bubbles = bubbleClasses.length
         ? createBubbleItems({
@@ -56,15 +80,54 @@ const computeBubbleLayout = ({
               radiusHigh,
           })
 
+    formatBubbleText(
+        bubbles,
+        keyAnalysisDigitGroupSeparator,
+        legendDecimalPlaces
+    )
+
     const layout = computeLayout({
         bubbles,
         bubbleClasses,
         radiusHigh,
         legendWidth,
     })
+
     filterBubbleText(bubbles, layout.showNumbers)
 
     return { bubbles, alternate: layout.alternate, offset: layout.offset }
+}
+
+const SpecialClassRow = ({ tx, ty, radiusHigh, cy, color, label, count }) => (
+    <>
+        <circle
+            transform={`translate(${tx} ${ty})`}
+            cx={radiusHigh}
+            cy={cy}
+            r={THEMATIC_RADIUS_DEFAULT}
+            stroke="#000"
+            style={{ fill: color, strokeWidth: 0.5 }}
+        />
+        <text
+            transform={`translate(${tx} ${ty})`}
+            x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
+            y={cy + 4}
+            fontSize={12}
+        >
+            {label}
+            {count !== undefined && ` (${count})`}
+        </text>
+    </>
+)
+
+SpecialClassRow.propTypes = {
+    cy: PropTypes.number.isRequired,
+    radiusHigh: PropTypes.number.isRequired,
+    tx: PropTypes.number.isRequired,
+    ty: PropTypes.number.isRequired,
+    color: PropTypes.string,
+    count: PropTypes.number,
+    label: PropTypes.string,
 }
 
 const Bubbles = ({
@@ -80,29 +143,37 @@ const Bubbles = ({
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    const legendWidth = isPlugin ? 150 : 245
-    const noDataClass = classes.find((c) => c.noData === true)
-    const bubbleClasses = classes.filter((c) => !c.noData)
+
+    const noDataClass = classes.find((c) => c.noData)
+    const isolatedClass = classes.find((c) => c.isLegendIsolated)
+    const bubbleClasses = classes.filter(
+        (c) => !c.noData && !c.isLegendIsolated
+    )
+
     const hasDataRange = minValue != null && maxValue != null
-    const height = hasDataRange
-        ? radiusHigh * 2 + 4
-        : THEMATIC_RADIUS_DEFAULT + 2
-    const scale = scaleSqrt().range([radiusLow, radiusHigh])
-    const noDataTranslateY = hasDataRange ? 20 : 0
-
-    if (isNaN(radiusLow) || isNaN(radiusHigh)) {
+    if (!hasDataRange && !noDataClass && !isolatedClass) {
+        return null
+    }
+    if (Number.isNaN(radiusLow) || Number.isNaN(radiusHigh)) {
         return null
     }
 
-    if (!hasDataRange && !noDataClass) {
-        return null
-    }
+    const mainRowHeight = radiusHigh * 2
+    const extraRowHeight = THEMATIC_RADIUS_DEFAULT * 2 + 4
+    const ty = 10
+
+    const yIsolated = hasDataRange ? mainRowHeight + extraRowHeight : 0
+    const yNoData = yIsolated + (isolatedClass ? extraRowHeight : 0)
+
+    const legendHeight = yNoData + ty + THEMATIC_RADIUS_DEFAULT + 2
+    const legendWidth = isPlugin ? 150 : 245
 
     let bubbles = []
     let alternate = false
-    let offset = '2'
+    let offset = 2
 
     if (hasDataRange) {
+        const scale = scaleSqrt().range([radiusLow, radiusHigh])
         ;({ bubbles, alternate, offset } = computeBubbleLayout({
             bubbleClasses,
             color,
@@ -112,37 +183,25 @@ const Bubbles = ({
             radiusLow,
             radiusHigh,
             legendWidth,
+            legendDecimalPlaces,
+            keyAnalysisDigitGroupSeparator,
         }))
-
-        bubbles.forEach((bubble) => {
-            if (bubble.text !== undefined) {
-                bubble.text = formatWithSeparator(
-                    bubble.text,
-                    keyAnalysisDigitGroupSeparator,
-                    {
-                        force: true,
-                        precision: legendDecimalPlaces,
-                    }
-                )
-            }
-        })
     }
+    const tx = alternate ? offset : 2
 
-    const xTranslate = alternate ? offset : '2'
+    const isolatedLabel = isolatedClass
+        ? isolatedClass.name ??
+          formatRangeWithSeparator(
+              isolatedClass,
+              keyAnalysisDigitGroupSeparator,
+              { precision: legendDecimalPlaces }
+          )
+        : null
 
     return (
         <div style={style}>
-            <svg
-                width={legendWidth}
-                height={
-                    hasDataRange
-                        ? height +
-                          20 +
-                          (noDataClass ? THEMATIC_RADIUS_DEFAULT + 1 : 0)
-                        : 20
-                }
-            >
-                <g transform={`translate(${xTranslate} 10)`}>
+            <svg width={legendWidth} height={legendHeight}>
+                <g transform={`translate(${tx} ${ty})`}>
                     {bubbles.map((bubble, i) => (
                         <Bubble
                             key={i}
@@ -153,29 +212,27 @@ const Bubbles = ({
                         />
                     ))}
                 </g>
+                {isolatedClass && (
+                    <SpecialClassRow
+                        tx={tx}
+                        ty={ty}
+                        radiusHigh={radiusHigh}
+                        cy={yIsolated}
+                        color={isolatedClass.color}
+                        label={isolatedLabel}
+                        count={isolatedClass.count}
+                    />
+                )}
                 {noDataClass && (
-                    <>
-                        {' '}
-                        <circle
-                            transform={`translate(${xTranslate} ${noDataTranslateY})`}
-                            cx={radiusHigh}
-                            cy={height}
-                            r={THEMATIC_RADIUS_DEFAULT}
-                            stroke="#000"
-                            style={{
-                                fill: noDataClass.color,
-                                strokeWidth: 0.5,
-                            }}
-                        />
-                        <text
-                            transform={`translate(${xTranslate} ${noDataTranslateY})`}
-                            x={radiusHigh + THEMATIC_RADIUS_DEFAULT + 5}
-                            y={height + 4}
-                            fontSize={12}
-                        >
-                            {noDataClass.name}
-                        </text>
-                    </>
+                    <SpecialClassRow
+                        tx={tx}
+                        ty={ty}
+                        radiusHigh={radiusHigh}
+                        cy={yNoData}
+                        color={noDataClass.color}
+                        label={noDataClass.name}
+                        count={noDataClass.count}
+                    />
                 )}
             </svg>
         </div>

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-27T11:12:19.709Z\n"
-"PO-Revision-Date: 2026-04-27T11:12:19.709Z\n"
+"POT-Creation-Date: 2026-04-27T11:58:44.556Z\n"
+"PO-Revision-Date: 2026-04-27T11:58:44.557Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -44,17 +44,29 @@ msgstr "Auto"
 msgid "Decimal places"
 msgstr "Decimal places"
 
-msgid "Legend set"
-msgstr "Legend set"
+msgid "Isolated class"
+msgstr "Isolated class"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Max should be greater than min"
+msgstr "Max should be greater than min"
 
 msgid "Color"
 msgstr "Color"
 
-msgid "Size"
-msgstr "Size"
-
 msgid "Name"
 msgstr "Name"
+
+msgid "Legend set"
+msgstr "Legend set"
+
+msgid "Size"
+msgstr "Size"
 
 msgid "Name and value"
 msgstr "Name and value"
@@ -356,17 +368,8 @@ msgstr "Min value is required"
 msgid "Max value is required"
 msgstr "Max value is required"
 
-msgid "Max should be greater than min"
-msgstr "Max should be greater than min"
-
 msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
 
 msgid "Facility buffer"
 msgstr "Facility buffer"
@@ -400,6 +403,9 @@ msgstr "No organisation units are selected."
 
 msgid "No legend set is selected"
 msgstr "No legend set is selected"
+
+msgid "Isolated class max should be greater than min"
+msgstr "Isolated class max should be greater than min"
 
 msgid "Event status"
 msgstr "Event status"

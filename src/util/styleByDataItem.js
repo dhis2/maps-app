@@ -138,6 +138,7 @@ const styleByNumeric = async (config, engine) => {
         eventPointColor,
         eventPointRadius,
         legendDecimalPlaces,
+        legendIsolated,
     } = config
     let valueFormat
 
@@ -172,6 +173,7 @@ const styleByNumeric = async (config, engine) => {
             classes,
             colorScale,
             legendDecimalPlaces,
+            legendIsolated,
         })
         legend.items = classification.items
         valueFormat = classification.valueFormat

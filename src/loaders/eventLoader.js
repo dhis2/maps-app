@@ -102,9 +102,14 @@ const loadEventLayer = async ({
     periodTypeData,
     loadExtended,
 }) => {
-    const { legendDecimalPlaces } = parseJsonConfig(config.config)
+    const { legendDecimalPlaces, legendIsolated } = parseJsonConfig(
+        config.config
+    )
     if (legendDecimalPlaces !== undefined) {
         config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    if (legendIsolated !== undefined) {
+        config.legendIsolated = legendIsolated
     }
     delete config.config
 
@@ -180,11 +185,11 @@ const loadEventLayer = async ({
 
         config.data = data
 
-        if (Array.isArray(config.data) && config.data.length) {
-            if (styleDataItem) {
-                await styleByDataItem(config, engine)
-            }
+        if (styleDataItem) {
+            await styleByDataItem(config, engine)
+        }
 
+        if (Array.isArray(config.data) && config.data.length) {
             if (total > EVENT_CLIENT_PAGE_SIZE) {
                 alert = {
                     warning: true,

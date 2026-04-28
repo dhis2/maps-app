@@ -35,6 +35,7 @@ import { cssColor } from '../../../util/colors.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
+import { isValidIsolatedClass } from '../../classification/IsolatedClass.jsx'
 import {
     Tab,
     Tabs,
@@ -83,6 +84,7 @@ class EventDialog extends Component {
         eventStatus: PropTypes.string,
         // fallbackCoordinateField: PropTypes.string,
         filters: PropTypes.array,
+        legendIsolated: PropTypes.object,
         legendSet: PropTypes.object,
         method: PropTypes.number,
         orgUnits: PropTypes.object,
@@ -449,6 +451,7 @@ class EventDialog extends Component {
             method,
             legendSet,
             styleDataItem,
+            legendIsolated,
         } = this.props
 
         const period = getPeriodFromFilters(filters) || {
@@ -490,6 +493,14 @@ class EventDialog extends Component {
             return this.setErrorState(
                 'legendSetError',
                 i18n.t('No legend set is selected'),
+                'style'
+            )
+        }
+
+        if (!isValidIsolatedClass(legendIsolated)) {
+            return this.setErrorState(
+                'isolatedClassError',
+                i18n.t('Isolated class max should be greater than min'),
                 'style'
             )
         }

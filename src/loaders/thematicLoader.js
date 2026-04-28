@@ -33,9 +33,13 @@ import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
     getAutomaticLegendItems,
+    buildIsolatedLegendItem,
 } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
-import { formatWithSeparator } from '../util/numbers.js'
+import {
+    formatRangeWithSeparator,
+    formatWithSeparator,
+} from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
@@ -63,9 +67,14 @@ const thematicLoader = async ({
         noDataColor,
     } = config
 
-    const { legendDecimalPlaces } = parseJsonConfig(config.config)
+    const { legendDecimalPlaces, legendIsolated } = parseJsonConfig(
+        config.config
+    )
     if (legendDecimalPlaces !== undefined) {
         config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    if (legendIsolated !== undefined) {
+        config.legendIsolated = legendIsolated
     }
     delete config.config
 
@@ -185,9 +194,20 @@ const thematicLoader = async ({
                 classes,
                 colorScale,
                 legendDecimalPlaces: config.legendDecimalPlaces,
+                legendIsolated: config.legendIsolated,
             })
             legendItems = classification.items
             valueFormat = classification.valueFormat
+        }
+    } else if (config.legendIsolated) {
+        const { min, max } = config.legendIsolated
+        legendItems = [buildIsolatedLegendItem(config.legendIsolated)]
+        const nonIsolatedValues = orderedValues.filter(
+            (v) => v < min || v > max
+        )
+        if (nonIsolatedValues.length > 0) {
+            minValue = nonIsolatedValues[0]
+            maxValue = nonIsolatedValues[nonIsolatedValues.length - 1]
         }
     }
 
@@ -262,6 +282,28 @@ const thematicLoader = async ({
         .domain([minValue, maxValue])
         .clamp(true)
 
+    const noDataLegendItem = legend.items.find((i) => i.noData === true)
+
+    const getSingleColor = (legendItem, value) => {
+        if (legendItem?.isLegendIsolated) {
+            return legendItem.color
+        }
+        if (!hasValue(value)) {
+            return noDataLegendItem?.color
+        }
+        return colorScale
+    }
+
+    const getFeatureRadius = (legendItem, value) => {
+        if (legendItem?.isLegendIsolated) {
+            return THEMATIC_RADIUS_DEFAULT
+        }
+        if (!hasValue(value)) {
+            return THEMATIC_RADIUS_DEFAULT
+        }
+        return getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
+    }
+
     if (!valueFeatures.length) {
         if (!features.length) {
             alerts.push({
@@ -293,16 +335,15 @@ const thematicLoader = async ({
                 const legendItem = getLegendItem(value)
 
                 if (isSingleColor) {
-                    item.color = colorScale
+                    item.color = getSingleColor(legendItem, value)
                 } else if (legendItem) {
                     item.color = legendItem.color
                 }
 
-                item.radius = getRadiusForValue(value)
+                item.radius = getFeatureRadius(legendItem, value)
             })
         })
     } else {
-        const noDataLegendItem = legend.items.find((i) => i.noData === true)
         valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id]
             const legendItem = getLegendItem(value)
@@ -310,24 +351,18 @@ const thematicLoader = async ({
             const { hasAdditionalGeometry } = properties
 
             if (isSingleColor) {
-                properties.color = hasValue(value)
-                    ? colorScale
-                    : noDataLegendItem?.color
+                properties.color = getSingleColor(legendItem, value)
             } else if (legendItem) {
                 properties.color =
                     hasAdditionalGeometry && isPoint
                         ? ORG_UNIT_COLOR
                         : legendItem.color
                 properties.legend = legendItem.name // Shown in data table
-                properties.range = `${formatWithSeparator(
-                    legendItem.startValue,
+                properties.range = formatRangeWithSeparator(
+                    legendItem,
                     keyAnalysisDigitGroupSeparator,
                     { precision: config.legendDecimalPlaces }
-                )} - ${formatWithSeparator(
-                    legendItem.endValue,
-                    keyAnalysisDigitGroupSeparator,
-                    { precision: config.legendDecimalPlaces }
-                )}` // Shown in data table
+                ) // Shown in data table
             }
 
             // Only count org units once in legend
@@ -345,7 +380,7 @@ const thematicLoader = async ({
             properties.rawValue = value // Numeric form for data table sorting
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
+                : getFeatureRadius(legendItem, value)
         })
     }
 

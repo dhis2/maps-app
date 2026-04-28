@@ -28,12 +28,26 @@ export const getLegendItemForValue = ({
         value = valueFormat(value)
     }
 
+    const isolatedItem = legendItems.find(
+        (item) =>
+            item.isLegendIsolated &&
+            value >= item.startValue &&
+            value <= item.endValue
+    )
+    if (isolatedItem) {
+        return isolatedItem
+    }
+
     if (clamp) {
-        if (value < legendItems[0].startValue) {
-            return legendItems[0]
+        const rangeItems = legendItems.filter((item) => !item.isLegendIsolated)
+        if (rangeItems.length > 0 && value < rangeItems[0].startValue) {
+            return rangeItems[0]
         }
-        if (value > legendItems[legendItems.length - 1].endValue) {
-            return legendItems[legendItems.length - 1]
+        if (
+            rangeItems.length > 0 &&
+            value > rangeItems[rangeItems.length - 1].endValue
+        ) {
+            return rangeItems[rangeItems.length - 1]
         }
     }
 

@@ -55,6 +55,7 @@ const validLayerProperties = [
     'labelFontColor',
     'labelTemplate',
     'legendDecimalPlaces',
+    'legendIsolated',
     'lastUpdated',
     'layer',
     'layerId',
@@ -196,14 +197,20 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.periodType
     } else if (layerType === THEMATIC_LAYER || layerType === EVENT_LAYER) {
         if (cleanMapviewConfig) {
+            const configData = {}
             if (layer.legendDecimalPlaces !== undefined) {
-                layer.config = JSON.stringify({
-                    legendDecimalPlaces: layer.legendDecimalPlaces,
-                })
+                configData.legendDecimalPlaces = layer.legendDecimalPlaces
+            }
+            if (layer.legendIsolated !== undefined) {
+                configData.legendIsolated = layer.legendIsolated
+            }
+            if (Object.keys(configData).length) {
+                layer.config = JSON.stringify(configData)
             }
         }
 
         delete layer.legendDecimalPlaces
+        delete layer.legendIsolated
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

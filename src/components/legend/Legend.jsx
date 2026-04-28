@@ -23,6 +23,10 @@ const Legend = ({
     isPlugin = false,
 }) => {
     const showRange = Array.isArray(items) && !legendNamesContainRange(items)
+    const getShowRange = (item) =>
+        item.isLegendIsolated
+            ? !legendNamesContainRange([item])
+            : !item.name || showRange
 
     return (
         <dl className={styles.legend} data-test="layerlegend">
@@ -53,9 +57,11 @@ const Legend = ({
                             {sortLegendItems(items).map((item) => (
                                 <LegendItem
                                     {...item}
-                                    showRange={!item.name || showRange}
-                                    key={`${item.name}-${item.startValue ?? item.from
-                                        }-${item.endValue ?? item.to}`}
+                                    showRange={getShowRange(item)}
+                                    decimalPlaces={decimalPlaces}
+                                    key={`${item.name ?? ''}-${
+                                        item.startValue ?? item.from ?? ''
+                                    }-${item.endValue ?? item.to ?? ''}`}
                                 />
                             ))}
                         </tbody>

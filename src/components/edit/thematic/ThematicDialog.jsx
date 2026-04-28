@@ -75,6 +75,7 @@ const ThematicDialog = ({
     radiusHigh,
     method,
     thematicMapType,
+    legendIsolated,
 }) => {
     const dispatch = useDispatch()
     const {
@@ -301,6 +302,7 @@ const ThematicDialog = ({
             renderingStrategy,
             method,
             periods,
+            legendIsolated,
         })
     }, [
         dataItem,
@@ -314,6 +316,7 @@ const ThematicDialog = ({
         renderingStrategy,
         method,
         periods,
+        legendIsolated,
     ])
 
     // Run layer validation
@@ -597,6 +600,7 @@ ThematicDialog.propTypes = {
     eventStatus: PropTypes.string,
     filters: PropTypes.array,
     id: PropTypes.string,
+    legendIsolated: PropTypes.object,
     legendSet: PropTypes.object,
     method: PropTypes.number,
     noDataColor: PropTypes.string,

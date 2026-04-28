@@ -69,6 +69,13 @@ export const sortLegendItems = (items) =>
             return -1
         }
 
+        if (a.isLegendIsolated && !b.isLegendIsolated) {
+            return 1
+        }
+        if (!a.isLegendIsolated && b.isLegendIsolated) {
+            return -1
+        }
+
         return bRange.start === aRange.start
             ? bRange.end - aRange.end
             : bRange.start - aRange.start
@@ -149,26 +156,52 @@ export const getPredefinedLegendItems = (legendSet) => {
     return sortBy('startValue', legendSet.legends).map(pickSome)
 }
 
+export const buildIsolatedLegendItem = ({ min, max, color, name }) => ({
+    startValue: min,
+    endValue: max,
+    color,
+    isLegendIsolated: true,
+    ...(name && { name }),
+})
+
 export const getAutomaticLegendItems = ({
-    data,
+    data, // data must be sorted ascending — getLegendItems treats values[0] as min and values[last] as max
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
     colorScale = defaultColorScale,
     legendDecimalPlaces,
+    legendIsolated,
 }) => {
-    if (data.length === 0) {
+    if (data.length === 0 && !legendIsolated) {
         return { items: [] }
     }
 
-    const classification = getLegendItems(data, method, {
+    let isolatedItem = null
+    let dataToClassify = data
+
+    if (legendIsolated) {
+        const { min: isolatedMin, max: isolatedMax } = legendIsolated
+        dataToClassify = data.filter((v) => v < isolatedMin || v > isolatedMax)
+        isolatedItem = buildIsolatedLegendItem(legendIsolated)
+
+        if (dataToClassify.length === 0) {
+            return { items: [isolatedItem] }
+        }
+    }
+
+    const classification = getLegendItems(dataToClassify, method, {
         numClasses: classes,
         precision: legendDecimalPlaces,
     })
+    const classifiedItems = classification.items?.map((item, i) => ({
+        ...item,
+        color: colorScale[i],
+    }))
+
     return {
-        items: classification.items.map((item, index) => ({
-            ...item,
-            color: colorScale[index],
-        })),
+        items: isolatedItem
+            ? [isolatedItem, ...classifiedItems]
+            : classifiedItems,
         valueFormat: classification.valueFormat,
     }
 }

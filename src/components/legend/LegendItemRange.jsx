@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { formatWithSeparator } from '../../util/numbers.js'
+import {
+    formatRangeWithSeparator,
+    formatWithSeparator,
+} from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import styles from './styles/LegendItemRange.module.css'
 
@@ -19,19 +22,11 @@ const LegendItemRange = ({
     const nameLabel = name ? `${name} ` : ''
     const rangeLabel =
         startValue !== undefined && endValue !== undefined && showRange
-            ? `${formatWithSeparator(
-                  startValue,
+            ? formatRangeWithSeparator(
+                  { startValue, endValue },
                   keyAnalysisDigitGroupSeparator,
-                  {
-                      precision: decimalPlaces,
-                  }
-              )} - ${formatWithSeparator(
-                  endValue,
-                  keyAnalysisDigitGroupSeparator,
-                  {
-                      precision: decimalPlaces,
-                  }
-              )}`
+                  { precision: decimalPlaces }
+              )
             : ''
     const countLabel =
         count === undefined

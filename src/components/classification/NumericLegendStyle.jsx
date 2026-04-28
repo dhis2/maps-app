@@ -8,6 +8,7 @@ import {
     CLASSIFICATION_SINGLE_COLOR,
 } from '../../constants/layers.js'
 import Classification from './Classification.jsx'
+import IsolatedClass from './IsolatedClass.jsx'
 import LegendSetSelect from './LegendSetSelect.jsx'
 import LegendTypeSelect from './LegendTypeSelect.jsx'
 import SingleColor from './SingleColor.jsx'
@@ -46,7 +47,10 @@ const NumericLegendStyle = (props) => {
                 dataItem={dataItem}
             />
             {isSingleColor ? (
-                <SingleColor />
+                <>
+                    <SingleColor />
+                    <IsolatedClass />
+                </>
             ) : isPredefined ? (
                 <LegendSetSelect
                     legendSetError={legendSetError}
