@@ -102,15 +102,31 @@ const loadEventLayer = async ({
     periodTypeData,
     loadExtended,
 }) => {
-    const { legendDecimalPlaces, legendIsolated } = parseJsonConfig(
-        config.config
-    )
+    const {
+        legendDecimalPlaces,
+        legendIsolated,
+        unclassifiedLegend: unclassifiedLegendFromConfig,
+        noDataLegend: noDataLegendFromConfig,
+    } = parseJsonConfig(config.config)
     if (legendDecimalPlaces !== undefined) {
         config.legendDecimalPlaces = legendDecimalPlaces
     }
-    if (legendIsolated !== undefined) {
+    if (legendIsolated) {
         config.legendIsolated = legendIsolated
     }
+    if (unclassifiedLegendFromConfig) {
+        config.unclassifiedLegend = unclassifiedLegendFromConfig
+    }
+    if (noDataLegendFromConfig) {
+        config.noDataLegend = noDataLegendFromConfig
+    }
+    if (config.noDataColor) {
+        config.noDataLegend = {
+            ...noDataLegendFromConfig,
+            color: config.noDataColor,
+        }
+    }
+    delete config.noDataColor
     delete config.config
 
     const {

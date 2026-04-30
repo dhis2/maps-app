@@ -9,7 +9,8 @@ import {
     setClassification,
     setDataItem,
     setLegendSet,
-    setNoDataColor,
+    setNoDataLegend,
+    setUnclassifiedLegend,
     setPeriods,
     setStartDate,
     setEndDate,
@@ -43,11 +44,12 @@ import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
 import Labels from '../shared/Labels.jsx'
+import NoDataLegend from '../shared/NoDataLegend.jsx'
+import UnclassifiedLegend from '../shared/UnclassifiedLegend.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
 import { initializeThematicLayer } from './initializeThematicLayer.js'
-import NoDataColor from './NoDataColor.jsx'
 import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
 import { validateThematicLayer } from './validateThematicLayer.js'
@@ -65,7 +67,8 @@ const ThematicDialog = ({
     periodType,
     renderingStrategy,
     id,
-    noDataColor,
+    noDataLegend,
+    unclassifiedLegend,
     periodsSettings,
     currentUser,
     validateLayer,
@@ -580,9 +583,15 @@ const ThematicDialog = ({
                                 legendSetError={errors.legendSetError}
                                 className={styles.select}
                             />
-                            <NoDataColor
-                                value={noDataColor}
-                                onChange={(v) => dispatch(setNoDataColor(v))}
+                            <UnclassifiedLegend
+                                value={unclassifiedLegend}
+                                onChange={(v) =>
+                                    dispatch(setUnclassifiedLegend(v))
+                                }
+                            />
+                            <NoDataLegend
+                                value={noDataLegend}
+                                onChange={(v) => dispatch(setNoDataLegend(v))}
                             />
                         </div>
                     </div>
@@ -603,7 +612,10 @@ ThematicDialog.propTypes = {
     legendIsolated: PropTypes.object,
     legendSet: PropTypes.object,
     method: PropTypes.number,
-    noDataColor: PropTypes.string,
+    noDataLegend: PropTypes.shape({
+        color: PropTypes.string.isRequired,
+        name: PropTypes.string,
+    }),
     orgUnits: PropTypes.object,
     periodType: PropTypes.string,
     periodsSettings: PropTypes.object,
@@ -614,6 +626,10 @@ ThematicDialog.propTypes = {
     startDate: PropTypes.string,
     systemSettings: PropTypes.object,
     thematicMapType: PropTypes.string,
+    unclassifiedLegend: PropTypes.shape({
+        color: PropTypes.string.isRequired,
+        name: PropTypes.string,
+    }),
     validateLayer: PropTypes.bool,
     onLayerValidation: PropTypes.func,
 }

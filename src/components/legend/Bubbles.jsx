@@ -144,14 +144,15 @@ const Bubbles = ({
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
-    const noDataClass = classes.find((c) => c.noData)
-    const isolatedClass = classes.find((c) => c.isLegendIsolated)
+    const noDataClass = classes.find((c) => c.isNoData)
+    const isolatedClass = classes.find((c) => c.isIsolated)
+    const unclassifiedClass = classes.find((c) => c.isUnclassified)
     const bubbleClasses = classes.filter(
-        (c) => !c.noData && !c.isLegendIsolated
+        (c) => !c.isNoData && !c.isIsolated && !c.isUnclassified
     )
 
     const hasDataRange = minValue != null && maxValue != null
-    if (!hasDataRange && !noDataClass && !isolatedClass) {
+    if (!hasDataRange && !noDataClass && !isolatedClass && !unclassifiedClass) {
         return null
     }
     if (Number.isNaN(radiusLow) || Number.isNaN(radiusHigh)) {
@@ -163,7 +164,8 @@ const Bubbles = ({
     const ty = 10
 
     const yIsolated = hasDataRange ? mainRowHeight + extraRowHeight : 0
-    const yNoData = yIsolated + (isolatedClass ? extraRowHeight : 0)
+    const yUnclassified = yIsolated + (isolatedClass ? extraRowHeight : 0)
+    const yNoData = yUnclassified + (unclassifiedClass ? extraRowHeight : 0)
 
     const legendHeight = yNoData + ty + THEMATIC_RADIUS_DEFAULT + 2
     const legendWidth = isPlugin ? 150 : 245
@@ -221,6 +223,17 @@ const Bubbles = ({
                         color={isolatedClass.color}
                         label={isolatedLabel}
                         count={isolatedClass.count}
+                    />
+                )}
+                {unclassifiedClass && (
+                    <SpecialClassRow
+                        tx={tx}
+                        ty={ty}
+                        radiusHigh={radiusHigh}
+                        cy={yUnclassified}
+                        color={unclassifiedClass.color}
+                        label={unclassifiedClass.name}
+                        count={unclassifiedClass.count}
                     />
                 )}
                 {noDataClass && (

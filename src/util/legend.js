@@ -69,10 +69,10 @@ export const sortLegendItems = (items) =>
             return -1
         }
 
-        if (a.isLegendIsolated && !b.isLegendIsolated) {
+        if (a.isIsolated && !b.isIsolated) {
             return 1
         }
-        if (!a.isLegendIsolated && b.isLegendIsolated) {
+        if (!a.isIsolated && b.isIsolated) {
             return -1
         }
 
@@ -150,6 +150,9 @@ export const getLabelsFromLegendItems = (legendItems) => {
 }
 
 // Returns a legend created from a pre-defined legend set
+export const isRegularLegendItem = (item) =>
+    !item.isNoData && !item.isUnclassified && !item.isIsolated
+
 export const getPredefinedLegendItems = (legendSet) => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color'])
 
@@ -160,7 +163,7 @@ export const buildIsolatedLegendItem = ({ min, max, color, name }) => ({
     startValue: min,
     endValue: max,
     color,
-    isLegendIsolated: true,
+    isIsolated: true,
     ...(name && { name }),
 })
 

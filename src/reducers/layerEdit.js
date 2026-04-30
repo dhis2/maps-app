@@ -571,16 +571,22 @@ const layerEdit = (state = null, action) => {
                 followUp: action.payload,
             }
 
-        case types.LAYER_EDIT_NO_DATA_COLOR_SET:
+        case types.LAYER_EDIT_NO_DATA_LEGEND_SET:
             newState = { ...state }
-
-            // Default is to show no feature
             if (!action.payload) {
-                delete newState.noDataColor
+                delete newState.noDataLegend
             } else {
-                newState.noDataColor = action.payload
+                newState.noDataLegend = action.payload
             }
+            return newState
 
+        case types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET:
+            newState = { ...state }
+            if (!action.payload) {
+                delete newState.unclassifiedLegend
+            } else {
+                newState.unclassifiedLegend = action.payload
+            }
             return newState
 
         case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:

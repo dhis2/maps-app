@@ -63,6 +63,8 @@ const validLayerProperties = [
     'method',
     'name',
     'noDataColor',
+    'noDataLegend',
+    'unclassifiedLegend',
     'opacity',
     'organisationUnitColor',
     'organisationUnitGroupSet',
@@ -204,6 +206,13 @@ const models2objects = (layer, cleanMapviewConfig) => {
             if (layer.legendIsolated !== undefined) {
                 configData.legendIsolated = layer.legendIsolated
             }
+            if (layer.unclassifiedLegend) {
+                configData.unclassifiedLegend = layer.unclassifiedLegend
+            }
+            if (layer.noDataLegend) {
+                layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
+                configData.noDataLegend = layer.noDataLegend
+            }
             if (Object.keys(configData).length) {
                 layer.config = JSON.stringify(configData)
             }
@@ -211,6 +220,8 @@ const models2objects = (layer, cleanMapviewConfig) => {
 
         delete layer.legendDecimalPlaces
         delete layer.legendIsolated
+        delete layer.noDataLegend
+        delete layer.unclassifiedLegend
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

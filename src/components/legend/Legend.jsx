@@ -24,7 +24,7 @@ const Legend = ({
 }) => {
     const showRange = Array.isArray(items) && !legendNamesContainRange(items)
     const getShowRange = (item) =>
-        item.isLegendIsolated
+        item.isIsolated
             ? !legendNamesContainRange([item])
             : !item.name || showRange
 

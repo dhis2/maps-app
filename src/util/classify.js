@@ -11,6 +11,7 @@ import {
     CLASSIFICATION_PRETTY_BREAKS,
 } from '../constants/layers.js'
 import { hasValue } from './helpers.js'
+import { isRegularLegendItem } from './legend.js'
 import { getRoundToPrecisionFn } from './numbers.js'
 
 // Returns legend item where a value belongs
@@ -24,41 +25,38 @@ export const getLegendItemForValue = ({
     if (!hasValue(value) || legendItems.length === 0) {
         return
     }
-    if (valueFormat) {
-        value = valueFormat(value)
-    }
+
+    const formattedValue = valueFormat ? valueFormat(value) : value
 
     const isolatedItem = legendItems.find(
         (item) =>
-            item.isLegendIsolated &&
-            value >= item.startValue &&
-            value <= item.endValue
+            item.isIsolated &&
+            formattedValue >= item.startValue &&
+            formattedValue <= item.endValue
     )
     if (isolatedItem) {
         return isolatedItem
     }
 
-    if (clamp) {
-        const rangeItems = legendItems.filter((item) => !item.isLegendIsolated)
-        if (rangeItems.length > 0 && value < rangeItems[0].startValue) {
+    const rangeItems = legendItems.filter(isRegularLegendItem)
+
+    if (clamp && rangeItems.length > 0) {
+        if (formattedValue < rangeItems[0].startValue) {
             return rangeItems[0]
         }
-        if (
-            rangeItems.length > 0 &&
-            value > rangeItems[rangeItems.length - 1].endValue
-        ) {
-            return rangeItems[rangeItems.length - 1]
+        if (formattedValue > rangeItems.at(-1).endValue) {
+            return rangeItems.at(-1)
         }
     }
 
     const isClusters = method === CLASSIFICATION_NATURAL_BREAKS_CLUSTERS
-    const isLast = (index) => index === legendItems.length - 1
-    return legendItems.find((item, index) =>
+    return rangeItems.find((item, index) =>
         item.startValue === item.endValue
-            ? value === item.startValue
-            : value >= item.startValue &&
-              (value < item.endValue ||
-                  (value === item.endValue && (isClusters || isLast(index))))
+            ? formattedValue === item.startValue
+            : formattedValue >= item.startValue &&
+              (formattedValue < item.endValue ||
+                  (formattedValue === item.endValue &&
+                      (isClusters || index === rangeItems.length - 1)))
     )
 }
 
