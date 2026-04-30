@@ -15,6 +15,9 @@ import {
     getAutomaticLegendItems,
     getRenderingLabel,
     parseRange,
+    isRegularLegendItem,
+    buildIsolatedLegendItem,
+    legendNamesContainRange,
 } from '../legend.js'
 
 describe('sortLegendItems', () => {
@@ -36,6 +39,19 @@ describe('sortLegendItems', () => {
             { from: 10, to: 15 },
         ]
         expect(sortLegendItems(items).map((i) => i.from)).toEqual([10, 5, 0])
+    })
+
+    it('places isIsolated items after regular items, before no-range items', () => {
+        const items = [
+            { name: 'no range' },
+            { startValue: 0, endValue: 10 },
+            { startValue: 4, endValue: 8, isIsolated: true },
+        ]
+        const sorted = sortLegendItems(items)
+        expect(sorted[0].isIsolated).toBeUndefined()
+        expect(sorted[0].startValue).toBe(0)
+        expect(sorted[1].isIsolated).toBe(true)
+        expect(sorted[2].name).toBe('no range')
     })
 
     it('places items without range keys at the end', () => {
@@ -225,6 +241,140 @@ describe('legend utils', () => {
                 expect(Number.isInteger(item.startValue)).toBe(true)
                 expect(Number.isInteger(item.endValue)).toBe(true)
             })
+        })
+
+        it('prepends isolated item and classifies remaining data when legendIsolated is set', () => {
+            const colorScale = ['#f00', '#0f0', '#00f', '#ff0', '#f0f']
+            const data = [0, 10, 20, 50, 55, 60, 80, 90, 100]
+            const { items } = getAutomaticLegendItems({
+                data,
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale,
+                legendIsolated: {
+                    min: 40,
+                    max: 70,
+                    color: '#888',
+                    name: 'Mid',
+                },
+            })
+            expect(items[0]).toEqual(
+                expect.objectContaining({ isIsolated: true, color: '#888' })
+            )
+            expect(items.slice(1)).toHaveLength(3)
+            items
+                .slice(1)
+                .forEach((item) => expect(item.isIsolated).toBeUndefined())
+        })
+
+        it('returns only the isolated item when all data falls within isolated range', () => {
+            const { items } = getAutomaticLegendItems({
+                data: [45, 50, 55],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale: defaultColorScale,
+                legendIsolated: { min: 40, max: 60, color: '#888' },
+            })
+            expect(items).toHaveLength(1)
+            expect(items[0].isIsolated).toBe(true)
+        })
+
+        it('returns only the isolated item when data array is empty but legendIsolated is set', () => {
+            const { items } = getAutomaticLegendItems({
+                data: [],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale: defaultColorScale,
+                legendIsolated: {
+                    min: 40,
+                    max: 60,
+                    color: '#888',
+                    name: 'Mid',
+                },
+            })
+            expect(items).toHaveLength(1)
+            expect(items[0].isIsolated).toBe(true)
+        })
+    })
+
+    describe('legendNamesContainRange', () => {
+        it('returns true when most item names contain their numeric range', () => {
+            const items = [
+                { name: '0 - 10', startValue: 0, endValue: 10 },
+                { name: '10 - 20', startValue: 10, endValue: 20 },
+                { name: '20 - 30', startValue: 20, endValue: 30 },
+            ]
+            expect(legendNamesContainRange(items)).toBe(true)
+        })
+
+        it('returns false when item names are descriptive labels', () => {
+            const items = [
+                { name: 'Low', startValue: 0, endValue: 10 },
+                { name: 'Medium', startValue: 10, endValue: 20 },
+                { name: 'High', startValue: 20, endValue: 30 },
+            ]
+            expect(legendNamesContainRange(items)).toBe(false)
+        })
+
+        it('returns false when the items array is empty', () => {
+            expect(legendNamesContainRange([])).toBe(false)
+        })
+
+        it('ignores items with non-numeric startValue/endValue', () => {
+            const items = [{ name: 'Other', startValue: NaN, endValue: NaN }]
+            expect(legendNamesContainRange(items)).toBe(false)
+        })
+    })
+
+    describe('isRegularLegendItem', () => {
+        it('returns true for a plain legend item', () => {
+            expect(
+                isRegularLegendItem({
+                    startValue: 0,
+                    endValue: 10,
+                    color: 'red',
+                })
+            ).toBe(true)
+        })
+
+        it('returns false for isNoData item', () => {
+            expect(isRegularLegendItem({ isNoData: true })).toBe(false)
+        })
+
+        it('returns false for isUnclassified item', () => {
+            expect(isRegularLegendItem({ isUnclassified: true })).toBe(false)
+        })
+
+        it('returns false for isIsolated item', () => {
+            expect(isRegularLegendItem({ isIsolated: true })).toBe(false)
+        })
+    })
+
+    describe('buildIsolatedLegendItem', () => {
+        it('creates an item with isIsolated flag and correct range', () => {
+            const item = buildIsolatedLegendItem({
+                min: 50,
+                max: 100,
+                color: '#ff0000',
+                name: 'High',
+            })
+            expect(item).toEqual({
+                startValue: 50,
+                endValue: 100,
+                color: '#ff0000',
+                name: 'High',
+                isIsolated: true,
+            })
+        })
+
+        it('omits name property when name is not provided', () => {
+            const item = buildIsolatedLegendItem({
+                min: 50,
+                max: 100,
+                color: '#ff0000',
+            })
+            expect(item).not.toHaveProperty('name')
+            expect(item.isIsolated).toBe(true)
         })
     })
 
