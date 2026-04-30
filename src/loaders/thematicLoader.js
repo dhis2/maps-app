@@ -173,7 +173,7 @@ const thematicLoader = async ({
 
     const [mainFeatures, data, associatedGeometries] = response
     const valueById = getValueById(data)
-    const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null // [PATH] null → Single; populated → Timeline / Split (do not creates OrgUnits with no data)
+    const valuesByPeriod = isSingleMap ? null : getValuesByPeriod(data) // [PATH] null → Single; populated → Timeline / Split (do not creates OrgUnits with no data)
 
     const names = getApiResponseNames(
         periodTypeData?.enabledPeriodTypesData?.metaData
@@ -394,13 +394,13 @@ const thematicLoader = async ({
     }
 
     const countLegendItem = (legendItem, { isNoData, isUnclassified }) => {
-        const item =
-            legendItem ??
-            (isNoData
-                ? noDataLegendItem
-                : isUnclassified
-                ? unclassifiedLegendItem
-                : null)
+        let specialItem = null
+        if (isNoData) {
+            specialItem = noDataLegendItem
+        } else if (isUnclassified) {
+            specialItem = unclassifiedLegendItem
+        }
+        const item = legendItem ?? specialItem
         if (item) {
             item.count++
         }
@@ -409,39 +409,7 @@ const thematicLoader = async ({
     // Feature styling - Processing
     // -----
 
-    if (!isSingleMap) {
-        const periods = Object.keys(valuesByPeriod)
-        periods.forEach((period) => {
-            const orgUnits = Object.keys(valuesByPeriod[period])
-            orgUnits.forEach((orgunit) => {
-                const item = valuesByPeriod[period][orgunit]
-                const value = Number(item.value)
-                const legendItem = getLegendItem(value)
-                const isNoData = !hasValue(item.value)
-                const isUnclassified =
-                    !isSingleColor && !legendItem && !isNoData
-
-                // No data org units are absent from valuesByPeriod;
-                if (isUnclassified && !hasUnclassifiedClass) {
-                    Object.assign(item, { isUnclassified: true })
-                    return
-                }
-                // ThematicLayer handles no data and unclassified inclusion/exclusion
-
-                Object.assign(item, {
-                    ...getFeatureColor(legendItem, {
-                        isNoData,
-                        isUnclassified,
-                    }),
-                    ...getFeatureRadius(
-                        legendItem,
-                        { isNoData, isUnclassified },
-                        value
-                    ),
-                })
-            })
-        })
-    } else {
+    if (isSingleMap) {
         // Style and filter features in place
         features = features.flatMap(({ id, geometry, properties }) => {
             const value = valueById[id]
@@ -489,6 +457,38 @@ const thematicLoader = async ({
 
             return [{ id, geometry, properties }]
         })
+    } else {
+        const periods = Object.keys(valuesByPeriod)
+        periods.forEach((period) => {
+            const orgUnits = Object.keys(valuesByPeriod[period])
+            orgUnits.forEach((orgunit) => {
+                const item = valuesByPeriod[period][orgunit]
+                const value = Number(item.value)
+                const legendItem = getLegendItem(value)
+                const isNoData = !hasValue(item.value)
+                const isUnclassified =
+                    !isSingleColor && !legendItem && !isNoData
+
+                // No data org units are absent from valuesByPeriod;
+                if (isUnclassified && !hasUnclassifiedClass) {
+                    Object.assign(item, { isUnclassified: true })
+                    return
+                }
+                // ThematicLayer handles no data and unclassified inclusion/exclusion
+
+                Object.assign(item, {
+                    ...getFeatureColor(legendItem, {
+                        isNoData,
+                        isUnclassified,
+                    }),
+                    ...getFeatureRadius(
+                        legendItem,
+                        { isNoData, isUnclassified },
+                        value
+                    ),
+                })
+            })
+        })
     }
 
     return {
@@ -512,7 +512,7 @@ const thematicLoader = async ({
 // then fetches the full legendSet from the server. Returns null if not found or deleted.
 const resolveLegendSet = async (config, dataItem, engine) => {
     const legendSet =
-        config.legendSet ?? (!config.method ? dataItem.legendSet : null)
+        config.legendSet ?? (config.method ? null : dataItem.legendSet)
     if (!legendSet) {
         return null
     }

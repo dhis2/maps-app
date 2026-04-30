@@ -321,7 +321,9 @@ describe('legend utils', () => {
         })
 
         it('ignores items with non-numeric startValue/endValue', () => {
-            const items = [{ name: 'Other', startValue: NaN, endValue: NaN }]
+            const items = [
+                { name: 'Other', startValue: Number.NaN, endValue: Number.NaN },
+            ]
             expect(legendNamesContainRange(items)).toBe(false)
         })
     })

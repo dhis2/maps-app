@@ -326,7 +326,7 @@ const styleByOptionSet = async (config, engine) => {
     config.data = config.data.reduce((acc, feature) => {
         const name = feature.properties[id]
         const isNoData = !hasValue(name)
-        const option = !isNoData ? optionsByName[name.toLowerCase()] : null
+        const option = isNoData ? null : optionsByName[name.toLowerCase()]
         const isUnclassified = !isNoData && !option
 
         if (isUnclassified && !unclassifiedLegendItem) {
