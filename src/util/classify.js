@@ -99,22 +99,18 @@ export const getLegendItems = (
     } else if (method === CLASSIFICATION_STANDARD_DEVIATION) {
         classification = getStandardDeviation(values, { numClasses, precision })
     } else if (method === CLASSIFICATION_LOGARITHMIC) {
-        if (minValue <= 0) {
-            // Logarithmic scale requires strictly positive values.
-            // Silently fall back to equal intervals for now.
-            // TODO: when DHIS2-19812 (unclassified bucket) lands, filter
-            // non-positive values out of the classification input and route
-            // them to the unclassified bucket instead of falling back.
-            classification = getEqualIntervals(minValue, maxValue, {
-                numClasses,
-                precision,
-            })
-        } else {
-            classification = getLogarithmic(minValue, maxValue, {
-                numClasses,
-                precision,
-            })
+        const positiveValues = values.filter((v) => v > 0)
+        if (positiveValues.length === 0) {
+            return { items: [] }
         }
+        classification = getLogarithmic(
+            positiveValues[0],
+            positiveValues.at(-1),
+            {
+                numClasses,
+                precision,
+            }
+        )
     } else if (method === CLASSIFICATION_PRETTY_BREAKS) {
         classification = getPrettyBreaks(minValue, maxValue, {
             numClasses,
@@ -229,14 +225,6 @@ const getCkMeans = (values, { numClasses, continuous, precision }) => {
 }
 
 const getStandardDeviation = (values, { numClasses, precision }) => {
-    // TODO: DHIS2-19812 std - dev classification is best interpreted when
-    // breaks fall at μ±Nσ regardless of data extremes. Currently:
-    //   - breaks outside [minValue, maxValue] are filtered (producing
-    //     fewer bins than requested)
-    //   - the outermost kept bins span to min/max rather than the next
-    //     σ boundary, so bin labels no longer mean "Nσ from mean"
-    // When the unclassified bucket lands, preserve σ-aligned boundaries
-    // and route values beyond the outermost break to unclassified.
     const minValue = values[0]
     const maxValue = values[values.length - 1]
     const mu = mean(values)
@@ -247,21 +235,22 @@ const getStandardDeviation = (values, { numClasses, precision }) => {
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     // Place breaks at 1-sigma intervals centered on the mean.
-    const internalBreaks = []
     const isEven = numClasses % 2 === 0
     const maxOffset = Math.floor((numClasses - 1) / 2)
+    const internalBreaks = []
     for (let i = 0; i < numClasses - 1; i++) {
         let offset = i - maxOffset
         if (!isEven && offset >= 0) {
             offset += 1
         }
-        const b = mu + offset * sigma
-        if (b > minValue && b < maxValue) {
-            internalBreaks.push(b)
-        }
+        internalBreaks.push(mu + offset * sigma)
     }
 
-    const allBreaks = [minValue, ...internalBreaks, maxValue]
+    // Outer bounds are σ-aligned so all class labels mean "Nσ from mean".
+    // Values outside [lowerBound, upperBound] are routed to unclassified.
+    const lowerBound = mu - (maxOffset + 1) * sigma
+    const upperBound = mu + (maxOffset + 1) * sigma
+    const allBreaks = [lowerBound, ...internalBreaks, upperBound]
     return {
         items: allBreaks.slice(0, -1).map((start, i) => ({
             startValue: valueFormat(start),

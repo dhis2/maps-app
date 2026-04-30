@@ -299,7 +299,7 @@ describe('styleByDataItem', () => {
                 { properties: { [STYLE_DATA_ITEM_ID]: 1 } },
                 { properties: { [STYLE_DATA_ITEM_ID]: 2 } },
                 { properties: {} }, // no data - dropped (no noDataLegend)
-                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // non-numeric - included with fallback color
+                { properties: { [STYLE_DATA_ITEM_ID]: SOME_VALUE } }, // non-numeric - dropped (no unclassifiedLegend)
             ],
             method: 2,
             classes: 3,
@@ -312,7 +312,7 @@ describe('styleByDataItem', () => {
 
         expect(mockEngine.query).toHaveBeenCalled()
 
-        expect(result.data).toHaveLength(4)
+        expect(result.data).toHaveLength(3)
         expect(result.data[0].properties).toMatchObject({
             value: 0,
             color: '#ff0000',
@@ -324,10 +324,6 @@ describe('styleByDataItem', () => {
         expect(result.data[2].properties).toMatchObject({
             value: 2,
             color: '#0000ff',
-        })
-        expect(result.data[3].properties).toMatchObject({
-            value: SOME_VALUE,
-            color: EVENT_COLOR,
         })
 
         expect(result.legend.items).toHaveLength(3)

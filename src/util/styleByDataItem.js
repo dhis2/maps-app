@@ -3,6 +3,8 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     CLASSIFICATION_PREDEFINED,
+    CLASSIFICATION_LOGARITHMIC,
+    CLASSIFICATION_STANDARD_DEVIATION,
 } from '../constants/layers.js'
 import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
@@ -183,7 +185,6 @@ const styleByNumeric = async (config, engine) => {
         method,
         classes,
         colorScale,
-        eventPointColor,
         eventPointRadius,
         legendDecimalPlaces,
         legendIsolated,
@@ -242,7 +243,10 @@ const styleByNumeric = async (config, engine) => {
             valueFormat,
             method,
             legendItems: legend.items.filter(isRegularLegendItem),
-            clamp: method !== CLASSIFICATION_PREDEFINED,
+            clamp:
+                method !== CLASSIFICATION_PREDEFINED &&
+                method !== CLASSIFICATION_LOGARITHMIC &&
+                method !== CLASSIFICATION_STANDARD_DEVIATION,
         })
 
     // Add style data value and color to each feature
@@ -255,11 +259,8 @@ const styleByNumeric = async (config, engine) => {
             legendItem = getLegendItem(numericValue)
         }
 
-        const isUnclassified =
-            method === CLASSIFICATION_PREDEFINED &&
-            hasValue(value) &&
-            !legendItem
         const isNoData = !hasValue(value)
+        const isUnclassified = hasValue(value) && !legendItem
 
         if (isUnclassified && !unclassifiedLegendItem) {
             return acc
@@ -272,22 +273,10 @@ const styleByNumeric = async (config, engine) => {
             legendItem ??
             (isUnclassified ? unclassifiedLegendItem : noDataLegendItem)
 
-        if (activeItem) {
-            addFeature(acc, feature, {
-                item: activeItem,
-                value: hasValue(value) ? value : i18n.t('Not set'),
-            })
-        } else {
-            // Non-numeric string value in auto mode: include with default color
-            acc.push({
-                ...feature,
-                properties: {
-                    ...feature.properties,
-                    value,
-                    color: cssColor(eventPointColor) || EVENT_COLOR,
-                },
-            })
-        }
+        addFeature(acc, feature, {
+            item: activeItem,
+            value: hasValue(value) ? value : i18n.t('Not set'),
+        })
         return acc
     }, [])
 

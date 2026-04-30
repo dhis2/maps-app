@@ -17,6 +17,8 @@ import {
     RENDERING_STRATEGY_SINGLE,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_SINGLE_COLOR,
+    CLASSIFICATION_LOGARITHMIC,
+    CLASSIFICATION_STANDARD_DEVIATION,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
 } from '../constants/layers.js'
@@ -334,7 +336,10 @@ const thematicLoader = async ({
             valueFormat,
             method,
             legendItems: legend.items,
-            clamp: !isPredefined,
+            clamp:
+                !isPredefined &&
+                method !== CLASSIFICATION_LOGARITHMIC &&
+                method !== CLASSIFICATION_STANDARD_DEVIATION,
         })
 
     const getFeatureColor = (legendItem, { isNoData, isUnclassified }) => {

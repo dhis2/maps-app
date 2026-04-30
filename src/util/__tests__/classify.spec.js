@@ -226,32 +226,38 @@ describe('getLegendItems', () => {
         expect(items[0].endValue).toBe(items[1].startValue)
     })
 
-    it('falls back to equal intervals for logarithmic when min <= 0', () => {
+    it('filters non-positive values for logarithmic classification', () => {
         const values = [0, 25, 50, 75, 100]
-        const { items: logItems } = getLegendItems(
-            values,
-            CLASSIFICATION_LOGARITHMIC,
-            { numClasses: 4 }
-        )
-        const { items: equalItems } = getLegendItems(
-            values,
-            CLASSIFICATION_EQUAL_INTERVALS,
-            { numClasses: 4 }
-        )
-        expect(logItems).toEqual(equalItems)
+        const { items } = getLegendItems(values, CLASSIFICATION_LOGARITHMIC, {
+            numClasses: 4,
+        })
+        expect(items.length).toBe(4)
+        expect(items[0].startValue).toBeGreaterThan(0)
+        expect(items[items.length - 1].endValue).toBe(100)
     })
 
-    it('returns standard deviation bins spanning [min, max]', () => {
+    it('returns empty items for logarithmic when all values are non-positive', () => {
+        const values = [-100, -50, -10, 0]
+        const { items } = getLegendItems(values, CLASSIFICATION_LOGARITHMIC, {
+            numClasses: 4,
+        })
+        expect(items).toEqual([])
+    })
+
+    it('returns standard deviation bins with σ-aligned outer bounds', () => {
         const values = [0, 10, 20, 50, 80, 90, 100]
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_STANDARD_DEVIATION,
             { numClasses: 5 }
         )
-        expect(items[0].startValue).toBe(0)
-        expect(items[items.length - 1].endValue).toBe(100)
-        expect(items.length).toBeGreaterThanOrEqual(1)
-        expect(items.length).toBeLessThanOrEqual(5)
+        // Always produces exactly numClasses bins
+        expect(items.length).toBe(5)
+        // Outer bounds extend beyond the data range via σ-alignment
+        expect(items[0].startValue).toBeLessThan(0)
+        expect(items[items.length - 1].endValue).toBeGreaterThan(100)
+        // Adjacent bins are contiguous
+        expect(items[0].endValue).toBe(items[1].startValue)
     })
 
     it('returns pretty breaks with round boundaries', () => {
