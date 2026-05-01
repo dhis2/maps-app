@@ -11,6 +11,7 @@ import {
     CLASSIFICATION_PRETTY_BREAKS,
 } from '../constants/layers.js'
 import { hasValue } from './helpers.js'
+import { isRegularLegendItem } from './legend.js'
 import { getRoundToPrecisionFn } from './numbers.js'
 
 // Returns legend item where a value belongs
@@ -24,27 +25,38 @@ export const getLegendItemForValue = ({
     if (!hasValue(value) || legendItems.length === 0) {
         return
     }
-    if (valueFormat) {
-        value = valueFormat(value)
+
+    const formattedValue = valueFormat ? valueFormat(value) : value
+
+    const isolatedItem = legendItems.find(
+        (item) =>
+            item.isIsolated &&
+            formattedValue >= item.startValue &&
+            formattedValue <= item.endValue
+    )
+    if (isolatedItem) {
+        return isolatedItem
     }
 
-    if (clamp) {
-        if (value < legendItems[0].startValue) {
-            return legendItems[0]
+    const rangeItems = legendItems.filter(isRegularLegendItem)
+
+    if (clamp && rangeItems.length > 0) {
+        if (formattedValue < rangeItems[0].startValue) {
+            return rangeItems[0]
         }
-        if (value > legendItems[legendItems.length - 1].endValue) {
-            return legendItems[legendItems.length - 1]
+        if (formattedValue > rangeItems.at(-1).endValue) {
+            return rangeItems.at(-1)
         }
     }
 
     const isClusters = method === CLASSIFICATION_NATURAL_BREAKS_CLUSTERS
-    const isLast = (index) => index === legendItems.length - 1
-    return legendItems.find((item, index) =>
+    return rangeItems.find((item, index) =>
         item.startValue === item.endValue
-            ? value === item.startValue
-            : value >= item.startValue &&
-              (value < item.endValue ||
-                  (value === item.endValue && (isClusters || isLast(index))))
+            ? formattedValue === item.startValue
+            : formattedValue >= item.startValue &&
+              (formattedValue < item.endValue ||
+                  (formattedValue === item.endValue &&
+                      (isClusters || index === rangeItems.length - 1)))
     )
 }
 
@@ -87,22 +99,18 @@ export const getLegendItems = (
     } else if (method === CLASSIFICATION_STANDARD_DEVIATION) {
         classification = getStandardDeviation(values, { numClasses, precision })
     } else if (method === CLASSIFICATION_LOGARITHMIC) {
-        if (minValue <= 0) {
-            // Logarithmic scale requires strictly positive values.
-            // Silently fall back to equal intervals for now.
-            // TODO: when DHIS2-19812 (unclassified bucket) lands, filter
-            // non-positive values out of the classification input and route
-            // them to the unclassified bucket instead of falling back.
-            classification = getEqualIntervals(minValue, maxValue, {
-                numClasses,
-                precision,
-            })
-        } else {
-            classification = getLogarithmic(minValue, maxValue, {
-                numClasses,
-                precision,
-            })
+        const positiveValues = values.filter((v) => v > 0)
+        if (positiveValues.length === 0) {
+            return { items: [] }
         }
+        classification = getLogarithmic(
+            positiveValues[0],
+            positiveValues.at(-1),
+            {
+                numClasses,
+                precision,
+            }
+        )
     } else if (method === CLASSIFICATION_PRETTY_BREAKS) {
         classification = getPrettyBreaks(minValue, maxValue, {
             numClasses,
@@ -217,14 +225,6 @@ const getCkMeans = (values, { numClasses, continuous, precision }) => {
 }
 
 const getStandardDeviation = (values, { numClasses, precision }) => {
-    // TODO: DHIS2-19812 std - dev classification is best interpreted when
-    // breaks fall at μ±Nσ regardless of data extremes. Currently:
-    //   - breaks outside [minValue, maxValue] are filtered (producing
-    //     fewer bins than requested)
-    //   - the outermost kept bins span to min/max rather than the next
-    //     σ boundary, so bin labels no longer mean "Nσ from mean"
-    // When the unclassified bucket lands, preserve σ-aligned boundaries
-    // and route values beyond the outermost break to unclassified.
     const minValue = values[0]
     const maxValue = values[values.length - 1]
     const mu = mean(values)
@@ -235,21 +235,22 @@ const getStandardDeviation = (values, { numClasses, precision }) => {
     const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     // Place breaks at 1-sigma intervals centered on the mean.
-    const internalBreaks = []
     const isEven = numClasses % 2 === 0
     const maxOffset = Math.floor((numClasses - 1) / 2)
+    const internalBreaks = []
     for (let i = 0; i < numClasses - 1; i++) {
         let offset = i - maxOffset
         if (!isEven && offset >= 0) {
             offset += 1
         }
-        const b = mu + offset * sigma
-        if (b > minValue && b < maxValue) {
-            internalBreaks.push(b)
-        }
+        internalBreaks.push(mu + offset * sigma)
     }
 
-    const allBreaks = [minValue, ...internalBreaks, maxValue]
+    // Outer bounds are σ-aligned so all class labels mean "Nσ from mean".
+    // Values outside [lowerBound, upperBound] are routed to unclassified.
+    const lowerBound = mu - (maxOffset + 1) * sigma
+    const upperBound = mu + (maxOffset + 1) * sigma
+    const allBreaks = [lowerBound, ...internalBreaks, upperBound]
     return {
         items: allBreaks.slice(0, -1).map((start, i) => ({
             startValue: valueFormat(start),

@@ -11,7 +11,7 @@ const programE2E = {
     name: 'E2E program',
     stage: 'Stage 1 - Repeatable',
     de: 'E2E - Yes/no',
-    options: ['Yes', 'No', 'Other'],
+    options: ['Yes', 'No', 'Unclassified', 'No data'],
 }
 
 const programIP = {
@@ -140,6 +140,9 @@ context('Event Layers', () => {
         cy.getByDataTest('dhis2-uicore-singleselectoption')
             .contains(programE2E.de)
             .click()
+
+        Layer.selectIncludeUnclassifiedEvents()
+        Layer.selectIncludeNoDataEvents()
 
         Layer.addToMap()
 

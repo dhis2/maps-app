@@ -1,12 +1,11 @@
 import { Tab as UiTab } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useContext } from 'react'
+import React, { useContext, forwardRef } from 'react'
 import { TabContext } from './Tabs.jsx'
 
-const Tab = ({ value, dataTest, children }) => {
+const Tab = forwardRef(({ value, dataTest, children }, ref) => {
     const { tab, onChange } = useContext(TabContext)
 
-    // onChange is from the parent component
     const onClick = () => {
         if (value !== tab) {
             onChange(value)
@@ -14,11 +13,18 @@ const Tab = ({ value, dataTest, children }) => {
     }
 
     return (
-        <UiTab selected={value === tab} onClick={onClick} dataTest={dataTest}>
+        <UiTab
+            ref={ref}
+            selected={value === tab}
+            onClick={onClick}
+            dataTest={dataTest}
+        >
             {children}
         </UiTab>
     )
-}
+})
+
+Tab.displayName = 'Tab'
 
 Tab.propTypes = {
     children: PropTypes.node.isRequired,

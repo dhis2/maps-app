@@ -31,3 +31,33 @@
     flex-shrink: 0;
     margin-bottom: 0;
 }
+
+.isolatedRows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+    margin-left: var(--spacers-dp24);
+    margin-bottom: var(--spacers-dp12);
+}
+
+.isolatedRow {
+    display: flex;
+    gap: var(--spacers-dp8);
+    align-items: flex-end;
+}
+
+.isolatedField {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.isolatedColor {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.isolatedName {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}

@@ -55,6 +55,7 @@ const validLayerProperties = [
     'labelFontColor',
     'labelTemplate',
     'legendDecimalPlaces',
+    'legendIsolated',
     'lastUpdated',
     'layer',
     'layerId',
@@ -62,6 +63,8 @@ const validLayerProperties = [
     'method',
     'name',
     'noDataColor',
+    'noDataLegend',
+    'unclassifiedLegend',
     'opacity',
     'organisationUnitColor',
     'organisationUnitGroupSet',
@@ -196,14 +199,29 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.periodType
     } else if (layerType === THEMATIC_LAYER || layerType === EVENT_LAYER) {
         if (cleanMapviewConfig) {
+            const configData = {}
             if (layer.legendDecimalPlaces !== undefined) {
-                layer.config = JSON.stringify({
-                    legendDecimalPlaces: layer.legendDecimalPlaces,
-                })
+                configData.legendDecimalPlaces = layer.legendDecimalPlaces
+            }
+            if (layer.legendIsolated !== undefined) {
+                configData.legendIsolated = layer.legendIsolated
+            }
+            if (layer.unclassifiedLegend) {
+                configData.unclassifiedLegend = layer.unclassifiedLegend
+            }
+            if (layer.noDataLegend) {
+                layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
+                configData.noDataLegend = layer.noDataLegend
+            }
+            if (Object.keys(configData).length) {
+                layer.config = JSON.stringify(configData)
             }
         }
 
         delete layer.legendDecimalPlaces
+        delete layer.legendIsolated
+        delete layer.noDataLegend
+        delete layer.unclassifiedLegend
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

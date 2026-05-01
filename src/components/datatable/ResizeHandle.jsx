@@ -72,7 +72,7 @@ const ResizeHandle = ({
 
 ResizeHandle.propTypes = {
     maxHeight: PropTypes.number.isRequired,
-    minHeight: PropTypes.number.isRequired,
+    minHeight: PropTypes.number,
     onResize: PropTypes.func,
     onResizeEnd: PropTypes.func,
 }

@@ -145,6 +145,50 @@ describe('getLegendItemForValue', () => {
             })
         ).toEqual(items[1])
     })
+
+    it('returns isolated item when value is within its range', () => {
+        const items = [
+            { startValue: 0, endValue: 10 },
+            { startValue: 10, endValue: 20 },
+            { startValue: 4, endValue: 8, isIsolated: true },
+        ]
+        expect(getLegendItemForValue({ value: 6, legendItems: items })).toEqual(
+            items[2]
+        )
+    })
+
+    it('falls back to regular range items when value is outside isolated range', () => {
+        const items = [
+            { startValue: 0, endValue: 10 },
+            { startValue: 10, endValue: 20 },
+            { startValue: 4, endValue: 8, isIsolated: true },
+        ]
+        expect(
+            getLegendItemForValue({ value: 15, legendItems: items })
+        ).toEqual(items[1])
+    })
+
+    it('does not return isNoData or isUnclassified items from range lookup', () => {
+        const items = [
+            { startValue: 0, endValue: 10 },
+            { isNoData: true, color: 'grey' },
+            { isUnclassified: true, color: 'orange' },
+        ]
+        expect(getLegendItemForValue({ value: 5, legendItems: items })).toEqual(
+            items[0]
+        )
+    })
+
+    it('clamp targets only regular range items, not isNoData or isUnclassified', () => {
+        const items = [
+            { startValue: 10, endValue: 20 },
+            { isNoData: true, color: 'grey' },
+            { isUnclassified: true, color: 'orange' },
+        ]
+        expect(
+            getLegendItemForValue({ value: 0, legendItems: items, clamp: true })
+        ).toEqual(items[0])
+    })
 })
 
 describe('getLegendItems', () => {
@@ -226,32 +270,38 @@ describe('getLegendItems', () => {
         expect(items[0].endValue).toBe(items[1].startValue)
     })
 
-    it('falls back to equal intervals for logarithmic when min <= 0', () => {
+    it('filters non-positive values for logarithmic classification', () => {
         const values = [0, 25, 50, 75, 100]
-        const { items: logItems } = getLegendItems(
-            values,
-            CLASSIFICATION_LOGARITHMIC,
-            { numClasses: 4 }
-        )
-        const { items: equalItems } = getLegendItems(
-            values,
-            CLASSIFICATION_EQUAL_INTERVALS,
-            { numClasses: 4 }
-        )
-        expect(logItems).toEqual(equalItems)
+        const { items } = getLegendItems(values, CLASSIFICATION_LOGARITHMIC, {
+            numClasses: 4,
+        })
+        expect(items.length).toBe(4)
+        expect(items[0].startValue).toBeGreaterThan(0)
+        expect(items[items.length - 1].endValue).toBe(100)
     })
 
-    it('returns standard deviation bins spanning [min, max]', () => {
+    it('returns empty items for logarithmic when all values are non-positive', () => {
+        const values = [-100, -50, -10, 0]
+        const { items } = getLegendItems(values, CLASSIFICATION_LOGARITHMIC, {
+            numClasses: 4,
+        })
+        expect(items).toEqual([])
+    })
+
+    it('returns standard deviation bins with σ-aligned outer bounds', () => {
         const values = [0, 10, 20, 50, 80, 90, 100]
         const { items } = getLegendItems(
             values,
             CLASSIFICATION_STANDARD_DEVIATION,
             { numClasses: 5 }
         )
-        expect(items[0].startValue).toBe(0)
-        expect(items[items.length - 1].endValue).toBe(100)
-        expect(items.length).toBeGreaterThanOrEqual(1)
-        expect(items.length).toBeLessThanOrEqual(5)
+        // Always produces exactly numClasses bins
+        expect(items.length).toBe(5)
+        // Outer bounds extend beyond the data range via σ-alignment
+        expect(items[0].startValue).toBeLessThan(0)
+        expect(items[items.length - 1].endValue).toBeGreaterThan(100)
+        // Adjacent bins are contiguous
+        expect(items[0].endValue).toBe(items[1].startValue)
     })
 
     it('returns pretty breaks with round boundaries', () => {
