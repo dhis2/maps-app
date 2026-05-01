@@ -163,7 +163,6 @@ const thematicLoader = async ({
             legend: null,
             isLoaded: true,
             isLoading: false,
-            isVisible: true,
             loadError,
         }
     }
@@ -503,7 +502,6 @@ const thematicLoader = async ({
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
         loadError,
     }
 }

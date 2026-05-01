@@ -30,6 +30,8 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
                 id: 'Basemap id',
                 mapLayerPosition: 'BASEMAP',
                 name: 'Basemap name',
+                opacity: 1,
+                isVisible: true,
             },
             mapViews: [
                 {
@@ -39,6 +41,7 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
                     config: {
                         mapLayerPosition: 'OVERLAY',
                     },
+                    isVisible: true,
                 },
             ],
         })
@@ -60,10 +63,18 @@ test('getMigratedMapConfig when basemap is a string but not "none"', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'TheRainbowBasemap' },
+            basemap: { id: 'TheRainbowBasemap', opacity: 1, isVisible: true },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -84,13 +95,18 @@ test('getMigratedMapConfig when basemap is string "none"', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: {
-                id: defaultBasemapId,
-                isVisible: false,
-            },
+            basemap: { id: defaultBasemapId, opacity: 1, isVisible: false },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -114,10 +130,23 @@ test('getMigratedMapConfig when basemap is an object', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet', displayName: 'Basemap name' },
+            basemap: {
+                id: 'osmStreet',
+                displayName: 'Basemap name',
+                opacity: 1,
+                isVisible: true,
+            },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -137,10 +166,18 @@ test('getMigratedMapConfig when no basemap in config', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: defaultBasemapId },
+            basemap: { id: defaultBasemapId, opacity: 1, isVisible: true },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -163,11 +200,19 @@ test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet' },
+            basemap: { id: 'osmStreet', opacity: 1, isVisible: true },
             mapViews: [
-                { layer: 'thematic', name: 'Thematic layer 2' },
-                { layer: 'thematic', name: 'Thematic layer 1' },
-                { layer: 'orgUnit', name: 'Boundary layer' },
+                {
+                    layer: 'thematic',
+                    name: 'Thematic layer 2',
+                    isVisible: true,
+                },
+                {
+                    layer: 'thematic',
+                    name: 'Thematic layer 1',
+                    isVisible: true,
+                },
+                { layer: 'orgUnit', name: 'Boundary layer', isVisible: true },
             ],
         })
     )
@@ -191,7 +236,7 @@ test('getMigratedMapConfig with colorScale with multiple values converted to an 
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet' },
+            basemap: { id: 'osmStreet', opacity: 1, isVisible: true },
             mapViews: [
                 {
                     layer: 'thematic',
@@ -204,6 +249,7 @@ test('getMigratedMapConfig with colorScale with multiple values converted to an 
                         '#de2d26',
                         '#a50f15',
                     ],
+                    isVisible: true,
                 },
             ],
         })
@@ -228,12 +274,13 @@ test('getMigratedMapConfig with colorScale with single value returns value', () 
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet' },
+            basemap: { id: 'osmStreet', opacity: 1, isVisible: true },
             mapViews: [
                 {
                     layer: 'thematic',
                     name: 'Thematic layer',
                     colorScale: '#fee5d9',
+                    isVisible: true,
                 },
             ],
         })

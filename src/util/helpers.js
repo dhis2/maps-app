@@ -23,6 +23,7 @@ const getBaseFields = (withSubscribers) => {
         'latitude',
         'zoom',
         'basemap',
+        'basemaps',
         'created',
         'lastUpdated',
         'access',

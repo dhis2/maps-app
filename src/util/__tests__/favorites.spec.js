@@ -16,8 +16,9 @@ describe('cleanMapConfig', () => {
         })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
-                basemap: 'thedefaultBasemap',
-                mapViews: [{ layer: 'layer1' }],
+                basemap:
+                    '{"id":"thedefaultBasemap","opacity":0.9,"hidden":false}',
+                mapViews: [{ hidden: false, layer: 'layer1' }],
                 name: 'my new map',
             })
         )
@@ -48,8 +49,9 @@ describe('cleanMapConfig', () => {
         })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
-                basemap: 'myUniqueBasemap',
-                mapViews: [{ layer: 'layer1' }],
+                basemap:
+                    '{"id":"myUniqueBasemap","opacity":0.9,"hidden":false}',
+                mapViews: [{ hidden: false, layer: 'layer1' }],
                 name: 'my new map',
             })
         )
@@ -176,10 +178,11 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     areaRadius: 5000,
+                    hidden: false,
                     layer: 'earthEngine',
                     name: 'Population',
                     opacity: 0.9,
@@ -274,10 +277,11 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     config: '{"id":"CSYRWeK81E7","type":"geoJson","url":"https://debug.dhis2.org/analytics-dev/api/routes/aaa11122233/run","name":"Bo catchment areas","tms":false,"format":"image/png","featureStyle":{"color":"transparent","strokeColor":"#333333","weight":1,"pointSize":5}}',
+                    hidden: false,
                     layer: 'geoJsonUrl',
                     name: 'Bo catchment areas',
                     opacity: 1,
@@ -593,11 +597,12 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     startDate: '2018-02-19',
                     endDate: '2024-02-19',
+                    hidden: false,
                     layer: 'trackedEntity',
                     name: 'Tracked entity',
                     opacity: 0.5,
