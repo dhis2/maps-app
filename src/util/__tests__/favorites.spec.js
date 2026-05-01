@@ -501,6 +501,110 @@ describe('cleanMapConfig', () => {
         )
     })
 
+    test('writes hidden: true for a layer with isVisible: false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Hidden layer',
+                        opacity: 1,
+                        isVisible: false,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(true)
+    })
+
+    test('writes hidden: false for a layer with isVisible: true', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Visible layer',
+                        opacity: 1,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(false)
+    })
+
+    test('writes hidden: false for a layer with no explicit isVisible', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'No-visibility layer',
+                        opacity: 1,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(false)
+    })
+
+    test('writes hidden: true in legacy basemap JSON when basemap isVisible is false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 1, isVisible: false },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const parsed = JSON.parse(cleanedConfig.basemap)
+        expect(parsed.hidden).toBe(true)
+        expect(parsed.id).toBe('osmLight')
+    })
+
+    test('writes opacity in legacy basemap JSON', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 0.4, isVisible: true },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const parsed = JSON.parse(cleanedConfig.basemap)
+        expect(parsed.opacity).toBe(0.4)
+        expect(parsed.hidden).toBe(false)
+    })
+
+    test('uses basemaps array for v43+', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 0.5, isVisible: true },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 43 },
+        })
+        expect(cleanedConfig.basemaps).toEqual([
+            { id: 'osmLight', opacity: 0.5, hidden: false },
+        ])
+        expect(cleanedConfig).not.toHaveProperty('basemap')
+    })
+
+    test('writes hidden: true in basemaps array for v43+ when basemap isVisible is false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 1, isVisible: false },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 43 },
+        })
+        expect(cleanedConfig.basemaps[0].hidden).toBe(true)
+        expect(cleanedConfig.basemaps[0].id).toBe('osmLight')
+    })
+
     test('correctly converts TEI mapview', () => {
         const config = {
             bounds: [

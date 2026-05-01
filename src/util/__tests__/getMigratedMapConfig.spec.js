@@ -286,3 +286,83 @@ test('getMigratedMapConfig with colorScale with single value returns value', () 
         })
     )
 })
+
+test('getMigratedMapConfig with hidden: true mapView sets isVisible: false', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: { id: 'osmStreet' },
+        mapViews: [{ layer: 'thematic', name: 'Hidden layer', hidden: true }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.mapViews[0].isVisible).toBe(false)
+})
+
+test('getMigratedMapConfig with hidden: false mapView sets isVisible: true', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: { id: 'osmStreet' },
+        mapViews: [{ layer: 'thematic', name: 'Visible layer', hidden: false }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.mapViews[0].isVisible).toBe(true)
+})
+
+test('getMigratedMapConfig with JSON basemap string restores opacity and isVisible', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: JSON.stringify({
+            id: 'osmLight',
+            opacity: 0.5,
+            hidden: false,
+        }),
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap).toEqual({
+        id: 'osmLight',
+        opacity: 0.5,
+        isVisible: true,
+    })
+})
+
+test('getMigratedMapConfig with JSON basemap string with hidden: true sets isVisible: false', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: JSON.stringify({ id: 'osmLight', opacity: 1, hidden: true }),
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap.isVisible).toBe(false)
+    expect(result.basemap.id).toBe('osmLight')
+})
+
+test('getMigratedMapConfig with v43 basemaps array restores opacity and isVisible', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemaps: [{ id: 'osmLight', opacity: 0.7, hidden: false }],
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap).toEqual({
+        id: 'osmLight',
+        opacity: 0.7,
+        isVisible: true,
+    })
+})
+
+test('getMigratedMapConfig with v43 basemaps array with hidden: true sets isVisible: false', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemaps: [{ id: 'osmLight', opacity: 1, hidden: true }],
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap.isVisible).toBe(false)
+    expect(result.basemap.id).toBe('osmLight')
+})
