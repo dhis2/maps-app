@@ -54,6 +54,18 @@ describe('sortLegendItems', () => {
         expect(sorted[2].name).toBe('no range')
     })
 
+    it('places isUnclassified before isNoData regardless of insertion order', () => {
+        const items = [
+            { startValue: 0, endValue: 10 },
+            { isNoData: true, color: 'grey' },
+            { isUnclassified: true, color: 'orange' },
+        ]
+        const sorted = sortLegendItems(items)
+        expect(sorted[0].startValue).toBe(0)
+        expect(sorted[1].isUnclassified).toBe(true)
+        expect(sorted[2].isNoData).toBe(true)
+    })
+
     it('places items without range keys at the end', () => {
         const items = [
             { startValue: 10, endValue: 20 },

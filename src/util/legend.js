@@ -60,6 +60,12 @@ export const sortLegendItems = (items) =>
         const bRange = getRange(b)
 
         if (!aRange && !bRange) {
+            if (a.isNoData && !b.isNoData) {
+                return 1
+            }
+            if (!a.isNoData && b.isNoData) {
+                return -1
+            }
             return 0
         }
         if (!aRange) {

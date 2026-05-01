@@ -10,11 +10,7 @@ import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
-import {
-    getAutomaticLegendItems,
-    getPredefinedLegendItems,
-    isRegularLegendItem,
-} from './legend.js'
+import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
 
 const hasValue = (value) =>
     value !== undefined && value !== null && value !== ''
@@ -242,7 +238,7 @@ const styleByNumeric = async (config, engine) => {
             value,
             valueFormat,
             method,
-            legendItems: legend.items.filter(isRegularLegendItem),
+            legendItems: legend.items,
             clamp:
                 method !== CLASSIFICATION_PREDEFINED &&
                 method !== CLASSIFICATION_LOGARITHMIC &&

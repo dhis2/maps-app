@@ -301,16 +301,6 @@ const thematicLoader = async ({
         }
     }
 
-    let noDataLegendItem = null
-    if (hasNoDataClass) {
-        noDataLegendItem = {
-            color: config.noDataLegend.color,
-            name: config.noDataLegend.name || i18n.t('No data'),
-            isNoData: true,
-        }
-        legend.items.push(noDataLegendItem)
-    }
-
     let unclassifiedLegendItem = null
     if (hasUnclassifiedClass) {
         unclassifiedLegendItem = {
@@ -319,6 +309,16 @@ const thematicLoader = async ({
             isUnclassified: true,
         }
         legend.items.push(unclassifiedLegendItem)
+    }
+
+    let noDataLegendItem = null
+    if (hasNoDataClass) {
+        noDataLegendItem = {
+            color: config.noDataLegend.color,
+            name: config.noDataLegend.name || i18n.t('No data'),
+            isNoData: true,
+        }
+        legend.items.push(noDataLegendItem)
     }
 
     // Counting for Timeline / Split would be ambiguous
