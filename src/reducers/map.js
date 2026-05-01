@@ -242,6 +242,7 @@ const map = (state = defaultState, action) => {
                     {
                         ...action.payload,
                         id: generateUid(),
+                        isVisible: action.payload.isVisible ?? true,
                     },
                 ],
             }

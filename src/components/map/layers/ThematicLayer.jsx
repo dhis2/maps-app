@@ -105,6 +105,7 @@ class ThematicLayer extends Layer {
         }
 
         map.addLayer(this.layer)
+        this.setLayerVisibility()
 
         const options = {}
         if (renderingStrategy === RENDERING_STRATEGY_TIMELINE) {

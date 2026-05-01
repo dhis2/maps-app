@@ -35,16 +35,27 @@ const Map = forwardRef((props, ref) => {
     useEffect(() => {
         if (didViewsChange(layers.current, mapViews)) {
             layers.current = mapViews.map((v) => ({ ...v, isLoaded: false }))
-
+            setVisibilityOverrides({})
             setMapIsLoaded(false)
         }
     }, [mapViews])
 
     const [mapIsLoaded, setMapIsLoaded] = useState(mapViews.length === 0)
     const [contextMenu, setContextMenu] = useState()
+    const [visibilityOverrides, setVisibilityOverrides] = useState({})
     const [resizeCount, setResizeCount] = useState(0)
 
     const onResize = () => setResizeCount((state) => state + 1)
+
+    const toggleLayerVisibility = useCallback((id) => {
+        setVisibilityOverrides((prev) => {
+            const current =
+                prev[id] ??
+                layers.current.find((l) => l.id === id)?.isVisible ??
+                true
+            return { ...prev, [id]: !current }
+        })
+    }, [])
 
     const onLayerLoad = useCallback((layer) => {
         layers.current = layers.current.map((l) =>
@@ -126,6 +137,11 @@ const Map = forwardRef((props, ref) => {
         )
     }
 
+    const layersWithVisibility = layers.current.map((l) => ({
+        ...l,
+        isVisible: visibilityOverrides[l.id] ?? l.isVisible ?? true,
+    }))
+
     return (
         <div ref={ref} className={`dhis2-map-plugin ${styles.map}`}>
             <CssReset />
@@ -134,13 +150,18 @@ const Map = forwardRef((props, ref) => {
                 isPlugin={true}
                 isFullscreen={false}
                 basemap={basemap}
-                layers={layers.current}
+                layers={layersWithVisibility}
                 controls={controls}
                 bounds={defaultBounds}
                 openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
             />
-            {mapViews.length > 0 && <Legend layers={layers.current} />}
+            {mapViews.length > 0 && (
+                <Legend
+                    layers={layersWithVisibility}
+                    toggleLayerVisibility={toggleLayerVisibility}
+                />
+            )}
             {contextMenu && (
                 <ContextMenu
                     {...contextMenu}

@@ -143,6 +143,7 @@ export default class EarthEngineLayer extends Layer {
         try {
             this.layer = map.createLayer(config)
             await map.addLayer(this.layer)
+            this.setLayerVisibility()
         } catch (error) {
             this.onError(error)
         }

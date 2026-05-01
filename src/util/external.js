@@ -28,7 +28,6 @@ export const createExternalBasemapLayer = (layer) => ({
     layer: EXTERNAL_LAYER,
     id: layer.id,
     name: layer.name,
-    opacity: 1,
     config: createExternalLayerConfig(layer),
 })
 
@@ -39,7 +38,6 @@ export const createExternalOverlayLayer = (layer) => ({
             : EXTERNAL_LAYER,
     img: 'images/featurelayer.png',
     name: layer.name,
-    opacity: 1,
     config: createExternalLayerConfig(layer),
 })
 

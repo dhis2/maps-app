@@ -6,7 +6,7 @@ import LegendLayer from './LegendLayer.jsx'
 import './styles/Legend.css'
 
 // Renders a legend for all map layers
-const Legend = ({ layers }) => {
+const Legend = ({ layers, toggleLayerVisibility }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [isPinned, setIsPinned] = useState(false)
 
@@ -30,7 +30,11 @@ const Legend = ({ layers }) => {
                         onClick={() => setIsPinned(!isPinned)}
                     >
                         {legendLayers.map((layer) => (
-                            <LegendLayer key={layer.id} {...layer} />
+                            <LegendLayer
+                                key={layer.id}
+                                {...layer}
+                                toggleLayerVisibility={toggleLayerVisibility}
+                            />
                         ))}
                     </div>
                 </div>
@@ -47,6 +51,7 @@ const Legend = ({ layers }) => {
 
 Legend.propTypes = {
     layers: PropTypes.array.isRequired,
+    toggleLayerVisibility: PropTypes.func,
 }
 
 export default Legend

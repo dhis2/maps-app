@@ -60,6 +60,7 @@ export default class OrgUnitLayer extends Layer {
 
         this.layer = map.createLayer(config)
         map.addLayer(this.layer)
+        this.setLayerVisibility()
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()
