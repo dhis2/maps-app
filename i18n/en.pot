@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-28T15:36:36.629Z\n"
-"PO-Revision-Date: 2026-04-28T15:36:36.629Z\n"
+"POT-Creation-Date: 2026-05-01T10:18:47.999Z\n"
+"PO-Revision-Date: 2026-05-01T10:18:48.000Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -987,6 +987,12 @@ msgstr "Click to unpin legend"
 
 msgid "Click to pin legend"
 msgstr "Click to pin legend"
+
+msgid "Hide layer"
+msgstr "Hide layer"
+
+msgid "Show layer"
+msgstr "Show layer"
 
 msgid "No program"
 msgstr "No program"
