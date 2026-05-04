@@ -14,8 +14,13 @@ const Checkbox = ({
     onChange,
     className,
     dataTest,
+    style,
 }) => (
-    <div className={cx(styles.checkbox, className)} data-test={dataTest}>
+    <div
+        className={cx(styles.checkbox, className)}
+        style={style}
+        data-test={dataTest}
+    >
         <UiCheckbox
             label={label}
             checked={checked}
@@ -39,6 +44,7 @@ Checkbox.propTypes = {
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
     label: PropTypes.string,
+    style: PropTypes.string,
     tooltip: PropTypes.string,
 }
 

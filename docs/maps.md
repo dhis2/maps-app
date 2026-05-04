@@ -212,9 +212,7 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
     ![](resources/images/maps_thematic_layer_dialog_DATA.png)
 
-    -   Select a data type and then select respectively the group and
-        the target element. The available fields depend on the type of
-        item selected.
+    -   Select a data item.
 
     -   Select a value from the **Aggregation type** field for the data
         values to be shown on the map. By default, "By data element" is
@@ -232,33 +230,40 @@ layer** selection. This opens the Thematic layer configuration dialog.
 
     Select the time span over which the thematic data is mapped.
 
-    -   If you choose **Chose from presets**, you can combine one or more relative and fixed periods.
-
-        -   _Relative period_
-
-            Select **Relative periods**, then the **Period type** you are interested in (**Years**, **Months**, etc.), and finally, select one or more relative periods, such as **This year** and **Last year** or **Last 12 months**.
-
-            A **default relative period for analysis** can be set in the **Systems Settings** app.
-
-        -   _Fixed period_
-
-            Select **Relative periods**, then choose the **Period type** you are interested in (**Yearly**, **Monthly**, etc.), and finally, select one or more relative periods, such as **2024** or **January 2025** and **Febuary 2025**.
-
-        If your selection covers multiple years, months, weeks, and/or days, the layer can be displayed as:
+    - **Period display mode** - Select how the selected periods will be visualized on the map:
 
         -   _Single_ (default)
 
-            Show periods as a combined layer. Data is aggregated.
+            Displays all selected periods as a single combined layer with aggregated data. 
+            (Required when only one period is selected or when using start–end dates.)
 
         -   _Timeline_
 
-            Show multiple periods as an interactive timeline. Periods are ordered chronologically. Only one timeline layer can be added per map.
+            Displays multiple periods as an interactive timeline ordered chronologically. 
+            Multiple timeline layers can be added to a map (they will all share the same 
+            periods).
 
         -   _Split_
 
-            Show multiple maps side by side to compare different periods. A split map supports up to 12 periods, including those in multi-period presets. It cannot be combined with other layer types.
+            Displays multiple periods side by side for comparison. Supports up to 12 periods 
+            (including multi-period presets) and can only be combined with other split layers 
+            (they will all share the same periods).
 
-    -   Alternatively, you can **Define start - end dates**. Start and end dates are inclusive and will be reflected in the outputs.
+    -   After selecting a display mode, choose how to define the period(s):
+    
+        - **Choose from presets** - _Available for all display modes. If you selected Single, you will also see_ Define start–end dates _as an alternative._ You can combine one or more relative and fixed periods.
+
+            -   _Relative period_
+
+                Select **Relative periods**, then the **Period type** (**Years**, **Months**, etc.) and choose one or more relative periods, such as **This year** and **Last year** or **Last 12 months**.
+
+                A **default relative period for analysis** can be set in the **Systems Settings** app.
+
+            -   _Fixed period_
+
+                Select **Fixed periods**, then choose the **Period type** (**Yearly**, **Monthly**, etc.) and choose one or more fixed periods, such as **2024** or **January 2025** and **Febuary 2025**.
+
+        -   **Define start - end dates** - _Available only when the Single display mode is selected._ Specify exact start and end dates. Both dates are inclusive and will be reflected in the outputs.
 
 3.  In the **Org Units** tab:
 
@@ -1238,11 +1243,9 @@ popups or in the data table.
 The following layer sources are supported (sources marked with an asterisk 
 "*" are available by default):
 
--   **Population (group)**:
-    -   **Population** *: Detailed population data from WorldPop showing the
-        estimated number of people living in an area. Available for 2020.
-    -   **Population age groups** *: Estimated number of people living in an 
-        area, grouped by age and gender. Available for 2020.
+-   **Population (group)**: Detailed population data from WorldPop. Estimates are provided annually and include current, historical, and projected population values. Available between 2015 and 2030.
+    -   **Population** *: Total population count.
+    -   **Population age groups** *: Population broken down by age and gender.
 
 -   **Building footprints** *: The outlines of buildings derived from 
     high-resolution satellite imagery. Only for sub-Saharan Africa, South and 

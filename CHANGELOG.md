@@ -1,3 +1,67 @@
+## [101.10.2](https://github.com/dhis2/maps-app/compare/v101.10.1...v101.10.2) (2026-04-22)
+
+
+### Bug Fixes
+
+* hide 'No data found' message while OU profile data is loading ([#3642](https://github.com/dhis2/maps-app/issues/3642)) ([b510cfa](https://github.com/dhis2/maps-app/commit/b510cfaeab0ea44e7939871a173651e7328962b8))
+
+## [101.10.1](https://github.com/dhis2/maps-app/compare/v101.10.0...v101.10.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([c03b01f](https://github.com/dhis2/maps-app/commit/c03b01f0e48b22772576dd29f39c84a57a52fca6))
+
+# [101.10.0](https://github.com/dhis2/maps-app/compare/v101.9.0...v101.10.0) (2026-03-17)
+
+
+### Features
+
+* upgrade app-platform to support loading custom translations from datastore ([#3635](https://github.com/dhis2/maps-app/issues/3635)) ([ccf5b8d](https://github.com/dhis2/maps-app/commit/ccf5b8d923c6d056dd6fe25719270354f98453d3))
+
+# [101.9.0](https://github.com/dhis2/maps-app/compare/v101.8.0...v101.9.0) (2026-03-17)
+
+
+### Features
+
+* use common data selector for thematic layers [DHIS2-19344] ([#3632](https://github.com/dhis2/maps-app/issues/3632)) ([25dd748](https://github.com/dhis2/maps-app/commit/25dd74834ef673242d3a87dc6ef16c1f15df89bd))
+
+# [101.8.0](https://github.com/dhis2/maps-app/compare/v101.7.1...v101.8.0) (2026-03-16)
+
+
+### Features
+
+* use enabled period types and custom lables [DHIS2-21001] ([#3633](https://github.com/dhis2/maps-app/issues/3633)) ([0994d52](https://github.com/dhis2/maps-app/commit/0994d5270f684b85800130e8d243d9d932bb6fdb))
+
+## [101.7.1](https://github.com/dhis2/maps-app/compare/v101.7.0...v101.7.1) (2026-03-08)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([2439e09](https://github.com/dhis2/maps-app/commit/2439e097fbece793653e518bb290672ad0ff892a))
+
+# [101.7.0](https://github.com/dhis2/maps-app/compare/v101.6.1...v101.7.0) (2026-03-05)
+
+
+### Features
+
+* support multiple split layers [DHIS2-19542] ([#3584](https://github.com/dhis2/maps-app/issues/3584)) ([36d0e18](https://github.com/dhis2/maps-app/commit/36d0e18c262abc23f81ba7e90236d4b384bf33ec))
+* support multiple timeline layers [DHIS2-19542] ([#3628](https://github.com/dhis2/maps-app/issues/3628)) ([fd9eeab](https://github.com/dhis2/maps-app/commit/fd9eeabd75fc602ed321edb33b485081fab2ac86))
+
+## [101.6.1](https://github.com/dhis2/maps-app/compare/v101.6.0...v101.6.1) (2026-02-22)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([d49b18a](https://github.com/dhis2/maps-app/commit/d49b18a499e412249a9e9baa2fde5bc3a08f49b0))
+
+# [101.6.0](https://github.com/dhis2/maps-app/compare/v101.5.5...v101.6.0) (2026-02-10)
+
+
+### Features
+
+* new worldpop global2 layer sources [DHIS2-20774] ([#3608](https://github.com/dhis2/maps-app/issues/3608)) ([3f19a8b](https://github.com/dhis2/maps-app/commit/3f19a8b57eb5a79b6cdf93d5c999ad1ab8fce37b))
+
 ## [101.5.5](https://github.com/dhis2/maps-app/compare/v101.5.4...v101.5.5) (2026-02-03)
 
 

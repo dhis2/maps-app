@@ -4,8 +4,8 @@ import { EARTH_ENGINE_LAYER } from '../layers.js'
 export default function createConfig() {
     return {
         layer: EARTH_ENGINE_LAYER,
-        layerId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
-        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
+        layerId: 'projects/wpgp-global2/assets/agesex_100m',
+        datasetId: 'projects/wpgp-global2/assets/agesex_100m',
         grouping: {
             group: {
                 img: 'images/population.png',
@@ -17,18 +17,20 @@ export default function createConfig() {
         },
         format: 'ImageCollection',
         img: 'images/population.png',
-        name: i18n.t('Population age groups'),
+        name: i18n.t('Population age groups WorldPop Global2'),
         description: i18n.t(
             'Estimated number of people living in an area, grouped by age and gender.'
         ),
+        descriptionComplement: i18n.t(
+            'The data are produced using a top-down population modelling approach, where official population totals are distributed across space and constrained to areas likely to be inhabited. Estimates are provided annually and include current, historical, and projected population values.'
+        ),
         source: 'WorldPop / Google Earth Engine',
-        sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
+        sourceUrl: 'https://gee-community-catalog.org/projects/worldpop',
         unit: i18n.t('people per hectare'),
         resolution: {
             spatial: i18n.t('~100 meters'),
-            temporal: i18n.t('Single point in time'),
-            temporalCoverage: i18n.t('2020'),
+            temporal: i18n.t('Yearly'),
+            temporalCoverage: i18n.t('2015 - 2030'),
         },
         aggregations: [
             'min',
@@ -45,7 +47,7 @@ export default function createConfig() {
         filters: [
             {
                 type: 'eq',
-                arguments: ['year', '$1'],
+                arguments: ['year', '$1:number'],
             },
         ],
         bands: {
@@ -53,148 +55,164 @@ export default function createConfig() {
             multiple: true,
             list: [
                 {
-                    id: 'M_0',
+                    id: 'm_00',
                     name: i18n.t('Male 0 - 1 years'),
                 },
                 {
-                    id: 'M_1',
+                    id: 'm_01',
                     name: i18n.t('Male 1 - 4 years'),
                 },
                 {
-                    id: 'M_5',
+                    id: 'm_05',
                     name: i18n.t('Male 5 - 9 years'),
                 },
                 {
-                    id: 'M_10',
+                    id: 'm_10',
                     name: i18n.t('Male 10 - 14 years'),
                 },
                 {
-                    id: 'M_15',
+                    id: 'm_15',
                     name: i18n.t('Male 15 - 19 years'),
                 },
                 {
-                    id: 'M_20',
+                    id: 'm_20',
                     name: i18n.t('Male 20 - 24 years'),
                 },
                 {
-                    id: 'M_25',
+                    id: 'm_25',
                     name: i18n.t('Male 25 - 29 years'),
                 },
                 {
-                    id: 'M_30',
+                    id: 'm_30',
                     name: i18n.t('Male 30 - 34 years'),
                 },
                 {
-                    id: 'M_35',
+                    id: 'm_35',
                     name: i18n.t('Male 35 - 39 years'),
                 },
                 {
-                    id: 'M_40',
+                    id: 'm_40',
                     name: i18n.t('Male 40 - 44 years'),
                 },
                 {
-                    id: 'M_45',
+                    id: 'm_45',
                     name: i18n.t('Male 45 - 49 years'),
                 },
                 {
-                    id: 'M_50',
+                    id: 'm_50',
                     name: i18n.t('Male 50 - 54 years'),
                 },
                 {
-                    id: 'M_55',
+                    id: 'm_55',
                     name: i18n.t('Male 55 - 59 years'),
                 },
                 {
-                    id: 'M_60',
+                    id: 'm_60',
                     name: i18n.t('Male 60 - 64 years'),
                 },
                 {
-                    id: 'M_65',
+                    id: 'm_65',
                     name: i18n.t('Male 65 - 69 years'),
                 },
                 {
-                    id: 'M_70',
+                    id: 'm_70',
                     name: i18n.t('Male 70 - 74 years'),
                 },
                 {
-                    id: 'M_75',
+                    id: 'm_75',
                     name: i18n.t('Male 75 - 79 years'),
                 },
                 {
-                    id: 'M_80',
-                    name: i18n.t('Male 80 years and above'),
+                    id: 'm_80',
+                    name: i18n.t('Male 80 - 84 years'),
                 },
                 {
-                    id: 'F_0',
+                    id: 'm_85',
+                    name: i18n.t('Male 85 - 89 years'),
+                },
+                {
+                    id: 'm_90',
+                    name: i18n.t('Male 90 years and above'),
+                },
+                {
+                    id: 'f_00',
                     name: i18n.t('Female 0 - 1 years'),
                 },
                 {
-                    id: 'F_1',
+                    id: 'f_01',
                     name: i18n.t('Female 1 - 4 years'),
                 },
                 {
-                    id: 'F_5',
+                    id: 'f_05',
                     name: i18n.t('Female 5 - 9 years'),
                 },
                 {
-                    id: 'F_10',
+                    id: 'f_10',
                     name: i18n.t('Female 10 - 14 years'),
                 },
                 {
-                    id: 'F_15',
+                    id: 'f_15',
                     name: i18n.t('Female 15 - 19 years'),
                 },
                 {
-                    id: 'F_20',
+                    id: 'f_20',
                     name: i18n.t('Female 20 - 24 years'),
                 },
                 {
-                    id: 'F_25',
+                    id: 'f_25',
                     name: i18n.t('Female 25 - 29 years'),
                 },
                 {
-                    id: 'F_30',
+                    id: 'f_30',
                     name: i18n.t('Female 30 - 34 years'),
                 },
                 {
-                    id: 'F_35',
+                    id: 'f_35',
                     name: i18n.t('Female 35 - 39 years'),
                 },
                 {
-                    id: 'F_40',
+                    id: 'f_40',
                     name: i18n.t('Female 40 - 44 years'),
                 },
                 {
-                    id: 'F_45',
+                    id: 'f_45',
                     name: i18n.t('Female 45 - 49 years'),
                 },
                 {
-                    id: 'F_50',
+                    id: 'f_50',
                     name: i18n.t('Female 50 - 54 years'),
                 },
                 {
-                    id: 'F_55',
+                    id: 'f_55',
                     name: i18n.t('Female 55 - 59 years'),
                 },
                 {
-                    id: 'F_60',
+                    id: 'f_60',
                     name: i18n.t('Female 60 - 64 years'),
                 },
                 {
-                    id: 'F_65',
+                    id: 'f_65',
                     name: i18n.t('Female 65 - 69 years'),
                 },
                 {
-                    id: 'F_70',
+                    id: 'f_70',
                     name: i18n.t('Female 70 - 74 years'),
                 },
                 {
-                    id: 'F_75',
+                    id: 'f_75',
                     name: i18n.t('Female 75 - 79 years'),
                 },
                 {
-                    id: 'F_80',
-                    name: i18n.t('Female 80 years and above'),
+                    id: 'f_80',
+                    name: i18n.t('Female 80 - 84 years'),
+                },
+                {
+                    id: 'f_85',
+                    name: i18n.t('Female 85 - 89 years'),
+                },
+                {
+                    id: 'f_90',
+                    name: i18n.t('Female 90 years and above'),
                 },
             ],
         },

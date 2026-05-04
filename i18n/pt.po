@@ -1,4 +1,3 @@
-# 
 # Translators:
 # Fernando Jorge Bade, 2021
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
@@ -14,12 +13,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
@@ -48,15 +47,6 @@ msgstr " Esta aplicação não conseguiu obter os dados necessários."
 msgid "Network error"
 msgstr " Erro de rede"
 
-msgid "Calculation"
-msgstr " Cálculo"
-
-msgid "No calculations found"
-msgstr "Nenhum cálculo encontrado"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Os cálculos podem ser criados na aplicação Data Visualizer."
-
 msgid "Classification"
 msgstr "Classificação"
 
@@ -83,21 +73,6 @@ msgstr "Valor"
 
 msgid "Display"
 msgstr "Exibir"
-
-msgid "Data element group"
-msgstr "Grupo de Elemento de Dados"
-
-msgid "Data element operand"
-msgstr "Operando do elemento de dados"
-
-msgid "Data element"
-msgstr "Elemento de dado"
-
-msgid "Totals"
-msgstr "Totais"
-
-msgid "Details"
-msgstr "Detalhes"
 
 msgid "Yes"
 msgstr "Sim"
@@ -137,9 +112,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr "Evento > coordenada da unidade organizacional"
 
-msgid "Event data item"
-msgstr "Item de dados do evento"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -172,9 +144,6 @@ msgstr "Operador"
 
 msgid "Date"
 msgstr "Data"
-
-msgid "Data set"
-msgstr "Ficha"
 
 msgid "No results found"
 msgstr "Nenhum resultado encontrado"
@@ -530,50 +499,31 @@ msgstr "Escolha entre predefinições"
 msgid "Define start - end dates"
 msgstr "Definir datas de início e de fim"
 
-msgid "Indicator group is required"
-msgstr "O grupo de indicadores é obrigatório"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "Indicador é obrigatório"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "O grupo de elementos de dados é obrigatório"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "O elemento de dados é obrigatório"
-
-msgid "Data set is required"
-msgstr "Ficha é obrigatória"
-
-msgid "Event data item is required"
-msgstr "O item de dados do evento é obrigatório"
-
-msgid "Program indicator is required"
-msgstr "Indicador de programa é obrigatório"
-
-msgid "Calculation is required"
-msgstr "É necessário efectuar um cálculo"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "Período é obrigatório"
 
-msgid "Indicator"
-msgstr "Indicador"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "Taxas de relatórios"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Event data items"
-msgstr "Itens de dados do evento"
-
-msgid "Program indicators"
-msgstr "Indicador do programa"
-
-msgid "Calculations"
-msgstr "Cálculos"
-
-msgid "Item type"
-msgstr "Tipo de item"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -649,9 +599,6 @@ msgstr "Conjunto do grupo"
 msgid "Style by group set"
 msgstr "Estilo por conjunto de grupo"
 
-msgid "Indicator group"
-msgstr "Grupo de Indicador"
-
 msgid "Manage available layer sources"
 msgstr "Gerir as fontes de camadas disponíveis"
 
@@ -701,9 +648,6 @@ msgstr "Falha na transferência dos dados."
 
 msgid "External layer"
 msgstr "Camada externa"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
 
 msgid "Failed to load layer"
 msgstr "Falha no carregamento da camada"
@@ -785,6 +729,11 @@ msgstr "Longitude"
 
 msgid "Latitude"
 msgstr "Latitude"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "Não foi possível adicionar o mapa de base: {{message}}"
@@ -995,18 +944,18 @@ msgstr "ano seguinte"
 msgid "Start/end dates"
 msgstr "Datas de Inicio/término"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1025,9 +974,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
@@ -1053,9 +999,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Gestão do indicadores de programa"
 
 msgid "No program"
 msgstr "Sem programa"
@@ -1389,33 +1332,8 @@ msgstr "Número estimado de pessoas que vivem em uma área."
 msgid "people per hectare"
 msgstr "pessoas por hectare"
 
-msgid "Precipitation"
-msgstr "Precipitação"
-
-msgid "millimeter"
-msgstr "milimetro"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-
-msgid "Temperature MODIS"
-msgstr "Temperatura MODIS"
-
-msgid "°C during daytime"
-msgstr "° C durante o dia"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Temperaturas da superfície da terra colectadas por satélite. Pontos em "
-"branco aparecerão em áreas com uma cobertura de nuvens persistente."
-
-msgid "Population age groups"
-msgstr "Faixas etárias da população"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1533,6 +1451,68 @@ msgstr "Feminino 75 - 79 anos"
 
 msgid "Female 80 years and above"
 msgstr "Feminino com 80 anos ou mais"
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Precipitação"
+
+msgid "millimeter"
+msgstr "milimetro"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr "Temperatura MODIS"
+
+msgid "°C during daytime"
+msgstr "° C durante o dia"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Temperaturas da superfície da terra colectadas por satélite. Pontos em "
+"branco aparecerão em áreas com uma cobertura de nuvens persistente."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
 
 msgid "CHIRPS"
 msgstr ""

@@ -1,4 +1,3 @@
-# 
 # Translators:
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
@@ -10,12 +9,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -44,15 +43,6 @@ msgstr ""
 msgid "Network error"
 msgstr "Netwerkfout"
 
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr "Classificatie"
 
@@ -79,21 +69,6 @@ msgstr "Waarde"
 
 msgid "Display"
 msgstr "Weergave"
-
-msgid "Data element group"
-msgstr "Gegevenselementengroep"
-
-msgid "Data element operand"
-msgstr "Gegevenselementenoperand"
-
-msgid "Data element"
-msgstr "informatie onderdeel"
-
-msgid "Totals"
-msgstr "Totalen"
-
-msgid "Details"
-msgstr "Details"
 
 msgid "Yes"
 msgstr "Ja"
@@ -131,9 +106,6 @@ msgstr "Inschrijving > evenement > gevolgde entiteit > coördinaat org-eenheid"
 msgid "Event > org unit coordinate"
 msgstr "Evenement > coördinaat org-eenheid"
 
-msgid "Event data item"
-msgstr "Gebeurtenisgegevensitem"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -166,9 +138,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Datum\n"
-
-msgid "Data set"
-msgstr "Gegevensreeks"
 
 msgid "No results found"
 msgstr "Geen resultaten gevonden"
@@ -524,50 +493,31 @@ msgstr "Kies uit voorinstellingen"
 msgid "Define start - end dates"
 msgstr "Definieer begin- en einddatums"
 
-msgid "Indicator group is required"
-msgstr "Indicatorgroep is verplicht"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "Indicator is verplicht"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "Gegevenselementengroep is verplicht"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "Gegevenselement is verplicht"
-
-msgid "Data set is required"
-msgstr "Gegevensreeks is verplicht"
-
-msgid "Event data item is required"
-msgstr "Gegevensitem van gebeurtenis is verplicht"
-
-msgid "Program indicator is required"
-msgstr "Programmaindicator is verplicht"
-
-msgid "Calculation is required"
+msgid "Data is required"
 msgstr ""
 
 msgid "Period is required"
 msgstr "Periode is verplicht"
 
-msgid "Indicator"
-msgstr "Indicator"
-
-msgid "Reporting rates"
-msgstr "Rapporteringsgraden"
-
-msgid "Event data items"
-msgstr "Gebeurtenisgegevensitems"
-
-msgid "Program indicators"
-msgstr "Programmaindicators"
-
-msgid "Calculations"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 msgstr ""
 
-msgid "Item type"
-msgstr "Itemsoort"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -641,9 +591,6 @@ msgstr "Groepsreeks"
 msgid "Style by group set"
 msgstr "Stileer volgens groepsreeks"
 
-msgid "Indicator group"
-msgstr "Indicatorgroep"
-
 msgid "Manage available layer sources"
 msgstr "Beheer beschikbare laagbronnen"
 
@@ -693,9 +640,6 @@ msgstr "Downloaden van gegevens mislukt."
 
 msgid "External layer"
 msgstr "Externe laag"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
 
 msgid "Failed to load layer"
 msgstr "Laden van laag mislukt"
@@ -777,6 +721,11 @@ msgstr "Lengtegraad"
 
 msgid "Latitude"
 msgstr "Breedtegraad"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basiskaart kon niet toegevoegd worden: {{message}}"
@@ -987,18 +936,18 @@ msgstr "Volgend jaar"
 msgid "Start/end dates"
 msgstr "Start-/einddatums"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -1017,9 +966,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
@@ -1045,9 +991,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Programmaindicator"
 
 msgid "No program"
 msgstr "Geen programma"
@@ -1380,33 +1323,8 @@ msgstr "Geschat aantal inwoners in een gebied."
 msgid "people per hectare"
 msgstr "bevolking per hectare"
 
-msgid "Precipitation"
-msgstr "Neerslag"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-
-msgid "Temperature MODIS"
-msgstr "Temperatuur MODIS"
-
-msgid "°C during daytime"
-msgstr "°C tijdens de dag"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
-"zich in gebieden met aanhoudende bewolking."
-
-msgid "Population age groups"
-msgstr "Bevolkingsleeftijdsgroepen"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1524,6 +1442,68 @@ msgstr "Vrouw 75 - 79 jaar"
 
 msgid "Female 80 years and above"
 msgstr "Vrouw 80 jaar en ouder"
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Neerslag"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr "Temperatuur MODIS"
+
+msgid "°C during daytime"
+msgstr "°C tijdens de dag"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
+"zich in gebieden met aanhoudende bewolking."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
 
 msgid "CHIRPS"
 msgstr ""

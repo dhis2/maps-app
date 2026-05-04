@@ -1,20 +1,19 @@
-# 
 # Translators:
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2025
 # Philip Larsen Donnelly, 2025
-# Em Le <em.hispvietnam@gmail.com>, 2025
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2025
 # Viktor Varland <viktor@dhis2.org>, 2025
+# Em Le <em.hispvietnam@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
+"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2026\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -43,15 +42,6 @@ msgstr "Ứng dụng này không thể truy xuất dữ liệu cần thiết."
 msgid "Network error"
 msgstr "Lỗi mạng"
 
-msgid "Calculation"
-msgstr "Tính toán"
-
-msgid "No calculations found"
-msgstr "Không tìm thấy tính toán nào"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Có thể tạo phép tính trong ứng dụng Trực Quan Hoá Dữ Liệu"
-
 msgid "Classification"
 msgstr "Phân loại"
 
@@ -78,21 +68,6 @@ msgstr "Giá trị"
 
 msgid "Display"
 msgstr "Hiển thị"
-
-msgid "Data element group"
-msgstr "Nhóm phần tử dữ liệu"
-
-msgid "Data element operand"
-msgstr "Toán hạng phần tử dữ liệu"
-
-msgid "Data element"
-msgstr "Phần Tử Dữ Liệu"
-
-msgid "Totals"
-msgstr "Tổng"
-
-msgid "Details"
-msgstr "Chi tiết"
 
 msgid "Yes"
 msgstr "Có"
@@ -130,9 +105,6 @@ msgstr "Đăng ký > Sự kiện > Loại cá thể > Toạ độ đơn vị"
 msgid "Event > org unit coordinate"
 msgstr "Sự kiện > toạ độ đơn vị"
 
-msgid "Event data item"
-msgstr "Mục dữ liệu sự kiện"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "Giá trị đã chọn trước đó không có trong danh sách: {{id}}"
 
@@ -165,9 +137,6 @@ msgstr "Toán tử"
 
 msgid "Date"
 msgstr "Ngày"
-
-msgid "Data set"
-msgstr "Tập dữ liệu"
 
 msgid "No results found"
 msgstr "Không tìm thấy kết quả nào"
@@ -517,50 +486,31 @@ msgstr "Chọn từ các cài đặt trước"
 msgid "Define start - end dates"
 msgstr "Xác định ngày bắt đầu - kết thúc"
 
-msgid "Indicator group is required"
-msgstr "Bắt buộc chọn nhóm chỉ số"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "Bắt buộc chọn chỉ số"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "Bắt buộc chọn nhóm phần tử dữ liệu"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "Bắt buộc chọn phần tử dữ liệu"
-
-msgid "Data set is required"
-msgstr "Bắt buộc chọn tập dữ liệu"
-
-msgid "Event data item is required"
-msgstr "Bắt buộc chọn mục dữ liệu sự kiện"
-
-msgid "Program indicator is required"
-msgstr "Bắt buộc chọn Chỉ số chương trình"
-
-msgid "Calculation is required"
-msgstr "Bắt buộc Tính toán"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "Bắt buộc chọn Thời điểm"
 
-msgid "Indicator"
-msgstr "Chỉ số"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "Tỷ lệ báo cáo"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Chọn ít nhất {{number}} thời điểm hoặc 1 đa thời điểm"
 
-msgid "Event data items"
-msgstr "Mục dữ liệu sự kiện"
-
-msgid "Program indicators"
-msgstr "Chỉ Số Chương Trình"
-
-msgid "Calculations"
-msgstr "Tính toán"
-
-msgid "Item type"
-msgstr "Kiểu mục"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Chọn thời điểm khi các cá thể được cập nhật lần cuối"
@@ -627,9 +577,6 @@ msgstr "Tập nhóm"
 msgid "Style by group set"
 msgstr "Kiểu theo tập nhóm đơn vị"
 
-msgid "Indicator group"
-msgstr "Nhóm chỉ số"
-
 msgid "Manage available layer sources"
 msgstr "Quản lý các nguồn lớp có sẵn"
 
@@ -679,9 +626,6 @@ msgstr "Tải dữ liệu không thành công."
 
 msgid "External layer"
 msgstr "Lớp bên ngoài"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
 
 msgid "Failed to load layer"
 msgstr "Không tải được lớp"
@@ -763,6 +707,11 @@ msgstr "Kinh độ"
 
 msgid "Latitude"
 msgstr "Vĩ độ"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "Không thể thêm bản đồ cơ sở: {{message}}"
@@ -972,11 +921,14 @@ msgstr "Năm sau"
 msgid "Start/end dates"
 msgstr "Ngày bắt đầu/kết thúc"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Chọn ít nhất {{number}} thời điểm hoặc 1 đa thời điểm"
+msgid "Remove all split layers to add a single layer."
+msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Xóa dòng thời gian hiện tại để thêm dòng thời gian mới."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -984,9 +936,6 @@ msgid ""
 msgstr ""
 "Chỉ đến tổng của {{number}} thời điểm (bao gồm đa thời điểm) có thể được "
 "chọn."
-
-msgid "Remove all other layers to add a split map view."
-msgstr "Xóa tất cả các lớp khác để thêm chế độ xem bản đồ chia đôi."
 
 msgid "Single"
 msgstr "Đơn lẻ"
@@ -1007,9 +956,6 @@ msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr ""
 "Hiển thị nhiều bản đồ trong chế độ xem, một bản đồ cho mỗi giai đoạn (tối đa"
 " {{number}}). "
-
-msgid "Period display mode"
-msgstr "Chế độ hiển thị thời điểm"
 
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
@@ -1038,9 +984,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Chỉ số chương trình"
 
 msgid "No program"
 msgstr "Không có Chương trình"
@@ -1174,7 +1117,7 @@ msgid "February 2000"
 msgstr ""
 
 msgid "Heat stress"
-msgstr ""
+msgstr "Căng thẳng nhiệt"
 
 msgid "Heat stress daily"
 msgstr ""
@@ -1243,7 +1186,7 @@ msgid "Weekly (aggregated from Daily data)"
 msgstr ""
 
 msgid "Relative humidity"
-msgstr ""
+msgstr "Độ ẩm tương đối"
 
 msgid "Relative humidity daily"
 msgstr ""
@@ -1372,33 +1315,8 @@ msgstr "Ước tính số người sống trong một khu vực."
 msgid "people per hectare"
 msgstr "người trên một hecta"
 
-msgid "Precipitation"
-msgstr "Lượng mưa"
-
-msgid "millimeter"
-msgstr "milimét"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-
-msgid "Temperature MODIS"
-msgstr "Nhiệt độ MODIS"
-
-msgid "°C during daytime"
-msgstr "°C vào ban ngày"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Nhiệt độ bề mặt đất được thu thập từ vệ tinh. Các điểm trống sẽ xuất hiện ở "
-"những khu vực có mây bao phủ liên tục."
-
-msgid "Population age groups"
-msgstr "Nhóm tuổi dân số"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1517,6 +1435,68 @@ msgstr "Nữ 75 - 79 tuổi"
 msgid "Female 80 years and above"
 msgstr "Nữ từ 80 tuổi trở lên"
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Lượng mưa"
+
+msgid "millimeter"
+msgstr "milimét"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr "Nhiệt độ MODIS"
+
+msgid "°C during daytime"
+msgstr "°C vào ban ngày"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Nhiệt độ bề mặt đất được thu thập từ vệ tinh. Các điểm trống sẽ xuất hiện ở "
+"những khu vực có mây bao phủ liên tục."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr ""
 
@@ -1606,10 +1586,10 @@ msgid "Since February 2000"
 msgstr ""
 
 msgid "NDVI"
-msgstr ""
+msgstr "NDVI"
 
 msgid "EVI"
-msgstr ""
+msgstr "EVI"
 
 msgid "Vegetation index monthly"
 msgstr ""

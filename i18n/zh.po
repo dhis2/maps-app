@@ -1,19 +1,18 @@
-# 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2025
 # 晓东 林 <13981924470@126.com>, 2025
-# easylin <lin_xd@126.com>, 2025
+# easylin <lin_xd@126.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -42,15 +41,6 @@ msgstr "此应用无法检索所需数据。"
 msgid "Network error"
 msgstr "网络错误"
 
-msgid "Calculation"
-msgstr "计算"
-
-msgid "No calculations found"
-msgstr "没有找到计算结果"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "可在数据可视化应用中创建计算。"
-
 msgid "Classification"
 msgstr "分类"
 
@@ -77,21 +67,6 @@ msgstr "值"
 
 msgid "Display"
 msgstr "显示"
-
-msgid "Data element group"
-msgstr "数据元组"
-
-msgid "Data element operand"
-msgstr "数据元操作符"
-
-msgid "Data element"
-msgstr "数据元"
-
-msgid "Totals"
-msgstr "总共"
-
-msgid "Details"
-msgstr "详情"
 
 msgid "Yes"
 msgstr "是"
@@ -129,9 +104,6 @@ msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
 msgid "Event > org unit coordinate"
 msgstr "事件 > 组织单位坐标"
 
-msgid "Event data item"
-msgstr "事件数据条目"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "之前选择的值在列表{{id}}中不可用："
 
@@ -164,9 +136,6 @@ msgstr "操作符"
 
 msgid "Date"
 msgstr "日期"
-
-msgid "Data set"
-msgstr "数据集"
 
 msgid "No results found"
 msgstr "没有结果"
@@ -506,50 +475,31 @@ msgstr "从预设中选择"
 msgid "Define start - end dates"
 msgstr "定义开始 - 结束日期"
 
-msgid "Indicator group is required"
-msgstr "需要指标组"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "需要指标"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "需要数据元组"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "需要数据元"
-
-msgid "Data set is required"
-msgstr "需要数据"
-
-msgid "Event data item is required"
-msgstr "需要事件数据项"
-
-msgid "Program indicator is required"
-msgstr "需要项目指标"
-
-msgid "Calculation is required"
-msgstr "需要计算"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "需要期间"
 
-msgid "Indicator"
-msgstr "指标"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "上报率"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "至少选择{{number}} 期或 1 个多期。"
 
-msgid "Event data items"
-msgstr "事件数据项"
-
-msgid "Program indicators"
-msgstr "项目指标"
-
-msgid "Calculations"
-msgstr "计算"
-
-msgid "Item type"
-msgstr "条目类型"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
@@ -616,9 +566,6 @@ msgstr "组集"
 msgid "Style by group set"
 msgstr "按组集设置样式"
 
-msgid "Indicator group"
-msgstr "指标组"
-
 msgid "Manage available layer sources"
 msgstr "管理可用的图层源"
 
@@ -664,9 +611,6 @@ msgstr "下载数据失败"
 
 msgid "External layer"
 msgstr "外部图层"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr "分割视图不能与其他图层类型结合使用。"
 
 msgid "Failed to load layer"
 msgstr "加载图层失败"
@@ -748,6 +692,11 @@ msgstr "经度"
 
 msgid "Latitude"
 msgstr "纬度"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr "地图初始化失败。您的系统可能不支持 WebGL。请在此处验证兼容性：{{url}}"
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "无法添加底图：{{message}}"
@@ -951,19 +900,19 @@ msgstr "来年"
 msgid "Start/end dates"
 msgstr "开始-结束日期"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "至少选择{{number}} 期或 1 个多期。"
+msgid "Remove all split layers to add a single layer."
+msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "删除现有时间线，添加新的时间线。"
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 msgstr "最多只能选择{{number}} 个时段（包括多时段）。"
-
-msgid "Remove all other layers to add a split map view."
-msgstr "移除所有其他图层并添加一个分开的地图视图。"
 
 msgid "Single"
 msgstr "单人"
@@ -982,9 +931,6 @@ msgstr "分割"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "在视图中显示多个地图，每个时段一个（最多{{number}} ）。"
-
-msgid "Period display mode"
-msgstr "周期显示模式"
 
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
@@ -1009,9 +955,6 @@ msgstr "点击取消固定图例"
 
 msgid "Click to pin legend"
 msgstr "点击固定图例"
-
-msgid "Program indicator"
-msgstr "项目指标"
 
 msgid "No program"
 msgstr "无项目"
@@ -1115,8 +1058,8 @@ msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。
 msgid "Number of buildings"
 msgstr "构建物数量"
 
-msgid "0.5 meter"
-msgstr "0.5 米"
+msgid "~0.5 meter"
+msgstr "~0.5 米"
 
 msgid "Single point in time"
 msgstr "单个时间点"
@@ -1246,6 +1189,15 @@ msgstr "从卫星收集的独特的土地覆被类型。"
 msgid "unitless"
 msgstr "无单位"
 
+msgid "~500 meters"
+msgstr "~500 米"
+
+msgid "Yearly"
+msgstr "每年"
+
+msgid "Since 2001"
+msgstr "自 2001 年起"
+
 msgid "Evergreen Needleleaf forest"
 msgstr "常绿针叶林"
 
@@ -1325,31 +1277,8 @@ msgstr "居住在一个地区的估计人数。"
 msgid "people per hectare"
 msgstr "每公顷人数"
 
-msgid "Precipitation"
-msgstr "降水"
-
-msgid "millimeter"
-msgstr "毫米"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr "从卫星和地面气象站收集的降水量。数值以 5 天内的毫米为单位。每月更新一次，更新时间为下一个月的第 3 周。"
-
-msgid "Temperature MODIS"
-msgstr "温度 MODIS"
-
-msgid "°C during daytime"
-msgstr "白天°C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
-
-msgid "Population age groups"
-msgstr "人口年龄组"
+msgid "Population age groups WorldPop Global1"
+msgstr "人口年龄组 WorldPop Global1"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1466,6 +1395,67 @@ msgstr "女性 75 - 79 岁"
 msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
 
+msgid "Population WorldPop Global1"
+msgstr "全球人口1"
+
+msgid "Precipitation"
+msgstr "降水"
+
+msgid "millimeter"
+msgstr "毫米"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr "从卫星和地面气象站收集的降水量。数值以 5 天内的毫米为单位。每月更新一次，更新时间为下一个月的第 3 周。"
+
+msgid "Temperature MODIS"
+msgstr "温度 MODIS"
+
+msgid "°C during daytime"
+msgstr "白天°C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
+
+msgid "Population age groups WorldPop Global2"
+msgstr "人口年龄组 WorldPop Global2"
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+"数据 采用自上而下的人口建模方法，将官方人口总数分布到各个空间，并限制在可能有人居住的地区。估计数每年提供一次，包括当前、历史和预测人口值。"
+
+msgid "2015 - 2030"
+msgstr "2015 - 2030"
+
+msgid "Male 80 - 84 years"
+msgstr "男性 80 - 84 岁"
+
+msgid "Male 85 - 89 years"
+msgstr "男 85 - 89 岁"
+
+msgid "Male 90 years and above"
+msgstr "男性 90 岁及以上"
+
+msgid "Female 80 - 84 years"
+msgstr "女性 80 - 84 岁"
+
+msgid "Female 85 - 89 years"
+msgstr "女性 85 - 89 岁"
+
+msgid "Female 90 years and above"
+msgstr "女性 90 岁及以上"
+
+msgid "Population WorldPop Global2"
+msgstr "人口 WorldPop Global2"
+
 msgid "CHIRPS"
 msgstr "CHIRPS"
 
@@ -1547,8 +1537,8 @@ msgstr ""
 "归一化差异植被指数（NDVI）用于量化植被绿度，有助于了解植被密度和评估植物健康变化。 \n"
 " 增强植被指数（EVI）与归一化差异植被指数类似。不过，EVI 会对一些大气条件和树冠背景噪声进行校正，在植被茂密的地区更为灵敏。"
 
-msgid "250 meter"
-msgstr "250 米"
+msgid "~250 meters"
+msgstr "~250 米"
 
 msgid "16-day"
 msgstr "16 天"
@@ -1636,9 +1626,6 @@ msgstr "六个月"
 
 msgid "Six-monthly April"
 msgstr "半年四月"
-
-msgid "Yearly"
-msgstr "每年"
 
 msgid "Financial year (Start November)"
 msgstr "财政年（11月始）"

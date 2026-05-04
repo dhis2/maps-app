@@ -17,6 +17,32 @@ const defaultState = {
     mapViews: [],
 }
 
+const upsertFilter = ({ dimension, items, filters = [] }) => {
+    const exists = filters.some((f) => f.dimension === dimension)
+
+    return exists
+        ? filters.map((f) => (f.dimension === dimension ? { ...f, items } : f))
+        : [...filters, { dimension, items }]
+}
+
+const updatePeriodFiltersByStrategy = (state, strategy, periods) => ({
+    ...state,
+    mapViews: state.mapViews.map((mv) => {
+        if (mv.renderingStrategy !== strategy) {
+            return mv
+        }
+        return {
+            ...mv,
+            filters: upsertFilter({
+                dimension: 'pe',
+                items: periods,
+                filters: mv.filters,
+            }),
+            isLoaded: false,
+        }
+    }),
+})
+
 const basemap = (state, action) => {
     switch (action.type) {
         case types.BASEMAP_SELECTED:
@@ -267,6 +293,13 @@ const map = (state = defaultState, action) => {
                 alerts: undefined,
                 mapViews: state.mapViews.map((l) => layer(l, action)),
             }
+
+        case types.MAP_PERIODS_SYNC:
+            return updatePeriodFiltersByStrategy(
+                state,
+                action.renderingStrategy,
+                action.periods
+            )
 
         default:
             return state

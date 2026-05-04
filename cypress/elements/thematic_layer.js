@@ -2,50 +2,55 @@ import { Layer } from './layer.js'
 
 export class ThematicLayer extends Layer {
     selectItemType(itemType) {
-        cy.getByDataTest('thematic-layer-value-type-select').click()
+        cy.getByDataTest(
+            'data-dimension-left-header-data-types-select-field-content'
+        ).click()
         cy.contains(itemType).click()
-
         return this
     }
+    selectGroup(group) {
+        cy.getByDataTest(
+            'data-dimension-left-header-groups-select-field-content'
+        ).click()
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+            .contains(group)
+            .click()
+        return this
+    }
+    selectSubGroup(subGroup) {
+        cy.getByDataTest(
+            'data-dimension-left-header-sub-group-select-field-content'
+        ).click()
+        cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
+            .contains(subGroup)
+            .click()
+        return this
+    }
+    selectDataItem(dataItem) {
+        cy.getByDataTest('data-dimension-transfer-sourceoptions')
+            .contains(dataItem)
+            .click()
+        cy.getByDataTest(
+            'data-dimension-transfer-actions-addindividual'
+        ).click()
+        cy.getByDataTest('data-dimension-transfer-pickedoptions')
+            .contains(dataItem)
+            .should('exist')
+        return this
+    }
+
     selectIndicatorGroup(indicatorGroup) {
-        cy.get('[data-test="indicatorgroupselect"]').click()
-        cy.contains(indicatorGroup).click()
-
-        return this
+        return this.selectGroup(indicatorGroup)
     }
-
     selectIndicator(indicator) {
-        cy.get('[data-test="indicatorselect"]').click()
-        cy.contains(indicator).click()
-
-        return this
+        return this.selectDataItem(indicator)
     }
 
     selectDataElementGroup(dataElementGroup) {
-        cy.getByDataTest('dataelementgroupselect').click()
-        cy.getByDataTest('dhis2-uicore-singleselectoption')
-            .contains(dataElementGroup)
-            .click()
-
-        return this
+        return this.selectGroup(dataElementGroup)
     }
-
     selectDataElement(dataElement) {
-        cy.getByDataTest('dataelementselect').click()
-        cy.getByDataTest('dhis2-uicore-singleselectoption')
-            .contains(dataElement)
-            .click()
-
-        return this
-    }
-
-    selectDataElementOperand(dataElementOperand) {
-        cy.getByDataTest('dataelementoperandselect').click()
-        cy.getByDataTest('dhis2-uicore-singleselectoption')
-            .contains(dataElementOperand)
-            .click()
-
-        return this
+        return this.selectDataItem(dataElement)
     }
 
     selectRelativePeriod(period) {
@@ -160,15 +165,24 @@ export class ThematicLayer extends Layer {
 
         cy.wait('@fetchDimensions')
 
-        cy.getByDataTest('dimension-select-field').click()
-        cy.get('input[placeholder="Filter dimensions"]').type(dimensionName)
+        cy.getByDataTest('dimension-select-field')
+            .should('not.be.disabled')
+            .click()
+        cy.get('input[placeholder="Filter dimensions"]')
+            .should('be.visible')
+            .type(dimensionName)
 
-        cy.get('li').contains(dimensionName).click()
+        cy.get('li').contains(dimensionName).should('be.visible').click()
 
-        cy.getByDataTest('dimension-items-select-field').click()
+        cy.getByDataTest('dimension-items-select-field')
+            .should('not.be.disabled')
+            .click()
 
         dimensionItemNames.forEach((name) => {
-            cy.getByDataTest('dhis2-uicore-checkbox').contains(name).click()
+            cy.getByDataTest('dhis2-uicore-checkbox')
+                .contains(name)
+                .should('be.visible')
+                .click()
         })
 
         // Confirm that the items are checked

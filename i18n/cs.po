@@ -1,16 +1,15 @@
-# 
 # Translators:
 # Jiří Podhorecký <jirka.p@volny.cz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-01-16T21:08:51.068Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
@@ -39,15 +38,6 @@ msgstr "Tato aplikace nemohla načíst požadovaná data."
 msgid "Network error"
 msgstr "Chyba sítě"
 
-msgid "Calculation"
-msgstr "Výpočet"
-
-msgid "No calculations found"
-msgstr "Nenalezeny žádné výpočty"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Výpočty lze vytvářet v aplikaci Data Visualizer."
-
 msgid "Classification"
 msgstr "Klasifikace"
 
@@ -74,21 +64,6 @@ msgstr "Hodnota"
 
 msgid "Display"
 msgstr "Zobrazit"
-
-msgid "Data element group"
-msgstr "Skupina datových prvků"
-
-msgid "Data element operand"
-msgstr "Operand datového prvku"
-
-msgid "Data element"
-msgstr "Datový prvek"
-
-msgid "Totals"
-msgstr "Součty"
-
-msgid "Details"
-msgstr "Detaily"
 
 msgid "Yes"
 msgstr "Ano"
@@ -127,9 +102,6 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr "Událost > souřadnice organizační jednotky"
 
-msgid "Event data item"
-msgstr "Datová položka události"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
@@ -162,9 +134,6 @@ msgstr "Operátor"
 
 msgid "Date"
 msgstr "datum"
-
-msgid "Data set"
-msgstr "Datová sada"
 
 msgid "No results found"
 msgstr "Nenalezeny žádné výsledky"
@@ -514,50 +483,31 @@ msgstr "Vyberte si z předvoleb"
 msgid "Define start - end dates"
 msgstr "Definujte počáteční a koncová data"
 
-msgid "Indicator group is required"
-msgstr "Je vyžadována skupina indikátorů"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "Indikátor je vyžadován"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "Skupina datových prvků je povinná"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "Datový prvek je povinný"
-
-msgid "Data set is required"
-msgstr "Soubor dat je povinný"
-
-msgid "Event data item is required"
-msgstr "Položka dat události je povinná"
-
-msgid "Program indicator is required"
-msgstr "Je vyžadován indikátor programu"
-
-msgid "Calculation is required"
-msgstr "Je vyžadován výpočet"
+msgid "Data is required"
+msgstr ""
 
 msgid "Period is required"
 msgstr "Období je vyžadováno"
 
-msgid "Indicator"
-msgstr "Indikátor"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
 
-msgid "Reporting rates"
-msgstr "Míry vykazování"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
 
-msgid "Event data items"
-msgstr "Položky dat události"
-
-msgid "Program indicators"
-msgstr "Ukazatele programu"
-
-msgid "Calculations"
-msgstr "Výpočty"
-
-msgid "Item type"
-msgstr "Typ položky"
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Vyberte období, kdy byly trasované entity naposledy aktualizovány"
@@ -625,9 +575,6 @@ msgstr "Skupinová sada"
 msgid "Style by group set"
 msgstr "Styl podle sady skupiny"
 
-msgid "Indicator group"
-msgstr "Skupina indikátorů"
-
 msgid "Manage available layer sources"
 msgstr ""
 
@@ -676,9 +623,6 @@ msgstr "Stažení dat se nezdařilo."
 
 msgid "External layer"
 msgstr "Vnější vrstva"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr "Rozdělené zobrazení nelze kombinovat s jinými typy vrstev."
 
 msgid "Failed to load layer"
 msgstr "Nepodařilo se načíst vrstvu"
@@ -760,6 +704,11 @@ msgstr "Zeměpisná délka"
 
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
+
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "Základní mapu nelze přidat: {{message}}"
@@ -970,19 +919,19 @@ msgstr "Příští rok"
 msgid "Start/end dates"
 msgstr "Datum zahájení / ukončení"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Odeberte stávající časovou osu a přidejte novou."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
+msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
 msgstr ""
-
-msgid "Remove all other layers to add a split map view."
-msgstr "Odstraňte všechny ostatní vrstvy a přidejte rozdělené zobrazení mapy."
 
 msgid "Single"
 msgstr ""
@@ -1000,9 +949,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
@@ -1032,9 +978,6 @@ msgstr ""
 
 msgid "Click to pin legend"
 msgstr ""
-
-msgid "Program indicator"
-msgstr "Indikátor programu"
 
 msgid "No program"
 msgstr "Žádný program"
@@ -1372,36 +1315,8 @@ msgstr "Odhadovaný počet lidí žijících v oblasti."
 msgid "people per hectare"
 msgstr "lidí na hektar"
 
-msgid "Precipitation"
-msgstr "Srážky"
-
-msgid "millimeter"
-msgstr "milimetr"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-"Srážky získané ze satelitů a pozemních meteorologických stanic. Hodnoty jsou"
-" uvedeny v milimetrech za pětidenní období. Aktualizováno měsíčně, během 3. "
-"týdne následujícího měsíce."
-
-msgid "Temperature MODIS"
-msgstr "Teplota MODIS"
-
-msgid "°C during daytime"
-msgstr "°C přes den"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Teploty povrchu země získané ze satelitu. V oblastech s přetrvávající "
-"oblačností se objeví prázdná místa."
-
-msgid "Population age groups"
-msgstr "Populační věkové skupiny"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1518,6 +1433,71 @@ msgstr "Žena 75 - 79 let"
 
 msgid "Female 80 years and above"
 msgstr "Žena 80 let a více"
+
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Srážky"
+
+msgid "millimeter"
+msgstr "milimetr"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+"Srážky získané ze satelitů a pozemních meteorologických stanic. Hodnoty jsou"
+" uvedeny v milimetrech za pětidenní období. Aktualizováno měsíčně, během 3. "
+"týdne následujícího měsíce."
+
+msgid "Temperature MODIS"
+msgstr "Teplota MODIS"
+
+msgid "°C during daytime"
+msgstr "°C přes den"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Teploty povrchu země získané ze satelitu. V oblastech s přetrvávající "
+"oblačností se objeví prázdná místa."
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
 
 msgid "CHIRPS"
 msgstr "CHIRPS"

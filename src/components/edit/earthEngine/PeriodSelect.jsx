@@ -11,6 +11,7 @@ import {
 } from '../../../constants/periods.js'
 import usePrevious from '../../../hooks/usePrevious.js'
 import { getPeriods, getYears } from '../../../util/earthEngine.js'
+import { getYear } from '../../../util/time.js'
 import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
@@ -129,8 +130,11 @@ const EarthEnginePeriodSelect = ({
             years &&
             !years.some((y) => y.id === year)
         ) {
-            const newYear = years[0].id
-            // Set year to latest available year by default
+            const currentYear = getYear()
+            const mostRecentYear = years[0].id
+            // Set year to current year or latest available year by default
+            const newYear =
+                years.find((y) => y.id === currentYear)?.id || mostRecentYear
             setYear(newYear)
             trackedYear.current = newYear
         }
@@ -199,22 +203,34 @@ const EarthEnginePeriodSelect = ({
             if (
                 !yearChanged &&
                 period &&
-                periods.find(({ id }) => id === period.id)
+                periods.find(({ id }) => id == period.id)
             ) {
                 onChange(period)
                 trackedYear.current = year
             } else if (!layerChanged) {
-                // Set most recent complete period by default
-                const { complete } = isPeriodComplete({
-                    endDateDataset: datesRange.endDate,
-                    startDatePeriod: periods[0].startDate,
-                    endDatePeriod: isValidDate(periods[0].endDate)
-                        ? periods[0].endDate
-                        : periods[0].startDate,
-                    periodName: periods[0].name,
-                })
-                const defaultPeriod =
-                    complete || periods.length === 1 ? periods[0] : periods[1]
+                let defaultPeriod
+                if (periodType === 'YEARLY') {
+                    const currentYear = getYear()
+                    const mostRecentPeriod = periods[0]
+                    // Set year to current year or latest available year by default
+                    defaultPeriod =
+                        periods.find((y) => y.id == currentYear) ||
+                        mostRecentPeriod
+                } else {
+                    // Set most recent complete period by default
+                    const { complete } = isPeriodComplete({
+                        endDateDataset: datesRange.endDate,
+                        startDatePeriod: periods[0].startDate,
+                        endDatePeriod: isValidDate(periods[0].endDate)
+                            ? periods[0].endDate
+                            : periods[0].startDate,
+                        periodName: periods[0].name,
+                    })
+                    defaultPeriod =
+                        complete || periods.length === 1
+                            ? periods[0]
+                            : periods[1]
+                }
                 onChange(defaultPeriod)
                 trackedYear.current = year
             }
@@ -225,6 +241,7 @@ const EarthEnginePeriodSelect = ({
         year,
         periods,
         prevPeriods,
+        periodType,
         period,
         datesRange?.endDate,
         onChange,
@@ -244,9 +261,7 @@ const EarthEnginePeriodSelect = ({
                             label={i18n.t('Year')}
                             items={years}
                             value={year}
-                            onChange={({ id }) => {
-                                setYear(id)
-                            }}
+                            onChange={({ id }) => setYear(id)}
                             className={styles.year}
                         />
                     )}
@@ -257,7 +272,7 @@ const EarthEnginePeriodSelect = ({
                         value={
                             items &&
                             period &&
-                            items.find(({ id }) => id === period.id) &&
+                            items.find(({ id }) => id == period.id) &&
                             period.id
                         }
                         onChange={handlePeriodChange}

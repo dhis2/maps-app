@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-01-29T22:51:50.462Z\n"
-"PO-Revision-Date: 2026-01-29T22:51:50.462Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"PO-Revision-Date: 2026-03-12T18:11:56.380Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -31,15 +31,6 @@ msgstr "This app could not retrieve required data."
 
 msgid "Network error"
 msgstr "Network error"
-
-msgid "Calculation"
-msgstr "Calculation"
-
-msgid "No calculations found"
-msgstr "No calculations found"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Calculations can be created in the Data Visualizer app."
 
 msgid "Classification"
 msgstr "Classification"
@@ -67,21 +58,6 @@ msgstr "Value"
 
 msgid "Display"
 msgstr "Display"
-
-msgid "Data element group"
-msgstr "Data element group"
-
-msgid "Data element operand"
-msgstr "Data element operand"
-
-msgid "Data element"
-msgstr "Data element"
-
-msgid "Totals"
-msgstr "Totals"
-
-msgid "Details"
-msgstr "Details"
 
 msgid "Yes"
 msgstr "Yes"
@@ -119,9 +95,6 @@ msgstr "Enrollment > event > tracked entity > org unit coordinate"
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
 
-msgid "Event data item"
-msgstr "Event data item"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "Previously selected value not available in list: {{id}}"
 
@@ -154,9 +127,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Date"
-
-msgid "Data set"
-msgstr "Data set"
 
 msgid "No results found"
 msgstr "No results found"
@@ -500,50 +470,33 @@ msgstr "Choose from presets"
 msgid "Define start - end dates"
 msgstr "Define start - end dates"
 
-msgid "Indicator group is required"
-msgstr "Indicator group is required"
+msgid "Choose periods for all timeline layers"
+msgstr "Choose periods for all timeline layers"
 
-msgid "Indicator is required"
-msgstr "Indicator is required"
+msgid "Selection is initialized from shared periods"
+msgstr "Selection is initialized from shared periods"
 
-msgid "Data element group is required"
-msgstr "Data element group is required"
+msgid "Choose periods for all split layers"
+msgstr "Choose periods for all split layers"
 
-msgid "Data element is required"
-msgstr "Data element is required"
-
-msgid "Data set is required"
-msgstr "Data set is required"
-
-msgid "Event data item is required"
-msgstr "Event data item is required"
-
-msgid "Program indicator is required"
-msgstr "Program indicator is required"
-
-msgid "Calculation is required"
-msgstr "Calculation is required"
+msgid "Data is required"
+msgstr "Data is required"
 
 msgid "Period is required"
 msgstr "Period is required"
 
-msgid "Indicator"
-msgstr "Indicator"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 
-msgid "Reporting rates"
-msgstr "Reporting rates"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
 
-msgid "Event data items"
-msgstr "Event data items"
-
-msgid "Program indicators"
-msgstr "Program indicators"
-
-msgid "Calculations"
-msgstr "Calculations"
-
-msgid "Item type"
-msgstr "Item type"
+msgid "Specified radius values are invalid"
+msgstr "Specified radius values are invalid"
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Select period when tracked entities were last updated"
@@ -608,9 +561,6 @@ msgstr "Group set"
 msgid "Style by group set"
 msgstr "Style by group set"
 
-msgid "Indicator group"
-msgstr "Indicator group"
-
 msgid "Manage available layer sources"
 msgstr "Manage available layer sources"
 
@@ -660,9 +610,6 @@ msgstr "Data download failed."
 
 msgid "External layer"
 msgstr "External layer"
-
-msgid "Split view cannot be combined with other layer types."
-msgstr "Split view cannot be combined with other layer types."
 
 msgid "Failed to load layer"
 msgstr "Failed to load layer"
@@ -961,11 +908,14 @@ msgstr "Next year"
 msgid "Start/end dates"
 msgstr "Start/end dates"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
+msgstr "Remove all split layers to add a single layer."
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr "Remove all split layers to add a timeline layer."
+
+msgid "Remove all other layers to add a split layer."
+msgstr "Remove all other layers to add a split layer."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -973,9 +923,6 @@ msgid ""
 msgstr ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-
-msgid "Remove all other layers to add a split map view."
-msgstr "Remove all other layers to add a split map view."
 
 msgid "Single"
 msgstr "Single"
@@ -994,9 +941,6 @@ msgstr "Split"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "Show multiple maps in view, one for each period (max {{number}})."
-
-msgid "Period display mode"
-msgstr "Period display mode"
 
 msgid "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr "Start and end dates are inclusive and will be reflected in the outputs."
@@ -1022,9 +966,6 @@ msgstr "Click to unpin legend"
 
 msgid "Click to pin legend"
 msgstr "Click to pin legend"
-
-msgid "Program indicator"
-msgstr "Program indicator"
 
 msgid "No program"
 msgstr "No program"
@@ -1360,36 +1301,8 @@ msgstr "Estimated number of people living in an area."
 msgid "people per hectare"
 msgstr "people per hectare"
 
-msgid "Precipitation"
-msgstr "Precipitation"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-
-msgid "Temperature MODIS"
-msgstr "Temperature MODIS"
-
-msgid "°C during daytime"
-msgstr "°C during daytime"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-
-msgid "Population age groups"
-msgstr "Population age groups"
+msgid "Population age groups WorldPop Global1"
+msgstr "Population age groups WorldPop Global1"
 
 msgid "Estimated number of people living in an area, grouped by age and gender."
 msgstr "Estimated number of people living in an area, grouped by age and gender."
@@ -1504,6 +1417,75 @@ msgstr "Female 75 - 79 years"
 
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
+
+msgid "Population WorldPop Global1"
+msgstr "Population WorldPop Global1"
+
+msgid "Precipitation"
+msgstr "Precipitation"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+
+msgid "Temperature MODIS"
+msgstr "Temperature MODIS"
+
+msgid "°C during daytime"
+msgstr "°C during daytime"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+
+msgid "Population age groups WorldPop Global2"
+msgstr "Population age groups WorldPop Global2"
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+
+msgid "2015 - 2030"
+msgstr "2015 - 2030"
+
+msgid "Male 80 - 84 years"
+msgstr "Male 80 - 84 years"
+
+msgid "Male 85 - 89 years"
+msgstr "Male 85 - 89 years"
+
+msgid "Male 90 years and above"
+msgstr "Male 90 years and above"
+
+msgid "Female 80 - 84 years"
+msgstr "Female 80 - 84 years"
+
+msgid "Female 85 - 89 years"
+msgstr "Female 85 - 89 years"
+
+msgid "Female 90 years and above"
+msgstr "Female 90 years and above"
+
+msgid "Population WorldPop Global2"
+msgstr "Population WorldPop Global2"
 
 msgid "CHIRPS"
 msgstr "CHIRPS"
