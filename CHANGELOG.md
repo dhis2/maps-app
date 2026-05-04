@@ -1,3 +1,10 @@
+## [101.10.2](https://github.com/dhis2/maps-app/compare/v101.10.1...v101.10.2) (2026-04-22)
+
+
+### Bug Fixes
+
+* hide 'No data found' message while OU profile data is loading ([#3642](https://github.com/dhis2/maps-app/issues/3642)) ([b510cfa](https://github.com/dhis2/maps-app/commit/b510cfaeab0ea44e7939871a173651e7328962b8))
+
 ## [101.10.1](https://github.com/dhis2/maps-app/compare/v101.10.0...v101.10.1) (2026-03-24)
 
 
