@@ -51,8 +51,8 @@ SingleColor.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        color: layerEdit.colorScale,
-        legendDecimalPlaces: layerEdit.legendDecimalPlaces,
+        color: layerEdit?.colorScale,
+        legendDecimalPlaces: layerEdit?.legendDecimalPlaces,
     }),
     { setColorScale, setLegendDecimalPlaces }
 )(SingleColor)

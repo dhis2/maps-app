@@ -91,12 +91,12 @@ Labels.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        labels: layerEdit.labels,
-        labelTemplate: layerEdit.labelTemplate,
-        labelFontColor: layerEdit.labelFontColor,
-        labelFontSize: layerEdit.labelFontSize,
-        labelFontStyle: layerEdit.labelFontStyle,
-        labelFontWeight: layerEdit.labelFontWeight,
+        labels: layerEdit?.labels,
+        labelTemplate: layerEdit?.labelTemplate,
+        labelFontColor: layerEdit?.labelFontColor,
+        labelFontSize: layerEdit?.labelFontSize,
+        labelFontStyle: layerEdit?.labelFontStyle,
+        labelFontWeight: layerEdit?.labelFontWeight,
     }),
     {
         setLabels,

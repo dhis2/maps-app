@@ -77,8 +77,8 @@ RadiusSelect.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        radiusLow: layerEdit.radiusLow,
-        radiusHigh: layerEdit.radiusHigh,
+        radiusLow: layerEdit?.radiusLow,
+        radiusHigh: layerEdit?.radiusHigh,
     }),
     { setRadiusLow, setRadiusHigh }
 )(RadiusSelect)
