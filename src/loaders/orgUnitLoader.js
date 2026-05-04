@@ -16,10 +16,46 @@ import {
     getOrgUnitsWithoutCoordsCount,
     fetchOrgUnitDetails,
     addGroupCountsToLegend,
-    fetchAndParseGroupSet,
+    addLevelCountsToLegend,
+    loadGroupSetData,
     fetchAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
+
+const applyMissingCoordsCount = async (
+    config,
+    { engine, orgUnitIds, userId, features, legend, alerts }
+) => {
+    const result = await getOrgUnitsWithoutCoordsCount({
+        engine,
+        orgUnitIds,
+        userId,
+        features,
+    })
+    if (result.error) {
+        alerts.push({
+            warning: true,
+            code: CUSTOM_ALERT,
+            message: i18n.t('Could not count org units without coordinates'),
+        })
+        return
+    }
+    legend.orgUnitsWithoutCoordinatesCount = result.count
+    if (result.count > 0) {
+        const details = await fetchOrgUnitDetails(
+            engine,
+            result.missingOrgUnits.map((o) => o.id)
+        )
+        config.dataWithoutCoords = result.missingOrgUnits.map((ou) => ({
+            ...ou,
+            properties: {
+                ...ou.properties,
+                level: details[ou.id]?.level,
+                parentName: details[ou.id]?.parentName,
+            },
+        }))
+    }
+}
 
 const orgUnitLoader = async ({
     config,
@@ -35,7 +71,6 @@ const orgUnitLoader = async ({
     const coordinateField = getCoordinateField(config)
 
     const name = i18n.t('Organisation units')
-    let loadError
     const alerts = []
 
     // Config parsing
@@ -79,18 +114,9 @@ const orgUnitLoader = async ({
         })
     }
 
-    const orgUnitLevels = await apiFetchOrganisationUnitLevels(engine)
+    const levels = await apiFetchOrganisationUnitLevels(engine)
 
-    if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        const parsedGroupSet = await fetchAndParseGroupSet(engine, groupSet)
-        if (parsedGroupSet) {
-            groupSet.organisationUnitGroups =
-                parsedGroupSet.organisationUnitGroups
-            groupSet.name = parsedGroupSet.name
-        } else {
-            loadError = i18n.t('GroupSet used for styling was not found')
-        }
-    }
+    const loadError = await loadGroupSetData(engine, groupSet, includeGroupSets)
 
     let associatedGeometries
     if (coordinateField) {
@@ -120,12 +146,8 @@ const orgUnitLoader = async ({
         groupSet,
         config,
         baseUrl,
-        orgUnitLevels: orgUnitLevels.reduce(
-            (obj, item) => ({
-                ...obj,
-                [item.level]: item.displayName, // orgUnitLevels do not have shortNames
-            }),
-            {}
+        orgUnitLevels: Object.fromEntries(
+            levels.map(({ level, displayName }) => [level, displayName])
         ),
     })
 
@@ -134,52 +156,18 @@ const orgUnitLoader = async ({
     if (groupSet?.id) {
         addGroupCountsToLegend(legend.items, mainFeatures, groupSet)
     } else {
-        legend.items.forEach((item) => (item.count = 0))
-        mainFeatures.forEach((f) => {
-            const levelInfo = orgUnitLevels.find(
-                (l) => l.level === f.properties.level
-            )
-            const item =
-                levelInfo &&
-                legend.items.find((i) => i.name === levelInfo.displayName)
-            if (item) {
-                item.count++
-            }
-        })
+        addLevelCountsToLegend(legend.items, mainFeatures, levels)
     }
 
     if (config.countFeaturesWithoutCoordinates) {
-        const result = await getOrgUnitsWithoutCoordsCount({
+        await applyMissingCoordsCount(config, {
             engine,
             orgUnitIds,
             userId,
             features: mainFeatures,
+            legend,
+            alerts,
         })
-        if (result.error) {
-            alerts.push({
-                warning: true,
-                code: CUSTOM_ALERT,
-                message: i18n.t(
-                    'Could not count org units without coordinates'
-                ),
-            })
-        } else {
-            legend.orgUnitsWithoutCoordinatesCount = result.count
-            if (result.count > 0) {
-                const details = await fetchOrgUnitDetails(
-                    engine,
-                    result.missingOrgUnits.map((o) => o.id)
-                )
-                config.dataWithoutCoords = result.missingOrgUnits.map((ou) => ({
-                    ...ou,
-                    properties: {
-                        ...ou.properties,
-                        level: details[ou.id]?.level,
-                        parentName: details[ou.id]?.parentName,
-                    },
-                }))
-            }
-        }
     }
 
     return {

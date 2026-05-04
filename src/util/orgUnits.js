@@ -316,6 +316,25 @@ export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
     })
 }
 
+export const addLevelCountsToLegend = (
+    legendItems,
+    features,
+    orgUnitLevels
+) => {
+    legendItems.forEach((item) => (item.count = 0))
+    features.forEach((f) => {
+        const levelInfo = orgUnitLevels.find(
+            (l) => l.level === f.properties.level
+        )
+        const item =
+            levelInfo &&
+            legendItems.find((i) => i.name === levelInfo.displayName)
+        if (item) {
+            item.count++
+        }
+    })
+}
+
 export const fetchAndParseGroupSet = async (engine, groupSet) => {
     try {
         const { groupSets } = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
@@ -330,6 +349,19 @@ export const fetchAndParseGroupSet = async (engine, groupSet) => {
     } catch {
         return null
     }
+}
+
+export const loadGroupSetData = async (engine, groupSet, includeGroupSets) => {
+    if (!includeGroupSets || groupSet.organisationUnitGroups) {
+        return null
+    }
+    const parsed = await fetchAndParseGroupSet(engine, groupSet)
+    if (!parsed) {
+        return i18n.t('GroupSet used for styling was not found')
+    }
+    groupSet.organisationUnitGroups = parsed.organisationUnitGroups
+    groupSet.name = parsed.name
+    return null
 }
 
 export const fetchAssociatedGeometries = async (

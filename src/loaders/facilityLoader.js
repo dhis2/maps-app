@@ -14,10 +14,34 @@ import {
     getCoordinateField,
     getOrgUnitsWithoutCoordsCount,
     addGroupCountsToLegend,
-    fetchAndParseGroupSet,
+    loadGroupSetData,
     fetchAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
+
+const applyMissingCoordsCount = async (
+    config,
+    { engine, orgUnitIds, userId, features, legend, alerts }
+) => {
+    const result = await getOrgUnitsWithoutCoordsCount({
+        engine,
+        orgUnitIds,
+        userId,
+        features,
+    })
+    if (result.error) {
+        alerts.push({
+            warning: true,
+            code: CUSTOM_ALERT,
+            message: i18n.t('Could not count org units without coordinates'),
+        })
+        return
+    }
+    legend.orgUnitsWithoutCoordinatesCount = result.count
+    if (result.count > 0) {
+        config.dataWithoutCoords = result.missingOrgUnits
+    }
+}
 
 const facilityLoader = async ({
     config,
@@ -33,7 +57,6 @@ const facilityLoader = async ({
     const coordinateField = getCoordinateField(config)
 
     const name = i18n.t('Facilities')
-    let loadError
     const alerts = []
 
     // Config parsing
@@ -48,29 +71,16 @@ const facilityLoader = async ({
     // Data loading
     // -----
 
-    let data = {}
+    let data
     try {
-        // Fetch geofeatures data
-        data = await engine.query(
-            GEOFEATURES_QUERY,
-            {
-                variables: {
-                    orgUnitIds,
-                    keyAnalysisDisplayProperty,
-                    includeGroupSets,
-                    userId,
-                },
+        data = await engine.query(GEOFEATURES_QUERY, {
+            variables: {
+                orgUnitIds,
+                keyAnalysisDisplayProperty,
+                includeGroupSets,
+                userId,
             },
-            {
-                onError: (error) => {
-                    alerts.push({
-                        critical: true,
-                        code: ERROR_CRITICAL,
-                        message: error.message || i18n.t('an error occurred'),
-                    })
-                },
-            }
-        )
+        })
     } catch (error) {
         alerts.push({
             critical: true,
@@ -83,16 +93,7 @@ const facilityLoader = async ({
         ? toGeoJson(getPointItems(data.geoFeatures))
         : []
 
-    if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        const parsedGroupSet = await fetchAndParseGroupSet(engine, groupSet)
-        if (parsedGroupSet) {
-            groupSet.organisationUnitGroups =
-                parsedGroupSet.organisationUnitGroups
-            groupSet.name = parsedGroupSet.name
-        } else {
-            loadError = i18n.t('GroupSet used for styling was not found')
-        }
-    }
+    const loadError = await loadGroupSetData(engine, groupSet, includeGroupSets)
 
     let associatedGeometries
     if (coordinateField) {
@@ -135,26 +136,14 @@ const facilityLoader = async ({
     }
 
     if (config.countFeaturesWithoutCoordinates) {
-        const result = await getOrgUnitsWithoutCoordsCount({
+        await applyMissingCoordsCount(config, {
             engine,
             orgUnitIds,
             userId,
             features,
+            legend,
+            alerts,
         })
-        if (result.error) {
-            alerts.push({
-                warning: true,
-                code: CUSTOM_ALERT,
-                message: i18n.t(
-                    'Could not count org units without coordinates'
-                ),
-            })
-        } else {
-            legend.orgUnitsWithoutCoordinatesCount = result.count
-            if (result.count > 0) {
-                config.dataWithoutCoords = result.missingOrgUnits
-            }
-        }
     }
 
     if (coordinateField) {

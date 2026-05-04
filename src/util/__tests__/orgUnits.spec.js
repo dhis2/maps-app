@@ -1,8 +1,10 @@
 import {
     getStyledOrgUnits,
     addGroupCountsToLegend,
+    addLevelCountsToLegend,
     getOrgUnitsWithoutCoordsCount,
     fetchAndParseGroupSet,
+    loadGroupSetData,
 } from '../orgUnits.js'
 
 describe('getStyledOrgUnits', () => {
@@ -244,5 +246,88 @@ describe('fetchAndParseGroupSet', () => {
         }
         const result = await fetchAndParseGroupSet(engine, { id: 'gs1' })
         expect(result).toBeNull()
+    })
+})
+
+describe('addLevelCountsToLegend', () => {
+    const levels = [
+        { level: 1, displayName: 'National' },
+        { level: 2, displayName: 'District' },
+    ]
+
+    it('should initialize all item counts to 0', () => {
+        const legendItems = [
+            { name: 'National', count: 5 },
+            { name: 'District', count: 3 },
+        ]
+        addLevelCountsToLegend(legendItems, [], levels)
+        expect(legendItems[0].count).toBe(0)
+        expect(legendItems[1].count).toBe(0)
+    })
+
+    it('should increment count for features matching a level', () => {
+        const legendItems = [
+            { name: 'National', count: 0 },
+            { name: 'District', count: 0 },
+        ]
+        const features = [
+            { properties: { level: 1 } },
+            { properties: { level: 2 } },
+            { properties: { level: 2 } },
+        ]
+        addLevelCountsToLegend(legendItems, features, levels)
+        expect(legendItems[0].count).toBe(1)
+        expect(legendItems[1].count).toBe(2)
+    })
+
+    it('should not increment count for features with no matching level', () => {
+        const legendItems = [{ name: 'National', count: 0 }]
+        const features = [{ properties: { level: 99 } }]
+        addLevelCountsToLegend(legendItems, features, levels)
+        expect(legendItems[0].count).toBe(0)
+    })
+})
+
+describe('loadGroupSetData', () => {
+    it('should return null when includeGroupSets is false', async () => {
+        const engine = { query: jest.fn() }
+        const result = await loadGroupSetData(engine, {}, false)
+        expect(result).toBeNull()
+        expect(engine.query).not.toHaveBeenCalled()
+    })
+
+    it('should return null when groupSet already has organisationUnitGroups', async () => {
+        const engine = { query: jest.fn() }
+        const groupSet = { id: 'gs1', organisationUnitGroups: [] }
+        const result = await loadGroupSetData(engine, groupSet, true)
+        expect(result).toBeNull()
+        expect(engine.query).not.toHaveBeenCalled()
+    })
+
+    it('should mutate groupSet and return null on success', async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                groupSets: {
+                    name: 'My Group Set',
+                    organisationUnitGroups: [
+                        { id: 'g1', name: 'Group 1', color: '#ff0000' },
+                    ],
+                },
+            }),
+        }
+        const groupSet = { id: 'gs1' }
+        const result = await loadGroupSetData(engine, groupSet, true)
+        expect(result).toBeNull()
+        expect(groupSet.name).toBe('My Group Set')
+        expect(groupSet.organisationUnitGroups).toHaveLength(1)
+    })
+
+    it('should return an error string when query fails', async () => {
+        const engine = {
+            query: jest.fn().mockRejectedValue(new Error('Not found')),
+        }
+        const groupSet = { id: 'gs1' }
+        const result = await loadGroupSetData(engine, groupSet, true)
+        expect(typeof result).toBe('string')
     })
 })
