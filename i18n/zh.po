@@ -1,15 +1,15 @@
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2025
-# 晓东 林 <13981924470@126.com>, 2025
 # easylin <lin_xd@126.com>, 2026
+# 晓东 林 <13981924470@126.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2026\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -476,16 +476,16 @@ msgid "Define start - end dates"
 msgstr "定义开始 - 结束日期"
 
 msgid "Choose periods for all timeline layers"
-msgstr ""
+msgstr "为所有时间线图层选择时段"
 
 msgid "Selection is initialized from shared periods"
-msgstr ""
+msgstr "选择将基于共享时段初始化"
 
 msgid "Choose periods for all split layers"
-msgstr ""
+msgstr "为所有分割层选择时段"
 
 msgid "Data is required"
-msgstr ""
+msgstr "需要数据"
 
 msgid "Period is required"
 msgstr "需要期间"
@@ -493,13 +493,13 @@ msgstr "需要期间"
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be added to a split layer."
-msgstr ""
+msgstr "拆分后的层 最多只能添加总共{{number}} 个时段（包括多时段中的时段）。"
 
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr "至少选择{{number}} 期或 1 个多期。"
 
 msgid "Specified radius values are invalid"
-msgstr ""
+msgstr "指定的半径值无效"
 
 msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
@@ -901,13 +901,13 @@ msgid "Start/end dates"
 msgstr "开始-结束日期"
 
 msgid "Remove all split layers to add a single layer."
-msgstr ""
+msgstr "删除所有分割层，添加一个层 。"
 
 msgid "Remove all split layers to add a timeline layer."
-msgstr ""
+msgstr "移除所有分割图层，添加时间线层 。"
 
 msgid "Remove all other layers to add a split layer."
-msgstr ""
+msgstr "移除所有其他图层，添加分色层 。"
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
