@@ -4,17 +4,58 @@ import {
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
+    CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
 import {
-    ORG_UNITS_GROUP_SET_QUERY,
     addAssociatedGeometries,
     getStyledOrgUnits,
     getCoordinateField,
-    parseGroupSet,
+    getOrgUnitsWithoutCoordsCount,
+    fetchOrgUnitDetails,
+    addGroupCountsToLegend,
+    addLevelCountsToLegend,
+    loadGroupSetData,
+    fetchAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
+
+const applyMissingCoordsCount = async (
+    config,
+    { engine, orgUnitIds, userId, features, legend, alerts }
+) => {
+    const result = await getOrgUnitsWithoutCoordsCount({
+        engine,
+        orgUnitIds,
+        userId,
+        features,
+    })
+    if (result.error) {
+        alerts.push({
+            warning: true,
+            code: CUSTOM_ALERT,
+            message: i18n.t('Could not count org units without coordinates'),
+        })
+        return
+    }
+    legend.orgUnitsWithoutCoordinatesCount = result.count
+    if (result.count > 0) {
+        const details = await fetchOrgUnitDetails(
+            engine,
+            result.missingOrgUnits.map((o) => o.id)
+        )
+        config.dataWithoutCoords = result.missingOrgUnits.map((ou) => ({
+            ...ou,
+            properties: {
+                ...ou.properties,
+                level: details[ou.id]?.level,
+                parentName: details[ou.id]?.parentName,
+            },
+        }))
+    }
+}
 
 const orgUnitLoader = async ({
     config,
@@ -24,17 +65,25 @@ const orgUnitLoader = async ({
     baseUrl,
 }) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
-
-    const orgUnits = getOrgUnitsFromRows(rows)
     const includeGroupSets = !!groupSet
+    const orgUnits = getOrgUnitsFromRows(rows)
+    const orgUnitIds = orgUnits.map((item) => item.id)
     const coordinateField = getCoordinateField(config)
 
-    let loadError
+    const name = i18n.t('Organisation units')
     const alerts = []
 
-    const orgUnitIds = orgUnits.map((item) => item.id)
-    let associatedGeometries
-    const name = i18n.t('Organisation units')
+    // Config parsing
+    // -----
+
+    const { countFeaturesWithoutCoordinates } = parseJsonConfig(config.config)
+    if (countFeaturesWithoutCoordinates) {
+        config.countFeaturesWithoutCoordinates = true
+    }
+    delete config.config
+
+    // Data loading
+    // -----
 
     const data = await engine.query(
         GEOFEATURES_QUERY,
@@ -58,23 +107,6 @@ const orgUnitLoader = async ({
     )
 
     const mainFeatures = data?.geoFeatures ? toGeoJson(data.geoFeatures) : []
-
-    const orgUnitLevels = await apiFetchOrganisationUnitLevels(engine)
-
-    // Load organisationUnitGroups if not passed
-    let orgUnitGroups
-    if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        try {
-            orgUnitGroups = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
-                variables: {
-                    id: groupSet?.id,
-                },
-            })
-        } catch (err) {
-            loadError = i18n.t('GroupSet used for styling was not found')
-        }
-    }
-
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
             code: WARNING_NO_OU_COORD,
@@ -82,30 +114,21 @@ const orgUnitLoader = async ({
         })
     }
 
-    if (orgUnitGroups) {
-        const { groupSets } = orgUnitGroups
-        groupSet.organisationUnitGroups = parseGroupSet({
-            organisationUnitGroups: groupSets.organisationUnitGroups,
-        })
-        groupSet.name = groupSets.name
-    }
+    const levels = await apiFetchOrganisationUnitLevels(engine)
 
+    const loadError = await loadGroupSetData(engine, groupSet, includeGroupSets)
+
+    let associatedGeometries
     if (coordinateField) {
-        const rawData = await engine.query(GEOFEATURES_QUERY, {
-            variables: {
-                orgUnitIds,
-                keyAnalysisDisplayProperty,
-                includeGroupSets,
-                coordinateField: coordinateField.id,
-                userId,
-            },
+        associatedGeometries = await fetchAssociatedGeometries(engine, {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField,
+            userId,
         })
 
-        associatedGeometries = rawData?.geoFeatures
-            ? toGeoJson(rawData.geoFeatures)
-            : null
-
-        if (!associatedGeometries.length) {
+        if (!associatedGeometries?.length) {
             alerts.push({
                 code: WARNING_NO_GEOMETRY_COORD,
                 message: coordinateField.name,
@@ -115,21 +138,37 @@ const orgUnitLoader = async ({
 
     const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
 
+    // Styling and Legend
+    // -----
+
     const { styledFeatures, legend } = getStyledOrgUnits({
         features,
         groupSet,
         config,
         baseUrl,
-        orgUnitLevels: orgUnitLevels.reduce(
-            (obj, item) => ({
-                ...obj,
-                [item.level]: item.displayName, // orgUnitLevels do not have shortNames
-            }),
-            {}
+        orgUnitLevels: Object.fromEntries(
+            levels.map(({ level, displayName }) => [level, displayName])
         ),
     })
 
     legend.title = name
+
+    if (groupSet?.id) {
+        addGroupCountsToLegend(legend.items, mainFeatures, groupSet)
+    } else {
+        addLevelCountsToLegend(legend.items, mainFeatures, levels)
+    }
+
+    if (config.countFeaturesWithoutCoordinates) {
+        await applyMissingCoordsCount(config, {
+            engine,
+            orgUnitIds,
+            userId,
+            features: mainFeatures,
+            legend,
+            alerts,
+        })
+    }
 
     return {
         ...config,
@@ -140,6 +179,7 @@ const orgUnitLoader = async ({
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
+        isVisible: config.isVisible ?? true,
         loadError,
     }
 }

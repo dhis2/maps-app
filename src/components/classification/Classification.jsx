@@ -91,10 +91,10 @@ Classification.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        method: layerEdit.method,
-        classes: layerEdit.classes,
-        colorScale: layerEdit.colorScale,
-        legendDecimalPlaces: layerEdit.legendDecimalPlaces,
+        method: layerEdit?.method,
+        classes: layerEdit?.classes,
+        colorScale: layerEdit?.colorScale,
+        legendDecimalPlaces: layerEdit?.legendDecimalPlaces,
     }),
     { setClassification, setColorScale, setLegendDecimalPlaces }
 )(Classification)

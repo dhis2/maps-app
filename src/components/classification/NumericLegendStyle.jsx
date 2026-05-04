@@ -74,7 +74,7 @@ NumericLegendStyle.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        method: layerEdit.method,
+        method: layerEdit?.method,
     }),
     { setClassification }
 )(NumericLegendStyle)

@@ -93,7 +93,7 @@ BufferRadius.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        radius: layerEdit.areaRadius,
+        radius: layerEdit?.areaRadius,
     }),
     { setBufferRadius }
 )(BufferRadius)

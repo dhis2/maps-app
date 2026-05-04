@@ -734,4 +734,68 @@ describe('cleanMapConfig', () => {
             ],
         })
     })
+
+    test('serializes countFeaturesWithoutCoordinates into config JSON for thematic layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'My Thematic',
+                    rows: [],
+                    countFeaturesWithoutCoordinates: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countFeaturesWithoutCoordinates).toBe(true)
+        expect(mapView.countFeaturesWithoutCoordinates).toBeUndefined()
+    })
+
+    test('serializes countFeaturesWithoutCoordinates into config JSON for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    countFeaturesWithoutCoordinates: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countFeaturesWithoutCoordinates).toBe(true)
+        expect(mapView.countFeaturesWithoutCoordinates).toBeUndefined()
+    })
+
+    test('preserves countFeaturesWithoutCoordinates as top-level property for earth engine layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'earthEngine',
+                    layerId: 'NASA/FIRMS',
+                    name: 'Fire',
+                    rows: [],
+                    countFeaturesWithoutCoordinates: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        expect(mapView.countFeaturesWithoutCoordinates).toBe(true)
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countFeaturesWithoutCoordinates).toBeUndefined()
+    })
 })

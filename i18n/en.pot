@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-05-01T10:18:47.999Z\n"
-"PO-Revision-Date: 2026-05-01T10:18:48.000Z\n"
+"POT-Creation-Date: 2026-05-04T14:12:54.399Z\n"
+"PO-Revision-Date: 2026-05-04T14:12:54.399Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -267,6 +267,9 @@ msgstr "Organisation Units"
 msgid "Style"
 msgstr "Style"
 
+msgid "Count org units without coordinates"
+msgstr "Count org units without coordinates"
+
 msgid "Point color"
 msgstr "Point color"
 
@@ -394,6 +397,9 @@ msgstr "View all events"
 
 msgid "Radius"
 msgstr "Radius"
+
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
 
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
@@ -682,6 +688,19 @@ msgstr "Remove layer"
 
 msgid "Filters"
 msgstr "Filters"
+
+msgid "Data quality"
+msgstr "Data quality"
+
+msgid "{{count}} event without coordinates"
+msgid_plural "{{count}} event without coordinates"
+msgstr[0] "{{count}} event without coordinates"
+msgstr[1] "{{count}} events without coordinates"
+
+msgid "{{count}} org unit without coordinates"
+msgid_plural "{{count}} org unit without coordinates"
+msgstr[0] "{{count}} org unit without coordinates"
+msgstr[1] "{{count}} org units without coordinates"
 
 msgid "No data found"
 msgstr "No data found"
@@ -1727,6 +1746,9 @@ msgstr "Financial year (Start April)"
 
 msgid "Cancelled"
 msgstr "Cancelled"
+
+msgid "Could not count org units without coordinates"
+msgstr "Could not count org units without coordinates"
 
 msgid "Earth Engine layer"
 msgstr "Earth Engine layer"

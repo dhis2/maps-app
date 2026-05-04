@@ -16,6 +16,7 @@ import { Checkbox, FontStyle, LabelDisplayOptions } from '../../core/index.js'
 import styles from '../styles/LayerDialog.module.css'
 
 const Labels = ({
+    className,
     includeDisplayOption,
     labels,
     labelTemplate,
@@ -37,7 +38,7 @@ const Labels = ({
     }, [labels, includeDisplayOption, labelTemplate, setLabelTemplate])
 
     return (
-        <div className={cx(styles.flexInnerColumnFlow)}>
+        <div className={cx(styles.labels, className)}>
             <div>
                 <Checkbox
                     label={i18n.t('Labels')}
@@ -78,6 +79,7 @@ Labels.propTypes = {
     setLabelFontWeight: PropTypes.func.isRequired,
     setLabelTemplate: PropTypes.func.isRequired,
     setLabels: PropTypes.func.isRequired,
+    className: PropTypes.string,
     includeDisplayOption: PropTypes.bool,
     labelFontColor: PropTypes.string,
     labelFontSize: PropTypes.string,
@@ -89,12 +91,12 @@ Labels.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        labels: layerEdit.labels,
-        labelTemplate: layerEdit.labelTemplate,
-        labelFontColor: layerEdit.labelFontColor,
-        labelFontSize: layerEdit.labelFontSize,
-        labelFontStyle: layerEdit.labelFontStyle,
-        labelFontWeight: layerEdit.labelFontWeight,
+        labels: layerEdit?.labels,
+        labelTemplate: layerEdit?.labelTemplate,
+        labelFontColor: layerEdit?.labelFontColor,
+        labelFontSize: layerEdit?.labelFontSize,
+        labelFontStyle: layerEdit?.labelFontStyle,
+        labelFontWeight: layerEdit?.labelFontWeight,
     }),
     {
         setLabels,

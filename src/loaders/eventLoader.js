@@ -25,7 +25,8 @@ import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
-const shouldUseServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
+const shouldUseServerCluster = (count, countFeaturesWithoutCoordinates) =>
+    !countFeaturesWithoutCoordinates && count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
@@ -102,11 +103,15 @@ const loadEventLayer = async ({
     loadExtended,
 }) => {
     const {
+        countFeaturesWithoutCoordinates,
         legendDecimalPlaces,
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
     } = parseJsonConfig(config.config)
+    if (countFeaturesWithoutCoordinates) {
+        config.countFeaturesWithoutCoordinates = true
+    }
     if (legendDecimalPlaces !== undefined) {
         config.legendDecimalPlaces = legendDecimalPlaces
     }
@@ -185,13 +190,16 @@ const loadEventLayer = async ({
     if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        config.serverCluster = shouldUseServerCluster(response.count)
+        config.serverCluster = shouldUseServerCluster(
+            response.count,
+            config.countFeaturesWithoutCoordinates
+        )
         serverCount = response.count
     }
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { data, response } = await loadData({
+        const { data, response, dataWithoutCoords } = await loadData({
             request: analyticsRequest,
             config,
             analyticsEngine,
@@ -199,6 +207,11 @@ const loadEventLayer = async ({
         const { total } = response.metaData.pager
 
         config.data = data
+        if (config.countFeaturesWithoutCoordinates) {
+            config.dataWithoutCoords = dataWithoutCoords
+            config.legend.eventsWithoutCoordinatesCount =
+                dataWithoutCoords.length
+        }
 
         if (styleDataItem) {
             await styleByDataItem(config, engine)

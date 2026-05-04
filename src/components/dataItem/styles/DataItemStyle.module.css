@@ -1,0 +1,13 @@
+.flexColumnFlow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    margin: 0;
+    box-sizing: border-box;
+    max-width: 340px;
+}

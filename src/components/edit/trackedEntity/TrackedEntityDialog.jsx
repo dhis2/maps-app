@@ -276,7 +276,7 @@ class TrackedEntityDialog extends Component {
                                         })
                                     }}
                                     style={{
-                                        marginBottom: 0,
+                                        marginBottom: 12,
                                     }}
                                 />
                                 {this.state.showRelationshipsChecked && (
@@ -352,7 +352,12 @@ class TrackedEntityDialog extends Component {
 
                                 {relationshipType ? (
                                     <Fragment>
-                                        <div className={styles.header}>
+                                        <div
+                                            className={cx(
+                                                styles.header,
+                                                styles.sectionHeader
+                                            )}
+                                        >
                                             {i18n.t('Related entity style')}:
                                         </div>
                                         <div
