@@ -10,6 +10,13 @@ import {
     NONE,
 } from '../constants/layers.js'
 import { getUniqueColor } from './colors.js'
+import { toGeoJson } from './map.js'
+import {
+    FIRST_DATA_ELEMENT_QUERY,
+    GEOFEATURES_QUERY,
+    ORG_UNITS_COUNT_QUERY,
+    ORG_UNIT_DETAILS_QUERY,
+} from './requests.js'
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -81,13 +88,15 @@ export const getOrgUnitGroupLegendItems = (
     useColor,
     contextPath
 ) =>
-    groups.map(({ name, color = true, symbol }) =>
+    groups.map(({ id, name, color = true, symbol }) =>
         useColor
             ? {
+                  id,
                   name,
                   color,
               }
             : {
+                  id,
                   name,
                   image: `${contextPath}/images/orgunitgroup/${symbol}`,
               }
@@ -191,7 +200,9 @@ export const getStyledOrgUnits = ({
         styledFeatures,
         legend: {
             unit: name,
-            items: [...levelItems, ...groupItems, ...facilityItems],
+            items: groupItems.length
+                ? groupItems
+                : [...levelItems, ...facilityItems],
         },
     }
 }
@@ -223,6 +234,128 @@ export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
     orgUnitField && orgUnitField !== NONE
         ? { id: orgUnitField, name: orgUnitFieldDisplayName }
         : null
+
+export const getOrgUnitsWithoutCoordsCount = async ({
+    engine,
+    orgUnitIds,
+    userId,
+    features = [],
+}) => {
+    if (!orgUnitIds.length) {
+        return { count: 0, missingOrgUnits: [] }
+    }
+
+    try {
+        const deResult = await engine.query(FIRST_DATA_ELEMENT_QUERY)
+        const dataElementId = deResult?.dataElements?.dataElements?.[0]?.id
+        if (!dataElementId) {
+            return { error: true }
+        }
+
+        const countData = await engine.query(ORG_UNITS_COUNT_QUERY, {
+            variables: { dataElementId, orgUnitIds, userId },
+        })
+        const allOuIds =
+            countData?.orgUnitsCount?.metaData?.dimensions?.ou || []
+        const metaItems = countData?.orgUnitsCount?.metaData?.items || {}
+
+        const featureIds = new Set(features.map((f) => f.id))
+        const missingOrgUnits = allOuIds
+            .filter((id) => !featureIds.has(id))
+            .map((id) => ({
+                id,
+                properties: { id, name: metaItems[id]?.name || id },
+            }))
+
+        return { count: missingOrgUnits.length, missingOrgUnits }
+    } catch {
+        return { error: true }
+    }
+}
+
+const OU_DETAILS_BATCH_SIZE = 100
+
+export const fetchOrgUnitDetails = async (engine, ids) => {
+    if (!ids.length) {
+        return {}
+    }
+
+    const batches = []
+    for (let i = 0; i < ids.length; i += OU_DETAILS_BATCH_SIZE) {
+        batches.push(ids.slice(i, i + OU_DETAILS_BATCH_SIZE))
+    }
+
+    try {
+        const results = await Promise.all(
+            batches.map((batch) =>
+                engine.query(ORG_UNIT_DETAILS_QUERY, {
+                    variables: { ids: batch },
+                })
+            )
+        )
+
+        return results.reduce((acc, result) => {
+            ;(result.orgUnits.organisationUnits || []).forEach((ou) => {
+                acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
+            })
+            return acc
+        }, {})
+    } catch {
+        return {}
+    }
+}
+
+export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
+    legendItems.forEach((item) => (item.count = 0))
+    features.forEach((f) => {
+        const groupId = f.properties?.dimensions?.[groupSet.id]
+        const item = legendItems.find((i) => i.id === groupId)
+        if (item) {
+            item.count++
+        }
+    })
+}
+
+export const fetchAndParseGroupSet = async (engine, groupSet) => {
+    try {
+        const { groupSets } = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: { id: groupSet?.id },
+        })
+        return {
+            organisationUnitGroups: parseGroupSet({
+                organisationUnitGroups: groupSets.organisationUnitGroups,
+            }),
+            name: groupSets.name,
+        }
+    } catch {
+        return null
+    }
+}
+
+export const fetchAssociatedGeometries = async (
+    engine,
+    {
+        orgUnitIds,
+        keyAnalysisDisplayProperty,
+        includeGroupSets,
+        coordinateField,
+        userId,
+    },
+    filterGeoFeatures = (items) => items
+) => {
+    const rawData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField: coordinateField.id,
+            userId,
+        },
+    })
+    return rawData?.geoFeatures
+        ? toGeoJson(filterGeoFeatures(rawData.geoFeatures))
+        : null
+}
 
 // Combines main org unit features with associated geometries
 export const addAssociatedGeometries = (mainFeatures, associatedGeometries) => {

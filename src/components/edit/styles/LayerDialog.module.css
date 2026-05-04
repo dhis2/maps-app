@@ -7,6 +7,14 @@
     max-width: 340px;
 }
 
+.marginTop {
+    margin-top: var(--spacers-dp12) !important;
+}
+
+.noMarginTop {
+    margin-top: 0 !important;
+}
+
 .periodSelect {
     width: auto;
     max-width: 360px;
@@ -68,6 +76,10 @@
     margin: var(--spacers-dp12) 0;
     font-size: 14px;
     font-weight: bold;
+}
+
+.sectionHeader {
+    margin-top: var(--spacers-dp48);
 }
 
 .paragraph {
@@ -133,6 +145,10 @@
 
 .checkbox {
     margin: var(--spacers-dp8) 0 0 calc(var(--spacers-dp8) * -1);
+}
+
+.labels {
+    margin-top: var(--spacers-dp8);
 }
 
 .labelDisplayOptions {

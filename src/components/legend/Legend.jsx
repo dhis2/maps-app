@@ -20,6 +20,8 @@ const Legend = ({
     source,
     sourceUrl,
     decimalPlaces,
+    eventsWithoutCoordinatesCount,
+    orgUnitsWithoutCoordinatesCount,
     isPlugin = false,
 }) => {
     const showRange = Array.isArray(items) && !legendNamesContainRange(items)
@@ -92,6 +94,30 @@ const Legend = ({
                     ))}
                 </div>
             )}
+            {(typeof eventsWithoutCoordinatesCount === 'number' ||
+                typeof orgUnitsWithoutCoordinatesCount === 'number') && (
+                <div className={styles.dataQuality}>
+                    <div>{i18n.t('Data quality')}:</div>
+                    {typeof eventsWithoutCoordinatesCount === 'number' && (
+                        <div>
+                            {i18n.t('{{count}} event without coordinates', {
+                                count: eventsWithoutCoordinatesCount,
+                                defaultValue_plural:
+                                    '{{count}} events without coordinates',
+                            })}
+                        </div>
+                    )}
+                    {typeof orgUnitsWithoutCoordinatesCount === 'number' && (
+                        <div>
+                            {i18n.t('{{count}} org unit without coordinates', {
+                                count: orgUnitsWithoutCoordinatesCount,
+                                defaultValue_plural:
+                                    '{{count}} org units without coordinates',
+                            })}
+                        </div>
+                    )}
+                </div>
+            )}
             {source && (
                 <div className={styles.source}>
                     {i18n.t('Source')}:&nbsp;
@@ -117,11 +143,13 @@ Legend.propTypes = {
     coordinateFields: PropTypes.array,
     decimalPlaces: PropTypes.number,
     description: PropTypes.string,
+    eventsWithoutCoordinatesCount: PropTypes.number,
     explanation: PropTypes.array,
     filters: PropTypes.array,
     groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     isPlugin: PropTypes.bool,
     items: PropTypes.array,
+    orgUnitsWithoutCoordinatesCount: PropTypes.number,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,
     unit: PropTypes.string,

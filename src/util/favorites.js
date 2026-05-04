@@ -2,7 +2,9 @@ import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
     EARTH_ENGINE_LAYER,
     EVENT_LAYER,
+    FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    ORG_UNIT_LAYER,
     THEMATIC_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
@@ -54,6 +56,7 @@ const validLayerProperties = [
     'labelFontWeight',
     'labelFontColor',
     'labelTemplate',
+    'countFeaturesWithoutCoordinates',
     'legendDecimalPlaces',
     'legendIsolated',
     'lastUpdated',
@@ -217,7 +220,12 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.relationshipLineColor
         delete layer.relationshipOutsideProgram
         delete layer.periodType
-    } else if (layerType === THEMATIC_LAYER || layerType === EVENT_LAYER) {
+    } else if (
+        layerType === THEMATIC_LAYER ||
+        layerType === EVENT_LAYER ||
+        layerType === ORG_UNIT_LAYER ||
+        layerType === FACILITY_LAYER
+    ) {
         if (cleanMapviewConfig) {
             const configData = {}
             if (layer.legendDecimalPlaces !== undefined) {
@@ -233,6 +241,9 @@ const models2objects = (layer, cleanMapviewConfig) => {
                 layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
                 configData.noDataLegend = layer.noDataLegend
             }
+            if (layer.countFeaturesWithoutCoordinates) {
+                configData.countFeaturesWithoutCoordinates = true
+            }
             if (Object.keys(configData).length) {
                 layer.config = JSON.stringify(configData)
             }
@@ -242,6 +253,7 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.legendIsolated
         delete layer.noDataLegend
         delete layer.unclassifiedLegend
+        delete layer.countFeaturesWithoutCoordinates
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

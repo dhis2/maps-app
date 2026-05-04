@@ -21,13 +21,15 @@
 }
 
 .filters,
-.coordinateFields {
+.coordinateFields,
+.dataQuality {
     padding-top: var(--spacers-dp16);
     font-size: 12px;
 }
 
 .filters > div:first-child,
-.coordinateFields > div:first-child {
+.coordinateFields > div:first-child,
+.dataQuality > div:first-child {
     font-weight: bold;
 }
 

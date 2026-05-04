@@ -1,13 +1,15 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     setOrgUnits,
     setRadiusLow,
     setOrganisationUnitGroupSet,
     setOrganisationUnitColor,
+    setCountFeaturesWithoutCoordinates,
 } from '../../actions/layerEdit.js'
 import {
     ORG_UNIT_COLOR,
@@ -19,7 +21,7 @@ import {
     NONE,
 } from '../../constants/layers.js'
 import { getOrgUnitsFromRows } from '../../util/analytics.js'
-import { Tab, Tabs, NumberField, ColorPicker } from '../core/index.js'
+import { Tab, Tabs, NumberField, ColorPicker, Checkbox } from '../core/index.js'
 import StyleByGroupSet from '../groupSet/StyleByGroupSet.jsx'
 import OrgUnitSelect from '../orgunits/OrgUnitSelect.jsx'
 import BufferRadius from './shared/BufferRadius.jsx'
@@ -49,6 +51,9 @@ const FacilityDialog = ({
     const [orgUnitsError, setOrgUnitsError] = useState()
     const { data } = useDataQuery(QUERY)
     const dispatch = useDispatch()
+    const countFeaturesWithoutCoordinates = useSelector(
+        (state) => state.layerEdit.countFeaturesWithoutCoordinates
+    )
 
     const facilityOrgUnitLevel = data?.configuration.facilityOrgUnitLevel
     const facilityOrgUnitGroupSet = data?.configuration.facilityOrgUnitGroupSet
@@ -110,10 +115,24 @@ const FacilityDialog = ({
                         data-test="facilitydialog-styletab"
                     >
                         <div className={styles.flexColumn}>
-                            <Labels />
+                            <Labels className={styles.noMarginTop} />
                             <BufferRadius
                                 defaultRadius={FACILITY_BUFFER}
                                 hasOrgUnitField={hasOrgUnitField}
+                                className={styles.noMarginTop}
+                            />
+                            <Checkbox
+                                label={i18n.t(
+                                    'Count org units without coordinates'
+                                )}
+                                checked={!!countFeaturesWithoutCoordinates}
+                                onChange={(checked) =>
+                                    dispatch(
+                                        setCountFeaturesWithoutCoordinates(
+                                            checked
+                                        )
+                                    )
+                                }
                             />
                         </div>
                         <div className={styles.flexColumn}>
@@ -133,7 +152,10 @@ const FacilityDialog = ({
                                                 setOrganisationUnitColor(val)
                                             )
                                         }
-                                        className={styles.narrowField}
+                                        className={cx(
+                                            styles.narrowField,
+                                            styles.marginTop
+                                        )}
                                     />
                                     <NumberField
                                         label={i18n.t('Point radius')}
