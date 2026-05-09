@@ -1,4 +1,3 @@
-# 
 # Translators:
 # Siddharth Agarwal, 2025
 # AkashJindal, 2025
@@ -197,13 +196,13 @@ msgid "Groups"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "यह फ़ील्ड आवश्यक है"
 
 msgid "Data"
 msgstr "डेटा"
 
 msgid "Period"
-msgstr ""
+msgstr "पीरियड"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -265,7 +264,7 @@ msgid "Filter"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "इवेंट्स"
 
 msgid "Group events"
 msgstr ""
@@ -588,10 +587,10 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr ""
+msgstr "देशांतर"
 
 msgid "Latitude"
-msgstr ""
+msgstr "अक्षांश"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
@@ -728,7 +727,7 @@ msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "ईमेल"
 
 msgid "Address"
 msgstr ""
@@ -1128,13 +1127,13 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "सभी"
 
 msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr ""
+msgstr "पूरा हुआ"
 
 msgid "Schedule"
 msgstr ""
