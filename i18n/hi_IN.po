@@ -299,7 +299,7 @@ msgid "Data"
 msgstr "डेटा"
 
 msgid "Period"
-msgstr ""
+msgstr "पीरियड"
 
 msgid "Dataset"
 msgstr ""
@@ -1748,7 +1748,7 @@ msgid "Facility"
 msgstr ""
 
 msgid "Other"
-msgstr ""
+msgstr "दूसरा"
 
 msgid "Start date is invalid"
 msgstr ""
