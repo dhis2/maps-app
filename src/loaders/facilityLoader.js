@@ -33,11 +33,14 @@ const applyMissingCoordsCount = async (
         alerts.push({
             warning: true,
             code: CUSTOM_ALERT,
-            message: i18n.t('Could not count org units without coordinates'),
+            message: i18n.t(
+                'Could not count org units without a point location'
+            ),
         })
         return
     }
     legend.orgUnitsWithoutCoordinatesCount = result.count
+    legend.orgUnitsPointOnly = true
     if (result.count > 0) {
         config.dataWithoutCoords = result.missingOrgUnits
     }
@@ -164,7 +167,7 @@ const facilityLoader = async ({
         alerts.push({
             warning: true,
             code: CUSTOM_ALERT,
-            message: i18n.t('No coordinates found for selected facilities'),
+            message: i18n.t('No point locations found for selected facilities'),
         })
     }
 

@@ -22,6 +22,7 @@ const Legend = ({
     decimalPlaces,
     eventsWithoutCoordinatesCount,
     orgUnitsWithoutCoordinatesCount,
+    orgUnitsPointOnly = false,
     isPlugin = false,
 }) => {
     const showRange = Array.isArray(items) && !legendNamesContainRange(items)
@@ -109,11 +110,23 @@ const Legend = ({
                     )}
                     {typeof orgUnitsWithoutCoordinatesCount === 'number' && (
                         <div>
-                            {i18n.t('{{count}} org unit without coordinates', {
-                                count: orgUnitsWithoutCoordinatesCount,
-                                defaultValue_plural:
-                                    '{{count}} org units without coordinates',
-                            })}
+                            {orgUnitsPointOnly
+                                ? i18n.t(
+                                      '{{count}} org unit without a point location',
+                                      {
+                                          count: orgUnitsWithoutCoordinatesCount,
+                                          defaultValue_plural:
+                                              '{{count}} org units without a point location',
+                                      }
+                                  )
+                                : i18n.t(
+                                      '{{count}} org unit without coordinates',
+                                      {
+                                          count: orgUnitsWithoutCoordinatesCount,
+                                          defaultValue_plural:
+                                              '{{count}} org units without coordinates',
+                                      }
+                                  )}
                         </div>
                     )}
                 </div>
@@ -149,6 +162,7 @@ Legend.propTypes = {
     groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     isPlugin: PropTypes.bool,
     items: PropTypes.array,
+    orgUnitsPointOnly: PropTypes.bool,
     orgUnitsWithoutCoordinatesCount: PropTypes.number,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,

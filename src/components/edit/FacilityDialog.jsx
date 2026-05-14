@@ -123,7 +123,7 @@ const FacilityDialog = ({
                             />
                             <Checkbox
                                 label={i18n.t(
-                                    'Count org units without coordinates'
+                                    'Count org units without a point location'
                                 )}
                                 checked={!!countFeaturesWithoutCoordinates}
                                 onChange={(checked) =>
