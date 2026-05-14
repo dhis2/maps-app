@@ -7,6 +7,7 @@ import {
     setRadiusLow,
     setOrganisationUnitColor,
     setCountFeaturesWithoutCoordinates,
+    setUnclassifiedLegend,
 } from '../../../actions/layerEdit.js'
 import {
     ORG_UNIT_COLOR,
@@ -26,6 +27,7 @@ import {
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import Labels from '../shared/Labels.jsx'
+import UnclassifiedLegend from '../shared/UnclassifiedLegend.jsx'
 import styles from '../styles/LayerDialog.module.css'
 
 class OrgUnitDialog extends Component {
@@ -33,12 +35,18 @@ class OrgUnitDialog extends Component {
         setCountFeaturesWithoutCoordinates: PropTypes.func.isRequired,
         setOrganisationUnitColor: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
+        setUnclassifiedLegend: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         countFeaturesWithoutCoordinates: PropTypes.bool,
         organisationUnitColor: PropTypes.string,
+        organisationUnitGroupSet: PropTypes.object,
         radiusLow: PropTypes.number,
         rows: PropTypes.array,
+        unclassifiedLegend: PropTypes.shape({
+            color: PropTypes.string.isRequired,
+            name: PropTypes.string,
+        }),
     }
 
     state = {
@@ -58,9 +66,12 @@ class OrgUnitDialog extends Component {
             radiusLow,
             organisationUnitColor,
             countFeaturesWithoutCoordinates,
+            organisationUnitGroupSet,
+            unclassifiedLegend,
             setOrganisationUnitColor,
             setRadiusLow,
             setCountFeaturesWithoutCoordinates,
+            setUnclassifiedLegend,
         } = this.props
 
         const { tab, orgUnitsError } = this.state
@@ -119,6 +130,12 @@ class OrgUnitDialog extends Component {
                                 <StyleByGroupSet
                                     defaultStyleType={STYLE_TYPE_COLOR}
                                 />
+                                {organisationUnitGroupSet && (
+                                    <UnclassifiedLegend
+                                        value={unclassifiedLegend}
+                                        onChange={setUnclassifiedLegend}
+                                    />
+                                )}
                             </div>
                         </div>
                     )}
@@ -161,6 +178,7 @@ export default connect(
         setRadiusLow,
         setOrganisationUnitColor,
         setCountFeaturesWithoutCoordinates,
+        setUnclassifiedLegend,
     },
     null,
     {

@@ -108,6 +108,7 @@ export const getStyledOrgUnits = ({
     config: {
         organisationUnitColor = ORG_UNIT_COLOR,
         radiusLow = ORG_UNIT_RADIUS,
+        unclassifiedLegend,
     },
     baseUrl,
     orgUnitLevels,
@@ -138,52 +139,65 @@ export const getStyledOrgUnits = ({
 
     const useColor = styleType === STYLE_TYPE_COLOR
 
-    let styledFeatures = features.map((f) => {
-        const isPoint = f.geometry.type === 'Point'
-        const { hasAdditionalGeometry } = f.properties
-        const { color, symbol } = getOrgUnitStyle(
-            f.properties.dimensions,
-            groupSet
+    const styledFeatures = features
+        .map((f) => {
+            const isPoint = f.geometry.type === 'Point'
+            const { hasAdditionalGeometry } = f.properties
+            const { color, symbol } = getOrgUnitStyle(
+                f.properties.dimensions,
+                groupSet
+            )
+            const isUnclassified = !!groupSet.id && !color && !symbol
+            let radius
+
+            if (isPoint) {
+                radius = hasAdditionalGeometry
+                    ? ORG_UNIT_RADIUS_SMALL + 1
+                    : radiusLow
+            }
+
+            const properties = {
+                ...f.properties,
+                radius,
+            }
+
+            if (isUnclassified && unclassifiedLegend) {
+                properties.color = unclassifiedLegend.color
+            } else if (useColor && color) {
+                properties.color = hasAdditionalGeometry
+                    ? ORG_UNIT_COLOR
+                    : color
+            } else if (symbol) {
+                properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
+            }
+
+            if (properties.level && levelWeight) {
+                properties.weight = levelWeight(f.properties.level)
+            }
+
+            return {
+                ...f,
+                properties,
+            }
+        })
+        .filter(
+            (f) =>
+                !groupSet.id || !!f.properties.iconUrl || !!f.properties.color
         )
-        let radius
-
-        if (isPoint) {
-            radius = hasAdditionalGeometry
-                ? ORG_UNIT_RADIUS_SMALL + 1
-                : radiusLow
-        }
-
-        const properties = {
-            ...f.properties,
-            radius,
-        }
-
-        if (useColor && color) {
-            properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color
-        } else if (symbol) {
-            properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
-        }
-
-        if (properties.level && levelWeight) {
-            properties.weight = levelWeight(f.properties.level)
-        }
-
-        return {
-            ...f,
-            properties,
-        }
-    })
-
-    // Only include facilities having a group membership
-    if (isFacilityLayer && groupSet.id && !useColor) {
-        styledFeatures = styledFeatures.filter((f) => f.properties.iconUrl)
-    }
 
     const groupItems = getOrgUnitGroupLegendItems(
         organisationUnitGroups,
         useColor,
         baseUrl
     )
+
+    if (unclassifiedLegend && groupSet.id) {
+        groupItems.push({
+            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            color: unclassifiedLegend.color,
+            ...(isFacilityLayer && !useColor ? { radius: radiusLow } : {}),
+        })
+    }
 
     const facilityItems =
         isFacilityLayer && !groupSet.id

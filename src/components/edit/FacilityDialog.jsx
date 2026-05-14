@@ -10,6 +10,7 @@ import {
     setOrganisationUnitGroupSet,
     setOrganisationUnitColor,
     setCountFeaturesWithoutCoordinates,
+    setUnclassifiedLegend,
 } from '../../actions/layerEdit.js'
 import {
     ORG_UNIT_COLOR,
@@ -26,6 +27,7 @@ import StyleByGroupSet from '../groupSet/StyleByGroupSet.jsx'
 import OrgUnitSelect from '../orgunits/OrgUnitSelect.jsx'
 import BufferRadius from './shared/BufferRadius.jsx'
 import Labels from './shared/Labels.jsx'
+import UnclassifiedLegend from './shared/UnclassifiedLegend.jsx'
 import styles from './styles/LayerDialog.module.css'
 
 const QUERY = {
@@ -42,6 +44,7 @@ const FacilityDialog = ({
     radiusLow,
     organisationUnitColor,
     organisationUnitGroupSet,
+    unclassifiedLegend,
     orgUnitField,
     id,
     validateLayer,
@@ -139,6 +142,14 @@ const FacilityDialog = ({
                             <StyleByGroupSet
                                 defaultStyleType={STYLE_TYPE_SYMBOL}
                             />
+                            {organisationUnitGroupSet && (
+                                <UnclassifiedLegend
+                                    value={unclassifiedLegend}
+                                    onChange={(v) =>
+                                        dispatch(setUnclassifiedLegend(v))
+                                    }
+                                />
+                            )}
                             {!organisationUnitGroupSet && (
                                 <>
                                     <ColorPicker
@@ -191,6 +202,10 @@ FacilityDialog.propTypes = {
     organisationUnitGroupSet: PropTypes.object,
     radiusLow: PropTypes.number,
     rows: PropTypes.array,
+    unclassifiedLegend: PropTypes.shape({
+        color: PropTypes.string.isRequired,
+        name: PropTypes.string,
+    }),
 }
 
 export default FacilityDialog

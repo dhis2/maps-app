@@ -73,6 +73,12 @@ const orgUnitLoader = async ({
     const name = i18n.t('Organisation units')
     const alerts = []
 
+    const { unclassifiedLegend } = parseJsonConfig(config.config)
+    if (unclassifiedLegend) {
+        config.unclassifiedLegend = unclassifiedLegend
+    }
+    delete config.config
+
     // Config parsing
     // -----
 

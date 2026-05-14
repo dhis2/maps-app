@@ -42,14 +42,20 @@ export const numericFilter = (value, filter) => {
 
 // Returns true if the filter is true
 const isTrueFilter = (value, filter) => {
+    if (filter.includes('>=')) {
+        return value >= Number(filter.split('>=')[1])
+    }
+
+    if (filter.includes('<=')) {
+        return value <= Number(filter.split('<=')[1])
+    }
+
     if (filter.includes('>')) {
-        // GREATER THAN
-        return value >= Number(filter.split('>')[1])
+        return value > Number(filter.split('>')[1])
     }
 
     if (filter.includes('<')) {
-        // LESS THAN
-        return value <= Number(filter.split('<')[1])
+        return value < Number(filter.split('<')[1])
     }
 
     return value === Number(filter) // Equal number

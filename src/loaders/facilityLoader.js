@@ -62,6 +62,12 @@ const facilityLoader = async ({
     const name = i18n.t('Facilities')
     const alerts = []
 
+    const { unclassifiedLegend } = parseJsonConfig(config.config)
+    if (unclassifiedLegend) {
+        config.unclassifiedLegend = unclassifiedLegend
+    }
+    delete config.config
+
     // Config parsing
     // -----
 

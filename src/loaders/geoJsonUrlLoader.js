@@ -119,7 +119,7 @@ const geoJsonUrlLoader = async ({
 
     return {
         ...layer,
-        name: newConfig.name, // Overrides layer.name from spread — redundant on 2.42+ (DHIS2-16088), remove when 2.41 support is dropped
+        name: newConfig.name, // VERSION-TOGGLE: remove when 41 is lowest supported version, overrides layer.name from spread (DHIS2-16088)
         legend,
         data,
         keyAnalysisDigitGroupSeparator,
