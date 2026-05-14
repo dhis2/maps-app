@@ -202,13 +202,13 @@ const models2objects = (layer, cleanMapviewConfig) => {
             layer.config = JSON.stringify({
                 relationships: layer.relationshipType
                     ? {
-                          type: layer.relationshipType,
-                          pointColor: layer.relatedPointColor,
-                          pointRadius: layer.relatedPointRadius,
-                          lineColor: layer.relationshipLineColor,
-                          relationshipOutsideProgram:
-                              layer.relationshipOutsideProgram,
-                      }
+                        type: layer.relationshipType,
+                        pointColor: layer.relatedPointColor,
+                        pointRadius: layer.relatedPointRadius,
+                        lineColor: layer.relationshipLineColor,
+                        relationshipOutsideProgram:
+                            layer.relationshipOutsideProgram,
+                    }
                     : null,
                 periodType: layer.periodType,
             })
