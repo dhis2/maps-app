@@ -1,3 +1,10 @@
+# [101.11.0](https://github.com/dhis2/maps-app/compare/v101.10.2...v101.11.0) (2026-05-14)
+
+
+### Features
+
+* add filter operators `<=` and `>=` and correct `<` and `>` in data table [DHIS2-19988] ([#3643](https://github.com/dhis2/maps-app/issues/3643)) ([363aaa0](https://github.com/dhis2/maps-app/commit/363aaa0b48578fd837ad47e296da2e345b9f9a11))
+
 ## [101.10.2](https://github.com/dhis2/maps-app/compare/v101.10.1...v101.10.2) (2026-04-22)
 
 
