@@ -65,7 +65,8 @@ const facilityLoader = async ({
     // Config parsing
     // -----
 
-    const { countFeaturesWithoutCoordinates, unclassifiedLegend } = parseJsonConfig(config.config)
+    const { countFeaturesWithoutCoordinates, unclassifiedLegend } =
+        parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
     }
