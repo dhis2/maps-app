@@ -5,6 +5,7 @@ import {
     CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
 import {
     ORG_UNITS_GROUP_SET_QUERY,
@@ -31,6 +32,12 @@ const facilityLoader = async ({
 
     let loadError
     const alerts = []
+
+    const { unclassifiedLegend } = parseJsonConfig(config.config)
+    if (unclassifiedLegend) {
+        config.unclassifiedLegend = unclassifiedLegend
+    }
+    delete config.config
 
     const orgUnitIds = orgUnits.map((item) => item.id)
     let associatedGeometries
