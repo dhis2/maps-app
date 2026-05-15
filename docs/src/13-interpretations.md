@@ -1,8 +1,8 @@
 ## Map interpretations and details { #mapsInterpretation }
 
-An interpretation is a description of a map at a given period. This information is also visible in
+An interpretation is a description of a map for a given period. This information is also visible in
 the **Dashboard app**. Click **Interpretations and details** in the top right of the workspace to
-open the interpretations panel. The button is only clickable if the map is saved.
+open the interpretations panel. The button is only available when the map has been saved.
 
 ![](../resources/images/maps_interpretations_panel.png)
 
@@ -15,7 +15,7 @@ To view interpretations for relative periods, such as a year ago:
 2.  Click **Interpretations and details** in the top right of the workspace to open the
     interpretations panel.
 
-3.  Click on **See interpretation**. Your map displays the data and the date based on when the
+3.  Click **See interpretation**. Your map displays the data and the date based on when the
     interpretation was created. To view other interpretations, click them.
 
 ![](../resources/images/maps_interpretations_modal.png)
@@ -30,12 +30,11 @@ with other people, the interpretation you write is visible to those people.
 2.  Click **Interpretations and details** in the top right of the workspace to open the
     interpretations panel.
 
-3.  A text field will appear with a placeholder "Write an interpretation" for users that have read
-    access to the saved map.
+3.  A text field appears where you can write an interpretation.
 
 4.  In the text field, type a comment, question or interpretation. You can also mention other users
-    with '@username'. Start by typing '@' plus the first letters of the username or real name and a
-    mentioning bar will display the available users. Mentioned users will receive an internal DHIS2
+    with '@username'. Start by typing '@' followed by the first letters of the username or real
+    name, and a list of matching users will appear. Mentioned users will receive an internal DHIS2
     message with the interpretation or comment. You can see the interpretation in the **Dashboard
     app**.
 
@@ -47,17 +46,17 @@ with other people, the interpretation you write is visible to those people.
 
 2.  Click the share icon below the interpretation. The sharing settings dialog opens.
 
-3.  Search for and add a users and user groups that you want to share your map with, and set the
-    access level. Click on **Give access**.
+3.  Search for and add users and user groups that you want to share your map with, and set the
+    access level. Click **Give access**.
 
 4.  Change the access level for the users you want to modify:
 
-    -   **View and edit**: Everyone can view and edit the object.
+    -   **No access**: The public won't have access to the map. This setting is only applicable to
+        All users.
 
-    -   **View only**: Everyone can view the object.
+    -   **View only**: Users can view but not edit the map.
 
-    -   **No access**: The public won't have access to the object. This setting is only applicable
-        to All users.
+    -   **View and edit**: Users can view and edit the map.
 
     -   **Remove access**: Remove the access for groups or individuals.
 

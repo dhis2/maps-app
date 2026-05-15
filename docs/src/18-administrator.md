@@ -5,8 +5,8 @@ A **Maps** app administrator can be defined by the system administrator assignin
 
 The **Maps** app administrator is able to:
 
--   Select the sources for Google Earth Engine layers available to other users via the Manage
-    available layer sources button.
+-   Select the sources for Google Earth Engine layers available to other users via the **Manage
+    available layer sources** button.
 
 ![](../resources/images/maps_admin_managesources_button.png)
 

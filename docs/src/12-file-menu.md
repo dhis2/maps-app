@@ -6,16 +6,18 @@ Use the **File menu** to manage your maps. Several menu items will be disabled u
 save a map.
 
 Saving your maps makes it easy to restore them later. It also gives you the opportunity to share
-them with other users as an interpretation or put it on the dashboard. You can save all types of
+them with other users as an interpretation or add them to a dashboard. You can save all types of
 layer configurations as a saved map.
 
 ### Create a new map
 
 Click **File** \> **New**.
 
-NB\! This will clear the current map layers you have without saving.
+> **Note**
+>
+> This will discard the current map without saving.
 
-### Open a new map
+### Open a map
 
 1.  Click **File** \> **Open**. A dialog box opens with a list of maps.
 
@@ -55,7 +57,7 @@ When you have created a map it is convenient to save it for later use:
 
 1.  Click **File** \> **Translate**.
 
-2.  Select the **Locale** (language) your translation.
+2.  Select the **Locale** (language) for your translation.
 
 3.  Enter a translated **Name** and **Description**. The original text will show below the field.
 
@@ -71,21 +73,21 @@ modify the sharing settings:
 2.  **Give access to a user or group**: In the text box, search for the name of the user or group
     you want to share your saved map with and select it.
 
-    Select the access level and click on **Give access**.
+    Select the access level and click **Give access**.
 
     Repeat the step to add more users or groups.
 
 3.  **Users and groups that currently have access**: For each user or group, choose the access
     level. The options are:
 
-    -   No access: The public won't have access to the map. This setting is only applicable to All
-        users.
+    -   **No access**: The public won't have access to the map. This setting is only applicable to
+        All users.
 
-    -   View only
+    -   **View only**: Users can view but not edit the map.
 
-    -   View and edit
+    -   **View and edit**: Users can view and edit the map.
 
-    -   Remove access: Remove the access for groups or individuals.
+    -   **Remove access**: Remove the access for groups or individuals.
 
 4.  Click **Close** to close the dialog.
 
@@ -99,5 +101,5 @@ modify the sharing settings:
 
 1.  Click **File** \> **Delete**. A confirmation dialog is displayed.
 
-2.  Click **DELETE** to confirm that you want to delete the saved map. Your map is deleted and the
+2.  Click **Delete** to confirm that you want to delete the saved map. Your map is deleted and the
     layers are cleared from the view.
