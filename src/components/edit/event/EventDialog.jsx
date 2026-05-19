@@ -146,7 +146,7 @@ class EventDialog extends Component {
         }
 
         // Set default dates
-        if (!backupPeriodsDates) {
+        if (!hasDate && !backupPeriodsDates) {
             const defaultDates = getDefaultDatesInCalendar()
             setStartDate(defaultDates.startDate)
             setEndDate(defaultDates.endDate)
