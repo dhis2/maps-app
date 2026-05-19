@@ -125,18 +125,24 @@ Select the time span over which the thematic data is mapped.
     -   **Automatic color legend**: A legend is automatically created based on the classification
         method, number of classes and color scale you select. Set **Classification** to one of:
 
-        -   _Equal intervals_: The range of each interval is (highest data value − lowest data
-            value) / number of classes.
-        -   _Equal counts_: Org units are distributed as evenly as possible across classes.
+        -   _Equal intervals_: Divides the value range into equally-sized intervals, each spanning
+            (highest value − lowest value) ÷ number of classes.
+        -   _Equal counts_: Org units are distributed as evenly as possible across classes (also
+            known as quantile classification). Some datasets cannot be evenly partitioned,
+            particularly when values are heavily repeated or the number of distinct values is small.
         -   _Natural breaks (intervals)_ and _Natural breaks (clusters)_: Class boundaries are
-            placed at the largest gaps in the data distribution. Clusters may present gaps between
-            classes where no values fall.
-        -   _Pretty breaks_: Break points are rounded to clean, human-readable numbers.
+            placed at the largest gaps in the data distribution, based on the
+            [ckmeans](https://simple-statistics.github.io/docs/#ckmeans) algorithm. Both methods
+            group values similarly; _intervals_ produces contiguous class ranges, while _clusters_
+            may leave gaps between classes where no values fall.
+        -   _Pretty breaks_: Break points are rounded to clean, human-readable numbers. Based on R's
+            [pretty](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/pretty)
+            algorithm.
         -   _Logarithmic scale_: Uses a logarithmic scale. Values must be positive; zero or negative
-            values are left as unclassified.
+            values are left unclassified.
         -   _Standard deviation_: Classes are defined as multiples of standard deviations from the
             mean. The number of standard deviations per class depends on the number of classes
-            chosen; values further from the mean are left as unclassified.
+            chosen; values further from the mean are left unclassified.
 
         **Decimal places**: Number of decimal places shown in legend labels. **Auto** lets the app
         decide based on the data range, or choose a fixed value from **0** to **6** (also available
