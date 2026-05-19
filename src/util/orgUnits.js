@@ -309,7 +309,7 @@ export const fetchOrgUnitDetails = async (engine, ids) => {
         )
 
         return results.reduce((acc, result) => {
-            ;(result.orgUnits.organisationUnits || []).forEach((ou) => {
+            result.orgUnits.organisationUnits?.forEach((ou) => {
                 acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
             })
             return acc
@@ -323,7 +323,7 @@ export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
     legendItems.forEach((item) => (item.count = 0))
     features.forEach((f) => {
         const groupId = f.properties?.dimensions?.[groupSet.id]
-        const item = legendItems.find((i) => i.id === groupId)
+        const item = groupId && legendItems.find((i) => i.id === groupId)
         if (item) {
             item.count++
         }
