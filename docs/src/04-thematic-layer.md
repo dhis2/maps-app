@@ -156,6 +156,18 @@ Select the time span over which the thematic data is mapped.
 -   **Include org units with no data**: Org units with no data value are shown with a configurable
     color and label (default: "No data").
 
+> **Note**
+>
+> Most classes use half-open intervals (`startValue ≤ value < endValue`): a value sitting exactly on
+> a boundary belongs to the upper class, not the one whose label ends there. The exceptions - where
+> the upper bound is inclusive - are the last class, isolated classes, single-value classes, and
+> clusters (natural breaks).
+>
+> If the exact class a boundary value belongs to matters for your analysis, use **Show labels** to
+> overlay values directly on each feature. If it still matters after that, consider whether a
+> different legend, maybe with more classes or higher decimal precision, is the right tool for the
+> decision you are trying to make.
+
 Click **Add layer**.
 
 ### Modify a thematic layer
