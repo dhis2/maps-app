@@ -119,6 +119,7 @@ const ThematicDialog = ({
                 orgUnits,
                 systemSettings,
                 syncFromOtherLayers,
+                shouldSyncFromOtherLayers,
             })
         )
         // eslint-disable-next-line react-hooks/exhaustive-deps
