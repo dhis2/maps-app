@@ -47,9 +47,9 @@ Facility layer configuration dialog.
 -   **Count org units without a point location**: Org units without point coordinates are counted
     and shown in a **Data quality** section of the legend. They also appear in the data table.
 
--   Facilities can be styled with an **org unit group set** using different icons. Select a group
-    set from the list of org unit group sets defined for your DHIS2 instance. The system
-    administrator can set the default org unit group set in the **System Settings** app.
+-   Facilities with a point location can be styled with an **org unit group set** using different
+    icons. Select a group set from the list of org unit group sets defined for your DHIS2 instance.
+    The system administrator can set the default org unit group set in the **System Settings** app.
 
     **Include unclassified org units**: Org units not belonging to any group in the selected group
     set are shown with a configurable color and label (default: "Unclassified").

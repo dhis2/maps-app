@@ -44,8 +44,8 @@ unit layer configuration dialog.
 -   **Count org units without coordinates**: Org units without coordinates are counted and shown in
     a **Data quality** section of the legend. They also appear in the data table.
 
--   Org units can be styled with an **org unit group set** using different colors. Select a group
-    set from the list of org unit group sets defined for your DHIS2 instance.
+-   Org units with coordinates can be styled with an **org unit group set** using different colors.
+    Select a group set from the list of org unit group sets defined for your DHIS2 instance.
 
     **Include unclassified org units**: Org units not belonging to any group in the selected group
     set are shown with a configurable color and label (default: "Unclassified").

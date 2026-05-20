@@ -118,7 +118,8 @@ Select the time span over which the thematic data is mapped.
     value**, or **Value**. Font size, weight, style and color can also be modified.
 
 -   **Count org units without coordinates**: Org units without map coordinates are counted and shown
-    in a **Data quality** section of the legend. They also appear in the data table.
+    in a **Data quality** section of the legend. They also appear in the data table. These org units
+    may or may not have data.
 
 -   Select the legend type:
 
@@ -161,6 +162,9 @@ Select the time span over which the thematic data is mapped.
 
 -   **Include org units with no data**: Org units with no data value are shown with a configurable
     color and label (default: "No data").
+
+> **Note**: All legend items and their counts - including **No data** and **Unclassified** - only
+> include org units with coordinates.
 
 > **Note**
 >

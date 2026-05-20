@@ -274,7 +274,8 @@ Select the time span over which the thematic data is mapped.
     value**, or **Value**. Font size, weight, style and color can also be modified.
 
 -   **Count org units without coordinates**: Org units without map coordinates are counted and shown
-    in a **Data quality** section of the legend. They also appear in the data table.
+    in a **Data quality** section of the legend. They also appear in the data table. These org units
+    may or may not have data.
 
 -   Select the legend type:
 
@@ -317,6 +318,9 @@ Select the time span over which the thematic data is mapped.
 
 -   **Include org units with no data**: Org units with no data value are shown with a configurable
     color and label (default: "No data").
+
+> **Note**: All legend items and their counts - including **No data** and **Unclassified** - only
+> include org units with coordinates.
 
 > **Note**
 >
@@ -487,7 +491,8 @@ layer configuration dialog.
         buffer can be modified here. Only available when **View all events** is selected.
 
 -   **Count events without coordinates**: Events without coordinates are counted and shown in a
-    **Data quality** section of the legend. They also appear in the data table.
+    **Data quality** section of the legend. They also appear in the data table. These events may or
+    may not have data.
 
 -   Select **Style by data item** (data element or attribute) to colorize the events according to a
     data value. If events are grouped, clusters are displayed as small donut charts showing the
@@ -507,6 +512,9 @@ layer configuration dialog.
 
     **Include events with no data**: Events with no data value are shown with a configurable color
     and label (default: "No data").
+
+> **Note**: All legend items and their counts - including **No data** and **Unclassified** - only
+> include events with coordinates.
 
 Click **Add layer**.
 
@@ -755,9 +763,9 @@ Facility layer configuration dialog.
 -   **Count org units without a point location**: Org units without point coordinates are counted
     and shown in a **Data quality** section of the legend. They also appear in the data table.
 
--   Facilities can be styled with an **org unit group set** using different icons. Select a group
-    set from the list of org unit group sets defined for your DHIS2 instance. The system
-    administrator can set the default org unit group set in the **System Settings** app.
+-   Facilities with a point location can be styled with an **org unit group set** using different
+    icons. Select a group set from the list of org unit group sets defined for your DHIS2 instance.
+    The system administrator can set the default org unit group set in the **System Settings** app.
 
     **Include unclassified org units**: Org units not belonging to any group in the selected group
     set are shown with a configurable color and label (default: "Unclassified").
@@ -850,8 +858,8 @@ unit layer configuration dialog.
 -   **Count org units without coordinates**: Org units without coordinates are counted and shown in
     a **Data quality** section of the legend. They also appear in the data table.
 
--   Org units can be styled with an **org unit group set** using different colors. Select a group
-    set from the list of org unit group sets defined for your DHIS2 instance.
+-   Org units with coordinates can be styled with an **org unit group set** using different colors.
+    Select a group set from the list of org unit group sets defined for your DHIS2 instance.
 
     **Include unclassified org units**: Org units not belonging to any group in the selected group
     set are shown with a configurable color and label (default: "Unclassified").

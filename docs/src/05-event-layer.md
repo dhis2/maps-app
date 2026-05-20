@@ -98,7 +98,8 @@ layer configuration dialog.
         buffer can be modified here. Only available when **View all events** is selected.
 
 -   **Count events without coordinates**: Events without coordinates are counted and shown in a
-    **Data quality** section of the legend. They also appear in the data table.
+    **Data quality** section of the legend. They also appear in the data table. These events may or
+    may not have data.
 
 -   Select **Style by data item** (data element or attribute) to colorize the events according to a
     data value. If events are grouped, clusters are displayed as small donut charts showing the
@@ -118,6 +119,9 @@ layer configuration dialog.
 
     **Include events with no data**: Events with no data value are shown with a configurable color
     and label (default: "No data").
+
+> **Note**: All legend items and their counts - including **No data** and **Unclassified** - only
+> include events with coordinates.
 
 Click **Add layer**.
 
