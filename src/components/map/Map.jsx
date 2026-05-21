@@ -222,9 +222,9 @@ class Map extends Component {
                                     setFeatureProfile={setFeatureProfile}
                                     engine={engine}
                                     nameProperty={nameProperty}
-                                    externalPeriod={period}
                                     resizeCount={resizeCount}
                                     {...config}
+                                    externalPeriod={period}
                                 />
                             )
                         })}
