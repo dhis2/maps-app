@@ -1,0 +1,225 @@
+.card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacers-dp16);
+    padding: var(--spacers-dp12) var(--spacers-dp16);
+    border: 1px solid var(--colors-grey300);
+    border-radius: 4px;
+    margin-bottom: var(--spacers-dp8);
+    cursor: pointer;
+    background: #fff;
+    transition: border-color 0.1s, box-shadow 0.1s;
+}
+
+.card:hover {
+    border-color: var(--colors-grey500);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cardExpanded {
+    border-color: var(--colors-blue400);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cardExpanded:hover {
+    border-color: var(--colors-blue500, #3085c1);
+}
+
+.thumbnail {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--colors-grey300);
+    border-radius: 3px;
+    object-fit: cover;
+    background: var(--colors-grey100);
+}
+
+.body {
+    flex: 1;
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp4);
+}
+
+.titleGroup {
+    min-width: 0;
+}
+
+.name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+    margin: 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subtitle {
+    font-size: 12px;
+    color: var(--colors-grey600);
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    flex-shrink: 0;
+}
+
+.starButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--colors-grey400);
+    padding: 2px 4px;
+    border-radius: 3px;
+    line-height: 1;
+    transition: color 0.1s;
+}
+
+.starButton:hover {
+    color: var(--colors-yellow500);
+    background: var(--colors-yellow050);
+}
+
+.starButton.favorited {
+    color: var(--colors-yellow500);
+}
+
+.iconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--colors-grey500);
+    padding: 3px;
+    border-radius: 3px;
+    line-height: 1;
+    transition: color 0.1s, background 0.1s;
+}
+
+.iconButton:hover {
+    color: var(--colors-grey800);
+    background: var(--colors-grey100);
+}
+
+.deleteIconButton:hover {
+    color: var(--colors-red600, #c00);
+    background: var(--colors-red050, #fff3f3);
+}
+
+.addToMapButton {
+    white-space: nowrap;
+    font-size: 12px;
+    padding: 4px 10px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--colors-grey800);
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s;
+}
+
+.addToMapButton:hover {
+    background: var(--colors-grey100);
+    border-color: var(--colors-grey600);
+}
+
+.description {
+    font-size: 13px;
+    color: var(--colors-grey700);
+    margin: 0 0 var(--spacers-dp8);
+    line-height: 1.4;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacers-dp4);
+}
+
+.tag {
+    font-size: 11px;
+    background: var(--colors-grey150, #f0f0f0);
+    color: var(--colors-grey700);
+    border-radius: 10px;
+    padding: 1px 8px;
+}
+
+.meta {
+    font-size: 11px;
+    color: var(--colors-grey600);
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.expandHint {
+    font-size: 10px;
+    color: var(--colors-grey400);
+    margin-left: var(--spacers-dp4);
+    line-height: 1;
+    user-select: none;
+}
+
+/* Expanded detail panel */
+.details {
+    margin-top: var(--spacers-dp8);
+    padding-top: var(--spacers-dp8);
+    border-top: 1px solid var(--colors-grey200);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+}
+
+.extendedDescription {
+    font-size: 12px;
+    color: var(--colors-grey700);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.detailGrid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3px var(--spacers-dp16);
+    align-items: baseline;
+}
+
+.detailRow {
+    display: contents;
+    font-size: 12px;
+}
+
+.detailLabel {
+    font-size: 12px;
+    color: var(--colors-grey600);
+    white-space: nowrap;
+}
+
+.detailValue {
+    font-size: 12px;
+    color: var(--colors-grey800);
+}
+
+.detailLink {
+    font-size: 12px;
+    color: var(--colors-blue700, #005a8e);
+    text-decoration: none;
+}
+
+.detailLink:hover {
+    text-decoration: underline;
+}

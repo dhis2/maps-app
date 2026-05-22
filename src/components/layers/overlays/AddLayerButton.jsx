@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { IconAddCircle24 } from '@dhis2/ui'
+import { IconAdd16 } from '@dhis2/ui'
 import React, { useState, useRef } from 'react'
 import ManageLayerSourcesModal from '../../layerSources/ManageLayerSourcesModal.jsx'
 import AddLayerPopover from './AddLayerPopover.jsx'
@@ -26,7 +26,7 @@ const AddLayerButton = () => {
                     data-test="add-layer-button"
                 >
                     <span className={styles.content}>
-                        <IconAddCircle24 />
+                        <IconAdd16 />
                         <span>{i18n.t('Add layer')}</span>
                     </span>
                 </button>
@@ -39,7 +39,10 @@ const AddLayerButton = () => {
                 />
             )}
             {isManaging && (
-                <ManageLayerSourcesModal onClose={() => setIsManaging(false)} />
+                <ManageLayerSourcesModal
+                    onClose={() => setIsManaging(false)}
+                    initialMapType="layer"
+                />
             )}
         </>
     )

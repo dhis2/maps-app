@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
     changeBasemapOpacity,
@@ -11,8 +11,19 @@ import {
 } from '../../../actions/basemap.js'
 import { VECTOR_STYLE } from '../../../constants/layers.js'
 import useBasemapConfig from '../../../hooks/useBasemapConfig.js'
+import ManageLayerSourcesModal from '../../layerSources/ManageLayerSourcesModal.jsx'
 import LayerCard from '../LayerCard.jsx'
 import BasemapList from './BasemapList.jsx'
+
+const manageLinkStyle = {
+    fontSize: 12,
+    color: 'var(--colors-blue600)',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    padding: '0 var(--spacers-dp8)',
+    whiteSpace: 'nowrap',
+}
 
 const BasemapCard = (props) => {
     const {
@@ -23,6 +34,7 @@ const BasemapCard = (props) => {
         selectBasemap,
     } = props
     const basemap = useBasemapConfig(props.basemap)
+    const [isManaging, setIsManaging] = useState(false)
 
     return (
         <>
@@ -45,12 +57,26 @@ const BasemapCard = (props) => {
                     onOpacityChange={changeBasemapOpacity}
                     toggleExpand={toggleBasemapExpand}
                     toggleLayerVisibility={toggleBasemapVisibility}
+                    manageAction={
+                        <button
+                            style={manageLinkStyle}
+                            onClick={() => setIsManaging(true)}
+                        >
+                            {i18n.t('Manage →')}
+                        </button>
+                    }
                 >
                     <BasemapList
                         selectedID={basemap.id}
                         selectBasemap={selectBasemap}
                     />
                 </LayerCard>
+            )}
+            {isManaging && (
+                <ManageLayerSourcesModal
+                    onClose={() => setIsManaging(false)}
+                    initialMapType="basemap"
+                />
             )}
         </>
     )

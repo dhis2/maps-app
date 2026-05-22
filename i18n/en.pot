@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
-"PO-Revision-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-05-22T14:31:31.976Z\n"
+"PO-Revision-Date: 2026-05-22T14:31:31.976Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -564,15 +564,26 @@ msgstr "Style by group set"
 msgid "Manage available layer sources"
 msgstr "Manage available layer sources"
 
-msgid "Configure available layer sources"
-msgstr "Configure available layer sources"
+msgid "Edit layer source"
+msgstr "Edit layer source"
 
-msgid ""
-"Choose which layer sources are available to add to maps. This selection "
-"applies to all users."
-msgstr ""
-"Choose which layer sources are available to add to maps. This selection "
-"applies to all users."
+msgid "Add layer source"
+msgstr "Add layer source"
+
+msgid "Layer sources"
+msgstr "Layer sources"
+
+msgid "Add source"
+msgstr "Add source"
+
+msgid "Delete layer source"
+msgstr "Delete layer source"
+
+msgid "This layer source will be permanently removed from the catalogue. Continue?"
+msgstr "This layer source will be permanently removed from the catalogue. Continue?"
+
+msgid "Delete"
+msgstr "Delete"
 
 msgid "Collapse"
 msgstr "Collapse"
@@ -585,6 +596,9 @@ msgstr "External basemap"
 
 msgid "Basemap"
 msgstr "Basemap"
+
+msgid "Manage →"
+msgstr "Manage →"
 
 msgid "Download Layer Data"
 msgstr "Download Layer Data"
@@ -759,9 +773,6 @@ msgstr "Click the next position"
 
 msgid "Click where you want to start the measurement"
 msgstr "Click where you want to start the measurement"
-
-msgid "Delete"
-msgstr "Delete"
 
 msgid "Distance"
 msgstr "Distance"

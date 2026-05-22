@@ -1,0 +1,553 @@
+.wizard {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+}
+
+/* Step indicator */
+.stepIndicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp24);
+}
+
+.stepDot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    border: 2px solid var(--colors-grey300);
+    color: var(--colors-grey600);
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.stepDot.active {
+    border-color: var(--colors-blue600);
+    color: var(--colors-blue600);
+}
+
+.stepDot.done {
+    border-color: var(--colors-blue600);
+    background: var(--colors-blue600);
+    color: #fff;
+}
+
+.stepLabel {
+    font-size: 12px;
+    color: var(--colors-grey600);
+}
+
+.stepLabel.active {
+    color: var(--colors-grey900);
+    font-weight: 500;
+}
+
+.stepConnector {
+    flex: 1;
+    height: 2px;
+    background: var(--colors-grey300);
+    max-width: 40px;
+}
+
+/* Scrollable step content area */
+.stepContent {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding-bottom: var(--spacers-dp8);
+    padding-right: var(--spacers-dp8);
+    scrollbar-gutter: stable;
+}
+
+/* Use as toggle */
+.useAsToggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp16);
+    margin-bottom: var(--spacers-dp16);
+    padding: var(--spacers-dp8) var(--spacers-dp12);
+    background: var(--colors-grey050, #fafafa);
+    border: 1px solid var(--colors-grey200);
+    border-radius: 4px;
+}
+
+.useAsLabel {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--colors-grey700);
+    margin-right: var(--spacers-dp4);
+}
+
+.useAsOption {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    font-size: 13px;
+    color: var(--colors-grey800);
+    cursor: pointer;
+}
+
+/* Step 1 — Grouped type selection */
+.typeGroups {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp24);
+}
+
+.typeGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp12);
+}
+
+.typeGroupLabel {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--colors-grey600);
+    margin: 0;
+    padding-bottom: var(--spacers-dp8);
+    border-bottom: 1px solid var(--colors-grey200);
+}
+
+.typeGroupTiles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacers-dp8);
+}
+
+.typeTile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacers-dp4);
+    padding: var(--spacers-dp12) var(--spacers-dp8);
+    border: 2px solid var(--colors-grey300);
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    background: #fff;
+    transition: border-color 0.1s, background 0.1s;
+    position: relative;
+}
+
+.typeTile:hover {
+    border-color: var(--colors-blue400);
+    background: var(--colors-blue050, #e8f4fb);
+}
+
+.typeTile.selected {
+    border-color: var(--colors-blue600);
+    background: var(--colors-blue050, #e8f4fb);
+}
+
+.typeTile.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.typeTile.disabled:hover {
+    border-color: var(--colors-grey300);
+    background: #fff;
+}
+
+.typeTileIcon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.typeTileLabel {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--colors-grey800);
+    line-height: 1.3;
+}
+
+.typeTileSubLabel {
+    font-size: 11px;
+    color: var(--colors-grey600);
+}
+
+.adminBadge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 10px;
+    background: var(--colors-grey700);
+    color: #fff;
+    border-radius: 3px;
+    padding: 1px 5px;
+}
+
+/* Step 2 — Config forms */
+.configForm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp16);
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp4);
+}
+
+.fieldLabel {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--colors-grey800);
+}
+
+.fieldInput {
+    padding: 8px 10px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 3px;
+    font-size: 13px;
+    color: var(--colors-grey900);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.fieldInput:focus {
+    outline: none;
+    border-color: var(--colors-blue600);
+    box-shadow: 0 0 0 2px rgba(0, 110, 168, 0.2);
+}
+
+.fieldHint {
+    font-size: 11px;
+    color: var(--colors-grey600);
+}
+
+.mockTree {
+    border: 1px solid var(--colors-grey300);
+    border-radius: 3px;
+    padding: var(--spacers-dp8);
+    font-size: 13px;
+    color: var(--colors-grey700);
+    background: var(--colors-grey050, #fafafa);
+}
+
+.mockTreeItem {
+    padding: 4px var(--spacers-dp8);
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.mockTreeItem:hover {
+    background: var(--colors-grey100);
+}
+
+.mockTreeItem.expanded {
+    font-weight: 500;
+    color: var(--colors-grey900);
+}
+
+.mockTreeChild {
+    padding: 3px var(--spacers-dp8) 3px 24px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.mockTreeChild:hover {
+    background: var(--colors-grey100);
+}
+
+.disabledButton {
+    padding: 8px 16px;
+    border: 1px solid var(--colors-grey300);
+    border-radius: 3px;
+    background: var(--colors-grey100);
+    color: var(--colors-grey500);
+    font-size: 13px;
+    cursor: not-allowed;
+    display: inline-block;
+}
+
+.uploadLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    padding: 8px 16px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--colors-grey800);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.uploadLabel:hover {
+    background: var(--colors-grey100);
+    border-color: var(--colors-grey600);
+}
+
+/* QMS catalog list */
+.qmsList {
+    border: 1px solid var(--colors-grey300);
+    border-radius: 3px;
+    overflow-y: auto;
+    max-height: 220px;
+}
+
+.qmsRow {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacers-dp8) var(--spacers-dp12);
+    cursor: pointer;
+    border-bottom: 1px solid var(--colors-grey200);
+    transition: background 0.1s;
+}
+
+.qmsRow:last-child {
+    border-bottom: none;
+}
+
+.qmsRow:hover {
+    background: var(--colors-grey050, #fafafa);
+}
+
+.qmsRow.qmsSelected {
+    background: var(--colors-blue050, #e8f4fb);
+}
+
+.qmsRowName {
+    font-size: 13px;
+    color: var(--colors-grey900);
+    font-weight: 500;
+}
+
+.qmsRowMeta {
+    font-size: 11px;
+    color: var(--colors-grey600);
+    margin-top: 2px;
+}
+
+/* Step 3 — Meta form */
+.metaRow {
+    display: flex;
+    gap: var(--spacers-dp16);
+    align-items: flex-start;
+}
+
+.metaFields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp16);
+}
+
+.thumbnailPreview {
+    width: 120px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+}
+
+.thumbnailBox {
+    width: 120px;
+    height: 120px;
+    border: 1px solid var(--colors-grey300);
+    border-radius: 4px;
+    background: var(--colors-grey100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--colors-grey500);
+    text-align: center;
+}
+
+.tagRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacers-dp4);
+    align-items: center;
+    padding: 6px 8px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 3px;
+    min-height: 36px;
+}
+
+.tagChip {
+    background: var(--colors-blue050, #e8f4fb);
+    color: var(--colors-blue700, #005a8e);
+    border-radius: 10px;
+    padding: 2px 10px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tagChipRemove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--colors-blue700, #005a8e);
+    font-size: 14px;
+    padding: 0;
+    line-height: 1;
+}
+
+.radioGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    font-size: 13px;
+    color: var(--colors-grey800);
+    cursor: pointer;
+}
+
+/* Quota bar */
+.quotaSection {
+    margin-top: var(--spacers-dp8);
+    padding: var(--spacers-dp12);
+    border: 1px solid var(--colors-grey200);
+    border-radius: 4px;
+    background: var(--colors-grey050, #fafafa);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+}
+
+.quotaHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.quotaLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--colors-grey700);
+}
+
+.quotaNumbers {
+    font-size: 11px;
+    color: var(--colors-grey600);
+}
+
+.quotaBar {
+    height: 8px;
+    background: var(--colors-grey200);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+}
+
+.quotaFillOther {
+    height: 100%;
+    background: var(--colors-blue600);
+    transition: width 0.3s;
+}
+
+.quotaFillCurrent {
+    height: 100%;
+    background: var(--colors-orange600, #d14d00);
+    transition: width 0.3s;
+}
+
+.quotaFillWarning {
+    background: var(--colors-yellow600, #d4860b);
+}
+
+.quotaFillCritical {
+    background: var(--colors-red600, #c0392b);
+}
+
+.quotaLegend {
+    display: flex;
+    gap: var(--spacers-dp16);
+}
+
+.quotaLegendItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    font-size: 11px;
+    color: var(--colors-grey600);
+}
+
+.quotaLegendDotOther {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--colors-blue600);
+    flex-shrink: 0;
+}
+
+.quotaLegendDotCurrent {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--colors-orange600, #d14d00);
+    flex-shrink: 0;
+}
+
+/* Navigation */
+.wizardNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    flex-shrink: 0;
+    padding-top: var(--spacers-dp16);
+    margin-top: var(--spacers-dp8);
+    border-top: 1px solid var(--colors-grey200);
+}
+
+.navButton {
+    padding: 8px 20px;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.navButtonSecondary {
+    composes: navButton;
+    background: #fff;
+    border-color: var(--colors-grey400);
+    color: var(--colors-grey800);
+}
+
+.navButtonSecondary:hover {
+    background: var(--colors-grey100);
+}
+
+.navButtonPrimary {
+    composes: navButton;
+    background: var(--colors-blue600);
+    color: #fff;
+    border-color: var(--colors-blue600);
+}
+
+.navButtonPrimary:hover {
+    background: var(--colors-blue700, #005a8e);
+}
+
+.navButtonPrimary:disabled {
+    background: var(--colors-grey300);
+    border-color: var(--colors-grey300);
+    cursor: not-allowed;
+}

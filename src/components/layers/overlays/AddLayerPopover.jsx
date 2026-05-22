@@ -1,32 +1,19 @@
 import { Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addLayer, editLayer } from '../../../actions/layers.js'
-import getEarthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useKeyDown from '../../../hooks/useKeyDown.js'
-import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
 import { groupLayerSources } from '../../../util/layerSources.js'
 import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
-import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.jsx'
+import { mockCatalogueSources } from '../../layerSources/mockCatalogueSources.js'
+import { useFavorites } from '../../layerSources/mockFavoritesStore.js'
 import LayerList from './LayerList.jsx'
+import styles from './styles/AddLayerPopover.module.css'
 
-const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
-    // Earth Engine layers that are added to this DHIS2 instance
-    const managedEarthEngineLayers = getEarthEngineLayers().filter(
-        (l) => !l.legacy && managedLayerSources.includes(l.layerId)
-    )
-
-    // Make copy before slicing below
-    const layerSources = [...defaultLayerSources]
-
-    // Insert Earth Engine layers before external layers
-    layerSources.splice(5, 0, ...managedEarthEngineLayers)
-
-    return layerSources
-}
+const FAVORITES_SEARCH_THRESHOLD = 5
 
 const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     const isSplitView = useSelector((state) =>
@@ -34,12 +21,41 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     )
     const dispatch = useDispatch()
     const { defaultLayerSources } = useCachedData()
-    const { managedLayerSources } = useManagedLayerSourcesStore()
-    const layerSources = includeEarthEngineLayers(
-        defaultLayerSources,
-        managedLayerSources
+
+    // Built-in layer types (first 5 entries before any EE layers are spliced in)
+    const builtInTypes = groupLayerSources(defaultLayerSources.slice(0, 5))
+
+    const [favorites] = useFavorites()
+    const [favSearch, setFavSearch] = useState('')
+    const [favSort, setFavSort] = useState('most-used')
+
+    const allFavorites = useMemo(
+        () =>
+            Array.from(favorites)
+                .map((id) => mockCatalogueSources.find((s) => s.id === id))
+                .filter(Boolean),
+        [favorites]
     )
-    const groupedLayerSources = groupLayerSources(layerSources)
+
+    const displayedFavorites = useMemo(() => {
+        const list = favSearch
+            ? allFavorites.filter(
+                  (s) =>
+                      s.name.toLowerCase().includes(favSearch.toLowerCase()) ||
+                      s.origin.toLowerCase().includes(favSearch.toLowerCase())
+              )
+            : [...allFavorites]
+        if (favSort === 'az') {
+            list.sort((a, b) => a.name.localeCompare(b.name))
+        }
+        if (favSort === 'za') {
+            list.sort((a, b) => b.name.localeCompare(a.name))
+        }
+        if (favSort === 'origin') {
+            list.sort((a, b) => a.origin.localeCompare(b.origin))
+        }
+        return list
+    }, [allFavorites, favSearch, favSort])
 
     useKeyDown('Escape', onClose)
 
@@ -49,14 +65,15 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
             selectedLayer = layer.items[0]?.items?.[0] || layer.items[0]
             delete selectedLayer.id
         }
-
         const config = { ...selectedLayer }
         const layerType = selectedLayer.layer
-
         dispatch(
             layerType === EXTERNAL_LAYER ? addLayer(config) : editLayer(config)
         )
+        onClose()
+    }
 
+    const onFavoriteSelect = () => {
         onClose()
     }
 
@@ -65,16 +82,99 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
             arrow={false}
             reference={anchorEl}
             placement="bottom-start"
-            maxWidth={700}
+            maxWidth={590}
             onClickOutside={onClose}
             dataTest="addlayerpopover"
         >
-            <LayerList
-                layers={groupedLayerSources}
-                isSplitView={isSplitView}
-                onLayerSelect={onLayerSelect}
-            />
-            {!isSplitView && <ManageLayerSourcesButton onClick={onManaging} />}
+            {/* Built-in layer types */}
+            <div className={styles.section}>
+                <div className={styles.sectionHeader}>
+                    <span className={styles.sectionTitle}>
+                        Built-in layer types
+                    </span>
+                </div>
+                <LayerList
+                    layers={builtInTypes}
+                    isSplitView={isSplitView}
+                    onLayerSelect={onLayerSelect}
+                />
+            </div>
+
+            {/* Favorites */}
+            {!isSplitView && (
+                <div className={styles.section}>
+                    <div className={styles.sectionHeader}>
+                        <span className={styles.sectionTitle}>★ Favorites</span>
+                        <button
+                            className={styles.manageLink}
+                            onClick={onManaging}
+                        >
+                            Manage →
+                        </button>
+                    </div>
+
+                    <div className={styles.favoritesControls}>
+                        {allFavorites.length > FAVORITES_SEARCH_THRESHOLD && (
+                            <div className={styles.favoritesSearch}>
+                                <input
+                                    className={styles.favoritesSearchInput}
+                                    type="text"
+                                    placeholder="Search favorites…"
+                                    value={favSearch}
+                                    onChange={(e) =>
+                                        setFavSearch(e.target.value)
+                                    }
+                                />
+                            </div>
+                        )}
+                        <select
+                            className={styles.sortSelect}
+                            value={favSort}
+                            onChange={(e) => setFavSort(e.target.value)}
+                        >
+                            <option value="most-used">Most used</option>
+                            <option value="az">A → Z</option>
+                            <option value="za">Z → A</option>
+                            <option value="origin">By origin</option>
+                        </select>
+                    </div>
+
+                    <div className={styles.favoritesList}>
+                        {displayedFavorites.length === 0 ? (
+                            <div className={styles.emptyFavorites}>
+                                {allFavorites.length === 0
+                                    ? 'No favorites yet — star sources in the catalogue.'
+                                    : 'No favorites match your search.'}
+                            </div>
+                        ) : (
+                            displayedFavorites.map((source) => (
+                                <div
+                                    key={source.id}
+                                    className={styles.favoriteRow}
+                                    onClick={() => onFavoriteSelect(source)}
+                                >
+                                    <img
+                                        src={source.img}
+                                        className={styles.favoriteThumb}
+                                        alt=""
+                                    />
+                                    <div className={styles.favoriteInfo}>
+                                        <div className={styles.favoriteName}>
+                                            {source.name}
+                                        </div>
+                                        <div className={styles.favoriteOrigin}>
+                                            {source.origin}
+                                        </div>
+                                    </div>
+                                    <span className={styles.favoriteAdd}>
+                                        +
+                                    </span>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            )}
         </Popover>
     )
 }

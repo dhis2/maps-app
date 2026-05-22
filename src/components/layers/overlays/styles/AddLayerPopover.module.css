@@ -1,0 +1,166 @@
+.section {
+    padding: var(--spacers-dp12) var(--spacers-dp8) var(--spacers-dp4);
+}
+
+.section + .section {
+    border-top: 1px solid var(--colors-grey200);
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacers-dp8);
+}
+
+.sectionTitle {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--colors-grey600);
+}
+
+.manageLink {
+    font-size: 12px;
+    color: var(--colors-blue600);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: none;
+}
+
+.manageLink:hover {
+    text-decoration: underline;
+}
+
+.sortSelect {
+    font-size: 11px;
+    color: var(--colors-grey700);
+    border: 1px solid var(--colors-grey300);
+    border-radius: 3px;
+    padding: 2px 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* Favorites list */
+.favoritesControls {
+    display: flex;
+    gap: var(--spacers-dp4);
+    margin-bottom: var(--spacers-dp8);
+}
+
+.favoritesSearch {
+    flex: 1;
+}
+
+.favoritesSearchInput {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 10px 6px 30px;
+    border: 1px solid var(--colors-grey300);
+    border-radius: 3px;
+    font-size: 13px;
+    color: var(--colors-grey900);
+    background: #fff
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E")
+        no-repeat 8px center;
+    background-size: 14px;
+}
+
+.favoritesSearchInput:focus {
+    outline: none;
+    border-color: var(--colors-blue600);
+}
+
+.favoritesList {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.favoriteRow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    padding: 6px var(--spacers-dp4);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.favoriteRow:hover {
+    background: var(--colors-grey100);
+}
+
+.favoriteThumb {
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    border: 1px solid var(--colors-grey300);
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--colors-grey100);
+}
+
+.favoriteInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.favoriteName {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.favoriteOrigin {
+    font-size: 11px;
+    color: var(--colors-grey600);
+}
+
+.favoriteAdd {
+    font-size: 18px;
+    color: var(--colors-grey500);
+    flex-shrink: 0;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.favoriteRow:hover .favoriteAdd {
+    color: var(--colors-blue600);
+}
+
+.emptyFavorites {
+    padding: var(--spacers-dp8) var(--spacers-dp4);
+    font-size: 12px;
+    color: var(--colors-grey500);
+    font-style: italic;
+}
+
+/* Browse button */
+.browseRow {
+    padding: var(--spacers-dp8) var(--spacers-dp12);
+    border-top: 1px solid var(--colors-grey200);
+}
+
+.browseButton {
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--colors-blue600);
+    background: var(--colors-blue050, #e8f4fb);
+    border: 1px dashed var(--colors-blue300, #80bfe0);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.browseButton:hover {
+    background: var(--colors-blue100, #c8e6f7);
+}
