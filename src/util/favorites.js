@@ -1,6 +1,7 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
     EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
     GEOJSON_URL_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
@@ -38,9 +39,12 @@ const validLayerProperties = [
     'endDate',
     'eventCoordinateField',
     'eventClustering',
+    'eventHeatmap',
     'eventPointColor',
     'eventPointRadius',
     'eventStatus',
+    'heatIntensity',
+    'heatRadius',
     'featureStyle', // used by GEOJSON_URL_LAYER, stored in layer config
     'filter',
     'filters',
@@ -191,6 +195,26 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.relationshipLineColor
         delete layer.relationshipOutsideProgram
         delete layer.periodType
+    } else if (layerType === EVENT_LAYER) {
+        if (cleanMapviewConfig) {
+            const configData = {}
+            if (layer.eventHeatmap !== undefined) {
+                configData.eventHeatmap = layer.eventHeatmap
+            }
+            if (layer.heatIntensity !== undefined) {
+                configData.heatIntensity = layer.heatIntensity
+            }
+            if (layer.heatRadius !== undefined) {
+                configData.heatRadius = layer.heatRadius
+            }
+            if (Object.keys(configData).length) {
+                layer.config = JSON.stringify(configData)
+            }
+        }
+
+        delete layer.eventHeatmap
+        delete layer.heatIntensity
+        delete layer.heatRadius
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {
