@@ -221,23 +221,28 @@ class EventDialog extends Component {
         } = this.props
         const { legendSetError } = this.state
 
-        const scaleContent = eventHeatmap ? (
-            <ContinuousScale />
-        ) : program ? (
-            <StyleByDataItem
-                program={program}
-                programStage={programStage}
-                error={!legendSet && legendSetError}
-            />
-        ) : (
-            <div className={styles.notice}>
-                <NoticeBox>
-                    {i18n.t(
-                        'You can style events by data element after selecting a program.'
-                    )}
-                </NoticeBox>
-            </div>
-        )
+        let scaleContent
+        if (eventHeatmap) {
+            scaleContent = <ContinuousScale />
+        } else if (program) {
+            scaleContent = (
+                <StyleByDataItem
+                    program={program}
+                    programStage={programStage}
+                    error={!legendSet && legendSetError}
+                />
+            )
+        } else {
+            scaleContent = (
+                <div className={styles.notice}>
+                    <NoticeBox>
+                        {i18n.t(
+                            'You can style events by data element after selecting a program.'
+                        )}
+                    </NoticeBox>
+                </div>
+            )
+        }
 
         return (
             <div
