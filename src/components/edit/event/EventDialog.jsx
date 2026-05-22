@@ -205,22 +205,118 @@ class EventDialog extends Component {
         }
     }
 
+    renderStyleTab() {
+        const {
+            eventHeatmap,
+            eventClustering,
+            eventPointColor,
+            eventPointRadius,
+            program,
+            programStage,
+            legendSet,
+            setEventHeatmap,
+            setEventClustering,
+            setEventPointColor,
+            setEventPointRadius,
+        } = this.props
+        const { legendSetError } = this.state
+
+        const scaleContent = eventHeatmap ? (
+            <ContinuousScale />
+        ) : program ? (
+            <StyleByDataItem
+                program={program}
+                programStage={programStage}
+                error={!legendSet && legendSetError}
+            />
+        ) : (
+            <div className={styles.notice}>
+                <NoticeBox>
+                    {i18n.t(
+                        'You can style events by data element after selecting a program.'
+                    )}
+                </NoticeBox>
+            </div>
+        )
+
+        return (
+            <div
+                className={styles.flexColumnFlow}
+                data-test="eventdialog-styletab"
+            >
+                <div className={styles.flexColumn}>
+                    <div className={styles.flexInnerColumnFlow}>
+                        <ImageSelect
+                            id="cluster"
+                            img="images/cluster.png"
+                            title={i18n.t('Group events')}
+                            onClick={() => {
+                                setEventClustering(true)
+                                setEventHeatmap(false)
+                            }}
+                            isSelected={eventClustering}
+                            className={styles.flexInnerColumn}
+                        />
+                        <ImageSelect
+                            id="nocluster"
+                            img="images/nocluster.png"
+                            title={i18n.t('View all events')}
+                            onClick={() => {
+                                setEventClustering(false)
+                                setEventHeatmap(false)
+                            }}
+                            isSelected={!eventClustering && !eventHeatmap}
+                            className={styles.flexInnerColumn}
+                        />
+                        <ImageSelect
+                            id="heat"
+                            img="images/heatmap.png"
+                            title={i18n.t('View heat map')}
+                            onClick={() => {
+                                setEventClustering(false)
+                                setEventHeatmap(true)
+                            }}
+                            isSelected={eventHeatmap}
+                            className={styles.flexInnerColumn}
+                        />
+                    </div>
+                    <div className={styles.flexInnerColumnFlow}>
+                        <ColorPicker
+                            label={i18n.t('Color')}
+                            color={cssColor(eventPointColor) || EVENT_COLOR}
+                            onChange={setEventPointColor}
+                            className={styles.flexInnerColumn}
+                        />
+                        <NumberField
+                            label={i18n.t('Radius')}
+                            min={MIN_RADIUS}
+                            max={MAX_RADIUS}
+                            value={eventPointRadius || EVENT_RADIUS}
+                            onChange={setEventPointRadius}
+                        />
+                    </div>
+                    <GeometryCentroid tab={'style'} />
+                    <BufferRadius
+                        disabled={eventClustering}
+                        defaultRadius={EVENT_BUFFER}
+                    />
+                </div>
+                <div className={styles.flexColumn}>{scaleContent}</div>
+            </div>
+        )
+    }
+
     render() {
         const {
             // layer options
             columns = [],
-            eventHeatmap,
-            eventClustering,
             eventStatus,
             eventCoordinateField,
             eventCoordinateFieldType,
-            eventPointColor,
-            eventPointRadius,
             // fallbackCoordinateField,
             filters = [],
             program,
             programStage,
-            legendSet,
             periodsSettings,
         } = this.props
 
@@ -230,10 +326,6 @@ class EventDialog extends Component {
             setProgramStage,
             setEventStatus,
             setEventCoordinateField,
-            setEventHeatmap,
-            setEventClustering,
-            setEventPointColor,
-            setEventPointRadius,
             // setFallbackCoordinateField,
             setPeriod,
         } = this.props
@@ -244,7 +336,6 @@ class EventDialog extends Component {
             programStageError,
             periodError,
             orgUnitsError,
-            legendSetError,
         } = this.state
 
         const period = getPeriodFromFilters(filters) || {
@@ -360,94 +451,7 @@ class EventDialog extends Component {
                             />
                         </div>
                     )}
-                    {tab === 'style' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="eventdialog-styletab"
-                        >
-                            <div className={styles.flexColumn}>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <ImageSelect
-                                        id="cluster"
-                                        img="images/cluster.png"
-                                        title={i18n.t('Group events')}
-                                        onClick={() => {
-                                            setEventClustering(true)
-                                            setEventHeatmap(false)
-                                        }}
-                                        isSelected={eventClustering}
-                                        className={styles.flexInnerColumn}
-                                    />
-                                    <ImageSelect
-                                        id="nocluster"
-                                        img="images/nocluster.png"
-                                        title={i18n.t('View all events')}
-                                        onClick={() => {
-                                            setEventClustering(false)
-                                            setEventHeatmap(false)
-                                        }}
-                                        isSelected={
-                                            !eventClustering && !eventHeatmap
-                                        }
-                                        className={styles.flexInnerColumn}
-                                    />
-                                    <ImageSelect
-                                        id="heat"
-                                        img="images/heatmap.png"
-                                        title={i18n.t('View heat map')}
-                                        onClick={() => {
-                                            setEventClustering(false)
-                                            setEventHeatmap(true)
-                                        }}
-                                        isSelected={eventHeatmap}
-                                        className={styles.flexInnerColumn}
-                                    />
-                                </div>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <ColorPicker
-                                        label={i18n.t('Color')}
-                                        color={
-                                            cssColor(eventPointColor) ||
-                                            EVENT_COLOR
-                                        }
-                                        onChange={setEventPointColor}
-                                        className={styles.flexInnerColumn}
-                                    />
-                                    <NumberField
-                                        label={i18n.t('Radius')}
-                                        min={MIN_RADIUS}
-                                        max={MAX_RADIUS}
-                                        value={eventPointRadius || EVENT_RADIUS}
-                                        onChange={setEventPointRadius}
-                                    />
-                                </div>
-                                <GeometryCentroid tab={'style'} />
-                                <BufferRadius
-                                    disabled={eventClustering}
-                                    defaultRadius={EVENT_BUFFER}
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                {eventHeatmap ? (
-                                    <ContinuousScale />
-                                ) : program ? (
-                                    <StyleByDataItem
-                                        program={program}
-                                        programStage={programStage}
-                                        error={!legendSet && legendSetError}
-                                    />
-                                ) : (
-                                    <div className={styles.notice}>
-                                        <NoticeBox>
-                                            {i18n.t(
-                                                'You can style events by data element after selecting a program.'
-                                            )}
-                                        </NoticeBox>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
+                    {tab === 'style' && this.renderStyleTab()}
                 </div>
             </div>
         )

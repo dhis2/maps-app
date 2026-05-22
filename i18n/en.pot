@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
-"PO-Revision-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-05-22T08:59:51.853Z\n"
+"PO-Revision-Date: 2026-05-22T08:59:51.853Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -37,6 +37,9 @@ msgstr "Classification"
 
 msgid "Classes"
 msgstr "Classes"
+
+msgid "Color scale"
+msgstr "Color scale"
 
 msgid "Legend set"
 msgstr "Legend set"
@@ -368,11 +371,8 @@ msgstr "Steps"
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
-msgid "Org Units"
-msgstr "Org Units"
-
-msgid "Filter"
-msgstr "Filter"
+msgid "You can style events by data element after selecting a program."
+msgstr "You can style events by data element after selecting a program."
 
 msgid "Group events"
 msgstr "Group events"
@@ -386,8 +386,11 @@ msgstr "View heat map"
 msgid "Radius"
 msgstr "Radius"
 
-msgid "You can style events by data element after selecting a program."
-msgstr "You can style events by data element after selecting a program."
+msgid "Org Units"
+msgstr "Org Units"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Program is required"
 msgstr "Program is required"

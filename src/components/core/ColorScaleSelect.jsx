@@ -44,7 +44,7 @@ const ColorScaleSelect = ({ palette, width, heat, onChange, className }) => {
                         className={styles.popover}
                         style={{ width: width + 24 || 260 }}
                     >
-                        {(!heat ? colorScales : heatScales).map(
+                        {(heat ? heatScales : colorScales).map(
                             (scale, index) => (
                                 <ColorScale
                                     key={index}

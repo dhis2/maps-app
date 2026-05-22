@@ -15,11 +15,7 @@ const ContinuousScale = ({ colorScale, setColorScale }) => {
         <div>
             <div className={styles.title}>{i18n.t('Color scale')}</div>
             <ColorScaleSelect
-                palette={
-                    colorScale
-                        ? colorScale
-                        : getColorPalette('RdYlBu_reverse', 9)
-                }
+                palette={colorScale ?? getColorPalette('RdYlBu_reverse', 9)}
                 onChange={setColorScale}
                 width={190}
                 heat={true}

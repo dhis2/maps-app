@@ -17,6 +17,7 @@ import Layer from './Layer.js'
 
 class EventLayer extends Layer {
     clusterCount = 0
+    eventRequest = null
 
     state = {
         popup: null,
@@ -32,7 +33,6 @@ class EventLayer extends Layer {
             heatIntensity,
             heatRadius,
             isVisible,
-            bounds,
             data,
             engine,
             eventHeatmap,
@@ -44,14 +44,10 @@ class EventLayer extends Layer {
             program,
             programStage,
             serverCluster,
-            geometryCentroid,
             areaRadius,
             styleDataItem,
-            legend,
             dataFilters,
         } = this.props
-
-        const analyticsEngine = Analytics.getAnalytics(engine)
 
         const filteredData = filterData(data, dataFilters)
 
@@ -69,7 +65,6 @@ class EventLayer extends Layer {
         const radius = eventPointRadius || EVENT_RADIUS
 
         const map = this.context.map
-        let eventRequest
 
         // Default props = no cluster
         const config = {
@@ -90,41 +85,9 @@ class EventLayer extends Layer {
 
         if (eventClustering) {
             if (serverCluster) {
-                config.type = 'serverCluster'
-                config.bounds = bounds
-
-                config.load = async (params, callback) => {
-                    eventRequest =
-                        eventRequest ||
-                        (await getAnalyticsRequest(this.props, {
-                            analyticsEngine,
-                            nameProperty,
-                            engine,
-                        }))
-
-                    eventRequest = eventRequest
-                        .withBbox(params.bbox)
-                        .withClusterSize(params.clusterSize)
-                        .withIncludeClusterPoints(params.includeClusterPoints)
-
-                    const clusterData = await analyticsEngine.events.getCluster(
-                        eventRequest
-                    )
-
-                    callback(
-                        params.tileId,
-                        this.toGeoJson(clusterData, geometryCentroid)
-                    )
-                }
+                this.configureServerCluster(config)
             } else {
-                config.clusterPane = id
-
-                if (styleDataItem && legend) {
-                    config.type = 'donutCluster'
-                    config.groups = legend.items
-                } else {
-                    config.type = 'clientCluster'
-                }
+                this.configureClientCluster(config)
             }
         } else if (eventHeatmap) {
             config.type = 'heat'
@@ -174,6 +137,50 @@ class EventLayer extends Layer {
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()
+    }
+
+    configureServerCluster(config) {
+        const { bounds, nameProperty, engine, geometryCentroid } = this.props
+        const analyticsEngine = Analytics.getAnalytics(engine)
+        this.eventRequest = null
+
+        config.type = 'serverCluster'
+        config.bounds = bounds
+
+        config.load = async (params, callback) => {
+            this.eventRequest =
+                this.eventRequest ||
+                (await getAnalyticsRequest(this.props, {
+                    analyticsEngine,
+                    nameProperty,
+                    engine,
+                }))
+
+            this.eventRequest = this.eventRequest
+                .withBbox(params.bbox)
+                .withClusterSize(params.clusterSize)
+                .withIncludeClusterPoints(params.includeClusterPoints)
+
+            const clusterData = await analyticsEngine.events.getCluster(
+                this.eventRequest
+            )
+
+            callback(
+                params.tileId,
+                this.toGeoJson(clusterData, geometryCentroid)
+            )
+        }
+    }
+
+    configureClientCluster(config) {
+        const { id, styleDataItem, legend } = this.props
+        config.clusterPane = id
+        if (styleDataItem && legend) {
+            config.type = 'donutCluster'
+            config.groups = legend.items
+        } else {
+            config.type = 'clientCluster'
+        }
     }
 
     render() {

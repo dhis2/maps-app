@@ -67,7 +67,7 @@ export const getColorPalette = (scale, classes) => colorbrewer[scale][classes]
 // Returns color scale name for a palette
 // join(',') is used to compare two arrays of colors
 export const getColorScale = (palette, heat) =>
-    (!heat ? colorScales : heatScales).find(
+    (heat ? heatScales : colorScales).find(
         (name) =>
             colorbrewer[name][palette.length].join(',') === palette.join(',')
     )
