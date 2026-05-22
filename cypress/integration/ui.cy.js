@@ -49,6 +49,7 @@ describe('ui', () => {
 
         // Add thematic layer
         ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('HIV')
             .selectIndicator('VCCT post-test counselling rate')
             .selectTab('Org Units')

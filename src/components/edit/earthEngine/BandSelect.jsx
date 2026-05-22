@@ -1,4 +1,3 @@
-import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -7,21 +6,24 @@ import { SelectField } from '../../core/index.js'
 
 const DEFAULT_NO_BAND = []
 
-const BandSelect = ({ band = DEFAULT_NO_BAND, bands, setBand, errorText }) => (
-    <SelectField
-        label={i18n.t('Groups')}
-        items={bands}
-        multiple={true}
-        value={band}
-        onChange={setBand}
-        errorText={errorText}
-    />
-)
+const BandSelect = ({ band, bands, setBand, errorText }) => {
+    const value = band ?? bands.default ?? DEFAULT_NO_BAND
+    return (
+        <SelectField
+            label={bands.label}
+            items={bands.list}
+            multiple={bands.multiple}
+            value={value}
+            onChange={setBand}
+            errorText={errorText}
+        />
+    )
+}
 
 BandSelect.propTypes = {
-    bands: PropTypes.array.isRequired,
+    bands: PropTypes.object.isRequired,
     setBand: PropTypes.func.isRequired,
-    band: PropTypes.array,
+    band: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     errorText: PropTypes.string,
 }
 

@@ -46,7 +46,7 @@ const getLayerNames = () => ({
 
 const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
-    const { systemSettings, periodsSettings } = useCachedData()
+    const { systemSettings, periodsSettings, currentUser } = useCachedData()
     const orgUnits = useOrgUnits()
 
     const onValidateLayer = () => setIsValidLayer(true)
@@ -58,6 +58,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
 
             const config = {
                 ...layer,
+                backupPeriodsDates: undefined,
                 editCounter: editCounter + 1,
                 isLoaded: false,
                 isLoading: false,
@@ -97,7 +98,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         : i18n.t('Add new {{name}} layer', { name })
 
     return (
-        <Modal position="top" dataTest="layeredit" large onClose={cancelLayer}>
+        <Modal position="top" dataTest="layeredit" fluid onClose={cancelLayer}>
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <div className={styles.content}>
@@ -105,6 +106,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                         {...layer}
                         systemSettings={systemSettings}
                         periodsSettings={periodsSettings}
+                        currentUser={currentUser}
                         orgUnits={orgUnits}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}

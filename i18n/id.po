@@ -1,23 +1,22 @@
-# 
 # Translators:
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
-# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
 # Philip Larsen Donnelly, 2024
-# Viktor Varland <viktor@dhis2.org>, 2024
-# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2025
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2025
+# Viktor Varland <viktor@dhis2.org>, 2025
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2025
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-05-09T08:00:36.002Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2025\n"
+"Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2025\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -40,13 +39,10 @@ msgstr ""
 msgid "Rename successful"
 msgstr "Penamaan ulang berhasil"
 
-msgid "Calculation"
+msgid "This app could not retrieve required data."
 msgstr ""
 
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
+msgid "Network error"
 msgstr ""
 
 msgid "Classification"
@@ -76,21 +72,6 @@ msgstr "Nilai"
 msgid "Display"
 msgstr ""
 
-msgid "Data element group"
-msgstr "Grup elemen data"
-
-msgid "Data element operand"
-msgstr "Operan elemen data"
-
-msgid "Data element"
-msgstr "Elemen data"
-
-msgid "Totals"
-msgstr "Total"
-
-msgid "Details"
-msgstr "Rincian"
-
 msgid "Yes"
 msgstr "Ya"
 
@@ -103,6 +84,9 @@ msgstr "Tidak ada"
 msgid "Cascading"
 msgstr ""
 
+msgid "Organisation unit location"
+msgstr ""
+
 msgid "Event location"
 msgstr "Lokasi even"
 
@@ -110,9 +94,6 @@ msgid "Enrollment location"
 msgstr ""
 
 msgid "Tracked entity location"
-msgstr ""
-
-msgid "Organisation unit location"
 msgstr ""
 
 msgid "Fallback coordinate field"
@@ -126,9 +107,6 @@ msgstr ""
 
 msgid "Event > org unit coordinate"
 msgstr ""
-
-msgid "Event data item"
-msgstr "Data item pada even"
 
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
@@ -162,9 +140,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Tanggal"
-
-msgid "Data set"
-msgstr "Data set"
 
 msgid "No results found"
 msgstr "Tidak ada hasil ditemukan"
@@ -322,11 +297,8 @@ msgstr "Update layer"
 msgid "Add layer"
 msgstr "Tambahkan layer"
 
-msgid "Aggregation method"
-msgstr "Metode agregasi"
-
-msgid "Groups"
-msgstr "banyak grup"
+msgid "Area statistics (popups and data table)"
+msgstr ""
 
 msgid "This field is required"
 msgstr "Kolom ini sudah terisi"
@@ -336,6 +308,9 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Periode"
+
+msgid "Dataset"
+msgstr "Dataset"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -367,14 +342,17 @@ msgstr ""
 msgid "Source"
 msgstr "Sumber"
 
+msgid "Period type"
+msgstr "Tipe periode"
+
 msgid "Legend preview"
 msgstr "Pratinjau legenda"
 
+msgid "Available periods are retrieved from the source data"
+msgstr ""
+
 msgid "Year"
 msgstr "Tahun"
-
-msgid "Available periods are set by the source data"
-msgstr "Periode yang tersedia diatur oleh data sumber"
 
 msgid "Loading periods"
 msgstr "Memuat periode"
@@ -441,6 +419,9 @@ msgstr "Status Event"
 msgid "Boundary color"
 msgstr ""
 
+msgid "Draws a buffer area around each point location."
+msgstr ""
+
 msgid "Buffer"
 msgstr "Buffer"
 
@@ -460,6 +441,18 @@ msgid "Line/stroke width"
 msgstr ""
 
 msgid "Line/stroke width must be between 0-10."
+msgstr ""
+
+msgid "May cause slow layer loading."
+msgstr ""
+
+msgid "Convert polygons to their centroids."
+msgstr ""
+
+msgid "Centroids"
+msgstr ""
+
+msgid "Polygons are represented by their centroids."
 msgstr ""
 
 msgid "Labels"
@@ -492,50 +485,31 @@ msgstr ""
 msgid "Define start - end dates"
 msgstr ""
 
-msgid "Indicator group is required"
-msgstr "Grup indikator wajib diisi"
+msgid "Choose periods for all timeline layers"
+msgstr ""
 
-msgid "Indicator is required"
-msgstr "Indikator diperlukan"
+msgid "Selection is initialized from shared periods"
+msgstr ""
 
-msgid "Data element group is required"
-msgstr "Grup elemen data wajib diisi"
+msgid "Choose periods for all split layers"
+msgstr ""
 
-msgid "Data element is required"
-msgstr "Elemen data diperlukan"
-
-msgid "Data set is required"
-msgstr "Kumpulan data diperlukan"
-
-msgid "Event data item is required"
-msgstr "Item data event diperlukan"
-
-msgid "Program indicator is required"
-msgstr "Indikator program diperlukan"
-
-msgid "Calculation is required"
+msgid "Data is required"
 msgstr ""
 
 msgid "Period is required"
 msgstr "Periode diperlukan"
 
-msgid "Indicator"
-msgstr "indikator"
-
-msgid "Reporting rates"
-msgstr "Tingkat pelaporan"
-
-msgid "Event data items"
-msgstr "Item data event"
-
-msgid "Program indicators"
-msgstr "Indikator program"
-
-msgid "Calculations"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 msgstr ""
 
-msgid "Item type"
-msgstr "Tipe item"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
+msgid "Specified radius values are invalid"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Pilih periode saat entitas yang dilacak terakhir diperbarui"
@@ -603,14 +577,8 @@ msgstr "Hapus filter"
 msgid "Group set"
 msgstr "set satu grup"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Style by group set"
 msgstr ""
-
-msgid "Indicator group"
-msgstr "group indikator"
 
 msgid "Manage available layer sources"
 msgstr ""
@@ -660,9 +628,6 @@ msgstr "Unduhan data gagal."
 msgid "External layer"
 msgstr "External layer"
 
-msgid "Split view can not be combined with other layer types."
-msgstr "Tampilan split tidak dapat digabungkan dengan jenis layer lainnya."
-
 msgid "Failed to load layer"
 msgstr ""
 
@@ -708,17 +673,8 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Hapus layer"
 
-msgid "Mid"
-msgstr "Pertengahan"
-
-msgid "Group"
-msgstr "Grup"
-
 msgid "Filters"
 msgstr "Penyaringan"
-
-msgid "{{layername}}: {{message}}"
-msgstr ""
 
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
@@ -753,6 +709,11 @@ msgstr "Longitude"
 msgid "Latitude"
 msgstr "Latitude"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
@@ -761,6 +722,9 @@ msgstr ""
 
 msgid "Organisation unit"
 msgstr "Unit organisasi"
+
+msgid "Groups"
+msgstr "banyak grup"
 
 msgid "Parent unit"
 msgstr "Unit induk"
@@ -785,8 +749,8 @@ msgstr ""
 msgid "no value"
 msgstr "tidak ada nilai"
 
-msgid "All groups"
-msgstr ""
+msgid "All"
+msgstr "Semua"
 
 msgid "Loading data"
 msgstr ""
@@ -945,6 +909,9 @@ msgstr "Dipilih dan semuanya di bawah"
 msgid "Selection mode"
 msgstr "Mode pemilihan Selection"
 
+msgid "Clear"
+msgstr "Hapus"
+
 msgid "Previous year"
 msgstr "Tahun sebelumnya"
 
@@ -954,18 +921,18 @@ msgstr "Tahun berikut"
 msgid "Start/end dates"
 msgstr "Tanggal dimulai-berakhir"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all existing layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -986,9 +953,6 @@ msgstr ""
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr ""
 
-msgid "Period display mode"
-msgstr ""
-
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr ""
@@ -1007,8 +971,11 @@ msgstr "Tanggal berakhir"
 msgid "Not available offline"
 msgstr "Tidak tersedia offline"
 
-msgid "Program indicator"
-msgstr "Manajemen indikator program"
+msgid "Click to unpin legend"
+msgstr ""
+
+msgid "Click to pin legend"
+msgstr ""
 
 msgid "No program"
 msgstr "Tidak ada program"
@@ -1064,6 +1031,9 @@ msgstr "Cahaya OSM"
 msgid "OSM Detailed"
 msgstr "Detail OSM"
 
+msgid "Sentinel-2 EOX"
+msgstr ""
+
 msgid "Bing Road"
 msgstr "Jalan Bing"
 
@@ -1075,6 +1045,18 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Label Udara Bing"
+
+msgid "Azure Road"
+msgstr ""
+
+msgid "Azure Dark"
+msgstr ""
+
+msgid "Azure Aerial"
+msgstr ""
+
+msgid "Azure Aerial Labels"
+msgstr ""
 
 msgid "Building footprints"
 msgstr ""
@@ -1097,7 +1079,7 @@ msgstr ""
 msgid "Number of buildings"
 msgstr ""
 
-msgid "0.5 meter"
+msgid "~0.5 meter"
 msgstr ""
 
 msgid "Single point in time"
@@ -1118,7 +1100,105 @@ msgstr "meter"
 msgid "~30 meters"
 msgstr ""
 
-msgid "Febuary 2000"
+msgid "February 2000"
+msgstr ""
+
+msgid "Heat stress"
+msgstr ""
+
+msgid "Heat stress daily"
+msgstr ""
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr ""
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+
+msgid "~28 kilometers"
+msgstr ""
+
+msgid "Daily"
+msgstr "Harian"
+
+msgid "Since January 1940"
+msgstr ""
+
+msgid "Base daily value"
+msgstr ""
+
+msgid "Extreme cold stress -60 - -40"
+msgstr ""
+
+msgid "Very strong cold stress -40 - -27"
+msgstr ""
+
+msgid "Strong cold stress -27 - -13"
+msgstr ""
+
+msgid "Moderate cold stress -13 - 0"
+msgstr ""
+
+msgid "Slight cold stress 0 - 9"
+msgstr ""
+
+msgid "No thermal stress 9 - 26"
+msgstr ""
+
+msgid "Moderate heat stress 26 - 32"
+msgstr ""
+
+msgid "Strong heat stress 32 - 38"
+msgstr ""
+
+msgid "Very strong heat stress 38 - 46"
+msgstr ""
+
+msgid "Extreme heat stress 46 - 60"
+msgstr ""
+
+msgid "Heat stress monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Heat stress weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr ""
+
+msgid "Relative humidity"
+msgstr ""
+
+msgid "Relative humidity daily"
+msgstr ""
+
+msgid "Amount of water vapour present in air."
+msgstr ""
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+
+msgid "~9 kilometers"
+msgstr ""
+
+msgid "Since February 1950"
+msgstr ""
+
+msgid "Relative humidity monthly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "Bulanan"
+
+msgid "Relative humidity weekly"
 msgstr ""
 
 msgid "Landcover"
@@ -1126,6 +1206,18 @@ msgstr "tutupan lahan"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Jenis tutupan lahan yang berbeda dikumpulkan dari satelit."
+
+msgid "unitless"
+msgstr ""
+
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "Tahunan"
+
+msgid "Since 2001"
+msgstr ""
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Hutan Daun Jarum Evergreen"
@@ -1208,36 +1300,8 @@ msgstr "Perkiraan jumlah orang yang tinggal di suatu daerah."
 msgid "people per hectare"
 msgstr "orang per hektar"
 
-msgid "Precipitation"
-msgstr "Pengendapan"
-
-msgid "millimeter"
-msgstr "milimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
+msgid "Population age groups WorldPop Global1"
 msgstr ""
-"Curah hujan dikumpulkan dari satelit dan stasiun cuaca di tanah. Nilai dalam"
-" milimeter dalam periode 5 hari. Diperbarui setiap bulan, selama minggu ke-3"
-" bulan berikutnya."
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr "°C pada siang hari"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Suhu permukaan tanah dikumpulkan dari satelit. Bintik-bintik kosong akan "
-"muncul di area dengan tutupan awan yang persisten."
-
-msgid "Population age groups"
-msgstr "Kelompok usia penduduk"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1356,33 +1420,173 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
-msgid "Precipitation monthly"
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "Pengendapan"
+
+msgid "millimeter"
+msgstr "milimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr "°C pada siang hari"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Suhu permukaan tanah dikumpulkan dari satelit. Bintik-bintik kosong akan "
+"muncul di area dengan tutupan awan yang persisten."
+
+msgid "Population age groups WorldPop Global2"
 msgstr ""
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
 msgstr ""
 
-msgid "~11 kilometers"
+msgid "2015 - 2030"
 msgstr ""
 
-msgid "Monthly"
-msgstr "Bulanan"
+msgid "Male 80 - 84 years"
+msgstr ""
 
-msgid "Febuary 1950 - One month ago"
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
+msgid "CHIRPS"
+msgstr ""
+
+msgid "Precipitation daily CHIRPS"
+msgstr ""
+
+msgid "Gridded precipitation dataset."
+msgstr ""
+
+msgid ""
+"Combines satellite imagery with in-situ station data and provides rainfall-"
+"focused estimates over land at higher spatial resolution but with a longer "
+"lag in data availability."
+msgstr ""
+
+msgid "~5.5 kilometers"
+msgstr ""
+
+msgid "Since January 1981"
+msgstr ""
+
+msgid "ERA5"
+msgstr ""
+
+msgid "Precipitation daily ERA5"
+msgstr ""
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+
+msgid "Precipitation monthly CHIRPS"
+msgstr ""
+
+msgid "Precipitation monthly ERA5"
+msgstr ""
+
+msgid "Precipitation weekly CHIRPS"
+msgstr ""
+
+msgid "Precipitation weekly ERA5"
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "Temperature daily"
+msgstr ""
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr ""
+
+msgid "Combines model data with observations from across the world."
 msgstr ""
 
 msgid "Temperature monthly"
 msgstr ""
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
 msgstr ""
 
-msgid "All"
-msgstr "Semua"
+msgid "Vegetation"
+msgstr ""
+
+msgid "Vegetation index 16-day"
+msgstr ""
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify vegetation greenness and is useful in understanding vegetation density and assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
+msgstr ""
+
+msgid "~250 meters"
+msgstr ""
+
+msgid "16-day"
+msgstr ""
+
+msgid "Since February 2000"
+msgstr ""
+
+msgid "NDVI"
+msgstr ""
+
+msgid "EVI"
+msgstr ""
+
+msgid "Vegetation index monthly"
+msgstr ""
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr ""
+
+msgid "Vegetation index weekly"
+msgstr ""
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr ""
 
 msgid "Active"
 msgstr "Aktif"
@@ -1417,9 +1621,6 @@ msgstr "Simbol"
 msgid "Relative"
 msgstr "Relatif"
 
-msgid "Daily"
-msgstr "Harian"
-
 msgid "Weekly"
 msgstr "Mingguan"
 
@@ -1449,9 +1650,6 @@ msgstr "Semester"
 
 msgid "Six-monthly April"
 msgstr "Semester April"
-
-msgid "Yearly"
-msgstr "Tahunan"
 
 msgid "Financial year (Start November)"
 msgstr "Financial November"
@@ -1488,6 +1686,12 @@ msgstr "Kejadian"
 
 msgid "Facilities"
 msgstr "Fasilitas"
+
+msgid "an error occurred"
+msgstr ""
+
+msgid "GroupSet used for styling was not found"
+msgstr ""
 
 msgid "No coordinates found for selected facilities"
 msgstr ""
@@ -1528,8 +1732,8 @@ msgstr "terkait"
 msgid "not one of"
 msgstr "bukan salah satu dari"
 
-msgid "doesn't contains"
-msgstr "tidak mengandung"
+msgid "doesn't contain"
+msgstr ""
 
 msgid "true"
 msgstr "benar"
@@ -1537,8 +1741,17 @@ msgstr "benar"
 msgid "false"
 msgstr "Salah"
 
-msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "Tidak bisa mendapatkan token otorisasi untuk Google Earth Engine."
+msgid "{{keyName}} is not valid for layer type: {{type}}"
+msgstr ""
+
+msgid "{{keyName}} is not provided for layer type(s): {{types}}"
+msgstr ""
+
+msgid "Could not load: {{id}} — using the default basemap instead."
+msgstr ""
+
+msgid "Mid"
+msgstr "Pertengahan"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
@@ -1546,6 +1759,9 @@ msgid ""
 msgstr ""
 "Layer ini memerlukan akun Google Earth Engine. Periksa dokumentasi DHIS2 "
 "untuk informasi lebih lanjut."
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "Tidak bisa mendapatkan token otorisasi untuk Google Earth Engine."
 
 msgid "Thematic"
 msgstr "Tematik"

@@ -1,27 +1,62 @@
 import i18n from '@dhis2/d2-i18n'
 import { loadEarthEngineWorker } from '../components/map/MapApi.js'
 import { legacyNighttimeDatasetId } from '../constants/earthEngineLayers/legacy/nighttime_DMSP-OLS.js'
-import { EE_MONTHLY } from '../constants/periods.js'
+import { EE_MONTHLY, EE_WEEKLY, EE_DAILY } from '../constants/periods.js'
 import { formatStartEndDate } from './time.js'
+
+const oneDayInMs = 24 * 60 * 60 * 1000
 
 export const classAggregation = ['percentage', 'hectares', 'acres']
 
 export const hasClasses = (type) => classAggregation.includes(type)
 
-export const getStartEndDate = (data) =>
-    formatStartEndDate(
+export const getStartEndDate = (data) => {
+    const period = formatStartEndDate(
         data['system:time_start'],
-        data['system:time_end'], // - 7200001, // Minus 2 hrs to end the day before
-        null,
-        false
+        data['system:time_end'] - oneDayInMs, // Subtract one day to make it inclusive
+        null
     )
+    return period
+}
+
+const VALUE_TYPES = {
+    STRING: 'string',
+    NUMBER: 'number',
+    BOOLEAN: 'boolean',
+}
+
+const castValue = (value, type) => {
+    switch (type) {
+        case VALUE_TYPES.STRING:
+            return String(value)
+
+        case VALUE_TYPES.NUMBER: {
+            return Number(value)
+        }
+        case VALUE_TYPES.BOOLEAN:
+            return value === true || value === 'true'
+        default:
+            return value
+    }
+}
 
 const getStaticFiltersFromDynamic = (filters, ...args) =>
     filters.map((filter) => ({
         ...filter,
         arguments: filter.arguments.map((arg) => {
-            const match = arg.match(/^\$([0-9]+)$/)
-            return match ? args[match[1] - 1] : arg
+            if (typeof arg !== 'string') {
+                return arg
+            }
+            const match = arg.match(
+                `^\\$([0-9]+)(?::(${Object.values(VALUE_TYPES).join('|')}))?$`
+            )
+            if (!match) {
+                return arg
+            }
+            const index = Number(match[1]) - 1
+            const type = match[2]
+            const value = args[index]
+            return type ? castValue(value, type) : value
         }),
     }))
 
@@ -30,6 +65,35 @@ const getMonth = (data) => {
     const month = date.toLocaleString('default', { month: 'long' })
     const year = date.getFullYear()
     return `${month} ${year}`
+}
+
+const getWeek = (data) => {
+    const dateStart = new Date(data['system:time_start'])
+    const dateEnd = new Date(data['system:time_end'])
+    return `Week ${data['week']} - ${dateStart
+        .toISOString()
+        .slice(0, 10)} - ${dateEnd.toISOString().slice(0, 10)}`
+}
+
+const getDay = (data) =>
+    new Date(data['system:time_start']).toISOString().slice(0, 10)
+
+const getDatasetPeriodInfo = (first, last) => {
+    const startDate = new Date(first.properties['system:time_start'])
+    let endDate
+    if (last.properties['system:time_end']) {
+        endDate = new Date(last.properties['system:time_end'])
+    } else {
+        endDate = new Date(last.properties['system:time_start'])
+    }
+    const startYear = startDate.getUTCFullYear()
+    const endYear = endDate.getUTCFullYear()
+    return {
+        startDate,
+        endDate,
+        startYear,
+        endYear,
+    }
 }
 
 export const getStaticFilterFromPeriod = (period, filters) => {
@@ -121,6 +185,9 @@ const getWorkerInstance = async (engine) => {
 export const getPeriods = async ({
     datasetId,
     periodType,
+    periodReducer,
+    year,
+    datesRange,
     filters,
     engine,
 }) => {
@@ -129,25 +196,69 @@ export const getPeriods = async ({
     )
 
     const getPeriod = ({ id, properties }) => {
-        const year =
-            properties.year ||
-            new Date(properties['system:time_start']).getFullYear()
+        const startDate = new Date(properties['system:time_start'])
+        const endDate = new Date(properties['system:time_end'])
+        // Determine the period year:
+        // - use properties.year if available
+        // - otherwise endDate year for periods between years (eg weekly datasets)
+        // - fallback to startDate year (eg daily datasets or yearly datasets with next-year endDate)
+        const year = parseInt(properties.year || endDate.getFullYear())
+        const yearFallback = parseInt(
+            properties.year || startDate.getFullYear()
+        )
+        const base = {
+            id,
+            startDate,
+            endDate,
+            year,
+        }
 
-        return periodType === 'YEARLY'
-            ? { id: useSystemIndex ? id : year, name: String(year) }
-            : {
-                  id,
-                  name:
-                      periodType === EE_MONTHLY
-                          ? getMonth(properties)
-                          : getStartEndDate(properties),
-                  year,
-              }
+        switch (periodType) {
+            case 'YEARLY':
+                return {
+                    ...base,
+                    year: yearFallback,
+                    id: useSystemIndex ? id : String(yearFallback),
+                    name: String(yearFallback),
+                }
+            case EE_DAILY:
+                return {
+                    ...base,
+                    year: yearFallback,
+                    id: useSystemIndex ? id : String(yearFallback),
+                    name: getDay(properties),
+                }
+            case EE_WEEKLY:
+                return {
+                    ...base,
+                    name: getWeek(properties),
+                }
+            case EE_MONTHLY:
+                return {
+                    ...base,
+                    name: getMonth(properties),
+                }
+            default:
+                return {
+                    ...base,
+                    name: getStartEndDate(properties),
+                }
+        }
     }
 
     const eeWorker = await getWorkerInstance(engine)
-
-    const { features } = await eeWorker.getPeriods(datasetId)
-
+    const { features } = await eeWorker.getPeriods({
+        datasetId,
+        year,
+        datesRange,
+        periodReducer,
+    })
     return features.map(getPeriod)
+}
+
+export const getYears = async ({ datasetId, engine }) => {
+    const eeWorker = await getWorkerInstance(engine)
+    const { first, last } = await eeWorker.getCollectionSpan(datasetId)
+    const periodInfo = getDatasetPeriodInfo(first, last)
+    return periodInfo
 }

@@ -2,6 +2,14 @@
     margin-top: var(--spacers-dp16);
 }
 
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    margin: var(--spacers-dp4) 0 0;
+    box-sizing: border-box;
+}
+
 .year {
     width: 35%;
     padding-right: var(--spacers-dp16);
@@ -23,4 +31,8 @@
 .loading div {
     display: inline-block;
     margin-right: var(--spacers-dp24);
+}
+
+.notice {
+    margin: var(--spacers-dp16) var(--spacers-dp16);
 }

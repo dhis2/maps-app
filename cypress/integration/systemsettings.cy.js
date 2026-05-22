@@ -30,40 +30,36 @@ describe('systemSettings', () => {
 
         cy.visit('/')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic').selectTab('Period')
+        ThemLayer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest(
-            'period-dimension-relative-period-filter-content'
-        ).click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-BIWEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-BIWEEKLY'
         ).should('be.visible')
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-WEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-WEEKLY'
         ).should('not.exist')
     })
 
     it('includes Weekly period type when weekly periods not hidden in system settings', () => {
         cy.visit('/')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic').selectTab('Period')
+        ThemLayer.openDialog('Thematic').selectTab('Period')
 
-        cy.getByDataTest(
-            'period-dimension-relative-period-filter-content'
-        ).click()
+        cy.getByDataTest('period-dimension-relative-period-filter').click()
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-BIWEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-BIWEEKLY'
         ).should('be.visible')
 
         cy.getByDataTest(
-            'period-dimension-relative-period-filter-option-WEEKLY'
+            'period-dimension-relative-period-filter-period-type-option-WEEKLY'
         ).should('be.visible')
     })
 
@@ -85,9 +81,10 @@ describe('systemSettings', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('HIV')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
@@ -95,7 +92,7 @@ describe('systemSettings', () => {
             .selectOu('Sierra Leone')
             .addToMap()
 
-        Layer.validateCardPeriod('Last 6 months')
+        ThemLayer.validateCardPeriod('Last 6 months')
         // })
     })
 
@@ -118,9 +115,10 @@ describe('systemSettings', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
 
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('HIV')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
@@ -128,7 +126,7 @@ describe('systemSettings', () => {
             .selectOu('Sierra Leone')
             .addToMap()
 
-        Layer.validateCardPeriod('Last 12 months')
+        ThemLayer.validateCardPeriod('Last 12 months')
         // })
     })
 

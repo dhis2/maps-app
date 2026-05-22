@@ -1,4 +1,8 @@
-import { THEMATIC_LAYER } from '../constants/layers.js'
+import {
+    THEMATIC_LAYER,
+    EARTH_ENGINE_LAYER,
+    EE_BUFFER,
+} from '../constants/layers.js'
 import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics.js'
 import { cleanDimension } from './favorites.js'
 import { loadDataItemLegendSet } from './legend.js'
@@ -75,6 +79,34 @@ export const getThematicLayerFromAnalyticalObject = async ({
         isVisible,
         opacity: 0.9,
     }
+}
+
+// Returns an earth engine layer config from an analytical object
+export const getEarthEngineLayerFromAnalyticalObject = ({
+    ao = {},
+    isVisible = true,
+}) => {
+    const { layerId, ...aoProps } = ao
+    delete aoProps.filters
+    const dims = getDimensionsFromAnalyticalObject(ao)
+    const orgUnits = dims.find((i) => i.dimension === 'ou')
+    const periods = dims.find((i) => i.dimension === 'pe')
+
+    if (!layerId || !orgUnits || !periods) {
+        return
+    }
+
+    const layer = {
+        layer: EARTH_ENGINE_LAYER,
+        layerId,
+        period: periods.items[0][0],
+        rows: [orgUnits],
+        isVisible,
+        opacity: 0.9,
+        areaRadius: EE_BUFFER,
+        ...aoProps,
+    }
+    return layer
 }
 
 // Translates a thematic layer to an analytical object

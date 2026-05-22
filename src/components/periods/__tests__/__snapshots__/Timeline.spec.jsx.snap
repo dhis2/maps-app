@@ -4,7 +4,7 @@ exports[`Timeline should render timeline 1`] = `
 <div>
   <svg
     class="dhis2-map-timeline timeline"
-    style="height: 40px; bottom: 30px;"
+    style="height: 40px; bottom: 36px;"
   >
     <g
       aria-label="Play/Pause"

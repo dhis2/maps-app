@@ -1,4 +1,4 @@
-import centroid from '@turf/centroid'
+import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
 
 export const EVENT_ID_FIELD = 'psi'
@@ -164,7 +164,7 @@ export const getCentroid = (geometry, format = CENTROID_FORMAT_ARRAY) => {
             break
         case GEO_TYPE_POLYGON:
         case GEO_TYPE_MULTIPOLYGON:
-            coords = centroid(geometry).geometry.coordinates
+            coords = turfCentroid(geometry).geometry.coordinates
             break
         default:
             return null

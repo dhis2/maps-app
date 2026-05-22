@@ -1,20 +1,17 @@
-import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { THEMATIC_LAYER } from '../../../constants/layers.js'
 import Layer from './Layer.jsx'
 import styles from './styles/LayerList.module.css'
 
-const LayerList = ({ layers, isSplitView, onLayerSelect }) => (
-    <div className={styles.layerList}>
-        {isSplitView ? (
-            <div className={styles.split}>
-                {i18n.t(
-                    'Split view can not be combined with other layer types.'
-                )}
-            </div>
-        ) : (
+const LayerList = ({ layers, isSplitView, onLayerSelect }) => {
+    const displayedLayers = isSplitView
+        ? layers.filter((layer) => layer.layer === THEMATIC_LAYER)
+        : layers
+    return (
+        <div className={styles.layerList}>
             <div className={styles.list} data-test="addlayerlist">
-                {layers.map((layer, index) => (
+                {displayedLayers.map((layer, index) => (
                     <Layer
                         key={`layer-${index}`}
                         onClick={onLayerSelect}
@@ -22,9 +19,9 @@ const LayerList = ({ layers, isSplitView, onLayerSelect }) => (
                     />
                 ))}
             </div>
-        )}
-    </div>
-)
+        </div>
+    )
+}
 
 LayerList.propTypes = {
     layers: PropTypes.array.isRequired,

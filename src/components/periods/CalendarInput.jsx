@@ -115,7 +115,7 @@ export const CalendarInput = ({
 }
 
 CalendarInput.propTypes = {
-    calendar: PropTypes.object,
+    calendar: PropTypes.string,
     cellSize: PropTypes.number,
     clearable: PropTypes.bool,
     dataTest: PropTypes.string,

@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { sortLegendItems } from '../../util/legend.js'
 import Bubbles from './Bubbles.jsx'
 import LegendItem from './LegendItem.jsx'
 import styles from './styles/Legend.module.css'
@@ -24,10 +25,16 @@ const Legend = ({
         {description && <div className={styles.description}>{description}</div>}
         {groups && (
             <div className={styles.group}>
-                {groups.length > 1 ? i18n.t('Groups') : i18n.t('Group')}
-                {groups.map(({ id, name }) => (
-                    <div key={id}>{name}</div>
-                ))}
+                {groups.multiple === false ? (
+                    <>{groups.list[0].name}</>
+                ) : (
+                    <>
+                        {groups.label}
+                        {groups.list.map(({ id, name }) => (
+                            <div key={id}>{name}</div>
+                        ))}
+                    </>
+                )}
             </div>
         )}
         {unit && items && <div className={styles.unit}>{unit}</div>}
@@ -37,7 +44,7 @@ const Legend = ({
             Array.isArray(items) && (
                 <table>
                     <tbody>
-                        {items.map((item, index) => (
+                        {sortLegendItems(items).map((item, index) => (
                             <LegendItem {...item} key={`item-${index}`} />
                         ))}
                     </tbody>
@@ -93,7 +100,7 @@ Legend.propTypes = {
     description: PropTypes.string,
     explanation: PropTypes.array,
     filters: PropTypes.array,
-    groups: PropTypes.array,
+    groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     isPlugin: PropTypes.bool,
     items: PropTypes.array,
     source: PropTypes.string,

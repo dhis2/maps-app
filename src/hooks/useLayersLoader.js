@@ -1,4 +1,4 @@
-import { Analytics } from '@dhis2/analytics'
+import { Analytics, useDataOutputPeriodTypes } from '@dhis2/analytics'
 import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import { useState, useEffect } from 'react'
@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
-import { EVENT_LAYER } from '../constants/layers.js'
+import { THEMATIC_LAYER, EVENT_LAYER } from '../constants/layers.js'
 import earthEngineLoader from '../loaders/earthEngineLoader.js'
 import eventLoader from '../loaders/eventLoader.js'
 import externalLoader from '../loaders/externalLoader.js'
@@ -40,6 +40,7 @@ export const useLayersLoader = () => {
         ({ layer }) => `Could not load layer ${layer}`,
         { critical: true }
     )
+    const periodTypeData = useDataOutputPeriodTypes()
 
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
 
@@ -52,6 +53,7 @@ export const useLayersLoader = () => {
                 userId,
                 baseUrl,
                 analyticsEngine, // Thematic and Event loader
+                periodTypeData, // Thematic and Event loader
                 serverVersion, // Tracked entity loader
                 loadExtended: !!dataTable, // Event loader
             })
@@ -92,6 +94,13 @@ export const useLayersLoader = () => {
                 showLoaderAlert({ layer: layerConfig.layer })
                 return
             }
+            if (
+                periodTypeData?.supportsEnabledPeriodTypes &&
+                !periodTypeData?.enabledPeriodTypesData &&
+                [THEMATIC_LAYER, EVENT_LAYER].includes(layerConfig.layer)
+            ) {
+                return
+            }
             dispatch(setLayerLoading(layerConfig.id))
             loadLayer(layerConfig, loader)
         })
@@ -102,6 +111,7 @@ export const useLayersLoader = () => {
         userId,
         engine,
         analyticsEngine,
+        periodTypeData,
         showAlerts,
         showLoaderAlert,
         baseUrl,

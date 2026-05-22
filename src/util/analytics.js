@@ -43,6 +43,7 @@ export const setDataItemInColumns = (dataItem, dimension) => {
                                   ? '.REPORTING_RATE'
                                   : ''),
                           name: dataItem.name,
+                          expression: dataItem.expression,
                           dimensionItemType: dim.itemType,
                           legendSet: dataItem.legendSet, // TODO: Keep outside of columns?
                       },
@@ -174,7 +175,7 @@ export const getFilterOperatorAsText = (operator, value) => {
         IN: i18n.t('one of'),
         '!IN': i18n.t('not one of'),
         LIKE: i18n.t('contains'),
-        '!LIKE': i18n.t("doesn't contains"),
+        '!LIKE': i18n.t("doesn't contain"),
     }[operator]
 }
 

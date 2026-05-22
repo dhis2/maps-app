@@ -46,6 +46,24 @@ const config = {
         },
     },
 
+    viteConfigExtensions: {
+        optimizeDeps: {
+            esbuildOptions: {
+                target: 'es2022',
+            },
+        },
+        build: {
+            target: 'es2022',
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        'maps-gl': ['@dhis2/maps-gl'],
+                    },
+                },
+            },
+        },
+    },
+
     entryPoints: {
         app: './src/AppWrapper.jsx',
         plugin: './src/PluginWrapper.jsx',

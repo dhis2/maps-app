@@ -1,4 +1,3 @@
-import Point from '@mapbox/point-geometry'
 import PropTypes from 'prop-types'
 import { useState, useCallback, useEffect } from 'react'
 import { GEOJSON_LAYER } from '../../constants/layers.js'
@@ -8,15 +7,14 @@ const layerId = 'overview-outline'
 
 // Returns a feature with the main map outline (with bearing and pitch)
 const getMapOutline = (map) => {
-    const { transform } = map
-    const { width, height } = transform
+    const canvas = map.getCanvas()
+    const width = canvas.width
+    const height = canvas.height
 
-    const upperLeft = transform.pointLocation(new Point(0, 0)).toArray()
-    const lowerLeft = transform.pointLocation(new Point(0, height)).toArray()
-    const lowerRight = transform
-        .pointLocation(new Point(width, height))
-        .toArray()
-    const upperRight = transform.pointLocation(new Point(width, 0)).toArray()
+    const upperLeft = map.unproject([0, 0]).toArray()
+    const lowerLeft = map.unproject([0, height]).toArray()
+    const lowerRight = map.unproject([width, height]).toArray()
+    const upperRight = map.unproject([width, 0]).toArray()
 
     return {
         type: 'Feature',

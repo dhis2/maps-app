@@ -15,7 +15,7 @@ const AggregationTypeSelect = ({
 
     return (
         <SelectField
-            label={i18n.t('Aggregation type')}
+            prefix={i18n.t('Aggregation type')}
             items={getThematicAggregationTypes()}
             value={aggregationType || types[0].id}
             onChange={(type) => setAggregationType(type.id)}

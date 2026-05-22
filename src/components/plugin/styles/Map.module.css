@@ -23,3 +23,11 @@
     background: #cbcdcf;
     border-radius: 3px;
 }
+
+@media print {
+    :global(.maplibregl-ctrl-top-right),
+    :global(.maplibregl-ctrl-attrib-button),
+    :global(.dhis2-map-legend-button) {
+        display: none !important;
+    }
+}

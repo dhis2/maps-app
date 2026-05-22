@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-11T09:58:39.984Z\n"
-"PO-Revision-Date: 2025-09-11T09:58:39.984Z\n"
+"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"PO-Revision-Date: 2026-03-12T18:11:56.380Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -31,15 +31,6 @@ msgstr "This app could not retrieve required data."
 
 msgid "Network error"
 msgstr "Network error"
-
-msgid "Calculation"
-msgstr "Calculation"
-
-msgid "No calculations found"
-msgstr "No calculations found"
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr "Calculations can be created in the Data Visualizer app."
 
 msgid "Classification"
 msgstr "Classification"
@@ -67,21 +58,6 @@ msgstr "Value"
 
 msgid "Display"
 msgstr "Display"
-
-msgid "Data element group"
-msgstr "Data element group"
-
-msgid "Data element operand"
-msgstr "Data element operand"
-
-msgid "Data element"
-msgstr "Data element"
-
-msgid "Totals"
-msgstr "Totals"
-
-msgid "Details"
-msgstr "Details"
 
 msgid "Yes"
 msgstr "Yes"
@@ -119,9 +95,6 @@ msgstr "Enrollment > event > tracked entity > org unit coordinate"
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
 
-msgid "Event data item"
-msgstr "Event data item"
-
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "Previously selected value not available in list: {{id}}"
 
@@ -154,9 +127,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Date"
-
-msgid "Data set"
-msgstr "Data set"
 
 msgid "No results found"
 msgstr "No results found"
@@ -312,11 +282,8 @@ msgstr "Update layer"
 msgid "Add layer"
 msgstr "Add layer"
 
-msgid "Aggregation method"
-msgstr "Aggregation method"
-
-msgid "Groups"
-msgstr "Groups"
+msgid "Area statistics (popups and data table)"
+msgstr "Area statistics (popups and data table)"
 
 msgid "This field is required"
 msgstr "This field is required"
@@ -326,6 +293,9 @@ msgstr "Data"
 
 msgid "Period"
 msgstr "Period"
+
+msgid "Dataset"
+msgstr "Dataset"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -359,14 +329,17 @@ msgstr "Temporal coverage"
 msgid "Source"
 msgstr "Source"
 
+msgid "Period type"
+msgstr "Period type"
+
 msgid "Legend preview"
 msgstr "Legend preview"
 
+msgid "Available periods are retrieved from the source data"
+msgstr "Available periods are retrieved from the source data"
+
 msgid "Year"
 msgstr "Year"
-
-msgid "Available periods are set by the source data"
-msgstr "Available periods are set by the source data"
 
 msgid "Loading periods"
 msgstr "Loading periods"
@@ -434,8 +407,8 @@ msgstr "Event status"
 msgid "Boundary color"
 msgstr "Boundary color"
 
-msgid "Draws a buffer area around each location."
-msgstr "Draws a buffer area around each location."
+msgid "Draws a buffer area around each point location."
+msgstr "Draws a buffer area around each point location."
 
 msgid "Buffer"
 msgstr "Buffer"
@@ -500,50 +473,33 @@ msgstr "Choose from presets"
 msgid "Define start - end dates"
 msgstr "Define start - end dates"
 
-msgid "Indicator group is required"
-msgstr "Indicator group is required"
+msgid "Choose periods for all timeline layers"
+msgstr "Choose periods for all timeline layers"
 
-msgid "Indicator is required"
-msgstr "Indicator is required"
+msgid "Selection is initialized from shared periods"
+msgstr "Selection is initialized from shared periods"
 
-msgid "Data element group is required"
-msgstr "Data element group is required"
+msgid "Choose periods for all split layers"
+msgstr "Choose periods for all split layers"
 
-msgid "Data element is required"
-msgstr "Data element is required"
-
-msgid "Data set is required"
-msgstr "Data set is required"
-
-msgid "Event data item is required"
-msgstr "Event data item is required"
-
-msgid "Program indicator is required"
-msgstr "Program indicator is required"
-
-msgid "Calculation is required"
-msgstr "Calculation is required"
+msgid "Data is required"
+msgstr "Data is required"
 
 msgid "Period is required"
 msgstr "Period is required"
 
-msgid "Indicator"
-msgstr "Indicator"
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
 
-msgid "Reporting rates"
-msgstr "Reporting rates"
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
 
-msgid "Event data items"
-msgstr "Event data items"
-
-msgid "Program indicators"
-msgstr "Program indicators"
-
-msgid "Calculations"
-msgstr "Calculations"
-
-msgid "Item type"
-msgstr "Item type"
+msgid "Specified radius values are invalid"
+msgstr "Specified radius values are invalid"
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Select period when tracked entities were last updated"
@@ -608,9 +564,6 @@ msgstr "Group set"
 msgid "Style by group set"
 msgstr "Style by group set"
 
-msgid "Indicator group"
-msgstr "Indicator group"
-
 msgid "Manage available layer sources"
 msgstr "Manage available layer sources"
 
@@ -661,9 +614,6 @@ msgstr "Data download failed."
 msgid "External layer"
 msgstr "External layer"
 
-msgid "Split view can not be combined with other layer types."
-msgstr "Split view can not be combined with other layer types."
-
 msgid "Failed to load layer"
 msgstr "Failed to load layer"
 
@@ -709,9 +659,6 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
-msgid "Group"
-msgstr "Group"
-
 msgid "Filters"
 msgstr "Filters"
 
@@ -748,6 +695,13 @@ msgstr "Longitude"
 msgid "Latitude"
 msgstr "Latitude"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basemap could not be added: {{message}}"
 
@@ -756,6 +710,9 @@ msgstr "Could not retrieve event data"
 
 msgid "Organisation unit"
 msgstr "Organisation unit"
+
+msgid "Groups"
+msgstr "Groups"
 
 msgid "Parent unit"
 msgstr "Parent unit"
@@ -782,8 +739,8 @@ msgstr ""
 msgid "no value"
 msgstr "no value"
 
-msgid "All groups"
-msgstr "All groups"
+msgid "All"
+msgstr "All"
 
 msgid "Loading data"
 msgstr "Loading data"
@@ -954,11 +911,14 @@ msgstr "Next year"
 msgid "Start/end dates"
 msgstr "Start/end dates"
 
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
+msgstr "Remove all split layers to add a single layer."
 
-msgid "Remove the existing timeline to add a new one."
-msgstr "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr "Remove all split layers to add a timeline layer."
+
+msgid "Remove all other layers to add a split layer."
+msgstr "Remove all other layers to add a split layer."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -966,9 +926,6 @@ msgid ""
 msgstr ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-
-msgid "Remove all other layers to add a split map view."
-msgstr "Remove all other layers to add a split map view."
 
 msgid "Single"
 msgstr "Single"
@@ -987,9 +944,6 @@ msgstr "Split"
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
 msgstr "Show multiple maps in view, one for each period (max {{number}})."
-
-msgid "Period display mode"
-msgstr "Period display mode"
 
 msgid "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr "Start and end dates are inclusive and will be reflected in the outputs."
@@ -1010,8 +964,11 @@ msgstr "End date"
 msgid "Not available offline"
 msgstr "Not available offline"
 
-msgid "Program indicator"
-msgstr "Program indicator"
+msgid "Click to unpin legend"
+msgstr "Click to unpin legend"
+
+msgid "Click to pin legend"
+msgstr "Click to pin legend"
 
 msgid "No program"
 msgstr "No program"
@@ -1119,8 +1076,8 @@ msgstr ""
 msgid "Number of buildings"
 msgstr "Number of buildings"
 
-msgid "0.5 meter"
-msgstr "0.5 meter"
+msgid "~0.5 meter"
+msgstr "~0.5 meter"
 
 msgid "Single point in time"
 msgstr "Single point in time"
@@ -1140,14 +1097,129 @@ msgstr "meters"
 msgid "~30 meters"
 msgstr "~30 meters"
 
-msgid "Febuary 2000"
-msgstr "Febuary 2000"
+msgid "February 2000"
+msgstr "February 2000"
+
+msgid "Heat stress"
+msgstr "Heat stress"
+
+msgid "Heat stress daily"
+msgstr "Heat stress daily"
+
+msgid "A measure of the thermal stress experienced by a person."
+msgstr "A measure of the thermal stress experienced by a person."
+
+msgid ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+msgstr ""
+"The Universal Thermal Climate Index (UTCI) combines the effects of air "
+"temperature, humidity, wind speed, and radiation on the human body. Felt "
+"temperature in °C."
+
+msgid "~28 kilometers"
+msgstr "~28 kilometers"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Since January 1940"
+msgstr "Since January 1940"
+
+msgid "Base daily value"
+msgstr "Base daily value"
+
+msgid "Extreme cold stress -60 - -40"
+msgstr "Extreme cold stress -60 - -40"
+
+msgid "Very strong cold stress -40 - -27"
+msgstr "Very strong cold stress -40 - -27"
+
+msgid "Strong cold stress -27 - -13"
+msgstr "Strong cold stress -27 - -13"
+
+msgid "Moderate cold stress -13 - 0"
+msgstr "Moderate cold stress -13 - 0"
+
+msgid "Slight cold stress 0 - 9"
+msgstr "Slight cold stress 0 - 9"
+
+msgid "No thermal stress 9 - 26"
+msgstr "No thermal stress 9 - 26"
+
+msgid "Moderate heat stress 26 - 32"
+msgstr "Moderate heat stress 26 - 32"
+
+msgid "Strong heat stress 32 - 38"
+msgstr "Strong heat stress 32 - 38"
+
+msgid "Very strong heat stress 38 - 46"
+msgstr "Very strong heat stress 38 - 46"
+
+msgid "Extreme heat stress 46 - 60"
+msgstr "Extreme heat stress 46 - 60"
+
+msgid "Heat stress monthly"
+msgstr "Heat stress monthly"
+
+msgid "Monthly (aggregated from Daily data)"
+msgstr "Monthly (aggregated from Daily data)"
+
+msgid "Heat stress weekly"
+msgstr "Heat stress weekly"
+
+msgid "Weekly (aggregated from Daily data)"
+msgstr "Weekly (aggregated from Daily data)"
+
+msgid "Relative humidity"
+msgstr "Relative humidity"
+
+msgid "Relative humidity daily"
+msgstr "Relative humidity daily"
+
+msgid "Amount of water vapour present in air."
+msgstr "Amount of water vapour present in air."
+
+msgid ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+msgstr ""
+"Relative humidity is expressed as a percentage of the maximum amount of "
+"water vapor the air can hold at the same temperature."
+
+msgid "~9 kilometers"
+msgstr "~9 kilometers"
+
+msgid "Since February 1950"
+msgstr "Since February 1950"
+
+msgid "Relative humidity monthly"
+msgstr "Relative humidity monthly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "Relative humidity weekly"
+msgstr "Relative humidity weekly"
 
 msgid "Landcover"
 msgstr "Landcover"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Distinct landcover types collected from satellites."
+
+msgid "unitless"
+msgstr "unitless"
+
+msgid "~500 meters"
+msgstr "~500 meters"
+
+msgid "Yearly"
+msgstr "Yearly"
+
+msgid "Since 2001"
+msgstr "Since 2001"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Evergreen Needleleaf forest"
@@ -1232,36 +1304,8 @@ msgstr "Estimated number of people living in an area."
 msgid "people per hectare"
 msgstr "people per hectare"
 
-msgid "Precipitation"
-msgstr "Precipitation"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-msgstr ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-
-msgid "Temperature MODIS"
-msgstr "Temperature MODIS"
-
-msgid "°C during daytime"
-msgstr "°C during daytime"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-
-msgid "Population age groups"
-msgstr "Population age groups"
+msgid "Population age groups WorldPop Global1"
+msgstr "Population age groups WorldPop Global1"
 
 msgid "Estimated number of people living in an area, grouped by age and gender."
 msgstr "Estimated number of people living in an area, grouped by age and gender."
@@ -1377,37 +1421,198 @@ msgstr "Female 75 - 79 years"
 msgid "Female 80 years and above"
 msgstr "Female 80 years and above"
 
-msgid "Precipitation monthly"
-msgstr "Precipitation monthly"
+msgid "Population WorldPop Global1"
+msgstr "Population WorldPop Global1"
+
+msgid "Precipitation"
+msgstr "Precipitation"
+
+msgid "millimeter"
+msgstr "millimeter"
 
 msgid ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 msgstr ""
-"Accumulated liquid and frozen water, including rain and snow, that falls to "
-"the surface. Combines model data with observations from across the world."
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
 
-msgid "~11 kilometers"
-msgstr "~11 kilometers"
+msgid "Temperature MODIS"
+msgstr "Temperature MODIS"
 
-msgid "Monthly"
-msgstr "Monthly"
+msgid "°C during daytime"
+msgstr "°C during daytime"
 
-msgid "Febuary 1950 - One month ago"
-msgstr "Febuary 1950 - One month ago"
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+
+msgid "Population age groups WorldPop Global2"
+msgstr "Population age groups WorldPop Global2"
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+
+msgid "2015 - 2030"
+msgstr "2015 - 2030"
+
+msgid "Male 80 - 84 years"
+msgstr "Male 80 - 84 years"
+
+msgid "Male 85 - 89 years"
+msgstr "Male 85 - 89 years"
+
+msgid "Male 90 years and above"
+msgstr "Male 90 years and above"
+
+msgid "Female 80 - 84 years"
+msgstr "Female 80 - 84 years"
+
+msgid "Female 85 - 89 years"
+msgstr "Female 85 - 89 years"
+
+msgid "Female 90 years and above"
+msgstr "Female 90 years and above"
+
+msgid "Population WorldPop Global2"
+msgstr "Population WorldPop Global2"
+
+msgid "CHIRPS"
+msgstr "CHIRPS"
+
+msgid "Precipitation daily CHIRPS"
+msgstr "Precipitation daily CHIRPS"
+
+msgid "Gridded precipitation dataset."
+msgstr "Gridded precipitation dataset."
+
+msgid ""
+"Combines satellite imagery with in-situ station data and provides "
+"rainfall-focused estimates over land at higher spatial resolution but with "
+"a longer lag in data availability."
+msgstr ""
+"Combines satellite imagery with in-situ station data and provides "
+"rainfall-focused estimates over land at higher spatial resolution but with "
+"a longer lag in data availability."
+
+msgid "~5.5 kilometers"
+msgstr "~5.5 kilometers"
+
+msgid "Since January 1981"
+msgstr "Since January 1981"
+
+msgid "ERA5"
+msgstr "ERA5"
+
+msgid "Precipitation daily ERA5"
+msgstr "Precipitation daily ERA5"
+
+msgid ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+msgstr ""
+"Combines model data with observations from around the world and provides "
+"estimates of both rain and snow over land at high temporal resolution, "
+"typically available within about one week."
+
+msgid "Precipitation monthly CHIRPS"
+msgstr "Precipitation monthly CHIRPS"
+
+msgid "Precipitation monthly ERA5"
+msgstr "Precipitation monthly ERA5"
+
+msgid "Precipitation weekly CHIRPS"
+msgstr "Precipitation weekly CHIRPS"
+
+msgid "Precipitation weekly ERA5"
+msgstr "Precipitation weekly ERA5"
+
+msgid "Temperature"
+msgstr "Temperature"
+
+msgid "Temperature daily"
+msgstr "Temperature daily"
+
+msgid "Gridded temperature dataset at 2m above the surface."
+msgstr "Gridded temperature dataset at 2m above the surface."
+
+msgid "Combines model data with observations from across the world."
+msgstr "Combines model data with observations from across the world."
 
 msgid "Temperature monthly"
 msgstr "Temperature monthly"
 
-msgid ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
-msgstr ""
-"Temperature at 2m above the surface. Combines model data with observations "
-"from across the world."
+msgid "Temperature weekly"
+msgstr "Temperature weekly"
 
-msgid "All"
-msgstr "All"
+msgid "Vegetation"
+msgstr "Vegetation"
+
+msgid "Vegetation index 16-day"
+msgstr "Vegetation index 16-day"
+
+msgid ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+msgstr ""
+"Vegetation index values range from -1 to 1, with higher values indicating "
+"denser vegetation."
+
+msgid ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects "
+"for some atmospheric conditions and canopy background noise and is more "
+"sensitive in areas with dense vegetation."
+msgstr ""
+"Normalized difference vegetation index (NDVI) is used to quantify "
+"vegetation greenness and is useful in understanding vegetation density and "
+"assessing changes in plant health. \n"
+" Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects "
+"for some atmospheric conditions and canopy background noise and is more "
+"sensitive in areas with dense vegetation."
+
+msgid "~250 meters"
+msgstr "~250 meters"
+
+msgid "16-day"
+msgstr "16-day"
+
+msgid "Since February 2000"
+msgstr "Since February 2000"
+
+msgid "NDVI"
+msgstr "NDVI"
+
+msgid "EVI"
+msgstr "EVI"
+
+msgid "Vegetation index monthly"
+msgstr "Vegetation index monthly"
+
+msgid "Monthly (aggregated from 16-day data)"
+msgstr "Monthly (aggregated from 16-day data)"
+
+msgid "Vegetation index weekly"
+msgstr "Vegetation index weekly"
+
+msgid "Weekly (aggregated from 16-day data)"
+msgstr "Weekly (aggregated from 16-day data)"
 
 msgid "Active"
 msgstr "Active"
@@ -1442,9 +1647,6 @@ msgstr "Symbol"
 msgid "Relative"
 msgstr "Relative"
 
-msgid "Daily"
-msgstr "Daily"
-
 msgid "Weekly"
 msgstr "Weekly"
 
@@ -1474,9 +1676,6 @@ msgstr "Six-monthly"
 
 msgid "Six-monthly April"
 msgstr "Six-monthly April"
-
-msgid "Yearly"
-msgstr "Yearly"
 
 msgid "Financial year (Start November)"
 msgstr "Financial year (Start November)"
@@ -1559,8 +1758,8 @@ msgstr "related"
 msgid "not one of"
 msgstr "not one of"
 
-msgid "doesn't contains"
-msgstr "doesn't contains"
+msgid "doesn't contain"
+msgstr "doesn't contain"
 
 msgid "true"
 msgstr "true"

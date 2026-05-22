@@ -6,8 +6,8 @@ const MAP_TITLE = 'test ' + new Date().toUTCString().slice(-24, -4)
 context('Interpretations', () => {
     it('opens the interpretations panel for a map', () => {
         cy.visit('/#/ZBjCfSaLSqD', EXTENDED_TIMEOUT)
-        const Layer = new ThematicLayer()
-        Layer.validateCardTitle('ANC LLITN coverage')
+        const ThemLayer = new ThematicLayer()
+        ThemLayer.validateCardTitle('ANC LLITN coverage')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
 
         cy.get('button').contains('Interpretations').click()
@@ -25,18 +25,19 @@ context('Interpretations', () => {
     })
 
     it('view interpretation after creating a map', () => {
-        const Layer = new ThematicLayer()
+        const ThemLayer = new ThematicLayer()
         cy.visit('/')
-        Layer.openDialog('Thematic')
+        ThemLayer.openDialog('Thematic')
+            .selectItemType('Indicators')
             .selectIndicatorGroup('ANC')
             .selectIndicator('ANC 1 Coverage')
             .selectTab('Org Units')
             .selectOu('Sierra Leone')
             .addToMap()
 
-        Layer.validateDialogClosed(true)
+        ThemLayer.validateDialogClosed(true)
 
-        Layer.validateCardTitle('ANC 1 Coverage')
+        ThemLayer.validateCardTitle('ANC 1 Coverage')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
 
         saveNewMap(MAP_TITLE)

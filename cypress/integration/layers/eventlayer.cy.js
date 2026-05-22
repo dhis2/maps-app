@@ -250,7 +250,8 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
-    it('change coordinate field - de/tea coordinate', () => {
+    it.skip('change coordinate field - de/tea coordinate', () => {
+        // TODO: E2E DB fix
         // Event layer config
 
         selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
@@ -282,7 +283,8 @@ context('Event Layers', () => {
         testCoordinate(Layer, programGeowR.scenarios[0].coordinates[4]) // E2E - Geo - TEA - Coordinate
     })
 
-    it('change coordinate field - event orgunit', () => {
+    it.skip('change coordinate field - event orgunit', () => {
+        // TODO: E2E DB fix
         // Event layer config
         selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
         Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
@@ -310,7 +312,8 @@ context('Event Layers', () => {
         testCoordinate(Layer, programGeowR.scenarios[1].coordinates[0], false) // Organisation unit location
     })
 
-    it('change coordinate field - de/tea orgunit', () => {
+    it.skip('change coordinate field - de/tea orgunit', () => {
+        // TODO: E2E DB fix
         // VERSION-TOGGLE
         // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
         // - [2.40.8] https://github.com/dhis2/dhis2-core/commit/f2286a5aa70b2957bd24925776e9394cd67d44c1

@@ -1,0 +1,35 @@
+{
+    "currentAnalyticalObject": {
+        "type": "earthEngine",
+        "layerId": "projects/climate-engine-pro/assets/ce-era5-heat/utci",
+        "band": "utci_mean",
+        "rows": [
+            {
+                "items": [
+                    {
+                        "id": "O6uvpzGd5pu",
+                        "name": "Bo",
+                        "path": "/O6uvpzGd5pu",
+                        "displayName": "Bo",
+                        "displayShortName": "Bo"
+                    }
+                ],
+                "dimension": "ou"
+            }
+        ],
+        "filters": [
+            {
+                "items": [
+                    [
+                        {
+                            "id": "20250107",
+                            "name": "2025-01-07",
+                            "dimensionItemType": "PERIOD"
+                        }
+                    ]
+                ],
+                "dimension": "pe"
+            }
+        ]
+    }
+}

@@ -166,7 +166,7 @@ const Timeline = ({ period, periods, onChange, resizeCount }) => {
             className={`dhis2-map-timeline ${styles.timeline}`}
             style={{
                 height: `${32 + rectTotalHeight}px`,
-                bottom: '30px',
+                bottom: '36px',
             }}
         >
             {/* Play/Pause Button */}

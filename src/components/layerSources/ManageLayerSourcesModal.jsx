@@ -9,13 +9,13 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import earthEngineLayers from '../../constants/earthEngineLayers/index.js'
+import getEarthEngineLayers from '../../constants/earthEngineLayers/index.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../hooks/useManagedLayerSourcesStore.js'
 import LayerSource from './LayerSource.jsx'
 import styles from './styles/ManageLayerSourcesModal.module.css'
 
-const nonLegacyEarthEngineLayers = earthEngineLayers
+const nonLegacyEarthEngineLayers = getEarthEngineLayers()
     .filter((l) => !l.legacy)
     .sort((a, b) => a.name.localeCompare(b.name))
 const layerSources = [...nonLegacyEarthEngineLayers]

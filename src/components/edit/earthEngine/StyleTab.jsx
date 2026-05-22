@@ -23,6 +23,7 @@ const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
                     label={i18n.t('Facility buffer')}
                     defaultRadius={EE_BUFFER}
                     hasOrgUnitField={hasOrgUnitField}
+                    forceShowNumberField={true}
                 />
             </div>
             {isClassStyle && (

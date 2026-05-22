@@ -70,11 +70,40 @@ export const getFixedPeriodsByType = ({
     return forceDescendingForYearTypes ? periods.reverse() : periods
 }
 
-export const getRelativePeriods = (hiddenPeriods = []) =>
-    periodGroups
+const mapEnabledTypesToGroups = (enabledTypes) => {
+    if (!enabledTypes) {
+        return null
+    } // null means "no restriction"
+
+    return new Set(
+        enabledTypes
+            .map(({ name }) => name.toUpperCase())
+            .map((upper) =>
+                periodGroups.find((group) => upper.startsWith(group))
+            )
+            .filter(Boolean)
+    )
+}
+
+export const getRelativePeriods = (
+    hiddenPeriods = [],
+    enabledTypes = undefined,
+    nameOverrides = {}
+) => {
+    const enabledGroups = mapEnabledTypesToGroups(enabledTypes)
+
+    return periodGroups
         .filter((id) => !hiddenPeriods.includes(id))
-        .map((id) => getRelativePeriodsOptionsById(id).getPeriods())
-        .flat()
+        .filter((id) => !enabledGroups || enabledGroups.has(id))
+        .flatMap((id) =>
+            getRelativePeriodsOptionsById(id)
+                .getPeriods()
+                .map((period) => ({
+                    ...period,
+                    name: nameOverrides[period.id]?.name ?? period.name,
+                }))
+        )
+}
 
 export const isPeriodAvailable = (id, hiddenPeriods) =>
     !!getRelativePeriods(hiddenPeriods).find((p) => p.id === id)

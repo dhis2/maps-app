@@ -5,7 +5,8 @@ import { Checkbox } from '../core/index.js'
 import styles from './styles/LayerSource.module.css'
 
 const LayerSource = ({ layerSource, isAdded, onShow, onHide }) => {
-    const { layerId, name, img, description, source } = layerSource
+    const { layerId, name, img, description, descriptionComplement, source } =
+        layerSource
 
     return (
         <div
@@ -23,6 +24,7 @@ const LayerSource = ({ layerSource, isAdded, onShow, onHide }) => {
             <div className={styles.layerSourceInfo}>
                 <h2>{name}</h2>
                 <p>{description}</p>
+                <p>{descriptionComplement}</p>
                 <div className={styles.source}>
                     {i18n.t('Source')}: {source}
                 </div>

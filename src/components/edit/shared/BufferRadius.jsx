@@ -9,6 +9,8 @@ import Checkbox from '../../core/Checkbox.jsx'
 import NumberField from '../../core/NumberField.jsx'
 import styles from './styles/BufferRadius.module.css'
 
+const MIN_RADIUS = 1
+
 // Component to set buffer radius (checkbox toggle and number field)
 // radius will be undefined when a layer dialog is opened (can be used to set default value)
 // it will be null when the checkbox is unchecked
@@ -20,27 +22,37 @@ const BufferRadius = ({
     hasOrgUnitField,
     disabled,
     className,
+    forceShowNumberField = false,
     setBufferRadius,
 }) => {
-    const showBuffer = radius !== undefined && radius !== null
     const isDisabled = disabled || hasOrgUnitField
+    const showBuffer =
+        forceShowNumberField && !hasOrgUnitField
+            ? true
+            : radius !== undefined && radius !== null
 
     return (
         <div className={cx(styles.buffer, className)}>
             <Tooltip
-                content={i18n.t('Draws a buffer area around each location.')}
+                content={i18n.t(
+                    'Draws a buffer area around each point location.'
+                )}
                 placement="top"
             >
-                <Checkbox
-                    label={i18n.t('Buffer')}
-                    checked={showBuffer}
-                    disabled={isDisabled}
-                    onChange={(isChecked) =>
-                        setBufferRadius(
-                            isChecked ? radius || defaultRadius : null
-                        )
-                    }
-                />
+                {forceShowNumberField ? (
+                    <div className={styles.labelOnly}>{i18n.t('Buffer')}</div>
+                ) : (
+                    <Checkbox
+                        label={i18n.t('Buffer')}
+                        checked={showBuffer}
+                        disabled={isDisabled}
+                        onChange={(isChecked) =>
+                            setBufferRadius(
+                                isChecked ? radius || defaultRadius : null
+                            )
+                        }
+                    />
+                )}
             </Tooltip>
             {showBuffer && (
                 <NumberField
@@ -48,9 +60,13 @@ const BufferRadius = ({
                     value={Number.isInteger(radius) ? radius : ''}
                     disabled={isDisabled}
                     onChange={(value) =>
-                        setBufferRadius(value !== '' ? parseInt(value, 10) : '')
+                        setBufferRadius(
+                            value !== ''
+                                ? Math.max(parseInt(value, 10), MIN_RADIUS)
+                                : ''
+                        )
                     }
-                    min={0}
+                    min={MIN_RADIUS}
                     className={styles.numberField}
                 />
             )}
@@ -70,6 +86,7 @@ BufferRadius.propTypes = {
     className: PropTypes.string,
     defaultRadius: PropTypes.number,
     disabled: PropTypes.bool,
+    forceShowNumberField: PropTypes.bool,
     hasOrgUnitField: PropTypes.bool,
     radius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }

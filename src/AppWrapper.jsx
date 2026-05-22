@@ -1,11 +1,16 @@
+import { InterpretationsProvider as AnalyticsInterpretationsProvider } from '@dhis2/analytics'
 import { DataStoreProvider } from '@dhis2/app-service-datastore'
 import { CssVariables } from '@dhis2/ui'
 import log from 'loglevel'
+import PropTypes from 'prop-types'
 import queryString from 'query-string'
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.jsx'
-import { CachedDataProvider } from './components/cachedDataProvider/CachedDataProvider.jsx'
+import {
+    CachedDataProvider,
+    useCachedData,
+} from './components/cachedDataProvider/CachedDataProvider.jsx'
 import OrgUnitsProvider from './components/OrgUnitsProvider.jsx'
 import WindowDimensionsProvider from './components/WindowDimensionsProvider.jsx'
 import store from './store/index.js'
@@ -53,6 +58,19 @@ const replaceLegacyUrl = () => {
     }
 }
 
+const InterpretationsProvider = ({ children }) => {
+    const { currentUser } = useCachedData()
+    return (
+        <AnalyticsInterpretationsProvider currentUser={currentUser}>
+            {children}
+        </AnalyticsInterpretationsProvider>
+    )
+}
+
+InterpretationsProvider.propTypes = {
+    children: PropTypes.node,
+}
+
 const AppWrapper = () => {
     replaceLegacyUrl()
 
@@ -65,8 +83,10 @@ const AppWrapper = () => {
                 >
                     <WindowDimensionsProvider>
                         <OrgUnitsProvider>
-                            <CssVariables colors elevations spacers theme />
-                            <App />
+                            <InterpretationsProvider>
+                                <CssVariables colors elevations spacers theme />
+                                <App />
+                            </InterpretationsProvider>
                         </OrgUnitsProvider>
                     </WindowDimensionsProvider>
                 </CachedDataProvider>

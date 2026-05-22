@@ -8,6 +8,7 @@
 
 .dataTable {
     position: relative;
+    min-height: 72px;
 }
 
 .dataTable table {

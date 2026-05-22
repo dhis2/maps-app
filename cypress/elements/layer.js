@@ -124,9 +124,11 @@ export class Layer {
         }
     }
 
-    validateCardTitle(title) {
+    validateCardTitle(titles) {
+        const titlesArray = Array.isArray(titles) ? titles : [titles]
+        const regex = new RegExp(titlesArray.join('|'))
         cy.getByDataTest('layercard')
-            .contains(title, { timeout: 50000 })
+            .contains(regex, { timeout: 50000 })
             .should('be.visible')
 
         return this
