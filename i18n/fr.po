@@ -11,15 +11,15 @@
 # Philip Larsen Donnelly, 2025
 # Edem Kossi <ekossi@hispwca.org>, 2025
 # Viktor Varland <viktor@dhis2.org>, 2025
-# Cyrille Kabrane, 2026
 # Esther Tokouli, 2026
+# Cyrille Kabrane, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Esther Tokouli, 2026\n"
+"Last-Translator: Cyrille Kabrane, 2026\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -135,7 +135,7 @@ msgid "Data item"
 msgstr "Item de données"
 
 msgid "one of"
-msgstr "one of"
+msgstr "un "
 
 msgid "contains"
 msgstr "contient"
@@ -238,8 +238,8 @@ msgstr "La description peut être modifiée dans le menu Fichier > Renommer"
 msgid ""
 "Set the map description when you save the map or from File > Rename menu"
 msgstr ""
-"Définissez la description de la carte lorsque vous enregistrez la carte ou à"
-" partir du menu Fichier > Renommer."
+"Donnez une description à la carte lorsque vous l'enregistrez ou depuis le "
+"menu Fichier > Renommer."
 
 msgid "Show legend"
 msgstr "Afficher la légende"
@@ -261,7 +261,7 @@ msgstr ""
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
-"Le téléchargement de la carte n'est pas pris en charge par votre navigateur."
+"Le téléchargement de la carte n’est pas pris en charge par votre navigateur."
 " Essayez Google Chrome ou Firefox."
 
 msgid "Cancel"
@@ -511,7 +511,7 @@ msgid "Define start - end dates"
 msgstr "Définir les dates de début et de fin"
 
 msgid "Choose periods for all timeline layers"
-msgstr "Choisissez des périodes pour toutes les couches du calendrier"
+msgstr "Choisissez des périodes pour toutes les couches chronologiques"
 
 msgid "Selection is initialized from shared periods"
 msgstr "La sélection est initialisée à partir des périodes communes"
@@ -529,8 +529,8 @@ msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be added to a split layer."
 msgstr ""
-"On ne peut ajouter qu'un maximum de {{number}} période (y compris celles des"
-" périodes multiples) à une couche fractionnée."
+"On ne peut ajouter qu'un maximum de {{number}} périodes (y compris celles "
+"des périodes multiples) à une couche fractionnée."
 
 msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr "Sélectionner au moins {{number}} périodes ou 1 multipériode."
@@ -579,7 +579,7 @@ msgid "Tracked entity style"
 msgstr "Style d’entité suivie"
 
 msgid "Point size"
-msgstr "Taille de point"
+msgstr "Taille du point"
 
 msgid "Related entity style"
 msgstr "Style des entités associées"
@@ -603,7 +603,7 @@ msgid "Feature profile"
 msgstr "Profile de l'entité géographique"
 
 msgid "Remove filter"
-msgstr "Supprimer le filtre"
+msgstr "Retirer le filtre"
 
 msgid "Group set"
 msgstr "Ensemble de groupes"
