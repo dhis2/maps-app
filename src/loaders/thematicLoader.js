@@ -345,7 +345,7 @@ const getPeriodsFromMetaData = ({ dimensions, items }) =>
         }
     })
 
-const getValuesByPeriod = (data) => {
+export const getValuesByPeriod = (data) => {
     const { headers, rows } = data
     const periodIndex = findIndex(['name', 'pe'], headers)
     const ouIndex = findIndex(['name', 'ou'], headers)
@@ -355,14 +355,14 @@ const getValuesByPeriod = (data) => {
         const period = row[periodIndex]
         const periodObj = (obj[period] = obj[period] || {})
         periodObj[row[ouIndex]] = {
-            value: row[valueIndex],
+            value: parseFloat(row[valueIndex]),
         }
         return obj
     }, {})
 }
 
 // Returns an object mapping org. units and values
-const getValueById = (data) => {
+export const getValueById = (data) => {
     const { headers, rows } = data
     const ouIndex = findIndex(['name', 'ou'], headers)
     const valueIndex = findIndex(['name', 'value'], headers)
