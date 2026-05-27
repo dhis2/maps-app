@@ -160,13 +160,13 @@ const thematicLoader = async ({
             ...config,
             ...(loadError
                 ? {
-                      alerts: [
-                          {
-                              code: ERROR_CRITICAL,
-                              message: loadError,
-                          },
-                      ],
-                  }
+                    alerts: [
+                        {
+                            code: ERROR_CRITICAL,
+                            message: loadError,
+                        },
+                    ],
+                }
                 : {}),
             name: dataItem ? dataItem.name : i18n.t('Thematic layer'),
             data: [],
@@ -209,9 +209,9 @@ const thematicLoader = async ({
                             valueById[ou.id] === undefined
                                 ? undefined
                                 : formatWithSeparator(
-                                      valueById[ou.id],
-                                      keyAnalysisDigitGroupSeparator
-                                  ),
+                                    valueById[ou.id],
+                                    keyAnalysisDigitGroupSeparator
+                                ),
                     },
                 }))
             }
@@ -222,15 +222,15 @@ const thematicLoader = async ({
     const names = getApiResponseNames(
         periodTypeData?.enabledPeriodTypesData?.metaData
             ? {
-                  ...data,
-                  metaData: {
-                      ...data.metaData,
-                      items: {
-                          ...data.metaData?.items,
-                          ...periodTypeData.enabledPeriodTypesData.metaData,
-                      },
-                  },
-              }
+                ...data,
+                metaData: {
+                    ...data.metaData,
+                    items: {
+                        ...data.metaData?.items,
+                        ...periodTypeData.enabledPeriodTypesData.metaData,
+                    },
+                },
+            }
             : data
     )
     const name = names[dataItem.id]
@@ -320,9 +320,9 @@ const thematicLoader = async ({
             presetPeriods.length > 0
                 ? presetPeriods.map((pe) => pe.name || pe.id).join(', ')
                 : formatStartEndDate(
-                      getDateArray(config.startDate),
-                      getDateArray(config.endDate)
-                  ),
+                    getDateArray(config.startDate),
+                    getDateArray(config.endDate)
+                ),
         items: legendItems,
         decimalPlaces: config.legendDecimalPlaces,
     }
@@ -596,7 +596,7 @@ const getPeriodsFromMetaData = ({ dimensions, items }) =>
         }
     })
 
-const getValuesByPeriod = (data) => {
+export const getValuesByPeriod = (data) => {
     const { headers, rows } = data
     const periodIndex = findIndex(['name', 'pe'], headers)
     const ouIndex = findIndex(['name', 'ou'], headers)
@@ -688,20 +688,20 @@ const loadData = async ({
         analyticsRequest =
             presetPeriods.length > 0
                 ? analyticsRequest.addPeriodFilter(
-                      presetPeriods.map((pe) => pe.id)
-                  )
+                    presetPeriods.map((pe) => pe.id)
+                )
                 : analyticsRequest
-                      .withStartDate(trimTime(startDate))
-                      .withEndDate(trimTime(endDate))
+                    .withStartDate(trimTime(startDate))
+                    .withEndDate(trimTime(endDate))
     }
 
     if (dimensions) {
         dimensions.forEach(
             (d) =>
-                (analyticsRequest = analyticsRequest.addFilter(
-                    d.dimension,
-                    d.items.map((i) => i.id)
-                ))
+            (analyticsRequest = analyticsRequest.addFilter(
+                d.dimension,
+                d.items.map((i) => i.id)
+            ))
         )
     }
 
