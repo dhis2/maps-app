@@ -355,7 +355,7 @@ export const getValuesByPeriod = (data) => {
         const period = row[periodIndex]
         const periodObj = (obj[period] = obj[period] || {})
         periodObj[row[ouIndex]] = {
-            value: parseFloat(row[valueIndex]),
+            value: Number.parseFloat(row[valueIndex]),
         }
         return obj
     }, {})
@@ -368,7 +368,7 @@ export const getValueById = (data) => {
     const valueIndex = findIndex(['name', 'value'], headers)
 
     return rows.reduce((obj, row) => {
-        obj[row[ouIndex]] = parseFloat(row[valueIndex])
+        obj[row[ouIndex]] = Number.parseFloat(row[valueIndex])
         return obj
     }, {})
 }
@@ -378,7 +378,7 @@ const getOrderedValues = (data) => {
     const { headers, rows } = data
     const valueIndex = findIndex(['name', 'value'], headers)
 
-    return rows.map((row) => parseFloat(row[valueIndex])).sort((a, b) => a - b)
+    return rows.map((row) => Number.parseFloat(row[valueIndex])).sort((a, b) => a - b)
 }
 
 // Load features and data values from api
