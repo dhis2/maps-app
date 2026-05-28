@@ -378,7 +378,9 @@ const getOrderedValues = (data) => {
     const { headers, rows } = data
     const valueIndex = findIndex(['name', 'value'], headers)
 
-    return rows.map((row) => Number.parseFloat(row[valueIndex])).sort((a, b) => a - b)
+    return rows
+        .map((row) => Number.parseFloat(row[valueIndex]))
+        .sort((a, b) => a - b)
 }
 
 // Load features and data values from api
