@@ -304,7 +304,7 @@ export const createLegend = (
                 item.to = +to
                 item.name =
                     formatWithSeparator(from, keyAnalysisDigitGroupSeparator) +
-                    ' - ' +
+                    ' – ' +
                     formatWithSeparator(to, keyAnalysisDigitGroupSeparator)
             } else {
                 // Higher than max

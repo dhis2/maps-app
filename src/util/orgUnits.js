@@ -321,9 +321,12 @@ export const fetchOrgUnitDetails = async (engine, ids) => {
 
 export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
     legendItems.forEach((item) => (item.count = 0))
+    const unclassifiedItem = legendItems.find((i) => !i.id)
     features.forEach((f) => {
         const groupId = f.properties?.dimensions?.[groupSet.id]
-        const item = groupId && legendItems.find((i) => i.id === groupId)
+        const item =
+            (groupId && legendItems.find((i) => i.id === groupId)) ??
+            unclassifiedItem
         if (item) {
             item.count++
         }

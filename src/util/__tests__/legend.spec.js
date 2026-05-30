@@ -131,7 +131,7 @@ describe('legend utils', () => {
 
         it('formatLegendItems sorts by startValue and formats range', () => {
             const formatted = formatLegendItems(items)
-            expect(formatted[0].range).toBe('0 - 9')
+            expect(formatted[0].range).toBe('0 – 9')
             expect(formatted.map((i) => i.color)).toEqual([
                 'blue',
                 'red',
@@ -393,12 +393,131 @@ describe('legend utils', () => {
     })
 
     describe('parseRange', () => {
-        it('parses a range string into numeric start and end values', () => {
-            expect(parseRange('10 - 20')).toEqual([10, 20])
+        // --- separator variants (positive numbers) ---
+        it('parses en dash (U+2013) with spaces: "100 – 200"', () => {
+            expect(parseRange('100 – 200')).toEqual([100, 200])
         })
 
-        it('parses a range string with decimal values', () => {
-            expect(parseRange('1.5 - 3.75')).toEqual([1.5, 3.75])
+        it('parses hyphen-minus (U+002D) with spaces: "100 - 200"', () => {
+            expect(parseRange('100 - 200')).toEqual([100, 200])
+        })
+
+        it('parses em dash (U+2014) with spaces: "100 — 200"', () => {
+            expect(parseRange('100 — 200')).toEqual([100, 200])
+        })
+
+        it('parses hyphen-minus without spaces: "100-200"', () => {
+            expect(parseRange('100-200')).toEqual([100, 200])
+        })
+
+        it('parses en dash without spaces: "100–200"', () => {
+            expect(parseRange('100–200')).toEqual([100, 200])
+        })
+
+        it('parses em dash without spaces: "100—200"', () => {
+            expect(parseRange('100—200')).toEqual([100, 200])
+        })
+
+        // --- irregular spacing ---
+        it('parses multiple spaces on both sides: "100  –  200"', () => {
+            expect(parseRange('100  –  200')).toEqual([100, 200])
+        })
+
+        it('parses space before only: "100 –200"', () => {
+            expect(parseRange('100 –200')).toEqual([100, 200])
+        })
+
+        it('parses space after only: "100– 200"', () => {
+            expect(parseRange('100– 200')).toEqual([100, 200])
+        })
+
+        it('parses multiple spaces before only: "100   –200"', () => {
+            expect(parseRange('100   –200')).toEqual([100, 200])
+        })
+
+        it('parses multiple spaces after only: "100–   200"', () => {
+            expect(parseRange('100–   200')).toEqual([100, 200])
+        })
+
+        // --- negative numbers ---
+        it('parses both negative, en dash with spaces: "-60 – -40"', () => {
+            expect(parseRange('-60 – -40')).toEqual([-60, -40])
+        })
+
+        it('parses both negative, en dash without spaces: "-60–-40"', () => {
+            expect(parseRange('-60–-40')).toEqual([-60, -40])
+        })
+
+        it('parses both negative, hyphen with spaces: "-60 - -40"', () => {
+            expect(parseRange('-60 - -40')).toEqual([-60, -40])
+        })
+
+        it('parses both negative, double hyphen no spaces: "-60--40"', () => {
+            expect(parseRange('-60--40')).toEqual([-60, -40])
+        })
+
+        it('parses negative start to positive end, en dash: "-100 – 200"', () => {
+            expect(parseRange('-100 – 200')).toEqual([-100, 200])
+        })
+
+        it('parses negative start to positive end, no spaces: "-100-200"', () => {
+            expect(parseRange('-100-200')).toEqual([-100, 200])
+        })
+
+        it('parses positive start to negative end, en dash: "100 – -200"', () => {
+            expect(parseRange('100 – -200')).toEqual([100, -200])
+        })
+
+        it('parses positive start to negative end, double hyphen: "100--200"', () => {
+            expect(parseRange('100--200')).toEqual([100, -200])
+        })
+
+        it('parses zero to negative, en dash: "0 – -100"', () => {
+            expect(parseRange('0 – -100')).toEqual([0, -100])
+        })
+
+        // --- thousand separators and decimals ---
+        it('parses space-grouped thousands: "1 000 – 2 000"', () => {
+            expect(parseRange('1 000 – 2 000')).toEqual([1000, 2000])
+        })
+
+        it('parses comma-grouped thousands: "1,000 – 2,000"', () => {
+            expect(parseRange('1,000 – 2,000')).toEqual([1000, 2000])
+        })
+
+        it('parses decimal values: "1.5 – 3.75"', () => {
+            expect(parseRange('1.5 – 3.75')).toEqual([1.5, 3.75])
+        })
+
+        // --- not a range ---
+        it('returns [undefined, undefined] for a descriptive label', () => {
+            expect(parseRange('Less than 100 000')).toEqual([
+                undefined,
+                undefined,
+            ])
+        })
+
+        it('returns [undefined, undefined] for "to" format', () => {
+            expect(parseRange('250 000 to 500 000')).toEqual([
+                undefined,
+                undefined,
+            ])
+        })
+
+        it('returns [undefined, undefined] for "> x" boundary label', () => {
+            expect(parseRange('> 200')).toEqual([undefined, undefined])
+        })
+
+        it('returns [undefined, undefined] for "< x" boundary label', () => {
+            expect(parseRange('< 100')).toEqual([undefined, undefined])
+        })
+
+        it('returns [undefined, undefined] for a plain string', () => {
+            expect(parseRange('High')).toEqual([undefined, undefined])
+        })
+
+        it('returns [undefined, undefined] for empty string', () => {
+            expect(parseRange('')).toEqual([undefined, undefined])
         })
     })
 

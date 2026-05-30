@@ -1,5 +1,108 @@
-.legendItemRange {
-    line-height: 24px;
+.legendItemRange,
+.legendName,
+.legendNameEmpty,
+.legendStart,
+.legendEnd,
+.legendDash,
+.legendCount {
+    line-height: 22px;
+}
+
+.legendItemRange,
+.legendName {
+    overflow: hidden;
     padding-left: var(--spacers-dp8);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.legendItemRange {
+    color: var(--colors-grey900);
+    max-width: 10em;
+}
+
+.legendName {
+    padding-right: var(--spacers-dp8);
+}
+
+@keyframes tooltipExpandRight {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0% 0 0);
+    }
+}
+
+.legendTooltip {
+    animation: tooltipExpandRight 160ms ease-out;
+    background: white;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 15px;
+    -webkit-mask-image: linear-gradient(to left, transparent, black 2em);
+    mask-image: linear-gradient(to left, transparent, black 2em);
+    pointer-events: none;
+    position: fixed;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+.legendNameTooltip {
+    padding: 5px 2em 5px 8px;
+}
+
+.legendRangeTooltip,
+.legendCountTooltip {
+    font-variant-numeric: tabular-nums;
+    padding: 2px 2em 2px 0;
+}
+
+.legendTooltipPlugin {
+    font-size: 12px;
+}
+
+.legendNameTooltipPlugin {
+    padding: 2.4px 2em 2px 7px;
+}
+
+.legendRangeTooltipPlugin,
+.legendCountTooltipPlugin {
+    padding: 0px 2em 0px 0;
+}
+
+.legendNameEmpty {
+    padding-left: var(--spacers-dp8);
+}
+
+.legendStart,
+.legendEnd {
+    font-variant-numeric: tabular-nums;
+    min-width: 3ch;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.legendNameSpacer ~ .legendStart,
+.legendNameSpacer ~ .legendEnd {
+    color: var(--colors-grey800);
+}
+
+.legendDash {
+    color: var(--colors-grey600);
+    padding: 0 2px;
+    text-align: center;
+}
+
+.legendNameSpacer,
+.legendSpacer {
+    width: 100%;
+}
+
+.legendCount {
+    color: var(--colors-grey600);
+    padding-left: var(--spacers-dp8);
+    text-align: right;
     white-space: nowrap;
 }

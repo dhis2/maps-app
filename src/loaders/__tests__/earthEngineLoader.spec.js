@@ -44,7 +44,7 @@ describe('createLegend', () => {
                 DIGIT_GROUP_SEPARATOR_COMMA
             )
             const names = items.map((i) => i.name)
-            expect(names).toContain('1,000 - 3,000')
+            expect(names).toContain('1,000 – 3,000')
             expect(names).toContain('> 3,000')
         })
 
@@ -55,14 +55,14 @@ describe('createLegend', () => {
                 DIGIT_GROUP_SEPARATOR_SPACE
             )
             const names = items.map((i) => i.name)
-            expect(names).toContain('1 000 - 3 000')
+            expect(names).toContain('1 000 – 3 000')
             expect(names).toContain('> 3 000')
         })
 
         it('does not group digits with NONE separator', () => {
             const items = createLegend(style, false, DIGIT_GROUP_SEPARATOR_NONE)
             const names = items.map((i) => i.name)
-            expect(names).toContain('1000 - 3000')
+            expect(names).toContain('1000 – 3000')
             expect(names).toContain('> 3000')
         })
 

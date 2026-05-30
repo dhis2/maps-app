@@ -88,8 +88,13 @@ export const sortLegendItems = (items) =>
     })
 
 export const parseRange = (str) => {
-    const [start, end] = str.split(' - ')
-    return [parseWithSeparator(start), parseWithSeparator(end)]
+    // Split on a dash (-, –, —) that follows a digit and precedes an optional minus or digit.
+    // The lookbehind prevents splitting on leading minus signs in negative numbers.
+    const parts = String(str).split(/(?<=\d)\s*[-–—]\s*(?=[-\d])/)
+    if (parts.length !== 2) {
+        return [undefined, undefined]
+    }
+    return [parseWithSeparator(parts[0]), parseWithSeparator(parts[1])]
 }
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
@@ -132,7 +137,7 @@ export const formatLegendItems = (legendItems) => {
     return sortedItems.map((item) => ({
         color: item.color,
         name: item.name,
-        range: item.startValue + ' - ' + item.endValue,
+        range: item.startValue + ' – ' + item.endValue,
     }))
 }
 

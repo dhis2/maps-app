@@ -72,7 +72,7 @@ const IsolatedClass = ({ legendIsolated, setLegendIsolated }) => {
                             value={legendIsolated.name || ''}
                             placeholder={`${
                                 legendIsolated.min ?? i18n.t('Min')
-                            } - ${legendIsolated.max ?? i18n.t('Max')}`}
+                            } – ${legendIsolated.max ?? i18n.t('Max')}`}
                             onChange={(name) =>
                                 setLegendIsolated({
                                     ...legendIsolated,
