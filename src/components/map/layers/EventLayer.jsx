@@ -116,7 +116,15 @@ class EventLayer extends Layer {
 
                 if (styleDataItem && legend) {
                     config.type = 'donutCluster'
-                    config.groups = legend.items
+                    // DonutCluster keys clusterProperties by color — if two groups
+                    // share the same color both segments read the same MapLibre count,
+                    // doubling that color's contribution to the total. Deduplicate by
+                    // color keeping the last item (special items such as "no data" are
+                    // appended after range items so they take precedence).
+                    const uniqueByColor = new Map(
+                        legend.items.map((item) => [item.color, item])
+                    )
+                    config.groups = [...uniqueByColor.values()]
                 } else {
                     config.type = 'clientCluster'
                 }
