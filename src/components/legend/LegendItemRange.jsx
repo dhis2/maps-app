@@ -19,14 +19,14 @@ const captureTooltipPos = (el, zoom = 1) => {
     }
     const rect = el.getBoundingClientRect()
     const computed = getComputedStyle(el)
-    const lineHeight = parseFloat(computed.lineHeight) * zoom
+    const lineHeight = Number.parseFloat(computed.lineHeight) * zoom
     return {
         top: rect.top + (rect.height - lineHeight) / 2,
         left: rect.left,
         color: computed.color,
-        fontSize: parseFloat(computed.fontSize) * zoom,
+        fontSize: Number.parseFloat(computed.fontSize) * zoom,
         lineHeight,
-        paddingLeft: parseFloat(computed.paddingLeft) * zoom,
+        paddingLeft: Number.parseFloat(computed.paddingLeft) * zoom,
     }
 }
 

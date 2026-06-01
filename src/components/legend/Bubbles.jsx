@@ -98,7 +98,7 @@ const capturePos = (el, zoom = 1) => {
         return null
     }
     const { top, left } = el.getBoundingClientRect()
-    const fontSize = parseFloat(getComputedStyle(el).fontSize) * zoom
+    const fontSize = Number.parseFloat(getComputedStyle(el).fontSize) * zoom
     return { top: top + fontSize * (1 - zoom) * 0.5, left, fontSize }
 }
 
