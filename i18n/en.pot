@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-05-14T10:04:17.710Z\n"
-"PO-Revision-Date: 2026-05-14T10:04:17.711Z\n"
+"POT-Creation-Date: 2026-06-01T11:03:07.868Z\n"
+"PO-Revision-Date: 2026-06-01T11:03:07.868Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -644,9 +644,6 @@ msgstr "Data download failed."
 msgid "External layer"
 msgstr "External layer"
 
-msgid "Failed to load layer"
-msgstr "Failed to load layer"
-
 msgid "Loading layer"
 msgstr "Loading layer"
 
@@ -710,14 +707,17 @@ msgid_plural "{{count}} org unit without coordinates"
 msgstr[0] "{{count}} org unit without coordinates"
 msgstr[1] "{{count}} org units without coordinates"
 
+msgid "Failed to load layer"
+msgstr "Failed to load layer"
+
 msgid "No data found"
 msgstr "No data found"
 
-msgid "Selected org units: No coordinates found"
-msgstr "Selected org units: No coordinates found"
-
 msgid "No coordinates found"
 msgstr "No coordinates found"
+
+msgid "Selected org units: No coordinates found"
+msgstr "Selected org units: No coordinates found"
 
 msgid "Error"
 msgstr "Error"

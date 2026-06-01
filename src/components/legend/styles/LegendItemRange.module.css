@@ -100,6 +100,17 @@
     width: 100%;
 }
 
+.legendValueButton {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: default;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+}
+
 .legendCount {
     color: var(--colors-grey600);
     padding-left: var(--spacers-dp8);
