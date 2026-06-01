@@ -204,7 +204,6 @@ const renderRangeOnly = ({ rangeProps, countCell }) => (
 const renderNameAndRange = ({
     nameTooltip,
     displayName,
-    nameMaxWidth,
     rangeProps,
     countCell,
     hasCount,
@@ -213,7 +212,7 @@ const renderNameAndRange = ({
         <td
             ref={nameTooltip.ref}
             className={styles.legendName}
-            style={{ maxWidth: nameMaxWidth }}
+            style={{ maxWidth: '8.5em' }}
             onMouseEnter={nameTooltip.onMouseEnter}
             onMouseLeave={nameTooltip.onMouseLeave}
         >
@@ -313,25 +312,6 @@ const LegendItemRange = ({
         separator: keyAnalysisDigitGroupSeparator,
     })
 
-    // Budget: ~14em for name + range + count. Each char ≈ 0.5em (tabular nums).
-    // Count column: "(1.2M)" length * 0.5em + ~0.6em for its padding-left.
-    const countColumnWidth =
-        formattedCount === undefined
-            ? 0
-            : (formattedCount.length + 2) * 0.5 + 0.6
-    const nameWidthBudget = hasCount ? 10 : 12
-    const nameMaxWidth = hasName
-        ? `${Math.max(
-              4,
-              Math.min(
-                  nameWidthBudget,
-                  13 -
-                      (displayStart.length + displayEnd.length) * 0.5 -
-                      countColumnWidth
-              )
-          ).toFixed(1)}em`
-        : undefined
-
     const rangeProps = {
         displayStart,
         displayEnd,
@@ -353,7 +333,6 @@ const LegendItemRange = ({
     return renderNameAndRange({
         nameTooltip,
         displayName,
-        nameMaxWidth,
         rangeProps,
         countCell,
         hasCount,
