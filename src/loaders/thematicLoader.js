@@ -621,7 +621,7 @@ const getValueMapsById = (data) => {
         ({ valueById, rawValueById }, row) => {
             const id = row[ouIndex]
             const raw = row[valueIndex]
-            valueById[id] = parseFloat(raw)
+            valueById[id] = Number.parseFloat(raw)
             rawValueById[id] = raw
             return { valueById, rawValueById }
         },
@@ -635,8 +635,8 @@ const getOrderedValues = (data) => {
     const valueIndex = findIndex(['name', 'value'], headers)
 
     return rows
-        .map((row) => parseFloat(row[valueIndex]))
-        .filter((v) => !isNaN(v))
+        .map((row) => Number.parseFloat(row[valueIndex]))
+        .filter((v) => !Number.isNaN(v))
         .sort((a, b) => a - b)
 }
 

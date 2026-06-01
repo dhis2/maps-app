@@ -63,11 +63,11 @@ const SMALL_SCALES = [
 
 // Returns the compact scale that applies to an array of values, or null if none needed.
 export const getCompactScale = (values) => {
-    if (!values || !values.length) {
+    if (!values?.length) {
         return null
     }
     const absValues = values
-        .filter((v) => typeof v === 'number' && isFinite(v))
+        .filter((v) => typeof v === 'number' && Number.isFinite(v))
         .map(Math.abs)
     if (!absValues.length) {
         return null
@@ -108,11 +108,11 @@ export const formatCompact = (
     }
     const scaled = value / scale.factor
     const formatted =
-        decimalPlaces !== undefined
-            ? formatWithSeparator(scaled, separator, {
+        decimalPlaces === undefined
+            ? formatWithSeparator(Number(scaled.toFixed(2)), separator)
+            : formatWithSeparator(scaled, separator, {
                   precision: decimalPlaces,
               })
-            : formatWithSeparator(Number(scaled.toFixed(2)), separator)
     return `${formatted}${scale.suffix}`
 }
 

@@ -67,12 +67,17 @@ const useNameTooltip = (name, isPlugin) => {
 const useValueTooltip = (content, className, scale) => {
     const [pos, setPos] = useState(null)
     const ref = useRef(null)
+    const show = scale
+        ? () => setPos(captureTooltipPos(ref.current))
+        : undefined
+    const hide = scale ? () => setPos(null) : undefined
     return {
         ref: scale ? ref : undefined,
-        onMouseEnter: scale
-            ? () => setPos(captureTooltipPos(ref.current))
-            : undefined,
-        onMouseLeave: scale ? () => setPos(null) : undefined,
+        onClick: show,
+        onMouseEnter: show,
+        onMouseLeave: hide,
+        onFocus: show,
+        onBlur: hide,
         portal: makePortalTooltip(pos, className, content),
     }
 }
@@ -110,24 +115,42 @@ const RangeCells = ({
     return (
         <>
             <td className={styles.legendStart}>
-                <span
-                    ref={startTooltip.ref}
-                    onMouseEnter={startTooltip.onMouseEnter}
-                    onMouseLeave={startTooltip.onMouseLeave}
-                >
-                    {displayStart}
-                </span>
+                {startScale ? (
+                    <button
+                        ref={startTooltip.ref}
+                        type="button"
+                        className={styles.legendValueButton}
+                        onClick={startTooltip.onClick}
+                        onMouseEnter={startTooltip.onMouseEnter}
+                        onMouseLeave={startTooltip.onMouseLeave}
+                        onFocus={startTooltip.onFocus}
+                        onBlur={startTooltip.onBlur}
+                    >
+                        {displayStart}
+                    </button>
+                ) : (
+                    displayStart
+                )}
                 {startTooltip.portal}
             </td>
             <td className={styles.legendDash}>{'–'}</td>
             <td className={styles.legendEnd}>
-                <span
-                    ref={endTooltip.ref}
-                    onMouseEnter={endTooltip.onMouseEnter}
-                    onMouseLeave={endTooltip.onMouseLeave}
-                >
-                    {displayEnd}
-                </span>
+                {endScale ? (
+                    <button
+                        ref={endTooltip.ref}
+                        type="button"
+                        className={styles.legendValueButton}
+                        onClick={endTooltip.onClick}
+                        onMouseEnter={endTooltip.onMouseEnter}
+                        onMouseLeave={endTooltip.onMouseLeave}
+                        onFocus={endTooltip.onFocus}
+                        onBlur={endTooltip.onBlur}
+                    >
+                        {displayEnd}
+                    </button>
+                ) : (
+                    displayEnd
+                )}
                 {endTooltip.portal}
             </td>
         </>
@@ -149,24 +172,21 @@ RangeCells.propTypes = {
 // --- Render helpers ---
 
 // Category items, special classes (no data, unclassified): name only, no range columns
-const renderNameOnly = ({ nameTooltip, name, countCell, hasCount }) => {
-    console.log('🚀 ~ renderNameOnly ~ hasCount:', hasCount)
-    return (
-        <>
-            <td
-                ref={nameTooltip.ref}
-                colSpan={hasCount ? 6 : 5}
-                className={styles.legendItemRange}
-                onMouseEnter={name ? nameTooltip.onMouseEnter : undefined}
-                onMouseLeave={name ? nameTooltip.onMouseLeave : undefined}
-            >
-                {name || null}
-            </td>
-            {countCell}
-            {nameTooltip.portal}
-        </>
-    )
-}
+const renderNameOnly = ({ nameTooltip, name, countCell, hasCount }) => (
+    <>
+        <td
+            ref={nameTooltip.ref}
+            colSpan={hasCount ? 6 : 5}
+            className={styles.legendItemRange}
+            onMouseEnter={name ? nameTooltip.onMouseEnter : undefined}
+            onMouseLeave={name ? nameTooltip.onMouseLeave : undefined}
+        >
+            {name || null}
+        </td>
+        {countCell}
+        {nameTooltip.portal}
+    </>
+)
 
 // Numeric range without a label
 const renderRangeOnly = ({ rangeProps, countCell }) => (
@@ -227,16 +247,21 @@ const LegendItemRange = ({
     const hasCount = count !== undefined
 
     // Count is always compacted independently of range values
-    const countScale = hasCount ? getCompactScale([count]) : null
-    const formattedCount = hasCount
-        ? formatCompact(count, countScale, {
-              decimalPlaces: 0,
-              separator: keyAnalysisDigitGroupSeparator,
-          })
-        : undefined
-    const countTooltipContent = hasCount
-        ? `(${formatWithSeparator(count, keyAnalysisDigitGroupSeparator)})`
-        : undefined
+    let countScale = null
+    let formattedCount
+    let countTooltipContent
+
+    if (hasCount) {
+        countScale = getCompactScale([count])
+        formattedCount = formatCompact(count, countScale, {
+            decimalPlaces: 0,
+            separator: keyAnalysisDigitGroupSeparator,
+        })
+        countTooltipContent = `(${formatWithSeparator(
+            count,
+            keyAnalysisDigitGroupSeparator
+        )})`
+    }
 
     const nameTooltip = useNameTooltip(name, isPlugin)
     const countTooltip = useValueTooltip(
@@ -249,15 +274,25 @@ const LegendItemRange = ({
         countScale
     )
 
+    // computed at top level to avoid nesting penalty; only rendered when formattedCount is defined
+    const countContent = countScale ? (
+        <button
+            ref={countTooltip.ref}
+            type="button"
+            className={styles.legendValueButton}
+            onClick={countTooltip.onClick}
+            onMouseEnter={countTooltip.onMouseEnter}
+            onMouseLeave={countTooltip.onMouseLeave}
+            onFocus={countTooltip.onFocus}
+            onBlur={countTooltip.onBlur}
+        >{`(${formattedCount})`}</button>
+    ) : (
+        `(${formattedCount})`
+    )
+
     const countCell = (
         <td className={styles.legendCount}>
-            {formattedCount !== undefined ? (
-                <span
-                    ref={countTooltip.ref}
-                    onMouseEnter={countTooltip.onMouseEnter}
-                    onMouseLeave={countTooltip.onMouseLeave}
-                >{`(${formattedCount})`}</span>
-            ) : null}
+            {formattedCount !== undefined && countContent}
             {countTooltip.portal}
         </td>
     )
@@ -286,14 +321,15 @@ const LegendItemRange = ({
     // Budget: ~14em for name + range + count. Each char ≈ 0.5em (tabular nums).
     // Count column: "(1.2M)" length * 0.5em + ~0.6em for its padding-left.
     const countColumnWidth =
-        hasCount && formattedCount !== undefined
-            ? (formattedCount.length + 2) * 0.5 + 0.6
-            : 0
+        formattedCount === undefined
+            ? 0
+            : (formattedCount.length + 2) * 0.5 + 0.6
+    const nameWidthBudget = hasCount ? 10 : 12
     const nameMaxWidth = hasName
         ? `${Math.max(
               4,
               Math.min(
-                  hasCount ? 10 : 12,
+                  nameWidthBudget,
                   12 -
                       (displayStart.length + displayEnd.length) * 0.5 -
                       countColumnWidth

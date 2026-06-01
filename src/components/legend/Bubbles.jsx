@@ -25,15 +25,15 @@ const LEGEND_WIDTH = 245
 
 const formatBubbleText = (bubbles, separator, decimalPlaces) =>
     bubbles.map((bubble) =>
-        bubble.text !== undefined
-            ? {
+        bubble.text === undefined
+            ? bubble
+            : {
                   ...bubble,
                   text: formatWithSeparator(bubble.text, separator, {
                       force: true,
                       precision: decimalPlaces,
                   }),
               }
-            : bubble
     )
 
 const filterBubbleText = (bubbles, showNumbers) =>
@@ -139,7 +139,7 @@ const useTruncatedSvgText = (label, count, availableWidth) => {
             return
         }
         const countWidth =
-            count !== undefined ? `(${count})`.length * digitWidth + 8 : 0
+            count === undefined ? 0 : `(${count})`.length * digitWidth + 8
         const labelMaxWidth = availableWidth - countWidth
         el.textContent = label
         if (el.getComputedTextLength() <= labelMaxWidth) {

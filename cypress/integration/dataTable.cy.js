@@ -327,10 +327,10 @@ describe('data table', () => {
         cy.get('button[title="Sort by Range"]').click()
 
         // Check that row 0 range value has value '0-40'
-        checkTableCell({ row: 0, column: 5, expectedContent: '0 - 40' })
+        checkTableCell({ row: 0, column: 5, expectedContent: '0 – 40' })
 
         // Check that row 5 range value has value '90 - 120'
-        checkTableCell({ row: 5, column: 5, expectedContent: '90 - 120' })
+        checkTableCell({ row: 5, column: 5, expectedContent: '90 – 120' })
 
         // Check that row 6 range value is empty
         checkTableCell({ row: 6, column: 5, expectedContent: '' })
