@@ -12,6 +12,7 @@
 .legendName {
     overflow: hidden;
     padding-left: var(--spacers-dp8);
+    padding-right: var(--spacers-dp8);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -19,10 +20,7 @@
 .legendItemRange {
     color: var(--colors-grey900);
     max-width: 10em;
-}
-
-.legendName {
-    padding-right: var(--spacers-dp8);
+    padding-right: 0;
 }
 
 @keyframes tooltipExpandRight {
@@ -39,37 +37,18 @@
     animation: tooltipExpandRight 160ms ease-out;
     background: white;
     border-radius: 3px;
-    font-size: 14px;
-    line-height: 15px;
     -webkit-mask-image: linear-gradient(to left, transparent, black 2em);
     mask-image: linear-gradient(to left, transparent, black 2em);
+    padding: 0 2em 0 0;
     pointer-events: none;
     position: fixed;
     white-space: nowrap;
     z-index: 1000;
 }
 
-.legendNameTooltip {
-    padding: 5px 2em 5px 8px;
-}
-
 .legendRangeTooltip,
 .legendCountTooltip {
     font-variant-numeric: tabular-nums;
-    padding: 2px 2em 2px 0;
-}
-
-.legendTooltipPlugin {
-    font-size: 12px;
-}
-
-.legendNameTooltipPlugin {
-    padding: 2.4px 2em 2px 7px;
-}
-
-.legendRangeTooltipPlugin,
-.legendCountTooltipPlugin {
-    padding: 0px 2em 0px 0;
 }
 
 .legendNameEmpty {

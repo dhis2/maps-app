@@ -93,12 +93,13 @@ const computeBubbleLayout = ({
 
 // --- Tooltip helpers (SVG label) ---
 
-const capturePos = (el) => {
+const capturePos = (el, zoom = 1) => {
     if (!el) {
         return null
     }
     const { top, left } = el.getBoundingClientRect()
-    return { top, left }
+    const fontSize = parseFloat(getComputedStyle(el).fontSize) * zoom
+    return { top: top + fontSize * (1 - zoom) * 0.5, left, fontSize }
 }
 
 const makeTooltip = (pos, children) =>
@@ -106,7 +107,12 @@ const makeTooltip = (pos, children) =>
     createPortal(
         <div
             className={styles.labelTooltip}
-            style={{ top: pos.top, left: pos.left }}
+            style={{
+                top: pos.top,
+                left: pos.left,
+                fontSize: `${pos.fontSize}px`,
+                lineHeight: `${pos.fontSize * 1.25}px`,
+            }}
         >
             {children}
         </div>,
@@ -114,14 +120,14 @@ const makeTooltip = (pos, children) =>
     )
 
 // Shows only when the label is truncated
-const useLabelTooltip = (label, displayLabel, textRef) => {
+const useLabelTooltip = (label, displayLabel, { textRef, zoom }) => {
     const [pos, setPos] = useState(null)
     return {
         onMouseEnter: () => {
             if (displayLabel === label) {
                 return
             }
-            setPos(capturePos(textRef.current))
+            setPos(capturePos(textRef.current, zoom))
         },
         onMouseLeave: () => setPos(null),
         portal: makeTooltip(pos, label),
@@ -171,6 +177,7 @@ const SpecialClassRow = ({
     label,
     count,
     legendWidth,
+    zoom,
 }) => {
     const labelX = radiusHigh + THEMATIC_RADIUS_DEFAULT + 5
     const availableWidth = legendWidth - tx - labelX
@@ -180,7 +187,7 @@ const SpecialClassRow = ({
         count,
         availableWidth
     )
-    const labelTooltip = useLabelTooltip(label, displayLabel, textRef)
+    const labelTooltip = useLabelTooltip(label, displayLabel, { textRef, zoom })
 
     return (
         <>
@@ -240,6 +247,7 @@ SpecialClassRow.propTypes = {
     color: PropTypes.string,
     count: PropTypes.number,
     label: PropTypes.string,
+    zoom: PropTypes.number,
 }
 
 // --- Bubbles ---
@@ -252,7 +260,9 @@ const Bubbles = ({
     maxValue,
     legendDecimalPlaces,
     classes,
+    isPlugin = false,
 }) => {
+    const zoom = isPlugin ? 0.85 : 1
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -364,6 +374,7 @@ const Bubbles = ({
                         label={label}
                         count={count}
                         legendWidth={legendWidth}
+                        zoom={zoom}
                     />
                 ))}
             </svg>
@@ -376,6 +387,7 @@ Bubbles.propTypes = {
     radiusLow: PropTypes.number.isRequired,
     classes: PropTypes.array,
     color: PropTypes.string,
+    isPlugin: PropTypes.bool,
     legendDecimalPlaces: PropTypes.number,
     maxValue: PropTypes.number,
     minValue: PropTypes.number,

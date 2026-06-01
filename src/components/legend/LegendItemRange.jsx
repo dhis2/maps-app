@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
     formatCompact,
+    formatCount,
     formatWithSeparator,
     getCompactScale,
 } from '../../util/numbers.js'
@@ -12,12 +13,21 @@ import styles from './styles/LegendItemRange.module.css'
 
 // --- Tooltip infrastructure ---
 
-const captureTooltipPos = (el) => {
+const captureTooltipPos = (el, zoom = 1) => {
     if (!el) {
         return null
     }
-    const { top, left } = el.getBoundingClientRect()
-    return { top, left, color: getComputedStyle(el).color }
+    const rect = el.getBoundingClientRect()
+    const computed = getComputedStyle(el)
+    const lineHeight = parseFloat(computed.lineHeight) * zoom
+    return {
+        top: rect.top + (rect.height - lineHeight) / 2,
+        left: rect.left,
+        color: computed.color,
+        fontSize: parseFloat(computed.fontSize) * zoom,
+        lineHeight,
+        paddingLeft: parseFloat(computed.paddingLeft) * zoom,
+    }
 }
 
 const makePortalTooltip = (pos, className, children) =>
@@ -25,21 +35,24 @@ const makePortalTooltip = (pos, className, children) =>
     createPortal(
         <div
             className={className}
-            style={{ top: pos.top, left: pos.left, color: pos.color }}
+            style={{
+                top: pos.top,
+                left: pos.left,
+                color: pos.color,
+                fontSize: `${pos.fontSize}px`,
+                lineHeight: `${pos.lineHeight}px`,
+                paddingLeft: `${pos.paddingLeft}px`,
+            }}
         >
             {children}
         </div>,
         document.body
     )
 
-const tooltipCx = (specificClass, pluginClass, isPlugin) =>
-    cx(styles.legendTooltip, specificClass, {
-        [styles.legendTooltipPlugin]: isPlugin,
-        [pluginClass]: isPlugin,
-    })
+const tooltipCx = (specificClass) => cx(styles.legendTooltip, specificClass)
 
 // Shows only when the element overflows (truncated name)
-const useNameTooltip = (name, isPlugin) => {
+const useNameTooltip = (name, zoom) => {
     const [pos, setPos] = useState(null)
     const ref = useRef(null)
     return {
@@ -47,28 +60,20 @@ const useNameTooltip = (name, isPlugin) => {
         onMouseEnter: () => {
             const el = ref.current
             if (el && el.scrollWidth > el.offsetWidth) {
-                setPos(captureTooltipPos(el))
+                setPos(captureTooltipPos(el, zoom))
             }
         },
         onMouseLeave: () => setPos(null),
-        portal: makePortalTooltip(
-            pos,
-            tooltipCx(
-                styles.legendNameTooltip,
-                styles.legendNameTooltipPlugin,
-                isPlugin
-            ),
-            name
-        ),
+        portal: makePortalTooltip(pos, styles.legendTooltip, name),
     }
 }
 
 // Shows on hover when the value is compacted (scale != null)
-const useValueTooltip = (content, className, scale) => {
+const useValueTooltip = (content, className, { scale, zoom }) => {
     const [pos, setPos] = useState(null)
     const ref = useRef(null)
     const show = scale
-        ? () => setPos(captureTooltipPos(ref.current))
+        ? () => setPos(captureTooltipPos(ref.current, zoom))
         : undefined
     const hide = scale ? () => setPos(null) : undefined
     return {
@@ -94,22 +99,18 @@ const RangeCells = ({
     endValue,
     keyAnalysisDigitGroupSeparator,
     opts,
-    isPlugin,
+    zoom,
 }) => {
-    const rangeTooltipClass = tooltipCx(
-        styles.legendRangeTooltip,
-        styles.legendRangeTooltipPlugin,
-        isPlugin
-    )
+    const rangeTooltipClass = tooltipCx(styles.legendRangeTooltip)
     const startTooltip = useValueTooltip(
         formatWithSeparator(startValue, keyAnalysisDigitGroupSeparator, opts),
         rangeTooltipClass,
-        startScale
+        { scale: startScale, zoom }
     )
     const endTooltip = useValueTooltip(
         formatWithSeparator(endValue, keyAnalysisDigitGroupSeparator, opts),
         rangeTooltipClass,
-        endScale
+        { scale: endScale, zoom }
     )
 
     return (
@@ -162,11 +163,11 @@ RangeCells.propTypes = {
     displayStart: PropTypes.string,
     endScale: PropTypes.object,
     endValue: PropTypes.number,
-    isPlugin: PropTypes.bool,
     keyAnalysisDigitGroupSeparator: PropTypes.string,
     opts: PropTypes.object,
     startScale: PropTypes.object,
     startValue: PropTypes.number,
+    zoom: PropTypes.number,
 }
 
 // --- Render helpers ---
@@ -242,40 +243,34 @@ const LegendItemRange = ({
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
+    const zoom = isPlugin ? 0.85 : 1
+
     const hasName = showRange && !!name
     const hasRange = startValue !== undefined && endValue !== undefined
     const hasCount = count !== undefined
 
-    // Count is always compacted independently of range values
-    let countScale = null
     let formattedCount
+    let isCountCompact = false
     let countTooltipContent
 
     if (hasCount) {
-        countScale = getCompactScale([count])
-        formattedCount = formatCompact(count, countScale, {
-            decimalPlaces: 0,
-            separator: keyAnalysisDigitGroupSeparator,
-        })
+        formattedCount = formatCount(count)
+        isCountCompact = formattedCount !== count
         countTooltipContent = `(${formatWithSeparator(
             count,
             keyAnalysisDigitGroupSeparator
         )})`
     }
 
-    const nameTooltip = useNameTooltip(name, isPlugin)
+    const nameTooltip = useNameTooltip(name, zoom)
     const countTooltip = useValueTooltip(
         countTooltipContent,
-        tooltipCx(
-            styles.legendCountTooltip,
-            styles.legendCountTooltipPlugin,
-            isPlugin
-        ),
-        countScale
+        tooltipCx(styles.legendCountTooltip),
+        { scale: isCountCompact, zoom }
     )
 
     // computed at top level to avoid nesting penalty; only rendered when formattedCount is defined
-    const countContent = countScale ? (
+    const countContent = isCountCompact ? (
         <button
             ref={countTooltip.ref}
             type="button"
@@ -330,7 +325,7 @@ const LegendItemRange = ({
               4,
               Math.min(
                   nameWidthBudget,
-                  12 -
+                  13 -
                       (displayStart.length + displayEnd.length) * 0.5 -
                       countColumnWidth
               )
@@ -346,7 +341,7 @@ const LegendItemRange = ({
         endValue,
         keyAnalysisDigitGroupSeparator,
         opts,
-        isPlugin,
+        zoom,
     }
 
     if (!hasName) {

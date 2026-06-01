@@ -25,6 +25,15 @@
     max-width: 100%;
 }
 
+.description,
+.filters,
+.coordinateFields,
+.dataQuality,
+.explanation,
+.source {
+    max-width: 245px;
+}
+
 .filters,
 .coordinateFields,
 .dataQuality {

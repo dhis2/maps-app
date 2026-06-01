@@ -19,6 +19,7 @@ import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
+import { formatWithSeparator } from '../util/numbers.js'
 import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
@@ -141,6 +142,7 @@ const loadEventLayer = async ({
         eventPointColor,
         eventPointRadius,
         filters,
+        keyAnalysisDigitGroupSeparator,
         program,
         programStage,
         eventCoordinateField,
@@ -225,8 +227,14 @@ const loadEventLayer = async ({
                     message: `${config.name}: ${i18n.t(
                         'Displaying first {{pageSize}} events out of {{total}}',
                         {
-                            pageSize: EVENT_CLIENT_PAGE_SIZE,
-                            total,
+                            pageSize: formatWithSeparator(
+                                EVENT_CLIENT_PAGE_SIZE,
+                                keyAnalysisDigitGroupSeparator
+                            ),
+                            total: formatWithSeparator(
+                                total,
+                                keyAnalysisDigitGroupSeparator
+                            ),
                         }
                     )}`,
                 }

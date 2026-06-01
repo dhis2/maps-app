@@ -152,115 +152,114 @@ const Legend = ({
         )
     }
 
+    const dataQuality = (typeof eventsWithoutCoordinatesCount === 'number' ||
+        typeof orgUnitsWithoutCoordinatesCount === 'number') && (
+        <div className={styles.dataQuality}>
+            <div>{i18n.t('Data quality')}:</div>
+            {typeof eventsWithoutCoordinatesCount === 'number' && (
+                <div>
+                    {i18n.t('{{n}} event without coordinates', {
+                        count: eventsWithoutCoordinatesCount,
+                        n: formatWithSeparator(
+                            eventsWithoutCoordinatesCount,
+                            keyAnalysisDigitGroupSeparator
+                        ),
+                        defaultValue_plural: '{{n}} events without coordinates',
+                    })}
+                </div>
+            )}
+            {typeof orgUnitsWithoutCoordinatesCount === 'number' && (
+                <div>
+                    {orgUnitsPointOnly
+                        ? i18n.t('{{n}} org unit without a point location', {
+                              count: orgUnitsWithoutCoordinatesCount,
+                              n: formatWithSeparator(
+                                  orgUnitsWithoutCoordinatesCount,
+                                  keyAnalysisDigitGroupSeparator
+                              ),
+                              defaultValue_plural:
+                                  '{{n}} org units without a point location',
+                          })
+                        : i18n.t('{{n}} org unit without coordinates', {
+                              count: orgUnitsWithoutCoordinatesCount,
+                              n: formatWithSeparator(
+                                  orgUnitsWithoutCoordinatesCount,
+                                  keyAnalysisDigitGroupSeparator
+                              ),
+                              defaultValue_plural:
+                                  '{{n}} org units without coordinates',
+                          })}
+                </div>
+            )}
+        </div>
+    )
+
     return (
-        <>
-            <dl className={styles.legend} data-test="layerlegend">
-                {description && (
-                    <div className={styles.description}>{description}</div>
-                )}
-                {groups && (
-                    <div className={styles.group}>
-                        {groups.multiple === false ? (
-                            <>{groups.list[0].name}</>
-                        ) : (
-                            <>
-                                {groups.label}
-                                {groups.list.map(({ id, name }) => (
-                                    <div key={id}>{name}</div>
-                                ))}
-                            </>
-                        )}
-                    </div>
-                )}
-                {unit && items && <div className={styles.unit}>{unit}</div>}
-                {!bubbles && sortedItems.length > 0 && (
-                    <table>
-                        <tbody>{sortedItems.map(renderRow)}</tbody>
-                    </table>
-                )}
-                {url && <img className={styles.legendImage} src={url} />}
-                {Array.isArray(coordinateFields) && (
-                    <div className={styles.coordinateFields}>
-                        <div>{i18n.t('Coordinate field')}:</div>
-                        {coordinateFields.map((coordinateField, index) => (
-                            <div key={index}>{coordinateField}</div>
-                        ))}
-                    </div>
-                )}
-                {Array.isArray(filters) && (
-                    <div
-                        className={styles.filters}
-                        data-test="layerlegend-filters"
-                    >
-                        <div>{i18n.t('Filters')}:</div>
-                        {filters.map((filter, index) => (
-                            <div key={index}>{filter}</div>
-                        ))}
-                    </div>
-                )}
-                {Array.isArray(explanation) && (
-                    <div className={styles.explanation}>
-                        {explanation.map((expl, index) => (
-                            <div key={index}>{expl}</div>
-                        ))}
-                    </div>
-                )}
-                {(typeof eventsWithoutCoordinatesCount === 'number' ||
-                    typeof orgUnitsWithoutCoordinatesCount === 'number') && (
-                    <div className={styles.dataQuality}>
-                        <div>{i18n.t('Data quality')}:</div>
-                        {typeof eventsWithoutCoordinatesCount === 'number' && (
-                            <div>
-                                {i18n.t('{{count}} event without coordinates', {
-                                    count: eventsWithoutCoordinatesCount,
-                                    defaultValue_plural:
-                                        '{{count}} events without coordinates',
-                                })}
-                            </div>
-                        )}
-                        {typeof orgUnitsWithoutCoordinatesCount ===
-                            'number' && (
-                            <div>
-                                {orgUnitsPointOnly
-                                    ? i18n.t(
-                                          '{{count}} org unit without a point location',
-                                          {
-                                              count: orgUnitsWithoutCoordinatesCount,
-                                              defaultValue_plural:
-                                                  '{{count}} org units without a point location',
-                                          }
-                                      )
-                                    : i18n.t(
-                                          '{{count}} org unit without coordinates',
-                                          {
-                                              count: orgUnitsWithoutCoordinatesCount,
-                                              defaultValue_plural:
-                                                  '{{count}} org units without coordinates',
-                                          }
-                                      )}
-                            </div>
-                        )}
-                    </div>
-                )}
-                {source && (
-                    <div className={styles.source}>
-                        {i18n.t('Source')}:&nbsp;
-                        {sourceUrl ? (
-                            <a
-                                href={sourceUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {source}
-                            </a>
-                        ) : (
-                            <span>{source}</span>
-                        )}
-                    </div>
-                )}
-            </dl>
-            {bubbles && <Bubbles {...bubbles} classes={items} />}
-        </>
+        <dl className={styles.legend} data-test="layerlegend">
+            {description && (
+                <div className={styles.description}>{description}</div>
+            )}
+            {groups && (
+                <div className={styles.group}>
+                    {groups.multiple === false ? (
+                        <>{groups.list[0].name}</>
+                    ) : (
+                        <>
+                            {groups.label}
+                            {groups.list.map(({ id, name }) => (
+                                <div key={id}>{name}</div>
+                            ))}
+                        </>
+                    )}
+                </div>
+            )}
+            {unit && items && <div className={styles.unit}>{unit}</div>}
+            {!bubbles && sortedItems.length > 0 && (
+                <table>
+                    <tbody>{sortedItems.map(renderRow)}</tbody>
+                </table>
+            )}
+            {bubbles && (
+                <Bubbles {...bubbles} classes={items} isPlugin={isPlugin} />
+            )}
+            {url && <img className={styles.legendImage} src={url} />}
+            {Array.isArray(coordinateFields) && (
+                <div className={styles.coordinateFields}>
+                    <div>{i18n.t('Coordinate field')}:</div>
+                    {coordinateFields.map((coordinateField, index) => (
+                        <div key={index}>{coordinateField}</div>
+                    ))}
+                </div>
+            )}
+            {Array.isArray(filters) && (
+                <div className={styles.filters} data-test="layerlegend-filters">
+                    <div>{i18n.t('Filters')}:</div>
+                    {filters.map((filter, index) => (
+                        <div key={index}>{filter}</div>
+                    ))}
+                </div>
+            )}
+            {Array.isArray(explanation) && (
+                <div className={styles.explanation}>
+                    {explanation.map((expl, index) => (
+                        <div key={index}>{expl}</div>
+                    ))}
+                </div>
+            )}
+            {dataQuality}
+            {source && (
+                <div className={styles.source}>
+                    {i18n.t('Source')}:&nbsp;
+                    {sourceUrl ? (
+                        <a href={sourceUrl} target="_blank" rel="noreferrer">
+                            {source}
+                        </a>
+                    ) : (
+                        <span>{source}</span>
+                    )}
+                </div>
+            )}
+        </dl>
     )
 }
 

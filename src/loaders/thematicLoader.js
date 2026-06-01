@@ -605,7 +605,7 @@ const getValuesByPeriod = (data) => {
         const period = row[periodIndex]
         const periodObj = (obj[period] = obj[period] || {})
         periodObj[row[ouIndex]] = {
-            value: row[valueIndex],
+            value: Number.parseFloat(row[valueIndex]),
         }
         return obj
     }, {})

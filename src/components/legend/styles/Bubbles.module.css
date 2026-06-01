@@ -13,11 +13,9 @@
     color: var(--colors-grey900);
     background: white;
     border-radius: 3px;
-    font-size: 12px;
-    line-height: 15px;
     -webkit-mask-image: linear-gradient(to left, transparent, black 2em);
     mask-image: linear-gradient(to left, transparent, black 2em);
-    padding: 0px 2em 0px 0px;
+    padding: 0 2em 0 0;
     pointer-events: none;
     position: fixed;
     white-space: nowrap;

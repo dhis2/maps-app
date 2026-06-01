@@ -36,6 +36,7 @@
 .dhis2-map-legend-content dl,
 .dhis2-map-legend-alert {
     zoom: 0.85;
+    max-width: 245px;
 }
 
 .dhis2-map-legend-title {

@@ -7,4 +7,5 @@
 
 .loadError {
     padding: var(--spacers-dp8);
+    padding-left: var(--spacers-dp32);
 }
