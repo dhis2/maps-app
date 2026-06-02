@@ -94,6 +94,25 @@
     margin-left: var(--spacers-dp24);
 }
 
+.colorNameRow {
+    display: flex;
+    gap: var(--spacers-dp8);
+    align-items: flex-end;
+    margin-left: var(--spacers-dp24);
+    margin-bottom: var(--spacers-dp12);
+}
+
+.colorNameField {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.colorNameText {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
 .orgUnitTree {
     composes: flexColumn;
     overflow: hidden;

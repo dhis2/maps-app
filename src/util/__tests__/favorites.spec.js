@@ -344,6 +344,133 @@ describe('cleanMapConfig', () => {
         )
     })
 
+    test('serializes noDataLegend into config JSON and writes noDataColor for backward compat', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        noDataLegend: { color: '#aaaaaa', name: 'No data' },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(JSON.parse(view.config).noDataLegend).toEqual({
+            color: '#aaaaaa',
+            name: 'No data',
+        })
+        expect(view.noDataColor).toBe('#aaaaaa')
+        expect(view).not.toHaveProperty('noDataLegend')
+    })
+
+    test('serializes unclassifiedLegend into config JSON and removes it from the layer', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        unclassifiedLegend: {
+                            color: '#bbbbbb',
+                            name: 'Unclassified',
+                        },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(JSON.parse(view.config).unclassifiedLegend).toEqual({
+            color: '#bbbbbb',
+            name: 'Unclassified',
+        })
+        expect(view).not.toHaveProperty('unclassifiedLegend')
+    })
+
+    test('serializes legendIsolated into config JSON and removes it from the layer', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        legendIsolated: {
+                            min: 40,
+                            max: 60,
+                            color: '#888888',
+                            name: 'Mid',
+                        },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(JSON.parse(view.config).legendIsolated).toEqual({
+            min: 40,
+            max: 60,
+            color: '#888888',
+            name: 'Mid',
+        })
+        expect(view).not.toHaveProperty('legendIsolated')
+    })
+
+    test('combines all serializable config fields into a single config JSON', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        legendDecimalPlaces: 2,
+                        legendIsolated: { min: 40, max: 60, color: '#888' },
+                        noDataLegend: { color: '#aaaaaa' },
+                        unclassifiedLegend: { color: '#bbbbbb' },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        const parsed = JSON.parse(view.config)
+        expect(parsed.legendDecimalPlaces).toBe(2)
+        expect(parsed.legendIsolated).toEqual({
+            min: 40,
+            max: 60,
+            color: '#888',
+        })
+        expect(parsed.noDataLegend).toEqual({ color: '#aaaaaa' })
+        expect(parsed.unclassifiedLegend).toEqual({ color: '#bbbbbb' })
+        expect(view).not.toHaveProperty('legendDecimalPlaces')
+        expect(view).not.toHaveProperty('legendIsolated')
+        expect(view).not.toHaveProperty('noDataLegend')
+        expect(view).not.toHaveProperty('unclassifiedLegend')
+        expect(view.noDataColor).toBe('#aaaaaa')
+    })
+
     test('does not add config for thematic layer without legendDecimalPlaces', () => {
         const config = {
             mapViews: [

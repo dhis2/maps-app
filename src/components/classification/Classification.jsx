@@ -21,6 +21,7 @@ import {
 } from '../../util/colors.js'
 import { SelectField, ColorScaleSelect } from '../core/index.js'
 import DecimalPlacesSelect from './DecimalPlacesSelect.jsx'
+import IsolatedClass from './IsolatedClass.jsx'
 import styles from './styles/Classification.module.css'
 
 const classRange = range(3, 10).map((num) => ({
@@ -73,6 +74,7 @@ const Classification = ({
                 width={190}
                 className={styles.scale}
             />
+            <IsolatedClass />
         </div>,
     ]
 }

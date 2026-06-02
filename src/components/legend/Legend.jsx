@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { sortLegendItems } from '../../util/legend.js'
+import { legendNamesContainRange, sortLegendItems } from '../../util/legend.js'
 import Bubbles from './Bubbles.jsx'
 import LegendItem from './LegendItem.jsx'
 import styles from './styles/Legend.module.css'
@@ -21,81 +21,92 @@ const Legend = ({
     sourceUrl,
     decimalPlaces,
     isPlugin = false,
-}) => (
-    <dl className={styles.legend} data-test="layerlegend">
-        {description && <div className={styles.description}>{description}</div>}
-        {groups && (
-            <div className={styles.group}>
-                {groups.multiple === false ? (
-                    <>{groups.list[0].name}</>
-                ) : (
-                    <>
-                        {groups.label}
-                        {groups.list.map(({ id, name }) => (
-                            <div key={id}>{name}</div>
-                        ))}
-                    </>
-                )}
-            </div>
-        )}
-        {unit && items && <div className={styles.unit}>{unit}</div>}
-        {bubbles ? (
-            <Bubbles {...bubbles} isPlugin={isPlugin} classes={items} />
-        ) : (
-            Array.isArray(items) && (
-                <table>
-                    <tbody>
-                        {sortLegendItems(items).map((item) => (
-                            <LegendItem
-                                {...item}
-                                decimalPlaces={decimalPlaces}
-                                key={`${item.name}-${
-                                    item.startValue ?? item.from
-                                }-${item.endValue ?? item.to}`}
-                            />
-                        ))}
-                    </tbody>
-                </table>
-            )
-        )}
-        {url && <img className={styles.legendImage} src={url} />}
-        {Array.isArray(coordinateFields) && (
-            <div className={styles.coordinateFields}>
-                <div>{i18n.t('Coordinate field')}:</div>
-                {coordinateFields.map((coordinateField, index) => (
-                    <div key={index}>{coordinateField}</div>
-                ))}
-            </div>
-        )}
-        {Array.isArray(filters) && (
-            <div className={styles.filters} data-test="layerlegend-filters">
-                <div>{i18n.t('Filters')}:</div>
-                {filters.map((filter, index) => (
-                    <div key={index}>{filter}</div>
-                ))}
-            </div>
-        )}
-        {Array.isArray(explanation) && (
-            <div className={styles.explanation}>
-                {explanation.map((expl, index) => (
-                    <div key={index}>{expl}</div>
-                ))}
-            </div>
-        )}
-        {source && (
-            <div className={styles.source}>
-                {i18n.t('Source')}:&nbsp;
-                {sourceUrl ? (
-                    <a href={sourceUrl} target="_blank" rel="noreferrer">
-                        {source}
-                    </a>
-                ) : (
-                    <span>{source}</span>
-                )}
-            </div>
-        )}
-    </dl>
-)
+}) => {
+    const showRange = Array.isArray(items) && !legendNamesContainRange(items)
+    const getShowRange = (item) =>
+        item.isIsolated
+            ? !legendNamesContainRange([item])
+            : !item.name || showRange
+
+    return (
+        <dl className={styles.legend} data-test="layerlegend">
+            {description && (
+                <div className={styles.description}>{description}</div>
+            )}
+            {groups && (
+                <div className={styles.group}>
+                    {groups.multiple === false ? (
+                        <>{groups.list[0].name}</>
+                    ) : (
+                        <>
+                            {groups.label}
+                            {groups.list.map(({ id, name }) => (
+                                <div key={id}>{name}</div>
+                            ))}
+                        </>
+                    )}
+                </div>
+            )}
+            {unit && items && <div className={styles.unit}>{unit}</div>}
+            {bubbles ? (
+                <Bubbles {...bubbles} isPlugin={isPlugin} classes={items} />
+            ) : (
+                Array.isArray(items) && (
+                    <table>
+                        <tbody>
+                            {sortLegendItems(items).map((item) => (
+                                <LegendItem
+                                    {...item}
+                                    showRange={getShowRange(item)}
+                                    decimalPlaces={decimalPlaces}
+                                    key={`${item.name ?? ''}-${
+                                        item.startValue ?? item.from ?? ''
+                                    }-${item.endValue ?? item.to ?? ''}`}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
+                )
+            )}
+            {url && <img className={styles.legendImage} src={url} />}
+            {Array.isArray(coordinateFields) && (
+                <div className={styles.coordinateFields}>
+                    <div>{i18n.t('Coordinate field')}:</div>
+                    {coordinateFields.map((coordinateField, index) => (
+                        <div key={index}>{coordinateField}</div>
+                    ))}
+                </div>
+            )}
+            {Array.isArray(filters) && (
+                <div className={styles.filters} data-test="layerlegend-filters">
+                    <div>{i18n.t('Filters')}:</div>
+                    {filters.map((filter, index) => (
+                        <div key={index}>{filter}</div>
+                    ))}
+                </div>
+            )}
+            {Array.isArray(explanation) && (
+                <div className={styles.explanation}>
+                    {explanation.map((expl, index) => (
+                        <div key={index}>{expl}</div>
+                    ))}
+                </div>
+            )}
+            {source && (
+                <div className={styles.source}>
+                    {i18n.t('Source')}:&nbsp;
+                    {sourceUrl ? (
+                        <a href={sourceUrl} target="_blank" rel="noreferrer">
+                            {source}
+                        </a>
+                    ) : (
+                        <span>{source}</span>
+                    )}
+                </div>
+            )}
+        </dl>
+    )
+}
 
 Legend.propTypes = {
     bubbles: PropTypes.shape({

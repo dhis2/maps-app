@@ -94,6 +94,15 @@ export const formatWithSeparator = (
     return decimal ? `${grouped}.${decimal}` : grouped
 }
 
+export const formatRangeWithSeparator = (
+    { startValue, endValue },
+    separator,
+    { precision } = {}
+) =>
+    `${formatWithSeparator(startValue, separator, {
+        precision,
+    })} - ${formatWithSeparator(endValue, separator, { precision })}`
+
 export const parseWithSeparator = (value) => {
     const num = Number(String(value).replaceAll(/[\s,]/g, ''))
     return Number.isNaN(num) ? undefined : num

@@ -290,6 +290,10 @@ const layerEdit = (state = null, action) => {
                 delete newState.legendSet
             }
 
+            if (action.method === CLASSIFICATION_PREDEFINED) {
+                delete newState.legendDecimalPlaces
+            }
+
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet
             }
@@ -317,6 +321,15 @@ const layerEdit = (state = null, action) => {
 
             if (newState.legendDecimalPlaces === undefined) {
                 delete newState.legendDecimalPlaces
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_ISOLATED_SET:
+            newState = { ...state, legendIsolated: action.legendIsolated }
+
+            if (!action.legendIsolated) {
+                delete newState.legendIsolated
             }
 
             return newState
@@ -558,16 +571,22 @@ const layerEdit = (state = null, action) => {
                 followUp: action.payload,
             }
 
-        case types.LAYER_EDIT_NO_DATA_COLOR_SET:
+        case types.LAYER_EDIT_NO_DATA_LEGEND_SET:
             newState = { ...state }
-
-            // Default is to show no feature
             if (!action.payload) {
-                delete newState.noDataColor
+                delete newState.noDataLegend
             } else {
-                newState.noDataColor = action.payload
+                newState.noDataLegend = action.payload
             }
+            return newState
 
+        case types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET:
+            newState = { ...state }
+            if (action.payload) {
+                newState.unclassifiedLegend = action.payload
+            } else {
+                delete newState.unclassifiedLegend
+            }
             return newState
 
         case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:

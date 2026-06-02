@@ -60,12 +60,25 @@ export const sortLegendItems = (items) =>
         const bRange = getRange(b)
 
         if (!aRange && !bRange) {
+            if (a.isNoData && !b.isNoData) {
+                return 1
+            }
+            if (!a.isNoData && b.isNoData) {
+                return -1
+            }
             return 0
         }
         if (!aRange) {
             return 1
         }
         if (!bRange) {
+            return -1
+        }
+
+        if (a.isIsolated && !b.isIsolated) {
+            return 1
+        }
+        if (!a.isIsolated && b.isIsolated) {
             return -1
         }
 
@@ -143,38 +156,61 @@ export const getLabelsFromLegendItems = (legendItems) => {
 }
 
 // Returns a legend created from a pre-defined legend set
+export const isRegularLegendItem = (item) =>
+    !item.isNoData && !item.isUnclassified && !item.isIsolated
+
 export const getPredefinedLegendItems = (legendSet) => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color'])
 
-    return sortBy('startValue', legendSet.legends)
-        .map(pickSome)
-        .map((item) =>
-            item.name === `${item.startValue} - ${item.endValue}`
-                ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                : item
-        )
+    return sortBy('startValue', legendSet.legends).map(pickSome)
 }
 
+export const buildIsolatedLegendItem = ({ min, max, color, name }) => ({
+    startValue: min,
+    endValue: max,
+    color,
+    isIsolated: true,
+    ...(name && { name }),
+})
+
 export const getAutomaticLegendItems = ({
-    data,
+    data, // data must be sorted ascending — getLegendItems treats values[0] as min and values[last] as max
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
     colorScale = defaultColorScale,
     legendDecimalPlaces,
+    legendIsolated,
 }) => {
-    if (data.length === 0) {
+    if (data.length === 0 && !legendIsolated) {
         return { items: [] }
     }
 
-    const classification = getLegendItems(data, method, {
+    let isolatedItem = null
+    let dataToClassify = data
+
+    if (legendIsolated) {
+        const { min: isolatedMin, max: isolatedMax } = legendIsolated
+        dataToClassify = data.filter((v) => v < isolatedMin || v > isolatedMax)
+        isolatedItem = buildIsolatedLegendItem(legendIsolated)
+
+        if (dataToClassify.length === 0) {
+            return { items: [isolatedItem] }
+        }
+    }
+
+    const classification = getLegendItems(dataToClassify, method, {
         numClasses: classes,
         precision: legendDecimalPlaces,
     })
+    const classifiedItems = classification.items?.map((item, i) => ({
+        ...item,
+        color: colorScale[i],
+    }))
+
     return {
-        items: classification.items.map((item, index) => ({
-            ...item,
-            color: colorScale[index],
-        })),
+        items: isolatedItem
+            ? [isolatedItem, ...classifiedItems]
+            : classifiedItems,
         valueFormat: classification.valueFormat,
     }
 }
@@ -185,4 +221,36 @@ export const getRenderingLabel = (strategy) => {
         [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
     }
     return map[strategy] ? ' • ' + map[strategy] : null
+}
+
+const normalize = (str) => String(str).replaceAll(/[\s,]/g, '')
+
+const nameContainsValue = (name, val) => {
+    const normalizedName = normalize(name)
+    const normalizedVal = normalize(val)
+    return new RegExp(String.raw`(?<![\d.])${normalizedVal}(?![\d.])`).test(
+        normalizedName
+    )
+}
+
+const rangeInName = (name, startValue, endValue) =>
+    (String(startValue) !== '' && nameContainsValue(name, startValue)) ||
+    (String(endValue) !== '' && nameContainsValue(name, endValue))
+
+export const legendNamesContainRange = (items) => {
+    const numericItems = items.filter(
+        ({ startValue, endValue }) =>
+            !Number.isNaN(startValue) && !Number.isNaN(endValue)
+    )
+
+    if (!numericItems.length) {
+        return false
+    }
+
+    const itemsWithRange = numericItems.filter(
+        ({ name = '', startValue, endValue }) =>
+            rangeInName(name, startValue, endValue)
+    )
+
+    return itemsWithRange.length / numericItems.length >= 0.5
 }

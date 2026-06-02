@@ -86,8 +86,8 @@ context('Thematic Layers', () => {
 
         // Examples of bubble labels:
         // "10.5"
-        // "No data"
-        const bubbleLabelTextPattern = /^(\d+(\.\d+)?|No data)$/
+        // "No data (2)"
+        const bubbleLabelTextPattern = /^(\d+(\.\d+)?|No data)(\s*\(\d+\))?$/
 
         // Choropleth
         Layer.openDialog('Thematic')
@@ -177,7 +177,9 @@ context('Thematic Layers', () => {
 
         cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
 
-        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken').addToMap()
+        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken')
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         getMaps().click('center')
 
@@ -282,7 +284,8 @@ context('Thematic Layers', () => {
                 n: 7,
                 removeAll: false,
             })
-            .addToMap()
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         Layer.validateDialogClosed(true)
 
