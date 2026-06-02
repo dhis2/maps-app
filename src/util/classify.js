@@ -10,15 +10,11 @@ import { getRoundToPrecisionFn } from './numbers.js'
 // Returns legend item where a value belongs
 export const getLegendItemForValue = ({
     value,
-    valueFormat,
     legendItems,
     clamp = false,
 }) => {
     if (!hasValue(value) || legendItems.length === 0) {
         return
-    }
-    if (valueFormat) {
-        value = valueFormat(value)
     }
 
     if (clamp) {
@@ -41,15 +37,15 @@ export const getLegendItemForValue = ({
 export const getLegendItems = (values, method, numClasses) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
-    let classification
+    let bins
 
     if (method === CLASSIFICATION_EQUAL_INTERVALS) {
-        classification = getEqualIntervals(minValue, maxValue, numClasses)
+        bins = getEqualIntervals(minValue, maxValue, numClasses)
     } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
-        classification = getQuantiles(values, numClasses)
+        bins = getQuantiles(values, numClasses)
     }
 
-    return classification ?? {}
+    return bins
 }
 
 // This function is not in use, but keeping it
@@ -69,52 +65,50 @@ export const getLegendItems = (values, method, numClasses) => {
 // }
 
 const getEqualIntervals = (minValue, maxValue, numClasses) => {
-    const items = []
-    const classSize = (maxValue - minValue) / numClasses
-    const precision = precisionRound(classSize, maxValue)
+    const bins = []
+    const binSize = (maxValue - minValue) / numClasses
+    const precision = precisionRound(binSize, maxValue)
     const valueFormat = getRoundToPrecisionFn(precision)
 
     for (let i = 0; i < numClasses; i++) {
-        const startValue = minValue + i * classSize
-        const endValue = i < numClasses - 1 ? startValue + classSize : maxValue
+        const startValue = minValue + i * binSize
+        const endValue = i < numClasses - 1 ? startValue + binSize : maxValue
 
-        items.push({
+        bins.push({
             startValue: valueFormat(startValue),
             endValue: valueFormat(endValue),
         })
     }
 
-    return { items, valueFormat }
+    return bins
 }
 
 const getQuantiles = (values, numClasses) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
-    const items = []
-    const valuesCount = values.length / numClasses
+    const bins = []
+    const binCount = values.length / numClasses
     const precision = precisionRound(
         (maxValue - minValue) / numClasses,
         maxValue
     )
     const valueFormat = getRoundToPrecisionFn(precision)
 
-    let lastValuePosition = valuesCount
+    let binLastValPos = binCount === 0 ? 0 : binCount
+
     if (values.length > 0) {
-        items[0] = minValue
+        bins[0] = minValue
         for (let i = 1; i < numClasses; i++) {
-            items[i] = values[Math.round(lastValuePosition)]
-            lastValuePosition += valuesCount
+            bins[i] = values[Math.round(binLastValPos)]
+            binLastValPos += binCount
         }
     }
 
     // bin can be undefined if few values
-    return {
-        items: items
-            .filter((bin) => bin !== undefined)
-            .map((value, index) => ({
-                startValue: valueFormat(value),
-                endValue: valueFormat(items[index + 1] || maxValue),
-            })),
-        valueFormat,
-    }
+    return bins
+        .filter((bin) => bin !== undefined)
+        .map((value, index) => ({
+            startValue: valueFormat(value),
+            endValue: valueFormat(bins[index + 1] || maxValue),
+        }))
 }

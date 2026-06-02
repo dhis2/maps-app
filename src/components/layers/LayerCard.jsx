@@ -23,7 +23,7 @@ const LayerCard = ({
         className={cx(styles.card, {
             [styles.expanded]: isExpanded,
         })}
-        data-test={`card-${title.replaceAll(' ', '')}`}
+        data-test={`card-${title.replace(/ /g, '')}`}
     >
         <Card dataTest={isOverlay ? 'layercard' : 'basemapcard'}>
             <div className={styles.cardHeader}>

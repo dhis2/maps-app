@@ -138,7 +138,6 @@ const styleByNumeric = async (config, engine) => {
         eventPointColor,
         eventPointRadius,
     } = config
-    let valueFormat
 
     // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
@@ -165,20 +164,17 @@ const styleByNumeric = async (config, engine) => {
         legend.unit = await getLegendUnit(engine, styleDataItem)
 
         // Generate legend items based on layer config
-        const classification = getAutomaticLegendItems({
-            data: sortedValues,
+        legend.items = getAutomaticLegendItems(
+            sortedValues,
             method,
             classes,
-            colorScale,
-        })
-        legend.items = classification.items
-        valueFormat = classification.valueFormat
+            colorScale
+        )
     }
 
     legend.items.push({
         name: i18n.t('Other'),
         color: cssColor(eventPointColor) || EVENT_COLOR,
-        noData: true,
     })
 
     // Add radius and count to each legend item
@@ -191,9 +187,7 @@ const styleByNumeric = async (config, engine) => {
     const getLegendItem = (value) =>
         getLegendItemForValue({
             value,
-            valueFormat,
-            legendItems: legend.items.filter((item) => !item.noData),
-            clamp: method !== CLASSIFICATION_PREDEFINED,
+            legendItems: config.legend.items.slice(0, -1),
         })
 
     // Add style data value and color to each feature

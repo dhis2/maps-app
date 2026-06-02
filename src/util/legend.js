@@ -43,34 +43,14 @@ const DATA_SET_QUERY = {
     },
 }
 
-const getRange = (item) => {
-    if ('from' in item) {
-        return { start: item.from, end: item.to }
-    }
-    if ('startValue' in item) {
-        return { start: item.startValue, end: item.endValue }
-    }
-    return null
-}
-
 export const sortLegendItems = (items) =>
-    [...items].sort((a, b) => {
-        const aRange = getRange(a)
-        const bRange = getRange(b)
-
-        if (!aRange && !bRange) {
-            return 0
+    items.sort((a, b) => {
+        if ('from' in a) {
+            return b.from - a.from
         }
-        if (!aRange) {
-            return 1
+        if ('startValue' in a) {
+            return b.startValue - a.startValue
         }
-        if (!bRange) {
-            return -1
-        }
-
-        return bRange.start === aRange.start
-            ? bRange.end - aRange.end
-            : bRange.start - aRange.start
     })
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
@@ -149,25 +129,21 @@ export const getPredefinedLegendItems = (legendSet) => {
         )
 }
 
-export const getAutomaticLegendItems = ({
+/* eslint-disable max-params */
+export const getAutomaticLegendItems = (
     data,
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
-    colorScale = defaultColorScale,
-}) => {
-    if (data.length === 0) {
-        return { items: [] }
-    }
+    colorScale = defaultColorScale
+) => {
+    const items = data.length ? getLegendItems(data, method, classes) : []
 
-    const classification = getLegendItems(data, method, classes)
-    return {
-        items: classification.items.map((item, index) => ({
-            ...item,
-            color: colorScale[index],
-        })),
-        valueFormat: classification.valueFormat,
-    }
+    return items.map((item, index) => ({
+        ...item,
+        color: colorScale[index],
+    }))
 }
+/* eslint-enable max-params */
 
 export const getRenderingLabel = (strategy) => {
     const map = {
