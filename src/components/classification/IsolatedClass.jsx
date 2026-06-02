@@ -99,6 +99,6 @@ IsolatedClass.propTypes = {
 }
 
 export default connect(
-    ({ layerEdit }) => ({ legendIsolated: layerEdit.legendIsolated }),
+    ({ layerEdit }) => ({ legendIsolated: layerEdit?.legendIsolated }),
     { setLegendIsolated }
 )(IsolatedClass)

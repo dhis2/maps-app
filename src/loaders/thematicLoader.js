@@ -6,6 +6,7 @@ import {
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
+    CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
@@ -46,6 +47,8 @@ import {
 import {
     getCoordinateField,
     addAssociatedGeometries,
+    getOrgUnitsWithoutCoordsCount,
+    fetchOrgUnitDetails,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
@@ -76,11 +79,15 @@ const thematicLoader = async ({
     const coordinateField = getCoordinateField(config)
 
     const {
+        countFeaturesWithoutCoordinates,
         legendDecimalPlaces,
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
     } = parseJsonConfig(config.config)
+    if (countFeaturesWithoutCoordinates) {
+        config.countFeaturesWithoutCoordinates = true
+    }
     if (legendDecimalPlaces !== undefined) {
         config.legendDecimalPlaces = legendDecimalPlaces
     }
@@ -101,6 +108,9 @@ const thematicLoader = async ({
     }
     delete config.noDataColor
     delete config.config
+
+    const orgUnitIds = getOrgUnitsFromRows(config.rows).map((item) => item.id)
+    let orgUnitsWithoutCoordsCount = null
 
     // Resolve legendSet and method (favorites may have the wrong method)
     const legendSet = await resolveLegendSet(config, dataItem, engine)
@@ -172,6 +182,40 @@ const thematicLoader = async ({
 
     const [mainFeatures, data, associatedGeometries] = response
     const valueById = getValueById(data)
+
+    if (config.countFeaturesWithoutCoordinates) {
+        const result = await getOrgUnitsWithoutCoordsCount({
+            engine,
+            orgUnitIds,
+            userId,
+            features: mainFeatures || [],
+        })
+        if (!result.error) {
+            orgUnitsWithoutCoordsCount = result.count
+            if (result.count > 0) {
+                const details = await fetchOrgUnitDetails(
+                    engine,
+                    result.missingOrgUnits.map((o) => o.id)
+                )
+                config.dataWithoutCoords = result.missingOrgUnits.map((ou) => ({
+                    ...ou,
+                    properties: {
+                        ...ou.properties,
+                        level: details[ou.id]?.level,
+                        parentName: details[ou.id]?.parentName,
+                        rawValue: valueById[ou.id],
+                        value:
+                            valueById[ou.id] === undefined
+                                ? undefined
+                                : formatWithSeparator(
+                                      valueById[ou.id],
+                                      keyAnalysisDigitGroupSeparator
+                                  ),
+                    },
+                }))
+            }
+        }
+    }
     const valuesByPeriod = isSingleMap ? null : getValuesByPeriod(data) // [PATH] null → Single; populated → Timeline / Split (do not creates OrgUnits with no data)
 
     const names = getApiResponseNames(
@@ -217,6 +261,17 @@ const thematicLoader = async ({
         alerts.push({
             code: WARNING_NO_DATA,
             message: name,
+        })
+    }
+
+    if (
+        config.countFeaturesWithoutCoordinates &&
+        typeof orgUnitsWithoutCoordsCount !== 'number'
+    ) {
+        alerts.push({
+            warning: true,
+            code: CUSTOM_ALERT,
+            message: i18n.t('Could not count org units without coordinates'),
         })
     }
 
@@ -269,6 +324,10 @@ const thematicLoader = async ({
                   ),
         items: legendItems,
         decimalPlaces: config.legendDecimalPlaces,
+    }
+
+    if (typeof orgUnitsWithoutCoordsCount === 'number') {
+        legend.orgUnitsWithoutCoordinatesCount = orgUnitsWithoutCoordsCount
     }
 
     if (dimensions && dimensions.length) {

@@ -195,6 +195,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         legend,
         styleDataItem,
         data,
+        dataWithoutCoords,
         dataFilters,
         headers: layerHeaders,
         serverCluster,
@@ -207,25 +208,29 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return null
         }
 
-        if (!data?.length) {
+        const allData = dataWithoutCoords?.length
+            ? [...(data || []), ...dataWithoutCoords]
+            : data
+
+        if (!allData?.length) {
             errorCode.current = ERROR_NO_VALID_DATA
             return null
         }
 
         if (layerType === GEOJSON_URL_LAYER) {
-            return data.map((d) => ({
+            return allData.map((d) => ({
                 ...d.properties,
             }))
         }
 
-        return data
+        return allData
             .filter((d) => !d.properties.hasAdditionalGeometry)
             .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
                 index,
             }))
-    }, [data, aggregations, serverCluster, layerType])
+    }, [data, dataWithoutCoords, aggregations, serverCluster, layerType])
 
     const headers = useMemo(() => {
         if (errorCode.current) {

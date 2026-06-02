@@ -56,6 +56,7 @@ const validLayerProperties = [
     'labelFontWeight',
     'labelFontColor',
     'labelTemplate',
+    'countFeaturesWithoutCoordinates',
     'legendDecimalPlaces',
     'legendIsolated',
     'lastUpdated',
@@ -222,8 +223,8 @@ const models2objects = (layer, cleanMapviewConfig) => {
     } else if (
         layerType === THEMATIC_LAYER ||
         layerType === EVENT_LAYER ||
-        layerType === FACILITY_LAYER ||
-        layerType === ORG_UNIT_LAYER
+        layerType === ORG_UNIT_LAYER ||
+        layerType === FACILITY_LAYER
     ) {
         if (cleanMapviewConfig) {
             const configData = {}
@@ -240,6 +241,9 @@ const models2objects = (layer, cleanMapviewConfig) => {
                 layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
                 configData.noDataLegend = layer.noDataLegend
             }
+            if (layer.countFeaturesWithoutCoordinates) {
+                configData.countFeaturesWithoutCoordinates = true
+            }
             if (Object.keys(configData).length) {
                 layer.config = JSON.stringify(configData)
             }
@@ -249,6 +253,7 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.legendIsolated
         delete layer.noDataLegend
         delete layer.unclassifiedLegend
+        delete layer.countFeaturesWithoutCoordinates
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

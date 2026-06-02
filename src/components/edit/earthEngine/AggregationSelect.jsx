@@ -51,9 +51,9 @@ AggregationSelect.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        aggregations: layerEdit.aggregations,
-        defaultAggregations: layerEdit.defaultAggregations,
-        aggregationType: layerEdit.aggregationType,
+        aggregations: layerEdit?.aggregations,
+        defaultAggregations: layerEdit?.defaultAggregations,
+        aggregationType: layerEdit?.aggregationType,
     }),
     { setAggregationType }
 )(AggregationSelect)

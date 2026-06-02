@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-05-01T10:18:47.999Z\n"
-"PO-Revision-Date: 2026-05-01T10:18:48.000Z\n"
+"POT-Creation-Date: 2026-05-14T10:04:17.710Z\n"
+"PO-Revision-Date: 2026-05-14T10:04:17.711Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -267,6 +267,9 @@ msgstr "Organisation Units"
 msgid "Style"
 msgstr "Style"
 
+msgid "Count org units without a point location"
+msgstr "Count org units without a point location"
+
 msgid "Point color"
 msgstr "Point color"
 
@@ -380,6 +383,9 @@ msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
+msgid "Count org units without coordinates"
+msgstr "Count org units without coordinates"
+
 msgid "Org Units"
 msgstr "Org Units"
 
@@ -394,6 +400,9 @@ msgstr "View all events"
 
 msgid "Radius"
 msgstr "Radius"
+
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
 
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
@@ -682,6 +691,24 @@ msgstr "Remove layer"
 
 msgid "Filters"
 msgstr "Filters"
+
+msgid "Data quality"
+msgstr "Data quality"
+
+msgid "{{count}} event without coordinates"
+msgid_plural "{{count}} event without coordinates"
+msgstr[0] "{{count}} event without coordinates"
+msgstr[1] "{{count}} events without coordinates"
+
+msgid "{{count}} org unit without a point location"
+msgid_plural "{{count}} org unit without a point location"
+msgstr[0] "{{count}} org unit without a point location"
+msgstr[1] "{{count}} org units without a point location"
+
+msgid "{{count}} org unit without coordinates"
+msgid_plural "{{count}} org unit without coordinates"
+msgstr[0] "{{count}} org unit without coordinates"
+msgstr[1] "{{count}} org units without coordinates"
 
 msgid "No data found"
 msgstr "No data found"
@@ -1728,6 +1755,9 @@ msgstr "Financial year (Start April)"
 msgid "Cancelled"
 msgstr "Cancelled"
 
+msgid "Could not count org units without coordinates"
+msgstr "Could not count org units without coordinates"
+
 msgid "Earth Engine layer"
 msgstr "Earth Engine layer"
 
@@ -1746,17 +1776,17 @@ msgstr "Displaying first {{pageSize}} events out of {{total}}"
 msgid "Event"
 msgstr "Event"
 
+msgid "Could not count org units without a point location"
+msgstr "Could not count org units without a point location"
+
 msgid "Facilities"
 msgstr "Facilities"
 
 msgid "an error occurred"
 msgstr "an error occurred"
 
-msgid "GroupSet used for styling was not found"
-msgstr "GroupSet used for styling was not found"
-
-msgid "No coordinates found for selected facilities"
-msgstr "No coordinates found for selected facilities"
+msgid "No point locations found for selected facilities"
+msgstr "No point locations found for selected facilities"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "There was a problem with this layer. Contact a system administrator."
@@ -1839,6 +1869,9 @@ msgstr "Org units"
 
 msgid "Facility"
 msgstr "Facility"
+
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet used for styling was not found"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

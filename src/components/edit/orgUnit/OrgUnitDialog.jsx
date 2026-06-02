@@ -1,10 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
     setRadiusLow,
     setOrganisationUnitColor,
+    setCountFeaturesWithoutCoordinates,
     setUnclassifiedLegend,
 } from '../../../actions/layerEdit.js'
 import {
@@ -15,7 +17,13 @@ import {
     MAX_RADIUS,
 } from '../../../constants/layers.js'
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
-import { Tab, Tabs, NumberField, ColorPicker } from '../../core/index.js'
+import {
+    Tab,
+    Tabs,
+    NumberField,
+    ColorPicker,
+    Checkbox,
+} from '../../core/index.js'
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import Labels from '../shared/Labels.jsx'
@@ -24,11 +32,13 @@ import styles from '../styles/LayerDialog.module.css'
 
 class OrgUnitDialog extends Component {
     static propTypes = {
+        setCountFeaturesWithoutCoordinates: PropTypes.func.isRequired,
         setOrganisationUnitColor: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
         setUnclassifiedLegend: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
+        countFeaturesWithoutCoordinates: PropTypes.bool,
         organisationUnitColor: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
         radiusLow: PropTypes.number,
@@ -55,10 +65,12 @@ class OrgUnitDialog extends Component {
         const {
             radiusLow,
             organisationUnitColor,
+            countFeaturesWithoutCoordinates,
             organisationUnitGroupSet,
             unclassifiedLegend,
             setOrganisationUnitColor,
             setRadiusLow,
+            setCountFeaturesWithoutCoordinates,
             setUnclassifiedLegend,
         } = this.props
 
@@ -80,14 +92,17 @@ class OrgUnitDialog extends Component {
                             data-test="orgunitdialog-styletab"
                         >
                             <div className={styles.flexColumn}>
-                                <Labels />
+                                <Labels className={styles.noMarginTop} />
                                 <ColorPicker
                                     label={i18n.t('Boundary color')}
                                     color={
                                         organisationUnitColor || ORG_UNIT_COLOR
                                     }
                                     onChange={setOrganisationUnitColor}
-                                    className={styles.narrowField}
+                                    className={cx(
+                                        styles.narrowField,
+                                        styles.marginTop
+                                    )}
                                 />
                                 <NumberField
                                     label={i18n.t('Point radius')}
@@ -100,6 +115,15 @@ class OrgUnitDialog extends Component {
                                     }
                                     onChange={setRadiusLow}
                                     className={styles.narrowFieldIcon}
+                                />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count org units without coordinates'
+                                    )}
+                                    checked={!!countFeaturesWithoutCoordinates}
+                                    onChange={
+                                        setCountFeaturesWithoutCoordinates
+                                    }
                                 />
                             </div>
                             <div className={styles.flexColumn}>
@@ -146,10 +170,14 @@ class OrgUnitDialog extends Component {
 }
 
 export default connect(
-    null,
+    (state) => ({
+        countFeaturesWithoutCoordinates:
+            state.layerEdit.countFeaturesWithoutCoordinates,
+    }),
     {
         setRadiusLow,
         setOrganisationUnitColor,
+        setCountFeaturesWithoutCoordinates,
         setUnclassifiedLegend,
     },
     null,

@@ -17,6 +17,7 @@ import {
     setEndDate,
     setBackupPeriodsDates,
     setOrgUnits,
+    setCountFeaturesWithoutCoordinates,
 } from '../../../actions/layerEdit.js'
 import {
     EVENT_COLOR,
@@ -42,6 +43,7 @@ import {
     NumberField,
     ImageSelect,
     ColorPicker,
+    Checkbox,
 } from '../../core/index.js'
 import CoordinateField from '../../dataItem/CoordinateField.jsx'
 import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
@@ -59,6 +61,7 @@ import EventStatusSelect from './EventStatusSelect.jsx'
 class EventDialog extends Component {
     static propTypes = {
         setBackupPeriodsDates: PropTypes.func.isRequired,
+        setCountFeaturesWithoutCoordinates: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
         setEventCoordinateField: PropTypes.func.isRequired,
@@ -75,6 +78,7 @@ class EventDialog extends Component {
         onLayerValidation: PropTypes.func.isRequired,
         backupPeriodsDates: PropTypes.object,
         columns: PropTypes.array,
+        countFeaturesWithoutCoordinates: PropTypes.bool,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
@@ -207,6 +211,7 @@ class EventDialog extends Component {
         const {
             // layer options
             columns = [],
+            countFeaturesWithoutCoordinates,
             eventClustering,
             eventStatus,
             eventCoordinateField,
@@ -232,6 +237,7 @@ class EventDialog extends Component {
             setEventPointRadius,
             // setFallbackCoordinateField,
             setPeriod,
+            setCountFeaturesWithoutCoordinates,
         } = this.props
 
         const {
@@ -405,6 +411,15 @@ class EventDialog extends Component {
                                     disabled={eventClustering}
                                     defaultRadius={EVENT_BUFFER}
                                 />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count events without coordinates'
+                                    )}
+                                    checked={!!countFeaturesWithoutCoordinates}
+                                    onChange={
+                                        setCountFeaturesWithoutCoordinates
+                                    }
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
@@ -534,6 +549,7 @@ export default connect(
         setStartDate,
         setEndDate,
         setOrgUnits,
+        setCountFeaturesWithoutCoordinates,
     },
     null,
     {
