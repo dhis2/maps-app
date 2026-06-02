@@ -2,9 +2,8 @@ import * as types from '../constants/actionTypes.js'
 import { EVENT_STATUS_ALL } from '../constants/eventStatuses.js'
 import {
     CLASSIFICATION_SINGLE_COLOR,
-    CLASSIFICATION_EQUAL_INTERVALS,
-    CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
+    getClassificationTypes,
     THEMATIC_CHOROPLETH,
     EE_BUFFER,
     NONE,
@@ -279,10 +278,9 @@ const layerEdit = (state = null, action) => {
 
             if (
                 state.method === CLASSIFICATION_SINGLE_COLOR ||
-                ![
-                    CLASSIFICATION_EQUAL_INTERVALS,
-                    CLASSIFICATION_EQUAL_COUNTS,
-                ].includes(action.method)
+                !getClassificationTypes()
+                    .map((t) => t.id)
+                    .includes(action.method)
             ) {
                 delete newState.colorScale
                 delete newState.classes
