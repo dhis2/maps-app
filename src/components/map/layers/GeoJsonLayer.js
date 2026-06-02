@@ -1,6 +1,7 @@
 import { GEOJSON_LAYER } from '../../../constants/layers.js'
 import { filterData } from '../../../util/filter.js'
 import { getGeojsonDisplayData } from '../../../util/geojson.js'
+import { formatWithSeparator } from '../../../util/numbers.js'
 import Layer from './Layer.js'
 
 class GeoJsonLayer extends Layer {
@@ -53,13 +54,18 @@ class GeoJsonLayer extends Layer {
     }
 
     onFeatureClick(evt) {
+        const { keyAnalysisDigitGroupSeparator } = this.props
+
         const feature = this.props.data.find(
             (d) => d.properties.id === evt.feature.properties.id
         )
 
         const data = getGeojsonDisplayData(feature).reduce(
             (acc, { dataKey, value }) => {
-                acc[dataKey] = value
+                acc[dataKey] = formatWithSeparator(
+                    value,
+                    keyAnalysisDigitGroupSeparator
+                )
                 return acc
             },
             {}

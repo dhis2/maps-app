@@ -140,7 +140,8 @@ class TrackedEntityLayer extends Layer {
     }
 
     render() {
-        const { program, nameProperty } = this.props
+        const { program, nameProperty, keyAnalysisDigitGroupSeparator } =
+            this.props
         const { popup, displayAttributes } = this.state
 
         return popup ? (
@@ -148,6 +149,7 @@ class TrackedEntityLayer extends Layer {
                 {...popup}
                 program={program}
                 nameProperty={nameProperty}
+                keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 displayAttributes={displayAttributes || []}
                 onClose={this.onPopupClose}
             />

@@ -1,4 +1,14 @@
-import { formatCount, getPrecision } from '../numbers.js'
+import {
+    DIGIT_GROUP_SEPARATOR_COMMA,
+    DIGIT_GROUP_SEPARATOR_NONE,
+    DIGIT_GROUP_SEPARATOR_SPACE,
+} from '../../constants/settings.js'
+import {
+    formatCount,
+    getPrecision,
+    formatWithSeparator,
+    parseWithSeparator,
+} from '../numbers.js'
 
 describe('numbers', () => {
     describe('formatCount', () => {
@@ -78,6 +88,119 @@ describe('numbers', () => {
 
         it('returns 2 with negative max and absValue >=100 and gapValue <= 1', () => {
             expect(getPrecision([-100.67, -100.1, -100.2, -100.3])).toEqual(2)
+        })
+    })
+
+    describe('formatWithSeparator', () => {
+        it('formats positive integers with comma separator', () => {
+            expect(
+                formatWithSeparator(1234567, DIGIT_GROUP_SEPARATOR_COMMA)
+            ).toBe('1,234,567')
+        })
+
+        it('formats positive integers with space separator', () => {
+            expect(
+                formatWithSeparator(1234567, DIGIT_GROUP_SEPARATOR_SPACE)
+            ).toBe('1 234 567')
+        })
+
+        it('does not group with NONE separator', () => {
+            expect(
+                formatWithSeparator(1234567, DIGIT_GROUP_SEPARATOR_NONE)
+            ).toBe('1234567')
+        })
+
+        it('handles negative numbers', () => {
+            expect(
+                formatWithSeparator(-1234567, DIGIT_GROUP_SEPARATOR_COMMA)
+            ).toBe('-1,234,567')
+        })
+
+        it('preserves decimals', () => {
+            expect(
+                formatWithSeparator(1234.56, DIGIT_GROUP_SEPARATOR_COMMA)
+            ).toBe('1,234.56')
+        })
+
+        it('applies precision when specified', () => {
+            expect(
+                formatWithSeparator(1234.5, DIGIT_GROUP_SEPARATOR_COMMA, {
+                    precision: 3,
+                })
+            ).toBe('1,234.500')
+        })
+
+        it('handles zero', () => {
+            expect(formatWithSeparator(0, DIGIT_GROUP_SEPARATOR_COMMA)).toBe(
+                '0'
+            )
+        })
+
+        it('handles numbers below 1000 without grouping', () => {
+            expect(formatWithSeparator(42, DIGIT_GROUP_SEPARATOR_COMMA)).toBe(
+                '42'
+            )
+        })
+
+        it('returns non-numeric input unchanged', () => {
+            expect(
+                formatWithSeparator('hello', DIGIT_GROUP_SEPARATOR_COMMA)
+            ).toBe('hello')
+            expect(
+                formatWithSeparator(null, DIGIT_GROUP_SEPARATOR_COMMA)
+            ).toBeNull()
+            expect(
+                formatWithSeparator(undefined, DIGIT_GROUP_SEPARATOR_COMMA)
+            ).toBeUndefined()
+        })
+
+        it('forces formatting of numeric strings when force: true', () => {
+            expect(
+                formatWithSeparator('1234.56', DIGIT_GROUP_SEPARATOR_COMMA, {
+                    force: true,
+                })
+            ).toBe('1,234.56')
+        })
+
+        it('treats unknown separator values as NONE', () => {
+            expect(formatWithSeparator(1234, 'WEIRD')).toBe(
+                formatWithSeparator(1234, DIGIT_GROUP_SEPARATOR_NONE)
+            )
+        })
+    })
+
+    describe('parseWithSeparator', () => {
+        it('parses comma-separated integers', () => {
+            expect(parseWithSeparator('1,234,567')).toBe(1234567)
+        })
+
+        it('parses space-separated integers', () => {
+            expect(parseWithSeparator('1 234 567')).toBe(1234567)
+        })
+
+        it('parses values with decimals', () => {
+            expect(parseWithSeparator('1,234.56')).toBe(1234.56)
+        })
+
+        it('parses negative values', () => {
+            expect(parseWithSeparator('-1,234')).toBe(-1234)
+        })
+
+        it('returns undefined for non-numeric input', () => {
+            expect(parseWithSeparator('abc')).toBeUndefined()
+        })
+
+        it('round-trips with formatWithSeparator', () => {
+            expect(
+                parseWithSeparator(
+                    formatWithSeparator(1234567, DIGIT_GROUP_SEPARATOR_COMMA)
+                )
+            ).toBe(1234567)
+            expect(
+                parseWithSeparator(
+                    formatWithSeparator(1234.56, DIGIT_GROUP_SEPARATOR_SPACE)
+                )
+            ).toBe(1234.56)
         })
     })
 })

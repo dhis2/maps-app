@@ -25,7 +25,7 @@ const TYPE_DATE = 'date'
 const INDEX = 'index'
 const NAME = 'name'
 const ID = 'id'
-const VALUE = 'value'
+const VALUE = 'rawValue'
 const LEGEND = 'legend'
 const RANGE = 'range'
 const LEVEL = 'level'
@@ -298,30 +298,30 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
 
         //sort
         filteredData.sort((a, b) => {
-            a = a[sortField]
-            b = b[sortField]
+            const aVal = a[sortField]
+            const bVal = b[sortField]
 
             // All undefined values should be sorted to the end
-            if (a === undefined && b === undefined) {
+            if (aVal === undefined && bVal === undefined) {
                 return 0
             }
 
-            if (a === undefined) {
+            if (aVal === undefined) {
                 return 1 // a goes to end
             }
 
-            if (b === undefined) {
+            if (bVal === undefined) {
                 return -1 // b goes to end
             }
 
-            if (typeof a === TYPE_NUMBER) {
-                return sortDirection === ASCENDING ? a - b : b - a
+            if (typeof aVal === TYPE_NUMBER) {
+                return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
             }
 
             // TODO: Make sure sorting works across different locales
             return sortDirection === ASCENDING
-                ? a.localeCompare(b)
-                : b.localeCompare(a)
+                ? aVal.localeCompare(bVal)
+                : bVal.localeCompare(aVal)
         })
 
         return filteredData.map((item) =>

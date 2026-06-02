@@ -1,3 +1,9 @@
+import {
+    DIGIT_GROUP_SEPARATOR_SPACE,
+    DIGIT_GROUP_SEPARATOR_COMMA,
+    DIGIT_GROUP_SEPARATOR_NONE,
+} from '../constants/settings.js'
+
 export const formatCount = (count) => {
     let num
 
@@ -56,4 +62,39 @@ export const getPrecision = (values = []) => {
     }
 
     return 0
+}
+
+const DIGIT_GROUP_SEPARATORS = {
+    [DIGIT_GROUP_SEPARATOR_SPACE]: ' ',
+    [DIGIT_GROUP_SEPARATOR_COMMA]: ',',
+    [DIGIT_GROUP_SEPARATOR_NONE]: '',
+}
+
+export const formatWithSeparator = (
+    value,
+    separator,
+    { force = false, precision } = {}
+) => {
+    if (!force && typeof value !== 'number') {
+        return value
+    }
+    const sep = DIGIT_GROUP_SEPARATORS[separator] ?? ''
+    const formatted =
+        precision === undefined
+            ? String(value)
+            : Number(value).toFixed(precision)
+    const [integer, decimal] = formatted.split('.')
+    const isNegative = integer.startsWith('-')
+    const digits = isNegative ? integer.slice(1) : integer
+    const groups = []
+    for (let i = digits.length; i > 0; i -= 3) {
+        groups.unshift(digits.slice(Math.max(0, i - 3), i))
+    }
+    const grouped = (isNegative ? '-' : '') + groups.join(sep)
+    return decimal ? `${grouped}.${decimal}` : grouped
+}
+
+export const parseWithSeparator = (value) => {
+    const num = Number(String(value).replaceAll(/[\s,]/g, ''))
+    return Number.isNaN(num) ? undefined : num
 }

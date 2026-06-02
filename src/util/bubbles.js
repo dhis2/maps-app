@@ -7,7 +7,7 @@ import {
 } from '../components/legend/Bubbles.jsx'
 import { getContrastColor } from './colors.js'
 import { getLongestTextLength } from './helpers.js'
-import { getRoundToPrecisionFn } from './numbers.js'
+import { formatWithSeparator, getRoundToPrecisionFn } from './numbers.js'
 
 const getBubbleValueFormat = ({ minValue, maxValue, divisor }) => {
     if (minValue === maxValue) {
@@ -111,12 +111,18 @@ export const computeLayout = ({
     bubbleClasses,
     radiusHigh,
     legendWidth,
+    keyAnalysisDigitGroupSeparator,
 }) => {
-    // Calculate the pixel length of the longest number
+    // Calculate the pixel length of the longest formatted number
+    const formattedLen = (v) =>
+        typeof v === 'number'
+            ? formatWithSeparator(v, keyAnalysisDigitGroupSeparator).length
+            : 0
     let textLength = Math.ceil(
         Math.max(
-            getLongestTextLength(bubbleClasses, 'startValue'),
-            getLongestTextLength(bubbleClasses, 'endValue')
+            0,
+            ...bubbleClasses.map((c) => formattedLen(c.startValue)),
+            ...bubbleClasses.map((c) => formattedLen(c.endValue))
         ) * digitWidth
     )
 

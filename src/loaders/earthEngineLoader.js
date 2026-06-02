@@ -14,7 +14,7 @@ import {
 } from '../util/earthEngine.js'
 import { sortLegendItems } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
-import { getRoundToPrecisionFn } from '../util/numbers.js'
+import { getRoundToPrecisionFn, formatWithSeparator } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
@@ -25,6 +25,7 @@ const earthEngineLoader = async ({
     config,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     userId,
 }) => {
     const { format, rows, aggregationType } = config
@@ -201,7 +202,11 @@ const earthEngineLoader = async ({
         !hasClasses(aggregationType) &&
         style?.palette
     ) {
-        legend.items = createLegend(style, !maskOperator)
+        legend.items = createLegend(
+            style,
+            !maskOperator,
+            keyAnalysisDigitGroupSeparator
+        )
     }
 
     const filter = getStaticFilterFromPeriod(period, filters)
@@ -211,6 +216,7 @@ const earthEngineLoader = async ({
         legend,
         name,
         data,
+        keyAnalysisDigitGroupSeparator,
         filter,
         alerts,
         isLoaded: true,
@@ -221,7 +227,11 @@ const earthEngineLoader = async ({
     }
 }
 
-export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
+export const createLegend = (
+    { min, max, palette, ranges },
+    showBelowMin,
+    keyAnalysisDigitGroupSeparator
+) => {
     if (ranges && ranges.length === palette.length) {
         return sortLegendItems(
             ranges.map((range, index) => ({
@@ -246,16 +256,23 @@ export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
                 // Less than min
                 item.from = -Infinity
                 item.to = min
-                item.name = '< ' + min
+                item.name =
+                    '< ' +
+                    formatWithSeparator(min, keyAnalysisDigitGroupSeparator)
                 to = min
             } else if (+from < max) {
                 item.from = +from
                 item.to = +to
-                item.name = from + ' - ' + to
+                item.name =
+                    formatWithSeparator(from, keyAnalysisDigitGroupSeparator) +
+                    ' - ' +
+                    formatWithSeparator(to, keyAnalysisDigitGroupSeparator)
             } else {
                 // Higher than max
                 item.from = +from
-                item.name = '> ' + from
+                item.name =
+                    '> ' +
+                    formatWithSeparator(from, keyAnalysisDigitGroupSeparator)
             }
 
             from = to

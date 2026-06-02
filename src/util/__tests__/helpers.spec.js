@@ -1,3 +1,8 @@
+import {
+    DIGIT_GROUP_SEPARATOR_COMMA,
+    DIGIT_GROUP_SEPARATOR_NONE,
+    DIGIT_GROUP_SEPARATOR_SPACE,
+} from '../../constants/settings.js'
 import { formatValueForDisplay, sumObjectValues } from '../helpers.js'
 
 describe('formatValueForDisplay', () => {
@@ -136,6 +141,66 @@ describe('formatValueForDisplay', () => {
         },
     ])('$desc', ({ input, expected }) => {
         expect(formatValueForDisplay(input)).toBe(expected)
+    })
+
+    describe('formats number value types with digit group separator', () => {
+        it.each([
+            'NUMBER',
+            'INTEGER',
+            'INTEGER_POSITIVE',
+            'INTEGER_NEGATIVE',
+            'INTEGER_ZERO_OR_POSITIVE',
+            'PERCENTAGE',
+            'UNIT_INTERVAL',
+        ])('formats %s with COMMA separator', (valueType) => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType,
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+                })
+            ).toBe('1,234,567')
+        })
+
+        it('formats NUMBER with SPACE separator', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType: 'NUMBER',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_SPACE,
+                })
+            ).toBe('1 234 567')
+        })
+
+        it('returns plain value with NONE separator', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType: 'NUMBER',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_NONE,
+                })
+            ).toBe('1234567')
+        })
+
+        it('preserves decimal part', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234.56',
+                    valueType: 'NUMBER',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+                })
+            ).toBe('1,234.56')
+        })
+
+        it('does not apply separator to non-number types like TEXT', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType: 'TEXT',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+                })
+            ).toBe('1234567')
+        })
     })
 
     it('returns raw value for other DHIS2 types not specially handled', () => {
