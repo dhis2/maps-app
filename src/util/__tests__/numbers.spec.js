@@ -222,19 +222,19 @@ describe('numbers', () => {
         const n = { factor: 1e-9, suffix: 'n' }
 
         it('formats large values with B', () => {
-            expect(formatCompact(5_670_000_000, B)).toBe('5.67B')
+            expect(formatCompact(5_670_000_000, B)).toBe('5.7B')
         })
 
         it('formats large values with M', () => {
-            expect(formatCompact(1_230_000, M)).toBe('1.23M')
+            expect(formatCompact(1_230_000, M)).toBe('1.2M')
         })
 
-        it('formats large values with K (3 sig figs)', () => {
+        it('formats large values with K', () => {
             expect(formatCompact(12_300, K)).toBe('12.3K')
         })
 
-        it('strips trailing zeros (1000 → 1K)', () => {
-            expect(formatCompact(1_000, K)).toBe('1K')
+        it('preserves trailing zero by default (1000 → 1.0K)', () => {
+            expect(formatCompact(1_000, K)).toBe('1.0K')
         })
 
         it('formats sub-threshold value with K (500 → 0.5K)', () => {
@@ -254,7 +254,7 @@ describe('numbers', () => {
         })
 
         it('handles negative values', () => {
-            expect(formatCompact(-5_000_000, M)).toBe('-5M')
+            expect(formatCompact(-5_000_000, M)).toBe('-5.0M')
         })
 
         it('respects explicit decimalPlaces', () => {

@@ -93,9 +93,8 @@ export const getCompactScale = (values) => {
     return null
 }
 
-// Formats value using a compact scale. decimalPlaces defaults to 2.
-// When decimalPlaces is set, trailing zeros are preserved for alignment.
-// When scale is null, falls back to formatWithSeparator.
+// Formats value using a compact scale. decimalPlaces defaults to 2 with trailing zeros
+// preserved for alignment. When scale is null, falls back to formatWithSeparator.
 export const formatCompact = (
     value,
     scale,
@@ -107,13 +106,9 @@ export const formatCompact = (
         })
     }
     const scaled = value / scale.factor
-    const formatted =
-        decimalPlaces === undefined
-            ? formatWithSeparator(Number(scaled.toFixed(2)), separator)
-            : formatWithSeparator(scaled, separator, {
-                  precision: decimalPlaces,
-              })
-    return `${formatted}${scale.suffix}`
+    return `${formatWithSeparator(scaled, separator, {
+        precision: decimalPlaces ?? 1,
+    })}${scale.suffix}`
 }
 
 // For map cluster labels only. Uses fixed thresholds (1 decimal for 1k–9.5k,

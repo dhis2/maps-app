@@ -45,7 +45,15 @@ describe('createLegend', () => {
             )
             const names = items.map((i) => i.name)
             expect(names).toContain('1,000 – 3,000')
-            expect(names).toContain('> 3,000')
+            // "> max" item has no pre-formatted name; boundary is in item.from
+            const aboveMax = items.find(
+                (i) =>
+                    i.to === undefined &&
+                    i.from !== undefined &&
+                    i.from !== -Infinity
+            )
+            expect(aboveMax).toBeDefined()
+            expect(aboveMax.from).toBe(3000)
         })
 
         it('formats item names with SPACE separator', () => {
@@ -56,14 +64,28 @@ describe('createLegend', () => {
             )
             const names = items.map((i) => i.name)
             expect(names).toContain('1 000 – 3 000')
-            expect(names).toContain('> 3 000')
+            const aboveMax = items.find(
+                (i) =>
+                    i.to === undefined &&
+                    i.from !== undefined &&
+                    i.from !== -Infinity
+            )
+            expect(aboveMax).toBeDefined()
+            expect(aboveMax.from).toBe(3000)
         })
 
         it('does not group digits with NONE separator', () => {
             const items = createLegend(style, false, DIGIT_GROUP_SEPARATOR_NONE)
             const names = items.map((i) => i.name)
             expect(names).toContain('1000 – 3000')
-            expect(names).toContain('> 3000')
+            const aboveMax = items.find(
+                (i) =>
+                    i.to === undefined &&
+                    i.from !== undefined &&
+                    i.from !== -Infinity
+            )
+            expect(aboveMax).toBeDefined()
+            expect(aboveMax.from).toBe(3000)
         })
 
         it('includes a "less than min" item when showBelowMin is true', () => {
@@ -74,7 +96,9 @@ describe('createLegend', () => {
             )
             const belowMin = items.find((i) => i.from === -Infinity)
             expect(belowMin).toBeDefined()
-            expect(belowMin.name).toBe('< 1,000')
+            // "< min" item has no pre-formatted name; boundary is in item.to
+            expect(belowMin.name).toBeUndefined()
+            expect(belowMin.to).toBe(1000)
         })
 
         it('sets correct from/to boundaries for range items', () => {

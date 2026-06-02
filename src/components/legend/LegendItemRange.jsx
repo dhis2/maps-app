@@ -172,6 +172,44 @@ RangeCells.propTypes = {
 
 // --- Render helpers ---
 
+// Open-bound items ("< min" / "> max"): one value aligned to start or end column
+const renderOpenBound = ({
+    tooltip,
+    displayValue,
+    scale,
+    countCell,
+    atEnd,
+}) => {
+    const valueCell = scale ? (
+        <button
+            ref={tooltip.ref}
+            type="button"
+            className={styles.legendValueButton}
+            onClick={tooltip.onClick}
+            onMouseEnter={tooltip.onMouseEnter}
+            onMouseLeave={tooltip.onMouseLeave}
+            onFocus={tooltip.onFocus}
+            onBlur={tooltip.onBlur}
+        >
+            {displayValue}
+        </button>
+    ) : (
+        displayValue
+    )
+    return (
+        <>
+            <td className={styles.legendNameEmpty} style={{ width: 0 }}></td>
+            <td style={{ width: 0 }}></td>
+            <td className={styles.legendStart}>{atEnd ? null : valueCell}</td>
+            <td className={styles.legendDash}></td>
+            <td className={styles.legendEnd}>{atEnd ? valueCell : null}</td>
+            <td className={styles.legendSpacer}></td>
+            {countCell}
+            {tooltip.portal}
+        </>
+    )
+}
+
 // Category items, special classes (no data, unclassified): name only, no range columns
 const renderNameOnly = ({ nameTooltip, name, countCell, hasCount }) => (
     <>
@@ -246,6 +284,8 @@ const LegendItemRange = ({
 
     const hasName = showRange && !!name
     const hasRange = startValue !== undefined && endValue !== undefined
+    const hasOpenHigh = startValue !== undefined && endValue === undefined
+    const hasOpenLow = startValue === undefined && endValue !== undefined
     const hasCount = count !== undefined
 
     let formattedCount
@@ -262,6 +302,32 @@ const LegendItemRange = ({
     }
 
     const nameTooltip = useNameTooltip(name, zoom)
+    const openHighScale =
+        useCompact && hasOpenHigh ? getCompactScale([startValue]) : null
+    const openHighTooltip = useValueTooltip(
+        hasOpenHigh
+            ? `> ${formatWithSeparator(
+                  startValue,
+                  keyAnalysisDigitGroupSeparator,
+                  { precision: decimalPlaces }
+              )}`
+            : undefined,
+        tooltipCx(styles.legendRangeTooltip),
+        { scale: openHighScale, zoom }
+    )
+    const openLowScale =
+        useCompact && hasOpenLow ? getCompactScale([endValue]) : null
+    const openLowTooltip = useValueTooltip(
+        hasOpenLow
+            ? `< ${formatWithSeparator(
+                  endValue,
+                  keyAnalysisDigitGroupSeparator,
+                  { precision: decimalPlaces }
+              )}`
+            : undefined,
+        tooltipCx(styles.legendRangeTooltip),
+        { scale: openLowScale, zoom }
+    )
     const countTooltip = useValueTooltip(
         countTooltipContent,
         tooltipCx(styles.legendCountTooltip),
@@ -292,6 +358,30 @@ const LegendItemRange = ({
     )
 
     if (!hasRange) {
+        if (hasOpenHigh) {
+            return renderOpenBound({
+                tooltip: openHighTooltip,
+                displayValue: `> ${formatCompact(startValue, openHighScale, {
+                    decimalPlaces,
+                    separator: keyAnalysisDigitGroupSeparator,
+                })}`,
+                scale: openHighScale,
+                countCell,
+                atEnd: false,
+            })
+        }
+        if (hasOpenLow) {
+            return renderOpenBound({
+                tooltip: openLowTooltip,
+                displayValue: `< ${formatCompact(endValue, openLowScale, {
+                    decimalPlaces,
+                    separator: keyAnalysisDigitGroupSeparator,
+                })}`,
+                scale: openLowScale,
+                countCell,
+                atEnd: true,
+            })
+        }
         // Category / special class: name only
         return renderNameOnly({ nameTooltip, name, countCell, hasCount })
     }

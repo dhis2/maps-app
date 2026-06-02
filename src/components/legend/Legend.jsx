@@ -22,15 +22,20 @@ const countDecimals = (value) => {
 }
 
 // Infer decimal places from the data when not explicitly provided.
-const inferDecimalPlaces = (rangeItems) =>
-    rangeItems.length > 0
-        ? Math.max(
-              ...rangeItems.flatMap(({ startValue, endValue }) => [
-                  countDecimals(startValue),
-                  countDecimals(endValue),
-              ])
-          )
-        : undefined
+// Returns undefined for all-integer data so compact formatting can apply its own default.
+const inferDecimalPlaces = (rangeItems) => {
+    if (rangeItems.length === 0) {
+        return undefined
+    }
+    const max = Math.max(
+        ...rangeItems.flatMap(({ startValue, endValue }) =>
+            endValue !== undefined
+                ? [countDecimals(startValue), countDecimals(endValue)]
+                : [countDecimals(startValue)]
+        )
+    )
+    return max > 0 ? max : undefined
+}
 
 // True when the name already encodes the range (e.g. "100 – 200") — avoids showing numbers twice.
 const nameEncodesRange = (name, startValue, endValue) => {
@@ -90,13 +95,23 @@ const Legend = ({
 
     // Normalise from/to → startValue/endValue
     const sortedItems = Array.isArray(items)
-        ? sortLegendItems(items).map((item) =>
-              !('startValue' in item) &&
-              Number.isFinite(item.from) &&
-              Number.isFinite(item.to)
-                  ? { ...item, startValue: item.from, endValue: item.to }
-                  : item
-          )
+        ? sortLegendItems(items).map((item) => {
+              if ('startValue' in item) {
+                  return item
+              }
+              if (Number.isFinite(item.from) && Number.isFinite(item.to)) {
+                  return { ...item, startValue: item.from, endValue: item.to }
+              }
+              if (Number.isFinite(item.from)) {
+                  // Open-end high (e.g. "> max" from Earth Engine) - no endValue
+                  return { ...item, startValue: item.from }
+              }
+              if (Number.isFinite(item.to)) {
+                  // Open-end low (e.g. "< min" from Earth Engine) - no startValue
+                  return { ...item, endValue: item.to }
+              }
+              return item
+          })
         : []
 
     // Suppress range columns when all names already encode the range; isolated
@@ -108,16 +123,23 @@ const Legend = ({
             ? !legendNamesContainRange([item])
             : !item.name || showRange
 
+    // Include open-end items (one bound only) for decimal/compact inference
     const rangeItems = sortedItems.filter(
-        (item) => item.startValue !== undefined && item.endValue !== undefined
+        (item) => item.startValue !== undefined || item.endValue !== undefined
     )
     const effectiveDecimalPlaces =
         decimalPlaces ?? inferDecimalPlaces(rangeItems)
 
-    const allRangeValues = rangeItems.flatMap(({ startValue, endValue }) => [
-        startValue,
-        endValue,
-    ])
+    const allRangeValues = rangeItems.flatMap(({ startValue, endValue }) => {
+        const vals = []
+        if (startValue !== undefined) {
+            vals.push(startValue)
+        }
+        if (endValue !== undefined) {
+            vals.push(endValue)
+        }
+        return vals
+    })
     // Named ranges make the row tight — prefer compact even if values aren't long individually.
     const hasNamedRanges = rangeItems
         .filter((item) => !item.isIsolated)

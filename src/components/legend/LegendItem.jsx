@@ -25,7 +25,7 @@ const LegendItem = ({
     useCompact,
     isPlugin,
 }) => {
-    if (!name && startValue === undefined) {
+    if (!name && startValue === undefined && endValue === undefined) {
         return null
     }
 
