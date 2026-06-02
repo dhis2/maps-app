@@ -289,6 +289,97 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    test('treats NUMBER header with optionSet as string type', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'AbCdEfGhIjK',
+                    column: 'Severity',
+                    valueType: 'NUMBER',
+                    optionSet: { id: 'xyz123' },
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 'high',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers } = result.current
+        const severityHeader = headers.find((h) => h.dataKey === 'AbCdEfGhIjK')
+        expect(severityHeader.type).toBe('string')
+    })
+
+    test('treats NUMBER header without optionSet as number type', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'AbCdEfGhIjK',
+                    column: 'Score',
+                    valueType: 'NUMBER',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt2',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 42,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers } = result.current
+        const scoreHeader = headers.find((h) => h.dataKey === 'AbCdEfGhIjK')
+        expect(scoreHeader.type).toBe('number')
+    })
+
     test('gets headers and rows for EE population layer', () => {
         const store = {
             aggregations: {

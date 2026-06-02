@@ -15,6 +15,7 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
@@ -101,6 +102,12 @@ const loadEventLayer = async ({
     periodTypeData,
     loadExtended,
 }) => {
+    const { legendDecimalPlaces } = parseJsonConfig(config.config)
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    delete config.config
+
     const {
         columns,
         endDate,
@@ -144,6 +151,9 @@ const loadEventLayer = async ({
                   getDateArray(endDate)
               ),
         items: [],
+        ...(config.legendDecimalPlaces !== undefined && {
+            decimalPlaces: config.legendDecimalPlaces,
+        }),
     }
 
     // Delete serverCluster option if previously set
@@ -200,7 +210,8 @@ const loadEventLayer = async ({
         const numericDataItemHeaders = config.headers.filter(
             (header) =>
                 isValidUid(header.name) &&
-                numberValueTypes.includes(header.valueType)
+                numberValueTypes.includes(header.valueType) &&
+                !header.optionSet
         )
 
         if (numericDataItemHeaders.length) {

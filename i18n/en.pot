@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-26T11:10:26.962Z\n"
-"PO-Revision-Date: 2026-04-26T11:10:26.963Z\n"
+"POT-Creation-Date: 2026-04-27T11:12:19.709Z\n"
+"PO-Revision-Date: 2026-04-27T11:12:19.709Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -37,6 +37,12 @@ msgstr "Classification"
 
 msgid "Classes"
 msgstr "Classes"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Decimal places"
+msgstr "Decimal places"
 
 msgid "Legend set"
 msgstr "Legend set"
@@ -353,17 +359,14 @@ msgstr "Max value is required"
 msgid "Max should be greater than min"
 msgstr "Max should be greater than min"
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
 
 msgid "Min"
 msgstr "Min"
 
 msgid "Max"
 msgstr "Max"
-
-msgid "Steps"
-msgstr "Steps"
 
 msgid "Facility buffer"
 msgstr "Facility buffer"
@@ -1824,11 +1827,3 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
-
-msgctxt "Application title"
-msgid "__MANIFEST_APP_TITLE"
-msgstr "Maps"
-
-msgctxt "Application description"
-msgid "__MANIFEST_APP_DESCRIPTION"
-msgstr "DHIS2 Maps"

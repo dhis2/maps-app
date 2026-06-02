@@ -48,7 +48,11 @@ export const getLegendItemForValue = ({
     )
 }
 
-export const getLegendItems = (values, method, numClasses) => {
+export const getLegendItems = (
+    values,
+    method,
+    { numClasses, precision } = {}
+) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
     if (minValue === maxValue) {
@@ -61,25 +65,27 @@ export const getLegendItems = (values, method, numClasses) => {
     const k = Math.min(numClasses, distinctValues.length)
 
     let classification
-
     if (method === CLASSIFICATION_EQUAL_INTERVALS) {
         classification = getEqualIntervals(minValue, maxValue, {
             numClasses: k,
+            precision,
         })
     } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
-        classification = getQuantiles(values, { numClasses: k })
+        classification = getQuantiles(values, { numClasses: k, precision })
     } else if (method === CLASSIFICATION_NATURAL_BREAKS_RANGES) {
         classification = getCkMeans(values, {
             numClasses: k,
             continuous: true,
+            precision,
         })
     } else if (method === CLASSIFICATION_NATURAL_BREAKS_CLUSTERS) {
         classification = getCkMeans(values, {
             numClasses: k,
             continuous: false,
+            precision,
         })
     } else if (method === CLASSIFICATION_STANDARD_DEVIATION) {
-        classification = getStandardDeviation(values, { numClasses })
+        classification = getStandardDeviation(values, { numClasses, precision })
     } else if (method === CLASSIFICATION_LOGARITHMIC) {
         if (minValue <= 0) {
             // Logarithmic scale requires strictly positive values.
@@ -89,12 +95,19 @@ export const getLegendItems = (values, method, numClasses) => {
             // them to the unclassified bucket instead of falling back.
             classification = getEqualIntervals(minValue, maxValue, {
                 numClasses,
+                precision,
             })
         } else {
-            classification = getLogarithmic(minValue, maxValue, { numClasses })
+            classification = getLogarithmic(minValue, maxValue, {
+                numClasses,
+                precision,
+            })
         }
     } else if (method === CLASSIFICATION_PRETTY_BREAKS) {
-        classification = getPrettyBreaks(minValue, maxValue, { numClasses })
+        classification = getPrettyBreaks(minValue, maxValue, {
+            numClasses,
+            precision,
+        })
     }
 
     if (!classification) {
@@ -111,11 +124,11 @@ export const getLegendItems = (values, method, numClasses) => {
     }
 }
 
-const getEqualIntervals = (minValue, maxValue, { numClasses }) => {
+const getEqualIntervals = (minValue, maxValue, { numClasses, precision }) => {
     const items = []
     const classSize = (maxValue - minValue) / numClasses
-    const precision = precisionRound(classSize, maxValue)
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision = precision ?? precisionRound(classSize, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     for (let i = 0; i < numClasses; i++) {
         const startValue = minValue + i * classSize
@@ -130,16 +143,15 @@ const getEqualIntervals = (minValue, maxValue, { numClasses }) => {
     return { items, valueFormat }
 }
 
-const getQuantiles = (values, { numClasses }) => {
+const getQuantiles = (values, { numClasses, precision }) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
     const items = []
     const valuesCount = values.length / numClasses
-    const precision = precisionRound(
-        (maxValue - minValue) / numClasses,
-        maxValue
-    )
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     let lastValuePosition = valuesCount
     if (values.length > 0) {
@@ -162,14 +174,13 @@ const getQuantiles = (values, { numClasses }) => {
     }
 }
 
-const getCkMeans = (values, { numClasses, continuous }) => {
+const getCkMeans = (values, { numClasses, continuous, precision }) => {
     const minValue = values[0]
     const maxValue = values[values.length - 1]
-    const precision = precisionRound(
-        (maxValue - minValue) / numClasses,
-        maxValue
-    )
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     const k = Math.min(numClasses, values.length)
     const clusters = ckmeans(values, k)
@@ -205,7 +216,7 @@ const getCkMeans = (values, { numClasses, continuous }) => {
     }
 }
 
-const getStandardDeviation = (values, { numClasses }) => {
+const getStandardDeviation = (values, { numClasses, precision }) => {
     // TODO: DHIS2-19812 std - dev classification is best interpreted when
     // breaks fall at μ±Nσ regardless of data extremes. Currently:
     //   - breaks outside [minValue, maxValue] are filtered (producing
@@ -218,11 +229,10 @@ const getStandardDeviation = (values, { numClasses }) => {
     const maxValue = values[values.length - 1]
     const mu = mean(values)
     const sigma = standardDeviation(values)
-    const precision = precisionRound(
-        (maxValue - minValue) / numClasses,
-        maxValue
-    )
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     // Place breaks at 1-sigma intervals centered on the mean.
     const internalBreaks = []
@@ -249,15 +259,14 @@ const getStandardDeviation = (values, { numClasses }) => {
     }
 }
 
-const getLogarithmic = (minValue, maxValue, { numClasses }) => {
+const getLogarithmic = (minValue, maxValue, { numClasses, precision }) => {
     const logMin = Math.log(minValue)
     const logMax = Math.log(maxValue)
     const logStep = (logMax - logMin) / numClasses
-    const precision = precisionRound(
-        (maxValue - minValue) / numClasses,
-        maxValue
-    )
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     const items = []
     for (let i = 0; i < numClasses; i++) {
@@ -273,15 +282,17 @@ const getLogarithmic = (minValue, maxValue, { numClasses }) => {
     return { items, valueFormat }
 }
 
-const getPrettyBreaks = (minValue, maxValue, { numClasses }) => {
+const getPrettyBreaks = (minValue, maxValue, { numClasses, precision }) => {
     const range = maxValue - minValue
     const roughStep = range / numClasses
     const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)))
     const niceSteps = [1, 2, 5].map((n) => n * magnitude)
     const niceStep = niceSteps.findLast((s) => s <= roughStep) ?? niceSteps[0]
 
-    const precision = precisionRound(niceStep, maxValue)
-    const valueFormat = getRoundToPrecisionFn(precision)
+    const resolvedPrecision =
+        precision ??
+        precisionRound((maxValue - minValue) / numClasses, maxValue)
+    const valueFormat = getRoundToPrecisionFn(resolvedPrecision)
 
     const internalBreaks = []
     let b = Math.ceil(minValue / niceStep) * niceStep

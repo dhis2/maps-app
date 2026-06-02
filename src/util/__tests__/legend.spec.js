@@ -14,6 +14,7 @@ import {
     getPredefinedLegendItems,
     getAutomaticLegendItems,
     getRenderingLabel,
+    parseRange,
 } from '../legend.js'
 
 describe('sortLegendItems', () => {
@@ -184,6 +185,56 @@ describe('legend utils', () => {
             })
             expect(items.length).toBe(3)
             expect(typeof valueFormat).toBe('function')
+        })
+
+        it('does not add decimalPlaces when legendDecimalPlaces is undefined', () => {
+            const { items } = getAutomaticLegendItems({
+                data: [0, 100],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 4,
+                colorScale: defaultColorScale,
+            })
+            items.forEach((item) => {
+                expect(item).not.toHaveProperty('decimalPlaces')
+            })
+        })
+
+        it('applies legendDecimalPlaces as precision to item boundary values', () => {
+            const { items } = getAutomaticLegendItems({
+                data: [0, 0.5, 1],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale: defaultColorScale,
+                legendDecimalPlaces: 2,
+            })
+            expect(items[0].endValue).toBe(0.33)
+            expect(items[1].startValue).toBe(0.33)
+            expect(items[1].endValue).toBe(0.67)
+            expect(items[2].startValue).toBe(0.67)
+        })
+
+        it('rounds item boundary values to integers when legendDecimalPlaces is 0', () => {
+            const { items } = getAutomaticLegendItems({
+                data: [0, 0.5, 1],
+                method: CLASSIFICATION_EQUAL_INTERVALS,
+                classes: 3,
+                colorScale: defaultColorScale,
+                legendDecimalPlaces: 0,
+            })
+            items.forEach((item) => {
+                expect(Number.isInteger(item.startValue)).toBe(true)
+                expect(Number.isInteger(item.endValue)).toBe(true)
+            })
+        })
+    })
+
+    describe('parseRange', () => {
+        it('parses a range string into numeric start and end values', () => {
+            expect(parseRange('10 - 20')).toEqual([10, 20])
+        })
+
+        it('parses a range string with decimal values', () => {
+            expect(parseRange('1.5 - 3.75')).toEqual([1.5, 3.75])
         })
     })
 

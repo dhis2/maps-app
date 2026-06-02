@@ -28,6 +28,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { parseJsonConfig } from '../util/config.js'
 import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
@@ -61,6 +62,12 @@ const thematicLoader = async ({
         thematicMapType,
         noDataColor,
     } = config
+
+    const { legendDecimalPlaces } = parseJsonConfig(config.config)
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    delete config.config
 
     const dataItem = getDataItemFromColumns(columns)
     const coordinateField = getCoordinateField(config)
@@ -177,6 +184,7 @@ const thematicLoader = async ({
                 method,
                 classes,
                 colorScale,
+                legendDecimalPlaces: config.legendDecimalPlaces,
             })
             legendItems = classification.items
             valueFormat = classification.valueFormat
@@ -193,6 +201,9 @@ const thematicLoader = async ({
                       getDateArray(config.endDate)
                   ),
         items: legendItems,
+        ...(config.legendDecimalPlaces !== undefined && {
+            decimalPlaces: config.legendDecimalPlaces,
+        }),
     }
 
     if (dimensions && dimensions.length) {
@@ -223,6 +234,7 @@ const thematicLoader = async ({
             minValue,
             maxValue,
             color: isSingleColor ? colorScale : null,
+            legendDecimalPlaces: config.legendDecimalPlaces,
         }
     }
 
@@ -309,10 +321,12 @@ const thematicLoader = async ({
                 properties.legend = legendItem.name // Shown in data table
                 properties.range = `${formatWithSeparator(
                     legendItem.startValue,
-                    keyAnalysisDigitGroupSeparator
+                    keyAnalysisDigitGroupSeparator,
+                    { precision: config.legendDecimalPlaces }
                 )} - ${formatWithSeparator(
                     legendItem.endValue,
-                    keyAnalysisDigitGroupSeparator
+                    keyAnalysisDigitGroupSeparator,
+                    { precision: config.legendDecimalPlaces }
                 )}` // Shown in data table
             }
 

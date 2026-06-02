@@ -4,7 +4,13 @@ import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import styles from './styles/LegendItemRange.module.css'
 
-const LegendItemRange = ({ name = '', startValue, endValue, count }) => {
+const LegendItemRange = ({
+    name = '',
+    startValue,
+    endValue,
+    count,
+    decimalPlaces,
+}) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -15,10 +21,16 @@ const LegendItemRange = ({ name = '', startValue, endValue, count }) => {
             ? ''
             : `${formatWithSeparator(
                   startValue,
-                  keyAnalysisDigitGroupSeparator
+                  keyAnalysisDigitGroupSeparator,
+                  {
+                      precision: decimalPlaces,
+                  }
               )} - ${formatWithSeparator(
                   endValue,
-                  keyAnalysisDigitGroupSeparator
+                  keyAnalysisDigitGroupSeparator,
+                  {
+                      precision: decimalPlaces,
+                  }
               )}`
     const countLabel =
         count === undefined
@@ -36,6 +48,7 @@ const LegendItemRange = ({ name = '', startValue, endValue, count }) => {
 
 LegendItemRange.propTypes = {
     count: PropTypes.number,
+    decimalPlaces: PropTypes.number,
     endValue: PropTypes.number,
     name: PropTypes.string,
     startValue: PropTypes.number,

@@ -286,6 +286,90 @@ describe('cleanMapConfig', () => {
         })
     })
 
+    test('serializes legendDecimalPlaces into config JSON for thematic layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'ANC 1 Coverage',
+                    opacity: 1,
+                    legendDecimalPlaces: 2,
+                    isLoaded: true,
+                    isLoading: false,
+                    isExpanded: true,
+                    isVisible: true,
+                },
+            ],
+        }
+
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+
+        expect(cleanedConfig.mapViews[0].config).toBe(
+            '{"legendDecimalPlaces":2}'
+        )
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty(
+            'legendDecimalPlaces'
+        )
+    })
+
+    test('serializes legendDecimalPlaces into config JSON for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'Birth weight',
+                    opacity: 1,
+                    legendDecimalPlaces: 0,
+                    isLoaded: true,
+                    isLoading: false,
+                    isExpanded: true,
+                    isVisible: true,
+                },
+            ],
+        }
+
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+
+        expect(cleanedConfig.mapViews[0].config).toBe(
+            '{"legendDecimalPlaces":0}'
+        )
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty(
+            'legendDecimalPlaces'
+        )
+    })
+
+    test('does not add config for thematic layer without legendDecimalPlaces', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'ANC 1 Coverage',
+                    opacity: 1,
+                    isLoaded: true,
+                    isLoading: false,
+                    isExpanded: true,
+                    isVisible: true,
+                },
+            ],
+        }
+
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty('config')
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty(
+            'legendDecimalPlaces'
+        )
+    })
+
     test('correctly converts TEI mapview', () => {
         const config = {
             bounds: [
