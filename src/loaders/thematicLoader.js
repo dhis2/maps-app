@@ -164,16 +164,21 @@ const thematicLoader = async ({
     }
 
     let legendItems = []
+    let valueFormat
 
     if (!isSingleColor) {
-        legendItems = legendSet
-            ? getPredefinedLegendItems(legendSet)
-            : getAutomaticLegendItems(
-                  orderedValues,
-                  method,
-                  classes,
-                  colorScale
-              )
+        if (legendSet) {
+            legendItems = getPredefinedLegendItems(legendSet)
+        } else {
+            const classification = getAutomaticLegendItems({
+                data: orderedValues,
+                method,
+                classes,
+                colorScale,
+            })
+            legendItems = classification.items
+            valueFormat = classification.valueFormat
+        }
     }
 
     const legend = {
@@ -222,13 +227,15 @@ const thematicLoader = async ({
     const getLegendItem = (value) =>
         getLegendItemForValue({
             value,
+            valueFormat,
             legendItems: legend.items.filter((item) => !item.noData),
-            clamp: !legendSet,
+            clamp: method !== CLASSIFICATION_PREDEFINED,
         })
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
-        minValue = legend.items[0].startValue
-        maxValue = legend.items[legend.items.length - 1].endValue
+        const regularItems = legend.items.filter((item) => !item.noData)
+        minValue = regularItems[0].startValue
+        maxValue = regularItems.at(-1).endValue
     }
 
     const getRadiusForValue = scaleSqrt()
