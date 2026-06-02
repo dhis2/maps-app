@@ -53,7 +53,8 @@ opens the Tracked entity layer configuration dialog.
 
 ![](../resources/images/maps_tracked_entity_layer_dialog_ORG_UNITS.png)
 
--   Select the org units you want to include in the layer. Three selection modes are available:
+-   Select the org units you want to include in the layer. Only specific org units can be selected.
+    A **selection mode** determines how the org unit tree is traversed:
 
     -   **Selected only**: Include tracked entities belonging to selected org units only.
 
@@ -67,7 +68,7 @@ opens the Tracked entity layer configuration dialog.
 
 -   Select a **Color** for tracked entity points and polygons.
 
--   Select the **Point size** (radius between 1 and 20) for the points.
+-   Select the **Point size** for the points.
 
 -   Select **Buffer** to display a visual buffer around each tracked entity. The buffer distance in
     meters can be modified here.
@@ -88,16 +89,16 @@ Click **Add layer**.
 
 ### Modify information in tracked entity popups
 
-If you have access to the selected program in the Maintenance app, you can modify the information
-displayed in the tracked entity popup window.
+If you have access to the selected program in the Metadata Management app, you can modify the
+information displayed in the tracked entity popup window.
 
 ![](../resources/images/maps_eventlayer_eventinfopopup.png)
 
-1.  Open the **Maintenance** app.
+1.  Open the **Metadata Management** app.
 
 2.  Select **Program**.
 
-3.  Click the program you want to modify and select **(3) Attributes**.
+3.  Click the program you want to modify and select **Enrollment: Data**.
 
 4.  For every attribute you want to display in the popup window, enable **Display in list**.
 
