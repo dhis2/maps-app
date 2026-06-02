@@ -1,0 +1,33 @@
+{
+    "permissions": {
+        "allow": [
+            "mcp__grep__*",
+            "mcp__plugin_context7_*",
+            "mcp__plugin_chrome-devtools-mcp_*"
+        ]
+    },
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Edit|Write",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash .claude/hooks/post-edit.sh"
+                    }
+                ]
+            }
+        ]
+    },
+    "enabledPlugins": {
+        "typescript-lsp@claude-plugins-official": true,
+        "chrome-devtools-mcp@claude-plugins-official": true,
+        "context7@claude-plugins-official": true
+    },
+    "mcpServers": {
+        "grep": {
+            "type": "sse",
+            "url": "https://mcp.grep.app"
+        }
+    }
+}
