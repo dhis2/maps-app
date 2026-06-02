@@ -1,7 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import {
+    extractLabel,
     legendNamesContainRange,
     parseRange,
     sortLegendItems,
@@ -15,6 +16,8 @@ import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Bubbles from './Bubbles.jsx'
 import LegendItem from './LegendItem.jsx'
 import styles from './styles/Legend.module.css'
+
+const NAME_OVERFLOW_THRESHOLD = 0.33
 
 const countDecimals = (value) => {
     const dot = String(value).indexOf('.')
@@ -93,26 +96,104 @@ const Legend = ({
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
-    // Normalise from/to → startValue/endValue
-    const sortedItems = Array.isArray(items)
-        ? sortLegendItems(items).map((item) => {
-              if ('startValue' in item) {
-                  return item
-              }
-              if (Number.isFinite(item.from) && Number.isFinite(item.to)) {
-                  return { ...item, startValue: item.from, endValue: item.to }
-              }
-              if (Number.isFinite(item.from)) {
-                  // Open-end high (e.g. "> max" from Earth Engine) - no endValue
-                  return { ...item, startValue: item.from }
-              }
-              if (Number.isFinite(item.to)) {
-                  // Open-end low (e.g. "< min" from Earth Engine) - no startValue
-                  return { ...item, endValue: item.to }
-              }
-              return item
-          })
-        : []
+    const sortedItems = useMemo(
+        () =>
+            Array.isArray(items)
+                ? sortLegendItems(items)
+                      .map((item) => {
+                          if ('startValue' in item) {
+                              return item
+                          }
+                          if (
+                              Number.isFinite(item.from) &&
+                              Number.isFinite(item.to)
+                          ) {
+                              return {
+                                  ...item,
+                                  startValue: item.from,
+                                  endValue: item.to,
+                              }
+                          }
+                          if (Number.isFinite(item.from)) {
+                              // Open-end high (e.g. "> max" from Earth Engine) - no endValue
+                              return { ...item, startValue: item.from }
+                          }
+                          if (Number.isFinite(item.to)) {
+                              // Open-end low (e.g. "< min" from Earth Engine) - no startValue
+                              return { ...item, endValue: item.to }
+                          }
+                          return item
+                      })
+                      .map((item) => {
+                          if (
+                              !item.isIsolated &&
+                              item.name &&
+                              item.startValue !== undefined &&
+                              item.endValue !== undefined
+                          ) {
+                              const label = extractLabel(
+                                  item.name,
+                                  item.startValue,
+                                  item.endValue
+                              )
+                              if (label !== item.name) {
+                                  return { ...item, name: label }
+                              }
+                          }
+                          return item
+                      })
+                : [],
+        [items]
+    )
+
+    const tableRef = useRef(null)
+    const [suppressAllRanges, setSuppressAllRanges] = useState(false)
+    useLayoutEffect(() => {
+        setSuppressAllRanges(false)
+    }, [sortedItems])
+    useLayoutEffect(() => {
+        const table = tableRef.current
+        if (!table) {
+            return
+        }
+
+        // Apply name max-width before measuring overflow — reading scrollWidth
+        // after setProperty forces a synchronous reflow, so overflow detection
+        // sees the constrained layout.
+        const firstNameCell = table.querySelector('[data-legend-name]')
+        if (firstNameCell) {
+            const row = firstNameCell.closest('tr')
+            const cells = [...row.cells]
+            const fixedWidth = cells
+                .slice(cells.indexOf(firstNameCell) + 1)
+                .filter((cell) => cell.textContent.trim())
+                .reduce((sum, cell) => sum + cell.offsetWidth, 0)
+            table.style.setProperty(
+                '--legend-name-max-width',
+                `${
+                    table.parentElement.offsetWidth -
+                    row.cells[0].offsetWidth -
+                    fixedWidth
+                }px`
+            )
+        } else {
+            table.style.removeProperty('--legend-name-max-width')
+        }
+
+        if (suppressAllRanges) {
+            return
+        }
+        const nameCells = [...table.querySelectorAll('[data-legend-name]')]
+        if (!nameCells.length) {
+            return
+        }
+        const overflowing = nameCells.filter(
+            (el) => el.scrollWidth > el.offsetWidth
+        ).length
+        if (overflowing / nameCells.length >= NAME_OVERFLOW_THRESHOLD) {
+            setSuppressAllRanges(true)
+        }
+    }, [suppressAllRanges, sortedItems])
 
     // Suppress range columns when all names already encode the range; isolated
     // items are checked individually as they may differ from the rest.
@@ -167,6 +248,7 @@ const Legend = ({
                 decimalPlaces={effectiveDecimalPlaces}
                 useCompact={useCompact}
                 isPlugin={isPlugin}
+                suppressRange={suppressAllRanges}
                 key={`${item.name ?? ''}-${item.startValue ?? ''}-${
                     item.endValue ?? ''
                 }`}
@@ -237,7 +319,7 @@ const Legend = ({
             )}
             {unit && items && <div className={styles.unit}>{unit}</div>}
             {!bubbles && sortedItems.length > 0 && (
-                <table>
+                <table ref={tableRef}>
                     <tbody>{sortedItems.map(renderRow)}</tbody>
                 </table>
             )}

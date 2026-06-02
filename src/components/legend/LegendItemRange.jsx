@@ -51,20 +51,27 @@ const makePortalTooltip = (pos, className, children) =>
 
 const tooltipCx = (specificClass) => cx(styles.legendTooltip, specificClass)
 
-// Shows only when the element overflows (truncated name)
-const useNameTooltip = (name, zoom) => {
+// Shows only when the element overflows, or always when tooltipOverride is provided.
+const useNameTooltip = (name, zoom, tooltipOverride = null) => {
     const [pos, setPos] = useState(null)
     const ref = useRef(null)
     return {
         ref,
         onMouseEnter: () => {
             const el = ref.current
-            if (el && el.scrollWidth > el.offsetWidth) {
+            if (
+                el &&
+                (tooltipOverride !== null || el.scrollWidth > el.offsetWidth)
+            ) {
                 setPos(captureTooltipPos(el, zoom))
             }
         },
         onMouseLeave: () => setPos(null),
-        portal: makePortalTooltip(pos, styles.legendTooltip, name),
+        portal: makePortalTooltip(
+            pos,
+            styles.legendTooltip,
+            tooltipOverride ?? name
+        ),
     }
 }
 
@@ -250,7 +257,7 @@ const renderNameAndRange = ({
         <td
             ref={nameTooltip.ref}
             className={styles.legendName}
-            style={{ maxWidth: '8.5em' }}
+            data-legend-name="" // marker - queried as [data-legend-name] in Legend.jsx
             onMouseEnter={nameTooltip.onMouseEnter}
             onMouseLeave={nameTooltip.onMouseLeave}
         >
@@ -288,6 +295,7 @@ const LegendItemRange = ({
     decimalPlaces,
     useCompact = false,
     isPlugin = false,
+    suppressRange = false,
 }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
@@ -308,14 +316,40 @@ const LegendItemRange = ({
 
     if (hasCount) {
         formattedCount = formatCount(count)
-        isCountCompact = formattedCount !== count
+        isCountCompact = typeof formattedCount === 'string'
         countTooltipContent = `(${formatWithSeparator(
             count,
             keyAnalysisDigitGroupSeparator
         )})`
     }
 
-    const nameTooltip = useNameTooltip(name, zoom)
+    const rangeTooltip =
+        suppressRange && startValue !== undefined && endValue !== undefined ? (
+            <>
+                {name}{' '}
+                <span style={{ color: 'var(--colors-grey800)' }}>
+                    {formatCompact(
+                        startValue,
+                        useCompact ? getCompactScale([startValue]) : null,
+                        {
+                            decimalPlaces,
+                            separator: keyAnalysisDigitGroupSeparator,
+                        }
+                    )}
+                    {' – '}
+                    {formatCompact(
+                        endValue,
+                        useCompact ? getCompactScale([endValue]) : null,
+                        {
+                            decimalPlaces,
+                            separator: keyAnalysisDigitGroupSeparator,
+                        }
+                    )}
+                </span>
+            </>
+        ) : null
+    const nameTooltip = useNameTooltip(name, zoom, rangeTooltip)
+
     const openHighScale = useCompact ? getCompactScale([startValue]) : null
     const openHighTooltip = useValueTooltip(
         `> ${formatWithSeparator(startValue, keyAnalysisDigitGroupSeparator, {
@@ -423,6 +457,10 @@ const LegendItemRange = ({
         return renderRangeOnly({ rangeProps, countCell })
     }
 
+    if (suppressRange) {
+        return renderNameOnly({ nameTooltip, name, countCell, hasCount })
+    }
+
     // Named numeric range
     return renderNameAndRange({
         nameTooltip,
@@ -441,6 +479,7 @@ LegendItemRange.propTypes = {
     name: PropTypes.string,
     showRange: PropTypes.bool,
     startValue: PropTypes.number,
+    suppressRange: PropTypes.bool,
     useCompact: PropTypes.bool,
 }
 

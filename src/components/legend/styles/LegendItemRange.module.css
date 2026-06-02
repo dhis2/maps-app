@@ -64,8 +64,18 @@
 }
 
 .legendNameSpacer ~ .legendStart,
-.legendNameSpacer ~ .legendEnd {
+.legendNameSpacer ~ .legendEnd,
+.legendNameSpacer ~ .legendDash {
     color: var(--colors-grey800);
+}
+
+.legendName:has(+ .legendNameSpacer) {
+    max-width: var(--legend-name-max-width);
+    padding-right: var(--spacers-dp4);
+}
+
+.legendNameSpacer ~ .legendCount {
+    padding-left: var(--spacers-dp4);
 }
 
 .legendDash {
@@ -92,7 +102,7 @@
 
 .legendCount {
     color: var(--colors-grey600);
-    padding-left: var(--spacers-dp8);
+    padding-left: var(--spacers-dp2);
     text-align: right;
     white-space: nowrap;
 }

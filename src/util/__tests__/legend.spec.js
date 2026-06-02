@@ -15,6 +15,7 @@ import {
     getAutomaticLegendItems,
     getRenderingLabel,
     parseRange,
+    extractLabel,
     isRegularLegendItem,
     buildIsolatedLegendItem,
     legendNamesContainRange,
@@ -518,6 +519,70 @@ describe('legend utils', () => {
 
         it('returns [undefined, undefined] for empty string', () => {
             expect(parseRange('')).toEqual([undefined, undefined])
+        })
+
+        it('parses labeled name with both-negative range: "Extreme cold stress -60 - -40"', () => {
+            expect(parseRange('Extreme cold stress -60 - -40')).toEqual([
+                -60, -40,
+            ])
+        })
+
+        it('parses labeled name with positive range: "Moderate heat stress 26 - 32"', () => {
+            expect(parseRange('Moderate heat stress 26 - 32')).toEqual([26, 32])
+        })
+
+        it('parses labeled name with mixed range: "Moderate cold stress -13 - 0"', () => {
+            expect(parseRange('Moderate cold stress -13 - 0')).toEqual([-13, 0])
+        })
+
+        it('parses labeled name with single-digit start: "Slight cold stress 0 - 9"', () => {
+            expect(parseRange('Slight cold stress 0 - 9')).toEqual([0, 9])
+        })
+
+        it('parses labeled name where label prefix ends with the start value: "Category 1 - 10"', () => {
+            expect(parseRange('Category 1 - 10')).toEqual([1, 10])
+        })
+    })
+
+    describe('extractLabel', () => {
+        it('returns label prefix for a heatstress both-negative name', () => {
+            expect(
+                extractLabel('Extreme cold stress -60 - -40', -60, -40)
+            ).toBe('Extreme cold stress')
+        })
+
+        it('returns label prefix for a heatstress positive name', () => {
+            expect(extractLabel('Moderate heat stress 26 - 32', 26, 32)).toBe(
+                'Moderate heat stress'
+            )
+        })
+
+        it('returns label prefix for a mixed-sign name', () => {
+            expect(extractLabel('Moderate cold stress -13 - 0', -13, 0)).toBe(
+                'Moderate cold stress'
+            )
+        })
+
+        it('returns name unchanged for a pure-range name (no label prefix)', () => {
+            expect(extractLabel('100 – 200', 100, 200)).toBe('100 – 200')
+        })
+
+        it('returns name unchanged for a hyphen-separated pure-range name', () => {
+            expect(extractLabel('140 - 160', 140, 160)).toBe('140 - 160')
+        })
+
+        it('returns name unchanged when values do not match', () => {
+            expect(
+                extractLabel('Extreme cold stress -60 - -40', -50, -30)
+            ).toBe('Extreme cold stress -60 - -40')
+        })
+
+        it('returns name unchanged when no range separator is present', () => {
+            expect(extractLabel('High', 100, 200)).toBe('High')
+        })
+
+        it('strips label-ending start value - known limitation', () => {
+            expect(extractLabel('Low 0 - 33', 0, 33)).toBe('Low')
         })
     })
 
