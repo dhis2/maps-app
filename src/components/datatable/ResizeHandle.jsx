@@ -3,6 +3,13 @@ import React from 'react'
 import { IconDrag } from '../core/icons.jsx'
 import styles from './styles/ResizeHandle.module.css'
 
+// Pre-decoded so setDragImage doesn't fall back to the macOS Chrome globe icon
+// when the image isn't yet `complete` on the dragstart tick.
+// https://www.sam.today/blog/html5-dnd-globe-icon
+const EMPTY_DRAG_IMAGE = new Image(1, 1)
+EMPTY_DRAG_IMAGE.src =
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
 const ResizeHandle = ({
     onResize,
     onResizeEnd,
@@ -12,12 +19,10 @@ const ResizeHandle = ({
     let dragHeight = 0
 
     const onDragStart = (evt) => {
-        // Set the drag ghost image to a transparent 1x1px
         // https://stackoverflow.com/questions/7680285/how-do-you-turn-off-setdragimage
-        const img = document.createElement('img')
-        img.src =
-            'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-        evt.dataTransfer.setDragImage(img, 0, 0)
+        if (EMPTY_DRAG_IMAGE.complete) {
+            evt.dataTransfer.setDragImage(EMPTY_DRAG_IMAGE, 0, 0)
+        }
 
         evt.dataTransfer.setData('text/plain', 'node') // Required to initialize dragging in Firefox
 

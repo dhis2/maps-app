@@ -18,8 +18,8 @@ maps can be added to dashboards in the **Dashboard** app. Thematic layers also i
 
 > **Note**
 >
-> To use predefined legends in the **Maps** app, you need to create them first in the
-> **Maintenance** app.
+> To use predefined legends in the **Maps** app, you need to create them first in the **Metadata
+> Management** app.
 
 ![](../resources/images/maps_main.png)
 

@@ -1,9 +1,10 @@
 ## Manage event layers { #using_maps_event_layer }
 
-The event layer displays the geographical location of events recorded in DHIS2 programs. When events
-have associated point or polygon coordinates, you can drill down from aggregated data in thematic
-layers to the underlying individual events or cases. Alternative coordinate fields also let you plot
-events using locations other than the event itself, such as the org unit or enrollment location.
+The event layer displays the geographical location of events recorded in DHIS2 programs. While in
+thematic layers you can visualize event data aggregated to org unit level, with event layers you can
+display the individual events or cases when they have their own point or polygon coordinates.
+Alternative coordinate fields also let you plot events using locations other than the event itself,
+such as the org unit or enrollment location.
 
 To display aggregated event statistics at the org unit level, use a thematic layer with event data
 items instead.
@@ -34,11 +35,11 @@ layer configuration dialog.
     Depending on the selected program, additional options may include "Tracked entity location",
     "Enrollment location", and coordinate or org unit type data elements or attributes, such as
     "Household location" or "Referral facility". The number of events represented on the map may
-    vary depending on the selected option and the availability of coordinates. Org units are
-    represented by their centroids.
+    vary depending on the selected option and the availability of coordinates. When org unit
+    location is used, polygons are represented by their centroids.
 
 -   By default, all events with coordinates are shown on the map. Use the **Event status** field to
-    only show events having one status: Active, Completed, Schedule, Overdue, or Skipped.
+    only show events having one status: Active or Completed.
 
 #### 2. Period
 
@@ -57,13 +58,11 @@ layer configuration dialog.
 
 ![](../resources/images/maps_event_layer_dialog_ORG_UNITS.png)
 
--   Select the org units you want to include in the layer. It is possible to select either
-
-    -   One or more specific org units, or
-
-    -   A relative level in the org unit hierarchy, with respect to the user. By selecting a **User
-        org unit** the map data will appear differently for users at different levels in the org
-        unit hierarchy.
+-   Select the org units you want to include in the layer. You can combine specific org units and
+    relative user org units (**User organisation unit**, **User sub-units**, **User sub-x2-units**).
+    When user org units are selected, the map data will appear according to the assigned org units
+    for each user in the org unit hierarchy. Data from all org units within and below the selected
+    org units is included (**Selected and all below**).
 
 #### 4. Filter
 
@@ -92,7 +91,7 @@ layer configuration dialog.
 -   Select **Group events** to group nearby events (cluster), or **View all events** to display
     events individually.
 
-    -   Select a **color** and **radius** (between 1 and 20) for the event or cluster points.
+    -   Select a **color** and **radius** for the event or cluster points.
 
     -   Select **Show buffer** to display a visual buffer around each event. The radius of the
         buffer can be modified here. Only available when **View all events** is selected.
@@ -106,7 +105,7 @@ layer configuration dialog.
     distribution of the data values. The available options vary for different data types:
 
     -   **Option sets**: Select a color for each option in an option set. You can set default colors
-        for an option in the Maintenance app.
+        for an option in the Metadata Management app.
 
     -   **Numbers**: You can style a numeric data item in
         [the same way as thematic layers](#using_maps_thematic_layer_style) using automatic or
@@ -156,16 +155,17 @@ AND logic — for example: `2,>3&<8`.
 
 ### Modify information in event data table and popups
 
-If you have access to the selected program in the Maintenance app, you can modify the information
-displayed in the event popup window.
+If you have access to the selected program in the Metadata Management app, you can modify the
+information displayed in the event popup window.
 
 ![](../resources/images/maps_eventlayer_eventinfopopup.png)
 
-1.  Open the **Maintenance** app.
+1.  Open the **Metadata Management** app.
 
-2.  Select **Program**.
+2.  Select **Programs**.
 
-3.  Click the program you want to modify and select **(2) Assign data elements**.
+3.  Click the program you want to modify and select **Data** or the stage first then **Data** in the
+    case of a Tracker program.
 
 4.  For every data element you want to display in the popup window, select corresponding **Display
     in reports**.

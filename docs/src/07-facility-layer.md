@@ -18,15 +18,15 @@ Facility layer configuration dialog.
 
 ![](../resources/images/maps_facility_layer_dialog_ORG_UNITS.png)
 
--   Select org unit levels and/or groups from the selection fields on the right-hand side.
+-   Select the org units you want to include in the layer. You can freely combine specific org
+    units, org unit levels, org unit groups, and relative user org units (**User organisation
+    unit**, **User sub-units**, **User sub-x2-units**). When user org units are selected, the map
+    data will appear according to the assigned org units for each user in the org unit hierarchy.
+    Only org units with a point location are displayed.
 
--   Select the org units you want to include in the layer. It is possible to select either
-
-    -   One or more specific org units, or
-
-    -   A relative level in the org unit hierarchy, with respect to the user. By selecting a **User
-        org unit** the map data will appear differently for users at different levels in the org
-        unit hierarchy.
+    > **Tip**: Levels and groups act as filters within the org units you select - combining them
+    > will show only org units at those levels or in those groups that are descendants of your
+    > selected org units.
 
 -   The system administrator can set the default org unit level containing facilities in the
     **System Settings** app.
