@@ -1,3 +1,10 @@
+## [101.11.1](https://github.com/dhis2/maps-app/compare/v101.11.0...v101.11.1) (2026-06-01)
+
+
+### Bug Fixes
+
+* prevent globe drag image on macOS Chrome when resizing data table ([#3644](https://github.com/dhis2/maps-app/issues/3644)) ([dd19690](https://github.com/dhis2/maps-app/commit/dd1969035718d59cb0fbfd8967fe33cb74f9a308))
+
 # [101.11.0](https://github.com/dhis2/maps-app/compare/v101.10.2...v101.11.0) (2026-05-14)
 
 
