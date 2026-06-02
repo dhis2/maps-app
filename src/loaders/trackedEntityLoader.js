@@ -357,7 +357,6 @@ const trackedEntityLoader = async ({
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
     }
 }
 

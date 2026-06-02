@@ -11,7 +11,7 @@ import {
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
-    'basemap',
+    // 'basemap' and 'basemaps' removed — set exclusively by getBasemapPayload
     'id',
     'latitude',
     'longitude',
@@ -67,6 +67,7 @@ const validLayerProperties = [
     'noDataColor',
     'noDataLegend',
     'unclassifiedLegend',
+    'hidden',
     'opacity',
     'organisationUnitColor',
     'organisationUnitGroupSet',
@@ -110,28 +111,47 @@ export const cleanMapConfig = ({
     config,
     defaultBasemapId,
     cleanMapviewConfig = true,
+    serverVersion,
 }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: getBasemapString(config.basemap, defaultBasemapId),
+    ...getBasemapPayload(config.basemap, defaultBasemapId, serverVersion),
     mapViews: config.mapViews.map((view) =>
         cleanLayerConfig(view, cleanMapviewConfig)
     ),
 })
 
-const getBasemapString = (basemap, defaultBasemapId) => {
-    if (!basemap) {
-        return defaultBasemapId
+// VERSION-TOGGLE: https://dhis2.atlassian.net/browse/DHIS2-20417
+const getBasemapPayload = (basemap, defaultBasemapId, serverVersion) => {
+    if (serverVersion?.minor >= 43) {
+        return {
+            basemaps: [
+                {
+                    id: basemap?.id ?? defaultBasemapId,
+                    opacity: basemap?.opacity ?? 1,
+                    hidden: basemap?.isVisible === false,
+                },
+            ],
+        }
     }
 
-    if (basemap.isVisible === false) {
-        return 'none'
+    // Legacy: store as JSON to preserve opacity and id when hidden
+    return {
+        basemap: JSON.stringify({
+            id: basemap?.id ?? defaultBasemapId,
+            opacity: basemap?.opacity ?? 1,
+            hidden: basemap?.isVisible === false,
+        }),
     }
-
-    return basemap.id || defaultBasemapId
 }
 
 const cleanLayerConfig = (layer, cleanMapviewConfig) => ({
-    ...models2objects(pick(validLayerProperties, layer), cleanMapviewConfig),
+    ...models2objects(
+        pick(validLayerProperties, {
+            ...layer,
+            hidden: layer.isVisible === false,
+        }),
+        cleanMapviewConfig
+    ),
 })
 
 // TODO: This feels hacky, find better way to clean map configs before saving

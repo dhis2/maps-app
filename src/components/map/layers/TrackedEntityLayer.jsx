@@ -134,6 +134,7 @@ class TrackedEntityLayer extends Layer {
 
         this.layer = group
         map.addLayer(this.layer)
+        this.setLayerVisibility()
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()

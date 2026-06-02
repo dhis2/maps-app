@@ -16,8 +16,9 @@ describe('cleanMapConfig', () => {
         })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
-                basemap: 'thedefaultBasemap',
-                mapViews: [{ layer: 'layer1' }],
+                basemap:
+                    '{"id":"thedefaultBasemap","opacity":0.9,"hidden":false}',
+                mapViews: [{ hidden: false, layer: 'layer1' }],
                 name: 'my new map',
             })
         )
@@ -48,8 +49,9 @@ describe('cleanMapConfig', () => {
         })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
-                basemap: 'myUniqueBasemap',
-                mapViews: [{ layer: 'layer1' }],
+                basemap:
+                    '{"id":"myUniqueBasemap","opacity":0.9,"hidden":false}',
+                mapViews: [{ hidden: false, layer: 'layer1' }],
                 name: 'my new map',
             })
         )
@@ -176,10 +178,11 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     areaRadius: 5000,
+                    hidden: false,
                     layer: 'earthEngine',
                     name: 'Population',
                     opacity: 0.9,
@@ -274,10 +277,11 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     config: '{"id":"CSYRWeK81E7","type":"geoJson","url":"https://debug.dhis2.org/analytics-dev/api/routes/aaa11122233/run","name":"Bo catchment areas","tms":false,"format":"image/png","featureStyle":{"color":"transparent","strokeColor":"#333333","weight":1,"pointSize":5}}',
+                    hidden: false,
                     layer: 'geoJsonUrl',
                     name: 'Bo catchment areas',
                     opacity: 1,
@@ -497,6 +501,110 @@ describe('cleanMapConfig', () => {
         )
     })
 
+    test('writes hidden: true for a layer with isVisible: false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Hidden layer',
+                        opacity: 1,
+                        isVisible: false,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(true)
+    })
+
+    test('writes hidden: false for a layer with isVisible: true', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Visible layer',
+                        opacity: 1,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(false)
+    })
+
+    test('writes hidden: false for a layer with no explicit isVisible', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'No-visibility layer',
+                        opacity: 1,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(false)
+    })
+
+    test('writes hidden: true in legacy basemap JSON when basemap isVisible is false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 1, isVisible: false },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const parsed = JSON.parse(cleanedConfig.basemap)
+        expect(parsed.hidden).toBe(true)
+        expect(parsed.id).toBe('osmLight')
+    })
+
+    test('writes opacity in legacy basemap JSON', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 0.4, isVisible: true },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const parsed = JSON.parse(cleanedConfig.basemap)
+        expect(parsed.opacity).toBe(0.4)
+        expect(parsed.hidden).toBe(false)
+    })
+
+    test('uses basemaps array for v43+', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 0.5, isVisible: true },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 43 },
+        })
+        expect(cleanedConfig.basemaps).toEqual([
+            { id: 'osmLight', opacity: 0.5, hidden: false },
+        ])
+        expect(cleanedConfig).not.toHaveProperty('basemap')
+    })
+
+    test('writes hidden: true in basemaps array for v43+ when basemap isVisible is false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 1, isVisible: false },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 43 },
+        })
+        expect(cleanedConfig.basemaps[0].hidden).toBe(true)
+        expect(cleanedConfig.basemaps[0].id).toBe('osmLight')
+    })
+
     test('correctly converts TEI mapview', () => {
         const config = {
             bounds: [
@@ -593,11 +701,12 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     startDate: '2018-02-19',
                     endDate: '2024-02-19',
+                    hidden: false,
                     layer: 'trackedEntity',
                     name: 'Tracked entity',
                     opacity: 0.5,
