@@ -47,7 +47,7 @@ const NumberField = ({
                 onBlur={() => {
                     focused.current = false
                     const parsed = Number(inputValue)
-                    onChange(Number.isNaN(parsed) ? NaN : parsed)
+                    onChange(Number.isNaN(parsed) ? Number.NaN : parsed)
                     setInputValue(toDisplay(parsed))
                 }}
                 helpText={helpText}

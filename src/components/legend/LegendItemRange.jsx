@@ -264,6 +264,19 @@ const renderNameAndRange = ({
     </>
 )
 
+const getBoundType = (startValue, endValue) => {
+    if (startValue !== undefined && endValue !== undefined) {
+        return 'range'
+    }
+    if (startValue !== undefined) {
+        return 'openHigh'
+    }
+    if (endValue !== undefined) {
+        return 'openLow'
+    }
+    return 'none'
+}
+
 // --- LegendItemRange ---
 
 const LegendItemRange = ({
@@ -283,9 +296,10 @@ const LegendItemRange = ({
     const zoom = isPlugin ? 0.85 : 1
 
     const hasName = showRange && !!name
-    const hasRange = startValue !== undefined && endValue !== undefined
-    const hasOpenHigh = startValue !== undefined && endValue === undefined
-    const hasOpenLow = startValue === undefined && endValue !== undefined
+    const boundType = getBoundType(startValue, endValue)
+    const hasRange = boundType === 'range'
+    const hasOpenHigh = boundType === 'openHigh'
+    const hasOpenLow = boundType === 'openLow'
     const hasCount = count !== undefined
 
     let formattedCount
@@ -302,29 +316,19 @@ const LegendItemRange = ({
     }
 
     const nameTooltip = useNameTooltip(name, zoom)
-    const openHighScale =
-        useCompact && hasOpenHigh ? getCompactScale([startValue]) : null
+    const openHighScale = useCompact ? getCompactScale([startValue]) : null
     const openHighTooltip = useValueTooltip(
-        hasOpenHigh
-            ? `> ${formatWithSeparator(
-                  startValue,
-                  keyAnalysisDigitGroupSeparator,
-                  { precision: decimalPlaces }
-              )}`
-            : undefined,
+        `> ${formatWithSeparator(startValue, keyAnalysisDigitGroupSeparator, {
+            precision: decimalPlaces,
+        })}`,
         tooltipCx(styles.legendRangeTooltip),
         { scale: openHighScale, zoom }
     )
-    const openLowScale =
-        useCompact && hasOpenLow ? getCompactScale([endValue]) : null
+    const openLowScale = useCompact ? getCompactScale([endValue]) : null
     const openLowTooltip = useValueTooltip(
-        hasOpenLow
-            ? `< ${formatWithSeparator(
-                  endValue,
-                  keyAnalysisDigitGroupSeparator,
-                  { precision: decimalPlaces }
-              )}`
-            : undefined,
+        `< ${formatWithSeparator(endValue, keyAnalysisDigitGroupSeparator, {
+            precision: decimalPlaces,
+        })}`,
         tooltipCx(styles.legendRangeTooltip),
         { scale: openLowScale, zoom }
     )
@@ -357,31 +361,31 @@ const LegendItemRange = ({
         </td>
     )
 
+    if (hasOpenHigh) {
+        return renderOpenBound({
+            tooltip: openHighTooltip,
+            displayValue: `> ${formatCompact(startValue, openHighScale, {
+                decimalPlaces,
+                separator: keyAnalysisDigitGroupSeparator,
+            })}`,
+            scale: openHighScale,
+            countCell,
+            atEnd: false,
+        })
+    }
+    if (hasOpenLow) {
+        return renderOpenBound({
+            tooltip: openLowTooltip,
+            displayValue: `< ${formatCompact(endValue, openLowScale, {
+                decimalPlaces,
+                separator: keyAnalysisDigitGroupSeparator,
+            })}`,
+            scale: openLowScale,
+            countCell,
+            atEnd: true,
+        })
+    }
     if (!hasRange) {
-        if (hasOpenHigh) {
-            return renderOpenBound({
-                tooltip: openHighTooltip,
-                displayValue: `> ${formatCompact(startValue, openHighScale, {
-                    decimalPlaces,
-                    separator: keyAnalysisDigitGroupSeparator,
-                })}`,
-                scale: openHighScale,
-                countCell,
-                atEnd: false,
-            })
-        }
-        if (hasOpenLow) {
-            return renderOpenBound({
-                tooltip: openLowTooltip,
-                displayValue: `< ${formatCompact(endValue, openLowScale, {
-                    decimalPlaces,
-                    separator: keyAnalysisDigitGroupSeparator,
-                })}`,
-                scale: openLowScale,
-                countCell,
-                atEnd: true,
-            })
-        }
         // Category / special class: name only
         return renderNameOnly({ nameTooltip, name, countCell, hasCount })
     }

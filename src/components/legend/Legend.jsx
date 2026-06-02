@@ -29,9 +29,9 @@ const inferDecimalPlaces = (rangeItems) => {
     }
     const max = Math.max(
         ...rangeItems.flatMap(({ startValue, endValue }) =>
-            endValue !== undefined
-                ? [countDecimals(startValue), countDecimals(endValue)]
-                : [countDecimals(startValue)]
+            endValue === undefined
+                ? [countDecimals(startValue)]
+                : [countDecimals(startValue), countDecimals(endValue)]
         )
     )
     return max > 0 ? max : undefined
