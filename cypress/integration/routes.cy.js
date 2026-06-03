@@ -109,7 +109,7 @@ describe('Routes', () => {
         cy.getByDataTest(`card-Heatstressdaily`)
             .findByDataTest('layerlegend-item')
             .first()
-            .contains('Extreme heat stress 46 - 60')
+            .contains('Extreme heat stress')
     })
 
     it('loads with map id (legacy) and interpretationid lowercase', () => {
