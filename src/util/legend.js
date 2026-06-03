@@ -88,14 +88,14 @@ export const sortLegendItems = (items) =>
     })
 
 const RANGE_SEPARATOR = /(?<=\d)\s*[-–—]\s*(?=[-\d])/
-const TRAILING_NUMBER = /-?[\d][\d,.\s]*$/
+const TRAILING_NUMBER = /-?\d[\d,.\s]*$/
 
 const splitRange = (str) => {
     const parts = String(str).split(RANGE_SEPARATOR)
     if (parts.length !== 2) {
         return null
     }
-    const firstMatch = parts[0].match(TRAILING_NUMBER)
+    const firstMatch = TRAILING_NUMBER.exec(parts[0])
     return firstMatch ? { parts, firstMatch } : null
 }
 

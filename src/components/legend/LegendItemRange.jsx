@@ -284,6 +284,61 @@ const getBoundType = (startValue, endValue) => {
     return 'none'
 }
 
+const buildRangeTooltip = ({
+    name,
+    startValue,
+    endValue,
+    useCompact,
+    decimalPlaces,
+    separator,
+}) => (
+    <>
+        {name}{' '}
+        <span style={{ color: 'var(--colors-grey800)' }}>
+            {formatCompact(
+                startValue,
+                useCompact ? getCompactScale([startValue]) : null,
+                { decimalPlaces, separator }
+            )}
+            {' – '}
+            {formatCompact(
+                endValue,
+                useCompact ? getCompactScale([endValue]) : null,
+                { decimalPlaces, separator }
+            )}
+        </span>
+    </>
+)
+
+const buildRangeProps = ({
+    startValue,
+    endValue,
+    useCompact,
+    decimalPlaces,
+    separator,
+    zoom,
+}) => {
+    const startScale = useCompact ? getCompactScale([startValue]) : null
+    const endScale = useCompact ? getCompactScale([endValue]) : null
+    return {
+        displayStart: formatCompact(startValue, startScale, {
+            decimalPlaces,
+            separator,
+        }),
+        displayEnd: formatCompact(endValue, endScale, {
+            decimalPlaces,
+            separator,
+        }),
+        startScale,
+        endScale,
+        startValue,
+        endValue,
+        keyAnalysisDigitGroupSeparator: separator,
+        opts: { precision: decimalPlaces },
+        zoom,
+    }
+}
+
 // --- LegendItemRange ---
 
 const LegendItemRange = ({
@@ -324,30 +379,16 @@ const LegendItemRange = ({
     }
 
     const rangeTooltip =
-        suppressRange && startValue !== undefined && endValue !== undefined ? (
-            <>
-                {name}{' '}
-                <span style={{ color: 'var(--colors-grey800)' }}>
-                    {formatCompact(
-                        startValue,
-                        useCompact ? getCompactScale([startValue]) : null,
-                        {
-                            decimalPlaces,
-                            separator: keyAnalysisDigitGroupSeparator,
-                        }
-                    )}
-                    {' – '}
-                    {formatCompact(
-                        endValue,
-                        useCompact ? getCompactScale([endValue]) : null,
-                        {
-                            decimalPlaces,
-                            separator: keyAnalysisDigitGroupSeparator,
-                        }
-                    )}
-                </span>
-            </>
-        ) : null
+        suppressRange && startValue !== undefined && endValue !== undefined
+            ? buildRangeTooltip({
+                  name,
+                  startValue,
+                  endValue,
+                  useCompact,
+                  decimalPlaces,
+                  separator: keyAnalysisDigitGroupSeparator,
+              })
+            : null
     const nameTooltip = useNameTooltip(name, zoom, rangeTooltip)
 
     const openHighScale = useCompact ? getCompactScale([startValue]) : null
@@ -425,32 +466,14 @@ const LegendItemRange = ({
     }
 
     // Range display values — computed only when range is available
-    const opts = { precision: decimalPlaces }
-    const displayName = showRange ? name : ''
-
-    const startScale = useCompact ? getCompactScale([startValue]) : null
-    const endScale = useCompact ? getCompactScale([endValue]) : null
-
-    const displayStart = formatCompact(startValue, startScale, {
-        decimalPlaces,
-        separator: keyAnalysisDigitGroupSeparator,
-    })
-    const displayEnd = formatCompact(endValue, endScale, {
-        decimalPlaces,
-        separator: keyAnalysisDigitGroupSeparator,
-    })
-
-    const rangeProps = {
-        displayStart,
-        displayEnd,
-        startScale,
-        endScale,
+    const rangeProps = buildRangeProps({
         startValue,
         endValue,
-        keyAnalysisDigitGroupSeparator,
-        opts,
+        useCompact,
+        decimalPlaces,
+        separator: keyAnalysisDigitGroupSeparator,
         zoom,
-    }
+    })
 
     if (!hasName) {
         // Unlabelled numeric range
@@ -464,7 +487,7 @@ const LegendItemRange = ({
     // Named numeric range
     return renderNameAndRange({
         nameTooltip,
-        displayName,
+        displayName: name,
         rangeProps,
         countCell,
         hasCount,
