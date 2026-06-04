@@ -15,6 +15,7 @@ const LayerToolbar = ({
     onOpacityChange,
     toggleLayerVisibility,
     hasError,
+    manageAction,
     ...expansionMenuProps
 }) => {
     const onEdit = expansionMenuProps.onEdit
@@ -61,6 +62,7 @@ const LayerToolbar = ({
                 </Tooltip>
             </div>
             <div className={styles.menuButton}>
+                {manageAction && manageAction}
                 <LayerToolbarMoreMenu
                     hasError={hasError}
                     {...expansionMenuProps}
@@ -76,6 +78,7 @@ LayerToolbar.propTypes = {
     hasError: PropTypes.bool,
     hasOpacity: PropTypes.bool,
     isVisible: PropTypes.bool,
+    manageAction: PropTypes.node,
     opacity: PropTypes.number,
     onEdit: PropTypes.func,
 }

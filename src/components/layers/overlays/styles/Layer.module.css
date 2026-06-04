@@ -1,7 +1,7 @@
 .container {
     float: left;
-    width: 128px;
-    margin-right: var(--spacers-dp4);
+    width: 112px;
+    margin-right: 2px;
     margin-bottom: var(--spacers-dp4);
     padding: var(--spacers-dp4);
     cursor: pointer;
@@ -17,8 +17,8 @@
 .image {
     box-sizing: border-box;
     border: 1px solid var(--colors-grey400);
-    width: 120px;
-    height: 120px;
+    width: 96px;
+    height: 96px;
     border-radius: 2px;
 }
 .container:hover .image {
@@ -28,10 +28,10 @@
 .noImage {
     box-sizing: border-box;
     border: 1px solid var(--colors-grey400);
-    width: 120px;
-    height: 120px;
+    width: 96px;
+    height: 96px;
     border-radius: 2px;
-    line-height: 120px;
+    line-height: 96px;
     background: var(--colors-grey200);
     color: var(--colors-grey600);
     font-size: 12px;
@@ -43,7 +43,7 @@
 }
 
 .name {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--colors-grey800);
     padding-bottom: var(--spacers-dp4);
     white-space: nowrap;

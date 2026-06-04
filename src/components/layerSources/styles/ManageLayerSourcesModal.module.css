@@ -1,10 +1,55 @@
-.description {
-    font-size: 0.9rem;
-    line-height: 1.5rem;
-    padding-bottom: var(--spacers-dp12);
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacers-dp16);
 }
 
-.layersTable {
-    border-collapse: collapse;
-    width: 100%;
+.modalTitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+    margin: 0;
+}
+
+.addSourceButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--colors-blue600);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.addSourceButton:hover {
+    background: var(--colors-blue700, #005a8e);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: min(920px, calc(100vw - 48px));
+    height: min(760px, calc(100svh - 160px));
+    min-height: min(400px, calc(100svh - 160px));
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+@media (max-width: 560px) {
+    .content {
+        width: calc(100vw - 32px);
+    }
+}
+
+.viewWrapper {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
