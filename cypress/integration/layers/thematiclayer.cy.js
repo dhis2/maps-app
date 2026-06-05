@@ -534,6 +534,58 @@ context('Thematic Layers', () => {
         ])
     })
 
+    it('timeline period updates in popup after drilling down', () => {
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'QUARTERLY',
+                periodDimension: 'relative',
+                n: 2,
+            })
+
+        cy.get('[type="radio"]').check('TIMELINE')
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT).should('be.visible')
+        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        // Drill down
+        getMaps()
+            .first()
+            .then(($el) => {
+                getMaps()
+                    .first()
+                    .rightclick($el.width() / 2, $el.height() / 2)
+            })
+        cy.getByDataTest(DRILL_DOWN).click()
+
+        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        cy.wait(POPUP_WAIT)
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+        getMaps().click('center')
+        cy.get('.maplibregl-popup').should('be.visible')
+        cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')
+
+        cy.get('.play-icon').click()
+        cy.wait(1500 + 500)
+
+        cy.get('@popupTextBeforePlay').then((textBefore) => {
+            cy.get('.maplibregl-popup')
+                .invoke('text')
+                .should('not.eq', textBefore)
+        })
+    })
+
     it('adds two thematic layer with split view period', () => {
         // add a first layer
         Layer.openDialog('Thematic')
