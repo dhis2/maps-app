@@ -534,6 +534,46 @@ context('Thematic Layers', () => {
         ])
     })
 
+    it('does not inherit period when adding a new thematic layer after single thematic layer', () => {
+        const SPECIFIC_YEAR = CURRENT_YEAR - 3
+
+        // Add first thematic layer with a specific non-default fixed period
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'YEARLY',
+                periodDimension: 'fixed',
+                n: 0,
+                y: SPECIFIC_YEAR + 9,
+            })
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
+        Layer.validateCardPeriod(`${SPECIFIC_YEAR}`)
+
+        // Open dialog for second thematic layer and go to Period tab
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
+            .selectTab('Period')
+
+        // Rendering should be SINGLE (not inherited from layer 1)
+        cy.get('input[value="SINGLE"]').should('be.checked')
+
+        // The specific year from layer 1 should NOT be pre-selected in the
+        // picked area (before the fix it would be inherited)
+        cy.getByDataTest('period-dimension-transfer-pickedoptions')
+            .contains(`${SPECIFIC_YEAR}`)
+            .should('not.exist')
+    })
+
     it('adds two thematic layer with split view period', () => {
         // add a first layer
         Layer.openDialog('Thematic')
