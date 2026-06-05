@@ -206,8 +206,13 @@ const earthEngineLoader = async ({
 
     const filter = getStaticFilterFromPeriod(period, filters)
 
+    const derivedPeriodReducerType = layer.bandPeriodReducerType?.[layer.band]
+
     return {
         ...layer,
+        ...(derivedPeriodReducerType !== undefined
+            ? { periodReducerType: derivedPeriodReducerType }
+            : {}),
         legend,
         name,
         data,
