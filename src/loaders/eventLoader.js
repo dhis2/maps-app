@@ -15,6 +15,7 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
@@ -97,6 +98,22 @@ const loadEventLayer = async ({
     periodTypeData,
     loadExtended,
 }) => {
+    const {
+        eventHeatmap: eventHeatmapFromConfig,
+        heatIntensity: heatIntensityFromConfig,
+        heatRadius: heatRadiusFromConfig,
+    } = parseJsonConfig(config.config)
+    if (eventHeatmapFromConfig !== undefined) {
+        config.eventHeatmap = eventHeatmapFromConfig
+    }
+    if (heatIntensityFromConfig !== undefined) {
+        config.heatIntensity = heatIntensityFromConfig
+    }
+    if (heatRadiusFromConfig !== undefined) {
+        config.heatRadius = heatRadiusFromConfig
+    }
+    delete config.config
+
     const {
         columns,
         endDate,

@@ -21,6 +21,8 @@ class Layer extends PureComponent {
         editCounter: PropTypes.number,
         externalPeriod: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
         feature: PropTypes.object,
+        heatIntensity: PropTypes.number,
+        heatRadius: PropTypes.number,
         index: PropTypes.number,
         isVisible: PropTypes.bool,
         opacity: PropTypes.number,
@@ -29,6 +31,8 @@ class Layer extends PureComponent {
 
     static defaultProps = {
         opacity: 1,
+        heatIntensity: 0.5,
+        heatRadius: 0.5,
         isVisible: true,
     }
 
@@ -46,6 +50,8 @@ class Layer extends PureComponent {
             data,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
             editCounter,
             dataFilters,
@@ -79,6 +85,14 @@ class Layer extends PureComponent {
             this.setLayerOpacity()
         }
 
+        if (heatIntensity !== prevProps.heatIntensity) {
+            this.setLayerIntensity()
+        }
+
+        if (heatRadius !== prevProps.heatRadius) {
+            this.setLayerRadius()
+        }
+
         if (isVisible !== prevProps.isVisible) {
             this.setLayerVisibility()
         }
@@ -94,7 +108,15 @@ class Layer extends PureComponent {
 
     // Create new layer from config object (override in subclasses)
     async createLayer() {
-        const { id, index = 0, config, opacity, isVisible } = this.props
+        const {
+            id,
+            index = 0,
+            config,
+            opacity,
+            heatIntensity,
+            heatRadius,
+            isVisible,
+        } = this.props
         const { map } = this.context
 
         this.layer = map.createLayer({
@@ -102,6 +124,8 @@ class Layer extends PureComponent {
             id,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
         })
 
@@ -128,6 +152,14 @@ class Layer extends PureComponent {
 
     setLayerOpacity() {
         this.layer.setOpacity(this.props.opacity)
+    }
+
+    setLayerIntensity() {
+        this.layer.setIntensity(this.props.heatIntensity)
+    }
+
+    setLayerRadius() {
+        this.layer.setRadius(this.props.heatRadius)
     }
 
     setLayerOrder() {

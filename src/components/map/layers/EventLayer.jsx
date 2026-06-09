@@ -17,6 +17,7 @@ import Layer from './Layer.js'
 
 class EventLayer extends Layer {
     clusterCount = 0
+    eventRequest = null
 
     state = {
         popup: null,
@@ -29,10 +30,12 @@ class EventLayer extends Layer {
             id,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
-            bounds,
             data,
             engine,
+            eventHeatmap,
             eventClustering,
             eventCoordinateField,
             eventPointColor,
@@ -41,14 +44,10 @@ class EventLayer extends Layer {
             program,
             programStage,
             serverCluster,
-            geometryCentroid,
             areaRadius,
             styleDataItem,
-            legend,
             dataFilters,
         } = this.props
-
-        const analyticsEngine = Analytics.getAnalytics(engine)
 
         const filteredData = filterData(data, dataFilters)
 
@@ -66,7 +65,6 @@ class EventLayer extends Layer {
         const radius = eventPointRadius || EVENT_RADIUS
 
         const map = this.context.map
-        let eventRequest
 
         // Default props = no cluster
         const config = {
@@ -74,6 +72,8 @@ class EventLayer extends Layer {
             id,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
             data: filteredData,
             fillColor,
@@ -85,42 +85,12 @@ class EventLayer extends Layer {
 
         if (eventClustering) {
             if (serverCluster) {
-                config.type = 'serverCluster'
-                config.bounds = bounds
-
-                config.load = async (params, callback) => {
-                    eventRequest =
-                        eventRequest ||
-                        (await getAnalyticsRequest(this.props, {
-                            analyticsEngine,
-                            nameProperty,
-                            engine,
-                        }))
-
-                    eventRequest = eventRequest
-                        .withBbox(params.bbox)
-                        .withClusterSize(params.clusterSize)
-                        .withIncludeClusterPoints(params.includeClusterPoints)
-
-                    const clusterData = await analyticsEngine.events.getCluster(
-                        eventRequest
-                    )
-
-                    callback(
-                        params.tileId,
-                        this.toGeoJson(clusterData, geometryCentroid)
-                    )
-                }
+                this.configureServerCluster(config)
             } else {
-                config.clusterPane = id
-
-                if (styleDataItem && legend) {
-                    config.type = 'donutCluster'
-                    config.groups = legend.items
-                } else {
-                    config.type = 'clientCluster'
-                }
+                this.configureClientCluster(config)
             }
+        } else if (eventHeatmap) {
+            config.type = 'heat'
         } else if (areaRadius) {
             config.buffer = areaRadius
             config.bufferStyle = {
@@ -143,12 +113,74 @@ class EventLayer extends Layer {
         }
 
         // Create and add event layer based on config object
+        if (config.type === 'heat') {
+            config.heatWeight = 1
+            const classes = this.props.classes
+            const colorScale = this.props.colorScale
+            const step = 1 / classes
+            const colorScaleReady = colorScale.flatMap((color, i) => [
+                (i + 1) * step,
+                color,
+            ])
+            config.heatColor = [
+                'interpolate',
+                ['linear'],
+                ['heatmap-density'],
+                0,
+                'rgba(33,102,172,0)',
+                ...colorScaleReady,
+            ]
+        }
         this.layer = map.createLayer(config)
 
         map.addLayer(this.layer)
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()
+    }
+
+    configureServerCluster(config) {
+        const { bounds, nameProperty, engine, geometryCentroid } = this.props
+        const analyticsEngine = Analytics.getAnalytics(engine)
+        this.eventRequest = null
+
+        config.type = 'serverCluster'
+        config.bounds = bounds
+
+        config.load = async (params, callback) => {
+            this.eventRequest =
+                this.eventRequest ||
+                (await getAnalyticsRequest(this.props, {
+                    analyticsEngine,
+                    nameProperty,
+                    engine,
+                }))
+
+            this.eventRequest = this.eventRequest
+                .withBbox(params.bbox)
+                .withClusterSize(params.clusterSize)
+                .withIncludeClusterPoints(params.includeClusterPoints)
+
+            const clusterData = await analyticsEngine.events.getCluster(
+                this.eventRequest
+            )
+
+            callback(
+                params.tileId,
+                this.toGeoJson(clusterData, geometryCentroid)
+            )
+        }
+    }
+
+    configureClientCluster(config) {
+        const { id, styleDataItem, legend } = this.props
+        config.clusterPane = id
+        if (styleDataItem && legend) {
+            config.type = 'donutCluster'
+            config.groups = legend.items
+        } else {
+            config.type = 'clientCluster'
+        }
     }
 
     render() {

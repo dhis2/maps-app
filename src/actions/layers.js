@@ -48,6 +48,20 @@ export const changeLayerOpacity = (id, opacity) => ({
     opacity,
 })
 
+// Set overlay heat intensity
+export const changeLayerIntensity = (id, heatIntensity) => ({
+    type: types.LAYER_CHANGE_INTENSITY,
+    id,
+    heatIntensity,
+})
+
+// Set overlay heat radius
+export const changeLayerRadius = (id, heatRadius) => ({
+    type: types.LAYER_CHANGE_RADIUS,
+    id,
+    heatRadius,
+})
+
 // Change ordering of overlays
 export const sortLayers = ({ oldIndex, newIndex }) => ({
     type: types.LAYER_SORT,

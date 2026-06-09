@@ -11,6 +11,8 @@ import {
     editLayer,
     removeLayer,
     changeLayerOpacity,
+    changeLayerIntensity,
+    changeLayerRadius,
     toggleLayerExpand,
     toggleLayerVisibility,
 } from '../../../actions/layers.js'
@@ -32,6 +34,7 @@ import {
 import Legend from '../../legend/Legend.jsx'
 import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
+import HeatSlider from './HeatSlider.jsx'
 import styles from './styles/OverlayCard.module.css'
 
 const OverlayCard = ({
@@ -39,6 +42,8 @@ const OverlayCard = ({
     editLayer,
     removeLayer,
     changeLayerOpacity,
+    changeLayerIntensity,
+    changeLayerRadius,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
@@ -54,6 +59,8 @@ const OverlayCard = ({
         legend,
         isExpanded = true,
         opacity,
+        heatIntensity = 0.5,
+        heatRadius = 0.5,
         isVisible,
         layer: layerType,
         isLoaded,
@@ -82,6 +89,58 @@ const OverlayCard = ({
             legend && (
                 <div className={styles.legend}>
                     <Legend {...legend} />
+                    {layer.eventHeatmap && (
+                        <div>
+                            <span
+                                style={{
+                                    fontSize: '12px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        lineHeight: 1,
+                                        marginBottom: '12px',
+                                    }}
+                                >
+                                    Intensity:
+                                </span>
+                                <HeatSlider
+                                    heat={heatIntensity}
+                                    onChange={(newIntensity) =>
+                                        changeLayerIntensity(id, newIntensity)
+                                    }
+                                    disabled={false}
+                                />
+                            </span>
+                            <span
+                                style={{
+                                    fontSize: '12px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        lineHeight: 1,
+                                        marginBottom: '12px',
+                                    }}
+                                >
+                                    Radius:
+                                </span>
+                                <HeatSlider
+                                    heat={heatRadius}
+                                    onChange={(newRadius) =>
+                                        changeLayerRadius(id, newRadius)
+                                    }
+                                    disabled={false}
+                                />
+                            </span>
+                        </div>
+                    )}
                 </div>
             )
         )
@@ -151,7 +210,9 @@ const OverlayCard = ({
 }
 
 OverlayCard.propTypes = {
+    changeLayerIntensity: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
+    changeLayerRadius: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
     removeLayer: PropTypes.func.isRequired,
@@ -164,6 +225,8 @@ export default connect(null, {
     editLayer,
     removeLayer,
     changeLayerOpacity,
+    changeLayerIntensity,
+    changeLayerRadius,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
