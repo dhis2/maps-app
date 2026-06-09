@@ -97,9 +97,14 @@ const capturePos = (el, zoom = 1) => {
     if (!el) {
         return null
     }
-    const { top, left } = el.getBoundingClientRect()
+    const rect = el.getBoundingClientRect()
     const fontSize = Number.parseFloat(getComputedStyle(el).fontSize) * zoom
-    return { top: top + fontSize * (1 - zoom) * 0.5, left, fontSize }
+    const lineHeight = fontSize * 1.25
+    return {
+        top: rect.top + (rect.height - lineHeight) / 2,
+        left: rect.left + 0.4 * (zoom === 1 ? 1 : -1),
+        fontSize,
+    }
 }
 
 const makeTooltip = (pos, children) =>

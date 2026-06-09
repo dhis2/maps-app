@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-01T15:50:18.756Z\n"
-"PO-Revision-Date: 2026-06-01T15:50:18.756Z\n"
+"POT-Creation-Date: 2026-06-08T09:31:17.960Z\n"
+"PO-Revision-Date: 2026-06-08T09:31:17.961Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -689,10 +689,19 @@ msgstr "Remove layer"
 msgid "Data quality"
 msgstr "Data quality"
 
+msgid "All events have coordinates"
+msgstr "All events have coordinates"
+
 msgid "{{n}} event without coordinates"
 msgid_plural "{{n}} event without coordinates"
 msgstr[0] "{{n}} event without coordinates"
 msgstr[1] "{{n}} events without coordinates"
+
+msgid "All org units have a point location"
+msgstr "All org units have a point location"
+
+msgid "All org units have coordinates"
+msgstr "All org units have coordinates"
 
 msgid "{{n}} org unit without a point location"
 msgid_plural "{{n}} org unit without a point location"

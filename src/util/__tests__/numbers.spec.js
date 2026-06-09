@@ -10,6 +10,7 @@ import {
     formatWithSeparator,
     getCompactScale,
     parseWithSeparator,
+    SCIENTIFIC_SCALE,
 } from '../numbers.js'
 
 describe('numbers', () => {
@@ -32,6 +33,14 @@ describe('numbers', () => {
 
         it('should round numbers greater than 1950000 to the nearest million and add a "M"', () => {
             expect(formatCount(33000000)).toEqual('33M')
+        })
+
+        it('should format numbers between 999500000 and 1950000000 with one decimal place and a "B"', () => {
+            expect(formatCount(1300000000)).toEqual('1.3B')
+        })
+
+        it('should round numbers greater than 1950000000 to the nearest billion and add a "B"', () => {
+            expect(formatCount(33000000000)).toEqual('33B')
         })
     })
 
@@ -192,8 +201,13 @@ describe('numbers', () => {
             expect(getCompactScale([1_230_000, 5_670_000]).suffix).toBe('M')
         })
 
-        it('returns B when max >= 1,000,000,000', () => {
+        it('returns B when max >= 1,000,000,000 and < 1e12', () => {
             expect(getCompactScale([5_670_000_000]).suffix).toBe('B')
+        })
+
+        it('returns scientific scale when max >= 1e12', () => {
+            expect(getCompactScale([1e12]).scientific).toBe(true)
+            expect(getCompactScale([1e18]).scientific).toBe(true)
         })
 
         it('returns m for small values < 0.01', () => {
@@ -204,8 +218,13 @@ describe('numbers', () => {
             expect(getCompactScale([0.0000023]).suffix).toBe('μ')
         })
 
-        it('returns n for extremely small values < 0.00000001', () => {
+        it('returns n for extremely small values in range [1e-11, 1e-8)', () => {
             expect(getCompactScale([0.0000000012]).suffix).toBe('n')
+        })
+
+        it('returns scientific scale for values < 1e-11', () => {
+            expect(getCompactScale([1e-12]).scientific).toBe(true)
+            expect(getCompactScale([1e-15]).scientific).toBe(true)
         })
 
         it('does not compact 0.045 (>= 0.01)', () => {
@@ -271,6 +290,46 @@ describe('numbers', () => {
                     separator: DIGIT_GROUP_SEPARATOR_COMMA,
                 })
             ).toBe('1,500.00B')
+        })
+
+        it('formats large values with E⁺ⁿ notation', () => {
+            const sci = { scientific: true }
+            expect(formatCompact(1e18, sci, { decimalPlaces: 1 })).toBe(
+                '1.0E⁺¹⁸'
+            )
+            expect(
+                formatCompact(4.05768693881e14, sci, { decimalPlaces: 6 })
+            ).toBe('4.057687E⁺¹⁴')
+        })
+
+        it('formats small values with E⁻ⁿ notation', () => {
+            const sci = { scientific: true }
+            expect(formatCompact(1e-15, sci, { decimalPlaces: 1 })).toBe(
+                '1.0E⁻¹⁵'
+            )
+            expect(formatCompact(-3.5e-13, sci, { decimalPlaces: 2 })).toBe(
+                '-3.50E⁻¹³'
+            )
+        })
+
+        it('uses 1 decimal place by default for scientific notation', () => {
+            const sci = { scientific: true }
+            expect(formatCompact(2.5e14, sci)).toBe('2.5E⁺¹⁴')
+        })
+    })
+
+    describe('SCIENTIFIC_SCALE', () => {
+        it('is truthy and has scientific flag', () => {
+            expect(SCIENTIFIC_SCALE.scientific).toBe(true)
+        })
+
+        it('makes formatCompact use E⁺/E⁻ notation', () => {
+            expect(
+                formatCompact(1e18, SCIENTIFIC_SCALE, { decimalPlaces: 1 })
+            ).toBe('1.0E⁺¹⁸')
+            expect(
+                formatCompact(1e-15, SCIENTIFIC_SCALE, { decimalPlaces: 1 })
+            ).toBe('1.0E⁻¹⁵')
         })
     })
 

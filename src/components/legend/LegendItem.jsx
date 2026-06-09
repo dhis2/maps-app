@@ -25,6 +25,7 @@ const LegendItem = ({
     useCompact,
     isPlugin,
     suppressRange,
+    forceScientific,
 }) => {
     if (!name && startValue === undefined && endValue === undefined) {
         return null
@@ -76,6 +77,7 @@ const LegendItem = ({
                 useCompact={useCompact}
                 isPlugin={isPlugin}
                 suppressRange={suppressRange}
+                forceScientific={forceScientific}
             />
         </tr>
     )
@@ -87,6 +89,7 @@ LegendItem.propTypes = {
     decimalPlaces: PropTypes.number,
     endValue: PropTypes.number,
     fillColor: PropTypes.string,
+    forceScientific: PropTypes.bool,
     image: PropTypes.string,
     isPlugin: PropTypes.bool,
     name: PropTypes.string,

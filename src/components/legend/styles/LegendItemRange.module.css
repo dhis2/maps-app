@@ -12,7 +12,7 @@
 .legendName {
     overflow: hidden;
     padding-left: var(--spacers-dp8);
-    padding-right: var(--spacers-dp8);
+    padding-right: var(--spacers-dp2);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -35,7 +35,7 @@
 
 .legendTooltip {
     animation: tooltipExpandRight 160ms ease-out;
-    background: white;
+    background: var(--colors-white);
     border-radius: 3px;
     -webkit-mask-image: linear-gradient(to left, transparent, black 2em);
     mask-image: linear-gradient(to left, transparent, black 2em);
@@ -52,7 +52,7 @@
 }
 
 .legendNameEmpty {
-    padding-left: var(--spacers-dp8);
+    padding-left: var(--spacers-dp4);
 }
 
 .legendStart,

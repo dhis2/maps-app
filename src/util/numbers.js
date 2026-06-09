@@ -6,6 +6,8 @@ import {
 
 export const MAX_LEGEND_VALUE_LENGTH = 11
 
+export const SCIENTIFIC_SCALE = { scientific: true }
+
 const DIGIT_GROUP_SEPARATORS = {
     [DIGIT_GROUP_SEPARATOR_SPACE]: ' ',
     [DIGIT_GROUP_SEPARATOR_COMMA]: ',',
@@ -45,17 +47,19 @@ export const formatRangeWithSeparator = (
         precision,
     })} – ${formatWithSeparator(endValue, separator, { precision })}`
 
-// Large-value scales (checked high→low so the biggest applicable unit wins)
+// Large-value scales (checked high→low so the biggest applicable unit wins).
+// Values >= 1e12 use scientific notation instead of a suffix.
 const LARGE_SCALES = [
+    { factor: 1e12, scientific: true },
     { factor: 1e9, suffix: 'B' },
     { factor: 1e6, suffix: 'M' },
     { factor: 1e3, suffix: 'k' },
 ]
 
 // Small-value scales (checked small→large so the smallest applicable unit wins).
-// Thresholds: < 0.01 → m, < 0.00001 → μ, < 0.00000001 → n
-// (derived from spec examples: 0.0045 → 4.5m, 0.0000023 → 2.3μ, 0.0000000012 → 1.2n)
+// Values < 1e-11 use scientific notation instead of a suffix.
 const SMALL_SCALES = [
+    { factor: 1e-12, scientific: true, maxAbs: 1e-11 },
     { factor: 1e-9, suffix: 'n', maxAbs: 1e-8 },
     { factor: 1e-6, suffix: 'μ', maxAbs: 1e-5 },
     { factor: 1e-3, suffix: 'm', maxAbs: 1e-2 },
@@ -93,8 +97,29 @@ export const getCompactScale = (values) => {
     return null
 }
 
+const SUPERSCRIPT = '⁰¹²³⁴⁵⁶⁷⁸⁹'
+const toSuperscript = (n) =>
+    String(Math.abs(n))
+        .split('')
+        .map((d) => SUPERSCRIPT[d])
+        .join('')
+
+// Returns the three parts of scientific notation for HTML rendering.
+export const extractScientificParts = (value, decimalPlaces) => {
+    const [mantissa, expStr] = value
+        .toExponential(decimalPlaces ?? 1)
+        .split('e')
+    const exp = parseInt(expStr, 10)
+    return {
+        mantissa,
+        sign: exp < 0 ? '-' : '+',
+        exponent: String(Math.abs(exp)),
+    }
+}
+
 // Formats value using a compact scale. decimalPlaces defaults to 2 with trailing zeros
 // preserved for alignment. When scale is null, falls back to formatWithSeparator.
+// Scientific notation scales (scale.scientific) format as e.g. "1.2×10¹⁸".
 export const formatCompact = (
     value,
     scale,
@@ -105,14 +130,22 @@ export const formatCompact = (
             precision: decimalPlaces,
         })
     }
+    if (scale.scientific) {
+        const [mantissa, expStr] = value
+            .toExponential(decimalPlaces ?? 1)
+            .split('e')
+        const exp = parseInt(expStr, 10)
+        return `${mantissa}E${exp < 0 ? '⁻' : '⁺'}${toSuperscript(exp)}`
+    }
     const scaled = value / scale.factor
     return `${formatWithSeparator(scaled, separator, {
         precision: decimalPlaces ?? 1,
     })}${scale.suffix}`
 }
 
-// For map cluster labels only. Uses fixed thresholds (1 decimal for 1k–9.5k,
-// integers above) — not a substitute for getCompactScale + formatCompact.
+// For features count legend and map cluster labels (except donuts handled by maps-gl).
+// Returns a compact string ("3.3k", "1.3M" …) for counts >= 1000,
+// or the original number for smaller values.
 export const formatCount = (count) => {
     let num
 
@@ -121,9 +154,13 @@ export const formatCount = (count) => {
     } else if (count >= 9500 && count < 999500) {
         num = Math.round(count / 1000) + 'k' // 33k
     } else if (count >= 999500 && count < 1950000) {
-        num = (count / 1000000).toFixed(1) + 'M' // 3.3M
-    } else if (count > 1950000) {
+        num = (count / 1000000).toFixed(1) + 'M' // 1.3M
+    } else if (count >= 1950000 && count < 999500000) {
         num = Math.round(count / 1000000) + 'M' // 33M
+    } else if (count >= 999500000 && count < 1950000000) {
+        num = (count / 1000000000).toFixed(1) + 'B' // 1.3B
+    } else if (count >= 1950000000) {
+        num = Math.round(count / 1000000000) + 'B' // 33B
     }
 
     return num || count

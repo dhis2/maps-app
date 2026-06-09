@@ -148,6 +148,7 @@ const Legend = ({
 
     const tableRef = useRef(null)
     const [suppressAllRanges, setSuppressAllRanges] = useState(false)
+    // Reset suppression whenever items change so the measurement effect re-runs with a clean state.
     useLayoutEffect(() => {
         setSuppressAllRanges(false)
     }, [sortedItems])
@@ -236,7 +237,24 @@ const Legend = ({
                     }).length > MAX_LEGEND_VALUE_LENGTH
             ))
 
-    const renderRow = (item) => {
+    // If scientific notation is needed for any non-extreme value, force it for
+    // all values so the legend stays visually consistent. When it only appears at
+    // the global max/min (fake-infinity placeholders), per-value SI notation is
+    // kept and the mixing at those boundary rows is accepted.
+    const globalMax =
+        allRangeValues.length > 0 ? Math.max(...allRangeValues) : undefined
+    const globalMin =
+        allRangeValues.length > 0 ? Math.min(...allRangeValues) : undefined
+    const forceScientific =
+        useCompact &&
+        allRangeValues.some(
+            (v) =>
+                v !== globalMax &&
+                v !== globalMin &&
+                getCompactScale([v])?.scientific
+        )
+
+    const renderRow = (item, index) => {
         const itemShowRange = getShowRange(item)
         const { startValue, endValue } = resolveRangeValues(item, itemShowRange)
         return (
@@ -249,9 +267,10 @@ const Legend = ({
                 useCompact={useCompact}
                 isPlugin={isPlugin}
                 suppressRange={suppressAllRanges}
+                forceScientific={forceScientific}
                 key={`${item.name ?? ''}-${item.startValue ?? ''}-${
                     item.endValue ?? ''
-                }`}
+                }-${index}`}
             />
         )
     }
@@ -259,22 +278,29 @@ const Legend = ({
     const dataQuality = (typeof eventsWithoutCoordinatesCount === 'number' ||
         typeof orgUnitsWithoutCoordinatesCount === 'number') && (
         <div className={styles.dataQuality}>
-            <div>{i18n.t('Data quality')}:</div>
+            <div>{i18n.t('Data quality')}</div>
             {typeof eventsWithoutCoordinatesCount === 'number' && (
                 <div>
-                    {i18n.t('{{n}} event without coordinates', {
-                        count: eventsWithoutCoordinatesCount,
-                        n: formatWithSeparator(
-                            eventsWithoutCoordinatesCount,
-                            keyAnalysisDigitGroupSeparator
-                        ),
-                        defaultValue_plural: '{{n}} events without coordinates',
-                    })}
+                    {eventsWithoutCoordinatesCount === 0
+                        ? i18n.t('All events have coordinates')
+                        : i18n.t('{{n}} event without coordinates', {
+                              count: eventsWithoutCoordinatesCount,
+                              n: formatWithSeparator(
+                                  eventsWithoutCoordinatesCount,
+                                  keyAnalysisDigitGroupSeparator
+                              ),
+                              defaultValue_plural:
+                                  '{{n}} events without coordinates',
+                          })}
                 </div>
             )}
             {typeof orgUnitsWithoutCoordinatesCount === 'number' && (
                 <div>
-                    {orgUnitsPointOnly
+                    {orgUnitsWithoutCoordinatesCount === 0
+                        ? orgUnitsPointOnly
+                            ? i18n.t('All org units have a point location')
+                            : i18n.t('All org units have coordinates')
+                        : orgUnitsPointOnly
                         ? i18n.t('{{n}} org unit without a point location', {
                               count: orgUnitsWithoutCoordinatesCount,
                               n: formatWithSeparator(
@@ -320,16 +346,20 @@ const Legend = ({
             {unit && items && <div className={styles.unit}>{unit}</div>}
             {!bubbles && sortedItems.length > 0 && (
                 <table ref={tableRef}>
-                    <tbody>{sortedItems.map(renderRow)}</tbody>
+                    <tbody>
+                        {sortedItems.map((item, index) =>
+                            renderRow(item, index)
+                        )}
+                    </tbody>
                 </table>
             )}
             {bubbles && (
                 <Bubbles {...bubbles} classes={items} isPlugin={isPlugin} />
             )}
-            {url && <img className={styles.legendImage} src={url} />}
+            {url && <img className={styles.legendImage} src={url} alt="" />}
             {Array.isArray(coordinateFields) && (
                 <div className={styles.coordinateFields}>
-                    <div>{i18n.t('Coordinate field')}:</div>
+                    <div>{i18n.t('Coordinate field')}</div>
                     {coordinateFields.map((coordinateField, index) => (
                         <div key={index}>{coordinateField}</div>
                     ))}
@@ -337,7 +367,7 @@ const Legend = ({
             )}
             {Array.isArray(filters) && (
                 <div className={styles.filters} data-test="layerlegend-filters">
-                    <div>{i18n.t('Filters')}:</div>
+                    <div>{i18n.t('Filters')}</div>
                     {filters.map((filter, index) => (
                         <div key={index}>{filter}</div>
                     ))}
@@ -350,7 +380,6 @@ const Legend = ({
                     ))}
                 </div>
             )}
-            {dataQuality}
             {source && (
                 <div className={styles.source}>
                     {i18n.t('Source')}:&nbsp;
@@ -363,6 +392,7 @@ const Legend = ({
                     )}
                 </div>
             )}
+            {dataQuality}
         </dl>
     )
 }
@@ -372,6 +402,7 @@ Legend.propTypes = {
         radiusHigh: PropTypes.number.isRequired,
         radiusLow: PropTypes.number.isRequired,
         color: PropTypes.string,
+        legendDecimalPlaces: PropTypes.number,
     }),
     coordinateFields: PropTypes.array,
     decimalPlaces: PropTypes.number,

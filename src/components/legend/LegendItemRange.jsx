@@ -3,13 +3,65 @@ import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
+    extractScientificParts,
     formatCompact,
     formatCount,
     formatWithSeparator,
     getCompactScale,
+    SCIENTIFIC_SCALE,
 } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import styles from './styles/LegendItemRange.module.css'
+
+// --- Scientific notation component ---
+
+const ScientificNotation = ({ mantissa, sign, exponent }) => (
+    <span style={{ whiteSpace: 'nowrap' }}>
+        {mantissa}
+        <span
+            style={{
+                display: 'inline-flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                verticalAlign: 'middle',
+                fontSize: '0.7em',
+                margin: '0 0.15em',
+                transform: 'scaleY(0.8)',
+                transformOrigin: 'center',
+            }}
+        >
+            <span style={{ lineHeight: 0.9 }}>&nbsp;{sign}</span>
+            <span style={{ lineHeight: 0.9, marginBottom: '0.35em' }}>·E</span>
+        </span>
+        <span
+            style={{
+                fontSize: '0.9em',
+                position: 'relative',
+                verticalAlign: 'center',
+                lineHeight: 0,
+            }}
+        >
+            {exponent}
+        </span>
+    </span>
+)
+
+ScientificNotation.propTypes = {
+    exponent: PropTypes.string,
+    mantissa: PropTypes.string,
+    sign: PropTypes.string,
+}
+
+const formatCompactNode = (value, scale, { decimalPlaces, separator } = {}) => {
+    if (scale?.scientific) {
+        return (
+            <ScientificNotation
+                {...extractScientificParts(value, decimalPlaces)}
+            />
+        )
+    }
+    return formatCompact(value, scale, { decimalPlaces, separator })
+}
 
 // --- Tooltip infrastructure ---
 
@@ -75,16 +127,15 @@ const useNameTooltip = (name, zoom, tooltipOverride = null) => {
     }
 }
 
-// Shows on hover when the value is compacted (scale != null)
-const useValueTooltip = (content, className, { scale, zoom }) => {
+const useValueTooltip = (content, className, { active, zoom }) => {
     const [pos, setPos] = useState(null)
     const ref = useRef(null)
-    const show = scale
+    const show = active
         ? () => setPos(captureTooltipPos(ref.current, zoom))
         : undefined
-    const hide = scale ? () => setPos(null) : undefined
+    const hide = active ? () => setPos(null) : undefined
     return {
-        ref: scale ? ref : undefined,
+        ref: active ? ref : undefined,
         onClick: show,
         onMouseEnter: show,
         onMouseLeave: hide,
@@ -112,12 +163,12 @@ const RangeCells = ({
     const startTooltip = useValueTooltip(
         formatWithSeparator(startValue, keyAnalysisDigitGroupSeparator, opts),
         rangeTooltipClass,
-        { scale: startScale, zoom }
+        { active: startScale, zoom }
     )
     const endTooltip = useValueTooltip(
         formatWithSeparator(endValue, keyAnalysisDigitGroupSeparator, opts),
         rangeTooltipClass,
-        { scale: endScale, zoom }
+        { active: endScale, zoom }
     )
 
     return (
@@ -166,8 +217,8 @@ const RangeCells = ({
 }
 
 RangeCells.propTypes = {
-    displayEnd: PropTypes.string,
-    displayStart: PropTypes.string,
+    displayEnd: PropTypes.node,
+    displayStart: PropTypes.node,
     endScale: PropTypes.object,
     endValue: PropTypes.number,
     keyAnalysisDigitGroupSeparator: PropTypes.string,
@@ -179,7 +230,7 @@ RangeCells.propTypes = {
 
 // --- Render helpers ---
 
-// Open-bound items ("< min" / "> max"): one value aligned to start or end column
+// Open-bound items ("< min" / "> max")
 const renderOpenBound = ({
     tooltip,
     displayValue,
@@ -217,12 +268,16 @@ const renderOpenBound = ({
     )
 }
 
+// Columns: legendNameEmpty + spacer + start + dash + end (+ count when present)
+const RANGE_COL_COUNT = 5
+const TOTAL_COL_COUNT = 6
+
 // Category items, special classes (no data, unclassified): name only, no range columns
 const renderNameOnly = ({ nameTooltip, name, countCell, hasCount }) => (
     <>
         <td
             ref={nameTooltip.ref}
-            colSpan={hasCount ? 6 : 5}
+            colSpan={hasCount ? TOTAL_COL_COUNT : RANGE_COL_COUNT}
             className={styles.legendItemRange}
             onMouseEnter={name ? nameTooltip.onMouseEnter : undefined}
             onMouseLeave={name ? nameTooltip.onMouseLeave : undefined}
@@ -284,26 +339,34 @@ const getBoundType = (startValue, endValue) => {
     return 'none'
 }
 
+const resolveScale = (value, useCompact, forceScientific) => {
+    if (forceScientific) {
+        return SCIENTIFIC_SCALE
+    }
+    return useCompact ? getCompactScale([value]) : null
+}
+
 const buildRangeTooltip = ({
     name,
     startValue,
     endValue,
     useCompact,
+    forceScientific,
     decimalPlaces,
     separator,
 }) => (
     <>
         {name}{' '}
         <span style={{ color: 'var(--colors-grey800)' }}>
-            {formatCompact(
+            {formatCompactNode(
                 startValue,
-                useCompact ? getCompactScale([startValue]) : null,
+                resolveScale(startValue, useCompact, forceScientific),
                 { decimalPlaces, separator }
             )}
             {' – '}
-            {formatCompact(
+            {formatCompactNode(
                 endValue,
-                useCompact ? getCompactScale([endValue]) : null,
+                resolveScale(endValue, useCompact, forceScientific),
                 { decimalPlaces, separator }
             )}
         </span>
@@ -314,18 +377,19 @@ const buildRangeProps = ({
     startValue,
     endValue,
     useCompact,
+    forceScientific,
     decimalPlaces,
     separator,
     zoom,
 }) => {
-    const startScale = useCompact ? getCompactScale([startValue]) : null
-    const endScale = useCompact ? getCompactScale([endValue]) : null
+    const startScale = resolveScale(startValue, useCompact, forceScientific)
+    const endScale = resolveScale(endValue, useCompact, forceScientific)
     return {
-        displayStart: formatCompact(startValue, startScale, {
+        displayStart: formatCompactNode(startValue, startScale, {
             decimalPlaces,
             separator,
         }),
-        displayEnd: formatCompact(endValue, endScale, {
+        displayEnd: formatCompactNode(endValue, endScale, {
             decimalPlaces,
             separator,
         }),
@@ -351,6 +415,7 @@ const LegendItemRange = ({
     useCompact = false,
     isPlugin = false,
     suppressRange = false,
+    forceScientific = false,
 }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
@@ -385,32 +450,33 @@ const LegendItemRange = ({
                   startValue,
                   endValue,
                   useCompact,
+                  forceScientific,
                   decimalPlaces,
                   separator: keyAnalysisDigitGroupSeparator,
               })
             : null
     const nameTooltip = useNameTooltip(name, zoom, rangeTooltip)
 
-    const openHighScale = useCompact ? getCompactScale([startValue]) : null
+    const openHighScale = resolveScale(startValue, useCompact, forceScientific)
     const openHighTooltip = useValueTooltip(
         `> ${formatWithSeparator(startValue, keyAnalysisDigitGroupSeparator, {
             precision: decimalPlaces,
         })}`,
         tooltipCx(styles.legendRangeTooltip),
-        { scale: openHighScale, zoom }
+        { active: openHighScale, zoom }
     )
-    const openLowScale = useCompact ? getCompactScale([endValue]) : null
+    const openLowScale = resolveScale(endValue, useCompact, forceScientific)
     const openLowTooltip = useValueTooltip(
         `< ${formatWithSeparator(endValue, keyAnalysisDigitGroupSeparator, {
             precision: decimalPlaces,
         })}`,
         tooltipCx(styles.legendRangeTooltip),
-        { scale: openLowScale, zoom }
+        { active: openLowScale, zoom }
     )
     const countTooltip = useValueTooltip(
         countTooltipContent,
         tooltipCx(styles.legendCountTooltip),
-        { scale: isCountCompact, zoom }
+        { active: isCountCompact, zoom }
     )
 
     // computed at top level to avoid nesting penalty; only rendered when formattedCount is defined
@@ -439,10 +505,15 @@ const LegendItemRange = ({
     if (hasOpenHigh) {
         return renderOpenBound({
             tooltip: openHighTooltip,
-            displayValue: `> ${formatCompact(startValue, openHighScale, {
-                decimalPlaces,
-                separator: keyAnalysisDigitGroupSeparator,
-            })}`,
+            displayValue: (
+                <>
+                    {'> '}
+                    {formatCompactNode(startValue, openHighScale, {
+                        decimalPlaces,
+                        separator: keyAnalysisDigitGroupSeparator,
+                    })}
+                </>
+            ),
             scale: openHighScale,
             countCell,
             atEnd: false,
@@ -451,10 +522,15 @@ const LegendItemRange = ({
     if (hasOpenLow) {
         return renderOpenBound({
             tooltip: openLowTooltip,
-            displayValue: `< ${formatCompact(endValue, openLowScale, {
-                decimalPlaces,
-                separator: keyAnalysisDigitGroupSeparator,
-            })}`,
+            displayValue: (
+                <>
+                    {'< '}
+                    {formatCompactNode(endValue, openLowScale, {
+                        decimalPlaces,
+                        separator: keyAnalysisDigitGroupSeparator,
+                    })}
+                </>
+            ),
             scale: openLowScale,
             countCell,
             atEnd: true,
@@ -465,11 +541,12 @@ const LegendItemRange = ({
         return renderNameOnly({ nameTooltip, name, countCell, hasCount })
     }
 
-    // Range display values — computed only when range is available
+    // Range display values - computed only when range is available
     const rangeProps = buildRangeProps({
         startValue,
         endValue,
         useCompact,
+        forceScientific,
         decimalPlaces,
         separator: keyAnalysisDigitGroupSeparator,
         zoom,
@@ -498,6 +575,7 @@ LegendItemRange.propTypes = {
     count: PropTypes.number,
     decimalPlaces: PropTypes.number,
     endValue: PropTypes.number,
+    forceScientific: PropTypes.bool,
     isPlugin: PropTypes.bool,
     name: PropTypes.string,
     showRange: PropTypes.bool,
