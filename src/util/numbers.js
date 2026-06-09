@@ -27,6 +27,9 @@ export const formatWithSeparator = (
         precision === undefined
             ? String(value)
             : Number(value).toFixed(precision)
+    if (/[eE]/.test(formatted)) {
+        return formatted.replace(/e([+-]?\d)/i, '·E$1')
+    }
     const [integer, decimal] = formatted.split('.')
     const isNegative = integer.startsWith('-')
     const digits = isNegative ? integer.slice(1) : integer
@@ -109,7 +112,7 @@ export const extractScientificParts = (value, decimalPlaces) => {
     const [mantissa, expStr] = value
         .toExponential(decimalPlaces ?? 1)
         .split('e')
-    const exp = parseInt(expStr, 10)
+    const exp = Number.parseInt(expStr, 10)
     return {
         mantissa,
         sign: exp < 0 ? '-' : '+',
@@ -134,7 +137,7 @@ export const formatCompact = (
         const [mantissa, expStr] = value
             .toExponential(decimalPlaces ?? 1)
             .split('e')
-        const exp = parseInt(expStr, 10)
+        const exp = Number.parseInt(expStr, 10)
         return `${mantissa}E${exp < 0 ? '⁻' : '⁺'}${toSuperscript(exp)}`
     }
     const scaled = value / scale.factor

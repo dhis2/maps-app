@@ -296,29 +296,35 @@ const Legend = ({
             )}
             {typeof orgUnitsWithoutCoordinatesCount === 'number' && (
                 <div>
-                    {orgUnitsWithoutCoordinatesCount === 0
-                        ? orgUnitsPointOnly
-                            ? i18n.t('All org units have a point location')
-                            : i18n.t('All org units have coordinates')
-                        : orgUnitsPointOnly
-                        ? i18n.t('{{n}} org unit without a point location', {
-                              count: orgUnitsWithoutCoordinatesCount,
-                              n: formatWithSeparator(
-                                  orgUnitsWithoutCoordinatesCount,
-                                  keyAnalysisDigitGroupSeparator
-                              ),
-                              defaultValue_plural:
-                                  '{{n}} org units without a point location',
-                          })
-                        : i18n.t('{{n}} org unit without coordinates', {
-                              count: orgUnitsWithoutCoordinatesCount,
-                              n: formatWithSeparator(
-                                  orgUnitsWithoutCoordinatesCount,
-                                  keyAnalysisDigitGroupSeparator
-                              ),
-                              defaultValue_plural:
-                                  '{{n}} org units without coordinates',
-                          })}
+                    {(() => {
+                        if (orgUnitsWithoutCoordinatesCount === 0) {
+                            return orgUnitsPointOnly
+                                ? i18n.t('All org units have a point location')
+                                : i18n.t('All org units have coordinates')
+                        }
+                        return orgUnitsPointOnly
+                            ? i18n.t(
+                                  '{{n}} org unit without a point location',
+                                  {
+                                      count: orgUnitsWithoutCoordinatesCount,
+                                      n: formatWithSeparator(
+                                          orgUnitsWithoutCoordinatesCount,
+                                          keyAnalysisDigitGroupSeparator
+                                      ),
+                                      defaultValue_plural:
+                                          '{{n}} org units without a point location',
+                                  }
+                              )
+                            : i18n.t('{{n}} org unit without coordinates', {
+                                  count: orgUnitsWithoutCoordinatesCount,
+                                  n: formatWithSeparator(
+                                      orgUnitsWithoutCoordinatesCount,
+                                      keyAnalysisDigitGroupSeparator
+                                  ),
+                                  defaultValue_plural:
+                                      '{{n}} org units without coordinates',
+                              })
+                    })()}
                 </div>
             )}
         </div>
