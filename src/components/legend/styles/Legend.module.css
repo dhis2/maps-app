@@ -3,9 +3,14 @@
     line-height: 18px;
 }
 
+.legend:empty {
+    display: none;
+}
+
 .legend table {
     border-collapse: collapse;
     border-spacing: 0;
+    width: 100%;
 }
 
 .description {
@@ -18,6 +23,15 @@
 
 .legendImage {
     max-width: 100%;
+}
+
+.description,
+.filters,
+.coordinateFields,
+.dataQuality,
+.explanation,
+.source {
+    max-width: 245px;
 }
 
 .filters,

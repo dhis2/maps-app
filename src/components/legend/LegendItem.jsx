@@ -22,8 +22,12 @@ const LegendItem = ({
     endValue,
     count,
     decimalPlaces,
+    useCompact,
+    isPlugin,
+    suppressRange,
+    forceScientific,
 }) => {
-    if (!name && startValue === undefined) {
+    if (!name && startValue === undefined && endValue === undefined) {
         return null
     }
 
@@ -70,6 +74,10 @@ const LegendItem = ({
                 endValue={endValue}
                 count={count}
                 decimalPlaces={decimalPlaces}
+                useCompact={useCompact}
+                isPlugin={isPlugin}
+                suppressRange={suppressRange}
+                forceScientific={forceScientific}
             />
         </tr>
     )
@@ -81,13 +89,17 @@ LegendItem.propTypes = {
     decimalPlaces: PropTypes.number,
     endValue: PropTypes.number,
     fillColor: PropTypes.string,
+    forceScientific: PropTypes.bool,
     image: PropTypes.string,
+    isPlugin: PropTypes.bool,
     name: PropTypes.string,
     radius: PropTypes.number,
     showRange: PropTypes.bool,
     startValue: PropTypes.number,
     strokeColor: PropTypes.string,
+    suppressRange: PropTypes.bool,
     type: PropTypes.string,
+    useCompact: PropTypes.bool,
     weight: PropTypes.number,
 }
 

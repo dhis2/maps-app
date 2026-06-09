@@ -18,24 +18,24 @@ describe('formatValueForDisplay', () => {
             expected: '1',
         },
         {
-            desc: 'returns "Not set" for null',
+            desc: 'returns empty string for null',
             input: { value: null },
-            expected: 'Not set',
+            expected: '',
         },
         {
-            desc: 'returns "Not set" for undefined',
+            desc: 'returns empty string for undefined',
             input: { value: undefined },
-            expected: 'Not set',
+            expected: '',
         },
         {
-            desc: 'returns "Not set" for empty string',
+            desc: 'returns empty string for empty string',
             input: { value: '' },
-            expected: 'Not set',
+            expected: '',
         },
         {
-            desc: 'returns "Not set" for string "Not set"',
+            desc: 'returns empty string for string "Not set"',
             input: { value: 'Not set' },
-            expected: 'Not set',
+            expected: '',
         },
         {
             desc: 'returns option label if present in options',

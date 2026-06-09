@@ -87,9 +87,50 @@ export const sortLegendItems = (items) =>
             : bRange.start - aRange.start
     })
 
+const RANGE_SEPARATOR = /(?<=\d)\s*[-–—]\s*(?=[-\d])/
+const TRAILING_NUMBER = /-?\d[\d,.\s]*$/
+
+const splitRange = (str) => {
+    const parts = String(str).split(RANGE_SEPARATOR)
+    if (parts.length !== 2) {
+        return null
+    }
+    const firstMatch = TRAILING_NUMBER.exec(parts[0])
+    return firstMatch ? { parts, firstMatch } : null
+}
+
 export const parseRange = (str) => {
-    const [start, end] = str.split(' - ')
-    return [parseWithSeparator(start), parseWithSeparator(end)]
+    const split = splitRange(str)
+    if (!split) {
+        return [undefined, undefined]
+    }
+    return [
+        parseWithSeparator(split.firstMatch[0]),
+        parseWithSeparator(split.parts[1]),
+    ]
+}
+
+// Strips the embedded numeric range from a labeled name, e.g. "Extreme cold stress -60 - -40" -> "Extreme cold stress".
+// Returns the original name when no range is found or values don't match.
+export const extractLabel = (name, startValue, endValue) => {
+    const split = splitRange(name)
+    if (!split) {
+        return name
+    }
+    const parsedStart = parseWithSeparator(split.firstMatch[0])
+    const parsedEnd = parseWithSeparator(split.parts[1])
+    if (
+        typeof parsedStart !== 'number' ||
+        Number.isNaN(parsedStart) ||
+        typeof parsedEnd !== 'number' ||
+        Number.isNaN(parsedEnd) ||
+        Math.abs(parsedStart - startValue) >= 1e-9 ||
+        Math.abs(parsedEnd - endValue) >= 1e-9
+    ) {
+        return name
+    }
+    const label = split.parts[0].replace(TRAILING_NUMBER, '').trim()
+    return label || name
 }
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
@@ -132,7 +173,7 @@ export const formatLegendItems = (legendItems) => {
     return sortedItems.map((item) => ({
         color: item.color,
         name: item.name,
-        range: item.startValue + ' - ' + item.endValue,
+        range: item.startValue + ' – ' + item.endValue,
     }))
 }
 

@@ -292,26 +292,20 @@ export const createLegend = (
             const item = { color }
 
             if (index === 0 && showBelowMin) {
-                // Less than min
+                // Less than min - name is formatted by LegendItemRange (compact support)
                 item.from = -Infinity
                 item.to = min
-                item.name =
-                    '< ' +
-                    formatWithSeparator(min, keyAnalysisDigitGroupSeparator)
                 to = min
             } else if (+from < max) {
                 item.from = +from
                 item.to = +to
                 item.name =
                     formatWithSeparator(from, keyAnalysisDigitGroupSeparator) +
-                    ' - ' +
+                    ' – ' +
                     formatWithSeparator(to, keyAnalysisDigitGroupSeparator)
             } else {
-                // Higher than max
+                // Higher than max - name is formatted by LegendItemRange (compact support)
                 item.from = +from
-                item.name =
-                    '> ' +
-                    formatWithSeparator(from, keyAnalysisDigitGroupSeparator)
             }
 
             from = to

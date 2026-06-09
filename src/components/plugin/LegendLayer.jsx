@@ -4,12 +4,14 @@ import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 import { getRenderingLabel } from '../../util/legend.js'
 import LayerLegend from '../legend/Legend.jsx'
+import LegendAlert from '../legend/LegendAlert.jsx'
 
 const DEFAULT_NO_ALERTS = []
 
 // Renders a legend with alerts for one map layer
 const LegendLayer = ({
     id,
+    name,
     legend,
     renderingStrategy,
     alerts = DEFAULT_NO_ALERTS,
@@ -17,6 +19,11 @@ const LegendLayer = ({
     toggleLayerVisibility,
 }) => (
     <div key={id}>
+        {!legend && alerts.length > 0 && (
+            <h2 className="dhis2-map-legend-title">
+                <span className="dhis2-map-legend-title-text">{name}</span>
+            </h2>
+        )}
         {legend && (
             <Fragment>
                 <h2 className="dhis2-map-legend-title">
@@ -49,7 +56,7 @@ const LegendLayer = ({
         )}
         {alerts.map((alert, index) => (
             <div key={index} className="dhis2-map-legend-alert">
-                {alert.message}
+                <LegendAlert alert={alert} />
             </div>
         ))}
     </div>
@@ -62,6 +69,7 @@ LegendLayer.propTypes = {
     isVisible: PropTypes.bool,
     layer: PropTypes.string,
     legend: PropTypes.object,
+    name: PropTypes.string,
     renderingStrategy: PropTypes.string,
     serverCluster: PropTypes.bool,
     toggleLayerVisibility: PropTypes.func,

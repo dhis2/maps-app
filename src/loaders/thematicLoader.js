@@ -181,7 +181,7 @@ const thematicLoader = async ({
     // -----
 
     const [mainFeatures, data, associatedGeometries] = response
-    const valueById = getValueById(data)
+    const { valueById, rawValueById } = getValueMapsById(data)
 
     if (config.countFeaturesWithoutCoordinates) {
         const result = await getOrgUnitsWithoutCoordsCount({
@@ -502,10 +502,9 @@ const thematicLoader = async ({
                 ...(hasAdditionalGeometry && {
                     radius: ORG_UNIT_RADIUS_SMALL,
                 }),
-                value: formatWithSeparator(
-                    value,
-                    keyAnalysisDigitGroupSeparator
-                ), // Shown in tooltip, label, pop-up, data table
+                value: Number.isFinite(value)
+                    ? formatWithSeparator(value, keyAnalysisDigitGroupSeparator)
+                    : rawValueById[id], // Shown in tooltip, label, pop-up, data table
                 rawValue: value, // Numeric form for data table sorting
             })
 
@@ -606,22 +605,28 @@ const getValuesByPeriod = (data) => {
         const period = row[periodIndex]
         const periodObj = (obj[period] = obj[period] || {})
         periodObj[row[ouIndex]] = {
-            value: row[valueIndex],
+            value: Number.parseFloat(row[valueIndex]),
         }
         return obj
     }, {})
 }
 
-// Returns an object mapping org. units and values
-const getValueById = (data) => {
+// Returns numeric (valueById) and raw string (rawValueById) maps in a single pass
+const getValueMapsById = (data) => {
     const { headers, rows } = data
     const ouIndex = findIndex(['name', 'ou'], headers)
     const valueIndex = findIndex(['name', 'value'], headers)
 
-    return rows.reduce((obj, row) => {
-        obj[row[ouIndex]] = parseFloat(row[valueIndex])
-        return obj
-    }, {})
+    return rows.reduce(
+        ({ valueById, rawValueById }, row) => {
+            const id = row[ouIndex]
+            const raw = row[valueIndex]
+            valueById[id] = Number.parseFloat(raw)
+            rawValueById[id] = raw
+            return { valueById, rawValueById }
+        },
+        { valueById: {}, rawValueById: {} }
+    )
 }
 
 // Returns an array of ordered values
@@ -629,7 +634,10 @@ const getOrderedValues = (data) => {
     const { headers, rows } = data
     const valueIndex = findIndex(['name', 'value'], headers)
 
-    return rows.map((row) => parseFloat(row[valueIndex])).sort((a, b) => a - b)
+    return rows
+        .map((row) => Number.parseFloat(row[valueIndex]))
+        .filter((v) => !Number.isNaN(v))
+        .sort((a, b) => a - b)
 }
 
 // Load features and data values from api

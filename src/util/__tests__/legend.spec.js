@@ -15,6 +15,7 @@ import {
     getAutomaticLegendItems,
     getRenderingLabel,
     parseRange,
+    extractLabel,
     isRegularLegendItem,
     buildIsolatedLegendItem,
     legendNamesContainRange,
@@ -131,7 +132,7 @@ describe('legend utils', () => {
 
         it('formatLegendItems sorts by startValue and formats range', () => {
             const formatted = formatLegendItems(items)
-            expect(formatted[0].range).toBe('0 - 9')
+            expect(formatted[0].range).toBe('0 – 9')
             expect(formatted.map((i) => i.color)).toEqual([
                 'blue',
                 'red',
@@ -393,12 +394,195 @@ describe('legend utils', () => {
     })
 
     describe('parseRange', () => {
-        it('parses a range string into numeric start and end values', () => {
-            expect(parseRange('10 - 20')).toEqual([10, 20])
+        // --- separator variants (positive numbers) ---
+        it('parses en dash (U+2013) with spaces: "100 – 200"', () => {
+            expect(parseRange('100 – 200')).toEqual([100, 200])
         })
 
-        it('parses a range string with decimal values', () => {
-            expect(parseRange('1.5 - 3.75')).toEqual([1.5, 3.75])
+        it('parses hyphen-minus (U+002D) with spaces: "100 - 200"', () => {
+            expect(parseRange('100 - 200')).toEqual([100, 200])
+        })
+
+        it('parses em dash (U+2014) with spaces: "100 — 200"', () => {
+            expect(parseRange('100 — 200')).toEqual([100, 200])
+        })
+
+        it('parses hyphen-minus without spaces: "100-200"', () => {
+            expect(parseRange('100-200')).toEqual([100, 200])
+        })
+
+        it('parses en dash without spaces: "100–200"', () => {
+            expect(parseRange('100–200')).toEqual([100, 200])
+        })
+
+        it('parses em dash without spaces: "100—200"', () => {
+            expect(parseRange('100—200')).toEqual([100, 200])
+        })
+
+        // --- irregular spacing ---
+        it('parses multiple spaces on both sides: "100  –  200"', () => {
+            expect(parseRange('100  –  200')).toEqual([100, 200])
+        })
+
+        it('parses space before only: "100 –200"', () => {
+            expect(parseRange('100 –200')).toEqual([100, 200])
+        })
+
+        it('parses space after only: "100– 200"', () => {
+            expect(parseRange('100– 200')).toEqual([100, 200])
+        })
+
+        it('parses multiple spaces before only: "100   –200"', () => {
+            expect(parseRange('100   –200')).toEqual([100, 200])
+        })
+
+        it('parses multiple spaces after only: "100–   200"', () => {
+            expect(parseRange('100–   200')).toEqual([100, 200])
+        })
+
+        // --- negative numbers ---
+        it('parses both negative, en dash with spaces: "-60 – -40"', () => {
+            expect(parseRange('-60 – -40')).toEqual([-60, -40])
+        })
+
+        it('parses both negative, en dash without spaces: "-60–-40"', () => {
+            expect(parseRange('-60–-40')).toEqual([-60, -40])
+        })
+
+        it('parses both negative, hyphen with spaces: "-60 - -40"', () => {
+            expect(parseRange('-60 - -40')).toEqual([-60, -40])
+        })
+
+        it('parses both negative, double hyphen no spaces: "-60--40"', () => {
+            expect(parseRange('-60--40')).toEqual([-60, -40])
+        })
+
+        it('parses negative start to positive end, en dash: "-100 – 200"', () => {
+            expect(parseRange('-100 – 200')).toEqual([-100, 200])
+        })
+
+        it('parses negative start to positive end, no spaces: "-100-200"', () => {
+            expect(parseRange('-100-200')).toEqual([-100, 200])
+        })
+
+        it('parses positive start to negative end, en dash: "100 – -200"', () => {
+            expect(parseRange('100 – -200')).toEqual([100, -200])
+        })
+
+        it('parses positive start to negative end, double hyphen: "100--200"', () => {
+            expect(parseRange('100--200')).toEqual([100, -200])
+        })
+
+        it('parses zero to negative, en dash: "0 – -100"', () => {
+            expect(parseRange('0 – -100')).toEqual([0, -100])
+        })
+
+        // --- thousand separators and decimals ---
+        it('parses space-grouped thousands: "1 000 – 2 000"', () => {
+            expect(parseRange('1 000 – 2 000')).toEqual([1000, 2000])
+        })
+
+        it('parses comma-grouped thousands: "1,000 – 2,000"', () => {
+            expect(parseRange('1,000 – 2,000')).toEqual([1000, 2000])
+        })
+
+        it('parses decimal values: "1.5 – 3.75"', () => {
+            expect(parseRange('1.5 – 3.75')).toEqual([1.5, 3.75])
+        })
+
+        // --- not a range ---
+        it('returns [undefined, undefined] for a descriptive label', () => {
+            expect(parseRange('Less than 100 000')).toEqual([
+                undefined,
+                undefined,
+            ])
+        })
+
+        it('returns [undefined, undefined] for "to" format', () => {
+            expect(parseRange('250 000 to 500 000')).toEqual([
+                undefined,
+                undefined,
+            ])
+        })
+
+        it('returns [undefined, undefined] for "> x" boundary label', () => {
+            expect(parseRange('> 200')).toEqual([undefined, undefined])
+        })
+
+        it('returns [undefined, undefined] for "< x" boundary label', () => {
+            expect(parseRange('< 100')).toEqual([undefined, undefined])
+        })
+
+        it('returns [undefined, undefined] for a plain string', () => {
+            expect(parseRange('High')).toEqual([undefined, undefined])
+        })
+
+        it('returns [undefined, undefined] for empty string', () => {
+            expect(parseRange('')).toEqual([undefined, undefined])
+        })
+
+        it('parses labeled name with both-negative range: "Extreme cold stress -60 - -40"', () => {
+            expect(parseRange('Extreme cold stress -60 - -40')).toEqual([
+                -60, -40,
+            ])
+        })
+
+        it('parses labeled name with positive range: "Moderate heat stress 26 - 32"', () => {
+            expect(parseRange('Moderate heat stress 26 - 32')).toEqual([26, 32])
+        })
+
+        it('parses labeled name with mixed range: "Moderate cold stress -13 - 0"', () => {
+            expect(parseRange('Moderate cold stress -13 - 0')).toEqual([-13, 0])
+        })
+
+        it('parses labeled name with single-digit start: "Slight cold stress 0 - 9"', () => {
+            expect(parseRange('Slight cold stress 0 - 9')).toEqual([0, 9])
+        })
+
+        it('parses labeled name where label prefix ends with the start value: "Category 1 - 10"', () => {
+            expect(parseRange('Category 1 - 10')).toEqual([1, 10])
+        })
+    })
+
+    describe('extractLabel', () => {
+        it('returns label prefix for a heatstress both-negative name', () => {
+            expect(
+                extractLabel('Extreme cold stress -60 - -40', -60, -40)
+            ).toBe('Extreme cold stress')
+        })
+
+        it('returns label prefix for a heatstress positive name', () => {
+            expect(extractLabel('Moderate heat stress 26 - 32', 26, 32)).toBe(
+                'Moderate heat stress'
+            )
+        })
+
+        it('returns label prefix for a mixed-sign name', () => {
+            expect(extractLabel('Moderate cold stress -13 - 0', -13, 0)).toBe(
+                'Moderate cold stress'
+            )
+        })
+
+        it('returns name unchanged for a pure-range name (no label prefix)', () => {
+            expect(extractLabel('100 – 200', 100, 200)).toBe('100 – 200')
+        })
+
+        it('returns name unchanged for a hyphen-separated pure-range name', () => {
+            expect(extractLabel('140 - 160', 140, 160)).toBe('140 - 160')
+        })
+
+        it('returns name unchanged when values do not match', () => {
+            expect(
+                extractLabel('Extreme cold stress -60 - -40', -50, -30)
+            ).toBe('Extreme cold stress -60 - -40')
+        })
+
+        it('returns name unchanged when no range separator is present', () => {
+            expect(extractLabel('High', 100, 200)).toBe('High')
+        })
+
+        it('strips label-ending start value - known limitation', () => {
+            expect(extractLabel('Low 0 - 33', 0, 33)).toBe('Low')
         })
     })
 

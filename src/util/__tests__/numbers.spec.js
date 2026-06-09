@@ -4,10 +4,13 @@ import {
     DIGIT_GROUP_SEPARATOR_SPACE,
 } from '../../constants/settings.js'
 import {
+    formatCompact,
     formatCount,
     getPrecision,
     formatWithSeparator,
+    getCompactScale,
     parseWithSeparator,
+    SCIENTIFIC_SCALE,
 } from '../numbers.js'
 
 describe('numbers', () => {
@@ -30,6 +33,14 @@ describe('numbers', () => {
 
         it('should round numbers greater than 1950000 to the nearest million and add a "M"', () => {
             expect(formatCount(33000000)).toEqual('33M')
+        })
+
+        it('should format numbers between 999500000 and 1950000000 with one decimal place and a "B"', () => {
+            expect(formatCount(1300000000)).toEqual('1.3B')
+        })
+
+        it('should round numbers greater than 1950000000 to the nearest billion and add a "B"', () => {
+            expect(formatCount(33000000000)).toEqual('33B')
         })
     })
 
@@ -166,6 +177,159 @@ describe('numbers', () => {
             expect(formatWithSeparator(1234, 'WEIRD')).toBe(
                 formatWithSeparator(1234, DIGIT_GROUP_SEPARATOR_NONE)
             )
+        })
+    })
+
+    describe('getCompactScale', () => {
+        it('returns null for empty array', () => {
+            expect(getCompactScale([])).toBeNull()
+        })
+
+        it('returns null when all values are zero', () => {
+            expect(getCompactScale([0, 0])).toBeNull()
+        })
+
+        it('returns null for values in the normal range', () => {
+            expect(getCompactScale([850, 999])).toBeNull()
+        })
+
+        it('returns k when max >= 1000', () => {
+            expect(getCompactScale([500, 1500]).suffix).toBe('k')
+        })
+
+        it('returns M when max >= 1,000,000', () => {
+            expect(getCompactScale([1_230_000, 5_670_000]).suffix).toBe('M')
+        })
+
+        it('returns B when max >= 1,000,000,000 and < 1e12', () => {
+            expect(getCompactScale([5_670_000_000]).suffix).toBe('B')
+        })
+
+        it('returns scientific scale when max >= 1e12', () => {
+            expect(getCompactScale([1e12]).scientific).toBe(true)
+            expect(getCompactScale([1e18]).scientific).toBe(true)
+        })
+
+        it('returns m for small values < 0.01', () => {
+            expect(getCompactScale([0.0045, 0.009]).suffix).toBe('m')
+        })
+
+        it('returns μ for very small values < 0.00001', () => {
+            expect(getCompactScale([0.0000023]).suffix).toBe('μ')
+        })
+
+        it('returns n for extremely small values in range [1e-11, 1e-8)', () => {
+            expect(getCompactScale([0.0000000012]).suffix).toBe('n')
+        })
+
+        it('returns scientific scale for values < 1e-11', () => {
+            expect(getCompactScale([1e-12]).scientific).toBe(true)
+            expect(getCompactScale([1e-15]).scientific).toBe(true)
+        })
+
+        it('does not compact 0.045 (>= 0.01)', () => {
+            expect(getCompactScale([0.045])).toBeNull()
+        })
+    })
+
+    describe('formatCompact', () => {
+        const B = { factor: 1e9, suffix: 'B' }
+        const M = { factor: 1e6, suffix: 'M' }
+        const K = { factor: 1e3, suffix: 'K' }
+        const m = { factor: 1e-3, suffix: 'm' }
+        const μ = { factor: 1e-6, suffix: 'μ' }
+        const n = { factor: 1e-9, suffix: 'n' }
+
+        it('formats large values with B', () => {
+            expect(formatCompact(5_670_000_000, B)).toBe('5.7B')
+        })
+
+        it('formats large values with M', () => {
+            expect(formatCompact(1_230_000, M)).toBe('1.2M')
+        })
+
+        it('formats large values with K', () => {
+            expect(formatCompact(12_300, K)).toBe('12.3K')
+        })
+
+        it('preserves trailing zero by default (1000 → 1.0K)', () => {
+            expect(formatCompact(1_000, K)).toBe('1.0K')
+        })
+
+        it('formats sub-threshold value with K (500 → 0.5K)', () => {
+            expect(formatCompact(500, K)).toBe('0.5K')
+        })
+
+        it('formats small values with m', () => {
+            expect(formatCompact(0.0045, m)).toBe('4.5m')
+        })
+
+        it('formats very small values with μ', () => {
+            expect(formatCompact(0.0000023, μ)).toBe('2.3μ')
+        })
+
+        it('formats extremely small values with n', () => {
+            expect(formatCompact(0.0000000012, n)).toBe('1.2n')
+        })
+
+        it('handles negative values', () => {
+            expect(formatCompact(-5_000_000, M)).toBe('-5.0M')
+        })
+
+        it('respects explicit decimalPlaces', () => {
+            expect(formatCompact(1_234_567, M, { decimalPlaces: 0 })).toBe('1M')
+            expect(formatCompact(1_234_567, M, { decimalPlaces: 3 })).toBe(
+                '1.235M'
+            )
+        })
+
+        it('applies thousand separator to scaled values >= 1000', () => {
+            expect(
+                formatCompact(1_500_000_000_000, B, {
+                    decimalPlaces: 2,
+                    separator: DIGIT_GROUP_SEPARATOR_COMMA,
+                })
+            ).toBe('1,500.00B')
+        })
+
+        it('formats large values with E⁺ⁿ notation', () => {
+            const sci = { scientific: true }
+            expect(formatCompact(1e18, sci, { decimalPlaces: 1 })).toBe(
+                '1.0E⁺¹⁸'
+            )
+            expect(
+                formatCompact(4.05768693881e14, sci, { decimalPlaces: 6 })
+            ).toBe('4.057687E⁺¹⁴')
+        })
+
+        it('formats small values with E⁻ⁿ notation', () => {
+            const sci = { scientific: true }
+            expect(formatCompact(1e-15, sci, { decimalPlaces: 1 })).toBe(
+                '1.0E⁻¹⁵'
+            )
+            expect(formatCompact(-3.5e-13, sci, { decimalPlaces: 2 })).toBe(
+                '-3.50E⁻¹³'
+            )
+        })
+
+        it('uses 1 decimal place by default for scientific notation', () => {
+            const sci = { scientific: true }
+            expect(formatCompact(2.5e14, sci)).toBe('2.5E⁺¹⁴')
+        })
+    })
+
+    describe('SCIENTIFIC_SCALE', () => {
+        it('is truthy and has scientific flag', () => {
+            expect(SCIENTIFIC_SCALE.scientific).toBe(true)
+        })
+
+        it('makes formatCompact use E⁺/E⁻ notation', () => {
+            expect(
+                formatCompact(1e18, SCIENTIFIC_SCALE, { decimalPlaces: 1 })
+            ).toBe('1.0E⁺¹⁸')
+            expect(
+                formatCompact(1e-15, SCIENTIFIC_SCALE, { decimalPlaces: 1 })
+            ).toBe('1.0E⁻¹⁵')
         })
     })
 

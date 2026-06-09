@@ -182,7 +182,7 @@ export const formatDatetime = (value) => {
     return match ? `${match[1]} ${match[2]}` : value
 }
 
-// Returns true if value is not undefined, null, empty string, or already marked as 'Not set'
+// Returns true if value is not undefined, null, empty string, or the sentinel 'Not set' string
 export const hasValue = (value) =>
     value !== undefined &&
     value !== null &&
@@ -199,7 +199,7 @@ export const formatValueForDisplay = ({
     keyAnalysisDigitGroupSeparator,
 }) => {
     if (!hasValue(value)) {
-        return i18n.t('Not set')
+        return ''
     }
     if (typeof value !== 'string') {
         console.warn(

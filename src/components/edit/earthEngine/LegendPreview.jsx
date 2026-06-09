@@ -2,9 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { createLegend } from '../../../loaders/earthEngineLoader.js'
-import { sortLegendItems } from '../../../util/legend.js'
 import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
-import LegendItem from '../../legend/LegendItem.jsx'
+import Legend from '../../legend/Legend.jsx'
 import styles from '../styles/LayerDialog.module.css'
 
 const styleIsValid = ({ min, max }) =>
@@ -21,15 +20,7 @@ const LegendPreview = ({ style, showBelowMin }) => {
     return legend ? (
         <div className={styles.flexColumn}>
             <div className={styles.legendTitle}>{i18n.t('Legend preview')}</div>
-            <div className={styles.legend}>
-                <table>
-                    <tbody>
-                        {sortLegendItems(legend).map((item, index) => (
-                            <LegendItem {...item} key={`item-${index}`} />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            <Legend items={legend} />
         </div>
     ) : null
 }

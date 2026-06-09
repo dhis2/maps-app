@@ -48,7 +48,10 @@ const Bubble = ({
                         y={y2}
                         textAnchor={textAnchor}
                         alignmentBaseline="middle"
-                        style={{ fontSize: 12 }}
+                        style={{
+                            fontSize: 12,
+                            fill: 'var(--colors-grey900)',
+                        }}
                     >
                         {text}
                     </text>
