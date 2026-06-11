@@ -6,6 +6,7 @@ import {
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
+    CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
@@ -17,6 +18,8 @@ import {
     RENDERING_STRATEGY_SINGLE,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_SINGLE_COLOR,
+    CLASSIFICATION_LOGARITHMIC,
+    CLASSIFICATION_STANDARD_DEVIATION,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
 } from '../constants/layers.js'
@@ -28,15 +31,24 @@ import {
     getApiResponseNames,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { parseJsonConfig } from '../util/config.js'
 import { hasValue } from '../util/helpers.js'
 import {
     getPredefinedLegendItems,
     getAutomaticLegendItems,
+    buildIsolatedLegendItem,
+    isRegularLegendItem,
 } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
 import {
+    formatRangeWithSeparator,
+    formatWithSeparator,
+} from '../util/numbers.js'
+import {
     getCoordinateField,
     addAssociatedGeometries,
+    getOrgUnitsWithoutCoordsCount,
+    fetchOrgUnitDetails,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
@@ -45,10 +57,14 @@ const thematicLoader = async ({
     config,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     userId,
     analyticsEngine,
     periodTypeData,
 }) => {
+    // Config parsing
+    // -----
+
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -57,14 +73,71 @@ const thematicLoader = async ({
         colorScale,
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         thematicMapType,
-        noDataColor,
     } = config
 
     const dataItem = getDataItemFromColumns(columns)
     const coordinateField = getCoordinateField(config)
 
-    let loadError
+    const {
+        countFeaturesWithoutCoordinates,
+        legendDecimalPlaces,
+        legendIsolated,
+        unclassifiedLegend: unclassifiedLegendFromConfig,
+        noDataLegend: noDataLegendFromConfig,
+    } = parseJsonConfig(config.config)
+    if (countFeaturesWithoutCoordinates) {
+        config.countFeaturesWithoutCoordinates = true
+    }
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    if (legendIsolated) {
+        config.legendIsolated = legendIsolated
+    }
+    if (unclassifiedLegendFromConfig) {
+        config.unclassifiedLegend = unclassifiedLegendFromConfig
+    }
+    if (noDataLegendFromConfig) {
+        config.noDataLegend = noDataLegendFromConfig
+    }
+    if (config.noDataColor) {
+        config.noDataLegend = {
+            ...noDataLegendFromConfig,
+            color: config.noDataColor,
+        }
+    }
+    delete config.noDataColor
+    delete config.config
 
+    const orgUnitIds = getOrgUnitsFromRows(config.rows).map((item) => item.id)
+    let orgUnitsWithoutCoordsCount = null
+
+    // Resolve legendSet and method (favorites may have the wrong method)
+    const legendSet = await resolveLegendSet(config, dataItem, engine)
+    const method = legendSet ? CLASSIFICATION_PREDEFINED : config.method
+
+    // Set flags to navigate paths
+    // -----
+
+    // Rendering: Single | Timeline / Split
+    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
+    // Map type: Choropleth | Bubble
+    const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
+    // Classification: Predefined legend set | Automatic | Single [only for Bubble]
+    const isPredefined = method === CLASSIFICATION_PREDEFINED
+    const isSingleColor = method === CLASSIFICATION_SINGLE_COLOR
+    // Special items:
+    // - Isolated class configured [only for Automatic and Single] | not
+    const hasIsolatedClass = !!config.legendIsolated
+    // - No data class configured | not
+    const hasNoDataClass = !!config.noDataLegend
+    // - Unclassified class configured | not
+    const hasUnclassifiedClass = !!config.unclassifiedLegend
+
+    // Data loading
+    // -----
+
+    let loadError
     const response = await loadData({
         config,
         engine,
@@ -101,16 +174,51 @@ const thematicLoader = async ({
             legend: null,
             isLoaded: true,
             isLoading: false,
-            isVisible: true,
             loadError,
         }
     }
 
+    // Data setup
+    // -----
+
     const [mainFeatures, data, associatedGeometries] = response
-    const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
-    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
-    const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
-    const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
+    const { valueById, rawValueById } = getValueMapsById(data)
+
+    if (config.countFeaturesWithoutCoordinates) {
+        const result = await getOrgUnitsWithoutCoordsCount({
+            engine,
+            orgUnitIds,
+            userId,
+            features: mainFeatures || [],
+        })
+        if (!result.error) {
+            orgUnitsWithoutCoordsCount = result.count
+            if (result.count > 0) {
+                const details = await fetchOrgUnitDetails(
+                    engine,
+                    result.missingOrgUnits.map((o) => o.id)
+                )
+                config.dataWithoutCoords = result.missingOrgUnits.map((ou) => ({
+                    ...ou,
+                    properties: {
+                        ...ou.properties,
+                        level: details[ou.id]?.level,
+                        parentName: details[ou.id]?.parentName,
+                        rawValue: valueById[ou.id],
+                        value:
+                            valueById[ou.id] === undefined
+                                ? undefined
+                                : formatWithSeparator(
+                                      valueById[ou.id],
+                                      keyAnalysisDigitGroupSeparator
+                                  ),
+                    },
+                }))
+            }
+        }
+    }
+    const valuesByPeriod = isSingleMap ? null : getValuesByPeriod(data) // [PATH] null → Single; populated → Timeline / Split (do not creates OrgUnits with no data)
+
     const names = getApiResponseNames(
         periodTypeData?.enabledPeriodTypesData?.metaData
             ? {
@@ -125,56 +233,85 @@ const thematicLoader = async ({
               }
             : data
     )
+    const name = names[dataItem.id]
+
     const presetPeriods = getPeriodsFromFilters(config.filters).map((pe) => {
         pe.name = names[pe.id]
         return pe
     })
     const periods = getPeriodsFromMetaData(data.metaData)
     const dimensions = getValidDimensionsFromFilters(config.filters)
-    const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
-    const valueById = getValueById(data)
-    const valueFeatures = noDataColor
-        ? features
-        : features.filter(({ id }) => valueById[id] !== undefined)
+
     const orderedValues = getOrderedValues(data)
     let minValue = orderedValues[0]
-    let maxValue = orderedValues[orderedValues.length - 1]
-    const name = names[dataItem.id]
+    let maxValue = orderedValues.at(-1)
+
+    let features = addAssociatedGeometries(mainFeatures, associatedGeometries)
+
+    // Alerts
+    // -----
+
     const alerts = []
 
-    let legendSet = config.legendSet
-
-    // Use legend set defined for data item as default
-    if (
-        !legendSet &&
-        dataItem.legendSet &&
-        (config.method === undefined ||
-            config.method === CLASSIFICATION_PREDEFINED)
-    ) {
-        legendSet = dataItem.legendSet
-    }
-
-    // Favorites often have wrong method
-    const method = legendSet ? CLASSIFICATION_PREDEFINED : config.method
-
-    if (legendSet) {
-        const result = await engine.query(LEGEND_SET_QUERY, {
-            variables: { id: config.legendSet.id },
+    if (!features.length) {
+        alerts.push({
+            code: WARNING_NO_OU_COORD,
+            message: i18n.t('Thematic layer'),
         })
-        legendSet = result.legendSet
+    } else if (!data.rows.length) {
+        alerts.push({
+            code: WARNING_NO_DATA,
+            message: name,
+        })
     }
+
+    if (
+        config.countFeaturesWithoutCoordinates &&
+        typeof orgUnitsWithoutCoordsCount !== 'number'
+    ) {
+        alerts.push({
+            warning: true,
+            code: CUSTOM_ALERT,
+            message: i18n.t('Could not count org units without coordinates'),
+        })
+    }
+
+    if (coordinateField && !associatedGeometries.length) {
+        alerts.push({
+            code: WARNING_NO_GEOMETRY_COORD,
+            message: coordinateField.name,
+        })
+    }
+
+    // Legend
+    // -----
 
     let legendItems = []
+    let valueFormat
 
-    if (!isSingleColor) {
-        legendItems = legendSet
-            ? getPredefinedLegendItems(legendSet)
-            : getAutomaticLegendItems(
-                  orderedValues,
-                  method,
-                  classes,
-                  colorScale
-              )
+    if (isPredefined) {
+        legendItems = getPredefinedLegendItems(legendSet)
+    } else if (!isSingleColor) {
+        const classification = getAutomaticLegendItems({
+            data: orderedValues,
+            method,
+            classes,
+            colorScale,
+            legendDecimalPlaces: config.legendDecimalPlaces,
+            legendIsolated: config.legendIsolated,
+        })
+        legendItems = classification.items
+        valueFormat = classification.valueFormat
+    } else if (hasIsolatedClass) {
+        const { min, max } = config.legendIsolated
+        legendItems = [buildIsolatedLegendItem(config.legendIsolated)]
+        const nonIsolatedValues = orderedValues.filter(
+            (v) => v < min || v > max
+        )
+        if (nonIsolatedValues.length > 0) {
+            minValue = nonIsolatedValues[0]
+            maxValue = nonIsolatedValues.at(-1)
+        }
     }
 
     const legend = {
@@ -187,6 +324,11 @@ const thematicLoader = async ({
                       getDateArray(config.endDate)
                   ),
         items: legendItems,
+        decimalPlaces: config.legendDecimalPlaces,
+    }
+
+    if (typeof orgUnitsWithoutCoordsCount === 'number') {
+        legend.orgUnitsWithoutCoordinatesCount = orgUnitsWithoutCoordsCount
     }
 
     if (dimensions && dimensions.length) {
@@ -198,18 +340,6 @@ const thematicLoader = async ({
         )
     }
 
-    if (noDataColor && Array.isArray(legend.items)) {
-        legend.items.push({
-            color: noDataColor,
-            name: i18n.t('No data'),
-            noData: true,
-        })
-    }
-
-    if (isSingleMap) {
-        legend.items.forEach((item) => (item.count = 0))
-    }
-
     if (isBubbleMap) {
         legend.bubbles = {
             radiusLow,
@@ -217,19 +347,93 @@ const thematicLoader = async ({
             minValue,
             maxValue,
             color: isSingleColor ? colorScale : null,
+            legendDecimalPlaces: config.legendDecimalPlaces,
+        }
+        if (!isSingleColor) {
+            const regularItems = legend.items.filter(isRegularLegendItem)
+            if (regularItems.length) {
+                minValue = regularItems[0].startValue
+                maxValue = regularItems.at(-1).endValue
+                legend.bubbles.minValue ??= minValue
+                legend.bubbles.maxValue ??= maxValue
+            }
         }
     }
 
+    let unclassifiedLegendItem = null
+    if (hasUnclassifiedClass) {
+        unclassifiedLegendItem = {
+            color: config.unclassifiedLegend.color,
+            name: config.unclassifiedLegend.name || i18n.t('Unclassified'),
+            isUnclassified: true,
+        }
+        legend.items.push(unclassifiedLegendItem)
+    }
+
+    let noDataLegendItem = null
+    if (hasNoDataClass) {
+        noDataLegendItem = {
+            color: config.noDataLegend.color,
+            name: config.noDataLegend.name || i18n.t('No data'),
+            isNoData: true,
+        }
+        legend.items.push(noDataLegendItem)
+    }
+
+    // Counting for Timeline / Split would be ambiguous
+    if (isSingleMap) {
+        legend.items.forEach((item) => (item.count = 0))
+    }
+
+    // Feature styling - Helpers
+    // -----
+
+    // Returns the matching classified item, including isolated values, or undefined for no-data / unclassified values
     const getLegendItem = (value) =>
         getLegendItemForValue({
             value,
-            legendItems: legend.items.filter((item) => !item.noData),
-            clamp: !legendSet,
+            valueFormat,
+            method,
+            legendItems: legend.items,
+            clamp:
+                !isPredefined &&
+                method !== CLASSIFICATION_LOGARITHMIC &&
+                method !== CLASSIFICATION_STANDARD_DEVIATION,
         })
 
-    if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
-        minValue = legend.items[0].startValue
-        maxValue = legend.items[legend.items.length - 1].endValue
+    const getFeatureColor = (legendItem, { isNoData, isUnclassified }) => {
+        if (legendItem) {
+            return { color: legendItem.color }
+        }
+        if (isNoData) {
+            return { color: noDataLegendItem.color }
+        }
+        if (isUnclassified) {
+            return { color: unclassifiedLegendItem.color }
+        }
+        return { color: colorScale }
+    }
+
+    const getFeatureLegend = (legendItem, { isNoData, isUnclassified }) => {
+        if (legendItem) {
+            return {
+                legend: legendItem.name,
+                range: formatRangeWithSeparator(
+                    legendItem,
+                    keyAnalysisDigitGroupSeparator,
+                    {
+                        precision: config.legendDecimalPlaces,
+                    }
+                ),
+            }
+        }
+        if (isNoData) {
+            return { legend: noDataLegendItem.name }
+        }
+        if (isUnclassified) {
+            return { legend: unclassifiedLegendItem.name }
+        }
+        return {}
     }
 
     const getRadiusForValue = scaleSqrt()
@@ -237,28 +441,81 @@ const thematicLoader = async ({
         .domain([minValue, maxValue])
         .clamp(true)
 
-    if (!valueFeatures.length) {
-        if (!features.length) {
-            alerts.push({
-                code: WARNING_NO_OU_COORD,
-                message: i18n.t('Thematic layer'),
-            })
-        } else {
-            alerts.push({
-                code: WARNING_NO_DATA,
-                message: name,
-            })
+    const getFeatureRadius = (
+        legendItem,
+        { isNoData, isUnclassified },
+        value
+    ) => {
+        if (legendItem?.isIsolated || isNoData || isUnclassified) {
+            return { radius: THEMATIC_RADIUS_DEFAULT }
+        }
+        return { radius: getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT }
+    }
+
+    const countLegendItem = (legendItem, { isNoData, isUnclassified }) => {
+        let specialItem = null
+        if (isNoData) {
+            specialItem = noDataLegendItem
+        } else if (isUnclassified) {
+            specialItem = unclassifiedLegendItem
+        }
+        const item = legendItem ?? specialItem
+        if (item) {
+            item.count++
         }
     }
 
-    if (coordinateField && !associatedGeometries.length) {
-        alerts.push({
-            code: WARNING_NO_GEOMETRY_COORD,
-            message: coordinateField.name,
-        })
-    }
+    // Feature styling - Processing
+    // -----
 
-    if (valuesByPeriod) {
+    if (isSingleMap) {
+        // Style and filter features in place
+        features = features.flatMap(({ id, geometry, properties }) => {
+            const value = valueById[id]
+            const legendItem = getLegendItem(value)
+            const isNoData = !hasValue(value)
+            const isUnclassified = !isSingleColor && !legendItem && !isNoData
+
+            if (isNoData && !hasNoDataClass) {
+                return []
+            }
+            if (isUnclassified && !hasUnclassifiedClass) {
+                return []
+            }
+
+            const isPoint = geometry.type === 'Point'
+            const { hasAdditionalGeometry } = properties
+
+            Object.assign(properties, {
+                ...getFeatureColor(legendItem, { isNoData, isUnclassified }),
+                ...getFeatureLegend(legendItem, { isNoData, isUnclassified }),
+                ...getFeatureRadius(
+                    legendItem,
+                    {
+                        isNoData,
+                        isUnclassified,
+                    },
+                    value
+                ),
+                ...(hasAdditionalGeometry &&
+                    legendItem &&
+                    isPoint && { color: ORG_UNIT_COLOR }),
+                ...(hasAdditionalGeometry && {
+                    radius: ORG_UNIT_RADIUS_SMALL,
+                }),
+                value: Number.isFinite(value)
+                    ? formatWithSeparator(value, keyAnalysisDigitGroupSeparator)
+                    : rawValueById[id], // Shown in tooltip, label, pop-up, data table
+                rawValue: value, // Numeric form for data table sorting
+            })
+
+            if (!hasAdditionalGeometry) {
+                countLegendItem(legendItem, { isUnclassified, isNoData })
+            }
+
+            return [{ id, geometry, properties }]
+        })
+    } else {
         const periods = Object.keys(valuesByPeriod)
         periods.forEach((period) => {
             const orgUnits = Object.keys(valuesByPeriod[period])
@@ -266,55 +523,35 @@ const thematicLoader = async ({
                 const item = valuesByPeriod[period][orgunit]
                 const value = Number(item.value)
                 const legendItem = getLegendItem(value)
+                const isNoData = !hasValue(item.value)
+                const isUnclassified =
+                    !isSingleColor && !legendItem && !isNoData
 
-                if (isSingleColor) {
-                    item.color = colorScale
-                } else if (legendItem) {
-                    item.color = legendItem.color
+                // No data org units are absent from valuesByPeriod;
+                if (isUnclassified && !hasUnclassifiedClass) {
+                    Object.assign(item, { isUnclassified: true })
+                    return
                 }
+                // ThematicLayer handles no data and unclassified inclusion/exclusion
 
-                item.radius = getRadiusForValue(value)
+                Object.assign(item, {
+                    ...getFeatureColor(legendItem, {
+                        isNoData,
+                        isUnclassified,
+                    }),
+                    ...getFeatureRadius(
+                        legendItem,
+                        { isNoData, isUnclassified },
+                        value
+                    ),
+                })
             })
-        })
-    } else {
-        const noDataLegendItem = legend.items.find((i) => i.noData === true)
-        valueFeatures.forEach(({ id, geometry, properties }) => {
-            const value = valueById[id]
-            const legendItem = getLegendItem(value)
-            const isPoint = geometry.type === 'Point'
-            const { hasAdditionalGeometry } = properties
-
-            if (isSingleColor) {
-                properties.color = hasValue(value)
-                    ? colorScale
-                    : noDataLegendItem?.color
-            } else if (legendItem) {
-                properties.color =
-                    hasAdditionalGeometry && isPoint
-                        ? ORG_UNIT_COLOR
-                        : legendItem.color
-                properties.legend = legendItem.name // Shown in data table
-                properties.range = `${legendItem.startValue} - ${legendItem.endValue}` // Shown in data table
-            }
-
-            // Only count org units once in legend
-            if (!hasAdditionalGeometry) {
-                const targetItem = legendItem || noDataLegendItem
-                if (targetItem) {
-                    targetItem.count++
-                }
-            }
-
-            properties.value = value
-            properties.radius = hasAdditionalGeometry
-                ? ORG_UNIT_RADIUS_SMALL
-                : getRadiusForValue(value) || THEMATIC_RADIUS_DEFAULT
         })
     }
 
     return {
         ...config,
-        data: valueFeatures,
+        data: features,
         periods,
         valuesByPeriod,
         name,
@@ -324,9 +561,22 @@ const thematicLoader = async ({
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
         loadError,
     }
+}
+
+// Resolves the legendSet to use: config > dataItem fallback (when no explicit method),
+// then fetches the full legendSet from the server. Returns null if not found or deleted.
+const resolveLegendSet = async (config, dataItem, engine) => {
+    const legendSet =
+        config.legendSet ?? (config.method ? null : dataItem.legendSet)
+    if (!legendSet) {
+        return null
+    }
+    const result = await engine.query(LEGEND_SET_QUERY, {
+        variables: { id: legendSet.id },
+    })
+    return result.legendSet ?? null
 }
 
 const getPeriodsFromMetaData = ({ dimensions, items }) =>
@@ -356,22 +606,28 @@ const getValuesByPeriod = (data) => {
         const period = row[periodIndex]
         const periodObj = (obj[period] = obj[period] || {})
         periodObj[row[ouIndex]] = {
-            value: row[valueIndex],
+            value: Number.parseFloat(row[valueIndex]),
         }
         return obj
     }, {})
 }
 
-// Returns an object mapping org. units and values
-const getValueById = (data) => {
+// Returns numeric (valueById) and raw string (rawValueById) maps in a single pass
+const getValueMapsById = (data) => {
     const { headers, rows } = data
     const ouIndex = findIndex(['name', 'ou'], headers)
     const valueIndex = findIndex(['name', 'value'], headers)
 
-    return rows.reduce((obj, row) => {
-        obj[row[ouIndex]] = parseFloat(row[valueIndex])
-        return obj
-    }, {})
+    return rows.reduce(
+        ({ valueById, rawValueById }, row) => {
+            const id = row[ouIndex]
+            const raw = row[valueIndex]
+            valueById[id] = Number.parseFloat(raw)
+            rawValueById[id] = raw
+            return { valueById, rawValueById }
+        },
+        { valueById: {}, rawValueById: {} }
+    )
 }
 
 // Returns an array of ordered values
@@ -379,7 +635,10 @@ const getOrderedValues = (data) => {
     const { headers, rows } = data
     const valueIndex = findIndex(['name', 'value'], headers)
 
-    return rows.map((row) => parseFloat(row[valueIndex])).sort((a, b) => a - b)
+    return rows
+        .map((row) => Number.parseFloat(row[valueIndex]))
+        .filter((v) => !Number.isNaN(v))
+        .sort((a, b) => a - b)
 }
 
 // Load features and data values from api

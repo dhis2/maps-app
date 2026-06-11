@@ -6,13 +6,10 @@
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
     background-color: #fff;
     font-size: 14px;
-    max-height: calc(100% - 95px);
-    overflow-y: auto;
 }
 
 .dhis2-map-legend.pinned {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-    overflow-y: auto;
 }
 
 .dhis2-map-legend-button {
@@ -27,11 +24,19 @@
 
 .dhis2-map-legend-content {
     cursor: pointer;
-    overflow-y: auto;
     min-width: 150px;
-    max-width: 200px;
-    padding: 10px;
+    max-width: 260px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 6px 6px 0;
     color: #333;
+}
+
+.dhis2-map-legend-title,
+.dhis2-map-legend-content dl,
+.dhis2-map-legend-alert {
+    zoom: 0.85;
+    max-width: 245px;
 }
 
 .dhis2-map-legend-title {
@@ -39,6 +44,29 @@
     font-size: 14px;
     line-height: 18px;
     padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.dhis2-map-legend-title-text {
+    flex: 1;
+}
+
+.dhis2-map-legend-visibility-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #555;
+    display: flex;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+.dhis2-map-legend-visibility-btn:hover {
+    color: #000;
 }
 
 .dhis2-map-legend-period {
@@ -47,5 +75,9 @@
 }
 
 .dhis2-map-legend-alert {
-    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.dhis2-map-legend-content dl {
+    margin-right: 0;
 }

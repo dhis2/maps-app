@@ -103,6 +103,32 @@ describe('geojson utils', () => {
             const getter = buildEventGeometryGetter(headers)
             expect(getter(dummyEvent)).toEqual(point)
         })
+
+        it('Should return null when geometry value is null', () => {
+            const getter = buildEventGeometryGetter(headers)
+            const eventWithNoGeom = [
+                'MyID',
+                null,
+                JSON.stringify(stringCoords),
+                54321,
+                arrayCoords,
+                1234,
+            ]
+            expect(getter(eventWithNoGeom)).toBeNull()
+        })
+
+        it('Should return null when geometry value is empty string', () => {
+            const getter = buildEventGeometryGetter(headers)
+            const eventWithEmptyGeom = [
+                'MyID',
+                '',
+                JSON.stringify(stringCoords),
+                54321,
+                arrayCoords,
+                1234,
+            ]
+            expect(getter(eventWithEmptyGeom)).toBeNull()
+        })
     })
 
     describe('createEventFeatures', () => {
@@ -234,6 +260,25 @@ describe('geojson utils', () => {
                     geometry: point,
                 }))
             )
+        })
+
+        it('Should split rows with null geometry into dataWithoutCoords', () => {
+            const noGeomRow = ['val', 'psi_nogeom', 'id_nogeom', null, 'other']
+            const responseWithMissing = {
+                headers,
+                rows: [...rows, noGeomRow],
+                metaData,
+            }
+            const out = createEventFeatures(responseWithMissing)
+            expect(out.data).toHaveLength(rows.length)
+            expect(out.dataWithoutCoords).toHaveLength(1)
+            expect(out.dataWithoutCoords[0].id).toBe('psi_nogeom')
+            expect(out.dataWithoutCoords[0].geometry).toBeNull()
+        })
+
+        it('Should return empty dataWithoutCoords when all rows have geometry', () => {
+            const out = createEventFeatures(response)
+            expect(out.dataWithoutCoords).toHaveLength(0)
         })
     })
 

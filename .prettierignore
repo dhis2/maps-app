@@ -4,7 +4,8 @@ src/locales
 build
 cypress/fixtures/*
 cypress.env.json
-docs
+docs/maps.md
+docs/resources/
 colorbrewer.js
 
 

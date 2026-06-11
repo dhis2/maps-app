@@ -31,7 +31,10 @@ export const useLayersLoader = () => {
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
-    const { currentUser } = useCachedData()
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+        currentUser,
+    } = useCachedData()
     const { showAlerts } = useLoaderAlerts()
     const allLayers = useSelector((state) => state.map.mapViews)
     const dataTable = useSelector((state) => state.dataTable)
@@ -50,6 +53,7 @@ export const useLayersLoader = () => {
                 config,
                 engine,
                 keyAnalysisDisplayProperty, // name/shortName
+                keyAnalysisDigitGroupSeparator, // NONE/SPACE/COMMA
                 userId,
                 baseUrl,
                 analyticsEngine, // Thematic and Event loader
@@ -108,6 +112,7 @@ export const useLayersLoader = () => {
         allLayers,
         dispatch,
         keyAnalysisDisplayProperty,
+        keyAnalysisDigitGroupSeparator,
         userId,
         engine,
         analyticsEngine,
