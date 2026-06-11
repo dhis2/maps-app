@@ -81,7 +81,7 @@ const AppWrapper = () => {
     useEffect(() => {
         if (didReplaceLegacyUrl) {
             // replaceState doesn't fire popstate; notify shell of URL change
-            window.dispatchEvent(new PopStateEvent('popstate', { state: null }))
+            dispatchEvent(new PopStateEvent('popstate', { state: null }))
         }
     }, [])
 
