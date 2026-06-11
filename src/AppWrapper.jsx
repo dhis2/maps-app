@@ -4,7 +4,7 @@ import { CssVariables } from '@dhis2/ui'
 import log from 'loglevel'
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.jsx'
 import {
@@ -17,14 +17,15 @@ import store from './store/index.js'
 import { USER_DATASTORE_NAMESPACE } from './util/analyticalObject.js'
 import { appQueries, providerDataTransformation } from './util/app.js'
 import './locales/index.js'
-import history from './util/history.js'
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 )
 
-const replaceLegacyUrl = () => {
-    // support legacy urls
+// Redirect legacy ?id=... query-param URLs to hash URLs via a real navigation
+// so the v42 global shell never stores the query param and can't re-inject it
+// on subsequent popstate events.
+const redirectLegacyUrl = () => {
     const queryParams = queryString.parse(window.location.search, {
         parseBooleans: true,
     })
@@ -32,37 +33,20 @@ const replaceLegacyUrl = () => {
 
     if (queryParams.id) {
         // /?id=ytkZY3ChM6J
-        // /?id=ZBjCfSaLSqD&interpretationid=yKqhXZdeJ6a
-        // /?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a
-
+        // /?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a  (lowercase key also handled)
         const interpretationId =
             queryParams.interpretationId || queryParams.interpretationid
-
-        const interpretationQueryParams = interpretationId
+        const suffix = interpretationId
             ? `?interpretationId=${interpretationId}`
             : ''
-
-        // replace history && hash history
-        window.history.replaceState(
-            {},
-            '',
-            `${base}#/${queryParams.id}${interpretationQueryParams}`
-        )
-        history.replace(`/${queryParams.id}${interpretationQueryParams}`)
-        return true
+        window.location.replace(`${base}#/${queryParams.id}${suffix}`)
     } else if (queryParams.currentAnalyticalObject === true) {
         // /?currentAnalyticalObject=true
-
-        // replace history && hash history
-        window.history.replaceState({}, '', `${base}#/currentAnalyticalObject`)
-        history.replace('/currentAnalyticalObject')
-        return true
+        window.location.replace(`${base}#/currentAnalyticalObject`)
     }
-    return false
 }
 
-// module-level: history.location must be updated before child effects run
-const didReplaceLegacyUrl = replaceLegacyUrl()
+redirectLegacyUrl()
 
 const InterpretationsProvider = ({ children }) => {
     const { currentUser } = useCachedData()
@@ -78,13 +62,6 @@ InterpretationsProvider.propTypes = {
 }
 
 const AppWrapper = () => {
-    useEffect(() => {
-        if (didReplaceLegacyUrl) {
-            // replaceState doesn't fire popstate; notify shell of URL change
-            dispatchEvent(new PopStateEvent('popstate', { state: null }))
-        }
-    }, [])
-
     return (
         <ReduxProvider store={store}>
             <DataStoreProvider namespace={USER_DATASTORE_NAMESPACE}>
