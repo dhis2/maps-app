@@ -31,13 +31,12 @@ const externalLoader = async ({ config: layer, engine }) => {
     return {
         ...layer,
         layer: EXTERNAL_LAYER,
-        name: config.name,
+        name: config.name, // Overrides layer.name from spread — redundant on 2.42+ (DHIS2-16088), remove when 2.41 support is dropped
         legend,
         config,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
     }
 }
 

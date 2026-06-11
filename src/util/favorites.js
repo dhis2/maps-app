@@ -1,13 +1,17 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
     EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
+    FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    ORG_UNIT_LAYER,
+    THEMATIC_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
-    'basemap',
+    // 'basemap' and 'basemaps' removed — set exclusively by getBasemapPayload
     'id',
     'latitude',
     'longitude',
@@ -52,6 +56,9 @@ const validLayerProperties = [
     'labelFontWeight',
     'labelFontColor',
     'labelTemplate',
+    'countFeaturesWithoutCoordinates',
+    'legendDecimalPlaces',
+    'legendIsolated',
     'lastUpdated',
     'layer',
     'layerId',
@@ -59,6 +66,9 @@ const validLayerProperties = [
     'method',
     'name',
     'noDataColor',
+    'noDataLegend',
+    'unclassifiedLegend',
+    'hidden',
     'opacity',
     'organisationUnitColor',
     'organisationUnitGroupSet',
@@ -102,28 +112,47 @@ export const cleanMapConfig = ({
     config,
     defaultBasemapId,
     cleanMapviewConfig = true,
+    serverVersion,
 }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: getBasemapString(config.basemap, defaultBasemapId),
+    ...getBasemapPayload(config.basemap, defaultBasemapId, serverVersion),
     mapViews: config.mapViews.map((view) =>
         cleanLayerConfig(view, cleanMapviewConfig)
     ),
 })
 
-const getBasemapString = (basemap, defaultBasemapId) => {
-    if (!basemap) {
-        return defaultBasemapId
+// VERSION-TOGGLE: https://dhis2.atlassian.net/browse/DHIS2-20417
+const getBasemapPayload = (basemap, defaultBasemapId, serverVersion) => {
+    if (serverVersion?.minor >= 43) {
+        return {
+            basemaps: [
+                {
+                    id: basemap?.id ?? defaultBasemapId,
+                    opacity: basemap?.opacity ?? 1,
+                    hidden: basemap?.isVisible === false,
+                },
+            ],
+        }
     }
 
-    if (basemap.isVisible === false) {
-        return 'none'
+    // Legacy: store as JSON to preserve opacity and id when hidden
+    return {
+        basemap: JSON.stringify({
+            id: basemap?.id ?? defaultBasemapId,
+            opacity: basemap?.opacity ?? 1,
+            hidden: basemap?.isVisible === false,
+        }),
     }
-
-    return basemap.id || defaultBasemapId
 }
 
 const cleanLayerConfig = (layer, cleanMapviewConfig) => ({
-    ...models2objects(pick(validLayerProperties, layer), cleanMapviewConfig),
+    ...models2objects(
+        pick(validLayerProperties, {
+            ...layer,
+            hidden: layer.isVisible === false,
+        }),
+        cleanMapviewConfig
+    ),
 })
 
 // TODO: This feels hacky, find better way to clean map configs before saving
@@ -191,6 +220,40 @@ const models2objects = (layer, cleanMapviewConfig) => {
         delete layer.relationshipLineColor
         delete layer.relationshipOutsideProgram
         delete layer.periodType
+    } else if (
+        layerType === THEMATIC_LAYER ||
+        layerType === EVENT_LAYER ||
+        layerType === ORG_UNIT_LAYER ||
+        layerType === FACILITY_LAYER
+    ) {
+        if (cleanMapviewConfig) {
+            const configData = {}
+            if (layer.legendDecimalPlaces !== undefined) {
+                configData.legendDecimalPlaces = layer.legendDecimalPlaces
+            }
+            if (layer.legendIsolated !== undefined) {
+                configData.legendIsolated = layer.legendIsolated
+            }
+            if (layer.unclassifiedLegend) {
+                configData.unclassifiedLegend = layer.unclassifiedLegend
+            }
+            if (layer.noDataLegend) {
+                layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
+                configData.noDataLegend = layer.noDataLegend
+            }
+            if (layer.countFeaturesWithoutCoordinates) {
+                configData.countFeaturesWithoutCoordinates = true
+            }
+            if (Object.keys(configData).length) {
+                layer.config = JSON.stringify(configData)
+            }
+        }
+
+        delete layer.legendDecimalPlaces
+        delete layer.legendIsolated
+        delete layer.noDataLegend
+        delete layer.unclassifiedLegend
+        delete layer.countFeaturesWithoutCoordinates
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {

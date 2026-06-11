@@ -7,7 +7,9 @@ import styles from './styles/Layer.module.css'
 const Layer = ({ layer, onClick }) => {
     const { img, type, name } = layer
     const label = name || i18n.t(type)
-    const dataTest = `addlayeritem-${label.toLowerCase().replace(/\s/g, '_')}`
+    const dataTest = `addlayeritem-${label
+        .toLowerCase()
+        .replaceAll(/\s/g, '_')}`
 
     return (
         <div

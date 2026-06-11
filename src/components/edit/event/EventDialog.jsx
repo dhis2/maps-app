@@ -17,6 +17,7 @@ import {
     setEndDate,
     setBackupPeriodsDates,
     setOrgUnits,
+    setCountFeaturesWithoutCoordinates,
 } from '../../../actions/layerEdit.js'
 import {
     EVENT_COLOR,
@@ -35,12 +36,14 @@ import { cssColor } from '../../../util/colors.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
+import { isValidIsolatedClass } from '../../classification/IsolatedClass.jsx'
 import {
     Tab,
     Tabs,
     NumberField,
     ImageSelect,
     ColorPicker,
+    Checkbox,
 } from '../../core/index.js'
 import CoordinateField from '../../dataItem/CoordinateField.jsx'
 import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
@@ -58,6 +61,7 @@ import EventStatusSelect from './EventStatusSelect.jsx'
 class EventDialog extends Component {
     static propTypes = {
         setBackupPeriodsDates: PropTypes.func.isRequired,
+        setCountFeaturesWithoutCoordinates: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
         setEventCoordinateField: PropTypes.func.isRequired,
@@ -74,6 +78,7 @@ class EventDialog extends Component {
         onLayerValidation: PropTypes.func.isRequired,
         backupPeriodsDates: PropTypes.object,
         columns: PropTypes.array,
+        countFeaturesWithoutCoordinates: PropTypes.bool,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
@@ -83,6 +88,7 @@ class EventDialog extends Component {
         eventStatus: PropTypes.string,
         // fallbackCoordinateField: PropTypes.string,
         filters: PropTypes.array,
+        legendIsolated: PropTypes.object,
         legendSet: PropTypes.object,
         method: PropTypes.number,
         orgUnits: PropTypes.object,
@@ -205,6 +211,7 @@ class EventDialog extends Component {
         const {
             // layer options
             columns = [],
+            countFeaturesWithoutCoordinates,
             eventClustering,
             eventStatus,
             eventCoordinateField,
@@ -230,6 +237,7 @@ class EventDialog extends Component {
             setEventPointRadius,
             // setFallbackCoordinateField,
             setPeriod,
+            setCountFeaturesWithoutCoordinates,
         } = this.props
 
         const {
@@ -403,6 +411,15 @@ class EventDialog extends Component {
                                     disabled={eventClustering}
                                     defaultRadius={EVENT_BUFFER}
                                 />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count events without coordinates'
+                                    )}
+                                    checked={!!countFeaturesWithoutCoordinates}
+                                    onChange={
+                                        setCountFeaturesWithoutCoordinates
+                                    }
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
@@ -449,6 +466,7 @@ class EventDialog extends Component {
             method,
             legendSet,
             styleDataItem,
+            legendIsolated,
         } = this.props
 
         const period = getPeriodFromFilters(filters) || {
@@ -494,6 +512,14 @@ class EventDialog extends Component {
             )
         }
 
+        if (!isValidIsolatedClass(legendIsolated)) {
+            return this.setErrorState(
+                'isolatedClassError',
+                i18n.t('Isolated class max should be greater than min'),
+                'style'
+            )
+        }
+
         if (
             styleDataItem &&
             styleDataItem.optionSet &&
@@ -523,6 +549,7 @@ export default connect(
         setStartDate,
         setEndDate,
         setOrgUnits,
+        setCountFeaturesWithoutCoordinates,
     },
     null,
     {
