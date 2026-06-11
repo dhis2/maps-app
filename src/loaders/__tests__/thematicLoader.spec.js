@@ -1,4 +1,4 @@
-import { getValuesByPeriod, getValueById } from '../thematicLoader.js'
+import { getValuesByPeriod, getValueMapsById } from '../thematicLoader.js'
 
 const headers = [{ name: 'pe' }, { name: 'ou' }, { name: 'value' }]
 
@@ -8,7 +8,7 @@ describe('thematicLoader value extraction', () => {
     // Both extractors must yield numbers so integers render without decimals.
     // See DHIS2-21037.
 
-    test('getValueById coerces string values to numbers', () => {
+    test('getValueMapsById coerces string values to numbers', () => {
         const data = {
             headers,
             rows: [
@@ -17,7 +17,7 @@ describe('thematicLoader value extraction', () => {
             ],
         }
 
-        expect(getValueById(data)).toEqual({
+        expect(getValueMapsById(data).valueById).toEqual({
             ou1: 16082,
             ou2: 118.13,
         })
@@ -44,15 +44,15 @@ describe('thematicLoader value extraction', () => {
         })
     })
 
-    test('getValuesByPeriod and getValueById agree on the same value', () => {
+    test('getValuesByPeriod and getValueMapsById agree on the same value', () => {
         const data = {
             headers,
             rows: [['202501', 'ou1', '238.0']],
         }
 
-        const byId = getValueById(data)
+        const { valueById } = getValueMapsById(data)
         const byPeriod = getValuesByPeriod(data)
 
-        expect(byPeriod['202501'].ou1.value).toBe(byId.ou1)
+        expect(byPeriod['202501'].ou1.value).toBe(valueById.ou1)
     })
 })
