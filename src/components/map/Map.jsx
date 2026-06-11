@@ -224,7 +224,7 @@ class Map extends Component {
                                     nameProperty={nameProperty}
                                     resizeCount={resizeCount}
                                     {...config}
-                                    externalPeriod={period}
+                                    externalPeriod={period} // Timeline period from state takes precedence over config
                                 />
                             )
                         })}

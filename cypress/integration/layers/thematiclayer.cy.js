@@ -590,7 +590,7 @@ context('Thematic Layers', () => {
                 .should('not.eq', textBefore)
         })
     })
-      
+
     it('does not inherit period when adding a new thematic layer after single thematic layer', () => {
         const SPECIFIC_YEAR = CURRENT_YEAR - 3
 
