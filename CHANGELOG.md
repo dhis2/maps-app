@@ -1,3 +1,10 @@
+## [101.12.2](https://github.com/dhis2/maps-app/compare/v101.12.1...v101.12.2) (2026-06-11)
+
+
+### Bug Fixes
+
+* prevent timeline crash on load failure and fix period after drilling up/down [DHIS2-19063] [DHIS2-21113] ([#3664](https://github.com/dhis2/maps-app/issues/3664)) ([e9bd0c3](https://github.com/dhis2/maps-app/commit/e9bd0c34e2c1c4952ec35497bc8eb94b7e9f59f7))
+
 ## [101.12.1](https://github.com/dhis2/maps-app/compare/v101.12.0...v101.12.1) (2026-06-11)
 
 
