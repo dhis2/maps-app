@@ -114,6 +114,12 @@ export const useLoadMap = () => {
             })
             dispatchEvent(popStateEvent)
 
+            // normalise bare '#' to '#/' — shell treats them differently
+            if (!location.pathname) {
+                history.replace('/')
+                return
+            }
+
             const params = getHashUrlParams(location)
 
             if (

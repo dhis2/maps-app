@@ -4,7 +4,7 @@ import { CssVariables } from '@dhis2/ui'
 import log from 'loglevel'
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import App from './components/app/App.jsx'
 import {
@@ -49,14 +49,20 @@ const replaceLegacyUrl = () => {
             `${base}#/${queryParams.id}${interpretationQueryParams}`
         )
         history.replace(`/${queryParams.id}${interpretationQueryParams}`)
+        return true
     } else if (queryParams.currentAnalyticalObject === true) {
         // /?currentAnalyticalObject=true
 
         // replace history && hash history
         window.history.replaceState({}, '', `${base}#/currentAnalyticalObject`)
         history.replace('/currentAnalyticalObject')
+        return true
     }
+    return false
 }
+
+// module-level: history.location must be updated before child effects run
+const didReplaceLegacyUrl = replaceLegacyUrl()
 
 const InterpretationsProvider = ({ children }) => {
     const { currentUser } = useCachedData()
@@ -72,7 +78,12 @@ InterpretationsProvider.propTypes = {
 }
 
 const AppWrapper = () => {
-    replaceLegacyUrl()
+    useEffect(() => {
+        if (didReplaceLegacyUrl) {
+            // replaceState doesn't fire popstate; notify shell of URL change
+            window.dispatchEvent(new PopStateEvent('popstate', { state: null }))
+        }
+    }, [])
 
     return (
         <ReduxProvider store={store}>
