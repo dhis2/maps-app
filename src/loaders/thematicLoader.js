@@ -170,6 +170,7 @@ const thematicLoader = async ({
                 : {}),
             name: dataItem ? dataItem.name : i18n.t('Thematic layer'),
             data: [],
+            periods: [],
             legend: null,
             isLoaded: true,
             isLoading: false,
