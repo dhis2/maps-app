@@ -4,9 +4,11 @@ import {
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
+    CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import {
     hasClasses,
     getStaticFilterFromPeriod,
@@ -14,10 +16,11 @@ import {
 } from '../util/earthEngine.js'
 import { sortLegendItems } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
-import { getRoundToPrecisionFn } from '../util/numbers.js'
+import { getRoundToPrecisionFn, formatWithSeparator } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
+    getOrgUnitsWithoutCoordsCount,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
@@ -25,83 +28,25 @@ const earthEngineLoader = async ({
     config,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     userId,
 }) => {
-    const { format, rows, aggregationType } = config
+    const { format, rows, aggregationType, countFeaturesWithoutCoordinates } =
+        config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
 
     let loadError
     const alerts = []
 
-    let layerConfig = {}
+    // Config parsing
+    // -----
+
+    const layerConfig = parseJsonConfig(config.config)
     let dataset
-    let features
-
-    if (orgUnits && orgUnits.length) {
-        const orgUnitIds = orgUnits.map((item) => item.id)
-        let mainFeatures
-        let associatedGeometries
-
-        try {
-            const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
-                variables: {
-                    orgUnitIds,
-                    keyAnalysisDisplayProperty,
-                    userId,
-                },
-            })
-
-            mainFeatures = geoFeatureData.geoFeatures
-                ? toGeoJson(geoFeatureData.geoFeatures)
-                : null
-
-            if (coordinateField) {
-                const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
-                    variables: {
-                        orgUnitIds,
-                        keyAnalysisDisplayProperty,
-                        coordinateField: coordinateField.id,
-                        userId,
-                    },
-                })
-
-                associatedGeometries = coordFieldData.geoFeatures
-                    ? toGeoJson(coordFieldData.geoFeatures)
-                    : null
-
-                if (!associatedGeometries.length) {
-                    alerts.push({
-                        code: WARNING_NO_GEOMETRY_COORD,
-                        message: coordinateField.name,
-                    })
-                }
-            }
-
-            features = addAssociatedGeometries(
-                mainFeatures,
-                associatedGeometries
-            )
-
-            if (!features.length) {
-                alerts.push({
-                    code: WARNING_NO_OU_COORD,
-                    message: i18n.t('Earth Engine layer'),
-                })
-            }
-        } catch (error) {
-            loadError = error.message || error
-            alerts.push({
-                code: ERROR_CRITICAL,
-                message: error.message || error,
-            })
-        }
-    }
 
     if (typeof config.config === 'string') {
         // From database as favorite
-        layerConfig = JSON.parse(config.config)
-
         if (layerConfig.image) {
             // Backward compability for layers with periods saved before 2.36
             const filter = layerConfig.filter?.[0]
@@ -148,6 +93,98 @@ const earthEngineLoader = async ({
     } else {
         dataset = getEarthEngineLayer(layerConfig.id)
     }
+
+    // Data loading
+    // -----
+
+    let features
+    let orgUnitsWithoutCoordsCount = null
+
+    if (orgUnits && orgUnits.length) {
+        const orgUnitIds = orgUnits.map((item) => item.id)
+        let mainFeatures
+        let associatedGeometries
+
+        try {
+            const geoFeatureData = await engine.query(GEOFEATURES_QUERY, {
+                variables: {
+                    orgUnitIds,
+                    keyAnalysisDisplayProperty,
+                    userId,
+                },
+            })
+
+            mainFeatures = geoFeatureData.geoFeatures
+                ? toGeoJson(geoFeatureData.geoFeatures)
+                : null
+
+            if (countFeaturesWithoutCoordinates) {
+                const result = await getOrgUnitsWithoutCoordsCount({
+                    engine,
+                    orgUnitIds,
+                    userId,
+                    features: mainFeatures || [],
+                })
+                if (result.error) {
+                    alerts.push({
+                        warning: true,
+                        code: CUSTOM_ALERT,
+                        message: i18n.t(
+                            'Could not count org units without coordinates'
+                        ),
+                    })
+                } else {
+                    orgUnitsWithoutCoordsCount = result.count
+                    if (result.count > 0) {
+                        config.dataWithoutCoords = result.missingOrgUnits
+                    }
+                }
+            }
+
+            if (coordinateField) {
+                const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
+                    variables: {
+                        orgUnitIds,
+                        keyAnalysisDisplayProperty,
+                        coordinateField: coordinateField.id,
+                        userId,
+                    },
+                })
+
+                associatedGeometries = coordFieldData.geoFeatures
+                    ? toGeoJson(coordFieldData.geoFeatures)
+                    : null
+
+                if (!associatedGeometries.length) {
+                    alerts.push({
+                        code: WARNING_NO_GEOMETRY_COORD,
+                        message: coordinateField.name,
+                    })
+                }
+            }
+
+            features = addAssociatedGeometries(
+                mainFeatures,
+                associatedGeometries
+            )
+
+            if (!features.length) {
+                alerts.push({
+                    code: WARNING_NO_OU_COORD,
+                    message: i18n.t('Earth Engine layer'),
+                })
+            }
+        } catch (error) {
+            loadError = error.message || error
+            alerts.push({
+                code: ERROR_CRITICAL,
+                message: error.message || error,
+            })
+        }
+    }
+
+    // Legend
+    // -----
 
     const layer = {
         ...dataset,
@@ -201,7 +238,15 @@ const earthEngineLoader = async ({
         !hasClasses(aggregationType) &&
         style?.palette
     ) {
-        legend.items = createLegend(style, !maskOperator)
+        legend.items = createLegend(
+            style,
+            !maskOperator,
+            keyAnalysisDigitGroupSeparator
+        )
+    }
+
+    if (typeof orgUnitsWithoutCoordsCount === 'number') {
+        legend.orgUnitsWithoutCoordinatesCount = orgUnitsWithoutCoordsCount
     }
 
     const filter = getStaticFilterFromPeriod(period, filters)
@@ -211,17 +256,21 @@ const earthEngineLoader = async ({
         legend,
         name,
         data,
+        keyAnalysisDigitGroupSeparator,
         filter,
         alerts,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
         loadError,
     }
 }
 
-export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
+export const createLegend = (
+    { min, max, palette, ranges },
+    showBelowMin,
+    keyAnalysisDigitGroupSeparator
+) => {
     if (ranges && ranges.length === palette.length) {
         return sortLegendItems(
             ranges.map((range, index) => ({
@@ -243,19 +292,20 @@ export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
             const item = { color }
 
             if (index === 0 && showBelowMin) {
-                // Less than min
+                // Less than min - name is formatted by LegendItemRange (compact support)
                 item.from = -Infinity
                 item.to = min
-                item.name = '< ' + min
                 to = min
             } else if (+from < max) {
                 item.from = +from
                 item.to = +to
-                item.name = from + ' - ' + to
+                item.name =
+                    formatWithSeparator(from, keyAnalysisDigitGroupSeparator) +
+                    ' – ' +
+                    formatWithSeparator(to, keyAnalysisDigitGroupSeparator)
             } else {
-                // Higher than max
+                // Higher than max - name is formatted by LegendItemRange (compact support)
                 item.from = +from
-                item.name = '> ' + from
             }
 
             from = to

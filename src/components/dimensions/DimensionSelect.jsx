@@ -67,7 +67,7 @@ const DimensionSelect = ({ dimension, onChange }) => {
                 >
                     <div className={styles.dimensions}>
                         <DimensionsPanel
-                            dimensions={data?.dimensions?.dimensions}
+                            dimensions={data?.dimensions?.dimensions ?? []}
                             onDimensionClick={onDimensionClick}
                             selectedIds={[dimension]}
                         />

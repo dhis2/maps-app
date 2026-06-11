@@ -60,4 +60,16 @@ export class EventLayer extends Layer {
 
         return this
     }
+
+    selectIncludeUnclassifiedEvents() {
+        cy.contains('Include unclassified events').click()
+
+        return this
+    }
+
+    selectIncludeNoDataEvents() {
+        cy.contains('Include events with no data').click()
+
+        return this
+    }
 }
