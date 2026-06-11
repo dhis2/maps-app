@@ -82,12 +82,14 @@ context('Thematic Layers', () => {
         // "3.2 - 7.5 (100)"
         // "No data (0)"
         const choroplethLegendTextPattern =
-            /^\s*(\d+(\.\d+)?\s*-\s*\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
+            /^\s*(\d+(\.\d+)?[-–]\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
 
         // Examples of bubble labels:
         // "10.5"
         // "No data"
-        const bubbleLabelTextPattern = /^(\d+(\.\d+)?|No data)$/
+        // "(2)"
+        const bubbleLabelTextPattern =
+            /^(\d+(\.\d+)?|No data|\(\d+\))(\s*\(\d+\))?$/
 
         // Choropleth
         Layer.openDialog('Thematic')
@@ -177,7 +179,9 @@ context('Thematic Layers', () => {
 
         cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
 
-        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken').addToMap()
+        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken')
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         getMaps().click('center')
 
@@ -282,7 +286,8 @@ context('Thematic Layers', () => {
                 n: 7,
                 removeAll: false,
             })
-            .addToMap()
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         Layer.validateDialogClosed(true)
 
@@ -750,10 +755,9 @@ context('Thematic Layers', () => {
         // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
-            .find('h6')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+        cy.getByDataTest('load-error-noticebox')
             .contains(
                 'Organisation unit or organisation unit level is not valid'
             )

@@ -2,7 +2,7 @@ import { OrgUnitDimension } from '@dhis2/analytics'
 import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
@@ -39,6 +39,8 @@ const OrgUnitSelect = ({
             ),
         [dispatch]
     )
+
+    const rootIds = useMemo(() => roots?.map((r) => r.id) ?? [], [roots])
 
     const orgUnits = translateOrgUnitLevels(
         rows?.find((r) => r.dimension === 'ou'),
@@ -79,7 +81,7 @@ const OrgUnitSelect = ({
                 })}
             >
                 <OrgUnitDimension
-                    roots={roots?.map((r) => r.id)}
+                    roots={rootIds}
                     selected={orgUnits}
                     onSelect={setOrgUnitItems}
                     hideUserOrgUnits={hideUserOrgUnits}

@@ -151,6 +151,12 @@ export class ThematicLayer extends Layer {
         return this
     }
 
+    selectIncludeUnclassifiedOU() {
+        cy.contains('Include unclassified org units').click()
+
+        return this
+    }
+
     selectIncludeNoDataOU() {
         cy.contains('Include org units with no data').click()
 

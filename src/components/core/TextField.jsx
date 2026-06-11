@@ -9,6 +9,7 @@ const TextField = ({
     type,
     label,
     value,
+    placeholder,
     dense = true,
     onChange,
     className,
@@ -19,6 +20,7 @@ const TextField = ({
             type={type}
             label={label}
             value={value}
+            placeholder={placeholder}
             onChange={({ value }) => onChange(value)}
         />
     </div>
@@ -29,6 +31,7 @@ TextField.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     dense: PropTypes.bool,
+    placeholder: PropTypes.string,
     type: PropTypes.string,
     value: PropTypes.string,
 }

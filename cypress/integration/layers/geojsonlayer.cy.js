@@ -129,10 +129,9 @@ describe('GeoJSON URL Layer', () => {
         // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
-            .find('h6')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+        cy.getByDataTest('load-error-noticebox')
             .contains(
                 'There was a problem with this layer. Contact a system administrator.'
             )
@@ -194,10 +193,9 @@ describe('GeoJSON URL Layer', () => {
         // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
-            .find('h6')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+        cy.getByDataTest('load-error-noticebox')
             .contains(
                 'There was a problem with this layer. Contact a system administrator.'
             )

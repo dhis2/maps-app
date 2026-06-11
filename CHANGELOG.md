@@ -1,3 +1,10 @@
+# [101.12.0](https://github.com/dhis2/maps-app/compare/v101.11.1...v101.12.0) (2026-06-11)
+
+
+### Features
+
+* enhance map legends, classification, and styling [DHIS2-18242] ([#3661](https://github.com/dhis2/maps-app/issues/3661)) ([c2b725d](https://github.com/dhis2/maps-app/commit/c2b725d417c20b17f3a3be98915834862aecd746))
+
 ## [101.11.1](https://github.com/dhis2/maps-app/compare/v101.11.0...v101.11.1) (2026-06-01)
 
 
