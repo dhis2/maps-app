@@ -12,6 +12,7 @@ import {
 } from '../constants/layers.js'
 import { getLegendItems } from '../util/classify.js'
 import { defaultClasses, defaultColorScale } from '../util/colors.js'
+import { parseWithSeparator } from './numbers.js'
 
 const INDICATOR_QUERY = {
     dimension: {
@@ -43,15 +44,94 @@ const DATA_SET_QUERY = {
     },
 }
 
+const getRange = (item) => {
+    if ('from' in item) {
+        return { start: item.from, end: item.to }
+    }
+    if ('startValue' in item) {
+        return { start: item.startValue, end: item.endValue }
+    }
+    return null
+}
+
 export const sortLegendItems = (items) =>
-    items.sort((a, b) => {
-        if ('from' in a) {
-            return b.from - a.from
+    [...items].sort((a, b) => {
+        const aRange = getRange(a)
+        const bRange = getRange(b)
+
+        if (!aRange && !bRange) {
+            if (a.isNoData && !b.isNoData) {
+                return 1
+            }
+            if (!a.isNoData && b.isNoData) {
+                return -1
+            }
+            return 0
         }
-        if ('startValue' in a) {
-            return b.startValue - a.startValue
+        if (!aRange) {
+            return 1
         }
+        if (!bRange) {
+            return -1
+        }
+
+        if (a.isIsolated && !b.isIsolated) {
+            return 1
+        }
+        if (!a.isIsolated && b.isIsolated) {
+            return -1
+        }
+
+        return bRange.start === aRange.start
+            ? bRange.end - aRange.end
+            : bRange.start - aRange.start
     })
+
+const RANGE_SEPARATOR = /(?<=\d)\s*[-–—]\s*(?=[-\d])/
+const TRAILING_NUMBER = /-?\d[\d,.\s]*$/
+
+const splitRange = (str) => {
+    const parts = String(str).split(RANGE_SEPARATOR)
+    if (parts.length !== 2) {
+        return null
+    }
+    const firstMatch = TRAILING_NUMBER.exec(parts[0])
+    return firstMatch ? { parts, firstMatch } : null
+}
+
+export const parseRange = (str) => {
+    const split = splitRange(str)
+    if (!split) {
+        return [undefined, undefined]
+    }
+    return [
+        parseWithSeparator(split.firstMatch[0]),
+        parseWithSeparator(split.parts[1]),
+    ]
+}
+
+// Strips the embedded numeric range from a labeled name, e.g. "Extreme cold stress -60 - -40" -> "Extreme cold stress".
+// Returns the original name when no range is found or values don't match.
+export const extractLabel = (name, startValue, endValue) => {
+    const split = splitRange(name)
+    if (!split) {
+        return name
+    }
+    const parsedStart = parseWithSeparator(split.firstMatch[0])
+    const parsedEnd = parseWithSeparator(split.parts[1])
+    if (
+        typeof parsedStart !== 'number' ||
+        Number.isNaN(parsedStart) ||
+        typeof parsedEnd !== 'number' ||
+        Number.isNaN(parsedEnd) ||
+        Math.abs(parsedStart - startValue) >= 1e-9 ||
+        Math.abs(parsedEnd - endValue) >= 1e-9
+    ) {
+        return name
+    }
+    const label = split.parts[0].replace(TRAILING_NUMBER, '').trim()
+    return label || name
+}
 
 export const loadDataItemLegendSet = async (dataItem, engine) => {
     if (!dataItem) {
@@ -93,7 +173,7 @@ export const formatLegendItems = (legendItems) => {
     return sortedItems.map((item) => ({
         color: item.color,
         name: item.name,
-        range: item.startValue + ' - ' + item.endValue,
+        range: item.startValue + ' – ' + item.endValue,
     }))
 }
 
@@ -117,33 +197,64 @@ export const getLabelsFromLegendItems = (legendItems) => {
 }
 
 // Returns a legend created from a pre-defined legend set
+export const isRegularLegendItem = (item) =>
+    !item.isNoData && !item.isUnclassified && !item.isIsolated
+
 export const getPredefinedLegendItems = (legendSet) => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color'])
 
-    return sortBy('startValue', legendSet.legends)
-        .map(pickSome)
-        .map((item) =>
-            item.name === `${item.startValue} - ${item.endValue}`
-                ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                : item
-        )
+    return sortBy('startValue', legendSet.legends).map(pickSome)
 }
 
-/* eslint-disable max-params */
-export const getAutomaticLegendItems = (
-    data,
+export const buildIsolatedLegendItem = ({ min, max, color, name }) => ({
+    startValue: min,
+    endValue: max,
+    color,
+    isIsolated: true,
+    ...(name && { name }),
+})
+
+export const getAutomaticLegendItems = ({
+    data, // data must be sorted ascending — getLegendItems treats values[0] as min and values[last] as max
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
-    colorScale = defaultColorScale
-) => {
-    const items = data.length ? getLegendItems(data, method, classes) : []
+    colorScale = defaultColorScale,
+    legendDecimalPlaces,
+    legendIsolated,
+}) => {
+    if (data.length === 0 && !legendIsolated) {
+        return { items: [] }
+    }
 
-    return items.map((item, index) => ({
+    let isolatedItem = null
+    let dataToClassify = data
+
+    if (legendIsolated) {
+        const { min: isolatedMin, max: isolatedMax } = legendIsolated
+        dataToClassify = data.filter((v) => v < isolatedMin || v > isolatedMax)
+        isolatedItem = buildIsolatedLegendItem(legendIsolated)
+
+        if (dataToClassify.length === 0) {
+            return { items: [isolatedItem] }
+        }
+    }
+
+    const classification = getLegendItems(dataToClassify, method, {
+        numClasses: classes,
+        precision: legendDecimalPlaces,
+    })
+    const classifiedItems = classification.items?.map((item, i) => ({
         ...item,
-        color: colorScale[index],
+        color: colorScale[i],
     }))
+
+    return {
+        items: isolatedItem
+            ? [isolatedItem, ...classifiedItems]
+            : classifiedItems,
+        valueFormat: classification.valueFormat,
+    }
 }
-/* eslint-enable max-params */
 
 export const getRenderingLabel = (strategy) => {
     const map = {
@@ -151,4 +262,36 @@ export const getRenderingLabel = (strategy) => {
         [RENDERING_STRATEGY_TIMELINE]: i18n.t('Timeline'),
     }
     return map[strategy] ? ' • ' + map[strategy] : null
+}
+
+const normalize = (str) => String(str).replaceAll(/[\s,]/g, '')
+
+const nameContainsValue = (name, val) => {
+    const normalizedName = normalize(name)
+    const normalizedVal = normalize(val)
+    return new RegExp(String.raw`(?<![\d.])${normalizedVal}(?![\d.])`).test(
+        normalizedName
+    )
+}
+
+const rangeInName = (name, startValue, endValue) =>
+    (String(startValue) !== '' && nameContainsValue(name, startValue)) ||
+    (String(endValue) !== '' && nameContainsValue(name, endValue))
+
+export const legendNamesContainRange = (items) => {
+    const numericItems = items.filter(
+        ({ startValue, endValue }) =>
+            !Number.isNaN(startValue) && !Number.isNaN(endValue)
+    )
+
+    if (!numericItems.length) {
+        return false
+    }
+
+    const itemsWithRange = numericItems.filter(
+        ({ name = '', startValue, endValue }) =>
+            rangeInName(name, startValue, endValue)
+    )
+
+    return itemsWithRange.length / numericItems.length >= 0.5
 }

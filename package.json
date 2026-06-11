@@ -15,7 +15,9 @@
         "validate-commit": "d2-style check --staged",
         "validate-push": "yarn test",
         "cy:open": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress open --e2e'",
-        "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run'"
+        "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run'",
+        "docs:build": "yarn docs:format && node scripts/build-docs.js",
+        "docs:format": "prettier --write --prose-wrap always --print-width 100 'docs/src/*.md'"
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^12.11.0",
@@ -73,6 +75,7 @@
         "redux": "^4.2.1",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.4.2",
+        "simple-statistics": "^7.8.9",
         "styled-jsx": "^4.0.1",
         "url-polyfill": "^1.1.14"
     },

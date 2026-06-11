@@ -119,7 +119,7 @@ export const getPeriodFromFilter = (filter, datasetId) => {
 
     // Remove non-digits from periodId (needed for backward compatibility for population layers saved before 2.41)
     if (!isNightTimeLights && nonDigits.test(periodId)) {
-        periodId = Number(periodId.replace(nonDigits, '')) // Remove non-digits
+        periodId = Number(periodId.replaceAll(nonDigits, '')) // Remove non-digits
     }
 
     return {

@@ -13,6 +13,7 @@ import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData } from '../../util/geojson.js'
+import { parseRange } from '../../util/legend.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
 import { isValidUid } from '../../util/uid.js'
 
@@ -25,7 +26,7 @@ const TYPE_DATE = 'date'
 const INDEX = 'index'
 const NAME = 'name'
 const ID = 'id'
-const VALUE = 'value'
+const VALUE = 'rawValue'
 const LEGEND = 'legend'
 const RANGE = 'range'
 const LEVEL = 'level'
@@ -111,12 +112,13 @@ const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
 
     const customFields = layerHeaders
         .filter(({ name }) => isValidUid(name))
-        .map(({ name: dataKey, column: name, valueType }) => ({
+        .map(({ name: dataKey, column: name, valueType, optionSet }) => ({
             name,
             dataKey,
-            type: numberValueTypes.includes(valueType)
-                ? TYPE_NUMBER
-                : TYPE_STRING,
+            type:
+                !optionSet && numberValueTypes.includes(valueType)
+                    ? TYPE_NUMBER
+                    : TYPE_STRING,
         }))
 
     customFields.push(defaultFieldsMap()[TYPE])
@@ -193,6 +195,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         legend,
         styleDataItem,
         data,
+        dataWithoutCoords,
         dataFilters,
         headers: layerHeaders,
         serverCluster,
@@ -205,25 +208,29 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return null
         }
 
-        if (!data?.length) {
+        const allData = dataWithoutCoords?.length
+            ? [...(data || []), ...dataWithoutCoords]
+            : data
+
+        if (!allData?.length) {
             errorCode.current = ERROR_NO_VALID_DATA
             return null
         }
 
         if (layerType === GEOJSON_URL_LAYER) {
-            return data.map((d) => ({
+            return allData.map((d) => ({
                 ...d.properties,
             }))
         }
 
-        return data
+        return allData
             .filter((d) => !d.properties.hasAdditionalGeometry)
             .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
                 index,
             }))
-    }, [data, aggregations, serverCluster, layerType])
+    }, [data, dataWithoutCoords, aggregations, serverCluster, layerType])
 
     const headers = useMemo(() => {
         if (errorCode.current) {
@@ -298,30 +305,43 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
 
         //sort
         filteredData.sort((a, b) => {
-            a = a[sortField]
-            b = b[sortField]
+            const aVal = a[sortField]
+            const bVal = b[sortField]
 
             // All undefined values should be sorted to the end
-            if (a === undefined && b === undefined) {
+            if (aVal === undefined && bVal === undefined) {
                 return 0
             }
 
-            if (a === undefined) {
-                return 1 // a goes to end
+            if (aVal === undefined) {
+                return 1 // aVal goes to end
             }
 
-            if (b === undefined) {
-                return -1 // b goes to end
+            if (bVal === undefined) {
+                return -1 // bVal goes to end
             }
 
-            if (typeof a === TYPE_NUMBER) {
-                return sortDirection === ASCENDING ? a - b : b - a
+            if (typeof aVal === TYPE_NUMBER) {
+                return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
+            }
+
+            if (sortField === RANGE) {
+                const [aStart, aEnd] = parseRange(aVal)
+                const [bStart, bEnd] = parseRange(bVal)
+                const startDiff =
+                    sortDirection === ASCENDING
+                        ? aStart - bStart
+                        : bStart - aStart
+                if (startDiff !== 0) {
+                    return startDiff
+                }
+                return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
             }
 
             // TODO: Make sure sorting works across different locales
             return sortDirection === ASCENDING
-                ? a.localeCompare(b)
-                : b.localeCompare(a)
+                ? aVal.localeCompare(bVal)
+                : bVal.localeCompare(aVal)
         })
 
         return filteredData.map((item) =>

@@ -73,8 +73,8 @@ GeometryCentroid.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        geometryCentroid: layerEdit.geometryCentroid,
-        eventCoordinateFieldType: layerEdit.eventCoordinateFieldType,
+        geometryCentroid: layerEdit?.geometryCentroid,
+        eventCoordinateFieldType: layerEdit?.eventCoordinateFieldType,
     }),
     { setGeometryCentroid }
 )(GeometryCentroid)
