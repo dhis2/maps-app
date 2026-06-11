@@ -62,7 +62,7 @@ describe('Fetch errors', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox', EXTENDED_TIMEOUT).within(
+        cy.getByDataTest('load-error-noticebox', EXTENDED_TIMEOUT).within(
             () => {
                 cy.contains('Failed to load layer').should('be.visible')
             }
