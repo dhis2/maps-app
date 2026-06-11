@@ -7,7 +7,15 @@ import {
 } from '../components/legend/Bubbles.jsx'
 import { getContrastColor } from './colors.js'
 import { getLongestTextLength } from './helpers.js'
-import { getRoundToPrecisionFn } from './numbers.js'
+import { formatWithSeparator, getRoundToPrecisionFn } from './numbers.js'
+
+const getBubbleValueFormat = ({ minValue, maxValue, divisor }) => {
+    if (minValue === maxValue) {
+        return (n) => n.toString()
+    }
+    const precision = precisionRound((maxValue - minValue) / divisor, maxValue)
+    return (n) => getRoundToPrecisionFn(precision)(n).toString()
+}
 
 export const createBubbleItems = ({
     classes,
@@ -16,9 +24,11 @@ export const createBubbleItems = ({
     scale,
     radiusHigh,
 }) => {
-    const binSize = (maxValue - minValue) / classes.length
-    const precision = precisionRound(binSize, maxValue)
-    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
+    const valueFormat = getBubbleValueFormat({
+        minValue,
+        maxValue,
+        divisor: classes.length,
+    })
 
     const startValue = classes[0].startValue
     const endValue = classes[classes.length - 1].endValue
@@ -30,6 +40,10 @@ export const createBubbleItems = ({
         color: c.color,
         text: valueFormat(c.endValue),
     }))
+
+    if (minValue === maxValue) {
+        return bubbles
+    }
 
     bubbles.push({
         radius: itemScale(startValue),
@@ -48,12 +62,23 @@ export const createSingleColorBubbles = ({
     radiusLow,
     radiusHigh,
 }) => {
-    const binSize = (maxValue - minValue) / 3
-    const precision = precisionRound(binSize, maxValue)
-    const valueFormat = (n) => getRoundToPrecisionFn(precision)(n).toString()
+    const valueFormat = getBubbleValueFormat({ minValue, maxValue, divisor: 3 })
 
     const stroke = color && getContrastColor(color)
     const itemScale = scale.domain([minValue, maxValue])
+
+    if (minValue === maxValue) {
+        return [
+            {
+                radius: itemScale(minValue),
+                maxRadius: radiusHigh,
+                color,
+                stroke,
+                text: valueFormat(minValue),
+            },
+        ]
+    }
+
     const midValue = (maxValue + minValue) / 2
 
     return [
@@ -86,12 +111,18 @@ export const computeLayout = ({
     bubbleClasses,
     radiusHigh,
     legendWidth,
+    keyAnalysisDigitGroupSeparator,
 }) => {
-    // Calculate the pixel length of the longest number
+    // Calculate the pixel length of the longest formatted number
+    const formattedLen = (v) =>
+        typeof v === 'number'
+            ? formatWithSeparator(v, keyAnalysisDigitGroupSeparator).length
+            : 0
     let textLength = Math.ceil(
         Math.max(
-            getLongestTextLength(bubbleClasses, 'startValue'),
-            getLongestTextLength(bubbleClasses, 'endValue')
+            0,
+            ...bubbleClasses.map((c) => formattedLen(c.startValue)),
+            ...bubbleClasses.map((c) => formattedLen(c.endValue))
         ) * digitWidth
     )
 

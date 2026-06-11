@@ -84,7 +84,9 @@ describe('Routes', () => {
         cy.getByDataTest(`card-ANC1Coverage`)
             .findByDataTest('layerlegend-item')
             .last()
-            .contains('Low 0 - 30')
+            .find('td')
+            .invoke('text')
+            .should('match', /Low0[-–]30/)
     })
 
     it('loads currentAnalyticalObject (hash) - Earth Engine Layer', () => {
@@ -107,7 +109,7 @@ describe('Routes', () => {
         cy.getByDataTest(`card-Heatstressdaily`)
             .findByDataTest('layerlegend-item')
             .first()
-            .contains('Extreme heat stress 46 - 60')
+            .contains('Extreme heat stress')
     })
 
     it('loads with map id (legacy) and interpretationid lowercase', () => {

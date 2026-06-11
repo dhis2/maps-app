@@ -3,9 +3,14 @@
     line-height: 18px;
 }
 
+.legend:empty {
+    display: none;
+}
+
 .legend table {
     border-collapse: collapse;
     border-spacing: 0;
+    width: 100%;
 }
 
 .description {
@@ -20,14 +25,25 @@
     max-width: 100%;
 }
 
+.description,
 .filters,
-.coordinateFields {
+.coordinateFields,
+.dataQuality,
+.explanation,
+.source {
+    max-width: 245px;
+}
+
+.filters,
+.coordinateFields,
+.dataQuality {
     padding-top: var(--spacers-dp16);
     font-size: 12px;
 }
 
 .filters > div:first-child,
-.coordinateFields > div:first-child {
+.coordinateFields > div:first-child,
+.dataQuality > div:first-child {
     font-weight: bold;
 }
 

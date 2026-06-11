@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
-"PO-Revision-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-06-08T09:31:17.960Z\n"
+"PO-Revision-Date: 2026-06-08T09:31:17.961Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -38,17 +38,35 @@ msgstr "Classification"
 msgid "Classes"
 msgstr "Classes"
 
-msgid "Legend set"
-msgstr "Legend set"
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Decimal places"
+msgstr "Decimal places"
+
+msgid "Isolated class"
+msgstr "Isolated class"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Max should be greater than min"
+msgstr "Max should be greater than min"
 
 msgid "Color"
 msgstr "Color"
 
-msgid "Size"
-msgstr "Size"
-
 msgid "Name"
 msgstr "Name"
+
+msgid "Legend set"
+msgstr "Legend set"
+
+msgid "Size"
+msgstr "Size"
 
 msgid "Name and value"
 msgstr "Name and value"
@@ -94,6 +112,12 @@ msgstr "Enrollment > event > tracked entity > org unit coordinate"
 
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
+
+msgid "Include unclassified events"
+msgstr "Include unclassified events"
+
+msgid "Include events with no data"
+msgstr "Include events with no data"
 
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "Previously selected value not available in list: {{id}}"
@@ -243,6 +267,9 @@ msgstr "Organisation Units"
 msgid "Style"
 msgstr "Style"
 
+msgid "Count org units without a point location"
+msgstr "Count org units without a point location"
+
 msgid "Point color"
 msgstr "Point color"
 
@@ -350,23 +377,14 @@ msgstr "Min value is required"
 msgid "Max value is required"
 msgstr "Max value is required"
 
-msgid "Max should be greater than min"
-msgstr "Max should be greater than min"
-
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Valid steps are {{minSteps}} to {{maxSteps}}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
-msgstr "Steps"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
 
 msgid "Facility buffer"
 msgstr "Facility buffer"
+
+msgid "Count org units without coordinates"
+msgstr "Count org units without coordinates"
 
 msgid "Org Units"
 msgstr "Org Units"
@@ -383,6 +401,9 @@ msgstr "View all events"
 msgid "Radius"
 msgstr "Radius"
 
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
+
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
 
@@ -397,6 +418,9 @@ msgstr "No organisation units are selected."
 
 msgid "No legend set is selected"
 msgstr "No legend set is selected"
+
+msgid "Isolated class max should be greater than min"
+msgstr "Isolated class max should be greater than min"
 
 msgid "Event status"
 msgstr "Event status"
@@ -443,14 +467,23 @@ msgstr "Polygons are represented by their centroids."
 msgid "Labels"
 msgstr "Labels"
 
+msgid "Include org units with no data"
+msgstr "Include org units with no data"
+
+msgid "No data"
+msgstr "No data"
+
+msgid "Include unclassified org units"
+msgstr "Include unclassified org units"
+
+msgid "Unclassified"
+msgstr "Unclassified"
+
 msgid "Aggregation type"
 msgstr "Aggregation type"
 
 msgid "Only show completed events"
 msgstr "Only show completed events"
-
-msgid "Include org units with no data"
-msgstr "Include org units with no data"
 
 msgid "Low radius"
 msgstr "Low radius"
@@ -611,9 +644,6 @@ msgstr "Data download failed."
 msgid "External layer"
 msgstr "External layer"
 
-msgid "Failed to load layer"
-msgstr "Failed to load layer"
-
 msgid "Loading layer"
 msgstr "Loading layer"
 
@@ -656,17 +686,47 @@ msgstr "Edit layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
+msgid "Data quality"
+msgstr "Data quality"
+
+msgid "All events have coordinates"
+msgstr "All events have coordinates"
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] "{{n}} event without coordinates"
+msgstr[1] "{{n}} events without coordinates"
+
+msgid "All org units have a point location"
+msgstr "All org units have a point location"
+
+msgid "All org units have coordinates"
+msgstr "All org units have coordinates"
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] "{{n}} org unit without a point location"
+msgstr[1] "{{n}} org units without a point location"
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] "{{n}} org unit without coordinates"
+msgstr[1] "{{n}} org units without coordinates"
+
 msgid "Filters"
 msgstr "Filters"
+
+msgid "Failed to load layer"
+msgstr "Failed to load layer"
 
 msgid "No data found"
 msgstr "No data found"
 
-msgid "Selected org units: No coordinates found"
-msgstr "Selected org units: No coordinates found"
-
 msgid "No coordinates found"
 msgstr "No coordinates found"
+
+msgid "Selected org units: No coordinates found"
+msgstr "Selected org units: No coordinates found"
 
 msgid "Error"
 msgstr "Error"
@@ -713,9 +773,6 @@ msgstr "Groups"
 
 msgid "Parent unit"
 msgstr "Parent unit"
-
-msgid "No data"
-msgstr "No data"
 
 msgid "Not set"
 msgstr "Not set"
@@ -966,6 +1023,12 @@ msgstr "Click to unpin legend"
 
 msgid "Click to pin legend"
 msgstr "Click to pin legend"
+
+msgid "Hide layer"
+msgstr "Hide layer"
+
+msgid "Show layer"
+msgstr "Show layer"
 
 msgid "No program"
 msgstr "No program"
@@ -1638,6 +1701,18 @@ msgstr "Equal intervals"
 msgid "Equal counts"
 msgstr "Equal counts"
 
+msgid "Natural breaks (intervals)"
+msgstr "Natural breaks (intervals)"
+
+msgid "Natural breaks (clusters)"
+msgstr "Natural breaks (clusters)"
+
+msgid "Pretty breaks"
+msgstr "Pretty breaks"
+
+msgid "Logarithmic scale"
+msgstr "Logarithmic scale"
+
 msgid "Symbol"
 msgstr "Symbol"
 
@@ -1689,6 +1764,9 @@ msgstr "Financial year (Start April)"
 msgid "Cancelled"
 msgstr "Cancelled"
 
+msgid "Could not count org units without coordinates"
+msgstr "Could not count org units without coordinates"
+
 msgid "Earth Engine layer"
 msgstr "Earth Engine layer"
 
@@ -1707,17 +1785,17 @@ msgstr "Displaying first {{pageSize}} events out of {{total}}"
 msgid "Event"
 msgstr "Event"
 
+msgid "Could not count org units without a point location"
+msgstr "Could not count org units without a point location"
+
 msgid "Facilities"
 msgstr "Facilities"
 
 msgid "an error occurred"
 msgstr "an error occurred"
 
-msgid "GroupSet used for styling was not found"
-msgstr "GroupSet used for styling was not found"
-
-msgid "No coordinates found for selected facilities"
-msgstr "No coordinates found for selected facilities"
+msgid "No point locations found for selected facilities"
+msgstr "No point locations found for selected facilities"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "There was a problem with this layer. Contact a system administrator."
@@ -1746,11 +1824,11 @@ msgstr "Data item was not found"
 msgid "Thematic layer"
 msgstr "Thematic layer"
 
-msgid "Tracked entity"
-msgstr "Tracked entity"
-
 msgid "related"
 msgstr "related"
+
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
 msgid "not one of"
 msgstr "not one of"
@@ -1801,8 +1879,8 @@ msgstr "Org units"
 msgid "Facility"
 msgstr "Facility"
 
-msgid "Other"
-msgstr "Other"
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet used for styling was not found"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

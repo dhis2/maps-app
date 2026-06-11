@@ -2,9 +2,8 @@ import * as types from '../constants/actionTypes.js'
 import { EVENT_STATUS_ALL } from '../constants/eventStatuses.js'
 import {
     CLASSIFICATION_SINGLE_COLOR,
-    CLASSIFICATION_EQUAL_INTERVALS,
-    CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
+    getClassificationTypes,
     THEMATIC_CHOROPLETH,
     EE_BUFFER,
     NONE,
@@ -279,10 +278,9 @@ const layerEdit = (state = null, action) => {
 
             if (
                 state.method === CLASSIFICATION_SINGLE_COLOR ||
-                ![
-                    CLASSIFICATION_EQUAL_INTERVALS,
-                    CLASSIFICATION_EQUAL_COUNTS,
-                ].includes(action.method)
+                !getClassificationTypes()
+                    .map((t) => t.id)
+                    .includes(action.method)
             ) {
                 delete newState.colorScale
                 delete newState.classes
@@ -290,6 +288,10 @@ const layerEdit = (state = null, action) => {
 
             if (action.method !== CLASSIFICATION_PREDEFINED) {
                 delete newState.legendSet
+            }
+
+            if (action.method === CLASSIFICATION_PREDEFINED) {
+                delete newState.legendDecimalPlaces
             }
 
             if (newState.styleDataItem) {
@@ -307,6 +309,27 @@ const layerEdit = (state = null, action) => {
 
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET:
+            newState = {
+                ...state,
+                legendDecimalPlaces: action.legendDecimalPlaces,
+            }
+
+            if (newState.legendDecimalPlaces === undefined) {
+                delete newState.legendDecimalPlaces
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_ISOLATED_SET:
+            newState = { ...state, legendIsolated: action.legendIsolated }
+
+            if (!action.legendIsolated) {
+                delete newState.legendIsolated
             }
 
             return newState
@@ -345,6 +368,12 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 eventClustering: action.checked,
+            }
+
+        case types.LAYER_EDIT_COUNT_FEATURES_WITHOUT_COORDS_SET:
+            return {
+                ...state,
+                countFeaturesWithoutCoordinates: action.checked,
             }
 
         case types.LAYER_EDIT_EVENT_POINT_RADIUS_SET:
@@ -548,16 +577,22 @@ const layerEdit = (state = null, action) => {
                 followUp: action.payload,
             }
 
-        case types.LAYER_EDIT_NO_DATA_COLOR_SET:
+        case types.LAYER_EDIT_NO_DATA_LEGEND_SET:
             newState = { ...state }
-
-            // Default is to show no feature
             if (!action.payload) {
-                delete newState.noDataColor
+                delete newState.noDataLegend
             } else {
-                newState.noDataColor = action.payload
+                newState.noDataLegend = action.payload
             }
+            return newState
 
+        case types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET:
+            newState = { ...state }
+            if (action.payload) {
+                newState.unclassifiedLegend = action.payload
+            } else {
+                delete newState.unclassifiedLegend
+            }
             return newState
 
         case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:

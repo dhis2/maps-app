@@ -15,16 +15,19 @@ import {
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import { getBounds } from '../util/geojson.js'
+import { formatWithSeparator } from '../util/numbers.js'
 import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
 
 // Server clustering if more than 2000 events
-const shouldUseServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
+const shouldUseServerCluster = (count, countFeaturesWithoutCoordinates) =>
+    !countFeaturesWithoutCoordinates && count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
@@ -47,11 +50,15 @@ const eventLoader = async ({
     config: layerConfig,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     analyticsEngine,
     periodTypeData,
     loadExtended,
 }) => {
-    const config = { ...layerConfig }
+    const config = {
+        ...layerConfig,
+        keyAnalysisDigitGroupSeparator,
+    }
     const displayNameProp =
         keyAnalysisDisplayProperty === 'name'
             ? 'displayName'
@@ -84,7 +91,6 @@ const eventLoader = async ({
     config.isLoaded = true
     config.isLoading = false
     config.isExpanded = true
-    config.isVisible = true
 
     return config
 }
@@ -98,6 +104,37 @@ const loadEventLayer = async ({
     loadExtended,
 }) => {
     const {
+        countFeaturesWithoutCoordinates,
+        legendDecimalPlaces,
+        legendIsolated,
+        unclassifiedLegend: unclassifiedLegendFromConfig,
+        noDataLegend: noDataLegendFromConfig,
+    } = parseJsonConfig(config.config)
+    if (countFeaturesWithoutCoordinates) {
+        config.countFeaturesWithoutCoordinates = true
+    }
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    if (legendIsolated) {
+        config.legendIsolated = legendIsolated
+    }
+    if (unclassifiedLegendFromConfig) {
+        config.unclassifiedLegend = unclassifiedLegendFromConfig
+    }
+    if (noDataLegendFromConfig) {
+        config.noDataLegend = noDataLegendFromConfig
+    }
+    if (config.noDataColor) {
+        config.noDataLegend = {
+            ...noDataLegendFromConfig,
+            color: config.noDataColor,
+        }
+    }
+    delete config.noDataColor
+    delete config.config
+
+    const {
         columns,
         endDate,
         eventStatus,
@@ -105,6 +142,7 @@ const loadEventLayer = async ({
         eventPointColor,
         eventPointRadius,
         filters,
+        keyAnalysisDigitGroupSeparator,
         program,
         programStage,
         eventCoordinateField,
@@ -140,6 +178,9 @@ const loadEventLayer = async ({
                   getDateArray(endDate)
               ),
         items: [],
+        ...(config.legendDecimalPlaces !== undefined && {
+            decimalPlaces: config.legendDecimalPlaces,
+        }),
     }
 
     // Delete serverCluster option if previously set
@@ -151,13 +192,16 @@ const loadEventLayer = async ({
     if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        config.serverCluster = shouldUseServerCluster(response.count)
+        config.serverCluster = shouldUseServerCluster(
+            response.count,
+            config.countFeaturesWithoutCoordinates
+        )
         serverCount = response.count
     }
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { data, response } = await loadData({
+        const { data, response, dataWithoutCoords } = await loadData({
             request: analyticsRequest,
             config,
             analyticsEngine,
@@ -165,12 +209,17 @@ const loadEventLayer = async ({
         const { total } = response.metaData.pager
 
         config.data = data
+        if (config.countFeaturesWithoutCoordinates) {
+            config.dataWithoutCoords = dataWithoutCoords
+            config.legend.eventsWithoutCoordinatesCount =
+                dataWithoutCoords.length
+        }
+
+        if (styleDataItem) {
+            await styleByDataItem(config, engine)
+        }
 
         if (Array.isArray(config.data) && config.data.length) {
-            if (styleDataItem) {
-                await styleByDataItem(config, engine)
-            }
-
             if (total > EVENT_CLIENT_PAGE_SIZE) {
                 alert = {
                     warning: true,
@@ -178,8 +227,14 @@ const loadEventLayer = async ({
                     message: `${config.name}: ${i18n.t(
                         'Displaying first {{pageSize}} events out of {{total}}',
                         {
-                            pageSize: EVENT_CLIENT_PAGE_SIZE,
-                            total,
+                            pageSize: formatWithSeparator(
+                                EVENT_CLIENT_PAGE_SIZE,
+                                keyAnalysisDigitGroupSeparator
+                            ),
+                            total: formatWithSeparator(
+                                total,
+                                keyAnalysisDigitGroupSeparator
+                            ),
                         }
                     )}`,
                 }
@@ -196,7 +251,8 @@ const loadEventLayer = async ({
         const numericDataItemHeaders = config.headers.filter(
             (header) =>
                 isValidUid(header.name) &&
-                numberValueTypes.includes(header.valueType)
+                numberValueTypes.includes(header.valueType) &&
+                !header.optionSet
         )
 
         if (numericDataItemHeaders.length) {

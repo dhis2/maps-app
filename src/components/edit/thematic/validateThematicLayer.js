@@ -13,6 +13,7 @@ import {
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
 import { countPeriods } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
+import { isValidIsolatedClass } from '../../classification/IsolatedClass.jsx'
 import { isValidRadius } from './RadiusSelect.jsx'
 
 export const validateThematicLayer = ({
@@ -27,6 +28,7 @@ export const validateThematicLayer = ({
     renderingStrategy,
     method,
     periods,
+    legendIsolated,
 }) => {
     const errors = {}
     const setError = ({ key, msg, tab }) => {
@@ -122,6 +124,13 @@ export const validateThematicLayer = ({
             condition: !isValidRadius(radiusLow, radiusHigh),
             key: 'radiusError',
             msg: i18n.t('Specified radius values are invalid'),
+            tab: 'style',
+        },
+        {
+            // Isolated class
+            condition: !isValidIsolatedClass(legendIsolated),
+            key: 'isolatedClassError',
+            msg: i18n.t('Isolated class max should be greater than min'),
             tab: 'style',
         }
     )

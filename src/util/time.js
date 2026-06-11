@@ -4,7 +4,7 @@ const DEFAULT_LOCALE = 'en'
 
 // BCP 47 locale format
 const dateLocale = (locale) =>
-    locale && locale.includes('_') ? locale.replace('_', '-') : locale
+    locale && locale.includes('_') ? locale.replaceAll('_', '-') : locale
 
 /**
  * Trims the time part from an ISO date-time string, returning only the date (YYYY-MM-DD).
