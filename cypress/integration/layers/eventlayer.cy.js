@@ -217,6 +217,32 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('preserves start/end dates when editing a saved event layer', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programIP.startDate)
+            .typeEndDate(programIP.endDate)
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardPeriod(programIP.periodText)
+
+        // Open edit dialog and immediately save without changing anything
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.updateMap()
+        Layer.validateDialogClosed(true)
+
+        // Dates must still be the original ones (the fix)
+        Layer.validateCardPeriod(programIP.periodText)
+    })
+
     it('opens an event popup', () => {
         Layer.openDialog('Events')
             .selectProgram(programIP.name)
