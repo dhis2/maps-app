@@ -67,6 +67,7 @@ const initializePeriods = (
         defaultRenderingStrategy,
         systemSettings,
         syncFromOtherLayers,
+        shouldSyncFromOtherLayers,
     }
 ) => {
     if (filters || (startDate !== undefined && endDate !== undefined)) {
@@ -76,6 +77,7 @@ const initializePeriods = (
     const defaultPeriods = getDefaultPeriods(systemSettings)
 
     if (
+        shouldSyncFromOtherLayers &&
         syncFromOtherLayers({
             renderingStrategy: renderingStrategy || defaultRenderingStrategy,
         })
