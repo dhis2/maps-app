@@ -596,7 +596,7 @@ const getPeriodsFromMetaData = ({ dimensions, items }) =>
         }
     })
 
-const getValuesByPeriod = (data) => {
+export const getValuesByPeriod = (data) => {
     const { headers, rows } = data
     const periodIndex = findIndex(['name', 'pe'], headers)
     const ouIndex = findIndex(['name', 'ou'], headers)
@@ -613,7 +613,7 @@ const getValuesByPeriod = (data) => {
 }
 
 // Returns numeric (valueById) and raw string (rawValueById) maps in a single pass
-const getValueMapsById = (data) => {
+export const getValueMapsById = (data) => {
     const { headers, rows } = data
     const ouIndex = findIndex(['name', 'ou'], headers)
     const valueIndex = findIndex(['name', 'value'], headers)
