@@ -41,7 +41,7 @@ StyleByGroupSet.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        groupSet: layerEdit.organisationUnitGroupSet,
+        groupSet: layerEdit?.organisationUnitGroupSet,
     }),
     { setOrganisationUnitGroupSet }
 )(StyleByGroupSet)

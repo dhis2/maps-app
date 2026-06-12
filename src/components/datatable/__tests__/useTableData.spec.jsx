@@ -135,8 +135,9 @@ describe('useTableData headers', () => {
                         parentName: 'Badjia',
                         color: '#FFFFB2',
                         legend: 'Great',
-                        range: '90 - 120',
-                        value: 106.3,
+                        range: '90 – 120',
+                        value: '106.3',
+                        rawValue: 106.3,
                     },
                 },
             ],
@@ -160,7 +161,7 @@ describe('useTableData headers', () => {
             { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
-            { name: 'Value', dataKey: 'value', type: 'number' },
+            { name: 'Value', dataKey: 'rawValue', type: 'number' },
             { name: 'Legend', dataKey: 'legend', type: 'string' },
             { name: 'Range', dataKey: 'range', type: 'string' },
             { name: 'Level', dataKey: 'level', type: 'number' },
@@ -179,9 +180,9 @@ describe('useTableData headers', () => {
             { value: 0, dataKey: 'index' },
             { value: 'Ngelehun CHC', dataKey: 'name' },
             { value: 'thematicId-1', dataKey: 'id' },
-            { value: 106.3, dataKey: 'value' },
+            { value: 106.3, dataKey: 'rawValue' },
             { value: 'Great', dataKey: 'legend' },
-            { value: '90 - 120', dataKey: 'range' },
+            { value: '90 – 120', dataKey: 'range' },
             { value: 4, dataKey: 'level' },
             { value: 'Badjia', dataKey: 'parentName' },
             { value: 'Point', dataKey: 'type' },
@@ -286,6 +287,97 @@ describe('useTableData headers', () => {
             { value: 'Point', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
+    })
+
+    test('treats NUMBER header with optionSet as string type', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'AbCdEfGhIjK',
+                    column: 'Severity',
+                    valueType: 'NUMBER',
+                    optionSet: { id: 'xyz123' },
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 'high',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers } = result.current
+        const severityHeader = headers.find((h) => h.dataKey === 'AbCdEfGhIjK')
+        expect(severityHeader.type).toBe('string')
+    })
+
+    test('treats NUMBER header without optionSet as number type', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'AbCdEfGhIjK',
+                    column: 'Score',
+                    valueType: 'NUMBER',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt2',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 42,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers } = result.current
+        const scoreHeader = headers.find((h) => h.dataKey === 'AbCdEfGhIjK')
+        expect(scoreHeader.type).toBe('number')
     })
 
     test('gets headers and rows for EE population layer', () => {
@@ -544,11 +636,11 @@ describe('useTableData sorting', () => {
         layer: 'thematic',
         dataFilters: null,
         data: [
-            { id: '1', properties: { name: 'Item A', value: 10 } },
-            { id: '2', properties: { name: 'Item B', value: 5 } },
-            { id: '3', properties: { name: 'Item C', value: undefined } },
-            { id: '4', properties: { name: 'Item D', value: 15 } },
-            { id: '5', properties: { name: 'Item E', value: undefined } },
+            { id: '1', properties: { name: 'Item A', rawValue: 10 } },
+            { id: '2', properties: { name: 'Item B', rawValue: 5 } },
+            { id: '3', properties: { name: 'Item C', rawValue: undefined } },
+            { id: '4', properties: { name: 'Item D', rawValue: 15 } },
+            { id: '5', properties: { name: 'Item E', rawValue: undefined } },
         ],
     }
 
@@ -560,7 +652,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: mockLayer,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'asc',
                 }),
             {
@@ -582,7 +674,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: mockLayer,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'desc',
                 }),
             {
@@ -670,16 +762,16 @@ describe('useTableData sorting', () => {
             layer: 'thematic',
             dataFilters: null,
             data: [
-                { id: '1', properties: { name: 'Item A', value: 10 } },
+                { id: '1', properties: { name: 'Item A', rawValue: 10 } },
                 {
                     id: '2',
-                    properties: { name: 'Item B', value: undefined },
+                    properties: { name: 'Item B', rawValue: undefined },
                 },
                 {
                     id: '3',
-                    properties: { name: 'Item C', value: undefined },
+                    properties: { name: 'Item C', rawValue: undefined },
                 },
-                { id: '4', properties: { name: 'Item D', value: 5 } },
+                { id: '4', properties: { name: 'Item D', rawValue: 5 } },
             ],
         }
 
@@ -690,7 +782,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: layerWithManyUndefined,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'asc',
                 }),
             {
@@ -712,15 +804,15 @@ describe('useTableData sorting', () => {
             data: [
                 {
                     id: '1',
-                    properties: { name: 'Item A', value: undefined },
+                    properties: { name: 'Item A', rawValue: undefined },
                 },
                 {
                     id: '2',
-                    properties: { name: 'Item B', value: undefined },
+                    properties: { name: 'Item B', rawValue: undefined },
                 },
                 {
                     id: '3',
-                    properties: { name: 'Item C', value: undefined },
+                    properties: { name: 'Item C', rawValue: undefined },
                 },
             ],
         }
@@ -732,7 +824,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: layerWithAllUndefined,
-                    sortField: 'value',
+                    sortField: 'rawValue',
                     sortDirection: 'asc',
                 }),
             {

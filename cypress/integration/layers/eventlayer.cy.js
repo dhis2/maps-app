@@ -11,7 +11,7 @@ const programE2E = {
     name: 'E2E program',
     stage: 'Stage 1 - Repeatable',
     de: 'E2E - Yes/no',
-    options: ['Yes', 'No', 'Other'],
+    options: ['Yes', 'No', 'Unclassified', 'No data'],
 }
 
 const programIP = {
@@ -141,6 +141,9 @@ context('Event Layers', () => {
             .contains(programE2E.de)
             .click()
 
+        Layer.selectIncludeUnclassifiedEvents()
+        Layer.selectIncludeNoDataEvents()
+
         Layer.addToMap()
 
         Layer.validateDialogClosed(true)
@@ -212,6 +215,32 @@ context('Event Layers', () => {
             programIP.periodText
         )
         Layer.validateCardItems(['Event'])
+    })
+
+    it('preserves start/end dates when editing a saved event layer', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programIP.startDate)
+            .typeEndDate(programIP.endDate)
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardPeriod(programIP.periodText)
+
+        // Open edit dialog and immediately save without changing anything
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.updateMap()
+        Layer.validateDialogClosed(true)
+
+        // Dates must still be the original ones (the fix)
+        Layer.validateCardPeriod(programIP.periodText)
     })
 
     it('opens an event popup', () => {

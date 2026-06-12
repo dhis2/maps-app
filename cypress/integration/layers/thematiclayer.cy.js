@@ -82,12 +82,14 @@ context('Thematic Layers', () => {
         // "3.2 - 7.5 (100)"
         // "No data (0)"
         const choroplethLegendTextPattern =
-            /^\s*(\d+(\.\d+)?\s*-\s*\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
+            /^\s*(\d+(\.\d+)?[-–]\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
 
         // Examples of bubble labels:
         // "10.5"
         // "No data"
-        const bubbleLabelTextPattern = /^(\d+(\.\d+)?|No data)$/
+        // "(2)"
+        const bubbleLabelTextPattern =
+            /^(\d+(\.\d+)?|No data|\(\d+\))(\s*\(\d+\))?$/
 
         // Choropleth
         Layer.openDialog('Thematic')
@@ -177,7 +179,9 @@ context('Thematic Layers', () => {
 
         cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
 
-        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken').addToMap()
+        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken')
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         getMaps().click('center')
 
@@ -282,7 +286,8 @@ context('Thematic Layers', () => {
                 n: 7,
                 removeAll: false,
             })
-            .addToMap()
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         Layer.validateDialogClosed(true)
 
@@ -534,6 +539,98 @@ context('Thematic Layers', () => {
         ])
     })
 
+    it('timeline period updates in popup after drilling down', () => {
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'QUARTERLY',
+                periodDimension: 'relative',
+                n: 2,
+            })
+
+        cy.get('[type="radio"]').check('TIMELINE')
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT).should('be.visible')
+        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        // Drill down
+        getMaps()
+            .first()
+            .then(($el) => {
+                getMaps()
+                    .first()
+                    .rightclick($el.width() / 2, $el.height() / 2)
+            })
+        cy.getByDataTest(DRILL_DOWN).click()
+
+        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        cy.wait(POPUP_WAIT)
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+        getMaps().click('center')
+        cy.get('.maplibregl-popup').should('be.visible')
+        cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')
+
+        cy.get('.play-icon').click()
+        cy.wait(1500 + 500)
+
+        cy.get('@popupTextBeforePlay').then((textBefore) => {
+            cy.get('.maplibregl-popup')
+                .invoke('text')
+                .should('not.eq', textBefore)
+        })
+    })
+
+    it('does not inherit period when adding a new thematic layer after single thematic layer', () => {
+        const SPECIFIC_YEAR = CURRENT_YEAR - 3
+
+        // Add first thematic layer with a specific non-default fixed period
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'YEARLY',
+                periodDimension: 'fixed',
+                n: 0,
+                y: SPECIFIC_YEAR + 9,
+            })
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
+        Layer.validateCardPeriod(`${SPECIFIC_YEAR}`)
+
+        // Open dialog for second thematic layer and go to Period tab
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
+            .selectTab('Period')
+
+        // Rendering should be SINGLE (not inherited from layer 1)
+        cy.get('input[value="SINGLE"]').should('be.checked')
+
+        // The specific year from layer 1 should NOT be pre-selected in the
+        // picked area (before the fix it would be inherited)
+        cy.getByDataTest('period-dimension-transfer-pickedoptions')
+            .contains(`${SPECIFIC_YEAR}`)
+            .should('not.exist')
+    })
+
     it('adds two thematic layer with split view period', () => {
         // add a first layer
         Layer.openDialog('Thematic')
@@ -710,10 +807,9 @@ context('Thematic Layers', () => {
         // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
-            .find('h6')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+        cy.getByDataTest('load-error-noticebox')
             .contains(
                 'Organisation unit or organisation unit level is not valid'
             )

@@ -44,7 +44,7 @@ Checkbox.propTypes = {
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
     label: PropTypes.string,
-    style: PropTypes.string,
+    style: PropTypes.object,
     tooltip: PropTypes.string,
 }
 

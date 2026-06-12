@@ -1,13 +1,20 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCountFeaturesWithoutCoordinates } from '../../../actions/layerEdit.js'
 import { EE_BUFFER } from '../../../constants/layers.js'
+import { Checkbox } from '../../core/index.js'
 import BufferRadius from '../shared/BufferRadius.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import LegendPreview from './LegendPreview.jsx'
 import StyleSelect from './StyleSelect.jsx'
 
 const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
+    const dispatch = useDispatch()
+    const countFeaturesWithoutCoordinates = useSelector(
+        (state) => state.layerEdit.countFeaturesWithoutCoordinates
+    )
     const { min, max, palette } = style
     const isClassStyle =
         min !== undefined &&
@@ -24,6 +31,13 @@ const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
                     defaultRadius={EE_BUFFER}
                     hasOrgUnitField={hasOrgUnitField}
                     forceShowNumberField={true}
+                />
+                <Checkbox
+                    label={i18n.t('Count org units without coordinates')}
+                    checked={!!countFeaturesWithoutCoordinates}
+                    onChange={(checked) =>
+                        dispatch(setCountFeaturesWithoutCoordinates(checked))
+                    }
                 />
             </div>
             {isClassStyle && (

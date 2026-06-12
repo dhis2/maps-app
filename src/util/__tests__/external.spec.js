@@ -29,7 +29,6 @@ describe('createExternalBasemapLayer', () => {
             layer: EXTERNAL_LAYER,
             id,
             name,
-            opacity: 1,
             config: {
                 id,
                 type: VECTOR_STYLE,
@@ -58,7 +57,6 @@ describe('createExternalBasemapLayer', () => {
             layer: EXTERNAL_LAYER,
             id,
             name,
-            opacity: 1,
             config: {
                 id,
                 type: TILE_LAYER,
@@ -87,7 +85,6 @@ describe('createExternalBasemapLayer', () => {
             layer: EXTERNAL_LAYER,
             id,
             name,
-            opacity: 1,
             config: {
                 id,
                 type: TILE_LAYER,
@@ -123,7 +120,6 @@ describe('createExternalBasemapLayer', () => {
             layer: EXTERNAL_LAYER,
             id,
             name,
-            opacity: 1,
             config: {
                 id,
                 type: WMS_LAYER,
@@ -154,7 +150,6 @@ describe('createExternalOverlayLayer', () => {
         expect(createExternalOverlayLayer(model)).toMatchObject({
             layer: EXTERNAL_LAYER,
             name,
-            opacity: 1,
             img: 'images/featurelayer.png',
             config: {
                 id,
@@ -183,7 +178,6 @@ describe('createExternalOverlayLayer', () => {
         expect(createExternalOverlayLayer(model)).toMatchObject({
             layer: EXTERNAL_LAYER,
             name,
-            opacity: 1,
             img: 'images/featurelayer.png',
             config: {
                 id,
@@ -219,7 +213,6 @@ describe('createExternalOverlayLayer', () => {
         expect(createExternalOverlayLayer(model)).toMatchObject({
             layer: EXTERNAL_LAYER,
             name,
-            opacity: 1,
             img: 'images/featurelayer.png',
             config: {
                 id,
@@ -249,7 +242,6 @@ describe('createExternalOverlayLayer', () => {
         expect(createExternalOverlayLayer(model)).toMatchObject({
             layer: GEOJSON_URL_LAYER,
             name,
-            opacity: 1,
             img: 'images/featurelayer.png',
             config: {
                 id,

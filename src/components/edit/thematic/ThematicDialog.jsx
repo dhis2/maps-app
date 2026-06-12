@@ -4,12 +4,14 @@ import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     setClassification,
     setDataItem,
     setLegendSet,
-    setNoDataColor,
+    setNoDataLegend,
+    setUnclassifiedLegend,
+    setCountFeaturesWithoutCoordinates,
     setPeriods,
     setStartDate,
     setEndDate,
@@ -37,17 +39,18 @@ import {
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
-import { Tab, Tabs } from '../../core/index.js'
+import { Tab, Tabs, Checkbox } from '../../core/index.js'
 import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
 import RenderingStrategy from '../../periods/RenderingStrategy.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
 import Labels from '../shared/Labels.jsx'
+import NoDataLegend from '../shared/NoDataLegend.jsx'
+import UnclassifiedLegend from '../shared/UnclassifiedLegend.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
 import { initializeThematicLayer } from './initializeThematicLayer.js'
-import NoDataColor from './NoDataColor.jsx'
 import RadiusSelect from './RadiusSelect.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
 import { validateThematicLayer } from './validateThematicLayer.js'
@@ -65,7 +68,8 @@ const ThematicDialog = ({
     periodType,
     renderingStrategy,
     id,
-    noDataColor,
+    noDataLegend,
+    unclassifiedLegend,
     periodsSettings,
     currentUser,
     validateLayer,
@@ -75,8 +79,12 @@ const ThematicDialog = ({
     radiusHigh,
     method,
     thematicMapType,
+    legendIsolated,
 }) => {
     const dispatch = useDispatch()
+    const countFeaturesWithoutCoordinates = useSelector(
+        (state) => state.layerEdit.countFeaturesWithoutCoordinates
+    )
     const {
         defaultRenderingStrategy,
         shouldSyncFromOtherLayers,
@@ -119,6 +127,7 @@ const ThematicDialog = ({
                 orgUnits,
                 systemSettings,
                 syncFromOtherLayers,
+                shouldSyncFromOtherLayers,
             })
         )
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -301,6 +310,7 @@ const ThematicDialog = ({
             renderingStrategy,
             method,
             periods,
+            legendIsolated,
         })
     }, [
         dataItem,
@@ -314,6 +324,7 @@ const ThematicDialog = ({
         renderingStrategy,
         method,
         periods,
+        legendIsolated,
     ])
 
     // Run layer validation
@@ -569,6 +580,19 @@ const ThematicDialog = ({
                                 <RadiusSelect className={styles.numberField} />
                             </div>
                             <Labels includeDisplayOption />
+                            <Checkbox
+                                label={i18n.t(
+                                    'Count org units without coordinates'
+                                )}
+                                checked={!!countFeaturesWithoutCoordinates}
+                                onChange={(checked) =>
+                                    dispatch(
+                                        setCountFeaturesWithoutCoordinates(
+                                            checked
+                                        )
+                                    )
+                                }
+                            />
                         </div>
                         <div className={styles.flexColumn}>
                             <NumericLegendStyle
@@ -577,9 +601,15 @@ const ThematicDialog = ({
                                 legendSetError={errors.legendSetError}
                                 className={styles.select}
                             />
-                            <NoDataColor
-                                value={noDataColor}
-                                onChange={(v) => dispatch(setNoDataColor(v))}
+                            <UnclassifiedLegend
+                                value={unclassifiedLegend}
+                                onChange={(v) =>
+                                    dispatch(setUnclassifiedLegend(v))
+                                }
+                            />
+                            <NoDataLegend
+                                value={noDataLegend}
+                                onChange={(v) => dispatch(setNoDataLegend(v))}
                             />
                         </div>
                     </div>
@@ -597,9 +627,13 @@ ThematicDialog.propTypes = {
     eventStatus: PropTypes.string,
     filters: PropTypes.array,
     id: PropTypes.string,
+    legendIsolated: PropTypes.object,
     legendSet: PropTypes.object,
     method: PropTypes.number,
-    noDataColor: PropTypes.string,
+    noDataLegend: PropTypes.shape({
+        color: PropTypes.string.isRequired,
+        name: PropTypes.string,
+    }),
     orgUnits: PropTypes.object,
     periodType: PropTypes.string,
     periodsSettings: PropTypes.object,
@@ -610,6 +644,10 @@ ThematicDialog.propTypes = {
     startDate: PropTypes.string,
     systemSettings: PropTypes.object,
     thematicMapType: PropTypes.string,
+    unclassifiedLegend: PropTypes.shape({
+        color: PropTypes.string.isRequired,
+        name: PropTypes.string,
+    }),
     validateLayer: PropTypes.bool,
     onLayerValidation: PropTypes.func,
 }

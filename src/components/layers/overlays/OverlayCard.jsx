@@ -2,7 +2,6 @@ import { useConfig } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -17,6 +16,7 @@ import {
 import {
     ALERT_SUCCESS,
     ALERT_MESSAGE_DYNAMIC,
+    ERROR_CRITICAL,
 } from '../../../constants/alerts.js'
 import {
     DOWNLOADABLE_LAYER_TYPES,
@@ -30,6 +30,7 @@ import {
     CURRENT_AO_KEY,
 } from '../../../util/analyticalObject.js'
 import Legend from '../../legend/Legend.jsx'
+import LegendAlert from '../../legend/LegendAlert.jsx'
 import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
 import styles from './styles/OverlayCard.module.css'
@@ -70,11 +71,11 @@ const OverlayCard = ({
             return (
                 <div
                     data-test="load-error-noticebox"
-                    className={styles.noticebox}
+                    className={styles.loadError}
                 >
-                    <NoticeBox error title={i18n.t('Failed to load layer')}>
-                        <p>{loadError}</p>
-                    </NoticeBox>
+                    <LegendAlert
+                        alert={{ code: ERROR_CRITICAL, message: loadError }}
+                    />
                 </div>
             )
         }
