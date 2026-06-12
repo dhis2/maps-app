@@ -1,3 +1,10 @@
+## [101.12.5](https://github.com/dhis2/maps-app/compare/v101.12.4...v101.12.5) (2026-06-12)
+
+
+### Bug Fixes
+
+* render calculated integer values without decimals in timeline [DHIS2-21037] ([#3669](https://github.com/dhis2/maps-app/issues/3669)) ([b029545](https://github.com/dhis2/maps-app/commit/b0295459fb1a92cc5f4871ec2e7d9eb6846294ad))
+
 ## [101.12.4](https://github.com/dhis2/maps-app/compare/v101.12.3...v101.12.4) (2026-06-12)
 
 
