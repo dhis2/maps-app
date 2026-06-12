@@ -1,3 +1,10 @@
+## [101.12.3](https://github.com/dhis2/maps-app/compare/v101.12.2...v101.12.3) (2026-06-12)
+
+
+### Bug Fixes
+
+* special characters encoded in layer alerts [DHIS2-19998] ([#3658](https://github.com/dhis2/maps-app/issues/3658)) ([bb060fa](https://github.com/dhis2/maps-app/commit/bb060fa25de74065fdb0260f31ea49ca2f73a193))
+
 ## [101.12.2](https://github.com/dhis2/maps-app/compare/v101.12.1...v101.12.2) (2026-06-11)
 
 

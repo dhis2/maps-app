@@ -112,7 +112,7 @@ const OverlayCard = ({
                 onRemove={() => {
                     removeLayer(id)
                     layerRemovedAlert.show({
-                        msg: i18n.t('{{name}} deleted.', { name }),
+                        msg: i18n.t('{{- name}} deleted.', { name }),
                     })
                 }}
                 downloadData={
