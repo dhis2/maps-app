@@ -143,20 +143,93 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null
 }
 
-// Returns list of filters in a readable format
-export const getFiltersAsText = (filters = [], names = {}) =>
-    filters.map(({ dimension, filter }) => {
-        const [operator, value] = filter.split(':')
-        const filterName = names[dimension]
-        const filterOperator = getFilterOperatorAsText(operator, value)
-        const filterValue = getFilterValueName(value, operator, names)
+// Single source of truth for event filter operators and their display labels.
+// Called lazily so i18n strings are resolved at runtime.
+const getOperatorLabels = () => ({
+    EQ: '=',
+    GT: '>',
+    GE: '>=',
+    LT: '<',
+    LE: '<=',
+    NE: '!=',
+    IN: i18n.t('one of'),
+    '!IN': i18n.t('not one of'),
+    LIKE: i18n.t('contains'),
+    '!LIKE': i18n.t("doesn't contain"),
+})
+const FILTER_OPERATORS = new Set(Object.keys(getOperatorLabels()))
 
-        return `${filterName} ${filterOperator} ${filterValue}`
-    })
+// Splits a combined filter string ('GT:50:LT:60') into individual conditions
+export const splitFilter = (filter) => {
+    if (!filter) {
+        return [filter]
+    }
+    const parts = filter.split(':')
+    const conditions = []
+    let i = 0
+    while (i < parts.length) {
+        const op = parts[i]
+        if (FILTER_OPERATORS.has(op)) {
+            conditions.push(`${op}:${parts[i + 1] ?? ''}`)
+            i += 2
+        } else {
+            i++
+        }
+    }
+    return conditions.length ? conditions : [filter]
+}
+
+// Expands compact filter columns into individual filter rows for display in the edit dialog
+export const splitFilterColumns = (filterColumns) =>
+    filterColumns.flatMap((col) =>
+        col.filter
+            ? splitFilter(col.filter).map((f) => ({ ...col, filter: f }))
+            : [col]
+    )
+
+// Compacts individual filter rows into one column entry per dimension
+export const compactFilterColumns = (filterRows) => {
+    const map = new Map()
+    const result = []
+    for (const row of filterRows) {
+        if (row.dimension && row.filter) {
+            if (map.has(row.dimension)) {
+                const existing = map.get(row.dimension)
+                existing.filter = `${existing.filter}:${row.filter}`
+                if (!existing.name && row.name) {
+                    existing.name = row.name
+                }
+            } else {
+                const compact = { ...row }
+                map.set(row.dimension, compact)
+                result.push(compact)
+            }
+        } else {
+            result.push({ ...row })
+        }
+    }
+    return result
+}
+
+// Returns list of filters in a readable format; handles combined filter strings
+export const getFiltersAsText = (filters = [], names = {}) =>
+    filters.flatMap(({ dimension, filter }) =>
+        splitFilter(filter).map((condition) => {
+            const [operator, value] = condition.split(':')
+            const filterName = names[dimension]
+            const filterOperator = getFilterOperatorAsText(operator, value)
+            const filterValue = value
+                ? getFilterValueName(value, operator, names)
+                : ''
+            return [filterName, filterOperator, filterValue]
+                .filter(Boolean)
+                .join(' ')
+        })
+    )
 
 // Returns filter operator in a readable format
-export const getFilterOperatorAsText = (operator, value) => {
-    // If only one value, use is / is not
+export const getFilterOperatorAsText = (operator, value = '') => {
+    // For single-value IN/!IN, prefer "is" / "is not" over "one of" / "not one of"
     if (!value.includes(';')) {
         if (operator === 'IN') {
             return i18n.t('is')
@@ -165,18 +238,7 @@ export const getFilterOperatorAsText = (operator, value) => {
         }
     }
 
-    return {
-        EQ: '=',
-        GT: '>',
-        GE: '>=',
-        LT: '<',
-        LE: '<=',
-        NE: '!=',
-        IN: i18n.t('one of'),
-        '!IN': i18n.t('not one of'),
-        LIKE: i18n.t('contains'),
-        '!LIKE': i18n.t("doesn't contain"),
-    }[operator]
+    return getOperatorLabels()[operator]
 }
 
 // Returns filter value is a readable fromat
