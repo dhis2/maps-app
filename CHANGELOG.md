@@ -1,3 +1,10 @@
+## [101.12.6](https://github.com/dhis2/maps-app/compare/v101.12.5...v101.12.6) (2026-06-12)
+
+
+### Bug Fixes
+
+* combine multiple filters on same dimension [DHIS2-19696] ([#3667](https://github.com/dhis2/maps-app/issues/3667)) ([7205be8](https://github.com/dhis2/maps-app/commit/7205be8392b8a623d0f082f8fd66389dfd1bf9ff))
+
 ## [101.12.5](https://github.com/dhis2/maps-app/compare/v101.12.4...v101.12.5) (2026-06-12)
 
 
