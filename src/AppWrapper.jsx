@@ -17,14 +17,15 @@ import store from './store/index.js'
 import { USER_DATASTORE_NAMESPACE } from './util/analyticalObject.js'
 import { appQueries, providerDataTransformation } from './util/app.js'
 import './locales/index.js'
-import history from './util/history.js'
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 )
 
-const replaceLegacyUrl = () => {
-    // support legacy urls
+// Redirect legacy ?id=... query-param URLs to hash URLs via a real navigation
+// so the v42 global shell never stores the query param and can't re-inject it
+// on subsequent popstate events.
+const redirectLegacyUrl = () => {
     const queryParams = queryString.parse(window.location.search, {
         parseBooleans: true,
     })
@@ -32,31 +33,20 @@ const replaceLegacyUrl = () => {
 
     if (queryParams.id) {
         // /?id=ytkZY3ChM6J
-        // /?id=ZBjCfSaLSqD&interpretationid=yKqhXZdeJ6a
-        // /?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a
-
+        // /?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a  (lowercase key also handled)
         const interpretationId =
             queryParams.interpretationId || queryParams.interpretationid
-
-        const interpretationQueryParams = interpretationId
+        const suffix = interpretationId
             ? `?interpretationId=${interpretationId}`
             : ''
-
-        // replace history && hash history
-        window.history.replaceState(
-            {},
-            '',
-            `${base}#/${queryParams.id}${interpretationQueryParams}`
-        )
-        history.replace(`/${queryParams.id}${interpretationQueryParams}`)
+        window.location.replace(`${base}#/${queryParams.id}${suffix}`)
     } else if (queryParams.currentAnalyticalObject === true) {
         // /?currentAnalyticalObject=true
-
-        // replace history && hash history
-        window.history.replaceState({}, '', `${base}#/currentAnalyticalObject`)
-        history.replace('/currentAnalyticalObject')
+        window.location.replace(`${base}#/currentAnalyticalObject`)
     }
 }
+
+redirectLegacyUrl()
 
 const InterpretationsProvider = ({ children }) => {
     const { currentUser } = useCachedData()
@@ -72,8 +62,6 @@ InterpretationsProvider.propTypes = {
 }
 
 const AppWrapper = () => {
-    replaceLegacyUrl()
-
     return (
         <ReduxProvider store={store}>
             <DataStoreProvider namespace={USER_DATASTORE_NAMESPACE}>
