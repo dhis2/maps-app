@@ -107,12 +107,19 @@ export const useLoadMap = () => {
                 return
             }
             lastLocation = location
-            // Dispatch this event for external routing listeners to observe,
-            // e.g. global shell
-            const popStateEvent = new PopStateEvent('popstate', {
-                state: location.state,
-            })
-            dispatchEvent(popStateEvent)
+
+            // Normalise bare '#' to '#/' before notifying the shell —
+            // an empty pathname would confuse it, and the replace fires the
+            // listener again with the correct '/' path.
+            if (!location.pathname) {
+                history.replace('/')
+                return
+            }
+
+            // Notify external routing listeners (e.g. v42 global shell)
+            dispatchEvent(
+                new PopStateEvent('popstate', { state: location.state })
+            )
 
             const params = getHashUrlParams(location)
 
