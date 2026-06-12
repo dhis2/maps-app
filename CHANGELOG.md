@@ -1,3 +1,10 @@
+## [101.12.4](https://github.com/dhis2/maps-app/compare/v101.12.3...v101.12.4) (2026-06-12)
+
+
+### Bug Fixes
+
+* correct URL routing for trailing slashes, bare hash, and legacy links [DHIS2-19417] [DHIS2-19418] ([0dea31d](https://github.com/dhis2/maps-app/commit/0dea31d204b74cf692ba5949857ac38df6591f70))
+
 ## [101.12.3](https://github.com/dhis2/maps-app/compare/v101.12.2...v101.12.3) (2026-06-12)
 
 
