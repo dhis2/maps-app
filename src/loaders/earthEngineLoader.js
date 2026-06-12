@@ -255,9 +255,9 @@ const earthEngineLoader = async ({
 
     return {
         ...layer,
-        ...(derivedPeriodReducerType !== undefined
-            ? { periodReducerType: derivedPeriodReducerType }
-            : {}),
+        ...(derivedPeriodReducerType && {
+            periodReducerType: derivedPeriodReducerType,
+        }),
         legend,
         name,
         data,
