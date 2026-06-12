@@ -80,7 +80,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
             <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
             <ModalContent>
                 <div className={styles.contentDiv}>
-                    {i18n.t('Downloading GeoJSON data for "{{layerName}}"', {
+                    {i18n.t('Downloading GeoJSON data for "{{- layerName}}"', {
                         layerName: layer.name,
                     })}
                 </div>

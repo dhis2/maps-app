@@ -622,8 +622,8 @@ msgstr "Basemap"
 msgid "Download Layer Data"
 msgstr "Download Layer Data"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Downloading GeoJSON data for \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr "Downloading GeoJSON data for \"{{- layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -647,8 +647,8 @@ msgstr "External layer"
 msgid "Loading layer"
 msgstr "Loading layer"
 
-msgid "{{name}} deleted."
-msgstr "{{name}} deleted."
+msgid "{{- name}} deleted."
+msgstr "{{- name}} deleted."
 
 msgid "Edit"
 msgstr "Edit"
