@@ -255,6 +255,33 @@ const map = (state = defaultState, action) => {
                 ),
             }
 
+        case types.LAYER_DUPLICATE: {
+            const sourceIndex = state.mapViews.findIndex(
+                (l) => l.id === action.id
+            )
+            if (sourceIndex === -1) {
+                return state
+            }
+            const duplicate = {
+                ...state.mapViews[sourceIndex],
+                id: generateUid(),
+            }
+            delete duplicate.isLoaded
+            delete duplicate.data
+            delete duplicate.alerts
+            delete duplicate.loadError
+            delete duplicate.isLoading
+            delete duplicate.coordinate
+            return {
+                ...state,
+                mapViews: [
+                    ...state.mapViews.slice(0, sourceIndex + 1),
+                    duplicate,
+                    ...state.mapViews.slice(sourceIndex + 1),
+                ],
+            }
+        }
+
         case types.LAYER_SORT:
             mapViews = [...state.mapViews].reverse() // TODO: Refactor
             sortedMapViews = arrayMoveImmutable(
