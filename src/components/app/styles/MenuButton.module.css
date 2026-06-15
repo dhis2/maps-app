@@ -1,0 +1,33 @@
+/* Matches @dhis2/analytics MenuButton.styles.js exactly */
+.menuButton {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacers-dp8);
+    font-size: 14px;
+    line-height: 14px;
+    padding: 0 12px;
+    color: var(--colors-grey900);
+    cursor: pointer;
+    user-select: none;
+}
+
+.menuButton:hover:not(:disabled),
+.menuButton:active:not(:disabled) {
+    background-color: var(--colors-grey200);
+}
+
+.menuButton:focus {
+    outline: 3px solid var(--colors-blue600, #2986cc);
+    outline-offset: -3px;
+}
+
+.menuButton:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.menuButton:disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+}

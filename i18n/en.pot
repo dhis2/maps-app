@@ -5,11 +5,59 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-11T16:48:10.810Z\n"
-"PO-Revision-Date: 2026-06-11T16:48:10.810Z\n"
+"POT-Creation-Date: 2026-06-15T12:59:12.638Z\n"
+"PO-Revision-Date: 2026-06-15T12:59:12.638Z\n"
 
 msgid "2020"
 msgstr "2020"
+
+msgid "Thinking…"
+msgstr "Thinking…"
+
+msgid "Running {{name}}…"
+msgstr "Running {{name}}…"
+
+msgid "Map assistant"
+msgstr "Map assistant"
+
+msgid "Demo mode — no AI model connected"
+msgstr "Demo mode — no AI model connected"
+
+msgid "New conversation"
+msgstr "New conversation"
+
+msgid "Close assistant"
+msgstr "Close assistant"
+
+msgid "Add, edit, or remove map layers using plain language."
+msgstr "Add, edit, or remove map layers using plain language."
+
+msgid "Try an example"
+msgstr "Try an example"
+
+msgid "You"
+msgstr "You"
+
+msgid "Assistant"
+msgstr "Assistant"
+
+msgid "Remove a layer"
+msgstr "Remove a layer"
+
+msgid "Try another example"
+msgstr "Try another example"
+
+msgid "Try one of the examples above…"
+msgstr "Try one of the examples above…"
+
+msgid "Ask me to add, edit, or remove a layer…"
+msgstr "Ask me to add, edit, or remove a layer…"
+
+msgid "Send"
+msgstr "Send"
+
+msgid "AI assistant"
+msgstr "AI assistant"
 
 msgid "Untitled map, {{date}}"
 msgstr "Untitled map, {{date}}"

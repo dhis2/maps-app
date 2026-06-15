@@ -1,6 +1,9 @@
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import AssistantPanel, {
+    isEnabled as isAiEnabled,
+} from '../../ai/ui/AssistantPanel.jsx'
 import { useLayersLoader } from '../../hooks/useLayersLoader.js'
 import BottomPanel from '../datatable/BottomPanel.jsx'
 import DownloadModeMenu from '../download/DownloadMenubar.jsx'
@@ -14,6 +17,8 @@ import './App.css'
 import styles from './styles/App.module.css'
 import { useLoadDataStore } from './useLoadDataStore.js'
 import { useLoadMap } from './useLoadMap.js'
+
+const aiEnabled = isAiEnabled()
 
 const App = () => {
     useEffect(() => {
@@ -34,6 +39,7 @@ const App = () => {
 
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)
+    const [assistantOpen, setAssistantOpen] = useState(false)
 
     const dataTableOpen = useSelector((state) => !!state.dataTable)
     const downloadModeOpen = useSelector((state) => !!state.ui.downloadMode)
@@ -50,7 +56,12 @@ const App = () => {
             {downloadModeOpen ? (
                 <DownloadModeMenu />
             ) : (
-                <AppMenu onFileMenuAction={onFileMenuAction} />
+                <AppMenu
+                    onFileMenuAction={onFileMenuAction}
+                    aiEnabled={aiEnabled}
+                    assistantOpen={assistantOpen}
+                    onAssistantToggle={() => setAssistantOpen((o) => !o)}
+                />
             )}
             <div
                 className={cx(styles.content, {
@@ -65,6 +76,12 @@ const App = () => {
                 {!downloadModeOpen && (
                     <DetailsPanel
                         interpretationsRenderCount={interpretationsRenderCount}
+                    />
+                )}
+                {aiEnabled && !downloadModeOpen && (
+                    <AssistantPanel
+                        open={assistantOpen}
+                        onClose={() => setAssistantOpen(false)}
                     />
                 )}
             </div>
