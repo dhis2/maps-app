@@ -266,10 +266,6 @@ const map = (state = defaultState, action) => {
                 ...state.mapViews[sourceIndex],
                 id: generateUid(),
             }
-            delete duplicate.isLoaded
-            delete duplicate.data
-            delete duplicate.alerts
-            delete duplicate.loadError
             delete duplicate.isLoading
             delete duplicate.coordinate
             return {
