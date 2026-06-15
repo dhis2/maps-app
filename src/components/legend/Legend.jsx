@@ -158,35 +158,43 @@ const Legend = ({
             return
         }
 
+        const updateNameMaxWidth = () => {
+            const firstNameCell = table.querySelector('[data-legend-name]')
+            if (firstNameCell) {
+                const row = firstNameCell.closest('tr')
+                const cells = [...row.cells]
+                const fixedWidth = cells
+                    .slice(cells.indexOf(firstNameCell) + 1)
+                    .filter((cell) => cell.textContent.trim())
+                    .reduce((sum, cell) => sum + cell.offsetWidth, 0)
+                table.style.setProperty(
+                    '--legend-name-max-width',
+                    `${
+                        table.parentElement.offsetWidth -
+                        row.cells[0].offsetWidth -
+                        fixedWidth
+                    }px`
+                )
+            } else {
+                table.style.removeProperty('--legend-name-max-width')
+            }
+        }
+
         // Apply name max-width before measuring overflow — reading scrollWidth
         // after setProperty forces a synchronous reflow, so overflow detection
         // sees the constrained layout.
-        const firstNameCell = table.querySelector('[data-legend-name]')
-        if (firstNameCell) {
-            const row = firstNameCell.closest('tr')
-            const cells = [...row.cells]
-            const fixedWidth = cells
-                .slice(cells.indexOf(firstNameCell) + 1)
-                .filter((cell) => cell.textContent.trim())
-                .reduce((sum, cell) => sum + cell.offsetWidth, 0)
-            table.style.setProperty(
-                '--legend-name-max-width',
-                `${
-                    table.parentElement.offsetWidth -
-                    row.cells[0].offsetWidth -
-                    fixedWidth
-                }px`
-            )
-        } else {
-            table.style.removeProperty('--legend-name-max-width')
-        }
+        updateNameMaxWidth()
+
+        // Re-run whenever the container width changes (e.g. scrollbar appears).
+        const resizeObserver = new ResizeObserver(updateNameMaxWidth)
+        resizeObserver.observe(table.parentElement)
 
         if (suppressAllRanges) {
-            return
+            return () => resizeObserver.disconnect()
         }
         const nameCells = [...table.querySelectorAll('[data-legend-name]')]
         if (!nameCells.length) {
-            return
+            return () => resizeObserver.disconnect()
         }
         const overflowing = nameCells.filter(
             (el) => el.scrollWidth > el.offsetWidth
@@ -194,6 +202,7 @@ const Legend = ({
         if (overflowing / nameCells.length >= NAME_OVERFLOW_THRESHOLD) {
             setSuppressAllRanges(true)
         }
+        return () => resizeObserver.disconnect()
     }, [suppressAllRanges, sortedItems])
 
     // Suppress range columns when all names already encode the range; isolated

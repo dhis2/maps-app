@@ -46,7 +46,7 @@ describe('Data Download', () => {
             .find('h2')
             .contains(mapWithThematicLayer.cardTitle, EXTENDED_TIMEOUT)
 
-        openMoreMenuWithOptions(6)
+        openMoreMenuWithOptions(7)
 
         cy.get('[data-test="data-download-modal"]')
             .find('button')
@@ -78,7 +78,7 @@ describe('Data Download', () => {
             .find('h2')
             .contains(mapWithEventLayer.cardTitle, EXTENDED_TIMEOUT)
 
-        openMoreMenuWithOptions(5)
+        openMoreMenuWithOptions(6)
 
         cy.get('[data-test="data-download-modal"]')
             .find('button')
@@ -109,7 +109,7 @@ describe('Data Download', () => {
             .find('h2')
             .contains(mapWithEventLayer.cardTitle, EXTENDED_TIMEOUT)
 
-        openMoreMenuWithOptions(5)
+        openMoreMenuWithOptions(6)
 
         cy.intercept('GET', '**/programStages/**', {
             statusCode: 400,

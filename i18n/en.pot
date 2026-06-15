@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-11T16:48:10.810Z\n"
-"PO-Revision-Date: 2026-06-11T16:48:10.810Z\n"
+"POT-Creation-Date: 2026-06-14T15:42:55.879Z\n"
+"PO-Revision-Date: 2026-06-14T15:42:55.879Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -682,6 +682,9 @@ msgstr "Download data"
 
 msgid "Edit layer"
 msgstr "Edit layer"
+
+msgid "Duplicate layer"
+msgstr "Duplicate layer"
 
 msgid "Remove layer"
 msgstr "Remove layer"

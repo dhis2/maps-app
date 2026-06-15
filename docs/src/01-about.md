@@ -49,7 +49,7 @@ to right are:
 -   A slider modifies the layer transparency.
 
 -   A more actions (three dots) button provides additional options, including showing or hiding the
-    data table, downloading the layer data, and removing the layer.
+    data table, downloading the layer data, duplicating the layer, and removing the layer.
 
 ### Map controls
 
