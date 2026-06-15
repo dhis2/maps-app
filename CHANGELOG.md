@@ -1,3 +1,10 @@
+# [101.13.0](https://github.com/dhis2/maps-app/compare/v101.12.6...v101.13.0) (2026-06-15)
+
+
+### Features
+
+* add duplicate layer option to layer toolbar menu ([#3671](https://github.com/dhis2/maps-app/issues/3671)) ([0110bb0](https://github.com/dhis2/maps-app/commit/0110bb037fe01b522fdbf79aeb3b20231efae480))
+
 ## [101.12.6](https://github.com/dhis2/maps-app/compare/v101.12.5...v101.12.6) (2026-06-12)
 
 
