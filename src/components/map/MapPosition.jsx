@@ -7,6 +7,8 @@ import NorthArrow from '../download/NorthArrow.jsx'
 import MapContainer from '../map/MapContainer.jsx'
 import styles from './styles/MapPosition.module.css'
 
+const incrementCount = (c) => c + 1
+
 const MapPosition = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
@@ -35,7 +37,7 @@ const MapPosition = () => {
 
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
-        setResizeCount((count) => count + 1)
+        setResizeCount(incrementCount)
     }, [
         dataTableOpen,
         dataTableHeight,
@@ -55,7 +57,7 @@ const MapPosition = () => {
                 return
             }
             frameId = requestAnimationFrame(() => {
-                setResizeCount((c) => c + 1)
+                setResizeCount(incrementCount)
                 frameId = null
             })
         })
