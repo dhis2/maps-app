@@ -109,22 +109,29 @@ const toGeoJson = (instances) =>
         },
     }))
 
-const parseJsonConfig = (config) => {
-    if (config.config && typeof config.config === 'string') {
-        try {
-            const customConfig = JSON.parse(config.config)
-            config.relationshipType = customConfig.relationships.type
-            config.relatedPointColor = customConfig.relationships.pointColor
-            config.relatedPointRadius = customConfig.relationships.pointRadius
-            config.relationshipLineColor = customConfig.relationships.lineColor
-            config.relationshipOutsideProgram =
-                customConfig.relationships.relationshipOutsideProgram
-            config.periodType = customConfig.periodType
-        } catch (e) {
-            // Failed to load JSON relationship config, assuming no relationships
-        }
-        delete config.config
+export const parseJsonConfig = (config) => {
+    if (!config.config || typeof config.config !== 'string') {
+        return
     }
+
+    try {
+        const { relationships, periodType } = JSON.parse(config.config)
+
+        if (relationships) {
+            config.relationshipType = relationships.type
+            config.relatedPointColor = relationships.pointColor
+            config.relatedPointRadius = relationships.pointRadius
+            config.relationshipLineColor = relationships.lineColor
+            config.relationshipOutsideProgram =
+                relationships.relationshipOutsideProgram
+        }
+
+        config.periodType = periodType
+    } catch (e) {
+        // Malformed config JSON
+    }
+
+    delete config.config
 }
 
 const fetchRelationshipData = async ({
