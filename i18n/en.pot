@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-08T09:31:17.960Z\n"
-"PO-Revision-Date: 2026-06-08T09:31:17.961Z\n"
+"POT-Creation-Date: 2026-06-14T15:42:55.879Z\n"
+"PO-Revision-Date: 2026-06-14T15:42:55.879Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -622,8 +622,8 @@ msgstr "Basemap"
 msgid "Download Layer Data"
 msgstr "Download Layer Data"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Downloading GeoJSON data for \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr "Downloading GeoJSON data for \"{{- layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -647,8 +647,8 @@ msgstr "External layer"
 msgid "Loading layer"
 msgstr "Loading layer"
 
-msgid "{{name}} deleted."
-msgstr "{{name}} deleted."
+msgid "{{- name}} deleted."
+msgstr "{{- name}} deleted."
 
 msgid "Edit"
 msgstr "Edit"
@@ -682,6 +682,9 @@ msgstr "Download data"
 
 msgid "Edit layer"
 msgstr "Edit layer"
+
+msgid "Duplicate layer"
+msgstr "Duplicate layer"
 
 msgid "Remove layer"
 msgstr "Remove layer"

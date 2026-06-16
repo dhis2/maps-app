@@ -9,6 +9,7 @@ import {
     IconLaunch16,
     IconDownload16,
     IconEdit16,
+    IconDuplicate16,
     IconDelete16,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -21,6 +22,7 @@ import styles from './styles/LayerToolbarMore.module.css'
 const LayerToolbarMoreMenu = ({
     layer,
     onEdit,
+    onDuplicate,
     onRemove,
     toggleDataTable,
     openAs,
@@ -34,7 +36,7 @@ const LayerToolbarMoreMenu = ({
     const anchorRef = useRef()
 
     const somethingAboveDivider = toggleDataTable || downloadData,
-        somethingBelowDivider = onRemove || onEdit,
+        somethingBelowDivider = onRemove || onEdit || onDuplicate,
         showDivider = somethingAboveDivider && somethingBelowDivider
 
     if (!somethingAboveDivider && !somethingBelowDivider) {
@@ -117,6 +119,16 @@ const LayerToolbarMoreMenu = ({
                                     }}
                                 />
                             )}
+                            {onDuplicate && (
+                                <MenuItem
+                                    label={i18n.t('Duplicate layer')}
+                                    icon={<IconDuplicate16 />}
+                                    onClick={() => {
+                                        setIsOpen(false)
+                                        onDuplicate()
+                                    }}
+                                />
+                            )}
                             {onRemove && (
                                 <MenuItem
                                     label={i18n.t('Remove layer')}
@@ -145,6 +157,7 @@ LayerToolbarMoreMenu.propTypes = {
     layer: PropTypes.object,
     openAs: PropTypes.func,
     toggleDataTable: PropTypes.func,
+    onDuplicate: PropTypes.func,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
 }

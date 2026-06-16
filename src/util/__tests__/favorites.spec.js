@@ -735,6 +735,51 @@ describe('cleanMapConfig', () => {
         })
     })
 
+    test('includes period in earthengine config JSON when defined', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'earthEngine',
+                    layerId: 'MODIS/006/MOD13A2',
+                    band: 'NDVI',
+                    period: '2023',
+                    rows: [],
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const parsedConfig = JSON.parse(cleanedConfig.mapViews[0].config)
+        expect(parsedConfig.id).toBe('MODIS/006/MOD13A2')
+        expect(parsedConfig.band).toBe('NDVI')
+        expect(parsedConfig.period).toBe('2023')
+    })
+
+    test('sets relationships to null in TEI config JSON when no relationshipType', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'trackedEntity',
+                    name: 'Tracked entity',
+                    rows: [],
+                    relationshipType: null,
+                    periodType: 'MONTHLY',
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const parsedConfig = JSON.parse(cleanedConfig.mapViews[0].config)
+        expect(parsedConfig.relationships).toBeNull()
+        expect(parsedConfig.periodType).toBe('MONTHLY')
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty('relationshipType')
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty('periodType')
+    })
+
     test('serializes countFeaturesWithoutCoordinates into config JSON for thematic layer', () => {
         const config = {
             mapViews: [
@@ -797,5 +842,36 @@ describe('cleanMapConfig', () => {
         expect(mapView.countFeaturesWithoutCoordinates).toBe(true)
         const parsedConfig = JSON.parse(mapView.config)
         expect(parsedConfig.countFeaturesWithoutCoordinates).toBeUndefined()
+    })
+
+    test('preserves compact filter column in columns for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    columns: [
+                        {
+                            dimension: 'qrur9Dvnyt5',
+                            name: 'Age in years',
+                            filter: 'GT:50:LT:60',
+                        },
+                    ],
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        expect(cleanedConfig.mapViews[0].columns).toEqual([
+            {
+                dimension: 'qrur9Dvnyt5',
+                name: 'Age in years',
+                filter: 'GT:50:LT:60',
+            },
+        ])
+        expect(cleanedConfig.mapViews[0].config).toBeUndefined()
     })
 })

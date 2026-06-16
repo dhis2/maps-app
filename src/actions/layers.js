@@ -12,6 +12,12 @@ export const removeLayer = (id) => ({
     id,
 })
 
+// Duplicate an overlay
+export const duplicateLayer = (id) => ({
+    type: types.LAYER_DUPLICATE,
+    id,
+})
+
 // Edit overlay
 export const editLayer = (layer) => ({
     type: types.LAYER_EDIT,

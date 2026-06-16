@@ -118,7 +118,21 @@ export const getAnalyticsRequest = async (
     )
 
     if (dataItems) {
-        dataItems.forEach((item) => {
+        const dimensionMap = dataItems.reduce((acc, item) => {
+            if (acc.has(item.dimension)) {
+                const existing = acc.get(item.dimension)
+                if (item.filter) {
+                    existing.filter = existing.filter
+                        ? `${existing.filter}:${item.filter}`
+                        : item.filter
+                }
+            } else {
+                acc.set(item.dimension, { ...item })
+            }
+            return acc
+        }, new Map())
+
+        dimensionMap.forEach((item) => {
             analyticsRequest = analyticsRequest.addDimension(
                 item.dimension,
                 item.filter

@@ -9,6 +9,7 @@ import { toggleDataTable } from '../../../actions/dataTable.js'
 import {
     editLayer,
     removeLayer,
+    duplicateLayer,
     changeLayerOpacity,
     toggleLayerExpand,
     toggleLayerVisibility,
@@ -39,6 +40,7 @@ const OverlayCard = ({
     layer,
     editLayer,
     removeLayer,
+    duplicateLayer,
     changeLayerOpacity,
     toggleLayerExpand,
     toggleLayerVisibility,
@@ -109,10 +111,11 @@ const OverlayCard = ({
                 onOpacityChange={(newOpacity) =>
                     changeLayerOpacity(id, newOpacity)
                 }
+                onDuplicate={() => duplicateLayer(id)}
                 onRemove={() => {
                     removeLayer(id)
                     layerRemovedAlert.show({
-                        msg: i18n.t('{{name}} deleted.', { name }),
+                        msg: i18n.t('{{- name}} deleted.', { name }),
                     })
                 }}
                 downloadData={
@@ -153,6 +156,7 @@ const OverlayCard = ({
 
 OverlayCard.propTypes = {
     changeLayerOpacity: PropTypes.func.isRequired,
+    duplicateLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
     removeLayer: PropTypes.func.isRequired,
@@ -164,6 +168,7 @@ OverlayCard.propTypes = {
 export default connect(null, {
     editLayer,
     removeLayer,
+    duplicateLayer,
     changeLayerOpacity,
     toggleLayerExpand,
     toggleLayerVisibility,

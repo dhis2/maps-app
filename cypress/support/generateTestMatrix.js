@@ -45,6 +45,10 @@ const CYPRESS_FILES = {
         include: true,
         duration: 15,
     },
+    'cypress/integration/layers/duplicatelayer.cy.js': {
+        include: true,
+        duration: 30,
+    },
     'cypress/integration/layers/orgunitlayer.cy.js': {
         include: true,
         duration: 30,
