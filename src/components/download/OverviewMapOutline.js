@@ -62,12 +62,7 @@ const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
                 },
             }
 
-            if (!sourceIdRef.current) {
-                const layer = overviewMap.createLayer(config)
-                overviewMap.addLayer(layer)
-                sourceIdRef.current = layer.getId()
-                layerRef.current = layer
-            } else {
+            if (sourceIdRef.current) {
                 const mapGl = overviewMap.getMapGL()
                 const source = mapGl.getSource(sourceIdRef.current)
                 if (source) {
@@ -81,6 +76,11 @@ const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
                         strokeColor
                     )
                 }
+            } else {
+                const layer = overviewMap.createLayer(config)
+                overviewMap.addLayer(layer)
+                sourceIdRef.current = layer.getId()
+                layerRef.current = layer
             }
 
             // Make sure outline bounds is inside overview map bounds
