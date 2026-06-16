@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-15T12:59:12.638Z\n"
-"PO-Revision-Date: 2026-06-15T12:59:12.638Z\n"
+"POT-Creation-Date: 2026-06-15T13:48:16.543Z\n"
+"PO-Revision-Date: 2026-06-15T13:48:16.543Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -25,9 +25,6 @@ msgstr "Demo mode — no AI model connected"
 
 msgid "New conversation"
 msgstr "New conversation"
-
-msgid "Close assistant"
-msgstr "Close assistant"
 
 msgid "Add, edit, or remove map layers using plain language."
 msgstr "Add, edit, or remove map layers using plain language."

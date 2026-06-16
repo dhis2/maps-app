@@ -18,23 +18,13 @@ export const TOOL_SCHEMAS = [
                     description:
                         'Name or partial name of the indicator/data element, e.g. "malaria incidence"',
                 },
-                dimensionItemType: {
-                    type: 'string',
-                    enum: [
-                        'INDICATOR',
-                        'DATA_ELEMENT',
-                        'DATA_ELEMENT_OPERAND',
-                        'REPORTING_RATE',
-                    ],
-                    description: 'Optional: filter by type',
-                },
             },
         },
     },
     {
         name: 'resolve_org_units',
         description:
-            'Resolve a natural-language org unit description to DHIS2 org unit items (ids and/or level/group tokens). Always call this before any add_*_layer tool. Never invent org unit ids.',
+            'Resolve a natural-language org unit description to DHIS2 org unit items (ids and/or level/group tokens). Always call this before any add_*_layer or update_layer call. This tool only resolves — it does NOT apply changes to the map. After getting the items, you must call add_*_layer or update_layer to apply them.',
         input_schema: {
             type: 'object',
             required: ['description'],
@@ -71,7 +61,7 @@ export const TOOL_SCHEMAS = [
     {
         name: 'resolve_periods',
         description:
-            'Resolve a natural-language period description to DHIS2 relative period ids. Resolved locally — nothing leaves the browser. Returns an array of period id strings.',
+            'Resolve a natural-language period description to DHIS2 relative period ids. Returns an array of period id strings. This tool only resolves — it does NOT apply changes. After getting period ids, you must call add_thematic_layer or update_layer to apply them.',
         input_schema: {
             type: 'object',
             required: ['description'],
@@ -106,7 +96,11 @@ export const TOOL_SCHEMAS = [
                     required: ['id', 'dimensionItemType'],
                     properties: {
                         id: { type: 'string' },
-                        name: { type: 'string' },
+                        name: {
+                            type: 'string',
+                            description:
+                                'Use the displayName from search_data_items results.',
+                        },
                         dimensionItemType: {
                             type: 'string',
                             enum: [
@@ -196,7 +190,7 @@ export const TOOL_SCHEMAS = [
     {
         name: 'update_layer',
         description:
-            'Update properties of an existing layer. Call list_layers first to get the layer id.',
+            'Update properties of an existing layer. Call list_layers first to get the layer id. After calling this tool, report success directly — do not ask the user to confirm.',
         input_schema: {
             type: 'object',
             required: ['layerId', 'changes'],
@@ -208,7 +202,29 @@ export const TOOL_SCHEMAS = [
                 changes: {
                     type: 'object',
                     description:
-                        'Properties to update. For periods: {periods: ["LAST_6_MONTHS"]}. For type: {thematicMapType: "BUBBLE"}.',
+                        'Properties to change. Only include keys you want to change.',
+                    properties: {
+                        periods: {
+                            type: 'array',
+                            items: { type: 'string' },
+                            description:
+                                'New period ids, e.g. ["2023"] or ["LAST_6_MONTHS"]',
+                        },
+                        classes: {
+                            type: 'integer',
+                            description:
+                                'Number of classification classes (1–9)',
+                        },
+                        thematicMapType: {
+                            type: 'string',
+                            enum: ['CHOROPLETH', 'BUBBLE'],
+                        },
+                        orgUnits: {
+                            type: 'array',
+                            items: { type: 'string' },
+                            description: 'Replacement org unit ids / tokens',
+                        },
+                    },
                 },
             },
         },
@@ -216,14 +232,35 @@ export const TOOL_SCHEMAS = [
     {
         name: 'remove_layer',
         description:
-            'Remove a layer from the map. Call list_layers first to get the layer id. Always confirm with the user before calling this.',
+            'Remove a layer from the map. The user asking to remove a layer IS confirmation — call this tool immediately, do not ask again. Provide either layerId (from list_layers) or namePattern (a substring of the layer name).',
         input_schema: {
             type: 'object',
-            required: ['layerId'],
             properties: {
                 layerId: {
                     type: 'string',
                     description: 'Layer id from list_layers',
+                },
+                namePattern: {
+                    type: 'string',
+                    description:
+                        'Substring of the layer name to match, e.g. "ANC 1" or "malaria". Used when you do not have the layerId.',
+                },
+            },
+        },
+    },
+    {
+        name: 'validate_periods',
+        description:
+            'Validate DHIS2 period IDs before using them in add_thematic_layer or update_layer. Returns valid=true for recognized ids, false with a suggestion for invalid ones. Use when you are unsure whether a period id is correctly formatted.',
+        input_schema: {
+            type: 'object',
+            required: ['periods'],
+            properties: {
+                periods: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description:
+                        'Array of period id strings to validate, e.g. ["LAST_YEAR"] or ["2023Q1"]',
                 },
             },
         },

@@ -94,6 +94,29 @@ export const makeResolveOrgUnits =
             }
         }
 
+        // Check if description has a named qualifier alongside the level keyword.
+        // e.g. "Bo district" → strip "district" and stop words → "Bo" → resolve as specific OU at that level.
+        // This avoids returning LEVEL-N for queries like "facilities for Bo district".
+        const levelKeyword = matchedLevel.displayName
+        const namedPart = description
+            .replace(new RegExp(`\\b${levelKeyword}s?\\b`, 'gi'), '')
+            .replace(
+                /\b(for|in|of|by|the|all|a|an|health|facilit\w*|boundar\w*|show|add|display)\b/gi,
+                ''
+            )
+            .trim()
+
+        if (namedPart && namedPart.split(/\s+/).length <= 3) {
+            const namedResult = await resolveNamedOrgUnitAtLevel(engine, {
+                description: namedPart,
+                level: matchedLevel.level,
+                parentId,
+            })
+            if (namedResult.resolved) {
+                return namedResult
+            }
+        }
+
         const items = [`LEVEL-${matchedLevel.level}`]
         if (parentId) {
             items.push(parentId)
@@ -140,6 +163,23 @@ const resolveNamedOrgUnit = async (engine, description, parentId) => {
         }
     }
 
+    // Exact display name match wins regardless of how many results the query returned
+    const exact = units.find(
+        (u) => u.displayName.toLowerCase() === description.toLowerCase()
+    )
+    if (exact) {
+        const items = [exact.id]
+        if (parentId) {
+            items.push(parentId)
+        }
+        return {
+            resolved: true,
+            items,
+            description,
+            resolvedName: exact.displayName,
+        }
+    }
+
     if (units.length === 1) {
         const items = [units[0].id]
         if (parentId) {
@@ -162,6 +202,44 @@ const resolveNamedOrgUnit = async (engine, description, parentId) => {
             displayName,
             level,
         })),
+    }
+}
+
+/** Resolve a named OU filtered to a specific level — avoids ambiguity when "Bo district" matches chiefdoms too. */
+const resolveNamedOrgUnitAtLevel = async (
+    engine,
+    { description, level, parentId }
+) => {
+    const { orgUnits } = await engine.query({
+        orgUnits: {
+            resource: 'organisationUnits',
+            params: {
+                query: description,
+                fields: 'id,displayName,level',
+                filter: `level:eq:${level}`,
+                pageSize: 5,
+            },
+        },
+    })
+
+    const units = orgUnits?.organisationUnits ?? []
+    if (units.length === 0) {
+        return { resolved: false }
+    }
+
+    const exact = units.find(
+        (u) => u.displayName.toLowerCase() === description.toLowerCase()
+    )
+    const best = exact ?? units[0]
+    const items = [best.id]
+    if (parentId) {
+        items.push(parentId)
+    }
+    return {
+        resolved: true,
+        items,
+        description,
+        resolvedName: best.displayName,
     }
 }
 

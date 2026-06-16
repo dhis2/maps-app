@@ -47,6 +47,15 @@ const config = {
     },
 
     viteConfigExtensions: {
+        server: {
+            proxy: {
+                '/anthropic-proxy': {
+                    target: 'https://api.anthropic.com',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/anthropic-proxy/, ''),
+                },
+            },
+        },
         optimizeDeps: {
             esbuildOptions: {
                 target: 'es2022',

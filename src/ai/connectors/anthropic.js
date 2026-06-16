@@ -38,6 +38,7 @@ export const makeAnthropic = ({ id, label, baseURL, apiKey, model }) => ({
             headers: {
                 'content-type': 'application/json',
                 'anthropic-version': ANTHROPIC_VERSION,
+                'anthropic-dangerous-direct-browser-access': 'true',
                 ...(apiKey && { 'x-api-key': apiKey }),
             },
             body: JSON.stringify(body),

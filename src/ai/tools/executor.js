@@ -8,6 +8,7 @@ import { makeResolvePeriods } from './resolvePeriods.js'
 import { makeSearchDataItems } from './searchDataItems.js'
 import { makeSearchOrgUnitGroupSets } from './searchOrgUnitGroupSets.js'
 import { makeUpdateLayer } from './updateLayer.js'
+import { makeValidatePeriods } from './validatePeriods.js'
 
 /**
  * Build the tool registry — a map from tool name to async function.
@@ -24,11 +25,12 @@ export const buildToolRegistry = ({ engine, dispatch, getState }) => ({
     search_org_unit_group_sets: makeSearchOrgUnitGroupSets(engine),
     resolve_periods: makeResolvePeriods(),
     list_layers: makeListLayers(getState),
-    add_thematic_layer: makeAddThematicLayer(dispatch),
-    add_facility_layer: makeAddFacilityLayer(dispatch),
-    add_org_unit_layer: makeAddOrgUnitLayer(dispatch),
+    add_thematic_layer: makeAddThematicLayer(dispatch, getState),
+    add_facility_layer: makeAddFacilityLayer(dispatch, getState),
+    add_org_unit_layer: makeAddOrgUnitLayer(dispatch, getState),
     update_layer: makeUpdateLayer(dispatch, getState),
     remove_layer: makeRemoveLayer(dispatch, getState),
+    validate_periods: makeValidatePeriods(),
 })
 
 /**

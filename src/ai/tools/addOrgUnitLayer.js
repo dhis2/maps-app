@@ -4,9 +4,21 @@ import { addLayer } from '../../actions/layers.js'
  * @param {Function} dispatch - Redux dispatch
  * @returns {(args: Object) => Promise<Object>}
  */
+const isValidOrgUnit = (ou) =>
+    /^LEVEL-\d+$/.test(ou) ||
+    /^USER_ORGUNIT(_CHILDREN|_GRANDCHILDREN)?$/.test(ou) ||
+    /^[A-Za-z0-9]{11}$/.test(ou)
+
 export const makeAddOrgUnitLayer =
-    (dispatch) =>
+    (dispatch, getState) =>
     async ({ orgUnits, organisationUnitGroupSetId }) => {
+        const badOrgUnit = orgUnits?.find((ou) => !isValidOrgUnit(ou))
+        if (badOrgUnit) {
+            return {
+                success: false,
+                message: `Invalid org unit "${badOrgUnit}". Call resolve_org_units first and use the items from its results.`,
+            }
+        }
         const config = {
             layer: 'orgUnit',
             name: 'Organisation units',
@@ -25,10 +37,17 @@ export const makeAddOrgUnitLayer =
             }),
         }
 
+        const before = getState().map?.mapViews?.map((l) => l.id) ?? []
         dispatch(addLayer(config))
+        const newLayer = getState().map?.mapViews?.find(
+            (l) => !before.includes(l.id)
+        )
 
         return {
             success: true,
-            message: `Added org unit / boundaries layer.`,
+            layerId: newLayer?.id ?? null,
+            message: `Added org unit / boundaries layer. Layer id: ${
+                newLayer?.id ?? 'unknown'
+            }.`,
         }
     }

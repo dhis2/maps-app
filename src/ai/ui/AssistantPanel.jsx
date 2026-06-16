@@ -1,12 +1,6 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import {
-    Button,
-    CircularLoader,
-    IconChevronRight24,
-    IconRedo16,
-    TextArea,
-} from '@dhis2/ui'
+import { Button, CircularLoader, IconRedo16, TextArea } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector, useStore } from 'react-redux'
@@ -24,7 +18,7 @@ const isEnabled = () =>
         localStorage.getItem(FEATURE_FLAG) === 'true' ||
         process.env.NODE_ENV === 'development')
 
-const AssistantPanel = ({ open, onClose }) => {
+const AssistantPanel = ({ open }) => {
     const dispatch = useDispatch()
     const reduxStore = useStore()
     const engine = useDataEngine()
@@ -35,9 +29,46 @@ const AssistantPanel = ({ open, onClose }) => {
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
     const [statusText, setStatusText] = useState('')
-    const [activeProvider] = useState('demo')
-    const [registry] = useState(() => buildRegistry([]))
+    const [activeProvider, setActiveProvider] = useState('ollama-3b')
+    const [registry] = useState(() =>
+        buildRegistry([
+            {
+                id: 'ollama-3b',
+                label: 'Ollama · qwen2.5:3b',
+                type: 'openaiCompatible',
+                baseURL: 'http://localhost:11434/v1',
+                model: 'qwen2.5:3b',
+                isLocal: true,
+                enabled: true,
+            },
+            {
+                id: 'ollama-7b',
+                label: 'Ollama · qwen2.5:7b',
+                type: 'openaiCompatible',
+                baseURL: 'http://localhost:11434/v1',
+                model: 'qwen2.5:7b',
+                isLocal: true,
+                enabled: true,
+            },
+            // Dev-only: Vite strips this entire block in production builds so the
+            // API key is never inlined into the bundle.
+            ...(import.meta.env.DEV && import.meta.env.DHIS2_ANTHROPIC_API_KEY
+                ? [
+                      {
+                          id: 'claude',
+                          label: 'Claude (Anthropic)',
+                          type: 'anthropic',
+                          baseURL: '/anthropic-proxy',
+                          model: 'claude-sonnet-4-6',
+                          apiKey: import.meta.env.DHIS2_ANTHROPIC_API_KEY,
+                          enabled: true,
+                      },
+                  ]
+                : []),
+        ])
+    )
     const connector = selectConnector(registry, activeProvider)
+    const selectableConnectors = registry.filter((c) => c.id !== 'demo')
     const isDemo = connector.id === 'demo'
 
     const toolRegistry = buildToolRegistry({
@@ -56,6 +87,7 @@ const AssistantPanel = ({ open, onClose }) => {
             setStatus('thinking')
             setStatusText('')
             setInputText('')
+            setHistory((prev) => [...prev, { role: 'user', content: userText }])
 
             const onUpdate = (update) => {
                 if (update.type === 'thinking') {
@@ -100,7 +132,7 @@ const AssistantPanel = ({ open, onClose }) => {
         setStatusText('')
     }, [])
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (_payload, e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
             handleSend(inputText)
@@ -150,11 +182,24 @@ const AssistantPanel = ({ open, onClose }) => {
                     <div className={styles.title}>
                         {i18n.t('Map assistant')}
                     </div>
-                    <div className={styles.providerText}>
-                        {isDemo
-                            ? i18n.t('Demo mode — no AI model connected')
-                            : connector.label}
-                    </div>
+                    {isDemo ? (
+                        <div className={styles.providerText}>
+                            {i18n.t('Demo mode — no AI model connected')}
+                        </div>
+                    ) : (
+                        <select
+                            className={styles.modelSelect}
+                            value={activeProvider}
+                            onChange={(e) => setActiveProvider(e.target.value)}
+                            disabled={status === 'thinking'}
+                        >
+                            {selectableConnectors.map((c) => (
+                                <option key={c.id} value={c.id}>
+                                    {c.label}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                 </div>
                 {history.length > 0 && (
                     <button
@@ -166,13 +211,6 @@ const AssistantPanel = ({ open, onClose }) => {
                         <IconRedo16 />
                     </button>
                 )}
-                <button
-                    className={styles.closeBtn}
-                    onClick={onClose}
-                    aria-label={i18n.t('Close assistant')}
-                >
-                    <IconChevronRight24 />
-                </button>
             </div>
 
             <div
@@ -324,7 +362,6 @@ const AssistantPanel = ({ open, onClose }) => {
 
 AssistantPanel.propTypes = {
     open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
 }
 
 export { isEnabled }

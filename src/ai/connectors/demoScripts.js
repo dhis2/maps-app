@@ -11,7 +11,7 @@
  */
 export const DEMO_SCRIPTS = [
     {
-        label: 'Malaria incidence by district, last 12 months',
+        label: 'Inpatient malaria cases by district, last year',
         match: /malaria.*district|district.*malaria/i,
         removeLabel: 'Remove malaria layer',
         removeMatch: /remove.*malaria/i,
@@ -19,7 +19,7 @@ export const DEMO_SCRIPTS = [
             {
                 id: 'demo-1',
                 name: 'search_data_items',
-                args: { query: 'malaria' },
+                args: { query: 'Inpatient malaria cases' },
             },
             {
                 id: 'demo-2',
@@ -46,7 +46,7 @@ export const DEMO_SCRIPTS = [
             {
                 id: 'remove-1',
                 name: 'remove_layer',
-                args: { namePattern: 'Malaria', confirmed: true },
+                args: { namePattern: 'malaria', confirmed: true },
             },
         ],
     },

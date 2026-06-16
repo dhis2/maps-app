@@ -14,14 +14,12 @@ const AGGREGATE_TYPES = [
  */
 export const makeSearchDataItems =
     (engine) =>
-    async ({ query, dimensionItemType }) => {
-        const filters = [`displayName:ilike:${query}`]
-        if (dimensionItemType && AGGREGATE_TYPES.includes(dimensionItemType)) {
-            filters.push(`dimensionItemType:eq:${dimensionItemType}`)
-        } else {
-            // Always restrict to aggregate types — tracker-level items can't be mapped
-            filters.push(`dimensionItemType:in:[${AGGREGATE_TYPES.join(',')}]`)
-        }
+    async ({ query }) => {
+        // Always search across all aggregate types — the model can't know the type before searching
+        const filters = [
+            `displayName:ilike:${query}`,
+            `dimensionItemType:in:[${AGGREGATE_TYPES.join(',')}]`,
+        ]
 
         const { dataItems } = await engine.query({
             dataItems: {

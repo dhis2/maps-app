@@ -1,4 +1,7 @@
 import { updateLayer } from '../../actions/layers.js'
+import { makeValidatePeriods } from './validatePeriods.js'
+
+const _validatePeriods = makeValidatePeriods()
 
 /**
  * Merge changes into an existing layer and re-trigger loading.
@@ -12,12 +15,35 @@ export const makeUpdateLayer =
     (dispatch, getState) =>
     async ({ layerId, changes }) => {
         const { map } = getState()
-        const layer = (map?.mapViews ?? []).find((l) => l.id === layerId)
+        const mapViews = map?.mapViews ?? []
+
+        // Try exact ID match first, then fall back to name substring match
+        const layer =
+            mapViews.find((l) => l.id === layerId) ??
+            mapViews.find((l) =>
+                l.name?.toLowerCase().includes(layerId.toLowerCase())
+            )
 
         if (!layer) {
             return {
                 success: false,
-                message: `No layer found with id "${layerId}". Call list_layers to see available layers.`,
+                message: `No layer found matching "${layerId}". Call list_layers to see available layers and their ids.`,
+            }
+        }
+
+        // Validate periods before applying — catch hallucinated IDs early
+        if (changes.periods?.length) {
+            const validation = await _validatePeriods({
+                periods: changes.periods,
+            })
+            if (!validation.allValid) {
+                const bad = validation.results.filter((r) => !r.valid)
+                return {
+                    success: false,
+                    message:
+                        bad.map((r) => r.suggestion).join(' ') +
+                        ' Call resolve_periods with a natural language description to get valid ids.',
+                }
             }
         }
 
@@ -59,12 +85,27 @@ const applyChanges = (layer, changes) => {
 
     // Period change: replace the pe filter
     if (changes.periods) {
+        const normalizePeriodId = (p) => {
+            let n = p.replace(/^P_/i, '')
+            n = n.replace(/^(\d{4})[-_]Q([1-4])$/i, '$1Q$2')
+            n = n.replace(/^Q([1-4])[-_ ](\d{4})$/i, '$2Q$1')
+            n = n.replace(/^(\d{4})[-_](\d{2})$/, '$1$2')
+            n = n.replace(/^PREVIOUS_YEAR$/i, 'LAST_YEAR')
+            n = n.replace(/^CURRENT_YEAR$/i, 'THIS_YEAR')
+            n = n.replace(/^PREVIOUS_QUARTER$/i, 'LAST_QUARTER')
+            n = n.replace(/^CURRENT_QUARTER$/i, 'THIS_QUARTER')
+            n = n.replace(/^PREVIOUS_MONTH$/i, 'LAST_MONTH')
+            n = n.replace(/^CURRENT_MONTH$/i, 'THIS_MONTH')
+            return n
+        }
         const existingFilters = layer.filters ?? []
         patch.filters = [
             ...existingFilters.filter((f) => f.dimension !== 'pe'),
             {
                 dimension: 'pe',
-                items: changes.periods.map((pe) => ({ id: pe })),
+                items: changes.periods.map((pe) => ({
+                    id: normalizePeriodId(pe),
+                })),
             },
         ]
     }
