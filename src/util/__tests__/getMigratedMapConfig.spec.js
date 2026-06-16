@@ -366,3 +366,29 @@ test('getMigratedMapConfig with v43 basemaps array with hidden: true sets isVisi
     expect(result.basemap.isVisible).toBe(false)
     expect(result.basemap.id).toBe('osmLight')
 })
+
+test('passes compact event filter column through unchanged', () => {
+    const config = {
+        basemap: 'osmLight',
+        mapViews: [
+            {
+                layer: 'event',
+                columns: [
+                    {
+                        dimension: 'qrur9Dvnyt5',
+                        name: 'Age in years',
+                        filter: 'GT:50:LT:60',
+                    },
+                ],
+            },
+        ],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.mapViews[0].columns).toEqual([
+        {
+            dimension: 'qrur9Dvnyt5',
+            name: 'Age in years',
+            filter: 'GT:50:LT:60',
+        },
+    ])
+})

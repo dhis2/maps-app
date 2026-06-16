@@ -217,6 +217,32 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('preserves start/end dates when editing a saved event layer', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({ periodType: 'Start/end dates' })
+            .typeStartDate(programIP.startDate)
+            .typeEndDate(programIP.endDate)
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardPeriod(programIP.periodText)
+
+        // Open edit dialog and immediately save without changing anything
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.updateMap()
+        Layer.validateDialogClosed(true)
+
+        // Dates must still be the original ones (the fix)
+        Layer.validateCardPeriod(programIP.periodText)
+    })
+
     it('opens an event popup', () => {
         Layer.openDialog('Events')
             .selectProgram(programIP.name)
@@ -251,6 +277,66 @@ context('Event Layers', () => {
 
         Layer.validateCardTitle(programIP.name)
         Layer.validateCardItems(['Event'])
+    })
+
+    it('sends multiple filters on the same dimension with colon separator [DHIS2-19696]', () => {
+        cy.intercept('GET', /analytics\/events\/query\//).as('analyticsQuery')
+        cy.intercept(
+            'GET',
+            /\/programStages\/[a-zA-Z0-9]{11}\?fields=programStageDataElements/
+        ).as('getProgramStageDataElements')
+
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectOu(programIP.ous[1])
+
+        cy.wait('@getProgramStageDataElements')
+
+        Layer.selectTab('Filter')
+
+        // First filter: Age in years > 50
+        cy.contains('Add filter').click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains('Age in years')
+            .click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains(/^>$/)
+            .click()
+        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+            .last()
+            .find('input')
+            .type('50')
+
+        // Second filter: Age in years < 60
+        cy.contains('Add filter').click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains('Age in years')
+            .click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains(/^<$/)
+            .click()
+        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+            .last()
+            .find('input')
+            .type('60')
+
+        Layer.addToMap()
+        Layer.validateDialogClosed(true)
+
+        cy.wait('@analyticsQuery').then(({ request }) => {
+            expect(decodeURIComponent(request.url)).to.include(
+                'qrur9Dvnyt5:GT:50:LT:60'
+            )
+        })
     })
 
     it.skip('change coordinate field - de/tea coordinate', () => {

@@ -55,7 +55,7 @@ describe('data table', () => {
         cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
-            .should('have.length', 6)
+            .should('have.length', 7)
 
         cy.getByDataTest('more-menu')
             .find('li')

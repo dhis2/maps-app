@@ -31,6 +31,7 @@ import { START_END_DATES } from '../../../constants/periods.js'
 import {
     getPeriodFromFilters,
     getOrgUnitsFromRows,
+    splitFilterColumns,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
@@ -152,7 +153,7 @@ class EventDialog extends Component {
         }
 
         // Set default dates
-        if (!backupPeriodsDates) {
+        if (!hasDate && !backupPeriodsDates) {
             const defaultDates = getDefaultDatesInCalendar()
             setStartDate(defaultDates.startDate)
             setEndDate(defaultDates.endDate)
@@ -356,8 +357,10 @@ class EventDialog extends Component {
                             <FilterGroup
                                 program={program}
                                 programStage={programStage}
-                                filters={columns.filter(
-                                    (c) => c.filter !== undefined
+                                filters={splitFilterColumns(
+                                    columns.filter(
+                                        (c) => c.filter !== undefined
+                                    )
                                 )}
                             />
                         </div>

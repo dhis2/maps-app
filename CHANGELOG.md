@@ -1,3 +1,52 @@
+# [101.13.0](https://github.com/dhis2/maps-app/compare/v101.12.6...v101.13.0) (2026-06-15)
+
+
+### Features
+
+* add duplicate layer option to layer toolbar menu ([#3671](https://github.com/dhis2/maps-app/issues/3671)) ([0110bb0](https://github.com/dhis2/maps-app/commit/0110bb037fe01b522fdbf79aeb3b20231efae480))
+
+## [101.12.6](https://github.com/dhis2/maps-app/compare/v101.12.5...v101.12.6) (2026-06-12)
+
+
+### Bug Fixes
+
+* combine multiple filters on same dimension [DHIS2-19696] ([#3667](https://github.com/dhis2/maps-app/issues/3667)) ([7205be8](https://github.com/dhis2/maps-app/commit/7205be8392b8a623d0f082f8fd66389dfd1bf9ff))
+
+## [101.12.5](https://github.com/dhis2/maps-app/compare/v101.12.4...v101.12.5) (2026-06-12)
+
+
+### Bug Fixes
+
+* render calculated integer values without decimals in timeline [DHIS2-21037] ([#3669](https://github.com/dhis2/maps-app/issues/3669)) ([b029545](https://github.com/dhis2/maps-app/commit/b0295459fb1a92cc5f4871ec2e7d9eb6846294ad))
+
+## [101.12.4](https://github.com/dhis2/maps-app/compare/v101.12.3...v101.12.4) (2026-06-12)
+
+
+### Bug Fixes
+
+* correct URL routing for trailing slashes, bare hash, and legacy links [DHIS2-19417] [DHIS2-19418] ([0dea31d](https://github.com/dhis2/maps-app/commit/0dea31d204b74cf692ba5949857ac38df6591f70))
+
+## [101.12.3](https://github.com/dhis2/maps-app/compare/v101.12.2...v101.12.3) (2026-06-12)
+
+
+### Bug Fixes
+
+* special characters encoded in layer alerts [DHIS2-19998] ([#3658](https://github.com/dhis2/maps-app/issues/3658)) ([bb060fa](https://github.com/dhis2/maps-app/commit/bb060fa25de74065fdb0260f31ea49ca2f73a193))
+
+## [101.12.2](https://github.com/dhis2/maps-app/compare/v101.12.1...v101.12.2) (2026-06-11)
+
+
+### Bug Fixes
+
+* prevent timeline crash on load failure and fix period after drilling up/down [DHIS2-19063] [DHIS2-21113] ([#3664](https://github.com/dhis2/maps-app/issues/3664)) ([e9bd0c3](https://github.com/dhis2/maps-app/commit/e9bd0c34e2c1c4952ec35497bc8eb94b7e9f59f7))
+
+## [101.12.1](https://github.com/dhis2/maps-app/compare/v101.12.0...v101.12.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* preserve saved dates and default period when editing/adding thematic and event layers [DHIS2-21516] [DHIS2-21517] ([#3666](https://github.com/dhis2/maps-app/issues/3666)) ([2dd021b](https://github.com/dhis2/maps-app/commit/2dd021b91c3b5b2c0d14c6da108cdf39ffbdecbf))
+
 # [101.12.0](https://github.com/dhis2/maps-app/compare/v101.11.1...v101.12.0) (2026-06-11)
 
 
