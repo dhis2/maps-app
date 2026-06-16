@@ -1,11 +1,13 @@
 import { IconCross16 } from '@dhis2/ui'
-import React, { useRef, useCallback } from 'react'
+import React, {
+    useRef,
+    useCallback,
+    useState,
+    useEffect,
+    useLayoutEffect,
+} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
-import {
-    LAYERS_PANEL_WIDTH,
-    RIGHT_PANEL_WIDTH,
-} from '../../constants/layout.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
@@ -17,26 +19,54 @@ import styles from './styles/BottomPanel.module.css'
 // Container for DataTable
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
-    const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
-    const rightPanelOpen = useSelector((state) => state.ui.rightPanelOpen)
 
     const dispatch = useDispatch()
-    const { width, height } = useWindowDimensions()
+    const { height } = useWindowDimensions()
     const panelRef = useRef(null)
-
-    const onResize = useCallback(
-        (h) => (panelRef.current.style.height = `${h}px`),
-        [panelRef]
-    )
+    const [panelWidth, setPanelWidth] = useState(0)
 
     const maxHeight =
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
-    const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0
-    const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0
-    const tableWidth = width - layersWidth - rightPanelWidth
-    const dataTableControlsHeight = 20
+    const [currentHeight, setCurrentHeight] = useState(tableHeight)
+    useEffect(() => setCurrentHeight(tableHeight), [tableHeight])
+
+    const onResize = useCallback((h) => {
+        panelRef.current.style.height = `${h}px`
+        document.documentElement.style.setProperty(
+            '--data-table-height',
+            `${h}px`
+        )
+        setCurrentHeight(h)
+    }, [])
+
+    useLayoutEffect(() => {
+        document.documentElement.style.setProperty(
+            '--data-table-height',
+            `${tableHeight}px`
+        )
+    }, [tableHeight])
+
+    useLayoutEffect(
+        () => () =>
+            document.documentElement.style.removeProperty(
+                '--data-table-height'
+            ),
+        []
+    )
+
+    useEffect(() => {
+        const observer = new ResizeObserver(() => {
+            if (panelRef.current) {
+                setPanelWidth(panelRef.current.getBoundingClientRect().width)
+            }
+        })
+        if (panelRef.current) {
+            observer.observe(panelRef.current)
+        }
+        return () => observer.disconnect()
+    }, [])
 
     useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
@@ -44,7 +74,7 @@ const BottomPanel = () => {
         <div
             ref={panelRef}
             className={styles.bottomPanel}
-            style={{ height: tableHeight, width: tableWidth }}
+            style={{ height: currentHeight }}
             data-test="bottom-panel"
         >
             <div className={styles.dataTableControls}>
@@ -60,12 +90,11 @@ const BottomPanel = () => {
                     <IconCross16 />
                 </button>
             </div>
-            <ErrorBoundary>
-                <DataTable
-                    availableHeight={dataTableHeight - dataTableControlsHeight}
-                    availableWidth={tableWidth}
-                />
-            </ErrorBoundary>
+            <div className={styles.tableContainer}>
+                <ErrorBoundary>
+                    <DataTable availableWidth={panelWidth} />
+                </ErrorBoundary>
+            </div>
         </div>
     )
 }

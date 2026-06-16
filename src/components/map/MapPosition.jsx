@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.jsx'
@@ -10,6 +10,7 @@ import styles from './styles/MapPosition.module.css'
 const MapPosition = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
+    const outerRef = useRef(null)
     const {
         showName,
         showDescription,
@@ -42,6 +43,30 @@ const MapPosition = () => {
         layersPanelOpen,
         rightPanelOpen,
     ])
+
+    // Trigger map resize continuously during ResizeHandle drag (CSS variable drives height, not Redux)
+    useEffect(() => {
+        if (!outerRef.current) {
+            return
+        }
+        let frameId = null
+        const observer = new ResizeObserver(() => {
+            if (frameId !== null) {
+                return
+            }
+            frameId = requestAnimationFrame(() => {
+                setResizeCount((c) => c + 1)
+                frameId = null
+            })
+        })
+        observer.observe(outerRef.current)
+        return () => {
+            observer.disconnect()
+            if (frameId !== null) {
+                cancelAnimationFrame(frameId)
+            }
+        }
+    }, [])
 
     // Reset bearing and pitch when new map (mapId changed)
     useEffect(() => {
@@ -77,6 +102,7 @@ const MapPosition = () => {
 
     return (
         <div
+            ref={outerRef}
             className={cx(styles.mapDefault, {
                 [styles.mapDownload]: downloadMode,
                 [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
@@ -84,7 +110,7 @@ const MapPosition = () => {
             style={
                 dataTableOpen
                     ? {
-                          height: `calc(100vh - var(--header-height) - var(--toolbar-height) - ${dataTableHeight}px)`,
+                          height: 'calc(100vh - var(--header-height) - var(--toolbar-height) - var(--data-table-height))',
                       }
                     : {}
             }
