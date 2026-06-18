@@ -1,4 +1,4 @@
-import { DataDimension, PeriodDimension } from '@dhis2/analytics'
+import { DataDimension, PeriodDimension, DIMENSION_TYPE_DATA_ELEMENT } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -25,6 +25,7 @@ import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+    SPATIAL_NONE,
 } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -52,6 +53,7 @@ import AggregationTypeSelect from './AggregationTypeSelect.jsx'
 import CompletedOnlyCheckbox from './CompletedOnlyCheckbox.jsx'
 import { initializeThematicLayer } from './initializeThematicLayer.js'
 import RadiusSelect from './RadiusSelect.jsx'
+import SpatialAnalysisSection from './SpatialAnalysisSection.jsx'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.jsx'
 import { validateThematicLayer } from './validateThematicLayer.js'
 
@@ -379,6 +381,14 @@ const ThematicDialog = ({
                 <Tab value="style" dataTest="thematicdialog-tabs-style">
                     {i18n.t('Style')}
                 </Tab>
+                {renderingStrategy === RENDERING_STRATEGY_SINGLE && (
+                    <Tab
+                        value="analysis"
+                        dataTest="thematicdialog-tabs-analysis"
+                    >
+                        {i18n.t('Analysis')}
+                    </Tab>
+                )}
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'data' && (
@@ -566,6 +576,24 @@ const ThematicDialog = ({
                         data-test="thematicdialog-filtertab"
                     >
                         <DimensionFilter dimensions={dimensions} />
+                    </div>
+                )}
+
+                {tab === 'analysis' && (
+                    <div
+                        className={styles.flexColumnFlow}
+                        data-test="thematicdialog-analysistab"
+                    >
+                        <SpatialAnalysisSection
+                            dataItem={dataItem}
+                            isCountLikeData={
+                                dataItem?.dimensionItemType ===
+                                    DIMENSION_TYPE_DATA_ELEMENT &&
+                                !/rate|coverage|proportion|per\b|ratio|prevalence/i.test(
+                                    dataItem?.name ?? ''
+                                )
+                            }
+                        />
                     </div>
                 )}
 

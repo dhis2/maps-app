@@ -619,6 +619,15 @@ const layerEdit = (state = null, action) => {
                 },
             }
 
+        case types.LAYER_EDIT_SPATIAL_ANALYSIS_SET:
+            return {
+                ...state,
+                spatialAnalysis: {
+                    ...state.spatialAnalysis,
+                    ...action.payload,
+                },
+            }
+
         default:
             return state
     }
