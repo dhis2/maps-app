@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.jsx'
@@ -7,9 +7,12 @@ import NorthArrow from '../download/NorthArrow.jsx'
 import MapContainer from '../map/MapContainer.jsx'
 import styles from './styles/MapPosition.module.css'
 
+const incrementCount = (c) => c + 1
+
 const MapPosition = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
+    const outerRef = useRef(null)
     const {
         showName,
         showDescription,
@@ -31,10 +34,11 @@ const MapPosition = () => {
             showOverviewMap)
 
     const isSplitView = !!getSplitViewLayer(layers)
+    const mapGL = map?.getMapGL()
 
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
-        setResizeCount((count) => count + 1)
+        setResizeCount(incrementCount)
     }, [
         dataTableOpen,
         dataTableHeight,
@@ -42,6 +46,30 @@ const MapPosition = () => {
         layersPanelOpen,
         rightPanelOpen,
     ])
+
+    // Trigger map resize continuously during ResizeHandle drag (CSS variable drives height, not Redux)
+    useEffect(() => {
+        if (!outerRef.current) {
+            return
+        }
+        let frameId = null
+        const observer = new ResizeObserver(() => {
+            if (frameId !== null) {
+                return
+            }
+            frameId = requestAnimationFrame(() => {
+                setResizeCount(incrementCount)
+                frameId = null
+            })
+        })
+        observer.observe(outerRef.current)
+        return () => {
+            observer.disconnect()
+            if (frameId !== null) {
+                cancelAnimationFrame(frameId)
+            }
+        }
+    }, [])
 
     // Reset bearing and pitch when new map (mapId changed)
     useEffect(() => {
@@ -60,6 +88,10 @@ const MapPosition = () => {
         if (map) {
             const mapgl = map.getMapGL()
 
+            if (!mapgl) {
+                return
+            }
+
             mapgl.once('resize', () => {
                 map.fitBounds(map.getLayersBounds(), {
                     padding: 40,
@@ -77,17 +109,12 @@ const MapPosition = () => {
 
     return (
         <div
+            ref={outerRef}
             className={cx(styles.mapDefault, {
                 [styles.mapDownload]: downloadMode,
                 [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
+                [styles.mapWithDataTable]: dataTableOpen,
             })}
-            style={
-                dataTableOpen
-                    ? {
-                          height: `calc(100vh - var(--header-height) - var(--toolbar-height) - ${dataTableHeight}px)`,
-                      }
-                    : {}
-            }
         >
             <div
                 id="dhis2-map-container"
@@ -98,17 +125,17 @@ const MapPosition = () => {
                 })}
             >
                 <MapContainer resizeCount={resizeCount} setMap={setMap} />
-                {downloadMode && map && (
+                {downloadMode && mapGL && (
                     <>
                         {downloadMapInfoOpen && (
                             <DownloadMapInfo
-                                map={map.getMapGL()}
+                                map={mapGL}
                                 isSplitView={isSplitView}
                             />
                         )}
                         {showNorthArrow && !isSplitView && (
                             <NorthArrow
-                                map={map.getMapGL()}
+                                map={mapGL}
                                 downloadMapInfoOpen={downloadMapInfoOpen}
                             />
                         )}
