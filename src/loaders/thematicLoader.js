@@ -48,6 +48,7 @@ import {
     buildIsolatedLegendItem,
     isRegularLegendItem,
     buildLisaLegendItems,
+    buildGiLegendItems,
 } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
 import {
@@ -390,30 +391,14 @@ const thematicLoader = async ({
 
     if (isSpatialAnalysis && spatialStats) {
         // Spatial analysis overrides normal classification.
-        // Gi*: diverging choropleth over z-scores using standard-deviation binning.
+        // Gi*: fixed confidence-tier bins (90/95/99%) over the corrected p-value.
         // LISA: fixed 5-category map (HH/LL/HL/LH/NS) with GeoDa colors.
         if (spatialMethod === SPATIAL_GI) {
-            const giClasses = classes || 7
-            const colorScale = getColorPalette(
-                SPATIAL_GI_COLOR_SCALE,
-                giClasses
-            )
+            const colorScale = getColorPalette(SPATIAL_GI_COLOR_SCALE, 7)
                 .slice()
                 .reverse()
-            const zValues = [...spatialStats.values()]
-                .map((s) => s.z)
-                .filter((z) => z !== null && Number.isFinite(z))
-                .sort((a, b) => a - b)
-            if (zValues.length > 0) {
-                const classification = getAutomaticLegendItems({
-                    data: zValues,
-                    method: CLASSIFICATION_STANDARD_DEVIATION,
-                    classes: giClasses,
-                    colorScale,
-                })
-                legendItems = classification.items
-                valueFormat = classification.valueFormat
-            }
+            const alpha = config.spatialAnalysis?.alpha ?? 0.05
+            legendItems = buildGiLegendItems(colorScale, alpha)
         } else {
             // LISA — categorical, no numeric range
             legendItems = buildLisaLegendItems()
@@ -606,14 +591,22 @@ const thematicLoader = async ({
             // Spatial analysis path: derive legend item from stat rather than raw value
             if (isSpatialAnalysis && spatialStats) {
                 const stat = spatialStats.get(id)
-                const isNoNeighbor = stat?.z === null && stat?.I === null
+                // z and I belong to different methods (Gi* sets z, LISA sets I) —
+                // check the one that's actually populated for the active method.
+                const isNoNeighbor =
+                    spatialMethod === SPATIAL_GI
+                        ? stat?.z === null
+                        : stat?.I === null
 
                 let legendItem
                 if (isNoNeighbor) {
                     // No-neighbor units are shown in grey and kept out of legend counts
                     legendItem = null
                 } else if (spatialMethod === SPATIAL_GI) {
-                    legendItem = getLegendItem(stat?.z)
+                    // Gi*: categorical lookup by confidence-tier key
+                    legendItem =
+                        legendItems.find((item) => item.tier === stat?.tier) ??
+                        null
                 } else {
                     // LISA: categorical lookup by cluster key
                     legendItem =

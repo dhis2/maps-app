@@ -300,11 +300,33 @@ export const legendNamesContainRange = (items) => {
 // Colors follow GeoDa convention. `cluster` is stored for lookup by category key.
 // HH/LL/HL/LH are the same in both GeoDa and PySAL quadrant schemes;
 // only the numbering (not the color assignment) differs between schemes.
+// Names spell out what each quadrant means so the map is readable without
+// prior knowledge of LISA terminology.
 export const buildLisaLegendItems = () => [
-    { cluster: 'HH', name: i18n.t('High-High'), color: '#d7191c', count: 0 },
-    { cluster: 'LL', name: i18n.t('Low-Low'), color: '#2c7bb6', count: 0 },
-    { cluster: 'HL', name: i18n.t('High-Low'), color: '#fdae61', count: 0 },
-    { cluster: 'LH', name: i18n.t('Low-High'), color: '#abd9e9', count: 0 },
+    {
+        cluster: 'HH',
+        name: i18n.t('High-High (hotspot cluster)'),
+        color: '#d7191c',
+        count: 0,
+    },
+    {
+        cluster: 'LL',
+        name: i18n.t('Low-Low (coldspot cluster)'),
+        color: '#2c7bb6',
+        count: 0,
+    },
+    {
+        cluster: 'HL',
+        name: i18n.t('High-Low (high value among low neighbors)'),
+        color: '#fdae61',
+        count: 0,
+    },
+    {
+        cluster: 'LH',
+        name: i18n.t('Low-High (low value among high neighbors)'),
+        color: '#abd9e9',
+        count: 0,
+    },
     {
         cluster: 'NS',
         name: i18n.t('Not significant'),
@@ -312,3 +334,52 @@ export const buildLisaLegendItems = () => [
         count: 0,
     },
 ]
+
+// Getis-Ord Gi* legend — confidence-tier bins derived from the corrected
+// two-sided p-value, matching the conventional "Hot Spot Analysis" labeling
+// (90/95/99% confidence) so the result is readable without prior knowledge
+// of z-scores. Only tiers reachable at the chosen significance level are
+// shown — e.g. alpha=0.01 can only ever produce a 99%-confidence tier, so
+// showing 90%/95% bins for that case would be misleading.
+const GI_TIERS = [
+    { level: 99, p: 0.01 },
+    { level: 95, p: 0.05 },
+    { level: 90, p: 0.1 },
+]
+
+// colorScale must have exactly 7 colors, ordered cold → hot (index 0 = coldest)
+export const buildGiLegendItems = (colorScale, alpha) => {
+    const reachable = GI_TIERS.filter((tier) => tier.p <= alpha)
+    const colorByTier = {
+        cold99: colorScale[0],
+        cold95: colorScale[1],
+        cold90: colorScale[2],
+        hot90: colorScale[4],
+        hot95: colorScale[5],
+        hot99: colorScale[6],
+    }
+
+    const coldItems = [...reachable].reverse().map(({ level }) => ({
+        tier: `cold${level}`,
+        name: i18n.t('Cold spot ({{level}}% confidence)', { level }),
+        color: colorByTier[`cold${level}`],
+        count: 0,
+    }))
+    const hotItems = reachable.map(({ level }) => ({
+        tier: `hot${level}`,
+        name: i18n.t('Hot spot ({{level}}% confidence)', { level }),
+        color: colorByTier[`hot${level}`],
+        count: 0,
+    }))
+
+    return [
+        ...coldItems,
+        {
+            tier: 'ns',
+            name: i18n.t('Not significant'),
+            color: '#aaaaaa',
+            count: 0,
+        },
+        ...hotItems,
+    ]
+}

@@ -325,6 +325,25 @@ const normalCdf = (z) => {
 // Two-sided p from a z-score
 const twoSidedP = (z) => 2 * (1 - normalCdf(Math.abs(z)))
 
+// Confidence-tier classification for a Gi* result, matching the conventional
+// "Hot Spot Analysis" labeling (90/95/99% confidence). Driven by the
+// corrected p-value (not raw z) so it stays correct under FDR/Bonferroni,
+// and gated by the chosen alpha so only reachable tiers are ever produced
+// (e.g. alpha=0.01 can only ever yield a 99%-confidence tier).
+const getGiTier = (z, p, alpha) => {
+    if (p >= alpha) {
+        return 'ns'
+    }
+    const sign = z >= 0 ? 'hot' : 'cold'
+    if (p < 0.01) {
+        return `${sign}99`
+    }
+    if (p < 0.05) {
+        return `${sign}95`
+    }
+    return `${sign}90`
+}
+
 // ---------------------------------------------------------------------------
 // Getis-Ord Gi*
 // ---------------------------------------------------------------------------
@@ -340,7 +359,9 @@ const twoSidedP = (z) => 2 * (1 - normalCdf(Math.abs(z)))
  * @param {object} [opts]
  * @param {number} [opts.alpha=0.05]
  * @param {string} [opts.correction='fdr']  'fdr' | 'bonferroni' | 'none'
- * @returns {Map<id, { z: number|null, p: number|null, significant: boolean }>}
+ * @returns {Map<id, { z: number|null, p: number|null, significant: boolean, tier: string|null }>}
+ *   `tier` is one of 'cold99'|'cold95'|'cold90'|'ns'|'hot90'|'hot95'|'hot99', or
+ *   null for units with no computed statistic (no neighbors / no value).
  */
 export const getGiStar = (
     valueById,
@@ -363,7 +384,7 @@ export const getGiStar = (
     if (values.length === 0) {
         const result = new Map()
         for (const id of ids) {
-            result.set(id, { z: null, p: null, significant: false })
+            result.set(id, { z: null, p: null, significant: false, tier: null })
         }
         return result
     }
@@ -431,15 +452,18 @@ export const getGiStar = (
     // No-neighbor and no-value units
     for (const id of ids) {
         if (!computedIds.includes(id)) {
-            result.set(id, { z: null, p: null, significant: false })
+            result.set(id, { z: null, p: null, significant: false, tier: null })
         }
     }
 
     for (let i = 0; i < computedIds.length; i++) {
+        const z = rawZscores[i]
+        const p = adjustedP[i]
         result.set(computedIds[i], {
-            z: rawZscores[i],
-            p: adjustedP[i],
-            significant: adjustedP[i] < alpha,
+            z,
+            p,
+            significant: p < alpha,
+            tier: getGiTier(z, p, alpha),
         })
     }
 
