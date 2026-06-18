@@ -398,6 +398,8 @@ const thematicLoader = async ({
                 SPATIAL_GI_COLOR_SCALE,
                 giClasses
             )
+                .slice()
+                .reverse()
             const zValues = [...spatialStats.values()]
                 .map((s) => s.z)
                 .filter((z) => z !== null && Number.isFinite(z))
