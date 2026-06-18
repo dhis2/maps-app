@@ -208,19 +208,21 @@ describe('getGiStar', () => {
         expect(result.size).toBe(FEATURES.length)
     })
 
-    test('each entry has z, p, significant', () => {
+    test('each entry has z, p, significant, tier', () => {
         for (const [, v] of result) {
             expect(v).toHaveProperty('z')
             expect(v).toHaveProperty('p')
             expect(v).toHaveProperty('significant')
+            expect(v).toHaveProperty('tier')
         }
     })
 
-    test('island F gets z=null, p=null, significant=false', () => {
+    test('island F gets z=null, p=null, significant=false, tier=null', () => {
         expect(result.get('F')).toEqual({
             z: null,
             p: null,
             significant: false,
+            tier: null,
         })
     })
 
@@ -263,6 +265,37 @@ describe('getGiStar', () => {
             }
             expect(v.p).toBeGreaterThanOrEqual(0)
             expect(v.p).toBeLessThanOrEqual(1)
+        }
+    })
+
+    test('tier is "ns" whenever significant is false, and vice versa', () => {
+        for (const [id, v] of result) {
+            if (id === 'F') {
+                continue
+            }
+            expect(v.tier === 'ns').toBe(!v.significant)
+        }
+    })
+
+    test('significant units get a hot/cold tier matching the sign of z', () => {
+        for (const [id, v] of result) {
+            if (id === 'F' || !v.significant) {
+                continue
+            }
+            expect(v.tier.startsWith(v.z >= 0 ? 'hot' : 'cold')).toBe(true)
+        }
+    })
+
+    test('alpha=0.01 only ever produces the 99% tier (or ns)', () => {
+        const r = getGiStar(VALUES, weights, {
+            alpha: 0.01,
+            correction: 'none',
+        })
+        for (const [id, v] of r) {
+            if (id === 'F') {
+                continue
+            }
+            expect(['ns', 'hot99', 'cold99']).toContain(v.tier)
         }
     })
 })
