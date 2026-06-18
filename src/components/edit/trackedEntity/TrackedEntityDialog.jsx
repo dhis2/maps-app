@@ -210,19 +210,7 @@ const TrackedEntityDialog = ({
                     </div>
                 )}
                 {tab === 'relationships' &&
-                    (!trackedEntityType ? (
-                        <div
-                            style={{
-                                fontSize: 14,
-                                paddingTop: 16,
-                                marginLeft: 16,
-                            }}
-                        >
-                            {i18n.t(
-                                'Please select a Tracked Entity Type before selecting a Relationship Type'
-                            )}
-                        </div>
-                    ) : (
+                    (trackedEntityType ? (
                         <div className={styles.flexRowFlow}>
                             <div className={styles.notice}>
                                 <NoticeBox warning title="Warning">
@@ -263,6 +251,18 @@ const TrackedEntityDialog = ({
                                     }
                                     className={cx(styles.select, styles.indent)}
                                 />
+                            )}
+                        </div>
+                    ) : (
+                        <div
+                            style={{
+                                fontSize: 14,
+                                paddingTop: 16,
+                                marginLeft: 16,
+                            }}
+                        >
+                            {i18n.t(
+                                'Please select a Tracked Entity Type before selecting a Relationship Type'
                             )}
                         </div>
                     ))}
