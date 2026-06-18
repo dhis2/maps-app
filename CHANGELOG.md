@@ -1,3 +1,12 @@
+## [101.13.1](https://github.com/dhis2/maps-app/compare/v101.13.0...v101.13.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* preserve program/enrollment period type on TE layer reload [DHIS2-19205] ([#3674](https://github.com/dhis2/maps-app/issues/3674)) ([59cd55d](https://github.com/dhis2/maps-app/commit/59cd55d6879f17fee59a049ac84b23d46f1fcc04))
+* prevent duplicate overview map outline in splitmap download mode [DHIS2-21540] ([#3676](https://github.com/dhis2/maps-app/issues/3676)) ([0a98dbb](https://github.com/dhis2/maps-app/commit/0a98dbb1293a716cb599e0d34991ed5f3b4becc4))
+* resize data table and map canvas continuously during drag [DHIS2-15884] ([#3675](https://github.com/dhis2/maps-app/issues/3675)) ([44bbd24](https://github.com/dhis2/maps-app/commit/44bbd2440868da62781583a8ee2e61bdea57ac81))
+
 # [101.13.0](https://github.com/dhis2/maps-app/compare/v101.12.6...v101.13.0) (2026-06-15)
 
 

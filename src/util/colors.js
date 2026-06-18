@@ -91,6 +91,9 @@ export const getUniqueColor = (defaultColors) => {
     return (index) => colors[index] || randomColor()
 }
 
+export const getCssColor = (cssVar) =>
+    getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim()
+
 // Returns true if a color is dark
 export const isDarkColor = (color) => hcl(color).l < 70
 

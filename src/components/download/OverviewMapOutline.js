@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { GEOJSON_LAYER } from '../../constants/layers.js'
+import { getCssColor } from '../../util/colors.js'
 import { getCoordinatesBounds } from '../../util/geojson.js'
 
 const layerId = 'overview-outline'
@@ -30,7 +31,8 @@ const getMapOutline = (map) => {
 
 const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
     const [outline, setOutline] = useState(getMapOutline(mainMap))
-    const [sourceId, setSourceId] = useState()
+    const sourceIdRef = useRef()
+    const layerRef = useRef()
 
     const onMainMapMove = useCallback(() => {
         setOutline(getMapOutline(mainMap))
@@ -45,6 +47,9 @@ const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
 
     useEffect(() => {
         if (outline) {
+            const strokeColor = isDark
+                ? getCssColor('--colors-grey300')
+                : getCssColor('--colors-grey900')
             const config = {
                 type: GEOJSON_LAYER,
                 id: layerId,
@@ -52,20 +57,30 @@ const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
                 data: [outline],
                 style: {
                     color: 'transparent',
-                    strokeColor: isDark ? 'orange' : '#333',
+                    strokeColor,
                     weight: 3,
                 },
             }
 
-            if (!sourceId) {
-                const layer = overviewMap.createLayer(config)
-                overviewMap.addLayer(layer)
-                setSourceId(layer.getId())
-            } else {
-                const source = overviewMap.getMapGL().getSource(sourceId)
+            if (sourceIdRef.current) {
+                const mapGl = overviewMap.getMapGL()
+                const source = mapGl.getSource(sourceIdRef.current)
                 if (source) {
                     source.setData(outline)
                 }
+                const outlineLayerId = `${sourceIdRef.current}-outline`
+                if (mapGl.getLayer(outlineLayerId)) {
+                    mapGl.setPaintProperty(
+                        outlineLayerId,
+                        'line-color',
+                        strokeColor
+                    )
+                }
+            } else {
+                const layer = overviewMap.createLayer(config)
+                overviewMap.addLayer(layer)
+                sourceIdRef.current = layer.getId()
+                layerRef.current = layer
             }
 
             // Make sure outline bounds is inside overview map bounds
@@ -83,7 +98,17 @@ const OverviewMapOutline = ({ mainMap, overviewMap, isDark = false }) => {
                 overviewMap.getMapGL().fitBounds(outlineBounds, { padding: 80 })
             }
         }
-    }, [overviewMap, outline, sourceId, isDark])
+    }, [overviewMap, outline, isDark])
+
+    useEffect(() => {
+        return () => {
+            if (layerRef.current) {
+                overviewMap.removeLayer(layerRef.current)
+                layerRef.current = undefined
+                sourceIdRef.current = undefined
+            }
+        }
+    }, [overviewMap])
 
     return null
 }
