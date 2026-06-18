@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-06-18T10:47:37.300Z\n"
+"PO-Revision-Date: 2026-06-18T10:47:37.300Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -101,23 +101,17 @@ msgstr "Enrollment location"
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
 
-msgid "Select a program stage to see additional coordinate options"
-msgstr "Select a program stage to see additional coordinate options"
+msgid "Fallback coordinate field"
+msgstr "Fallback coordinate field"
+
+msgid "Coordinate field"
+msgstr "Coordinate field"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "Enrollment > event > tracked entity > org unit coordinate"
 
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
-
-msgid "Select a program to see additional coordinate options"
-msgstr "Select a program to see additional coordinate options"
-
-msgid "Fallback coordinate field"
-msgstr "Fallback coordinate field"
-
-msgid "Coordinate field"
-msgstr "Coordinate field"
 
 msgid "Include unclassified events"
 msgstr "Include unclassified events"
@@ -130,6 +124,9 @@ msgstr "Previously selected value not available in list: {{id}}"
 
 msgid "Style by data item"
 msgstr "Style by data item"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filtering is available after selecting a program stage."
 
 msgid "Add filter"
 msgstr "Add filter"
@@ -207,9 +204,6 @@ msgstr "Range"
 msgid "Org unit"
 msgstr "Org unit"
 
-msgid "Org unit boundary"
-msgstr "Org unit boundary"
-
 msgid "Event time"
 msgstr "Event time"
 
@@ -230,12 +224,6 @@ msgstr "Download map"
 
 msgid "Show map name"
 msgstr "Show map name"
-
-msgid "Name can be changed from File > Rename menu"
-msgstr "Name can be changed from File > Rename menu"
-
-msgid "Set the map name when you save the map or from File > Rename menu"
-msgstr "Set the map name when you save the map or from File > Rename menu"
 
 msgid "Show map description"
 msgstr "Show map description"
@@ -392,14 +380,32 @@ msgstr "Max value is required"
 msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
 
-msgid "Use custom legend"
-msgstr "Use custom legend"
-
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
 msgid "Count org units without coordinates"
 msgstr "Count org units without coordinates"
+
+msgid "Org Units"
+msgstr "Org Units"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Group events"
+msgstr "Group events"
+
+msgid "View all events"
+msgstr "View all events"
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "Count events without coordinates"
+msgstr "Count events without coordinates"
+
+msgid "You can style events by data element after selecting a program."
+msgstr "You can style events by data element after selecting a program."
 
 msgid "Program is required"
 msgstr "Program is required"
@@ -415,39 +421,6 @@ msgstr "No legend set is selected"
 
 msgid "Isolated class max should be greater than min"
 msgstr "Isolated class max should be greater than min"
-
-msgid "Org Units"
-msgstr "Org Units"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Choose from presets"
-msgstr "Choose from presets"
-
-msgid "Define start - end dates"
-msgstr "Define start - end dates"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filtering is available after selecting a program stage."
-
-msgid "Group events"
-msgstr "Group events"
-
-msgid "View all events"
-msgstr "View all events"
-
-msgid "Radius"
-msgstr "Radius"
-
-msgid "Count events without coordinates"
-msgstr "Count events without coordinates"
-
-msgid "Filter and count events outside org unit boundaries"
-msgstr "Filter and count events outside org unit boundaries"
-
-msgid "You can style events by data element after selecting a program."
-msgstr "You can style events by data element after selecting a program."
 
 msgid "Event status"
 msgstr "Event status"
@@ -506,19 +479,6 @@ msgstr "Include unclassified org units"
 msgid "Unclassified"
 msgstr "Unclassified"
 
-msgid "Period is required"
-msgstr "Period is required"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Select at least {{number}} periods or 1 multi-period."
-
 msgid "Aggregation type"
 msgstr "Aggregation type"
 
@@ -537,6 +497,93 @@ msgstr "High radius should be greater than low radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
 
+msgid "Off"
+msgstr "Off"
+
+msgid "Getis-Ord Gi*"
+msgstr "Getis-Ord Gi*"
+
+msgid "Local Moran's I (LISA)"
+msgstr "Local Moran's I (LISA)"
+
+msgid "Contiguity (queen)"
+msgstr "Contiguity (queen)"
+
+msgid "Contiguity (rook)"
+msgstr "Contiguity (rook)"
+
+msgid "Distance band"
+msgstr "Distance band"
+
+msgid "k-nearest neighbours"
+msgstr "k-nearest neighbours"
+
+msgid "FDR (recommended)"
+msgstr "FDR (recommended)"
+
+msgid "Bonferroni"
+msgstr "Bonferroni"
+
+msgid "GeoDa (default)"
+msgstr "GeoDa (default)"
+
+msgid "PySAL"
+msgstr "PySAL"
+
+msgid ""
+"Hotspot analysis on raw counts often reflects population distribution "
+"rather than true spatial clustering. Consider using a rate or per-capita "
+"indicator."
+msgstr ""
+"Hotspot analysis on raw counts often reflects population distribution "
+"rather than true spatial clustering. Consider using a rate or per-capita "
+"indicator."
+
+msgid "Spatial analysis method"
+msgstr "Spatial analysis method"
+
+msgid "Spatial weights"
+msgstr "Spatial weights"
+
+msgid "Distance threshold (metres)"
+msgstr "Distance threshold (metres)"
+
+msgid "Number of neighbours (k)"
+msgstr "Number of neighbours (k)"
+
+msgid "Significance level (α)"
+msgstr "Significance level (α)"
+
+msgid "Hide advanced options"
+msgstr "Hide advanced options"
+
+msgid "Show advanced options"
+msgstr "Show advanced options"
+
+msgid "Permutations"
+msgstr "Permutations"
+
+msgid "Multiple-comparison correction"
+msgstr "Multiple-comparison correction"
+
+msgid "Quadrant scheme"
+msgstr "Quadrant scheme"
+
+msgid "Row-standardize weights"
+msgstr "Row-standardize weights"
+
+msgid "Random seed"
+msgstr "Random seed"
+
+msgid "Analysis"
+msgstr "Analysis"
+
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
+
 msgid "Choose periods for all timeline layers"
 msgstr "Choose periods for all timeline layers"
 
@@ -548,6 +595,19 @@ msgstr "Choose periods for all split layers"
 
 msgid "Data is required"
 msgstr "Data is required"
+
+msgid "Period is required"
+msgstr "Period is required"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
 
 msgid "Specified radius values are invalid"
 msgstr "Specified radius values are invalid"
@@ -564,23 +624,20 @@ msgstr "the date a tracked entity was registered or enrolled in a program"
 msgid "Program status"
 msgstr "Program status"
 
-msgid "Tracked Entity Type is required"
-msgstr "Tracked Entity Type is required"
-
 msgid "Relationships"
 msgstr "Relationships"
 
 msgid "Follow up"
 msgstr "Follow up"
 
+msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
+
 msgid "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "Displaying tracked entity relationships in Maps is an experimental feature"
 
 msgid "Display Tracked Entity relationships"
 msgstr "Display Tracked Entity relationships"
-
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
 
 msgid "Tracked entity style"
 msgstr "Tracked entity style"
@@ -593,6 +650,9 @@ msgstr "Related entity style"
 
 msgid "Line Color"
 msgstr "Line Color"
+
+msgid "Tracked Entity Type is required"
+msgstr "Tracked Entity Type is required"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "No relationship types were found for tracked entity type {{type}}"
@@ -710,24 +770,6 @@ msgstr "Duplicate layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
-msgid "Filters"
-msgstr "Filters"
-
-msgid "Failed to load layer"
-msgstr "Failed to load layer"
-
-msgid "No data found"
-msgstr "No data found"
-
-msgid "All events outside org unit boundaries"
-msgstr "All events outside org unit boundaries"
-
-msgid "No coordinates found"
-msgstr "No coordinates found"
-
-msgid "Could not check org unit boundaries"
-msgstr "Could not check org unit boundaries"
-
 msgid "Data quality"
 msgstr "Data quality"
 
@@ -738,25 +780,6 @@ msgid "{{n}} event without coordinates"
 msgid_plural "{{n}} event without coordinates"
 msgstr[0] "{{n}} event without coordinates"
 msgstr[1] "{{n}} events without coordinates"
-
-msgid "All events within org unit boundaries"
-msgstr "All events within org unit boundaries"
-
-msgid "{{n}} event outside org unit boundaries"
-msgid_plural "{{n}} event outside org unit boundaries"
-msgstr[0] "{{n}} event outside org unit boundaries"
-msgstr[1] "{{n}} events outside org unit boundaries"
-
-msgid "{{n}} of {{total}} org unit without boundaries"
-msgid_plural "{{n}} of {{total}} org unit without boundaries"
-msgstr[0] "{{n}} of {{total}} org unit without boundaries"
-msgstr[1] "{{n}} of {{total}} org units without boundaries"
-
-msgid "Boundary check skipped"
-msgstr "Boundary check skipped"
-
-msgid "All org units without boundaries"
-msgstr "All org units without boundaries"
 
 msgid "All org units have a point location"
 msgstr "All org units have a point location"
@@ -773,6 +796,18 @@ msgid "{{n}} org unit without coordinates"
 msgid_plural "{{n}} org unit without coordinates"
 msgstr[0] "{{n}} org unit without coordinates"
 msgstr[1] "{{n}} org units without coordinates"
+
+msgid "Filters"
+msgstr "Filters"
+
+msgid "Failed to load layer"
+msgstr "Failed to load layer"
+
+msgid "No data found"
+msgstr "No data found"
+
+msgid "No coordinates found"
+msgstr "No coordinates found"
 
 msgid "Selected org units: No coordinates found"
 msgstr "Selected org units: No coordinates found"
@@ -1011,6 +1046,9 @@ msgstr "Previous year"
 msgid "Next year"
 msgstr "Next year"
 
+msgid "Start/end dates"
+msgstr "Start/end dates"
+
 msgid "Remove all split layers to add a single layer."
 msgstr "Remove all split layers to add a single layer."
 
@@ -1126,12 +1164,6 @@ msgstr "Std dev"
 
 msgid "OSM Light"
 msgstr "OSM Light"
-
-msgid "OSM Dark"
-msgstr "OSM Dark"
-
-msgid "OSM Fiord"
-msgstr "OSM Fiord"
 
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
@@ -1813,9 +1845,6 @@ msgstr "Financial year (Start July)"
 msgid "Financial year (Start April)"
 msgstr "Financial year (Start April)"
 
-msgid "Start/end dates"
-msgstr "Start/end dates"
-
 msgid "Cancelled"
 msgstr "Cancelled"
 
@@ -1879,6 +1908,51 @@ msgstr "Data item was not found"
 msgid "Thematic layer"
 msgstr "Thematic layer"
 
+msgid ""
+"Spatial analysis results may be unreliable with fewer than 30 units ({{n}} "
+"found)"
+msgstr ""
+"Spatial analysis results may be unreliable with fewer than 30 units ({{n}} "
+"found)"
+
+msgid ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+msgid_plural ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+msgstr[0] ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+msgstr[1] ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+
+msgid ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+msgid_plural ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+msgstr[0] ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+msgstr[1] ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+
+msgid ""
+"Hotspot analysis on raw counts may reflect population distribution rather "
+"than true clustering. Consider using a rate or population-at-risk "
+"denominator."
+msgstr ""
+"Hotspot analysis on raw counts may reflect population distribution rather "
+"than true clustering. Consider using a rate or population-at-risk "
+"denominator."
+
+msgid "No neighbors"
+msgstr "No neighbors"
+
 msgid "related"
 msgstr "related"
 
@@ -1931,6 +2005,21 @@ msgstr "Tracked entities"
 msgid "Org units"
 msgstr "Org units"
 
+msgid "High-High"
+msgstr "High-High"
+
+msgid "Low-Low"
+msgstr "Low-Low"
+
+msgid "High-Low"
+msgstr "High-Low"
+
+msgid "Low-High"
+msgstr "Low-High"
+
+msgid "Not significant"
+msgstr "Not significant"
+
 msgid "Facility"
 msgstr "Facility"
 
@@ -1945,11 +2034,3 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
-
-msgctxt "Application title"
-msgid "__MANIFEST_APP_TITLE"
-msgstr "Maps"
-
-msgctxt "Application description"
-msgid "__MANIFEST_APP_DESCRIPTION"
-msgstr "DHIS2 Maps"
