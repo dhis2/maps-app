@@ -68,7 +68,7 @@ import {
     getGiStar,
     getLisa,
 } from '../util/spatialStats.js'
-import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
+import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async ({
     config,

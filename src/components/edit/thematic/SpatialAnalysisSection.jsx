@@ -1,14 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
-import {
-    NoticeBox,
-    SingleSelectField,
-    SingleSelectOption,
-    InputField,
-    Checkbox,
-    Button,
-} from '@dhis2/ui'
+import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSpatialAnalysis } from '../../../actions/layerEdit.js'
 import {
@@ -19,47 +12,49 @@ import {
     WEIGHTS_DISTANCE_BAND,
     WEIGHTS_KNN,
 } from '../../../constants/layers.js'
+import { Checkbox, NumberField, SelectField } from '../../core/index.js'
 import styles from '../styles/LayerDialog.module.css'
 
 // Generates a simple integer seed from the current time.
 const generateSeed = () => Math.floor(Date.now() % 1_000_000)
 
 const METHODS = [
-    { value: SPATIAL_NONE, label: i18n.t('Off') },
-    { value: SPATIAL_GI, label: i18n.t('Getis-Ord Gi*') },
-    { value: SPATIAL_LISA, label: i18n.t("Local Moran's I (LISA)") },
+    { id: SPATIAL_NONE, name: i18n.t('Off') },
+    { id: SPATIAL_GI, name: i18n.t('Getis-Ord Gi*') },
+    { id: SPATIAL_LISA, name: i18n.t("Local Moran's I (LISA)") },
 ]
 
 const WEIGHT_TYPES = [
-    { value: WEIGHTS_CONTIGUITY, label: i18n.t('Contiguity (queen)') },
-    { value: `${WEIGHTS_CONTIGUITY}_rook`, label: i18n.t('Contiguity (rook)') },
-    { value: WEIGHTS_DISTANCE_BAND, label: i18n.t('Distance band') },
-    { value: WEIGHTS_KNN, label: i18n.t('k-nearest neighbours') },
+    { id: WEIGHTS_CONTIGUITY, name: i18n.t('Contiguity (queen)') },
+    { id: `${WEIGHTS_CONTIGUITY}_rook`, name: i18n.t('Contiguity (rook)') },
+    { id: WEIGHTS_DISTANCE_BAND, name: i18n.t('Distance band') },
+    { id: WEIGHTS_KNN, name: i18n.t('k-nearest neighbours') },
 ]
 
-// Values must match String(Number(value)) exactly — selected={String(alpha)}
-// compares against these, and Number('0.10') stringifies back to '0.1'.
+// Numeric ids round-trip cleanly through SelectField's String(id) comparison
+// (unlike hand-written string literals such as '0.10', which Number()
+// collapses to '0.1' and breaks the selected-option match).
 const ALPHA_OPTIONS = [
-    { value: '0.1', label: '0.10' },
-    { value: '0.05', label: '0.05 (default)' },
-    { value: '0.01', label: '0.01' },
+    { id: 0.1, name: '0.10' },
+    { id: 0.05, name: '0.05 (default)' },
+    { id: 0.01, name: '0.01' },
 ]
 
 const PERMUTATION_OPTIONS = [
-    { value: '99', label: '99' },
-    { value: '999', label: '999 (default)' },
-    { value: '9999', label: '9999' },
+    { id: 99, name: '99' },
+    { id: 999, name: '999 (default)' },
+    { id: 9999, name: '9999' },
 ]
 
 const CORRECTION_OPTIONS = [
-    { value: 'fdr', label: i18n.t('FDR (recommended)') },
-    { value: 'bonferroni', label: i18n.t('Bonferroni') },
-    { value: 'none', label: i18n.t('None') },
+    { id: 'fdr', name: i18n.t('FDR (recommended)') },
+    { id: 'bonferroni', name: i18n.t('Bonferroni') },
+    { id: 'none', name: i18n.t('None') },
 ]
 
 const QUADRANT_OPTIONS = [
-    { value: 'geoda', label: i18n.t('GeoDa (default)') },
-    { value: 'pysal', label: i18n.t('PySAL') },
+    { id: 'geoda', name: i18n.t('GeoDa (default)') },
+    { id: 'pysal', name: i18n.t('PySAL') },
 ]
 
 const SpatialAnalysisSection = ({ isCountLikeData }) => {
@@ -67,7 +62,6 @@ const SpatialAnalysisSection = ({ isCountLikeData }) => {
     const spatialAnalysis = useSelector(
         (state) => state.layerEdit.spatialAnalysis ?? {}
     )
-    const [showAdvanced, setShowAdvanced] = useState(false)
 
     const {
         method = SPATIAL_NONE,
@@ -122,226 +116,141 @@ const SpatialAnalysisSection = ({ isCountLikeData }) => {
     return (
         <div data-test="spatialanalysissection">
             {isActive && isCountLikeData && (
-                <NoticeBox warning className={styles.noticeBox}>
-                    {i18n.t(
-                        'Hotspot analysis on raw counts often reflects population distribution rather than true spatial clustering. Consider using a rate or per-capita indicator.'
-                    )}
-                </NoticeBox>
+                <div className={styles.fullWidthNotice}>
+                    <NoticeBox warning>
+                        {i18n.t(
+                            'Hotspot analysis on raw counts often reflects population distribution rather than true spatial clustering. Consider using a rate or per-capita indicator.'
+                        )}
+                    </NoticeBox>
+                </div>
             )}
 
             <div className={styles.flexColumnFlow}>
                 <div className={styles.flexColumn}>
-                    <SingleSelectField
+                    <SelectField
                         label={i18n.t('Spatial analysis method')}
-                        selected={method}
-                        onChange={({ selected }) =>
-                            handleMethodChange(selected)
-                        }
+                        value={method}
+                        items={METHODS}
+                        onChange={({ id }) => handleMethodChange(id)}
+                        className={styles.select}
                         dataTest="spatialanalysis-method"
-                    >
-                        {METHODS.map(({ value, label }) => (
-                            <SingleSelectOption
-                                key={value}
-                                value={value}
-                                label={label}
-                            />
-                        ))}
-                    </SingleSelectField>
+                    />
 
                     {isActive && (
                         <>
-                            <SingleSelectField
+                            <SelectField
                                 label={i18n.t('Spatial weights')}
-                                selected={weightSelectValue}
-                                onChange={({ selected }) =>
-                                    handleWeightTypeChange(selected)
+                                value={weightSelectValue}
+                                items={WEIGHT_TYPES}
+                                onChange={({ id }) =>
+                                    handleWeightTypeChange(id)
                                 }
+                                className={styles.select}
                                 dataTest="spatialanalysis-weights"
-                            >
-                                {WEIGHT_TYPES.map(({ value, label }) => (
-                                    <SingleSelectOption
-                                        key={value}
-                                        value={value}
-                                        label={label}
-                                    />
-                                ))}
-                            </SingleSelectField>
+                            />
 
                             {isDistanceBand && (
-                                <InputField
+                                <NumberField
                                     label={i18n.t(
                                         'Distance threshold (metres)'
                                     )}
-                                    type="number"
-                                    value={
-                                        distanceMeters !== undefined
-                                            ? String(distanceMeters)
-                                            : ''
+                                    value={distanceMeters}
+                                    min={0}
+                                    onChange={(value) =>
+                                        update({ distanceMeters: value })
                                     }
-                                    onChange={({ value }) =>
-                                        update({
-                                            distanceMeters: value
-                                                ? Number(value)
-                                                : undefined,
-                                        })
-                                    }
-                                    dataTest="spatialanalysis-distance"
+                                    className={styles.select}
                                 />
                             )}
 
                             {isKnn && (
-                                <InputField
+                                <NumberField
                                     label={i18n.t('Number of neighbours (k)')}
-                                    type="number"
-                                    min="1"
-                                    max="20"
-                                    value={String(k)}
-                                    onChange={({ value }) =>
+                                    value={k}
+                                    min={1}
+                                    max={20}
+                                    onChange={(value) =>
                                         update({
-                                            k: Math.max(
-                                                1,
-                                                Math.min(20, Number(value))
-                                            ),
+                                            k: Math.max(1, Math.min(20, value)),
                                         })
                                     }
-                                    dataTest="spatialanalysis-k"
+                                    className={styles.select}
                                 />
                             )}
 
-                            <SingleSelectField
+                            <SelectField
                                 label={i18n.t('Significance level (α)')}
-                                selected={String(alpha)}
-                                onChange={({ selected }) =>
-                                    update({ alpha: Number(selected) })
-                                }
+                                value={alpha}
+                                items={ALPHA_OPTIONS}
+                                onChange={({ id }) => update({ alpha: id })}
+                                className={styles.select}
                                 dataTest="spatialanalysis-alpha"
-                            >
-                                {ALPHA_OPTIONS.map(({ value, label }) => (
-                                    <SingleSelectOption
-                                        key={value}
-                                        value={value}
-                                        label={label}
-                                    />
-                                ))}
-                            </SingleSelectField>
-
-                            <Button
-                                small
-                                secondary
-                                onClick={() => setShowAdvanced((v) => !v)}
-                                dataTest="spatialanalysis-advanced-toggle"
-                            >
-                                {showAdvanced
-                                    ? i18n.t('Hide advanced options')
-                                    : i18n.t('Show advanced options')}
-                            </Button>
-
-                            {showAdvanced && (
-                                <div
-                                    className={styles.flexColumnFlow}
-                                    data-test="spatialanalysis-advanced"
-                                >
-                                    {isLisa && (
-                                        <SingleSelectField
-                                            label={i18n.t('Permutations')}
-                                            selected={String(permutations)}
-                                            onChange={({ selected }) =>
-                                                update({
-                                                    permutations:
-                                                        Number(selected),
-                                                })
-                                            }
-                                            dataTest="spatialanalysis-permutations"
-                                        >
-                                            {PERMUTATION_OPTIONS.map(
-                                                ({ value, label }) => (
-                                                    <SingleSelectOption
-                                                        key={value}
-                                                        value={value}
-                                                        label={label}
-                                                    />
-                                                )
-                                            )}
-                                        </SingleSelectField>
-                                    )}
-
-                                    <SingleSelectField
-                                        label={i18n.t(
-                                            'Multiple-comparison correction'
-                                        )}
-                                        selected={correction}
-                                        onChange={({ selected }) =>
-                                            update({ correction: selected })
-                                        }
-                                        dataTest="spatialanalysis-correction"
-                                    >
-                                        {CORRECTION_OPTIONS.map(
-                                            ({ value, label }) => (
-                                                <SingleSelectOption
-                                                    key={value}
-                                                    value={value}
-                                                    label={label}
-                                                />
-                                            )
-                                        )}
-                                    </SingleSelectField>
-
-                                    {isLisa && (
-                                        <SingleSelectField
-                                            label={i18n.t('Quadrant scheme')}
-                                            selected={quadrantScheme}
-                                            onChange={({ selected }) =>
-                                                update({
-                                                    quadrantScheme: selected,
-                                                })
-                                            }
-                                            dataTest="spatialanalysis-quadrant"
-                                        >
-                                            {QUADRANT_OPTIONS.map(
-                                                ({ value, label }) => (
-                                                    <SingleSelectOption
-                                                        key={value}
-                                                        value={value}
-                                                        label={label}
-                                                    />
-                                                )
-                                            )}
-                                        </SingleSelectField>
-                                    )}
-
-                                    <Checkbox
-                                        label={i18n.t(
-                                            'Row-standardize weights'
-                                        )}
-                                        checked={rowStandardize}
-                                        onChange={(checked) =>
-                                            update({ rowStandardize: checked })
-                                        }
-                                        dataTest="spatialanalysis-rowstandardize"
-                                    />
-
-                                    <InputField
-                                        label={i18n.t('Random seed')}
-                                        type="number"
-                                        value={
-                                            seed !== undefined
-                                                ? String(seed)
-                                                : ''
-                                        }
-                                        onChange={({ value }) =>
-                                            update({
-                                                seed: value
-                                                    ? Number(value)
-                                                    : undefined,
-                                            })
-                                        }
-                                        dataTest="spatialanalysis-seed"
-                                    />
-                                </div>
-                            )}
+                            />
                         </>
                     )}
                 </div>
+
+                {isActive && (
+                    <div
+                        className={styles.flexColumn}
+                        data-test="spatialanalysis-advanced"
+                    >
+                        <div className={styles.header}>
+                            {i18n.t('Advanced settings')}
+                        </div>
+
+                        {isLisa && (
+                            <SelectField
+                                label={i18n.t('Permutations')}
+                                value={permutations}
+                                items={PERMUTATION_OPTIONS}
+                                onChange={({ id }) =>
+                                    update({ permutations: id })
+                                }
+                                className={styles.select}
+                                dataTest="spatialanalysis-permutations"
+                            />
+                        )}
+
+                        <SelectField
+                            label={i18n.t('Multiple-comparison correction')}
+                            value={correction}
+                            items={CORRECTION_OPTIONS}
+                            onChange={({ id }) => update({ correction: id })}
+                            className={styles.select}
+                            dataTest="spatialanalysis-correction"
+                        />
+
+                        {isLisa && (
+                            <SelectField
+                                label={i18n.t('Quadrant scheme')}
+                                value={quadrantScheme}
+                                items={QUADRANT_OPTIONS}
+                                onChange={({ id }) =>
+                                    update({ quadrantScheme: id })
+                                }
+                                className={styles.select}
+                                dataTest="spatialanalysis-quadrant"
+                            />
+                        )}
+
+                        <Checkbox
+                            label={i18n.t('Row-standardize weights')}
+                            checked={rowStandardize}
+                            onChange={(checked) =>
+                                update({ rowStandardize: checked })
+                            }
+                            dataTest="spatialanalysis-rowstandardize"
+                        />
+
+                        <NumberField
+                            label={i18n.t('Random seed')}
+                            value={seed}
+                            onChange={(value) => update({ seed: value })}
+                            className={styles.select}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     )
