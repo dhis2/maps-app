@@ -6,8 +6,8 @@
 //   Anselin (1995) doi:10.1111/j.1538-4632.1995.tb00338.x
 //   Sokal, Oden & Thomson (1998) — conditional-permutation variance
 //   Bivand & Wong (2018) doi:10.1007/s11749-018-0599-x — cross-implementation comparison
-import centroid from '@turf/centroid'
-import distance from '@turf/distance'
+import turfCentroid from '@turf/centroid'
+import turfDistance from '@turf/distance'
 import {
     WEIGHTS_CONTIGUITY,
     WEIGHTS_DISTANCE_BAND,
@@ -55,8 +55,7 @@ export const buildSpatialWeights = (
                 distMatrix,
                 distanceMeters
             )
-        } else {
-            // WEIGHTS_KNN
+        } else if (type === WEIGHTS_KNN) {
             rawNeighbors = buildKnnNeighbors(ids, distMatrix, k)
         }
     }
@@ -79,9 +78,15 @@ export const buildSpatialWeights = (
         neighbors.set(id, nbArray)
         if (rowStandardize) {
             const w = 1 / nbArray.length
-            weights.set(id, nbArray.map(() => w))
+            weights.set(
+                id,
+                nbArray.map(() => w)
+            )
         } else {
-            weights.set(id, nbArray.map(() => 1))
+            weights.set(
+                id,
+                nbArray.map(() => 1)
+            )
         }
     }
 
@@ -93,7 +98,7 @@ export const buildSpatialWeights = (
 // ---------------------------------------------------------------------------
 
 // Returns a canonical string key for an edge (order-independent)
-const edgeKey = (ax, ay, bx, by) => {
+const edgeKey = ([ax, ay], [bx, by]) => {
     const a = `${ax},${ay}`
     const b = `${bx},${by}`
     return a < b ? `${a}|${b}` : `${b}|${a}`
@@ -124,8 +129,7 @@ const buildContiguityNeighbors = (features, weightType) => {
                 const [x, y] = ring[i]
                 vertexSet.add(`${x},${y}`)
                 if (i < ring.length - 1) {
-                    const [nx, ny] = ring[i + 1]
-                    edgeSet.add(edgeKey(x, y, nx, ny))
+                    edgeSet.add(edgeKey(ring[i], ring[i + 1]))
                 }
             }
         }
@@ -175,7 +179,7 @@ const buildContiguityNeighbors = (features, weightType) => {
 const computeCentroids = (features) => {
     const map = new Map()
     for (const f of features) {
-        map.set(f.id, centroid(f).geometry.coordinates) // [lng, lat]
+        map.set(f.id, turfCentroid(f).geometry.coordinates) // [lng, lat]
     }
     return map
 }
@@ -191,9 +195,15 @@ const computeDistanceMatrix = (ids, centroids) => {
                 continue
             }
             // @turf/distance returns km; convert to metres for callers
-            const from = { type: 'Feature', geometry: { type: 'Point', coordinates: centroids.get(ids[i]) } }
-            const to = { type: 'Feature', geometry: { type: 'Point', coordinates: centroids.get(ids[j]) } }
-            row.set(ids[j], distance(from, to) * 1000)
+            const from = {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: centroids.get(ids[i]) },
+            }
+            const to = {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: centroids.get(ids[j]) },
+            }
+            row.set(ids[j], turfDistance(from, to) * 1000)
         }
         matrix.set(ids[i], row)
     }
@@ -204,7 +214,9 @@ const buildDistanceBandNeighbors = (ids, distMatrix, threshold) => {
     const neighbors = new Map(ids.map((id) => [id, new Set()]))
     for (let i = 0; i < ids.length; i++) {
         for (let j = 0; j < ids.length; j++) {
-            if (i === j) continue
+            if (i === j) {
+                continue
+            }
             if (distMatrix.get(ids[i]).get(ids[j]) <= threshold) {
                 neighbors.get(ids[i]).add(ids[j])
             }
@@ -218,7 +230,9 @@ const buildKnnNeighbors = (ids, distMatrix, k) => {
     for (const id of ids) {
         const sorted = ids
             .filter((other) => other !== id)
-            .sort((a, b) => distMatrix.get(id).get(a) - distMatrix.get(id).get(b))
+            .sort(
+                (a, b) => distMatrix.get(id).get(a) - distMatrix.get(id).get(b)
+            )
         neighbors.set(id, new Set(sorted.slice(0, k)))
     }
     return neighbors
@@ -244,8 +258,8 @@ const mulberry32 = (seed) => {
 const shuffle = (array, rng) => {
     const a = array.slice()
     for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(rng() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]]
+        const j = Math.floor(rng() * (i + 1))
+        ;[a[i], a[j]] = [a[j], a[i]]
     }
     return a
 }
@@ -282,8 +296,12 @@ const bonferroni = (pValues) =>
     pValues.map((p) => Math.min(1, p * pValues.length))
 
 const applyCorrection = (pValues, correction) => {
-    if (correction === 'fdr') return bhFdr(pValues)
-    if (correction === 'bonferroni') return bonferroni(pValues)
+    if (correction === 'fdr') {
+        return bhFdr(pValues)
+    }
+    if (correction === 'bonferroni') {
+        return bonferroni(pValues)
+    }
     return pValues
 }
 
@@ -296,10 +314,10 @@ const normalCdf = (z) => {
     const t = 1 / (1 + 0.2316419 * Math.abs(z))
     const poly =
         t *
-        (0.319381530 +
+        (0.31938153 +
             t *
-            (-0.356563782 +
-                t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))))
+                (-0.356563782 +
+                    t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))))
     const p = 1 - (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * z * z) * poly
     return z >= 0 ? p : 1 - p
 }
@@ -326,7 +344,7 @@ const twoSidedP = (z) => 2 * (1 - normalCdf(Math.abs(z)))
  */
 export const getGiStar = (
     valueById,
-    { neighbors, weights, noNeighborIds },
+    { neighbors, noNeighborIds },
     { alpha = 0.05, correction = 'fdr' } = {}
 ) => {
     const ids = [...neighbors.keys()]
@@ -334,7 +352,12 @@ export const getGiStar = (
 
     // Units with no value are excluded from the global mean/variance
     const values = ids
-        .filter((id) => !noNeighborSet.has(id) && valueById[id] !== undefined && !Number.isNaN(valueById[id]))
+        .filter(
+            (id) =>
+                !noNeighborSet.has(id) &&
+                valueById[id] !== undefined &&
+                !Number.isNaN(valueById[id])
+        )
         .map((id) => valueById[id])
 
     if (values.length === 0) {
@@ -362,7 +385,11 @@ export const getGiStar = (
     const computedIds = []
 
     for (const id of ids) {
-        if (noNeighborSet.has(id) || valueById[id] === undefined || Number.isNaN(valueById[id])) {
+        if (
+            noNeighborSet.has(id) ||
+            valueById[id] === undefined ||
+            Number.isNaN(valueById[id])
+        ) {
             continue
         }
 
@@ -377,7 +404,9 @@ export const getGiStar = (
 
         for (const nbId of extNb) {
             const xj = valueById[nbId]
-            if (xj === undefined || Number.isNaN(xj)) continue
+            if (xj === undefined || Number.isNaN(xj)) {
+                continue
+            }
             wStarSum += wStar
             wStarSumXj += wStar * xj
             wStarSumSq += wStar * wStar
@@ -385,10 +414,7 @@ export const getGiStar = (
 
         const numerator = wStarSumXj - xBar * wStarSum
         const denominator =
-            s *
-            Math.sqrt(
-                (n * wStarSumSq - wStarSum * wStarSum) / (n - 1)
-            )
+            s * Math.sqrt((n * wStarSumSq - wStarSum * wStarSum) / (n - 1))
 
         const z = denominator === 0 ? 0 : numerator / denominator
         const p = twoSidedP(z)
@@ -465,13 +491,20 @@ export const getLisa = (
     if (validIds.length === 0) {
         const result = new Map()
         for (const id of ids) {
-            result.set(id, { I: null, z: null, pPseudo: null, cluster: 'NS', significant: false })
+            result.set(id, {
+                I: null,
+                z: null,
+                pPseudo: null,
+                cluster: 'NS',
+                significant: false,
+            })
         }
         return result
     }
 
     // Z-standardize values
-    const mean = validIds.reduce((s, id) => s + valueById[id], 0) / validIds.length
+    const mean =
+        validIds.reduce((s, id) => s + valueById[id], 0) / validIds.length
     const variance =
         validIds.reduce((s, id) => s + (valueById[id] - mean) ** 2, 0) /
         validIds.length
@@ -513,7 +546,9 @@ export const getLisa = (
         const observed = observedI.get(id)
 
         // Pool excludes self — this is the key correctness requirement
-        const pool = otherIdsPool.filter((other) => other !== id).map((other) => zById.get(other))
+        const pool = otherIdsPool
+            .filter((other) => other !== id)
+            .map((other) => zById.get(other))
 
         let countMore = 0
         let countLess = 0
@@ -526,8 +561,12 @@ export const getLisa = (
                 permLag += wRow[j] * permZ
             }
             const permI = zi * permLag
-            if (permI >= observed) countMore++
-            if (permI <= observed) countLess++
+            if (permI >= observed) {
+                countMore++
+            }
+            if (permI <= observed) {
+                countLess++
+            }
         }
 
         // Two-sided pseudo-p: fold both tails, cap at 1.
@@ -545,27 +584,39 @@ export const getLisa = (
 
     // Derive cluster quadrant
     const getCluster = (id, significant) => {
-        if (!significant) return 'NS'
+        if (!significant) {
+            return 'NS'
+        }
         const zi = zById.get(id)
         const nb = neighbors.get(id)
         const wRow = weights.get(id)
         let lag = 0
         for (let j = 0; j < nb.length; j++) {
             const zj = zById.get(nb[j])
-            if (zj !== undefined) lag += wRow[j] * zj
+            if (zj !== undefined) {
+                lag += wRow[j] * zj
+            }
         }
         // GeoDa: HH=1, LL=2, LH=3, HL=4
         // PySAL: HH=1, LH=2, LL=3, HL=4
         // Both label high-high and low-low the same; differ on LH vs HL numbering only.
         // We use descriptive strings so the scheme only affects the label order in the legend.
-        if (zi > 0 && lag > 0) return 'HH'
-        if (zi < 0 && lag < 0) return 'LL'
+        if (zi > 0 && lag > 0) {
+            return 'HH'
+        }
+        if (zi < 0 && lag < 0) {
+            return 'LL'
+        }
         if (quadrantScheme === 'pysal') {
-            if (zi > 0 && lag < 0) return 'HL'
+            if (zi > 0 && lag < 0) {
+                return 'HL'
+            }
             return 'LH'
         }
         // GeoDa (default)
-        if (zi < 0 && lag > 0) return 'LH'
+        if (zi < 0 && lag > 0) {
+            return 'LH'
+        }
         return 'HL'
     }
 
@@ -574,7 +625,13 @@ export const getLisa = (
     // No-neighbor and missing-value units
     for (const id of ids) {
         if (!validIds.includes(id)) {
-            result.set(id, { I: null, z: null, pPseudo: null, cluster: 'NS', significant: false })
+            result.set(id, {
+                I: null,
+                z: null,
+                pPseudo: null,
+                cluster: 'NS',
+                significant: false,
+            })
         }
     }
 

@@ -1,13 +1,9 @@
 import {
-    buildSpatialWeights,
-    getGiStar,
-    getLisa,
-} from '../spatialStats.js'
-import {
     WEIGHTS_CONTIGUITY,
     WEIGHTS_DISTANCE_BAND,
     WEIGHTS_KNN,
 } from '../../constants/layers.js'
+import { buildSpatialWeights, getGiStar, getLisa } from '../spatialStats.js'
 
 // ---------------------------------------------------------------------------
 // Test fixture
@@ -72,7 +68,10 @@ describe('buildSpatialWeights — queen contiguity', () => {
     let result
 
     beforeAll(() => {
-        result = buildSpatialWeights(FEATURES, { type: WEIGHTS_CONTIGUITY, weightType: 'queen' })
+        result = buildSpatialWeights(FEATURES, {
+            type: WEIGHTS_CONTIGUITY,
+            weightType: 'queen',
+        })
     })
 
     test('returns neighbors, weights, noNeighborIds', () => {
@@ -103,8 +102,10 @@ describe('buildSpatialWeights — queen contiguity', () => {
     })
 
     test('all rows sum to 1 (row-standardized)', () => {
-        for (const [id, w] of result.weights) {
-            if (w.length === 0) continue
+        for (const [, w] of result.weights) {
+            if (w.length === 0) {
+                continue
+            }
             const sum = w.reduce((s, v) => s + v, 0)
             expect(sum).toBeCloseTo(1, 10)
         }
@@ -115,7 +116,10 @@ describe('buildSpatialWeights — rook contiguity', () => {
     let result
 
     beforeAll(() => {
-        result = buildSpatialWeights(FEATURES, { type: WEIGHTS_CONTIGUITY, weightType: 'rook' })
+        result = buildSpatialWeights(FEATURES, {
+            type: WEIGHTS_CONTIGUITY,
+            weightType: 'rook',
+        })
     })
 
     test('A has rook neighbors B and C (not D — diagonal only)', () => {
@@ -161,7 +165,10 @@ describe('buildSpatialWeights — distance band', () => {
 
 describe('buildSpatialWeights — kNN', () => {
     test('k=1 gives exactly one neighbor per unit', () => {
-        const result = buildSpatialWeights(FEATURES, { type: WEIGHTS_KNN, k: 1 })
+        const result = buildSpatialWeights(FEATURES, {
+            type: WEIGHTS_KNN,
+            k: 1,
+        })
         for (const [, nb] of result.neighbors) {
             expect(nb).toHaveLength(1)
         }
@@ -170,7 +177,10 @@ describe('buildSpatialWeights — kNN', () => {
     })
 
     test('k=2 gives exactly two neighbors per unit', () => {
-        const result = buildSpatialWeights(FEATURES, { type: WEIGHTS_KNN, k: 2 })
+        const result = buildSpatialWeights(FEATURES, {
+            type: WEIGHTS_KNN,
+            k: 2,
+        })
         for (const [, nb] of result.neighbors) {
             expect(nb).toHaveLength(2)
         }
@@ -187,7 +197,10 @@ describe('getGiStar', () => {
 
     beforeAll(() => {
         // Use queen contiguity on the main 5 squares (exclude F so weights include F as island)
-        weights = buildSpatialWeights(FEATURES, { type: WEIGHTS_CONTIGUITY, weightType: 'queen' })
+        weights = buildSpatialWeights(FEATURES, {
+            type: WEIGHTS_CONTIGUITY,
+            weightType: 'queen',
+        })
         result = getGiStar(VALUES, weights, { alpha: 0.05, correction: 'none' })
     })
 
@@ -204,7 +217,11 @@ describe('getGiStar', () => {
     })
 
     test('island F gets z=null, p=null, significant=false', () => {
-        expect(result.get('F')).toEqual({ z: null, p: null, significant: false })
+        expect(result.get('F')).toEqual({
+            z: null,
+            p: null,
+            significant: false,
+        })
     })
 
     test('E (highest value, neighbors C+D) has positive z', () => {
@@ -225,7 +242,9 @@ describe('getGiStar', () => {
         const uniform = { A: 5, B: 5, C: 5, D: 5, E: 5, F: 5 }
         const r = getGiStar(uniform, weights, { correction: 'none' })
         for (const [id, v] of r) {
-            if (id === 'F') continue // island, z=null
+            if (id === 'F') {
+                continue
+            } // island, z=null
             expect(v.z).toBeCloseTo(0, 6)
         }
     })
@@ -239,7 +258,9 @@ describe('getGiStar', () => {
 
     test('p-values are in [0, 1]', () => {
         for (const [id, v] of result) {
-            if (id === 'F') continue
+            if (id === 'F') {
+                continue
+            }
             expect(v.p).toBeGreaterThanOrEqual(0)
             expect(v.p).toBeLessThanOrEqual(1)
         }
@@ -255,7 +276,10 @@ describe('getLisa', () => {
     let result
 
     beforeAll(() => {
-        weights = buildSpatialWeights(FEATURES, { type: WEIGHTS_CONTIGUITY, weightType: 'queen' })
+        weights = buildSpatialWeights(FEATURES, {
+            type: WEIGHTS_CONTIGUITY,
+            weightType: 'queen',
+        })
         result = getLisa(VALUES, weights, {
             permutations: 999,
             alpha: 0.05,
@@ -323,7 +347,9 @@ describe('getLisa', () => {
         // At least one p-value should differ (extremely unlikely they all match)
         let anyDiffer = false
         for (const [id, v] of result) {
-            if (id === 'F') continue
+            if (id === 'F') {
+                continue
+            }
             if (r2.get(id).pPseudo !== v.pPseudo) {
                 anyDiffer = true
                 break
@@ -333,10 +359,22 @@ describe('getLisa', () => {
     })
 
     test('quadrantScheme geoda and pysal agree on HH and LL', () => {
-        const geoda = getLisa(VALUES, weights, { permutations: 99, correction: 'none', seed: 1, quadrantScheme: 'geoda' })
-        const pysal = getLisa(VALUES, weights, { permutations: 99, correction: 'none', seed: 1, quadrantScheme: 'pysal' })
+        const geoda = getLisa(VALUES, weights, {
+            permutations: 99,
+            correction: 'none',
+            seed: 1,
+            quadrantScheme: 'geoda',
+        })
+        const pysal = getLisa(VALUES, weights, {
+            permutations: 99,
+            correction: 'none',
+            seed: 1,
+            quadrantScheme: 'pysal',
+        })
         for (const [id] of result) {
-            if (id === 'F') continue
+            if (id === 'F') {
+                continue
+            }
             const cg = geoda.get(id).cluster
             const cp = pysal.get(id).cluster
             if (cg === 'HH' || cg === 'LL') {
@@ -347,7 +385,9 @@ describe('getLisa', () => {
 
     test('two-sided pseudo-p is in [0, 1]', () => {
         for (const [id, v] of result) {
-            if (id === 'F') continue
+            if (id === 'F') {
+                continue
+            }
             expect(v.pPseudo).toBeGreaterThanOrEqual(0)
             expect(v.pPseudo).toBeLessThanOrEqual(1)
         }
@@ -362,13 +402,19 @@ describe('getLisa', () => {
 
     test('FDR correction does not increase any p-value beyond uncorrected', () => {
         const uncorrected = getLisa(VALUES, weights, {
-            permutations: 99, seed: 7, correction: 'none',
+            permutations: 99,
+            seed: 7,
+            correction: 'none',
         })
         const corrected = getLisa(VALUES, weights, {
-            permutations: 99, seed: 7, correction: 'fdr',
+            permutations: 99,
+            seed: 7,
+            correction: 'fdr',
         })
         for (const [id] of uncorrected) {
-            if (id === 'F') continue
+            if (id === 'F') {
+                continue
+            }
             expect(corrected.get(id).pPseudo).toBeGreaterThanOrEqual(
                 uncorrected.get(id).pPseudo - 1e-10
             )
