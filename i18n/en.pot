@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-18T10:47:37.300Z\n"
-"PO-Revision-Date: 2026-06-18T10:47:37.300Z\n"
+"POT-Creation-Date: 2026-06-18T12:31:09.794Z\n"
+"PO-Revision-Date: 2026-06-18T12:31:09.794Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -554,11 +554,8 @@ msgstr "Number of neighbours (k)"
 msgid "Significance level (α)"
 msgstr "Significance level (α)"
 
-msgid "Hide advanced options"
-msgstr "Hide advanced options"
-
-msgid "Show advanced options"
-msgstr "Show advanced options"
+msgid "Advanced settings"
+msgstr "Advanced settings"
 
 msgid "Permutations"
 msgstr "Permutations"
@@ -2005,20 +2002,26 @@ msgstr "Tracked entities"
 msgid "Org units"
 msgstr "Org units"
 
-msgid "High-High"
-msgstr "High-High"
+msgid "High-High (hotspot cluster)"
+msgstr "High-High (hotspot cluster)"
 
-msgid "Low-Low"
-msgstr "Low-Low"
+msgid "Low-Low (coldspot cluster)"
+msgstr "Low-Low (coldspot cluster)"
 
-msgid "High-Low"
-msgstr "High-Low"
+msgid "High-Low (high value among low neighbors)"
+msgstr "High-Low (high value among low neighbors)"
 
-msgid "Low-High"
-msgstr "Low-High"
+msgid "Low-High (low value among high neighbors)"
+msgstr "Low-High (low value among high neighbors)"
 
 msgid "Not significant"
 msgstr "Not significant"
+
+msgid "Cold spot ({{level}}% confidence)"
+msgstr "Cold spot ({{level}}% confidence)"
+
+msgid "Hot spot ({{level}}% confidence)"
+msgstr "Hot spot ({{level}}% confidence)"
 
 msgid "Facility"
 msgstr "Facility"

@@ -162,6 +162,11 @@
     margin-bottom: var(--spacers-dp8);
 }
 
+.fullWidthNotice {
+    composes: flexRowFlow;
+    margin-bottom: var(--spacers-dp16);
+}
+
 .dataOptions {
     padding-top: var(--spacers-dp16);
 }

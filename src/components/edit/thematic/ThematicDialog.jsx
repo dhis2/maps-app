@@ -583,10 +583,7 @@ const ThematicDialog = ({
                 )}
 
                 {tab === 'analysis' && (
-                    <div
-                        className={styles.flexColumnFlow}
-                        data-test="thematicdialog-analysistab"
-                    >
+                    <div data-test="thematicdialog-analysistab">
                         <SpatialAnalysisSection
                             isCountLikeData={
                                 dataItem?.dimensionItemType ===
