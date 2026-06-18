@@ -49,7 +49,6 @@ import {
     isRegularLegendItem,
     buildLisaLegendItems,
 } from '../util/legend.js'
-import { buildSpatialWeights, getGiStar, getLisa } from '../util/spatialStats.js'
 import { toGeoJson } from '../util/map.js'
 import {
     formatRangeWithSeparator,
@@ -62,6 +61,11 @@ import {
     fetchOrgUnitDetails,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
+import {
+    buildSpatialWeights,
+    getGiStar,
+    getLisa,
+} from '../util/spatialStats.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async ({
@@ -390,7 +394,10 @@ const thematicLoader = async ({
         // LISA: fixed 5-category map (HH/LL/HL/LH/NS) with GeoDa colors.
         if (spatialMethod === SPATIAL_GI) {
             const giClasses = classes || 7
-            const colorScale = getColorPalette(SPATIAL_GI_COLOR_SCALE, giClasses)
+            const colorScale = getColorPalette(
+                SPATIAL_GI_COLOR_SCALE,
+                giClasses
+            )
             const zValues = [...spatialStats.values()]
                 .map((s) => s.z)
                 .filter((z) => z !== null && Number.isFinite(z))
@@ -608,39 +615,53 @@ const thematicLoader = async ({
                 } else {
                     // LISA: categorical lookup by cluster key
                     legendItem =
-                        legendItems.find((item) => item.cluster === stat?.cluster) ?? null
+                        legendItems.find(
+                            (item) => item.cluster === stat?.cluster
+                        ) ?? null
                 }
 
                 const isPoint = geometry.type === 'Point'
                 const { hasAdditionalGeometry } = properties
 
                 Object.assign(properties, {
-                    color: isNoNeighbor ? '#cccccc' : (legendItem?.color ?? '#cccccc'),
+                    color: isNoNeighbor
+                        ? '#cccccc'
+                        : legendItem?.color ?? '#cccccc',
                     legend: isNoNeighbor
                         ? i18n.t('No neighbors')
-                        : (legendItem?.name ?? ''),
+                        : legendItem?.name ?? '',
                     radius: THEMATIC_RADIUS_DEFAULT,
-                    ...(hasAdditionalGeometry && isPoint && !isNoNeighbor && legendItem && {
-                        color: ORG_UNIT_COLOR,
+                    ...(hasAdditionalGeometry &&
+                        isPoint &&
+                        !isNoNeighbor &&
+                        legendItem && {
+                            color: ORG_UNIT_COLOR,
+                        }),
+                    ...(hasAdditionalGeometry && {
+                        radius: ORG_UNIT_RADIUS_SMALL,
                     }),
-                    ...(hasAdditionalGeometry && { radius: ORG_UNIT_RADIUS_SMALL }),
                     // Raw value stays for popup and data table display
                     value: Number.isFinite(value)
-                        ? formatWithSeparator(value, keyAnalysisDigitGroupSeparator)
+                        ? formatWithSeparator(
+                              value,
+                              keyAnalysisDigitGroupSeparator
+                          )
                         : rawValueById[id],
                     rawValue: value,
                     // Spatial stat properties for popup and data table
-                    ...(spatialMethod === SPATIAL_GI && stat && {
-                        spatialZ: stat.z,
-                        spatialP: stat.p,
-                        spatialSignificant: stat.significant,
-                    }),
-                    ...(spatialMethod === SPATIAL_LISA && stat && {
-                        spatialCluster: stat.cluster,
-                        spatialI: stat.I,
-                        spatialP: stat.pPseudo,
-                        spatialSignificant: stat.significant,
-                    }),
+                    ...(spatialMethod === SPATIAL_GI &&
+                        stat && {
+                            spatialZ: stat.z,
+                            spatialP: stat.p,
+                            spatialSignificant: stat.significant,
+                        }),
+                    ...(spatialMethod === SPATIAL_LISA &&
+                        stat && {
+                            spatialCluster: stat.cluster,
+                            spatialI: stat.I,
+                            spatialP: stat.pPseudo,
+                            spatialSignificant: stat.significant,
+                        }),
                 })
 
                 if (!hasAdditionalGeometry && legendItem && !isNoNeighbor) {

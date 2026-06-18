@@ -1,4 +1,8 @@
-import { DataDimension, PeriodDimension, DIMENSION_TYPE_DATA_ELEMENT } from '@dhis2/analytics'
+import {
+    DataDimension,
+    PeriodDimension,
+    DIMENSION_TYPE_DATA_ELEMENT,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -25,7 +29,6 @@ import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
-    SPATIAL_NONE,
 } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -585,7 +588,6 @@ const ThematicDialog = ({
                         data-test="thematicdialog-analysistab"
                     >
                         <SpatialAnalysisSection
-                            dataItem={dataItem}
                             isCountLikeData={
                                 dataItem?.dimensionItemType ===
                                     DIMENSION_TYPE_DATA_ELEMENT &&

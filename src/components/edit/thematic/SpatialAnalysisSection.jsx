@@ -27,7 +27,7 @@ const generateSeed = () => Math.floor(Date.now() % 1_000_000)
 const METHODS = [
     { value: SPATIAL_NONE, label: i18n.t('Off') },
     { value: SPATIAL_GI, label: i18n.t('Getis-Ord Gi*') },
-    { value: SPATIAL_LISA, label: i18n.t('Local Moran\'s I (LISA)') },
+    { value: SPATIAL_LISA, label: i18n.t("Local Moran's I (LISA)") },
 ]
 
 const WEIGHT_TYPES = [
@@ -60,7 +60,7 @@ const QUADRANT_OPTIONS = [
     { value: 'pysal', label: i18n.t('PySAL') },
 ]
 
-const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
+const SpatialAnalysisSection = ({ isCountLikeData }) => {
     const dispatch = useDispatch()
     const spatialAnalysis = useSelector(
         (state) => state.layerEdit.spatialAnalysis ?? {}
@@ -83,9 +83,9 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
     // Encode contiguity + queen/rook into a single select value
     const weightSelectValue =
         rawWeightType === WEIGHTS_CONTIGUITY
-            ? (spatialAnalysis.contiguityType === 'rook'
+            ? spatialAnalysis.contiguityType === 'rook'
                 ? `${WEIGHTS_CONTIGUITY}_rook`
-                : WEIGHTS_CONTIGUITY)
+                : WEIGHTS_CONTIGUITY
             : rawWeightType
 
     const update = useCallback(
@@ -132,7 +132,9 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
                     <SingleSelectField
                         label={i18n.t('Spatial analysis method')}
                         selected={method}
-                        onChange={({ selected }) => handleMethodChange(selected)}
+                        onChange={({ selected }) =>
+                            handleMethodChange(selected)
+                        }
                         dataTest="spatialanalysis-method"
                     >
                         {METHODS.map(({ value, label }) => (
@@ -165,7 +167,9 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
 
                             {isDistanceBand && (
                                 <InputField
-                                    label={i18n.t('Distance threshold (metres)')}
+                                    label={i18n.t(
+                                        'Distance threshold (metres)'
+                                    )}
                                     type="number"
                                     value={
                                         distanceMeters !== undefined
@@ -191,7 +195,12 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
                                     max="20"
                                     value={String(k)}
                                     onChange={({ value }) =>
-                                        update({ k: Math.max(1, Math.min(20, Number(value))) })
+                                        update({
+                                            k: Math.max(
+                                                1,
+                                                Math.min(20, Number(value))
+                                            ),
+                                        })
                                     }
                                     dataTest="spatialanalysis-k"
                                 />
@@ -236,7 +245,8 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
                                             selected={String(permutations)}
                                             onChange={({ selected }) =>
                                                 update({
-                                                    permutations: Number(selected),
+                                                    permutations:
+                                                        Number(selected),
                                                 })
                                             }
                                             dataTest="spatialanalysis-permutations"
@@ -298,7 +308,9 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
                                     )}
 
                                     <Checkbox
-                                        label={i18n.t('Row-standardize weights')}
+                                        label={i18n.t(
+                                            'Row-standardize weights'
+                                        )}
                                         checked={rowStandardize}
                                         onChange={(checked) =>
                                             update({ rowStandardize: checked })
@@ -309,7 +321,11 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
                                     <InputField
                                         label={i18n.t('Random seed')}
                                         type="number"
-                                        value={seed !== undefined ? String(seed) : ''}
+                                        value={
+                                            seed !== undefined
+                                                ? String(seed)
+                                                : ''
+                                        }
                                         onChange={({ value }) =>
                                             update({
                                                 seed: value
@@ -330,7 +346,6 @@ const SpatialAnalysisSection = ({ dataItem, isCountLikeData }) => {
 }
 
 SpatialAnalysisSection.propTypes = {
-    dataItem: PropTypes.object,
     isCountLikeData: PropTypes.bool,
 }
 

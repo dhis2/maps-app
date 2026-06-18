@@ -305,5 +305,10 @@ export const buildLisaLegendItems = () => [
     { cluster: 'LL', name: i18n.t('Low-Low'), color: '#2c7bb6', count: 0 },
     { cluster: 'HL', name: i18n.t('High-Low'), color: '#fdae61', count: 0 },
     { cluster: 'LH', name: i18n.t('Low-High'), color: '#abd9e9', count: 0 },
-    { cluster: 'NS', name: i18n.t('Not significant'), color: '#aaaaaa', count: 0 },
+    {
+        cluster: 'NS',
+        name: i18n.t('Not significant'),
+        color: '#aaaaaa',
+        count: 0,
+    },
 ]
