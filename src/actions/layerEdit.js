@@ -390,3 +390,9 @@ export const setLabelDataItem = (item) => ({
     type: types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET,
     item,
 })
+
+// Set spatial analysis configuration (thematic layer)
+export const setSpatialAnalysis = (payload) => ({
+    type: types.LAYER_EDIT_SPATIAL_ANALYSIS_SET,
+    payload,
+})
