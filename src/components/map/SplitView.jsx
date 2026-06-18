@@ -19,6 +19,7 @@ const SplitView = ({
     interpretationModalOpen,
     setMapObject,
     layersSorting,
+    resizeCount,
 }) => {
     const { baseUrl } = useConfig()
     const [showFullscreen, setShowFullscreen] = useState()
@@ -81,6 +82,7 @@ const SplitView = ({
                     isFullscreen={showFullscreen}
                     baseUrl={baseUrl}
                     layersSorting={layersSorting}
+                    resizeCount={resizeCount}
                 >
                     {layers.map((layer, index) => {
                         return (
@@ -117,6 +119,7 @@ SplitView.propTypes = {
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
     layersSorting: PropTypes.bool,
+    resizeCount: PropTypes.number,
     setMapObject: PropTypes.func,
 }
 
