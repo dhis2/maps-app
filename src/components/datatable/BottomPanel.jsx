@@ -29,16 +29,11 @@ const BottomPanel = () => {
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
-    const [currentHeight, setCurrentHeight] = useState(tableHeight)
-    useEffect(() => setCurrentHeight(tableHeight), [tableHeight])
-
     const onResize = useCallback((h) => {
-        panelRef.current.style.height = `${h}px`
         document.documentElement.style.setProperty(
             '--data-table-height',
             `${h}px`
         )
-        setCurrentHeight(h)
     }, [])
 
     useLayoutEffect(() => {
@@ -74,7 +69,6 @@ const BottomPanel = () => {
         <div
             ref={panelRef}
             className={styles.bottomPanel}
-            style={{ height: currentHeight }}
             data-test="bottom-panel"
         >
             <div className={styles.dataTableControls}>

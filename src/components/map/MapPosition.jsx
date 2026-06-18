@@ -108,14 +108,8 @@ const MapPosition = () => {
             className={cx(styles.mapDefault, {
                 [styles.mapDownload]: downloadMode,
                 [styles.downloadMapInfoOpen]: downloadMapInfoOpen,
+                [styles.mapWithDataTable]: dataTableOpen,
             })}
-            style={
-                dataTableOpen
-                    ? {
-                          height: 'calc(100vh - var(--header-height) - var(--toolbar-height) - var(--data-table-height))',
-                      }
-                    : {}
-            }
         >
             <div
                 id="dhis2-map-container"
