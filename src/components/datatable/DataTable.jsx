@@ -89,13 +89,14 @@ const TableComponents = {
     ),
 }
 
-const Table = ({ availableHeight, availableWidth }) => {
+const Table = ({ availableWidth }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
     const headerRowRef = useRef(null)
     const [columnWidths, setColumnWidths] = useState([])
+    const minColumnWidthsRef = useRef([])
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
 
@@ -206,12 +207,7 @@ const Table = ({ availableHeight, availableWidth }) => {
     })
 
     useEffect(() => {
-        /* The combination of automatic table layout and virtual scrolling
-         * causes a content shift when scrolling and filtering because the
-         * cells in the DOM have a different content length which causes the
-         * columns to have a different width. To avoid that we measure the
-         * initial column widths and switch to a fixed layout based on these
-         * measured widths */
+        // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
         if (columnWidths.length === 0 && headerRowRef.current) {
             requestAnimationFrame(() => {
                 const measuredColumnWidths = []
@@ -221,20 +217,41 @@ const Table = ({ availableHeight, availableWidth }) => {
                     measuredColumnWidths.push(Math.floor(rect.width))
                 }
 
+                minColumnWidthsRef.current = measuredColumnWidths
                 setColumnWidths(measuredColumnWidths)
             })
         }
     }, [columnWidths])
 
     useEffect(() => {
-        /* When the window is resized, the sidebar opens, or the table
-         * headers change, the table needs to switch back to its
-         * automatic layout so that the cells can subsequently can be
-         * measured again in the useEffect hook above */
+        // Reset to auto layout for re-measurement when headers change
         if (!error) {
+            minColumnWidthsRef.current = []
             setColumnWidths([])
         }
-    }, [availableWidth, headers, error])
+    }, [headers, error])
+
+    useEffect(() => {
+        // Scale column widths proportionally on resize, clamped to initial measured widths
+        if (!error) {
+            setColumnWidths((prev) => {
+                if (prev.length === 0) {
+                    return prev
+                }
+                const prevTotal = prev.reduce((sum, w) => sum + w, 0)
+                if (prevTotal === 0 || availableWidth === 0) {
+                    return []
+                }
+                const minWidths = minColumnWidthsRef.current
+                return prev.map((w, i) =>
+                    Math.max(
+                        minWidths[i] ?? 0,
+                        Math.round((w / prevTotal) * availableWidth)
+                    )
+                )
+            })
+        }
+    }, [availableWidth, error])
 
     if (error) {
         return <p className={styles.noSupport}>{error}</p>
@@ -246,7 +263,7 @@ const Table = ({ availableHeight, availableWidth }) => {
                 context={tableContext}
                 components={TableComponents}
                 style={{
-                    height: availableHeight,
+                    height: '100%',
                     width: '100%',
                 }}
                 data={rows}
@@ -321,7 +338,6 @@ const Table = ({ availableHeight, availableWidth }) => {
 }
 
 Table.propTypes = {
-    availableHeight: PropTypes.number,
     availableWidth: PropTypes.number,
 }
 
