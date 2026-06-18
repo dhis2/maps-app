@@ -37,8 +37,10 @@ const WEIGHT_TYPES = [
     { value: WEIGHTS_KNN, label: i18n.t('k-nearest neighbours') },
 ]
 
+// Values must match String(Number(value)) exactly — selected={String(alpha)}
+// compares against these, and Number('0.10') stringifies back to '0.1'.
 const ALPHA_OPTIONS = [
-    { value: '0.10', label: '0.10' },
+    { value: '0.1', label: '0.10' },
     { value: '0.05', label: '0.05 (default)' },
     { value: '0.01', label: '0.01' },
 ]
