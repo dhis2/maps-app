@@ -34,6 +34,7 @@ const MapPosition = () => {
             showOverviewMap)
 
     const isSplitView = !!getSplitViewLayer(layers)
+    const mapGL = map?.getMapGL()
 
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
@@ -87,6 +88,10 @@ const MapPosition = () => {
         if (map) {
             const mapgl = map.getMapGL()
 
+            if (!mapgl) {
+                return
+            }
+
             mapgl.once('resize', () => {
                 map.fitBounds(map.getLayersBounds(), {
                     padding: 40,
@@ -120,17 +125,17 @@ const MapPosition = () => {
                 })}
             >
                 <MapContainer resizeCount={resizeCount} setMap={setMap} />
-                {downloadMode && map && (
+                {downloadMode && mapGL && (
                     <>
                         {downloadMapInfoOpen && (
                             <DownloadMapInfo
-                                map={map.getMapGL()}
+                                map={mapGL}
                                 isSplitView={isSplitView}
                             />
                         )}
                         {showNorthArrow && !isSplitView && (
                             <NorthArrow
-                                map={map.getMapGL()}
+                                map={mapGL}
                                 downloadMapInfoOpen={downloadMapInfoOpen}
                             />
                         )}

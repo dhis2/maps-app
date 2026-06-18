@@ -44,7 +44,7 @@ export const defaultBasemaps = () => [
             attribution:
                 '&copy; <a target="_blank" rel="noreferrer" href="https://s2maps.eu/">Sentinel-2 cloudless</a> by <a target="_blank" rel="noreferrer" href="https://eox.at/">EOX IT Services GmbH</a> (Contains modified Copernicus Sentinel data 2024)',
         },
-        isDark: false,
+        isDark: true,
     },
     {
         id: 'bingLight',
