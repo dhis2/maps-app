@@ -116,12 +116,20 @@ const EventDialog = ({
         if (
             !currentPeriod &&
             !hasDate &&
+            !backupPeriodsDates &&
             defaultPeriod &&
             isPeriodAvailable(defaultPeriod, hiddenPeriods)
         ) {
             dispatch(setPeriod({ id: defaultPeriod }))
         }
-    }, [currentPeriod, systemSettings, startDate, endDate, dispatch])
+    }, [
+        currentPeriod,
+        systemSettings,
+        startDate,
+        endDate,
+        backupPeriodsDates,
+        dispatch,
+    ])
 
     // Set default start/end dates
     useEffect(() => {
