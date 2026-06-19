@@ -1,14 +1,24 @@
 import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LegendLayer from './LegendLayer.jsx'
 import './styles/Legend.css'
 
 // Renders a legend for all map layers
-const Legend = ({ layers, toggleLayerVisibility }) => {
+const Legend = ({ layers, toggleLayerVisibility, isFullscreen }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [isPinned, setIsPinned] = useState(false)
+
+    useEffect(() => {
+        if (isFullscreen) {
+            setIsOpen(true)
+            setIsPinned(true)
+        } else {
+            setIsOpen(false)
+            setIsPinned(false)
+        }
+    }, [isFullscreen])
 
     const legendLayers = layers
         .filter((layer) => layer.legend || layer.alerts)
@@ -51,6 +61,7 @@ const Legend = ({ layers, toggleLayerVisibility }) => {
 
 Legend.propTypes = {
     layers: PropTypes.array.isRequired,
+    isFullscreen: PropTypes.bool,
     toggleLayerVisibility: PropTypes.func,
 }
 

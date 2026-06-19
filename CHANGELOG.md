@@ -1,3 +1,10 @@
+## [101.13.2](https://github.com/dhis2/maps-app/compare/v101.13.1...v101.13.2) (2026-06-19)
+
+
+### Bug Fixes
+
+* detect fullscreen and resize to autopin legend and enable multitouch [DHIS2-13242] [DHIS2-20761] ([#3685](https://github.com/dhis2/maps-app/issues/3685)) ([f132cdf](https://github.com/dhis2/maps-app/commit/f132cdf1689be736d0f5c72e2a86c094e2800ee8))
+
 ## [101.13.1](https://github.com/dhis2/maps-app/compare/v101.13.0...v101.13.1) (2026-06-18)
 
 

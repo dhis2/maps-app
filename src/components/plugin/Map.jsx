@@ -25,6 +25,14 @@ const defaultBounds = [
     [50.2, 35.9],
 ]
 
+const getFullscreenDoc = () => {
+    try {
+        return parent.document
+    } catch {
+        return document
+    }
+}
+
 const Map = forwardRef((props, ref) => {
     const { basemap, mapViews, controls, getResizeFunction } = props
 
@@ -44,8 +52,25 @@ const Map = forwardRef((props, ref) => {
     const [contextMenu, setContextMenu] = useState()
     const [visibilityOverrides, setVisibilityOverrides] = useState({})
     const [resizeCount, setResizeCount] = useState(0)
+    const [isFullscreen, setIsFullscreen] = useState(
+        () => !!getFullscreenDoc().fullscreenElement
+    )
 
     const onResize = () => setResizeCount((state) => state + 1)
+
+    useEffect(() => {
+        const doc = getFullscreenDoc()
+        const onFullscreenChange = () =>
+            setIsFullscreen(!!doc.fullscreenElement)
+        doc.addEventListener('fullscreenchange', onFullscreenChange)
+        return () =>
+            doc.removeEventListener('fullscreenchange', onFullscreenChange)
+    }, [])
+
+    useEffect(() => {
+        window.addEventListener('resize', onResize)
+        return () => window.removeEventListener('resize', onResize)
+    }, [])
 
     const toggleLayerVisibility = useCallback((id) => {
         setVisibilityOverrides((prev) => {
@@ -148,7 +173,7 @@ const Map = forwardRef((props, ref) => {
             <CssVariables colors spacers theme />
             <MapView
                 isPlugin={true}
-                isFullscreen={false}
+                isFullscreen={isFullscreen}
                 basemap={basemap}
                 layers={layersWithVisibility}
                 controls={controls}
@@ -160,6 +185,7 @@ const Map = forwardRef((props, ref) => {
                 <Legend
                     layers={layersWithVisibility}
                     toggleLayerVisibility={toggleLayerVisibility}
+                    isFullscreen={isFullscreen}
                 />
             )}
             {contextMenu && (
