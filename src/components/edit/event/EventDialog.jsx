@@ -310,8 +310,10 @@ const EventDialog = ({
                             programStage={programStage}
                             value={eventCoordinateField}
                             type={eventCoordinateFieldType}
-                            onChange={(val) =>
-                                dispatch(setEventCoordinateField(val))
+                            onChange={(fieldId, fieldType) =>
+                                dispatch(
+                                    setEventCoordinateField(fieldId, fieldType)
+                                )
                             }
                             className={styles.select}
                             data-test="eventdialog-coordinatefield"
