@@ -17,10 +17,11 @@ import {
     removePeriodFromFilters,
     changeDimensionInFilters,
     removeDimensionFromFilters,
+    splitFilterColumns,
+    compactFilterColumns,
 } from '../util/analytics.js'
 
 const layerEdit = (state = null, action) => {
-    let columns
     let newState
     let program
 
@@ -178,37 +179,45 @@ const layerEdit = (state = null, action) => {
                 ],
             }
 
-        case types.LAYER_EDIT_FILTER_REMOVE:
-            columns = state.columns.filter((c) => c.filter !== undefined) // Also used for style data element without filter
-
-            if (!columns || !columns[action.index]) {
+        case types.LAYER_EDIT_FILTER_REMOVE: {
+            // Expand compact filter columns into individual rows, remove by index, compact back
+            const filterCols = state.columns.filter(
+                (c) => c.filter !== undefined
+            )
+            const splitRows = splitFilterColumns(filterCols)
+            if (!splitRows[action.index]) {
                 return state
             }
-
             return {
                 ...state,
                 columns: [
                     ...state.columns.filter((c) => c.filter === undefined),
-                    ...columns.filter((c, i) => i !== action.index),
+                    ...compactFilterColumns(
+                        splitRows.filter((_, i) => i !== action.index)
+                    ),
                 ],
             }
+        }
 
-        case types.LAYER_EDIT_FILTER_CHANGE:
-            columns = state.columns.filter((c) => c.filter !== undefined) // Also used for style data element without filter
-
-            if (!columns || !columns[action.index]) {
+        case types.LAYER_EDIT_FILTER_CHANGE: {
+            // Expand compact filter columns into individual rows, replace by index, compact back
+            const filterCols = state.columns.filter(
+                (c) => c.filter !== undefined
+            )
+            const splitRows = splitFilterColumns(filterCols)
+            if (!splitRows[action.index]) {
                 return state
             }
-
-            columns[action.index] = action.filter
-
+            const newSplitRows = [...splitRows]
+            newSplitRows[action.index] = action.filter
             return {
                 ...state,
                 columns: [
                     ...state.columns.filter((c) => c.filter === undefined),
-                    ...columns,
+                    ...compactFilterColumns(newSplitRows),
                 ],
             }
+        }
 
         case types.LAYER_EDIT_STYLE_DATA_ITEM_SET:
             return {

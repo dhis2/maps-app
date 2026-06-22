@@ -1,3 +1,40 @@
+## [101.13.2](https://github.com/dhis2/maps-app/compare/v101.13.1...v101.13.2) (2026-06-19)
+
+
+### Bug Fixes
+
+* detect fullscreen and resize to autopin legend and enable multitouch [DHIS2-13242] [DHIS2-20761] ([#3685](https://github.com/dhis2/maps-app/issues/3685)) ([f132cdf](https://github.com/dhis2/maps-app/commit/f132cdf1689be736d0f5c72e2a86c094e2800ee8))
+
+## [101.13.1](https://github.com/dhis2/maps-app/compare/v101.13.0...v101.13.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* preserve program/enrollment period type on TE layer reload [DHIS2-19205] ([#3674](https://github.com/dhis2/maps-app/issues/3674)) ([59cd55d](https://github.com/dhis2/maps-app/commit/59cd55d6879f17fee59a049ac84b23d46f1fcc04))
+* prevent duplicate overview map outline in splitmap download mode [DHIS2-21540] ([#3676](https://github.com/dhis2/maps-app/issues/3676)) ([0a98dbb](https://github.com/dhis2/maps-app/commit/0a98dbb1293a716cb599e0d34991ed5f3b4becc4))
+* resize data table and map canvas continuously during drag [DHIS2-15884] ([#3675](https://github.com/dhis2/maps-app/issues/3675)) ([44bbd24](https://github.com/dhis2/maps-app/commit/44bbd2440868da62781583a8ee2e61bdea57ac81))
+
+# [101.13.0](https://github.com/dhis2/maps-app/compare/v101.12.6...v101.13.0) (2026-06-15)
+
+
+### Features
+
+* add duplicate layer option to layer toolbar menu ([#3671](https://github.com/dhis2/maps-app/issues/3671)) ([0110bb0](https://github.com/dhis2/maps-app/commit/0110bb037fe01b522fdbf79aeb3b20231efae480))
+
+## [101.12.6](https://github.com/dhis2/maps-app/compare/v101.12.5...v101.12.6) (2026-06-12)
+
+
+### Bug Fixes
+
+* combine multiple filters on same dimension [DHIS2-19696] ([#3667](https://github.com/dhis2/maps-app/issues/3667)) ([7205be8](https://github.com/dhis2/maps-app/commit/7205be8392b8a623d0f082f8fd66389dfd1bf9ff))
+
+## [101.12.5](https://github.com/dhis2/maps-app/compare/v101.12.4...v101.12.5) (2026-06-12)
+
+
+### Bug Fixes
+
+* render calculated integer values without decimals in timeline [DHIS2-21037] ([#3669](https://github.com/dhis2/maps-app/issues/3669)) ([b029545](https://github.com/dhis2/maps-app/commit/b0295459fb1a92cc5f4871ec2e7d9eb6846294ad))
+
 ## [101.12.4](https://github.com/dhis2/maps-app/compare/v101.12.3...v101.12.4) (2026-06-12)
 
 
