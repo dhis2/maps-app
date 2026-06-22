@@ -20,10 +20,10 @@
         "docs:format": "prettier --write --prose-wrap always --print-width 100 'docs/src/*.md'"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^12.11.0",
-        "@dhis2/cli-style": "^10.7.9",
-        "@dhis2/cypress-commands": "^10.1.0",
-        "@dhis2/cypress-plugins": "^10.1.0",
+        "@dhis2/cli-app-scripts": "^12.11.3",
+        "@dhis2/cli-style": "^10.7.10",
+        "@dhis2/cypress-commands": "^10.1.2",
+        "@dhis2/cypress-plugins": "^10.1.2",
         "@semantic-release/changelog": "^6",
         "@semantic-release/exec": "^6",
         "@semantic-release/git": "^10",
