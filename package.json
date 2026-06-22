@@ -37,7 +37,7 @@
         "eslint-plugin-cypress": "^2.15.1",
         "identity-obj-proxy": "^3.0.0",
         "jest-webgl-canvas-mock": "^2.5.3",
-        "patch-package": "^6.5.1",
+        "patch-package": "^8.0.1",
         "redux-devtools": "^3.7.0",
         "redux-mock-store": "^1.5.5",
         "semantic-release": "^20",
