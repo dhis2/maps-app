@@ -178,7 +178,7 @@ const Table = ({ availableWidth }) => {
             // When hovering to the next row the next element is a `TD`
             // If this is the case `setFeatureHighlight` will
             // fire and the highlight does not need to be cleared
-            if (nextElement.tagName !== 'TD') {
+            if (nextElement?.tagName !== 'TD') {
                 dispatch(highlightFeature(null))
             }
         },
