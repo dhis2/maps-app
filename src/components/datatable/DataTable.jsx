@@ -145,7 +145,17 @@ const Table = ({ availableWidth, onCountChange }) => {
                 )
             } else {
                 const id = row.find((r) => r.dataKey === 'id')?.value
-                id && dispatch(setOrgUnitProfile(id))
+                if (id) {
+                    dispatch(
+                        highlightFeature({
+                            id,
+                            layerId: layer.id,
+                            origin: 'table',
+                            zoom: true,
+                        })
+                    )
+                    dispatch(setOrgUnitProfile(id))
+                }
             }
         },
         [dispatch, layer]
