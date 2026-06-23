@@ -1,4 +1,5 @@
 import { useDataEngine } from '@dhis2/app-runtime'
+import log from 'loglevel'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { initLayerSources } from '../../actions/layerSources.js'
@@ -31,6 +32,10 @@ export const useLoadDataStore = () => {
     const engine = useDataEngine()
 
     useEffect(() => {
+        // Guard against dispatching/mutating after unmount (and against
+        // React 18 StrictMode running the effect twice in development)
+        let cancelled = false
+
         // Write the default layer sources to the key and load them
         const resetToDefaults = async (type) => {
             await engine.mutate({
@@ -38,13 +43,19 @@ export const useLoadDataStore = () => {
                 type,
                 data: layerSourceDefaultIds,
             })
-            dispatch(initLayerSources(layerSourceDefaultIds))
+            if (!cancelled) {
+                dispatch(initLayerSources(layerSourceDefaultIds))
+            }
         }
 
         const loadDataStore = async () => {
             const { dataStore } = await engine.query({
                 dataStore: { resource: 'dataStore' },
             })
+
+            if (cancelled) {
+                return
+            }
 
             if (!dataStore.includes(MAPS_APP_NAMESPACE)) {
                 // Create namespace/key if missing in datastore
@@ -58,6 +69,10 @@ export const useLoadDataStore = () => {
                         resource: resourceLayerSourcesVisibility,
                     },
                 })
+
+                if (cancelled) {
+                    return
+                }
 
                 if (!Array.isArray(layerSourcesVisibility)) {
                     // Reset namespace/key if integrity has been broken
@@ -76,14 +91,22 @@ export const useLoadDataStore = () => {
                         data: validIds,
                     })
                 }
-                dispatch(initLayerSources(validIds))
+                if (!cancelled) {
+                    dispatch(initLayerSources(validIds))
+                }
             } catch {
                 // Create key if missing in namespace
                 await resetToDefaults('create')
             }
         }
 
-        loadDataStore()
+        loadDataStore().catch((error) =>
+            log.error('Failed to load managed layer sources', error)
+        )
+
+        return () => {
+            cancelled = true
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 }
