@@ -31,83 +31,59 @@ export const useLoadDataStore = () => {
     const engine = useDataEngine()
 
     useEffect(() => {
-        engine
-            .query({ dataStore: { resource: 'dataStore' } })
-            .then(({ dataStore }) => {
-                if (!dataStore.includes(MAPS_APP_NAMESPACE)) {
-                    // Create namespace/key if missing in datastore
-                    engine
-                        .mutate({
-                            resource: resourceLayerSourcesVisibility,
-                            type: 'create',
-                            data: layerSourceDefaultIds,
-                        })
-                        .then(() => {
-                            dispatch(initLayerSources(layerSourceDefaultIds))
-                        })
-                } else {
-                    engine
-                        .query({
-                            layerSourcesVisibility: {
-                                resource: resourceLayerSourcesVisibility,
-                            },
-                        })
-                        .then(({ layerSourcesVisibility }) => {
-                            if (!Array.isArray(layerSourcesVisibility)) {
-                                // Reset namespace/key if integrity has been broken
-                                engine
-                                    .mutate({
-                                        resource:
-                                            resourceLayerSourcesVisibility,
-                                        type: 'update',
-                                        data: layerSourceDefaultIds,
-                                    })
-                                    .then(() => {
-                                        dispatch(
-                                            initLayerSources(
-                                                layerSourceDefaultIds
-                                            )
-                                        )
-                                    })
-                            } else {
-                                const { ids, changed } = applyUpdates(
-                                    layerSourcesVisibility
-                                )
-                                const validIds = earthEngineLayersIds().filter(
-                                    (id) => ids.includes(id)
-                                )
-                                if (changed) {
-                                    engine
-                                        .mutate({
-                                            resource:
-                                                resourceLayerSourcesVisibility,
-                                            type: 'update',
-                                            data: validIds,
-                                        })
-                                        .then(() => {
-                                            dispatch(initLayerSources(validIds))
-                                        })
-                                } else {
-                                    dispatch(initLayerSources(validIds))
-                                }
-                            }
-                        })
-                        .catch(() => {
-                            // Create key if missing in namespace
-                            engine
-                                .mutate({
-                                    resource: resourceLayerSourcesVisibility,
-                                    type: 'create',
-                                    data: layerSourceDefaultIds,
-                                })
-                                .then(() => {
-                                    dispatch(
-                                        initLayerSources(layerSourceDefaultIds)
-                                    )
-                                })
-                        })
-                }
+        // Write the default layer sources to the key and load them
+        const resetToDefaults = async (type) => {
+            await engine.mutate({
+                resource: resourceLayerSourcesVisibility,
+                type,
+                data: layerSourceDefaultIds,
             })
+            dispatch(initLayerSources(layerSourceDefaultIds))
+        }
+
+        const loadDataStore = async () => {
+            const { dataStore } = await engine.query({
+                dataStore: { resource: 'dataStore' },
+            })
+
+            if (!dataStore.includes(MAPS_APP_NAMESPACE)) {
+                // Create namespace/key if missing in datastore
+                await resetToDefaults('create')
+                return
+            }
+
+            try {
+                const { layerSourcesVisibility } = await engine.query({
+                    layerSourcesVisibility: {
+                        resource: resourceLayerSourcesVisibility,
+                    },
+                })
+
+                if (!Array.isArray(layerSourcesVisibility)) {
+                    // Reset namespace/key if integrity has been broken
+                    await resetToDefaults('update')
+                    return
+                }
+
+                const { ids, changed } = applyUpdates(layerSourcesVisibility)
+                const validIds = earthEngineLayersIds().filter((id) =>
+                    ids.includes(id)
+                )
+                if (changed) {
+                    await engine.mutate({
+                        resource: resourceLayerSourcesVisibility,
+                        type: 'update',
+                        data: validIds,
+                    })
+                }
+                dispatch(initLayerSources(validIds))
+            } catch {
+                // Create key if missing in namespace
+                await resetToDefaults('create')
+            }
+        }
+
+        loadDataStore()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 }
