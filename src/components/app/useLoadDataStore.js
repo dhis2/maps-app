@@ -1,4 +1,5 @@
 import { useDataEngine } from '@dhis2/app-runtime'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { initLayerSources } from '../../actions/layerSources.js'
 import {
@@ -28,34 +29,75 @@ export const useLoadDataStore = () => {
     const layerSourceDefaultIds = [...earthEngineLayersDefaultIds()]
     const dispatch = useDispatch()
     const engine = useDataEngine()
-    engine
-        .query({ dataStore: { resource: 'dataStore' } })
-        .then(({ dataStore }) => {
-            if (!dataStore.includes(MAPS_APP_NAMESPACE)) {
-                // Create namespace/key if missing in datastore
-                engine
-                    .mutate({
-                        resource: resourceLayerSourcesVisibility,
-                        type: 'create',
-                        data: layerSourceDefaultIds,
-                    })
-                    .then(() => {
-                        dispatch(initLayerSources(layerSourceDefaultIds))
-                    })
-            } else {
-                engine
-                    .query({
-                        layerSourcesVisibility: {
+
+    useEffect(() => {
+        engine
+            .query({ dataStore: { resource: 'dataStore' } })
+            .then(({ dataStore }) => {
+                if (!dataStore.includes(MAPS_APP_NAMESPACE)) {
+                    // Create namespace/key if missing in datastore
+                    engine
+                        .mutate({
                             resource: resourceLayerSourcesVisibility,
-                        },
-                    })
-                    .then(({ layerSourcesVisibility }) => {
-                        if (!Array.isArray(layerSourcesVisibility)) {
-                            // Reset namespace/key if integrity has been broken
+                            type: 'create',
+                            data: layerSourceDefaultIds,
+                        })
+                        .then(() => {
+                            dispatch(initLayerSources(layerSourceDefaultIds))
+                        })
+                } else {
+                    engine
+                        .query({
+                            layerSourcesVisibility: {
+                                resource: resourceLayerSourcesVisibility,
+                            },
+                        })
+                        .then(({ layerSourcesVisibility }) => {
+                            if (!Array.isArray(layerSourcesVisibility)) {
+                                // Reset namespace/key if integrity has been broken
+                                engine
+                                    .mutate({
+                                        resource:
+                                            resourceLayerSourcesVisibility,
+                                        type: 'update',
+                                        data: layerSourceDefaultIds,
+                                    })
+                                    .then(() => {
+                                        dispatch(
+                                            initLayerSources(
+                                                layerSourceDefaultIds
+                                            )
+                                        )
+                                    })
+                            } else {
+                                const { ids, changed } = applyUpdates(
+                                    layerSourcesVisibility
+                                )
+                                const validIds = earthEngineLayersIds().filter(
+                                    (id) => ids.includes(id)
+                                )
+                                if (changed) {
+                                    engine
+                                        .mutate({
+                                            resource:
+                                                resourceLayerSourcesVisibility,
+                                            type: 'update',
+                                            data: validIds,
+                                        })
+                                        .then(() => {
+                                            dispatch(initLayerSources(validIds))
+                                        })
+                                } else {
+                                    dispatch(initLayerSources(validIds))
+                                }
+                            }
+                        })
+                        .catch(() => {
+                            // Create key if missing in namespace
                             engine
                                 .mutate({
                                     resource: resourceLayerSourcesVisibility,
-                                    type: 'update',
+                                    type: 'create',
                                     data: layerSourceDefaultIds,
                                 })
                                 .then(() => {
@@ -63,43 +105,9 @@ export const useLoadDataStore = () => {
                                         initLayerSources(layerSourceDefaultIds)
                                     )
                                 })
-                        } else {
-                            const { ids, changed } = applyUpdates(
-                                layerSourcesVisibility
-                            )
-                            const validIds = earthEngineLayersIds().filter(
-                                (id) => ids.includes(id)
-                            )
-                            if (changed) {
-                                engine
-                                    .mutate({
-                                        resource:
-                                            resourceLayerSourcesVisibility,
-                                        type: 'update',
-                                        data: validIds,
-                                    })
-                                    .then(() => {
-                                        dispatch(initLayerSources(validIds))
-                                    })
-                            } else {
-                                dispatch(initLayerSources(validIds))
-                            }
-                        }
-                    })
-                    .catch(() => {
-                        // Create key if missing in namespace
-                        engine
-                            .mutate({
-                                resource: resourceLayerSourcesVisibility,
-                                type: 'create',
-                                data: layerSourceDefaultIds,
-                            })
-                            .then(() => {
-                                dispatch(
-                                    initLayerSources(layerSourceDefaultIds)
-                                )
-                            })
-                    })
-            }
-        })
+                        })
+                }
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 }
