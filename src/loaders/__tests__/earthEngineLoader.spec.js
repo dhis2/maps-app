@@ -14,7 +14,7 @@ describe('earthEngineLoader', () => {
     const baseArgs = {
         engine: { query: jest.fn() },
         keyAnalysisDisplayProperty: 'name',
-        keyAnalysisDigitGroupSeparator: 'COMMA',
+        keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
         userId: 'userId',
     }
 
@@ -62,6 +62,31 @@ describe('earthEngineLoader', () => {
 
             expect(result.isLoaded).toBe(true)
             expect(result.period.id).toBe('2015')
+        })
+    })
+
+    describe('backward compatibility for layers with periods saved before 2.36', () => {
+        // Pre-2.36 favorites stored both an `image` and a dynamic `filter`,
+        // from which the loader reconstructs the `period`.
+        it('builds the period from the image and filter', async () => {
+            const result = await earthEngineLoader({
+                ...baseArgs,
+                config: {
+                    rows: [],
+                    config: JSON.stringify({
+                        id: 'fakeDatasetId',
+                        image: 'WorldPop',
+                        filter: [{ arguments: ['system:index', '20200101'] }],
+                    }),
+                },
+            })
+
+            expect(result.isLoaded).toBe(true)
+            expect(result.period).toEqual({
+                id: '20200101',
+                name: 'WorldPop',
+                year: 2020,
+            })
         })
     })
 })
