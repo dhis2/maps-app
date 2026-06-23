@@ -365,10 +365,15 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
         (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
 
+    const totalCount = dataWithAggregations?.length ?? 0
+    const filteredCount = rows?.length ?? 0
+
     return {
         headers,
         rows,
         isLoading,
         error: getErrorCodeText(errorCode.current),
+        totalCount,
+        filteredCount,
     }
 }
