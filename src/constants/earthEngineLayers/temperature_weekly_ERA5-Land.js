@@ -38,6 +38,11 @@ export default function createConfig() {
         defaultAggregations: ['mean', 'min', 'max'],
         periodType: EE_WEEKLY,
         periodReducer: EE_WEEKLY,
+        bandPeriodReducerType: {
+            temperature_2m: 'mean',
+            temperature_2m_min: 'min',
+            temperature_2m_max: 'max',
+        },
         filters: [
             {
                 type: 'eq',
