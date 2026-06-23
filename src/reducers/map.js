@@ -159,6 +159,17 @@ const layer = (state, action) => {
                 dataFilters: filters,
             }
 
+        // Remove all filters for a layer
+        case types.DATA_FILTERS_CLEAR_ALL:
+            if (state.id !== action.layerId) {
+                return state
+            }
+
+            return {
+                ...state,
+                dataFilters: {},
+            }
+
         case types.MAP_ALERTS_CLEAR:
             return {
                 ...state,
@@ -298,6 +309,7 @@ const map = (state = defaultState, action) => {
         case types.LAYER_TOGGLE_EXPAND:
         case types.DATA_FILTER_SET:
         case types.DATA_FILTER_CLEAR:
+        case types.DATA_FILTERS_CLEAR_ALL:
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:
             return {
                 ...state,
