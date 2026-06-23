@@ -89,7 +89,7 @@ const TableComponents = {
     ),
 }
 
-const Table = ({ availableWidth }) => {
+const Table = ({ availableWidth, onCountChange }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -200,11 +200,16 @@ const Table = ({ availableWidth }) => {
         ]
     )
 
-    const { headers, rows, isLoading, error } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-    })
+    const { headers, rows, isLoading, error, totalCount, filteredCount } =
+        useTableData({
+            layer,
+            sortField,
+            sortDirection,
+        })
+
+    useEffect(() => {
+        onCountChange?.(totalCount, filteredCount)
+    }, [onCountChange, totalCount, filteredCount])
 
     useEffect(() => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
@@ -299,6 +304,7 @@ const Table = ({ availableWidth }) => {
                                         ? `${columnWidths[index]}px`
                                         : 'auto'
                                 }
+                                title={name}
                             >
                                 {name}
                             </DataTableColumnHeader>
@@ -339,6 +345,7 @@ const Table = ({ availableWidth }) => {
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
+    onCountChange: PropTypes.func,
 }
 
 export default Table
