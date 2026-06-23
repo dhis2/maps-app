@@ -3,11 +3,68 @@ import {
     DIGIT_GROUP_SEPARATOR_NONE,
     DIGIT_GROUP_SEPARATOR_SPACE,
 } from '../../constants/settings.js'
-import { createLegend } from '../earthEngineLoader.js'
+import earthEngineLoader, { createLegend } from '../earthEngineLoader.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
 }))
+
+describe('earthEngineLoader', () => {
+    // No org units, so the loader skips the engine query entirely.
+    const baseArgs = {
+        engine: { query: jest.fn() },
+        keyAnalysisDisplayProperty: 'name',
+        keyAnalysisDigitGroupSeparator: 'COMMA',
+        userId: 'userId',
+    }
+
+    describe('backward compatibility for layers saved before v100.6.0', () => {
+        // Pre-v100.6.0 favorites stored a dynamic `filter` array (and no
+        // `image`), which the loader converts into a `period`.
+        const configWithFilter = (filter) => ({
+            ...baseArgs,
+            config: {
+                rows: [],
+                config: JSON.stringify({
+                    id: 'fakeDatasetId',
+                    filter,
+                }),
+            },
+        })
+
+        it('loads a filter-only layer config without throwing', async () => {
+            // Regression: `filter` was referenced out of scope in this branch,
+            // throwing a ReferenceError outside the try/catch so the loader
+            // promise rejected and the layer never loaded (permanent spinner).
+            const result = await earthEngineLoader(
+                configWithFilter([
+                    {
+                        id: '2020',
+                        name: '2020',
+                        year: 2020,
+                        arguments: ['year', '2020'],
+                    },
+                ])
+            )
+
+            expect(result.isLoaded).toBe(true)
+            expect(result.period).toEqual({
+                id: '2020',
+                name: '2020',
+                year: 2020,
+            })
+        })
+
+        it('derives the period id from the filter arguments when no id is set', async () => {
+            const result = await earthEngineLoader(
+                configWithFilter([{ arguments: ['year', '2015'] }])
+            )
+
+            expect(result.isLoaded).toBe(true)
+            expect(result.period.id).toBe('2015')
+        })
+    })
+})
 
 describe('createLegend', () => {
     describe('when ranges are provided', () => {
