@@ -9,7 +9,7 @@ export const getMigratedMapConfig = (config, defaultBasemapId) =>
 // Safely parse a mapView config, which may be empty, missing or malformed
 const safeParseConfig = (config) => {
     try {
-        // JSON.parse(null) yields null, JSON.parse('1') yields a number, etc.
+        // Guard against JSON.parse returning non-objects (null, numbers)
         const parsed = JSON.parse(config)
         return isObject(parsed) ? parsed : {}
     } catch {
@@ -41,6 +41,8 @@ const extractBasemap = (config, defaultBasemapId) => {
             basemap = { isVisible: false }
         } else {
             try {
+                // Not safeParseConfig: this branch recovers a malformed value
+                // as a plain basemap ID rather than falling back to {}
                 const { id, opacity, hidden } = JSON.parse(config.basemap)
                 basemap = { id, opacity, isVisible: !hidden }
             } catch {
