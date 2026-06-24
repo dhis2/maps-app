@@ -384,3 +384,9 @@ export const setFeatureStyle = (payload) => ({
     type: types.LAYER_EDIT_FEATURE_STYLE_SET,
     payload,
 })
+
+// Set spatial analysis configuration (thematic layer)
+export const setSpatialAnalysis = (payload) => ({
+    type: types.LAYER_EDIT_SPATIAL_ANALYSIS_SET,
+    payload,
+})

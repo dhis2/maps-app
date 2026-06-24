@@ -51,6 +51,13 @@ export const getColorScale = (palette) =>
             colorbrewer[name][palette.length].join(',') === palette.join(',')
     )
 
+// Diverging scale used for Gi* z-scores: blue (cold/low) → white → red (hot/high).
+// colorbrewer's native RdBu runs red (low) → blue (high); callers must reverse
+// the palette returned by getColorPalette() to put red on the high end.
+// (Diverging scales don't have a generated '_reverse' variant — only the
+// sequential ones in colorbrewer.js do.)
+export const SPATIAL_GI_COLOR_SCALE = 'RdBu'
+
 export const defaultColorScaleName = 'YlOrBr'
 export const defaultClasses = 5
 export const defaultColorScale = getColorPalette(

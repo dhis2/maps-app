@@ -50,6 +50,7 @@
         "@dhis2/maps-gl": "^4.2.8",
         "@dhis2/ui": "^10.16.3",
         "@turf/centroid": "^7.3.5",
+        "@turf/distance": "^7.3.5",
         "abortcontroller-polyfill": "^1.7.8",
         "array-move": "^4.0.0",
         "classnames": "^2.5.1",

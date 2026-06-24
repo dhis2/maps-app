@@ -236,3 +236,12 @@ export const MIN_RADIUS = 1
 export const MAX_RADIUS = 100
 
 export const NONE = 'none'
+
+/* SPATIAL ANALYSIS */
+export const SPATIAL_NONE = 'SPATIAL_NONE'
+export const SPATIAL_GI = 'SPATIAL_GI'
+export const SPATIAL_LISA = 'SPATIAL_LISA'
+
+export const WEIGHTS_CONTIGUITY = 'WEIGHTS_CONTIGUITY'
+export const WEIGHTS_DISTANCE_BAND = 'WEIGHTS_DISTANCE_BAND'
+export const WEIGHTS_KNN = 'WEIGHTS_KNN'

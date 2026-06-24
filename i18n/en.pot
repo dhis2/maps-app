@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-14T15:42:55.879Z\n"
-"PO-Revision-Date: 2026-06-14T15:42:55.879Z\n"
+"POT-Creation-Date: 2026-06-18T12:31:09.794Z\n"
+"PO-Revision-Date: 2026-06-18T12:31:09.794Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -496,6 +496,84 @@ msgstr "High radius should be greater than low radius"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
+
+msgid "Off"
+msgstr "Off"
+
+msgid "Getis-Ord Gi*"
+msgstr "Getis-Ord Gi*"
+
+msgid "Local Moran's I (LISA)"
+msgstr "Local Moran's I (LISA)"
+
+msgid "Contiguity (queen)"
+msgstr "Contiguity (queen)"
+
+msgid "Contiguity (rook)"
+msgstr "Contiguity (rook)"
+
+msgid "Distance band"
+msgstr "Distance band"
+
+msgid "k-nearest neighbours"
+msgstr "k-nearest neighbours"
+
+msgid "FDR (recommended)"
+msgstr "FDR (recommended)"
+
+msgid "Bonferroni"
+msgstr "Bonferroni"
+
+msgid "GeoDa (default)"
+msgstr "GeoDa (default)"
+
+msgid "PySAL"
+msgstr "PySAL"
+
+msgid ""
+"Hotspot analysis on raw counts often reflects population distribution "
+"rather than true spatial clustering. Consider using a rate or per-capita "
+"indicator."
+msgstr ""
+"Hotspot analysis on raw counts often reflects population distribution "
+"rather than true spatial clustering. Consider using a rate or per-capita "
+"indicator."
+
+msgid "Spatial analysis method"
+msgstr "Spatial analysis method"
+
+msgid "Spatial weights"
+msgstr "Spatial weights"
+
+msgid "Distance threshold (metres)"
+msgstr "Distance threshold (metres)"
+
+msgid "Number of neighbours (k)"
+msgstr "Number of neighbours (k)"
+
+msgid "Significance level (α)"
+msgstr "Significance level (α)"
+
+msgid "Advanced settings"
+msgstr "Advanced settings"
+
+msgid "Permutations"
+msgstr "Permutations"
+
+msgid "Multiple-comparison correction"
+msgstr "Multiple-comparison correction"
+
+msgid "Quadrant scheme"
+msgstr "Quadrant scheme"
+
+msgid "Row-standardize weights"
+msgstr "Row-standardize weights"
+
+msgid "Random seed"
+msgstr "Random seed"
+
+msgid "Analysis"
+msgstr "Analysis"
 
 msgid "Choose from presets"
 msgstr "Choose from presets"
@@ -1827,6 +1905,51 @@ msgstr "Data item was not found"
 msgid "Thematic layer"
 msgstr "Thematic layer"
 
+msgid ""
+"Spatial analysis results may be unreliable with fewer than 30 units ({{n}} "
+"found)"
+msgstr ""
+"Spatial analysis results may be unreliable with fewer than 30 units ({{n}} "
+"found)"
+
+msgid ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+msgid_plural ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+msgstr[0] ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+msgstr[1] ""
+"{{count}} unit(s) have no spatial neighbors and are excluded from the "
+"analysis"
+
+msgid ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+msgid_plural ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+msgstr[0] ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+msgstr[1] ""
+"{{count}} of {{total}} org units lack coordinates — spatial weights may be "
+"unreliable"
+
+msgid ""
+"Hotspot analysis on raw counts may reflect population distribution rather "
+"than true clustering. Consider using a rate or population-at-risk "
+"denominator."
+msgstr ""
+"Hotspot analysis on raw counts may reflect population distribution rather "
+"than true clustering. Consider using a rate or population-at-risk "
+"denominator."
+
+msgid "No neighbors"
+msgstr "No neighbors"
+
 msgid "related"
 msgstr "related"
 
@@ -1878,6 +2001,27 @@ msgstr "Tracked entities"
 
 msgid "Org units"
 msgstr "Org units"
+
+msgid "High-High (hotspot cluster)"
+msgstr "High-High (hotspot cluster)"
+
+msgid "Low-Low (coldspot cluster)"
+msgstr "Low-Low (coldspot cluster)"
+
+msgid "High-Low (high value among low neighbors)"
+msgstr "High-Low (high value among low neighbors)"
+
+msgid "Low-High (low value among high neighbors)"
+msgstr "Low-High (low value among high neighbors)"
+
+msgid "Not significant"
+msgstr "Not significant"
+
+msgid "Cold spot ({{level}}% confidence)"
+msgstr "Cold spot ({{level}}% confidence)"
+
+msgid "Hot spot ({{level}}% confidence)"
+msgstr "Hot spot ({{level}}% confidence)"
 
 msgid "Facility"
 msgstr "Facility"
