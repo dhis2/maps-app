@@ -91,7 +91,8 @@ const TrackedEntityDialog = ({
             dispatch(setStartDate(defaultDates.startDate))
             dispatch(setEndDate(defaultDates.endDate))
         }
-    }, [startDate, endDate, dispatch])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // Initialize relationships checkbox from existing config
     useEffect(() => {
