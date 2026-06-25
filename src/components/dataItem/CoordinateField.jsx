@@ -38,7 +38,11 @@ const CoordinateField = ({
         includeTypes.push('ORGANISATION_UNIT')
     }
 
-    const { eventDataItems, trackedEntityType } = useEventDataItems({
+    const {
+        eventDataItems,
+        trackedEntityType,
+        loading: itemsLoading,
+    } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
         includeTypes,
@@ -138,9 +142,19 @@ const CoordinateField = ({
             }
             items={fields}
             value={fields.find((f) => f.id === value) ? value : null}
-            loading={value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType}
+            loading={
+                !!program && value !== EVENT_COORDINATE_DEFAULT && itemsLoading
+            }
             helpText={
-                value === EVENT_COORDINATE_CASCADING
+                !program
+                    ? i18n.t(
+                          'Select a program to see additional coordinate options'
+                      )
+                    : !programStage && trackedEntityType
+                    ? i18n.t(
+                          'Select a program stage to see additional coordinate options'
+                      )
+                    : value === EVENT_COORDINATE_CASCADING
                     ? trackedEntityType
                         ? i18n.t(
                               'Enrollment > event > tracked entity > org unit coordinate'
