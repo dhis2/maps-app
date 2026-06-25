@@ -1,3 +1,10 @@
+## [101.13.3](https://github.com/dhis2/maps-app/compare/v101.13.2...v101.13.3) (2026-06-23)
+
+
+### Bug Fixes
+
+* use per-band temporal reducer for weekly temperature and weekly and monthly heatstress layer [CLIM-501] ([#3670](https://github.com/dhis2/maps-app/issues/3670)) ([e2d2e36](https://github.com/dhis2/maps-app/commit/e2d2e36535fb9047119dcf3986eea0cdb32623c6))
+
 ## [101.13.2](https://github.com/dhis2/maps-app/compare/v101.13.1...v101.13.2) (2026-06-19)
 
 
