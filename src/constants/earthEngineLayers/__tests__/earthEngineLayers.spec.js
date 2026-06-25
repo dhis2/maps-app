@@ -257,6 +257,10 @@ const configSchema = {
                 },
             },
         },
+        bandPeriodReducerType: {
+            type: 'object',
+            additionalProperties: { type: 'string' },
+        },
         popup: { type: 'string' },
         maskOperator: { type: 'string', enum: ['gte', 'gt'] },
         opacity: { type: 'number' },

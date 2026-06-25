@@ -37,6 +37,11 @@ export default function createConfig() {
         defaultAggregations: ['mean', 'min', 'max'],
         periodType: EE_MONTHLY,
         periodReducer: EE_MONTHLY,
+        bandPeriodReducerType: {
+            utci_mean: 'mean',
+            utci_min: 'min',
+            utci_max: 'max',
+        },
         filters: [
             {
                 type: 'eq',
