@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-19T10:22:25.345Z\n"
-"PO-Revision-Date: 2026-06-19T10:22:25.345Z\n"
+"POT-Creation-Date: 2026-06-25T13:36:15.573Z\n"
+"PO-Revision-Date: 2026-06-25T13:36:15.573Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -101,17 +101,23 @@ msgstr "Enrollment location"
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
 
-msgid "Fallback coordinate field"
-msgstr "Fallback coordinate field"
-
-msgid "Coordinate field"
-msgstr "Coordinate field"
+msgid "Select a program stage to see additional coordinate options"
+msgstr "Select a program stage to see additional coordinate options"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "Enrollment > event > tracked entity > org unit coordinate"
 
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
+
+msgid "Select a program to see additional coordinate options"
+msgstr "Select a program to see additional coordinate options"
+
+msgid "Fallback coordinate field"
+msgstr "Fallback coordinate field"
+
+msgid "Coordinate field"
+msgstr "Coordinate field"
 
 msgid "Include unclassified events"
 msgstr "Include unclassified events"
