@@ -3,14 +3,15 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
 import { SelectField } from '../../core/index.js'
 
 const RELATIONSHIP_TYPES_QUERY = {
     relationshipTypes: {
         resource: 'relationshipTypes',
-        params: {
-            fields: ['id', 'displayName~rename(name)', 'fromConstraint'],
-        },
+        params: ({ nameProperty }) => ({
+            fields: ['id', `${nameProperty}~rename(name)`, 'fromConstraint'],
+        }),
     },
 }
 
@@ -20,7 +21,10 @@ const TrackedEntityRelationshipTypeSelect = ({
     onChange,
     className,
 }) => {
-    const { loading, data, error } = useDataQuery(RELATIONSHIP_TYPES_QUERY)
+    const { nameProperty } = useCachedData()
+    const { loading, data, error } = useDataQuery(RELATIONSHIP_TYPES_QUERY, {
+        variables: { nameProperty },
+    })
 
     const types = useMemo(
         () =>
