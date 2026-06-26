@@ -38,50 +38,47 @@ const getBaseFields = (withSubscribers) => {
     return baseFields
 }
 
-const analysisFields = () => {
-    const nameProperty = `displayName~rename(name)`
-    return [
-        '*',
-        `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}]]`,
-        `rows[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}]]`,
-        `filters[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}]]`,
-        'organisationUnits[id,path]', // Added to retrieve org unit paths
-        'dataDimensionItems',
-        `program[id,${nameProperty}]`,
-        'programStage[id,displayName~rename(name)]',
-        'legendSet[id,displayName~rename(name)]',
-        'trackedEntityType[id,displayName~rename(name)]',
-        'organisationUnitSelectionMode',
-        '!href',
-        '!publicAccess',
-        '!rewindRelativePeriods',
-        '!userOrganisationUnit',
-        '!userOrganisationUnitChildren',
-        '!userOrganisationUnitGrandChildren',
-        '!externalAccess',
-        '!access',
-        '!relativePeriods',
-        '!columnDimensions',
-        '!rowDimensions',
-        '!filterDimensions',
-        '!user',
-        '!organisationUnitGroups',
-        '!itemOrganisationUnitGroups',
-        '!userGroupAccesses',
-        '!indicators',
-        '!dataElements',
-        '!dataElementOperands',
-        '!dataElementGroups',
-        '!dataSets',
-        '!periods',
-        '!organisationUnitLevels',
-        '!sortOrder',
-        '!topLimit',
-    ]
-}
+const analysisFields = (nameProperty = 'displayName') => [
+    '*',
+    `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}~rename(name)]]`,
+    `rows[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}~rename(name)]]`,
+    `filters[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${nameProperty}~rename(name)]]`,
+    'organisationUnits[id,path]', // Added to retrieve org unit paths
+    'dataDimensionItems',
+    `program[id,${nameProperty}~rename(name)]`,
+    'programStage[id,displayName~rename(name)]',
+    'legendSet[id,displayName~rename(name)]',
+    `trackedEntityType[id,${nameProperty}~rename(name)]`,
+    'organisationUnitSelectionMode',
+    '!href',
+    '!publicAccess',
+    '!rewindRelativePeriods',
+    '!userOrganisationUnit',
+    '!userOrganisationUnitChildren',
+    '!userOrganisationUnitGrandChildren',
+    '!externalAccess',
+    '!access',
+    '!relativePeriods',
+    '!columnDimensions',
+    '!rowDimensions',
+    '!filterDimensions',
+    '!user',
+    '!organisationUnitGroups',
+    '!itemOrganisationUnitGroups',
+    '!userGroupAccesses',
+    '!indicators',
+    '!dataElements',
+    '!dataElementOperands',
+    '!dataElementGroups',
+    '!dataSets',
+    '!periods',
+    '!organisationUnitLevels',
+    '!sortOrder',
+    '!topLimit',
+]
 
-export const mapFields = (withSubscribers = false) => {
-    const fields = analysisFields()
+export const mapFields = (withSubscribers = false, nameProperty) => {
+    const fields = analysisFields(nameProperty)
 
     return `${getBaseFields(withSubscribers).join(',')}, mapViews[${fields.join(
         ','

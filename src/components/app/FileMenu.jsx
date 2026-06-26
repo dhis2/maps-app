@@ -68,7 +68,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const dispatch = useDispatch()
     const engine = useDataEngine()
     const { serverVersion } = useConfig()
-    const { systemSettings, currentUser } = useCachedData()
+    const { systemSettings, currentUser, nameProperty } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
@@ -151,6 +151,7 @@ const FileMenu = ({ onFileMenuAction }) => {
             engine,
             defaultBasemap,
             withSubscribers: true,
+            nameProperty,
         })
 
         const latestMap = {

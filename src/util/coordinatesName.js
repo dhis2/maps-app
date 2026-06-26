@@ -9,7 +9,7 @@ export const loadEventCoordinateFieldName = async ({
     programStage,
     eventCoordinateField,
     engine,
-    displayNameProp,
+    nameProperty,
 }) => {
     if (!eventCoordinateField) {
         return
@@ -22,7 +22,7 @@ export const loadEventCoordinateFieldName = async ({
     const { programStage: programStageData } = await engine.query(
         EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
         {
-            variables: { id: programStage.id, nameProperty: displayNameProp },
+            variables: { id: programStage.id, nameProperty },
         }
     )
     const { programStageDataElements } = programStageData
@@ -40,7 +40,7 @@ export const loadEventCoordinateFieldName = async ({
         {
             variables: {
                 id: program.id,
-                nameProperty: displayNameProp,
+                nameProperty,
             },
         }
     )

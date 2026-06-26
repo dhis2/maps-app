@@ -234,9 +234,6 @@ class EventLayer extends Layer {
         programStage,
         eventCoordinateField,
     }) {
-        const displayNameProp =
-            nameProperty === 'name' ? 'displayName' : 'displayShortName'
-
         let displayItems = []
 
         const programStageResponse = await engine.query(
@@ -244,7 +241,7 @@ class EventLayer extends Layer {
             {
                 variables: {
                     id: programStage.id,
-                    nameProperty: displayNameProp,
+                    nameProperty,
                 },
             }
         )
@@ -275,7 +272,7 @@ class EventLayer extends Layer {
                 {
                     variables: {
                         id: program.id,
-                        nameProperty: displayNameProp,
+                        nameProperty,
                     },
                 }
             )
@@ -316,7 +313,7 @@ class EventLayer extends Layer {
             programStage,
             eventCoordinateField,
             engine,
-            displayNameProp,
+            nameProperty,
         })
 
         this.setState({ displayItems, eventCoordinateFieldName })

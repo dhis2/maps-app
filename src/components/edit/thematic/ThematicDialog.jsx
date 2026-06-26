@@ -38,6 +38,7 @@ import {
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
+import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs, Checkbox } from '../../core/index.js'
 import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
@@ -71,7 +72,6 @@ const ThematicDialog = ({
     noDataLegend,
     unclassifiedLegend,
     periodsSettings,
-    currentUser,
     validateLayer,
     onLayerValidation,
     legendSet,
@@ -82,6 +82,7 @@ const ThematicDialog = ({
     legendIsolated,
 }) => {
     const dispatch = useDispatch()
+    const { nameProperty } = useCachedData()
     const countFeaturesWithoutCoordinates = useSelector(
         (state) => state.layerEdit.countFeaturesWithoutCoordinates
     )
@@ -385,9 +386,7 @@ const ThematicDialog = ({
                     <div data-test="thematicdialog-datatab">
                         <div className={styles.flexRowFlow}>
                             <DataDimension
-                                displayNameProp={
-                                    currentUser.keyAnalysisDisplayProperty
-                                }
+                                displayNameProp={nameProperty}
                                 selectedDimensions={
                                     dataItem
                                         ? [
@@ -622,7 +621,6 @@ const ThematicDialog = ({
 ThematicDialog.propTypes = {
     backupPeriodsDates: PropTypes.object,
     columns: PropTypes.array,
-    currentUser: PropTypes.object,
     endDate: PropTypes.string,
     eventStatus: PropTypes.string,
     filters: PropTypes.array,

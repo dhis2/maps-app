@@ -49,7 +49,7 @@ const unknownErrorAlert = {
 const eventLoader = async ({
     config: layerConfig,
     engine,
-    keyAnalysisDisplayProperty,
+    nameProperty,
     keyAnalysisDigitGroupSeparator,
     analyticsEngine,
     periodTypeData,
@@ -59,16 +59,12 @@ const eventLoader = async ({
         ...layerConfig,
         keyAnalysisDigitGroupSeparator,
     }
-    const displayNameProp =
-        keyAnalysisDisplayProperty === 'name'
-            ? 'displayName'
-            : 'displayShortName'
 
     try {
         await loadEventLayer({
             config,
             engine,
-            displayNameProp,
+            nameProperty,
             analyticsEngine,
             periodTypeData,
             loadExtended,
@@ -98,7 +94,7 @@ const eventLoader = async ({
 const loadEventLayer = async ({
     config,
     engine,
-    displayNameProp,
+    nameProperty,
     analyticsEngine,
     periodTypeData,
     loadExtended,
@@ -162,7 +158,7 @@ const loadEventLayer = async ({
 
     const analyticsRequest = await getAnalyticsRequest(config, {
         analyticsEngine,
-        nameProperty: displayNameProp,
+        nameProperty,
         engine,
     })
     let alert
@@ -292,7 +288,7 @@ const loadEventLayer = async ({
         programStage,
         eventCoordinateField,
         engine,
-        displayNameProp,
+        nameProperty,
     })
     if (eventCoordinateFieldName) {
         config.legend.coordinateFields = [eventCoordinateFieldName]

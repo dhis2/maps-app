@@ -31,6 +31,7 @@ const LayerLoader = ({ config, onLoad }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
         currentUser,
+        nameProperty,
     } = useCachedData()
     const { keyAnalysisDisplayProperty, id: userId } = currentUser
     const periodTypeData = useDataOutputPeriodTypes()
@@ -48,6 +49,7 @@ const LayerLoader = ({ config, onLoad }) => {
             config,
             engine,
             keyAnalysisDisplayProperty, // name/shortName
+            nameProperty, // displayName/displayShortName
             keyAnalysisDigitGroupSeparator, // NONE/SPACE/COMMA
             userId,
             baseUrl,
@@ -66,6 +68,7 @@ const LayerLoader = ({ config, onLoad }) => {
         userId,
         baseUrl,
         keyAnalysisDisplayProperty,
+        nameProperty,
         keyAnalysisDigitGroupSeparator,
         serverVersion,
     ])
