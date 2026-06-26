@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-14T15:42:55.879Z\n"
-"PO-Revision-Date: 2026-06-14T15:42:55.879Z\n"
+"POT-Creation-Date: 2026-06-25T13:36:15.573Z\n"
+"PO-Revision-Date: 2026-06-25T13:36:15.573Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -101,17 +101,23 @@ msgstr "Enrollment location"
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
 
-msgid "Fallback coordinate field"
-msgstr "Fallback coordinate field"
-
-msgid "Coordinate field"
-msgstr "Coordinate field"
+msgid "Select a program stage to see additional coordinate options"
+msgstr "Select a program stage to see additional coordinate options"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "Enrollment > event > tracked entity > org unit coordinate"
 
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
+
+msgid "Select a program to see additional coordinate options"
+msgstr "Select a program to see additional coordinate options"
+
+msgid "Fallback coordinate field"
+msgstr "Fallback coordinate field"
+
+msgid "Coordinate field"
+msgstr "Coordinate field"
 
 msgid "Include unclassified events"
 msgstr "Include unclassified events"
@@ -386,6 +392,21 @@ msgstr "Facility buffer"
 msgid "Count org units without coordinates"
 msgstr "Count org units without coordinates"
 
+msgid "Program is required"
+msgstr "Program is required"
+
+msgid "Program stage is required"
+msgstr "Program stage is required"
+
+msgid "No organisation units are selected."
+msgstr "No organisation units are selected."
+
+msgid "No legend set is selected"
+msgstr "No legend set is selected"
+
+msgid "Isolated class max should be greater than min"
+msgstr "Isolated class max should be greater than min"
+
 msgid "Org Units"
 msgstr "Org Units"
 
@@ -406,21 +427,6 @@ msgstr "Count events without coordinates"
 
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
-
-msgid "Program is required"
-msgstr "Program is required"
-
-msgid "Program stage is required"
-msgstr "Program stage is required"
-
-msgid "No organisation units are selected."
-msgstr "No organisation units are selected."
-
-msgid "No legend set is selected"
-msgstr "No legend set is selected"
-
-msgid "Isolated class max should be greater than min"
-msgstr "Isolated class max should be greater than min"
 
 msgid "Event status"
 msgstr "Event status"
