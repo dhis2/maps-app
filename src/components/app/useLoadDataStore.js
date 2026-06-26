@@ -95,8 +95,10 @@ export const useLoadDataStore = () => {
                     dispatch(initLayerSources(validIds))
                 }
             } catch {
-                // Create key if missing in namespace
-                await resetToDefaults('create')
+                if (!cancelled) {
+                    // Create key if missing in namespace
+                    await resetToDefaults('create')
+                }
             }
         }
 
