@@ -77,7 +77,10 @@ const analysisFields = (nameProperty = 'displayName') => [
     '!topLimit',
 ]
 
-export const mapFields = (withSubscribers = false, nameProperty) => {
+export const mapFields = (
+    withSubscribers = false,
+    nameProperty = 'displayName'
+) => {
     const fields = analysisFields(nameProperty)
 
     return `${getBaseFields(withSubscribers).join(',')}, mapViews[${fields.join(
