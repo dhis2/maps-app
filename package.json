@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "build": "d2-app-scripts build",
-        "start": "node scripts/copy-ee-worker-files.js && d2-app-scripts start",
+        "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
         "lint": "d2-style check",
