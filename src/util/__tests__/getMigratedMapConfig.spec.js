@@ -48,6 +48,46 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
     )
 })
 
+test.each([
+    ['empty string config', ''],
+    ['missing config', undefined],
+    ['null config', null],
+    ['malformed config string', '{not valid json'],
+])(
+    'getMigratedMapConfig does not throw for external layer with %s',
+    (_label, externalConfig) => {
+        const config = {
+            id: 'mapId',
+            name: 'map name',
+            mapViews: [
+                { layer: 'external', config: externalConfig },
+                { layer: 'thematic', name: 'All the pretty colors' },
+            ],
+        }
+
+        let result
+        expect(() => {
+            result = getMigratedMapConfig(config, defaultBasemapId)
+        }).not.toThrow()
+
+        // The external view is not treated as a basemap, so it is retained
+        // and the default basemap is applied.
+        expect(result.basemap).toEqual({
+            id: defaultBasemapId,
+            opacity: 1,
+            isVisible: true,
+        })
+        expect(result.mapViews).toEqual([
+            { layer: 'external', config: externalConfig, isVisible: true },
+            {
+                layer: 'thematic',
+                name: 'All the pretty colors',
+                isVisible: true,
+            },
+        ])
+    }
+)
+
 test('getMigratedMapConfig when basemap is a string but not "none"', () => {
     const config = {
         id: 'mapId',
