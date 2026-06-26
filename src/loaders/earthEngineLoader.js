@@ -66,7 +66,10 @@ const earthEngineLoader = async ({
             delete layerConfig.image
         } else if (layerConfig.filter) {
             // Backward compability for layers saved before v100.6.0
-            layerConfig.period = getPeriodFromFilter(filter, layerConfig.id)
+            layerConfig.period = getPeriodFromFilter(
+                layerConfig.filter,
+                layerConfig.id
+            )
             delete layerConfig.filter
         }
 
