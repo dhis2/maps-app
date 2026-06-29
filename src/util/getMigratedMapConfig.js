@@ -6,18 +6,29 @@ export const getMigratedMapConfig = (config, defaultBasemapId) =>
         upgradeGisAppLayers(extractBasemap(config, defaultBasemapId))
     )
 
+// Safely parse a mapView config, which may be empty, missing or malformed
+const safeParseConfig = (config) => {
+    try {
+        // Guard against JSON.parse returning non-objects (null, numbers)
+        const parsed = JSON.parse(config)
+        return isObject(parsed) ? parsed : {}
+    } catch {
+        return {}
+    }
+}
+
 // Different ways of specifying a basemap
 const extractBasemap = (config, defaultBasemapId) => {
     const externalBasemap = config.mapViews.find(
         (view) =>
             view.layer === EXTERNAL_LAYER &&
-            JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
+            safeParseConfig(view.config).mapLayerPosition === 'BASEMAP'
     )
     let basemap
     let mapViews = config.mapViews
 
     if (externalBasemap) {
-        basemap = JSON.parse(externalBasemap.config)
+        basemap = safeParseConfig(externalBasemap.config)
         mapViews = config.mapViews.filter(
             (view) => view.id !== externalBasemap.id
         )
@@ -30,6 +41,8 @@ const extractBasemap = (config, defaultBasemapId) => {
             basemap = { isVisible: false }
         } else {
             try {
+                // Not safeParseConfig: this branch recovers a malformed value
+                // as a plain basemap ID rather than falling back to {}
                 const { id, opacity, hidden } = JSON.parse(config.basemap)
                 basemap = { id, opacity, isVisible: !hidden }
             } catch {

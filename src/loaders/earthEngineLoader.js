@@ -66,7 +66,10 @@ const earthEngineLoader = async ({
             delete layerConfig.image
         } else if (layerConfig.filter) {
             // Backward compability for layers saved before v100.6.0
-            layerConfig.period = getPeriodFromFilter(filter, layerConfig.id)
+            layerConfig.period = getPeriodFromFilter(
+                layerConfig.filter,
+                layerConfig.id
+            )
             delete layerConfig.filter
         }
 
@@ -251,8 +254,13 @@ const earthEngineLoader = async ({
 
     const filter = getStaticFilterFromPeriod(period, filters)
 
+    const derivedPeriodReducerType = layer.bandPeriodReducerType?.[layer.band]
+
     return {
         ...layer,
+        ...(derivedPeriodReducerType && {
+            periodReducerType: derivedPeriodReducerType,
+        }),
         legend,
         name,
         data,
