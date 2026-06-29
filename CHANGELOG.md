@@ -1,3 +1,14 @@
+## [101.13.4](https://github.com/dhis2/maps-app/compare/v101.13.3...v101.13.4) (2026-06-29)
+
+
+### Bug Fixes
+
+* correct time period filtering in Earth Engine layers ([#3697](https://github.com/dhis2/maps-app/issues/3697)) ([c8d7367](https://github.com/dhis2/maps-app/commit/c8d736716a832a005ce67a819b88d740dc90738d))
+* prevent crash when loading map with external layer ([#3700](https://github.com/dhis2/maps-app/issues/3700)) ([79777d3](https://github.com/dhis2/maps-app/commit/79777d3b42f45af5a4bc069a021902b51d4c4f58))
+* prevent data table from crashing when cursor leaves browser window ([#3699](https://github.com/dhis2/maps-app/issues/3699)) ([5ccb6b4](https://github.com/dhis2/maps-app/commit/5ccb6b415595991869cf0b59031e6958e150c4b5))
+* prevent duplicate datastore requests on load ([#3696](https://github.com/dhis2/maps-app/issues/3696)) ([b097e01](https://github.com/dhis2/maps-app/commit/b097e0108bd84edb84ee9e03d9213fe7c9b3d5ae))
+* remove north arrow rotate listener on cleanup ([#3698](https://github.com/dhis2/maps-app/issues/3698)) ([b7d1859](https://github.com/dhis2/maps-app/commit/b7d1859f7dcb4c1a7436be1f9a19fb80a702a5a3))
+
 ## [101.13.3](https://github.com/dhis2/maps-app/compare/v101.13.2...v101.13.3) (2026-06-23)
 
 
