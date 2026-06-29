@@ -59,6 +59,7 @@ import BufferRadius from '../shared/BufferRadius.jsx'
 import GeometryCentroid from '../shared/GeometryCentroid.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.jsx'
+import LabelFieldSelect from './LabelFieldSelect.jsx'
 
 const DEFAULT_NO_COLUMNS = []
 const DEFAULT_NO_FILTERS = []
@@ -455,6 +456,12 @@ const EventDialog = ({
                                     )
                                 }
                             />
+                            <div className={styles.marginTop}>
+                                <LabelFieldSelect
+                                    program={program}
+                                    programStage={programStage}
+                                />
+                            </div>
                         </div>
                         <div className={styles.flexColumn}>
                             {program ? (

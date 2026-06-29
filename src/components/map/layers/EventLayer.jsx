@@ -1,4 +1,5 @@
 import { Analytics } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
@@ -10,6 +11,8 @@ import {
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { getCentroid, CENTROID_FORMAT_GEOJSON } from '../../../util/geojson.js'
+import { sortLegendItems } from '../../../util/legend.js'
+import { formatValueForDisplay } from '../../../util/helpers.js'
 import { formatCount } from '../../../util/numbers.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
 import EventPopup from './EventPopup.jsx'
@@ -46,6 +49,13 @@ class EventLayer extends Layer {
             styleDataItem,
             legend,
             dataFilters,
+            labelDataItem,
+            keyAnalysisDigitGroupSeparator,
+            labels,
+            labelFontColor,
+            labelFontSize,
+            labelFontWeight,
+            labelFontStyle,
         } = this.props
 
         const analyticsEngine = Analytics.getAnalytics(engine)
@@ -68,6 +78,24 @@ class EventLayer extends Layer {
         const map = this.context.map
         let eventRequest
 
+        // Pre-compute label text into properties.name for the {name} template.
+        const labeledData =
+            labelDataItem && filteredData
+                ? filteredData.map((f) => {
+                      const v = f.properties[labelDataItem.id]
+                      const name =
+                          v != null && v !== ''
+                              ? formatValueForDisplay({
+                                    value: String(v),
+                                    valueType: labelDataItem.valueType,
+                                    options: labelDataItem.options,
+                                    keyAnalysisDigitGroupSeparator,
+                                }) || i18n.t('No data')
+                              : i18n.t('No data')
+                      return { ...f, properties: { ...f.properties, name } }
+                  })
+                : filteredData
+
         // Default props = no cluster
         const config = {
             type: 'events',
@@ -75,12 +103,23 @@ class EventLayer extends Layer {
             index,
             opacity,
             isVisible,
-            data: filteredData,
+            data: labeledData,
             fillColor,
             strokeColor,
             countColor,
             radius,
             onClick: this.onEventClick.bind(this),
+            ...(labelDataItem && { hoverLabel: '{name}' }),
+            ...(labelDataItem &&
+                labels && {
+                    label: '{name}',
+                    labelStyle: {
+                        color: labelFontColor,
+                        size: labelFontSize,
+                        weight: labelFontWeight,
+                        style: labelFontStyle,
+                    },
+                }),
         }
 
         if (eventClustering) {
@@ -116,15 +155,9 @@ class EventLayer extends Layer {
 
                 if (styleDataItem && legend) {
                     config.type = 'donutCluster'
-                    // DonutCluster keys clusterProperties by color — if two groups
-                    // share the same color both segments read the same MapLibre count,
-                    // doubling that color's contribution to the total. Deduplicate by
-                    // color keeping the last item (special items such as "no data" are
-                    // appended after range items so they take precedence).
-                    const uniqueByColor = new Map(
-                        legend.items.map((item) => [item.color, item])
-                    )
-                    config.groups = [...uniqueByColor.values()]
+                    config.groups = legend.items
+                    config.sortSegments = sortLegendItems
+                    config.formatCount = formatCount
                 } else {
                     config.type = 'clientCluster'
                 }
@@ -261,9 +294,11 @@ class EventLayer extends Layer {
                 .map((d) => d.dataElement)
             displayItems.push(...filteredProgramStageItems)
 
-            for (const d of filteredProgramStageItems) {
-                await this.loadOptionSet(d, engine)
-            }
+            await Promise.all(
+                filteredProgramStageItems.map((d) =>
+                    this.loadOptionSet(d, engine)
+                )
+            )
         }
 
         if (
@@ -296,9 +331,11 @@ class EventLayer extends Layer {
                         .map((d) => d.trackedEntityAttribute)
                     displayItems.push(...filteredProgramItems)
 
-                    for (const d of filteredProgramItems) {
-                        await this.loadOptionSet(d, engine)
-                    }
+                    await Promise.all(
+                        filteredProgramItems.map((d) =>
+                            this.loadOptionSet(d, engine)
+                        )
+                    )
                 }
             }
         }

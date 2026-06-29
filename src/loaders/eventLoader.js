@@ -109,9 +109,26 @@ const loadEventLayer = async ({
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
+        labelDataItem,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
+    }
+    if (labelDataItem) {
+        if (labelDataItem.optionSet?.id) {
+            const { optionSet } = await engine.query(OPTION_SET_QUERY, {
+                variables: { id: labelDataItem.optionSet.id },
+            })
+            config.labelDataItem = {
+                ...labelDataItem,
+                options: optionSet.options.reduce((obj, { code, name }) => {
+                    obj[code] = name
+                    return obj
+                }, {}),
+            }
+        } else {
+            config.labelDataItem = labelDataItem
+        }
     }
     if (legendDecimalPlaces !== undefined) {
         config.legendDecimalPlaces = legendDecimalPlaces

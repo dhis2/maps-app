@@ -89,7 +89,7 @@ const validLayerProperties = [
     'serverCluster',
     'startDate',
     'styleDataItem',
-    'labelDataItemId',
+    'labelDataItem',
     'thematicMapType',
     'trackedEntityType',
     'valueType',
@@ -177,8 +177,8 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.countEventsOutsideOrgUnits) {
         configData.countEventsOutsideOrgUnits = true
     }
-    if (layer.labelDataItemId) {
-        configData.labelDataItemId = layer.labelDataItemId
+    if (layer.labelDataItem) {
+        configData.labelDataItem = layer.labelDataItem
     }
     return configData
 }
@@ -193,7 +193,7 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.unclassifiedLegend
     delete layer.countFeaturesWithoutCoordinates
     delete layer.countEventsOutsideOrgUnits
-    delete layer.labelDataItemId
+    delete layer.labelDataItem
 }
 
 const buildEarthEngineLayerConfigData = (layer) => {

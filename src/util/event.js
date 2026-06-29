@@ -67,6 +67,7 @@ export const getAnalyticsRequest = async (
         rows,
         columns,
         styleDataItem,
+        labelDataItem,
         eventStatus,
         eventCoordinateField = EVENT_COORDINATE_DEFAULT,
         fallbackCoordinateField,
@@ -82,6 +83,14 @@ export const getAnalyticsRequest = async (
         columns.filter(isValidDimension),
         styleDataItem
     )
+
+    // Add label data item dimension if not already in the request
+    if (
+        labelDataItem?.id &&
+        !dataItems.find((item) => item.dimension === labelDataItem.id)
+    ) {
+        dataItems.push({ dimension: labelDataItem.id })
+    }
 
     // Add "display in reports" columns that are not already present
     if (isExtended) {

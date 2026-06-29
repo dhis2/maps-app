@@ -384,3 +384,9 @@ export const setFeatureStyle = (payload) => ({
     type: types.LAYER_EDIT_FEATURE_STYLE_SET,
     payload,
 })
+
+// Set label data item (for hover tooltip and persistent labels on event layer)
+export const setLabelDataItem = (item) => ({
+    type: types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET,
+    item,
+})
