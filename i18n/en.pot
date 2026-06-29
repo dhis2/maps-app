@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-25T13:36:15.573Z\n"
-"PO-Revision-Date: 2026-06-25T13:36:15.573Z\n"
+"POT-Creation-Date: 2026-06-29T11:52:23.193Z\n"
+"PO-Revision-Date: 2026-06-29T11:52:23.193Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -209,6 +209,9 @@ msgstr "Range"
 
 msgid "Org unit"
 msgstr "Org unit"
+
+msgid "Org unit boundary"
+msgstr "Org unit boundary"
 
 msgid "Event time"
 msgstr "Event time"
@@ -425,11 +428,17 @@ msgstr "Radius"
 msgid "Count events without coordinates"
 msgstr "Count events without coordinates"
 
+msgid "Filter and count events outside organisation unit boundaries"
+msgstr "Filter and count events outside organisation unit boundaries"
+
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
 
 msgid "Event status"
 msgstr "Event status"
+
+msgid "Tooltip field"
+msgstr "Tooltip field"
 
 msgid "Boundary color"
 msgstr "Boundary color"
@@ -549,20 +558,23 @@ msgstr "the date a tracked entity was registered or enrolled in a program"
 msgid "Program status"
 msgstr "Program status"
 
+msgid "Tracked Entity Type is required"
+msgstr "Tracked Entity Type is required"
+
 msgid "Relationships"
 msgstr "Relationships"
 
 msgid "Follow up"
 msgstr "Follow up"
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
-
 msgid "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "Displaying tracked entity relationships in Maps is an experimental feature"
 
 msgid "Display Tracked Entity relationships"
 msgstr "Display Tracked Entity relationships"
+
+msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
 
 msgid "Tracked entity style"
 msgstr "Tracked entity style"
@@ -575,9 +587,6 @@ msgstr "Related entity style"
 
 msgid "Line Color"
 msgstr "Line Color"
-
-msgid "Tracked Entity Type is required"
-msgstr "Tracked Entity Type is required"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "No relationship types were found for tracked entity type {{type}}"
@@ -705,6 +714,19 @@ msgid "{{n}} event without coordinates"
 msgid_plural "{{n}} event without coordinates"
 msgstr[0] "{{n}} event without coordinates"
 msgstr[1] "{{n}} events without coordinates"
+
+msgid "All events within organisation unit boundaries"
+msgstr "All events within organisation unit boundaries"
+
+msgid "{{n}} event outside organisation unit boundaries"
+msgid_plural "{{n}} event outside organisation unit boundaries"
+msgstr[0] "{{n}} event outside organisation unit boundaries"
+msgstr[1] "{{n}} events outside organisation unit boundaries"
+
+msgid "{{n}} organisation unit without boundary — outside check incomplete"
+msgid_plural "{{n}} organisation unit without boundary — outside check incomplete"
+msgstr[0] "{{n}} organisation unit without boundary — outside check incomplete"
+msgstr[1] "{{n}} organisation units without boundary — outside check incomplete"
 
 msgid "All org units have a point location"
 msgstr "All org units have a point location"
@@ -1899,3 +1921,11 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Maps"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Maps"

@@ -51,7 +51,7 @@ const FilterGroup = ({ filters, program, programStage }) => {
                 />
             ))}
             <div className={styles.addFilter}>
-                <Button basic onClick={() => dispatch(addFilter())}>
+                <Button onClick={() => dispatch(addFilter())}>
                     {i18n.t('Add filter')}
                 </Button>
             </div>
