@@ -35,6 +35,15 @@ import { useTableData } from './useTableData.js'
 const ASCENDING = 'asc'
 const DESCENDING = 'desc'
 
+// Decides whether a row's highlight should be cleared on mouse leave.
+// When hovering to the next row the next element is a `TD`, in which case
+// `setFeatureHighlight` fires and the highlight does not need to be cleared.
+// When leaving to no element (e.g. the cursor exits the browser window)
+// `relatedTarget` is null, so the optional chaining guards against a crash.
+// Exported for testing.
+export const shouldClearFeatureHighlight = (event) =>
+    event.relatedTarget?.tagName !== 'TD'
+
 const DataTableWithVirtuosoContext = ({ context, ...props }) => (
     <DataTable
         {...props}
@@ -174,11 +183,7 @@ const Table = ({ availableWidth }) => {
     )
     const clearFeatureHighlight = useCallback(
         (event) => {
-            const nextElement = event.toElement ?? event.relatedTarget
-            // When hovering to the next row the next element is a `TD`
-            // If this is the case `setFeatureHighlight` will
-            // fire and the highlight does not need to be cleared
-            if (nextElement.tagName !== 'TD') {
+            if (shouldClearFeatureHighlight(event)) {
                 dispatch(highlightFeature(null))
             }
         },
