@@ -1,16 +1,31 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCountFeaturesWithoutCoordinates } from '../../../actions/layerEdit.js'
+import {
+    setCountFeaturesWithoutCoordinates,
+    setStyle,
+} from '../../../actions/layerEdit.js'
 import { EE_BUFFER } from '../../../constants/layers.js'
+import {
+    getColorPalette,
+    defaultColorScaleName,
+    defaultClasses,
+} from '../../../util/colors.js'
 import { Checkbox } from '../../core/index.js'
 import BufferRadius from '../shared/BufferRadius.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import LegendPreview from './LegendPreview.jsx'
 import StyleSelect from './StyleSelect.jsx'
 
-const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
+const StyleTab = ({
+    unit,
+    style,
+    defaultStyle,
+    customColorScaleName,
+    showBelowMin,
+    hasOrgUnitField,
+}) => {
     const dispatch = useDispatch()
     const countFeaturesWithoutCoordinates = useSelector(
         (state) => state.layerEdit.countFeaturesWithoutCoordinates
@@ -22,10 +37,47 @@ const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
         palette !== undefined &&
         palette.length < 10
 
+    const hasReferenceScale = !!defaultStyle?.ranges
+    const useCustomScale = hasReferenceScale && !style?.ranges
+
+    const handleScaleToggle = useCallback(
+        (checked) => {
+            if (checked) {
+                const { min, max } = defaultStyle ?? {}
+                dispatch(
+                    setStyle({
+                        min,
+                        max,
+                        palette: getColorPalette(
+                            customColorScaleName ?? defaultColorScaleName,
+                            defaultClasses
+                        ),
+                        ranges: null,
+                    })
+                )
+            } else {
+                dispatch(setStyle(defaultStyle))
+            }
+        },
+        [customColorScaleName, defaultStyle, dispatch]
+    )
+
     return (
         <div className={styles.flexColumnFlow}>
             <div className={styles.flexColumn}>
-                {isClassStyle && <StyleSelect unit={unit} style={style} />}
+                {unit && (
+                    <p>
+                        {i18n.t('Unit')}: {unit}
+                    </p>
+                )}
+                {hasReferenceScale && (
+                    <Checkbox
+                        label={i18n.t('Use custom legend')}
+                        checked={useCustomScale}
+                        onChange={handleScaleToggle}
+                    />
+                )}
+                {isClassStyle && <StyleSelect style={style} />}
                 <BufferRadius
                     label={i18n.t('Facility buffer')}
                     defaultRadius={EE_BUFFER}
@@ -40,7 +92,7 @@ const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
                     }
                 />
             </div>
-            {isClassStyle && (
+            {(isClassStyle || (hasReferenceScale && !useCustomScale)) && (
                 <LegendPreview style={style} showBelowMin={showBelowMin} />
             )}
         </div>
@@ -49,6 +101,13 @@ const StyleTab = ({ unit, style, showBelowMin, hasOrgUnitField }) => {
 
 StyleTab.propTypes = {
     hasOrgUnitField: PropTypes.bool.isRequired,
+    customColorScaleName: PropTypes.string,
+    defaultStyle: PropTypes.shape({
+        max: PropTypes.number,
+        min: PropTypes.number,
+        palette: PropTypes.array,
+        ranges: PropTypes.array,
+    }),
     showBelowMin: PropTypes.bool,
     style: PropTypes.oneOfType([
         PropTypes.array,

@@ -266,6 +266,7 @@ const configSchema = {
         opacity: { type: 'number' },
         mosaic: { type: 'boolean' },
         tileScale: { type: 'number' },
+        customColorScaleName: { type: 'string' },
     },
 }
 

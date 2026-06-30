@@ -30,7 +30,7 @@ export const getStyleSelectError = ({ min, max, steps, palette, ranges }) => {
     return undefined
 }
 
-const StyleSelect = ({ unit, style, setStyle }) => {
+const StyleSelect = ({ style, setStyle }) => {
     const { min, max, palette } = style
     const [steps, setSteps] = useState(palette.length)
 
@@ -58,9 +58,6 @@ const StyleSelect = ({ unit, style, setStyle }) => {
 
     return (
         <div>
-            <p>
-                {i18n.t('Unit')}: {unit}
-            </p>
             <div key="minmax" className={styles.flexInnerColumnFlow}>
                 <NumberField
                     label={i18n.t('Min')}
@@ -97,7 +94,6 @@ const StyleSelect = ({ unit, style, setStyle }) => {
 
 StyleSelect.propTypes = {
     setStyle: PropTypes.func.isRequired,
-    unit: PropTypes.string.isRequired,
     style: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,
