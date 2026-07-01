@@ -172,15 +172,12 @@ class TrackedEntityLayer extends Layer {
         const { trackedEntityType, program } = this.props
         // Get relationshipType object from loader if we want to retrieve attributes from secondary dataset
 
-        const displayNameProp =
-            nameProperty === 'name' ? 'displayName' : 'displayShortName'
-
         const { trackedEntityType: data } = await engine.query(
             TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
             {
                 variables: {
                     id: trackedEntityType.id,
-                    nameProperty: displayNameProp,
+                    nameProperty,
                 },
             }
         )
@@ -192,7 +189,7 @@ class TrackedEntityLayer extends Layer {
                 {
                     variables: {
                         id: program.id,
-                        nameProperty: displayNameProp,
+                        nameProperty,
                     },
                 }
             )

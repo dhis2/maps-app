@@ -29,8 +29,7 @@ const MapView = (props) => {
 
     const { baseUrl } = useConfig()
     const engine = useDataEngine()
-    const { currentUser } = useCachedData()
-    const nameProperty = currentUser.keyAnalysisDisplayProperty
+    const { nameProperty } = useCachedData()
 
     const splitViewLayers = getSplitViewLayers(layers)
     const isSplitView = splitViewLayers.length > 0

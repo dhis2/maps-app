@@ -30,7 +30,7 @@ export const useLoadMap = () => {
     const basemapInvalidAlertRef = useRef(
         useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL)
     )
-    const { systemSettings, basemaps } = useCachedData()
+    const { systemSettings, basemaps, nameProperty } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     const engine = useDataEngine()
     const dispatch = useDispatch()
@@ -50,6 +50,7 @@ export const useLoadMap = () => {
                         id: params.mapId,
                         engine,
                         defaultBasemap,
+                        nameProperty,
                     })
 
                     engine.mutate(dataStatisticsMutation, {
@@ -86,7 +87,7 @@ export const useLoadMap = () => {
 
             previousParamsRef.current = params
         },
-        [basemaps, defaultBasemap, dispatch, engine]
+        [basemaps, defaultBasemap, dispatch, engine, nameProperty]
     )
 
     useEffect(() => {
