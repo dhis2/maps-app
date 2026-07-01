@@ -21,6 +21,7 @@ const CoordinateField = ({
     eventCoordinateField,
     onChange,
     className,
+    dataTest = 'coordinatefield',
 }) => {
     const { serverVersion } = useConfig()
 
@@ -48,7 +49,10 @@ const CoordinateField = ({
         includeTypes,
     })
 
-    const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
+    const defaultValue = useMemo(
+        () => (eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT),
+        [eventCoordinateField]
+    )
 
     const fields = useMemo(() => {
         const isFallback = !!eventCoordinateField
@@ -93,30 +97,23 @@ const CoordinateField = ({
             fields.push(...eventDataItems)
         }
 
-        if (isFallback) {
-            fields.push({
-                id: EVENT_COORDINATE_ORG_UNIT,
-                name: i18n.t('Organisation unit location'),
-            })
-        }
-
-        return eventCoordinateField
+        return isFallback
             ? fields.filter((f) => f.id !== eventCoordinateField)
             : fields
     }, [trackedEntityType, eventDataItems, eventCoordinateField])
 
     let helpText = null
     if (program) {
-        if (!programStage && trackedEntityType) {
-            helpText = i18n.t(
-                'Select a program stage to see additional coordinate options'
-            )
-        } else if (value === EVENT_COORDINATE_CASCADING) {
+        if (value === EVENT_COORDINATE_CASCADING) {
             helpText = trackedEntityType
                 ? i18n.t(
                       'Enrollment > event > tracked entity > org unit coordinate'
                   )
                 : i18n.t('Event > org unit coordinate')
+        } else if (!programStage && trackedEntityType) {
+            helpText = i18n.t(
+                'Select a program stage to see additional coordinate options'
+            )
         }
     } else {
         helpText = i18n.t(
@@ -139,7 +136,9 @@ const CoordinateField = ({
         if (
             trackedEntityType &&
             eventDataItems &&
-            !fields.find((f) => f.id === value)
+            !fields.find((f) => f.id === value) &&
+            value !== defaultValue &&
+            fields.length > 0
         ) {
             onChange(defaultValue, defaultValue)
         }
@@ -169,7 +168,7 @@ const CoordinateField = ({
                 onChange(field.id, field.valueType || field.id)
             }
             className={className}
-            dataTest="coordinatefield"
+            dataTest={dataTest}
         />
     )
 }
@@ -177,6 +176,7 @@ const CoordinateField = ({
 CoordinateField.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
+    dataTest: PropTypes.string,
     eventCoordinateField: PropTypes.string,
     program: PropTypes.object,
     programStage: PropTypes.object,

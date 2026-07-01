@@ -6,6 +6,7 @@ import {
     setNoDataLegend,
     setUnclassifiedLegend,
 } from '../../actions/layerEdit.js'
+import { GEOMETRY_SOURCE_DATA_ITEM_ID } from '../../constants/layers.js'
 import {
     numberValueTypes,
     booleanValueTypes,
@@ -15,6 +16,7 @@ import NoDataLegend from '../edit/shared/NoDataLegend.jsx'
 import UnclassifiedLegend from '../edit/shared/UnclassifiedLegend.jsx'
 import OptionSetStyle from '../optionSet/OptionSetStyle.jsx'
 import BooleanStyle from './BooleanStyle.jsx'
+import GeometrySourceStyle from './GeometrySourceStyle.jsx'
 import styles from './styles/DataItemStyle.module.css'
 
 const DataItemStyle = ({ dataItem, style }) => {
@@ -26,6 +28,23 @@ const DataItemStyle = ({ dataItem, style }) => {
 
     if (!dataItem) {
         return null
+    }
+
+    if (dataItem.id === GEOMETRY_SOURCE_DATA_ITEM_ID) {
+        return (
+            <div style={style}>
+                <GeometrySourceStyle />
+                <div className={styles.flexColumnFlow}>
+                    <div className={styles.flexColumn}>
+                        <NoDataLegend
+                            label={i18n.t('Include events with no data')}
+                            value={noDataLegend}
+                            onChange={(v) => dispatch(setNoDataLegend(v))}
+                        />
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     const { valueType, optionSet } = dataItem
