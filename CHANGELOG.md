@@ -1,3 +1,10 @@
+# [101.14.0](https://github.com/dhis2/maps-app/compare/v101.13.5...v101.14.0) (2026-07-02)
+
+
+### Features
+
+* add custom scale toggle for heat stress layers [DHIS2-20564] ([#3708](https://github.com/dhis2/maps-app/issues/3708)) ([ad788ac](https://github.com/dhis2/maps-app/commit/ad788acfa1dee904b83b7e7f1811d873b4faa00c))
+
 ## [101.13.5](https://github.com/dhis2/maps-app/compare/v101.13.4...v101.13.5) (2026-06-30)
 
 
