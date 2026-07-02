@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-25T13:36:15.573Z\n"
-"PO-Revision-Date: 2026-06-25T13:36:15.573Z\n"
+"POT-Creation-Date: 2026-06-30T11:26:45.998Z\n"
+"PO-Revision-Date: 2026-06-30T11:26:45.998Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -386,6 +386,9 @@ msgstr "Max value is required"
 msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
 
+msgid "Use custom legend"
+msgstr "Use custom legend"
+
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
@@ -549,20 +552,23 @@ msgstr "the date a tracked entity was registered or enrolled in a program"
 msgid "Program status"
 msgstr "Program status"
 
+msgid "Tracked Entity Type is required"
+msgstr "Tracked Entity Type is required"
+
 msgid "Relationships"
 msgstr "Relationships"
 
 msgid "Follow up"
 msgstr "Follow up"
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
-
 msgid "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "Displaying tracked entity relationships in Maps is an experimental feature"
 
 msgid "Display Tracked Entity relationships"
 msgstr "Display Tracked Entity relationships"
+
+msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
 
 msgid "Tracked entity style"
 msgstr "Tracked entity style"
@@ -575,9 +581,6 @@ msgstr "Related entity style"
 
 msgid "Line Color"
 msgstr "Line Color"
-
-msgid "Tracked Entity Type is required"
-msgstr "Tracked Entity Type is required"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "No relationship types were found for tracked entity type {{type}}"
@@ -1899,3 +1902,11 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Maps"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Maps"
