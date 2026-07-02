@@ -37,8 +37,8 @@ const StyleTab = ({
         palette !== undefined &&
         palette.length < 10
 
-    const hasReferenceScale = !!defaultStyle?.ranges
-    const useCustomScale = hasReferenceScale && !style?.ranges
+    const hasReferenceScale = !!defaultStyle?.ranges?.length
+    const useCustomScale = hasReferenceScale && !style?.ranges?.length
 
     const handleScaleToggle = useCallback(
         (checked) => {

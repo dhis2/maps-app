@@ -255,6 +255,19 @@ const configSchema = {
                     items: { type: 'string' },
                     minItems: 1,
                 },
+                ranges: {
+                    type: 'array',
+                    items: {
+                        type: 'object',
+                        required: ['name', 'from', 'to'],
+                        properties: {
+                            name: { type: 'string' },
+                            from: { type: 'number' },
+                            to: { type: 'number' },
+                        },
+                    },
+                    minItems: 1,
+                },
             },
         },
         bandPeriodReducerType: {
