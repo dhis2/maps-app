@@ -87,7 +87,7 @@ export const getAnalyticsRequest = async (
     // Add label data item dimension if not already in the request
     if (
         labelDataItem?.id &&
-        !dataItems.find((item) => item.dimension === labelDataItem.id)
+        !dataItems.some((item) => item.dimension === labelDataItem.id)
     ) {
         dataItems.push({ dimension: labelDataItem.id })
     }

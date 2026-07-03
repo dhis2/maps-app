@@ -35,7 +35,7 @@ const LabelFieldSelect = ({ program, programStage }) => {
                 items={items}
                 onChange={(item) =>
                     dispatch(
-                        setLabelDataItem(item.id !== ITEM_NONE.id ? item : null)
+                        setLabelDataItem(item.id === ITEM_NONE.id ? null : item)
                     )
                 }
                 dataTest="label-field-select"

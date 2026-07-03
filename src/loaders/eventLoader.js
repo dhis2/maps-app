@@ -451,6 +451,51 @@ const loadEventLayer = async ({
     config.alerts = alerts.length ? alerts : undefined
 }
 
+// Classifies each event as inside/outside the selected org-unit boundaries,
+// tagging inside events with the name of their containing org unit.
+const classifyEventsByOrgUnit = ({
+    data,
+    orgUnitGeometries,
+    facilityToAncestorGeometry,
+    ouIdByGeometry,
+    geoFeatureNameByOuId,
+    ouNames,
+}) => {
+    const inside = []
+    const outside = []
+    for (const feature of data) {
+        if (feature.geometry?.type !== GEO_TYPE_POINT) {
+            inside.push(feature)
+            continue
+        }
+
+        const facilityOuId = getEventOuId(feature)
+        const ancestorGeometry = facilityToAncestorGeometry.get(facilityOuId)
+        // Check the facility's own ancestor org unit first, since it's
+        // usually the match; only fall back to the full search if not.
+        const containingGeometry =
+            (ancestorGeometry &&
+                getContainingOrgUnit(feature.geometry.coordinates, [
+                    ancestorGeometry,
+                ])) ||
+            getContainingOrgUnit(
+                feature.geometry.coordinates,
+                orgUnitGeometries
+            )
+
+        if (!containingGeometry) {
+            outside.push(feature)
+            continue
+        }
+
+        const ouId = ouIdByGeometry.get(containingGeometry)
+        feature.properties.ouBoundary =
+            geoFeatureNameByOuId.get(ouId) ?? ouNames.get(ouId) ?? ouId
+        inside.push(feature)
+    }
+    return { inside, outside }
+}
+
 // Tags each remaining event with its containing org unit, and records
 // boundary coverage on the legend since some selected org units may lack one.
 export const excludeEventsOutsideOrgUnits = async ({
@@ -562,37 +607,14 @@ export const excludeEventsOutsideOrgUnits = async ({
     // -----
 
     // TODO: synchronous over all events — consider chunking/yielding for very large layers.
-    const inside = []
-    const outside = []
-    for (const feature of config.data) {
-        if (feature.geometry?.type === GEO_TYPE_POINT) {
-            const facilityOuId = getEventOuId(feature)
-            const ancestorGeometry =
-                facilityToAncestorGeometry.get(facilityOuId)
-            // Check the facility's own ancestor org unit first, since it's
-            // usually the match; only fall back to the full search if not.
-            const containingGeometry =
-                (ancestorGeometry &&
-                    getContainingOrgUnit(feature.geometry.coordinates, [
-                        ancestorGeometry,
-                    ])) ||
-                getContainingOrgUnit(
-                    feature.geometry.coordinates,
-                    orgUnitGeometries
-                )
-
-            if (containingGeometry) {
-                const ouId = ouIdByGeometry.get(containingGeometry)
-                feature.properties.ouBoundary =
-                    geoFeatureNameByOuId.get(ouId) ?? ouNames.get(ouId) ?? ouId
-                inside.push(feature)
-            } else {
-                outside.push(feature)
-            }
-        } else {
-            inside.push(feature)
-        }
-    }
+    const { inside, outside } = classifyEventsByOrgUnit({
+        data: config.data,
+        orgUnitGeometries,
+        facilityToAncestorGeometry,
+        ouIdByGeometry,
+        geoFeatureNameByOuId,
+        ouNames,
+    })
     config.data = inside
     config.legend.eventsOutsideOrgUnitsCount = outside.length
     config.dataWithoutCoords = [

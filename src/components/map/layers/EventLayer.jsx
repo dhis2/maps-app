@@ -77,7 +77,6 @@ class EventLayer extends Layer {
         const radius = eventPointRadius || EVENT_RADIUS
 
         const map = this.context.map
-        let eventRequest
 
         // Pre-compute label text into properties.name for the {name} template.
         const labeledData =
@@ -122,6 +121,62 @@ class EventLayer extends Layer {
                     }),
                 }),
         }
+
+        this.applyClusteringConfig(config, {
+            eventClustering,
+            serverCluster,
+            bounds,
+            areaRadius,
+            color,
+            styleDataItem,
+            legend,
+            id,
+            nameProperty,
+            engine,
+            analyticsEngine,
+            geometryCentroid,
+        })
+
+        if (program && programStage) {
+            this.loadDisplayItems({
+                engine,
+                nameProperty,
+                styleDataItem,
+                program,
+                programStage,
+                eventCoordinateField,
+            })
+        }
+
+        // Create and add event layer based on config object
+        this.layer = map.createLayer(config)
+
+        map.addLayer(this.layer)
+        this.setLayerVisibility()
+
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce()
+    }
+
+    // Mutates config in place: server/client/donut clustering, or a buffer.
+    applyClusteringConfig(
+        config,
+        {
+            eventClustering,
+            serverCluster,
+            bounds,
+            areaRadius,
+            color,
+            styleDataItem,
+            legend,
+            id,
+            nameProperty,
+            engine,
+            analyticsEngine,
+            geometryCentroid,
+        }
+    ) {
+        let eventRequest
 
         if (eventClustering) {
             if (serverCluster) {
@@ -172,26 +227,6 @@ class EventLayer extends Layer {
                 fillOpacity: 0.1,
             }
         }
-
-        if (program && programStage) {
-            this.loadDisplayItems({
-                engine,
-                nameProperty,
-                styleDataItem,
-                program,
-                programStage,
-                eventCoordinateField,
-            })
-        }
-
-        // Create and add event layer based on config object
-        this.layer = map.createLayer(config)
-
-        map.addLayer(this.layer)
-        this.setLayerVisibility()
-
-        // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce()
     }
 
     render() {
