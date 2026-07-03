@@ -822,14 +822,19 @@ describe('cleanMapConfig', () => {
         expect(mapView.countFeaturesWithoutCoordinates).toBeUndefined()
     })
 
-    test('serializes labelDataItemId into config JSON for event layer', () => {
+    test('serializes labelDataItem into config JSON for event layer', () => {
+        const labelDataItem = {
+            id: 'qrur9Dvnyt5',
+            name: 'Age',
+            valueType: 'NUMBER',
+        }
         const config = {
             mapViews: [
                 {
                     layer: 'event',
                     name: 'My Events',
                     rows: [],
-                    labelDataItemId: 'qrur9Dvnyt5',
+                    labelDataItem,
                 },
             ],
         }
@@ -839,8 +844,8 @@ describe('cleanMapConfig', () => {
         })
         const mapView = cleanedConfig.mapViews[0]
         const parsedConfig = JSON.parse(mapView.config)
-        expect(parsedConfig.labelDataItemId).toBe('qrur9Dvnyt5')
-        expect(mapView).not.toHaveProperty('labelDataItemId')
+        expect(parsedConfig.labelDataItem).toEqual(labelDataItem)
+        expect(mapView).not.toHaveProperty('labelDataItem')
     })
 
     test('serializes countEventsOutsideOrgUnits into config JSON for event layer', () => {

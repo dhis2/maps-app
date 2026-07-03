@@ -45,7 +45,11 @@ export const useLayersLoader = () => {
     )
     const periodTypeData = useDataOutputPeriodTypes()
 
-    const { keyAnalysisDisplayProperty, id: userId } = currentUser
+    const {
+        keyAnalysisDisplayProperty,
+        id: userId,
+        userOrgUnitIdsByKeyword,
+    } = currentUser
 
     useEffect(() => {
         async function loadLayer(config, loader) {
@@ -55,6 +59,7 @@ export const useLayersLoader = () => {
                 keyAnalysisDisplayProperty, // name/shortName
                 keyAnalysisDigitGroupSeparator, // NONE/SPACE/COMMA
                 userId,
+                userOrgUnitIdsByKeyword, // Event loader
                 baseUrl,
                 analyticsEngine, // Thematic and Event loader
                 periodTypeData, // Thematic and Event loader
@@ -114,6 +119,7 @@ export const useLayersLoader = () => {
         keyAnalysisDisplayProperty,
         keyAnalysisDigitGroupSeparator,
         userId,
+        userOrgUnitIdsByKeyword,
         engine,
         analyticsEngine,
         periodTypeData,

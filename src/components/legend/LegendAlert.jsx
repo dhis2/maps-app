@@ -6,8 +6,10 @@ import React from 'react'
 import {
     ERROR_CRITICAL,
     WARNING_NO_DATA,
+    WARNING_ALL_EVENTS_OUTSIDE_OU,
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
+    WARNING_OU_BOUNDARIES_FETCH_FAILED,
 } from '../../constants/alerts.js'
 import styles from './styles/LegendAlert.module.css'
 
@@ -25,6 +27,12 @@ const getAlertContent = ({ code, message, critical }) => {
                 body: null,
                 isError: false,
             }
+        case WARNING_ALL_EVENTS_OUTSIDE_OU:
+            return {
+                title: i18n.t('All events outside org unit boundaries'),
+                body: null,
+                isError: false,
+            }
         case WARNING_NO_OU_COORD:
             return {
                 title: i18n.t('No coordinates found'),
@@ -34,6 +42,12 @@ const getAlertContent = ({ code, message, critical }) => {
         case WARNING_NO_GEOMETRY_COORD:
             return {
                 title: `${message}: ${i18n.t('No coordinates found')}`,
+                body: null,
+                isError: false,
+            }
+        case WARNING_OU_BOUNDARIES_FETCH_FAILED:
+            return {
+                title: i18n.t('Could not check org unit boundaries'),
                 body: null,
                 isError: false,
             }

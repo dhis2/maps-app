@@ -10,6 +10,7 @@ import {
     createEventFeatures,
     getGeojsonDisplayData,
     buildGeoJsonFeatures,
+    isPointInsideOrgUnits,
 } from '../geojson.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
@@ -678,6 +679,175 @@ describe('geojson utils', () => {
                 id: '123',
             })
             expect(featureCollection[0].id).toEqual(456)
+        })
+    })
+
+    describe('isPointInsideOrgUnits', () => {
+        // Unit square [0,0]→[1,1] as a GeoJSON Polygon (outer ring wrapped in array)
+        const squareA = {
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [0, 0],
+                    [1, 0],
+                    [1, 1],
+                    [0, 1],
+                    [0, 0],
+                ],
+            ],
+        }
+
+        // A second square far away
+        const squareB = {
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [10, 10],
+                    [11, 10],
+                    [11, 11],
+                    [10, 11],
+                    [10, 10],
+                ],
+            ],
+        }
+
+        // MultiPolygon containing squareA and squareB
+        const multiPolygon = {
+            type: 'MultiPolygon',
+            coordinates: [
+                [
+                    [
+                        [0, 0],
+                        [1, 0],
+                        [1, 1],
+                        [0, 1],
+                        [0, 0],
+                    ],
+                ],
+                [
+                    [
+                        [10, 10],
+                        [11, 10],
+                        [11, 11],
+                        [10, 11],
+                        [10, 10],
+                    ],
+                ],
+            ],
+        }
+
+        // Polygon with a hole: outer ring is [0,0]→[4,4], hole is [1,1]→[3,3]
+        const squareWithHole = {
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [0, 0],
+                    [4, 0],
+                    [4, 4],
+                    [0, 4],
+                    [0, 0],
+                ],
+                [
+                    [1, 1],
+                    [3, 1],
+                    [3, 3],
+                    [1, 3],
+                    [1, 1],
+                ],
+            ],
+        }
+
+        describe('Polygon', () => {
+            it('returns true for a point clearly inside', () => {
+                expect(isPointInsideOrgUnits([0.5, 0.5], [squareA])).toBe(true)
+            })
+
+            it('returns false for a point clearly outside', () => {
+                expect(isPointInsideOrgUnits([2, 2], [squareA])).toBe(false)
+            })
+
+            it('returns false when the geometry list is empty', () => {
+                expect(isPointInsideOrgUnits([0.5, 0.5], [])).toBe(false)
+            })
+
+            it('returns false for a point inside the hole', () => {
+                expect(isPointInsideOrgUnits([2, 2], [squareWithHole])).toBe(
+                    false
+                )
+            })
+
+            it('returns true for a point in the ring but outside the hole', () => {
+                expect(
+                    isPointInsideOrgUnits([0.5, 0.5], [squareWithHole])
+                ).toBe(true)
+            })
+        })
+
+        describe('MultiPolygon', () => {
+            it('returns true for a point inside the first polygon', () => {
+                expect(isPointInsideOrgUnits([0.5, 0.5], [multiPolygon])).toBe(
+                    true
+                )
+            })
+
+            it('returns true for a point inside the second polygon', () => {
+                expect(
+                    isPointInsideOrgUnits([10.5, 10.5], [multiPolygon])
+                ).toBe(true)
+            })
+
+            it('returns false for a point outside all polygons', () => {
+                expect(isPointInsideOrgUnits([5, 5], [multiPolygon])).toBe(
+                    false
+                )
+            })
+        })
+
+        describe('multiple geometries in the list', () => {
+            it('returns true when the point is inside the first geometry', () => {
+                expect(
+                    isPointInsideOrgUnits([0.5, 0.5], [squareA, squareB])
+                ).toBe(true)
+            })
+
+            it('returns true when the point is inside a later geometry', () => {
+                expect(
+                    isPointInsideOrgUnits([10.5, 10.5], [squareA, squareB])
+                ).toBe(true)
+            })
+
+            it('returns false when the point is outside all geometries', () => {
+                expect(isPointInsideOrgUnits([5, 5], [squareA, squareB])).toBe(
+                    false
+                )
+            })
+
+            it('short-circuits on the first match', () => {
+                // home geometry (squareA) is first — point is inside it, squareB is not checked
+                expect(
+                    isPointInsideOrgUnits([0.5, 0.5], [squareA, squareB])
+                ).toBe(true)
+            })
+        })
+
+        describe('non-polygon geometry types', () => {
+            const lineGeometry = {
+                type: 'LineString',
+                coordinates: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            }
+
+            it('returns true for an unknown geometry type (conservative fallback)', () => {
+                expect(isPointInsideOrgUnits([5, 5], [lineGeometry])).toBe(true)
+            })
+
+            it('returns true when a non-polygon geometry follows a miss', () => {
+                expect(
+                    isPointInsideOrgUnits([5, 5], [squareA, lineGeometry])
+                ).toBe(true)
+            })
         })
     })
 

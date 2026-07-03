@@ -387,6 +387,12 @@ const layerEdit = (state = null, action) => {
                 countFeaturesWithoutCoordinates: action.checked,
             }
 
+        case types.LAYER_EDIT_COUNT_EVENTS_OUTSIDE_OU_SET:
+            return {
+                ...state,
+                countEventsOutsideOrgUnits: action.checked,
+            }
+
         case types.LAYER_EDIT_EVENT_POINT_RADIUS_SET:
             return {
                 ...state,

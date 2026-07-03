@@ -18,6 +18,7 @@ import {
     setBackupPeriodsDates,
     setOrgUnits,
     setCountFeaturesWithoutCoordinates,
+    setCountEventsOutsideOrgUnits,
 } from '../../../actions/layerEdit.js'
 import {
     EVENT_COLOR,
@@ -67,6 +68,7 @@ const DEFAULT_NO_FILTERS = []
 const EventDialog = ({
     backupPeriodsDates,
     columns = DEFAULT_NO_COLUMNS,
+    countEventsOutsideOrgUnits,
     countFeaturesWithoutCoordinates,
     endDate,
     eventClustering,
@@ -456,6 +458,17 @@ const EventDialog = ({
                                     )
                                 }
                             />
+                            <Checkbox
+                                label={i18n.t(
+                                    'Filter and count events outside org unit boundaries'
+                                )}
+                                checked={!!countEventsOutsideOrgUnits}
+                                onChange={(checked) =>
+                                    dispatch(
+                                        setCountEventsOutsideOrgUnits(checked)
+                                    )
+                                }
+                            />
                             <div className={styles.marginTop}>
                                 <LabelFieldSelect
                                     program={program}
@@ -492,6 +505,7 @@ EventDialog.propTypes = {
     onLayerValidation: PropTypes.func.isRequired,
     backupPeriodsDates: PropTypes.object,
     columns: PropTypes.array,
+    countEventsOutsideOrgUnits: PropTypes.bool,
     countFeaturesWithoutCoordinates: PropTypes.bool,
     endDate: PropTypes.string,
     eventClustering: PropTypes.bool,

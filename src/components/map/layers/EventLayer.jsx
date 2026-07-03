@@ -11,8 +11,9 @@ import {
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { getCentroid, CENTROID_FORMAT_GEOJSON } from '../../../util/geojson.js'
-import { sortLegendItems } from '../../../util/legend.js'
 import { formatValueForDisplay } from '../../../util/helpers.js'
+import { getLabelStyle } from '../../../util/labels.js'
+import { sortLegendItems } from '../../../util/legend.js'
 import { formatCount } from '../../../util/numbers.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
 import EventPopup from './EventPopup.jsx'
@@ -113,12 +114,12 @@ class EventLayer extends Layer {
             ...(labelDataItem &&
                 labels && {
                     label: '{name}',
-                    labelStyle: {
-                        color: labelFontColor,
-                        size: labelFontSize,
-                        weight: labelFontWeight,
-                        style: labelFontStyle,
-                    },
+                    labelStyle: getLabelStyle({
+                        labelFontColor,
+                        labelFontSize,
+                        labelFontWeight,
+                        labelFontStyle,
+                    }),
                 }),
         }
 

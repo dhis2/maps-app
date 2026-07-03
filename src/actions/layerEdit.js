@@ -133,6 +133,12 @@ export const setCountFeaturesWithoutCoordinates = (checked) => ({
     checked,
 })
 
+// Set if events outside selected org units should be filtered and counted
+export const setCountEventsOutsideOrgUnits = (checked) => ({
+    type: types.LAYER_EDIT_COUNT_EVENTS_OUTSIDE_OU_SET,
+    checked,
+})
+
 // Set event point radius (event layer)
 export const setEventPointRadius = (radius) => ({
     type: types.LAYER_EDIT_EVENT_POINT_RADIUS_SET,

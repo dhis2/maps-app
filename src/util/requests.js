@@ -77,6 +77,9 @@ export const fetchMapSubscribers = async ({ id, engine }) =>
             throw new Error(`Could not load map with id "${id}"`)
         })
 
+export const CURRENT_USER_FIELDS =
+    'id,username,displayName~rename(name),authorities,organisationUnits[id,children[id,children[id]]]'
+
 export const EXTERNAL_MAP_LAYERS_QUERY = {
     resource: 'externalMapLayers',
     params: {
@@ -148,6 +151,17 @@ export const FIRST_DATA_ELEMENT_QUERY = {
     dataElements: {
         resource: 'dataElements',
         params: { pageSize: 1, fields: 'id' },
+    },
+}
+
+export const ORG_UNITS_PATHS_QUERY = {
+    organisationUnits: {
+        resource: 'organisationUnits',
+        params: ({ ids }) => ({
+            filter: `id:in:[${ids}]`,
+            fields: 'id,path',
+            paging: false,
+        }),
     },
 }
 
