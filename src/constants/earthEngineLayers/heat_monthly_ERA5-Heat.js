@@ -137,6 +137,7 @@ export default function createConfig() {
                 },
             ],
         },
+        customColorScaleName: 'RdBu_reverse',
         opacity: 0.9,
     }
 }

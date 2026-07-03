@@ -69,6 +69,9 @@ const EarthEngineDialog = (props) => {
         () => getLayerSourceGrouping(layerId, managedLayerSources),
         [layerId, managedLayerSources]
     )
+    const layerConfig = useMemo(() => getEarthEngineLayer(layerId), [layerId])
+    const defaultStyle = layerConfig?.style
+    const customColorScaleName = layerConfig?.customColorScaleName
 
     const hasAggregations = !!(aggregations || defaultAggregations)
     const hasMultipleAggregations = !aggregations || aggregations.length > 1
@@ -354,6 +357,8 @@ const EarthEngineDialog = (props) => {
                     <StyleTab
                         unit={unit}
                         style={style}
+                        defaultStyle={defaultStyle}
+                        customColorScaleName={customColorScaleName}
                         showBelowMin={!maskOperator}
                         hasOrgUnitField={hasOrgUnitField}
                     />

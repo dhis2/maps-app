@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-02T12:57:40.709Z\n"
-"PO-Revision-Date: 2026-07-02T12:57:40.710Z\n"
+"POT-Creation-Date: 2026-07-03T09:40:03.280Z\n"
+"PO-Revision-Date: 2026-07-03T09:40:03.281Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -389,6 +389,9 @@ msgstr "Max value is required"
 msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
 
+msgid "Use custom legend"
+msgstr "Use custom legend"
+
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
@@ -718,6 +721,9 @@ msgstr "All events outside org unit boundaries"
 
 msgid "No coordinates found"
 msgstr "No coordinates found"
+
+msgid "Could not check org unit boundaries"
+msgstr "Could not check org unit boundaries"
 
 msgid "Data quality"
 msgstr "Data quality"
