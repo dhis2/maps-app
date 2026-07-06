@@ -46,7 +46,7 @@ import { isValidUid } from '../util/uid.js'
 const getEventOuId = (feature) =>
     feature.properties?.ou ?? feature.properties?.['Organisation unit']
 
-// Expands USER_ORGUNIT/_CHILDREN/_GRANDCHILDREN into ids; null if literal.
+// Expands USER_ORGUNIT/_CHILDREN/_GRANDCHILDREN into ids; [id] if literal.
 const expandOrgUnitKeyword = (id, userOrgUnitIdsByKeyword) => {
     if (id in userOrgUnitIdsByKeyword) {
         return userOrgUnitIdsByKeyword[id]
@@ -55,7 +55,7 @@ const expandOrgUnitKeyword = (id, userOrgUnitIdsByKeyword) => {
         // LEVEL/OU_GROUP unsupported today; resolve here if that changes.
         return []
     }
-    return null
+    return [id]
 }
 
 // Server clustering if more than 2000 events
@@ -516,9 +516,8 @@ export const excludeEventsOutsideOrgUnits = async ({
     // USER_ORGUNIT keywords expand to multiple ids, so count the expanded set.
     const literalOrgUnitIds = [
         ...new Set(
-            orgUnitIds.flatMap(
-                (id) =>
-                    expandOrgUnitKeyword(id, userOrgUnitIdsByKeyword) ?? [id]
+            orgUnitIds.flatMap((id) =>
+                expandOrgUnitKeyword(id, userOrgUnitIdsByKeyword)
             )
         ),
     ]
@@ -538,12 +537,15 @@ export const excludeEventsOutsideOrgUnits = async ({
     // degenerate/empty-coordinate boundaries.
     let geoJsonFeatures
     try {
-        geoJsonFeatures =
-            (await fetchAssociatedGeometries(
-                engine,
-                { orgUnitIds, keyAnalysisDisplayProperty, coordinateField: {} },
-                getPolygonItems
-            )) ?? []
+        const result = await fetchAssociatedGeometries(
+            engine,
+            { orgUnitIds, keyAnalysisDisplayProperty, coordinateField: {} },
+            getPolygonItems
+        )
+        if (result === null) {
+            throw new Error('geoFeatures response missing geoFeatures')
+        }
+        geoJsonFeatures = result
     } catch {
         // Treat a failed fetch the same as no org units having boundaries.
         geoJsonFeatures = []

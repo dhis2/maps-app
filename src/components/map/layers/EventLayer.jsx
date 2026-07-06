@@ -1,7 +1,11 @@
 import { Analytics } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
-import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    LABEL_TEMPLATE_NAME_ONLY,
+} from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
 import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
 import {
@@ -79,19 +83,21 @@ class EventLayer extends Layer {
         const map = this.context.map
 
         // Pre-compute label text into properties.name for the {name} template.
+        const noDataLabel = i18n.t('No data')
         const labeledData =
             labelDataItem && filteredData
                 ? filteredData.map((f) => {
                       const v = f.properties[labelDataItem.id]
                       const name =
-                          v != null && v !== ''
-                              ? formatValueForDisplay({
-                                    value: String(v),
-                                    valueType: labelDataItem.valueType,
-                                    options: labelDataItem.options,
-                                    keyAnalysisDigitGroupSeparator,
-                                }) || i18n.t('No data')
-                              : i18n.t('No data')
+                          (v != null &&
+                              v !== '' &&
+                              formatValueForDisplay({
+                                  value: String(v),
+                                  valueType: labelDataItem.valueType,
+                                  options: labelDataItem.options,
+                                  keyAnalysisDigitGroupSeparator,
+                              })) ||
+                          noDataLabel
                       return { ...f, properties: { ...f.properties, name } }
                   })
                 : filteredData
@@ -109,10 +115,10 @@ class EventLayer extends Layer {
             countColor,
             radius,
             onClick: this.onEventClick.bind(this),
-            ...(labelDataItem && { hoverLabel: '{name}' }),
+            ...(labelDataItem && { hoverLabel: LABEL_TEMPLATE_NAME_ONLY }),
             ...(labelDataItem &&
                 labels && {
-                    label: '{name}',
+                    label: LABEL_TEMPLATE_NAME_ONLY,
                     labelStyle: getLabelStyle({
                         labelFontColor,
                         labelFontSize,

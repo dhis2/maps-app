@@ -10,8 +10,12 @@ import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
-import { hasValue } from './helpers.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
+
+// Narrower than helpers.js's hasValue on purpose: a raw value literally
+// equal to "Not set" is still real data here, not a no-data sentinel.
+const hasValue = (value) =>
+    value !== undefined && value !== null && value !== ''
 
 const addSpecialLegendItems = (
     legend,
@@ -329,22 +333,20 @@ const styleByOptionSet = async (config, engine) => {
     // For easier and faster lookup below
     // TODO: There might be options with duplicate name, so code/id would be safer
     // If we use code/id we also need to retrive name to show in popup/data table/download
-    const optionsByName = optionSet.options.reduce((obj, option) => {
-        obj[option.name.toLowerCase()] = option
-        return obj
-    }, {})
+    const optionsByName = new Map(
+        optionSet.options.map((option) => [option.name.toLowerCase(), option])
+    )
 
     // Pre-build O(1) legend item lookup to avoid O(m) find() per feature
-    const legendItemByName = legend.items.reduce((obj, item) => {
-        obj[item.name] = item
-        return obj
-    }, {})
+    const legendItemByName = new Map(
+        legend.items.map((item) => [item.name, item])
+    )
 
     // Add style data value and color to each feature
     config.data = config.data.reduce((acc, feature) => {
         const name = feature.properties[id]
         const isNoData = !hasValue(name)
-        const option = isNoData ? null : optionsByName[name.toLowerCase()]
+        const option = isNoData ? null : optionsByName.get(name.toLowerCase())
         const isUnclassified = !isNoData && !option
 
         if (isUnclassified && !unclassifiedLegendItem) {
@@ -356,7 +358,7 @@ const styleByOptionSet = async (config, engine) => {
 
         if (option) {
             addFeature(acc, feature, {
-                item: legendItemByName[option.name],
+                item: legendItemByName.get(option.name),
                 value: option.name,
             })
         } else if (isUnclassified) {
