@@ -61,7 +61,7 @@ const BottomPanel = () => {
         }
         const rect = el.getBoundingClientRect()
         const computed = getComputedStyle(el)
-        const lineHeight = parseFloat(computed.lineHeight)
+        const lineHeight = Number.parseFloat(computed.lineHeight)
         setNameTooltipPos({
             top: rect.top + (rect.height - lineHeight) / 2,
             left: rect.left,
@@ -103,15 +103,16 @@ const BottomPanel = () => {
 
     useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
-    const rowCountLabel =
-        totalCount !== null && filteredCount !== null
-            ? filteredCount < totalCount
+    let rowCountLabel = null
+    if (totalCount !== null && filteredCount !== null) {
+        rowCountLabel =
+            filteredCount < totalCount
                 ? i18n.t('{{filtered}} of {{total}} rows', {
                       filtered: filteredCount,
                       total: totalCount,
                   })
                 : i18n.t('{{total}} rows', { total: totalCount })
-            : null
+    }
 
     return (
         <div
