@@ -88,7 +88,7 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
                                             layer,
                                             grandParentId,
                                             grandParentParentGraph,
-                                            parseInt(level) - 1
+                                            Number.parseInt(level) - 1
                                         )
                                     )
                                 )
@@ -108,7 +108,7 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
                                             layer,
                                             id,
                                             parentGraph,
-                                            parseInt(level) + 1
+                                            Number.parseInt(level) + 1
                                         )
                                     )
                                 )
