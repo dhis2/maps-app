@@ -45,6 +45,7 @@ export default class EarthEngineLayer extends Layer {
             await this.removeLayer()
             await this.createLayer(true)
             this.setLayerOrder()
+            this.highlightFeature(this.props.feature)
         }
     }
 

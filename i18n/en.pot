@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-25T13:36:15.573Z\n"
-"PO-Revision-Date: 2026-06-25T13:36:15.573Z\n"
+"POT-Creation-Date: 2026-07-02T11:52:20.816Z\n"
+"PO-Revision-Date: 2026-07-02T11:52:20.816Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -158,6 +158,18 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Date"
 
+msgid "{{filtered}} of {{total}} rows"
+msgstr "{{filtered}} of {{total}} rows"
+
+msgid "{{total}} rows"
+msgstr "{{total}} rows"
+
+msgid "Clear filters"
+msgstr "Clear filters"
+
+msgid "Close"
+msgstr "Close"
+
 msgid "No results found"
 msgstr "No results found"
 
@@ -169,6 +181,18 @@ msgstr "Something went wrong"
 
 msgid "Search"
 msgstr "Search"
+
+msgid "Drill up one level"
+msgstr "Drill up one level"
+
+msgid "Drill down one level"
+msgstr "Drill down one level"
+
+msgid "View profile"
+msgstr "View profile"
+
+msgid "Zoom to feature"
+msgstr "Zoom to feature"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
@@ -260,9 +284,6 @@ msgstr "Map download is not supported by your browser. Try Google Chrome or Fire
 
 msgid "Cancel"
 msgstr "Cancel"
-
-msgid "Close"
-msgstr "Close"
 
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
@@ -549,20 +570,23 @@ msgstr "the date a tracked entity was registered or enrolled in a program"
 msgid "Program status"
 msgstr "Program status"
 
+msgid "Tracked Entity Type is required"
+msgstr "Tracked Entity Type is required"
+
 msgid "Relationships"
 msgstr "Relationships"
 
 msgid "Follow up"
 msgstr "Follow up"
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
-
 msgid "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "Displaying tracked entity relationships in Maps is an experimental feature"
 
 msgid "Display Tracked Entity relationships"
 msgstr "Display Tracked Entity relationships"
+
+msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "Please select a Tracked Entity Type before selecting a Relationship Type"
 
 msgid "Tracked entity style"
 msgstr "Tracked entity style"
@@ -575,9 +599,6 @@ msgstr "Related entity style"
 
 msgid "Line Color"
 msgstr "Line Color"
-
-msgid "Tracked Entity Type is required"
-msgstr "Tracked Entity Type is required"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "No relationship types were found for tracked entity type {{type}}"
@@ -739,15 +760,6 @@ msgstr "Selected org units: No coordinates found"
 
 msgid "Error"
 msgstr "Error"
-
-msgid "Drill up one level"
-msgstr "Drill up one level"
-
-msgid "Drill down one level"
-msgstr "Drill down one level"
-
-msgid "View profile"
-msgstr "View profile"
 
 msgid "Show longitude/latitude"
 msgstr "Show longitude/latitude"
