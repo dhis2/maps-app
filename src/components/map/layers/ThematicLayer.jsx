@@ -190,6 +190,20 @@ class ThematicLayer extends Layer {
         return <Fragment>{popup && this.getPopup()}</Fragment>
     }
 
+    highlightFeature(feature) {
+        const { thematicMapType = THEMATIC_CHOROPLETH } = this.props
+        if (thematicMapType === THEMATIC_BUBBLE) {
+            // LayerGroup has no highlight(); delegate to each sub-layer
+            this.layer?._layers?.forEach((l) => {
+                if (l.highlight) {
+                    l.highlight(feature ? feature.id : null)
+                }
+            })
+        } else {
+            super.highlightFeature(feature)
+        }
+    }
+
     componentDidUpdate(prevProps) {
         const prevPeriodId = prevProps.externalPeriod?.id
         const newPeriodId = this.props.externalPeriod?.id
@@ -211,6 +225,10 @@ class ThematicLayer extends Layer {
             this.setLayerOpacity()
             this.setLayerVisibility()
             this.setLayerOrder()
+            const { feature } = this.props
+            if (feature !== prevProps.feature) {
+                this.handleFeatureUpdate(feature)
+            }
             return
         }
 
@@ -230,6 +248,7 @@ class ThematicLayer extends Layer {
         ) {
             try {
                 this.layer.setData(filteredData)
+                this.highlightFeature(this.props.feature)
             } catch (e) {
                 console.warn('Failed to set layer data incrementally:', e)
                 // fallback to full update on error

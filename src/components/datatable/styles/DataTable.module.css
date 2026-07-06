@@ -24,6 +24,36 @@ td.lightText {
     justify-content: space-between;
 }
 
+.headerContent {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 2px;
+}
+
+.sortButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.sortButton:hover,
+.sortButton:focus-visible {
+    background: var(--colors-grey400);
+}
+
+.sortButton:focus {
+    outline: none;
+}
+
 .columnHeader :global(input.dense) {
     padding: 4px 6px;
 }
