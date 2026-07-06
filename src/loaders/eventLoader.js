@@ -30,7 +30,7 @@ import {
     getContainingOrgUnit,
     GEO_TYPE_POINT,
 } from '../util/geojson.js'
-import { formatWithSeparator } from '../util/numbers.js'
+import { formatWithSeparator, parseWithSeparator } from '../util/numbers.js'
 import {
     fetchAssociatedGeometries,
     fetchOrgUnitPaths,
@@ -366,7 +366,7 @@ const loadEventLayer = async ({
                 const newD = { ...d }
 
                 numericDataItemHeaders.forEach((header) => {
-                    newD.properties[header.name] = parseFloat(
+                    newD.properties[header.name] = parseWithSeparator(
                         d.properties[header.name]
                     )
                 })

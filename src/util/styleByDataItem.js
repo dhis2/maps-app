@@ -10,10 +10,8 @@ import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
+import { hasValue } from './helpers.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
-
-const hasValue = (value) =>
-    value !== undefined && value !== null && value !== ''
 
 const addSpecialLegendItems = (
     legend,
