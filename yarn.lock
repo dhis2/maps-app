@@ -13974,10 +13974,10 @@ simple-concat@^1.0.0:
   resolved "https://registry.yarnpkg.com/simple-concat/-/simple-concat-1.0.1.tgz#f46976082ba35c2263f1c8ab5edfe26c41c9552f"
   integrity sha512-cSFtAPtRhljv69IK0hTVZQ+OfE9nePi/rtJmw5UjHeVyVroEqJXP1sFztKUy1qU+xvz3u/sfYJLa947b7nAN2Q==
 
-simple-statistics@^7.9.1:
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/simple-statistics/-/simple-statistics-7.9.1.tgz#c3e1b6e71f8744f6e46c54e800c24a7500870ef1"
-  integrity sha512-F2KqbV8mNYuARZdIuKtqv8Ax0s5KLKy9kEsaAFnKJxkTU+ZjmBae5ssp6mtPqpAj+D29OITOSbm9aiSkEPo1cA==
+simple-statistics@^7.9.3:
+  version "7.9.3"
+  resolved "https://registry.yarnpkg.com/simple-statistics/-/simple-statistics-7.9.3.tgz#e330a8ec40afd9a8e694453ad0f01a26985a002e"
+  integrity sha512-WXpxUfo7BJCRpyl4besiuMV7wNj9xiPIq7IKmUQO4upIaF8pK2AXwhjttHN5L8KXZrLkGMCHGHq4p+pJXiIahQ==
 
 slash@^2.0.0:
   version "2.0.0"
