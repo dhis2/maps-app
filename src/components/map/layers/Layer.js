@@ -213,7 +213,7 @@ class Layer extends PureComponent {
             features,
         })
 
-        if (!isFinite(minLng)) {
+        if (!Number.isFinite(minLng)) {
             return
         }
 
