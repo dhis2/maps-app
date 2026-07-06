@@ -407,6 +407,9 @@ msgstr "Max value is required"
 msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr "Valid classes are {{minSteps}} to {{maxSteps}}"
 
+msgid "Use custom legend"
+msgstr "Use custom legend"
+
 msgid "Facility buffer"
 msgstr "Facility buffer"
 
@@ -1911,3 +1914,11 @@ msgstr "End date is invalid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "End date cannot be earlier than start date"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Maps"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Maps"

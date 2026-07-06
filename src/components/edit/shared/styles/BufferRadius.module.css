@@ -1,5 +1,5 @@
 .buffer {
-    margin-top: var(--spacers-dp8);
+    margin-top: var(--spacers-dp16);
     clear: both;
     align-items: center;
 }
