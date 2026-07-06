@@ -45,7 +45,7 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^29.5.5",
-        "@dhis2/app-runtime": "^3.14.4",
+        "@dhis2/app-runtime": "^3.17.3",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.3.0",
         "@dhis2/ui": "^10.16.3",
@@ -72,11 +72,11 @@
         "react-redux": "^9.3.0",
         "react-sortable-hoc": "^2.0.0",
         "react-virtualized": "^9.22.6",
-        "react-virtuoso": "^4.6.2",
+        "react-virtuoso": "^4.18.10",
         "redux": "^4.2.1",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.4.2",
-        "simple-statistics": "^7.9.1",
+        "simple-statistics": "^7.9.3",
         "styled-jsx": "^4.0.1",
         "url-polyfill": "^1.1.14"
     },
