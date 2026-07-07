@@ -11,7 +11,7 @@ import { numberValueTypes } from '../constants/valueTypes.js'
 import {
     getFiltersFromColumns,
     getFiltersAsText,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getPeriodNameFromId,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
@@ -151,10 +151,12 @@ const loadEventLayer = async ({
         areaRadius,
     } = config
 
-    const period = getPeriodFromFilters(filters)
-    const periodName =
-        periodTypeData?.enabledPeriodTypesData?.metaData?.[period?.id]?.name ??
-        getPeriodNameFromId(period?.id)
+    const periods = getPeriodsFromFilters(filters)
+    const periodNames = periods.map(
+        (pe) =>
+            periodTypeData?.enabledPeriodTypesData?.metaData?.[pe.id]?.name ??
+            getPeriodNameFromId(pe.id)
+    )
 
     const dataFilters = getFiltersFromColumns(columns)
 
@@ -171,12 +173,13 @@ const loadEventLayer = async ({
 
     config.legend = {
         title: config.name,
-        period: period
-            ? periodName
-            : formatStartEndDate(
-                  getDateArray(startDate),
-                  getDateArray(endDate)
-              ),
+        period:
+            periods.length > 0
+                ? periodNames.join(', ')
+                : formatStartEndDate(
+                      getDateArray(startDate),
+                      getDateArray(endDate)
+                  ),
         items: [],
         ...(config.legendDecimalPlaces !== undefined && {
             decimalPlaces: config.legendDecimalPlaces,
