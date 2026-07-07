@@ -1,7 +1,9 @@
+import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
+import { NoticeBox, IconErrorFilled24, SegmentedControl } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import {
     setProgram,
@@ -12,11 +14,11 @@ import {
     setEventPointColor,
     setEventPointRadius,
     // setFallbackCoordinateField,
-    setPeriod,
+    setPeriods,
+    setPeriodType,
     setStartDate,
     setEndDate,
     setBackupPeriodsDates,
-    setOrgUnits,
     setCountFeaturesWithoutCoordinates,
 } from '../../../actions/layerEdit.js'
 import {
@@ -27,16 +29,18 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
 } from '../../../constants/layers.js'
-import { START_END_DATES } from '../../../constants/periods.js'
+import {
+    PREDEFINED_PERIODS,
+    START_END_DATES,
+} from '../../../constants/periods.js'
 import usePrevious from '../../../hooks/usePrevious.js'
 import {
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getOrgUnitsFromRows,
     splitFilterColumns,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
-import { getDefaultDatesInCalendar } from '../../../util/date.js'
-import { isPeriodAvailable } from '../../../util/periods.js'
+import { countPeriods } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import { isValidIsolatedClass } from '../../classification/IsolatedClass.jsx'
 import {
@@ -51,7 +55,6 @@ import CoordinateField from '../../dataItem/CoordinateField.jsx'
 import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
@@ -59,9 +62,9 @@ import BufferRadius from '../shared/BufferRadius.jsx'
 import GeometryCentroid from '../shared/GeometryCentroid.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.jsx'
+import { initializeEventLayer } from './initializeEventLayer.js'
 
 const DEFAULT_NO_COLUMNS = []
-const DEFAULT_NO_FILTERS = []
 
 const EventDialog = ({
     backupPeriodsDates,
@@ -74,11 +77,12 @@ const EventDialog = ({
     eventPointColor,
     eventPointRadius,
     eventStatus,
-    filters = DEFAULT_NO_FILTERS,
+    filters,
     legendIsolated,
     legendSet,
     method,
     orgUnits,
+    periodType,
     periodsSettings,
     program,
     programStage,
@@ -99,104 +103,84 @@ const EventDialog = ({
     const [, setIsolatedClassError] = useState()
     const [, setStyleDataItemError] = useState()
 
+    const prevPeriodType = usePrevious(periodType)
     const prevStartDate = usePrevious(startDate)
     const prevEndDate = usePrevious(endDate)
     const prevFilters = usePrevious(filters)
-    const currentPeriod = getPeriodFromFilters(filters)
 
-    // Seeded with the current period so this is a no-op on mount
-    const prevPeriodRef = useRef(currentPeriod)
-
-    // Set default period from system settings
-    useEffect(() => {
-        const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
-            systemSettings
-        const hasDate = startDate !== undefined && endDate !== undefined
-
-        if (
-            !currentPeriod &&
-            !hasDate &&
-            !backupPeriodsDates &&
-            defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
-        ) {
-            dispatch(setPeriod({ id: defaultPeriod }))
-        }
-    }, [
-        currentPeriod,
-        systemSettings,
-        startDate,
-        endDate,
-        backupPeriodsDates,
-        dispatch,
-    ])
-
-    // Set default start/end dates
-    useEffect(() => {
-        const hasDate = startDate !== undefined && endDate !== undefined
-
-        if (!hasDate && !backupPeriodsDates) {
-            const defaultDates = getDefaultDatesInCalendar()
-            dispatch(setStartDate(defaultDates.startDate))
-            dispatch(setEndDate(defaultDates.endDate))
-        }
-    }, [startDate, endDate, backupPeriodsDates, dispatch])
-
-    // Set org unit tree roots as default
-    useEffect(() => {
-        if (!rows && orgUnits?.roots) {
-            dispatch(
-                setOrgUnits({
-                    dimension: 'ou',
-                    items: orgUnits.roots,
-                })
-            )
-        }
-    }, [rows, orgUnits, dispatch])
+    const periods = useMemo(() => getPeriodsFromFilters(filters), [filters])
 
     useEffect(() => {
-        const prevPeriod = prevPeriodRef.current
+        dispatch(
+            initializeEventLayer({
+                periodType,
+                startDate,
+                endDate,
+                filters,
+                systemSettings,
+                rows,
+                orgUnits,
+            })
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-        if (prevPeriod === undefined && currentPeriod !== undefined) {
-            dispatch(setBackupPeriodsDates({ startDate, endDate }))
-            dispatch(setStartDate())
-            dispatch(setEndDate())
-        } else if (prevPeriod !== undefined && currentPeriod === undefined) {
-            dispatch(setStartDate(backupPeriodsDates?.startDate))
-            dispatch(setEndDate(backupPeriodsDates?.endDate))
-        }
-
-        prevPeriodRef.current = currentPeriod
-    }, [currentPeriod, startDate, endDate, backupPeriodsDates, dispatch])
-
-    // Clear period error when dates or period change
+    // Handle period type change
     useEffect(() => {
-        const prevPeriod = getPeriodFromFilters(prevFilters)
-
-        if (
+        if (prevPeriodType && periodType !== prevPeriodType) {
+            switch (periodType) {
+                case PREDEFINED_PERIODS:
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: START_END_DATES,
+                            startDate,
+                            endDate,
+                        })
+                    )
+                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    dispatch(setStartDate())
+                    dispatch(setEndDate())
+                    break
+                case START_END_DATES:
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: PREDEFINED_PERIODS,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    dispatch(setStartDate(backupPeriodsDates?.startDate))
+                    dispatch(setEndDate(backupPeriodsDates?.endDate))
+                    dispatch(setPeriods([]))
+                    break
+            }
+        } else if (
             periodError &&
-            (startDate !== prevStartDate ||
+            (periodType !== prevPeriodType ||
+                startDate !== prevStartDate ||
                 endDate !== prevEndDate ||
-                currentPeriod !== prevPeriod)
+                getPeriodsFromFilters(filters).length !==
+                    getPeriodsFromFilters(prevFilters).length)
         ) {
             setPeriodError(undefined)
         }
     }, [
-        periodError,
+        periodType,
+        prevPeriodType,
         startDate,
         prevStartDate,
         endDate,
         prevEndDate,
-        currentPeriod,
+        backupPeriodsDates,
+        periodError,
+        filters,
         prevFilters,
+        dispatch,
     ])
 
     // Layer validation function
     const validate = useCallback(() => {
-        const period = getPeriodFromFilters(filters) || {
-            id: START_END_DATES,
-        }
-
         if (!program) {
             setProgramError(i18n.t('Program is required'))
             setTab('data')
@@ -209,13 +193,17 @@ const EventDialog = ({
             return false
         }
 
-        if (period.id === START_END_DATES) {
+        if (periodType === START_END_DATES) {
             const error = getStartEndDateError(startDate, endDate)
             if (error) {
                 setPeriodError(error)
                 setTab('period')
                 return false
             }
+        } else if (countPeriods(periods) === 0) {
+            setPeriodError(i18n.t('Period is required'))
+            setTab('period')
+            return false
         }
 
         if (!getOrgUnitsFromRows(rows).length) {
@@ -253,9 +241,10 @@ const EventDialog = ({
     }, [
         program,
         programStage,
-        filters,
+        periodType,
         startDate,
         endDate,
+        periods,
         rows,
         method,
         legendSet,
@@ -269,8 +258,6 @@ const EventDialog = ({
             onLayerValidation(validate())
         }
     }, [validateLayer, onLayerValidation, validate])
-
-    const period = currentPeriod || { id: START_END_DATES }
 
     return (
         <div className={styles.content} data-test="eventdialog">
@@ -341,29 +328,65 @@ const EventDialog = ({
                         className={styles.flexRowFlow}
                         data-test="eventdialog-periodtab"
                     >
-                        <RelativePeriodSelect
-                            period={period}
-                            startEndDates={true}
-                            onChange={(val) => dispatch(setPeriod(val))}
-                            className={styles.select}
-                        />
-                        {period && period.id === START_END_DATES && (
-                            <StartEndDate
-                                onSelectStartDate={(val) =>
-                                    dispatch(setStartDate(val))
-                                }
-                                onSelectEndDate={(val) =>
-                                    dispatch(setEndDate(val))
-                                }
-                                periodsSettings={periodsSettings}
-                            />
-                        )}
-                        {periodError && (
-                            <div className={styles.error}>
-                                <IconErrorFilled24 />
-                                {periodError}
+                        <div className={styles.background}>
+                            <div
+                                className={cx(
+                                    styles.navigation,
+                                    styles.periodBox
+                                )}
+                            >
+                                <SegmentedControl
+                                    className={styles.flexRowFlow}
+                                    options={[
+                                        {
+                                            label: i18n.t(
+                                                'Choose from presets'
+                                            ),
+                                            value: PREDEFINED_PERIODS,
+                                        },
+                                        {
+                                            label: i18n.t(
+                                                'Define start - end dates'
+                                            ),
+                                            value: START_END_DATES,
+                                        },
+                                    ]}
+                                    selected={periodType}
+                                    onChange={({ value }) =>
+                                        dispatch(setPeriodType({ value }, true))
+                                    }
+                                />
                             </div>
-                        )}
+                            {periodType === PREDEFINED_PERIODS && (
+                                <PeriodDimension
+                                    selectedPeriods={periods}
+                                    onSelect={({ items }) =>
+                                        dispatch(setPeriods(items))
+                                    }
+                                    excludedPeriodTypes={
+                                        systemSettings.hiddenPeriods
+                                    }
+                                    height="324px"
+                                />
+                            )}
+                            {periodType === START_END_DATES && (
+                                <StartEndDate
+                                    onSelectStartDate={(val) =>
+                                        dispatch(setStartDate(val))
+                                    }
+                                    onSelectEndDate={(val) =>
+                                        dispatch(setEndDate(val))
+                                    }
+                                    periodsSettings={periodsSettings}
+                                />
+                            )}
+                            {periodError && (
+                                <div className={styles.error}>
+                                    <IconErrorFilled24 />
+                                    {periodError}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
                 {tab === 'orgunits' && (
@@ -499,6 +522,7 @@ EventDialog.propTypes = {
     legendSet: PropTypes.object,
     method: PropTypes.number,
     orgUnits: PropTypes.object,
+    periodType: PropTypes.string,
     periodsSettings: PropTypes.object,
     program: PropTypes.shape({
         id: PropTypes.string.isRequired,

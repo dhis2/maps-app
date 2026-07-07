@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-06-30T11:26:45.998Z\n"
-"PO-Revision-Date: 2026-06-30T11:26:45.998Z\n"
+"POT-Creation-Date: 2026-07-07T09:22:56.883Z\n"
+"PO-Revision-Date: 2026-07-07T09:22:56.884Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -401,6 +401,9 @@ msgstr "Program is required"
 msgid "Program stage is required"
 msgstr "Program stage is required"
 
+msgid "Period is required"
+msgstr "Period is required"
+
 msgid "No organisation units are selected."
 msgstr "No organisation units are selected."
 
@@ -415,6 +418,12 @@ msgstr "Org Units"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
 
 msgid "Group events"
 msgstr "Group events"
@@ -506,12 +515,6 @@ msgstr "High radius should be greater than low radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
 
-msgid "Choose from presets"
-msgstr "Choose from presets"
-
-msgid "Define start - end dates"
-msgstr "Define start - end dates"
-
 msgid "Choose periods for all timeline layers"
 msgstr "Choose periods for all timeline layers"
 
@@ -523,9 +526,6 @@ msgstr "Choose periods for all split layers"
 
 msgid "Data is required"
 msgstr "Data is required"
-
-msgid "Period is required"
-msgstr "Period is required"
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
