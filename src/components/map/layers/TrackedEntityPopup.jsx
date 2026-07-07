@@ -15,8 +15,8 @@ const TRACKED_ENTITIES_QUERY = {
     trackedEntities: {
         resource: `tracker/trackedEntities`,
         id: ({ id }) => id,
-        params: ({ program }) => ({
-            fields: 'updatedAt,orgUnit,attributes[displayName~rename(name),value,attribute],relationships',
+        params: ({ program, nameProperty }) => ({
+            fields: `updatedAt,orgUnit,attributes[${nameProperty}~rename(name),value,attribute],relationships`,
             program: program?.id,
         }),
     },
@@ -85,6 +85,7 @@ const TrackedEntityPopup = ({
         variables: {
             id: feature.properties.id,
             program,
+            nameProperty,
         },
         lazy: true,
     })
@@ -118,7 +119,10 @@ const TrackedEntityPopup = ({
                 })
             const orgUnitsNamesMap = {}
             for (const id of orgUnitIds) {
-                const result = await refetchOrgUnit({ id, nameProperty })
+                const result = await refetchOrgUnit({
+                    id,
+                    nameProperty,
+                })
                 orgUnitsNamesMap[id] = result?.orgUnit?.name
             }
             setOrgUnitNames(orgUnitsNamesMap)

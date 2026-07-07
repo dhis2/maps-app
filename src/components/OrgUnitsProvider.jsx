@@ -1,13 +1,14 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React, { useContext, useState, useEffect, createContext } from 'react'
+import { useCachedData } from './cachedDataProvider/CachedDataProvider.jsx'
 
 // Fetches the root org units associated with the current user with fallback to data capture org units
 const ORG_UNITS_QUERY = {
     roots: {
         resource: 'organisationUnits',
-        params: () => ({
-            fields: ['id', 'displayName~rename(name)', 'path'], // TODO organisationUnits has shortName
+        params: ({ nameProperty }) => ({
+            fields: ['id', `${nameProperty}~rename(name)`, 'path'],
             userDataViewFallback: true,
         }),
     },
@@ -27,9 +28,11 @@ const OrgUnitsProvider = ({ children }) => {
     const [orgUnits, setOrgUnits] = useState()
     const [error, setError] = useState()
     const engine = useDataEngine()
+    const { nameProperty } = useCachedData()
 
     useEffect(() => {
         engine.query(ORG_UNITS_QUERY, {
+            variables: { nameProperty },
             onComplete: ({ levels, roots }) =>
                 setOrgUnits({
                     levels: levels.organisationUnitLevels,
@@ -37,7 +40,7 @@ const OrgUnitsProvider = ({ children }) => {
                 }),
             onError: setError,
         })
-    }, [engine])
+    }, [engine, nameProperty])
 
     return (
         <OrgUnitsCtx.Provider

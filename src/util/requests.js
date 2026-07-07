@@ -4,8 +4,8 @@ import { mapFields } from './helpers.js'
 const MAP_QUERY = {
     resource: 'maps',
     id: ({ id }) => id,
-    params: ({ withSubscribers }) => ({
-        fields: mapFields(withSubscribers),
+    params: ({ withSubscribers, nameProperty }) => ({
+        fields: mapFields(withSubscribers, nameProperty),
     }),
 }
 
@@ -32,6 +32,7 @@ export const fetchMap = async ({
     engine,
     defaultBasemap,
     withSubscribers,
+    nameProperty,
 }) =>
     engine
         .query(
@@ -40,6 +41,7 @@ export const fetchMap = async ({
                 variables: {
                     id,
                     withSubscribers,
+                    nameProperty,
                 },
             }
         )
