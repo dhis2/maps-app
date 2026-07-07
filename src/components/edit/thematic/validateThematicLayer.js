@@ -45,10 +45,7 @@ export const validateThematicLayer = ({
             endDate,
             periods,
             renderingStrategy,
-        })
-    )
-
-    rules.push(
+        }),
         {
             // Org units
             condition: !getOrgUnitsFromRows(rows).length,
