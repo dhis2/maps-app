@@ -183,32 +183,26 @@ export const setPeriodName = (periodName) => ({
     periodName,
 })
 
-// Set period type (thematic)
+// Set period type (event/thematic)
 export const setPeriodType = (periodType, keepPeriod) => ({
     type: types.LAYER_EDIT_PERIOD_TYPE_SET,
     periodType,
     keepPeriod,
 })
 
-// Set periods (thematic)
+// Set periods (event/thematic)
 export const setPeriods = (periods) => ({
     type: types.LAYER_EDIT_PERIODS_SET,
     periods,
 })
 
-// Set period (event & thematic)
-export const setPeriod = (period) => ({
-    type: types.LAYER_EDIT_PERIOD_SET,
-    period,
-})
-
-// Set start date (event)
+// Set start date (event/thematic)
 export const setStartDate = (startDate) => ({
     type: types.LAYER_EDIT_START_DATE_SET,
     startDate,
 })
 
-// Set end date (event)
+// Set end date (event/thematic)
 export const setEndDate = (endDate) => ({
     type: types.LAYER_EDIT_END_DATE_SET,
     endDate,

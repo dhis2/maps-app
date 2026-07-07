@@ -4,10 +4,8 @@ import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     setOrgUnitPathInRows,
-    getPeriodFromFilters,
     getPeriodsFromFilters,
     removePeriodFromFilters,
-    setFiltersFromPeriod,
     setFiltersFromPeriods,
     applyPeriodFilter,
     getFiltersFromColumns,
@@ -100,13 +98,6 @@ describe('setOrgUnitPathInRows', () => {
     })
 })
 
-describe('getPeriodFromFilters', () => {
-    it('should return the first period from filters', () => {
-        const filters = [{ dimension: 'pe', items: [{ id: 'period1' }] }]
-        expect(getPeriodFromFilters(filters)).toEqual({ id: 'period1' })
-    })
-})
-
 describe('getPeriodsFromFilters', () => {
     it('should return all periods from filters', () => {
         const filters = [
@@ -142,18 +133,6 @@ describe('removePeriodFromFilters', () => {
         ]
         expect(removePeriodFromFilters(filters)).toEqual([
             { dimension: 'dx', items: [{ id: 'data1' }] },
-        ])
-    })
-})
-
-describe('setFiltersFromPeriod', () => {
-    it('should add a period to the filters', () => {
-        const filters = [{ dimension: 'dx', items: [{ id: 'data1' }] }]
-        const period = { id: 'period1' }
-
-        expect(setFiltersFromPeriod(filters, period)).toEqual([
-            { dimension: 'dx', items: [{ id: 'data1' }] },
-            { dimension: 'pe', items: [{ id: 'period1' }] },
         ])
     })
 })

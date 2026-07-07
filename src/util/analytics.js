@@ -82,9 +82,6 @@ export const setOrgUnitPathInRows = (rows = [], id, path) => {
 
 /* PERIODS */
 
-export const getPeriodFromFilters = (filters = []) =>
-    getDimensionItems('pe', filters)[0]
-
 export const getPeriodsFromFilters = (filters = []) =>
     getDimensionItems('pe', filters)
 
@@ -93,11 +90,6 @@ export const removePeriodFromFilters = (filters = []) => [
 ]
 
 export const getPeriodNameFromId = (id) => getPeriodNames()[id]
-
-export const setFiltersFromPeriod = (filters, period) => [
-    ...removePeriodFromFilters(filters),
-    createDimension('pe', [{ ...period }]),
-]
 
 export const setFiltersFromPeriods = (filters, periods) => [
     ...removePeriodFromFilters(filters),
