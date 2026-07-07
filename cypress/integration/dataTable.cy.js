@@ -155,7 +155,7 @@ describe('data table', () => {
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')
             .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(`${CURRENT_YEAR - 1}-01-01`)
             .typeEndDate(`${CURRENT_YEAR - 1}-01-03`)
             .addToMap()
