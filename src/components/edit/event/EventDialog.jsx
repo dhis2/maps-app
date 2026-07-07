@@ -40,8 +40,6 @@ import {
     splitFilterColumns,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
-import { countPeriods } from '../../../util/periods.js'
-import { getStartEndDateError } from '../../../util/time.js'
 import { isValidIsolatedClass } from '../../classification/IsolatedClass.jsx'
 import {
     Tab,
@@ -60,6 +58,7 @@ import ProgramSelect from '../../program/ProgramSelect.jsx'
 import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
 import GeometryCentroid from '../shared/GeometryCentroid.jsx'
+import { getPeriodValidationRules } from '../shared/validatePeriod.js'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.jsx'
 import { initializeEventLayer } from './initializeEventLayer.js'
@@ -193,15 +192,14 @@ const EventDialog = ({
             return false
         }
 
-        if (periodType === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate)
-            if (error) {
-                setPeriodError(error)
-                setTab('period')
-                return false
-            }
-        } else if (countPeriods(periods) === 0) {
-            setPeriodError(i18n.t('Period is required'))
+        const periodRule = getPeriodValidationRules({
+            periodType,
+            startDate,
+            endDate,
+            periods,
+        }).find((rule) => rule.condition)
+        if (periodRule) {
+            setPeriodError(periodRule.msg)
             setTab('period')
             return false
         }

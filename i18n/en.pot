@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-07T09:22:56.883Z\n"
-"PO-Revision-Date: 2026-07-07T09:22:56.884Z\n"
+"POT-Creation-Date: 2026-07-07T09:31:06.473Z\n"
+"PO-Revision-Date: 2026-07-07T09:31:06.473Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -401,9 +401,6 @@ msgstr "Program is required"
 msgid "Program stage is required"
 msgstr "Program stage is required"
 
-msgid "Period is required"
-msgstr "Period is required"
-
 msgid "No organisation units are selected."
 msgstr "No organisation units are selected."
 
@@ -497,6 +494,19 @@ msgstr "Include unclassified org units"
 msgid "Unclassified"
 msgstr "Unclassified"
 
+msgid "Period is required"
+msgstr "Period is required"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
+
 msgid "Aggregation type"
 msgstr "Aggregation type"
 
@@ -526,16 +536,6 @@ msgstr "Choose periods for all split layers"
 
 msgid "Data is required"
 msgstr "Data is required"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Select at least {{number}} periods or 1 multi-period."
 
 msgid "Specified radius values are invalid"
 msgstr "Specified radius values are invalid"
