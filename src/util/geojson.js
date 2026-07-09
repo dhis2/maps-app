@@ -1,4 +1,4 @@
-import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
+import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
 

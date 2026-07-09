@@ -5,6 +5,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     LABEL_TEMPLATE_NAME_ONLY,
+    LABEL_TEMPLATE_TOOLTIP_ONLY,
 } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
 import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
@@ -82,24 +83,37 @@ class EventLayer extends Layer {
 
         const map = this.context.map
 
-        // Pre-compute label text into properties.name for the {name} template.
+        // Pre-compute label text into properties.name for the {name} template,
+        // and tooltip text into properties.tooltip for the {tooltip} template.
         const noDataLabel = i18n.t('No data')
+        const formatItemValue = (feature, dataItem) => {
+            const v = feature.properties[dataItem.id]
+            return (
+                (v != null &&
+                    v !== '' &&
+                    formatValueForDisplay({
+                        value: String(v),
+                        valueType: dataItem.valueType,
+                        options: dataItem.options,
+                        keyAnalysisDigitGroupSeparator,
+                    })) ||
+                noDataLabel
+            )
+        }
         const labeledData =
-            labelDataItem && filteredData
-                ? filteredData.map((f) => {
-                      const v = f.properties[labelDataItem.id]
-                      const name =
-                          (v != null &&
-                              v !== '' &&
-                              formatValueForDisplay({
-                                  value: String(v),
-                                  valueType: labelDataItem.valueType,
-                                  options: labelDataItem.options,
-                                  keyAnalysisDigitGroupSeparator,
-                              })) ||
-                          noDataLabel
-                      return { ...f, properties: { ...f.properties, name } }
-                  })
+            (labelDataItem || styleDataItem) && filteredData
+                ? filteredData.map((f) => ({
+                      ...f,
+                      properties: {
+                          ...f.properties,
+                          ...(labelDataItem && {
+                              name: formatItemValue(f, labelDataItem),
+                          }),
+                          ...(styleDataItem && {
+                              tooltip: formatItemValue(f, styleDataItem),
+                          }),
+                      },
+                  }))
                 : filteredData
 
         // Default props = no cluster
@@ -115,7 +129,7 @@ class EventLayer extends Layer {
             countColor,
             radius,
             onClick: this.onEventClick.bind(this),
-            ...(labelDataItem && { hoverLabel: LABEL_TEMPLATE_NAME_ONLY }),
+            ...(styleDataItem && { hoverLabel: LABEL_TEMPLATE_TOOLTIP_ONLY }),
             ...(labelDataItem &&
                 labels && {
                     label: LABEL_TEMPLATE_NAME_ONLY,

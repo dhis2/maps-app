@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-03T09:40:03.280Z\n"
-"PO-Revision-Date: 2026-07-03T09:40:03.281Z\n"
+"POT-Creation-Date: 2026-07-09T08:01:22.373Z\n"
+"PO-Revision-Date: 2026-07-09T08:01:22.373Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -439,9 +439,6 @@ msgstr "You can style events by data element after selecting a program."
 
 msgid "Event status"
 msgstr "Event status"
-
-msgid "Tooltip field"
-msgstr "Tooltip field"
 
 msgid "Boundary color"
 msgstr "Boundary color"

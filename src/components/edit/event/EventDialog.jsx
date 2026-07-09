@@ -445,6 +445,10 @@ const EventDialog = ({
                                 disabled={eventClustering}
                                 defaultRadius={EVENT_BUFFER}
                             />
+                            <LabelFieldSelect
+                                program={program}
+                                programStage={programStage}
+                            />
                             <Checkbox
                                 label={i18n.t(
                                     'Count events without coordinates'
@@ -469,12 +473,6 @@ const EventDialog = ({
                                     )
                                 }
                             />
-                            <div className={styles.marginTop}>
-                                <LabelFieldSelect
-                                    program={program}
-                                    programStage={programStage}
-                                />
-                            </div>
                         </div>
                         <div className={styles.flexColumn}>
                             {program ? (
