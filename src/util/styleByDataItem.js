@@ -324,6 +324,12 @@ const styleByOptionSet = async (config, engine) => {
         color: option.style.color,
     }))
 
+    // O(1) legend item lookup
+    // Built before the Unclassified/No data items are appended below
+    const legendItemByName = new Map(
+        legend.items.map((item) => [item.name, item])
+    )
+
     const { unclassifiedLegendItem, noDataLegendItem } = addSpecialLegendItems(
         legend,
         { noDataLegend, unclassifiedLegend }
@@ -331,15 +337,9 @@ const styleByOptionSet = async (config, engine) => {
     stampLegendItems(legend.items, eventPointRadius)
 
     // For easier and faster lookup below
-    // TODO: There might be options with duplicate name, so code/id would be safer
-    // If we use code/id we also need to retrive name to show in popup/data table/download
+    // (option names are unique within an option set)
     const optionsByName = new Map(
         optionSet.options.map((option) => [option.name.toLowerCase(), option])
-    )
-
-    // Pre-build O(1) legend item lookup to avoid O(m) find() per feature
-    const legendItemByName = new Map(
-        legend.items.map((item) => [item.name, item])
     )
 
     // Add style data value and color to each feature

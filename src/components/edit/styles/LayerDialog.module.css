@@ -228,9 +228,10 @@
     padding: var(--spacers-dp12) 0;
 }
 
-.scale {
-    margin-left: var(--spacers-dp8);
+.flexInnerColumnFlow > .scale {
     margin-top: var(--spacers-dp16);
+    margin-left: var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp8);
 }
 
 .eeError {

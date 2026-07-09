@@ -1,3 +1,7 @@
 .content {
     height: min(548px, calc(100vh - 210px));
 }
+
+.modalContent {
+    scrollbar-gutter: stable;
+}
