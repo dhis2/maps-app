@@ -98,7 +98,7 @@ describe('data table', () => {
         checkTableCell({ row: 6, column: 1, expectedContent: 'Upper Bambara' })
 
         // Sort by name
-        cy.get('button[title="Sort by Name"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Name').click()
 
         // confirm that the rows are sorted by Name descending
         checkTableCell({ row: 0, column: 1, expectedContent: 'Upper Bambara' })
@@ -116,18 +116,20 @@ describe('data table', () => {
             .should('have.length', 5)
 
         // Sort by value
-        cy.get('button[title="Sort by Value"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Value').click()
 
         // check that the rows are sorted by Value ascending
         checkTableCell({ row: 0, column: 3, expectedContent: '35' })
         checkTableCell({ row: 4, column: 3, expectedContent: '76' })
 
-        // click on a row
+        // right-click a row and select "View profile"
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .first()
-            .click()
+            .rightclick()
+
+        cy.getByDataTest('data-table-context-menu-view-profile').click()
 
         // check that the org unit profile drawer is opened
         cy.getByDataTest('org-unit-profile').should('be.visible')
@@ -230,18 +232,22 @@ describe('data table', () => {
             .should('have.length', 2)
 
         // Sort by Age in years
-        cy.get('button[title="Sort by Age in years"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Age in years').click()
 
         // confirm that the rows are sorted by Age in years descending
         checkTableCell({ row: 0, column: 7, expectedContent: '32' })
         checkTableCell({ row: 1, column: 7, expectedContent: '6' })
 
-        // click on a row
+        // right-click a row: Event layers have no profile to view
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .first()
-            .click()
+            .rightclick()
+
+        cy.getByDataTest('data-table-context-menu-view-profile').should(
+            'not.exist'
+        )
 
         // check that the org unit profile drawer is NOT opened
         cy.getByDataTest('org-unit-profile').should('not.exist')
@@ -290,7 +296,7 @@ describe('data table', () => {
         // Confirm that the sort order is initially ascending by Name
         checkTableCell({ row: 0, column: 1, expectedContent: 'Bendu CHC' })
 
-        cy.get('button[title="Sort by Value"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Value').click()
 
         // Check that first row has Gbamgbama CHC with value 117.98
         checkTableCell({ row: 0, column: 1, expectedContent: 'Gbamgbama CHC' })
@@ -304,7 +310,7 @@ describe('data table', () => {
         checkTableCell({ row: 6, column: 3, expectedContent: '' })
 
         // Sort ascending by Value
-        cy.get('button[title="Sort by Value"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Value').click()
 
         checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
         checkTableCell({ row: 0, column: 3, expectedContent: '28.63' })
@@ -315,7 +321,7 @@ describe('data table', () => {
         checkTableCell({ row: 6, column: 3, expectedContent: '' })
 
         // Sort by index and scroll to the top
-        cy.get('button[title="Sort by Index"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Index').click()
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         checkTableCell({ row: 0, column: 0, expectedContent: '28' })
@@ -324,7 +330,7 @@ describe('data table', () => {
         checkTableCell({ row: 0, column: 5, expectedContent: '' })
 
         // Sort by range, which is a string
-        cy.get('button[title="Sort by Range"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Range').click()
 
         // Check that row 0 range value has value '0-40'
         checkTableCell({ row: 0, column: 5, expectedContent: '0 – 40' })

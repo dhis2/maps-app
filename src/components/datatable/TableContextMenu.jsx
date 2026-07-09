@@ -75,9 +75,10 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
                 placement="right"
                 onClickOutside={onClose}
             >
-                <Menu dense>
+                <Menu dense dataTest="data-table-context-menu">
                     {canDrill && (
                         <MenuItem
+                            dataTest="data-table-context-menu-drill-up"
                             label={i18n.t('Drill up one level')}
                             icon={<IconArrowUp16 />}
                             disabled={!hasCoordinatesUp}
@@ -98,6 +99,7 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
                     )}
                     {canDrill && (
                         <MenuItem
+                            dataTest="data-table-context-menu-drill-down"
                             label={i18n.t('Drill down one level')}
                             icon={<IconArrowDown16 />}
                             disabled={!hasCoordinatesDown}
@@ -118,6 +120,7 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
                     )}
                     {canViewProfile && (
                         <MenuItem
+                            dataTest="data-table-context-menu-view-profile"
                             label={i18n.t('View profile')}
                             icon={<IconInfo16 />}
                             onClick={() => {
@@ -140,6 +143,7 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
                     )}
                     {id && (
                         <MenuItem
+                            dataTest="data-table-context-menu-zoom-to-feature"
                             label={i18n.t('Zoom to feature')}
                             icon={<IconZoomIn16 />}
                             onClick={() => {
