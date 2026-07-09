@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-09T08:01:22.373Z\n"
-"PO-Revision-Date: 2026-07-09T08:01:22.373Z\n"
+"POT-Creation-Date: 2026-07-09T08:38:38.049Z\n"
+"PO-Revision-Date: 2026-07-09T08:38:38.049Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -130,9 +130,6 @@ msgstr "Previously selected value not available in list: {{id}}"
 
 msgid "Style by data item"
 msgstr "Style by data item"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filtering is available after selecting a program stage."
 
 msgid "Add filter"
 msgstr "Add filter"
@@ -418,6 +415,9 @@ msgstr "Org Units"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filtering is available after selecting a program stage."
 
 msgid "Group events"
 msgstr "Group events"
