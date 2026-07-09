@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useDispatch } from 'react-redux'
@@ -442,7 +443,12 @@ const EventDialog = ({
                                         className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div className={styles.flexInnerColumnFlow}>
+                                <div
+                                    className={cx(
+                                        styles.flexInnerColumnFlow,
+                                        styles.pointStyle
+                                    )}
+                                >
                                     <ColorPicker
                                         label={i18n.t('Color')}
                                         color={

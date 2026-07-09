@@ -24,7 +24,8 @@
     display: flex;
     gap: var(--spacers-dp16);
     align-items: flex-end;
-    margin-bottom: var(--spacers-dp12);
+    margin-bottom: var(--spacers-dp24);
+    display: flex;
 }
 
 .singleColorField {

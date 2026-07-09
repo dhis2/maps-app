@@ -1,11 +1,16 @@
 .buffer {
-    margin-top: var(--spacers-dp16);
+    margin: 0;
     clear: both;
     align-items: center;
 }
 
+.labelOnly {
+    margin-bottom: var(--spacers-dp4);
+}
+
 .numberField {
     padding-left: 23px;
+    margin-top: var(--spacers-dp8);
 }
 
 .info {
