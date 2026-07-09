@@ -314,6 +314,7 @@ const Table = ({ availableWidth, onCountChange }) => {
                                         <button
                                             type="button"
                                             className={styles.sortButton}
+                                            data-test={`data-table-column-sort-button-${name}`}
                                             onClick={() =>
                                                 sortData({ name: dataKey })
                                             }
