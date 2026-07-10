@@ -5,7 +5,7 @@ import {
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../constants/layers.js'
-import { getPeriodNames } from './periods.js'
+import { getPeriodNames, getFixedPeriodName } from './periods.js'
 import { trimTime } from './time.js'
 import { isValidUid } from './uid.js'
 
@@ -89,7 +89,8 @@ export const removePeriodFromFilters = (filters = []) => [
     ...filters.filter((f) => f.dimension !== 'pe'),
 ]
 
-export const getPeriodNameFromId = (id) => getPeriodNames()[id]
+export const getPeriodNameFromId = (id) =>
+    getPeriodNames()[id] ?? getFixedPeriodName(id)
 
 export const setFiltersFromPeriods = (filters, periods) => [
     ...removePeriodFromFilters(filters),

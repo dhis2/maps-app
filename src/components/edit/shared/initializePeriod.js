@@ -8,21 +8,25 @@ import {
     PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
+import { getPeriodsFromFilters } from '../../../util/analytics.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 
 export const initializePeriodType = (
     dispatch,
-    { periodType, startDate, endDate }
+    { periodType, filters, startDate, endDate }
 ) => {
     if (periodType) {
         return
     }
-    const hasDate = startDate !== undefined && endDate !== undefined
+    // Saved period takes priority over leftover start/end dates
+    const hasPeriod = getPeriodsFromFilters(filters).length > 0
+    const useDates =
+        !hasPeriod && startDate !== undefined && endDate !== undefined
     dispatch(
         setPeriodType(
-            { value: hasDate ? START_END_DATES : PREDEFINED_PERIODS },
-            !hasDate
+            { value: useDates ? START_END_DATES : PREDEFINED_PERIODS },
+            !useDates
         )
     )
 }

@@ -225,12 +225,13 @@ const loadEventLayer = async ({
         areaRadius,
     } = config
 
-    const periods = getPeriodsFromFilters(filters)
-    const periodNames = periods.map(
-        (pe) =>
+    // Mutates the pe items in filters so period display names are shown
+    const periods = getPeriodsFromFilters(filters).map((pe) => {
+        pe.name =
             periodTypeData?.enabledPeriodTypesData?.metaData?.[pe.id]?.name ??
             getPeriodNameFromId(pe.id)
-    )
+        return pe
+    })
 
     const dataFilters = getFiltersFromColumns(columns)
 
@@ -252,7 +253,7 @@ const loadEventLayer = async ({
         title: config.name,
         period:
             periods.length > 0
-                ? periodNames.join(', ')
+                ? periods.map((pe) => pe.name || pe.id).join(', ')
                 : formatStartEndDate(
                       getDateArray(startDate),
                       getDateArray(endDate)
