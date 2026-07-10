@@ -132,7 +132,7 @@ const CoordinateField = ({
         if (
             trackedEntityType &&
             eventDataItems &&
-            !fields.find((f) => f.id === value) &&
+            !fields.some((f) => f.id === value) &&
             value !== defaultValue &&
             fields.length > 0
         ) {
@@ -155,7 +155,7 @@ const CoordinateField = ({
                     : i18n.t('Coordinate field')
             }
             items={fields}
-            value={fields.find((f) => f.id === value) ? value : null}
+            value={fields.some((f) => f.id === value) ? value : null}
             loading={
                 !!program && value !== EVENT_COORDINATE_DEFAULT && itemsLoading
             }
