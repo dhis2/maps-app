@@ -3,8 +3,10 @@ import i18n from '@dhis2/d2-i18n'
 import {
     ALERT_MESSAGE_DYNAMIC,
     WARNING_NO_DATA,
+    WARNING_ALL_EVENTS_OUTSIDE_OU,
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
+    WARNING_OU_BOUNDARIES_FETCH_FAILED,
     ERROR_CRITICAL,
     CUSTOM_ALERT,
 } from '../../constants/alerts.js'
@@ -37,12 +39,25 @@ function useLoaderAlerts(loaderAlertAction = Function.prototype) {
         onHidden: loaderAlertAction,
     })
 
+    const ouBoundariesFetchFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
+        warning: true,
+        onHidden: loaderAlertAction,
+    })
+
     const showAlerts = (alerts) => {
         alerts.forEach(({ message: msg, code, warning, critical }) => {
             switch (code) {
                 case WARNING_NO_DATA: {
                     noDataAlert.show({
                         msg: `${msg}: ${i18n.t('No data found')}`,
+                    })
+                    break
+                }
+                case WARNING_ALL_EVENTS_OUTSIDE_OU: {
+                    noDataAlert.show({
+                        msg: `${msg}: ${i18n.t(
+                            'All events outside org unit boundaries'
+                        )}`,
                     })
                     break
                 }
@@ -58,6 +73,14 @@ function useLoaderAlerts(loaderAlertAction = Function.prototype) {
                 case WARNING_NO_GEOMETRY_COORD: {
                     noGeometryCoordinatesAlert.show({
                         msg: `${msg}: ${i18n.t('No coordinates found')}`,
+                    })
+                    break
+                }
+                case WARNING_OU_BOUNDARIES_FETCH_FAILED: {
+                    ouBoundariesFetchFailedAlert.show({
+                        msg: `${msg}: ${i18n.t(
+                            'Could not check org unit boundaries'
+                        )}`,
                     })
                     break
                 }

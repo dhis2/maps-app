@@ -12,6 +12,8 @@ import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
 
+// Narrower than helpers.js's hasValue on purpose: a raw value literally
+// equal to "Not set" is still real data here, not a no-data sentinel.
 const hasValue = (value) =>
     value !== undefined && value !== null && value !== ''
 
@@ -42,9 +44,10 @@ const addSpecialLegendItems = (
 }
 
 const stampLegendItems = (items, eventPointRadius) =>
-    items.forEach((item) => {
+    items.forEach((item, i) => {
         item.radius = eventPointRadius || EVENT_RADIUS
         item.count = 0
+        item.colorGroup = i
     })
 
 const addFeature = (acc, feature, { item, value }) => {
@@ -55,6 +58,7 @@ const addFeature = (acc, feature, { item, value }) => {
             ...feature.properties,
             value,
             color: item.color,
+            colorGroup: item.colorGroup,
         },
     })
 }
@@ -144,7 +148,8 @@ const styleByBoolean = async (config, engine) => {
     stampLegendItems(legend.items, eventPointRadius)
 
     config.data = data.reduce((acc, feature) => {
-        const value = feature.properties[id]
+        const raw = feature.properties[id]
+        const value = hasValue(raw) ? String(raw) : raw
         const isNoData = !hasValue(value)
         const isUnclassified = !isNoData && value !== '1' && value !== '0'
 
@@ -157,8 +162,18 @@ const styleByBoolean = async (config, engine) => {
 
         if (value === '1') {
             addFeature(acc, feature, { item: yesItem, value: i18n.t('Yes') })
-        } else if (value === '0' && noItem) {
-            addFeature(acc, feature, { item: noItem, value: i18n.t('No') })
+        } else if (value === '0') {
+            if (noItem) {
+                addFeature(acc, feature, {
+                    item: noItem,
+                    value: i18n.t('No'),
+                })
+            } else if (unclassifiedLegendItem) {
+                addFeature(acc, feature, {
+                    item: unclassifiedLegendItem,
+                    value,
+                })
+            }
         } else if (isUnclassified) {
             addFeature(acc, feature, { item: unclassifiedLegendItem, value })
         } else {
@@ -202,13 +217,18 @@ const styleByNumeric = async (config, engine) => {
         // Generate legend items from legendSet
         legend.items = getPredefinedLegendItems(legendSet)
     } else {
-        // Create array of sorted values needed for classification
-        const sortedValues = data
-            .map((feature) => feature.properties[styleDataItem.id])
-            .filter(hasValue)
-            .map(Number)
-            .filter((value) => !isNaN(value))
-            .sort((a, b) => a - b)
+        // Create array of sorted values needed for classification (single pass)
+        const sortedValues = []
+        for (const feature of data) {
+            const raw = feature.properties[styleDataItem.id]
+            if (hasValue(raw)) {
+                const v = Number(raw)
+                if (!Number.isNaN(v)) {
+                    sortedValues.push(v)
+                }
+            }
+        }
+        sortedValues.sort((a, b) => a - b)
 
         // Use data item name as legend unit (load from server if needed)
         legend.unit = await getLegendUnit(engine, styleDataItem)
@@ -304,6 +324,12 @@ const styleByOptionSet = async (config, engine) => {
         color: option.style.color,
     }))
 
+    // O(1) legend item lookup
+    // Built before the Unclassified/No data items are appended below
+    const legendItemByName = new Map(
+        legend.items.map((item) => [item.name, item])
+    )
+
     const { unclassifiedLegendItem, noDataLegendItem } = addSpecialLegendItems(
         legend,
         { noDataLegend, unclassifiedLegend }
@@ -311,18 +337,16 @@ const styleByOptionSet = async (config, engine) => {
     stampLegendItems(legend.items, eventPointRadius)
 
     // For easier and faster lookup below
-    // TODO: There might be options with duplicate name, so code/id would be safer
-    // If we use code/id we also need to retrive name to show in popup/data table/download
-    const optionsByName = optionSet.options.reduce((obj, option) => {
-        obj[option.name.toLowerCase()] = option
-        return obj
-    }, {})
+    // (option names are unique within an option set)
+    const optionsByName = new Map(
+        optionSet.options.map((option) => [option.name.toLowerCase(), option])
+    )
 
     // Add style data value and color to each feature
     config.data = config.data.reduce((acc, feature) => {
         const name = feature.properties[id]
         const isNoData = !hasValue(name)
-        const option = isNoData ? null : optionsByName[name.toLowerCase()]
+        const option = isNoData ? null : optionsByName.get(name.toLowerCase())
         const isUnclassified = !isNoData && !option
 
         if (isUnclassified && !unclassifiedLegendItem) {
@@ -334,7 +358,7 @@ const styleByOptionSet = async (config, engine) => {
 
         if (option) {
             addFeature(acc, feature, {
-                item: legend.items.find((i) => i.name === option.name),
+                item: legendItemByName.get(option.name),
                 value: option.name,
             })
         } else if (isUnclassified) {

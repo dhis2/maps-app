@@ -56,7 +56,7 @@ const interceptRequests = (param) => {
         {
             method: 'GET',
             url: `**/me?fields=${encodeURIComponent(
-                'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty,keyUiLocale]'
+                'id,username,displayName~rename(name),authorities,organisationUnits[id,children[id,children[id]]],settings[keyAnalysisDisplayProperty,keyUiLocale]'
             )}`,
         },
         param,

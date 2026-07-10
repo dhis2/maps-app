@@ -10,8 +10,8 @@ import {
     EVENT_COORDINATE_CASCADING,
     NONE,
 } from '../../constants/layers.js'
-import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
+import { useEventDataItems } from './EventDataItemsProvider.jsx'
 
 const CoordinateField = ({
     value,
@@ -42,11 +42,7 @@ const CoordinateField = ({
         eventDataItems,
         trackedEntityType,
         loading: itemsLoading,
-    } = useEventDataItems({
-        programId: program?.id,
-        programStageId: programStage?.id,
-        includeTypes,
-    })
+    } = useEventDataItems({ includeTypes })
 
     const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
 

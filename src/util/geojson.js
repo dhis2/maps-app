@@ -1,3 +1,4 @@
+import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
 import { formatWithSeparator } from './numbers.js'
@@ -25,6 +26,19 @@ const rawGeometryTypes = [
     'MultiLineString',
     GEO_TYPE_MULTIPOLYGON,
 ]
+
+export const getContainingOrgUnit = ([lng, lat], orgUnitGeometries) =>
+    orgUnitGeometries.find((geometry) => {
+        const { type } = geometry
+        if (type === GEO_TYPE_POLYGON || type === GEO_TYPE_MULTIPOLYGON) {
+            return booleanPointInPolygon([lng, lat], geometry)
+        }
+        // Other geometry types are treated as "inside".
+        return true
+    }) ?? null
+
+export const isPointInsideOrgUnits = (point, orgUnitGeometries) =>
+    getContainingOrgUnit(point, orgUnitGeometries) !== null
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
 export const createEventFeature = ({
@@ -95,6 +109,7 @@ export const createEventFeatures = (response, config = {}) => {
     const data = []
     const dataWithoutCoords = []
 
+    // TODO: synchronous over all rows — consider chunking/yielding both for very large layers.
     response.rows.forEach((row) => {
         const feature = createEventFeature({
             headers: response.headers,

@@ -547,6 +547,64 @@ describe('styleByDataItem', () => {
         expect(result.legend.unit).toEqual(OPTION_SET_NAME)
     })
 
+    it('should use the real option color when an option name matches the No data legend label', async () => {
+        // Regression test: an option literally named "No data" must keep its
+        // own style, not get shadowed by the special No-data legend item
+        // (which defaults to the same "No data" label).
+        const localMockEngine = {
+            query: jest.fn((query, extra) => {
+                if (extra.variables?.id === OPTION_SET_ID) {
+                    return Promise.resolve({
+                        optionSet: {
+                            name: OPTION_SET_NAME,
+                            options: [
+                                {
+                                    id: '1',
+                                    name: 'Yes',
+                                    style: { color: 'green' },
+                                },
+                                {
+                                    id: '2',
+                                    name: 'No data',
+                                    style: { color: 'blue' },
+                                },
+                            ],
+                        },
+                    })
+                }
+                return Promise.resolve({})
+            }),
+        }
+
+        const config = {
+            styleDataItem: {
+                id: STYLE_DATA_ITEM_ID,
+                optionSet: {
+                    id: OPTION_SET_ID,
+                    options: [{ id: '1' }, { id: '2' }],
+                },
+            },
+            data: [
+                { properties: { [STYLE_DATA_ITEM_ID]: 'No data' } }, // real option value
+                { properties: {} }, // actually missing
+            ],
+            legend: { items: [] },
+            eventPointRadius: 8,
+            noDataLegend: { color: '#aaaaaa' },
+        }
+
+        const result = await styleByDataItem(config, localMockEngine)
+
+        expect(result.data[0].properties).toMatchObject({
+            value: 'No data',
+            color: 'blue',
+        })
+        expect(result.data[1].properties).toMatchObject({
+            value: NOTSET_VALUE,
+            color: '#aaaaaa',
+        })
+    })
+
     it('should include unclassified and no-data events when configured (option set)', async () => {
         const config = {
             styleDataItem: {
