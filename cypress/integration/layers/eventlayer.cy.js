@@ -217,6 +217,45 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('adds an event layer with multiple periods', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 2,
+                y: CURRENT_YEAR - 1,
+            })
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 7,
+                removeAll: false,
+            })
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectOu(programIP.ous[1])
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(programIP.name)
+        Layer.validateCardPeriod(`March ${CURRENT_YEAR - 1}`)
+        Layer.validateCardPeriod(`September ${CURRENT_YEAR - 1}`)
+
+        cy.wait(POPUP_WAIT)
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+
+        getMaps().click('center')
+        Layer.validatePopupContents(['Event location'])
+    })
+
     it('preserves start/end dates when editing a saved event layer', () => {
         Layer.openDialog('Events')
             .selectProgram(programIP.name)

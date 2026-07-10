@@ -43,12 +43,6 @@ export class EventLayer extends Layer {
         return this
     }
 
-    selectStartEndDates() {
-        cy.contains('Define start - end dates').click()
-
-        return this
-    }
-
     selectViewAllEvents() {
         // Group events by default or View all events
         cy.get('[src="images/nocluster.png"]').click()
