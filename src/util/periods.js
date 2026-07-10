@@ -211,7 +211,7 @@ export const getFixedPeriodName = (id) => {
     }
     return getFixedPeriodsByType({
         periodType,
-        year: parseInt(year, 10),
+        year: Number.parseInt(year, 10),
     })?.find((p) => p.id === id)?.name
 }
 
