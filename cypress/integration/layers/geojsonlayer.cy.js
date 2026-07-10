@@ -80,6 +80,7 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('bottom-panel')
             .find('tbody')
             .find('tr')
+            .find('td')
             .first()
             .rightclick()
 
