@@ -234,9 +234,10 @@ describe('data table', () => {
         // Sort by Age in years
         cy.getByDataTest('data-table-column-sort-button-Age in years').click()
 
-        // confirm that the rows are sorted by Age in years descending
-        checkTableCell({ row: 0, column: 7, expectedContent: '32' })
-        checkTableCell({ row: 1, column: 7, expectedContent: '6' })
+        // Confirm that the rows are sorted by Age in years ascending
+        // (the first click on a new column always sorts ascending)
+        checkTableCell({ row: 0, column: 7, expectedContent: '6' })
+        checkTableCell({ row: 1, column: 7, expectedContent: '32' })
 
         // right-click a row: Event layers have no profile to view
         cy.getByDataTest('bottom-panel')
@@ -296,35 +297,36 @@ describe('data table', () => {
         // Confirm that the sort order is initially ascending by Name
         checkTableCell({ row: 0, column: 1, expectedContent: 'Bendu CHC' })
 
+        // First click on a new column always sorts ascending
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
-        // Check that first row has Gbamgbama CHC with value 117.98
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '117.98' })
+        // Check that first row has Tihun CHC with value 28.63
+        checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 0, column: 3, expectedContent: '28.63' })
 
-        // Check that row 5 has Tihun CHC with value 28.63
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '28.63' })
+        // Check that row 5 has Gbamgbama CHC with value 117.98
+        checkTableCell({ row: 5, column: 1, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 5, column: 3, expectedContent: '117.98' })
 
         // Check that row 6 has no value (undefined)
         checkTableCell({ row: 6, column: 3, expectedContent: '' })
 
-        // Sort ascending by Value
+        // Sort descending by Value
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '28.63' })
+        checkTableCell({ row: 0, column: 1, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 0, column: 3, expectedContent: '117.98' })
 
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '117.98' })
+        checkTableCell({ row: 5, column: 1, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 5, column: 3, expectedContent: '28.63' })
 
         checkTableCell({ row: 6, column: 3, expectedContent: '' })
 
-        // Sort by index and scroll to the top
+        // Sort by index (a new column, so ascending) and scroll to the top
         cy.getByDataTest('data-table-column-sort-button-Index').click()
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        checkTableCell({ row: 0, column: 0, expectedContent: '28' })
+        checkTableCell({ row: 0, column: 0, expectedContent: '0' })
 
         // Check that row 0 range value is empty
         checkTableCell({ row: 0, column: 5, expectedContent: '' })
