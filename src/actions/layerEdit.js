@@ -139,6 +139,12 @@ export const setCountFeaturesWithoutCoordinates = (checked) => ({
     checked,
 })
 
+// Set if events outside selected org units should be filtered and counted
+export const setCountEventsOutsideOrgUnits = (checked) => ({
+    type: types.LAYER_EDIT_COUNT_EVENTS_OUTSIDE_OU_SET,
+    checked,
+})
+
 // Set event point radius (event layer)
 export const setEventPointRadius = (radius) => ({
     type: types.LAYER_EDIT_EVENT_POINT_RADIUS_SET,
@@ -389,4 +395,10 @@ export const setEarthEnginePeriod = (payload) => ({
 export const setFeatureStyle = (payload) => ({
     type: types.LAYER_EDIT_FEATURE_STYLE_SET,
     payload,
+})
+
+// Set label data item
+export const setLabelDataItem = (item) => ({
+    type: types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET,
+    item,
 })

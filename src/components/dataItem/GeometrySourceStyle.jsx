@@ -11,8 +11,8 @@ import {
     EVENT_COORDINATE_TRACKED_ENTITY,
     NONE,
 } from '../../constants/layers.js'
-import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import OptionStyle from '../optionSet/OptionStyle.jsx'
+import { useEventDataItems } from './EventDataItemsProvider.jsx'
 
 const style = {
     marginTop: 20,
@@ -59,12 +59,7 @@ const GeometrySourceStyle = () => {
     const fallbackCoordinateField = useSelector(
         (state) => state.layerEdit.fallbackCoordinateField
     )
-    const program = useSelector((state) => state.layerEdit.program)
-    const programStage = useSelector((state) => state.layerEdit.programStage)
-
     const { eventDataItems, trackedEntityType } = useEventDataItems({
-        programId: program?.id,
-        programStageId: programStage?.id,
         includeTypes: ['COORDINATE', 'ORGANISATION_UNIT'],
     })
 

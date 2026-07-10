@@ -220,6 +220,7 @@ export const getGroupSetStyleTypes = () => [
 export const LABEL_TEMPLATE_NAME_ONLY = '{name}'
 export const LABEL_TEMPLATE_NAME_AND_VALUE = '{name}\n{value}'
 export const LABEL_TEMPLATE_VALUE_ONLY = '{value}'
+export const LABEL_TEMPLATE_TOOLTIP_ONLY = '{tooltip}'
 
 /* LABEL STYLES */
 export const LABEL_FONT_SIZE = '14px'

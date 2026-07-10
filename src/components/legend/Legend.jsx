@@ -14,10 +14,14 @@ import {
 } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Bubbles from './Bubbles.jsx'
+import LegendDataQuality from './LegendDataQuality.jsx'
 import LegendItem from './LegendItem.jsx'
 import styles from './styles/Legend.module.css'
 
 const NAME_OVERFLOW_THRESHOLD = 0.33
+
+// Range formatting helpers
+// -----
 
 const countDecimals = (value) => {
     const dot = String(value).indexOf('.')
@@ -88,6 +92,9 @@ const Legend = ({
     sourceUrl,
     decimalPlaces,
     eventsWithoutCoordinatesCount,
+    eventsOutsideOrgUnitsCount,
+    orgUnitsWithoutBoundaryCount,
+    orgUnitsTotalCount,
     orgUnitsWithoutCoordinatesCount,
     orgUnitsPointOnly = false,
     isPlugin = false,
@@ -95,6 +102,9 @@ const Legend = ({
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
+
+    // Item list preparation
+    // -----
 
     const sortedItems = useMemo(
         () =>
@@ -145,6 +155,9 @@ const Legend = ({
                 : [],
         [items]
     )
+
+    // Table overflow suppression
+    // -----
 
     const tableRef = useRef(null)
     const [suppressAllRanges, setSuppressAllRanges] = useState(false)
@@ -205,6 +218,9 @@ const Legend = ({
         return () => resizeObserver.disconnect()
     }, [suppressAllRanges, sortedItems])
 
+    // Range & scale computations
+    // -----
+
     // Suppress range columns when all names already encode the range; isolated
     // items are checked individually as they may differ from the rest.
     const showRange =
@@ -263,6 +279,9 @@ const Legend = ({
                 getCompactScale([v])?.scientific
         )
 
+    // Row rendering
+    // -----
+
     const renderRow = (item, index) => {
         const itemShowRange = getShowRange(item)
         const { startValue, endValue } = resolveRangeValues(item, itemShowRange)
@@ -284,60 +303,8 @@ const Legend = ({
         )
     }
 
-    const dataQuality = (typeof eventsWithoutCoordinatesCount === 'number' ||
-        typeof orgUnitsWithoutCoordinatesCount === 'number') && (
-        <div className={styles.dataQuality}>
-            <div>{i18n.t('Data quality')}</div>
-            {typeof eventsWithoutCoordinatesCount === 'number' && (
-                <div>
-                    {eventsWithoutCoordinatesCount === 0
-                        ? i18n.t('All events have coordinates')
-                        : i18n.t('{{n}} event without coordinates', {
-                              count: eventsWithoutCoordinatesCount,
-                              n: formatWithSeparator(
-                                  eventsWithoutCoordinatesCount,
-                                  keyAnalysisDigitGroupSeparator
-                              ),
-                              defaultValue_plural:
-                                  '{{n}} events without coordinates',
-                          })}
-                </div>
-            )}
-            {typeof orgUnitsWithoutCoordinatesCount === 'number' && (
-                <div>
-                    {(() => {
-                        if (orgUnitsWithoutCoordinatesCount === 0) {
-                            return orgUnitsPointOnly
-                                ? i18n.t('All org units have a point location')
-                                : i18n.t('All org units have coordinates')
-                        }
-                        return orgUnitsPointOnly
-                            ? i18n.t(
-                                  '{{n}} org unit without a point location',
-                                  {
-                                      count: orgUnitsWithoutCoordinatesCount,
-                                      n: formatWithSeparator(
-                                          orgUnitsWithoutCoordinatesCount,
-                                          keyAnalysisDigitGroupSeparator
-                                      ),
-                                      defaultValue_plural:
-                                          '{{n}} org units without a point location',
-                                  }
-                              )
-                            : i18n.t('{{n}} org unit without coordinates', {
-                                  count: orgUnitsWithoutCoordinatesCount,
-                                  n: formatWithSeparator(
-                                      orgUnitsWithoutCoordinatesCount,
-                                      keyAnalysisDigitGroupSeparator
-                                  ),
-                                  defaultValue_plural:
-                                      '{{n}} org units without coordinates',
-                              })
-                    })()}
-                </div>
-            )}
-        </div>
-    )
+    // Render
+    // -----
 
     return (
         <dl className={styles.legend} data-test="layerlegend">
@@ -407,7 +374,17 @@ const Legend = ({
                     )}
                 </div>
             )}
-            {dataQuality}
+            <LegendDataQuality
+                eventsWithoutCoordinatesCount={eventsWithoutCoordinatesCount}
+                eventsOutsideOrgUnitsCount={eventsOutsideOrgUnitsCount}
+                orgUnitsWithoutBoundaryCount={orgUnitsWithoutBoundaryCount}
+                orgUnitsTotalCount={orgUnitsTotalCount}
+                orgUnitsWithoutCoordinatesCount={
+                    orgUnitsWithoutCoordinatesCount
+                }
+                orgUnitsPointOnly={orgUnitsPointOnly}
+                isPlugin={isPlugin}
+            />
         </dl>
     )
 }
@@ -422,6 +399,7 @@ Legend.propTypes = {
     coordinateFields: PropTypes.array,
     decimalPlaces: PropTypes.number,
     description: PropTypes.string,
+    eventsOutsideOrgUnitsCount: PropTypes.number,
     eventsWithoutCoordinatesCount: PropTypes.number,
     explanation: PropTypes.array,
     filters: PropTypes.array,
@@ -429,6 +407,8 @@ Legend.propTypes = {
     isPlugin: PropTypes.bool,
     items: PropTypes.array,
     orgUnitsPointOnly: PropTypes.bool,
+    orgUnitsTotalCount: PropTypes.number,
+    orgUnitsWithoutBoundaryCount: PropTypes.number,
     orgUnitsWithoutCoordinatesCount: PropTypes.number,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,

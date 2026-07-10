@@ -1,3 +1,24 @@
+# [101.15.0](https://github.com/dhis2/maps-app/compare/v101.14.0...v101.15.0) (2026-07-10)
+
+
+### Features
+
+* add event layer tooltips, labels, and org unit boundary checks ([#3710](https://github.com/dhis2/maps-app/issues/3710)) ([06872ac](https://github.com/dhis2/maps-app/commit/06872acb9fbd287b8188209f1f88db8cf46fdf0c))
+
+# [101.14.0](https://github.com/dhis2/maps-app/compare/v101.13.5...v101.14.0) (2026-07-02)
+
+
+### Features
+
+* add custom scale toggle for heat stress layers [DHIS2-20564] ([#3708](https://github.com/dhis2/maps-app/issues/3708)) ([ad788ac](https://github.com/dhis2/maps-app/commit/ad788acfa1dee904b83b7e7f1811d873b4faa00c))
+
+## [101.13.5](https://github.com/dhis2/maps-app/compare/v101.13.4...v101.13.5) (2026-06-30)
+
+
+### Bug Fixes
+
+* stop flooding logs with warnings when opening the Data dimension panel [DHIS2-20499] ([#3709](https://github.com/dhis2/maps-app/issues/3709)) ([95fbdda](https://github.com/dhis2/maps-app/commit/95fbdda4206916c5785749f94f3ecdb6213100e4))
+
 ## [101.13.4](https://github.com/dhis2/maps-app/compare/v101.13.3...v101.13.4) (2026-06-29)
 
 

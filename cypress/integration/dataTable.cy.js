@@ -316,7 +316,7 @@ describe('data table', () => {
 
         // Sort by index and scroll to the top
         cy.get('button[title="Sort by Index"]').click()
-        cy.get('[data-test-id="virtuoso-scroller"]').scrollTo('top')
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         checkTableCell({ row: 0, column: 0, expectedContent: '28' })
 

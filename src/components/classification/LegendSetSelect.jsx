@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLegendSet } from '../../actions/layerEdit.js'
 import { SelectField } from '../core/index.js'
+import styles from './styles/LegendSetSelect.module.css'
 
 // Load all legend sets
 const LEGEND_SETS_QUERY = {
@@ -15,10 +16,6 @@ const LEGEND_SETS_QUERY = {
             paging: false,
         },
     },
-}
-
-const style = {
-    width: '100%',
 }
 
 const LegendSetSelect = ({ defaultLegendSet, legendSetError }) => {
@@ -45,7 +42,7 @@ const LegendSetSelect = ({ defaultLegendSet, legendSetError }) => {
             value={legendSet ? legendSet.id : null}
             errorText={error?.message || legendSetError}
             onChange={(legendSet) => dispatch(setLegendSet(legendSet))}
-            style={style}
+            className={styles.legendSetSelect}
         />
     )
 }
