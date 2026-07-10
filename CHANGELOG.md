@@ -1,3 +1,10 @@
+# [101.15.0](https://github.com/dhis2/maps-app/compare/v101.14.0...v101.15.0) (2026-07-10)
+
+
+### Features
+
+* add event layer tooltips, labels, and org unit boundary checks ([#3710](https://github.com/dhis2/maps-app/issues/3710)) ([06872ac](https://github.com/dhis2/maps-app/commit/06872acb9fbd287b8188209f1f88db8cf46fdf0c))
+
 # [101.14.0](https://github.com/dhis2/maps-app/compare/v101.13.5...v101.14.0) (2026-07-02)
 
 
