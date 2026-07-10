@@ -494,6 +494,17 @@ layer configuration dialog.
     **Data quality** section of the legend. They also appear in the data table. These events may or
     may not have data.
 
+-   **Filter and count events outside org unit boundaries**: Events falling outside the boundaries
+    of the selected org units are excluded from the map, and counted in the **Data quality** section
+    of the legend, which also flags when some or all of the selected org units lack boundary data.
+    These events remain in the data table, but can be identified by their empty **Org unit
+    boundary** column value. Events inside a boundary are tagged with the name of their containing
+    org unit in that same column.
+
+-   **Tooltip field**: Select a data element or attribute to show as a tooltip when hovering over an
+    event. Selecting **Labels** makes the tooltip persistent on the map. Font size, weight, style
+    and color can also be modified.
+
 -   Select **Style by data item** (data element or attribute) to colorize the events according to a
     data value. If events are grouped, clusters are displayed as small donut charts showing the
     distribution of the data values. The available options vary for different data types:

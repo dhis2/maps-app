@@ -3,7 +3,37 @@ import {
     DIGIT_GROUP_SEPARATOR_NONE,
     DIGIT_GROUP_SEPARATOR_SPACE,
 } from '../../constants/settings.js'
-import { formatValueForDisplay, sumObjectValues } from '../helpers.js'
+import { formatValueForDisplay, hasValue, sumObjectValues } from '../helpers.js'
+
+describe('hasValue', () => {
+    it('returns false for undefined', () => {
+        expect(hasValue(undefined)).toBe(false)
+    })
+
+    it('returns false for null', () => {
+        expect(hasValue(null)).toBe(false)
+    })
+
+    it('returns false for an empty string', () => {
+        expect(hasValue('')).toBe(false)
+    })
+
+    it('returns false for the "Not set" sentinel string', () => {
+        expect(hasValue('Not set')).toBe(false)
+    })
+
+    it('returns true for 0 (a real value, not missing data)', () => {
+        expect(hasValue(0)).toBe(true)
+    })
+
+    it('returns true for NaN (invalid/corrupt data is not the same as missing data)', () => {
+        expect(hasValue(NaN)).toBe(true)
+    })
+
+    it('returns true for a non-empty string', () => {
+        expect(hasValue('some value')).toBe(true)
+    })
+})
 
 describe('formatValueForDisplay', () => {
     it.each([

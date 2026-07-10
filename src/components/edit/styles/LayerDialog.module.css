@@ -143,12 +143,14 @@
     composes: flexInnerColumn;
 }
 
-.checkbox {
-    margin: var(--spacers-dp8) 0 0 calc(var(--spacers-dp8) * -1);
+.colorScaleSelect,
+.radiusSelect,
+.pointStyle {
+    margin-bottom: var(--spacers-dp8);
 }
 
-.labels {
-    margin-top: var(--spacers-dp8);
+.checkbox {
+    margin: var(--spacers-dp8) 0 0 calc(var(--spacers-dp8) * -1);
 }
 
 .labelDisplayOptions {
@@ -226,9 +228,10 @@
     padding: var(--spacers-dp12) 0;
 }
 
-.scale {
-    margin-left: var(--spacers-dp8);
+.flexInnerColumnFlow > .scale {
     margin-top: var(--spacers-dp16);
+    margin-left: var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp8);
 }
 
 .eeError {

@@ -4,7 +4,9 @@ import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
 } from '../../constants/settings.js'
+import { getUserOrgUnitIdsByKeyword } from '../../util/orgUnits.js'
 import { getHiddenPeriods } from '../../util/periods.js'
+import { CURRENT_USER_FIELDS } from '../../util/requests.js'
 import { CachedDataProvider } from '../cachedDataProvider/CachedDataProvider.jsx'
 import MapContainer from './MapContainer.jsx'
 
@@ -18,7 +20,7 @@ const query = {
     currentUser: {
         resource: 'me',
         params: {
-            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty]',
+            fields: `${CURRENT_USER_FIELDS},settings[keyAnalysisDisplayProperty]`,
         },
     },
 }
@@ -40,6 +42,9 @@ const providerDataTransformation = ({ systemSettings, currentUser }) => {
             authorities: new Set(currentUser.authorities),
             keyAnalysisDisplayProperty:
                 currentUser.settings.keyAnalysisDisplayProperty,
+            userOrgUnitIdsByKeyword: getUserOrgUnitIdsByKeyword(
+                currentUser.organisationUnits
+            ),
         },
         nameProperty:
             currentUser.settings.keyAnalysisDisplayProperty === 'name'

@@ -354,6 +354,14 @@ describe('numbers', () => {
             expect(parseWithSeparator('abc')).toBeUndefined()
         })
 
+        it('returns undefined for an empty string', () => {
+            expect(parseWithSeparator('')).toBeUndefined()
+        })
+
+        it('does not treat a whitespace-only string as missing', () => {
+            expect(parseWithSeparator('  ')).toBe(0)
+        })
+
         it('round-trips with formatWithSeparator', () => {
             expect(
                 parseWithSeparator(
