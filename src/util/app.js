@@ -7,14 +7,15 @@ import {
 import { getBasemapList } from './basemaps.js'
 import { createExternalOverlayLayer, supportedMapServices } from './external.js'
 import { getDefaultLayerTypes } from './getDefaultLayerTypes.js'
+import { getUserOrgUnitIdsByKeyword } from './orgUnits.js'
 import { getHiddenPeriods } from './periods.js'
-import { EXTERNAL_MAP_LAYERS_QUERY } from './requests.js'
+import { CURRENT_USER_FIELDS, EXTERNAL_MAP_LAYERS_QUERY } from './requests.js'
 
 export const appQueries = {
     currentUser: {
         resource: 'me',
         params: {
-            fields: 'id,username,displayName~rename(name),authorities,settings[keyAnalysisDisplayProperty,keyUiLocale]',
+            fields: `${CURRENT_USER_FIELDS},settings[keyAnalysisDisplayProperty,keyUiLocale]`,
         },
     },
     systemSettings: {
@@ -57,6 +58,9 @@ export const providerDataTransformation = async ({
         authorities: new Set(currentUser.authorities),
         keyAnalysisDisplayProperty:
             currentUser.settings.keyAnalysisDisplayProperty,
+        userOrgUnitIdsByKeyword: getUserOrgUnitIdsByKeyword(
+            currentUser.organisationUnits
+        ),
     },
     nameProperty:
         currentUser.settings.keyAnalysisDisplayProperty === 'name'

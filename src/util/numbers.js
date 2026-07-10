@@ -214,6 +214,9 @@ export const getPrecision = (values = []) => {
 }
 
 export const parseWithSeparator = (value) => {
+    if (value === '') {
+        return undefined
+    }
     const num = Number(String(value).replaceAll(/[\s,]/g, ''))
     return Number.isNaN(num) ? undefined : num
 }

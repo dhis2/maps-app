@@ -1,11 +1,115 @@
 import {
+    USER_ORG_UNIT,
+    USER_ORG_UNIT_CHILDREN,
+    USER_ORG_UNIT_GRANDCHILDREN,
+} from '@dhis2/analytics'
+import {
     getStyledOrgUnits,
     addGroupCountsToLegend,
     addLevelCountsToLegend,
     getOrgUnitsWithoutCoordsCount,
     fetchAndParseGroupSet,
     loadGroupSetData,
+    getUserOrgUnitIdsByKeyword,
+    fetchOrgUnitDetails,
+    fetchOrgUnitPaths,
 } from '../orgUnits.js'
+
+describe('getUserOrgUnitIdsByKeyword', () => {
+    it('returns empty arrays for all three keywords when no org units are given', () => {
+        expect(getUserOrgUnitIdsByKeyword()).toEqual({
+            [USER_ORG_UNIT]: [],
+            [USER_ORG_UNIT_CHILDREN]: [],
+            [USER_ORG_UNIT_GRANDCHILDREN]: [],
+        })
+    })
+
+    it('resolves USER_ORGUNIT to the ids of the user’s own org units', () => {
+        const result = getUserOrgUnitIdsByKeyword([{ id: 'a' }, { id: 'b' }])
+        expect(result[USER_ORG_UNIT]).toEqual(['a', 'b'])
+    })
+
+    it('resolves USER_ORGUNIT_CHILDREN to the flattened children of every user org unit', () => {
+        const result = getUserOrgUnitIdsByKeyword([
+            { id: 'a', children: [{ id: 'a1' }, { id: 'a2' }] },
+            { id: 'b', children: [{ id: 'b1' }] },
+        ])
+        expect(result[USER_ORG_UNIT_CHILDREN]).toEqual(['a1', 'a2', 'b1'])
+    })
+
+    it('resolves USER_ORGUNIT_GRANDCHILDREN to the flattened grandchildren of every user org unit', () => {
+        const result = getUserOrgUnitIdsByKeyword([
+            {
+                id: 'a',
+                children: [
+                    { id: 'a1', children: [{ id: 'a1a' }, { id: 'a1b' }] },
+                    { id: 'a2', children: [{ id: 'a2a' }] },
+                ],
+            },
+        ])
+        expect(result[USER_ORG_UNIT_GRANDCHILDREN]).toEqual([
+            'a1a',
+            'a1b',
+            'a2a',
+        ])
+    })
+
+    it('treats a missing children field as having no children or grandchildren', () => {
+        const result = getUserOrgUnitIdsByKeyword([{ id: 'a' }])
+        expect(result[USER_ORG_UNIT_CHILDREN]).toEqual([])
+        expect(result[USER_ORG_UNIT_GRANDCHILDREN]).toEqual([])
+    })
+})
+
+describe('fetchOrgUnitDetails / fetchOrgUnitPaths error handling', () => {
+    it('fetchOrgUnitDetails returns an empty object when the query fails', async () => {
+        const engine = {
+            query: jest.fn().mockRejectedValue(new Error('Network error')),
+        }
+        const result = await fetchOrgUnitDetails(engine, ['ou1'])
+        expect(result).toEqual({})
+    })
+
+    it('fetchOrgUnitPaths returns an empty array when the query fails', async () => {
+        const engine = {
+            query: jest.fn().mockRejectedValue(new Error('Network error')),
+        }
+        const result = await fetchOrgUnitPaths(engine, ['ou1'])
+        expect(result).toEqual([])
+    })
+
+    it('fetchOrgUnitPaths keeps results from batches that succeed when another batch fails', async () => {
+        const batch1Ids = Array.from({ length: 100 }, (_, i) => `ou${i}`)
+        const batch2Ids = ['ouExtra']
+        const engine = {
+            query: jest.fn((query, { variables }) => {
+                if (variables.ids === batch1Ids.join(',')) {
+                    return Promise.resolve({
+                        organisationUnits: {
+                            organisationUnits: [
+                                { id: 'ou0', path: '/root/ou0' },
+                            ],
+                        },
+                    })
+                }
+                return Promise.reject(new Error('Network error'))
+            }),
+        }
+        const result = await fetchOrgUnitPaths(engine, [
+            ...batch1Ids,
+            ...batch2Ids,
+        ])
+        expect(result).toEqual([{ id: 'ou0', path: '/root/ou0' }])
+    })
+
+    it('fetchOrgUnitPaths skips a batch whose response is missing the organisationUnits array', async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({ organisationUnits: {} }),
+        }
+        const result = await fetchOrgUnitPaths(engine, ['ou1'])
+        expect(result).toEqual([])
+    })
+})
 
 describe('getStyledOrgUnits', () => {
     it('should return styled features and legend for facility layer', () => {

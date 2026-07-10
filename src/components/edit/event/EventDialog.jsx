@@ -20,6 +20,7 @@ import {
     setEndDate,
     setBackupPeriodsDates,
     setCountFeaturesWithoutCoordinates,
+    setCountEventsOutsideOrgUnits,
 } from '../../../actions/layerEdit.js'
 import {
     EVENT_COLOR,
@@ -50,6 +51,7 @@ import {
     Checkbox,
 } from '../../core/index.js'
 import CoordinateField from '../../dataItem/CoordinateField.jsx'
+import EventDataItemsProvider from '../../dataItem/EventDataItemsProvider.jsx'
 import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
@@ -62,12 +64,14 @@ import { getPeriodValidationRules } from '../shared/validatePeriod.js'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.jsx'
 import { initializeEventLayer } from './initializeEventLayer.js'
+import LabelFieldSelect from './LabelFieldSelect.jsx'
 
 const DEFAULT_NO_COLUMNS = []
 
 const EventDialog = ({
     backupPeriodsDates,
     columns = DEFAULT_NO_COLUMNS,
+    countEventsOutsideOrgUnits,
     countFeaturesWithoutCoordinates,
     endDate,
     eventClustering,
@@ -258,53 +262,63 @@ const EventDialog = ({
     }, [validateLayer, onLayerValidation, validate])
 
     return (
-        <div className={styles.content} data-test="eventdialog">
-            <Tabs value={tab} onChange={setTab}>
-                <Tab value="data">{i18n.t('Data')}</Tab>
-                <Tab value="period">{i18n.t('Period')}</Tab>
-                <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
-                <Tab value="filter">{i18n.t('Filter')}</Tab>
-                <Tab value="style">{i18n.t('Style')}</Tab>
-            </Tabs>
-            <div className={styles.tabContent} data-test="eventdialog-content">
-                {tab === 'data' && (
-                    <div
-                        className={styles.flexRowFlow}
-                        data-test="eventdialog-datatab"
-                    >
-                        <ProgramSelect
-                            program={program}
-                            onChange={(val) => dispatch(setProgram(val))}
-                            className={styles.select}
-                            errorText={programError}
-                            data-test="eventdialog-programselect"
-                        />
-                        {program && (
-                            <ProgramStageSelect
+        <EventDataItemsProvider
+            programId={program?.id}
+            programStageId={programStage?.id}
+        >
+            <div className={styles.content} data-test="eventdialog">
+                <Tabs value={tab} onChange={setTab}>
+                    <Tab value="data">{i18n.t('Data')}</Tab>
+                    <Tab value="period">{i18n.t('Period')}</Tab>
+                    <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
+                    <Tab value="filter">{i18n.t('Filter')}</Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
+                </Tabs>
+                <div
+                    className={styles.tabContent}
+                    data-test="eventdialog-content"
+                >
+                    {tab === 'data' && (
+                        <div
+                            className={styles.flexRowFlow}
+                            data-test="eventdialog-datatab"
+                        >
+                            <ProgramSelect
+                                program={program}
+                                onChange={(val) => dispatch(setProgram(val))}
+                                className={styles.select}
+                                errorText={programError}
+                                data-test="eventdialog-programselect"
+                            />
+                            {program && (
+                                <ProgramStageSelect
+                                    program={program}
+                                    programStage={programStage}
+                                    onChange={(val) =>
+                                        dispatch(setProgramStage(val))
+                                    }
+                                    className={styles.select}
+                                    errorText={programStageError}
+                                />
+                            )}
+                            <CoordinateField
                                 program={program}
                                 programStage={programStage}
-                                onChange={(val) =>
-                                    dispatch(setProgramStage(val))
+                                value={eventCoordinateField}
+                                type={eventCoordinateFieldType}
+                                onChange={(fieldId, fieldType) =>
+                                    dispatch(
+                                        setEventCoordinateField(
+                                            fieldId,
+                                            fieldType
+                                        )
+                                    )
                                 }
                                 className={styles.select}
-                                errorText={programStageError}
+                                data-test="eventdialog-coordinatefield"
                             />
-                        )}
-                        <CoordinateField
-                            program={program}
-                            programStage={programStage}
-                            value={eventCoordinateField}
-                            type={eventCoordinateFieldType}
-                            onChange={(fieldId, fieldType) =>
-                                dispatch(
-                                    setEventCoordinateField(fieldId, fieldType)
-                                )
-                            }
-                            className={styles.select}
-                            data-test="eventdialog-coordinatefield"
-                        />
-                        <GeometryCentroid tab={'data'} />
-                        {/* eventCoordinateField && (
+                            <GeometryCentroid tab={'data'} />
+                            {/* eventCoordinateField && (
                             <CoordinateField
                                 program={program}
                                 programStage={programStage}
@@ -314,190 +328,223 @@ const EventDialog = ({
                                 className={styles.select}
                             />
                         ) */}
-                        <EventStatusSelect
-                            value={eventStatus}
-                            onChange={(val) => dispatch(setEventStatus(val))}
-                            className={styles.select}
-                        />
-                    </div>
-                )}
-                {tab === 'period' && (
-                    <div
-                        className={styles.flexRowFlow}
-                        data-test="eventdialog-periodtab"
-                    >
-                        <div className={styles.background}>
-                            <div
-                                className={cx(
-                                    styles.navigation,
-                                    styles.periodBox
-                                )}
-                            >
-                                <SegmentedControl
-                                    className={styles.flexRowFlow}
-                                    options={[
-                                        {
-                                            label: i18n.t(
-                                                'Choose from presets'
-                                            ),
-                                            value: PREDEFINED_PERIODS,
-                                        },
-                                        {
-                                            label: i18n.t(
-                                                'Define start - end dates'
-                                            ),
-                                            value: START_END_DATES,
-                                        },
-                                    ]}
-                                    selected={periodType}
-                                    onChange={({ value }) =>
-                                        dispatch(setPeriodType({ value }, true))
-                                    }
-                                />
-                            </div>
-                            {periodType === PREDEFINED_PERIODS && (
-                                <PeriodDimension
-                                    selectedPeriods={periods}
-                                    onSelect={({ items }) =>
-                                        dispatch(setPeriods(items))
-                                    }
-                                    excludedPeriodTypes={
-                                        systemSettings.hiddenPeriods
-                                    }
-                                    height="324px"
-                                />
-                            )}
-                            {periodType === START_END_DATES && (
-                                <StartEndDate
-                                    onSelectStartDate={(val) =>
-                                        dispatch(setStartDate(val))
-                                    }
-                                    onSelectEndDate={(val) =>
-                                        dispatch(setEndDate(val))
-                                    }
-                                    periodsSettings={periodsSettings}
-                                />
-                            )}
-                            {periodError && (
-                                <div className={styles.error}>
-                                    <IconErrorFilled24 />
-                                    {periodError}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
-                {tab === 'orgunits' && (
-                    <OrgUnitSelect
-                        hideAssociatedGeometry={true}
-                        hideLevelSelect={true}
-                        hideGroupSelect={true}
-                        warning={orgUnitsError}
-                    />
-                )}
-                {tab === 'filter' && (
-                    <div
-                        className={styles.flexRowFlow}
-                        data-test="eventdialog-filtertab"
-                    >
-                        <FilterGroup
-                            program={program}
-                            programStage={programStage}
-                            filters={splitFilterColumns(
-                                columns.filter((c) => c.filter !== undefined)
-                            )}
-                        />
-                    </div>
-                )}
-                {tab === 'style' && (
-                    <div
-                        className={styles.flexColumnFlow}
-                        data-test="eventdialog-styletab"
-                    >
-                        <div className={styles.flexColumn}>
-                            <div className={styles.flexInnerColumnFlow}>
-                                <ImageSelect
-                                    id="cluster"
-                                    img="images/cluster.png"
-                                    title={i18n.t('Group events')}
-                                    onClick={() =>
-                                        dispatch(setEventClustering(true))
-                                    }
-                                    isSelected={eventClustering}
-                                    className={styles.flexInnerColumn}
-                                />
-                                <ImageSelect
-                                    id="nocluster"
-                                    img="images/nocluster.png"
-                                    title={i18n.t('View all events')}
-                                    onClick={() =>
-                                        dispatch(setEventClustering(false))
-                                    }
-                                    isSelected={!eventClustering}
-                                    className={styles.flexInnerColumn}
-                                />
-                            </div>
-                            <div className={styles.flexInnerColumnFlow}>
-                                <ColorPicker
-                                    label={i18n.t('Color')}
-                                    color={
-                                        cssColor(eventPointColor) || EVENT_COLOR
-                                    }
-                                    onChange={(val) =>
-                                        dispatch(setEventPointColor(val))
-                                    }
-                                    className={styles.flexInnerColumn}
-                                />
-                                <NumberField
-                                    label={i18n.t('Radius')}
-                                    min={MIN_RADIUS}
-                                    max={MAX_RADIUS}
-                                    value={eventPointRadius || EVENT_RADIUS}
-                                    onChange={(val) =>
-                                        dispatch(setEventPointRadius(val))
-                                    }
-                                />
-                            </div>
-                            <GeometryCentroid tab={'style'} />
-                            <BufferRadius
-                                disabled={eventClustering}
-                                defaultRadius={EVENT_BUFFER}
-                            />
-                            <Checkbox
-                                label={i18n.t(
-                                    'Count events without coordinates'
-                                )}
-                                checked={!!countFeaturesWithoutCoordinates}
-                                onChange={(checked) =>
-                                    dispatch(
-                                        setCountFeaturesWithoutCoordinates(
-                                            checked
-                                        )
-                                    )
+                            <EventStatusSelect
+                                value={eventStatus}
+                                onChange={(val) =>
+                                    dispatch(setEventStatus(val))
                                 }
+                                className={styles.select}
                             />
                         </div>
-                        <div className={styles.flexColumn}>
-                            {program ? (
-                                <StyleByDataItem
-                                    program={program}
-                                    programStage={programStage}
-                                    error={!legendSet && legendSetError}
+                    )}
+                    {tab === 'period' && (
+                        <div
+                            className={styles.flexRowFlow}
+                            data-test="eventdialog-periodtab"
+                        >
+                            <div className={styles.background}>
+                                <div
+                                    className={cx(
+                                        styles.navigation,
+                                        styles.periodBox
+                                    )}
+                                >
+                                    <SegmentedControl
+                                        className={styles.flexRowFlow}
+                                        options={[
+                                            {
+                                                label: i18n.t(
+                                                    'Choose from presets'
+                                                ),
+                                                value: PREDEFINED_PERIODS,
+                                            },
+                                            {
+                                                label: i18n.t(
+                                                    'Define start - end dates'
+                                                ),
+                                                value: START_END_DATES,
+                                            },
+                                        ]}
+                                        selected={periodType}
+                                        onChange={({ value }) =>
+                                            dispatch(
+                                                setPeriodType({ value }, true)
+                                            )
+                                        }
+                                    />
+                                </div>
+                                {periodType === PREDEFINED_PERIODS && (
+                                    <PeriodDimension
+                                        selectedPeriods={periods}
+                                        onSelect={({ items }) =>
+                                            dispatch(setPeriods(items))
+                                        }
+                                        excludedPeriodTypes={
+                                            systemSettings.hiddenPeriods
+                                        }
+                                        height="324px"
+                                    />
+                                )}
+                                {periodType === START_END_DATES && (
+                                    <StartEndDate
+                                        onSelectStartDate={(val) =>
+                                            dispatch(setStartDate(val))
+                                        }
+                                        onSelectEndDate={(val) =>
+                                            dispatch(setEndDate(val))
+                                        }
+                                        periodsSettings={periodsSettings}
+                                    />
+                                )}
+                                {periodError && (
+                                    <div className={styles.error}>
+                                        <IconErrorFilled24 />
+                                        {periodError}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    {tab === 'orgunits' && (
+                        <OrgUnitSelect
+                            hideAssociatedGeometry={true}
+                            hideLevelSelect={true}
+                            hideGroupSelect={true}
+                            warning={orgUnitsError}
+                        />
+                    )}
+                    {tab === 'filter' && (
+                        <div
+                            className={styles.flexRowFlow}
+                            data-test="eventdialog-filtertab"
+                        >
+                            {programStage ? (
+                                <FilterGroup
+                                    filters={splitFilterColumns(
+                                        columns.filter(
+                                            (c) => c.filter !== undefined
+                                        )
+                                    )}
                                 />
                             ) : (
                                 <div className={styles.notice}>
                                     <NoticeBox>
                                         {i18n.t(
-                                            'You can style events by data element after selecting a program.'
+                                            'Filtering is available after selecting a program stage.'
                                         )}
                                     </NoticeBox>
                                 </div>
                             )}
                         </div>
-                    </div>
-                )}
+                    )}
+                    {tab === 'style' && (
+                        <div
+                            className={styles.flexColumnFlow}
+                            data-test="eventdialog-styletab"
+                        >
+                            <div className={styles.flexColumn}>
+                                <div className={styles.flexInnerColumnFlow}>
+                                    <ImageSelect
+                                        id="cluster"
+                                        img="images/cluster.png"
+                                        title={i18n.t('Group events')}
+                                        onClick={() =>
+                                            dispatch(setEventClustering(true))
+                                        }
+                                        isSelected={eventClustering}
+                                        className={styles.flexInnerColumn}
+                                    />
+                                    <ImageSelect
+                                        id="nocluster"
+                                        img="images/nocluster.png"
+                                        title={i18n.t('View all events')}
+                                        onClick={() =>
+                                            dispatch(setEventClustering(false))
+                                        }
+                                        isSelected={!eventClustering}
+                                        className={styles.flexInnerColumn}
+                                    />
+                                </div>
+                                <div
+                                    className={cx(
+                                        styles.flexInnerColumnFlow,
+                                        styles.pointStyle
+                                    )}
+                                >
+                                    <ColorPicker
+                                        label={i18n.t('Color')}
+                                        color={
+                                            cssColor(eventPointColor) ||
+                                            EVENT_COLOR
+                                        }
+                                        onChange={(val) =>
+                                            dispatch(setEventPointColor(val))
+                                        }
+                                        className={styles.flexInnerColumn}
+                                    />
+                                    <NumberField
+                                        label={i18n.t('Radius')}
+                                        min={MIN_RADIUS}
+                                        max={MAX_RADIUS}
+                                        value={eventPointRadius || EVENT_RADIUS}
+                                        onChange={(val) =>
+                                            dispatch(setEventPointRadius(val))
+                                        }
+                                    />
+                                </div>
+                                <GeometryCentroid tab={'style'} />
+                                <BufferRadius
+                                    disabled={eventClustering}
+                                    defaultRadius={EVENT_BUFFER}
+                                />
+                                <LabelFieldSelect />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count events without coordinates'
+                                    )}
+                                    checked={!!countFeaturesWithoutCoordinates}
+                                    onChange={(checked) =>
+                                        dispatch(
+                                            setCountFeaturesWithoutCoordinates(
+                                                checked
+                                            )
+                                        )
+                                    }
+                                />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Filter and count events outside org unit boundaries'
+                                    )}
+                                    checked={!!countEventsOutsideOrgUnits}
+                                    onChange={(checked) =>
+                                        dispatch(
+                                            setCountEventsOutsideOrgUnits(
+                                                checked
+                                            )
+                                        )
+                                    }
+                                />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                {program ? (
+                                    <StyleByDataItem
+                                        error={!legendSet && legendSetError}
+                                    />
+                                ) : (
+                                    <div className={styles.notice}>
+                                        <NoticeBox>
+                                            {i18n.t(
+                                                'You can style events by data element after selecting a program.'
+                                            )}
+                                        </NoticeBox>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
+        </EventDataItemsProvider>
     )
 }
 
@@ -506,6 +553,7 @@ EventDialog.propTypes = {
     onLayerValidation: PropTypes.func.isRequired,
     backupPeriodsDates: PropTypes.object,
     columns: PropTypes.array,
+    countEventsOutsideOrgUnits: PropTypes.bool,
     countFeaturesWithoutCoordinates: PropTypes.bool,
     endDate: PropTypes.string,
     eventClustering: PropTypes.bool,

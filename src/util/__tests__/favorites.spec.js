@@ -822,6 +822,53 @@ describe('cleanMapConfig', () => {
         expect(mapView.countFeaturesWithoutCoordinates).toBeUndefined()
     })
 
+    test('serializes labelDataItem into config JSON for event layer', () => {
+        const labelDataItem = {
+            id: 'qrur9Dvnyt5',
+            name: 'Age',
+            valueType: 'NUMBER',
+        }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    labelDataItem,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.labelDataItem).toEqual(labelDataItem)
+        expect(mapView).not.toHaveProperty('labelDataItem')
+    })
+
+    test('serializes countEventsOutsideOrgUnits into config JSON for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    countEventsOutsideOrgUnits: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countEventsOutsideOrgUnits).toBe(true)
+        expect(mapView.countEventsOutsideOrgUnits).toBeUndefined()
+    })
+
     test('preserves countFeaturesWithoutCoordinates as top-level property for earth engine layer', () => {
         const config = {
             mapViews: [

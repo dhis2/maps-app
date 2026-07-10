@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-07T10:25:49.144Z\n"
-"PO-Revision-Date: 2026-07-07T10:25:49.145Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"PO-Revision-Date: 2026-07-10T08:27:09.245Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -131,9 +131,6 @@ msgstr "Previously selected value not available in list: {{id}}"
 msgid "Style by data item"
 msgstr "Style by data item"
 
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filtering is available after selecting a program stage."
-
 msgid "Add filter"
 msgstr "Add filter"
 
@@ -209,6 +206,9 @@ msgstr "Range"
 
 msgid "Org unit"
 msgstr "Org unit"
+
+msgid "Org unit boundary"
+msgstr "Org unit boundary"
 
 msgid "Event time"
 msgstr "Event time"
@@ -422,6 +422,9 @@ msgstr "Choose from presets"
 msgid "Define start - end dates"
 msgstr "Define start - end dates"
 
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filtering is available after selecting a program stage."
+
 msgid "Group events"
 msgstr "Group events"
 
@@ -433,6 +436,9 @@ msgstr "Radius"
 
 msgid "Count events without coordinates"
 msgstr "Count events without coordinates"
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr "Filter and count events outside org unit boundaries"
 
 msgid "You can style events by data element after selecting a program."
 msgstr "You can style events by data element after selecting a program."
@@ -698,6 +704,24 @@ msgstr "Duplicate layer"
 msgid "Remove layer"
 msgstr "Remove layer"
 
+msgid "Filters"
+msgstr "Filters"
+
+msgid "Failed to load layer"
+msgstr "Failed to load layer"
+
+msgid "No data found"
+msgstr "No data found"
+
+msgid "All events outside org unit boundaries"
+msgstr "All events outside org unit boundaries"
+
+msgid "No coordinates found"
+msgstr "No coordinates found"
+
+msgid "Could not check org unit boundaries"
+msgstr "Could not check org unit boundaries"
+
 msgid "Data quality"
 msgstr "Data quality"
 
@@ -708,6 +732,25 @@ msgid "{{n}} event without coordinates"
 msgid_plural "{{n}} event without coordinates"
 msgstr[0] "{{n}} event without coordinates"
 msgstr[1] "{{n}} events without coordinates"
+
+msgid "All events within org unit boundaries"
+msgstr "All events within org unit boundaries"
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] "{{n}} event outside org unit boundaries"
+msgstr[1] "{{n}} events outside org unit boundaries"
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] "{{n}} of {{total}} org unit without boundaries"
+msgstr[1] "{{n}} of {{total}} org units without boundaries"
+
+msgid "Boundary check skipped"
+msgstr "Boundary check skipped"
+
+msgid "All org units without boundaries"
+msgstr "All org units without boundaries"
 
 msgid "All org units have a point location"
 msgstr "All org units have a point location"
@@ -724,18 +767,6 @@ msgid "{{n}} org unit without coordinates"
 msgid_plural "{{n}} org unit without coordinates"
 msgstr[0] "{{n}} org unit without coordinates"
 msgstr[1] "{{n}} org units without coordinates"
-
-msgid "Filters"
-msgstr "Filters"
-
-msgid "Failed to load layer"
-msgstr "Failed to load layer"
-
-msgid "No data found"
-msgstr "No data found"
-
-msgid "No coordinates found"
-msgstr "No coordinates found"
 
 msgid "Selected org units: No coordinates found"
 msgstr "Selected org units: No coordinates found"

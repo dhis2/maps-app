@@ -1,3 +1,8 @@
+import {
+    USER_ORG_UNIT,
+    USER_ORG_UNIT_CHILDREN,
+    USER_ORG_UNIT_GRANDCHILDREN,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { uniqBy } from 'lodash/fp'
 import { qualitativeColors } from '../constants/colors.js'
@@ -15,8 +20,22 @@ import {
     FIRST_DATA_ELEMENT_QUERY,
     GEOFEATURES_QUERY,
     ORG_UNITS_COUNT_QUERY,
+    ORG_UNITS_PATHS_QUERY,
     ORG_UNIT_DETAILS_QUERY,
 } from './requests.js'
+
+// Expands the user's org unit tree into USER_ORGUNIT keyword id lists.
+export const getUserOrgUnitIdsByKeyword = (organisationUnits = []) => ({
+    [USER_ORG_UNIT]: organisationUnits.map((ou) => ou.id),
+    [USER_ORG_UNIT_CHILDREN]: organisationUnits.flatMap(
+        (ou) => ou.children?.map((c) => c.id) ?? []
+    ),
+    [USER_ORG_UNIT_GRANDCHILDREN]: organisationUnits.flatMap(
+        (ou) =>
+            ou.children?.flatMap((c) => c.children?.map((g) => g.id) ?? []) ??
+            []
+    ),
+})
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -287,36 +306,47 @@ export const getOrgUnitsWithoutCoordsCount = async ({
     }
 }
 
-const OU_DETAILS_BATCH_SIZE = 100
+export const OU_DETAILS_BATCH_SIZE = 100
 
-export const fetchOrgUnitDetails = async (engine, ids) => {
+// Batches an org unit query..
+// TODO: surface partial failures to callers (orgUnitLoader.js, thematicLoader.js, eventLoader.js) instead of silently degrading.
+const fetchInBatches = async (engine, ids, { query, buildVariables }) => {
     if (!ids.length) {
-        return {}
+        return []
     }
-
     const batches = []
     for (let i = 0; i < ids.length; i += OU_DETAILS_BATCH_SIZE) {
         batches.push(ids.slice(i, i + OU_DETAILS_BATCH_SIZE))
     }
-
-    try {
-        const results = await Promise.all(
-            batches.map((batch) =>
-                engine.query(ORG_UNIT_DETAILS_QUERY, {
-                    variables: { ids: batch },
-                })
-            )
+    const results = await Promise.allSettled(
+        batches.map((batch) =>
+            engine.query(query, { variables: buildVariables(batch) })
         )
+    )
+    return results
+        .filter((result) => result.status === 'fulfilled')
+        .map((result) => result.value)
+}
 
-        return results.reduce((acc, result) => {
-            result.orgUnits.organisationUnits?.forEach((ou) => {
-                acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
-            })
-            return acc
-        }, {})
-    } catch {
-        return {}
-    }
+export const fetchOrgUnitDetails = async (engine, ids) => {
+    const results = await fetchInBatches(engine, ids, {
+        query: ORG_UNIT_DETAILS_QUERY,
+        buildVariables: (batch) => ({ ids: batch }),
+    })
+    return results.reduce((acc, result) => {
+        result.orgUnits.organisationUnits?.forEach((ou) => {
+            acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
+        })
+        return acc
+    }, {})
+}
+
+export const fetchOrgUnitPaths = async (engine, ids) => {
+    const results = await fetchInBatches(engine, ids, {
+        query: ORG_UNITS_PATHS_QUERY,
+        buildVariables: (batch) => ({ ids: batch.join(',') }),
+    })
+    return results.flatMap((r) => r.organisationUnits.organisationUnits ?? [])
 }
 
 export const addGroupCountsToLegend = (legendItems, features, groupSet) => {

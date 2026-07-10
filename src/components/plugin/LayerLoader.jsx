@@ -32,7 +32,11 @@ const LayerLoader = ({ config, onLoad }) => {
         systemSettings: { keyAnalysisDigitGroupSeparator },
         currentUser,
     } = useCachedData()
-    const { keyAnalysisDisplayProperty, id: userId } = currentUser
+    const {
+        keyAnalysisDisplayProperty,
+        id: userId,
+        userOrgUnitIdsByKeyword,
+    } = currentUser
     const periodTypeData = useDataOutputPeriodTypes()
 
     useEffect(() => {
@@ -50,6 +54,7 @@ const LayerLoader = ({ config, onLoad }) => {
             keyAnalysisDisplayProperty, // name/shortName
             keyAnalysisDigitGroupSeparator, // NONE/SPACE/COMMA
             userId,
+            userOrgUnitIdsByKeyword, // Event loader
             baseUrl,
             analyticsEngine, // Thematic and Event loader
             periodTypeData, // Thematic and Event loader
@@ -64,6 +69,7 @@ const LayerLoader = ({ config, onLoad }) => {
         analyticsEngine,
         periodTypeData,
         userId,
+        userOrgUnitIdsByKeyword,
         baseUrl,
         keyAnalysisDisplayProperty,
         keyAnalysisDigitGroupSeparator,
