@@ -186,8 +186,8 @@ FilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
     optionSetId: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
 }
 
 export default FilterInput
