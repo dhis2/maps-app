@@ -42,6 +42,7 @@ const layerEdit = (state = null, action) => {
                 columns: [],
                 programStage: null,
                 styleDataItem: null,
+                labelDataItem: null,
             }
 
         case types.LAYER_EDIT_PROGRAM_STAGE_SET:
@@ -52,6 +53,7 @@ const layerEdit = (state = null, action) => {
                 },
                 columns: [],
                 styleDataItem: null,
+                labelDataItem: null,
             }
 
         case types.LAYER_EDIT_DATA_ITEM_SET:
@@ -385,6 +387,12 @@ const layerEdit = (state = null, action) => {
                 countFeaturesWithoutCoordinates: action.checked,
             }
 
+        case types.LAYER_EDIT_COUNT_EVENTS_OUTSIDE_OU_SET:
+            return {
+                ...state,
+                countEventsOutsideOrgUnits: action.checked,
+            }
+
         case types.LAYER_EDIT_EVENT_POINT_RADIUS_SET:
             return {
                 ...state,
@@ -609,6 +617,15 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 period: action.payload,
             }
+
+        case types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET:
+            newState = { ...state }
+            if (action.item) {
+                newState.labelDataItem = action.item
+            } else {
+                delete newState.labelDataItem
+            }
+            return newState
 
         case types.LAYER_EDIT_FEATURE_STYLE_SET:
             return {

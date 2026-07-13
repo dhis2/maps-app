@@ -8,29 +8,15 @@ import {
     removeFilter,
     changeFilter,
 } from '../../../actions/layerEdit.js'
-import { useEventDataItems } from '../../../hooks/useEventDataItems.js'
+import { useEventDataItems } from '../EventDataItemsProvider.jsx'
 import FilterRow from './FilterRow.jsx'
 import styles from './styles/FilterGroup.module.css'
 
 const excludeTypes = ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE']
 
-const FilterGroup = ({ filters, program, programStage }) => {
+const FilterGroup = ({ filters }) => {
     const dispatch = useDispatch()
-    const { eventDataItems } = useEventDataItems({
-        programId: program?.id,
-        programStageId: programStage?.id,
-        excludeTypes,
-    })
-
-    if (!programStage) {
-        return (
-            <div className={styles.note}>
-                {i18n.t(
-                    'Filtering is available after selecting a program stage.'
-                )}
-            </div>
-        )
-    }
+    const { eventDataItems } = useEventDataItems({ excludeTypes })
 
     if (eventDataItems === null) {
         return null
@@ -51,7 +37,7 @@ const FilterGroup = ({ filters, program, programStage }) => {
                 />
             ))}
             <div className={styles.addFilter}>
-                <Button basic onClick={() => dispatch(addFilter())}>
+                <Button onClick={() => dispatch(addFilter())}>
                     {i18n.t('Add filter')}
                 </Button>
             </div>
@@ -60,12 +46,6 @@ const FilterGroup = ({ filters, program, programStage }) => {
 }
 FilterGroup.propTypes = {
     filters: PropTypes.array.isRequired,
-    program: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
-    programStage: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
 }
 
 export default FilterGroup

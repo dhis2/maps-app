@@ -82,6 +82,7 @@ const StyleSelect = ({ style, setStyle }) => {
                 {errorText && <div className={styles.eeError}>{errorText}</div>}
                 <div className={styles.scale}>
                     <ColorScaleSelect
+                        className={styles.colorScaleSelect}
                         palette={style.palette}
                         onChange={(palette) => setStyle({ palette })}
                         width={260}

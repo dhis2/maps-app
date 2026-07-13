@@ -34,6 +34,7 @@ const PARENT_NAME = 'parentName'
 const TYPE = 'type'
 const COLOR = 'color'
 const OUNAME = 'ouname'
+const OUBOUNDARY = 'ouBoundary'
 const EVENTDATE = 'eventdate'
 
 const ERROR_SERVER_CLUSTER = 'SERVER_CLUSTER'
@@ -77,6 +78,11 @@ const defaultFieldsMap = () => ({
     [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
     [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
     [OUNAME]: { name: i18n.t('Org unit'), dataKey: OUNAME, type: TYPE_STRING },
+    [OUBOUNDARY]: {
+        name: i18n.t('Org unit boundary'),
+        dataKey: OUBOUNDARY,
+        type: TYPE_STRING,
+    },
     [EVENTDATE]: {
         name: i18n.t('Event time'),
         dataKey: EVENTDATE,
@@ -105,10 +111,18 @@ const getThematicHeaders = () =>
         COLOR,
     ].map((field) => defaultFieldsMap()[field])
 
-const getEventHeaders = ({ layerHeaders = [], styleDataItem }) => {
+const getEventHeaders = ({
+    layerHeaders = [],
+    styleDataItem,
+    countEventsOutsideOrgUnits,
+}) => {
     const fields = [INDEX, OUNAME, ID, EVENTDATE].map(
         (field) => defaultFieldsMap()[field]
     )
+
+    if (countEventsOutsideOrgUnits) {
+        fields.push(defaultFieldsMap()[OUBOUNDARY])
+    }
 
     const customFields = layerHeaders
         .filter(({ name }) => isValidUid(name))
@@ -202,6 +216,7 @@ export const useTableData = ({
         aggregationType,
         legend,
         styleDataItem,
+        countEventsOutsideOrgUnits,
         data,
         dataWithoutCoords,
         dataFilters,
@@ -267,7 +282,11 @@ export const useTableData = ({
                 headers = getThematicHeaders()
                 break
             case EVENT_LAYER:
-                headers = getEventHeaders({ layerHeaders, styleDataItem })
+                headers = getEventHeaders({
+                    layerHeaders,
+                    styleDataItem,
+                    countEventsOutsideOrgUnits,
+                })
                 break
             case ORG_UNIT_LAYER:
                 headers = getOrgUnitHeaders()
@@ -310,6 +329,7 @@ export const useTableData = ({
         aggregationType,
         legend,
         styleDataItem,
+        countEventsOutsideOrgUnits,
         dataWithAggregations,
         data,
         layerHeaders,

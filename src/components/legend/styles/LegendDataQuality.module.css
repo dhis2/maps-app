@@ -1,0 +1,23 @@
+.dataQuality {
+    max-width: 245px;
+    padding-top: var(--spacers-dp16);
+    font-size: 12px;
+}
+
+.dataQuality > div:first-child {
+    font-weight: bold;
+}
+
+.infoIcon {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    margin-left: var(--spacers-dp4);
+    color: var(--colors-grey700);
+    cursor: help;
+}
+
+.infoIcon svg {
+    width: 12px;
+    height: 12px;
+}

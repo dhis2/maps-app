@@ -576,7 +576,12 @@ const ThematicDialog = ({
                     >
                         <div className={styles.flexColumn}>
                             <ThematicMapTypeSelect type={thematicMapType} />
-                            <div className={styles.flexInnerColumnFlow}>
+                            <div
+                                className={cx(
+                                    styles.flexInnerColumnFlow,
+                                    styles.radiusSelect
+                                )}
+                            >
                                 <RadiusSelect className={styles.numberField} />
                             </div>
                             <Labels includeDisplayOption />

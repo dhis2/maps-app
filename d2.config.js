@@ -1,5 +1,3 @@
-const fs = require('node:fs')
-
 const omitPatterns = [
     // User info
     'me/authorization',
@@ -49,30 +47,6 @@ const config = {
     },
 
     viteConfigExtensions: {
-        plugins: [
-            {
-                // Wraps the CJS Google EE API bundle as ESM so Vite doesn't
-                // flag it as an unoptimised dep and trigger a full-reload when
-                // the EE worker first imports it.
-                name: 'ee-api-js-worker-esm',
-                apply: 'serve',
-                load(id) {
-                    if (
-                        id.endsWith('/ee_api_js_worker.js') &&
-                        !id.includes('?')
-                    ) {
-                        const content = fs.readFileSync(id, 'utf-8')
-                        return {
-                            code:
-                                'const module={exports:{}};const exports=module.exports;\n' +
-                                content +
-                                '\nexport default module.exports;',
-                            map: null,
-                        }
-                    }
-                },
-            },
-        ],
         optimizeDeps: {
             // Excluded so Vite serves maps-gl via /@fs/... with its full
             // transform pipeline, which lets the EE worker URL resolve to the
@@ -86,11 +60,20 @@ const config = {
                 'fetch-jsonp',
                 'lodash.throttle',
                 '@mapbox/sphericalmercator',
+                '@turf/area',
+                '@turf/bbox',
+                '@turf/buffer',
+                '@turf/center-of-mass',
+                '@turf/centroid',
+                '@turf/circle',
                 '@turf/jsts',
+                '@turf/length',
+                'comlink',
                 'concaveman',
                 'polylabel',
                 'pretty-bytes',
                 'suggestions',
+                'uuid',
             ],
             esbuildOptions: {
                 target: 'es2022',
