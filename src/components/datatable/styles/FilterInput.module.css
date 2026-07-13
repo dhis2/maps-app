@@ -16,3 +16,21 @@
     overflow-y: auto;
     min-width: 180px;
 }
+
+.numericFilterWrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.numericFilterWrapper > :global(div) {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.helpIcon {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: var(--colors-grey600);
+    cursor: help;
+}

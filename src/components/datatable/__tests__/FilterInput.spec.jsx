@@ -46,6 +46,20 @@ describe('FilterInput text/numeric path', () => {
                 .querySelector('input')
         ).toHaveValue('hospital')
     })
+
+    test('shows a numeric filter syntax help icon for number columns', () => {
+        renderFilterInput({ type: 'number' })
+        expect(
+            screen.getByTestId('data-table-numeric-filter-help')
+        ).toBeInTheDocument()
+    })
+
+    test('does not show the help icon for string columns', () => {
+        renderFilterInput({ type: 'string' })
+        expect(
+            screen.queryByTestId('data-table-numeric-filter-help')
+        ).not.toBeInTheDocument()
+    })
 })
 
 describe('FilterInput multi-select path (no optionSetId)', () => {
