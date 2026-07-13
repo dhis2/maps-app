@@ -133,6 +133,7 @@ const getEventHeaders = ({
                 !optionSet && numberValueTypes.includes(valueType)
                     ? TYPE_NUMBER
                     : TYPE_STRING,
+            optionSet: optionSet || null,
         }))
 
     customFields.push(defaultFieldsMap()[TYPE])
