@@ -84,8 +84,8 @@ describe('ui', () => {
             expect(userSelect).to.eq('none')
         })
 
-        // End the drag (mouseup)
-        cy.document().trigger('mouseup', { force: true })
+        // End the drag (mouseup on the document, where dnd-kit listens)
+        cy.document().trigger('mouseup')
 
         // Wait for the timeout in stopSorting (100ms)
         cy.wait(150) // eslint-disable-line cypress/no-unnecessary-waiting
