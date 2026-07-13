@@ -1089,9 +1089,7 @@ describe('useTableData columnOptions', () => {
 
         const { current } = renderTableData(layer)
 
-        const header = current.headers.find(
-            (h) => h.dataKey === 'AbCdEfGhIjK'
-        )
+        const header = current.headers.find((h) => h.dataKey === 'AbCdEfGhIjK')
         expect(header.optionSet).toEqual({ id: 'xyz123' })
         expect(current.columnOptions.AbCdEfGhIjK).toEqual([
             { value: 'CONFIRMED' },
