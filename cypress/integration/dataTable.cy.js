@@ -77,6 +77,9 @@ describe('data table', () => {
                 assertMapPosition(expectedBottoms2, expectedHeights2)
             })
 
+        // Collapse the Layers Panel to give the table more width
+        cy.getByDataTest('layers-toggle-button').click()
+
         // check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
@@ -100,6 +103,11 @@ describe('data table', () => {
         // Sort by name
         cy.getByDataTest('data-table-column-sort-button-Name').click()
 
+        // Sorting can shift the virtualized table's scroll position
+        // (possibly an internal react-virtuoso quirk)
+        // so we reset to top before asserting on row indices below
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
+
         // confirm that the rows are sorted by Name descending
         checkTableCell({ row: 0, column: 2, expectedContent: 'Upper Bambara' })
         checkTableCell({ row: 6, column: 2, expectedContent: 'Bargbe' })
@@ -118,6 +126,9 @@ describe('data table', () => {
         // Sort by value
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
+
         // check that the rows are sorted by Value ascending
         checkTableCell({ row: 0, column: 4, expectedContent: '35' })
         checkTableCell({ row: 4, column: 4, expectedContent: '76' })
@@ -133,6 +144,8 @@ describe('data table', () => {
 
         // check that the org unit profile drawer is opened
         cy.getByDataTest('org-unit-profile').should('be.visible')
+
+        cy.getByDataTest('layers-toggle-button').click()
 
         // close the datatable
         cy.getByDataTest('moremenubutton').first().click()
@@ -175,6 +188,9 @@ describe('data table', () => {
             .click()
 
         cy.getByDataTest('bottom-panel').should('be.visible')
+
+        // Collapse the Layers Panel to give the table more width
+        cy.getByDataTest('layers-toggle-button').click()
 
         // check number of columns
         cy.getByDataTest('bottom-panel')
@@ -294,11 +310,17 @@ describe('data table', () => {
         // Check that the bottom panel is present
         cy.getByDataTest('bottom-panel').should('be.visible')
 
+        // Collapse the Layers Panel to give the table more width
+        cy.getByDataTest('layers-toggle-button').click()
+
         // Confirm that the sort order is initially ascending by Name
         checkTableCell({ row: 0, column: 2, expectedContent: 'Bendu CHC' })
 
         // First click on a new column always sorts ascending
         cy.getByDataTest('data-table-column-sort-button-Value').click()
+
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that first row has Tihun CHC with value 28.63
         checkTableCell({ row: 0, column: 2, expectedContent: 'Tihun CHC' })
@@ -314,6 +336,9 @@ describe('data table', () => {
         // Sort descending by Value
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
+
         checkTableCell({ row: 0, column: 2, expectedContent: 'Gbamgbama CHC' })
         checkTableCell({ row: 0, column: 4, expectedContent: '117.98' })
 
@@ -322,8 +347,10 @@ describe('data table', () => {
 
         checkTableCell({ row: 6, column: 4, expectedContent: '' })
 
-        // Sort by index (a new column, so ascending) and scroll to the top
+        // Sort by index (a new column, so ascending)
         cy.getByDataTest('data-table-column-sort-button-Index').click()
+
+        // Reset scroll position after sorting - see comment above
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         checkTableCell({ row: 0, column: 1, expectedContent: '0' })
@@ -333,6 +360,9 @@ describe('data table', () => {
 
         // Sort by range, which is a string
         cy.getByDataTest('data-table-column-sort-button-Range').click()
+
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that row 0 range value has value '0-40'
         checkTableCell({ row: 0, column: 6, expectedContent: '0 – 40' })
