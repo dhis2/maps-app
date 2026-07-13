@@ -10,6 +10,41 @@ const map = {
     cardSelector: 'card-ANCLLITNcoverage',
 }
 
+// Creates a map with a thematic layer and a facility layer, so the Layers
+// panel shows two draggable overlay cards to reorder.
+const addThematicAndFacilityLayers = () => {
+    cy.visit('/')
+    cy.get('canvas').should('be.visible')
+
+    const ThemLayer = new ThematicLayer()
+    const FacLayer = new FacilityLayer()
+
+    // Add thematic layer
+    ThemLayer.openDialog('Thematic')
+        .selectItemType('Indicators')
+        .selectIndicatorGroup('HIV')
+        .selectIndicator('VCCT post-test counselling rate')
+        .selectTab('Org Units')
+        .selectOu('Sierra Leone')
+        .addToMap()
+
+    // Add facility layer
+    FacLayer.openDialog('Facilities')
+        .selectTab('Organisation Units')
+        .selectOu('Bo')
+        .selectOuLevel('Facility')
+        .addToMap()
+
+    cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+}
+
+// Reads the ordered list of overlay layer card titles in the Layers panel.
+const getOverlayLayerTitles = () =>
+    cy
+        .getByDataTest('sortable-layers-list')
+        .find('[data-test="layercard"] h2')
+        .then(($titles) => [...$titles].map((el) => el.textContent))
+
 describe('ui', () => {
     it('collapses and expands the Layers Panel', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
@@ -40,30 +75,7 @@ describe('ui', () => {
     })
 
     it('sets css user-select: none on document.body when dragging (sorting) a layer', () => {
-        cy.visit('/')
-        cy.get('canvas').should('be.visible')
-
-        // Create a map and add a thematic layer and a facility layer
-        const ThemLayer = new ThematicLayer()
-        const FacLayer = new FacilityLayer()
-
-        // Add thematic layer
-        ThemLayer.openDialog('Thematic')
-            .selectItemType('Indicators')
-            .selectIndicatorGroup('HIV')
-            .selectIndicator('VCCT post-test counselling rate')
-            .selectTab('Org Units')
-            .selectOu('Sierra Leone')
-            .addToMap()
-
-        // Add facility layer
-        FacLayer.openDialog('Facilities')
-            .selectTab('Organisation Units')
-            .selectOu('Bo')
-            .selectOuLevel('Facility')
-            .addToMap()
-
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        addThematicAndFacilityLayers()
 
         cy.document().should((doc) => {
             const userSelect = getComputedStyle(doc.body).userSelect
@@ -93,6 +105,41 @@ describe('ui', () => {
         cy.document().should((doc) => {
             const userSelect = getComputedStyle(doc.body).userSelect
             expect(userSelect).not.to.eq('none')
+        })
+    })
+
+    it('reorders overlay layers when a layer is dragged', () => {
+        addThematicAndFacilityLayers()
+
+        // Capture the initial top-to-bottom order of the overlay layer cards
+        let initialTitles
+        getOverlayLayerTitles().then((titles) => {
+            expect(titles.length).to.be.greaterThan(1)
+            initialTitles = titles
+        })
+
+        // Reorder with the keyboard sensor, which is deterministic (no pixel
+        // coordinates): focus the top layer's handle, pick it up (Space), move
+        // it down one position (ArrowDown), and drop it (Space). dnd-kit tracks
+        // arrow/drop keys on the document once a drag has started.
+        cy.getByDataTest('sortable-handle').first().focus()
+        cy.getByDataTest('sortable-handle')
+            .first()
+            .trigger('keydown', { code: 'Space', key: ' ', keyCode: 32 })
+        cy.document().trigger('keydown', {
+            code: 'ArrowDown',
+            key: 'ArrowDown',
+            keyCode: 40,
+        })
+        cy.document().trigger('keydown', { code: 'Space', key: ' ', keyCode: 32 })
+
+        // Wait for the stopSorting timeout (100ms) and the re-render
+        cy.wait(200) // eslint-disable-line cypress/no-unnecessary-waiting
+
+        // The first two layers should now be swapped
+        getOverlayLayerTitles().then((titles) => {
+            expect(titles[0]).to.eq(initialTitles[1])
+            expect(titles[1]).to.eq(initialTitles[0])
         })
     })
 })
