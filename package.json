@@ -30,7 +30,7 @@
         "@testing-library/dom": "^10.4.1",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
-        "cypress": "^14",
+        "cypress": "^15",
         "cypress-real-events": "^1.15.0",
         "cypress-tags": "^1.2.2",
         "cypress-wait-until": "^3",
