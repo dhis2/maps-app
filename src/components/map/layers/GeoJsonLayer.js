@@ -47,6 +47,12 @@ class GeoJsonLayer extends Layer {
             onRightClick: isPlugin
                 ? undefined
                 : this.onFeatureRightClick.bind(this),
+            onMouseEnter: isPlugin
+                ? undefined
+                : this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: isPlugin
+                ? undefined
+                : this.onFeatureMouseLeave.bind(this),
         })
 
         map.addLayer(this.layer)
@@ -58,6 +64,12 @@ class GeoJsonLayer extends Layer {
 
     onFeatureClick(evt) {
         const { name, keyAnalysisDigitGroupSeparator } = this.props
+
+        this.onFeatureLeftClick(evt)
+
+        if (this.isMultiSelectClick(evt)) {
+            return
+        }
 
         const feature = this.props.data.find(
             (d) => d.properties.id === evt.feature.properties.id
