@@ -114,9 +114,8 @@ Select the time span for when the events took place.
     boundary** column value. Events inside a boundary are tagged with the name of their containing
     org unit in that same column.
 
--   **Tooltip field**: Select a data element or attribute to show as a tooltip when hovering over an
-    event. Selecting **Labels** makes the tooltip persistent on the map. Font size, weight, style
-    and color can also be modified.
+-   **Label**: Select a data element or attribute to show on the layer. Font size, weight, style and
+    color can also be modified.
 
 -   Select **Style by data item** (data element or attribute) to colorize the events according to a
     data value. If events are grouped, clusters are displayed as small donut charts showing the

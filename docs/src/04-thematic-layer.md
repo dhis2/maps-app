@@ -115,8 +115,8 @@ Select the time span over which the thematic data is mapped.
         scaled between low and high radius according to the data value. The radius must be between 0
         and 50 pixels.
 
--   **Show labels**: Show org unit names and/or values on the layer. Select **Name**, **Name and
-    value**, or **Value**. Font size, weight, style and color can also be modified.
+-   **Labels**: Show org unit names and/or values on the layer. Select **Name**, **Name and value**,
+    or **Value**. Font size, weight, style and color can also be modified.
 
 -   **Count org units without coordinates**: Org units without map coordinates are counted and shown
     in a **Data quality** section of the legend. They also appear in the data table. These org units
@@ -174,7 +174,7 @@ Select the time span over which the thematic data is mapped.
 > the upper bound is inclusive - are the last class, isolated classes, single-value classes, and
 > clusters (natural breaks).
 >
-> If the exact class a boundary value belongs to matters for your analysis, use **Show labels** to
+> If the exact class a boundary value belongs to matters for your analysis, use **Labels** to
 > overlay values directly on each feature. If it still matters after that, consider whether a
 > different legend, maybe with more classes or higher decimal precision, is the right tool for the
 > decision you are trying to make.
