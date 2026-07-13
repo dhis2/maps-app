@@ -98,6 +98,8 @@ const Legend = ({
     orgUnitsWithoutCoordinatesCount,
     orgUnitsPointOnly = false,
     isPlugin = false,
+    onItemClick,
+    activeLegendNames,
 }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
@@ -296,6 +298,12 @@ const Legend = ({
                 isPlugin={isPlugin}
                 suppressRange={suppressAllRanges}
                 forceScientific={forceScientific}
+                onClick={onItemClick ? () => onItemClick(item) : undefined}
+                isActive={
+                    !!activeLegendNames &&
+                    !!item.name &&
+                    activeLegendNames.includes(item.name)
+                }
                 key={`${item.name ?? ''}-${item.startValue ?? ''}-${
                     item.endValue ?? ''
                 }-${index}`}
@@ -390,6 +398,7 @@ const Legend = ({
 }
 
 Legend.propTypes = {
+    activeLegendNames: PropTypes.array,
     bubbles: PropTypes.shape({
         radiusHigh: PropTypes.number.isRequired,
         radiusLow: PropTypes.number.isRequired,
@@ -414,6 +423,7 @@ Legend.propTypes = {
     sourceUrl: PropTypes.string,
     unit: PropTypes.string,
     url: PropTypes.string,
+    onItemClick: PropTypes.func,
 }
 
 export default Legend
