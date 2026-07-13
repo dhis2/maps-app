@@ -49,6 +49,59 @@ export const IconZoomIn16 = () => (
     </svg>
 )
 
+// Two stacked chevrons — "collapse"/"restore to full height" toggle.
+export const IconChevronDoubleDown16 = () => (
+    <svg
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M4 4L8 7L12 4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M4 9L8 12L12 9"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+)
+
+export const IconChevronDoubleUp16 = () => (
+    <svg
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M4 7L8 4L12 7"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M4 12L8 9L12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+)
+
 export const IconDrag = () => (
     <svg
         height="8"
