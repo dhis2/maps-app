@@ -75,12 +75,7 @@ export const initializePeriods = (
             })
         )
     } else {
-        dispatch(
-            setBackupPeriodsDates({
-                type: START_END_DATES,
-                ...getDefaultDatesInCalendar(),
-            })
-        )
+        dispatch(setBackupPeriodsDates(getDefaultDatesInCalendar()))
         dispatch(setPeriods(defaultPeriods || []))
     }
 }
