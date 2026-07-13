@@ -23,3 +23,24 @@
     print-color-adjust: exact;
     /* Firefox */
 }
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    background-color: var(--colors-grey100);
+}
+
+.clickable:focus-visible {
+    outline: 2px solid var(--colors-blue600);
+    outline-offset: -2px;
+}
+
+.active {
+    background-color: var(--colors-blue050);
+}
+
+.active:hover {
+    background-color: var(--colors-blue100);
+}
