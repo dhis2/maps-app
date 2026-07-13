@@ -1,4 +1,4 @@
-import { filterData } from '../filter.js'
+import { filterByGlobalSearch, filterData } from '../filter.js'
 
 describe('filterData', () => {
     it('should return the original data if no filters are provided', () => {
@@ -95,5 +95,45 @@ describe('filterData', () => {
         ]
         const filters = { a: ['High'], b: 'horse' }
         expect(filterData(data, filters)).toEqual([{ a: 'High', b: 'horse' }])
+    })
+})
+
+describe('filterByGlobalSearch', () => {
+    const data = [
+        { name: 'Kampala Hospital', type: 'Hospital' },
+        { name: 'Entebbe Clinic', type: 'Clinic' },
+        { name: 'Jinja Hospital', type: 'Hospital' },
+    ]
+
+    it('returns the original data when the search string is empty', () => {
+        expect(filterByGlobalSearch(data, '', ['name', 'type'])).toEqual(data)
+        expect(filterByGlobalSearch(data, '   ', ['name', 'type'])).toEqual(
+            data
+        )
+    })
+
+    it('returns the original data when there are no string data keys', () => {
+        expect(filterByGlobalSearch(data, 'Kampala', [])).toEqual(data)
+    })
+
+    it('matches case-insensitively across any of the given fields', () => {
+        expect(filterByGlobalSearch(data, 'kampala', ['name', 'type'])).toEqual(
+            [{ name: 'Kampala Hospital', type: 'Hospital' }]
+        )
+    })
+
+    it('matches rows where any field contains the search string', () => {
+        expect(
+            filterByGlobalSearch(data, 'hospital', ['name', 'type'])
+        ).toEqual([
+            { name: 'Kampala Hospital', type: 'Hospital' },
+            { name: 'Jinja Hospital', type: 'Hospital' },
+        ])
+    })
+
+    it('returns no rows when nothing matches', () => {
+        expect(filterByGlobalSearch(data, 'nairobi', ['name', 'type'])).toEqual(
+            []
+        )
     })
 })
