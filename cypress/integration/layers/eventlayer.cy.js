@@ -236,7 +236,6 @@ context('Event Layers', () => {
             })
             .selectTab('Org Units')
             .selectOu(programIP.ous[0])
-            .selectOu(programIP.ous[1])
             .selectTab('Style')
             .selectViewAllEvents()
             .addToMap()
