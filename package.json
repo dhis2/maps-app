@@ -48,7 +48,7 @@
         "@dhis2/app-runtime": "^3.17.3",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/maps-gl": "^4.3.1",
-        "@dhis2/ui": "^10.16.3",
+        "@dhis2/ui": "^10.16.4",
         "@turf/boolean-point-in-polygon": "^7.3.5",
         "@turf/centroid": "^7.3.5",
         "abortcontroller-polyfill": "^1.7.8",
