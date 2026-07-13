@@ -164,6 +164,9 @@ msgstr "Reverse selection of visible rows"
 msgid "Sort by Selected"
 msgstr "Sort by Selected"
 
+msgid "Select all"
+msgstr "Select all"
+
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 

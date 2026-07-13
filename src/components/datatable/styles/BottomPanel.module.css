@@ -39,3 +39,28 @@
     background-color: var(--colors-grey300);
     flex-shrink: 0;
 }
+
+.toggleButton.active {
+    color: var(--colors-blue700);
+    background-color: var(--colors-blue100);
+}
+
+.toggleButton.active:hover {
+    background-color: var(--colors-blue200);
+}
+
+.highlightColorPicker {
+    margin-bottom: 0 !important;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: -1px;
+}
+
+.highlightColorPicker label {
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 18px !important;
+    min-height: 18px !important;
+}
