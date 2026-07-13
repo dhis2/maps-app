@@ -5,10 +5,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import {
-    setDataFilter,
-    clearDataFilter,
-} from '../../../actions/dataFilters.js'
+import { setDataFilter, clearDataFilter } from '../../../actions/dataFilters.js'
 import { toggleDataTable } from '../../../actions/dataTable.js'
 import {
     editLayer,

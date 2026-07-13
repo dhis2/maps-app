@@ -147,8 +147,7 @@ const FilterInput = ({ type, dataKey, name, options, optionSetId }) => {
         )
     }
 
-    const stringFilterValue =
-        typeof filterValue === 'string' ? filterValue : ''
+    const stringFilterValue = typeof filterValue === 'string' ? filterValue : ''
 
     const onChange = ({ value }) =>
         value !== ''
