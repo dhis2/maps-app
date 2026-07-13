@@ -197,6 +197,10 @@ const getGeoJsonUrlHeaders = (firstDataItem) =>
 
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
+const EMPTY_COLUMN_OPTIONS = {}
+
+const CATEGORICAL_DATA_KEYS = new Set([LEGEND, TYPE])
+const MAX_CATEGORICAL_OPTIONS = 30
 
 export const useTableData = ({
     layer,
@@ -336,6 +340,41 @@ export const useTableData = ({
         layerHeaders,
     ])
 
+    const columnOptions = useMemo(() => {
+        if (!headers?.length || !dataWithAggregations?.length) {
+            return EMPTY_COLUMN_OPTIONS
+        }
+
+        const result = {}
+        headers.forEach(({ dataKey, type, optionSet }) => {
+            if (type !== TYPE_STRING) {
+                return
+            }
+            if (!CATEGORICAL_DATA_KEYS.has(dataKey) && !optionSet) {
+                return
+            }
+
+            const seen = new Set()
+            for (const item of dataWithAggregations) {
+                const val = item[dataKey]
+                if (val !== undefined && val !== null && val !== '') {
+                    seen.add(String(val))
+                }
+                if (seen.size > MAX_CATEGORICAL_OPTIONS) {
+                    break
+                }
+            }
+
+            if (seen.size > 0 && seen.size <= MAX_CATEGORICAL_OPTIONS) {
+                result[dataKey] = Array.from(seen)
+                    .sort()
+                    .map((value) => ({ value }))
+            }
+        })
+
+        return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
+    }, [headers, dataWithAggregations])
+
     const rows = useMemo(() => {
         if (errorCode.current) {
             return null
@@ -434,5 +473,6 @@ export const useTableData = ({
         error: getErrorCodeText(errorCode.current),
         totalCount,
         filteredCount,
+        columnOptions,
     }
 }
