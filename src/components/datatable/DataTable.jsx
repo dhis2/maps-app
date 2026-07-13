@@ -131,7 +131,12 @@ const TableComponents = {
     ),
 }
 
-const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
+const Table = ({
+    availableWidth,
+    onCountChange,
+    showOnlySelected,
+    globalSearch,
+}) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -235,16 +240,24 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
     )
     const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])
 
-    const { headers, rows, isLoading, error, totalCount, filteredCount } =
-        useTableData({
-            layer,
-            sortField,
-            sortDirection,
-            showOnlyFeaturesInView,
-            mapBounds,
-            showOnlySelected,
-            selectedIdSet,
-        })
+    const {
+        headers,
+        rows,
+        isLoading,
+        error,
+        totalCount,
+        filteredCount,
+        columnOptions,
+    } = useTableData({
+        layer,
+        sortField,
+        sortDirection,
+        showOnlyFeaturesInView,
+        mapBounds,
+        showOnlySelected,
+        selectedIdSet,
+        globalSearch,
+    })
 
     useEffect(() => {
         onCountChange?.(totalCount, filteredCount)
@@ -450,55 +463,66 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
                                 onChange={onToggleSelectAll}
                             />
                         </DataTableColumnHeader>
-                        {headers.map(({ name, dataKey, type }, index) => (
-                            <DataTableColumnHeader
-                                className={styles.columnHeader}
-                                key={`${dataKey}-${index}`}
-                                onFilterIconClick={type && Function.prototype}
-                                showFilter={!!type && dataKey !== 'index'}
-                                name={dataKey}
-                                filter={
-                                    type && (
-                                        <FilterInput
-                                            type={type}
-                                            dataKey={dataKey}
-                                            name={name}
-                                        />
-                                    )
-                                }
-                                width={
-                                    columnWidths.length > 0
-                                        ? `${columnWidths[index]}px`
-                                        : 'auto'
-                                }
-                            >
-                                <span className={styles.headerContent}>
-                                    {name}
-                                    <Tooltip
-                                        content={i18n.t('Sort by {{column}}', {
-                                            column: name,
-                                        })}
-                                    >
-                                        <button
-                                            type="button"
-                                            className={styles.sortButton}
-                                            data-test={`data-table-column-sort-button-${name}`}
-                                            onClick={() =>
-                                                sortData({ name: dataKey })
-                                            }
-                                        >
-                                            <SortIcon
-                                                direction={
-                                                    dataKey === sortField
-                                                        ? sortDirection
-                                                        : null
+                        {headers.map(
+                            ({ name, dataKey, type, optionSet }, index) => (
+                                <DataTableColumnHeader
+                                    className={styles.columnHeader}
+                                    key={`${dataKey}-${index}`}
+                                    onFilterIconClick={
+                                        type && Function.prototype
+                                    }
+                                    showFilter={!!type && dataKey !== 'index'}
+                                    name={dataKey}
+                                    filter={
+                                        type && (
+                                            <FilterInput
+                                                type={type}
+                                                dataKey={dataKey}
+                                                name={name}
+                                                options={
+                                                    columnOptions[dataKey]
                                                 }
+                                                optionSetId={optionSet?.id}
                                             />
-                                        </button>
-                                    </Tooltip>
-                                </span>
-                            </DataTableColumnHeader>
-                        ))}
+                                        )
+                                    }
+                                    width={
+                                        columnWidths.length > 0
+                                            ? `${columnWidths[index]}px`
+                                            : 'auto'
+                                    }
+                                >
+                                    <span className={styles.headerContent}>
+                                        {name}
+                                        <Tooltip
+                                            content={i18n.t(
+                                                'Sort by {{column}}',
+                                                { column: name }
+                                            )}
+                                        >
+                                            <button
+                                                type="button"
+                                                className={styles.sortButton}
+                                                data-test={`data-table-column-sort-button-${name}`}
+                                                onClick={() =>
+                                                    sortData({
+                                                        name: dataKey,
+                                                    })
+                                                }
+                                            >
+                                                <SortIcon
+                                                    direction={
+                                                        dataKey === sortField
+                                                            ? sortDirection
+                                                            : null
+                                                    }
+                                                />
+                                            </button>
+                                        </Tooltip>
+                                    </span>
+                                </DataTableColumnHeader>
+                            )
+                        )}
                     </DataTableRow>
                 )}
                 itemContent={(_, row) => {
@@ -580,6 +604,7 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
+    globalSearch: PropTypes.string,
     showOnlySelected: PropTypes.bool,
     onCountChange: PropTypes.func,
 }
