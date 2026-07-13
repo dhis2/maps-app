@@ -2,15 +2,13 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import useOptionSet from '../../../hooks/useOptionSet.js'
 import FilterInput from '../FilterInput.jsx'
 
 jest.mock('../../../hooks/useOptionSet.js', () => ({
     __esModule: true,
     default: jest.fn(),
 }))
-
-// eslint-disable-next-line import/first
-import useOptionSet from '../../../hooks/useOptionSet.js'
 
 const mockStore = configureMockStore()
 

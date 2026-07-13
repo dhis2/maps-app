@@ -486,9 +486,7 @@ const Table = ({
                                                 type={type}
                                                 dataKey={dataKey}
                                                 name={name}
-                                                options={
-                                                    columnOptions[dataKey]
-                                                }
+                                                options={columnOptions[dataKey]}
                                                 optionSetId={optionSet?.id}
                                             />
                                         )
