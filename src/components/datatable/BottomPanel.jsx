@@ -4,6 +4,7 @@ import {
     IconFilter16,
     IconEmptyFrame16,
     IconCheckmarkCircle16,
+    Input,
     Tooltip,
 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -49,7 +50,6 @@ const BottomPanel = () => {
         state.map.mapViews.find((l) => l.id === activeLayerId)
     )
     const dataFilters = activeLayer?.dataFilters ?? {}
-    const hasActiveFilters = Object.keys(dataFilters).length > 0
     const showOnlyFeaturesInView = useSelector(
         (state) => state.ui.showOnlyFeaturesInView
     )
@@ -69,6 +69,10 @@ const BottomPanel = () => {
     const [filteredCount, setFilteredCount] = useState(null)
     const [nameTooltipPos, setNameTooltipPos] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
+    const [globalSearch, setGlobalSearch] = useState('')
+
+    const hasActiveFilters =
+        Object.keys(dataFilters).length > 0 || globalSearch.trim() !== ''
 
     const maxHeight =
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
@@ -246,9 +250,10 @@ const BottomPanel = () => {
                     <button
                         type="button"
                         className={styles.clearFiltersButton}
-                        onClick={() =>
+                        onClick={() => {
                             dispatch(clearDataFilters(activeLayerId))
-                        }
+                            setGlobalSearch('')
+                        }}
                     >
                         <Tooltip content={i18n.t('Clear filters')}>
                             <span className={styles.filteredIcon}>
@@ -258,6 +263,14 @@ const BottomPanel = () => {
                         </Tooltip>
                     </button>
                 )}
+                <Input
+                    dense
+                    dataTest="data-table-global-search"
+                    placeholder={i18n.t('Search all columns')}
+                    value={globalSearch}
+                    onChange={({ value }) => setGlobalSearch(value)}
+                    className={styles.globalSearch}
+                />
                 <button
                     type="button"
                     className={cx(styles.toggleButton, {
@@ -310,6 +323,7 @@ const BottomPanel = () => {
                             availableWidth={panelWidth}
                             onCountChange={onCountChange}
                             showOnlySelected={showOnlySelected}
+                            globalSearch={globalSearch}
                         />
                     </ErrorBoundary>
                 </div>
