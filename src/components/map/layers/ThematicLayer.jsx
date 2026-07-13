@@ -21,7 +21,7 @@ import {
 } from '../../../util/periods.js'
 import { poleOfInaccessibility } from '../MapApi.js'
 import Popup from '../Popup.jsx'
-import Layer from './Layer.js'
+import Layer, { idsEqual } from './Layer.js'
 import styles from './styles/Popup.module.css'
 
 export const ThematicLayerContext = React.createContext()
@@ -67,6 +67,8 @@ class ThematicLayer extends Layer {
             color: noDataLegend?.color,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
+            onMouseEnter: this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: this.onFeatureMouseLeave.bind(this),
         }
 
         if (labels) {
@@ -190,20 +192,6 @@ class ThematicLayer extends Layer {
         return <Fragment>{popup && this.getPopup()}</Fragment>
     }
 
-    highlightFeature(feature) {
-        const { thematicMapType = THEMATIC_CHOROPLETH } = this.props
-        if (thematicMapType === THEMATIC_BUBBLE) {
-            // LayerGroup has no highlight(); delegate to each sub-layer
-            this.layer?._layers?.forEach((l) => {
-                if (l.highlight) {
-                    l.highlight(feature ? feature.id : null)
-                }
-            })
-        } else {
-            super.highlightFeature(feature)
-        }
-    }
-
     componentDidUpdate(prevProps) {
         const prevPeriodId = prevProps.externalPeriod?.id
         const newPeriodId = this.props.externalPeriod?.id
@@ -225,9 +213,45 @@ class ThematicLayer extends Layer {
             this.setLayerOpacity()
             this.setLayerVisibility()
             this.setLayerOrder()
-            const { feature } = this.props
+            const { feature, selection, highlightColor, showOnlySelected } =
+                this.props
             if (feature !== prevProps.feature) {
                 this.handleFeatureUpdate(feature)
+
+                if (
+                    this.getHoverId(prevProps.feature) !==
+                    this.getHoverId(feature)
+                ) {
+                    this.highlightFeature()
+                }
+            }
+            if (
+                selection !== prevProps.selection &&
+                !idsEqual(
+                    this.getSelectedIds(prevProps.selection),
+                    this.getSelectedIds(selection)
+                )
+            ) {
+                this.selectFeatures()
+            }
+            if (highlightColor !== prevProps.highlightColor) {
+                if (this.getHoverId()) {
+                    this.highlightFeature()
+                }
+                if (this.getSelectedIds().length) {
+                    this.selectFeatures()
+                }
+            }
+            if (
+                !idsEqual(
+                    this.getVisibleIds(
+                        prevProps.selection,
+                        prevProps.showOnlySelected
+                    ) ?? [],
+                    this.getVisibleIds(selection, showOnlySelected) ?? []
+                )
+            ) {
+                this.updateVisibleIds()
             }
             return
         }
@@ -248,7 +272,9 @@ class ThematicLayer extends Layer {
         ) {
             try {
                 this.layer.setData(filteredData)
-                this.highlightFeature(this.props.feature)
+                this.highlightFeature()
+                this.selectFeatures()
+                this.updateVisibleIds()
             } catch (e) {
                 console.warn('Failed to set layer data incrementally:', e)
                 // fallback to full update on error
@@ -285,7 +311,11 @@ class ThematicLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        this.setState({ popup: evt })
+        this.onFeatureLeftClick(evt)
+
+        if (!this.isMultiSelectClick(evt)) {
+            this.setState({ popup: evt })
+        }
     }
 
     buildPeriodData(props = this.props) {

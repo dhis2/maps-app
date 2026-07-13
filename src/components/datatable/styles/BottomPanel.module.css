@@ -33,7 +33,7 @@
     font-weight: 500;
     font-size: 12px;
     color: var(--colors-grey800);
-    flex: 1;
+    flex: 0 1 auto;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -51,6 +51,7 @@
     from {
         clip-path: inset(0 100% 0 0);
     }
+
     to {
         clip-path: inset(0 0% 0 0);
     }
@@ -111,7 +112,8 @@
 }
 
 .clearFiltersButton,
-.closeIcon {
+.closeIcon,
+.toggleButton {
     cursor: pointer;
     color: var(--colors-grey800);
     background-color: transparent;
@@ -127,7 +129,33 @@
 }
 
 .clearFiltersButton:hover,
-.closeIcon:hover {
+.closeIcon:hover,
+.toggleButton:hover {
     color: var(--colors-grey900);
     background-color: var(--colors-grey300);
+}
+
+.toggleButton.active {
+    color: var(--colors-blue700);
+    background-color: var(--colors-blue100);
+}
+
+.toggleButton.active:hover {
+    background-color: var(--colors-blue200);
+}
+
+.highlightColorPicker {
+    margin-bottom: 0 !important;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: -1px;
+}
+
+.highlightColorPicker label {
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 18px !important;
+    min-height: 18px !important;
 }

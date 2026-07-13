@@ -17,6 +17,12 @@ const MapView = (props) => {
         layers,
         controls,
         feature,
+        selection,
+        highlightFeature,
+        highlightColor,
+        showOnlySelected,
+        clickFeature,
+        toggleFeatureSelection,
         bounds,
         coordinatePopup,
         interpretationModalOpen,
@@ -57,6 +63,12 @@ const MapView = (props) => {
                             layers={splitViewLayers.reverse()}
                             controls={mapControls}
                             feature={feature}
+                            selection={selection}
+                            highlightFeature={highlightFeature}
+                            highlightColor={highlightColor}
+                            showOnlySelected={showOnlySelected}
+                            clickFeature={clickFeature}
+                            toggleFeatureSelection={toggleFeatureSelection}
                             interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
@@ -72,6 +84,12 @@ const MapView = (props) => {
                             bounds={bounds}
                             controls={mapControls}
                             feature={feature}
+                            selection={selection}
+                            highlightFeature={highlightFeature}
+                            highlightColor={highlightColor}
+                            showOnlySelected={showOnlySelected}
+                            clickFeature={clickFeature}
+                            toggleFeatureSelection={toggleFeatureSelection}
                             coordinatePopup={coordinatePopup}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
@@ -92,9 +110,12 @@ const MapView = (props) => {
 MapView.propTypes = {
     basemap: PropTypes.object,
     bounds: PropTypes.array,
+    clickFeature: PropTypes.func,
     controls: PropTypes.array,
     coordinatePopup: PropTypes.array,
     feature: PropTypes.object,
+    highlightColor: PropTypes.string,
+    highlightFeature: PropTypes.func,
     interpretationModalOpen: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
@@ -102,7 +123,10 @@ MapView.propTypes = {
     layersSorting: PropTypes.bool,
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
+    selection: PropTypes.object,
     setMapObject: PropTypes.func,
+    showOnlySelected: PropTypes.bool,
+    toggleFeatureSelection: PropTypes.func,
 }
 
 export default MapView
