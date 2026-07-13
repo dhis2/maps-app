@@ -1098,3 +1098,50 @@ describe('useTableData columnOptions', () => {
         ])
     })
 })
+
+describe('useTableData globalSearch', () => {
+    const store = { aggregations: {} }
+
+    const layer = {
+        layer: 'orgUnit',
+        dataFilters: null,
+        data: [
+            { properties: { id: 'a', name: 'Kampala', parentName: 'Uganda' } },
+            { properties: { id: 'b', name: 'Nairobi', parentName: 'Kenya' } },
+        ],
+    }
+
+    const renderTableData = (globalSearch) =>
+        renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                    globalSearch,
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        ).result
+
+    test('includes all rows when the search string is empty', () => {
+        const { current } = renderTableData('')
+        expect(current.rows).toHaveLength(2)
+    })
+
+    test('matches case-insensitively across any string column', () => {
+        const { current } = renderTableData('uganda')
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'Kampala'
+        )
+    })
+
+    test('shows no rows when nothing matches', () => {
+        const { current } = renderTableData('addis ababa')
+        expect(current.rows).toHaveLength(0)
+    })
+})
