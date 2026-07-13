@@ -48,6 +48,22 @@ export const numericFilter = (value, filter) => {
     })
 }
 
+// Matches rows where any of the given string-typed fields contains
+// the search string (case-insensitive)
+export const filterByGlobalSearch = (data, searchString, stringDataKeys) => {
+    if (!searchString?.trim() || !stringDataKeys?.length) {
+        return data
+    }
+    const lower = searchString.toLowerCase()
+    return data.filter((item) => {
+        const props = item.properties || item
+        return stringDataKeys.some((key) => {
+            const val = props[key]
+            return val != null && String(val).toLowerCase().includes(lower)
+        })
+    })
+}
+
 // Returns true if the filter is true
 const isTrueFilter = (value, filter) => {
     if (filter.includes('>=')) {
