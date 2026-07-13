@@ -11,7 +11,7 @@ import {
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
-import { filterData } from '../../util/filter.js'
+import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData, isFeatureInBounds } from '../../util/geojson.js'
 import { parseRange } from '../../util/legend.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
@@ -210,6 +210,7 @@ export const useTableData = ({
     mapBounds,
     showOnlySelected,
     selectedIdSet,
+    globalSearch,
 }) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
@@ -387,6 +388,17 @@ export const useTableData = ({
 
         let filteredData = filterData(dataWithAggregations, dataFilters)
 
+        if (globalSearch?.trim()) {
+            const stringDataKeys = headers
+                .filter((h) => h.type === TYPE_STRING)
+                .map((h) => h.dataKey)
+            filteredData = filterByGlobalSearch(
+                filteredData,
+                globalSearch,
+                stringDataKeys
+            )
+        }
+
         if (showOnlySelected) {
             filteredData = filteredData.filter((item) =>
                 selectedIdSet?.has(item.id)
@@ -450,6 +462,7 @@ export const useTableData = ({
         headers,
         dataWithAggregations,
         dataFilters,
+        globalSearch,
         sortField,
         sortDirection,
         showOnlySelected,
