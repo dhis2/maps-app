@@ -4,6 +4,8 @@ import {
     CENTROID_FORMAT_GEOJSON,
     getBounds,
     getCentroid,
+    isPointInBounds,
+    isFeatureInBounds,
     addStyleDataItem,
     createEventFeature,
     buildEventGeometryGetter,
@@ -788,6 +790,142 @@ describe('geojson utils', () => {
                 ],
             }
             expect(getCentroid(unknown)).toBeNull()
+        })
+    })
+
+    describe('isPointInBounds', () => {
+        const bounds = [-10, -10, 10, 10]
+
+        it('returns true for a point inside the bounds', () => {
+            expect(isPointInBounds([0, 0], bounds)).toBe(true)
+        })
+
+        it('returns true for a point exactly on the bounds edge', () => {
+            expect(isPointInBounds([10, 10], bounds)).toBe(true)
+            expect(isPointInBounds([-10, -10], bounds)).toBe(true)
+        })
+
+        it('returns false for a point outside the bounds', () => {
+            expect(isPointInBounds([20, 0], bounds)).toBe(false)
+            expect(isPointInBounds([0, -20], bounds)).toBe(false)
+        })
+
+        describe('antimeridian-crossing bounds (west > east)', () => {
+            const antimeridianBounds = [170, -10, -170, 10]
+
+            it('returns true for a point within the eastern segment', () => {
+                expect(isPointInBounds([175, 0], antimeridianBounds)).toBe(true)
+            })
+
+            it('returns true for a point within the western segment', () => {
+                expect(isPointInBounds([-175, 0], antimeridianBounds)).toBe(
+                    true
+                )
+            })
+
+            it('returns false for a point outside both segments', () => {
+                expect(isPointInBounds([0, 0], antimeridianBounds)).toBe(false)
+            })
+        })
+    })
+
+    describe('isFeatureInBounds', () => {
+        const bounds = [-10, -10, 10, 10]
+
+        it('returns true for a Point feature whose coordinates fall within bounds', () => {
+            const feature = {
+                geometry: { type: GEO_TYPE_POINT, coordinates: [1, 2] },
+            }
+            expect(isFeatureInBounds(feature, bounds)).toBe(true)
+        })
+
+        it('returns false for a Point feature outside bounds', () => {
+            const feature = {
+                geometry: { type: GEO_TYPE_POINT, coordinates: [50, 50] },
+            }
+            expect(isFeatureInBounds(feature, bounds)).toBe(false)
+        })
+
+        it('returns true for a Polygon feature whose centroid falls within bounds', () => {
+            const feature = {
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                        [
+                            [0, 0],
+                            [4, 0],
+                            [4, 4],
+                            [0, 4],
+                            [0, 0],
+                        ],
+                    ],
+                },
+            }
+            expect(isFeatureInBounds(feature, bounds)).toBe(true)
+        })
+
+        it('returns true for a large Polygon whose centroid falls outside bounds but whose shape still overlaps them', () => {
+            const feature = {
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                        [
+                            [-100, -100],
+                            [-5, -100],
+                            [-5, 100],
+                            [-100, 100],
+                            [-100, -100],
+                        ],
+                    ],
+                },
+            }
+            expect(getCentroid(feature.geometry)[0]).toBeLessThan(bounds[0])
+            expect(isFeatureInBounds(feature, bounds)).toBe(true)
+        })
+
+        it('returns false for a Polygon whose bounding box does not overlap bounds at all', () => {
+            const feature = {
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                        [
+                            [50, 50],
+                            [54, 50],
+                            [54, 54],
+                            [50, 54],
+                            [50, 50],
+                        ],
+                    ],
+                },
+            }
+            expect(isFeatureInBounds(feature, bounds)).toBe(false)
+        })
+
+        it('returns false when the feature has no geometry', () => {
+            expect(isFeatureInBounds({ geometry: null }, bounds)).toBe(false)
+        })
+
+        it('returns false when bounds are not provided', () => {
+            const feature = {
+                geometry: { type: GEO_TYPE_POINT, coordinates: [1, 2] },
+            }
+            expect(isFeatureInBounds(feature, null)).toBe(false)
+        })
+
+        it('returns true for a Point feature within an antimeridian-crossing viewport', () => {
+            const antimeridianBounds = [170, -10, -170, 10]
+            const feature = {
+                geometry: { type: GEO_TYPE_POINT, coordinates: [175, 0] },
+            }
+            expect(isFeatureInBounds(feature, antimeridianBounds)).toBe(true)
+        })
+
+        it('returns false for a Point feature outside an antimeridian-crossing viewport', () => {
+            const antimeridianBounds = [170, -10, -170, 10]
+            const feature = {
+                geometry: { type: GEO_TYPE_POINT, coordinates: [0, 0] },
+            }
+            expect(isFeatureInBounds(feature, antimeridianBounds)).toBe(false)
         })
     })
 })

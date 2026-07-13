@@ -1,5 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
-import { IconCross16, IconFilter16, Tooltip } from '@dhis2/ui'
+import {
+    IconCross16,
+    IconFilter16,
+    IconEmptyFrame16,
+    IconCheckmarkCircle16,
+    Tooltip,
+} from '@dhis2/ui'
+import cx from 'classnames'
 import React, {
     useRef,
     useCallback,
@@ -10,14 +17,30 @@ import React, {
 import { createPortal } from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearDataFilters } from '../../actions/dataFilters.js'
-import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
+import {
+    closeDataTable,
+    resizeDataTable,
+    toggleShowOnlyFeaturesInView,
+    toggleShowOnlySelected,
+    setShowOnlySelected,
+    setHighlightColor,
+} from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
+import ColorPicker from '../core/ColorPicker.jsx'
+import {
+    IconChevronDoubleDown16,
+    IconChevronDoubleUp16,
+} from '../core/icons.jsx'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import ResizeHandle from './ResizeHandle.jsx'
 import styles from './styles/BottomPanel.module.css'
+
+// Must match `.dataTableControls`'s height in BottomPanel.module.css
+const COLLAPSED_HEIGHT = 36
+const MIN_HEIGHT = 50
 
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
@@ -27,27 +50,61 @@ const BottomPanel = () => {
     )
     const dataFilters = activeLayer?.dataFilters ?? {}
     const hasActiveFilters = Object.keys(dataFilters).length > 0
+    const showOnlyFeaturesInView = useSelector(
+        (state) => state.ui.showOnlyFeaturesInView
+    )
+    const showOnlySelected = useSelector((state) => state.ui.showOnlySelected)
+    const selection = useSelector((state) => state.selection)
+    const selectedCount =
+        selection.layerId === activeLayerId ? selection.ids.length : 0
+    const highlightColor = useSelector((state) => state.ui.highlightColor)
 
     const dispatch = useDispatch()
     const { height } = useWindowDimensions()
     const panelRef = useRef(null)
     const nameRef = useRef(null)
+    const isDraggingRef = useRef(false)
     const [panelWidth, setPanelWidth] = useState(0)
     const [totalCount, setTotalCount] = useState(null)
     const [filteredCount, setFilteredCount] = useState(null)
     const [nameTooltipPos, setNameTooltipPos] = useState(null)
+    const [isCollapsed, setIsCollapsed] = useState(false)
 
     const maxHeight =
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
+    const displayHeight = isCollapsed ? COLLAPSED_HEIGHT : tableHeight
+
+    const toggleCollapsed = useCallback(
+        () => setIsCollapsed((collapsed) => !collapsed),
+        []
+    )
+
+    const onResizeStart = useCallback(() => {
+        isDraggingRef.current = true
+    }, [])
 
     const onResize = useCallback((h) => {
+        setIsCollapsed(h <= MIN_HEIGHT)
         document.documentElement.style.setProperty(
             '--data-table-height',
-            `${h}px`
+            `${h <= MIN_HEIGHT ? COLLAPSED_HEIGHT : h}px`
         )
     }, [])
+
+    const onResizeEnd = useCallback(
+        (h) => {
+            isDraggingRef.current = false
+            if (h <= MIN_HEIGHT) {
+                setIsCollapsed(true)
+            } else {
+                setIsCollapsed(false)
+                dispatch(resizeDataTable(h))
+            }
+        },
+        [dispatch]
+    )
 
     const onCountChange = useCallback((total, filtered) => {
         setTotalCount(total)
@@ -75,11 +132,14 @@ const BottomPanel = () => {
     const onNameMouseLeave = useCallback(() => setNameTooltipPos(null), [])
 
     useLayoutEffect(() => {
+        if (isDraggingRef.current) {
+            return
+        }
         document.documentElement.style.setProperty(
             '--data-table-height',
-            `${tableHeight}px`
+            `${displayHeight}px`
         )
-    }, [tableHeight])
+    }, [displayHeight])
 
     useLayoutEffect(
         () => () =>
@@ -103,6 +163,12 @@ const BottomPanel = () => {
 
     useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
+    useEffect(() => {
+        if (showOnlySelected && selectedCount === 0) {
+            dispatch(setShowOnlySelected(false))
+        }
+    }, [dispatch, showOnlySelected, selectedCount])
+
     let rowCountLabel = null
     if (totalCount !== null && filteredCount !== null) {
         rowCountLabel =
@@ -120,12 +186,26 @@ const BottomPanel = () => {
             className={styles.bottomPanel}
             data-test="bottom-panel"
         >
-            <div className={styles.dataTableControls}>
-                <ResizeHandle
-                    maxHeight={maxHeight}
-                    onResize={onResize}
-                    onResizeEnd={(height) => dispatch(resizeDataTable(height))}
-                />
+            <div
+                className={styles.dataTableControls}
+                onDoubleClick={toggleCollapsed}
+            >
+                <button
+                    className={styles.toggleButton}
+                    onClick={toggleCollapsed}
+                >
+                    <Tooltip
+                        content={
+                            isCollapsed ? i18n.t('Restore') : i18n.t('Collapse')
+                        }
+                    >
+                        {isCollapsed ? (
+                            <IconChevronDoubleUp16 />
+                        ) : (
+                            <IconChevronDoubleDown16 />
+                        )}
+                    </Tooltip>
+                </button>
                 <span
                     ref={nameRef}
                     className={styles.layerName}
@@ -151,6 +231,13 @@ const BottomPanel = () => {
                         </div>,
                         document.body
                     )}
+                <ResizeHandle
+                    maxHeight={maxHeight}
+                    minHeight={MIN_HEIGHT}
+                    onResizeStart={onResizeStart}
+                    onResize={onResize}
+                    onResizeEnd={onResizeEnd}
+                />
                 {rowCountLabel && (
                     <span className={styles.rowCount}>{rowCountLabel}</span>
                 )}
@@ -170,6 +257,40 @@ const BottomPanel = () => {
                     </button>
                 )}
                 <button
+                    className={cx(styles.toggleButton, {
+                        [styles.active]: showOnlyFeaturesInView,
+                    })}
+                    onClick={() => dispatch(toggleShowOnlyFeaturesInView())}
+                >
+                    <Tooltip
+                        content={i18n.t(
+                            'Show only features in current map view'
+                        )}
+                    >
+                        <IconEmptyFrame16 />
+                    </Tooltip>
+                </button>
+                <button
+                    className={cx(styles.toggleButton, {
+                        [styles.active]: showOnlySelected,
+                    })}
+                    onClick={() => dispatch(toggleShowOnlySelected())}
+                >
+                    <Tooltip content={i18n.t('Show only selected features')}>
+                        <IconCheckmarkCircle16 />
+                    </Tooltip>
+                </button>
+                <Tooltip content={i18n.t('Highlight color')}>
+                    <ColorPicker
+                        className={styles.highlightColorPicker}
+                        color={highlightColor}
+                        width={18}
+                        height={18}
+                        centerIcon
+                        onChange={(color) => dispatch(setHighlightColor(color))}
+                    />
+                </Tooltip>
+                <button
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}
                 >
@@ -178,14 +299,17 @@ const BottomPanel = () => {
                     </Tooltip>
                 </button>
             </div>
-            <div className={styles.tableContainer}>
-                <ErrorBoundary>
-                    <DataTable
-                        availableWidth={panelWidth}
-                        onCountChange={onCountChange}
-                    />
-                </ErrorBoundary>
-            </div>
+            {!isCollapsed && (
+                <div className={styles.tableContainer}>
+                    <ErrorBoundary>
+                        <DataTable
+                            availableWidth={panelWidth}
+                            onCountChange={onCountChange}
+                            showOnlySelected={showOnlySelected}
+                        />
+                    </ErrorBoundary>
+                </div>
+            )}
         </div>
     )
 }

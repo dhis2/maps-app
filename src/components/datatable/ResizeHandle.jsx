@@ -12,6 +12,7 @@ EMPTY_DRAG_IMAGE.src =
 
 const ResizeHandle = ({
     onResize,
+    onResizeStart,
     onResizeEnd,
     minHeight = 50,
     maxHeight = 500,
@@ -25,6 +26,8 @@ const ResizeHandle = ({
         }
 
         evt.dataTransfer.setData('text/plain', 'node') // Required to initialize dragging in Firefox
+
+        onResizeStart?.()
 
         // https://stackoverflow.com/questions/23992091/drag-and-drop-directive-no-e-clientx-or-e-clienty-on-drag-event-in-firefox
         document.ondragover = onDrag
@@ -80,6 +83,7 @@ ResizeHandle.propTypes = {
     minHeight: PropTypes.number,
     onResize: PropTypes.func,
     onResizeEnd: PropTypes.func,
+    onResizeStart: PropTypes.func,
 }
 
 export default ResizeHandle

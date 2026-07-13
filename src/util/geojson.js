@@ -1,3 +1,4 @@
+import turfBbox from '@turf/bbox'
 import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
 import { formatWithSeparator } from './numbers.js'
@@ -186,6 +187,26 @@ export const getCentroid = (geometry, format = CENTROID_FORMAT_ARRAY) => {
         return { type: GEO_TYPE_POINT, coordinates: coords }
     }
     return coords
+}
+
+export const isPointInBounds = ([lng, lat], [west, south, east, north]) => {
+    const lngInBounds =
+        west <= east ? lng >= west && lng <= east : lng >= west || lng <= east
+    return lngInBounds && lat >= south && lat <= north
+}
+
+export const isFeatureInBounds = (feature, bounds) => {
+    if (!bounds || !feature.geometry) {
+        return false
+    }
+    const [west, south, east, north] = bounds
+    const [minLng, minLat, maxLng, maxLat] = turfBbox(feature.geometry)
+    const latOverlaps = minLat <= north && maxLat >= south
+    const lngOverlaps =
+        west <= east
+            ? minLng <= east && maxLng >= west
+            : minLng <= east || maxLng >= west
+    return lngOverlaps && latOverlaps
 }
 
 export const getGeojsonDisplayData = (feature) => {
