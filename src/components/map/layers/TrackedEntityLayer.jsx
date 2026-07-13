@@ -86,6 +86,9 @@ class TrackedEntityLayer extends Layer {
                 radius,
             },
             onClick: this.onEventClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
+            onMouseEnter: this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: this.onFeatureMouseLeave.bind(this),
         }
 
         if (areaRadius) {
@@ -119,6 +122,9 @@ class TrackedEntityLayer extends Layer {
                     radius: relatedPointRadius || TEI_RELATED_RADIUS,
                 },
                 onClick: this.onEventClickSecondary.bind(this),
+                onRightClick: this.onFeatureRightClick.bind(this),
+                onMouseEnter: this.onFeatureMouseEnter.bind(this),
+                onMouseLeave: this.onFeatureMouseLeave.bind(this),
             }
 
             const relationshipConfig = makeRelationshipLayer(
@@ -157,10 +163,16 @@ class TrackedEntityLayer extends Layer {
         ) : null
     }
 
-    onEventClick({ feature, coordinates }) {
-        this.setState({
-            popup: { feature, coordinates, activeDataSource: 'primary' },
-        })
+    onEventClick(evt) {
+        const { feature, coordinates } = evt
+
+        this.onFeatureLeftClick(evt)
+
+        if (!this.isMultiSelectClick(evt)) {
+            this.setState({
+                popup: { feature, coordinates, activeDataSource: 'primary' },
+            })
+        }
     }
     onEventClickSecondary({ feature, coordinates }) {
         this.setState({

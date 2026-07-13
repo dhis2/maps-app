@@ -10,6 +10,7 @@ td.dataCell {
     padding-top: var(--spacers-dp8);
     padding-bottom: var(--spacers-dp8);
     font-size: 11px;
+    overflow-wrap: anywhere;
 }
 
 td.dataCell:hover {
@@ -18,6 +19,24 @@ td.dataCell:hover {
 
 td.lightText {
     color: var(--colors-white);
+}
+
+th.checkboxCell,
+td.checkboxCell {
+    width: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    text-align: center;
+    padding: 0;
+}
+
+td.selected {
+    background-color: var(--colors-blue050);
+}
+
+/* Declared after .selected so a hovered and selected row still shows the hover color */
+td.hovered {
+    background-color: var(--colors-blue100);
 }
 
 .columnHeader > :global(span.container) {
