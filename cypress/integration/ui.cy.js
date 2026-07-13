@@ -131,15 +131,21 @@ describe('ui', () => {
             key: 'ArrowDown',
             keyCode: 40,
         })
-        cy.document().trigger('keydown', { code: 'Space', key: ' ', keyCode: 32 })
-
-        // Wait for the stopSorting timeout (100ms) and the re-render
-        cy.wait(200) // eslint-disable-line cypress/no-unnecessary-waiting
-
-        // The first two layers should now be swapped
-        getOverlayLayerTitles().then((titles) => {
-            expect(titles[0]).to.eq(initialTitles[1])
-            expect(titles[1]).to.eq(initialTitles[0])
+        cy.document().trigger('keydown', {
+            code: 'Space',
+            key: ' ',
+            keyCode: 32,
         })
+
+        // The first two layers should now be swapped. .should() retries until
+        // the drop's re-render (after the stopSorting timeout) settles, so no
+        // fixed wait is needed.
+        cy.getByDataTest('sortable-layers-list')
+            .find('[data-test="layercard"] h2')
+            .should(($titles) => {
+                const titles = [...$titles].map((el) => el.textContent)
+                expect(titles[0]).to.eq(initialTitles[1])
+                expect(titles[1]).to.eq(initialTitles[0])
+            })
     })
 })
