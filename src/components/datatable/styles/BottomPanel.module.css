@@ -159,3 +159,9 @@
     min-width: 18px !important;
     min-height: 18px !important;
 }
+
+.globalSearch {
+    flex: 0 1 160px;
+    min-width: 90px;
+    margin-bottom: 0 !important;
+}
