@@ -80,7 +80,7 @@ describe('data table', () => {
         // check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 10)
+            .should('have.length', 11)
 
         // Filter by name
         cy.getByDataTest('data-table-column-filter-input-Name')
@@ -94,15 +94,15 @@ describe('data table', () => {
             .should('have.length', 7)
 
         // confirm that the sort order is initially ascending by Name
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Bargbe' })
-        checkTableCell({ row: 6, column: 1, expectedContent: 'Upper Bambara' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Bargbe' })
+        checkTableCell({ row: 6, column: 2, expectedContent: 'Upper Bambara' })
 
         // Sort by name
         cy.getByDataTest('data-table-column-sort-button-Name').click()
 
         // confirm that the rows are sorted by Name descending
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Upper Bambara' })
-        checkTableCell({ row: 6, column: 1, expectedContent: 'Bargbe' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Upper Bambara' })
+        checkTableCell({ row: 6, column: 2, expectedContent: 'Bargbe' })
 
         // filter by Value (numeric)
         cy.getByDataTest('data-table-column-filter-input-Value')
@@ -119,8 +119,8 @@ describe('data table', () => {
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
         // check that the rows are sorted by Value ascending
-        checkTableCell({ row: 0, column: 3, expectedContent: '35' })
-        checkTableCell({ row: 4, column: 3, expectedContent: '76' })
+        checkTableCell({ row: 0, column: 4, expectedContent: '35' })
+        checkTableCell({ row: 4, column: 4, expectedContent: '76' })
 
         // right-click a row and select "View profile"
         cy.getByDataTest('bottom-panel')
@@ -179,7 +179,7 @@ describe('data table', () => {
         // check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 10)
+            .should('have.length', 11)
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
@@ -193,8 +193,8 @@ describe('data table', () => {
             .type(ouName)
 
         // check that all the rows have Org unit Moyowa
-        checkTableCell({ row: 0, column: 1, expectedContent: ouName })
-        checkTableCell({ row: 2, column: 1, expectedContent: ouName })
+        checkTableCell({ row: 0, column: 2, expectedContent: ouName })
+        checkTableCell({ row: 2, column: 2, expectedContent: ouName })
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
@@ -236,8 +236,8 @@ describe('data table', () => {
 
         // Confirm that the rows are sorted by Age in years ascending
         // (the first click on a new column always sorts ascending)
-        checkTableCell({ row: 0, column: 7, expectedContent: '6' })
-        checkTableCell({ row: 1, column: 7, expectedContent: '32' })
+        checkTableCell({ row: 0, column: 8, expectedContent: '6' })
+        checkTableCell({ row: 1, column: 8, expectedContent: '32' })
 
         // right-click a row: Event layers have no profile to view
         cy.getByDataTest('bottom-panel')
@@ -295,52 +295,52 @@ describe('data table', () => {
         cy.getByDataTest('bottom-panel').should('be.visible')
 
         // Confirm that the sort order is initially ascending by Name
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Bendu CHC' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Bendu CHC' })
 
         // First click on a new column always sorts ascending
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
         // Check that first row has Tihun CHC with value 28.63
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '28.63' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 0, column: 4, expectedContent: '28.63' })
 
         // Check that row 5 has Gbamgbama CHC with value 117.98
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '117.98' })
+        checkTableCell({ row: 5, column: 2, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 5, column: 4, expectedContent: '117.98' })
 
         // Check that row 6 has no value (undefined)
-        checkTableCell({ row: 6, column: 3, expectedContent: '' })
+        checkTableCell({ row: 6, column: 4, expectedContent: '' })
 
         // Sort descending by Value
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '117.98' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 0, column: 4, expectedContent: '117.98' })
 
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '28.63' })
+        checkTableCell({ row: 5, column: 2, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 5, column: 4, expectedContent: '28.63' })
 
-        checkTableCell({ row: 6, column: 3, expectedContent: '' })
+        checkTableCell({ row: 6, column: 4, expectedContent: '' })
 
         // Sort by index (a new column, so ascending) and scroll to the top
         cy.getByDataTest('data-table-column-sort-button-Index').click()
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        checkTableCell({ row: 0, column: 0, expectedContent: '0' })
+        checkTableCell({ row: 0, column: 1, expectedContent: '0' })
 
         // Check that row 0 range value is empty
-        checkTableCell({ row: 0, column: 5, expectedContent: '' })
+        checkTableCell({ row: 0, column: 6, expectedContent: '' })
 
         // Sort by range, which is a string
         cy.getByDataTest('data-table-column-sort-button-Range').click()
 
         // Check that row 0 range value has value '0-40'
-        checkTableCell({ row: 0, column: 5, expectedContent: '0 – 40' })
+        checkTableCell({ row: 0, column: 6, expectedContent: '0 – 40' })
 
         // Check that row 5 range value has value '90 - 120'
-        checkTableCell({ row: 5, column: 5, expectedContent: '90 – 120' })
+        checkTableCell({ row: 5, column: 6, expectedContent: '90 – 120' })
 
         // Check that row 6 range value is empty
-        checkTableCell({ row: 6, column: 5, expectedContent: '' })
+        checkTableCell({ row: 6, column: 6, expectedContent: '' })
     })
 })
