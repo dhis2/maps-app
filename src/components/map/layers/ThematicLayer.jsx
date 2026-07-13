@@ -21,7 +21,7 @@ import {
 } from '../../../util/periods.js'
 import { poleOfInaccessibility } from '../MapApi.js'
 import Popup from '../Popup.jsx'
-import Layer, { idsEqual } from './Layer.js'
+import Layer from './Layer.js'
 import styles from './styles/Popup.module.css'
 
 export const ThematicLayerContext = React.createContext()
@@ -193,73 +193,37 @@ class ThematicLayer extends Layer {
     }
 
     componentDidUpdate(prevProps) {
-        const prevPeriodId = prevProps.externalPeriod?.id
-        const newPeriodId = this.props.externalPeriod?.id
-
-        const dataChanged = prevProps.data !== this.props.data
-        const valuesChanged =
-            prevProps.valuesByPeriod !== this.props.valuesByPeriod
-        const filtersChanged = prevProps.dataFilters !== this.props.dataFilters
-        const renderingChanged =
-            prevProps.renderingStrategy !== this.props.renderingStrategy
-
-        if (
-            !dataChanged &&
-            !valuesChanged &&
-            !filtersChanged &&
-            !renderingChanged &&
-            prevPeriodId === newPeriodId
-        ) {
-            this.setLayerOpacity()
-            this.setLayerVisibility()
-            this.setLayerOrder()
-            const { feature, selection, highlightColor, showOnlySelected } =
-                this.props
-            if (feature !== prevProps.feature) {
-                this.handleFeatureUpdate(feature)
-
-                if (
-                    this.getHoverId(prevProps.feature) !==
-                    this.getHoverId(feature)
-                ) {
-                    this.highlightFeature()
-                }
-            }
-            if (
-                selection !== prevProps.selection &&
-                !idsEqual(
-                    this.getSelectedIds(prevProps.selection),
-                    this.getSelectedIds(selection)
-                )
-            ) {
-                this.selectFeatures()
-            }
-            if (highlightColor !== prevProps.highlightColor) {
-                if (this.getHoverId()) {
-                    this.highlightFeature()
-                }
-                if (this.getSelectedIds().length) {
-                    this.selectFeatures()
-                }
-            }
-            if (
-                !idsEqual(
-                    this.getVisibleIds(
-                        prevProps.selection,
-                        prevProps.showOnlySelected
-                    ) ?? [],
-                    this.getVisibleIds(selection, showOnlySelected) ?? []
-                )
-            ) {
-                this.updateVisibleIds()
-            }
+        if (this.canSkipRebuild(prevProps)) {
+            this.handleIndexChange(prevProps)
+            this.handleOpacityChange(prevProps)
+            this.handleVisibilityChange(prevProps)
+            this.handleFeatureChange(prevProps)
+            this.handleSelectionChange(prevProps)
+            this.handleHighlightColorChange(prevProps)
+            this.handleVisibleIdsChange(prevProps)
             return
         }
 
-        const { valuesByPeriod, thematicMapType = THEMATIC_CHOROPLETH } =
-            this.props
+        this.rebuildPeriodData()
+        this.syncPopupForNewPeriod()
+    }
 
-        // Rebuild the period-specific data the same way as in createLayer
+    canSkipRebuild(prevProps) {
+        const prevPeriodId = prevProps.externalPeriod?.id
+        const newPeriodId = this.props.externalPeriod?.id
+
+        return (
+            prevProps.data === this.props.data &&
+            prevProps.valuesByPeriod === this.props.valuesByPeriod &&
+            prevProps.dataFilters === this.props.dataFilters &&
+            prevProps.renderingStrategy === this.props.renderingStrategy &&
+            prevPeriodId === newPeriodId
+        )
+    }
+
+    // Rebuild the period-specific data the same way as in createLayer
+    rebuildPeriodData() {
+        const { thematicMapType = THEMATIC_CHOROPLETH } = this.props
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
         const filteredData = this.buildPeriodData()
 
@@ -284,30 +248,32 @@ class ThematicLayer extends Layer {
             // Recreate layer to pick up changes
             this.updateLayer()
         }
+    }
 
-        // Sync popup contents if open
+    // Sync popup contents if open
+    syncPopupForNewPeriod() {
         const { popup } = this.state
-        if (popup && this.props.externalPeriod) {
-            const newValues =
-                (valuesByPeriod &&
-                    this.props.externalPeriod &&
-                    valuesByPeriod[this.props.externalPeriod.id]) ||
-                {}
-            const updatedPopup = {
-                ...popup,
-                feature: {
-                    ...popup.feature,
-                    properties: {
-                        ...popup.feature.properties,
-                        ...(newValues[popup.feature.properties.id] || {
-                            value: i18n.t('Not set'),
-                        }),
-                    },
-                },
-            }
-
-            this.setState({ popup: updatedPopup })
+        if (!popup || !this.props.externalPeriod) {
+            return
         }
+
+        const { valuesByPeriod, externalPeriod } = this.props
+        const newValues =
+            (valuesByPeriod && valuesByPeriod[externalPeriod.id]) || {}
+        const updatedPopup = {
+            ...popup,
+            feature: {
+                ...popup.feature,
+                properties: {
+                    ...popup.feature.properties,
+                    ...(newValues[popup.feature.properties.id] || {
+                        value: i18n.t('Not set'),
+                    }),
+                },
+            },
+        }
+
+        this.setState({ popup: updatedPopup })
     }
 
     onFeatureClick(evt) {
