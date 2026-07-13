@@ -976,3 +976,125 @@ describe('useTableData showOnlySelected', () => {
         expect(current.rows).toHaveLength(0)
     })
 })
+
+describe('useTableData columnOptions', () => {
+    const store = { aggregations: {} }
+
+    const renderTableData = (layer) =>
+        renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        ).result
+
+    test('includes legend and type for a thematic layer, but not name/id', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou1',
+                        name: 'Org unit 1',
+                        rawValue: 10,
+                        legend: 'High',
+                        range: '5 - 15',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                        color: '#ff0000',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou2',
+                        name: 'Org unit 2',
+                        rawValue: 20,
+                        legend: 'Low',
+                        range: '15 - 25',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                        color: '#00ff00',
+                    },
+                },
+            ],
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.legend).toEqual([
+            { value: 'High' },
+            { value: 'Low' },
+        ])
+        expect(current.columnOptions.type).toEqual([{ value: 'Point' }])
+        expect(current.columnOptions.name).toBeUndefined()
+        expect(current.columnOptions.id).toBeUndefined()
+        expect(current.columnOptions.parentName).toBeUndefined()
+    })
+
+    test('falls back to free text when a column has more than 30 distinct values', () => {
+        const layer = {
+            layer: 'orgUnit',
+            dataFilters: null,
+            data: Array.from({ length: 31 }, (_, i) => ({
+                properties: {
+                    id: `ou${i}`,
+                    name: `Org unit ${i}`,
+                    level: 1,
+                    parentName: 'Country',
+                    type: `Type${i}`,
+                },
+            })),
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.type).toBeUndefined()
+    })
+
+    test('exposes optionSet on event columns for later resolution by FilterInput', () => {
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'AbCdEfGhIjK',
+                    column: 'Case classification',
+                    valueType: 'TEXT',
+                    optionSet: { id: 'xyz123' },
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 'CONFIRMED',
+                    },
+                },
+            ],
+        }
+
+        const { current } = renderTableData(layer)
+
+        const header = current.headers.find(
+            (h) => h.dataKey === 'AbCdEfGhIjK'
+        )
+        expect(header.optionSet).toEqual({ id: 'xyz123' })
+        expect(current.columnOptions.AbCdEfGhIjK).toEqual([
+            { value: 'CONFIRMED' },
+        ])
+    })
+})
