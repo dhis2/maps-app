@@ -68,4 +68,32 @@ describe('filterData', () => {
         const filters = { a: 'a', b: 'r' }
         expect(filterData(data, filters)).toEqual([{ a: 'banana', b: 'horse' }])
     })
+
+    it('should OR-match an array filter against the raw stored value', () => {
+        const data = [{ a: 'High' }, { a: 'Medium' }, { a: 'Low' }]
+        const filters = { a: ['High', 'Low'] }
+        expect(filterData(data, filters)).toEqual([{ a: 'High' }, { a: 'Low' }])
+    })
+
+    it('should not filter any rows when the array filter is empty', () => {
+        const data = [{ a: 'High' }, { a: 'Low' }]
+        const filters = { a: [] }
+        expect(filterData(data, filters)).toEqual([{ a: 'High' }, { a: 'Low' }])
+    })
+
+    it('should match array filters against non-string values by exact string coercion', () => {
+        const data = [{ a: 1 }, { a: 2 }, { a: 3 }]
+        const filters = { a: ['1', '3'] }
+        expect(filterData(data, filters)).toEqual([{ a: 1 }, { a: 3 }])
+    })
+
+    it('should combine an array filter on one field with a string filter on another', () => {
+        const data = [
+            { a: 'High', b: 'cow' },
+            { a: 'High', b: 'horse' },
+            { a: 'Low', b: 'horse' },
+        ]
+        const filters = { a: ['High'], b: 'horse' }
+        expect(filterData(data, filters)).toEqual([{ a: 'High', b: 'horse' }])
+    })
 })
