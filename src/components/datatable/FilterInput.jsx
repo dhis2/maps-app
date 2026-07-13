@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Input, Popover } from '@dhis2/ui'
+import { Input, Popover, Tooltip, IconInfo16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,6 +7,16 @@ import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
 import Checkbox from '../core/Checkbox.jsx'
 import styles from './styles/FilterInput.module.css'
+
+const NUMERIC_FILTER_HELP = (
+    <div>
+        <div>{'> 5 — ' + i18n.t('greater than 5')}</div>
+        <div>{'>= 5 — ' + i18n.t('greater than or equal to 5')}</div>
+        <div>{'< 5, <= 5 — ' + i18n.t('less than (or equal to) 5')}</div>
+        <div>{'2, > 8 — ' + i18n.t('equal to 2 OR greater than 8')}</div>
+        <div>{'> 3 & < 8 — ' + i18n.t('greater than 3 AND less than 8')}</div>
+    </div>
+)
 
 // Shared popover UI — label resolution is injected so it never needs to
 // know whether it's an option-set column or a plain categorical one.
@@ -146,13 +156,29 @@ const FilterInput = ({ type, dataKey, name, options, optionSetId }) => {
             : dispatch(clearDataFilter(layerId, dataKey))
 
     return (
-        <Input
-            dataTest={`data-table-column-filter-input-${name}`}
-            dense
-            placeholder={type === 'number' ? '2,>3&<8' : i18n.t('Search')}
-            value={stringFilterValue}
-            onChange={onChange}
-        />
+        <span
+            className={
+                type === 'number' ? styles.numericFilterWrapper : undefined
+            }
+        >
+            <Input
+                dataTest={`data-table-column-filter-input-${name}`}
+                dense
+                placeholder={type === 'number' ? '> 5, < 8' : i18n.t('Search')}
+                value={stringFilterValue}
+                onChange={onChange}
+            />
+            {type === 'number' && (
+                <Tooltip content={NUMERIC_FILTER_HELP} placement="top">
+                    <span
+                        className={styles.helpIcon}
+                        data-test="data-table-numeric-filter-help"
+                    >
+                        <IconInfo16 />
+                    </span>
+                </Tooltip>
+            )}
+        </span>
     )
 }
 
