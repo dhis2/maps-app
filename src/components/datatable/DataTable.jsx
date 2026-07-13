@@ -374,7 +374,11 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
     useEffect(() => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
         if (columnWidths.length === 0 && headerRowRef.current) {
-            requestAnimationFrame(() => {
+            const frameId = requestAnimationFrame(() => {
+                if (!headerRowRef.current) {
+                    return
+                }
+
                 const measuredColumnWidths = []
 
                 const dataCells = Array.from(headerRowRef.current.cells).slice(
@@ -389,6 +393,8 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
                 minColumnWidthsRef.current = measuredColumnWidths
                 setColumnWidths(measuredColumnWidths)
             })
+
+            return () => cancelAnimationFrame(frameId)
         }
     }, [columnWidths])
 
@@ -437,6 +443,7 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
                     width: '100%',
                 }}
                 data={rows}
+                computeItemKey={(index, row) => getRowId(row) ?? index}
                 fixedHeaderContent={() => (
                     <DataTableRow ref={headerRowRef}>
                         <DataTableColumnHeader
