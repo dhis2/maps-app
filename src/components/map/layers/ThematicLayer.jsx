@@ -258,8 +258,7 @@ class ThematicLayer extends Layer {
         }
 
         const { valuesByPeriod, externalPeriod } = this.props
-        const newValues =
-            (valuesByPeriod && valuesByPeriod[externalPeriod.id]) || {}
+        const newValues = valuesByPeriod?.[externalPeriod.id] || {}
         const updatedPopup = {
             ...popup,
             feature: {
