@@ -1,12 +1,24 @@
 import { IconDragHandle24 } from '@dhis2/ui'
-import React from 'react'
-import { SortableHandle } from 'react-sortable-hoc'
+import React, { useContext } from 'react'
+import { DragHandleContext } from './dragHandleContext.js'
 import styles from './styles/SortableHandle.module.css'
 
-const Handle = () => (
-    <div className={styles.handle} data-test="sortable-handle">
-        <IconDragHandle24 />
-    </div>
-)
+// Drag handle for reordering overlay layer cards. The actual drag listeners
+// come from the dnd-kit useSortable hook in the parent SortableLayer and are
+// passed down through DragHandleContext.
+const SortableHandle = () => {
+    const dragHandle = useContext(DragHandleContext)
 
-export default SortableHandle(Handle)
+    return (
+        <div
+            className={styles.handle}
+            data-test="sortable-handle"
+            {...dragHandle?.attributes}
+            {...dragHandle?.listeners}
+        >
+            <IconDragHandle24 />
+        </div>
+    )
+}
+
+export default SortableHandle

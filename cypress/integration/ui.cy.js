@@ -70,12 +70,13 @@ describe('ui', () => {
             expect(userSelect).not.to.eq('none')
         })
 
-        // Start dragging one of the layers
+        // Start dragging one of the layers. dnd-kit's MouseSensor activates on
+        // mousedown (primary button) on the drag handle and then tracks moves on
+        // the document. A move past the activation distance starts the drag.
         cy.getByDataTest('sortable-handle')
             .first()
             .trigger('mousedown', { button: 0 })
-        // Dragging is initialised on the sortable-handle but moves are tracked on the document
-        cy.document().trigger('mousemove', { clientY: 100 })
+        cy.document().trigger('mousemove', { clientX: 0, clientY: 300 })
 
         // Check that document.body has style user-select: none
         cy.document().should((doc) => {
@@ -84,11 +85,9 @@ describe('ui', () => {
         })
 
         // End the drag (mouseup)
-        cy.getByDataTest('sortable-handle')
-            .first()
-            .trigger('mouseup', { force: true })
+        cy.document().trigger('mouseup', { force: true })
 
-        // Wait for the timeout in onSortEnd (100ms)
+        // Wait for the timeout in stopSorting (100ms)
         cy.wait(150) // eslint-disable-line cypress/no-unnecessary-waiting
 
         cy.document().should((doc) => {
