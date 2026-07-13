@@ -15,6 +15,14 @@ export const filterData = (data, filters) => {
             const props = d.properties || d // GeoJSON or plain object
             const value = props[field]
 
+            if (Array.isArray(filter)) {
+                // Multi-select: OR match against the raw stored value
+                return (
+                    filter.length === 0 ||
+                    filter.includes(value == null ? '' : String(value))
+                )
+            }
+
             return typeof value === 'number'
                 ? numericFilter(value, filter)
                 : stringFilter(value, filter)
