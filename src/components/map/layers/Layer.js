@@ -51,61 +51,75 @@ class Layer extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState = {}) {
-        const {
-            id,
-            data,
-            index,
-            opacity,
-            isVisible,
-            editCounter,
-            dataFilters,
-            feature,
-            selection,
-            highlightColor,
-            showOnlySelected,
-        } = this.props
+        this.handleDataOrPeriodChange(prevProps, prevState)
+        this.handleIndexChange(prevProps)
+        this.handleOpacityChange(prevProps)
+        this.handleVisibilityChange(prevProps)
+        this.handleFeatureChange(prevProps)
+        this.handleSelectionChange(prevProps)
+        this.handleHighlightColorChange(prevProps)
+        this.handleVisibleIdsChange(prevProps)
+    }
+
+    // Create new map if new id of editCounter is increased
+    handleDataOrPeriodChange(prevProps, prevState = {}) {
+        const { id, data, dataFilters, editCounter } = this.props
         const { period } = this.state
         const { period: prevPeriod } = prevState || {}
         const isEdited = editCounter !== prevProps.editCounter
 
-        // Create new map if new id of editCounter is increased
         if (
-            id !== prevProps.id ||
-            data !== prevProps.data ||
-            period?.id !== prevPeriod?.id ||
-            dataFilters !== prevProps.dataFilters ||
-            isEdited
+            id === prevProps.id &&
+            data === prevProps.data &&
+            period?.id === prevPeriod?.id &&
+            dataFilters === prevProps.dataFilters &&
+            !isEdited
         ) {
-            // Reset period if edited
-            if (isEdited) {
-                this.setPeriod(this.updateLayer.bind(this))
-            } else {
-                this.updateLayer(dataFilters !== prevProps.dataFilters)
-            }
+            return
         }
 
+        // Reset period if edited
+        if (isEdited) {
+            this.setPeriod(this.updateLayer.bind(this))
+        } else {
+            this.updateLayer(dataFilters !== prevProps.dataFilters)
+        }
+    }
+
+    handleIndexChange(prevProps) {
+        const { index } = this.props
         if (index !== undefined && index !== prevProps.index) {
             this.setLayerOrder()
         }
+    }
 
-        if (opacity !== prevProps.opacity) {
+    handleOpacityChange(prevProps) {
+        if (this.props.opacity !== prevProps.opacity) {
             this.setLayerOpacity()
         }
+    }
 
-        if (isVisible !== prevProps.isVisible) {
+    handleVisibilityChange(prevProps) {
+        if (this.props.isVisible !== prevProps.isVisible) {
             this.setLayerVisibility()
         }
+    }
 
-        if (feature !== prevProps.feature) {
-            this.handleFeatureUpdate(feature)
-
-            if (
-                this.getHoverId(prevProps.feature) !== this.getHoverId(feature)
-            ) {
-                this.highlightFeature()
-            }
+    handleFeatureChange(prevProps) {
+        const { feature } = this.props
+        if (feature === prevProps.feature) {
+            return
         }
 
+        this.handleFeatureUpdate(feature)
+
+        if (this.getHoverId(prevProps.feature) !== this.getHoverId(feature)) {
+            this.highlightFeature()
+        }
+    }
+
+    handleSelectionChange(prevProps) {
+        const { selection } = this.props
         if (
             selection !== prevProps.selection &&
             !idsEqual(
@@ -115,16 +129,23 @@ class Layer extends PureComponent {
         ) {
             this.selectFeatures()
         }
+    }
 
-        if (highlightColor !== prevProps.highlightColor) {
-            if (this.getHoverId()) {
-                this.highlightFeature()
-            }
-            if (this.getSelectedIds().length) {
-                this.selectFeatures()
-            }
+    handleHighlightColorChange(prevProps) {
+        if (this.props.highlightColor === prevProps.highlightColor) {
+            return
         }
 
+        if (this.getHoverId()) {
+            this.highlightFeature()
+        }
+        if (this.getSelectedIds().length) {
+            this.selectFeatures()
+        }
+    }
+
+    handleVisibleIdsChange(prevProps) {
+        const { selection, showOnlySelected } = this.props
         if (
             !idsEqual(
                 this.getVisibleIds(
