@@ -173,6 +173,9 @@ msgstr "Sort by Selected"
 msgid "Reverse selection"
 msgstr "Reverse selection"
 
+msgid "Select all"
+msgstr "Select all"
+
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 
