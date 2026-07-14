@@ -45,14 +45,21 @@ layer configuration dialog.
 
 ![](../resources/images/maps_event_layer_dialog_PERIOD.png)
 
--   Select the time span for when the events took place. You can select either a fixed period or a
-    relative period.
+Select the time span for when the events took place.
 
-    -   _Relative period_: Select one of the relative periods, for example **This month** or **Last
-        year**. A **default relative period for analysis** can be set in the **System Settings**
-        app.
+-   **Choose from presets**: You can combine one or more relative and fixed periods.
 
-    -   _Fixed period_: Select **Start/end dates** and fill in a start date and an end date.
+    -   _Relative period_: Select **Relative periods**, then the **Period type** (**Years**,
+        **Months**, etc.) and choose one or more relative periods, such as **This year** and **Last
+        year** or **Last 12 months**. A **default relative period for analysis** can be set in the
+        **System Settings** app.
+
+    -   _Fixed period_: Select **Fixed periods**, then choose the **Period type** (**Yearly**,
+        **Monthly**, etc.) and choose one or more fixed periods, such as **2024** or **January
+        2025** and **February 2025**.
+
+-   **Define start–end dates**: Specify exact start and end dates. Both dates are inclusive and will
+    be reflected in the outputs.
 
 #### 3. Org units
 
@@ -107,9 +114,8 @@ layer configuration dialog.
     boundary** column value. Events inside a boundary are tagged with the name of their containing
     org unit in that same column.
 
--   **Tooltip field**: Select a data element or attribute to show as a tooltip when hovering over an
-    event. Selecting **Labels** makes the tooltip persistent on the map. Font size, weight, style
-    and color can also be modified.
+-   **Label**: Select a data element or attribute to show on the layer. Font size, weight, style and
+    color can also be modified.
 
 -   Select **Style by data item** (data element or attribute) to colorize the events according to a
     data value. If events are grouped, clusters are displayed as small donut charts showing the

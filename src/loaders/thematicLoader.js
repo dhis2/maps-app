@@ -29,6 +29,7 @@ import {
     getValidDimensionsFromFilters,
     getDataItemFromColumns,
     getApiResponseNames,
+    applyPeriodFilter,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
 import { parseJsonConfig } from '../util/config.js'
@@ -51,7 +52,7 @@ import {
     fetchOrgUnitDetails,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
-import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
+import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async ({
     config,
@@ -685,14 +686,11 @@ const loadData = async ({
             presetPeriods.map((pe) => pe.id)
         )
     } else {
-        analyticsRequest =
-            presetPeriods.length > 0
-                ? analyticsRequest.addPeriodFilter(
-                      presetPeriods.map((pe) => pe.id)
-                  )
-                : analyticsRequest
-                      .withStartDate(trimTime(startDate))
-                      .withEndDate(trimTime(endDate))
+        analyticsRequest = applyPeriodFilter(analyticsRequest, {
+            periods: presetPeriods,
+            startDate,
+            endDate,
+        })
     }
 
     if (dimensions) {

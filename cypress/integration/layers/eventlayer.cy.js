@@ -165,7 +165,7 @@ context('Event Layers', () => {
             .selectProgram(programIP.name)
             .validateStage(programIP.stage)
             .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeEndDate()
             .addToMap()
 
@@ -199,7 +199,7 @@ context('Event Layers', () => {
             .selectProgram(programIP.name)
             .validateStage(programIP.stage)
             .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(programIP.startDate)
             .typeEndDate(programIP.endDate)
             .selectTab('Org Units')
@@ -217,12 +217,50 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('adds an event layer with multiple periods', () => {
+        Layer.openDialog('Events')
+            .selectProgram(programIP.name)
+            .validateStage(programIP.stage)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 2,
+                y: CURRENT_YEAR - 1,
+            })
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 7,
+                removeAll: false,
+            })
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(programIP.name)
+        Layer.validateCardPeriod(`March ${CURRENT_YEAR - 1}`)
+        Layer.validateCardPeriod(`September ${CURRENT_YEAR - 1}`)
+
+        cy.wait(POPUP_WAIT)
+        cy.get('#dhis2-map-container')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
+            .should('not.exist')
+
+        getMaps().click('center')
+        Layer.validatePopupContents(['Event location'])
+    })
+
     it('preserves start/end dates when editing a saved event layer', () => {
         Layer.openDialog('Events')
             .selectProgram(programIP.name)
             .validateStage(programIP.stage)
             .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(programIP.startDate)
             .typeEndDate(programIP.endDate)
             .selectTab('Org Units')
@@ -248,7 +286,7 @@ context('Event Layers', () => {
             .selectProgram(programIP.name)
             .validateStage(programIP.stage)
             .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(programIP.startDate)
             .typeEndDate(programIP.endDate)
             .selectTab('Style')
@@ -347,7 +385,7 @@ context('Event Layers', () => {
 
         Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
         Layer.selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(programGeowR.startDate)
             .typeEndDate(programGeowR.endDate)
         Layer.selectTab('Style').selectViewAllEvents()
@@ -378,7 +416,7 @@ context('Event Layers', () => {
         selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
         Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
         Layer.selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(programGeowR.startDate)
             .typeEndDate(programGeowR.endDate)
         Layer.selectTab('Style').selectViewAllEvents()
@@ -420,7 +458,7 @@ context('Event Layers', () => {
                 programGeowR.scenarios[0].coordinates[0].name
             )
             Layer.selectTab('Period')
-                .selectPeriodType({ periodType: 'Start/end dates' })
+                .selectStartEndDates()
                 .typeStartDate(programGeowR.startDate)
                 .typeEndDate(programGeowR.endDate)
             Layer.selectTab('Style').selectViewAllEvents()
