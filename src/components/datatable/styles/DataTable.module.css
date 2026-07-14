@@ -75,9 +75,16 @@ td.checkboxCell {
     white-space: nowrap;
 }
 
+/* FilterDropdownPopover (Layer + Popper, see FilterInput.jsx) renders no
+   background/elevation of its own - unlike @dhis2/ui's Popover, which this
+   replaced, styling that is left entirely to the caller. */
 .selectionFilterPopover {
     padding: var(--spacers-dp8);
     min-width: 140px;
+    background-color: var(--colors-white);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(12, 14, 16, 0.15),
+        0 0 0 1px rgba(12, 14, 16, 0.05);
 }
 
 .selectionFilterPopover :global(label) {
@@ -93,7 +100,8 @@ td.hovered {
     background-color: var(--colors-blue100);
 }
 
-.columnHeader > :global(span.container) {
+.columnHeader > :global(span.container),
+.checkboxCell > :global(span.container) {
     justify-content: space-between;
 }
 
