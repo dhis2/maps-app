@@ -75,6 +75,7 @@ td.hovered {
 
 .columnHeader :global(input.dense) {
     padding: 4px 6px;
+    font-size: 11px;
 }
 
 .columnHeader :global(input::placeholder) {
