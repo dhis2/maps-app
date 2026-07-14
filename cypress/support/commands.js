@@ -21,7 +21,10 @@ Cypress.Commands.add(
     (subject, selector) =>
         cy.wrap(subject).contains(
             new RegExp(
-                `^${selector.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}$`, //eslint-disable-line no-useless-escape
+                `^${selector.replace(
+                    /[-\/\\^$*+?.()|[\]{}]/g,
+                    String.raw`\$&`
+                )}$`, //eslint-disable-line no-useless-escape
                 'gm'
             )
         )

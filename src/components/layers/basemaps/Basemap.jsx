@@ -20,7 +20,7 @@ const Basemap = ({ id, img, name, config, isSelected, onClick }) => {
                 data-test="basemaplistitem-img"
             >
                 {img ? (
-                    <img src={img} className={styles.image} />
+                    <img src={img} className={styles.image} alt="" />
                 ) : (
                     <div className={styles.noImage}>
                         {i18n.t('External basemap')}

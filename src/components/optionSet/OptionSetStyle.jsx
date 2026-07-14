@@ -70,24 +70,23 @@ const OptionSetStyle = ({ styledOptionSet }) => {
         }
     }, [styledOptions, options, dispatch])
 
-    return (
-        <div className={styles.optionSetStyle}>
-            {styledOptions ? (
-                styledOptions.map(({ id, name, style }) => (
-                    <OptionStyle
-                        key={id}
-                        name={name}
-                        color={style.color}
-                        onChange={(color) => onChange(id, color)}
-                    />
-                ))
-            ) : warning ? (
-                <Help warning>{warning}</Help>
-            ) : (
-                <CircularLoader small />
-            )}
-        </div>
-    )
+    let content
+    if (styledOptions) {
+        content = styledOptions.map(({ id, name, style }) => (
+            <OptionStyle
+                key={id}
+                name={name}
+                color={style.color}
+                onChange={(color) => onChange(id, color)}
+            />
+        ))
+    } else if (warning) {
+        content = <Help warning>{warning}</Help>
+    } else {
+        content = <CircularLoader small />
+    }
+
+    return <div className={styles.optionSetStyle}>{content}</div>
 }
 
 OptionSetStyle.propTypes = {
