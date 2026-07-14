@@ -17,7 +17,7 @@ import { numberValueTypes } from '../constants/valueTypes.js'
 import {
     getFiltersFromColumns,
     getFiltersAsText,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getPeriodNameFromId,
     getOrgUnitsFromRows,
 } from '../util/analytics.js'
@@ -225,10 +225,13 @@ const loadEventLayer = async ({
         areaRadius,
     } = config
 
-    const period = getPeriodFromFilters(filters)
-    const periodName =
-        periodTypeData?.enabledPeriodTypesData?.metaData?.[period?.id]?.name ??
-        getPeriodNameFromId(period?.id)
+    // Mutates the pe items in filters so period display names are shown
+    const periods = getPeriodsFromFilters(filters).map((pe) => {
+        pe.name =
+            periodTypeData?.enabledPeriodTypesData?.metaData?.[pe.id]?.name ??
+            getPeriodNameFromId(pe.id)
+        return pe
+    })
 
     const dataFilters = getFiltersFromColumns(columns)
 
@@ -248,12 +251,13 @@ const loadEventLayer = async ({
 
     config.legend = {
         title: config.name,
-        period: period
-            ? periodName
-            : formatStartEndDate(
-                  getDateArray(startDate),
-                  getDateArray(endDate)
-              ),
+        period:
+            periods.length > 0
+                ? periods.map((pe) => pe.name || pe.id).join(', ')
+                : formatStartEndDate(
+                      getDateArray(startDate),
+                      getDateArray(endDate)
+                  ),
         items: [],
         ...(config.legendDecimalPlaces !== undefined && {
             decimalPlaces: config.legendDecimalPlaces,

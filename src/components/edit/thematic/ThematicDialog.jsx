@@ -90,6 +90,7 @@ const ThematicDialog = ({
         shouldSyncFromOtherLayers,
         syncFromOtherLayers,
         syncToOtherLayers,
+        trySyncFromOtherLayersOnce,
     } = useLayersPeriodSync()
     const fetchLegendSet = useDataItemLegendSet()
 
@@ -169,42 +170,12 @@ const ThematicDialog = ({
         }
 
         switch (renderingStrategy) {
-            case RENDERING_STRATEGY_SINGLE:
-                if (
-                    shouldSyncFromOtherLayers &&
-                    backupPeriodsDates?.type === PREDEFINED_PERIODS
-                ) {
-                    dispatch(
-                        setBackupPeriodsDates({
-                            type: `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`,
-                            periods: getPeriodsFromFilters(filters),
-                        })
-                    )
-                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
-                }
-                if (backupPeriodsDates?.type === START_END_DATES) {
-                    dispatch(setPeriodType({ value: START_END_DATES }, true))
-                }
-                break
+            case RENDERING_STRATEGY_SPLIT_BY_PERIOD:
             case RENDERING_STRATEGY_TIMELINE:
                 if (periodType === START_END_DATES) {
                     dispatch(setPeriodType({ value: PREDEFINED_PERIODS }, true))
-                } else if (shouldSyncFromOtherLayers) {
-                    dispatch(
-                        setBackupPeriodsDates({
-                            ...backupPeriodsDates,
-                            type: PREDEFINED_PERIODS,
-                            periods: getPeriodsFromFilters(filters),
-                        })
-                    )
-                    if (
-                        backupPeriodsDates?.type ===
-                        `${PREDEFINED_PERIODS}_${RENDERING_STRATEGY_TIMELINE}`
-                    ) {
-                        dispatch(setPeriods(backupPeriodsDates?.periods || []))
-                    } else {
-                        syncFromOtherLayers({ renderingStrategy })
-                    }
+                } else {
+                    trySyncFromOtherLayersOnce({ renderingStrategy })
                 }
                 break
         }
@@ -212,12 +183,7 @@ const ThematicDialog = ({
         periodType,
         prevRenderingStrategy,
         renderingStrategy,
-        shouldSyncFromOtherLayers,
-        startDate,
-        endDate,
-        backupPeriodsDates,
-        filters,
-        syncFromOtherLayers,
+        trySyncFromOtherLayersOnce,
         dispatch,
     ])
 
@@ -239,10 +205,7 @@ const ThematicDialog = ({
                     )
                     if (
                         renderingStrategy === RENDERING_STRATEGY_SINGLE ||
-                        !(
-                            shouldSyncFromOtherLayers &&
-                            syncFromOtherLayers({ renderingStrategy })
-                        )
+                        !trySyncFromOtherLayersOnce({ renderingStrategy })
                     ) {
                         dispatch(setPeriods(backupPeriodsDates?.periods || []))
                     }
@@ -280,8 +243,7 @@ const ThematicDialog = ({
         prevPeriodType,
         prevRenderingStrategy,
         renderingStrategy,
-        shouldSyncFromOtherLayers,
-        syncFromOtherLayers,
+        trySyncFromOtherLayersOnce,
         startDate,
         prevStartDate,
         endDate,
