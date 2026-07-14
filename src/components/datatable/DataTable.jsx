@@ -9,7 +9,10 @@ import {
     ComponentCover,
     CenteredContent,
     CircularLoader,
-    Tooltip,
+    Popover,
+    Popper,
+    Portal,
+    IconSync16,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -23,6 +26,7 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
+import { setSelectionFilter } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
 import {
     toggleFeatureSelection,
@@ -30,20 +34,184 @@ import {
     selectFeatureRange,
     clearSelection,
 } from '../../actions/selection.js'
+import {
+    SELECTION_FILTER_SELECTED,
+    SELECTION_FILTER_NOT_SELECTED,
+} from '../../constants/selection.js'
 import { isDarkColor } from '../../util/colors.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import Checkbox from '../core/Checkbox.jsx'
 import { SortIcon } from '../core/icons.jsx'
 import FilterInput from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
 import TableContextMenu from './TableContextMenu.jsx'
-import { useTableData } from './useTableData.js'
+import { useTableData, SELECTED_SORT_KEY } from './useTableData.js'
+
+const SELECTION_FILTER_OPTIONS = [
+    { value: SELECTION_FILTER_SELECTED, label: i18n.t('Selected') },
+    { value: SELECTION_FILTER_NOT_SELECTED, label: i18n.t('Not selected') },
+]
+
+// Every filterable column dispatches its dataFilters value straight through
+// to filterData against each layer's real feature properties (see
+// ThematicLayer.jsx/EventLayer.jsx/etc.). Index is a synthetic row number
+// computed only for table display (see useTableData.js), never present on
+// the underlying feature data - filtering by it narrows the table but
+// can't affect the map. Still shown: it's a useful table-only tool (e.g.
+// narrowing to a row-number range) even though it doesn't reach the map.
+export const isFilterable = (dataKey, type) => !!type
+
+// Inverts selection scoped to the currently-filtered/visible rows only,
+// mirroring how the "select all" checkbox already treats them (see
+// onToggleSelectAll) - ids selected before a filter narrowed the rows stay
+// selected (offViewSelected), only the visible portion actually flips.
+export const getReversedSelection = (selectedIds, allRowIds) => {
+    const selectedIdSet = new Set(selectedIds)
+    const allRowIdSet = new Set(allRowIds)
+    const offViewSelected = selectedIds.filter((id) => !allRowIdSet.has(id))
+    const invertedVisible = allRowIds.filter((id) => !selectedIdSet.has(id))
+    return [...offViewSelected, ...invertedVisible]
+}
+
+const SelectionFilterButton = ({ value, onChange }) => {
+    const anchorRef = useRef(null)
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleValue = (optionValue) => {
+        const next = value.includes(optionValue)
+            ? value.filter((v) => v !== optionValue)
+            : [...value, optionValue]
+        onChange(next)
+    }
+
+    const buttonLabel =
+        value.length === 0
+            ? i18n.t('All')
+            : i18n.t('{{count}} selected', { count: value.length })
+
+    return (
+        <>
+            <button
+                type="button"
+                ref={anchorRef}
+                className={styles.selectionFilterButton}
+                data-test="data-table-selection-filter-button"
+                onClick={() => setIsOpen((o) => !o)}
+            >
+                {buttonLabel}
+            </button>
+            {isOpen && (
+                <Popover
+                    reference={anchorRef}
+                    placement="bottom-start"
+                    arrow={false}
+                    onClickOutside={() => setIsOpen(false)}
+                >
+                    <div className={styles.selectionFilterPopover}>
+                        {SELECTION_FILTER_OPTIONS.map((option) => (
+                            <Checkbox
+                                key={option.value}
+                                label={option.label}
+                                checked={value.includes(option.value)}
+                                onChange={() => toggleValue(option.value)}
+                                style={{ margin: '4px 0' }}
+                            />
+                        ))}
+                    </div>
+                </Popover>
+            )}
+        </>
+    )
+}
+
+SelectionFilterButton.propTypes = {
+    value: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onChange: PropTypes.func.isRequired,
+}
+
+const topTooltipModifiers = [{ name: 'offset', options: { offset: [0, 4] } }]
+
+// @dhis2/ui's Tooltip always includes a flip modifier that checks the
+// nearest scrolling ancestor's clip box for room. The table header is
+// position:sticky, pinned to the top of that scrolling container, so the
+// flip modifier always reports "no room above" and flips the tooltip below
+// the icon - even though there's plenty of room on screen. This variant
+// skips the flip modifier so sort-icon tooltips stay pinned above the icon.
+const TopTooltip = ({ content, children }) => {
+    const [open, setOpen] = useState(false)
+    const referenceRef = useRef(null)
+    const openTimerRef = useRef(null)
+    const closeTimerRef = useRef(null)
+
+    const onOpen = () => {
+        clearTimeout(closeTimerRef.current)
+        openTimerRef.current = setTimeout(() => setOpen(true), 200)
+    }
+
+    const onClose = () => {
+        clearTimeout(openTimerRef.current)
+        closeTimerRef.current = setTimeout(() => setOpen(false), 200)
+    }
+
+    useEffect(
+        () => () => {
+            clearTimeout(openTimerRef.current)
+            clearTimeout(closeTimerRef.current)
+        },
+        []
+    )
+
+    return (
+        <span
+            ref={referenceRef}
+            onMouseOver={onOpen}
+            onMouseOut={onClose}
+            onFocus={onOpen}
+            onBlur={onClose}
+        >
+            {children}
+            {open && (
+                <Portal>
+                    <Popper
+                        placement="top"
+                        reference={referenceRef}
+                        modifiers={topTooltipModifiers}
+                    >
+                        <div className={styles.topTooltipContent}>
+                            {content}
+                        </div>
+                    </Popper>
+                </Portal>
+            )}
+        </span>
+    )
+}
+
+TopTooltip.propTypes = {
+    children: PropTypes.node.isRequired,
+    content: PropTypes.node.isRequired,
+}
 
 const ASCENDING = 'asc'
 const DESCENDING = 'desc'
 
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'
+
+// Cycles a column through ascending -> descending -> none (natural order) ->
+// ascending... Once sortField is null, every column looks "unsorted" again,
+// so clicking any of them (including the one that was just cleared)
+// naturally restarts the cycle at ascending.
+export const getNextSorting = (name, { sortField, sortDirection }) => {
+    if (name !== sortField) {
+        return { sortField: name, sortDirection: ASCENDING }
+    }
+    if (sortDirection === ASCENDING) {
+        return { sortField: name, sortDirection: DESCENDING }
+    }
+    return { sortField: null, sortDirection: ASCENDING }
+}
 
 const getRowId = (row) =>
     row.find((r) => r.dataKey === 'id')?.value || row[0]?.itemId
@@ -115,27 +283,52 @@ DataTableRowWithVirtuosoContext.propTypes = {
     ),
 }
 
+const EmptyPlaceholder = ({ context }) => (
+    <tr>
+        <td colSpan={99999}>
+            <div className={styles.noResults}>
+                {context.totalCount > 0 ? (
+                    <>
+                        {i18n.t('No features match your filters')}
+                        {context.hasActiveFilters && (
+                            <button
+                                type="button"
+                                className={styles.clearFiltersLink}
+                                onClick={context.onClearFilters}
+                            >
+                                {i18n.t('Clear filters')}
+                            </button>
+                        )}
+                    </>
+                ) : (
+                    i18n.t('No results found')
+                )}
+            </div>
+        </td>
+    </tr>
+)
+
+EmptyPlaceholder.propTypes = {
+    context: PropTypes.shape({
+        hasActiveFilters: PropTypes.bool,
+        totalCount: PropTypes.number,
+        onClearFilters: PropTypes.func,
+    }),
+}
+
 const TableComponents = {
     Table: DataTableWithVirtuosoContext,
     TableBody: DataTableBody,
     TableHead: DataTableHead,
     TableRow: DataTableRowWithVirtuosoContext,
-    EmptyPlaceholder: () => (
-        <tr>
-            <td colSpan={99999}>
-                <div className={styles.noResults}>
-                    {i18n.t('No results found')}
-                </div>
-            </td>
-        </tr>
-    ),
+    EmptyPlaceholder,
 }
 
 const Table = ({
     availableWidth,
     onCountChange,
-    showOnlySelected,
     globalSearch,
+    onClearFilters,
 }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
@@ -155,6 +348,7 @@ const Table = ({
         (state) => state.ui.showOnlyFeaturesInView
     )
     const mapBounds = useSelector((state) => state.ui.mapBounds)
+    const selectionFilter = useSelector((state) => state.ui.selectionFilter)
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
@@ -167,13 +361,7 @@ const Table = ({
 
     const sortData = useCallback(
         ({ name }) => {
-            setSorting({
-                sortField: name,
-                sortDirection:
-                    name === sortField && sortDirection === ASCENDING
-                        ? DESCENDING
-                        : ASCENDING,
-            })
+            setSorting(getNextSorting(name, { sortField, sortDirection }))
         },
         [sortField, sortDirection]
     )
@@ -244,6 +432,7 @@ const Table = ({
         headers,
         rows,
         isLoading,
+        loadingReason,
         error,
         totalCount,
         filteredCount,
@@ -254,7 +443,7 @@ const Table = ({
         sortDirection,
         showOnlyFeaturesInView,
         mapBounds,
-        showOnlySelected,
+        selectionFilter,
         selectedIdSet,
         globalSearch,
     })
@@ -315,6 +504,11 @@ const Table = ({
         [dispatch, layer.id]
     )
 
+    const hasActiveFilters =
+        Object.keys(layer.dataFilters ?? {}).length > 0 ||
+        !!globalSearch?.trim() ||
+        selectionFilter?.length > 0
+
     const tableContext = useMemo(
         () => ({
             onMouseEnter: setFeatureHighlight,
@@ -323,6 +517,9 @@ const Table = ({
             onRowClick,
             onRowDoubleClick,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
+            totalCount,
+            hasActiveFilters,
+            onClearFilters,
         }),
         [
             setFeatureHighlight,
@@ -331,6 +528,9 @@ const Table = ({
             onRowClick,
             onRowDoubleClick,
             columnWidths,
+            totalCount,
+            hasActiveFilters,
+            onClearFilters,
         ]
     )
 
@@ -383,6 +583,16 @@ const Table = ({
             dispatch(clearSelection())
         }
     }, [dispatch, isAllSelected, allRowIds, allRowIdSet, selectedIds, layer.id])
+
+    const onReverseSelection = useCallback(() => {
+        const nextIds = getReversedSelection(selectedIds, allRowIds)
+
+        if (nextIds.length) {
+            dispatch(selectAllFeatures(nextIds, layer.id))
+        } else {
+            dispatch(clearSelection())
+        }
+    }, [dispatch, selectedIds, allRowIds, layer.id])
 
     useEffect(() => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
@@ -445,6 +655,15 @@ const Table = ({
         return <p className={styles.noSupport}>{error}</p>
     }
 
+    // Thematic layers carry both a `legend` (name) and `color` (hex) column;
+    // merge them into one swatch+name cell instead of two separate columns.
+    const hasLegendColorPair =
+        headers.some((h) => h.dataKey === 'legend') &&
+        headers.some((h) => h.dataKey === 'color')
+    const visibleHeaders = hasLegendColorPair
+        ? headers.filter((h) => h.dataKey !== 'color')
+        : headers
+
     return (
         <>
             <TableVirtuoso
@@ -457,31 +676,80 @@ const Table = ({
                 }}
                 data={rows}
                 computeItemKey={(index, row) => getRowId(row) ?? index}
+                increaseViewportBy={{ top: 400, bottom: 400 }}
                 fixedHeaderContent={() => (
                     <DataTableRow ref={headerRowRef}>
                         <DataTableColumnHeader
                             className={styles.checkboxCell}
-                            width="32px"
+                            width="76px"
+                            onFilterIconClick={Function.prototype}
+                            showFilter={true}
+                            filter={
+                                <SelectionFilterButton
+                                    value={selectionFilter ?? []}
+                                    onChange={(next) =>
+                                        dispatch(setSelectionFilter(next))
+                                    }
+                                />
+                            }
                         >
-                            <input
-                                type="checkbox"
-                                title={i18n.t('Select all')}
-                                checked={isAllSelected}
-                                onChange={onToggleSelectAll}
-                            />
+                            <div className={styles.checkboxHeaderContent}>
+                                <input
+                                    type="checkbox"
+                                    title={i18n.t('Select all')}
+                                    checked={isAllSelected}
+                                    onChange={onToggleSelectAll}
+                                />
+                                <TopTooltip
+                                    content={i18n.t('Reverse selection')}
+                                >
+                                    <button
+                                        type="button"
+                                        className={styles.reverseButton}
+                                        data-test="data-table-reverse-selection"
+                                        disabled={allRowIds.length === 0}
+                                        onClick={onReverseSelection}
+                                    >
+                                        <IconSync16 />
+                                    </button>
+                                </TopTooltip>
+                                <TopTooltip
+                                    content={i18n.t('Sort by Selected')}
+                                >
+                                    <button
+                                        type="button"
+                                        className={styles.sortButton}
+                                        data-test="data-table-column-sort-button-selected"
+                                        onClick={() =>
+                                            sortData({
+                                                name: SELECTED_SORT_KEY,
+                                            })
+                                        }
+                                    >
+                                        <SortIcon
+                                            direction={
+                                                sortField === SELECTED_SORT_KEY
+                                                    ? sortDirection
+                                                    : null
+                                            }
+                                        />
+                                    </button>
+                                </TopTooltip>
+                            </div>
                         </DataTableColumnHeader>
-                        {headers.map(
+                        {visibleHeaders.map(
                             ({ name, dataKey, type, optionSet }, index) => (
                                 <DataTableColumnHeader
                                     className={styles.columnHeader}
                                     key={`${dataKey}-${index}`}
                                     onFilterIconClick={
-                                        type && Function.prototype
+                                        isFilterable(dataKey, type) &&
+                                        Function.prototype
                                     }
-                                    showFilter={!!type && dataKey !== 'index'}
+                                    showFilter={isFilterable(dataKey, type)}
                                     name={dataKey}
                                     filter={
-                                        type && (
+                                        isFilterable(dataKey, type) && (
                                             <FilterInput
                                                 type={type}
                                                 dataKey={dataKey}
@@ -499,7 +767,7 @@ const Table = ({
                                 >
                                     <span className={styles.headerContent}>
                                         {name}
-                                        <Tooltip
+                                        <TopTooltip
                                             content={i18n.t(
                                                 'Sort by {{column}}',
                                                 { column: name }
@@ -523,7 +791,7 @@ const Table = ({
                                                     }
                                                 />
                                             </button>
-                                        </Tooltip>
+                                        </TopTooltip>
                                     </span>
                                 </DataTableColumnHeader>
                             )
@@ -562,30 +830,73 @@ const Table = ({
                                     onClick={(e) => e.stopPropagation()}
                                 />
                             </DataTableCell>
-                            {row.map(({ dataKey, value, align }) => (
-                                <DataTableCell
-                                    key={`dtcell-${dataKey}`}
-                                    staticStyle
-                                    className={cx(styles.dataCell, {
-                                        [styles.lightText]:
-                                            dataKey === 'color' &&
-                                            isDarkColor(value),
-                                        [styles.selected]: isSelected,
-                                        [styles.hovered]: isHovered,
-                                    })}
-                                    backgroundColor={
-                                        dataKey === 'color' ? value : null
-                                    }
-                                    align={align}
-                                >
-                                    {dataKey === 'color'
-                                        ? value?.toLowerCase()
-                                        : formatWithSeparator(
-                                              value,
-                                              keyAnalysisDigitGroupSeparator
-                                          )}
-                                </DataTableCell>
-                            ))}
+                            {row
+                                .filter(
+                                    ({ dataKey }) =>
+                                        !hasLegendColorPair ||
+                                        dataKey !== 'color'
+                                )
+                                .map(({ dataKey, value, align }) => {
+                                    const isLegendCell =
+                                        hasLegendColorPair &&
+                                        dataKey === 'legend'
+                                    const swatchColor = isLegendCell
+                                        ? row.find((c) => c.dataKey === 'color')
+                                              ?.value
+                                        : null
+
+                                    return (
+                                        <DataTableCell
+                                            key={`dtcell-${dataKey}`}
+                                            staticStyle
+                                            className={cx(styles.dataCell, {
+                                                [styles.lightText]:
+                                                    !hasLegendColorPair &&
+                                                    dataKey === 'color' &&
+                                                    isDarkColor(value),
+                                                [styles.monoCell]:
+                                                    dataKey === 'id',
+                                                [styles.selected]: isSelected,
+                                                [styles.hovered]: isHovered,
+                                            })}
+                                            backgroundColor={
+                                                !hasLegendColorPair &&
+                                                dataKey === 'color'
+                                                    ? value
+                                                    : null
+                                            }
+                                            align={align}
+                                        >
+                                            {isLegendCell ? (
+                                                <span
+                                                    className={
+                                                        styles.legendCell
+                                                    }
+                                                >
+                                                    {swatchColor && (
+                                                        <span
+                                                            className={
+                                                                styles.legendSwatch
+                                                            }
+                                                            style={{
+                                                                backgroundColor:
+                                                                    swatchColor,
+                                                            }}
+                                                        />
+                                                    )}
+                                                    {value}
+                                                </span>
+                                            ) : dataKey === 'color' ? (
+                                                value?.toLowerCase()
+                                            ) : (
+                                                formatWithSeparator(
+                                                    value,
+                                                    keyAnalysisDigitGroupSeparator
+                                                )
+                                            )}
+                                        </DataTableCell>
+                                    )
+                                })}
                         </>
                     )
                 }}
@@ -593,7 +904,14 @@ const Table = ({
             {(isLoading || layer?.isLoaded === false || layer?.isLoading) && (
                 <ComponentCover>
                     <CenteredContent>
-                        <CircularLoader />
+                        <div className={styles.loadingContent}>
+                            <CircularLoader />
+                            {loadingReason && (
+                                <span className={styles.loadingReason}>
+                                    {loadingReason}
+                                </span>
+                            )}
+                        </div>
                     </CenteredContent>
                 </ComponentCover>
             )}
@@ -601,6 +919,7 @@ const Table = ({
                 contextMenu={tableContextMenu}
                 layer={layer}
                 selectedIds={selectedIds}
+                filteredIds={hasActiveFilters ? allRowIds : null}
                 onClose={() => setTableContextMenu(null)}
             />
         </>
@@ -610,7 +929,7 @@ const Table = ({
 Table.propTypes = {
     availableWidth: PropTypes.number,
     globalSearch: PropTypes.string,
-    showOnlySelected: PropTypes.bool,
+    onClearFilters: PropTypes.func,
     onCountChange: PropTypes.func,
 }
 

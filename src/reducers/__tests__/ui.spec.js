@@ -26,29 +26,18 @@ describe('ui reducer — highlightColor', () => {
     })
 })
 
-describe('ui reducer — showOnlySelected', () => {
-    it('defaults to false', () => {
-        expect(ui(undefined, {}).showOnlySelected).toBe(false)
+describe('ui reducer — selectionFilter', () => {
+    it('defaults to an empty array', () => {
+        expect(ui(undefined, {}).selectionFilter).toEqual([])
     })
 
-    it('toggles on TOGGLE_SHOW_ONLY_SELECTED', () => {
-        const state = ui(undefined, { type: types.TOGGLE_SHOW_ONLY_SELECTED })
-        expect(state.showOnlySelected).toBe(true)
-
-        const toggledBack = ui(state, {
-            type: types.TOGGLE_SHOW_ONLY_SELECTED,
-        })
-        expect(toggledBack.showOnlySelected).toBe(false)
-    })
-
-    it('sets an explicit value on SHOW_ONLY_SELECTED_SET', () => {
-        const prevState = { ...ui(undefined, {}), showOnlySelected: true }
-        const state = ui(prevState, {
-            type: types.SHOW_ONLY_SELECTED_SET,
-            value: false,
+    it('sets an explicit value on SELECTION_FILTER_SET', () => {
+        const state = ui(undefined, {
+            type: types.SELECTION_FILTER_SET,
+            value: ['selected'],
         })
 
-        expect(state.showOnlySelected).toBe(false)
+        expect(state.selectionFilter).toEqual(['selected'])
     })
 
     it.each([
@@ -56,11 +45,14 @@ describe('ui reducer — showOnlySelected', () => {
         types.MAP_SET,
         types.DATA_TABLE_CLOSE,
         types.DATA_TABLE_TOGGLE,
-    ])('resets to false on %s', (type) => {
-        const prevState = { ...ui(undefined, {}), showOnlySelected: true }
+    ])('resets to an empty array on %s', (type) => {
+        const prevState = {
+            ...ui(undefined, {}),
+            selectionFilter: ['selected'],
+        }
         const state = ui(prevState, { type })
 
-        expect(state.showOnlySelected).toBe(false)
+        expect(state.selectionFilter).toEqual([])
     })
 })
 

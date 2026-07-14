@@ -1,3 +1,10 @@
+// Pseudo-value for multi-select filters meaning "the field has any
+// non-blank value" - the logical opposite of selecting the blank-cell
+// sentinel (''). Works generically even for columns with too many distinct
+// values to list individually, since it's a predicate ("is it blank or
+// not?"), not a membership check against a known list of values.
+export const ANY_VALUE_KEY = '__any_value__'
+
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
     if (!filters) {
@@ -17,9 +24,11 @@ export const filterData = (data, filters) => {
 
             if (Array.isArray(filter)) {
                 // Multi-select: OR match against the raw stored value
+                const stringValue = value == null ? '' : String(value)
                 return (
                     filter.length === 0 ||
-                    filter.includes(value == null ? '' : String(value))
+                    filter.includes(stringValue) ||
+                    (stringValue !== '' && filter.includes(ANY_VALUE_KEY))
                 )
             }
 
