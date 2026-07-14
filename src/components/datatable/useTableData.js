@@ -217,6 +217,85 @@ const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 const EMPTY_COLUMN_OPTIONS = {}
 
+// Distinct values are stored as strings (they're sourced alongside string
+// columns) - sort numeric columns by numeric value rather than lexically
+// (so 2 sorts before 10), everything else keeps the default string
+// ordering. NOT_SET_VALUE always sorts first regardless of column type.
+const compareColumnOptionValues = (a, b, type) => {
+    if (a === NOT_SET_VALUE) {
+        return -1
+    }
+    if (b === NOT_SET_VALUE) {
+        return 1
+    }
+    if (type === TYPE_NUMBER) {
+        return Number(a) - Number(b)
+    }
+    if (a < b) {
+        return -1
+    }
+    if (a > b) {
+        return 1
+    }
+    return 0
+}
+
+// Ascending (the default on first click) puts selected rows first, since
+// that's what a user clicking this is after.
+const compareBySelected = (a, b, { selectedIdSet, sortDirection }) => {
+    const aSelected = selectedIdSet?.has(a.id) ? 1 : 0
+    const bSelected = selectedIdSet?.has(b.id) ? 1 : 0
+    return sortDirection === ASCENDING
+        ? bSelected - aSelected
+        : aSelected - bSelected
+}
+
+const compareRangeValues = (aVal, bVal, sortDirection) => {
+    const [aStart, aEnd] = parseRange(aVal)
+    const [bStart, bEnd] = parseRange(bVal)
+    const startDiff =
+        sortDirection === ASCENDING ? aStart - bStart : bStart - aStart
+    if (startDiff !== 0) {
+        return startDiff
+    }
+    return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
+}
+
+const compareFieldValues = (aVal, bVal, { sortField, sortDirection }) => {
+    // All undefined values should be sorted to the end
+    if (aVal === undefined && bVal === undefined) {
+        return 0
+    }
+    if (aVal === undefined) {
+        return 1
+    }
+    if (bVal === undefined) {
+        return -1
+    }
+    if (typeof aVal === TYPE_NUMBER) {
+        return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
+    }
+    if (sortField === RANGE) {
+        return compareRangeValues(aVal, bVal, sortDirection)
+    }
+    // TODO: Make sure sorting works across different locales
+    return sortDirection === ASCENDING
+        ? aVal.localeCompare(bVal)
+        : bVal.localeCompare(aVal)
+}
+
+const compareRows = (a, b, options) => {
+    const { sortField } = options
+    // "None" (third click of the cycle) - fall back to natural order
+    if (!sortField) {
+        return a.index - b.index
+    }
+    if (sortField === SELECTED_SORT_KEY) {
+        return compareBySelected(a, b, options)
+    }
+    return compareFieldValues(a[sortField], b[sortField], options)
+}
+
 export const useTableData = ({
     layer,
     sortField,
@@ -379,26 +458,7 @@ export const useTableData = ({
 
             if (seen.size > 0) {
                 result[dataKey] = Array.from(seen)
-                    .sort((a, b) => {
-                        if (a === NOT_SET_VALUE) {
-                            return -1
-                        }
-                        if (b === NOT_SET_VALUE) {
-                            return 1
-                        }
-                        // Distinct values are stored as strings (they're
-                        // sourced alongside string columns) - sort numeric
-                        // columns by numeric value rather than lexically
-                        // (so 2 sorts before 10), everything else keeps the
-                        // default string ordering.
-                        return type === TYPE_NUMBER
-                            ? Number(a) - Number(b)
-                            : a < b
-                            ? -1
-                            : a > b
-                            ? 1
-                            : 0
-                    })
+                    .sort((a, b) => compareColumnOptionValues(a, b, type))
                     .map((value) => ({ value }))
             }
         })
@@ -445,60 +505,9 @@ export const useTableData = ({
         }
 
         //sort
-        filteredData.sort((a, b) => {
-            // "None" (third click of the cycle) - fall back to natural order
-            if (!sortField) {
-                return a.index - b.index
-            }
-
-            if (sortField === SELECTED_SORT_KEY) {
-                const aSelected = selectedIdSet?.has(a.id) ? 1 : 0
-                const bSelected = selectedIdSet?.has(b.id) ? 1 : 0
-                // Ascending (the default on first click) puts selected rows
-                // first, since that's what a user clicking this is after.
-                return sortDirection === ASCENDING
-                    ? bSelected - aSelected
-                    : aSelected - bSelected
-            }
-
-            const aVal = a[sortField]
-            const bVal = b[sortField]
-
-            // All undefined values should be sorted to the end
-            if (aVal === undefined && bVal === undefined) {
-                return 0
-            }
-
-            if (aVal === undefined) {
-                return 1 // aVal goes to end
-            }
-
-            if (bVal === undefined) {
-                return -1 // bVal goes to end
-            }
-
-            if (typeof aVal === TYPE_NUMBER) {
-                return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
-            }
-
-            if (sortField === RANGE) {
-                const [aStart, aEnd] = parseRange(aVal)
-                const [bStart, bEnd] = parseRange(bVal)
-                const startDiff =
-                    sortDirection === ASCENDING
-                        ? aStart - bStart
-                        : bStart - aStart
-                if (startDiff !== 0) {
-                    return startDiff
-                }
-                return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
-            }
-
-            // TODO: Make sure sorting works across different locales
-            return sortDirection === ASCENDING
-                ? aVal.localeCompare(bVal)
-                : bVal.localeCompare(aVal)
-        })
+        filteredData.sort((a, b) =>
+            compareRows(a, b, { sortField, sortDirection, selectedIdSet })
+        )
 
         return filteredData.map((item) =>
             headers.map(({ dataKey, roundFn, type }) => {
@@ -531,11 +540,12 @@ export const useTableData = ({
     const isExtendingEvents =
         layerType === EVENT_LAYER && !layer.isExtended && !serverCluster
     const isLoading = isLoadingAggregations || isExtendingEvents
-    const loadingReason = isLoadingAggregations
-        ? i18n.t('Loading Earth Engine data…')
-        : isExtendingEvents
-        ? i18n.t('Loading additional events…')
-        : null
+    let loadingReason = null
+    if (isLoadingAggregations) {
+        loadingReason = i18n.t('Loading Earth Engine data…')
+    } else if (isExtendingEvents) {
+        loadingReason = i18n.t('Loading additional events…')
+    }
 
     const totalCount = dataWithAggregations?.length ?? 0
     const filteredCount = rows?.length ?? 0
