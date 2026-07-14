@@ -9,7 +9,6 @@ import {
     ComponentCover,
     CenteredContent,
     CircularLoader,
-    Popover,
     Popper,
     Portal,
     IconSync16,
@@ -43,7 +42,10 @@ import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
 import { SortIcon } from '../core/icons.jsx'
-import FilterInput from './FilterInput.jsx'
+import FilterInput, {
+    FilterDropdownPopover,
+    getDropdownPlacement,
+} from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
 import TableContextMenu from './TableContextMenu.jsx'
 import { useTableData, SELECTED_SORT_KEY } from './useTableData.js'
@@ -55,11 +57,7 @@ const SELECTION_FILTER_OPTIONS = [
 
 // Every filterable column dispatches its dataFilters value straight through
 // to filterData against each layer's real feature properties (see
-// ThematicLayer.jsx/EventLayer.jsx/etc.). Index is a synthetic row number
-// computed only for table display (see useTableData.js), never present on
-// the underlying feature data - filtering by it narrows the table but
-// can't affect the map. Still shown: it's a useful table-only tool (e.g.
-// narrowing to a row-number range) even though it doesn't reach the map.
+// ThematicLayer.jsx/EventLayer.jsx/etc.).
 export const isFilterable = (dataKey, type) => !!type
 
 // Inverts selection scoped to the currently-filtered/visible rows only,
@@ -90,6 +88,13 @@ const SelectionFilterButton = ({ value, onChange }) => {
             ? i18n.t('All')
             : i18n.t('{{count}} selected', { count: value.length })
 
+    // Sits in the same sticky header row as every other column's FilterInput
+    // dropdown, so computing its placement the same way (rather than using
+    // @dhis2/ui's Popover, which flips independently based on its own
+    // available space) keeps it opening on the same side as the rest.
+    const anchorRect = anchorRef.current?.getBoundingClientRect()
+    const { dropdownPlacement } = getDropdownPlacement(anchorRect)
+
     return (
         <>
             <button
@@ -102,10 +107,9 @@ const SelectionFilterButton = ({ value, onChange }) => {
                 {buttonLabel}
             </button>
             {isOpen && (
-                <Popover
+                <FilterDropdownPopover
                     reference={anchorRef}
-                    placement="bottom-start"
-                    arrow={false}
+                    placement={dropdownPlacement}
                     onClickOutside={() => setIsOpen(false)}
                 >
                     <div className={styles.selectionFilterPopover}>
@@ -119,7 +123,7 @@ const SelectionFilterButton = ({ value, onChange }) => {
                             />
                         ))}
                     </div>
-                </Popover>
+                </FilterDropdownPopover>
             )}
         </>
     )

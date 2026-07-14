@@ -113,11 +113,7 @@ describe('getNextSorting', () => {
 })
 
 describe('isFilterable', () => {
-    test('allows the Index column - it filters the table by row-number range even though it cannot narrow the map', () => {
-        expect(isFilterable('index', 'number')).toBe(true)
-    })
-
-    test('allows other numeric and string columns, which are real feature properties', () => {
+    test('allows numeric and string columns', () => {
         expect(isFilterable('rawValue', 'number')).toBe(true)
         expect(isFilterable('name', 'string')).toBe(true)
     })
