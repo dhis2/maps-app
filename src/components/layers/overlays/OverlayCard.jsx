@@ -5,7 +5,6 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { setDataFilter, clearDataFilter } from '../../../actions/dataFilters.js'
 import { toggleDataTable } from '../../../actions/dataTable.js'
 import {
     editLayer,
@@ -25,7 +24,6 @@ import {
     DATA_TABLE_LAYER_TYPES,
     OPEN_AS_LAYER_TYPES,
     EXTERNAL_LAYER,
-    THEMATIC_LAYER,
 } from '../../../constants/layers.js'
 import {
     getAnalyticalObjectFromThematicLayer,
@@ -47,9 +45,6 @@ const OverlayCard = ({
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
-    setDataFilter,
-    clearDataFilter,
-    activeDataTableLayerId,
 }) => {
     const [showDataDownloadDialog, setShowDataDownloadDialog] = useState(false)
     const { baseUrl } = useConfig()
@@ -66,37 +61,12 @@ const OverlayCard = ({
         layer: layerType,
         isLoaded,
         loadError,
-        dataFilters,
     } = layer
 
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType)
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType)
-    const canFilterByLegend = layerType === THEMATIC_LAYER
-
-    const onLegendItemClick = (item) => {
-        if (!item?.name) {
-            return
-        }
-        const currentLegendFilter = Array.isArray(dataFilters?.legend)
-            ? dataFilters.legend
-            : []
-        const isActive = currentLegendFilter.includes(item.name)
-        const nextLegendFilter = isActive
-            ? currentLegendFilter.filter((n) => n !== item.name)
-            : [...currentLegendFilter, item.name]
-
-        if (nextLegendFilter.length) {
-            setDataFilter(id, 'legend', nextLegendFilter)
-        } else {
-            clearDataFilter(id, 'legend')
-        }
-
-        if (activeDataTableLayerId !== id) {
-            toggleDataTable(id)
-        }
-    }
 
     const getCardContent = () => {
         if (loadError) {
@@ -114,18 +84,7 @@ const OverlayCard = ({
         return (
             legend && (
                 <div className={styles.legend}>
-                    <Legend
-                        {...legend}
-                        onItemClick={
-                            canFilterByLegend ? onLegendItemClick : undefined
-                        }
-                        activeLegendNames={
-                            canFilterByLegend &&
-                            Array.isArray(dataFilters?.legend)
-                                ? dataFilters.legend
-                                : undefined
-                        }
-                    />
+                    <Legend {...legend} />
                 </div>
             )
         )
@@ -197,23 +156,16 @@ const OverlayCard = ({
 
 OverlayCard.propTypes = {
     changeLayerOpacity: PropTypes.func.isRequired,
-    clearDataFilter: PropTypes.func.isRequired,
     duplicateLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
     removeLayer: PropTypes.func.isRequired,
-    setDataFilter: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func.isRequired,
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
-    activeDataTableLayerId: PropTypes.string,
 }
 
-const mapStateToProps = (state) => ({
-    activeDataTableLayerId: state.dataTable,
-})
-
-export default connect(mapStateToProps, {
+export default connect(null, {
     editLayer,
     removeLayer,
     duplicateLayer,
@@ -221,6 +173,4 @@ export default connect(mapStateToProps, {
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
-    setDataFilter,
-    clearDataFilter,
 })(OverlayCard)
