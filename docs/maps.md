@@ -271,8 +271,8 @@ Select the time span over which the thematic data is mapped.
         scaled between low and high radius according to the data value. The radius must be between 0
         and 50 pixels.
 
--   **Show labels**: Show org unit names and/or values on the layer. Select **Name**, **Name and
-    value**, or **Value**. Font size, weight, style and color can also be modified.
+-   **Labels**: Show org unit names and/or values on the layer. Select **Name**, **Name and value**,
+    or **Value**. Font size, weight, style and color can also be modified.
 
 -   **Count org units without coordinates**: Org units without map coordinates are counted and shown
     in a **Data quality** section of the legend. They also appear in the data table. These org units
@@ -330,7 +330,7 @@ Select the time span over which the thematic data is mapped.
 > the upper bound is inclusive - are the last class, isolated classes, single-value classes, and
 > clusters (natural breaks).
 >
-> If the exact class a boundary value belongs to matters for your analysis, use **Show labels** to
+> If the exact class a boundary value belongs to matters for your analysis, use **Labels** to
 > overlay values directly on each feature. If it still matters after that, consider whether a
 > different legend, maybe with more classes or higher decimal precision, is the right tool for the
 > decision you are trying to make.
@@ -439,14 +439,21 @@ layer configuration dialog.
 
 ![](resources/images/maps_event_layer_dialog_PERIOD.png)
 
--   Select the time span for when the events took place. You can select either a fixed period or a
-    relative period.
+Select the time span for when the events took place.
 
-    -   _Relative period_: Select one of the relative periods, for example **This month** or **Last
-        year**. A **default relative period for analysis** can be set in the **System Settings**
-        app.
+-   **Choose from presets**: You can combine one or more relative and fixed periods.
 
-    -   _Fixed period_: Select **Start/end dates** and fill in a start date and an end date.
+    -   _Relative period_: Select **Relative periods**, then the **Period type** (**Years**,
+        **Months**, etc.) and choose one or more relative periods, such as **This year** and **Last
+        year** or **Last 12 months**. A **default relative period for analysis** can be set in the
+        **System Settings** app.
+
+    -   _Fixed period_: Select **Fixed periods**, then choose the **Period type** (**Yearly**,
+        **Monthly**, etc.) and choose one or more fixed periods, such as **2024** or **January
+        2025** and **February 2025**.
+
+-   **Define start–end dates**: Specify exact start and end dates. Both dates are inclusive and will
+    be reflected in the outputs.
 
 #### 3. Org units
 
@@ -501,9 +508,8 @@ layer configuration dialog.
     boundary** column value. Events inside a boundary are tagged with the name of their containing
     org unit in that same column.
 
--   **Tooltip field**: Select a data element or attribute to show as a tooltip when hovering over an
-    event. Selecting **Labels** makes the tooltip persistent on the map. Font size, weight, style
-    and color can also be modified.
+-   **Label**: Select a data element or attribute to show on the layer. Font size, weight, style and
+    color can also be modified.
 
 -   Select **Style by data item** (data element or attribute) to colorize the events according to a
     data value. If events are grouped, clusters are displayed as small donut charts showing the

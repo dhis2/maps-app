@@ -4,11 +4,10 @@ import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     setOrgUnitPathInRows,
-    getPeriodFromFilters,
     getPeriodsFromFilters,
     removePeriodFromFilters,
-    setFiltersFromPeriod,
     setFiltersFromPeriods,
+    applyPeriodFilter,
     getFiltersFromColumns,
     getRenderingStrategy,
     getDimensionsFromFilters,
@@ -99,13 +98,6 @@ describe('setOrgUnitPathInRows', () => {
     })
 })
 
-describe('getPeriodFromFilters', () => {
-    it('should return the first period from filters', () => {
-        const filters = [{ dimension: 'pe', items: [{ id: 'period1' }] }]
-        expect(getPeriodFromFilters(filters)).toEqual({ id: 'period1' })
-    })
-})
-
 describe('getPeriodsFromFilters', () => {
     it('should return all periods from filters', () => {
         const filters = [
@@ -145,18 +137,6 @@ describe('removePeriodFromFilters', () => {
     })
 })
 
-describe('setFiltersFromPeriod', () => {
-    it('should add a period to the filters', () => {
-        const filters = [{ dimension: 'dx', items: [{ id: 'data1' }] }]
-        const period = { id: 'period1' }
-
-        expect(setFiltersFromPeriod(filters, period)).toEqual([
-            { dimension: 'dx', items: [{ id: 'data1' }] },
-            { dimension: 'pe', items: [{ id: 'period1' }] },
-        ])
-    })
-})
-
 describe('setFiltersFromPeriods', () => {
     it('should replace existing period filters and add new periods', () => {
         const filters = [
@@ -180,6 +160,45 @@ describe('setFiltersFromPeriods', () => {
         const result = setFiltersFromPeriods(filters, periods)
 
         expect(result).toEqual([{ dimension: 'pe', items: [{ id: '202201' }] }])
+    })
+})
+
+describe('applyPeriodFilter', () => {
+    const createRequest = () => {
+        const request = {
+            addPeriodFilter: jest.fn(() => request),
+            withStartDate: jest.fn(() => request),
+            withEndDate: jest.fn(() => request),
+        }
+        return request
+    }
+
+    it('adds a period filter when periods are selected', () => {
+        const request = createRequest()
+        const periods = [{ id: '202101' }, { id: '202102' }]
+
+        applyPeriodFilter(request, { periods, startDate: '', endDate: '' })
+
+        expect(request.addPeriodFilter).toHaveBeenCalledWith([
+            '202101',
+            '202102',
+        ])
+        expect(request.withStartDate).not.toHaveBeenCalled()
+        expect(request.withEndDate).not.toHaveBeenCalled()
+    })
+
+    it('falls back to start/end dates when no periods are selected', () => {
+        const request = createRequest()
+
+        applyPeriodFilter(request, {
+            periods: [],
+            startDate: '2023-01-01T00:00:00',
+            endDate: '2023-12-31T00:00:00',
+        })
+
+        expect(request.addPeriodFilter).not.toHaveBeenCalled()
+        expect(request.withStartDate).toHaveBeenCalledWith('2023-01-01')
+        expect(request.withEndDate).toHaveBeenCalledWith('2023-12-31')
     })
 })
 
