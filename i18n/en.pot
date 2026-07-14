@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-14T20:24:31.895Z\n"
-"PO-Revision-Date: 2026-07-14T20:24:31.895Z\n"
+"POT-Creation-Date: 2026-07-14T21:42:31.767Z\n"
+"PO-Revision-Date: 2026-07-14T21:42:31.767Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -295,9 +295,6 @@ msgstr ""
 
 msgid "No valid data fields were found for this layer."
 msgstr "No valid data fields were found for this layer."
-
-msgid "Index"
-msgstr "Index"
 
 msgid "Id"
 msgstr "Id"
@@ -1796,6 +1793,9 @@ msgstr "16-day"
 
 msgid "Since February 2000"
 msgstr "Since February 2000"
+
+msgid "Index"
+msgstr "Index"
 
 msgid "NDVI"
 msgstr "NDVI"
