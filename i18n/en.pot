@@ -188,6 +188,29 @@ msgstr "Select a year, month, day or hour"
 msgid "to match the events under it, or type to search"
 msgstr "to match the events under it, or type to search"
 
+msgid "greater than 5"
+msgstr "greater than 5"
+
+msgid "greater than or equal to 5"
+msgstr "greater than or equal to 5"
+
+msgid "less than (or equal to) 5"
+msgstr "less than (or equal to) 5"
+
+msgid "equal to 2 OR greater than 8"
+msgstr "equal to 2 OR greater than 8"
+
+msgid "greater than 3 AND less than 8"
+msgstr "greater than 3 AND less than 8"
+
+msgid "All"
+msgstr "All"
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
+
 msgid "Search"
 msgstr "Search"
 
