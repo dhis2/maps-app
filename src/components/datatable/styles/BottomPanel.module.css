@@ -135,6 +135,16 @@
     background-color: var(--colors-grey300);
 }
 
+.clearFiltersButton:disabled {
+    color: var(--colors-grey400);
+    cursor: not-allowed;
+}
+
+.clearFiltersButton:disabled:hover {
+    color: var(--colors-grey400);
+    background-color: transparent;
+}
+
 .toggleButton.active {
     color: var(--colors-blue700);
     background-color: var(--colors-blue100);
@@ -163,5 +173,13 @@
 .globalSearch {
     flex: 0 1 160px;
     min-width: 90px;
-    margin-bottom: 0 !important;
+}
+
+.globalSearch > :global(div) {
+    width: 100%;
+}
+
+.globalSearch :global(input.dense) {
+    padding: 4px 6px;
+    font-size: 11px;
 }
