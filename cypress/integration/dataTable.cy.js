@@ -81,14 +81,16 @@ describe('data table', () => {
         cy.getByDataTest('layers-toggle-button').click()
 
         // check number of columns
+        // (Legend + Color are merged into one swatch+name column for
+        // thematic layers, so this is one fewer than the number of headers)
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 11)
+            .should('have.length', 10)
 
         // Filter by name
-        cy.getByDataTest('data-table-column-filter-input-Name')
+        cy.getByDataTest('data-table-column-filter-search-Name')
             .find('input')
-            .type('bar')
+            .type('bar{enter}')
 
         // check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
@@ -113,9 +115,9 @@ describe('data table', () => {
         checkTableCell({ row: 6, column: 2, expectedContent: 'Bargbe' })
 
         // filter by Value (numeric)
-        cy.getByDataTest('data-table-column-filter-input-Value')
+        cy.getByDataTest('data-table-column-filter-search-Value')
             .find('input')
-            .type('>26')
+            .type('>26{enter}')
 
         // check that the (combined) filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
@@ -204,9 +206,9 @@ describe('data table', () => {
 
         // filter by Org unit
         const ouName = 'Moyowa'
-        cy.getByDataTest('data-table-column-filter-input-Org unit')
+        cy.getByDataTest('data-table-column-filter-search-Org unit')
             .find('input')
-            .type(ouName)
+            .type(`${ouName}{enter}`)
 
         // check that all the rows have Org unit Moyowa
         checkTableCell({ row: 0, column: 2, expectedContent: ouName })
@@ -218,18 +220,19 @@ describe('data table', () => {
             .should('have.length', 3)
 
         // filter by Mode of Discharge
-        cy.getByDataTest('data-table-column-filter-input-Mode of Discharge')
+        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
             .find('input')
             .type('Absconded')
+        cy.contains('label', 'Absconded').click()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 1)
 
-        cy.getByDataTest('data-table-column-filter-input-Mode of Discharge')
-            .find('input')
-            .clear()
+        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
+            .find('.clear-button')
+            .click()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
@@ -237,9 +240,9 @@ describe('data table', () => {
             .should('have.length', 3)
 
         // filter by Age in years (numeric)
-        cy.getByDataTest('data-table-column-filter-input-Age in years')
+        cy.getByDataTest('data-table-column-filter-search-Age in years')
             .find('input')
-            .type('<51')
+            .type('<51{enter}')
 
         // check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')

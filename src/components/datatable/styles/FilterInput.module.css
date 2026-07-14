@@ -1,36 +1,227 @@
-.multiSelectButton {
+.filterTrigger {
+    position: relative;
+    display: flex;
+    align-items: center;
     width: 100%;
-    height: 24px;
-    font-size: 11px;
+}
+
+/* The trigger and the dropdown's search field are the same <Input> now
+   (see FilterInput.jsx) - style it to match the old compact trigger
+   button's size regardless of which role it's playing at the moment.
+   Padding-right for the built-in clear button is handled by @dhis2/ui's
+   own `.input-clearable input` rule - don't compete with it here. */
+.filterTrigger :global(input.dense) {
     padding: 4px 6px;
-    border: 1px solid var(--colors-grey400);
-    border-radius: 3px;
-    background: var(--colors-white);
+    font-size: 11px;
+}
+
+.filterTrigger :global(input::placeholder) {
+    color: var(--colors-grey400);
+}
+
+/* Every column's dropdown opens on the same side (see dropdownSide in
+   FilterInput.jsx - below by default, or above if the shared header row
+   doesn't have room to open downward) - this supplies the same look
+   @dhis2/ui's Popover would (white background, elevation shadow, rounded
+   corners), minus whichever corner touches the trigger, which is squared
+   off so it reads as a continuation of the input rather than a separate
+   floating box. */
+.dropdownPopper {
+    background-color: var(--colors-white);
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0 4px 12px rgba(12, 14, 16, 0.15),
+        0 0 0 1px rgba(12, 14, 16, 0.05);
+}
+
+.dropdownPopperAbove {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.searchableFilterPopover {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp2);
+    padding: var(--spacers-dp8);
+    min-width: 140px;
+    box-sizing: border-box;
+}
+
+/* When the dropdown opens above the trigger, flip the whole stack so the
+   real value list ends up farthest from the input and the custom-filter
+   row ends up right next to it, same as when it opens below - dropdownSide
+   is computed once in JS (see FilterInput.jsx), so this is a plain class
+   toggle rather than a Popper-attribute selector. Ties in flex `order`
+   fall back to DOM order, which would put "Any value"/"No value" closest
+   to the input instead of the custom-filter row - giving each group its
+   own order keeps the same relative arrangement as the non-flipped case,
+   just mirrored. */
+.reversedOrder .multiSelectPopover {
+    order: 0;
+}
+
+.reversedOrder .pinnedOptions {
+    order: 1;
+}
+
+.reversedOrder .customFilterRow {
+    order: 2;
+}
+
+/* "Any value" and "No value" are grouped together above a divider,
+   separate from the column's real distinct values below - no horizontal
+   padding of its own (the 8px inset already comes from
+   .searchableFilterPopover's padding, same as .multiSelectPopover below -
+   adding more here would indent these two checkboxes further than the
+   rest) and the same font-size as the list underneath, so they read as
+   part of the same control rather than a visually distinct element bolted
+   on top. `min-width: 0` overrides the flex item default of `auto` (which
+   floors a flex item's size at its content's min-content width) - without
+   it, this row's own content could force `.searchableFilterPopover` wider
+   than the trigger input on narrow columns even though "Any value"/"No
+   value" are short, fixed strings that never need the extra room the
+   real-value list below is allowed to take. `width: 100%` makes it match
+   the popover's own (input-matching) width explicitly, rather than
+   relying only on the flex stretch default - belt-and-braces against this
+   row silently narrowing the popover below the trigger input's width. */
+.pinnedOptions {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.pinnedOptions :global(label) {
+    font-size: 11px !important;
+}
+
+/* "Reverse selection" - a ghost icon button, absolutely positioned over
+   the "Any value" row so it never contributes to that row's own width. */
+.reverseSelectionButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--colors-grey700);
     cursor: pointer;
-    text-align: left;
+}
+
+.reverseSelectionButton:hover:not(:disabled) {
+    background: var(--colors-grey100);
+}
+
+.reverseSelectionButton:disabled {
+    color: var(--colors-grey400);
+    cursor: not-allowed;
+}
+
+/* When the dropdown opens above the trigger, this group sits at the
+   bottom of the stack (closest to the input - see the order swap above),
+   so the divider needs to move to its top edge instead: it should always
+   separate the pinned group from the real value list, regardless of
+   which one is visually on top. */
+.reversedOrder .pinnedOptions {
+    border-bottom: none;
+    border-top: 1px solid var(--colors-grey300);
 }
 
 .multiSelectPopover {
-    padding: var(--spacers-dp8);
     max-height: 260px;
     overflow-y: auto;
-    min-width: 180px;
 }
 
-.numericFilterWrapper {
+.multiSelectPopover :global(label) {
+    font-size: 11px !important;
+}
+
+.monoOption :global(label) {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
+}
+
+/* "Any value" (matches any non-blank value) and "No value" (the blank-cell
+   sentinel) are opposite ends of the same predicate, not real data values -
+   italicize and mute them so they read as special/meta options rather than
+   something that could appear in the underlying data. */
+.specialOption :global(label) {
+    color: var(--colors-grey700) !important;
+    font-style: italic;
+}
+
+.noResults {
+    padding: 4px 2px;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--colors-grey600);
+}
+
+/* Styled like an active/selectable row (blue, the app's convention for
+   "actionable/selected" - see td.selected in DataTable.module.css) rather
+   than a warning, since applying a filter isn't an exceptional action. */
+.customFilterRow {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 6px;
+    width: 100%;
+    text-align: left;
+    font-size: 11px;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 3px;
+    background: var(--colors-blue050);
+    color: var(--colors-blue700);
+    cursor: pointer;
 }
 
-.numericFilterWrapper > :global(div) {
-    flex: 1 1 auto;
-    min-width: 0;
-}
-
-.helpIcon {
-    display: inline-flex;
+.customFilterRow svg {
     flex-shrink: 0;
-    color: var(--colors-grey600);
-    cursor: help;
+}
+
+.customFilterRow:hover,
+.customFilterRow.highlighted {
+    background: var(--colors-blue100);
+}
+
+.customFilterTag {
+    color: var(--colors-blue700);
+    white-space: nowrap;
+}
+
+.customFilterExpr {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.multiSelectPopover .highlighted {
+    background: var(--colors-grey100);
+}
+
+/* Matches DataTable.module.css's .topTooltipContent - this is the same
+   no-flip tooltip pattern (see FilterHelpTooltip in FilterInput.jsx), just
+   rendering its own dark tooltip box instead of relying on @dhis2/ui's
+   Tooltip (which supplies that styling itself). */
+.filterHelpTooltip {
+    z-index: 2000;
+    max-width: 300px;
+    padding: 4px 6px;
+    background-color: var(--colors-grey900);
+    border-radius: 3px;
+    color: var(--colors-white);
+    font-size: 11px;
+    line-height: 17px;
+    word-break: normal;
+    overflow-wrap: break-word;
 }

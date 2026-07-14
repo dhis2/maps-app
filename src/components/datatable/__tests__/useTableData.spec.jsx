@@ -2,7 +2,11 @@ import { renderHook } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { useTableData } from '../useTableData.js'
+import {
+    useTableData,
+    SELECTED_SORT_KEY,
+    NOT_SET_VALUE,
+} from '../useTableData.js'
 
 jest.mock('../../map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
@@ -837,6 +841,93 @@ describe('useTableData sorting', () => {
         const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
         expect(valueColumn).toEqual([null, null, null])
     })
+
+    test('falls back to natural (index) order when sortField is null', () => {
+        // Deliberately not alphabetical/numerical, so this only passes if the
+        // natural input order is preserved rather than some other sort.
+        const layerInInputOrder = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                { properties: { id: '1', name: 'Item C', rawValue: 3 } },
+                { properties: { id: '2', name: 'Item A', rawValue: 1 } },
+                { properties: { id: '3', name: 'Item B', rawValue: 2 } },
+            ],
+        }
+        const store = { aggregations: {} }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: layerInInputOrder,
+                    sortField: null,
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const names = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'name')?.value
+        )
+        expect(names).toEqual(['Item C', 'Item A', 'Item B'])
+    })
+
+    describe('sorting by selection state', () => {
+        // `id` must live inside `properties` - useTableData flattens rows via
+        // `{...d.properties}`, so a top-level `id` (as used by the rest of
+        // this describe block's `mockLayer`) would not survive flattening.
+        const layerWithIds = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                { properties: { id: '1', name: 'Item A' } },
+                { properties: { id: '2', name: 'Item B' } },
+                { properties: { id: '3', name: 'Item C' } },
+                { properties: { id: '4', name: 'Item D' } },
+                { properties: { id: '5', name: 'Item E' } },
+            ],
+        }
+        const store = { aggregations: {} }
+
+        const renderSorted = (sortDirection) =>
+            renderHook(
+                () =>
+                    useTableData({
+                        layer: layerWithIds,
+                        sortField: SELECTED_SORT_KEY,
+                        sortDirection,
+                        selectedIdSet: new Set(['2', '4']),
+                    }),
+                {
+                    wrapper: ({ children }) => (
+                        <Provider store={mockStore(store)}>{children}</Provider>
+                    ),
+                }
+            ).result
+
+        test('ascending (the default on first click) puts selected rows first', () => {
+            const { current } = renderSorted('asc')
+            const ids = current.rows.map(
+                (row) => row.find((c) => c.dataKey === 'id')?.value
+            )
+            expect(ids.slice(0, 2).sort()).toEqual(['2', '4'])
+            expect(ids.slice(2).sort()).toEqual(['1', '3', '5'])
+        })
+
+        test('descending puts selected rows last', () => {
+            const { current } = renderSorted('desc')
+            const ids = current.rows.map(
+                (row) => row.find((c) => c.dataKey === 'id')?.value
+            )
+            expect(ids.slice(0, 3).sort()).toEqual(['1', '3', '5'])
+            expect(ids.slice(3).sort()).toEqual(['2', '4'])
+        })
+    })
 })
 
 describe('useTableData showOnlyFeaturesInView', () => {
@@ -920,7 +1011,7 @@ describe('useTableData showOnlyFeaturesInView', () => {
     })
 })
 
-describe('useTableData showOnlySelected', () => {
+describe('useTableData selectionFilter', () => {
     const store = { aggregations: {} }
 
     const layer = {
@@ -940,23 +1031,23 @@ describe('useTableData showOnlySelected', () => {
             ),
         }).result
 
-    test('includes all rows when the toggle is off', () => {
+    test('includes all rows when no filter is applied', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: false,
+            selectionFilter: [],
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(2)
     })
 
-    test('includes only selected rows when the toggle is on', () => {
+    test('includes only selected rows when filtered to "selected"', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: true,
+            selectionFilter: ['selected'],
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(1)
@@ -965,12 +1056,37 @@ describe('useTableData showOnlySelected', () => {
         )
     })
 
-    test('shows no rows when the toggle is on and nothing is selected', () => {
+    test('includes only non-selected rows when filtered to "not-selected"', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: true,
+            selectionFilter: ['not-selected'],
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'Item B'
+        )
+    })
+
+    test('includes all rows when both options are checked', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            selectionFilter: ['selected', 'not-selected'],
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(2)
+    })
+
+    test('shows no rows when filtered to "selected" and nothing is selected', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            selectionFilter: ['selected'],
             selectedIdSet: new Set(),
         })
         expect(current.rows).toHaveLength(0)
@@ -995,7 +1111,7 @@ describe('useTableData columnOptions', () => {
             }
         ).result
 
-    test('includes legend and type for a thematic layer, but not name/id', () => {
+    test('gives options to every column type once distinct values are within the cap', () => {
         const layer = {
             layer: 'thematic',
             dataFilters: null,
@@ -1036,12 +1152,24 @@ describe('useTableData columnOptions', () => {
             { value: 'Low' },
         ])
         expect(current.columnOptions.type).toEqual([{ value: 'Point' }])
-        expect(current.columnOptions.name).toBeUndefined()
-        expect(current.columnOptions.id).toBeUndefined()
-        expect(current.columnOptions.parentName).toBeUndefined()
+        expect(current.columnOptions.name).toEqual([
+            { value: 'Org unit 1' },
+            { value: 'Org unit 2' },
+        ])
+        expect(current.columnOptions.id).toEqual([
+            { value: 'ou1' },
+            { value: 'ou2' },
+        ])
+        expect(current.columnOptions.parentName).toEqual([{ value: 'Country' }])
+        // Numeric columns (previously excluded outright) qualify too now.
+        expect(current.columnOptions.rawValue).toEqual([
+            { value: '10' },
+            { value: '20' },
+        ])
+        expect(current.columnOptions.level).toEqual([{ value: '1' }])
     })
 
-    test('falls back to free text when a column has more than 30 distinct values', () => {
+    test('gives options to a column even with many distinct values - no cap', () => {
         const layer = {
             layer: 'orgUnit',
             dataFilters: null,
@@ -1058,7 +1186,78 @@ describe('useTableData columnOptions', () => {
 
         const { current } = renderTableData(layer)
 
-        expect(current.columnOptions.type).toBeUndefined()
+        expect(current.columnOptions.type).toHaveLength(31)
+    })
+
+    test('sorts numeric column options numerically, not lexically', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [10, 2, 33].map((rawValue, i) => ({
+                properties: {
+                    id: `ou${i}`,
+                    name: `Org unit ${i}`,
+                    rawValue,
+                    legend: 'High',
+                    range: '0 - 100',
+                    level: 1,
+                    parentName: 'Country',
+                    type: 'Point',
+                    color: '#ff0000',
+                },
+            })),
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.rawValue).toEqual([
+            { value: '2' },
+            { value: '10' },
+            { value: '33' },
+        ])
+    })
+
+    test('includes a NOT_SET_VALUE option when some rows have a blank value', () => {
+        const layer = {
+            layer: 'orgUnit',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou1',
+                        name: 'Org unit 1',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou2',
+                        name: 'Org unit 2',
+                        level: 1,
+                        parentName: '',
+                        type: 'Point',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou3',
+                        name: 'Org unit 3',
+                        level: 1,
+                        // parentName omitted entirely (undefined)
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.parentName).toEqual([
+            { value: NOT_SET_VALUE },
+            { value: 'Country' },
+        ])
     })
 
     test('exposes optionSet on event columns for later resolution by FilterInput', () => {
