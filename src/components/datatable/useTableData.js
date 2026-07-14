@@ -36,12 +36,6 @@ const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 const TYPE_DATE = 'date'
 
-// The Index column is a synthetic row number computed only for table
-// display (see the `index` assigned from array position in
-// dataWithAggregations below) - it's never written onto the underlying
-// layer's actual feature data, so it can't be used as a map filter (see
-// DataTable.jsx, which excludes it from getting a FilterInput at all).
-export const INDEX = 'index'
 const NAME = 'name'
 const ID = 'id'
 const VALUE = 'rawValue'
@@ -82,7 +76,6 @@ const getErrorCodeText = (code) => {
 }
 
 const defaultFieldsMap = () => ({
-    [INDEX]: { name: i18n.t('Index'), dataKey: INDEX, type: TYPE_NUMBER },
     [NAME]: { name: i18n.t('Name'), dataKey: NAME, type: TYPE_STRING },
     [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
     [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
@@ -116,25 +109,16 @@ const defaultFieldsMap = () => ({
 })
 
 const getThematicHeaders = () =>
-    [
-        INDEX,
-        NAME,
-        ID,
-        VALUE,
-        LEGEND,
-        RANGE,
-        LEVEL,
-        PARENT_NAME,
-        TYPE,
-        COLOR,
-    ].map((field) => defaultFieldsMap()[field])
+    [NAME, ID, VALUE, LEGEND, RANGE, LEVEL, PARENT_NAME, TYPE, COLOR].map(
+        (field) => defaultFieldsMap()[field]
+    )
 
 const getEventHeaders = ({
     layerHeaders = [],
     styleDataItem,
     countEventsOutsideOrgUnits,
 }) => {
-    const fields = [INDEX, OUNAME, ID, EVENTDATE].map(
+    const fields = [OUNAME, ID, EVENTDATE].map(
         (field) => defaultFieldsMap()[field]
     )
 
@@ -164,12 +148,12 @@ const getEventHeaders = ({
 }
 
 const getOrgUnitHeaders = () =>
-    [INDEX, NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
+    [NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
         (field) => defaultFieldsMap()[field]
     )
 
 const getFacilityHeaders = () =>
-    [INDEX, NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
+    [NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
 
 const toTitleCase = (str) =>
     str.replace(
@@ -205,7 +189,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return [INDEX, NAME, ID, TYPE]
+    return [NAME, ID, TYPE]
         .map((field) => defaultFieldsMap()[field])
         .concat(customFields)
 }
@@ -357,6 +341,8 @@ export const useTableData = ({
             .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
+                // Row-order tie-breaker for compareRows when no sortField is
+                // set - not a real column, not shown or filterable in the table.
                 index,
             }))
         // boundsDependency intentionally proxies mapBounds only while the toggle is on
