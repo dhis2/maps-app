@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import LegendItemRange from './LegendItemRange.jsx'
@@ -27,8 +26,6 @@ const LegendItem = ({
     isPlugin,
     suppressRange,
     forceScientific,
-    onClick,
-    isActive,
 }) => {
     if (!name && startValue === undefined && endValue === undefined) {
         return null
@@ -54,26 +51,7 @@ const LegendItem = ({
     const lineWeight = weight ? Math.min(weight, maxLineWeight) : null
 
     return (
-        <tr
-            className={cx(styles.legendItem, {
-                [styles.clickable]: !!onClick,
-                [styles.active]: isActive,
-            })}
-            data-test="layerlegend-item"
-            onClick={onClick}
-            role={onClick ? 'button' : undefined}
-            tabIndex={onClick ? 0 : undefined}
-            onKeyDown={
-                onClick
-                    ? (e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault()
-                              onClick()
-                          }
-                      }
-                    : undefined
-            }
-        >
+        <tr className={styles.legendItem} data-test="layerlegend-item">
             <th>
                 {weight ? (
                     type === 'LineString' ? (
@@ -113,7 +91,6 @@ LegendItem.propTypes = {
     fillColor: PropTypes.string,
     forceScientific: PropTypes.bool,
     image: PropTypes.string,
-    isActive: PropTypes.bool,
     isPlugin: PropTypes.bool,
     name: PropTypes.string,
     radius: PropTypes.number,
@@ -124,7 +101,6 @@ LegendItem.propTypes = {
     type: PropTypes.string,
     useCompact: PropTypes.bool,
     weight: PropTypes.number,
-    onClick: PropTypes.func,
 }
 
 export default LegendItem
