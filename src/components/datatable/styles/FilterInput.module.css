@@ -59,13 +59,17 @@
    fall back to DOM order, which would put "Any value"/"No value" closest
    to the input instead of the custom-filter row - giving each group its
    own order keeps the same relative arrangement as the non-flipped case,
-   just mirrored. */
+   just mirrored. This also flips which edge of the pinned-options group
+   gets the divider: it should always separate that group from the real
+   value list, regardless of which one ends up visually on top. */
 .reversedOrder .multiSelectPopover {
     order: 0;
 }
 
 .reversedOrder .pinnedOptions {
     order: 1;
+    border-bottom: none;
+    border-top: 1px solid var(--colors-grey300);
 }
 
 .reversedOrder .customFilterRow {
@@ -126,16 +130,6 @@
 .reverseSelectionButton:disabled {
     color: var(--colors-grey400);
     cursor: not-allowed;
-}
-
-/* When the dropdown opens above the trigger, this group sits at the
-   bottom of the stack (closest to the input - see the order swap above),
-   so the divider needs to move to its top edge instead: it should always
-   separate the pinned group from the real value list, regardless of
-   which one is visually on top. */
-.reversedOrder .pinnedOptions {
-    border-bottom: none;
-    border-top: 1px solid var(--colors-grey300);
 }
 
 .multiSelectPopover {
@@ -202,7 +196,7 @@
 .customFilterExpr {
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
     font-weight: 600;
-    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .multiSelectPopover .highlighted {
