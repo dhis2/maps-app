@@ -120,11 +120,13 @@ const FilterHelpTooltip = ({
     )
 
     const referenceRect = referenceRef.current?.getBoundingClientRect()
-    const spaceAvailable = referenceRect
-        ? placement === 'top'
-            ? referenceRect.top
-            : window.innerHeight - referenceRect.bottom
-        : Infinity
+    let spaceAvailable = Infinity
+    if (referenceRect) {
+        spaceAvailable =
+            placement === 'top'
+                ? referenceRect.top
+                : window.innerHeight - referenceRect.bottom
+    }
     const hasRoom = spaceAvailable >= estimatedHeight
 
     return (
@@ -206,6 +208,66 @@ FilterDropdownPopover.propTypes = {
     reference: PropTypes.object.isRequired,
     onClickOutside: PropTypes.func.isRequired,
     className: PropTypes.string,
+}
+
+// See onToggleAnyValue - turning "Any value" on collapses any individually
+// -picked real values into just the wildcard, off unticks every real value
+// along with it. "No value" carries through untouched either way.
+const getAnyValueToggleResult = (anyValueActive, keepNotSet) => {
+    if (anyValueActive) {
+        return keepNotSet ? [NOT_SET_VALUE] : []
+    }
+    return keepNotSet ? [ANY_VALUE_KEY, NOT_SET_VALUE] : [ANY_VALUE_KEY]
+}
+
+// See onToggleRealValue - once every real value ends up ticked, that's the
+// same state as "Any value" being active, so it collapses into the wildcard
+// rather than a literal array that happens to list them all.
+const getRealValueToggleResult = (next, allRealValuesChecked) => {
+    if (!allRealValuesChecked) {
+        return next
+    }
+    return next.includes(NOT_SET_VALUE)
+        ? [ANY_VALUE_KEY, NOT_SET_VALUE]
+        : [ANY_VALUE_KEY]
+}
+
+// See "Numeric columns narrow..." comment at the filteredOptions call site -
+// numeric columns match the typed text as a numericFilter expression,
+// string columns match it as a case-insensitive substring of the resolved
+// label.
+const getFilteredOptions = ({
+    realOptions,
+    trimmedSearch,
+    normalizedSearch,
+    type,
+    resolveLabel,
+}) => {
+    if (!trimmedSearch) {
+        return realOptions
+    }
+    if (type === 'number') {
+        return realOptions.filter(({ value }) =>
+            numericFilter(Number(value), trimmedSearch)
+        )
+    }
+    return realOptions.filter(({ value }) =>
+        resolveLabel(value).toLowerCase().includes(normalizedSearch)
+    )
+}
+
+// Closed, this reads like the old trigger button ("3 selected", the applied
+// filter text, or empty so the "Search" placeholder shows). Open, it's a
+// live, editable search/filter field - the same input serves both roles
+// instead of a button revealing a separate one.
+const getDisplayValue = ({ isOpen, searchText, selected, appliedString }) => {
+    if (isOpen) {
+        return searchText
+    }
+    if (selected.length) {
+        return i18n.t('{{count}} selected', { count: selected.length })
+    }
+    return appliedString
 }
 
 // Shared popover UI — label resolution is injected so it never needs to
@@ -297,15 +359,7 @@ const SearchableFilterPopover = ({
     // "No value" is independent either way and carries over untouched.
     const onToggleAnyValue = () => {
         const keepNotSet = selected.includes(NOT_SET_VALUE)
-        applyValues(
-            anyValueActive
-                ? keepNotSet
-                    ? [NOT_SET_VALUE]
-                    : []
-                : keepNotSet
-                ? [ANY_VALUE_KEY, NOT_SET_VALUE]
-                : [ANY_VALUE_KEY]
-        )
+        applyValues(getAnyValueToggleResult(anyValueActive, keepNotSet))
     }
 
     // Every value "Reverse selection" can flip - the column's full value
@@ -350,13 +404,7 @@ const SearchableFilterPopover = ({
         const allRealValuesChecked =
             realOptions.length > 0 &&
             realOptions.every((o) => next.includes(o.value))
-        applyValues(
-            allRealValuesChecked
-                ? next.includes(NOT_SET_VALUE)
-                    ? [ANY_VALUE_KEY, NOT_SET_VALUE]
-                    : [ANY_VALUE_KEY]
-                : next
-        )
+        applyValues(getRealValueToggleResult(next, allRealValuesChecked))
     }
 
     // Reverses every checkbox's *effective* ticked state, not just literal
@@ -407,15 +455,13 @@ const SearchableFilterPopover = ({
     // text would apply to the table's rows (>, <, ranges, ...), so what's
     // checked here always matches what "Use filter" would actually select -
     // a plain substring match wouldn't understand "> 100" against "150".
-    const filteredOptions = !trimmedSearch
-        ? realOptions
-        : type === 'number'
-        ? realOptions.filter(({ value }) =>
-              numericFilter(Number(value), trimmedSearch)
-          )
-        : realOptions.filter(({ value }) =>
-              resolveLabel(value).toLowerCase().includes(normalizedSearch)
-          )
+    const filteredOptions = getFilteredOptions({
+        realOptions,
+        trimmedSearch,
+        normalizedSearch,
+        type,
+        resolveLabel,
+    })
     const hasExactMatch = filteredOptions.some(
         ({ value }) => resolveLabel(value).toLowerCase() === normalizedSearch
     )
@@ -481,6 +527,29 @@ const SearchableFilterPopover = ({
         }
     }
 
+    // The custom-filter row (when shown) sits first, matching its visual
+    // position above the checkbox list. It's usually already applied live
+    // by this point (see onSearchChange) - toggling it again here is a
+    // no-op.
+    const onEnterKey = () => {
+        if (highlightedIndex === -1) {
+            if (showCustomFilterRow) {
+                applyCustomFilter(searchText.trim())
+            }
+            return
+        }
+        if (showCustomFilterRow && highlightedIndex === 0) {
+            applyCustomFilter(searchText.trim())
+            return
+        }
+        const optionIndex = showCustomFilterRow
+            ? highlightedIndex - 1
+            : highlightedIndex
+        if (optionIndex >= 0 && optionIndex < filteredOptions.length) {
+            toggleValue(filteredOptions[optionIndex].value)
+        }
+    }
+
     const onSearchKeyDown = (_, event) => {
         switch (event.key) {
             case 'ArrowDown':
@@ -501,32 +570,11 @@ const SearchableFilterPopover = ({
                     return next
                 })
                 break
-            case 'Enter': {
+            case 'Enter':
                 event.preventDefault()
-                // The custom-filter row (when shown) sits first, matching
-                // its visual position above the checkbox list. It's
-                // usually already applied live by this point (see
-                // onSearchChange) - toggling it again here is a no-op.
-                if (highlightedIndex === -1) {
-                    if (showCustomFilterRow) {
-                        applyCustomFilter(searchText.trim())
-                    }
-                } else if (showCustomFilterRow && highlightedIndex === 0) {
-                    applyCustomFilter(searchText.trim())
-                } else {
-                    const optionIndex = showCustomFilterRow
-                        ? highlightedIndex - 1
-                        : highlightedIndex
-                    if (
-                        optionIndex >= 0 &&
-                        optionIndex < filteredOptions.length
-                    ) {
-                        toggleValue(filteredOptions[optionIndex].value)
-                    }
-                }
+                onEnterKey()
                 closePopover()
                 break
-            }
             case 'Escape':
                 event.preventDefault()
                 closePopover()
@@ -540,11 +588,12 @@ const SearchableFilterPopover = ({
     // applied filter text, or empty so the "Search" placeholder shows).
     // Open, it's a live, editable search/filter field - the same input
     // serves both roles instead of a button revealing a separate one.
-    const displayValue = isOpen
-        ? searchText
-        : selected.length
-        ? i18n.t('{{count}} selected', { count: selected.length })
-        : appliedString
+    const displayValue = getDisplayValue({
+        isOpen,
+        searchText,
+        selected,
+        appliedString,
+    })
 
     const mainInput = (
         <Input

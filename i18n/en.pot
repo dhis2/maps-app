@@ -205,11 +205,11 @@ msgstr "No results found"
 msgid "Select all"
 msgstr "Select all"
 
-msgid "Sort by Selected"
-msgstr "Sort by Selected"
-
 msgid "Reverse selection"
 msgstr "Reverse selection"
+
+msgid "Sort by Selected"
+msgstr "Sort by Selected"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
