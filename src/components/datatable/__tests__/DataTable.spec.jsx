@@ -1,6 +1,9 @@
 import {
     shouldClearFeatureHighlight,
     getRowClickAction,
+    getNextSorting,
+    isFilterable,
+    getReversedSelection,
 } from '../DataTable.jsx'
 
 // DataTable.jsx transitively imports MapApi.js (maplibre-gl), which is not
@@ -80,5 +83,76 @@ describe('getRowClickAction', () => {
                 { id: 'a', rowIndex: 0, rows, lastClickedRowIndex: 2 }
             )
         ).toEqual({ type: 'range', ids: ['a', 'b', 'c'] })
+    })
+})
+
+describe('getNextSorting', () => {
+    test('clicking an unsorted column starts at ascending', () => {
+        expect(
+            getNextSorting('name', { sortField: null, sortDirection: 'asc' })
+        ).toEqual({ sortField: 'name', sortDirection: 'asc' })
+    })
+
+    test('clicking the ascending-sorted column moves to descending', () => {
+        expect(
+            getNextSorting('name', { sortField: 'name', sortDirection: 'asc' })
+        ).toEqual({ sortField: 'name', sortDirection: 'desc' })
+    })
+
+    test('clicking the descending-sorted column clears back to natural order', () => {
+        expect(
+            getNextSorting('name', { sortField: 'name', sortDirection: 'desc' })
+        ).toEqual({ sortField: null, sortDirection: 'asc' })
+    })
+
+    test('clicking a different column restarts the cycle at ascending', () => {
+        expect(
+            getNextSorting('type', { sortField: 'name', sortDirection: 'desc' })
+        ).toEqual({ sortField: 'type', sortDirection: 'asc' })
+    })
+})
+
+describe('isFilterable', () => {
+    test('allows the Index column - it filters the table by row-number range even though it cannot narrow the map', () => {
+        expect(isFilterable('index', 'number')).toBe(true)
+    })
+
+    test('allows other numeric and string columns, which are real feature properties', () => {
+        expect(isFilterable('rawValue', 'number')).toBe(true)
+        expect(isFilterable('name', 'string')).toBe(true)
+    })
+
+    test('excludes columns with no type (no known filter UI for them)', () => {
+        expect(isFilterable('someKey', undefined)).toBe(false)
+    })
+})
+
+describe('getReversedSelection', () => {
+    test('selects every visible row when nothing is currently selected', () => {
+        expect(getReversedSelection([], ['a', 'b', 'c'])).toEqual([
+            'a',
+            'b',
+            'c',
+        ])
+    })
+
+    test('deselects every visible row when all are currently selected', () => {
+        expect(getReversedSelection(['a', 'b', 'c'], ['a', 'b', 'c'])).toEqual(
+            []
+        )
+    })
+
+    test('flips only the visible rows, keeping the rest of the selection as-is', () => {
+        expect(getReversedSelection(['a'], ['a', 'b', 'c'])).toEqual(['b', 'c'])
+    })
+
+    test('preserves ids selected outside the current filtered view untouched', () => {
+        // "z" was selected before a column filter narrowed the visible rows
+        // down to just a/b/c - reversing must not drop it.
+        expect(getReversedSelection(['a', 'z'], ['a', 'b', 'c'])).toEqual([
+            'z',
+            'b',
+            'c',
+        ])
     })
 })
