@@ -241,6 +241,35 @@ export const getRowClickAction = (
     return null
 }
 
+// Thematic layers merge their legend name + color into one swatch+name
+// cell (see hasLegendColorPair); every other column is either the raw
+// color's own cell (lowercased hex) or a plain formatted value.
+const getCellContent = ({
+    isLegendCell,
+    swatchColor,
+    value,
+    dataKey,
+    keyAnalysisDigitGroupSeparator,
+}) => {
+    if (isLegendCell) {
+        return (
+            <span className={styles.legendCell}>
+                {swatchColor && (
+                    <span
+                        className={styles.legendSwatch}
+                        style={{ backgroundColor: swatchColor }}
+                    />
+                )}
+                {value}
+            </span>
+        )
+    }
+    if (dataKey === 'color') {
+        return value?.toLowerCase()
+    }
+    return formatWithSeparator(value, keyAnalysisDigitGroupSeparator)
+}
+
 const DataTableWithVirtuosoContext = ({ context, ...props }) => (
     <DataTable
         {...props}
@@ -867,33 +896,13 @@ const Table = ({
                                             }
                                             align={align}
                                         >
-                                            {isLegendCell ? (
-                                                <span
-                                                    className={
-                                                        styles.legendCell
-                                                    }
-                                                >
-                                                    {swatchColor && (
-                                                        <span
-                                                            className={
-                                                                styles.legendSwatch
-                                                            }
-                                                            style={{
-                                                                backgroundColor:
-                                                                    swatchColor,
-                                                            }}
-                                                        />
-                                                    )}
-                                                    {value}
-                                                </span>
-                                            ) : dataKey === 'color' ? (
-                                                value?.toLowerCase()
-                                            ) : (
-                                                formatWithSeparator(
-                                                    value,
-                                                    keyAnalysisDigitGroupSeparator
-                                                )
-                                            )}
+                                            {getCellContent({
+                                                isLegendCell,
+                                                swatchColor,
+                                                value,
+                                                dataKey,
+                                                keyAnalysisDigitGroupSeparator,
+                                            })}
                                         </DataTableCell>
                                     )
                                 })}

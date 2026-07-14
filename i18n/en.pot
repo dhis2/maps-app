@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-14T19:48:56.770Z\n"
-"PO-Revision-Date: 2026-07-14T19:48:56.771Z\n"
+"POT-Creation-Date: 2026-07-14T20:24:31.895Z\n"
+"PO-Revision-Date: 2026-07-14T20:24:31.895Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -205,11 +205,11 @@ msgstr "No results found"
 msgid "Select all"
 msgstr "Select all"
 
-msgid "Sort by Selected"
-msgstr "Sort by Selected"
-
 msgid "Reverse selection"
 msgstr "Reverse selection"
+
+msgid "Sort by Selected"
+msgstr "Sort by Selected"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
