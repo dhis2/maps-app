@@ -4,6 +4,8 @@ import {
     IconFilter16,
     IconEmptyFrame16,
     IconCheckmarkCircle16,
+    IconChevronDown16,
+    IconChevronUp16,
     Input,
     Tooltip,
 } from '@dhis2/ui'
@@ -29,10 +31,6 @@ import {
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
 import ColorPicker from '../core/ColorPicker.jsx'
-import {
-    IconChevronDoubleDown16,
-    IconChevronDoubleUp16,
-} from '../core/icons.jsx'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
@@ -204,9 +202,9 @@ const BottomPanel = () => {
                         }
                     >
                         {isCollapsed ? (
-                            <IconChevronDoubleUp16 />
+                            <IconChevronUp16 />
                         ) : (
-                            <IconChevronDoubleDown16 />
+                            <IconChevronDown16 />
                         )}
                     </Tooltip>
                 </button>
@@ -245,30 +243,33 @@ const BottomPanel = () => {
                 {rowCountLabel && (
                     <span className={styles.rowCount}>{rowCountLabel}</span>
                 )}
-                {hasActiveFilters && (
-                    <button
-                        className={styles.clearFiltersButton}
-                        onClick={() => {
-                            dispatch(clearDataFilters(activeLayerId))
-                            setGlobalSearch('')
-                        }}
-                    >
-                        <Tooltip content={i18n.t('Clear filters')}>
-                            <span className={styles.filteredIcon}>
-                                <IconFilter16 />
-                                <span className={styles.clearBadge} />
-                            </span>
-                        </Tooltip>
-                    </button>
-                )}
-                <Input
-                    dense
-                    dataTest="data-table-global-search"
-                    placeholder={i18n.t('Search all columns')}
-                    value={globalSearch}
-                    onChange={({ value }) => setGlobalSearch(value)}
+                <button
+                    className={styles.clearFiltersButton}
+                    disabled={!hasActiveFilters}
+                    onClick={() => {
+                        dispatch(clearDataFilters(activeLayerId))
+                        setGlobalSearch('')
+                    }}
+                >
+                    <Tooltip content={i18n.t('Clear filters')}>
+                        <span className={styles.filteredIcon}>
+                            <IconFilter16 />
+                            <span className={styles.clearBadge} />
+                        </span>
+                    </Tooltip>
+                </button>
+                <div
                     className={styles.globalSearch}
-                />
+                    onDoubleClick={(e) => e.stopPropagation()}
+                >
+                    <Input
+                        dense
+                        dataTest="data-table-global-search"
+                        placeholder={i18n.t('Search all columns')}
+                        value={globalSearch}
+                        onChange={({ value }) => setGlobalSearch(value)}
+                    />
+                </div>
                 <button
                     className={cx(styles.toggleButton, {
                         [styles.active]: showOnlyFeaturesInView,

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-13T09:39:24.427Z\n"
-"PO-Revision-Date: 2026-07-13T09:39:24.427Z\n"
+"POT-Creation-Date: 2026-07-14T06:48:41.625Z\n"
+"PO-Revision-Date: 2026-07-14T06:48:41.625Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -170,6 +170,9 @@ msgstr "Collapse"
 msgid "Clear filters"
 msgstr "Clear filters"
 
+msgid "Search all columns"
+msgstr "Search all columns"
+
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
 
@@ -193,6 +196,29 @@ msgstr "Sort by {{column}}"
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid "greater than 5"
+msgstr "greater than 5"
+
+msgid "greater than or equal to 5"
+msgstr "greater than or equal to 5"
+
+msgid "less than (or equal to) 5"
+msgstr "less than (or equal to) 5"
+
+msgid "equal to 2 OR greater than 8"
+msgstr "equal to 2 OR greater than 8"
+
+msgid "greater than 3 AND less than 8"
+msgstr "greater than 3 AND less than 8"
+
+msgid "All"
+msgstr "All"
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
 
 msgid "Search"
 msgstr "Search"
@@ -868,9 +894,6 @@ msgstr ""
 
 msgid "no value"
 msgstr "no value"
-
-msgid "All"
-msgstr "All"
 
 msgid "Loading data"
 msgstr "Loading data"
