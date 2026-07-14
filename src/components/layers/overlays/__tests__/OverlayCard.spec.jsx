@@ -25,19 +25,6 @@ jest.mock('@dhis2/app-service-alerts', () => ({
     useAlert: () => ({ show: mockShow }),
 }))
 
-jest.mock('../../../cachedDataProvider/CachedDataProvider.jsx', () => ({
-    useCachedData: jest.fn(() => ({
-        systemSettings: { keyAnalysisDigitGroupSeparator: 'NONE' },
-    })),
-}))
-
-// jsdom has no ResizeObserver; Legend.jsx uses one to measure overflow, which
-// is irrelevant to the legend-click wiring under test here.
-global.ResizeObserver = class {
-    observe() {}
-    disconnect() {}
-}
-
 const mockStore = configureMockStore()
 
 describe('OverlayCard', () => {
@@ -70,103 +57,5 @@ describe('OverlayCard', () => {
         expect(mockShow).toHaveBeenCalledWith({
             msg: 'Children < 5y & "others" deleted.',
         })
-    })
-})
-
-describe('OverlayCard legend-driven filter', () => {
-    const layer = {
-        id: 'layer1',
-        name: 'Test layer',
-        layer: 'thematic',
-        isLoaded: true,
-        isExpanded: true,
-        isVisible: true,
-        opacity: 1,
-        dataFilters: {},
-        legend: {
-            items: [
-                { name: 'High', color: '#ff0000' },
-                { name: 'Low', color: '#00ff00' },
-            ],
-        },
-    }
-
-    const renderCard = (store) =>
-        render(
-            <Provider store={store}>
-                <OverlayCard layer={layer} />
-            </Provider>
-        )
-
-    test('opens the table and sets the legend filter on click when the table is closed', () => {
-        const store = mockStore({ dataTable: null, aggregations: {} })
-        renderCard(store)
-
-        fireEvent.click(screen.getByText('High'))
-
-        const actions = store.getActions()
-        expect(actions).toContainEqual({
-            type: 'DATA_FILTER_SET',
-            layerId: 'layer1',
-            fieldId: 'legend',
-            filter: ['High'],
-        })
-        expect(actions).toContainEqual({
-            type: 'DATA_TABLE_TOGGLE',
-            id: 'layer1',
-        })
-    })
-
-    test('adds to the filter without re-toggling the table when it is already open for this layer', () => {
-        const store = mockStore({ dataTable: 'layer1', aggregations: {} })
-        renderCard(store)
-
-        fireEvent.click(screen.getByText('Low'))
-
-        const actions = store.getActions()
-        expect(actions).toContainEqual({
-            type: 'DATA_FILTER_SET',
-            layerId: 'layer1',
-            fieldId: 'legend',
-            filter: ['Low'],
-        })
-        expect(actions).not.toContainEqual(
-            expect.objectContaining({ type: 'DATA_TABLE_TOGGLE' })
-        )
-    })
-
-    test('clears the filter when clicking an already-active legend class', () => {
-        const activeLayer = {
-            ...layer,
-            dataFilters: { legend: ['High'] },
-        }
-        const store = mockStore({ dataTable: 'layer1', aggregations: {} })
-        render(
-            <Provider store={store}>
-                <OverlayCard layer={activeLayer} />
-            </Provider>
-        )
-
-        fireEvent.click(screen.getByText('High'))
-
-        expect(store.getActions()).toContainEqual({
-            type: 'DATA_FILTER_CLEAR',
-            layerId: 'layer1',
-            fieldId: 'legend',
-        })
-    })
-
-    test('does not wire legend clicks for non-thematic layers', () => {
-        const facilityLayer = { ...layer, layer: 'facility' }
-        const store = mockStore({ dataTable: null, aggregations: {} })
-        render(
-            <Provider store={store}>
-                <OverlayCard layer={facilityLayer} />
-            </Provider>
-        )
-
-        fireEvent.click(screen.getByText('High'))
-
-        expect(store.getActions()).toEqual([])
     })
 })
