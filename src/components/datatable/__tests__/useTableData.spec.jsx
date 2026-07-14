@@ -1494,7 +1494,7 @@ describe('useTableData showOnlyFeaturesInView', () => {
     })
 })
 
-describe('useTableData showOnlySelected', () => {
+describe('useTableData selectionFilter', () => {
     const store = { aggregations: {} }
 
     const layer = {
@@ -1514,23 +1514,23 @@ describe('useTableData showOnlySelected', () => {
             ),
         }).result
 
-    test('includes all rows when the toggle is off', () => {
+    test('includes all rows when no filter is applied', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: false,
+            selectionFilter: [],
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(2)
     })
 
-    test('includes only selected rows when the toggle is on', () => {
+    test('includes only selected rows when filtered to "selected"', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: true,
+            selectionFilter: ['selected'],
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(1)
@@ -1539,12 +1539,37 @@ describe('useTableData showOnlySelected', () => {
         )
     })
 
-    test('shows no rows when the toggle is on and nothing is selected', () => {
+    test('includes only non-selected rows when filtered to "not-selected"', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: true,
+            selectionFilter: ['not-selected'],
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'Item B'
+        )
+    })
+
+    test('includes all rows when both options are checked', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            selectionFilter: ['selected', 'not-selected'],
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(2)
+    })
+
+    test('shows no rows when filtered to "selected" and nothing is selected', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            selectionFilter: ['selected'],
             selectedIdSet: new Set(),
         })
         expect(current.rows).toHaveLength(0)

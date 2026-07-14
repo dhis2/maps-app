@@ -167,6 +167,12 @@ msgstr "Sort by Selected"
 msgid "Select all"
 msgstr "Select all"
 
+msgid "Sort by Selected"
+msgstr "Sort by Selected"
+
+msgid "Reverse selection"
+msgstr "Reverse selection"
+
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 
@@ -230,10 +236,14 @@ msgstr "Not selected"
 msgid "All"
 msgstr "All"
 
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} selected"
-msgstr[1] "{{count}} selected"
+msgid "Use filter"
+msgstr "Use filter"
+
+msgid "Contains"
+msgstr "Contains"
+
+msgid "Search or type > 5, < 8…"
+msgstr "Search or type > 5, < 8…"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
