@@ -1,12 +1,21 @@
 import { IconDragHandle24 } from '@dhis2/ui'
 import React from 'react'
-import { SortableHandle } from 'react-sortable-hoc'
+import { useDragHandle } from './dragHandleContext.js'
 import styles from './styles/SortableHandle.module.css'
 
-const Handle = () => (
-    <div className={styles.handle} data-test="sortable-handle">
-        <IconDragHandle24 />
-    </div>
-)
+const SortableHandle = () => {
+    const dragHandle = useDragHandle()
 
-export default SortableHandle(Handle)
+    return (
+        <div
+            className={styles.handle}
+            data-test="sortable-handle"
+            {...dragHandle?.attributes}
+            {...dragHandle?.listeners}
+        >
+            <IconDragHandle24 />
+        </div>
+    )
+}
+
+export default SortableHandle

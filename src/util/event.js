@@ -3,9 +3,12 @@ import {
     EVENT_COORDINATE_CASCADING,
     EVENT_COORDINATE_DEFAULT,
 } from '../constants/layers.js'
-import { getOrgUnitsFromRows, getPeriodFromFilters } from './analytics.js'
+import {
+    getOrgUnitsFromRows,
+    getPeriodsFromFilters,
+    applyPeriodFilter,
+} from './analytics.js'
 import { addStyleDataItem, createEventFeatures } from './geojson.js'
-import { trimTime } from './time.js'
 
 export const EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
     programStage: {
@@ -78,7 +81,7 @@ export const getAnalyticsRequest = async (
     { nameProperty, engine, analyticsEngine }
 ) => {
     const orgUnits = getOrgUnitsFromRows(rows)
-    const period = getPeriodFromFilters(filters)
+    const periods = getPeriodsFromFilters(filters)
     const dataItems = addStyleDataItem(
         columns.filter(isValidDimension),
         styleDataItem
@@ -111,11 +114,11 @@ export const getAnalyticsRequest = async (
         .withStage(programStage.id)
         .withCoordinatesOnly(!countFeaturesWithoutCoordinates)
 
-    analyticsRequest = period
-        ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest
-              .withStartDate(trimTime(startDate))
-              .withEndDate(trimTime(endDate))
+    analyticsRequest = applyPeriodFilter(analyticsRequest, {
+        periods,
+        startDate,
+        endDate,
+    })
 
     if (relativePeriodDate) {
         analyticsRequest =
