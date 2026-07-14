@@ -1,3 +1,10 @@
+# [101.16.0](https://github.com/dhis2/maps-app/compare/v101.15.0...v101.16.0) (2026-07-14)
+
+
+### Features
+
+* period selector for events layer ([#3715](https://github.com/dhis2/maps-app/issues/3715)) ([82939d0](https://github.com/dhis2/maps-app/commit/82939d021f6993e1f22e55f77083fd7bee6eac3d))
+
 # [101.15.0](https://github.com/dhis2/maps-app/compare/v101.14.0...v101.15.0) (2026-07-10)
 
 

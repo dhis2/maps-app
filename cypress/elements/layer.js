@@ -169,4 +169,90 @@ export class Layer {
 
         return this
     }
+
+    selectPresets() {
+        cy.contains('Choose from presets').click()
+
+        return this
+    }
+
+    selectStartEndDates() {
+        cy.contains('Define start - end dates').click()
+
+        return this
+    }
+
+    selectRelativePeriod(period) {
+        cy.get('[data-test="relative-period-select"]').click()
+        cy.contains(period).click()
+
+        return this
+    }
+
+    removeAllPeriods() {
+        cy.getByDataTest('period-dimension-transfer-actions-removeall').click()
+
+        return this
+    }
+
+    selectPeriodType({
+        periodType,
+        periodDimension = 'fixed',
+        n = 'last',
+        y = '',
+        removeAll = true,
+    } = {}) {
+        if (!periodType) {
+            throw new Error("The 'periodType' parameter is required.")
+        }
+
+        // Select fixed / relative periods
+        cy.getByDataTest(
+            `period-dimension-${periodDimension}-periods-button`
+        ).click()
+        // Open dropdown for period type
+        cy.getByDataTest(
+            `period-dimension-${periodDimension}-period-filter${
+                periodDimension === 'fixed' ? '-period-type' : ''
+            }`
+        ).click()
+        // Select period type in dropdown if not active already
+        cy.get(`[data-value="${periodType}"]`).then(($el) => {
+            if ($el.hasClass('active')) {
+                cy.get('body').click('topLeft')
+            } else {
+                cy.wrap($el).click()
+            }
+        })
+
+        if (removeAll) {
+            cy.getByDataTest(
+                'period-dimension-transfer-actions-removeall'
+            ).click()
+        }
+
+        if (y !== '') {
+            cy.getByDataTest(
+                'period-dimension-fixed-period-filter-year-content'
+            )
+                .get('input[type="number"]')
+                .clear()
+            cy.getByDataTest(
+                'period-dimension-fixed-period-filter-year-content'
+            )
+                .get('input[type="number"]')
+                .type(y)
+        }
+        if (n === 'last') {
+            cy.getByDataTest('period-dimension-transfer-option-content')
+                .last()
+                .dblclick()
+        } else {
+            cy.getByDataTest('period-dimension-transfer-option-content')
+                .eq(n)
+                .dblclick()
+        }
+
+        return this
+    }
 }

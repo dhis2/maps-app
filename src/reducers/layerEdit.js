@@ -10,7 +10,6 @@ import {
 } from '../constants/layers.js'
 import { START_END_DATES } from '../constants/periods.js'
 import {
-    setFiltersFromPeriod,
     setFiltersFromPeriods,
     setDataItemInColumns,
     setOrgUnitPathInRows,
@@ -79,15 +78,6 @@ const layerEdit = (state = null, action) => {
                 filters: action.keepPeriod
                     ? state.filters
                     : removePeriodFromFilters(state.filters),
-            }
-
-        case types.LAYER_EDIT_PERIOD_SET:
-            return {
-                ...state,
-                filters:
-                    action.period.id !== START_END_DATES
-                        ? setFiltersFromPeriod(state.filters, action.period)
-                        : [],
             }
 
         case types.LAYER_EDIT_PERIODS_SET:

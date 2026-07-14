@@ -3,7 +3,7 @@ module.exports = {
     collectCoverageFrom: ['src/**/*.js'],
     testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
     transformIgnorePatterns: [
-        '/node_modules/(?!d3-(array|axis|color|format|interpolate|scale|selection|time)|internmap)',
+        '/node_modules/(?!d3-(array|axis|color|format|interpolate|scale|selection|time)|internmap|array-move)',
     ],
     moduleNameMapper: {
         '\\.(css)$': 'identity-obj-proxy',

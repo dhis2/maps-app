@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-09T08:38:38.049Z\n"
-"PO-Revision-Date: 2026-07-09T08:38:38.049Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"PO-Revision-Date: 2026-07-10T08:27:09.245Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -419,6 +419,12 @@ msgstr "Org Units"
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
+
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtering is available after selecting a program stage."
 
@@ -497,6 +503,19 @@ msgstr "Include unclassified org units"
 msgid "Unclassified"
 msgstr "Unclassified"
 
+msgid "Period is required"
+msgstr "Period is required"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Select at least {{number}} periods or 1 multi-period."
+
 msgid "Aggregation type"
 msgstr "Aggregation type"
 
@@ -515,12 +534,6 @@ msgstr "High radius should be greater than low radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius should be between {{min}} and {{max}}"
 
-msgid "Choose from presets"
-msgstr "Choose from presets"
-
-msgid "Define start - end dates"
-msgstr "Define start - end dates"
-
 msgid "Choose periods for all timeline layers"
 msgstr "Choose periods for all timeline layers"
 
@@ -532,19 +545,6 @@ msgstr "Choose periods for all split layers"
 
 msgid "Data is required"
 msgstr "Data is required"
-
-msgid "Period is required"
-msgstr "Period is required"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Select at least {{number}} periods or 1 multi-period."
 
 msgid "Specified radius values are invalid"
 msgstr "Specified radius values are invalid"
@@ -1007,9 +1007,6 @@ msgstr "Previous year"
 
 msgid "Next year"
 msgstr "Next year"
-
-msgid "Start/end dates"
-msgstr "Start/end dates"
 
 msgid "Remove all split layers to add a single layer."
 msgstr "Remove all split layers to add a single layer."
@@ -1806,6 +1803,9 @@ msgstr "Financial year (Start July)"
 
 msgid "Financial year (Start April)"
 msgstr "Financial year (Start April)"
+
+msgid "Start/end dates"
+msgstr "Start/end dates"
 
 msgid "Cancelled"
 msgstr "Cancelled"

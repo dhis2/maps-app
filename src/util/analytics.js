@@ -5,7 +5,8 @@ import {
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../constants/layers.js'
-import { getPeriodNames } from './periods.js'
+import { getPeriodNames, getFixedPeriodName } from './periods.js'
+import { trimTime } from './time.js'
 import { isValidUid } from './uid.js'
 
 /* DIMENSIONS */
@@ -81,9 +82,6 @@ export const setOrgUnitPathInRows = (rows = [], id, path) => {
 
 /* PERIODS */
 
-export const getPeriodFromFilters = (filters = []) =>
-    getDimensionItems('pe', filters)[0]
-
 export const getPeriodsFromFilters = (filters = []) =>
     getDimensionItems('pe', filters)
 
@@ -91,17 +89,22 @@ export const removePeriodFromFilters = (filters = []) => [
     ...filters.filter((f) => f.dimension !== 'pe'),
 ]
 
-export const getPeriodNameFromId = (id) => getPeriodNames()[id]
-
-export const setFiltersFromPeriod = (filters, period) => [
-    ...removePeriodFromFilters(filters),
-    createDimension('pe', [{ ...period }]),
-]
+export const getPeriodNameFromId = (id) =>
+    getPeriodNames()[id] ?? getFixedPeriodName(id)
 
 export const setFiltersFromPeriods = (filters, periods) => [
     ...removePeriodFromFilters(filters),
     createDimension('pe', periods),
 ]
+
+// Applies the selected periods (aggregated as a filter) or, if none are
+// selected, the start/end date range, to an analytics request builder.
+export const applyPeriodFilter = (request, { periods, startDate, endDate }) =>
+    periods.length > 0
+        ? request.addPeriodFilter(periods.map((pe) => pe.id))
+        : request
+              .withStartDate(trimTime(startDate))
+              .withEndDate(trimTime(endDate))
 
 /* DYNAMIC DIMENSION FILTERS */
 

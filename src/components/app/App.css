@@ -9,4 +9,5 @@
 
 .layersSorting {
     user-select: none !important;
+    cursor: grabbing !important;
 }
