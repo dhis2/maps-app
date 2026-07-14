@@ -4,6 +4,8 @@ import {
     IconFilter16,
     IconEmptyFrame16,
     IconCheckmarkCircle16,
+    IconChevronDown16,
+    IconChevronUp16,
     Input,
     Tooltip,
 } from '@dhis2/ui'
@@ -29,10 +31,6 @@ import {
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
 import ColorPicker from '../core/ColorPicker.jsx'
-import {
-    IconChevronDoubleDown16,
-    IconChevronDoubleUp16,
-} from '../core/icons.jsx'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
@@ -205,9 +203,9 @@ const BottomPanel = () => {
                         }
                     >
                         {isCollapsed ? (
-                            <IconChevronDoubleUp16 />
+                            <IconChevronUp16 />
                         ) : (
-                            <IconChevronDoubleDown16 />
+                            <IconChevronDown16 />
                         )}
                     </Tooltip>
                 </button>
@@ -270,6 +268,7 @@ const BottomPanel = () => {
                     value={globalSearch}
                     onChange={({ value }) => setGlobalSearch(value)}
                     className={styles.globalSearch}
+                    onDoubleClick={(e) => e.stopPropagation()}
                 />
                 <button
                     type="button"
