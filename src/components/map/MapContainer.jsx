@@ -24,7 +24,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
     )
     const feature = useSelector((state) => state.feature)
     const selection = useSelector((state) => state.selection)
-    const { layersSorting, highlightColor, showOnlySelected } = useSelector(
+    const { layersSorting, highlightColor, selectionFilter } = useSelector(
         (state) => state.ui
     )
     const basemapConfig = useBasemapConfig(basemap)
@@ -52,7 +52,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 feature={feature}
                 selection={selection}
                 highlightColor={highlightColor}
-                showOnlySelected={showOnlySelected}
+                selectionFilter={selectionFilter}
                 highlightFeature={debouncedHighlightFeature}
                 clickFeature={(payload) => dispatch(clickFeature(payload))}
                 toggleFeatureSelection={(id, layerId) =>

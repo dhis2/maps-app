@@ -9,6 +9,10 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
+import {
+    SELECTION_FILTER_SELECTED,
+    SELECTION_FILTER_NOT_SELECTED,
+} from '../../constants/selection.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
@@ -19,11 +23,25 @@ import { isValidUid } from '../../util/uid.js'
 
 const ASCENDING = 'asc'
 
+// Sentinel sortField value for the checkbox column - not a real dataKey
+export const SELECTED_SORT_KEY = '__selected'
+
+// Sentinel option value representing missing/blank cells in a column's
+// distinct-value list - matches filterData's existing null/undefined ->
+// empty-string coercion (src/util/filter.js), so no filtering logic changes
+// are needed to support it.
+export const NOT_SET_VALUE = ''
+
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 const TYPE_DATE = 'date'
 
-const INDEX = 'index'
+// The Index column is a synthetic row number computed only for table
+// display (see the `index` assigned from array position in
+// dataWithAggregations below) - it's never written onto the underlying
+// layer's actual feature data, so it can't be used as a map filter (see
+// DataTable.jsx, which excludes it from getting a FilterInput at all).
+export const INDEX = 'index'
 const NAME = 'name'
 const ID = 'id'
 const VALUE = 'rawValue'
@@ -199,16 +217,13 @@ const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 const EMPTY_COLUMN_OPTIONS = {}
 
-const CATEGORICAL_DATA_KEYS = new Set([LEGEND, TYPE])
-const MAX_CATEGORICAL_OPTIONS = 30
-
 export const useTableData = ({
     layer,
     sortField,
     sortDirection,
     showOnlyFeaturesInView,
     mapBounds,
-    showOnlySelected,
+    selectionFilter,
     selectedIdSet,
     globalSearch,
 }) => {
@@ -341,34 +356,49 @@ export const useTableData = ({
         layerHeaders,
     ])
 
+    // The full distinct-value list for every column, regardless of size -
+    // the filter popover virtualizes its checkbox list (renders only what's
+    // near the viewport) and narrows live as the user searches, so there's
+    // no longer a rendering-cost reason to cap or omit this.
     const columnOptions = useMemo(() => {
         if (!headers?.length || !dataWithAggregations?.length) {
             return EMPTY_COLUMN_OPTIONS
         }
 
         const result = {}
-        headers.forEach(({ dataKey, type, optionSet }) => {
-            if (type !== TYPE_STRING) {
-                return
-            }
-            if (!CATEGORICAL_DATA_KEYS.has(dataKey) && !optionSet) {
-                return
-            }
-
+        headers.forEach(({ dataKey, type }) => {
             const seen = new Set()
             for (const item of dataWithAggregations) {
                 const val = item[dataKey]
-                if (val !== undefined && val !== null && val !== '') {
-                    seen.add(String(val))
-                }
-                if (seen.size > MAX_CATEGORICAL_OPTIONS) {
-                    break
-                }
+                seen.add(
+                    val === undefined || val === null || val === ''
+                        ? NOT_SET_VALUE
+                        : String(val)
+                )
             }
 
-            if (seen.size > 0 && seen.size <= MAX_CATEGORICAL_OPTIONS) {
+            if (seen.size > 0) {
                 result[dataKey] = Array.from(seen)
-                    .sort()
+                    .sort((a, b) => {
+                        if (a === NOT_SET_VALUE) {
+                            return -1
+                        }
+                        if (b === NOT_SET_VALUE) {
+                            return 1
+                        }
+                        // Distinct values are stored as strings (they're
+                        // sourced alongside string columns) - sort numeric
+                        // columns by numeric value rather than lexically
+                        // (so 2 sorts before 10), everything else keeps the
+                        // default string ordering.
+                        return type === TYPE_NUMBER
+                            ? Number(a) - Number(b)
+                            : a < b
+                            ? -1
+                            : a > b
+                            ? 1
+                            : 0
+                    })
                     .map((value) => ({ value }))
             }
         })
@@ -399,14 +429,38 @@ export const useTableData = ({
             )
         }
 
-        if (showOnlySelected) {
-            filteredData = filteredData.filter((item) =>
-                selectedIdSet?.has(item.id)
+        if (selectionFilter?.length) {
+            const wantSelected = selectionFilter.includes(
+                SELECTION_FILTER_SELECTED
             )
+            const wantNotSelected = selectionFilter.includes(
+                SELECTION_FILTER_NOT_SELECTED
+            )
+            // Both (or neither) checked means "show everything"
+            if (wantSelected !== wantNotSelected) {
+                filteredData = filteredData.filter(
+                    (item) => !!selectedIdSet?.has(item.id) === wantSelected
+                )
+            }
         }
 
         //sort
         filteredData.sort((a, b) => {
+            // "None" (third click of the cycle) - fall back to natural order
+            if (!sortField) {
+                return a.index - b.index
+            }
+
+            if (sortField === SELECTED_SORT_KEY) {
+                const aSelected = selectedIdSet?.has(a.id) ? 1 : 0
+                const bSelected = selectedIdSet?.has(b.id) ? 1 : 0
+                // Ascending (the default on first click) puts selected rows
+                // first, since that's what a user clicking this is after.
+                return sortDirection === ASCENDING
+                    ? bSelected - aSelected
+                    : aSelected - bSelected
+            }
+
             const aVal = a[sortField]
             const bVal = b[sortField]
 
@@ -465,16 +519,23 @@ export const useTableData = ({
         globalSearch,
         sortField,
         sortDirection,
-        showOnlySelected,
+        selectionFilter,
         selectedIdSet,
     ])
 
     // EE layers and event layers may be loading additional data
-    const isLoading =
-        (layerType === EARTH_ENGINE_LAYER &&
-            aggregationType?.length &&
-            (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
-        (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
+    const isLoadingAggregations =
+        layerType === EARTH_ENGINE_LAYER &&
+        aggregationType?.length &&
+        (!aggregations || aggregations === EMPTY_AGGREGATIONS)
+    const isExtendingEvents =
+        layerType === EVENT_LAYER && !layer.isExtended && !serverCluster
+    const isLoading = isLoadingAggregations || isExtendingEvents
+    const loadingReason = isLoadingAggregations
+        ? i18n.t('Loading Earth Engine data…')
+        : isExtendingEvents
+        ? i18n.t('Loading additional events…')
+        : null
 
     const totalCount = dataWithAggregations?.length ?? 0
     const filteredCount = rows?.length ?? 0
@@ -483,6 +544,7 @@ export const useTableData = ({
         headers,
         rows,
         isLoading,
+        loadingReason,
         error: getErrorCodeText(errorCode.current),
         totalCount,
         filteredCount,

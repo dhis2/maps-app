@@ -1,4 +1,4 @@
-import { filterByGlobalSearch, filterData } from '../filter.js'
+import { filterByGlobalSearch, filterData, ANY_VALUE_KEY } from '../filter.js'
 
 describe('filterData', () => {
     it('should return the original data if no filters are provided', () => {
@@ -95,6 +95,18 @@ describe('filterData', () => {
         ]
         const filters = { a: ['High'], b: 'horse' }
         expect(filterData(data, filters)).toEqual([{ a: 'High', b: 'horse' }])
+    })
+
+    it('ANY_VALUE_KEY matches every row with a non-blank value, the opposite of the blank sentinel', () => {
+        const data = [{ a: 'High' }, { a: '' }, { a: null }, { a: 'Low' }]
+        const filters = { a: [ANY_VALUE_KEY] }
+        expect(filterData(data, filters)).toEqual([{ a: 'High' }, { a: 'Low' }])
+    })
+
+    it('combining ANY_VALUE_KEY with the blank sentinel ("") matches every row', () => {
+        const data = [{ a: 'High' }, { a: '' }, { a: null }]
+        const filters = { a: [ANY_VALUE_KEY, ''] }
+        expect(filterData(data, filters)).toEqual(data)
     })
 })
 

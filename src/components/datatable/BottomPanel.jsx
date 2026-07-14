@@ -3,7 +3,6 @@ import {
     IconCross16,
     IconFilter16,
     IconEmptyFrame16,
-    IconCheckmarkCircle16,
     IconChevronDown16,
     IconChevronUp16,
     Input,
@@ -24,8 +23,7 @@ import {
     closeDataTable,
     resizeDataTable,
     toggleShowOnlyFeaturesInView,
-    toggleShowOnlySelected,
-    setShowOnlySelected,
+    setSelectionFilter,
     setHighlightColor,
 } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
@@ -40,6 +38,7 @@ import styles from './styles/BottomPanel.module.css'
 // Must match `.dataTableControls`'s height in BottomPanel.module.css
 const COLLAPSED_HEIGHT = 36
 const MIN_HEIGHT = 50
+const EMPTY_FILTERS = {}
 
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
@@ -47,14 +46,11 @@ const BottomPanel = () => {
     const activeLayer = useSelector((state) =>
         state.map.mapViews.find((l) => l.id === activeLayerId)
     )
-    const dataFilters = activeLayer?.dataFilters ?? {}
+    const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
     const showOnlyFeaturesInView = useSelector(
         (state) => state.ui.showOnlyFeaturesInView
     )
-    const showOnlySelected = useSelector((state) => state.ui.showOnlySelected)
-    const selection = useSelector((state) => state.selection)
-    const selectedCount =
-        selection.layerId === activeLayerId ? selection.ids.length : 0
+    const selectionFilter = useSelector((state) => state.ui.selectionFilter)
     const highlightColor = useSelector((state) => state.ui.highlightColor)
 
     const dispatch = useDispatch()
@@ -70,7 +66,9 @@ const BottomPanel = () => {
     const [globalSearch, setGlobalSearch] = useState('')
 
     const hasActiveFilters =
-        Object.keys(dataFilters).length > 0 || globalSearch.trim() !== ''
+        Object.keys(dataFilters).length > 0 ||
+        globalSearch.trim() !== '' ||
+        selectionFilter?.length > 0
 
     const maxHeight =
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
@@ -112,6 +110,12 @@ const BottomPanel = () => {
         setTotalCount(total)
         setFilteredCount(filtered)
     }, [])
+
+    const onClearFilters = useCallback(() => {
+        dispatch(clearDataFilters(activeLayerId))
+        dispatch(setSelectionFilter([]))
+        setGlobalSearch('')
+    }, [dispatch, activeLayerId])
 
     const onNameMouseEnter = useCallback(() => {
         const el = nameRef.current
@@ -165,12 +169,6 @@ const BottomPanel = () => {
 
     useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
-    useEffect(() => {
-        if (showOnlySelected && selectedCount === 0) {
-            dispatch(setShowOnlySelected(false))
-        }
-    }, [dispatch, showOnlySelected, selectedCount])
-
     let rowCountLabel = null
     if (totalCount !== null && filteredCount !== null) {
         rowCountLabel =
@@ -200,6 +198,7 @@ const BottomPanel = () => {
                         content={
                             isCollapsed ? i18n.t('Restore') : i18n.t('Collapse')
                         }
+                        placement="top"
                     >
                         {isCollapsed ? (
                             <IconChevronUp16 />
@@ -246,12 +245,9 @@ const BottomPanel = () => {
                 <button
                     className={styles.clearFiltersButton}
                     disabled={!hasActiveFilters}
-                    onClick={() => {
-                        dispatch(clearDataFilters(activeLayerId))
-                        setGlobalSearch('')
-                    }}
+                    onClick={onClearFilters}
                 >
-                    <Tooltip content={i18n.t('Clear filters')}>
+                    <Tooltip content={i18n.t('Clear filters')} placement="top">
                         <span className={styles.filteredIcon}>
                             <IconFilter16 />
                             <span className={styles.clearBadge} />
@@ -280,36 +276,35 @@ const BottomPanel = () => {
                         content={i18n.t(
                             'Show only features in current map view'
                         )}
+                        placement="top"
                     >
-                        <IconEmptyFrame16 />
+                        <span className={styles.alignIcon1}>
+                            <IconEmptyFrame16 />
+                        </span>
                     </Tooltip>
                 </button>
-                <button
-                    className={cx(styles.toggleButton, {
-                        [styles.active]: showOnlySelected,
-                    })}
-                    onClick={() => dispatch(toggleShowOnlySelected())}
-                >
-                    <Tooltip content={i18n.t('Show only selected features')}>
-                        <IconCheckmarkCircle16 />
-                    </Tooltip>
-                </button>
-                <Tooltip content={i18n.t('Highlight color')}>
-                    <ColorPicker
-                        className={styles.highlightColorPicker}
-                        color={highlightColor}
-                        width={18}
-                        height={18}
-                        centerIcon
-                        onChange={(color) => dispatch(setHighlightColor(color))}
-                    />
+                <Tooltip content={i18n.t('Highlight color')} placement="top">
+                    <span className={styles.alignIcon2}>
+                        <ColorPicker
+                            className={styles.highlightColorPicker}
+                            color={highlightColor}
+                            width={22}
+                            height={22}
+                            centerIcon
+                            onChange={(color) =>
+                                dispatch(setHighlightColor(color))
+                            }
+                        />
+                    </span>
                 </Tooltip>
                 <button
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}
                 >
-                    <Tooltip content={i18n.t('Close')}>
-                        <IconCross16 />
+                    <Tooltip content={i18n.t('Close')} placement="top">
+                        <span className={styles.alignIcon1}>
+                            <IconCross16 />
+                        </span>
                     </Tooltip>
                 </button>
             </div>
@@ -319,8 +314,8 @@ const BottomPanel = () => {
                         <DataTable
                             availableWidth={panelWidth}
                             onCountChange={onCountChange}
-                            showOnlySelected={showOnlySelected}
                             globalSearch={globalSearch}
+                            onClearFilters={onClearFilters}
                         />
                     </ErrorBoundary>
                 </div>
