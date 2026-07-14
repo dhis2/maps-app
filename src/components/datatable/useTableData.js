@@ -275,7 +275,7 @@ export const useTableData = ({
             }
         }
 
-        //sort
+        // Sort
         filteredData.sort((a, b) =>
             compareRows(a, b, { sortField, sortDirection, selectedIdSet })
         )
