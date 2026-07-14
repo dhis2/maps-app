@@ -1,12 +1,9 @@
 import * as types from '../../constants/actionTypes.js'
 import map from '../map.js'
 
-// The Layers panel renders overlay layers in the REVERSE of `mapViews`
-// order (top of the panel = last map view). dnd-kit's onDragEnd therefore
-// reports oldIndex/newIndex in that reversed "display" space, and the
-// LAYER_SORT reducer is responsible for translating a reorder in display
-// space back into the stored `mapViews` order. These tests pin down that
-// contract so the dnd-kit migration cannot silently reorder layers wrong.
+// The Layers panel renders overlay layers in the REVERSE of `mapViews` order
+// (top of panel = last map view), so LAYER_SORT translates an oldIndex/newIndex
+// pair from that display order back into mapViews order.
 describe('map reducer - LAYER_SORT', () => {
     const layer = (id) => ({ id })
 

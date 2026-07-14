@@ -82,10 +82,7 @@ describe('ui', () => {
             expect(userSelect).not.to.eq('none')
         })
 
-        // Start dragging one of the layers. dnd-kit's MouseSensor needs real
-        // pointer events (synthetic cy.trigger events don't activate it), so use
-        // cypress-real-events: press on the drag handle, then move past the 5px
-        // activation distance to start the drag.
+        // Start dragging one of the layers
         cy.getByDataTest('sortable-handle').first().realMouseDown()
         cy.getByDataTest('sortable-handle').first().realMouseMove(0, 40)
 
@@ -95,8 +92,7 @@ describe('ui', () => {
             expect(userSelect).to.eq('none')
         })
 
-        // End the drag. .should() retries until stopSorting's timeout removes
-        // the layersSorting class, so no fixed wait is needed.
+        // End the drag
         cy.getByDataTest('sortable-handle').first().realMouseUp()
 
         cy.document().should((doc) => {
@@ -115,19 +111,13 @@ describe('ui', () => {
             initialTitles = titles
         })
 
-        // Reorder with the keyboard sensor, which is deterministic (no pixel
-        // coordinates): focus the top layer's handle, pick it up (Space), move
-        // it down one position (ArrowDown), and drop it (Space). Real key events
-        // are required — dnd-kit's KeyboardSensor ignores synthetic cy.trigger
-        // events.
+        // Pick up the top layer's handle (Space), move it down one position
+        // (ArrowDown), and drop it (Space)
         cy.getByDataTest('sortable-handle').first().focus()
         cy.realPress('Space')
         cy.realPress('ArrowDown')
         cy.realPress('Space')
 
-        // The first two layers should now be swapped. .should() retries until
-        // the drop's re-render (after the stopSorting timeout) settles, so no
-        // fixed wait is needed.
         cy.getByDataTest('sortable-layers-list')
             .find('[data-test="layercard"] h2')
             .should(($titles) => {

@@ -1,5 +1,6 @@
 import {
     DndContext,
+    DragOverlay,
     closestCenter,
     KeyboardSensor,
     MouseSensor,
@@ -7,6 +8,7 @@ import {
     useSensor,
     useSensors,
 } from '@dnd-kit/core'
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import {
     SortableContext,
     sortableKeyboardCoordinates,
@@ -16,18 +18,16 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { sortLayers } from '../../actions/layers.js'
 import { layersSortingEnd, layersSortingStart } from '../../actions/ui.js'
 import BasemapCard from '../layers/basemaps/BasemapCard.jsx'
 import LayersToggle from '../layers/LayersToggle.jsx'
-import { DragHandleContext } from './dragHandleContext.js'
+import { DragHandleCtx } from './dragHandleContext.js'
 import OverlayCard from './overlays/OverlayCard.jsx'
 import styles from './styles/LayersPanel.module.css'
 
-// A single draggable layer. The dnd-kit drag listeners are passed down through
-// DragHandleContext to the SortableHandle rendered inside the layer card.
 const SortableLayer = ({ layer }) => {
     const {
         attributes,
@@ -44,13 +44,14 @@ const SortableLayer = ({ layer }) => {
         // Keep the card being dragged above its siblings
         zIndex: isDragging ? 1 : undefined,
         position: isDragging ? 'relative' : undefined,
+        opacity: isDragging ? 0 : 1,
     }
 
     return (
         <div ref={setNodeRef} style={style}>
-            <DragHandleContext.Provider value={{ attributes, listeners }}>
+            <DragHandleCtx.Provider value={{ attributes, listeners }}>
                 <OverlayCard layer={layer} />
-            </DragHandleContext.Provider>
+            </DragHandleCtx.Provider>
         </div>
     )
 }
@@ -66,6 +67,9 @@ const LayersPanel = () => {
 
     const dispatch = useDispatch()
 
+    const [activeId, setActiveId] = useState(null)
+    const activeLayer = layers.find((l) => l.id === activeId)
+
     const sensors = useSensors(
         useSensor(MouseSensor, {
             // Require a small movement so a click on the handle isn't a drag
@@ -79,12 +83,14 @@ const LayersPanel = () => {
         })
     )
 
-    const onDragStart = () => {
+    const onDragStart = ({ active }) => {
+        setActiveId(active.id)
         document.body.classList.add('layersSorting')
         dispatch(layersSortingStart())
     }
 
     const stopSorting = () => {
+        setActiveId(null)
         setTimeout(() => {
             document.body.classList.remove('layersSorting')
             dispatch(layersSortingEnd())
@@ -117,6 +123,7 @@ const LayersPanel = () => {
                         <DndContext
                             sensors={sensors}
                             collisionDetection={closestCenter}
+                            modifiers={[restrictToVerticalAxis]}
                             onDragStart={onDragStart}
                             onDragEnd={onDragEnd}
                             onDragCancel={stopSorting}
@@ -134,6 +141,17 @@ const LayersPanel = () => {
                                     ))}
                                 </div>
                             </SortableContext>
+                            <DragOverlay
+                                style={{ height: 'auto' }}
+                                zIndex={1999}
+                                modifiers={[restrictToVerticalAxis]}
+                            >
+                                {activeLayer ? (
+                                    <div className={styles.dragOverlay}>
+                                        <OverlayCard layer={activeLayer} />
+                                    </div>
+                                ) : null}
+                            </DragOverlay>
                         </DndContext>
                         <div>
                             <BasemapCard />

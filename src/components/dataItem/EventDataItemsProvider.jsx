@@ -4,7 +4,7 @@ import { useProgramStageDataElements } from '../../hooks/useProgramStageDataElem
 import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
 import { combineDataItems } from '../../util/analytics.js'
 
-const EventDataItemsContext = createContext(null)
+const EventDataItemsCtx = createContext(null)
 
 // Fetches program stage data elements and program tracked entity attributes
 // once, and shares them with every useEventDataItems() call within — avoids
@@ -36,9 +36,9 @@ const EventDataItemsProvider = ({ programId, programStageId, children }) => {
     )
 
     return (
-        <EventDataItemsContext.Provider value={value}>
+        <EventDataItemsCtx.Provider value={value}>
             {children}
-        </EventDataItemsContext.Provider>
+        </EventDataItemsCtx.Provider>
     )
 }
 
@@ -51,7 +51,7 @@ EventDataItemsProvider.propTypes = {
 export default EventDataItemsProvider
 
 export const useEventDataItems = ({ includeTypes, excludeTypes } = {}) => {
-    const context = useContext(EventDataItemsContext)
+    const context = useContext(EventDataItemsCtx)
 
     if (!context) {
         throw new Error(
