@@ -48,17 +48,15 @@ describe('useTableData headers', () => {
         )
 
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(4)
+        expect(headers).toHaveLength(3)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(4)
+        expect(rows[0]).toHaveLength(3)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Facility 1', dataKey: 'name' },
             { value: 'facility-1', dataKey: 'id' },
             { value: 'Point', dataKey: 'type' },
@@ -100,9 +98,8 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(6)
+        expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Level', dataKey: 'level', type: 'number' },
@@ -110,9 +107,8 @@ describe('useTableData headers', () => {
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'OrgUnitName 1', dataKey: 'name' },
             { value: 'orgunit-id-1', dataKey: 'id' },
             { value: 3, dataKey: 'level' },
@@ -160,9 +156,8 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(10)
+        expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Value', dataKey: 'rawValue', type: 'number' },
@@ -179,9 +174,8 @@ describe('useTableData headers', () => {
             },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(10)
+        expect(rows[0]).toHaveLength(9)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Ngelehun CHC', dataKey: 'name' },
             { value: 'thematicId-1', dataKey: 'id' },
             { value: 106.3, dataKey: 'rawValue' },
@@ -262,9 +256,8 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(8)
+        expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Org unit', dataKey: 'ouname', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             {
@@ -279,9 +272,8 @@ describe('useTableData headers', () => {
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(8)
+        expect(rows[0]).toHaveLength(7)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Lumley Hospital', dataKey: 'ouname' },
             { value: 'a9712323629', dataKey: 'id' },
             { value: '2023-05-15 00:00:00.0', dataKey: 'eventdate' },
@@ -442,9 +434,8 @@ describe('useTableData headers', () => {
         )
         const { headers, rows, isLoading } = result.current
 
-        expect(headers).toHaveLength(6)
+        expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
@@ -461,12 +452,11 @@ describe('useTableData headers', () => {
                 type: 'number',
             },
         ])
+        expect(headers[3].roundFn).toBeInstanceOf(Function)
         expect(headers[4].roundFn).toBeInstanceOf(Function)
-        expect(headers[5].roundFn).toBeInstanceOf(Function)
         expect(rows).toHaveLength(2)
-        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Bo', dataKey: 'name' },
             { value: 'boOu', dataKey: 'id' },
             { value: 'Polygon', dataKey: 'type' },
@@ -599,9 +589,8 @@ describe('useTableData headers', () => {
         )
         const { headers, rows, isLoading } = result.current
 
-        expect(headers).toHaveLength(6)
+        expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
@@ -618,12 +607,11 @@ describe('useTableData headers', () => {
                 type: 'number',
             },
         ])
+        expect(headers[3].roundFn).toBeInstanceOf(Function)
         expect(headers[4].roundFn).toBeInstanceOf(Function)
-        expect(headers[5].roundFn).toBeInstanceOf(Function)
         expect(rows).toHaveLength(2)
-        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Badija', dataKey: 'name' },
             { value: 'boOU', dataKey: 'id' },
             { value: 'Polygon', dataKey: 'type' },
@@ -666,7 +654,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([5, 10, 15, null, null])
     })
 
@@ -688,7 +676,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([15, 10, 5, null, null])
     })
 
@@ -722,7 +710,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
+        const nameColumn = result.current.rows.map((row) => row[0]?.value) // Name column
         expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
     })
 
@@ -756,7 +744,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
+        const nameColumn = result.current.rows.map((row) => row[0]?.value) // Name column
         expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', undefined])
     })
 
@@ -796,7 +784,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([5, 10, null, null])
     })
 
@@ -838,7 +826,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([null, null, null])
     })
 

@@ -40,6 +40,11 @@ const MAX_LIST_HEIGHT = 260
 // choice that applies to the whole row.
 const ESTIMATED_POPOVER_HEIGHT = MAX_LIST_HEIGHT + 80
 
+// Floor for the dropdown's width - narrow columns still need enough room
+// for the checkbox list/search text to be usable, so the popover shouldn't
+// shrink down to match a very narrow trigger's own width.
+const MIN_POPOVER_WIDTH = 140
+
 // Rough content heights (in px) for the two tooltip variants, used only to
 // decide whether there's enough room to show the tooltip at all - see
 // FilterHelpTooltip's hasRoom check.
@@ -183,7 +188,7 @@ const dropdownModifiers = [
 // for positioning, flip disabled - so `placement` is always honored exactly;
 // the caller (SearchableFilterPopover) computes one placement per render
 // from the shared header row's position, so every column's dropdown agrees.
-const FilterDropdownPopover = ({
+export const FilterDropdownPopover = ({
     reference,
     placement,
     onClickOutside,
@@ -285,7 +290,7 @@ const getSelectedAndAppliedString = (filterValue) => ({
 // of the viewport). That single choice is what keeps every column's
 // dropdown opening on the same side. The help tooltip always takes the
 // opposite side, so the two never compete for space.
-const getDropdownPlacement = (anchorRect) => {
+export const getDropdownPlacement = (anchorRect) => {
     const dropdownSide =
         anchorRect != null &&
         window.innerHeight - anchorRect.bottom < ESTIMATED_POPOVER_HEIGHT
@@ -663,7 +668,10 @@ const SearchableFilterPopover = ({
                         })}
                         style={{
                             minWidth: anchorWidth
-                                ? `${anchorWidth}px`
+                                ? `${Math.max(
+                                      anchorWidth,
+                                      MIN_POPOVER_WIDTH
+                                  )}px`
                                 : undefined,
                         }}
                     >
