@@ -92,4 +92,50 @@ describe('getAnalyticsRequest', () => {
         expect(getDimensionCalls('fakeDataElId')).toHaveLength(1)
         expect(getDimensionCalls('fakeDataElId')[0][1]).toBe('LT:80')
     })
+
+    it('falls back to start/end dates when no period is selected', async () => {
+        await getAnalyticsRequest(baseLayer, baseContext)
+
+        expect(mockRequestInstance.withStartDate).toHaveBeenCalledWith(
+            '2023-01-01'
+        )
+        expect(mockRequestInstance.withEndDate).toHaveBeenCalledWith(
+            '2023-12-31'
+        )
+        expect(mockRequestInstance.addPeriodFilter).not.toHaveBeenCalled()
+    })
+
+    it('adds a period filter with a single selected period', async () => {
+        const layer = {
+            ...baseLayer,
+            filters: [{ dimension: 'pe', items: [{ id: 'LAST_12_MONTHS' }] }],
+        }
+
+        await getAnalyticsRequest(layer, baseContext)
+
+        expect(mockRequestInstance.addPeriodFilter).toHaveBeenCalledWith([
+            'LAST_12_MONTHS',
+        ])
+        expect(mockRequestInstance.withStartDate).not.toHaveBeenCalled()
+        expect(mockRequestInstance.withEndDate).not.toHaveBeenCalled()
+    })
+
+    it('adds a period filter with multiple selected periods', async () => {
+        const layer = {
+            ...baseLayer,
+            filters: [
+                {
+                    dimension: 'pe',
+                    items: [{ id: '2023Q1' }, { id: '2023Q2' }],
+                },
+            ],
+        }
+
+        await getAnalyticsRequest(layer, baseContext)
+
+        expect(mockRequestInstance.addPeriodFilter).toHaveBeenCalledWith([
+            '2023Q1',
+            '2023Q2',
+        ])
+    })
 })

@@ -68,6 +68,8 @@ const useLayersPeriodSync = () => {
         [strategyFiltersMap]
     )
 
+    const hasSyncedOnce = useRef(false)
+
     const syncFromOtherLayers = useCallback(
         ({ renderingStrategy }) => {
             const periods = getPeriodsForStrategy({ renderingStrategy })
@@ -76,6 +78,7 @@ const useLayersPeriodSync = () => {
             }
 
             dispatch(setPeriods(periods))
+            hasSyncedOnce.current = true
             return true
         },
         [getPeriodsForStrategy, dispatch]
@@ -94,11 +97,23 @@ const useLayersPeriodSync = () => {
         [strategyFiltersMap, dispatch]
     )
 
+    // Syncs from a sibling layer at most once per dialog session
+    const trySyncFromOtherLayersOnce = useCallback(
+        ({ renderingStrategy }) => {
+            if (!shouldSyncFromOtherLayers || hasSyncedOnce.current) {
+                return false
+            }
+            return syncFromOtherLayers({ renderingStrategy })
+        },
+        [shouldSyncFromOtherLayers, syncFromOtherLayers]
+    )
+
     return {
         defaultRenderingStrategy,
         shouldSyncFromOtherLayers,
         syncFromOtherLayers,
         syncToOtherLayers,
+        trySyncFromOtherLayersOnce,
     }
 }
 

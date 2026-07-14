@@ -43,17 +43,6 @@ export class EventLayer extends Layer {
         return this
     }
 
-    selectPeriodType({ periodType } = {}) {
-        if (!periodType) {
-            throw new Error("The 'periodType' parameter is required.")
-        }
-
-        cy.getByDataTest('relative-period-select-content').click()
-        cy.contains(periodType).click()
-
-        return this
-    }
-
     selectViewAllEvents() {
         // Group events by default or View all events
         cy.get('[src="images/nocluster.png"]').click()
