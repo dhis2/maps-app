@@ -296,9 +296,6 @@ msgstr ""
 msgid "No valid data fields were found for this layer."
 msgstr "No valid data fields were found for this layer."
 
-msgid "Index"
-msgstr "Index"
-
 msgid "Id"
 msgstr "Id"
 
@@ -1808,6 +1805,9 @@ msgstr "16-day"
 
 msgid "Since February 2000"
 msgstr "Since February 2000"
+
+msgid "Index"
+msgstr "Index"
 
 msgid "NDVI"
 msgstr "NDVI"
