@@ -270,6 +270,43 @@ const getDisplayValue = ({ isOpen, searchText, selected, appliedString }) => {
     return appliedString
 }
 
+// Widget state is derived straight from the applied `filterValue` (never
+// tracked in parallel) - an array means a multi-select filter, a string
+// means a custom typed one, anything else (no filter applied) is neither.
+const getSelectedAndAppliedString = (filterValue) => ({
+    selected: Array.isArray(filterValue) ? filterValue : [],
+    appliedString: typeof filterValue === 'string' ? filterValue : '',
+})
+
+// Every column's filter trigger sits in the same header row, so this
+// resolves to the same answer for all of them - below by default, or above
+// if the row doesn't have room to open the dropdown downward (e.g. the
+// table is short, or the page is scrolled so the row sits near the bottom
+// of the viewport). That single choice is what keeps every column's
+// dropdown opening on the same side. The help tooltip always takes the
+// opposite side, so the two never compete for space.
+const getDropdownPlacement = (anchorRect) => {
+    const dropdownSide =
+        anchorRect != null &&
+        window.innerHeight - anchorRect.bottom < ESTIMATED_POPOVER_HEIGHT
+            ? 'top'
+            : 'bottom'
+    return {
+        dropdownSide,
+        dropdownPlacement: `${dropdownSide}-start`,
+        tooltipPlacement: dropdownSide === 'top' ? 'bottom' : 'top',
+    }
+}
+
+// Every value "Reverse selection" can flip - the column's full value
+// domain, not just whatever the current search happens to narrow the list
+// down to (search is for finding/toggling individual values, not for
+// scoping a bulk action).
+const getInvertibleValues = (hasNotSetOption, realOptions) =>
+    hasNotSetOption
+        ? [NOT_SET_VALUE, ...realOptions.map((o) => o.value)]
+        : realOptions.map((o) => o.value)
+
 // Shared popover UI — label resolution is injected so it never needs to
 // know whether it's an option-set column or a plain categorical one.
 // State is derived straight from the applied `filterValue` (never tracked
@@ -293,8 +330,7 @@ const SearchableFilterPopover = ({
     const [searchText, setSearchText] = useState('')
     const [highlightedIndex, setHighlightedIndex] = useState(-1)
 
-    const selected = Array.isArray(filterValue) ? filterValue : []
-    const appliedString = typeof filterValue === 'string' ? filterValue : ''
+    const { selected, appliedString } = getSelectedAndAppliedString(filterValue)
 
     const openPopover = () => {
         setSearchText(appliedString)
@@ -310,21 +346,8 @@ const SearchableFilterPopover = ({
     // table resize, when the popover is closed anyway.
     const anchorRect = anchorRef.current?.getBoundingClientRect()
     const anchorWidth = anchorRect?.width
-
-    // Every column's filter trigger sits in the same header row, so this
-    // resolves to the same answer for all of them - below by default, or
-    // above if the row doesn't have room to open the dropdown downward
-    // (e.g. the table is short, or the page is scrolled so the row sits
-    // near the bottom of the viewport). That single choice is what keeps
-    // every column's dropdown opening on the same side. The help tooltip
-    // always takes the opposite side, so the two never compete for space.
-    const dropdownSide =
-        anchorRect != null &&
-        window.innerHeight - anchorRect.bottom < ESTIMATED_POPOVER_HEIGHT
-            ? 'top'
-            : 'bottom'
-    const dropdownPlacement = `${dropdownSide}-start`
-    const tooltipPlacement = dropdownSide === 'top' ? 'bottom' : 'top'
+    const { dropdownPlacement, dropdownSide, tooltipPlacement } =
+        getDropdownPlacement(anchorRect)
 
     const applyValues = (next) =>
         next.length
@@ -362,13 +385,7 @@ const SearchableFilterPopover = ({
         applyValues(getAnyValueToggleResult(anyValueActive, keepNotSet))
     }
 
-    // Every value "Reverse selection" can flip - the column's full value
-    // domain, not just whatever the current search happens to narrow the
-    // list down to (search is for finding/toggling individual values, not
-    // for scoping a bulk action).
-    const invertibleValues = hasNotSetOption
-        ? [NOT_SET_VALUE, ...realOptions.map((o) => o.value)]
-        : realOptions.map((o) => o.value)
+    const invertibleValues = getInvertibleValues(hasNotSetOption, realOptions)
 
     // A real value's checkbox is ticked either because it's individually
     // selected, or because "Any value" is active (which stands for "every
