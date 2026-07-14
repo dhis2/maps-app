@@ -2,19 +2,6 @@
     height: 1px;
 }
 
-/* @dhis2/ui's Table draws a 1px border on all sides via its own scoped
-   styled-jsx rule, which the local dataTable class name alone can't
-   reliably out-specificity. Pairing that class name with the table's
-   stable data-test attribute (marked important) guarantees this wins,
-   while staying scoped to just this table (a bare attribute selector on
-   its own would match every DataTable instance in the app). That full
-   border (not just the top side) is what makes the browser compute the
-   sticky header's normal-flow and stuck positions on very slightly
-   different subpixel grids, causing a visible snap of roughly 1-2 pixels
-   the instant scrolling engages sticky positioning. Removing the table's
-   own border entirely (confirmed via devtools) removes the snap; row and
-   column delineation still comes from each cell's own bottom and
-   inline-end borders. */
 .dataTable[data-test='dhis2-uicore-datatable'] {
     border: none !important;
 }
