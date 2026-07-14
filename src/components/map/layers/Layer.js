@@ -7,6 +7,10 @@ import {
     PADDING_DEFAULT,
     DURATION_DEFAULT,
 } from '../../../constants/layers.js'
+import {
+    SELECTION_FILTER_SELECTED,
+    SELECTION_FILTER_NOT_SELECTED,
+} from '../../../constants/selection.js'
 
 export const idsEqual = (a, b) =>
     a.length === b.length && a.every((id, i) => id === b[i])
@@ -33,7 +37,7 @@ class Layer extends PureComponent {
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
         selection: PropTypes.object,
-        showOnlySelected: PropTypes.bool,
+        selectionFilter: PropTypes.array,
         toggleFeatureSelection: PropTypes.func,
     }
 
@@ -145,14 +149,14 @@ class Layer extends PureComponent {
     }
 
     handleVisibleIdsChange(prevProps) {
-        const { selection, showOnlySelected } = this.props
+        const { selection, selectionFilter } = this.props
         if (
             !idsEqual(
                 this.getVisibleIds(
                     prevProps.selection,
-                    prevProps.showOnlySelected
+                    prevProps.selectionFilter
                 ) ?? [],
-                this.getVisibleIds(selection, showOnlySelected) ?? []
+                this.getVisibleIds(selection, selectionFilter) ?? []
             )
         ) {
             this.updateVisibleIds()
@@ -286,12 +290,33 @@ class Layer extends PureComponent {
 
     getVisibleIds(
         selection = this.props.selection,
-        showOnlySelected = this.props.showOnlySelected
+        selectionFilter = this.props.selectionFilter
     ) {
-        if (!showOnlySelected || selection?.layerId !== this.props.id) {
+        if (!selectionFilter?.length || selection?.layerId !== this.props.id) {
             return null
         }
-        return this.getSelectedIds(selection)
+
+        const wantSelected = selectionFilter.includes(SELECTION_FILTER_SELECTED)
+        const wantNotSelected = selectionFilter.includes(
+            SELECTION_FILTER_NOT_SELECTED
+        )
+
+        // Both (or neither, though that's already handled above) checked
+        // means "show everything" - same as no filter at all.
+        if (wantSelected === wantNotSelected) {
+            return null
+        }
+
+        const selectedIds = this.getSelectedIds(selection)
+
+        if (wantSelected) {
+            return selectedIds
+        }
+
+        const selectedIdSet = new Set(selectedIds)
+        return (this.props.data ?? [])
+            .map((feature) => feature.properties?.id ?? feature.id)
+            .filter((id) => id != null && !selectedIdSet.has(id))
     }
 
     updateVisibleIds() {
