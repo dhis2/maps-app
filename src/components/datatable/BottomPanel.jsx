@@ -68,7 +68,8 @@ const BottomPanel = () => {
     const hasActiveFilters =
         Object.keys(dataFilters).length > 0 ||
         globalSearch.trim() !== '' ||
-        selectionFilter?.length > 0
+        selectionFilter?.length > 0 ||
+        showOnlyFeaturesInView
 
     const maxHeight =
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
@@ -115,7 +116,12 @@ const BottomPanel = () => {
         dispatch(clearDataFilters(activeLayerId))
         dispatch(setSelectionFilter([]))
         setGlobalSearch('')
-    }, [dispatch, activeLayerId])
+        // toggleShowOnlyFeaturesInView flips the flag, so only dispatch it
+        // when the toggle is actually on - otherwise this would turn it on.
+        if (showOnlyFeaturesInView) {
+            dispatch(toggleShowOnlyFeaturesInView())
+        }
+    }, [dispatch, activeLayerId, showOnlyFeaturesInView])
 
     const onNameMouseEnter = useCallback(() => {
         const el = nameRef.current
@@ -207,6 +213,7 @@ const BottomPanel = () => {
                         )}
                     </Tooltip>
                 </button>
+                <span className={styles.divider} />
                 <span
                     ref={nameRef}
                     className={styles.layerName}
@@ -232,6 +239,21 @@ const BottomPanel = () => {
                         </div>,
                         document.body
                     )}
+                <span className={styles.divider} />
+                <Tooltip content={i18n.t('Highlight color')} placement="top">
+                    <span className={styles.alignIcon2}>
+                        <ColorPicker
+                            className={styles.highlightColorPicker}
+                            color={highlightColor}
+                            width={22}
+                            height={22}
+                            centerIcon
+                            onChange={(color) =>
+                                dispatch(setHighlightColor(color))
+                            }
+                        />
+                    </span>
+                </Tooltip>
                 <ResizeHandle
                     maxHeight={maxHeight}
                     minHeight={MIN_HEIGHT}
@@ -242,6 +264,7 @@ const BottomPanel = () => {
                 {rowCountLabel && (
                     <span className={styles.rowCount}>{rowCountLabel}</span>
                 )}
+                <span className={styles.divider} />
                 <button
                     className={styles.clearFiltersButton}
                     disabled={!hasActiveFilters}
@@ -283,20 +306,7 @@ const BottomPanel = () => {
                         </span>
                     </Tooltip>
                 </button>
-                <Tooltip content={i18n.t('Highlight color')} placement="top">
-                    <span className={styles.alignIcon2}>
-                        <ColorPicker
-                            className={styles.highlightColorPicker}
-                            color={highlightColor}
-                            width={22}
-                            height={22}
-                            centerIcon
-                            onChange={(color) =>
-                                dispatch(setHighlightColor(color))
-                            }
-                        />
-                    </span>
-                </Tooltip>
+                <span className={styles.divider} />
                 <button
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}

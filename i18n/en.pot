@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-14T21:42:31.767Z\n"
-"PO-Revision-Date: 2026-07-14T21:42:31.767Z\n"
+"POT-Creation-Date: 2026-07-16T08:26:26.615Z\n"
+"PO-Revision-Date: 2026-07-16T08:26:26.615Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -167,6 +167,9 @@ msgstr "Restore"
 msgid "Collapse"
 msgstr "Collapse"
 
+msgid "Highlight color"
+msgstr "Highlight color"
+
 msgid "Clear filters"
 msgstr "Clear filters"
 
@@ -175,9 +178,6 @@ msgstr "Search all columns"
 
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
-
-msgid "Highlight color"
-msgstr "Highlight color"
 
 msgid "Close"
 msgstr "Close"
@@ -232,8 +232,11 @@ msgstr "equal to 2 OR greater than 8"
 msgid "greater than 3 AND less than 8"
 msgstr "greater than 3 AND less than 8"
 
-msgid "Select values, or type text to match rows that contain it."
-msgstr "Select values, or type text to match rows that contain it."
+msgid "Select values, or type text"
+msgstr "Select values, or type text"
+
+msgid "to match rows that contain it"
+msgstr "to match rows that contain it"
 
 msgid "Use filter"
 msgstr "Use filter"

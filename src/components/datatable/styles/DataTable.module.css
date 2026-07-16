@@ -29,20 +29,6 @@ td.monoCell {
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
-.legendCell {
-    display: flex;
-    align-items: center;
-    gap: var(--spacers-dp8);
-}
-
-.legendSwatch {
-    flex-shrink: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-    border: 1px solid var(--colors-grey400);
-}
-
 th.checkboxCell,
 td.checkboxCell {
     width: 76px;
