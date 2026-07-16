@@ -1,0 +1,118 @@
+.triggerButton {
+    cursor: pointer;
+    color: var(--colors-grey800);
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.triggerButton:hover:not(:disabled) {
+    color: var(--colors-grey900);
+    background-color: var(--colors-grey300);
+}
+
+.triggerButton:disabled {
+    color: var(--colors-grey400);
+    cursor: not-allowed;
+}
+
+.columnPickerPopover {
+    padding: var(--spacers-dp8);
+    min-width: 220px;
+    background-color: var(--colors-white);
+    border-radius: 4px;
+    box-shadow: var(--elevations-popover);
+}
+
+.columnPickerHint {
+    margin: 0 0 var(--spacers-dp8);
+    font-size: 11px;
+    font-style: italic;
+    color: var(--colors-grey600);
+}
+
+.columnList {
+    display: flex;
+    flex-direction: column;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.columnRow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    padding: 2px 0;
+}
+
+.columnRowCheckbox {
+    flex: 1;
+    min-width: 0;
+}
+
+.dragHandle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--colors-grey600);
+    cursor: grab;
+    touch-action: none;
+}
+
+.dragHandle:hover {
+    background: var(--colors-grey100);
+    color: var(--colors-grey800);
+}
+
+.pinButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--colors-grey500);
+    cursor: pointer;
+}
+
+.pinButton:hover {
+    background: var(--colors-grey100);
+    color: var(--colors-grey800);
+}
+
+.pinButtonActive {
+    color: var(--colors-blue700);
+}
+
+.pinButtonActive:hover {
+    color: var(--colors-blue800);
+}
+
+.dragOverlay {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    padding: 2px var(--spacers-dp8);
+    background-color: var(--colors-white);
+    border-radius: 3px;
+    box-shadow: var(--elevations-popover);
+    font-size: 12px;
+}
