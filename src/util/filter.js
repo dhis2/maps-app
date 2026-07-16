@@ -1,9 +1,4 @@
-// Pseudo-value for multi-select filters meaning "the field has any
-// non-blank value" - the logical opposite of selecting the blank-cell
-// sentinel (''). Works generically even for columns with too many distinct
-// values to list individually, since it's a predicate ("is it blank or
-// not?"), not a membership check against a known list of values.
-export const ANY_VALUE_KEY = '__any_value__'
+import { SENTINEL_ANY_VALUE } from '../constants/dataTable.js'
 
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
@@ -28,7 +23,7 @@ export const filterData = (data, filters) => {
                 return (
                     filter.length === 0 ||
                     filter.includes(stringValue) ||
-                    (stringValue !== '' && filter.includes(ANY_VALUE_KEY))
+                    (stringValue !== '' && filter.includes(SENTINEL_ANY_VALUE))
                 )
             }
 
@@ -57,8 +52,7 @@ export const numericFilter = (value, filter) => {
     })
 }
 
-// Matches rows where any of the given string-typed fields contains
-// the search string (case-insensitive)
+// Case-insensitive match against any of the given string fields
 export const filterByGlobalSearch = (data, searchString, stringDataKeys) => {
     if (!searchString?.trim() || !stringDataKeys?.length) {
         return data
