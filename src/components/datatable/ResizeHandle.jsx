@@ -3,14 +3,6 @@ import React, { useEffect, useRef } from 'react'
 import { IconDrag } from '../core/icons.jsx'
 import styles from './styles/ResizeHandle.module.css'
 
-// Pointer Events + setPointerCapture, not HTML5 drag-and-drop: a native drag
-// session shows the browser's own drop-target cursor (grabbing/not-allowed/
-// move) instead of any CSS cursor rule, and elements with no drop handling
-// of their own (e.g. the map's WebGL canvas) count as invalid drop targets -
-// showing "not-allowed" for as long as the pointer is over them. Pointer
-// capture sidesteps that protocol entirely, and keeps reporting move/up
-// events to this element even if the pointer leaves it (or the window)
-// mid-drag - more reliable than a plain mousemove/mouseup pair for that case.
 const ResizeHandle = ({
     onResize,
     onResizeStart,
@@ -35,11 +27,6 @@ const ResizeHandle = ({
         isDraggingRef.current = true
 
         onResizeStart?.()
-        // Set on both the handle and the body: the handle's own `cursor:
-        // grab` CSS rule otherwise beats body's *inherited* cursor while the
-        // pointer is over it, so body alone never actually shows grabbing
-        // here - only once the pointer strays over something with no cursor
-        // rule of its own (e.g. the map).
         evt.currentTarget.style.cursor = 'grabbing'
         document.body.style.cursor = 'grabbing'
     }

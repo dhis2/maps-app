@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
+import { SENTINEL_NO_VALUE, SORT_ASCENDING } from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
@@ -17,20 +18,9 @@ import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData, isFeatureInBounds } from '../../util/geojson.js'
-import { parseRange } from '../../util/legend.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
+import { compareColumnOptionValues, compareRows } from '../../util/tableSort.js'
 import { isValidUid } from '../../util/uid.js'
-
-const ASCENDING = 'asc'
-
-// Sentinel sortField value for the checkbox column - not a real dataKey
-export const SELECTED_SORT_KEY = '__selected'
-
-// Sentinel option value representing missing/blank cells in a column's
-// distinct-value list - matches filterData's existing null/undefined ->
-// empty-string coercion (src/util/filter.js), so no filtering logic changes
-// are needed to support it.
-export const NOT_SET_VALUE = ''
 
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
@@ -201,85 +191,6 @@ const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 const EMPTY_COLUMN_OPTIONS = {}
 
-// Distinct values are stored as strings (they're sourced alongside string
-// columns) - sort numeric columns by numeric value rather than lexically
-// (so 2 sorts before 10), everything else keeps the default string
-// ordering. NOT_SET_VALUE always sorts first regardless of column type.
-const compareColumnOptionValues = (a, b, type) => {
-    if (a === NOT_SET_VALUE) {
-        return -1
-    }
-    if (b === NOT_SET_VALUE) {
-        return 1
-    }
-    if (type === TYPE_NUMBER) {
-        return Number(a) - Number(b)
-    }
-    if (a < b) {
-        return -1
-    }
-    if (a > b) {
-        return 1
-    }
-    return 0
-}
-
-// Ascending (the default on first click) puts selected rows first, since
-// that's what a user clicking this is after.
-const compareBySelected = (a, b, { selectedIdSet, sortDirection }) => {
-    const aSelected = selectedIdSet?.has(a.id) ? 1 : 0
-    const bSelected = selectedIdSet?.has(b.id) ? 1 : 0
-    return sortDirection === ASCENDING
-        ? bSelected - aSelected
-        : aSelected - bSelected
-}
-
-const compareRangeValues = (aVal, bVal, sortDirection) => {
-    const [aStart, aEnd] = parseRange(aVal)
-    const [bStart, bEnd] = parseRange(bVal)
-    const startDiff =
-        sortDirection === ASCENDING ? aStart - bStart : bStart - aStart
-    if (startDiff !== 0) {
-        return startDiff
-    }
-    return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
-}
-
-const compareFieldValues = (aVal, bVal, { sortField, sortDirection }) => {
-    // All undefined values should be sorted to the end
-    if (aVal === undefined && bVal === undefined) {
-        return 0
-    }
-    if (aVal === undefined) {
-        return 1
-    }
-    if (bVal === undefined) {
-        return -1
-    }
-    if (typeof aVal === TYPE_NUMBER) {
-        return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
-    }
-    if (sortField === RANGE) {
-        return compareRangeValues(aVal, bVal, sortDirection)
-    }
-    // TODO: Make sure sorting works across different locales
-    return sortDirection === ASCENDING
-        ? aVal.localeCompare(bVal)
-        : bVal.localeCompare(aVal)
-}
-
-const compareRows = (a, b, options) => {
-    const { sortField } = options
-    // "None" (third click of the cycle) - fall back to natural order
-    if (!sortField) {
-        return a.index - b.index
-    }
-    if (sortField === SELECTED_SORT_KEY) {
-        return compareBySelected(a, b, options)
-    }
-    return compareFieldValues(a[sortField], b[sortField], options)
-}
-
 export const useTableData = ({
     layer,
     sortField,
@@ -341,8 +252,7 @@ export const useTableData = ({
             .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
-                // Row-order tie-breaker for compareRows when no sortField is
-                // set - not a real column, not shown or filterable in the table.
+                // Row-order tie-breaker for compareRows when no sortField is set
                 index,
             }))
         // boundsDependency intentionally proxies mapBounds only while the toggle is on
@@ -421,10 +331,6 @@ export const useTableData = ({
         layerHeaders,
     ])
 
-    // The full distinct-value list for every column, regardless of size -
-    // the filter popover virtualizes its checkbox list (renders only what's
-    // near the viewport) and narrows live as the user searches, so there's
-    // no longer a rendering-cost reason to cap or omit this.
     const columnOptions = useMemo(() => {
         if (!headers?.length || !dataWithAggregations?.length) {
             return EMPTY_COLUMN_OPTIONS
@@ -437,20 +343,28 @@ export const useTableData = ({
                 const val = item[dataKey]
                 seen.add(
                     val === undefined || val === null || val === ''
-                        ? NOT_SET_VALUE
+                        ? SENTINEL_NO_VALUE
                         : String(val)
                 )
             }
 
             if (seen.size > 0) {
+                const direction =
+                    dataKey === sortField ? sortDirection : SORT_ASCENDING
                 result[dataKey] = Array.from(seen)
-                    .sort((a, b) => compareColumnOptionValues(a, b, type))
+                    .sort((a, b) =>
+                        compareColumnOptionValues(a, b, {
+                            dataKey,
+                            type,
+                            direction,
+                        })
+                    )
                     .map((value) => ({ value }))
             }
         })
 
         return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
-    }, [headers, dataWithAggregations])
+    }, [headers, dataWithAggregations, sortField, sortDirection])
 
     const rows = useMemo(() => {
         if (errorCode.current) {

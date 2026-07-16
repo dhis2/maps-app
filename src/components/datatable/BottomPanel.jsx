@@ -116,8 +116,6 @@ const BottomPanel = () => {
         dispatch(clearDataFilters(activeLayerId))
         dispatch(setSelectionFilter([]))
         setGlobalSearch('')
-        // toggleShowOnlyFeaturesInView flips the flag, so only dispatch it
-        // when the toggle is actually on - otherwise this would turn it on.
         if (showOnlyFeaturesInView) {
             dispatch(toggleShowOnlyFeaturesInView())
         }
