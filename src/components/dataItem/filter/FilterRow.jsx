@@ -19,7 +19,7 @@ const FilterRow = ({
         dataItems.find((d) => d.id === dimension) || {}
 
     const onSelect = ({ id }, newFilter) => {
-        const name = dataItems.filter((d) => d.id === id)[0].name
+        const name = dataItems.find((d) => d.id === id).name
 
         if (id !== dimension) {
             // New dimension
@@ -38,7 +38,7 @@ const FilterRow = ({
     }
 
     const internalError =
-        dimension && !dataItems.find((item) => item.id === dimension)
+        dimension && !dataItems.some((item) => item.id === dimension)
     let internalErrorText
     if (internalError) {
         internalErrorText = i18n.t(

@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 
 const NUMBER_OF_GROUPS = 5
 const CYPRESS_FILES = {
@@ -107,7 +107,7 @@ const createGroupsStandard = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
 const createGroupsByDuration = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
     const durations = Object.values(CYPRESS_FILES)
         .map((f) => f.duration)
-        .filter((d) => typeof d === 'number' && !isNaN(d))
+        .filter((d) => typeof d === 'number' && !Number.isNaN(d))
     const avgDuration =
         durations.reduce((sum, d) => sum + d, 0) / durations.length
 
@@ -142,7 +142,7 @@ const createGroups = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
 
     const durations = Object.values(CYPRESS_FILES)
         .map((f) => f.duration)
-        .filter((d) => typeof d === 'number' && !isNaN(d))
+        .filter((d) => typeof d === 'number' && !Number.isNaN(d))
     const adjustedNumberOfGroups = Math.min(files.length, numberOfGroups)
 
     if (durations.length === 0) {

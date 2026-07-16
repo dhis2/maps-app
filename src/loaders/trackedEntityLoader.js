@@ -22,11 +22,11 @@ import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
-const teiGeometryTypes = [
+const teiGeometryTypes = new Set([
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
     GEO_TYPE_MULTIPOLYGON,
-]
+])
 
 const TEI_40_QUERY = {
     resource: 'tracker/trackedEntities',
@@ -322,7 +322,7 @@ const trackedEntityLoader = async ({
         isVersion40 ? 'instances' : 'trackedEntities'
     ].filter(
         (instance) =>
-            teiGeometryTypes.includes(instance.geometry?.type) &&
+            teiGeometryTypes.has(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
 

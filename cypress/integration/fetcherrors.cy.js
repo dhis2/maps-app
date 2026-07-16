@@ -26,6 +26,7 @@ describe('Fetch errors', () => {
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
     })
 
+    // Skipped: needs to be re-written or removed following changes to the org unit component
     it.skip('error in org units request does not crash app', () => {
         cy.intercept('GET', 'organisationUnits?*', {
             statusCode: 409,
