@@ -229,6 +229,10 @@ describe('data table', () => {
             .should('have.length', 1)
 
         cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
+            .find('input')
+            .type('{enter}')
+
+        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
             .find('.clear-button')
             .click()
 
