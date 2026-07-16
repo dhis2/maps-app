@@ -4,6 +4,7 @@ import {
     IconLayoutColumns16,
     IconLock16,
     IconLockOpen16,
+    Tooltip,
 } from '@dhis2/ui'
 import {
     DndContext,
@@ -27,6 +28,7 @@ import { arrayMoveImmutable } from 'array-move'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useDispatch } from 'react-redux'
 import { setDataTableColumnConfig } from '../../actions/dataTable.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
@@ -37,10 +39,112 @@ import {
 } from './FilterDropdownPopover.jsx'
 import styles from './styles/ColumnPicker.module.css'
 
+// Higher than this codebase's usual z-index: 2000 "float above everything"
+// convention (e.g. DataTable.module.css's .topTooltipContent), since the
+// overlay must render above the popover itself, which relies on that same
+// convention for its own stacking.
+const DRAG_OVERLAY_Z_INDEX = 2100
+
+const noop = () => {}
+
+// Shared visual content for a column row - used both by the interactive
+// ColumnRow (which wraps it with useSortable's drag styling) and by the
+// DragOverlay preview, so the dragged clone can never visually drift from
+// the real row it's standing in for. dragHandleProps/onToggle* are omitted
+// for the (non-interactive) overlay preview, and dataTestSuffix keeps its
+// data-test ids from colliding with the real row's while both are mounted
+// during an active drag.
+const ColumnRowFields = ({
+    header,
+    isVisible,
+    isPinned,
+    dragHandleProps,
+    dataTestSuffix = '',
+    suppressTooltips = false,
+    onToggleVisible = noop,
+    onTogglePinned = noop,
+}) => {
+    const dragLabel = i18n.t('Drag to reorder')
+    const pinLabel = isPinned
+        ? i18n.t('Unpin column')
+        : i18n.t('Pin column to the left')
+
+    // While a drag is in progress, the cursor keeps passing over every
+    // row's drag handle/pin button - those still fire real mouseover
+    // events, so without this guard, other rows' tooltips would pop open
+    // mid-drag. Not rendering the Tooltip wrapper (rather than e.g. hiding
+    // its content) also unmounts any tooltip that was already open.
+    const dragIcon = <IconDragHandle16 />
+    const pinIcon = isPinned ? <IconLock16 /> : <IconLockOpen16 />
+
+    return (
+        <>
+            <button
+                type="button"
+                className={styles.dragHandle}
+                aria-label={dragLabel}
+                data-test={`data-table-column-picker-drag-${header.dataKey}${dataTestSuffix}`}
+                draggable={false}
+                {...dragHandleProps}
+            >
+                {suppressTooltips ? (
+                    dragIcon
+                ) : (
+                    <Tooltip content={dragLabel} placement="top">
+                        {dragIcon}
+                    </Tooltip>
+                )}
+            </button>
+            <Checkbox
+                label={
+                    <span className={styles.columnRowLabel}>{header.name}</span>
+                }
+                checked={isVisible}
+                onChange={(checked) => onToggleVisible(header.dataKey, checked)}
+                className={styles.columnRowCheckbox}
+                dataTest={`data-table-column-picker-visible-${header.dataKey}${dataTestSuffix}`}
+            />
+            <button
+                type="button"
+                className={cx(styles.pinButton, {
+                    [styles.pinButtonActive]: isPinned,
+                })}
+                aria-label={pinLabel}
+                data-test={`data-table-column-picker-pin-${header.dataKey}${dataTestSuffix}`}
+                onClick={() => onTogglePinned(header.dataKey)}
+            >
+                {suppressTooltips ? (
+                    pinIcon
+                ) : (
+                    <Tooltip content={pinLabel} placement="top">
+                        {pinIcon}
+                    </Tooltip>
+                )}
+            </button>
+        </>
+    )
+}
+
+ColumnRowFields.propTypes = {
+    header: PropTypes.shape({
+        dataKey: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+    }).isRequired,
+    isPinned: PropTypes.bool.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    dataTestSuffix: PropTypes.string,
+    dragHandleProps: PropTypes.object,
+    suppressTooltips: PropTypes.bool,
+    onTogglePinned: PropTypes.func,
+    onToggleVisible: PropTypes.func,
+}
+
 const ColumnRow = ({
     header,
     isVisible,
     isPinned,
+    isPinnedGroupEnd,
+    isDragActive,
     onToggleVisible,
     onTogglePinned,
 }) => {
@@ -60,42 +164,23 @@ const ColumnRow = ({
         opacity: isDragging ? 0 : 1,
     }
 
-    const pinLabel = isPinned
-        ? i18n.t('Unpin column')
-        : i18n.t('Pin column to the left')
-
     return (
-        <div ref={setNodeRef} style={style} className={styles.columnRow}>
-            <button
-                type="button"
-                className={styles.dragHandle}
-                title={i18n.t('Drag to reorder')}
-                aria-label={i18n.t('Drag to reorder')}
-                data-test={`data-table-column-picker-drag-${header.dataKey}`}
-                {...attributes}
-                {...listeners}
-            >
-                <IconDragHandle16 />
-            </button>
-            <Checkbox
-                label={header.name}
-                checked={isVisible}
-                onChange={(checked) => onToggleVisible(header.dataKey, checked)}
-                className={styles.columnRowCheckbox}
-                dataTest={`data-table-column-picker-visible-${header.dataKey}`}
+        <div
+            ref={setNodeRef}
+            style={style}
+            className={cx(styles.columnRow, {
+                [styles.columnRowDivider]: isPinnedGroupEnd,
+            })}
+        >
+            <ColumnRowFields
+                header={header}
+                isVisible={isVisible}
+                isPinned={isPinned}
+                dragHandleProps={{ ...attributes, ...listeners }}
+                suppressTooltips={isDragActive}
+                onToggleVisible={onToggleVisible}
+                onTogglePinned={onTogglePinned}
             />
-            <button
-                type="button"
-                className={cx(styles.pinButton, {
-                    [styles.pinButtonActive]: isPinned,
-                })}
-                title={pinLabel}
-                aria-label={pinLabel}
-                data-test={`data-table-column-picker-pin-${header.dataKey}`}
-                onClick={() => onTogglePinned(header.dataKey)}
-            >
-                {isPinned ? <IconLock16 /> : <IconLockOpen16 />}
-            </button>
         </div>
     )
 }
@@ -105,7 +190,9 @@ ColumnRow.propTypes = {
         dataKey: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     }).isRequired,
+    isDragActive: PropTypes.bool.isRequired,
     isPinned: PropTypes.bool.isRequired,
+    isPinnedGroupEnd: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool.isRequired,
     onTogglePinned: PropTypes.func.isRequired,
     onToggleVisible: PropTypes.func.isRequired,
@@ -138,6 +225,17 @@ const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
         orderedKeys,
         pinnedKeys,
     })
+
+    // Mirrors DataTable.jsx's pinnedColumnCount: getVisibleHeaders already
+    // moves pinned columns to the front, so the pinned group's size is just
+    // how many headers match pinnedKeys before the first one that doesn't.
+    let pinnedCount = 0
+    for (const header of orderedHeaders) {
+        if (!pinnedKeys.includes(header.dataKey)) {
+            break
+        }
+        pinnedCount++
+    }
 
     const updateConfig = (partial) =>
         dispatch(
@@ -210,12 +308,15 @@ const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
                 ref={anchorRef}
                 className={styles.triggerButton}
                 disabled={!headers.length}
-                title={i18n.t('Configure columns')}
                 aria-label={i18n.t('Configure columns')}
                 data-test="data-table-column-picker-button"
                 onClick={() => setIsOpen((o) => !o)}
             >
-                <IconLayoutColumns16 />
+                <Tooltip content={i18n.t('Configure columns')} placement="top">
+                    <span className={styles.alignIcon1}>
+                        <IconLayoutColumns16 />
+                    </span>
+                </Tooltip>
             </button>
             {isOpen && (
                 <FilterDropdownPopover
@@ -224,11 +325,6 @@ const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
                     onClickOutside={() => setIsOpen(false)}
                 >
                     <div className={styles.columnPickerPopover}>
-                        <p className={styles.columnPickerHint}>
-                            {i18n.t(
-                                'Drag to reorder, check to show or hide, lock to pin left'
-                            )}
-                        </p>
                         <DndContext
                             sensors={sensors}
                             collisionDetection={closestCenter}
@@ -242,7 +338,7 @@ const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
                                 strategy={verticalListSortingStrategy}
                             >
                                 <div className={styles.columnList}>
-                                    {orderedHeaders.map((header) => (
+                                    {orderedHeaders.map((header, index) => (
                                         <ColumnRow
                                             key={header.dataKey}
                                             header={header}
@@ -252,25 +348,57 @@ const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
                                             isPinned={pinnedKeys.includes(
                                                 header.dataKey
                                             )}
+                                            isPinnedGroupEnd={
+                                                index === pinnedCount - 1 &&
+                                                pinnedCount <
+                                                    orderedHeaders.length
+                                            }
+                                            isDragActive={activeId != null}
                                             onToggleVisible={onToggleVisible}
                                             onTogglePinned={onTogglePinned}
                                         />
                                     ))}
                                 </div>
                             </SortableContext>
-                            <DragOverlay modifiers={[restrictToVerticalAxis]}>
-                                {activeHeader ? (
-                                    <div
-                                        className={cx(
-                                            styles.columnRow,
-                                            styles.dragOverlay
-                                        )}
-                                    >
-                                        <IconDragHandle16 />
-                                        {activeHeader.name}
-                                    </div>
-                                ) : null}
-                            </DragOverlay>
+                            {createPortal(
+                                // DragOverlay renders inline wherever it's
+                                // placed and relies on `position: fixed` to
+                                // escape into the viewport - but it's nested
+                                // inside FilterDropdownPopover's Popper,
+                                // which positions itself via a CSS
+                                // `transform`. A `transform` on an ancestor
+                                // creates a new containing block for
+                                // `position: fixed` descendants, so without
+                                // this portal the overlay ends up positioned
+                                // relative to the popover instead of the
+                                // viewport (rendering off-screen or hidden).
+                                <DragOverlay
+                                    modifiers={[restrictToVerticalAxis]}
+                                    zIndex={DRAG_OVERLAY_Z_INDEX}
+                                >
+                                    {activeHeader ? (
+                                        <div
+                                            className={cx(
+                                                styles.columnRow,
+                                                styles.dragOverlay
+                                            )}
+                                        >
+                                            <ColumnRowFields
+                                                header={activeHeader}
+                                                isVisible={visibleKeys.includes(
+                                                    activeHeader.dataKey
+                                                )}
+                                                isPinned={pinnedKeys.includes(
+                                                    activeHeader.dataKey
+                                                )}
+                                                dataTestSuffix="-preview"
+                                                suppressTooltips
+                                            />
+                                        </div>
+                                    ) : null}
+                                </DragOverlay>,
+                                document.body
+                            )}
                         </DndContext>
                     </div>
                 </FilterDropdownPopover>

@@ -30,6 +30,7 @@ import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
 import ColorPicker from '../core/ColorPicker.jsx'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
+import ColumnPicker from './ColumnPicker.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import ResizeHandle from './ResizeHandle.jsx'
@@ -64,6 +65,7 @@ const BottomPanel = () => {
     const [nameTooltipPos, setNameTooltipPos] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [globalSearch, setGlobalSearch] = useState('')
+    const [headersByLayer, setHeadersByLayer] = useState(null)
 
     const hasActiveFilters =
         Object.keys(dataFilters).length > 0 ||
@@ -80,6 +82,16 @@ const BottomPanel = () => {
     const toggleCollapsed = useCallback(
         () => setIsCollapsed((collapsed) => !collapsed),
         []
+    )
+
+    const onControlsDoubleClick = useCallback(
+        (e) => {
+            if (e.target.closest('button, input, label')) {
+                return
+            }
+            toggleCollapsed()
+        },
+        [toggleCollapsed]
     )
 
     const onResizeStart = useCallback(() => {
@@ -111,6 +123,15 @@ const BottomPanel = () => {
         setTotalCount(total)
         setFilteredCount(filtered)
     }, [])
+
+    const onHeadersChange = useCallback((headers, layerId) => {
+        setHeadersByLayer({ layerId, headers })
+    }, [])
+
+    const allHeaders =
+        headersByLayer?.layerId === activeLayerId
+            ? headersByLayer.headers
+            : null
 
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))
@@ -192,7 +213,7 @@ const BottomPanel = () => {
         >
             <div
                 className={styles.dataTableControls}
-                onDoubleClick={toggleCollapsed}
+                onDoubleClick={onControlsDoubleClick}
             >
                 <button
                     type="button"
@@ -253,6 +274,12 @@ const BottomPanel = () => {
                         />
                     </span>
                 </Tooltip>
+                <ColumnPicker
+                    layerId={activeLayerId}
+                    allHeaders={allHeaders}
+                    columnConfig={activeLayer?.dataTableColumnConfig}
+                />
+                <span className={styles.divider} />
                 <ResizeHandle
                     maxHeight={maxHeight}
                     minHeight={MIN_HEIGHT}
@@ -334,6 +361,7 @@ const BottomPanel = () => {
                         <DataTable
                             availableWidth={panelWidth}
                             onCountChange={onCountChange}
+                            onHeadersChange={onHeadersChange}
                             globalSearch={globalSearch}
                             onClearFilters={onClearFilters}
                         />

@@ -1,3 +1,18 @@
+.alignIcon1 {
+    display: flex;
+    margin-top: 1px;
+}
+
+.alignIcon1 svg {
+    width: 18px;
+    height: 18px;
+}
+
+.alignIcon2 {
+    display: flex;
+    margin-top: 2px;
+}
+
 .triggerButton {
     cursor: pointer;
     color: var(--colors-grey800);
@@ -25,17 +40,10 @@
 
 .columnPickerPopover {
     padding: var(--spacers-dp8);
-    min-width: 220px;
+    min-width: 190px;
     background-color: var(--colors-white);
     border-radius: 4px;
     box-shadow: var(--elevations-popover);
-}
-
-.columnPickerHint {
-    margin: 0 0 var(--spacers-dp8);
-    font-size: 11px;
-    font-style: italic;
-    color: var(--colors-grey600);
 }
 
 .columnList {
@@ -49,12 +57,38 @@
     display: flex;
     align-items: center;
     gap: var(--spacers-dp4);
-    padding: 2px 0;
+    padding: 2px var(--spacers-dp4);
+    border-radius: 3px;
+}
+
+.columnRow:hover {
+    background: var(--colors-grey100);
+}
+
+.columnRowDivider {
+    border-bottom: 1px solid var(--colors-grey300);
 }
 
 .columnRowCheckbox {
     flex: 1;
     min-width: 0;
+    /* Checkbox.module.css's shared `.checkbox` sets a 16px/8px vertical
+       margin meant for standalone form fields - reset it here so row
+       height is driven by .columnRow's own padding instead. */
+    margin: 0;
+}
+
+.columnRowCheckbox :global(label) {
+    min-width: 0;
+}
+
+.columnRowLabel {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
 }
 
 .dragHandle {
@@ -68,6 +102,10 @@
     border: none;
     border-radius: 3px;
     background: transparent;
+    /* Prevent the browser's own native drag (e.g. dragging the inline
+       svg icon as an image) from hijacking dnd-kit's mouse sensor. */
+    -webkit-user-drag: none;
+    user-select: none;
     color: var(--colors-grey600);
     cursor: grab;
     touch-action: none;
@@ -89,7 +127,7 @@
     border: none;
     border-radius: 3px;
     background: transparent;
-    color: var(--colors-grey500);
+    color: var(--colors-grey700);
     cursor: pointer;
 }
 
@@ -99,20 +137,14 @@
 }
 
 .pinButtonActive {
-    color: var(--colors-blue700);
+    color: var(--colors-teal600);
 }
 
 .pinButtonActive:hover {
-    color: var(--colors-blue800);
+    color: var(--colors-teal700);
 }
 
 .dragOverlay {
-    display: flex;
-    align-items: center;
-    gap: var(--spacers-dp4);
-    padding: 2px var(--spacers-dp8);
     background-color: var(--colors-white);
-    border-radius: 3px;
     box-shadow: var(--elevations-popover);
-    font-size: 12px;
 }

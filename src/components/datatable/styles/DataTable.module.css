@@ -8,13 +8,18 @@
 }
 
 /* A pinned column's cells render as <th> (@dhis2/ui's DataTableCell switches
-   element on `fixed`), so these need to match both td and th. */
+   element on `fixed`), so these need to match both td and th. table-data-cell
+   sets no vertical-align on <td> (browser default: middle), but @dhis2/ui's
+   own th styles explicitly set `vertical-align: top` - without overriding it
+   here, a pinned column's cells sit top-aligned while the rest of the row
+   stays middle-aligned. */
 td.dataCell,
 th.dataCell {
     padding-top: var(--spacers-dp8);
     padding-bottom: var(--spacers-dp8);
     font-size: 11px;
     overflow-wrap: anywhere;
+    vertical-align: middle;
 }
 
 td.dataCell:hover,
@@ -39,6 +44,11 @@ td.checkboxCell {
     max-width: 76px;
     text-align: center;
     padding: 0;
+    vertical-align: middle;
+}
+
+.checkboxCell input[type='checkbox'] {
+    accent-color: var(--colors-teal600);
 }
 
 .checkboxHeaderContent {
@@ -98,7 +108,7 @@ th.hovered {
 
 .headerContent {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     min-width: 0;
     gap: 2px;
 }
@@ -116,6 +126,14 @@ th.hovered {
     border-radius: 4px;
     background: transparent;
     cursor: pointer;
+}
+
+.reverseButton svg {
+    flex-shrink: 0;
+}
+
+.reverseButton:hover:not(:disabled) {
+    background: var(--colors-grey400);
 }
 
 .sortButton {
