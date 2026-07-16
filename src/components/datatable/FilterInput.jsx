@@ -49,7 +49,7 @@ const MIN_POPOVER_WIDTH = 140
 // decide whether there's enough room to show the tooltip at all - see
 // FilterHelpTooltip's hasRoom check.
 const NUMERIC_HELP_HEIGHT = 140
-const TEXT_HELP_HEIGHT = 40
+const TEXT_HELP_HEIGHT = 56
 
 const NUMERIC_FILTER_HELP = (
     <div>
@@ -64,7 +64,8 @@ const NUMERIC_FILTER_HELP = (
 
 const TEXT_FILTER_HELP = (
     <div>
-        {i18n.t('Select values, or type text to match rows that contain it.')}
+        <div>{i18n.t('Select values, or type text')}</div>
+        <div>{i18n.t('to match rows that contain it')}</div>
     </div>
 )
 
@@ -779,7 +780,8 @@ const SearchableFilterPopover = ({
                                                 onToggleRealValue(option.value)
                                             }
                                             className={cx(
-                                                dataKey === 'id' &&
+                                                (dataKey === 'id' ||
+                                                    dataKey === 'color') &&
                                                     styles.monoOption,
                                                 highlightedIndex ===
                                                     (showCustomFilterRow
