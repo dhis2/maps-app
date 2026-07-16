@@ -18,6 +18,8 @@ import {
     toggleAnyValue,
     toggleRealValue,
 } from '../../util/filterSelection.js'
+import { formatWithSeparator } from '../../util/numbers.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
 import {
     FilterDropdownPopover,
@@ -550,14 +552,27 @@ SearchableFilterPopover.propTypes = {
     layerId: PropTypes.string,
 }
 
-const PlainSearchableFilter = (props) => (
-    <SearchableFilterPopover
-        {...props}
-        resolveLabel={(value) =>
-            value === SENTINEL_NO_VALUE ? i18n.t('No value') : value
+const PlainSearchableFilter = (props) => {
+    const { type } = props
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
+
+    const resolveLabel = (value) => {
+        if (value === SENTINEL_NO_VALUE) {
+            return i18n.t('No value')
         }
-    />
-)
+        return type === 'number'
+            ? formatWithSeparator(Number(value), keyAnalysisDigitGroupSeparator)
+            : value
+    }
+
+    return <SearchableFilterPopover {...props} resolveLabel={resolveLabel} />
+}
+
+PlainSearchableFilter.propTypes = {
+    type: PropTypes.string,
+}
 
 const OptionSetSearchableFilter = ({ optionSetId, ...props }) => {
     const { optionSet } = useOptionSet(optionSetId)
