@@ -65,7 +65,7 @@ const BottomPanel = () => {
     const [nameTooltipPos, setNameTooltipPos] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [globalSearch, setGlobalSearch] = useState('')
-    const [allHeaders, setAllHeaders] = useState(null)
+    const [headersByLayer, setHeadersByLayer] = useState(null)
 
     const hasActiveFilters =
         Object.keys(dataFilters).length > 0 ||
@@ -114,17 +114,26 @@ const BottomPanel = () => {
         setFilteredCount(filtered)
     }, [])
 
-    const onHeadersChange = useCallback((headers) => {
-        setAllHeaders(headers)
+    const onHeadersChange = useCallback((headers, layerId) => {
+        setHeadersByLayer({ layerId, headers })
     }, [])
 
-    // Clear immediately on layer switch, rather than waiting for
-    // DataTable's own headers effect to catch up - otherwise ColumnPicker
-    // would briefly show the previous layer's columns alongside the new
-    // layer's dataTableColumnConfig.
-    useEffect(() => {
-        setAllHeaders(null)
-    }, [activeLayerId])
+    // Only trust headersByLayer when it was actually reported for the
+    // CURRENTLY active layer - staleness is checked here, at render time,
+    // rather than via a separate "reset on layer switch" effect: that
+    // approach raced against DataTable's own child effect (children fire
+    // before parents within the same commit), so a reset effect keyed on
+    // activeLayerId would immediately clobber the real headers DataTable
+    // had just reported in the same commit, on every mount/layer switch.
+    // The layerId comes from DataTable's own effect closure (tagging which
+    // layer actually produced these headers), not a "latest activeLayerId"
+    // guess here, since an async header recompute for a previous layer
+    // could otherwise land after a subsequent, faster layer switch and get
+    // mistagged as belonging to the new layer.
+    const allHeaders =
+        headersByLayer?.layerId === activeLayerId
+            ? headersByLayer.headers
+            : null
 
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))

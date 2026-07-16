@@ -429,8 +429,8 @@ const Table = ({
     })
 
     useEffect(() => {
-        onHeadersChange?.(headers)
-    }, [onHeadersChange, headers])
+        onHeadersChange?.(headers, layer.id)
+    }, [onHeadersChange, headers, layer.id])
 
     const columnConfig = layer.dataTableColumnConfig
     const pinnedKeys = useMemo(
