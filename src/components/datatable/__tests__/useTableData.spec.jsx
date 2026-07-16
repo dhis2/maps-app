@@ -3,10 +3,10 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import {
-    useTableData,
-    SELECTED_SORT_KEY,
-    NOT_SET_VALUE,
-} from '../useTableData.js'
+    SENTINEL_SELECTED_ROW,
+    SENTINEL_NO_VALUE,
+} from '../../../constants/dataTable.js'
+import { useTableData } from '../useTableData.js'
 
 jest.mock('../../map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
@@ -831,8 +831,6 @@ describe('useTableData sorting', () => {
     })
 
     test('falls back to natural (index) order when sortField is null', () => {
-        // Deliberately not alphabetical/numerical, so this only passes if the
-        // natural input order is preserved rather than some other sort.
         const layerInInputOrder = {
             id: 'test-layer',
             layer: 'thematic',
@@ -865,9 +863,6 @@ describe('useTableData sorting', () => {
     })
 
     describe('sorting by selection state', () => {
-        // `id` must live inside `properties` - useTableData flattens rows via
-        // `{...d.properties}`, so a top-level `id` (as used by the rest of
-        // this describe block's `mockLayer`) would not survive flattening.
         const layerWithIds = {
             id: 'test-layer',
             layer: 'thematic',
@@ -887,7 +882,7 @@ describe('useTableData sorting', () => {
                 () =>
                     useTableData({
                         layer: layerWithIds,
-                        sortField: SELECTED_SORT_KEY,
+                        sortField: SENTINEL_SELECTED_ROW,
                         sortDirection,
                         selectedIdSet: new Set(['2', '4']),
                     }),
@@ -1149,7 +1144,6 @@ describe('useTableData columnOptions', () => {
             { value: 'ou2' },
         ])
         expect(current.columnOptions.parentName).toEqual([{ value: 'Country' }])
-        // Numeric columns (previously excluded outright) qualify too now.
         expect(current.columnOptions.rawValue).toEqual([
             { value: '10' },
             { value: '20' },
@@ -1205,7 +1199,35 @@ describe('useTableData columnOptions', () => {
         ])
     })
 
-    test('includes a NOT_SET_VALUE option when some rows have a blank value', () => {
+    test('sorts range column options by their parsed bounds, not lexically', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: ['90 - 120', '9 - 12', '10 - 20'].map((range, i) => ({
+                properties: {
+                    id: `ou${i}`,
+                    name: `Org unit ${i}`,
+                    rawValue: 1,
+                    legend: 'High',
+                    range,
+                    level: 1,
+                    parentName: 'Country',
+                    type: 'Point',
+                    color: '#ff0000',
+                },
+            })),
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.range).toEqual([
+            { value: '9 - 12' },
+            { value: '10 - 20' },
+            { value: '90 - 120' },
+        ])
+    })
+
+    test('includes a SENTINEL_NO_VALUE option when some rows have a blank value', () => {
         const layer = {
             layer: 'orgUnit',
             dataFilters: null,
@@ -1243,7 +1265,7 @@ describe('useTableData columnOptions', () => {
         const { current } = renderTableData(layer)
 
         expect(current.columnOptions.parentName).toEqual([
-            { value: NOT_SET_VALUE },
+            { value: SENTINEL_NO_VALUE },
             { value: 'Country' },
         ])
     })
@@ -1280,6 +1302,66 @@ describe('useTableData columnOptions', () => {
         expect(header.optionSet).toEqual({ id: 'xyz123' })
         expect(current.columnOptions.AbCdEfGhIjK).toEqual([
             { value: 'CONFIRMED' },
+        ])
+    })
+
+    test('matches the currently sorted column direction, leaving other columns ascending', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou1',
+                        name: 'Org unit 1',
+                        rawValue: 10,
+                        legend: 'High',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou2',
+                        name: 'Org unit 2',
+                        rawValue: 20,
+                        legend: 'Low',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'desc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        // Sorted column (name, desc) is reversed to match...
+        expect(result.current.columnOptions.name).toEqual([
+            { value: 'Org unit 2' },
+            { value: 'Org unit 1' },
+        ])
+        // ...while every other column stays in its default ascending order.
+        expect(result.current.columnOptions.rawValue).toEqual([
+            { value: '10' },
+            { value: '20' },
+        ])
+        expect(result.current.columnOptions.legend).toEqual([
+            { value: 'High' },
+            { value: 'Low' },
         ])
     })
 })
