@@ -171,6 +171,16 @@ const layer = (state, action) => {
                 dataFilters: {},
             }
 
+        case types.DATA_TABLE_COLUMN_CONFIG_SET:
+            if (state.id !== action.layerId) {
+                return state
+            }
+
+            return {
+                ...state,
+                dataTableColumnConfig: action.config,
+            }
+
         case types.MAP_ALERTS_CLEAR:
             return {
                 ...state,
@@ -311,6 +321,7 @@ const map = (state = defaultState, action) => {
         case types.DATA_FILTER_SET:
         case types.DATA_FILTER_CLEAR:
         case types.DATA_FILTERS_CLEAR_ALL:
+        case types.DATA_TABLE_COLUMN_CONFIG_SET:
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:
             return {
                 ...state,

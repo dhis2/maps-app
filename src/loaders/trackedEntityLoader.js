@@ -115,7 +115,9 @@ export const parseJsonConfig = (config) => {
     }
 
     try {
-        const { relationships, periodType } = JSON.parse(config.config)
+        const { relationships, periodType, dataTableColumnConfig } = JSON.parse(
+            config.config
+        )
 
         if (relationships) {
             config.relationshipType = relationships.type
@@ -127,6 +129,10 @@ export const parseJsonConfig = (config) => {
         }
 
         config.periodType = periodType
+
+        if (dataTableColumnConfig) {
+            config.dataTableColumnConfig = dataTableColumnConfig
+        }
     } catch (e) {
         // Malformed config JSON
     }
