@@ -47,6 +47,13 @@
     flex-shrink: 0;
 }
 
+.divider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--colors-grey300);
+    flex-shrink: 0;
+}
+
 @keyframes tooltipExpandRight {
     from {
         clip-path: inset(0 100% 0 0);

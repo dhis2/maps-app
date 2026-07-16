@@ -9,12 +9,18 @@
     cursor: grab;
 }
 
-.resizeHandle:hover,
-.resizeHandle:active {
-    background-color: var(--colors-grey300);
-    color: var(--colors-grey900);
+.gripBox {
+    width: 99%;
+    height: 24px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--colors-grey600);
 }
 
-.resizeHandle:active {
-    cursor: grabbing;
+.resizeHandle:hover .gripBox,
+.resizeHandle:active .gripBox {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey900);
 }
