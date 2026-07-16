@@ -228,9 +228,7 @@ describe('data table', () => {
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 1)
 
-        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
-            .find('input')
-            .type('{enter}')
+        cy.get('.backdrop').click()
 
         cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
             .find('.clear-button')
