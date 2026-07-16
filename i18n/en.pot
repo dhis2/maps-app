@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-16T14:26:22.933Z\n"
-"PO-Revision-Date: 2026-07-16T14:26:22.933Z\n"
+"POT-Creation-Date: 2026-07-16T17:33:16.764Z\n"
+"PO-Revision-Date: 2026-07-16T17:33:16.764Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -182,20 +182,17 @@ msgstr "Show only features in current map view"
 msgid "Close"
 msgstr "Close"
 
+msgid "Drag to reorder"
+msgstr "Drag to reorder"
+
 msgid "Unpin column"
 msgstr "Unpin column"
 
 msgid "Pin column to the left"
 msgstr "Pin column to the left"
 
-msgid "Drag to reorder"
-msgstr "Drag to reorder"
-
 msgid "Configure columns"
 msgstr "Configure columns"
-
-msgid "Drag to reorder, check to show or hide, lock to pin left"
-msgstr "Drag to reorder, check to show or hide, lock to pin left"
 
 msgid "Selected"
 msgstr "Selected"

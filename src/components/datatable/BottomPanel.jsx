@@ -84,6 +84,20 @@ const BottomPanel = () => {
         []
     )
 
+    // Double-clicking the toolbar collapses/restores the panel, but not
+    // when the click lands on one of its own controls (icon buttons, the
+    // color picker's label-wrapped input, the search field) - those should
+    // only respond to their own click handlers.
+    const onControlsDoubleClick = useCallback(
+        (e) => {
+            if (e.target.closest('button, input, label')) {
+                return
+            }
+            toggleCollapsed()
+        },
+        [toggleCollapsed]
+    )
+
     const onResizeStart = useCallback(() => {
         isDraggingRef.current = true
     }, [])
@@ -215,7 +229,7 @@ const BottomPanel = () => {
         >
             <div
                 className={styles.dataTableControls}
-                onDoubleClick={toggleCollapsed}
+                onDoubleClick={onControlsDoubleClick}
             >
                 <button
                     className={styles.toggleButton}
@@ -275,6 +289,12 @@ const BottomPanel = () => {
                         />
                     </span>
                 </Tooltip>
+                <ColumnPicker
+                    layerId={activeLayerId}
+                    allHeaders={allHeaders}
+                    columnConfig={activeLayer?.dataTableColumnConfig}
+                />
+                <span className={styles.divider} />
                 <ResizeHandle
                     maxHeight={maxHeight}
                     minHeight={MIN_HEIGHT}
@@ -327,12 +347,6 @@ const BottomPanel = () => {
                         </span>
                     </Tooltip>
                 </button>
-                <span className={styles.divider} />
-                <ColumnPicker
-                    layerId={activeLayerId}
-                    allHeaders={allHeaders}
-                    columnConfig={activeLayer?.dataTableColumnConfig}
-                />
                 <span className={styles.divider} />
                 <button
                     className={styles.closeIcon}
