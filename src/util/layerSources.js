@@ -66,11 +66,7 @@ const addLayer = (subGroup, layer) => {
 
 const simplifyDefaultSubGroups = (groups) => {
     return groups.map((group) => {
-        if (
-            group.items &&
-            group.items.length === 1 &&
-            group.items[0].id === '__default__'
-        ) {
+        if (group.items?.length === 1 && group.items[0].id === '__default__') {
             group.items = group.items[0].items
         }
         return group

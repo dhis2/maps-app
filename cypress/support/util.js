@@ -293,7 +293,7 @@ export const assertIntercepts = ({
             // Trigger the requests
             const fn = triggerFn || commonTriggerFn
             if (typeof fn !== 'function') {
-                throw new Error(
+                throw new TypeError(
                     `[${n}] Missing triggerFn for intercepts group: ${alias}`
                 )
             }
@@ -331,7 +331,7 @@ export const assertIntercepts = ({
                 // Trigger the request
                 const fn = triggerFn || commonTriggerFn
                 if (typeof fn !== 'function') {
-                    throw new Error(
+                    throw new TypeError(
                         `[${n}] Missing triggerFn for single intercept: ${alias}`
                     )
                 }

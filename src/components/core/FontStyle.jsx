@@ -32,7 +32,7 @@ const FontStyle = ({
                 label={i18n.t('Size')}
                 min={LABEL_FONT_SIZE_MIN}
                 max={LABEL_FONT_SIZE_MAX}
-                value={parseInt(
+                value={Number.parseInt(
                     size !== undefined ? size : LABEL_FONT_SIZE,
                     10
                 )}

@@ -4,7 +4,7 @@ const DEFAULT_LOCALE = 'en'
 
 // BCP 47 locale format
 const dateLocale = (locale) =>
-    locale && locale.includes('_') ? locale.replaceAll('_', '-') : locale
+    locale?.includes('_') ? locale.replaceAll('_', '-') : locale
 
 /**
  * Trims the time part from an ISO date-time string, returning only the date (YYYY-MM-DD).
@@ -35,7 +35,7 @@ const shortDateRegexp = /^\d{4}-\d{2}-\d{2}$/
  * @returns {String}
  */
 const isValidDateFormat = (dateString) =>
-    dateString && shortDateRegexp.test(dateString.substr(0, 10))
+    dateString && shortDateRegexp.test(dateString.slice(0, 10))
 
 /**
  * Formats a date string, timestamp or date array into format used by DHIS2 and <input> date
@@ -55,13 +55,13 @@ export const formatDate = (date) => {
  * @param {String} dateString
  * @returns {String}
  */
-const fallbackDateFormat = (dateString) => dateString.substr(0, 10)
+const fallbackDateFormat = (dateString) => dateString.slice(0, 10)
 
 /**
  * Returns true if the Internationalization API is supported
  * @returns {Boolean}
  */
-const hasIntlSupport = typeof window.Intl !== 'undefined' && Intl.DateTimeFormat
+const hasIntlSupport = window.Intl !== undefined && Intl.DateTimeFormat
 
 /**
  * Formats a date string or timestamp to the default display format: 13 Aug 2018 (en locale)
@@ -105,9 +105,9 @@ export const formatStartEndDate = (startDate, endDate, locale, showYear) => {
  * @returns {Array}
  */
 export const getDateArray = (dateString) => {
-    const year = parseInt(dateString.substring(0, 4))
-    const month = parseInt(dateString.substring(5, 7)) - 1
-    const day = parseInt(dateString.substring(8, 10))
+    const year = Number.parseInt(dateString.substring(0, 4))
+    const month = Number.parseInt(dateString.substring(5, 7)) - 1
+    const day = Number.parseInt(dateString.substring(8, 10))
     return [year, month, day]
 }
 
