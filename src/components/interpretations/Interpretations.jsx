@@ -7,7 +7,7 @@ import InterpretationsPanel from './InterpretationsPanel.jsx'
 const Interpretations = ({ renderCount }) => {
     const isMapLoaded = useSelector(
         (state) =>
-            state.map.id && !state.map.mapViews.find((layer) => !layer.isLoaded)
+            state.map.id && !state.map.mapViews.some((layer) => !layer.isLoaded)
     )
     const dispatch = useDispatch()
 

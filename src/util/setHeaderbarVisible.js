@@ -5,7 +5,7 @@ export const setHeaderbarVisible = (show) => {
     )
     // Header in the current iframe
     const iframeHeader = document.querySelector('header')
-    const header = globalShellHeader ? globalShellHeader : iframeHeader
+    const header = globalShellHeader || iframeHeader
 
     const setHeaderStyle = (ref, value) => {
         ref.style.display = value

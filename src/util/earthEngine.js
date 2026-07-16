@@ -47,9 +47,11 @@ const getStaticFiltersFromDynamic = (filters, ...args) =>
             if (typeof arg !== 'string') {
                 return arg
             }
-            const match = arg.match(
-                `^\\$([0-9]+)(?::(${Object.values(VALUE_TYPES).join('|')}))?$`
-            )
+            const match = new RegExp(
+                String.raw`^\$([0-9]+)(?::(${Object.values(VALUE_TYPES).join(
+                    '|'
+                )}))?$`
+            ).exec(arg)
             if (!match) {
                 return arg
             }
@@ -136,7 +138,7 @@ export const getAuthTokenFn = (engine) => async () => {
         })
         const token = response.token
 
-        if (token && token.status === 'ERROR') {
+        if (token?.status === 'ERROR') {
             throw new Error(
                 i18n.t(
                     'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
@@ -202,8 +204,8 @@ export const getPeriods = async ({
         // - use properties.year if available
         // - otherwise endDate year for periods between years (eg weekly datasets)
         // - fallback to startDate year (eg daily datasets or yearly datasets with next-year endDate)
-        const year = parseInt(properties.year || endDate.getFullYear())
-        const yearFallback = parseInt(
+        const year = Number.parseInt(properties.year || endDate.getFullYear())
+        const yearFallback = Number.parseInt(
             properties.year || startDate.getFullYear()
         )
         const base = {

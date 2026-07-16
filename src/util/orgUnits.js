@@ -93,19 +93,16 @@ export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 export const getPolygonItems = (data) => data.filter((d) => d.ty === 2)
 
 export const getOrgUnitStyle = (dimensions, groupSet) =>
-    groupSet &&
-    groupSet.organisationUnitGroups &&
-    dimensions &&
-    dimensions[groupSet.id]
+    groupSet?.organisationUnitGroups && dimensions?.[groupSet.id]
         ? groupSet.organisationUnitGroups.find(
               (g) => g.id === dimensions[groupSet.id]
           )
         : {}
 
 export const getOrgUnitGroupLegendItems = (
-    groups = [],
     useColor,
-    contextPath
+    contextPath,
+    groups = []
 ) =>
     groups.map(({ id, name, color = true, symbol }) =>
         useColor
@@ -205,9 +202,9 @@ export const getStyledOrgUnits = ({
         )
 
     const groupItems = getOrgUnitGroupLegendItems(
-        organisationUnitGroups,
         useColor,
-        baseUrl
+        baseUrl,
+        organisationUnitGroups
     )
 
     if (unclassifiedLegend && groupSet.id) {
@@ -245,7 +242,7 @@ export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
     const items = orgUnits?.items || []
 
     return items.map((item) => {
-        const levelNumber = item.id.match(/^LEVEL-([0-9])+$/)
+        const levelNumber = item.id.match(/^LEVEL-(\d)+$/)
 
         if (levelNumber) {
             const level = orgUnitLevels.find(
@@ -459,7 +456,7 @@ export const addAssociatedGeometries = (mainFeatures, associatedGeometries) => {
             }
         })
         .map((f) => {
-            const associated = associatedGeometries.find((a) => a.id === f.id)
+            const associated = associatedGeometries.some((a) => a.id === f.id)
 
             return associated
                 ? {

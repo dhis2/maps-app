@@ -62,7 +62,10 @@ const BufferRadius = ({
                     onChange={(value) =>
                         setBufferRadius(
                             value !== ''
-                                ? Math.max(parseInt(value, 10), MIN_RADIUS)
+                                ? Math.max(
+                                      Number.parseInt(value, 10),
+                                      MIN_RADIUS
+                                  )
                                 : ''
                         )
                     }
