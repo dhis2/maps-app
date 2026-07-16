@@ -7,6 +7,16 @@ import { parseRange } from './legend.js'
 
 const RANGE = 'range'
 
+const compareStrings = (a, b) => {
+    if (a < b) {
+        return -1
+    }
+    if (a > b) {
+        return 1
+    }
+    return 0
+}
+
 export const compareColumnOptionValues = (
     a,
     b,
@@ -22,7 +32,7 @@ export const compareColumnOptionValues = (
         return compareRangeValues(a, b, direction)
     }
     const comparison =
-        type === 'number' ? Number(a) - Number(b) : a < b ? -1 : a > b ? 1 : 0
+        type === 'number' ? Number(a) - Number(b) : compareStrings(a, b)
     return direction === SORT_ASCENDING ? comparison : -comparison
 }
 
