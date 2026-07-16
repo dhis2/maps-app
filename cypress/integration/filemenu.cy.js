@@ -158,6 +158,7 @@ describe('File menu', () => {
         deleteMap(renamedTitle)
     })
 
+    // Skipped: flaky in CI (#2006)
     it.skip('save existing as new map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -193,6 +194,7 @@ describe('File menu', () => {
             .should('eq', 201)
     })
 
+    // Skipped: flaky in CI (#2006)
     it.skip('save changes to existing map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -252,6 +254,7 @@ describe('File menu', () => {
         cy.wait('@getMapAfterSave').its('response.statusCode').should('eq', 200)
     })
 
+    // Skipped: flaky in CI (#2006)
     it.skip('save changes to existing map fails', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -275,6 +278,7 @@ describe('File menu', () => {
             .should('be.visible')
     })
 
+    // Skipped: flaky in CI (#2006)
     it.skip('save as new map fails', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -316,6 +320,7 @@ describe('File menu', () => {
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
     })
 
+    // Skipped: flaky in CI (#2006)
     it.skip('deletes SAVEAS_MAP_TITLE map', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')

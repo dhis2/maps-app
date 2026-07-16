@@ -100,7 +100,7 @@ const validLayerProperties = [
     'relationshipOutsideProgram',
 ]
 
-const models = ['program', 'programStage', 'organisationUnitGroupSet']
+const models = new Set(['program', 'programStage', 'organisationUnitGroupSet'])
 
 const validModelProperties = [
     'id',
@@ -240,7 +240,7 @@ const models2objects = (layer, cleanMapviewConfig) => {
     const { layer: layerType } = layer
 
     Object.keys(layer).forEach((key) => {
-        layer[key] = models.includes(key)
+        layer[key] = models.has(key)
             ? pick(validModelProperties, layer[key])
             : layer[key]
     })

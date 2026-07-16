@@ -48,6 +48,12 @@ const OrgUnitInfo = ({
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
+    let levelSuffix
+    if (level) {
+        levelSuffix = ` (${level})`
+    } else {
+        levelSuffix = ''
+    }
     return (
         <div className={styles.info} data-test="org-unit-info">
             {imageId && (
@@ -61,9 +67,7 @@ const OrgUnitInfo = ({
                 <div className={styles.level}>
                     <IconDimensionOrgUnit16 />
                     {i18n.t('Level')}:{' '}
-                    {levelName
-                        ? `${levelName}${level ? ` (${level})` : ''}`
-                        : level}
+                    {levelName ? `${levelName}${levelSuffix}` : level}
                 </div>
             )}
             {parentName && (
