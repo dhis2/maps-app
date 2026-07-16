@@ -164,8 +164,8 @@ msgstr "Reverse selection of visible rows"
 msgid "Sort by Selected"
 msgstr "Sort by Selected"
 
-msgid "Select all"
-msgstr "Select all"
+msgid "Select all visible rows"
+msgstr "Select all visible rows"
 
 msgid "Sort by Selected"
 msgstr "Sort by Selected"
