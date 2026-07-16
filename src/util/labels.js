@@ -18,7 +18,7 @@ export const getLabelStyle = ({
         fontSize,
         fontStyle: labelFontStyle || LABEL_FONT_STYLE,
         fontWeight: labelFontWeight || LABEL_FONT_WEIGHT,
-        lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
+        lineHeight: Number.parseInt(fontSize, 10) * 1.2 + 'px',
         color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
         paddingTop: '10px',
         labelNoData: i18n.t('No data'),

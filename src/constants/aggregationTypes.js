@@ -40,7 +40,7 @@ export const getEarthEngineAggregationTypes = (filter) => {
 }
 
 export const getEarthEngineStatisticType = (id) =>
-    (getEarthEngineStatisticTypes().find((t) => t.id === id) || {}).name
+    getEarthEngineStatisticTypes().find((t) => t.id === id)?.name
 
 export const getEarthEngineAggregationType = (id) => {
     const { name, shortName } =
