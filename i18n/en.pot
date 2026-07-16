@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-16T08:26:26.615Z\n"
-"PO-Revision-Date: 2026-07-16T08:26:26.615Z\n"
+"POT-Creation-Date: 2026-07-16T11:34:34.211Z\n"
+"PO-Revision-Date: 2026-07-16T11:34:34.212Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -202,11 +202,11 @@ msgstr "No features match your filters"
 msgid "No results found"
 msgstr "No results found"
 
-msgid "Select all"
-msgstr "Select all"
+msgid "Select all visible rows"
+msgstr "Select all visible rows"
 
-msgid "Reverse selection"
-msgstr "Reverse selection"
+msgid "Reverse selection of visible rows"
+msgstr "Reverse selection of visible rows"
 
 msgid "Sort by Selected"
 msgstr "Sort by Selected"
@@ -249,6 +249,9 @@ msgstr "Search or type > 5, < 8…"
 
 msgid "Search"
 msgstr "Search"
+
+msgid "Reverse selection"
+msgstr "Reverse selection"
 
 msgid "Any value"
 msgstr "Any value"

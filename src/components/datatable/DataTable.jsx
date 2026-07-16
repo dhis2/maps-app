@@ -29,10 +29,13 @@ import { setSelectionFilter } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
 import {
     toggleFeatureSelection,
-    selectAllFeatures,
     selectFeatureRange,
-    clearSelection,
 } from '../../actions/selection.js'
+import {
+    SENTINEL_SELECTED_ROW,
+    SORT_ASCENDING,
+    SORT_DESCENDING,
+} from '../../constants/dataTable.js'
 import {
     SELECTION_FILTER_SELECTED,
     SELECTION_FILTER_NOT_SELECTED,
@@ -42,35 +45,23 @@ import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
 import { SortIcon } from '../core/icons.jsx'
-import FilterInput, {
+import {
     FilterDropdownPopover,
     getDropdownPlacement,
-} from './FilterInput.jsx'
+} from './FilterDropdownPopover.jsx'
+import FilterInput from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
 import TableContextMenu from './TableContextMenu.jsx'
-import { useTableData, SELECTED_SORT_KEY } from './useTableData.js'
+import { useColumnWidths } from './useColumnWidths.js'
+import { useRowSelection } from './useRowSelection.js'
+import { useTableData } from './useTableData.js'
 
 const SELECTION_FILTER_OPTIONS = [
     { value: SELECTION_FILTER_SELECTED, label: i18n.t('Selected') },
     { value: SELECTION_FILTER_NOT_SELECTED, label: i18n.t('Not selected') },
 ]
 
-// Every filterable column dispatches its dataFilters value straight through
-// to filterData against each layer's real feature properties (see
-// ThematicLayer.jsx/EventLayer.jsx/etc.).
 export const isFilterable = (dataKey, type) => !!type
-
-// Inverts selection scoped to the currently-filtered/visible rows only,
-// mirroring how the "select all" checkbox already treats them (see
-// onToggleSelectAll) - ids selected before a filter narrowed the rows stay
-// selected (offViewSelected), only the visible portion actually flips.
-export const getReversedSelection = (selectedIds, allRowIds) => {
-    const selectedIdSet = new Set(selectedIds)
-    const allRowIdSet = new Set(allRowIds)
-    const offViewSelected = selectedIds.filter((id) => !allRowIdSet.has(id))
-    const invertedVisible = allRowIds.filter((id) => !selectedIdSet.has(id))
-    return [...offViewSelected, ...invertedVisible]
-}
 
 const SelectionFilterButton = ({ value, onChange }) => {
     const anchorRef = useRef(null)
@@ -88,10 +79,6 @@ const SelectionFilterButton = ({ value, onChange }) => {
             ? i18n.t('All')
             : i18n.t('{{count}} selected', { count: value.length })
 
-    // Sits in the same sticky header row as every other column's FilterInput
-    // dropdown, so computing its placement the same way (rather than using
-    // @dhis2/ui's Popover, which flips independently based on its own
-    // available space) keeps it opening on the same side as the rest.
     const anchorRect = anchorRef.current?.getBoundingClientRect()
     const { dropdownPlacement } = getDropdownPlacement(anchorRect)
 
@@ -136,12 +123,6 @@ SelectionFilterButton.propTypes = {
 
 const topTooltipModifiers = [{ name: 'offset', options: { offset: [0, 4] } }]
 
-// @dhis2/ui's Tooltip always includes a flip modifier that checks the
-// nearest scrolling ancestor's clip box for room. The table header is
-// position:sticky, pinned to the top of that scrolling container, so the
-// flip modifier always reports "no room above" and flips the tooltip below
-// the icon - even though there's plenty of room on screen. This variant
-// skips the flip modifier so sort-icon tooltips stay pinned above the icon.
 const TopTooltip = ({ content, children }) => {
     const [open, setOpen] = useState(false)
     const referenceRef = useRef(null)
@@ -197,24 +178,17 @@ TopTooltip.propTypes = {
     content: PropTypes.node.isRequired,
 }
 
-const ASCENDING = 'asc'
-const DESCENDING = 'desc'
-
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'
 
-// Cycles a column through ascending -> descending -> none (natural order) ->
-// ascending... Once sortField is null, every column looks "unsorted" again,
-// so clicking any of them (including the one that was just cleared)
-// naturally restarts the cycle at ascending.
 export const getNextSorting = (name, { sortField, sortDirection }) => {
     if (name !== sortField) {
-        return { sortField: name, sortDirection: ASCENDING }
+        return { sortField: name, sortDirection: SORT_ASCENDING }
     }
-    if (sortDirection === ASCENDING) {
-        return { sortField: name, sortDirection: DESCENDING }
+    if (sortDirection === SORT_ASCENDING) {
+        return { sortField: name, sortDirection: SORT_DESCENDING }
     }
-    return { sortField: null, sortDirection: ASCENDING }
+    return { sortField: null, sortDirection: SORT_ASCENDING }
 }
 
 const getRowId = (row) =>
@@ -338,10 +312,7 @@ const Table = ({
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
-    const headerRowRef = useRef(null)
     const virtuosoRef = useRef(null)
-    const [columnWidths, setColumnWidths] = useState([])
-    const minColumnWidthsRef = useRef([])
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
 
@@ -357,7 +328,7 @@ const Table = ({
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
             sortField: 'name',
-            sortDirection: ASCENDING,
+            sortDirection: SORT_ASCENDING,
         }
     )
 
@@ -450,6 +421,12 @@ const Table = ({
         selectionFilter,
         selectedIdSet,
         globalSearch,
+    })
+
+    const { headerRowRef, columnWidths } = useColumnWidths({
+        availableWidth,
+        headers,
+        error,
     })
 
     useEffect(() => {
@@ -567,93 +544,14 @@ const Table = ({
         () => rows?.map(getRowId).filter(Boolean) ?? [],
         [rows]
     )
-    const allRowIdSet = useMemo(() => new Set(allRowIds), [allRowIds])
 
-    const isAllSelected = useMemo(
-        () =>
-            allRowIds.length > 0 &&
-            allRowIds.every((id) => selectedIdSet.has(id)),
-        [allRowIds, selectedIdSet]
-    )
-
-    const onToggleSelectAll = useCallback(() => {
-        const nextIds = isAllSelected
-            ? selectedIds.filter((id) => !allRowIdSet.has(id))
-            : [...new Set([...selectedIds, ...allRowIds])]
-
-        if (nextIds.length) {
-            dispatch(selectAllFeatures(nextIds, layer.id))
-        } else {
-            dispatch(clearSelection())
-        }
-    }, [dispatch, isAllSelected, allRowIds, allRowIdSet, selectedIds, layer.id])
-
-    const onReverseSelection = useCallback(() => {
-        const nextIds = getReversedSelection(selectedIds, allRowIds)
-
-        if (nextIds.length) {
-            dispatch(selectAllFeatures(nextIds, layer.id))
-        } else {
-            dispatch(clearSelection())
-        }
-    }, [dispatch, selectedIds, allRowIds, layer.id])
-
-    useEffect(() => {
-        // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
-        if (columnWidths.length === 0 && headerRowRef.current) {
-            const frameId = requestAnimationFrame(() => {
-                if (!headerRowRef.current) {
-                    return
-                }
-
-                const measuredColumnWidths = []
-
-                const dataCells = Array.from(headerRowRef.current.cells).slice(
-                    1
-                )
-
-                for (const cell of dataCells) {
-                    const rect = cell.getBoundingClientRect()
-                    measuredColumnWidths.push(Math.floor(rect.width))
-                }
-
-                minColumnWidthsRef.current = measuredColumnWidths
-                setColumnWidths(measuredColumnWidths)
-            })
-
-            return () => cancelAnimationFrame(frameId)
-        }
-    }, [columnWidths])
-
-    useEffect(() => {
-        // Reset to auto layout for re-measurement when headers change
-        if (!error) {
-            minColumnWidthsRef.current = []
-            setColumnWidths([])
-        }
-    }, [headers, error])
-
-    useEffect(() => {
-        // Scale column widths proportionally on resize, clamped to initial measured widths
-        if (!error) {
-            setColumnWidths((prev) => {
-                if (prev.length === 0) {
-                    return prev
-                }
-                const prevTotal = prev.reduce((sum, w) => sum + w, 0)
-                if (prevTotal === 0 || availableWidth === 0) {
-                    return []
-                }
-                const minWidths = minColumnWidthsRef.current
-                return prev.map((w, i) =>
-                    Math.max(
-                        minWidths[i] ?? 0,
-                        Math.round((w / prevTotal) * availableWidth)
-                    )
-                )
-            })
-        }
-    }, [availableWidth, error])
+    const { isAllSelected, onToggleSelectAll, onReverseSelection } =
+        useRowSelection({
+            selectedIds,
+            selectedIdSet,
+            allRowIds,
+            layerId: layer.id,
+        })
 
     if (error) {
         return <p className={styles.noSupport}>{error}</p>
@@ -689,14 +587,22 @@ const Table = ({
                             }
                         >
                             <div className={styles.checkboxHeaderContent}>
-                                <input
-                                    type="checkbox"
-                                    title={i18n.t('Select all')}
-                                    checked={isAllSelected}
-                                    onChange={onToggleSelectAll}
-                                />
                                 <TopTooltip
-                                    content={i18n.t('Reverse selection')}
+                                    content={i18n.t('Select all visible rows')}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        aria-label={i18n.t(
+                                            'Select all visible rows'
+                                        )}
+                                        checked={isAllSelected}
+                                        onChange={onToggleSelectAll}
+                                    />
+                                </TopTooltip>
+                                <TopTooltip
+                                    content={i18n.t(
+                                        'Reverse selection of visible rows'
+                                    )}
                                 >
                                     <button
                                         type="button"
@@ -717,13 +623,14 @@ const Table = ({
                                         data-test="data-table-column-sort-button-selected"
                                         onClick={() =>
                                             sortData({
-                                                name: SELECTED_SORT_KEY,
+                                                name: SENTINEL_SELECTED_ROW,
                                             })
                                         }
                                     >
                                         <SortIcon
                                             direction={
-                                                sortField === SELECTED_SORT_KEY
+                                                sortField ===
+                                                SENTINEL_SELECTED_ROW
                                                     ? sortDirection
                                                     : null
                                             }
@@ -836,10 +743,6 @@ const Table = ({
                                         [styles.monoCell]:
                                             dataKey === 'id' ||
                                             dataKey === 'color',
-                                        // The color cell's own background
-                                        // (below) is the whole point of that
-                                        // column - don't let hover/selection
-                                        // tint it out.
                                         [styles.selected]:
                                             isSelected && dataKey !== 'color',
                                         [styles.hovered]:

@@ -17,8 +17,6 @@ const mockStore = configureMockStore()
 const layer = { id: 'layer1', layer: FACILITY_LAYER, name: 'Test layer' }
 const contextMenu = { x: 10, y: 10, featureProps: {} }
 
-// @dhis2/ui's MenuItem puts `data-test` on the outer <li>, but `aria-disabled`
-// and the click handler both live on the inner <a role="menuitem">.
 const getZoomToFilteredLink = () =>
     screen
         .getByTestId('data-table-context-menu-zoom-to-filtered')

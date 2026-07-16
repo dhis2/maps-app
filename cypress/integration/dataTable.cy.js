@@ -36,7 +36,7 @@ const checkTableCell = ({ row = 0, column = 0, expectedContent }) => {
 }
 
 describe('data table', () => {
-    it('opens data table and filters and sorts', () => {
+    it('opens data table for a Thematic layer and filters and sorts', () => {
         const viewportHeight = Cypress.config('viewportHeight')
         const expectedBottoms1 = [viewportHeight]
         const expectedHeights1 = [
@@ -47,7 +47,7 @@ describe('data table', () => {
         cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        //check that the map resizes properly
+        // Check that the map resizes properly
         assertMapPosition(expectedBottoms1, expectedHeights1)
 
         cy.getByDataTest('moremenubutton').first().click()
@@ -62,10 +62,10 @@ describe('data table', () => {
             .contains('Show data table')
             .click()
 
-        //check that the bottom panel is present
+        // Check that the bottom panel is present
         cy.getByDataTest('bottom-panel').should('be.visible')
 
-        //check that the map resizes properly
+        // Check that the map resizes properly
         cy.getByDataTest('bottom-panel')
             .invoke('height')
             .then((height) => {
@@ -80,9 +80,7 @@ describe('data table', () => {
         // Collapse the Layers Panel to give the table more width
         cy.getByDataTest('layers-toggle-button').click()
 
-        // check number of columns
-        // (Legend + Color are merged into one swatch+name column for
-        // thematic layers, so this is one fewer than the number of headers)
+        // Check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
             .should('have.length', 10)
@@ -92,13 +90,13 @@ describe('data table', () => {
             .find('input')
             .type('bar{enter}')
 
-        // check that the filter returned the correct number of rows
+        // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 7)
 
-        // confirm that the sort order is initially ascending by Name
+        // Confirm that the sort order is initially ascending by Name
         checkTableCell({ row: 0, column: 2, expectedContent: 'Bargbe' })
         checkTableCell({ row: 6, column: 2, expectedContent: 'Upper Bambara' })
 
@@ -110,16 +108,16 @@ describe('data table', () => {
         // so we reset to top before asserting on row indices below
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        // confirm that the rows are sorted by Name descending
+        // Confirm that the rows are sorted by Name descending
         checkTableCell({ row: 0, column: 2, expectedContent: 'Upper Bambara' })
         checkTableCell({ row: 6, column: 2, expectedContent: 'Bargbe' })
 
-        // filter by Value (numeric)
+        // Filter by Value (numeric)
         cy.getByDataTest('data-table-column-filter-search-Value')
             .find('input')
             .type('>26{enter}')
 
-        // check that the (combined) filter returned the correct number of rows
+        // Check that the (combined) filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
@@ -131,11 +129,11 @@ describe('data table', () => {
         // Reset scroll position after sorting - see comment above
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        // check that the rows are sorted by Value ascending
+        // Check that the rows are sorted by Value ascending
         checkTableCell({ row: 0, column: 4, expectedContent: '35' })
         checkTableCell({ row: 4, column: 4, expectedContent: '76' })
 
-        // right-click a row and select "View profile"
+        // Right-click a row and select "View profile"
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
@@ -144,26 +142,26 @@ describe('data table', () => {
 
         cy.getByDataTest('data-table-context-menu-view-profile').click()
 
-        // check that the org unit profile drawer is opened
+        // Check that the org unit profile drawer is opened
         cy.getByDataTest('org-unit-profile').should('be.visible')
 
         cy.getByDataTest('layers-toggle-button').click()
 
-        // close the datatable
+        // Close the datatable
         cy.getByDataTest('moremenubutton').first().click()
         cy.getByDataTest('more-menu')
             .find('li')
             .contains('Hide data table')
             .click()
 
-        //check that the bottom panel is closed
+        // Check that the bottom panel is closed
         cy.getByDataTest('bottom-panel').should('not.exist')
 
-        //check that the map resizes properly
+        // Check that the map resizes properly
         assertMapPosition(expectedBottoms1, expectedHeights1)
     })
 
-    it('opens the data table for an Event layer', () => {
+    it('opens data table for an Event layer', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         const EvenLayer = new EventLayer()
@@ -194,7 +192,7 @@ describe('data table', () => {
         // Collapse the Layers Panel to give the table more width
         cy.getByDataTest('layers-toggle-button').click()
 
-        // check number of columns
+        // Check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
             .should('have.length', 11)
@@ -204,13 +202,13 @@ describe('data table', () => {
             .contains('Age in years', { matchCase: false })
             .should('be.visible')
 
-        // filter by Org unit
+        // Filter by Org unit
         const ouName = 'Moyowa'
         cy.getByDataTest('data-table-column-filter-search-Org unit')
             .find('input')
             .type(`${ouName}{enter}`)
 
-        // check that all the rows have Org unit Moyowa
+        // Check that all the rows have Org unit Moyowa
         checkTableCell({ row: 0, column: 2, expectedContent: ouName })
         checkTableCell({ row: 2, column: 2, expectedContent: ouName })
 
@@ -219,7 +217,7 @@ describe('data table', () => {
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 3)
 
-        // filter by Mode of Discharge
+        // Filter by Mode of Discharge
         cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
             .find('input')
             .type('Absconded')
@@ -239,12 +237,12 @@ describe('data table', () => {
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 3)
 
-        // filter by Age in years (numeric)
+        // Filter by Age in years (numeric)
         cy.getByDataTest('data-table-column-filter-search-Age in years')
             .find('input')
             .type('<51{enter}')
 
-        // check that the filter returned the correct number of rows
+        // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
@@ -258,7 +256,7 @@ describe('data table', () => {
         checkTableCell({ row: 0, column: 8, expectedContent: '6' })
         checkTableCell({ row: 1, column: 8, expectedContent: '32' })
 
-        // right-click a row: Event layers have no profile to view
+        // Right-click a row: Event layers have no profile to view
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
@@ -269,7 +267,7 @@ describe('data table', () => {
             'not.exist'
         )
 
-        // check that the org unit profile drawer is NOT opened
+        // Check that the org unit profile drawer is NOT opened
         cy.getByDataTest('org-unit-profile').should('not.exist')
     })
 
