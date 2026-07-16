@@ -77,7 +77,7 @@ jobs:
               run: yarn d2-app-scripts i18n generate
 
             - name: Test
-              run: yarn d2-app-scripts test
+              run: yarn d2-app-scripts test --coverage
 
     call-workflow-e2e-prod:
         if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
