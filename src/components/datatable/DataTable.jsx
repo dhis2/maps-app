@@ -245,35 +245,6 @@ export const getRowClickAction = (
     return null
 }
 
-// Thematic layers merge their legend name + color into one swatch+name
-// cell (see hasLegendColorPair); every other column is either the raw
-// color's own cell (lowercased hex) or a plain formatted value.
-const getCellContent = ({
-    isLegendCell,
-    swatchColor,
-    value,
-    dataKey,
-    keyAnalysisDigitGroupSeparator,
-}) => {
-    if (isLegendCell) {
-        return (
-            <span className={styles.legendCell}>
-                {swatchColor && (
-                    <span
-                        className={styles.legendSwatch}
-                        style={{ backgroundColor: swatchColor }}
-                    />
-                )}
-                {value}
-            </span>
-        )
-    }
-    if (dataKey === 'color') {
-        return value?.toLowerCase()
-    }
-    return formatWithSeparator(value, keyAnalysisDigitGroupSeparator)
-}
-
 const DataTableWithVirtuosoContext = ({ context, ...props }) => (
     <DataTable
         {...props}
@@ -688,15 +659,6 @@ const Table = ({
         return <p className={styles.noSupport}>{error}</p>
     }
 
-    // Thematic layers carry both a `legend` (name) and `color` (hex) column;
-    // merge them into one swatch+name cell instead of two separate columns.
-    const hasLegendColorPair =
-        headers.some((h) => h.dataKey === 'legend') &&
-        headers.some((h) => h.dataKey === 'color')
-    const visibleHeaders = hasLegendColorPair
-        ? headers.filter((h) => h.dataKey !== 'color')
-        : headers
-
     return (
         <>
             <TableVirtuoso
@@ -770,7 +732,7 @@ const Table = ({
                                 </TopTooltip>
                             </div>
                         </DataTableColumnHeader>
-                        {visibleHeaders.map(
+                        {headers.map(
                             ({ name, dataKey, type, optionSet }, index) => (
                                 <DataTableColumnHeader
                                     className={styles.columnHeader}
@@ -863,53 +825,39 @@ const Table = ({
                                     onClick={(e) => e.stopPropagation()}
                                 />
                             </DataTableCell>
-                            {row
-                                .filter(
-                                    ({ dataKey }) =>
-                                        !hasLegendColorPair ||
-                                        dataKey !== 'color'
-                                )
-                                .map(({ dataKey, value, align }) => {
-                                    const isLegendCell =
-                                        hasLegendColorPair &&
-                                        dataKey === 'legend'
-                                    const swatchColor = isLegendCell
-                                        ? row.find((c) => c.dataKey === 'color')
-                                              ?.value
-                                        : null
-
-                                    return (
-                                        <DataTableCell
-                                            key={`dtcell-${dataKey}`}
-                                            staticStyle
-                                            className={cx(styles.dataCell, {
-                                                [styles.lightText]:
-                                                    !hasLegendColorPair &&
-                                                    dataKey === 'color' &&
-                                                    isDarkColor(value),
-                                                [styles.monoCell]:
-                                                    dataKey === 'id',
-                                                [styles.selected]: isSelected,
-                                                [styles.hovered]: isHovered,
-                                            })}
-                                            backgroundColor={
-                                                !hasLegendColorPair &&
-                                                dataKey === 'color'
-                                                    ? value
-                                                    : null
-                                            }
-                                            align={align}
-                                        >
-                                            {getCellContent({
-                                                isLegendCell,
-                                                swatchColor,
-                                                value,
-                                                dataKey,
-                                                keyAnalysisDigitGroupSeparator,
-                                            })}
-                                        </DataTableCell>
-                                    )
-                                })}
+                            {row.map(({ dataKey, value, align }) => (
+                                <DataTableCell
+                                    key={`dtcell-${dataKey}`}
+                                    staticStyle
+                                    className={cx(styles.dataCell, {
+                                        [styles.lightText]:
+                                            dataKey === 'color' &&
+                                            isDarkColor(value),
+                                        [styles.monoCell]:
+                                            dataKey === 'id' ||
+                                            dataKey === 'color',
+                                        // The color cell's own background
+                                        // (below) is the whole point of that
+                                        // column - don't let hover/selection
+                                        // tint it out.
+                                        [styles.selected]:
+                                            isSelected && dataKey !== 'color',
+                                        [styles.hovered]:
+                                            isHovered && dataKey !== 'color',
+                                    })}
+                                    backgroundColor={
+                                        dataKey === 'color' ? value : null
+                                    }
+                                    align={align}
+                                >
+                                    {dataKey === 'color'
+                                        ? value?.toLowerCase()
+                                        : formatWithSeparator(
+                                              value,
+                                              keyAnalysisDigitGroupSeparator
+                                          )}
+                                </DataTableCell>
+                            ))}
                         </>
                     )
                 }}
