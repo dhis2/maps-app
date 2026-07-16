@@ -20,7 +20,7 @@ const LayerSource = ({ layerSource, isAdded, onShow, onHide }) => {
                 dense={false}
                 onChange={() => {}}
             />
-            <img src={img} className={styles.image} />
+            <img src={img} alt="" className={styles.image} />
             <div className={styles.layerSourceInfo}>
                 <h2>{name}</h2>
                 <p>{description}</p>

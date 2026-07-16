@@ -167,7 +167,7 @@ const EarthEngineDialog = (props) => {
         if (validateLayer) {
             const errorStyleSelect = getStyleSelectError(style)
             const noPeriodSelected = periodType && !period
-            const noBandSelected = bands && (!band || !band.length)
+            const noBandSelected = bands && !band?.length
 
             const isValid =
                 !noBandSelected && !noPeriodSelected && !errorStyleSelect
@@ -208,7 +208,7 @@ const EarthEngineDialog = (props) => {
         onLayerValidation,
     ])
 
-    if (error && error.type === 'engine') {
+    if (error?.type === 'engine') {
         return (
             <div className={styles.flexRowFlow}>
                 <NoticeBox {...error}>{error.message}</NoticeBox>
@@ -266,9 +266,7 @@ const EarthEngineDialog = (props) => {
                         {bands && (
                             <BandSelect
                                 errorText={
-                                    error &&
-                                    error.type === 'band' &&
-                                    error.message
+                                    error?.type === 'band' && error.message
                                 }
                             />
                         )}
@@ -344,9 +342,7 @@ const EarthEngineDialog = (props) => {
                             onChange={setEarthEnginePeriod}
                             onError={setError}
                             errorText={
-                                error &&
-                                error.type === 'period' &&
-                                error.message
+                                error?.type === 'period' && error.message
                             }
                             className={styles.flexRowFlow}
                         />

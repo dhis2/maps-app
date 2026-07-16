@@ -55,8 +55,7 @@ const isValidRel = (rel, type, id) =>
 const isIndexInstance = (instance, type, targetInstanceIds) => {
     const alwaysBidirectional = false // We might want to have a setting to be able to see relationship no mater if primary is source or target
     let hasChildren = false
-    for (let i = 0; i < instance.relationships.length; ++i) {
-        const rel = instance.relationships[i]
+    for (const rel of instance.relationships) {
         if (rel.relationshipType !== type) {
             continue
         }

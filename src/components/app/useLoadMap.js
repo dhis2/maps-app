@@ -143,6 +143,6 @@ export const useLoadMap = () => {
             previousParamsRef.current = params
         })
 
-        return () => unlisten && unlisten()
+        return () => unlisten?.()
     }, [loadMap, dispatch])
 }

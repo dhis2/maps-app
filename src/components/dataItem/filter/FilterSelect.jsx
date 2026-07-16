@@ -67,7 +67,7 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
                     items={operators}
                     value={operator}
                     onChange={(newOperator) =>
-                        onChange(`${newOperator.id}:${value ? value : ''}`)
+                        onChange(`${newOperator.id}:${value || ''}`)
                     }
                     className={styles.operator}
                 />
@@ -101,7 +101,7 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
             {booleanValueTypes.includes(valueType) && (
                 <Checkbox
                     label={i18n.t('Yes')}
-                    checked={value == 1 ? true : false}
+                    checked={value == 1}
                     onChange={(isChecked) =>
                         onChange(isChecked ? 'IN:1' : 'IN:0')
                     }

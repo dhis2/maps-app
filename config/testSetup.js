@@ -12,7 +12,7 @@ global.CSS.supports = () => true
 React.useLayoutEffect = React.useEffect
 
 // https://stackoverflow.com/questions/57943736/how-to-fix-window-url-createobjecturl-is-not-a-function-when-testing-mapbox-gl
-if (typeof window.URL.createObjectURL === 'undefined') {
+if (window.URL.createObjectURL === undefined) {
     window.URL.createObjectURL = () => {}
 }
 
