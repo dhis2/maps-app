@@ -1,9 +1,5 @@
 import Layer from '../Layer.js'
 
-// Layer's constructor touches this.context.map (only available once mounted
-// by React), but getVisibleIds/getSelectedIds only read this.props, so an
-// un-constructed instance (no context, no maps-gl layer) is enough to test
-// this method in isolation.
 const createLayer = (props) => {
     const instance = Object.create(Layer.prototype)
     instance.props = props

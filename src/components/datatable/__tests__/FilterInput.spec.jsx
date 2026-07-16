@@ -7,8 +7,8 @@ import {
     DATA_FILTER_SET,
     DATA_FILTER_CLEAR,
 } from '../../../constants/actionTypes.js'
+import { SENTINEL_ANY_VALUE } from '../../../constants/dataTable.js'
 import useOptionSet from '../../../hooks/useOptionSet.js'
-import { ANY_VALUE_KEY } from '../../../util/filter.js'
 import FilterInput from '../FilterInput.jsx'
 
 jest.mock('../../../hooks/useOptionSet.js', () => ({
@@ -25,9 +25,7 @@ const renderFilterInput = (props, dataFilters) => {
             mapViews: [{ id: 'layer1', dataFilters: dataFilters || {} }],
         },
     })
-    // The checkbox list is virtualized (react-virtuoso) - jsdom doesn't do
-    // real layout, so without this fixed-size mock context Virtuoso thinks
-    // the viewport is 0px tall and renders no rows at all.
+    // The checkbox list is virtualized (react-virtuoso)
     const result = render(
         <Provider store={store}>
             <VirtuosoMockContext.Provider
@@ -45,10 +43,7 @@ const renderFilterInput = (props, dataFilters) => {
     return { ...result, store }
 }
 
-// The trigger and the dropdown's search field are the same <Input> (see
-// FilterInput.jsx) - test-ids are keyed by the column's display `name`,
-// not its `dataKey`, since dataKey can be an opaque uid for event custom
-// fields but name is always the human-readable label cypress/users see.
+// The trigger and the dropdown's search field are the same <Input>
 const getInput = (name) =>
     screen
         .getByTestId(`data-table-column-filter-search-${name}`)
@@ -477,18 +472,11 @@ describe('FilterInput searchable popover — keyboard behavior', () => {
 describe('FilterInput searchable popover — clear filter', () => {
     const options = [{ value: 'High' }, { value: 'Low' }]
 
-    // The clear-x is @dhis2/ui's own Input `clearable` button now (not a
-    // custom-positioned element) - it fires the same onChange({value:''})
-    // as manually clearing the text, which is exactly what's exercised here.
-
     test('clearing an active array (checkbox) filter closes it out', () => {
         const { store } = renderFilterInput(
             { dataKey: 'legend', name: 'Legend', options },
             { legend: ['High'] }
         )
-        // Cleared from the closed state, where the input shows "1 selected" -
-        // opening first would reset the search text to '' (array filters
-        // have no string to prefill), leaving nothing to actually clear.
         fireEvent.change(getInput('Legend'), { target: { value: '' } })
         expect(store.getActions()).toContainEqual({
             type: DATA_FILTER_CLEAR,
@@ -522,7 +510,7 @@ describe('FilterInput searchable popover — clear filter', () => {
         expect(store.getActions()).toEqual([])
     })
 
-    test('checking the pinned "Any value" option collapses any existing selection into just ANY_VALUE_KEY', () => {
+    test('checking the pinned "Any value" option collapses any existing selection into just SENTINEL_ANY_VALUE', () => {
         const { store } = renderFilterInput(
             { dataKey: 'legend', name: 'Legend', options },
             { legend: ['High'] }
@@ -533,7 +521,7 @@ describe('FilterInput searchable popover — clear filter', () => {
             type: DATA_FILTER_SET,
             layerId: 'layer1',
             fieldId: 'legend',
-            filter: [ANY_VALUE_KEY],
+            filter: [SENTINEL_ANY_VALUE],
         })
     })
 
@@ -549,7 +537,7 @@ describe('FilterInput searchable popover — clear filter', () => {
     test('"Any value" stays checked when it is explicitly selected', () => {
         renderFilterInput(
             { dataKey: 'legend', name: 'Legend', options },
-            { legend: [ANY_VALUE_KEY] }
+            { legend: [SENTINEL_ANY_VALUE] }
         )
         openPopover('Legend')
         expect(screen.getByLabelText('Any value')).toBeChecked()
@@ -622,7 +610,7 @@ describe('FilterInput searchable popover — reverse selection', () => {
             type: DATA_FILTER_SET,
             layerId: 'layer1',
             fieldId: 'legend',
-            filter: [ANY_VALUE_KEY],
+            filter: [SENTINEL_ANY_VALUE],
         })
     })
 
@@ -679,7 +667,7 @@ describe('FilterInput searchable popover — reverse selection', () => {
             type: DATA_FILTER_SET,
             layerId: 'layer1',
             fieldId: 'parentName',
-            filter: [ANY_VALUE_KEY, ''],
+            filter: [SENTINEL_ANY_VALUE, ''],
         })
     })
 
@@ -687,7 +675,7 @@ describe('FilterInput searchable popover — reverse selection', () => {
         const options = [{ value: 'High' }, { value: 'Low' }]
         const { store } = renderFilterInput(
             { dataKey: 'legend', name: 'Legend', options },
-            { legend: ['High', ANY_VALUE_KEY] }
+            { legend: ['High', SENTINEL_ANY_VALUE] }
         )
         openPopover('Legend')
         fireEvent.click(getReverseButton('Legend'))
@@ -702,7 +690,7 @@ describe('FilterInput searchable popover — reverse selection', () => {
         const options = [{ value: '' }, { value: 'Country' }]
         const { store } = renderFilterInput(
             { dataKey: 'parentName', name: 'Parent', options },
-            { parentName: [ANY_VALUE_KEY] }
+            { parentName: [SENTINEL_ANY_VALUE] }
         )
         openPopover('Parent')
         fireEvent.click(getReverseButton('Parent'))
@@ -725,8 +713,6 @@ describe('FilterInput searchable popover — reverse selection', () => {
             { legend: ['High'] }
         )
         openPopover('Legend')
-        // Narrows the visible checkbox list down to just "Low" - if reverse
-        // scoped itself to that, the result would only ever mention "Low".
         fireEvent.change(getInput('Legend'), { target: { value: 'lo' } })
         fireEvent.click(getReverseButton('Legend'))
         expect(store.getActions()).toContainEqual({
@@ -750,7 +736,7 @@ describe('FilterInput searchable popover — "Any value" / real value interactio
     test('every real value reads as checked while "Any value" is active', () => {
         renderFilterInput(
             { dataKey: 'legend', name: 'Legend', options },
-            { legend: [ANY_VALUE_KEY] }
+            { legend: [SENTINEL_ANY_VALUE] }
         )
         openPopover('Legend')
         expect(screen.getByLabelText('High')).toBeChecked()
@@ -765,7 +751,7 @@ describe('FilterInput searchable popover — "Any value" / real value interactio
                 name: 'Parent',
                 options: [{ value: '' }, { value: 'Country' }],
             },
-            { parentName: [ANY_VALUE_KEY] }
+            { parentName: [SENTINEL_ANY_VALUE] }
         )
         openPopover('Parent')
         expect(screen.getByLabelText('No value')).not.toBeChecked()
@@ -774,7 +760,7 @@ describe('FilterInput searchable popover — "Any value" / real value interactio
     test('unticking one real value while "Any value" is active unticks "Any value" too, but keeps every other value ticked', () => {
         const { store } = renderFilterInput(
             { dataKey: 'legend', name: 'Legend', options },
-            { legend: [ANY_VALUE_KEY] }
+            { legend: [SENTINEL_ANY_VALUE] }
         )
         openPopover('Legend')
         fireEvent.click(screen.getByLabelText('Medium'))
@@ -793,7 +779,7 @@ describe('FilterInput searchable popover — "Any value" / real value interactio
                 name: 'Parent',
                 options: [{ value: '' }, { value: 'A' }, { value: 'B' }],
             },
-            { parentName: [ANY_VALUE_KEY, ''] }
+            { parentName: [SENTINEL_ANY_VALUE, ''] }
         )
         openPopover('Parent')
         fireEvent.click(screen.getByLabelText('A'))
@@ -816,7 +802,7 @@ describe('FilterInput searchable popover — "Any value" / real value interactio
             type: DATA_FILTER_SET,
             layerId: 'layer1',
             fieldId: 'legend',
-            filter: [ANY_VALUE_KEY],
+            filter: [SENTINEL_ANY_VALUE],
         })
     })
 
@@ -835,14 +821,14 @@ describe('FilterInput searchable popover — "Any value" / real value interactio
             type: DATA_FILTER_SET,
             layerId: 'layer1',
             fieldId: 'parentName',
-            filter: [ANY_VALUE_KEY, ''],
+            filter: [SENTINEL_ANY_VALUE, ''],
         })
     })
 
     test('unchecking "Any value" unticks every real value too, not just the wildcard', () => {
         const { store } = renderFilterInput(
             { dataKey: 'legend', name: 'Legend', options },
-            { legend: [ANY_VALUE_KEY] }
+            { legend: [SENTINEL_ANY_VALUE] }
         )
         openPopover('Legend')
         fireEvent.click(screen.getByLabelText('Any value'))
@@ -860,7 +846,7 @@ describe('FilterInput searchable popover — "Any value" / real value interactio
                 name: 'Parent',
                 options: [{ value: '' }, { value: 'Country' }],
             },
-            { parentName: [ANY_VALUE_KEY, ''] }
+            { parentName: [SENTINEL_ANY_VALUE, ''] }
         )
         openPopover('Parent')
         fireEvent.click(screen.getByLabelText('Any value'))

@@ -5,7 +5,7 @@
     width: 100%;
     height: var(--data-table-height);
     z-index: 1040;
-    background: #fff;
+    background: var(--colors-white);
     display: flex;
     flex-direction: column;
 }
@@ -88,8 +88,8 @@
 
 .clearBadge {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
     width: 8px;
     height: 8px;
     background: var(--colors-grey100);
@@ -171,6 +171,7 @@
     background-color: var(--colors-blue200);
 }
 
+/* !important beats @dhis2/ui's own ColorPicker field margin. */
 .highlightColorPicker {
     margin-bottom: 0 !important;
     flex-shrink: 0;
@@ -180,6 +181,7 @@
     top: -1px;
 }
 
+/* !important beats @dhis2/ui's own ColorPicker label size. */
 .highlightColorPicker label {
     box-sizing: border-box;
     overflow: hidden;
