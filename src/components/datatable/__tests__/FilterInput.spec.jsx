@@ -16,6 +16,12 @@ jest.mock('../../../hooks/useOptionSet.js', () => ({
     default: jest.fn(),
 }))
 
+jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
+    useCachedData: () => ({
+        systemSettings: { keyAnalysisDigitGroupSeparator: 'COMMA' },
+    }),
+}))
+
 const mockStore = configureMockStore()
 
 const renderFilterInput = (props, dataFilters) => {
@@ -193,6 +199,27 @@ describe('FilterInput multi-select path (no optionSetId)', () => {
         expect(
             screen.getByLabelText('abc123').closest('.monoOption')
         ).toBeInTheDocument()
+    })
+
+    test('formats numeric column options with the system digit group separator', () => {
+        renderFilterInput({
+            dataKey: 'value',
+            name: 'Value',
+            type: 'number',
+            options: [{ value: '1234567' }],
+        })
+        openPopover('Value')
+        expect(screen.getByLabelText('1,234,567')).toBeInTheDocument()
+    })
+
+    test('does not format non-numeric column options', () => {
+        renderFilterInput({
+            dataKey: 'legend',
+            name: 'Legend',
+            options: [{ value: '1000' }],
+        })
+        openPopover('Legend')
+        expect(screen.getByLabelText('1000')).toBeInTheDocument()
     })
 })
 
