@@ -7,22 +7,28 @@
     user-select: none;
 }
 
-td.dataCell {
+/* A pinned column's cells render as <th> (@dhis2/ui's DataTableCell switches
+   element on `fixed`), so these need to match both td and th. */
+td.dataCell,
+th.dataCell {
     padding-top: var(--spacers-dp8);
     padding-bottom: var(--spacers-dp8);
     font-size: 11px;
     overflow-wrap: anywhere;
 }
 
-td.dataCell:hover {
+td.dataCell:hover,
+th.dataCell:hover {
     cursor: default;
 }
 
-td.lightText {
+td.lightText,
+th.lightText {
     color: var(--colors-white);
 }
 
-td.monoCell {
+td.monoCell,
+th.monoCell {
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
@@ -71,12 +77,18 @@ td.checkboxCell {
     font-size: 11px !important;
 }
 
-td.selected {
+td.selected,
+th.selected {
     background-color: var(--colors-blue050);
 }
 
-td.hovered {
+td.hovered,
+th.hovered {
     background-color: var(--colors-blue100);
+}
+
+.pinnedColumnShadow {
+    box-shadow: 2px 0 4px -2px rgba(12, 14, 16, 0.15);
 }
 
 .columnHeader > :global(span.container),
