@@ -30,6 +30,7 @@ import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
 import ColorPicker from '../core/ColorPicker.jsx'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
+import ColumnPicker from './ColumnPicker.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import ResizeHandle from './ResizeHandle.jsx'
@@ -64,6 +65,7 @@ const BottomPanel = () => {
     const [nameTooltipPos, setNameTooltipPos] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [globalSearch, setGlobalSearch] = useState('')
+    const [allHeaders, setAllHeaders] = useState(null)
 
     const hasActiveFilters =
         Object.keys(dataFilters).length > 0 ||
@@ -111,6 +113,18 @@ const BottomPanel = () => {
         setTotalCount(total)
         setFilteredCount(filtered)
     }, [])
+
+    const onHeadersChange = useCallback((headers) => {
+        setAllHeaders(headers)
+    }, [])
+
+    // Clear immediately on layer switch, rather than waiting for
+    // DataTable's own headers effect to catch up - otherwise ColumnPicker
+    // would briefly show the previous layer's columns alongside the new
+    // layer's dataTableColumnConfig.
+    useEffect(() => {
+        setAllHeaders(null)
+    }, [activeLayerId])
 
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))
@@ -305,6 +319,12 @@ const BottomPanel = () => {
                     </Tooltip>
                 </button>
                 <span className={styles.divider} />
+                <ColumnPicker
+                    layerId={activeLayerId}
+                    allHeaders={allHeaders}
+                    columnConfig={activeLayer?.dataTableColumnConfig}
+                />
+                <span className={styles.divider} />
                 <button
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}
@@ -322,6 +342,7 @@ const BottomPanel = () => {
                         <DataTable
                             availableWidth={panelWidth}
                             onCountChange={onCountChange}
+                            onHeadersChange={onHeadersChange}
                             globalSearch={globalSearch}
                             onClearFilters={onClearFilters}
                         />
