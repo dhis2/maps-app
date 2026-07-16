@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { Input, Popper, Portal, IconFilter16, IconSync16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Virtuoso } from 'react-virtuoso'
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
@@ -30,6 +30,11 @@ import styles from './styles/FilterInput.module.css'
 const OPTION_ROW_HEIGHT = 28 // Checkbox rows are a fixed height so the list can be virtualized
 const MAX_LIST_HEIGHT = 260
 const MIN_POPOVER_WIDTH = 140
+const MAX_POPOVER_WIDTH = 280
+// Checkbox icon + its margin, popover padding (both sides) and the
+// scrollbar .multiSelectPopover's overflow-y: auto can show - none of
+// which is part of the label text itself.
+const POPOVER_ROW_CHROME_WIDTH = 56
 const NUMERIC_HELP_HEIGHT = 140
 const TEXT_HELP_HEIGHT = 56
 const NUMERIC_FILTER_HELP = (
@@ -49,6 +54,24 @@ const TEXT_FILTER_HELP = (
     </div>
 )
 const NUMERIC_INPUT_DISALLOWED = /[^0-9.\-<>=,&\s]/g
+
+// Options render through react-virtuoso, which positions rows absolutely
+// for virtualization - out-of-flow content like that is excluded from CSS's
+// own intrinsic (max-content) sizing, so a container can never grow to fit
+// virtualized content via CSS alone. Measuring the label text directly is
+// the standard workaround.
+let measureCanvasContext = null
+const measureMaxTextWidth = (texts, font) => {
+    if (!measureCanvasContext) {
+        measureCanvasContext = document.createElement('canvas').getContext('2d')
+    }
+    measureCanvasContext.font = font
+    return texts.reduce(
+        (max, text) =>
+            Math.max(max, measureCanvasContext.measureText(text).width),
+        0
+    )
+}
 
 const helpTooltipModifiers = [
     { name: 'offset', options: { offset: [0, 4] } },
@@ -196,7 +219,6 @@ const SearchableFilterPopover = ({
     const closePopover = () => setIsOpen(false)
 
     const anchorRect = anchorRef.current?.getBoundingClientRect()
-    const anchorWidth = anchorRect?.width
     const { dropdownPlacement, dropdownSide, tooltipPlacement } =
         getDropdownPlacement(anchorRect)
 
@@ -225,6 +247,23 @@ const SearchableFilterPopover = ({
     )
     const realValues = realOptions.map((o) => o.value)
     const anyValueActive = selected.includes(SENTINEL_ANY_VALUE)
+
+    const popoverWidth = useMemo(() => {
+        const labels = realOptions.map((o) => resolveLabel(o.value))
+        if (hasNotSetOption) {
+            labels.push(resolveLabel(SENTINEL_NO_VALUE))
+        }
+        const font = `11px ${getComputedStyle(document.body).fontFamily}`
+        const maxLabelWidth = measureMaxTextWidth(labels, font)
+        return Math.min(
+            Math.max(
+                maxLabelWidth + POPOVER_ROW_CHROME_WIDTH,
+                MIN_POPOVER_WIDTH
+            ),
+            MAX_POPOVER_WIDTH
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [realOptions, hasNotSetOption])
 
     const onToggleAnyValue = () => applyValues(toggleAnyValue(selected))
 
@@ -406,14 +445,7 @@ const SearchableFilterPopover = ({
                         className={cx(styles.searchableFilterPopover, {
                             [styles.reversedOrder]: dropdownSide === 'top',
                         })}
-                        style={{
-                            minWidth: anchorWidth
-                                ? `${Math.max(
-                                      anchorWidth,
-                                      MIN_POPOVER_WIDTH
-                                  )}px`
-                                : undefined,
-                        }}
+                        style={{ width: `${popoverWidth}px` }}
                     >
                         {showCustomFilterRow && (
                             <button
@@ -454,7 +486,7 @@ const SearchableFilterPopover = ({
                                 checked={anyValueActive}
                                 onChange={onToggleAnyValue}
                                 className={styles.specialOption}
-                                style={{ margin: '4px 0' }}
+                                style={{ margin: 0, padding: '4px 0' }}
                                 dataTest={`data-table-column-filter-any-${name}`}
                             />
                             {hasNotSetOption && (
@@ -467,7 +499,7 @@ const SearchableFilterPopover = ({
                                         toggleValue(SENTINEL_NO_VALUE)
                                     }
                                     className={styles.specialOption}
-                                    style={{ margin: '4px 0' }}
+                                    style={{ margin: 0, padding: '4px 0' }}
                                     dataTest={`data-table-column-filter-novalue-${name}`}
                                 />
                             )}
@@ -524,7 +556,10 @@ const SearchableFilterPopover = ({
                                                         : index) &&
                                                     styles.highlighted
                                             )}
-                                            style={{ margin: '4px 0' }}
+                                            style={{
+                                                margin: 0,
+                                                padding: '4px 0',
+                                            }}
                                         />
                                     )}
                                 />
