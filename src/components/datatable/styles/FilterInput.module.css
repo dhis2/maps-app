@@ -104,6 +104,11 @@
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
+.denseCheckbox {
+    margin: 0;
+    padding: 4px 0;
+}
+
 /* !important beats @dhis2/ui's own Checkbox label color. */
 .specialOption :global(label) {
     color: var(--colors-grey700) !important;
