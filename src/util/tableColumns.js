@@ -35,6 +35,9 @@ export const getVisibleHeaders = (headers, columnConfig) => {
 }
 
 export const getPinnedCount = (orderedHeaders, pinnedKeys) => {
+    if (!orderedHeaders?.length || !pinnedKeys?.length) {
+        return 0
+    }
     let count = 0
     for (const header of orderedHeaders) {
         if (!pinnedKeys.includes(header.dataKey)) {
@@ -64,6 +67,22 @@ export const reverseVisibleKeys = (headers, visibleKeys) =>
     headers
         .filter((h) => !visibleKeys.includes(h.dataKey))
         .map((h) => h.dataKey)
+
+// @dhis2/ui requires `width` whenever `fixed` is passed
+export const getPinnedCellProps = (
+    dataKey,
+    index,
+    { pinnedLeftOffsets, pinnedColumnCount, columnWidths }
+) => {
+    const leftOffset = pinnedLeftOffsets[dataKey]
+    const isPinned = index < pinnedColumnCount && leftOffset !== undefined
+    return {
+        fixed: isPinned,
+        left: isPinned ? `${leftOffset}px` : undefined,
+        width: isPinned ? `${columnWidths[index] ?? 0}px` : undefined,
+        isLastPinned: index === pinnedColumnCount - 1,
+    }
+}
 
 export const getPinnedLeftOffsets = (
     visibleHeaders,
