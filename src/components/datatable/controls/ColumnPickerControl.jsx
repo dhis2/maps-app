@@ -30,14 +30,15 @@ import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useDispatch } from 'react-redux'
-import { setDataTableColumnConfig } from '../../actions/dataTable.js'
-import { getVisibleHeaders } from '../../util/tableColumns.js'
-import Checkbox from '../core/Checkbox.jsx'
+import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
+import { getVisibleHeaders } from '../../../util/tableColumns.js'
+import Checkbox from '../../core/Checkbox.jsx'
 import {
     FilterDropdownPopover,
     getDropdownPlacement,
-} from './FilterDropdownPopover.jsx'
-import styles from './styles/ColumnPicker.module.css'
+} from '../FilterDropdownPopover.jsx'
+import styles from './styles/ColumnPickerControl.module.css'
+import ToolbarIconButton from './ToolbarIconButton.jsx'
 
 // Higher than this codebase's usual z-index: 2000 "float above everything"
 // convention (e.g. DataTable.module.css's .topTooltipContent), since the
@@ -81,7 +82,7 @@ const ColumnRowFields = ({
         <>
             <button
                 type="button"
-                className={styles.dragHandle}
+                className={cx(styles.rowIconButton, styles.dragHandle)}
                 aria-label={dragLabel}
                 data-test={`data-table-column-picker-drag-${header.dataKey}${dataTestSuffix}`}
                 draggable={false}
@@ -106,7 +107,7 @@ const ColumnRowFields = ({
             />
             <button
                 type="button"
-                className={cx(styles.pinButton, {
+                className={cx(styles.rowIconButton, styles.pinButton, {
                     [styles.pinButtonActive]: isPinned,
                 })}
                 aria-label={pinLabel}
@@ -198,7 +199,7 @@ ColumnRow.propTypes = {
     onToggleVisible: PropTypes.func.isRequired,
 }
 
-const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
+const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
     const dispatch = useDispatch()
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -303,21 +304,16 @@ const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
 
     return (
         <>
-            <button
-                type="button"
+            <ToolbarIconButton
                 ref={anchorRef}
-                className={styles.triggerButton}
+                tooltip={i18n.t('Configure columns')}
+                ariaLabel={i18n.t('Configure columns')}
+                dataTest="data-table-column-picker-button"
                 disabled={!headers.length}
-                aria-label={i18n.t('Configure columns')}
-                data-test="data-table-column-picker-button"
                 onClick={() => setIsOpen((o) => !o)}
             >
-                <Tooltip content={i18n.t('Configure columns')} placement="top">
-                    <span className={styles.alignIcon1}>
-                        <IconLayoutColumns16 />
-                    </span>
-                </Tooltip>
-            </button>
+                <IconLayoutColumns16 />
+            </ToolbarIconButton>
             {isOpen && (
                 <FilterDropdownPopover
                     reference={anchorRef}
@@ -407,7 +403,7 @@ const ColumnPicker = ({ layerId, allHeaders, columnConfig }) => {
     )
 }
 
-ColumnPicker.propTypes = {
+ColumnPickerControl.propTypes = {
     layerId: PropTypes.string.isRequired,
     allHeaders: PropTypes.arrayOf(
         PropTypes.shape({
@@ -422,4 +418,4 @@ ColumnPicker.propTypes = {
     }),
 }
 
-export default ColumnPicker
+export default ColumnPickerControl

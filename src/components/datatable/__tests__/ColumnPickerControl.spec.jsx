@@ -3,7 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { DATA_TABLE_COLUMN_CONFIG_SET } from '../../../constants/actionTypes.js'
-import ColumnPicker from '../ColumnPicker.jsx'
+import ColumnPickerControl from '../controls/ColumnPickerControl.jsx'
 
 const mockStore = configureMockStore()
 
@@ -17,7 +17,11 @@ const renderColumnPicker = (props) => {
     const store = mockStore({})
     const result = render(
         <Provider store={store}>
-            <ColumnPicker layerId="layer1" allHeaders={headers} {...props} />
+            <ColumnPickerControl
+                layerId="layer1"
+                allHeaders={headers}
+                {...props}
+            />
         </Provider>
     )
     return { ...result, store }

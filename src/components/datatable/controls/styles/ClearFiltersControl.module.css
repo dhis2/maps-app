@@ -1,0 +1,40 @@
+.filteredIcon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+.clearBadge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--colors-grey100);
+}
+
+:global(button):hover .clearBadge {
+    background: var(--colors-grey300);
+}
+
+.clearBadge::before,
+.clearBadge::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 1px;
+    background: currentColor;
+    top: 50%;
+    left: 50%;
+}
+
+.clearBadge::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.clearBadge::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
