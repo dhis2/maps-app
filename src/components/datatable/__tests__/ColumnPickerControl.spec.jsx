@@ -3,6 +3,10 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { DATA_TABLE_COLUMN_CONFIG_SET } from '../../../constants/actionTypes.js'
+import {
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+    RENDERING_STRATEGY_TIMELINE,
+} from '../../../constants/layers.js'
 import ColumnPickerControl from '../controls/ColumnPickerControl.jsx'
 
 const mockStore = configureMockStore()
@@ -79,6 +83,7 @@ describe('ColumnPicker visibility toggling', () => {
                 visibleKeys: ['name', 'legend'],
                 pinnedKeys: [],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
             },
         })
     })
@@ -97,6 +102,7 @@ describe('ColumnPicker visibility toggling', () => {
                 visibleKeys: ['name', 'legend', 'rawValue'],
                 pinnedKeys: [],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
             },
         })
     })
@@ -116,6 +122,7 @@ describe('ColumnPicker pinning', () => {
                 visibleKeys: ['name', 'rawValue', 'legend'],
                 pinnedKeys: ['rawValue'],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
             },
         })
     })
@@ -135,6 +142,7 @@ describe('ColumnPicker pinning', () => {
                 visibleKeys: ['name', 'rawValue', 'legend'],
                 pinnedKeys: [],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
             },
         })
     })
@@ -189,6 +197,7 @@ describe('ColumnPicker bulk actions', () => {
                 visibleKeys: ['name', 'rawValue', 'legend'],
                 pinnedKeys: ['legend'],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
             },
         })
     })
@@ -208,6 +217,7 @@ describe('ColumnPicker bulk actions', () => {
                 visibleKeys: [],
                 pinnedKeys: ['legend'],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
             },
         })
     })
@@ -225,6 +235,7 @@ describe('ColumnPicker bulk actions', () => {
                 visibleKeys: ['rawValue', 'legend'],
                 pinnedKeys: ['legend'],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
             },
         })
     })
@@ -351,6 +362,109 @@ describe('ColumnPicker search', () => {
                 visibleKeys: ['name', 'rawValue', 'legend'],
                 pinnedKeys: [],
                 orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: [],
+            },
+        })
+    })
+})
+
+describe('ColumnPicker periods section', () => {
+    const periods = [
+        { id: '202301', name: 'January 2023' },
+        { id: '202302', name: 'February 2023' },
+    ]
+
+    test('is absent for a single-period (non-multi-period) layer', () => {
+        renderColumnPicker({ periods })
+        openPicker()
+        expect(screen.queryByText('January 2023')).not.toBeInTheDocument()
+    })
+
+    test('is absent when there are no available periods', () => {
+        renderColumnPicker({ renderingStrategy: RENDERING_STRATEGY_TIMELINE })
+        openPicker()
+        expect(screen.queryByText('Add period columns')).not.toBeInTheDocument()
+    })
+
+    test('lists available periods for a timeline layer', () => {
+        renderColumnPicker({
+            renderingStrategy: RENDERING_STRATEGY_TIMELINE,
+            periods,
+        })
+        openPicker()
+        expect(screen.getByText('Add period columns')).toBeInTheDocument()
+        expect(screen.getByLabelText('January 2023')).not.toBeChecked()
+        expect(screen.getByLabelText('February 2023')).not.toBeChecked()
+    })
+
+    test('lists available periods for a split-by-period layer too', () => {
+        renderColumnPicker({
+            renderingStrategy: RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+            periods,
+        })
+        openPicker()
+        expect(screen.getByText('Add period columns')).toBeInTheDocument()
+    })
+
+    test('checking a period dispatches extraPeriodIds with it added', () => {
+        const { store } = renderColumnPicker({
+            renderingStrategy: RENDERING_STRATEGY_TIMELINE,
+            periods,
+        })
+        openPicker()
+        fireEvent.click(screen.getByLabelText('January 2023'))
+        expect(store.getActions()).toContainEqual({
+            type: DATA_TABLE_COLUMN_CONFIG_SET,
+            layerId: 'layer1',
+            config: {
+                visibleKeys: ['name', 'rawValue', 'legend'],
+                pinnedKeys: [],
+                orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: ['202301'],
+            },
+        })
+    })
+
+    test('checking a period also adds its dataKey to an already-customized visibleKeys allowlist', () => {
+        // visibleKeys, once customized, acts as an allowlist (getVisibleHeaders
+        // filters out anything not in it) - the new period column's dataKey
+        // must be added too, or it would never actually render.
+        const { store } = renderColumnPicker({
+            renderingStrategy: RENDERING_STRATEGY_TIMELINE,
+            periods,
+            columnConfig: { visibleKeys: ['name'] },
+        })
+        openPicker()
+        fireEvent.click(screen.getByLabelText('January 2023'))
+        expect(store.getActions()).toContainEqual({
+            type: DATA_TABLE_COLUMN_CONFIG_SET,
+            layerId: 'layer1',
+            config: {
+                visibleKeys: ['name', 'period_202301_rawValue'],
+                pinnedKeys: [],
+                orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: ['202301'],
+            },
+        })
+    })
+
+    test('unchecking an already-added period dispatches extraPeriodIds without it', () => {
+        const { store } = renderColumnPicker({
+            renderingStrategy: RENDERING_STRATEGY_TIMELINE,
+            periods,
+            columnConfig: { extraPeriodIds: ['202301', '202302'] },
+        })
+        openPicker()
+        expect(screen.getByLabelText('January 2023')).toBeChecked()
+        fireEvent.click(screen.getByLabelText('January 2023'))
+        expect(store.getActions()).toContainEqual({
+            type: DATA_TABLE_COLUMN_CONFIG_SET,
+            layerId: 'layer1',
+            config: {
+                visibleKeys: ['name', 'rawValue', 'legend'],
+                pinnedKeys: [],
+                orderedKeys: ['name', 'rawValue', 'legend'],
+                extraPeriodIds: ['202302'],
             },
         })
     })

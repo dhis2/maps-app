@@ -5,6 +5,7 @@ import {
     getVisibleHeaders,
     isPinnedGroupEnd,
     reverseVisibleKeys,
+    togglePeriodId,
     togglePinnedKey,
     toggleVisibleKey,
 } from '../tableColumns.js'
@@ -299,5 +300,20 @@ describe('getPinnedCellProps', () => {
             width: '150px',
             isLastPinned: true,
         })
+    })
+})
+
+describe('togglePeriodId', () => {
+    it('adds a period id when it is not yet added', () => {
+        expect(togglePeriodId(['202301'], '202302')).toEqual([
+            '202301',
+            '202302',
+        ])
+    })
+
+    it('removes a period id when it is already added', () => {
+        expect(togglePeriodId(['202301', '202302'], '202301')).toEqual([
+            '202302',
+        ])
     })
 })
