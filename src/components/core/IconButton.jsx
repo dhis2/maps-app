@@ -20,6 +20,7 @@ const IconButton = forwardRef(
         return (
             <button
                 ref={ref}
+                type="button"
                 onClick={onClick}
                 className={cx(styles.iconButton, className, {
                     [styles.disabled]: !!disabled,
