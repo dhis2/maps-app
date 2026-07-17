@@ -10,8 +10,8 @@ import {
     EVENT_COORDINATE_CASCADING,
     NONE,
 } from '../../constants/layers.js'
-import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
+import { useEventDataItems } from './EventDataItemsProvider.jsx'
 
 const CoordinateField = ({
     value,
@@ -38,11 +38,11 @@ const CoordinateField = ({
         includeTypes.push('ORGANISATION_UNIT')
     }
 
-    const { eventDataItems, trackedEntityType } = useEventDataItems({
-        programId: program?.id,
-        programStageId: programStage?.id,
-        includeTypes,
-    })
+    const {
+        eventDataItems,
+        trackedEntityType,
+        loading: itemsLoading,
+    } = useEventDataItems({ includeTypes })
 
     const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
 
@@ -101,6 +101,25 @@ const CoordinateField = ({
             : fields
     }, [trackedEntityType, eventDataItems, eventCoordinateField])
 
+    let helpText = null
+    if (program) {
+        if (!programStage && trackedEntityType) {
+            helpText = i18n.t(
+                'Select a program stage to see additional coordinate options'
+            )
+        } else if (value === EVENT_COORDINATE_CASCADING) {
+            helpText = trackedEntityType
+                ? i18n.t(
+                      'Enrollment > event > tracked entity > org unit coordinate'
+                  )
+                : i18n.t('Event > org unit coordinate')
+        }
+    } else {
+        helpText = i18n.t(
+            'Select a program to see additional coordinate options'
+        )
+    }
+
     // Initiate type when editing saved layer
     useEffect(() => {
         if (type === undefined && eventDataItems != null) {
@@ -138,16 +157,10 @@ const CoordinateField = ({
             }
             items={fields}
             value={fields.find((f) => f.id === value) ? value : null}
-            loading={value !== EVENT_COORDINATE_DEFAULT && !trackedEntityType}
-            helpText={
-                value === EVENT_COORDINATE_CASCADING
-                    ? trackedEntityType
-                        ? i18n.t(
-                              'Enrollment > event > tracked entity > org unit coordinate'
-                          )
-                        : i18n.t('Event > org unit coordinate')
-                    : null
+            loading={
+                !!program && value !== EVENT_COORDINATE_DEFAULT && itemsLoading
             }
+            helpText={helpText}
             onChange={(field) =>
                 onChange(field.id, field.valueType || field.id)
             }

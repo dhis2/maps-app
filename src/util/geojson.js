@@ -1,3 +1,4 @@
+import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
 
@@ -24,6 +25,19 @@ const rawGeometryTypes = [
     'MultiLineString',
     GEO_TYPE_MULTIPOLYGON,
 ]
+
+export const getContainingOrgUnit = ([lng, lat], orgUnitGeometries) =>
+    orgUnitGeometries.find((geometry) => {
+        const { type } = geometry
+        if (type === GEO_TYPE_POLYGON || type === GEO_TYPE_MULTIPOLYGON) {
+            return booleanPointInPolygon([lng, lat], geometry)
+        }
+        // Other geometry types are treated as "inside".
+        return true
+    }) ?? null
+
+export const isPointInsideOrgUnits = (point, orgUnitGeometries) =>
+    getContainingOrgUnit(point, orgUnitGeometries) !== null
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
 export const createEventFeature = ({
@@ -65,7 +79,10 @@ export const createEventFeature = ({
 
 export const buildEventGeometryGetter = (headers) => {
     const geomCol = findIndex(headers, (h) => h.name === 'geometry')
-    return (event) => JSON.parse(event[geomCol])
+    return (event) => {
+        const value = event[geomCol]
+        return value ? JSON.parse(value) : null
+    }
 }
 
 export const createEventFeatures = (response, config = {}) => {
@@ -88,8 +105,12 @@ export const createEventFeatures = (response, config = {}) => {
     )
     const options = Object.values(response.metaData.items)
 
-    const data = response.rows.map((row) =>
-        createEventFeature({
+    const data = []
+    const dataWithoutCoords = []
+
+    // TODO: synchronous over all rows — consider chunking/yielding both for very large layers.
+    response.rows.forEach((row) => {
+        const feature = createEventFeature({
             headers: response.headers,
             names: config.outputIdScheme !== 'ID' ? names : {},
             options,
@@ -98,7 +119,12 @@ export const createEventFeatures = (response, config = {}) => {
             getGeometry,
             geometryCentroid: config.geometryCentroid,
         })
-    )
+        if (feature.geometry) {
+            data.push(feature)
+        } else {
+            dataWithoutCoords.push(feature)
+        }
+    })
 
     // Sort to draw polygons before points
     data.sort((feature) =>
@@ -109,7 +135,7 @@ export const createEventFeatures = (response, config = {}) => {
             : 0
     )
 
-    return { data, names }
+    return { data, names, dataWithoutCoords }
 }
 
 // Include column for data element used for styling (if not already used in filter)
@@ -241,7 +267,7 @@ export const buildGeoJsonFeatures = (geoJson) => {
 
     const types = []
     const featureCollection = finalGeoJson.features.map((f, i) => {
-        const nonMultiType = f.geometry.type.replace('Multi', '')
+        const nonMultiType = f.geometry.type.replaceAll('Multi', '')
         // return list of types in the data (but not Multi* types,
         // because those should get lumped in with the non-Multi* type for the legend)
         if (!types.includes(nonMultiType)) {

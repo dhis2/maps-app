@@ -60,7 +60,7 @@ const requests = {
     },
     getCachedDataProvider_Me: {
         method: 'GET',
-        url: '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D',
+        url: '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2CorganisationUnits%5Bid%2Cchildren%5Bid%2Cchildren%5Bid%5D%5D%5D%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D',
     },
     getCachedDataProvider_SystemSettings: {
         method: 'GET',

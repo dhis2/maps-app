@@ -55,7 +55,7 @@ describe('data table', () => {
         cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
-            .should('have.length', 6)
+            .should('have.length', 7)
 
         cy.getByDataTest('more-menu')
             .find('li')
@@ -155,7 +155,7 @@ describe('data table', () => {
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')
             .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(`${CURRENT_YEAR - 1}-01-01`)
             .typeEndDate(`${CURRENT_YEAR - 1}-01-03`)
             .addToMap()
@@ -316,7 +316,7 @@ describe('data table', () => {
 
         // Sort by index and scroll to the top
         cy.get('button[title="Sort by Index"]').click()
-        cy.get('[data-test-id="virtuoso-scroller"]').scrollTo('top')
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         checkTableCell({ row: 0, column: 0, expectedContent: '28' })
 
@@ -327,10 +327,10 @@ describe('data table', () => {
         cy.get('button[title="Sort by Range"]').click()
 
         // Check that row 0 range value has value '0-40'
-        checkTableCell({ row: 0, column: 5, expectedContent: '0 - 40' })
+        checkTableCell({ row: 0, column: 5, expectedContent: '0 – 40' })
 
         // Check that row 5 range value has value '90 - 120'
-        checkTableCell({ row: 5, column: 5, expectedContent: '90 - 120' })
+        checkTableCell({ row: 5, column: 5, expectedContent: '90 – 120' })
 
         // Check that row 6 range value is empty
         checkTableCell({ row: 6, column: 5, expectedContent: '' })

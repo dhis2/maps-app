@@ -28,8 +28,15 @@ const LayerLoader = ({ config, onLoad }) => {
     const { baseUrl, serverVersion } = useConfig()
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
-    const { currentUser } = useCachedData()
-    const { keyAnalysisDisplayProperty, id: userId } = currentUser
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+        currentUser,
+    } = useCachedData()
+    const {
+        keyAnalysisDisplayProperty,
+        id: userId,
+        userOrgUnitIdsByKeyword,
+    } = currentUser
     const periodTypeData = useDataOutputPeriodTypes()
 
     useEffect(() => {
@@ -45,7 +52,9 @@ const LayerLoader = ({ config, onLoad }) => {
             config,
             engine,
             keyAnalysisDisplayProperty, // name/shortName
+            keyAnalysisDigitGroupSeparator, // NONE/SPACE/COMMA
             userId,
+            userOrgUnitIdsByKeyword, // Event loader
             baseUrl,
             analyticsEngine, // Thematic and Event loader
             periodTypeData, // Thematic and Event loader
@@ -60,8 +69,10 @@ const LayerLoader = ({ config, onLoad }) => {
         analyticsEngine,
         periodTypeData,
         userId,
+        userOrgUnitIdsByKeyword,
         baseUrl,
         keyAnalysisDisplayProperty,
+        keyAnalysisDigitGroupSeparator,
         serverVersion,
     ])
 

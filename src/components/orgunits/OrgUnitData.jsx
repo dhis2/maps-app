@@ -3,10 +3,12 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
+import { formatWithSeparator } from '../../util/numbers.js'
 import {
     getFixedPeriodsByType,
     filterFuturePeriods,
 } from '../../util/periods.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import PeriodSelect from '../periods/PeriodSelect.jsx'
 import styles from './styles/OrgUnitData.module.css'
 
@@ -31,6 +33,9 @@ const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0]
  * (data elements, indicators, reporting rates, program indicators)
  */
 const OrgUnitData = ({ id }) => {
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
     const [period, setPeriod] = useState(defaultPeriod)
     const { loading, data, refetch } = useDataQuery(ORGUNIT_PROFILE_QUERY, {
         lazy: true,
@@ -69,7 +74,12 @@ const OrgUnitData = ({ id }) => {
                                     ({ id, label, value }) => (
                                         <tr key={id}>
                                             <th>{label}</th>
-                                            <td>{value}</td>
+                                            <td>
+                                                {formatWithSeparator(
+                                                    value,
+                                                    keyAnalysisDigitGroupSeparator
+                                                )}
+                                            </td>
                                         </tr>
                                     )
                                 )}

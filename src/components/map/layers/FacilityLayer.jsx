@@ -97,6 +97,7 @@ class FacilityLayer extends Layer {
         group.addLayer(config)
         this.layer = group
         map.addLayer(this.layer).catch(this.onError.bind(this))
+        this.setLayerVisibility()
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()

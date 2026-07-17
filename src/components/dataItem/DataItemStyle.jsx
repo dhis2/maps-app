@@ -1,19 +1,38 @@
+import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+    setNoDataLegend,
+    setUnclassifiedLegend,
+} from '../../actions/layerEdit.js'
 import {
     numberValueTypes,
     booleanValueTypes,
 } from '../../constants/valueTypes.js'
 import NumericLegendStyle from '../classification/NumericLegendStyle.jsx'
+import NoDataLegend from '../edit/shared/NoDataLegend.jsx'
+import UnclassifiedLegend from '../edit/shared/UnclassifiedLegend.jsx'
 import OptionSetStyle from '../optionSet/OptionSetStyle.jsx'
 import BooleanStyle from './BooleanStyle.jsx'
+import styles from './styles/DataItemStyle.module.css'
 
 const DataItemStyle = ({ dataItem, style }) => {
+    const noDataLegend = useSelector((state) => state.layerEdit.noDataLegend)
+    const unclassifiedLegend = useSelector(
+        (state) => state.layerEdit.unclassifiedLegend
+    )
+    const dispatch = useDispatch()
+
     if (!dataItem) {
         return null
     }
 
     const { valueType, optionSet } = dataItem
+    const hasClassification =
+        numberValueTypes.includes(valueType) ||
+        booleanValueTypes.includes(valueType) ||
+        !!optionSet
 
     return (
         <div style={style}>
@@ -29,6 +48,23 @@ const DataItemStyle = ({ dataItem, style }) => {
             ) : null}
 
             {optionSet ? <OptionSetStyle styledOptionSet={optionSet} /> : null}
+
+            <div className={styles.flexColumnFlow}>
+                <div className={styles.flexColumn}>
+                    {hasClassification && (
+                        <UnclassifiedLegend
+                            label={i18n.t('Include unclassified events')}
+                            value={unclassifiedLegend}
+                            onChange={(v) => dispatch(setUnclassifiedLegend(v))}
+                        />
+                    )}
+                    <NoDataLegend
+                        label={i18n.t('Include events with no data')}
+                        value={noDataLegend}
+                        onChange={(v) => dispatch(setNoDataLegend(v))}
+                    />
+                </div>
+            </div>
         </div>
     )
 }

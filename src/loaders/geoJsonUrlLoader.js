@@ -12,7 +12,9 @@ const fetchData = async (url, engine, baseUrl) => {
         // API route, use engine
         const routesIndex = url.indexOf('routes')
         if (routesIndex === -1) {
-            throw new Error()
+            throw new Error(
+                'Invalid API route: URL does not contain a "routes" segment'
+            )
         }
 
         return engine
@@ -27,25 +29,32 @@ const fetchData = async (url, engine, baseUrl) => {
                     : data.geojson
             )
             .catch(() => {
-                throw new Error()
+                throw new Error('Failed to fetch GeoJSON from API route')
             })
     } else {
         // External route, use fetch
         return fetch(url)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error()
+                    throw new Error(
+                        'Failed to fetch GeoJSON: response was not ok'
+                    )
                 }
                 return response.json()
             })
             .catch(() => {
-                throw new Error()
+                throw new Error('Failed to fetch GeoJSON from external URL')
             })
     }
 }
 
 const EMPTY_FEATURE_STYLE = {}
-const geoJsonUrlLoader = async ({ config: layer, engine, baseUrl }) => {
+const geoJsonUrlLoader = async ({
+    config: layer,
+    engine,
+    baseUrl,
+    keyAnalysisDigitGroupSeparator,
+}) => {
     const { config } = layer
 
     let newConfig
@@ -114,15 +123,15 @@ const geoJsonUrlLoader = async ({ config: layer, engine, baseUrl }) => {
 
     return {
         ...layer,
-        name: newConfig.name, // TODO - will be fixed by DHIS2-16088
+        name: newConfig.name, // VERSION-TOGGLE: remove when 41 is lowest supported version, overrides layer.name from spread (DHIS2-16088)
         legend,
         data,
+        keyAnalysisDigitGroupSeparator,
         config: newConfig,
         featureStyle,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
         loadError,
     }
 }

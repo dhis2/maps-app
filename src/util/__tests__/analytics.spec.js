@@ -4,14 +4,16 @@ import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     setOrgUnitPathInRows,
-    getPeriodFromFilters,
     getPeriodsFromFilters,
     removePeriodFromFilters,
-    setFiltersFromPeriod,
     setFiltersFromPeriods,
+    applyPeriodFilter,
     getFiltersFromColumns,
     getRenderingStrategy,
     getDimensionsFromFilters,
+    splitFilter,
+    splitFilterColumns,
+    compactFilterColumns,
 } from '../analytics.js'
 
 describe('getDataItemFromColumns', () => {
@@ -96,13 +98,6 @@ describe('setOrgUnitPathInRows', () => {
     })
 })
 
-describe('getPeriodFromFilters', () => {
-    it('should return the first period from filters', () => {
-        const filters = [{ dimension: 'pe', items: [{ id: 'period1' }] }]
-        expect(getPeriodFromFilters(filters)).toEqual({ id: 'period1' })
-    })
-})
-
 describe('getPeriodsFromFilters', () => {
     it('should return all periods from filters', () => {
         const filters = [
@@ -142,18 +137,6 @@ describe('removePeriodFromFilters', () => {
     })
 })
 
-describe('setFiltersFromPeriod', () => {
-    it('should add a period to the filters', () => {
-        const filters = [{ dimension: 'dx', items: [{ id: 'data1' }] }]
-        const period = { id: 'period1' }
-
-        expect(setFiltersFromPeriod(filters, period)).toEqual([
-            { dimension: 'dx', items: [{ id: 'data1' }] },
-            { dimension: 'pe', items: [{ id: 'period1' }] },
-        ])
-    })
-})
-
 describe('setFiltersFromPeriods', () => {
     it('should replace existing period filters and add new periods', () => {
         const filters = [
@@ -177,6 +160,45 @@ describe('setFiltersFromPeriods', () => {
         const result = setFiltersFromPeriods(filters, periods)
 
         expect(result).toEqual([{ dimension: 'pe', items: [{ id: '202201' }] }])
+    })
+})
+
+describe('applyPeriodFilter', () => {
+    const createRequest = () => {
+        const request = {
+            addPeriodFilter: jest.fn(() => request),
+            withStartDate: jest.fn(() => request),
+            withEndDate: jest.fn(() => request),
+        }
+        return request
+    }
+
+    it('adds a period filter when periods are selected', () => {
+        const request = createRequest()
+        const periods = [{ id: '202101' }, { id: '202102' }]
+
+        applyPeriodFilter(request, { periods, startDate: '', endDate: '' })
+
+        expect(request.addPeriodFilter).toHaveBeenCalledWith([
+            '202101',
+            '202102',
+        ])
+        expect(request.withStartDate).not.toHaveBeenCalled()
+        expect(request.withEndDate).not.toHaveBeenCalled()
+    })
+
+    it('falls back to start/end dates when no periods are selected', () => {
+        const request = createRequest()
+
+        applyPeriodFilter(request, {
+            periods: [],
+            startDate: '2023-01-01T00:00:00',
+            endDate: '2023-12-31T00:00:00',
+        })
+
+        expect(request.addPeriodFilter).not.toHaveBeenCalled()
+        expect(request.withStartDate).toHaveBeenCalledWith('2023-01-01')
+        expect(request.withEndDate).toHaveBeenCalledWith('2023-12-31')
     })
 })
 
@@ -288,5 +310,122 @@ describe('getDimensionsFromFilters', () => {
     it('should ignore the pe property', () => {
         const filters = [{ dimension: 'pe', items: [{ id: 'period1' }] }]
         expect(getDimensionsFromFilters(filters)).toEqual([])
+    })
+})
+
+describe('splitFilter', () => {
+    it('returns a single condition unchanged', () => {
+        expect(splitFilter('GT:50')).toEqual(['GT:50'])
+    })
+
+    it('splits two conditions on the same dimension', () => {
+        expect(splitFilter('GT:50:LT:60')).toEqual(['GT:50', 'LT:60'])
+    })
+
+    it('handles EQ operator', () => {
+        expect(splitFilter('EQ:42')).toEqual(['EQ:42'])
+    })
+
+    it('handles three consecutive conditions', () => {
+        expect(splitFilter('GE:10:LT:20:NE:15')).toEqual([
+            'GE:10',
+            'LT:20',
+            'NE:15',
+        ])
+    })
+
+    it('returns the original string wrapped in an array when no known operator is found', () => {
+        expect(splitFilter('unknownOp:50')).toEqual(['unknownOp:50'])
+    })
+
+    it('returns [undefined] when called with undefined', () => {
+        expect(splitFilter(undefined)).toEqual([undefined])
+    })
+})
+
+describe('splitFilterColumns', () => {
+    it('expands a compact filter column into individual rows', () => {
+        const cols = [
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50:LT:60' },
+        ]
+        expect(splitFilterColumns(cols)).toEqual([
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50' },
+            { dimension: 'ageDE', name: 'Age', filter: 'LT:60' },
+        ])
+    })
+
+    it('leaves a single-condition filter unchanged', () => {
+        const cols = [{ dimension: 'ageDE', name: 'Age', filter: 'GT:50' }]
+        expect(splitFilterColumns(cols)).toEqual([
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50' },
+        ])
+    })
+
+    it('passes through a null-filter placeholder row unchanged', () => {
+        const cols = [{ dimension: null, name: null, filter: null }]
+        expect(splitFilterColumns(cols)).toEqual([
+            { dimension: null, name: null, filter: null },
+        ])
+    })
+
+    it('handles a mix of compact and single columns', () => {
+        const cols = [
+            { dimension: 'ageDE', filter: 'GT:50:LT:60' },
+            { dimension: 'otherDE', filter: 'EQ:yes' },
+        ]
+        expect(splitFilterColumns(cols)).toEqual([
+            { dimension: 'ageDE', filter: 'GT:50' },
+            { dimension: 'ageDE', filter: 'LT:60' },
+            { dimension: 'otherDE', filter: 'EQ:yes' },
+        ])
+    })
+})
+
+describe('compactFilterColumns', () => {
+    it('combines multiple rows on the same dimension into one compact column', () => {
+        const rows = [
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50' },
+            { dimension: 'ageDE', name: 'Age', filter: 'LT:60' },
+        ]
+        expect(compactFilterColumns(rows)).toEqual([
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50:LT:60' },
+        ])
+    })
+
+    it('keeps different dimensions as separate entries', () => {
+        const rows = [
+            { dimension: 'ageDE', filter: 'GT:50' },
+            { dimension: 'otherDE', filter: 'EQ:yes' },
+        ]
+        expect(compactFilterColumns(rows)).toEqual([
+            { dimension: 'ageDE', filter: 'GT:50' },
+            { dimension: 'otherDE', filter: 'EQ:yes' },
+        ])
+    })
+
+    it('passes through an incomplete row (null dimension) unchanged', () => {
+        const rows = [{ dimension: null, name: null, filter: null }]
+        expect(compactFilterColumns(rows)).toEqual([
+            { dimension: null, name: null, filter: null },
+        ])
+    })
+
+    it('picks the name from the first row when later rows have no name', () => {
+        const rows = [
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50' },
+            { dimension: 'ageDE', name: null, filter: 'LT:60' },
+        ]
+        expect(compactFilterColumns(rows)).toEqual([
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50:LT:60' },
+        ])
+    })
+
+    it('round-trips with splitFilterColumns', () => {
+        const original = [
+            { dimension: 'ageDE', name: 'Age', filter: 'GT:50:LT:60' },
+        ]
+        expect(compactFilterColumns(splitFilterColumns(original))).toEqual(
+            original
+        )
     })
 })

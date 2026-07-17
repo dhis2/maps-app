@@ -16,7 +16,7 @@ const ImageSelect = ({ id, img, title, isSelected, onClick, className }) => (
             })}
         >
             {img ? (
-                <img src={img} className={styles.image} />
+                <img src={img} alt={title || ''} className={styles.image} />
             ) : (
                 <div className={styles.noImage} />
             )}

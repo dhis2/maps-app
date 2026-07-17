@@ -2,26 +2,25 @@ import * as types from '../constants/actionTypes.js'
 import { EVENT_STATUS_ALL } from '../constants/eventStatuses.js'
 import {
     CLASSIFICATION_SINGLE_COLOR,
-    CLASSIFICATION_EQUAL_INTERVALS,
-    CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
+    getClassificationTypes,
     THEMATIC_CHOROPLETH,
     EE_BUFFER,
     NONE,
 } from '../constants/layers.js'
 import { START_END_DATES } from '../constants/periods.js'
 import {
-    setFiltersFromPeriod,
     setFiltersFromPeriods,
     setDataItemInColumns,
     setOrgUnitPathInRows,
     removePeriodFromFilters,
     changeDimensionInFilters,
     removeDimensionFromFilters,
+    splitFilterColumns,
+    compactFilterColumns,
 } from '../util/analytics.js'
 
 const layerEdit = (state = null, action) => {
-    let columns
     let newState
     let program
 
@@ -42,6 +41,7 @@ const layerEdit = (state = null, action) => {
                 columns: [],
                 programStage: null,
                 styleDataItem: null,
+                labelDataItem: null,
             }
 
         case types.LAYER_EDIT_PROGRAM_STAGE_SET:
@@ -52,6 +52,7 @@ const layerEdit = (state = null, action) => {
                 },
                 columns: [],
                 styleDataItem: null,
+                labelDataItem: null,
             }
 
         case types.LAYER_EDIT_DATA_ITEM_SET:
@@ -77,15 +78,6 @@ const layerEdit = (state = null, action) => {
                 filters: action.keepPeriod
                     ? state.filters
                     : removePeriodFromFilters(state.filters),
-            }
-
-        case types.LAYER_EDIT_PERIOD_SET:
-            return {
-                ...state,
-                filters:
-                    action.period.id !== START_END_DATES
-                        ? setFiltersFromPeriod(state.filters, action.period)
-                        : [],
             }
 
         case types.LAYER_EDIT_PERIODS_SET:
@@ -179,37 +171,45 @@ const layerEdit = (state = null, action) => {
                 ],
             }
 
-        case types.LAYER_EDIT_FILTER_REMOVE:
-            columns = state.columns.filter((c) => c.filter !== undefined) // Also used for style data element without filter
-
-            if (!columns || !columns[action.index]) {
+        case types.LAYER_EDIT_FILTER_REMOVE: {
+            // Expand compact filter columns into individual rows, remove by index, compact back
+            const filterCols = state.columns.filter(
+                (c) => c.filter !== undefined
+            )
+            const splitRows = splitFilterColumns(filterCols)
+            if (!splitRows[action.index]) {
                 return state
             }
-
             return {
                 ...state,
                 columns: [
                     ...state.columns.filter((c) => c.filter === undefined),
-                    ...columns.filter((c, i) => i !== action.index),
+                    ...compactFilterColumns(
+                        splitRows.filter((_, i) => i !== action.index)
+                    ),
                 ],
             }
+        }
 
-        case types.LAYER_EDIT_FILTER_CHANGE:
-            columns = state.columns.filter((c) => c.filter !== undefined) // Also used for style data element without filter
-
-            if (!columns || !columns[action.index]) {
+        case types.LAYER_EDIT_FILTER_CHANGE: {
+            // Expand compact filter columns into individual rows, replace by index, compact back
+            const filterCols = state.columns.filter(
+                (c) => c.filter !== undefined
+            )
+            const splitRows = splitFilterColumns(filterCols)
+            if (!splitRows[action.index]) {
                 return state
             }
-
-            columns[action.index] = action.filter
-
+            const newSplitRows = [...splitRows]
+            newSplitRows[action.index] = action.filter
             return {
                 ...state,
                 columns: [
                     ...state.columns.filter((c) => c.filter === undefined),
-                    ...columns,
+                    ...compactFilterColumns(newSplitRows),
                 ],
             }
+        }
 
         case types.LAYER_EDIT_STYLE_DATA_ITEM_SET:
             return {
@@ -279,10 +279,9 @@ const layerEdit = (state = null, action) => {
 
             if (
                 state.method === CLASSIFICATION_SINGLE_COLOR ||
-                ![
-                    CLASSIFICATION_EQUAL_INTERVALS,
-                    CLASSIFICATION_EQUAL_COUNTS,
-                ].includes(action.method)
+                !getClassificationTypes()
+                    .map((t) => t.id)
+                    .includes(action.method)
             ) {
                 delete newState.colorScale
                 delete newState.classes
@@ -290,6 +289,10 @@ const layerEdit = (state = null, action) => {
 
             if (action.method !== CLASSIFICATION_PREDEFINED) {
                 delete newState.legendSet
+            }
+
+            if (action.method === CLASSIFICATION_PREDEFINED) {
+                delete newState.legendDecimalPlaces
             }
 
             if (newState.styleDataItem) {
@@ -307,6 +310,27 @@ const layerEdit = (state = null, action) => {
 
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET:
+            newState = {
+                ...state,
+                legendDecimalPlaces: action.legendDecimalPlaces,
+            }
+
+            if (newState.legendDecimalPlaces === undefined) {
+                delete newState.legendDecimalPlaces
+            }
+
+            return newState
+
+        case types.LAYER_EDIT_LEGEND_ISOLATED_SET:
+            newState = { ...state, legendIsolated: action.legendIsolated }
+
+            if (!action.legendIsolated) {
+                delete newState.legendIsolated
             }
 
             return newState
@@ -345,6 +369,18 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 eventClustering: action.checked,
+            }
+
+        case types.LAYER_EDIT_COUNT_FEATURES_WITHOUT_COORDS_SET:
+            return {
+                ...state,
+                countFeaturesWithoutCoordinates: action.checked,
+            }
+
+        case types.LAYER_EDIT_COUNT_EVENTS_OUTSIDE_OU_SET:
+            return {
+                ...state,
+                countEventsOutsideOrgUnits: action.checked,
             }
 
         case types.LAYER_EDIT_EVENT_POINT_RADIUS_SET:
@@ -548,16 +584,22 @@ const layerEdit = (state = null, action) => {
                 followUp: action.payload,
             }
 
-        case types.LAYER_EDIT_NO_DATA_COLOR_SET:
+        case types.LAYER_EDIT_NO_DATA_LEGEND_SET:
             newState = { ...state }
-
-            // Default is to show no feature
             if (!action.payload) {
-                delete newState.noDataColor
+                delete newState.noDataLegend
             } else {
-                newState.noDataColor = action.payload
+                newState.noDataLegend = action.payload
             }
+            return newState
 
+        case types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET:
+            newState = { ...state }
+            if (action.payload) {
+                newState.unclassifiedLegend = action.payload
+            } else {
+                delete newState.unclassifiedLegend
+            }
             return newState
 
         case types.LAYER_EDIT_EARTH_ENGINE_PERIOD_SET:
@@ -565,6 +607,15 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 period: action.payload,
             }
+
+        case types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET:
+            newState = { ...state }
+            if (action.item) {
+                newState.labelDataItem = action.item
+            } else {
+                delete newState.labelDataItem
+            }
+            return newState
 
         case types.LAYER_EDIT_FEATURE_STYLE_SET:
             return {

@@ -2,7 +2,7 @@ import { OrgUnitDimension } from '@dhis2/analytics'
 import { CenteredContent, CircularLoader, Help } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
 import { translateOrgUnitLevels } from '../../util/orgUnits.js'
@@ -40,6 +40,8 @@ const OrgUnitSelect = ({
         [dispatch]
     )
 
+    const rootIds = useMemo(() => roots?.map((r) => r.id) ?? [], [roots])
+
     const orgUnits = translateOrgUnitLevels(
         rows?.find((r) => r.dimension === 'ou'),
         levels
@@ -62,12 +64,14 @@ const OrgUnitSelect = ({
         )
     }
 
-    const numOtherSelects =
-        !hideAssociatedGeometry && !hideSelectMode
-            ? TWO_OTHER_SELECTS
-            : !hideAssociatedGeometry || !hideSelectMode
-            ? ONE_OTHER_SELECT
-            : NO_OTHER_SELECTS
+    let numOtherSelects
+    if (!hideAssociatedGeometry && !hideSelectMode) {
+        numOtherSelects = TWO_OTHER_SELECTS
+    } else if (!hideAssociatedGeometry || !hideSelectMode) {
+        numOtherSelects = ONE_OTHER_SELECT
+    } else {
+        numOtherSelects = NO_OTHER_SELECTS
+    }
 
     return (
         <div className={styles.orgUnitSelect} data-test="org-unit-select">
@@ -79,7 +83,7 @@ const OrgUnitSelect = ({
                 })}
             >
                 <OrgUnitDimension
-                    roots={roots?.map((r) => r.id)}
+                    roots={rootIds}
                     selected={orgUnits}
                     onSelect={setOrgUnitItems}
                     hideUserOrgUnits={hideUserOrgUnits}

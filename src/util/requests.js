@@ -77,6 +77,9 @@ export const fetchMapSubscribers = async ({ id, engine }) =>
             throw new Error(`Could not load map with id "${id}"`)
         })
 
+export const CURRENT_USER_FIELDS =
+    'id,username,displayName~rename(name),authorities,organisationUnits[id,children[id,children[id]]]'
+
 export const EXTERNAL_MAP_LAYERS_QUERY = {
     resource: 'externalMapLayers',
     params: {
@@ -140,6 +143,48 @@ export const GEOFEATURES_QUERY = {
             includeGroupSets,
             coordinateField,
             _: userId,
+        }),
+    },
+}
+
+export const FIRST_DATA_ELEMENT_QUERY = {
+    dataElements: {
+        resource: 'dataElements',
+        params: { pageSize: 1, fields: 'id' },
+    },
+}
+
+export const ORG_UNITS_PATHS_QUERY = {
+    organisationUnits: {
+        resource: 'organisationUnits',
+        params: ({ ids }) => ({
+            filter: `id:in:[${ids}]`,
+            fields: 'id,path',
+            paging: false,
+        }),
+    },
+}
+
+export const ORG_UNITS_COUNT_QUERY = {
+    orgUnitsCount: {
+        resource: 'analytics',
+        params: ({ dataElementId, orgUnitIds, userId }) => ({
+            dimension: `dx:${dataElementId},ou:${orgUnitIds.join(';')}`,
+            filter: 'pe:THIS_YEAR',
+            skipData: true,
+            skipMeta: false,
+            _: userId,
+        }),
+    },
+}
+
+export const ORG_UNIT_DETAILS_QUERY = {
+    orgUnits: {
+        resource: 'organisationUnits',
+        params: ({ ids }) => ({
+            filter: `id:in:[${ids.join(',')}]`,
+            fields: 'id,level,parent[displayName~rename(name)]',
+            paging: false,
         }),
     },
 }

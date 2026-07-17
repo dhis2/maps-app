@@ -16,7 +16,7 @@ import { SelectField } from '../../core/index.js'
 import styles from './styles/PeriodSelect.module.css'
 
 const isValidDate = (d) => {
-    return d instanceof Date && !isNaN(d)
+    return d instanceof Date && !Number.isNaN(d)
 }
 const normalizeToDayBefore2359 = (date) => {
     const d = new Date(date)
@@ -79,8 +79,10 @@ const EarthEnginePeriodSelect = ({
         (e) => {
             let name = e.name
             if (name.includes(AVAILABLE_UP_TO)) {
-                const regex = new RegExp(`\\s*\\(${AVAILABLE_UP_TO}.*\\)$`)
-                name = name.replace(regex, '')
+                const regex = new RegExp(
+                    String.raw`\s*\(${AVAILABLE_UP_TO}.*\)$`
+                )
+                name = name.replaceAll(regex, '')
             }
             onChange({
                 ...e,
@@ -203,7 +205,7 @@ const EarthEnginePeriodSelect = ({
             if (
                 !yearChanged &&
                 period &&
-                periods.find(({ id }) => id == period.id)
+                periods.some(({ id }) => id == period.id)
             ) {
                 onChange(period)
                 trackedYear.current = year

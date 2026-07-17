@@ -1,6 +1,12 @@
 import { Analytics } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import React from 'react'
-import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers.js'
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    LABEL_TEMPLATE_NAME_ONLY,
+    LABEL_TEMPLATE_TOOLTIP_ONLY,
+} from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
 import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
 import {
@@ -10,6 +16,9 @@ import {
 } from '../../../util/event.js'
 import { filterData } from '../../../util/filter.js'
 import { getCentroid, CENTROID_FORMAT_GEOJSON } from '../../../util/geojson.js'
+import { formatValueForDisplay } from '../../../util/helpers.js'
+import { getLabelStyle } from '../../../util/labels.js'
+import { sortLegendItems } from '../../../util/legend.js'
 import { formatCount } from '../../../util/numbers.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
 import EventPopup from './EventPopup.jsx'
@@ -46,6 +55,13 @@ class EventLayer extends Layer {
             styleDataItem,
             legend,
             dataFilters,
+            labelDataItem,
+            keyAnalysisDigitGroupSeparator,
+            labels,
+            labelFontColor,
+            labelFontSize,
+            labelFontWeight,
+            labelFontStyle,
         } = this.props
 
         const analyticsEngine = Analytics.getAnalytics(engine)
@@ -66,7 +82,39 @@ class EventLayer extends Layer {
         const radius = eventPointRadius || EVENT_RADIUS
 
         const map = this.context.map
-        let eventRequest
+
+        // Pre-compute label text into properties.name for the {name} template,
+        // and tooltip text into properties.tooltip for the {tooltip} template.
+        const noDataLabel = i18n.t('No data')
+        const formatItemValue = (feature, dataItem) => {
+            const v = feature.properties[dataItem.id]
+            return (
+                (v != null &&
+                    v !== '' &&
+                    formatValueForDisplay({
+                        value: String(v),
+                        valueType: dataItem.valueType,
+                        options: dataItem.options,
+                        keyAnalysisDigitGroupSeparator,
+                    })) ||
+                noDataLabel
+            )
+        }
+        const labeledData =
+            (labelDataItem || styleDataItem) && filteredData
+                ? filteredData.map((f) => ({
+                      ...f,
+                      properties: {
+                          ...f.properties,
+                          ...(labelDataItem && {
+                              name: formatItemValue(f, labelDataItem),
+                          }),
+                          ...(styleDataItem && {
+                              tooltip: formatItemValue(f, styleDataItem),
+                          }),
+                      },
+                  }))
+                : filteredData
 
         // Default props = no cluster
         const config = {
@@ -75,13 +123,80 @@ class EventLayer extends Layer {
             index,
             opacity,
             isVisible,
-            data: filteredData,
+            data: labeledData,
             fillColor,
             strokeColor,
             countColor,
             radius,
             onClick: this.onEventClick.bind(this),
+            ...(styleDataItem && { hoverLabel: LABEL_TEMPLATE_TOOLTIP_ONLY }),
+            ...(labelDataItem &&
+                labels && {
+                    label: LABEL_TEMPLATE_NAME_ONLY,
+                    labelStyle: getLabelStyle({
+                        labelFontColor,
+                        labelFontSize,
+                        labelFontWeight,
+                        labelFontStyle,
+                    }),
+                }),
         }
+
+        this.applyClusteringConfig(config, {
+            eventClustering,
+            serverCluster,
+            bounds,
+            areaRadius,
+            color,
+            styleDataItem,
+            legend,
+            id,
+            nameProperty,
+            engine,
+            analyticsEngine,
+            geometryCentroid,
+        })
+
+        if (program && programStage) {
+            this.loadDisplayItems({
+                engine,
+                nameProperty,
+                styleDataItem,
+                program,
+                programStage,
+                eventCoordinateField,
+            })
+        }
+
+        // Create and add event layer based on config object
+        this.layer = map.createLayer(config)
+
+        map.addLayer(this.layer)
+        this.setLayerVisibility()
+
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce()
+    }
+
+    // Mutates config in place: server/client/donut clustering, or a buffer.
+    applyClusteringConfig(
+        config,
+        {
+            eventClustering,
+            serverCluster,
+            bounds,
+            areaRadius,
+            color,
+            styleDataItem,
+            legend,
+            id,
+            nameProperty,
+            engine,
+            analyticsEngine,
+            geometryCentroid,
+        }
+    ) {
+        let eventRequest
 
         if (eventClustering) {
             if (serverCluster) {
@@ -117,6 +232,8 @@ class EventLayer extends Layer {
                 if (styleDataItem && legend) {
                     config.type = 'donutCluster'
                     config.groups = legend.items
+                    config.sortSegments = sortLegendItems
+                    config.formatCount = formatCount
                 } else {
                     config.type = 'clientCluster'
                 }
@@ -130,29 +247,11 @@ class EventLayer extends Layer {
                 fillOpacity: 0.1,
             }
         }
-
-        if (program && programStage) {
-            this.loadDisplayItems({
-                engine,
-                nameProperty,
-                styleDataItem,
-                program,
-                programStage,
-                eventCoordinateField,
-            })
-        }
-
-        // Create and add event layer based on config object
-        this.layer = map.createLayer(config)
-
-        map.addLayer(this.layer)
-
-        // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce()
     }
 
     render() {
-        const { styleDataItem, nameProperty } = this.props
+        const { styleDataItem, nameProperty, keyAnalysisDigitGroupSeparator } =
+            this.props
         const { popup, displayItems, eventCoordinateFieldName } = this.state
 
         return popup && displayItems ? (
@@ -160,6 +259,7 @@ class EventLayer extends Layer {
                 {...popup}
                 styleDataItem={styleDataItem}
                 nameProperty={nameProperty}
+                keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 displayItems={displayItems}
                 eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}
@@ -250,9 +350,11 @@ class EventLayer extends Layer {
                 .map((d) => d.dataElement)
             displayItems.push(...filteredProgramStageItems)
 
-            for (const d of filteredProgramStageItems) {
-                await this.loadOptionSet(d, engine)
-            }
+            await Promise.all(
+                filteredProgramStageItems.map((d) =>
+                    this.loadOptionSet(d, engine)
+                )
+            )
         }
 
         if (
@@ -285,9 +387,11 @@ class EventLayer extends Layer {
                         .map((d) => d.trackedEntityAttribute)
                     displayItems.push(...filteredProgramItems)
 
-                    for (const d of filteredProgramItems) {
-                        await this.loadOptionSet(d, engine)
-                    }
+                    await Promise.all(
+                        filteredProgramItems.map((d) =>
+                            this.loadOptionSet(d, engine)
+                        )
+                    )
                 }
             }
         }

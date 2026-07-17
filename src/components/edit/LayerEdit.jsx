@@ -100,7 +100,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
     return (
         <Modal position="top" dataTest="layeredit" fluid onClose={cancelLayer}>
             <ModalTitle>{title}</ModalTitle>
-            <ModalContent>
+            <ModalContent className={styles.modalContent}>
                 <div className={styles.content}>
                     <LayerDialog
                         {...layer}

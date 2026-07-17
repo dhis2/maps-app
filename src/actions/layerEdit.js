@@ -92,6 +92,16 @@ export const setColorScale = (colorScale) => ({
     colorScale,
 })
 
+export const setLegendDecimalPlaces = (legendDecimalPlaces) => ({
+    type: types.LAYER_EDIT_LEGEND_DECIMAL_PLACES_SET,
+    legendDecimalPlaces,
+})
+
+export const setLegendIsolated = (legendIsolated) => ({
+    type: types.LAYER_EDIT_LEGEND_ISOLATED_SET,
+    legendIsolated,
+})
+
 // Set event status
 export const setEventStatus = (status) => ({
     type: types.LAYER_EDIT_EVENT_STATUS_SET,
@@ -114,6 +124,18 @@ export const setFallbackCoordinateField = (fieldId) => ({
 // Set if event clustering should be used (event)
 export const setEventClustering = (checked) => ({
     type: types.LAYER_EDIT_EVENT_CLUSTERING_SET,
+    checked,
+})
+
+// Set if features without coordinates should be counted and added to data table
+export const setCountFeaturesWithoutCoordinates = (checked) => ({
+    type: types.LAYER_EDIT_COUNT_FEATURES_WITHOUT_COORDS_SET,
+    checked,
+})
+
+// Set if events outside selected org units should be filtered and counted
+export const setCountEventsOutsideOrgUnits = (checked) => ({
+    type: types.LAYER_EDIT_COUNT_EVENTS_OUTSIDE_OU_SET,
     checked,
 })
 
@@ -167,32 +189,26 @@ export const setPeriodName = (periodName) => ({
     periodName,
 })
 
-// Set period type (thematic)
+// Set period type (event/thematic)
 export const setPeriodType = (periodType, keepPeriod) => ({
     type: types.LAYER_EDIT_PERIOD_TYPE_SET,
     periodType,
     keepPeriod,
 })
 
-// Set periods (thematic)
+// Set periods (event/thematic)
 export const setPeriods = (periods) => ({
     type: types.LAYER_EDIT_PERIODS_SET,
     periods,
 })
 
-// Set period (event & thematic)
-export const setPeriod = (period) => ({
-    type: types.LAYER_EDIT_PERIOD_SET,
-    period,
-})
-
-// Set start date (event)
+// Set start date (event/thematic)
 export const setStartDate = (startDate) => ({
     type: types.LAYER_EDIT_START_DATE_SET,
     startDate,
 })
 
-// Set end date (event)
+// Set end date (event/thematic)
 export const setEndDate = (endDate) => ({
     type: types.LAYER_EDIT_END_DATE_SET,
     endDate,
@@ -347,10 +363,14 @@ export const setRenderingStrategy = (display) => ({
     payload: display,
 })
 
-// Set no data color
-export const setNoDataColor = (color) => ({
-    type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
-    payload: color,
+export const setNoDataLegend = (noDataLegend) => ({
+    type: types.LAYER_EDIT_NO_DATA_LEGEND_SET,
+    payload: noDataLegend,
+})
+
+export const setUnclassifiedLegend = (unclassifiedLegend) => ({
+    type: types.LAYER_EDIT_UNCLASSIFIED_LEGEND_SET,
+    payload: unclassifiedLegend,
 })
 
 // Set period for EE layer
@@ -363,4 +383,10 @@ export const setEarthEnginePeriod = (payload) => ({
 export const setFeatureStyle = (payload) => ({
     type: types.LAYER_EDIT_FEATURE_STYLE_SET,
     payload,
+})
+
+// Set label data item
+export const setLabelDataItem = (item) => ({
+    type: types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET,
+    item,
 })

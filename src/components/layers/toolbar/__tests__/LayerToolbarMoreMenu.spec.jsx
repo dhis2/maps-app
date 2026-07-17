@@ -222,6 +222,43 @@ describe('LayerToolbarMoreMenu', () => {
         })
     })
 
+    test('renders Duplicate layer item between Edit layer and Remove layer', async () => {
+        const store = {
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
+
+        const onDuplicate = jest.fn()
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    onEdit={jest.fn()}
+                    onDuplicate={onDuplicate}
+                    onRemove={jest.fn()}
+                />
+            </Provider>
+        )
+
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
+
+        await waitFor(() => {
+            expect(screen.queryByText('Edit layer')).toBeTruthy()
+            expect(screen.queryByText('Duplicate layer')).toBeTruthy()
+            expect(screen.queryByText('Remove layer')).toBeTruthy()
+            // Edit + Duplicate + Remove, no divider (nothing above divider)
+            expect(screen.getByRole('menu').children.length).toEqual(3)
+        })
+
+        fireEvent.click(screen.getByText('Duplicate layer'))
+        expect(onDuplicate).toHaveBeenCalledTimes(1)
+    })
+
     test('renders disabled menu items if there was an error', async () => {
         const store = {
             aggregations: {},

@@ -22,11 +22,11 @@ import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
-const teiGeometryTypes = [
+const teiGeometryTypes = new Set([
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
     GEO_TYPE_MULTIPOLYGON,
-]
+])
 
 const TEI_40_QUERY = {
     resource: 'tracker/trackedEntities',
@@ -100,22 +100,145 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
-    if (config.config && typeof config.config === 'string') {
-        try {
-            const customConfig = JSON.parse(config.config)
-            config.relationshipType = customConfig.relationships.type
-            config.relatedPointColor = customConfig.relationships.pointColor
-            config.relatedPointRadius = customConfig.relationships.pointRadius
-            config.relationshipLineColor = customConfig.relationships.lineColor
-            config.relationshipOutsideProgram =
-                customConfig.relationships.relationshipOutsideProgram
-            config.periodType = customConfig.periodType
-        } catch (e) {
-            // Failed to load JSON relationship config, assuming no relationships
-        }
-        delete config.config
+const toGeoJson = (instances) =>
+    instances.map(({ id, geometry }) => ({
+        type: GEO_TYPE_FEATURE,
+        geometry,
+        properties: {
+            id,
+        },
+    }))
+
+export const parseJsonConfig = (config) => {
+    if (!config.config || typeof config.config !== 'string') {
+        return
     }
+
+    try {
+        const { relationships, periodType } = JSON.parse(config.config)
+
+        if (relationships) {
+            config.relationshipType = relationships.type
+            config.relatedPointColor = relationships.pointColor
+            config.relatedPointRadius = relationships.pointRadius
+            config.relationshipLineColor = relationships.lineColor
+            config.relationshipOutsideProgram =
+                relationships.relationshipOutsideProgram
+        }
+
+        config.periodType = periodType
+    } catch (e) {
+        // Malformed config JSON
+    }
+
+    delete config.config
+}
+
+const fetchRelationshipData = async ({
+    engine,
+    isVersion40,
+    instances,
+    relationshipTypeID,
+    orgUnits,
+    organisationUnitSelectionMode,
+    relatedPointColor,
+    relatedPointRadius,
+    relationshipLineColor,
+    legend,
+}) => {
+    const { relationshipType } = await engine.query(
+        { relationshipType: RELATIONSHIP_TYPES_QUERY },
+        { variables: { id: relationshipTypeID } }
+    )
+
+    const { relatedEntityType } = await engine.query(
+        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+        {
+            variables: {
+                id: relationshipType.toConstraint.trackedEntityType.id,
+            },
+        }
+    )
+
+    const isPoint =
+        relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
+
+    legend.items.push(
+        {
+            type: GEO_TYPE_LINE,
+            name: relationshipType.displayName,
+            color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
+            weight: 1,
+        },
+        {
+            name: `${relatedEntityType.displayName} (${i18n.t('related')})`,
+            color: relatedPointColor || TEI_RELATED_COLOR,
+            radius: isPoint
+                ? relatedPointRadius || TEI_RELATED_RADIUS
+                : undefined,
+            weight: isPoint ? undefined : 1,
+        }
+    )
+
+    const dataWithRels = await getDataWithRelationships({
+        isVersion40,
+        instances,
+        queryOptions: {
+            relationshipType,
+            orgUnits,
+            organisationUnitSelectionMode,
+        },
+        engine,
+    })
+
+    return {
+        data: toGeoJson(dataWithRels.primary),
+        relationships: dataWithRels.relationships,
+        secondaryData: toGeoJson(dataWithRels.secondary),
+    }
+}
+
+const buildQueryVariables = ({
+    fields,
+    orgUnits,
+    orgUnitMode,
+    program,
+    programStatus,
+    followUp,
+    trackedEntityType,
+    periodType,
+    startDate,
+    endDate,
+}) => {
+    const followUpBool = followUp ? 'TRUE' : 'FALSE'
+    const boolFollowUp =
+        program && followUp !== undefined ? followUpBool : undefined
+
+    return {
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program: program?.id,
+        programStatus,
+        followUp: boolFollowUp,
+        trackedEntityType: program ? undefined : trackedEntityType?.id,
+        enrollmentEnrolledAfter:
+            periodType === 'program' ? trimTime(startDate) : undefined,
+        enrollmentEnrolledBefore:
+            periodType === 'program' ? trimTime(endDate) : undefined,
+        updatedAfter:
+            periodType === 'program' ? undefined : trimTime(startDate),
+        updatedBefore: periodType === 'program' ? undefined : trimTime(endDate),
+    }
+}
+
+const trackedEntityLoader = async ({
+    config,
+    engine,
+    keyAnalysisDigitGroupSeparator,
+    serverVersion,
+}) => {
+    parseJsonConfig(config)
 
     const {
         trackedEntityType,
@@ -164,7 +287,6 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
 
     const fieldsWithRelationships = [...fields, 'relationships']
     let explanation
-    let boolFollowUp = undefined
 
     if (program && programStatus) {
         explanation = `${i18n.t('Program status')}: ${
@@ -172,30 +294,21 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
         }`
     }
 
-    if (program && followUp !== undefined) {
-        boolFollowUp = followUp ? 'TRUE' : 'FALSE'
-    }
-
     const { trackedEntities } = await engine.query(
         { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
-            variables: {
+            variables: buildQueryVariables({
                 fields: fieldsWithRelationships,
-                orgUnits: orgUnits,
+                orgUnits,
                 orgUnitMode: organisationUnitSelectionMode,
-                program: program?.id,
+                program,
                 programStatus,
-                followUp: boolFollowUp,
-                trackedEntityType: !program ? trackedEntityType?.id : undefined,
-                enrollmentEnrolledAfter:
-                    periodType === 'program' ? trimTime(startDate) : undefined,
-                enrollmentEnrolledBefore:
-                    periodType === 'program' ? trimTime(endDate) : undefined,
-                updatedAfter:
-                    periodType !== 'program' ? trimTime(startDate) : undefined,
-                updatedBefore:
-                    periodType !== 'program' ? trimTime(endDate) : undefined,
-            },
+                followUp,
+                trackedEntityType,
+                periodType,
+                startDate,
+                endDate,
+            }),
         }
     )
 
@@ -203,7 +316,7 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
         isVersion40 ? 'instances' : 'trackedEntities'
     ].filter(
         (instance) =>
-            teiGeometryTypes.includes(instance.geometry?.type) &&
+            teiGeometryTypes.has(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
 
@@ -219,58 +332,18 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
     let data, relationships, secondaryData
 
     if (relationshipTypeID) {
-        const { relationshipType } = await engine.query(
-            { relationshipType: RELATIONSHIP_TYPES_QUERY },
-            {
-                variables: {
-                    id: relationshipTypeID,
-                },
-            }
-        )
-
-        const { relatedEntityType } = await engine.query(
-            { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
-            {
-                variables: {
-                    id: relationshipType.toConstraint.trackedEntityType.id,
-                },
-            }
-        )
-
-        const isPoint =
-            relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
-
-        legend.items.push(
-            {
-                type: GEO_TYPE_LINE,
-                name: relationshipType.displayName,
-                color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
-                weight: 1,
-            },
-            {
-                name: `${relatedEntityType.displayName} (${i18n.t('related')})`,
-                color: relatedPointColor || TEI_RELATED_COLOR,
-                radius: isPoint
-                    ? relatedPointRadius || TEI_RELATED_RADIUS
-                    : undefined,
-                weight: !isPoint ? 1 : undefined,
-            }
-        )
-
-        const dataWithRels = await getDataWithRelationships({
+        ;({ data, relationships, secondaryData } = await fetchRelationshipData({
+            engine,
             isVersion40,
             instances,
-            queryOptions: {
-                relationshipType,
-                orgUnits,
-                organisationUnitSelectionMode,
-            },
-            engine,
-        })
-
-        data = toGeoJson(dataWithRels.primary)
-        relationships = dataWithRels.relationships
-        secondaryData = toGeoJson(dataWithRels.secondary)
+            relationshipTypeID,
+            orgUnits,
+            organisationUnitSelectionMode,
+            relatedPointColor,
+            relatedPointRadius,
+            relationshipLineColor,
+            legend,
+        }))
     } else {
         data = toGeoJson(instances)
     }
@@ -283,6 +356,7 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
         ...config,
         name,
         data,
+        keyAnalysisDigitGroupSeparator,
         relationships,
         secondaryData,
         legend,
@@ -290,17 +364,7 @@ const trackedEntityLoader = async ({ config, engine, serverVersion }) => {
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
     }
 }
-
-const toGeoJson = (instances) =>
-    instances.map(({ id, geometry }) => ({
-        type: GEO_TYPE_FEATURE,
-        geometry,
-        properties: {
-            id,
-        },
-    }))
 
 export default trackedEntityLoader

@@ -28,7 +28,6 @@ export const createExternalBasemapLayer = (layer) => ({
     layer: EXTERNAL_LAYER,
     id: layer.id,
     name: layer.name,
-    opacity: 1,
     config: createExternalLayerConfig(layer),
 })
 
@@ -39,7 +38,6 @@ export const createExternalOverlayLayer = (layer) => ({
             : EXTERNAL_LAYER,
     img: 'images/featurelayer.png',
     name: layer.name,
-    opacity: 1,
     config: createExternalLayerConfig(layer),
 })
 
@@ -81,7 +79,7 @@ export const parseLayerConfig = async (layerConfig, engine) => {
 
     try {
         config = JSON.parse(layerConfig)
-    } catch (evt) {
+    } catch (error_) {
         return
     }
 
@@ -99,7 +97,7 @@ export const parseLayerConfig = async (layerConfig, engine) => {
             )
             const newConfig = createExternalLayerConfig(externalLayer)
             newConfig.featureStyle = { ...config.featureStyle }
-        } catch (evt) {
+        } catch (error_) {
             return config
         }
     }
