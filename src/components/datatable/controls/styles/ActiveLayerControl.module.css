@@ -1,3 +1,7 @@
+:root {
+    --data-table-name-tooltip-vertical-padding: 3px;
+}
+
 .layerName {
     font-weight: 500;
     font-size: 12px;
@@ -25,7 +29,8 @@
     border-radius: 3px;
     -webkit-mask-image: linear-gradient(to left, transparent, black 2em);
     mask-image: linear-gradient(to left, transparent, black 2em);
-    padding: 3px 2em 3px 0;
+    padding: var(--data-table-name-tooltip-vertical-padding) 2em
+        var(--data-table-name-tooltip-vertical-padding) 0;
     pointer-events: none;
     position: fixed;
     white-space: nowrap;
