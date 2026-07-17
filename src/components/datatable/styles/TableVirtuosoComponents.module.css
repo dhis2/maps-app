@@ -1,0 +1,34 @@
+.dataTable {
+    height: 1px;
+    border: none !important;
+}
+
+.dataTable > :global(thead) {
+    user-select: none;
+}
+
+.noResults {
+    display: flex;
+    color: var(--colors-grey600);
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacers-dp8);
+    font-size: 12px;
+    font-style: italic;
+    min-height: 40px;
+}
+
+.clearFiltersLink {
+    font-size: 12px;
+    font-style: normal;
+    color: var(--colors-blue600);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clearFiltersLink:hover {
+    color: var(--colors-blue700);
+}
