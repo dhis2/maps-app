@@ -9,6 +9,7 @@ import {
     EARTH_ENGINE_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    TRACKED_ENTITY_LAYER,
 } from '../../constants/layers.js'
 import {
     SELECTION_FILTER_SELECTED,
@@ -141,6 +142,26 @@ const getOrgUnitHeaders = () =>
     [NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
         (field) => defaultFieldsMap()[field]
     )
+
+// Unlike getEventHeaders's layerHeaders (raw analytics response shape,
+// name=uid/column=display), trackedEntityLoader.js already builds its
+// headers in the final {name, dataKey, valueType} shape - only the
+// valueType -> table type classification needs doing here.
+const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
+    const fields = [ID].map((field) => defaultFieldsMap()[field])
+
+    const customFields = layerHeaders
+        .filter(({ dataKey }) => isValidUid(dataKey))
+        .map(({ name, dataKey, valueType }) => ({
+            name,
+            dataKey,
+            type: numberValueTypes.includes(valueType)
+                ? TYPE_NUMBER
+                : TYPE_STRING,
+        }))
+
+    return fields.concat(customFields)
+}
 
 const getFacilityHeaders = () =>
     [NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
@@ -286,6 +307,9 @@ export const useTableData = ({
                 break
             case ORG_UNIT_LAYER:
                 headers = getOrgUnitHeaders()
+                break
+            case TRACKED_ENTITY_LAYER:
+                headers = getTrackedEntityHeaders({ layerHeaders })
                 break
             case EARTH_ENGINE_LAYER:
                 headers = getEarthEngineHeaders({
