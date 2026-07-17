@@ -1,29 +1,23 @@
 #!/usr/bin/env bash
-FILE=$(node -e "
-  try {
-    const d = JSON.parse(process.env.TOOL_INPUT || '{}')
-    console.log(d.file_path || '')
-  } catch(e) {}
-" 2>/dev/null)
+set -uo pipefail
 
-if [ -z "$FILE" ] || [ ! -f "$FILE" ]; then
-  exit 0
-fi
+input=$(cat)
+file=$(printf '%s' "$input" | jq -r '.tool_input.file_path // empty')
+[ -n "$file" ] && [ -f "$file" ] || exit 0
 
-case "$FILE" in
-  *.css)
-    npx prettier --write "$FILE" && echo "prettier: formatted $FILE" || echo "prettier: FAILED on $FILE"
-    if ls .stylelintrc* stylelint.config.* 2>/dev/null | grep -q .; then
-      npx stylelint "$FILE" --max-warnings=0 2>&1 | tail -5
-    fi
-    ;;
-  *.ts|*.tsx|*.js|*.jsx)
-    npx prettier --write "$FILE" && echo "prettier: formatted $FILE" || echo "prettier: FAILED on $FILE"
-    npx eslint "$FILE" 2>&1 | tail -10
-    ;;
-  *.json|*.md|*.yml|*.yaml)
-    npx prettier --write "$FILE" && echo "prettier: formatted $FILE" || echo "prettier: FAILED on $FILE"
-    ;;
+cd "${CLAUDE_PROJECT_DIR:-.}" || exit 0
+
+case "$file" in
+    *.js | *.jsx | *.css | *.json | *.md | *.yml | *.yaml) ;;
+    *) exit 0 ;;
 esac
+
+output=$(yarn d2-style apply "$file" 2>&1)
+status=$?
+
+if [ "$status" -ne 0 ] || printf '%s' "$output" | grep -q '\[warn\]'; then
+    notes=$(printf '%s\n' "$output" | grep -vE '^\$ |^yarn run|^Done in|^info Visit|^\s*$')
+    jq -n --arg ctx "$notes" '{hookSpecificOutput: {hookEventName: "PostToolUse", additionalContext: $ctx}}'
+fi
 
 exit 0

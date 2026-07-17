@@ -1,0 +1,111 @@
+---
+name: commit-and-pr-messages
+description: Use before drafting a commit message, a PR title, or a PR description body — covers this repo's Conventional Commits format, the Jira ticket bracket convention, the real PR template, and the check-tasklist.yml constraint that blocks a PR on any unchecked checkbox.
+---
+
+# Commit and PR messages
+
+A lookup, not a workflow — consult the row that matches what you're drafting, then apply the rules below it.
+
+| Drafting...           | What's different                                                                                                                                                                                                                                                     |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A commit message      | Header must be a valid Conventional Commit; never hand-append `(#NNNN)`; never hand-write a `chore(release):` message                                                                                                                                                |
+| A PR title            | Same rules as a commit message — this repo squash-merges, so the PR title _becomes_ the final commit header. maps-app's CI doesn't lint-check this today (event-visualizer-app's does, via `wagoid/commitlint-github-action`), but write it as if it will be checked |
+| A PR description body | Start from `.github/pull_request_template.md` verbatim; every `- [ ]` in the final body must be either genuinely checked or replaced with `_N/A_` — see "Checklist constraint" below                                                                                 |
+
+## Conventional Commits format
+
+`<type>(<scope>)?: <subject>` — enforced locally by `.hooks/commit-msg` (`yarn d2-style check commit "$1"`, i.e. commitlint via `@dhis2/cli-style`'s `@commitlint/config-conventional`). **Not** re-verified in maps-app's own CI (unlike event-visualizer-app), so the local hook is the only real gate — don't rely on CI to catch a bad message.
+
+-   **Allowed types**: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test` — but real usage on `master` is dominated by just three: `feat`, `fix`, and plain `chore` (+ scoped variants `chore(deps)`, `chore(deps-dev)`, `chore(release)`, `chore(app-platform)`, `fix(translations)`). Don't reach for an exotic type just because it's in the allowed list if `feat`/`fix`/`chore` already fits.
+-   Header ≤ 120 chars.
+-   Subject: not sentence-case, Start Case, PascalCase, or UPPERCASE; no trailing period.
+-   Scope is optional and rare in this repo's history — don't invent one just to fill the slot.
+
+## Bot-generated patterns — recognize these, never hand-write them
+
+-   `chore(release): cut X.Y.Z [skip release]` — semantic-release only.
+-   `chore(deps): bump <pkg> from A to B (#NNNN)` / `chore(deps-dev): bump ...` / `chore(deps): bump the dependencies group across 1 directory with N updates` — Dependabot only.
+-   `fix(translations): sync translations from transifex (master)` — Transifex sync bot only.
+
+## Jira ticket references
+
+`[PROJECTKEY-NUMBER]` in square brackets — the project key isn't always `DHIS2` (`CLIM-501` also appears in history). Placed after the description, before any `(#PRNUM)`. **Multiple tickets in one bracket-stack is normal and common** for a commit/PR that batches related fixes:
+
+```
+fix: prevent timeline crash on load failure and fix period after drilling up/down [DHIS2-19063] [DHIS2-21113] (#3664)
+fix: various bubble layer issues [DHIS2-15696] [DHIS2-19209] [DHIS2-19447] [DHIS2-19448] (#3550)
+```
+
+## What makes a real "good" message here
+
+The healthiest real examples describe the **observable behavior/outcome** — what a user or future maintainer would see changed — not the implementation mechanics:
+
+```
+fix: prevent duplicate overview map outline in splitmap download mode [DHIS2-21540] (#3676)
+fix: preserve program/enrollment period type on TE layer reload [DHIS2-19205] (#3674)
+feat: add custom scale toggle for heat stress layers [DHIS2-20564] (#3708)
+fix: resize data table and map canvas continuously during drag [DHIS2-15884] (#3675)
+```
+
+Not "refactor the useEffect to guard against null" — "prevent X crash," "preserve Y on Z." Most real headers run ~40-70 chars, well under the 120 hard cap. Lowercase immediately after the type/colon, no trailing period, imperative/active verb.
+
+## Two things to never fabricate
+
+-   **`(#PRNUM)`** — GitHub appends this automatically when the PR is squash-merged. Never write it into a drafted commit message or PR title yourself; you don't know what the number will be, and a wrong one is worse than none.
+-   **`chore(release): cut X.Y.Z [skip release]`** — generated by semantic-release on release. Never hand-write one.
+
+## PR description body
+
+Use `.github/pull_request_template.md` as the literal skeleton — don't paraphrase its section headers or reorder them:
+
+```markdown
+Implements [DHIS2-XXXX](https://dhis2.atlassian.net/browse/DHIS2-XXXX)
+
+### Description
+
+_text_
+
+---
+
+### Quality checklist
+
+Add _N/A_ to items that are not applicable.
+
+-   [ ] Dashboard tested
+-   [ ] Cypress and/or Jest tests added/updated
+-   [ ] Docs added
+-   [ ] d2-ci dependencies replaced (analytics or maps-gl link https://github.com/dhis2/[lib]/pull/XXX)
+-   [ ] Tester approved (name)
+
+---
+
+### ToDos
+
+-   [ ] _todo_
+
+---
+
+### Known issues
+
+-   [ ] _issue_
+
+---
+
+### Screenshots
+
+_supporting images_
+```
+
+### Checklist constraint (`check-tasklist.yml`)
+
+`Shopify/task-list-checker` scans the whole PR body on every edit and blocks the PR while _any_ `- [ ]` remains, anywhere in the body — not just the Quality checklist. When drafting or updating a description:
+
+-   Only leave `- [ ]` on items you genuinely expect to complete before merge.
+-   For anything not applicable, write `_N/A_` in place of the checkbox — that's the template's own escape hatch, not a workaround.
+-   It's fine to leave items unchecked while the PR is still a draft; just don't hand it off as "ready for review" with stray open boxes.
+
+## Related
+
+-   `pr-polish` — the workflow that keeps the Quality checklist honest across rounds of fixes; this skill just supplies the format rules it applies.
+-   `pre-review` — final check before flipping a PR to ready; doesn't touch message drafting, but its title/description check reuses this skill's template.
