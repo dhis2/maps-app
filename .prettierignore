@@ -2,6 +2,7 @@ node_modules
 .d2
 src/locales
 build
+coverage
 cypress/fixtures/*
 cypress.env.json
 docs/maps.md
