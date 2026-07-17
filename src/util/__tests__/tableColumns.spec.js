@@ -1,4 +1,5 @@
 import {
+    getPinnedCellProps,
     getPinnedCount,
     getPinnedLeftOffsets,
     getVisibleHeaders,
@@ -247,5 +248,56 @@ describe('reverseVisibleKeys', () => {
     it('returns every dataKey when nothing is currently visible', () => {
         const result = reverseVisibleKeys(headers, [])
         expect(result).toEqual(['name', 'id', 'rawValue', 'legend'])
+    })
+})
+
+describe('getPinnedCellProps', () => {
+    const pinnedLeftOffsets = { rawValue: 76, name: 176 }
+    const pinnedColumnCount = 2
+    const columnWidths = [100, 150, 80, 120]
+
+    it('marks a pinned-in-range column as fixed with its left/width offsets', () => {
+        expect(
+            getPinnedCellProps('rawValue', 0, {
+                pinnedLeftOffsets,
+                pinnedColumnCount,
+                columnWidths,
+            })
+        ).toEqual({
+            fixed: true,
+            left: '76px',
+            width: '100px',
+            isLastPinned: false,
+        })
+    })
+
+    it('leaves an unpinned column unfixed with no left/width offsets', () => {
+        expect(
+            getPinnedCellProps('id', 2, {
+                pinnedLeftOffsets,
+                pinnedColumnCount,
+                columnWidths,
+            })
+        ).toEqual({
+            fixed: false,
+            left: undefined,
+            width: undefined,
+            isLastPinned: false,
+        })
+    })
+
+    it('flags isLastPinned only at the final pinned index', () => {
+        expect(
+            getPinnedCellProps('name', 1, {
+                pinnedLeftOffsets,
+                pinnedColumnCount,
+                columnWidths,
+            })
+        ).toEqual({
+            fixed: true,
+            left: '176px',
+            width: '150px',
+            isLastPinned: true,
+        })
     })
 })

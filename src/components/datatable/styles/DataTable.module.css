@@ -1,12 +1,3 @@
-.dataTable {
-    height: 1px;
-    border: none !important;
-}
-
-.dataTable > :global(thead) {
-    user-select: none;
-}
-
 td.dataCell,
 th.dataCell {
     padding-top: var(--spacers-dp8);
@@ -50,35 +41,6 @@ td.checkboxCell {
     align-items: center;
     justify-content: center;
     gap: 2px;
-}
-
-.selectionFilterButton {
-    width: 100%;
-    height: 24px;
-    font-size: 11px;
-    padding: 4px 6px;
-    border: 1px solid var(--colors-grey500);
-    border-radius: 3px;
-    box-shadow: inset 0 0 1px 0 rgba(48, 54, 60, 0.1);
-    background: var(--colors-white);
-    cursor: pointer;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.selectionFilterPopover {
-    padding: var(--spacers-dp8);
-    min-width: 140px;
-    background-color: var(--colors-white);
-    border-radius: 4px;
-    box-shadow: var(--elevations-popover);
-}
-
-/* !important beats @dhis2/ui's own Checkbox label font-size. */
-.selectionFilterPopover :global(label) {
-    font-size: 11px !important;
 }
 
 td.selected,
@@ -158,19 +120,6 @@ th.hovered {
     cursor: not-allowed;
 }
 
-.topTooltipContent {
-    z-index: 2000;
-    max-width: 300px;
-    padding: 4px 6px;
-    background-color: var(--colors-grey900);
-    border-radius: 3px;
-    color: var(--colors-white);
-    font-size: 13px;
-    line-height: 17px;
-    word-break: normal;
-    overflow-wrap: break-word;
-}
-
 .columnHeader :global(input.dense) {
     padding: 4px 6px;
     font-size: 11px;
@@ -189,32 +138,6 @@ th.hovered {
     > :global(span.top)
     > button:last-of-type {
     display: none;
-}
-
-.noResults {
-    display: flex;
-    color: var(--colors-grey600);
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacers-dp8);
-    font-size: 12px;
-    font-style: italic;
-    min-height: 40px;
-}
-
-.clearFiltersLink {
-    font-size: 12px;
-    font-style: normal;
-    color: var(--colors-blue600);
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.clearFiltersLink:hover {
-    color: var(--colors-blue700);
 }
 
 .loadingContent {
