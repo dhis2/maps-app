@@ -7,12 +7,6 @@
     user-select: none;
 }
 
-/* A pinned column's cells render as <th> (@dhis2/ui's DataTableCell switches
-   element on `fixed`), so these need to match both td and th. table-data-cell
-   sets no vertical-align on <td> (browser default: middle), but @dhis2/ui's
-   own th styles explicitly set `vertical-align: top` - without overriding it
-   here, a pinned column's cells sit top-aligned while the rest of the row
-   stays middle-aligned. */
 td.dataCell,
 th.dataCell {
     padding-top: var(--spacers-dp8);

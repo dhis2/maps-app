@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
-import { IconDrag } from '../core/icons.jsx'
-import styles from './styles/ResizeHandle.module.css'
+import { IconDrag } from '../../core/icons.jsx'
+import styles from './styles/ResizeHandleControl.module.css'
 
-const ResizeHandle = ({
+const ResizeHandleControl = ({
     onResize,
     onResizeStart,
     onResizeEnd,
@@ -73,7 +73,7 @@ const ResizeHandle = ({
     )
 }
 
-ResizeHandle.propTypes = {
+ResizeHandleControl.propTypes = {
     maxHeight: PropTypes.number.isRequired,
     minHeight: PropTypes.number,
     onResize: PropTypes.func,
@@ -81,4 +81,4 @@ ResizeHandle.propTypes = {
     onResizeStart: PropTypes.func,
 }
 
-export default ResizeHandle
+export default ResizeHandleControl
