@@ -285,6 +285,67 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    test('gets headers and rows for tracked entity layer', () => {
+        const store = {
+            aggregations: {},
+        }
+        const layer = {
+            layer: 'trackedEntity',
+            dataFilters: null,
+            headers: [
+                {
+                    name: 'First name',
+                    dataKey: 'w75KJ2mc4zz',
+                    valueType: 'TEXT',
+                },
+                {
+                    name: 'Age',
+                    dataKey: 'zDhUuAYrxNC',
+                    valueType: 'NUMBER',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'PsgJS8BUxZd',
+                        w75KJ2mc4zz: 'Gabrielle',
+                        zDhUuAYrxNC: 28,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers, rows, isLoading } = result.current
+        expect(headers).toHaveLength(3)
+        expect(headers).toMatchObject([
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'First name', dataKey: 'w75KJ2mc4zz', type: 'string' },
+            { name: 'Age', dataKey: 'zDhUuAYrxNC', type: 'number' },
+        ])
+        expect(rows).toHaveLength(1)
+        expect(rows[0]).toHaveLength(3)
+        expect(rows[0]).toMatchObject([
+            { value: 'PsgJS8BUxZd', dataKey: 'id' },
+            { value: 'Gabrielle', dataKey: 'w75KJ2mc4zz' },
+            { value: 28, dataKey: 'zDhUuAYrxNC' },
+        ])
+        expect(isLoading).toBe(false)
+    })
+
     test('treats NUMBER header with optionSet as string type', () => {
         const store = { aggregations: {} }
         const layer = {

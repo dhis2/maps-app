@@ -19,7 +19,7 @@ import {
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
-const fields = ['trackedEntity~rename(id)', 'geometry']
+const fields = ['trackedEntity~rename(id)', 'geometry', 'attributes']
 
 // Valid geometry types for TEIs
 const teiGeometryTypes = new Set([
@@ -100,12 +100,36 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
+export const getAttributeProperties = (attributes) =>
+    Object.fromEntries(
+        (attributes ?? []).map(({ attribute, value }) => [attribute, value])
+    )
+
+// One header per unique attribute uid seen across all instances - not every
+// instance necessarily has a value for every attribute.
+export const getAttributeHeaders = (instances) => {
+    const headersByAttribute = new Map()
+    instances.forEach(({ attributes }) => {
+        ;(attributes ?? []).forEach(({ attribute, displayName, valueType }) => {
+            if (!headersByAttribute.has(attribute)) {
+                headersByAttribute.set(attribute, {
+                    name: displayName,
+                    dataKey: attribute,
+                    valueType,
+                })
+            }
+        })
+    })
+    return [...headersByAttribute.values()]
+}
+
 const toGeoJson = (instances) =>
-    instances.map(({ id, geometry }) => ({
+    instances.map(({ id, geometry, attributes }) => ({
         type: GEO_TYPE_FEATURE,
         geometry,
         properties: {
             id,
+            ...getAttributeProperties(attributes),
         },
     }))
 
@@ -326,6 +350,8 @@ const trackedEntityLoader = async ({
             instance.geometry?.coordinates
     )
 
+    const headers = getAttributeHeaders(instances)
+
     let alert
 
     if (!instances.length) {
@@ -362,6 +388,7 @@ const trackedEntityLoader = async ({
         ...config,
         name,
         data,
+        headers,
         keyAnalysisDigitGroupSeparator,
         relationships,
         secondaryData,
