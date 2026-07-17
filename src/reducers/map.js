@@ -73,6 +73,7 @@ const basemap = (state, action) => {
                 isVisible: !state.isVisible,
             }
 
+        // TODO: unreachable
         default:
             return state
     }
