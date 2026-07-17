@@ -1,8 +1,68 @@
-import { parseJsonConfig } from '../trackedEntityLoader.js'
+import {
+    getAttributeHeaders,
+    getAttributeProperties,
+    parseJsonConfig,
+} from '../trackedEntityLoader.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
 }))
+
+describe('getAttributeProperties', () => {
+    it('maps each attribute uid to its value', () => {
+        const attributes = [
+            { attribute: 'w75KJ2mc4zz', value: 'Gabrielle' },
+            { attribute: 'zDhUuAYrxNC', value: 'Schmidt' },
+        ]
+        expect(getAttributeProperties(attributes)).toEqual({
+            w75KJ2mc4zz: 'Gabrielle',
+            zDhUuAYrxNC: 'Schmidt',
+        })
+    })
+
+    it('returns an empty object when there are no attributes', () => {
+        expect(getAttributeProperties(undefined)).toEqual({})
+        expect(getAttributeProperties([])).toEqual({})
+    })
+})
+
+describe('getAttributeHeaders', () => {
+    it('returns one header per unique attribute uid seen across instances', () => {
+        const instances = [
+            {
+                attributes: [
+                    {
+                        attribute: 'w75KJ2mc4zz',
+                        displayName: 'First name',
+                        valueType: 'TEXT',
+                    },
+                ],
+            },
+            {
+                attributes: [
+                    {
+                        attribute: 'w75KJ2mc4zz',
+                        displayName: 'First name',
+                        valueType: 'TEXT',
+                    },
+                    {
+                        attribute: 'zDhUuAYrxNC',
+                        displayName: 'Last name',
+                        valueType: 'TEXT',
+                    },
+                ],
+            },
+        ]
+        expect(getAttributeHeaders(instances)).toEqual([
+            { name: 'First name', dataKey: 'w75KJ2mc4zz', valueType: 'TEXT' },
+            { name: 'Last name', dataKey: 'zDhUuAYrxNC', valueType: 'TEXT' },
+        ])
+    })
+
+    it('returns an empty array when no instance has attributes', () => {
+        expect(getAttributeHeaders([{ attributes: [] }, {}])).toEqual([])
+    })
+})
 
 describe('parseJsonConfig', () => {
     it('extracts periodType when relationships is null', () => {
