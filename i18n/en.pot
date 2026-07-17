@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-17T19:19:08.730Z\n"
-"PO-Revision-Date: 2026-07-17T19:19:08.731Z\n"
+"POT-Creation-Date: 2026-07-17T20:38:05.509Z\n"
+"PO-Revision-Date: 2026-07-17T20:38:05.509Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -280,6 +280,9 @@ msgstr "Select all columns"
 msgid "Reset to defaults"
 msgstr "Reset to defaults"
 
+msgid "Add period columns"
+msgstr "Add period columns"
+
 msgid "Drag to reorder"
 msgstr "Drag to reorder"
 
@@ -349,6 +352,12 @@ msgstr "Org unit boundary"
 
 msgid "Event time"
 msgstr "Event time"
+
+msgid "Current period"
+msgstr "Current period"
+
+msgid "Value ({{period}})"
+msgstr "Value ({{period}})"
 
 msgid "Loading Earth Engine data…"
 msgstr "Loading Earth Engine data…"

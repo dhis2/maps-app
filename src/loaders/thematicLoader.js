@@ -544,6 +544,10 @@ const thematicLoader = async ({
                         isNoData,
                         isUnclassified,
                     }),
+                    ...getFeatureLegend(legendItem, {
+                        isNoData,
+                        isUnclassified,
+                    }),
                     ...getFeatureRadius(
                         legendItem,
                         { isNoData, isUnclassified },

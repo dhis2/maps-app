@@ -207,6 +207,8 @@ const BottomPanel = () => {
                     layerId={activeLayerId}
                     allHeaders={allHeaders}
                     columnConfig={activeLayer?.dataTableColumnConfig}
+                    renderingStrategy={activeLayer?.renderingStrategy}
+                    periods={activeLayer?.periods}
                 />
                 <span className={styles.divider} />
                 <ResizeHandleControl

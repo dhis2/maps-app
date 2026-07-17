@@ -10,6 +10,8 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
     TRACKED_ENTITY_LAYER,
+    RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
 } from '../../constants/layers.js'
 import {
     SELECTION_FILTER_SELECTED,
@@ -103,6 +105,44 @@ const getThematicHeaders = () =>
     [NAME, ID, VALUE, LEGEND, RANGE, LEVEL, PARENT_NAME, TYPE, COLOR].map(
         (field) => defaultFieldsMap()[field]
     )
+
+// Timeline gets the standard Value/Legend/Range/Color columns, relabeled
+// with the active period's name (updates live as the timeline slider
+// moves). Split-by-period has no single "current" period to privilege, so
+// it only gets the base org unit columns - same shape as getOrgUnitHeaders.
+// Both strategies can add extra, raw-value-only period columns via the
+// column picker's "Periods" section.
+const getMultiPeriodThematicHeaders = ({
+    isTimelineThematic,
+    externalPeriod,
+    extraPeriodIds,
+    periods,
+}) => {
+    const headers = isTimelineThematic
+        ? getThematicHeaders().map((header) =>
+              [VALUE, LEGEND, RANGE, COLOR].includes(header.dataKey)
+                  ? {
+                        ...header,
+                        name: `${header.name} (${
+                            externalPeriod?.name ?? i18n.t('Current period')
+                        })`,
+                    }
+                  : header
+          )
+        : getOrgUnitHeaders()
+
+    extraPeriodIds.forEach((periodId) => {
+        const periodName =
+            periods?.find((p) => p.id === periodId)?.name ?? periodId
+        headers.push({
+            name: i18n.t('Value ({{period}})', { period: periodName }),
+            dataKey: `period_${periodId}_rawValue`,
+            type: TYPE_NUMBER,
+        })
+    })
+
+    return headers
+}
 
 const getEventHeaders = ({
     layerHeaders = [],
@@ -238,7 +278,24 @@ export const useTableData = ({
         dataFilters,
         headers: layerHeaders,
         serverCluster,
+        renderingStrategy,
+        valuesByPeriod,
+        externalPeriod,
+        periods,
+        dataTableColumnConfig,
     } = layer || EMPTY_LAYER
+
+    const isMultiPeriodThematic =
+        layerType === THEMATIC_LAYER &&
+        renderingStrategy &&
+        renderingStrategy !== RENDERING_STRATEGY_SINGLE
+    const isTimelineThematic =
+        isMultiPeriodThematic &&
+        renderingStrategy === RENDERING_STRATEGY_TIMELINE
+    const extraPeriodIds = useMemo(
+        () => dataTableColumnConfig?.extraPeriodIds ?? [],
+        [dataTableColumnConfig]
+    )
 
     const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
 
@@ -270,12 +327,41 @@ export const useTableData = ({
 
         return inViewData
             .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, index) => ({
-                ...(d.properties || d),
-                ...aggregations[d.id],
-                // Row-order tie-breaker for compareRows when no sortField is set
-                index,
-            }))
+            .map((d, index) => {
+                const properties = d.properties || d
+
+                if (!isMultiPeriodThematic) {
+                    return {
+                        ...properties,
+                        ...aggregations[d.id],
+                        // Row-order tie-breaker for compareRows when no sortField is set
+                        index,
+                    }
+                }
+
+                const orgUnitId = properties.id
+                const currentPeriodItem = isTimelineThematic
+                    ? valuesByPeriod?.[externalPeriod?.id]?.[orgUnitId]
+                    : null
+                const extraPeriodValues = {}
+                extraPeriodIds.forEach((pid) => {
+                    extraPeriodValues[`period_${pid}_rawValue`] =
+                        valuesByPeriod?.[pid]?.[orgUnitId]?.value ?? null
+                })
+
+                return {
+                    ...properties,
+                    ...(currentPeriodItem && {
+                        rawValue: currentPeriodItem.value,
+                        color: currentPeriodItem.color,
+                        legend: currentPeriodItem.legend,
+                        range: currentPeriodItem.range,
+                    }),
+                    ...extraPeriodValues,
+                    ...aggregations[d.id],
+                    index,
+                }
+            })
         // boundsDependency intentionally proxies mapBounds only while the toggle is on
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
@@ -286,6 +372,11 @@ export const useTableData = ({
         layerType,
         showOnlyFeaturesInView,
         boundsDependency,
+        isMultiPeriodThematic,
+        isTimelineThematic,
+        valuesByPeriod,
+        externalPeriod,
+        extraPeriodIds,
     ])
 
     const headers = useMemo(() => {
@@ -296,7 +387,14 @@ export const useTableData = ({
         let headers = null
         switch (layerType) {
             case THEMATIC_LAYER:
-                headers = getThematicHeaders()
+                headers = isMultiPeriodThematic
+                    ? getMultiPeriodThematicHeaders({
+                          isTimelineThematic,
+                          externalPeriod,
+                          extraPeriodIds,
+                          periods,
+                      })
+                    : getThematicHeaders()
                 break
             case EVENT_LAYER:
                 headers = getEventHeaders({
@@ -353,6 +451,11 @@ export const useTableData = ({
         dataWithAggregations,
         data,
         layerHeaders,
+        isMultiPeriodThematic,
+        isTimelineThematic,
+        externalPeriod,
+        extraPeriodIds,
+        periods,
     ])
 
     const columnOptions = useMemo(() => {

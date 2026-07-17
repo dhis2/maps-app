@@ -68,6 +68,11 @@ export const reverseVisibleKeys = (headers, visibleKeys) =>
         .filter((h) => !visibleKeys.includes(h.dataKey))
         .map((h) => h.dataKey)
 
+export const togglePeriodId = (extraPeriodIds, periodId) =>
+    extraPeriodIds.includes(periodId)
+        ? extraPeriodIds.filter((id) => id !== periodId)
+        : [...extraPeriodIds, periodId]
+
 // @dhis2/ui requires `width` whenever `fixed` is passed
 export const getPinnedCellProps = (
     dataKey,

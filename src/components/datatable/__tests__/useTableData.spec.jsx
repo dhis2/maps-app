@@ -189,6 +189,187 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    test('gets current-period Value/Legend/Range/Color for a timeline thematic layer', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'thematic',
+            renderingStrategy: 'TIMELINE',
+            externalPeriod: { id: '202302', name: 'February 2023' },
+            valuesByPeriod: {
+                202301: {
+                    'ou-1': { value: 100, color: '#aaaaaa', legend: 'Low' },
+                },
+                202302: {
+                    'ou-1': {
+                        value: 200,
+                        color: '#bbbbbb',
+                        legend: 'High',
+                        range: '150 – 250',
+                    },
+                },
+            },
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Ngelehun CHC',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows } = result.current
+        expect(headers).toMatchObject([
+            { name: 'Name', dataKey: 'name' },
+            { name: 'Id', dataKey: 'id' },
+            { name: 'Value (February 2023)', dataKey: 'rawValue' },
+            { name: 'Legend (February 2023)', dataKey: 'legend' },
+            { name: 'Range (February 2023)', dataKey: 'range' },
+            { name: 'Level', dataKey: 'level' },
+            { name: 'Parent', dataKey: 'parentName' },
+            { name: 'Type', dataKey: 'type' },
+            { name: 'Color (February 2023)', dataKey: 'color' },
+        ])
+        expect(rows[0]).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({ value: 200, dataKey: 'rawValue' }),
+                expect.objectContaining({ value: 'High', dataKey: 'legend' }),
+                expect.objectContaining({
+                    value: '150 – 250',
+                    dataKey: 'range',
+                }),
+            ])
+        )
+    })
+
+    test('adds a raw-value-only extra period column for a timeline thematic layer', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'thematic',
+            renderingStrategy: 'TIMELINE',
+            externalPeriod: { id: '202302', name: 'February 2023' },
+            periods: [
+                { id: '202301', name: 'January 2023' },
+                { id: '202302', name: 'February 2023' },
+            ],
+            dataTableColumnConfig: { extraPeriodIds: ['202301'] },
+            valuesByPeriod: {
+                202301: { 'ou-1': { value: 100 } },
+                202302: { 'ou-1': { value: 200 } },
+            },
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Ngelehun CHC',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows } = result.current
+        expect(headers).toContainEqual({
+            name: 'Value (January 2023)',
+            dataKey: 'period_202301_rawValue',
+            type: 'number',
+        })
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 100,
+                dataKey: 'period_202301_rawValue',
+            })
+        )
+    })
+
+    test('split-by-period thematic layer has no default current-period column, only extras', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'thematic',
+            renderingStrategy: 'SPLIT_BY_PERIOD',
+            externalPeriod: { id: '202302', name: 'February 2023' },
+            periods: [{ id: '202301', name: 'January 2023' }],
+            dataTableColumnConfig: { extraPeriodIds: ['202301'] },
+            valuesByPeriod: {
+                202301: { 'ou-1': { value: 100 } },
+                202302: {
+                    'ou-1': { value: 200, color: '#bbbbbb', legend: 'High' },
+                },
+            },
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Ngelehun CHC',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows } = result.current
+        expect(headers).toMatchObject([
+            { name: 'Name', dataKey: 'name' },
+            { name: 'Id', dataKey: 'id' },
+            { name: 'Level', dataKey: 'level' },
+            { name: 'Parent', dataKey: 'parentName' },
+            { name: 'Type', dataKey: 'type' },
+            {
+                name: 'Value (January 2023)',
+                dataKey: 'period_202301_rawValue',
+            },
+        ])
+        expect(rows[0]).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'rawValue' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 100,
+                dataKey: 'period_202301_rawValue',
+            })
+        )
+    })
+
     test('gets headers and rows for event layer', () => {
         const store = {
             aggregations: {},
