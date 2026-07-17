@@ -9,6 +9,7 @@
         "build": "d2-app-scripts build",
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
+        "test:coverage": "d2-app-scripts test --coverage",
         "deploy": "d2-app-scripts deploy",
         "lint": "d2-style check",
         "format": "d2-style apply",
