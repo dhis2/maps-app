@@ -252,10 +252,6 @@ describe('ColumnPicker bulk actions', () => {
 })
 
 describe('ColumnPicker search box visibility', () => {
-    // jsdom never lays elements out, so scrollHeight/clientHeight are both
-    // 0 by default - which conveniently already matches "list is short
-    // enough, no scrollbar" for the negative case below with no mocking.
-
     test('is hidden when the column list is short enough to fit without scrolling', () => {
         renderColumnPicker()
         openPicker()
@@ -286,9 +282,6 @@ describe('ColumnPicker search', () => {
     let clientHeightSpy
 
     beforeEach(() => {
-        // These tests exercise search behavior assuming the box is
-        // showing - its conditional visibility is covered separately
-        // above, so force it on here regardless of list length.
         scrollHeightSpy = jest
             .spyOn(Element.prototype, 'scrollHeight', 'get')
             .mockReturnValue(500)
