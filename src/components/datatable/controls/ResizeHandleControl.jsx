@@ -14,11 +14,7 @@ const ResizeHandleControl = ({
 
     const getHeight = (clientY) => {
         const height = window.innerHeight - clientY
-        return height < minHeight
-            ? minHeight
-            : height > maxHeight
-            ? maxHeight
-            : height
+        return Math.min(Math.max(height, minHeight), maxHeight)
     }
 
     const onPointerDown = (evt) => {
