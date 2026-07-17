@@ -1,8 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
-import { Input, Popper, Portal, IconFilter16, IconSync16 } from '@dhis2/ui'
+import { Input, IconFilter16, IconSync16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Virtuoso } from 'react-virtuoso'
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
@@ -11,7 +11,13 @@ import {
     SENTINEL_NO_VALUE,
 } from '../../constants/dataTable.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
-import { numericFilter } from '../../util/filter.js'
+import {
+    getDisplayValue,
+    getFilteredOptions,
+    getPopoverWidth,
+    getSelectedAndAppliedString,
+    measureMaxTextWidth,
+} from '../../util/filterInput.js'
 import {
     getInvertibleValues,
     reverseSelection,
@@ -25,16 +31,11 @@ import {
     FilterDropdownPopover,
     getDropdownPlacement,
 } from './FilterDropdownPopover.jsx'
+import FilterHelpTooltip from './FilterHelpTooltip.jsx'
 import styles from './styles/FilterInput.module.css'
 
 const OPTION_ROW_HEIGHT = 28 // Checkbox rows are a fixed height so the list can be virtualized
 const MAX_LIST_HEIGHT = 260
-const MIN_POPOVER_WIDTH = 140
-const MAX_POPOVER_WIDTH = 280
-// Checkbox icon + its margin, popover padding (both sides) and the
-// scrollbar .multiSelectPopover's overflow-y: auto can show - none of
-// which is part of the label text itself.
-const POPOVER_ROW_CHROME_WIDTH = 56
 const NUMERIC_HELP_HEIGHT = 140
 const TEXT_HELP_HEIGHT = 56
 const NUMERIC_FILTER_HELP = (
@@ -54,142 +55,6 @@ const TEXT_FILTER_HELP = (
     </div>
 )
 const NUMERIC_INPUT_DISALLOWED = /[^0-9.\-<>=,&\s]/g
-
-// Options render through react-virtuoso, which positions rows absolutely
-// for virtualization - out-of-flow content like that is excluded from CSS's
-// own intrinsic (max-content) sizing, so a container can never grow to fit
-// virtualized content via CSS alone. Measuring the label text directly is
-// the standard workaround.
-let measureCanvasContext = null
-const measureMaxTextWidth = (texts, font) => {
-    if (!measureCanvasContext) {
-        measureCanvasContext = document.createElement('canvas').getContext('2d')
-    }
-    measureCanvasContext.font = font
-    return texts.reduce(
-        (max, text) =>
-            Math.max(max, measureCanvasContext.measureText(text).width),
-        0
-    )
-}
-
-const helpTooltipModifiers = [
-    { name: 'offset', options: { offset: [0, 4] } },
-    { name: 'flip', enabled: false },
-]
-
-const FilterHelpTooltip = ({
-    content,
-    placement,
-    estimatedHeight,
-    dataTest,
-    children,
-}) => {
-    const [open, setOpen] = useState(false)
-    const referenceRef = useRef(null)
-    const openTimerRef = useRef(null)
-    const closeTimerRef = useRef(null)
-
-    const onOpen = () => {
-        clearTimeout(closeTimerRef.current)
-        openTimerRef.current = setTimeout(() => setOpen(true), 200)
-    }
-
-    const onClose = () => {
-        clearTimeout(openTimerRef.current)
-        closeTimerRef.current = setTimeout(() => setOpen(false), 200)
-    }
-
-    useEffect(
-        () => () => {
-            clearTimeout(openTimerRef.current)
-            clearTimeout(closeTimerRef.current)
-        },
-        []
-    )
-
-    const referenceRect = referenceRef.current?.getBoundingClientRect()
-    let spaceAvailable = Infinity
-    if (referenceRect) {
-        spaceAvailable =
-            placement === 'top'
-                ? referenceRect.top
-                : window.innerHeight - referenceRect.bottom
-    }
-    const hasRoom = spaceAvailable >= estimatedHeight
-
-    return (
-        <span
-            ref={referenceRef}
-            onMouseOver={onOpen}
-            onMouseOut={onClose}
-            onFocus={onOpen}
-            onBlur={onClose}
-            data-test={`${dataTest}-reference`}
-        >
-            {children}
-            {open && hasRoom && (
-                <Portal>
-                    <Popper
-                        placement={placement}
-                        reference={referenceRef}
-                        modifiers={helpTooltipModifiers}
-                    >
-                        <div
-                            className={styles.filterHelpTooltip}
-                            data-test={`${dataTest}-content`}
-                        >
-                            {content}
-                        </div>
-                    </Popper>
-                </Portal>
-            )}
-        </span>
-    )
-}
-
-FilterHelpTooltip.propTypes = {
-    children: PropTypes.node.isRequired,
-    content: PropTypes.node.isRequired,
-    dataTest: PropTypes.string.isRequired,
-    estimatedHeight: PropTypes.number.isRequired,
-    placement: PropTypes.oneOf(['top', 'bottom']).isRequired,
-}
-
-const getFilteredOptions = ({
-    realOptions,
-    trimmedSearch,
-    normalizedSearch,
-    type,
-    resolveLabel,
-}) => {
-    if (!trimmedSearch) {
-        return realOptions
-    }
-    if (type === 'number') {
-        return realOptions.filter(({ value }) =>
-            numericFilter(Number(value), trimmedSearch)
-        )
-    }
-    return realOptions.filter(({ value }) =>
-        resolveLabel(value).toLowerCase().includes(normalizedSearch)
-    )
-}
-
-const getDisplayValue = ({ isOpen, searchText, selected, appliedString }) => {
-    if (isOpen) {
-        return searchText
-    }
-    if (selected.length) {
-        return i18n.t('{{count}} selected', { count: selected.length })
-    }
-    return appliedString
-}
-
-const getSelectedAndAppliedString = (filterValue) => ({
-    selected: Array.isArray(filterValue) ? filterValue : [],
-    appliedString: typeof filterValue === 'string' ? filterValue : '',
-})
 
 const SearchableFilterPopover = ({
     dataKey,
@@ -255,13 +120,7 @@ const SearchableFilterPopover = ({
         }
         const font = `11px ${getComputedStyle(document.body).fontFamily}`
         const maxLabelWidth = measureMaxTextWidth(labels, font)
-        return Math.min(
-            Math.max(
-                maxLabelWidth + POPOVER_ROW_CHROME_WIDTH,
-                MIN_POPOVER_WIDTH
-            ),
-            MAX_POPOVER_WIDTH
-        )
+        return getPopoverWidth(maxLabelWidth)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realOptions, hasNotSetOption])
 
