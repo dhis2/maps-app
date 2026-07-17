@@ -6,6 +6,61 @@
     box-shadow: var(--elevations-popover);
 }
 
+.searchInput {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: var(--spacers-dp8);
+    padding: var(--spacers-dp4) 6px;
+    font-size: 11px;
+    border: 1px solid var(--colors-grey500);
+    border-radius: 3px;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--colors-blue600);
+}
+
+.bulkActionsRow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    padding-bottom: var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp8);
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+/* Matches DataTable.module.css's own row-selection checkbox accent, and
+   sized to match the 14px dense checkbox icon each row below renders
+   (core/Checkbox.jsx always passes dense=true to @dhis2/ui's Checkbox).
+   The small relative nudge lines it up with the icon buttons next to it
+   (vertically) and the row checkboxes below it (horizontally) - a native
+   checkbox's own box-model doesn't center/align the same way those do. */
+.bulkActionsRow input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+    position: relative;
+    top: 2px;
+    left: 2px;
+    accent-color: var(--colors-teal600);
+}
+
+/* Same width as .rowIconButton (the drag handle each row starts with), so
+   the "select all" checkbox lines up with the checkboxes in the rows
+   below rather than sitting flush against the popover's left edge. */
+.selectAllSpacer {
+    display: inline-block;
+    width: 20px;
+    flex-shrink: 0;
+}
+
+.bulkActionsDivider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--colors-grey300);
+    flex-shrink: 0;
+}
+
 .columnList {
     display: flex;
     flex-direction: column;
