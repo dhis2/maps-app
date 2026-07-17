@@ -19,10 +19,7 @@
     align-items: center;
 }
 
-/* !important beats @dhis2/ui's own ColorPicker label size, matching the
-   other toolbar controls' 16px icon size exactly (same top edge, so
-   Tooltip's placement="top" lines up with theirs too). It still sits
-   inside the same 24px hover box as the other controls (.wrapper above). */
+/* !important beats @dhis2/ui's own ColorPicker label size. */
 .colorPicker label {
     box-sizing: border-box;
     overflow: hidden;
