@@ -266,28 +266,30 @@ DataTableRowWithVirtuosoContext.propTypes = {
 }
 
 const EmptyPlaceholder = ({ context }) => (
-    <tr>
-        <td colSpan={99999}>
-            <div className={styles.noResults}>
-                {context.totalCount > 0 ? (
-                    <>
-                        {i18n.t('No features match your filters')}
-                        {context.hasActiveFilters && (
-                            <button
-                                type="button"
-                                className={styles.clearFiltersLink}
-                                onClick={context.onClearFilters}
-                            >
-                                {i18n.t('Clear filters')}
-                            </button>
-                        )}
-                    </>
-                ) : (
-                    i18n.t('No results found')
-                )}
-            </div>
-        </td>
-    </tr>
+    <tbody>
+        <tr>
+            <td colSpan={99999}>
+                <div className={styles.noResults}>
+                    {context.totalCount > 0 ? (
+                        <>
+                            {i18n.t('No features match your filters')}
+                            {context.hasActiveFilters && (
+                                <button
+                                    type="button"
+                                    className={styles.clearFiltersLink}
+                                    onClick={context.onClearFilters}
+                                >
+                                    {i18n.t('Clear filters')}
+                                </button>
+                            )}
+                        </>
+                    ) : (
+                        i18n.t('No results found')
+                    )}
+                </div>
+            </td>
+        </tr>
+    </tbody>
 )
 
 EmptyPlaceholder.propTypes = {
