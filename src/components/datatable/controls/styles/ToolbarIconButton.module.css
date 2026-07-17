@@ -1,0 +1,57 @@
+/* !important beats core/IconButton's own 28px/grey700/grey200-hover defaults,
+   to keep BottomPanel's established 24px/grey800/grey300-hover look. */
+.toolbarIconButton {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    border-radius: 3px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+}
+
+.toolbarIconButton svg {
+    color: var(--colors-grey800) !important;
+}
+
+/* @dhis2/ui's Tooltip wraps its child in its own <span> sized by
+   line-height (text baseline layout), which sits a 16px icon a couple of
+   pixels above true center. Re-flexing that wrapper overrides the
+   baseline layout so the icon centers in the 24px button regardless of
+   whether the icon is passed directly or through a control's own
+   wrapper span (e.g. ClearFiltersControl's badge wrapper). */
+.toolbarIconButton > span {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.toolbarIconButton:not(:disabled):hover {
+    background-color: var(--colors-grey300) !important;
+}
+
+.toolbarIconButton:not(:disabled):hover svg {
+    color: var(--colors-grey900) !important;
+}
+
+.toolbarIconButton:disabled {
+    cursor: not-allowed;
+}
+
+.toolbarIconButton:disabled svg {
+    color: var(--colors-grey400) !important;
+}
+
+.active {
+    background-color: var(--colors-blue100) !important;
+}
+
+.active svg {
+    color: var(--colors-blue700) !important;
+}
+
+.active:hover {
+    background-color: var(--colors-blue200) !important;
+}
