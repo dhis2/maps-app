@@ -8,6 +8,10 @@
                 "--chromeArg=--enable-unsafe-swiftshader",
                 "--chromeArg=--disable-dev-shm-usage"
             ]
+        },
+        "grep": {
+            "type": "http",
+            "url": "https://mcp.grep.app"
         }
     }
 }

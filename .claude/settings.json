@@ -20,14 +20,8 @@
         ]
     },
     "enabledPlugins": {
-        "typescript-lsp@claude-plugins-official": true,
         "chrome-devtools-mcp@claude-plugins-official": true,
         "context7@claude-plugins-official": true
     },
-    "mcpServers": {
-        "grep": {
-            "type": "sse",
-            "url": "https://mcp.grep.app"
-        }
-    }
+    "enabledMcpjsonServers": ["grep"]
 }
