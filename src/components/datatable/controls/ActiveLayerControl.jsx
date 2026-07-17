@@ -1,12 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { getCssVar } from '../../../util/helpers.js'
 import styles from './styles/ActiveLayerControl.module.css'
-
-// Must match .nameTooltip's top/bottom padding in ActiveLayerControl.module.css -
-// offsets the tooltip's top so that extra padding grows the background
-// without shifting the text's own vertical position.
-const TOOLTIP_VERTICAL_PADDING = 3
 
 const ActiveLayerControl = ({ name }) => {
     const nameRef = useRef(null)
@@ -20,11 +16,11 @@ const ActiveLayerControl = ({ name }) => {
         const rect = el.getBoundingClientRect()
         const computed = getComputedStyle(el)
         const lineHeight = Number.parseFloat(computed.lineHeight)
+        const verticalPadding = getCssVar(
+            '--data-table-name-tooltip-vertical-padding'
+        )
         setNameTooltipPos({
-            top:
-                rect.top +
-                (rect.height - lineHeight) / 2 -
-                TOOLTIP_VERTICAL_PADDING,
+            top: rect.top + (rect.height - lineHeight) / 2 - verticalPadding,
             left: rect.left,
             color: computed.color,
             fontSize: computed.fontSize,

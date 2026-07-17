@@ -165,9 +165,8 @@ describe('getPinnedLeftOffsets', () => {
     })
 
     it('does not let an unpinned column contribute width when pinned columns are not contiguous', () => {
-        // Not a realistic input in practice (getVisibleHeaders always
-        // makes pinned columns contiguous first), but the function itself
-        // shouldn't silently corrupt offsets if that invariant is broken.
+        // 'name' sits between the two pinned columns here and must not
+        // inflate 'id's offset.
         const offsets = getPinnedLeftOffsets(
             visibleHeaders,
             ['rawValue', 'id'],
