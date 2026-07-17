@@ -344,8 +344,10 @@ const SearchableFilterPopover = ({
                                 label={i18n.t('Any value')}
                                 checked={anyValueActive}
                                 onChange={onToggleAnyValue}
-                                className={styles.specialOption}
-                                style={{ margin: 0, padding: '4px 0' }}
+                                className={cx(
+                                    styles.specialOption,
+                                    styles.denseCheckbox
+                                )}
                                 dataTest={`data-table-column-filter-any-${name}`}
                             />
                             {hasNotSetOption && (
@@ -357,8 +359,10 @@ const SearchableFilterPopover = ({
                                     onChange={() =>
                                         toggleValue(SENTINEL_NO_VALUE)
                                     }
-                                    className={styles.specialOption}
-                                    style={{ margin: 0, padding: '4px 0' }}
+                                    className={cx(
+                                        styles.specialOption,
+                                        styles.denseCheckbox
+                                    )}
                                     dataTest={`data-table-column-filter-novalue-${name}`}
                                 />
                             )}
@@ -406,6 +410,7 @@ const SearchableFilterPopover = ({
                                                 onToggleRealValue(option.value)
                                             }
                                             className={cx(
+                                                styles.denseCheckbox,
                                                 (dataKey === 'id' ||
                                                     dataKey === 'color') &&
                                                     styles.monoOption,
@@ -415,10 +420,6 @@ const SearchableFilterPopover = ({
                                                         : index) &&
                                                     styles.highlighted
                                             )}
-                                            style={{
-                                                margin: 0,
-                                                padding: '4px 0',
-                                            }}
                                         />
                                     )}
                                 />
