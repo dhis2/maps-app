@@ -33,8 +33,6 @@ import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import styles from './styles/BottomPanel.module.css'
 
-// Must match `.dataTableControls`'s height in BottomPanel.module.css
-const COLLAPSED_HEIGHT = 36
 const MIN_HEIGHT = 50
 const EMPTY_FILTERS = {}
 
@@ -73,7 +71,8 @@ const BottomPanel = () => {
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
-    const displayHeight = isCollapsed ? COLLAPSED_HEIGHT : tableHeight
+    const collapsedHeight = getCssVar('--data-table-controls-height')
+    const displayHeight = isCollapsed ? collapsedHeight : tableHeight
 
     const toggleCollapsed = useCallback(
         () => setIsCollapsed((collapsed) => !collapsed),
@@ -94,13 +93,16 @@ const BottomPanel = () => {
         isDraggingRef.current = true
     }, [])
 
-    const onResize = useCallback((h) => {
-        setIsCollapsed(h <= MIN_HEIGHT)
-        document.documentElement.style.setProperty(
-            '--data-table-height',
-            `${h <= MIN_HEIGHT ? COLLAPSED_HEIGHT : h}px`
-        )
-    }, [])
+    const onResize = useCallback(
+        (h) => {
+            setIsCollapsed(h <= MIN_HEIGHT)
+            document.documentElement.style.setProperty(
+                '--data-table-height',
+                `${h <= MIN_HEIGHT ? collapsedHeight : h}px`
+            )
+        },
+        [collapsedHeight]
+    )
 
     const onResizeEnd = useCallback(
         (h) => {
