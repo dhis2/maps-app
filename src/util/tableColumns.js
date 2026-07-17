@@ -34,6 +34,37 @@ export const getVisibleHeaders = (headers, columnConfig) => {
     return result
 }
 
+export const getPinnedCount = (orderedHeaders, pinnedKeys) => {
+    let count = 0
+    for (const header of orderedHeaders) {
+        if (!pinnedKeys.includes(header.dataKey)) {
+            break
+        }
+        count++
+    }
+    return count
+}
+
+export const isPinnedGroupEnd = (header, pinnedCount, orderedHeaders) =>
+    pinnedCount > 0 &&
+    pinnedCount < orderedHeaders.length &&
+    header.dataKey === orderedHeaders[pinnedCount - 1].dataKey
+
+export const toggleVisibleKey = (visibleKeys, dataKey, checked) =>
+    checked
+        ? [...visibleKeys, dataKey]
+        : visibleKeys.filter((k) => k !== dataKey)
+
+export const togglePinnedKey = (pinnedKeys, dataKey) =>
+    pinnedKeys.includes(dataKey)
+        ? pinnedKeys.filter((k) => k !== dataKey)
+        : [...pinnedKeys, dataKey]
+
+export const reverseVisibleKeys = (headers, visibleKeys) =>
+    headers
+        .filter((h) => !visibleKeys.includes(h.dataKey))
+        .map((h) => h.dataKey)
+
 export const getPinnedLeftOffsets = (
     visibleHeaders,
     pinnedKeys,

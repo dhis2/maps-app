@@ -1,4 +1,12 @@
-import { getPinnedLeftOffsets, getVisibleHeaders } from '../tableColumns.js'
+import {
+    getPinnedCount,
+    getPinnedLeftOffsets,
+    getVisibleHeaders,
+    isPinnedGroupEnd,
+    reverseVisibleKeys,
+    togglePinnedKey,
+    toggleVisibleKey,
+} from '../tableColumns.js'
 
 const headers = [
     { name: 'Name', dataKey: 'name' },
@@ -173,5 +181,71 @@ describe('getPinnedLeftOffsets', () => {
             columnWidths
         )
         expect(offsets).toEqual({ rawValue: 76, id: 176 })
+    })
+})
+
+describe('getPinnedCount', () => {
+    it('returns 0 when no headers are pinned', () => {
+        expect(getPinnedCount(headers, [])).toBe(0)
+    })
+
+    it('counts the leading headers that are pinned', () => {
+        expect(getPinnedCount(headers, ['name', 'id'])).toBe(2)
+    })
+
+    it('returns the full length when every header is pinned', () => {
+        const allKeys = headers.map((h) => h.dataKey)
+        expect(getPinnedCount(headers, allKeys)).toBe(headers.length)
+    })
+})
+
+describe('isPinnedGroupEnd', () => {
+    it('is false when nothing is pinned', () => {
+        expect(isPinnedGroupEnd(headers[0], 0, headers)).toBe(false)
+    })
+
+    it('is false when every header is pinned (no unpinned group to separate from)', () => {
+        expect(isPinnedGroupEnd(headers[3], headers.length, headers)).toBe(
+            false
+        )
+    })
+
+    it('is true only for the last pinned header when there is a mix', () => {
+        const pinnedCount = 2
+        expect(isPinnedGroupEnd(headers[0], pinnedCount, headers)).toBe(false)
+        expect(isPinnedGroupEnd(headers[1], pinnedCount, headers)).toBe(true)
+        expect(isPinnedGroupEnd(headers[2], pinnedCount, headers)).toBe(false)
+    })
+})
+
+describe('toggleVisibleKey', () => {
+    it('adds a key when checking it', () => {
+        expect(toggleVisibleKey(['name'], 'id', true)).toEqual(['name', 'id'])
+    })
+
+    it('removes a key when unchecking it', () => {
+        expect(toggleVisibleKey(['name', 'id'], 'name', false)).toEqual(['id'])
+    })
+})
+
+describe('togglePinnedKey', () => {
+    it('adds a key when it is not yet pinned', () => {
+        expect(togglePinnedKey(['name'], 'id')).toEqual(['name', 'id'])
+    })
+
+    it('removes a key when it is already pinned', () => {
+        expect(togglePinnedKey(['name', 'id'], 'name')).toEqual(['id'])
+    })
+})
+
+describe('reverseVisibleKeys', () => {
+    it('returns the dataKeys not currently in visibleKeys', () => {
+        const result = reverseVisibleKeys(headers, ['name', 'legend'])
+        expect(result).toEqual(['id', 'rawValue'])
+    })
+
+    it('returns every dataKey when nothing is currently visible', () => {
+        const result = reverseVisibleKeys(headers, [])
+        expect(result).toEqual(['name', 'id', 'rawValue', 'legend'])
     })
 })
