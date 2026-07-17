@@ -4,6 +4,8 @@ import {
     IconLayoutColumns16,
     IconLock16,
     IconLockOpen16,
+    IconSync16,
+    IconUndo16,
     Tooltip,
 } from '@dhis2/ui'
 import {
@@ -27,16 +29,13 @@ import { CSS } from '@dnd-kit/utilities'
 import { arrayMoveImmutable } from 'array-move'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useDispatch } from 'react-redux'
 import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
 import { getVisibleHeaders } from '../../../util/tableColumns.js'
 import Checkbox from '../../core/Checkbox.jsx'
-import {
-    FilterDropdownPopover,
-    getDropdownPlacement,
-} from '../FilterDropdownPopover.jsx'
+import { FilterDropdownPopover } from '../FilterDropdownPopover.jsx'
 import styles from './styles/ColumnPickerControl.module.css'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
 
@@ -91,7 +90,7 @@ const ColumnRowFields = ({
                 {suppressTooltips ? (
                     dragIcon
                 ) : (
-                    <Tooltip content={dragLabel} placement="top">
+                    <Tooltip content={dragLabel} placement="left">
                         {dragIcon}
                     </Tooltip>
                 )}
@@ -117,7 +116,7 @@ const ColumnRowFields = ({
                 {suppressTooltips ? (
                     pinIcon
                 ) : (
-                    <Tooltip content={pinLabel} placement="top">
+                    <Tooltip content={pinLabel} placement="right">
                         {pinIcon}
                     </Tooltip>
                 )}
@@ -204,6 +203,39 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const [activeId, setActiveId] = useState(null)
+    const [search, setSearch] = useState('')
+    // Whether the (unfiltered) column list actually overflows its own
+    // max-height - the search box only earns its keep when there's enough
+    // columns to make scrolling through them worth searching instead.
+    const [hasScroll, setHasScroll] = useState(false)
+    // The popover's own natural, content-driven width - measured once per
+    // open (from the full, unfiltered list) and then held fixed, so
+    // narrowing the list via search never shrinks/grows the popover itself.
+    const [popoverWidth, setPopoverWidth] = useState(null)
+
+    useLayoutEffect(() => {
+        if (isOpen) {
+            setSearch('')
+        }
+    }, [isOpen])
+
+    // FilterDropdownPopover's content (including these) mounts a render
+    // after its Popper placement resolves, not synchronously with `isOpen`
+    // becoming true - a plain ref read in a `[isOpen]`-keyed effect would
+    // run too early and see `null`. Callback refs instead fire exactly
+    // when React actually attaches the node, whenever that is, and only
+    // once per open (the div isn't recreated by search/typing re-renders).
+    const columnListRef = useCallback((el) => {
+        if (el) {
+            setHasScroll(el.scrollHeight > el.clientHeight)
+        }
+    }, [])
+
+    const popoverRef = useCallback((el) => {
+        if (el) {
+            setPopoverWidth(el.offsetWidth)
+        }
+    }, [])
 
     // useTableData can legitimately return a null headers list (e.g. while
     // loading or on error) - guard here rather than trust callers to.
@@ -262,6 +294,26 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
         updateConfig({ pinnedKeys: next })
     }
 
+    const isAllVisible = visibleKeys.length === headers.length
+    const onToggleSelectAll = () =>
+        updateConfig({
+            visibleKeys: isAllVisible ? [] : headers.map((h) => h.dataKey),
+        })
+
+    const onReverseSelection = () =>
+        updateConfig({
+            visibleKeys: headers
+                .filter((h) => !visibleKeys.includes(h.dataKey))
+                .map((h) => h.dataKey),
+        })
+
+    const onResetToDefaults = () =>
+        dispatch(setDataTableColumnConfig(layerId, undefined))
+
+    const filteredHeaders = orderedHeaders.filter((h) =>
+        h.name.toLowerCase().includes(search.trim().toLowerCase())
+    )
+
     const sensors = useSensors(
         useSensor(MouseSensor, {
             // Require a small movement so a click on the handle isn't a drag
@@ -299,9 +351,6 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
 
     const activeHeader = orderedHeaders.find((h) => h.dataKey === activeId)
 
-    const anchorRect = anchorRef.current?.getBoundingClientRect()
-    const { dropdownPlacement } = getDropdownPlacement(anchorRect)
-
     return (
         <>
             <ToolbarIconButton
@@ -317,10 +366,64 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
             {isOpen && (
                 <FilterDropdownPopover
                     reference={anchorRef}
-                    placement={dropdownPlacement}
+                    // Always opens upward: this control lives in the
+                    // bottom panel's own toolbar strip, at the very top
+                    // of the table area - there's rarely reliable room
+                    // below it, unlike the per-column filter popovers
+                    // that reuse this same component from the header row.
+                    placement="top-start"
                     onClickOutside={() => setIsOpen(false)}
                 >
-                    <div className={styles.columnPickerPopover}>
+                    <div
+                        ref={popoverRef}
+                        className={styles.columnPickerPopover}
+                        style={
+                            popoverWidth != null
+                                ? { width: popoverWidth }
+                                : undefined
+                        }
+                    >
+                        {hasScroll && (
+                            <input
+                                type="text"
+                                className={styles.searchInput}
+                                placeholder={i18n.t('Search')}
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                data-test="data-table-column-picker-search"
+                            />
+                        )}
+                        <div className={styles.bulkActionsRow}>
+                            <span className={styles.selectAllSpacer} />
+                            <Tooltip
+                                content={i18n.t('Select all columns')}
+                                placement="top"
+                            >
+                                <input
+                                    type="checkbox"
+                                    aria-label={i18n.t('Select all columns')}
+                                    data-test="data-table-column-picker-select-all"
+                                    checked={isAllVisible}
+                                    onChange={onToggleSelectAll}
+                                />
+                            </Tooltip>
+                            <ToolbarIconButton
+                                tooltip={i18n.t('Reverse selection')}
+                                dataTest="data-table-column-picker-reverse"
+                                onClick={onReverseSelection}
+                            >
+                                <IconSync16 />
+                            </ToolbarIconButton>
+                            <span className={styles.bulkActionsDivider} />
+                            <ToolbarIconButton
+                                tooltip={i18n.t('Reset to defaults')}
+                                dataTest="data-table-column-picker-reset"
+                                disabled={!columnConfig}
+                                onClick={onResetToDefaults}
+                            >
+                                <IconUndo16 />
+                            </ToolbarIconButton>
+                        </div>
                         <DndContext
                             sensors={sensors}
                             collisionDetection={closestCenter}
@@ -333,8 +436,11 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
                                 items={orderedHeaders.map((h) => h.dataKey)}
                                 strategy={verticalListSortingStrategy}
                             >
-                                <div className={styles.columnList}>
-                                    {orderedHeaders.map((header, index) => (
+                                <div
+                                    ref={columnListRef}
+                                    className={styles.columnList}
+                                >
+                                    {filteredHeaders.map((header) => (
                                         <ColumnRow
                                             key={header.dataKey}
                                             header={header}
@@ -345,9 +451,13 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
                                                 header.dataKey
                                             )}
                                             isPinnedGroupEnd={
-                                                index === pinnedCount - 1 &&
+                                                pinnedCount > 0 &&
                                                 pinnedCount <
-                                                    orderedHeaders.length
+                                                    orderedHeaders.length &&
+                                                header.dataKey ===
+                                                    orderedHeaders[
+                                                        pinnedCount - 1
+                                                    ].dataKey
                                             }
                                             isDragActive={activeId != null}
                                             onToggleVisible={onToggleVisible}

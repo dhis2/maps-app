@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-17T11:21:32.485Z\n"
-"PO-Revision-Date: 2026-07-17T11:21:32.485Z\n"
+"POT-Creation-Date: 2026-07-17T13:55:55.639Z\n"
+"PO-Revision-Date: 2026-07-17T13:55:55.639Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -282,6 +282,12 @@ msgstr "Pin column to the left"
 
 msgid "Configure columns"
 msgstr "Configure columns"
+
+msgid "Select all columns"
+msgstr "Select all columns"
+
+msgid "Reset to defaults"
+msgstr "Reset to defaults"
 
 msgid "Search across all visible columns"
 msgstr "Search across all visible columns"
