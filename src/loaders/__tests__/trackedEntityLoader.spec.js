@@ -2,6 +2,7 @@ import {
     getAttributeHeaders,
     getAttributeProperties,
     parseJsonConfig,
+    toGeoJson,
 } from '../trackedEntityLoader.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
@@ -112,5 +113,31 @@ describe('parseJsonConfig', () => {
         expect(() => parseJsonConfig(config)).not.toThrow()
         expect(config.periodType).toBeUndefined()
         expect(config.config).toBeUndefined()
+    })
+})
+
+describe('toGeoJson', () => {
+    it('stamps the given color onto every instance, alongside its id and attributes', () => {
+        const instances = [
+            {
+                id: 'tei-1',
+                geometry: { type: 'Point', coordinates: [1, 2] },
+                attributes: [{ attribute: 'w75KJ2mc4zz', value: 'Gabrielle' }],
+            },
+        ]
+
+        const result = toGeoJson(instances, '#ff0000')
+
+        expect(result).toEqual([
+            {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [1, 2] },
+                properties: {
+                    id: 'tei-1',
+                    color: '#ff0000',
+                    w75KJ2mc4zz: 'Gabrielle',
+                },
+            },
+        ])
     })
 })
