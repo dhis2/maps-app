@@ -588,12 +588,25 @@ const Table = ({
                                         }
                                         align={align}
                                     >
-                                        {dataKey === 'color'
-                                            ? value?.toLowerCase()
-                                            : formatWithSeparator(
-                                                  value,
-                                                  keyAnalysisDigitGroupSeparator
-                                              )}
+                                        {dataKey === 'color' &&
+                                            value?.toLowerCase()}
+                                        {dataKey === 'iconUrl' && value && (
+                                            <img
+                                                className={styles.iconCell}
+                                                src={value}
+                                                alt=""
+                                                onError={(e) => {
+                                                    e.target.style.visibility =
+                                                        'hidden'
+                                                }}
+                                            />
+                                        )}
+                                        {dataKey !== 'color' &&
+                                            dataKey !== 'iconUrl' &&
+                                            formatWithSeparator(
+                                                value,
+                                                keyAnalysisDigitGroupSeparator
+                                            )}
                                     </DataTableCell>
                                 )
                             })}
