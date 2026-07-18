@@ -618,6 +618,192 @@ describe('useTableData headers', () => {
         expect(scoreHeader.type).toBe('number')
     })
 
+    test('adds Legend/Range/Color columns for an event layer styled by a numeric data item', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            styleDataItem: { id: 'AbCdEfGhIjK' },
+            legend: {
+                items: [
+                    {
+                        name: 'Low',
+                        color: '#aaaaaa',
+                        startValue: 0,
+                        endValue: 50,
+                        colorGroup: 0,
+                    },
+                    {
+                        name: 'High',
+                        color: '#bbbbbb',
+                        startValue: 50,
+                        endValue: 100,
+                        colorGroup: 1,
+                    },
+                ],
+            },
+            headers: [
+                { name: 'AbCdEfGhIjK', column: 'Score', valueType: 'NUMBER' },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 75,
+                        value: 75,
+                        color: '#bbbbbb',
+                        colorGroup: 1,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers, rows } = result.current
+        expect(headers).toContainEqual({
+            name: 'Legend',
+            dataKey: 'legend',
+            type: 'string',
+        })
+        expect(headers).toContainEqual({
+            name: 'Range',
+            dataKey: 'range',
+            type: 'string',
+        })
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: 'High', dataKey: 'legend' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: '50 – 100', dataKey: 'range' })
+        )
+    })
+
+    test('formats an event layer’s Range using the layer’s own legendDecimalPlaces', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            styleDataItem: { id: 'AbCdEfGhIjK' },
+            legendDecimalPlaces: 1,
+            legend: {
+                items: [
+                    {
+                        name: 'High',
+                        color: '#bbbbbb',
+                        startValue: 50.256,
+                        endValue: 100.789,
+                        colorGroup: 0,
+                    },
+                ],
+            },
+            headers: [
+                { name: 'AbCdEfGhIjK', column: 'Score', valueType: 'NUMBER' },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 75,
+                        value: 75,
+                        color: '#bbbbbb',
+                        colorGroup: 0,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        expect(result.current.rows[0]).toContainEqual(
+            expect.objectContaining({ value: '50.3 – 100.8', dataKey: 'range' })
+        )
+    })
+
+    test('leaves Range empty for an event layer styled by a non-numeric (option set) data item', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            styleDataItem: { id: 'AbCdEfGhIjK', optionSet: { id: 'os1' } },
+            legend: {
+                items: [{ name: 'Yes', color: '#00ff00', colorGroup: 0 }],
+            },
+            headers: [
+                { name: 'AbCdEfGhIjK', column: 'Answer', valueType: 'TEXT' },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 'Yes',
+                        value: 'Yes',
+                        color: '#00ff00',
+                        colorGroup: 0,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { rows } = result.current
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: 'Yes', dataKey: 'legend' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: undefined, dataKey: 'range' })
+        )
+    })
+
     test('gets headers and rows for EE population layer', () => {
         const store = {
             aggregations: {
