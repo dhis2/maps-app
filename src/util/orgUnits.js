@@ -159,10 +159,11 @@ export const getStyledOrgUnits = ({
         .map((f) => {
             const isPoint = f.geometry.type === 'Point'
             const { hasAdditionalGeometry } = f.properties
-            const { color, symbol } = getOrgUnitStyle(
-                f.properties.dimensions,
-                groupSet
-            )
+            const {
+                name: groupName,
+                color,
+                symbol,
+            } = getOrgUnitStyle(f.properties.dimensions, groupSet)
             const isUnclassified = !!groupSet.id && !color && !symbol
             let radius
 
@@ -185,6 +186,10 @@ export const getStyledOrgUnits = ({
                     : color
             } else if (symbol) {
                 properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
+            }
+
+            if (groupName) {
+                properties.group = groupName
             }
 
             if (properties.level && levelWeight) {
