@@ -177,6 +177,7 @@ const Table = ({
         selectionFilter,
         selectedIdSet,
         globalSearch,
+        keyAnalysisDigitGroupSeparator,
     })
 
     useEffect(() => {

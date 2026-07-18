@@ -21,7 +21,11 @@ import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData, isFeatureInBounds } from '../../util/geojson.js'
-import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
+import {
+    formatRangeWithSeparator,
+    getRoundToPrecisionFn,
+    getPrecision,
+} from '../../util/numbers.js'
 import { compareColumnOptionValues, compareRows } from '../../util/tableSort.js'
 import { isValidUid } from '../../util/uid.js'
 
@@ -172,7 +176,11 @@ const getEventHeaders = ({
     customFields.push(defaultFieldsMap()[TYPE])
 
     if (styleDataItem) {
-        customFields.push(defaultFieldsMap()[COLOR])
+        customFields.push(
+            defaultFieldsMap()[LEGEND],
+            defaultFieldsMap()[RANGE],
+            defaultFieldsMap()[COLOR]
+        )
     }
 
     return fields.concat(customFields)
@@ -261,6 +269,7 @@ export const useTableData = ({
     selectionFilter,
     selectedIdSet,
     globalSearch,
+    keyAnalysisDigitGroupSeparator,
 }) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
@@ -283,6 +292,7 @@ export const useTableData = ({
         externalPeriod,
         periods,
         dataTableColumnConfig,
+        legendDecimalPlaces,
     } = layer || EMPTY_LAYER
 
     const isMultiPeriodThematic =
@@ -296,6 +306,7 @@ export const useTableData = ({
         () => dataTableColumnConfig?.extraPeriodIds ?? [],
         [dataTableColumnConfig]
     )
+    const isStyledEvent = layerType === EVENT_LAYER && !!styleDataItem
 
     const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
 
@@ -329,6 +340,27 @@ export const useTableData = ({
             .filter((d) => !d.properties.hasAdditionalGeometry)
             .map((d, index) => {
                 const properties = d.properties || d
+
+                if (isStyledEvent) {
+                    // The event's own styling pass already classified this
+                    // feature into legend.items[colorGroup] (color/radius) -
+                    // Legend/Range are just a lookup, not new classification.
+                    const legendItem = legend?.items?.[properties.colorGroup]
+                    return {
+                        ...properties,
+                        legend: legendItem?.name,
+                        range:
+                            legendItem && 'startValue' in legendItem
+                                ? formatRangeWithSeparator(
+                                      legendItem,
+                                      keyAnalysisDigitGroupSeparator,
+                                      { precision: legendDecimalPlaces }
+                                  )
+                                : undefined,
+                        ...aggregations[d.id],
+                        index,
+                    }
+                }
 
                 if (!isMultiPeriodThematic) {
                     return {
@@ -377,6 +409,10 @@ export const useTableData = ({
         valuesByPeriod,
         externalPeriod,
         extraPeriodIds,
+        isStyledEvent,
+        legend,
+        keyAnalysisDigitGroupSeparator,
+        legendDecimalPlaces,
     ])
 
     const headers = useMemo(() => {
