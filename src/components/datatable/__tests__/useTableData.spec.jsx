@@ -64,6 +64,106 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    test('adds an Icon column for a facility layer styled by group set symbol', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'facility',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'facility-1',
+                        name: 'Facility 1',
+                        type: 'Point',
+                        iconUrl: 'https://server/images/orgunitgroup/1.png',
+                        group: 'Hospitals',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers, rows } = result.current
+        expect(headers).toContainEqual({
+            name: 'Icon',
+            dataKey: 'iconUrl',
+            type: 'string',
+            renderer: 'rendericon',
+        })
+        expect(headers).toContainEqual({
+            name: 'Group',
+            dataKey: 'group',
+            type: 'string',
+        })
+        expect(headers).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'color' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 'https://server/images/orgunitgroup/1.png',
+                dataKey: 'iconUrl',
+            })
+        )
+    })
+
+    test('adds a Color column for an orgUnit layer styled by group set color', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'orgUnit',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Bo District',
+                        type: 'MultiPolygon',
+                        level: 2,
+                        color: '#ff0000',
+                        group: 'Rural',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers } = result.current
+        expect(headers).toContainEqual(
+            expect.objectContaining({ name: 'Color', dataKey: 'color' })
+        )
+        expect(headers).toContainEqual(
+            expect.objectContaining({ name: 'Group', dataKey: 'group' })
+        )
+        expect(headers).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'iconUrl' })
+        )
+    })
+
     test('gets headers and rows for orgUnit layer', () => {
         const store = {
             aggregations: {},

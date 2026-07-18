@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-17T20:38:05.509Z\n"
-"PO-Revision-Date: 2026-07-17T20:38:05.509Z\n"
+"POT-Creation-Date: 2026-07-18T03:48:43.826Z\n"
+"PO-Revision-Date: 2026-07-18T03:48:43.826Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -352,6 +352,12 @@ msgstr "Org unit boundary"
 
 msgid "Event time"
 msgstr "Event time"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "Icon"
+msgstr "Icon"
 
 msgid "Current period"
 msgstr "Current period"

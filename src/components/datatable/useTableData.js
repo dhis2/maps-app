@@ -42,6 +42,8 @@ const LEVEL = 'level'
 const PARENT_NAME = 'parentName'
 const TYPE = 'type'
 const COLOR = 'color'
+const GROUP = 'group'
+const ICON = 'iconUrl'
 const OUNAME = 'ouname'
 const OUBOUNDARY = 'ouBoundary'
 const EVENTDATE = 'eventdate'
@@ -102,6 +104,13 @@ const defaultFieldsMap = () => ({
         dataKey: COLOR,
         type: TYPE_STRING,
         renderer: 'rendercolor',
+    },
+    [GROUP]: { name: i18n.t('Group'), dataKey: GROUP, type: TYPE_STRING },
+    [ICON]: {
+        name: i18n.t('Icon'),
+        dataKey: ICON,
+        type: TYPE_STRING,
+        renderer: 'rendericon',
     },
 })
 
@@ -186,10 +195,28 @@ const getEventHeaders = ({
     return fields.concat(customFields)
 }
 
-const getOrgUnitHeaders = () =>
-    [NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
-        (field) => defaultFieldsMap()[field]
-    )
+// Facility/org unit layers only get Color/Icon/Group columns when the
+// current group-set styling actually produced them - style type (and
+// whether every org unit matched a group) isn't known up front, so this
+// checks the resolved row data rather than re-deriving that logic here.
+const getGroupSetStyleHeaders = (data) => {
+    const headers = []
+    if (data?.some((d) => d.color != null)) {
+        headers.push(defaultFieldsMap()[COLOR])
+    }
+    if (data?.some((d) => d.iconUrl != null)) {
+        headers.push(defaultFieldsMap()[ICON])
+    }
+    if (data?.some((d) => d.group != null)) {
+        headers.push(defaultFieldsMap()[GROUP])
+    }
+    return headers
+}
+
+const getOrgUnitHeaders = (data) =>
+    [NAME, ID, LEVEL, PARENT_NAME, TYPE]
+        .map((field) => defaultFieldsMap()[field])
+        .concat(getGroupSetStyleHeaders(data))
 
 // Unlike getEventHeaders's layerHeaders (raw analytics response shape,
 // name=uid/column=display), trackedEntityLoader.js already builds its
@@ -211,8 +238,10 @@ const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
     return fields.concat(customFields)
 }
 
-const getFacilityHeaders = () =>
-    [NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
+const getFacilityHeaders = (data) =>
+    [NAME, ID, TYPE]
+        .map((field) => defaultFieldsMap()[field])
+        .concat(getGroupSetStyleHeaders(data))
 
 const toTitleCase = (str) =>
     str.replace(
@@ -440,7 +469,7 @@ export const useTableData = ({
                 })
                 break
             case ORG_UNIT_LAYER:
-                headers = getOrgUnitHeaders()
+                headers = getOrgUnitHeaders(dataWithAggregations)
                 break
             case TRACKED_ENTITY_LAYER:
                 headers = getTrackedEntityHeaders({ layerHeaders })
@@ -453,7 +482,7 @@ export const useTableData = ({
                 })
                 break
             case FACILITY_LAYER:
-                headers = getFacilityHeaders()
+                headers = getFacilityHeaders(dataWithAggregations)
                 break
             case GEOJSON_URL_LAYER: {
                 if (
