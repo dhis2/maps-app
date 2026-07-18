@@ -7,6 +7,22 @@ import {
     GEO_TYPE_POLYGON,
 } from '../util/geojson.js'
 
+// features of different (non-Multi-normalized) geometry types get their
+// own color, matching the map legend's own per-type color - never
+// overwrites a feature's own pre-existing color (maps-gl's colorExpr
+// already prefers a per-feature properties.color over the layer's
+// uniform style color, so a feature that already has one is rendered
+// with it, and the data table should reflect the same real color).
+export const stampFeatureColors = (features, legendItemsByType) =>
+    features.map((f) => {
+        if (f.properties.color != null) {
+            return f
+        }
+        const nonMultiType = f.geometry.type.replaceAll('Multi', '')
+        const color = legendItemsByType[nonMultiType]?.color
+        return color ? { ...f, properties: { ...f.properties, color } } : f
+    })
+
 const fetchData = async (url, engine, baseUrl) => {
     if (url.includes(baseUrl)) {
         // API route, use engine
@@ -92,9 +108,9 @@ const geoJsonUrlLoader = async ({
     }
     if (!loadError) {
         const { featureCollection, types } = buildGeoJsonFeatures(geoJson)
-        data = featureCollection
 
         const oneType = types.length === 1
+        const legendItemsByType = {}
 
         types.forEach((type) => {
             let legendItem
@@ -122,7 +138,13 @@ const geoJsonUrlLoader = async ({
                 }
             }
             legend.items.push(legendItem)
+            legendItemsByType[type] = legendItem
         })
+
+        // A per-geometry-type color, for the data table's Color column -
+        // features of different types in the same file get different
+        // colors here, matching what the map legend already shows per type.
+        data = stampFeatureColors(featureCollection, legendItemsByType)
     }
 
     return {

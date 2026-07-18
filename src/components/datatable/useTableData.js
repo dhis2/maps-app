@@ -235,6 +235,8 @@ const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
                 : TYPE_STRING,
         }))
 
+    customFields.push(defaultFieldsMap()[COLOR])
+
     return fields.concat(customFields)
 }
 
@@ -282,8 +284,13 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
+// The synthetic per-geometry-type `color` property gets the same
+// canonical, translated Color header every other layer type uses,
+// rather than being treated as just another arbitrary uploaded field.
 const getGeoJsonUrlHeaders = (firstDataItem) =>
-    getGeojsonDisplayData(firstDataItem)
+    getGeojsonDisplayData(firstDataItem).map((header) =>
+        header.dataKey === COLOR ? defaultFieldsMap()[COLOR] : header
+    )
 
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
