@@ -123,12 +123,17 @@ export const getAttributeHeaders = (instances) => {
     return [...headersByAttribute.values()]
 }
 
-const toGeoJson = (instances) =>
+// The main tracked entity marker's own color is currently fixed for every
+// instance (no per-instance classification yet, unlike thematic/event) -
+// still stamped here so the data table's Color column has real data ready
+// to become meaningful once that changes.
+export const toGeoJson = (instances, color) =>
     instances.map(({ id, geometry, attributes }) => ({
         type: GEO_TYPE_FEATURE,
         geometry,
         properties: {
             id,
+            color,
             ...getAttributeProperties(attributes),
         },
     }))
@@ -174,6 +179,7 @@ const fetchRelationshipData = async ({
     relatedPointColor,
     relatedPointRadius,
     relationshipLineColor,
+    pointColor,
     legend,
 }) => {
     const { relationshipType } = await engine.query(
@@ -222,7 +228,7 @@ const fetchRelationshipData = async ({
     })
 
     return {
-        data: toGeoJson(dataWithRels.primary),
+        data: toGeoJson(dataWithRels.primary, pointColor),
         relationships: dataWithRels.relationships,
         secondaryData: toGeoJson(dataWithRels.secondary),
     }
@@ -290,6 +296,7 @@ const trackedEntityLoader = async ({
     } = config
 
     const name = program ? program.name : i18n.t('Tracked entity')
+    const pointColor = eventPointColor || TEI_COLOR
 
     const legend = {
         title: name,
@@ -302,7 +309,7 @@ const trackedEntityLoader = async ({
                 name:
                     trackedEntityType.name +
                     (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
-                color: eventPointColor || TEI_COLOR,
+                color: pointColor,
                 radius: eventPointRadius || TEI_RADIUS,
             },
         ],
@@ -374,10 +381,11 @@ const trackedEntityLoader = async ({
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
+            pointColor,
             legend,
         }))
     } else {
-        data = toGeoJson(instances)
+        data = toGeoJson(instances, pointColor)
     }
 
     if (explanation) {
