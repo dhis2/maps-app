@@ -3,7 +3,6 @@ import { getMaps } from '../../elements/map_canvas.js'
 import {
     CURRENT_YEAR,
     EXTENDED_TIMEOUT,
-    POPUP_WAIT,
     getDhis2Version,
 } from '../../support/util.js'
 
@@ -97,10 +96,7 @@ const testCoordinate = (Layer, coordinates, reOpenDialog = true) => {
     Layer.validateDialogClosed(true)
 
     // Wait for map to load
-    cy.wait(POPUP_WAIT)
-    cy.get('#dhis2-map-container')
-        .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-        .should('not.exist')
+    cy.waitForMap()
 
     // Check popup
     getMaps().click('center') // Click in the middle of the map
@@ -125,6 +121,7 @@ const selectProgramAndStage = (Layer, programName, stageName) => {
 context('Event Layers', () => {
     beforeEach(() => {
         cy.visit('/')
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
     })
 
     const Layer = new EventLayer()
@@ -246,12 +243,11 @@ context('Event Layers', () => {
         Layer.validateCardPeriod(`March ${CURRENT_YEAR - 1}`)
         Layer.validateCardPeriod(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
 
+        cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
         getMaps().click('center')
+        cy.wait('@getEventPopupData', EXTENDED_TIMEOUT)
         Layer.validatePopupContents(['Event location'])
     })
 
@@ -298,12 +294,11 @@ context('Event Layers', () => {
             .selectOu(programIP.ousAlt[2])
             .addToMap()
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
 
+        cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
         getMaps().click('center')
+        cy.wait('@getEventPopupData', EXTENDED_TIMEOUT)
         Layer.validatePopupContents([
             'Event location',
             '-13.188339, 8.405215',

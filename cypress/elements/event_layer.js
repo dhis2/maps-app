@@ -1,3 +1,4 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 import { Layer } from './layer.js'
 
 export class EventLayer extends Layer {
@@ -17,7 +18,9 @@ export class EventLayer extends Layer {
     }
 
     selectCoordinate(coordinate) {
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.getByDataTest('coordinatefield-content', EXTENDED_TIMEOUT).should(
+            ($el) => expect($el.text().trim().length).to.be.greaterThan(0)
+        )
 
         cy.getByDataTest('coordinatefield-content').then(($element) => {
             // Check if the coordinate is already selected by looking at the text content
