@@ -195,6 +195,7 @@ const BottomPanel = () => {
                 onDoubleClick={toggleCollapsed}
             >
                 <button
+                    type="button"
                     className={styles.toggleButton}
                     onClick={toggleCollapsed}
                 >
@@ -264,6 +265,7 @@ const BottomPanel = () => {
                 )}
                 <span className={styles.divider} />
                 <button
+                    type="button"
                     className={styles.clearFiltersButton}
                     disabled={!hasActiveFilters}
                     onClick={onClearFilters}
@@ -288,6 +290,7 @@ const BottomPanel = () => {
                     />
                 </div>
                 <button
+                    type="button"
                     className={cx(styles.toggleButton, {
                         [styles.active]: showOnlyFeaturesInView,
                     })}
@@ -306,6 +309,7 @@ const BottomPanel = () => {
                 </button>
                 <span className={styles.divider} />
                 <button
+                    type="button"
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}
                 >
