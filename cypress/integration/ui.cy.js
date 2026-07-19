@@ -35,7 +35,7 @@ const addThematicAndFacilityLayers = () => {
         .selectOuLevel('Facility')
         .addToMap()
 
-    cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.waitForMap()
 }
 
 // Reads the ordered list of overlay layer card titles in the Layers panel.
