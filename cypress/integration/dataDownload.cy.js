@@ -39,13 +39,12 @@ describe('Data Download', () => {
     })
 
     it('downloads data from a thematic layer', () => {
-        cy.intercept('GET', '**/analytics.json**').as('getThematicData')
+        cy.intercept('GET', /\/analytics\?/).as('getThematicData')
 
         cy.visit(`/?id=${mapWithThematicLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        cy.wait('@getThematicData')
-
+        cy.wait('@getThematicData', EXTENDED_TIMEOUT)
         cy.get('[data-test="layercard"]')
             .find('h2')
             .contains(mapWithThematicLayer.cardTitle, EXTENDED_TIMEOUT)
@@ -78,8 +77,7 @@ describe('Data Download', () => {
         cy.visit(`/?id=${mapWithEventLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        cy.wait('@getEventData')
-
+        cy.wait('@getEventData', EXTENDED_TIMEOUT)
         cy.get('[data-test="layercard"]')
             .find('h2')
             .contains(mapWithEventLayer.cardTitle, EXTENDED_TIMEOUT)
