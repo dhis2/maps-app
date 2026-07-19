@@ -9,13 +9,13 @@ Cypress.Commands.add('getByDataTest', (selector, ...args) =>
 Cypress.Commands.add('waitForMap', (options = {}) => {
     const timeout = options.timeout ?? EXTENDED_TIMEOUT.timeout
 
-    cy.get('body', { timeout }).should(() => {
-        const mask = document.querySelector(
-            '#dhis2-map-container .dhis2-map-loading-mask'
-        )
+    cy.get('#dhis2-map-container', { timeout }).should(($container) => {
+        const container = $container[0]
+
+        const mask = container.querySelector('.dhis2-map-loading-mask')
         expect(mask, 'map loading mask should not be present').to.be.null
 
-        const maps = document.querySelectorAll('.dhis2-map')
+        const maps = container.querySelectorAll('.dhis2-map')
         expect(
             maps.length,
             'at least one .dhis2-map element should exist'

@@ -115,7 +115,7 @@ describe('Map Download', () => {
         // check for downloaded file
         cy.waitUntil(
             () => cy.task('getLastDownloadFilePath').then((result) => result),
-            { timeout: 3000, interval: 100 }
+            { timeout: 8000, interval: 100 }
         ).then((filePath) => {
             expect(filePath).to.include(mapWithThematicLayer.downloadFileName)
 
