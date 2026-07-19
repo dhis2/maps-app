@@ -220,8 +220,8 @@ const getEventHeaders = ({
             optionSet: optionSet || null,
         }))
 
-    customFields.push(defaultFieldsMap()[TYPE])
     customFields.push(
+        defaultFieldsMap()[TYPE],
         ...getStyleHeaders({
             hasLegend: !!styleDataItem,
             hasRange: !!styleDataItem,
