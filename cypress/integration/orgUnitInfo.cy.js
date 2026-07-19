@@ -6,13 +6,12 @@ describe('OrgUnitInfo', () => {
         cy.visit('/#/eDlFx0jTtV9', EXTENDED_TIMEOUT)
         cy.get('canvas').should('be.visible')
 
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
         getMaps().click(350, 350) //Click somewhere on the map
 
-        cy.get('.maplibregl-popup').contains('View profile').click()
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
+            .contains('View profile')
+            .click()
 
         // check the Org Unit Profile panel
         cy.getByDataTest('org-unit-profile').contains(

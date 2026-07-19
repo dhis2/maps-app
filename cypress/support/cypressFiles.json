@@ -1,0 +1,111 @@
+{
+    "cypress/integration/basemaps.cy.js": {
+        "include": true,
+        "duration": 80
+    },
+    "cypress/integration/dataDownload.cy.js": {
+        "include": true,
+        "duration": 47
+    },
+    "cypress/integration/dataTable.cy.js": {
+        "include": true,
+        "duration": 50
+    },
+    "cypress/integration/fetcherrors.cy.js": {
+        "include": true,
+        "duration": 33
+    },
+    "cypress/integration/filemenu.cy.js": {
+        "include": true,
+        "duration": 73
+    },
+    "cypress/integration/interpretations.cy.js": {
+        "include": true,
+        "duration": 42
+    },
+    "cypress/integration/keyboard.cy.js": {
+        "include": true,
+        "duration": 19
+    },
+    "cypress/integration/manageLayerSources.cy.js": {
+        "include": true,
+        "duration": 41
+    },
+    "cypress/integration/mapDownload.cy.js": {
+        "include": true,
+        "duration": 13
+    },
+    "cypress/integration/orgUnitInfo.cy.js": {
+        "include": true,
+        "duration": 11
+    },
+    "cypress/integration/plugin.cy.js": {
+        "include": false,
+        "duration": 15
+    },
+    "cypress/integration/pushAnalytics.cy.js": {
+        "include": true,
+        "duration": 14
+    },
+    "cypress/integration/requests.cy.js": {
+        "include": false,
+        "duration": 120,
+        "note": "TODO: E2E DB fix"
+    },
+    "cypress/integration/requestsErrors.cy.js": {
+        "include": false,
+        "duration": 480
+    },
+    "cypress/integration/routes.cy.js": {
+        "include": true,
+        "duration": 162
+    },
+    "cypress/integration/systemsettings.cy.js": {
+        "include": true,
+        "duration": 44
+    },
+    "cypress/integration/ui.cy.js": {
+        "include": true,
+        "duration": 39
+    },
+    "cypress/integration/usersettings.cy.js": {
+        "include": true,
+        "duration": 52
+    },
+    "cypress/integration/layers/eventlayer.cy.js": {
+        "include": true,
+        "duration": 131
+    },
+    "cypress/integration/layers/multilayers.cy.js": {
+        "include": true,
+        "duration": 13
+    },
+    "cypress/integration/layers/externallayer.cy.js": {
+        "include": true,
+        "duration": 6
+    },
+    "cypress/integration/layers/duplicatelayer.cy.js": {
+        "include": true,
+        "duration": 10
+    },
+    "cypress/integration/layers/orgunitlayer.cy.js": {
+        "include": true,
+        "duration": 29
+    },
+    "cypress/integration/layers/facilitylayer.cy.js": {
+        "include": true,
+        "duration": 27
+    },
+    "cypress/integration/layers/thematiclayer.cy.js": {
+        "include": true,
+        "duration": 283
+    },
+    "cypress/integration/layers/geojsonlayer.cy.js": {
+        "include": true,
+        "duration": 23
+    },
+    "cypress/integration/layers/trackedentitylayer.cy.js": {
+        "include": true,
+        "duration": 38
+    }
+}
