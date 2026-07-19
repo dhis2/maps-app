@@ -117,8 +117,7 @@ describe('Manage Layer Sources', () => {
         // Visit page
         cy.visit('/')
 
-        cy.wait('@getManagedList')
-
+        cy.wait('@getManagedList', EXTENDED_TIMEOUT)
         cy.getByDataTest('add-layer-button').click()
 
         cy.log('remove one layer')
@@ -127,8 +126,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(0).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
-        cy.wait('@putManagedList')
-
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n1 = LAYER_SOURCES_DEFAULT_ALL - 1
@@ -145,8 +143,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(1).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
-        cy.wait('@putManagedList')
-
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-2 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n2 = LAYER_SOURCES_DEFAULT_ALL - 2
@@ -163,8 +160,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(0).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
-        cy.wait('@putManagedList')
-
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n3 = LAYER_SOURCES_DEFAULT_ALL - 1

@@ -2,6 +2,16 @@ import { getMaps } from '../../elements/map_canvas.js'
 import { TeLayer } from '../../elements/trackedentity_layer.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
+const selectTeTypeAndProgram = (Layer, teType, program) => {
+    cy.intercept('GET', /\/trackedEntityTypes\?/).as('getTrackedEntityTypes')
+    Layer.openDialog('Tracked entities').selectTab('Data')
+    cy.wait('@getTrackedEntityTypes', EXTENDED_TIMEOUT)
+    cy.intercept('GET', /\/programs\?/).as('getPrograms')
+    Layer.selectTeType(teType)
+    cy.wait('@getPrograms', EXTENDED_TIMEOUT)
+    Layer.selectTeProgram(program)
+}
+
 describe('Tracked Entity Layers', () => {
     beforeEach(() => {
         cy.visit('/')
@@ -10,13 +20,13 @@ describe('Tracked Entity Layers', () => {
     const Layer = new TeLayer()
 
     it('adds a tracked entity layer', () => {
-        Layer.openDialog('Tracked entities')
-            .selectTab('Data')
-            .selectTeType('Malaria Entity')
-            .selectTeProgram(
-                'Malaria case diagnosis, treatment and investigation'
-            )
-            .selectTab('Org Units')
+        selectTeTypeAndProgram(
+            Layer,
+            'Malaria Entity',
+            'Malaria case diagnosis, treatment and investigation'
+        )
+
+        Layer.selectTab('Org Units')
             .selectOu('Bombali')
             .selectOu('Bo')
             .addToMap()
@@ -30,11 +40,13 @@ describe('Tracked Entity Layers', () => {
     })
 
     it('opens a tracked entity layer popup', () => {
-        Layer.openDialog('Tracked entities')
-            .selectTab('Data')
-            .selectTeType('Focus area')
-            .selectTeProgram('Malaria focus investigation')
-            .selectTab('Period')
+        selectTeTypeAndProgram(
+            Layer,
+            'Focus area',
+            'Malaria focus investigation'
+        )
+
+        Layer.selectTab('Period')
             .typeStartDate('2018-00-00')
             .selectTab('Org Units')
             .openOu('Bo')
@@ -72,11 +84,13 @@ describe('Tracked Entity Layers', () => {
     })
 
     it('shows error if no endDate is specified', () => {
-        Layer.openDialog('Tracked entities')
-            .selectTab('Data')
-            .selectTeType('Focus area')
-            .selectTeProgram('Malaria focus investigation')
-            .selectTab('Period')
+        selectTeTypeAndProgram(
+            Layer,
+            'Focus area',
+            'Malaria focus investigation'
+        )
+
+        Layer.selectTab('Period')
             .typeStartDate('2018-01-01')
             .typeEndDate('2')
             .addToMap()

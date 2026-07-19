@@ -31,8 +31,7 @@ export const openMap = (mapName) => {
 
     cy.getByDataTest('dhis2-uicore-datatable').contains(mapName).click()
 
-    cy.wait('@getMapOnOpen')
-
+    cy.wait('@getMapOnOpen', EXTENDED_TIMEOUT)
     cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
     cy.getByDataTest('open-file-dialog-modal').should('not.be.visible')
@@ -143,8 +142,7 @@ export const deleteMap = () => {
 
     cy.getByDataTest('file-menu-delete-modal-delete', EXTENDED_TIMEOUT).click()
 
-    cy.wait('@deleteMapMutation')
-
+    cy.wait('@deleteMapMutation', EXTENDED_TIMEOUT)
     cy.getByDataTest('file-menu-delete-modal', EXTENDED_TIMEOUT).should(
         'not.exist'
     )

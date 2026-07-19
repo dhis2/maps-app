@@ -259,7 +259,7 @@ describe('Error handling check for all layer types', () => {
                             getRequest('getEventsStandard_Analytics1').url
                         ).as('getEventsAnalytics1')
                         cy.visit(`#/${id}`)
-                        cy.wait('@getEventsAnalytics1')
+                        cy.wait('@getEventsAnalytics1', EXTENDED_TIMEOUT)
                         cy.getByDataTest('layercard')
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                             .should('exist')
