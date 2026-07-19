@@ -5,13 +5,23 @@ const getOrderIndex = (dataKey, orderedKeys) => {
     return index === -1 ? orderedKeys.length : index
 }
 
-export const getVisibleHeaders = (headers, columnConfig) => {
+// A header can opt out of the "everything visible by default" rule (e.g.
+// period columns, which exist for every available period but would clutter
+// the table if all shown before the user picks any) - used both here and
+// by ColumnPickerControl, so the table and the picker's checkboxes always
+// agree on what "not yet customized" means.
+export const getDefaultVisibleKeys = (headers) =>
+    headers.filter((h) => !h.defaultHidden).map((h) => h.dataKey)
+
+// Ordering + pinning only, deliberately never filtered by visibility - used
+// by the column picker, which needs a row for every header regardless of
+// whether it's currently shown, and by getVisibleHeaders below.
+export const getOrderedHeaders = (headers, config) => {
     if (!headers) {
         return headers
     }
 
-    const { visibleKeys, orderedKeys } = columnConfig ?? {}
-    const pinnedKeys = columnConfig?.pinnedKeys ?? []
+    const { orderedKeys, pinnedKeys } = config ?? {}
 
     let result = orderedKeys
         ? [...headers].sort(
@@ -21,17 +31,26 @@ export const getVisibleHeaders = (headers, columnConfig) => {
           )
         : headers
 
-    if (visibleKeys) {
-        result = result.filter((h) => visibleKeys.includes(h.dataKey))
-    }
-
-    if (pinnedKeys.length) {
+    if (pinnedKeys?.length) {
         const pinned = result.filter((h) => pinnedKeys.includes(h.dataKey))
         const rest = result.filter((h) => !pinnedKeys.includes(h.dataKey))
         result = [...pinned, ...rest]
     }
 
     return result
+}
+
+export const getVisibleHeaders = (headers, columnConfig) => {
+    if (!headers) {
+        return headers
+    }
+
+    const visibleKeys =
+        columnConfig?.visibleKeys ?? getDefaultVisibleKeys(headers)
+
+    return getOrderedHeaders(headers, columnConfig).filter((h) =>
+        visibleKeys.includes(h.dataKey)
+    )
 }
 
 export const getPinnedCount = (orderedHeaders, pinnedKeys) => {
@@ -67,11 +86,6 @@ export const reverseVisibleKeys = (headers, visibleKeys) =>
     headers
         .filter((h) => !visibleKeys.includes(h.dataKey))
         .map((h) => h.dataKey)
-
-export const togglePeriodId = (extraPeriodIds, periodId) =>
-    extraPeriodIds.includes(periodId)
-        ? extraPeriodIds.filter((id) => id !== periodId)
-        : [...extraPeriodIds, periodId]
 
 // @dhis2/ui requires `width` whenever `fixed` is passed
 export const getPinnedCellProps = (

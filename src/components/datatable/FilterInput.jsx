@@ -104,6 +104,25 @@ const SearchableFilterPopover = ({
             ? dispatch(setDataFilter(layerId, dataKey, text))
             : dispatch(clearDataFilter(layerId, dataKey))
 
+    const isIconColumn = dataKey === 'iconUrl'
+
+    const renderOptionLabel = (value) =>
+        isIconColumn ? (
+            <span className={styles.iconOption}>
+                <img
+                    className={styles.iconOptionThumbnail}
+                    src={value}
+                    alt=""
+                    onError={(e) => {
+                        e.target.style.visibility = 'hidden'
+                    }}
+                />
+                {value.split('/').pop()}
+            </span>
+        ) : (
+            resolveLabel(value)
+        )
+
     const hasNotSetOption = options.some(
         ({ value }) => value === SENTINEL_NO_VALUE
     )
@@ -401,7 +420,9 @@ const SearchableFilterPopover = ({
                                     computeItemKey={(_, option) => option.value}
                                     itemContent={(index, option) => (
                                         <Checkbox
-                                            label={resolveLabel(option.value)}
+                                            label={renderOptionLabel(
+                                                option.value
+                                            )}
                                             checked={
                                                 anyValueActive ||
                                                 selected.includes(option.value)
