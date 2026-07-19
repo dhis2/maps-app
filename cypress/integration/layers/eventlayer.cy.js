@@ -122,20 +122,15 @@ const selectProgramAndStage = (
     ).as('getProgramStageDataElements')
 
     Layer.openDialog('Events')
-
-    cy.wait('@getPrograms')
-
+    cy.wait('@getPrograms', EXTENDED_TIMEOUT)
     Layer.selectProgram(programName)
-
-    cy.wait('@getProgramStages')
-
+    cy.wait('@getProgramStages', EXTENDED_TIMEOUT)
     if (validateOnly) {
         Layer.validateStage(stageName)
     } else {
         Layer.selectStage(stageName)
     }
-
-    cy.wait('@getProgramStageDataElements')
+    cy.wait('@getProgramStageDataElements', EXTENDED_TIMEOUT)
 }
 
 context('Event Layers', () => {
