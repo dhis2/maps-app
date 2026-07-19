@@ -1,11 +1,6 @@
 import { EventLayer } from '../../elements/event_layer.js'
 import { getMaps } from '../../elements/map_canvas.js'
-import {
-    CURRENT_YEAR,
-    EXTENDED_TIMEOUT,
-    POPUP_WAIT,
-    getDhis2Version,
-} from '../../support/util.js'
+import { CURRENT_YEAR, getDhis2Version } from '../../support/util.js'
 
 const programE2E = {
     name: 'E2E program',
@@ -97,10 +92,7 @@ const testCoordinate = (Layer, coordinates, reOpenDialog = true) => {
     Layer.validateDialogClosed(true)
 
     // Wait for map to load
-    cy.wait(POPUP_WAIT)
-    cy.get('#dhis2-map-container')
-        .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-        .should('not.exist')
+    cy.waitForMap()
 
     // Check popup
     getMaps().click('center') // Click in the middle of the map
@@ -246,10 +238,7 @@ context('Event Layers', () => {
         Layer.validateCardPeriod(`March ${CURRENT_YEAR - 1}`)
         Layer.validateCardPeriod(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
 
         getMaps().click('center')
         Layer.validatePopupContents(['Event location'])
@@ -298,10 +287,7 @@ context('Event Layers', () => {
             .selectOu(programIP.ousAlt[2])
             .addToMap()
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
 
         getMaps().click('center')
         Layer.validatePopupContents([

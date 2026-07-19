@@ -45,7 +45,6 @@ describe('push-analytics', () => {
                 .contains('Download')
                 .click()
 
-            cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
             cy.waitUntil(
                 () =>
                     cy.task('getLastDownloadFilePath').then((result) => result),

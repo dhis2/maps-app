@@ -53,8 +53,6 @@ describe('Data Download', () => {
             .contains('Download')
             .click()
 
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
-
         cy.waitUntil(
             () => cy.task('getLastDownloadFilePath').then((result) => result),
             { timeout: 3000, interval: 100 }
@@ -84,8 +82,6 @@ describe('Data Download', () => {
             .find('button')
             .contains('Download')
             .click()
-
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         cy.waitUntil(
             () => cy.task('getLastDownloadFilePath').then((result) => result),

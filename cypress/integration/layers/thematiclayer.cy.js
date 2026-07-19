@@ -11,7 +11,6 @@ import {
     CURRENT_YEAR,
     getApiBaseUrl,
     EXTENDED_TIMEOUT,
-    POPUP_WAIT,
     uniqueId,
 } from '../../support/util.js'
 
@@ -186,10 +185,7 @@ context('Thematic Layers', () => {
 
         getMaps().click('center')
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
 
         getMaps().click('center')
         Layer.validatePopupContents(['Gbonkonlenken'])
@@ -242,10 +238,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: 0'])
 
@@ -258,10 +251,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: No data'])
     })
@@ -298,7 +288,7 @@ context('Thematic Layers', () => {
             `${CURRENT_YEAR - 1} March, ${CURRENT_YEAR - 1} September`,
         ])
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap()
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -321,7 +311,7 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap()
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -344,7 +334,7 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap()
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -496,8 +486,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        // wait to make sure the maps are loaded
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap()
 
         // check that the first timeline period is shown in blue
         cy.get('.dhis2-map-period').should('be.visible')
@@ -516,16 +505,16 @@ context('Thematic Layers', () => {
 
         cy.get('.play-icon').click()
         cy.get('.pause-icon').should('be.visible')
-        cy.wait((5 - 1) * 1500)
 
         // check that the last timeline period is shown in blue
-        cy.get('svg.dhis2-map-timeline')
+        // (EXTENDED_TIMEOUT lets this retry until the animation reaches its final period)
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT)
             .find('rect')
             .first()
             .should('have.css', 'fill', 'rgb(255, 255, 255)')
             .and('have.css', 'fill-opacity', '0.8')
 
-        cy.get('svg.dhis2-map-timeline')
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT)
             .find('rect')
             .last()
             .should('have.css', 'fill', 'rgb(20, 124, 215)')
@@ -560,7 +549,7 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT).should('be.visible')
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap()
 
         // Drill down
         getMaps()
@@ -572,21 +561,15 @@ context('Thematic Layers', () => {
             })
         cy.getByDataTest(DRILL_DOWN).click()
 
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
-
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
         getMaps().click('center')
         cy.get('.maplibregl-popup').should('be.visible')
         cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')
 
         cy.get('.play-icon').click()
-        cy.wait(1500 + 500)
 
         cy.get('@popupTextBeforePlay').then((textBefore) => {
-            cy.get('.maplibregl-popup')
+            cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
                 .invoke('text')
                 .should('not.eq', textBefore)
         })
@@ -717,8 +700,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        // wait to make sure the maps are loaded
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap()
 
         expectContextMenuOptions([
             { name: DRILL_UP, disabled: true },
