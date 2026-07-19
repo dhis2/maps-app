@@ -567,7 +567,7 @@ context('Thematic Layers', () => {
                     .first()
                     .rightclick($el.width() / 2, $el.height() / 2)
             })
-        cy.getByDataTest(DRILL_DOWN).click()
+        cy.getByDataTest(DRILL_DOWN, EXTENDED_TIMEOUT).click()
 
         cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center')

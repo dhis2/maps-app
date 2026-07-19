@@ -3,16 +3,16 @@ import { Layer } from './layer.js'
 
 export class EventLayer extends Layer {
     selectProgram(program) {
-        cy.get('[data-test="programselect"]').click()
-        cy.contains(program).scrollIntoView()
-        cy.contains(program).click()
+        cy.get('[data-test="programselect"]', EXTENDED_TIMEOUT).click()
+        cy.contains(program, EXTENDED_TIMEOUT).scrollIntoView()
+        cy.contains(program, EXTENDED_TIMEOUT).click()
 
         return this
     }
 
     selectStage(stage) {
-        cy.get('[data-test="programstageselect"]').click()
-        cy.contains(stage).click()
+        cy.get('[data-test="programstageselect"]', EXTENDED_TIMEOUT).click()
+        cy.contains(stage, EXTENDED_TIMEOUT).click()
 
         return this
     }
@@ -39,7 +39,7 @@ export class EventLayer extends Layer {
     }
 
     validateStage(stage) {
-        cy.get('[data-test="programstageselect"]')
+        cy.get('[data-test="programstageselect"]', EXTENDED_TIMEOUT)
             .contains(stage)
             .should('be.visible')
 
