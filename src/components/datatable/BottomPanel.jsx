@@ -156,6 +156,7 @@ const BottomPanel = () => {
                 )}
                 {hasActiveFilters && (
                     <button
+                        type="button"
                         className={styles.clearFiltersButton}
                         onClick={() =>
                             dispatch(clearDataFilters(activeLayerId))
@@ -170,6 +171,7 @@ const BottomPanel = () => {
                     </button>
                 )}
                 <button
+                    type="button"
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}
                 >
