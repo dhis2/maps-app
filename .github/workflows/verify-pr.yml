@@ -30,6 +30,7 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 20.x
+                  cache: 'yarn'
 
             - name: Install
               run: yarn install --frozen-lockfile
@@ -52,6 +53,7 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 20.x
+                  cache: 'yarn'
 
             - name: Install
               run: yarn install --frozen-lockfile
@@ -69,6 +71,7 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 20.x
+                  cache: 'yarn'
 
             - name: Install
               run: yarn install --frozen-lockfile
@@ -82,7 +85,7 @@ jobs:
     call-workflow-e2e-prod:
         if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
         needs: [build, lint, test, setup-matrix]
-        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@feat/hardcoded-dev-version-minor
+        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@maps-app
         with:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}

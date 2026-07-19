@@ -1,15 +1,15 @@
 {
     "cypress/integration/basemaps.cy.js": {
         "include": true,
-        "duration": 105
+        "duration": 104
     },
     "cypress/integration/dataDownload.cy.js": {
         "include": true,
-        "duration": 55
+        "duration": 56
     },
     "cypress/integration/dataTable.cy.js": {
         "include": true,
-        "duration": 54
+        "duration": 53
     },
     "cypress/integration/fetcherrors.cy.js": {
         "include": true,
@@ -17,7 +17,7 @@
     },
     "cypress/integration/filemenu.cy.js": {
         "include": true,
-        "duration": 86
+        "duration": 85
     },
     "cypress/integration/interpretations.cy.js": {
         "include": true,
@@ -25,11 +25,11 @@
     },
     "cypress/integration/keyboard.cy.js": {
         "include": true,
-        "duration": 23
+        "duration": 24
     },
     "cypress/integration/manageLayerSources.cy.js": {
         "include": true,
-        "duration": 48
+        "duration": 50
     },
     "cypress/integration/mapDownload.cy.js": {
         "include": true,
@@ -45,7 +45,7 @@
     },
     "cypress/integration/pushAnalytics.cy.js": {
         "include": true,
-        "duration": 17
+        "duration": 18
     },
     "cypress/integration/requests.cy.js": {
         "include": false,
@@ -58,7 +58,7 @@
     },
     "cypress/integration/routes.cy.js": {
         "include": true,
-        "duration": 187
+        "duration": 196
     },
     "cypress/integration/systemsettings.cy.js": {
         "include": true,
@@ -66,7 +66,7 @@
     },
     "cypress/integration/ui.cy.js": {
         "include": true,
-        "duration": 47
+        "duration": 46
     },
     "cypress/integration/usersettings.cy.js": {
         "include": true,
@@ -74,7 +74,7 @@
     },
     "cypress/integration/layers/eventlayer.cy.js": {
         "include": true,
-        "duration": 159
+        "duration": 130
     },
     "cypress/integration/layers/multilayers.cy.js": {
         "include": true,
@@ -82,7 +82,7 @@
     },
     "cypress/integration/layers/externallayer.cy.js": {
         "include": true,
-        "duration": 7
+        "duration": 8
     },
     "cypress/integration/layers/duplicatelayer.cy.js": {
         "include": true,
@@ -94,11 +94,11 @@
     },
     "cypress/integration/layers/facilitylayer.cy.js": {
         "include": true,
-        "duration": 31
+        "duration": 32
     },
     "cypress/integration/layers/thematiclayer.cy.js": {
         "include": true,
-        "duration": 294
+        "duration": 288
     },
     "cypress/integration/layers/geojsonlayer.cy.js": {
         "include": true,
@@ -106,6 +106,6 @@
     },
     "cypress/integration/layers/trackedentitylayer.cy.js": {
         "include": true,
-        "duration": 47
+        "duration": 49
     }
 }

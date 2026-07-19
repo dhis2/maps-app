@@ -43,6 +43,7 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 20.x
+                  cache: 'yarn'
             - name: Install
               run: yarn install --frozen-lockfile
 
@@ -65,6 +66,7 @@ jobs:
                   CI: true
                   BROWSER: none
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+                  CYPRESS_VIDEO: ${{ env.SHOULD_RECORD }}
                   CYPRESS_dhis2BaseUrl: ${{ env.DEV_URL }}
                   CYPRESS_dhis2InstanceVersion: ${{ env.API_VERSION }}
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
