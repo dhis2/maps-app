@@ -261,11 +261,11 @@ describe('useTableData headers', () => {
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Value', dataKey: 'rawValue', type: 'number' },
-            { name: 'Legend', dataKey: 'legend', type: 'string' },
-            { name: 'Range', dataKey: 'range', type: 'string' },
             { name: 'Level', dataKey: 'level', type: 'number' },
             { name: 'Parent', dataKey: 'parentName', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
+            { name: 'Legend', dataKey: 'legend', type: 'string' },
+            { name: 'Range', dataKey: 'range', type: 'string' },
             {
                 name: 'Color',
                 dataKey: 'color',
@@ -279,22 +279,28 @@ describe('useTableData headers', () => {
             { value: 'Ngelehun CHC', dataKey: 'name' },
             { value: 'thematicId-1', dataKey: 'id' },
             { value: 106.3, dataKey: 'rawValue' },
-            { value: 'Great', dataKey: 'legend' },
-            { value: '90 – 120', dataKey: 'range' },
             { value: 4, dataKey: 'level' },
             { value: 'Badjia', dataKey: 'parentName' },
             { value: 'Point', dataKey: 'type' },
+            { value: 'Great', dataKey: 'legend' },
+            { value: '90 – 120', dataKey: 'range' },
             { value: '#FFFFB2', dataKey: 'color' },
         ])
         expect(isLoading).toBe(false)
     })
 
     test('gets current-period Value/Legend/Range/Color for a timeline thematic layer', () => {
-        const store = { aggregations: {} }
+        // The active timeline period is Map.jsx's own local UI state, synced
+        // into state.ui.activeTimelinePeriod (not part of the layer config).
+        const store = {
+            aggregations: {},
+            ui: {
+                activeTimelinePeriod: { id: '202302', name: 'February 2023' },
+            },
+        }
         const layer = {
             layer: 'thematic',
             renderingStrategy: 'TIMELINE',
-            externalPeriod: { id: '202302', name: 'February 2023' },
             valuesByPeriod: {
                 202301: {
                     'ou-1': { value: 100, color: '#aaaaaa', legend: 'Low' },
@@ -337,11 +343,11 @@ describe('useTableData headers', () => {
             { name: 'Name', dataKey: 'name' },
             { name: 'Id', dataKey: 'id' },
             { name: 'Value (February 2023)', dataKey: 'rawValue' },
-            { name: 'Legend (February 2023)', dataKey: 'legend' },
-            { name: 'Range (February 2023)', dataKey: 'range' },
             { name: 'Level', dataKey: 'level' },
             { name: 'Parent', dataKey: 'parentName' },
             { name: 'Type', dataKey: 'type' },
+            { name: 'Legend (February 2023)', dataKey: 'legend' },
+            { name: 'Range (February 2023)', dataKey: 'range' },
             { name: 'Color (February 2023)', dataKey: 'color' },
         ])
         expect(rows[0]).toEqual(
@@ -356,17 +362,23 @@ describe('useTableData headers', () => {
         )
     })
 
-    test('adds a raw-value-only extra period column for a timeline thematic layer', () => {
-        const store = { aggregations: {} }
+    test('adds a defaultHidden raw-value-only column for every other period, for a timeline thematic layer', () => {
+        // Period columns exist for every period regardless of any saved
+        // config - they're just hidden by default (defaultHidden), same
+        // mechanism as any other column, controlled via the column picker.
+        const store = {
+            aggregations: {},
+            ui: {
+                activeTimelinePeriod: { id: '202302', name: 'February 2023' },
+            },
+        }
         const layer = {
             layer: 'thematic',
             renderingStrategy: 'TIMELINE',
-            externalPeriod: { id: '202302', name: 'February 2023' },
             periods: [
                 { id: '202301', name: 'January 2023' },
                 { id: '202302', name: 'February 2023' },
             ],
-            dataTableColumnConfig: { extraPeriodIds: ['202301'] },
             valuesByPeriod: {
                 202301: { 'ou-1': { value: 100 } },
                 202302: { 'ou-1': { value: 200 } },
@@ -396,10 +408,16 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows } = result.current
+        // The active period (February 2023) is the Value/Legend/Range/Color
+        // columns, not a separate period_* column.
+        expect(headers).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'period_202302_rawValue' })
+        )
         expect(headers).toContainEqual({
             name: 'Value (January 2023)',
             dataKey: 'period_202301_rawValue',
             type: 'number',
+            defaultHidden: true,
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({
@@ -409,19 +427,14 @@ describe('useTableData headers', () => {
         )
     })
 
-    test('split-by-period thematic layer has no default current-period column, only extras', () => {
+    test('split-by-period thematic layer has no default current-period column, only defaultHidden period columns', () => {
         const store = { aggregations: {} }
         const layer = {
             layer: 'thematic',
             renderingStrategy: 'SPLIT_BY_PERIOD',
-            externalPeriod: { id: '202302', name: 'February 2023' },
             periods: [{ id: '202301', name: 'January 2023' }],
-            dataTableColumnConfig: { extraPeriodIds: ['202301'] },
             valuesByPeriod: {
                 202301: { 'ou-1': { value: 100 } },
-                202302: {
-                    'ou-1': { value: 200, color: '#bbbbbb', legend: 'High' },
-                },
             },
             dataFilters: null,
             data: [
@@ -457,6 +470,7 @@ describe('useTableData headers', () => {
             {
                 name: 'Value (January 2023)',
                 dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
             },
         ])
         expect(rows[0]).not.toContainEqual(
