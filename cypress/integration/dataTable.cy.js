@@ -44,7 +44,7 @@ describe('data table', () => {
             IFRAME_HEADER_HEIGHT,
         ].map((h) => viewportHeight - h - MENU_HEIGHT)
 
-        cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/#/${map.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         //check that the map resizes properly
@@ -162,7 +162,7 @@ describe('data table', () => {
     })
 
     it('opens the data table for an Event layer', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         const EvenLayer = new EventLayer()
 

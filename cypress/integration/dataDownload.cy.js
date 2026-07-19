@@ -39,8 +39,12 @@ describe('Data Download', () => {
     })
 
     it('downloads data from a thematic layer', () => {
-        cy.visit(`/?id=${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
+        cy.intercept('GET', '**/analytics.json**').as('getThematicData')
+
+        cy.visit(`/?id=${mapWithThematicLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        cy.wait('@getThematicData')
 
         cy.get('[data-test="layercard"]')
             .find('h2')
@@ -69,8 +73,12 @@ describe('Data Download', () => {
     })
 
     it('downloads data from an event layer', () => {
-        cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
+        cy.intercept('GET', '**/analytics/events/**').as('getEventData')
+
+        cy.visit(`/?id=${mapWithEventLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        cy.wait('@getEventData')
 
         cy.get('[data-test="layercard"]')
             .find('h2')
@@ -99,7 +107,7 @@ describe('Data Download', () => {
     })
 
     it('fails to download event layer', () => {
-        cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/?id=${mapWithEventLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('[data-test="layercard"]')
             .find('h2')
