@@ -5,7 +5,7 @@ import { EXTENDED_TIMEOUT, uniqueId } from '../support/util.js'
 const MAP_TITLE = 'test ' + uniqueId()
 context('Interpretations', () => {
     it('opens the interpretations panel for a map', () => {
-        cy.visit('/#/ZBjCfSaLSqD', EXTENDED_TIMEOUT)
+        cy.visit('/#/ZBjCfSaLSqD')
         const ThemLayer = new ThematicLayer()
         ThemLayer.validateCardTitle('ANC LLITN coverage')
         cy.get('canvas.maplibregl-canvas').should('be.visible')
@@ -76,10 +76,7 @@ context('Interpretations', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
-        cy.visit(
-            '/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a',
-            EXTENDED_TIMEOUT
-        ) //ANC: LLITN coverage district and facility
+        cy.visit('/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a') //ANC: LLITN coverage district and facility
 
         cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
