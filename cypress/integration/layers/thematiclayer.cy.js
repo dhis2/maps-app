@@ -15,6 +15,7 @@ import {
     getApiBaseUrl,
     EXTENDED_TIMEOUT,
     POPUP_WAIT,
+    uniqueId,
 } from '../../support/util.js'
 
 const HIV_INDICATOR_GROUP = 'HIV'
@@ -737,8 +738,7 @@ context('Thematic Layers', () => {
 
     // TODO - update demo database with calculations instead of creating on the fly
     it('adds a thematic layer with a calculation', () => {
-        const timestamp = new Date().toUTCString().slice(-24, -4)
-        const calculationName = `map calc ${timestamp}`
+        const calculationName = `map calc ${uniqueId()}`
 
         // add a calculation
         cy.request('POST', `${getApiBaseUrl()}/api/expressionDimensionItems`, {

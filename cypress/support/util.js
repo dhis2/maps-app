@@ -3,6 +3,9 @@ export const POPUP_WAIT = 2500
 
 export const CURRENT_YEAR = new Date().getFullYear()
 
+export const uniqueId = () =>
+    `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+
 export const getApiBaseUrl = () => {
     const baseUrl = Cypress.env('dhis2BaseUrl') || ''
 
