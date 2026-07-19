@@ -4,10 +4,6 @@ const {
     downloadedFileTasks,
 } = require('./cypress/plugins/downloadedFileTasks.js')
 const {
-    createReplicaAccountForRun,
-    deleteReplicaAccount,
-} = require('./cypress/plugins/e2eReplicaAccount.js')
-const {
     excludeByVersionTags,
 } = require('./cypress/plugins/excludeByVersionTags.js')
 
