@@ -23,13 +23,12 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useDispatch } from 'react-redux'
 import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
-import { RENDERING_STRATEGY_SINGLE } from '../../../constants/layers.js'
 import {
+    getDefaultVisibleKeys,
+    getOrderedHeaders,
     getPinnedCount,
-    getVisibleHeaders,
     isPinnedGroupEnd,
     reverseVisibleKeys,
-    togglePeriodId,
     togglePinnedKey,
     toggleVisibleKey,
 } from '../../../util/tableColumns.js'
@@ -40,13 +39,7 @@ import ToolbarIconButton from './ToolbarIconButton.jsx'
 
 const DRAG_OVERLAY_Z_INDEX = 2100
 
-const ColumnPickerControl = ({
-    layerId,
-    allHeaders,
-    columnConfig,
-    renderingStrategy,
-    periods,
-}) => {
+const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
     const dispatch = useDispatch()
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -76,20 +69,17 @@ const ColumnPickerControl = ({
     const headers = allHeaders ?? []
 
     const visibleKeys =
-        columnConfig?.visibleKeys ?? headers.map((h) => h.dataKey)
+        columnConfig?.visibleKeys ?? getDefaultVisibleKeys(headers)
     const pinnedKeys = columnConfig?.pinnedKeys ?? []
     const orderedKeys =
         columnConfig?.orderedKeys ?? headers.map((h) => h.dataKey)
 
-    const orderedHeaders = getVisibleHeaders(headers, {
+    const orderedHeaders = getOrderedHeaders(headers, {
         orderedKeys,
         pinnedKeys,
     })
 
     const pinnedCount = getPinnedCount(orderedHeaders, pinnedKeys)
-    const extraPeriodIds = columnConfig?.extraPeriodIds ?? []
-    const isMultiPeriodThematic =
-        renderingStrategy && renderingStrategy !== RENDERING_STRATEGY_SINGLE
 
     const updateConfig = (partial) =>
         dispatch(
@@ -97,7 +87,6 @@ const ColumnPickerControl = ({
                 visibleKeys,
                 pinnedKeys,
                 orderedKeys,
-                extraPeriodIds,
                 ...partial,
             })
         )
@@ -123,25 +112,6 @@ const ColumnPickerControl = ({
 
     const onResetToDefaults = () =>
         dispatch(setDataTableColumnConfig(layerId, undefined))
-
-    const onTogglePeriodId = (periodId) => {
-        const isAdding = !extraPeriodIds.includes(periodId)
-        updateConfig({
-            extraPeriodIds: togglePeriodId(extraPeriodIds, periodId),
-            // A newly-added period's column only has a header once
-            // useTableData sees the updated extraPeriodIds - but
-            // visibleKeys, once customized, is an allowlist, so its new
-            // dataKey needs adding here too or the column would never
-            // actually render.
-            ...(isAdding &&
-                columnConfig?.visibleKeys && {
-                    visibleKeys: [
-                        ...visibleKeys,
-                        `period_${periodId}_rawValue`,
-                    ],
-                }),
-        })
-    }
 
     const filteredHeaders = orderedHeaders.filter((h) =>
         h.name.toLowerCase().includes(search.trim().toLowerCase())
@@ -318,39 +288,6 @@ const ColumnPickerControl = ({
                                 document.body
                             )}
                         </DndContext>
-                        {isMultiPeriodThematic && periods?.length > 0 && (
-                            <div className={styles.periodsSection}>
-                                <p className={styles.periodsSectionLabel}>
-                                    {i18n.t('Add period columns')}
-                                </p>
-                                <div className={styles.periodsList}>
-                                    {periods.map(({ id, name }) => (
-                                        <label
-                                            key={id}
-                                            className={styles.periodRow}
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                checked={extraPeriodIds.includes(
-                                                    id
-                                                )}
-                                                onChange={() =>
-                                                    onTogglePeriodId(id)
-                                                }
-                                                data-test={`data-table-column-picker-period-${id}`}
-                                            />
-                                            <span
-                                                className={
-                                                    styles.periodRowLabel
-                                                }
-                                            >
-                                                {name}
-                                            </span>
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
                     </div>
                 </FilterDropdownPopover>
             )}
@@ -367,18 +304,10 @@ ColumnPickerControl.propTypes = {
         })
     ),
     columnConfig: PropTypes.shape({
-        extraPeriodIds: PropTypes.arrayOf(PropTypes.string),
         orderedKeys: PropTypes.arrayOf(PropTypes.string),
         pinnedKeys: PropTypes.arrayOf(PropTypes.string),
         visibleKeys: PropTypes.arrayOf(PropTypes.string),
     }),
-    periods: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string,
-            name: PropTypes.string,
-        })
-    ),
-    renderingStrategy: PropTypes.string,
 }
 
 export default ColumnPickerControl

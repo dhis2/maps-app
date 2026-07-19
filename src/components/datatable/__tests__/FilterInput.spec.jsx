@@ -201,6 +201,24 @@ describe('FilterInput multi-select path (no optionSetId)', () => {
         ).toBeInTheDocument()
     })
 
+    test('renders Icon column options as a thumbnail plus filename, not the raw URL', () => {
+        renderFilterInput({
+            dataKey: 'iconUrl',
+            name: 'Icon',
+            options: [{ value: 'https://server/api/icons/mapMarker024.png' }],
+        })
+        openPopover('Icon')
+        const checkbox = screen.getByLabelText('mapMarker024.png')
+        expect(checkbox).toBeInTheDocument()
+        expect(
+            screen.queryByLabelText('https://server/api/icons/mapMarker024.png')
+        ).not.toBeInTheDocument()
+        expect(checkbox.closest('label').querySelector('img')).toHaveAttribute(
+            'src',
+            'https://server/api/icons/mapMarker024.png'
+        )
+    })
+
     test('formats numeric column options with the system digit group separator', () => {
         renderFilterInput({
             dataKey: 'value',
