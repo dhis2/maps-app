@@ -9,9 +9,9 @@ import {
 } from '../elements/file_menu.js'
 import { Layer as OrgUnitLayer } from '../elements/layer.js'
 import { ThematicLayer } from '../elements/thematic_layer.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { EXTENDED_TIMEOUT, uniqueId } from '../support/util.js'
 
-const MAP_TITLE = 'test ' + new Date().toUTCString().slice(-24, -4)
+const MAP_TITLE = 'test ' + uniqueId()
 const SAVEAS_MAP_TITLE = `${MAP_TITLE}-2`
 
 describe('File menu', () => {
@@ -70,7 +70,7 @@ describe('File menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const title = 'test ' + new Date().toUTCString().slice(-24, -4)
+        const title = 'test ' + uniqueId()
         const renamedTitle = `renamed ${title}`
 
         createMap(title)
@@ -123,9 +123,8 @@ describe('File menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        const title = 'test ' + new Date().toUTCString().slice(-24, -4)
-        const renamedTitle =
-            'renamed ' + new Date().toUTCString().slice(-24, -4)
+        const title = 'test ' + uniqueId()
+        const renamedTitle = 'renamed ' + uniqueId()
 
         createMap(title)
         const description = 'this is the explanation of the map'
