@@ -114,21 +114,56 @@ const defaultFieldsMap = () => ({
     },
 })
 
+// Canonical trailing order for classification/styling columns - shared
+// across every layer type that has any subset of them, so switching
+// between layer types never reshuffles where these appear relative to
+// each other (e.g. Group always comes before Color, Color always comes
+// before Icon, regardless of which layer type is showing them).
+const getStyleHeaders = ({
+    hasLegend,
+    hasRange,
+    hasGroup,
+    hasColor,
+    hasIcon,
+}) => {
+    const headers = []
+    if (hasLegend) {
+        headers.push(defaultFieldsMap()[LEGEND])
+    }
+    if (hasRange) {
+        headers.push(defaultFieldsMap()[RANGE])
+    }
+    if (hasGroup) {
+        headers.push(defaultFieldsMap()[GROUP])
+    }
+    if (hasColor) {
+        headers.push(defaultFieldsMap()[COLOR])
+    }
+    if (hasIcon) {
+        headers.push(defaultFieldsMap()[ICON])
+    }
+    return headers
+}
+
 const getThematicHeaders = () =>
-    [NAME, ID, VALUE, LEGEND, RANGE, LEVEL, PARENT_NAME, TYPE, COLOR].map(
-        (field) => defaultFieldsMap()[field]
-    )
+    [NAME, ID, VALUE, LEVEL, PARENT_NAME, TYPE]
+        .map((field) => defaultFieldsMap()[field])
+        .concat(
+            getStyleHeaders({ hasLegend: true, hasRange: true, hasColor: true })
+        )
 
 // Timeline gets the standard Value/Legend/Range/Color columns, relabeled
 // with the active period's name (updates live as the timeline slider
 // moves). Split-by-period has no single "current" period to privilege, so
 // it only gets the base org unit columns - same shape as getOrgUnitHeaders.
-// Both strategies can add extra, raw-value-only period columns via the
-// column picker's "Periods" section.
+// Every other available period (all of them, for split - every one but the
+// active one, for timeline, since that one's already the Value/Legend/
+// Range/Color columns above) gets its own raw-value-only column too,
+// hidden by default (defaultHidden) so the table isn't cluttered with
+// every period until the user turns one on from the column picker.
 const getMultiPeriodThematicHeaders = ({
     isTimelineThematic,
     externalPeriod,
-    extraPeriodIds,
     periods,
 }) => {
     const headers = isTimelineThematic
@@ -144,13 +179,16 @@ const getMultiPeriodThematicHeaders = ({
           )
         : getOrgUnitHeaders()
 
-    extraPeriodIds.forEach((periodId) => {
-        const periodName =
-            periods?.find((p) => p.id === periodId)?.name ?? periodId
+    const otherPeriods = isTimelineThematic
+        ? (periods ?? []).filter((p) => p.id !== externalPeriod?.id)
+        : periods ?? []
+
+    otherPeriods.forEach((period) => {
         headers.push({
-            name: i18n.t('Value ({{period}})', { period: periodName }),
-            dataKey: `period_${periodId}_rawValue`,
+            name: i18n.t('Value ({{period}})', { period: period.name }),
+            dataKey: `period_${period.id}_rawValue`,
             type: TYPE_NUMBER,
+            defaultHidden: true,
         })
     })
 
@@ -183,40 +221,32 @@ const getEventHeaders = ({
         }))
 
     customFields.push(defaultFieldsMap()[TYPE])
-
-    if (styleDataItem) {
-        customFields.push(
-            defaultFieldsMap()[LEGEND],
-            defaultFieldsMap()[RANGE],
-            defaultFieldsMap()[COLOR]
-        )
-    }
+    customFields.push(
+        ...getStyleHeaders({
+            hasLegend: !!styleDataItem,
+            hasRange: !!styleDataItem,
+            hasColor: !!styleDataItem,
+        })
+    )
 
     return fields.concat(customFields)
 }
 
-// Facility/org unit layers only get Color/Icon/Group columns when the
+// Facility/org unit layers only get Group/Color/Icon columns when the
 // current group-set styling actually produced them - style type (and
 // whether every org unit matched a group) isn't known up front, so this
 // checks the resolved row data rather than re-deriving that logic here.
-const getGroupSetStyleHeaders = (data) => {
-    const headers = []
-    if (data?.some((d) => d.color != null)) {
-        headers.push(defaultFieldsMap()[COLOR])
-    }
-    if (data?.some((d) => d.iconUrl != null)) {
-        headers.push(defaultFieldsMap()[ICON])
-    }
-    if (data?.some((d) => d.group != null)) {
-        headers.push(defaultFieldsMap()[GROUP])
-    }
-    return headers
-}
+const getOrgUnitStyleHeaders = (data) =>
+    getStyleHeaders({
+        hasGroup: data?.some((d) => d.group != null),
+        hasColor: data?.some((d) => d.color != null),
+        hasIcon: data?.some((d) => d.iconUrl != null),
+    })
 
 const getOrgUnitHeaders = (data) =>
     [NAME, ID, LEVEL, PARENT_NAME, TYPE]
         .map((field) => defaultFieldsMap()[field])
-        .concat(getGroupSetStyleHeaders(data))
+        .concat(getOrgUnitStyleHeaders(data))
 
 // Unlike getEventHeaders's layerHeaders (raw analytics response shape,
 // name=uid/column=display), trackedEntityLoader.js already builds its
@@ -235,7 +265,7 @@ const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
                 : TYPE_STRING,
         }))
 
-    customFields.push(defaultFieldsMap()[COLOR])
+    customFields.push(...getStyleHeaders({ hasColor: true }))
 
     return fields.concat(customFields)
 }
@@ -243,7 +273,7 @@ const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
 const getFacilityHeaders = (data) =>
     [NAME, ID, TYPE]
         .map((field) => defaultFieldsMap()[field])
-        .concat(getGroupSetStyleHeaders(data))
+        .concat(getOrgUnitStyleHeaders(data))
 
 const toTitleCase = (str) =>
     str.replace(
@@ -309,6 +339,13 @@ export const useTableData = ({
 }) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
+    // The timeline's active period is Map.jsx's own local UI state, not
+    // part of the layer config stored in Redux - it's synced into
+    // state.ui separately (see Map.jsx/MapContainer.jsx) so the data
+    // table, a sibling of the map, can read the same "current period".
+    const externalPeriod = useSelector(
+        (state) => state.ui?.activeTimelinePeriod
+    )
 
     const errorCode = useRef(null)
 
@@ -325,9 +362,7 @@ export const useTableData = ({
         serverCluster,
         renderingStrategy,
         valuesByPeriod,
-        externalPeriod,
         periods,
-        dataTableColumnConfig,
         legendDecimalPlaces,
     } = layer || EMPTY_LAYER
 
@@ -338,10 +373,6 @@ export const useTableData = ({
     const isTimelineThematic =
         isMultiPeriodThematic &&
         renderingStrategy === RENDERING_STRATEGY_TIMELINE
-    const extraPeriodIds = useMemo(
-        () => dataTableColumnConfig?.extraPeriodIds ?? [],
-        [dataTableColumnConfig]
-    )
     const isStyledEvent = layerType === EVENT_LAYER && !!styleDataItem
 
     const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
@@ -411,10 +442,16 @@ export const useTableData = ({
                 const currentPeriodItem = isTimelineThematic
                     ? valuesByPeriod?.[externalPeriod?.id]?.[orgUnitId]
                     : null
-                const extraPeriodValues = {}
-                extraPeriodIds.forEach((pid) => {
-                    extraPeriodValues[`period_${pid}_rawValue`] =
-                        valuesByPeriod?.[pid]?.[orgUnitId]?.value ?? null
+                const otherPeriodValues = {}
+                ;(periods ?? []).forEach((period) => {
+                    if (
+                        isTimelineThematic &&
+                        period.id === externalPeriod?.id
+                    ) {
+                        return
+                    }
+                    otherPeriodValues[`period_${period.id}_rawValue`] =
+                        valuesByPeriod?.[period.id]?.[orgUnitId]?.value ?? null
                 })
 
                 return {
@@ -425,7 +462,7 @@ export const useTableData = ({
                         legend: currentPeriodItem.legend,
                         range: currentPeriodItem.range,
                     }),
-                    ...extraPeriodValues,
+                    ...otherPeriodValues,
                     ...aggregations[d.id],
                     index,
                 }
@@ -444,7 +481,7 @@ export const useTableData = ({
         isTimelineThematic,
         valuesByPeriod,
         externalPeriod,
-        extraPeriodIds,
+        periods,
         isStyledEvent,
         legend,
         keyAnalysisDigitGroupSeparator,
@@ -463,7 +500,6 @@ export const useTableData = ({
                     ? getMultiPeriodThematicHeaders({
                           isTimelineThematic,
                           externalPeriod,
-                          extraPeriodIds,
                           periods,
                       })
                     : getThematicHeaders()
@@ -526,7 +562,6 @@ export const useTableData = ({
         isMultiPeriodThematic,
         isTimelineThematic,
         externalPeriod,
-        extraPeriodIds,
         periods,
     ])
 

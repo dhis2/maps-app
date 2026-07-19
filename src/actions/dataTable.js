@@ -38,3 +38,8 @@ export const setDataTableColumnConfig = (layerId, config) => ({
     layerId,
     config,
 })
+
+export const setActiveTimelinePeriod = (period) => ({
+    type: types.ACTIVE_TIMELINE_PERIOD_SET,
+    period,
+})

@@ -1,11 +1,12 @@
 import {
+    getDefaultVisibleKeys,
+    getOrderedHeaders,
     getPinnedCellProps,
     getPinnedCount,
     getPinnedLeftOffsets,
     getVisibleHeaders,
     isPinnedGroupEnd,
     reverseVisibleKeys,
-    togglePeriodId,
     togglePinnedKey,
     toggleVisibleKey,
 } from '../tableColumns.js'
@@ -16,6 +17,38 @@ const headers = [
     { name: 'Value', dataKey: 'rawValue' },
     { name: 'Legend', dataKey: 'legend' },
 ]
+
+describe('getOrderedHeaders', () => {
+    it('returns every header, ordered/pinned but never filtered by visibility - even defaultHidden ones', () => {
+        const withHiddenColumn = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        const result = getOrderedHeaders(withHiddenColumn, {})
+        expect(result).toEqual(withHiddenColumn)
+    })
+
+    it('still applies ordering and pinning', () => {
+        const result = getOrderedHeaders(headers, {
+            orderedKeys: ['legend', 'name', 'id', 'rawValue'],
+            pinnedKeys: ['rawValue'],
+        })
+        expect(result.map((h) => h.dataKey)).toEqual([
+            'rawValue',
+            'legend',
+            'name',
+            'id',
+        ])
+    })
+
+    it('passes through a null/undefined headers list', () => {
+        expect(getOrderedHeaders(null)).toBe(null)
+    })
+})
 
 describe('getVisibleHeaders', () => {
     it('returns all headers unchanged when there is no saved config', () => {
@@ -123,6 +156,42 @@ describe('getVisibleHeaders', () => {
             'rawValue',
             'legend',
             'name',
+        ])
+    })
+
+    it('excludes defaultHidden headers when there is no saved config yet', () => {
+        const withPeriodColumn = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        const result = getVisibleHeaders(withPeriodColumn, null)
+        expect(result.map((h) => h.dataKey)).toEqual([
+            'name',
+            'id',
+            'rawValue',
+            'legend',
+        ])
+    })
+
+    it('shows a defaultHidden header once explicitly added to visibleKeys', () => {
+        const withPeriodColumn = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        const result = getVisibleHeaders(withPeriodColumn, {
+            visibleKeys: ['name', 'period_202301_rawValue'],
+        })
+        expect(result.map((h) => h.dataKey)).toEqual([
+            'name',
+            'period_202301_rawValue',
         ])
     })
 })
@@ -303,17 +372,30 @@ describe('getPinnedCellProps', () => {
     })
 })
 
-describe('togglePeriodId', () => {
-    it('adds a period id when it is not yet added', () => {
-        expect(togglePeriodId(['202301'], '202302')).toEqual([
-            '202301',
-            '202302',
+describe('getDefaultVisibleKeys', () => {
+    it('includes every header dataKey when none are marked defaultHidden', () => {
+        expect(getDefaultVisibleKeys(headers)).toEqual([
+            'name',
+            'id',
+            'rawValue',
+            'legend',
         ])
     })
 
-    it('removes a period id when it is already added', () => {
-        expect(togglePeriodId(['202301', '202302'], '202301')).toEqual([
-            '202302',
+    it('excludes headers marked defaultHidden', () => {
+        const withHidden = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        expect(getDefaultVisibleKeys(withHidden)).toEqual([
+            'name',
+            'id',
+            'rawValue',
+            'legend',
         ])
     })
 })

@@ -56,19 +56,22 @@ export const compareRangeValues = (aVal, bVal, sortDirection) => {
     return sortDirection === SORT_ASCENDING ? aEnd - bEnd : bEnd - aEnd
 }
 
+const isNoValue = (val) => val === undefined || val === null
+
 export const compareFieldValues = (
     aVal,
     bVal,
     { sortField, sortDirection }
 ) => {
-    // All undefined values should be sorted to the end
-    if (aVal === undefined && bVal === undefined) {
+    // All missing values (undefined, or null - e.g. a period column with no
+    // data for a given org unit) should be sorted to the end
+    if (isNoValue(aVal) && isNoValue(bVal)) {
         return 0
     }
-    if (aVal === undefined) {
+    if (isNoValue(aVal)) {
         return 1
     }
-    if (bVal === undefined) {
+    if (isNoValue(bVal)) {
         return -1
     }
     if (typeof aVal === 'number') {
