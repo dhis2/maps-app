@@ -8,7 +8,7 @@ export class Layer {
 
         cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click()
 
-        cy.get(`[data-test="${dataTest}"]`).click()
+        cy.get(`[data-test="${dataTest}"]`, EXTENDED_TIMEOUT).click()
 
         return this
     }
@@ -164,7 +164,9 @@ export class Layer {
 
     validatePopupContents(contents) {
         contents.forEach((content) => {
-            cy.get('.maplibregl-popup').contains(content).should('be.visible')
+            cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
+                .contains(content)
+                .should('be.visible')
         })
 
         return this

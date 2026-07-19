@@ -17,6 +17,7 @@
         "validate-push": "yarn test",
         "cy:open": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress open --e2e'",
         "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run'",
+        "cy:update-durations": "node cypress/support/updateTestDurations.js",
         "docs:build": "yarn docs:format && node scripts/build-docs.js",
         "docs:format": "prettier --write --prose-wrap always --print-width 100 'docs/src/*.md'"
     },
