@@ -59,8 +59,7 @@ const dhis2Fetch = async (
 }
 
 const buildReplicaUsername = () =>
-    `e2e_mapsapp_run${
-        process.env.GITHUB_RUN_ID ?? 'local'
+    `e2e_mapsapp_run${process.env.GITHUB_RUN_ID ?? 'local'
     }_${uniqueId().replaceAll('-', '_')}`
 
 const createReplicaUser = async ({ baseUrl, adminId, auth }) => {
