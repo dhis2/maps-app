@@ -243,6 +243,7 @@ const BottomPanel = () => {
                 )}
                 {hasActiveFilters && (
                     <button
+                        type="button"
                         className={styles.clearFiltersButton}
                         onClick={() =>
                             dispatch(clearDataFilters(activeLayerId))
@@ -257,6 +258,7 @@ const BottomPanel = () => {
                     </button>
                 )}
                 <button
+                    type="button"
                     className={cx(styles.toggleButton, {
                         [styles.active]: showOnlyFeaturesInView,
                     })}
@@ -271,6 +273,7 @@ const BottomPanel = () => {
                     </Tooltip>
                 </button>
                 <button
+                    type="button"
                     className={cx(styles.toggleButton, {
                         [styles.active]: showOnlySelected,
                     })}
@@ -291,6 +294,7 @@ const BottomPanel = () => {
                     />
                 </Tooltip>
                 <button
+                    type="button"
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}
                 >
