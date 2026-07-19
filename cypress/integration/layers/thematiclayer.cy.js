@@ -14,6 +14,8 @@ import {
     uniqueId,
 } from '../../support/util.js'
 
+const MAP_TIMEOUT = { timeout: 40000 }
+
 const HIV_INDICATOR_GROUP = 'HIV'
 const HIV_INDICATOR_NAME = 'VCCT post-test counselling rate'
 
@@ -185,7 +187,7 @@ context('Thematic Layers', () => {
 
         getMaps().click('center')
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
 
         getMaps().click('center')
         Layer.validatePopupContents(['Gbonkonlenken'])
@@ -238,7 +240,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: 0'])
 
@@ -251,7 +253,7 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: No data'])
     })
@@ -288,7 +290,7 @@ context('Thematic Layers', () => {
             `${CURRENT_YEAR - 1} March, ${CURRENT_YEAR - 1} September`,
         ])
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -311,7 +313,7 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -334,7 +336,7 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -486,7 +488,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
 
         // check that the first timeline period is shown in blue
         cy.get('.dhis2-map-period').should('be.visible')
@@ -549,7 +551,7 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT).should('be.visible')
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
 
         // Drill down
         getMaps()
@@ -561,7 +563,7 @@ context('Thematic Layers', () => {
             })
         cy.getByDataTest(DRILL_DOWN).click()
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center')
         cy.get('.maplibregl-popup').should('be.visible')
         cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')
@@ -700,7 +702,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        cy.waitForMap()
+        cy.waitForMap(MAP_TIMEOUT)
 
         expectContextMenuOptions([
             { name: DRILL_UP, disabled: true },

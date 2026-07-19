@@ -1,6 +1,10 @@
 import { EventLayer } from '../../elements/event_layer.js'
 import { getMaps } from '../../elements/map_canvas.js'
-import { CURRENT_YEAR, getDhis2Version } from '../../support/util.js'
+import {
+    CURRENT_YEAR,
+    EXTENDED_TIMEOUT,
+    getDhis2Version,
+} from '../../support/util.js'
 
 const programE2E = {
     name: 'E2E program',
@@ -117,6 +121,7 @@ const selectProgramAndStage = (Layer, programName, stageName) => {
 context('Event Layers', () => {
     beforeEach(() => {
         cy.visit('/')
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
     })
 
     const Layer = new EventLayer()
