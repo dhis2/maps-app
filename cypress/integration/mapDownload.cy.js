@@ -48,7 +48,7 @@ describe('Map Download', () => {
             viewportHeight - DOWNLOAD_HEADER_HEIGHT - 2 * DOWNLOAD_BORDER,
         ]
 
-        cy.visit(`/#/${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/#/${mapWithThematicLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         assertMapPosition(expectedBottoms1, expectedHeights1)

@@ -2,6 +2,11 @@ import { Layer } from './layer.js'
 
 export class ThematicLayer extends Layer {
     selectItemType(itemType) {
+        cy.intercept(
+            'GET',
+            /\/(indicatorGroups|dataElementGroups|dataSets|programs)\b/
+        ).as('fetchGroups')
+
         cy.getByDataTest(
             'data-dimension-left-header-data-types-select-field-content'
         ).click()
@@ -9,12 +14,23 @@ export class ThematicLayer extends Layer {
         return this
     }
     selectGroup(group) {
+        cy.wait('@fetchGroups')
+
         cy.getByDataTest(
             'data-dimension-left-header-groups-select-field-content'
         ).click()
+
+        cy.intercept(
+            'GET',
+            /\/(indicators|dataElements|dataElementOperands|dataSets|dataItems)\b/
+        ).as('fetchItems')
+
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
             .contains(group)
             .click()
+
+        cy.wait('@fetchItems')
+
         return this
     }
     selectSubGroup(subGroup) {

@@ -47,7 +47,7 @@ const getOverlayLayerTitles = () =>
 
 describe('ui', () => {
     it('collapses and expands the Layers Panel', () => {
-        cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/#/${map.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         // check that Layers Panel is visible
