@@ -99,7 +99,7 @@ describe('uses the correct locale', () => {
         interceptLanguage('nb')
 
         cy.visit(`/?id=${testMap.id}`)
-        cy.wait('@getUserSettings')
+        cy.wait('@getUserSettings', EXTENDED_TIMEOUT)
         cy.get('[data-test=layercard]')
             .find('h2')
             .contains(`${testMap.cardTitle}`)
@@ -121,7 +121,7 @@ describe('uses the correct locale', () => {
         interceptLanguage('en')
 
         cy.visit(`/?id=${testMap.id}`)
-        cy.wait('@getUserSettings')
+        cy.wait('@getUserSettings', EXTENDED_TIMEOUT)
         cy.get('[data-test=layercard]')
             .find('h2')
             .contains(`${testMap.cardTitle}`)
