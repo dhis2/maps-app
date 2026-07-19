@@ -1,43 +1,43 @@
 {
     "cypress/integration/basemaps.cy.js": {
         "include": true,
-        "duration": 104
+        "duration": 80
     },
     "cypress/integration/dataDownload.cy.js": {
         "include": true,
-        "duration": 56
+        "duration": 47
     },
     "cypress/integration/dataTable.cy.js": {
         "include": true,
-        "duration": 53
+        "duration": 50
     },
     "cypress/integration/fetcherrors.cy.js": {
         "include": true,
-        "duration": 39
+        "duration": 33
     },
     "cypress/integration/filemenu.cy.js": {
         "include": true,
-        "duration": 85
+        "duration": 73
     },
     "cypress/integration/interpretations.cy.js": {
         "include": true,
-        "duration": 46
+        "duration": 42
     },
     "cypress/integration/keyboard.cy.js": {
         "include": true,
-        "duration": 24
+        "duration": 19
     },
     "cypress/integration/manageLayerSources.cy.js": {
         "include": true,
-        "duration": 50
+        "duration": 41
     },
     "cypress/integration/mapDownload.cy.js": {
         "include": true,
-        "duration": 14
+        "duration": 13
     },
     "cypress/integration/orgUnitInfo.cy.js": {
         "include": true,
-        "duration": 13
+        "duration": 11
     },
     "cypress/integration/plugin.cy.js": {
         "include": false,
@@ -45,7 +45,7 @@
     },
     "cypress/integration/pushAnalytics.cy.js": {
         "include": true,
-        "duration": 18
+        "duration": 14
     },
     "cypress/integration/requests.cy.js": {
         "include": false,
@@ -58,35 +58,35 @@
     },
     "cypress/integration/routes.cy.js": {
         "include": true,
-        "duration": 196
+        "duration": 162
     },
     "cypress/integration/systemsettings.cy.js": {
         "include": true,
-        "duration": 48
+        "duration": 44
     },
     "cypress/integration/ui.cy.js": {
         "include": true,
-        "duration": 46
+        "duration": 39
     },
     "cypress/integration/usersettings.cy.js": {
         "include": true,
-        "duration": 63
+        "duration": 52
     },
     "cypress/integration/layers/eventlayer.cy.js": {
         "include": true,
-        "duration": 130
+        "duration": 131
     },
     "cypress/integration/layers/multilayers.cy.js": {
         "include": true,
-        "duration": 15
+        "duration": 13
     },
     "cypress/integration/layers/externallayer.cy.js": {
         "include": true,
-        "duration": 8
+        "duration": 6
     },
     "cypress/integration/layers/duplicatelayer.cy.js": {
         "include": true,
-        "duration": 11
+        "duration": 10
     },
     "cypress/integration/layers/orgunitlayer.cy.js": {
         "include": true,
@@ -94,18 +94,18 @@
     },
     "cypress/integration/layers/facilitylayer.cy.js": {
         "include": true,
-        "duration": 32
+        "duration": 27
     },
     "cypress/integration/layers/thematiclayer.cy.js": {
         "include": true,
-        "duration": 288
+        "duration": 283
     },
     "cypress/integration/layers/geojsonlayer.cy.js": {
         "include": true,
-        "duration": 27
+        "duration": 23
     },
     "cypress/integration/layers/trackedentitylayer.cy.js": {
         "include": true,
-        "duration": 49
+        "duration": 38
     }
 }
