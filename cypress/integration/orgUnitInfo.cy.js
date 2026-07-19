@@ -9,7 +9,9 @@ describe('OrgUnitInfo', () => {
         cy.waitForMap()
         getMaps().click(350, 350) //Click somewhere on the map
 
-        cy.get('.maplibregl-popup').contains('View profile').click()
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
+            .contains('View profile')
+            .click()
 
         // check the Org Unit Profile panel
         cy.getByDataTest('org-unit-profile').contains(

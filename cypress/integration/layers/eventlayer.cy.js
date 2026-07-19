@@ -245,7 +245,9 @@ context('Event Layers', () => {
 
         cy.waitForMap()
 
+        cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
         getMaps().click('center')
+        cy.wait('@getEventPopupData', EXTENDED_TIMEOUT)
         Layer.validatePopupContents(['Event location'])
     })
 
@@ -294,7 +296,9 @@ context('Event Layers', () => {
 
         cy.waitForMap()
 
+        cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
         getMaps().click('center')
+        cy.wait('@getEventPopupData', EXTENDED_TIMEOUT)
         Layer.validatePopupContents([
             'Event location',
             '-13.188339, 8.405215',

@@ -1,5 +1,6 @@
 import { getMaps } from '../../elements/map_canvas.js'
 import { TeLayer } from '../../elements/trackedentity_layer.js'
+import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 describe('Tracked Entity Layers', () => {
     beforeEach(() => {
@@ -44,7 +45,12 @@ describe('Tracked Entity Layers', () => {
         Layer.validateDialogClosed(true)
 
         cy.waitForMap()
+
+        cy.intercept('GET', '**/tracker/trackedEntities/*').as(
+            'getTrackedEntityPopupData'
+        )
         getMaps().click('center') // Click somewhere on the map
+        cy.wait('@getTrackedEntityPopupData', EXTENDED_TIMEOUT)
 
         Layer.validatePopupContents([
             'Organisation unit',

@@ -294,7 +294,7 @@ context('Thematic Layers', () => {
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step1Text) => {
@@ -317,7 +317,7 @@ context('Thematic Layers', () => {
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step2Text) => {
@@ -340,7 +340,7 @@ context('Thematic Layers', () => {
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step3Text) => {
@@ -565,7 +565,7 @@ context('Thematic Layers', () => {
 
         cy.waitForMap(MAP_TIMEOUT)
         getMaps().click('center')
-        cy.get('.maplibregl-popup').should('be.visible')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')
 
         cy.get('.play-icon').click()
