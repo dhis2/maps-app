@@ -104,6 +104,23 @@
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
+.iconOption {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.iconOptionThumbnail {
+    display: block;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
 .denseCheckbox {
     margin: 0;
     padding: 4px 0;
