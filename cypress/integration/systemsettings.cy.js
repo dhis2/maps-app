@@ -77,7 +77,7 @@ describe('systemSettings', () => {
             })
         }).as('getSystemSettings6months')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.wait('@getSystemSettings6months', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -111,7 +111,7 @@ describe('systemSettings', () => {
             })
         }).as('getSystemSettings12months')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getSystemSettings12months', EXTENDED_TIMEOUT)
 
@@ -142,9 +142,11 @@ describe('systemSettings', () => {
                     body: res.body,
                 })
             })
-        })
+        }).as('getSystemSettingsDarkBasemap')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
+        cy.wait('@getSystemSettingsDarkBasemap', EXTENDED_TIMEOUT)
+
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         checkBasemap.activeBasemap('Dark basemap')

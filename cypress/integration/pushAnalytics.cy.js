@@ -32,7 +32,7 @@ describe('push-analytics', () => {
             }
             cy.task('emptyDownloadsFolder')
 
-            cy.visit(`/#/${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
+            cy.visit(`/#/${mapWithThematicLayer.id}`)
 
             cy.getByDataTest('dhis2-analytics-hovermenubar')
                 .find('button')
