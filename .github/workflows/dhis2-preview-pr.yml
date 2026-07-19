@@ -34,7 +34,7 @@ jobs:
 
             - name: Deploy
               id: netlify-deploy
-              uses: nwtgck/actions-netlify@v3
+              uses: nwtgck/actions-netlify@v4
               timeout-minutes: 1
               with:
                   github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
