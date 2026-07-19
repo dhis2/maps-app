@@ -80,7 +80,7 @@ const fetchJobLog = async (jobId) => {
 // eslint-disable-next-line no-control-regex
 const ANSI_CODE = /\x1b\[[0-9;]*m/g
 const stripAnsi = (str) => str.replace(ANSI_CODE, '')
-const SUMMARY_ROW = /([\w-]+\.cy\.js)\s+(\d{2}):(\d{2})\s/
+const SUMMARY_ROW = /([\w-]{1,80}\.cy\.js)\s{1,120}(\d{2}):(\d{2})\s/
 
 const parseDurations = (log) => {
     const results = []
@@ -114,8 +114,13 @@ const collectDurationsFromRuns = async (runIds) => {
     const durationsBySpec = new Map()
 
     for (const runId of runIds) {
-        for (const jobId of await listE2eJobIds(runId)) {
-            console.log(`  run ${runId}, job ${jobId}: fetching log...`)
+        const jobIds = await listE2eJobIds(runId)
+        // A run that just flipped to "success" can briefly report an
+        // incomplete job list (GitHub API replication lag) - logging the
+        // count makes a suspiciously low number (e.g. 1 instead of ~15)
+        // visible instead of silently under-sampling.
+        console.log(`  run ${runId}: ${jobIds.length} e2e job(s)`)
+        for (const jobId of jobIds) {
             const log = await fetchJobLog(jobId)
             for (const { specFile, seconds } of parseDurations(log)) {
                 addSample(durationsBySpec, specFile, seconds)
@@ -126,12 +131,19 @@ const collectDurationsFromRuns = async (runIds) => {
     return durationsBySpec
 }
 
+// Returns a human-readable diff line per changed entry, plus the list of
+// included-but-unsampled specs - these are left untouched, which looks
+// identical to "already correct" unless called out explicitly.
 const applyDurationUpdates = (data, durationsBySpec) => {
     const diffLines = []
+    const missingData = []
 
     for (const [specPath, entry] of Object.entries(data)) {
         const samples = durationsBySpec.get(path.basename(specPath))
         if (!samples || samples.length === 0) {
+            if (entry.include) {
+                missingData.push(specPath)
+            }
             continue
         }
 
@@ -146,7 +158,7 @@ const applyDurationUpdates = (data, durationsBySpec) => {
         entry.duration = newDuration
     }
 
-    return diffLines
+    return { diffLines, missingData }
 }
 
 const main = async () => {
@@ -158,7 +170,22 @@ const main = async () => {
 
     const dataPath = path.join(__dirname, 'cypressFiles.json')
     const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'))
-    const diffLines = applyDurationUpdates(data, durationsBySpec)
+    const { diffLines, missingData } = applyDurationUpdates(
+        data,
+        durationsBySpec
+    )
+
+    if (missingData.length > 0) {
+        console.warn(
+            `\nWARNING: no samples found for ${missingData.length} included spec(s) - their durations were NOT refreshed:`
+        )
+        missingData.forEach((specPath) => console.warn(`  ${specPath}`))
+        console.warn(
+            'This usually means a sampled run had an incomplete job list ' +
+                '(see the per-run job counts above) or --runs was too low. ' +
+                "Don't treat this as a full refresh until that count looks right."
+        )
+    }
 
     if (diffLines.length === 0) {
         console.log('\nNo duration changes found.')
