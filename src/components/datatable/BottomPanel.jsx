@@ -191,6 +191,7 @@ const BottomPanel = () => {
                 onDoubleClick={toggleCollapsed}
             >
                 <button
+                    type="button"
                     className={styles.toggleButton}
                     onClick={toggleCollapsed}
                 >
