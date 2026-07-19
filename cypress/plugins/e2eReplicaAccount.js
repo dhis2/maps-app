@@ -1,6 +1,8 @@
+const crypto = require('node:crypto')
+
 const MAX_REPLICA_CREATE_ATTEMPTS = 3
 
-const uniqueId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+const uniqueId = () => `${Date.now()}-${crypto.randomBytes(4).toString('hex')}`
 
 const dhis2Fetch = async (
     baseUrl,
@@ -32,7 +34,7 @@ const dhis2Fetch = async (
 }
 
 const createReplicaUser = async ({ baseUrl, adminId, auth }, attempt = 1) => {
-    const username = `e2e_${uniqueId().replace(/-/g, '_')}`
+    const username = `e2e_${uniqueId().replaceAll('-', '_')}`
     const password = `Aa1!${uniqueId()}`
 
     await dhis2Fetch(baseUrl, `/api/users/${adminId}/replica`, {
