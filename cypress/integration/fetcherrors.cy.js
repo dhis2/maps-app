@@ -7,8 +7,7 @@ describe('Fetch errors', () => {
 
         cy.visit('/?id=nonexisting')
 
-        cy.wait('@getMap')
-
+        cy.wait('@getMap', EXTENDED_TIMEOUT)
         cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist')
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')

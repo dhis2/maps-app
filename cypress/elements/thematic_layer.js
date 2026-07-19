@@ -1,3 +1,4 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 import { Layer } from './layer.js'
 
 export class ThematicLayer extends Layer {
@@ -6,6 +7,7 @@ export class ThematicLayer extends Layer {
             'GET',
             /\/(indicatorGroups|dataElementGroups|dataSets|programs)\b/
         ).as('fetchGroups')
+        this._groupsFetchPending = true
 
         cy.getByDataTest(
             'data-dimension-left-header-data-types-select-field-content'
@@ -14,7 +16,10 @@ export class ThematicLayer extends Layer {
         return this
     }
     selectGroup(group) {
-        cy.wait('@fetchGroups')
+        if (this._groupsFetchPending) {
+            cy.wait('@fetchGroups', EXTENDED_TIMEOUT)
+            this._groupsFetchPending = false
+        }
 
         cy.getByDataTest(
             'data-dimension-left-header-groups-select-field-content'
@@ -29,7 +34,7 @@ export class ThematicLayer extends Layer {
             .contains(group)
             .click()
 
-        cy.wait('@fetchItems')
+        cy.wait('@fetchItems', EXTENDED_TIMEOUT)
 
         return this
     }

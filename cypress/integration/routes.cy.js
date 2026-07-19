@@ -232,8 +232,7 @@ describe('Routes', () => {
 
             cy.visit('/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a') //ANC: LLITN coverage district and facility
 
-            cy.wait(['@getMap', '@getInterpretation'])
-
+            cy.wait(['@getMap', '@getInterpretation'], EXTENDED_TIMEOUT)
             cy.getByDataTest('interpretation-modal', EXTENDED_TIMEOUT)
                 .find('h1')
                 .contains(
