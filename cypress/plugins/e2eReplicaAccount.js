@@ -34,7 +34,7 @@ const dhis2Fetch = async (
 }
 
 const createReplicaUser = async ({ baseUrl, adminId, auth }, attempt = 1) => {
-    const username = `e2e_${uniqueId().replaceAll('-', '_')}`
+    const username = `e2e_mapsapp_${uniqueId().replaceAll('-', '_')}`
     const password = `Aa1!${uniqueId()}`
 
     await dhis2Fetch(baseUrl, `/api/users/${adminId}/replica`, {

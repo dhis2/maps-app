@@ -55,11 +55,9 @@ context('Interpretations', () => {
             .its('response.statusCode')
             .should('eq', 201)
 
-        // Force wait because the See interpretations component
-        // isn't loaded yet
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
-
-        cy.get('button').contains('See interpretation').click()
+        cy.contains('button', 'See interpretation', EXTENDED_TIMEOUT)
+            .should('be.visible')
+            .click()
 
         cy.getByDataTest('dhis2-uicore-modalcontent')
             .find('canvas.maplibregl-canvas')
