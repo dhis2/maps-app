@@ -3,6 +3,13 @@ export const POPUP_WAIT = 2500
 
 export const CURRENT_YEAR = new Date().getFullYear()
 
+const randomHex = (byteLength) =>
+    Array.from(crypto.getRandomValues(new Uint8Array(byteLength)))
+        .map((byte) => byte.toString(16).padStart(2, '0'))
+        .join('')
+
+export const uniqueId = () => `${Date.now()}-${randomHex(4)}`
+
 export const getApiBaseUrl = () => {
     const baseUrl = Cypress.env('dhis2BaseUrl') || ''
 

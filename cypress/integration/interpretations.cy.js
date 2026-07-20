@@ -1,8 +1,8 @@
 import { saveNewMap, deleteMap } from '../elements/file_menu.js'
 import { ThematicLayer } from '../elements/thematic_layer.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { EXTENDED_TIMEOUT, uniqueId } from '../support/util.js'
 
-const MAP_TITLE = 'test ' + new Date().toUTCString().slice(-24, -4)
+const MAP_TITLE = 'test ' + uniqueId()
 context('Interpretations', () => {
     it('opens the interpretations panel for a map', () => {
         cy.visit('/#/ZBjCfSaLSqD', EXTENDED_TIMEOUT)
