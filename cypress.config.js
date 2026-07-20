@@ -4,6 +4,10 @@ const {
     downloadedFileTasks,
 } = require('./cypress/plugins/downloadedFileTasks.js')
 const {
+    createReplicaAccountForRun,
+    deleteReplicaAccount,
+} = require('./cypress/plugins/e2eReplicaAccount.js')
+const {
     excludeByVersionTags,
 } = require('./cypress/plugins/excludeByVersionTags.js')
 
@@ -23,6 +27,36 @@ async function setupNodeEvents(on, config) {
         throw new Error(
             'dhis2InstanceVersion is missing. Check the README for more information.'
         )
+    }
+
+    config.env.useReplicaAccount = !!process.env.CI
+
+    if (config.env.useReplicaAccount) {
+        try {
+            const { username, password, replicaUserId } =
+                await createReplicaAccountForRun({
+                    baseUrl: config.env.dhis2BaseUrl,
+                    username: config.env.dhis2Username,
+                    password: config.env.dhis2Password,
+                })
+
+            config.env.replicaUsername = username
+            config.env.replicaPassword = password
+
+            on('after:run', () =>
+                deleteReplicaAccount({
+                    baseUrl: config.env.dhis2BaseUrl,
+                    username: config.env.dhis2Username,
+                    password: config.env.dhis2Password,
+                    replicaUserId,
+                })
+            )
+        } catch (error) {
+            console.warn(
+                `WARNING: could not create e2e replica account, falling back to the standard account: ${error.message}`
+            )
+            config.env.useReplicaAccount = false
+        }
     }
 
     return config
