@@ -116,6 +116,13 @@ const selectProgramAndStage = (
     cy.intercept('GET', /\/programs\/[a-zA-Z0-9]{11}\?fields=programStages/).as(
         'getProgramStages'
     )
+    // Fired in parallel with getProgramStages the instant a program is
+    // selected - StyleByDataItem (EventDataItemsProvider) stays empty
+    // until both this and getProgramStageDataElements resolve.
+    cy.intercept(
+        'GET',
+        /\/programs\/[a-zA-Z0-9]{11}\?fields=trackedEntityType,programTrackedEntityAttributes/
+    ).as('getProgramTrackedEntityAttributes')
     cy.intercept(
         'GET',
         /\/programStages\/[a-zA-Z0-9]{11}\?fields=programStageDataElements/
@@ -124,7 +131,10 @@ const selectProgramAndStage = (
     Layer.openDialog('Events')
     cy.wait('@getPrograms', EXTENDED_TIMEOUT)
     Layer.selectProgram(programName)
-    cy.wait('@getProgramStages', EXTENDED_TIMEOUT)
+    cy.wait(
+        ['@getProgramStages', '@getProgramTrackedEntityAttributes'],
+        EXTENDED_TIMEOUT
+    )
     if (validateOnly) {
         Layer.validateStage(stageName)
     } else {
