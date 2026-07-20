@@ -9,6 +9,14 @@ export class ThematicLayer extends Layer {
         ).as('fetchGroups')
         this._groupsFetchPending = true
 
+        // Calculations bypasses GroupSelector/ItemSelector entirely (see
+        // @dhis2/analytics's DataDimension.js) - its item list is fetched
+        // directly once this type is chosen, consumed in selectDataItem().
+        if (itemType === 'Calculations') {
+            cy.intercept('GET', /\/dataItems\b/).as('fetchDataItems')
+            this._dataItemsFetchPending = true
+        }
+
         cy.getByDataTest(
             'data-dimension-left-header-data-types-select-field-content'
         ).click()
@@ -48,6 +56,11 @@ export class ThematicLayer extends Layer {
         return this
     }
     selectDataItem(dataItem) {
+        if (this._dataItemsFetchPending) {
+            cy.wait('@fetchDataItems', EXTENDED_TIMEOUT)
+            this._dataItemsFetchPending = false
+        }
+
         cy.getByDataTest('data-dimension-transfer-sourceoptions')
             .contains(dataItem)
             .click()
