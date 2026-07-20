@@ -7,12 +7,10 @@
  * (the backend plausibly still starting up); a 4xx is definitive and fails
  * immediately instead of retrying.
  *
- * createReplicaUser is a single attempt once the backend is confirmed ready
- * - it either works or it doesn't.
+ * createReplicaUser is a single request; a failure throws.
  *
- * deleteReplicaAccount retries with backoff: reproduced directly against the
- * live test instance, some deletion failures are transient and resolve given
- * time, which a single attempt can't take advantage of.
+ * deleteReplicaAccount is a single request; a failure is logged as a
+ * warning and left for manual or nightly cleanup.
  *
  * If account creation fails outright, cypress.config.js catches it and falls
  * back to running the job under the standard shared account instead of
@@ -22,8 +20,6 @@ const crypto = require('node:crypto')
 
 const MAX_BACKEND_READY_ATTEMPTS = 5
 const BACKEND_READY_RETRY_DELAY_MS = 3000
-const MAX_REPLICA_DELETE_ATTEMPTS = 3
-const REPLICA_DELETE_RETRY_DELAY_MS = 3000
 
 const uniqueId = () => `${Date.now()}-${crypto.randomBytes(4).toString('hex')}`
 
@@ -125,41 +121,24 @@ const createReplicaAccountForRun = async ({ baseUrl, username, password }) => {
     return createReplicaUser({ baseUrl, adminId, auth })
 }
 
-const deleteReplicaAccount = async (
-    { baseUrl, username, password, replicaUserId },
-    attempt = 1
-) => {
+const deleteReplicaAccount = async ({
+    baseUrl,
+    username,
+    password,
+    replicaUserId,
+}) => {
     const response = await dhis2Fetch(baseUrl, `/api/users/${replicaUserId}`, {
         method: 'DELETE',
         auth: { username, password },
     })
 
     if (response.status >= 200 && response.status < 300) {
-        if (attempt > 1) {
-            console.log(
-                `Deleted e2e replica user ${replicaUserId} on attempt ${attempt} after ${
-                    attempt - 1
-                } prior failure(s)`
-            )
-        }
         return
     }
 
     console.warn(
-        `WARNING: attempt ${attempt}/${MAX_REPLICA_DELETE_ATTEMPTS} to delete e2e replica user ${replicaUserId} failed (status ${response.status})`,
+        `WARNING: failed to delete e2e replica user ${replicaUserId} (status ${response.status}) - it may need manual cleanup`,
         JSON.stringify(response.body)
-    )
-
-    if (attempt < MAX_REPLICA_DELETE_ATTEMPTS) {
-        await wait(REPLICA_DELETE_RETRY_DELAY_MS)
-        return deleteReplicaAccount(
-            { baseUrl, username, password, replicaUserId },
-            attempt + 1
-        )
-    }
-
-    console.warn(
-        `WARNING: e2e replica user ${replicaUserId} could not be deleted after ${attempt} attempts - it may need manual cleanup`
     )
 }
 
