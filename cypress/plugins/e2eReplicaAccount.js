@@ -1,8 +1,12 @@
 const crypto = require('node:crypto')
 
 const MAX_REPLICA_CREATE_ATTEMPTS = 3
+const MAX_REPLICA_DELETE_ATTEMPTS = 3
+const REPLICA_DELETE_RETRY_DELAY_MS = 3000
 
 const uniqueId = () => `${Date.now()}-${crypto.randomBytes(4).toString('hex')}`
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const dhis2Fetch = async (
     baseUrl,
@@ -75,22 +79,31 @@ const createReplicaAccountForRun = async ({ baseUrl, username, password }) => {
     return createReplicaUser({ baseUrl, adminId, auth })
 }
 
-const deleteReplicaAccount = async ({
-    baseUrl,
-    username,
-    password,
-    replicaUserId,
-}) => {
+const deleteReplicaAccount = async (
+    { baseUrl, username, password, replicaUserId },
+    attempt = 1
+) => {
     const response = await dhis2Fetch(baseUrl, `/api/users/${replicaUserId}`, {
         method: 'DELETE',
         auth: { username, password },
     })
 
-    if (response.status < 200 || response.status >= 300) {
-        console.warn(
-            `WARNING: failed to delete e2e replica user ${replicaUserId} (status ${response.status}) - it may need manual cleanup`
+    if (response.status >= 200 && response.status < 300) {
+        return
+    }
+
+    if (attempt < MAX_REPLICA_DELETE_ATTEMPTS) {
+        await wait(REPLICA_DELETE_RETRY_DELAY_MS)
+        return deleteReplicaAccount(
+            { baseUrl, username, password, replicaUserId },
+            attempt + 1
         )
     }
+
+    console.warn(
+        `WARNING: failed to delete e2e replica user ${replicaUserId} after ${attempt} attempts (status ${response.status}) - it may need manual cleanup`,
+        JSON.stringify(response.body)
+    )
 }
 
 module.exports = { createReplicaAccountForRun, deleteReplicaAccount }
