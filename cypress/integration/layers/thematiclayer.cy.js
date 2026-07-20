@@ -809,6 +809,8 @@ context('Thematic Layers', () => {
             .selectOuLevel('Chiefdom')
             .updateMap()
 
+        cy.waitForMap(MAP_TIMEOUT)
+
         // confirm that the map is valid now
         cy.getByDataTest('layerlegend-item').should('have.length', 5)
     })
