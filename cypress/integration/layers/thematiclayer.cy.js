@@ -16,6 +16,8 @@ import {
 } from '../../support/util.js'
 
 const MAP_TIMEOUT = { timeout: 40000 }
+// Extra buffer on top of waitForMap()
+const POPUP_WAIT_BUFFER = 1000
 
 const HIV_INDICATOR_GROUP = 'HIV'
 const HIV_INDICATOR_NAME = 'VCCT post-test counselling rate'
@@ -242,6 +244,8 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: 0'])
 
@@ -255,6 +259,8 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: No data'])
     })
@@ -292,6 +298,8 @@ context('Thematic Layers', () => {
         ])
 
         cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -315,6 +323,8 @@ context('Thematic Layers', () => {
         Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
 
         cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -338,6 +348,8 @@ context('Thematic Layers', () => {
         Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
 
         cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
@@ -566,6 +578,9 @@ context('Thematic Layers', () => {
         cy.getByDataTest(DRILL_DOWN, EXTENDED_TIMEOUT).click()
 
         cy.waitForMap(MAP_TIMEOUT)
+        // fitBounds animation after drilling down
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
         getMaps().click('center')
         cy.get('.maplibregl-popup', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')

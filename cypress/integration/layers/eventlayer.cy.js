@@ -116,12 +116,9 @@ const selectProgramAndStage = (
     cy.intercept('GET', /\/programs\/[a-zA-Z0-9]{11}\?fields=programStages/).as(
         'getProgramStages'
     )
-    // Fired in parallel with getProgramStages the instant a program is
-    // selected - StyleByDataItem (EventDataItemsProvider) stays empty
-    // until both this and getProgramStageDataElements resolve.
     cy.intercept(
         'GET',
-        /\/programs\/[a-zA-Z0-9]{11}\?fields=trackedEntityType,programTrackedEntityAttributes/
+        /\/programs\/[a-zA-Z0-9]{11}\?fields=trackedEntityType/
     ).as('getProgramTrackedEntityAttributes')
     cy.intercept(
         'GET',

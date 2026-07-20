@@ -9,7 +9,7 @@ describe('OrgUnitInfo', () => {
         cy.waitForMap()
         getMaps().click(350, 350) //Click somewhere on the map
 
-        cy.intercept('GET', '**/organisationUnitProfile/eDlFx0jTtV9/data**').as(
+        cy.intercept('GET', '**/organisationUnitProfile/*/data**').as(
             'orgUnitProfile'
         )
 
@@ -27,7 +27,9 @@ describe('OrgUnitInfo', () => {
         // // TODO - find a way to ensure that "Bombali" is the orgunit that was clicked on
         // // cy.getByDataTest('org-unit-info').find('h3').contains('Bombali')
 
-        cy.intercept('GET', '**/organisationUnitProfile/eDlFx0jTtV9/data**').as(
+        // Wildcarded id: this is whichever org unit's feature is under
+        // the clicked pixel, not the visited map's own id.
+        cy.intercept('GET', '**/organisationUnitProfile/*/data**').as(
             'orgUnitProfilePreviousYear'
         )
 
