@@ -11,9 +11,12 @@ import {
     CURRENT_YEAR,
     getApiBaseUrl,
     EXTENDED_TIMEOUT,
-    POPUP_WAIT,
     uniqueId,
 } from '../../support/util.js'
+
+const MAP_TIMEOUT = { timeout: 40000 }
+// Extra buffer on top of waitForMap()
+const POPUP_WAIT_BUFFER = 1000
 
 const HIV_INDICATOR_GROUP = 'HIV'
 const HIV_INDICATOR_NAME = 'VCCT post-test counselling rate'
@@ -186,10 +189,7 @@ context('Thematic Layers', () => {
 
         getMaps().click('center')
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap(MAP_TIMEOUT)
 
         getMaps().click('center')
         Layer.validatePopupContents(['Gbonkonlenken'])
@@ -242,10 +242,9 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: 0'])
 
@@ -258,10 +257,9 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: No data'])
     })
@@ -298,11 +296,13 @@ context('Thematic Layers', () => {
             `${CURRENT_YEAR - 1} March, ${CURRENT_YEAR - 1} September`,
         ])
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step1Text) => {
@@ -321,11 +321,13 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step2Text) => {
@@ -344,11 +346,13 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step3Text) => {
@@ -496,8 +500,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        // wait to make sure the maps are loaded
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap(MAP_TIMEOUT)
 
         // check that the first timeline period is shown in blue
         cy.get('.dhis2-map-period').should('be.visible')
@@ -516,16 +519,16 @@ context('Thematic Layers', () => {
 
         cy.get('.play-icon').click()
         cy.get('.pause-icon').should('be.visible')
-        cy.wait((5 - 1) * 1500)
 
         // check that the last timeline period is shown in blue
-        cy.get('svg.dhis2-map-timeline')
+        // (EXTENDED_TIMEOUT lets this retry until the animation reaches its final period)
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT)
             .find('rect')
             .first()
             .should('have.css', 'fill', 'rgb(255, 255, 255)')
             .and('have.css', 'fill-opacity', '0.8')
 
-        cy.get('svg.dhis2-map-timeline')
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT)
             .find('rect')
             .last()
             .should('have.css', 'fill', 'rgb(20, 124, 215)')
@@ -560,7 +563,7 @@ context('Thematic Layers', () => {
         Layer.validateDialogClosed(true)
 
         cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT).should('be.visible')
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap(MAP_TIMEOUT)
 
         // Drill down
         getMaps()
@@ -570,23 +573,20 @@ context('Thematic Layers', () => {
                     .first()
                     .rightclick($el.width() / 2, $el.height() / 2)
             })
-        cy.getByDataTest(DRILL_DOWN).click()
+        cy.getByDataTest(DRILL_DOWN, EXTENDED_TIMEOUT).click()
 
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
-
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap(MAP_TIMEOUT)
+        // fitBounds animation after drilling down
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
         getMaps().click('center')
-        cy.get('.maplibregl-popup').should('be.visible')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')
 
         cy.get('.play-icon').click()
-        cy.wait(1500 + 500)
 
         cy.get('@popupTextBeforePlay').then((textBefore) => {
-            cy.get('.maplibregl-popup')
+            cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
                 .invoke('text')
                 .should('not.eq', textBefore)
         })
@@ -717,8 +717,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        // wait to make sure the maps are loaded
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap(MAP_TIMEOUT)
 
         expectContextMenuOptions([
             { name: DRILL_UP, disabled: true },
@@ -821,6 +820,8 @@ context('Thematic Layers', () => {
             .unselectOuLevel('National')
             .selectOuLevel('Chiefdom')
             .updateMap()
+
+        cy.waitForMap(MAP_TIMEOUT)
 
         // confirm that the map is valid now
         cy.getByDataTest('layerlegend-item').should('have.length', 5)

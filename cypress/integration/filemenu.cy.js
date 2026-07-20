@@ -52,7 +52,7 @@ describe('File menu', () => {
     }
 
     it('saves a new map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         cy.intercept({ method: 'GET', url: /\/maps\// }, (req) => {
@@ -67,7 +67,7 @@ describe('File menu', () => {
     })
 
     it('renames a map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         const title = 'test ' + uniqueId()
@@ -120,7 +120,7 @@ describe('File menu', () => {
     })
 
     it('handles a failure when renaming the map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         const title = 'test ' + uniqueId()
@@ -159,7 +159,7 @@ describe('File menu', () => {
 
     // Skipped: flaky in CI (#2006)
     it.skip('save existing as new map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         openMap(MAP_TITLE)
@@ -195,7 +195,7 @@ describe('File menu', () => {
 
     // Skipped: flaky in CI (#2006)
     it.skip('save changes to existing map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         openMap(SAVEAS_MAP_TITLE)
@@ -255,7 +255,7 @@ describe('File menu', () => {
 
     // Skipped: flaky in CI (#2006)
     it.skip('save changes to existing map fails', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         openMap(MAP_TITLE)
@@ -279,7 +279,7 @@ describe('File menu', () => {
 
     // Skipped: flaky in CI (#2006)
     it.skip('save as new map fails', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         openMap(MAP_TITLE)
@@ -300,7 +300,7 @@ describe('File menu', () => {
     })
 
     it('deletes MAP_TITLE map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         openMap(MAP_TITLE)
@@ -321,7 +321,7 @@ describe('File menu', () => {
 
     // Skipped: flaky in CI (#2006)
     it.skip('deletes SAVEAS_MAP_TITLE map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         openMap(SAVEAS_MAP_TITLE)

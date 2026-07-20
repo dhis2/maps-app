@@ -35,7 +35,7 @@ const addThematicAndFacilityLayers = () => {
         .selectOuLevel('Facility')
         .addToMap()
 
-    cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.waitForMap()
 }
 
 // Reads the ordered list of overlay layer card titles in the Layers panel.
@@ -47,7 +47,7 @@ const getOverlayLayerTitles = () =>
 
 describe('ui', () => {
     it('collapses and expands the Layers Panel', () => {
-        cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/#/${map.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         // check that Layers Panel is visible

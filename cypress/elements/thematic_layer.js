@@ -1,7 +1,22 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 import { Layer } from './layer.js'
 
 export class ThematicLayer extends Layer {
     selectItemType(itemType) {
+        cy.intercept(
+            'GET',
+            /\/(indicatorGroups|dataElementGroups|dataSets|programs)\b/
+        ).as('fetchGroups')
+        this._groupsFetchPending = true
+
+        // Calculations bypasses GroupSelector/ItemSelector entirely (see
+        // @dhis2/analytics's DataDimension.js) - its item list is fetched
+        // directly once this type is chosen, consumed in selectDataItem().
+        if (itemType === 'Calculations') {
+            cy.intercept('GET', /\/dataItems\b/).as('fetchDataItems')
+            this._dataItemsFetchPending = true
+        }
+
         cy.getByDataTest(
             'data-dimension-left-header-data-types-select-field-content'
         ).click()
@@ -9,12 +24,26 @@ export class ThematicLayer extends Layer {
         return this
     }
     selectGroup(group) {
+        if (this._groupsFetchPending) {
+            cy.wait('@fetchGroups', EXTENDED_TIMEOUT)
+            this._groupsFetchPending = false
+        }
+
         cy.getByDataTest(
             'data-dimension-left-header-groups-select-field-content'
         ).click()
+
+        cy.intercept(
+            'GET',
+            /\/(indicators|dataElements|dataElementOperands|dataSets|dataItems)\b/
+        ).as('fetchItems')
+
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
             .contains(group)
             .click()
+
+        cy.wait('@fetchItems', EXTENDED_TIMEOUT)
+
         return this
     }
     selectSubGroup(subGroup) {
@@ -27,6 +56,11 @@ export class ThematicLayer extends Layer {
         return this
     }
     selectDataItem(dataItem) {
+        if (this._dataItemsFetchPending) {
+            cy.wait('@fetchDataItems', EXTENDED_TIMEOUT)
+            this._dataItemsFetchPending = false
+        }
+
         cy.getByDataTest('data-dimension-transfer-sourceoptions')
             .contains(dataItem)
             .click()

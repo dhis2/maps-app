@@ -67,6 +67,8 @@ describe('systemSettings', () => {
         // set relative period to 6 months
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']
+            delete req.headers['if-modified-since']
+            req.headers['cache-control'] = 'no-cache'
             req.continue((res) => {
                 res.body.keyAnalysisRelativePeriod = 'LAST_6_MONTHS'
                 res.send({
@@ -75,9 +77,8 @@ describe('systemSettings', () => {
             })
         }).as('getSystemSettings6months')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
-        // cy.wait('@getSystemSettings6months')
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.visit('/')
+        cy.wait('@getSystemSettings6months', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -99,6 +100,8 @@ describe('systemSettings', () => {
     it('uses Last 12 months as default relative period', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
             delete req.headers['if-none-match']
+            delete req.headers['if-modified-since']
+            req.headers['cache-control'] = 'no-cache'
             req.continue((res) => {
                 res.body.keyAnalysisRelativePeriod = 'LAST_12_MONTHS'
 
@@ -108,10 +111,9 @@ describe('systemSettings', () => {
             })
         }).as('getSystemSettings12months')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
-        // cy.wait('@getSystemSettings12months')
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait('@getSystemSettings12months', EXTENDED_TIMEOUT)
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -140,9 +142,11 @@ describe('systemSettings', () => {
                     body: res.body,
                 })
             })
-        })
+        }).as('getSystemSettingsDarkBasemap')
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
+        cy.wait('@getSystemSettingsDarkBasemap', EXTENDED_TIMEOUT)
+
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         checkBasemap.activeBasemap('Dark basemap')

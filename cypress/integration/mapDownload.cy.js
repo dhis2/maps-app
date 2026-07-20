@@ -48,7 +48,7 @@ describe('Map Download', () => {
             viewportHeight - DOWNLOAD_HEADER_HEIGHT - 2 * DOWNLOAD_BORDER,
         ]
 
-        cy.visit(`/#/${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/#/${mapWithThematicLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         assertMapPosition(expectedBottoms1, expectedHeights1)
@@ -113,10 +113,9 @@ describe('Map Download', () => {
             .click()
 
         // check for downloaded file
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.waitUntil(
             () => cy.task('getLastDownloadFilePath').then((result) => result),
-            { timeout: 3000, interval: 100 }
+            { timeout: 8000, interval: 100 }
         ).then((filePath) => {
             expect(filePath).to.include(mapWithThematicLayer.downloadFileName)
 
@@ -130,8 +129,6 @@ describe('Map Download', () => {
         cy.url().should('contain', `/#/${mapWithThematicLayer.id}`)
         cy.url().should('not.contain', '/download')
         cy.getByDataTest('headerbar-title').should('be.visible')
-
-        cy.wait(1000) // eslint-disable-line cypress/no-unnecessary-waiting
 
         assertMapPosition(expectedBottoms1, expectedHeights1)
 

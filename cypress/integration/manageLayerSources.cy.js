@@ -53,7 +53,7 @@ describe('Manage Layer Sources', () => {
         ).as('getAuthorization')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         // Opening add layer popover and checking content
         cy.getByDataTest('add-layer-button').click()
@@ -115,8 +115,9 @@ describe('Manage Layer Sources', () => {
         ).as('putManagedList')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
+        cy.wait('@getManagedList', EXTENDED_TIMEOUT)
         cy.getByDataTest('add-layer-button').click()
 
         cy.log('remove one layer')
@@ -125,6 +126,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(0).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n1 = LAYER_SOURCES_DEFAULT_ALL - 1
@@ -141,6 +143,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(1).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-2 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n2 = LAYER_SOURCES_DEFAULT_ALL - 2
@@ -157,6 +160,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(0).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n3 = LAYER_SOURCES_DEFAULT_ALL - 1
@@ -194,7 +198,7 @@ describe('Manage Layer Sources', () => {
         ).as('getManagedListTrimmed')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getAuthorization', EXTENDED_TIMEOUT).then((interception) => {
             cy.log(interception.response.body.authorities)
@@ -239,7 +243,7 @@ describe('Manage Layer Sources', () => {
         ).as('postNamespaceDefault')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getDataStoreEmpty', EXTENDED_TIMEOUT).then(() => {
             cy.wait('@postNamespaceDefault', EXTENDED_TIMEOUT).then(() => {
@@ -282,7 +286,7 @@ describe('Manage Layer Sources', () => {
         ).as('putNamespaceDefault')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getNamespaceObject', EXTENDED_TIMEOUT).then(() => {
             cy.wait('@putNamespaceDefault', EXTENDED_TIMEOUT).then(() => {
@@ -308,7 +312,7 @@ describe('Manage Layer Sources', () => {
         ).as('getNamespaceArray')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getNamespaceArray', EXTENDED_TIMEOUT).then(() => {
             // Verify default layer sources are available
