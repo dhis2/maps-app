@@ -59,8 +59,7 @@ const dhis2Fetch = async (
 }
 
 const buildReplicaUsername = () =>
-    `e2e_mapsapp_run${
-        process.env.GITHUB_RUN_ID ?? 'local'
+    `e2e_mapsapp_run${process.env.GITHUB_RUN_ID ?? 'local'
     }_${uniqueId().replaceAll('-', '_')}`
 
 const createReplicaUser = async ({ baseUrl, adminId, auth }) => {
@@ -121,12 +120,10 @@ const createReplicaAccountForRun = async ({ baseUrl, username, password }) => {
     return createReplicaUser({ baseUrl, adminId, auth })
 }
 
-const deleteReplicaAccount = async ({
-    baseUrl,
-    username,
-    password,
-    replicaUserId,
-}) => {
+const deleteReplicaAccount = async (
+    { baseUrl, username, password, replicaUserId },
+    attempt = 1
+) => {
     const response = await dhis2Fetch(baseUrl, `/api/users/${replicaUserId}`, {
         method: 'DELETE',
         auth: { username, password },
