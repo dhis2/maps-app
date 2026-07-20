@@ -33,6 +33,12 @@ export class Layer {
     openOu(ouName) {
         cy.getByDataTest('org-unit-tree').contains(ouName).scrollIntoView()
 
+        // Expanding a tree node fetches its children fresh, on demand
+        cy.intercept(
+            'GET',
+            /\/organisationUnits\/[a-zA-Z0-9]{11}\?fields=children/
+        ).as('fetchOuChildren')
+
         cy.getByDataTest('org-unit-tree')
             .contains(ouName)
             .parents('[data-test="org-unit-tree-node"]')
@@ -40,6 +46,8 @@ export class Layer {
             .within(() => {
                 cy.getByDataTest('org-unit-tree-node-toggle').click()
             })
+
+        cy.wait('@fetchOuChildren', EXTENDED_TIMEOUT)
 
         return this
     }

@@ -93,6 +93,16 @@ const Timeline = ({ period, periods, onChange, resizeCount }) => {
         setTimeAxis()
     }, [timeScale, setTimeAxis])
 
+    // onChange is a fresh function reference on every parent render
+    // (Map.jsx passes an inline arrow function). Reading it via a ref
+    // keeps play()'s own identity stable across those unrelated
+    // re-renders, so the effect below doesn't keep restarting the
+    // countdown and starving the auto-advance entirely.
+    const onChangeRef = useRef(onChange)
+    useEffect(() => {
+        onChangeRef.current = onChange
+    }, [onChange])
+
     const play = useCallback(() => {
         timeoutRef.current = setTimeout(() => {
             const currentPeriodIndex = sortedPeriods.findIndex(
@@ -101,13 +111,13 @@ const Timeline = ({ period, periods, onChange, resizeCount }) => {
             const nextPeriodIndex = currentPeriodIndex + 1
             if (nextPeriodIndex < sortedPeriods.length) {
                 setCurrentPeriod(sortedPeriods[nextPeriodIndex])
-                onChange(sortedPeriods[nextPeriodIndex])
+                onChangeRef.current(sortedPeriods[nextPeriodIndex])
             } else {
                 setMode(MODE_PAUSE)
             }
         }, DELAY)
         setMode(MODE_PLAY)
-    }, [sortedPeriods, currentPeriod, onChange])
+    }, [sortedPeriods, currentPeriod])
 
     const pause = useCallback(() => {
         clearTimeout(timeoutRef.current)
