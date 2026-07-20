@@ -52,9 +52,27 @@ describe('Tracked Entity Layers', () => {
             .openOu('Bo')
             .openOu('Badjia')
             .selectOu('Njandama MCHP')
-            .addToMap()
+
+        cy.intercept(
+            'GET',
+            /\/trackedEntityTypes\/[a-zA-Z0-9]{11}\?fields=trackedEntityTypeAttributes/
+        ).as('getTrackedEntityTypeAttributes')
+        cy.intercept(
+            'GET',
+            /\/programs\/[a-zA-Z0-9]{11}\?fields=programTrackedEntityAttributes/
+        ).as('getProgramTrackedEntityAttributesForPopup')
+
+        Layer.addToMap()
 
         Layer.validateDialogClosed(true)
+
+        cy.wait(
+            [
+                '@getTrackedEntityTypeAttributes',
+                '@getProgramTrackedEntityAttributesForPopup',
+            ],
+            EXTENDED_TIMEOUT
+        )
 
         cy.waitForMap()
 
