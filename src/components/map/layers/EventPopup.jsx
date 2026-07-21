@@ -2,6 +2,10 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import {
+    COORDINATE_FIELD_NAMES,
+    GEOMETRY_SOURCE_DATA_ITEM_ID,
+} from '../../../constants/layers.js'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import {
     formatDatetime,
@@ -11,6 +15,14 @@ import {
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.jsx'
 import styles from './styles/Popup.module.css'
+
+const resolveGeometrySourceLabel = (geometrySource, displayItems) => {
+    if (COORDINATE_FIELD_NAMES[geometrySource]) {
+        return COORDINATE_FIELD_NAMES[geometrySource]
+    }
+    const item = displayItems?.find((i) => i.id === geometrySource)
+    return item?.name ?? geometrySource
+}
 
 const EVENTS_QUERY = {
     events: {
@@ -167,6 +179,19 @@ const EventPopup = ({
                                         i18n.t('Event location')}
                                 </th>
                                 <td>{formatCoordinate(coord)}</td>
+                            </tr>
+                        )}
+                        {feature.properties[GEOMETRY_SOURCE_DATA_ITEM_ID] && (
+                            <tr>
+                                <th>{i18n.t('Geometry source')}</th>
+                                <td>
+                                    {resolveGeometrySourceLabel(
+                                        feature.properties[
+                                            GEOMETRY_SOURCE_DATA_ITEM_ID
+                                        ],
+                                        displayItems
+                                    )}
+                                </td>
                             </tr>
                         )}
                         {orgUnit && (

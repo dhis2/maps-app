@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setStyleDataItem } from '../../actions/layerEdit.js'
+import { GEOMETRY_SOURCE_DATA_ITEM_ID } from '../../constants/layers.js'
 import { SelectField } from '../core/index.js'
 import DataItemStyle from './DataItemStyle.jsx'
 import { useEventDataItems } from './EventDataItemsProvider.jsx'
@@ -14,6 +15,11 @@ const excludeTypes = [
     'ORGANISATION_UNIT',
     'COORDINATE',
 ]
+
+const GEOMETRY_SOURCE_ITEM = {
+    id: GEOMETRY_SOURCE_DATA_ITEM_ID,
+    name: i18n.t('Geometry source'),
+}
 
 // Style by data item is used by event layer, and can be reused for TEI layer in the future.
 // Displays a select field with data items that support styling.
@@ -32,7 +38,7 @@ const StyleByDataItem = ({ error }) => {
         return null
     }
 
-    const dataItems = [ITEM_NONE, ...eventDataItems]
+    const dataItems = [ITEM_NONE, GEOMETRY_SOURCE_ITEM, ...eventDataItems]
 
     const internalError =
         styleDataItem && !dataItems.find((item) => item.id === styleDataItem.id)

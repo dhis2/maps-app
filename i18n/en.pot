@@ -101,14 +101,14 @@ msgstr "Enrollment location"
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
 
-msgid "Select a program stage to see additional coordinate options"
-msgstr "Select a program stage to see additional coordinate options"
-
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "Enrollment > event > tracked entity > org unit coordinate"
 
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
+
+msgid "Select a program stage to see additional coordinate options"
+msgstr "Select a program stage to see additional coordinate options"
 
 msgid "Select a program to see additional coordinate options"
 msgstr "Select a program to see additional coordinate options"
@@ -119,11 +119,14 @@ msgstr "Fallback coordinate field"
 msgid "Coordinate field"
 msgstr "Coordinate field"
 
+msgid "Include events with no data"
+msgstr "Include events with no data"
+
 msgid "Include unclassified events"
 msgstr "Include unclassified events"
 
-msgid "Include events with no data"
-msgstr "Include events with no data"
+msgid "Geometry source"
+msgstr "Geometry source"
 
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "Previously selected value not available in list: {{id}}"
