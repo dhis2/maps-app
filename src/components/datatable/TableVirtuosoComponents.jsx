@@ -23,15 +23,19 @@ DataTableWithVirtuosoContext.propTypes = {
     }),
 }
 
-const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
-    <DataTableRow
-        onMouseEnter={() => context.onMouseEnter(item)}
-        onMouseLeave={context.onMouseLeave}
-        onContextMenu={(e) => context.onContextMenu(e, item)}
-        onClick={(e) => context.onRowClick(item, e)}
-        onDoubleClick={() => context.onRowDoubleClick(item)}
-        {...props}
-    />
+const DataTableRowWithVirtuosoContext = React.memo(
+    function DataTableRowWithVirtuosoContext({ context, item, ...props }) {
+        return (
+            <DataTableRow
+                onMouseEnter={() => context.onMouseEnter(item)}
+                onMouseLeave={context.onMouseLeave}
+                onContextMenu={(e) => context.onContextMenu(e, item)}
+                onClick={(e) => context.onRowClick(item, e)}
+                onDoubleClick={() => context.onRowDoubleClick(item)}
+                {...props}
+            />
+        )
+    }
 )
 
 DataTableRowWithVirtuosoContext.propTypes = {
