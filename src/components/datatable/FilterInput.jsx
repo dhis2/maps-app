@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { Input, IconFilter16, IconSync16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Virtuoso } from 'react-virtuoso'
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
@@ -56,7 +56,7 @@ const TEXT_FILTER_HELP = (
 )
 const NUMERIC_INPUT_DISALLOWED = /[^0-9.\-<>=,&\s]/g
 
-const SearchableFilterPopover = ({
+const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     dataKey,
     name,
     layerId,
@@ -65,7 +65,7 @@ const SearchableFilterPopover = ({
     resolveLabel,
     type,
     allowCustomFilter = true,
-}) => {
+}) {
     const dispatch = useDispatch()
     const anchorRef = useRef(null)
     const listRef = useRef(null)
@@ -123,13 +123,18 @@ const SearchableFilterPopover = ({
             resolveLabel(value)
         )
 
-    const hasNotSetOption = options.some(
-        ({ value }) => value === SENTINEL_NO_VALUE
+    const hasNotSetOption = useMemo(
+        () => options.some(({ value }) => value === SENTINEL_NO_VALUE),
+        [options]
     )
-    const realOptions = options.filter(
-        ({ value }) => value !== SENTINEL_NO_VALUE
+    const realOptions = useMemo(
+        () => options.filter(({ value }) => value !== SENTINEL_NO_VALUE),
+        [options]
     )
-    const realValues = realOptions.map((o) => o.value)
+    const realValues = useMemo(
+        () => realOptions.map((o) => o.value),
+        [realOptions]
+    )
     const anyValueActive = selected.includes(SENTINEL_ANY_VALUE)
 
     const popoverWidth = useMemo(() => {
@@ -145,7 +150,10 @@ const SearchableFilterPopover = ({
 
     const onToggleAnyValue = () => applyValues(toggleAnyValue(selected))
 
-    const invertibleValues = getInvertibleValues(hasNotSetOption, realValues)
+    const invertibleValues = useMemo(
+        () => getInvertibleValues(hasNotSetOption, realValues),
+        [hasNotSetOption, realValues]
+    )
 
     const onToggleRealValue = (value) =>
         applyValues(toggleRealValue(selected, value, realValues))
@@ -155,15 +163,24 @@ const SearchableFilterPopover = ({
 
     const trimmedSearch = searchText.trim()
     const normalizedSearch = trimmedSearch.toLowerCase()
-    const filteredOptions = getFilteredOptions({
-        realOptions,
-        trimmedSearch,
-        normalizedSearch,
-        type,
-        resolveLabel,
-    })
-    const hasExactMatch = filteredOptions.some(
-        ({ value }) => resolveLabel(value).toLowerCase() === normalizedSearch
+    const filteredOptions = useMemo(
+        () =>
+            getFilteredOptions({
+                realOptions,
+                trimmedSearch,
+                normalizedSearch,
+                type,
+                resolveLabel,
+            }),
+        [realOptions, trimmedSearch, normalizedSearch, type, resolveLabel]
+    )
+    const hasExactMatch = useMemo(
+        () =>
+            filteredOptions.some(
+                ({ value }) =>
+                    resolveLabel(value).toLowerCase() === normalizedSearch
+            ),
+        [filteredOptions, resolveLabel, normalizedSearch]
     )
     const showCustomFilterRow =
         allowCustomFilter && normalizedSearch !== '' && !hasExactMatch
@@ -451,7 +468,7 @@ const SearchableFilterPopover = ({
             )}
         </div>
     )
-}
+})
 
 SearchableFilterPopover.propTypes = {
     dataKey: PropTypes.string.isRequired,
@@ -474,14 +491,20 @@ const PlainSearchableFilter = (props) => {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
-    const resolveLabel = (value) => {
-        if (value === SENTINEL_NO_VALUE) {
-            return i18n.t('No value')
-        }
-        return type === 'number'
-            ? formatWithSeparator(Number(value), keyAnalysisDigitGroupSeparator)
-            : value
-    }
+    const resolveLabel = useCallback(
+        (value) => {
+            if (value === SENTINEL_NO_VALUE) {
+                return i18n.t('No value')
+            }
+            return type === 'number'
+                ? formatWithSeparator(
+                      Number(value),
+                      keyAnalysisDigitGroupSeparator
+                  )
+                : value
+        },
+        [type, keyAnalysisDigitGroupSeparator]
+    )
 
     return <SearchableFilterPopover {...props} resolveLabel={resolveLabel} />
 }
@@ -492,10 +515,18 @@ PlainSearchableFilter.propTypes = {
 
 const OptionSetSearchableFilter = ({ optionSetId, ...props }) => {
     const { optionSet } = useOptionSet(optionSetId)
-    const resolveLabel = (value) =>
-        value === SENTINEL_NO_VALUE
-            ? i18n.t('No value')
-            : optionSet?.options.find((o) => o.code === value)?.name ?? value
+    const optionByCode = useMemo(() => {
+        const map = new Map()
+        optionSet?.options.forEach((o) => map.set(o.code, o))
+        return map
+    }, [optionSet])
+    const resolveLabel = useCallback(
+        (value) =>
+            value === SENTINEL_NO_VALUE
+                ? i18n.t('No value')
+                : optionByCode.get(value)?.name ?? value,
+        [optionByCode]
+    )
     return (
         <SearchableFilterPopover
             {...props}
@@ -509,7 +540,13 @@ OptionSetSearchableFilter.propTypes = {
     optionSetId: PropTypes.string.isRequired,
 }
 
-const FilterInput = ({ type, dataKey, name, options, optionSetId }) => {
+const FilterInput = React.memo(function FilterInput({
+    type,
+    dataKey,
+    name,
+    options,
+    optionSetId,
+}) {
     const dataTable = useSelector((state) => state.dataTable)
     const map = useSelector((state) => state.map)
 
@@ -545,7 +582,7 @@ const FilterInput = ({ type, dataKey, name, options, optionSetId }) => {
             type={type}
         />
     )
-}
+})
 
 FilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,

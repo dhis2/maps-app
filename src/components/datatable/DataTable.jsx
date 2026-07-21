@@ -57,6 +57,9 @@ import { useColumnWidths } from './useColumnWidths.js'
 import { useRowSelection } from './useRowSelection.js'
 import { useTableData } from './useTableData.js'
 
+const TABLE_STYLE = { height: '100%', width: '100%' }
+const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
+
 const Table = ({
     availableWidth,
     onCountChange,
@@ -97,11 +100,18 @@ const Table = ({
         [sortField, sortDirection]
     )
 
+    // Read via ref rather than a dependency, so this callback (and anything
+    // memoized on it, e.g. tableContext) stays stable across hovers instead
+    // of getting a new identity on every single mouse-enter
+    const featureRef = useRef(feature)
+    featureRef.current = feature
+
     const setFeatureHighlight = useCallback(
         (row) => {
             const id = getRowId(row)
+            const currentFeature = featureRef.current
 
-            if (!id || !feature || id !== feature.id) {
+            if (!id || !currentFeature || id !== currentFeature.id) {
                 dispatch(
                     highlightFeature(
                         id
@@ -115,7 +125,7 @@ const Table = ({
                 )
             }
         },
-        [feature, dispatch, layer.id]
+        [dispatch, layer.id]
     )
     const clearFeatureHighlight = useCallback(
         (event) => {
@@ -338,6 +348,168 @@ const Table = ({
             layerId: layer.id,
         })
 
+    const computeItemKey = useCallback(
+        (index, row) => getRowId(row) ?? index,
+        []
+    )
+
+    const fixedHeaderContent = useCallback(
+        () => (
+            <DataTableRow ref={headerRowRef}>
+                <DataTableColumnHeader
+                    className={styles.checkboxCell}
+                    width="76px"
+                    fixed={isCheckboxColumnPinned}
+                    left={isCheckboxColumnPinned ? '0px' : undefined}
+                    onFilterIconClick={Function.prototype}
+                    showFilter={true}
+                    filter={
+                        <SelectionFilterButton
+                            value={selectionFilter ?? []}
+                            onChange={(next) =>
+                                dispatch(setSelectionFilter(next))
+                            }
+                        />
+                    }
+                >
+                    <div className={styles.checkboxHeaderContent}>
+                        <TopTooltip content={i18n.t('Select all visible rows')}>
+                            <input
+                                type="checkbox"
+                                aria-label={i18n.t('Select all visible rows')}
+                                checked={isAllSelected}
+                                onChange={onToggleSelectAll}
+                            />
+                        </TopTooltip>
+                        <TopTooltip
+                            content={i18n.t(
+                                'Reverse selection of visible rows'
+                            )}
+                        >
+                            <button
+                                type="button"
+                                className={styles.reverseButton}
+                                data-test="data-table-reverse-selection"
+                                disabled={allRowIds.length === 0}
+                                onClick={onReverseSelection}
+                            >
+                                <IconSync16 />
+                            </button>
+                        </TopTooltip>
+                        <TopTooltip content={i18n.t('Sort by Selected')}>
+                            <button
+                                type="button"
+                                className={styles.sortButton}
+                                data-test="data-table-column-sort-button-selected"
+                                onClick={() =>
+                                    sortData({
+                                        name: SENTINEL_SELECTED_ROW,
+                                    })
+                                }
+                            >
+                                <SortIcon
+                                    direction={
+                                        sortField === SENTINEL_SELECTED_ROW
+                                            ? sortDirection
+                                            : null
+                                    }
+                                />
+                            </button>
+                        </TopTooltip>
+                    </div>
+                </DataTableColumnHeader>
+                {visibleHeaders.map(
+                    ({ name, dataKey, type, optionSet }, index) => {
+                        const { fixed, left, isLastPinned } =
+                            getPinnedCellProps(dataKey, index, {
+                                pinnedLeftOffsets,
+                                pinnedColumnCount,
+                                columnWidths,
+                            })
+                        return (
+                            <DataTableColumnHeader
+                                className={cx(styles.columnHeader, {
+                                    [styles.pinnedColumnShadow]: isLastPinned,
+                                })}
+                                key={`${dataKey}-${index}`}
+                                fixed={fixed}
+                                left={left}
+                                onFilterIconClick={
+                                    isFilterable(dataKey, type) &&
+                                    Function.prototype
+                                }
+                                showFilter={isFilterable(dataKey, type)}
+                                name={dataKey}
+                                filter={
+                                    isFilterable(dataKey, type) && (
+                                        <FilterInput
+                                            type={type}
+                                            dataKey={dataKey}
+                                            name={name}
+                                            options={columnOptions[dataKey]}
+                                            optionSetId={optionSet?.id}
+                                        />
+                                    )
+                                }
+                                width={
+                                    columnWidths.length > 0
+                                        ? `${columnWidths[index]}px`
+                                        : 'auto'
+                                }
+                            >
+                                <span className={styles.headerContent}>
+                                    {name}
+                                    <TopTooltip
+                                        content={i18n.t('Sort by {{column}}', {
+                                            column: name,
+                                        })}
+                                    >
+                                        <button
+                                            type="button"
+                                            className={styles.sortButton}
+                                            data-test={`data-table-column-sort-button-${name}`}
+                                            onClick={() =>
+                                                sortData({
+                                                    name: dataKey,
+                                                })
+                                            }
+                                        >
+                                            <SortIcon
+                                                direction={
+                                                    dataKey === sortField
+                                                        ? sortDirection
+                                                        : null
+                                                }
+                                            />
+                                        </button>
+                                    </TopTooltip>
+                                </span>
+                            </DataTableColumnHeader>
+                        )
+                    }
+                )}
+            </DataTableRow>
+        ),
+        [
+            isCheckboxColumnPinned,
+            selectionFilter,
+            dispatch,
+            allRowIds,
+            onReverseSelection,
+            sortData,
+            sortField,
+            sortDirection,
+            visibleHeaders,
+            pinnedLeftOffsets,
+            pinnedColumnCount,
+            columnWidths,
+            columnOptions,
+            isAllSelected,
+            onToggleSelectAll,
+            headerRowRef,
+        ]
+    )
+
     if (error) {
         return <p className={styles.noSupport}>{error}</p>
     }
@@ -348,163 +520,11 @@ const Table = ({
                 ref={virtuosoRef}
                 context={tableContext}
                 components={TableComponents}
-                style={{
-                    height: '100%',
-                    width: '100%',
-                }}
+                style={TABLE_STYLE}
                 data={rows}
-                computeItemKey={(index, row) => getRowId(row) ?? index}
-                increaseViewportBy={{ top: 400, bottom: 400 }}
-                fixedHeaderContent={() => (
-                    <DataTableRow ref={headerRowRef}>
-                        <DataTableColumnHeader
-                            className={styles.checkboxCell}
-                            width="76px"
-                            fixed={isCheckboxColumnPinned}
-                            left={isCheckboxColumnPinned ? '0px' : undefined}
-                            onFilterIconClick={Function.prototype}
-                            showFilter={true}
-                            filter={
-                                <SelectionFilterButton
-                                    value={selectionFilter ?? []}
-                                    onChange={(next) =>
-                                        dispatch(setSelectionFilter(next))
-                                    }
-                                />
-                            }
-                        >
-                            <div className={styles.checkboxHeaderContent}>
-                                <TopTooltip
-                                    content={i18n.t('Select all visible rows')}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        aria-label={i18n.t(
-                                            'Select all visible rows'
-                                        )}
-                                        checked={isAllSelected}
-                                        onChange={onToggleSelectAll}
-                                    />
-                                </TopTooltip>
-                                <TopTooltip
-                                    content={i18n.t(
-                                        'Reverse selection of visible rows'
-                                    )}
-                                >
-                                    <button
-                                        type="button"
-                                        className={styles.reverseButton}
-                                        data-test="data-table-reverse-selection"
-                                        disabled={allRowIds.length === 0}
-                                        onClick={onReverseSelection}
-                                    >
-                                        <IconSync16 />
-                                    </button>
-                                </TopTooltip>
-                                <TopTooltip
-                                    content={i18n.t('Sort by Selected')}
-                                >
-                                    <button
-                                        type="button"
-                                        className={styles.sortButton}
-                                        data-test="data-table-column-sort-button-selected"
-                                        onClick={() =>
-                                            sortData({
-                                                name: SENTINEL_SELECTED_ROW,
-                                            })
-                                        }
-                                    >
-                                        <SortIcon
-                                            direction={
-                                                sortField ===
-                                                SENTINEL_SELECTED_ROW
-                                                    ? sortDirection
-                                                    : null
-                                            }
-                                        />
-                                    </button>
-                                </TopTooltip>
-                            </div>
-                        </DataTableColumnHeader>
-                        {visibleHeaders.map(
-                            ({ name, dataKey, type, optionSet }, index) => {
-                                const { fixed, left, isLastPinned } =
-                                    getPinnedCellProps(dataKey, index, {
-                                        pinnedLeftOffsets,
-                                        pinnedColumnCount,
-                                        columnWidths,
-                                    })
-                                return (
-                                    <DataTableColumnHeader
-                                        className={cx(styles.columnHeader, {
-                                            [styles.pinnedColumnShadow]:
-                                                isLastPinned,
-                                        })}
-                                        key={`${dataKey}-${index}`}
-                                        fixed={fixed}
-                                        left={left}
-                                        onFilterIconClick={
-                                            isFilterable(dataKey, type) &&
-                                            Function.prototype
-                                        }
-                                        showFilter={isFilterable(dataKey, type)}
-                                        name={dataKey}
-                                        filter={
-                                            isFilterable(dataKey, type) && (
-                                                <FilterInput
-                                                    type={type}
-                                                    dataKey={dataKey}
-                                                    name={name}
-                                                    options={
-                                                        columnOptions[dataKey]
-                                                    }
-                                                    optionSetId={optionSet?.id}
-                                                />
-                                            )
-                                        }
-                                        width={
-                                            columnWidths.length > 0
-                                                ? `${columnWidths[index]}px`
-                                                : 'auto'
-                                        }
-                                    >
-                                        <span className={styles.headerContent}>
-                                            {name}
-                                            <TopTooltip
-                                                content={i18n.t(
-                                                    'Sort by {{column}}',
-                                                    { column: name }
-                                                )}
-                                            >
-                                                <button
-                                                    type="button"
-                                                    className={
-                                                        styles.sortButton
-                                                    }
-                                                    data-test={`data-table-column-sort-button-${name}`}
-                                                    onClick={() =>
-                                                        sortData({
-                                                            name: dataKey,
-                                                        })
-                                                    }
-                                                >
-                                                    <SortIcon
-                                                        direction={
-                                                            dataKey ===
-                                                            sortField
-                                                                ? sortDirection
-                                                                : null
-                                                        }
-                                                    />
-                                                </button>
-                                            </TopTooltip>
-                                        </span>
-                                    </DataTableColumnHeader>
-                                )
-                            }
-                        )}
-                    </DataTableRow>
-                )}
+                computeItemKey={computeItemKey}
+                increaseViewportBy={VIEWPORT_OVERSCAN}
+                fixedHeaderContent={fixedHeaderContent}
                 itemContent={(_, row) => {
                     const rowId = getRowId(row)
                     const isSelected = !!rowId && selectedIdSet.has(rowId)
@@ -615,10 +635,10 @@ const Table = ({
                 }}
             />
             {(isLoading || layer?.isLoaded === false || layer?.isLoading) && (
-                <ComponentCover>
+                <ComponentCover translucent>
                     <CenteredContent>
                         <div className={styles.loadingContent}>
-                            <CircularLoader />
+                            <CircularLoader invert />
                             {loadingReason && (
                                 <span className={styles.loadingReason}>
                                     {loadingReason}
