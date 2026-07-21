@@ -1,21 +1,8 @@
 const CHECKBOX_COLUMN_WIDTH = 76
 
-const getOrderIndex = (dataKey, orderedKeys) => {
-    const index = orderedKeys.indexOf(dataKey)
-    return index === -1 ? orderedKeys.length : index
-}
-
-// A header can opt out of the "everything visible by default" rule (e.g.
-// period columns, which exist for every available period but would clutter
-// the table if all shown before the user picks any) - used both here and
-// by ColumnPickerControl, so the table and the picker's checkboxes always
-// agree on what "not yet customized" means.
 export const getDefaultVisibleKeys = (headers) =>
     headers.filter((h) => !h.defaultHidden).map((h) => h.dataKey)
 
-// Ordering + pinning only, deliberately never filtered by visibility - used
-// by the column picker, which needs a row for every header regardless of
-// whether it's currently shown, and by getVisibleHeaders below.
 export const getOrderedHeaders = (headers, config) => {
     if (!headers) {
         return headers
@@ -23,13 +10,15 @@ export const getOrderedHeaders = (headers, config) => {
 
     const { orderedKeys, pinnedKeys } = config ?? {}
 
-    let result = orderedKeys
-        ? [...headers].sort(
-              (a, b) =>
-                  getOrderIndex(a.dataKey, orderedKeys) -
-                  getOrderIndex(b.dataKey, orderedKeys)
-          )
-        : headers
+    let result = headers
+    if (orderedKeys) {
+        const orderIndex = new Map(orderedKeys.map((key, i) => [key, i]))
+        const getOrderIndex = (dataKey) =>
+            orderIndex.get(dataKey) ?? orderedKeys.length
+        result = [...headers].sort(
+            (a, b) => getOrderIndex(a.dataKey) - getOrderIndex(b.dataKey)
+        )
+    }
 
     if (pinnedKeys?.length) {
         const pinned = result.filter((h) => pinnedKeys.includes(h.dataKey))

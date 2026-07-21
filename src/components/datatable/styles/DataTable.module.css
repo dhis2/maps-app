@@ -156,7 +156,7 @@ th.hovered {
 
 .loadingReason {
     font-size: 12px;
-    color: var(--colors-grey700);
+    color: var(--colors-white);
 }
 
 .noSupport {
