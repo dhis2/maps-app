@@ -1,7 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
-import { useMemo, useRef } from 'react'
+import { useDeferredValue, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { SENTINEL_NO_VALUE, SORT_ASCENDING } from '../../constants/dataTable.js'
+import {
+    SENTINEL_NO_VALUE,
+    SENTINEL_SELECTED_ROW,
+    SORT_ASCENDING,
+} from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
@@ -114,11 +118,6 @@ const defaultFieldsMap = () => ({
     },
 })
 
-// Canonical trailing order for classification/styling columns - shared
-// across every layer type that has any subset of them, so switching
-// between layer types never reshuffles where these appear relative to
-// each other (e.g. Group always comes before Color, Color always comes
-// before Icon, regardless of which layer type is showing them).
 const getStyleHeaders = ({
     hasLegend,
     hasRange,
@@ -152,15 +151,6 @@ const getThematicHeaders = () =>
             getStyleHeaders({ hasLegend: true, hasRange: true, hasColor: true })
         )
 
-// Timeline gets the standard Value/Legend/Range/Color columns, relabeled
-// with the active period's name (updates live as the timeline slider
-// moves). Split-by-period has no single "current" period to privilege, so
-// it only gets the base org unit columns - same shape as getOrgUnitHeaders.
-// Every other available period (all of them, for split - every one but the
-// active one, for timeline, since that one's already the Value/Legend/
-// Range/Color columns above) gets its own raw-value-only column too,
-// hidden by default (defaultHidden) so the table isn't cluttered with
-// every period until the user turns one on from the column picker.
 const getMultiPeriodThematicHeaders = ({
     isTimelineThematic,
     externalPeriod,
@@ -232,26 +222,29 @@ const getEventHeaders = ({
     return fields.concat(customFields)
 }
 
-// Facility/org unit layers only get Group/Color/Icon columns when the
-// current group-set styling actually produced them - style type (and
-// whether every org unit matched a group) isn't known up front, so this
-// checks the resolved row data rather than re-deriving that logic here.
-const getOrgUnitStyleHeaders = (data) =>
-    getStyleHeaders({
-        hasGroup: data?.some((d) => d.group != null),
-        hasColor: data?.some((d) => d.color != null),
-        hasIcon: data?.some((d) => d.iconUrl != null),
-    })
+const getOrgUnitStyleHeaders = (data) => {
+    let hasGroup = false
+    let hasColor = false
+    let hasIcon = false
+
+    for (const d of data ?? []) {
+        hasGroup ||= d.group != null
+        hasColor ||= d.color != null
+        hasIcon ||= d.iconUrl != null
+
+        if (hasGroup && hasColor && hasIcon) {
+            break
+        }
+    }
+
+    return getStyleHeaders({ hasGroup, hasColor, hasIcon })
+}
 
 const getOrgUnitHeaders = (data) =>
     [NAME, ID, LEVEL, PARENT_NAME, TYPE]
         .map((field) => defaultFieldsMap()[field])
         .concat(getOrgUnitStyleHeaders(data))
 
-// Unlike getEventHeaders's layerHeaders (raw analytics response shape,
-// name=uid/column=display), trackedEntityLoader.js already builds its
-// headers in the final {name, dataKey, valueType} shape - only the
-// valueType -> table type classification needs doing here.
 const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
     const fields = [ID].map((field) => defaultFieldsMap()[field])
 
@@ -314,9 +307,6 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         .concat(customFields)
 }
 
-// The synthetic per-geometry-type `color` property gets the same
-// canonical, translated Color header every other layer type uses,
-// rather than being treated as just another arbitrary uploaded field.
 const getGeoJsonUrlHeaders = (firstDataItem) =>
     getGeojsonDisplayData(firstDataItem).map((header) =>
         header.dataKey === COLOR ? defaultFieldsMap()[COLOR] : header
@@ -339,10 +329,6 @@ export const useTableData = ({
 }) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
-    // The timeline's active period is Map.jsx's own local UI state, not
-    // part of the layer config stored in Redux - it's synced into
-    // state.ui separately (see Map.jsx/MapContainer.jsx) so the data
-    // table, a sibling of the map, can read the same "current period".
     const externalPeriod = useSelector(
         (state) => state.ui?.activeTimelinePeriod
     )
@@ -376,6 +362,15 @@ export const useTableData = ({
     const isStyledEvent = layerType === EVENT_LAYER && !!styleDataItem
 
     const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
+    const selectedIdSetDependency =
+        sortField === SENTINEL_SELECTED_ROW || selectionFilter?.length
+            ? selectedIdSet
+            : null
+    const periodsDependency = isMultiPeriodThematic ? periods : null
+    const valuesByPeriodDependency = isMultiPeriodThematic
+        ? valuesByPeriod
+        : null
+    const externalPeriodDependency = isTimelineThematic ? externalPeriod : null
 
     const dataWithAggregations = useMemo(() => {
         errorCode.current = null
@@ -409,9 +404,6 @@ export const useTableData = ({
                 const properties = d.properties || d
 
                 if (isStyledEvent) {
-                    // The event's own styling pass already classified this
-                    // feature into legend.items[colorGroup] (color/radius) -
-                    // Legend/Range are just a lookup, not new classification.
                     const legendItem = legend?.items?.[properties.colorGroup]
                     return {
                         ...properties,
@@ -467,7 +459,7 @@ export const useTableData = ({
                     index,
                 }
             })
-        // boundsDependency intentionally proxies mapBounds only while the toggle is on
+        // *Dependency vars proxy their raw counterparts (see above)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         data,
@@ -479,9 +471,9 @@ export const useTableData = ({
         boundsDependency,
         isMultiPeriodThematic,
         isTimelineThematic,
-        valuesByPeriod,
-        externalPeriod,
-        periods,
+        valuesByPeriodDependency,
+        externalPeriodDependency,
+        periodsDependency,
         isStyledEvent,
         legend,
         keyAnalysisDigitGroupSeparator,
@@ -550,6 +542,8 @@ export const useTableData = ({
             return null
         }
         return headers
+        // *Dependency vars proxy their raw counterparts (see above)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         layerType,
         aggregationType,
@@ -561,19 +555,21 @@ export const useTableData = ({
         layerHeaders,
         isMultiPeriodThematic,
         isTimelineThematic,
-        externalPeriod,
-        periods,
+        externalPeriodDependency,
+        periodsDependency,
     ])
 
-    const columnOptions = useMemo(() => {
-        if (!headers?.length || !dataWithAggregations?.length) {
-            return EMPTY_COLUMN_OPTIONS
+    // Expensive: scans every row once per column
+    const deferredDataForOptions = useDeferredValue(dataWithAggregations)
+    const columnDistinctValues = useMemo(() => {
+        if (!headers?.length || !deferredDataForOptions?.length) {
+            return null
         }
 
         const result = {}
         headers.forEach(({ dataKey, type }) => {
             const seen = new Set()
-            for (const item of dataWithAggregations) {
+            for (const item of deferredDataForOptions) {
                 const val = item[dataKey]
                 seen.add(
                     val === undefined || val === null || val === ''
@@ -583,9 +579,25 @@ export const useTableData = ({
             }
 
             if (seen.size > 0) {
+                result[dataKey] = { values: Array.from(seen), type }
+            }
+        })
+
+        return result
+    }, [headers, deferredDataForOptions])
+
+    // Cheap: just re-orders each column's already-known distinct-value list
+    const columnOptions = useMemo(() => {
+        if (!columnDistinctValues) {
+            return EMPTY_COLUMN_OPTIONS
+        }
+
+        const result = {}
+        Object.entries(columnDistinctValues).forEach(
+            ([dataKey, { values, type }]) => {
                 const direction =
                     dataKey === sortField ? sortDirection : SORT_ASCENDING
-                result[dataKey] = Array.from(seen)
+                result[dataKey] = [...values]
                     .sort((a, b) =>
                         compareColumnOptionValues(a, b, {
                             dataKey,
@@ -595,10 +607,10 @@ export const useTableData = ({
                     )
                     .map((value) => ({ value }))
             }
-        })
+        )
 
         return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
-    }, [headers, dataWithAggregations, sortField, sortDirection])
+    }, [columnDistinctValues, sortField, sortDirection])
 
     const rows = useMemo(() => {
         if (errorCode.current) {
@@ -655,6 +667,8 @@ export const useTableData = ({
                 }
             })
         )
+        // *Dependency vars proxy their raw counterparts (see above)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         headers,
         dataWithAggregations,
@@ -663,7 +677,7 @@ export const useTableData = ({
         sortField,
         sortDirection,
         selectionFilter,
-        selectedIdSet,
+        selectedIdSetDependency,
     ])
 
     // EE layers and event layers may be loading additional data

@@ -236,19 +236,17 @@ const BottomPanel = () => {
                 <span className={styles.divider} />
                 <CloseControl onClick={onCloseDataTable} />
             </div>
-            {!isCollapsed && (
-                <div className={styles.tableContainer}>
-                    <ErrorBoundary>
-                        <DataTable
-                            availableWidth={panelWidth}
-                            onCountChange={onCountChange}
-                            onHeadersChange={onHeadersChange}
-                            globalSearch={globalSearch}
-                            onClearFilters={onClearFilters}
-                        />
-                    </ErrorBoundary>
-                </div>
-            )}
+            <div className={styles.tableContainer}>
+                <ErrorBoundary>
+                    <DataTable
+                        availableWidth={panelWidth}
+                        onCountChange={onCountChange}
+                        onHeadersChange={onHeadersChange}
+                        globalSearch={globalSearch}
+                        onClearFilters={onClearFilters}
+                    />
+                </ErrorBoundary>
+            </div>
         </div>
     )
 }
