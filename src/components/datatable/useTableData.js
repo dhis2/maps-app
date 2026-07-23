@@ -26,21 +26,13 @@ import {
     ERROR_NON_HOMOGENOUS_FEATURES,
     getHeadersForLayer,
 } from '../../util/tableHeaders.js'
-import {
-    ERROR_SERVER_CLUSTER,
-    ERROR_NO_VALID_DATA,
-    buildTableData,
-} from '../../util/tableRows.js'
+import { ERROR_NO_VALID_DATA, buildTableData } from '../../util/tableRows.js'
 import { compareColumnOptionValues, compareRows } from '../../util/tableSort.js'
 
 const ERROR_NO_HEADERS = 'NO_HEADERS'
 
 const getErrorCodeText = (code) => {
     switch (code) {
-        case ERROR_SERVER_CLUSTER:
-            return i18n.t(
-                'Data table is not supported when events are grouped on the server.'
-            )
         case ERROR_NO_VALID_DATA:
             return i18n.t(
                 'No valid data was found for the current layer configuration.'
@@ -306,7 +298,9 @@ export const useTableData = ({
         aggregationType?.length &&
         (!aggregations || aggregations === EMPTY_AGGREGATIONS)
     const isExtendingEvents =
-        layerType === EVENT_LAYER && !layer.isExtended && !serverCluster
+        layerType === EVENT_LAYER &&
+        !layer.isExtended &&
+        !!(!serverCluster || layer.forceClientCluster)
     const isLoading = isLoadingAggregations || isExtendingEvents
     let loadingReason = null
     if (isLoadingAggregations) {
