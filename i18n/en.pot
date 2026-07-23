@@ -155,6 +155,18 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Date"
 
+msgid "{{filtered}} of {{total}} rows"
+msgstr "{{filtered}} of {{total}} rows"
+
+msgid "{{total}} rows"
+msgstr "{{total}} rows"
+
+msgid "Clear filters"
+msgstr "Clear filters"
+
+msgid "Close"
+msgstr "Close"
+
 msgid "No results found"
 msgstr "No results found"
 
@@ -166,6 +178,18 @@ msgstr "Something went wrong"
 
 msgid "Search"
 msgstr "Search"
+
+msgid "Drill up one level"
+msgstr "Drill up one level"
+
+msgid "Drill down one level"
+msgstr "Drill down one level"
+
+msgid "View profile"
+msgstr "View profile"
+
+msgid "Zoom to feature"
+msgstr "Zoom to feature"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
@@ -260,9 +284,6 @@ msgstr "Map download is not supported by your browser. Try Google Chrome or Fire
 
 msgid "Cancel"
 msgstr "Cancel"
-
-msgid "Close"
-msgstr "Close"
 
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
@@ -773,15 +794,6 @@ msgstr "Selected org units: No coordinates found"
 
 msgid "Error"
 msgstr "Error"
-
-msgid "Drill up one level"
-msgstr "Drill up one level"
-
-msgid "Drill down one level"
-msgstr "Drill down one level"
-
-msgid "View profile"
-msgstr "View profile"
 
 msgid "Show longitude/latitude"
 msgstr "Show longitude/latitude"

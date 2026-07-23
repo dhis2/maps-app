@@ -1,6 +1,7 @@
 import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
+import { formatWithSeparator } from './numbers.js'
 
 export const EVENT_ID_FIELD = 'psi'
 
@@ -232,6 +233,14 @@ export const getGeojsonDisplayData = (feature) => {
             }
         })
 }
+
+export const getGeojsonFeatureProfile = (feature, name, separator) => ({
+    name,
+    data: getGeojsonDisplayData(feature).reduce((acc, { dataKey, value }) => {
+        acc[dataKey] = formatWithSeparator(value, separator)
+        return acc
+    }, {}),
+})
 
 // Ensure that we are always working with a FeatureCollection
 export const buildGeoJsonFeatures = (geoJson) => {
