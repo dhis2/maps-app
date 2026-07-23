@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { WARNING_EXTERNAL_LAYER_NOT_FOUND } from '../constants/alerts.js'
 import { parseLayerConfig } from '../util/external.js'
 import {
     buildGeoJsonFeatures,
@@ -72,10 +73,18 @@ const geoJsonUrlLoader = async ({
     let newConfig
     let featureStyle
     let dataTableColumnConfig
+    const alerts = []
     // keep featureStyle and dataTableColumnConfig properties outside of config while in app
     if (typeof config === 'string') {
         // External layer is loaded in analytical object
-        newConfig = await parseLayerConfig(config, engine)
+        const parsed = await parseLayerConfig(config, engine)
+        newConfig = parsed.config
+        if (parsed.notFound) {
+            alerts.push({
+                code: WARNING_EXTERNAL_LAYER_NOT_FOUND,
+                message: layer.name,
+            })
+        }
         featureStyle = { ...newConfig.featureStyle } || EMPTY_FEATURE_STYLE
         dataTableColumnConfig = newConfig.dataTableColumnConfig
         delete newConfig.featureStyle
@@ -153,6 +162,7 @@ const geoJsonUrlLoader = async ({
         isLoading: false,
         isExpanded: true,
         loadError,
+        ...(alerts.length ? { alerts } : {}),
     }
 }
 
