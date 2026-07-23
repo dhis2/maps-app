@@ -363,9 +363,6 @@ describe('useTableData headers', () => {
     })
 
     test('adds a defaultHidden raw-value-only column for every other period, for a timeline thematic layer', () => {
-        // Period columns exist for every period regardless of any saved
-        // config - they're just hidden by default (defaultHidden), same
-        // mechanism as any other column, controlled via the column picker.
         const store = {
             aggregations: {},
             ui: {
@@ -408,8 +405,6 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows } = result.current
-        // The active period (February 2023) is the Value/Legend/Range/Color
-        // columns, not a separate period_* column.
         expect(headers).not.toContainEqual(
             expect.objectContaining({ dataKey: 'period_202302_rawValue' })
         )
