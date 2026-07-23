@@ -89,7 +89,7 @@ export const useLayersLoader = () => {
                     layer.layer === EVENT_LAYER &&
                     layer.id === dataTable &&
                     !layer.isExtended &&
-                    !layer.serverCluster
+                    (!layer.serverCluster || layer.forceClientCluster)
                 ) {
                     return true
                 }
