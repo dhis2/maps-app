@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-18T09:56:04.530Z\n"
-"PO-Revision-Date: 2026-07-18T09:56:04.530Z\n"
+"POT-Creation-Date: 2026-07-23T11:59:37.478Z\n"
+"PO-Revision-Date: 2026-07-23T11:59:37.479Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -322,45 +322,6 @@ msgstr ""
 
 msgid "No valid data fields were found for this layer."
 msgstr "No valid data fields were found for this layer."
-
-msgid "Id"
-msgstr "Id"
-
-msgid "Level"
-msgstr "Level"
-
-msgid "Parent"
-msgstr "Parent"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Legend"
-msgstr "Legend"
-
-msgid "Range"
-msgstr "Range"
-
-msgid "Org unit"
-msgstr "Org unit"
-
-msgid "Org unit boundary"
-msgstr "Org unit boundary"
-
-msgid "Event time"
-msgstr "Event time"
-
-msgid "Group"
-msgstr "Group"
-
-msgid "Icon"
-msgstr "Icon"
-
-msgid "Current period"
-msgstr "Current period"
-
-msgid "Value ({{period}})"
-msgstr "Value ({{period}})"
 
 msgid "Loading Earth Engine data…"
 msgstr "Loading Earth Engine data…"
@@ -920,6 +881,9 @@ msgstr[1] "{{n}} org units without coordinates"
 msgid "Selected org units: No coordinates found"
 msgstr "Selected org units: No coordinates found"
 
+msgid "External layer definition not found, showing last known settings"
+msgstr "External layer definition not found, showing last known settings"
+
 msgid "Error"
 msgstr "Error"
 
@@ -951,11 +915,17 @@ msgstr "Could not retrieve event data"
 msgid "Organisation unit"
 msgstr "Organisation unit"
 
+msgid "Event time"
+msgstr "Event time"
+
 msgid "Groups"
 msgstr "Groups"
 
 msgid "Parent unit"
 msgstr "Parent unit"
+
+msgid "Level"
+msgstr "Level"
 
 msgid "Not set"
 msgstr "Not set"
@@ -1082,6 +1052,9 @@ msgstr "No data found for this period."
 msgid "Image of the organisation unit"
 msgstr "Image of the organisation unit"
 
+msgid "Parent"
+msgstr "Parent"
+
 msgid "Code"
 msgstr "Code"
 
@@ -1200,6 +1173,9 @@ msgstr "Click to unpin legend"
 
 msgid "Click to pin legend"
 msgstr "Click to pin legend"
+
+msgid "Legend"
+msgstr "Legend"
 
 msgid "Hide layer"
 msgstr "Hide layer"
@@ -2064,6 +2040,33 @@ msgstr "Facility"
 
 msgid "GroupSet used for styling was not found"
 msgstr "GroupSet used for styling was not found"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Org unit boundary"
+msgstr "Org unit boundary"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Current period"
+msgstr "Current period"
+
+msgid "Value ({{period}})"
+msgstr "Value ({{period}})"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"
