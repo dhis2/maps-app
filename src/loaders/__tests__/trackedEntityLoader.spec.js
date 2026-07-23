@@ -25,6 +25,24 @@ describe('getAttributeProperties', () => {
         expect(getAttributeProperties(undefined)).toEqual({})
         expect(getAttributeProperties([])).toEqual({})
     })
+
+    it('coerces a numeric-valueType attribute value to a real number', () => {
+        const attributes = [
+            { attribute: 'ageUid', value: '34', valueType: 'INTEGER' },
+            { attribute: 'nameUid', value: 'Gabrielle', valueType: 'TEXT' },
+        ]
+        expect(getAttributeProperties(attributes)).toEqual({
+            ageUid: 34,
+            nameUid: 'Gabrielle',
+        })
+    })
+
+    it('leaves a numeric-valueType value with no data as undefined, not NaN', () => {
+        const attributes = [
+            { attribute: 'ageUid', value: '', valueType: 'INTEGER' },
+        ]
+        expect(getAttributeProperties(attributes).ageUid).toBeUndefined()
+    })
 })
 
 describe('getAttributeHeaders', () => {
