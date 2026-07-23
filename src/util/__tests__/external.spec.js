@@ -9,6 +9,7 @@ import {
 import {
     createExternalBasemapLayer,
     createExternalOverlayLayer,
+    parseLayerConfig,
 } from '../external.js'
 
 describe('createExternalBasemapLayer', () => {
@@ -252,5 +253,70 @@ describe('createExternalOverlayLayer', () => {
                 format: 'image/jpeg',
             },
         })
+    })
+})
+
+describe('parseLayerConfig', () => {
+    test('returns an empty config instead of throwing on malformed JSON', async () => {
+        await expect(parseLayerConfig('not-valid-json', {})).resolves.toEqual({
+            config: {},
+        })
+    })
+
+    test('does not throw when the JSON parses to null', async () => {
+        await expect(parseLayerConfig('null', {})).resolves.toEqual({
+            config: null,
+        })
+    })
+
+    test('returns the local config unchanged when it has no id (nothing to refresh)', async () => {
+        const config = { url: 'https://path-to-geojson', name: 'Local' }
+        await expect(
+            parseLayerConfig(JSON.stringify(config), {})
+        ).resolves.toEqual({ config })
+    })
+
+    test('returns a freshly-fetched config on success, carrying featureStyle/dataTableColumnConfig forward', async () => {
+        const localConfig = {
+            id: 'ext-1',
+            featureStyle: { color: '#ff0000' },
+            dataTableColumnConfig: { visibleKeys: ['name'] },
+        }
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                externalLayer: {
+                    id: 'ext-1',
+                    name: 'Fresh name',
+                    url: 'https://fresh-url',
+                    mapService: 'XYZ',
+                    imageFormat: 'PNG',
+                },
+            }),
+        }
+
+        const result = await parseLayerConfig(
+            JSON.stringify(localConfig),
+            engine
+        )
+
+        expect(result.notFound).toBeUndefined()
+        expect(result.config).toMatchObject({
+            id: 'ext-1',
+            name: 'Fresh name',
+            url: 'https://fresh-url',
+            featureStyle: { color: '#ff0000' },
+            dataTableColumnConfig: { visibleKeys: ['name'] },
+        })
+    })
+
+    test('falls back to the local config and flags notFound when the API fetch fails', async () => {
+        const localConfig = { id: 'deleted-layer', url: 'https://stale-url' }
+        const engine = {
+            query: jest.fn().mockRejectedValue(new Error('404')),
+        }
+
+        await expect(
+            parseLayerConfig(JSON.stringify(localConfig), engine)
+        ).resolves.toEqual({ config: localConfig, notFound: true })
     })
 })
