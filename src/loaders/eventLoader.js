@@ -244,9 +244,7 @@ const loadEventLayer = async ({
 
     const dataFilters = getFiltersFromColumns(columns)
 
-    // Request setup only - config.isExtended (the UI-facing "table has its
-    // extended dataset" flag) is set further down, once we know whether
-    // server clustering will actually skip loading that dataset.
+    // Request setup only - config.isExtended is set further dow
     const analyticsRequest = await getAnalyticsRequest(
         { ...config, isExtended: loadExtended },
         {
@@ -302,7 +300,7 @@ const loadEventLayer = async ({
     }
 
     // The extended (data table) dataset is only actually loaded below when
-    // server clustering isn't in effect - don't claim it's ready otherwise.
+    // server clustering isn't in effect - don't claim it's ready otherwise
     config.isExtended = loadExtended && !config.serverCluster
 
     // Load event data
@@ -448,11 +446,6 @@ const loadEventLayer = async ({
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
-                // Server clustering isn't capped, so the true total
-                // (serverCount) is accurate. Once rendering client-side
-                // (whether never server-clustered, or forced via
-                // forceClientCluster), only the loaded/capped data reflects
-                // what's actually shown.
                 count: config.serverCluster
                     ? serverCount
                     : Array.isArray(config?.data)
