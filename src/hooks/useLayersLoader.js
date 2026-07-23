@@ -34,6 +34,7 @@ export const useLayersLoader = () => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
         currentUser,
+        spatialSupport,
     } = useCachedData()
     const { showAlerts } = useLoaderAlerts()
     const allLayers = useSelector((state) => state.map.mapViews)
@@ -65,6 +66,7 @@ export const useLayersLoader = () => {
                 periodTypeData, // Thematic and Event loader
                 serverVersion, // Tracked entity loader
                 loadExtended: !!dataTable, // Event loader
+                spatialSupport, // Event loader
             })
             if (result.alerts) {
                 showAlerts(result.alerts)
@@ -128,5 +130,6 @@ export const useLayersLoader = () => {
         baseUrl,
         dataTable,
         serverVersion,
+        spatialSupport,
     ])
 }
