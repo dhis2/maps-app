@@ -23,9 +23,19 @@ const query = {
             fields: `${CURRENT_USER_FIELDS},settings[keyAnalysisDisplayProperty]`,
         },
     },
+    systemInfo: {
+        resource: 'system/info',
+        params: {
+            fields: 'databaseInfo[spatialSupport]',
+        },
+    },
 }
 
-const providerDataTransformation = ({ systemSettings, currentUser }) => {
+const providerDataTransformation = ({
+    systemSettings,
+    currentUser,
+    systemInfo,
+}) => {
     return {
         systemSettings: {
             ...DEFAULT_SYSTEM_SETTINGS,
@@ -47,6 +57,7 @@ const providerDataTransformation = ({ systemSettings, currentUser }) => {
             currentUser.settings.keyAnalysisDisplayProperty === 'name'
                 ? 'displayName'
                 : 'displayShortName',
+        spatialSupport: systemInfo.databaseInfo?.spatialSupport,
     }
 }
 
