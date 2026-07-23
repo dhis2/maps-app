@@ -893,6 +893,8 @@ describe('eventLoader - isExtended vs serverCluster', () => {
         expect(result.serverCluster).toBe(true)
         expect(result.isExtended).toBe(false)
         expect(result.data).toBeUndefined()
+        // Server clustering isn't capped - the legend shows the true total.
+        expect(result.legend.items[0].count).toBe(overThreshold)
     })
 
     test('forceClientCluster loads the extended dataset instead of staying server-clustered', async () => {
@@ -903,5 +905,8 @@ describe('eventLoader - isExtended vs serverCluster', () => {
         expect(result.serverCluster).toBe(false)
         expect(result.isExtended).toBe(true)
         expect(result.data).toEqual([])
+        // Once rendering client-side, the legend must reflect what was
+        // actually loaded (capped), not the raw analytics total.
+        expect(result.legend.items[0].count).toBe(0)
     })
 })
