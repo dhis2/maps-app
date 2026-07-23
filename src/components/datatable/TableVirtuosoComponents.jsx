@@ -55,12 +55,25 @@ DataTableRowWithVirtuosoContext.propTypes = {
     ),
 }
 
-const EmptyPlaceholder = ({ context }) => (
+export const EmptyPlaceholder = ({ context }) => (
     <tbody>
         <tr>
             <td colSpan={99999}>
                 <div className={styles.noResults}>
-                    {context.totalCount > 0 ? (
+                    {context.showServerClusterAction ? (
+                        <>
+                            {i18n.t(
+                                "Event details aren't available while this layer is clustered on the server"
+                            )}
+                            <button
+                                type="button"
+                                className={styles.clearFiltersLink}
+                                onClick={context.onForceClientCluster}
+                            >
+                                {i18n.t('Show event details')}
+                            </button>
+                        </>
+                    ) : context.totalCount > 0 ? (
                         <>
                             {i18n.t('No features match your filters')}
                             {context.hasActiveFilters && (
@@ -85,8 +98,10 @@ const EmptyPlaceholder = ({ context }) => (
 EmptyPlaceholder.propTypes = {
     context: PropTypes.shape({
         hasActiveFilters: PropTypes.bool,
+        showServerClusterAction: PropTypes.bool,
         totalCount: PropTypes.number,
         onClearFilters: PropTypes.func,
+        onForceClientCluster: PropTypes.func,
     }),
 }
 
