@@ -4,12 +4,16 @@ import {
     USER_ORG_UNIT_GRANDCHILDREN,
 } from '@dhis2/analytics'
 import { WARNING_OU_BOUNDARIES_FETCH_FAILED } from '../../constants/alerts.js'
+import { EVENT_SERVER_CLUSTER_COUNT } from '../../constants/layers.js'
 import { getUserOrgUnitIdsByKeyword } from '../../util/orgUnits.js'
 import {
     GEOFEATURES_QUERY,
     ORG_UNITS_PATHS_QUERY,
 } from '../../util/requests.js'
-import { excludeEventsOutsideOrgUnits } from '../eventLoader.js'
+import {
+    excludeEventsOutsideOrgUnits,
+    shouldUseServerCluster,
+} from '../eventLoader.js'
 
 // [0,0]-[10,10]
 const SQUARE_A = [
@@ -727,5 +731,75 @@ describe('excludeEventsOutsideOrgUnits', () => {
         })
 
         expect(config.legend.orgUnitsWithoutBoundaryCount).toBeUndefined()
+    })
+})
+
+describe('shouldUseServerCluster', () => {
+    const overThreshold = EVENT_SERVER_CLUSTER_COUNT + 1
+
+    test('returns true when over threshold and the backend supports spatial clustering', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: true,
+            })
+        ).toBe(true)
+    })
+
+    test('returns false when over threshold but the backend has no spatial support', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: false,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when over threshold but spatialSupport is undefined (fails closed)', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: undefined,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when under threshold, regardless of spatialSupport', () => {
+        expect(
+            shouldUseServerCluster({
+                count: EVENT_SERVER_CLUSTER_COUNT,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: true,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when countFeaturesWithoutCoordinates is set, regardless of spatialSupport', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: true,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: true,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when countEventsOutsideOrgUnits is set, regardless of spatialSupport', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: true,
+                spatialSupport: true,
+            })
+        ).toBe(false)
     })
 })
