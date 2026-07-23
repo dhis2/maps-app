@@ -575,6 +575,61 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    test('is not "extending" a server-clustered event layer that has not been forced to client-cluster', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            serverCluster: true,
+            isExtended: false,
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        expect(result.current.isLoading).toBe(false)
+        expect(result.current.loadingReason).toBeNull()
+    })
+
+    test('shows "Loading additional events…" while forceClientCluster reload is in flight', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            serverCluster: true,
+            forceClientCluster: true,
+            isExtended: false,
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        expect(result.current.isLoading).toBe(true)
+        expect(result.current.loadingReason).toBe('Loading additional events…')
+    })
+
     test('gets headers and rows for tracked entity layer', () => {
         const store = {
             aggregations: {},
