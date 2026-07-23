@@ -126,6 +126,16 @@ const layer = (state, action) => {
                 isVisible: !state.isVisible,
             }
 
+        case types.LAYER_FORCE_CLIENT_CLUSTER_SET:
+            if (state.id !== action.id) {
+                return state
+            }
+
+            return {
+                ...state,
+                forceClientCluster: true,
+            }
+
         case types.LAYER_TOGGLE_EXPAND:
             if (state.id !== action.id) {
                 return state
@@ -322,6 +332,7 @@ const map = (state = defaultState, action) => {
         case types.LAYER_CHANGE_OPACITY:
         case types.LAYER_TOGGLE_VISIBILITY:
         case types.LAYER_TOGGLE_EXPAND:
+        case types.LAYER_FORCE_CLIENT_CLUSTER_SET:
         case types.DATA_FILTER_SET:
         case types.DATA_FILTER_CLEAR:
         case types.DATA_FILTERS_CLEAR_ALL:
