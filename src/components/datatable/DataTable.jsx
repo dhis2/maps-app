@@ -22,6 +22,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { setSelectionFilter } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
+import { setForceClientCluster } from '../../actions/layers.js'
 import {
     toggleFeatureSelection,
     selectFeatureRange,
@@ -289,6 +290,14 @@ const Table = ({
         showOnlyFeaturesInView,
     })
 
+    const showServerClusterAction =
+        layer.serverCluster && !layer.forceClientCluster
+
+    const onForceClientCluster = useCallback(
+        () => dispatch(setForceClientCluster(layer.id)),
+        [dispatch, layer.id]
+    )
+
     const tableContext = useMemo(
         () => ({
             onMouseEnter: setFeatureHighlight,
@@ -300,6 +309,8 @@ const Table = ({
             totalCount,
             hasActiveFilters,
             onClearFilters,
+            showServerClusterAction,
+            onForceClientCluster,
         }),
         [
             setFeatureHighlight,
@@ -311,6 +322,8 @@ const Table = ({
             totalCount,
             hasActiveFilters,
             onClearFilters,
+            showServerClusterAction,
+            onForceClientCluster,
         ]
     )
 
