@@ -1,9 +1,6 @@
 import { GEOJSON_URL_LAYER, THEMATIC_LAYER } from '../../constants/layers.js'
 import { buildTableData, ERROR_NO_VALID_DATA } from '../tableRows.js'
 
-// Thematic-layer-shaped feature: id is stamped on both the top level (which
-// is what aggregations are keyed by) and properties (see the deferred
-// id-placement inconsistency called out for this codebase's loaders).
 const feature = (id, extraProperties = {}, coordinates = [10, 10]) => ({
     id,
     geometry: { type: 'Point', coordinates },
