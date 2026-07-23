@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-23T11:59:37.478Z\n"
-"PO-Revision-Date: 2026-07-23T11:59:37.479Z\n"
+"POT-Creation-Date: 2026-07-23T13:14:41.110Z\n"
+"PO-Revision-Date: 2026-07-23T13:14:41.111Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -253,6 +253,12 @@ msgstr "Zoom to selected features"
 msgid "Zoom to filtered features"
 msgstr "Zoom to filtered features"
 
+msgid "Event details aren't available while this layer is clustered on the server"
+msgstr "Event details aren't available while this layer is clustered on the server"
+
+msgid "Show event details"
+msgstr "Show event details"
+
 msgid "No features match your filters"
 msgstr "No features match your filters"
 
@@ -306,9 +312,6 @@ msgstr "{{total}} rows"
 
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
-
-msgid "Data table is not supported when events are grouped on the server."
-msgstr "Data table is not supported when events are grouped on the server."
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
