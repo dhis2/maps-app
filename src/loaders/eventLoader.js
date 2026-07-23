@@ -244,13 +244,17 @@ const loadEventLayer = async ({
 
     const dataFilters = getFiltersFromColumns(columns)
 
-    config.isExtended = loadExtended
-
-    const analyticsRequest = await getAnalyticsRequest(config, {
-        analyticsEngine,
-        nameProperty: displayNameProp,
-        engine,
-    })
+    // Request setup only - config.isExtended (the UI-facing "table has its
+    // extended dataset" flag) is set further down, once we know whether
+    // server clustering will actually skip loading that dataset.
+    const analyticsRequest = await getAnalyticsRequest(
+        { ...config, isExtended: loadExtended },
+        {
+            analyticsEngine,
+            nameProperty: displayNameProp,
+            engine,
+        }
+    )
     const alerts = []
 
     // Legend skeleton
@@ -296,6 +300,10 @@ const loadEventLayer = async ({
               })
         serverCount = response.count
     }
+
+    // The extended (data table) dataset is only actually loaded below when
+    // server clustering isn't in effect - don't claim it's ready otherwise.
+    config.isExtended = loadExtended && !config.serverCluster
 
     // Load event data
     // -----
