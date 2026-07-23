@@ -440,17 +440,20 @@ const loadEventLayer = async ({
         const color = cssColor(eventPointColor) || EVENT_COLOR
         const strokeColor = getContrastColor(color)
 
+        let count = 0
+        if (config.serverCluster) {
+            count = serverCount
+        } else if (Array.isArray(config?.data)) {
+            count = config.data.length
+        }
+
         config.legend.items = [
             {
                 name: i18n.t('Event'),
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
-                count: config.serverCluster
-                    ? serverCount
-                    : Array.isArray(config?.data)
-                    ? config.data.length
-                    : 0,
+                count,
             },
         ]
     }
