@@ -146,7 +146,10 @@ export const buildRowCells = (item, headers) =>
         const value = roundFn ? roundFn(item[dataKey]) : item[dataKey]
         return {
             dataKey,
-            value: type === TYPE_NUMBER && isNaN(value) ? null : value,
+            value:
+                type === TYPE_NUMBER && Number.isNaN(Number(value))
+                    ? null
+                    : value,
             align: type === TYPE_NUMBER ? 'right' : 'left',
             itemId: item.id,
         }
