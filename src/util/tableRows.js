@@ -41,7 +41,13 @@ export const buildTableData = (
         : allData
 
     if (layerType === GEOJSON_URL_LAYER) {
-        return { data: inViewData.map((d) => ({ ...d.properties })) }
+        return {
+            data: inViewData.map((d, index) => ({
+                ...d.properties,
+                // Row-order tie-breaker for compareRows when no sortField is set
+                index,
+            })),
+        }
     }
 
     const rows = inViewData

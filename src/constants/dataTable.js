@@ -7,6 +7,7 @@ export const SORT_DESCENDING = 'desc'
 
 export const RENDERER_COLOR = 'rendercolor'
 export const RENDERER_ICON = 'rendericon'
+export const RENDERER_DATE = 'renderdate'
 
 export const TYPE_NUMBER = 'number'
 export const TYPE_STRING = 'string'
