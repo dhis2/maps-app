@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
-"PO-Revision-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-07-13T09:39:24.427Z\n"
+"PO-Revision-Date: 2026-07-13T09:39:24.427Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -161,14 +161,32 @@ msgstr "{{filtered}} of {{total}} rows"
 msgid "{{total}} rows"
 msgstr "{{total}} rows"
 
+msgid "Restore"
+msgstr "Restore"
+
+msgid "Collapse"
+msgstr "Collapse"
+
 msgid "Clear filters"
 msgstr "Clear filters"
+
+msgid "Show only features in current map view"
+msgstr "Show only features in current map view"
+
+msgid "Show only selected features"
+msgstr "Show only selected features"
+
+msgid "Highlight color"
+msgstr "Highlight color"
 
 msgid "Close"
 msgstr "Close"
 
 msgid "No results found"
 msgstr "No results found"
+
+msgid "Select all"
+msgstr "Select all"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
@@ -190,6 +208,12 @@ msgstr "View profile"
 
 msgid "Zoom to feature"
 msgstr "Zoom to feature"
+
+msgid "Zoom to layer"
+msgstr "Zoom to layer"
+
+msgid "Zoom to selected features"
+msgstr "Zoom to selected features"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
@@ -642,9 +666,6 @@ msgid ""
 msgstr ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
-
-msgid "Collapse"
-msgstr "Collapse"
 
 msgid "Expand"
 msgstr "Expand"

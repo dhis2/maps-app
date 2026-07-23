@@ -8,6 +8,9 @@ import {
     DURATION_DEFAULT,
 } from '../../../constants/layers.js'
 
+export const idsEqual = (a, b) =>
+    a.length === b.length && a.every((id, i) => id === b[i])
+
 class Layer extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
@@ -16,16 +19,22 @@ class Layer extends PureComponent {
 
     static propTypes = {
         id: PropTypes.string.isRequired,
+        clickFeature: PropTypes.func,
         config: PropTypes.object,
         data: PropTypes.array,
         dataFilters: PropTypes.object,
         editCounter: PropTypes.number,
         externalPeriod: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
         feature: PropTypes.object,
+        highlightColor: PropTypes.string,
+        highlightFeature: PropTypes.func,
         index: PropTypes.number,
         isVisible: PropTypes.bool,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
+        selection: PropTypes.object,
+        showOnlySelected: PropTypes.bool,
+        toggleFeatureSelection: PropTypes.func,
     }
 
     static defaultProps = {
@@ -42,50 +51,111 @@ class Layer extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState = {}) {
-        const {
-            id,
-            data,
-            index,
-            opacity,
-            isVisible,
-            editCounter,
-            dataFilters,
-            feature,
-        } = this.props
+        this.handleDataOrPeriodChange(prevProps, prevState)
+        this.handleIndexChange(prevProps)
+        this.handleOpacityChange(prevProps)
+        this.handleVisibilityChange(prevProps)
+        this.handleFeatureChange(prevProps)
+        this.handleSelectionChange(prevProps)
+        this.handleHighlightColorChange(prevProps)
+        this.handleVisibleIdsChange(prevProps)
+    }
+
+    // Create new map if new id of editCounter is increased
+    handleDataOrPeriodChange(prevProps, prevState = {}) {
+        const { id, data, dataFilters, editCounter } = this.props
         const { period } = this.state
         const { period: prevPeriod } = prevState || {}
         const isEdited = editCounter !== prevProps.editCounter
 
-        // Create new map if new id of editCounter is increased
         if (
-            id !== prevProps.id ||
-            data !== prevProps.data ||
-            period?.id !== prevPeriod?.id ||
-            dataFilters !== prevProps.dataFilters ||
-            isEdited
+            id === prevProps.id &&
+            data === prevProps.data &&
+            period?.id === prevPeriod?.id &&
+            dataFilters === prevProps.dataFilters &&
+            !isEdited
         ) {
-            // Reset period if edited
-            if (isEdited) {
-                this.setPeriod(this.updateLayer.bind(this))
-            } else {
-                this.updateLayer(dataFilters !== prevProps.dataFilters)
-            }
+            return
         }
 
+        // Reset period if edited
+        if (isEdited) {
+            this.setPeriod(this.updateLayer.bind(this))
+        } else {
+            this.updateLayer(dataFilters !== prevProps.dataFilters)
+        }
+    }
+
+    handleIndexChange(prevProps) {
+        const { index } = this.props
         if (index !== undefined && index !== prevProps.index) {
             this.setLayerOrder()
         }
+    }
 
-        if (opacity !== prevProps.opacity) {
+    handleOpacityChange(prevProps) {
+        if (this.props.opacity !== prevProps.opacity) {
             this.setLayerOpacity()
         }
+    }
 
-        if (isVisible !== prevProps.isVisible) {
+    handleVisibilityChange(prevProps) {
+        if (this.props.isVisible !== prevProps.isVisible) {
             this.setLayerVisibility()
         }
+    }
 
-        if (feature !== prevProps.feature) {
-            this.handleFeatureUpdate(feature)
+    handleFeatureChange(prevProps) {
+        const { feature } = this.props
+        if (feature === prevProps.feature) {
+            return
+        }
+
+        this.handleFeatureUpdate(feature)
+
+        if (this.getHoverId(prevProps.feature) !== this.getHoverId(feature)) {
+            this.highlightFeature()
+        }
+    }
+
+    handleSelectionChange(prevProps) {
+        const { selection } = this.props
+        if (
+            selection !== prevProps.selection &&
+            !idsEqual(
+                this.getSelectedIds(prevProps.selection),
+                this.getSelectedIds(selection)
+            )
+        ) {
+            this.selectFeatures()
+        }
+    }
+
+    handleHighlightColorChange(prevProps) {
+        if (this.props.highlightColor === prevProps.highlightColor) {
+            return
+        }
+
+        if (this.getHoverId()) {
+            this.highlightFeature()
+        }
+        if (this.getSelectedIds().length) {
+            this.selectFeatures()
+        }
+    }
+
+    handleVisibleIdsChange(prevProps) {
+        const { selection, showOnlySelected } = this.props
+        if (
+            !idsEqual(
+                this.getVisibleIds(
+                    prevProps.selection,
+                    prevProps.showOnlySelected
+                ) ?? [],
+                this.getVisibleIds(selection, showOnlySelected) ?? []
+            )
+        ) {
+            this.updateVisibleIds()
         }
     }
 
@@ -115,7 +185,9 @@ class Layer extends PureComponent {
         await this.createLayer(true)
         this.setLayerOrder()
         this.setLayerVisibility()
-        this.highlightFeature(this.props.feature)
+        this.highlightFeature()
+        this.selectFeatures()
+        this.updateVisibleIds()
     }
 
     // Override in subclass if needed
@@ -185,26 +257,90 @@ class Layer extends PureComponent {
     }
 
     handleFeatureUpdate(feature) {
-        this.highlightFeature(feature)
         if (feature?.zoom && feature?.layerId === this.props.id) {
-            this.panToFeature(feature.id)
+            if (feature.ids?.length) {
+                this.panToFeature(feature.ids)
+            } else if (feature.id != null) {
+                this.panToFeature(feature.id)
+            } else {
+                this.fitBounds()
+            }
         }
     }
 
-    highlightFeature(feature) {
-        if (this.layer?.highlight) {
-            this.layer.highlight(feature ? feature.id : null)
+    getHoverId(feature = this.props.feature) {
+        return feature?.layerId === this.props.id ? feature.id : null
+    }
+
+    getSelectedIds(selection = this.props.selection) {
+        return selection?.layerId === this.props.id ? selection.ids : []
+    }
+
+    highlightFeature() {
+        this.layer?.highlight?.(this.getHoverId(), this.props.highlightColor)
+    }
+
+    selectFeatures() {
+        this.layer?.select?.(this.getSelectedIds(), this.props.highlightColor)
+    }
+
+    getVisibleIds(
+        selection = this.props.selection,
+        showOnlySelected = this.props.showOnlySelected
+    ) {
+        if (!showOnlySelected || selection?.layerId !== this.props.id) {
+            return null
+        }
+        return this.getSelectedIds(selection)
+    }
+
+    updateVisibleIds() {
+        this.layer?.setVisibleIds?.(this.getVisibleIds())
+    }
+
+    onFeatureLeftClick(evt) {
+        const id = evt.feature?.properties?.id
+
+        if (!id) {
+            return
+        }
+
+        this.props.clickFeature?.({ id, layerId: this.props.id })
+
+        if (this.isMultiSelectClick(evt)) {
+            this.props.toggleFeatureSelection?.(id, this.props.id)
         }
     }
 
-    panToFeature(featureId) {
+    isMultiSelectClick(evt) {
+        return Boolean(evt.ctrlKey || evt.metaKey)
+    }
+
+    onFeatureMouseEnter(evt) {
+        const id = evt.feature?.properties?.id
+
+        if (id) {
+            this.props.highlightFeature?.({
+                id,
+                layerId: this.props.id,
+                origin: 'map',
+            })
+        }
+    }
+
+    onFeatureMouseLeave() {
+        this.props.highlightFeature?.(null)
+    }
+
+    panToFeature(featureIds) {
         if (!this.layer?.getFeaturesById) {
             return
         }
-        const features = this.layer
-            .getFeaturesById(featureId)
-            ?.filter((f) => f.geometry)
-        if (!features?.length) {
+        const ids = Array.isArray(featureIds) ? featureIds : [featureIds]
+        const features = ids
+            .flatMap((id) => this.layer.getFeaturesById(id) ?? [])
+            .filter((f) => f.geometry)
+        if (!features.length) {
             return
         }
 
@@ -245,6 +381,11 @@ class Layer extends PureComponent {
         const { left, top } = container.getBoundingClientRect()
         const isSplitView =
             renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+        const id = evt.feature?.properties?.id
+
+        if (id) {
+            this.props.clickFeature?.({ id, layerId: this.props.id })
+        }
 
         this.props.openContextMenu({
             ...evt,

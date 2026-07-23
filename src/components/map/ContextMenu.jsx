@@ -23,6 +23,8 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
     EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
 import { getGeojsonFeatureProfile } from '../../util/geojson.js'
@@ -43,6 +45,7 @@ const ContextMenu = (props) => {
         layerConfig,
         coordinates,
         earthEngineLayers,
+        selectedIds,
         position,
         offset,
         closeContextMenu,
@@ -60,6 +63,9 @@ const ContextMenu = (props) => {
 
     const isSplitView =
         layerConfig?.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+
+    const supportsProfileAndDrill =
+        layerType !== EVENT_LAYER && layerType !== TRACKED_ENTITY_LAYER
 
     const left = offset[0] + position[0]
     const top = offset[1] + position[1]
@@ -117,6 +123,21 @@ const ContextMenu = (props) => {
                     zoom: true,
                 })
                 break
+            case 'zoom_to_layer':
+                highlightFeature({
+                    layerId: layerConfig.id,
+                    origin: 'map',
+                    zoom: true,
+                })
+                break
+            case 'zoom_to_selected':
+                highlightFeature({
+                    ids: selectedIds,
+                    layerId: layerConfig.id,
+                    origin: 'map',
+                    zoom: true,
+                })
+                break
 
             default:
         }
@@ -137,7 +158,8 @@ const ContextMenu = (props) => {
             >
                 <div className={styles.menu}>
                     <Menu dense dataTest="context-menu">
-                        {layerType !== FACILITY_LAYER &&
+                        {supportsProfileAndDrill &&
+                            layerType !== FACILITY_LAYER &&
                             layerType !== GEOJSON_URL_LAYER &&
                             feature && (
                                 <MenuItem
@@ -149,7 +171,8 @@ const ContextMenu = (props) => {
                                 />
                             )}
 
-                        {layerType !== FACILITY_LAYER &&
+                        {supportsProfileAndDrill &&
+                            layerType !== FACILITY_LAYER &&
                             layerType !== GEOJSON_URL_LAYER &&
                             feature && (
                                 <MenuItem
@@ -161,7 +184,7 @@ const ContextMenu = (props) => {
                                 />
                             )}
 
-                        {feature && (
+                        {supportsProfileAndDrill && feature && (
                             <MenuItem
                                 dataTest="context-menu-view-profile"
                                 label={i18n.t('View profile')}
@@ -178,6 +201,23 @@ const ContextMenu = (props) => {
                                 onClick={() => onClick('zoom_to_feature')}
                             />
                         )}
+
+                        {feature && (
+                            <MenuItem
+                                dataTest="context-menu-zoom-to-layer"
+                                label={i18n.t('Zoom to layer')}
+                                icon={<IconZoomIn16 />}
+                                onClick={() => onClick('zoom_to_layer')}
+                            />
+                        )}
+
+                        <MenuItem
+                            dataTest="context-menu-zoom-to-selected"
+                            label={i18n.t('Zoom to selected features')}
+                            icon={<IconZoomIn16 />}
+                            disabled={!selectedIds.length}
+                            onClick={() => onClick('zoom_to_selected')}
+                        />
 
                         {coordinates && !isSplitView && (
                             <MenuItem
@@ -224,14 +264,19 @@ ContextMenu.propTypes = {
     map: PropTypes.object,
     offset: PropTypes.array,
     position: PropTypes.array,
+    selectedIds: PropTypes.array,
 }
 
 export default connect(
-    ({ contextMenu, map }) => ({
+    ({ contextMenu, map, selection }) => ({
         ...contextMenu,
         earthEngineLayers: map.mapViews.filter(
             (view) => view.layer === EARTH_ENGINE_LAYER
         ),
+        selectedIds:
+            selection.layerId === contextMenu?.layerConfig?.id
+                ? selection.ids
+                : [],
     }),
     {
         closeContextMenu,

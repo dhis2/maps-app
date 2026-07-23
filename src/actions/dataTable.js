@@ -13,3 +13,26 @@ export const resizeDataTable = (height) => ({
     type: types.DATA_TABLE_RESIZE,
     height,
 })
+
+export const setMapBounds = (bounds) => ({
+    type: types.MAP_BOUNDS_CHANGED,
+    bounds,
+})
+
+export const toggleShowOnlyFeaturesInView = () => ({
+    type: types.TOGGLE_SHOW_ONLY_IN_VIEW,
+})
+
+export const toggleShowOnlySelected = () => ({
+    type: types.TOGGLE_SHOW_ONLY_SELECTED,
+})
+
+export const setShowOnlySelected = (value) => ({
+    type: types.SHOW_ONLY_SELECTED_SET,
+    value,
+})
+
+export const setHighlightColor = (color) => ({
+    type: types.HIGHLIGHT_COLOR_SET,
+    color,
+})
