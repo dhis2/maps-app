@@ -448,9 +448,16 @@ const loadEventLayer = async ({
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
-                count:
-                    serverCount ||
-                    (Array.isArray(config?.data) ? config.data.length : 0),
+                // Server clustering isn't capped, so the true total
+                // (serverCount) is accurate. Once rendering client-side
+                // (whether never server-clustered, or forced via
+                // forceClientCluster), only the loaded/capped data reflects
+                // what's actually shown.
+                count: config.serverCluster
+                    ? serverCount
+                    : Array.isArray(config?.data)
+                    ? config.data.length
+                    : 0,
             },
         ]
     }
