@@ -8,6 +8,7 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
+import { numberValueTypes } from '../constants/valueTypes.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { parseJsonConfig } from '../util/config.js'
 import {
@@ -17,6 +18,7 @@ import {
     GEO_TYPE_LINE,
     GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
+import { parseWithSeparator } from '../util/numbers.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
@@ -103,7 +105,12 @@ const TRACKED_ENTITY_TYPES_QUERY = {
 
 export const getAttributeProperties = (attributes) =>
     Object.fromEntries(
-        (attributes ?? []).map(({ attribute, value }) => [attribute, value])
+        (attributes ?? []).map(({ attribute, value, valueType }) => [
+            attribute,
+            numberValueTypes.includes(valueType)
+                ? parseWithSeparator(value)
+                : value,
+        ])
     )
 
 export const getAttributeHeaders = (instances) => {
