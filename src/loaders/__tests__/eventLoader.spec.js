@@ -10,7 +10,7 @@ import {
     GEOFEATURES_QUERY,
     ORG_UNITS_PATHS_QUERY,
 } from '../../util/requests.js'
-import {
+import eventLoader, {
     excludeEventsOutsideOrgUnits,
     shouldUseServerCluster,
 } from '../eventLoader.js'
@@ -801,5 +801,107 @@ describe('shouldUseServerCluster', () => {
                 spatialSupport: true,
             })
         ).toBe(false)
+    })
+})
+
+// A minimal chainable stand-in for the real analytics request builder -
+// every method just returns `this` so the request-building chain in
+// util/event.js's getAnalyticsRequest completes without error.
+class FakeAnalyticsRequest {
+    withProgram() {
+        return this
+    }
+    withStage() {
+        return this
+    }
+    withCoordinatesOnly() {
+        return this
+    }
+    withStartDate() {
+        return this
+    }
+    withEndDate() {
+        return this
+    }
+    addPeriodFilter() {
+        return this
+    }
+    withRelativePeriodDate() {
+        return this
+    }
+    addOrgUnitDimension() {
+        return this
+    }
+    addDimension() {
+        return this
+    }
+    withCoordinateField() {
+        return this
+    }
+    withEventStatus() {
+        return this
+    }
+    withPageSize() {
+        return this
+    }
+}
+
+describe('eventLoader - isExtended vs serverCluster', () => {
+    const overThreshold = EVENT_SERVER_CLUSTER_COUNT + 1
+
+    const baseConfig = () => ({
+        program: { id: 'prog1' },
+        programStage: { id: 'stage1', name: 'Stage 1' },
+        columns: [],
+        filters: [],
+        rows: [],
+        eventClustering: true,
+        startDate: '2024-01-01',
+        endDate: '2024-01-31',
+    })
+
+    const makeArgs = (config) => ({
+        config,
+        engine: {
+            query: jest.fn().mockResolvedValue({
+                programStage: { programStageDataElements: [] },
+            }),
+        },
+        keyAnalysisDisplayProperty: 'name',
+        keyAnalysisDigitGroupSeparator: 'NONE',
+        analyticsEngine: {
+            request: FakeAnalyticsRequest,
+            events: {
+                getCount: jest
+                    .fn()
+                    .mockResolvedValue({ count: overThreshold, extent: null }),
+                getQuery: jest.fn().mockResolvedValue({
+                    headers: [],
+                    metaData: { items: {}, pager: { total: 0 } },
+                    rows: [],
+                }),
+            },
+        },
+        periodTypeData: undefined,
+        loadExtended: true,
+        spatialSupport: true,
+    })
+
+    test('does not claim the table has extended data when the layer ends up server-clustered', async () => {
+        const result = await eventLoader(makeArgs(baseConfig()))
+
+        expect(result.serverCluster).toBe(true)
+        expect(result.isExtended).toBe(false)
+        expect(result.data).toBeUndefined()
+    })
+
+    test('forceClientCluster loads the extended dataset instead of staying server-clustered', async () => {
+        const result = await eventLoader(
+            makeArgs({ ...baseConfig(), forceClientCluster: true })
+        )
+
+        expect(result.serverCluster).toBe(false)
+        expect(result.isExtended).toBe(true)
+        expect(result.data).toEqual([])
     })
 })
