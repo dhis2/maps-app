@@ -318,8 +318,11 @@ export const getHeadersForLayer = (layerType, ctx) => {
             // Unlike the other cases, this reads the raw layer data
             // rather than dataWithAggregations
             const rawData = ctx.rawData ?? []
+            const nonMultiType = (type) => type.replaceAll('Multi', '')
             const isHomogenous = rawData.every(
-                (feature) => feature.geometry.type === rawData[0]?.geometry.type
+                (feature) =>
+                    nonMultiType(feature.geometry.type) ===
+                    nonMultiType(rawData[0]?.geometry.type ?? '')
             )
             if (!isHomogenous) {
                 return { errorCode: ERROR_NON_HOMOGENOUS_FEATURES }
