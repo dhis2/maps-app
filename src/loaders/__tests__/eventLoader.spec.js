@@ -804,9 +804,7 @@ describe('shouldUseServerCluster', () => {
     })
 })
 
-// A minimal chainable stand-in for the real analytics request builder -
-// every method just returns `this` so the request-building chain in
-// util/event.js's getAnalyticsRequest completes without error.
+// A minimal chainable stand-in for the real analytics request builder
 class FakeAnalyticsRequest {
     withProgram() {
         return this
