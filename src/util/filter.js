@@ -1,4 +1,7 @@
-import { SENTINEL_ANY_VALUE } from '../constants/dataTable.js'
+import {
+    SENTINEL_ANY_VALUE,
+    SENTINEL_NO_VALUE,
+} from '../constants/dataTable.js'
 
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
@@ -19,11 +22,13 @@ export const filterData = (data, filters) => {
 
             if (Array.isArray(filter)) {
                 // Multi-select: OR match against the raw stored value
-                const stringValue = value == null ? '' : String(value)
+                const stringValue =
+                    value == null ? SENTINEL_NO_VALUE : String(value)
                 return (
                     filter.length === 0 ||
                     filter.includes(stringValue) ||
-                    (stringValue !== '' && filter.includes(SENTINEL_ANY_VALUE))
+                    (stringValue !== SENTINEL_NO_VALUE &&
+                        filter.includes(SENTINEL_ANY_VALUE))
                 )
             }
 
