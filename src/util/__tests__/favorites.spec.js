@@ -501,6 +501,26 @@ describe('cleanMapConfig', () => {
         )
     })
 
+    test('excludes forceClientCluster (session-only, not a valid layer property)', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'event',
+                        name: 'Event layer',
+                        opacity: 1,
+                        serverCluster: true,
+                        forceClientCluster: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty(
+            'forceClientCluster'
+        )
+    })
+
     test('writes hidden: true for a layer with isVisible: false', () => {
         const cleanedConfig = cleanMapConfig({
             config: {
