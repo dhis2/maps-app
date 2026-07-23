@@ -32,6 +32,7 @@ import {
     SORT_ASCENDING,
     RENDERER_COLOR,
     RENDERER_ICON,
+    RENDERER_DATE,
 } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
 import {
@@ -43,6 +44,7 @@ import {
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
+import { formatDatetime } from '../../util/helpers.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import {
     getPinnedCellProps,
@@ -603,6 +605,7 @@ const Table = ({
                                 const renderer = rendererByDataKey.get(dataKey)
                                 const isColorCell = renderer === RENDERER_COLOR
                                 const isIconCell = renderer === RENDERER_ICON
+                                const isDateCell = renderer === RENDERER_DATE
                                 return (
                                     <DataTableCell
                                         key={`dtcell-${dataKey}`}
@@ -640,8 +643,12 @@ const Table = ({
                                                 }}
                                             />
                                         )}
+                                        {isDateCell &&
+                                            value &&
+                                            formatDatetime(value)}
                                         {!isColorCell &&
                                             !isIconCell &&
+                                            !isDateCell &&
                                             formatWithSeparator(
                                                 value,
                                                 keyAnalysisDigitGroupSeparator
