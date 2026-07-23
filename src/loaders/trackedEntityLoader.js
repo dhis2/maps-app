@@ -106,8 +106,6 @@ export const getAttributeProperties = (attributes) =>
         (attributes ?? []).map(({ attribute, value }) => [attribute, value])
     )
 
-// One header per unique attribute uid seen across all instances - not every
-// instance necessarily has a value for every attribute.
 export const getAttributeHeaders = (instances) => {
     const headersByAttribute = new Map()
     instances.forEach(({ attributes }) => {
@@ -124,10 +122,8 @@ export const getAttributeHeaders = (instances) => {
     return [...headersByAttribute.values()]
 }
 
-// The main tracked entity marker's own color is currently fixed for every
-// instance (no per-instance classification yet, unlike thematic/event) -
-// still stamped here so the data table's Color column has real data ready
-// to become meaningful once that changes.
+// The main tracked entity marker's own color is currently fixed still
+// stamped here for when data table's Color column has real data
 export const toGeoJson = (instances, color) =>
     instances.map(({ id, geometry, attributes }) => ({
         type: GEO_TYPE_FEATURE,

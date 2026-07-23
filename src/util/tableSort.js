@@ -64,8 +64,7 @@ export const compareFieldValues = (
     bVal,
     { sortField, sortDirection }
 ) => {
-    // All missing values (undefined, or null - e.g. a period column with no
-    // data for a given org unit) should be sorted to the end
+    // All missing values should be sorted to the end
     if (isNoValue(aVal) && isNoValue(bVal)) {
         return 0
     }
