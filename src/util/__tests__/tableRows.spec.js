@@ -1,9 +1,5 @@
 import { GEOJSON_URL_LAYER, THEMATIC_LAYER } from '../../constants/layers.js'
-import {
-    buildTableData,
-    ERROR_NO_VALID_DATA,
-    ERROR_SERVER_CLUSTER,
-} from '../tableRows.js'
+import { buildTableData, ERROR_NO_VALID_DATA } from '../tableRows.js'
 
 // Thematic-layer-shaped feature: id is stamped on both the top level (which
 // is what aggregations are keyed by) and properties (see the deferred
@@ -15,9 +11,9 @@ const feature = (id, extraProperties = {}, coordinates = [10, 10]) => ({
 })
 
 describe('buildTableData - error paths', () => {
-    test('server-clustered layers return an error code instead of data', () => {
+    test('server-clustered layers return empty data instead of an error', () => {
         expect(buildTableData(THEMATIC_LAYER, { serverCluster: true })).toEqual(
-            { errorCode: ERROR_SERVER_CLUSTER }
+            { data: [] }
         )
     })
 

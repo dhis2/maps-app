@@ -2,7 +2,6 @@ import { GEOJSON_URL_LAYER } from '../constants/layers.js'
 import { isFeatureInBounds } from './geojson.js'
 import { formatRangeWithSeparator } from './numbers.js'
 
-export const ERROR_SERVER_CLUSTER = 'SERVER_CLUSTER'
 export const ERROR_NO_VALID_DATA = 'NO_VALID_DATA'
 
 export const buildTableData = (
@@ -26,7 +25,7 @@ export const buildTableData = (
     }
 ) => {
     if (serverCluster) {
-        return { errorCode: ERROR_SERVER_CLUSTER }
+        return { data: [] }
     }
 
     const allData = dataWithoutCoords?.length
