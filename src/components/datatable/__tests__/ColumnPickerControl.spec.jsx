@@ -357,10 +357,6 @@ describe('ColumnPicker search', () => {
 })
 
 describe('ColumnPicker defaultHidden headers (e.g. period columns)', () => {
-    // Period columns exist as regular headers for every available period,
-    // but start out unchecked - same mechanism as any other column, no
-    // dedicated "add period" UI. A defaultHidden header exercises that
-    // exact path without needing a real thematic/timeline layer fixture.
     const headersWithHiddenColumn = [
         ...headers,
         {
