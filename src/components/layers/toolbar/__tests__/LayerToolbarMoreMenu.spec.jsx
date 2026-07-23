@@ -150,6 +150,39 @@ describe('LayerToolbarMoreMenu', () => {
         })
     })
 
+    test('enables Show data table for a server-clustered event layer with no data yet', async () => {
+        const store = {
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            layer: 'event',
+            serverCluster: true,
+        }
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    toggleDataTable={jest.fn()}
+                />
+            </Provider>
+        )
+
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
+
+        await waitFor(() => {
+            expect(screen.queryByText('Show data table')).toBeTruthy()
+            expect(
+                screen
+                    .queryByText('Show data table')
+                    .closest('li')
+                    .classList.contains('disabled')
+            ).toBe(false)
+        })
+    })
+
     test('renders three MenuItems WITH divider if passed toggleDataTable, onEdit, and onRemove', async () => {
         const store = {
             aggregations: {},
