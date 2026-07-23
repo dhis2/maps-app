@@ -1,0 +1,139 @@
+.columnPickerPopover {
+    padding: var(--spacers-dp8);
+    min-width: 190px;
+    background-color: var(--colors-white);
+    border-radius: 4px;
+    box-shadow: var(--elevations-popover);
+}
+
+.searchInput {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: var(--spacers-dp8);
+    padding: var(--spacers-dp4) 6px;
+    font-size: 11px;
+    border: 1px solid var(--colors-grey500);
+    border-radius: 3px;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--colors-blue600);
+}
+
+.bulkActionsRow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    padding-bottom: var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp8);
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.bulkActionsRow input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+    position: relative;
+    top: 2px;
+    left: 2px;
+    accent-color: var(--colors-teal600);
+}
+
+.selectAllSpacer {
+    display: inline-block;
+    width: 20px;
+    flex-shrink: 0;
+}
+
+.bulkActionsDivider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--colors-grey300);
+    flex-shrink: 0;
+}
+
+.columnList {
+    display: flex;
+    flex-direction: column;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.columnRow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    padding: var(--spacers-dp2) var(--spacers-dp4);
+    border-radius: 3px;
+}
+
+.columnRow:hover {
+    background: var(--colors-grey100);
+}
+
+.columnRowDivider {
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.columnRowCheckbox {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+
+.columnRowCheckbox :global(label) {
+    min-width: 0;
+}
+
+.columnRowLabel {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.rowIconButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    background: transparent;
+}
+
+.rowIconButton:hover {
+    background: var(--colors-grey100);
+    color: var(--colors-grey800);
+}
+
+.dragHandle {
+    -webkit-user-drag: none;
+    user-select: none;
+    color: var(--colors-grey600);
+    cursor: grab;
+    touch-action: none;
+}
+
+.pinButton {
+    color: var(--colors-grey700);
+    cursor: pointer;
+}
+
+.pinButtonActive {
+    color: var(--colors-teal600);
+}
+
+.pinButtonActive:hover {
+    color: var(--colors-teal700);
+}
+
+.dragOverlay {
+    background-color: var(--colors-white);
+    box-shadow: var(--elevations-popover);
+}

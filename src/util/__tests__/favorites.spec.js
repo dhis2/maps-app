@@ -921,4 +921,108 @@ describe('cleanMapConfig', () => {
         ])
         expect(cleanedConfig.mapViews[0].config).toBeUndefined()
     })
+
+    test('serializes dataTableColumnConfig into config JSON for thematic layer', () => {
+        const dataTableColumnConfig = {
+            visibleKeys: ['name', 'rawValue'],
+            pinnedKeys: ['name'],
+            orderedKeys: ['rawValue', 'name'],
+        }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'Test',
+                    rows: [],
+                    dataTableColumnConfig,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.dataTableColumnConfig).toEqual(
+            dataTableColumnConfig
+        )
+        expect(mapView).not.toHaveProperty('dataTableColumnConfig')
+    })
+
+    test('serializes dataTableColumnConfig into config JSON for earth engine layer', () => {
+        const dataTableColumnConfig = { visibleKeys: ['name'] }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'earthEngine',
+                    layerId: 'MODIS/006/MOD13A2',
+                    rows: [],
+                    dataTableColumnConfig,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.dataTableColumnConfig).toEqual(
+            dataTableColumnConfig
+        )
+        expect(mapView).not.toHaveProperty('dataTableColumnConfig')
+    })
+
+    test('serializes dataTableColumnConfig into config JSON for TEI layer', () => {
+        const dataTableColumnConfig = { pinnedKeys: ['id'] }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'trackedEntity',
+                    name: 'Tracked entity',
+                    rows: [],
+                    dataTableColumnConfig,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.dataTableColumnConfig).toEqual(
+            dataTableColumnConfig
+        )
+        expect(mapView).not.toHaveProperty('dataTableColumnConfig')
+    })
+
+    test('serializes dataTableColumnConfig into config JSON for geojson layer', () => {
+        const dataTableColumnConfig = { orderedKeys: ['name', 'id'] }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'geoJsonUrl',
+                    name: 'My GeoJSON',
+                    rows: [],
+                    config: {
+                        id: 'abc',
+                        url: 'https://example.com/geo.json',
+                    },
+                    dataTableColumnConfig,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.dataTableColumnConfig).toEqual(
+            dataTableColumnConfig
+        )
+        expect(mapView).not.toHaveProperty('dataTableColumnConfig')
+    })
 })

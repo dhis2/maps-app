@@ -1,0 +1,12 @@
+.topTooltipContent {
+    z-index: 2000;
+    max-width: 300px;
+    padding: 4px 6px;
+    background-color: var(--colors-grey900);
+    border-radius: 3px;
+    color: var(--colors-white);
+    font-size: 13px;
+    line-height: 17px;
+    word-break: normal;
+    overflow-wrap: break-word;
+}

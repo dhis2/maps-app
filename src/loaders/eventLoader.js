@@ -161,6 +161,7 @@ const loadEventLayer = async ({
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
         labelDataItem,
+        dataTableColumnConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -195,6 +196,9 @@ const loadEventLayer = async ({
     }
     if (noDataLegendFromConfig) {
         config.noDataLegend = noDataLegendFromConfig
+    }
+    if (dataTableColumnConfig) {
+        config.dataTableColumnConfig = dataTableColumnConfig
     }
     if (config.noDataColor) {
         config.noDataLegend = {

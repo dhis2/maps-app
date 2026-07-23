@@ -1,14 +1,3 @@
-import i18n from '@dhis2/d2-i18n'
-import {
-    IconCross16,
-    IconFilter16,
-    IconEmptyFrame16,
-    IconChevronDown16,
-    IconChevronUp16,
-    Input,
-    Tooltip,
-} from '@dhis2/ui'
-import cx from 'classnames'
 import React, {
     useRef,
     useCallback,
@@ -16,7 +5,6 @@ import React, {
     useEffect,
     useLayoutEffect,
 } from 'react'
-import { createPortal } from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearDataFilters } from '../../actions/dataFilters.js'
 import {
@@ -28,15 +16,21 @@ import {
 } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
-import ColorPicker from '../core/ColorPicker.jsx'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
+import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
+import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
+import CloseControl from './controls/CloseControl.jsx'
+import CollapseControl from './controls/CollapseControl.jsx'
+import ColumnPickerControl from './controls/ColumnPickerControl.jsx'
+import GlobalSearchControl from './controls/GlobalSearchControl.jsx'
+import HighlightColorControl from './controls/HighlightColorControl.jsx'
+import ResizeHandleControl from './controls/ResizeHandleControl.jsx'
+import RowCountControl from './controls/RowCountControl.jsx'
+import ShowInViewControl from './controls/ShowInViewControl.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
-import ResizeHandle from './ResizeHandle.jsx'
 import styles from './styles/BottomPanel.module.css'
 
-// Must match `.dataTableControls`'s height in BottomPanel.module.css
-const COLLAPSED_HEIGHT = 36
 const MIN_HEIGHT = 50
 const EMPTY_FILTERS = {}
 
@@ -56,14 +50,13 @@ const BottomPanel = () => {
     const dispatch = useDispatch()
     const { height } = useWindowDimensions()
     const panelRef = useRef(null)
-    const nameRef = useRef(null)
     const isDraggingRef = useRef(false)
     const [panelWidth, setPanelWidth] = useState(0)
     const [totalCount, setTotalCount] = useState(null)
     const [filteredCount, setFilteredCount] = useState(null)
-    const [nameTooltipPos, setNameTooltipPos] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [globalSearch, setGlobalSearch] = useState('')
+    const [headersByLayer, setHeadersByLayer] = useState(null)
 
     const hasActiveFilters =
         Object.keys(dataFilters).length > 0 ||
@@ -75,24 +68,38 @@ const BottomPanel = () => {
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
-    const displayHeight = isCollapsed ? COLLAPSED_HEIGHT : tableHeight
+    const collapsedHeight = getCssVar('--data-table-controls-height')
+    const displayHeight = isCollapsed ? collapsedHeight : tableHeight
 
     const toggleCollapsed = useCallback(
         () => setIsCollapsed((collapsed) => !collapsed),
         []
     )
 
+    const onControlsDoubleClick = useCallback(
+        (e) => {
+            if (e.target.closest('button, input, label')) {
+                return
+            }
+            toggleCollapsed()
+        },
+        [toggleCollapsed]
+    )
+
     const onResizeStart = useCallback(() => {
         isDraggingRef.current = true
     }, [])
 
-    const onResize = useCallback((h) => {
-        setIsCollapsed(h <= MIN_HEIGHT)
-        document.documentElement.style.setProperty(
-            '--data-table-height',
-            `${h <= MIN_HEIGHT ? COLLAPSED_HEIGHT : h}px`
-        )
-    }, [])
+    const onResize = useCallback(
+        (h) => {
+            setIsCollapsed(h <= MIN_HEIGHT)
+            document.documentElement.style.setProperty(
+                '--data-table-height',
+                `${h <= MIN_HEIGHT ? collapsedHeight : h}px`
+            )
+        },
+        [collapsedHeight]
+    )
 
     const onResizeEnd = useCallback(
         (h) => {
@@ -112,6 +119,15 @@ const BottomPanel = () => {
         setFilteredCount(filtered)
     }, [])
 
+    const onHeadersChange = useCallback((headers, layerId) => {
+        setHeadersByLayer({ layerId, headers })
+    }, [])
+
+    const allHeaders =
+        headersByLayer?.layerId === activeLayerId
+            ? headersByLayer.headers
+            : null
+
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))
         dispatch(setSelectionFilter([]))
@@ -121,25 +137,18 @@ const BottomPanel = () => {
         }
     }, [dispatch, activeLayerId, showOnlyFeaturesInView])
 
-    const onNameMouseEnter = useCallback(() => {
-        const el = nameRef.current
-        if (!el || el.scrollWidth <= el.offsetWidth) {
-            return
-        }
-        const rect = el.getBoundingClientRect()
-        const computed = getComputedStyle(el)
-        const lineHeight = Number.parseFloat(computed.lineHeight)
-        setNameTooltipPos({
-            top: rect.top + (rect.height - lineHeight) / 2,
-            left: rect.left,
-            color: computed.color,
-            fontSize: computed.fontSize,
-            lineHeight: `${lineHeight}px`,
-            paddingLeft: computed.paddingLeft,
-        })
-    }, [])
+    const onToggleShowOnlyFeaturesInView = useCallback(() => {
+        dispatch(toggleShowOnlyFeaturesInView())
+    }, [dispatch])
 
-    const onNameMouseLeave = useCallback(() => setNameTooltipPos(null), [])
+    const onCloseDataTable = useCallback(() => {
+        dispatch(closeDataTable())
+    }, [dispatch])
+
+    const onHighlightColorChange = useCallback(
+        (color) => dispatch(setHighlightColor(color)),
+        [dispatch]
+    )
 
     useLayoutEffect(() => {
         if (isDraggingRef.current) {
@@ -171,18 +180,7 @@ const BottomPanel = () => {
         return () => observer.disconnect()
     }, [])
 
-    useKeyDown('Escape', () => dispatch(closeDataTable()), true)
-
-    let rowCountLabel = null
-    if (totalCount !== null && filteredCount !== null) {
-        rowCountLabel =
-            filteredCount < totalCount
-                ? i18n.t('{{filtered}} of {{total}} rows', {
-                      filtered: filteredCount,
-                      total: totalCount,
-                  })
-                : i18n.t('{{total}} rows', { total: totalCount })
-    }
+    useKeyDown('Escape', onCloseDataTable, true)
 
     return (
         <div
@@ -192,133 +190,51 @@ const BottomPanel = () => {
         >
             <div
                 className={styles.dataTableControls}
-                onDoubleClick={toggleCollapsed}
+                onDoubleClick={onControlsDoubleClick}
             >
-                <button
-                    type="button"
-                    className={styles.toggleButton}
+                <CollapseControl
+                    isCollapsed={isCollapsed}
                     onClick={toggleCollapsed}
-                >
-                    <Tooltip
-                        content={
-                            isCollapsed ? i18n.t('Restore') : i18n.t('Collapse')
-                        }
-                        placement="top"
-                    >
-                        {isCollapsed ? (
-                            <IconChevronUp16 />
-                        ) : (
-                            <IconChevronDown16 />
-                        )}
-                    </Tooltip>
-                </button>
+                />
                 <span className={styles.divider} />
-                <span
-                    ref={nameRef}
-                    className={styles.layerName}
-                    onMouseEnter={onNameMouseEnter}
-                    onMouseLeave={onNameMouseLeave}
-                >
-                    {activeLayer?.name}
-                </span>
-                {nameTooltipPos &&
-                    createPortal(
-                        <div
-                            className={styles.nameTooltip}
-                            style={{
-                                top: nameTooltipPos.top,
-                                left: nameTooltipPos.left,
-                                color: nameTooltipPos.color,
-                                fontSize: nameTooltipPos.fontSize,
-                                lineHeight: nameTooltipPos.lineHeight,
-                                paddingLeft: nameTooltipPos.paddingLeft,
-                            }}
-                        >
-                            {activeLayer?.name}
-                        </div>,
-                        document.body
-                    )}
+                <ActiveLayerControl name={activeLayer?.name} />
                 <span className={styles.divider} />
-                <Tooltip content={i18n.t('Highlight color')} placement="top">
-                    <span className={styles.alignIcon2}>
-                        <ColorPicker
-                            className={styles.highlightColorPicker}
-                            color={highlightColor}
-                            width={22}
-                            height={22}
-                            centerIcon
-                            onChange={(color) =>
-                                dispatch(setHighlightColor(color))
-                            }
-                        />
-                    </span>
-                </Tooltip>
-                <ResizeHandle
+                <HighlightColorControl
+                    color={highlightColor}
+                    onChange={onHighlightColorChange}
+                />
+                <ColumnPickerControl
+                    layerId={activeLayerId}
+                    allHeaders={allHeaders}
+                    columnConfig={activeLayer?.dataTableColumnConfig}
+                />
+                <span className={styles.divider} />
+                <ResizeHandleControl
                     maxHeight={maxHeight}
                     minHeight={MIN_HEIGHT}
                     onResizeStart={onResizeStart}
                     onResize={onResize}
                     onResizeEnd={onResizeEnd}
                 />
-                {rowCountLabel && (
-                    <span className={styles.rowCount}>{rowCountLabel}</span>
-                )}
+                <RowCountControl
+                    totalCount={totalCount}
+                    filteredCount={filteredCount}
+                />
                 <span className={styles.divider} />
-                <button
-                    type="button"
-                    className={styles.clearFiltersButton}
+                <ClearFiltersControl
                     disabled={!hasActiveFilters}
                     onClick={onClearFilters}
-                >
-                    <Tooltip content={i18n.t('Clear filters')} placement="top">
-                        <span className={styles.filteredIcon}>
-                            <IconFilter16 />
-                            <span className={styles.clearBadge} />
-                        </span>
-                    </Tooltip>
-                </button>
-                <div
-                    className={styles.globalSearch}
-                    onDoubleClick={(e) => e.stopPropagation()}
-                >
-                    <Input
-                        dense
-                        dataTest="data-table-global-search"
-                        placeholder={i18n.t('Search all columns')}
-                        value={globalSearch}
-                        onChange={({ value }) => setGlobalSearch(value)}
-                    />
-                </div>
-                <button
-                    type="button"
-                    className={cx(styles.toggleButton, {
-                        [styles.active]: showOnlyFeaturesInView,
-                    })}
-                    onClick={() => dispatch(toggleShowOnlyFeaturesInView())}
-                >
-                    <Tooltip
-                        content={i18n.t(
-                            'Show only features in current map view'
-                        )}
-                        placement="top"
-                    >
-                        <span className={styles.alignIcon1}>
-                            <IconEmptyFrame16 />
-                        </span>
-                    </Tooltip>
-                </button>
+                />
+                <GlobalSearchControl
+                    value={globalSearch}
+                    onChange={setGlobalSearch}
+                />
+                <ShowInViewControl
+                    active={showOnlyFeaturesInView}
+                    onClick={onToggleShowOnlyFeaturesInView}
+                />
                 <span className={styles.divider} />
-                <button
-                    type="button"
-                    className={styles.closeIcon}
-                    onClick={() => dispatch(closeDataTable())}
-                >
-                    <Tooltip content={i18n.t('Close')} placement="top">
-                        <span className={styles.alignIcon1}>
-                            <IconCross16 />
-                        </span>
-                    </Tooltip>
-                </button>
+                <CloseControl onClick={onCloseDataTable} />
             </div>
             {!isCollapsed && (
                 <div className={styles.tableContainer}>
@@ -326,6 +242,7 @@ const BottomPanel = () => {
                         <DataTable
                             availableWidth={panelWidth}
                             onCountChange={onCountChange}
+                            onHeadersChange={onHeadersChange}
                             globalSearch={globalSearch}
                             onClearFilters={onClearFilters}
                         />

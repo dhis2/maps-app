@@ -1,16 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import {
-    DataTable,
     DataTableRow,
     DataTableCell,
     DataTableColumnHeader,
-    DataTableHead,
-    DataTableBody,
     ComponentCover,
     CenteredContent,
     CircularLoader,
-    Popper,
-    Portal,
     IconSync16,
 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -34,279 +29,38 @@ import {
 import {
     SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
-    SORT_DESCENDING,
 } from '../../constants/dataTable.js'
-import {
-    SELECTION_FILTER_SELECTED,
-    SELECTION_FILTER_NOT_SELECTED,
-} from '../../constants/selection.js'
 import { isDarkColor } from '../../util/colors.js'
-import { formatWithSeparator } from '../../util/numbers.js'
-import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
-import Checkbox from '../core/Checkbox.jsx'
-import { SortIcon } from '../core/icons.jsx'
 import {
-    FilterDropdownPopover,
-    getDropdownPlacement,
-} from './FilterDropdownPopover.jsx'
+    getNextSorting,
+    getRowClickAction,
+    getRowId,
+    isFilterable,
+    shouldClearFeatureHighlight,
+} from '../../util/dataTable.js'
+import { formatWithSeparator } from '../../util/numbers.js'
+import {
+    getPinnedCellProps,
+    getPinnedCount,
+    getPinnedLeftOffsets,
+    getVisibleHeaders,
+} from '../../util/tableColumns.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import { SortIcon } from '../core/icons.jsx'
 import FilterInput from './FilterInput.jsx'
+import SelectionFilterButton from './SelectionFilterButton.jsx'
 import styles from './styles/DataTable.module.css'
 import TableContextMenu from './TableContextMenu.jsx'
+import TableComponents from './TableVirtuosoComponents.jsx'
+import TopTooltip from './TopTooltip.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useRowSelection } from './useRowSelection.js'
 import { useTableData } from './useTableData.js'
 
-const SELECTION_FILTER_OPTIONS = [
-    { value: SELECTION_FILTER_SELECTED, label: i18n.t('Selected') },
-    { value: SELECTION_FILTER_NOT_SELECTED, label: i18n.t('Not selected') },
-]
-
-export const isFilterable = (dataKey, type) => !!type
-
-const SelectionFilterButton = ({ value, onChange }) => {
-    const anchorRef = useRef(null)
-    const [isOpen, setIsOpen] = useState(false)
-
-    const toggleValue = (optionValue) => {
-        const next = value.includes(optionValue)
-            ? value.filter((v) => v !== optionValue)
-            : [...value, optionValue]
-        onChange(next)
-    }
-
-    const buttonLabel =
-        value.length === 0
-            ? i18n.t('All')
-            : i18n.t('{{count}} selected', { count: value.length })
-
-    const anchorRect = anchorRef.current?.getBoundingClientRect()
-    const { dropdownPlacement } = getDropdownPlacement(anchorRect)
-
-    return (
-        <>
-            <button
-                type="button"
-                ref={anchorRef}
-                className={styles.selectionFilterButton}
-                data-test="data-table-selection-filter-button"
-                onClick={() => setIsOpen((o) => !o)}
-            >
-                {buttonLabel}
-            </button>
-            {isOpen && (
-                <FilterDropdownPopover
-                    reference={anchorRef}
-                    placement={dropdownPlacement}
-                    onClickOutside={() => setIsOpen(false)}
-                >
-                    <div className={styles.selectionFilterPopover}>
-                        {SELECTION_FILTER_OPTIONS.map((option) => (
-                            <Checkbox
-                                key={option.value}
-                                label={option.label}
-                                checked={value.includes(option.value)}
-                                onChange={() => toggleValue(option.value)}
-                                style={{ margin: '4px 0' }}
-                            />
-                        ))}
-                    </div>
-                </FilterDropdownPopover>
-            )}
-        </>
-    )
-}
-
-SelectionFilterButton.propTypes = {
-    value: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onChange: PropTypes.func.isRequired,
-}
-
-const topTooltipModifiers = [{ name: 'offset', options: { offset: [0, 4] } }]
-
-const TopTooltip = ({ content, children }) => {
-    const [open, setOpen] = useState(false)
-    const referenceRef = useRef(null)
-    const openTimerRef = useRef(null)
-    const closeTimerRef = useRef(null)
-
-    const onOpen = () => {
-        clearTimeout(closeTimerRef.current)
-        openTimerRef.current = setTimeout(() => setOpen(true), 200)
-    }
-
-    const onClose = () => {
-        clearTimeout(openTimerRef.current)
-        closeTimerRef.current = setTimeout(() => setOpen(false), 200)
-    }
-
-    useEffect(
-        () => () => {
-            clearTimeout(openTimerRef.current)
-            clearTimeout(closeTimerRef.current)
-        },
-        []
-    )
-
-    return (
-        <span
-            ref={referenceRef}
-            onMouseOver={onOpen}
-            onMouseOut={onClose}
-            onFocus={onOpen}
-            onBlur={onClose}
-        >
-            {children}
-            {open && (
-                <Portal>
-                    <Popper
-                        placement="top"
-                        reference={referenceRef}
-                        modifiers={topTooltipModifiers}
-                    >
-                        <div className={styles.topTooltipContent}>
-                            {content}
-                        </div>
-                    </Popper>
-                </Portal>
-            )}
-        </span>
-    )
-}
-
-TopTooltip.propTypes = {
-    children: PropTypes.node.isRequired,
-    content: PropTypes.node.isRequired,
-}
-
-export const shouldClearFeatureHighlight = (event) =>
-    event.relatedTarget?.tagName !== 'TD'
-
-export const getNextSorting = (name, { sortField, sortDirection }) => {
-    if (name !== sortField) {
-        return { sortField: name, sortDirection: SORT_ASCENDING }
-    }
-    if (sortDirection === SORT_ASCENDING) {
-        return { sortField: name, sortDirection: SORT_DESCENDING }
-    }
-    return { sortField: null, sortDirection: SORT_ASCENDING }
-}
-
-const getRowId = (row) =>
-    row.find((r) => r.dataKey === 'id')?.value || row[0]?.itemId
-
-export const getRowClickAction = (
-    event,
-    { id, rowIndex, rows, lastClickedRowIndex }
-) => {
-    if (event.shiftKey) {
-        if (lastClickedRowIndex === null) {
-            return { type: 'toggle', id }
-        }
-        const [start, end] = [lastClickedRowIndex, rowIndex].sort(
-            (a, b) => a - b
-        )
-        const ids = rows
-            .slice(start, end + 1)
-            .map(getRowId)
-            .filter(Boolean)
-        return { type: 'range', ids }
-    }
-
-    if (event.ctrlKey || event.metaKey) {
-        return { type: 'toggle', id }
-    }
-
-    return null
-}
-
-const DataTableWithVirtuosoContext = ({ context, ...props }) => (
-    <DataTable
-        {...props}
-        layout={context.layout}
-        className={styles.dataTable}
-    />
-)
-
-DataTableWithVirtuosoContext.propTypes = {
-    context: PropTypes.shape({
-        layout: PropTypes.string,
-    }),
-}
-
-const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
-    <DataTableRow
-        onMouseEnter={() => context.onMouseEnter(item)}
-        onMouseLeave={context.onMouseLeave}
-        onContextMenu={(e) => context.onContextMenu(e, item)}
-        onClick={(e) => context.onRowClick(item, e)}
-        onDoubleClick={() => context.onRowDoubleClick(item)}
-        {...props}
-    />
-)
-
-DataTableRowWithVirtuosoContext.propTypes = {
-    context: PropTypes.shape({
-        onContextMenu: PropTypes.func,
-        onMouseEnter: PropTypes.func,
-        onMouseLeave: PropTypes.func,
-        onRowClick: PropTypes.func,
-        onRowDoubleClick: PropTypes.func,
-    }),
-    item: PropTypes.arrayOf(
-        PropTypes.shape({
-            dataKey: PropTypes.string,
-            itemId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        })
-    ),
-}
-
-const EmptyPlaceholder = ({ context }) => (
-    <tbody>
-        <tr>
-            <td colSpan={99999}>
-                <div className={styles.noResults}>
-                    {context.totalCount > 0 ? (
-                        <>
-                            {i18n.t('No features match your filters')}
-                            {context.hasActiveFilters && (
-                                <button
-                                    type="button"
-                                    className={styles.clearFiltersLink}
-                                    onClick={context.onClearFilters}
-                                >
-                                    {i18n.t('Clear filters')}
-                                </button>
-                            )}
-                        </>
-                    ) : (
-                        i18n.t('No results found')
-                    )}
-                </div>
-            </td>
-        </tr>
-    </tbody>
-)
-
-EmptyPlaceholder.propTypes = {
-    context: PropTypes.shape({
-        hasActiveFilters: PropTypes.bool,
-        totalCount: PropTypes.number,
-        onClearFilters: PropTypes.func,
-    }),
-}
-
-const TableComponents = {
-    Table: DataTableWithVirtuosoContext,
-    TableBody: DataTableBody,
-    TableHead: DataTableHead,
-    TableRow: DataTableRowWithVirtuosoContext,
-    EmptyPlaceholder,
-}
-
 const Table = ({
     availableWidth,
     onCountChange,
+    onHeadersChange,
     globalSearch,
     onClearFilters,
 }) => {
@@ -425,11 +179,39 @@ const Table = ({
         globalSearch,
     })
 
+    useEffect(() => {
+        onHeadersChange?.(headers, layer.id)
+    }, [onHeadersChange, headers, layer.id])
+
+    const columnConfig = layer.dataTableColumnConfig
+    const pinnedKeys = useMemo(
+        () => columnConfig?.pinnedKeys ?? [],
+        [columnConfig]
+    )
+
+    const visibleHeaders = useMemo(
+        () => getVisibleHeaders(headers, columnConfig),
+        [headers, columnConfig]
+    )
+
     const { headerRowRef, columnWidths } = useColumnWidths({
         availableWidth,
-        headers,
+        headers: visibleHeaders,
         error,
     })
+
+    const pinnedColumnCount = useMemo(
+        () => getPinnedCount(visibleHeaders, pinnedKeys),
+        [visibleHeaders, pinnedKeys]
+    )
+
+    const pinnedLeftOffsets = useMemo(
+        () => getPinnedLeftOffsets(visibleHeaders, pinnedKeys, columnWidths),
+        [visibleHeaders, pinnedKeys, columnWidths]
+    )
+    const pinnedOffsetsReady = Object.keys(pinnedLeftOffsets).length > 0
+
+    const isCheckboxColumnPinned = pinnedColumnCount > 0 && pinnedOffsetsReady
 
     useEffect(() => {
         onCountChange?.(totalCount, filteredCount)
@@ -577,6 +359,8 @@ const Table = ({
                         <DataTableColumnHeader
                             className={styles.checkboxCell}
                             width="76px"
+                            fixed={isCheckboxColumnPinned}
+                            left={isCheckboxColumnPinned ? '0px' : undefined}
                             onFilterIconClick={Function.prototype}
                             showFilter={true}
                             filter={
@@ -641,64 +425,82 @@ const Table = ({
                                 </TopTooltip>
                             </div>
                         </DataTableColumnHeader>
-                        {headers.map(
-                            ({ name, dataKey, type, optionSet }, index) => (
-                                <DataTableColumnHeader
-                                    className={styles.columnHeader}
-                                    key={`${dataKey}-${index}`}
-                                    onFilterIconClick={
-                                        isFilterable(dataKey, type) &&
-                                        Function.prototype
-                                    }
-                                    showFilter={isFilterable(dataKey, type)}
-                                    name={dataKey}
-                                    filter={
-                                        isFilterable(dataKey, type) && (
-                                            <FilterInput
-                                                type={type}
-                                                dataKey={dataKey}
-                                                name={name}
-                                                options={columnOptions[dataKey]}
-                                                optionSetId={optionSet?.id}
-                                            />
-                                        )
-                                    }
-                                    width={
-                                        columnWidths.length > 0
-                                            ? `${columnWidths[index]}px`
-                                            : 'auto'
-                                    }
-                                >
-                                    <span className={styles.headerContent}>
-                                        {name}
-                                        <TopTooltip
-                                            content={i18n.t(
-                                                'Sort by {{column}}',
-                                                { column: name }
-                                            )}
-                                        >
-                                            <button
-                                                type="button"
-                                                className={styles.sortButton}
-                                                data-test={`data-table-column-sort-button-${name}`}
-                                                onClick={() =>
-                                                    sortData({
-                                                        name: dataKey,
-                                                    })
-                                                }
-                                            >
-                                                <SortIcon
-                                                    direction={
-                                                        dataKey === sortField
-                                                            ? sortDirection
-                                                            : null
+                        {visibleHeaders.map(
+                            ({ name, dataKey, type, optionSet }, index) => {
+                                const { fixed, left, isLastPinned } =
+                                    getPinnedCellProps(dataKey, index, {
+                                        pinnedLeftOffsets,
+                                        pinnedColumnCount,
+                                        columnWidths,
+                                    })
+                                return (
+                                    <DataTableColumnHeader
+                                        className={cx(styles.columnHeader, {
+                                            [styles.pinnedColumnShadow]:
+                                                isLastPinned,
+                                        })}
+                                        key={`${dataKey}-${index}`}
+                                        fixed={fixed}
+                                        left={left}
+                                        onFilterIconClick={
+                                            isFilterable(dataKey, type) &&
+                                            Function.prototype
+                                        }
+                                        showFilter={isFilterable(dataKey, type)}
+                                        name={dataKey}
+                                        filter={
+                                            isFilterable(dataKey, type) && (
+                                                <FilterInput
+                                                    type={type}
+                                                    dataKey={dataKey}
+                                                    name={name}
+                                                    options={
+                                                        columnOptions[dataKey]
                                                     }
+                                                    optionSetId={optionSet?.id}
                                                 />
-                                            </button>
-                                        </TopTooltip>
-                                    </span>
-                                </DataTableColumnHeader>
-                            )
+                                            )
+                                        }
+                                        width={
+                                            columnWidths.length > 0
+                                                ? `${columnWidths[index]}px`
+                                                : 'auto'
+                                        }
+                                    >
+                                        <span className={styles.headerContent}>
+                                            {name}
+                                            <TopTooltip
+                                                content={i18n.t(
+                                                    'Sort by {{column}}',
+                                                    { column: name }
+                                                )}
+                                            >
+                                                <button
+                                                    type="button"
+                                                    className={
+                                                        styles.sortButton
+                                                    }
+                                                    data-test={`data-table-column-sort-button-${name}`}
+                                                    onClick={() =>
+                                                        sortData({
+                                                            name: dataKey,
+                                                        })
+                                                    }
+                                                >
+                                                    <SortIcon
+                                                        direction={
+                                                            dataKey ===
+                                                            sortField
+                                                                ? sortDirection
+                                                                : null
+                                                        }
+                                                    />
+                                                </button>
+                                            </TopTooltip>
+                                        </span>
+                                    </DataTableColumnHeader>
+                                )
+                            }
                         )}
                     </DataTableRow>
                 )}
@@ -710,10 +512,21 @@ const Table = ({
                         feature?.id === rowId &&
                         feature?.layerId === layer.id
 
+                    const cellsByDataKey = new Map(
+                        row.map((cell) => [cell.dataKey, cell])
+                    )
+
                     return (
                         <>
                             <DataTableCell
                                 staticStyle
+                                fixed={isCheckboxColumnPinned}
+                                left={
+                                    isCheckboxColumnPinned ? '0px' : undefined
+                                }
+                                width={
+                                    isCheckboxColumnPinned ? '76px' : undefined
+                                }
                                 className={cx(styles.checkboxCell, {
                                     [styles.selected]: isSelected,
                                     [styles.hovered]: isHovered,
@@ -734,35 +547,55 @@ const Table = ({
                                     onClick={(e) => e.stopPropagation()}
                                 />
                             </DataTableCell>
-                            {row.map(({ dataKey, value, align }) => (
-                                <DataTableCell
-                                    key={`dtcell-${dataKey}`}
-                                    staticStyle
-                                    className={cx(styles.dataCell, {
-                                        [styles.lightText]:
-                                            dataKey === 'color' &&
-                                            isDarkColor(value),
-                                        [styles.monoCell]:
-                                            dataKey === 'id' ||
-                                            dataKey === 'color',
-                                        [styles.selected]:
-                                            isSelected && dataKey !== 'color',
-                                        [styles.hovered]:
-                                            isHovered && dataKey !== 'color',
-                                    })}
-                                    backgroundColor={
-                                        dataKey === 'color' ? value : null
-                                    }
-                                    align={align}
-                                >
-                                    {dataKey === 'color'
-                                        ? value?.toLowerCase()
-                                        : formatWithSeparator(
-                                              value,
-                                              keyAnalysisDigitGroupSeparator
-                                          )}
-                                </DataTableCell>
-                            ))}
+                            {visibleHeaders.map(({ dataKey }, index) => {
+                                const cell = cellsByDataKey.get(dataKey)
+                                if (!cell) {
+                                    return null
+                                }
+                                const { value, align } = cell
+                                const { fixed, left, width, isLastPinned } =
+                                    getPinnedCellProps(dataKey, index, {
+                                        pinnedLeftOffsets,
+                                        pinnedColumnCount,
+                                        columnWidths,
+                                    })
+                                return (
+                                    <DataTableCell
+                                        key={`dtcell-${dataKey}`}
+                                        staticStyle
+                                        fixed={fixed}
+                                        left={left}
+                                        width={width}
+                                        className={cx(styles.dataCell, {
+                                            [styles.lightText]:
+                                                dataKey === 'color' &&
+                                                isDarkColor(value),
+                                            [styles.monoCell]:
+                                                dataKey === 'id' ||
+                                                dataKey === 'color',
+                                            [styles.selected]:
+                                                isSelected &&
+                                                dataKey !== 'color',
+                                            [styles.hovered]:
+                                                isHovered &&
+                                                dataKey !== 'color',
+                                            [styles.pinnedColumnShadow]:
+                                                isLastPinned,
+                                        })}
+                                        backgroundColor={
+                                            dataKey === 'color' ? value : null
+                                        }
+                                        align={align}
+                                    >
+                                        {dataKey === 'color'
+                                            ? value?.toLowerCase()
+                                            : formatWithSeparator(
+                                                  value,
+                                                  keyAnalysisDigitGroupSeparator
+                                              )}
+                                    </DataTableCell>
+                                )
+                            })}
                         </>
                     )
                 }}
@@ -797,6 +630,7 @@ Table.propTypes = {
     globalSearch: PropTypes.string,
     onClearFilters: PropTypes.func,
     onCountChange: PropTypes.func,
+    onHeadersChange: PropTypes.func,
 }
 
 export default Table

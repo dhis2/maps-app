@@ -1,0 +1,13 @@
+.globalSearch {
+    flex: 0 1 160px;
+    min-width: 90px;
+}
+
+.globalSearch > :global(div) {
+    width: 100%;
+}
+
+.globalSearch :global(input.dense) {
+    padding: 4px 6px;
+    font-size: 11px;
+}
