@@ -456,6 +456,24 @@ describe('map reducer - per-layer delegation', () => {
         })
     })
 
+    describe('LAYER_FORCE_CLIENT_CLUSTER_SET', () => {
+        it('sets forceClientCluster on the matching layer only', () => {
+            const other = { id: 'layer2' }
+            const state = {
+                ...defaultState,
+                mapViews: [{ id: 'layer1' }, other],
+            }
+
+            const result = map(state, {
+                type: types.LAYER_FORCE_CLIENT_CLUSTER_SET,
+                id: 'layer1',
+            })
+
+            expect(result.mapViews[0].forceClientCluster).toBe(true)
+            expect(result.mapViews[1]).toBe(other)
+        })
+    })
+
     describe('LAYER_TOGGLE_EXPAND', () => {
         it('toggles isExpanded on the matching layer only', () => {
             const other = { id: 'layer2', isExpanded: true }
