@@ -16,6 +16,10 @@ import {
 } from '../../actions/dataTable.js'
 import useDebouncedValue from '../../hooks/useDebouncedValue.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
+import {
+    getPanelHeights,
+    hasActiveDataTableFilters,
+} from '../../util/dataTable.js'
 import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
@@ -60,18 +64,21 @@ const BottomPanel = () => {
     const globalSearch = useDebouncedValue(searchInputValue, 200)
     const [headersByLayer, setHeadersByLayer] = useState(null)
 
-    const hasActiveFilters =
-        Object.keys(dataFilters).length > 0 ||
-        searchInputValue.trim() !== '' ||
-        selectionFilter?.length > 0 ||
-        showOnlyFeaturesInView
+    const hasActiveFilters = hasActiveDataTableFilters({
+        dataFilters,
+        globalSearch: searchInputValue,
+        selectionFilter,
+        showOnlyFeaturesInView,
+    })
 
-    const maxHeight =
-        height - getCssVar('--header-height') - getCssVar('--toolbar-height')
-    const tableHeight =
-        dataTableHeight < maxHeight ? dataTableHeight : maxHeight
-    const collapsedHeight = getCssVar('--data-table-controls-height')
-    const displayHeight = isCollapsed ? collapsedHeight : tableHeight
+    const { maxHeight, collapsedHeight, displayHeight } = getPanelHeights({
+        windowHeight: height,
+        dataTableHeight,
+        isCollapsed,
+        headerHeight: getCssVar('--header-height'),
+        toolbarHeight: getCssVar('--toolbar-height'),
+        controlsHeight: getCssVar('--data-table-controls-height'),
+    })
 
     const toggleCollapsed = useCallback(
         () => setIsCollapsed((collapsed) => !collapsed),

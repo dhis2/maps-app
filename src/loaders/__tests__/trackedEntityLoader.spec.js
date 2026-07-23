@@ -1,7 +1,7 @@
 import {
     getAttributeHeaders,
     getAttributeProperties,
-    parseJsonConfig,
+    applyParsedConfig,
     toGeoJson,
 } from '../trackedEntityLoader.js'
 
@@ -65,7 +65,7 @@ describe('getAttributeHeaders', () => {
     })
 })
 
-describe('parseJsonConfig', () => {
+describe('applyParsedConfig', () => {
     it('extracts periodType when relationships is null', () => {
         const config = {
             config: JSON.stringify({
@@ -73,7 +73,7 @@ describe('parseJsonConfig', () => {
                 periodType: 'program',
             }),
         }
-        parseJsonConfig(config)
+        applyParsedConfig(config)
         expect(config.periodType).toBe('program')
         expect(config.relationshipType).toBeUndefined()
         expect(config.config).toBeUndefined()
@@ -92,7 +92,7 @@ describe('parseJsonConfig', () => {
                 periodType: 'program',
             }),
         }
-        parseJsonConfig(config)
+        applyParsedConfig(config)
         expect(config.periodType).toBe('program')
         expect(config.relationshipType).toBe('rel-type-id')
         expect(config.relatedPointColor).toBe('#ff0000')
@@ -104,13 +104,13 @@ describe('parseJsonConfig', () => {
 
     it('does nothing when config.config is absent', () => {
         const config = { layer: 'trackedEntity' }
-        parseJsonConfig(config)
+        applyParsedConfig(config)
         expect(config).toEqual({ layer: 'trackedEntity' })
     })
 
     it('does not throw and leaves config intact on malformed JSON', () => {
         const config = { config: 'not-valid-json' }
-        expect(() => parseJsonConfig(config)).not.toThrow()
+        expect(() => applyParsedConfig(config)).not.toThrow()
         expect(config.periodType).toBeUndefined()
         expect(config.config).toBeUndefined()
     })

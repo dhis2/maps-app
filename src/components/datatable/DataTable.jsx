@@ -29,12 +29,16 @@ import {
 import {
     SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
+    RENDERER_COLOR,
+    RENDERER_ICON,
 } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
 import {
+    buildFeatureIndex,
     getNextSorting,
     getRowClickAction,
     getRowId,
+    hasActiveDataTableFilters,
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
@@ -100,9 +104,8 @@ const Table = ({
         [sortField, sortDirection]
     )
 
-    // Read via ref rather than a dependency, so this callback (and anything
-    // memoized on it, e.g. tableContext) stays stable across hovers instead
-    // of getting a new identity on every single mouse-enter
+    // Read via ref rather than a dependency, so this callback stays stable
+    // across hovers instead of getting a new identity on every single mouse-enter
     const featureRef = useRef(feature)
     featureRef.current = feature
 
@@ -136,16 +139,10 @@ const Table = ({
         [dispatch]
     )
 
-    const featureById = useMemo(() => {
-        const map = new Map()
-        layer.data?.forEach((f) => {
-            const id = f.properties?.id ?? f.id
-            if (id != null) {
-                map.set(id, f)
-            }
-        })
-        return map
-    }, [layer.data])
+    const featureById = useMemo(
+        () => buildFeatureIndex(layer.data),
+        [layer.data]
+    )
 
     const [tableContextMenu, setTableContextMenu] = useState(null)
 
@@ -203,6 +200,11 @@ const Table = ({
     const visibleHeaders = useMemo(
         () => getVisibleHeaders(headers, columnConfig),
         [headers, columnConfig]
+    )
+
+    const rendererByDataKey = useMemo(
+        () => new Map(visibleHeaders.map((h) => [h.dataKey, h.renderer])),
+        [visibleHeaders]
     )
 
     const { headerRowRef, columnWidths } = useColumnWidths({
@@ -280,10 +282,12 @@ const Table = ({
         [dispatch, layer.id]
     )
 
-    const hasActiveFilters =
-        Object.keys(layer.dataFilters ?? {}).length > 0 ||
-        !!globalSearch?.trim() ||
-        selectionFilter?.length > 0
+    const hasActiveFilters = hasActiveDataTableFilters({
+        dataFilters: layer.dataFilters,
+        globalSearch,
+        selectionFilter,
+        showOnlyFeaturesInView,
+    })
 
     const tableContext = useMemo(
         () => ({
@@ -419,7 +423,7 @@ const Table = ({
                     </div>
                 </DataTableColumnHeader>
                 {visibleHeaders.map(
-                    ({ name, dataKey, type, optionSet }, index) => {
+                    ({ name, dataKey, type, optionSet, renderer }, index) => {
                         const { fixed, left, isLastPinned } =
                             getPinnedCellProps(dataKey, index, {
                                 pinnedLeftOffsets,
@@ -448,6 +452,7 @@ const Table = ({
                                             name={name}
                                             options={columnOptions[dataKey]}
                                             optionSetId={optionSet?.id}
+                                            renderer={renderer}
                                         />
                                     )
                                 }
@@ -580,6 +585,9 @@ const Table = ({
                                         pinnedColumnCount,
                                         columnWidths,
                                     })
+                                const renderer = rendererByDataKey.get(dataKey)
+                                const isColorCell = renderer === RENDERER_COLOR
+                                const isIconCell = renderer === RENDERER_ICON
                                 return (
                                     <DataTableCell
                                         key={`dtcell-${dataKey}`}
@@ -589,28 +597,24 @@ const Table = ({
                                         width={width}
                                         className={cx(styles.dataCell, {
                                             [styles.lightText]:
-                                                dataKey === 'color' &&
+                                                isColorCell &&
                                                 isDarkColor(value),
                                             [styles.monoCell]:
-                                                dataKey === 'id' ||
-                                                dataKey === 'color',
+                                                dataKey === 'id' || isColorCell,
                                             [styles.selected]:
-                                                isSelected &&
-                                                dataKey !== 'color',
+                                                isSelected && !isColorCell,
                                             [styles.hovered]:
-                                                isHovered &&
-                                                dataKey !== 'color',
+                                                isHovered && !isColorCell,
                                             [styles.pinnedColumnShadow]:
                                                 isLastPinned,
                                         })}
                                         backgroundColor={
-                                            dataKey === 'color' ? value : null
+                                            isColorCell ? value : null
                                         }
                                         align={align}
                                     >
-                                        {dataKey === 'color' &&
-                                            value?.toLowerCase()}
-                                        {dataKey === 'iconUrl' && value && (
+                                        {isColorCell && value?.toLowerCase()}
+                                        {isIconCell && value && (
                                             <img
                                                 className={styles.iconCell}
                                                 src={value}
@@ -621,8 +625,8 @@ const Table = ({
                                                 }}
                                             />
                                         )}
-                                        {dataKey !== 'color' &&
-                                            dataKey !== 'iconUrl' &&
+                                        {!isColorCell &&
+                                            !isIconCell &&
                                             formatWithSeparator(
                                                 value,
                                                 keyAnalysisDigitGroupSeparator
