@@ -55,6 +55,7 @@ const BottomPanel = () => {
     const { height } = useWindowDimensions()
     const panelRef = useRef(null)
     const isDraggingRef = useRef(false)
+    const preDragCollapsedRef = useRef(false)
     const [panelWidth, setPanelWidth] = useState(0)
     const [totalCount, setTotalCount] = useState(null)
     const [filteredCount, setFilteredCount] = useState(null)
@@ -95,7 +96,8 @@ const BottomPanel = () => {
 
     const onResizeStart = useCallback(() => {
         isDraggingRef.current = true
-    }, [])
+        preDragCollapsedRef.current = isCollapsed
+    }, [isCollapsed])
 
     const onResize = useCallback(
         (h) => {
@@ -123,7 +125,12 @@ const BottomPanel = () => {
 
     const onResizeCancel = useCallback(() => {
         isDraggingRef.current = false
-    }, [])
+        setIsCollapsed(preDragCollapsedRef.current)
+        document.documentElement.style.setProperty(
+            '--data-table-height',
+            `${displayHeight}px`
+        )
+    }, [displayHeight])
 
     const onCountChange = useCallback((total, filtered) => {
         setTotalCount(total)
