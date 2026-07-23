@@ -76,6 +76,10 @@ th.hovered {
     gap: 2px;
 }
 
+.headerTitle {
+    padding-top: var(--spacers-dp4);
+}
+
 .reverseButton {
     display: inline-flex;
     align-items: center;
