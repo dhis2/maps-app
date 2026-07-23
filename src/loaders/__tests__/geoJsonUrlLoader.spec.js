@@ -51,9 +51,6 @@ describe('stampFeatureColors', () => {
     })
 
     it('never overwrites a feature that already has its own color', () => {
-        // maps-gl's colorExpr prefers a feature's own properties.color over
-        // the layer's uniform style color, so a user-uploaded file with its
-        // own per-feature colors must keep rendering with them.
         const features = [
             {
                 geometry: { type: 'Point' },
