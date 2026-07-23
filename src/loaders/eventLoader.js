@@ -58,12 +58,14 @@ const expandOrgUnitKeyword = (id, userOrgUnitIdsByKeyword) => {
     return [id]
 }
 
-// Server clustering if more than 2000 events
-const shouldUseServerCluster = (
+// Server clustering if more than 2000 events, and the backend supports it
+export const shouldUseServerCluster = ({
     count,
     countFeaturesWithoutCoordinates,
-    countEventsOutsideOrgUnits
-) =>
+    countEventsOutsideOrgUnits,
+    spatialSupport,
+}) =>
+    !!spatialSupport &&
     !countFeaturesWithoutCoordinates &&
     !countEventsOutsideOrgUnits &&
     count > EVENT_SERVER_CLUSTER_COUNT
@@ -97,6 +99,7 @@ const eventLoader = async ({
     analyticsEngine,
     periodTypeData,
     loadExtended,
+    spatialSupport,
 }) => {
     const config = {
         ...layerConfig,
@@ -117,6 +120,7 @@ const eventLoader = async ({
             analyticsEngine,
             periodTypeData,
             loadExtended,
+            spatialSupport,
         })
     } catch (e) {
         if (
@@ -149,6 +153,7 @@ const loadEventLayer = async ({
     analyticsEngine,
     periodTypeData,
     loadExtended,
+    spatialSupport,
 }) => {
     // Config normalization
     // -----
@@ -280,11 +285,13 @@ const loadEventLayer = async ({
     if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        config.serverCluster = shouldUseServerCluster(
-            response.count,
-            config.countFeaturesWithoutCoordinates,
-            config.countEventsOutsideOrgUnits
-        )
+        config.serverCluster = shouldUseServerCluster({
+            count: response.count,
+            countFeaturesWithoutCoordinates:
+                config.countFeaturesWithoutCoordinates,
+            countEventsOutsideOrgUnits: config.countEventsOutsideOrgUnits,
+            spatialSupport,
+        })
         serverCount = response.count
     }
 
