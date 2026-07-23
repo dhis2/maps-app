@@ -8,9 +8,6 @@ import { useLayersLoader } from '../useLayersLoader.js'
 
 let mockCachedData
 
-// useLayersLoader.js pulls in earthEngineLoader.js -> util/earthEngine.js ->
-// MapApi.js -> @dhis2/maps-gl, which needs browser APIs jsdom doesn't
-// provide. Same workaround as earthEngineLoader.spec.js/trackedEntityLoader.spec.js.
 jest.mock('../../components/map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
 }))
