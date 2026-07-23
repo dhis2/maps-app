@@ -55,40 +55,50 @@ DataTableRowWithVirtuosoContext.propTypes = {
     ),
 }
 
+const getEmptyPlaceholderContent = (context) => {
+    if (context.showServerClusterAction) {
+        return (
+            <>
+                {i18n.t(
+                    "Event details aren't available while this layer is clustered on the server"
+                )}
+                <button
+                    type="button"
+                    className={styles.clearFiltersLink}
+                    onClick={context.onForceClientCluster}
+                >
+                    {i18n.t('Show event details')}
+                </button>
+            </>
+        )
+    }
+
+    if (context.totalCount > 0) {
+        return (
+            <>
+                {i18n.t('No features match your filters')}
+                {context.hasActiveFilters && (
+                    <button
+                        type="button"
+                        className={styles.clearFiltersLink}
+                        onClick={context.onClearFilters}
+                    >
+                        {i18n.t('Clear filters')}
+                    </button>
+                )}
+            </>
+        )
+    }
+
+    return i18n.t('No results found')
+}
+
 export const EmptyPlaceholder = ({ context }) => (
     <tbody>
         <tr>
             <td colSpan={99999}>
                 <div className={styles.noResults}>
-                    {context.showServerClusterAction ? (
-                        <>
-                            {i18n.t(
-                                "Event details aren't available while this layer is clustered on the server"
-                            )}
-                            <button
-                                type="button"
-                                className={styles.clearFiltersLink}
-                                onClick={context.onForceClientCluster}
-                            >
-                                {i18n.t('Show event details')}
-                            </button>
-                        </>
-                    ) : context.totalCount > 0 ? (
-                        <>
-                            {i18n.t('No features match your filters')}
-                            {context.hasActiveFilters && (
-                                <button
-                                    type="button"
-                                    className={styles.clearFiltersLink}
-                                    onClick={context.onClearFilters}
-                                >
-                                    {i18n.t('Clear filters')}
-                                </button>
-                            )}
-                        </>
-                    ) : (
-                        i18n.t('No results found')
-                    )}
+                    {getEmptyPlaceholderContent(context)}
                 </div>
             </td>
         </tr>
