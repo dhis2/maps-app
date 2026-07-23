@@ -18,6 +18,7 @@ import {
     EVENT_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    TRACKED_ENTITY_LAYER,
 } from '../../constants/layers.js'
 import { getGeojsonFeatureProfile } from '../../util/geojson.js'
 import { drillUpDown } from '../../util/map.js'
@@ -58,9 +59,11 @@ const TableContextMenu = ({
         layerType !== BOUNDARY_LAYER &&
         layerType !== FACILITY_LAYER &&
         layerType !== EVENT_LAYER &&
-        layerType !== GEOJSON_URL_LAYER
+        layerType !== GEOJSON_URL_LAYER &&
+        layerType !== TRACKED_ENTITY_LAYER
 
-    const canViewProfile = id && layerType !== EVENT_LAYER
+    const canViewProfile =
+        id && layerType !== EVENT_LAYER && layerType !== TRACKED_ENTITY_LAYER
 
     return (
         <>
