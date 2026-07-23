@@ -123,6 +123,10 @@ const BottomPanel = () => {
         [dispatch]
     )
 
+    const onResizeCancel = useCallback(() => {
+        isDraggingRef.current = false
+    }, [])
+
     const onCountChange = useCallback((total, filtered) => {
         setTotalCount(total)
         setFilteredCount(filtered)
@@ -224,6 +228,7 @@ const BottomPanel = () => {
                     onResizeStart={onResizeStart}
                     onResize={onResize}
                     onResizeEnd={onResizeEnd}
+                    onResizeCancel={onResizeCancel}
                 />
                 <RowCountControl
                     totalCount={totalCount}
