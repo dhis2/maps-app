@@ -554,7 +554,7 @@ describe('useTableData headers', () => {
                 name: 'Event time',
                 dataKey: 'eventdate',
                 type: 'date',
-                renderer: 'formatTime...',
+                renderer: 'renderdate',
             },
             { name: 'Last updated on', dataKey: 'lastupdated', type: 'string' },
             { name: 'Event status', dataKey: 'eventstatus', type: 'string' },

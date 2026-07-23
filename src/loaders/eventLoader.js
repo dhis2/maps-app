@@ -244,7 +244,7 @@ const loadEventLayer = async ({
 
     const dataFilters = getFiltersFromColumns(columns)
 
-    // Request setup only - config.isExtended is set further dow
+    // Request setup only - config.isExtended is set further down
     const analyticsRequest = await getAnalyticsRequest(
         { ...config, isExtended: loadExtended },
         {
