@@ -2,6 +2,7 @@ import {
     SENTINEL_NO_VALUE,
     SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
+    TYPE_NUMBER,
 } from '../constants/dataTable.js'
 import { parseRange } from './legend.js'
 
@@ -32,7 +33,7 @@ export const compareColumnOptionValues = (
         return compareRangeValues(a, b, direction)
     }
     const comparison =
-        type === 'number' ? Number(a) - Number(b) : compareStrings(a, b)
+        type === TYPE_NUMBER ? Number(a) - Number(b) : compareStrings(a, b)
     return direction === SORT_ASCENDING ? comparison : -comparison
 }
 

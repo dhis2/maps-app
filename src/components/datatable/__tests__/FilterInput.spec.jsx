@@ -205,6 +205,7 @@ describe('FilterInput multi-select path (no optionSetId)', () => {
         renderFilterInput({
             dataKey: 'iconUrl',
             name: 'Icon',
+            renderer: 'rendericon',
             options: [{ value: 'https://server/api/icons/mapMarker024.png' }],
         })
         openPopover('Icon')

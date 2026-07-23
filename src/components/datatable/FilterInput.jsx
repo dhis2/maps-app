@@ -9,14 +9,21 @@ import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
 import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
+    RENDERER_COLOR,
+    RENDERER_ICON,
+    TYPE_NUMBER,
 } from '../../constants/dataTable.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
 import {
+    getCyclicIndex,
     getDisplayValue,
     getFilteredOptions,
     getPopoverWidth,
     getSelectedAndAppliedString,
+    hasMatchingOptionLabel,
     measureMaxTextWidth,
+    toHighlightedIndex,
+    toOptionIndex,
 } from '../../util/filterInput.js'
 import {
     getInvertibleValues,
@@ -64,6 +71,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     options,
     resolveLabel,
     type,
+    renderer,
     allowCustomFilter = true,
 }) {
     const dispatch = useDispatch()
@@ -104,7 +112,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             ? dispatch(setDataFilter(layerId, dataKey, text))
             : dispatch(clearDataFilter(layerId, dataKey))
 
-    const isIconColumn = dataKey === 'iconUrl'
+    const isIconColumn = renderer === RENDERER_ICON
 
     const renderOptionLabel = (value) =>
         isIconColumn ? (
@@ -145,6 +153,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         const font = `11px ${getComputedStyle(document.body).fontFamily}`
         const maxLabelWidth = measureMaxTextWidth(labels, font)
         return getPopoverWidth(maxLabelWidth)
+        // resolveLabel's identity only changes alongside type/optionSet, which don't change without realOptions changing too
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realOptions, hasNotSetOption])
 
@@ -176,9 +185,10 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     )
     const hasExactMatch = useMemo(
         () =>
-            filteredOptions.some(
-                ({ value }) =>
-                    resolveLabel(value).toLowerCase() === normalizedSearch
+            hasMatchingOptionLabel(
+                filteredOptions,
+                resolveLabel,
+                normalizedSearch
             ),
         [filteredOptions, resolveLabel, normalizedSearch]
     )
@@ -187,13 +197,13 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     const totalCount = filteredOptions.length + (showCustomFilterRow ? 1 : 0)
 
     const customFilterTag =
-        type === 'number' ? i18n.t('Use filter') : i18n.t('Contains')
+        type === TYPE_NUMBER ? i18n.t('Use filter') : i18n.t('Contains')
 
     const hasActiveFilter = selected.length > 0 || appliedString !== ''
 
     const onSearchChange = ({ value }) => {
         const sanitized =
-            type === 'number'
+            type === TYPE_NUMBER
                 ? value.replace(NUMERIC_INPUT_DISALLOWED, '')
                 : value
         setSearchText(sanitized)
@@ -212,9 +222,10 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         }
 
         const normalized = trimmed.toLowerCase()
-        const exactMatch = options.some(
-            ({ value: optionValue }) =>
-                resolveLabel(optionValue).toLowerCase() === normalized
+        const exactMatch = hasMatchingOptionLabel(
+            options,
+            resolveLabel,
+            normalized
         )
         if (!exactMatch) {
             applyCustomFilter(trimmed)
@@ -222,7 +233,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     }
 
     const scrollHighlightedIntoView = (index) => {
-        const optionIndex = showCustomFilterRow ? index - 1 : index
+        const optionIndex = toOptionIndex(index, showCustomFilterRow)
         if (optionIndex >= 0 && optionIndex < filteredOptions.length) {
             listRef.current?.scrollToIndex({
                 index: optionIndex,
@@ -242,9 +253,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             applyCustomFilter(searchText.trim())
             return
         }
-        const optionIndex = showCustomFilterRow
-            ? highlightedIndex - 1
-            : highlightedIndex
+        const optionIndex = toOptionIndex(highlightedIndex, showCustomFilterRow)
         if (optionIndex >= 0 && optionIndex < filteredOptions.length) {
             toggleValue(filteredOptions[optionIndex].value)
         }
@@ -255,7 +264,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             case 'ArrowDown':
                 event.preventDefault()
                 setHighlightedIndex((i) => {
-                    const next = totalCount ? (i + 1) % totalCount : -1
+                    const next = getCyclicIndex(i, totalCount, 1)
                     scrollHighlightedIntoView(next)
                     return next
                 })
@@ -263,9 +272,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             case 'ArrowUp':
                 event.preventDefault()
                 setHighlightedIndex((i) => {
-                    const next = totalCount
-                        ? (i - 1 + totalCount) % totalCount
-                        : -1
+                    const next = getCyclicIndex(i, totalCount, -1)
                     scrollHighlightedIntoView(next)
                     return next
                 })
@@ -297,7 +304,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             clearable
             dataTest={`data-table-column-filter-search-${name}`}
             placeholder={
-                type === 'number'
+                type === TYPE_NUMBER
                     ? i18n.t('Search or type > 5, < 8…')
                     : i18n.t('Search')
             }
@@ -316,11 +323,15 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         <div className={styles.filterTrigger} ref={anchorRef}>
             <FilterHelpTooltip
                 content={
-                    type === 'number' ? NUMERIC_FILTER_HELP : TEXT_FILTER_HELP
+                    type === TYPE_NUMBER
+                        ? NUMERIC_FILTER_HELP
+                        : TEXT_FILTER_HELP
                 }
                 placement={tooltipPlacement}
                 estimatedHeight={
-                    type === 'number' ? NUMERIC_HELP_HEIGHT : TEXT_HELP_HEIGHT
+                    type === TYPE_NUMBER
+                        ? NUMERIC_HELP_HEIGHT
+                        : TEXT_HELP_HEIGHT
                 }
                 dataTest="data-table-filter-help"
             >
@@ -450,13 +461,14 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
                                             className={cx(
                                                 styles.denseCheckbox,
                                                 (dataKey === 'id' ||
-                                                    dataKey === 'color') &&
+                                                    renderer ===
+                                                        RENDERER_COLOR) &&
                                                     styles.monoOption,
                                                 highlightedIndex ===
-                                                    (showCustomFilterRow
-                                                        ? index + 1
-                                                        : index) &&
-                                                    styles.highlighted
+                                                    toHighlightedIndex(
+                                                        index,
+                                                        showCustomFilterRow
+                                                    ) && styles.highlighted
                                             )}
                                         />
                                     )}
@@ -483,6 +495,7 @@ SearchableFilterPopover.propTypes = {
         PropTypes.arrayOf(PropTypes.string),
     ]),
     layerId: PropTypes.string,
+    renderer: PropTypes.string,
 }
 
 const PlainSearchableFilter = (props) => {
@@ -496,7 +509,7 @@ const PlainSearchableFilter = (props) => {
             if (value === SENTINEL_NO_VALUE) {
                 return i18n.t('No value')
             }
-            return type === 'number'
+            return type === TYPE_NUMBER
                 ? formatWithSeparator(
                       Number(value),
                       keyAnalysisDigitGroupSeparator
@@ -546,6 +559,7 @@ const FilterInput = React.memo(function FilterInput({
     name,
     options,
     optionSetId,
+    renderer,
 }) {
     const dataTable = useSelector((state) => state.dataTable)
     const map = useSelector((state) => state.map)
@@ -571,6 +585,7 @@ const FilterInput = React.memo(function FilterInput({
             options={options ?? []}
             optionSetId={optionSetId}
             type={type}
+            renderer={renderer}
         />
     ) : (
         <PlainSearchableFilter
@@ -580,6 +595,7 @@ const FilterInput = React.memo(function FilterInput({
             filterValue={filterValue}
             options={options ?? []}
             type={type}
+            renderer={renderer}
         />
     )
 })
@@ -590,6 +606,7 @@ FilterInput.propTypes = {
     type: PropTypes.string.isRequired,
     optionSetId: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
+    renderer: PropTypes.string,
 }
 
 export default FilterInput

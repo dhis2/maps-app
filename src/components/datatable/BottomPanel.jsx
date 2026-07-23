@@ -15,6 +15,10 @@ import {
     setHighlightColor,
 } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
+import {
+    getPanelHeights,
+    hasActiveDataTableFilters,
+} from '../../util/dataTable.js'
 import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
@@ -58,18 +62,21 @@ const BottomPanel = () => {
     const [globalSearch, setGlobalSearch] = useState('')
     const [headersByLayer, setHeadersByLayer] = useState(null)
 
-    const hasActiveFilters =
-        Object.keys(dataFilters).length > 0 ||
-        globalSearch.trim() !== '' ||
-        selectionFilter?.length > 0 ||
-        showOnlyFeaturesInView
+    const hasActiveFilters = hasActiveDataTableFilters({
+        dataFilters,
+        globalSearch,
+        selectionFilter,
+        showOnlyFeaturesInView,
+    })
 
-    const maxHeight =
-        height - getCssVar('--header-height') - getCssVar('--toolbar-height')
-    const tableHeight =
-        dataTableHeight < maxHeight ? dataTableHeight : maxHeight
-    const collapsedHeight = getCssVar('--data-table-controls-height')
-    const displayHeight = isCollapsed ? collapsedHeight : tableHeight
+    const { maxHeight, collapsedHeight, displayHeight } = getPanelHeights({
+        windowHeight: height,
+        dataTableHeight,
+        isCollapsed,
+        headerHeight: getCssVar('--header-height'),
+        toolbarHeight: getCssVar('--toolbar-height'),
+        controlsHeight: getCssVar('--data-table-controls-height'),
+    })
 
     const toggleCollapsed = useCallback(
         () => setIsCollapsed((collapsed) => !collapsed),

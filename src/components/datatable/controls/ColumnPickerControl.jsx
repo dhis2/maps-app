@@ -16,7 +16,6 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { arrayMoveImmutable } from 'array-move'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, {
@@ -30,10 +29,12 @@ import { createPortal } from 'react-dom'
 import { useDispatch } from 'react-redux'
 import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
 import {
+    filterHeadersByName,
     getDefaultVisibleKeys,
     getOrderedHeaders,
     getPinnedCount,
     isPinnedGroupEnd,
+    reorderHeaderKeys,
     reverseVisibleKeys,
     togglePinnedKey,
     toggleVisibleKey,
@@ -134,9 +135,7 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
     const filteredHeaders = useMemo(
         () =>
             isOpen
-                ? orderedHeaders.filter((h) =>
-                      h.name.toLowerCase().includes(search.trim().toLowerCase())
-                  )
+                ? filterHeadersByName(orderedHeaders, search)
                 : EMPTY_HEADERS,
         [isOpen, orderedHeaders, search]
     )
@@ -157,19 +156,12 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
         setActiveId(null)
 
         if (over && active.id !== over.id) {
-            const oldIndex = orderedHeaders.findIndex(
-                (h) => h.dataKey === active.id
+            const nextOrder = reorderHeaderKeys(
+                orderedHeaders,
+                active.id,
+                over.id
             )
-            const newIndex = orderedHeaders.findIndex(
-                (h) => h.dataKey === over.id
-            )
-
-            if (oldIndex !== -1 && newIndex !== -1) {
-                const nextOrder = arrayMoveImmutable(
-                    orderedHeaders,
-                    oldIndex,
-                    newIndex
-                ).map((h) => h.dataKey)
+            if (nextOrder) {
                 updateConfig({ orderedKeys: nextOrder })
             }
         }
