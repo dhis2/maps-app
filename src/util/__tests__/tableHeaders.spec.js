@@ -223,6 +223,16 @@ describe('getHeadersForLayer - geoJsonUrl', () => {
         const result = getHeadersForLayer(GEOJSON_URL_LAYER, { rawData })
         expect(result).toEqual({ errorCode: ERROR_NON_HOMOGENOUS_FEATURES })
     })
+
+    test('a Polygon/MultiPolygon mix is homogenous (matches the loader’s own Multi-normalization)', () => {
+        const rawData = [
+            { geometry: { type: 'Polygon' }, properties: { name: 'A' } },
+            { geometry: { type: 'MultiPolygon' }, properties: { name: 'B' } },
+        ]
+        const result = getHeadersForLayer(GEOJSON_URL_LAYER, { rawData })
+        expect(result.errorCode).toBeUndefined()
+        expect(dataKeys(result)).toEqual(expect.arrayContaining(['name']))
+    })
 })
 
 describe('getHeadersForLayer - unknown layer type', () => {
