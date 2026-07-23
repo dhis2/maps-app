@@ -11,6 +11,7 @@ const ResizeHandleControl = ({
     onResize,
     onResizeStart,
     onResizeEnd,
+    onResizeCancel,
     minHeight = 50,
     maxHeight = 500,
 }) => {
@@ -47,10 +48,7 @@ const ResizeHandleControl = ({
         onResize?.(getHeight(evt.clientY))
     }
 
-    const onPointerUp = (evt) => {
-        if (!isDraggingRef.current) {
-            return
-        }
+    const endDrag = (evt) => {
         isDraggingRef.current = false
         evt.currentTarget.releasePointerCapture(evt.pointerId)
         if (!hasMovedRef.current) {
@@ -58,7 +56,25 @@ const ResizeHandleControl = ({
         }
         evt.currentTarget.style.removeProperty('cursor')
         document.body.style.removeProperty('cursor')
-        onResizeEnd?.(getHeight(evt.clientY))
+    }
+
+    const onPointerUp = (evt) => {
+        if (!isDraggingRef.current) {
+            return
+        }
+        const shouldCommit = hasMovedRef.current
+        endDrag(evt)
+        if (shouldCommit) {
+            onResizeEnd?.(getHeight(evt.clientY))
+        }
+    }
+
+    const onPointerCancel = (evt) => {
+        if (!isDraggingRef.current) {
+            return
+        }
+        endDrag(evt)
+        onResizeCancel?.()
     }
 
     // In case the handle/panel unmounts mid-drag
@@ -77,7 +93,7 @@ const ResizeHandleControl = ({
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
+            onPointerCancel={onPointerCancel}
         >
             <span className={styles.gripBox}>
                 <IconDrag />
@@ -90,6 +106,7 @@ ResizeHandleControl.propTypes = {
     maxHeight: PropTypes.number.isRequired,
     minHeight: PropTypes.number,
     onResize: PropTypes.func,
+    onResizeCancel: PropTypes.func,
     onResizeEnd: PropTypes.func,
     onResizeStart: PropTypes.func,
 }

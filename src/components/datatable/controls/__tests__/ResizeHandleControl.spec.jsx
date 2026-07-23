@@ -20,12 +20,14 @@ const renderHandle = (props = {}) => {
     const onResize = jest.fn()
     const onResizeStart = jest.fn()
     const onResizeEnd = jest.fn()
+    const onResizeCancel = jest.fn()
     const { container } = render(
         <ResizeHandleControl
             maxHeight={500}
             onResize={onResize}
             onResizeStart={onResizeStart}
             onResizeEnd={onResizeEnd}
+            onResizeCancel={onResizeCancel}
             {...props}
         />
     )
@@ -34,6 +36,7 @@ const renderHandle = (props = {}) => {
         onResize,
         onResizeStart,
         onResizeEnd,
+        onResizeCancel,
     }
 }
 
@@ -62,7 +65,8 @@ describe('ResizeHandleControl', () => {
     })
 
     it('resizes once the pointer moves past the drag threshold', () => {
-        const { handle, onResize, onResizeStart, onResizeEnd } = renderHandle()
+        const { handle, onResize, onResizeStart, onResizeEnd, onResizeCancel } =
+            renderHandle()
 
         firePointerEvent('pointerDown', handle, { clientY: 300 })
         firePointerEvent('pointerMove', handle, { clientY: 280 })
@@ -71,5 +75,38 @@ describe('ResizeHandleControl', () => {
         expect(onResizeStart).toHaveBeenCalledTimes(1)
         expect(onResize).toHaveBeenCalled()
         expect(onResizeEnd).toHaveBeenCalledTimes(1)
+        expect(onResizeCancel).not.toHaveBeenCalled()
+    })
+
+    it('resets the drag state on cancel without committing a resize', () => {
+        const { handle, onResizeEnd, onResizeCancel } = renderHandle()
+
+        firePointerEvent('pointerDown', handle, { clientY: 500 })
+        firePointerEvent('pointerMove', handle, { clientY: 400 })
+        firePointerEvent('pointerCancel', handle, { clientY: 0 })
+
+        expect(onResizeCancel).toHaveBeenCalledTimes(1)
+        expect(onResizeEnd).not.toHaveBeenCalled()
+    })
+
+    it('ignores a stray pointercancel with no active drag', () => {
+        const { handle, onResizeCancel, onResizeEnd } = renderHandle()
+
+        firePointerEvent('pointerCancel', handle, { clientY: 0 })
+
+        expect(onResizeCancel).not.toHaveBeenCalled()
+        expect(onResizeEnd).not.toHaveBeenCalled()
+    })
+
+    it('ignores a pointer up/cancel that arrives after the drag already ended', () => {
+        const { handle, onResizeEnd, onResizeCancel } = renderHandle()
+
+        firePointerEvent('pointerDown', handle, { clientY: 500 })
+        firePointerEvent('pointerMove', handle, { clientY: 400 })
+        firePointerEvent('pointerUp', handle, { clientY: 400 })
+        firePointerEvent('pointerCancel', handle, { clientY: 0 })
+
+        expect(onResizeEnd).toHaveBeenCalledTimes(1)
+        expect(onResizeCancel).not.toHaveBeenCalled()
     })
 })
