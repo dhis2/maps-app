@@ -57,10 +57,10 @@ class Map extends Component {
         nameProperty: PropTypes.string,
         resizeCount: PropTypes.number,
         selection: PropTypes.object,
+        selectionFilter: PropTypes.array,
         setAggregations: PropTypes.func,
         setFeatureProfile: PropTypes.func,
         setMapObject: PropTypes.func,
-        showOnlySelected: PropTypes.bool,
         toggleFeatureSelection: PropTypes.func,
         zoom: PropTypes.number,
     }
@@ -185,7 +185,7 @@ class Map extends Component {
             selection,
             highlightFeature,
             highlightColor,
-            showOnlySelected,
+            selectionFilter,
             clickFeature,
             toggleFeatureSelection,
             coordinatePopup: coordinates,
@@ -237,7 +237,7 @@ class Map extends Component {
                                     selection={selection}
                                     highlightFeature={highlightFeature}
                                     highlightColor={highlightColor}
-                                    showOnlySelected={showOnlySelected}
+                                    selectionFilter={selectionFilter}
                                     clickFeature={clickFeature}
                                     toggleFeatureSelection={
                                         toggleFeatureSelection

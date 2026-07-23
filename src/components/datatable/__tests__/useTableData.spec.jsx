@@ -2,6 +2,10 @@ import { renderHook } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import {
+    SENTINEL_SELECTED_ROW,
+    SENTINEL_NO_VALUE,
+} from '../../../constants/dataTable.js'
 import { useTableData } from '../useTableData.js'
 
 jest.mock('../../map/MapApi.js', () => ({
@@ -44,17 +48,15 @@ describe('useTableData headers', () => {
         )
 
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(4)
+        expect(headers).toHaveLength(3)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(4)
+        expect(rows[0]).toHaveLength(3)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Facility 1', dataKey: 'name' },
             { value: 'facility-1', dataKey: 'id' },
             { value: 'Point', dataKey: 'type' },
@@ -96,9 +98,8 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(6)
+        expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Level', dataKey: 'level', type: 'number' },
@@ -106,9 +107,8 @@ describe('useTableData headers', () => {
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'OrgUnitName 1', dataKey: 'name' },
             { value: 'orgunit-id-1', dataKey: 'id' },
             { value: 3, dataKey: 'level' },
@@ -156,9 +156,8 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(10)
+        expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Value', dataKey: 'rawValue', type: 'number' },
@@ -175,9 +174,8 @@ describe('useTableData headers', () => {
             },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(10)
+        expect(rows[0]).toHaveLength(9)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Ngelehun CHC', dataKey: 'name' },
             { value: 'thematicId-1', dataKey: 'id' },
             { value: 106.3, dataKey: 'rawValue' },
@@ -258,9 +256,8 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(8)
+        expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Org unit', dataKey: 'ouname', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             {
@@ -275,9 +272,8 @@ describe('useTableData headers', () => {
             { name: 'Type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(8)
+        expect(rows[0]).toHaveLength(7)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Lumley Hospital', dataKey: 'ouname' },
             { value: 'a9712323629', dataKey: 'id' },
             { value: '2023-05-15 00:00:00.0', dataKey: 'eventdate' },
@@ -438,9 +434,8 @@ describe('useTableData headers', () => {
         )
         const { headers, rows, isLoading } = result.current
 
-        expect(headers).toHaveLength(6)
+        expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
@@ -457,12 +452,11 @@ describe('useTableData headers', () => {
                 type: 'number',
             },
         ])
+        expect(headers[3].roundFn).toBeInstanceOf(Function)
         expect(headers[4].roundFn).toBeInstanceOf(Function)
-        expect(headers[5].roundFn).toBeInstanceOf(Function)
         expect(rows).toHaveLength(2)
-        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Bo', dataKey: 'name' },
             { value: 'boOu', dataKey: 'id' },
             { value: 'Polygon', dataKey: 'type' },
@@ -595,9 +589,8 @@ describe('useTableData headers', () => {
         )
         const { headers, rows, isLoading } = result.current
 
-        expect(headers).toHaveLength(6)
+        expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Index', dataKey: 'index', type: 'number' },
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
@@ -614,12 +607,11 @@ describe('useTableData headers', () => {
                 type: 'number',
             },
         ])
+        expect(headers[3].roundFn).toBeInstanceOf(Function)
         expect(headers[4].roundFn).toBeInstanceOf(Function)
-        expect(headers[5].roundFn).toBeInstanceOf(Function)
         expect(rows).toHaveLength(2)
-        expect(rows[0]).toHaveLength(6)
+        expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 0, dataKey: 'index' },
             { value: 'Badija', dataKey: 'name' },
             { value: 'boOU', dataKey: 'id' },
             { value: 'Polygon', dataKey: 'type' },
@@ -662,7 +654,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([5, 10, 15, null, null])
     })
 
@@ -684,7 +676,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([15, 10, 5, null, null])
     })
 
@@ -718,7 +710,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
+        const nameColumn = result.current.rows.map((row) => row[0]?.value) // Name column
         expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
     })
 
@@ -752,7 +744,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const nameColumn = result.current.rows.map((row) => row[1]?.value) // Name column
+        const nameColumn = result.current.rows.map((row) => row[0]?.value) // Name column
         expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', undefined])
     })
 
@@ -792,7 +784,7 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([5, 10, null, null])
     })
 
@@ -834,8 +826,90 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[3]?.value) // Value column
+        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
         expect(valueColumn).toEqual([null, null, null])
+    })
+
+    test('falls back to natural (index) order when sortField is null', () => {
+        const layerInInputOrder = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                { properties: { id: '1', name: 'Item C', rawValue: 3 } },
+                { properties: { id: '2', name: 'Item A', rawValue: 1 } },
+                { properties: { id: '3', name: 'Item B', rawValue: 2 } },
+            ],
+        }
+        const store = { aggregations: {} }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: layerInInputOrder,
+                    sortField: null,
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const names = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'name')?.value
+        )
+        expect(names).toEqual(['Item C', 'Item A', 'Item B'])
+    })
+
+    describe('sorting by selection state', () => {
+        const layerWithIds = {
+            id: 'test-layer',
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                { properties: { id: '1', name: 'Item A' } },
+                { properties: { id: '2', name: 'Item B' } },
+                { properties: { id: '3', name: 'Item C' } },
+                { properties: { id: '4', name: 'Item D' } },
+                { properties: { id: '5', name: 'Item E' } },
+            ],
+        }
+        const store = { aggregations: {} }
+
+        const renderSorted = (sortDirection) =>
+            renderHook(
+                () =>
+                    useTableData({
+                        layer: layerWithIds,
+                        sortField: SENTINEL_SELECTED_ROW,
+                        sortDirection,
+                        selectedIdSet: new Set(['2', '4']),
+                    }),
+                {
+                    wrapper: ({ children }) => (
+                        <Provider store={mockStore(store)}>{children}</Provider>
+                    ),
+                }
+            ).result
+
+        test('ascending (the default on first click) puts selected rows first', () => {
+            const { current } = renderSorted('asc')
+            const ids = current.rows.map(
+                (row) => row.find((c) => c.dataKey === 'id')?.value
+            )
+            expect(ids.slice(0, 2).sort()).toEqual(['2', '4'])
+            expect(ids.slice(2).sort()).toEqual(['1', '3', '5'])
+        })
+
+        test('descending puts selected rows last', () => {
+            const { current } = renderSorted('desc')
+            const ids = current.rows.map(
+                (row) => row.find((c) => c.dataKey === 'id')?.value
+            )
+            expect(ids.slice(0, 3).sort()).toEqual(['1', '3', '5'])
+            expect(ids.slice(3).sort()).toEqual(['2', '4'])
+        })
     })
 })
 
@@ -920,7 +994,7 @@ describe('useTableData showOnlyFeaturesInView', () => {
     })
 })
 
-describe('useTableData showOnlySelected', () => {
+describe('useTableData selectionFilter', () => {
     const store = { aggregations: {} }
 
     const layer = {
@@ -940,23 +1014,23 @@ describe('useTableData showOnlySelected', () => {
             ),
         }).result
 
-    test('includes all rows when the toggle is off', () => {
+    test('includes all rows when no filter is applied', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: false,
+            selectionFilter: [],
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(2)
     })
 
-    test('includes only selected rows when the toggle is on', () => {
+    test('includes only selected rows when filtered to "selected"', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: true,
+            selectionFilter: ['selected'],
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(1)
@@ -965,14 +1039,376 @@ describe('useTableData showOnlySelected', () => {
         )
     })
 
-    test('shows no rows when the toggle is on and nothing is selected', () => {
+    test('includes only non-selected rows when filtered to "not-selected"', () => {
         const { current } = renderTableData({
             layer,
             sortField: 'name',
             sortDirection: 'asc',
-            showOnlySelected: true,
+            selectionFilter: ['not-selected'],
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'Item B'
+        )
+    })
+
+    test('includes all rows when both options are checked', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            selectionFilter: ['selected', 'not-selected'],
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(2)
+    })
+
+    test('shows no rows when filtered to "selected" and nothing is selected', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            selectionFilter: ['selected'],
             selectedIdSet: new Set(),
         })
+        expect(current.rows).toHaveLength(0)
+    })
+})
+
+describe('useTableData columnOptions', () => {
+    const store = { aggregations: {} }
+
+    const renderTableData = (layer) =>
+        renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        ).result
+
+    test('gives options to every column type once distinct values are within the cap', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou1',
+                        name: 'Org unit 1',
+                        rawValue: 10,
+                        legend: 'High',
+                        range: '5 - 15',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                        color: '#ff0000',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou2',
+                        name: 'Org unit 2',
+                        rawValue: 20,
+                        legend: 'Low',
+                        range: '15 - 25',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                        color: '#00ff00',
+                    },
+                },
+            ],
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.legend).toEqual([
+            { value: 'High' },
+            { value: 'Low' },
+        ])
+        expect(current.columnOptions.type).toEqual([{ value: 'Point' }])
+        expect(current.columnOptions.name).toEqual([
+            { value: 'Org unit 1' },
+            { value: 'Org unit 2' },
+        ])
+        expect(current.columnOptions.id).toEqual([
+            { value: 'ou1' },
+            { value: 'ou2' },
+        ])
+        expect(current.columnOptions.parentName).toEqual([{ value: 'Country' }])
+        expect(current.columnOptions.rawValue).toEqual([
+            { value: '10' },
+            { value: '20' },
+        ])
+        expect(current.columnOptions.level).toEqual([{ value: '1' }])
+    })
+
+    test('gives options to a column even with many distinct values - no cap', () => {
+        const layer = {
+            layer: 'orgUnit',
+            dataFilters: null,
+            data: Array.from({ length: 31 }, (_, i) => ({
+                properties: {
+                    id: `ou${i}`,
+                    name: `Org unit ${i}`,
+                    level: 1,
+                    parentName: 'Country',
+                    type: `Type${i}`,
+                },
+            })),
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.type).toHaveLength(31)
+    })
+
+    test('sorts numeric column options numerically, not lexically', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [10, 2, 33].map((rawValue, i) => ({
+                properties: {
+                    id: `ou${i}`,
+                    name: `Org unit ${i}`,
+                    rawValue,
+                    legend: 'High',
+                    range: '0 - 100',
+                    level: 1,
+                    parentName: 'Country',
+                    type: 'Point',
+                    color: '#ff0000',
+                },
+            })),
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.rawValue).toEqual([
+            { value: '2' },
+            { value: '10' },
+            { value: '33' },
+        ])
+    })
+
+    test('sorts range column options by their parsed bounds, not lexically', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: ['90 - 120', '9 - 12', '10 - 20'].map((range, i) => ({
+                properties: {
+                    id: `ou${i}`,
+                    name: `Org unit ${i}`,
+                    rawValue: 1,
+                    legend: 'High',
+                    range,
+                    level: 1,
+                    parentName: 'Country',
+                    type: 'Point',
+                    color: '#ff0000',
+                },
+            })),
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.range).toEqual([
+            { value: '9 - 12' },
+            { value: '10 - 20' },
+            { value: '90 - 120' },
+        ])
+    })
+
+    test('includes a SENTINEL_NO_VALUE option when some rows have a blank value', () => {
+        const layer = {
+            layer: 'orgUnit',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou1',
+                        name: 'Org unit 1',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou2',
+                        name: 'Org unit 2',
+                        level: 1,
+                        parentName: '',
+                        type: 'Point',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou3',
+                        name: 'Org unit 3',
+                        level: 1,
+                        // parentName omitted entirely (undefined)
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+
+        const { current } = renderTableData(layer)
+
+        expect(current.columnOptions.parentName).toEqual([
+            { value: SENTINEL_NO_VALUE },
+            { value: 'Country' },
+        ])
+    })
+
+    test('exposes optionSet on event columns for later resolution by FilterInput', () => {
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'AbCdEfGhIjK',
+                    column: 'Case classification',
+                    valueType: 'TEXT',
+                    optionSet: { id: 'xyz123' },
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 'CONFIRMED',
+                    },
+                },
+            ],
+        }
+
+        const { current } = renderTableData(layer)
+
+        const header = current.headers.find((h) => h.dataKey === 'AbCdEfGhIjK')
+        expect(header.optionSet).toEqual({ id: 'xyz123' })
+        expect(current.columnOptions.AbCdEfGhIjK).toEqual([
+            { value: 'CONFIRMED' },
+        ])
+    })
+
+    test('matches the currently sorted column direction, leaving other columns ascending', () => {
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou1',
+                        name: 'Org unit 1',
+                        rawValue: 10,
+                        legend: 'High',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                    },
+                },
+                {
+                    properties: {
+                        id: 'ou2',
+                        name: 'Org unit 2',
+                        rawValue: 20,
+                        legend: 'Low',
+                        level: 1,
+                        parentName: 'Country',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'desc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        // Sorted column (name, desc) is reversed to match...
+        expect(result.current.columnOptions.name).toEqual([
+            { value: 'Org unit 2' },
+            { value: 'Org unit 1' },
+        ])
+        // ...while every other column stays in its default ascending order.
+        expect(result.current.columnOptions.rawValue).toEqual([
+            { value: '10' },
+            { value: '20' },
+        ])
+        expect(result.current.columnOptions.legend).toEqual([
+            { value: 'High' },
+            { value: 'Low' },
+        ])
+    })
+})
+
+describe('useTableData globalSearch', () => {
+    const store = { aggregations: {} }
+
+    const layer = {
+        layer: 'orgUnit',
+        dataFilters: null,
+        data: [
+            { properties: { id: 'a', name: 'Kampala', parentName: 'Uganda' } },
+            { properties: { id: 'b', name: 'Nairobi', parentName: 'Kenya' } },
+        ],
+    }
+
+    const renderTableData = (globalSearch) =>
+        renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                    globalSearch,
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        ).result
+
+    test('includes all rows when the search string is empty', () => {
+        const { current } = renderTableData('')
+        expect(current.rows).toHaveLength(2)
+    })
+
+    test('matches case-insensitively across any string column', () => {
+        const { current } = renderTableData('uganda')
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'Kampala'
+        )
+    })
+
+    test('shows no rows when nothing matches', () => {
+        const { current } = renderTableData('addis ababa')
         expect(current.rows).toHaveLength(0)
     })
 })

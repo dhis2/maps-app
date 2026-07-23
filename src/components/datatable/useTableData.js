@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
+import { SENTINEL_NO_VALUE, SORT_ASCENDING } from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
@@ -9,21 +10,22 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
+import {
+    SELECTION_FILTER_SELECTED,
+    SELECTION_FILTER_NOT_SELECTED,
+} from '../../constants/selection.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
-import { filterData } from '../../util/filter.js'
+import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData, isFeatureInBounds } from '../../util/geojson.js'
-import { parseRange } from '../../util/legend.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
+import { compareColumnOptionValues, compareRows } from '../../util/tableSort.js'
 import { isValidUid } from '../../util/uid.js'
-
-const ASCENDING = 'asc'
 
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 const TYPE_DATE = 'date'
 
-const INDEX = 'index'
 const NAME = 'name'
 const ID = 'id'
 const VALUE = 'rawValue'
@@ -64,7 +66,6 @@ const getErrorCodeText = (code) => {
 }
 
 const defaultFieldsMap = () => ({
-    [INDEX]: { name: i18n.t('Index'), dataKey: INDEX, type: TYPE_NUMBER },
     [NAME]: { name: i18n.t('Name'), dataKey: NAME, type: TYPE_STRING },
     [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
     [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
@@ -98,25 +99,16 @@ const defaultFieldsMap = () => ({
 })
 
 const getThematicHeaders = () =>
-    [
-        INDEX,
-        NAME,
-        ID,
-        VALUE,
-        LEGEND,
-        RANGE,
-        LEVEL,
-        PARENT_NAME,
-        TYPE,
-        COLOR,
-    ].map((field) => defaultFieldsMap()[field])
+    [NAME, ID, VALUE, LEGEND, RANGE, LEVEL, PARENT_NAME, TYPE, COLOR].map(
+        (field) => defaultFieldsMap()[field]
+    )
 
 const getEventHeaders = ({
     layerHeaders = [],
     styleDataItem,
     countEventsOutsideOrgUnits,
 }) => {
-    const fields = [INDEX, OUNAME, ID, EVENTDATE].map(
+    const fields = [OUNAME, ID, EVENTDATE].map(
         (field) => defaultFieldsMap()[field]
     )
 
@@ -133,6 +125,7 @@ const getEventHeaders = ({
                 !optionSet && numberValueTypes.includes(valueType)
                     ? TYPE_NUMBER
                     : TYPE_STRING,
+            optionSet: optionSet || null,
         }))
 
     customFields.push(defaultFieldsMap()[TYPE])
@@ -145,12 +138,12 @@ const getEventHeaders = ({
 }
 
 const getOrgUnitHeaders = () =>
-    [INDEX, NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
+    [NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
         (field) => defaultFieldsMap()[field]
     )
 
 const getFacilityHeaders = () =>
-    [INDEX, NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
+    [NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
 
 const toTitleCase = (str) =>
     str.replace(
@@ -186,7 +179,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return [INDEX, NAME, ID, TYPE]
+    return [NAME, ID, TYPE]
         .map((field) => defaultFieldsMap()[field])
         .concat(customFields)
 }
@@ -196,6 +189,7 @@ const getGeoJsonUrlHeaders = (firstDataItem) =>
 
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
+const EMPTY_COLUMN_OPTIONS = {}
 
 export const useTableData = ({
     layer,
@@ -203,8 +197,9 @@ export const useTableData = ({
     sortDirection,
     showOnlyFeaturesInView,
     mapBounds,
-    showOnlySelected,
+    selectionFilter,
     selectedIdSet,
+    globalSearch,
 }) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
@@ -257,6 +252,7 @@ export const useTableData = ({
             .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
+                // Row-order tie-breaker for compareRows when no sortField is set
                 index,
             }))
         // boundsDependency intentionally proxies mapBounds only while the toggle is on
@@ -335,6 +331,41 @@ export const useTableData = ({
         layerHeaders,
     ])
 
+    const columnOptions = useMemo(() => {
+        if (!headers?.length || !dataWithAggregations?.length) {
+            return EMPTY_COLUMN_OPTIONS
+        }
+
+        const result = {}
+        headers.forEach(({ dataKey, type }) => {
+            const seen = new Set()
+            for (const item of dataWithAggregations) {
+                const val = item[dataKey]
+                seen.add(
+                    val === undefined || val === null || val === ''
+                        ? SENTINEL_NO_VALUE
+                        : String(val)
+                )
+            }
+
+            if (seen.size > 0) {
+                const direction =
+                    dataKey === sortField ? sortDirection : SORT_ASCENDING
+                result[dataKey] = Array.from(seen)
+                    .sort((a, b) =>
+                        compareColumnOptionValues(a, b, {
+                            dataKey,
+                            type,
+                            direction,
+                        })
+                    )
+                    .map((value) => ({ value }))
+            }
+        })
+
+        return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
+    }, [headers, dataWithAggregations, sortField, sortDirection])
+
     const rows = useMemo(() => {
         if (errorCode.current) {
             return null
@@ -347,52 +378,36 @@ export const useTableData = ({
 
         let filteredData = filterData(dataWithAggregations, dataFilters)
 
-        if (showOnlySelected) {
-            filteredData = filteredData.filter((item) =>
-                selectedIdSet?.has(item.id)
+        if (globalSearch?.trim()) {
+            const stringDataKeys = headers
+                .filter((h) => h.type === TYPE_STRING)
+                .map((h) => h.dataKey)
+            filteredData = filterByGlobalSearch(
+                filteredData,
+                globalSearch,
+                stringDataKeys
             )
         }
 
+        if (selectionFilter?.length) {
+            const wantSelected = selectionFilter.includes(
+                SELECTION_FILTER_SELECTED
+            )
+            const wantNotSelected = selectionFilter.includes(
+                SELECTION_FILTER_NOT_SELECTED
+            )
+            // Both (or neither) checked means "show everything"
+            if (wantSelected !== wantNotSelected) {
+                filteredData = filteredData.filter(
+                    (item) => !!selectedIdSet?.has(item.id) === wantSelected
+                )
+            }
+        }
+
         //sort
-        filteredData.sort((a, b) => {
-            const aVal = a[sortField]
-            const bVal = b[sortField]
-
-            // All undefined values should be sorted to the end
-            if (aVal === undefined && bVal === undefined) {
-                return 0
-            }
-
-            if (aVal === undefined) {
-                return 1 // aVal goes to end
-            }
-
-            if (bVal === undefined) {
-                return -1 // bVal goes to end
-            }
-
-            if (typeof aVal === TYPE_NUMBER) {
-                return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
-            }
-
-            if (sortField === RANGE) {
-                const [aStart, aEnd] = parseRange(aVal)
-                const [bStart, bEnd] = parseRange(bVal)
-                const startDiff =
-                    sortDirection === ASCENDING
-                        ? aStart - bStart
-                        : bStart - aStart
-                if (startDiff !== 0) {
-                    return startDiff
-                }
-                return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
-            }
-
-            // TODO: Make sure sorting works across different locales
-            return sortDirection === ASCENDING
-                ? aVal.localeCompare(bVal)
-                : bVal.localeCompare(aVal)
-        })
+        filteredData.sort((a, b) =>
+            compareRows(a, b, { sortField, sortDirection, selectedIdSet })
+        )
 
         return filteredData.map((item) =>
             headers.map(({ dataKey, roundFn, type }) => {
@@ -410,18 +425,27 @@ export const useTableData = ({
         headers,
         dataWithAggregations,
         dataFilters,
+        globalSearch,
         sortField,
         sortDirection,
-        showOnlySelected,
+        selectionFilter,
         selectedIdSet,
     ])
 
     // EE layers and event layers may be loading additional data
-    const isLoading =
-        (layerType === EARTH_ENGINE_LAYER &&
-            aggregationType?.length &&
-            (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
-        (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
+    const isLoadingAggregations =
+        layerType === EARTH_ENGINE_LAYER &&
+        aggregationType?.length &&
+        (!aggregations || aggregations === EMPTY_AGGREGATIONS)
+    const isExtendingEvents =
+        layerType === EVENT_LAYER && !layer.isExtended && !serverCluster
+    const isLoading = isLoadingAggregations || isExtendingEvents
+    let loadingReason = null
+    if (isLoadingAggregations) {
+        loadingReason = i18n.t('Loading Earth Engine data…')
+    } else if (isExtendingEvents) {
+        loadingReason = i18n.t('Loading additional events…')
+    }
 
     const totalCount = dataWithAggregations?.length ?? 0
     const filteredCount = rows?.length ?? 0
@@ -430,8 +454,10 @@ export const useTableData = ({
         headers,
         rows,
         isLoading,
+        loadingReason,
         error: getErrorCodeText(errorCode.current),
         totalCount,
         filteredCount,
+        columnOptions,
     }
 }

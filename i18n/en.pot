@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-13T09:39:24.427Z\n"
-"PO-Revision-Date: 2026-07-13T09:39:24.427Z\n"
+"POT-Creation-Date: 2026-07-16T11:34:34.211Z\n"
+"PO-Revision-Date: 2026-07-16T11:34:34.212Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -167,26 +167,49 @@ msgstr "Restore"
 msgid "Collapse"
 msgstr "Collapse"
 
+msgid "Highlight color"
+msgstr "Highlight color"
+
 msgid "Clear filters"
 msgstr "Clear filters"
+
+msgid "Search all columns"
+msgstr "Search all columns"
 
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
 
-msgid "Show only selected features"
-msgstr "Show only selected features"
-
-msgid "Highlight color"
-msgstr "Highlight color"
-
 msgid "Close"
 msgstr "Close"
+
+msgid "Selected"
+msgstr "Selected"
+
+msgid "Not selected"
+msgstr "Not selected"
+
+msgid "All"
+msgstr "All"
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
+
+msgid "No features match your filters"
+msgstr "No features match your filters"
 
 msgid "No results found"
 msgstr "No results found"
 
-msgid "Select all"
-msgstr "Select all"
+msgid "Select all visible rows"
+msgstr "Select all visible rows"
+
+msgid "Reverse selection of visible rows"
+msgstr "Reverse selection of visible rows"
+
+msgid "Sort by Selected"
+msgstr "Sort by Selected"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
@@ -194,8 +217,53 @@ msgstr "Sort by {{column}}"
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
+msgid "greater than 5"
+msgstr "greater than 5"
+
+msgid "greater than or equal to 5"
+msgstr "greater than or equal to 5"
+
+msgid "less than (or equal to) 5"
+msgstr "less than (or equal to) 5"
+
+msgid "equal to 2 OR greater than 8"
+msgstr "equal to 2 OR greater than 8"
+
+msgid "greater than 3 AND less than 8"
+msgstr "greater than 3 AND less than 8"
+
+msgid "Select values, or type text"
+msgstr "Select values, or type text"
+
+msgid "to match rows that contain it"
+msgstr "to match rows that contain it"
+
+msgid "Use filter"
+msgstr "Use filter"
+
+msgid "Contains"
+msgstr "Contains"
+
+msgid "Search or type > 5, < 8…"
+msgstr "Search or type > 5, < 8…"
+
 msgid "Search"
 msgstr "Search"
+
+msgid "Reverse selection"
+msgstr "Reverse selection"
+
+msgid "Any value"
+msgstr "Any value"
+
+msgid "Too many values to list - type to filter this column"
+msgstr "Too many values to list - type to filter this column"
+
+msgid "No matches"
+msgstr "No matches"
+
+msgid "No value"
+msgstr "No value"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -215,6 +283,9 @@ msgstr "Zoom to layer"
 msgid "Zoom to selected features"
 msgstr "Zoom to selected features"
 
+msgid "Zoom to filtered features"
+msgstr "Zoom to filtered features"
+
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
 
@@ -230,9 +301,6 @@ msgstr ""
 
 msgid "No valid data fields were found for this layer."
 msgstr "No valid data fields were found for this layer."
-
-msgid "Index"
-msgstr "Index"
 
 msgid "Id"
 msgstr "Id"
@@ -260,6 +328,12 @@ msgstr "Org unit boundary"
 
 msgid "Event time"
 msgstr "Event time"
+
+msgid "Loading Earth Engine data…"
+msgstr "Loading Earth Engine data…"
+
+msgid "Loading additional events…"
+msgstr "Loading additional events…"
 
 msgid "Items"
 msgstr "Items"
@@ -868,9 +942,6 @@ msgstr ""
 
 msgid "no value"
 msgstr "no value"
-
-msgid "All"
-msgstr "All"
 
 msgid "Loading data"
 msgstr "Loading data"
@@ -1728,6 +1799,9 @@ msgstr "16-day"
 
 msgid "Since February 2000"
 msgstr "Since February 2000"
+
+msgid "Index"
+msgstr "Index"
 
 msgid "NDVI"
 msgstr "NDVI"

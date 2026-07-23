@@ -5,7 +5,7 @@
     width: 100%;
     height: var(--data-table-height);
     z-index: 1040;
-    background: #fff;
+    background: var(--colors-white);
     display: flex;
     flex-direction: column;
 }
@@ -47,6 +47,13 @@
     flex-shrink: 0;
 }
 
+.divider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--colors-grey300);
+    flex-shrink: 0;
+}
+
 @keyframes tooltipExpandRight {
     from {
         clip-path: inset(0 100% 0 0);
@@ -81,8 +88,8 @@
 
 .clearBadge {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
     width: 8px;
     height: 8px;
     background: var(--colors-grey100);
@@ -128,11 +135,31 @@
     padding: 0;
 }
 
+.alignIcon1 {
+    display: flex;
+    margin-top: 1px;
+}
+
+.alignIcon2 {
+    display: flex;
+    margin-top: 2px;
+}
+
 .clearFiltersButton:hover,
 .closeIcon:hover,
 .toggleButton:hover {
     color: var(--colors-grey900);
     background-color: var(--colors-grey300);
+}
+
+.clearFiltersButton:disabled {
+    color: var(--colors-grey400);
+    cursor: not-allowed;
+}
+
+.clearFiltersButton:disabled:hover {
+    color: var(--colors-grey400);
+    background-color: transparent;
 }
 
 .toggleButton.active {
@@ -144,6 +171,7 @@
     background-color: var(--colors-blue200);
 }
 
+/* !important beats @dhis2/ui's own ColorPicker field margin. */
 .highlightColorPicker {
     margin-bottom: 0 !important;
     flex-shrink: 0;
@@ -153,9 +181,24 @@
     top: -1px;
 }
 
+/* !important beats @dhis2/ui's own ColorPicker label size. */
 .highlightColorPicker label {
     box-sizing: border-box;
     overflow: hidden;
     min-width: 18px !important;
     min-height: 18px !important;
+}
+
+.globalSearch {
+    flex: 0 1 160px;
+    min-width: 90px;
+}
+
+.globalSearch > :global(div) {
+    width: 100%;
+}
+
+.globalSearch :global(input.dense) {
+    padding: 4px 6px;
+    font-size: 11px;
 }

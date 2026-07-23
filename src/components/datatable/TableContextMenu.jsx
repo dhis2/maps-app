@@ -24,7 +24,13 @@ import { drillUpDown } from '../../util/map.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { IconZoomIn16 } from '../core/icons.jsx'
 
-const TableContextMenu = ({ contextMenu, layer, selectedIds, onClose }) => {
+const TableContextMenu = ({
+    contextMenu,
+    layer,
+    selectedIds,
+    filteredIds,
+    onClose,
+}) => {
     const anchorRef = useRef()
     const dispatch = useDispatch()
     const {
@@ -191,6 +197,23 @@ const TableContextMenu = ({ contextMenu, layer, selectedIds, onClose }) => {
                             onClose()
                         }}
                     />
+                    <MenuItem
+                        dataTest="data-table-context-menu-zoom-to-filtered"
+                        label={i18n.t('Zoom to filtered features')}
+                        icon={<IconZoomIn16 />}
+                        disabled={!filteredIds?.length}
+                        onClick={() => {
+                            dispatch(
+                                highlightFeature({
+                                    ids: filteredIds,
+                                    layerId: layer.id,
+                                    origin: 'table',
+                                    zoom: true,
+                                })
+                            )
+                            onClose()
+                        }}
+                    />
                 </Menu>
             </Popover>
         </>
@@ -205,6 +228,7 @@ TableContextMenu.propTypes = {
         x: PropTypes.number,
         y: PropTypes.number,
     }),
+    filteredIds: PropTypes.array,
     selectedIds: PropTypes.array,
 }
 
