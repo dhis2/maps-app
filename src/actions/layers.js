@@ -66,3 +66,10 @@ export const setLayerLoading = (id) => ({
     type: types.LAYER_LOADING_SET,
     id,
 })
+
+// Force client-side clustering for a server-clustered event layer
+// (session-only; intentionally excluded from validLayerProperties in favorites.js)
+export const setForceClientCluster = (id) => ({
+    type: types.LAYER_FORCE_CLIENT_CLUSTER_SET,
+    id,
+})
