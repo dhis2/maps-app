@@ -9,6 +9,7 @@ import {
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -138,32 +139,23 @@ export const toGeoJson = (instances, color) =>
         },
     }))
 
-export const parseJsonConfig = (config) => {
-    if (!config.config || typeof config.config !== 'string') {
-        return
+export const applyParsedConfig = (config) => {
+    const { relationships, periodType, dataTableColumnConfig } =
+        parseJsonConfig(config.config)
+
+    if (relationships) {
+        config.relationshipType = relationships.type
+        config.relatedPointColor = relationships.pointColor
+        config.relatedPointRadius = relationships.pointRadius
+        config.relationshipLineColor = relationships.lineColor
+        config.relationshipOutsideProgram =
+            relationships.relationshipOutsideProgram
     }
 
-    try {
-        const { relationships, periodType, dataTableColumnConfig } = JSON.parse(
-            config.config
-        )
+    config.periodType = periodType
 
-        if (relationships) {
-            config.relationshipType = relationships.type
-            config.relatedPointColor = relationships.pointColor
-            config.relatedPointRadius = relationships.pointRadius
-            config.relationshipLineColor = relationships.lineColor
-            config.relationshipOutsideProgram =
-                relationships.relationshipOutsideProgram
-        }
-
-        config.periodType = periodType
-
-        if (dataTableColumnConfig) {
-            config.dataTableColumnConfig = dataTableColumnConfig
-        }
-    } catch (e) {
-        // Malformed config JSON
+    if (dataTableColumnConfig) {
+        config.dataTableColumnConfig = dataTableColumnConfig
     }
 
     delete config.config
@@ -274,7 +266,7 @@ const trackedEntityLoader = async ({
     keyAnalysisDigitGroupSeparator,
     serverVersion,
 }) => {
-    parseJsonConfig(config)
+    applyParsedConfig(config)
 
     const {
         trackedEntityType,

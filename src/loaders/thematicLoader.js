@@ -179,6 +179,7 @@ const thematicLoader = async ({
             legend: null,
             isLoaded: true,
             isLoading: false,
+            isExpanded: true,
             loadError,
         }
     }
