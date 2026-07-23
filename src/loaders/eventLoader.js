@@ -285,13 +285,15 @@ const loadEventLayer = async ({
     if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        config.serverCluster = shouldUseServerCluster({
-            count: response.count,
-            countFeaturesWithoutCoordinates:
-                config.countFeaturesWithoutCoordinates,
-            countEventsOutsideOrgUnits: config.countEventsOutsideOrgUnits,
-            spatialSupport,
-        })
+        config.serverCluster = config.forceClientCluster
+            ? false
+            : shouldUseServerCluster({
+                  count: response.count,
+                  countFeaturesWithoutCoordinates:
+                      config.countFeaturesWithoutCoordinates,
+                  countEventsOutsideOrgUnits: config.countEventsOutsideOrgUnits,
+                  spatialSupport,
+              })
         serverCount = response.count
     }
 
