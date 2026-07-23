@@ -463,7 +463,9 @@ const Table = ({
                                 }
                             >
                                 <span className={styles.headerContent}>
-                                    {name}
+                                    <span className={styles.headerTitle}>
+                                        {name}
+                                    </span>
                                     <TopTooltip
                                         content={i18n.t('Sort by {{column}}', {
                                             column: name,
