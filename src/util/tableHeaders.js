@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import {
     RENDERER_COLOR,
     RENDERER_ICON,
+    RENDERER_DATE,
     TYPE_NUMBER,
     TYPE_STRING,
     TYPE_DATE,
@@ -63,7 +64,7 @@ const defaultFieldsMap = () => ({
         name: i18n.t('Event time'),
         dataKey: EVENTDATE,
         type: TYPE_DATE,
-        renderer: 'formatTime...',
+        renderer: RENDERER_DATE,
     },
     [COLOR]: {
         name: i18n.t('Color'),
