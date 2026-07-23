@@ -28,7 +28,7 @@ export const appQueries = {
     systemInfo: {
         resource: 'system/info',
         params: {
-            fields: 'calendar,dateFormat',
+            fields: 'calendar,dateFormat,databaseInfo[spatialSupport]',
         },
     },
 }
@@ -76,6 +76,7 @@ export const providerDataTransformation = async ({
         calendar: systemInfo.calendar,
         dateFormat: systemInfo.dateFormat,
     },
+    spatialSupport: systemInfo.databaseInfo?.spatialSupport,
     basemaps: await getBasemapList({
         externalMapLayers: externalMapLayers.externalMapLayers,
         systemSettings,
