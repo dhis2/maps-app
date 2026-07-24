@@ -167,7 +167,7 @@ const formatBoolean = (value) => {
 }
 
 // Formats a DHIS2 date string value
-const formatDate = (value) => {
+export const formatDate = (value) => {
     const datePattern = /^(\d{4}-\d{2}-\d{2})/
     const match = value.match(datePattern)
     return match ? match[1] : value

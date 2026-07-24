@@ -22,7 +22,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { setSelectionFilter } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
-import { setForceClientCluster } from '../../actions/layers.js'
+import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import {
     toggleFeatureSelection,
     selectFeatureRange,
@@ -33,6 +33,7 @@ import {
     RENDERER_COLOR,
     RENDERER_ICON,
     RENDERER_DATE,
+    TYPE_DATE,
 } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
 import {
@@ -44,7 +45,7 @@ import {
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
-import { formatDatetime } from '../../util/helpers.js'
+import { formatDate, formatDatetime } from '../../util/helpers.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import {
     getPinnedCellProps,
@@ -201,12 +202,17 @@ const Table = ({
     )
 
     const visibleHeaders = useMemo(
-        () => getVisibleHeaders(headers, columnConfig),
+        () => getVisibleHeaders(headers, columnConfig) ?? [],
         [headers, columnConfig]
     )
 
     const rendererByDataKey = useMemo(
         () => new Map(visibleHeaders.map((h) => [h.dataKey, h.renderer])),
+        [visibleHeaders]
+    )
+
+    const typeByDataKey = useMemo(
+        () => new Map(visibleHeaders.map((h) => [h.dataKey, h.type])),
         [visibleHeaders]
     )
 
@@ -533,7 +539,18 @@ const Table = ({
     )
 
     if (error) {
-        return <p className={styles.noSupport}>{error}</p>
+        return (
+            <p className={styles.noSupport}>
+                {error}
+                <button
+                    type="button"
+                    className={styles.editLayerLink}
+                    onClick={() => dispatch(editLayer(layer))}
+                >
+                    {i18n.t('Edit layer')}
+                </button>
+            </p>
+        )
     }
 
     return (
@@ -606,6 +623,8 @@ const Table = ({
                                 const isColorCell = renderer === RENDERER_COLOR
                                 const isIconCell = renderer === RENDERER_ICON
                                 const isDateCell = renderer === RENDERER_DATE
+                                const isDateOnlyCell =
+                                    typeByDataKey.get(dataKey) === TYPE_DATE
                                 return (
                                     <DataTableCell
                                         key={`dtcell-${dataKey}`}
@@ -645,7 +664,9 @@ const Table = ({
                                         )}
                                         {isDateCell &&
                                             value &&
-                                            formatDatetime(value)}
+                                            (isDateOnlyCell
+                                                ? formatDate(value)
+                                                : formatDatetime(value))}
                                         {!isColorCell &&
                                             !isIconCell &&
                                             !isDateCell &&
