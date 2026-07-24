@@ -11,10 +11,14 @@ import {
     SENTINEL_NO_VALUE,
     RENDERER_COLOR,
     RENDERER_ICON,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
     TYPE_NUMBER,
     TYPE_DATE,
     TYPE_DATETIME,
     TYPE_TIME,
+    TYPE_ORG_UNIT,
+    ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
 import {
@@ -36,6 +40,10 @@ import {
     toggleRealValue,
 } from '../../util/filterSelection.js'
 import { formatWithSeparator } from '../../util/numbers.js'
+import {
+    formatOrgUnitPathBreadcrumb,
+    formatOrgUnitOwnName,
+} from '../../util/orgUnitGroups.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
 import DateGroupFilterInput from './DateGroupFilterInput.jsx'
@@ -44,6 +52,7 @@ import {
     getDropdownPlacement,
 } from './FilterDropdownPopover.jsx'
 import FilterHelpTooltip from './FilterHelpTooltip.jsx'
+import OrgUnitGroupFilterInput from './OrgUnitGroupFilterInput.jsx'
 import styles from './styles/FilterInput.module.css'
 
 const NUMERIC_HELP_HEIGHT = 140
@@ -156,9 +165,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         const font = `11px ${getComputedStyle(document.body).fontFamily}`
         const maxLabelWidth = measureMaxTextWidth(labels, font)
         return getPopoverWidth(maxLabelWidth)
-        // resolveLabel's identity only changes alongside type/optionSet, which don't change without realOptions changing too
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [realOptions, hasNotSetOption])
+    }, [realOptions, hasNotSetOption, resolveLabel])
 
     const onToggleAnyValue = () => applyValues(toggleAnyValue(selected))
 
@@ -446,6 +453,8 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
                                             className={cx(
                                                 styles.denseCheckbox,
                                                 (dataKey === 'id' ||
+                                                    dataKey ===
+                                                        ORG_UNIT_ID_DATA_KEY ||
                                                     renderer ===
                                                         RENDERER_COLOR) &&
                                                     styles.monoOption,
@@ -484,7 +493,7 @@ SearchableFilterPopover.propTypes = {
 }
 
 const PlainSearchableFilter = (props) => {
-    const { type } = props
+    const { type, renderer, orgUnitIdToName } = props
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -494,6 +503,12 @@ const PlainSearchableFilter = (props) => {
             if (value === SENTINEL_NO_VALUE) {
                 return i18n.t('No value')
             }
+            if (renderer === RENDERER_ORG_UNIT) {
+                return formatOrgUnitPathBreadcrumb(value, orgUnitIdToName)
+            }
+            if (renderer === RENDERER_ORG_UNIT_NAME) {
+                return formatOrgUnitOwnName(value, orgUnitIdToName)
+            }
             return type === TYPE_NUMBER
                 ? formatWithSeparator(
                       Number(value),
@@ -501,13 +516,15 @@ const PlainSearchableFilter = (props) => {
                   )
                 : value
         },
-        [type, keyAnalysisDigitGroupSeparator]
+        [type, renderer, orgUnitIdToName, keyAnalysisDigitGroupSeparator]
     )
 
     return <SearchableFilterPopover {...props} resolveLabel={resolveLabel} />
 }
 
 PlainSearchableFilter.propTypes = {
+    orgUnitIdToName: PropTypes.instanceOf(Map),
+    renderer: PropTypes.string,
     type: PropTypes.string,
 }
 
@@ -545,6 +562,7 @@ const FilterInput = React.memo(function FilterInput({
     options,
     optionSetId,
     renderer,
+    orgUnitIdToName,
 }) {
     const dataTable = useSelector((state) => state.dataTable)
     const map = useSelector((state) => state.map)
@@ -573,6 +591,14 @@ const FilterInput = React.memo(function FilterInput({
             options={options ?? []}
             type={type}
         />
+    ) : type === TYPE_ORG_UNIT ? (
+        <OrgUnitGroupFilterInput
+            dataKey={dataKey}
+            name={name}
+            layerId={layerId}
+            filterValue={filterValue}
+            options={options ?? []}
+        />
     ) : optionSetId ? (
         <OptionSetSearchableFilter
             dataKey={dataKey}
@@ -593,6 +619,7 @@ const FilterInput = React.memo(function FilterInput({
             options={options ?? []}
             type={type}
             renderer={renderer}
+            orgUnitIdToName={orgUnitIdToName}
         />
     )
 })
@@ -603,6 +630,7 @@ FilterInput.propTypes = {
     type: PropTypes.string.isRequired,
     optionSetId: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
+    orgUnitIdToName: PropTypes.instanceOf(Map),
     renderer: PropTypes.string,
 }
 

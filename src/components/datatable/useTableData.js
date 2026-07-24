@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux'
 import {
     SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
+    TYPE_ORG_UNIT,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -16,6 +19,7 @@ import {
     SELECTION_FILTER_SELECTED,
     SELECTION_FILTER_NOT_SELECTED,
 } from '../../constants/selection.js'
+import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import {
     buildRowCells,
@@ -235,6 +239,27 @@ export const useTableData = ({
         return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
     }, [columnDistinctValues, sortField, sortDirection])
 
+    // Every column whose cell needs an id/path resolved to a readable name -
+    // "Org unit hierarchy" (tree-filterable) plus "Org unit" and any custom
+    // ORGANISATION_UNIT-valued field (plain-text filterable, but their
+    // cells still resolve for display) - keyed by renderer rather than
+    // type, since only the hierarchy column is still TYPE_ORG_UNIT.
+    const orgUnitPathValues = useMemo(
+        () =>
+            (headers ?? [])
+                .filter((h) =>
+                    [RENDERER_ORG_UNIT, RENDERER_ORG_UNIT_NAME].includes(
+                        h.renderer
+                    )
+                )
+                .flatMap((h) =>
+                    (columnOptions[h.dataKey] ?? []).map((o) => o.value)
+                ),
+        [headers, columnOptions]
+    )
+    const { idToName: orgUnitIdToName } =
+        useOrgUnitAncestorNames(orgUnitPathValues)
+
     const rows = useMemo(() => {
         if (errorCode.current) {
             return null
@@ -251,11 +276,14 @@ export const useTableData = ({
             const stringDataKeys = headers
                 .filter((h) => h.type === TYPE_STRING)
                 .map((h) => h.dataKey)
-            filteredData = filterByGlobalSearch(
-                filteredData,
-                globalSearch,
-                stringDataKeys
-            )
+            const orgUnitDataKeys = headers
+                .filter((h) => h.type === TYPE_ORG_UNIT)
+                .map((h) => h.dataKey)
+            filteredData = filterByGlobalSearch(filteredData, globalSearch, {
+                stringDataKeys,
+                orgUnitDataKeys,
+                idToName: orgUnitIdToName,
+            })
         }
 
         if (selectionFilter?.length) {
@@ -290,6 +318,7 @@ export const useTableData = ({
         sortDirection,
         selectionFilter,
         selectedIdSetDependency,
+        orgUnitIdToName,
     ])
 
     // EE layers and event layers may be loading additional data
@@ -320,6 +349,7 @@ export const useTableData = ({
         error: getErrorCodeText(errorCode.current),
         totalCount,
         filteredCount,
+        orgUnitIdToName,
         columnOptions,
     }
 }
