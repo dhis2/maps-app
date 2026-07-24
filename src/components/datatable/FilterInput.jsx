@@ -12,9 +12,9 @@ import {
     RENDERER_COLOR,
     RENDERER_ICON,
     TYPE_NUMBER,
-    // TYPE_DATE,
-    // TYPE_DATETIME,
-    // TYPE_TIME,
+    TYPE_DATE,
+    TYPE_DATETIME,
+    TYPE_TIME,
 } from '../../constants/dataTable.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
 import {
@@ -38,7 +38,7 @@ import {
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
-// import DateGroupFilterInput from './DateGroupFilterInput.jsx'
+import DateGroupFilterInput from './DateGroupFilterInput.jsx'
 import {
     FilterDropdownPopover,
     getDropdownPlacement,
@@ -561,10 +561,10 @@ const FilterInput = React.memo(function FilterInput({
 
     const filterValue = filters?.[dataKey]
 
-    /* const isDateType =
-        type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME */
+    const isDateType =
+        type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME
 
-    /* return isDateType ? (
+    return isDateType ? (
         <DateGroupFilterInput
             dataKey={dataKey}
             name={name}
@@ -573,9 +573,7 @@ const FilterInput = React.memo(function FilterInput({
             options={options ?? []}
             type={type}
         />
-    ) : */
-
-    return optionSetId ? (
+    ) : optionSetId ? (
         <OptionSetSearchableFilter
             dataKey={dataKey}
             name={name}
