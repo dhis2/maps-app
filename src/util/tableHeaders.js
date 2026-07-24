@@ -50,10 +50,10 @@ const getCustomFieldType = (valueType, hasOptionSet) => {
     return TYPE_STRING
 }
 
-const DATE_LIKE_TYPES = [TYPE_DATE, TYPE_DATETIME, TYPE_TIME]
+const DATE_LIKE_TYPES = new Set([TYPE_DATE, TYPE_DATETIME, TYPE_TIME])
 
 const getCustomFieldRenderer = (type) =>
-    DATE_LIKE_TYPES.includes(type) ? RENDERER_DATE : undefined
+    DATE_LIKE_TYPES.has(type) ? RENDERER_DATE : undefined
 
 const NAME = 'name'
 const ID = 'id'
