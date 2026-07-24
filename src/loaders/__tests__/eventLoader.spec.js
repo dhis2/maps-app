@@ -11,6 +11,7 @@ import {
     ORG_UNITS_PATHS_QUERY,
 } from '../../util/requests.js'
 import eventLoader, {
+    attachOrgUnitPaths,
     excludeEventsOutsideOrgUnits,
     shouldUseServerCluster,
 } from '../eventLoader.js'
@@ -731,6 +732,59 @@ describe('excludeEventsOutsideOrgUnits', () => {
         })
 
         expect(config.legend.orgUnitsWithoutBoundaryCount).toBeUndefined()
+    })
+})
+
+describe('attachOrgUnitPaths', () => {
+    test("attaches each event's org unit path via one bulk lookup over the distinct set of org-unit ids", async () => {
+        const engine = makeEngine({
+            orgUnitPathsById: {
+                fac1: '/country1/region1/fac1',
+                fac2: '/country1/region2/fac2',
+            },
+        })
+        const config = makeConfig(
+            [],
+            [
+                pointFeature('fac1', [5, 5]),
+                pointFeature('fac2', [50, 50]),
+                pointFeature('fac1', [6, 6]), // same org unit as the first
+            ]
+        )
+
+        await attachOrgUnitPaths({ config, engine })
+
+        expect(config.data.map((d) => d.properties.orgUnitPath)).toEqual([
+            '/country1/region1/fac1',
+            '/country1/region2/fac2',
+            '/country1/region1/fac1',
+        ])
+        // only the two distinct ids were requested, not one per event
+        const pathsQueryCall = engine.query.mock.calls.find(
+            ([query]) => query === ORG_UNITS_PATHS_QUERY
+        )
+        expect(pathsQueryCall[1].variables.ids.split(',')).toEqual([
+            'fac1',
+            'fac2',
+        ])
+    })
+
+    test('falls back to null when an org unit path could not be resolved', async () => {
+        const engine = makeEngine({ orgUnitPathsById: {} })
+        const config = makeConfig([], [pointFeature('fac1', [5, 5])])
+
+        await attachOrgUnitPaths({ config, engine })
+
+        expect(config.data[0].properties.orgUnitPath).toBeNull()
+    })
+
+    test('is a no-op when there is no data', async () => {
+        const engine = makeEngine({})
+        const config = makeConfig([], [])
+
+        await attachOrgUnitPaths({ config, engine })
+
+        expect(engine.query).not.toHaveBeenCalled()
     })
 })
 

@@ -153,9 +153,25 @@ describe('toGeoJson', () => {
                 properties: {
                     id: 'tei-1',
                     color: '#ff0000',
+                    type: 'Point',
                     w75KJ2mc4zz: 'Gabrielle',
                 },
             },
         ])
+    })
+
+    it("carries the instance's own org unit id through onto properties.orgUnit", () => {
+        const instances = [
+            {
+                id: 'tei-1',
+                geometry: { type: 'Point', coordinates: [1, 2] },
+                orgUnit: 'facility1',
+                attributes: [],
+            },
+        ]
+
+        const result = toGeoJson(instances, '#ff0000')
+
+        expect(result[0].properties.orgUnit).toBe('facility1')
     })
 })

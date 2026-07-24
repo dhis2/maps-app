@@ -33,7 +33,10 @@ import {
     RENDERER_COLOR,
     RENDERER_ICON,
     RENDERER_DATE,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
     TYPE_DATE,
+    ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
 import {
@@ -47,6 +50,10 @@ import {
 } from '../../util/dataTable.js'
 import { formatDate, formatDatetime } from '../../util/helpers.js'
 import { formatWithSeparator } from '../../util/numbers.js'
+import {
+    formatOrgUnitOwnName,
+    formatOrgUnitPathBreadcrumb,
+} from '../../util/orgUnitGroups.js'
 import {
     getPinnedCellProps,
     getPinnedCount,
@@ -179,6 +186,7 @@ const Table = ({
         totalCount,
         filteredCount,
         columnOptions,
+        orgUnitIdToName,
     } = useTableData({
         layer,
         sortField,
@@ -474,6 +482,7 @@ const Table = ({
                                             options={columnOptions[dataKey]}
                                             optionSetId={optionSet?.id}
                                             renderer={renderer}
+                                            orgUnitIdToName={orgUnitIdToName}
                                         />
                                     )
                                 }
@@ -535,6 +544,7 @@ const Table = ({
             isAllSelected,
             onToggleSelectAll,
             headerRowRef,
+            orgUnitIdToName,
         ]
     )
 
@@ -625,6 +635,10 @@ const Table = ({
                                 const isDateCell = renderer === RENDERER_DATE
                                 const isDateOnlyCell =
                                     typeByDataKey.get(dataKey) === TYPE_DATE
+                                const isOrgUnitHierarchyCell =
+                                    renderer === RENDERER_ORG_UNIT
+                                const isOrgUnitNameCell =
+                                    renderer === RENDERER_ORG_UNIT_NAME
                                 return (
                                     <DataTableCell
                                         key={`dtcell-${dataKey}`}
@@ -637,7 +651,10 @@ const Table = ({
                                                 isColorCell &&
                                                 isDarkColor(value),
                                             [styles.monoCell]:
-                                                dataKey === 'id' || isColorCell,
+                                                dataKey === 'id' ||
+                                                dataKey ===
+                                                    ORG_UNIT_ID_DATA_KEY ||
+                                                isColorCell,
                                             [styles.selected]:
                                                 isSelected && !isColorCell,
                                             [styles.hovered]:
@@ -667,9 +684,23 @@ const Table = ({
                                             (isDateOnlyCell
                                                 ? formatDate(value)
                                                 : formatDatetime(value))}
+                                        {isOrgUnitHierarchyCell &&
+                                            value &&
+                                            formatOrgUnitPathBreadcrumb(
+                                                value,
+                                                orgUnitIdToName
+                                            )}
+                                        {isOrgUnitNameCell &&
+                                            value &&
+                                            formatOrgUnitOwnName(
+                                                value,
+                                                orgUnitIdToName
+                                            )}
                                         {!isColorCell &&
                                             !isIconCell &&
                                             !isDateCell &&
+                                            !isOrgUnitHierarchyCell &&
+                                            !isOrgUnitNameCell &&
                                             formatWithSeparator(
                                                 value,
                                                 keyAnalysisDigitGroupSeparator
